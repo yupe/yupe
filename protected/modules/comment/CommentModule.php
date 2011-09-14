@@ -14,23 +14,23 @@ class CommentModule extends YWebModule
 		$count = Comment::model()->new()->count();		
 		return $count ? Yii::t('comment','Комментарии')." ($count)"  :Yii::t('comment','Комментарии');
 	}
-    
-    public function getDescription()
+	
+	public function getDescription()
 	{
 		return Yii::t('comment','Модуль для простых комментариев');
 	}	
-    
-    public function getVersion()
+	
+	public function getVersion()
 	{
 		return Yii::t('comment','0.2');
 	}
-    
-    public function getAuthor()
+	
+	public function getAuthor()
 	{
 		return Yii::t('comment','Опейкин Андрей');
 	}
-    
-    public function getAuthorEmail()
+	
+	public function getAuthorEmail()
 	{
 		return Yii::t('comment','aopeykin@yandex.ru');
 	}
