@@ -1,0 +1,69 @@
+<?php $this->pageTitle = Yii::t('user','Управление пользователями');?>
+
+<?php
+$this->breadcrumbs=array(
+	Yii::t('user','Пользователи')=>array('admin'),
+	Yii::t('user','Управление'),
+);
+
+$this->menu=array(
+	array('label'=>Yii::t('user','Добавить пользователя'), 'url'=>array('create')),
+	array('label'=>Yii::t('user','Список пользователей'), 'url'=>array('index')),	
+	array('label'=>Yii::t('user','Регистрации'), 'url'=>array('/user/registration/admin')),
+	array('label'=>Yii::t('user','Профили'), 'url'=>array('/user/profile/admin')),
+	array('label'=>Yii::t('user','Авторизационные данные'), 'url'=>array('/user/login/admin')),
+);
+
+Yii::app()->clientScript->registerScript('search', "
+$('.search-button').click(function(){
+	$('.search-form').toggle();
+	return false;
+});
+$('.search-form form').submit(function(){
+	$.fn.yiiGridView.update('user-grid', {
+		data: $(this).serialize()
+	});
+	return false;
+});
+");
+?>
+
+<h1><?php echo $this->module->getName();?></h1>
+
+<?php $this->widget('ModuleInfoWidget');?>
+
+<?php echo CHtml::link(Yii::t('user','Поиск пользователей'),'#',array('class'=>'search-button')); ?>
+<div class="search-form" style="display:none">
+<?php $this->renderPartial('_search',array(
+	'model'=>$model,
+)); ?>
+</div><!-- search-form -->
+
+<?php $this->widget('zii.widgets.grid.CGridView', array(
+	'id'=>'user-grid',
+	'dataProvider'=>$model->search(),
+	'columns'=>array(
+		'id',		
+		array(
+		  'name'  => 'nickName',
+		  'type'  => 'raw',
+		  'value' => 'CHtml::link($data->nickName,array("/user/default/update/","id" => $data->id))'
+		),		
+		'email',		
+		array(
+			'name'   => 'status',
+			'value'  => '$data->getStatus()',
+			'filter' => CHtml::activeDropDownList($model,'status',$model->getStatusList())
+		),
+		array(
+			'name'  => 'accessLevel',
+			'value' => '$data->getAccessLevel()',
+			'filter' => CHtml::activeDropDownList($model,'status',$model->getAccessLevelsList())
+		),
+		'creationDate',		
+		'lastVisit',		
+		array(
+			'class'=>'CButtonColumn',
+		),
+	),
+)); ?>
