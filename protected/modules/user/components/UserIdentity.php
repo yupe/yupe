@@ -9,7 +9,8 @@ class UserIdentity extends CUserIdentity
     {
         $user = User::model()->active()->findByAttributes(array('email' => $this->username));
 
-        if ($user === null) {
+        if ($user === null)
+        {
             $this->errorCode = self::ERROR_USERNAME_INVALID;
         }
         elseif (!$user->validatePassword($this->password))
@@ -27,7 +28,8 @@ class UserIdentity extends CUserIdentity
             Yii::app()->user->setState('email', $user->email);
             Yii::app()->user->setState('loginTime', time());
             // для админа в сессию запишем еще несколько значений
-            if ($user->accessLevel == User::ACCESS_LEVEL_ADMIN) {
+            if ($user->accessLevel == User::ACCESS_LEVEL_ADMIN)
+            {
                 Yii::app()->user->setState('loginAdmTime', time());
                 Yii::app()->user->setState('isAdmin', $user->accessLevel);
             }

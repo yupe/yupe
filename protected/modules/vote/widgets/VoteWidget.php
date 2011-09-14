@@ -9,11 +9,13 @@ class VoteWidget extends YWidget
 
     public function init()
     {
-        if (!$this->model || !$this->modelId) {
+        if (!$this->model || !$this->modelId)
+        {
             throw new CException(Yii::t('vote', 'Укажите model и modelId для виджета VoteWidget!'));
         }
 
-        if (!$this->userId) {
+        if (!$this->userId)
+        {
             $this->userId = Yii::app()->user->getId();
         }
     }

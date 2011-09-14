@@ -24,9 +24,11 @@ class RecoveryPasswordController extends YBackController
     {
         $model = $this->loadModel();
 
-        if (isset($_POST['RecoveryPassword'])) {
+        if (isset($_POST['RecoveryPassword']))
+        {
             $model->attributes = $_POST['RecoveryPassword'];
-            if ($model->save()) {
+            if ($model->save())
+            {
                 Yii::app()->user->setFlash(FlashMessagesWidget::NOTICE_MESSAGE, Yii::t('user', 'Данные обновлены!'));
                 $this->redirect(array('view', 'id' => $model->id));
             }
@@ -43,7 +45,8 @@ class RecoveryPasswordController extends YBackController
      */
     public function actionDelete()
     {
-        if (Yii::app()->request->isPostRequest) {
+        if (Yii::app()->request->isPostRequest)
+        {
             // we only allow deletion via POST request
             $this->loadModel()->delete();
 
@@ -87,7 +90,8 @@ class RecoveryPasswordController extends YBackController
      */
     public function loadModel()
     {
-        if ($this->_model === null) {
+        if ($this->_model === null)
+        {
             if (isset($_GET['id']))
                 $this->_model = RecoveryPassword::model()->findbyPk($_GET['id']);
             if ($this->_model === null)
@@ -102,7 +106,8 @@ class RecoveryPasswordController extends YBackController
      */
     protected function performAjaxValidation($model)
     {
-        if (isset($_POST['ajax']) && $_POST['ajax'] === 'recovery-password-form') {
+        if (isset($_POST['ajax']) && $_POST['ajax'] === 'recovery-password-form')
+        {
             echo CActiveForm::validate($model);
             Yii::app()->end();
         }

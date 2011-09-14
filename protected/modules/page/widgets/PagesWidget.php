@@ -15,7 +15,8 @@ class PagesWidget extends YWidget
 
     public function init()
     {
-        if (!$this->pageStatus) {
+        if (!$this->pageStatus)
+        {
             $this->pageStatus = Page::STATUS_PUBLISHED;
             $this->parentId = (int)$this->parentId;
         }
@@ -23,17 +24,21 @@ class PagesWidget extends YWidget
 
     public function run()
     {
-        if ($this->visible) {
+        if ($this->visible)
+        {
             $criteria = new CDbCriteria();
             $criteria->order = $this->order;
             $criteria->addCondition("status = {$this->pageStatus}");
-            if (!Yii::app()->user->isAuthenticated()) {
+            if (!Yii::app()->user->isAuthenticated())
+            {
                 $criteria->addCondition('isProtected = ' . Page::PROTECTED_NO);
             }
-            if ($this->parentId) {
+            if ($this->parentId)
+            {
                 $criteria->addCondition("id = {$this->parentId} OR parentId = {$this->parentId}");
             }
-            if ($this->topLevelOnly) {
+            if ($this->topLevelOnly)
+            {
                 $criteria->addCondition("parentId is null or parentId = 0");
             }
 

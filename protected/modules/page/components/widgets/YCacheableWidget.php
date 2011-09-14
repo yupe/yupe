@@ -63,14 +63,17 @@ class YCacheableWidget extends CWidget
     public function run()
     {
         // если не указали вьюху напрямую - берем ее из имени класса
-        if (!$this->view) {
+        if (!$this->view)
+        {
             $this->view = $this->getMagicName();
         }
 
         // если данные не переданы напрямую - используем модель
-        if (!$this->data) {
+        if (!$this->data)
+        {
             // разберемся с моделью
-            if (!$this->model) {
+            if (!$this->model)
+            {
                 $model = $this->getMagicName();
             }
             else
@@ -78,7 +81,8 @@ class YCacheableWidget extends CWidget
                 $model = $this->model;
             }
 
-            if (is_a($this->criteria, 'CDbCriteria')) {
+            if (is_a($this->criteria, 'CDbCriteria'))
+            {
                 $this->criteria = new CDbCriteria();
             }
             elseif (is_array($this->criteria))
@@ -90,20 +94,24 @@ class YCacheableWidget extends CWidget
             // имя фрагмента в кэше должно учитывать все параметры виджета (CDbCriteria + $this->view)
             // название вьюхи решил убрать из имени кэша, что бы можно было использовать
             // кэшированные данные с разными вьюхами
-            $cacheName = $this->cacheName ? $this->cacheName : md5(serialize($this->criteria));
+            $cacheName = $this->cacheName ? $this->cacheName
+                : md5(serialize($this->criteria));
         }
         else
         {
-            $cacheName = $this->cacheName ? $this->cacheName : md5(serialize($this->data));
+            $cacheName = $this->cacheName ? $this->cacheName
+                : md5(serialize($this->data));
         }
 
         // название компонента кэша
         $cachec = $this->cacheComponent;
         // попытка чтения из кэша
         $data = Yii::app()->$cachec->get($cacheName);
-        if (!$data) {
+        if (!$data)
+        {
             // получение данных из базы (или данных переданных в виджет) и запись их в кэш
-            $data = $this->data ? $this->data : $model::model()->findAll($this->criteria);
+            $data = $this->data ? $this->data
+                : $model::model()->findAll($this->criteria);
             $this->cacheDuration = (int)$this->cacheDuration;
             Yii::app()->$cachec->set($cacheName, $data, $this->cacheDuration, $this->dependency);
         }

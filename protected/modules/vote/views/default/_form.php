@@ -28,8 +28,9 @@
     </div>
 
     <div class="row buttons">
-        <?php echo CHtml::submitButton($model->isNewRecord ? Yii::t('vote', 'Добавить голос')
-                                               : Yii::t('vote', 'Сохранить голос')); ?>
+        <?php echo CHtml::submitButton($model->isNewRecord
+                                           ? Yii::t('vote', 'Добавить голос')
+                                           : Yii::t('vote', 'Сохранить голос')); ?>
     </div>
 
     <?php $this->endWidget(); ?>

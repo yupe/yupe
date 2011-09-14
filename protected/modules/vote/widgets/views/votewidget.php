@@ -14,7 +14,8 @@
 
 <div id='votes'>
     <?php if (!is_null($model)): ?>
-    <p><?php echo Yii::t('vote', 'Ваша оценка');?>: <b><?php echo $model->value;?></b></p>
+    <p><?php echo Yii::t('vote', 'Ваша оценка');?>:
+        <b><?php echo $model->value;?></b></p>
     <?php else: ?>
     <p>
         <?php echo Yii::t('vote', 'Оцените изображение');?>:

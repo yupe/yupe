@@ -110,7 +110,8 @@ class Gallery extends CActiveRecord
     {
         $data = $this->getStatusList();
 
-        return isset($data[$this->status]) ? $data[$this->status] : Yii::t('gallery', '*неизвестно*');
+        return isset($data[$this->status]) ? $data[$this->status]
+            : Yii::t('gallery', '*неизвестно*');
     }
 
     public function defaultScope()

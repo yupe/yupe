@@ -121,7 +121,8 @@ class Contest extends CActiveRecord
     public function getStatus()
     {
         $data = $this->getStatusList();
-        return array_key_exists($this->status, $data) ? $data[$this->status] : Yii::t('contest', '*неизвестно*');
+        return array_key_exists($this->status, $data) ? $data[$this->status]
+            : Yii::t('contest', '*неизвестно*');
     }
 
     public function addImage(Image $image)

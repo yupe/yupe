@@ -265,13 +265,15 @@ class PHPSDKTestCase extends PHPUnit_Framework_TestCase
             'fb_sig_ss' => 'AdCOu5nhDiexxRDLwZfqnA__',
             'fb_sig' => '1949f256171f37ecebe00685ce33bf17',
         );
-        foreach ($params as $key => $value) {
+        foreach ($params as $key => $value)
+        {
             $_GET[$key] = $value;
         }
 
         $this->assertEquals($facebook->getUser(), null,
                             'Expect uid back.');
-        foreach ($params as $key => $value) {
+        foreach ($params as $key => $value)
+        {
             unset($_GET[$key]);
         }
     }
@@ -315,13 +317,16 @@ class PHPSDKTestCase extends PHPUnit_Framework_TestCase
         // this is strange in that we are expecting a session invalid error vs a
         // signature invalid error. basically we're just making sure session based
         // signing is working, not that the api call is returning data.
-        try {
+        try
+        {
             $response = $facebook->api(array(
                                             'method' => 'fql.query',
                                             'query' => 'SELECT name FROM profile WHERE id=4',
                                        ));
             $this->fail('Should not get here.');
-        } catch (FacebookApiException $e) {
+        }
+        catch (FacebookApiException $e)
+        {
             $msg = 'Exception: 190: Invalid OAuth 2.0 Access Token';
             $this->assertEquals((string)$e, $msg,
                                 'Expect the invalid session message.');
@@ -352,10 +357,13 @@ class PHPSDKTestCase extends PHPUnit_Framework_TestCase
                                  ));
         $facebook->setSession(self::$VALID_EXPIRED_SESSION);
 
-        try {
+        try
+        {
             $response = $facebook->api('/me');
             $this->fail('Should not get here.');
-        } catch (FacebookApiException $e) {
+        }
+        catch (FacebookApiException $e)
+        {
             // means the server got the access token
             $msg = 'OAuthException: Error validating access token.';
             $this->assertEquals($msg, (string)$e,
@@ -373,10 +381,13 @@ class PHPSDKTestCase extends PHPUnit_Framework_TestCase
                                       'secret' => self::SECRET,
                                  ));
 
-        try {
+        try
+        {
             $response = $facebook->api('/naitik', 'DELETE');
             $this->fail('Should not get here.');
-        } catch (FacebookApiException $e) {
+        }
+        catch (FacebookApiException $e)
+        {
             // ProfileDelete means the server understood the DELETE
             $msg = 'OAuthException: An access token is required to request this resource.';
             $this->assertEquals($msg, (string)$e,
@@ -391,12 +402,15 @@ class PHPSDKTestCase extends PHPUnit_Framework_TestCase
                                       'secret' => self::MIGRATED_SECRET,
                                  ));
 
-        try {
+        try
+        {
             $response = $facebook->api('/me', array(
                                                    'client_id' => self::MIGRATED_APP_ID));
 
             $this->fail('Should not get here.');
-        } catch (FacebookApiException $e) {
+        }
+        catch (FacebookApiException $e)
+        {
             // means the server got the access token
             $msg = 'invalid_request: An active access token must be used ' .
                    'to query information about the current user.';
@@ -415,11 +429,14 @@ class PHPSDKTestCase extends PHPUnit_Framework_TestCase
                                       'secret' => self::MIGRATED_SECRET,
                                  ));
 
-        try {
+        try
+        {
             $response = $facebook->api('/daaku.shah', 'DELETE', array(
                                                                      'client_id' => self::MIGRATED_APP_ID));
             $this->fail('Should not get here.');
-        } catch (FacebookApiException $e) {
+        }
+        catch (FacebookApiException $e)
+        {
             // ProfileDelete means the server understood the DELETE
             $msg = 'invalid_request: Test account not associated with application: ' .
                    'The test account is not associated with this application.';
@@ -435,16 +452,20 @@ class PHPSDKTestCase extends PHPUnit_Framework_TestCase
                                       'secret' => self::SECRET,
                                  ));
 
-        if (!defined('CURLOPT_TIMEOUT_MS')) {
+        if (!defined('CURLOPT_TIMEOUT_MS'))
+        {
             // can't test it if we don't have millisecond timeouts
             return;
         }
 
-        try {
+        try
+        {
             // we dont expect facebook will ever return in 1ms
             Facebook::$CURL_OPTS[CURLOPT_TIMEOUT_MS] = 1;
             $facebook->api('/naitik');
-        } catch (FacebookApiException $e) {
+        }
+        catch (FacebookApiException $e)
+        {
             unset(Facebook::$CURL_OPTS[CURLOPT_TIMEOUT_MS]);
             $this->assertEquals(
                 CURLE_OPERATION_TIMEOUTED, $e->getCode(), 'expect timeout');
@@ -597,7 +618,8 @@ class PHPSDKTestCase extends PHPUnit_Framework_TestCase
 
     public function testMagicQuotesQueryString()
     {
-        if (!get_magic_quotes_gpc()) {
+        if (!get_magic_quotes_gpc())
+        {
             // this test cannot run without get_magic_quotes_gpc(), and the setting
             // cannot be modified at runtime, so we're shit out of luck. thanks php.
             return;
@@ -619,7 +641,8 @@ class PHPSDKTestCase extends PHPUnit_Framework_TestCase
 
     public function testMagicQuotesCookie()
     {
-        if (!get_magic_quotes_gpc()) {
+        if (!get_magic_quotes_gpc())
+        {
             // this test cannot run without get_magic_quotes_gpc(), and the setting
             // cannot be modified at runtime, so we're shit out of luck. thanks php.
             return;

@@ -16,7 +16,8 @@
     <?php echo CHtml::encode($data->userId); ?>
     <br/>
 
-    <b><?php echo CHtml::encode($data->getAttributeLabel('creationDate')); ?>:</b>
+    <b><?php echo CHtml::encode($data->getAttributeLabel('creationDate')); ?>
+        :</b>
     <?php echo CHtml::encode($data->creationDate); ?>
     <br/>
 

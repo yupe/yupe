@@ -69,7 +69,8 @@ class LikeBox extends EFaceplugsBase
     {
         parent::run();
 
-        if (!isset($this->profile_id)) {
+        if (!isset($this->profile_id))
+        {
             $this->profile_id = $this->app_id;
         }
         $params = $this->getParams();

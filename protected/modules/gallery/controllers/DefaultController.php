@@ -24,7 +24,8 @@ class DefaultController extends YBackController
         // Uncomment the following line if AJAX validation is needed
         // $this->performAjaxValidation($model);
 
-        if (isset($_POST['Gallery'])) {
+        if (isset($_POST['Gallery']))
+        {
             $model->attributes = $_POST['Gallery'];
             if ($model->save())
                 $this->redirect(array('view', 'id' => $model->id));
@@ -47,7 +48,8 @@ class DefaultController extends YBackController
         // Uncomment the following line if AJAX validation is needed
         // $this->performAjaxValidation($model);
 
-        if (isset($_POST['Gallery'])) {
+        if (isset($_POST['Gallery']))
+        {
             $model->attributes = $_POST['Gallery'];
             if ($model->save())
                 $this->redirect(array('view', 'id' => $model->id));
@@ -65,13 +67,15 @@ class DefaultController extends YBackController
      */
     public function actionDelete($id)
     {
-        if (Yii::app()->request->isPostRequest) {
+        if (Yii::app()->request->isPostRequest)
+        {
             // we only allow deletion via POST request
             $this->loadModel($id)->delete();
 
             // if AJAX request (triggered by deletion via admin grid view), we should not redirect the browser
             if (!isset($_GET['ajax']))
-                $this->redirect(isset($_POST['returnUrl']) ? $_POST['returnUrl'] : array('admin'));
+                $this->redirect(isset($_POST['returnUrl']) ? $_POST['returnUrl']
+                                    : array('admin'));
         }
         else
             throw new CHttpException(400, 'Invalid request. Please do not repeat this request again.');
@@ -79,11 +83,14 @@ class DefaultController extends YBackController
 
     public function actionDeleteImage($id)
     {
-        if (Yii::app()->request->isPostRequest) {
+        if (Yii::app()->request->isPostRequest)
+        {
             ImageToGallery::model()->findByPk((int)$id)->delete();
 
-            if (!isset($_GET['ajax'])) {
-                $this->redirect(isset($_POST['returnUrl']) ? $_POST['returnUrl'] : array('admin'));
+            if (!isset($_GET['ajax']))
+            {
+                $this->redirect(isset($_POST['returnUrl']) ? $_POST['returnUrl']
+                                    : array('admin'));
             }
 
         }
@@ -99,15 +106,18 @@ class DefaultController extends YBackController
 
         $image = new Image();
 
-        if (Yii::app()->request->isPostRequest) {
+        if (Yii::app()->request->isPostRequest)
+        {
             $transaction = Yii::app()->db->beginTransaction();
 
             try
             {
                 $image = $image->create($_POST['Image']);
 
-                if (!$image->hasErrors()) {
-                    if ($gallery->addImage($image)) {
+                if (!$image->hasErrors())
+                {
+                    if ($gallery->addImage($image))
+                    {
                         Yii::app()->user->setFlash(FlashMessagesWidget::NOTICE_MESSAGE, Yii::t('gallery', 'Фотография добавлена!'));
                     }
 
@@ -176,7 +186,8 @@ class DefaultController extends YBackController
      */
     protected function performAjaxValidation($model)
     {
-        if (isset($_POST['ajax']) && $_POST['ajax'] === 'gallery-form') {
+        if (isset($_POST['ajax']) && $_POST['ajax'] === 'gallery-form')
+        {
             echo CActiveForm::validate($model);
             Yii::app()->end();
         }

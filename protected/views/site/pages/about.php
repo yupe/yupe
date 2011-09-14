@@ -2,14 +2,18 @@
 
 <h1><i><?php echo CHtml::encode(Yii::app()->name); ?></i></h1>
 
-<b>!!!ВНИМАНИЕ!!! <br/><br/> Юпи! пока не готов для "промышленного" использования, Вы делаете это на свой страх и риск!</b>
+<b>!!!ВНИМАНИЕ!!! <br/><br/> Юпи! пока не готов для "промышленного"
+    использования, Вы делаете это на свой страх и риск!</b>
 <br/><br/>
 
-<p><b>Юпи!</b> - блого-социальный движок (мини CMS) на фреймворке <a href='http://yiiframework.ru'>Yii</a> !</p>
+<p><b>Юпи!</b> - блого-социальный движок (мини CMS) на фреймворке <a
+    href='http://yiiframework.ru'>Yii</a> !</p>
 
-<p><b>Юпи!</b> можно использовать для создания простых сайтов (пока только простых, потом будет больше =) ) !</p>
+<p><b>Юпи!</b> можно использовать для создания простых сайтов (пока только
+    простых, потом будет больше =) ) !</p>
 
-<p>Используя <b>Юпи!</b>, Вы сможете развернуть сайт или блог, работающий на фреймворке <b>Yii</b> всего за 5 минут !
+<p>Используя <b>Юпи!</b>, Вы сможете развернуть сайт или блог, работающий на
+    фреймворке <b>Yii</b> всего за 5 минут !
 </p>
 
 <p>Основные возможности:</p>
@@ -23,29 +27,35 @@
     <li>Комментарии</li>
 </ul>
 
-<p><b>Юпи!</b> - это <b>НЕ</b> универсальный конструктор сайтов, типа Drupal или Joomla, Вы просто берете готовый
+<p><b>Юпи!</b> - это <b>НЕ</b> универсальный конструктор сайтов, типа Drupal или
+    Joomla, Вы просто берете готовый
     функционал и используете его!</p>
 
 <p>Если возникает необходимость добавить какие-то специфичные возможности - <a
-        href='http://www.yiiframework.ru/forum/viewforum.php?f=11&sid=09889fba4daf3bce2daa575e4ec9cec8'>находите
+    href='http://www.yiiframework.ru/forum/viewforum.php?f=11&sid=09889fba4daf3bce2daa575e4ec9cec8'>находите
     Yii-разрабочика</a> и получаете то, что хотите !</p>
 
-<p>...или <?php echo CHtml::link('напишите нам', array('/feedback/contact/'));?> =)</p>
+<p>...или <?php echo CHtml::link('напишите нам', array('/feedback/contact/'));?>
+    =)</p>
 
-<p>Хотите получить самую последнюю версию, сообщить об ошибке или просмотреть исходный код - посетите <a
-        href='https://github.com/yupe/yupe/'>https://github.com/yupe/yupe</a></p>
+<p>Хотите получить самую последнюю версию, сообщить об ошибке или просмотреть
+    исходный код - посетите <a
+        href='https://github.com/yupe/yupe/'>https://github.com/yupe/yupe</a>
+</p>
 
 <p>Возможно, Вы хотите присоединиться к разработке
-    !? <?php echo CHtml::link('Напишите нам', array('/feedback/contact/'));?> !</p>
+    !? <?php echo CHtml::link('Напишите нам', array('/feedback/contact/'));?>
+    !</p>
 
 <p>Желающим помочь проекту рекомендую
-    посетить <?php echo CHtml::link('эту страничку', array('/site/page/', 'view' => 'help'));?>.</p>
+    посетить <?php echo CHtml::link('эту страничку', array('/site/page/', 'view' => 'help'));?>
+    .</p>
 
 <div style='float:left;'>
     <div style='float:left;padding-right:5px'>
         <?php $this->widget('application.modules.yupe.components.ysc.yandex.YandexShareApi', array(
-              'type' => 'button',
-              'services' => 'all'
-        ));?>
+                                                                                                  'type' => 'button',
+                                                                                                  'services' => 'all'
+                                                                                             ));?>
     </div>
 </div>

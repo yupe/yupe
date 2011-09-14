@@ -44,8 +44,9 @@
     </div>
 
     <div class="row buttons">
-        <?php echo CHtml::submitButton($model->isNewRecord ? Yii::t('category', 'Добавить категорию')
-                                               : Yii::t('category', 'Сохранить измнения')); ?>
+        <?php echo CHtml::submitButton($model->isNewRecord
+                                           ? Yii::t('category', 'Добавить категорию')
+                                           : Yii::t('category', 'Сохранить измнения')); ?>
     </div>
 
     <?php $this->endWidget(); ?>

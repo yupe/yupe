@@ -3,13 +3,15 @@ class YWebUser extends CWebUser
 {
     public function isAuthenticated()
     {
-        if (Yii::app()->user->isGuest) {
+        if (Yii::app()->user->isGuest)
+        {
             return false;
         }
 
         $authData = $this->getAuthData();
 
-        if ($authData['nickName'] && isset($authData['accessLevel']) && $authData['loginTime'] && $authData['id']) {
+        if ($authData['nickName'] && isset($authData['accessLevel']) && $authData['loginTime'] && $authData['id'])
+        {
 
             return true;
         }
@@ -30,7 +32,8 @@ class YWebUser extends CWebUser
 
     public function isSuperUser()
     {
-        if (!$this->isAuthenticated()) {
+        if (!$this->isAuthenticated())
+        {
             return false;
         }
 
@@ -38,7 +41,8 @@ class YWebUser extends CWebUser
 
         $isAdmin = Yii::app()->user->getState('isAdmin');
 
-        if ($isAdmin == User::ACCESS_LEVEL_ADMIN && $loginAdmTime) {
+        if ($isAdmin == User::ACCESS_LEVEL_ADMIN && $loginAdmTime)
+        {
             return true;
         }
 

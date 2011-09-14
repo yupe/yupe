@@ -32,14 +32,16 @@ class PageController extends YFrontController
     {
         $slug = Yii::app()->request->getQuery('slug');
 
-        if (!$slug) {
+        if (!$slug)
+        {
             throw new CHttpException('404', Yii::t('page', 'Страница не найдена!'));
         }
 
         $page = null;
 
         // превью
-        if ((int)Yii::app()->request->getQuery('preview') === 1 && Yii::app()->user->isSuperUser()) {
+        if ((int)Yii::app()->request->getQuery('preview') === 1 && Yii::app()->user->isSuperUser())
+        {
             $page = Page::model()->find('slug = :slug', array(':slug' => $slug));
         }
         else
@@ -47,12 +49,14 @@ class PageController extends YFrontController
             $page = Page::model()->published()->find('slug = :slug', array(':slug' => $slug));
         }
 
-        if (!$page) {
+        if (!$page)
+        {
             throw new CHttpException('404', Yii::t('page', 'Страница не найдена!'));
         }
 
         // проверим что пользователь может просматривать эту страницу
-        if (($page->isProtected == Page::PROTECTED_YES) && !Yii::app()->user->isAuthenticated()) {
+        if (($page->isProtected == Page::PROTECTED_YES) && !Yii::app()->user->isAuthenticated())
+        {
             Yii::app()->user->setFlash(FlashMessagesWidget::NOTICE_MESSAGE, Yii::t('page', 'Для просмотра этой страницы Вам необходимо авторизоваться!'));
             $this->redirect(array(Yii::app()->getModule('user')->accountActivationSuccess));
         }
@@ -79,7 +83,8 @@ class PageController extends YFrontController
 
         $pages = array();
 
-        if ($models) {
+        if ($models)
+        {
             $pages[$models->title] = array('/page/page/show/', 'slug' => $models->slug);
         }
 

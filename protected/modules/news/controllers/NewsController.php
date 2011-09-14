@@ -5,7 +5,8 @@ class NewsController extends YFrontController
     {
         $news = News::model()->published()->find('alias = :alias', array(':alias' => $title));
 
-        if (!$news) {
+        if (!$news)
+        {
             throw new CHttpException(404, Yii::t('news', 'Новость не найдена!'));
         }
 

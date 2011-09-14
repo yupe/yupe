@@ -5,7 +5,8 @@ class ModuleInfoWidget extends CWidget
 
     public function init()
     {
-        if (!is_null($this->controller->module)) {
+        if (!is_null($this->controller->module))
+        {
             $this->module = $this->controller->module;
         }
     }

@@ -14,7 +14,8 @@ $this->menu = array(
 );
 ?>
 
-<h1><?php echo Yii::t('contentblock', 'Просмотр блока контента');?> "<?php echo $model->name; ?>"</h1>
+<h1><?php echo Yii::t('contentblock', 'Просмотр блока контента');?>
+    "<?php echo $model->name; ?>"</h1>
 
 <?php $this->widget('zii.widgets.CDetailView', array(
                                                     'data' => $model,

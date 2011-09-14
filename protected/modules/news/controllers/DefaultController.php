@@ -23,10 +23,12 @@ class DefaultController extends YBackController
         // Uncomment the following line if AJAX validation is needed
         // $this->performAjaxValidation($model);
 
-        if (isset($_POST['News'])) {
+        if (isset($_POST['News']))
+        {
             $model->attributes = $_POST['News'];
 
-            if ($model->save()) {
+            if ($model->save())
+            {
                 Yii::app()->user->setFlash(FlashMessagesWidget::NOTICE_MESSAGE, Yii::t('news', 'Новость добавлена!'));
                 $this->redirect(array('view', 'id' => $model->id));
             }
@@ -51,9 +53,11 @@ class DefaultController extends YBackController
         // Uncomment the following line if AJAX validation is needed
         // $this->performAjaxValidation($model);
 
-        if (isset($_POST['News'])) {
+        if (isset($_POST['News']))
+        {
             $model->attributes = $_POST['News'];
-            if ($model->save()) {
+            if ($model->save())
+            {
                 Yii::app()->user->setFlash(FlashMessagesWidget::NOTICE_MESSAGE, Yii::t('news', 'Новость изменена!'));
                 $this->redirect(array('update', 'id' => $model->id));
             }
@@ -71,13 +75,15 @@ class DefaultController extends YBackController
      */
     public function actionDelete($id)
     {
-        if (Yii::app()->request->isPostRequest) {
+        if (Yii::app()->request->isPostRequest)
+        {
             // we only allow deletion via POST request
             $this->loadModel($id)->delete();
 
             // if AJAX request (triggered by deletion via admin grid view), we should not redirect the browser
             if (!isset($_GET['ajax']))
-                $this->redirect(isset($_POST['returnUrl']) ? $_POST['returnUrl'] : array('admin'));
+                $this->redirect(isset($_POST['returnUrl']) ? $_POST['returnUrl']
+                                    : array('admin'));
         }
         else
             throw new CHttpException(400, 'Invalid request. Please do not repeat this request again.');
@@ -128,7 +134,8 @@ class DefaultController extends YBackController
      */
     protected function performAjaxValidation($model)
     {
-        if (isset($_POST['ajax']) && $_POST['ajax'] === 'news-form') {
+        if (isset($_POST['ajax']) && $_POST['ajax'] === 'news-form')
+        {
             echo CActiveForm::validate($model);
             Yii::app()->end();
         }

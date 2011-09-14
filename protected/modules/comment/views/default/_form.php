@@ -61,8 +61,9 @@
     </div>
 
     <div class="row buttons">
-        <?php echo CHtml::submitButton($model->isNewRecord ? Yii::t('comment', 'Добавить комментарий')
-                                               : Yii::t('comment', 'Сохранить комментарий')); ?>
+        <?php echo CHtml::submitButton($model->isNewRecord
+                                           ? Yii::t('comment', 'Добавить комментарий')
+                                           : Yii::t('comment', 'Сохранить комментарий')); ?>
     </div>
 
     <?php $this->endWidget(); ?>

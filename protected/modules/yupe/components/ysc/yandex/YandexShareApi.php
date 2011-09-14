@@ -8,22 +8,27 @@ class YandexShareApi extends YscPortlet
 
     public function init()
     {
-        $this->type = in_array($this->type, $this->_validTypes) ? $this->type : 'button';
+        $this->type = in_array($this->type, $this->_validTypes) ? $this->type
+            : 'button';
 
         $data = array();
 
-        if (!$this->services || $this->services === 'all' || $this->services === '*') {
+        if (!$this->services || $this->services === 'all' || $this->services === '*')
+        {
             $this->services = $this->_validServices;
         }
 
-        if (is_string($this->services)) {
+        if (is_string($this->services))
+        {
             $this->services = explode(',', $this->services);
         }
 
-        if (count($this->services)) {
+        if (count($this->services))
+        {
             foreach ($this->services as $service)
             {
-                if (in_array($service, $this->_validServices)) {
+                if (in_array($service, $this->_validServices))
+                {
                     array_push($data, $service);
                 }
             }

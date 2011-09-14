@@ -8,7 +8,8 @@
     <?php echo CHtml::encode($data->twitter); ?>
     <br/>
 
-    <b><?php echo CHtml::encode($data->getAttributeLabel('livejournal')); ?>:</b>
+    <b><?php echo CHtml::encode($data->getAttributeLabel('livejournal')); ?>
+        :</b>
     <?php echo CHtml::encode($data->livejournal); ?>
     <br/>
 
@@ -16,7 +17,8 @@
     <?php echo CHtml::encode($data->vkontakte); ?>
     <br/>
 
-    <b><?php echo CHtml::encode($data->getAttributeLabel('odnoklassniki')); ?>:</b>
+    <b><?php echo CHtml::encode($data->getAttributeLabel('odnoklassniki')); ?>
+        :</b>
     <?php echo CHtml::encode($data->odnoklassniki); ?>
     <br/>
 

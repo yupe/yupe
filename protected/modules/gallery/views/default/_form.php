@@ -28,8 +28,9 @@
     </div>
 
     <div class="row buttons">
-        <?php echo CHtml::submitButton($model->isNewRecord ? Yii::t('gallery', 'Добавить галерею')
-                                               : Yii::t('gallery', 'Сохранить галерею')); ?>
+        <?php echo CHtml::submitButton($model->isNewRecord
+                                           ? Yii::t('gallery', 'Добавить галерею')
+                                           : Yii::t('gallery', 'Сохранить галерею')); ?>
     </div>
 
     <?php $this->endWidget(); ?>

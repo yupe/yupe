@@ -25,9 +25,11 @@ class RegistrationController extends YBackController
     {
         $model = $this->loadModel();
 
-        if (isset($_POST['Registration'])) {
+        if (isset($_POST['Registration']))
+        {
             $model->attributes = $_POST['Registration'];
-            if ($model->save()) {
+            if ($model->save())
+            {
                 Yii::app()->user->setFlash(FlashMessagesWidget::NOTICE_MESSAGE, Yii::t('user', 'Данные обновлены!'));
                 $this->redirect(array('view', 'id' => $model->id));
             }
@@ -44,7 +46,8 @@ class RegistrationController extends YBackController
      */
     public function actionDelete()
     {
-        if (Yii::app()->request->isPostRequest) {
+        if (Yii::app()->request->isPostRequest)
+        {
             // we only allow deletion via POST request
             $this->loadModel()->delete();
 
@@ -88,7 +91,8 @@ class RegistrationController extends YBackController
      */
     public function loadModel()
     {
-        if ($this->_model === null) {
+        if ($this->_model === null)
+        {
             if (isset($_GET['id']))
                 $this->_model = Registration::model()->findbyPk($_GET['id']);
             if ($this->_model === null)
@@ -103,7 +107,8 @@ class RegistrationController extends YBackController
      */
     protected function performAjaxValidation($model)
     {
-        if (isset($_POST['ajax']) && $_POST['ajax'] === 'registration-form') {
+        if (isset($_POST['ajax']) && $_POST['ajax'] === 'registration-form')
+        {
             echo CActiveForm::validate($model);
             Yii::app()->end();
         }

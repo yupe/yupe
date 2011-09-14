@@ -25,13 +25,16 @@ class DefaultController extends YBackController
     {
         $model = new Page();
 
-        if (isset($_POST['Page'])) {
+        if (isset($_POST['Page']))
+        {
             $model->attributes = $_POST['Page'];
 
-            if ($model->save()) {
+            if ($model->save())
+            {
                 Yii::app()->user->setFlash(FlashMessagesWidget::NOTICE_MESSAGE, Yii::t('page', 'Страница добавлена!'));
 
-                if (isset($_POST['saveAndClose'])) {
+                if (isset($_POST['saveAndClose']))
+                {
                     $this->redirect(array('admin'));
                 }
 
@@ -54,13 +57,16 @@ class DefaultController extends YBackController
     {
         $model = $this->loadModel();
 
-        if (isset($_POST['Page'])) {
+        if (isset($_POST['Page']))
+        {
             $model->attributes = $_POST['Page'];
 
-            if ($model->save()) {
+            if ($model->save())
+            {
                 Yii::app()->user->setFlash(FlashMessagesWidget::NOTICE_MESSAGE, Yii::t('page', 'Страница обновлена!'));
 
-                if (isset($_POST['saveAndClose'])) {
+                if (isset($_POST['saveAndClose']))
+                {
                     $this->redirect(array('admin'));
                 }
 
@@ -80,7 +86,8 @@ class DefaultController extends YBackController
      */
     public function actionDelete()
     {
-        if (Yii::app()->request->isPostRequest) {
+        if (Yii::app()->request->isPostRequest)
+        {
             // we only allow deletion via POST request
             $this->loadModel()->delete();
 
@@ -110,7 +117,8 @@ class DefaultController extends YBackController
     {
         $model = new Page('search');
 
-        if (isset($_GET['Page'])) {
+        if (isset($_GET['Page']))
+        {
             $model->attributes = $_GET['Page'];
         }
 
@@ -126,11 +134,14 @@ class DefaultController extends YBackController
      */
     public function loadModel()
     {
-        if ($this->_model === null) {
-            if (isset($_GET['id'])) {
+        if ($this->_model === null)
+        {
+            if (isset($_GET['id']))
+            {
                 $this->_model = Page::model()->with('author', 'changeAuthor')->findbyPk($_GET['id']);
             }
-            if ($this->_model === null) {
+            if ($this->_model === null)
+            {
                 throw new CHttpException(404, 'The requested page does not exist.');
             }
         }
@@ -143,7 +154,8 @@ class DefaultController extends YBackController
      */
     protected function performAjaxValidation($model)
     {
-        if (isset($_POST['ajax']) && $_POST['ajax'] === 'page-form') {
+        if (isset($_POST['ajax']) && $_POST['ajax'] === 'page-form')
+        {
             echo CActiveForm::validate($model);
             Yii::app()->end();
         }

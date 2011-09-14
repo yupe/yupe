@@ -48,8 +48,9 @@
     </div>
 
     <div class="row buttons">
-        <?php echo CHtml::submitButton($model->isNewRecord ? Yii::t('contentblock', 'Добавить блок')
-                                               : Yii::t('contentblock', 'Сохранить изменения')); ?>
+        <?php echo CHtml::submitButton($model->isNewRecord
+                                           ? Yii::t('contentblock', 'Добавить блок')
+                                           : Yii::t('contentblock', 'Сохранить изменения')); ?>
     </div>
 
     <?php $this->endWidget(); ?>

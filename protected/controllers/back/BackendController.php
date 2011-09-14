@@ -10,7 +10,8 @@ class BackendController extends YBackController
     {
         $module = Yii::app()->getModule($module);
 
-        if (!$module) {
+        if (!$module)
+        {
             throw new CHttpException(404, Yii::t('yupe', 'Страница настроек данного модуля недоступна!'));
         }
 
@@ -22,7 +23,8 @@ class BackendController extends YBackController
 
         foreach ($module as $key => $value)
         {
-            if (in_array($key, $editableParams) && !is_object($value) && !is_array($value)) {
+            if (in_array($key, $editableParams) && !is_object($value) && !is_array($value))
+            {
                 $elements[$key] = array(
                     'type' => 'text',
                     'maxlength' => 200,
@@ -41,7 +43,8 @@ class BackendController extends YBackController
 
         foreach ($modules['modules'] as $oneModule)
         {
-            if ($oneModule->getEditableParams()) {
+            if ($oneModule->getEditableParams())
+            {
                 array_push($menu, array('label' => $oneModule->getName(), 'url' => $this->createUrl('/back/backend/modulesettings/', array('module' => $oneModule->getId()))));
             }
         }
@@ -52,16 +55,19 @@ class BackendController extends YBackController
 
     public function actionSaveModulesettings()
     {
-        if (Yii::app()->request->isPostRequest) {
+        if (Yii::app()->request->isPostRequest)
+        {
             $moduleId = Yii::app()->request->getPost('moduleId');
 
-            if (!$moduleId) {
+            if (!$moduleId)
+            {
                 throw new CHttpException(404, Yii::t('yupe', 'Страница не найдена!'));
             }
 
             $module = Yii::app()->getModule($moduleId);
 
-            if (!$module) {
+            if (!$module)
+            {
                 throw new CHttpException(404, Yii::t('yupe', 'Модуль "{module}" не найден!', array('{module}' => $moduleId)));
             }
 
@@ -75,7 +81,8 @@ class BackendController extends YBackController
 
                 foreach ($_POST as $key => $value)
                 {
-                    if (in_array($key, $editableParams)) {
+                    if (in_array($key, $editableParams))
+                    {
                         $model = new Settings();
 
                         $model->setAttributes(array(
@@ -84,7 +91,8 @@ class BackendController extends YBackController
                                                    'paramValue' => $value
                                               ));
 
-                        if (!$model->save()) {
+                        if (!$model->save())
+                        {
                             //@TODO  исправить вывод ошибок
                             Yii::app()->user->setFlash(FlashMessagesWidget::ERROR_MESSAGE, print_r($model->getErrors(), true));
 
@@ -118,15 +126,18 @@ class BackendController extends YBackController
 
     public function actionThemesettings()
     {
-        if (Yii::app()->request->isPostRequest && isset($_POST['theme'])) {
+        if (Yii::app()->request->isPostRequest && isset($_POST['theme']))
+        {
             $theme = Yii::app()->request->getPost('theme');
 
             $settings = Settings::model()->find('moduleId = :moduleId AND paramName = :paramName', array(':moduleId' => Yii::app()->yupe->coreModuleId, ':paramName' => 'theme'));
 
-            if (!is_null($settings)) {
+            if (!is_null($settings))
+            {
                 $settings->paramValue = $theme;
 
-                if ($settings->save()) {
+                if ($settings->save())
+                {
                     Yii::app()->user->setFlash(FlashMessagesWidget::NOTICE_MESSAGE, Yii::t('yupe', 'Настройки сохранены!'));
 
                     //@TODO сброс полностью - плохо =(
@@ -145,7 +156,8 @@ class BackendController extends YBackController
                                               'paramValue' => $theme
                                          ));
 
-                if ($settings->save()) {
+                if ($settings->save())
+                {
                     Yii::app()->user->setFlash(FlashMessagesWidget::NOTICE_MESSAGE, Yii::t('yupe', 'Настройки сохранены!'));
 
                     //@TODO сброс полностью - плохо =(
@@ -162,12 +174,14 @@ class BackendController extends YBackController
 
         $themes = array();
 
-        if ($handler = opendir(Yii::app()->themeManager->basePath)) {
+        if ($handler = opendir(Yii::app()->themeManager->basePath))
+        {
             $file = false;
 
             while (($file = readdir($handler)))
             {
-                if ($file != '.' && $file != '..' && !is_file($file)) {
+                if ($file != '.' && $file != '..' && !is_file($file))
+                {
                     $themes[$file] = $file;
                 }
             }
@@ -175,7 +189,8 @@ class BackendController extends YBackController
             closedir($handler);
         }
 
-        $theme = Yii::app()->theme ? Yii::app()->theme->name : Yii::t('yupe', 'Тема не используется');
+        $theme = Yii::app()->theme ? Yii::app()->theme->name
+            : Yii::t('yupe', 'Тема не используется');
 
         $this->render('themesettings', array('themes' => $themes, 'theme' => $theme));
     }

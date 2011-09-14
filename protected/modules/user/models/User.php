@@ -45,7 +45,8 @@ class User extends CActiveRecord
 
     public function validatePassword($password)
     {
-        if ($this->password === Registration::model()->hashPassword($password, $this->salt)) {
+        if ($this->password === Registration::model()->hashPassword($password, $this->salt))
+        {
             return true;
         }
         return false;
@@ -54,8 +55,9 @@ class User extends CActiveRecord
     public function getAccessLevel()
     {
         $data = $this->getAccessLevelsList();
-        return array_key_exists($this->accessLevel, $data) ? $data[$this->accessLevel]
-                : Yii::t('user', 'ммм...такого доступа нет');
+        return array_key_exists($this->accessLevel, $data)
+            ? $data[$this->accessLevel]
+            : Yii::t('user', 'ммм...такого доступа нет');
     }
 
     public function getAccessLevelsList()
@@ -79,7 +81,7 @@ class User extends CActiveRecord
     {
         $data = $this->getStatusList();
         return array_key_exists($this->status, $data) ? $data[$this->status]
-                : Yii::t('user', 'ммм...статуса такого нет');
+            : Yii::t('user', 'ммм...статуса такого нет');
     }
 
 
@@ -95,7 +97,8 @@ class User extends CActiveRecord
     public function getGender()
     {
         $data = $this->getGendersList();
-        return array_key_exists($this->gender, $data) ? $data[$this->gender] : Yii::t('user', 'ммм...пола такого нет');
+        return array_key_exists($this->gender, $data) ? $data[$this->gender]
+            : Yii::t('user', 'ммм...пола такого нет');
     }
 
     /**
@@ -214,8 +217,10 @@ class User extends CActiveRecord
 
     public function beforeSave()
     {
-        if (parent::beforeSave()) {
-            if ($this->isNewRecord) {
+        if (parent::beforeSave())
+        {
+            if ($this->isNewRecord)
+            {
                 $this->lastVisit = $this->creationDate = $this->changeDate = new CDbExpression('NOW()');
                 $this->activationIp = Yii::app()->request->userHostAddress;
             }
@@ -245,7 +250,8 @@ class User extends CActiveRecord
         // проверим по таблице Registration
         $registration = Registration::model()->find('nickName = :nickName', array(':nickName' => $nickName));
 
-        if (!is_null($registration)) {
+        if (!is_null($registration))
+        {
             return false;
         }
 
@@ -263,7 +269,8 @@ class User extends CActiveRecord
         // проверим по таблице Registration
         $registration = Registration::model()->find('email = :email', array(':email' => $email));
 
-        if (!is_null($registration)) {
+        if (!is_null($registration))
+        {
             return false;
         }
 
@@ -275,7 +282,8 @@ class User extends CActiveRecord
 
     public function getAvatar($htmlOptions = null)
     {
-        if ($this->useGravatar && $this->email) {
+        if ($this->useGravatar && $this->email)
+        {
             return CHtml::image('http://gravatar.com/avatar/' . md5($this->email), $this->nickName, $htmlOptions);
         }
         elseif ($this->avatar)
@@ -288,7 +296,8 @@ class User extends CActiveRecord
 
     public function getFullName($separator = ' ')
     {
-        return $this->firstName || $this->lastName ? $this->lastName . $separator . $this->firstName : $this->nickName;
+        return $this->firstName || $this->lastName
+            ? $this->lastName . $separator . $this->firstName : $this->nickName;
     }
 
     public function createAccount($nickName, $email, $params = null, $password = null, $salt = null)
@@ -297,7 +306,8 @@ class User extends CActiveRecord
 
         $salt = is_null($salt) ? Registration::model()->generateSalt() : $salt;
 
-        $password = is_null($password) ? Registration::model()->generateRandomPassword() : $password;
+        $password = is_null($password)
+            ? Registration::model()->generateRandomPassword() : $password;
 
         $user->setAttributes(array(
                                   'nickName' => $nickName,
@@ -308,7 +318,8 @@ class User extends CActiveRecord
                                   'registrationIp' => Yii::app()->request->userHostAddress
                              ));
 
-        if (is_array($params) && count($params)) {
+        if (is_array($params) && count($params))
+        {
             foreach ($params as $key => $value)
             {
                 $user->$key = $value;
@@ -319,12 +330,14 @@ class User extends CActiveRecord
 
         try
         {
-            if ($user->save()) {
+            if ($user->save())
+            {
                 $profile = new Profile();
 
                 $profile->userId = $user->id;
 
-                if (!$profile->save()) {
+                if (!$profile->save())
+                {
                     throw new CDbException($profile->getErrors());
                 }
 
@@ -356,7 +369,8 @@ class User extends CActiveRecord
 
         $user = $this->createAccount($nickName, $email, $params, $password, $salt, $params);
 
-        if (is_object($user) && !$user->hasErrors()) {
+        if (is_object($user) && !$user->hasErrors())
+        {
             $login = new Login();
 
             $login->setAttributes(array(
@@ -365,7 +379,8 @@ class User extends CActiveRecord
                                        'type' => $sType
                                   ));
 
-            if (!$login->save()) {
+            if (!$login->save())
+            {
                 Yii::log(print_r($login->getErrors(), true), CLogger::LEVEL_ERROR);
 
                 $user->delete();

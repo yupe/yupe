@@ -76,8 +76,9 @@
     </div>
 
     <div class="row buttons">
-        <?php echo CHtml::submitButton($model->isNewRecord ? Yii::t('contest', 'Добавить конкурс')
-                                               : Yii::t('contest', 'Сохранить изменения')); ?>
+        <?php echo CHtml::submitButton($model->isNewRecord
+                                           ? Yii::t('contest', 'Добавить конкурс')
+                                           : Yii::t('contest', 'Сохранить изменения')); ?>
     </div>
 
     <?php $this->endWidget(); ?>

@@ -35,7 +35,8 @@ class Page extends CActiveRecord
     public function getStatus()
     {
         $data = $this->getStatusList();
-        return array_key_exists($this->status, $data) ? $data[$this->status] : Yii::t('page', '*неизвестно*');
+        return array_key_exists($this->status, $data) ? $data[$this->status]
+            : Yii::t('page', '*неизвестно*');
     }
 
 
@@ -50,14 +51,16 @@ class Page extends CActiveRecord
     public function getProtectedStatus()
     {
         $data = $this->getProtectedStatusList();
-        return array_key_exists($this->isProtected, $data) ? $data[$this->isProtected] : Yii::t('page', '*неизвестно*');
+        return array_key_exists($this->isProtected, $data)
+            ? $data[$this->isProtected] : Yii::t('page', '*неизвестно*');
     }
 
 
     public function getAllPagesList($selfId = false)
     {
-        $pages = $selfId ? $this->findAll('id != :id AND (parentId = null || parentId = 0)', array(':id' => $selfId))
-                : $this->findAll();
+        $pages = $selfId
+            ? $this->findAll('id != :id AND (parentId = null || parentId = 0)', array(':id' => $selfId))
+            : $this->findAll();
         $pages = CHtml::listData($pages, 'id', 'name');
         $pages[0] = Yii::t('page', '--нет--');
         return $pages;
@@ -141,13 +144,16 @@ class Page extends CActiveRecord
 
     public function beforeValidate()
     {
-        if (parent::beforeValidate()) {
-            if ($this->scenario === 'update') {
+        if (parent::beforeValidate())
+        {
+            if ($this->scenario === 'update')
+            {
                 $this->slug = YText::translit($this->title);
             }
             else
             {
-                if (!$this->slug) {
+                if (!$this->slug)
+                {
                     $this->slug = YText::translit($this->title);
                 }
             }
@@ -160,8 +166,10 @@ class Page extends CActiveRecord
 
     public function beforeSave()
     {
-        if (parent::beforeSave()) {
-            if ($this->isNewRecord) {
+        if (parent::beforeSave())
+        {
+            if ($this->isNewRecord)
+            {
                 $this->changeDate = $this->creationDate = new CDbExpression('NOW()');
                 $this->userId = $this->changeUserId = Yii::app()->user->getId();
             }

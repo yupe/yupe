@@ -26,7 +26,8 @@ class FeedbackModule extends YWebModule
     public function getName()
     {
         $count = FeedBack::model()->new()->count();
-        return $count ? Yii::t('feedback', 'Сообщения с сайта') . " ($count)" : Yii::t('feedback', 'Сообщения с сайта');
+        return $count ? Yii::t('feedback', 'Сообщения с сайта') . " ($count)"
+            : Yii::t('feedback', 'Сообщения с сайта');
     }
 
     public function getDescription()
@@ -63,11 +64,13 @@ class FeedbackModule extends YWebModule
     {
         parent::init();
 
-        if (!is_array($this->backEnd) || !count($this->backEnd) || (!in_array('db', $this->backEnd) && !in_array('email', $this->backEnd))) {
+        if (!is_array($this->backEnd) || !count($this->backEnd) || (!in_array('db', $this->backEnd) && !in_array('email', $this->backEnd)))
+        {
             throw new CException(Yii::t('feedback', 'Укажите корректное значение для свойтсва application.modules.feedback.FeedBackModule.backEnd - "db" и/или "email"!'));
         }
 
-        if (in_array('email', $this->backEnd) && (!is_array($this->emails) || !count($this->emails))) {
+        if (in_array('email', $this->backEnd) && (!is_array($this->emails) || !count($this->emails)))
+        {
             throw new CException(Yii::t('feedback', 'Укажите email для обратной связи! application.modules.feedback.FeedBackModule.emails'));
         }
 

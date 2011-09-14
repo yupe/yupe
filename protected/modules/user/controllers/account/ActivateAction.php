@@ -6,7 +6,8 @@ class ActivateAction extends CAction
         $email = trim(Yii::app()->request->getQuery('email'));
         $code = trim(Yii::app()->request->getQuery('code'));
 
-        if (!$email || !$code) {
+        if (!$email || !$code)
+        {
             Yii::app()->user->setFlash(FlashMessagesWidget::ERROR_MESSAGE, Yii::t('user', 'Ошибка активации! Переданы не все параметры! Попробуете зарегистрироваться вновь?'));
             $this->controller->redirect(array(Yii::app()->getModule('user')->accountActivationFailure));
         }
@@ -17,7 +18,8 @@ class ActivateAction extends CAction
                                                                                             ':code' => $code
                                                                                        ));
 
-        if (is_null($registration)) {
+        if (is_null($registration))
+        {
             Yii::app()->user->setFlash(FlashMessagesWidget::ERROR_MESSAGE, Yii::t('user', 'Ошибка активации! Возможно данный аккаунт уже активирован! Попробуете зарегистрироваться вновь?'));
             $this->controller->redirect(array(Yii::app()->getModule('user')->accountActivationFailure));
         }
@@ -25,13 +27,15 @@ class ActivateAction extends CAction
         // процедура активации
 
         // проверить параметры пользователя по "черным спискам"
-        if (!Yii::app()->getModule('user')->isAllowedIp()) {
+        if (!Yii::app()->getModule('user')->isAllowedIp())
+        {
             // перенаправить на экшн для фиксации невалидных ip адресов
             $this->controller->redirect(array(Yii::app()->getModule('user')->invalidIpAction));
         }
 
         // проверить на email
-        if (!Yii::app()->getModule('user')->isAllowedEmail($registration->email)) {
+        if (!Yii::app()->getModule('user')->isAllowedEmail($registration->email))
+        {
             // перенаправить на экшн для фиксации невалидных ip адресов
             $this->controller->redirect(array(Yii::app()->getModule('user')->invalidEmailAction));
         }
@@ -58,7 +62,8 @@ class ActivateAction extends CAction
                                  ));
 
 
-            if ($user->save()) {
+            if ($user->save())
+            {
                 // для нового пользователя создать пустой профиль
                 $profile = new Profile();
 
@@ -66,7 +71,8 @@ class ActivateAction extends CAction
                                              'userId' => $user->id
                                         ));
 
-                if ($profile->save()) {
+                if ($profile->save())
+                {
                     $transaction->commit();
                     Yii::log(Yii::t('user', "Активирован аккаунт code => {code}, email => {email}!", array('{code}' => $code, '{email}' => $email)), CLogger::LEVEL_INFO, UserModule::$logCategory);
                     Yii::app()->user->setFlash(FlashMessagesWidget::NOTICE_MESSAGE, Yii::t('user', 'Вы успешно активировали аккаунт! Теперь Вы можете войти!'));

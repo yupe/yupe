@@ -58,7 +58,8 @@ class EMarkitupWidget extends CInputWidget
             $this->settingsUrl = $this->scriptUrl . '/sets';
 
         if ($this->scriptFile === null)
-            $this->scriptFile = YII_DEBUG ? 'jquery.markitup.js' : 'jquery.markitup.min.js';
+            $this->scriptFile = YII_DEBUG ? 'jquery.markitup.js'
+                : 'jquery.markitup.min.js';
 
         $this->registerClientScript();
     }

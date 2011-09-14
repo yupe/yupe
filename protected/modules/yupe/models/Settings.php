@@ -51,11 +51,14 @@ class Settings extends CActiveRecord
 
     public function beforeSave()
     {
-        if (parent::beforeSave()) {
-            if ($this->isNewRecord) {
+        if (parent::beforeSave())
+        {
+            if ($this->isNewRecord)
+            {
                 $this->changeDate = $this->changeDate = new CDbExpression('NOW()');
 
-                if (!$this->userId) {
+                if (!$this->userId)
+                {
                     $this->userId = Yii::app()->user->getId();
                 }
             }

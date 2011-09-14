@@ -5,20 +5,24 @@ class RecoveryAction extends CAction
     {
         $form = new RecoveryForm();
 
-        if (Yii::app()->request->isPostRequest && isset($_POST['RecoveryForm'])) {
+        if (Yii::app()->request->isPostRequest && isset($_POST['RecoveryForm']))
+        {
             $form->setAttributes($_POST['RecoveryForm']);
 
-            if ($form->validate()) {
+            if ($form->validate())
+            {
                 $user = User::model()->findByAttributes(array('email' => $form->email));
 
                 // нет указанного email
-                if (is_null($user)) {
+                if (is_null($user))
+                {
                     $form->addError('email', Yii::t('user', 'Указанный email не найден!'));
                 }
                 else
                 {
                     // если пароль должен быть сгенерирован автоматически
-                    if (Yii::app()->getModule('user')->autoRecoveryPassword) {
+                    if (Yii::app()->getModule('user')->autoRecoveryPassword)
+                    {
                         $recovery = new RecoveryPassword();
 
                         $recovery->setAttributes(array(
@@ -26,7 +30,8 @@ class RecoveryAction extends CAction
                                                       'code' => $recovery->generateRecoveryCode($user->id)
                                                  ));
 
-                        if ($recovery->save()) {
+                        if ($recovery->save())
+                        {
                             // отправить письмо с сылкой на сброс пароля
                             Yii::log(Yii::t('user', 'Заявка на автоматическое восстановление пароля.'), CLogger::LEVEL_INFO, UserModule::$logCategory);
                             Yii::app()->user->setFlash(FlashMessagesWidget::NOTICE_MESSAGE, Yii::t('user', 'На указанный email отправлено письмо с инструкцией по восстановлению пароля!'));
@@ -50,7 +55,8 @@ class RecoveryAction extends CAction
                                                       'code' => $recovery->generateRecoveryCode($user->id)
                                                  ));
 
-                        if ($recovery->save()) {
+                        if ($recovery->save())
+                        {
                             Yii::log(Yii::t('user', 'Заявка на восстановление пароля.'), CLogger::LEVEL_INFO, UserModule::$logCategory);
                             Yii::app()->user->setFlash(FlashMessagesWidget::NOTICE_MESSAGE, Yii::t('user', 'На указанный email отправлено письмо с инструкцией по восстановлению пароля!'));
                             // отправить email уведомление

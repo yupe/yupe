@@ -14,8 +14,10 @@
     <?php foreach ($requirements as $requirement): ?>
     <tr>
         <td width="200"><?php echo $requirement[0]; ?></td>
-        <td class="<?php echo $requirement[2] ? 'passed' : ($requirement[1] ? 'failed' : 'warning'); ?>">
-            <?php echo $requirement[2] ? 'ОК' : ($requirement[1] ? 'Ошибка' : 'Предупреждение'); ?>
+        <td class="<?php echo $requirement[2] ? 'passed' : ($requirement[1]
+            ? 'failed' : 'warning'); ?>">
+            <?php echo $requirement[2] ? 'ОК' : ($requirement[1] ? 'Ошибка'
+            : 'Предупреждение'); ?>
         </td>
         <td><?php echo $requirement[4]; ?></td>
     </tr>

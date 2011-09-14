@@ -3,7 +3,8 @@ class YWidget extends CWidget
 {
     public function getViewPath()
     {
-        if (!is_object(Yii::app()->theme)) {
+        if (!is_object(Yii::app()->theme))
+        {
             return parent::getViewPath();
         }
 

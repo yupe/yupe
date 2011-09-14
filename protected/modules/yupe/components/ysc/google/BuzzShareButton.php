@@ -27,10 +27,13 @@ class BuzzShareButton extends YscPortlet
 
     public function init()
     {
-        $this->title = $this->title ? Yii::t($this->translate, CHtml::encode($this->title))
-                : 'Опубликовать в Живой ленте Google';
-        $this->url = $this->url ? 'data-url="' . urlencode($this->url) . '"' : '';
-        $this->imageUrl = $this->imageUrl ? 'data-imageurl="' . urlencode($this->imageUrl) . '"' : '';
+        $this->title = $this->title
+            ? Yii::t($this->translate, CHtml::encode($this->title))
+            : 'Опубликовать в Живой ленте Google';
+        $this->url = $this->url ? 'data-url="' . urlencode($this->url) . '"'
+            : '';
+        $this->imageUrl = $this->imageUrl
+            ? 'data-imageurl="' . urlencode($this->imageUrl) . '"' : '';
         $this->locale = CHtml::encode($this->locale);
         parent::init();
     }

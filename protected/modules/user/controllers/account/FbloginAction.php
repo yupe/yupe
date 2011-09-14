@@ -17,7 +17,8 @@ class FbloginAction extends CAction
 
         $myAccount = null;
 
-        if ($session) {
+        if ($session)
+        {
             try
             {
                 $uid = $facebook->getUser();
@@ -26,7 +27,8 @@ class FbloginAction extends CAction
 
                 $nickName = $myAccount['name'];
 
-                if ($myAccount['username']) {
+                if ($myAccount['username'])
+                {
                     $nickName = $myAccount['username'];
                 }
 
@@ -54,10 +56,12 @@ class FbloginAction extends CAction
                                                                                            ));
 
                 // если такое uid уже есть - авторизуем пользователя и все
-                if (!is_null($login)) {
+                if (!is_null($login))
+                {
                     $identity = new SocialLoginIdentity($this->type, $fbAuthData['id']);
 
-                    if ($identity->authenticate()) {
+                    if ($identity->authenticate())
+                    {
                         Yii::app()->user->login($identity);
 
                         Yii::app()->user->setFlash(FlashMessagesWidget::NOTICE_MESSAGE, Yii::t('user', 'Вы авторизовались!'));
@@ -76,7 +80,8 @@ class FbloginAction extends CAction
 
                 $user = User::model()->active()->find('email = :email', array(':email' => $fbAuthData['email']));
 
-                if (!is_null($user)) {
+                if (!is_null($user))
+                {
                     $login = new Login();
 
                     $login->setAttributes(array(
@@ -85,10 +90,12 @@ class FbloginAction extends CAction
                                                'type' => $this->type
                                           ));
 
-                    if ($login->save()) {
+                    if ($login->save())
+                    {
                         $identity = new SocialLoginIdentity($this->type, $fbAuthData['id']);
 
-                        if ($identity->authenticate()) {
+                        if ($identity->authenticate())
+                        {
                             Yii::app()->user->login($identity);
 
                             Yii::app()->user->setFlash(FlashMessagesWidget::NOTICE_MESSAGE, Yii::t('user', 'Вы авторизовались!'));
@@ -107,7 +114,8 @@ class FbloginAction extends CAction
 
                 // если email нет - создадим новый аккаунт и привяжем uid  к нему
 
-                $myAccount['gender'] = $myAccount['gender'] == 'male' ? User::GENDER_MALE : User::GENDER_FEMALE;
+                $myAccount['gender'] = $myAccount['gender'] == 'male'
+                    ? User::GENDER_MALE : User::GENDER_FEMALE;
 
                 $params = array(
                     'firstName' => $myAccount['first_name'],
@@ -117,10 +125,12 @@ class FbloginAction extends CAction
 
                 $userLogin = User::model()->createSocialAccount($fbAuthData['nickName'], $fbAuthData['email'], $fbAuthData['firstName'], $fbAuthData['firstName'], $fbAuthData['id'], $this->type, $params);
 
-                if (is_object($userLogin) && !$userLogin->hasErrors()) {
+                if (is_object($userLogin) && !$userLogin->hasErrors())
+                {
                     $identity = new SocialLoginIdentity($this->type, $fbAuthData['id']);
 
-                    if ($identity->authenticate()) {
+                    if ($identity->authenticate())
+                    {
                         Yii::app()->user->login($identity);
 
                         Yii::app()->user->setFlash(FlashMessagesWidget::NOTICE_MESSAGE, Yii::t('user', 'Вы авторизовались!'));

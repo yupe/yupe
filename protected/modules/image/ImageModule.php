@@ -21,7 +21,8 @@ class ImageModule extends YWebModule
 
         $dirName = $this->getUploadPath() . $current;
 
-        if (is_dir($dirName)) {
+        if (is_dir($dirName))
+        {
             return $current;
         }
 
@@ -30,11 +31,13 @@ class ImageModule extends YWebModule
 
     public function checkSelf()
     {
-        if (!$this->uploadDir) {
+        if (!$this->uploadDir)
+        {
             return array('type' => YWebModule::CHECK_ERROR, 'message' => Yii::t('image', 'Пожалуйста, укажите каталог для хранения изображений! {link}', array('{link}' => CHtml::link(Yii::t('image', 'Изменить настройки модуля'), array('/back/backend/modulesettings/', 'module' => $this->id)))));
         }
 
-        if (!is_dir($this->uploadDir) || !is_writable($this->uploadDir)) {
+        if (!is_dir($this->uploadDir) || !is_writable($this->uploadDir))
+        {
             return array('type' => YWebModule::CHECK_ERROR, 'message' => Yii::t('image', 'Директория "{dir}" не досутпна для записи или не существует! {link}', array('{dir}' => $this->uploadDir, '{link}' => CHtml::link(Yii::t('image', 'Изменить настройки модуля'), array('/back/backend/modulesettings/', 'module' => $this->id)))));
         }
     }

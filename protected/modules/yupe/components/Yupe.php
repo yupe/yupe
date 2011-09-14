@@ -13,7 +13,8 @@ class Yupe extends CComponent
         {
             $propertie = $param->paramName;
 
-            if (property_exists($this, $propertie)) {
+            if (property_exists($this, $propertie))
+            {
                 $this->$propertie = $param->paramValue;
             }
         }
@@ -40,16 +41,20 @@ class Yupe extends CComponent
                 'linkOptions' => array('class' => 'sub-menu')
             ));
 
-        if (count(Yii::app()->modules)) {
+        if (count(Yii::app()->modules))
+        {
             foreach (Yii::app()->modules as $key => $value)
             {
                 $key = strtolower($key);
 
                 $module = Yii::app()->getModule($key);
 
-                if (!is_null($module)) {
-                    if (is_a($module, 'YWebModule')) {
-                        if ($module->getIsShowInAdminMenu() || $module->getEditableParams() || ($module->getIsShowInAdminMenu() == false && is_array($module->checkSelf()))) {
+                if (!is_null($module))
+                {
+                    if (is_a($module, 'YWebModule'))
+                    {
+                        if ($module->getIsShowInAdminMenu() || $module->getEditableParams() || ($module->getIsShowInAdminMenu() == false && is_array($module->checkSelf())))
+                        {
                             $modules[$key] = $module;
 
                             $category[$key] = $module->getCategory();
@@ -71,9 +76,12 @@ class Yupe extends CComponent
             {
                 $data = array('label' => $modules[$key]->getName(), 'url' => array($modules[$key]->getAdminPageLink()));
 
-                if ($modules[$key]->getIsShowInAdminMenu()) {
-                    if ($category[$key]) {
-                        if (!isset($modulesNavigation[$category[$key]])) {
+                if ($modules[$key]->getIsShowInAdminMenu())
+                {
+                    if ($category[$key])
+                    {
+                        if (!isset($modulesNavigation[$category[$key]]))
+                        {
                             $modulesNavigation[$category[$key]]['items'] = array();
                             $modulesNavigation[$category[$key]]['label'] = $category[$key];
                             $modulesNavigation[$category[$key]]['linkOptions'] = array('class' => 'sub-menu');
@@ -89,7 +97,8 @@ class Yupe extends CComponent
                 }
 
                 // собрать все для меню "Настройки"
-                if ($modules[$key]->getEditableParams()) {
+                if ($modules[$key]->getEditableParams())
+                {
                     array_push($modulesNavigation['settings']['items'], array('label' => $modules[$key]->getName(), 'url' => array('/back/backend/modulesettings/', 'module' => $modules[$key]->getId())));
                 }
             }
@@ -102,7 +111,7 @@ class Yupe extends CComponent
 
 
         return $navigationOnly === true ? $modulesNavigation
-                : array('modules' => $modules, 'yiiModules' => $yiiModules, 'modulesNavigation' => $modulesNavigation);
+            : array('modules' => $modules, 'yiiModules' => $yiiModules, 'modulesNavigation' => $modulesNavigation);
     }
 }
 

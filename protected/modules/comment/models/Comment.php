@@ -112,8 +112,10 @@ class Comment extends CActiveRecord
 
     public function beforeSave()
     {
-        if (parent::beforeSave()) {
-            if ($this->isNewRecord) {
+        if (parent::beforeSave())
+        {
+            if ($this->isNewRecord)
+            {
                 $this->creationDate = new CDbExpression('NOW()');
 
                 $this->id = Yii::app()->request->userHostAddress;
@@ -155,6 +157,7 @@ class Comment extends CActiveRecord
     {
         $list = $this->getStatusList();
 
-        return array_key_exists($this->status, $list) ? $list[$this->status] : Yii::t('comment', 'Статус неизвестен');
+        return array_key_exists($this->status, $list) ? $list[$this->status]
+            : Yii::t('comment', 'Статус неизвестен');
     }
 }

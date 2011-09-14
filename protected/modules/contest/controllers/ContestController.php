@@ -14,21 +14,25 @@ class ContestController extends YFrontController
     {
         $model = Contest::model()->findByPk((int)$id);
 
-        if (is_null($model)) {
+        if (is_null($model))
+        {
             throw new CHttpException(404, Yii::t('contest', 'Страница не найдена!'));
         }
 
         $image = new Image();
 
-        if (Yii::app()->request->isPostRequest && isset($_POST['Image'])) {
+        if (Yii::app()->request->isPostRequest && isset($_POST['Image']))
+        {
             $transaction = Yii::app()->db->beginTransaction();
 
             try
             {
                 $image = $image->create($_POST['Image']);
 
-                if (!$image->hasErrors()) {
-                    if ($model->addImage($image)) {
+                if (!$image->hasErrors())
+                {
+                    if ($model->addImage($image))
+                    {
                         Yii::app()->user->setFlash(FlashMessagesWidget::NOTICE_MESSAGE, Yii::t('contest', 'Фотография добавлена!'));
                     }
 
@@ -67,7 +71,8 @@ class ContestController extends YFrontController
     {
         $model = Image::model()->findByPk((int)$id);
 
-        if (is_null($model)) {
+        if (is_null($model))
+        {
             throw new CHttpException(404, Yii::t('gallery', 'Страница не найдена!'));
         }
 

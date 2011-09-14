@@ -8,15 +8,18 @@
     <?php echo CHtml::encode($data->name); ?>
     <br/>
 
-    <b><?php echo CHtml::encode($data->getAttributeLabel('description')); ?>:</b>
+    <b><?php echo CHtml::encode($data->getAttributeLabel('description')); ?>
+        :</b>
     <?php echo CHtml::encode($data->description); ?>
     <br/>
 
-    <b><?php echo CHtml::encode($data->getAttributeLabel('startAddImage')); ?>:</b>
+    <b><?php echo CHtml::encode($data->getAttributeLabel('startAddImage')); ?>
+        :</b>
     <?php echo CHtml::encode($data->startAddImage); ?>
     <br/>
 
-    <b><?php echo CHtml::encode($data->getAttributeLabel('stopAddImage')); ?>:</b>
+    <b><?php echo CHtml::encode($data->getAttributeLabel('stopAddImage')); ?>
+        :</b>
     <?php echo CHtml::encode($data->stopAddImage); ?>
     <br/>
 

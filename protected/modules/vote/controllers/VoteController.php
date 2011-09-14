@@ -3,14 +3,16 @@ class VoteController extends YFrontController
 {
     public function actionAddVote()
     {
-        if (Yii::app()->request->isPostRequest && Yii::app()->request->isAjaxRequest) {
+        if (Yii::app()->request->isPostRequest && Yii::app()->request->isAjaxRequest)
+        {
             $modelType = Yii::app()->request->getPost('modelType');
 
             $modelId = (int)Yii::app()->request->getPost('modelId');
 
             $value = (int)Yii::app()->request->getPost('value');
 
-            if (!$modelId || !$value || !$modelType) {
+            if (!$modelId || !$value || !$modelType)
+            {
                 Yii::app()->ajax->failure(Yii::t('contest', 'Произошла ошибка!'));
             }
 
@@ -22,7 +24,8 @@ class VoteController extends YFrontController
                                        'value' => $value
                                   ));
 
-            if ($model->save()) {
+            if ($model->save())
+            {
                 Yii::app()->ajax->success();
             }
 

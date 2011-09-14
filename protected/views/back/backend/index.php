@@ -11,11 +11,14 @@
     <?php endif; ?>
 <?php endforeach; ?>
 
-<p>Вы используете Yii версии <b><?php echo Yii::getVersion();?></b>, <?php echo CHtml::encode(Yii::app()->name);?>
-    версии <b><?php echo Yii::app()->yupe->getVersion();?></b>, php <?php echo Yii::t('yupe', 'версии');?>
+<p>Вы используете Yii версии
+    <b><?php echo Yii::getVersion();?></b>, <?php echo CHtml::encode(Yii::app()->name);?>
+    версии <b><?php echo Yii::app()->yupe->getVersion();?></b>,
+    php <?php echo Yii::t('yupe', 'версии');?>
     <b><?php echo phpversion();?></b></p>
 
-<p><?php echo Yii::t('yupe', 'Установлено модулей:');?> <b><?php echo count($modules) + count($yiiModules);?></b></p>
+<p><?php echo Yii::t('yupe', 'Установлено модулей:');?>
+    <b><?php echo count($modules) + count($yiiModules);?></b></p>
 
 <?php if (count($modules)): ?>
 <p><?php echo Yii::t('yupe', 'Модули разработанные специально для ');?> <?php echo CHtml::encode(Yii::app()->name);?>
@@ -34,11 +37,14 @@
     </thead>
     <tbody>
         <?php foreach ($modules as $module): ?>
-        <?php $style = is_array($module->checkSelf()) ? "style='background-color:#FBC2C4;'" : ''; ?>
+        <?php $style = is_array($module->checkSelf())
+            ? "style='background-color:#FBC2C4;'" : ''; ?>
     <tr <?php echo $style;?>>
         <td><?php echo CHtml::link($module->getName(), array($module->getAdminPageLink())); ?></td>
         <td><?php echo $module->getCategory();?></td>
-        <td><?php echo $module->getAuthor(); ?> (<?php echo $module->getAuthorEmail(); ?>)</td>
+        <td><?php echo $module->getAuthor(); ?>
+            (<?php echo $module->getAuthorEmail(); ?>)
+        </td>
         <td><?php echo $module->getVersion(); ?></td>
         <td>
             <?php echo $module->getDescription(); ?>
@@ -58,7 +64,8 @@
 <?php endif; ?>
 
 <?php if (count($yiiModules)): ?>
-<p><?php echo Yii::t('yupe', 'Yii модули');?> (<?php echo count($yiiModules);?>):</p>
+<p><?php echo Yii::t('yupe', 'Yii модули');?> (<?php echo count($yiiModules);?>
+    ):</p>
 <table class="items">
     <thead>
     <tr>

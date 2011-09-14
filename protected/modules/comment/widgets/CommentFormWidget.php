@@ -9,7 +9,8 @@ class CommentFormWidget extends YWidget
 
     public function init()
     {
-        $this->model = is_object($this->model) ? get_class($this->model) : $this->model;
+        $this->model = is_object($this->model) ? get_class($this->model)
+            : $this->model;
 
         $this->modelId = (int)$this->modelId;
     }

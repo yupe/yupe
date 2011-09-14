@@ -14,7 +14,8 @@ $this->menu = array(
 );
 ?>
 
-<h1><?php echo Yii::t('image', 'Просмотр изображения');?> "<?php echo $model->name; ?>"</h1>
+<h1><?php echo Yii::t('image', 'Просмотр изображения');?>
+    "<?php echo $model->name; ?>"</h1>
 
 <?php echo CHtml::image($model->file, $model->alt, array('width' => 500, 'height' => 500)); ?>
 

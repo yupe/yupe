@@ -23,8 +23,10 @@ class FlashMessagesWidget extends CWidget
 
     public function run()
     {
-        if (count(Yii::app()->user->getFlashes(false))) {
-            if ($this->autoHide) {
+        if (count(Yii::app()->user->getFlashes(false)))
+        {
+            if ($this->autoHide)
+            {
                 $this->autoHideSeconds = (int)$this->autoHideSeconds;
                 $this->error = CHtml::encode($this->error);
                 $this->warning = CHtml::encode($this->warning);

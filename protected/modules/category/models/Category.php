@@ -39,12 +39,15 @@ class Category extends CActiveRecord
     public function getStatus()
     {
         $data = $this->getStatusList();
-        return array_key_exists($this->status, $data) ? $data[$this->status] : Yii::t('category', '*неизвестно*');
+        return array_key_exists($this->status, $data) ? $data[$this->status]
+            : Yii::t('category', '*неизвестно*');
     }
 
     public function getAllCategoryList($selfId = false)
     {
-        $category = $selfId ? $this->findAll('id != :id', array(':id' => $selfId)) : $this->findAll();
+        $category = $selfId
+            ? $this->findAll('id != :id', array(':id' => $selfId))
+            : $this->findAll();
         $category = CHtml::listData($category, 'id', 'name');
         $category[0] = Yii::t('page', '--нет--');
         return $category;

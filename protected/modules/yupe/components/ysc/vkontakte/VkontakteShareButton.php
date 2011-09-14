@@ -22,14 +22,17 @@ class VkontakteShareButton extends YscPortlet
 
     public function init()
     {
-        if (!in_array($this->type, $this->validTypes)) {
+        if (!in_array($this->type, $this->validTypes))
+        {
             $this->type = 'round';
         }
         $this->text = CHtml::encode(Yii::t($this->translate, $this->text));
-        if ($this->type == 'custom') {
+        if ($this->type == 'custom')
+        {
             $this->text = '<img src=\"http://vk.com/images/vk32.png?1\" />';
         }
-        if ($this->url && $this->url != 'false') {
+        if ($this->url && $this->url != 'false')
+        {
             $this->url = '{url:"' . urlencode($this->url) . '"}';
         }
         parent::init();

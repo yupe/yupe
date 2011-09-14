@@ -31,7 +31,9 @@
 
 
     <div class="row buttons">
-        <?php echo CHtml::submitButton($model->isNewRecord ? Yii::t('user', 'Создать') : Yii::t('user', 'Обновить')); ?>
+        <?php echo CHtml::submitButton($model->isNewRecord
+                                           ? Yii::t('user', 'Создать')
+                                           : Yii::t('user', 'Обновить')); ?>
     </div>
 
     <?php $this->endWidget(); ?>

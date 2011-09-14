@@ -31,13 +31,15 @@ class SocialLoginIdentity extends CBaseUserIdentity
 
     public function authenticate()
     {
-        if ($this->type && $this->identityId) {
+        if ($this->type && $this->identityId)
+        {
             $user = Login::model()->with('user')->find('type = :type AND identityId = :identityId', array(
                                                                                                          ':type' => $this->type,
                                                                                                          ':identityId' => $this->identityId
                                                                                                     ));
 
-            if (is_null($user) || is_null($user->user)) {
+            if (is_null($user) || is_null($user->user))
+            {
                 $this->errorCode = self::ERROR_USERNAME_INVALID;
             }
             elseif ($user->user->status == User::STATUS_BLOCK)
@@ -51,7 +53,8 @@ class SocialLoginIdentity extends CBaseUserIdentity
                 $this->nickName = $user->user->nickName;
                 $this->loginTime = time();
                 // для админа в сессию запишем еще несколько значений
-                if ($user->user->accessLevel == User::ACCESS_LEVEL_ADMIN) {
+                if ($user->user->accessLevel == User::ACCESS_LEVEL_ADMIN)
+                {
                     Yii::app()->user->setState('loginAdmTime', time());
                     Yii::app()->user->setState('isAdmin', $user->user->accessLevel);
                 }

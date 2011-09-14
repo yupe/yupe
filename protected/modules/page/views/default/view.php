@@ -15,7 +15,8 @@ $this->menu = array(
 );
 ?>
 
-<h1><?php echo Yii::t('page', 'Просмотр страницы');?> "<?php echo $model->title; ?>"</h1>
+<h1><?php echo Yii::t('page', 'Просмотр страницы');?>
+    "<?php echo $model->title; ?>"</h1>
 
 <?php echo CHtml::link(Yii::t('page', 'Просмотреть на сайте'), array('/page/page/show', 'slug' => $model->slug, 'preview' => 1)); ?>
 

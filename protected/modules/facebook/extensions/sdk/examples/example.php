@@ -37,19 +37,26 @@ $session = $facebook->getSession();
 
 $me = null;
 // Session based API call.
-if ($session) {
-    try {
+if ($session)
+{
+    try
+    {
         $uid = $facebook->getUser();
         $me = $facebook->api('/me');
-    } catch (FacebookApiException $e) {
+    }
+    catch (FacebookApiException $e)
+    {
         error_log($e);
     }
 }
 
 // login or logout url will be needed depending on current user state.
-if ($me) {
+if ($me)
+{
     $logoutUrl = $facebook->getLogoutUrl();
-} else {
+}
+else
+{
     $loginUrl = $facebook->getLoginUrl();
 }
 

@@ -12,7 +12,8 @@ class YupeStartUpBehavior extends CBehavior
         {
             $yupeModule = Yii::app()->getModule('yupe');
 
-            if ($yupeModule && $yupeModule->theme) {
+            if ($yupeModule && $yupeModule->theme)
+            {
                 Yii::app()->theme = $yupeModule->theme;
             }
 

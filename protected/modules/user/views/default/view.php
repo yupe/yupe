@@ -15,7 +15,8 @@ $this->menu = array(
 );
 ?>
 
-<h1><?php echo Yii::t('user', 'Просмотр пользователя')?> "<?php echo $model->getFullName(); ?>
+<h1><?php echo Yii::t('user', 'Просмотр пользователя')?>
+    "<?php echo $model->getFullName(); ?>
     (<?php echo $model->nickName;?>)"</h1>
 
 <?php $this->widget('zii.widgets.CDetailView', array(

@@ -22,10 +22,12 @@ class DefaultController extends YBackController
     {
         $model = new FeedBack();
 
-        if (isset($_POST['FeedBack'])) {
+        if (isset($_POST['FeedBack']))
+        {
             $model->attributes = $_POST['FeedBack'];
 
-            if ($model->save()) {
+            if ($model->save())
+            {
                 Yii::app()->user->setFlash(FlashMessagesWidget::NOTICE_MESSAGE, 'Сообщение сохранено!');
 
                 $this->redirect(array('update', 'id' => $model->id));
@@ -48,10 +50,12 @@ class DefaultController extends YBackController
         // Uncomment the following line if AJAX validation is needed
         // $this->performAjaxValidation($model);
 
-        if (isset($_POST['FeedBack'])) {
+        if (isset($_POST['FeedBack']))
+        {
             $model->attributes = $_POST['FeedBack'];
 
-            if ($model->save()) {
+            if ($model->save())
+            {
                 Yii::app()->user->setFlash(FlashMessagesWidget::NOTICE_MESSAGE, 'Сообщение обновлено!');
 
                 $this->redirect(array('view', 'id' => $model->id));
@@ -77,18 +81,22 @@ class DefaultController extends YBackController
                                   'isFaq' => $model->isFaq
                              ));
 
-        if (is_null($model)) {
+        if (is_null($model))
+        {
             throw new CHttpException(404, Yii::t('feedback', 'Страница не найдена!'));
         }
 
-        if ($model->status == FeedBack::STATUS_ANSWER_SENDED) {
+        if ($model->status == FeedBack::STATUS_ANSWER_SENDED)
+        {
             Yii::app()->user->setFlash(FlashMessagesWidget::NOTICE_MESSAGE, Yii::t('feedback', 'Внимание! Ответ на это сообщение уже был отправлен!'));
         }
 
-        if (Yii::app()->request->isPostRequest && isset($_POST['AnswerForm'])) {
+        if (Yii::app()->request->isPostRequest && isset($_POST['AnswerForm']))
+        {
             $form->setAttributes($_POST['AnswerForm']);
 
-            if ($form->validate()) {
+            if ($form->validate())
+            {
                 //TODO отправка сообщения и изменение статуса
 
                 $model->setAttributes(array(
@@ -99,7 +107,8 @@ class DefaultController extends YBackController
                                            'status' => FeedBack::STATUS_ANSWER_SENDED
                                       ));
 
-                if ($model->save()) {
+                if ($model->save())
+                {
                     Yii::app()->user->setFlash(FlashMessagesWidget::NOTICE_MESSAGE, Yii::t('feedback', 'Ответ на сообщение отправлен!'));
 
                     $this->redirect(array('/feedback/default/view/', 'id' => $model->id));
@@ -117,12 +126,14 @@ class DefaultController extends YBackController
      */
     public function actionDelete()
     {
-        if (Yii::app()->request->isPostRequest) {
+        if (Yii::app()->request->isPostRequest)
+        {
             // we only allow deletion via POST request
             $this->loadModel()->delete();
 
             // if AJAX request (triggered by deletion via admin grid view), we should not redirect the browser
-            if (!isset($_GET['ajax'])) {
+            if (!isset($_GET['ajax']))
+            {
                 $this->redirect(array('index'));
             }
         }
@@ -151,7 +162,8 @@ class DefaultController extends YBackController
     {
         $model = new FeedBack('search');
         $model->unsetAttributes(); // clear any default values
-        if (isset($_GET['FeedBack'])) {
+        if (isset($_GET['FeedBack']))
+        {
             $model->attributes = $_GET['FeedBack'];
         }
 
@@ -166,11 +178,14 @@ class DefaultController extends YBackController
      */
     public function loadModel()
     {
-        if ($this->_model === null) {
-            if (isset($_GET['id'])) {
+        if ($this->_model === null)
+        {
+            if (isset($_GET['id']))
+            {
                 $this->_model = FeedBack::model()->findbyPk($_GET['id']);
             }
-            if ($this->_model === null) {
+            if ($this->_model === null)
+            {
                 throw new CHttpException(404, 'The requested page does not exist.');
             }
         }
@@ -183,7 +198,8 @@ class DefaultController extends YBackController
      */
     protected function performAjaxValidation($model)
     {
-        if (isset($_POST['ajax']) && $_POST['ajax'] === 'feed-back-form') {
+        if (isset($_POST['ajax']) && $_POST['ajax'] === 'feed-back-form')
+        {
             echo CActiveForm::validate($model);
             Yii::app()->end();
         }

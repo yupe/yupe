@@ -38,19 +38,20 @@ class FeedBack extends CActiveRecord
     {
         $data = $this->getStatusList();
         return array_key_exists($this->status, $data) ? $data[$this->status]
-                : Yii::t('feedback', 'Статус сообщения неизвестен');
+            : Yii::t('feedback', 'Статус сообщения неизвестен');
     }
 
     public function getTypeList()
     {
-        return is_array(Yii::app()->getModule('feedback')->types) ? Yii::app()->getModule('feedback')->types : array();
+        return is_array(Yii::app()->getModule('feedback')->types)
+            ? Yii::app()->getModule('feedback')->types : array();
     }
 
     public function getType()
     {
         $data = $this->getTypeList();
         return array_key_exists($this->type, $data) ? $data[$this->type]
-                : Yii::t('feedback', 'Неизвестный тип сообщения!');
+            : Yii::t('feedback', 'Неизвестный тип сообщения!');
     }
 
     /**
@@ -147,8 +148,10 @@ class FeedBack extends CActiveRecord
 
     public function beforeValidate()
     {
-        if (parent::beforeSave()) {
-            if ($this->isNewRecord) {
+        if (parent::beforeSave())
+        {
+            if ($this->isNewRecord)
+            {
                 $this->creationDate = $this->changeDate = new CDbExpression('NOW()');
                 $this->ip = Yii::app()->request->userHostAddress;
             }
@@ -170,6 +173,7 @@ class FeedBack extends CActiveRecord
 
     public function getIsFaq()
     {
-        return $this->isFaq ? Yii::t('feedback', 'Да') : Yii::t('feedback', 'Нет');
+        return $this->isFaq ? Yii::t('feedback', 'Да')
+            : Yii::t('feedback', 'Нет');
     }
 }

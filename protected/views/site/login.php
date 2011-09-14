@@ -15,7 +15,8 @@ $this->breadcrumbs = array(
                                                          'enableAjaxValidation' => true,
                                                     )); ?>
 
-    <p class="note">Fields with <span class="required">*</span> are required.</p>
+    <p class="note">Fields with <span class="required">*</span> are required.
+    </p>
 
     <div class="row">
         <?php echo $form->labelEx($model, 'username'); ?>

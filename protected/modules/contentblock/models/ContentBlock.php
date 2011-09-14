@@ -30,7 +30,8 @@ class ContentBlock extends CActiveRecord
     {
         $data = $this->getTypes();
 
-        return array_key_exists($this->type, $data) ? $data[$this->type] : Yii::t('contentblock', '*неизвестный тип*');
+        return array_key_exists($this->type, $data) ? $data[$this->type]
+            : Yii::t('contentblock', '*неизвестный тип*');
     }
 
     /**

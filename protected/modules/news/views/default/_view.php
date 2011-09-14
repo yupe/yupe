@@ -4,7 +4,8 @@
     <?php echo CHtml::link(CHtml::encode($data->id), array('view', 'id' => $data->id)); ?>
     <br/>
 
-    <b><?php echo CHtml::encode($data->getAttributeLabel('creationDate')); ?>:</b>
+    <b><?php echo CHtml::encode($data->getAttributeLabel('creationDate')); ?>
+        :</b>
     <?php echo CHtml::encode($data->creationDate); ?>
     <br/>
 
@@ -40,7 +41,8 @@
     <?php echo CHtml::encode($data->getStatus()); ?>
     <br/>
 
-    <b><?php echo CHtml::encode($data->getAttributeLabel('isProtected')); ?>:</b>
+    <b><?php echo CHtml::encode($data->getAttributeLabel('isProtected')); ?>
+        :</b>
     <?php echo CHtml::encode($data->getProtectedStatus()); ?>
     <br/>
 </div>

@@ -66,7 +66,8 @@ abstract class YWebModule extends CWebModule
     {
         parent::init();
 
-        if (is_object(Yii::app()->theme)) {
+        if (is_object(Yii::app()->theme))
+        {
             $this->layout = 'webroot.themes.' . Yii::app()->theme->name . '.views.layouts.main';
         }
 
@@ -80,7 +81,8 @@ abstract class YWebModule extends CWebModule
         {
             $propertie = $model->paramName;
 
-            if (property_exists($this, $propertie) && in_array($propertie, $editableParams)) {
+            if (property_exists($this, $propertie) && in_array($propertie, $editableParams))
+            {
                 $this->$propertie = $model->paramValue;
             }
         }

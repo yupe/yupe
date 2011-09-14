@@ -57,13 +57,15 @@ class YText
      */
     public static function characterLimiter($str, $n = 500, $end_char = '&#8230;')
     {
-        if (mb_strlen($str) < $n) {
+        if (mb_strlen($str) < $n)
+        {
             return $str;
         }
 
         $str = preg_replace("/\s+/", ' ', str_replace(array("\r\n", "\r", "\n"), ' ', $str));
 
-        if (mb_strlen($str) <= $n) {
+        if (mb_strlen($str) <= $n)
+        {
             return $str;
         }
 
@@ -72,9 +74,11 @@ class YText
         {
             $out .= $val . ' ';
 
-            if (mb_strlen($out) >= $n) {
+            if (mb_strlen($out) >= $n)
+            {
                 $out = trim($out);
-                return (mb_strlen($out) == mb_strlen($str)) ? $out : $out . $end_char;
+                return (mb_strlen($out) == mb_strlen($str)) ? $out
+                    : $out . $end_char;
             }
         }
     }
@@ -94,13 +98,15 @@ class YText
 
     public static function wordLimiter($str, $limit = 100, $end_char = '&#8230;')
     {
-        if (trim($str) == '') {
+        if (trim($str) == '')
+        {
             return $str;
         }
 
         preg_match('/^\s*+(?:\S++\s*+){1,' . (int)$limit . '}/', $str, $matches);
 
-        if (mb_strlen($str) == mb_strlen($matches[0])) {
+        if (mb_strlen($str) == mb_strlen($matches[0]))
+        {
             $end_char = '';
         }
 
@@ -122,7 +128,8 @@ class YText
      */
     public static function wordCensor($str, $censored, $replacement = '')
     {
-        if (!is_array($censored)) {
+        if (!is_array($censored))
+        {
             return $str;
         }
 
@@ -136,7 +143,8 @@ class YText
 
         foreach ($censored as $badword)
         {
-            if ($replacement != '') {
+            if ($replacement != '')
+            {
                 $str = preg_replace("/({$delim})(" . str_replace('\*', '\w*?', preg_quote($badword, '/')) . ")({$delim})/i", "\\1{$replacement}\\3", $str);
             }
             else
@@ -163,11 +171,13 @@ class YText
      */
     public static function highlightPhrase($str, $phrase, $tag_open = '<strong>', $tag_close = '</strong>')
     {
-        if ($str == '') {
+        if ($str == '')
+        {
             return '';
         }
 
-        if ($phrase != '') {
+        if ($phrase != '')
+        {
             return preg_replace('/(' . preg_quote($phrase, '/') . ')/i', $tag_open . "\\1" . $tag_close, $str);
         }
 
@@ -191,7 +201,8 @@ class YText
     function wordWrap($str, $charlim = '76')
     {
         // Se the character limit
-        if (!is_numeric($charlim)) {
+        if (!is_numeric($charlim))
+        {
             $charlim = 76;
         }
 
@@ -199,14 +210,16 @@ class YText
         $str = preg_replace("| +|", " ", $str);
 
         // Standardize newlines
-        if (strpos($str, "\r") !== FALSE) {
+        if (strpos($str, "\r") !== FALSE)
+        {
             $str = str_replace(array("\r\n", "\r"), "\n", $str);
         }
 
         // If the current word is surrounded by {unwrap} tags we'll
         // strip the entire chunk and replace it with a marker.
         $unwrap = array();
-        if (preg_match_all("|(\{unwrap\}.+?\{/unwrap\})|s", $str, $matches)) {
+        if (preg_match_all("|(\{unwrap\}.+?\{/unwrap\})|s", $str, $matches))
+        {
             for ($i = 0; $i < count($matches['0']); $i++)
             {
                 $unwrap[] = $matches['1'][$i];
@@ -225,7 +238,8 @@ class YText
         {
             // Is the line within the allowed character count?
             // If so we'll join it to the output and continue
-            if (strlen($line) <= $charlim) {
+            if (strlen($line) <= $charlim)
+            {
                 $output .= $line . "\n";
                 continue;
             }
@@ -234,7 +248,8 @@ class YText
             while ((strlen($line)) > $charlim)
             {
                 // If the over-length word is a URL we won't wrap it
-                if (preg_match("!\[url.+\]|://|wwww.!", $line)) {
+                if (preg_match("!\[url.+\]|://|wwww.!", $line))
+                {
                     break;
                 }
 
@@ -245,7 +260,8 @@ class YText
 
             // If $temp contains data it means we had to split up an over-length
             // word into smaller chunks so we'll add it back to our current line
-            if ($temp != '') {
+            if ($temp != '')
+            {
                 $output .= $temp . "\n" . $line;
             }
             else
@@ -257,7 +273,8 @@ class YText
         }
 
         // Put our markers back
-        if (count($unwrap) > 0) {
+        if (count($unwrap) > 0)
+        {
             foreach ($unwrap as $key => $val)
             {
                 $output = str_replace("{{unwrapped" . $key . "}}", $val, $output);
@@ -281,12 +298,14 @@ class YText
         {
             $ordinal = ord($str[$i]);
 
-            if ($ordinal < 128) {
+            if ($ordinal < 128)
+            {
                 /*
                         If the $temp array has a value but we have moved on, then it seems only
                         fair that we output that entity and restart $temp before continuing. -Paul
                     */
-                if (count($temp) == 1) {
+                if (count($temp) == 1)
+                {
                     $out .= '&#' . array_shift($temp) . ';';
                     $count = 1;
                 }
@@ -295,15 +314,18 @@ class YText
             }
             else
             {
-                if (count($temp) == 0) {
+                if (count($temp) == 0)
+                {
                     $count = ($ordinal < 224) ? 2 : 3;
                 }
 
                 $temp[] = $ordinal;
 
-                if (count($temp) == $count) {
-                    $number = ($count == 3) ? (($temp['0'] % 16) * 4096) + (($temp['1'] % 64) * 64) + ($temp['2'] % 64)
-                            : (($temp['0'] % 32) * 64) + ($temp['1'] % 64);
+                if (count($temp) == $count)
+                {
+                    $number = ($count == 3)
+                        ? (($temp['0'] % 16) * 4096) + (($temp['1'] % 64) * 64) + ($temp['2'] % 64)
+                        : (($temp['0'] % 32) * 64) + ($temp['1'] % 64);
 
                     $out .= '&#' . $number . ';';
                     $count = 1;
@@ -318,14 +340,16 @@ class YText
 
     public static function entitiesToAscii($str, $all = TRUE)
     {
-        if (preg_match_all('/\&#(\d+)\;/', $str, $matches)) {
+        if (preg_match_all('/\&#(\d+)\;/', $str, $matches))
+        {
             for ($i = 0, $s = count($matches['0']); $i < $s; $i++)
             {
                 $digits = $matches['1'][$i];
 
                 $out = '';
 
-                if ($digits < 128) {
+                if ($digits < 128)
+                {
                     $out .= chr($digits);
 
                 }
@@ -345,7 +369,8 @@ class YText
             }
         }
 
-        if ($all) {
+        if ($all)
+        {
             $str = str_replace(array("&amp;", "&lt;", "&gt;", "&quot;", "&apos;", "&#45;"),
                                array("&", "<", ">", "\"", "'", "-"),
                                $str);

@@ -21,10 +21,12 @@ class DefaultController extends YBackController
     {
         $model = new Image;
 
-        if (Yii::app()->request->isPostRequest) {
+        if (Yii::app()->request->isPostRequest)
+        {
             $model = $model->create($_POST['Image']);
 
-            if (!$model->hasErrors()) {
+            if (!$model->hasErrors())
+            {
                 $this->redirect(array('view', 'id' => $model->id));
             }
         }
@@ -41,10 +43,12 @@ class DefaultController extends YBackController
     {
         $model = $this->loadModel($id);
 
-        if (isset($_POST['Image'])) {
+        if (isset($_POST['Image']))
+        {
             $model->setAttributes($_POST['Image']);
 
-            if ($model->save()) {
+            if ($model->save())
+            {
                 $this->redirect(array('view', 'id' => $model->id));
             }
         }
@@ -59,13 +63,16 @@ class DefaultController extends YBackController
      */
     public function actionDelete($id)
     {
-        if (Yii::app()->request->isPostRequest) {
+        if (Yii::app()->request->isPostRequest)
+        {
             // we only allow deletion via POST request
             $model = $this->loadModel($id)->delete();
 
             // if AJAX request (triggered by deletion via admin grid view), we should not redirect the browser
-            if (!isset($_GET['ajax'])) {
-                $this->redirect(isset($_POST['returnUrl']) ? $_POST['returnUrl'] : array('admin'));
+            if (!isset($_GET['ajax']))
+            {
+                $this->redirect(isset($_POST['returnUrl']) ? $_POST['returnUrl']
+                                    : array('admin'));
             }
         }
         else
@@ -119,7 +126,8 @@ class DefaultController extends YBackController
      */
     protected function performAjaxValidation($model)
     {
-        if (isset($_POST['ajax']) && $_POST['ajax'] === 'image-form') {
+        if (isset($_POST['ajax']) && $_POST['ajax'] === 'image-form')
+        {
             echo CActiveForm::validate($model);
             Yii::app()->end();
         }

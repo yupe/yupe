@@ -5,7 +5,8 @@
         <div id="c2" class="comment">
             <div class="author">
                 <?php if ($comment->url): ?>
-                <a href="<?php echo $comment->url;?>"><?php echo $comment->name;?></a> написал:
+                <a href="<?php echo $comment->url;?>"><?php echo $comment->name;?></a>
+                написал:
                 <?php else: ?>
                 <?php echo $comment->name; ?> написал:
                 <?php endif;?>

@@ -15,7 +15,8 @@ class DefaultController extends Controller
     protected function beforeAction()
     {
         // проверка на то, что сайт уже установлен...
-        if (file_exists($this->alreadyInstalledFlag) && $this->action->id != 'finish') {
+        if (file_exists($this->alreadyInstalledFlag) && $this->action->id != 'finish')
+        {
             throw new CHttpException(404, Yii::t('yupe', 'Страница не найдена!'));
         }
 
@@ -119,13 +120,16 @@ class DefaultController extends Controller
 
         foreach ($requirements as $i => $requirement)
         {
-            if ($requirement[1] && !$requirement[2]) {
+            if ($requirement[1] && !$requirement[2])
+            {
                 $result = 0;
             }
-            else if ($result > 0 && !$requirement[1] && !$requirement[2]) {
+            else if ($result > 0 && !$requirement[1] && !$requirement[2])
+            {
                 $result = -1;
             }
-            if ($requirement[4] === '') {
+            if ($requirement[4] === '')
+            {
                 $requirements[$i][4] = '&nbsp;';
             }
         }
@@ -145,10 +149,12 @@ class DefaultController extends Controller
 
         $form = new DbSettingsForm();
 
-        if (Yii::app()->request->isPostRequest) {
+        if (Yii::app()->request->isPostRequest)
+        {
             $form->setAttributes($_POST['DbSettingsForm']);
 
-            if ($form->validate()) {
+            if ($form->validate())
+            {
                 try
                 {
                     //@TODO правильня обработка указанного номера порта - сейчас вообще не учитывается
@@ -180,7 +186,8 @@ class DefaultController extends Controller
 
                     $fh = fopen($dbConfFile, 'w+');
 
-                    if (!$fh) {
+                    if (!$fh)
+                    {
                         $form->addError('', Yii::t('install', "Не могу открыть файл '{file}' для записии!", array('{file}' => $dbConfFile)));
                     }
                     else
@@ -196,10 +203,12 @@ class DefaultController extends Controller
                         // обработать если есть все файлы с расшмрением .sql
                         $sqlFiles = glob("{$sqlDataDir}*.sql");
 
-                        if (is_array($sqlFiles) && count($sqlFiles) > 1) {
+                        if (is_array($sqlFiles) && count($sqlFiles) > 1)
+                        {
                             foreach ($sqlFiles as $file)
                             {
-                                if ($file != $sqlFile) {
+                                if ($file != $sqlFile)
+                                {
                                     $this->executeSql($file);
                                 }
                             }
@@ -220,11 +229,13 @@ class DefaultController extends Controller
 
         $result = $sqlResult = false;
 
-        if (file_exists($dbConfFile) && is_writable($dbConfFile)) {
+        if (file_exists($dbConfFile) && is_writable($dbConfFile))
+        {
             $result = true;
         }
 
-        if (file_exists($sqlFile) && is_readable($sqlFile)) {
+        if (file_exists($sqlFile) && is_readable($sqlFile))
+        {
             $sqlResult = true;
         }
 
@@ -237,10 +248,12 @@ class DefaultController extends Controller
 
         $model = new CreateUserForm();
 
-        if (Yii::app()->request->isPostRequest && isset($_POST['CreateUserForm'])) {
+        if (Yii::app()->request->isPostRequest && isset($_POST['CreateUserForm']))
+        {
             $model->setAttributes($_POST['CreateUserForm']);
 
-            if ($model->validate()) {
+            if ($model->validate())
+            {
                 $user = new User();
 
                 $salt = Registration::model()->generateSalt();
@@ -255,7 +268,8 @@ class DefaultController extends Controller
                                           'accessLevel' => User::ACCESS_LEVEL_ADMIN
                                      ));
 
-                if ($user->save()) {
+                if ($user->save())
+                {
                     Yii::app()->user->setFlash(FlashMessagesWidget::NOTICE_MESSAGE, Yii::t('install', 'Администратор успешно создан!'));
 
                     @touch($this->alreadyInstalledFlag);
@@ -274,17 +288,20 @@ class DefaultController extends Controller
 
         $model = new SiteSettingsForm();
 
-        if (Yii::app()->request->isPostRequest) {
+        if (Yii::app()->request->isPostRequest)
+        {
             $model->setAttributes($_POST['SiteSettingsForm']);
 
-            if ($model->validate()) {
+            if ($model->validate())
+            {
                 $transaction = Yii::app()->db->beginTransaction();
 
                 try
                 {
                     $user = User::model()->admin()->findAll();
 
-                    if (count($user) > 1) {
+                    if (count($user) > 1)
+                    {
                         throw new CHttpException(500, Yii::t('install', 'Произошла ошибка при установке =('));
                     }
 
@@ -299,7 +316,8 @@ class DefaultController extends Controller
                                                       'userId' => $user[0]->id
                                                  ));
 
-                        if ($settings->save()) {
+                        if ($settings->save())
+                        {
                             continue;
                         }
                         else

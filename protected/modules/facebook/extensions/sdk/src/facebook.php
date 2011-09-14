@@ -16,10 +16,12 @@
  * under the License.
  */
 
-if (!function_exists('curl_init')) {
+if (!function_exists('curl_init'))
+{
     throw new Exception('Facebook needs the CURL PHP extension.');
 }
-if (!function_exists('json_decode')) {
+if (!function_exists('json_decode'))
+{
     throw new Exception('Facebook needs the JSON PHP extension.');
 }
 
@@ -46,16 +48,23 @@ class FacebookApiException extends Exception
 
         $code = isset($result['error_code']) ? $result['error_code'] : 0;
 
-        if (isset($result['error_description'])) {
+        if (isset($result['error_description']))
+        {
             // OAuth 2.0 Draft 10 style
             $msg = $result['error_description'];
-        } else if (isset($result['error']) && is_array($result['error'])) {
+        }
+        else if (isset($result['error']) && is_array($result['error']))
+        {
             // OAuth 2.0 Draft 00 style
             $msg = $result['error']['message'];
-        } else if (isset($result['error_msg'])) {
+        }
+        else if (isset($result['error_msg']))
+        {
             // Rest server style
             $msg = $result['error_msg'];
-        } else {
+        }
+        else
+        {
             $msg = 'Unknown Error. Check getResult()';
         }
 
@@ -80,14 +89,19 @@ class FacebookApiException extends Exception
      */
     public function getType()
     {
-        if (isset($this->result['error'])) {
+        if (isset($this->result['error']))
+        {
             $error = $this->result['error'];
-            if (is_string($error)) {
+            if (is_string($error))
+            {
                 // OAuth 2.0 Draft 10 style
                 return $error;
-            } else if (is_array($error)) {
+            }
+            else if (is_array($error))
+            {
                 // OAuth 2.0 Draft 00 style
-                if (isset($error['type'])) {
+                if (isset($error['type']))
+                {
                     return $error['type'];
                 }
             }
@@ -103,7 +117,8 @@ class FacebookApiException extends Exception
     public function __toString()
     {
         $str = $this->getType() . ': ';
-        if ($this->code != 0) {
+        if ($this->code != 0)
+        {
             $str .= $this->code . ': ';
         }
         return $str . $this->message;
@@ -208,13 +223,16 @@ class Facebook
     {
         $this->setAppId($config['appId']);
         $this->setApiSecret($config['secret']);
-        if (isset($config['cookie'])) {
+        if (isset($config['cookie']))
+        {
             $this->setCookieSupport($config['cookie']);
         }
-        if (isset($config['domain'])) {
+        if (isset($config['domain']))
+        {
             $this->setBaseDomain($config['domain']);
         }
-        if (isset($config['fileUpload'])) {
+        if (isset($config['fileUpload']))
+        {
             $this->setFileUploadSupport($config['fileUpload']);
         }
     }
@@ -331,8 +349,10 @@ class Facebook
      */
     public function getSignedRequest()
     {
-        if (!$this->signedRequest) {
-            if (isset($_REQUEST['signed_request'])) {
+        if (!$this->signedRequest)
+        {
+            if (isset($_REQUEST['signed_request']))
+            {
                 $this->signedRequest = $this->parseSignedRequest(
                     $_REQUEST['signed_request']);
             }
@@ -352,7 +372,8 @@ class Facebook
         $session = $this->validateSessionObject($session);
         $this->sessionLoaded = true;
         $this->session = $session;
-        if ($write_cookie) {
+        if ($write_cookie)
+        {
             $this->setCookieFromSession($session);
         }
         return $this;
@@ -366,37 +387,42 @@ class Facebook
      */
     public function getSession()
     {
-        if (!$this->sessionLoaded) {
+        if (!$this->sessionLoaded)
+        {
             $session = null;
             $write_cookie = true;
 
             // try loading session from signed_request in $_REQUEST
             $signedRequest = $this->getSignedRequest();
-            if ($signedRequest) {
+            if ($signedRequest)
+            {
                 // sig is good, use the signedRequest
                 $session = $this->createSessionFromSignedRequest($signedRequest);
             }
 
             // try loading session from $_REQUEST
-            if (!$session && isset($_REQUEST['session'])) {
+            if (!$session && isset($_REQUEST['session']))
+            {
                 $session = json_decode(
                     get_magic_quotes_gpc()
-                            ? stripslashes($_REQUEST['session'])
-                            : $_REQUEST['session'],
+                        ? stripslashes($_REQUEST['session'])
+                        : $_REQUEST['session'],
                     true
                 );
                 $session = $this->validateSessionObject($session);
             }
 
             // try loading session from cookie if necessary
-            if (!$session && $this->useCookieSupport()) {
+            if (!$session && $this->useCookieSupport())
+            {
                 $cookieName = $this->getSessionCookieName();
-                if (isset($_COOKIE[$cookieName])) {
+                if (isset($_COOKIE[$cookieName]))
+                {
                     $session = array();
                     parse_str(trim(
                                   get_magic_quotes_gpc()
-                                          ? stripslashes($_COOKIE[$cookieName])
-                                          : $_COOKIE[$cookieName],
+                                      ? stripslashes($_COOKIE[$cookieName])
+                                      : $_COOKIE[$cookieName],
                                   '"'
                               ), $session);
                     $session = $this->validateSessionObject($session);
@@ -431,9 +457,12 @@ class Facebook
     {
         $session = $this->getSession();
         // either user session signed, or app signed
-        if ($session) {
+        if ($session)
+        {
             return $session['access_token'];
-        } else {
+        }
+        else
+        {
             return $this->getAppId() . '|' . $this->getApiSecret();
         }
     }
@@ -527,9 +556,12 @@ class Facebook
     public function api( /* polymorphic */)
     {
         $args = func_get_args();
-        if (is_array($args[0])) {
+        if (is_array($args[0]))
+        {
             return $this->_restserver($args[0]);
-        } else {
+        }
+        else
+        {
             return call_user_func_array(array($this, '_graph'), $args);
         }
     }
@@ -553,7 +585,8 @@ class Facebook
                               ), true);
 
         // results are returned, errors are thrown
-        if (is_array($result) && isset($result['error_code'])) {
+        if (is_array($result) && isset($result['error_code']))
+        {
             throw new FacebookApiException($result);
         }
         return $result;
@@ -570,7 +603,8 @@ class Facebook
      */
     protected function _graph($path, $method = 'GET', $params = array())
     {
-        if (is_array($method) && empty($params)) {
+        if (is_array($method) && empty($params))
+        {
             $params = $method;
             $method = 'GET';
         }
@@ -582,9 +616,11 @@ class Facebook
                               ), true);
 
         // results are returned, errors are thrown
-        if (is_array($result) && isset($result['error'])) {
+        if (is_array($result) && isset($result['error']))
+        {
             $e = new FacebookApiException($result);
-            switch ($e->getType()) {
+            switch ($e->getType())
+            {
                 // OAuth 2.0 Draft 00 style
                 case 'OAuthException':
                     // OAuth 2.0 Draft 10 style
@@ -606,13 +642,16 @@ class Facebook
      */
     protected function _oauthRequest($url, $params)
     {
-        if (!isset($params['access_token'])) {
+        if (!isset($params['access_token']))
+        {
             $params['access_token'] = $this->getAccessToken();
         }
 
         // json_encode all params values that are not strings
-        foreach ($params as $key => $value) {
-            if (!is_string($value)) {
+        foreach ($params as $key => $value)
+        {
+            if (!is_string($value))
+            {
                 $params[$key] = json_encode($value);
             }
         }
@@ -631,39 +670,48 @@ class Facebook
      */
     protected function makeRequest($url, $params, $ch = null)
     {
-        if (!$ch) {
+        if (!$ch)
+        {
             $ch = curl_init();
         }
 
         $opts = self::$CURL_OPTS;
-        if ($this->useFileUploadSupport()) {
+        if ($this->useFileUploadSupport())
+        {
             $opts[CURLOPT_POSTFIELDS] = $params;
-        } else {
+        }
+        else
+        {
             $opts[CURLOPT_POSTFIELDS] = http_build_query($params, null, '&');
         }
         $opts[CURLOPT_URL] = $url;
 
         // disable the 'Expect: 100-continue' behaviour. This causes CURL to wait
         // for 2 seconds if the server does not support this header.
-        if (isset($opts[CURLOPT_HTTPHEADER])) {
+        if (isset($opts[CURLOPT_HTTPHEADER]))
+        {
             $existing_headers = $opts[CURLOPT_HTTPHEADER];
             $existing_headers[] = 'Expect:';
             $opts[CURLOPT_HTTPHEADER] = $existing_headers;
-        } else {
+        }
+        else
+        {
             $opts[CURLOPT_HTTPHEADER] = array('Expect:');
         }
 
         curl_setopt_array($ch, $opts);
         $result = curl_exec($ch);
 
-        if (curl_errno($ch) == 60) { // CURLE_SSL_CACERT
+        if (curl_errno($ch) == 60)
+        { // CURLE_SSL_CACERT
             self::errorLog('Invalid or no certificate authority found, using bundled information');
             curl_setopt($ch, CURLOPT_CAINFO,
                         dirname(__FILE__) . '/fb_ca_chain_bundle.crt');
             $result = curl_exec($ch);
         }
 
-        if ($result === false) {
+        if ($result === false)
+        {
             $e = new FacebookApiException(array(
                                                'error_code' => curl_errno($ch),
                                                'error' => array(
@@ -696,7 +744,8 @@ class Facebook
      */
     protected function setCookieFromSession($session = null)
     {
-        if (!$this->useCookieSupport()) {
+        if (!$this->useCookieSupport())
+        {
             return;
         }
 
@@ -704,31 +753,38 @@ class Facebook
         $value = 'deleted';
         $expires = time() - 3600;
         $domain = $this->getBaseDomain();
-        if ($session) {
+        if ($session)
+        {
             $value = '"' . http_build_query($session, null, '&') . '"';
-            if (isset($session['base_domain'])) {
+            if (isset($session['base_domain']))
+            {
                 $domain = $session['base_domain'];
             }
             $expires = $session['expires'];
         }
 
         // prepend dot if a domain is found
-        if ($domain) {
+        if ($domain)
+        {
             $domain = '.' . $domain;
         }
 
         // if an existing cookie is not set, we dont need to delete it
-        if ($value == 'deleted' && empty($_COOKIE[$cookieName])) {
+        if ($value == 'deleted' && empty($_COOKIE[$cookieName]))
+        {
             return;
         }
 
-        if (headers_sent()) {
+        if (headers_sent())
+        {
             self::errorLog('Could not set cookie. Headers already sent.');
 
             // ignore for code coverage as we will never be able to setcookie in a CLI
             // environment
             // @codeCoverageIgnoreStart
-        } else {
+        }
+        else
+        {
             setcookie($cookieName, $value, $expires, '/', $domain);
         }
         // @codeCoverageIgnoreEnd
@@ -747,7 +803,8 @@ class Facebook
             isset($session['uid']) &&
             isset($session['access_token']) &&
             isset($session['sig'])
-        ) {
+        )
+        {
             // validate the signature
             $session_without_sig = $session;
             unset($session_without_sig['sig']);
@@ -755,12 +812,15 @@ class Facebook
                 $session_without_sig,
                 $this->getApiSecret()
             );
-            if ($session['sig'] != $expected_sig) {
+            if ($session['sig'] != $expected_sig)
+            {
                 self::errorLog('Got invalid session signature in cookie.');
                 $session = null;
             }
             // check expiry time
-        } else {
+        }
+        else
+        {
             $session = null;
         }
         return $session;
@@ -777,7 +837,8 @@ class Facebook
      */
     protected function createSessionFromSignedRequest($data)
     {
-        if (!isset($data['oauth_token'])) {
+        if (!isset($data['oauth_token']))
+        {
             return null;
         }
 
@@ -813,7 +874,8 @@ class Facebook
         $sig = self::base64UrlDecode($encoded_sig);
         $data = json_decode(self::base64UrlDecode($payload), true);
 
-        if (strtoupper($data['algorithm']) !== 'HMAC-SHA256') {
+        if (strtoupper($data['algorithm']) !== 'HMAC-SHA256')
+        {
             self::errorLog('Unknown algorithm. Expected HMAC-SHA256');
             return null;
         }
@@ -821,7 +883,8 @@ class Facebook
         // check sig
         $expected_sig = hash_hmac('sha256', $payload,
                                   $this->getApiSecret(), $raw = true);
-        if ($sig !== $expected_sig) {
+        if ($sig !== $expected_sig)
+        {
             self::errorLog('Bad Signed JSON signature!');
             return null;
         }
@@ -899,9 +962,12 @@ class Facebook
               'users.isverified' => 1,
               'video.getuploadlimits' => 1);
         $name = 'api';
-        if (isset($READ_ONLY_CALLS[strtolower($method)])) {
+        if (isset($READ_ONLY_CALLS[strtolower($method)]))
+        {
             $name = 'api_read';
-        } else if (strtolower($method) == 'video.upload') {
+        }
+        else if (strtolower($method) == 'video.upload')
+        {
             $name = 'api_video';
         }
         return self::getUrl($name, 'restserver.php');
@@ -918,13 +984,16 @@ class Facebook
     protected function getUrl($name, $path = '', $params = array())
     {
         $url = self::$DOMAIN_MAP[$name];
-        if ($path) {
-            if ($path[0] === '/') {
+        if ($path)
+        {
+            if ($path[0] === '/')
+            {
                 $path = substr($path, 1);
             }
             $url .= $path;
         }
-        if ($params) {
+        if ($params)
+        {
             $url .= '?' . http_build_query($params, null, '&');
         }
         return $url;
@@ -939,30 +1008,33 @@ class Facebook
     protected function getCurrentUrl()
     {
         $protocol = isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] == 'on'
-                ? 'https://'
-                : 'http://';
+            ? 'https://'
+            : 'http://';
         $currentUrl = $protocol . $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI'];
         $parts = parse_url($currentUrl);
 
         // drop known fb params
         $query = '';
-        if (!empty($parts['query'])) {
+        if (!empty($parts['query']))
+        {
             $params = array();
             parse_str($parts['query'], $params);
-            foreach (self::$DROP_QUERY_PARAMS as $key) {
+            foreach (self::$DROP_QUERY_PARAMS as $key)
+            {
                 unset($params[$key]);
             }
-            if (!empty($params)) {
+            if (!empty($params))
+            {
                 $query = '?' . http_build_query($params, null, '&');
             }
         }
 
         // use port if non default
         $port =
-                isset($parts['port']) &&
-                (($protocol === 'http://' && $parts['port'] !== 80) ||
-                 ($protocol === 'https://' && $parts['port'] !== 443))
-                        ? ':' . $parts['port'] : '';
+            isset($parts['port']) &&
+            (($protocol === 'http://' && $parts['port'] !== 80) ||
+             ($protocol === 'https://' && $parts['port'] !== 443))
+                ? ':' . $parts['port'] : '';
 
         // rebuild
         return $protocol . $parts['host'] . $port . $parts['path'] . $query;
@@ -982,7 +1054,8 @@ class Facebook
 
         // generate the base string
         $base_string = '';
-        foreach ($params as $key => $value) {
+        foreach ($params as $key => $value)
+        {
             $base_string .= $key . '=' . $value;
         }
         $base_string .= $secret;
@@ -999,7 +1072,8 @@ class Facebook
     {
         // disable error log if we are running in a CLI environment
         // @codeCoverageIgnoreStart
-        if (php_sapi_name() != 'cli') {
+        if (php_sapi_name() != 'cli')
+        {
             error_log($msg);
         }
         // uncomment this if you want to see the errors on the page

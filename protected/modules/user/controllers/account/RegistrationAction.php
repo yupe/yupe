@@ -5,24 +5,29 @@ class RegistrationAction extends CAction
     {
         $form = new RegistrationForm();
 
-        if (Yii::app()->request->isPostRequest && isset($_POST['RegistrationForm'])) {
+        if (Yii::app()->request->isPostRequest && isset($_POST['RegistrationForm']))
+        {
             $form->setAttributes($_POST['RegistrationForm']);
 
             // проверка по "черным спискам"
             // проверить на email
-            if (!Yii::app()->getModule('user')->isAllowedEmail($form->email)) {
+            if (!Yii::app()->getModule('user')->isAllowedEmail($form->email))
+            {
                 // перенаправить на экшн для фиксации невалидных ip адресов
                 $this->controller->redirect(array(Yii::app()->getModule('user')->invalidEmailAction));
             }
 
-            if (!Yii::app()->getModule('user')->isAllowedIp(Yii::app()->request->userHostAddress)) {
+            if (!Yii::app()->getModule('user')->isAllowedIp(Yii::app()->request->userHostAddress))
+            {
                 // перенаправить на экшн для фиксации невалидных ip адресов
                 $this->controller->redirect(array(Yii::app()->getModule('user')->invalidIpAction));
             }
 
-            if ($form->validate()) {
+            if ($form->validate())
+            {
                 // если требуется активация по email
-                if (Yii::app()->getModule('user')->emailAccountVerification) {
+                if (Yii::app()->getModule('user')->emailAccountVerification)
+                {
                     $registration = new Registration();
 
                     // скопируем данные формы - они прошли через фильтр trim
@@ -33,7 +38,8 @@ class RegistrationAction extends CAction
                                                       'email' => $form->email
                                                  ));
 
-                    if ($registration->save()) {
+                    if ($registration->save())
+                    {
                         // отправка email с просьбой активировать аккаунт
                         $mailBody = $this->controller->renderPartial('application.modules.user.views.email.needAccountActivationEmail', array('model' => $registration), true);
                         Yii::app()->mail->send(Yii::app()->getModule('user')->notifyEmailFrom, $registration->email, Yii::t('user', 'Регистрация на сайте ' . Yii::app()->name . ' !'), $mailBody);
@@ -55,7 +61,8 @@ class RegistrationAction extends CAction
                     // если активации не требуется - сразу создаем аккаунт
                     $user = User::model()->createAccount($form->nickName, $form->email, null, $form->password);
 
-                    if (is_object($user) && !$user->hasErrors()) {
+                    if (is_object($user) && !$user->hasErrors())
+                    {
                         Yii::log(Yii::t('user', "Создана учетная запись {nickName} без активации!", array('{nickName}' => $user->nickName)), CLogger::LEVEL_INFO, UserModule::$logCategory);
                         // отправить email с сообщением о успешной регистрации
                         $emailBody = $this->controller->renderPartial('application.modules.user.views.email.accountCreatedEmail', array('model' => $user), true);

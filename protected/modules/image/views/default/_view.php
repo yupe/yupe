@@ -11,7 +11,8 @@
     <?php echo CHtml::encode($data->name); ?>
     <br/>
 
-    <b><?php echo CHtml::encode($data->getAttributeLabel('description')); ?>:</b>
+    <b><?php echo CHtml::encode($data->getAttributeLabel('description')); ?>
+        :</b>
     <?php echo CHtml::encode($data->description); ?>
     <br/>
 
@@ -19,7 +20,8 @@
     <?php echo CHtml::encode($data->file); ?>
     <br/>
 
-    <b><?php echo CHtml::encode($data->getAttributeLabel('creationDate')); ?>:</b>
+    <b><?php echo CHtml::encode($data->getAttributeLabel('creationDate')); ?>
+        :</b>
     <?php echo CHtml::encode($data->creationDate); ?>
     <br/>
 

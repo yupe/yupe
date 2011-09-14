@@ -43,8 +43,9 @@
     </div>
 
     <div class="row buttons">
-        <?php echo CHtml::submitButton($model->isNewRecord ? Yii::t('image', 'Добавить изображение')
-                                               : Yii::t('image', 'Сохранить изображение')); ?>
+        <?php echo CHtml::submitButton($model->isNewRecord
+                                           ? Yii::t('image', 'Добавить изображение')
+                                           : Yii::t('image', 'Сохранить изображение')); ?>
     </div>
 
     <?php $this->endWidget(); ?>

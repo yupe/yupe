@@ -1,6 +1,7 @@
 <html>
 <head>
-    <title>Новое сообщение с сайта <?php echo CHtml::encode(Yii::app()->name);?>!</title>
+    <title>Новое сообщение с сайта <?php echo CHtml::encode(Yii::app()->name);?>
+        !</title>
 </head>
 <body>
 Получено новое обращение с сайта <?php echo CHtml::encode(Yii::app()->name);?>!

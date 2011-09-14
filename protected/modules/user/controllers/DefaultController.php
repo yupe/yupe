@@ -25,7 +25,8 @@ class DefaultController extends YBackController
     {
         $model = new User();
 
-        if (isset($_POST['User'])) {
+        if (isset($_POST['User']))
+        {
 
             $transaction = Yii::app()->db->beginTransaction();
 
@@ -36,10 +37,12 @@ class DefaultController extends YBackController
                 $model->password = Registration::model()->hashPassword($model->password, $model->salt);
                 $model->registrationIp = Yii::app()->request->userHostAddress;
 
-                if ($model->save()) {
+                if ($model->save())
+                {
                     $profile = new Profile();
                     $profile->userId = $model->id;
-                    if ($profile->save()) {
+                    if ($profile->save())
+                    {
                         $transaction->commit();
                         Yii::app()->user->setFlash(FlashMessagesWidget::NOTICE_MESSAGE, Yii::t('user', 'Новый пользователь добавлен!'));
                         $this->redirect(array('view', 'id' => $model->id));
@@ -73,10 +76,12 @@ class DefaultController extends YBackController
     {
         $model = $this->loadModel();
 
-        if (isset($_POST['User'])) {
+        if (isset($_POST['User']))
+        {
             $model->attributes = $_POST['User'];
 
-            if ($model->save()) {
+            if ($model->save())
+            {
                 Yii::app()->user->setFlash(FlashMessagesWidget::NOTICE_MESSAGE, Yii::t('user', 'Данные обновлены!'));
 
                 $this->redirect(array('view', 'id' => $model->id));
@@ -94,7 +99,8 @@ class DefaultController extends YBackController
      */
     public function actionDelete()
     {
-        if (Yii::app()->request->isPostRequest) {
+        if (Yii::app()->request->isPostRequest)
+        {
             // we only allow deletion via POST request
             $this->loadModel()->delete();
 
@@ -139,7 +145,8 @@ class DefaultController extends YBackController
      */
     public function loadModel()
     {
-        if ($this->_model === null) {
+        if ($this->_model === null)
+        {
             if (isset($_GET['id']))
                 $this->_model = User::model()->findbyPk($_GET['id']);
             if ($this->_model === null)
@@ -154,7 +161,8 @@ class DefaultController extends YBackController
      */
     protected function performAjaxValidation($model)
     {
-        if (isset($_POST['ajax']) && $_POST['ajax'] === 'user-form') {
+        if (isset($_POST['ajax']) && $_POST['ajax'] === 'user-form')
+        {
             echo CActiveForm::validate($model);
             Yii::app()->end();
         }

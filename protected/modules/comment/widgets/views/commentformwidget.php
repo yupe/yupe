@@ -7,7 +7,8 @@
                                                     )); ?>
 
     <p class="note"><?php echo Yii::t('yupe', 'Поля, отмеченные');?> <span
-            class="required">*</span> <?php echo Yii::t('yupe', 'обязательны для заполнения');?></p>
+        class="required">*</span> <?php echo Yii::t('yupe', 'обязательны для заполнения');?>
+    </p>
 
     <?php echo $form->errorSummary($model)?>
 
@@ -36,7 +37,8 @@
         <?php echo $form->error($model, 'url'); ?>
     </div>
     <?php else: ?>
-    <p><?php echo Yii::t('comment', 'От имени')?>: <?php echo Yii::app()->user->getState('nickName');?></p>
+    <p><?php echo Yii::t('comment', 'От имени')?>
+        : <?php echo Yii::app()->user->getState('nickName');?></p>
     <?php endif;?>
     <div class="row">
         <?php echo $form->labelEx($model, 'text'); ?>

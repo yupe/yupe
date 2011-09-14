@@ -47,7 +47,8 @@ class News extends CActiveRecord
     public function getStatus()
     {
         $data = $this->getStatusList();
-        return array_key_exists($this->status, $data) ? $data[$this->status] : Yii::t('news', '*неизвестно*');
+        return array_key_exists($this->status, $data) ? $data[$this->status]
+            : Yii::t('news', '*неизвестно*');
     }
 
 
@@ -62,7 +63,8 @@ class News extends CActiveRecord
     public function getProtectedStatus()
     {
         $data = $this->getProtectedStatusList();
-        return array_key_exists($this->isProtected, $data) ? $data[$this->isProtected] : Yii::t('news', '*неизвестно*');
+        return array_key_exists($this->isProtected, $data)
+            ? $data[$this->isProtected] : Yii::t('news', '*неизвестно*');
     }
 
     /**
@@ -140,18 +142,22 @@ class News extends CActiveRecord
 
     public function beforeValidate()
     {
-        if (parent::beforeValidate()) {
-            if ($this->scenario === 'update') {
+        if (parent::beforeValidate())
+        {
+            if ($this->scenario === 'update')
+            {
                 $this->alias = YText::translit($this->title);
             }
             else
             {
-                if (!$this->alias) {
+                if (!$this->alias)
+                {
                     $this->alias = YText::translit($this->title);
                 }
             }
 
-            if (!$this->description) {
+            if (!$this->description)
+            {
                 $this->description = $this->shortText;
             }
 
@@ -164,8 +170,10 @@ class News extends CActiveRecord
 
     public function beforeSave()
     {
-        if (parent::beforeSave()) {
-            if ($this->isNewRecord) {
+        if (parent::beforeSave())
+        {
+            if ($this->isNewRecord)
+            {
                 $this->creationDate = $this->changeDate = new CDbExpression('NOW()');
                 $this->userId = Yii::app()->user->getId();
             }

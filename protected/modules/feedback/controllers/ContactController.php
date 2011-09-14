@@ -16,16 +16,20 @@ class ContactController extends YFrontController
     {
         $form = new FeedBackForm();
 
-        if (Yii::app()->request->isPostRequest && isset($_POST['FeedBackForm'])) {
+        if (Yii::app()->request->isPostRequest && isset($_POST['FeedBackForm']))
+        {
             $form->setAttributes($_POST['FeedBackForm']);
 
-            if ($form->validate()) {
+            if ($form->validate())
+            {
                 // обработка запроса
                 $backEnd = array_unique(Yii::app()->getModule('feedback')->backEnd);
 
-                if (is_array($backEnd) && count($backEnd)) {
+                if (is_array($backEnd) && count($backEnd))
+                {
                     // запись в базу
-                    if (in_array('db', $backEnd)) {
+                    if (in_array('db', $backEnd))
+                    {
                         $feedback = new FeedBack();
 
                         $feedback->setAttributes(array(
@@ -36,7 +40,8 @@ class ContactController extends YFrontController
                                                       'type' => $form->type
                                                  ));
 
-                        if ($feedback->save()) {
+                        if ($feedback->save())
+                        {
                             Yii::log(Yii::t('feedback', 'Обращение пользователя добавлено в базу!'), CLogger::LEVEL_INFO, FeedbackModule::$logCategory);
 
                             Yii::app()->user->setFlash(FlashMessagesWidget::NOTICE_MESSAGE, Yii::t('feedback', 'Ваше сообщение отправлено! Спасибо!'));
@@ -50,7 +55,8 @@ class ContactController extends YFrontController
                         }
                     }
 
-                    if (in_array('email', $backEnd) && count(Yii::app()->getModule('feedback')->emails)) {
+                    if (in_array('email', $backEnd) && count(Yii::app()->getModule('feedback')->emails))
+                    {
                         $emailBody = $this->renderPartial('application.modules.feedback.views.email.feedbackEmail', array('model' => $feedback), true);
                         foreach (Yii::app()->getModule('feedback')->emails as $mail)
                         {

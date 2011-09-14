@@ -37,9 +37,11 @@ class TwitterShareButton extends YscPortlet
 
     public function init()
     {
-        $this->type = in_array(strtolower($this->type), $this->_validTypes) ? $this->type : 'horizontal';
+        $this->type = in_array(strtolower($this->type), $this->_validTypes)
+            ? $this->type : 'horizontal';
 
-        $this->lang = in_array(strtolower($this->lang), $this->_validTypes) ? $this->lang : 'en';
+        $this->lang = in_array(strtolower($this->lang), $this->_validTypes)
+            ? $this->lang : 'en';
 
         parent::init();
     }

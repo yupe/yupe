@@ -51,7 +51,8 @@ EOD;
 
     public function run($args)
     {
-        if (!count($args)) {
+        if (!count($args))
+        {
             echo $this->getHelp();
             die();
         }
@@ -68,7 +69,8 @@ EOD;
         echo "I will minify js-files (*.$jsFileExt) in '$jsWebDir' directory !\n\n";
 
 
-        if (!is_dir($jsWebDir) || !is_writable($jsWebDir)) {
+        if (!is_dir($jsWebDir) || !is_writable($jsWebDir))
+        {
             die("\n!!!! Can't access $jsWebDir directory, check path and access rights! !!!!!\n");
         }
 
@@ -76,7 +78,8 @@ EOD;
 
         $file = array();
 
-        if (count($rawFiles)) {
+        if (count($rawFiles))
+        {
             echo "I will add '$jsMinSuffix' suffix to minifyed files!\n\n";
 
             echo "Found " . count($rawFiles) . " files\n";
@@ -102,7 +105,8 @@ EOD;
             {
                 $minFileContents = JSMin::minify(file_get_contents($rf));
 
-                if ($combine) {
+                if ($combine)
+                {
                     $combineContent .= $minFileContents;
                 }
 
@@ -116,7 +120,8 @@ EOD;
 
             echo "\n\n===== After compress/minify: $totalMinSize bytes ======\n\n";
 
-            if ($combine) {
+            if ($combine)
+            {
                 $combineFileName = "$combine.$jsMinSuffix.$jsFileExt";
                 $combineFileSize = file_put_contents($jsWebDir . DIRECTORY_SEPARATOR . $combineFileName, $combineContent);
                 echo "===== Created combined file '$jsWebDir/$combineFileName', size: $combineFileSize bytes ====== \n\n";
@@ -138,7 +143,9 @@ EOD;
 
             echo "\nПока!!!\n\n\n";
 
-        } else {
+        }
+        else
+        {
             echo "\n !!! Files '*.$jsFileExt' in directory '$jsWebDir' not found !!! \n\n\n";
             exit;
         }

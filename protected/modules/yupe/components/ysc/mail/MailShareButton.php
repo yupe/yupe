@@ -22,11 +22,13 @@ class MailShareButton extends YscPortlet
 
     public function init()
     {
-        if (!in_array($this->type, $this->validTypes)) {
+        if (!in_array($this->type, $this->validTypes))
+        {
             $this->type = 'button_count';
         }
         $this->text = CHtml::encode(Yii::t($this->translate, $this->text));
-        $this->url = $this->url ? "?share_url=" . urlencode($this->url) . "" : '';
+        $this->url = $this->url ? "?share_url=" . urlencode($this->url) . ""
+            : '';
         parent::init();
     }
 

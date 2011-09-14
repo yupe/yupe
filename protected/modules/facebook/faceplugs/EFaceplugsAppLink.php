@@ -17,7 +17,8 @@ abstract class EFaceplugsAppLink extends EFaceplugsBase
     {
         parent::run();
 
-        if (!isset ($this->app_id) && YII_DEBUG) {
+        if (!isset ($this->app_id) && YII_DEBUG)
+        {
             throw new CException('Plugin of type "' . get_class($this) . '" requires the Facebook application ID to be set.');
         }
     }

@@ -12,7 +12,8 @@ class CommentModule extends YWebModule
     public function getName()
     {
         $count = Comment::model()->new()->count();
-        return $count ? Yii::t('comment', 'Комментарии') . " ($count)" : Yii::t('comment', 'Комментарии');
+        return $count ? Yii::t('comment', 'Комментарии') . " ($count)"
+            : Yii::t('comment', 'Комментарии');
     }
 
     public function getDescription()

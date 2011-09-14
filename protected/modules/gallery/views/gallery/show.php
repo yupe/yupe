@@ -8,11 +8,13 @@
     });
 </script>
 
-<h1><?php echo Yii::t('gallery', 'Галерея');?> "<?php echo CHtml::encode($model->name);?>"</h1>
+<h1><?php echo Yii::t('gallery', 'Галерея');?>
+    "<?php echo CHtml::encode($model->name);?>"</h1>
 
 <p><?php echo CHtml::encode($model->description);?></p>
 
-<p><?php echo Yii::t('gallery', 'Количество фото');?>: <?php echo $model->imagesCount;?></p>
+<p><?php echo Yii::t('gallery', 'Количество фото');?>
+    : <?php echo $model->imagesCount;?></p>
 
 <?php $this->widget('zii.widgets.CListView', array(
                                                   'dataProvider' => $dataProvider,

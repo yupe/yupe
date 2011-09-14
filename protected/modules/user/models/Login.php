@@ -46,8 +46,10 @@ class Login extends CActiveRecord
 
     public function beforeSave()
     {
-        if (parent::beforeSave()) {
-            if ($this->isNewRecord) {
+        if (parent::beforeSave())
+        {
+            if ($this->isNewRecord)
+            {
                 $this->creationDate = new CDbExpression('NOW()');
             }
 

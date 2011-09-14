@@ -40,14 +40,16 @@ class TwitterFollowMeButton extends YscPortlet
 
     public function init()
     {
-        if (!$this->user) {
+        if (!$this->user)
+        {
             throw new CException('Укажите учетную запись в Твиттере для виджета TwitterFollowMeButton! user => @youTwitterAccount!');
         }
 
         $this->color = array_key_exists(strtolower($this->color), $this->_validColors)
-                ? $this->_validColors[strtolower($this->color)] : self::WHITE;
+            ? $this->_validColors[strtolower($this->color)] : self::WHITE;
 
-        $this->type = in_array(strtolower($this->type), $this->_validTypes) ? strtolower($this->type) : 'follow_me';
+        $this->type = in_array(strtolower($this->type), $this->_validTypes)
+            ? strtolower($this->type) : 'follow_me';
 
         parent::init();
     }

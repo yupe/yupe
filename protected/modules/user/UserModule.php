@@ -112,7 +112,8 @@ class UserModule extends YWebModule
 
     public function isAllowedEmail($email)
     {
-        if (is_array($this->emailBlackList) && count($this->emailBlackList)) {
+        if (is_array($this->emailBlackList) && count($this->emailBlackList))
+        {
             $email = trim($email);
         }
         else
@@ -123,8 +124,10 @@ class UserModule extends YWebModule
 
     public function isAllowedIp($ip)
     {
-        if (is_array($this->ipBlackList) && count($this->ipBlackList)) {
-            if (in_array($ip, $this->ipBlackList)) {
+        if (is_array($this->ipBlackList) && count($this->ipBlackList))
+        {
+            if (in_array($ip, $this->ipBlackList))
+            {
                 return false;
             }
         }

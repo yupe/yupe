@@ -3,8 +3,10 @@ class AddCommentAction extends CAction
 {
     public function run()
     {
-        if (Yii::app()->request->isPostRequest) {
-            $redirect = isset($_POST['redirectTo']) ? $_POST['redirectTo'] : Yii::app()->user->returnUrl;
+        if (Yii::app()->request->isPostRequest)
+        {
+            $redirect = isset($_POST['redirectTo']) ? $_POST['redirectTo']
+                : Yii::app()->user->returnUrl;
 
             $comment = new Comment();
 
@@ -12,7 +14,8 @@ class AddCommentAction extends CAction
 
             $comment->status = Yii::app()->getModule('comment')->defaultCommentStatus;
 
-            if (Yii::app()->user->isAuthenticated()) {
+            if (Yii::app()->user->isAuthenticated())
+            {
                 $comment->setAttributes(array(
                                              'userId' => Yii::app()->user->getId(),
                                              'name' => Yii::app()->user->getState('nickName'),
@@ -20,8 +23,10 @@ class AddCommentAction extends CAction
                                         ));
             }
 
-            if ($comment->save()) {
-                if (Yii::app()->request->isAjaxRequest) {
+            if ($comment->save())
+            {
+                if (Yii::app()->request->isAjaxRequest)
+                {
                     Yii::app()->ajax->success(Yii::t('comment', 'Комментарий добавлен!'));
                 }
 
@@ -31,7 +36,8 @@ class AddCommentAction extends CAction
             }
             else
             {
-                if (Yii::app()->request->isAjaxRequest) {
+                if (Yii::app()->request->isAjaxRequest)
+                {
                     Yii::app()->ajax->failure(Yii::t('comment', 'Комментарий не добавлен!'));
                 }
 

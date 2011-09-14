@@ -112,8 +112,10 @@ class Image extends CActiveRecord
 
     public function beforeValidate()
     {
-        if (parent::beforeValidate()) {
-            if ($this->isNewRecord) {
+        if (parent::beforeValidate())
+        {
+            if ($this->isNewRecord)
+            {
                 $this->creationDate = new CDbExpression('NOW()');
                 $this->userId = Yii::app()->user->getId();
             }
@@ -136,7 +138,8 @@ class Image extends CActiveRecord
     {
         $data = $this->getStatusList();
 
-        return isset($data[$this->status]) ? $data[$this->status] : Yii::t('image', '*неизвестно*');
+        return isset($data[$this->status]) ? $data[$this->status]
+            : Yii::t('image', '*неизвестно*');
     }
 
     public function getExtension($file)
@@ -150,8 +153,10 @@ class Image extends CActiveRecord
 
         $this->file = CUploadedFile::getInstance($this, 'file');
 
-        if ($dir = Yii::app()->getModule('image')->createUploadDir()) {
-            if ($this->save()) {
+        if ($dir = Yii::app()->getModule('image')->createUploadDir())
+        {
+            if ($this->save())
+            {
                 $fileName = $this->id . '.' . $this->getExtension($this->file->name);
 
                 $fullFileName = Yii::app()->getModule('image')->getUploadPath() . $dir . DIRECTORY_SEPARATOR . $fileName;
@@ -172,9 +177,11 @@ class Image extends CActiveRecord
     {
         $file = Yii::app()->getModule('image')->documentRoot . $this->file;
 
-        if (file_exists($file)) {
+        if (file_exists($file))
+        {
             //удалить файл картинки
-            if (unlink($file)) {
+            if (unlink($file))
+            {
                 return parent::delete();
             }
             else

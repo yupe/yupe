@@ -3,7 +3,8 @@
         <?php echo CHtml::link(CHtml::encode($data->title), array('/news/news/show', 'title' => $data->alias)); ?>
     </div>
     <div class="author">
-        Опубликовал <b><?php echo $data->user->nickName?></b> дата: <?php echo $data->creationDate; ?>
+        Опубликовал <b><?php echo $data->user->nickName?></b>
+        дата: <?php echo $data->creationDate; ?>
     </div>
     <br/>
 

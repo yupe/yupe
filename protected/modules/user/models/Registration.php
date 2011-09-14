@@ -88,8 +88,10 @@ class Registration extends CActiveRecord
 
     public function beforeSave()
     {
-        if (parent::beforeSave()) {
-            if ($this->isNewRecord) {
+        if (parent::beforeSave())
+        {
+            if ($this->isNewRecord)
+            {
                 $this->creationDate = new CDbExpression('NOW()');
                 $this->salt = $this->generateSalt();
                 $this->password = $this->hashPassword($this->password, $this->salt);
@@ -119,7 +121,8 @@ class Registration extends CActiveRecord
 
     public function generateRandomPassword($length = null)
     {
-        if (!$length) {
+        if (!$length)
+        {
             $length = Yii::app()->getModule('user')->minPasswordLength;
         }
         return substr(md5(uniqid(mt_rand(), true) . time()), 0, $length);

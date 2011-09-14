@@ -9,7 +9,8 @@ class ContentBlockWidget extends YWidget
 
     public function init()
     {
-        if (!$this->code) {
+        if (!$this->code)
+        {
             throw new CException(Yii::t('contentblock', 'Укажите название контент блока для ContentBlockWidget !'));
         }
     }
@@ -20,11 +21,14 @@ class ContentBlockWidget extends YWidget
 
         $output = Yii::app()->cache->get($cacheName);
 
-        if ($output === false) {
+        if ($output === false)
+        {
             $block = ContentBlock::model()->find('code = :code', array(':code' => $this->code));
 
-            if (is_null($block)) {
-                if ((bool)$this->silent === false) {
+            if (is_null($block))
+            {
+                if ((bool)$this->silent === false)
+                {
                     throw new CException(Yii::t('contentblock', 'Контент блок "{code}" не найден !', array('{code}' => $this->code)));
                 }
             }
