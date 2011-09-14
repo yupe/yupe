@@ -2,206 +2,190 @@
 
 class DefaultController extends YBackController
 {
-	private $_model;
-	
-	/**
-	 * Displays a particular model.
-	 */
-	public function actionView()
-	{
-		$this->render('view',array(
-			'model'=>$this->loadModel(),
-		));
-	}
+    private $_model;
 
-	/**
-	 * Creates a new model.
-	 * If creation is successful, the browser will be redirected to the 'view' page.
-	 */
-	public function actionCreate()
-	{
-		$model = new FeedBack();
+    /**
+     * Displays a particular model.
+     */
+    public function actionView()
+    {
+        $this->render('view', array(
+                                   'model' => $this->loadModel(),
+                              ));
+    }
 
-		if(isset($_POST['FeedBack']))
-		{
-			$model->attributes=$_POST['FeedBack'];
-			
-			if($model->save())
-			{
-				Yii::app()->user->setFlash(FlashMessagesWidget::NOTICE_MESSAGE,'Сообщение сохранено!');				
+    /**
+     * Creates a new model.
+     * If creation is successful, the browser will be redirected to the 'view' page.
+     */
+    public function actionCreate()
+    {
+        $model = new FeedBack();
 
-				$this->redirect(array('update','id'=>$model->id));
-			}
-		}
+        if (isset($_POST['FeedBack'])) {
+            $model->attributes = $_POST['FeedBack'];
 
-		$this->render('create',array(
-			'model'=>$model,
-		));
-	}
+            if ($model->save()) {
+                Yii::app()->user->setFlash(FlashMessagesWidget::NOTICE_MESSAGE, 'Сообщение сохранено!');
 
-	/**
-	 * Updates a particular model.
-	 * If update is successful, the browser will be redirected to the 'view' page.
-	 */
-	public function actionUpdate()
-	{
-		$model=$this->loadModel();
+                $this->redirect(array('update', 'id' => $model->id));
+            }
+        }
 
-		// Uncomment the following line if AJAX validation is needed
-		// $this->performAjaxValidation($model);
+        $this->render('create', array(
+                                     'model' => $model,
+                                ));
+    }
 
-		if(isset($_POST['FeedBack']))
-		{
-			$model->attributes=$_POST['FeedBack'];
-			
-			if($model->save())
-			{
-				Yii::app()->user->setFlash(FlashMessagesWidget::NOTICE_MESSAGE,'Сообщение обновлено!');			
-					
-				$this->redirect(array('view','id'=>$model->id));
-			}
-		}
+    /**
+     * Updates a particular model.
+     * If update is successful, the browser will be redirected to the 'view' page.
+     */
+    public function actionUpdate()
+    {
+        $model = $this->loadModel();
 
-		$this->render('update',array(
-			'model'=>$model,
-		));
-	}
+        // Uncomment the following line if AJAX validation is needed
+        // $this->performAjaxValidation($model);
+
+        if (isset($_POST['FeedBack'])) {
+            $model->attributes = $_POST['FeedBack'];
+
+            if ($model->save()) {
+                Yii::app()->user->setFlash(FlashMessagesWidget::NOTICE_MESSAGE, 'Сообщение обновлено!');
+
+                $this->redirect(array('view', 'id' => $model->id));
+            }
+        }
+
+        $this->render('update', array(
+                                     'model' => $model,
+                                ));
+    }
 
 
-	public function actionAnswer()
-	{
-		$id = (int) Yii::app()->request->getQuery('id');
+    public function actionAnswer()
+    {
+        $id = (int)Yii::app()->request->getQuery('id');
 
         $model = FeedBack::model()->findbyPk($id);
-        
+
         $form = new AnswerForm();
 
         $form->setAttributes(array(
-        	'answer' => $model->answer,
-        	'isFaq'  => $model->isFaq
-	    ));
+                                  'answer' => $model->answer,
+                                  'isFaq' => $model->isFaq
+                             ));
 
-        if(is_null($model))
-        {
-        	throw new CHttpException(404,Yii::t('feedback','Страница не найдена!'));
-        } 
-           
-        if($model->status == FeedBack::STATUS_ANSWER_SENDED)
-        {
-        	Yii::app()->user->setFlash(FlashMessagesWidget::NOTICE_MESSAGE,Yii::t('feedback','Внимание! Ответ на это сообщение уже был отправлен!'));
+        if (is_null($model)) {
+            throw new CHttpException(404, Yii::t('feedback', 'Страница не найдена!'));
         }
 
-        if(Yii::app()->request->isPostRequest && isset($_POST['AnswerForm']))
-        {
-        	$form->setAttributes($_POST['AnswerForm']);
+        if ($model->status == FeedBack::STATUS_ANSWER_SENDED) {
+            Yii::app()->user->setFlash(FlashMessagesWidget::NOTICE_MESSAGE, Yii::t('feedback', 'Внимание! Ответ на это сообщение уже был отправлен!'));
+        }
 
-        	if($form->validate())
-        	{
-        		//TODO отправка сообщения и изменение статуса
-                
+        if (Yii::app()->request->isPostRequest && isset($_POST['AnswerForm'])) {
+            $form->setAttributes($_POST['AnswerForm']);
+
+            if ($form->validate()) {
+                //TODO отправка сообщения и изменение статуса
+
                 $model->setAttributes(array(
-                	'answer' => $form->answer,
-                	'isFaq'  => $form->isFaq,
-                	'answerUser' => Yii::app()->user->getId(),
-                	'answerDate' => new CDbExpression('NOW()'),
-                	'status'     => FeedBack::STATUS_ANSWER_SENDED
-	            ));
+                                           'answer' => $form->answer,
+                                           'isFaq' => $form->isFaq,
+                                           'answerUser' => Yii::app()->user->getId(),
+                                           'answerDate' => new CDbExpression('NOW()'),
+                                           'status' => FeedBack::STATUS_ANSWER_SENDED
+                                      ));
 
-                if($model->save())
-                { 
-	                Yii::app()->user->setFlash(FlashMessagesWidget::NOTICE_MESSAGE,Yii::t('feedback','Ответ на сообщение отправлен!'));
-	                
-	                $this->redirect(array('/feedback/default/view/','id' => $model->id));
-	            }	            
-        	}
+                if ($model->save()) {
+                    Yii::app()->user->setFlash(FlashMessagesWidget::NOTICE_MESSAGE, Yii::t('feedback', 'Ответ на сообщение отправлен!'));
+
+                    $this->redirect(array('/feedback/default/view/', 'id' => $model->id));
+                }
+            }
         }
 
 
-        $this->render('answer',array('model' => $model,'answerForm' => $form));
-	}
+        $this->render('answer', array('model' => $model, 'answerForm' => $form));
+    }
 
-	/**
-	 * Deletes a particular model.
-	 * If deletion is successful, the browser will be redirected to the 'index' page.
-	 */
-	public function actionDelete()
-	{
-		if(Yii::app()->request->isPostRequest)
-		{
-			// we only allow deletion via POST request
-			$this->loadModel()->delete();
+    /**
+     * Deletes a particular model.
+     * If deletion is successful, the browser will be redirected to the 'index' page.
+     */
+    public function actionDelete()
+    {
+        if (Yii::app()->request->isPostRequest) {
+            // we only allow deletion via POST request
+            $this->loadModel()->delete();
 
-			// if AJAX request (triggered by deletion via admin grid view), we should not redirect the browser
-			if(!isset($_GET['ajax']))
-			{
-				$this->redirect(array('index'));
-			}
-		}
-		else
-		{
-			throw new CHttpException(400,'Invalid request. Please do not repeat this request again.');
-		}
-	}
+            // if AJAX request (triggered by deletion via admin grid view), we should not redirect the browser
+            if (!isset($_GET['ajax'])) {
+                $this->redirect(array('index'));
+            }
+        }
+        else
+        {
+            throw new CHttpException(400, 'Invalid request. Please do not repeat this request again.');
+        }
+    }
 
-	/**
-	 * Lists all models.
-	 */
-	public function actionIndex()
-	{
-		$dataProvider = new CActiveDataProvider('FeedBack');
-		
-		$this->render('index',array(
-			'dataProvider'=>$dataProvider,
-		));
-	}
+    /**
+     * Lists all models.
+     */
+    public function actionIndex()
+    {
+        $dataProvider = new CActiveDataProvider('FeedBack');
 
-	/**
-	 * Manages all models.
-	 */
-	public function actionAdmin()
-	{
-		$model = new FeedBack('search');
-		$model->unsetAttributes();  // clear any default values
-		if(isset($_GET['FeedBack']))
-		{
-			$model->attributes=$_GET['FeedBack'];
-		}
+        $this->render('index', array(
+                                    'dataProvider' => $dataProvider,
+                               ));
+    }
 
-		$this->render('admin',array(
-			'model'=>$model,
-		));
-	}
+    /**
+     * Manages all models.
+     */
+    public function actionAdmin()
+    {
+        $model = new FeedBack('search');
+        $model->unsetAttributes(); // clear any default values
+        if (isset($_GET['FeedBack'])) {
+            $model->attributes = $_GET['FeedBack'];
+        }
 
-	/**
-	 * Returns the data model based on the primary key given in the GET variable.
-	 * If the data model is not found, an HTTP exception will be raised.
-	 */
-	public function loadModel()
-	{
-		if($this->_model===null)
-		{
-			if(isset($_GET['id']))
-			{				
-				$this->_model=FeedBack::model()->findbyPk($_GET['id']);
-			}
-			if($this->_model===null)
-			{
-				throw new CHttpException(404,'The requested page does not exist.');
-			}
-		}
-		return $this->_model;
-	}
+        $this->render('admin', array(
+                                    'model' => $model,
+                               ));
+    }
 
-	/**
-	 * Performs the AJAX validation.
-	 * @param CModel the model to be validated
-	 */
-	protected function performAjaxValidation($model)
-	{
-		if(isset($_POST['ajax']) && $_POST['ajax']==='feed-back-form')
-		{
-			echo CActiveForm::validate($model);
-			Yii::app()->end();
-		}
-	}
+    /**
+     * Returns the data model based on the primary key given in the GET variable.
+     * If the data model is not found, an HTTP exception will be raised.
+     */
+    public function loadModel()
+    {
+        if ($this->_model === null) {
+            if (isset($_GET['id'])) {
+                $this->_model = FeedBack::model()->findbyPk($_GET['id']);
+            }
+            if ($this->_model === null) {
+                throw new CHttpException(404, 'The requested page does not exist.');
+            }
+        }
+        return $this->_model;
+    }
+
+    /**
+     * Performs the AJAX validation.
+     * @param CModel the model to be validated
+     */
+    protected function performAjaxValidation($model)
+    {
+        if (isset($_POST['ajax']) && $_POST['ajax'] === 'feed-back-form') {
+            echo CActiveForm::validate($model);
+            Yii::app()->end();
+        }
+    }
 }

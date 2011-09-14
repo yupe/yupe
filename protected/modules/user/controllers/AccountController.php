@@ -1,12 +1,12 @@
 <?php
 class AccountController extends YFrontController
-{    
+{
     public function actions()
     {
-          return array(			
-           'captcha'=>array(
-                    'class'=>'CCaptchaAction',
-                    'backColor'=>0xFFFFFF,
+        return array(
+            'captcha' => array(
+                'class' => 'CCaptchaAction',
+                'backColor' => 0xFFFFFF,
             ),
             'registration' => array(
                 'class' => 'application.modules.user.controllers.account.RegistrationAction'
@@ -17,7 +17,7 @@ class AccountController extends YFrontController
             'login' => array(
                 'class' => 'application.modules.user.controllers.account.LoginAction'
             ),
-			'fblogin' => array(
+            'fblogin' => array(
                 'class' => 'application.modules.user.controllers.account.FbloginAction'
             ),
             'logout' => array(
@@ -31,8 +31,9 @@ class AccountController extends YFrontController
             ),
             'profile' => array(
                 'class' => 'application.modules.user.controllers.account.ProfileAction'
-            )            
-	      );
-    }    
+            )
+        );
+    }
 }
+
 ?>

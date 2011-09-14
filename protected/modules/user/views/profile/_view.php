@@ -1,30 +1,30 @@
-<div class="view">	
+<div class="view">
 
-	<b><?php echo CHtml::encode($data->getAttributeLabel('userId')); ?>:</b>
-	<?php echo CHtml::encode($data->user->nickName); ?>
-	<br />
+    <b><?php echo CHtml::encode($data->getAttributeLabel('userId')); ?>:</b>
+    <?php echo CHtml::encode($data->user->nickName); ?>
+    <br/>
 
-	<b><?php echo CHtml::encode($data->getAttributeLabel('twitter')); ?>:</b>
-	<?php echo CHtml::encode($data->twitter); ?>
-	<br />
+    <b><?php echo CHtml::encode($data->getAttributeLabel('twitter')); ?>:</b>
+    <?php echo CHtml::encode($data->twitter); ?>
+    <br/>
 
-	<b><?php echo CHtml::encode($data->getAttributeLabel('livejournal')); ?>:</b>
-	<?php echo CHtml::encode($data->livejournal); ?>
-	<br />
+    <b><?php echo CHtml::encode($data->getAttributeLabel('livejournal')); ?>:</b>
+    <?php echo CHtml::encode($data->livejournal); ?>
+    <br/>
 
-	<b><?php echo CHtml::encode($data->getAttributeLabel('vkontakte')); ?>:</b>
-	<?php echo CHtml::encode($data->vkontakte); ?>
-	<br />
+    <b><?php echo CHtml::encode($data->getAttributeLabel('vkontakte')); ?>:</b>
+    <?php echo CHtml::encode($data->vkontakte); ?>
+    <br/>
 
-	<b><?php echo CHtml::encode($data->getAttributeLabel('odnoklassniki')); ?>:</b>
-	<?php echo CHtml::encode($data->odnoklassniki); ?>
-	<br />
+    <b><?php echo CHtml::encode($data->getAttributeLabel('odnoklassniki')); ?>:</b>
+    <?php echo CHtml::encode($data->odnoklassniki); ?>
+    <br/>
 
-	<b><?php echo CHtml::encode($data->getAttributeLabel('facebook')); ?>:</b>
-	<?php echo CHtml::encode($data->facebook); ?>
-	<br />
+    <b><?php echo CHtml::encode($data->getAttributeLabel('facebook')); ?>:</b>
+    <?php echo CHtml::encode($data->facebook); ?>
+    <br/>
 
-	<?php /*
+    <?php /*
 	<b><?php echo CHtml::encode($data->getAttributeLabel('yandex')); ?>:</b>
 	<?php echo CHtml::encode($data->yandex); ?>
 	<br />

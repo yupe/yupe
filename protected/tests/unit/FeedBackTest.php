@@ -2,12 +2,12 @@
 
 class FeedBackTest extends CDbTestCase
 {
-	public $fixtures=array(
-		'feedBacks'=>'FeedBack',
-	);
+    public $fixtures = array(
+        'feedBacks' => 'FeedBack',
+    );
 
-	public function testCreate()
-	{
+    public function testCreate()
+    {
 
-	}
+    }
 }

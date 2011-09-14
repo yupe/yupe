@@ -11,28 +11,33 @@
 <p>Основные возможности:</p>
 
 <ul>
-	<li>Управление пользователями</li>
-	<li>Управления разделами/категориями</li>
-	<li>Создание "статических" страниц для Вашего сайта</li>
-	<li>Добавление и публикация новостей</li>
-    <li>Обратная связь с пользователем</li>	
+    <li>Управление пользователями</li>
+    <li>Управления разделами/категориями</li>
+    <li>Создание "статических" страниц для Вашего сайта</li>
+    <li>Добавление и публикация новостей</li>
+    <li>Обратная связь с пользователем</li>
 </ul>
 
-<p>Юпи! - это <b>НЕ</b> универсальный конструктор сайтов, типа Drupal или Joomla, Вы просто берете готовый функционал и используете его!</p>
+<p>Юпи! - это <b>НЕ</b> универсальный конструктор сайтов, типа Drupal или Joomla, Вы просто берете готовый функционал и
+    используете его!</p>
 
-<p>Если возникает необходимость добавить какие-то специфичные возможности - <a href='http://www.yiiframework.ru/forum/viewforum.php?f=11&sid=09889fba4daf3bce2daa575e4ec9cec8'>находите Yii-разрабочика</a> и получаете то, что хотите!</p>
+<p>Если возникает необходимость добавить какие-то специфичные возможности - <a
+        href='http://www.yiiframework.ru/forum/viewforum.php?f=11&sid=09889fba4daf3bce2daa575e4ec9cec8'>находите
+    Yii-разрабочика</a> и получаете то, что хотите!</p>
 
-<p>...или <?php echo CHtml::link('напишите нам',array('/feedback/contact/'));?> =)</p>
+<p>...или <?php echo CHtml::link('напишите нам', array('/feedback/contact/'));?> =)</p>
 
-<p>Хотите получить самую последнюю версию, сообщить об ошибке или просмотреть исходный код - посетите <a href='http://code.google.com/p/yupe/'>http://code.google.com/p/yupe/</a></p>
+<p>Хотите получить самую последнюю версию, сообщить об ошибке или просмотреть исходный код - посетите <a
+        href='https://github.com/yupe/yupe'>https://github.com/yupe/yupe</a></p>
 
-<p>Возможно, Вы хотите присоединиться к разработке !? <?php echo CHtml::link('Напишите нам',array('/feedback/contact/'));?></p>
+<p>Возможно, Вы хотите присоединиться к разработке
+    !? <?php echo CHtml::link('Напишите нам', array('/feedback/contact/'));?></p>
 
-<div style='float:left;'>   
-  <div style='float:left;padding-right:5px'>
-	<?php $this->widget('application.modules.yupe.components.ysc.yandex.YandexShareApi',array(
-		 'type' => 'button',
-		 'services' => 'all'
-	));?>
-  </div>  
+<div style='float:left;'>
+    <div style='float:left;padding-right:5px'>
+        <?php $this->widget('application.modules.yupe.components.ysc.yandex.YandexShareApi', array(
+                                                                                                  'type' => 'button',
+                                                                                                  'services' => 'all'
+                                                                                             ));?>
+    </div>
 </div>

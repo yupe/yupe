@@ -16,226 +16,221 @@
  */
 class Page extends CActiveRecord
 {
-	const STATUS_DRAFT      = 0;
-	const STATUS_PUBLISHED  = 1;
-	const STATUS_MODERATION = 2;
-	
-	const PROTECTED_NO  = 0;
-	const PROTECTED_YES = 1;
-	
-	public function getStatusList()
-	{
-		return array(
-			self::STATUS_PUBLISHED  => Yii::t('page','Опубликовано'),
-			self::STATUS_DRAFT      => Yii::t('page','Черновик'),			
-			self::STATUS_MODERATION => Yii::t('page','На модерации')
-		);
-	}
-	
-	public function getStatus()
-	{
-		$data = $this->getStatusList();
-		return array_key_exists($this->status,$data) ? $data[$this->status] : Yii::t('page','*неизвестно*');
-	}
-	
-	
-	public function getProtectedStatusList()
-	{
-		return array(
-			self::PROTECTED_NO  => Yii::t('page','нет'),
-			self::PROTECTED_YES => Yii::t('page','да')
-		);
-	}
-	
-	public function getProtectedStatus()
-	{
-		$data = $this->getProtectedStatusList();
-		return array_key_exists($this->isProtected,$data) ? $data[$this->isProtected] : Yii::t('page','*неизвестно*');
-	}
-	
-	
-	public function getAllPagesList($selfId=false)
-	{
-		$pages = $selfId ? $this->findAll('id != :id AND (parentId = null || parentId = 0)',array(':id' => $selfId)) : $this->findAll();		
-		$pages = CHtml::listData($pages,'id','name');
-		$pages[0] = Yii::t('page','--нет--');
-		return $pages;
-	}
-	
-	/**
-	 * Returns the static model of the specified AR class.
-	 * @return Page the static model class
-	 */
-	public static function model($className=__CLASS__)
-	{
-		return parent::model($className);
-	}
+    const STATUS_DRAFT = 0;
+    const STATUS_PUBLISHED = 1;
+    const STATUS_MODERATION = 2;
 
-	/**
-	 * @return string the associated database table name
-	 */
-	public function tableName()
-	{
-		return '{{Page}}';
-	}
+    const PROTECTED_NO = 0;
+    const PROTECTED_YES = 1;
 
-	/**
-	 * @return array validation rules for model attributes.
-	 */
-	public function rules()
-	{		
-		return array(
-			array('name, title, slug, body, description, keywords', 'required'),
-			array('status, isProtected, parentId, menuOrder', 'numerical', 'integerOnly'=>true),
-			array('parentId', 'length', 'max'=>45),
-			array('name, title, slug, keywords', 'length', 'max'=>150),
-			array('description', 'length', 'max'=>150),						
-			array('slug','unique'),
-			array('status','in','range' => array(0,1,2)),
-			array('title, slug, body, description, keywords, name','filter','filter' => 'trim'),
-			array('title, slug, description, keywords, name','filter','filter' => 'strip_tags'),
-			array('slug','match','pattern' => '/^[a-zA-Z0-9_\-]+$/','message' => Yii::t('page','Запрещенные символы в поле {attribute}')),
-    		array('isProtected','in','range' => array(0,1)),
-			array('id, parentId, creationDate, changeDate, title, slug, body, keywords, description, status, menuOrder', 'safe', 'on'=>'search'),
-		);
-	}
-	
-	
-
-	/**
-	 * @return array relational rules.
-	 */
-	public function relations()
-	{
-		return array(
-			'childPages'   => array(self::HAS_MANY,'Page','parentId'),
-			'author'       => array(self::BELONGS_TO,'User','userId'),
-			'changeAuthor' => array(self::BELONGS_TO,'User','changeUserId')    
-		);
-	}
-
-	/**
-	 * @return array customized attribute labels (name=>label)
-	 */
-	public function attributeLabels()
-	{
-		return array(
-			'id'           => Yii::t('page','Id'),
-			'parentId'     => Yii::t('page','Родительская страница'),
-			'creationDate' => Yii::t('page','Дата создания'),
-			'changeDate'   => Yii::t('page','Дата изменения'),
-			'title'        => Yii::t('page','Заголовок'),
-			'slug'         => Yii::t('page','Url'),
-			'body'         => Yii::t('page','Текст'),
-			'keywords'     => Yii::t('page','Ключевые слова (SEO)'),
-			'description'  => Yii::t('page','Описание (SEO)'),
-			'status'       => Yii::t('page','Статус'),
-			'isProtected'  => Yii::t('page','Доступ: * только для авторизованных пользователей'),
-			'name'         => Yii::t('page','Название в меню'),
-			'userId'       => Yii::t('page','Создал'),
-			'changeUserId' => Yii::t('page','Изменил'),
-			'menuOrder'    => Yii::t('page','Порядок в меню'), 
-		);
-	}
-	
-	
-	public function beforeValidate()
-	{		
-		if(parent::beforeValidate())
-		{
-			if($this->scenario === 'update')
-			{								
-				$this->slug = YText::translit($this->title);				
-			}
-			else
-			{
-				if(!$this->slug)
-				{
-					$this->slug = YText::translit($this->title);
-				}
-			}
-			
-			return true;
-		}
-		
-		return false;
-	}
-	
-	public function beforeSave()
-	{
-		if(parent::beforeSave())
-		{
-			if($this->isNewRecord)
-			{
-				$this->changeDate = $this->creationDate = new CDbExpression('NOW()');
-				$this->userId = $this->changeUserId = Yii::app()->user->getId();
-			}
-			else
-			{
-				$this->changeDate = new CDbExpression('now()');
-				$this->userId = Yii::app()->user->getId();
-			}	
-			return true;
-		}
-		return false;
-	}
-	
-	
-	public function scopes()
-	{
-		return array(
-		    'published' => array('condition' => 'status = '.self::STATUS_PUBLISHED),
-			'protected' => array('condition' => 'isProtected = '.self::PROTECTED_YES),
-			'public'    => array('condition' => 'isProtected = '.self::PROTECTED_NO),
+    public function getStatusList()
+    {
+        return array(
+            self::STATUS_PUBLISHED => Yii::t('page', 'Опубликовано'),
+            self::STATUS_DRAFT => Yii::t('page', 'Черновик'),
+            self::STATUS_MODERATION => Yii::t('page', 'На модерации')
         );
-	}
-	
-	
-	public function findBySlug($slug)
-	{
-	    $slug = trim($slug);
-	    return $this->find('slug = :slug',array(':slug' => $slug));
-	}
+    }
 
-	/**
-	 * Retrieves a list of models based on the current search/filter conditions.
-	 * @return CActiveDataProvider the data provider that can return the models based on the search/filter conditions.
-	 */
-	public function search()
-	{
-		$criteria = new CDbCriteria();
-		
-		$criteria->with = array('author','changeAuthor');
-		
-		$criteria->compare('id',$this->id);
+    public function getStatus()
+    {
+        $data = $this->getStatusList();
+        return array_key_exists($this->status, $data) ? $data[$this->status] : Yii::t('page', '*неизвестно*');
+    }
 
-		$criteria->compare('parentId',$this->parentId);
 
-		$criteria->compare('creationDate',$this->creationDate);
+    public function getProtectedStatusList()
+    {
+        return array(
+            self::PROTECTED_NO => Yii::t('page', 'нет'),
+            self::PROTECTED_YES => Yii::t('page', 'да')
+        );
+    }
 
-		$criteria->compare('changeDate',$this->changeDate);
+    public function getProtectedStatus()
+    {
+        $data = $this->getProtectedStatusList();
+        return array_key_exists($this->isProtected, $data) ? $data[$this->isProtected] : Yii::t('page', '*неизвестно*');
+    }
 
-		$criteria->compare('title',$this->title);
 
-		$criteria->compare('slug',$this->slug);
+    public function getAllPagesList($selfId = false)
+    {
+        $pages = $selfId ? $this->findAll('id != :id AND (parentId = null || parentId = 0)', array(':id' => $selfId))
+                : $this->findAll();
+        $pages = CHtml::listData($pages, 'id', 'name');
+        $pages[0] = Yii::t('page', '--нет--');
+        return $pages;
+    }
 
-		$criteria->compare('body',$this->body);
+    /**
+     * Returns the static model of the specified AR class.
+     * @return Page the static model class
+     */
+    public static function model($className = __CLASS__)
+    {
+        return parent::model($className);
+    }
 
-		$criteria->compare('keywords',$this->keywords);
+    /**
+     * @return string the associated database table name
+     */
+    public function tableName()
+    {
+        return '{{Page}}';
+    }
 
-		$criteria->compare('description',$this->description);
+    /**
+     * @return array validation rules for model attributes.
+     */
+    public function rules()
+    {
+        return array(
+            array('name, title, slug, body, description, keywords', 'required'),
+            array('status, isProtected, parentId, menuOrder', 'numerical', 'integerOnly' => true),
+            array('parentId', 'length', 'max' => 45),
+            array('name, title, slug, keywords', 'length', 'max' => 150),
+            array('description', 'length', 'max' => 150),
+            array('slug', 'unique'),
+            array('status', 'in', 'range' => array(0, 1, 2)),
+            array('title, slug, body, description, keywords, name', 'filter', 'filter' => 'trim'),
+            array('title, slug, description, keywords, name', 'filter', 'filter' => 'strip_tags'),
+            array('slug', 'match', 'pattern' => '/^[a-zA-Z0-9_\-]+$/', 'message' => Yii::t('page', 'Запрещенные символы в поле {attribute}')),
+            array('isProtected', 'in', 'range' => array(0, 1)),
+            array('id, parentId, creationDate, changeDate, title, slug, body, keywords, description, status, menuOrder', 'safe', 'on' => 'search'),
+        );
+    }
 
-		$criteria->compare('status',$this->status);		
-		
-    	$criteria->compare('isProtected',$this->isProtected);	       
-         
-		$sort = new CSort();
-		
-		$sort->defaultOrder = 'parentId DESC';
-		
-		return new CActiveDataProvider('Page', array(
-			'criteria' => $criteria,
-			'sort'     => $sort			
-		));
-	}
+
+    /**
+     * @return array relational rules.
+     */
+    public function relations()
+    {
+        return array(
+            'childPages' => array(self::HAS_MANY, 'Page', 'parentId'),
+            'author' => array(self::BELONGS_TO, 'User', 'userId'),
+            'changeAuthor' => array(self::BELONGS_TO, 'User', 'changeUserId')
+        );
+    }
+
+    /**
+     * @return array customized attribute labels (name=>label)
+     */
+    public function attributeLabels()
+    {
+        return array(
+            'id' => Yii::t('page', 'Id'),
+            'parentId' => Yii::t('page', 'Родительская страница'),
+            'creationDate' => Yii::t('page', 'Дата создания'),
+            'changeDate' => Yii::t('page', 'Дата изменения'),
+            'title' => Yii::t('page', 'Заголовок'),
+            'slug' => Yii::t('page', 'Url'),
+            'body' => Yii::t('page', 'Текст'),
+            'keywords' => Yii::t('page', 'Ключевые слова (SEO)'),
+            'description' => Yii::t('page', 'Описание (SEO)'),
+            'status' => Yii::t('page', 'Статус'),
+            'isProtected' => Yii::t('page', 'Доступ: * только для авторизованных пользователей'),
+            'name' => Yii::t('page', 'Название в меню'),
+            'userId' => Yii::t('page', 'Создал'),
+            'changeUserId' => Yii::t('page', 'Изменил'),
+            'menuOrder' => Yii::t('page', 'Порядок в меню'),
+        );
+    }
+
+
+    public function beforeValidate()
+    {
+        if (parent::beforeValidate()) {
+            if ($this->scenario === 'update') {
+                $this->slug = YText::translit($this->title);
+            }
+            else
+            {
+                if (!$this->slug) {
+                    $this->slug = YText::translit($this->title);
+                }
+            }
+
+            return true;
+        }
+
+        return false;
+    }
+
+    public function beforeSave()
+    {
+        if (parent::beforeSave()) {
+            if ($this->isNewRecord) {
+                $this->changeDate = $this->creationDate = new CDbExpression('NOW()');
+                $this->userId = $this->changeUserId = Yii::app()->user->getId();
+            }
+            else
+            {
+                $this->changeDate = new CDbExpression('now()');
+                $this->userId = Yii::app()->user->getId();
+            }
+            return true;
+        }
+        return false;
+    }
+
+
+    public function scopes()
+    {
+        return array(
+            'published' => array('condition' => 'status = ' . self::STATUS_PUBLISHED),
+            'protected' => array('condition' => 'isProtected = ' . self::PROTECTED_YES),
+            'public' => array('condition' => 'isProtected = ' . self::PROTECTED_NO),
+        );
+    }
+
+
+    public function findBySlug($slug)
+    {
+        $slug = trim($slug);
+        return $this->find('slug = :slug', array(':slug' => $slug));
+    }
+
+    /**
+     * Retrieves a list of models based on the current search/filter conditions.
+     * @return CActiveDataProvider the data provider that can return the models based on the search/filter conditions.
+     */
+    public function search()
+    {
+        $criteria = new CDbCriteria();
+
+        $criteria->with = array('author', 'changeAuthor');
+
+        $criteria->compare('id', $this->id);
+
+        $criteria->compare('parentId', $this->parentId);
+
+        $criteria->compare('creationDate', $this->creationDate);
+
+        $criteria->compare('changeDate', $this->changeDate);
+
+        $criteria->compare('title', $this->title);
+
+        $criteria->compare('slug', $this->slug);
+
+        $criteria->compare('body', $this->body);
+
+        $criteria->compare('keywords', $this->keywords);
+
+        $criteria->compare('description', $this->description);
+
+        $criteria->compare('status', $this->status);
+
+        $criteria->compare('isProtected', $this->isProtected);
+
+        $sort = new CSort();
+
+        $sort->defaultOrder = 'parentId DESC';
+
+        return new CActiveDataProvider('Page', array(
+                                                    'criteria' => $criteria,
+                                                    'sort' => $sort
+                                               ));
+    }
 }

@@ -1,58 +1,58 @@
 <?php
 
 class CategoryModule extends YWebModule
-{	
-	public function getParamsLabels()
-	{
-		return array(
-			'adminMenuOrder' => Yii::t('category','Порядок следования в меню')
-		);
-	}
-	
-	
-	public function getCategory()
-	{
-		return Yii::t('category','Контент');
-	}
-	
-	public function getEditableParams()
-	{
-		return array('adminMenuOrder');
-	}
-	
-	public function getName()
-	{
-		return Yii::t('category','Категории/разделы');
-	}
-    
+{
+    public function getParamsLabels()
+    {
+        return array(
+            'adminMenuOrder' => Yii::t('category', 'Порядок следования в меню')
+        );
+    }
+
+
+    public function getCategory()
+    {
+        return Yii::t('category', 'Контент');
+    }
+
+    public function getEditableParams()
+    {
+        return array('adminMenuOrder');
+    }
+
+    public function getName()
+    {
+        return Yii::t('category', 'Категории/разделы');
+    }
+
     public function getDescription()
-	{
-		return Yii::t('category','Модуль для управления категориями/разделами сайта');
-	}   
-    
+    {
+        return Yii::t('category', 'Модуль для управления категориями/разделами сайта');
+    }
+
     public function getAuthor()
-	{
-		return Yii::t('category','Опейкин Андрей');
-	}
-    
+    {
+        return Yii::t('category', 'Опейкин Андрей');
+    }
+
     public function getAuthorEmail()
-	{
-		return Yii::t('category','aopeykin@yandex.ru');
-	}
-	
-	public function getUrl()
-	{
-		return Yii::t('category','http://yupe.ru');
-	}
-	
-	
-	public function init()
-	{
-		parent::init();
-		
-		$this->setImport(array(
-			'category.models.*',
-			'category.components.*',
-		));
-	}	
+    {
+        return Yii::t('category', 'aopeykin@yandex.ru');
+    }
+
+    public function getUrl()
+    {
+        return Yii::t('category', 'http://yupe.ru');
+    }
+
+
+    public function init()
+    {
+        parent::init();
+
+        $this->setImport(array(
+                              'category.models.*',
+                              'category.components.*',
+                         ));
+    }
 }

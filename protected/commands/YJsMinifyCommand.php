@@ -1,36 +1,36 @@
 <?php
 /**
- *    YJsMinifyCommand - console command for Yii framework to minify JavaScript files 
+ *    YJsMinifyCommand - console command for Yii framework to minify JavaScript files
  *
  *
  *    YJsMinifyCommand use JSMin.php (http://github.com/rgrove/jsmin-php/blob/master/jsmin.php) for minify
  *
- *    @author Opeykin A. <aopeykin@yandex.ru>
- *    @version 0.1
- *    @link http://allframeworks.ru 
- *    @example php /path/to/commandRunner.php YJsMinify /path/to/web/script/foler js min all
+ * @author Opeykin A. <aopeykin@yandex.ru>
+ * @version 0.1
+ * @link http://allframeworks.ru
+ * @example php /path/to/commandRunner.php YJsMinify /path/to/web/script/foler js min all
  *       - minify all files in '/path/to/web/script/foler'
  *       - find all files with 'js' extension
  *       - add suffix 'min' to minifyed files
  *       - create combined file 'all.min.js' (name 'all' - as param)
- *       
- *    @license BSD License
- *    @package  cli.commands
- *    @category cli-command
  *
- *    @todo - рекурсивный обход каталогов
- *    @todo - сделать вывод более читаемым (man printf)
- *    @todo - перевести текст =) My English is bad =(
- *    @todo - опция - только объединить (без минификации)
- * 
+ * @license BSD License
+ * @package  cli.commands
+ * @category cli-command
+ *
+ * @todo - рекурсивный обход каталогов
+ * @todo - сделать вывод более читаемым (man printf)
+ * @todo - перевести текст =) My English is bad =(
+ * @todo - опция - только объединить (без минификации)
+ *
  */
 include_once'JSMin.php';
 
 class YJsMinifyCommand extends CConsoleCommand
 {
-	public function getHelp()
-	{
-		return <<< EOD
+    public function getHelp()
+    {
+        return <<< EOD
 	
 
 USAGE
@@ -47,106 +47,103 @@ PARAMETRS
    
    
 EOD;
-	}
-	
-	public function run($args)
-	{
-		if(!count($args))
-		{
-			echo $this->getHelp();die();			
-		}
-		
-		$jsWebDir    = rtrim(array_shift($args),DIRECTORY_SEPARATOR);
-		
-		$jsFileExt   = array_shift($args) ? : 'js';
-		
-		$jsMinSuffix = array_shift($args) ? : 'min';
-		
-		$combine     = array_shift($args) ? : false;	
-		
-		echo "\n\n\n";
-		echo "I will minify js-files (*.$jsFileExt) in '$jsWebDir' directory !\n\n";
-		
-		
-		if(!is_dir($jsWebDir) || !is_writable($jsWebDir))
-		{
-			die("\n!!!! Can't access $jsWebDir directory, check path and access rights! !!!!!\n");
-		}	
-		
-		$rawFiles = glob("$jsWebDir/*.$jsFileExt");
-		
-		$file = array();
-				
-		if(count($rawFiles))
-		{
-			echo "I will add '$jsMinSuffix' suffix to minifyed files!\n\n";
-			
-			echo "Found ".count($rawFiles)." files\n";
-			
-			$totalSize = 0;		
-			
-			foreach($rawFiles as $f)
-			{
-				$file[$f] = filesize($f);
-				echo basename($f).' ===> '.$file[$f]." bytes\n";
-				$totalSize += $file[$f];				
-			}		
-			
-			echo "===== Without compress/minify: $totalSize bytes ======\n\n\n\n";
-			
-			echo "\n===== GoGoGoGo! Compress them all !!! ===== \n\n";
-			
-			$totalMinSize = 0;
-			
-			$combineFileName = $combineContent = '';
-			
-			foreach($rawFiles as $rf)
-			{
-				$minFileContents = JSMin::minify(file_get_contents($rf));
-				
-				if($combine)
-				{					
-					$combineContent .= $minFileContents;
-				}
-				
-				$minFileName = rtrim(basename($rf),$jsFileExt).$jsMinSuffix.'.'.$jsFileExt;
-				
-				$minFileSize   = file_put_contents(dirname($rf).DIRECTORY_SEPARATOR.$minFileName,$minFileContents);
-				$totalMinSize += $minFileSize;
-				
-				echo $minFileName.' ===> '.$minFileSize." bytes (".round(($file[$rf] - $minFileSize)/100,2)."%)\n";
-			}	
-			
-			echo "\n\n===== After compress/minify: $totalMinSize bytes ======\n\n";
-			
-			if($combine)
-			{
-				$combineFileName = "$combine.$jsMinSuffix.$jsFileExt";
-				$combineFileSize = file_put_contents($jsWebDir.DIRECTORY_SEPARATOR.$combineFileName,$combineContent);
-				echo "===== Created combined file '$jsWebDir/$combineFileName', size: $combineFileSize bytes ====== \n\n";
-			}
-			
-			$totalPercent = round(($totalSize - $totalMinSize)/100);
-				
-			$diffSize     = $totalSize - $totalMinSize;
-			
-			echo "===== Size of your scripts is reduced by ".$totalPercent.'% ('.$diffSize." bytes) ======\n\n";
-			
-			echo "\nThanks for minify js-files, your users will be happy!!!\n";
-			
-			echo "\np.s. don't forget minify css-files too!!!\n";
-			
-			echo "\np.p.s. use NGINX for serve static files =) !!!\n";
-			
-			echo "\np.p.s. Follow me on twitter http://twitter.com/xomaa !!!\n";
-			
-			echo "\nПока!!!\n\n\n";
-			
-		}else{
-			echo "\n !!! Files '*.$jsFileExt' in directory '$jsWebDir' not found !!! \n\n\n";
-			exit;
-		}
-		
-	}
+    }
+
+    public function run($args)
+    {
+        if (!count($args)) {
+            echo $this->getHelp();
+            die();
+        }
+
+        $jsWebDir = rtrim(array_shift($args), DIRECTORY_SEPARATOR);
+
+        $jsFileExt = array_shift($args) ? : 'js';
+
+        $jsMinSuffix = array_shift($args) ? : 'min';
+
+        $combine = array_shift($args) ? : false;
+
+        echo "\n\n\n";
+        echo "I will minify js-files (*.$jsFileExt) in '$jsWebDir' directory !\n\n";
+
+
+        if (!is_dir($jsWebDir) || !is_writable($jsWebDir)) {
+            die("\n!!!! Can't access $jsWebDir directory, check path and access rights! !!!!!\n");
+        }
+
+        $rawFiles = glob("$jsWebDir/*.$jsFileExt");
+
+        $file = array();
+
+        if (count($rawFiles)) {
+            echo "I will add '$jsMinSuffix' suffix to minifyed files!\n\n";
+
+            echo "Found " . count($rawFiles) . " files\n";
+
+            $totalSize = 0;
+
+            foreach ($rawFiles as $f)
+            {
+                $file[$f] = filesize($f);
+                echo basename($f) . ' ===> ' . $file[$f] . " bytes\n";
+                $totalSize += $file[$f];
+            }
+
+            echo "===== Without compress/minify: $totalSize bytes ======\n\n\n\n";
+
+            echo "\n===== GoGoGoGo! Compress them all !!! ===== \n\n";
+
+            $totalMinSize = 0;
+
+            $combineFileName = $combineContent = '';
+
+            foreach ($rawFiles as $rf)
+            {
+                $minFileContents = JSMin::minify(file_get_contents($rf));
+
+                if ($combine) {
+                    $combineContent .= $minFileContents;
+                }
+
+                $minFileName = rtrim(basename($rf), $jsFileExt) . $jsMinSuffix . '.' . $jsFileExt;
+
+                $minFileSize = file_put_contents(dirname($rf) . DIRECTORY_SEPARATOR . $minFileName, $minFileContents);
+                $totalMinSize += $minFileSize;
+
+                echo $minFileName . ' ===> ' . $minFileSize . " bytes (" . round(($file[$rf] - $minFileSize) / 100, 2) . "%)\n";
+            }
+
+            echo "\n\n===== After compress/minify: $totalMinSize bytes ======\n\n";
+
+            if ($combine) {
+                $combineFileName = "$combine.$jsMinSuffix.$jsFileExt";
+                $combineFileSize = file_put_contents($jsWebDir . DIRECTORY_SEPARATOR . $combineFileName, $combineContent);
+                echo "===== Created combined file '$jsWebDir/$combineFileName', size: $combineFileSize bytes ====== \n\n";
+            }
+
+            $totalPercent = round(($totalSize - $totalMinSize) / 100);
+
+            $diffSize = $totalSize - $totalMinSize;
+
+            echo "===== Size of your scripts is reduced by " . $totalPercent . '% (' . $diffSize . " bytes) ======\n\n";
+
+            echo "\nThanks for minify js-files, your users will be happy!!!\n";
+
+            echo "\np.s. don't forget minify css-files too!!!\n";
+
+            echo "\np.p.s. use NGINX for serve static files =) !!!\n";
+
+            echo "\np.p.s. Follow me on twitter http://twitter.com/xomaa !!!\n";
+
+            echo "\nПока!!!\n\n\n";
+
+        } else {
+            echo "\n !!! Files '*.$jsFileExt' in directory '$jsWebDir' not found !!! \n\n\n";
+            exit;
+        }
+
+    }
 }
+
 ?>

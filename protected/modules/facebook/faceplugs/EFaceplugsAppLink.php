@@ -13,12 +13,12 @@ require_once 'EFaceplugsBase.php';
  */
 abstract class EFaceplugsAppLink extends EFaceplugsBase
 {
-	public function  run()
-	{
-		parent::run();
+    public function  run()
+    {
+        parent::run();
 
-		if (!isset ($this->app_id) && YII_DEBUG) {
-			throw new CException('Plugin of type "'.  get_class($this) . '" requires the Facebook application ID to be set.');
-		}
-	}
+        if (!isset ($this->app_id) && YII_DEBUG) {
+            throw new CException('Plugin of type "' . get_class($this) . '" requires the Facebook application ID to be set.');
+        }
+    }
 }

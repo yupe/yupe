@@ -2,25 +2,28 @@
 class YAsyncResponse extends CComponent
 {
     public $success = true;
-    
+
     public $failure = false;
-    
+
     public $resultParamName = 'result';
-    
-    public $dataParamName   = 'data';
-        
-    public function init(){}
-    
-    public function success($data=null)
+
+    public $dataParamName = 'data';
+
+    public function init()
     {
-        echo json_encode(array($this->resultParamName => $this->success,$this->dataParamName => $data));
+    }
+
+    public function success($data = null)
+    {
+        echo json_encode(array($this->resultParamName => $this->success, $this->dataParamName => $data));
         Yii::app()->end();
     }
-    
-    public function failure($data=null)
+
+    public function failure($data = null)
     {
-        echo json_encode(array($this->resultParamName => $this->failure,$this->dataParamName => $data));
+        echo json_encode(array($this->resultParamName => $this->failure, $this->dataParamName => $data));
         Yii::app()->end();
     }
 }
+
 ?>

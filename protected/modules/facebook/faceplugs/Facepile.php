@@ -16,34 +16,34 @@ require_once 'EFaceplugsBase.php';
  */
 class Facepile extends EFaceplugsBase
 {
-	/**
-	 * The URL of the page.
-	 *
-	 * The plugin will display photos of users who have liked this page.
-	 * @var string
-	 */
-	public $href;
-	/**
-	 * The maximum number of rows of faces to display.
-	 *
-	 * Height is dynamically sized; if you specify a maximum of four rows of
-	 * faces, but there are only enough friends to fill two rows, the plugin
-	 * will set its height for two rows of faces. Default: 1.
-	 * @var integer
-	 */
-	public $max_rows;
-	/**
-	 * Width of the plugin in pixels. Default width: 200px.
-	 * @var integer
-	 */
-	public $width;
+    /**
+     * The URL of the page.
+     *
+     * The plugin will display photos of users who have liked this page.
+     * @var string
+     */
+    public $href;
+    /**
+     * The maximum number of rows of faces to display.
+     *
+     * Height is dynamically sized; if you specify a maximum of four rows of
+     * faces, but there are only enough friends to fill two rows, the plugin
+     * will set its height for two rows of faces. Default: 1.
+     * @var integer
+     */
+    public $max_rows;
+    /**
+     * Width of the plugin in pixels. Default width: 200px.
+     * @var integer
+     */
+    public $width;
 
-	public function run()
-	{
-		parent::run();
+    public function run()
+    {
+        parent::run();
 
-		$params = $this->getParams();
-		echo CHtml::openTag('fb:facepile', $params), CHtml::closeTag('fb:facepile');
-	}
+        $params = $this->getParams();
+        echo CHtml::openTag('fb:facepile', $params), CHtml::closeTag('fb:facepile');
+    }
 
 }

@@ -1,13 +1,13 @@
-<?php $this->pageTitle = Yii::t('user','Управление профилями');?>
+<?php $this->pageTitle = Yii::t('user', 'Управление профилями'); ?>
 
 <?php
-$this->breadcrumbs=array(
-	Yii::t('user','Профили')=>array('admin'),
-	Yii::t('user','Управление'),
+$this->breadcrumbs = array(
+    Yii::t('user', 'Профили') => array('admin'),
+    Yii::t('user', 'Управление'),
 );
 
-$this->menu=array(
-	array('label'=>Yii::t('user','Список профилей'), 'url'=>array('index')),	
+$this->menu = array(
+    array('label' => Yii::t('user', 'Список профилей'), 'url' => array('index')),
 );
 
 Yii::app()->clientScript->registerScript('search', "
@@ -24,40 +24,40 @@ $('.search-form form').submit(function(){
 ");
 ?>
 
-<h1><?php echo Yii::t('user','Управление профилями')?></h1>
+<h1><?php echo Yii::t('user', 'Управление профилями')?></h1>
 
 
-<?php echo CHtml::link(Yii::t('user','Поиск'),'#',array('class'=>'search-button')); ?>
+<?php echo CHtml::link(Yii::t('user', 'Поиск'), '#', array('class' => 'search-button')); ?>
 <div class="search-form" style="display:none">
-<?php $this->renderPartial('_search',array(
-	'model'=>$model,
-)); ?>
+    <?php $this->renderPartial('_search', array(
+                                               'model' => $model,
+                                          )); ?>
 </div><!-- search-form -->
 
 <?php $this->widget('zii.widgets.grid.CGridView', array(
-	'id'=>'profile-grid',
-	'dataProvider'=>$model->search(),	
-	'columns'=>array(		
-		 array(
-			'name'  => 'userId',
-			'value' => '$data->user->nickName'
-		 ),
-		'twitter',
-		'livejournal',
-		'vkontakte',
-		'odnoklassniki',
-		/*
-		'facebook',
-		'yandex',
-		'google',
-		'blog',
-		'site',
-		'about',
-		'location',
-		'phone',
-		*/
-		array(
-			'class'=>'CButtonColumn',
-		),
-	),
-)); ?>
+                                                       'id' => 'profile-grid',
+                                                       'dataProvider' => $model->search(),
+                                                       'columns' => array(
+                                                           array(
+                                                               'name' => 'userId',
+                                                               'value' => '$data->user->nickName'
+                                                           ),
+                                                           'twitter',
+                                                           'livejournal',
+                                                           'vkontakte',
+                                                           'odnoklassniki',
+                                                           /*
+                      'facebook',
+                      'yandex',
+                      'google',
+                      'blog',
+                      'site',
+                      'about',
+                      'location',
+                      'phone',
+                      */
+                                                           array(
+                                                               'class' => 'CButtonColumn',
+                                                           ),
+                                                       ),
+                                                  )); ?>

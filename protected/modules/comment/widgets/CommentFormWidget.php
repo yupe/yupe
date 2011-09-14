@@ -2,28 +2,29 @@
 class CommentFormWidget extends YWidget
 {
     public $model;
-    
+
     public $modelId;
-    
+
     public $redirectTo;
-    
+
     public function init()
     {
         $this->model = is_object($this->model) ? get_class($this->model) : $this->model;
-        
+
         $this->modelId = (int)$this->modelId;
     }
-    
+
     public function run()
     {
         $model = new Comment();
-        
+
         $model->setAttributes(array(
-            'model'   => $this->model,
-            'modelId' => $this->modelId
-        ));
-        
-        $this->render('commentformwidget',array('redirectTo' => $this->redirectTo,'model' => $model));
+                                   'model' => $this->model,
+                                   'modelId' => $this->modelId
+                              ));
+
+        $this->render('commentformwidget', array('redirectTo' => $this->redirectTo, 'model' => $model));
     }
 }
+
 ?>

@@ -18,7 +18,7 @@
  *
  * @version $Id: $
  */
-return array (
-  '{attribute} cannot be blank.' => '',
-  '{attribute} must be {value}.' => '',
+return array(
+    '{attribute} cannot be blank.' => '',
+    '{attribute} must be {value}.' => '',
 );

@@ -3,89 +3,88 @@ abstract class YWebModule extends CWebModule
 {
     const CHECK_ERROR = 'error';
 
-    public $adminMenuOrder = 0;          
-    
-	public function getVersion()
-	{
-		return '0.1';
-	}
-	
+    public $adminMenuOrder = 0;
+
+    public function getVersion()
+    {
+        return '0.1';
+    }
+
     public function getUrl()
-	{
-		return 'http://yupe.ru';
-	}
-    
+    {
+        return 'http://yupe.ru';
+    }
+
     public function getAuthor()
-	{
-		return Yii::t('yupe','Сообщество Юпи!');
-	}
-    
+    {
+        return Yii::t('yupe', 'Сообщество Юпи!');
+    }
+
     public function getAuthorEmail()
-	{
-		return 'support@yupe.ru';
-	}
-    
-    public function getAdminPageLink() 
-	{
-		return '/'.strtolower($this->id).'/default/admin/';
-	}    
-    
+    {
+        return 'support@yupe.ru';
+    }
+
+    public function getAdminPageLink()
+    {
+        return '/' . strtolower($this->id) . '/default/admin/';
+    }
+
     public function checkSelf()
     {
-	    return true;
+        return true;
     }
-    
+
     public function getCategory()
     {
         return null;
-    }	
-    
+    }
+
     public function getParamsLabels()
     {
-		return array(
-			'adminMenuOrder' => Yii::t('yupe','Порядок следования в меню'),			
-		);
+        return array(
+            'adminMenuOrder' => Yii::t('yupe', 'Порядок следования в меню'),
+        );
     }
-	
+
     public function getEditableParams()
     {
-	    return array('adminMenuOrder');
+        return array('adminMenuOrder');
     }
-    
+
     public function getAdminMenuOrder()
     {
         return $this->adminMenuOrder;
     }
-    
+
     public function getIsShowInAdminMenu()
     {
         return true;
     }
-    
+
     public function init()
     {
         parent::init();
-        
-        if(is_object(Yii::app()->theme))
-        {
-            $this->layout = 'webroot.themes.'.Yii::app()->theme->name.'.views.layouts.main';            
+
+        if (is_object(Yii::app()->theme)) {
+            $this->layout = 'webroot.themes.' . Yii::app()->theme->name . '.views.layouts.main';
         }
-        
+
         // инициализация модуля		
-        $settings = Settings::model()->cache(Yii::app()->yupe->coreCacheTime)->findAll('moduleId = :moduleId',array('moduleId' => $this->getId()));     
-        
+        $settings = Settings::model()->cache(Yii::app()->yupe->coreCacheTime)->findAll('moduleId = :moduleId', array('moduleId' => $this->getId()));
+
         $editableParams = $this->getEditableParams();
-        
+
         //@TODO обход не settings а editableParams как вариант =)
-        foreach($settings as $model)
+        foreach ($settings as $model)
         {
             $propertie = $model->paramName;
-            
-            if(property_exists($this,$propertie) && in_array($propertie,$editableParams))
-            {
+
+            if (property_exists($this, $propertie) && in_array($propertie, $editableParams)) {
                 $this->$propertie = $model->paramValue;
             }
         }
     }
 }
+
 ?>

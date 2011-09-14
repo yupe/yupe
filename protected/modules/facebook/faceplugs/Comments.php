@@ -16,28 +16,28 @@ require_once 'EFaceplugsBase.php';
  */
 class Comments extends EFaceplugsBase
 {
-	/**
-	 * Number of posts to show.
-	 * @var integer
-	 */
-	public $numposts;
-	/**
-	 * the width of the widget.
-	 * @var integer
-	 */
-	public $width;
-	/**
-	 * Specify whether to publish a comment on the user's wall.
-	 * @var boolean
-	 */
-	public $publish_feed = true;
+    /**
+     * Number of posts to show.
+     * @var integer
+     */
+    public $numposts;
+    /**
+     * the width of the widget.
+     * @var integer
+     */
+    public $width;
+    /**
+     * Specify whether to publish a comment on the user's wall.
+     * @var boolean
+     */
+    public $publish_feed = true;
 
-	public function run()
-	{
-		parent::run();
+    public function run()
+    {
+        parent::run();
 
-		$params = $this->getParams();
-		echo CHtml::openTag('fb:comments', $params), CHtml::closeTag('fb:comments');
-	}
+        $params = $this->getParams();
+        echo CHtml::openTag('fb:comments', $params), CHtml::closeTag('fb:comments');
+    }
 
 }

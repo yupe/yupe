@@ -1,13 +1,13 @@
 <?php
-$this->breadcrumbs=array(
-	$this->getModule('contentblock')->getCategory() => array(''),
-	Yii::t('contentblock','Блоки контента') => array('admin'),
-	Yii::t('contentblock','Управление'),
+$this->breadcrumbs = array(
+    $this->getModule('contentblock')->getCategory() => array(''),
+    Yii::t('contentblock', 'Блоки контента') => array('admin'),
+    Yii::t('contentblock', 'Управление'),
 );
 
-$this->menu=array(
-	array('label'=> Yii::t('contentblock','Добавить новый блок'), 'url'=>array('create')),
-	array('label'=> Yii::t('contentblock','Список блоков'), 'url'=>array('index')),
+$this->menu = array(
+    array('label' => Yii::t('contentblock', 'Добавить новый блок'), 'url' => array('create')),
+    array('label' => Yii::t('contentblock', 'Список блоков'), 'url' => array('index')),
 );
 
 Yii::app()->clientScript->registerScript('search', "
@@ -24,37 +24,37 @@ $('.search-form form').submit(function(){
 ");
 ?>
 
-<h1><?php echo $this->module->getName() ;?></h1>
+<h1><?php echo $this->module->getName();?></h1>
 
-<?php $this->widget('ModuleInfoWidget');?>
+<?php $this->widget('ModuleInfoWidget'); ?>
 
 
-<?php echo CHtml::link(Yii::t('contentblock','Поиск'),'#',array('class'=>'search-button')); ?>
+<?php echo CHtml::link(Yii::t('contentblock', 'Поиск'), '#', array('class' => 'search-button')); ?>
 <div class="search-form" style="display:none">
-<?php $this->renderPartial('_search',array(
-	'model'=>$model,
-)); ?>
+    <?php $this->renderPartial('_search', array(
+                                               'model' => $model,
+                                          )); ?>
 </div><!-- search-form -->
 
 <?php $this->widget('zii.widgets.grid.CGridView', array(
-	'id'=>'content-block-grid',
-	'dataProvider'=>$model->search(),	
-	'columns'=>array(
-		'id',
-		array(
-			'name'  => 'name',
-			'type'  => 'raw',
-			'value' => 'CHtml::link($data->name,array("/contentblock/default/update","id" => $data->id))'
-		),
-		array(
-			'name'  => 'type',
-			'value' => '$data->getType()'
-		),
-		'code',
-		'content',
-		'description',
-		array(
-			'class'=>'CButtonColumn',
-		),
-	),
-)); ?>
+                                                       'id' => 'content-block-grid',
+                                                       'dataProvider' => $model->search(),
+                                                       'columns' => array(
+                                                           'id',
+                                                           array(
+                                                               'name' => 'name',
+                                                               'type' => 'raw',
+                                                               'value' => 'CHtml::link($data->name,array("/contentblock/default/update","id" => $data->id))'
+                                                           ),
+                                                           array(
+                                                               'name' => 'type',
+                                                               'value' => '$data->getType()'
+                                                           ),
+                                                           'code',
+                                                           'content',
+                                                           'description',
+                                                           array(
+                                                               'class' => 'CButtonColumn',
+                                                           ),
+                                                       ),
+                                                  )); ?>

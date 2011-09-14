@@ -2,12 +2,12 @@
 
 class RecoveryPasswordTest extends CDbTestCase
 {
-	public $fixtures=array(
-		'recoveryPasswords'=>'RecoveryPassword',
-	);
+    public $fixtures = array(
+        'recoveryPasswords' => 'RecoveryPassword',
+    );
 
-	public function testCreate()
-	{
+    public function testCreate()
+    {
 
-	}
+    }
 }

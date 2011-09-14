@@ -1,14 +1,14 @@
-<?php $this->pageTitle = Yii::t('user','Восстановление пароля');?>
+<?php $this->pageTitle = Yii::t('user', 'Восстановление пароля'); ?>
 
 <?php
-$this->breadcrumbs=array(
-	Yii::t('user','Пользователи')=>array('/user/default/admin/'),
-	Yii::t('user','Восстановление пароля')=>array('index'),
-	Yii::t('user','Управление'),
+$this->breadcrumbs = array(
+    Yii::t('user', 'Пользователи') => array('/user/default/admin/'),
+    Yii::t('user', 'Восстановление пароля') => array('index'),
+    Yii::t('user', 'Управление'),
 );
 
-$this->menu=array(
-	array('label'=>Yii::t('user','Список восстановлений'), 'url'=>array('index')),	
+$this->menu = array(
+    array('label' => Yii::t('user', 'Список восстановлений'), 'url' => array('index')),
 );
 
 Yii::app()->clientScript->registerScript('search', "
@@ -25,28 +25,28 @@ $('.search-form form').submit(function(){
 ");
 ?>
 
-<h1><?php echo Yii::t('user','Управление восстановлениями пароля');?></h1>
+<h1><?php echo Yii::t('user', 'Управление восстановлениями пароля');?></h1>
 
-<?php echo CHtml::link(Yii::t('user','Поиск восстановлений пароля'),'#',array('class'=>'search-button')); ?>
+<?php echo CHtml::link(Yii::t('user', 'Поиск восстановлений пароля'), '#', array('class' => 'search-button')); ?>
 <div class="search-form" style="display:none">
-<?php $this->renderPartial('_search',array(
-	'model'=>$model,
-)); ?>
+    <?php $this->renderPartial('_search', array(
+                                               'model' => $model,
+                                          )); ?>
 </div><!-- search-form -->
 
 <?php $this->widget('zii.widgets.grid.CGridView', array(
-	'id'=>'recovery-password-grid',
-	'dataProvider'=>$model->search(),	
-	'columns'=>array(
-		'id',
-		array(
-			'name'  =>'userId',
-			'value' => '$data->user->getFullName()." ({$data->user->nickName})"' 
-		),		
-		'creationDate',
-		'code',
-		array(
-			'class'=>'CButtonColumn',
-		),
-	),
-)); ?>
+                                                       'id' => 'recovery-password-grid',
+                                                       'dataProvider' => $model->search(),
+                                                       'columns' => array(
+                                                           'id',
+                                                           array(
+                                                               'name' => 'userId',
+                                                               'value' => '$data->user->getFullName()." ({$data->user->nickName})"'
+                                                           ),
+                                                           'creationDate',
+                                                           'code',
+                                                           array(
+                                                               'class' => 'CButtonColumn',
+                                                           ),
+                                                       ),
+                                                  )); ?>

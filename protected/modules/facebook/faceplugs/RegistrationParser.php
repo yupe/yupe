@@ -17,12 +17,12 @@
  */
 class RegistrationParser extends CComponent
 {
-	public $data;
-	public $app_id;
-	public $app_secret;
-	public $mapper;
+    public $data;
+    public $app_id;
+    public $app_secret;
+    public $mapper;
 
-	protected $testData = '{
+    protected $testData = '{
 					   "oauth_token": "...big long string...",
 					   "algorithm": "HMAC-SHA256",
 					   "expires": 1291840400,
@@ -49,30 +49,30 @@ class RegistrationParser extends CComponent
 					   "user_id": "218471"
 					}';
 
-	/**
-	 * change the facebook response to an objet
-	 * @return Object $response
-	 */
-	public function parse_signed_request()
-	{
-		$data = json_decode($this->testData);
-		if (strtoupper($data->algorithm) !== 'HMAC-SHA256') {
-			if (YII_DEBUG) {
-				throw new CException('Unknown algorithm : "'. $data->algorithm .'" . Expected HMAC-SHA256');
-			}
-			return null;
-		}
-		return $data->registration;
-	}
+    /**
+     * change the facebook response to an objet
+     * @return Object $response
+     */
+    public function parse_signed_request()
+    {
+        $data = json_decode($this->testData);
+        if (strtoupper($data->algorithm) !== 'HMAC-SHA256') {
+            if (YII_DEBUG) {
+                throw new CException('Unknown algorithm : "' . $data->algorithm . '" . Expected HMAC-SHA256');
+            }
+            return null;
+        }
+        return $data->registration;
+    }
 
-	/**
-	 * 
-	 * @param $input
-	 * @return string
-	 */
-	protected function base64UrlDecode($input)
-	{
-		return base64_decode(strtr($input, '-_', '+/'));
-	}
+    /**
+     *
+     * @param $input
+     * @return string
+     */
+    protected function base64UrlDecode($input)
+    {
+        return base64_decode(strtr($input, '-_', '+/'));
+    }
 
 }

@@ -3,7 +3,8 @@ class SocialController extends YFrontController
 {
     public function actionIndex()
     {
-         $this->render('index');
-    }    
-} 
+        $this->render('index');
+    }
+}
+
 ?>

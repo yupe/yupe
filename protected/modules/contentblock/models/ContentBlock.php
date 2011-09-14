@@ -12,95 +12,95 @@
  */
 class ContentBlock extends CActiveRecord
 {
-	
-	const SIMPLE_TEXT = 1;
-	const PHP_CODE    = 2;
-	const HTML_TEXT   = 3;
-	
-	public function getTypes()
-	{
-		return array(
-			self::SIMPLE_TEXT => Yii::t('contentblock','Простой текст'),
-			self::PHP_CODE    => Yii::t('contentblock','Исполняемый PHP код'),
-			self::HTML_TEXT   => Yii::t('contentblock','HTML код'),
-	    );
-	}
-	
-	public function getType()
-	{
-		$data = $this->getTypes();
-		
-		return array_key_exists($this->type,$data) ? $data[$this->type] : Yii::t('contentblock','*неизвестный тип*');
-	}
-	
-	/**
-	 * Returns the static model of the specified AR class.
-	 * @return ContentBlock the static model class
-	 */
-	public static function model($className=__CLASS__)
-	{
-		return parent::model($className);
-	}
 
-	/**
-	 * @return string the associated database table name
-	 */
-	public function tableName()
-	{
-		return 'ContentBlock';
-	}
+    const SIMPLE_TEXT = 1;
+    const PHP_CODE = 2;
+    const HTML_TEXT = 3;
 
-	/**
-	 * @return array validation rules for model attributes.
-	 */
-	public function rules()
-	{
-		// NOTE: you should only define rules for those attributes that
-		// will receive user inputs.
-		return array(
-			array('name, code, content, type', 'required'),
-			array('type', 'numerical', 'integerOnly'=>true),
-			array('name', 'length', 'max'=>50),
-			array('description', 'length', 'max'=>300),
-			// The following rule is used by search().
-			// Please remove those attributes that should not be searched.
-			array('id, name, code, type, content, description', 'safe', 'on'=>'search'),
-		);
-	}
+    public function getTypes()
+    {
+        return array(
+            self::SIMPLE_TEXT => Yii::t('contentblock', 'Простой текст'),
+            self::PHP_CODE => Yii::t('contentblock', 'Исполняемый PHP код'),
+            self::HTML_TEXT => Yii::t('contentblock', 'HTML код'),
+        );
+    }
 
-	/**
-	 * @return array customized attribute labels (name=>label)
-	 */
-	public function attributeLabels()
-	{
-		return array(
-			'id' => 'ID',
-			'name' => Yii::t('contentblock','Название'),
-			'code' => Yii::t('contentblock','Символьный код'),
-			'type' => Yii::t('contentblock','Тип'),
-			'content' => Yii::t('contentblock','Контент'),
-			'description' => Yii::t('contentblock','Описание'),
-		);
-	}
+    public function getType()
+    {
+        $data = $this->getTypes();
 
-	/**
-	 * Retrieves a list of models based on the current search/filter conditions.
-	 * @return CActiveDataProvider the data provider that can return the models based on the search/filter conditions.
-	 */
-	public function search()
-	{
-		// Warning: Please modify the following name to remove attributes that
-		// should not be searched.
+        return array_key_exists($this->type, $data) ? $data[$this->type] : Yii::t('contentblock', '*неизвестный тип*');
+    }
 
-		$criteria = new CDbCriteria();	
-		$criteria->compare('name',$this->name);
-		$criteria->compare('code',$this->code);
-		$criteria->compare('type',$this->type);
-		$criteria->compare('content',$this->content);
-		$criteria->compare('description',$this->description);
+    /**
+     * Returns the static model of the specified AR class.
+     * @return ContentBlock the static model class
+     */
+    public static function model($className = __CLASS__)
+    {
+        return parent::model($className);
+    }
 
-		return new CActiveDataProvider(get_class($this), array(
-			'criteria'=>$criteria,
-		));
-	}
+    /**
+     * @return string the associated database table name
+     */
+    public function tableName()
+    {
+        return 'ContentBlock';
+    }
+
+    /**
+     * @return array validation rules for model attributes.
+     */
+    public function rules()
+    {
+        // NOTE: you should only define rules for those attributes that
+        // will receive user inputs.
+        return array(
+            array('name, code, content, type', 'required'),
+            array('type', 'numerical', 'integerOnly' => true),
+            array('name', 'length', 'max' => 50),
+            array('description', 'length', 'max' => 300),
+            // The following rule is used by search().
+            // Please remove those attributes that should not be searched.
+            array('id, name, code, type, content, description', 'safe', 'on' => 'search'),
+        );
+    }
+
+    /**
+     * @return array customized attribute labels (name=>label)
+     */
+    public function attributeLabels()
+    {
+        return array(
+            'id' => 'ID',
+            'name' => Yii::t('contentblock', 'Название'),
+            'code' => Yii::t('contentblock', 'Символьный код'),
+            'type' => Yii::t('contentblock', 'Тип'),
+            'content' => Yii::t('contentblock', 'Контент'),
+            'description' => Yii::t('contentblock', 'Описание'),
+        );
+    }
+
+    /**
+     * Retrieves a list of models based on the current search/filter conditions.
+     * @return CActiveDataProvider the data provider that can return the models based on the search/filter conditions.
+     */
+    public function search()
+    {
+        // Warning: Please modify the following name to remove attributes that
+        // should not be searched.
+
+        $criteria = new CDbCriteria();
+        $criteria->compare('name', $this->name);
+        $criteria->compare('code', $this->code);
+        $criteria->compare('type', $this->type);
+        $criteria->compare('content', $this->content);
+        $criteria->compare('description', $this->description);
+
+        return new CActiveDataProvider(get_class($this), array(
+                                                              'criteria' => $criteria,
+                                                         ));
+    }
 }

@@ -23,51 +23,51 @@ require_once 'EFaceplugsBase.php';
  */
 class FanBox extends EFaceplugsBase
 {
-	/**
-	 * The width of the plugin in pixels. Default width: 300px.
-	 * @var integer
-	 */
-	public $width;
-	/**
-	 * The height of the plugin in pixels.
-	 * @var integer
-	 */
-	public $height;
-	/**
-	 * Specifies whether to display a stream of the latest posts from the
-	 * page's wall.
-	 * @var boolean
-	 */
-	public $stream;
-	/**
-	 * Specifies the profile to be a fan of.
-	 * @var string
-	 */
-	public $profile_id;
-	/**
-	 * Specifies whether to display the Facebook logo at the top of the plugin.
-	 * @var boolean
-	 */
-	public $logobar;
-	/**
-	 * Specify the number of connections (faces) to display in the plugin.
-	 * @var integer
-	 */
-	public $connections;
-	/**
-	 * Specify a CSS file to use with the plugin.
-	 * @var string Absolute URL
-	 */
-	public $css;
+    /**
+     * The width of the plugin in pixels. Default width: 300px.
+     * @var integer
+     */
+    public $width;
+    /**
+     * The height of the plugin in pixels.
+     * @var integer
+     */
+    public $height;
+    /**
+     * Specifies whether to display a stream of the latest posts from the
+     * page's wall.
+     * @var boolean
+     */
+    public $stream;
+    /**
+     * Specifies the profile to be a fan of.
+     * @var string
+     */
+    public $profile_id;
+    /**
+     * Specifies whether to display the Facebook logo at the top of the plugin.
+     * @var boolean
+     */
+    public $logobar;
+    /**
+     * Specify the number of connections (faces) to display in the plugin.
+     * @var integer
+     */
+    public $connections;
+    /**
+     * Specify a CSS file to use with the plugin.
+     * @var string Absolute URL
+     */
+    public $css;
 
-	public function run()
-	{
-		parent::run();
+    public function run()
+    {
+        parent::run();
 
-		if (!isset($this->profile_id)) {
-			$this->profile_id = $this->app_id;
-		}
-		$params = $this->getParams();
-		echo CHtml::openTag('fb:fan', $params), CHtml::closeTag('fb:fan');
-	}
+        if (!isset($this->profile_id)) {
+            $this->profile_id = $this->app_id;
+        }
+        $params = $this->getParams();
+        echo CHtml::openTag('fb:fan', $params), CHtml::closeTag('fb:fan');
+    }
 }

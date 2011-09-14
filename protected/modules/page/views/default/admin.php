@@ -1,16 +1,15 @@
-<?php $this->pageTitle = Yii::t('user','Управление страницами');?>
+<?php $this->pageTitle = Yii::t('user', 'Управление страницами'); ?>
 
 <?php
-$this->breadcrumbs=array(
-	$this->getModule('page')->getCategory() => array(''),
-	Yii::t('page','Страницы')=>array('admin'),
-	Yii::t('page','Управление'),
+$this->breadcrumbs = array(
+    $this->getModule('page')->getCategory() => array(''),
+    Yii::t('page', 'Страницы') => array('admin'),
+    Yii::t('page', 'Управление'),
 );
 
-$this->menu=array(	
-	array('label'=>Yii::t('page','Добавить страницу'), 'url'=>array('create')),
+$this->menu = array(
+    array('label' => Yii::t('page', 'Добавить страницу'), 'url' => array('create')),
 );
-
 
 
 Yii::app()->clientScript->registerScript('search', "
@@ -29,53 +28,53 @@ $('.search-form form').submit(function(){
 ");
 ?>
 
-<h1><?php echo $this->module->getName() ;?></h1>
+<h1><?php echo $this->module->getName();?></h1>
 
-<?php $this->widget('ModuleInfoWidget');?>
+<?php $this->widget('ModuleInfoWidget'); ?>
 
-<?php echo CHtml::link(Yii::t('page','Поиск страниц'),'#',array('class'=>'search-button')); ?>
+<?php echo CHtml::link(Yii::t('page', 'Поиск страниц'), '#', array('class' => 'search-button')); ?>
 <div class="search-form" style="display:none">
-<?php $this->renderPartial('_search',array(
-	'model' => $model,
-	'pages' => $pages
-));
-?>
+    <?php $this->renderPartial('_search', array(
+                                               'model' => $model,
+                                               'pages' => $pages
+                                          ));
+    ?>
 </div><!-- search-form -->
 
 <?php
 
-     $this->widget('zii.widgets.grid.CGridView', array(
-	'id'=>'page-grid',
-	'dataProvider'=>$model->search(),
-	'columns'=>array(
-		'id',				
-		array(
-			'name'  => 'name',
-			'type'  => 'raw',
-			'value' => 'CHtml::link($data->name,array("/page/default/update","id" => $data->id))'
-		),
-		array(
-			'name'  => 'parentId',
-			'value' => '$data->parentId ? page::model()->findByPk($data->parentId)->name : Yii::t("page","нет")'
-		),
-		'title',		
-		 array(
-		   'name'   => 'status',
-		   'value'  => '$data->getStatus()',	
-		 ),		 
-		 'creationDate',
-		 'changeDate',
-		 array(
-			'name'  => 'userId',
-			'value' => '$data->author->getFullName()'
-		 ),
-		 array(
-			'name'  => 'changeUserId',			
-			'value' => '$data->changeAuthor->getFullName()'
-	   	 ),
-		 array(
-			'class'=>'CButtonColumn',
-		 ),
-		  
-	),
-)); ?>
+$this->widget('zii.widgets.grid.CGridView', array(
+                                                 'id' => 'page-grid',
+                                                 'dataProvider' => $model->search(),
+                                                 'columns' => array(
+                                                     'id',
+                                                     array(
+                                                         'name' => 'name',
+                                                         'type' => 'raw',
+                                                         'value' => 'CHtml::link($data->name,array("/page/default/update","id" => $data->id))'
+                                                     ),
+                                                     array(
+                                                         'name' => 'parentId',
+                                                         'value' => '$data->parentId ? page::model()->findByPk($data->parentId)->name : Yii::t("page","нет")'
+                                                     ),
+                                                     'title',
+                                                     array(
+                                                         'name' => 'status',
+                                                         'value' => '$data->getStatus()',
+                                                     ),
+                                                     'creationDate',
+                                                     'changeDate',
+                                                     array(
+                                                         'name' => 'userId',
+                                                         'value' => '$data->author->getFullName()'
+                                                     ),
+                                                     array(
+                                                         'name' => 'changeUserId',
+                                                         'value' => '$data->changeAuthor->getFullName()'
+                                                     ),
+                                                     array(
+                                                         'class' => 'CButtonColumn',
+                                                     ),
+
+                                                 ),
+                                            )); ?>

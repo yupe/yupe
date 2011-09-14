@@ -1,13 +1,13 @@
 <?php
-$this->breadcrumbs=array(
-	$this->getModule('category')->getCategory() => array(''),
-	Yii::t('category','Категории') => array('admin'),
-	Yii::t('category','Управление'),
+$this->breadcrumbs = array(
+    $this->getModule('category')->getCategory() => array(''),
+    Yii::t('category', 'Категории') => array('admin'),
+    Yii::t('category', 'Управление'),
 );
 
-$this->menu=array(
-	array('label'=>Yii::t('category','Добавить категорию'), 'url'=>array('create')),
-	array('label'=>Yii::t('category','Список категорий'), 'url'=>array('index')),	
+$this->menu = array(
+    array('label' => Yii::t('category', 'Добавить категорию'), 'url' => array('create')),
+    array('label' => Yii::t('category', 'Список категорий'), 'url' => array('index')),
 );
 
 Yii::app()->clientScript->registerScript('search', "
@@ -24,35 +24,35 @@ $('.search-form form').submit(function(){
 ");
 ?>
 
-<h1><?php echo $this->module->getName() ;?></h1>
+<h1><?php echo $this->module->getName();?></h1>
 
-<?php $this->widget('ModuleInfoWidget');?>
+<?php $this->widget('ModuleInfoWidget'); ?>
 
-<?php echo CHtml::link(Yii::t('category','Поиск категорий'),'#',array('class'=>'search-button')); ?>
+<?php echo CHtml::link(Yii::t('category', 'Поиск категорий'), '#', array('class' => 'search-button')); ?>
 <div class="search-form" style="display:none">
-<?php $this->renderPartial('_search',array(
-	'model'=>$model,
-)); ?>
+    <?php $this->renderPartial('_search', array(
+                                               'model' => $model,
+                                          )); ?>
 </div><!-- search-form -->
 
 <?php $this->widget('zii.widgets.grid.CGridView', array(
-	'id'=>'category-grid',
-	'dataProvider'=>$model->search(),	
-	'columns'=>array(
-		'id',
-		array(
-			'name'  => 'name',
-			'type'  => 'raw',
-			'value' => 'CHtml::link($data->name,array("/category/default/update","id" => $data->id))'
-	    ),
-		'description',
-		'alias',
-		array(
-			'name'  => 'status',
-			'value' => '$data->getStatus()'
-		),
-		array(
-			'class'=>'CButtonColumn',
-		),
-	),
-)); ?>
+                                                       'id' => 'category-grid',
+                                                       'dataProvider' => $model->search(),
+                                                       'columns' => array(
+                                                           'id',
+                                                           array(
+                                                               'name' => 'name',
+                                                               'type' => 'raw',
+                                                               'value' => 'CHtml::link($data->name,array("/category/default/update","id" => $data->id))'
+                                                           ),
+                                                           'description',
+                                                           'alias',
+                                                           array(
+                                                               'name' => 'status',
+                                                               'value' => '$data->getStatus()'
+                                                           ),
+                                                           array(
+                                                               'class' => 'CButtonColumn',
+                                                           ),
+                                                       ),
+                                                  )); ?>
