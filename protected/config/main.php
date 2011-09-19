@@ -68,13 +68,15 @@ return array(
 
         'log' => array(
             'class' => 'CLogRouter',
-            'routes' => array(
-                array(
-                    'class' => 'CWebLogRoute',
-                ),
+            'routes' => array(                
                 array(
                     'class' => 'CFileLogRoute',
                     'levels' => 'error, warning, info',
+                ),
+                array(
+                    'class'=>'application.modules.yupe.extensions.db_profiler.DbProfileLogRoute',
+                    'countLimit' => 1, // How many times the same query should be executed to be considered inefficient
+                    'slowQueryMin' => 0.01, // Minimum time for the query to be slow
                 ),
             ),
         ),
