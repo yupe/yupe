@@ -64,13 +64,13 @@ class FbloginAction extends CAction
                     {
                         Yii::app()->user->login($identity);
 
-                        Yii::app()->user->setFlash(FlashMessagesWidget::NOTICE_MESSAGE, Yii::t('user', 'Вы авторизовались!'));
+                        Yii::app()->user->setFlash(YFlashMessages::NOTICE_MESSAGE, Yii::t('user', 'Вы авторизовались!'));
 
                         $this->controller->redirect(array(Yii::app()->getModule('user')->loginSuccess));
                     }
                     else
                     {
-                        Yii::app()->user->setFlash(FlashMessagesWidget::ERROR_MESSAGE, Yii::t('user', 'При авторизации произошла ошибка!'));
+                        Yii::app()->user->setFlash(YFlashMessages::ERROR_MESSAGE, Yii::t('user', 'При авторизации произошла ошибка!'));
 
                         $this->controller->redirect(array('/'));
                     }
@@ -98,14 +98,14 @@ class FbloginAction extends CAction
                         {
                             Yii::app()->user->login($identity);
 
-                            Yii::app()->user->setFlash(FlashMessagesWidget::NOTICE_MESSAGE, Yii::t('user', 'Вы авторизовались!'));
+                            Yii::app()->user->setFlash(YFlashMessages::NOTICE_MESSAGE, Yii::t('user', 'Вы авторизовались!'));
 
                             $this->controller->redirect(array(Yii::app()->getModule('user')->loginSuccess));
                         }
                     }
                     else
                     {
-                        Yii::app()->user->setFlash(FlashMessagesWidget::ERROR_MESSAGE, Yii::t('user', 'При авторизации произошла ошибка!!!' . print_r($login->getErrors(), true)));
+                        Yii::app()->user->setFlash(YFlashMessages::ERROR_MESSAGE, Yii::t('user', 'При авторизации произошла ошибка!!!' . print_r($login->getErrors(), true)));
 
                         $this->controller->redirect(array('/'));
                     }
@@ -133,14 +133,14 @@ class FbloginAction extends CAction
                     {
                         Yii::app()->user->login($identity);
 
-                        Yii::app()->user->setFlash(FlashMessagesWidget::NOTICE_MESSAGE, Yii::t('user', 'Вы авторизовались!'));
+                        Yii::app()->user->setFlash(YFlashMessages::NOTICE_MESSAGE, Yii::t('user', 'Вы авторизовались!'));
 
                         $this->controller->redirect(array(Yii::app()->getModule('user')->loginSuccess));
                     }
                 }
                 else
                 {
-                    Yii::app()->user->setFlash(FlashMessagesWidget::ERROR_MESSAGE, Yii::t('user', 'При авторизации произошла ошибка!'));
+                    Yii::app()->user->setFlash(YFlashMessages::ERROR_MESSAGE, Yii::t('user', 'При авторизации произошла ошибка!'));
 
                     $this->controller->redirect(array('/'));
                 }
@@ -148,7 +148,7 @@ class FbloginAction extends CAction
             }
             catch (Exception $e)
             {
-                Yii::app()->user->setFlash(FlashMessagesWidget::ERROR_MESSAGE, Yii::t('user', 'При авторизации произошла ошибка!'));
+                Yii::app()->user->setFlash(YFlashMessages::ERROR_MESSAGE, Yii::t('user', 'При авторизации произошла ошибка!'));
 
                 $this->controller->redirect(array('/'));
             }

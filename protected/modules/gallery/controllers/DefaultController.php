@@ -118,7 +118,7 @@ class DefaultController extends YBackController
                 {
                     if ($gallery->addImage($image))
                     {
-                        Yii::app()->user->setFlash(FlashMessagesWidget::NOTICE_MESSAGE, Yii::t('gallery', 'Фотография добавлена!'));
+                        Yii::app()->user->setFlash(YFlashMessages::NOTICE_MESSAGE, Yii::t('gallery', 'Фотография добавлена!'));
                     }
 
                     $transaction->commit();
@@ -132,7 +132,7 @@ class DefaultController extends YBackController
             {
                 $transaction->rollback();
 
-                Yii::app()->user->setFlash(FlashMessagesWidget::ERROR_MESSAGE, Yii::t('gallery', $e->getMessage()));
+                Yii::app()->user->setFlash(YFlashMessages::ERROR_MESSAGE, Yii::t('gallery', $e->getMessage()));
             }
 
             $this->redirect(array('/gallery/default/view/', 'id' => $gallery->id));

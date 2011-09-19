@@ -214,7 +214,7 @@ class DefaultController extends Controller
                             }
                         }
 
-                        Yii::app()->user->setFlash(FlashMessagesWidget::NOTICE_MESSAGE, Yii::t('install', 'Настройки базы данных успешно сохранены! База данных проинициализирована!'));
+                        Yii::app()->user->setFlash(YFlashMessages::NOTICE_MESSAGE, Yii::t('install', 'Настройки базы данных успешно сохранены! База данных проинициализирована!'));
 
                         $this->redirect(array('/install/default/createuser/'));
                     }
@@ -270,7 +270,7 @@ class DefaultController extends Controller
 
                 if ($user->save())
                 {
-                    Yii::app()->user->setFlash(FlashMessagesWidget::NOTICE_MESSAGE, Yii::t('install', 'Администратор успешно создан!'));
+                    Yii::app()->user->setFlash(YFlashMessages::NOTICE_MESSAGE, Yii::t('install', 'Администратор успешно создан!'));
 
                     @touch($this->alreadyInstalledFlag);
 
@@ -328,7 +328,7 @@ class DefaultController extends Controller
 
                     $transaction->commit();
 
-                    Yii::app()->user->setFlash(FlashMessagesWidget::NOTICE_MESSAGE, Yii::t('install', 'Настройки сайта успешно сохранены!'));
+                    Yii::app()->user->setFlash(YFlashMessages::NOTICE_MESSAGE, Yii::t('install', 'Настройки сайта успешно сохранены!'));
 
                     $this->redirect(array('/install/default/finish/'));
                 }
@@ -336,7 +336,7 @@ class DefaultController extends Controller
                 {
                     $transaction->rollback();
 
-                    Yii::app()->user->setFlash(FlashMessagesWidget::ERROR_MESSAGE, $e->getMessage());
+                    Yii::app()->user->setFlash(YFlashMessages::ERROR_MESSAGE, $e->getMessage());
 
                     $this->redirect(array('/install/default/sitesettings/'));
                 }

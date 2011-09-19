@@ -28,7 +28,7 @@ class DefaultController extends YBackController
 
             if ($model->save())
             {
-                Yii::app()->user->setFlash(FlashMessagesWidget::NOTICE_MESSAGE, 'Сообщение сохранено!');
+                Yii::app()->user->setFlash(YFlashMessages::NOTICE_MESSAGE, 'Сообщение сохранено!');
 
                 $this->redirect(array('update', 'id' => $model->id));
             }
@@ -56,7 +56,7 @@ class DefaultController extends YBackController
 
             if ($model->save())
             {
-                Yii::app()->user->setFlash(FlashMessagesWidget::NOTICE_MESSAGE, 'Сообщение обновлено!');
+                Yii::app()->user->setFlash(YFlashMessages::NOTICE_MESSAGE, 'Сообщение обновлено!');
 
                 $this->redirect(array('view', 'id' => $model->id));
             }
@@ -88,7 +88,7 @@ class DefaultController extends YBackController
 
         if ($model->status == FeedBack::STATUS_ANSWER_SENDED)
         {
-            Yii::app()->user->setFlash(FlashMessagesWidget::NOTICE_MESSAGE, Yii::t('feedback', 'Внимание! Ответ на это сообщение уже был отправлен!'));
+            Yii::app()->user->setFlash(YFlashMessages::NOTICE_MESSAGE, Yii::t('feedback', 'Внимание! Ответ на это сообщение уже был отправлен!'));
         }
 
         if (Yii::app()->request->isPostRequest && isset($_POST['AnswerForm']))
@@ -109,7 +109,7 @@ class DefaultController extends YBackController
 
                 if ($model->save())
                 {
-                    Yii::app()->user->setFlash(FlashMessagesWidget::NOTICE_MESSAGE, Yii::t('feedback', 'Ответ на сообщение отправлен!'));
+                    Yii::app()->user->setFlash(YFlashMessages::NOTICE_MESSAGE, Yii::t('feedback', 'Ответ на сообщение отправлен!'));
 
                     $this->redirect(array('/feedback/default/view/', 'id' => $model->id));
                 }

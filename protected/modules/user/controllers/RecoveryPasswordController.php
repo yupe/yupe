@@ -29,7 +29,7 @@ class RecoveryPasswordController extends YBackController
             $model->attributes = $_POST['RecoveryPassword'];
             if ($model->save())
             {
-                Yii::app()->user->setFlash(FlashMessagesWidget::NOTICE_MESSAGE, Yii::t('user', 'Данные обновлены!'));
+                Yii::app()->user->setFlash(YFlashMessages::NOTICE_MESSAGE, Yii::t('user', 'Данные обновлены!'));
                 $this->redirect(array('view', 'id' => $model->id));
             }
         }

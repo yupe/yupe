@@ -29,7 +29,7 @@ class DefaultController extends YBackController
 
             if ($model->save())
             {
-                Yii::app()->user->setFlash(FlashMessagesWidget::NOTICE_MESSAGE, Yii::t('news', 'Новость добавлена!'));
+                Yii::app()->user->setFlash(YFlashMessages::NOTICE_MESSAGE, Yii::t('news', 'Новость добавлена!'));
                 $this->redirect(array('view', 'id' => $model->id));
             }
         }
@@ -58,7 +58,7 @@ class DefaultController extends YBackController
             $model->attributes = $_POST['News'];
             if ($model->save())
             {
-                Yii::app()->user->setFlash(FlashMessagesWidget::NOTICE_MESSAGE, Yii::t('news', 'Новость изменена!'));
+                Yii::app()->user->setFlash(YFlashMessages::NOTICE_MESSAGE, Yii::t('news', 'Новость изменена!'));
                 $this->redirect(array('update', 'id' => $model->id));
             }
         }

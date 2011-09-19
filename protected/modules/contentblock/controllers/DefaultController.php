@@ -31,7 +31,7 @@ class DefaultController extends YBackController
 
             if ($model->save())
             {
-                Yii::app()->user->setFlash(FlashMessagesWidget::NOTICE_MESSAGE, Yii::t('contentblock', 'Новый контент блок добавлен!'));
+                Yii::app()->user->setFlash(YFlashMessages::NOTICE_MESSAGE, Yii::t('contentblock', 'Новый контент блок добавлен!'));
 
                 $this->redirect(array('view', 'id' => $model->id));
             }
@@ -60,7 +60,7 @@ class DefaultController extends YBackController
 
             if ($model->save())
             {
-                Yii::app()->user->setFlash(FlashMessagesWidget::NOTICE_MESSAGE, Yii::t('contentblock', 'Контент блок изменен!'));
+                Yii::app()->user->setFlash(YFlashMessages::NOTICE_MESSAGE, Yii::t('contentblock', 'Контент блок изменен!'));
 
                 Yii::app()->cache->delete("ContentBlock{$model->name}");
 

@@ -11,7 +11,7 @@ class LoginAction extends CAction
 
             if ($form->validate())
             {
-                Yii::app()->user->setFlash(FlashMessagesWidget::NOTICE_MESSAGE, Yii::t('user', 'Вы успешно авторизовались!'));
+                Yii::app()->user->setFlash(YFlashMessages::NOTICE_MESSAGE, Yii::t('user', 'Вы успешно авторизовались!'));
                 Yii::log(Yii::t('user', 'Пользователь {user} авторизовался!', array('{user}' => $form->email)), CLogger::LEVEL_INFO, UserModule::$logCategory);
                 $this->controller->redirect(array(Yii::app()->getModule('user')->loginSuccess));
             }

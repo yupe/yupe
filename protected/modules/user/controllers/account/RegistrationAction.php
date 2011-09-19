@@ -45,7 +45,7 @@ class RegistrationAction extends CAction
                         Yii::app()->mail->send(Yii::app()->getModule('user')->notifyEmailFrom, $registration->email, Yii::t('user', 'Регистрация на сайте ' . Yii::app()->name . ' !'), $mailBody);
                         // запись в лог о создании учетной записи
                         Yii::log(Yii::t('user', "Создана учетная запись {nickName}!", array('{nickName}' => $registration->nickName)), CLogger::LEVEL_INFO, UserModule::$logCategory);
-                        Yii::app()->user->setFlash(FlashMessagesWidget::NOTICE_MESSAGE, Yii::t('user', 'Учетная запись создана! Инструкции по активации аккаунта отправлены Вам на email!'));
+                        Yii::app()->user->setFlash(YFlashMessages::NOTICE_MESSAGE, Yii::t('user', 'Учетная запись создана! Инструкции по активации аккаунта отправлены Вам на email!'));
                         $this->controller->refresh();
                     }
                     else
@@ -67,7 +67,7 @@ class RegistrationAction extends CAction
                         // отправить email с сообщением о успешной регистрации
                         $emailBody = $this->controller->renderPartial('application.modules.user.views.email.accountCreatedEmail', array('model' => $user), true);
                         Yii::app()->mail->send(Yii::app()->getModule('user')->notifyEmailFrom, $user->email, Yii::t('user', 'Регистрация на сайте {site} !', array('{site}' => Yii::app()->name)), $emailBody);
-                        Yii::app()->user->setFlash(FlashMessagesWidget::NOTICE_MESSAGE, Yii::t('user', 'Учетная запись создана! Авторизуйтесь!'));
+                        Yii::app()->user->setFlash(YFlashMessages::NOTICE_MESSAGE, Yii::t('user', 'Учетная запись создана! Авторизуйтесь!'));
                         $this->controller->redirect(array('/user/account/login'));
                     }
                     else

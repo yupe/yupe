@@ -34,7 +34,7 @@ class RecoveryAction extends CAction
                         {
                             // отправить письмо с сылкой на сброс пароля
                             Yii::log(Yii::t('user', 'Заявка на автоматическое восстановление пароля.'), CLogger::LEVEL_INFO, UserModule::$logCategory);
-                            Yii::app()->user->setFlash(FlashMessagesWidget::NOTICE_MESSAGE, Yii::t('user', 'На указанный email отправлено письмо с инструкцией по восстановлению пароля!'));
+                            Yii::app()->user->setFlash(YFlashMessages::NOTICE_MESSAGE, Yii::t('user', 'На указанный email отправлено письмо с инструкцией по восстановлению пароля!'));
                             $emailBody = $this->controller->renderPartial('application.modules.user.views.email.passwordAutoRecoveryEmail', array('model' => $recovery), true);
                             Yii::app()->mail->send(Yii::app()->getModule('user')->notifyEmailFrom, $user->email, Yii::t('user', 'Восстановление пароля!'), $emailBody);
                             $this->controller->redirect(array('/user/account/login'));
@@ -42,7 +42,7 @@ class RecoveryAction extends CAction
                         else
                         {
                             Yii::log(Yii::t('user', 'Ощибка при создании заявки на автоматическое восстановление пароля'), CLogger::LEVEL_ERROR, UserModule::$logCategory);
-                            Yii::app()->user->setFlash(FlashMessagesWidget::ERROR_MESSAGE, Yii::t('user', 'При восстановлении пароля произошла ошибка! Повторите попытка позже!'));
+                            Yii::app()->user->setFlash(YFlashMessages::ERROR_MESSAGE, Yii::t('user', 'При восстановлении пароля произошла ошибка! Повторите попытка позже!'));
                             $this->controller->redirect(array('/user/account/recovery'));
                         }
                     }
@@ -58,7 +58,7 @@ class RecoveryAction extends CAction
                         if ($recovery->save())
                         {
                             Yii::log(Yii::t('user', 'Заявка на восстановление пароля.'), CLogger::LEVEL_INFO, UserModule::$logCategory);
-                            Yii::app()->user->setFlash(FlashMessagesWidget::NOTICE_MESSAGE, Yii::t('user', 'На указанный email отправлено письмо с инструкцией по восстановлению пароля!'));
+                            Yii::app()->user->setFlash(YFlashMessages::NOTICE_MESSAGE, Yii::t('user', 'На указанный email отправлено письмо с инструкцией по восстановлению пароля!'));
                             // отправить email уведомление
                             $emailBody = $this->controller->renderPartial('application.modules.user.views.email.passwordRecoveryEmail', array('model' => $recovery), true);
                             Yii::app()->mail->send(Yii::app()->getModule('user')->notifyEmailFrom, $user->email, Yii::t('user', 'Восстановление пароля!'), $emailBody);
@@ -66,7 +66,7 @@ class RecoveryAction extends CAction
                         }
                         else
                         {
-                            Yii::app()->user->setFlash(FlashMessagesWidget::ERROR_MESSAGE, Yii::t('user', 'При восстановлении пароля произошла ошибка!'));
+                            Yii::app()->user->setFlash(YFlashMessages::ERROR_MESSAGE, Yii::t('user', 'При восстановлении пароля произошла ошибка!'));
                             Yii::log($e->getMessage(), CLogger::LEVEL_ERROR, UserModule::$logCategory);
                             $this->controller->redirect(array('/user/account/recovery'));
                         }

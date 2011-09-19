@@ -27,6 +27,7 @@ return array(
         'application.modules.comment.models.*',
         'application.modules.image.models.*',
         'application.modules.vote.models.*',
+        'application.modules.yupe.widgets.*',
     ),
 
     // application components

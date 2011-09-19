@@ -2,7 +2,7 @@
 <div class="container">
     <div class="span-19">
         <div id="content">
-            <?php $this->widget('FlashMessagesWidget');?>
+            <?php $this->widget('YFlashMessages');?>
             <?php echo $content; ?>
         </div>
         <!-- content -->

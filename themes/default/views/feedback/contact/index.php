@@ -2,7 +2,7 @@
 
 <h1>Обратная связь</h1>
 
-<?php $this->widget('application.widgets.FlashMessagesWidget'); ?>
+<?php $this->widget('application.modules.yupe.widgets.YFlashMessages'); ?>
 
 <p> Напишите нам если: </p>
 

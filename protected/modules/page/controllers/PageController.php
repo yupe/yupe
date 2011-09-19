@@ -57,7 +57,7 @@ class PageController extends YFrontController
         // проверим что пользователь может просматривать эту страницу
         if (($page->isProtected == Page::PROTECTED_YES) && !Yii::app()->user->isAuthenticated())
         {
-            Yii::app()->user->setFlash(FlashMessagesWidget::NOTICE_MESSAGE, Yii::t('page', 'Для просмотра этой страницы Вам необходимо авторизоваться!'));
+            Yii::app()->user->setFlash(YFlashMessages::NOTICE_MESSAGE, Yii::t('page', 'Для просмотра этой страницы Вам необходимо авторизоваться!'));
             $this->redirect(array(Yii::app()->getModule('user')->accountActivationSuccess));
         }
 
