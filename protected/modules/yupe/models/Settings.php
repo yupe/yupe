@@ -55,7 +55,7 @@ class Settings extends CActiveRecord
         {
             if ($this->isNewRecord)
             {
-                $this->changeDate = $this->changeDate = new CDbExpression('NOW()');
+                $this->creationDate = $this->changeDate = new CDbExpression('NOW()');
 
                 if (!$this->userId)
                 {
