@@ -1,5 +1,5 @@
 <?php
-class BackAccessControl extends CFilter
+class YBackAccessControl extends CFilter
 {
     public function preFilter(CFilterChain  $filterChain)
     {
@@ -10,5 +10,4 @@ class BackAccessControl extends CFilter
         $filterChain->controller->redirect(array(Yii::app()->user->loginUrl));
     }
 }
-
 ?>
