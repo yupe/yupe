@@ -94,7 +94,7 @@ class BackendController extends YBackController
                         if (!$model->save())
                         {
                             //@TODO  исправить вывод ошибок
-                            Yii::app()->user->setFlash(FlashMessagesWidget::ERROR_MESSAGE, print_r($model->getErrors(), true));
+                            Yii::app()->user->setFlash(YFlashMessages::ERROR_MESSAGE, print_r($model->getErrors(), true));
 
                             $this->redirect(array('/back/backend/modulesettings', 'module' => $moduleId));
                         }
@@ -103,7 +103,7 @@ class BackendController extends YBackController
 
                 $transaction->commit();
 
-                Yii::app()->user->setFlash(FlashMessagesWidget::NOTICE_MESSAGE, Yii::t('yupe', 'Настройки модуля "{module}" сохранены!', array('{module}' => $module->getName())));
+                Yii::app()->user->setFlash(YFlashMessages::NOTICE_MESSAGE, Yii::t('yupe', 'Настройки модуля "{module}" сохранены!', array('{module}' => $module->getName())));
 
                 //@TODO сброс полностью - плохо =(
                 Yii::app()->cache->flush();
@@ -114,7 +114,7 @@ class BackendController extends YBackController
             {
                 $transaction->rollback();
 
-                Yii::app()->user->setFlash(FlashMessagesWidget::ERROR_MESSAGE, $e->getMEssage());
+                Yii::app()->user->setFlash(YFlashMessages::ERROR_MESSAGE, $e->getMEssage());
 
                 $this->redirect(array('/back/backend/modulesettings', 'module' => $moduleId));
             }
@@ -138,7 +138,7 @@ class BackendController extends YBackController
 
                 if ($settings->save())
                 {
-                    Yii::app()->user->setFlash(FlashMessagesWidget::NOTICE_MESSAGE, Yii::t('yupe', 'Настройки сохранены!'));
+                    Yii::app()->user->setFlash(YFlashMessages::NOTICE_MESSAGE, Yii::t('yupe', 'Настройки сохранены!'));
 
                     //@TODO сброс полностью - плохо =(
                     Yii::app()->cache->flush();
@@ -158,7 +158,7 @@ class BackendController extends YBackController
 
                 if ($settings->save())
                 {
-                    Yii::app()->user->setFlash(FlashMessagesWidget::NOTICE_MESSAGE, Yii::t('yupe', 'Настройки сохранены!'));
+                    Yii::app()->user->setFlash(YFlashMessages::NOTICE_MESSAGE, Yii::t('yupe', 'Настройки сохранены!'));
 
                     //@TODO сброс полностью - плохо =(
                     Yii::app()->cache->flush();
@@ -167,7 +167,7 @@ class BackendController extends YBackController
                 }
             }
 
-            Yii::app()->user->setFlash(FlashMessagesWidget::ERROR_MESSAGE, Yii::t('yupe', 'При сохранении произошла ошибка!'));
+            Yii::app()->user->setFlash(YFlashMessages::ERROR_MESSAGE, Yii::t('yupe', 'При сохранении произошла ошибка!'));
 
             $this->redirect(array('/back/backend/themesettings/'));
         }

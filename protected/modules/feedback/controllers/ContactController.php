@@ -44,13 +44,13 @@ class ContactController extends YFrontController
                         {
                             Yii::log(Yii::t('feedback', 'Обращение пользователя добавлено в базу!'), CLogger::LEVEL_INFO, FeedbackModule::$logCategory);
 
-                            Yii::app()->user->setFlash(FlashMessagesWidget::NOTICE_MESSAGE, Yii::t('feedback', 'Ваше сообщение отправлено! Спасибо!'));
+                            Yii::app()->user->setFlash(YFlashMessages::NOTICE_MESSAGE, Yii::t('feedback', 'Ваше сообщение отправлено! Спасибо!'));
                         }
                         else
                         {
                             $form->addErrors($feedback->getErrors());
                             Yii::log(Yii::t('feedback', 'Ошибка при добавлении обращения пользователя в базу!'), CLogger::LEVEL_ERROR, FeedbackModule::$logCategory);
-                            Yii::app()->user->setFlash(FlashMessagesWidget::ERROR_MESSAGE, Yii::t('feedback', 'При отправке сообщения произошла ошибка! Повторите попытку позже!'));
+                            Yii::app()->user->setFlash(YFlashMessages::ERROR_MESSAGE, Yii::t('feedback', 'При отправке сообщения произошла ошибка! Повторите попытку позже!'));
                             $this->render('index', array('model' => $form));
                         }
                     }
@@ -64,7 +64,7 @@ class ContactController extends YFrontController
                         }
 
                         Yii::log(Yii::t('feedback', 'Обращение пользователя отправлено на email!'), CLogger::LEVEL_INFO, FeedbackModule::$logCategory);
-                        Yii::app()->user->setFlash(FlashMessagesWidget::NOTICE_MESSAGE, Yii::t('feedback', 'Ваше сообщение отправлено! Спасибо!'));
+                        Yii::app()->user->setFlash(YFlashMessages::NOTICE_MESSAGE, Yii::t('feedback', 'Ваше сообщение отправлено! Спасибо!'));
                         $this->redirect(array('/feedback/contact'));
                     }
                 }

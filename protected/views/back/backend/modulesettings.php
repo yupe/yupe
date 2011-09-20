@@ -7,7 +7,7 @@ $this->breadcrumbs = array(
 <h1><?php echo Yii::t('yupe', 'Настройки модуля');?>
     "<?php echo $module->getName();?>"</h1>
 
-<?php $this->widget('FlashMessagesWidget'); ?>
+<?php $this->widget('YFlashMessages'); ?>
 
 <?php $this->widget('ModuleInfoWidget', array('module' => $module)); ?>
 

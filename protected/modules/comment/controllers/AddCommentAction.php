@@ -30,7 +30,7 @@ class AddCommentAction extends CAction
                     Yii::app()->ajax->success(Yii::t('comment', 'Комментарий добавлен!'));
                 }
 
-                Yii::app()->user->setFlash(FlashMessagesWidget::NOTICE_MESSAGE, Yii::t('comment', 'Спасибо, Ваш комментарий добавлен!'));
+                Yii::app()->user->setFlash(YFlashMessages::NOTICE_MESSAGE, Yii::t('comment', 'Спасибо, Ваш комментарий добавлен!'));
 
                 $this->controller->redirect($redirect);
             }
@@ -41,7 +41,7 @@ class AddCommentAction extends CAction
                     Yii::app()->ajax->failure(Yii::t('comment', 'Комментарий не добавлен!'));
                 }
 
-                Yii::app()->user->setFlash(FlashMessagesWidget::ERROR_MESSAGE, Yii::t('comment', 'Комментарий не добавлен! Заполните форму корректно!'));
+                Yii::app()->user->setFlash(YFlashMessages::ERROR_MESSAGE, Yii::t('comment', 'Комментарий не добавлен! Заполните форму корректно!'));
 
                 $this->controller->redirect($redirect);
             }

@@ -2,7 +2,7 @@
 
 <h1>Восстановление пароля</h1>
 
-<?php $this->widget('application.widgets.FlashMessagesWidget'); ?>
+<?php $this->widget('application.modules.yupe.widgets.YFlashMessages'); ?>
 
 
 <p>Для восстановления пароля - введите email, указанный при регистрации.</p>

@@ -44,7 +44,7 @@ class DefaultController extends YBackController
                     if ($profile->save())
                     {
                         $transaction->commit();
-                        Yii::app()->user->setFlash(FlashMessagesWidget::NOTICE_MESSAGE, Yii::t('user', 'Новый пользователь добавлен!'));
+                        Yii::app()->user->setFlash(YFlashMessages::NOTICE_MESSAGE, Yii::t('user', 'Новый пользователь добавлен!'));
                         $this->redirect(array('view', 'id' => $model->id));
                     }
                     else
@@ -58,7 +58,7 @@ class DefaultController extends YBackController
             {
                 $transaction->rollback();
                 Yii::log($e->getMessage(), CLogger::LEVEL_ERROR, UserModule::$logCategory);
-                Yii::app()->user->setFlash(FlashMessagesWidget::ERROR_MESSAGE, $e->getMessage());
+                Yii::app()->user->setFlash(YFlashMessages::ERROR_MESSAGE, $e->getMessage());
                 $this->redirect(array('create'));
             }
         }
@@ -82,7 +82,7 @@ class DefaultController extends YBackController
 
             if ($model->save())
             {
-                Yii::app()->user->setFlash(FlashMessagesWidget::NOTICE_MESSAGE, Yii::t('user', 'Данные обновлены!'));
+                Yii::app()->user->setFlash(YFlashMessages::NOTICE_MESSAGE, Yii::t('user', 'Данные обновлены!'));
 
                 $this->redirect(array('view', 'id' => $model->id));
             }

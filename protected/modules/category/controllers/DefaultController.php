@@ -29,7 +29,7 @@ class DefaultController extends YBackController
 
             if ($model->save())
             {
-                Yii::app()->user->setFlash(FlashMessagesWidget::NOTICE_MESSAGE, Yii::t('category', 'Категория добавлена!'));
+                Yii::app()->user->setFlash(YFlashMessages::NOTICE_MESSAGE, Yii::t('category', 'Категория добавлена!'));
 
                 $this->redirect(array('view', 'id' => $model->id));
             }
@@ -56,7 +56,7 @@ class DefaultController extends YBackController
 
             if ($model->save())
             {
-                Yii::app()->user->setFlash(FlashMessagesWidget::NOTICE_MESSAGE, Yii::t('category', 'Категория обновлена!'));
+                Yii::app()->user->setFlash(YFlashMessages::NOTICE_MESSAGE, Yii::t('category', 'Категория обновлена!'));
 
                 $this->redirect(array('update', 'id' => $model->id));
             }

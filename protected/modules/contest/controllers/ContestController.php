@@ -33,7 +33,7 @@ class ContestController extends YFrontController
                 {
                     if ($model->addImage($image))
                     {
-                        Yii::app()->user->setFlash(FlashMessagesWidget::NOTICE_MESSAGE, Yii::t('contest', 'Фотография добавлена!'));
+                        Yii::app()->user->setFlash(YFlashMessages::NOTICE_MESSAGE, Yii::t('contest', 'Фотография добавлена!'));
                     }
 
                     $transaction->commit();
@@ -47,7 +47,7 @@ class ContestController extends YFrontController
             {
                 $transaction->rollback();
 
-                Yii::app()->user->setFlash(FlashMessagesWidget::ERROR_MESSAGE, Yii::t('contest', $e->getMessage()));
+                Yii::app()->user->setFlash(YFlashMessages::ERROR_MESSAGE, Yii::t('contest', $e->getMessage()));
             }
         }
 

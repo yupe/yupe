@@ -39,7 +39,7 @@ class ProfileAction extends CAction
                         $user->update(array('avatar'));
                     }
                 }
-                Yii::app()->user->setFlash(FlashMessagesWidget::NOTICE_MESSAGE, Yii::t('user', 'Ваш профиль обновлен!'));
+                Yii::app()->user->setFlash(YFlashMessages::NOTICE_MESSAGE, Yii::t('user', 'Ваш профиль обновлен!'));
                 $this->controller->redirect(array('/user/account/profile'));
             }
         }

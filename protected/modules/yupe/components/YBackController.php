@@ -8,7 +8,7 @@ class YBackController extends Controller
     public function filters()
     {
         return array(
-            array('application.modules.user.filters.BackAccessControl')
+            array('application.modules.user.filters.YBackAccessControl')
         );
     }
 

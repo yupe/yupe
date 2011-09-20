@@ -33,7 +33,7 @@ class GalleryController extends YFrontController
                 {
                     if ($model->addImage($image))
                     {
-                        Yii::app()->user->setFlash(FlashMessagesWidget::NOTICE_MESSAGE, Yii::t('gallery', 'Фотография добавлена!'));
+                        Yii::app()->user->setFlash(YFlashMessages::NOTICE_MESSAGE, Yii::t('gallery', 'Фотография добавлена!'));
                     }
 
                     $transaction->commit();
@@ -47,7 +47,7 @@ class GalleryController extends YFrontController
             {
                 $transaction->rollback();
 
-                Yii::app()->user->setFlash(FlashMessagesWidget::ERROR_MESSAGE, Yii::t('gallery', $e->getMessage()));
+                Yii::app()->user->setFlash(YFlashMessages::ERROR_MESSAGE, Yii::t('gallery', $e->getMessage()));
             }
         }
 

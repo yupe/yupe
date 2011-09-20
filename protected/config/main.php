@@ -15,8 +15,7 @@ return array(
         'application.modules.yupe.models.*',
         'application.widgets.*',
         'application.modules.yupe.components.*',
-        'application.components.*',
-        'application.helpers.*',
+        'application.components.*',        
         'application.modules.yupe.components.ysc.mail.*',
         'application.modules.yupe.components.ysc.*',
         'application.modules.user.UserModule',
@@ -27,6 +26,8 @@ return array(
         'application.modules.comment.models.*',
         'application.modules.image.models.*',
         'application.modules.vote.models.*',
+        'application.modules.yupe.widgets.*',
+        'application.modules.yupe.helpers.*',
     ),
 
     // application components

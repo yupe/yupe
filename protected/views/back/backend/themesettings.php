@@ -6,7 +6,7 @@ $this->breadcrumbs = array(
 
 <h1><?php echo Yii::t('yupe', 'Выбор темы оформления');?></h1>
 
-<?php $this->widget('FlashMessagesWidget'); ?>
+<?php $this->widget('YFlashMessages'); ?>
 
 <p><?php echo Yii::t('yupe', 'Текущая тема')?>: <b><?php echo $theme;?></b></p>
 

@@ -2,7 +2,7 @@
 
 <h1>Регистрация нового пользователя</h1>
 
-<?php $this->widget('application.widgets.FlashMessagesWidget'); ?>
+<?php $this->widget('application.modules.yupe.widgets.YFlashMessages'); ?>
 
 <div class="form">
 

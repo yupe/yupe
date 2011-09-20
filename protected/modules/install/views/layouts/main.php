@@ -126,7 +126,7 @@
                                                          'links' => $this->breadcrumbs,
                                                     )); ?><!-- breadcrumbs -->
 
-    <?php $this->widget('FlashMessagesWidget');?>
+    <?php $this->widget('YFlashMessages');?>
 
     <div class="container">
         <div class="span-19">
