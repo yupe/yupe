@@ -9,7 +9,7 @@ $this->breadcrumbs = array(
 
 <?php $this->widget('YFlashMessages'); ?>
 
-<?php $this->widget('ModuleInfoWidget', array('module' => $module)); ?>
+<?php $this->widget('YModuleInfo', array('module' => $module)); ?>
 
 <?php if (is_array($elements) && count($elements)): ?>
 

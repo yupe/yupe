@@ -65,7 +65,7 @@
         Copyright &copy; 2009-<?php echo date('Y'); ?> <a
         href='<?php echo Yii::app()->getModule('yupe')->brandUrl?>'><?php echo CHtml::encode(Yii::app()->name);?></a><br/>
         <?php echo Yii::powered(); ?>
-        <?php $this->widget('PerformanceStatisticWidget');?>
+        <?php $this->widget('YPerformanceStatistic');?>
     </div>
     <!-- footer -->
 

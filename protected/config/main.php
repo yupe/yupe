@@ -11,13 +11,8 @@ return array(
     'preload' => array('log'),
 
     // autoloading model and component classes
-    'import' => array(
-        'application.modules.yupe.models.*',
-        'application.widgets.*',
-        'application.modules.yupe.components.*',
+    'import' => array(        
         'application.components.*',        
-        'application.modules.yupe.components.ysc.mail.*',
-        'application.modules.yupe.components.ysc.*',
         'application.modules.user.UserModule',
         'application.modules.user.models.*',
         'application.modules.page.models.*',
@@ -28,6 +23,10 @@ return array(
         'application.modules.vote.models.*',
         'application.modules.yupe.widgets.*',
         'application.modules.yupe.helpers.*',
+        'application.modules.yupe.models.*',        
+        'application.modules.yupe.components.*',
+        'application.modules.yupe.components.ysc.mail.*',
+        'application.modules.yupe.components.ysc.*',
     ),
 
     // application components
