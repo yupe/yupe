@@ -74,10 +74,18 @@ return array(
                     'levels' => 'error, warning, info',
                 ),
                 array(
+                    'class' => 'CWebLogRoute'
+                ),                
+                array(
                     'class'=>'application.modules.yupe.extensions.db_profiler.DbProfileLogRoute',
                     'countLimit' => 1, // How many times the same query should be executed to be considered inefficient
                     'slowQueryMin' => 0.01, // Minimum time for the query to be slow
                 ),
+                array(
+                    'class'=>'application.modules.yupe.extensions.cache_profiler.CacheProfileLogRoute',
+                    'countLimit' => 1, // How many times the same query should be executed to be considered inefficient
+                    'slowQueryMin' => 0.01, // Minimum time for the query to be slow
+                ),                
             ),
         ),
     ),
