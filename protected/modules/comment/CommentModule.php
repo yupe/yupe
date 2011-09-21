@@ -4,6 +4,21 @@ class CommentModule extends YWebModule
 {
     public $defaultCommentStatus = Comment::STATUS_APPROVED;
 
+    public $autoApprove = false;
+
+    public function getParamsLabels()
+    {
+        return array(
+            'defaultCommentStatus' => Yii::t('comment','Статус комментариев по умолчанию'),
+            'autoApprove'          => Yii::t('comment','Автоматическое подтверждение комментариев')
+        );
+    }
+
+    public function getEditableParams()
+    {
+        return array('defaultCommentStatus','autoApprove');
+    }
+
     public function getCategory()
     {
         return Yii::t('comment', 'Контент');

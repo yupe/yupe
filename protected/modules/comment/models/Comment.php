@@ -118,7 +118,7 @@ class Comment extends CActiveRecord
             {
                 $this->creationDate = new CDbExpression('NOW()');
 
-                $this->id = Yii::app()->request->userHostAddress;
+                $this->ip = Yii::app()->request->userHostAddress;
             }
 
             return true;

@@ -3,16 +3,18 @@ class AddCommentAction extends CAction
 {
     public function run()
     {
-        if (Yii::app()->request->isPostRequest)
+        if (Yii::app()->request->isPostRequest && isset($_POST['Comment']))
         {
             $redirect = isset($_POST['redirectTo']) ? $_POST['redirectTo']
                 : Yii::app()->user->returnUrl;
 
             $comment = new Comment();
 
+            $module  = Yii::app()->getModule('comment');
+
             $comment->setAttributes($_POST['Comment']);
 
-            $comment->status = Yii::app()->getModule('comment')->defaultCommentStatus;
+            $comment->status = $module->defaultCommentStatus;            
 
             if (Yii::app()->user->isAuthenticated())
             {
@@ -21,6 +23,11 @@ class AddCommentAction extends CAction
                                              'name' => Yii::app()->user->getState('nickName'),
                                              'email' => Yii::app()->user->getState('email'),
                                         ));
+
+                if($module->autoApprove)
+                {
+                    $comment->status = Comment::STATUS_APPROVED;   
+                }            
             }
 
             if ($comment->save())
