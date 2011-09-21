@@ -37,7 +37,7 @@
 
     <div class="row">
         <?php echo $form->labelEx($model, 'shortText'); ?>
-        <?php $this->widget('application.widgets.EMarkItUp.EMarkitupWidget', array(
+        <?php $this->widget('application.modules.yupe.widgets.EMarkItUp.EMarkitupWidget', array(
                                                                                   'model' => $model,
                                                                                   'attribute' => 'shortText',
                                                                                   'htmlOptions' => array('rows' => 6, 'cols' => 6)
@@ -47,7 +47,7 @@
 
     <div class="row">
         <?php echo $form->labelEx($model, 'fullText'); ?>
-        <?php $this->widget('application.widgets.EMarkItUp.EMarkitupWidget', array(
+        <?php $this->widget('application.modules.yupe.widgets.EMarkItUp.EMarkitupWidget', array(
                                                                                   'model' => $model,
                                                                                   'attribute' => 'fullText',
                                                                                   'htmlOptions' => array('rows' => 16, 'cols' => 6)

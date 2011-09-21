@@ -26,7 +26,7 @@ $('.search-form form').submit(function(){
 
 <h1><?php echo $this->module->getName();?></h1>
 
-<?php $this->widget('ModuleInfoWidget'); ?>
+<?php $this->widget('YModuleInfo'); ?>
 
 <?php echo CHtml::link(Yii::t('vote', 'Поиск'), '#', array('class' => 'search-button')); ?>
 <div class="search-form" style="display:none">

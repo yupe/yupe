@@ -43,7 +43,7 @@
 
     <div class="row">
         <?php echo $form->labelEx($model, 'body'); ?>
-        <?php $this->widget('application.widgets.EMarkItUp.EMarkitupWidget', array(
+        <?php $this->widget('application.modules.yupe.widgets.EMarkItUp.EMarkitupWidget', array(
                                                                                   'model' => $model,
                                                                                   'attribute' => 'body',
                                                                                   'htmlOptions' => array('rows' => 16, 'cols' => 50)

@@ -54,7 +54,7 @@ $this->menu = array(
 
     <div class="row">
         <?php echo $form->labelEx($answerForm, 'answer'); ?>
-        <?php $this->widget('application.widgets.EMarkItUp.EMarkitupWidget', array(
+        <?php $this->widget('application.modules.yupe.widgets.EMarkItUp.EMarkitupWidget', array(
                                                                                   'model' => $answerForm,
                                                                                   'attribute' => 'answer',
                                                                                   'htmlOptions' => array('rows' => 6, 'cols' => 6)

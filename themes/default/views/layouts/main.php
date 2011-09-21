@@ -72,14 +72,14 @@
         href='http://yupe.ru?from=engine'>Юпи!</a>
         v<?php echo Yii::app()->yupe->getVersion();?><br/>
         <?php echo Yii::powered(); ?>
-        <?php $this->widget('PerformanceStatisticWidget');?>
+        <?php $this->widget('YPerformanceStatistic');?>
     </div>
     <!-- footer -->
 
 </div>
 <!-- page -->
 
-<?php $this->widget('YandexMetrikaWidget', array('counter' => 1225179));?>
+<?php $this->widget('YandexMetrika', array('counter' => 1225179));?>
 
 </body>
 

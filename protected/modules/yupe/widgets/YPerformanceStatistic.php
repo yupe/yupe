@@ -1,5 +1,5 @@
 <?php
-class PerformanceStatisticWidget extends CWidget
+class YPerformanceStatistic extends CWidget
 {
     public function run()
     {
