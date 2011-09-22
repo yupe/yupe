@@ -7,7 +7,7 @@
                                              )); ?>
 
 <div style='float:left;padding-right:5px'>
-    <?php $this->widget('application.modules.yupe.components.ysc.yandex.YandexShareApi', array(
+    <?php $this->widget('application.modules.yupe.widgets.ysc.yandex.YandexShareApi', array(
                                                                                               'type' => 'button',
                                                                                               'services' => 'all'
                                                                                          ));?>

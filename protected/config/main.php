@@ -13,7 +13,9 @@ return array(
     // autoloading model and component classes
     'import' => array(        
         'application.components.*',        
+
         'application.modules.user.UserModule',
+
         'application.modules.user.models.*',
         'application.modules.page.models.*',
         'application.modules.news.models.*',
@@ -21,12 +23,13 @@ return array(
         'application.modules.comment.models.*',
         'application.modules.image.models.*',
         'application.modules.vote.models.*',
+
+        'application.modules.yupe.controllers.*', 
         'application.modules.yupe.widgets.*',
+        'application.modules.yupe.widgets.ysc.*',
         'application.modules.yupe.helpers.*',
         'application.modules.yupe.models.*',        
-        'application.modules.yupe.components.*',
-        'application.modules.yupe.components.ysc.mail.*',
-        'application.modules.yupe.components.ysc.*',
+        'application.modules.yupe.components.*',                
     ),
 
     // application components
@@ -72,9 +75,6 @@ return array(
                 array(
                     'class' => 'CFileLogRoute',
                     'levels' => 'error, warning, info',
-                ),
-                array(
-                    'class' => 'CWebLogRoute'
                 ),                
                 array(
                     'class'=>'application.modules.yupe.extensions.db_profiler.DbProfileLogRoute',
