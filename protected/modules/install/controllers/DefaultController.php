@@ -12,15 +12,15 @@ class DefaultController extends Controller
         $this->alreadyInstalledFlag = Yii::app()->basePath . DIRECTORY_SEPARATOR . 'config' . DIRECTORY_SEPARATOR . '.ai';
     }
 
-    protected function beforeAction()
+    protected function beforeAction($action)
     {
         // проверка на то, что сайт уже установлен...
         if (file_exists($this->alreadyInstalledFlag) && $this->action->id != 'finish')
         {
-            throw new CHttpException(404, Yii::t('yupe', 'Страница не найдена!'));
+            throw new CHttpException(404, Yii::t('install', 'Страница не найдена!'));
         }
 
-        return true;
+        return parent::beforeAction($action);
     }
 
     public function actionIndex()
@@ -141,7 +141,7 @@ class DefaultController extends Controller
     {
         $this->stepName = Yii::t('install', 'Шаг третий : "Соединение с базой данных"');
 
-        $dbConfFile = Yii::app()->basePath . DIRECTORY_SEPARATOR . 'config' . DIRECTORY_SEPARATOR . 'dbParams.php';
+        $dbConfFile = Yii::app()->basePath . DIRECTORY_SEPARATOR . 'config' . DIRECTORY_SEPARATOR . 'db.php';
 
         $sqlDataDir = $this->module->basePath . DIRECTORY_SEPARATOR . 'data' . DIRECTORY_SEPARATOR;
 

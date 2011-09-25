@@ -63,7 +63,7 @@ return array(
             'loginUrl' => '/user/account/login/'
         ),
 
-        'db' => require(dirname(__FILE__) . '/dbParams.php'),
+        'db' => require(dirname(__FILE__) . '/db.php'),
 
         'cache' => array(
             'class' => 'CFileCache'
