@@ -107,18 +107,15 @@ return array(
             'brandUrl' => 'http://yupe.ru?from=engine'
         ),
         'install' => array(
-            'class' => 'application.modules.install.InstallModule',
-            'enabled' => true
+            'class' => 'application.modules.install.InstallModule',            
         ),
         'category' => array(
             'class' => 'application.modules.category.CategoryModule',
-            'adminMenuOrder' => 5,
-            'enabled' => true
+            'adminMenuOrder' => 5,            
         ),
         'news' => array(
             'class' => 'application.modules.news.NewsModule',
-            'adminMenuOrder' => 1,
-            'enabled' => true
+            'adminMenuOrder' => 1,            
         ),
         'user' => array(
             'class' => 'application.modules.user.UserModule',
@@ -162,9 +159,5 @@ return array(
             'class' => 'system.gii.GiiModule',
             'password' => 'giiYupe'
         ),
-    ),
-    'params' => array(
-        'fbAppId' => '102597133138877',
-        'fbAppSecret' => '621782fdbe99aa5df3d8f664951c307b'
-    ),
+    ),    
 );

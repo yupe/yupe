@@ -254,7 +254,7 @@ class DefaultController extends Controller
 
             if ($model->validate())
             {
-                $user = new User();
+                $user = new User;
 
                 $salt = Registration::model()->generateSalt();
 
@@ -272,7 +272,10 @@ class DefaultController extends Controller
                 {
                     Yii::app()->user->setFlash(YFlashMessages::NOTICE_MESSAGE, Yii::t('install', 'Администратор успешно создан!'));
 
-                    @touch($this->alreadyInstalledFlag);
+                    if(!@touch($this->alreadyInstalledFlag))
+                    {
+                         Yii::app()->user->setFlash(YFlashMessages::WARNING_MESSAGE, Yii::t('install', "Не удалось создать файл {file}, для избежания повторной установки, пожалуйста, создайте его самостоятельно или отключите модуль 'Install' сразу после установки!",array('{file}' => $this->alreadyInstalledFlag)));
+                    }
 
                     $this->redirect(array('/install/default/sitesettings/'));
                 }
