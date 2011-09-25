@@ -49,13 +49,13 @@ class EMarkitupWidget extends CInputWidget
         list($this->name, $this->id) = $this->resolveNameId();
 
         if ($this->scriptUrl === null)
-            $this->scriptUrl = Yii::app()->getAssetManager()->publish(dirname(__FILE__) . '/assets', false, -1, YII_DEBUG);
+            $this->scriptUrl = Yii::app()->getAssetManager()->publish(dirname(__FILE__) .DIRECTORY_SEPARATOR. 'assets', false, -1, YII_DEBUG);
 
         if ($this->themeUrl === null)
-            $this->themeUrl = $this->scriptUrl . '/skins';
+            $this->themeUrl = $this->scriptUrl.DIRECTORY_SEPARATOR.'skins';
 
         if ($this->settingsUrl === null)
-            $this->settingsUrl = $this->scriptUrl . '/sets';
+            $this->settingsUrl = $this->scriptUrl.DIRECTORY_SEPARATOR.'sets';
 
         if ($this->scriptFile === null)
             $this->scriptFile = YII_DEBUG ? 'jquery.markitup.js'
@@ -83,8 +83,8 @@ class EMarkitupWidget extends CInputWidget
         $id = $this->id;
         $cs = Yii::app()->getClientScript();
         $cs->registerCoreScript('jquery');
-        $cs->registerScriptFile($this->scriptUrl . '/' . $this->scriptFile);
-        $cs->registerScriptFile($this->settingsUrl . '/' . $this->settings . '/set.js');
+        $cs->registerScriptFile($this->scriptUrl .DIRECTORY_SEPARATOR. $this->scriptFile);
+        $cs->registerScriptFile($this->settingsUrl .DIRECTORY_SEPARATOR. $this->settings.DIRECTORY_SEPARATOR.'set.js');
 
         $options = CJavaScript::encode($this->options);
         $cs->registerScript(__CLASS__ . '#' . $id, "jQuery('#$id').markItUp(mySettings,$options).css('height', function() {
@@ -92,7 +92,7 @@ class EMarkitupWidget extends CInputWidget
 																	return (h[1]*jQuery(this).attr('rows'))+h[2]
 																  });");
 
-        $cs->registerCssFile($this->themeUrl . '/' . $this->theme . '/style.css');
-        $cs->registerCssFile($this->settingsUrl . '/' . $this->settings . '/style.css');
+        $cs->registerCssFile($this->themeUrl.DIRECTORY_SEPARATOR.$this->theme.DIRECTORY_SEPARATOR.'style.css');
+        $cs->registerCssFile($this->settingsUrl.DIRECTORY_SEPARATOR.$this->settings.DIRECTORY_SEPARATOR.'style.css');
     }
 }
