@@ -30,7 +30,7 @@
 
     <div class="row">
         <?php echo $form->labelEx($model, 'alias'); ?>
-        <?php echo Yii::t('news', 'Оставьте пустым для автоматической генерации'); ?>
+        <?php echo Yii::t('news', 'Оставьте пустым для автоматической генерации'); ?><br/>
         <?php echo $form->textField($model, 'alias', array('size' => 60, 'maxlength' => 150)); ?>
         <?php echo $form->error($model, 'alias'); ?>
     </div>
