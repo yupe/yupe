@@ -192,6 +192,7 @@ class DefaultController extends Controller
                     }
                     else
                     {
+                        //@TODO корректная обработка ошибок IO
                         fwrite($fh, $dbConfString);
 
                         fclose($fh);
@@ -203,6 +204,8 @@ class DefaultController extends Controller
                         // обработать если есть все файлы с расшмрением .sql
                         $sqlFiles = glob("{$sqlDataDir}*.sql");
 
+
+                        //@TODO завернуть это все в транзакцию  
                         if (is_array($sqlFiles) && count($sqlFiles) > 1)
                         {
                             foreach ($sqlFiles as $file)
