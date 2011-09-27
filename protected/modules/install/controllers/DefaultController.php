@@ -15,7 +15,7 @@ class DefaultController extends Controller
     protected function beforeAction($action)
     {
         // проверка на то, что сайт уже установлен...
-        if (file_exists($this->alreadyInstalledFlag) && $this->action->id != 'finish')
+        if (file_exists($this->alreadyInstalledFlag) && $this->action->id != 'finish' && $this->action->id != 'sitesettings')
         {
             throw new CHttpException(404, Yii::t('install', 'Страница не найдена!'));
         }
@@ -201,7 +201,7 @@ class DefaultController extends Controller
 
                         $result = $this->executeSql($sqlFile);
 
-                        // обработать если есть все файлы с расшмрением .sql
+                        // обработать если есть все файлы с расширением .sql
                         $sqlFiles = glob("{$sqlDataDir}*.sql");
 
 
