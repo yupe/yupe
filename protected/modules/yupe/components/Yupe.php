@@ -114,5 +114,3 @@ class Yupe extends CComponent
             : array('modules' => $modules, 'yiiModules' => $yiiModules, 'modulesNavigation' => $modulesNavigation);
     }
 }
-
-?>

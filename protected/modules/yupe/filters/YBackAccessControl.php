@@ -11,4 +11,3 @@ class YBackAccessControl extends CFilter
         $filterChain->controller->redirect(array(Yii::app()->user->loginUrl));
     }
 }
-?>

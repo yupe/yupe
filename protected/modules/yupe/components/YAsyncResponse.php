@@ -31,5 +31,3 @@ class YAsyncResponse extends CComponent
         Yii::app()->end();
     }
 }
-
-?>

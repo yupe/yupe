@@ -31,6 +31,3 @@ class YBackController extends Controller
         $this->setPageTitle(Yii::t('yupe', 'Панель управления'));
     }
 }
-
-?>
-
