@@ -33,12 +33,12 @@ class ImageModule extends YWebModule
     {
         if (!$this->uploadDir)
         {
-            return array('type' => YWebModule::CHECK_ERROR, 'message' => Yii::t('image', 'Пожалуйста, укажите каталог для хранения изображений! {link}', array('{link}' => CHtml::link(Yii::t('image', 'Изменить настройки модуля'), array('/back/backend/modulesettings/', 'module' => $this->id)))));
+            return array('type' => YWebModule::CHECK_ERROR, 'message' => Yii::t('image', 'Пожалуйста, укажите каталог для хранения изображений! {link}', array('{link}' => CHtml::link(Yii::t('image', 'Изменить настройки модуля'), array('/yupe/backend/modulesettings/', 'module' => $this->id)))));
         }
 
         if (!is_dir($this->uploadDir) || !is_writable($this->uploadDir))
         {
-            return array('type' => YWebModule::CHECK_ERROR, 'message' => Yii::t('image', 'Директория "{dir}" не досутпна для записи или не существует! {link}', array('{dir}' => $this->uploadDir, '{link}' => CHtml::link(Yii::t('image', 'Изменить настройки модуля'), array('/back/backend/modulesettings/', 'module' => $this->id)))));
+            return array('type' => YWebModule::CHECK_ERROR, 'message' => Yii::t('image', 'Директория "{dir}" не досутпна для записи или не существует! {link}', array('{dir}' => $this->uploadDir, '{link}' => CHtml::link(Yii::t('image', 'Изменить настройки модуля'), array('/yupe/backend/modulesettings/', 'module' => $this->id)))));
         }
     }
 

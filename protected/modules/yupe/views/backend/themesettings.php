@@ -3,16 +3,13 @@ $this->breadcrumbs = array(
     Yii::t('yupe', 'Темы оформления'),
 );?>
 
-
 <h1><?php echo Yii::t('yupe', 'Выбор темы оформления');?></h1>
-
-<?php $this->widget('YFlashMessages'); ?>
 
 <p><?php echo Yii::t('yupe', 'Текущая тема')?>: <b><?php echo $theme;?></b></p>
 
 <div class="form">
 
-    <?php echo CHtml::beginForm(array('/back/backend/themesettings', 'post')); ?>
+    <?php echo CHtml::beginForm(array('/yupe/backend/themesettings', 'post')); ?>
     <div class="row">
         <?php echo CHtml::label(Yii::t('yupe', 'Выберите тему'), 'theme');?>
         <?php echo CHtml::dropDownList('theme', $theme, $themes);?>

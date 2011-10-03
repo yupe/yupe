@@ -99,12 +99,12 @@ class Yupe extends CComponent
                 // собрать все для меню "Настройки"
                 if ($modules[$key]->getEditableParams())
                 {
-                    array_push($modulesNavigation['settings']['items'], array('label' => $modules[$key]->getName(), 'url' => array('/back/backend/modulesettings/', 'module' => $modules[$key]->getId())));
+                    array_push($modulesNavigation['settings']['items'], array('label' => $modules[$key]->getName(), 'url' => array('/yupe/backend/modulesettings/', 'module' => $modules[$key]->getId())));
                 }
             }
         }
 
-        array_unshift($modulesNavigation['settings']['items'], array('label' => Yii::t('yupe', 'Оформление'), 'url' => array('/back/backend/themesettings/')));
+        array_unshift($modulesNavigation['settings']['items'], array('label' => Yii::t('yupe', 'Оформление'), 'url' => array('/yupe/backend/themesettings/')));
         array_unshift($modulesNavigation, array('label' => Yii::t('yupe', 'На сайт'), 'url' => array('/')));
         array_push($modulesNavigation, array('label' => Yii::t('yupe', 'Войти'), 'url' => array('/site/login'), 'visible' => !Yii::app()->user->isAuthenticated()));
         array_push($modulesNavigation, array('label' => Yii::t('yupe', 'Выйти') . ' (' . Yii::app()->user->nickName . ')', 'url' => array('/user/account/logout'), 'visible' => Yii::app()->user->isAuthenticated()));

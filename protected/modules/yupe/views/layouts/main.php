@@ -33,8 +33,7 @@
 <body>
 <script type='text/javascript'>
     $(document).ready(function() {
-        $('input:submit').button();
-        $('select').chosen();
+        $('input:submit').button();        
     });
 </script>
 
@@ -55,7 +54,7 @@
     <!-- mainmenu -->
 
     <?php $this->widget('zii.widgets.CBreadcrumbs', array(
-                                                         'homeLink' => CHtml::link(Yii::t('yupe', 'Главная'), array('/back/backend/')),
+                                                         'homeLink' => CHtml::link(Yii::t('yupe', 'Главная'), array('/yupe/backend/')),
                                                          'links' => $this->breadcrumbs,
                                                     )); ?><!-- breadcrumbs -->
 

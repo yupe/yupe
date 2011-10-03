@@ -45,7 +45,7 @@ class BackendController extends YBackController
         {
             if ($oneModule->getEditableParams())
             {
-                array_push($menu, array('label' => $oneModule->getName(), 'url' => $this->createUrl('/back/backend/modulesettings/', array('module' => $oneModule->getId()))));
+                array_push($menu, array('label' => $oneModule->getName(), 'url' => $this->createUrl('/yupe/backend/modulesettings/', array('module' => $oneModule->getId()))));
             }
         }
 
@@ -96,7 +96,7 @@ class BackendController extends YBackController
                             //@TODO  исправить вывод ошибок
                             Yii::app()->user->setFlash(YFlashMessages::ERROR_MESSAGE, print_r($model->getErrors(), true));
 
-                            $this->redirect(array('/back/backend/modulesettings', 'module' => $moduleId));
+                            $this->redirect(array('/yupe/backend/modulesettings', 'module' => $moduleId));
                         }
                     }
                 }
@@ -108,7 +108,7 @@ class BackendController extends YBackController
                 //@TODO сброс полностью - плохо =(
                 Yii::app()->cache->flush();
 
-                $this->redirect(array('/back/backend/modulesettings/', 'module' => $moduleId));
+                $this->redirect(array('/yupe/backend/modulesettings/', 'module' => $moduleId));
             }
             catch (Exception $e)
             {
@@ -116,7 +116,7 @@ class BackendController extends YBackController
 
                 Yii::app()->user->setFlash(YFlashMessages::ERROR_MESSAGE, $e->getMEssage());
 
-                $this->redirect(array('/back/backend/modulesettings', 'module' => $moduleId));
+                $this->redirect(array('/yupe/backend/modulesettings', 'module' => $moduleId));
             }
         }
 
@@ -143,7 +143,7 @@ class BackendController extends YBackController
                     //@TODO сброс полностью - плохо =(
                     Yii::app()->cache->flush();
 
-                    $this->redirect(array('/back/backend/themesettings/'));
+                    $this->redirect(array('/yupe/backend/themesettings/'));
                 }
             }
             else
@@ -163,13 +163,13 @@ class BackendController extends YBackController
                     //@TODO сброс полностью - плохо =(
                     Yii::app()->cache->flush();
 
-                    $this->redirect(array('/back/backend/themesettings/'));
+                    $this->redirect(array('/yupe/backend/themesettings/'));
                 }
             }
 
             Yii::app()->user->setFlash(YFlashMessages::ERROR_MESSAGE, Yii::t('yupe', 'При сохранении произошла ошибка!'));
 
-            $this->redirect(array('/back/backend/themesettings/'));
+            $this->redirect(array('/yupe/backend/themesettings/'));
         }
 
         $themes = array();

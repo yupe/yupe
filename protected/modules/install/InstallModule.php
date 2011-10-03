@@ -9,7 +9,7 @@ class InstallModule extends YWebModule
 
     public function getAdminPageLink()
     {
-        return '/back/backend/';
+        return '/yupe/backend/';
     }
 
     public function getEditableParams()

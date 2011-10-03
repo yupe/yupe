@@ -52,7 +52,7 @@
         </td>
         <td>
             <?php if ($module->getEditableParams()): ?>
-            <?php echo CHtml::link(Yii::t('yupe', 'Настройки'), array('/back/backend/modulesettings', 'module' => $module->getId())); ?>
+            <?php echo CHtml::link(Yii::t('yupe', 'Настройки'), array('/yupe/backend/modulesettings', 'module' => $module->getId())); ?>
             <?php endif;?>
         </td>
         <td>

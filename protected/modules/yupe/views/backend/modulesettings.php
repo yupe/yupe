@@ -4,10 +4,7 @@ $this->breadcrumbs = array(
     $module->getName()
 );?>
 
-<h1><?php echo Yii::t('yupe', 'Настройки модуля');?>
-    "<?php echo $module->getName();?>"</h1>
-
-<?php $this->widget('YFlashMessages'); ?>
+<h1><?php echo Yii::t('yupe', 'Настройки модуля');?>   "<?php echo $module->getName();?>"</h1>
 
 <?php $this->widget('YModuleInfo', array('module' => $module)); ?>
 
@@ -15,15 +12,17 @@ $this->breadcrumbs = array(
 
 <div class="form">
 
-    <?php echo CHtml::beginForm(array('/back/backend/saveModulesettings', 'post')); ?>
+    <?php echo CHtml::beginForm(array('/yupe/backend/saveModulesettings', 'post')); ?>
 
     <?php echo CHtml::hiddenField('moduleId', $module->getId());?>
 
     <?php foreach ($elements as $element): ?>
+
     <div class="row">
         <?php echo CHtml::label($element['label'], $element['name']);?>
         <?php echo CHtml::textField($element['name'], $element['value'], array('id' => $element['id']));?>
     </div>
+
     <?php endforeach;?>
 
     <div class="row submit">
@@ -33,8 +32,11 @@ $this->breadcrumbs = array(
     <?php echo CHtml::endForm(); ?>
 
 </div>
+
 <?php else: ?>
+
 <b><?php echo Yii::t('yupe', 'К сожалению для данного модуля нет доступных для редактирования параметров...');?></b>
+
 <?php endif; ?>
 
 
