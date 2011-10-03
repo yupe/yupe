@@ -31,7 +31,7 @@ class CommentsListWidget extends YWidget
                                                        ':modelId' => $this->modelId,
                                                        ':status' => $this->commentStatus
                                                    ),
-                                                   'order' => 'creationDate DESC'
+                                                   'order' => 'id'
                                               ));
 
         $this->render('commentslistwidget', array('comments' => $comments));

@@ -24,6 +24,8 @@ class Comment extends CActiveRecord
     const STATUS_SPAM = 2;
     const STATUS_DELETED = 3;
 
+    public $verifyCode;
+
 
     /**
      * Returns the static model of the specified AR class.
@@ -39,16 +41,14 @@ class Comment extends CActiveRecord
      */
     public function tableName()
     {
-        return 'Comment';
+        return '{{Comment}}';
     }
 
     /**
      * @return array validation rules for model attributes.
      */
     public function rules()
-    {
-        // NOTE: you should only define rules for those attributes that
-        // will receive user inputs.
+    {        
         return array(
             array('model,modelId, name, email, text', 'required'),
             array('status, userId', 'numerical', 'integerOnly' => true),
@@ -58,8 +58,8 @@ class Comment extends CActiveRecord
             array('email', 'email'),
             array('url', 'url'),
             array('name, email, text, url', 'filter', 'filter' => 'strip_tags'),
-            // The following rule is used by search().
-            // Please remove those attributes that should not be searched.
+            array('verifyCode', 'YRequiredValidator', 'allowEmpty' => Yii::app()->user->isAuthenticated()),
+            array('verifyCode', 'captcha', 'allowEmpty' => Yii::app()->user->isAuthenticated()),            
             array('id, model, modelId, creationDate, name, email, url, text, status, ip', 'safe', 'on' => 'search'),
         );
     }
@@ -79,6 +79,7 @@ class Comment extends CActiveRecord
             'url' => Yii::t('comment', 'Сайт'),
             'text' => Yii::t('comment', 'Комментарий'),
             'status' => Yii::t('comment', 'Статус'),
+            'verifyCode' => Yii::t('comment', 'Код проверки'),
             'ip' => Yii::t('comment', 'ip'),
         );
     }

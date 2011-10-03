@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Хост: localhost
--- Время создания: Сен 11 2011 г., 14:31
+-- Время создания: Окт 03 2011 г., 22:15
 -- Версия сервера: 5.1.54
 -- Версия PHP: 5.3.5-1ubuntu7.2
 
@@ -59,7 +59,7 @@ CREATE TABLE IF NOT EXISTS `Comment` (
   KEY `status` (`status`),
   KEY `model` (`model`,`modelId`),
   KEY `userId` (`userId`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=9 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=19 ;
 
 -- --------------------------------------------------------
 
@@ -232,10 +232,10 @@ CREATE TABLE IF NOT EXISTS `News` (
   `description` varchar(250) NOT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `alias` (`alias`),
-  UNIQUE KEY `userId` (`userId`),
   KEY `status` (`status`),
-  KEY `isProtected` (`isProtected`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+  KEY `isProtected` (`isProtected`),
+  KEY `userId` (`userId`)
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=4 ;
 
 -- --------------------------------------------------------
 
@@ -347,7 +347,7 @@ CREATE TABLE IF NOT EXISTS `Settings` (
   UNIQUE KEY `moduleId_2` (`moduleId`,`paramName`),
   KEY `moduleId` (`moduleId`),
   KEY `userId` (`userId`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=186 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=191 ;
 
 -- --------------------------------------------------------
 
@@ -378,7 +378,7 @@ CREATE TABLE IF NOT EXISTS `User` (
   UNIQUE KEY `user_nickname_unique` (`nickName`),
   UNIQUE KEY `user_email_unique` (`email`),
   KEY `user_status_index` (`status`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=83 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=84 ;
 
 -- --------------------------------------------------------
 

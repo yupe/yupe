@@ -1,7 +1,6 @@
 <?php
 class ContactController extends YFrontController
 {
-
     public function actions()
     {
         return array(
