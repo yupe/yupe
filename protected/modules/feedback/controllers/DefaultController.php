@@ -120,8 +120,7 @@ class DefaultController extends YBackController
                 }
             }
         }
-s
-
+        
         $this->render('answer', array('model' => $model, 'answerForm' => $form));
     }
 
