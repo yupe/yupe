@@ -74,17 +74,18 @@ class DefaultController extends YBackController
 
         $model = FeedBack::model()->findbyPk($id);
 
+        if (!$model)
+        {
+            throw new CHttpException(404, Yii::t('feedback', 'Страница не найдена!'));
+        }
+
         $form = new AnswerForm();
 
         $form->setAttributes(array(
                                   'answer' => $model->answer,
                                   'isFaq' => $model->isFaq
                              ));
-
-        if (is_null($model))
-        {
-            throw new CHttpException(404, Yii::t('feedback', 'Страница не найдена!'));
-        }
+        
 
         if ($model->status == FeedBack::STATUS_ANSWER_SENDED)
         {
@@ -96,9 +97,7 @@ class DefaultController extends YBackController
             $form->setAttributes($_POST['AnswerForm']);
 
             if ($form->validate())
-            {
-                //TODO отправка сообщения и изменение статуса
-
+            {                
                 $model->setAttributes(array(
                                            'answer' => $form->answer,
                                            'isFaq' => $form->isFaq,
@@ -109,13 +108,19 @@ class DefaultController extends YBackController
 
                 if ($model->save())
                 {
+                    //отправка ответа
+                    $body = $this->renderPartial('answerEmail',array('model' => $model));
+
+                    Yii::app()->mail->send(Yii::app()->getModule('feedback')->notifyEmailFrom, $model->email, 'RE: '.$model->theme, $body);
+
+
                     Yii::app()->user->setFlash(YFlashMessages::NOTICE_MESSAGE, Yii::t('feedback', 'Ответ на сообщение отправлен!'));
 
                     $this->redirect(array('/feedback/default/view/', 'id' => $model->id));
                 }
             }
         }
-
+s
 
         $this->render('answer', array('model' => $model, 'answerForm' => $form));
     }

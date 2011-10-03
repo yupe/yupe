@@ -57,9 +57,12 @@ class ContactController extends YFrontController
                     if (in_array('email', $backEnd) && count(Yii::app()->getModule('feedback')->emails))
                     {
                         $emailBody = $this->renderPartial('application.modules.feedback.views.email.feedbackEmail', array('model' => $feedback), true);
+
+                        $notifyEmailFrom = Yii::app()->getModule('feedback')->notifyEmailFrom;
+
                         foreach (Yii::app()->getModule('feedback')->emails as $mail)
                         {
-                            Yii::app()->mail->send(Yii::app()->getModule('feedback')->notifyEmailFrom, $mail, $form->theme, $emailBody);
+                            Yii::app()->mail->send($notifyEmailFrom, $mail, $form->theme, $emailBody);
                         }
 
                         Yii::log(Yii::t('feedback', 'Обращение пользователя отправлено на email!'), CLogger::LEVEL_INFO, FeedbackModule::$logCategory);
