@@ -7,7 +7,7 @@ class YupeModule extends YWebModule
 
     public $siteKeyWords;
 
-    public $backendLayout = '/layouts/column2';
+    public $backendLayout = 'application.modules.yupe.views.layouts.column2';
 
     public $theme;
 
