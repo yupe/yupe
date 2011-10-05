@@ -1,7 +1,7 @@
 <?php
 class SocialLoginIdentity extends CBaseUserIdentity
 {
-    private $identityId;
+    private $identity_id;
 
     private $type;
 
@@ -15,7 +15,7 @@ class SocialLoginIdentity extends CBaseUserIdentity
 
     public function __construct($type, $id)
     {
-        $this->identityId = $id;
+        $this->identity_id = $id;
         $this->type = $type;
     }
 
@@ -31,11 +31,11 @@ class SocialLoginIdentity extends CBaseUserIdentity
 
     public function authenticate()
     {
-        if ($this->type && $this->identityId)
+        if ($this->type && $this->identity_id)
         {
-            $user = Login::model()->with('user')->find('type = :type AND identityId = :identityId', array(
+            $user = Login::model()->with('user')->find('type = :type AND identity_id = :identity_id', array(
                                                                                                          ':type' => $this->type,
-                                                                                                         ':identityId' => $this->identityId
+                                                                                                         ':identity_id' => $this->identity_id
                                                                                                     ));
 
             if (is_null($user) || is_null($user->user))

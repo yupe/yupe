@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Хост: localhost
--- Время создания: Окт 05 2011 г., 22:44
+-- Время создания: Окт 05 2011 г., 22:49
 -- Версия сервера: 5.1.54
 -- Версия PHP: 5.3.5-1ubuntu7.2
 
@@ -204,11 +204,11 @@ CREATE TABLE IF NOT EXISTS `image_to_gallery` (
 CREATE TABLE IF NOT EXISTS `login` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `user_id` int(10) unsigned NOT NULL,
-  `identityId` int(10) unsigned NOT NULL,
+  `identity_id` int(10) unsigned NOT NULL,
   `type` varchar(50) NOT NULL,
   `creation_date` datetime NOT NULL,
   PRIMARY KEY (`id`),
-  UNIQUE KEY `identityId` (`identityId`,`type`),
+  UNIQUE KEY `identityId` (`identity_id`,`type`),
   KEY `user_id` (`user_id`),
   KEY `type` (`type`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;

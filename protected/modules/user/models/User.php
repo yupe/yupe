@@ -375,7 +375,7 @@ class User extends CActiveRecord
 
             $login->setAttributes(array(
                                        'user_id' => $user->id,
-                                       'identityId' => $sid,
+                                       'identity_id' => $sid,
                                        'type' => $sType
                                   ));
 

@@ -5,7 +5,7 @@
  * The followings are the available columns in table 'Login':
  * @property string $id
  * @property string $user_id
- * @property string $identityId
+ * @property string $identity_id
  * @property string $type
  * @property string $creation_date
  *
@@ -37,10 +37,10 @@ class Login extends CActiveRecord
     public function rules()
     {
         return array(
-            array('user_id, identityId, type', 'required'),
-            array('user_id, identityId', 'length', 'max' => 10),
+            array('user_id, identity_id, type', 'required'),
+            array('user_id, identity_id', 'length', 'max' => 10),
             array('type', 'length', 'max' => 50),
-            array('id, user_id, identityId, type, creation_date', 'safe', 'on' => 'search'),
+            array('id, user_id, identity_id, type, creation_date', 'safe', 'on' => 'search'),
         );
     }
 
@@ -79,7 +79,7 @@ class Login extends CActiveRecord
         return array(
             'id' => Yii::t('user', 'id'),
             'user_id' => Yii::t('user', 'Пользователь'),
-            'identityId' => Yii::t('user', 'Идентификатор'),
+            'identity_id' => Yii::t('user', 'Идентификатор'),
             'type' => Yii::t('user', 'Тип'),
             'creation_date' => Yii::t('user', 'Дата создания'),
         );
@@ -98,7 +98,7 @@ class Login extends CActiveRecord
 
         $criteria->compare('id', $this->id, true);
         $criteria->compare('user_id', $this->user_id, true);
-        $criteria->compare('identityId', $this->identityId, true);
+        $criteria->compare('identity_id', $this->identity_id, true);
         $criteria->compare('type', $this->type, true);
         $criteria->compare('creation_date', $this->creation_date, true);
 

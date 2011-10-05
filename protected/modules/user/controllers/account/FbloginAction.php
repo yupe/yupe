@@ -50,9 +50,9 @@ class FbloginAction extends CAction
 
 
                 // проверить наличие такого uid в базе
-                $login = Login::model()->find('type = :type AND identityId = :identityId', array(
+                $login = Login::model()->find('type = :type AND identity_id = :identity_id', array(
                                                                                                 ':type' => $this->type,
-                                                                                                ':identityId' => $fbAuthData['id']
+                                                                                                ':identity_id' => $fbAuthData['id']
                                                                                            ));
 
                 // если такое uid уже есть - авторизуем пользователя и все
@@ -86,7 +86,7 @@ class FbloginAction extends CAction
 
                     $login->setAttributes(array(
                                                'user_id' => $user->id,
-                                               'identityId' => $fbAuthData['id'],
+                                               'identity_id' => $fbAuthData['id'],
                                                'type' => $this->type
                                           ));
 

@@ -42,7 +42,7 @@ $('.search-form form').submit(function(){
                                                                'name' => 'user_id',
                                                                'value' => '$data->user->getFullName()." ({$data->user->nickName})"'
                                                            ),
-                                                           'identityId',
+                                                           'identity_id',
                                                            'type',
                                                            'creation_date',
                                                            array(

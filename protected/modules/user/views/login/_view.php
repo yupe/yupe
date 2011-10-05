@@ -8,8 +8,8 @@
     <?php echo CHtml::encode($data->user->getFullName() . " ({$data->user->nickName})"); ?>
     <br/>
 
-    <b><?php echo CHtml::encode($data->getAttributeLabel('identityId')); ?>:</b>
-    <?php echo CHtml::encode($data->identityId); ?>
+    <b><?php echo CHtml::encode($data->getAttributeLabel('identity_id')); ?>:</b>
+    <?php echo CHtml::encode($data->identity_id); ?>
     <br/>
 
     <b><?php echo CHtml::encode($data->getAttributeLabel('type')); ?>:</b>

@@ -23,7 +23,7 @@ $this->menu = array(
                                                             'name' => 'user_id',
                                                             'value' => $model->user->getFullName() . " ({$model->user->nickName})"
                                                         ),
-                                                        'identityId',
+                                                        'identity_id',
                                                         'type',
                                                         'creation_date',
                                                     ),
