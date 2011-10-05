@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Хост: localhost
--- Время создания: Окт 05 2011 г., 22:14
+-- Время создания: Окт 05 2011 г., 22:22
 -- Версия сервера: 5.1.54
 -- Версия PHP: 5.3.5-1ubuntu7.2
 
@@ -89,14 +89,14 @@ CREATE TABLE IF NOT EXISTS `contest` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `name` varchar(150) NOT NULL,
   `description` varchar(300) DEFAULT NULL,
-  `startAddImage` datetime NOT NULL,
-  `stopAddImage` datetime NOT NULL,
-  `startVote` datetime NOT NULL,
-  `stopVote` datetime NOT NULL,
+  `start_add_image` datetime NOT NULL,
+  `stop_add_image` datetime NOT NULL,
+  `start_vote` datetime NOT NULL,
+  `stop_vote` datetime NOT NULL,
   `status` tinyint(3) unsigned NOT NULL DEFAULT '1',
   PRIMARY KEY (`id`),
   KEY `status` (`status`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=2 ;
 
 -- --------------------------------------------------------
 

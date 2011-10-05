@@ -13,22 +13,22 @@
     <?php echo CHtml::encode($data->description); ?>
     <br/>
 
-    <b><?php echo CHtml::encode($data->getAttributeLabel('startAddImage')); ?>
+    <b><?php echo CHtml::encode($data->getAttributeLabel('start_add_image')); ?>
         :</b>
-    <?php echo CHtml::encode($data->startAddImage); ?>
+    <?php echo CHtml::encode($data->start_add_image); ?>
     <br/>
 
-    <b><?php echo CHtml::encode($data->getAttributeLabel('stopAddImage')); ?>
+    <b><?php echo CHtml::encode($data->getAttributeLabel('stop_add_image')); ?>
         :</b>
-    <?php echo CHtml::encode($data->stopAddImage); ?>
+    <?php echo CHtml::encode($data->stop_add_image); ?>
     <br/>
 
-    <b><?php echo CHtml::encode($data->getAttributeLabel('startVote')); ?>:</b>
-    <?php echo CHtml::encode($data->startVote); ?>
+    <b><?php echo CHtml::encode($data->getAttributeLabel('start_vote')); ?>:</b>
+    <?php echo CHtml::encode($data->start_vote); ?>
     <br/>
 
-    <b><?php echo CHtml::encode($data->getAttributeLabel('stopVote')); ?>:</b>
-    <?php echo CHtml::encode($data->stopVote); ?>
+    <b><?php echo CHtml::encode($data->getAttributeLabel('stop_vote')); ?>:</b>
+    <?php echo CHtml::encode($data->stop_vote); ?>
     <br/>
 
     <b><?php echo CHtml::encode($data->getAttributeLabel('status')); ?>:</b>

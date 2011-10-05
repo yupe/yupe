@@ -26,10 +26,10 @@ $this->menu = array(
                                                         'id',
                                                         'name',
                                                         'description',
-                                                        'startAddImage',
-                                                        'stopAddImage',
-                                                        'startVote',
-                                                        'stopVote',
+                                                        'start_add_image',
+                                                        'stop_add_image',
+                                                        'start_vote',
+                                                        'stop_vote',
                                                         array(
                                                             'name' => 'status',
                                                             'value' => $model->getStatus()
