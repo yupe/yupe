@@ -36,23 +36,23 @@
     </div>
 
     <div class="row">
-        <?php echo $form->labelEx($model, 'shortText'); ?>
+        <?php echo $form->labelEx($model, 'short_text'); ?>
         <?php $this->widget('application.modules.yupe.widgets.EMarkItUp.EMarkitupWidget', array(
                                                                                   'model' => $model,
-                                                                                  'attribute' => 'shortText',
+                                                                                  'attribute' => 'short_text',
                                                                                   'htmlOptions' => array('rows' => 6, 'cols' => 6)
                                                                              ))?>
-        <?php echo $form->error($model, 'shortText'); ?>
+        <?php echo $form->error($model, 'short_text'); ?>
     </div>
 
     <div class="row">
-        <?php echo $form->labelEx($model, 'fullText'); ?>
+        <?php echo $form->labelEx($model, 'full_text'); ?>
         <?php $this->widget('application.modules.yupe.widgets.EMarkItUp.EMarkitupWidget', array(
                                                                                   'model' => $model,
-                                                                                  'attribute' => 'fullText',
+                                                                                  'attribute' => 'full_text',
                                                                                   'htmlOptions' => array('rows' => 16, 'cols' => 6)
                                                                              ))?>
-        <?php echo $form->error($model, 'fullText'); ?>
+        <?php echo $form->error($model, 'full_text'); ?>
     </div>
 
 

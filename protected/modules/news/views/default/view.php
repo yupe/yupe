@@ -26,8 +26,8 @@ $this->menu = array(
                                                         'date',
                                                         'title',
                                                         'alias',
-                                                        'shortText',
-                                                        'fullText',
+                                                        'short_text',
+                                                        'full_text',
                                                         array(
                                                             'name' => 'user_id',
                                                             'value' => $model->user->getFullName()

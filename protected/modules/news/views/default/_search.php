@@ -36,13 +36,13 @@
     </div>
 
     <div class="row">
-        <?php echo $form->label($model, 'shortText'); ?>
-        <?php echo $form->textField($model, 'shortText', array('size' => 60, 'maxlength' => 400)); ?>
+        <?php echo $form->label($model, 'short_text'); ?>
+        <?php echo $form->textField($model, 'short_text', array('size' => 60, 'maxlength' => 400)); ?>
     </div>
 
     <div class="row">
-        <?php echo $form->label($model, 'fullText'); ?>
-        <?php echo $form->textArea($model, 'fullText', array('rows' => 6, 'cols' => 50)); ?>
+        <?php echo $form->label($model, 'full_text'); ?>
+        <?php echo $form->textArea($model, 'full_text', array('rows' => 6, 'cols' => 50)); ?>
     </div>
 
     <div class="row">

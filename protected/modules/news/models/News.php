@@ -10,8 +10,8 @@
  * @property string $date
  * @property string $title
  * @property string $alias
- * @property string $shortText
- * @property string $fullText
+ * @property string $short_text
+ * @property string $full_text
  * @property integer $user_id
  * @property integer $status
  * @property integer $is_protected
@@ -83,16 +83,16 @@ class News extends CActiveRecord
     public function rules()
     {
         return array(
-            array('date, title, alias, shortText, fullText', 'required'),
+            array('date, title, alias, short_text, full_text', 'required'),
             array('status, is_protected', 'numerical', 'integerOnly' => true),
             array('title, alias, keywords', 'length', 'max' => 150),
             array('alias', 'unique'),
             array('description', 'length', 'max' => 250),
-            array('shortText', 'length', 'max' => 400),
-            array('title, alias, shortText, fullText, keywords, description', 'filter', 'filter' => 'trim'),
+            array('short_text', 'length', 'max' => 400),
+            array('title, alias, short_text, full_text, keywords, description', 'filter', 'filter' => 'trim'),
             array('title, alias, keywords, description', 'filter', 'filter' => 'strip_tags'),
             array('alias', 'match', 'pattern' => '/^[a-zA-Z0-9_\-]+$/', 'message' => Yii::t('news', 'Запрещенные символы в поле {attribute}')),
-            array('id, keywords, description, creation_date, change_date, date, title, alias, shortText, fullText, user_id, status, is_protected', 'safe', 'on' => 'search'),
+            array('id, keywords, description, creation_date, change_date, date, title, alias, short_text, full_text, user_id, status, is_protected', 'safe', 'on' => 'search'),
         );
     }
 
@@ -129,8 +129,8 @@ class News extends CActiveRecord
             'date' => Yii::t('news', 'Дата'),
             'title' => Yii::t('news', 'Заголовок'),
             'alias' => Yii::t('news', 'Url'),
-            'shortText' => Yii::t('news', 'Короткое описание'),
-            'fullText' => Yii::t('news', 'Полный текст'),
+            'short_text' => Yii::t('news', 'Короткое описание'),
+            'full_text' => Yii::t('news', 'Полный текст'),
             'user_id' => Yii::t('news', 'Автор'),
             'status' => Yii::t('news', 'Статус'),
             'is_protected' => Yii::t('news', 'Доступ: * только для авторизованных пользователей'),
@@ -158,7 +158,7 @@ class News extends CActiveRecord
 
             if (!$this->description)
             {
-                $this->description = $this->shortText;
+                $this->description = $this->short_text;
             }
 
             return true;
@@ -219,8 +219,8 @@ class News extends CActiveRecord
         $criteria->compare('date', $this->date, true);
         $criteria->compare('title', $this->title, true);
         $criteria->compare('alias', $this->alias, true);
-        $criteria->compare('shortText', $this->shortText, true);
-        $criteria->compare('fullText', $this->fullText, true);
+        $criteria->compare('short_text', $this->short_text, true);
+        $criteria->compare('full_text', $this->full_text, true);
         $criteria->compare('user_id', $this->user_id);
         $criteria->compare('status', $this->status);
         $criteria->compare('is_protected', $this->is_protected);

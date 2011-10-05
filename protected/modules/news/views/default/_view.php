@@ -25,12 +25,12 @@
     <?php echo CHtml::encode($data->alias); ?>
     <br/>
 
-    <b><?php echo CHtml::encode($data->getAttributeLabel('shortText')); ?>:</b>
-    <?php echo CHtml::encode($data->shortText); ?>
+    <b><?php echo CHtml::encode($data->getAttributeLabel('short_text')); ?>:</b>
+    <?php echo CHtml::encode($data->short_text); ?>
     <br/>
 
-    <b><?php echo CHtml::encode($data->getAttributeLabel('fullText')); ?>:</b>
-    <?php echo CHtml::encode($data->fullText); ?>
+    <b><?php echo CHtml::encode($data->getAttributeLabel('full_text')); ?>:</b>
+    <?php echo CHtml::encode($data->full_text); ?>
     <br/>
 
     <b><?php echo CHtml::encode($data->getAttributeLabel('user_id')); ?>:</b>
