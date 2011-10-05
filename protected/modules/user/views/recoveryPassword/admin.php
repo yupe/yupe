@@ -40,10 +40,10 @@ $('.search-form form').submit(function(){
                                                        'columns' => array(
                                                            'id',
                                                            array(
-                                                               'name' => 'userId',
+                                                               'name' => 'user_id',
                                                                'value' => '$data->user->getFullName()." ({$data->user->nickName})"'
                                                            ),
-                                                           'creationDate',
+                                                           'creation_date',
                                                            'code',
                                                            array(
                                                                'class' => 'CButtonColumn',

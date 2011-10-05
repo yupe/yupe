@@ -11,8 +11,8 @@
     </div>
 
     <div class="row">
-        <?php echo $form->label($model, 'creationDate'); ?>
-        <?php echo $form->textField($model, 'creationDate'); ?>
+        <?php echo $form->label($model, 'creation_date'); ?>
+        <?php echo $form->textField($model, 'creation_date'); ?>
     </div>
 
     <div class="row">

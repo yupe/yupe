@@ -57,7 +57,7 @@ class ActivateAction extends CAction
                                       'email' => $registration->email,
                                       'password' => $registration->password,
                                       'salt' => $registration->salt,
-                                      'registrationDate' => $registration->creationDate,
+                                      'registrationDate' => $registration->creation_date,
                                       'registrationIp' => $registration->ip
                                  ));
 
@@ -68,7 +68,7 @@ class ActivateAction extends CAction
                 $profile = new Profile();
 
                 $profile->setAttributes(array(
-                                             'userId' => $user->id
+                                             'user_id' => $user->id
                                         ));
 
                 if ($profile->save())

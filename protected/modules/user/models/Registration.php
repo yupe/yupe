@@ -5,7 +5,7 @@
  *
  * The followings are the available columns in table '{{Registration}}':
  * @property integer $id
- * @property string $creationDate
+ * @property string $creation_date
  * @property string $nickName
  * @property string $email
  * @property string $salt
@@ -43,7 +43,7 @@ class Registration extends CActiveRecord
             array('salt, password, code', 'length', 'max' => 32),
             array('email', 'unique', 'message' => Yii::t('user', 'Данный email уже используется другим пользователем')),
             array('nickName', 'unique', 'message' => Yii::t('user', 'Данный ник уже используется другим пользователем')),
-            array('id, creationDate, nickName, email, salt, password, code', 'safe', 'on' => 'search'),
+            array('id, creation_date, nickName, email, salt, password, code', 'safe', 'on' => 'search'),
         );
     }
 
@@ -52,7 +52,7 @@ class Registration extends CActiveRecord
     {
         return array(
             'id' => Yii::t('user', 'Id'),
-            'creationDate' => Yii::t('user', 'Дата создания'),
+            'creation_date' => Yii::t('user', 'Дата создания'),
             'nickName' => Yii::t('user', 'Ник'),
             'email' => Yii::t('user', 'Email'),
             'salt' => Yii::t('user', 'Соль'),
@@ -68,7 +68,7 @@ class Registration extends CActiveRecord
 
         $criteria->compare('id', $this->id);
 
-        $criteria->compare('creationDate', $this->creationDate, true);
+        $criteria->compare('creation_date', $this->creation_date, true);
 
         $criteria->compare('nickName', $this->nickName, true);
 
@@ -92,7 +92,7 @@ class Registration extends CActiveRecord
         {
             if ($this->isNewRecord)
             {
-                $this->creationDate = new CDbExpression('NOW()');
+                $this->creation_date = new CDbExpression('NOW()');
                 $this->salt = $this->generateSalt();
                 $this->password = $this->hashPassword($this->password, $this->salt);
                 $this->code = $this->generateActivationCode();

@@ -4,7 +4,7 @@ return array(
     /*
      'sample1'=>array(
          'creation_date' => '',
-         'changeDate' => '',
+         'change_date' => '',
          'firstName' => '',
          'lastName' => '',
          'nickName' => '',
@@ -22,7 +22,7 @@ return array(
      ),
      'sample2'=>array(
          'creation_date' => '',
-         'changeDate' => '',
+         'change_date' => '',
          'firstName' => '',
          'lastName' => '',
          'nickName' => '',

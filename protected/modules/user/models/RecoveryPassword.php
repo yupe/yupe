@@ -5,8 +5,8 @@
  *
  * The followings are the available columns in table '{{RecoveryPassword}}':
  * @property integer $id
- * @property integer $userId
- * @property string $creationDate
+ * @property integer $user_id
+ * @property string $creation_date
  * @property string $code
  */
 class RecoveryPassword extends CActiveRecord
@@ -26,10 +26,10 @@ class RecoveryPassword extends CActiveRecord
     public function rules()
     {
         return array(
-            array('userId, code', 'required'),
-            array('userId', 'numerical', 'integerOnly' => true),
+            array('user_id, code', 'required'),
+            array('user_id', 'numerical', 'integerOnly' => true),
             array('code', 'length', 'max' => 32, 'min' => 32),
-            array('id, userId, creationDate, code', 'safe', 'on' => 'search'),
+            array('id, user_id, creation_date, code', 'safe', 'on' => 'search'),
         );
     }
 
@@ -37,7 +37,7 @@ class RecoveryPassword extends CActiveRecord
     public function relations()
     {
         return array(
-            'user' => array(self::BELONGS_TO, 'User', 'userId'),
+            'user' => array(self::BELONGS_TO, 'User', 'user_id'),
         );
     }
 
@@ -46,8 +46,8 @@ class RecoveryPassword extends CActiveRecord
     {
         return array(
             'id' => Yii::t('user', 'Id'),
-            'userId' => Yii::t('user', 'Пользователь'),
-            'creationDate' => Yii::t('user', 'Дата создания'),
+            'user_id' => Yii::t('user', 'Пользователь'),
+            'creation_date' => Yii::t('user', 'Дата создания'),
             'code' => Yii::t('user', 'Код'),
         );
     }
@@ -59,9 +59,9 @@ class RecoveryPassword extends CActiveRecord
 
         $criteria->compare('id', $this->id);
 
-        $criteria->compare('userId', $this->userId);
+        $criteria->compare('user_id', $this->user_id);
 
-        $criteria->compare('creationDate', $this->creationDate, true);
+        $criteria->compare('creation_date', $this->creation_date, true);
 
         $criteria->compare('code', $this->code, true);
 
@@ -71,9 +71,9 @@ class RecoveryPassword extends CActiveRecord
     }
 
 
-    public function generateRecoveryCode($userId)
+    public function generateRecoveryCode($user_id)
     {
-        return md5(time() . $userId . uniqid());
+        return md5(time() . $user_id . uniqid());
     }
 
 
@@ -83,7 +83,7 @@ class RecoveryPassword extends CActiveRecord
         {
             if ($this->isNewRecord)
             {
-                $this->creationDate = new CDbExpression('NOW()');
+                $this->creation_date = new CDbExpression('NOW()');
             }
             return true;
         }

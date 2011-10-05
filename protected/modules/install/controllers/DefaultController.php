@@ -319,7 +319,7 @@ class DefaultController extends Controller
                                                       'moduleId' => 'yupe',
                                                       'paramName' => $param,
                                                       'paramValue' => $model->$param,
-                                                      'userId' => $user[0]->id
+                                                      'user_id' => $user[0]->id
                                                  ));
 
                         if ($settings->save())

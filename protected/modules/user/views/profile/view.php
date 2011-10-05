@@ -7,7 +7,7 @@ $this->breadcrumbs = array(
 
 $this->menu = array(
     array('label' => Yii::t('user', 'Список профилей'), 'url' => array('index')),
-    array('label' => Yii::t('user', 'Изменить профиль'), 'url' => array('update', 'id' => $model->userId)),
+    array('label' => Yii::t('user', 'Изменить профиль'), 'url' => array('update', 'id' => $model->user_id)),
     array('label' => Yii::t('user', 'Управление профилями'), 'url' => array('admin')),
 );
 ?>
@@ -19,7 +19,7 @@ $this->menu = array(
                                                     'data' => $model,
                                                     'attributes' => array(
                                                         array(
-                                                            'name' => 'userId',
+                                                            'name' => 'user_id',
                                                             'value' => $model->user->nickName
                                                         ),
                                                         'twitter',

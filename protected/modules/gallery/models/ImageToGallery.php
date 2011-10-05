@@ -5,9 +5,9 @@
  *
  * The followings are the available columns in table 'ImageToGallery':
  * @property string $id
- * @property string $imageId
+ * @property string $image_id
  * @property string $galleryId
- * @property string $creationDate
+ * @property string $creation_date
  *
  * The followings are the available model relations:
  * @property Gallery $gallery
@@ -38,9 +38,9 @@ class ImageToGallery extends CActiveRecord
     public function rules()
     {
         return array(
-            array('imageId, galleryId', 'required'),
-            array('imageId, galleryId', 'numerical', 'integerOnly' => true),
-            array('id, imageId, galleryId, creationDate', 'safe', 'on' => 'search'),
+            array('image_id, galleryId', 'required'),
+            array('image_id, galleryId', 'numerical', 'integerOnly' => true),
+            array('id, image_id, galleryId, creation_date', 'safe', 'on' => 'search'),
         );
     }
 
@@ -53,7 +53,7 @@ class ImageToGallery extends CActiveRecord
         // class name for the relations automatically generated below.
         return array(
             'gallery' => array(self::BELONGS_TO, 'Gallery', 'galleryId'),
-            'image' => array(self::BELONGS_TO, 'Image', 'imageId'),
+            'image' => array(self::BELONGS_TO, 'Image', 'image_id'),
         );
     }
 
@@ -64,9 +64,9 @@ class ImageToGallery extends CActiveRecord
     {
         return array(
             'id' => Yii::t('gallery', 'id'),
-            'imageId' => Yii::t('gallery', 'Изображение'),
+            'image_id' => Yii::t('gallery', 'Изображение'),
             'galleryId' => Yii::t('gallery', 'Галерея'),
-            'creationDate' => Yii::t('gallery', 'Дата добавления'),
+            'creation_date' => Yii::t('gallery', 'Дата добавления'),
         );
     }
 
@@ -82,9 +82,9 @@ class ImageToGallery extends CActiveRecord
         $criteria = new CDbCriteria;
 
         $criteria->compare('id', $this->id, true);
-        $criteria->compare('imageId', $this->imageId, true);
+        $criteria->compare('image_id', $this->image_id, true);
         $criteria->compare('galleryId', $this->galleryId, true);
-        $criteria->compare('creationDate', $this->creationDate, true);
+        $criteria->compare('creation_date', $this->creation_date, true);
 
         return new CActiveDataProvider($this, array(
                                                    'criteria' => $criteria,
@@ -97,7 +97,7 @@ class ImageToGallery extends CActiveRecord
         {
             if ($this->isNewRecord)
             {
-                $this->creationDate = new CDbExpression('NOW()');
+                $this->creation_date = new CDbExpression('NOW()');
             }
 
             return true;

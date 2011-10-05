@@ -39,7 +39,7 @@ $('.search-form form').submit(function(){
                                                        'dataProvider' => $model->search(),
                                                        'columns' => array(
                                                            array(
-                                                               'name' => 'userId',
+                                                               'name' => 'user_id',
                                                                'value' => '$data->user->nickName'
                                                            ),
                                                            'twitter',

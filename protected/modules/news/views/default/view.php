@@ -21,15 +21,15 @@ $this->menu = array(
                                                     'data' => $model,
                                                     'attributes' => array(
                                                         'id',
-                                                        'creationDate',
-                                                        'changeDate',
+                                                        'creation_date',
+                                                        'change_date',
                                                         'date',
                                                         'title',
                                                         'alias',
                                                         'shortText',
                                                         'fullText',
                                                         array(
-                                                            'name' => 'userId',
+                                                            'name' => 'user_id',
                                                             'value' => $model->user->getFullName()
                                                         ),
                                                         array(

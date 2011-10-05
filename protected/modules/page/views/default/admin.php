@@ -62,10 +62,10 @@ $this->widget('zii.widgets.grid.CGridView', array(
                                                          'name' => 'status',
                                                          'value' => '$data->getStatus()',
                                                      ),
-                                                     'creationDate',
-                                                     'changeDate',
+                                                     'creation_date',
+                                                     'change_date',
                                                      array(
-                                                         'name' => 'userId',
+                                                         'name' => 'user_id',
                                                          'value' => '$data->author->getFullName()'
                                                      ),
                                                      array(

@@ -23,10 +23,10 @@ $this->menu = array(
                                                     'attributes' => array(
                                                         'id',
                                                         array(
-                                                            'name' => 'userId',
+                                                            'name' => 'user_id',
                                                             'value' => $model->user->nickName
                                                         ),
-                                                        'creationDate',
+                                                        'creation_date',
                                                         'code',
                                                     ),
                                                )); ?>

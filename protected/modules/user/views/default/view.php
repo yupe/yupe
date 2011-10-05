@@ -23,8 +23,8 @@ $this->menu = array(
                                                     'data' => $model,
                                                     'attributes' => array(
                                                         'id',
-                                                        'creationDate',
-                                                        'changeDate',
+                                                        'creation_date',
+                                                        'change_date',
                                                         'firstName',
                                                         'lastName',
                                                         'nickName',

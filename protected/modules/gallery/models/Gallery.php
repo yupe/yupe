@@ -59,7 +59,7 @@ class Gallery extends CActiveRecord
         // class name for the relations automatically generated below.
         return array(
             'imagesRell' => array(self::HAS_MANY, 'ImageToGallery', 'galleryId'),
-            'images' => array(self::HAS_MANY, 'Images', 'imageId', 'through' => 'imagesRell'),
+            'images' => array(self::HAS_MANY, 'Images', 'image_id', 'through' => 'imagesRell'),
             'imagesCount' => array(self::STAT, 'ImageToGallery', 'galleryId')
         );
     }
@@ -127,7 +127,7 @@ class Gallery extends CActiveRecord
         $im2g = new ImageToGallery();
 
         $im2g->setAttributes(array(
-                                  'imageId' => $image->id,
+                                  'image_id' => $image->id,
                                   'galleryId' => $this->id
                              ));
 

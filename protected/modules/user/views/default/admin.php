@@ -60,7 +60,7 @@ $('.search-form form').submit(function(){
                                                                'value' => '$data->getAccessLevel()',
                                                                'filter' => CHtml::activeDropDownList($model, 'status', $model->getAccessLevelsList())
                                                            ),
-                                                           'creationDate',
+                                                           'creation_date',
                                                            'lastVisit',
                                                            array(
                                                                'class' => 'CButtonColumn',

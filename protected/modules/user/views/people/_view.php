@@ -7,9 +7,9 @@
     <?php echo CHtml::encode($data->nickName); ?>
     <br/>
 
-    <b><?php echo CHtml::encode($data->getAttributeLabel('creationDate')); ?>
+    <b><?php echo CHtml::encode($data->getAttributeLabel('creation_date')); ?>
         :</b>
-    <?php echo CHtml::encode($data->creationDate); ?>
+    <?php echo CHtml::encode($data->creation_date); ?>
     <br/>
 
 </div>

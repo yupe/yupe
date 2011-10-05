@@ -56,7 +56,7 @@ class ContestController extends YFrontController
                                                                            'condition' => 'contest_id = :contest_id',
                                                                            'params' => array(':contest_id' => $model->id),
                                                                            'limit' => self::CONTEST_PER_PAGE,
-                                                                           'order' => 't.creationDate DESC',
+                                                                           'order' => 't.creation_date DESC',
                                                                            'with' => 'image'
                                                                        ),
                                                                        'pagination' => array(

@@ -4,13 +4,13 @@
     <?php echo CHtml::link(CHtml::encode($data->id), array('view', 'id' => $data->id)); ?>
     <br/>
 
-    <b><?php echo CHtml::encode($data->getAttributeLabel('userId')); ?>:</b>
+    <b><?php echo CHtml::encode($data->getAttributeLabel('user_id')); ?>:</b>
     <?php echo CHtml::encode($data->user->nickName); ?>
     <br/>
 
-    <b><?php echo CHtml::encode($data->getAttributeLabel('creationDate')); ?>
+    <b><?php echo CHtml::encode($data->getAttributeLabel('creation_date')); ?>
         :</b>
-    <?php echo CHtml::encode($data->creationDate); ?>
+    <?php echo CHtml::encode($data->creation_date); ?>
     <br/>
 
     <b><?php echo CHtml::encode($data->getAttributeLabel('code')); ?>:</b>

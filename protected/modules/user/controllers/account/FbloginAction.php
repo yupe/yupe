@@ -85,7 +85,7 @@ class FbloginAction extends CAction
                     $login = new Login();
 
                     $login->setAttributes(array(
-                                               'userId' => $user->id,
+                                               'user_id' => $user->id,
                                                'identityId' => $fbAuthData['id'],
                                                'type' => $this->type
                                           ));

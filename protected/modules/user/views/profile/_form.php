@@ -10,7 +10,7 @@
     <?php echo $form->errorSummary($model); ?>
 
     <div class="row">
-        <?php echo $form->hiddenField($model, 'userId'); ?>
+        <?php echo $form->hiddenField($model, 'user_id'); ?>
     </div>
 
     <div class="row">

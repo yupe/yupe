@@ -5,14 +5,14 @@
  *
  * The followings are the available columns in table 'News':
  * @property integer $id
- * @property string $creationDate
- * @property string $changeDate
+ * @property string $creation_date
+ * @property string $change_date
  * @property string $date
  * @property string $title
  * @property string $alias
  * @property string $shortText
  * @property string $fullText
- * @property integer $userId
+ * @property integer $user_id
  * @property integer $status
  * @property integer $isProtected
  */
@@ -92,7 +92,7 @@ class News extends CActiveRecord
             array('title, alias, shortText, fullText, keywords, description', 'filter', 'filter' => 'trim'),
             array('title, alias, keywords, description', 'filter', 'filter' => 'strip_tags'),
             array('alias', 'match', 'pattern' => '/^[a-zA-Z0-9_\-]+$/', 'message' => Yii::t('news', 'Запрещенные символы в поле {attribute}')),
-            array('id, keywords, description, creationDate, changeDate, date, title, alias, shortText, fullText, userId, status, isProtected', 'safe', 'on' => 'search'),
+            array('id, keywords, description, creation_date, change_date, date, title, alias, shortText, fullText, user_id, status, isProtected', 'safe', 'on' => 'search'),
         );
     }
 
@@ -102,7 +102,7 @@ class News extends CActiveRecord
     public function relations()
     {
         return array(
-            'user' => array(self::BELONGS_TO, 'User', 'userId')
+            'user' => array(self::BELONGS_TO, 'User', 'user_id')
         );
     }
 
@@ -113,7 +113,7 @@ class News extends CActiveRecord
             'published' => array('condition' => 'status = ' . self::STATUS_PUBLISHED),
             'protected' => array('condition' => 'isProtected = ' . self::PROTECTED_YES),
             'public' => array('condition' => 'isProtected = ' . self::PROTECTED_NO),
-            'recent' => array('order' => 'creationDate DESC', 'limit' => 5)
+            'recent' => array('order' => 'creation_date DESC', 'limit' => 5)
         );
     }
 
@@ -124,14 +124,14 @@ class News extends CActiveRecord
     {
         return array(
             'id' => Yii::t('news', 'Id'),
-            'creationDate' => Yii::t('news', 'Дата создания'),
-            'changeDate' => Yii::t('news', 'Дата изменения'),
+            'creation_date' => Yii::t('news', 'Дата создания'),
+            'change_date' => Yii::t('news', 'Дата изменения'),
             'date' => Yii::t('news', 'Дата'),
             'title' => Yii::t('news', 'Заголовок'),
             'alias' => Yii::t('news', 'Url'),
             'shortText' => Yii::t('news', 'Короткое описание'),
             'fullText' => Yii::t('news', 'Полный текст'),
-            'userId' => Yii::t('news', 'Автор'),
+            'user_id' => Yii::t('news', 'Автор'),
             'status' => Yii::t('news', 'Статус'),
             'isProtected' => Yii::t('news', 'Доступ: * только для авторизованных пользователей'),
             'keywords' => Yii::t('news', 'Ключевые слова (SEO)'),
@@ -174,12 +174,12 @@ class News extends CActiveRecord
         {
             if ($this->isNewRecord)
             {
-                $this->creationDate = $this->changeDate = new CDbExpression('NOW()');
-                $this->userId = Yii::app()->user->getId();
+                $this->creation_date = $this->change_date = new CDbExpression('NOW()');
+                $this->user_id = Yii::app()->user->getId();
             }
             else
             {
-                $this->changeDate = new CDbExpression('NOW()');
+                $this->change_date = new CDbExpression('NOW()');
             }
 
             $this->date = date('Y-m-d', strtotime($this->date));
@@ -214,14 +214,14 @@ class News extends CActiveRecord
         $criteria = new CDbCriteria;
 
         $criteria->compare('id', $this->id);
-        $criteria->compare('creationDate', $this->creationDate, true);
-        $criteria->compare('changeDate', $this->changeDate, true);
+        $criteria->compare('creation_date', $this->creation_date, true);
+        $criteria->compare('change_date', $this->change_date, true);
         $criteria->compare('date', $this->date, true);
         $criteria->compare('title', $this->title, true);
         $criteria->compare('alias', $this->alias, true);
         $criteria->compare('shortText', $this->shortText, true);
         $criteria->compare('fullText', $this->fullText, true);
-        $criteria->compare('userId', $this->userId);
+        $criteria->compare('user_id', $this->user_id);
         $criteria->compare('status', $this->status);
         $criteria->compare('isProtected', $this->isProtected);
 

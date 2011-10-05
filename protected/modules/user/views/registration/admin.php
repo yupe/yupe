@@ -75,7 +75,7 @@ $('.search-form form').submit(function(){
                                                        'dataProvider' => $model->search(),
                                                        'columns' => array(
                                                            'id',
-                                                           'creationDate',
+                                                           'creation_date',
                                                            'nickName',
                                                            'email',
                                                            'code',

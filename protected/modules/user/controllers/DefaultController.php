@@ -40,7 +40,7 @@ class DefaultController extends YBackController
                 if ($model->save())
                 {
                     $profile = new Profile();
-                    $profile->userId = $model->id;
+                    $profile->user_id = $model->id;
                     if ($profile->save())
                     {
                         $transaction->commit();

@@ -24,10 +24,10 @@ $this->menu = array(
                                                     'data' => $model,
                                                     'attributes' => array(
                                                         'id',
-                                                        'creationDate',
-                                                        'changeDate',
+                                                        'creation_date',
+                                                        'change_date',
                                                         array(
-                                                            'name' => 'userId',
+                                                            'name' => 'user_id',
                                                             'value' => $model->author->getFullName()
                                                         ),
                                                         'menuOrder',

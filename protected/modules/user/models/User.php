@@ -5,8 +5,8 @@
  *
  * The followings are the available columns in table '{{User}}':
  * @property integer $id
- * @property string $creationDate
- * @property string $changeDate
+ * @property string $creation_date
+ * @property string $change_date
  * @property string $firstName
  * @property string $lastName
  * @property string $nickName
@@ -129,7 +129,7 @@ class User extends CActiveRecord
             array('nickName', 'unique', 'message' => Yii::t('user', 'Данный ник уже используется другим пользователем')),
             array('avatar', 'file', 'types' => implode(',', Yii::app()->getModule('user')->avatarExtensions), 'maxSize' => Yii::app()->getModule('user')->avatarMaxSize, 'allowEmpty' => true),
             array('useGravatar', 'in', 'range' => array(0, 1)),
-            array('id, creationDate, changeDate, firstName, lastName, nickName, email, gender, avatar, password, salt, status, accessLevel, lastVisit, registrationDate, registrationIp, activationIp', 'safe', 'on' => 'search'),
+            array('id, creation_date, change_date, firstName, lastName, nickName, email, gender, avatar, password, salt, status, accessLevel, lastVisit, registrationDate, registrationIp, activationIp', 'safe', 'on' => 'search'),
         );
     }
 
@@ -141,7 +141,7 @@ class User extends CActiveRecord
         // NOTE: you may need to adjust the relation name and the related
         // class name for the relations automatically generated below.
         return array(
-            'profile' => array(self::HAS_ONE, 'Profile', 'userId')
+            'profile' => array(self::HAS_ONE, 'Profile', 'user_id')
         );
     }
 
@@ -152,8 +152,8 @@ class User extends CActiveRecord
     {
         return array(
             'id' => Yii::t('user', 'Id'),
-            'creationDate' => Yii::t('user', 'Дата активации'),
-            'changeDate' => Yii::t('user', 'Дата изменения'),
+            'creation_date' => Yii::t('user', 'Дата активации'),
+            'change_date' => Yii::t('user', 'Дата изменения'),
             'firstName' => Yii::t('user', 'Имя'),
             'lastName' => Yii::t('user', 'Фамилия'),
             'nickName' => Yii::t('user', 'Ник'),
@@ -179,9 +179,9 @@ class User extends CActiveRecord
 
         $criteria->compare('id', $this->id);
 
-        $criteria->compare('creationDate', $this->creationDate, true);
+        $criteria->compare('creation_date', $this->creation_date, true);
 
-        $criteria->compare('changeDate', $this->changeDate, true);
+        $criteria->compare('change_date', $this->change_date, true);
 
         $criteria->compare('firstName', $this->firstName, true);
 
@@ -221,7 +221,7 @@ class User extends CActiveRecord
         {
             if ($this->isNewRecord)
             {
-                $this->lastVisit = $this->creationDate = $this->changeDate = new CDbExpression('NOW()');
+                $this->lastVisit = $this->creation_date = $this->change_date = new CDbExpression('NOW()');
                 $this->activationIp = Yii::app()->request->userHostAddress;
             }
 
@@ -334,7 +334,7 @@ class User extends CActiveRecord
             {
                 $profile = new Profile();
 
-                $profile->userId = $user->id;
+                $profile->user_id = $user->id;
 
                 if (!$profile->save())
                 {
@@ -374,7 +374,7 @@ class User extends CActiveRecord
             $login = new Login();
 
             $login->setAttributes(array(
-                                       'userId' => $user->id,
+                                       'user_id' => $user->id,
                                        'identityId' => $sid,
                                        'type' => $sType
                                   ));
