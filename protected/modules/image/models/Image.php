@@ -142,11 +142,6 @@ class Image extends CActiveRecord
             : Yii::t('image', '*неизвестно*');
     }
 
-    public function getExtension($file)
-    {
-        return substr($file, -3);
-    }
-
     public function create(array $param)
     {
         $this->setAttributes($param);
@@ -157,7 +152,7 @@ class Image extends CActiveRecord
         {
             if ($this->save())
             {
-                $fileName = $this->id . '.' . $this->getExtension($this->file->name);
+                $fileName = $this->id . '.' . CFileHelper::getExtension($this->file->name);
 
                 $fullFileName = Yii::app()->getModule('image')->getUploadPath() . $dir . DIRECTORY_SEPARATOR . $fileName;
 

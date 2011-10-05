@@ -26,7 +26,7 @@ class ImageModule extends YWebModule
             return $current;
         }
 
-        return mkdir($dirName, 0700, true) == true ? $current : false;
+        return @mkdir($dirName, 0700, true) == true ? $current : false;
     }
 
     public function checkSelf()
