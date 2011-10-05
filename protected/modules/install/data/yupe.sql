@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Хост: localhost
--- Время создания: Окт 05 2011 г., 22:22
+-- Время создания: Окт 05 2011 г., 22:33
 -- Версия сервера: 5.1.54
 -- Версия PHP: 5.3.5-1ubuntu7.2
 
@@ -152,13 +152,13 @@ CREATE TABLE IF NOT EXISTS `image` (
   `name` varchar(300) NOT NULL,
   `description` text NOT NULL,
   `file` varchar(500) NOT NULL,
-  `creationDate` datetime NOT NULL,
-  `userId` int(10) unsigned NOT NULL,
+  `creation_date` datetime NOT NULL,
+  `user_id` int(10) unsigned NOT NULL,
   `alt` varchar(150) NOT NULL,
   `status` tinyint(3) unsigned NOT NULL DEFAULT '1',
   PRIMARY KEY (`id`),
   KEY `status` (`status`),
-  KEY `userId` (`userId`)
+  KEY `userId` (`user_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
 
 -- --------------------------------------------------------
@@ -169,13 +169,13 @@ CREATE TABLE IF NOT EXISTS `image` (
 
 CREATE TABLE IF NOT EXISTS `image_to_contest` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
-  `imageId` int(10) unsigned NOT NULL,
-  `contestId` int(10) unsigned NOT NULL,
-  `creationDate` datetime NOT NULL,
+  `image_id` int(10) unsigned NOT NULL,
+  `contest_id` int(10) unsigned NOT NULL,
+  `creation_date` datetime NOT NULL,
   PRIMARY KEY (`id`),
-  UNIQUE KEY `image_contest_unique` (`imageId`,`contestId`),
-  KEY `imageId` (`imageId`),
-  KEY `contestId` (`contestId`)
+  UNIQUE KEY `image_contest_unique` (`image_id`,`contest_id`),
+  KEY `imageId` (`image_id`),
+  KEY `contestId` (`contest_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
 
 -- --------------------------------------------------------
@@ -413,14 +413,7 @@ ALTER TABLE `feedback`
 -- Ограничения внешнего ключа таблицы `image`
 --
 ALTER TABLE `image`
-  ADD CONSTRAINT `image_ibfk_1` FOREIGN KEY (`userId`) REFERENCES `user` (`id`) ON UPDATE NO ACTION;
-
---
--- Ограничения внешнего ключа таблицы `image_to_contest`
---
-ALTER TABLE `image_to_contest`
-  ADD CONSTRAINT `image_to_contest_ibfk_2` FOREIGN KEY (`contestId`) REFERENCES `contest` (`id`) ON DELETE CASCADE ON UPDATE NO ACTION,
-  ADD CONSTRAINT `image_to_contest_ibfk_1` FOREIGN KEY (`imageId`) REFERENCES `image` (`id`) ON DELETE CASCADE ON UPDATE NO ACTION;
+  ADD CONSTRAINT `image_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `user` (`id`) ON UPDATE NO ACTION;
 
 --
 -- Ограничения внешнего ключа таблицы `image_to_gallery`

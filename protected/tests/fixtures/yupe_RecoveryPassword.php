@@ -4,12 +4,12 @@ return array(
     /*
      'sample1'=>array(
          'userId' => '',
-         'creationDate' => '',
+         'creation_date' => '',
          'code' => '',
      ),
      'sample2'=>array(
          'userId' => '',
-         'creationDate' => '',
+         'creation_date' => '',
          'code' => '',
      ),
      */

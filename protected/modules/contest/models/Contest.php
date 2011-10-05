@@ -63,9 +63,9 @@ class Contest extends CActiveRecord
         // NOTE: you may need to adjust the relation name and the related
         // class name for the relations automatically generated below.
         return array(
-            'imagesRell' => array(self::HAS_MANY, 'ImageToContest', 'contestId'),
-            'images' => array(self::HAS_MANY, 'Images', 'imageId', 'through' => 'imagesRell'),
-            'imagesCount' => array(self::STAT, 'ImageToContest', 'contestId')
+            'imagesRell' => array(self::HAS_MANY, 'ImageToContest', 'contest_id'),
+            'images' => array(self::HAS_MANY, 'Images', 'image_id', 'through' => 'imagesRell'),
+            'imagesCount' => array(self::STAT, 'ImageToContest', 'contest_id')
         );
     }
 
@@ -131,8 +131,8 @@ class Contest extends CActiveRecord
         $im2c = new ImageToContest();
 
         $im2c->setAttributes(array(
-                                  'imageId' => $image->id,
-                                  'contestId' => $this->id
+                                  'image_id' => $image->id,
+                                  'contest_id' => $this->id
                              ));
 
         return $im2c->save() ? true : false;

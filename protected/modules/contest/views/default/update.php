@@ -11,7 +11,7 @@ $this->menu = array(
     array('label' => Yii::t('contest', 'Добавить конкурс'), 'url' => array('create')),
     array('label' => Yii::t('contest', 'Просмотр конкурса'), 'url' => array('view', 'id' => $model->id)),
     array('label' => Yii::t('contest', 'Управление конкурсами'), 'url' => array('admin')),
-    array('label' => Yii::t('contest', 'Добавить изображение'), 'url' => array('addImage', 'contestId' => $model->id)),
+    array('label' => Yii::t('contest', 'Добавить изображение'), 'url' => array('addImage', 'contest_id' => $model->id)),
 );
 ?>
 

@@ -5,9 +5,9 @@
  *
  * The followings are the available columns in table 'ImageToContest':
  * @property string $id
- * @property string $imageId
- * @property string $contestId
- * @property string $creationDate
+ * @property string $image_id
+ * @property string $contest_id
+ * @property string $creation_date
  */
 class ImageToContest extends CActiveRecord
 {
@@ -36,11 +36,11 @@ class ImageToContest extends CActiveRecord
         // NOTE: you should only define rules for those attributes that
         // will receive user inputs.
         return array(
-            array('imageId, contestId', 'required'),
-            array('imageId, contestId', 'length', 'max' => 10),
+            array('image_id, contest_id', 'required'),
+            array('image_id, contest_id', 'length', 'max' => 10),
             // The following rule is used by search().
             // Please remove those attributes that should not be searched.
-            array('id, imageId, contestId, creationDate', 'safe', 'on' => 'search'),
+            array('id, image_id, contest_id, creation_date', 'safe', 'on' => 'search'),
         );
     }
 
@@ -53,7 +53,7 @@ class ImageToContest extends CActiveRecord
         // class name for the relations automatically generated below.
         return array(
             'gallery' => array(self::BELONGS_TO, 'Gallery', 'galleryId'),
-            'image' => array(self::BELONGS_TO, 'Image', 'imageId'),
+            'image' => array(self::BELONGS_TO, 'Image', 'image_id'),
         );
     }
 
@@ -64,9 +64,9 @@ class ImageToContest extends CActiveRecord
     {
         return array(
             'id' => 'ID',
-            'imageId' => 'Image',
-            'contestId' => 'Contest',
-            'creationDate' => 'Creation Date',
+            'image_id' => 'Image',
+            'contest_id' => 'Contest',
+            'creation_date' => 'Creation Date',
         );
     }
 
@@ -82,9 +82,9 @@ class ImageToContest extends CActiveRecord
         $criteria = new CDbCriteria;
 
         $criteria->compare('id', $this->id, true);
-        $criteria->compare('imageId', $this->imageId, true);
-        $criteria->compare('contestId', $this->contestId, true);
-        $criteria->compare('creationDate', $this->creationDate, true);
+        $criteria->compare('image_id', $this->image_id, true);
+        $criteria->compare('contest_id', $this->contest_id, true);
+        $criteria->compare('creation_date', $this->creation_date, true);
 
         return new CActiveDataProvider(get_class($this), array(
                                                               'criteria' => $criteria,
@@ -97,7 +97,7 @@ class ImageToContest extends CActiveRecord
         {
             if ($this->isNewRecord)
             {
-                $this->creationDate = new CDbExpression('NOW()');
+                $this->creation_date = new CDbExpression('NOW()');
             }
 
             return true;
