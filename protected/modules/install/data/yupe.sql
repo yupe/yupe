@@ -230,13 +230,13 @@ CREATE TABLE IF NOT EXISTS `news` (
   `fullText` text NOT NULL,
   `user_id` int(11) unsigned NOT NULL,
   `status` tinyint(4) NOT NULL DEFAULT '0',
-  `isProtected` tinyint(1) NOT NULL DEFAULT '0',
+  `is_protected` tinyint(1) NOT NULL DEFAULT '0',
   `keywords` varchar(150) NOT NULL,
   `description` varchar(250) NOT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `alias_unique` (`alias`),
   KEY `status` (`status`),
-  KEY `isProtected` (`isProtected`),
+  KEY `is_protected` (`is_protected`),
   KEY `user_id` (`user_id`)
 ) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=5 ;
 
@@ -248,11 +248,11 @@ CREATE TABLE IF NOT EXISTS `news` (
 
 CREATE TABLE IF NOT EXISTS `page` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
-  `parentId` int(10) DEFAULT NULL,
+  `parent_Id` int(10) DEFAULT NULL,
   `creation_date` datetime NOT NULL,
   `change_date` datetime NOT NULL,
   `user_id` int(10) unsigned NOT NULL,
-  `changeUserId` int(10) unsigned NOT NULL,
+  `change_user_id` int(10) unsigned NOT NULL,
   `name` varchar(150) NOT NULL,
   `title` varchar(150) NOT NULL,
   `slug` varchar(150) NOT NULL,
@@ -260,15 +260,15 @@ CREATE TABLE IF NOT EXISTS `page` (
   `keywords` varchar(150) NOT NULL,
   `description` varchar(250) NOT NULL,
   `status` tinyint(4) NOT NULL,
-  `isProtected` int(11) NOT NULL,
-  `menuOrder` int(11) NOT NULL DEFAULT '0',
+  `is_protected` int(11) NOT NULL,
+  `menu_order` int(11) NOT NULL DEFAULT '0',
   PRIMARY KEY (`id`),
   UNIQUE KEY `slug_unique` (`slug`),
   KEY `status` (`status`),
-  KEY `isProtected` (`isProtected`),
+  KEY `is_protected` (`is_protected`),
   KEY `user_id` (`user_id`),
-  KEY `changeUserId` (`changeUserId`),
-  KEY `order` (`menuOrder`)
+  KEY `change_user_id` (`change_user_id`),
+  KEY `order` (`menu_order`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
 
 -- --------------------------------------------------------
@@ -439,7 +439,7 @@ ALTER TABLE `news`
 --
 ALTER TABLE `page`
   ADD CONSTRAINT `page_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `user` (`id`) ON UPDATE NO ACTION,
-  ADD CONSTRAINT `page_ibfk_2` FOREIGN KEY (`changeUserId`) REFERENCES `user` (`id`) ON UPDATE NO ACTION;
+  ADD CONSTRAINT `page_ibfk_2` FOREIGN KEY (`change_user_id`) REFERENCES `user` (`id`) ON UPDATE NO ACTION;
 
 --
 -- Ограничения внешнего ключа таблицы `profile`

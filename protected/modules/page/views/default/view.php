@@ -30,9 +30,9 @@ $this->menu = array(
                                                             'name' => 'user_id',
                                                             'value' => $model->author->getFullName()
                                                         ),
-                                                        'menuOrder',
+                                                        'menu_order',
                                                         array(
-                                                            'name' => 'changeUserId',
+                                                            'name' => 'change_user_id',
                                                             'value' => $model->changeAuthor->getFullName()
                                                         ),
                                                         'name',
@@ -46,7 +46,7 @@ $this->menu = array(
                                                             'value' => $model->getStatus()
                                                         ),
                                                         array(
-                                                            'name' => 'isProtected',
+                                                            'name' => 'is_protected',
                                                             'value' => $model->getProtectedStatus()
                                                         )
                                                     ),

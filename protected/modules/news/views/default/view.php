@@ -37,7 +37,7 @@ $this->menu = array(
                                                             'value' => $model->getStatus()
                                                         ),
                                                         array(
-                                                            'name' => 'isProtected',
+                                                            'name' => 'is_protected',
                                                             'value' => $model->getProtectedStatus()
                                                         ),
 

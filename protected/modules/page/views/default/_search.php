@@ -6,8 +6,8 @@
                                                     )); ?>
 
     <div class="row">
-        <?php echo $form->label($model, 'parentId'); ?>
-        <?php echo $form->dropDownList($model, 'parentId', $pages); ?>
+        <?php echo $form->label($model, 'parent_Id'); ?>
+        <?php echo $form->dropDownList($model, 'parent_Id', $pages); ?>
     </div>
 
     <div class="row">

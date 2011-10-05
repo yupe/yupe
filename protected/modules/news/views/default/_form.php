@@ -69,9 +69,9 @@
     </div>
 
     <div class="row">
-        <?php echo $form->labelEx($model, 'isProtected'); ?>
-        <?php echo $form->checkBox($model, 'isProtected', $model->getProtectedStatusList()); ?>
-        <?php echo $form->error($model, 'isProtected'); ?>
+        <?php echo $form->labelEx($model, 'is_protected'); ?>
+        <?php echo $form->checkBox($model, 'is_protected', $model->getProtectedStatusList()); ?>
+        <?php echo $form->error($model, 'is_protected'); ?>
     </div>
 
     <div class="row">

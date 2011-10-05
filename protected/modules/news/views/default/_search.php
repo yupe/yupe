@@ -51,8 +51,8 @@
     </div>
 
     <div class="row">
-        <?php echo $form->label($model, 'isProtected'); ?>
-        <?php echo $form->checkBox($model, 'isProtected', $model->getProtectedStatusList()); ?>
+        <?php echo $form->label($model, 'is_protected'); ?>
+        <?php echo $form->checkBox($model, 'is_protected', $model->getProtectedStatusList()); ?>
     </div>
 
     <div class="row buttons">

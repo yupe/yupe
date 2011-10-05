@@ -41,7 +41,7 @@
     <?php echo CHtml::encode($data->getStatus()); ?>
     <br/>
 
-    <b><?php echo CHtml::encode($data->getAttributeLabel('isProtected')); ?>
+    <b><?php echo CHtml::encode($data->getAttributeLabel('is_protected')); ?>
         :</b>
     <?php echo CHtml::encode($data->getProtectedStatus()); ?>
     <br/>
