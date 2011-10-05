@@ -5,7 +5,7 @@
  *
  * The followings are the available columns in table 'Category':
  * @property string $id
- * @property integer $parentId
+ * @property integer $parent_id
  * @property string $name
  * @property string $description
  * @property string $alias
@@ -72,11 +72,11 @@ class Category extends CActiveRecord
         // will receive user inputs.
         return array(
             array('name, description, alias', 'required'),
-            array('parentId, status', 'numerical', 'integerOnly' => true),
+            array('parent_id, status', 'numerical', 'integerOnly' => true),
             array('name', 'length', 'max' => 150),
             array('alias', 'length', 'max' => 50),
             array('alias', 'unique'),
-            array('id, parentId, name, description, alias, status', 'safe', 'on' => 'search'),
+            array('id, parent_id, name, description, alias, status', 'safe', 'on' => 'search'),
         );
     }
 
@@ -88,7 +88,7 @@ class Category extends CActiveRecord
     {
         return array(
             'id' => Yii::t('category', 'Id'),
-            'parentId' => Yii::t('category', 'Родитель'),
+            'parent_id' => Yii::t('category', 'Родитель'),
             'name' => Yii::t('category', 'Название'),
             'description' => Yii::t('category', 'Описание'),
             'alias' => Yii::t('category', 'Алиас'),
@@ -108,7 +108,7 @@ class Category extends CActiveRecord
         $criteria = new CDbCriteria;
 
         $criteria->compare('id', $this->id, true);
-        $criteria->compare('parentId', $this->parentId);
+        $criteria->compare('parent_id', $this->parent_id);
         $criteria->compare('name', $this->name, true);
         $criteria->compare('description', $this->description, true);
         $criteria->compare('alias', $this->alias, true);
