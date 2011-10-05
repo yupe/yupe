@@ -25,7 +25,7 @@ class ImageToContest extends CActiveRecord
      */
     public function tableName()
     {
-        return 'ImageToContest';
+        return '{{image_to_contest}}';
     }
 
     /**

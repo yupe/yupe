@@ -35,7 +35,7 @@ class Image extends CActiveRecord
      */
     public function tableName()
     {
-        return 'Image';
+        return '{{image}}';
     }
 
     /**

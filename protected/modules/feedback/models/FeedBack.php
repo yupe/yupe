@@ -68,7 +68,7 @@ class FeedBack extends CActiveRecord
      */
     public function tableName()
     {
-        return '{{FeedBack}}';
+        return '{{feedback}}';
     }
 
     /**

@@ -80,7 +80,7 @@ class Page extends CActiveRecord
      */
     public function tableName()
     {
-        return '{{Page}}';
+        return '{{page}}';
     }
 
     /**

@@ -29,7 +29,7 @@ class Gallery extends CActiveRecord
      */
     public function tableName()
     {
-        return 'Gallery';
+        return '{{gallery}}';
     }
 
     /**

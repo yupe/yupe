@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Хост: localhost
--- Время создания: Окт 03 2011 г., 22:15
+-- Время создания: Окт 05 2011 г., 21:21
 -- Версия сервера: 5.1.54
 -- Версия PHP: 5.3.5-1ubuntu7.2
 
@@ -22,10 +22,10 @@ SET SQL_MODE="NO_AUTO_VALUE_ON_ZERO";
 -- --------------------------------------------------------
 
 --
--- Структура таблицы `Category`
+-- Структура таблицы `category`
 --
 
-CREATE TABLE IF NOT EXISTS `Category` (
+CREATE TABLE IF NOT EXISTS `category` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `parentId` int(11) NOT NULL DEFAULT '0',
   `name` varchar(150) NOT NULL,
@@ -40,10 +40,10 @@ CREATE TABLE IF NOT EXISTS `Category` (
 -- --------------------------------------------------------
 
 --
--- Структура таблицы `Comment`
+-- Структура таблицы `comment`
 --
 
-CREATE TABLE IF NOT EXISTS `Comment` (
+CREATE TABLE IF NOT EXISTS `comment` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `userId` int(10) unsigned DEFAULT NULL,
   `model` varchar(50) NOT NULL,
@@ -59,31 +59,33 @@ CREATE TABLE IF NOT EXISTS `Comment` (
   KEY `status` (`status`),
   KEY `model` (`model`,`modelId`),
   KEY `userId` (`userId`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=19 ;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
 
 -- --------------------------------------------------------
 
 --
--- Структура таблицы `ContentBlock`
+-- Структура таблицы `content_block`
 --
 
-CREATE TABLE IF NOT EXISTS `ContentBlock` (
+CREATE TABLE IF NOT EXISTS `content_block` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `name` varchar(50) NOT NULL,
   `code` varchar(50) CHARACTER SET utf8 COLLATE utf8_spanish_ci NOT NULL,
   `type` tinyint(4) NOT NULL DEFAULT '1',
   `content` text NOT NULL,
   `description` varchar(300) DEFAULT NULL,
-  PRIMARY KEY (`id`)
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `code_unique` (`code`),
+  KEY `type` (`type`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
 
 -- --------------------------------------------------------
 
 --
--- Структура таблицы `Contest`
+-- Структура таблицы `contest`
 --
 
-CREATE TABLE IF NOT EXISTS `Contest` (
+CREATE TABLE IF NOT EXISTS `contest` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `name` varchar(150) NOT NULL,
   `description` varchar(300) DEFAULT NULL,
@@ -92,16 +94,17 @@ CREATE TABLE IF NOT EXISTS `Contest` (
   `startVote` datetime NOT NULL,
   `stopVote` datetime NOT NULL,
   `status` tinyint(3) unsigned NOT NULL DEFAULT '1',
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=3 ;
+  PRIMARY KEY (`id`),
+  KEY `status` (`status`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
 
 -- --------------------------------------------------------
 
 --
--- Структура таблицы `FeedBack`
+-- Структура таблицы `feedback`
 --
 
-CREATE TABLE IF NOT EXISTS `FeedBack` (
+CREATE TABLE IF NOT EXISTS `feedback` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `answerUser` int(10) unsigned DEFAULT NULL,
   `creationDate` datetime NOT NULL,
@@ -120,31 +123,31 @@ CREATE TABLE IF NOT EXISTS `FeedBack` (
   KEY `type` (`type`),
   KEY `status` (`status`),
   KEY `isFaq` (`isFaq`),
-  KEY `fk_FeedBack_User1` (`answerUser`)
+  KEY `fk_feedback_user` (`answerUser`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
 
 -- --------------------------------------------------------
 
 --
--- Структура таблицы `Gallery`
+-- Структура таблицы `gallery`
 --
 
-CREATE TABLE IF NOT EXISTS `Gallery` (
+CREATE TABLE IF NOT EXISTS `gallery` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `name` varchar(300) NOT NULL,
   `description` text,
   `status` tinyint(4) NOT NULL DEFAULT '1',
   PRIMARY KEY (`id`),
   KEY `status` (`status`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=5 ;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
 
 -- --------------------------------------------------------
 
 --
--- Структура таблицы `Image`
+-- Структура таблицы `image`
 --
 
-CREATE TABLE IF NOT EXISTS `Image` (
+CREATE TABLE IF NOT EXISTS `image` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `name` varchar(300) NOT NULL,
   `description` text NOT NULL,
@@ -156,15 +159,15 @@ CREATE TABLE IF NOT EXISTS `Image` (
   PRIMARY KEY (`id`),
   KEY `status` (`status`),
   KEY `userId` (`userId`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=29 ;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
 
 -- --------------------------------------------------------
 
 --
--- Структура таблицы `ImageToContest`
+-- Структура таблицы `image_to_contest`
 --
 
-CREATE TABLE IF NOT EXISTS `ImageToContest` (
+CREATE TABLE IF NOT EXISTS `image_to_contest` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `imageId` int(10) unsigned NOT NULL,
   `contestId` int(10) unsigned NOT NULL,
@@ -178,10 +181,10 @@ CREATE TABLE IF NOT EXISTS `ImageToContest` (
 -- --------------------------------------------------------
 
 --
--- Структура таблицы `ImageToGallery`
+-- Структура таблицы `image_to_gallery`
 --
 
-CREATE TABLE IF NOT EXISTS `ImageToGallery` (
+CREATE TABLE IF NOT EXISTS `image_to_gallery` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `imageId` int(10) unsigned NOT NULL,
   `galleryId` int(10) unsigned NOT NULL,
@@ -190,15 +193,15 @@ CREATE TABLE IF NOT EXISTS `ImageToGallery` (
   UNIQUE KEY `image_gallery_unique` (`imageId`,`galleryId`),
   KEY `imageId` (`imageId`),
   KEY `galleryId` (`galleryId`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=19 ;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
 
 -- --------------------------------------------------------
 
 --
--- Структура таблицы `Login`
+-- Структура таблицы `login`
 --
 
-CREATE TABLE IF NOT EXISTS `Login` (
+CREATE TABLE IF NOT EXISTS `login` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `userId` int(10) unsigned NOT NULL,
   `identityId` int(10) unsigned NOT NULL,
@@ -213,10 +216,10 @@ CREATE TABLE IF NOT EXISTS `Login` (
 -- --------------------------------------------------------
 
 --
--- Структура таблицы `News`
+-- Структура таблицы `news`
 --
 
-CREATE TABLE IF NOT EXISTS `News` (
+CREATE TABLE IF NOT EXISTS `news` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `creationDate` datetime NOT NULL,
   `changeDate` datetime NOT NULL,
@@ -231,19 +234,19 @@ CREATE TABLE IF NOT EXISTS `News` (
   `keywords` varchar(150) NOT NULL,
   `description` varchar(250) NOT NULL,
   PRIMARY KEY (`id`),
-  UNIQUE KEY `alias` (`alias`),
+  UNIQUE KEY `alias_unique` (`alias`),
   KEY `status` (`status`),
   KEY `isProtected` (`isProtected`),
   KEY `userId` (`userId`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=4 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=5 ;
 
 -- --------------------------------------------------------
 
 --
--- Структура таблицы `Page`
+-- Структура таблицы `page`
 --
 
-CREATE TABLE IF NOT EXISTS `Page` (
+CREATE TABLE IF NOT EXISTS `page` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `parentId` int(10) DEFAULT NULL,
   `creationDate` datetime NOT NULL,
@@ -260,7 +263,7 @@ CREATE TABLE IF NOT EXISTS `Page` (
   `isProtected` int(11) NOT NULL,
   `menuOrder` int(11) NOT NULL DEFAULT '0',
   PRIMARY KEY (`id`),
-  UNIQUE KEY `slug_UNIQUE` (`slug`),
+  UNIQUE KEY `slug_unique` (`slug`),
   KEY `status` (`status`),
   KEY `isProtected` (`isProtected`),
   KEY `userId` (`userId`),
@@ -271,10 +274,10 @@ CREATE TABLE IF NOT EXISTS `Page` (
 -- --------------------------------------------------------
 
 --
--- Структура таблицы `Profile`
+-- Структура таблицы `profile`
 --
 
-CREATE TABLE IF NOT EXISTS `Profile` (
+CREATE TABLE IF NOT EXISTS `profile` (
   `userId` int(10) unsigned NOT NULL,
   `twitter` varchar(100) DEFAULT NULL,
   `livejournal` varchar(100) DEFAULT NULL,
@@ -295,26 +298,26 @@ CREATE TABLE IF NOT EXISTS `Profile` (
 -- --------------------------------------------------------
 
 --
--- Структура таблицы `RecoveryPassword`
+-- Структура таблицы `recovery_password`
 --
 
-CREATE TABLE IF NOT EXISTS `RecoveryPassword` (
+CREATE TABLE IF NOT EXISTS `recovery_password` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `userId` int(10) unsigned NOT NULL,
   `creationDate` datetime NOT NULL,
   `code` char(32) NOT NULL,
   PRIMARY KEY (`id`),
-  KEY `fk_RecoveryPassword_User` (`userId`),
-  KEY `index_recoverypassword_code` (`code`)
+  KEY `index_recoverypassword_code` (`code`),
+  KEY `fk_recoverypassword_user` (`userId`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
 
 -- --------------------------------------------------------
 
 --
--- Структура таблицы `Registration`
+-- Структура таблицы `registration`
 --
 
-CREATE TABLE IF NOT EXISTS `Registration` (
+CREATE TABLE IF NOT EXISTS `registration` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `creationDate` datetime NOT NULL,
   `nickName` varchar(100) NOT NULL,
@@ -332,10 +335,10 @@ CREATE TABLE IF NOT EXISTS `Registration` (
 -- --------------------------------------------------------
 
 --
--- Структура таблицы `Settings`
+-- Структура таблицы `settings`
 --
 
-CREATE TABLE IF NOT EXISTS `Settings` (
+CREATE TABLE IF NOT EXISTS `settings` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `moduleId` varchar(150) NOT NULL,
   `paramName` varchar(150) NOT NULL,
@@ -344,18 +347,16 @@ CREATE TABLE IF NOT EXISTS `Settings` (
   `changeDate` datetime NOT NULL,
   `userId` int(10) unsigned NOT NULL,
   PRIMARY KEY (`id`),
-  UNIQUE KEY `moduleId_2` (`moduleId`,`paramName`),
-  KEY `moduleId` (`moduleId`),
-  KEY `userId` (`userId`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=191 ;
+  KEY `moduleId` (`moduleId`)
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=197 ;
 
 -- --------------------------------------------------------
 
 --
--- Структура таблицы `User`
+-- Структура таблицы `user`
 --
 
-CREATE TABLE IF NOT EXISTS `User` (
+CREATE TABLE IF NOT EXISTS `user` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `creationDate` datetime NOT NULL,
   `changeDate` datetime NOT NULL,
@@ -383,10 +384,10 @@ CREATE TABLE IF NOT EXISTS `User` (
 -- --------------------------------------------------------
 
 --
--- Структура таблицы `Vote`
+-- Структура таблицы `vote`
 --
 
-CREATE TABLE IF NOT EXISTS `Vote` (
+CREATE TABLE IF NOT EXISTS `vote` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `model` varchar(50) CHARACTER SET ucs2 NOT NULL,
   `modelId` int(10) unsigned NOT NULL,
@@ -396,70 +397,77 @@ CREATE TABLE IF NOT EXISTS `Vote` (
   PRIMARY KEY (`id`),
   KEY `userId` (`userId`),
   KEY `model` (`model`,`modelId`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=12 ;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
 
 --
 -- Ограничения внешнего ключа сохраненных таблиц
 --
 
 --
--- Ограничения внешнего ключа таблицы `Comment`
+-- Ограничения внешнего ключа таблицы `comment`
 --
-ALTER TABLE `Comment`
-  ADD CONSTRAINT `Comment_ibfk_1` FOREIGN KEY (`userId`) REFERENCES `User` (`id`) ON DELETE CASCADE ON UPDATE NO ACTION;
+ALTER TABLE `comment`
+  ADD CONSTRAINT `comment_ibfk_1` FOREIGN KEY (`userId`) REFERENCES `user` (`id`) ON DELETE CASCADE ON UPDATE NO ACTION;
 
 --
--- Ограничения внешнего ключа таблицы `FeedBack`
+-- Ограничения внешнего ключа таблицы `feedback`
 --
-ALTER TABLE `FeedBack`
-  ADD CONSTRAINT `FeedBack_ibfk_1` FOREIGN KEY (`answerUser`) REFERENCES `User` (`id`) ON UPDATE NO ACTION;
+ALTER TABLE `feedback`
+  ADD CONSTRAINT `feedback_ibfk_1` FOREIGN KEY (`answerUser`) REFERENCES `user` (`id`) ON UPDATE NO ACTION;
 
 --
--- Ограничения внешнего ключа таблицы `Image`
+-- Ограничения внешнего ключа таблицы `image`
 --
-ALTER TABLE `Image`
-  ADD CONSTRAINT `Image_ibfk_1` FOREIGN KEY (`userId`) REFERENCES `User` (`id`) ON UPDATE NO ACTION;
+ALTER TABLE `image`
+  ADD CONSTRAINT `image_ibfk_1` FOREIGN KEY (`userId`) REFERENCES `user` (`id`) ON UPDATE NO ACTION;
 
 --
--- Ограничения внешнего ключа таблицы `ImageToGallery`
+-- Ограничения внешнего ключа таблицы `image_to_contest`
 --
-ALTER TABLE `ImageToGallery`
-  ADD CONSTRAINT `ImageToGallery_ibfk_1` FOREIGN KEY (`imageId`) REFERENCES `Image` (`id`) ON DELETE CASCADE ON UPDATE NO ACTION,
-  ADD CONSTRAINT `ImageToGallery_ibfk_2` FOREIGN KEY (`galleryId`) REFERENCES `Gallery` (`id`) ON DELETE CASCADE ON UPDATE NO ACTION;
+ALTER TABLE `image_to_contest`
+  ADD CONSTRAINT `image_to_contest_ibfk_2` FOREIGN KEY (`contestId`) REFERENCES `contest` (`id`) ON DELETE CASCADE ON UPDATE NO ACTION,
+  ADD CONSTRAINT `image_to_contest_ibfk_1` FOREIGN KEY (`imageId`) REFERENCES `image` (`id`) ON DELETE CASCADE ON UPDATE NO ACTION;
 
 --
--- Ограничения внешнего ключа таблицы `Login`
+-- Ограничения внешнего ключа таблицы `image_to_gallery`
 --
-ALTER TABLE `Login`
-  ADD CONSTRAINT `Login_ibfk_1` FOREIGN KEY (`userId`) REFERENCES `User` (`id`) ON DELETE CASCADE ON UPDATE NO ACTION;
+ALTER TABLE `image_to_gallery`
+  ADD CONSTRAINT `image_to_gallery_ibfk_1` FOREIGN KEY (`imageId`) REFERENCES `image` (`id`) ON DELETE CASCADE ON UPDATE NO ACTION,
+  ADD CONSTRAINT `image_to_gallery_ibfk_2` FOREIGN KEY (`galleryId`) REFERENCES `gallery` (`id`) ON DELETE CASCADE ON UPDATE NO ACTION;
 
 --
--- Ограничения внешнего ключа таблицы `News`
+-- Ограничения внешнего ключа таблицы `login`
 --
-ALTER TABLE `News`
-  ADD CONSTRAINT `News_ibfk_1` FOREIGN KEY (`userId`) REFERENCES `User` (`id`) ON UPDATE NO ACTION;
+ALTER TABLE `login`
+  ADD CONSTRAINT `login_ibfk_1` FOREIGN KEY (`userId`) REFERENCES `user` (`id`) ON DELETE CASCADE ON UPDATE NO ACTION;
 
 --
--- Ограничения внешнего ключа таблицы `Page`
+-- Ограничения внешнего ключа таблицы `news`
 --
-ALTER TABLE `Page`
-  ADD CONSTRAINT `Page_ibfk_1` FOREIGN KEY (`userId`) REFERENCES `User` (`id`) ON UPDATE NO ACTION,
-  ADD CONSTRAINT `Page_ibfk_2` FOREIGN KEY (`changeUserId`) REFERENCES `User` (`id`) ON UPDATE NO ACTION;
+ALTER TABLE `news`
+  ADD CONSTRAINT `news_ibfk_1` FOREIGN KEY (`userId`) REFERENCES `user` (`id`) ON UPDATE NO ACTION;
 
 --
--- Ограничения внешнего ключа таблицы `Profile`
+-- Ограничения внешнего ключа таблицы `page`
 --
-ALTER TABLE `Profile`
-  ADD CONSTRAINT `Profile_ibfk_1` FOREIGN KEY (`userId`) REFERENCES `User` (`id`) ON DELETE CASCADE ON UPDATE NO ACTION;
+ALTER TABLE `page`
+  ADD CONSTRAINT `page_ibfk_1` FOREIGN KEY (`userId`) REFERENCES `user` (`id`) ON UPDATE NO ACTION,
+  ADD CONSTRAINT `page_ibfk_2` FOREIGN KEY (`changeUserId`) REFERENCES `user` (`id`) ON UPDATE NO ACTION;
 
 --
--- Ограничения внешнего ключа таблицы `RecoveryPassword`
+-- Ограничения внешнего ключа таблицы `profile`
 --
-ALTER TABLE `RecoveryPassword`
-  ADD CONSTRAINT `fk_RecoveryPassword_User1` FOREIGN KEY (`userId`) REFERENCES `User` (`id`) ON DELETE CASCADE ON UPDATE NO ACTION;
+ALTER TABLE `profile`
+  ADD CONSTRAINT `profile_ibfk_1` FOREIGN KEY (`userId`) REFERENCES `user` (`id`) ON DELETE CASCADE ON UPDATE NO ACTION;
 
 --
--- Ограничения внешнего ключа таблицы `Vote`
+-- Ограничения внешнего ключа таблицы `recovery_password`
 --
-ALTER TABLE `Vote`
-  ADD CONSTRAINT `Vote_ibfk_1` FOREIGN KEY (`userId`) REFERENCES `User` (`id`) ON DELETE CASCADE ON UPDATE NO ACTION;
+ALTER TABLE `recovery_password`
+  ADD CONSTRAINT `fk_RecoveryPassword_User1` FOREIGN KEY (`userId`) REFERENCES `user` (`id`) ON DELETE CASCADE ON UPDATE NO ACTION;
+
+--
+-- Ограничения внешнего ключа таблицы `vote`
+--
+ALTER TABLE `vote`
+  ADD CONSTRAINT `vote_ibfk_1` FOREIGN KEY (`userId`) REFERENCES `user` (`id`) ON DELETE CASCADE ON UPDATE NO ACTION;

@@ -28,7 +28,7 @@ class Registration extends CActiveRecord
      */
     public function tableName()
     {
-        return '{{Registration}}';
+        return '{{registration}}';
     }
 
     /**

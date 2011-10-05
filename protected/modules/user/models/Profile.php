@@ -35,7 +35,7 @@ class Profile extends CActiveRecord
      */
     public function tableName()
     {
-        return '{{Profile}}';
+        return '{{profile}}';
     }
 
     /**

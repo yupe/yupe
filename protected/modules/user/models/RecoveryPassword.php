@@ -20,7 +20,7 @@ class RecoveryPassword extends CActiveRecord
 
     public function tableName()
     {
-        return '{{RecoveryPassword}}';
+        return '{{recovery_password}}';
     }
 
     public function rules()

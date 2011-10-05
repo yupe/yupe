@@ -33,7 +33,7 @@ class Contest extends CActiveRecord
      */
     public function tableName()
     {
-        return 'Contest';
+        return '{{contest}}';
     }
 
     /**

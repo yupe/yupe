@@ -32,7 +32,7 @@ class News extends CActiveRecord
      */
     public function tableName()
     {
-        return '{{News}}';
+        return '{{news}}';
     }
 
     public function getStatusList()
