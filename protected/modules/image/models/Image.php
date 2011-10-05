@@ -8,8 +8,8 @@
  * @property string $name
  * @property string $description
  * @property string $file
- * @property string $creationDate
- * @property string $userId
+ * @property string $creation_date
+ * @property string $user_id
  * @property string $alt
  * @property integer $status
  *
@@ -49,10 +49,10 @@ class Image extends CActiveRecord
             array('status', 'numerical', 'integerOnly' => true),
             array('name', 'length', 'max' => 300),
             array('file', 'length', 'max' => 500),
-            array('userId', 'length', 'max' => 10),
+            array('user_id', 'length', 'max' => 10),
             array('alt', 'length', 'max' => 150),
             array('file', 'file', 'maxSize' => Yii::app()->getModule('image')->maxSize, 'types' => Yii::app()->getModule('image')->allowedExtensions, 'allowEmpty' => true),
-            array('id, name, description, file, creationDate, userId, alt, status', 'safe', 'on' => 'search'),
+            array('id, name, description, file, creation_date, user_id, alt, status', 'safe', 'on' => 'search'),
         );
     }
 
@@ -64,7 +64,7 @@ class Image extends CActiveRecord
         // NOTE: you may need to adjust the relation name and the related
         // class name for the relations automatically generated below.
         return array(
-            'user' => array(self::BELONGS_TO, 'User', 'userId'),
+            'user' => array(self::BELONGS_TO, 'User', 'user_id'),
         );
     }
 
@@ -78,8 +78,8 @@ class Image extends CActiveRecord
             'name' => Yii::t('image', 'Название'),
             'description' => Yii::t('image', 'Описание'),
             'file' => Yii::t('image', 'Файл'),
-            'creationDate' => Yii::t('image', 'Дата создания'),
-            'userId' => Yii::t('image', 'Добавил'),
+            'creation_date' => Yii::t('image', 'Дата создания'),
+            'user_id' => Yii::t('image', 'Добавил'),
             'alt' => Yii::t('image', 'Альтернативный текст'),
             'status' => Yii::t('image', 'Статус'),
         );
@@ -100,8 +100,8 @@ class Image extends CActiveRecord
         $criteria->compare('name', $this->name, true);
         $criteria->compare('description', $this->description, true);
         $criteria->compare('file', $this->file, true);
-        $criteria->compare('creationDate', $this->creationDate, true);
-        $criteria->compare('userId', $this->userId, true);
+        $criteria->compare('creation_date', $this->creation_date, true);
+        $criteria->compare('user_id', $this->user_id, true);
         $criteria->compare('alt', $this->alt, true);
         $criteria->compare('status', $this->status);
 
@@ -116,8 +116,8 @@ class Image extends CActiveRecord
         {
             if ($this->isNewRecord)
             {
-                $this->creationDate = new CDbExpression('NOW()');
-                $this->userId = Yii::app()->user->getId();
+                $this->creation_date = new CDbExpression('NOW()');
+                $this->user_id = Yii::app()->user->getId();
             }
 
             return true;
