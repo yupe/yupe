@@ -41,12 +41,12 @@ $('.search-form form').submit(function(){
                                                        'columns' => array(
                                                            'id',
                                                            'model',
-                                                           'modelId',
+                                                           'model_id',
                                                            array(
-                                                               'name' => 'userId',
-                                                               'value' => '$data->user->nickName." (".$data->userId.")"'
+                                                               'name' => 'user_id',
+                                                               'value' => '$data->user->nickName." (".$data->user_id.")"'
                                                            ),
-                                                           'creationDate',
+                                                           'creation_date',
                                                            'value',
                                                            array(
                                                                'class' => 'CButtonColumn',

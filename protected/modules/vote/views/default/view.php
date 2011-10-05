@@ -22,9 +22,9 @@ $this->menu = array(
                                                     'attributes' => array(
                                                         'id',
                                                         'model',
-                                                        'modelId',
-                                                        'userId',
-                                                        'creationDate',
+                                                        'model_id',
+                                                        'user_id',
+                                                        'creation_date',
                                                         'value',
                                                     ),
                                                )); ?>

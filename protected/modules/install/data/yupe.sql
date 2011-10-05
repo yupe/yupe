@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Хост: localhost
--- Время создания: Окт 05 2011 г., 22:09
+-- Время создания: Окт 05 2011 г., 22:14
 -- Версия сервера: 5.1.54
 -- Версия PHP: 5.3.5-1ubuntu7.2
 
@@ -390,14 +390,14 @@ CREATE TABLE IF NOT EXISTS `user` (
 CREATE TABLE IF NOT EXISTS `vote` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `model` varchar(50) CHARACTER SET ucs2 NOT NULL,
-  `modelId` int(10) unsigned NOT NULL,
-  `userId` int(10) unsigned NOT NULL,
-  `creationDate` datetime NOT NULL,
+  `model_id` int(10) unsigned NOT NULL,
+  `user_id` int(10) unsigned NOT NULL,
+  `creation_date` datetime NOT NULL,
   `value` tinyint(4) NOT NULL,
   PRIMARY KEY (`id`),
-  KEY `userId` (`userId`),
-  KEY `model` (`model`,`modelId`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+  KEY `userId` (`user_id`),
+  KEY `model` (`model`,`model_id`)
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=2 ;
 
 --
 -- Ограничения внешнего ключа сохраненных таблиц
@@ -464,4 +464,4 @@ ALTER TABLE `recovery_password`
 -- Ограничения внешнего ключа таблицы `vote`
 --
 ALTER TABLE `vote`
-  ADD CONSTRAINT `vote_ibfk_1` FOREIGN KEY (`userId`) REFERENCES `user` (`id`) ON DELETE CASCADE ON UPDATE NO ACTION;
+  ADD CONSTRAINT `vote_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `user` (`id`) ON UPDATE NO ACTION;
