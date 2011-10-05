@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Хост: localhost
--- Время создания: Окт 05 2011 г., 21:39
+-- Время создания: Окт 05 2011 г., 21:45
 -- Версия сервера: 5.1.54
 -- Версия PHP: 5.3.5-1ubuntu7.2
 
@@ -45,10 +45,10 @@ CREATE TABLE IF NOT EXISTS `category` (
 
 CREATE TABLE IF NOT EXISTS `comment` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
-  `userId` int(10) unsigned DEFAULT NULL,
+  `user_id` int(10) unsigned DEFAULT NULL,
   `model` varchar(50) NOT NULL,
-  `modelId` int(10) unsigned NOT NULL,
-  `creationDate` datetime NOT NULL,
+  `model_id` int(10) unsigned NOT NULL,
+  `creation_date` datetime NOT NULL,
   `name` varchar(150) NOT NULL,
   `email` varchar(150) NOT NULL,
   `url` varchar(150) DEFAULT NULL,
@@ -57,9 +57,9 @@ CREATE TABLE IF NOT EXISTS `comment` (
   `ip` varchar(20) DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `status` (`status`),
-  KEY `model` (`model`,`modelId`),
-  KEY `userId` (`userId`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+  KEY `model` (`model`,`model_id`),
+  KEY `userId` (`user_id`)
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=2 ;
 
 -- --------------------------------------------------------
 
@@ -402,12 +402,6 @@ CREATE TABLE IF NOT EXISTS `vote` (
 --
 -- Ограничения внешнего ключа сохраненных таблиц
 --
-
---
--- Ограничения внешнего ключа таблицы `comment`
---
-ALTER TABLE `comment`
-  ADD CONSTRAINT `comment_ibfk_1` FOREIGN KEY (`userId`) REFERENCES `user` (`id`) ON DELETE CASCADE ON UPDATE NO ACTION;
 
 --
 -- Ограничения внешнего ключа таблицы `feedback`

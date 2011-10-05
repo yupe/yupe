@@ -29,7 +29,7 @@ class CommentController extends YFrontController
             if (Yii::app()->user->isAuthenticated())
             {
                 $comment->setAttributes(array(
-                                             'userId' => Yii::app()->user->getId(),
+                                             'user_id' => Yii::app()->user->getId(),
                                              'name' => Yii::app()->user->getState('nickName'),
                                              'email' => Yii::app()->user->getState('email'),
                                         ));

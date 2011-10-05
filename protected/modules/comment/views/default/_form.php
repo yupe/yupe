@@ -16,9 +16,9 @@
     </div>
 
     <div class="row">
-        <?php echo $form->labelEx($model, 'modelId'); ?>
-        <?php echo $form->textField($model, 'modelId', array('size' => 60, 'maxlength' => 150)); ?>
-        <?php echo $form->error($model, 'modelId'); ?>
+        <?php echo $form->labelEx($model, 'model_id'); ?>
+        <?php echo $form->textField($model, 'model_id', array('size' => 60, 'maxlength' => 150)); ?>
+        <?php echo $form->error($model, 'model_id'); ?>
     </div>
 
     <div class="row">

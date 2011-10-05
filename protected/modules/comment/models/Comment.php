@@ -6,15 +6,15 @@
  * The followings are the available columns in table 'Comment':
  * @property string $id
  * @property string $model
- * @property string $modelId
- * @property string $creationDate
+ * @property string $model_id
+ * @property string $creation_date
  * @property string $name
  * @property string $email
  * @property string $url
  * @property string $text
  * @property integer $status
  * @property string $ip
- * @property string $userId
+ * @property string $user_id
  */
 class Comment extends CActiveRecord
 {
@@ -50,8 +50,8 @@ class Comment extends CActiveRecord
     public function rules()
     {        
         return array(
-            array('model,modelId, name, email, text', 'required'),
-            array('status, userId', 'numerical', 'integerOnly' => true),
+            array('model,model_id, name, email, text', 'required'),
+            array('status, user_id', 'numerical', 'integerOnly' => true),
             array('name, email, url', 'length', 'max' => 150),
             array('model', 'length', 'max' => 50),
             array('ip', 'length', 'max' => 20),
@@ -60,7 +60,7 @@ class Comment extends CActiveRecord
             array('name, email, text, url', 'filter', 'filter' => 'strip_tags'),
             array('verifyCode', 'YRequiredValidator', 'allowEmpty' => Yii::app()->user->isAuthenticated()),
             array('verifyCode', 'captcha', 'allowEmpty' => Yii::app()->user->isAuthenticated()),            
-            array('id, model, modelId, creationDate, name, email, url, text, status, ip', 'safe', 'on' => 'search'),
+            array('id, model, model_id, creation_date, name, email, url, text, status, ip', 'safe', 'on' => 'search'),
         );
     }
 
@@ -72,8 +72,8 @@ class Comment extends CActiveRecord
         return array(
             'id' => Yii::t('comment', 'id'),
             'model' => Yii::t('comment', 'Тип модели'),
-            'modelId' => Yii::t('comment', 'Модель'),
-            'creationDate' => Yii::t('comment', 'Дата создания'),
+            'model_id' => Yii::t('comment', 'Модель'),
+            'creation_date' => Yii::t('comment', 'Дата создания'),
             'name' => Yii::t('comment', 'Имя'),
             'email' => Yii::t('comment', 'Email'),
             'url' => Yii::t('comment', 'Сайт'),
@@ -97,8 +97,8 @@ class Comment extends CActiveRecord
 
         $criteria->compare('id', $this->id, true);
         $criteria->compare('model', $this->model, true);
-        $criteria->compare('modelId', $this->modelId, true);
-        $criteria->compare('creationDate', $this->creationDate, true);
+        $criteria->compare('model_id', $this->model_id, true);
+        $criteria->compare('creation_date', $this->creation_date, true);
         $criteria->compare('name', $this->name, true);
         $criteria->compare('email', $this->email, true);
         $criteria->compare('url', $this->url, true);
@@ -117,7 +117,7 @@ class Comment extends CActiveRecord
         {
             if ($this->isNewRecord)
             {
-                $this->creationDate = new CDbExpression('NOW()');
+                $this->creation_date = new CDbExpression('NOW()');
 
                 $this->ip = Yii::app()->request->userHostAddress;
             }
@@ -138,7 +138,7 @@ class Comment extends CActiveRecord
             'approved' => array(
                 'condition' => 'status = :status',
                 'params' => array(':status' => self::STATUS_APPROVED),
-                'order' => 'creationDate DESC'
+                'order' => 'creation_date DESC'
             )
         );
     }
