@@ -83,7 +83,7 @@ class DefaultController extends YBackController
 
         $form->setAttributes(array(
                                   'answer' => $model->answer,
-                                  'isFaq' => $model->isFaq
+                                  'is_faq' => $model->is_faq
                              ));
         
 
@@ -100,9 +100,9 @@ class DefaultController extends YBackController
             {                
                 $model->setAttributes(array(
                                            'answer' => $form->answer,
-                                           'isFaq' => $form->isFaq,
-                                           'answerUser' => Yii::app()->user->getId(),
-                                           'answerDate' => new CDbExpression('NOW()'),
+                                           'is_faq' => $form->is_faq,
+                                           'answer_user' => Yii::app()->user->getId(),
+                                           'answer_date' => new CDbExpression('NOW()'),
                                            'status' => FeedBack::STATUS_ANSWER_SENDED
                                       ));
 

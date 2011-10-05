@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Хост: localhost
--- Время создания: Окт 05 2011 г., 21:31
+-- Время создания: Окт 05 2011 г., 21:39
 -- Версия сервера: 5.1.54
 -- Версия PHP: 5.3.5-1ubuntu7.2
 
@@ -106,25 +106,25 @@ CREATE TABLE IF NOT EXISTS `contest` (
 
 CREATE TABLE IF NOT EXISTS `feedback` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
-  `answerUser` int(10) unsigned DEFAULT NULL,
-  `creationDate` datetime NOT NULL,
-  `changeDate` datetime NOT NULL,
+  `answer_user` int(10) unsigned DEFAULT NULL,
+  `creation_date` datetime NOT NULL,
+  `change_date` datetime NOT NULL,
   `name` varchar(100) NOT NULL,
   `email` varchar(100) NOT NULL,
   `theme` varchar(150) NOT NULL,
   `text` text NOT NULL,
   `type` tinyint(4) NOT NULL DEFAULT '0',
   `answer` text NOT NULL,
-  `answerDate` datetime NOT NULL,
-  `isFaq` tinyint(1) NOT NULL DEFAULT '0',
+  `answer_date` datetime NOT NULL,
+  `is_faq` tinyint(1) NOT NULL DEFAULT '0',
   `status` tinyint(4) NOT NULL DEFAULT '0',
   `ip` varchar(20) NOT NULL,
   PRIMARY KEY (`id`),
   KEY `type` (`type`),
   KEY `status` (`status`),
-  KEY `isFaq` (`isFaq`),
-  KEY `fk_feedback_user` (`answerUser`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+  KEY `isFaq` (`is_faq`),
+  KEY `fk_feedback_user` (`answer_user`)
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=2 ;
 
 -- --------------------------------------------------------
 
@@ -413,7 +413,7 @@ ALTER TABLE `comment`
 -- Ограничения внешнего ключа таблицы `feedback`
 --
 ALTER TABLE `feedback`
-  ADD CONSTRAINT `feedback_ibfk_1` FOREIGN KEY (`answerUser`) REFERENCES `user` (`id`) ON UPDATE NO ACTION;
+  ADD CONSTRAINT `feedback_ibfk_1` FOREIGN KEY (`answer_user`) REFERENCES `user` (`id`) ON UPDATE NO ACTION;
 
 --
 -- Ограничения внешнего ключа таблицы `image`
