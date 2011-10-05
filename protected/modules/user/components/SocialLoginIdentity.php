@@ -11,7 +11,7 @@ class SocialLoginIdentity extends CBaseUserIdentity
 
     private $loginTime;
 
-    private $nickName;
+    private $nick_name;
 
     public function __construct($type, $id)
     {
@@ -24,7 +24,7 @@ class SocialLoginIdentity extends CBaseUserIdentity
         return array(
             'id' => $this->_id,
             'accessLevel' => $this->accessLevel,
-            'nickName' => $this->nickName,
+            'nick_name' => $this->nick_name,
             'loginTime' => $this->loginTime
         );
     }
@@ -50,7 +50,7 @@ class SocialLoginIdentity extends CBaseUserIdentity
             {
                 $this->_id = $user->user->id;
                 $this->accessLevel = $user->user->accessLevel;
-                $this->nickName = $user->user->nickName;
+                $this->nick_name = $user->user->nick_name;
                 $this->loginTime = time();
                 // для админа в сессию запишем еще несколько значений
                 if ($user->user->accessLevel == User::ACCESS_LEVEL_ADMIN)

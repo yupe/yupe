@@ -14,6 +14,6 @@ $this->menu = array(
 );
 ?>
 
-<h1><?php echo Yii::t('user', 'Изменение профиля')?> <?php echo $model->user->nickName; ?></h1>
+<h1><?php echo Yii::t('user', 'Изменение профиля')?> <?php echo $model->user->nick_name; ?></h1>
 
 <?php echo $this->renderPartial('_form', array('model' => $model)); ?>

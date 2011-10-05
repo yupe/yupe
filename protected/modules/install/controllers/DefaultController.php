@@ -262,7 +262,7 @@ class DefaultController extends Controller
                 $salt = Registration::model()->generateSalt();
 
                 $user->setAttributes(array(
-                                          'nickName' => $model->userName,
+                                          'nick_name' => $model->userName,
                                           'email' => $model->email,
                                           'salt' => $salt,
                                           'password' => Registration::model()->hashPassword($model->password, $salt),

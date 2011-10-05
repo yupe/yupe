@@ -6,7 +6,7 @@
  * The followings are the available columns in table '{{Registration}}':
  * @property integer $id
  * @property string $creation_date
- * @property string $nickName
+ * @property string $nick_name
  * @property string $email
  * @property string $salt
  * @property string $password
@@ -37,13 +37,13 @@ class Registration extends CActiveRecord
     public function rules()
     {
         return array(
-            array('nickName, email, password', 'required'),
-            array('nickName', 'length', 'max' => 100),
+            array('nick_name, email, password', 'required'),
+            array('nick_name', 'length', 'max' => 100),
             array('email', 'length', 'min' => 5, 'max' => 150),
             array('salt, password, code', 'length', 'max' => 32),
             array('email', 'unique', 'message' => Yii::t('user', 'Данный email уже используется другим пользователем')),
-            array('nickName', 'unique', 'message' => Yii::t('user', 'Данный ник уже используется другим пользователем')),
-            array('id, creation_date, nickName, email, salt, password, code', 'safe', 'on' => 'search'),
+            array('nick_name', 'unique', 'message' => Yii::t('user', 'Данный ник уже используется другим пользователем')),
+            array('id, creation_date, nick_name, email, salt, password, code', 'safe', 'on' => 'search'),
         );
     }
 
@@ -53,7 +53,7 @@ class Registration extends CActiveRecord
         return array(
             'id' => Yii::t('user', 'Id'),
             'creation_date' => Yii::t('user', 'Дата создания'),
-            'nickName' => Yii::t('user', 'Ник'),
+            'nick_name' => Yii::t('user', 'Ник'),
             'email' => Yii::t('user', 'Email'),
             'salt' => Yii::t('user', 'Соль'),
             'password' => Yii::t('user', 'Пароль'),
@@ -70,7 +70,7 @@ class Registration extends CActiveRecord
 
         $criteria->compare('creation_date', $this->creation_date, true);
 
-        $criteria->compare('nickName', $this->nickName, true);
+        $criteria->compare('nick_name', $this->nick_name, true);
 
         $criteria->compare('email', $this->email, true);
 

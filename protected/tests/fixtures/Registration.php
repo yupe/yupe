@@ -3,7 +3,7 @@
 return array(
     'sample1' => array(
         'creation_date' => new CDbExpression('NOW()'),
-        'nickName' => 'xoma',
+        'nick_name' => 'xoma',
         'email' => 'xoma@mail.ru',
         'salt' => '1234546',
         'password' => md5(1234546),
@@ -11,7 +11,7 @@ return array(
     ),
     'sample2' => array(
         'creation_date' => new CDbExpression('NOW()'),
-        'nickName' => 'xoma2',
+        'nick_name' => 'xoma2',
         'email' => 'xoma2@mail.ru',
         'salt' => '1234546',
         'password' => md5(1234546),

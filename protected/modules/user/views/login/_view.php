@@ -5,7 +5,7 @@
     <br/>
 
     <b><?php echo CHtml::encode($data->getAttributeLabel('user_id')); ?>:</b>
-    <?php echo CHtml::encode($data->user->getFullName() . " ({$data->user->nickName})"); ?>
+    <?php echo CHtml::encode($data->user->getFullName() . " ({$data->user->nick_name})"); ?>
     <br/>
 
     <b><?php echo CHtml::encode($data->getAttributeLabel('identity_id')); ?>:</b>

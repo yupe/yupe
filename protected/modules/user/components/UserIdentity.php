@@ -21,10 +21,10 @@ class UserIdentity extends CUserIdentity
         {
             // запись данных в сессию пользователя
             $this->_id = $user->id;
-            $this->username = $user->nickName;
+            $this->username = $user->nick_name;
             Yii::app()->user->setState('id', $user->id);
             Yii::app()->user->setState('accessLevel', $user->accessLevel);
-            Yii::app()->user->setState('nickName', $user->nickName);
+            Yii::app()->user->setState('nick_name', $user->nick_name);
             Yii::app()->user->setState('email', $user->email);
             Yii::app()->user->setState('loginTime', time());
             // для админа в сессию запишем еще несколько значений

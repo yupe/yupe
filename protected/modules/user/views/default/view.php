@@ -3,7 +3,7 @@
 <?php
 $this->breadcrumbs = array(
     Yii::t('user', 'Пользователи') => array('index'),
-    $model->nickName,
+    $model->nick_name,
 );
 
 $this->menu = array(
@@ -17,7 +17,7 @@ $this->menu = array(
 
 <h1><?php echo Yii::t('user', 'Просмотр пользователя')?>
     "<?php echo $model->getFullName(); ?>
-    (<?php echo $model->nickName;?>)"</h1>
+    (<?php echo $model->nick_name;?>)"</h1>
 
 <?php $this->widget('zii.widgets.CDetailView', array(
                                                     'data' => $model,
@@ -27,7 +27,7 @@ $this->menu = array(
                                                         'change_date',
                                                         'firstName',
                                                         'lastName',
-                                                        'nickName',
+                                                        'nick_name',
                                                         'email',
                                                         array(
                                                             'name' => 'gender',

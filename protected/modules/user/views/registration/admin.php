@@ -76,7 +76,7 @@ $('.search-form form').submit(function(){
                                                        'columns' => array(
                                                            'id',
                                                            'creation_date',
-                                                           'nickName',
+                                                           'nick_name',
                                                            'email',
                                                            'code',
                                                            array(

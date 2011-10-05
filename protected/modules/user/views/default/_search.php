@@ -31,8 +31,8 @@
     </div>
 
     <div class="row">
-        <?php echo $form->label($model, 'nickName'); ?>
-        <?php echo $form->textField($model, 'nickName', array('size' => 60, 'maxlength' => 150)); ?>
+        <?php echo $form->label($model, 'nick_name'); ?>
+        <?php echo $form->textField($model, 'nick_name', array('size' => 60, 'maxlength' => 150)); ?>
     </div>
 
     <div class="row">

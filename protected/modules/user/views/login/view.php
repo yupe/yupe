@@ -21,7 +21,7 @@ $this->menu = array(
                                                         'id',
                                                         array(
                                                             'name' => 'user_id',
-                                                            'value' => $model->user->getFullName() . " ({$model->user->nickName})"
+                                                            'value' => $model->user->getFullName() . " ({$model->user->nick_name})"
                                                         ),
                                                         'identity_id',
                                                         'type',

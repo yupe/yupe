@@ -13,14 +13,14 @@ $this->menu = array(
 ?>
 
 <h1><?php echo Yii::t('user', 'Просмотр профиля')?>
-    #<?php echo $model->user->nickName; ?></h1>
+    #<?php echo $model->user->nick_name; ?></h1>
 
 <?php $this->widget('zii.widgets.CDetailView', array(
                                                     'data' => $model,
                                                     'attributes' => array(
                                                         array(
                                                             'name' => 'user_id',
-                                                            'value' => $model->user->nickName
+                                                            'value' => $model->user->nick_name
                                                         ),
                                                         'twitter',
                                                         'livejournal',

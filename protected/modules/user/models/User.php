@@ -9,7 +9,7 @@
  * @property string $change_date
  * @property string $firstName
  * @property string $lastName
- * @property string $nickName
+ * @property string $nick_name
  * @property string $email
  * @property integer $gender
  * @property string $avatar
@@ -119,17 +119,17 @@ class User extends CActiveRecord
         // NOTE: you should only define rules for those attributes that
         // will receive user inputs.
         return array(
-            array('nickName, email, password', 'required'),
+            array('nick_name, email, password', 'required'),
             array('gender, status, accessLevel, useGravatar', 'numerical', 'integerOnly' => true),
-            array('firstName, lastName, nickName, email', 'length', 'max' => 150),
+            array('firstName, lastName, nick_name, email', 'length', 'max' => 150),
             array('password, salt', 'length', 'max' => 32),
             array('registrationIp, activationIp, registrationDate', 'length', 'max' => 20),
             array('email', 'email'),
             array('email', 'unique', 'message' => Yii::t('user', 'Данный email уже используется другим пользователем')),
-            array('nickName', 'unique', 'message' => Yii::t('user', 'Данный ник уже используется другим пользователем')),
+            array('nick_name', 'unique', 'message' => Yii::t('user', 'Данный ник уже используется другим пользователем')),
             array('avatar', 'file', 'types' => implode(',', Yii::app()->getModule('user')->avatarExtensions), 'maxSize' => Yii::app()->getModule('user')->avatarMaxSize, 'allowEmpty' => true),
             array('useGravatar', 'in', 'range' => array(0, 1)),
-            array('id, creation_date, change_date, firstName, lastName, nickName, email, gender, avatar, password, salt, status, accessLevel, lastVisit, registrationDate, registrationIp, activationIp', 'safe', 'on' => 'search'),
+            array('id, creation_date, change_date, firstName, lastName, nick_name, email, gender, avatar, password, salt, status, accessLevel, lastVisit, registrationDate, registrationIp, activationIp', 'safe', 'on' => 'search'),
         );
     }
 
@@ -156,7 +156,7 @@ class User extends CActiveRecord
             'change_date' => Yii::t('user', 'Дата изменения'),
             'firstName' => Yii::t('user', 'Имя'),
             'lastName' => Yii::t('user', 'Фамилия'),
-            'nickName' => Yii::t('user', 'Ник'),
+            'nick_name' => Yii::t('user', 'Ник'),
             'email' => Yii::t('user', 'Email'),
             'gender' => Yii::t('user', 'Пол'),
             'password' => Yii::t('user', 'Пароль'),
@@ -187,7 +187,7 @@ class User extends CActiveRecord
 
         $criteria->compare('lastName', $this->lastName, true);
 
-        $criteria->compare('nickName', $this->nickName, true);
+        $criteria->compare('nick_name', $this->nick_name, true);
 
         $criteria->compare('email', $this->email, true);
 
@@ -243,12 +243,12 @@ class User extends CActiveRecord
     }
 
     // проверить уникальность логина по двум таблицам
-    public function checkNickNameUnique($nickName)
+    public function checkNickNameUnique($nick_name)
     {
-        $nickName = trim(strtolower($nickName));
+        $nick_name = trim(strtolower($nick_name));
 
         // проверим по таблице Registration
-        $registration = Registration::model()->find('nickName = :nickName', array(':nickName' => $nickName));
+        $registration = Registration::model()->find('nick_name = :nick_name', array(':nick_name' => $nick_name));
 
         if (!is_null($registration))
         {
@@ -256,7 +256,7 @@ class User extends CActiveRecord
         }
 
         // проверим по табличке User
-        $user = User::model()->find('nickName = :nickName', array(':nickName' => $nickName));
+        $user = User::model()->find('nick_name = :nick_name', array(':nick_name' => $nick_name));
 
         return is_null($user) ? true : false;
     }
@@ -284,11 +284,11 @@ class User extends CActiveRecord
     {
         if ($this->useGravatar && $this->email)
         {
-            return CHtml::image('http://gravatar.com/avatar/' . md5($this->email), $this->nickName, $htmlOptions);
+            return CHtml::image('http://gravatar.com/avatar/' . md5($this->email), $this->nick_name, $htmlOptions);
         }
         elseif ($this->avatar)
         {
-            return CHtml::image($this->avatar, $this->nickName, $htmlOptions);
+            return CHtml::image($this->avatar, $this->nick_name, $htmlOptions);
         }
 
         return '';
@@ -297,10 +297,10 @@ class User extends CActiveRecord
     public function getFullName($separator = ' ')
     {
         return $this->firstName || $this->lastName
-            ? $this->lastName . $separator . $this->firstName : $this->nickName;
+            ? $this->lastName . $separator . $this->firstName : $this->nick_name;
     }
 
-    public function createAccount($nickName, $email, $params = null, $password = null, $salt = null)
+    public function createAccount($nick_name, $email, $params = null, $password = null, $salt = null)
     {
         $user = new User();
 
@@ -310,7 +310,7 @@ class User extends CActiveRecord
             ? Registration::model()->generateRandomPassword() : $password;
 
         $user->setAttributes(array(
-                                  'nickName' => $nickName,
+                                  'nick_name' => $nick_name,
                                   'email' => $email,
                                   'salt' => $salt,
                                   'password' => Registration::model()->hashPassword($password, $salt),
@@ -361,13 +361,13 @@ class User extends CActiveRecord
     }
 
 
-    public function createSocialAccount($nickName, $email, $firstName, $secondName, $sid, $sType, $params = null)
+    public function createSocialAccount($nick_name, $email, $firstName, $secondName, $sid, $sType, $params = null)
     {
         $salt = Registration::model()->generateSalt();
 
         $password = Registration::model()->hashPassword(Registration::model()->generateRandomPassword(), $salt);
 
-        $user = $this->createAccount($nickName, $email, $params, $password, $salt, $params);
+        $user = $this->createAccount($nick_name, $email, $params, $password, $salt, $params);
 
         if (is_object($user) && !$user->hasErrors())
         {

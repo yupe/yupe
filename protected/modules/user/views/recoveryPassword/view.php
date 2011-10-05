@@ -24,7 +24,7 @@ $this->menu = array(
                                                         'id',
                                                         array(
                                                             'name' => 'user_id',
-                                                            'value' => $model->user->nickName
+                                                            'value' => $model->user->nick_name
                                                         ),
                                                         'creation_date',
                                                         'code',

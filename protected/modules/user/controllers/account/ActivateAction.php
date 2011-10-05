@@ -53,7 +53,7 @@ class ActivateAction extends CAction
             $user = new User();
 
             $user->setAttributes(array(
-                                      'nickName' => $registration->nickName,
+                                      'nick_name' => $registration->nick_name,
                                       'email' => $registration->email,
                                       'password' => $registration->password,
                                       'salt' => $registration->salt,

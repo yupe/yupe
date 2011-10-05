@@ -44,7 +44,7 @@ $('.search-form form').submit(function(){
                                                            'model_id',
                                                            array(
                                                                'name' => 'user_id',
-                                                               'value' => '$data->user->nickName." (".$data->user_id.")"'
+                                                               'value' => '$data->user->nick_name." (".$data->user_id.")"'
                                                            ),
                                                            'creation_date',
                                                            'value',

@@ -320,14 +320,14 @@ CREATE TABLE IF NOT EXISTS `recovery_password` (
 CREATE TABLE IF NOT EXISTS `registration` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `creation_date` datetime NOT NULL,
-  `nickName` varchar(100) NOT NULL,
+  `nick_name` varchar(100) NOT NULL,
   `email` varchar(150) NOT NULL,
   `salt` char(32) NOT NULL,
   `password` char(32) NOT NULL,
   `code` char(32) NOT NULL,
   `ip` varchar(20) NOT NULL,
   PRIMARY KEY (`id`),
-  UNIQUE KEY `registration_nickname_unique` (`nickName`),
+  UNIQUE KEY `registration_nickname_unique` (`nick_name`),
   UNIQUE KEY `registration_email_unique` (`email`),
   UNIQUE KEY `registration_code_unique` (`code`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
@@ -362,7 +362,7 @@ CREATE TABLE IF NOT EXISTS `user` (
   `change_date` datetime NOT NULL,
   `firstName` varchar(150) DEFAULT NULL,
   `lastName` varchar(150) DEFAULT NULL,
-  `nickName` varchar(150) NOT NULL,
+  `nick_name` varchar(150) NOT NULL,
   `email` varchar(150) NOT NULL,
   `gender` tinyint(1) NOT NULL DEFAULT '0',
   `password` char(32) NOT NULL,
@@ -376,7 +376,7 @@ CREATE TABLE IF NOT EXISTS `user` (
   `avatar` varchar(100) DEFAULT NULL,
   `useGravatar` tinyint(4) DEFAULT '0',
   PRIMARY KEY (`id`),
-  UNIQUE KEY `user_nickname_unique` (`nickName`),
+  UNIQUE KEY `user_nickname_unique` (`nick_name`),
   UNIQUE KEY `user_email_unique` (`email`),
   KEY `user_status_index` (`status`)
 ) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=84 ;

@@ -1,7 +1,7 @@
 <div class="view">
 
     <b><?php echo CHtml::encode($data->getAttributeLabel('user_id')); ?>:</b>
-    <?php echo CHtml::encode($data->user->nickName); ?>
+    <?php echo CHtml::encode($data->user->nick_name); ?>
     <br/>
 
     <b><?php echo CHtml::encode($data->getAttributeLabel('twitter')); ?>:</b>

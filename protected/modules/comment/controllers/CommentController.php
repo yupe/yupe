@@ -30,7 +30,7 @@ class CommentController extends YFrontController
             {
                 $comment->setAttributes(array(
                                              'user_id' => Yii::app()->user->getId(),
-                                             'name' => Yii::app()->user->getState('nickName'),
+                                             'name' => Yii::app()->user->getState('nick_name'),
                                              'email' => Yii::app()->user->getState('email'),
                                         ));
 

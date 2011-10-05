@@ -40,7 +40,7 @@ $('.search-form form').submit(function(){
                                                        'columns' => array(
                                                            array(
                                                                'name' => 'user_id',
-                                                               'value' => '$data->user->nickName'
+                                                               'value' => '$data->user->nick_name'
                                                            ),
                                                            'twitter',
                                                            'livejournal',

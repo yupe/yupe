@@ -40,7 +40,7 @@ $('.search-form form').submit(function(){
                                                            'id',
                                                            array(
                                                                'name' => 'user_id',
-                                                               'value' => '$data->user->getFullName()." ({$data->user->nickName})"'
+                                                               'value' => '$data->user->getFullName()." ({$data->user->nick_name})"'
                                                            ),
                                                            'identity_id',
                                                            'type',

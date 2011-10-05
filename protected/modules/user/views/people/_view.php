@@ -3,8 +3,8 @@
     <b><?php echo $data->getAvatar() ?></b>
     <br/>
 
-    <b><?php echo CHtml::encode($data->getAttributeLabel('nickName')); ?>:</b>
-    <?php echo CHtml::encode($data->nickName); ?>
+    <b><?php echo CHtml::encode($data->getAttributeLabel('nick_name')); ?>:</b>
+    <?php echo CHtml::encode($data->nick_name); ?>
     <br/>
 
     <b><?php echo CHtml::encode($data->getAttributeLabel('creation_date')); ?>

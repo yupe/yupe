@@ -23,7 +23,7 @@ $this->menu = array(
                                                     'attributes' => array(
                                                         'id',
                                                         'creation_date',
-                                                        'nickName',
+                                                        'nick_name',
                                                         'email',
                                                         'salt',
                                                         'password',
