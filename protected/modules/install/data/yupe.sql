@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Хост: localhost
--- Время создания: Окт 05 2011 г., 21:45
+-- Время создания: Окт 05 2011 г., 22:09
 -- Версия сервера: 5.1.54
 -- Версия PHP: 5.3.5-1ubuntu7.2
 
@@ -340,15 +340,15 @@ CREATE TABLE IF NOT EXISTS `registration` (
 
 CREATE TABLE IF NOT EXISTS `settings` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
-  `moduleId` varchar(150) NOT NULL,
-  `paramName` varchar(150) NOT NULL,
-  `paramValue` varchar(150) NOT NULL,
-  `creationDate` datetime NOT NULL,
-  `changeDate` datetime NOT NULL,
-  `userId` int(10) unsigned NOT NULL,
+  `module_id` varchar(150) NOT NULL,
+  `param_name` varchar(150) NOT NULL,
+  `param_value` varchar(150) NOT NULL,
+  `creation_date` datetime NOT NULL,
+  `change_date` datetime NOT NULL,
+  `user_id` int(10) unsigned NOT NULL,
   PRIMARY KEY (`id`),
-  KEY `moduleId` (`moduleId`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=197 ;
+  KEY `moduleId` (`module_id`)
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=203 ;
 
 -- --------------------------------------------------------
 

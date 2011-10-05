@@ -5,12 +5,12 @@
  *
  * The followings are the available columns in table 'Settings':
  * @property string $id
- * @property string $moduleId
- * @property string $paramName
- * @property string $paramValue
- * @property string $creationDate
- * @property string $changeDate
- * @property string $userId
+ * @property string $module_id
+ * @property string $param_name
+ * @property string $param_value
+ * @property string $creation_date
+ * @property string $change_date
+ * @property string $user_id
  *
  * The followings are the available model relations:
  * @property User $user
@@ -40,12 +40,12 @@ class Settings extends CActiveRecord
     public function rules()
     {
         return array(
-            array('moduleId, paramName, paramValue', 'required'),
-            array('moduleId, paramName, paramValue', 'length', 'max' => 150),
-            array('userId', 'numerical', 'integerOnly' => true),
-            //array('moduleId','match','pattern' => '/^[a-zA-Z0-9_\-]+$/'),
-            //array('paramName, paramValue','match','pattern' => '/^[a-zA-Z0-9_\-]+$/'),
-            array('id, moduleId, paramName, paramValue, creationDate, changeDate, userId', 'safe', 'on' => 'search'),
+            array('module_id, param_name, param_value', 'required'),
+            array('module_id, param_name, param_value', 'length', 'max' => 150),
+            array('user_id', 'numerical', 'integerOnly' => true),
+            //array('module_id','match','pattern' => '/^[a-zA-Z0-9_\-]+$/'),
+            //array('param_name, param_value','match','pattern' => '/^[a-zA-Z0-9_\-]+$/'),
+            array('id, module_id, param_name, param_value, creation_date, change_date, user_id', 'safe', 'on' => 'search'),
         );
     }
 
@@ -55,17 +55,14 @@ class Settings extends CActiveRecord
         {
             if ($this->isNewRecord)
             {
-                $this->creationDate = $this->changeDate = new CDbExpression('NOW()');
-
-                if (!$this->userId)
-                {
-                    $this->userId = Yii::app()->user->getId();
-                }
+                $this->creation_date = $this->change_date = new CDbExpression('NOW()');                                
             }
             else
             {
-                $this->changeDate = new CDbExpression('NOW()');
+                $this->change_date = new CDbExpression('NOW()');
             }
+            
+            $this->user_id = Yii::app()->user->getId();
 
             return true;
         }
@@ -81,7 +78,7 @@ class Settings extends CActiveRecord
         // NOTE: you may need to adjust the relation name and the related
         // class name for the relations automatically generated below.
         return array(
-            'user' => array(self::BELONGS_TO, 'User', 'userId'),
+            'user' => array(self::BELONGS_TO, 'User', 'user_id'),
         );
     }
 
@@ -92,12 +89,12 @@ class Settings extends CActiveRecord
     {
         return array(
             'id' => 'ID',
-            'moduleId' => 'Module',
-            'paramName' => 'Param Name',
-            'paramValue' => 'Param Value',
-            'creationDate' => 'Creation Date',
-            'changeDate' => 'Change Date',
-            'userId' => 'User',
+            'module_id' => 'Module',
+            'param_name' => 'Param Name',
+            'param_value' => 'Param Value',
+            'creation_date' => 'Creation Date',
+            'change_date' => 'Change Date',
+            'user_id' => 'User',
         );
     }
 
@@ -113,12 +110,12 @@ class Settings extends CActiveRecord
         $criteria = new CDbCriteria;
 
         $criteria->compare('id', $this->id, true);
-        $criteria->compare('moduleId', $this->moduleId, true);
-        $criteria->compare('paramName', $this->paramName, true);
-        $criteria->compare('paramValue', $this->paramValue, true);
-        $criteria->compare('creationDate', $this->creationDate, true);
-        $criteria->compare('changeDate', $this->changeDate, true);
-        $criteria->compare('userId', $this->userId, true);
+        $criteria->compare('module_id', $this->module_id, true);
+        $criteria->compare('param_name', $this->param_name, true);
+        $criteria->compare('param_value', $this->param_value, true);
+        $criteria->compare('creation_date', $this->creation_date, true);
+        $criteria->compare('change_date', $this->change_date, true);
+        $criteria->compare('user_id', $this->user_id, true);
 
         return new CActiveDataProvider(get_class($this), array(
                                                               'criteria' => $criteria,

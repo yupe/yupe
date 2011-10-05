@@ -72,18 +72,18 @@ abstract class YWebModule extends CWebModule
         }
 
         // инициализация модуля		
-        $settings = Settings::model()->cache(Yii::app()->yupe->coreCacheTime)->findAll('moduleId = :moduleId', array('moduleId' => $this->getId()));
+        $settings = Settings::model()->cache(Yii::app()->yupe->coreCacheTime)->findAll('module_id = :module_id', array('module_id' => $this->getId()));
 
         $editableParams = $this->getEditableParams();
 
         //@TODO обход не settings а editableParams как вариант =)
         foreach ($settings as $model)
         {
-            $propertie = $model->paramName;
+            $propertie = $model->param_name;
 
             if (property_exists($this, $propertie) && in_array($propertie, $editableParams))
             {
-                $this->$propertie = $model->paramValue;
+                $this->$propertie = $model->param_value;
             }
         }
     }
