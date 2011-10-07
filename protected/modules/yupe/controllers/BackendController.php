@@ -120,7 +120,7 @@ class BackendController extends YBackController
             }
         }
 
-        throw new CHttpException(404, Yii::t('yupe', 'Странцйа не найдена!'));
+        throw new CHttpException(404, Yii::t('yupe', 'Страница не найдена!'));
     }
 
 
