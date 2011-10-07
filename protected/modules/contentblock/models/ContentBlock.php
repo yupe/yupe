@@ -48,7 +48,7 @@ class ContentBlock extends CActiveRecord
      */
     public function tableName()
     {
-        return 'ContentBlock';
+        return '{{content_block}}';
     }
 
     /**

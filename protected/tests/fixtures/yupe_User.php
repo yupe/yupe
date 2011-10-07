@@ -3,11 +3,11 @@
 return array(
     /*
      'sample1'=>array(
-         'creationDate' => '',
-         'changeDate' => '',
+         'creation_date' => '',
+         'change_date' => '',
          'firstName' => '',
          'lastName' => '',
-         'nickName' => '',
+         'nick_name' => '',
          'email' => '',
          'gender' => '',
          'avatar' => '',
@@ -21,11 +21,11 @@ return array(
          'activationIp' => '',
      ),
      'sample2'=>array(
-         'creationDate' => '',
-         'changeDate' => '',
+         'creation_date' => '',
+         'change_date' => '',
          'firstName' => '',
          'lastName' => '',
-         'nickName' => '',
+         'nick_name' => '',
          'email' => '',
          'gender' => '',
          'avatar' => '',

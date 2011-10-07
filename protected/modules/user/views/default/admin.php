@@ -45,9 +45,9 @@ $('.search-form form').submit(function(){
                                                        'columns' => array(
                                                            'id',
                                                            array(
-                                                               'name' => 'nickName',
+                                                               'name' => 'nick_name',
                                                                'type' => 'raw',
-                                                               'value' => 'CHtml::link($data->nickName,array("/user/default/update/","id" => $data->id))'
+                                                               'value' => 'CHtml::link($data->nick_name,array("/user/default/update/","id" => $data->id))'
                                                            ),
                                                            'email',
                                                            array(
@@ -60,7 +60,7 @@ $('.search-form form').submit(function(){
                                                                'value' => '$data->getAccessLevel()',
                                                                'filter' => CHtml::activeDropDownList($model, 'status', $model->getAccessLevelsList())
                                                            ),
-                                                           'creationDate',
+                                                           'creation_date',
                                                            'lastVisit',
                                                            array(
                                                                'class' => 'CButtonColumn',

@@ -3,29 +3,29 @@ class VoteWidget extends YWidget
 {
     public $model;
 
-    public $modelId;
+    public $model_id;
 
-    public $userId;
+    public $user_id;
 
     public function init()
     {
-        if (!$this->model || !$this->modelId)
+        if (!$this->model || !$this->model_id)
         {
-            throw new CException(Yii::t('vote', 'Укажите model и modelId для виджета VoteWidget!'));
+            throw new CException(Yii::t('vote', 'Укажите model и model_id для виджета VoteWidget!'));
         }
 
-        if (!$this->userId)
+        if (!$this->user_id)
         {
-            $this->userId = Yii::app()->user->getId();
+            $this->user_id = Yii::app()->user->getId();
         }
     }
 
     public function run()
     {
-        $vote = Vote::model()->find('model = :model AND modelId = :modelId AND userId = :userId', array(
+        $vote = Vote::model()->find('model = :model AND model_id = :model_id AND user_id = :user_id', array(
                                                                                                        'model' => $this->model,
-                                                                                                       'modelId' => $this->modelId,
-                                                                                                       'userId' => $this->userId
+                                                                                                       'model_id' => $this->model_id,
+                                                                                                       'user_id' => $this->user_id
                                                                                                   ));
 
         $this->render('votewidget', array('model' => $vote));

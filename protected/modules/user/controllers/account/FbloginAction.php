@@ -25,18 +25,18 @@ class FbloginAction extends CAction
 
                 $myAccount = $facebook->api('/me');
 
-                $nickName = $myAccount['name'];
+                $nick_name = $myAccount['name'];
 
                 if ($myAccount['username'])
                 {
-                    $nickName = $myAccount['username'];
+                    $nick_name = $myAccount['username'];
                 }
 
                 $fbAuthData = array(
                     'id' => $myAccount['id'],
                     'firstName' => $myAccount['first_name'],
                     'lastName' => $myAccount['last_name'],
-                    'nickName' => $nickName,
+                    'nick_name' => $nick_name,
                     'email' => $myAccount['email']
                 );
 
@@ -50,9 +50,9 @@ class FbloginAction extends CAction
 
 
                 // проверить наличие такого uid в базе
-                $login = Login::model()->find('type = :type AND identityId = :identityId', array(
+                $login = Login::model()->find('type = :type AND identity_id = :identity_id', array(
                                                                                                 ':type' => $this->type,
-                                                                                                ':identityId' => $fbAuthData['id']
+                                                                                                ':identity_id' => $fbAuthData['id']
                                                                                            ));
 
                 // если такое uid уже есть - авторизуем пользователя и все
@@ -85,8 +85,8 @@ class FbloginAction extends CAction
                     $login = new Login();
 
                     $login->setAttributes(array(
-                                               'userId' => $user->id,
-                                               'identityId' => $fbAuthData['id'],
+                                               'user_id' => $user->id,
+                                               'identity_id' => $fbAuthData['id'],
                                                'type' => $this->type
                                           ));
 
@@ -123,7 +123,7 @@ class FbloginAction extends CAction
                     'gender' => $myAccount['gender']
                 );
 
-                $userLogin = User::model()->createSocialAccount($fbAuthData['nickName'], $fbAuthData['email'], $fbAuthData['firstName'], $fbAuthData['firstName'], $fbAuthData['id'], $this->type, $params);
+                $userLogin = User::model()->createSocialAccount($fbAuthData['nick_name'], $fbAuthData['email'], $fbAuthData['firstName'], $fbAuthData['firstName'], $fbAuthData['id'], $this->type, $params);
 
                 if (is_object($userLogin) && !$userLogin->hasErrors())
                 {

@@ -31,7 +31,7 @@ class ProfileController extends YBackController
             if ($model->save())
             {
                 Yii::app()->user->setFlash(YFlashMessages::NOTICE_MESSAGE, Yii::t('user', 'Данные обновлены!'));
-                $this->redirect(array('view', 'id' => $model->userId));
+                $this->redirect(array('view', 'id' => $model->user_id));
             }
         }
 

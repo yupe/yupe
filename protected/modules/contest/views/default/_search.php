@@ -21,10 +21,10 @@
     </div>
 
     <div class="row">
-        <?php echo $form->label($model, 'startAddImage'); ?>
+        <?php echo $form->label($model, 'start_add_image'); ?>
         <?php $this->widget('zii.widgets.jui.CJuiDatePicker', array(
                                                                    'model' => $model,
-                                                                   'attribute' => 'startAddImage',
+                                                                   'attribute' => 'start_add_image',
                                                                    'options' => array(
                                                                        'dateFormat' => 'yy-mm-dd',
                                                                    ),
@@ -32,10 +32,10 @@
     </div>
 
     <div class="row">
-        <?php echo $form->label($model, 'stopAddImage'); ?>
+        <?php echo $form->label($model, 'stop_add_image'); ?>
         <?php $this->widget('zii.widgets.jui.CJuiDatePicker', array(
                                                                    'model' => $model,
-                                                                   'attribute' => 'stopAddImage',
+                                                                   'attribute' => 'stop_add_image',
                                                                    'options' => array(
                                                                        'dateFormat' => 'yy-mm-dd',
                                                                    ),
@@ -43,10 +43,10 @@
     </div>
 
     <div class="row">
-        <?php echo $form->label($model, 'startVote'); ?>
+        <?php echo $form->label($model, 'start_vote'); ?>
         <?php $this->widget('zii.widgets.jui.CJuiDatePicker', array(
                                                                    'model' => $model,
-                                                                   'attribute' => 'startVote',
+                                                                   'attribute' => 'start_vote',
                                                                    'options' => array(
                                                                        'dateFormat' => 'yy-mm-dd',
                                                                    ),
@@ -54,10 +54,10 @@
     </div>
 
     <div class="row">
-        <?php echo $form->label($model, 'stopVote'); ?>
+        <?php echo $form->label($model, 'stop_vote'); ?>
         <?php $this->widget('zii.widgets.jui.CJuiDatePicker', array(
                                                                    'model' => $model,
-                                                                   'attribute' => 'stopVote',
+                                                                   'attribute' => 'stop_vote',
                                                                    'options' => array(
                                                                        'dateFormat' => 'yy-mm-dd',
                                                                    ),

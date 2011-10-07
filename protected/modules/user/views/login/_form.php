@@ -10,15 +10,15 @@
     <?php echo $form->errorSummary($model); ?>
 
     <div class="row">
-        <?php echo $form->labelEx($model, 'userId'); ?>
-        <?php echo $form->textField($model, 'userId', array('size' => 10, 'maxlength' => 10)); ?>
-        <?php echo $form->error($model, 'userId'); ?>
+        <?php echo $form->labelEx($model, 'user_id'); ?>
+        <?php echo $form->textField($model, 'user_id', array('size' => 10, 'maxlength' => 10)); ?>
+        <?php echo $form->error($model, 'user_id'); ?>
     </div>
 
     <div class="row">
-        <?php echo $form->labelEx($model, 'identityId'); ?>
-        <?php echo $form->textField($model, 'identityId', array('size' => 10, 'maxlength' => 10)); ?>
-        <?php echo $form->error($model, 'identityId'); ?>
+        <?php echo $form->labelEx($model, 'identity_id'); ?>
+        <?php echo $form->textField($model, 'identity_id', array('size' => 10, 'maxlength' => 10)); ?>
+        <?php echo $form->error($model, 'identity_id'); ?>
     </div>
 
     <div class="row">
@@ -28,9 +28,9 @@
     </div>
 
     <div class="row">
-        <?php echo $form->labelEx($model, 'creationDate'); ?>
-        <?php echo $form->textField($model, 'creationDate'); ?>
-        <?php echo $form->error($model, 'creationDate'); ?>
+        <?php echo $form->labelEx($model, 'creation_date'); ?>
+        <?php echo $form->textField($model, 'creation_date'); ?>
+        <?php echo $form->error($model, 'creation_date'); ?>
     </div>
 
     <div class="row buttons">

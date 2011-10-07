@@ -29,9 +29,9 @@ $this->menu = array(
                                                         'description',
                                                         'alt',
                                                         'file',
-                                                        'creationDate',
+                                                        'creation_date',
                                                         array(
-                                                            'name' => 'userId',
+                                                            'name' => 'user_id',
                                                             'value' => $model->user->getFullName()
                                                         ),
                                                         array(

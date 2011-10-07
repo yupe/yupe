@@ -1,7 +1,7 @@
 <?php
 class SocialLoginIdentity extends CBaseUserIdentity
 {
-    private $identityId;
+    private $identity_id;
 
     private $type;
 
@@ -11,11 +11,11 @@ class SocialLoginIdentity extends CBaseUserIdentity
 
     private $loginTime;
 
-    private $nickName;
+    private $nick_name;
 
     public function __construct($type, $id)
     {
-        $this->identityId = $id;
+        $this->identity_id = $id;
         $this->type = $type;
     }
 
@@ -24,18 +24,18 @@ class SocialLoginIdentity extends CBaseUserIdentity
         return array(
             'id' => $this->_id,
             'accessLevel' => $this->accessLevel,
-            'nickName' => $this->nickName,
+            'nick_name' => $this->nick_name,
             'loginTime' => $this->loginTime
         );
     }
 
     public function authenticate()
     {
-        if ($this->type && $this->identityId)
+        if ($this->type && $this->identity_id)
         {
-            $user = Login::model()->with('user')->find('type = :type AND identityId = :identityId', array(
+            $user = Login::model()->with('user')->find('type = :type AND identity_id = :identity_id', array(
                                                                                                          ':type' => $this->type,
-                                                                                                         ':identityId' => $this->identityId
+                                                                                                         ':identity_id' => $this->identity_id
                                                                                                     ));
 
             if (is_null($user) || is_null($user->user))
@@ -50,7 +50,7 @@ class SocialLoginIdentity extends CBaseUserIdentity
             {
                 $this->_id = $user->user->id;
                 $this->accessLevel = $user->user->accessLevel;
-                $this->nickName = $user->user->nickName;
+                $this->nick_name = $user->user->nick_name;
                 $this->loginTime = time();
                 // для админа в сессию запишем еще несколько значений
                 if ($user->user->accessLevel == User::ACCESS_LEVEL_ADMIN)

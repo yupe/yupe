@@ -53,10 +53,10 @@ class ContestController extends YFrontController
 
         $dataProvider = new CActiveDataProvider('ImageToContest', array(
                                                                        'criteria' => array(
-                                                                           'condition' => 'contestId = :contestId',
-                                                                           'params' => array(':contestId' => $model->id),
+                                                                           'condition' => 'contest_id = :contest_id',
+                                                                           'params' => array(':contest_id' => $model->id),
                                                                            'limit' => self::CONTEST_PER_PAGE,
-                                                                           'order' => 't.creationDate DESC',
+                                                                           'order' => 't.creation_date DESC',
                                                                            'with' => 'image'
                                                                        ),
                                                                        'pagination' => array(

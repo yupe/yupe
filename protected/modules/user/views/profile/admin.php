@@ -39,8 +39,8 @@ $('.search-form form').submit(function(){
                                                        'dataProvider' => $model->search(),
                                                        'columns' => array(
                                                            array(
-                                                               'name' => 'userId',
-                                                               'value' => '$data->user->nickName'
+                                                               'name' => 'user_id',
+                                                               'value' => '$data->user->nick_name'
                                                            ),
                                                            'twitter',
                                                            'livejournal',

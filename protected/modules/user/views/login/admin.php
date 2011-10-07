@@ -39,12 +39,12 @@ $('.search-form form').submit(function(){
                                                        'columns' => array(
                                                            'id',
                                                            array(
-                                                               'name' => 'userId',
-                                                               'value' => '$data->user->getFullName()." ({$data->user->nickName})"'
+                                                               'name' => 'user_id',
+                                                               'value' => '$data->user->getFullName()." ({$data->user->nick_name})"'
                                                            ),
-                                                           'identityId',
+                                                           'identity_id',
                                                            'type',
-                                                           'creationDate',
+                                                           'creation_date',
                                                            array(
                                                                'class' => 'CButtonColumn',
                                                            ),

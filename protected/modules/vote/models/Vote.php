@@ -6,9 +6,9 @@
  * The followings are the available columns in table 'Vote':
  * @property string $id
  * @property string $model
- * @property string $modelId
- * @property string $userId
- * @property string $creationDate
+ * @property string $model_id
+ * @property string $user_id
+ * @property string $creation_date
  * @property integer $value
  *
  * The followings are the available model relations:
@@ -30,7 +30,7 @@ class Vote extends CActiveRecord
      */
     public function tableName()
     {
-        return 'Vote';
+        return '{{vote}}';
     }
 
     /**
@@ -41,13 +41,13 @@ class Vote extends CActiveRecord
         // NOTE: you should only define rules for those attributes that
         // will receive user inputs.
         return array(
-            array('model, modelId, value', 'required'),
-            array('userId, value', 'numerical', 'integerOnly' => true),
-            array('modelId, userId', 'length', 'max' => 10),
+            array('model, model_id, value', 'required'),
+            array('user_id, value', 'numerical', 'integerOnly' => true),
+            array('model_id, user_id', 'length', 'max' => 10),
             array('model', 'length', 'max' => 50),
             // The following rule is used by search().
             // Please remove those attributes that should not be searched.
-            array('id, model, modelId, userId, creationDate, value', 'safe', 'on' => 'search'),
+            array('id, model, model_id, user_id, creation_date, value', 'safe', 'on' => 'search'),
         );
     }
 
@@ -59,7 +59,7 @@ class Vote extends CActiveRecord
         // NOTE: you may need to adjust the relation name and the related
         // class name for the relations automatically generated below.
         return array(
-            'user' => array(self::BELONGS_TO, 'User', 'userId'),
+            'user' => array(self::BELONGS_TO, 'User', 'user_id'),
         );
     }
 
@@ -71,9 +71,9 @@ class Vote extends CActiveRecord
         return array(
             'id' => Yii::t('vote', 'id'),
             'model' => Yii::t('vote', 'Тип модели'),
-            'modelId' => Yii::t('vote', 'Модель'),
-            'userId' => Yii::t('vote', 'Добавил'),
-            'creationDate' => Yii::t('vote', 'Дата добавления'),
+            'model_id' => Yii::t('vote', 'Модель'),
+            'user_id' => Yii::t('vote', 'Добавил'),
+            'creation_date' => Yii::t('vote', 'Дата добавления'),
             'value' => Yii::t('vote', 'Значение'),
         );
     }
@@ -91,9 +91,9 @@ class Vote extends CActiveRecord
 
         $criteria->compare('id', $this->id, true);
         $criteria->compare('model', $this->model, true);
-        $criteria->compare('modelId', $this->modelId, true);
-        $criteria->compare('userId', $this->userId, true);
-        $criteria->compare('creationDate', $this->creationDate, true);
+        $criteria->compare('model_id', $this->model_id, true);
+        $criteria->compare('user_id', $this->user_id, true);
+        $criteria->compare('creation_date', $this->creation_date, true);
         $criteria->compare('value', $this->value);
 
         return new CActiveDataProvider(get_class($this), array(
@@ -107,9 +107,9 @@ class Vote extends CActiveRecord
         {
             if ($this->isNewRecord)
             {
-                $this->creationDate = new CDbExpression('NOW()');
+                $this->creation_date = new CDbExpression('NOW()');
 
-                $this->userId = Yii::app()->user->getId();
+                $this->user_id = Yii::app()->user->getId();
             }
 
             return true;

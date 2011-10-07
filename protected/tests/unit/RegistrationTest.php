@@ -15,7 +15,7 @@ class RegistrationTest extends CDbTestCase
 
     // проверить добавление новой записи
     //  - повторное добавление того же email
-    //  - повторное добавление того же nickName
+    //  - повторное добавление того же nick_name
     //  - повторное добавление того же code
     public function testCreate()
     {

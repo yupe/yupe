@@ -14,7 +14,7 @@ $this->breadcrumbs = array(
 
     <?php echo CHtml::beginForm(array('/yupe/backend/saveModulesettings', 'post')); ?>
 
-    <?php echo CHtml::hiddenField('moduleId', $module->getId());?>
+    <?php echo CHtml::hiddenField('module_id', $module->getId());?>
 
     <?php foreach ($elements as $element): ?>
 

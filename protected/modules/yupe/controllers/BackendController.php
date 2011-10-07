@@ -57,18 +57,18 @@ class BackendController extends YBackController
     {
         if (Yii::app()->request->isPostRequest)
         {
-            $moduleId = Yii::app()->request->getPost('moduleId');
+            $module_id = Yii::app()->request->getPost('module_id');
 
-            if (!$moduleId)
+            if (!$module_id)
             {
                 throw new CHttpException(404, Yii::t('yupe', 'Страница не найдена!'));
             }
 
-            $module = Yii::app()->getModule($moduleId);
+            $module = Yii::app()->getModule($module_id);
 
             if (!$module)
             {
-                throw new CHttpException(404, Yii::t('yupe', 'Модуль "{module}" не найден!', array('{module}' => $moduleId)));
+                throw new CHttpException(404, Yii::t('yupe', 'Модуль "{module}" не найден!', array('{module}' => $module_id)));
             }
 
             $editableParams = $module->getEditableParams();
@@ -77,7 +77,7 @@ class BackendController extends YBackController
 
             try
             {
-                Settings::model()->deleteAll('moduleId = :moduleId', array(':moduleId' => $moduleId));
+                Settings::model()->deleteAll('module_id = :module_id', array(':module_id' => $module_id));
 
                 foreach ($_POST as $key => $value)
                 {
@@ -86,9 +86,9 @@ class BackendController extends YBackController
                         $model = new Settings();
 
                         $model->setAttributes(array(
-                                                   'moduleId' => $moduleId,
-                                                   'paramName' => $key,
-                                                   'paramValue' => $value
+                                                   'module_id' => $module_id,
+                                                   'param_name' => $key,
+                                                   'param_value' => $value
                                               ));
 
                         if (!$model->save())
@@ -96,7 +96,7 @@ class BackendController extends YBackController
                             //@TODO  исправить вывод ошибок
                             Yii::app()->user->setFlash(YFlashMessages::ERROR_MESSAGE, print_r($model->getErrors(), true));
 
-                            $this->redirect(array('/yupe/backend/modulesettings', 'module' => $moduleId));
+                            $this->redirect(array('/yupe/backend/modulesettings', 'module' => $module_id));
                         }
                     }
                 }
@@ -108,7 +108,7 @@ class BackendController extends YBackController
                 //@TODO сброс полностью - плохо =(
                 Yii::app()->cache->flush();
 
-                $this->redirect(array('/yupe/backend/modulesettings/', 'module' => $moduleId));
+                $this->redirect(array('/yupe/backend/modulesettings/', 'module' => $module_id));
             }
             catch (Exception $e)
             {
@@ -116,7 +116,7 @@ class BackendController extends YBackController
 
                 Yii::app()->user->setFlash(YFlashMessages::ERROR_MESSAGE, $e->getMEssage());
 
-                $this->redirect(array('/yupe/backend/modulesettings', 'module' => $moduleId));
+                $this->redirect(array('/yupe/backend/modulesettings', 'module' => $module_id));
             }
         }
 
@@ -130,11 +130,11 @@ class BackendController extends YBackController
         {
             $theme = Yii::app()->request->getPost('theme');
 
-            $settings = Settings::model()->find('moduleId = :moduleId AND paramName = :paramName', array(':moduleId' => Yii::app()->yupe->coreModuleId, ':paramName' => 'theme'));
+            $settings = Settings::model()->find('module_id = :module_id AND param_name = :param_name', array(':module_id' => Yii::app()->yupe->coreModuleId, ':param_name' => 'theme'));
 
             if (!is_null($settings))
             {
-                $settings->paramValue = $theme;
+                $settings->param_value = $theme;
 
                 if ($settings->save())
                 {
@@ -151,9 +151,9 @@ class BackendController extends YBackController
                 $settings = new Settings();
 
                 $settings->setAttributes(array(
-                                              'moduleId' => Yii::app()->yupe->coreModuleId,
-                                              'paramName' => 'theme',
-                                              'paramValue' => $theme
+                                              'module_id' => Yii::app()->yupe->coreModuleId,
+                                              'param_name' => 'theme',
+                                              'param_value' => $theme
                                          ));
 
                 if ($settings->save())

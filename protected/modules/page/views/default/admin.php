@@ -13,7 +13,7 @@ $this->menu = array(
 
 
 Yii::app()->clientScript->registerScript('search', "
-$('#Page_parentId').val('');
+$('#Page_parent_Id').val('');
 $('#Page_status').val('');
 $('.search-button').click(function(){
 	$('.search-form').toggle();
@@ -54,22 +54,22 @@ $this->widget('zii.widgets.grid.CGridView', array(
                                                          'value' => 'CHtml::link($data->name,array("/page/default/update","id" => $data->id))'
                                                      ),
                                                      array(
-                                                         'name' => 'parentId',
-                                                         'value' => '$data->parentId ? page::model()->findByPk($data->parentId)->name : Yii::t("page","нет")'
+                                                         'name' => 'parent_Id',
+                                                         'value' => '$data->parent_Id ? page::model()->findByPk($data->parent_Id)->name : Yii::t("page","нет")'
                                                      ),
                                                      'title',
                                                      array(
                                                          'name' => 'status',
                                                          'value' => '$data->getStatus()',
                                                      ),
-                                                     'creationDate',
-                                                     'changeDate',
+                                                     'creation_date',
+                                                     'change_date',
                                                      array(
-                                                         'name' => 'userId',
+                                                         'name' => 'user_id',
                                                          'value' => '$data->author->getFullName()'
                                                      ),
                                                      array(
-                                                         'name' => 'changeUserId',
+                                                         'name' => 'change_user_id',
                                                          'value' => '$data->changeAuthor->getFullName()'
                                                      ),
                                                      array(

@@ -18,7 +18,7 @@ class SiteController extends YFrontController
                                                              'criteria' => new CDbCriteria(array(
                                                                                                 'condition' => 't.status = ' . News::STATUS_PUBLISHED,
                                                                                                 'limit' => self::NEWS_PER_PAGE,
-                                                                                                'order' => 't.creationDate DESC',
+                                                                                                'order' => 't.creation_date DESC',
                                                                                                 'with' => 'user'
                                                                                            ))
                                                         ));

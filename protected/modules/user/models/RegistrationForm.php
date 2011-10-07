@@ -1,7 +1,7 @@
 <?php
 class RegistrationForm extends CFormModel
 {
-    public $nickName;
+    public $nick_name;
     public $email;
     public $password;
     public $cPassword;
@@ -11,10 +11,10 @@ class RegistrationForm extends CFormModel
     public function rules()
     {
         return array(
-            array('nickName, email, password, cPassword', 'required'),
+            array('nick_name, email, password, cPassword', 'required'),
             array('email', 'email'),
             array('password', 'compare', 'compareAttribute' => 'cPassword', 'message' => Yii::t('user', 'Пароли не совпадают!')),
-            array('nickName, email', 'filter', 'filter' => 'trim'),
+            array('nick_name, email', 'filter', 'filter' => 'trim'),
             array('password,cPassword', 'length', 'min' => Yii::app()->getModule('user')->minPasswordLength, 'max' => Yii::app()->getModule('user')->maxPasswordLength),
             array('verifyCode', 'YRequiredValidator', 'allowEmpty' => !Yii::app()->getModule('user')->showCaptcha),
             array('verifyCode', 'captcha', 'allowEmpty' => !Yii::app()->getModule('user')->showCaptcha),
@@ -25,7 +25,7 @@ class RegistrationForm extends CFormModel
     public function attributeLabels()
     {
         return array(
-            'nickName' => Yii::t('user', 'Имя пользователя'),
+            'nick_name' => Yii::t('user', 'Имя пользователя'),
             'email' => Yii::t('user', 'Email'),
             'password' => Yii::t('user', 'Пароль'),
             'cPassword' => Yii::t('user', 'Подтверждение пароля'),

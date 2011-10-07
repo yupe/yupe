@@ -3,8 +3,8 @@
 return array(
     /*
      'sample1'=>array(
-         'creationDate' => '',
-         'changeDate' => '',
+         'creation_date' => '',
+         'change_date' => '',
          'name' => '',
          'email' => '',
          'theme' => '',
@@ -14,8 +14,8 @@ return array(
          'ip' => '',
      ),
      'sample2'=>array(
-         'creationDate' => '',
-         'changeDate' => '',
+         'creation_date' => '',
+         'change_date' => '',
          'name' => '',
          'email' => '',
          'theme' => '',

@@ -7,10 +7,11 @@
  * @property string $id
  * @property string $name
  * @property string $description
- * @property string $startAddImage
- * @property string $stopAddImage
- * @property string $startVote
- * @property string $stopVote
+ * @property string $start_add_image
+ * @property string $stop_add_image
+ * @property string $start_vote
+ * @property string $stop_vote
+
  * @property integer $status
  */
 class Contest extends CActiveRecord
@@ -33,7 +34,7 @@ class Contest extends CActiveRecord
      */
     public function tableName()
     {
-        return 'Contest';
+        return '{{contest}}';
     }
 
     /**
@@ -44,13 +45,13 @@ class Contest extends CActiveRecord
         // NOTE: you should only define rules for those attributes that
         // will receive user inputs.
         return array(
-            array('name, startAddImage, stopAddImage, startVote, stopVote', 'required'),
+            array('name, start_add_image, stop_add_image, start_vote, stop_vote', 'required'),
             array('status', 'numerical', 'integerOnly' => true),
             array('name', 'length', 'max' => 150),
             array('description', 'length', 'max' => 300),
             // The following rule is used by search().
             // Please remove those attributes that should not be searched.
-            array('id, name, description, startAddImage, stopAddImage, startVote, stopVote, status', 'safe', 'on' => 'search'),
+            array('id, name, description, start_add_image, stop_add_image, start_vote, stop_vote, status', 'safe', 'on' => 'search'),
         );
     }
 
@@ -62,9 +63,9 @@ class Contest extends CActiveRecord
         // NOTE: you may need to adjust the relation name and the related
         // class name for the relations automatically generated below.
         return array(
-            'imagesRell' => array(self::HAS_MANY, 'ImageToContest', 'contestId'),
-            'images' => array(self::HAS_MANY, 'Images', 'imageId', 'through' => 'imagesRell'),
-            'imagesCount' => array(self::STAT, 'ImageToContest', 'contestId')
+            'imagesRell' => array(self::HAS_MANY, 'ImageToContest', 'contest_id'),
+            'images' => array(self::HAS_MANY, 'Images', 'image_id', 'through' => 'imagesRell'),
+            'imagesCount' => array(self::STAT, 'ImageToContest', 'contest_id')
         );
     }
 
@@ -77,10 +78,10 @@ class Contest extends CActiveRecord
             'id' => Yii::t('contest', 'id'),
             'name' => Yii::t('contest', 'Название'),
             'description' => Yii::t('contest', 'Описание'),
-            'startAddImage' => Yii::t('contest', 'Начало'),
-            'stopAddImage' => Yii::t('contest', 'Завершение'),
-            'startVote' => Yii::t('contest', 'Начало голосования'),
-            'stopVote' => Yii::t('contest', 'Завершение голосования'),
+            'start_add_image' => Yii::t('contest', 'Начало'),
+            'stop_add_image' => Yii::t('contest', 'Завершение'),
+            'start_vote' => Yii::t('contest', 'Начало голосования'),
+            'stop_vote' => Yii::t('contest', 'Завершение голосования'),
             'status' => Yii::t('contest', 'Статус'),
         );
     }
@@ -99,10 +100,10 @@ class Contest extends CActiveRecord
         $criteria->compare('id', $this->id, true);
         $criteria->compare('name', $this->name, true);
         $criteria->compare('description', $this->description, true);
-        $criteria->compare('startAddImage', $this->startAddImage, true);
-        $criteria->compare('stopAddImage', $this->stopAddImage, true);
-        $criteria->compare('startVote', $this->startVote, true);
-        $criteria->compare('stopVote', $this->stopVote, true);
+        $criteria->compare('start_add_image', $this->start_add_image, true);
+        $criteria->compare('stop_add_image', $this->stop_add_image, true);
+        $criteria->compare('start_vote', $this->start_vote, true);
+        $criteria->compare('stop_vote', $this->stop_vote, true);
         $criteria->compare('status', $this->status);
 
         return new CActiveDataProvider(get_class($this), array(
@@ -130,8 +131,8 @@ class Contest extends CActiveRecord
         $im2c = new ImageToContest();
 
         $im2c->setAttributes(array(
-                                  'imageId' => $image->id,
-                                  'contestId' => $this->id
+                                  'image_id' => $image->id,
+                                  'contest_id' => $this->id
                              ));
 
         return $im2c->save() ? true : false;

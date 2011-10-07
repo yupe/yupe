@@ -4,17 +4,17 @@
     <?php echo CHtml::link(CHtml::encode($data->id), array('view', 'id' => $data->id)); ?>
     <br/>
 
-    <b><?php echo CHtml::encode($data->getAttributeLabel('parentId')); ?>:</b>
-    <?php echo CHtml::encode($data->parentId); ?>
+    <b><?php echo CHtml::encode($data->getAttributeLabel('parent_Id')); ?>:</b>
+    <?php echo CHtml::encode($data->parent_Id); ?>
     <br/>
 
-    <b><?php echo CHtml::encode($data->getAttributeLabel('creationDate')); ?>
+    <b><?php echo CHtml::encode($data->getAttributeLabel('creation_date')); ?>
         :</b>
-    <?php echo CHtml::encode($data->creationDate); ?>
+    <?php echo CHtml::encode($data->creation_date); ?>
     <br/>
 
-    <b><?php echo CHtml::encode($data->getAttributeLabel('changeDate')); ?>:</b>
-    <?php echo CHtml::encode($data->changeDate); ?>
+    <b><?php echo CHtml::encode($data->getAttributeLabel('change_date')); ?>:</b>
+    <?php echo CHtml::encode($data->change_date); ?>
     <br/>
 
     <b><?php echo CHtml::encode($data->getAttributeLabel('title')); ?>:</b>
@@ -25,8 +25,8 @@
     <?php echo CHtml::encode($data->name); ?>
     <br/>
 
-    <b><?php echo CHtml::encode($data->getAttributeLabel('menuOrder')); ?>:</b>
-    <?php echo CHtml::encode($data->menuOrder); ?>
+    <b><?php echo CHtml::encode($data->getAttributeLabel('menu_order')); ?>:</b>
+    <?php echo CHtml::encode($data->menu_order); ?>
     <br/>
 
     <b><?php echo CHtml::encode($data->getAttributeLabel('slug')); ?>:</b>

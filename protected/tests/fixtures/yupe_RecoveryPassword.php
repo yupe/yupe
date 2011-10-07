@@ -3,13 +3,13 @@
 return array(
     /*
      'sample1'=>array(
-         'userId' => '',
-         'creationDate' => '',
+         'user_id' => '',
+         'creation_date' => '',
          'code' => '',
      ),
      'sample2'=>array(
-         'userId' => '',
-         'creationDate' => '',
+         'user_id' => '',
+         'creation_date' => '',
          'code' => '',
      ),
      */

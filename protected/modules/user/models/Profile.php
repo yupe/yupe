@@ -5,7 +5,7 @@
  *
  * The followings are the available columns in table 'Profile':
  * @property integer $id
- * @property integer $userId
+ * @property integer $user_id
  * @property string $twitter
  * @property string $livejournal
  * @property string $vkontakte
@@ -35,7 +35,7 @@ class Profile extends CActiveRecord
      */
     public function tableName()
     {
-        return '{{Profile}}';
+        return '{{profile}}';
     }
 
     /**
@@ -45,13 +45,13 @@ class Profile extends CActiveRecord
     {
 
         return array(
-            array('userId', 'required'),
-            array('userId', 'numerical', 'integerOnly' => true),
+            array('user_id', 'required'),
+            array('user_id', 'numerical', 'integerOnly' => true),
             array('twitter, livejournal, vkontakte, odnoklassniki, facebook, yandex, google, blog, site, location', 'length', 'max' => 100),
             array('phone', 'length', 'max' => 45),
             array('about', 'length', 'max' => 5000),
             array('twitter, livejournal, vkontakte, odnoklassniki, facebook, yandex, google, blog, site', 'url'),
-            array('userId, twitter, livejournal, vkontakte, odnoklassniki, facebook, yandex, google, blog, site, about, location, phone', 'safe', 'on' => 'search'),
+            array('user_id, twitter, livejournal, vkontakte, odnoklassniki, facebook, yandex, google, blog, site, about, location, phone', 'safe', 'on' => 'search'),
         );
     }
 
@@ -63,7 +63,7 @@ class Profile extends CActiveRecord
         // NOTE: you may need to adjust the relation name and the related
         // class name for the relations automatically generated below.
         return array(
-            'user' => array(self::BELONGS_TO, 'User', 'userId'),
+            'user' => array(self::BELONGS_TO, 'User', 'user_id'),
         );
     }
 
@@ -73,7 +73,7 @@ class Profile extends CActiveRecord
     public function attributeLabels()
     {
         return array(
-            'userId' => Yii::t('user', 'Пользователь'),
+            'user_id' => Yii::t('user', 'Пользователь'),
             'twitter' => Yii::t('user', 'Твиттер'),
             'livejournal' => Yii::t('user', 'LiveJournal'),
             'vkontakte' => Yii::t('user', 'ВКонтакте'),
@@ -100,7 +100,7 @@ class Profile extends CActiveRecord
 
         $criteria = new CDbCriteria;
 
-        $criteria->compare('userId', $this->userId);
+        $criteria->compare('user_id', $this->user_id);
 
         $criteria->compare('twitter', $this->twitter, true);
 

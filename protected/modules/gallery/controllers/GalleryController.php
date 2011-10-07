@@ -56,7 +56,7 @@ class GalleryController extends YFrontController
                                                                            'condition' => 'galleryId = :galleryId',
                                                                            'params' => array(':galleryId' => $model->id),
                                                                            'limit' => self::GALLERY_PER_PAGE,
-                                                                           'order' => 't.creationDate DESC',
+                                                                           'order' => 't.creation_date DESC',
                                                                            'with' => 'image'
                                                                        ),
                                                                        'pagination' => array(

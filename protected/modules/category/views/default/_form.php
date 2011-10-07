@@ -10,9 +10,9 @@
     <?php echo $form->errorSummary($model); ?>
 
     <div class="row">
-        <?php echo $form->labelEx($model, 'parentId'); ?>
-        <?php echo $form->dropDownList($model, 'parentId', $categoryes); ?>
-        <?php echo $form->error($model, 'parentId'); ?>
+        <?php echo $form->labelEx($model, 'parent_id'); ?>
+        <?php echo $form->dropDownList($model, 'parent_id', $categoryes); ?>
+        <?php echo $form->error($model, 'parent_id'); ?>
     </div>
 
     <div class="row">

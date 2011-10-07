@@ -11,13 +11,13 @@
     </div>
 
     <div class="row">
-        <?php echo $form->label($model, 'creationDate'); ?>
-        <?php echo $form->textField($model, 'creationDate'); ?>
+        <?php echo $form->label($model, 'creation_date'); ?>
+        <?php echo $form->textField($model, 'creation_date'); ?>
     </div>
 
     <div class="row">
-        <?php echo $form->label($model, 'nickName'); ?>
-        <?php echo $form->textField($model, 'nickName', array('size' => 60, 'maxlength' => 100)); ?>
+        <?php echo $form->label($model, 'nick_name'); ?>
+        <?php echo $form->textField($model, 'nick_name', array('size' => 60, 'maxlength' => 100)); ?>
     </div>
 
     <div class="row">

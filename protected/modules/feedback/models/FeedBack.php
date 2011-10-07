@@ -5,8 +5,8 @@
  *
  * The followings are the available columns in table '{{FeedBack}}':
  * @property integer $id
- * @property string $creationDate
- * @property string $changeDate
+ * @property string $creation_date
+ * @property string $change_date
  * @property string $name
  * @property string $email
  * @property string $theme
@@ -68,7 +68,7 @@ class FeedBack extends CActiveRecord
      */
     public function tableName()
     {
-        return '{{FeedBack}}';
+        return '{{feedback}}';
     }
 
     /**
@@ -78,14 +78,14 @@ class FeedBack extends CActiveRecord
     {
         return array(
             array('name, email, theme, text', 'required'),
-            array('type, status, answerUser', 'numerical', 'integerOnly' => true),
-            array('isFaq', 'in', 'range' => array(0, 1)),
+            array('type, status, answer_user', 'numerical', 'integerOnly' => true),
+            array('is_faq', 'in', 'range' => array(0, 1)),
             array('status', 'in', 'range' => array(0, 1, 2, 3)),
             array('name, email', 'length', 'max' => 100),
             array('theme', 'length', 'max' => 150),
             array('email', 'email'),
             array('answer', 'filter', 'filter' => 'trim'),
-            array('id, creationDate, changeDate, name, email, theme, text, type, status, ip', 'safe', 'on' => 'search'),
+            array('id, creation_date, change_date, name, email, theme, text, type, status, ip', 'safe', 'on' => 'search'),
         );
     }
 
@@ -96,17 +96,17 @@ class FeedBack extends CActiveRecord
     {
         return array(
             'id' => Yii::t('feedback', 'Идентификатор'),
-            'creationDate' => Yii::t('feedback', 'Дата создания'),
-            'changeDate' => Yii::t('feedback', 'Дата изменения'),
+            'creation_date' => Yii::t('feedback', 'Дата создания'),
+            'change_date' => Yii::t('feedback', 'Дата изменения'),
             'name' => Yii::t('feedback', 'Имя'),
             'email' => Yii::t('feedback', 'Email'),
             'theme' => Yii::t('feedback', 'Тема'),
             'text' => Yii::t('feedback', 'Текст'),
             'type' => Yii::t('feedback', 'Тип'),
             'answer' => Yii::t('feedback', 'Ответ'),
-            'answerDate' => Yii::t('feedback', 'Дата ответа'),
-            'answerUser' => Yii::t('feedback', 'Ответил'),
-            'isFaq' => Yii::t('feedback', 'В разделе FAQ'),
+            'answer_date' => Yii::t('feedback', 'Дата ответа'),
+            'answer_user' => Yii::t('feedback', 'Ответил'),
+            'is_faq' => Yii::t('feedback', 'В разделе FAQ'),
             'status' => Yii::t('feedback', 'Статус'),
             'ip' => Yii::t('feedback', 'Ip-адрес'),
         );
@@ -122,9 +122,9 @@ class FeedBack extends CActiveRecord
 
         $criteria->compare('id', $this->id);
 
-        $criteria->compare('creationDate', $this->creationDate, true);
+        $criteria->compare('creation_date', $this->creation_date, true);
 
-        $criteria->compare('changeDate', $this->changeDate, true);
+        $criteria->compare('change_date', $this->change_date, true);
 
         $criteria->compare('name', $this->name, true);
 
@@ -152,12 +152,12 @@ class FeedBack extends CActiveRecord
         {
             if ($this->isNewRecord)
             {
-                $this->creationDate = $this->changeDate = new CDbExpression('NOW()');
+                $this->creation_date = $this->change_date = new CDbExpression('NOW()');
                 $this->ip = Yii::app()->request->userHostAddress;
             }
             else
             {
-                $this->changeDate = new CDbExpression('NOW()');
+                $this->change_date = new CDbExpression('NOW()');
             }
         }
 
@@ -173,7 +173,7 @@ class FeedBack extends CActiveRecord
 
     public function getIsFaq()
     {
-        return $this->isFaq ? Yii::t('feedback', 'Да')
+        return $this->is_faq ? Yii::t('feedback', 'Да')
             : Yii::t('feedback', 'Нет');
     }
 }

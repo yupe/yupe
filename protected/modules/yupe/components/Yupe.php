@@ -7,15 +7,15 @@ class Yupe extends CComponent
 
     public function init()
     {
-        $settings = Settings::model()->cache($this->coreCacheTime)->findAll('moduleId = :moduleId', array(':moduleId' => $this->coreModuleId));
+        $settings = Settings::model()->cache($this->coreCacheTime)->findAll('module_id = :module_id', array(':module_id' => $this->coreModuleId));
 
         foreach ($settings as $param)
         {
-            $propertie = $param->paramName;
+            $propertie = $param->param_name;
 
             if (property_exists($this, $propertie))
             {
-                $this->$propertie = $param->paramValue;
+                $this->$propertie = $param->param_value;
             }
         }
     }
@@ -107,7 +107,7 @@ class Yupe extends CComponent
         array_unshift($modulesNavigation['settings']['items'], array('label' => Yii::t('yupe', 'Оформление'), 'url' => array('/yupe/backend/themesettings/')));
         array_unshift($modulesNavigation, array('label' => Yii::t('yupe', 'На сайт'), 'url' => array('/')));
         array_push($modulesNavigation, array('label' => Yii::t('yupe', 'Войти'), 'url' => array('/site/login'), 'visible' => !Yii::app()->user->isAuthenticated()));
-        array_push($modulesNavigation, array('label' => Yii::t('yupe', 'Выйти') . ' (' . Yii::app()->user->nickName . ')', 'url' => array('/user/account/logout'), 'visible' => Yii::app()->user->isAuthenticated()));
+        array_push($modulesNavigation, array('label' => Yii::t('yupe', 'Выйти') . ' (' . Yii::app()->user->nick_name . ')', 'url' => array('/user/account/logout'), 'visible' => Yii::app()->user->isAuthenticated()));
 
 
         return $navigationOnly === true ? $modulesNavigation
