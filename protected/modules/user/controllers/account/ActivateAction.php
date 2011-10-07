@@ -57,8 +57,8 @@ class ActivateAction extends CAction
                                       'email' => $registration->email,
                                       'password' => $registration->password,
                                       'salt' => $registration->salt,
-                                      'registrationDate' => $registration->creation_date,
-                                      'registrationIp' => $registration->ip
+                                      'registration_date' => $registration->creation_date,
+                                      'registration_ip' => $registration->ip
                                  ));
 
 

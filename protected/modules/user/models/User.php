@@ -7,8 +7,8 @@
  * @property integer $id
  * @property string $creation_date
  * @property string $change_date
- * @property string $firstName
- * @property string $lastName
+ * @property string $first_name
+ * @property string $last_name
  * @property string $nick_name
  * @property string $email
  * @property integer $gender
@@ -16,11 +16,11 @@
  * @property string $password
  * @property string $salt
  * @property integer $status
- * @property integer $accessLevel
- * @property string $lastVisit
- * @property string $registrationDate
- * @property string $registrationIp
- * @property string $activationIp
+ * @property integer $access_level
+ * @property string $last_visit
+ * @property string $registration_date
+ * @property string $registration_ip
+ * @property string $activation_ip
  */
 class User extends CActiveRecord
 {
@@ -55,8 +55,8 @@ class User extends CActiveRecord
     public function getAccessLevel()
     {
         $data = $this->getAccessLevelsList();
-        return array_key_exists($this->accessLevel, $data)
-            ? $data[$this->accessLevel]
+        return array_key_exists($this->access_level, $data)
+            ? $data[$this->access_level]
             : Yii::t('user', 'ммм...такого доступа нет');
     }
 
@@ -120,16 +120,16 @@ class User extends CActiveRecord
         // will receive user inputs.
         return array(
             array('nick_name, email, password', 'required'),
-            array('gender, status, accessLevel, useGravatar', 'numerical', 'integerOnly' => true),
-            array('firstName, lastName, nick_name, email', 'length', 'max' => 150),
+            array('gender, status, access_level, use_gravatar', 'numerical', 'integerOnly' => true),
+            array('first_name, last_name, nick_name, email', 'length', 'max' => 150),
             array('password, salt', 'length', 'max' => 32),
-            array('registrationIp, activationIp, registrationDate', 'length', 'max' => 20),
+            array('registration_ip, activation_ip, registration_date', 'length', 'max' => 20),
             array('email', 'email'),
             array('email', 'unique', 'message' => Yii::t('user', 'Данный email уже используется другим пользователем')),
             array('nick_name', 'unique', 'message' => Yii::t('user', 'Данный ник уже используется другим пользователем')),
             array('avatar', 'file', 'types' => implode(',', Yii::app()->getModule('user')->avatarExtensions), 'maxSize' => Yii::app()->getModule('user')->avatarMaxSize, 'allowEmpty' => true),
-            array('useGravatar', 'in', 'range' => array(0, 1)),
-            array('id, creation_date, change_date, firstName, lastName, nick_name, email, gender, avatar, password, salt, status, accessLevel, lastVisit, registrationDate, registrationIp, activationIp', 'safe', 'on' => 'search'),
+            array('use_gravatar', 'in', 'range' => array(0, 1)),
+            array('id, creation_date, change_date, first_name, last_name, nick_name, email, gender, avatar, password, salt, status, access_level, last_visit, registration_date, registration_ip, activation_ip', 'safe', 'on' => 'search'),
         );
     }
 
@@ -154,21 +154,21 @@ class User extends CActiveRecord
             'id' => Yii::t('user', 'Id'),
             'creation_date' => Yii::t('user', 'Дата активации'),
             'change_date' => Yii::t('user', 'Дата изменения'),
-            'firstName' => Yii::t('user', 'Имя'),
-            'lastName' => Yii::t('user', 'Фамилия'),
+            'first_name' => Yii::t('user', 'Имя'),
+            'last_name' => Yii::t('user', 'Фамилия'),
             'nick_name' => Yii::t('user', 'Ник'),
             'email' => Yii::t('user', 'Email'),
             'gender' => Yii::t('user', 'Пол'),
             'password' => Yii::t('user', 'Пароль'),
             'salt' => Yii::t('user', 'Соль'),
             'status' => Yii::t('user', 'Статус'),
-            'accessLevel' => Yii::t('user', 'Уровень доступа'),
-            'lastVisit' => Yii::t('user', 'Последний визит'),
-            'registrationDate' => Yii::t('user', 'Дата регистрации'),
-            'registrationIp' => Yii::t('user', 'Ip регистрации'),
-            'activationIp' => Yii::t('user', 'Ip активации'),
+            'access_level' => Yii::t('user', 'Уровень доступа'),
+            'last_visit' => Yii::t('user', 'Последний визит'),
+            'registration_date' => Yii::t('user', 'Дата регистрации'),
+            'registration_ip' => Yii::t('user', 'Ip регистрации'),
+            'activation_ip' => Yii::t('user', 'Ip активации'),
             'avatar' => Yii::t('user', 'Аватар'),
-            'useGravatar' => Yii::t('user', 'Граватара'),
+            'use_gravatar' => Yii::t('user', 'Граватара'),
         );
     }
 
@@ -183,9 +183,9 @@ class User extends CActiveRecord
 
         $criteria->compare('change_date', $this->change_date, true);
 
-        $criteria->compare('firstName', $this->firstName, true);
+        $criteria->compare('first_name', $this->first_name, true);
 
-        $criteria->compare('lastName', $this->lastName, true);
+        $criteria->compare('last_name', $this->last_name, true);
 
         $criteria->compare('nick_name', $this->nick_name, true);
 
@@ -199,15 +199,15 @@ class User extends CActiveRecord
 
         $criteria->compare('status', $this->status);
 
-        $criteria->compare('accessLevel', $this->accessLevel);
+        $criteria->compare('access_level', $this->access_level);
 
-        $criteria->compare('lastVisit', $this->lastVisit, true);
+        $criteria->compare('last_visit', $this->last_visit, true);
 
-        $criteria->compare('registrationDate', $this->registrationDate, true);
+        $criteria->compare('registration_date', $this->registration_date, true);
 
-        $criteria->compare('registrationIp', $this->registrationIp, true);
+        $criteria->compare('registration_ip', $this->registration_ip, true);
 
-        $criteria->compare('activationIp', $this->activationIp, true);
+        $criteria->compare('activation_ip', $this->activation_ip, true);
 
         return new CActiveDataProvider('User', array(
                                                     'criteria' => $criteria,
@@ -221,8 +221,8 @@ class User extends CActiveRecord
         {
             if ($this->isNewRecord)
             {
-                $this->lastVisit = $this->creation_date = $this->change_date = new CDbExpression('NOW()');
-                $this->activationIp = Yii::app()->request->userHostAddress;
+                $this->last_visit = $this->creation_date = $this->change_date = new CDbExpression('NOW()');
+                $this->activation_ip = Yii::app()->request->userHostAddress;
             }
 
             return true;
@@ -237,8 +237,8 @@ class User extends CActiveRecord
         return array(
             'active' => array('condition' => 'status=' . self::STATUS_ACTIVE),
             'blocked' => array('condition' => 'status=' . self::STATUS_BLOCK),
-            'admin' => array('condition' => 'accessLevel=' . self::ACCESS_LEVEL_ADMIN),
-            'user' => array('condition' => 'accessLevel=' . self::ACCESS_LEVEL_USER),
+            'admin' => array('condition' => 'access_level=' . self::ACCESS_LEVEL_ADMIN),
+            'user' => array('condition' => 'access_level=' . self::ACCESS_LEVEL_USER),
         );
     }
 
@@ -282,7 +282,7 @@ class User extends CActiveRecord
 
     public function getAvatar($htmlOptions = null)
     {
-        if ($this->useGravatar && $this->email)
+        if ($this->use_gravatar && $this->email)
         {
             return CHtml::image('http://gravatar.com/avatar/' . md5($this->email), $this->nick_name, $htmlOptions);
         }
@@ -296,8 +296,8 @@ class User extends CActiveRecord
 
     public function getFullName($separator = ' ')
     {
-        return $this->firstName || $this->lastName
-            ? $this->lastName . $separator . $this->firstName : $this->nick_name;
+        return $this->first_name || $this->last_name
+            ? $this->last_name . $separator . $this->first_name : $this->nick_name;
     }
 
     public function createAccount($nick_name, $email, $params = null, $password = null, $salt = null)
@@ -314,8 +314,8 @@ class User extends CActiveRecord
                                   'email' => $email,
                                   'salt' => $salt,
                                   'password' => Registration::model()->hashPassword($password, $salt),
-                                  'registrationDate' => new CDbExpression('NOW()'),
-                                  'registrationIp' => Yii::app()->request->userHostAddress
+                                  'registration_date' => new CDbExpression('NOW()'),
+                                  'registration_ip' => Yii::app()->request->userHostAddress
                              ));
 
         if (is_array($params) && count($params))
@@ -361,7 +361,7 @@ class User extends CActiveRecord
     }
 
 
-    public function createSocialAccount($nick_name, $email, $firstName, $secondName, $sid, $sType, $params = null)
+    public function createSocialAccount($nick_name, $email, $first_name, $secondName, $sid, $sType, $params = null)
     {
         $salt = Registration::model()->generateSalt();
 

@@ -65,9 +65,9 @@
     </div>
 
     <div class="row">
-        <?php echo $form->labelEx($model, 'useGravatar'); ?>
-        <?php echo $form->checkBox($model, 'useGravatar', array('size' => 45, 'maxlength' => 45)); ?>
-        <?php echo $form->error($model, 'useGravatar'); ?>
+        <?php echo $form->labelEx($model, 'use_gravatar'); ?>
+        <?php echo $form->checkBox($model, 'use_gravatar', array('size' => 45, 'maxlength' => 45)); ?>
+        <?php echo $form->error($model, 'use_gravatar'); ?>
     </div>
 
     <h2>Социальные сервисы</h2>

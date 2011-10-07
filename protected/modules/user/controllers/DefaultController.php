@@ -35,7 +35,7 @@ class DefaultController extends YBackController
                 $model->setAttributes($_POST['User']);
                 $model->salt = Registration::model()->generateSalt();
                 $model->password = Registration::model()->hashPassword($model->password, $model->salt);
-                $model->registrationIp = Yii::app()->request->userHostAddress;
+                $model->registration_ip = Yii::app()->request->userHostAddress;
 
                 if ($model->save())
                 {

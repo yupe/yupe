@@ -21,13 +21,13 @@
     </div>
 
     <div class="row">
-        <?php echo $form->label($model, 'firstName'); ?>
-        <?php echo $form->textField($model, 'firstName', array('size' => 60, 'maxlength' => 150)); ?>
+        <?php echo $form->label($model, 'first_name'); ?>
+        <?php echo $form->textField($model, 'first_name', array('size' => 60, 'maxlength' => 150)); ?>
     </div>
 
     <div class="row">
-        <?php echo $form->label($model, 'lastName'); ?>
-        <?php echo $form->textField($model, 'lastName', array('size' => 60, 'maxlength' => 150)); ?>
+        <?php echo $form->label($model, 'last_name'); ?>
+        <?php echo $form->textField($model, 'last_name', array('size' => 60, 'maxlength' => 150)); ?>
     </div>
 
     <div class="row">
@@ -51,28 +51,28 @@
     </div>
 
     <div class="row">
-        <?php echo $form->label($model, 'accessLevel'); ?>
-        <?php echo $form->dropDownList($model, 'accessLevel', $model->getAccessLevelsList()); ?>
+        <?php echo $form->label($model, 'access_level'); ?>
+        <?php echo $form->dropDownList($model, 'access_level', $model->getAccessLevelsList()); ?>
     </div>
 
     <div class="row">
-        <?php echo $form->label($model, 'lastVisit'); ?>
-        <?php echo $form->textField($model, 'lastVisit'); ?>
+        <?php echo $form->label($model, 'last_visit'); ?>
+        <?php echo $form->textField($model, 'last_visit'); ?>
     </div>
 
     <div class="row">
-        <?php echo $form->label($model, 'registrationDate'); ?>
-        <?php echo $form->textField($model, 'registrationDate'); ?>
+        <?php echo $form->label($model, 'registration_date'); ?>
+        <?php echo $form->textField($model, 'registration_date'); ?>
     </div>
 
     <div class="row">
-        <?php echo $form->label($model, 'registrationIp'); ?>
-        <?php echo $form->textField($model, 'registrationIp', array('size' => 20, 'maxlength' => 20)); ?>
+        <?php echo $form->label($model, 'registration_ip'); ?>
+        <?php echo $form->textField($model, 'registration_ip', array('size' => 20, 'maxlength' => 20)); ?>
     </div>
 
     <div class="row">
-        <?php echo $form->label($model, 'activationIp'); ?>
-        <?php echo $form->textField($model, 'activationIp', array('size' => 20, 'maxlength' => 20)); ?>
+        <?php echo $form->label($model, 'activation_ip'); ?>
+        <?php echo $form->textField($model, 'activation_ip', array('size' => 20, 'maxlength' => 20)); ?>
     </div>
 
     <div class="row buttons">

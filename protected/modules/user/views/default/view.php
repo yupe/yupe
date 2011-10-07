@@ -25,8 +25,8 @@ $this->menu = array(
                                                         'id',
                                                         'creation_date',
                                                         'change_date',
-                                                        'firstName',
-                                                        'lastName',
+                                                        'first_name',
+                                                        'last_name',
                                                         'nick_name',
                                                         'email',
                                                         array(
@@ -40,12 +40,12 @@ $this->menu = array(
                                                             'value' => $model->getStatus()
                                                         ),
                                                         array(
-                                                            'name' => 'accessLevel',
+                                                            'name' => 'access_level',
                                                             'value' => $model->getAccessLevel()
                                                         ),
-                                                        'lastVisit',
-                                                        'registrationDate',
-                                                        'registrationIp',
-                                                        'activationIp',
+                                                        'last_visit',
+                                                        'registration_date',
+                                                        'registration_ip',
+                                                        'activation_ip',
                                                     ),
                                                )); ?>

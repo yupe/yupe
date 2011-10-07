@@ -56,12 +56,12 @@ $('.search-form form').submit(function(){
                                                                'filter' => CHtml::activeDropDownList($model, 'status', $model->getStatusList())
                                                            ),
                                                            array(
-                                                               'name' => 'accessLevel',
+                                                               'name' => 'access_level',
                                                                'value' => '$data->getAccessLevel()',
                                                                'filter' => CHtml::activeDropDownList($model, 'status', $model->getAccessLevelsList())
                                                            ),
                                                            'creation_date',
-                                                           'lastVisit',
+                                                           'last_visit',
                                                            array(
                                                                'class' => 'CButtonColumn',
                                                            ),

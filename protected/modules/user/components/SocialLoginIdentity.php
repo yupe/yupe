@@ -7,7 +7,7 @@ class SocialLoginIdentity extends CBaseUserIdentity
 
     private $_id;
 
-    private $accessLevel;
+    private $access_level;
 
     private $loginTime;
 
@@ -23,7 +23,7 @@ class SocialLoginIdentity extends CBaseUserIdentity
     {
         return array(
             'id' => $this->_id,
-            'accessLevel' => $this->accessLevel,
+            'access_level' => $this->access_level,
             'nick_name' => $this->nick_name,
             'loginTime' => $this->loginTime
         );
@@ -49,18 +49,18 @@ class SocialLoginIdentity extends CBaseUserIdentity
             else
             {
                 $this->_id = $user->user->id;
-                $this->accessLevel = $user->user->accessLevel;
+                $this->access_level = $user->user->access_level;
                 $this->nick_name = $user->user->nick_name;
                 $this->loginTime = time();
                 // для админа в сессию запишем еще несколько значений
-                if ($user->user->accessLevel == User::ACCESS_LEVEL_ADMIN)
+                if ($user->user->access_level == User::ACCESS_LEVEL_ADMIN)
                 {
                     Yii::app()->user->setState('loginAdmTime', time());
-                    Yii::app()->user->setState('isAdmin', $user->user->accessLevel);
+                    Yii::app()->user->setState('isAdmin', $user->user->access_level);
                 }
                 // зафиксируем время входа
-                $user->user->lastVisit = new CDbExpression('NOW()');
-                $user->user->update(array('lastVisit'));
+                $user->user->last_visit = new CDbExpression('NOW()');
+                $user->user->update(array('last_visit'));
                 $this->errorCode = self::ERROR_NONE;
             }
         }

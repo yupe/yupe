@@ -34,8 +34,8 @@ class FbloginAction extends CAction
 
                 $fbAuthData = array(
                     'id' => $myAccount['id'],
-                    'firstName' => $myAccount['first_name'],
-                    'lastName' => $myAccount['last_name'],
+                    'first_name' => $myAccount['first_name'],
+                    'last_name' => $myAccount['last_name'],
                     'nick_name' => $nick_name,
                     'email' => $myAccount['email']
                 );
@@ -118,12 +118,12 @@ class FbloginAction extends CAction
                     ? User::GENDER_MALE : User::GENDER_FEMALE;
 
                 $params = array(
-                    'firstName' => $myAccount['first_name'],
-                    'lastName' => $myAccount['last_name'],
+                    'first_name' => $myAccount['first_name'],
+                    'last_name' => $myAccount['last_name'],
                     'gender' => $myAccount['gender']
                 );
 
-                $userLogin = User::model()->createSocialAccount($fbAuthData['nick_name'], $fbAuthData['email'], $fbAuthData['firstName'], $fbAuthData['firstName'], $fbAuthData['id'], $this->type, $params);
+                $userLogin = User::model()->createSocialAccount($fbAuthData['nick_name'], $fbAuthData['email'], $fbAuthData['first_name'], $fbAuthData['first_name'], $fbAuthData['id'], $this->type, $params);
 
                 if (is_object($userLogin) && !$userLogin->hasErrors())
                 {

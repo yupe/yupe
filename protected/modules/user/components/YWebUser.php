@@ -10,7 +10,7 @@ class YWebUser extends CWebUser
 
         $authData = $this->getAuthData();
 
-        if ($authData['nick_name'] && isset($authData['accessLevel']) && $authData['loginTime'] && $authData['id'])
+        if ($authData['nick_name'] && isset($authData['access_level']) && $authData['loginTime'] && $authData['id'])
         {
 
             return true;
@@ -23,7 +23,7 @@ class YWebUser extends CWebUser
     {
         return array(
             'nick_name' => Yii::app()->user->getState('nick_name'),
-            'accessLevel' => (int)Yii::app()->user->getState('accessLevel'),
+            'access_level' => (int)Yii::app()->user->getState('access_level'),
             'loginTime' => Yii::app()->user->getState('loginTime'),
             'id' => (int)Yii::app()->user->getState('id')
         );
