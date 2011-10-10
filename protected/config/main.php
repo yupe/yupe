@@ -90,6 +90,9 @@ return array(
             'class' => 'application.modules.comment.CommentModule',
             'defaultCommentStatus' => 0
         ),
+        'dictionary' => array(
+            'class' => 'application.modules.dictionary.DictionaryModule',
+        ),
         'gallery' => array(
             'class' => 'application.modules.gallery.GalleryModule',
         ),
