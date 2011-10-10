@@ -63,24 +63,14 @@ class ActivateAction extends CAction
 
 
             if ($user->save())
-            {
-                // для нового пользователя создать пустой профиль
-                $profile = new Profile();
-
-                $profile->setAttributes(array(
-                                             'user_id' => $user->id
-                                        ));
-
-                if ($profile->save())
-                {
-                    $transaction->commit();
-                    Yii::log(Yii::t('user', "Активирован аккаунт code => {code}, email => {email}!", array('{code}' => $code, '{email}' => $email)), CLogger::LEVEL_INFO, UserModule::$logCategory);
-                    Yii::app()->user->setFlash(YFlashMessages::NOTICE_MESSAGE, Yii::t('user', 'Вы успешно активировали аккаунт! Теперь Вы можете войти!'));
-                    // отправить сообщение о активации аккаунта
-                    $emailBody = $this->controller->renderPartial('application.modules.user.views.email.accountActivatedEmail', array('model' => $user), true);
-                    Yii::app()->mail->send(Yii::app()->getModule('user')->notifyEmailFrom, $user->email, Yii::t('user', 'Аккаунт активирован!'), $emailBody);
-                    $this->controller->redirect(array(Yii::app()->getModule('user')->accountActivationSuccess));
-                }
+            {                
+                $transaction->commit();
+                Yii::log(Yii::t('user', "Активирован аккаунт code => {code}, email => {email}!", array('{code}' => $code, '{email}' => $email)), CLogger::LEVEL_INFO, UserModule::$logCategory);
+                Yii::app()->user->setFlash(YFlashMessages::NOTICE_MESSAGE, Yii::t('user', 'Вы успешно активировали аккаунт! Теперь Вы можете войти!'));
+                // отправить сообщение о активации аккаунта
+                $emailBody = $this->controller->renderPartial('application.modules.user.views.email.accountActivatedEmail', array('model' => $user), true);
+                Yii::app()->mail->send(Yii::app()->getModule('user')->notifyEmailFrom, $user->email, Yii::t('user', 'Аккаунт активирован!'), $emailBody);
+                $this->controller->redirect(array(Yii::app()->getModule('user')->accountActivationSuccess));                
             }
 
             throw new CDbException(Yii::t('user', 'При активации аккаунта произошла ошибка!'));
