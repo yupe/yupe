@@ -59,6 +59,11 @@ class YupeModule extends YWebModule
         return false;
     }
 
+    public function getCategory()
+    {
+        return Yii::t('yupe', 'Ядрышко');
+    }
+
     public function getName()
     {
         return Yii::t('yupe', 'Основные параметры');
