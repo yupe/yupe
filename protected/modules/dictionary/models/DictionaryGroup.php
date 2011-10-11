@@ -45,7 +45,7 @@ class DictionaryGroup extends CActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('code, creation_date, update_date, create_user_id, update_user_id', 'required'),
+			array('code', 'required'),
 			array('code', 'length', 'max'=>50),
 			array('name', 'length', 'max'=>150),
 			array('description', 'length', 'max'=>300),
@@ -64,7 +64,7 @@ class DictionaryGroup extends CActiveRecord
 		// NOTE: you may need to adjust the relation name and the related
 		// class name for the relations automatically generated below.
 		return array(
-			'dictionaryDatas' => array(self::HAS_MANY, 'DictionaryData', 'group_id'),
+			'dictionaryData' => array(self::HAS_MANY, 'DictionaryData', 'group_id'),
 			'updateUser' => array(self::BELONGS_TO, 'User', 'update_user_id'),
 			'createUser' => array(self::BELONGS_TO, 'User', 'create_user_id'),
 		);
@@ -76,14 +76,14 @@ class DictionaryGroup extends CActiveRecord
 	public function attributeLabels()
 	{
 		return array(
-			'id' => 'ID',
-			'code' => 'Code',
-			'name' => 'Name',
-			'description' => 'Description',
-			'creation_date' => 'Creation Date',
-			'update_date' => 'Update Date',
-			'create_user_id' => 'Create User',
-			'update_user_id' => 'Update User',
+			'id' => Yii::t('dictionary','id'),
+			'code' => Yii::t('dictionary','Код'),
+			'name' => Yii::t('dictionary','Название'),
+			'description' => Yii::t('dictionary','Описание'),
+			'creation_date' => Yii::t('dictionary','Дата создания'),
+			'update_date' => Yii::t('dictionary','Дата изменения'),
+			'create_user_id' => Yii::t('dictionary','Создал'),
+			'update_user_id' => Yii::t('dictionary','Изменил'),
 		);
 	}
 
@@ -110,5 +110,23 @@ class DictionaryGroup extends CActiveRecord
 		return new CActiveDataProvider(get_class($this), array(
 			'criteria'=>$criteria,
 		));
+	}
+
+	public function beforeSave()
+	{
+		if($this->isNewRecord)
+		{
+			$this->update_user_id = $this->create_user_id = Yii::app()->user->getId();
+			
+			$this->creation_date = $this->update_date = new CDbExpression('NOW()');			
+		}
+		else
+		{
+			$this->update_user_id = Yii::app()->user->getId();
+			
+			$this->update_date = new CDbExpression('NOW()');			
+		}
+
+		return parent::beforeSave();
 	}
 }

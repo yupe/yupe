@@ -1,15 +1,18 @@
 <?php
-$this->breadcrumbs=array(
-	'Dictionary Groups',
+$this->breadcrumbs = array(
+    $this->getModule('dictionary')->getCategory() => array(''),
+    Yii::t('dictionary', 'Справочники') => array('admin'),
+    Yii::t('dictionary', 'Группы справочников') => array('admin'),
+    Yii::t('dictionary', 'Список'),
 );
 
 $this->menu=array(
-	array('label'=>'Create DictionaryGroup', 'url'=>array('create')),
-	array('label'=>'Manage DictionaryGroup', 'url'=>array('admin')),
+	array('label' => Yii::t('dictionary', 'Добавить группу'), 'url'=>array('create')),
+	array('label' => Yii::t('dictionary', 'Управление группами'), 'url'=>array('admin')),
 );
 ?>
 
-<h1>Dictionary Groups</h1>
+<h1><?php echo Yii::t('dictionary', 'Список групп справочников');?></h1>
 
 <?php $this->widget('zii.widgets.CListView', array(
 	'dataProvider'=>$dataProvider,

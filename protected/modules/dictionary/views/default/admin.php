@@ -1,12 +1,14 @@
 <?php
-$this->breadcrumbs=array(
-	'Dictionary Groups'=>array('index'),
-	'Manage',
+$this->breadcrumbs = array(
+    $this->getModule('dictionary')->getCategory() => array(''),
+    Yii::t('dictionary', 'Справочники') => array('admin'),
+    Yii::t('dictionary', 'Группы справочников') => array('admin'),
+    Yii::t('dictionary', 'Управление'),
 );
 
 $this->menu=array(
-	array('label'=>'List DictionaryGroup', 'url'=>array('index')),
-	array('label'=>'Create DictionaryGroup', 'url'=>array('create')),
+	array('label' => Yii::t('dictionary', 'Список групп'), 'url'=>array('index')),
+	array('label' => Yii::t('dictionary', 'Добавить группу'), 'url'=>array('create')),
 );
 
 Yii::app()->clientScript->registerScript('search', "
@@ -23,14 +25,11 @@ $('.search-form form').submit(function(){
 ");
 ?>
 
-<h1>Manage Dictionary Groups</h1>
+<h1><?php echo $this->module->getName();?></h1>
 
-<p>
-You may optionally enter a comparison operator (<b>&lt;</b>, <b>&lt;=</b>, <b>&gt;</b>, <b>&gt;=</b>, <b>&lt;&gt;</b>
-or <b>=</b>) at the beginning of each of your search values to specify how the comparison should be done.
-</p>
+<?php $this->widget('YModuleInfo'); ?>
 
-<?php echo CHtml::link('Advanced Search','#',array('class'=>'search-button')); ?>
+<?php echo CHtml::link(Yii::t('dictionary','Поиск'),'#',array('class'=>'search-button')); ?>
 <div class="search-form" style="display:none">
 <?php $this->renderPartial('_search',array(
 	'model'=>$model,
@@ -39,19 +38,22 @@ or <b>=</b>) at the beginning of each of your search values to specify how the c
 
 <?php $this->widget('zii.widgets.grid.CGridView', array(
 	'id'=>'dictionary-group-grid',
-	'dataProvider'=>$model->search(),
-	'filter'=>$model,
+	'dataProvider'=>$model->search(),	
 	'columns'=>array(
 		'id',
 		'code',
 		'name',
 		'description',
 		'creation_date',
-		'update_date',
-		/*
-		'create_user_id',
-		'update_user_id',
-		*/
+		'update_date',		
+		array(
+			'name'  => 'create_user_id',
+			'value' => '$data->createUser->getFullName()'
+		),
+		array(
+			'name'  => 'update_user_id',
+			'value' => '$data->updateUser->getFullName()'
+		),
 		array(
 			'class'=>'CButtonColumn',
 		),

@@ -1,18 +1,20 @@
 <?php
-$this->breadcrumbs=array(
-	'Dictionary Groups'=>array('index'),
-	$model->name=>array('view','id'=>$model->id),
-	'Update',
+$this->breadcrumbs = array(
+    $this->getModule('dictionary')->getCategory() => array(''),
+    Yii::t('dictionary', 'Справочники') => array('admin'),
+    Yii::t('dictionary', 'Группы справочников') => array('admin'),
+    Yii::t('dictionary', 'Редактирование'),
 );
 
+
 $this->menu=array(
-	array('label'=>'List DictionaryGroup', 'url'=>array('index')),
-	array('label'=>'Create DictionaryGroup', 'url'=>array('create')),
-	array('label'=>'View DictionaryGroup', 'url'=>array('view', 'id'=>$model->id)),
-	array('label'=>'Manage DictionaryGroup', 'url'=>array('admin')),
+	array('label' => Yii::t('dictionary', 'Список групп'), 'url'=>array('index')),
+	array('label' => Yii::t('dictionary', 'Добавить группу'), 'url'=>array('create')),
+	array('label' => Yii::t('dictionary', 'Просмотр группы'), 'url'=>array('view', 'id'=>$model->id)),
+	array('label' => Yii::t('dictionary', 'Управление группами'), 'url'=>array('admin')),
 );
 ?>
 
-<h1>Update DictionaryGroup <?php echo $model->id; ?></h1>
+<h1><?php echo Yii::t('dictionary', 'Редактирование группы справочников');?> #<?php echo $model->id; ?></h1>
 
 <?php echo $this->renderPartial('_form', array('model'=>$model)); ?>

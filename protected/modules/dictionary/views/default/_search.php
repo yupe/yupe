@@ -23,30 +23,10 @@
 	<div class="row">
 		<?php echo $form->label($model,'description'); ?>
 		<?php echo $form->textField($model,'description',array('size'=>60,'maxlength'=>300)); ?>
-	</div>
-
-	<div class="row">
-		<?php echo $form->label($model,'creation_date'); ?>
-		<?php echo $form->textField($model,'creation_date'); ?>
-	</div>
-
-	<div class="row">
-		<?php echo $form->label($model,'update_date'); ?>
-		<?php echo $form->textField($model,'update_date'); ?>
-	</div>
-
-	<div class="row">
-		<?php echo $form->label($model,'create_user_id'); ?>
-		<?php echo $form->textField($model,'create_user_id',array('size'=>10,'maxlength'=>10)); ?>
-	</div>
-
-	<div class="row">
-		<?php echo $form->label($model,'update_user_id'); ?>
-		<?php echo $form->textField($model,'update_user_id',array('size'=>10,'maxlength'=>10)); ?>
-	</div>
+	</div>	
 
 	<div class="row buttons">
-		<?php echo CHtml::submitButton('Search'); ?>
+		<?php echo CHtml::submitButton(Yii::t('dictionary','Поиск')); ?>
 	</div>
 
 <?php $this->endWidget(); ?>

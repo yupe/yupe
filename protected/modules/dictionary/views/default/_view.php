@@ -25,14 +25,11 @@
 	<br />
 
 	<b><?php echo CHtml::encode($data->getAttributeLabel('create_user_id')); ?>:</b>
-	<?php echo CHtml::encode($data->create_user_id); ?>
+	<?php echo CHtml::encode($data->createUser->getFullName()); ?>
 	<br />
-
-	<?php /*
+	
 	<b><?php echo CHtml::encode($data->getAttributeLabel('update_user_id')); ?>:</b>
-	<?php echo CHtml::encode($data->update_user_id); ?>
-	<br />
-
-	*/ ?>
+	<?php echo CHtml::encode($data->updateUser->getFullName()); ?>
+	<br />	
 
 </div>
