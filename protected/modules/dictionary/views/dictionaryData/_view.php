@@ -5,7 +5,7 @@
 	<br />
 
 	<b><?php echo CHtml::encode($data->getAttributeLabel('group_id')); ?>:</b>
-	<?php echo CHtml::encode($data->group_id); ?>
+	<?php echo CHtml::encode($data->group->name); ?>
 	<br />
 
 	<b><?php echo CHtml::encode($data->getAttributeLabel('code')); ?>:</b>
@@ -27,20 +27,17 @@
 	<b><?php echo CHtml::encode($data->getAttributeLabel('update_date')); ?>:</b>
 	<?php echo CHtml::encode($data->update_date); ?>
 	<br />
-
-	<?php /*
+	
 	<b><?php echo CHtml::encode($data->getAttributeLabel('create_user_id')); ?>:</b>
-	<?php echo CHtml::encode($data->create_user_id); ?>
+	<?php echo CHtml::encode($data->createUser->getFullName()); ?>
 	<br />
 
 	<b><?php echo CHtml::encode($data->getAttributeLabel('update_user_id')); ?>:</b>
-	<?php echo CHtml::encode($data->update_user_id); ?>
+	<?php echo CHtml::encode($data->updateUser->getFullName()); ?>
 	<br />
 
 	<b><?php echo CHtml::encode($data->getAttributeLabel('status')); ?>:</b>
-	<?php echo CHtml::encode($data->status); ?>
+	<?php echo CHtml::encode($data->getStatus()); ?>
 	<br />
-
-	*/ ?>
 
 </div>

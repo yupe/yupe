@@ -22,6 +22,10 @@
  */
 class DictionaryData extends CActiveRecord
 {
+	const STATUS_ACTIVE = 1;
+
+	const STATUS_DELETED = 0;
+
 	/**
 	 * Returns the static model of the specified AR class.
 	 * @return DictionaryData the static model class
@@ -47,7 +51,7 @@ class DictionaryData extends CActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('group_id, code, name, creation_date, update_date, create_user_id, update_user_id', 'required'),
+			array('group_id, code, name', 'required'),
 			array('status', 'numerical', 'integerOnly'=>true),
 			array('group_id, create_user_id, update_user_id', 'length', 'max'=>10),
 			array('code', 'length', 'max'=>50),
@@ -79,16 +83,16 @@ class DictionaryData extends CActiveRecord
 	public function attributeLabels()
 	{
 		return array(
-			'id' => 'ID',
-			'group_id' => 'Group',
-			'code' => 'Code',
-			'name' => 'Name',
-			'description' => 'Description',
-			'creation_date' => 'Creation Date',
-			'update_date' => 'Update Date',
-			'create_user_id' => 'Create User',
-			'update_user_id' => 'Update User',
-			'status' => 'Status',
+			'id' => Yii::t('dictionary','id'),
+			'group_id' => Yii::t('dictionary','Группа'),
+			'code' => Yii::t('dictionary','Код'),
+			'name' => Yii::t('dictionary','Название'),
+			'description' => Yii::t('dictionary','Описание'),
+			'creation_date' => Yii::t('dictionary','Дата создания'),
+			'update_date' => Yii::t('dictionary','Дата обновления'),
+			'create_user_id' => Yii::t('dictionary','Создал'),
+			'update_user_id' => Yii::t('dictionary','Обновил'),
+			'status' => Yii::t('dictionary','Статус'),
 		);
 	}
 
@@ -117,5 +121,39 @@ class DictionaryData extends CActiveRecord
 		return new CActiveDataProvider(get_class($this), array(
 			'criteria'=>$criteria,
 		));
+	}
+
+	public function beforeSave()
+	{
+		if($this->isNewRecord)
+		{
+			$this->update_user_id = $this->create_user_id = Yii::app()->user->getId();
+			
+			$this->creation_date = $this->update_date = new CDbExpression('NOW()');			
+		}
+		else
+		{
+			$this->update_user_id = Yii::app()->user->getId();
+			
+			$this->update_date = new CDbExpression('NOW()');			
+		}
+
+		return parent::beforeSave();
+	}
+
+
+	public function getStatusList()
+	{
+		return array(
+			self::STATUS_ACTIVE  => Yii::t('seeline','Активно'),
+			self::STATUS_DELETED => Yii::t('seeline','Удалено'),
+		);
+	}
+
+	public function getStatus()
+	{
+		$data = $this->getStatusList();
+
+		return isset($data[$this->status]) ? $data[$this->status] : Yii::t('dictionary','*неизвестно*');
 	}
 }

@@ -67,6 +67,7 @@ class DictionaryGroup extends CActiveRecord
 			'dictionaryData' => array(self::HAS_MANY, 'DictionaryData', 'group_id'),
 			'updateUser' => array(self::BELONGS_TO, 'User', 'update_user_id'),
 			'createUser' => array(self::BELONGS_TO, 'User', 'create_user_id'),
+			'dictionaryCount' => array(self::STAT, 'DictionaryData', 'group_id'),
 		);
 	}
 

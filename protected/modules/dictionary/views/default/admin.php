@@ -9,6 +9,7 @@ $this->breadcrumbs = array(
 $this->menu=array(
 	array('label' => Yii::t('dictionary', 'Список групп'), 'url'=>array('index')),
 	array('label' => Yii::t('dictionary', 'Добавить группу'), 'url'=>array('create')),
+	array('label' => Yii::t('dictionary', 'Добавить значение'), 'url'=>array('dictionaryData/create')),
 );
 
 Yii::app()->clientScript->registerScript('search', "
@@ -42,8 +43,11 @@ $('.search-form form').submit(function(){
 	'columns'=>array(
 		'id',
 		'code',
-		'name',
-		'description',
+		'name',		
+		array(
+			'name'  => Yii::t('dictionary','Записей'),
+			'value' => '$data->dictionaryCount'
+		),
 		'creation_date',
 		'update_date',		
 		array(

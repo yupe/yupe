@@ -1,32 +1,48 @@
 <?php
-$this->breadcrumbs=array(
-	'Dictionary Datas'=>array('index'),
-	$model->name,
+
+$this->breadcrumbs = array(
+    $this->getModule('dictionary')->getCategory() => array(''),
+    Yii::t('dictionary', 'Справочники') => array('admin'),
+    Yii::t('dictionary', 'Данные справочников') => array('admin'),
+    Yii::t('dictionary', 'Просмотр'),
 );
 
+
 $this->menu=array(
-	array('label'=>'List DictionaryData', 'url'=>array('index')),
-	array('label'=>'Create DictionaryData', 'url'=>array('create')),
-	array('label'=>'Update DictionaryData', 'url'=>array('update', 'id'=>$model->id)),
-	array('label'=>'Delete DictionaryData', 'url'=>'#', 'linkOptions'=>array('submit'=>array('delete','id'=>$model->id),'confirm'=>'Are you sure you want to delete this item?')),
-	array('label'=>'Manage DictionaryData', 'url'=>array('admin')),
+	array('label' => Yii::t('dictionary', 'Список значений'), 'url'=>array('index')),
+	array('label' => Yii::t('dictionary', 'Добавить значение'), 'url'=>array('create')),
+	array('label' => Yii::t('dictionary', 'Редактирование значения'), 'url'=>array('update', 'id'=>$model->id)),
+	array('label' => Yii::t('dictionary', 'Удалить значение'), 'url'=>'#', 'linkOptions'=>array('submit'=>array('delete','id'=>$model->id),'confirm'=>'Are you sure you want to delete this item?')),
+	array('label' => Yii::t('dictionary', 'Управление значениями'), 'url'=>array('admin')),
 );
 ?>
 
-<h1>View DictionaryData #<?php echo $model->id; ?></h1>
+<h1><?php echo Yii::t('dictionary','Просмотр значения');?> #<?php echo $model->id; ?></h1>
 
 <?php $this->widget('zii.widgets.CDetailView', array(
 	'data'=>$model,
 	'attributes'=>array(
 		'id',
-		'group_id',
+		array(
+			'name'  => 'group_id',
+			'value' => $model->group->name
+		),
 		'code',
 		'name',
 		'description',
 		'creation_date',
 		'update_date',
-		'create_user_id',
-		'update_user_id',
-		'status',
+		array(
+			'name'  => 'create_user_id',
+			'value' => $model->createUser->getFullName()
+		),
+		array(
+			'name'  => 'update_user_id',
+			'value' => $model->updateUser->getFullName()
+		),
+		array(
+			'name'  => 'status',
+			'value' => $model->getStatus()
+		),
 	),
 )); ?>
