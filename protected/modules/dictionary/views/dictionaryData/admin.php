@@ -44,6 +44,10 @@ $('.search-form form').submit(function(){
 		'code',
 		'name',
 		'value',
+		array(
+			'name'  => 'group_id',
+			'value' => '$data->group->name'
+		),
 		'description',
 		'creation_date',		
 		'update_date',

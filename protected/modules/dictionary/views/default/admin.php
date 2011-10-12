@@ -46,7 +46,7 @@ $('.search-form form').submit(function(){
 		'name',		
 		array(
 			'name'  => Yii::t('dictionary','Записей'),
-			'value' => '$data->dictionaryCount'
+			'value' => '$data->dataCount'
 		),
 		'creation_date',
 		'update_date',		

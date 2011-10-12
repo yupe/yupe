@@ -42,7 +42,7 @@
 
 	<div class="row">
 		<?php echo $form->labelEx($model,'status'); ?>
-		<?php echo $form->dropDownList($model,'status',$model->getStatusList()); ?>
+		<?php echo $form->checkBox($model,'status',$model->getStatusList()); ?>
 		<?php echo $form->error($model,'status'); ?>
 	</div>
 

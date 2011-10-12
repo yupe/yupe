@@ -95,7 +95,7 @@ class DictionaryData extends CActiveRecord
 			'update_date' => Yii::t('dictionary','Дата обновления'),
 			'create_user_id' => Yii::t('dictionary','Создал'),
 			'update_user_id' => Yii::t('dictionary','Обновил'),
-			'status' => Yii::t('dictionary','Статус'),
+			'status' => Yii::t('dictionary','Активно'),
 		);
 	}
 
@@ -148,8 +148,8 @@ class DictionaryData extends CActiveRecord
 	public function getStatusList()
 	{
 		return array(
-			self::STATUS_ACTIVE  => Yii::t('seeline','Активно'),
-			self::STATUS_DELETED => Yii::t('seeline','Удалено'),
+			self::STATUS_ACTIVE  => Yii::t('seeline','Да'),
+			self::STATUS_DELETED => Yii::t('seeline','Нет'),
 		);
 	}
 

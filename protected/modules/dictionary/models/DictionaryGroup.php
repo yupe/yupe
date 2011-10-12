@@ -50,6 +50,7 @@ class DictionaryGroup extends CActiveRecord
 			array('name', 'length', 'max'=>150),
 			array('description', 'length', 'max'=>300),
 			array('create_user_id, update_user_id', 'length', 'max'=>10),
+			array('code','unique'),
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
 			array('id, code, name, description, creation_date, update_date, create_user_id, update_user_id', 'safe', 'on'=>'search'),
@@ -67,7 +68,7 @@ class DictionaryGroup extends CActiveRecord
 			'dictionaryData' => array(self::HAS_MANY, 'DictionaryData', 'group_id'),
 			'updateUser' => array(self::BELONGS_TO, 'User', 'update_user_id'),
 			'createUser' => array(self::BELONGS_TO, 'User', 'create_user_id'),
-			'dictionaryCount' => array(self::STAT, 'DictionaryData', 'group_id'),
+			'dataCount' => array(self::STAT, 'DictionaryData', 'group_id'),
 		);
 	}
 
