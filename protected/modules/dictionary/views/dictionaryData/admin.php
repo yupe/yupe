@@ -43,6 +43,7 @@ $('.search-form form').submit(function(){
 		'id',		
 		'code',
 		'name',
+		'value',
 		'description',
 		'creation_date',		
 		'update_date',

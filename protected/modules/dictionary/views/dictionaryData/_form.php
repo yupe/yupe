@@ -29,6 +29,12 @@
 	</div>
 
 	<div class="row">
+		<?php echo $form->labelEx($model,'value'); ?>
+		<?php echo $form->textField($model,'value',array('size'=>45,'maxlength'=>150)); ?>
+		<?php echo $form->error($model,'value'); ?>
+	</div>	
+
+	<div class="row">
 		<?php echo $form->labelEx($model,'description'); ?>
 		<?php echo $form->textArea($model,'description',array('rows'=>7,'cols'=>60)); ?>
 		<?php echo $form->error($model,'description'); ?>

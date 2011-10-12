@@ -8,6 +8,7 @@
  * @property string $group_id
  * @property string $code
  * @property string $name
+ * @property string $value
  * @property string $description
  * @property string $creation_date
  * @property string $update_date
@@ -51,12 +52,13 @@ class DictionaryData extends CActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('group_id, code, name', 'required'),
+			array('group_id, code, name, value', 'required'),
 			array('status', 'numerical', 'integerOnly'=>true),
 			array('group_id, create_user_id, update_user_id', 'length', 'max'=>10),
 			array('code', 'length', 'max'=>50),
 			array('name', 'length', 'max'=>150),
 			array('description', 'length', 'max'=>300),
+			array('code','unique'),
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
 			array('id, group_id, code, name, description, creation_date, update_date, create_user_id, update_user_id, status', 'safe', 'on'=>'search'),
@@ -87,6 +89,7 @@ class DictionaryData extends CActiveRecord
 			'group_id' => Yii::t('dictionary','Группа'),
 			'code' => Yii::t('dictionary','Код'),
 			'name' => Yii::t('dictionary','Название'),
+			'value' => Yii::t('dictionary','Значение'),
 			'description' => Yii::t('dictionary','Описание'),
 			'creation_date' => Yii::t('dictionary','Дата создания'),
 			'update_date' => Yii::t('dictionary','Дата обновления'),
@@ -155,5 +158,10 @@ class DictionaryData extends CActiveRecord
 		$data = $this->getStatusList();
 
 		return isset($data[$this->status]) ? $data[$this->status] : Yii::t('dictionary','*неизвестно*');
+	}
+
+	public function getByCode($code)
+	{
+		return $this->cache(Yii::app()->yupe->coreCacheTime)->find('code = :code',array('code' => $code));
 	}
 }

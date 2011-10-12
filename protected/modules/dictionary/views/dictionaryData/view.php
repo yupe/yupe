@@ -29,6 +29,7 @@ $this->menu=array(
 		),
 		'code',
 		'name',
+		'value',
 		'description',
 		'creation_date',
 		'update_date',

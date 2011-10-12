@@ -130,4 +130,11 @@ class DictionaryGroup extends CActiveRecord
 
 		return parent::beforeSave();
 	}
+
+	public function getData()
+	{
+		return DictionaryData::model()->cache(Yii::app()->yupe->coreCacheTime)->findAll('group_id = :group_id',array(
+			':group_id' => $this->id
+		));
+	}
 }
