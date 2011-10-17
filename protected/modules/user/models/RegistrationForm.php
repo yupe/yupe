@@ -22,9 +22,9 @@ class RegistrationForm extends CFormModel
             array('nick_name, email','filter','filter' => array($obj = new CHtmlPurifier(),'purify')),
             array('nick_name, email, password, cPassword', 'required'),
             array('nick_name','match','pattern' => '/^[A-Za-z0-9]{2,150}$/','message' => Yii::t('seeline','Неверный формат поля "{attribute}" допустимы только буквы и цифры!')),
-            array('email', 'email'),
+            array('email', 'email'),            
             array('password, cPassword', 'length', 'min' => $module->minPasswordLength, 'max' => $module->maxPasswordLength),
-            array('password', 'compare', 'compareAttribute' => 'cPassword', 'message' => Yii::t('user', 'Пароли не совпадают!')),                        
+            array('password', 'compare', 'compareAttribute' => 'cPassword', 'message' => Yii::t('user', 'Пароли не совпадают!')), 
             array('verifyCode', 'YRequiredValidator', 'allowEmpty' => !$module->showCaptcha,'message' => Yii::t('user','Код проверки не корректен!')),
             array('verifyCode', 'captcha', 'allowEmpty' => !$module->showCaptcha),            
         );
