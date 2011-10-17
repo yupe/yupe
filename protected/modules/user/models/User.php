@@ -24,16 +24,15 @@
  */
 class User extends CActiveRecord
 {
-    const GENDER_MALE = 1;
+    const GENDER_MALE   = 1;
     const GENDER_FEMALE = 2;
-    const GENDER_THING = 0;
+    const GENDER_THING  = 0;
 
     const STATUS_ACTIVE = 1;
-    const STATUS_BLOCK = 0;
+    const STATUS_BLOCK  = 0;
 
-    const ACCESS_LEVEL_USER = 0;
+    const ACCESS_LEVEL_USER  = 0;
     const ACCESS_LEVEL_ADMIN = 1;
-
 
     /**
      * @return string the associated database table name
@@ -63,7 +62,7 @@ class User extends CActiveRecord
     {
         return array(
             self::ACCESS_LEVEL_ADMIN => Yii::t('user', 'Администратор'),
-            self::ACCESS_LEVEL_USER => Yii::t('user', 'Пользователь')
+            self::ACCESS_LEVEL_USER  => Yii::t('user', 'Пользователь')
         );
     }
 
@@ -118,16 +117,22 @@ class User extends CActiveRecord
         // NOTE: you should only define rules for those attributes that
         // will receive user inputs.
         return array(
+            array('nick_name, first_name, last_name, email','filter','filter' => 'trim'),
+            array('nick_name, first_name, last_name, email','filter','filter' => array($obj = new CHtmlPurifier(),'purify')),
             array('nick_name, email, password', 'required'),
+            array('nick_name','match','pattern' => '/^[A-Za-z0-9]{2,150}$/','message' => Yii::t('seeline','Неверный формат поля "{attribute}" допустимы только буквы и цифры!')),
+            array('email', 'email'),
             array('gender, status, access_level, use_gravatar', 'numerical', 'integerOnly' => true),
             array('first_name, last_name, nick_name, email', 'length', 'max' => 150),
             array('password, salt', 'length', 'max' => 32),
-            array('registration_ip, activation_ip, registration_date', 'length', 'max' => 20),
-            array('email', 'email'),
+            array('registration_ip, activation_ip, registration_date', 'length', 'max' => 20),            
             array('email', 'unique', 'message' => Yii::t('user', 'Данный email уже используется другим пользователем')),
             array('nick_name', 'unique', 'message' => Yii::t('user', 'Данный ник уже используется другим пользователем')),
             array('avatar', 'file', 'types' => implode(',', Yii::app()->getModule('user')->avatarExtensions), 'maxSize' => Yii::app()->getModule('user')->avatarMaxSize, 'allowEmpty' => true),
             array('use_gravatar', 'in', 'range' => array(0, 1)),
+            array('gender', 'in', 'range' => array(0, 1, 2)),
+            array('status', 'in', 'range' => array(0, 1)),
+            array('access_level', 'in', 'range' => array(0, 1)),
             array('id, creation_date, change_date, first_name, last_name, nick_name, email, gender, avatar, password, salt, status, access_level, last_visit, registration_date, registration_ip, activation_ip', 'safe', 'on' => 'search'),
         );
     }
@@ -296,8 +301,6 @@ class User extends CActiveRecord
                                   'registration_ip' => Yii::app()->request->userHostAddress
                              ));        
 		
-	    $this->save();           
-
-        return $this;
+	    $this->save();                   
     }    
 }

@@ -7,30 +7,31 @@ class RegistrationAction extends CAction
 
         if (Yii::app()->request->isPostRequest && !empty($_POST['RegistrationForm']))
         {
+            $module = Yii::app()->getModule('user');
+
             $form->setAttributes($_POST['RegistrationForm']);
 
             // проверка по "черным спискам"
             
             // проверить на email
-            if (!Yii::app()->getModule('user')->isAllowedEmail($form->email))
+            if (!$module->isAllowedEmail($form->email))
             {
                 // перенаправить на экшн для фиксации невалидных email-адресов
                 $this->controller->redirect(array(Yii::app()->getModule('user')->invalidEmailAction));
             }
 
-            if (!Yii::app()->getModule('user')->isAllowedIp(Yii::app()->request->userHostAddress))
+            if (!$module->isAllowedIp(Yii::app()->request->userHostAddress))
             {
                 // перенаправить на экшн для фиксации невалидных ip-адресов
                 $this->controller->redirect(array(Yii::app()->getModule('user')->invalidIpAction));
             }
 
             if ($form->validate())
-            {
-                $module = Yii::app()->getModule('user');
+            {                
                 // если требуется активация по email
                 if ($module->emailAccountVerification)
                 {
-                    $registration = new Registration();
+                    $registration = new Registration;
 
                     // скопируем данные формы
                     $registration->setAttributes($form->getAttributes());
@@ -55,7 +56,9 @@ class RegistrationAction extends CAction
                 else
                 {                    
                     // если активации не требуется - сразу создаем аккаунт
-                    $user = User::model()->createAccount($form->nick_name, $form->email, $form->password);                    
+                    $user = new User;                    
+
+                    $user->createAccount($form->nick_name, $form->email, $form->password);
 
                     if ($user && !$user->hasErrors())
                     {

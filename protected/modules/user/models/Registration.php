@@ -36,11 +36,14 @@ class Registration extends CActiveRecord
      */
     public function rules()
     {
-        return array(
+        return array(            
+            array('nick_name, email','filter','filter' => 'trim'),
+            array('nick_name, email','filter','filter' => array($obj = new CHtmlPurifier(),'purify')),
             array('nick_name, email, password', 'required'),
-            array('nick_name', 'length', 'max' => 100),
-            array('email', 'length', 'min' => 5, 'max' => 150),
+            array('email', 'email'),
+            array('nick_name, email', 'length', 'max' => 150),                        
             array('salt, password, code', 'length', 'max' => 32),
+            array('code', 'unique', 'message' => Yii::t('user', 'Ошибка! Код активации не уникален!')),
             array('email', 'unique', 'message' => Yii::t('user', 'Данный email уже используется другим пользователем')),
             array('nick_name', 'unique', 'message' => Yii::t('user', 'Данный ник уже используется другим пользователем')),
             array('id, creation_date, nick_name, email, salt, password, code', 'safe', 'on' => 'search'),
@@ -87,24 +90,17 @@ class Registration extends CActiveRecord
 
 
     public function beforeSave()
-    {
-        if (parent::beforeSave())
+    {        
+        if ($this->isNewRecord)
         {
-            if ($this->isNewRecord)
-            {
-                $this->creation_date = new CDbExpression('NOW()');
-                $this->salt = $this->generateSalt();
-                $this->password = $this->hashPassword($this->password, $this->salt);
-                $this->code = $this->generateActivationCode();
-                $this->ip = Yii::app()->request->userHostAddress;
-            }
+            $this->creation_date = new CDbExpression('NOW()');
+            $this->salt = $this->generateSalt();
+            $this->password = $this->hashPassword($this->password, $this->salt);
+            $this->code = $this->generateActivationCode();
+            $this->ip = Yii::app()->request->userHostAddress;
+        }
 
-            return true;
-        }
-        else
-        {
-            return false;
-        }
+        return parent::beforeSave();
     }
 
 
@@ -119,12 +115,12 @@ class Registration extends CActiveRecord
         return uniqid('', true);
     }
 
+
     public function generateRandomPassword($length = null)
     {
-        if (!$length)
-        {
+        if (!$length)        
             $length = Yii::app()->getModule('user')->minPasswordLength;
-        }
+        
         return substr(md5(uniqid(mt_rand(), true) . time()), 0, $length);
     }
 
