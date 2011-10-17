@@ -2,10 +2,15 @@
 class RegistrationForm extends CFormModel
 {
     public $nick_name;
+
     public $email;
+
     public $password;
+    
     public $cPassword;
+
     public $verifyCode;
+
     public $about;
 
     public function rules()
@@ -18,7 +23,7 @@ class RegistrationForm extends CFormModel
             array('password', 'compare', 'compareAttribute' => 'cPassword', 'message' => Yii::t('user', 'Пароли не совпадают!')),
             array('nick_name, email', 'filter', 'filter' => 'trim'),
             array('password,cPassword', 'length', 'min' => $module->minPasswordLength, 'max' => $module->maxPasswordLength),
-            array('verifyCode', 'YRequiredValidator', 'allowEmpty' => !$module->showCaptcha),
+            array('verifyCode', 'YRequiredValidator', 'allowEmpty' => !$module->showCaptcha,'message' => Yii::t('user','Код проверки не корректен!')),
             array('verifyCode', 'captcha', 'allowEmpty' => !$module->showCaptcha),
             array('about', 'length', 'max' => 400)
         );
@@ -36,7 +41,3 @@ class RegistrationForm extends CFormModel
         );
     }
 }
-
-?>
-
-

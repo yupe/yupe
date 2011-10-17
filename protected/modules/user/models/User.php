@@ -45,10 +45,9 @@ class User extends CActiveRecord
 
     public function validatePassword($password)
     {
-        if ($this->password === Registration::model()->hashPassword($password, $this->salt))
-        {
+        if ($this->password === Registration::model()->hashPassword($password, $this->salt))        
             return true;
-        }
+        
         return false;
     }
 
@@ -202,24 +201,21 @@ class User extends CActiveRecord
                                                ));
     }
 
-
     public function beforeSave()
-    {
-        if (parent::beforeSave())
+    {        
+        if ($this->isNewRecord)
         {
-            if ($this->isNewRecord)
-            {
-                $this->last_visit = $this->creation_date = $this->change_date = new CDbExpression('NOW()');
-                
-                $this->activation_ip = Yii::app()->request->userHostAddress;
-            }
-
-            return true;
+            $this->last_visit = $this->creation_date = $this->change_date = new CDbExpression('NOW()');
+            
+            $this->activation_ip = Yii::app()->request->userHostAddress;
+        }
+        else
+        {
+            $this->change_date = new CDbExpression('NOW()');
         }
 
-        return false;
+        return parent::beforeSave();
     }
-
 
     public function scopes()
     {
@@ -239,10 +235,8 @@ class User extends CActiveRecord
         // проверим по таблице Registration
         $registration = Registration::model()->find('nick_name = :nick_name', array(':nick_name' => $nick_name));
 
-        if (!is_null($registration))
-        {
-            return false;
-        }
+        if (!is_null($registration))        
+            return false;       
 
         // проверим по табличке User
         $user = User::model()->find('nick_name = :nick_name', array(':nick_name' => $nick_name));
@@ -258,10 +252,8 @@ class User extends CActiveRecord
         // проверим по таблице Registration
         $registration = Registration::model()->find('email = :email', array(':email' => $email));
 
-        if (!is_null($registration))
-        {
-            return false;
-        }
+        if (!is_null($registration))        
+            return false;        
 
         // проверим по табличке User
         $user = User::model()->find('email = :email', array(':email' => $email));
@@ -289,33 +281,23 @@ class User extends CActiveRecord
             ? $this->last_name . $separator . $this->first_name : $this->nick_name;
     }
 
-    public function createAccount($nick_name, $email, $params = null, $password = null, $salt = null)
+    public function createAccount($nick_name, $email, $password = null, $salt = null)
     {
-        $user = new User();
-
         $salt = is_null($salt) ? Registration::model()->generateSalt() : $salt;
 
         $password = is_null($password) ? Registration::model()->generateRandomPassword() : $password;
 
-        $user->setAttributes(array(
+        $this->setAttributes(array(
                                   'nick_name' => $nick_name,
                                   'email' => $email,
                                   'salt' => $salt,
                                   'password' => Registration::model()->hashPassword($password, $salt),
                                   'registration_date' => new CDbExpression('NOW()'),
                                   'registration_ip' => Yii::app()->request->userHostAddress
-                             ));
-
-        if (is_array($params) && count($params))
-        {
-            foreach ($params as $key => $value)
-            {
-                $user->$key = $value;
-            }
-        }
+                             ));        
 		
-		$user->save();
+	    $this->save();           
 
-        return $user;
+        return $this;
     }    
 }

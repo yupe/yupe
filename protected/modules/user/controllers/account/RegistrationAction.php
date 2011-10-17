@@ -3,9 +3,9 @@ class RegistrationAction extends CAction
 {
     public function run()
     {
-        $form = new RegistrationForm();
+        $form = new RegistrationForm;
 
-        if (Yii::app()->request->isPostRequest && isset($_POST['RegistrationForm']))
+        if (Yii::app()->request->isPostRequest && !empty($_POST['RegistrationForm']))
         {
             $form->setAttributes($_POST['RegistrationForm']);
 
@@ -26,24 +26,20 @@ class RegistrationAction extends CAction
 
             if ($form->validate())
             {
+                $module = Yii::app()->getModule('user');
                 // если требуется активация по email
-                if (Yii::app()->getModule('user')->emailAccountVerification)
+                if ($module->emailAccountVerification)
                 {
                     $registration = new Registration();
 
-                    // скопируем данные формы - они прошли через фильтр trim
-
-                    $registration->setAttributes(array(
-                                                      'nick_name' => $form->nick_name,
-                                                      'password' => $form->password,
-                                                      'email' => $form->email
-                                                 ));
+                    // скопируем данные формы
+                    $registration->setAttributes($form->getAttributes());
 
                     if ($registration->save())
                     {
                         // отправка email с просьбой активировать аккаунт
                         $mailBody = $this->controller->renderPartial('application.modules.user.views.email.needAccountActivationEmail', array('model' => $registration), true);
-                        Yii::app()->mail->send(Yii::app()->getModule('user')->notifyEmailFrom, $registration->email, Yii::t('user', 'Регистрация на сайте ' . Yii::app()->name . ' !'), $mailBody);
+                        Yii::app()->mail->send($module->notifyEmailFrom, $registration->email, Yii::t('user', 'Регистрация на сайте ' . Yii::app()->name . ' !'), $mailBody);
                         // запись в лог о создании учетной записи
                         Yii::log(Yii::t('user', "Создана учетная запись {nick_name}!", array('{nick_name}' => $registration->nick_name)), CLogger::LEVEL_INFO, UserModule::$logCategory);
                         Yii::app()->user->setFlash(YFlashMessages::NOTICE_MESSAGE, Yii::t('user', 'Учетная запись создана! Инструкции по активации аккаунта отправлены Вам на email!'));
@@ -52,30 +48,34 @@ class RegistrationAction extends CAction
                     else
                     {
                         $form->addErrors($registration->getErrors());
-                        Yii::log(Yii::t('user', "Ошибка при создании  учетной записи"), CLogger::LEVEL_ERROR, UserModule::$logCategory);
-                        $this->controller->render('registration', array('model' => $form));
-                        return false;
+
+                        Yii::log(Yii::t('user', "Ошибка при создании  учетной записи"), CLogger::LEVEL_ERROR, UserModule::$logCategory);                        
                     }
                 }
                 else
-                {
+                {                    
                     // если активации не требуется - сразу создаем аккаунт
-                    $user = User::model()->createAccount($form->nick_name, $form->email, null, $form->password);
+                    $user = User::model()->createAccount($form->nick_name, $form->email, $form->password);                    
 
-                    if (is_object($user) && !$user->hasErrors())
+                    if ($user && !$user->hasErrors())
                     {
                         Yii::log(Yii::t('user', "Создана учетная запись {nick_name} без активации!", array('{nick_name}' => $user->nick_name)), CLogger::LEVEL_INFO, UserModule::$logCategory);
+
                         // отправить email с сообщением о успешной регистрации
                         $emailBody = $this->controller->renderPartial('application.modules.user.views.email.accountCreatedEmail', array('model' => $user), true);
-                        Yii::app()->mail->send(Yii::app()->getModule('user')->notifyEmailFrom, $user->email, Yii::t('user', 'Регистрация на сайте {site} !', array('{site}' => Yii::app()->name)), $emailBody);
-                        Yii::app()->user->setFlash(YFlashMessages::NOTICE_MESSAGE, Yii::t('user', 'Учетная запись создана! Авторизуйтесь!'));
-                        $this->controller->redirect(array('/user/account/login'));
+
+                        Yii::app()->mail->send($module->notifyEmailFrom, $user->email, Yii::t('user', 'Регистрация на сайте {site} !', array('{site}' => Yii::app()->name)), $emailBody);
+
+                        Yii::app()->user->setFlash(YFlashMessages::NOTICE_MESSAGE, Yii::t('user', 'Учетная запись создана! Пожалуйста, авторизуйтесь!'));
+
+                        $this->controller->redirect(array('/user/account/login/'));
                     }
                     else
                     {
                         $form->addErrors($user->getErrors());
+
                         Yii::log(Yii::t('user', "Ошибка при создании  учетной записи без активации!"), CLogger::LEVEL_ERROR, UserModule::$logCategory);
-                    }
+                    }                                       
                 }
             }
         }
