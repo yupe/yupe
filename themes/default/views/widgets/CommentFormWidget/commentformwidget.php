@@ -14,7 +14,7 @@
 
     <?php echo $form->hiddenField($model, 'model')?>
 
-    <?php echo $form->hiddenField($model, 'modelId')?>
+    <?php echo $form->hiddenField($model, 'model_id')?>
 
     <?php echo CHtml::hiddenField('redirectTo', $redirectTo);?>
 
@@ -37,7 +37,7 @@
         <?php echo $form->error($model, 'url'); ?>
     </div>
     <?php else: ?>
-    <p><?php echo Yii::t('comment', 'От имени');?> : <?php echo Yii::app()->user->getState('nickName');?></p>
+    <p><?php echo Yii::t('comment', 'От имени');?> : <?php echo Yii::app()->user->getState('nick_name');?></p>
     <?php endif;?>
 
     <div class="row">

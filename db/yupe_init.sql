@@ -10,17 +10,18 @@
 SET SQL_MODE="NO_AUTO_VALUE_ON_ZERO";
 
 
-INSERT INTO `User` (`id`, `creationDate`, `changeDate`, `firstName`, `lastName`, `nickName`, `email`, `gender`, `password`, `salt`, `status`, `accessLevel`, `lastVisit`, `registrationDate`, `registrationIp`, `activationIp`, `avatar`, `useGravatar`) VALUES
+INSERT INTO `user` (`id`, `creation_date`, `change_date`, `first_name`, `last_name`, `nick_name`, `email`, `gender`, `password`, `salt`, `status`, `access_level`, `last_visit`, `registration_date`, `registration_ip`, `activation_ip`, `avatar`, `use_gravatar`) VALUES
 (83, '2011-09-26 11:52:09', '2011-09-26 11:52:09', NULL, NULL, 'admin', 'admin@admin.ru', 0, 'c1f98dd950c917a214b66e98be53e52f', '4e802f29c47c20.49913008', 1, 1, '2011-09-26 11:55:03', '2011-09-26 11:52:09', '127.0.0.1', '127.0.0.1', NULL, 0);
 
 
 
-INSERT INTO `News` (`id`, `creationDate`, `changeDate`, `date`, `title`, `alias`, `shortText`, `fullText`, `userId`, `status`, `isProtected`, `keywords`, `description`) VALUES
+INSERT INTO `news` (`id`, `creation_date`, `change_date`, `date`, `title`, `alias`, `short_text`, `full_text`, `user_id`, `status`, `is_protected`, `keywords`, `description`) VALUES
 (2, '2011-09-26 11:55:42', '2011-09-26 11:55:42', '2011-09-26', 'Очередной сайт на Юпи!', 'ocherednoy-sayt-na-yupi', 'Поздравляем! Ваш сайт на Юпи! успешно установлен и готов к работе!<br/>\r\n\r\nДля получения поддержки посетите <a href="http://yupe.ru/">http://yupe.ru/</a><br/>', 'Поздравляем! Ваш сайт на Юпи! успешно установлен и готов к работе!<br/>\r\n\r\nДля получения поддержки посетите <a href="http://yupe.ru/">http://yupe.ru/</a><br/>', 83, 1, 0, 'Юпи!,cms,Yii, ЦМС', 'Очередной сайт на ЦМС Юпи!');
 
 
-INSERT INTO `Settings` (`id`, `moduleId`, `paramName`, `paramValue`, `creationDate`, `changeDate`, `userId`) VALUES
+INSERT INTO `settings` (`id`, `module_id`, `param_name`, `param_value`, `creation_date`, `change_date`, `user_id`) VALUES
 (186, 'yupe', 'siteDescription', 'Юпи! - самый быстрый способ создать сайт на фреймворке Yii', '2011-09-26 11:52:25', '2011-09-26 11:52:25', 83),
 (187, 'yupe', 'siteName', 'Юпи!', '2011-09-26 11:52:25', '2011-09-26 11:52:25', 83),
 (188, 'yupe', 'siteKeyWords', 'Юпи!, yupe, yii, cms, цмс', '2011-09-26 11:52:25', '2011-09-26 11:52:25', 83);
+
 

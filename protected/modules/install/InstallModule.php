@@ -17,6 +17,11 @@ class InstallModule extends YWebModule
         return false;
     }
 
+    public function getCategory()
+    {
+        return Yii::t('install', 'Ядрышко');
+    }
+
     public function getName()
     {
         return Yii::t('install', 'Установщик');

@@ -29,7 +29,6 @@ class YWebUser extends CWebUser
         );
     }
 
-
     public function isSuperUser()
     {
         if (!$this->isAuthenticated())
@@ -47,12 +46,7 @@ class YWebUser extends CWebUser
         }
 
         return false;
-    }
-
-    public function getProfile()
-    {
-        return User::model()->active()->with('profile')->findByPk((int)Yii::app()->user->getId());
-    }
+    }    
 }
 
 ?>

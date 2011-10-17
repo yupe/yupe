@@ -316,9 +316,9 @@ class DefaultController extends Controller
                         $settings = new Settings();
 
                         $settings->setAttributes(array(
-                                                      'moduleId' => 'yupe',
-                                                      'paramName' => $param,
-                                                      'paramValue' => $model->$param,
+                                                      'module_id' => 'yupe',
+                                                      'param_name' => $param,
+                                                      'param_value' => $model->$param,
                                                       'user_id' => $user[0]->id
                                                  ));
 
@@ -369,5 +369,3 @@ class DefaultController extends Controller
     }
 
 }
-
-?>

@@ -132,7 +132,21 @@ class User extends CActiveRecord
             array('id, creation_date, change_date, first_name, last_name, nick_name, email, gender, avatar, password, salt, status, access_level, last_visit, registration_date, registration_ip, activation_ip', 'safe', 'on' => 'search'),
         );
     }
+<<<<<<< HEAD
     
+=======
+
+    /**
+     * @return array relational rules.
+     */
+    public function relations()
+    {        
+        return array(
+            
+        );
+    }
+
+>>>>>>> 4e1271286bba20bc1a81e6113282ae8bc23f4f19
     /**
      * @return array customized attribute labels (name=>label)
      */
@@ -295,8 +309,7 @@ class User extends CActiveRecord
 
         $salt = is_null($salt) ? Registration::model()->generateSalt() : $salt;
 
-        $password = is_null($password)
-            ? Registration::model()->generateRandomPassword() : $password;
+        $password = is_null($password) ? Registration::model()->generateRandomPassword() : $password;
 
         $user->setAttributes(array(
                                   'nick_name' => $nick_name,
@@ -314,74 +327,9 @@ class User extends CActiveRecord
                 $user->$key = $value;
             }
         }
+		
+		$user->save();
 
-        $transaction = Yii::app()->db->beginTransaction();
-
-        try
-        {
-            if ($user->save())
-            {
-                $profile = new Profile();
-
-                $profile->user_id = $user->id;
-
-                if (!$profile->save())
-                {
-                    throw new CDbException($profile->getErrors());
-                }
-
-                $transaction->commit();
-
-                return $user;
-            }
-
-            $transaction->rollback();
-
-            return $user;
-        }
-        catch (CDbException $e)
-        {
-            Yii::log($e->getMessage(), CLogger::LEVEL_ERROR);
-
-            $transaction->rollback();
-        }
-
-        return false;
-    }
-
-
-    public function createSocialAccount($nick_name, $email, $first_name, $secondName, $sid, $sType, $params = null)
-    {
-        $salt = Registration::model()->generateSalt();
-
-        $password = Registration::model()->hashPassword(Registration::model()->generateRandomPassword(), $salt);
-
-        $user = $this->createAccount($nick_name, $email, $params, $password, $salt, $params);
-
-        if (is_object($user) && !$user->hasErrors())
-        {
-            $login = new Login();
-
-            $login->setAttributes(array(
-                                       'user_id' => $user->id,
-                                       'identity_id' => $sid,
-                                       'type' => $sType
-                                  ));
-
-            if (!$login->save())
-            {
-                Yii::log(print_r($login->getErrors(), true), CLogger::LEVEL_ERROR);
-
-                $user->delete();
-
-                return false;
-            }
-
-            return $login;
-        }
-
-        Yii::log(print_r($user->getErrors(), true), CLogger::LEVEL_ERROR);
-
-        return false;
-    }
+        return $user;
+    }    
 }

@@ -27,7 +27,6 @@ class DefaultController extends YBackController
 
         if (isset($_POST['User']))
         {
-
             $transaction = Yii::app()->db->beginTransaction();
 
             try
@@ -38,19 +37,10 @@ class DefaultController extends YBackController
                 $model->registration_ip = Yii::app()->request->userHostAddress;
 
                 if ($model->save())
-                {
-                    $profile = new Profile();
-                    $profile->user_id = $model->id;
-                    if ($profile->save())
-                    {
-                        $transaction->commit();
-                        Yii::app()->user->setFlash(YFlashMessages::NOTICE_MESSAGE, Yii::t('user', 'Новый пользователь добавлен!'));
-                        $this->redirect(array('view', 'id' => $model->id));
-                    }
-                    else
-                    {
-                        throw new CDbException(Yii::t('user', 'При создании пользователя произошла ошибка! Подробности в журнале исполнения.'));
-                    }
+                {                    
+                    Yii::app()->user->setFlash(YFlashMessages::NOTICE_MESSAGE, Yii::t('user', 'Новый пользователь добавлен!'));
+					
+                    $this->redirect(array('view', 'id' => $model->id));                    
                 }
 
             }
