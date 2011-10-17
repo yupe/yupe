@@ -132,21 +132,7 @@ class User extends CActiveRecord
             array('id, creation_date, change_date, first_name, last_name, nick_name, email, gender, avatar, password, salt, status, access_level, last_visit, registration_date, registration_ip, activation_ip', 'safe', 'on' => 'search'),
         );
     }
-<<<<<<< HEAD
-    
-=======
 
-    /**
-     * @return array relational rules.
-     */
-    public function relations()
-    {        
-        return array(
-            
-        );
-    }
-
->>>>>>> 4e1271286bba20bc1a81e6113282ae8bc23f4f19
     /**
      * @return array customized attribute labels (name=>label)
      */
