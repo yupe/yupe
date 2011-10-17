@@ -132,19 +132,7 @@ class User extends CActiveRecord
             array('id, creation_date, change_date, first_name, last_name, nick_name, email, gender, avatar, password, salt, status, access_level, last_visit, registration_date, registration_ip, activation_ip', 'safe', 'on' => 'search'),
         );
     }
-
-    /**
-     * @return array relational rules.
-     */
-    public function relations()
-    {
-        // NOTE: you may need to adjust the relation name and the related
-        // class name for the relations automatically generated below.
-        return array(
-            'profile' => array(self::HAS_ONE, 'Profile', 'user_id')
-        );
-    }
-
+    
     /**
      * @return array customized attribute labels (name=>label)
      */
@@ -168,7 +156,7 @@ class User extends CActiveRecord
             'registration_ip' => Yii::t('user', 'Ip регистрации'),
             'activation_ip' => Yii::t('user', 'Ip активации'),
             'avatar' => Yii::t('user', 'Аватар'),
-            'use_gravatar' => Yii::t('user', 'Граватара'),
+            'use_gravatar' => Yii::t('user', 'Граватар'),
         );
     }
 
@@ -222,6 +210,7 @@ class User extends CActiveRecord
             if ($this->isNewRecord)
             {
                 $this->last_visit = $this->creation_date = $this->change_date = new CDbExpression('NOW()');
+                
                 $this->activation_ip = Yii::app()->request->userHostAddress;
             }
 

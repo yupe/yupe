@@ -10,16 +10,17 @@ class RegistrationAction extends CAction
             $form->setAttributes($_POST['RegistrationForm']);
 
             // проверка по "черным спискам"
+            
             // проверить на email
             if (!Yii::app()->getModule('user')->isAllowedEmail($form->email))
             {
-                // перенаправить на экшн для фиксации невалидных ip адресов
+                // перенаправить на экшн для фиксации невалидных email-адресов
                 $this->controller->redirect(array(Yii::app()->getModule('user')->invalidEmailAction));
             }
 
             if (!Yii::app()->getModule('user')->isAllowedIp(Yii::app()->request->userHostAddress))
             {
-                // перенаправить на экшн для фиксации невалидных ip адресов
+                // перенаправить на экшн для фиксации невалидных ip-адресов
                 $this->controller->redirect(array(Yii::app()->getModule('user')->invalidIpAction));
             }
 
@@ -82,5 +83,3 @@ class RegistrationAction extends CAction
         $this->controller->render('registration', array('model' => $form));
     }
 }
-
-?>

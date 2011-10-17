@@ -10,14 +10,16 @@ class RegistrationForm extends CFormModel
 
     public function rules()
     {
+        $module = Yii::app()->getModule('user');
+        
         return array(
             array('nick_name, email, password, cPassword', 'required'),
             array('email', 'email'),
             array('password', 'compare', 'compareAttribute' => 'cPassword', 'message' => Yii::t('user', 'Пароли не совпадают!')),
             array('nick_name, email', 'filter', 'filter' => 'trim'),
-            array('password,cPassword', 'length', 'min' => Yii::app()->getModule('user')->minPasswordLength, 'max' => Yii::app()->getModule('user')->maxPasswordLength),
-            array('verifyCode', 'YRequiredValidator', 'allowEmpty' => !Yii::app()->getModule('user')->showCaptcha),
-            array('verifyCode', 'captcha', 'allowEmpty' => !Yii::app()->getModule('user')->showCaptcha),
+            array('password,cPassword', 'length', 'min' => $module->minPasswordLength, 'max' => $module->maxPasswordLength),
+            array('verifyCode', 'YRequiredValidator', 'allowEmpty' => !$module->showCaptcha),
+            array('verifyCode', 'captcha', 'allowEmpty' => !$module->showCaptcha),
             array('about', 'length', 'max' => 400)
         );
     }

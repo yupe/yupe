@@ -2,3 +2,5 @@ protected/runtime
 .idea
 assets/
 yupe.komodoproject
+/.komodotools/
+/nbproject/private/
