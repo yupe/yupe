@@ -55,7 +55,7 @@ class User extends CActiveRecord
         $data = $this->getAccessLevelsList();
         return array_key_exists($this->access_level, $data)
             ? $data[$this->access_level]
-            : Yii::t('user', 'ммм...такого доступа нет');
+            : Yii::t('user', '*нет*');
     }
 
     public function getAccessLevelsList()
@@ -113,21 +113,21 @@ class User extends CActiveRecord
      * @return array validation rules for model attributes.
      */
     public function rules()
-    {
-        // NOTE: you should only define rules for those attributes that
-        // will receive user inputs.
+    {        
         return array(
             array('nick_name, first_name, last_name, email','filter','filter' => 'trim'),
             array('nick_name, first_name, last_name, email','filter','filter' => array($obj = new CHtmlPurifier(),'purify')),
             array('nick_name, email, password', 'required'),
-            array('nick_name','match','pattern' => '/^[A-Za-z0-9]{2,150}$/','message' => Yii::t('seeline','Неверный формат поля "{attribute}" допустимы только буквы и цифры!')),
-            array('gender, status, access_level, use_gravatar', 'numerical', 'integerOnly' => true),
-            array('first_name, last_name, nick_name, email', 'length', 'max' => 150),
-            array('password, salt', 'length', 'max' => 32),
+            array('nick_name','match','pattern' => '/^[A-Za-z0-9]{2,150}$/','message' => Yii::t('seeline','Неверный формат поля "{attribute}" допустимы только буквы и цифры!')),            
+            array('first_name, last_name, nick_name, email', 'length', 'max' => 50),
+            array('password, salt', 'length','min' => 32, 'max' => 32),
             array('registration_ip, activation_ip, registration_date', 'length', 'max' => 20),            
+            array('gender, status, access_level, use_gravatar', 'numerical', 'integerOnly' => true),
             array('email', 'email'),            
             array('email', 'unique', 'message' => Yii::t('user', 'Данный email уже используется другим пользователем')),
+            array('email','checkEmailUnique'),
             array('nick_name', 'unique', 'message' => Yii::t('user', 'Данный ник уже используется другим пользователем')),
+            array('nick_name','checkNickNameUnique'),
             array('avatar', 'file', 'types' => implode(',', Yii::app()->getModule('user')->avatarExtensions), 'maxSize' => Yii::app()->getModule('user')->avatarMaxSize, 'allowEmpty' => true),
             array('use_gravatar', 'in', 'range' => array(0, 1)),
             array('gender', 'in', 'range' => array(0, 1, 2)),
@@ -232,50 +232,38 @@ class User extends CActiveRecord
         );
     }
 
-    // проверить уникальность логина по двум таблицам
-    public function checkNickNameUnique($nick_name)
+    // проверить уникальность ника по двум таблицам
+    public function checkNickNameUnique($attribute,$params)
     {
-        $nick_name = trim(strtolower($nick_name));
+        if(!$this->hasErrors())
+        {
+            // проверим по таблице Registration
+            $registration = Registration::model()->find('nick_name = :nick_name', array(':nick_name' => $this->nick_name));
 
-        // проверим по таблице Registration
-        $registration = Registration::model()->find('nick_name = :nick_name', array(':nick_name' => $nick_name));
-
-        if (!is_null($registration))        
-            return false;       
-
-        // проверим по табличке User
-        $user = User::model()->find('nick_name = :nick_name', array(':nick_name' => $nick_name));
-
-        return is_null($user) ? true : false;
+            if (!is_null($registration))        
+                $this->addError('nick_name',Yii::t('user','Ник "{nick}" уже используется другим пользователем!',array('{nick}' => $this->nick_name)));               
+        }
     }
 
-    // проверить уникальность логина по двум таблицам
-    public function checkEmailUnique($email)
+    // проверить уникальность email по двум таблицам
+    public function checkEmailUnique($attribute,$params)
     {
-        $email = trim(strtolower($email));
+        if(!$this->hasErrors())
+        {
+            // проверим по таблице Registration
+            $registration = Registration::model()->find('email = :email', array(':email' => $email));
 
-        // проверим по таблице Registration
-        $registration = Registration::model()->find('email = :email', array(':email' => $email));
-
-        if (!is_null($registration))        
-            return false;        
-
-        // проверим по табличке User
-        $user = User::model()->find('email = :email', array(':email' => $email));
-
-        return is_null($user) ? true : false;
+            if (!is_null($registration))        
+                $this->addError('email',Yii::t('user','Email "{email}" уже используется другим пользователем!',array('{email}' => $this->email)));
+        }       
     }
 
     public function getAvatar($htmlOptions = null)
     {
-        if ($this->use_gravatar && $this->email)
-        {
-            return CHtml::image('http://gravatar.com/avatar/' . md5($this->email), $this->nick_name, $htmlOptions);
-        }
-        elseif ($this->avatar)
-        {
-            return CHtml::image($this->avatar, $this->nick_name, $htmlOptions);
-        }
+        if ($this->use_gravatar && $this->email)        
+            return CHtml::image('http://gravatar.com/avatar/' . md5($this->email), $this->nick_name, $htmlOptions);        
+        elseif ($this->avatar)        
+            return CHtml::image($this->avatar, $this->nick_name, $htmlOptions);      
 
         return '';
     }

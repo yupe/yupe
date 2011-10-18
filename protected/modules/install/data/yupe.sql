@@ -1,13 +1,14 @@
 -- phpMyAdmin SQL Dump
--- version 3.3.10deb1
+-- version 3.4.5deb1
 -- http://www.phpmyadmin.net
 --
 -- Хост: localhost
--- Время создания: Окт 12 2011 г., 22:54
--- Версия сервера: 5.1.54
--- Версия PHP: 5.3.5-1ubuntu7.2
+-- Время создания: Окт 18 2011 г., 22:09
+-- Версия сервера: 5.1.58
+-- Версия PHP: 5.3.6-13ubuntu3.2
 
 SET SQL_MODE="NO_AUTO_VALUE_ON_ZERO";
+SET time_zone = "+00:00";
 
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
@@ -343,8 +344,8 @@ CREATE TABLE IF NOT EXISTS `recovery_password` (
 CREATE TABLE IF NOT EXISTS `registration` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `creation_date` datetime NOT NULL,
-  `nick_name` varchar(100) NOT NULL,
-  `email` varchar(150) NOT NULL,
+  `nick_name` varchar(50) NOT NULL,
+  `email` varchar(50) NOT NULL,
   `salt` char(32) NOT NULL,
   `password` char(32) NOT NULL,
   `code` char(32) NOT NULL,
@@ -353,7 +354,7 @@ CREATE TABLE IF NOT EXISTS `registration` (
   UNIQUE KEY `registration_nickname_unique` (`nick_name`),
   UNIQUE KEY `registration_email_unique` (`email`),
   UNIQUE KEY `registration_code_unique` (`code`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=3 ;
 
 -- --------------------------------------------------------
 
@@ -371,7 +372,7 @@ CREATE TABLE IF NOT EXISTS `settings` (
   `user_id` int(10) unsigned NOT NULL,
   PRIMARY KEY (`id`),
   KEY `moduleId` (`module_id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=208 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=238 ;
 
 -- --------------------------------------------------------
 
@@ -383,10 +384,10 @@ CREATE TABLE IF NOT EXISTS `user` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `creation_date` datetime NOT NULL,
   `change_date` datetime NOT NULL,
-  `first_name` varchar(150) DEFAULT NULL,
-  `last_name` varchar(150) DEFAULT NULL,
-  `nick_name` varchar(150) NOT NULL,
-  `email` varchar(150) NOT NULL,
+  `first_name` varchar(50) NOT NULL DEFAULT '''''',
+  `last_name` varchar(50) NOT NULL DEFAULT '''''',
+  `nick_name` varchar(50) NOT NULL,
+  `email` varchar(50) NOT NULL,
   `gender` tinyint(1) NOT NULL DEFAULT '0',
   `password` char(32) NOT NULL,
   `salt` char(32) NOT NULL,
@@ -396,13 +397,13 @@ CREATE TABLE IF NOT EXISTS `user` (
   `registration_date` datetime NOT NULL,
   `registration_ip` varchar(20) NOT NULL,
   `activation_ip` varchar(20) NOT NULL,
-  `avatar` varchar(100) DEFAULT NULL,
+  `avatar` varchar(100) NOT NULL DEFAULT '''''',
   `use_gravatar` tinyint(4) DEFAULT '0',
   PRIMARY KEY (`id`),
   UNIQUE KEY `user_nickname_unique` (`nick_name`),
   UNIQUE KEY `user_email_unique` (`email`),
   KEY `user_status_index` (`status`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=84 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=89 ;
 
 -- --------------------------------------------------------
 
@@ -490,3 +491,7 @@ ALTER TABLE `recovery_password`
 --
 ALTER TABLE `vote`
   ADD CONSTRAINT `vote_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `user` (`id`) ON UPDATE NO ACTION;
+
+/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
+/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
+/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;

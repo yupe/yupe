@@ -148,8 +148,8 @@ class DictionaryData extends CActiveRecord
 	public function getStatusList()
 	{
 		return array(
-			self::STATUS_ACTIVE  => Yii::t('seeline','Да'),
-			self::STATUS_DELETED => Yii::t('seeline','Нет'),
+			self::STATUS_ACTIVE  => Yii::t('dictionary','Да'),
+			self::STATUS_DELETED => Yii::t('dictionary','Нет'),
 		);
 	}
 

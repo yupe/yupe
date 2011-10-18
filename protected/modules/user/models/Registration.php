@@ -40,12 +40,15 @@ class Registration extends CActiveRecord
             array('nick_name, email','filter','filter' => 'trim'),
             array('nick_name, email','filter','filter' => array($obj = new CHtmlPurifier(),'purify')),
             array('nick_name, email, password', 'required'),
-            array('nick_name, email', 'length', 'max' => 150),                        
-            array('salt, password, code', 'length', 'max' => 32),
-            array('email', 'email'),            
-            array('code', 'unique', 'message' => Yii::t('user', 'Ошибка! Код активации не уникален!')),
-            array('email', 'unique', 'message' => Yii::t('user', 'Данный email уже используется другим пользователем')),
+            array('nick_name, email', 'length', 'max' => 50),                        
+            array('salt, password, code', 'length','min' => 32, 'max' => 32),
+            array('nick_name','match','pattern' => '/^[A-Za-z0-9]{2,150}$/','message' => Yii::t('user','Неверный формат поля "{attribute}" допустимы только буквы и цифры!')),
+            array('email', 'email'),    
+            array('email', 'unique', 'message' => Yii::t('user', 'Данный email уже используется другим пользователем')),            
+            array('email','checkEmailUnique'),
             array('nick_name', 'unique', 'message' => Yii::t('user', 'Данный ник уже используется другим пользователем')),
+            array('nick_name','checkNickNameUnique'),        
+            array('code', 'unique', 'message' => Yii::t('user', 'Ошибка! Код активации не уникален!')),            
             array('id, creation_date, nick_name, email, salt, password, code', 'safe', 'on' => 'search'),
         );
     }
@@ -86,6 +89,32 @@ class Registration extends CActiveRecord
         return new CActiveDataProvider('Registration', array(
                                                             'criteria' => $criteria,
                                                        ));
+    }
+
+    // проверить уникальность ника по двум таблицам
+    public function checkNickNameUnique($attribute,$params)
+    {
+        if(!$this->hasErrors())
+        {
+            // проверим по таблице User
+            $registration = User::model()->find('nick_name = :nick_name', array(':nick_name' => $this->nick_name));
+
+            if (!is_null($registration))        
+                $this->addError('nick_name',Yii::t('user','Ник "{nick}" уже используется другим пользователем!',array('{nick}' => $this->nick_name)));               
+        }
+    }
+
+    // проверить уникальность email по двум таблицам
+    public function checkEmailUnique($attribute,$params)
+    {
+        if(!$this->hasErrors())
+        {
+            // проверим по таблице User
+            $registration = User::model()->find('email = :email', array(':email' => $email));
+
+            if (!is_null($registration))        
+                $this->addError('email',Yii::t('user','Email "{email}" уже используется другим пользователем!',array('{email}' => $this->email)));
+        }       
     }
 
 

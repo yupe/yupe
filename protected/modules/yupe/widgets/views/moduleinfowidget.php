@@ -11,5 +11,5 @@
 <p><? echo $module->getDescription();?>, <?php echo Yii::t('yupe', 'версия')?> <?php echo $module->getVersion();?> <?php echo CHtml::link(Yii::t('yupe','подробнее'),array(),array('id'=>'more-info'));?></p>
 
 <div id='more-info-div' style='display:none;'>
-<p><?php echo Yii::t('seeline','Автор');?>: <?php echo $module->getAuthor();?> ( <?php echo $module->getAuthorEmail();?>, <?php echo $module->getUrl();?> )</p>
+<p><?php echo Yii::t('yupe','Автор');?>: <?php echo $module->getAuthor();?> ( <?php echo $module->getAuthorEmail();?>, <?php echo $module->getUrl();?> )</p>
 </div>
