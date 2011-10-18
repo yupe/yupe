@@ -119,27 +119,22 @@ class UserModule extends YWebModule
     {
         if (is_array($this->emailBlackList) && count($this->emailBlackList))
         {
-            $email = trim($email);
+            if(in_array(trim($email),$this->emailBlackList))
+                return false;
         }
-        else
-        {
-            return true;
-        }
+
+        return true;        
     }
 
     public function isAllowedIp($ip)
     {
         if (is_array($this->ipBlackList) && count($this->ipBlackList))
         {
-            if (in_array($ip, $this->ipBlackList))
-            {
-                return false;
-            }
+            if(in_array($ip, $this->ipBlackList))            
+                return false;            
         }
-        else
-        {
-            return true;
-        }
+
+        return true;        
     }
 }
 

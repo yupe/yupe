@@ -40,7 +40,7 @@ class RegistrationAction extends CAction
                     {
                         // отправка email с просьбой активировать аккаунт
                         $mailBody = $this->controller->renderPartial('application.modules.user.views.email.needAccountActivationEmail', array('model' => $registration), true);
-                        Yii::app()->mail->send($module->notifyEmailFrom, $registration->email, Yii::t('user', 'Регистрация на сайте ' . Yii::app()->name . ' !'), $mailBody);
+                        Yii::app()->mail->send($module->notifyEmailFrom, $registration->email, Yii::t('user', 'Регистрация на сайте {site} !',array('{site}' => Yii::app()->name )), $mailBody);
                         // запись в лог о создании учетной записи
                         Yii::log(Yii::t('user', "Создана учетная запись {nick_name}!", array('{nick_name}' => $registration->nick_name)), CLogger::LEVEL_INFO, UserModule::$logCategory);
                         Yii::app()->user->setFlash(YFlashMessages::NOTICE_MESSAGE, Yii::t('user', 'Учетная запись создана! Инструкции по активации аккаунта отправлены Вам на email!'));
@@ -50,7 +50,7 @@ class RegistrationAction extends CAction
                     {
                         $form->addErrors($registration->getErrors());
 
-                        Yii::log(Yii::t('user', "Ошибка при создании  учетной записи"), CLogger::LEVEL_ERROR, UserModule::$logCategory);                        
+                        Yii::log(Yii::t('user', "Ошибка при создании  учетной записи!"), CLogger::LEVEL_ERROR, UserModule::$logCategory);                        
                     }
                 }
                 else
