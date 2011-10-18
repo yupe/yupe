@@ -9,12 +9,17 @@ class InstallModule extends YWebModule
 
     public function getAdminPageLink()
     {
-        return '/back/backend/';
+        return '/yupe/backend/';
     }
 
     public function getEditableParams()
     {
         return false;
+    }
+
+    public function getCategory()
+    {
+        return Yii::t('install', 'Ядрышко');
     }
 
     public function getName()

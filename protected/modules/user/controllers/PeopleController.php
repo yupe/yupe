@@ -9,7 +9,7 @@ class PeopleController extends YFrontController
                                                                  'condition' => 'status = :status',
                                                                  'params' => array(':status' => User::STATUS_ACTIVE),
                                                                  'with' => array('profile'),
-                                                                 'order' => 'lastVisit DESC'
+                                                                 'order' => 'last_visit DESC'
                                                              )
                                                         ));
 

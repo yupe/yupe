@@ -21,15 +21,15 @@ $this->menu = array(
                                                     'data' => $model,
                                                     'attributes' => array(
                                                         'id',
-                                                        'creationDate',
-                                                        'changeDate',
+                                                        'creation_date',
+                                                        'change_date',
                                                         'date',
                                                         'title',
                                                         'alias',
-                                                        'shortText',
-                                                        'fullText',
+                                                        'short_text',
+                                                        'full_text',
                                                         array(
-                                                            'name' => 'userId',
+                                                            'name' => 'user_id',
                                                             'value' => $model->user->getFullName()
                                                         ),
                                                         array(
@@ -37,7 +37,7 @@ $this->menu = array(
                                                             'value' => $model->getStatus()
                                                         ),
                                                         array(
-                                                            'name' => 'isProtected',
+                                                            'name' => 'is_protected',
                                                             'value' => $model->getProtectedStatus()
                                                         ),
 

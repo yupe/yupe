@@ -41,8 +41,8 @@ $('.search-form form').submit(function(){
                                                        'columns' => array(
                                                            'id',
                                                            'model',
-                                                           'modelId',
-                                                           'creationDate',
+                                                           'model_id',
+                                                           'creation_date',
                                                            'name',
                                                            'email',
                                                            'text',

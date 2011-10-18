@@ -7,20 +7,22 @@ class FeedbackModule extends YWebModule
     public $types;
     public $showCaptcha = true;
     public $notifyEmailFrom;
+    public $sendConfirmation = false;
     public static $logCategory = 'application.modules.feedback';
 
     public function getParamsLabels()
     {
         return array(
-            'showCaptcha' => Yii::t('feedback', 'Показывать капчу'),
-            'notifyEmailFrom' => Yii::t('feedback', 'Email от имени которого отправлять сообщение'),
-            'adminMenuOrder' => Yii::t('feedback', 'Порядок следования в меню')
+            'showCaptcha'=> Yii::t('feedback', 'Показывать капчу'),
+            'notifyEmailFrom'=> Yii::t('feedback', 'Email от имени которого отправлять сообщение'),
+            'adminMenuOrder'   => Yii::t('feedback', 'Порядок следования в меню'),
+            'sendConfirmation' => Yii::t('feedback','Отправлять подтверждение')
         );
     }
 
     public function getEditableParams()
     {
-        return array('showCaptcha', 'notifyEmailFrom', 'adminMenuOrder');
+        return array('showCaptcha', 'notifyEmailFrom', 'adminMenuOrder','sendConfirmation');
     }
 
     public function getName()

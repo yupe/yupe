@@ -57,8 +57,8 @@ $('.search-form form').submit(function(){
                                                                'value' => '$data->getStatus()',
                                                                'filter' => CHtml::activeDropDownList($model, 'status', $model->getTypeList())
                                                            ),
-                                                           'creationDate',
-                                                           'changeDate',
+                                                           'creation_date',
+                                                           'change_date',
                                                            array(
                                                                'class' => 'CButtonColumn',
                                                            ),

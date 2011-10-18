@@ -26,7 +26,7 @@ class RecoveryAction extends CAction
                         $recovery = new RecoveryPassword();
 
                         $recovery->setAttributes(array(
-                                                      'userId' => $user->id,
+                                                      'user_id' => $user->id,
                                                       'code' => $recovery->generateRecoveryCode($user->id)
                                                  ));
 
@@ -51,7 +51,7 @@ class RecoveryAction extends CAction
                         $recovery = new RecoveryPassword();
 
                         $recovery->setAttributes(array(
-                                                      'userId' => $user->id,
+                                                      'user_id' => $user->id,
                                                       'code' => $recovery->generateRecoveryCode($user->id)
                                                  ));
 

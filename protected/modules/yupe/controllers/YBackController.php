@@ -16,10 +16,7 @@ class YBackController extends Controller
     {
         $module = Yii::app()->getModule('yupe');
         $this->layout = $module->backendLayout;
-        $jqueryslidemenupath = Yii::app()->assetManager->publish($module->basePath . '/web/jqueryslidemenu/');
-        $chosen = Yii::app()->assetManager->publish($module->basePath . '/web/harvesthq/chosen/');
-        Yii::app()->clientScript->registerCssFile($chosen . '/chosen.css');
-        Yii::app()->clientScript->registerScriptFile($chosen . '/chosen.jquery.min.js');
+        $jqueryslidemenupath = Yii::app()->assetManager->publish($module->basePath . '/web/jqueryslidemenu/');        
         Yii::app()->clientScript->registerCssFile($jqueryslidemenupath . '/jqueryslidemenu.css');
         Yii::app()->clientScript->registerCoreScript('jquery');
         Yii::app()->clientScript->registerCoreScript('jquery.ui');
@@ -31,6 +28,3 @@ class YBackController extends Controller
         $this->setPageTitle(Yii::t('yupe', 'Панель управления'));
     }
 }
-
-?>
-

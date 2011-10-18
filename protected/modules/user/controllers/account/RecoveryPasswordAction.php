@@ -31,7 +31,7 @@ class RecoveryPasswordAction extends CAction
             $transaction = Yii::app()->db->beginTransaction();
             try
             {
-                if ($recovery->user->save() && RecoveryPassword::model()->deleteAll('userId = :userId', array(':userId' => $recovery->user->id)))
+                if ($recovery->user->save() && RecoveryPassword::model()->deleteAll('user_id = :user_id', array(':user_id' => $recovery->user->id)))
                 {
                     $transaction->commit();
                     $emailBody = $this->controller->renderPartial('application.modules.user.views.email.passwordAutoRecoverySuccessEmail', array('model' => $recovery->user, 'password' => $newPassword), true);
@@ -69,7 +69,7 @@ class RecoveryPasswordAction extends CAction
                     $recovery->user->password = Registration::model()->hashPassword($changePasswordForm->password, $recovery->user->salt);
 
                     // удалить все запросы на восстановление для данного пользователя                       
-                    if ($recovery->user->save() && RecoveryPassword::model()->deleteAll('userId = :userId', array(':userId' => $recovery->user->id)))
+                    if ($recovery->user->save() && RecoveryPassword::model()->deleteAll('user_id = :user_id', array(':user_id' => $recovery->user->id)))
                     {
                         $transaction->commit();
                         Yii::app()->user->setFlash(YFlashMessages::NOTICE_MESSAGE, Yii::t('user', 'Пароль изменен!'));

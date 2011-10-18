@@ -11,13 +11,13 @@
     </div>
 
     <div class="row">
-        <?php echo $form->label($model, 'creationDate'); ?>
-        <?php echo $form->textField($model, 'creationDate'); ?>
+        <?php echo $form->label($model, 'creation_date'); ?>
+        <?php echo $form->textField($model, 'creation_date'); ?>
     </div>
 
     <div class="row">
-        <?php echo $form->label($model, 'changeDate'); ?>
-        <?php echo $form->textField($model, 'changeDate'); ?>
+        <?php echo $form->label($model, 'change_date'); ?>
+        <?php echo $form->textField($model, 'change_date'); ?>
     </div>
 
     <div class="row">
@@ -36,13 +36,13 @@
     </div>
 
     <div class="row">
-        <?php echo $form->label($model, 'shortText'); ?>
-        <?php echo $form->textField($model, 'shortText', array('size' => 60, 'maxlength' => 400)); ?>
+        <?php echo $form->label($model, 'short_text'); ?>
+        <?php echo $form->textField($model, 'short_text', array('size' => 60, 'maxlength' => 400)); ?>
     </div>
 
     <div class="row">
-        <?php echo $form->label($model, 'fullText'); ?>
-        <?php echo $form->textArea($model, 'fullText', array('rows' => 6, 'cols' => 50)); ?>
+        <?php echo $form->label($model, 'full_text'); ?>
+        <?php echo $form->textArea($model, 'full_text', array('rows' => 6, 'cols' => 50)); ?>
     </div>
 
     <div class="row">
@@ -51,8 +51,8 @@
     </div>
 
     <div class="row">
-        <?php echo $form->label($model, 'isProtected'); ?>
-        <?php echo $form->checkBox($model, 'isProtected', $model->getProtectedStatusList()); ?>
+        <?php echo $form->label($model, 'is_protected'); ?>
+        <?php echo $form->checkBox($model, 'is_protected', $model->getProtectedStatusList()); ?>
     </div>
 
     <div class="row buttons">

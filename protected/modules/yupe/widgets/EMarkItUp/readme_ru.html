@@ -1,72 +1,47 @@
 <!doctype html>
 <html>
 <head>
-<meta http-equiv="X-UA-Compatible" content="IE=Edge"/>
-<meta charset="utf-8"/>
-<title>Markitup widget
-    - yiiext</title>
-<style type="text/css">
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
+    <meta charset="utf-8" />
+    <title>Markitup widget
+ - yiiext</title>
+    <style type="text/css">
     /* Meyer's reset */
-html, body, div, span, applet, object, iframe,
-h1, h2, h3, h4, h5, h6, p, blockquote, pre,
-a, abbr, acronym, address, big, cite, code,
-del, dfn, em, font, img, ins, kbd, q, s, samp,
-small, strike, strong, sub, sup, tt, var,
-b, u, i, center,
-dl, dt, dd, ol, ul, li,
-fieldset, form, label, legend,
-table, caption, tbody, tfoot, thead, tr, th, td {
-    margin: 0;
-    padding: 0;
-    border: 0;
-    outline: 0;
-    font-size: 100%;
-    vertical-align: baseline;
-    background: transparent;
-}
-
-body {
-    line-height: 1;
-}
-
-ol, ul {
-    list-style: none;
-}
-
-blockquote, q {
-    quotes: none;
-}
-
-blockquote:before, blockquote:after,
-q:before, q:after {
-    content: '';
-    content: none;
-}
+    html, body, div, span, applet, object, iframe,
+    h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+    a, abbr, acronym, address, big, cite, code,
+    del, dfn, em, font, img, ins, kbd, q, s, samp,
+    small, strike, strong, sub, sup, tt, var,
+    b, u, i, center,
+    dl, dt, dd, ol, ul, li,
+    fieldset, form, label, legend,
+    table, caption, tbody, tfoot, thead, tr, th, td {
+        margin: 0; padding: 0;
+        border: 0; outline: 0;
+        font-size: 100%;
+        vertical-align: baseline;
+        background: transparent;
+    }
+    body { line-height: 1; }
+    ol, ul { list-style: none; }
+    blockquote, q { quotes: none; }
+    blockquote:before, blockquote:after,
+    q:before, q:after { content: ''; content: none; }
 
     /* remember to define focus styles! */
-:focus {
-    outline: 0;
-}
+    :focus { outline: 0; }
 
     /* remember to highlight inserts somehow! */
-ins {
-    text-decoration: none;
-}
-
-del {
-    text-decoration: line-through;
-}
+    ins { text-decoration: none; }
+    del { text-decoration: line-through; }
 
     /* tables still need 'cellspacing="0"' in the markup */
-table {
-    border-collapse: collapse;
-    border-spacing: 0;
-}
+    table { border-collapse: collapse; border-spacing: 0; }
 
-    /*
-    yiiext CSS
-    Alexander Makarov, sam@rmcreative.ru
-    */
+/*
+yiiext CSS
+Alexander Makarov, sam@rmcreative.ru
+*/
 body {
     font: normal 10pt Arial, Helvetica, sans-serif;
     background: #fff;
@@ -152,7 +127,7 @@ hr {
     background: #fff;
 }
 
-    /* guide content */
+/* guide content */
 div.image {
     -moz-border-radius: 7px;
     -webkit-border-radius: 7px;
@@ -206,7 +181,7 @@ span.type {
     font-weight: bold;
 }
 
-    /* code */
+/* code */
 pre {
     display: block;
     padding: 1em;
@@ -225,9 +200,9 @@ code {
     color: #666;
 }
 
-    /* --- code highlighting --- */
+/* --- code highlighting --- */
 
-    /* html-code */
+/* html-code */
 .html-hl-brackets,
 .html-hl-reserved {
     color: #0000e6;
@@ -240,7 +215,7 @@ code {
     color: #009933;
 }
 
-    /* php-code */
+/* php-code */
 .php-hl-inlinetags {
     font-weight: bold;
 }
@@ -262,7 +237,7 @@ code {
     color: #00e;
 }
 
-    /* css-code */
+/* css-code */
 .css-hl-identifier {
     color: #007c00;
     font-weight: bold;
@@ -272,7 +247,7 @@ code {
     color: #0000e6;
 }
 
-    /* css-sql */
+/* css-sql */
 .sql-hl-reserved {
     color: #0000e6;
 }
@@ -288,58 +263,30 @@ code {
 .sql-hl-quotes, .sql-hl-string {
     color: #007c00;
 }
-</style>
+    </style>
 </head>
 <body>
-<div id="content">
-    <h1>Markitup widget</h1>
+    <div id="content">
+        <h1>Markitup widget</h1>
 
-    <p>Позволяет использовать <a
-            href="http://markitup.jaysalvat.com/">markItUp</a> как виджет формы.
-    </p>
+<p>Позволяет использовать <a href="http://markitup.jaysalvat.com/">markItUp</a> как виджет формы.</p>
 
-    <h2>Установка</h2>
+<h2>Установка</h2>
 
-    <p>Распаковать в <code>protected/extensions</code>.</p>
+<p>Распаковать в <code>protected/extensions</code>.</p>
 
-    <h2>Использование</h2>
+<h2>Использование</h2>
 
-    <div class="hl-code">
-        <div class="php-hl-main"><pre><span
-                class="php-hl-inlinetags">&lt;?php</span> <span
-                class="php-hl-var">$this</span><span
-                class="php-hl-code">-&gt;</span><span class="php-hl-identifier">widget</span><span
-                class="php-hl-brackets">(</span><span
-                class="php-hl-quotes">'</span><span class="php-hl-string">ext.yiiext.widgets.markitup.EMarkitupWidget</span><span
-                class="php-hl-quotes">'</span><span
-                class="php-hl-code">, </span><span
-                class="php-hl-reserved">array</span><span
-                class="php-hl-brackets">(</span>
+<div class="hl-code"><div class="php-hl-main"><pre><span class="php-hl-inlinetags">&lt;?php</span> <span class="php-hl-var">$this</span><span class="php-hl-code">-&gt;</span><span class="php-hl-identifier">widget</span><span class="php-hl-brackets">(</span><span class="php-hl-quotes">'</span><span class="php-hl-string">ext.yiiext.widgets.markitup.EMarkitupWidget</span><span class="php-hl-quotes">'</span><span class="php-hl-code">, </span><span class="php-hl-reserved">array</span><span class="php-hl-brackets">(</span>
     <span class="php-hl-comment">//</span><span class="php-hl-comment"> можно использовать как для поля модели</span>
-    <span class="php-hl-quotes">'</span><span class="php-hl-string">model</span><span
-                    class="php-hl-quotes">'</span><span class="php-hl-code"> =&gt; </span><span
-                    class="php-hl-var">$my_model</span><span
-                    class="php-hl-code">,
-    </span><span class="php-hl-quotes">'</span><span class="php-hl-string">attribute</span><span
-                    class="php-hl-quotes">'</span><span class="php-hl-code"> =&gt; </span><span
-                    class="php-hl-quotes">'</span><span class="php-hl-string">my_field</span><span
-                    class="php-hl-quotes">'</span><span class="php-hl-code">,
+    <span class="php-hl-quotes">'</span><span class="php-hl-string">model</span><span class="php-hl-quotes">'</span><span class="php-hl-code"> =&gt; </span><span class="php-hl-var">$my_model</span><span class="php-hl-code">,
+    </span><span class="php-hl-quotes">'</span><span class="php-hl-string">attribute</span><span class="php-hl-quotes">'</span><span class="php-hl-code"> =&gt; </span><span class="php-hl-quotes">'</span><span class="php-hl-string">my_field</span><span class="php-hl-quotes">'</span><span class="php-hl-code">,
  
     </span><span class="php-hl-comment">//</span><span class="php-hl-comment"> так и просто для элемента формы</span>
-    <span class="php-hl-quotes">'</span><span
-                    class="php-hl-string">name</span><span
-                    class="php-hl-quotes">'</span><span
-                    class="php-hl-code"> =&gt; </span><span
-                    class="php-hl-quotes">'</span><span class="php-hl-string">my_input_name</span><span
-                    class="php-hl-quotes">'</span><span class="php-hl-code">,
-</span><span class="php-hl-brackets">)</span><span
-                    class="php-hl-brackets">)</span><span
-                    class="php-hl-inlinetags">?&gt;</span></pre>
-        </div>
+    <span class="php-hl-quotes">'</span><span class="php-hl-string">name</span><span class="php-hl-quotes">'</span><span class="php-hl-code"> =&gt; </span><span class="php-hl-quotes">'</span><span class="php-hl-string">my_input_name</span><span class="php-hl-quotes">'</span><span class="php-hl-code">,
+</span><span class="php-hl-brackets">)</span><span class="php-hl-brackets">)</span><span class="php-hl-inlinetags">?&gt;</span></pre></div></div>
+        <hr />
+        <p style="text-align: right;">© 2009 — 2011, <a href="http://code.google.com/p/yiiext/">yiiext team</a>.</p>        
     </div>
-    <hr/>
-    <p style="text-align: right;">© 2009 — 2011, <a
-            href="http://code.google.com/p/yiiext/">yiiext team</a>.</p>
-</div>
 </body>
 </html>

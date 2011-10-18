@@ -12,15 +12,15 @@ class DefaultController extends Controller
         $this->alreadyInstalledFlag = Yii::app()->basePath . DIRECTORY_SEPARATOR . 'config' . DIRECTORY_SEPARATOR . '.ai';
     }
 
-    protected function beforeAction()
+    protected function beforeAction($action)
     {
         // проверка на то, что сайт уже установлен...
-        if (file_exists($this->alreadyInstalledFlag) && $this->action->id != 'finish')
+        if (file_exists($this->alreadyInstalledFlag) && $this->action->id != 'finish' && $this->action->id != 'sitesettings')
         {
-            throw new CHttpException(404, Yii::t('yupe', 'Страница не найдена!'));
+            throw new CHttpException(404, Yii::t('install', 'Страница не найдена!'));
         }
 
-        return true;
+        return parent::beforeAction($action);
     }
 
     public function actionIndex()
@@ -141,7 +141,7 @@ class DefaultController extends Controller
     {
         $this->stepName = Yii::t('install', 'Шаг третий : "Соединение с базой данных"');
 
-        $dbConfFile = Yii::app()->basePath . DIRECTORY_SEPARATOR . 'config' . DIRECTORY_SEPARATOR . 'dbParams.php';
+        $dbConfFile = Yii::app()->basePath . DIRECTORY_SEPARATOR . 'config' . DIRECTORY_SEPARATOR . 'db.php';
 
         $sqlDataDir = $this->module->basePath . DIRECTORY_SEPARATOR . 'data' . DIRECTORY_SEPARATOR;
 
@@ -192,6 +192,7 @@ class DefaultController extends Controller
                     }
                     else
                     {
+                        //@TODO корректная обработка ошибок IO
                         fwrite($fh, $dbConfString);
 
                         fclose($fh);
@@ -200,9 +201,11 @@ class DefaultController extends Controller
 
                         $result = $this->executeSql($sqlFile);
 
-                        // обработать если есть все файлы с расшмрением .sql
+                        // обработать если есть все файлы с расширением .sql
                         $sqlFiles = glob("{$sqlDataDir}*.sql");
 
+
+                        //@TODO завернуть это все в транзакцию  
                         if (is_array($sqlFiles) && count($sqlFiles) > 1)
                         {
                             foreach ($sqlFiles as $file)
@@ -254,25 +257,28 @@ class DefaultController extends Controller
 
             if ($model->validate())
             {
-                $user = new User();
+                $user = new User;
 
                 $salt = Registration::model()->generateSalt();
 
                 $user->setAttributes(array(
-                                          'nickName' => $model->userName,
+                                          'nick_name' => $model->userName,
                                           'email' => $model->email,
                                           'salt' => $salt,
                                           'password' => Registration::model()->hashPassword($model->password, $salt),
-                                          'registrationDate' => new CDbExpression('NOW()'),
-                                          'registrationIp' => Yii::app()->request->userHostAddress,
-                                          'accessLevel' => User::ACCESS_LEVEL_ADMIN
+                                          'registration_date' => new CDbExpression('NOW()'),
+                                          'registration_ip' => Yii::app()->request->userHostAddress,
+                                          'access_level' => User::ACCESS_LEVEL_ADMIN
                                      ));
 
                 if ($user->save())
                 {
                     Yii::app()->user->setFlash(YFlashMessages::NOTICE_MESSAGE, Yii::t('install', 'Администратор успешно создан!'));
 
-                    @touch($this->alreadyInstalledFlag);
+                    if(!@touch($this->alreadyInstalledFlag))
+                    {
+                         Yii::app()->user->setFlash(YFlashMessages::WARNING_MESSAGE, Yii::t('install', "Не удалось создать файл {file}, для избежания повторной установки, пожалуйста, создайте его самостоятельно или отключите модуль 'Install' сразу после установки!",array('{file}' => $this->alreadyInstalledFlag)));
+                    }
 
                     $this->redirect(array('/install/default/sitesettings/'));
                 }
@@ -310,10 +316,10 @@ class DefaultController extends Controller
                         $settings = new Settings();
 
                         $settings->setAttributes(array(
-                                                      'moduleId' => 'yupe',
-                                                      'paramName' => $param,
-                                                      'paramValue' => $model->$param,
-                                                      'userId' => $user[0]->id
+                                                      'module_id' => 'yupe',
+                                                      'param_name' => $param,
+                                                      'param_value' => $model->$param,
+                                                      'user_id' => $user[0]->id
                                                  ));
 
                         if ($settings->save())
@@ -363,5 +369,3 @@ class DefaultController extends Controller
     }
 
 }
-
-?>

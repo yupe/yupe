@@ -3,7 +3,7 @@
 <?php
 $this->breadcrumbs = array(
     Yii::t('user', 'Пользователи') => array('index'),
-    $model->nickName => array('view', 'id' => $model->id),
+    $model->nick_name => array('view', 'id' => $model->id),
     Yii::t('user', 'Редактирование'),
 );
 
@@ -16,6 +16,6 @@ $this->menu = array(
 ?>
 
 <h1><?php echo Yii::t('user', 'Редактирование пользователя')?>
-    "<?php echo $model->nickName; ?>"</h1>
+    "<?php echo $model->nick_name; ?>"</h1>
 
 <?php echo $this->renderPartial('_form', array('model' => $model)); ?>

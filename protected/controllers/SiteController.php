@@ -15,13 +15,14 @@ class SiteController extends YFrontController
     public function actionIndex()
     {
         $dataProvider = new CActiveDataProvider('News', array(
-                                                             'criteria' => new CDbCriteria(array(
-                                                                                                'condition' => 't.status = ' . News::STATUS_PUBLISHED,
-                                                                                                'limit' => self::NEWS_PER_PAGE,
-                                                                                                'order' => 't.creationDate DESC',
-                                                                                                'with' => 'user'
-                                                                                           ))
-                                                        ));
+             'criteria' => new CDbCriteria(array(
+                                                'condition' => 't.status = :status',
+                                                'params' => array(':status' => News::STATUS_PUBLISHED),
+                                                'limit' => self::NEWS_PER_PAGE,
+                                                'order' => 't.creation_date DESC',
+                                                'with' => 'user'
+                                           ))
+        ));
 
         $this->render('index', array('dataProvider' => $dataProvider));
     }

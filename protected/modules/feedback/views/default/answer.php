@@ -21,7 +21,7 @@ $this->menu = array(
 <?php $this->widget('zii.widgets.CDetailView', array(
                                                     'data' => $model,
                                                     'attributes' => array(
-                                                        'creationDate',
+                                                        'creation_date',
                                                         'name',
                                                         'email',
                                                         'theme',
@@ -63,9 +63,9 @@ $this->menu = array(
     </div>
 
     <div class="row">
-        <?php echo $form->labelEx($answerForm, 'isFaq'); ?>
-        <?php echo $form->checkBox($answerForm, 'isFaq'); ?>
-        <?php echo $form->error($answerForm, 'isFaq'); ?>
+        <?php echo $form->labelEx($answerForm, 'is_faq'); ?>
+        <?php echo $form->checkBox($answerForm, 'is_faq'); ?>
+        <?php echo $form->error($answerForm, 'is_faq'); ?>
     </div>
 
 

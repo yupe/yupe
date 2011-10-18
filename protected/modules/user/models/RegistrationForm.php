@@ -1,40 +1,43 @@
 <?php
 class RegistrationForm extends CFormModel
 {
-    public $nickName;
+    public $nick_name;
+
     public $email;
+
     public $password;
+    
     public $cPassword;
+
     public $verifyCode;
+
     public $about;
 
     public function rules()
     {
+        $module = Yii::app()->getModule('user');
+        
         return array(
-            array('nickName, email, password, cPassword', 'required'),
-            array('email', 'email'),
-            array('password', 'compare', 'compareAttribute' => 'cPassword', 'message' => Yii::t('user', 'Пароли не совпадают!')),
-            array('nickName, email', 'filter', 'filter' => 'trim'),
-            array('password,cPassword', 'length', 'min' => Yii::app()->getModule('user')->minPasswordLength, 'max' => Yii::app()->getModule('user')->maxPasswordLength),
-            array('verifyCode', 'YRequiredValidator', 'allowEmpty' => !Yii::app()->getModule('user')->showCaptcha),
-            array('verifyCode', 'captcha', 'allowEmpty' => !Yii::app()->getModule('user')->showCaptcha),
-            array('about', 'length', 'max' => 400)
+            array('nick_name, email','filter','filter' => 'trim'),
+            array('nick_name, email','filter','filter' => array($obj = new CHtmlPurifier(),'purify')),
+            array('nick_name, email, password, cPassword', 'required'),
+            array('nick_name','match','pattern' => '/^[A-Za-z0-9]{2,150}$/','message' => Yii::t('seeline','Неверный формат поля "{attribute}" допустимы только буквы и цифры!')),
+            array('email', 'email'),            
+            array('password, cPassword', 'length', 'min' => $module->minPasswordLength, 'max' => $module->maxPasswordLength),
+            array('password', 'compare', 'compareAttribute' => 'cPassword', 'message' => Yii::t('user', 'Пароли не совпадают!')), 
+            array('verifyCode', 'YRequiredValidator', 'allowEmpty' => !$module->showCaptcha,'message' => Yii::t('user','Код проверки не корректен!')),
+            array('verifyCode', 'captcha', 'allowEmpty' => !$module->showCaptcha),            
         );
     }
 
     public function attributeLabels()
     {
         return array(
-            'nickName' => Yii::t('user', 'Имя пользователя'),
+            'nick_name' => Yii::t('user', 'Имя пользователя'),
             'email' => Yii::t('user', 'Email'),
             'password' => Yii::t('user', 'Пароль'),
             'cPassword' => Yii::t('user', 'Подтверждение пароля'),
-            'verifyCode' => Yii::t('user', 'Код проверки'),
-            'about' => Yii::t('user', 'О себе')
+            'verifyCode' => Yii::t('user', 'Код проверки'),            
         );
     }
 }
-
-?>
-
-

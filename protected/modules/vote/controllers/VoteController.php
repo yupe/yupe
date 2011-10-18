@@ -7,11 +7,11 @@ class VoteController extends YFrontController
         {
             $modelType = Yii::app()->request->getPost('modelType');
 
-            $modelId = (int)Yii::app()->request->getPost('modelId');
+            $model_id = (int)Yii::app()->request->getPost('model_id');
 
             $value = (int)Yii::app()->request->getPost('value');
 
-            if (!$modelId || !$value || !$modelType)
+            if (!$model_id || !$value || !$modelType)
             {
                 Yii::app()->ajax->failure(Yii::t('contest', 'Произошла ошибка!'));
             }
@@ -20,7 +20,7 @@ class VoteController extends YFrontController
 
             $model->setAttributes(array(
                                        'model' => $modelType,
-                                       'modelId' => $modelId,
+                                       'model_id' => $model_id,
                                        'value' => $value
                                   ));
 

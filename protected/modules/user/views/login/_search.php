@@ -11,13 +11,13 @@
     </div>
 
     <div class="row">
-        <?php echo $form->label($model, 'userId'); ?>
-        <?php echo $form->textField($model, 'userId', array('size' => 10, 'maxlength' => 10)); ?>
+        <?php echo $form->label($model, 'user_id'); ?>
+        <?php echo $form->textField($model, 'user_id', array('size' => 10, 'maxlength' => 10)); ?>
     </div>
 
     <div class="row">
-        <?php echo $form->label($model, 'identityId'); ?>
-        <?php echo $form->textField($model, 'identityId', array('size' => 10, 'maxlength' => 10)); ?>
+        <?php echo $form->label($model, 'identity_id'); ?>
+        <?php echo $form->textField($model, 'identity_id', array('size' => 10, 'maxlength' => 10)); ?>
     </div>
 
     <div class="row">
@@ -26,8 +26,8 @@
     </div>
 
     <div class="row">
-        <?php echo $form->label($model, 'creationDate'); ?>
-        <?php echo $form->textField($model, 'creationDate'); ?>
+        <?php echo $form->label($model, 'creation_date'); ?>
+        <?php echo $form->textField($model, 'creation_date'); ?>
     </div>
 
     <div class="row buttons">

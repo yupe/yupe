@@ -3,7 +3,7 @@
 <?php
 $this->breadcrumbs = array(
     Yii::t('user', 'Пользователи') => array('index'),
-    $model->nickName,
+    $model->nick_name,
 );
 
 $this->menu = array(
@@ -17,17 +17,17 @@ $this->menu = array(
 
 <h1><?php echo Yii::t('user', 'Просмотр пользователя')?>
     "<?php echo $model->getFullName(); ?>
-    (<?php echo $model->nickName;?>)"</h1>
+    (<?php echo $model->nick_name;?>)"</h1>
 
 <?php $this->widget('zii.widgets.CDetailView', array(
                                                     'data' => $model,
                                                     'attributes' => array(
                                                         'id',
-                                                        'creationDate',
-                                                        'changeDate',
-                                                        'firstName',
-                                                        'lastName',
-                                                        'nickName',
+                                                        'creation_date',
+                                                        'change_date',
+                                                        'first_name',
+                                                        'last_name',
+                                                        'nick_name',
                                                         'email',
                                                         array(
                                                             'name' => 'gender',
@@ -40,12 +40,12 @@ $this->menu = array(
                                                             'value' => $model->getStatus()
                                                         ),
                                                         array(
-                                                            'name' => 'accessLevel',
+                                                            'name' => 'access_level',
                                                             'value' => $model->getAccessLevel()
                                                         ),
-                                                        'lastVisit',
-                                                        'registrationDate',
-                                                        'registrationIp',
-                                                        'activationIp',
+                                                        'last_visit',
+                                                        'registration_date',
+                                                        'registration_ip',
+                                                        'activation_ip',
                                                     ),
                                                )); ?>

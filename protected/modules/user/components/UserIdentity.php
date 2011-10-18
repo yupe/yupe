@@ -21,22 +21,22 @@ class UserIdentity extends CUserIdentity
         {
             // запись данных в сессию пользователя
             $this->_id = $user->id;
-            $this->username = $user->nickName;
+            $this->username = $user->nick_name;
             Yii::app()->user->setState('id', $user->id);
-            Yii::app()->user->setState('accessLevel', $user->accessLevel);
-            Yii::app()->user->setState('nickName', $user->nickName);
+            Yii::app()->user->setState('access_level', $user->access_level);
+            Yii::app()->user->setState('nick_name', $user->nick_name);
             Yii::app()->user->setState('email', $user->email);
             Yii::app()->user->setState('loginTime', time());
             // для админа в сессию запишем еще несколько значений
-            if ($user->accessLevel == User::ACCESS_LEVEL_ADMIN)
+            if ($user->access_level == User::ACCESS_LEVEL_ADMIN)
             {
                 Yii::app()->user->setState('loginAdmTime', time());
-                Yii::app()->user->setState('isAdmin', $user->accessLevel);
+                Yii::app()->user->setState('isAdmin', $user->access_level);
             }
 
             // зафиксируем время входа
-            $user->lastVisit = new CDbExpression('NOW()');
-            $user->update(array('lastVisit'));
+            $user->last_visit = new CDbExpression('NOW()');
+            $user->update(array('last_visit'));
 
             $this->errorCode = self::ERROR_NONE;
         }

@@ -55,7 +55,7 @@ class PageController extends YFrontController
         }
 
         // проверим что пользователь может просматривать эту страницу
-        if (($page->isProtected == Page::PROTECTED_YES) && !Yii::app()->user->isAuthenticated())
+        if (($page->is_protected == Page::PROTECTED_YES) && !Yii::app()->user->isAuthenticated())
         {
             Yii::app()->user->setFlash(YFlashMessages::NOTICE_MESSAGE, Yii::t('page', 'Для просмотра этой страницы Вам необходимо авторизоваться!'));
             $this->redirect(array(Yii::app()->getModule('user')->accountActivationSuccess));
@@ -79,7 +79,7 @@ class PageController extends YFrontController
      */
     public function getBreadCrumbs()
     {
-        $models = Page::model()->published()->find('id = :parentId', array(':parentId' => $this->currentPage->parentId));
+        $models = Page::model()->published()->find('id = :parent_Id', array(':parent_Id' => $this->currentPage->parent_Id));
 
         $pages = array();
 

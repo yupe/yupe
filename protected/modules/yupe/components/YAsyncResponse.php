@@ -24,6 +24,10 @@ class YAsyncResponse extends CComponent
         echo json_encode(array($this->resultParamName => $this->failure, $this->dataParamName => $data));
         Yii::app()->end();
     }
-}
 
-?>
+    public function raw($data)
+    {
+        echo json_encode($data);
+        Yii::app()->end();
+    }
+}

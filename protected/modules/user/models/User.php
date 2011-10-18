@@ -5,58 +5,56 @@
  *
  * The followings are the available columns in table '{{User}}':
  * @property integer $id
- * @property string $creationDate
- * @property string $changeDate
- * @property string $firstName
- * @property string $lastName
- * @property string $nickName
+ * @property string $creation_date
+ * @property string $change_date
+ * @property string $first_name
+ * @property string $last_name
+ * @property string $nick_name
  * @property string $email
  * @property integer $gender
  * @property string $avatar
  * @property string $password
  * @property string $salt
  * @property integer $status
- * @property integer $accessLevel
- * @property string $lastVisit
- * @property string $registrationDate
- * @property string $registrationIp
- * @property string $activationIp
+ * @property integer $access_level
+ * @property string $last_visit
+ * @property string $registration_date
+ * @property string $registration_ip
+ * @property string $activation_ip
  */
 class User extends CActiveRecord
 {
-    const GENDER_MALE = 1;
+    const GENDER_MALE   = 1;
     const GENDER_FEMALE = 2;
-    const GENDER_THING = 0;
+    const GENDER_THING  = 0;
 
     const STATUS_ACTIVE = 1;
-    const STATUS_BLOCK = 0;
+    const STATUS_BLOCK  = 0;
 
-    const ACCESS_LEVEL_USER = 0;
+    const ACCESS_LEVEL_USER  = 0;
     const ACCESS_LEVEL_ADMIN = 1;
-
 
     /**
      * @return string the associated database table name
      */
     public function tableName()
     {
-        return '{{User}}';
+        return '{{user}}';
     }
 
     public function validatePassword($password)
     {
-        if ($this->password === Registration::model()->hashPassword($password, $this->salt))
-        {
+        if ($this->password === Registration::model()->hashPassword($password, $this->salt))        
             return true;
-        }
+        
         return false;
     }
 
     public function getAccessLevel()
     {
         $data = $this->getAccessLevelsList();
-        return array_key_exists($this->accessLevel, $data)
-            ? $data[$this->accessLevel]
+        return array_key_exists($this->access_level, $data)
+            ? $data[$this->access_level]
             : Yii::t('user', 'ммм...такого доступа нет');
     }
 
@@ -64,7 +62,7 @@ class User extends CActiveRecord
     {
         return array(
             self::ACCESS_LEVEL_ADMIN => Yii::t('user', 'Администратор'),
-            self::ACCESS_LEVEL_USER => Yii::t('user', 'Пользователь')
+            self::ACCESS_LEVEL_USER  => Yii::t('user', 'Пользователь')
         );
     }
 
@@ -119,29 +117,23 @@ class User extends CActiveRecord
         // NOTE: you should only define rules for those attributes that
         // will receive user inputs.
         return array(
-            array('nickName, email, password', 'required'),
-            array('gender, status, accessLevel, useGravatar', 'numerical', 'integerOnly' => true),
-            array('firstName, lastName, nickName, email', 'length', 'max' => 150),
+            array('nick_name, first_name, last_name, email','filter','filter' => 'trim'),
+            array('nick_name, first_name, last_name, email','filter','filter' => array($obj = new CHtmlPurifier(),'purify')),
+            array('nick_name, email, password', 'required'),
+            array('nick_name','match','pattern' => '/^[A-Za-z0-9]{2,150}$/','message' => Yii::t('seeline','Неверный формат поля "{attribute}" допустимы только буквы и цифры!')),
+            array('gender, status, access_level, use_gravatar', 'numerical', 'integerOnly' => true),
+            array('first_name, last_name, nick_name, email', 'length', 'max' => 150),
             array('password, salt', 'length', 'max' => 32),
-            array('registrationIp, activationIp, registrationDate', 'length', 'max' => 20),
-            array('email', 'email'),
+            array('registration_ip, activation_ip, registration_date', 'length', 'max' => 20),            
+            array('email', 'email'),            
             array('email', 'unique', 'message' => Yii::t('user', 'Данный email уже используется другим пользователем')),
-            array('nickName', 'unique', 'message' => Yii::t('user', 'Данный ник уже используется другим пользователем')),
+            array('nick_name', 'unique', 'message' => Yii::t('user', 'Данный ник уже используется другим пользователем')),
             array('avatar', 'file', 'types' => implode(',', Yii::app()->getModule('user')->avatarExtensions), 'maxSize' => Yii::app()->getModule('user')->avatarMaxSize, 'allowEmpty' => true),
-            array('useGravatar', 'in', 'range' => array(0, 1)),
-            array('id, creationDate, changeDate, firstName, lastName, nickName, email, gender, avatar, password, salt, status, accessLevel, lastVisit, registrationDate, registrationIp, activationIp', 'safe', 'on' => 'search'),
-        );
-    }
-
-    /**
-     * @return array relational rules.
-     */
-    public function relations()
-    {
-        // NOTE: you may need to adjust the relation name and the related
-        // class name for the relations automatically generated below.
-        return array(
-            'profile' => array(self::HAS_ONE, 'Profile', 'userId')
+            array('use_gravatar', 'in', 'range' => array(0, 1)),
+            array('gender', 'in', 'range' => array(0, 1, 2)),
+            array('status', 'in', 'range' => array(0, 1)),
+            array('access_level', 'in', 'range' => array(0, 1)),
+            array('id, creation_date, change_date, first_name, last_name, nick_name, email, gender, avatar, password, salt, status, access_level, last_visit, registration_date, registration_ip, activation_ip', 'safe', 'on' => 'search'),
         );
     }
 
@@ -152,23 +144,23 @@ class User extends CActiveRecord
     {
         return array(
             'id' => Yii::t('user', 'Id'),
-            'creationDate' => Yii::t('user', 'Дата активации'),
-            'changeDate' => Yii::t('user', 'Дата изменения'),
-            'firstName' => Yii::t('user', 'Имя'),
-            'lastName' => Yii::t('user', 'Фамилия'),
-            'nickName' => Yii::t('user', 'Ник'),
+            'creation_date' => Yii::t('user', 'Дата активации'),
+            'change_date' => Yii::t('user', 'Дата изменения'),
+            'first_name' => Yii::t('user', 'Имя'),
+            'last_name' => Yii::t('user', 'Фамилия'),
+            'nick_name' => Yii::t('user', 'Ник'),
             'email' => Yii::t('user', 'Email'),
             'gender' => Yii::t('user', 'Пол'),
             'password' => Yii::t('user', 'Пароль'),
             'salt' => Yii::t('user', 'Соль'),
             'status' => Yii::t('user', 'Статус'),
-            'accessLevel' => Yii::t('user', 'Уровень доступа'),
-            'lastVisit' => Yii::t('user', 'Последний визит'),
-            'registrationDate' => Yii::t('user', 'Дата регистрации'),
-            'registrationIp' => Yii::t('user', 'Ip регистрации'),
-            'activationIp' => Yii::t('user', 'Ip активации'),
+            'access_level' => Yii::t('user', 'Уровень доступа'),
+            'last_visit' => Yii::t('user', 'Последний визит'),
+            'registration_date' => Yii::t('user', 'Дата регистрации'),
+            'registration_ip' => Yii::t('user', 'Ip регистрации'),
+            'activation_ip' => Yii::t('user', 'Ip активации'),
             'avatar' => Yii::t('user', 'Аватар'),
-            'useGravatar' => Yii::t('user', 'Граватара'),
+            'use_gravatar' => Yii::t('user', 'Граватар'),
         );
     }
 
@@ -179,15 +171,15 @@ class User extends CActiveRecord
 
         $criteria->compare('id', $this->id);
 
-        $criteria->compare('creationDate', $this->creationDate, true);
+        $criteria->compare('creation_date', $this->creation_date, true);
 
-        $criteria->compare('changeDate', $this->changeDate, true);
+        $criteria->compare('change_date', $this->change_date, true);
 
-        $criteria->compare('firstName', $this->firstName, true);
+        $criteria->compare('first_name', $this->first_name, true);
 
-        $criteria->compare('lastName', $this->lastName, true);
+        $criteria->compare('last_name', $this->last_name, true);
 
-        $criteria->compare('nickName', $this->nickName, true);
+        $criteria->compare('nick_name', $this->nick_name, true);
 
         $criteria->compare('email', $this->email, true);
 
@@ -199,64 +191,60 @@ class User extends CActiveRecord
 
         $criteria->compare('status', $this->status);
 
-        $criteria->compare('accessLevel', $this->accessLevel);
+        $criteria->compare('access_level', $this->access_level);
 
-        $criteria->compare('lastVisit', $this->lastVisit, true);
+        $criteria->compare('last_visit', $this->last_visit, true);
 
-        $criteria->compare('registrationDate', $this->registrationDate, true);
+        $criteria->compare('registration_date', $this->registration_date, true);
 
-        $criteria->compare('registrationIp', $this->registrationIp, true);
+        $criteria->compare('registration_ip', $this->registration_ip, true);
 
-        $criteria->compare('activationIp', $this->activationIp, true);
+        $criteria->compare('activation_ip', $this->activation_ip, true);
 
         return new CActiveDataProvider('User', array(
                                                     'criteria' => $criteria,
                                                ));
     }
 
-
     public function beforeSave()
-    {
-        if (parent::beforeSave())
+    {        
+        if ($this->isNewRecord)
         {
-            if ($this->isNewRecord)
-            {
-                $this->lastVisit = $this->creationDate = $this->changeDate = new CDbExpression('NOW()');
-                $this->activationIp = Yii::app()->request->userHostAddress;
-            }
-
-            return true;
+            $this->last_visit = $this->creation_date = $this->change_date = new CDbExpression('NOW()');
+            
+            $this->activation_ip = Yii::app()->request->userHostAddress;
+        }
+        else
+        {
+            $this->change_date = new CDbExpression('NOW()');
         }
 
-        return false;
+        return parent::beforeSave();
     }
-
 
     public function scopes()
     {
         return array(
             'active' => array('condition' => 'status=' . self::STATUS_ACTIVE),
             'blocked' => array('condition' => 'status=' . self::STATUS_BLOCK),
-            'admin' => array('condition' => 'accessLevel=' . self::ACCESS_LEVEL_ADMIN),
-            'user' => array('condition' => 'accessLevel=' . self::ACCESS_LEVEL_USER),
+            'admin' => array('condition' => 'access_level=' . self::ACCESS_LEVEL_ADMIN),
+            'user' => array('condition' => 'access_level=' . self::ACCESS_LEVEL_USER),
         );
     }
 
     // проверить уникальность логина по двум таблицам
-    public function checkNickNameUnique($nickName)
+    public function checkNickNameUnique($nick_name)
     {
-        $nickName = trim(strtolower($nickName));
+        $nick_name = trim(strtolower($nick_name));
 
         // проверим по таблице Registration
-        $registration = Registration::model()->find('nickName = :nickName', array(':nickName' => $nickName));
+        $registration = Registration::model()->find('nick_name = :nick_name', array(':nick_name' => $nick_name));
 
-        if (!is_null($registration))
-        {
-            return false;
-        }
+        if (!is_null($registration))        
+            return false;       
 
         // проверим по табличке User
-        $user = User::model()->find('nickName = :nickName', array(':nickName' => $nickName));
+        $user = User::model()->find('nick_name = :nick_name', array(':nick_name' => $nick_name));
 
         return is_null($user) ? true : false;
     }
@@ -269,10 +257,8 @@ class User extends CActiveRecord
         // проверим по таблице Registration
         $registration = Registration::model()->find('email = :email', array(':email' => $email));
 
-        if (!is_null($registration))
-        {
-            return false;
-        }
+        if (!is_null($registration))        
+            return false;        
 
         // проверим по табличке User
         $user = User::model()->find('email = :email', array(':email' => $email));
@@ -282,13 +268,13 @@ class User extends CActiveRecord
 
     public function getAvatar($htmlOptions = null)
     {
-        if ($this->useGravatar && $this->email)
+        if ($this->use_gravatar && $this->email)
         {
-            return CHtml::image('http://gravatar.com/avatar/' . md5($this->email), $this->nickName, $htmlOptions);
+            return CHtml::image('http://gravatar.com/avatar/' . md5($this->email), $this->nick_name, $htmlOptions);
         }
         elseif ($this->avatar)
         {
-            return CHtml::image($this->avatar, $this->nickName, $htmlOptions);
+            return CHtml::image($this->avatar, $this->nick_name, $htmlOptions);
         }
 
         return '';
@@ -296,103 +282,25 @@ class User extends CActiveRecord
 
     public function getFullName($separator = ' ')
     {
-        return $this->firstName || $this->lastName
-            ? $this->lastName . $separator . $this->firstName : $this->nickName;
+        return $this->first_name || $this->last_name
+            ? $this->last_name . $separator . $this->first_name : $this->nick_name;
     }
 
-    public function createAccount($nickName, $email, $params = null, $password = null, $salt = null)
+    public function createAccount($nick_name, $email, $password = null, $salt = null)
     {
-        $user = new User();
-
         $salt = is_null($salt) ? Registration::model()->generateSalt() : $salt;
 
-        $password = is_null($password)
-            ? Registration::model()->generateRandomPassword() : $password;
+        $password = is_null($password) ? Registration::model()->generateRandomPassword() : $password;
 
-        $user->setAttributes(array(
-                                  'nickName' => $nickName,
+        $this->setAttributes(array(
+                                  'nick_name' => $nick_name,
                                   'email' => $email,
                                   'salt' => $salt,
                                   'password' => Registration::model()->hashPassword($password, $salt),
-                                  'registrationDate' => new CDbExpression('NOW()'),
-                                  'registrationIp' => Yii::app()->request->userHostAddress
-                             ));
-
-        if (is_array($params) && count($params))
-        {
-            foreach ($params as $key => $value)
-            {
-                $user->$key = $value;
-            }
-        }
-
-        $transaction = Yii::app()->db->beginTransaction();
-
-        try
-        {
-            if ($user->save())
-            {
-                $profile = new Profile();
-
-                $profile->userId = $user->id;
-
-                if (!$profile->save())
-                {
-                    throw new CDbException($profile->getErrors());
-                }
-
-                $transaction->commit();
-
-                return $user;
-            }
-
-            $transaction->rollback();
-
-            return $user;
-        }
-        catch (CDbException $e)
-        {
-            Yii::log($e->getMessage(), CLogger::LEVEL_ERROR);
-
-            $transaction->rollback();
-        }
-
-        return false;
-    }
-
-
-    public function createSocialAccount($nickName, $email, $firstName, $secondName, $sid, $sType, $params = null)
-    {
-        $salt = Registration::model()->generateSalt();
-
-        $password = Registration::model()->hashPassword(Registration::model()->generateRandomPassword(), $salt);
-
-        $user = $this->createAccount($nickName, $email, $params, $password, $salt, $params);
-
-        if (is_object($user) && !$user->hasErrors())
-        {
-            $login = new Login();
-
-            $login->setAttributes(array(
-                                       'userId' => $user->id,
-                                       'identityId' => $sid,
-                                       'type' => $sType
-                                  ));
-
-            if (!$login->save())
-            {
-                Yii::log(print_r($login->getErrors(), true), CLogger::LEVEL_ERROR);
-
-                $user->delete();
-
-                return false;
-            }
-
-            return $login;
-        }
-
-        Yii::log(print_r($user->getErrors(), true), CLogger::LEVEL_ERROR);
-
-        return false;
-    }
+                                  'registration_date' => new CDbExpression('NOW()'),
+                                  'registration_ip' => Yii::app()->request->userHostAddress
+                             ));        
+		
+	    $this->save();                   
+    }    
 }

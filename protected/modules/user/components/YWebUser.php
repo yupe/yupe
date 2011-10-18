@@ -10,7 +10,7 @@ class YWebUser extends CWebUser
 
         $authData = $this->getAuthData();
 
-        if ($authData['nickName'] && isset($authData['accessLevel']) && $authData['loginTime'] && $authData['id'])
+        if ($authData['nick_name'] && isset($authData['access_level']) && $authData['loginTime'] && $authData['id'])
         {
 
             return true;
@@ -22,13 +22,12 @@ class YWebUser extends CWebUser
     protected function getAuthData()
     {
         return array(
-            'nickName' => Yii::app()->user->getState('nickName'),
-            'accessLevel' => (int)Yii::app()->user->getState('accessLevel'),
+            'nick_name' => Yii::app()->user->getState('nick_name'),
+            'access_level' => (int)Yii::app()->user->getState('access_level'),
             'loginTime' => Yii::app()->user->getState('loginTime'),
             'id' => (int)Yii::app()->user->getState('id')
         );
     }
-
 
     public function isSuperUser()
     {
@@ -47,12 +46,7 @@ class YWebUser extends CWebUser
         }
 
         return false;
-    }
-
-    public function getProfile()
-    {
-        return User::model()->active()->with('profile')->findByPk((int)Yii::app()->user->getId());
-    }
+    }    
 }
 
 ?>

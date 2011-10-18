@@ -11,9 +11,9 @@
 
 
     <div class="row">
-        <?php echo $form->labelEx($model, 'parentId'); ?>
-        <?php echo $form->dropDownList($model, 'parentId', $pages); ?>
-        <?php echo $form->error($model, 'parentId'); ?>
+        <?php echo $form->labelEx($model, 'parent_Id'); ?>
+        <?php echo $form->dropDownList($model, 'parent_Id', $pages); ?>
+        <?php echo $form->error($model, 'parent_Id'); ?>
     </div>
 
     <div class="row">
@@ -23,9 +23,9 @@
     </div>
 
     <div class="row">
-        <?php echo $form->labelEx($model, 'menuOrder'); ?>
-        <?php echo $form->textField($model, 'menuOrder', array('size' => 10, 'maxlength' => 10)); ?>
-        <?php echo $form->error($model, 'menuOrder'); ?>
+        <?php echo $form->labelEx($model, 'menu_order'); ?>
+        <?php echo $form->textField($model, 'menu_order', array('size' => 10, 'maxlength' => 10)); ?>
+        <?php echo $form->error($model, 'menu_order'); ?>
     </div>
 
     <div class="row">
@@ -64,9 +64,9 @@
     </div>
 
     <div class="row">
-        <?php echo $form->labelEx($model, 'isProtected'); ?>
-        <?php echo $form->checkBox($model, 'isProtected'); ?>
-        <?php echo $form->error($model, 'isProtected'); ?>
+        <?php echo $form->labelEx($model, 'is_protected'); ?>
+        <?php echo $form->checkBox($model, 'is_protected'); ?>
+        <?php echo $form->error($model, 'is_protected'); ?>
     </div>
 
     <div class="row">

@@ -14,7 +14,7 @@
 
     <?php echo $form->hiddenField($model, 'model')?>
 
-    <?php echo $form->hiddenField($model, 'modelId')?>
+    <?php echo $form->hiddenField($model, 'model_id')?>
 
     <?php echo CHtml::hiddenField('redirectTo', $redirectTo);?>
 
@@ -37,14 +37,32 @@
         <?php echo $form->error($model, 'url'); ?>
     </div>
     <?php else: ?>
-    <p><?php echo Yii::t('comment', 'От имени')?>
-        : <?php echo Yii::app()->user->getState('nickName');?></p>
+    <p><?php echo Yii::t('comment', 'От имени');?> : <?php echo Yii::app()->user->getState('nick_name');?></p>
     <?php endif;?>
+
     <div class="row">
         <?php echo $form->labelEx($model, 'text'); ?>
         <?php echo $form->textArea($model, 'text', array('rows' => 6, 'cols' => 50)); ?>
         <?php echo $form->error($model, 'text'); ?>
     </div>
+
+    <?php if (!Yii::app()->user->isAuthenticated() && extension_loaded('gd')): ?>    
+        <div class="row">
+            <?php echo $form->labelEx($model, 'verifyCode'); ?>
+            <div>
+                <?php $this->widget('CCaptcha', array(                    
+                    'captchaAction'  => '/comment/comment/captcha',           
+                    'showRefreshButton' => false,
+                    'clickableImage'    => true,         
+                )); ?>
+                <?php echo $form->textField($model, 'verifyCode'); ?>
+                
+            </div>
+            <div class="hint">
+                Введите цифры указанные на картинке
+            </div>
+        </div>        
+    <?php endif; ?>
 
     <div class="row buttons">
         <?php echo CHtml::submitButton('Добавить комментарий'); ?>

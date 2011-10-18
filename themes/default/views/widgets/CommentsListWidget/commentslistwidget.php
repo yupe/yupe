@@ -12,7 +12,7 @@
                 <?php endif;?>
             </div>
 
-            <div class="time"><?php echo $comment->creationDate;?></div>
+            <div class="time"><?php echo $comment->creation_date;?></div>
 
             <div class="content"><?php echo $comment->text;?></div>
         </div><!-- comment -->

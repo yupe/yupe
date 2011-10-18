@@ -1,0 +1,21 @@
+Перед установкой
+- Скачать фреймворк Yii http://www.yiiframework.com/download/
+- Скачать архив Юпи! https://github.com/yupe/yupe/archives/master
+- Распаковать его в каталог доступный веб-серверу (далее по тексту - yt)
+- В файле index.php прописать корректный путь к фреймворку Yii (самый первый пункт) (переменная $yii)
+- Создать каталог /yt/protected/runtime и дать права на запись для веб-сервера
+- Создать каталог /yt/assets и дать права на запись для веб-сервера
+- Дать права на запись для файла /yt/protected/config/db.php
+- Создать базу данных для Юпи!
+Ручная установка
+- Через phpmyadmin (или что-то похожее) залить основной файл дампа (/yt/protected/modules/install/data/yupe.sql)https://github.com/yupe/yupe/blob/master/protected/modules/install/data/yupe.sql
+- Выполнить скрипт https://github.com/yupe/yupe/blob/master/db/yupe_init.sql для создания учетной записи администратора (логин: admin@admin.ru, пароль: 123456)
+Автоматическая установка
+- Запустить установщик http://localhost/yt/index.php/install
+- Следовать инструкциям установщика
+После установки
+- Сообщать об ошибках и замечаниях
+- Присылать патчи
+- Разрабатывать модули
+- Рассказать друзьям о Юпи!
+- Отдыхать и наслаждаться жизнью!

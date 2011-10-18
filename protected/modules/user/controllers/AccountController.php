@@ -28,10 +28,7 @@ class AccountController extends YFrontController
             ),
             'recoveryPassword' => array(
                 'class' => 'application.modules.user.controllers.account.RecoveryPasswordAction'
-            ),
-            'profile' => array(
-                'class' => 'application.modules.user.controllers.account.ProfileAction'
-            )
+            ),            
         );
     }
 }

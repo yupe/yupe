@@ -46,9 +46,9 @@ $('.search-form form').submit(function(){
                                                                'value' => 'CHtml::image($data->file,$data->alt,array("width" =>75, "height" => 75))'
                                                            ),
                                                            'name',
-                                                           'creationDate',
+                                                           'creation_date',
                                                            array(
-                                                               'name' => 'userId',
+                                                               'name' => 'user_id',
                                                                'value' => '$data->user->getFullName()'
                                                            ),
                                                            'alt',

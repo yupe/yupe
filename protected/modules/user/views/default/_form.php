@@ -11,21 +11,21 @@
 
 
     <div class="row">
-        <?php echo $form->labelEx($model, 'firstName'); ?>
-        <?php echo $form->textField($model, 'firstName', array('size' => 25, 'maxlength' => 150)); ?>
-        <?php echo $form->error($model, 'firstName'); ?>
+        <?php echo $form->labelEx($model, 'first_name'); ?>
+        <?php echo $form->textField($model, 'first_name', array('size' => 25, 'maxlength' => 150)); ?>
+        <?php echo $form->error($model, 'first_name'); ?>
     </div>
 
     <div class="row">
-        <?php echo $form->labelEx($model, 'lastName'); ?>
-        <?php echo $form->textField($model, 'lastName', array('size' => 25, 'maxlength' => 150)); ?>
-        <?php echo $form->error($model, 'lastName'); ?>
+        <?php echo $form->labelEx($model, 'last_name'); ?>
+        <?php echo $form->textField($model, 'last_name', array('size' => 25, 'maxlength' => 150)); ?>
+        <?php echo $form->error($model, 'last_name'); ?>
     </div>
 
     <div class="row">
-        <?php echo $form->labelEx($model, 'nickName'); ?>
-        <?php echo $form->textField($model, 'nickName', array('size' => 25, 'maxlength' => 150)); ?>
-        <?php echo $form->error($model, 'nickName'); ?>
+        <?php echo $form->labelEx($model, 'nick_name'); ?>
+        <?php echo $form->textField($model, 'nick_name', array('size' => 25, 'maxlength' => 150)); ?>
+        <?php echo $form->error($model, 'nick_name'); ?>
     </div>
 
     <div class="row">
@@ -53,9 +53,9 @@
     </div>
 
     <div class="row">
-        <?php echo $form->labelEx($model, 'accessLevel'); ?>
-        <?php echo $form->dropDownList($model, 'accessLevel', $model->getAccessLevelsList()); ?>
-        <?php echo $form->error($model, 'accessLevel'); ?>
+        <?php echo $form->labelEx($model, 'access_level'); ?>
+        <?php echo $form->dropDownList($model, 'access_level', $model->getAccessLevelsList()); ?>
+        <?php echo $form->error($model, 'access_level'); ?>
     </div>
 
     <div class="row buttons">

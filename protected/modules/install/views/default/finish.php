@@ -2,6 +2,6 @@
 
 <p><?php echo Yii::t('install', 'Ваш сайт готов к работе!');?></p>
 
-<?php echo CHtml::link(Yii::t('install', 'ПЕРЕЙТИ В ПАНЕЛЬ УПРАВЛЕНИЯ ДЛЯ ДАЛЬНЕЙШЕЙ НАСТРОЙКИ ПАРАМЕТРОВ САЙТА'), array('/back/backend/')); ?>
+<?php echo CHtml::link(Yii::t('install', 'ПЕРЕЙТИ В ПАНЕЛЬ УПРАВЛЕНИЯ ДЛЯ ДАЛЬНЕЙШЕЙ НАСТРОЙКИ ПАРАМЕТРОВ САЙТА'), array('/yupe/backend/')); ?>
 
 <br><br>

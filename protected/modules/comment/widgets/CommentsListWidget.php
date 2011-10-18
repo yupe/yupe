@@ -3,21 +3,21 @@ class CommentsListWidget extends YWidget
 {
     public $model;
 
-    public $modelId;
+    public $model_id;
 
     public $commentStatus;
 
     public function init()
     {
-        if (!$this->model || !$this->modelId)
+        if (!$this->model || !$this->model_id)
         {
-            throw new CException(Yii::t('comment', 'Пожалуйста, укажите "model" и "modelId" для виджета "{widget}" !', array('{widget}' => get_class($this))));
+            throw new CException(Yii::t('comment', 'Пожалуйста, укажите "model" и "model_id" для виджета "{widget}" !', array('{widget}' => get_class($this))));
         }
 
         $this->model = is_object($this->model) ? get_class($this->model)
             : $this->model;
 
-        $this->modelId = (int)$this->modelId;
+        $this->model_id = (int)$this->model_id;
 
         $this->commentStatus = Comment::STATUS_APPROVED;
     }
@@ -25,13 +25,13 @@ class CommentsListWidget extends YWidget
     public function run()
     {
         $comments = Comment::model()->findAll(array(
-                                                   'condition' => 'model = :model AND modelId = :modelId AND status = :status',
+                                                   'condition' => 'model = :model AND model_id = :model_id AND status = :status',
                                                    'params' => array(
                                                        ':model' => $this->model,
-                                                       ':modelId' => $this->modelId,
+                                                       ':model_id' => $this->model_id,
                                                        ':status' => $this->commentStatus
                                                    ),
-                                                   'order' => 'creationDate DESC'
+                                                   'order' => 'id'
                                               ));
 
         $this->render('commentslistwidget', array('comments' => $comments));

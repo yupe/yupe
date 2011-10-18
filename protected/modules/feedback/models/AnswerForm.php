@@ -3,7 +3,7 @@ class AnswerForm extends CFormModel
 {
     public $answer;
 
-    public $isFaq;
+    public $is_faq;
 
     public $email;
 
@@ -11,7 +11,7 @@ class AnswerForm extends CFormModel
     {
         return array(
             array('answer', 'required'),
-            array('isFaq', 'in', 'range' => array(0, 1))
+            array('is_faq', 'in', 'range' => array(0, 1))
         );
     }
 
@@ -19,7 +19,7 @@ class AnswerForm extends CFormModel
     {
         return array(
             'answer' => Yii::t('feedback', 'Ответ'),
-            'isFaq' => Yii::t('feedback', 'Добавить в faq')
+            'is_faq' => Yii::t('feedback', 'Добавить в faq')
         );
     }
 }

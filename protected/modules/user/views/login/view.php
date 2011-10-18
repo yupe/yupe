@@ -20,11 +20,11 @@ $this->menu = array(
                                                     'attributes' => array(
                                                         'id',
                                                         array(
-                                                            'name' => 'userId',
-                                                            'value' => $model->user->getFullName() . " ({$model->user->nickName})"
+                                                            'name' => 'user_id',
+                                                            'value' => $model->user->getFullName() . " ({$model->user->nick_name})"
                                                         ),
-                                                        'identityId',
+                                                        'identity_id',
                                                         'type',
-                                                        'creationDate',
+                                                        'creation_date',
                                                     ),
                                                )); ?>

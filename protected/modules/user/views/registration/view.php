@@ -22,8 +22,8 @@ $this->menu = array(
                                                     'data' => $model,
                                                     'attributes' => array(
                                                         'id',
-                                                        'creationDate',
-                                                        'nickName',
+                                                        'creation_date',
+                                                        'nick_name',
                                                         'email',
                                                         'salt',
                                                         'password',

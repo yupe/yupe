@@ -4,10 +4,10 @@
  *
  * The followings are the available columns in table 'Login':
  * @property string $id
- * @property string $userId
- * @property string $identityId
+ * @property string $user_id
+ * @property string $identity_id
  * @property string $type
- * @property string $creationDate
+ * @property string $creation_date
  *
  * The followings are the available model relations:
  * @property User $user
@@ -28,7 +28,7 @@ class Login extends CActiveRecord
      */
     public function tableName()
     {
-        return '{{Login}}';
+        return '{{login}}';
     }
 
     /**
@@ -37,10 +37,10 @@ class Login extends CActiveRecord
     public function rules()
     {
         return array(
-            array('userId, identityId, type', 'required'),
-            array('userId, identityId', 'length', 'max' => 10),
+            array('user_id, identity_id, type', 'required'),
+            array('user_id, identity_id', 'length', 'max' => 10),
             array('type', 'length', 'max' => 50),
-            array('id, userId, identityId, type, creationDate', 'safe', 'on' => 'search'),
+            array('id, user_id, identity_id, type, creation_date', 'safe', 'on' => 'search'),
         );
     }
 
@@ -50,7 +50,7 @@ class Login extends CActiveRecord
         {
             if ($this->isNewRecord)
             {
-                $this->creationDate = new CDbExpression('NOW()');
+                $this->creation_date = new CDbExpression('NOW()');
             }
 
             return true;
@@ -67,7 +67,7 @@ class Login extends CActiveRecord
         // NOTE: you may need to adjust the relation name and the related
         // class name for the relations automatically generated below.
         return array(
-            'user' => array(self::BELONGS_TO, 'User', 'userId'),
+            'user' => array(self::BELONGS_TO, 'User', 'user_id'),
         );
     }
 
@@ -78,10 +78,10 @@ class Login extends CActiveRecord
     {
         return array(
             'id' => Yii::t('user', 'id'),
-            'userId' => Yii::t('user', 'Пользователь'),
-            'identityId' => Yii::t('user', 'Идентификатор'),
+            'user_id' => Yii::t('user', 'Пользователь'),
+            'identity_id' => Yii::t('user', 'Идентификатор'),
             'type' => Yii::t('user', 'Тип'),
-            'creationDate' => Yii::t('user', 'Дата создания'),
+            'creation_date' => Yii::t('user', 'Дата создания'),
         );
     }
 
@@ -97,10 +97,10 @@ class Login extends CActiveRecord
         $criteria = new CDbCriteria;
 
         $criteria->compare('id', $this->id, true);
-        $criteria->compare('userId', $this->userId, true);
-        $criteria->compare('identityId', $this->identityId, true);
+        $criteria->compare('user_id', $this->user_id, true);
+        $criteria->compare('identity_id', $this->identity_id, true);
         $criteria->compare('type', $this->type, true);
-        $criteria->compare('creationDate', $this->creationDate, true);
+        $criteria->compare('creation_date', $this->creation_date, true);
 
         return new CActiveDataProvider(get_class($this), array(
                                                               'criteria' => $criteria,

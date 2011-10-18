@@ -51,8 +51,8 @@ $('.search-form form').submit(function(){
                                                                'name' => 'status',
                                                                'value' => '$data->getStatus()'
                                                            ),
-                                                           'creationDate',
-                                                           'changeDate',
+                                                           'creation_date',
+                                                           'change_date',
                                                            array(
                                                                'class' => 'CButtonColumn',
                                                            ),

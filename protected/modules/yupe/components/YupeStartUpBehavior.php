@@ -24,5 +24,3 @@ class YupeStartUpBehavior extends CBehavior
         }
     }
 }
-
-?>

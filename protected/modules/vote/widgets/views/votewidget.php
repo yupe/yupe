@@ -1,11 +1,11 @@
 <script type='text/javascript'>
     $(document).ready(function() {
         var model = '<?php echo $this->model;?>';
-        var modelId = '<?php echo $this->modelId;?>';
+        var model_id = '<?php echo $this->model_id;?>';
         $('a.vote').click(function(event) {
             event.preventDefault();
             var value = $(this).attr('id');
-            $.post(baseUrl + '/index.php/vote/vote/addVote/', {'modelType':model,'modelId':modelId,'value':value}, function(response) {
+            $.post(baseUrl + '/index.php/vote/vote/addVote/', {'modelType':model,'model_id':model_id,'value':value}, function(response) {
                 response.result ? $('#votes').html('Ваша оценка: <b>' + value + '</b> спасибо за голос!') : alert(response.data);
             }, 'json');
         });

@@ -53,7 +53,7 @@ $this->menu = array(
                                                        'columns' => array(
                                                            'id',
                                                            array(
-                                                               'name' => 'imageId',
+                                                               'name' => 'image_id',
                                                                'type' => 'raw',
                                                                'value' => 'CHtml::image($data->image->file,$data->image->alt,array("width" => 50,"height" => 50))'
                                                            ),
@@ -69,7 +69,7 @@ $this->menu = array(
                                                                'name' => Yii::t('gallery', 'Описание'),
                                                                'value' => '$data->image->description'
                                                            ),
-                                                           'creationDate',
+                                                           'creation_date',
                                                            array(
                                                                'class' => 'CButtonColumn',
                                                                'template' => '{delete}',

@@ -23,8 +23,8 @@ $this->menu = array(
                                                     'data' => $model,
                                                     'attributes' => array(
                                                         'id',
-                                                        'creationDate',
-                                                        'changeDate',
+                                                        'creation_date',
+                                                        'change_date',
                                                         'name',
                                                         'email',
                                                         'theme',
@@ -38,9 +38,9 @@ $this->menu = array(
                                                             'value' => $model->getStatus()
                                                         ),
                                                         'answer',
-                                                        'answerDate',
+                                                        'answer_date',
                                                         array(
-                                                            'name' => 'isFaq',
+                                                            'name' => 'is_faq',
                                                             'value' => $model->getIsFaq()
                                                         ),
                                                         'ip',

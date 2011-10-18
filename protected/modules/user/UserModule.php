@@ -80,6 +80,11 @@ class UserModule extends YWebModule
         return Yii::t('user', 'Пользователи');
     }
 
+    public function getCategory()
+    {
+        return Yii::t('user', 'Пользователи');
+    }
+
     public function getDescription()
     {
         return Yii::t('user', 'Модуль для управления пользователями, регистрацией и профилями');

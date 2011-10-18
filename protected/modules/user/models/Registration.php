@@ -5,8 +5,8 @@
  *
  * The followings are the available columns in table '{{Registration}}':
  * @property integer $id
- * @property string $creationDate
- * @property string $nickName
+ * @property string $creation_date
+ * @property string $nick_name
  * @property string $email
  * @property string $salt
  * @property string $password
@@ -28,7 +28,7 @@ class Registration extends CActiveRecord
      */
     public function tableName()
     {
-        return '{{Registration}}';
+        return '{{registration}}';
     }
 
     /**
@@ -36,14 +36,17 @@ class Registration extends CActiveRecord
      */
     public function rules()
     {
-        return array(
-            array('nickName, email, password', 'required'),
-            array('nickName', 'length', 'max' => 100),
-            array('email', 'length', 'min' => 5, 'max' => 150),
+        return array(            
+            array('nick_name, email','filter','filter' => 'trim'),
+            array('nick_name, email','filter','filter' => array($obj = new CHtmlPurifier(),'purify')),
+            array('nick_name, email, password', 'required'),
+            array('nick_name, email', 'length', 'max' => 150),                        
             array('salt, password, code', 'length', 'max' => 32),
+            array('email', 'email'),            
+            array('code', 'unique', 'message' => Yii::t('user', 'Ошибка! Код активации не уникален!')),
             array('email', 'unique', 'message' => Yii::t('user', 'Данный email уже используется другим пользователем')),
-            array('nickName', 'unique', 'message' => Yii::t('user', 'Данный ник уже используется другим пользователем')),
-            array('id, creationDate, nickName, email, salt, password, code', 'safe', 'on' => 'search'),
+            array('nick_name', 'unique', 'message' => Yii::t('user', 'Данный ник уже используется другим пользователем')),
+            array('id, creation_date, nick_name, email, salt, password, code', 'safe', 'on' => 'search'),
         );
     }
 
@@ -52,8 +55,8 @@ class Registration extends CActiveRecord
     {
         return array(
             'id' => Yii::t('user', 'Id'),
-            'creationDate' => Yii::t('user', 'Дата создания'),
-            'nickName' => Yii::t('user', 'Ник'),
+            'creation_date' => Yii::t('user', 'Дата создания'),
+            'nick_name' => Yii::t('user', 'Ник'),
             'email' => Yii::t('user', 'Email'),
             'salt' => Yii::t('user', 'Соль'),
             'password' => Yii::t('user', 'Пароль'),
@@ -68,9 +71,9 @@ class Registration extends CActiveRecord
 
         $criteria->compare('id', $this->id);
 
-        $criteria->compare('creationDate', $this->creationDate, true);
+        $criteria->compare('creation_date', $this->creation_date, true);
 
-        $criteria->compare('nickName', $this->nickName, true);
+        $criteria->compare('nick_name', $this->nick_name, true);
 
         $criteria->compare('email', $this->email, true);
 
@@ -87,24 +90,17 @@ class Registration extends CActiveRecord
 
 
     public function beforeSave()
-    {
-        if (parent::beforeSave())
+    {        
+        if ($this->isNewRecord)
         {
-            if ($this->isNewRecord)
-            {
-                $this->creationDate = new CDbExpression('NOW()');
-                $this->salt = $this->generateSalt();
-                $this->password = $this->hashPassword($this->password, $this->salt);
-                $this->code = $this->generateActivationCode();
-                $this->ip = Yii::app()->request->userHostAddress;
-            }
+            $this->creation_date = new CDbExpression('NOW()');
+            $this->salt = $this->generateSalt();
+            $this->password = $this->hashPassword($this->password, $this->salt);
+            $this->code = $this->generateActivationCode();
+            $this->ip = Yii::app()->request->userHostAddress;
+        }
 
-            return true;
-        }
-        else
-        {
-            return false;
-        }
+        return parent::beforeSave();
     }
 
 
@@ -119,12 +115,12 @@ class Registration extends CActiveRecord
         return uniqid('', true);
     }
 
+
     public function generateRandomPassword($length = null)
     {
-        if (!$length)
-        {
+        if (!$length)        
             $length = Yii::app()->getModule('user')->minPasswordLength;
-        }
+        
         return substr(md5(uniqid(mt_rand(), true) . time()), 0, $length);
     }
 

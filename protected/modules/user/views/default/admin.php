@@ -9,8 +9,7 @@ $this->breadcrumbs = array(
 $this->menu = array(
     array('label' => Yii::t('user', 'Добавить пользователя'), 'url' => array('create')),
     array('label' => Yii::t('user', 'Список пользователей'), 'url' => array('index')),
-    array('label' => Yii::t('user', 'Регистрации'), 'url' => array('/user/registration/admin')),
-    array('label' => Yii::t('user', 'Профили'), 'url' => array('/user/profile/admin')),
+    array('label' => Yii::t('user', 'Регистрации'), 'url' => array('/user/registration/admin')),    
     array('label' => Yii::t('user', 'Авторизационные данные'), 'url' => array('/user/login/admin')),
 );
 
@@ -45,9 +44,9 @@ $('.search-form form').submit(function(){
                                                        'columns' => array(
                                                            'id',
                                                            array(
-                                                               'name' => 'nickName',
+                                                               'name' => 'nick_name',
                                                                'type' => 'raw',
-                                                               'value' => 'CHtml::link($data->nickName,array("/user/default/update/","id" => $data->id))'
+                                                               'value' => 'CHtml::link($data->nick_name,array("/user/default/update/","id" => $data->id))'
                                                            ),
                                                            'email',
                                                            array(
@@ -56,12 +55,12 @@ $('.search-form form').submit(function(){
                                                                'filter' => CHtml::activeDropDownList($model, 'status', $model->getStatusList())
                                                            ),
                                                            array(
-                                                               'name' => 'accessLevel',
+                                                               'name' => 'access_level',
                                                                'value' => '$data->getAccessLevel()',
                                                                'filter' => CHtml::activeDropDownList($model, 'status', $model->getAccessLevelsList())
                                                            ),
-                                                           'creationDate',
-                                                           'lastVisit',
+                                                           'creation_date',
+                                                           'last_visit',
                                                            array(
                                                                'class' => 'CButtonColumn',
                                                            ),

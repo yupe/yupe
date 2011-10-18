@@ -74,17 +74,18 @@ class DefaultController extends YBackController
 
         $model = FeedBack::model()->findbyPk($id);
 
+        if (!$model)
+        {
+            throw new CHttpException(404, Yii::t('feedback', 'Страница не найдена!'));
+        }
+
         $form = new AnswerForm();
 
         $form->setAttributes(array(
                                   'answer' => $model->answer,
-                                  'isFaq' => $model->isFaq
+                                  'is_faq' => $model->is_faq
                              ));
-
-        if (is_null($model))
-        {
-            throw new CHttpException(404, Yii::t('feedback', 'Страница не найдена!'));
-        }
+        
 
         if ($model->status == FeedBack::STATUS_ANSWER_SENDED)
         {
@@ -96,27 +97,30 @@ class DefaultController extends YBackController
             $form->setAttributes($_POST['AnswerForm']);
 
             if ($form->validate())
-            {
-                //TODO отправка сообщения и изменение статуса
-
+            {                
                 $model->setAttributes(array(
                                            'answer' => $form->answer,
-                                           'isFaq' => $form->isFaq,
-                                           'answerUser' => Yii::app()->user->getId(),
-                                           'answerDate' => new CDbExpression('NOW()'),
+                                           'is_faq' => $form->is_faq,
+                                           'answer_user' => Yii::app()->user->getId(),
+                                           'answer_date' => new CDbExpression('NOW()'),
                                            'status' => FeedBack::STATUS_ANSWER_SENDED
                                       ));
 
                 if ($model->save())
                 {
+                    //отправка ответа
+                    $body = $this->renderPartial('answerEmail',array('model' => $model));
+
+                    Yii::app()->mail->send(Yii::app()->getModule('feedback')->notifyEmailFrom, $model->email, 'RE: '.$model->theme, $body);
+
+
                     Yii::app()->user->setFlash(YFlashMessages::NOTICE_MESSAGE, Yii::t('feedback', 'Ответ на сообщение отправлен!'));
 
                     $this->redirect(array('/feedback/default/view/', 'id' => $model->id));
                 }
             }
         }
-
-
+        
         $this->render('answer', array('model' => $model, 'answerForm' => $form));
     }
 

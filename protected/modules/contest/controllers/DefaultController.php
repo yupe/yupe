@@ -152,9 +152,9 @@ class DefaultController extends YBackController
         }
     }
 
-    public function actionAddImage($contestId)
+    public function actionAddImage($contest_id)
     {
-        $contest = $this->loadModel((int)$contestId);
+        $contest = $this->loadModel((int)$contest_id);
 
         $image = new Image();
 
