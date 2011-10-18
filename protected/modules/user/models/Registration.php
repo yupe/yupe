@@ -141,7 +141,7 @@ class Registration extends CActiveRecord
 
     public function generateSalt()
     {
-        return uniqid('', true);
+        return md5(uniqid('', true));
     }
 
 

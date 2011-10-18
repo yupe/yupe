@@ -249,7 +249,7 @@ class DefaultController extends Controller
     {
         $this->stepName = Yii::t('install', 'Шаг четвертый : "Создание учетной записи администратора"');
 
-        $model = new CreateUserForm();
+        $model = new CreateUserForm;
 
         if (Yii::app()->request->isPostRequest && isset($_POST['CreateUserForm']))
         {
@@ -282,6 +282,7 @@ class DefaultController extends Controller
 
                     $this->redirect(array('/install/default/sitesettings/'));
                 }
+                //@TODO добавить вывод сообщений об ошибке сохранения
             }
         }
 
