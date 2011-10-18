@@ -87,12 +87,12 @@ class UserModule extends YWebModule
 
     public function getDescription()
     {
-        return Yii::t('user', 'Модуль для управления пользователями, регистрацией и профилями');
+        return Yii::t('user', 'Модуль для управления пользователями, регистрацией и авторизацией');
     }
 
     public function getAuthor()
     {
-        return Yii::t('user', 'Опейкин Андрей');
+        return Yii::t('user', 'xoma');
     }
 
     public function getAuthorEmail()
@@ -137,5 +137,3 @@ class UserModule extends YWebModule
         return true;        
     }
 }
-
-?>

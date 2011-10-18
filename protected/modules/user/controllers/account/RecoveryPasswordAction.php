@@ -92,5 +92,3 @@ class RecoveryPasswordAction extends CAction
         $this->controller->render('changePassword', array('model' => $changePasswordForm));
     }
 }
-
-?>

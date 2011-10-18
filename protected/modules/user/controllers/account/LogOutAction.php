@@ -8,5 +8,3 @@ class LogOutAction extends CAction
         $this->controller->redirect(array(Yii::app()->getModule('user')->logoutSuccess));
     }
 }
-
-?>

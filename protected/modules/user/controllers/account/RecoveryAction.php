@@ -3,7 +3,7 @@ class RecoveryAction extends CAction
 {
     public function run()
     {
-        $form = new RecoveryForm();
+        $form = new RecoveryForm;
 
         if (Yii::app()->request->isPostRequest && isset($_POST['RecoveryForm']))
         {
@@ -78,5 +78,3 @@ class RecoveryAction extends CAction
         $this->controller->render('recovery', array('model' => $form));
     }
 }
-
-?>

@@ -1,22 +1,12 @@
 <?php
 class ActivateAction extends CAction
 {
-    public function run()
-    {
-        $email = trim(Yii::app()->request->getQuery('email'));
-        $code = trim(Yii::app()->request->getQuery('code'));
-
-        if (!$email || !$code)
-        {
-            Yii::app()->user->setFlash(YFlashMessages::ERROR_MESSAGE, Yii::t('user', 'Ошибка активации! Переданы не все параметры! Попробуете зарегистрироваться вновь?'));
-            $this->controller->redirect(array(Yii::app()->getModule('user')->accountActivationFailure));
-        }
+    public function run($code)
+    {       
+        $code = trim($code);
 
         // пытаемся сделать выборку из таблицы регистраций
-        $registration = Registration::model()->find('email = :email AND code = :code', array(
-                                                                                            ':email' => $email,
-                                                                                            ':code' => $code
-                                                                                       ));
+        $registration = Registration::model()->find('code = :code', array(':code' => $code));
 
         if (is_null($registration))
         {
@@ -45,31 +35,26 @@ class ActivateAction extends CAction
         $transaction = Yii::app()->db->beginTransaction();
 
         try
-        {
-            // удалить запись из таблички регистраций
-            $registration->delete();
+        {            
+            // создать запись в таблице пользователей и удалить запись в таблице регистраций
 
-            // создать запись в таблице пользователей
-            $user = new User();
+            $user = new User;
 
-            $user->setAttributes(array(
-                                      'nick_name' => $registration->nick_name,
-                                      'email' => $registration->email,
-                                      'password' => $registration->password,
-                                      'salt' => $registration->salt,
-                                      'registration_date' => $registration->creation_date,
-                                      'registration_ip' => $registration->ip
-                                 ));
+            $user->setAttributes($registration->getAttributes());
 
-
-            if ($user->save())
+            if ($registration->delete() && $user->save())
             {                
                 $transaction->commit();
-                Yii::log(Yii::t('user', "Активирован аккаунт code => {code}, email => {email}!", array('{code}' => $code, '{email}' => $email)), CLogger::LEVEL_INFO, UserModule::$logCategory);
+
+                Yii::log(Yii::t('user', "Активирован аккаунт с code = {code}!", array('{code}' => $code)), CLogger::LEVEL_INFO, UserModule::$logCategory);
+
                 Yii::app()->user->setFlash(YFlashMessages::NOTICE_MESSAGE, Yii::t('user', 'Вы успешно активировали аккаунт! Теперь Вы можете войти!'));
+
                 // отправить сообщение о активации аккаунта
                 $emailBody = $this->controller->renderPartial('application.modules.user.views.email.accountActivatedEmail', array('model' => $user), true);
+
                 Yii::app()->mail->send(Yii::app()->getModule('user')->notifyEmailFrom, $user->email, Yii::t('user', 'Аккаунт активирован!'), $emailBody);
+
                 $this->controller->redirect(array(Yii::app()->getModule('user')->accountActivationSuccess));                
             }
 
@@ -79,11 +64,12 @@ class ActivateAction extends CAction
         catch (CDbException $e)
         {
             $transaction->rollback();
-            Yii::app()->user->setFlash(YFlashMessages::ERROR_MESSAGE, Yii::t('user', 'При активации аккаунта произошла ошибка! Попробуйте позже!' . $e->getMessage()));
-            Yii::log(Yii::t('user', "При активации аккаунта (code => {code}, email => {email}) произошла ошибка {error}!", array('{email}' => $email, '{code}' => $code, '{error}' => $e->getMessage())), CLogger::LEVEL_ERROR, UserModule::$logCategory);
+
+            Yii::app()->user->setFlash(YFlashMessages::ERROR_MESSAGE, Yii::t('user', 'При активации аккаунта произошла ошибка! Попробуйте позже!'));
+
+            Yii::log(Yii::t('user', "При активации аккаунта c code => {code} произошла ошибка {error}!", array('{code}' => $code, '{error}' => $e->getMessage())), CLogger::LEVEL_ERROR, UserModule::$logCategory);
+
             $this->controller->redirect(array(Yii::app()->getModule('user')->accountActivationFailure));
         }
     }
 }
-
-?>

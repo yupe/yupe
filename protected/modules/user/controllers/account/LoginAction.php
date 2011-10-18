@@ -3,9 +3,9 @@ class LoginAction extends CAction
 {
     public function run()
     {
-        $form = new LoginForm();
+        $form = new LoginForm;
 
-        if (Yii::app()->request->isPostRequest && isset($_POST['LoginForm']))
+        if (Yii::app()->request->isPostRequest && !empty($_POST['LoginForm']))
         {
             $form->setAttributes($_POST['LoginForm']);
 
@@ -24,5 +24,3 @@ class LoginAction extends CAction
         $this->controller->render('login', array('model' => $form));
     }
 }
-
-?>
