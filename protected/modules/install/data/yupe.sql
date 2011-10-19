@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Хост: localhost
--- Время создания: Окт 18 2011 г., 22:09
+-- Время создания: Окт 19 2011 г., 22:54
 -- Версия сервера: 5.1.58
 -- Версия PHP: 5.3.6-13ubuntu3.2
 
@@ -331,9 +331,9 @@ CREATE TABLE IF NOT EXISTS `recovery_password` (
   `creation_date` datetime NOT NULL,
   `code` char(32) NOT NULL,
   PRIMARY KEY (`id`),
-  KEY `index_recoverypassword_code` (`code`),
+  UNIQUE KEY `index_recoverypassword_code` (`code`),
   KEY `fk_recoverypassword_user` (`user_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=9 ;
 
 -- --------------------------------------------------------
 

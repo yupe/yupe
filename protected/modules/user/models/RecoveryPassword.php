@@ -29,6 +29,7 @@ class RecoveryPassword extends CActiveRecord
             array('user_id, code', 'required'),
             array('user_id', 'numerical', 'integerOnly' => true),
             array('code', 'length', 'max' => 32, 'min' => 32),
+            array('code','unique'),
             array('id, user_id, creation_date, code', 'safe', 'on' => 'search'),
         );
     }

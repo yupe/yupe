@@ -2,22 +2,13 @@
 class RecoveryPasswordAction extends CAction
 {
     //сброс пароля
-    public function run()
-    {
-        $code = Yii::app()->request->getQuery('code');
-
-        if (!$code)
-        {
-            Yii::log(Yii::t('user', 'Код восстановления ({code}) пароля не найден!', array('{code}' => $code)), CLogger::LEVEL_ERROR, UserModule::$logCategory);
-            Yii::app()->user->setFlash(YFlashMessages::ERROR_MESSAGE, Yii::t('user', 'Код восстановления пароля не найден! Попробуйте еще раз!'));
-            $this->controller->redirect(array('/user/account/recovery'));
-        }
-
+    public function run($code)
+    {            
         $recovery = RecoveryPassword::model()->with('user')->find('code = :code', array(':code' => $code));
 
-        if (is_null($recovery) || is_null($recovery->user))
+        if (!$recovery)
         {
-            Yii::log(Yii::t('user', 'Код восстановления ({code}) пароля не найден!', array('{code}' => $code)), CLogger::LEVEL_ERROR, UserModule::$logCategory);
+            Yii::log(Yii::t('user', 'Код восстановления пароля {code} не найден!', array('{code}' => $code)), CLogger::LEVEL_ERROR, UserModule::$logCategory);
             Yii::app()->user->setFlash(YFlashMessages::ERROR_MESSAGE, Yii::t('user', 'Код восстановления пароля не найден! Попробуйте еще раз!'));
             $this->controller->redirect(array('/user/account/recovery'));
         }
@@ -25,7 +16,6 @@ class RecoveryPasswordAction extends CAction
         // автоматическое восстановление пароля
         if (Yii::app()->getModule('user')->autoRecoveryPassword)
         {
-
             $newPassword = Registration::model()->generateRandomPassword();
             $recovery->user->password = Registration::model()->hashPassword($newPassword, $recovery->user->salt);
             $transaction = Yii::app()->db->beginTransaction();
@@ -51,8 +41,7 @@ class RecoveryPasswordAction extends CAction
         }
 
         // выбор своего пароля
-
-        $changePasswordForm = new ChangePasswordForm();
+        $changePasswordForm = new ChangePasswordForm;
 
         // если отправили фому с новым паролем
         if (Yii::app()->request->isPostRequest && isset($_POST['ChangePasswordForm']))

@@ -55,6 +55,12 @@ return array(
             ),
         ),
 
+        'request' => array(
+            'class' => 'CHttpRequest',
+            'enableCsrfValidation' => true,
+            'csrfTokenName' => 'YUPE_TOKEN'
+        ),
+
         'ajax' => array(
             'class' => 'application.modules.yupe.components.YAsyncResponse'
         ),

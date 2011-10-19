@@ -17,10 +17,8 @@ class ChangePasswordForm extends CFormModel
     public function attributeLabels()
     {
         return array(
-            'password' => Yii::t('user', 'Новый пароль'),
+            'password'  => Yii::t('user', 'Новый пароль'),
             'cPassword' => Yii::t('user', 'Новый пароль еще раз'),
         );
     }
 }
-
-?>
