@@ -1,9 +1,9 @@
 <html>
 <head>
-    <title><?php echo Yii::t('user', 'Сброс пароля для сайта "{site}".',array('{site}' => CHtml::encode(Yii::app()->name));?></title>
+    <title><?php echo Yii::t('user', 'Сброс пароля для сайта "{site}".',array('{site}' => CHtml::encode(Yii::app()->name)));?></title>
 </head>
 <body>
-<?php echo Yii::t('user', 'Сброс пароля для сайта "{site}".',array('{site}' => CHtml::encode(Yii::app()->name));?>
+<?php echo Yii::t('user', 'Сброс пароля для сайта "{site}".',array('{site}' => CHtml::encode(Yii::app()->name)));?>
 <br/>
 
 <?php echo Yii::t('user', 'Кто-то, возможно Вы, запросил сброс пароля для сайта "{site}".',array('{site}' => CHtml::encode(Yii::app()->name)));?>

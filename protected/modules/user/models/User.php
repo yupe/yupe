@@ -118,7 +118,7 @@ class User extends CActiveRecord
             array('nick_name, first_name, last_name, email','filter','filter' => 'trim'),
             array('nick_name, first_name, last_name, email','filter','filter' => array($obj = new CHtmlPurifier(),'purify')),
             array('nick_name, email, password', 'required'),
-            array('nick_name','match','pattern' => '/^[A-Za-z0-9]{2,150}$/','message' => Yii::t('seeline','Неверный формат поля "{attribute}" допустимы только буквы и цифры!')),            
+            array('nick_name','match','pattern' => '/^[A-Za-z0-9]{2,50}$/','message' => Yii::t('seeline','Неверный формат поля "{attribute}" допустимы только буквы и цифры!')),            
             array('first_name, last_name, nick_name, email', 'length', 'max' => 50),
             array('password, salt', 'length', 'max' => 32),
             array('registration_ip, activation_ip, registration_date', 'length', 'max' => 20),            

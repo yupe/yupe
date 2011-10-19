@@ -17,6 +17,7 @@ return array(
         'application.modules.user.UserModule',
 
         'application.modules.user.models.*',
+        'application.modules.user.forms.*',
         'application.modules.page.models.*',
         'application.modules.news.models.*',
         'application.modules.contentblock.models.*',

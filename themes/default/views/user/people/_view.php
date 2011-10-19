@@ -11,5 +11,5 @@
         :</b>
     <?php echo CHtml::encode($data->creation_date); ?>
     <br/>
-
+    
 </div>
