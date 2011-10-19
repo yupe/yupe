@@ -17,7 +17,7 @@ class ActivateAction extends CAction
         // процедура активации
 
         // проверить параметры пользователя по "черным спискам"
-        if (!Yii::app()->getModule('user')->isAllowedIp())
+        if (!Yii::app()->getModule('user')->isAllowedIp(Yii::app()->request->userHostAddress))
         {
             // перенаправить на экшн для фиксации невалидных ip адресов
             $this->controller->redirect(array(Yii::app()->getModule('user')->invalidIpAction));

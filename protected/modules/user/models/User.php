@@ -120,7 +120,7 @@ class User extends CActiveRecord
             array('nick_name, email, password', 'required'),
             array('nick_name','match','pattern' => '/^[A-Za-z0-9]{2,150}$/','message' => Yii::t('seeline','Неверный формат поля "{attribute}" допустимы только буквы и цифры!')),            
             array('first_name, last_name, nick_name, email', 'length', 'max' => 50),
-            array('password, salt', 'length','min' => 32, 'max' => 32),
+            array('password, salt', 'length', 'max' => 32),
             array('registration_ip, activation_ip, registration_date', 'length', 'max' => 20),            
             array('gender, status, access_level, use_gravatar', 'numerical', 'integerOnly' => true),
             array('email', 'email'),            

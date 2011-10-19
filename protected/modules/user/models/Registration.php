@@ -41,7 +41,7 @@ class Registration extends CActiveRecord
             array('nick_name, email','filter','filter' => array($obj = new CHtmlPurifier(),'purify')),
             array('nick_name, email, password', 'required'),
             array('nick_name, email', 'length', 'max' => 50),                        
-            array('salt, password, code', 'length','min' => 32, 'max' => 32),
+            array('salt, password, code', 'length', 'max' => 32),
             array('nick_name','match','pattern' => '/^[A-Za-z0-9]{2,150}$/','message' => Yii::t('user','Неверный формат поля "{attribute}" допустимы только буквы и цифры!')),
             array('email', 'email'),    
             array('email', 'unique', 'message' => Yii::t('user', 'Данный email уже используется другим пользователем')),            

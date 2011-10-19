@@ -47,12 +47,10 @@
     <?php $this->widget('zii.widgets.CBreadcrumbs', array(
                                                          'links' => $this->breadcrumbs,
                                                     )); ?><!-- breadcrumbs -->
-
+                                                    
+    <?php $this->widget('YFlashMessages');?>
     <div class="container">
-        <div class="span-19">
-
-            <?php $this->widget('YFlashMessages');?>
-
+          <div class="span-19">       
             <div id="content">
                 <?php echo $content; ?>
             </div>
