@@ -1,5 +1,4 @@
 <?php
-
 class DefaultController extends YBackController
 {
     /**

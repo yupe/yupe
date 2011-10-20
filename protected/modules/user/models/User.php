@@ -294,15 +294,15 @@ class User extends CActiveRecord
     
     public function newPassword($password)
     {
-	$salt = is_null($this->salt) ? Registration::model()->generateSalt() : $this->salt;
-	
-	$this->password = Registration::model()->hashPassword($password, $salt);
-	
-	if($this->validate(array('password')))
-	{
-	    return $this->update(array('password'));
-	}
-	
-	return false;
+    	$salt = is_null($this->salt) ? Registration::model()->generateSalt() : $this->salt;
+    	
+    	$this->password = Registration::model()->hashPassword($password, $salt);
+    	
+    	if($this->validate(array('password')))
+    	{
+    	    return $this->update(array('password'));
+    	}
+    	
+    	return false;
     }
 }

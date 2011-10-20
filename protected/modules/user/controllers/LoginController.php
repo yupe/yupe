@@ -1,5 +1,4 @@
 <?php
-
 class LoginController extends YBackController
 {
     /**

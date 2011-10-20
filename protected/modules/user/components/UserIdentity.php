@@ -1,8 +1,6 @@
 <?php
-
 class UserIdentity extends CUserIdentity
 {
-
     private $_id;
 
     public function authenticate()

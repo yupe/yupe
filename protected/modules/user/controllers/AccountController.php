@@ -32,5 +32,3 @@ class AccountController extends YFrontController
         );
     }
 }
-
-?>
