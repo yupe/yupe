@@ -43,7 +43,7 @@ return array(
         ),
         'urlManager' => array(
             'urlFormat' => 'path',
-            'showScriptName' => true,
+            'showScriptName' => false,
             'cacheID' => 'cache',
             'rules' => array(
                 '/login' => 'user/account/login',

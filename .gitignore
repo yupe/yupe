@@ -1,7 +1,6 @@
 protected/runtime
 protected/config/db.php
 .idea
-assets/
 yupe.komodoproject
 /.komodotools/
 /nbproject/

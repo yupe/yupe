@@ -8,6 +8,8 @@ class YupeModule extends YWebModule
     public $siteKeyWords;
 
     public $backendLayout = 'application.modules.yupe.views.layouts.column2';
+    
+    public $emptyLayout = 'application.modules.yupe.views.layouts.empty';
 
     public $theme;
 
