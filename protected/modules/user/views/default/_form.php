@@ -35,12 +35,6 @@
     </div>
 
     <div class="row">
-        <?php echo $form->labelEx($model, 'password'); ?>
-        <?php echo $form->passwordField($model, 'password', array('size' => 25, 'maxlength' => 30)); ?>
-        <?php echo $form->error($model, 'password'); ?>
-    </div>
-
-    <div class="row">
         <?php echo $form->labelEx($model, 'gender'); ?>
         <?php echo $form->dropDownList($model, 'gender', $model->getGendersList()); ?>
         <?php echo $form->error($model, 'gender'); ?>

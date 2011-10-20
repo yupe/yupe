@@ -6,6 +6,28 @@ class DefaultController extends YBackController
      * @var CActiveRecord the currently loaded data model instance.
      */
     private $_model;
+    
+    public function actionPwdChange($id) {
+	$model = $this->loadModel();
+	
+	if(isset($_POST['User'], $_POST['User']['password']) && $model->newPassword($_POST['User']['password']))
+	{
+	    Yii::app()->user->setFlash(YFlashMessages::NOTICE_MESSAGE, Yii::t('user', 'Пароль успешно изменен!'));
+	    $this->redirect(array('/user/default/admin'));
+	}
+	
+	if(Yii::app()->request->isAjaxRequest)
+	{
+	    $module = Yii::app()->getModule('yupe');
+	    $this->layout = $module->emptyLayout;
+	}
+	
+	$model->password = '';
+	
+	$this->render('pwdChange', array(
+	    'model' => $model,
+	));
+    }
 
     /**
      * Displays a particular model.
@@ -132,6 +154,7 @@ class DefaultController extends YBackController
     /**
      * Returns the data model based on the primary key given in the GET variable.
      * If the data model is not found, an HTTP exception will be raised.
+     * @return User
      */
     public function loadModel()
     {
