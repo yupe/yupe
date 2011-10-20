@@ -17,6 +17,7 @@ return array(
         'application.modules.user.UserModule',
 
         'application.modules.user.models.*',
+        'application.modules.user.forms.*',
         'application.modules.page.models.*',
         'application.modules.news.models.*',
         'application.modules.contentblock.models.*',
@@ -42,7 +43,7 @@ return array(
         ),
         'urlManager' => array(
             'urlFormat' => 'path',
-            'showScriptName' => true,
+            'showScriptName' => false,
             'cacheID' => 'cache',
             'rules' => array(
                 '/login' => 'user/account/login',
@@ -52,6 +53,12 @@ return array(
                 '/pages/<slug>' => 'page/page/show',
                 '/story/<title>' => 'news/news/show/'
             ),
+        ),
+
+        'request' => array(
+            'class' => 'CHttpRequest',
+            'enableCsrfValidation' => true,
+            'csrfTokenName' => 'YUPE_TOKEN'
         ),
 
         'ajax' => array(

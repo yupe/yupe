@@ -38,31 +38,48 @@ $('.search-form form').submit(function(){
                                           )); ?>
 </div><!-- search-form -->
 
-<?php $this->widget('zii.widgets.grid.CGridView', array(
-                                                       'id' => 'user-grid',
-                                                       'dataProvider' => $model->search(),
-                                                       'columns' => array(
-                                                           'id',
-                                                           array(
-                                                               'name' => 'nick_name',
-                                                               'type' => 'raw',
-                                                               'value' => 'CHtml::link($data->nick_name,array("/user/default/update/","id" => $data->id))'
-                                                           ),
-                                                           'email',
-                                                           array(
-                                                               'name' => 'status',
-                                                               'value' => '$data->getStatus()',
-                                                               'filter' => CHtml::activeDropDownList($model, 'status', $model->getStatusList())
-                                                           ),
-                                                           array(
-                                                               'name' => 'access_level',
-                                                               'value' => '$data->getAccessLevel()',
-                                                               'filter' => CHtml::activeDropDownList($model, 'status', $model->getAccessLevelsList())
-                                                           ),
-                                                           'creation_date',
-                                                           'last_visit',
-                                                           array(
-                                                               'class' => 'CButtonColumn',
-                                                           ),
-                                                       ),
-                                                  )); ?>
+<?php
+$this->widget('zii.widgets.grid.CGridView', array(
+    'id' => 'user-grid',
+    'dataProvider' => $model->search(),
+    'columns' => array(
+	'id',
+	array(
+	    'name' => 'nick_name',
+	    'type' => 'raw',
+	    'value' => 'CHtml::link($data->nick_name,array("/user/default/update/","id" => $data->id))'
+	),
+	'email',
+	array(
+	    'name' => 'status',
+	    'value' => '$data->getStatus()',
+	    'filter' => CHtml::activeDropDownList($model, 'status', $model->getStatusList())
+	),
+	array(
+	    'name' => 'access_level',
+	    'value' => '$data->getAccessLevel()',
+	    'filter' => CHtml::activeDropDownList($model, 'status', $model->getAccessLevelsList())
+	),
+	'creation_date',
+	'last_visit',
+	array(
+	    'class' => 'CButtonColumn',
+	    'template' => '{view} {update} {password} {delete}',
+	    'buttons' => array(
+		'password' => array(
+		    'label' => Yii::t('user', 'Изменить пароль'),
+		    'imageUrl' => '/images/key.png',
+		    'url' => 'array("pwdChange","id"=>$data->id)',
+		    'options' => array(
+			'class' => 'pwdChange',
+		    ),
+		),
+	    ),
+	),
+    ),
+));
+?>
+
+<?php $this->widget('ext.fancybox.EFancyBox',array(
+    'target'=>'.pwdChange',
+)); ?>

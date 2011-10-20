@@ -7,8 +7,7 @@ class PeopleController extends YFrontController
         $dataProvider = new CActiveDataProvider('User', array(
                                                              'criteria' => array(
                                                                  'condition' => 'status = :status',
-                                                                 'params' => array(':status' => User::STATUS_ACTIVE),
-                                                                 'with' => array('profile'),
+                                                                 'params' => array(':status' => User::STATUS_ACTIVE),                           
                                                                  'order' => 'last_visit DESC'
                                                              )
                                                         ));
@@ -18,5 +17,3 @@ class PeopleController extends YFrontController
                                ));
     }
 }
-
-?>
