@@ -133,6 +133,9 @@ class User extends CActiveRecord
             array('gender', 'in', 'range' => array(0, 1, 2)),
             array('status', 'in', 'range' => array(0, 1)),
             array('access_level', 'in', 'range' => array(0, 1)),
+	    
+	    array('password','match','pattern' => '/^[A-Za-z0-9]{2,32}$/','message' => Yii::t('seeline','Неверный формат поля "{attribute}" допустимы только буквы и цифры!'), 'on'=>'password'),
+	    
             array('id, creation_date, change_date, first_name, last_name, nick_name, email, gender, avatar, password, salt, status, access_level, last_visit, registration_date, registration_ip, activation_ip', 'safe', 'on' => 'search'),
         );
     }
@@ -294,12 +297,14 @@ class User extends CActiveRecord
     
     public function newPassword($password)
     {
-	$salt = is_null($this->salt) ? Registration::model()->generateSalt() : $this->salt;
-	
-	$this->password = Registration::model()->hashPassword($password, $salt);
-	
+	$this->password = $password;
+	$this->setScenario('password');
+		
 	if($this->validate(array('password')))
 	{
+	    $salt = is_null($this->salt) ? Registration::model()->generateSalt() : $this->salt;
+	    $this->password = Registration::model()->hashPassword($password, $salt);
+	    
 	    return $this->update(array('password'));
 	}
 	

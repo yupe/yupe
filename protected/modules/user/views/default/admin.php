@@ -68,7 +68,7 @@ $this->widget('zii.widgets.grid.CGridView', array(
 	    'buttons' => array(
 		'password' => array(
 		    'label' => Yii::t('user', 'Изменить пароль'),
-		    'imageUrl' => '/images/key.png',
+		    'imageUrl' => Yii::app()->baseUrl . '/images/key.png',
 		    'url' => 'array("pwdChange","id"=>$data->id)',
 		    'options' => array(
 			'class' => 'pwdChange',

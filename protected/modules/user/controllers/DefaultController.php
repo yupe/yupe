@@ -10,6 +10,8 @@ class DefaultController extends YBackController
     public function actionPwdChange($id) {
 	$model = $this->loadModel();
 	
+	print_r(Yii::app()->baseUrl);
+	
 	if(isset($_POST['User'], $_POST['User']['password']) && $model->newPassword($_POST['User']['password']))
 	{
 	    Yii::app()->user->setFlash(YFlashMessages::NOTICE_MESSAGE, Yii::t('user', 'Пароль успешно изменен!'));
