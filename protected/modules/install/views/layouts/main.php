@@ -112,9 +112,8 @@
 <div class="container" id="page">
 
     <div id="header">
-        <div
-            id="logo"><?php echo CHtml::encode(Yii::app()->name); ?> <?php echo Yii::t('install', 'Установка');?>
-            : <?php echo CHtml::encode($this->stepName);?></div>
+        <div id="logo"><?php echo Yii::t('install', 'Установка');?> <?php echo CHtml::encode(Yii::app()->name); ?>
+             <br/> <br/><?php echo CHtml::encode($this->stepName);?></div>
     </div>
     <!-- header -->
     <div id="mainmenu">
@@ -138,9 +137,8 @@
         <div class="span-5 last">
             <div id="sidebar">
                 <?php
-                                $this->beginWidget('zii.widgets.CPortlet', array(
-                                                                                'title' => '',
-                                                                           ));
+
+                $this->beginWidget('zii.widgets.CPortlet', array('title' => ''));
                 $this->widget('zii.widgets.CMenu', array(
                                                         'items' => $this->menu,
                                                         'htmlOptions' => array('class' => 'operations'),
