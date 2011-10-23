@@ -10,7 +10,7 @@ $this->breadcrumbs = array(
 $this->menu = array(
     array('label' => Yii::t('user', 'Список регистраций'), 'url' => array('index')),
     array('label' => Yii::t('user', 'Изменить регистрацию'), 'url' => array('update', 'id' => $model->id)),
-    array('label' => Yii::t('user', 'Удалить регистрацию'), 'url' => '#', 'linkOptions' => array('submit' => array('delete', 'id' => $model->id), 'confirm' => 'Are you sure you want to delete this item?')),
+    array('label' => Yii::t('user', 'Удалить регистрацию'), 'url' => '#', 'linkOptions' => array('submit' => array('delete', 'id' => $model->id), 'confirm' => 'Подтверждаете удаление ?')),
     array('label' => Yii::t('user', 'Управление регистрациями'), 'url' => array('admin')),
 );
 ?>

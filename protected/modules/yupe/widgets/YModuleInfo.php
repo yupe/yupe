@@ -5,10 +5,8 @@ class YModuleInfo extends CWidget
 
     public function init()
     {
-        if (!is_null($this->controller->module))
-        {
-            $this->module = $this->controller->module;
-        }
+        if (!$this->module && is_object($this->controller->module))                            
+            $this->module = $this->controller->module;                
     }
 
     public function run()
@@ -16,5 +14,3 @@ class YModuleInfo extends CWidget
         $this->render('moduleinfowidget', array('module' => $this->module));
     }
 }
-
-?>

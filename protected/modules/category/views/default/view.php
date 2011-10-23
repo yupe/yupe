@@ -9,7 +9,7 @@ $this->menu = array(
     array('label' => Yii::t('category', 'Добавить категорию'), 'url' => array('create')),
     array('label' => Yii::t('category', 'Список категорий'), 'url' => array('index')),
     array('label' => Yii::t('category', 'Изменить категорию'), 'url' => array('update', 'id' => $model->id)),
-    array('label' => Yii::t('category', 'Удалить категорию'), 'url' => '#', 'linkOptions' => array('submit' => array('delete', 'id' => $model->id), 'confirm' => 'Are you sure you want to delete this item?')),
+    array('label' => Yii::t('category', 'Удалить категорию'), 'url' => '#', 'linkOptions' => array('submit' => array('delete', 'id' => $model->id), 'confirm' => 'Подтверждаете удаление ?')),
     array('label' => Yii::t('category', 'Управление категориями'), 'url' => array('admin')),
 );
 ?>

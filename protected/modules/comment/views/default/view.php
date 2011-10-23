@@ -9,7 +9,7 @@ $this->menu = array(
     array('label' => Yii::t('comment', 'Список комментариев'), 'url' => array('index')),
     array('label' => Yii::t('comment', 'Добавить комментарий'), 'url' => array('create')),
     array('label' => Yii::t('comment', 'Редактировать комментарий'), 'url' => array('update', 'id' => $model->id)),
-    array('label' => Yii::t('comment', 'Удалить комментарий'), 'url' => '#', 'linkOptions' => array('submit' => array('delete', 'id' => $model->id), 'confirm' => 'Are you sure you want to delete this item?')),
+    array('label' => Yii::t('comment', 'Удалить комментарий'), 'url' => '#', 'linkOptions' => array('submit' => array('delete', 'id' => $model->id), 'confirm' => 'Подтверждаете удаление ?')),
     array('label' => Yii::t('comment', 'Управление комментариями'), 'url' => array('admin')),
 );
 ?>

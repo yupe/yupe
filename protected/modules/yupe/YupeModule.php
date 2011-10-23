@@ -78,7 +78,7 @@ class YupeModule extends YWebModule
 
     public function getAuthor()
     {
-        return Yii::t('yupe', 'Опейкин Андрей');
+        return Yii::t('yupe', 'xoma');
     }
 
     public function getAuthorEmail()

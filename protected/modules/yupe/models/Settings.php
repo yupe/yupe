@@ -40,7 +40,7 @@ class Settings extends CActiveRecord
     public function rules()
     {
         return array(
-            array('module_id, param_name, param_value', 'required'),
+            array('module_id, param_name', 'required'),
             array('module_id, param_name, param_value', 'length', 'max' => 150),
             array('user_id', 'numerical', 'integerOnly' => true),
             //array('module_id','match','pattern' => '/^[a-zA-Z0-9_\-]+$/'),
@@ -51,23 +51,14 @@ class Settings extends CActiveRecord
 
     public function beforeSave()
     {
-        if (parent::beforeSave())
-        {
-            if ($this->isNewRecord)
-            {
-                $this->creation_date = $this->change_date = new CDbExpression('NOW()');                                
-            }
-            else
-            {
-                $this->change_date = new CDbExpression('NOW()');
-            }
-            
-            $this->user_id = Yii::app()->user->getId();
+        if ($this->isNewRecord)        
+            $this->creation_date = $this->change_date = new CDbExpression('NOW()');                                        
+        else        
+            $this->change_date = new CDbExpression('NOW()');
+                
+        $this->user_id = Yii::app()->user->getId();
 
-            return true;
-        }
-
-        return false;
+        return parent::beforeSave();
     }
 
     /**

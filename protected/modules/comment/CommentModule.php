@@ -26,7 +26,7 @@ class CommentModule extends YWebModule
 
     public function getName()
     {
-        $count = Comment::model()->new()->count();
+        $count = Comment::model()->new()->cache(5)->count();
         return $count ? Yii::t('comment', 'Комментарии') . " ($count)"
             : Yii::t('comment', 'Комментарии');
     }
@@ -43,7 +43,7 @@ class CommentModule extends YWebModule
 
     public function getAuthor()
     {
-        return Yii::t('comment', 'Опейкин Андрей');
+        return Yii::t('comment', 'xoma');
     }
 
     public function getAuthorEmail()

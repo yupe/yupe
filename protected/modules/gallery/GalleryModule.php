@@ -31,7 +31,7 @@ class GalleryModule extends YWebModule
 
     public function getAuthor()
     {
-        return Yii::t('gallery', 'Опейкин Андрей');
+        return Yii::t('gallery', 'xoma');
     }
 
     public function getAuthorEmail()

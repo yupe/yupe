@@ -6,6 +6,11 @@ class BackendController extends YBackController
         $this->render('index', Yii::app()->yupe->getModules());
     }
 
+    public function actionSettings()
+    {
+        $this->render('settings');
+    }
+
     public function actionModulesettings($module)
     {
         $module = Yii::app()->getModule($module);
@@ -194,7 +199,4 @@ class BackendController extends YBackController
 
         $this->render('themesettings', array('themes' => $themes, 'theme' => $theme));
     }
-
 }
-
-?>

@@ -14,7 +14,7 @@ class VoteModule extends YWebModule
 
     public function getAuthor()
     {
-        return Yii::t('vote', 'Опейкин Андрей');
+        return Yii::t('vote', 'xoma');
     }
 
     public function getAuthorEmail()

@@ -9,7 +9,7 @@ $this->menu = array(
     array('label' => Yii::t('news', 'Добавить новость'), 'url' => array('create')),
     array('label' => Yii::t('news', 'Список новостей'), 'url' => array('index')),
     array('label' => Yii::t('news', 'Редактировать новость'), 'url' => array('update', 'id' => $model->id)),
-    array('label' => Yii::t('news', 'Удалить новость'), 'url' => '#', 'linkOptions' => array('submit' => array('delete', 'id' => $model->id), 'confirm' => 'Are you sure you want to delete this item?')),
+    array('label' => Yii::t('news', 'Удалить новость'), 'url' => '#', 'linkOptions' => array('submit' => array('delete', 'id' => $model->id), 'confirm' => 'Подтверждаете удаление ?')),
     array('label' => Yii::t('news', 'Управление новостями'), 'url' => array('admin')),
 );
 ?>

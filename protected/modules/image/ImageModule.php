@@ -73,7 +73,7 @@ class ImageModule extends YWebModule
 
     public function getAuthor()
     {
-        return Yii::t('image', 'Опейкин Андрей');
+        return Yii::t('image', 'xoma');
     }
 
     public function getAuthorEmail()

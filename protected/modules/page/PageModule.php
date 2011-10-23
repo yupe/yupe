@@ -33,7 +33,7 @@ class PageModule extends YWebModule
 
     public function getAuthor()
     {
-        return Yii::t('page', 'Опейкин Андрей');
+        return Yii::t('page', 'xoma');
     }
 
     public function getAuthorEmail()

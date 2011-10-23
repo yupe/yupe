@@ -32,7 +32,7 @@ class DictionaryModule extends YWebModule
 
     public function getAuthor()
     {
-        return Yii::t('dictionary', 'Опейкин Андрей');
+        return Yii::t('dictionary', 'xoma');
     }
 
     public function getAuthorEmail()

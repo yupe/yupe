@@ -27,7 +27,7 @@ class FeedbackModule extends YWebModule
 
     public function getName()
     {
-        $count = FeedBack::model()->new()->count();
+        $count = FeedBack::model()->new()->cache(5)->count();
         return $count ? Yii::t('feedback', 'Сообщения с сайта') . " ($count)"
             : Yii::t('feedback', 'Сообщения с сайта');
     }
@@ -44,7 +44,7 @@ class FeedbackModule extends YWebModule
 
     public function getAuthor()
     {
-        return Yii::t('feedback', 'Опейкин Андрей');
+        return Yii::t('feedback', 'xoma');
     }
 
     public function getAuthorEmail()

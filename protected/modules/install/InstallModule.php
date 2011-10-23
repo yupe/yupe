@@ -44,7 +44,7 @@ class InstallModule extends YWebModule
 
     public function getAuthor()
     {
-        return Yii::t('install', 'Опейкин Андрей');
+        return Yii::t('install', 'xoma');
     }
 
     public function getAuthorEmail()

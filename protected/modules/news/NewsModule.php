@@ -30,7 +30,7 @@ class NewsModule extends YWebModule
 
     public function getAuthor()
     {
-        return Yii::t('news', 'Опейкин Андрей');
+        return Yii::t('news', 'xoma');
     }
 
     public function getAuthorEmail()

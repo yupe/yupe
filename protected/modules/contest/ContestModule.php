@@ -14,7 +14,7 @@ class ContestModule extends YWebModule
 
     public function getAuthor()
     {
-        return Yii::t('contest', 'Опейкин Андрей');
+        return Yii::t('contest', 'xoma');
     }
 
     public function getAuthorEmail()
