@@ -307,10 +307,8 @@ class DefaultController extends Controller
                 {
                     $user = User::model()->admin()->findAll();
 
-                    if (count($user) > 1)
-                    {
-                        throw new CHttpException(500, Yii::t('install', 'Произошла ошибка при установке =('));
-                    }
+                    if (count($user) > 1)                    
+                        throw new CHttpException(500, Yii::t('install', 'Произошла ошибка при установке =('));                    
 
                     foreach (array('siteDescription', 'siteName', 'siteKeyWords') as $param)
                     {
@@ -323,19 +321,15 @@ class DefaultController extends Controller
                                                       'user_id' => $user[0]->id
                                                  ));
 
-                        if ($settings->save())
-                        {
-                            continue;
-                        }
-                        else
-                        {
-                            throw new CDbException(print_r($settings->getErrors(), true));
-                        }
+                        if ($settings->save())                        
+                            continue;                        
+                        else                        
+                            throw new CDbException(print_r($settings->getErrors(), true));                        
                     }
 
                     $transaction->commit();
 
-                    Yii::app()->user->setFlash(YFlashMessages::NOTICE_MESSAGE, Yii::t('install', 'Настройки сайта успешно сохранены!'));
+                    Yii::app()->user->setFlash(YFlashMessages::NOTICE_MESSAGE, Yii::t('install', 'Настройки сайта успешно сохранены!'));                 
 
                     $this->redirect(array('/install/default/finish/'));
                 }
