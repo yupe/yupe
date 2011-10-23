@@ -24,7 +24,7 @@
         <?php endforeach;?>
 
         <?php if (Yii::app()->user->isSuperUser()): ?>
-        <li><?php echo CHtml::link('Администрирование', array('/yupe/backend/'));?></li>
+        <li><?php echo CHtml::link('Панель управления', array('/yupe/backend/'));?></li>
         <?php endif;?>
     </ul>
 </div>

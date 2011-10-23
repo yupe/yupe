@@ -18,5 +18,3 @@ class YandexMetrika extends CWidget
                 <!-- /Yandex.Metrika counter -->';
     }
 }
-
-?>

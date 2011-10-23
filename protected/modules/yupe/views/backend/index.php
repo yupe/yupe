@@ -1,4 +1,4 @@
-<h1><?php echo Yii::t('yupe', 'Панель управления');?> <?php echo CHtml::encode(Yii::app()->name); ?></h1>
+<h1><?php echo Yii::t('yupe', 'Панель управления "{app}" !',array('{app}' => CHtml::encode(Yii::app()->name)));?></h1>
 
 <p><?php echo Yii::t('yupe', 'Добро пожаловать в панель управления Вашим сайтом!');?></p>
 
@@ -6,7 +6,10 @@
 <?php if (is_array($module->checkSelf())): ?>
     <?php $error = $module->checkSelf(); ?>
     <div class="flash-<?php echo $error['type'];?>">
-        <b><?php echo $error['message'];?></b>
+        <b><?php echo Yii::t('yupe','Модуль "{module} ({id})"',array(
+            '{module}' => $module->getName(),
+            '{id}'     => $module->id
+            ));?>:<br/> <?php echo $error['message'];?></b>
     </div>
     <?php endif; ?>
 <?php endforeach; ?>
@@ -21,7 +24,7 @@
     <b><?php echo count($modules) + count($yiiModules);?></b></p>
 
 <?php if (count($modules)): ?>
-<p><?php echo Yii::t('yupe', 'Модули разработанные специально для ');?> <?php echo CHtml::encode(Yii::app()->name);?>
+<p><?php echo Yii::t('yupe', 'Модули разработанные специально для {app} ',array('{app}' => CHtml::encode(Yii::app()->name)));?>
     (<?php echo count($modules); ?>):</p>
 <table class="items">
     <thead>
@@ -52,7 +55,7 @@
         </td>
         <td>
             <?php if ($module->getEditableParams()): ?>
-            <?php echo CHtml::link(Yii::t('yupe', 'Настройки'), array('/yupe/backend/modulesettings', 'module' => $module->getId())); ?>
+            <?php echo CHtml::link(Yii::t('yupe', 'Настройки'), array('/yupe/backend/modulesettings/', 'module' => $module->getId())); ?>
             <?php endif;?>
         </td>
         <td>

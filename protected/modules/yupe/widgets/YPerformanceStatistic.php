@@ -14,5 +14,3 @@ class YPerformanceStatistic extends CWidget
         </div>";
     }
 }
-
-?>

@@ -88,5 +88,3 @@ abstract class YWebModule extends CWebModule
         }
     }
 }
-
-?>

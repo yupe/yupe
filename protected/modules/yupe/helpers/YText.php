@@ -378,5 +378,4 @@ class YText
 
         return $str;
     }
-
 }

@@ -15,5 +15,3 @@ class YMail extends CComponent
         return mail($to, '=?UTF-8?B?' . base64_encode($theme) . '?=', $body, $headers);
     }
 }
-
-?>

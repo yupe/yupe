@@ -22,17 +22,17 @@
 
     <div class="row">
         <?php echo $form->label($model, 'name'); ?>
-        <?php echo $form->textField($model, 'name', array('size' => 60, 'maxlength' => 100)); ?>
+        <?php echo $form->textField($model, 'name'); ?>
     </div>
 
     <div class="row">
         <?php echo $form->label($model, 'email'); ?>
-        <?php echo $form->textField($model, 'email', array('size' => 60, 'maxlength' => 100)); ?>
+        <?php echo $form->textField($model, 'email'); ?>
     </div>
 
     <div class="row">
         <?php echo $form->label($model, 'theme'); ?>
-        <?php echo $form->textField($model, 'theme', array('size' => 60, 'maxlength' => 150)); ?>
+        <?php echo $form->textField($model, 'theme'); ?>
     </div>
 
     <div class="row">

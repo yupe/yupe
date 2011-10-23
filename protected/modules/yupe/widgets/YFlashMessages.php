@@ -46,5 +46,3 @@ class YFlashMessages extends CWidget
         }
     }
 }
-
-?>

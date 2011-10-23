@@ -251,7 +251,7 @@ class User extends CActiveRecord
         if(!$this->hasErrors())
         {
             // проверим по таблице Registration
-            $registration = Registration::model()->find('email = :email', array(':email' => $email));
+            $registration = Registration::model()->find('email = :email', array(':email' => $this->email));
 
             if (!is_null($registration))        
                 $this->addError('email',Yii::t('user','Email "{email}" уже используется другим пользователем!',array('{email}' => $this->email)));
