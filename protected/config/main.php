@@ -26,11 +26,12 @@ return array(
         'application.modules.vote.models.*',
 
         'application.modules.yupe.controllers.*', 
-        'application.modules.yupe.widgets.*',
-        'application.modules.yupe.widgets.ysc.*',
+        'application.modules.yupe.widgets.*',        
         'application.modules.yupe.helpers.*',
         'application.modules.yupe.models.*',        
         'application.modules.yupe.components.*',                
+
+        'application.modules.social.widgets.ysc.*',
     ),
 
     // application components
@@ -43,7 +44,7 @@ return array(
         ),
         'urlManager' => array(
             'urlFormat' => 'path',
-            'showScriptName' => false,
+            'showScriptName' => true,
             'cacheID' => 'cache',
             'rules' => array(
                 '/login' => 'user/account/login',
@@ -93,6 +94,9 @@ return array(
     ),
 
     'modules' => array(
+        'social' => array(
+            'class' => 'application.modules.social.SocialModule',
+        ),
         'comment' => array(
             'class' => 'application.modules.comment.CommentModule',
             'defaultCommentStatus' => 0

@@ -1,8 +1,9 @@
 <?php
 $this->breadcrumbs = array(
-    Yii::t('user', 'Пользователи') => array('/user/default/admin/'),
-    Yii::t('user', 'Авторизационные данные') => array('admin'),
-    Yii::t('user', 'Управление'),
+    $this->getModule('social')->getCategory() => array(''),
+    Yii::t('social', 'Социализация') => array('/social/default/'),
+    Yii::t('social', 'Авторизационные данные') => array('admin'),
+    Yii::t('social', 'Управление'),
 );
 
 $this->menu = array(
@@ -23,10 +24,10 @@ $('.search-form form').submit(function(){
 ");
 ?>
 
-<h1><?php echo Yii::t('user', 'Авторизационные данные');?></h1>
+<h1><?php echo Yii::t('social', 'Авторизационные данные');?></h1>
 
 
-<?php echo CHtml::link(Yii::t('user', 'Поиск'), '#', array('class' => 'search-button')); ?>
+<?php echo CHtml::link(Yii::t('social', 'Поиск'), '#', array('class' => 'search-button')); ?>
 <div class="search-form" style="display:none">
     <?php $this->renderPartial('_search', array(
                                                'model' => $model,
