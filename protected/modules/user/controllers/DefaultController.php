@@ -4,29 +4,29 @@ class DefaultController extends YBackController
     /**
      * @var CActiveRecord the currently loaded data model instance.
      */
-    private $_model;
-    
-    public function actionPwdChange($id)
+    private $_model;  
+
+    public function actionChangepassword($id)
     {
-    	$model = $this->loadModel();
-    	
-    	if(isset($_POST['User'], $_POST['User']['password']) && $model->newPassword($_POST['User']['password']))
-    	{
-    	    Yii::app()->user->setFlash(YFlashMessages::NOTICE_MESSAGE, Yii::t('user', 'Пароль успешно изменен!'));
+        $model = $this->loadModel();
 
-    	    $this->redirect(array('/user/default/admin'));
-    	}
-    	
-    	if(Yii::app()->request->isAjaxRequest)
-    	{
-    	    $module = Yii::app()->getModule('yupe');
+        $form = new ChangePasswordForm;
 
-    	    $this->layout = $module->emptyLayout;
-    	}
-    	
-    	$model->password = '';
-    	
-    	$this->render('pwdChange', array('model' => $model));
+        if(Yii::app()->request->isPostRequest && !empty($_POST['ChangePasswordForm']))
+        {
+            $form->setAttributes($_POST['ChangePasswordForm']);
+
+            if($form->validate() && $model->changePassword($form->password))
+            {
+                $model->changePassword($form->password);
+
+                Yii::app()->user->setFlash(YFlashMessages::NOTICE_MESSAGE, Yii::t('user', 'Пароль успешно изменен!'));
+
+                $this->redirect(array('/user/default/view/','id' => $model->id ));
+            }
+        }
+
+        $this->render('changepassword',array('model' => $model, 'changePasswordForm' => $form));
     }
 
     /**
@@ -45,39 +45,27 @@ class DefaultController extends YBackController
      */
     public function actionCreate()
     {
-        $model = new User();
+        $model = new User;
 
-        if (isset($_POST['User']))
+        if (Yii::app()->request->isPostRequest && !empty($_POST['User']))
         {
-            $transaction = Yii::app()->db->beginTransaction();
+            $model->setAttributes($_POST['User']);
 
-            try
-            {
-                $model->setAttributes($_POST['User']);
-                $model->salt = Registration::model()->generateSalt();
-                $model->password = Registration::model()->hashPassword($model->password, $model->salt);
-                $model->registration_ip = Yii::app()->request->userHostAddress;
-
-                if ($model->save())
-                {                    
-                    Yii::app()->user->setFlash(YFlashMessages::NOTICE_MESSAGE, Yii::t('user', 'Новый пользователь добавлен!'));
-					
-                    $this->redirect(array('view', 'id' => $model->id));                    
-                }
-
-            }
-            catch (CDbException $e)
-            {
-                $transaction->rollback();
-                Yii::log($e->getMessage(), CLogger::LEVEL_ERROR, UserModule::$logCategory);
-                Yii::app()->user->setFlash(YFlashMessages::ERROR_MESSAGE, $e->getMessage());
-                $this->redirect(array('create'));
-            }
+            $model->setAttributes(array(
+                'salt'     => Registration::model()->generateSalt(),
+                'password' => Registration::model()->hashPassword($model->password, $model->salt),
+                'registration_ip' => Yii::app()->request->userHostAddress
+            ));
+            
+            if ($model->save())
+            {                    
+                Yii::app()->user->setFlash(YFlashMessages::NOTICE_MESSAGE, Yii::t('user', 'Новый пользователь добавлен!'));
+                
+                $this->redirect(array('view', 'id' => $model->id));                    
+            }            
         }
 
-        $this->render('create', array(
-                                     'model' => $model,
-                                ));
+        $this->render('create', array('model' => $model,));
     }
 
     /**

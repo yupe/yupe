@@ -67,18 +67,11 @@ $this->widget('zii.widgets.grid.CGridView', array(
 	    'buttons' => array(
 		'password' => array(
 		    'label' => Yii::t('user', 'Изменить пароль'),
-		    'imageUrl' => Yii::app()->request->baseUrl.'/images/key.png',
-		    'url' => 'array("pwdChange","id"=>$data->id)',
-		    'options' => array(
-			'class' => 'pwdChange',
-		    ),
-		),
+		    'imageUrl' => Yii::app()->request->baseUrl.'/web/images/key.gif',
+		    'url' => 'array("/user/default/changepassword/","id"=>$data->id)',		   
+		 ),
 	    ),
 	),
     ),
 ));
 ?>
-
-<?php $this->widget('ext.fancybox.EFancyBox',array(
-    'target'=>'.pwdChange',
-)); ?>

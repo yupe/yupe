@@ -14,30 +14,7 @@ class RecoveryPasswordController extends YBackController
         $this->render('view', array(
                                    'model' => $this->loadModel(),
                               ));
-    }
-
-    /**
-     * Updates a particular model.
-     * If update is successful, the browser will be redirected to the 'view' page.
-     */
-    public function actionUpdate()
-    {
-        $model = $this->loadModel();
-
-        if (isset($_POST['RecoveryPassword']))
-        {
-            $model->attributes = $_POST['RecoveryPassword'];
-            if ($model->save())
-            {
-                Yii::app()->user->setFlash(YFlashMessages::NOTICE_MESSAGE, Yii::t('user', 'Данные обновлены!'));
-                $this->redirect(array('view', 'id' => $model->id));
-            }
-        }
-
-        $this->render('update', array(
-                                     'model' => $model,
-                                ));
-    }
+    }  
 
     /**
      * Deletes a particular model.

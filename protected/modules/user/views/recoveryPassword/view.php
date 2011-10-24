@@ -8,8 +8,7 @@ $this->breadcrumbs = array(
 );
 
 $this->menu = array(
-    array('label' => Yii::t('user', 'Список восстановлений пароля'), 'url' => array('index')),
-    array('label' => Yii::t('user', 'Изменить восстановление пароля'), 'url' => array('update', 'id' => $model->id)),
+    array('label' => Yii::t('user', 'Список восстановлений пароля'), 'url' => array('index')),    
     array('label' => Yii::t('user', 'Удалить восстановление пароля'), 'url' => '#', 'linkOptions' => array('submit' => array('delete', 'id' => $model->id), 'confirm' => 'Подтверждаете удаление ?')),
     array('label' => Yii::t('user', 'Управление восстановлениями пароля'), 'url' => array('admin')),
 );

@@ -2,7 +2,7 @@
 
 <?php
 $this->breadcrumbs = array(
-    Yii::t('user', 'Пользователи') => array('index'),
+    Yii::t('user', 'Пользователи') => array('admin'),
     $model->nick_name,
 );
 
@@ -12,6 +12,7 @@ $this->menu = array(
     array('label' => Yii::t('user', 'Редактирование пользователя'), 'url' => array('update', 'id' => $model->id)),
     array('label' => Yii::t('user', 'Удалить пользователя'), 'url' => '#', 'linkOptions' => array('submit' => array('delete', 'id' => $model->id), 'confirm' => 'Подтверждаете удаление ?')),
     array('label' => Yii::t('user', 'Управление пользователями'), 'url' => array('admin')),
+    array('label' => Yii::t('user', 'Изменить пароль'), 'url' => array('changepassword', 'id' => $model->id)),
 );
 ?>
 

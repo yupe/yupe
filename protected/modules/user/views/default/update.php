@@ -12,6 +12,7 @@ $this->menu = array(
     array('label' => Yii::t('user', 'Добавление пользователя'), 'url' => array('create')),
     array('label' => Yii::t('user', 'Просмотр пользователя'), 'url' => array('view', 'id' => $model->id)),
     array('label' => Yii::t('user', 'Управление пользователями'), 'url' => array('admin')),
+    array('label' => Yii::t('user', 'Изменить пароль'), 'url' => array('changepassword', 'id' => $model->id)),
 );
 ?>
 

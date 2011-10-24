@@ -47,6 +47,7 @@ $('.search-form form').submit(function(){
                                                            'code',
                                                            array(
                                                                'class' => 'CButtonColumn',
+                                                               'template' => '{view}{delete}',
                                                            ),
                                                        ),
                                                   )); ?>
