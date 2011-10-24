@@ -34,11 +34,6 @@ class VoteModule extends YWebModule
         return Yii::t('vote', 'Сервисы');
     }
 
-    public function getEditableParams()
-    {
-        return array('adminMenuOrder');
-    }
-
     public function init()
     {
         parent::init();

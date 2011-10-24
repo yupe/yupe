@@ -8,11 +8,6 @@ class ContentBlockModule extends YWebModule
         return Yii::t('contentblock', 'Контент');
     }
 
-    public function getEditableParams()
-    {
-        return array('adminMenuOrder');
-    }
-
     public function getName()
     {
         return Yii::t('contentblock', 'Блоки контента');

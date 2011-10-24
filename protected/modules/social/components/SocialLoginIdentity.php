@@ -73,5 +73,3 @@ class SocialLoginIdentity extends CBaseUserIdentity
         return $this->_id;
     }
 }
-
-?>

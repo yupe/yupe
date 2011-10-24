@@ -15,11 +15,6 @@ class DictionaryModule extends YWebModule
         return Yii::t('dictionary', 'Контент');
     }
 
-    public function getEditableParams()
-    {
-        return array('adminMenuOrder');
-    }
-
     public function getName()
     {
         return Yii::t('dictionary', 'Справочники');

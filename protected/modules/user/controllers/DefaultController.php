@@ -76,9 +76,9 @@ class DefaultController extends YBackController
     {
         $model = $this->loadModel();
 
-        if (isset($_POST['User']))
+        if (Yii::app()->request->isPostRequest && !empty($_POST['User']))
         {
-            $model->attributes = $_POST['User'];
+            $model->setAttributes($_POST['User']);
 
             if ($model->save())
             {
@@ -88,9 +88,7 @@ class DefaultController extends YBackController
             }
         }
 
-        $this->render('update', array(
-                                     'model' => $model,
-                                ));
+        $this->render('update', array('model' => $model,));
     }
 
     /**

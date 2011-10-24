@@ -16,11 +16,6 @@ class PageModule extends YWebModule
         return Yii::t('page', 'Контент');
     }
 
-    public function getEditableParams()
-    {
-        return array('adminMenuOrder');
-    }
-
     public function getName()
     {
         return Yii::t('page', 'Страницы');

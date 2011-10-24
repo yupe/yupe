@@ -28,6 +28,7 @@ class RegistrationController extends YBackController
         if (isset($_POST['Registration']))
         {
             $model->attributes = $_POST['Registration'];
+            
             if ($model->save())
             {
                 Yii::app()->user->setFlash(YFlashMessages::NOTICE_MESSAGE, Yii::t('user', 'Данные обновлены!'));

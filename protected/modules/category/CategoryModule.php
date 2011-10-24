@@ -9,15 +9,9 @@ class CategoryModule extends YWebModule
         );
     }
 
-
     public function getCategory()
     {
         return Yii::t('category', 'Контент');
-    }
-
-    public function getEditableParams()
-    {
-        return array('adminMenuOrder');
     }
 
     public function getName()

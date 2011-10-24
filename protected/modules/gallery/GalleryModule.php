@@ -12,12 +12,7 @@ class GalleryModule extends YWebModule
     public function getCategory()
     {
         return Yii::t('gallery', 'Сервисы');
-    }
-
-    public function getEditableParams()
-    {
-        return array('adminMenuOrder');
-    }
+    }   
 
     public function getName()
     {

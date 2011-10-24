@@ -32,12 +32,7 @@ class ContestModule extends YWebModule
     public function getCategory()
     {
         return Yii::t('contest', 'Сервисы');
-    }
-
-    public function getEditableParams()
-    {
-        return array('adminMenuOrder');
-    }
+    }    
 
     public function init()
     {

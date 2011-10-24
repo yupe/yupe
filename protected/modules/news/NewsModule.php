@@ -12,12 +12,7 @@ class NewsModule extends YWebModule
     {
         return Yii::t('news', 'Контент');
     }
-
-    public function getEditableParams()
-    {
-        return array('adminMenuOrder');
-    }
-
+    
     public function getName()
     {
         return Yii::t('news', 'Новости');
@@ -25,7 +20,7 @@ class NewsModule extends YWebModule
 
     public function getDescription()
     {
-        return Yii::t('news', 'Модуль для создания и редактирования новостей');
+        return Yii::t('news', 'Модуль для создания и публикации новостей');
     }
 
     public function getAuthor()
