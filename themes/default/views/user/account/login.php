@@ -40,3 +40,8 @@
 
     <?php $this->endWidget(); ?>
 </div><!-- form -->
+
+
+<?php //$this->widget('application.modules.social.extensions.eauth.EAuthWidget',array('popup' => Yii::app()->eauth->popup,'services' => Yii::app()->eauth->getServices()));?>
+
+<?php Yii::app()->eauth->renderWidget(); ?>
