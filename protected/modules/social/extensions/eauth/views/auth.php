@@ -13,24 +13,4 @@
 	}
   ?>
   </ul>
-
-  <?php
-    $cs = Yii::app()->clientScript;
-	$cs->registerCoreScript('jquery');
-	
-	$url = Yii::app()->assetManager->publish($assets_path, false, -1, YII_DEBUG);
-	$cs->registerCssFile($url.'/css/auth.css');
-
-	// Open the authorization dilalog in popup window.
-	if ($popup) {
-		$cs->registerScriptFile($url.'/js/auth.js', CClientScript::POS_HEAD);
-		$js = '';
-		foreach ($services as $name => $service) {
-			$args = $service->jsArguments;
-			$args['id'] = $service->id;
-			$js .= '$(".auth-service.'.$service->id.' a").eauth('.json_encode($args).');'."\n";
-		}
-		$cs->registerScript('eauth-services', $js, CClientScript::POS_READY);
-	}
-  ?>
 </div>

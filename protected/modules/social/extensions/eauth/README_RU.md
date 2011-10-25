@@ -1,16 +1,16 @@
 Yii EAuth extension
 ===================
 
-EAuth extension allows to authenticate users by the OpenID and OAuth providers.
+Расширение EAuth позволяет добавить на сайт авторизацию с помощью OpenID и OAuth провайдеров.
 
-Supported providers out of box:
+Поддерживаемые провайдеры "из коробки":
 
-* OpenID: Google, Yandex;
+* OpenID: Google, Яндекс;
 * OAuth: Twitter;
-* OAuth 2.0: Google, Facebook, VKontakte, Mail.ru.
+* OAuth 2.0: Google, Facebook, ВКонтакте, Mail.ru.
 
 
-### Resources
+### Ссылки
 
 * [Yii EAuth](https://github.com/Nodge/yii-eauth)
 * [Yii Framework](http://yiiframework.com/)
@@ -21,7 +21,7 @@ Supported providers out of box:
 * [EOAuth extension](http://www.yiiframework.com/extension/eoauth)
 
 
-### Requirements
+### Системные требования
 
 * Yii 1.1 or above
 * PHP curl extension
@@ -29,11 +29,11 @@ Supported providers out of box:
 * [EOAuth extension](http://www.yiiframework.com/extension/eoauth)
 
 
-## Installation
+## Установка
 
-* Install loid and EOAuth extensions
-* Extract the release file under `protected/extensions`
-* In your `protected/config/main.php`, add the following:
+* Установить расширения loid и EOAuth.
+* Распаковать расширение EAuth в директорию `protected/extensions`.
+* Добавить следующие строки в файл конфигурации `protected/config/main.php`:
 
 ```php
 <?php
@@ -51,8 +51,8 @@ Supported providers out of box:
 		),
 		'eauth' => array(
 			'class' => 'ext.eauth.EAuth',
-			'popup' => true, // Use the popup window instead of redirecting.
-			'services' => array( // You can change the providers and their classes.
+			'popup' => true, // Использовать всплывающее окно вместо перенаправления на сайт провайдера
+			'services' => array( // Вы можете настроить список провайдеров и переопределить их классы
 				'google' => array(
 					'class' => 'GoogleOpenIDService',
 				),
@@ -93,9 +93,9 @@ Supported providers out of box:
 ```
 
 
-## Usage
+## Использование
 
-#### The user identity
+#### Класс UserIdentity
 
 ```php
 <?php
@@ -137,7 +137,7 @@ class ServiceUserIdentity extends UserIdentity {
 }
 ```
 
-#### The action
+#### Действие в контроллере
 
 ```php
 <?php
@@ -152,39 +152,39 @@ class ServiceUserIdentity extends UserIdentity {
 			if ($authIdentity->authenticate()) {
 				$identity = new ServiceUserIdentity($authIdentity);
 				
-				// successful authentication
+				// успешная авторизация
 				if ($identity->authenticate()) {
 					Yii::app()->user->login($identity);
 					
-					// special redirect with closing popup window
+					// специальное перенаправления для корректного закрытия всплывающего окна
 					$authIdentity->redirect();
 				}
 				else {
-					// close popup window and redirect to cancelUrl
+					// закрытие всплывающего окна и перенаправление на cancelUrl
 					$authIdentity->cancel();
 				}
 			}
 			
-			// Something went wrong, redirect to login page
+			// авторизация не удалась, перенаправляем на страницу входа
 			$this->redirect(array('site/login'));
 		}
 		
-		// default action code...
+		// далее стандартный код авторизации по логину/паролю...
 	}
 ```
 
-#### The view
+#### Представление
 
 ```php
-<h2>Do you already have an account on one of these sites? Click the logo to log in with it here:</h2>
+<h2>Нажмите на иконку для входа через один из сайтов:</h2>
 <?php 
 	$this->widget('ext.eauth.EAuthWidget', array('action' => 'site/login'));
 ?>
 ```
 
 
-## License
+## Лицензия
 
-Some time ago I developed this extension for [LiStick.ru](http://listick.ru) and I still support the extension.
+Некоторое время назад я разработал данное расширение для своего проекта [LiStick.ru](http://listick.ru). На данный момент я продолжаю поддерживать расширение.
 
-The extension was released under the [New BSD License](http://www.opensource.org/licenses/bsd-license.php), so you'll find the latest version on [GitHub](https://github.com/Nodge/yii-eauth).
+Расширение предоставляется под лицензией [New BSD License](http://www.opensource.org/licenses/bsd-license.php), так что последнюю версию можно найти на [GitHub](https://github.com/Nodge/yii-eauth).

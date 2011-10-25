@@ -40,4 +40,15 @@ class TwitterOAuthService extends EOAuthService {
 		$this->attributes['timezone'] = timezone_name_from_abbr('', $info->utc_offset, date('I'));
 		$this->attributes['photo'] = $info->profile_image_url;*/
 	}
+	
+	/**
+	 * Authenticate the user.
+	 * @return boolean whether user was successfuly authenticated.
+	 */
+	public function authenticate() {
+		if (isset($_GET['denied']))
+			$this->cancel();
+			
+		return parent::authenticate();
+	}
 }

@@ -28,7 +28,7 @@ class EAuth extends CApplicationComponent {
 	 * For perfomance reasons it uses Yii::app()->cache to store settings array.
 	 * @return array services settings.
 	 */
-	protected function getServices() {
+	public function getServices() {
 		if (Yii::app()->hasComponent('cache'))
 			$services = Yii::app()->cache->get('EAuth.services');
 		if (!isset($services) || !is_array($services)) {
@@ -115,17 +115,10 @@ class EAuth extends CApplicationComponent {
 	/**
 	 * Simple wrapper for {@link CController::widget} function for render the {@link EAuthWidget} widget.
 	 * @param array $properties the widget properties.
+	 * @deprecated use CComponent->widget('ext.eauth.EAuthWidget', $properties) instead.
 	 */
 	public function renderWidget($properties = array()) {
 		require_once dirname(__FILE__).DIRECTORY_SEPARATOR.'EAuthWidget.php';
-		
-		$properties = CMap::mergeArray(array(
-			'popup' => $this->popup
-		), $properties);
-		
-		if (!isset($properties['services'])) 
-			$properties['services'] = $this->getServices();
-				
 		$widget = Yii::app()->getWidgetFactory()->createWidget($this, 'EAuthWidget', $properties);
 		$widget->init();
 		$widget->run();

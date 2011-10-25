@@ -20,6 +20,7 @@ return array(
         'application.modules.user.UserModule',
         'application.modules.user.models.*',
         'application.modules.user.forms.*',
+        'application.modules.user.components.*',                
 
         'application.modules.page.models.*',
 
@@ -37,6 +38,7 @@ return array(
 
         'application.modules.social.widgets.ysc.*',
 
+        'application.modules.social.components.*',      
         'application.modules.social.extensions.eoauth.*',
         'application.modules.social.extensions.eoauth.lib.*',
         'application.modules.social.extensions.lightopenid.*',
