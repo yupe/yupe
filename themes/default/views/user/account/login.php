@@ -16,9 +16,9 @@
     <?php echo $form->errorSummary($model); ?>
 
     <div class="row">
-        <?php echo $form->labelEx($model, 'email'); ?>
-        <?php echo $form->textField($model, 'email') ?>
-        <?php echo $form->error($model, 'email'); ?>
+        <?php echo $form->labelEx($model, 'nick_name'); ?>
+        <?php echo $form->textField($model, 'nick_name') ?>
+        <?php echo $form->error($model, 'nick_name'); ?>
     </div>
 
     <div class="row">

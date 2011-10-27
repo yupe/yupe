@@ -12,12 +12,12 @@ class LoginAction extends CAction
             if ($form->validate())
             {
                 Yii::app()->user->setFlash(YFlashMessages::NOTICE_MESSAGE, Yii::t('user', 'Вы успешно авторизовались!'));
-                Yii::log(Yii::t('user', 'Пользователь {user} авторизовался!', array('{user}' => $form->email)), CLogger::LEVEL_INFO, UserModule::$logCategory);
+                Yii::log(Yii::t('user', 'Пользователь {user} авторизовался!', array('{user}' => $form->nick_name)), CLogger::LEVEL_INFO, UserModule::$logCategory);
                 $this->controller->redirect(array(Yii::app()->getModule('user')->loginSuccess));
             }
             else
             {
-                Yii::log(Yii::t('user', 'Ошибка авторизации! Email => {email}, Password => {password}!', array('{email}' => $form->email, '{password}' => $form->password)), CLogger::LEVEL_ERROR, UserModule::$logCategory);
+                Yii::log(Yii::t('user', 'Ошибка авторизации! nick_name => {nick_name}, Password => {password}!', array('{nick_name}' => $form->nick_name, '{password}' => $form->password)), CLogger::LEVEL_ERROR, UserModule::$logCategory);
             }
         }
 

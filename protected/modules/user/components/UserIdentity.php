@@ -5,16 +5,12 @@ class UserIdentity extends CUserIdentity
 
     public function authenticate()
     {
-        $user = User::model()->active()->findByAttributes(array('email' => $this->username));
+        $user = User::model()->active()->findByAttributes(array('nick_name' => $this->username));
 
-        if ($user === null)
-        {
-            $this->errorCode = self::ERROR_USERNAME_INVALID;
-        }
-        elseif (!$user->validatePassword($this->password))
-        {
-            $this->errorCode = self::ERROR_PASSWORD_INVALID;
-        }
+        if ($user === null)    
+            $this->errorCode = self::ERROR_USERNAME_INVALID;        
+        elseif (!$user->validatePassword($this->password))        
+            $this->errorCode = self::ERROR_PASSWORD_INVALID;        
         else
         {
             // запись данных в сессию пользователя
@@ -29,6 +25,7 @@ class UserIdentity extends CUserIdentity
             if ($user->access_level == User::ACCESS_LEVEL_ADMIN)
             {
                 Yii::app()->user->setState('loginAdmTime', time());
+
                 Yii::app()->user->setState('isAdmin', $user->access_level);
             }
 
@@ -41,7 +38,6 @@ class UserIdentity extends CUserIdentity
 
         return $this->errorCode == self::ERROR_NONE;
     }
-
 
     public function getId()
     {

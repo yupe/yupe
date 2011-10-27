@@ -1,7 +1,7 @@
 <?php
 class LoginForm extends CFormModel
 {
-    public $email;
+    public $nick_name;
 
     public $password;
 
@@ -10,8 +10,7 @@ class LoginForm extends CFormModel
     public function rules()
     {
         return array(
-            array('email,password', 'required'),
-            array('email', 'email'),
+            array('nick_name, password', 'required'),            
             array('password', 'authenticate')
         );
     }
@@ -19,8 +18,8 @@ class LoginForm extends CFormModel
     public function attributeLabels()
     {
         return array(
-            'email' => Yii::t('user', 'Email'),
-            'password' => Yii::t('user', 'Пароль'),
+            'nick_name' => Yii::t('user', 'Логин'),
+            'password'  => Yii::t('user', 'Пароль'),
         );
     }
 
@@ -28,16 +27,12 @@ class LoginForm extends CFormModel
     {
         if (!$this->hasErrors())
         {
-            $this->_identity = new UserIdentity($this->email, $this->password);
+            $this->_identity = new UserIdentity($this->nick_name, $this->password);
 
-            if (!$this->_identity->authenticate())
-            {
-                $this->addError('password', Yii::t('user', 'Логин или пароль введены неверно!'));
-            }
-            else
-            {
-                Yii::app()->user->login($this->_identity);
-            }
+            if (!$this->_identity->authenticate())            
+                $this->addError('password', Yii::t('user', 'Логин или пароль введены неверно!'));            
+            else            
+                Yii::app()->user->login($this->_identity);            
         }
     }
 }
