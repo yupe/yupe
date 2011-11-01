@@ -10,8 +10,8 @@
 SET SQL_MODE="NO_AUTO_VALUE_ON_ZERO";
 
 
-INSERT INTO `user` (`id`, `creation_date`, `change_date`, `first_name`, `last_name`, `nick_name`, `email`, `gender`, `password`, `salt`, `status`, `access_level`, `last_visit`, `registration_date`, `registration_ip`, `activation_ip`, `avatar`, `use_gravatar`) VALUES
-(83, '2011-09-26 11:52:09', '2011-09-26 11:52:09', NULL, NULL, 'admin', 'admin@admin.ru', 0, 'c1f98dd950c917a214b66e98be53e52f', '4e802f29c47c20.49913008', 1, 1, '2011-09-26 11:55:03', '2011-09-26 11:52:09', '127.0.0.1', '127.0.0.1', NULL, 0);
+INSERT INTO `user` (`id`, `creation_date`, `change_date`, `first_name`, `last_name`, `nick_name`, `email`, `gender`, `password`, `salt`, `status`, `access_level`, `last_visit`, `registration_date`, `registration_ip`, `activation_ip`, `avatar`, `use_gravatar`,`email_confirm`) VALUES
+(83, '2011-09-26 11:52:09', '2011-09-26 11:52:09', NULL, NULL, 'admin', 'admin@admin.ru', 0, 'c1f98dd950c917a214b66e98be53e52f', '4e802f29c47c20.49913008', 1, 1, '2011-09-26 11:55:03', '2011-09-26 11:52:09', '127.0.0.1', '127.0.0.1', NULL, 0, 1);
 
 
 

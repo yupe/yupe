@@ -31,18 +31,25 @@ class RegistrationAction extends CAction
                 // если требуется активация по email
                 if ($module->emailAccountVerification)
                 {
-                    $registration = new User;
+                    $user = new User;
 
                     // скопируем данные формы
-                    $registration->setAttributes($form->getAttributes());
+                    $user->setAttributes($form->getAttributes());
 
-                    if ($registration->save())
+                    $salt = $user->generateRandomPassword();
+
+                    $user->setAttributes(array(
+                        'salt'     => $salt,
+                        'password' => $user->hashPassword($form->password,$salt)
+                    ));
+
+                    if ($user->save())
                     {
                         // отправка email с просьбой активировать аккаунт
-                        $mailBody = $this->controller->renderPartial('needAccountActivationEmail', array('model' => $registration), true);
-                        Yii::app()->mail->send($module->notifyEmailFrom, $registration->email, Yii::t('user', 'Регистрация на сайте {site} !',array('{site}' => Yii::app()->name )), $mailBody);
+                        $mailBody = $this->controller->renderPartial('needAccountActivationEmail', array('model' => $user), true);
+                        Yii::app()->mail->send($module->notifyEmailFrom, $user->email, Yii::t('user', 'Регистрация на сайте {site} !',array('{site}' => Yii::app()->name )), $mailBody);
                         // запись в лог о создании учетной записи
-                        Yii::log(Yii::t('user', "Создана учетная запись {nick_name}!", array('{nick_name}' => $registration->nick_name)), CLogger::LEVEL_INFO, UserModule::$logCategory);
+                        Yii::log(Yii::t('user', "Создана учетная запись {nick_name}!", array('{nick_name}' => $user->nick_name)), CLogger::LEVEL_INFO, UserModule::$logCategory);
                         Yii::app()->user->setFlash(YFlashMessages::NOTICE_MESSAGE, Yii::t('user', 'Учетная запись создана! Инструкции по активации аккаунта отправлены Вам на email!'));
                         $this->controller->refresh();
                     }

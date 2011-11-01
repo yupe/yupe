@@ -39,6 +39,7 @@ return array(
         'application.modules.social.widgets.ysc.*',
 
         'application.modules.social.components.*',      
+        'application.modules.social.models.*', 
         'application.modules.social.extensions.eoauth.*',
         'application.modules.social.extensions.eoauth.lib.*',
         'application.modules.social.extensions.lightopenid.*',

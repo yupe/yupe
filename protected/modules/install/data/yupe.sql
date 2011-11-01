@@ -1,13 +1,14 @@
 -- phpMyAdmin SQL Dump
--- version 3.3.10deb1
+-- version 3.4.5deb1
 -- http://www.phpmyadmin.net
 --
 -- Хост: localhost
--- Время создания: Ноя 01 2011 г., 15:55
--- Версия сервера: 5.1.54
--- Версия PHP: 5.3.5-1ubuntu7.3
+-- Время создания: Ноя 01 2011 г., 22:46
+-- Версия сервера: 5.1.58
+-- Версия PHP: 5.3.6-13ubuntu3.2
 
 SET SQL_MODE="NO_AUTO_VALUE_ON_ZERO";
+SET time_zone = "+00:00";
 
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
@@ -251,7 +252,7 @@ CREATE TABLE IF NOT EXISTS `image_to_gallery` (
 CREATE TABLE IF NOT EXISTS `login` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `user_id` int(10) unsigned NOT NULL,
-  `identity_id` int(10) unsigned NOT NULL,
+  `identity_id` varchar(100) NOT NULL,
   `type` varchar(50) NOT NULL,
   `creation_date` datetime NOT NULL,
   PRIMARY KEY (`id`),
@@ -350,7 +351,7 @@ CREATE TABLE IF NOT EXISTS `settings` (
   `user_id` int(10) unsigned NOT NULL,
   PRIMARY KEY (`id`),
   KEY `moduleId` (`module_id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=205 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=189 ;
 
 -- --------------------------------------------------------
 
@@ -389,7 +390,7 @@ CREATE TABLE IF NOT EXISTS `user` (
   UNIQUE KEY `user_email_unique` (`email`),
   KEY `user_status_index` (`status`),
   KEY `email_confirm` (`email_confirm`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=93 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=84 ;
 
 -- --------------------------------------------------------
 
@@ -477,3 +478,7 @@ ALTER TABLE `recovery_password`
 --
 ALTER TABLE `vote`
   ADD CONSTRAINT `vote_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `user` (`id`) ON UPDATE NO ACTION;
+
+/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
+/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
+/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;

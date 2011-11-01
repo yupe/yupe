@@ -25,7 +25,7 @@ class SocialController extends YFrontController
 
                     if($socialLogin->authenticate())
                     {
-                    	Yii::app()->user->login($identity);
+                    	Yii::app()->user->login($socialLogin);
 
                     	Yii::app()->user->setFlash(YFlashMessages::NOTICE_MESSAGE, Yii::t('user', 'Вы успешно авторизовались!'));
 
@@ -47,38 +47,55 @@ class SocialController extends YFrontController
                             $this->redirect(array('/social/social/registration/'));     
                         }
 
-                        $registration = Registration::model()->find('LOWER(nick_name) = :nick_name',array(
-                            ':nick_name' => strtolower($nick_name)
-                        ));
+                        $transaction = Yii::app()->db->beginTransaction();
 
-                        if($registration)
-                        {                           
-                            Yii::app()->user->setFlash(YFlashMessages::NOTICE_MESSAGE, Yii::t('user', 'Пожалуйста, завершите регистрацию!'));
+                        try
+                        {                                               
+                            $account = new User;
+                            
+                            $account->createAccount($nick_name,"{$nick_name}@{$nick_name}.ru",null, null, User::STATUS_ACTIVE);
 
-                            $this->redirect(array('/social/social/registration/'));     
+                            if($account && !$account->hasErrors())
+                            {                            
+                                //создадим запись в Login
+                                $login = new Login;
+
+                                $login->setAttributes(array(
+                                    'user_id'     => $account->id,
+                                    'identity_id' => Yii::app()->user->getState('id'),
+                                    'type'        => Yii::app()->user->getState('service'), 
+                                ));                                
+
+                                if(!$login->save())
+                                    throw new CDbException(Yii::t('social','При создании учетной записи произошла ошибка!'));                             
+                            }
+
+                            $transaction->commit();
+
+                            // авторизуем нового пользователя
+                            $socialLogin = new SocialLoginIdentity(Yii::app()->user->getState('service'),Yii::app()->user->getState('id'));
+
+                            if($socialLogin->authenticate())
+                            {
+                                Yii::app()->user->login($socialLogin);
+
+                                Yii::app()->user->setFlash(YFlashMessages::NOTICE_MESSAGE, Yii::t('user', 'Вы успешно авторизовались!'));
+
+                                $this->redirect(array(Yii::app()->getModule('user')->loginSuccess));
+                            }
                         }
-                        
-                        $account = new User;
-                        
-                        $account->createAccount($nick_name,"{$nick_name}@{$nick_name}.ru");
-
-                        if($account && !$account->hasErrors())
+                        catch(Exception $e)
                         {
-                            var_dump(Yii::app()->user->getState('id').' '.Yii::app()->user->getState('service'));die();
-                            //создадим запись в Login
-                            $login = new Login;
+                            $transaction->rollback();
 
-                            $login->setAttributes(array(
-                                'user_id'     => $account->id,
-                                'identity_id' => Yii::app()->user->getState('id'),
-                                'type'        => Yii::app()->user->getState('service'), 
-                            ));
+                            Yii::log(Yii::t('user', "При авторизации через {servive} произошла ошибка!",array(
+                                '{servive}' => Yii::app()->user->getState('service')
+                            )), CLogger::LEVEL_ERROR);
 
-                            if(!$login->save())
-                                var_dump($login->getErrors());die();
-                        }
+                            Yii::app()->user->setFlash(YFlashMessages::NOTICE_ERROR, Yii::t('user', 'При создании учетной записи произошла ошибка!'));
 
-                        var_dump($account->getErrors());die('!!!nooo!!');
+                            $this->redirect(array('/social/social/registration/'));
+                        }                       
                     }                    
 
                     // special redirect with closing popup window

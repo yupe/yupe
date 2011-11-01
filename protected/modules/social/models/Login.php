@@ -38,7 +38,8 @@ class Login extends CActiveRecord
     {
         return array(
             array('user_id, identity_id, type', 'required'),
-            array('user_id, identity_id', 'length', 'max' => 10),
+            array('user_id', 'numerical', 'integerOnly' => true),                        
+            array('identity_id', 'length', 'max' => 100),
             array('type', 'length', 'max' => 50),
             array('id, user_id, identity_id, type, creation_date', 'safe', 'on' => 'search'),
         );
