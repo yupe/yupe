@@ -48,8 +48,6 @@ class User extends CActiveRecord
 
     public function validatePassword($password)
     {
-        //var_dump($this->password.' '.$this->hashPassword($password, $this->salt));die();
-
         if ($this->password === $this->hashPassword($password, $this->salt))        
             return true;
         
@@ -122,12 +120,15 @@ class User extends CActiveRecord
     public function rules()
     {        
         return array(
-            array('nick_name, first_name, last_name, email','filter','filter' => 'trim'),
-            array('nick_name, first_name, last_name, email','filter','filter' => array($obj = new CHtmlPurifier(),'purify')),
+            array('birth_date, site, about, location, online_status, nick_name, first_name, last_name, email','filter','filter' => 'trim'),
+            array('birth_date, site, about, location, online_status, nick_name, first_name, last_name, email','filter','filter' => array($obj = new CHtmlPurifier(),'purify')),
             array('nick_name, email, password', 'required'),
             array('nick_name','match','pattern' => '/^[A-Za-z0-9]{2,50}$/','message' => Yii::t('seeline','Неверный формат поля "{attribute}" допустимы только буквы и цифры, от 2 до 20 символов')),            
             array('first_name, last_name, nick_name, email', 'length', 'max' => 50),
             array('password, salt, activate_key', 'length', 'max' => 32),
+            array('site', 'length', 'max' => 100),
+            array('about', 'length', 'max' => 300),
+            array('location, online_status', 'length', 'max' => 150),
             array('registration_ip, activation_ip, registration_date', 'length', 'max' => 20),            
             array('gender, status, access_level, use_gravatar, email_confirm', 'numerical', 'integerOnly' => true),
             array('email', 'email'),            
@@ -166,7 +167,11 @@ class User extends CActiveRecord
             'registration_ip' => Yii::t('user', 'Ip регистрации'),
             'activation_ip' => Yii::t('user', 'Ip активации'),
             'avatar' => Yii::t('user', 'Аватар'),
-            'use_gravatar' => Yii::t('user', 'Граватар'),
+            'use_gravatar'  => Yii::t('user', 'Граватар'),
+            'email_confirm' => Yii::t('user','Email подтвержден'),
+            'birth_date'    => Yii::t('user','День рождения'), 
+            'site'          => Yii::t('user','Сайт/блог'),
+            
         );
     }
 
@@ -249,7 +254,7 @@ class User extends CActiveRecord
              ),
             'user' => array(
                 'condition' => 'access_level = :access_level',
-                'params'    => array('access_level' => self::ACCESS_LEVEL_USER)
+                'params'    => array(':access_level' => self::ACCESS_LEVEL_USER)
             ),
         );
     }

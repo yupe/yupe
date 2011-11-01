@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Хост: localhost
--- Время создания: Ноя 01 2011 г., 11:48
+-- Время создания: Ноя 01 2011 г., 15:55
 -- Версия сервера: 5.1.54
 -- Версия PHP: 5.3.5-1ubuntu7.3
 
@@ -367,6 +367,11 @@ CREATE TABLE IF NOT EXISTS `user` (
   `nick_name` varchar(150) NOT NULL,
   `email` varchar(150) NOT NULL,
   `gender` tinyint(1) NOT NULL DEFAULT '0',
+  `birth_date` date DEFAULT NULL,
+  `site` varchar(100) NOT NULL DEFAULT '''''',
+  `about` varchar(300) NOT NULL DEFAULT '''''',
+  `location` varchar(150) NOT NULL DEFAULT '''''',
+  `online_status` varchar(150) NOT NULL DEFAULT '''''',
   `password` char(32) NOT NULL,
   `salt` char(32) NOT NULL,
   `status` tinyint(1) NOT NULL DEFAULT '2',
