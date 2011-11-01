@@ -24,7 +24,7 @@ class RecoveryPasswordAction extends CAction
                 if ($recovery->user->save() && RecoveryPassword::model()->deleteAll('user_id = :user_id', array(':user_id' => $recovery->user->id)))
                 {
                     $transaction->commit();
-                    $emailBody = $this->controller->renderPartial('application.modules.user.views.email.passwordAutoRecoverySuccessEmail', array('model' => $recovery->user, 'password' => $newPassword), true);
+                    $emailBody = $this->controller->renderPartial('passwordAutoRecoverySuccessEmail', array('model' => $recovery->user, 'password' => $newPassword), true);
                     Yii::app()->mail->send(Yii::app()->getModule('user')->notifyEmailFrom, $recovery->user->email, Yii::t('user', 'Успешное восстановление пароля!'), $emailBody);
                     Yii::app()->user->setFlash(YFlashMessages::NOTICE_MESSAGE, Yii::t('user', 'Новый пароль отправлен Вам на email!'));
                     Yii::log(Yii::t('user', 'Успешное восстановление пароля!'), CLogger::LEVEL_ERROR, UserModule::$logCategory);
@@ -63,7 +63,7 @@ class RecoveryPasswordAction extends CAction
                         $transaction->commit();
                         Yii::app()->user->setFlash(YFlashMessages::NOTICE_MESSAGE, Yii::t('user', 'Пароль изменен!'));
                         Yii::log(Yii::t('user', 'Успешная смена пароля для пользоателя {user}!', array('{user}' => $recovery->user->id)), CLogger::LEVEL_INFO, UserModule::$logCategory);
-                        $emailBody = $this->controller->renderPartial('application.modules.user.views.email.passwordRecoverySuccessEmail', array('model' => $recovery->user), true);
+                        $emailBody = $this->controller->renderPartial('passwordRecoverySuccessEmail', array('model' => $recovery->user), true);
                         Yii::app()->mail->send(Yii::app()->getModule('user')->notifyEmailFrom, $recovery->user->email, Yii::t('user', 'Успешное восстановление пароля!'), $emailBody);
                         $this->controller->redirect(array('/user/account/login'));
                     }

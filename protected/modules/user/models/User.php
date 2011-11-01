@@ -30,6 +30,10 @@ class User extends CActiveRecord
 
     const STATUS_ACTIVE = 1;
     const STATUS_BLOCK  = 0;
+    const STATUS_NOT_ACTIVE = 2;
+
+    const EMAIL_CONFIRM_YES = 1;
+    const EMAIL_CONFIRM_NO  = 0;
 
     const ACCESS_LEVEL_USER  = 0;
     const ACCESS_LEVEL_ADMIN = 1;
@@ -44,7 +48,9 @@ class User extends CActiveRecord
 
     public function validatePassword($password)
     {
-        if ($this->password === Registration::model()->hashPassword($password, $this->salt))        
+        //var_dump($this->password.' '.$this->hashPassword($password, $this->salt));die();
+
+        if ($this->password === $this->hashPassword($password, $this->salt))        
             return true;
         
         return false;
@@ -72,6 +78,7 @@ class User extends CActiveRecord
         return array(
             self::STATUS_ACTIVE => Yii::t('user', 'Активен'),
             self::STATUS_BLOCK => Yii::t('user', 'Заблокирован'),
+            self::STATUS_NOT_ACTIVE => Yii::t('user','Не активирован')
         );
     }
 
@@ -120,18 +127,17 @@ class User extends CActiveRecord
             array('nick_name, email, password', 'required'),
             array('nick_name','match','pattern' => '/^[A-Za-z0-9]{2,50}$/','message' => Yii::t('seeline','Неверный формат поля "{attribute}" допустимы только буквы и цифры, от 2 до 20 символов')),            
             array('first_name, last_name, nick_name, email', 'length', 'max' => 50),
-            array('password, salt', 'length', 'max' => 32),
+            array('password, salt, activate_key', 'length', 'max' => 32),
             array('registration_ip, activation_ip, registration_date', 'length', 'max' => 20),            
-            array('gender, status, access_level, use_gravatar', 'numerical', 'integerOnly' => true),
+            array('gender, status, access_level, use_gravatar, email_confirm', 'numerical', 'integerOnly' => true),
             array('email', 'email'),            
-            array('email', 'unique', 'message' => Yii::t('user', 'Данный email уже используется другим пользователем')),
-            array('email','checkEmailUnique'),
-            array('nick_name', 'unique', 'message' => Yii::t('user', 'Данный ник уже используется другим пользователем')),
-            array('nick_name','checkNickNameUnique'),
+            array('email', 'unique', 'message' => Yii::t('user', 'Данный email уже используется другим пользователем')),            
+            array('nick_name', 'unique', 'message' => Yii::t('user', 'Данный ник уже используется другим пользователем')),            
             array('avatar', 'file', 'types' => implode(',', Yii::app()->getModule('user')->avatarExtensions), 'maxSize' => Yii::app()->getModule('user')->avatarMaxSize, 'allowEmpty' => true),
+            array('email_confirm', 'in', 'range' => array(0, 1)),
             array('use_gravatar', 'in', 'range' => array(0, 1)),
             array('gender', 'in', 'range' => array(0, 1, 2)),
-            array('status', 'in', 'range' => array(0, 1)),
+            array('status', 'in', 'range' => array(0, 1, 2)),
             array('access_level', 'in', 'range' => array(0, 1)),
             array('id, creation_date, change_date, first_name, last_name, nick_name, email, gender, avatar, password, salt, status, access_level, last_visit, registration_date, registration_ip, activation_ip', 'safe', 'on' => 'search'),
         );
@@ -209,10 +215,10 @@ class User extends CActiveRecord
     public function beforeSave()
     {        
         if ($this->isNewRecord)
-        {
-            $this->last_visit = $this->creation_date = $this->change_date = new CDbExpression('NOW()');
-            
-            $this->activation_ip = Yii::app()->request->userHostAddress;
+        {            
+            $this->creation_date = $this->change_date = new CDbExpression('NOW()');            
+            $this->activate_key = $this->generateActivationKey();            
+            $this->registration_ip = Yii::app()->request->userHostAddress;
         }
         else
         {
@@ -225,37 +231,52 @@ class User extends CActiveRecord
     public function scopes()
     {
         return array(
-            'active' => array('condition' => 'status=' . self::STATUS_ACTIVE),
-            'blocked' => array('condition' => 'status=' . self::STATUS_BLOCK),
-            'admin' => array('condition' => 'access_level=' . self::ACCESS_LEVEL_ADMIN),
-            'user' => array('condition' => 'access_level=' . self::ACCESS_LEVEL_USER),
+            'active' => array(
+                'condition' => 'status = :status',
+                'params'    => array(':status' => self::STATUS_ACTIVE)
+             ),
+            'blocked' => array(
+                'condition' => 'status = :status',
+                'params'    => array(':status' => self::STATUS_BLOCK)
+            ),    
+            'notActivated' => array(
+                'condition' => 'status = :status',
+                'params'    => array(':status' => self::STATUS_NOT_ACTIVE)
+            ),                    
+            'admin' => array(
+                'condition' => 'access_level = :access_level',
+                'params'    => array(':access_level' => self::ACCESS_LEVEL_ADMIN)
+             ),
+            'user' => array(
+                'condition' => 'access_level = :access_level',
+                'params'    => array('access_level' => self::ACCESS_LEVEL_USER)
+            ),
         );
     }
-
-    // проверить уникальность ника по двум таблицам
-    public function checkNickNameUnique($attribute,$params)
+    
+    public function hashPassword($password, $salt)
     {
-        if(!$this->hasErrors())
-        {
-            // проверим по таблице Registration
-            $registration = Registration::model()->find('nick_name = :nick_name', array(':nick_name' => $this->nick_name));
-
-            if (!is_null($registration))        
-                $this->addError('nick_name',Yii::t('user','Ник "{nick}" уже используется другим пользователем!',array('{nick}' => $this->nick_name)));               
-        }
+        return md5($salt . $password);
     }
 
-    // проверить уникальность email по двум таблицам
-    public function checkEmailUnique($attribute,$params)
+    public function generateSalt()
     {
-        if(!$this->hasErrors())
-        {
-            // проверим по таблице Registration
-            $registration = Registration::model()->find('email = :email', array(':email' => $this->email));
+        return md5(uniqid('', true));
+    }
 
-            if (!is_null($registration))        
-                $this->addError('email',Yii::t('user','Email "{email}" уже используется другим пользователем!',array('{email}' => $this->email)));
-        }       
+
+    public function generateRandomPassword($length = null)
+    {
+        if (!$length)        
+            $length = Yii::app()->getModule('user')->minPasswordLength;
+        
+        return substr(md5(uniqid(mt_rand(), true) . time()), 0, $length);
+    }
+
+
+    public function generateActivationKey()
+    {
+        return md5(time() . $this->email . uniqid());
     }
 
     public function getAvatar($htmlOptions = null)
@@ -274,19 +295,21 @@ class User extends CActiveRecord
             ? $this->last_name . $separator . $this->first_name : $this->nick_name;
     }
 
-    public function createAccount($nick_name, $email, $password = null, $salt = null)
+    public function createAccount($nick_name, $email, $password = null, $salt = null, $status = self::STATUS_NOT_ACTIVE, $emailConfirm = self::EMAIL_CONFIRM_NO)
     {
-        $salt = is_null($salt) ? Registration::model()->generateSalt() : $salt;
+        $salt = is_null($salt) ? $this->generateSalt() : $salt;
 
-        $password = is_null($password) ? Registration::model()->generateRandomPassword() : $password;
+        $password = is_null($password) ? $this->generateRandomPassword() : $password;
 
         $this->setAttributes(array(
                                   'nick_name' => $nick_name,
                                   'email' => $email,
                                   'salt' => $salt,
-                                  'password' => Registration::model()->hashPassword($password, $salt),
+                                  'password' => $this->hashPassword($password, $salt),
                                   'registration_date' => new CDbExpression('NOW()'),
-                                  'registration_ip' => Yii::app()->request->userHostAddress
+                                  'registration_ip' => Yii::app()->request->userHostAddress,
+                                  'status' => $status,
+                                  'email_confirm' => $emailConfirm
                              ));        
 		
 	    $this->save();                   
@@ -297,5 +320,16 @@ class User extends CActiveRecord
         $this->password = Registration::model()->hashPassword($password, $this->salt);
 
         return $this->update(array('password'));
+    }
+
+    public function activate()
+    {
+        $this->activation_ip = Yii::app()->request->userHostAddress;
+
+        $this->status = self::STATUS_ACTIVE;
+
+        $this->email_confirm = self::EMAIL_CONFIRM_YES;
+
+        return $this->save();
     }
 }

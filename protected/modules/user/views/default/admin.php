@@ -9,7 +9,6 @@ $this->breadcrumbs = array(
 $this->menu = array(
     array('label' => Yii::t('user', 'Добавить пользователя'), 'url' => array('create')),    
     array('label' => Yii::t('user', 'Восстановления паролей'), 'url' => array('/user/recoveryPassword/admin')),            
-    array('label' => Yii::t('user', 'Регистрации'), 'url' => array('/user/registration/admin')),            
 );
 
 Yii::app()->clientScript->registerScript('search', "

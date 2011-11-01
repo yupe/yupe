@@ -11,7 +11,7 @@
 !
 <br/><br/>
 
-<?php echo Yii::t('user', 'С уважением, администрация сайта "{site}" !',array('{site}' => CHtml::encode(Yii::app()->name))));?>
+<?php echo Yii::t('user', 'С уважением, администрация сайта "{site}" !',array('{site}' => CHtml::encode(Yii::app()->name)));?>
 
 </body>
 </html>  

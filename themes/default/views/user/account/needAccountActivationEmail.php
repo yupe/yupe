@@ -10,11 +10,11 @@
 	<br/><br/>
 
 	<?php echo Yii::t('user', 'Для активации аккаунта, пожалуйста, пройдите по'); ?> 
-	<a href='http://<?php echo $_SERVER['HTTP_HOST'] . '/index.php/user/account/activate/code/' . $model->code;?>'><?php echo Yii::t('user', 'ссылке'); ?></a>
+	<a href='http://<?php echo $_SERVER['HTTP_HOST'] . '/index.php/user/account/activate/key/' . $model->activate_key;?>'><?php echo Yii::t('user', 'ссылке'); ?></a>
 
 	<br/><br/>
 
-	http://<?php echo $_SERVER['HTTP_HOST'] . '/index.php/user/account/activate/code/' . $model->code; ?>
+	http://<?php echo $_SERVER['HTTP_HOST'] . '/index.php/user/account/activate/key/' . $model->activate_key;?>
 
 	<br/><br/>
 

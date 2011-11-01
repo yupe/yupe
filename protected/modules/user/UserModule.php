@@ -105,6 +105,11 @@ class UserModule extends YWebModule
         return 'http://yupe.ru';
     }
 
+    public function getVersion()
+    {
+        return '0.2';
+    }
+
     public function init()
     {
         parent::init();
