@@ -162,6 +162,6 @@ class DictionaryData extends CActiveRecord
 
 	public function getByCode($code)
 	{
-		return $this->cache(Yii::app()->yupe->coreCacheTime)->find('code = :code',array('code' => $code));
+		return $this->cache(Yii::app()->getModule('yupe')->coreCacheTime)->find('code = :code',array('code' => $code));
 	}
 }

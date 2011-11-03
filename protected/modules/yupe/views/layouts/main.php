@@ -47,7 +47,7 @@
     <div id="myslidemenu" class='jqueryslidemenu'>
         <?php $this->widget('zii.widgets.CMenu', array(
                                                       'hideEmptyItems' => true,
-                                                      'items' => Yii::app()->yupe->getModules(true)
+                                                      'items' => Yii::app()->getModule('yupe')->getModules(true)
                                                  )); ?>
         <br style="clear: left"/>
     </div>

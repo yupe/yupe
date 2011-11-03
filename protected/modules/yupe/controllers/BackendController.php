@@ -3,7 +3,7 @@ class BackendController extends YBackController
 {
     public function actionIndex()
     {
-        $this->render('index', Yii::app()->yupe->getModules());
+        $this->render('index', Yii::app()->getModule('yupe')->getModules());
     }
 
     public function actionSettings()
@@ -40,7 +40,7 @@ class BackendController extends YBackController
         }
 
         // сформировать боковое меню из ссылок на настройки модулей
-        $modules = Yii::app()->yupe->getModules();
+        $modules = Yii::app()->getModule('yupe')->getModules();
 
         $this->menu = array();
 
@@ -133,7 +133,10 @@ class BackendController extends YBackController
         {
             $theme = Yii::app()->request->getPost('theme');
 
-            $settings = Settings::model()->find('module_id = :module_id AND param_name = :param_name', array(':module_id' => Yii::app()->yupe->coreModuleId, ':param_name' => 'theme'));
+            $settings = Settings::model()->find('module_id = :module_id AND param_name = :param_name', array(
+                ':module_id'  => Yii::app()->getModule('yupe')->coreModuleId,
+                ':param_name' => 'theme'
+            ));
 
             if (!is_null($settings))
             {
@@ -154,7 +157,7 @@ class BackendController extends YBackController
                 $settings = new Settings();
 
                 $settings->setAttributes(array(
-                                              'module_id' => Yii::app()->yupe->coreModuleId,
+                                              'module_id' => Yii::app()->getModule('yupe')->coreModuleId,
                                               'param_name' => 'theme',
                                               'param_value' => $theme
                                          ));

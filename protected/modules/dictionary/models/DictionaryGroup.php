@@ -134,7 +134,7 @@ class DictionaryGroup extends CActiveRecord
 
 	public function getData()
 	{
-		return DictionaryData::model()->cache(Yii::app()->yupe->coreCacheTime)->findAll('group_id = :group_id',array(
+		return DictionaryData::model()->cache(Yii::app()->getModule('yupe')->coreCacheTime)->findAll('group_id = :group_id',array(
 			':group_id' => $this->id
 		));
 	}

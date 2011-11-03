@@ -67,12 +67,12 @@ abstract class YWebModule extends CWebModule
         parent::init();
 
         if (is_object(Yii::app()->theme))
-        {
             $this->layout = 'webroot.themes.' . Yii::app()->theme->name . '.views.layouts.main';
-        }
 
         // инициализация модуля		
-        $settings = Settings::model()->cache(Yii::app()->yupe->coreCacheTime)->findAll('module_id = :module_id', array('module_id' => $this->getId()));
+        $settings = Settings::model()->cache(Yii::app()->getModule('yupe')->coreCacheTime)->findAll('module_id = :module_id', array(
+            'module_id' => $this->getId()
+        ));
 
         $editableParams = $this->getEditableParams();
 
