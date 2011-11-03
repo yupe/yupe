@@ -12,15 +12,12 @@ class YupeStartUpBehavior extends CBehavior
         {
             $yupeModule = Yii::app()->getModule('yupe');
 
-            if ($yupeModule && $yupeModule->theme)
-            {
+            if ($yupeModule && $yupeModule->theme)            
                 Yii::app()->theme = $yupeModule->theme;
-            }
-
         }
         catch (CDbException $e)
         {
-            //.....
+             //throw new CException(500,Yii::t('yupe','Ошибка в YupeStartUpBehavior...'));
         }
     }
 }

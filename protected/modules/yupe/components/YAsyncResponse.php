@@ -9,9 +9,7 @@ class YAsyncResponse extends CComponent
 
     public $dataParamName = 'data';
 
-    public function init()
-    {
-    }
+    public function init(){}
 
     public function success($data = null)
     {
