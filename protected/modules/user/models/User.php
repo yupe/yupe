@@ -104,6 +104,21 @@ class User extends CActiveRecord
             : Yii::t('user', 'ммм...пола такого нет');
     }
 
+    public function getEmailConfirmStatusList()
+    {
+        return array(
+            self::EMAIL_CONFIRM_YES => Yii::t('user','Да'),
+            self::EMAIL_CONFIRM_NO  => Yii::t('user','Нет'),
+        );
+    }
+
+    public function getEmailConfirmStatus()
+    {
+        $data = $this->getEmailConfirmStatusList();
+
+        return isset($data[$this->email_confirm]) ? $data[$this->email_confirm] : Yii::t('user','*неизвестно*');
+    }
+
     /**
      * Returns the static model of the specified AR class.
      * @return User the static model class
@@ -135,11 +150,11 @@ class User extends CActiveRecord
             array('email', 'unique', 'message' => Yii::t('user', 'Данный email уже используется другим пользователем')),            
             array('nick_name', 'unique', 'message' => Yii::t('user', 'Данный ник уже используется другим пользователем')),            
             array('avatar', 'file', 'types' => implode(',', Yii::app()->getModule('user')->avatarExtensions), 'maxSize' => Yii::app()->getModule('user')->avatarMaxSize, 'allowEmpty' => true),
-            array('email_confirm', 'in', 'range' => array(0, 1)),
+            array('email_confirm', 'in', 'range' => array_keys($this->getEmailConfirmStatusList())),
             array('use_gravatar', 'in', 'range' => array(0, 1)),
-            array('gender', 'in', 'range' => array(0, 1, 2)),
-            array('status', 'in', 'range' => array(0, 1, 2)),
-            array('access_level', 'in', 'range' => array(0, 1)),
+            array('gender', 'in', 'range' => array_keys($this->getGendersList())),
+            array('status', 'in', 'range' => array_keys($this->getStatusList())),
+            array('access_level', 'in', 'range' => array_keys($this->getAccessLevelsList())),
             array('id, creation_date, change_date, first_name, last_name, nick_name, email, gender, avatar, password, salt, status, access_level, last_visit, registration_date, registration_ip, activation_ip', 'safe', 'on' => 'search'),
         );
     }
@@ -171,7 +186,8 @@ class User extends CActiveRecord
             'email_confirm' => Yii::t('user','Email подтвержден'),
             'birth_date'    => Yii::t('user','День рождения'), 
             'site'          => Yii::t('user','Сайт/блог'),
-            
+            'location'      => Yii::t('user','Расположение'),
+            'about'         => Yii::t('user','О себе'),           
         );
     }
 
@@ -309,10 +325,11 @@ class User extends CActiveRecord
         $this->setAttributes(array(
                                   'nick_name' => $nick_name,
                                   'email' => $email,
-                                  'salt' => $salt,
+                                  'salt'  => $salt,
                                   'password' => $this->hashPassword($password, $salt),
                                   'registration_date' => new CDbExpression('NOW()'),
                                   'registration_ip' => Yii::app()->request->userHostAddress,
+                                  'activation_ip'   => Yii::app()->request->userHostAddress,
                                   'status' => $status,
                                   'email_confirm' => $emailConfirm
                              ));        
@@ -322,7 +339,7 @@ class User extends CActiveRecord
 
     public function changePassword($password)
     {
-        $this->password = Registration::model()->hashPassword($password, $this->salt);
+        $this->password = $this->hashPassword($password, $this->salt);
 
         return $this->update(array('password'));
     }

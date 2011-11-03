@@ -259,7 +259,7 @@ class DefaultController extends Controller
             {
                 $user = new User;
 
-                $salt = Registration::model()->generateSalt();
+                $salt = $user->generateSalt();
 
                 $user->setAttributes(array(
                                           'nick_name' => $model->userName,

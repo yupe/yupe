@@ -11,7 +11,7 @@
         <div id="sidebar">
             <?php
             $this->beginWidget('zii.widgets.CPortlet', array(
-                                                            'title' => Yii::t('page', 'Меню'),
+                                                            'title' => Yii::t('page', 'Основное меню'),
                                                         ));
             $this->widget('zii.widgets.CMenu', array(
                                                     'items' => $this->menu,

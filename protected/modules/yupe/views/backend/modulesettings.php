@@ -38,6 +38,3 @@ $this->breadcrumbs = array(
 <b><?php echo Yii::t('yupe', 'К сожалению для данного модуля нет доступных для редактирования параметров...');?></b>
 
 <?php endif; ?>
-
-
-<?php $this->menu = $menu; ?>  

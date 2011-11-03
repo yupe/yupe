@@ -15,6 +15,11 @@ class YupeModule extends YWebModule
 
     public $brandUrl;
 
+    public function getVersion()
+    {
+        return '0.0.2';
+    }
+
     public function checkSelf()
     {
         if (!is_writable(Yii::app()->runtimePath))

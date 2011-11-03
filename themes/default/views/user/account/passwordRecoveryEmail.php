@@ -10,7 +10,7 @@
 <?php echo Yii::t('user', 'Если это были не Вы - просто удалите это письмо.');?>
 <br/>
 
-<?php echo Yii::t('user', 'Для восстановления пароля, пожалуйста, пройдите по');?> <a href='http://<?php echo $_SERVER['HTTP_HOST']?>/index.php/user/account/recoveryPassword/code/<?php echo $model->code;?>'><?php echo Yii::t('user', 'ссылке');?></a>
+<?php echo Yii::t('user', 'Для восстановления пароля, пожалуйста, перейдите по');?> <a href='http://<?php echo $_SERVER['HTTP_HOST']?>/index.php/user/account/recoveryPassword/code/<?php echo $model->code;?>'><?php echo Yii::t('user', 'ссылке');?></a>
 
 <br/>
 

@@ -81,10 +81,9 @@ class RecoveryPassword extends CActiveRecord
     {
         if (parent::beforeSave())
         {
-            if ($this->isNewRecord)
-            {
+            if ($this->isNewRecord)            
                 $this->creation_date = new CDbExpression('NOW()');
-            }
+            
             return true;
         }
         return false;

@@ -16,8 +16,8 @@ class RecoveryPasswordAction extends CAction
         // автоматическое восстановление пароля
         if (Yii::app()->getModule('user')->autoRecoveryPassword)
         {
-            $newPassword = Registration::model()->generateRandomPassword();
-            $recovery->user->password = Registration::model()->hashPassword($newPassword, $recovery->user->salt);
+            $newPassword = User::model()->generateRandomPassword();
+            $recovery->user->password = User::model()->hashPassword($newPassword, $recovery->user->salt);
             $transaction = Yii::app()->db->beginTransaction();
             try
             {
@@ -44,7 +44,7 @@ class RecoveryPasswordAction extends CAction
         $changePasswordForm = new ChangePasswordForm;
 
         // если отправили фому с новым паролем
-        if (Yii::app()->request->isPostRequest && isset($_POST['ChangePasswordForm']))
+        if (Yii::app()->request->isPostRequest && !empty($_POST['ChangePasswordForm']))
         {
             $changePasswordForm->setAttributes($_POST['ChangePasswordForm']);
 
@@ -55,7 +55,7 @@ class RecoveryPasswordAction extends CAction
                 try
                 {
                     // смена пароля пользователя                
-                    $recovery->user->password = Registration::model()->hashPassword($changePasswordForm->password, $recovery->user->salt);
+                    $recovery->user->password = User::model()->hashPassword($changePasswordForm->password, $recovery->user->salt);
 
                     // удалить все запросы на восстановление для данного пользователя                       
                     if ($recovery->user->save() && RecoveryPassword::model()->deleteAll('user_id = :user_id', array(':user_id' => $recovery->user->id)))
