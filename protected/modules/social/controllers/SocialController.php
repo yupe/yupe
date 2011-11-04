@@ -83,6 +83,12 @@ class SocialController extends YFrontController
 
                                 $this->redirect(array(Yii::app()->getModule('user')->loginSuccess));
                             }
+                            else
+                            {
+                                Yii::app()->user->setFlash(YFlashMessages::NOTICE_ERROR, Yii::t('user', 'Учетная запись создана, но не удалось авторизоваться!'));
+
+                                $this->redirect(array('/user/account/login/'));
+                            }
                         }
                         catch(Exception $e)
                         {

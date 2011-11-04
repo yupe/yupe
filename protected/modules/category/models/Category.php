@@ -71,6 +71,8 @@ class Category extends CActiveRecord
         // NOTE: you should only define rules for those attributes that
         // will receive user inputs.
         return array(
+            array('name, description, alias','filter' => 'trim'),
+            array('name, description, alias','filter','filter' => array($obj = new CHtmlPurifier(),'purify')),
             array('name, description, alias', 'required'),
             array('parent_id, status', 'numerical', 'integerOnly' => true),
             array('name', 'length', 'max' => 150),
