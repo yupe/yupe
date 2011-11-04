@@ -1,5 +1,4 @@
 <?php
-
 class CategoryModule extends YWebModule
 {
     public function getParamsLabels()
