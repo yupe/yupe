@@ -14,15 +14,15 @@ class ContentBlock extends CActiveRecord
 {
 
     const SIMPLE_TEXT = 1;
-    const PHP_CODE = 2;
-    const HTML_TEXT = 3;
+    const PHP_CODE    = 2;
+    const HTML_TEXT   = 3;
 
     public function getTypes()
     {
         return array(
             self::SIMPLE_TEXT => Yii::t('contentblock', 'Простой текст'),
-            self::PHP_CODE => Yii::t('contentblock', 'Исполняемый PHP код'),
-            self::HTML_TEXT => Yii::t('contentblock', 'HTML код'),
+            self::PHP_CODE    => Yii::t('contentblock', 'Исполняемый PHP код'),
+            self::HTML_TEXT   => Yii::t('contentblock', 'HTML код'),
         );
     }
 
@@ -55,16 +55,17 @@ class ContentBlock extends CActiveRecord
      * @return array validation rules for model attributes.
      */
     public function rules()
-    {
-        // NOTE: you should only define rules for those attributes that
-        // will receive user inputs.
+    {        
         return array(
+            array('name, code, content, type','filter','filter' => 'trim'),
+            array('name, code','filter','filter' => array($obj = new CHtmlPurifier(),'purify')),
             array('name, code, content, type', 'required'),
             array('type', 'numerical', 'integerOnly' => true),
-            array('name', 'length', 'max' => 50),
-            array('description', 'length', 'max' => 300),
-            // The following rule is used by search().
-            // Please remove those attributes that should not be searched.
+            array('type', 'in', 'range' => array_keys($this->getTypes())),
+            array('name, code', 'length', 'max' => 50),
+            array('description', 'length', 'max' => 300),            
+            array('code','match','pattern' => '/^[A-Za-z0-9_]{2,50}$/','message' => Yii::t('seeline','Неверный формат поля "{attribute}" допустимы только буквы, цифры и символ подчеркивания, от 2 до 50 символов')),            
+            array('code','unique'),                        
             array('id, name, code, type, content, description', 'safe', 'on' => 'search'),
         );
     }

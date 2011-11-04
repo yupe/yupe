@@ -35,5 +35,5 @@ $this->menu = array(
 <div>
     <?php echo Yii::t('contentblock', 'Код для использования этого блока в шаблоне:');?>
     <br/><br/>
-    <?php echo CHtml::encode('<?php $this->widget("application.modules.contentblock.widgets.ContentBlockWidget",array("code" => "' . $model->code . '"));?>');?>
+    <?php echo $example;?>
 </div>

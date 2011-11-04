@@ -1,5 +1,4 @@
 <?php
-
 class ContentBlockModule extends YWebModule
 {
 

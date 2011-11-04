@@ -1,5 +1,4 @@
 <?php
-
 class DefaultController extends YBackController
 {
 
@@ -9,8 +8,19 @@ class DefaultController extends YBackController
      */
     public function actionView($id)
     {
+        $model = $this->loadModel($id);
+
+        $code = '<?php $this->widget("application.modules.contentblock.widgets.ContentBlockWidget",array("code" => "' . $model->code . '"));?>';
+
+        $highlighter = new CTextHighlighter();
+
+        $highlighter->language = 'PHP';
+
+        $example = $highlighter->highlight($code); 
+
         $this->render('view', array(
-                                   'model' => $this->loadModel($id),
+                                   'model'   => $model,
+                                   'example' => $example
                               ));
     }
 
@@ -62,7 +72,7 @@ class DefaultController extends YBackController
             {
                 Yii::app()->user->setFlash(YFlashMessages::NOTICE_MESSAGE, Yii::t('contentblock', 'Контент блок изменен!'));
 
-                Yii::app()->cache->delete("ContentBlock{$model->name}");
+                Yii::app()->cache->delete("ContentBlock{$model->code}");
 
                 $this->redirect(array('view', 'id' => $model->id));
             }

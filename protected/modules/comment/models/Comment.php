@@ -50,7 +50,7 @@ class Comment extends CActiveRecord
     {        
         return array(
             array('model, name, email, text, url','filter','filter' => 'trim'),
-            array('model, name, email, text, url','filter' => array($obj = new CHtmlPurifier(),'purify')),
+            array('model, name, email, text, url','filter','filter' => array($obj = new CHtmlPurifier(),'purify')),
             array('model, model_id, name, email, text', 'required'),
             array('status, user_id', 'numerical', 'integerOnly' => true),
             array('name, email, url', 'length', 'max' => 150),
