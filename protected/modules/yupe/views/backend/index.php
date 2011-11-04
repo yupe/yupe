@@ -14,9 +14,9 @@
     <?php endif; ?>
 <?php endforeach; ?>
 
-<p>Вы используете Yii версии
+<p><?php echo Yii::t('yupe','Вы используете Yii версии');?>
     <b><?php echo Yii::getVersion();?></b>, <?php echo CHtml::encode(Yii::app()->name);?>
-    версии <b><?php echo Yii::app()->yupe->getVersion();?></b>,
+    версии <b><?php echo Yii::app()->getModule('yupe')->getVersion();?></b>,
     php <?php echo Yii::t('yupe', 'версии');?>
     <b><?php echo phpversion();?></b></p>
 
@@ -24,7 +24,7 @@
     <b><?php echo count($modules) + count($yiiModules);?></b></p>
 
 <?php if (count($modules)): ?>
-<p><?php echo Yii::t('yupe', 'Модули разработанные специально для {app} ',array('{app}' => CHtml::encode(Yii::app()->name)));?>
+<p><?php echo Yii::t('yupe', 'Модули разработанные специально для "{app}" ',array('{app}' => CHtml::encode(Yii::app()->name)));?>
     (<?php echo count($modules); ?>):</p>
 <table class="items">
     <thead>
@@ -67,8 +67,7 @@
 <?php endif; ?>
 
 <?php if (count($yiiModules)): ?>
-<p><?php echo Yii::t('yupe', 'Yii модули');?> (<?php echo count($yiiModules);?>
-    ):</p>
+<p><?php echo Yii::t('yupe', 'Yii модули');?> (<?php echo count($yiiModules);?>):</p>
 <table class="items">
     <thead>
     <tr>

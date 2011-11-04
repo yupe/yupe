@@ -38,7 +38,7 @@ return array(
 
         'application.modules.social.widgets.ysc.*',
 
-        'application.modules.social.components.*',      
+        'application.modules.social.components.*',              
         'application.modules.social.models.*', 
         'application.modules.social.extensions.eoauth.*',
         'application.modules.social.extensions.eoauth.lib.*',
@@ -65,11 +65,7 @@ return array(
                 ),
             )
         ),
-
-        'yupe' => array(
-            'class' => 'application.modules.yupe.components.Yupe'
-        ),
-
+        
         // компонент для отправки почты
         'mail' => array(
             'class' => 'application.modules.yupe.components.YMail'

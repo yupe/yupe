@@ -34,6 +34,36 @@
     </div>    
 
     <div class="row">
+        <?php echo $form->labelEx($model, 'location'); ?>
+        <?php echo $form->textField($model, 'location', array('size' => 25, 'maxlength' => 150)); ?>
+        <?php echo $form->error($model, 'location'); ?>
+    </div>    
+
+    <div class="row">
+        <?php echo $form->labelEx($model, 'site'); ?>
+        <?php echo $form->textField($model, 'site', array('size' => 25, 'maxlength' => 100)); ?>
+        <?php echo $form->error($model, 'site'); ?>
+    </div>    
+
+    <div class="row">
+        <?php echo $form->labelEx($model, 'birth_date'); ?>
+        <?php $this->widget('zii.widgets.jui.CJuiDatePicker', array(
+            'model'=>$model,            
+            'attribute' => 'birth_date',
+            'options'   => array(
+                'dateFormat' => 'yy-mm-dd'
+             )          
+        )); ?>
+        <?php echo $form->error($model, 'birth_date'); ?>
+    </div>    
+
+    <div class="row">
+        <?php echo $form->labelEx($model, 'about'); ?>
+        <?php echo $form->textArea($model, 'about', array('rows' => 7, 'cols' => 45)); ?>
+        <?php echo $form->error($model, 'about'); ?>
+    </div>    
+
+    <div class="row">
         <?php echo $form->labelEx($model, 'gender'); ?>
         <?php echo $form->dropDownList($model, 'gender', $model->getGendersList()); ?>
         <?php echo $form->error($model, 'gender'); ?>
@@ -51,10 +81,16 @@
         <?php echo $form->error($model, 'access_level'); ?>
     </div>
 
+    <div class="row">
+        <?php echo $form->labelEx($model, 'email_confirm'); ?>
+        <?php echo $form->dropDownList($model, 'email_confirm', $model->getEmailConfirmStatusList()); ?>
+        <?php echo $form->error($model, 'email_confirm'); ?>
+    </div>
+
     <div class="row buttons">
         <?php echo CHtml::submitButton($model->isNewRecord
-                                           ? Yii::t('user', 'Сохранить')
-                                           : Yii::t('user', 'Обновить')); ?>
+                                           ? Yii::t('user', 'Сохранить пользователя')
+                                           : Yii::t('user', 'Обновить данные пользователя')); ?>
     </div>
 
     <?php $this->endWidget(); ?>

@@ -1,9 +1,7 @@
 <?php
 class YMail extends CComponent
 {
-    public function init()
-    {
-    }
+    public function init(){}
 
     public function send($from, $to, $theme, $body, $isText = false)
     {

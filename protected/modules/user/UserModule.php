@@ -107,7 +107,7 @@ class UserModule extends YWebModule
 
     public function getVersion()
     {
-        return '0.2';
+        return '0.3';
     }
 
     public function init()

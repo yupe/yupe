@@ -30,6 +30,10 @@ $this->menu = array(
                                                         'last_name',
                                                         'nick_name',
                                                         'email',
+                                                        'location',
+                                                        'site',
+                                                        'birth_date',
+                                                        'about',
                                                         array(
                                                             'name' => 'gender',
                                                             'value' => $model->getGender()
@@ -43,6 +47,10 @@ $this->menu = array(
                                                         array(
                                                             'name' => 'access_level',
                                                             'value' => $model->getAccessLevel()
+                                                        ),
+                                                        array(
+                                                            'name' => 'email_confirm',
+                                                            'value' => $model->getEmailConfirmStatus()
                                                         ),
                                                         'last_visit',
                                                         'registration_date',

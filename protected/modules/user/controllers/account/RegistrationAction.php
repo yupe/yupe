@@ -65,7 +65,7 @@ class RegistrationAction extends CAction
                     // если активации не требуется - сразу создаем аккаунт
                     $user = new User;                    
 
-                    $user->createAccount($form->nick_name, $form->email, $form->password, null , User::STATUS_ACTIVE, User::EMAIL_CONFIRM_YES);
+                    $user->createAccount($form->nick_name, $form->email, $form->password, null , User::STATUS_ACTIVE, User::EMAIL_CONFIRM_NO);
 
                     if ($user && !$user->hasErrors())
                     {
