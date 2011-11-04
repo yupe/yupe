@@ -37,5 +37,3 @@ class CommentsListWidget extends YWidget
         $this->render('commentslistwidget', array('comments' => $comments));
     }
 }
-
-?>

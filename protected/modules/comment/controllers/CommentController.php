@@ -34,18 +34,16 @@ class CommentController extends YFrontController
                                              'email' => Yii::app()->user->getState('email'),
                                         ));
 
-                if($module->autoApprove)
-                {
+                if($module->autoApprove)                
                     $comment->status = Comment::STATUS_APPROVED;   
-                }            
+                            
             }
 
             if ($comment->save())
             {
-                if (Yii::app()->request->isAjaxRequest)
-                {
+                if (Yii::app()->request->isAjaxRequest)                
                     Yii::app()->ajax->success(Yii::t('comment', 'Комментарий добавлен!'));
-                }
+                
 
                 $message = $comment->status !== Comment::STATUS_APPROVED ? Yii::t('comment', 'Спасибо, Ваш комментарий добавлен и ожидает проверки!') : Yii::t('comment', 'Спасибо, Ваш комментарий добавлен!');
 
@@ -55,11 +53,9 @@ class CommentController extends YFrontController
             }
             else
             {
-                if (Yii::app()->request->isAjaxRequest)
-                {
+                if (Yii::app()->request->isAjaxRequest)                
                     Yii::app()->ajax->failure(Yii::t('comment', 'Комментарий не добавлен!'));
-                }
-
+                
                 Yii::app()->user->setFlash(YFlashMessages::ERROR_MESSAGE, Yii::t('comment', 'Комментарий не добавлен! Заполните форму корректно!'));
 
                 $this->redirect($redirect);

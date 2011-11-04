@@ -27,5 +27,3 @@ class CommentFormWidget extends YWidget
         $this->render('commentformwidget', array('redirectTo' => $this->redirectTo, 'model' => $model));
     }
 }
-
-?>

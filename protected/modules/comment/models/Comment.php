@@ -1,5 +1,4 @@
 <?php
-
 /**
  * This is the model class for table "Comment".
  *
@@ -20,9 +19,9 @@ class Comment extends CActiveRecord
 {
 
     const STATUS_NEED_CHECK = 0;
-    const STATUS_APPROVED = 1;
-    const STATUS_SPAM = 2;
-    const STATUS_DELETED = 3;
+    const STATUS_APPROVED   = 1;
+    const STATUS_SPAM       = 2;
+    const STATUS_DELETED    = 3;
 
     public $verifyCode;
 
@@ -50,14 +49,16 @@ class Comment extends CActiveRecord
     public function rules()
     {        
         return array(
-            array('model,model_id, name, email, text', 'required'),
+            array('model, name, email, text, url','filter','filter' => 'trim'),
+            array('model, name, email, text, url','filter' => array($obj = new CHtmlPurifier(),'purify')),
+            array('model, model_id, name, email, text', 'required'),
             array('status, user_id', 'numerical', 'integerOnly' => true),
             array('name, email, url', 'length', 'max' => 150),
             array('model', 'length', 'max' => 50),
             array('ip', 'length', 'max' => 20),
             array('email', 'email'),
             array('url', 'url'),
-            array('name, email, text, url', 'filter', 'filter' => 'strip_tags'),
+            array('status', 'in', 'range' => array_keys($this->getStatusList())),            
             array('verifyCode', 'YRequiredValidator', 'allowEmpty' => Yii::app()->user->isAuthenticated()),
             array('verifyCode', 'captcha', 'allowEmpty' => Yii::app()->user->isAuthenticated()),            
             array('id, model, model_id, creation_date, name, email, url, text, status, ip', 'safe', 'on' => 'search'),
@@ -112,20 +113,15 @@ class Comment extends CActiveRecord
     }
 
     public function beforeSave()
-    {
-        if (parent::beforeSave())
+    {       
+        if ($this->isNewRecord)
         {
-            if ($this->isNewRecord)
-            {
-                $this->creation_date = new CDbExpression('NOW()');
+            $this->creation_date = new CDbExpression('NOW()');
 
-                $this->ip = Yii::app()->request->userHostAddress;
-            }
-
-            return true;
+            $this->ip = Yii::app()->request->userHostAddress;
         }
 
-        return false;
+        return parent::beforeSave();
     }
 
     public function scopes()
