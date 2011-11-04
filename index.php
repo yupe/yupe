@@ -1,4 +1,5 @@
 <?php
+// подробнее про index.php http://www.yiiframework.ru/doc/guide/ru/basics.entry
 date_default_timezone_set('Europe/Moscow');
 
 // путь к фреймворку Yii, при необходиомсти можно изменить

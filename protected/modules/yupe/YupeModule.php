@@ -21,7 +21,7 @@ class YupeModule extends YWebModule
 
     public function getVersion()
     {
-        return '0.3';
+        return '0.0.3';
     }
 
     public function checkSelf()
@@ -103,8 +103,7 @@ class YupeModule extends YWebModule
 
 
     public function init()
-    {
-        
+    {       
 
         $this->setImport(array(
                               'yupe.models.*',

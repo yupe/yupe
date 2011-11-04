@@ -2,6 +2,7 @@
 // основной конфигурационный файл Yii и Юпи! (подробнее http://www.yiiframework.ru/doc/guide/ru/basics.application)
 return array(
     'basePath' => dirname(__FILE__) . DIRECTORY_SEPARATOR . '..',
+
     'defaultController' => 'site',
     // название приложения
     'name' => 'Юпи!',
@@ -49,10 +50,11 @@ return array(
     // конфигурирование основных компонентов (подробнее http://www.yiiframework.ru/doc/guide/ru/basics.component)
     'components' => array(
 
+        // подключение библиотеки для авторизации через социальные сервисы, подробнее https://github.com/Nodge/yii-eauth           
         'loid' => array(
             'class' => 'application.modules.social.extensions.lightopenid.loid',
-        ),
-
+        ),         
+         
         'eauth' => array(
             'class' => 'application.modules.social.extensions.eauth.EAuth',
             'popup' => true, // Use the popup window instead of redirecting.
@@ -71,7 +73,7 @@ return array(
             'class' => 'application.modules.yupe.components.YMail'
         ),
         
-        // конфигурирование urlManager (подробнее http://www.yiiframework.ru/doc/guide/ru/topics.url)
+        // конфигурирование urlManager, подробнее http://www.yiiframework.ru/doc/guide/ru/topics.url
         'urlManager' => array(
             'urlFormat' => 'path',
             'showScriptName' => true,
@@ -86,30 +88,35 @@ return array(
             ),
         ),
          
-        // конфигурируем компонент CHttpRequest для защиты от CSRF атак (подробнее http://www.yiiframework.ru/doc/guide/ru/topics.security)
+        // конфигурируем компонент CHttpRequest для защиты от CSRF атак, подробнее http://www.yiiframework.ru/doc/guide/ru/topics.security
         // РЕКОМЕНДУЕМ УКАЗАТЬ СВОЕ ЗНАЧЕНИЕ ДЛЯ ПАРАМЕТРА "csrfTokenName"
         'request' => array(
             'class' => 'CHttpRequest',
             'enableCsrfValidation' => true,
             'csrfTokenName' => 'YUPE_TOKEN'
         ),
-
+    
+        // подключение компонента для генерации ajax-ответов
         'ajax' => array(
             'class' => 'application.modules.yupe.components.YAsyncResponse'
         ),
-
+        
+        // компонент Yii::app()->user, подробнее http://www.yiiframework.ru/doc/guide/ru/topics.auth
         'user' => array(
             'class' => 'application.modules.user.components.YWebUser',
             'loginUrl' => '/user/account/login/'
         ),
-
+         
+         // параметры подключения к базе данных, подробнее http://www.yiiframework.ru/doc/guide/ru/database.overview
         'db' => require(dirname(__FILE__) . '/db.php'),
-
+         
+        // настройки кэширования, подробнее http://www.yiiframework.ru/doc/guide/ru/caching.overview
         'cache' => array(
             'class' => 'CFileCache'
         ),
 
-        'log' => array(
+        // параметры логирования, подробнее http://www.yiiframework.ru/doc/guide/ru/topics.logging
+       'log' => array(
             'class' => 'CLogRouter',
             'routes' => array(                
                 array(
@@ -125,6 +132,7 @@ return array(
         ),
     ),
 
+    // конфигурация модулей приложения, подробнее http://www.yiiframework.ru/doc/guide/ru/basics.module
     'modules' => array(
         'social' => array(
             'class' => 'application.modules.social.SocialModule',
