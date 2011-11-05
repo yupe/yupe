@@ -17,7 +17,7 @@ class DefaultController extends Controller
     protected function beforeAction($action)
     {
         // проверка на то, что сайт уже установлен...
-        if (file_exists($this->alreadyInstalledFlag) && !in_array($this->$_freeActions,$this->action->id))        
+        if (file_exists($this->alreadyInstalledFlag) && !in_array($this->action->id,$this->_freeActions))
             throw new CHttpException(404, Yii::t('install', 'Страница не найдена!'));        
 
         return parent::beforeAction($action);
