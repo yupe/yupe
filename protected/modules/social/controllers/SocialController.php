@@ -15,7 +15,7 @@ class SocialController extends YFrontController
     {
     	$service = Yii::app()->request->getQuery('service');
 
-        if (isset($service))
+        if ($service !== null)
         {
             $authIdentity = Yii::app()->eauth->getIdentity($service);
 
