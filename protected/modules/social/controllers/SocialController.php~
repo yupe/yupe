@@ -79,6 +79,8 @@ class SocialController extends YFrontController
                             $this->redirect(array(Yii::app()->getModule('user')->loginSuccess));           
                         } 
 
+                        die('!!!!!!!!!!!!!!!!');
+
                         $transaction = Yii::app()->db->beginTransaction();
 
                         try

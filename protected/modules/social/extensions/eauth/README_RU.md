@@ -12,6 +12,7 @@ Yii EAuth extension
 
 ### Ссылки
 
+* [Демонстрация](http://nodge.ru/yii-eauth/demo/login)
 * [Yii EAuth](https://github.com/Nodge/yii-eauth)
 * [Yii Framework](http://yiiframework.com/)
 * [OpenID](http://openid.net/)

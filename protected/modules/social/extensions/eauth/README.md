@@ -12,6 +12,7 @@ Supported providers out of box:
 
 ### Resources
 
+* [Try out demonstration](http://nodge.ru/yii-eauth/demo/login)
 * [Yii EAuth](https://github.com/Nodge/yii-eauth)
 * [Yii Framework](http://yiiframework.com/)
 * [OpenID](http://openid.net/)

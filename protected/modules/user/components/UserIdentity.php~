@@ -16,7 +16,7 @@ class UserIdentity extends CUserIdentity
             // запись данных в сессию пользователя
             $this->_id = $user->id;
             $this->username = $user->nick_name;
-            Yii::app()->user->setState('id', $user->id);
+            Yii::app()->user->setState('user_id', $user->id);
             Yii::app()->user->setState('access_level', $user->access_level);
             Yii::app()->user->setState('nick_name', $user->nick_name);
             Yii::app()->user->setState('email', $user->email);
