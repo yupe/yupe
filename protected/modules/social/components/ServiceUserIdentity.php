@@ -27,11 +27,10 @@ class ServiceUserIdentity extends UserIdentity
         if ($this->service->isAuthenticated)
         {
             $this->username = $this->service->getAttribute('name');
-            Yii::app()->user->setState('id', $this->service->id);
+            Yii::app()->user->setState('sid', $this->service->id);
             Yii::app()->user->setState('name', $this->username);
             Yii::app()->user->setState('service', $this->service->serviceName);
-            $this->errorCode = self::ERROR_NONE;        
-            //var_dump($this->service->id.' '.$this->username.' '.$this->service->serviceName);die();
+            $this->errorCode = self::ERROR_NONE;                    
         }
         else
         {

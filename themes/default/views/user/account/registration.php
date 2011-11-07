@@ -63,6 +63,8 @@
     <?php $this->endWidget(); ?>
 </div><!-- form -->
 
+<?php  $this->widget('application.modules.social.extensions.eauth.EAuthWidget',array('action' => '/social/social/login/'));?>
+
 <div style='float:left;'>
     <div style='float:left;padding-right:5px'>
         <?php $this->widget('application.modules.social.widgets.ysc.yandex.YandexShareApi', array(

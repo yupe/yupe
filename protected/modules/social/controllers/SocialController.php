@@ -3,7 +3,7 @@ class SocialController extends YFrontController
 {
     private function cleanState()
     {
-        Yii::app()->user->setState('id',null);
+        Yii::app()->user->setState('sid',null);
 
         Yii::app()->user->setState('name',null);
 
@@ -30,8 +30,8 @@ class SocialController extends YFrontController
                 // successful authentication
                 if ($identity->authenticate())
                 {
-                    //проверить нет ли этого пользователя
-                    $socialLogin = new SocialLoginIdentity(Yii::app()->user->getState('service'),Yii::app()->user->getState('id'));
+                    //проверить нет ли уже этого пользователя
+                    $socialLogin = new SocialLoginIdentity(Yii::app()->user->getState('service'),Yii::app()->user->getState('sid'));
 
                     if($socialLogin->authenticate())
                     {
@@ -39,7 +39,7 @@ class SocialController extends YFrontController
 
                     	Yii::app()->user->login($socialLogin);
 
-                    	Yii::app()->user->setFlash(YFlashMessages::NOTICE_MESSAGE, Yii::t('user', 'Вы успешно авторизовались!!!'));         
+                    	Yii::app()->user->setFlash(YFlashMessages::NOTICE_MESSAGE, Yii::t('user', 'Вы успешно авторизовались!'));         
 
                         $this->redirect(array(Yii::app()->getModule('user')->loginSuccess));
                     }
@@ -67,10 +67,11 @@ class SocialController extends YFrontController
 
                             $login->setAttributes(array(
                                 'user_id'     => Yii::app()->user->getId(),
-                                'identity_id' => Yii::app()->user->getState('id'),
+                                'identity_id' => Yii::app()->user->getState('sid'),
                                 'type'        => Yii::app()->user->getState('service'), 
                             ));                                
-
+                            
+							//@TODO как-то иначе обработать неудачу
                             if(!$login->save())
                                 throw new CDbException(Yii::t('social','При создании учетной записи произошла ошибка!'));
 
@@ -94,7 +95,7 @@ class SocialController extends YFrontController
 
                                 $login->setAttributes(array(
                                     'user_id'     => $account->id,
-                                    'identity_id' => Yii::app()->user->getState('id'),
+                                    'identity_id' => Yii::app()->user->getState('sid'),
                                     'type'        => Yii::app()->user->getState('service'), 
                                 ));                                
 
@@ -105,7 +106,7 @@ class SocialController extends YFrontController
                             $transaction->commit();
 
                             // авторизуем нового пользователя
-                            $socialLogin = new SocialLoginIdentity(Yii::app()->user->getState('service'),Yii::app()->user->getState('id'));
+                            $socialLogin = new SocialLoginIdentity(Yii::app()->user->getState('service'),Yii::app()->user->getState('sid'));
 
                             if($socialLogin->authenticate())
                             {
@@ -113,7 +114,7 @@ class SocialController extends YFrontController
 
                                 Yii::app()->user->login($socialLogin);
 
-                                Yii::app()->user->setFlash(YFlashMessages::NOTICE_MESSAGE, Yii::t('user', 'Вы успешно авторизовались!!'));
+                                Yii::app()->user->setFlash(YFlashMessages::NOTICE_MESSAGE, Yii::t('user', 'Вы успешно авторизовались!'));
                                 
                                 $this->redirect(array(Yii::app()->getModule('user')->loginSuccess));
                             }
@@ -159,7 +160,7 @@ class SocialController extends YFrontController
     
     public function actionRegistration()
     {
-    	$id = Yii::app()->user->getState('id');
+    	$id = Yii::app()->user->getState('sid');
 
         $name = Yii::app()->user->getState('name');
 
@@ -191,7 +192,7 @@ class SocialController extends YFrontController
 
                     $login->setAttributes(array(
                         'user_id'     => $model->id,
-                        'identity_id' => Yii::app()->user->getState('id'),
+                        'identity_id' => Yii::app()->user->getState('sid'),
                         'type'        => Yii::app()->user->getState('service'), 
                     ));                                
 
@@ -206,7 +207,7 @@ class SocialController extends YFrontController
                 }                
 
                 // авторизуем нового пользователя
-                $socialLogin = new SocialLoginIdentity(Yii::app()->user->getState('service'),Yii::app()->user->getState('id'));
+                $socialLogin = new SocialLoginIdentity(Yii::app()->user->getState('service'),Yii::app()->user->getState('sid'));
 
                 if($socialLogin->authenticate())
                 {
