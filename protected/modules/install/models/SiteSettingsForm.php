@@ -25,5 +25,3 @@ class SiteSettingsForm extends CFormModel
         );
     }
 }
-
-?>

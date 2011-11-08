@@ -29,5 +29,3 @@ class CreateUserForm extends CFormModel
         );
     }
 }
-
-?>

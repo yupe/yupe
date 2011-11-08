@@ -65,5 +65,3 @@ class InstallModule extends YWebModule
                          ));
     }
 }
-
-?>

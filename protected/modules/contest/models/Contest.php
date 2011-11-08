@@ -18,6 +18,7 @@ class Contest extends CActiveRecord
 {
 
     const STATUS_DRAFT = 0;
+
     const STATUS_PUBLISHED = 1;
 
     /**

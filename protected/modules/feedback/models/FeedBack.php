@@ -148,20 +148,16 @@ class FeedBack extends CActiveRecord
 
     public function beforeValidate()
     {
-        if (parent::beforeSave())
+        if ($this->isNewRecord)
         {
-            if ($this->isNewRecord)
-            {
-                $this->creation_date = $this->change_date = new CDbExpression('NOW()');
-                $this->ip = Yii::app()->request->userHostAddress;
-            }
-            else
-            {
-                $this->change_date = new CDbExpression('NOW()');
-            }
-        }
+            $this->creation_date = $this->change_date = new CDbExpression('NOW()');
 
-        return true;
+            $this->ip = Yii::app()->request->userHostAddress;
+        }
+        else        
+            $this->change_date = new CDbExpression('NOW()');        
+
+        return parent::beforeSave();
     }
 
     public function scopes()

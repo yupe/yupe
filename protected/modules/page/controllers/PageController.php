@@ -32,27 +32,19 @@ class PageController extends YFrontController
     {
         $slug = Yii::app()->request->getQuery('slug');
 
-        if (!$slug)
-        {
-            throw new CHttpException('404', Yii::t('page', 'Страница не найдена!'));
-        }
+        if (!$slug)        
+            throw new CHttpException('404', Yii::t('page', 'Страница не найдена!'));        
 
         $page = null;
 
         // превью
-        if ((int)Yii::app()->request->getQuery('preview') === 1 && Yii::app()->user->isSuperUser())
-        {
-            $page = Page::model()->find('slug = :slug', array(':slug' => $slug));
-        }
-        else
-        {
-            $page = Page::model()->published()->find('slug = :slug', array(':slug' => $slug));
-        }
+        if ((int)Yii::app()->request->getQuery('preview') === 1 && Yii::app()->user->isSuperUser())        
+            $page = Page::model()->find('slug = :slug', array(':slug' => $slug));        
+        else        
+            $page = Page::model()->published()->find('slug = :slug', array(':slug' => $slug));        
 
-        if (!$page)
-        {
-            throw new CHttpException('404', Yii::t('page', 'Страница не найдена!'));
-        }
+        if (!$page)        
+            throw new CHttpException('404', Yii::t('page', 'Страница не найдена!'));        
 
         // проверим что пользователь может просматривать эту страницу
         if (($page->is_protected == Page::PROTECTED_YES) && !Yii::app()->user->isAuthenticated())
@@ -83,15 +75,11 @@ class PageController extends YFrontController
 
         $pages = array();
 
-        if ($models)
-        {
-            $pages[$models->title] = array('/page/page/show/', 'slug' => $models->slug);
-        }
+        if ($models)        
+            $pages[$models->title] = array('/page/page/show/', 'slug' => $models->slug);        
 
         array_push($pages, $this->currentPage->name);
 
         return $pages;
     }
 }
-
-?>

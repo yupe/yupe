@@ -16,11 +16,11 @@
  */
 class Page extends CActiveRecord
 {
-    const STATUS_DRAFT = 0;
-    const STATUS_PUBLISHED = 1;
+    const STATUS_DRAFT      = 0;
+    const STATUS_PUBLISHED  = 1;
     const STATUS_MODERATION = 2;
 
-    const PROTECTED_NO = 0;
+    const PROTECTED_NO  = 0;
     const PROTECTED_YES = 1;
 
     public function getStatusList()

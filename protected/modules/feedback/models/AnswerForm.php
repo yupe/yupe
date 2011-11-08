@@ -23,5 +23,3 @@ class AnswerForm extends CFormModel
         );
     }
 }
-
-?>

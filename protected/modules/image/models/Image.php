@@ -18,7 +18,7 @@
  */
 class Image extends CActiveRecord
 {
-    const STATUS_CHECKED = 1;
+    const STATUS_CHECKED    = 1;
     const STATUS_NEED_CHECK = 0;
 
     /**
@@ -111,19 +111,15 @@ class Image extends CActiveRecord
     }
 
     public function beforeValidate()
-    {
-        if (parent::beforeValidate())
+    {        
+        if ($this->isNewRecord)
         {
-            if ($this->isNewRecord)
-            {
-                $this->creation_date = new CDbExpression('NOW()');
-                $this->user_id = Yii::app()->user->getId();
-            }
+            $this->creation_date = new CDbExpression('NOW()');
 
-            return true;
+            $this->user_id = Yii::app()->user->getId();
         }
 
-        return false;
+        return parent::beforeValidate();        
     }
 
     public function getStatusList()
@@ -175,20 +171,12 @@ class Image extends CActiveRecord
         if (file_exists($file))
         {
             //удалить файл картинки
-            if (unlink($file))
-            {
-                return parent::delete();
-            }
-            else
-            {
-                throw new CDbException(Yii::t('image', 'При удалении файла произошла ошибка!'));
-            }
+            if (unlink($file))            
+                return parent::delete();            
+            else            
+                throw new CDbException(Yii::t('image', 'При удалении файла произошла ошибка!'));            
         }
-        else
-        {
-            return parent::delete();
-        }
+        else        
+            return parent::delete();        
     }
-
-
 }

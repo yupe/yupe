@@ -25,10 +25,8 @@ class DefaultController extends YBackController
         {
             $model = $model->create($_POST['Image']);
 
-            if (!$model->hasErrors())
-            {
-                $this->redirect(array('view', 'id' => $model->id));
-            }
+            if (!$model->hasErrors())            
+                $this->redirect(array('view', 'id' => $model->id));            
         }
 
         $this->render('create', array('model' => $model));
@@ -47,10 +45,8 @@ class DefaultController extends YBackController
         {
             $model->setAttributes($_POST['Image']);
 
-            if ($model->save())
-            {
-                $this->redirect(array('view', 'id' => $model->id));
-            }
+            if ($model->save())            
+                $this->redirect(array('view', 'id' => $model->id));            
         }
 
         $this->render('update', array('model' => $model));

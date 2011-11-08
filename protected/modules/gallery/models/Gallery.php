@@ -13,7 +13,7 @@ class Gallery extends CActiveRecord
 {
     const STATUS_PUBLIC = 1;
 
-    const STATUS_DRAFT = 0;
+    const STATUS_DRAFT  = 0;
 
     /**
      * Returns the static model of the specified AR class.

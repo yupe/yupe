@@ -8,5 +8,3 @@ class DocumentationController extends YFrontController
         $this->render('index');
     }
 }
-
-?>

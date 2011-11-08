@@ -32,7 +32,4 @@ class DbSettingsForm extends CFormModel
             'password' => Yii::t('install', 'Пароль')
         );
     }
-
 }
-
-?>

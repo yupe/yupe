@@ -13,5 +13,3 @@ class NewsController extends YFrontController
         $this->render('news', array('news' => $news));
     }
 }
-
-?>

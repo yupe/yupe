@@ -18,6 +18,7 @@ class PagesWidget extends YWidget
         if (!$this->pageStatus)
         {
             $this->pageStatus = Page::STATUS_PUBLISHED;
+
             $this->parent_Id = (int)$this->parent_Id;
         }
     }
@@ -50,5 +51,3 @@ class PagesWidget extends YWidget
         }
     }
 }
-
-?>

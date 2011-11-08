@@ -9,10 +9,8 @@ class CommentsListWidget extends YWidget
 
     public function init()
     {
-        if (!$this->model || !$this->model_id)
-        {
-            throw new CException(Yii::t('comment', 'Пожалуйста, укажите "model" и "model_id" для виджета "{widget}" !', array('{widget}' => get_class($this))));
-        }
+        if (!$this->model || !$this->model_id)        
+            throw new CException(Yii::t('comment', 'Пожалуйста, укажите "model" и "model_id" для виджета "{widget}" !', array('{widget}' => get_class($this))));        
 
         $this->model = is_object($this->model) ? get_class($this->model)
             : $this->model;

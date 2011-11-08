@@ -186,10 +186,9 @@ class DefaultController extends Controller
 
                     $fh = fopen($dbConfFile, 'w+');
 
-                    if (!$fh)
-                    {
+                    if (!$fh)                    
                         $form->addError('', Yii::t('install', "Не могу открыть файл '{file}' для записии!", array('{file}' => $dbConfFile)));
-                    }
+                    
                     else
                     {
                         //@TODO корректная обработка ошибок IO
@@ -210,10 +209,8 @@ class DefaultController extends Controller
                         {
                             foreach ($sqlFiles as $file)
                             {
-                                if ($file != $sqlFile)
-                                {
-                                    $this->executeSql($file);
-                                }
+                                if ($file != $sqlFile)                                
+                                    $this->executeSql($file);                                
                             }
                         }
 
@@ -232,15 +229,11 @@ class DefaultController extends Controller
 
         $result = $sqlResult = false;
 
-        if (file_exists($dbConfFile) && is_writable($dbConfFile))
-        {
-            $result = true;
-        }
+        if (file_exists($dbConfFile) && is_writable($dbConfFile))        
+            $result = true;        
 
         if (file_exists($sqlFile) && is_readable($sqlFile))
-        {
             $sqlResult = true;
-        }
 
         $this->render('dbsettings', array('model' => $form, 'sqlResult' => $sqlResult, 'sqlFile' => $sqlFile, 'result' => $result, 'file' => $dbConfFile));
     }

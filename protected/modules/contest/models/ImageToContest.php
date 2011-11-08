@@ -93,16 +93,9 @@ class ImageToContest extends CActiveRecord
 
     public function beforeSave()
     {
-        if (parent::beforeSave())
-        {
-            if ($this->isNewRecord)
-            {
-                $this->creation_date = new CDbExpression('NOW()');
-            }
+        if ($this->isNewRecord)        
+            $this->creation_date = new CDbExpression('NOW()');        
 
-            return true;
-        }
-
-        return false;
+        return parent::beforeSave();
     }
 }

@@ -13,5 +13,3 @@ class NewsWidget extends YWidget
         $this->render('news', array('news' => $news));
     }
 }
-
-?>

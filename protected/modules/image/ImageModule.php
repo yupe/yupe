@@ -21,10 +21,8 @@ class ImageModule extends YWebModule
 
         $dirName = $this->getUploadPath() . $current;
 
-        if (is_dir($dirName))
-        {
-            return $current;
-        }
+        if (is_dir($dirName))        
+            return $current;        
 
         return @mkdir($dirName, 0700, true) == true ? $current : false;
     }

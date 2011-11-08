@@ -11,10 +11,8 @@ class VoteController extends YFrontController
 
             $value = (int)Yii::app()->request->getPost('value');
 
-            if (!$model_id || !$value || !$modelType)
-            {
-                Yii::app()->ajax->failure(Yii::t('contest', 'Произошла ошибка!'));
-            }
+            if (!$model_id || !$value || !$modelType)            
+                Yii::app()->ajax->failure(Yii::t('contest', 'Произошла ошибка!'));            
 
             $model = new Vote;
 
@@ -25,9 +23,7 @@ class VoteController extends YFrontController
                                   ));
 
             if ($model->save())
-            {
-                Yii::app()->ajax->success();
-            }
+                Yii::app()->ajax->success();            
 
             Yii::app()->ajax->failure(Yii::t('vote', 'Произошла ошибка!'));
         }
@@ -35,5 +31,3 @@ class VoteController extends YFrontController
         throw new CHttpException(404, Yii::t('vote', 'Страница не найдена!'));
     }
 }
-
-?>

@@ -103,18 +103,13 @@ class Vote extends CActiveRecord
 
     public function beforeSave()
     {
-        if (parent::beforeSave())
+        if ($this->isNewRecord)
         {
-            if ($this->isNewRecord)
-            {
-                $this->creation_date = new CDbExpression('NOW()');
+            $this->creation_date = new CDbExpression('NOW()');
 
-                $this->user_id = Yii::app()->user->getId();
-            }
-
-            return true;
+            $this->user_id = Yii::app()->user->getId();
         }
 
-        return false;
+        return parent::beforeSave();        
     }
 }
