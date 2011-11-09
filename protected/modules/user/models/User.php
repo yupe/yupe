@@ -142,7 +142,7 @@ class User extends CActiveRecord
             array('first_name, last_name, nick_name, email', 'length', 'max' => 50),
             array('password, salt, activate_key', 'length', 'max' => 32),
             array('site', 'length', 'max' => 100),
-            array('site', 'url'),            
+            array('site', 'url', 'allowEmpty' => true),            
             array('about', 'length', 'max' => 300),
             array('location, online_status', 'length', 'max' => 150),
             array('registration_ip, activation_ip, registration_date', 'length', 'max' => 20),            

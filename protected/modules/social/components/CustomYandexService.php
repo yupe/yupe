@@ -7,7 +7,7 @@
  * @license http://www.opensource.org/licenses/bsd-license.php
  */
 
-require_once dirname(dirname(__FILE__)).'/services/YandexOpenIDService.php';
+Yii::import('social.extensions.eauth.services.*');
 
 class CustomYandexService extends YandexOpenIDService {
 

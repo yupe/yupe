@@ -245,11 +245,12 @@ class DefaultController extends Controller
         $model = new CreateUserForm;
 
         if (Yii::app()->request->isPostRequest && isset($_POST['CreateUserForm']))
-        {
+        {       
+
             $model->setAttributes($_POST['CreateUserForm']);
 
             if ($model->validate())
-            {
+            {                
                 $user = new User;
 
                 $salt = $user->generateSalt();
@@ -274,9 +275,12 @@ class DefaultController extends Controller
                     }
 
                     $this->redirect(array('/install/default/sitesettings/'));
-                }
+                }                
                 //@TODO добавить вывод сообщений об ошибке сохранения
+                var_dump($user->getErrors());die();
             }
+            //@TODO добавить вывод сообщений об ошибке сохранения
+                var_dump($user->getErrors());die();
         }
 
         $this->render('createuser', array('model' => $model));

@@ -7,7 +7,7 @@
  * @license http://www.opensource.org/licenses/bsd-license.php
  */
  
-require_once dirname(dirname(__FILE__)).'/services/TwitterOAuthService.php';
+Yii::import('social.extensions.eauth.services.*');
 
 class CustomTwitterService extends TwitterOAuthService {	
 	
