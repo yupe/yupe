@@ -62,17 +62,13 @@ class BackendController extends YBackController
         {
             $module_id = Yii::app()->request->getPost('module_id');
 
-            if (!$module_id)
-            {
-                throw new CHttpException(404, Yii::t('yupe', 'Страница не найдена!'));
-            }
+            if (!$module_id)            
+                throw new CHttpException(404, Yii::t('yupe', 'Страница не найдена!'));            
 
             $module = Yii::app()->getModule($module_id);
 
-            if (!$module)
-            {
-                throw new CHttpException(404, Yii::t('yupe', 'Модуль "{module}" не найден!', array('{module}' => $module_id)));
-            }
+            if (!$module)            
+                throw new CHttpException(404, Yii::t('yupe', 'Модуль "{module}" не найден!', array('{module}' => $module_id)));            
 
             $editableParams = $module->getEditableParams();
 
@@ -186,10 +182,8 @@ class BackendController extends YBackController
 
             while (($file = readdir($handler)))
             {
-                if ($file != '.' && $file != '..' && !is_file($file))
-                {
-                    $themes[$file] = $file;
-                }
+                if ($file != '.' && $file != '..' && !is_file($file))                
+                    $themes[$file] = $file;                
             }
 
             closedir($handler);

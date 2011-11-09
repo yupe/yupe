@@ -37,7 +37,3 @@ class FacebookShareButton extends YscPortlet
         echo '<a name="fb_share" type="' . $this->type . '" ' . $this->url . ' href="http://www.facebook.com/sharer.php">' . $this->text . '</a><script src="http://static.ak.fbcdn.net/connect.php/js/FB.Share" type="text/javascript"></script>';
     }
 }
-
-?>
-
-    

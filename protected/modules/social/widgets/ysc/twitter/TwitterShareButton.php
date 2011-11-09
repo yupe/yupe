@@ -51,7 +51,3 @@ class TwitterShareButton extends YscPortlet
         echo '<a href="http://twitter.com/share" class="twitter-share-button" data-url="' . $this->url . '" data-text="' . $this->text . '" data-count="' . $this->type . '" data-via="' . $this->via . '" data-related="' . $this->related . '" data-lang="' . $this->lang . '">Twitter</a><script type="text/javascript" src="http://platform.twitter.com/widgets.js"></script>';
     }
 }
-
-?>
-
-    

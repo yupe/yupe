@@ -81,10 +81,8 @@ abstract class YWebModule extends CWebModule
         {
             $propertie = $model->param_name;
 
-            if (property_exists($this, $propertie) && in_array($propertie, $editableParams))
-            {
-                $this->$propertie = $model->param_value;
-            }
+            if (property_exists($this, $propertie) && in_array($propertie, $editableParams))            
+                $this->$propertie = $model->param_value;            
         }
     }
 }

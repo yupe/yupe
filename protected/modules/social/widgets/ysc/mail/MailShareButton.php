@@ -37,7 +37,3 @@ class MailShareButton extends YscPortlet
         echo "<a class='mrc__share' type='{$this->type}' href='http://connect.mail.ru/share{$this->url}'>{$this->text}</a><script src='http://cdn.connect.mail.ru/js/share/2/share.js' type='text/javascript'></script>";
     }
 }
-
-?>
-
-    

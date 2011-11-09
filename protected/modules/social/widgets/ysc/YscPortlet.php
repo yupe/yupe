@@ -13,6 +13,7 @@
 class YscPortlet extends CWidget
 {
     protected $translate = 'ysc';
+
     private $version = '0.0.1';
 
     public function getVersion()
@@ -20,15 +21,10 @@ class YscPortlet extends CWidget
         return $this->version;
     }
 
-    public function renderContent()
-    {
-
-    }
+    public function renderContent(){}
 
     public function run()
     {
         $this->renderContent();
     }
 }
-
-?>

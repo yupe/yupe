@@ -49,7 +49,3 @@ class VkontakteShareButton extends YscPortlet
             --></script>";
     }
 }
-
-?>
-
-    

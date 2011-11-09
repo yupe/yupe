@@ -33,10 +33,8 @@ class DefaultController extends YBackController
             {
                 Yii::app()->user->setFlash(YFlashMessages::NOTICE_MESSAGE, Yii::t('page', 'Страница добавлена!'));
 
-                if (isset($_POST['saveAndClose']))
-                {
-                    $this->redirect(array('admin'));
-                }
+                if (isset($_POST['saveAndClose']))                
+                    $this->redirect(array('admin'));                
 
                 $this->redirect(array('update', 'id' => $model->id));
             }
@@ -65,10 +63,8 @@ class DefaultController extends YBackController
             {
                 Yii::app()->user->setFlash(YFlashMessages::NOTICE_MESSAGE, Yii::t('page', 'Страница обновлена!'));
 
-                if (isset($_POST['saveAndClose']))
-                {
-                    $this->redirect(array('admin'));
-                }
+                if (isset($_POST['saveAndClose']))                
+                    $this->redirect(array('admin'));                
 
                 $this->redirect(array('update', 'id' => $model->id));
             }
@@ -117,10 +113,8 @@ class DefaultController extends YBackController
     {
         $model = new Page('search');
 
-        if (isset($_GET['Page']))
-        {
-            $model->attributes = $_GET['Page'];
-        }
+        if (isset($_GET['Page']))        
+            $model->attributes = $_GET['Page'];        
 
         $this->render('admin', array(
                                     'model' => $model,
@@ -136,15 +130,13 @@ class DefaultController extends YBackController
     {
         if ($this->_model === null)
         {
-            if (isset($_GET['id']))
-            {
+            if (isset($_GET['id']))            
                 $this->_model = Page::model()->with('author', 'changeAuthor')->findbyPk($_GET['id']);
-            }
-            if ($this->_model === null)
-            {
-                throw new CHttpException(404, 'The requested page does not exist.');
-            }
+            
+            if ($this->_model === null)            
+                throw new CHttpException(404, 'The requested page does not exist.');            
         }
+        
         return $this->_model;
     }
 

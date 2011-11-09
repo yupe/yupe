@@ -25,10 +25,8 @@ class DefaultController extends YBackController
         {
             $model->attributes = $_POST['Vote'];
 
-            if ($model->save())
-            {
-                $this->redirect(array('view', 'id' => $model->id));
-            }
+            if ($model->save())            
+                $this->redirect(array('view', 'id' => $model->id));            
         }
 
         $this->render('create', array(
@@ -51,6 +49,7 @@ class DefaultController extends YBackController
         if (isset($_POST['Vote']))
         {
             $model->attributes = $_POST['Vote'];
+            
             if ($model->save())
                 $this->redirect(array('view', 'id' => $model->id));
         }

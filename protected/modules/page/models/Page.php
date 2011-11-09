@@ -144,43 +144,33 @@ class Page extends CActiveRecord
 
     public function beforeValidate()
     {
-        if (parent::beforeValidate())
+        if ($this->scenario === 'update')        
+            $this->slug = YText::translit($this->title);        
+        else
         {
-            if ($this->scenario === 'update')
-            {
-                $this->slug = YText::translit($this->title);
-            }
-            else
-            {
-                if (!$this->slug)
-                {
-                    $this->slug = YText::translit($this->title);
-                }
-            }
-
-            return true;
+            if (!$this->slug)            
+                $this->slug = YText::translit($this->title);            
         }
 
-        return false;
+        return parent::beforeValidate();        
     }
 
     public function beforeSave()
     {
-        if (parent::beforeSave())
+        if ($this->isNewRecord)
         {
-            if ($this->isNewRecord)
-            {
-                $this->change_date = $this->creation_date = new CDbExpression('NOW()');
-                $this->user_id = $this->change_user_id = Yii::app()->user->getId();
-            }
-            else
-            {
-                $this->change_date = new CDbExpression('now()');
-                $this->user_id = Yii::app()->user->getId();
-            }
-            return true;
+            $this->change_date = $this->creation_date = new CDbExpression('NOW()');
+
+            $this->user_id = $this->change_user_id = Yii::app()->user->getId();
         }
-        return false;
+        else
+        {
+            $this->change_date = new CDbExpression('now()');
+            
+            $this->user_id = Yii::app()->user->getId();
+        }
+
+        return parent::beforeSave();        
     }
 
 

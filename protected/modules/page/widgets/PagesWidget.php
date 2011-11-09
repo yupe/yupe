@@ -28,20 +28,19 @@ class PagesWidget extends YWidget
         if ($this->visible)
         {
             $criteria = new CDbCriteria();
+
             $criteria->order = $this->order;
+
             $criteria->addCondition("status = {$this->pageStatus}");
-            if (!Yii::app()->user->isAuthenticated())
-            {
+
+            if (!Yii::app()->user->isAuthenticated())            
                 $criteria->addCondition('is_protected = ' . Page::PROTECTED_NO);
-            }
-            if ($this->parent_Id)
-            {
+            
+            if ($this->parent_Id)            
                 $criteria->addCondition("id = {$this->parent_Id} OR parent_Id = {$this->parent_Id}");
-            }
-            if ($this->topLevelOnly)
-            {
-                $criteria->addCondition("parent_Id is null or parent_Id = 0");
-            }
+            
+            if ($this->topLevelOnly)            
+                $criteria->addCondition("parent_Id is null or parent_Id = 0");            
 
             $view = $this->view ? $this->view : 'pageswidget';
 

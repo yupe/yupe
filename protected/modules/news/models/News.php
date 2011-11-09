@@ -142,53 +142,35 @@ class News extends CActiveRecord
 
     public function beforeValidate()
     {
-        if (parent::beforeValidate())
+        if ($this->scenario === 'update')        
+            $this->alias = YText::translit($this->title);        
+        else
         {
-            if ($this->scenario === 'update')
-            {
-                $this->alias = YText::translit($this->title);
-            }
-            else
-            {
-                if (!$this->alias)
-                {
-                    $this->alias = YText::translit($this->title);
-                }
-            }
-
-            if (!$this->description)
-            {
-                $this->description = $this->short_text;
-            }
-
-            return true;
+            if (!$this->alias)            
+                $this->alias = YText::translit($this->title);            
         }
 
-        return false;
+        if (!$this->description)            
+            $this->description = $this->short_text;            
+        
+        return parent::beforeValidate();           
     }
 
 
     public function beforeSave()
     {
-        if (parent::beforeSave())
+        if ($this->isNewRecord)
         {
-            if ($this->isNewRecord)
-            {
-                $this->creation_date = $this->change_date = new CDbExpression('NOW()');
+            $this->creation_date = $this->change_date = new CDbExpression('NOW()');
 
-                $this->user_id = Yii::app()->user->getId();
-            }
-            else
-            {
-                $this->change_date = new CDbExpression('NOW()');
-            }
-
-            $this->date = date('Y-m-d', strtotime($this->date));
-
-            return true;
+            $this->user_id = Yii::app()->user->getId();
         }
+        else        
+            $this->change_date = new CDbExpression('NOW()');        
 
-        return false;
+        $this->date = date('Y-m-d', strtotime($this->date));
+
+        return parent::beforeSave();
     }
 
     public function afterFind()

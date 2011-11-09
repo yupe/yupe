@@ -49,7 +49,3 @@ class BuzzShareButton extends YscPortlet
 
     }
 }
-
-?>
-
-    
