@@ -245,8 +245,7 @@ class DefaultController extends Controller
         $model = new CreateUserForm;
 
         if (Yii::app()->request->isPostRequest && isset($_POST['CreateUserForm']))
-        {       
-
+        {
             $model->setAttributes($_POST['CreateUserForm']);
 
             if ($model->validate())
@@ -262,7 +261,9 @@ class DefaultController extends Controller
                                           'password' => User::model()->hashPassword($model->password, $salt),
                                           'registration_date' => new CDbExpression('NOW()'),
                                           'registration_ip' => Yii::app()->request->userHostAddress,
-                                          'access_level' => User::ACCESS_LEVEL_ADMIN
+                                          'access_level'  => User::ACCESS_LEVEL_ADMIN,
+                                          'status'        => User::STATUS_ACTIVE,
+                                          'email_confirm' => User::EMAIL_CONFIRM_YES
                                      ));
 
                 if ($user->save())
@@ -276,11 +277,9 @@ class DefaultController extends Controller
 
                     $this->redirect(array('/install/default/sitesettings/'));
                 }                
-                //@TODO добавить вывод сообщений об ошибке сохранения
-                var_dump($user->getErrors());die();
+                //@TODO добавить вывод сообщений об ошибке сохранения                
             }
-            //@TODO добавить вывод сообщений об ошибке сохранения
-                var_dump($user->getErrors());die();
+            //@TODO добавить вывод сообщений об ошибке сохранения                
         }
 
         $this->render('createuser', array('model' => $model));

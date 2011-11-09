@@ -10,7 +10,7 @@
     </div>
 
     <div class="row">
-        <?php echo CHtml::activeLabel($model, 'email'); ?>
+        <?php echo CHtml::activeLabel($model, 'email'); ?> (<?php echo Yii::t('install','используется для авторизации в панели управления)');?><br/>
         <?php echo CHtml::activeTextField($model, 'email') ?>
     </div>
 

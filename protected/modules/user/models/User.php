@@ -47,7 +47,7 @@ class User extends CActiveRecord
     }
 
     public function validatePassword($password)
-    {
+    {        
         if ($this->password === $this->hashPassword($password, $this->salt))        
             return true;
         
@@ -239,14 +239,14 @@ class User extends CActiveRecord
         if ($this->isNewRecord)
         {            
             $this->creation_date = $this->change_date = new CDbExpression('NOW()');            
+
             $this->activate_key = $this->generateActivationKey();            
+
             $this->registration_ip = Yii::app()->request->userHostAddress;
         }
-        else
-        {
+        else        
             $this->change_date = new CDbExpression('NOW()');
-        }
-
+        
         return parent::beforeSave();
     }
 
@@ -354,5 +354,13 @@ class User extends CActiveRecord
         $this->email_confirm = self::EMAIL_CONFIRM_YES;
 
         return $this->save();
+    }
+
+    public function beforeValidate()
+    {
+        if($this->site = '')
+           $this->site = null;
+
+        return parent::beforeValidate();
     }
 }
