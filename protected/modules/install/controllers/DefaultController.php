@@ -258,7 +258,7 @@ class DefaultController extends Controller
                                           'nick_name' => $model->userName,
                                           'email' => $model->email,
                                           'salt' => $salt,
-                                          'password' => Registration::model()->hashPassword($model->password, $salt),
+                                          'password' => User::model()->hashPassword($model->password, $salt),
                                           'registration_date' => new CDbExpression('NOW()'),
                                           'registration_ip' => Yii::app()->request->userHostAddress,
                                           'access_level' => User::ACCESS_LEVEL_ADMIN
