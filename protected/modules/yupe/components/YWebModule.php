@@ -5,6 +5,8 @@ abstract class YWebModule extends CWebModule
 
     public $adminMenuOrder = 0;
 
+    public $coreCacheTime  = 3600;
+
     public function getVersion()
     {
         return '0.1';
@@ -64,13 +66,11 @@ abstract class YWebModule extends CWebModule
 
     public function init()
     {
-        parent::init();
-
         if (is_object(Yii::app()->theme))
             $this->layout = 'webroot.themes.' . Yii::app()->theme->name . '.views.layouts.main';
 
         // инициализация модуля		
-        $settings = Settings::model()->cache(Yii::app()->getModule('yupe')->coreCacheTime)->findAll('module_id = :module_id', array(
+        $settings = Settings::model()->cache($this->coreCacheTime)->findAll('module_id = :module_id', array(
             'module_id' => $this->getId()
         ));
 
@@ -84,5 +84,7 @@ abstract class YWebModule extends CWebModule
             if (property_exists($this, $propertie) && in_array($propertie, $editableParams))            
                 $this->$propertie = $model->param_value;            
         }
+
+        parent::init();
     }
 }

@@ -103,7 +103,8 @@ class YupeModule extends YWebModule
 
 
     public function init()
-    {       
+    {
+        parent::init();   
 
         $this->setImport(array(
                               'yupe.models.*',

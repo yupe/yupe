@@ -35,8 +35,7 @@
 <div class="container" id="page">
 
     <div id="header">
-        <div
-            id="logo"><?php echo CHtml::encode(Yii::app()->getModule('yupe')->siteDescription); ?></div>
+        <div id="logo"><?php echo CHtml::encode(Yii::app()->getModule('yupe')->siteDescription); ?></div>
     </div>
     <!-- header -->
     <div id="mainmenu">
