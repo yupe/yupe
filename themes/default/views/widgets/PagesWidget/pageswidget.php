@@ -1,5 +1,5 @@
 <div id="mainmenu">
-    <ul id="yw0">
+    <ul>
         <li><?php echo CHtml::link('Главная', '/' . Yii::app()->defaultController);?></li>
 
         <li><?php echo CHtml::link('О проекте', array('/site/page/', 'view' => 'about'));?></li>
