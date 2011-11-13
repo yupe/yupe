@@ -5,9 +5,9 @@ class FeedbackModule extends YWebModule
     public $backEnd;
     public $emails;
     public $types;
-    public $showCaptcha = true;
+    public $showCaptcha = 1;
     public $notifyEmailFrom;
-    public $sendConfirmation = false;
+    public $sendConfirmation = 0;
     public static $logCategory = 'application.modules.feedback';
 
     public function getParamsLabels()
@@ -22,7 +22,12 @@ class FeedbackModule extends YWebModule
 
     public function getEditableParams()
     {
-        return array('showCaptcha', 'notifyEmailFrom', 'adminMenuOrder','sendConfirmation');
+        return array(
+            'showCaptcha' => $this->getChoice(),
+            'sendConfirmation' => $this->getChoice(),
+            'notifyEmailFrom',
+            'adminMenuOrder',            
+        );
     }
 
     public function getName()

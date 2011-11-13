@@ -152,10 +152,8 @@ class YupeModule extends YWebModule
                         }
 
                     }
-                    else
-                    {
-                        $yiiModules[$key] = $module;
-                    }
+                    else                    
+                        $yiiModules[$key] = $module;                    
                 }
             }
 
@@ -163,12 +161,14 @@ class YupeModule extends YWebModule
 
             foreach ($order as $key => $value)
             {
-                $data = array('label' => $modules[$key]->getName(), 'url' => array($modules[$key]->getAdminPageLink()));
-
-                if ($modules[$key]->getIsShowInAdminMenu())
-                {
-                    if ($category[$key])
+                $links = $modules[$key]->getNavigation();
+                
+                if(is_array($links))
+                {                    
+                    foreach ($links as $text => $url)
                     {
+                        $tmp = array('label' => $text, 'url' => array($url));                        
+
                         if (!isset($modulesNavigation[$category[$key]]))
                         {
                             $modulesNavigation[$category[$key]]['items'] = array();
@@ -176,28 +176,49 @@ class YupeModule extends YWebModule
                             $modulesNavigation[$category[$key]]['linkOptions'] = array('class' => 'sub-menu');
                             $modulesNavigation[$category[$key]]['url'] = '#';
                         }
-
-                        array_push($modulesNavigation[$category[$key]]['items'], $data);
-                    }
-                    else
-                    {
-                        array_push($modulesNavigation, $data);
-                    }
+                        
+                        array_push($modulesNavigation[$category[$key]]['items'], $tmp);   
+                    }                    
                 }
-
-                // собрать все для меню "Настройки"
-                if ($modules[$key]->getEditableParams())
+                else
                 {
-                    array_push($modulesNavigation['settings']['items'], array('label' => $modules[$key]->getName(), 'url' => array('/yupe/backend/modulesettings/', 'module' => $modules[$key]->getId())));
+                    $data = array('label' => $modules[$key]->getName(), 'url' => array($modules[$key]->getAdminPageLink()));
+
+                    if ($modules[$key]->getIsShowInAdminMenu())
+                    {
+                        if ($category[$key])
+                        {
+                            if (!isset($modulesNavigation[$category[$key]]))
+                            {
+                                $modulesNavigation[$category[$key]]['items'] = array();
+                                $modulesNavigation[$category[$key]]['label'] = $category[$key];
+                                $modulesNavigation[$category[$key]]['linkOptions'] = array('class' => 'sub-menu');
+                                $modulesNavigation[$category[$key]]['url'] = '#';
+                            }
+
+                            array_push($modulesNavigation[$category[$key]]['items'], $data);
+                        }
+                        else                    
+                            array_push($modulesNavigation, $data);                    
+                    }
+
+                    // собрать все для меню "Настройки"
+                    if ($modules[$key]->getEditableParams())
+                    {
+                        array_push($modulesNavigation['settings']['items'], array('label' => $modules[$key]->getName(), 'url' => array('/yupe/backend/modulesettings/', 'module' => $modules[$key]->getId())));
+                    }
                 }
             }
         }
+
+        //CVarDumper::dump($modulesNavigation,10,true);die();
 
         array_unshift($modulesNavigation['settings']['items'], array('label' => Yii::t('yupe', 'Оформление'), 'url' => array('/yupe/backend/themesettings/')));
         array_unshift($modulesNavigation, array('label' => Yii::t('yupe', 'На сайт'), 'url' => array('/')));
         array_push($modulesNavigation, array('label' => Yii::t('yupe', 'Войти'), 'url' => array('/site/login'), 'visible' => !Yii::app()->user->isAuthenticated()));
         array_push($modulesNavigation, array('label' => Yii::t('yupe', 'Выйти ({nick_name})',array('{nick_name}' => Yii::app()->user->nick_name)), 'url' => array('/user/account/logout'), 'visible' => Yii::app()->user->isAuthenticated()));        
-
+        
+        //CVarDumper::dump($modulesNavigation,10,true);die();
     
         return $navigationOnly === true ? $modulesNavigation
             : array('modules' => $modules, 'yiiModules' => $yiiModules, 'modulesNavigation' => $modulesNavigation);

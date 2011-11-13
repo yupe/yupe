@@ -3,6 +3,10 @@ abstract class YWebModule extends CWebModule
 {
     const CHECK_ERROR = 'error';
 
+    const CHOICE_YES  = 1;
+    
+    const CHOICE_NO   = 0; 
+
     public $adminMenuOrder = 0;
 
     public $coreCacheTime  = 3600;
@@ -30,6 +34,11 @@ abstract class YWebModule extends CWebModule
     public function getAdminPageLink()
     {
         return '/' . strtolower($this->id) . '/default/admin/';
+    }
+
+    public function getNavigation()
+    {
+        return false;
     }
 
     public function checkSelf()
@@ -64,6 +73,15 @@ abstract class YWebModule extends CWebModule
         return true;
     }
 
+    public function getChoice()
+    {
+        return array(
+            self::CHOICE_YES => Yii::t('yupe','да'),
+            self::CHOICE_NO  => Yii::t('yupe','нет')
+        );
+    }
+
+
     public function init()
     {
         if (is_object(Yii::app()->theme))
@@ -81,7 +99,7 @@ abstract class YWebModule extends CWebModule
         {
             $propertie = $model->param_name;
 
-            if (property_exists($this, $propertie) && in_array($propertie, $editableParams))            
+            if (property_exists($this, $propertie) && (in_array($propertie, $editableParams) || array_key_exists($propertie, $editableParams)))            
                 $this->$propertie = $model->param_value;            
         }
 

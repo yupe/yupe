@@ -11,15 +11,15 @@ class UserModule extends YWebModule
 
     public $notifyEmailFrom;
 
-    public $autoRecoveryPassword = true;
+    public $autoRecoveryPassword = 1;
 
     public $minPasswordLength = 3;
 
     public $maxPasswordLength = 6;
 
-    public $emailAccountVerification = true;
+    public $emailAccountVerification = 1;
 
-    public $showCaptcha = true;
+    public $showCaptcha = 1;
 
     public $minCaptchaLength = 3;
 
@@ -72,7 +72,24 @@ class UserModule extends YWebModule
 
     public function getEditableParams()
     {
-        return array('avatarMaxSize', 'defaultAvatar', 'avatarsDir', 'minCaptchaLength', 'maxCaptchaLength', 'showCaptcha', 'emailAccountVerification', 'minPasswordLength', 'maxPasswordLength', 'autoRecoveryPassword', 'notifyEmailFrom', 'logoutSuccess', 'loginSuccess', 'adminMenuOrder', 'accountActivationSuccess', 'accountActivationFailure');
+        return array(
+            'avatarMaxSize',
+            'defaultAvatar',
+            'avatarsDir',
+            'minCaptchaLength',
+            'maxCaptchaLength',
+            'showCaptcha' => $this->getChoice(),
+            'emailAccountVerification' => $this->getChoice(),
+            'minPasswordLength',
+            'maxPasswordLength',
+            'autoRecoveryPassword' => $this->getChoice(),
+            'notifyEmailFrom',
+            'logoutSuccess',
+            'loginSuccess',
+            'adminMenuOrder',
+            'accountActivationSuccess',
+            'accountActivationFailure'
+        );
     }
 
     public function getName()

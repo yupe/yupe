@@ -25,18 +25,12 @@ class BackendController extends YBackController
         $moduleParamsLabels = $module->getParamsLabels();
 
         foreach ($module as $key => $value)
-        {
-            if (in_array($key, $editableParams) && !is_object($value) && !is_array($value))
-            {
-                $elements[$key] = array(
-                    'type' => 'text',
-                    'maxlength' => 200,
-                    'label' => $moduleParamsLabels[$key],
-                    'id' => $key,
-                    'name' => $key,
-                    'value' => $value
-                );
-            }
+        {            
+            if(array_key_exists($key, $editableParams))                            
+                $elements[$key] = CHtml::label($moduleParamsLabels[$key],$key).CHtml::dropDownList($key,$value,$editableParams[$key]);                
+
+            if(in_array($key, $editableParams))
+                $elements[$key] = CHtml::label($moduleParamsLabels[$key],$key).CHtml::textField($key,$value,array('maxlength' => 200));                            
         }
 
         // сформировать боковое меню из ссылок на настройки модулей
@@ -52,14 +46,14 @@ class BackendController extends YBackController
             }
         }
 
-        $this->render('modulesettings', array('module' => $module, 'elements' => $elements));
+        $this->render('modulesettings', array('module' => $module, 'elements' => $elements, 'moduleParamsLabels' => $moduleParamsLabels));
     }
 
 
     public function actionSaveModulesettings()
     {
         if (Yii::app()->request->isPostRequest)
-        {
+        {            
             $module_id = Yii::app()->request->getPost('module_id');
 
             if (!$module_id)            
@@ -80,7 +74,7 @@ class BackendController extends YBackController
 
                 foreach ($_POST as $key => $value)
                 {
-                    if (in_array($key, $editableParams))
+                    if (in_array($key, $editableParams) || array_key_exists($key,$editableParams))
                     {
                         $model = new Settings();
 

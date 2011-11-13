@@ -44,8 +44,8 @@ class ImageModule extends YWebModule
     {
         return array(
             'uploadDir' => Yii::t('image', 'Каталог для загрузки изображений'),
-            'allowedExtensions' => Yii::t('image', 'Разрешенные расширения'),
-            'maxSize' => Yii::t('image', 'Максимальный размер'),
+            'allowedExtensions' => Yii::t('image', 'Разрешенные расширения (перечислите через запятую)'),
+            'maxSize' => Yii::t('image', 'Максимальный размер (в байтах)'),
         );
     }
 

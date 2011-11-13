@@ -18,9 +18,8 @@ $this->breadcrumbs = array(
 
     <?php foreach ($elements as $element): ?>
 
-    <div class="row">
-        <?php echo CHtml::label($element['label'], $element['name']);?>
-        <?php echo CHtml::textField($element['name'], $element['value'], array('id' => $element['id']));?>
+    <div class="row">        
+        <?php echo $element;?>
     </div>
 
     <?php endforeach;?>
