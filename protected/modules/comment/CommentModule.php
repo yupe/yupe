@@ -16,7 +16,10 @@ class CommentModule extends YWebModule
 
     public function getEditableParams()
     {
-        return array('defaultCommentStatus','autoApprove');
+        return array(
+            'defaultCommentStatus' => Comment::model()->getStatusList(),
+            'autoApprove' => $this->getChoice()
+        );
     }
 
     public function getCategory()
