@@ -17,9 +17,9 @@
     </div>
 
     <div class="row">
-        <?php echo $form->labelEx($model, 'description'); ?>
-        <?php echo $form->textArea($model, 'description', array('rows' => 7, 'cols' => 65)); ?>
-        <?php echo $form->error($model, 'description'); ?>
+        <?php echo $form->labelEx($model, 'parent_id'); ?>
+        <?php echo $form->textField($model, 'parent_id', array('size' => 50, 'maxlength' => 250)); ?>
+        <?php echo $form->error($model, 'parent_id'); ?>
     </div>
 
     <div class="row">
@@ -28,6 +28,12 @@
         <?php echo $form->error($model, 'alt'); ?>
     </div>
 
+    <div class="row">
+        <?php echo $form->labelEx($model, 'description'); ?>
+        <?php echo $form->textArea($model, 'description', array('rows' => 7, 'cols' => 65)); ?>
+        <?php echo $form->error($model, 'description'); ?>
+    </div>   
+
     <?php if ($model->isNewRecord): ?>
     <div class="row">
         <?php echo $form->labelEx($model, 'file'); ?>
@@ -35,6 +41,12 @@
         <?php echo $form->error($model, 'file'); ?>
     </div>
     <?php endif;?>
+
+    <div class="row">
+        <?php echo $form->labelEx($model, 'type'); ?>
+        <?php echo $form->dropDownList($model, 'type', $model->getTypeList()); ?>
+        <?php echo $form->error($model, 'type'); ?>
+    </div>
 
     <div class="row">
         <?php echo $form->labelEx($model, 'status'); ?>

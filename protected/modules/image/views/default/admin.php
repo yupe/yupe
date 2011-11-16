@@ -40,6 +40,7 @@ $('.search-form form').submit(function(){
                                                        'dataProvider' => $model->search(),
                                                        'columns' => array(
                                                            'id',
+                                                           'parent_id',
                                                            array(
                                                                'name' => Yii::t('image', 'Изображение'),
                                                                'type' => 'raw',
@@ -52,6 +53,10 @@ $('.search-form form').submit(function(){
                                                                'value' => '$data->user->getFullName()'
                                                            ),
                                                            'alt',
+                                                           array(
+                                                               'name' => 'type',
+                                                               'value' => '$data->getType()'
+                                                           ),
                                                            array(
                                                                'name' => 'status',
                                                                'value' => '$data->getStatus()'

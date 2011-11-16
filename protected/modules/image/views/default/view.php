@@ -25,6 +25,7 @@ $this->menu = array(
                                                     'data' => $model,
                                                     'attributes' => array(
                                                         'id',
+                                                        'parent_id',
                                                         'name',
                                                         'description',
                                                         'alt',
@@ -33,6 +34,10 @@ $this->menu = array(
                                                         array(
                                                             'name' => 'user_id',
                                                             'value' => $model->user->getFullName()
+                                                        ),
+                                                        array(
+                                                            'name' => 'type',
+                                                            'value' => $model->getType()
                                                         ),
                                                         array(
                                                             'name' => 'status',

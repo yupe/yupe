@@ -7,6 +7,8 @@ class UserModule extends YWebModule
 
     public $loginSuccess = '/';
 
+    public $loginAdminSuccess = '';
+
     public $logoutSuccess = '/';
 
     public $notifyEmailFrom;
@@ -66,7 +68,8 @@ class UserModule extends YWebModule
             'avatarMaxSize' => Yii::t('user', 'Максимальный размер аватарки'),
             'defaultAvatar' => Yii::t('user', 'Пустой аватар'),
             'invalidIpAction' => Yii::t('user', 'Страница для заблокированных IP'),
-            'invalidEmailAction' => Yii::t('user', 'Страница для заблокированных Email')
+            'invalidEmailAction' => Yii::t('user', 'Страница для заблокированных Email'),
+            'loginAdminSuccess'  => Yii::t('user','Страница после авторизации админстратора')
         );
     }
 
@@ -88,7 +91,8 @@ class UserModule extends YWebModule
             'loginSuccess',
             'adminMenuOrder',
             'accountActivationSuccess',
-            'accountActivationFailure'
+            'accountActivationFailure',
+            'loginAdminSuccess'
         );
     }
 

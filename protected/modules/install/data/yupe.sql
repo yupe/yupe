@@ -1,14 +1,13 @@
 -- phpMyAdmin SQL Dump
--- version 3.4.5deb1
+-- version 3.3.10deb1
 -- http://www.phpmyadmin.net
 --
 -- Хост: localhost
--- Время создания: Ноя 01 2011 г., 22:46
--- Версия сервера: 5.1.58
--- Версия PHP: 5.3.6-13ubuntu3.2
+-- Время создания: Ноя 16 2011 г., 17:53
+-- Версия сервера: 5.1.54
+-- Версия PHP: 5.3.5-1ubuntu7.3
 
 SET SQL_MODE="NO_AUTO_VALUE_ON_ZERO";
-SET time_zone = "+00:00";
 
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
@@ -197,17 +196,20 @@ CREATE TABLE IF NOT EXISTS `gallery` (
 
 CREATE TABLE IF NOT EXISTS `image` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `parent_id` int(11) DEFAULT NULL,
   `name` varchar(300) NOT NULL,
-  `description` text NOT NULL,
+  `description` text,
   `file` varchar(500) NOT NULL,
   `creation_date` datetime NOT NULL,
   `user_id` int(10) unsigned NOT NULL,
   `alt` varchar(150) NOT NULL,
+  `type` tinyint(4) NOT NULL DEFAULT '0',
   `status` tinyint(3) unsigned NOT NULL DEFAULT '1',
   PRIMARY KEY (`id`),
   KEY `status` (`status`),
-  KEY `user_id` (`user_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+  KEY `user_id` (`user_id`),
+  KEY `type` (`type`)
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=27 ;
 
 -- --------------------------------------------------------
 
@@ -351,7 +353,7 @@ CREATE TABLE IF NOT EXISTS `settings` (
   `user_id` int(10) unsigned NOT NULL,
   PRIMARY KEY (`id`),
   KEY `moduleId` (`module_id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=189 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=195 ;
 
 -- --------------------------------------------------------
 
@@ -445,7 +447,6 @@ ALTER TABLE `image`
 -- Ограничения внешнего ключа таблицы `image_to_gallery`
 --
 ALTER TABLE `image_to_gallery`
-  ADD CONSTRAINT `image_to_gallery_ibfk_1` FOREIGN KEY (`image_id`) REFERENCES `image` (`id`) ON DELETE CASCADE ON UPDATE NO ACTION,
   ADD CONSTRAINT `image_to_gallery_ibfk_2` FOREIGN KEY (`galleryId`) REFERENCES `gallery` (`id`) ON DELETE CASCADE ON UPDATE NO ACTION;
 
 --
@@ -478,7 +479,3 @@ ALTER TABLE `recovery_password`
 --
 ALTER TABLE `vote`
   ADD CONSTRAINT `vote_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `user` (`id`) ON UPDATE NO ACTION;
-
-/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
-/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
-/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;

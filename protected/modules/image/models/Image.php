@@ -21,6 +21,9 @@ class Image extends CActiveRecord
     const STATUS_CHECKED    = 1;
     const STATUS_NEED_CHECK = 0;
 
+    const TYPE_SIMPLE  = 0;
+    const TYPE_PREVIEW = 1;
+
     /**
      * Returns the static model of the specified AR class.
      * @return Image the static model class
@@ -44,14 +47,17 @@ class Image extends CActiveRecord
     public function rules()
     {
         return array(
-            array('name, description, alt', 'required'),
+            array('name, description, alt','filter','filter' => 'trim'),
+            array('name, description, alt','filter','filter' => array($obj = new CHtmlPurifier(),'purify')),
+            array('name, alt, type', 'required'),
             array('file', 'required', 'on' => 'insert'),
-            array('status', 'numerical', 'integerOnly' => true),
+            array('status, parent_id, type', 'numerical', 'integerOnly' => true),
             array('name', 'length', 'max' => 300),
             array('file', 'length', 'max' => 500),
             array('user_id', 'length', 'max' => 10),
             array('alt', 'length', 'max' => 150),
             array('file', 'file', 'maxSize' => Yii::app()->getModule('image')->maxSize, 'types' => Yii::app()->getModule('image')->allowedExtensions, 'allowEmpty' => true),
+            array('type', 'in', 'range' => array_keys($this->getTypeList())),
             array('id, name, description, file, creation_date, user_id, alt, status', 'safe', 'on' => 'search'),
         );
     }
@@ -81,7 +87,9 @@ class Image extends CActiveRecord
             'creation_date' => Yii::t('image', 'Дата создания'),
             'user_id' => Yii::t('image', 'Добавил'),
             'alt' => Yii::t('image', 'Альтернативный текст'),
-            'status' => Yii::t('image', 'Статус'),
+            'status'    => Yii::t('image', 'Статус'),
+            'parent_id' => Yii::t('image','Родитель'),
+            'type'      => Yii::t('image','Тип картинки')
         );
     }
 
@@ -138,29 +146,31 @@ class Image extends CActiveRecord
             : Yii::t('image', '*неизвестно*');
     }
 
-    public function create(array $param)
+    public function create(array $param, $file = 'file')
     {
         $this->setAttributes($param);
 
-        $this->file = CUploadedFile::getInstance($this, 'file');
+        $this->file = CUploadedFile::getInstance($this, $file);                
 
-        if ($dir = Yii::app()->getModule('image')->createUploadDir())
+        $module = Yii::app()->getModule('image');
+
+        if ($dir = $module->createUploadDir())
         {
             if ($this->save())
             {
                 $fileName = $this->id . '.' . CFileHelper::getExtension($this->file->name);
 
-                $fullFileName = Yii::app()->getModule('image')->getUploadPath() . $dir . DIRECTORY_SEPARATOR . $fileName;
+                $fullFileName = $module->getUploadPath() . $dir . DIRECTORY_SEPARATOR . $fileName;
 
                 $this->file->saveAs($fullFileName);
 
-                $this->file = Yii::app()->request->baseUrl . DIRECTORY_SEPARATOR . Yii::app()->getModule('image')->uploadDir . $dir . DIRECTORY_SEPARATOR . $fileName;
+                $this->file = Yii::app()->request->baseUrl . DIRECTORY_SEPARATOR . $module->uploadDir . $dir . DIRECTORY_SEPARATOR . $fileName;
 
-                $this->update(array('file'));
-            }
+                return $this->update(array('file'));
+            }           
         }
 
-        return $this;
+        return false;
     }
 
 
@@ -178,5 +188,24 @@ class Image extends CActiveRecord
         }
         else        
             return parent::delete();        
+    }
+
+    public function getTypeList()
+    {
+        $list = array(
+            self::TYPE_PREVIEW => Yii::t('image','Превью'),
+            self::TYPE_SIMPLE  => Yii::t('image','Картинка'),
+        );
+        
+        $types = Yii::app()->getModule('image')->types;
+
+        return count($types) ? CMap::mergeArray($list,$types) : $list;
+    }
+
+    public function getType()
+    {
+        $data = $this->getTypeList();
+
+        return isset($data[$this->type]) ?  $data[$this->type] : Yii::t('image','*неизвестно*');
     }
 }

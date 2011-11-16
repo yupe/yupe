@@ -10,6 +10,13 @@ class ImageModule extends YWebModule
 
     public $maxSize;
 
+    public $types;
+
+    public function getVersion()
+    {
+        return '0.2';
+    }
+
     public function getUploadPath()
     {
         return $this->documentRoot . Yii::app()->request->baseUrl . DIRECTORY_SEPARATOR . $this->uploadDir;
@@ -24,7 +31,7 @@ class ImageModule extends YWebModule
         if (is_dir($dirName))        
             return $current;        
 
-        return @mkdir($dirName, 0700, true) == true ? $current : false;
+        return @mkdir($dirName, 0700, true);
     }
 
     public function checkSelf()
