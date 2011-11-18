@@ -21,7 +21,6 @@ class FeedBackForm extends CFormModel
         );
     }
 
-
     public function attributeLabels()
     {
         return array(

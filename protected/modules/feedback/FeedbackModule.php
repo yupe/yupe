@@ -1,5 +1,4 @@
 <?php
-
 class FeedbackModule extends YWebModule
 {
     public $backEnd;
@@ -14,7 +13,8 @@ class FeedbackModule extends YWebModule
     {
         return array(
             'showCaptcha'=> Yii::t('feedback', 'Показывать капчу'),
-            'notifyEmailFrom'=> Yii::t('feedback', 'Email от имени которого отправлять сообщение'),
+            'emails'           => Yii::t('feedback','Получатели сообщений с сайта (email через запятую)'),
+            'notifyEmailFrom'  => Yii::t('feedback', 'Email от имени которого отправлять сообщение'),            
             'adminMenuOrder'   => Yii::t('feedback', 'Порядок следования в меню'),
             'sendConfirmation' => Yii::t('feedback','Отправлять подтверждение')
         );
@@ -26,6 +26,7 @@ class FeedbackModule extends YWebModule
             'showCaptcha' => $this->getChoice(),
             'sendConfirmation' => $this->getChoice(),
             'notifyEmailFrom',
+            'emails',
             'adminMenuOrder',            
         );
     }
@@ -71,15 +72,11 @@ class FeedbackModule extends YWebModule
     {
         parent::init();
 
-        if (!is_array($this->backEnd) || !count($this->backEnd) || (!in_array('db', $this->backEnd) && !in_array('email', $this->backEnd)))
-        {
-            throw new CException(Yii::t('feedback', 'Укажите корректное значение для свойтсва application.modules.feedback.FeedBackModule.backEnd - "db" и/или "email"!'));
-        }
+        if (!is_array($this->backEnd) || !count($this->backEnd) || (!in_array('db', $this->backEnd) && !in_array('email', $this->backEnd)))     
+            throw new CException(Yii::t('feedback', 'Укажите корректное значение для свойтсва application.modules.feedback.FeedBackModule.backEnd - "db" и/или "email"!'));        
 
-        if (in_array('email', $this->backEnd) && (!is_array($this->emails) || !count($this->emails)))
-        {
-            throw new CException(Yii::t('feedback', 'Укажите email для обратной связи! application.modules.feedback.FeedBackModule.emails'));
-        }
+        if (in_array('email', $this->backEnd) && (!$this->emails || !count(explode(',',$this->emails))))        
+            throw new CException(Yii::t('feedback', 'Укажите email для обратной связи! application.modules.feedback.FeedBackModule.emails'));   
 
         $this->setImport(array(
                               'feedback.models.*',

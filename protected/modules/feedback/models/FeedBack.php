@@ -145,7 +145,6 @@ class FeedBack extends CActiveRecord
                                                    ));
     }
 
-
     public function beforeValidate()
     {
         if ($this->isNewRecord)
@@ -163,7 +162,10 @@ class FeedBack extends CActiveRecord
     public function scopes()
     {
         return array(
-            'new' => array('condition' => 'status = ' . self::STATUS_NEW)
+            'new' => array(
+                'condition' => 'status = :status',
+                'params'    => array(':status' => self::STATUS_NEW)
+            )
         );
     }
 

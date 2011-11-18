@@ -181,10 +181,10 @@ class Image extends CActiveRecord
         if (file_exists($file))
         {
             //удалить файл картинки
-            if (unlink($file))            
+            if (@unlink($file))            
                 return parent::delete();            
             else            
-                throw new CDbException(Yii::t('image', 'При удалении файла произошла ошибка!'));            
+                throw new CException(Yii::t('image', 'При удалении файла произошла ошибка!'));            
         }
         else        
             return parent::delete();        

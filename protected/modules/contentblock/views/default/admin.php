@@ -50,8 +50,7 @@ $('.search-form form').submit(function(){
                                                                'name' => 'type',
                                                                'value' => '$data->getType()'
                                                            ),
-                                                           'code',
-                                                           'content',
+                                                           'code',                                                           
                                                            'description',
                                                            array(
                                                                'class' => 'CButtonColumn',

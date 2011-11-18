@@ -206,7 +206,7 @@ return array(
             'showCaptcha' => true,
             'notifyEmailFrom' => 'aopeykin@yandex.ru',
             'backEnd' => array('email', 'db'),
-            'emails' => array('opeykin@mail.ru', 'aopeykin@google.com'),
+            'emails'  => 'opeykin@mail.ru, aopeykin@google.com',
             'enabled' => true
         ),
         'gii' => array(

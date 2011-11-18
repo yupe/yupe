@@ -57,14 +57,12 @@ class ContactController extends YFrontController
                         }
                     }
 
-                    if (in_array('email', $backEnd) && count($module->emails))
+                    if (in_array('email', $backEnd) && count(explode(',',$module->emails)))
                     {
                         $emailBody = $this->renderPartial('application.modules.feedback.views.email.feedbackEmail', array('model' => $feedback), true);
 
-                        foreach ($module->emails as $mail)
-                        {
-                            Yii::app()->mail->send($module->notifyEmailFrom, $mail, $form->theme, $emailBody);
-                        }
+                        foreach (explode(',',$module->emails) as $mail)                        
+                            Yii::app()->mail->send($module->notifyEmailFrom, $mail, $form->theme, $emailBody);                        
 
                         Yii::log(Yii::t('feedback', 'Обращение пользователя отправлено на email!'), CLogger::LEVEL_INFO, FeedbackModule::$logCategory);
                         Yii::app()->user->setFlash(YFlashMessages::NOTICE_MESSAGE, Yii::t('feedback', 'Ваше сообщение отправлено! Спасибо!'));
