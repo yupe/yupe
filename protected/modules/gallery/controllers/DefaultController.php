@@ -1,5 +1,4 @@
 <?php
-
 class DefaultController extends YBackController
 {
     /**
@@ -27,6 +26,7 @@ class DefaultController extends YBackController
         if (isset($_POST['Gallery']))
         {
             $model->attributes = $_POST['Gallery'];
+
             if ($model->save())
                 $this->redirect(array('view', 'id' => $model->id));
         }
@@ -94,17 +94,15 @@ class DefaultController extends YBackController
             }
 
         }
-        else
-        {
-            throw new CHttpException(400, 'Invalid request. Please do not repeat this request again.');
-        }
+        else        
+            throw new CHttpException(400, 'Invalid request. Please do not repeat this request again.');        
     }
 
     public function actionAddImage($galleryId)
     {
         $gallery = $this->loadModel((int)$galleryId);
 
-        $image = new Image();
+        $image = new Image;
 
         if (Yii::app()->request->isPostRequest)
         {
@@ -112,14 +110,10 @@ class DefaultController extends YBackController
 
             try
             {
-                $image = $image->create($_POST['Image']);
-
-                if (!$image->hasErrors())
+                if ($image->create($_POST['Image']))
                 {
-                    if ($gallery->addImage($image))
-                    {
-                        Yii::app()->user->setFlash(YFlashMessages::NOTICE_MESSAGE, Yii::t('gallery', 'Фотография добавлена!'));
-                    }
+                    if ($gallery->addImage($image))                    
+                        Yii::app()->user->setFlash(YFlashMessages::NOTICE_MESSAGE, Yii::t('gallery', 'Фотография добавлена!'));                    
 
                     $transaction->commit();
 
@@ -147,6 +141,7 @@ class DefaultController extends YBackController
     public function actionIndex()
     {
         $dataProvider = new CActiveDataProvider('Gallery');
+
         $this->render('index', array(
                                     'dataProvider' => $dataProvider,
                                ));

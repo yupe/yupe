@@ -167,9 +167,9 @@ class Image extends CActiveRecord
                 $this->file = Yii::app()->request->baseUrl . DIRECTORY_SEPARATOR . $module->uploadDir . $dir . DIRECTORY_SEPARATOR . $fileName;
 
                 return $this->update(array('file'));
-            }           
-        }
-
+            }              
+        }        
+        
         return false;
     }
 
