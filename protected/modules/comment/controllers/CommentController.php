@@ -58,9 +58,7 @@ class CommentController extends YFrontController
                 if (Yii::app()->request->isAjaxRequest)                
                     Yii::app()->ajax->failure(Yii::t('comment', 'Комментарий не добавлен!'));
                 
-                Yii::app()->user->setFlash(YFlashMessages::ERROR_MESSAGE, Yii::t('comment', 'Комментарий не добавлен! Заполните форму корректно!'));
-
-                var_dump($comment->getErrors());die();
+                Yii::app()->user->setFlash(YFlashMessages::ERROR_MESSAGE, Yii::t('comment', 'Комментарий не добавлен! Заполните форму корректно!'));            
 
                 $this->redirect($redirect);
             }
