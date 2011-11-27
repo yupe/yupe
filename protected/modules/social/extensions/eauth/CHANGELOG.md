@@ -1,6 +1,9 @@
 Yii EAuth Change Log
 ====================
 
+### In progress...
+* Fixed infinite loop when calling getAttrbiutes from fetchAttributes inside a provider class.
+
 ### Version 1.1.4 (13.11.2011)
 * Added handling for denied callback in the TwitterOAuthService.
 * Fixed a redirect page for disabled javascript.

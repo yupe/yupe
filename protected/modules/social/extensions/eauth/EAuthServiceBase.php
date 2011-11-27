@@ -52,7 +52,7 @@ abstract class EAuthServiceBase extends CComponent implements IAuthService {
 	/**
 	 * @var boolean whether is attributes was fetched.
 	 */
-	protected $fetched = false;
+	private $fetched = false;
 	
 	/**
 	 * @var EAuth the {@link EAuth} application component.
@@ -387,9 +387,23 @@ abstract class EAuthServiceBase extends CComponent implements IAuthService {
 	
 	/**
 	 * Fetch attributes array.
+	 * @return boolean whether the attributes was successfully fetched.
 	 */
 	protected function fetchAttributes() {
-		
+		return true;
+	}
+	
+	/**
+	 * Fetch attributes array.
+	 * This function is internally used to handle fetched state.
+	 */
+	protected function _fetchAttributes() {
+		if (!$this->fetched) {
+			$this->fetched = true;
+			$result = $this->fetchAttributes();
+			if (isset($result))
+				$this->fetched = $result;
+		}
 	}
 	
 	/**
@@ -405,11 +419,7 @@ abstract class EAuthServiceBase extends CComponent implements IAuthService {
 	 * @return array the attributes.
 	 */
 	public function getAttributes() {
-		if (!$this->fetched) {
-			$this->fetchAttributes();
-			$this->fetched = true;
-		}
-		
+		$this->_fetchAttributes();
 		$attributes = array();
 		foreach ($this->attributes as $key => $val) {
 			$attributes[$key] = $this->getAttribute($key);
@@ -424,11 +434,7 @@ abstract class EAuthServiceBase extends CComponent implements IAuthService {
 	 * @return mixed the attribute value.
 	 */
 	public function getAttribute($key, $default = null) {
-		if (!$this->fetched) {
-			$this->fetchAttributes();
-			$this->fetched = true;
-		}
-		
+		$this->_fetchAttributes();
 		$getter = 'get'.$key;
 		if (method_exists($this, $getter))
 			return $this->$getter();
