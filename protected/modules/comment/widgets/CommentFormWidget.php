@@ -3,7 +3,7 @@ class CommentFormWidget extends YWidget
 {
     public $model;
 
-    public $model_id;
+    public $modelId;
 
     public $redirectTo;
 
@@ -12,7 +12,7 @@ class CommentFormWidget extends YWidget
         $this->model = is_object($this->model) ? get_class($this->model)
             : $this->model;
 
-        $this->model_id = (int)$this->model_id;
+        $this->modelId = (int)$this->modelId;
     }
 
     public function run()
@@ -21,7 +21,7 @@ class CommentFormWidget extends YWidget
 
         $model->setAttributes(array(
                                    'model' => $this->model,
-                                   'model_id' => $this->model_id
+                                   'modelId' => $this->modelId
                               ));
 
         $this->render('commentformwidget', array('redirectTo' => $this->redirectTo, 'model' => $model));

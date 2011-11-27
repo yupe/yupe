@@ -18,7 +18,7 @@ class GoogleOAuthService extends EOAuth2Service {
 	protected $name = 'google_oauth';
 	protected $title = 'Google';
 	protected $type = 'OAuth';
-	protected $jsArguments = array('popup' => array('width' => 600, 'height' => 500));
+	protected $jsArguments = array('popup' => array('width' => 500, 'height' => 450));
 
 	protected $client_id = '';
 	protected $client_secret = '';

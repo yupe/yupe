@@ -18,7 +18,7 @@ class CommentController extends YFrontController
             $redirect = isset($_POST['redirectTo']) ? $_POST['redirectTo']
                 : Yii::app()->user->returnUrl;
 
-            $comment = new Comment();
+            $comment = new Comment;
 
             $module  = Yii::app()->getModule('comment');
 
@@ -42,8 +42,7 @@ class CommentController extends YFrontController
             if ($comment->save())
             {
                 if (Yii::app()->request->isAjaxRequest)                
-                    Yii::app()->ajax->success(Yii::t('comment', 'Комментарий добавлен!'));
-                
+                    Yii::app()->ajax->success(Yii::t('comment', 'Комментарий добавлен!'));                
 
                 $message = $comment->status !== Comment::STATUS_APPROVED ? Yii::t('comment', 'Спасибо, Ваш комментарий добавлен и ожидает проверки!') : Yii::t('comment', 'Спасибо, Ваш комментарий добавлен!');
 
@@ -52,7 +51,7 @@ class CommentController extends YFrontController
                 $this->redirect($redirect);
             }
             else
-            {
+            {                
                 if (Yii::app()->request->isAjaxRequest)                
                     Yii::app()->ajax->failure(Yii::t('comment', 'Комментарий не добавлен!'));
                 

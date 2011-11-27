@@ -11,7 +11,7 @@ require_once dirname(dirname(__FILE__)).'/services/GoogleOpenIDService.php';
 
 class CustomGoogleService extends GoogleOpenIDService {
 	
-	protected $jsArguments = array('popup' => array('width' => 450, 'height' => 450));
+	//protected $jsArguments = array('popup' => array('width' => 450, 'height' => 450));
 	
 	protected $requiredAttributes = array(
 		'name' => array('firstname', 'namePerson/first'),
