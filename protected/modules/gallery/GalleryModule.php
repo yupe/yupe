@@ -1,5 +1,4 @@
 <?php
-
 class GalleryModule extends YWebModule
 {
     public function getParamsLabels()

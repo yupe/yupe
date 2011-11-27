@@ -13,7 +13,7 @@ class CommentController extends YFrontController
 
     public function actionAdd()
     {
-    	if (Yii::app()->request->isPostRequest && isset($_POST['Comment']))
+    	if (Yii::app()->request->isPostRequest && !empty($_POST['Comment']))
         {
             $redirect = isset($_POST['redirectTo']) ? $_POST['redirectTo']
                 : Yii::app()->user->returnUrl;
@@ -21,6 +21,8 @@ class CommentController extends YFrontController
             $comment = new Comment;
 
             $module  = Yii::app()->getModule('comment');
+
+            //@TODO всю эту логику перенести в метод модели
 
             $comment->setAttributes($_POST['Comment']);
 
@@ -55,7 +57,7 @@ class CommentController extends YFrontController
                 if (Yii::app()->request->isAjaxRequest)                
                     Yii::app()->ajax->failure(Yii::t('comment', 'Комментарий не добавлен!'));
                 
-                Yii::app()->user->setFlash(YFlashMessages::ERROR_MESSAGE, Yii::t('comment', 'Комментарий не добавлен! Заполните форму корректно!'));
+                Yii::app()->user->setFlash(YFlashMessages::ERROR_MESSAGE, Yii::t('comment', 'Комментарий не добавлен! Заполните форму корректно!'));            
 
                 $this->redirect($redirect);
             }

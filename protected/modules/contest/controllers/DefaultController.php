@@ -1,5 +1,4 @@
 <?php
-
 class DefaultController extends YBackController
 {
     /**
@@ -27,6 +26,7 @@ class DefaultController extends YBackController
         if (isset($_POST['Contest']))
         {
             $model->attributes = $_POST['Contest'];
+
             if ($model->save())
                 $this->redirect(array('view', 'id' => $model->id));
         }
@@ -87,6 +87,7 @@ class DefaultController extends YBackController
     public function actionIndex()
     {
         $dataProvider = new CActiveDataProvider('Contest');
+
         $this->render('index', array(
                                     'dataProvider' => $dataProvider,
                                ));
@@ -146,32 +147,26 @@ class DefaultController extends YBackController
             }
 
         }
-        else
-        {
-            throw new CHttpException(400, 'Invalid request. Please do not repeat this request again.');
-        }
+        else        
+            throw new CHttpException(400, 'Invalid request. Please do not repeat this request again.');        
     }
 
     public function actionAddImage($contest_id)
     {
         $contest = $this->loadModel((int)$contest_id);
 
-        $image = new Image();
+        $image = new Image;
 
         if (Yii::app()->request->isPostRequest)
         {
             $transaction = Yii::app()->db->beginTransaction();
 
             try
-            {
-                $image = $image->create($_POST['Image']);
-
-                if (!$image->hasErrors())
+            {                
+                if ($image->create($_POST['Image']))
                 {
-                    if ($contest->addImage($image))
-                    {
-                        Yii::app()->user->setFlash(YFlashMessages::NOTICE_MESSAGE, Yii::t('contest', 'Фотография добавлена!'));
-                    }
+                    if ($contest->addImage($image))                    
+                        Yii::app()->user->setFlash(YFlashMessages::NOTICE_MESSAGE, Yii::t('contest', 'Фотография добавлена!'));                    
 
                     $transaction->commit();
 

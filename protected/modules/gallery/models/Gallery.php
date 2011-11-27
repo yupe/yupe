@@ -124,7 +124,7 @@ class Gallery extends CActiveRecord
 
     public function addImage(Image $image)
     {
-        $im2g = new ImageToGallery();
+        $im2g = new ImageToGallery;
 
         $im2g->setAttributes(array(
                                   'image_id' => $image->id,

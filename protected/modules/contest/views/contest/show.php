@@ -1,13 +1,3 @@
-<script type='text/javascript'>
-    $(document).ready(function() {
-        $('#new-foto').click(function(event) {
-            event.preventDefault();
-            $(this).hide();
-            $('#add-image-form').fadeIn();
-        });
-    });
-</script>
-
 <h1><?php echo Yii::t('contest', 'Конкурс');?>
     "<?php echo CHtml::encode($model->name);?>"</h1>
 
@@ -24,9 +14,7 @@
 
 
 <?php if (Yii::app()->user->isAuthenticated()): ?>
-<br/>
-<a><?php echo CHtml::link(Yii::t('contest', 'Хотите поучаствовать в конкурсе ?'), array(), array('id' => 'new-foto'));?></a>
-<div id='add-image-form' style='display:none'>
+<div id='add-image-form'>
     <h1><?php echo Yii::t('contest', 'Добавление фото');?></h1>
     <?php $this->renderPartial('_add_foto_form', array('model' => $image, 'contest' => $model));?>
 </div>

@@ -129,7 +129,7 @@ class Contest extends CActiveRecord
 
     public function addImage(Image $image)
     {
-        $im2c = new ImageToContest();
+        $im2c = new ImageToContest;
 
         $im2c->setAttributes(array(
                                   'image_id' => $image->id,

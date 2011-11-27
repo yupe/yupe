@@ -1,11 +1,22 @@
+<?php Yii::app()->clientScript->registerCoreScript('jquery');?>
+
 <script type='text/javascript'>
     $(document).ready(function() {
         var model = '<?php echo $this->model;?>';
+<<<<<<< HEAD
         var model_id = '<?php echo $this->modelId;?>';
+=======
+        var model_id = '<?php echo $this->modelId;?>';        
+>>>>>>> aca9c53d8d236fff441ef873840104676fd6fc0d
         $('a.vote').click(function(event) {
             event.preventDefault();
             var value = $(this).attr('id');
-            $.post(baseUrl + '/index.php/vote/vote/addVote/', {'modelType':model,'model_id':model_id,'value':value}, function(response) {
+            $.post(baseUrl + '/index.php/vote/vote/addVote/', {
+                'modelType':model,
+                'model_id':model_id,
+                'value':value,
+                '<?php echo Yii::app()->request->csrfTokenName?>':'<?php echo Yii::app()->request->csrfToken?>'
+            }, function(response) {
                 response.result ? $('#votes').html('Ваша оценка: <b>' + value + '</b> спасибо за голос!') : alert(response.data);
             }, 'json');
         });

@@ -1,5 +1,4 @@
 <?php
-
 class ContestModule extends YWebModule
 {
     public function getName()
