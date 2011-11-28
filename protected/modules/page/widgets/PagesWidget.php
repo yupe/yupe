@@ -5,7 +5,7 @@ class PagesWidget extends YWidget
 
     public $topLevelOnly = false;
 
-    public $order = 'parent_Id';
+    public $order = 'menu_order ASC';
 
     public $parent_Id;
 
@@ -40,7 +40,7 @@ class PagesWidget extends YWidget
                 $criteria->addCondition("id = {$this->parent_Id} OR parent_Id = {$this->parent_Id}");
             
             if ($this->topLevelOnly)            
-                $criteria->addCondition("parent_Id is null or parent_Id = 0");            
+                $criteria->addCondition("parent_Id is null or parent_Id = 0");              
 
             $view = $this->view ? $this->view : 'pageswidget';
 

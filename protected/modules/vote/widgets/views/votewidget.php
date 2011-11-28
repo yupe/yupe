@@ -3,11 +3,7 @@
 <script type='text/javascript'>
     $(document).ready(function() {
         var model = '<?php echo $this->model;?>';
-<<<<<<< HEAD
-        var model_id = '<?php echo $this->modelId;?>';
-=======
         var model_id = '<?php echo $this->modelId;?>';        
->>>>>>> aca9c53d8d236fff441ef873840104676fd6fc0d
         $('a.vote').click(function(event) {
             event.preventDefault();
             var value = $(this).attr('id');
