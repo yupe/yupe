@@ -152,9 +152,11 @@ class Image extends CActiveRecord
 
         $this->file = CUploadedFile::getInstance($this, $file);                
 
-        $module = Yii::app()->getModule('image');       
+        $module = Yii::app()->getModule('image');
 
-        if ($dir = $module->createUploadDir())
+        $dir = $module->createUploadDir();
+
+        if ($dir)
         {
             if ($this->save())
             {

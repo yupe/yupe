@@ -23,19 +23,12 @@ class DefaultController extends YBackController
 
         if (Yii::app()->request->isPostRequest)
         {
-            if (!$model->create($_POST['Image']))            
-            {
-                Yii::app()->user->setFlash(YFlashMessages::ERROR_MESSAGE,Yii::t('image','При добавлении изображения произошла ошибка!'));
-
-                $this->redirect(array('create'));                                            
-            }                
-            else
+            if ($model->create($_POST['Image']))            
             {
                 Yii::app()->user->setFlash(YFlashMessages::NOTICE_MESSAGE,Yii::t('image','Изображение добавлено!'));
 
-                $this->redirect(array('view', 'id' => $model->id));                                            
-            }
-                
+                $this->redirect(array('view', 'id' => $model->id));                                         
+            }                            
         }
 
         $this->render('create', array('model' => $model));

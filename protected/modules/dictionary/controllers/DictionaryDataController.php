@@ -96,7 +96,14 @@ class DictionaryDataController extends YBackController
 	public function actionAdmin()
 	{
 		$model=new DictionaryData('search');
+		
 		$model->unsetAttributes();  // clear any default values
+
+        $group_id = (int)Yii::app()->request->getQuery('group_id');
+        
+        if($group_id)
+            $model->group_id = $group_id; 
+
 		if(isset($_GET['DictionaryData']))
 			$model->attributes=$_GET['DictionaryData'];
 
