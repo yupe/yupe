@@ -31,7 +31,7 @@ class ImageModule extends YWebModule
         if (is_dir($dirName))        
             return $current;        
 
-        return @mkdir($dirName, 0700, true);
+        return @mkdir($dirName, 0700, true) ? $current : false;
     }
 
     public function checkSelf()
