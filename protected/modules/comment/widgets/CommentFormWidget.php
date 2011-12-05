@@ -20,7 +20,7 @@ class CommentFormWidget extends YWidget
 
         $model->setAttributes(array(
                                    'model' => $this->model,
-                                   'modelId' => $this->modelId
+                                   'model_id' => $this->modelId
                               ));
 
         $this->render('commentformwidget', array('redirectTo' => $this->redirectTo, 'model' => $model));

@@ -1,5 +1,4 @@
 <?php
-
 class CommentModule extends YWebModule
 {
     public $defaultCommentStatus = Comment::STATUS_APPROVED;

@@ -26,10 +26,10 @@
 
 <br/><br/><br/>
 
-<?php $this->widget('application.modules.comment.widgets.CommentsListWidget', array('model' => $data, 'model_id' => $data->id)); ?>
+<?php $this->widget('application.modules.comment.widgets.CommentsListWidget', array('model' => $data, 'modelId' => $data->id)); ?>
 
 <br/>
 
 <h3>Оставить комментарий</h3>
 
-<?php $this->widget('application.modules.comment.widgets.CommentFormWidget', array('redirectTo' => $data->getPermaLink(), 'model' => $data, 'model_id' => $data->id)); ?>
+<?php $this->widget('application.modules.comment.widgets.CommentFormWidget', array('redirectTo' => $data->getPermaLink(), 'model' => $data, 'modelId' => $data->id)); ?>

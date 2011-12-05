@@ -23,7 +23,6 @@ class CommentController extends YFrontController
             $module  = Yii::app()->getModule('comment');
 
             //@TODO всю эту логику перенести в метод модели
-
             $comment->setAttributes($_POST['Comment']);
 
             $comment->status = $module->defaultCommentStatus;            
@@ -55,7 +54,7 @@ class CommentController extends YFrontController
             else
             {                
                 if (Yii::app()->request->isAjaxRequest)                
-                    Yii::app()->ajax->failure(Yii::t('comment', 'Комментарий не добавлен!'));
+                    Yii::app()->ajax->failure(Yii::t('comment', 'Комментарий не добавлен!'));               
                 
                 Yii::app()->user->setFlash(YFlashMessages::ERROR_MESSAGE, Yii::t('comment', 'Комментарий не добавлен! Заполните форму корректно!'));            
 
