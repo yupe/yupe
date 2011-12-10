@@ -120,7 +120,7 @@ class SocialController extends YFrontController
                             }
                             else
                             {
-                                Yii::app()->user->setFlash(YFlashMessages::NOTICE_ERROR, Yii::t('user', 'Учетная запись создана, но не удалось авторизоваться!'));
+                                Yii::app()->user->setFlash(YFlashMessages::ERROR_MESSAGE, Yii::t('user', 'Учетная запись создана, но не удалось авторизоваться!'));
 
                                 $this->cleanState();
 
