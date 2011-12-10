@@ -30,6 +30,9 @@ class ServiceUserIdentity extends UserIdentity
             Yii::app()->user->setState('sid', $this->service->id);
             Yii::app()->user->setState('name', $this->username);
             Yii::app()->user->setState('service', $this->service->serviceName);
+			
+			Yii::app()->user->setState('email', $this->service->getAttribute('email'));
+			
             $this->errorCode = self::ERROR_NONE;                    
         }
         else
