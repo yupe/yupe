@@ -86,7 +86,7 @@ class SocialController extends YFrontController
                         {                                               
                             $account = new User;
                             
-                            $account->createAccount($nick_name,"{$nick_name}@{$nick_name}.ru",null,null,User::STATUS_ACTIVE);
+                            $account->createAccount($nick_name, Yii::app()->user->getState('email'), null, null, User::STATUS_ACTIVE);
 
                             if($account && !$account->hasErrors())
                             {                            
