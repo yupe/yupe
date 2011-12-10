@@ -325,7 +325,6 @@ class User extends CActiveRecord
 
         $this->setAttributes(array(
                                   'nick_name' => $nick_name,
-                                  'email' => $email,
                                   'salt'  => $salt,
                                   'password' => $this->hashPassword($password, $salt),
                                   'registration_date' => new CDbExpression('NOW()'),
@@ -334,8 +333,18 @@ class User extends CActiveRecord
                                   'status' => $status,
                                   'email_confirm' => $emailConfirm
                              ));        
+		// если не определен емэйл то генерим уникальный 
+		$setemail    = empty($email);
+		$this->email = $setemail ? 'user-'.$this->generateSalt().'@'.$_SERVER['HTTP_HOST'] : $email;
 		
-	    $this->save();                   
+	    $this->save(false);
+		
+		// для красоты
+		if ($setemail)
+		{
+			$this->email = "user-{$this->id}@{$_SERVER['HTTP_HOST']}";
+			$this->update(array('email'));
+		}
     }  
 
     public function changePassword($password)
