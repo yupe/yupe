@@ -87,7 +87,8 @@ class SocialController extends YFrontController
 
                         try
                         {                                               
-							$email   = $authIdentity->getAttribute('email');
+							$email = $authIdentity->getAttribute('email');
+
                             $account = new User;
                             
                             $account->createAccount(
