@@ -27,5 +27,12 @@ class CustomYandexService extends YandexOpenIDService {
 			
 		if (isset($this->attributes['birthDate']) && !empty($this->attributes['birthDate']))
 			$this->attributes['birthDate'] = strtotime($this->attributes['birthDate']);
+		
+		// http://api.yandex.ru/openid/doc/dg/concepts/user-info.xml
+		// получим ник и first_name
+		$this->attributes['first_name'] = $this->attributes['name'];
+		$this->attributes['last_name']  = '';
+		$this->attributes['nick']       = empty($this->attributes['username']) ? $this->attributes['email'] : $this->attributes['username'];
+
 	}
 }

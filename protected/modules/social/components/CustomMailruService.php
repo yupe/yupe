@@ -21,10 +21,12 @@ class CustomMailruService extends MailruOAuthService {
 		));
 		
 		$info = $info[0];
-		
-		$this->attributes['id'] = $info->uid;
+		// http://api.mail.ru/docs/reference/rest/users-getinfo/
+		$this->attributes['id']         = $info->uid;
 		$this->attributes['first_name'] = $info->first_name;
-		$this->attributes['photo'] = $info->pic;
+		$this->attributes['last_name']  = $info->last_name;
+		$this->attributes['nick']       = $info->nick;
+		$this->attributes['photo']      = $info->pic;
 	}
 	
 }
