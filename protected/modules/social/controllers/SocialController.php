@@ -46,7 +46,10 @@ class SocialController extends YFrontController
                     else
                     {
                         // попробуем создать учетную запись, если такой ник уже есть - редирект на форму регистрации
-                        $nick_name = preg_replace('/[^A-Za-z0-9]/','', YText::translit(Yii::app()->user->getState('name')));                  
+                        $nick_name = preg_replace(
+								'/[^A-Za-z0-9]/','', 
+								YText::translit($authIdentity->getAttribute('nick'))
+						);                  
 
                         $user = User::model()->find('LOWER(nick_name) = :nick_name',array(
                             ':nick_name' => strtolower($nick_name)
@@ -84,9 +87,19 @@ class SocialController extends YFrontController
 
                         try
                         {                                               
+							$email   = $authIdentity->getAttribute('email');
                             $account = new User;
                             
-                            $account->createAccount($nick_name, Yii::app()->user->getState('email'), null, null, User::STATUS_ACTIVE);
+                            $account->createAccount(
+									$nick_name,
+									$email,
+									null, 
+									null, 
+									User::STATUS_ACTIVE,
+									(empty($email) ? User::EMAIL_CONFIRM_NO : User::EMAIL_CONFIRM_YES),
+									$authIdentity->getAttribute('first_name'),
+									$authIdentity->getAttribute('last_name')
+							);
 
                             if($account && !$account->hasErrors())
                             {                            

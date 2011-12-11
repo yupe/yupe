@@ -21,6 +21,8 @@ class CustomGoogleService extends GoogleOpenIDService {
 	);
 	
 	protected function fetchAttributes() {
-		$this->attributes['fullname'] = $this->attributes['name'].' '.$this->attributes['lastname'];
+		$this->attributes['first_name'] = $this->attributes['name'];
+		$this->attributes['last_name']  = $this->attributes['lastname'];
+		$this->attributes['nick']       = $this->attributes['email'];
 	}
 }

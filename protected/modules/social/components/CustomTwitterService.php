@@ -18,9 +18,14 @@ class CustomTwitterService extends TwitterOAuthService {
 		$this->attributes['name'] = $info->name;
 		$this->attributes['url'] = 'http://twitter.com/account/redirect_by_id?id='.$info->id_str;
 
+		$this->attributes['nick'] = $info->name;
+
+		$this->attributes['first_name'] = $info->screen_name;
+		$this->attributes['last_name']  = '';
+		
 		$this->attributes['username'] = $info->screen_name;
 		$this->attributes['language'] = $info->lang;
 		$this->attributes['timezone'] = timezone_name_from_abbr('', $info->utc_offset, date('I'));
-		$this->attributes['photo'] = $info->profile_image_url;
+		$this->attributes['photo']    = $info->profile_image_url;
 	}
 }
