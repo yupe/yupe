@@ -317,16 +317,18 @@ class User extends CActiveRecord
             ? $this->last_name . $separator . $this->first_name : $this->nick_name;
     }
 
-    public function createAccount($nick_name, $email, $password = null, $salt = null, $status = self::STATUS_NOT_ACTIVE, $emailConfirm = self::EMAIL_CONFIRM_NO)
+    public function createAccount($nick_name, $email, $password = null, $salt = null, $status = self::STATUS_NOT_ACTIVE, $emailConfirm = self::EMAIL_CONFIRM_NO, $first_name= '', $last_name = '')
     {
         $salt = is_null($salt) ? $this->generateSalt() : $salt;
 
         $password = is_null($password) ? $this->generateRandomPassword() : $password;
 
         $this->setAttributes(array(
-                                  'nick_name' => $nick_name,
-                                  'salt'  => $salt,
-                                  'password' => $this->hashPassword($password, $salt),
+                                  'nick_name'  => $nick_name,
+								  'first_name' => $first_name,
+								  'last_name'  => $last_name,
+                                  'salt'       => $salt,
+                                  'password'   => $this->hashPassword($password, $salt),
                                   'registration_date' => new CDbExpression('NOW()'),
                                   'registration_ip' => Yii::app()->request->userHostAddress,
                                   'activation_ip'   => Yii::app()->request->userHostAddress,
