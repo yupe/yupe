@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Хост: localhost
--- Время создания: Дек 12 2011 г., 14:11
+-- Время создания: Дек 13 2011 г., 10:35
 -- Версия сервера: 5.1.54
 -- Версия PHP: 5.3.5-1ubuntu7.3
 
@@ -110,7 +110,7 @@ CREATE TABLE IF NOT EXISTS `dictionary_data` (
   `code` varchar(50) NOT NULL,
   `name` varchar(150) NOT NULL,
   `value` varchar(50) NOT NULL,
-  `description` varchar(300) NOT NULL DEFAULT '''''',
+  `description` varchar(300) NOT NULL DEFAULT '',
   `creation_date` datetime NOT NULL,
   `update_date` datetime NOT NULL,
   `create_user_id` int(10) unsigned NOT NULL,
@@ -133,8 +133,8 @@ CREATE TABLE IF NOT EXISTS `dictionary_data` (
 CREATE TABLE IF NOT EXISTS `dictionary_group` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `code` varchar(50) NOT NULL,
-  `name` varchar(150) NOT NULL DEFAULT '''''',
-  `description` varchar(300) NOT NULL DEFAULT '''''',
+  `name` varchar(150) NOT NULL DEFAULT '',
+  `description` varchar(300) NOT NULL DEFAULT '',
   `creation_date` datetime NOT NULL,
   `update_date` datetime NOT NULL,
   `create_user_id` int(10) unsigned NOT NULL,
@@ -336,14 +336,14 @@ CREATE TABLE IF NOT EXISTS `post` (
   `slug` varchar(150) NOT NULL,
   `publish_date` datetime NOT NULL,
   `title` varchar(150) NOT NULL,
-  `quote` varchar(300) NOT NULL DEFAULT '''''',
+  `quote` varchar(300) NOT NULL DEFAULT '',
   `content` text NOT NULL,
-  `link` varchar(150) NOT NULL DEFAULT '''''',
+  `link` varchar(150) NOT NULL DEFAULT '',
   `status` tinyint(4) NOT NULL DEFAULT '0',
   `comment_status` tinyint(4) NOT NULL DEFAULT '1',
   `access_type` tinyint(4) NOT NULL DEFAULT '1',
-  `keywords` varchar(150) NOT NULL DEFAULT '''''',
-  `description` varchar(150) NOT NULL DEFAULT '''''',
+  `keywords` varchar(150) NOT NULL DEFAULT '',
+  `description` varchar(150) NOT NULL DEFAULT '',
   PRIMARY KEY (`id`),
   UNIQUE KEY `slug` (`slug`),
   KEY `status` (`status`),
@@ -403,10 +403,10 @@ CREATE TABLE IF NOT EXISTS `user` (
   `email` varchar(150) NOT NULL,
   `gender` tinyint(1) NOT NULL DEFAULT '0',
   `birth_date` date DEFAULT NULL,
-  `site` varchar(100) NOT NULL DEFAULT '''''',
-  `about` varchar(300) NOT NULL DEFAULT '''''',
-  `location` varchar(150) NOT NULL DEFAULT '''''',
-  `online_status` varchar(150) NOT NULL DEFAULT '''''',
+  `site` varchar(100) NOT NULL DEFAULT '',
+  `about` varchar(300) NOT NULL DEFAULT '',
+  `location` varchar(150) NOT NULL DEFAULT '',
+  `online_status` varchar(150) NOT NULL DEFAULT '',
   `password` char(32) NOT NULL,
   `salt` char(32) NOT NULL,
   `status` tinyint(1) NOT NULL DEFAULT '2',
@@ -504,8 +504,8 @@ ALTER TABLE `page`
 -- Ограничения внешнего ключа таблицы `post`
 --
 ALTER TABLE `post`
-  ADD CONSTRAINT `post_ibfk_2` FOREIGN KEY (`update_user_id`) REFERENCES `user` (`id`) ON DELETE CASCADE ON UPDATE NO ACTION,
-  ADD CONSTRAINT `post_ibfk_1` FOREIGN KEY (`create_user_id`) REFERENCES `user` (`id`) ON DELETE CASCADE ON UPDATE NO ACTION;
+  ADD CONSTRAINT `post_ibfk_1` FOREIGN KEY (`create_user_id`) REFERENCES `user` (`id`) ON DELETE CASCADE ON UPDATE NO ACTION,
+  ADD CONSTRAINT `post_ibfk_2` FOREIGN KEY (`update_user_id`) REFERENCES `user` (`id`) ON DELETE CASCADE ON UPDATE NO ACTION;
 
 --
 -- Ограничения внешнего ключа таблицы `recovery_password`
