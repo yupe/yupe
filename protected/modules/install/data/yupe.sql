@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Хост: localhost
--- Время создания: Дек 13 2011 г., 10:35
+-- Время создания: Дек 13 2011 г., 16:28
 -- Версия сервера: 5.1.54
 -- Версия PHP: 5.3.5-1ubuntu7.3
 
@@ -18,6 +18,32 @@ SET SQL_MODE="NO_AUTO_VALUE_ON_ZERO";
 --
 -- База данных: `yupe`
 --
+
+-- --------------------------------------------------------
+
+--
+-- Структура таблицы `blog`
+--
+
+CREATE TABLE IF NOT EXISTS `blog` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `name` varchar(300) NOT NULL,
+  `description` text NOT NULL,
+  `icon` varchar(300) NOT NULL DEFAULT '',
+  `slug` varchar(150) NOT NULL,
+  `type` tinyint(4) NOT NULL DEFAULT '1',
+  `status` tinyint(4) NOT NULL DEFAULT '1',
+  `create_user_id` int(10) unsigned NOT NULL,
+  `update_user_id` int(10) unsigned NOT NULL,
+  `create_date` int(11) NOT NULL,
+  `update_date` int(11) NOT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `slug` (`slug`),
+  UNIQUE KEY `update_user_id` (`update_user_id`),
+  KEY `create_user_id` (`create_user_id`),
+  KEY `type` (`type`),
+  KEY `status` (`status`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
 
 -- --------------------------------------------------------
 
@@ -329,10 +355,11 @@ CREATE TABLE IF NOT EXISTS `page` (
 
 CREATE TABLE IF NOT EXISTS `post` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `blog_id` int(10) unsigned NOT NULL,
   `create_user_id` int(10) unsigned NOT NULL,
   `update_user_id` int(10) unsigned NOT NULL,
-  `create_date` datetime NOT NULL,
-  `update_date` datetime NOT NULL,
+  `create_date` int(11) NOT NULL,
+  `update_date` int(11) NOT NULL,
   `slug` varchar(150) NOT NULL,
   `publish_date` datetime NOT NULL,
   `title` varchar(150) NOT NULL,
@@ -346,6 +373,7 @@ CREATE TABLE IF NOT EXISTS `post` (
   `description` varchar(150) NOT NULL DEFAULT '',
   PRIMARY KEY (`id`),
   UNIQUE KEY `slug` (`slug`),
+  UNIQUE KEY `blog_id` (`blog_id`),
   KEY `status` (`status`),
   KEY `comment_status` (`comment_status`),
   KEY `access_type` (`access_type`),
@@ -449,6 +477,13 @@ CREATE TABLE IF NOT EXISTS `vote` (
 --
 
 --
+-- Ограничения внешнего ключа таблицы `blog`
+--
+ALTER TABLE `blog`
+  ADD CONSTRAINT `blog_ibfk_1` FOREIGN KEY (`create_user_id`) REFERENCES `user` (`id`) ON DELETE CASCADE ON UPDATE NO ACTION,
+  ADD CONSTRAINT `blog_ibfk_2` FOREIGN KEY (`update_user_id`) REFERENCES `user` (`id`) ON DELETE CASCADE ON UPDATE NO ACTION;
+
+--
 -- Ограничения внешнего ключа таблицы `dictionary_data`
 --
 ALTER TABLE `dictionary_data`
@@ -504,6 +539,7 @@ ALTER TABLE `page`
 -- Ограничения внешнего ключа таблицы `post`
 --
 ALTER TABLE `post`
+  ADD CONSTRAINT `post_ibfk_3` FOREIGN KEY (`blog_id`) REFERENCES `blog` (`id`) ON DELETE CASCADE ON UPDATE NO ACTION,
   ADD CONSTRAINT `post_ibfk_1` FOREIGN KEY (`create_user_id`) REFERENCES `user` (`id`) ON DELETE CASCADE ON UPDATE NO ACTION,
   ADD CONSTRAINT `post_ibfk_2` FOREIGN KEY (`update_user_id`) REFERENCES `user` (`id`) ON DELETE CASCADE ON UPDATE NO ACTION;
 
