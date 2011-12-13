@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Хост: localhost
--- Время создания: Дек 13 2011 г., 16:32
+-- Время создания: Дек 13 2011 г., 17:14
 -- Версия сервера: 5.1.54
 -- Версия PHP: 5.3.5-1ubuntu7.3
 
@@ -96,7 +96,7 @@ CREATE TABLE IF NOT EXISTS `comment` (
 CREATE TABLE IF NOT EXISTS `content_block` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `name` varchar(50) NOT NULL,
-  `code` varchar(50) CHARACTER SET utf8 COLLATE utf8_spanish_ci NOT NULL,
+  `code` varchar(50) NOT NULL,
   `type` tinyint(4) NOT NULL DEFAULT '1',
   `content` text NOT NULL,
   `description` varchar(300) DEFAULT NULL,
@@ -462,7 +462,7 @@ CREATE TABLE IF NOT EXISTS `user` (
 
 CREATE TABLE IF NOT EXISTS `vote` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
-  `model` varchar(50) CHARACTER SET ucs2 NOT NULL,
+  `model` varchar(50) NOT NULL,
   `model_id` int(10) unsigned NOT NULL,
   `user_id` int(10) unsigned NOT NULL,
   `creation_date` datetime NOT NULL,
