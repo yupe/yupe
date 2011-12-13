@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Хост: localhost
--- Время создания: Дек 13 2011 г., 17:14
+-- Время создания: Дек 13 2011 г., 17:29
 -- Версия сервера: 5.1.54
 -- Версия PHP: 5.3.5-1ubuntu7.3
 
@@ -44,6 +44,22 @@ CREATE TABLE IF NOT EXISTS `blog` (
   KEY `type` (`type`),
   KEY `status` (`status`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+
+-- --------------------------------------------------------
+
+--
+-- Структура таблицы `blog_user`
+--
+
+CREATE TABLE IF NOT EXISTS `blog_user` (
+  `user_id` int(10) unsigned NOT NULL,
+  `blog_id` int(10) unsigned NOT NULL,
+  `create_date` int(11) NOT NULL,
+  `role` tinyint(4) NOT NULL DEFAULT '1',
+  PRIMARY KEY (`blog_id`,`user_id`),
+  KEY `user_id` (`user_id`),
+  KEY `blog_id` (`blog_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
 
@@ -482,6 +498,12 @@ CREATE TABLE IF NOT EXISTS `vote` (
 ALTER TABLE `blog`
   ADD CONSTRAINT `blog_ibfk_1` FOREIGN KEY (`create_user_id`) REFERENCES `user` (`id`) ON DELETE CASCADE ON UPDATE NO ACTION,
   ADD CONSTRAINT `blog_ibfk_2` FOREIGN KEY (`update_user_id`) REFERENCES `user` (`id`) ON DELETE CASCADE ON UPDATE NO ACTION;
+
+--
+-- Ограничения внешнего ключа таблицы `blog_user`
+--
+ALTER TABLE `blog_user`
+  ADD CONSTRAINT `blog_user_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `user` (`id`) ON DELETE CASCADE ON UPDATE NO ACTION;
 
 --
 -- Ограничения внешнего ключа таблицы `dictionary_data`
