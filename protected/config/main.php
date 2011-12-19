@@ -134,6 +134,9 @@ return array(
 
     // конфигурация модулей приложения, подробнее http://www.yiiframework.ru/doc/guide/ru/basics.module
     'modules' => array(
+        'blog' => array(
+            'class' => 'application.modules.blog.BlogModule',
+        ),
         'social' => array(
             'class' => 'application.modules.social.SocialModule',
         ),

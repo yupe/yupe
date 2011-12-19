@@ -1,0 +1,51 @@
+<?php
+$this->breadcrumbs=array(
+	Yii::t('blog','Блоги')=>array('index'),
+	$model->name,
+);
+
+$this->menu=array(
+	array('label' => Yii::t('blog','Список блогов'), 'url'=>array('index')),
+	array('label' => Yii::t('blog','Добавить блог'), 'url'=>array('create')),
+	array('label' => Yii::t('blog','Редактировать блог'), 'url'=>array('update', 'id'=>$model->id)),
+	array('label' => Yii::t('blog','Удалить блог'), 'url'=>'#', 'linkOptions'=>array('submit'=>array('delete','id'=>$model->id),'confirm'=>Yii::t('blog','Подтверждаете удаление ?'))),
+	array('label' => Yii::t('blog','Управление блогами'), 'url'=>array('admin')),
+);
+?>
+
+<h1><?php echo Yii::t('blog','Просмотр блога');?> "<?php echo $model->name; ?>"</h1>
+
+<?php $this->widget('zii.widgets.CDetailView', array(
+	'data'=>$model,
+	'attributes'=>array(
+		'id',
+		'name',
+		'description',
+		'icon',
+		'slug',
+		array(
+			'name'  => 'type',
+			'value' => $model->getType()
+		),		
+		array(
+			'name'  => 'status',
+			'value' => $model->getStatus()
+		),
+		array(
+			'name'  => 'create_user_id',
+			'value' => $model->createUser->getFullName()
+		),
+		array(
+			'name'  => 'update_user_id',
+			'value' => $model->updateUser->getFullName()
+		),
+		array(
+			'name'  => 'create_date',
+			'value' => date("d.m.Y",$model->create_date)
+		),
+		array(
+			'name'  => 'update_date',
+			'value' => date("d.m.Y",$model->update_date)
+		),
+	),
+)); ?>
