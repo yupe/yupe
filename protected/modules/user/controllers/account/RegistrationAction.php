@@ -43,21 +43,36 @@ class RegistrationAction extends CAction
                         'password' => $user->hashPassword($form->password,$salt)
                     ));
 
-                    if ($user->save())
-                    {
-                        // отправка email с просьбой активировать аккаунт
-                        $mailBody = $this->controller->renderPartial('needAccountActivationEmail', array('model' => $user), true);
-                        Yii::app()->mail->send($module->notifyEmailFrom, $user->email, Yii::t('user', 'Регистрация на сайте {site} !',array('{site}' => Yii::app()->name )), $mailBody);
-                        // запись в лог о создании учетной записи
-                        Yii::log(Yii::t('user', "Создана учетная запись {nick_name}!", array('{nick_name}' => $user->nick_name)), CLogger::LEVEL_INFO, UserModule::$logCategory);
-                        Yii::app()->user->setFlash(YFlashMessages::NOTICE_MESSAGE, Yii::t('user', 'Учетная запись создана! Инструкции по активации аккаунта отправлены Вам на email!'));
-                        $this->controller->refresh();
-                    }
-                    else
-                    {
-                        $form->addErrors($registration->getErrors());
+                    $transaction = Yii::app()->db->beginTransaction();
 
-                        Yii::log(Yii::t('user', "Ошибка при создании  учетной записи!"), CLogger::LEVEL_ERROR, UserModule::$logCategory);     
+                    try
+                    {
+
+                        if ($user->save())
+                        {
+                            // отправка email с просьбой активировать аккаунт
+                            $mailBody = $this->controller->renderPartial('needAccountActivationEmail', array('model' => $user), true);
+                            Yii::app()->mail->send($module->notifyEmailFrom, $user->email, Yii::t('user', 'Регистрация на сайте {site} !',array('{site}' => Yii::app()->name )), $mailBody);
+                            // запись в лог о создании учетной записи
+                            Yii::log(Yii::t('user', "Создана учетная запись {nick_name}!", array('{nick_name}' => $user->nick_name)), CLogger::LEVEL_INFO, UserModule::$logCategory);
+
+                            $transaction->commit();
+
+                            Yii::app()->user->setFlash(YFlashMessages::NOTICE_MESSAGE, Yii::t('user', 'Учетная запись создана! Инструкции по активации аккаунта отправлены Вам на email!'));
+                            $this->controller->refresh();
+                        }
+                        else
+                        {                           
+                            $form->addErrors($registration->getErrors());
+
+                            Yii::log(Yii::t('user', "Ошибка при создании  учетной записи!"), CLogger::LEVEL_ERROR, UserModule::$logCategory);     
+                        }
+                    }
+                    catch(Exception $e)
+                    {
+                        $transaction->rollback();
+                        
+                        $form->addError('',Yii::t('user','При создании учетной записи произошла ошибка!'));
                     }
                 }
                 else
