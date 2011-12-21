@@ -143,14 +143,9 @@ class Page extends CActiveRecord
 
 
     public function beforeValidate()
-    {
-        if ($this->scenario === 'update')        
-            $this->slug = YText::translit($this->title);        
-        else
-        {
-            if (!$this->slug)            
-                $this->slug = YText::translit($this->title);            
-        }
+    {        
+        if (!$this->slug)            
+            $this->slug = YText::translit($this->title);            
 
         return parent::beforeValidate();        
     }

@@ -18,12 +18,7 @@
 	<div class="row">
 		<?php echo $form->label($model,'description'); ?>
 		<?php echo $form->textArea($model,'description',array('rows'=>6, 'cols'=>50)); ?>
-	</div>
-
-	<div class="row">
-		<?php echo $form->label($model,'icon'); ?>
-		<?php echo $form->textField($model,'icon',array('size'=>60,'maxlength'=>300)); ?>
-	</div>
+	</div>	
 
 	<div class="row">
 		<?php echo $form->label($model,'slug'); ?>
@@ -32,36 +27,16 @@
 
 	<div class="row">
 		<?php echo $form->label($model,'type'); ?>
-		<?php echo $form->textField($model,'type'); ?>
+		<?php echo $form->dropDownList($model,'type',$model->getTypeList()); ?>
 	</div>
 
 	<div class="row">
 		<?php echo $form->label($model,'status'); ?>
-		<?php echo $form->textField($model,'status'); ?>
+		<?php echo $form->dropDownList($model,'status',$model->getTypeList()); ?>
 	</div>
-
-	<div class="row">
-		<?php echo $form->label($model,'create_user_id'); ?>
-		<?php echo $form->textField($model,'create_user_id',array('size'=>10,'maxlength'=>10)); ?>
-	</div>
-
-	<div class="row">
-		<?php echo $form->label($model,'update_user_id'); ?>
-		<?php echo $form->textField($model,'update_user_id',array('size'=>10,'maxlength'=>10)); ?>
-	</div>
-
-	<div class="row">
-		<?php echo $form->label($model,'create_date'); ?>
-		<?php echo $form->textField($model,'create_date'); ?>
-	</div>
-
-	<div class="row">
-		<?php echo $form->label($model,'update_date'); ?>
-		<?php echo $form->textField($model,'update_date'); ?>
-	</div>
-
+	
 	<div class="row buttons">
-		<?php echo CHtml::submitButton('Search'); ?>
+		<?php echo CHtml::submitButton(Yii::t('blog','Поиск')); ?>
 	</div>
 
 <?php $this->endWidget(); ?>

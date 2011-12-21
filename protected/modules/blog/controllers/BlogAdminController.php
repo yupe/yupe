@@ -1,6 +1,6 @@
 <?php
 
-class BlogController extends YBackController
+class BlogAdminController extends YBackController
 {
 	/**
 	 * Displays a particular model.

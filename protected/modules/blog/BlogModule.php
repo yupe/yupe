@@ -4,7 +4,15 @@ class BlogModule extends YWebModule
 {
 	public function getCategory()
     {
-        return Yii::t('social', 'Сервисы');
+        return Yii::t('social', 'Блоги');
+    }
+
+    public function getNavigation()
+    {
+        return array(
+            Yii::t('blog','Блоги')  => '/blog/blogAdmin/admin/',
+            Yii::t('blog','Записи') => '/blog/postAdmin/admin/'
+        );
     }
 
     public function getName()
@@ -34,7 +42,7 @@ class BlogModule extends YWebModule
 
     public function getAdminPageLink()
     {
-        return '/blog/blog/';
+        return '/blog/blogAdmin/admin/';
     }
 
 	public function init()
