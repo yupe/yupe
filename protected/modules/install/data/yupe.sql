@@ -1,13 +1,14 @@
 -- phpMyAdmin SQL Dump
--- version 3.3.10deb1
+-- version 3.4.5deb1
 -- http://www.phpmyadmin.net
 --
 -- Хост: localhost
--- Время создания: Дек 13 2011 г., 17:29
--- Версия сервера: 5.1.54
--- Версия PHP: 5.3.5-1ubuntu7.3
+-- Время создания: Дек 21 2011 г., 21:33
+-- Версия сервера: 5.1.58
+-- Версия PHP: 5.3.6-13ubuntu3.3
 
 SET SQL_MODE="NO_AUTO_VALUE_ON_ZERO";
+SET time_zone = "+00:00";
 
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
@@ -43,7 +44,7 @@ CREATE TABLE IF NOT EXISTS `blog` (
   KEY `create_user_id` (`create_user_id`),
   KEY `type` (`type`),
   KEY `status` (`status`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=2 ;
 
 -- --------------------------------------------------------
 
@@ -101,7 +102,7 @@ CREATE TABLE IF NOT EXISTS `comment` (
   KEY `status` (`status`),
   KEY `model` (`model`,`model_id`),
   KEY `user_id` (`user_id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=9 ;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
 
 -- --------------------------------------------------------
 
@@ -138,7 +139,7 @@ CREATE TABLE IF NOT EXISTS `contest` (
   `status` tinyint(3) unsigned NOT NULL DEFAULT '1',
   PRIMARY KEY (`id`),
   KEY `status` (`status`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=2 ;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
 
 -- --------------------------------------------------------
 
@@ -185,7 +186,7 @@ CREATE TABLE IF NOT EXISTS `dictionary_group` (
   UNIQUE KEY `code` (`code`),
   KEY `create_user_id` (`create_user_id`),
   KEY `update_user_id` (`update_user_id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=2 ;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
 
 -- --------------------------------------------------------
 
@@ -228,7 +229,7 @@ CREATE TABLE IF NOT EXISTS `gallery` (
   `status` tinyint(4) NOT NULL DEFAULT '1',
   PRIMARY KEY (`id`),
   KEY `status` (`status`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=2 ;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
 
 -- --------------------------------------------------------
 
@@ -251,7 +252,7 @@ CREATE TABLE IF NOT EXISTS `image` (
   KEY `status` (`status`),
   KEY `user_id` (`user_id`),
   KEY `type` (`type`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=26 ;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
 
 -- --------------------------------------------------------
 
@@ -268,7 +269,7 @@ CREATE TABLE IF NOT EXISTS `image_to_contest` (
   UNIQUE KEY `image_contest_unique` (`image_id`,`contest_id`),
   KEY `image_id` (`image_id`),
   KEY `contestId` (`contest_id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=6 ;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
 
 -- --------------------------------------------------------
 
@@ -285,7 +286,7 @@ CREATE TABLE IF NOT EXISTS `image_to_gallery` (
   UNIQUE KEY `image_gallery_unique` (`image_id`,`galleryId`),
   KEY `image_id` (`image_id`),
   KEY `galleryId` (`galleryId`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=4 ;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
 
 -- --------------------------------------------------------
 
@@ -400,6 +401,19 @@ CREATE TABLE IF NOT EXISTS `post` (
 -- --------------------------------------------------------
 
 --
+-- Структура таблицы `post_to_tag`
+--
+
+CREATE TABLE IF NOT EXISTS `post_to_tag` (
+  `post_id` int(10) unsigned NOT NULL,
+  `tag_id` int(10) unsigned NOT NULL,
+  PRIMARY KEY (`post_id`,`tag_id`),
+  KEY `tag_id` (`tag_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- --------------------------------------------------------
+
+--
 -- Структура таблицы `recovery_password`
 --
 
@@ -429,7 +443,20 @@ CREATE TABLE IF NOT EXISTS `settings` (
   `user_id` int(10) unsigned NOT NULL,
   PRIMARY KEY (`id`),
   KEY `moduleId` (`module_id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=205 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=189 ;
+
+-- --------------------------------------------------------
+
+--
+-- Структура таблицы `tag`
+--
+
+CREATE TABLE IF NOT EXISTS `tag` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `name` varchar(255) NOT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `Tag_name` (`name`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
 
 -- --------------------------------------------------------
 
@@ -486,7 +513,7 @@ CREATE TABLE IF NOT EXISTS `vote` (
   PRIMARY KEY (`id`),
   KEY `user_id` (`user_id`),
   KEY `model` (`model`,`model_id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=3 ;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
 
 --
 -- Ограничения внешнего ключа сохраненных таблиц
@@ -566,6 +593,13 @@ ALTER TABLE `post`
   ADD CONSTRAINT `post_ibfk_3` FOREIGN KEY (`blog_id`) REFERENCES `blog` (`id`) ON DELETE CASCADE ON UPDATE NO ACTION;
 
 --
+-- Ограничения внешнего ключа таблицы `post_to_tag`
+--
+ALTER TABLE `post_to_tag`
+  ADD CONSTRAINT `post_to_tag_ibfk_2` FOREIGN KEY (`tag_id`) REFERENCES `tag` (`id`) ON UPDATE NO ACTION,
+  ADD CONSTRAINT `post_to_tag_ibfk_1` FOREIGN KEY (`post_id`) REFERENCES `post` (`id`) ON DELETE CASCADE ON UPDATE NO ACTION;
+
+--
 -- Ограничения внешнего ключа таблицы `recovery_password`
 --
 ALTER TABLE `recovery_password`
@@ -576,3 +610,7 @@ ALTER TABLE `recovery_password`
 --
 ALTER TABLE `vote`
   ADD CONSTRAINT `vote_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `user` (`id`) ON UPDATE NO ACTION;
+
+/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
+/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
+/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
