@@ -153,6 +153,14 @@ class Post extends CActiveRecord
 				'class' => 'zii.behaviors.CTimestampBehavior',
 				'createAttribute' => 'create_date',
 				'updateAttribute' => 'update_date',
+			),
+			'tags' => array(
+				'class'    => 'blog.extensions.taggable-behavior.ETaggableBehavior',
+				'tagTable' => 'tag',
+				'tagBindingTable' => 'post_to_tag',
+				'modelTableFk'    => 'post_id',
+				'tagBindingTableTagId' => 'tag_id',
+				'cacheID' => 'cache',				
 			)
 		);
     }

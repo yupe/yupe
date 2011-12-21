@@ -60,6 +60,12 @@
 		<?php echo $form->error($model,'quote'); ?>
 	</div>
 
+	<div class='row'>
+        <?php echo $form->labelEx($model,Yii::t('blog','Теги')); ?>
+		<?php echo CHtml::textField('tags',$model->tags->toString(),array('size'=>60,'maxlength'=>150)); ?>
+		<?php echo $form->error($model,'tags'); ?>
+	</div>
+
 	<div class="row">
 		<?php echo $form->labelEx($model,'link'); ?>
 		<?php echo $form->textField($model,'link',array('size'=>60,'maxlength'=>150)); ?>
