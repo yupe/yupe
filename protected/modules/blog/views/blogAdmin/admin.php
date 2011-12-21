@@ -61,11 +61,11 @@ $('.search-form form').submit(function(){
 		),
 		array(
 			'name'  => 'create_date',
-			'value' => 'date("d.m.Y",$data->create_date)'
+			'value' => '$data->create_date'
 		),
 		array(
 			'name'  => 'update_date',
-			'value' => 'date("d.m.Y",$data->update_date)'
+			'value' => '$data->update_date'
 		),
 		array(
 			'class'=>'CButtonColumn',

@@ -183,6 +183,15 @@ class Post extends CActiveRecord
         return parent::beforeValidate();        
     }
 
+    public function afterFind()
+    {
+    	parent::afterFind();
+
+    	$this->create_date = date('d.m.Y H:m',$this->create_date);
+
+    	$this->update_date = date('d.m.Y H:m',$this->update_date);
+    }
+
 	public function getStatusList()
 	{
 		return array(

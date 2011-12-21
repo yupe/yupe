@@ -37,11 +37,11 @@
 	<br />
 
 	<b><?php echo CHtml::encode($data->getAttributeLabel('create_date')); ?>:</b>
-	<?php echo CHtml::encode(date('d.m.Y',$data->create_date)); ?>
+	<?php echo CHtml::encode($data->create_date); ?>
 	<br />
 
 	<b><?php echo CHtml::encode($data->getAttributeLabel('update_date')); ?>:</b>
-	<?php echo CHtml::encode(date('d.m.Y',$data->update_date)); ?>
+	<?php echo CHtml::encode($data->update_date); ?>
 	<br />
 
 </div>

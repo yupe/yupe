@@ -41,11 +41,11 @@ $this->menu=array(
 		),
 		array(
 			'name'  => 'create_date',
-			'value' => date("d.m.Y",$model->create_date)
+			'value' => $model->create_date
 		),
 		array(
 			'name'  => 'update_date',
-			'value' => date("d.m.Y",$model->update_date)
+			'value' => $model->update_date
 		),
 	),
 )); ?>

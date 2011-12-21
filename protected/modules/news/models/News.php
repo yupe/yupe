@@ -141,14 +141,9 @@ class News extends CActiveRecord
 
 
     public function beforeValidate()
-    {
-        if ($this->scenario === 'update')        
-            $this->alias = YText::translit($this->title);        
-        else
-        {
-            if (!$this->alias)            
-                $this->alias = YText::translit($this->title);            
-        }
+    {       
+        if (!$this->alias)            
+           $this->alias = YText::translit($this->title);                   
 
         if (!$this->description)            
             $this->description = $this->short_text;            
