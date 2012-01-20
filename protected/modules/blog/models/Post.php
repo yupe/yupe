@@ -155,7 +155,7 @@ class Post extends CActiveRecord
 				'updateAttribute' => 'update_date',
 			),
 			'tags' => array(
-				'class'    => 'blog.extensions.taggable-behavior.ETaggableBehavior',
+				'class'    => 'blog.extensions.taggable.ETaggableBehavior',
 				'tagTable' => 'tag',
 				'tagBindingTable' => 'post_to_tag',
 				'modelTableFk'    => 'post_id',
