@@ -65,4 +65,5 @@ $('.search-form form').submit(function(){
                                                                'class' => 'CButtonColumn',
                                                            ),
                                                        ),
-                                                  )); ?>
+                                                  ));
+                                                  ?>
