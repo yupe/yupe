@@ -15,6 +15,7 @@
     position: relative;
     display: inline;
     float: left;
+    z-index:999;
 }
 
 /*Top level menu link items style*/
