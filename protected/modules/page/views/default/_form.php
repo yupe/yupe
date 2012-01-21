@@ -77,7 +77,7 @@
 
     <div class="row buttons">
         <?php echo CHtml::submitButton($model->isNewRecord
-                                           ? Yii::t('page', 'Добавить страницу и придолжить редактирование')
+                                           ? Yii::t('page', 'Добавить страницу и продолжить редактирование')
                                            : Yii::t('page', 'Сохранить и продолжить редактирование')); ?>
         <?php echo CHtml::submitButton($model->isNewRecord
                                            ? Yii::t('page', 'Добавить и закрыть')
