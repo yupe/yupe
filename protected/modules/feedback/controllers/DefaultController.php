@@ -19,7 +19,7 @@ class DefaultController extends YBackController
      */
     public function actionCreate()
     {
-        $model = new FeedBack();
+        $model = new FeedBack;
 
         if (isset($_POST['FeedBack']))
         {
@@ -73,7 +73,7 @@ class DefaultController extends YBackController
         if (!$model)        
             throw new CHttpException(404, Yii::t('feedback', 'Страница не найдена!'));        
 
-        $form = new AnswerForm();
+        $form = new AnswerForm;
 
         $form->setAttributes(array(
                                   'answer' => $model->answer,

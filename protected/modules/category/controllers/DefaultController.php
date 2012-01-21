@@ -18,7 +18,7 @@ class DefaultController extends YBackController
      */
     public function actionCreate()
     {
-        $model = new Category();
+        $model = new Category;
 
         // Uncomment the following line if AJAX validation is needed
         // $this->performAjaxValidation($model);

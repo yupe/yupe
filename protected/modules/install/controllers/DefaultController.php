@@ -147,7 +147,7 @@ class DefaultController extends Controller
 
         $sqlFile = $sqlDataDir . 'yupe.sql';
 
-        $form = new DbSettingsForm();
+        $form = new DbSettingsForm;
 
         if (Yii::app()->request->isPostRequest)
         {
@@ -289,7 +289,7 @@ class DefaultController extends Controller
     {
         $this->stepName = Yii::t('install', 'Шаг 5 из 6 : "Настройки проекта"');
 
-        $model = new SiteSettingsForm();
+        $model = new SiteSettingsForm;
 
         if (Yii::app()->request->isPostRequest)
         {
@@ -308,7 +308,7 @@ class DefaultController extends Controller
 
                     foreach (array('siteDescription', 'siteName', 'siteKeyWords') as $param)
                     {
-                        $settings = new Settings();
+                        $settings = new Settings;
 
                         $settings->setAttributes(array(
                                                       'module_id' => 'yupe',

@@ -23,7 +23,7 @@ class DefaultController extends YBackController
      */
     public function actionCreate()
     {
-        $model = new Page();
+        $model = new Page;
 
         if (isset($_POST['Page']))
         {

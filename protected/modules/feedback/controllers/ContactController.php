@@ -13,7 +13,7 @@ class ContactController extends YFrontController
 
     public function actionIndex()
     {
-        $form = new FeedBackForm();
+        $form = new FeedBackForm;
 
         if (Yii::app()->request->isPostRequest && !empty($_POST['FeedBackForm']))
         {
@@ -31,7 +31,7 @@ class ContactController extends YFrontController
                     // запись в базу
                     if (in_array('db', $backEnd))
                     {
-                        $feedback = new FeedBack();
+                        $feedback = new FeedBack;
 
                         $feedback->setAttributes(array(
                                                       'name' => $form->name,

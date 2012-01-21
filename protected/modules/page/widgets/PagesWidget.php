@@ -27,7 +27,7 @@ class PagesWidget extends YWidget
     {
         if ($this->visible)
         {
-            $criteria = new CDbCriteria();
+            $criteria = new CDbCriteria;
 
             $criteria->order = $this->order;
 

@@ -12,7 +12,7 @@ class DefaultController extends YBackController
 
         $code = '<?php $this->widget("application.modules.contentblock.widgets.ContentBlockWidget",array("code" => "' . $model->code . '"));?>';
 
-        $highlighter = new CTextHighlighter();
+        $highlighter = new CTextHighlighter;
 
         $highlighter->language = 'PHP';
 
