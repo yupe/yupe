@@ -54,7 +54,9 @@ class DefaultController extends YBackController
             $model->setAttributes(array(
                 'salt'     => $model->generateSalt(),
                 'password' => $model->hashPassword($model->password, $model->salt),
-                'registration_ip' => Yii::app()->request->userHostAddress
+                'registration_ip' => Yii::app()->request->userHostAddress,
+                'activation_ip' => Yii::app()->request->userHostAddress,
+                'registration_date' => new CDbExpression("NOW()"),
             ));
             
             if ($model->save())
