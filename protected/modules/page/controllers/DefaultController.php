@@ -92,7 +92,7 @@ class DefaultController extends YBackController
                 $this->redirect(array('index'));
         }
         else
-            throw new CHttpException(400, 'Invalid request. Please do not repeat this request again.');
+            throw new YPageNotFoundException('Invalid request. Please do not repeat this request again.');
     }
 
     /**
@@ -134,7 +134,7 @@ class DefaultController extends YBackController
                 $this->_model = Page::model()->with('author', 'changeAuthor')->findbyPk($_GET['id']);
             
             if ($this->_model === null)            
-                throw new CHttpException(404, 'The requested page does not exist.');            
+                throw new YPageNotFoundException('The requested page does not exist.');
         }
         
         return $this->_model;
