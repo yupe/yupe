@@ -3,9 +3,9 @@
 -- http://www.phpmyadmin.net
 --
 -- Хост: localhost
--- Время создания: Дек 21 2011 г., 21:33
+-- Время создания: Фев 27 2012 г., 22:47
 -- Версия сервера: 5.1.58
--- Версия PHP: 5.3.6-13ubuntu3.3
+-- Версия PHP: 5.3.6-13ubuntu3.6
 
 SET SQL_MODE="NO_AUTO_VALUE_ON_ZERO";
 SET time_zone = "+00:00";
@@ -32,35 +32,19 @@ CREATE TABLE IF NOT EXISTS `blog` (
   `description` text NOT NULL,
   `icon` varchar(300) NOT NULL DEFAULT '',
   `slug` varchar(150) NOT NULL,
-  `type` tinyint(4) NOT NULL DEFAULT '1',
-  `status` tinyint(4) NOT NULL DEFAULT '1',
+  `type` tinyint(4) unsigned NOT NULL DEFAULT '1',
+  `status` tinyint(4) unsigned NOT NULL DEFAULT '1',
   `create_user_id` int(10) unsigned NOT NULL,
   `update_user_id` int(10) unsigned NOT NULL,
-  `create_date` int(11) NOT NULL,
-  `update_date` int(11) NOT NULL,
+  `create_date` int(11) unsigned NOT NULL,
+  `update_date` int(11) unsigned NOT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `slug` (`slug`),
-  UNIQUE KEY `update_user_id` (`update_user_id`),
   KEY `create_user_id` (`create_user_id`),
   KEY `type` (`type`),
-  KEY `status` (`status`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=2 ;
-
--- --------------------------------------------------------
-
---
--- Структура таблицы `blog_user`
---
-
-CREATE TABLE IF NOT EXISTS `blog_user` (
-  `user_id` int(10) unsigned NOT NULL,
-  `blog_id` int(10) unsigned NOT NULL,
-  `create_date` int(11) NOT NULL,
-  `role` tinyint(4) NOT NULL DEFAULT '1',
-  PRIMARY KEY (`blog_id`,`user_id`),
-  KEY `user_id` (`user_id`),
-  KEY `blog_id` (`blog_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+  KEY `status` (`status`),
+  KEY `update_user_id` (`update_user_id`)
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=3 ;
 
 -- --------------------------------------------------------
 
@@ -120,7 +104,7 @@ CREATE TABLE IF NOT EXISTS `content_block` (
   PRIMARY KEY (`id`),
   UNIQUE KEY `code_unique` (`code`),
   KEY `type` (`type`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=2 ;
 
 -- --------------------------------------------------------
 
@@ -375,17 +359,17 @@ CREATE TABLE IF NOT EXISTS `post` (
   `blog_id` int(10) unsigned NOT NULL,
   `create_user_id` int(10) unsigned NOT NULL,
   `update_user_id` int(10) unsigned NOT NULL,
-  `create_date` int(11) NOT NULL,
-  `update_date` int(11) NOT NULL,
+  `create_date` int(11) unsigned NOT NULL,
+  `update_date` int(11) unsigned NOT NULL,
   `slug` varchar(150) NOT NULL,
   `publish_date` datetime NOT NULL,
   `title` varchar(150) NOT NULL,
   `quote` varchar(300) NOT NULL DEFAULT '',
   `content` text NOT NULL,
   `link` varchar(150) NOT NULL DEFAULT '',
-  `status` tinyint(4) NOT NULL DEFAULT '0',
-  `comment_status` tinyint(4) NOT NULL DEFAULT '1',
-  `access_type` tinyint(4) NOT NULL DEFAULT '1',
+  `status` tinyint(4) unsigned NOT NULL DEFAULT '0',
+  `comment_status` tinyint(4) unsigned NOT NULL DEFAULT '1',
+  `access_type` tinyint(4) unsigned NOT NULL DEFAULT '1',
   `keywords` varchar(150) NOT NULL DEFAULT '',
   `description` varchar(150) NOT NULL DEFAULT '',
   PRIMARY KEY (`id`),
@@ -396,7 +380,7 @@ CREATE TABLE IF NOT EXISTS `post` (
   KEY `create_user_id` (`create_user_id`),
   KEY `update_user_id` (`update_user_id`),
   KEY `blog_id` (`blog_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=2 ;
 
 -- --------------------------------------------------------
 
@@ -443,7 +427,7 @@ CREATE TABLE IF NOT EXISTS `settings` (
   `user_id` int(10) unsigned NOT NULL,
   PRIMARY KEY (`id`),
   KEY `moduleId` (`module_id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=189 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=191 ;
 
 -- --------------------------------------------------------
 
@@ -456,7 +440,7 @@ CREATE TABLE IF NOT EXISTS `tag` (
   `name` varchar(255) NOT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `Tag_name` (`name`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=3 ;
 
 -- --------------------------------------------------------
 
@@ -500,6 +484,25 @@ CREATE TABLE IF NOT EXISTS `user` (
 -- --------------------------------------------------------
 
 --
+-- Структура таблицы `user_to_blog`
+--
+
+CREATE TABLE IF NOT EXISTS `user_to_blog` (
+  `user_id` int(10) unsigned NOT NULL,
+  `blog_id` int(10) unsigned NOT NULL,
+  `creation_date` int(11) unsigned NOT NULL,
+  `update_date` int(11) unsigned NOT NULL,
+  `role` tinyint(4) unsigned NOT NULL DEFAULT '0',
+  `status` tinyint(4) unsigned NOT NULL DEFAULT '1',
+  PRIMARY KEY (`user_id`,`blog_id`),
+  KEY `status` (`status`),
+  KEY `role` (`role`),
+  KEY `blog_id` (`blog_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- --------------------------------------------------------
+
+--
 -- Структура таблицы `vote`
 --
 
@@ -525,12 +528,6 @@ CREATE TABLE IF NOT EXISTS `vote` (
 ALTER TABLE `blog`
   ADD CONSTRAINT `blog_ibfk_1` FOREIGN KEY (`create_user_id`) REFERENCES `user` (`id`) ON DELETE CASCADE ON UPDATE NO ACTION,
   ADD CONSTRAINT `blog_ibfk_2` FOREIGN KEY (`update_user_id`) REFERENCES `user` (`id`) ON DELETE CASCADE ON UPDATE NO ACTION;
-
---
--- Ограничения внешнего ключа таблицы `blog_user`
---
-ALTER TABLE `blog_user`
-  ADD CONSTRAINT `blog_user_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `user` (`id`) ON DELETE CASCADE ON UPDATE NO ACTION;
 
 --
 -- Ограничения внешнего ключа таблицы `dictionary_data`
@@ -596,14 +593,21 @@ ALTER TABLE `post`
 -- Ограничения внешнего ключа таблицы `post_to_tag`
 --
 ALTER TABLE `post_to_tag`
-  ADD CONSTRAINT `post_to_tag_ibfk_2` FOREIGN KEY (`tag_id`) REFERENCES `tag` (`id`) ON UPDATE NO ACTION,
-  ADD CONSTRAINT `post_to_tag_ibfk_1` FOREIGN KEY (`post_id`) REFERENCES `post` (`id`) ON DELETE CASCADE ON UPDATE NO ACTION;
+  ADD CONSTRAINT `post_to_tag_ibfk_1` FOREIGN KEY (`post_id`) REFERENCES `post` (`id`) ON DELETE CASCADE ON UPDATE NO ACTION,
+  ADD CONSTRAINT `post_to_tag_ibfk_2` FOREIGN KEY (`tag_id`) REFERENCES `tag` (`id`) ON UPDATE NO ACTION;
 
 --
 -- Ограничения внешнего ключа таблицы `recovery_password`
 --
 ALTER TABLE `recovery_password`
   ADD CONSTRAINT `fk_RecoveryPassword_User1` FOREIGN KEY (`user_id`) REFERENCES `user` (`id`) ON DELETE CASCADE ON UPDATE NO ACTION;
+
+--
+-- Ограничения внешнего ключа таблицы `user_to_blog`
+--
+ALTER TABLE `user_to_blog`
+  ADD CONSTRAINT `user_to_blog_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `user` (`id`) ON DELETE CASCADE ON UPDATE NO ACTION,
+  ADD CONSTRAINT `user_to_blog_ibfk_2` FOREIGN KEY (`blog_id`) REFERENCES `user` (`id`) ON DELETE CASCADE ON UPDATE NO ACTION;
 
 --
 -- Ограничения внешнего ключа таблицы `vote`
