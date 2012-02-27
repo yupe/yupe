@@ -90,7 +90,9 @@ class PostAdminController extends YBackController
 	 */
 	public function actionIndex()
 	{
-		$dataProvider=new CActiveDataProvider('Post');
+		$dataProvider=new CActiveDataProvider('Post',array(
+			'criteria' => array('with' => array('blog','createUser','updateUser'))
+		));
 		$this->render('index',array(
 			'dataProvider'=>$dataProvider,
 		));

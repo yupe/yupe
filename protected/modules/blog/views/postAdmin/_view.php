@@ -5,15 +5,15 @@
 	<br />
 
 	<b><?php echo CHtml::encode($data->getAttributeLabel('blog_id')); ?>:</b>
-	<?php echo CHtml::encode($data->blog_id); ?>
+	<?php echo CHtml::encode($data->blog->name); ?>
 	<br />
 
 	<b><?php echo CHtml::encode($data->getAttributeLabel('create_user_id')); ?>:</b>
-	<?php echo CHtml::encode($data->create_user_id); ?>
+	<?php echo CHtml::encode($data->createUser->getFullName()); ?>
 	<br />
 
 	<b><?php echo CHtml::encode($data->getAttributeLabel('update_user_id')); ?>:</b>
-	<?php echo CHtml::encode($data->update_user_id); ?>
+	<?php echo CHtml::encode($data->updateUser->getFullName()); ?>
 	<br />
 
 	<b><?php echo CHtml::encode($data->getAttributeLabel('create_date')); ?>:</b>
@@ -28,7 +28,7 @@
 	<?php echo CHtml::encode($data->slug); ?>
 	<br />
 
-	<?php /*
+	
 	<b><?php echo CHtml::encode($data->getAttributeLabel('publish_date')); ?>:</b>
 	<?php echo CHtml::encode($data->publish_date); ?>
 	<br />
@@ -41,34 +41,20 @@
 	<?php echo CHtml::encode($data->quote); ?>
 	<br />
 
-	<b><?php echo CHtml::encode($data->getAttributeLabel('content')); ?>:</b>
-	<?php echo CHtml::encode($data->content); ?>
-	<br />
-
 	<b><?php echo CHtml::encode($data->getAttributeLabel('link')); ?>:</b>
 	<?php echo CHtml::encode($data->link); ?>
 	<br />
 
 	<b><?php echo CHtml::encode($data->getAttributeLabel('status')); ?>:</b>
-	<?php echo CHtml::encode($data->status); ?>
+	<?php echo CHtml::encode($data->getStatus()); ?>
 	<br />
 
 	<b><?php echo CHtml::encode($data->getAttributeLabel('comment_status')); ?>:</b>
-	<?php echo CHtml::encode($data->comment_status); ?>
+	<?php echo CHtml::encode($data->getCommentStatus()); ?>
 	<br />
 
 	<b><?php echo CHtml::encode($data->getAttributeLabel('access_type')); ?>:</b>
-	<?php echo CHtml::encode($data->access_type); ?>
+	<?php echo CHtml::encode($data->getAccessType()); ?>
 	<br />
-
-	<b><?php echo CHtml::encode($data->getAttributeLabel('keywords')); ?>:</b>
-	<?php echo CHtml::encode($data->keywords); ?>
-	<br />
-
-	<b><?php echo CHtml::encode($data->getAttributeLabel('description')); ?>:</b>
-	<?php echo CHtml::encode($data->description); ?>
-	<br />
-
-	*/ ?>
 
 </div>

@@ -76,7 +76,7 @@ return array(
         // конфигурирование urlManager, подробнее http://www.yiiframework.ru/doc/guide/ru/topics.url
         'urlManager' => array(
             'urlFormat' => 'path',
-            'showScriptName' => false,
+            'showScriptName' => true,
             'cacheID' => 'cache',
             'rules' => array(
                 '/login' => 'user/account/login',
