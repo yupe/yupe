@@ -2,14 +2,15 @@
 
 <h1>Регистрация нового пользователя</h1>
 
+<div class='hint'>Пожалуйста, имя пользователя и пароль заполняйте только латинскими буквами и цифрами.</div>
+
+<br/><br/>
+
 <?php $this->widget('application.modules.yupe.widgets.YFlashMessages'); ?>
 
 <div class="form">
 
-    <?php $form = $this->beginWidget('CActiveForm', array(
-                                                         'id' => 'registration-form',
-                                                         'enableClientValidation' => true
-                                                    ));?>
+    <?php $form = $this->beginWidget('CActiveForm', array('id' => 'registration-form'));?>
 
     <?php echo $form->errorSummary($model); ?>
 
@@ -48,7 +49,7 @@
                 <?php echo $form->error($model, 'verifyCode'); ?>
             </div>
             <div class="hint">
-                Введите цифры указанные на картинке
+                Введите текст указанный на картинке
             </div>
         </div>
         <?php endif; ?>

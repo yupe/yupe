@@ -5,26 +5,22 @@ class RegistrationAction extends CAction
     {
         $form = new RegistrationForm;
 
+        $module = Yii::app()->getModule('user');
+
         if (Yii::app()->request->isPostRequest && !empty($_POST['RegistrationForm']))
         {
-            $module = Yii::app()->getModule('user');
-
             $form->setAttributes($_POST['RegistrationForm']);
 
             // проверка по "черным спискам"
             
             // проверить на email
-            if (!$module->isAllowedEmail($form->email))
-            {
+            if (!$module->isAllowedEmail($form->email))            
                 // перенаправить на экшн для фиксации невалидных email-адресов
-                $this->controller->redirect(array(Yii::app()->getModule('user')->invalidEmailAction));
-            }
-
-            if (!$module->isAllowedIp(Yii::app()->request->userHostAddress))
-            {
+                $this->controller->redirect(array($module->invalidEmailAction));
+            
+            if (!$module->isAllowedIp(Yii::app()->request->userHostAddress))            
                 // перенаправить на экшн для фиксации невалидных ip-адресов
-                $this->controller->redirect(array(Yii::app()->getModule('user')->invalidIpAction));
-            }
+                $this->controller->redirect(array($module->invalidIpAction));            
 
             if ($form->validate())
             {                
@@ -58,8 +54,8 @@ class RegistrationAction extends CAction
 
                             $transaction->commit();
 
-                            Yii::app()->user->setFlash(YFlashMessages::NOTICE_MESSAGE, Yii::t('user', 'Учетная запись создана! Инструкции по активации аккаунта отправлены Вам на email!'));
-                            $this->controller->refresh();
+                            Yii::app()->user->setFlash(YFlashMessages::NOTICE_MESSAGE, Yii::t('user', 'Учетная запись создана! Проверьте Вашу почту!'));
+                            $this->controller->redirect(array($module->registrationSucess));
                         }
                         else
                         {                           
@@ -93,7 +89,7 @@ class RegistrationAction extends CAction
 
                         Yii::app()->user->setFlash(YFlashMessages::NOTICE_MESSAGE, Yii::t('user', 'Учетная запись создана! Пожалуйста, авторизуйтесь!'));
 
-                        $this->controller->redirect(array('/user/account/login/'));
+                        $this->controller->redirect(array($module->registrationSucess));
                     }
                     else
                     {
@@ -105,6 +101,6 @@ class RegistrationAction extends CAction
             }
         }
 
-        $this->controller->render('registration', array('model' => $form));
+        $this->controller->render('registration', array('model' => $form, 'module' => $module));
     }
 }
