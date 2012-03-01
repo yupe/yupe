@@ -30,7 +30,11 @@ class RegistrationAction extends CAction
                     $user = new User;
 
                     // скопируем данные формы
-                    $user->setAttributes($form->getAttributes());
+                    $data = $form->getAttributes();
+
+                    unset($data['cPassword']);
+
+                    $user->setAttributes($data);
 
                     $salt = $user->generateRandomPassword();
 

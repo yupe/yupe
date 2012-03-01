@@ -38,6 +38,7 @@ class User extends CActiveRecord
     const ACCESS_LEVEL_USER  = 0;
     const ACCESS_LEVEL_ADMIN = 1;
 
+
     /**
      * @return string the associated database table name
      */
@@ -133,7 +134,9 @@ class User extends CActiveRecord
      * @return array validation rules for model attributes.
      */
     public function rules()
-    {        
+    {
+        $module = Yii::app()->getModule('user');
+                
         return array(
             array('birth_date, site, about, location, online_status, nick_name, first_name, last_name, email','filter','filter' => 'trim'),
             array('birth_date, site, about, location, online_status, nick_name, first_name, last_name, email','filter','filter' => array($obj = new CHtmlPurifier(),'purify')),
@@ -150,7 +153,7 @@ class User extends CActiveRecord
             array('email', 'email'),            
             array('email', 'unique', 'message' => Yii::t('user', 'Данный email уже используется другим пользователем')),            
             array('nick_name', 'unique', 'message' => Yii::t('user', 'Данный ник уже используется другим пользователем')),            
-            array('avatar', 'file', 'types' => implode(',', Yii::app()->getModule('user')->avatarExtensions), 'maxSize' => Yii::app()->getModule('user')->avatarMaxSize, 'allowEmpty' => true),
+            array('avatar', 'file', 'types' => implode(',', $module->avatarExtensions), 'maxSize' => $module->avatarMaxSize, 'allowEmpty' => true),
             array('email_confirm', 'in', 'range' => array_keys($this->getEmailConfirmStatusList())),
             array('use_gravatar', 'in', 'range' => array(0, 1)),
             array('gender', 'in', 'range' => array_keys($this->getGendersList())),
