@@ -32,7 +32,7 @@ class RegistrationAction extends CAction
                     // скопируем данные формы
                     $data = $form->getAttributes();
 
-                    unset($data['cPassword']);
+                    unset($data['cPassword'],$data['verifyCode']);
 
                     $user->setAttributes($data);
 
