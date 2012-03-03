@@ -79,6 +79,7 @@ return array(
             'showScriptName' => true,
             'cacheID' => 'cache',
             'rules' => array(
+		'/' => 'site/index',
                 '/login' => 'user/account/login',
                 '/logout' => 'user/account/logout',
                 '/registration' => 'user/account/registration',
