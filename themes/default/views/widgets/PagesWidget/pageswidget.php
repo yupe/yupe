@@ -1,6 +1,6 @@
 <div id="mainmenu">
     <ul>
-        <li><?php echo CHtml::link('Главная', '/' . Yii::app()->defaultController);?></li>
+        <li><?php echo CHtml::link('Главная', array("/".Yii::app()->defaultController."/index"));?></li>
 
         <li><?php echo CHtml::link('О проекте', array('/site/page/', 'view' => 'about'));?></li>
 
