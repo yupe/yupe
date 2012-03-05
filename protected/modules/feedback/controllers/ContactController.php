@@ -45,6 +45,12 @@ class ContactController extends YFrontController
                         {
                             Yii::log(Yii::t('feedback', 'Обращение пользователя добавлено в базу!'), CLogger::LEVEL_INFO, FeedbackModule::$logCategory);
 
+                            if ($module->sendConfirmation) {
+                                Yii::log(Yii::t('feedback', 'Обращение пользователя: послано подтверждение на email.'), CLogger::LEVEL_INFO, FeedbackModule::$logCategory);                                
+                                $emailBody = $this->renderPartial('feedbackConfirmationEmail', array('model' => $feedback), true);
+                                Yii::app()->mail->send(Yii::app()->getModule('user')->notifyEmailFrom, $feedback->email, Yii::t('feedback', 'Обращение пользователя получено!'), $emailBody);
+                            }
+                            
                             Yii::app()->user->setFlash(YFlashMessages::NOTICE_MESSAGE, Yii::t('feedback', 'Ваше сообщение отправлено! Спасибо!'));
                         }
                         else
