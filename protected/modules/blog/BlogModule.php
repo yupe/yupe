@@ -4,40 +4,41 @@ class BlogModule extends YWebModule
 {
 	public function getCategory()
     {
-        return Yii::t('social', 'Блоги');
+        return Yii::t('blog', 'Блоги');
     }
 
     public function getNavigation()
     {
         return array(
             Yii::t('blog','Блоги')  => '/blog/blogAdmin/admin/',
-            Yii::t('blog','Записи') => '/blog/postAdmin/admin/'
+            Yii::t('blog','Записи') => '/blog/postAdmin/admin/',
+            Yii::t('blog','Участники') => '/blog/BlogToUserAdmin/admin/'
         );
     }
 
     public function getName()
     {
-        return Yii::t('social', 'Блоги');
+        return Yii::t('blog', 'Блоги');
     }
 
     public function getDescription()
     {
-        return Yii::t('social', 'Модуль для построения блогового сообщества');
+        return Yii::t('blog', 'Модуль для построения блогового сообщества');
     }
 
     public function getAuthor()
     {
-        return Yii::t('social', 'xoma');
+        return Yii::t('blog', 'xoma');
     }
 
     public function getAuthorEmail()
     {
-        return Yii::t('social', 'aopeykin@yandex.ru');
+        return Yii::t('blog', 'aopeykin@yandex.ru');
     }
 
     public function getUrl()
     {
-        return Yii::t('social', 'http://yupe.ru');
+        return Yii::t('blog', 'http://yupe.ru');
     }
 
     public function getAdminPageLink()
