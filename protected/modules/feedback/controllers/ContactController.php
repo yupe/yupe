@@ -88,6 +88,7 @@ class ContactController extends YFrontController
      /**
      * Отправление потдтверждения пользователю о том, что его сообщение получено.
      * @param FeedBack $model 
+     * @return bool $result
      */
     private function feedbackConfirmationEmail(FeedBack $model) 
     {        
@@ -97,5 +98,6 @@ class ContactController extends YFrontController
             Yii::log(Yii::t('feedback', 'Обращение пользователя: подтверждение пользователю на email отослано.'), CLogger::LEVEL_INFO, FeedbackModule::$logCategory);
         else
             Yii::log(Yii::t('feedback', 'Обращение пользователя: не удалось отправить подтверждение.'), CLogger::LEVEL_INFO, FeedbackModule::$logCategory);
+        return $result;
     }
 }
