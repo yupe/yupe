@@ -190,7 +190,7 @@ return array(
             'avatarsDir' => '/yupe/avatars',
             'avatarMaxSize' => 100000,
             'avatarExtensions' => array('jpg', 'png', 'gif'),
-            'notifyEmailFrom' => 'aopeykin@yandex.ru',
+            'notifyEmailFrom' => 'test@test.ru',
         ),
         'page' => array(
             'adminMenuOrder' => 2,
@@ -209,9 +209,9 @@ return array(
                 3 => 'Прочее..'
             ),
             'showCaptcha' => true,
-            'notifyEmailFrom' => 'aopeykin@yandex.ru',
-            'backEnd' => array('email', 'db'),
-            'emails'  => 'opeykin@mail.ru, aopeykin@google.com',
+            'notifyEmailFrom' => 'test@test.ru',
+            'backEnd' => array('email','db'),
+            'emails'  => 'test_1@test.ru, test_2@test.ru',
             'enabled' => true
         ),
         'gii' => array(

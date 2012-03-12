@@ -4,9 +4,14 @@ class FeedbackModule extends YWebModule
     public $backEnd;
     public $emails;
     public $types;
-    public $showCaptcha = 1;
+    public $showCaptcha = 1; 
     public $notifyEmailFrom;
     public $sendConfirmation = 0;
+    public $successPage;
+    
+    const BACKEND_EMAIL = 'email';
+    const BACKEND_DB    = 'db';
+
     public static $logCategory = 'application.modules.feedback';
 
     public function getParamsLabels()
@@ -16,7 +21,8 @@ class FeedbackModule extends YWebModule
             'emails'           => Yii::t('feedback','Получатели сообщений с сайта (email через запятую)'),
             'notifyEmailFrom'  => Yii::t('feedback', 'Email от имени которого отправлять сообщение'),            
             'adminMenuOrder'   => Yii::t('feedback', 'Порядок следования в меню'),
-            'sendConfirmation' => Yii::t('feedback','Отправлять подтверждение')
+            'sendConfirmation' => Yii::t('feedback','Отправлять подтверждение'),
+            'successPage'      => Yii::t('feedback','Страница после отправки формы')
         );
     }
 
@@ -27,8 +33,18 @@ class FeedbackModule extends YWebModule
             'sendConfirmation' => $this->getChoice(),
             'notifyEmailFrom',
             'emails',
-            'adminMenuOrder',            
+            'adminMenuOrder',
+            'successPage'            
         );
+    }
+
+    public function checkSelf()
+    {
+        if (!is_array($this->backEnd) || !count($this->backEnd) || (!in_array(FeedbackModule::BACKEND_DB, $this->backEnd) && !in_array(FeedbackModule::BACKEND_EMAIL, $this->backEnd)))
+            return array('type' => YWebModule::CHECK_ERROR,'message' => Yii::t('feedback','Укажите куда отправлять сообщения обратной связи на email или сохранять в базу данных (Настройка backEnd в config/main.php)'));
+        
+        if (in_array(FeedbackModule::BACKEND_EMAIL, $this->backEnd) && (!$this->emails || !count(explode(',',$this->emails))))        
+            return array('type' => YWebModule::CHECK_ERROR,'message' => Yii::t('feedback','Укажите на какие email отправлять сообщения обратной связи (emails) {link}',array('{link}' => CHtml::link(Yii::t('image', 'Изменить настройки модуля'), array('/yupe/backend/modulesettings/', 'module' => $this->id)))));            
     }
 
     public function getName()
@@ -45,7 +61,7 @@ class FeedbackModule extends YWebModule
 
     public function getVersion()
     {
-        return Yii::t('feedback', '0.2');
+        return Yii::t('feedback', '0.3');
     }
 
     public function getAuthor()
@@ -72,15 +88,6 @@ class FeedbackModule extends YWebModule
     {
         parent::init();
 
-        if (!is_array($this->backEnd) || !count($this->backEnd) || (!in_array('db', $this->backEnd) && !in_array('email', $this->backEnd)))     
-            throw new CException(Yii::t('feedback', 'Укажите корректное значение для свойтсва application.modules.feedback.FeedBackModule.backEnd - "db" и/или "email"!'));        
-
-        if (in_array('email', $this->backEnd) && (!$this->emails || !count(explode(',',$this->emails))))        
-            throw new CException(Yii::t('feedback', 'Укажите email для обратной связи! application.modules.feedback.FeedBackModule.emails'));   
-
-        $this->setImport(array(
-                              'feedback.models.*',
-                              'feedback.components.*',
-                         ));
+        $this->setImport(array('feedback.models.*','feedback.components.*'));
     }
 }

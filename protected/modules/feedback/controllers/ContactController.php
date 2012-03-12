@@ -45,12 +45,15 @@ class ContactController extends YFrontController
                         {
                             Yii::log(Yii::t('feedback', 'Обращение пользователя добавлено в базу!'), CLogger::LEVEL_INFO, FeedbackModule::$logCategory);
 
-                            if ($module->sendConfirmation) 
-                            {
-                               $this->feedbackConfirmationEmail($feedback);
-                            }
+                            if ($module->sendConfirmation)                             
+                               $this->feedbackConfirmationEmail($feedback);                            
                             
                             Yii::app()->user->setFlash(YFlashMessages::NOTICE_MESSAGE, Yii::t('feedback', 'Ваше сообщение отправлено! Спасибо!'));
+
+                            if($module->successPage)
+                                $this->redirect(array($module->successPage));
+
+                            $this->redirect(array('/feedback/contact'));
                         }
                         else
                         {
@@ -58,7 +61,7 @@ class ContactController extends YFrontController
 
                             Yii::log(Yii::t('feedback', 'Ошибка при добавлении обращения пользователя в базу!'), CLogger::LEVEL_ERROR, FeedbackModule::$logCategory);
                             Yii::app()->user->setFlash(YFlashMessages::ERROR_MESSAGE, Yii::t('feedback', 'При отправке сообщения произошла ошибка! Повторите попытку позже!'));
-                            $this->render('index', array('model' => $form));
+                            $this->render('index', array('model' => $form));                         
                         }
                     }
 
@@ -69,13 +72,15 @@ class ContactController extends YFrontController
                         foreach (explode(',',$module->emails) as $mail)                        
                             Yii::app()->mail->send($module->notifyEmailFrom, $mail, $form->theme, $emailBody);                        
 
-                        if ($module->sendConfirmation) 
-                        {
-                            $this->feedbackConfirmationEmail($feedback);
-                        }
+                        if ($module->sendConfirmation)                         
+                            $this->feedbackConfirmationEmail($feedback);                        
                         
                         Yii::log(Yii::t('feedback', 'Обращение пользователя отправлено на email!'), CLogger::LEVEL_INFO, FeedbackModule::$logCategory);
                         Yii::app()->user->setFlash(YFlashMessages::NOTICE_MESSAGE, Yii::t('feedback', 'Ваше сообщение отправлено! Спасибо!'));
+
+                        if($module->successPage)
+                            $this->redirect(array($module->successPage));
+
                         $this->redirect(array('/feedback/contact'));
                     }
                 }
