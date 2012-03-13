@@ -11,6 +11,8 @@ abstract class YWebModule extends CWebModule
 
     public $coreCacheTime  = 3600;
 
+    public $urlRules = null; // Правила маршрутизации модуля
+
     public function getVersion()
     {
         return '0.1';
