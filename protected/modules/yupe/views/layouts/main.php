@@ -4,7 +4,6 @@
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
     <meta name="language" content="en"/>
-
     <!-- blueprint CSS framework -->
     <link rel="stylesheet" type="text/css"
           href="<?php echo Yii::app()->request->baseUrl; ?>/css/screen.css"
@@ -17,7 +16,6 @@
           href="<?php echo Yii::app()->request->baseUrl; ?>/css/ie.css"
           media="screen, projection"/>
     <![endif]-->
-
     <link rel="stylesheet" type="text/css"
           href="<?php echo Yii::app()->request->baseUrl; ?>/css/main.css"/>
     <link rel="stylesheet" type="text/css"
@@ -67,8 +65,6 @@
         <?php $this->widget('YPerformanceStatistic');?>
     </div>
     <!-- footer -->
-
-
 </div>
 <!-- page -->
 </body>
