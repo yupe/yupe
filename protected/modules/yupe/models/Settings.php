@@ -55,8 +55,11 @@ class Settings extends CActiveRecord
             $this->creation_date = $this->change_date = new CDbExpression('NOW()');                                        
         else        
             $this->change_date = new CDbExpression('NOW()');
-                
-        $this->user_id = Yii::app()->user->getId();
+
+        // protect property if we set him manualy. for example in installer.
+        if (!isset($this->user_id)) {
+            $this->user_id = Yii::app()->user->getId();
+        }
 
         return parent::beforeSave();
     }
