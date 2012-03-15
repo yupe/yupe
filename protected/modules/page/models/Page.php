@@ -59,13 +59,13 @@ class Page extends CActiveRecord
     public function getAllPagesList($selfId = false)
     {
         $pages = $selfId
-            ? $this->findAll('id != :id AND (parent_Id = null || parent_Id = 0)', array(':id' => $selfId))
+            ? $this->findAll('id != :id', array(':id' => $selfId))
             : $this->findAll();
         $pages = CHtml::listData($pages, 'id', 'name');
         $pages[0] = Yii::t('page', '--нет--');
         return $pages;
     }
-
+    
     /**
      * Returns the static model of the specified AR class.
      * @return Page the static model class
@@ -112,11 +112,12 @@ class Page extends CActiveRecord
     {
         return array(
             'childPages' => array(self::HAS_MANY, 'Page', 'parent_Id'),
+            'parentPage' => array(self::BELONGS_TO, 'Page', 'parent_Id'),
             'author' => array(self::BELONGS_TO, 'User', 'user_id'),
             'changeAuthor' => array(self::BELONGS_TO, 'User', 'change_user_id')
         );
     }
-
+    
     /**
      * @return array customized attribute labels (name=>label)
      */
