@@ -66,20 +66,27 @@ class PageController extends YFrontController
      *
      * Генерирует меню навигации по вложенным страницам для использования в zii.widgets.CBreadcrumbs
      *
-     * @TODO пока только 2 уровня вложенности
      *
      */
     public function getBreadCrumbs()
     {
-        $models = Page::model()->published()->find('id = :parent_Id', array(':parent_Id' => $this->currentPage->parent_Id));
-
         $pages = array();
-
-        if ($models)        
-            $pages[$models->title] = array('/page/page/show/', 'slug' => $models->slug);        
-
-        array_push($pages, $this->currentPage->name);
-
+        if($this->currentPage->parentPage){
+                $pages = $this->getBreadCrumbsRecursively($this->currentPage->parentPage);
+        }
+        $pages = array_reverse($pages);
+        array_push($pages, $this->currentPage->title);
+        return $pages;
+    }
+    /**
+     * Рекурсивно возвращает пригодный для zii.widgets.CBreadcrumbs массив, начиная со страницы $page
+     * @param int $pageId 
+     */
+    private function getBreadCrumbsRecursively(Page $page){
+        $pages = array();
+        $pages[$page->title] = array('/page/page/show/', 'slug' => $page->slug);
+        $pp = $page->parentPage;
+        if($pp) $pages+= $this->getBreadCrumbsRecursively($pp);
         return $pages;
     }
 }
