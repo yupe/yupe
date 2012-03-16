@@ -22,6 +22,8 @@
 
 * Официальный сайт - http://yupe.ru/
 
+* Форум - http://talk.allframeworks.ru/categories/yupe-yii-cms (возможно переедем позже)
+
 * Установка - http://yupe.ru/story/ustanovka-yupi
 
 * Вики - https://github.com/yupe/yupe/wiki
