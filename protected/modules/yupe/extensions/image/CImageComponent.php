@@ -1,7 +1,5 @@
 <?php
-
-Yii::import('application.extensions.image.Image');
-
+Yii::import('application.modules.yupe.extensions.image.CImage');
 /**
  * Description of CImageComponent
  *
@@ -38,7 +36,7 @@ class CImageComponent extends CApplicationComponent
             'params'=>$this->params,
         );
 
-        return new Image($image, $config);
+        return new CImage($image, $config);
     }
 }
 ?>

@@ -50,6 +50,13 @@ return array(
     // конфигурирование основных компонентов (подробнее http://www.yiiframework.ru/doc/guide/ru/basics.component)
     'components' => array(
 
+        // Библиотека для работы с картинками
+        'image' => array(
+            'class' => 'application.modules.yupe.extensions.image.CImageComponent',
+            'driver' => 'GD', // Еще бывает ImageMagic, если используется он, надо указать к нему путь чуть ниже
+            'params' => array('directory'=>'/usr/local/bin'), 
+        ),
+
         // подключение библиотеки для авторизации через социальные сервисы, подробнее https://github.com/Nodge/yii-eauth           
         'loid' => array(
             'class' => 'application.modules.social.extensions.lightopenid.loid',

@@ -66,7 +66,8 @@ class Image_ImageMagick_Driver extends Image_Driver {
 		copy($image, $this->tmp_image);
 
 		// Quality change is done last
-		$quality = (int) CArray::remove('quality', $actions);
+		$quality =  isset($actions['quality'])?inval($actions['quality']):0;
+		unset($actions['quality']);
 
 		// Use 95 for the default quality
 		empty($quality) and $quality = 95;
@@ -135,7 +136,7 @@ class Image_ImageMagick_Driver extends Image_Driver {
 	public function flip($dir)
 	{
 		// Convert the direction into a IM command
-		$dir = ($dir === Image::HORIZONTAL) ? '-flop' : '-flip';
+		$dir = ($dir === CImage::HORIZONTAL) ? '-flop' : '-flip';
 
 		if ($error = exec(escapeshellcmd($this->dir.'convert'.$this->ext).' '.$dir.' '.$this->cmd_image.' '.$this->cmd_image))
 		{
@@ -150,16 +151,16 @@ class Image_ImageMagick_Driver extends Image_Driver {
 	{
 		switch ($prop['master'])
 		{
-			case Image::WIDTH:  // Wx
+			case CImage::WIDTH:  // Wx
 				$dim = escapeshellarg($prop['width'].'x');
 			break;
-			case Image::HEIGHT: // xH
+			case CImage::HEIGHT: // xH
 				$dim = escapeshellarg('x'.$prop['height']);
 			break;
-			case Image::AUTO:   // WxH
+			case CImage::AUTO:   // WxH
 				$dim = escapeshellarg($prop['width'].'x'.$prop['height']);
 			break;
-			case Image::NONE:   // WxH!
+			case CImage::NONE:   // WxH!
 				$dim = escapeshellarg($prop['width'].'x'.$prop['height'].'!');
 			break;
 		}

@@ -77,7 +77,8 @@ class Image_GD_Driver extends Image_Driver {
 		$this->tmp_image = $create($image['file']);
 
 		// Get the quality setting from the actions
-		$quality = CArray::remove('quality', $actions);
+  	    $quality = isset($actions['quality'])?intval($actions['quality']):0;
+  	    unset($actions['quality']);
 
 		if ($status = $this->execute($actions))
 		{
@@ -142,14 +143,14 @@ class Image_GD_Driver extends Image_Driver {
 		// Create the flipped image
 		$flipped = $this->imagecreatetransparent($width, $height);
 
-		if ($direction === Image::HORIZONTAL)
+		if ($direction === CImage::HORIZONTAL)
 		{
 			for ($x = 0; $x < $width; $x++)
 			{
 				$status = imagecopy($flipped, $this->tmp_image, $x, 0, $width - $x - 1, 0, 1, $height);
 			}
 		}
-		elseif ($direction === Image::VERTICAL)
+		elseif ($direction === CImage::VERTICAL)
 		{
 			for ($y = 0; $y < $height; $y++)
 			{
@@ -212,24 +213,24 @@ class Image_GD_Driver extends Image_Driver {
 			// Recalculate the percentage to a pixel size
 			$properties['height'] = round($height * (substr($properties['height'], 0, -1) / 100));
 		}
-		
+
 		// Recalculate the width and height, if they are missing
 		empty($properties['width'])  and $properties['width']  = round($width * $properties['height'] / $height);
 		empty($properties['height']) and $properties['height'] = round($height * $properties['width'] / $width);
-		
-		if ($properties['master'] === Image::AUTO)
+
+		if ($properties['master'] === CImage::AUTO)
 		{
 			// Change an automatic master dim to the correct type
-			$properties['master'] = (($width / $properties['width']) > ($height / $properties['height'])) ? Image::WIDTH : Image::HEIGHT;
+			$properties['master'] = (($width / $properties['width']) > ($height / $properties['height'])) ? CImage::WIDTH : CImage::HEIGHT;
 		}
 
-		if (empty($properties['height']) OR $properties['master'] === Image::WIDTH)
+		if (empty($properties['height']) OR $properties['master'] === CImage::WIDTH)
 		{
 			// Recalculate the height based on the width
 			$properties['height'] = round($height * $properties['width'] / $width);
 		}
 
-		if (empty($properties['width']) OR $properties['master'] === Image::HEIGHT)
+		if (empty($properties['width']) OR $properties['master'] === CImage::HEIGHT)
 		{
 			// Recalculate the width based on the height
 			$properties['width'] = round($width * $properties['height'] / $height);
