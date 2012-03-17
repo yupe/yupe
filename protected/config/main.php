@@ -219,13 +219,5 @@ return array(
             'password' => 'giiYupe'
         ),
     ),    
-
-    // Обрабатываем правила маршрутизации текущего модуля, если указаны в конфиге
-    'onBeginRequest'=> function($event) {
-    	list( $module ) = explode("/",Yii::app()->getRequest()->getPathInfo());
-    	if(Yii::app()->hasModule($module) && ($module=Yii::app()->getModule($module)) && isset($module->urlRules))
-    	    Yii::app()->getUrlManager()->addRules($module->urlRules);
-    	return true;
-    },
-
+    'behaviors' => array('YupeStartUpBehavior'),
 );
