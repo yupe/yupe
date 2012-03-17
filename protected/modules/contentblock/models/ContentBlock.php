@@ -64,7 +64,7 @@ class ContentBlock extends CActiveRecord
             array('type', 'in', 'range' => array_keys($this->getTypes())),
             array('name, code', 'length', 'max' => 50),
             array('description', 'length', 'max' => 300),            
-            array('code','match','pattern' => '/^[A-Za-z0-9_]{2,50}$/','message' => Yii::t('seeline','Неверный формат поля "{attribute}" допустимы только буквы, цифры и символ подчеркивания, от 2 до 50 символов')),            
+            array('code','match','pattern' => '/^[A-Za-z0-9_]{2,50}$/','message' => Yii::t('contentblock','Неверный формат поля "{attribute}" допустимы только буквы, цифры и символ подчеркивания, от 2 до 50 символов')),            
             array('code','unique'),                        
             array('id, name, code, type, content, description', 'safe', 'on' => 'search'),
         );

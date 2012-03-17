@@ -141,7 +141,7 @@ class User extends CActiveRecord
             array('birth_date, site, about, location, online_status, nick_name, first_name, last_name, email','filter','filter' => 'trim'),
             array('birth_date, site, about, location, online_status, nick_name, first_name, last_name, email','filter','filter' => array($obj = new CHtmlPurifier(),'purify')),
             array('nick_name, email, password', 'required'),
-            array('nick_name','match','pattern' => '/^[A-Za-z0-9]{2,50}$/','message' => Yii::t('seeline','Неверный формат поля "{attribute}" допустимы только буквы и цифры, от 2 до 20 символов')),            
+            array('nick_name','match','pattern' => '/^[A-Za-z0-9]{2,50}$/','message' => Yii::t('user','Неверный формат поля "{attribute}" допустимы только буквы и цифры, от 2 до 20 символов')),            
             array('first_name, last_name, nick_name, email', 'length', 'max' => 50),
             array('password, salt, activate_key', 'length', 'max' => 32),
             array('site', 'length', 'max' => 100),

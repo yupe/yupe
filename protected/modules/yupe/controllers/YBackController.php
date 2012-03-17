@@ -25,6 +25,8 @@ class YBackController extends Controller
             '/jui/css/base/jquery-ui.css'
         );
         Yii::app()->clientScript->registerScriptFile($jqueryslidemenupath . '/jqueryslidemenu.js');
+        //$bootstrapPath = Yii::app()->assetManager->publish($module->basePath . '/web/bootstrap/');        
+        //Yii::app()->clientScript->registerCssFile($bootstrapPath . '/css/bootstrap.min.css');        
         $this->setPageTitle(Yii::t('yupe', 'Панель управления'));
     }
 }

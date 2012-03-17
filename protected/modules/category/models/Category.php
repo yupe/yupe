@@ -77,7 +77,7 @@ class Category extends CActiveRecord
             array('parent_id, status', 'numerical', 'integerOnly' => true),
             array('name', 'length', 'max' => 150),
             array('alias', 'length', 'max' => 50),
-            array('alias','match','pattern' => '/^[A-Za-z0-9_]{2,50}$/','message' => Yii::t('seeline','Неверный формат поля "{attribute}" допустимы только буквы, цифры и символ подчеркивания, от 2 до 20 символов')),            
+            array('alias','match','pattern' => '/^[A-Za-z0-9_]{2,50}$/','message' => Yii::t('category','Неверный формат поля "{attribute}" допустимы только буквы, цифры и символ подчеркивания, от 2 до 20 символов')),            
             array('alias', 'unique'),
             array('status', 'in', 'range' => array_keys($this->getStatusList())),
             array('id, parent_id, name, description, alias, status', 'safe', 'on' => 'search'),
