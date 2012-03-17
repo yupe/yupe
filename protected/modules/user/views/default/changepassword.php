@@ -40,7 +40,7 @@ $this->menu = array(
 
 
     <div class="row submit">
-        <?php echo CHtml::submitButton(Yii::t('seeline','Изменить пароль')); ?>
+        <?php echo CHtml::submitButton(Yii::t('user','Изменить пароль')); ?>
     </div>
 
     <?php $this->endWidget(); ?>
