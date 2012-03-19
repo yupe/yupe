@@ -1,0 +1,26 @@
+<form id="redactorInsertImageForm" method="post" action="" enctype="multipart/form-data">
+	<ul id="redactor_tabs">
+		<li><a href="javascript:void(null);" onclick="showRedactorTabs(this, 1);" class="redactor_tabs_act">%RLANG.upload%</a></li>	
+		<li><a href="javascript:void(null);" onclick="showRedactorTabs(this, 2);">%RLANG.choose%</a></li>		
+		<li><a href="javascript:void(null);" onclick="showRedactorTabs(this, 3); $('#redactor_file_link').focus();">%RLANG.link%</a></li>		
+	</ul>
+	<div id="redactor_tabs1" class="redactor_tabs">
+		<input type="file" id="redactor_file" name="file" />
+	</div>	
+	<div id="redactor_tabs2" class="redactor_tabs" style="display: none;">
+		<div id="redactor_image_box"></div>
+	</div>
+	<div id="redactor_tabs3" class="redactor_tabs" style="display: none;">
+		<table class="redactor_ruler" width="100%">
+			<tr>
+				<td class="small">%RLANG.image_web_link%</td>
+				<td></td>
+			</tr>
+			<tr>
+				<td width="100%"><input name="redactor_file_link" id="redactor_file_link"  style="width: 99%"  /></td>
+				<td><input type="button" name="upload" id="redactorUploadBtn" value="%RLANG.insert%" /></td>
+			</tr>
+		
+		</table>
+	</div>
+</form>
