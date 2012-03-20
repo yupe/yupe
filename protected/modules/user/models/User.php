@@ -310,7 +310,7 @@ class User extends CActiveRecord
      * @param int $size требуемый размер аватарки в пикселях
      * @return string код аватарки
      */
-    public function getAvatar($htmlOptions = null, $size=64)
+    public function getAvatar($size=64, $htmlOptions = null)
     {
         isset( $htmlOptions['width']  ) || ( $htmlOptions['width'] = $size );
         isset( $htmlOptions['height'] ) || ( $htmlOptions['height'] = $size );
