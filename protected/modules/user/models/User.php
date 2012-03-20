@@ -304,14 +304,45 @@ class User extends CActiveRecord
         return md5(time() . $this->email . uniqid());
     }
 
-    public function getAvatar($htmlOptions = null)
+    /**
+     * Получить аватарку пользователя в виде тега IMG.
+     * @param array $htmlOptions HTML-опции для создаваемого тега
+     * @param int $size требуемый размер аватарки в пикселях
+     * @return string код аватарки
+     */
+    public function getAvatar($size=64, $htmlOptions = null)
     {
-        if ($this->use_gravatar && $this->email)        
-            return CHtml::image('http://gravatar.com/avatar/' . md5($this->email), $this->nick_name, $htmlOptions);        
-        elseif ($this->avatar)        
-            return CHtml::image($this->avatar, $this->nick_name, $htmlOptions);      
+        isset( $htmlOptions['width']  ) || ( $htmlOptions['width'] = $size );
+        isset( $htmlOptions['height'] ) || ( $htmlOptions['height'] = $size );
 
-        return '';
+        // если это граватар
+        if ($this->use_gravatar && $this->email)
+            return CHtml::image('http://gravatar.com/avatar/' . md5($this->email)."?d=mm&s=".$size, $this->nick_name, $htmlOptions);
+        elseif ( $this-> avatar )
+        {
+            $avatarsDir = Yii::app()->getModule('user')-> avatarsDir;
+            $basePath = Yii::app()->basePath."/../".$avatarsDir;
+            $sizedFile = str_replace(".","_".$size.".",$this-> avatar);
+
+            // Посмотрим, есть ли у нас уже нужный размер? Если есть - используем его
+            if ( file_exists($basePath."/".$sizedFile) )
+                return CHtml::image(Yii::app()->baseUrl.$avatarsDir."/".$sizedFile, $this->nick_name, $htmlOptions);
+
+            if ( file_exists($basePath."/".$this->avatar) )
+            {
+                // Есть! Можем сделать нужный размер
+                $image = Yii::app()->image->load($basePath."/".$this->avatar);
+                if ( $image-> ext !='gif' || $image-> config['driver']=="ImageMagick" )
+                    $image->resize($size, $size, CImage::AUTO)->crop($size,$size)->quality(75)->sharpen(20)->save($basePath."/".$sizedFile);
+                else
+                    @copy($basePath."/".$this->avatar, $basePath."/".$sizedFile);
+
+                return CHtml::image(Yii::app()-> baseUrl.$avatarsDir."/".$sizedFile, $this->nick_name, $htmlOptions);
+            }
+        }
+
+        // Нету аватарки, печалька :(
+        return  Yii::app()->getModule('user')-> defaultAvatar;
     }
 
     public function getFullName($separator = ' ')
