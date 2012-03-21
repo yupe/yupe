@@ -13,6 +13,16 @@
     </div>    
 </div>
 
+<p>Последние записи</p>
+
+<?php if(count($posts)):?>
+    <ul>
+    <?php foreach ($posts as $post):?>
+        <li><?php echo CHtml::link($post->title,array('/blog/post/show/','slug' => $post->slug));?></li>
+    <?php endforeach;?>
+    </ul>
+<?php endif;?>
+
 <div style='float:left;padding-right:5px'>
     <?php $this->widget('application.modules.social.widgets.ysc.yandex.YandexShareApi', array(
                                                                                               'type' => 'button',
