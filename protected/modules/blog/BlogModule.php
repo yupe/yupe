@@ -12,7 +12,7 @@ class BlogModule extends YWebModule
         return array(
             Yii::t('blog','Блоги')  => '/blog/blogAdmin/admin/',
             Yii::t('blog','Записи') => '/blog/postAdmin/admin/',
-            Yii::t('blog','Участники') => '/blog/BlogToUserAdmin/admin/'
+            Yii::t('blog','Участники') => '/blog/userToBlogAdmin/admin/'
         );
     }
 

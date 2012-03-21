@@ -15,6 +15,7 @@
         <li><?php echo CHtml::link('Регистрация', array('/registration/'));?></li>
         <?php endif;?>
         <li><?php echo CHtml::link('Социальные виджеты', array('/site/social/'));?></li>
+        <li><?php echo CHtml::link('Блоги', array('/blog/blog/index/'));?></li>
         <li><?php echo CHtml::link('Помощь проекту', array('/site/page/view/help/'));?></li>
         <li><?php echo CHtml::link('Контакты', array('/feedback/contact/'));?></li>
 
