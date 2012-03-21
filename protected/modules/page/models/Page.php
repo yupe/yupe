@@ -95,11 +95,11 @@ class Page extends CActiveRecord
             array('name, title, slug, keywords', 'length', 'max' => 150),
             array('description', 'length', 'max' => 150),
             array('slug', 'unique'),
-            array('status', 'in', 'range' => array(0, 1, 2)),
+            array('status', 'in', 'range' => array_keys($this->getStatusList())),
+            array('is_protected', 'in', 'range' => array_keys($this->getProtectedStatusList())),
             array('title, slug, body, description, keywords, name', 'filter', 'filter' => 'trim'),
-            array('title, slug, description, keywords, name', 'filter', 'filter' => 'strip_tags'),
-            array('slug', 'match', 'pattern' => '/^[a-zA-Z0-9_\-]+$/', 'message' => Yii::t('page', 'Запрещенные символы в поле {attribute}')),
-            array('is_protected', 'in', 'range' => array(0, 1)),
+            array('title, slug, description, keywords, name', 'filter', 'filter' => array($obj = new CHtmlPurifier(),'purify')),
+            array('slug', 'match', 'pattern' => '/^[a-zA-Z0-9_\-]+$/', 'message' => Yii::t('page', 'Запрещенные символы в поле {attribute}')),            
             array('id, parent_Id, creation_date, change_date, title, slug, body, keywords, description, status, menu_order', 'safe', 'on' => 'search'),
         );
     }

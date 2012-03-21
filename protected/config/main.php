@@ -87,14 +87,16 @@ return array(
             'showScriptName' => true,
             'cacheID' => 'cache',
             'rules' => array(
-		'/' => 'site/index',
+		        '/' => 'site/index',
                 '/login' => 'user/account/login',
                 '/logout' => 'user/account/logout',
                 '/registration' => 'user/account/registration',
                 '/feedback' => 'feedback/feedback',
                 '/pages/<slug>' => 'page/page/show',
                 '/story/<title>' => 'news/news/show/',
-                '/post/<slug>.html' => 'blog/post/show/'
+                '/post/<slug>.html' => 'blog/post/show/',
+                '/blog/<slug>' => 'blog/blog/show/',
+                '/blogs/' => 'blog/blog/index/'
             ),
         ),
          

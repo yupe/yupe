@@ -52,7 +52,7 @@ class Post extends CActiveRecord
 	 */
 	public function tableName()
 	{
-		return 'post';
+		return '{{post}}';
 	}
 
 	/**
@@ -64,12 +64,15 @@ class Post extends CActiveRecord
 		// will receive user inputs.
 		return array(
 			array('blog_id, slug, publish_date, title, content', 'required'),
-			array('create_date, update_date, status, comment_status, access_type', 'numerical', 'integerOnly'=>true),
+			array('blog_id, create_user_id, update_user_id, create_date, update_date, status, comment_status, access_type', 'numerical', 'integerOnly'=>true),
 			array('blog_id, create_user_id, update_user_id', 'length', 'max'=>10),
-			array('slug, title, link, keywords, description', 'length', 'max'=>150),
-			array('quote', 'length', 'max'=>300),
-			// The following rule is used by search().
-			// Please remove those attributes that should not be searched.
+			array('slug, title, link, keywords', 'length', 'max'=>150),
+			array('quote, description', 'length', 'max'=>300),
+			array('link','url'),
+			array('comment_status','in','range' => array(0,1)),
+			array('access_type','in','range' => array_keys($this->getAccessTypeList())),		
+			array('status','in','range' => array_keys($this->getStatusList())),		
+			array('title, slug, link, keywords, description, publish_date','filter','filter' => array($obj = new CHtmlPurifier(),'purify')),			
 			array('id, blog_id, create_user_id, update_user_id, create_date, update_date, slug, publish_date, title, quote, content, link, status, comment_status, access_type, keywords, description', 'safe', 'on'=>'search'),
 		);
 	}

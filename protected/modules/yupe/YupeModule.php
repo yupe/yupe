@@ -26,20 +26,14 @@ class YupeModule extends YWebModule
 
     public function checkSelf()
     {
-        if (!is_writable(Yii::app()->runtimePath))
-        {
-            return array('type' => YWebModule::CHECK_ERROR, 'message' => Yii::t('yupe', 'Директория "{dir}" не досутпна для записи!',array('{dir}' => Yii::app()->runtimePath)));
-        }
+        if (!is_writable(Yii::app()->runtimePath))        
+            return array('type' => YWebModule::CHECK_ERROR, 'message' => Yii::t('yupe', 'Директория "{dir}" не досутпна для записи!',array('{dir}' => Yii::app()->runtimePath)));        
 
-        if (!is_writable(Yii::app()->getAssetManager()->basePath))
-        {
-            return array('type' => YWebModule::CHECK_ERROR, 'message' => Yii::t('yupe', 'Директория "{dir}" не досутпна для записи!',array('{dir}' => Yii::app()->getAssetManager()->basePath)));
-        }
+        if (!is_writable(Yii::app()->getAssetManager()->basePath))        
+            return array('type' => YWebModule::CHECK_ERROR, 'message' => Yii::t('yupe', 'Директория "{dir}" не досутпна для записи!',array('{dir}' => Yii::app()->getAssetManager()->basePath)));        
 
-        if (defined('YII_DEBUG') && YII_DEBUG)
-        {
-            return array('type' => YWebModule::CHECK_ERROR, 'message' => Yii::t('yupe', 'Yii работает в режиме отладки, пожалуйста, отключите его! <br/> <a href="http://www.yiiframework.ru/doc/guide/ru/topics.performance">Подробнее про улучшение производительности Yii приложений</a>'));
-        }
+        if (defined('YII_DEBUG') && YII_DEBUG)        
+            return array('type' => YWebModule::CHECK_ERROR, 'message' => Yii::t('yupe', 'Yii работает в режиме отладки, пожалуйста, отключите его! <br/> <a href="http://www.yiiframework.ru/doc/guide/ru/topics.performance">Подробнее про улучшение производительности Yii приложений</a>'));        
 
         return true;
     }

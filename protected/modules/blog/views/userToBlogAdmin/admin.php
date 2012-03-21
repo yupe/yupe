@@ -1,12 +1,13 @@
 <?php
 $this->breadcrumbs=array(
-	Yii::t('blog','Блоги')=>array('admin'),
+	Yii::t('blog','Блоги')=>array('blogAdmin/admin'),
+	Yii::t('blog','Участники')=>array('admin'),
 	Yii::t('blog','Управление'),
 );
 
 $this->menu=array(
-	array('label' => Yii::t('blog','Список блогов'), 'url'=>array('index')),
-	array('label' => Yii::t('blog','Добавить блог'), 'url'=>array('create')),
+	array('label'=>Yii::t('blog','Список участников'), 'url'=>array('index')),
+	array('label'=>Yii::t('blog','Добавить участника'), 'url'=>array('create')),
 );
 
 Yii::app()->clientScript->registerScript('search', "
@@ -15,7 +16,7 @@ $('.search-button').click(function(){
 	return false;
 });
 $('.search-form form').submit(function(){
-	$.fn.yiiGridView.update('blog-grid', {
+	$.fn.yiiGridView.update('user-to-blog-grid', {
 		data: $(this).serialize()
 	});
 	return false;
@@ -26,7 +27,6 @@ $('.search-form form').submit(function(){
 <h1><?php echo $this->module->getName();?></h1>
 
 <?php $this->widget('YModuleInfo'); ?>
-
 <?php echo CHtml::link(Yii::t('blog','Поиск'),'#',array('class'=>'search-button')); ?>
 <div class="search-form" style="display:none">
 <?php $this->renderPartial('_search',array(
@@ -35,37 +35,29 @@ $('.search-form form').submit(function(){
 </div><!-- search-form -->
 
 <?php $this->widget('zii.widgets.grid.CGridView', array(
-	'id'=>'blog-grid',
+	'id'=>'user-to-blog-grid',
 	'dataProvider'=>$model->search(),	
 	'columns'=>array(
 		'id',
-		'name',		
-		'icon',
-		'slug',
+		 array(
+		 	'name'  => 'user_id',
+		 	'value' => '$data->user->getFullName()'
+		 ),
 		array(
-			'name'  => 'type',
-			'value' => '$data->getType()'
-		),		
+		 	'name'  => 'blog_id',
+		 	'value' => '$data->blog->name'
+		 ),
+		'create_date',
+		'update_date',
 		array(
-			'name'  => 'status',
-			'value' => '$data->getStatus()'
+		 	'name'  => 'role',
+		 	'value' => '$data->getRole()'
 		),
 		array(
-			'name'  => 'create_user_id',
-			'value' => '$data->createUser->getFullName()'
+		 	'name'  => 'status',
+		 	'value' => '$data->getStatus()'
 		),
-		array(
-			'name'  => 'update_user_id',
-			'value' => '$data->updateUser->getFullName()'
-		),
-		array(
-			'name'  => 'create_date',
-			'value' => '$data->create_date'
-		),
-		array(
-			'name'  => 'update_date',
-			'value' => '$data->update_date'
-		),
+		'note',		
 		array(
 			'class'=>'CButtonColumn',
 		),
