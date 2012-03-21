@@ -33,19 +33,31 @@ class PagesWidget extends YWidget
 
             $criteria->addCondition("status = {$this->pageStatus}");
 
-            if (!Yii::app()->user->isAuthenticated())            
+            if (!Yii::app()->user->isAuthenticated())
                 $criteria->addCondition('is_protected = ' . Page::PROTECTED_NO);
-            
-            if ($this->parent_Id)            
+
+            if ($this->parent_Id)
                 $criteria->addCondition("id = {$this->parent_Id} OR parent_Id = {$this->parent_Id}");
-            
-            if ($this->topLevelOnly)            
-                $criteria->addCondition("parent_Id is null or parent_Id = 0");              
+
+            if ($this->topLevelOnly)
+                $criteria->addCondition("parent_Id is null or parent_Id = 0");
 
             $view = $this->view ? $this->view : 'pageswidget';
 
+	    // На данный момент хардкод, переделаю
+            $menu = array(
+            	array('label'=>'О проекте', 'url'=> array('/site/page','view'=> 'about')),
+            	array('label'=>'Документация', 'url'=> array('/site/page','view'=> 'documents')),
+            	array('label'=>'Сообщество', 'url'=> array('/site/page','view'=> 'community')),
+            	array('label'=>'Модули', 'url'=> array('/site/page','view'=> 'modules')),
+            	array('label'=>'Разработка', 'url'=> array('/site/page','view'=> 'developement')),
+
+            );
+
+
             $this->render($view, array(
-                                      'pages' => Page::model()->findAll($criteria)
+                                     'pages' => Page::model()->findAll($criteria),
+                                     'menu' => $menu,
                                  ));
         }
     }
