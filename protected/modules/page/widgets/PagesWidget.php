@@ -56,7 +56,7 @@ class PagesWidget extends YWidget
 
 
             $this->render($view, array(
-                                     'pages' => Page::model()->findAll($criteria)
+                                     'pages' => Page::model()->findAll($criteria),
                                      'menu' => $menu,
                                  ));
         }
