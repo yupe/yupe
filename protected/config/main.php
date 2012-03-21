@@ -50,6 +50,14 @@ return array(
     // конфигурирование основных компонентов (подробнее http://www.yiiframework.ru/doc/guide/ru/basics.component)
     'components' => array(
 
+        // Библиотека для работы с картинками через GD/ImageMagick
+        // Лучше установите ImageMagick, т.к. он ресайзит анимированные гифы
+        'image' => array(
+            'class' => 'application.modules.yupe.extensions.image.CImageComponent',
+            'driver' => 'GD', // Еще бывает ImageMagick, если используется он, надо указать к нему путь чуть ниже
+            'params' => array('directory'=>'/usr/bin'), // В этой директории должен быть convert
+        ),
+
         // подключение библиотеки для авторизации через социальные сервисы, подробнее https://github.com/Nodge/yii-eauth           
         'loid' => array(
             'class' => 'application.modules.social.extensions.lightopenid.loid',
