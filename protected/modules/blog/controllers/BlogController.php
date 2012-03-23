@@ -39,6 +39,10 @@ class BlogController extends YFrontController
     // показать участников блога 
 	public function actionPeople($slug)
 	{
-       
+        $blog = Blog::model()->find('slug = :slug',array(':slug' => $slug));
+
+        if(!$blog)
+            throw new CHttpException(404,Yii::t('blog','Блог "{blog}" не найден!',array('{blog}' => $slug)));
+
 	}
 }

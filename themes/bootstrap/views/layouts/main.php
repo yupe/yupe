@@ -21,8 +21,7 @@
         <h1><?php echo CHtml::encode(Yii::app()->getModule('yupe')->siteName); ?></h1>
         <p><?php echo CHtml::encode(Yii::app()->getModule('yupe')->siteDescription); ?></p>
         <p><a class="btn btn-primary btn-large">Узнать больше &raquo;</a></p>
-    </div>       
-    
+    </div>           
     
   <div class="row">
     <div class="span4">
@@ -42,7 +41,7 @@
     </div>
   </div>
    
-  <hr>     
+  <hr/>     
 
   <footer>        
     <p>Copyright &copy; 2009-<?php echo date('Y'); ?> <a href='http://yupe.ru?from=engine'>Юпи!</a></p>

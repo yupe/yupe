@@ -6,6 +6,7 @@
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
           </a>
+          <a class="brand" href="/"><?php echo Yii::app()->name;?></a>
           <div class="nav-collapse">
             <ul class='nav'>
                 <li><?php echo CHtml::link('Главная', array("/".Yii::app()->defaultController."/index"));?></li>
@@ -25,7 +26,6 @@
                 <li><?php echo CHtml::link('Социальные виджеты', array('/site/social/'));?></li>
                 <li><?php echo CHtml::link('Помощь проекту', array('/site/page/view/help/'));?></li>
                 <li><?php echo CHtml::link('Контакты', array('/feedback/contact/'));?></li>
-
 
                 <?php foreach ($pages as $page): ?>
                     <li><?php echo CHtml::link($page->name, array("/pages/{$page->slug}"));?></li>
