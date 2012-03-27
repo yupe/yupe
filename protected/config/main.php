@@ -229,5 +229,6 @@ return array(
             'password' => 'giiYupe'
         ),
     ),    
+
     'behaviors' => array('YupeStartUpBehavior'),
 );
