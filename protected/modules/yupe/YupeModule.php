@@ -1,4 +1,16 @@
 <?php
+/**
+ * Модуль yupe - основной модуль системы.
+ *
+ * Модуль yupe содержит в себе все основные компоненты, которые используются другими модулями
+ * Это наше ядрышко. Классы ядра рекомендуется именовать с буквы "Y", пример YWebUser.
+ *
+ * @package yupe.core
+ * @author yupe team
+ * @version 0.0.3
+ * @link http://yupe.ru - основной сайт
+ *
+ */
 class YupeModule extends YWebModule
 {
     public $siteDescription;
@@ -204,16 +216,11 @@ class YupeModule extends YWebModule
                 }
             }
         }
-
-        //CVarDumper::dump($modulesNavigation,10,true);die();
-
         array_unshift($modulesNavigation['settings']['items'], array('label' => Yii::t('yupe', 'Оформление'), 'url' => array('/yupe/backend/themesettings/')));
         array_unshift($modulesNavigation, array('label' => Yii::t('yupe', 'На сайт'), 'url' => array('/')));
         array_push($modulesNavigation, array('label' => Yii::t('yupe', 'Войти'), 'url' => array('/site/login'), 'visible' => !Yii::app()->user->isAuthenticated()));
         array_push($modulesNavigation, array('label' => Yii::t('yupe', 'Выйти ({nick_name})',array('{nick_name}' => Yii::app()->user->nick_name)), 'url' => array('/user/account/logout'), 'visible' => Yii::app()->user->isAuthenticated()));        
-        
-        //CVarDumper::dump($modulesNavigation,10,true);die();
-    
+
         return $navigationOnly === true ? $modulesNavigation
             : array('modules' => $modules, 'yiiModules' => $yiiModules, 'modulesNavigation' => $modulesNavigation);
     }
