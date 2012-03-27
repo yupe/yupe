@@ -4,6 +4,16 @@
 	outline: none;
 }
 
+.clearfix:after {
+    content: ".";
+    display: block;
+    height: 0;
+    clear: both;
+    visibility: hidden;
+
+}
+
+
 header, section, footer, aside, menu, nav, article {
     display: block;
 }
@@ -127,7 +137,6 @@ ul.topmenu > li {
 	font-size: 12px;
 	padding: 0 20px;
 	margin-top: 12px;
-	font-style: italic;
 	position: relative;
 	width:90px;
 }
@@ -518,6 +527,14 @@ footer a:hover {
 
 }
 
+.content article {
+    border: 1px solid #fff;
+	-webkit-border-radius: 10px;
+	-moz-border-radius: 10px;
+	border-radius: 10px;
+    padding: 10px;
+}
+
 
 /* =========================================================== */
 /* aside userinfo block  */
@@ -703,6 +720,7 @@ footer a:hover {
 	display: block;
 	margin-bottom: 20px;
 }
+
 #last_comments dl {
 	margin-top: 15px;
 }
@@ -717,11 +735,26 @@ footer a:hover {
 	line-height: 17px;
 }
 
+#last_comments dd:after {
+    content: ".";
+    display: block;
+    height: 0;
+    clear: both;
+    visibility: hidden;
+    zoom: 1;
+}
+
+
 a.topic, a.topic:active, a.topic:visited {
-	font: 11px/20px Verdana;
+	font: 16px/11px Verdana;
 	color: #27b1db;
 	text-decoration: underline;
 }
+
+dd a.topic, dd a.topic:active,dd a.topic:visited {
+    font: 11px Verdana !important;
+}
+
 
 a.topic:hover {
 	text-decoration: none;
@@ -751,3 +784,444 @@ a.nick:hover {
 }
 
 
+input[type=text], input[type=password] {
+	height: 36px;
+	border: 1px solid #dce1e1;
+	-webkit-border-radius: 2px;
+	-moz-border-radius: 2px;
+	border-radius: 2px;
+	background: url(../images/lfbg.png) repeat-x;
+	padding: 0px 30px 0 30px;
+
+}
+
+div.form {
+
+}
+
+div.form label {
+	display:block;
+	font-size: 12px;
+	color: #454545;
+	margin-bottom: 5px;
+}
+
+div.form .row {
+	margin-top: 28px;
+}
+
+.loginform input[type=text],
+.loginform input[type=password]
+{
+	width: 355px;
+}
+
+/* ====================================================
+   Profile userinfo
+*/
+#people_userinfo {
+	clear: both;
+	height: 100px;
+}
+#people_userinfo img{
+	float: left;
+	margin-right: 15px;
+}
+
+#people_userinfo h1 {
+	font-size: 14px;
+	margin: 10px  0;
+}
+
+#people_userinfo .rate {
+	margin-top: 20px;
+}
+
+ul.bluemenu {
+    height: 32px;
+    display: block;
+    float: none;
+    clear: both;
+	list-style: none;
+	margin: 42px 0 0 92px;
+}
+
+ul.bluemenu li {
+	float: left;
+	margin:0 10px;
+	color: #5cc4e4;
+}
+
+ul.bluemenu li a,
+ul.bluemenu li a:visited,
+ul.bluemenu li a:active  {
+	display: block;
+	padding: 9px 14px;
+	color: #5cc4e4;
+}
+
+ul.bluemenu li.active a  {
+	text-decoration: none;
+	border: 3px solid #f3f8f8;
+	padding: 5px 10px;
+	color: #454545;
+	-webkit-border-radius: 2px;
+	-moz-border-radius: 2px;
+	border-radius: 2px;
+	font-weight: bold;
+}
+
+ul.bluemenu li a:hover {
+	text-decoration: none;
+	color:#ff4545;
+}
+
+#userinfo_about {
+    margin-top: 25px;
+}
+
+#userinfo_about dl {
+    clear: both;
+    float: none;
+    margin-top: 10px;
+}
+
+#userinfo_about dl dt,
+#userinfo_about dl dd {
+    line-height: 25px;
+
+}
+
+#userinfo_about dl dt {
+    width: 100px;
+    padding-right: 12px;
+    font-size: 11px;
+    color: #9d9d9d;
+    text-align: right;
+    float: left;
+}
+
+#userinfo_about dl dd {
+    text-align: left;
+    font-size: 14px;
+    color: #454545;
+}
+
+#userinfo_about h2 {
+    margin: 10px 0 0 112px;
+    font-weight: normal;
+    font-size: 16px;
+}
+
+.cmenu {
+    margin-top: 35px;
+    margin-left: 10px;
+    height: 74px;
+}
+
+.cmenu img {
+    float: left;
+}
+
+.cmenu  ul {
+    list-style: none;
+}
+
+.cmenu  ul li {
+    margin-left: 20px;
+    margin-top: 15px;
+    height: 54px;
+    width: 120px;
+    float: left;
+    font-size: 16px;
+    color: #454545;
+    text-align: center;
+}
+
+.cmenu  ul li a,
+.cmenu  ul li a:visited,
+.cmenu  ul li a:active,
+.cmenu  ul li span
+{
+    height: 45px;
+    line-height: 45px;
+    width: 120px;
+    display: block;
+    vertical-align: middle;
+	-webkit-border-radius: 5px;
+	-moz-border-radius: 5px;
+	border-radius: 5px;
+    color: #454545;
+}
+
+.cmenu  ul li span
+{
+    background: #dae7e7;
+}
+
+.cmenu  ul li.active {
+    background: url(../images/cmenu.gif) no-repeat bottom center;
+
+}
+
+/* blogs list */
+.blogs_list {
+    margin-top: 85px;
+}
+
+.blogs_list #head  {
+    height: 14px;
+}
+
+.blogs_list #head div,
+.blogs_list .blog div
+ {
+    text-align: left;
+}
+
+.t, .j, .r {
+    margin-right: 20px;
+}
+
+.blogs_list #head div a,
+.blogs_list #head div a:active,
+.blogs_list #head div a:visited
+{
+    font-size: 13px;
+    color:#454545;
+    text-decoration: none;
+}
+
+.blogs_list #head div a:hover {
+    text-decoration: underline;
+}
+
+.blogs_list #head div a.active,
+.blogs_list #head div a.active:active,
+.blogs_list #head div a.active:visited
+{
+    color: #27b1db;
+}
+
+.blogs_list .blog {
+    margin: 15px 0;
+    position: relative;
+}
+
+.t {
+    margin-right: 454px !important
+
+}
+
+.t div a {
+    font-size: 18px;
+    color: #ff9600;
+    font-family: Verdana;
+    font-weight: normal;
+}
+
+.t div.p {
+    color:#9d9d9d;
+    line-height: 25px;
+    font-family: Verdana;
+    display: block;
+}
+
+.c {
+    float: right;
+    width: 155px;
+}
+
+.r {
+    float: right;
+    width: 65px;
+}
+
+.blog .r {
+    color: #a5d82c;
+    font-size: 13px;
+    font-weight: bold;
+
+}
+
+.blog .c  a,
+.blog .c  a:visited,
+.blog .c  a:active
+{
+    color: #27b1db;
+    font-size: 13px;
+    text-decoration: underline;
+}
+
+.blog .c  a:hover {
+    text-decoration: none;
+}
+
+.j {
+    width: 110px;
+    float: right;
+}
+
+.blog  .j a,
+.blog  .j a:active,
+.blog  .j a:visited
+ {
+    color: #808888;
+    background: #dae7e7;
+    border-radius: 2px;
+    -moz-border-radius: 2px;
+    -webkit-border-radius: 2px;
+    width: 110px;
+    display: block;
+    text-align: center;
+    vertical-align: middle;
+    height: 26px;
+    text-decoration: none;
+    line-height: 26px;
+}
+
+.blog  .j a.add,
+.blog  .j a.add:active,
+.blog  .j a.add:visited
+{
+    background: #27B1DB;
+    color: white;
+
+}
+
+.blog .j a:hover {
+    color: white;
+    background: #808888;
+}
+
+
+.blog .j a.add:hover {
+    background: #FF9600;
+}
+
+.next-prev {
+    list-style: none;
+    margin-left: 10px;
+}
+
+.next-prev li {
+    float: left;
+    font-size: 16px;
+    color: #474747;
+    margin-right: 25px;
+}
+
+.next-prev li a {
+    color:  #27B1DB;
+    font-size: 16px;
+}
+
+ul.pages {
+    list-style: none;
+    font-size: 14px;
+    color: #474747;
+    margin-right: 25px;
+    margin-left: 10px;
+}
+
+ul.pages li {
+    float: left;
+    width: 20px;
+    height: 20px;
+    display: block;
+    margin-top: 40px;
+}
+ul.pages li div {
+    background: #dce1e1;
+    border-radius: 2px;
+    -moz-border-radius: 2px;
+    -webkit-border-radius: 2px;
+    width: 20px;
+    height: 20px;
+    line-height: 20px;
+    text-align: center;
+}
+
+ul.pages li a {
+    color: #27b1db;
+    text-decoration: underline;
+    width: 20px;
+    height: 20px;
+    display: block;
+    text-align: center;
+    vertical-align: middle;
+    line-height: 20px;
+}
+
+ul.pages li a:hover {
+    text-decoration: none;
+    color: #ff9d11;
+}
+
+.posts {
+    margin-top: 85px;
+}
+
+article:hover {
+	border: 1px solid #dee3e3;
+}
+
+article:hover .postsocial {
+    display: block;
+}
+
+article .postsocial {
+    display: none;
+}
+
+
+.postsocial {
+    width: 45px;
+    position: absolute;
+    margin-left: -55px;
+    background: url(../images/socarr.gif) right 0 no-repeat;
+}
+
+.postsocial a {
+    width: 24px;
+    height: 24px;
+    display: block;
+    margin-bottom: 10px;
+    background: #dce1e1;
+    text-align: center;
+    line-height: 24px;
+    vertical-align: middle;
+
+}
+
+.postsocial a.t {
+    background: url(../images/share.png) 0 -108px;
+}
+
+.postsocial a.t:hover {
+    background: url(../images/share.png) 0 0;
+}
+
+.postsocial a.f {
+    background: url(../images/share.png) 0 -135px;
+}
+
+.postsocial a.f:hover {
+    background: url(../images/share.png) 0 -27px;
+}
+
+.postsocial a.g {
+    background: url(../images/share.png) 0 -189px;
+}
+
+.postsocial a.g:hover {
+    background: url(../images/share.png) 0 -81px;
+}
+
+.postsocial a.v {
+    background: url(../images/share.png) 0 -162px;
+}
+
+.postsocial a.v:hover {
+    background: url(../images/share.png) 0 -54px;
+}
