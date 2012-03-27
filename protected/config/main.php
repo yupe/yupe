@@ -9,7 +9,7 @@ return array(
     // язык поумолчанию
     'language' => 'ru',
     // тема оформления поумолчанию
-    'theme' => 'bootstrap',
+    'theme' => 'default',
     // preloading 'log' component
     'preload' => array('log'),
 
