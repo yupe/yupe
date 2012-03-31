@@ -249,6 +249,11 @@ class User extends CActiveRecord
         }
         else        
             $this->change_date = new CDbExpression('NOW()');
+
+        // валидаторы после проверки значения null оставляют пустую строку, что является не допустимым значением для типа данных DATE
+        if ($this->birth_date === '') {
+            unset($this->birth_date);
+        }
         
         return parent::beforeSave();
     }
