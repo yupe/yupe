@@ -310,8 +310,14 @@ class User extends CActiveRecord
      * @param int $size требуемый размер аватарки в пикселях
      * @return string код аватарки
      */
-    public function getAvatar($size=64, $htmlOptions = null)
+    public function getAvatar($size=64, $htmlOptions = array())
     {
+        $size = intval($size);
+        $size || ($size = 64);
+        
+        if ( !is_array($htmlOptions) )
+            throw new CException(Yii::t('user',"htmlOptions must be array or not specified!"));
+
         isset( $htmlOptions['width']  ) || ( $htmlOptions['width'] = $size );
         isset( $htmlOptions['height'] ) || ( $htmlOptions['height'] = $size );
 
