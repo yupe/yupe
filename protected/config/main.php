@@ -201,6 +201,10 @@ return array(
             'avatarMaxSize' => 100000,
             'avatarExtensions' => array('jpg', 'png', 'gif'),
             'notifyEmailFrom' => 'test@test.ru',
+            'urlRules' => array(
+              'user/<username:\w+>/<mode:(topics|comments)>' => 'user/people/userInfo',
+              'user/<username:\w+>' => 'user/people/userInfo',
+            ),
         ),
         'page' => array(
             'adminMenuOrder' => 2,

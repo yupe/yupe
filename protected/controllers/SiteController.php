@@ -24,8 +24,6 @@ class SiteController extends YFrontController
                                            ))
         ));
 
-        var_dump(Yii::app()->theme);         
-
         $this->render('index', array('dataProvider' => $dataProvider));
     }
 

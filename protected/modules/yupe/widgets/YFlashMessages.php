@@ -1,5 +1,5 @@
 <?php
-class YFlashMessages extends CWidget
+class YFlashMessages extends YWidget
 {
     const NOTICE_MESSAGE = 'notice';
 
