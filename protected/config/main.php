@@ -6,9 +6,9 @@ return array(
     'defaultController' => 'site',
     // название приложения
     'name' => 'Юпи!',
-    // язык поумолчанию
+    // язык по умолчанию
     'language' => 'ru',
-    // тема оформления поумолчанию
+    // тема оформления по умолчанию
     'theme' => 'default',
     // preloading 'log' component
     'preload' => array('log'),
