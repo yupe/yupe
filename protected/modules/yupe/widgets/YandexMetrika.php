@@ -1,5 +1,5 @@
 <?php
-class YandexMetrika extends CWidget
+class YandexMetrika extends YWidget
 {
     public $counter;
 

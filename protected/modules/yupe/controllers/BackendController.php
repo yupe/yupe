@@ -15,8 +15,8 @@ class BackendController extends YBackController
     {
         $module = Yii::app()->getModule($module);
 
-        if (!$module)        
-            throw new CHttpException(404, Yii::t('yupe', 'Страница настроек данного модуля недоступна!'));        
+        if (!$module)
+            throw new CHttpException(404, Yii::t('yupe', 'Страница настроек данного модуля недоступна!'));
 
         $elements = array();
 
@@ -25,12 +25,12 @@ class BackendController extends YBackController
         $moduleParamsLabels = $module->getParamsLabels();
 
         foreach ($module as $key => $value)
-        {            
-            if(array_key_exists($key, $editableParams))                            
-                $elements[$key] = CHtml::label($moduleParamsLabels[$key],$key).CHtml::dropDownList($key,$value,$editableParams[$key]);                
+        {
+            if(array_key_exists($key, $editableParams))
+                $elements[$key] = CHtml::label($moduleParamsLabels[$key],$key).CHtml::dropDownList($key,$value,$editableParams[$key]);
 
             if(in_array($key, $editableParams))
-                $elements[$key] = CHtml::label($moduleParamsLabels[$key],$key).CHtml::textField($key,$value,array('maxlength' => 200));                            
+                $elements[$key] = CHtml::label($moduleParamsLabels[$key],$key).CHtml::textField($key,$value,array('maxlength' => 200));
         }
 
         // сформировать боковое меню из ссылок на настройки модулей
@@ -53,16 +53,16 @@ class BackendController extends YBackController
     public function actionSaveModulesettings()
     {
         if (Yii::app()->request->isPostRequest)
-        {            
+        {
             $module_id = Yii::app()->request->getPost('module_id');
 
-            if (!$module_id)            
-                throw new CHttpException(404, Yii::t('yupe', 'Страница не найдена!'));            
+            if (!$module_id)
+                throw new CHttpException(404, Yii::t('yupe', 'Страница не найдена!'));
 
             $module = Yii::app()->getModule($module_id);
 
-            if (!$module)            
-                throw new CHttpException(404, Yii::t('yupe', 'Модуль "{module}" не найден!', array('{module}' => $module_id)));            
+            if (!$module)
+                throw new CHttpException(404, Yii::t('yupe', 'Модуль "{module}" не найден!', array('{module}' => $module_id)));
 
             $editableParams = $module->getEditableParams();
 
@@ -119,55 +119,60 @@ class BackendController extends YBackController
 
     public function actionThemesettings()
     {
-        if (Yii::app()->request->isPostRequest && isset($_POST['theme']))
+        // Параметры, которые нам интересны
+        $params   = array('theme','backendTheme');
+        $moduleId = Yii::app()->getModule('yupe')->coreModuleId;
+
+        $settings = Settings::model()->fetchModuleSettings($moduleId,$params);
+
+        if (Yii::app()->request->isPostRequest)
         {
-            $theme = Yii::app()->request->getPost('theme');
-
-            $settings = Settings::model()->find('module_id = :module_id AND param_name = :param_name', array(
-                ':module_id'  => Yii::app()->getModule('yupe')->coreModuleId,
-                ':param_name' => 'theme'
-            ));
-
-            if (!is_null($settings))
+            $wasErrors=false;
+            foreach ($params as $p)
             {
-                $settings->param_value = $theme;
+                    $pval  = Yii::app()->request->getPost($p);
+                    // Если параметр уже был - обновим, иначе надо создать новый
+                    if (isset($settings[$p]))
+                    {
+                        // Если действительно изменили настройку
+                        if ($settings[$p]->param_value!=$pval)
+                        {
+                            $settings[$p]->param_value = $pval;
 
-                if ($settings->save())
-                {
-                    Yii::app()->user->setFlash(YFlashMessages::NOTICE_MESSAGE, Yii::t('yupe', 'Настройки сохранены!'));
+                            if (!$settings[$p]->save())
+                                $wasErrors=true;
+                        }
+                    }
+                    else
+                    {
+                        $settings[$p] = new Settings();
 
-                    //@TODO сброс полностью - плохо =(
-                    Yii::app()->cache->flush();
+                        $settings[$p]->setAttributes(array(
+                                                      'module_id'   => $moduleId,
+                                                      'param_name'  => $p,
+                                                      'param_value' => $pval
+                                                 ));
 
-                    $this->redirect(array('/yupe/backend/themesettings/'));
-                }
+                        if (!$settings[$p]->save())
+                            $wasErrors=true;
+                    }
             }
-            else
+            if (!$wasErrors)
             {
-                $settings = new Settings();
+                Yii::app()->user->setFlash(YFlashMessages::NOTICE_MESSAGE, Yii::t('yupe', 'Настройки сохранены!'));
 
-                $settings->setAttributes(array(
-                                              'module_id' => Yii::app()->getModule('yupe')->coreModuleId,
-                                              'param_name' => 'theme',
-                                              'param_value' => $theme
-                                         ));
+                //@TODO сброс полностью - плохо =(
+                Yii::app()->cache->flush();
 
-                if ($settings->save())
-                {
-                    Yii::app()->user->setFlash(YFlashMessages::NOTICE_MESSAGE, Yii::t('yupe', 'Настройки сохранены!'));
-
-                    //@TODO сброс полностью - плохо =(
-                    Yii::app()->cache->flush();
-
-                    $this->redirect(array('/yupe/backend/themesettings/'));
-                }
+                $this->redirect(array('/yupe/backend/themesettings/'));
+            } else
+            {
+                Yii::app()->user->setFlash(YFlashMessages::ERROR_MESSAGE, Yii::t('yupe', 'При сохранении произошла ошибка!'));
+                $this->redirect(array('/yupe/backend/themesettings/'));
             }
-
-            Yii::app()->user->setFlash(YFlashMessages::ERROR_MESSAGE, Yii::t('yupe', 'При сохранении произошла ошибка!'));
-
-            $this->redirect(array('/yupe/backend/themesettings/'));
         }
 
+        $backendThemes = array(""=>"Не использовать");
         $themes = array();
 
         if ($handler = opendir(Yii::app()->themeManager->basePath))
@@ -176,16 +181,26 @@ class BackendController extends YBackController
 
             while (($file = readdir($handler)))
             {
-                if ($file != '.' && $file != '..' && !is_file($file))                
-                    $themes[$file] = $file;                
+                if ($file != '.' && $file != '..' && !is_file($file))
+                    if ("backend_"==substr($file,0,8))
+                    {
+                        $file=str_replace("backend_","",$file);
+                        $backendThemes[$file]=$file;
+                    }
+                    else
+                        $themes[$file] = $file;
             }
 
             closedir($handler);
         }
 
-        $theme = Yii::app()->theme ? Yii::app()->theme->name
+        $module = Yii::app()->getModule('yupe');
+        $theme = isset($settings['theme']) ? $settings['theme']->param_value
             : Yii::t('yupe', 'Тема не используется');
 
-        $this->render('themesettings', array('themes' => $themes, 'theme' => $theme));
+        $backendTheme = isset($settings['backendTheme']) ? $settings['backendTheme']->param_value
+            : ($module->backendTheme ? $module->backendTheme : Yii::t('yupe', 'Тема не используется'));
+
+        $this->render('themesettings', array('themes' => $themes, 'theme' => $theme, 'backendThemes' => $backendThemes, 'backendTheme' => $backendTheme ));
     }
 }

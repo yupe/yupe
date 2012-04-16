@@ -51,11 +51,11 @@ class Settings extends CActiveRecord
 
     public function beforeSave()
     {
-        if ($this->isNewRecord)        
-            $this->creation_date = $this->change_date = new CDbExpression('NOW()');                                        
-        else        
+        if ($this->isNewRecord)
+            $this->creation_date = $this->change_date = new CDbExpression('NOW()');
+        else
             $this->change_date = new CDbExpression('NOW()');
-                
+
         $this->user_id = Yii::app()->user->getId();
 
         return parent::beforeSave();
@@ -111,5 +111,35 @@ class Settings extends CActiveRecord
         return new CActiveDataProvider(get_class($this), array(
                                                               'criteria' => $criteria,
                                                          ));
+    }
+
+    /**
+     * Получает настройки модуля
+     *
+     * @param string $module_id Идентификатор модуля
+     * @param mixed $params Список параметров, которые требуется прочитать
+     * @return array Экземпляры класса Settings, соответствующие запрошенным параметрам
+     * @todo Добавить кеширование
+     */
+    public function fetchModuleSettings($module_id,$params=null)
+    {
+        $settings=array();
+        if ($module_id)
+        {
+            $criteria = new CDbCriteria();
+            $criteria-> compare("module_id" , $module_id );
+
+            if (is_array($params))
+                $criteria-> addInCondition("param_name", $params);
+            else
+                $criteria-> compare("param_name", $params);
+
+            $q = $this-> findAll($criteria);
+
+            foreach ($q as $s)
+                $settings[$s->param_name]=$s;
+
+        }
+        return $settings;
     }
 }
