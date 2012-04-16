@@ -1,5 +1,5 @@
 <?php
-class YModuleInfo extends CWidget
+class YModuleInfo extends YWidget
 {
     public $module;
 

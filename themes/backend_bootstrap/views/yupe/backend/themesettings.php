@@ -11,21 +11,16 @@ $this->breadcrumbs = array(
 <?php echo Yii::t('yupe', 'Текущая тема административной части')?>: <b><?php echo $backendTheme;?></b>
 </p>
 
-<div class="form">
-
-    <?php echo CHtml::beginForm(array('/yupe/backend/themesettings', 'post')); ?>
-    <div class="row">
+    <?php echo CHtml::beginForm(array('/yupe/backend/themesettings', 'post'),'post',array(
+                                'class'=>'well',
+                                )); ?>
         <?php echo CHtml::label(Yii::t('yupe', 'Выберите тему сайта'), 'theme');?>
         <?php echo CHtml::dropDownList('theme', $theme, $themes);?>
-    </div>
-    <div class="row">
+        <br />
         <?php echo CHtml::label(Yii::t('yupe', 'Выберите тему административной части'), 'backendTheme');?>
         <?php echo CHtml::dropDownList('backendTheme', $backendTheme, $backendThemes);?>
-    </div>
+        <br />
+        <?php echo CHtml::submitButton(Yii::t('yupe', 'Сохранить настройки'),array('class'=> 'btn btn-primary'));?>
 
-    <div class="row submit">
-        <?php echo CHtml::submitButton(Yii::t('yupe', 'Сохранить настройки'));?>
-    </div>
     <?php echo CHtml::endForm();?>
 
-</div>

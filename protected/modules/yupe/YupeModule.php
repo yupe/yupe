@@ -19,9 +19,11 @@ class YupeModule extends YWebModule
 
     public $siteKeyWords;
 
-    public $backendLayout = 'application.modules.yupe.views.layouts.column2';
-    
-    public $emptyLayout = 'application.modules.yupe.views.layouts.empty';
+    public $backendLayout = 'column2';
+
+    public $backendTheme = 'bootstrap';
+
+    public $emptyLayout = 'empty';
 
     public $theme;
 
@@ -33,19 +35,19 @@ class YupeModule extends YWebModule
 
     public function getVersion()
     {
-        return '0.0.3';
+        return '0.0.4';
     }
 
     public function checkSelf()
     {
-        if (!is_writable(Yii::app()->runtimePath))        
-            return array('type' => YWebModule::CHECK_ERROR, 'message' => Yii::t('yupe', 'Директория "{dir}" не досутпна для записи!',array('{dir}' => Yii::app()->runtimePath)));        
+        if (!is_writable(Yii::app()->runtimePath))
+            return array('type' => YWebModule::CHECK_ERROR, 'message' => Yii::t('yupe', 'Директория "{dir}" не досутпна для записи!',array('{dir}' => Yii::app()->runtimePath)));
 
-        if (!is_writable(Yii::app()->getAssetManager()->basePath))        
-            return array('type' => YWebModule::CHECK_ERROR, 'message' => Yii::t('yupe', 'Директория "{dir}" не досутпна для записи!',array('{dir}' => Yii::app()->getAssetManager()->basePath)));        
+        if (!is_writable(Yii::app()->getAssetManager()->basePath))
+            return array('type' => YWebModule::CHECK_ERROR, 'message' => Yii::t('yupe', 'Директория "{dir}" не досутпна для записи!',array('{dir}' => Yii::app()->getAssetManager()->basePath)));
 
-        if (defined('YII_DEBUG') && YII_DEBUG)        
-            return array('type' => YWebModule::CHECK_ERROR, 'message' => Yii::t('yupe', 'Yii работает в режиме отладки, пожалуйста, отключите его! <br/> <a href="http://www.yiiframework.ru/doc/guide/ru/topics.performance">Подробнее про улучшение производительности Yii приложений</a>'));        
+        if (defined('YII_DEBUG') && YII_DEBUG)
+            return array('type' => YWebModule::CHECK_ERROR, 'message' => Yii::t('yupe', 'Yii работает в режиме отладки, пожалуйста, отключите его! <br/> <a href="http://www.yiiframework.ru/doc/guide/ru/topics.performance">Подробнее про улучшение производительности Yii приложений</a>'));
 
         return true;
     }
@@ -56,15 +58,16 @@ class YupeModule extends YWebModule
             'siteDescription' => Yii::t('yupe', 'Описание сайта'),
             'siteName' => Yii::t('yupe', 'Название сайта'),
             'siteKeyWords' => Yii::t('yupe', 'Ключевые слова сайта'),
-            'backendLayout' => Yii::t('yupe', 'Layout административной части'),
-            'theme' => Yii::t('yupe', 'Тема'),            
+            'backendLayout' => Yii::t('yupe', 'Вид административной части'),
+            'backendTheme' => Yii::t('yupe', 'Вид административной части'),
+            'theme' => Yii::t('yupe', 'Тема'),
             'coreCacheTime' => Yii::t('yupe','Время кэширования')
         );
     }
 
     public function getEditableParams()
     {
-        return array('coreCacheTime','theme', 'backendLayout', 'siteName', 'siteDescription', 'siteKeyWords');
+        return array('coreCacheTime','theme', 'backendLayout','backendTheme', 'siteName', 'siteDescription', 'siteKeyWords');
     }
 
     public function getAdminPageLink()
@@ -110,7 +113,7 @@ class YupeModule extends YWebModule
 
     public function init()
     {
-        parent::init();   
+        parent::init();
 
         $this->setImport(array(
                               'yupe.models.*',
@@ -158,8 +161,8 @@ class YupeModule extends YWebModule
                         }
 
                     }
-                    else                    
-                        $yiiModules[$key] = $module;                    
+                    else
+                        $yiiModules[$key] = $module;
                 }
             }
 
@@ -168,12 +171,12 @@ class YupeModule extends YWebModule
             foreach ($order as $key => $value)
             {
                 $links = $modules[$key]->getNavigation();
-                
+
                 if(is_array($links))
-                {                    
+                {
                     foreach ($links as $text => $url)
                     {
-                        $tmp = array('label' => $text, 'url' => array($url));                        
+                        $tmp = array('label' => $text, 'url' => array($url));
 
                         if (!isset($modulesNavigation[$category[$key]]))
                         {
@@ -182,9 +185,9 @@ class YupeModule extends YWebModule
                             $modulesNavigation[$category[$key]]['linkOptions'] = array('class' => 'sub-menu');
                             $modulesNavigation[$category[$key]]['url'] = '#';
                         }
-                        
-                        array_push($modulesNavigation[$category[$key]]['items'], $tmp);   
-                    }                    
+
+                        array_push($modulesNavigation[$category[$key]]['items'], $tmp);
+                    }
                 }
                 else
                 {
@@ -204,8 +207,8 @@ class YupeModule extends YWebModule
 
                             array_push($modulesNavigation[$category[$key]]['items'], $data);
                         }
-                        else                    
-                            array_push($modulesNavigation, $data);                    
+                        else
+                            array_push($modulesNavigation, $data);
                     }
 
                     // собрать все для меню "Настройки"
@@ -219,9 +222,19 @@ class YupeModule extends YWebModule
         array_unshift($modulesNavigation['settings']['items'], array('label' => Yii::t('yupe', 'Оформление'), 'url' => array('/yupe/backend/themesettings/')));
         array_unshift($modulesNavigation, array('label' => Yii::t('yupe', 'На сайт'), 'url' => array('/')));
         array_push($modulesNavigation, array('label' => Yii::t('yupe', 'Войти'), 'url' => array('/site/login'), 'visible' => !Yii::app()->user->isAuthenticated()));
-        array_push($modulesNavigation, array('label' => Yii::t('yupe', 'Выйти ({nick_name})',array('{nick_name}' => Yii::app()->user->nick_name)), 'url' => array('/user/account/logout'), 'visible' => Yii::app()->user->isAuthenticated()));        
+        array_push($modulesNavigation, array('label' => Yii::t('yupe', 'Выйти ({nick_name})',array('{nick_name}' => Yii::app()->user->nick_name)), 'url' => array('/user/account/logout'), 'visible' => Yii::app()->user->isAuthenticated()));
 
         return $navigationOnly === true ? $modulesNavigation
             : array('modules' => $modules, 'yiiModules' => $yiiModules, 'modulesNavigation' => $modulesNavigation);
     }
+
+    function getBackendLayoutAlias()
+    {
+        if ($this-> backendTheme)
+            return 'webroot.themes.backend_' . $this-> backendTheme . '.views.yupe.layouts.'.$this-> backendLayout;
+        else
+            return 'application.modules.yupe.views.layouts.'.$this-> backendLayout;
+
+    }
+
 }
