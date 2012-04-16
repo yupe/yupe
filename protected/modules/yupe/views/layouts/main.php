@@ -4,6 +4,11 @@
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
     <meta name="language" content="en"/>
+<?php
+        $jqueryslidemenupath = Yii::app()->assetManager->publish(Yii::app()->getModule('yupe')->basePath. '/web/jqueryslidemenu/');
+        Yii::app()->clientScript->registerCssFile($jqueryslidemenupath . '/jqueryslidemenu.css');
+        Yii::app()->clientScript->registerScriptFile($jqueryslidemenupath . '/jqueryslidemenu.js');
+?>
     <!-- blueprint CSS framework -->
     <link rel="stylesheet" type="text/css"
           href="<?php echo Yii::app()->request->baseUrl; ?>/css/screen.css"
@@ -31,7 +36,7 @@
 <body>
 <script type='text/javascript'>
     $(document).ready(function() {
-        $('input:submit').button();        
+        $('input:submit').button();
     });
 </script>
 

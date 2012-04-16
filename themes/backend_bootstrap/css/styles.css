@@ -1,0 +1,45 @@
+html,body {
+    height: 100%;
+    line-height: 18px;
+    color: #454545;
+    font-size: 13px;
+
+}
+
+div#page  {
+    padding-top: 50px;
+}
+#overall-wrap {
+     min-height: 100%;
+}
+
+.navbar-fixed-top{
+    border-bottom: 5px solid #FF9600;
+}
+footer {
+   clear: both;
+    text-align: left;
+
+    height: 55px;
+    padding: 10px 20px;
+
+    position: relative;
+    margin-top: -85px;
+    border-top: 1px solid #E5E5E5;
+
+    line-height: 18px;
+    color: #9D9D9D;
+    font-size: 13px;
+    background: #F3F8F8;
+}
+
+#footer-guard {
+    height: 120px;
+
+}
+
+.nav-list .nav-header ul {
+    list-style: none !important;
+    margin-left: 10px !important;
+    text-transform: none;
+}
