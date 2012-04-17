@@ -19,8 +19,6 @@ class UserModule extends YWebModule
 
     public $minPasswordLength = 3;
 
-    public $maxPasswordLength = 6;
-
     public $emailAccountVerification = 1;
 
     public $showCaptcha = 1;
@@ -59,8 +57,7 @@ class UserModule extends YWebModule
             'logoutSuccess' => Yii::t('user', 'Страница после выхода с сайта'),
             'notifyEmailFrom' => Yii::t('user', 'Email от имени которого отправлять сообщение'),
             'autoRecoveryPassword' => Yii::t('user', 'Автоматическое восстановление пароля'),
-            'minPasswordLength' => Yii::t('user', 'Минимальная длина пароля'),
-            'maxPasswordLength' => Yii::t('user', 'Максимальная длина пароля'),
+            'minPasswordLength' => Yii::t('user', 'Минимальная длина пароля'),            
             'emailAccountVerification' => Yii::t('user', 'Подтверждать аккаунт по Email'),
             'showCaptcha' => Yii::t('user', 'Показывать капчу при регистрации'),
             'minCaptchaLength' => Yii::t('user', 'Минимальная длина капчи'),
@@ -87,7 +84,6 @@ class UserModule extends YWebModule
             'showCaptcha' => $this->getChoice(),
             'emailAccountVerification' => $this->getChoice(),
             'minPasswordLength',
-            'maxPasswordLength',
             'autoRecoveryPassword' => $this->getChoice(),
             'notifyEmailFrom',
             'logoutSuccess',

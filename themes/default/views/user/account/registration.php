@@ -27,14 +27,14 @@
     </div>
 
     <div class="row">
-        <?php echo $form->labelEx($model, 'password',array('maxlength' => Yii::app()->getModule('user')->maxPasswordLength)); ?>
-        <?php echo $form->passwordField($model, 'password') ?>
+        <?php echo $form->labelEx($model, 'password'); ?>
+        <?php echo $form->passwordField($model, 'password');?>
         <?php echo $form->error($model, 'password'); ?>
     </div>
 
     <div class="row">
         <?php echo $form->labelEx($model, 'cPassword'); ?>
-        <?php echo $form->passwordField($model, 'cPassword',array('maxlength' => Yii::app()->getModule('user')->maxPasswordLength)) ?>
+        <?php echo $form->passwordField($model, 'cPassword');?>
         <?php echo $form->error($model, 'cPassword'); ?>
     </div>
 

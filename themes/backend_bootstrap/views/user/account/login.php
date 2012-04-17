@@ -17,13 +17,13 @@
 
     <div class="row">
         <?php echo $form->labelEx($model, 'email'); ?>
-        <?php echo $form->textField($model, 'email') ?>
+        <?php echo $form->textField($model, 'email'); ?>
         <?php echo $form->error($model, 'email'); ?>
     </div>
 
     <div class="row">
         <?php echo $form->labelEx($model, 'password'); ?>
-        <?php echo $form->passwordField($model, 'password',array('maxlength' => Yii::app()->getModule('user')->maxPasswordLength)) ?>
+        <?php echo $form->passwordField($model, 'password'); ?>
         <?php echo $form->error($model, 'password'); ?>
     </div>
 
