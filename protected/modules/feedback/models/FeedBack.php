@@ -23,6 +23,8 @@ class FeedBack extends CActiveRecord
     const STATUS_FINISHED = 2;
     const STATUS_ANSWER_SENDED = 3;
 
+    const TYPE_DEFAULT = 0;
+
     public function getStatusList()
     {
         return array(
