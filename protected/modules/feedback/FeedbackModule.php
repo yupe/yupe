@@ -8,6 +8,7 @@ class FeedbackModule extends YWebModule
     public $notifyEmailFrom;
     public $sendConfirmation = 0;
     public $successPage;
+    public $cacheTime = 60;
     
     const BACKEND_EMAIL = 'email';
     const BACKEND_DB    = 'db';
@@ -19,10 +20,11 @@ class FeedbackModule extends YWebModule
         return array(
             'showCaptcha'=> Yii::t('feedback', 'Показывать капчу'),
             'emails'           => Yii::t('feedback','Получатели сообщений с сайта (email через запятую)'),
-            'notifyEmailFrom'  => Yii::t('feedback', 'Email от имени которого отправлять сообщение'),            
-            'adminMenuOrder'   => Yii::t('feedback', 'Порядок следования в меню'),
+            'notifyEmailFrom'  => Yii::t('feedback','Email от имени которого отправлять сообщение'),            
+            'adminMenuOrder'   => Yii::t('feedback','Порядок следования в меню'),
             'sendConfirmation' => Yii::t('feedback','Отправлять подтверждение'),
-            'successPage'      => Yii::t('feedback','Страница после отправки формы')
+            'successPage'      => Yii::t('feedback','Страница после отправки формы'),
+            'cacheTime'        => Yii::t('feedback','Время кэширования счетчика (сек.)')
         );
     }
 
@@ -34,7 +36,8 @@ class FeedbackModule extends YWebModule
             'notifyEmailFrom',
             'emails',
             'adminMenuOrder',
-            'successPage'            
+            'successPage',
+            'cacheTime'            
         );
     }
 
@@ -49,7 +52,7 @@ class FeedbackModule extends YWebModule
 
     public function getName()
     {
-        $count = FeedBack::model()->new()->cache(5)->count();
+        $count = FeedBack::model()->new()->cache($this->cacheTime)->count();
         return $count ? Yii::t('feedback', 'Сообщения с сайта') . " ($count)"
             : Yii::t('feedback', 'Сообщения с сайта');
     }
@@ -61,7 +64,7 @@ class FeedbackModule extends YWebModule
 
     public function getVersion()
     {
-        return Yii::t('feedback', '0.3');
+        return Yii::t('feedback', '0.4');
     }
 
     public function getAuthor()
