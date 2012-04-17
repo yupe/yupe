@@ -40,10 +40,8 @@ class BackendController extends YBackController
 
         foreach ($modules['modules'] as $oneModule)
         {
-            if ($oneModule->getEditableParams())
-            {
-                array_push($this->menu, array('label' => $oneModule->getName(), 'url' => $this->createUrl('/yupe/backend/modulesettings/', array('module' => $oneModule->getId()))));
-            }
+            if ($oneModule->getEditableParams())            
+                array_push($this->menu, array('label' => $oneModule->getName(), 'url' => $this->createUrl('/yupe/backend/modulesettings/', array('module' => $oneModule->getId()))));            
         }
 
         $this->render('modulesettings', array('module' => $module, 'elements' => $elements, 'moduleParamsLabels' => $moduleParamsLabels));
@@ -121,16 +119,17 @@ class BackendController extends YBackController
     {
         // Параметры, которые нам интересны
         $params   = array('theme','backendTheme');
-        $moduleId = Yii::app()->getModule('yupe')->coreModuleId;
+        $module   = Yii::app()->getModule('yupe');
+        $moduleId = $module->coreModuleId;
 
         $settings = Settings::model()->fetchModuleSettings($moduleId,$params);
 
         if (Yii::app()->request->isPostRequest)
         {
-            $wasErrors=false;
+            $wasErrors = false;
             foreach ($params as $p)
             {
-                    $pval  = Yii::app()->request->getPost($p);
+                    $pval = Yii::app()->request->getPost($p);
                     // Если параметр уже был - обновим, иначе надо создать новый
                     if (isset($settings[$p]))
                     {
@@ -145,7 +144,7 @@ class BackendController extends YBackController
                     }
                     else
                     {
-                        $settings[$p] = new Settings();
+                        $settings[$p] = new Settings;
 
                         $settings[$p]->setAttributes(array(
                                                       'module_id'   => $moduleId,
@@ -154,7 +153,7 @@ class BackendController extends YBackController
                                                  ));
 
                         if (!$settings[$p]->save())
-                            $wasErrors=true;
+                            $wasErrors = true;
                     }
             }
             if (!$wasErrors)
@@ -172,7 +171,7 @@ class BackendController extends YBackController
             }
         }
 
-        $backendThemes = array(""=>"Не использовать");
+        $backendThemes = array(""=>Yii::t('yupe','--стандартная тема--'));
         $themes = array();
 
         if ($handler = opendir(Yii::app()->themeManager->basePath))
@@ -182,10 +181,10 @@ class BackendController extends YBackController
             while (($file = readdir($handler)))
             {
                 if ($file != '.' && $file != '..' && !is_file($file))
-                    if ("backend_"==substr($file,0,8))
+                    if ("backend_" == substr($file,0,8))
                     {
-                        $file=str_replace("backend_","",$file);
-                        $backendThemes[$file]=$file;
+                        $file = str_replace("backend_","",$file);
+                        $backendThemes[$file] = $file;
                     }
                     else
                         $themes[$file] = $file;
@@ -193,14 +192,13 @@ class BackendController extends YBackController
 
             closedir($handler);
         }
-
-        $module = Yii::app()->getModule('yupe');
+        
         $theme = isset($settings['theme']) ? $settings['theme']->param_value
             : Yii::t('yupe', 'Тема не используется');
 
         $backendTheme = isset($settings['backendTheme']) ? $settings['backendTheme']->param_value
             : ($module->backendTheme ? $module->backendTheme : Yii::t('yupe', 'Тема не используется'));
 
-        $this->render('themesettings', array('themes' => $themes, 'theme' => $theme, 'backendThemes' => $backendThemes, 'backendTheme' => $backendTheme ));
+        $this->render('themesettings', array('themes' => $themes, 'theme' => $theme, 'backendThemes' => $backendThemes, 'backendTheme' => $backendTheme));
     }
 }

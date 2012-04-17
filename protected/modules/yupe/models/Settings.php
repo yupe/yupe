@@ -123,21 +123,21 @@ class Settings extends CActiveRecord
      */
     public function fetchModuleSettings($module_id,$params=null)
     {
-        $settings=array();
+        $settings = array();
         if ($module_id)
         {
             $criteria = new CDbCriteria();
-            $criteria-> compare("module_id" , $module_id );
+            $criteria->compare("module_id" , $module_id );
 
             if (is_array($params))
-                $criteria-> addInCondition("param_name", $params);
+                $criteria->addInCondition("param_name", $params);
             else
-                $criteria-> compare("param_name", $params);
+                $criteria->compare("param_name", $params);
 
-            $q = $this-> findAll($criteria);
+            $q = $this->findAll($criteria);
 
             foreach ($q as $s)
-                $settings[$s->param_name]=$s;
+                $settings[$s->param_name] = $s;
 
         }
         return $settings;
