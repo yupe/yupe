@@ -1,6 +1,7 @@
 <?php
 class YPerformanceStatistic extends YWidget
-{
+{   
+    //@todo переделать для использования темы оформления
     public function run()
     {
         $dbStat = Yii::app()->db->getStats();
