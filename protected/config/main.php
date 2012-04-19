@@ -82,7 +82,7 @@ return array(
         ),
         
         // конфигурирование urlManager, подробнее http://www.yiiframework.ru/doc/guide/ru/topics.url
-        'urlManager' => array(
+  /*      'urlManager' => array(
             'urlFormat' => 'path',
             'showScriptName' => true,
             'cacheID' => 'cache',
@@ -99,7 +99,7 @@ return array(
                 '/blogs/' => 'blog/blog/index/'
             ),
         ),
-         
+       */
         // конфигурируем компонент CHttpRequest для защиты от CSRF атак, подробнее http://www.yiiframework.ru/doc/guide/ru/topics.security
         // РЕКОМЕНДУЕМ УКАЗАТЬ СВОЕ ЗНАЧЕНИЕ ДЛЯ ПАРАМЕТРА "csrfTokenName"
         'request' => array(
