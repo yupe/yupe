@@ -9,9 +9,8 @@
         {
             parent::init();
             $this-> tagName = "ul";
-
-
         }
+
         public function run()
     	{
     		if(empty($this->links))
@@ -25,7 +24,7 @@
     			$links[]=$this->homeLink;
 
             $cl = count($links);
-            $i=0;
+            $i  = 0;
 
     		foreach($this->links as $label=>$url)
     		{

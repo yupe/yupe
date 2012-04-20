@@ -26,7 +26,7 @@ class BlogController extends YFrontController
         	throw new CHttpException(404,Yii::t('blog','Блог "{blog}" не найден!',array('{blog}' => $slug)));
 
         //получить первые 5 записей для блога
-        $posts = Post::model()->findAll(array(
+        $posts = Post::model()->published()->public()->findAll(array(
         	'condition' => 'blog_id = :blog_id',
         	'limit'     => 5,
         	'order'     => 'create_date DESC', 

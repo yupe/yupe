@@ -12,7 +12,7 @@ class DictionaryModule extends YWebModule
 
     public function getCategory()
     {
-        return Yii::t('dictionary', 'Контент');
+        return Yii::t('dictionary', 'Структура');
     }
 
     public function getName()

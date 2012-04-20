@@ -1,5 +1,5 @@
 <?php
-class NewsWidget extends YWidget
+class LastNewsWidget extends YWidget
 {
     public $count = 5;
 

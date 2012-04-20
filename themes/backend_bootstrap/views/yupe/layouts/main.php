@@ -3,9 +3,9 @@
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
     <meta name="language" content="en"/>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">    
 <?php
-        $bootstrapPath = Yii::app()->assetManager->publish(Yii::app()->getModule('yupe')->basePath . '/web/bootstrap/');
+        $bootstrapPath = Yii::app()->assetManager->publish(Yii::app()->getModule('yupe')->basePath . '/web/bootstrap/');        
         Yii::app()->clientScript->registerCssFile($bootstrapPath . '/css/bootstrap.min.css');
         Yii::app()->clientScript->registerScriptFile($bootstrapPath . '/js/bootstrap.min.js');
         Yii::app()->clientScript->registerCssFile(Yii::app()->theme->baseUrl. '/css/styles.css');

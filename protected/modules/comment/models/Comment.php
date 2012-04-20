@@ -135,6 +135,9 @@ class Comment extends CActiveRecord
                 'condition' => 'status = :status',
                 'params' => array(':status' => self::STATUS_APPROVED),
                 'order' => 'creation_date DESC'
+            ),
+            'authored' => array(
+                'condition' => 'user_id is not null'
             )
         );
     }

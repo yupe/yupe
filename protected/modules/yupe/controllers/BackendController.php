@@ -170,28 +170,12 @@ class BackendController extends YBackController
                 $this->redirect(array('/yupe/backend/themesettings/'));
             }
         }
+        
+        $themes = $module->getThemes();
 
-        $backendThemes = array(""=>Yii::t('yupe','--стандартная тема--'));
-        $themes = array();
+        $backendThemes = $module->getThemes(true);
 
-        if ($handler = opendir(Yii::app()->themeManager->basePath))
-        {
-            $file = false;
-
-            while (($file = readdir($handler)))
-            {
-                if ($file != '.' && $file != '..' && !is_file($file))
-                    if ("backend_" == substr($file,0,8))
-                    {
-                        $file = str_replace("backend_","",$file);
-                        $backendThemes[$file] = $file;
-                    }
-                    else
-                        $themes[$file] = $file;
-            }
-
-            closedir($handler);
-        }
+        $backendThemes[""] = Yii::t('yupe','--стандартная тема--');                
         
         $theme = isset($settings['theme']) ? $settings['theme']->param_value
             : Yii::t('yupe', 'Тема не используется');
@@ -200,5 +184,45 @@ class BackendController extends YBackController
             : ($module->backendTheme ? $module->backendTheme : Yii::t('yupe', 'Тема не используется'));
 
         $this->render('themesettings', array('themes' => $themes, 'theme' => $theme, 'backendThemes' => $backendThemes, 'backendTheme' => $backendTheme));
+    }
+
+     /** 
+     * Метод для загрузки файлов из редактора при создании контента
+     *    
+     * @since 0.0.4     
+     * @todo возможно, стоит добавить кэширование чтобы каждый раз не ходить по файловой системе
+     * 
+     * Подробнее http://imperavi.com/redactor/docs/images/     
+     */
+
+    public function actionAjaxFileUpload()
+    {
+        if(!empty($_FILES['file']['name']))
+        {
+            $uploadPath = Yii::getPathOfAlias(Yii::app()->getModule('yupe')->uploadPath).'/'.date('dmY').'/';
+            
+            if(!is_dir($uploadPath))
+            {
+                if(!@mkdir($uploadPath, '0777', true))
+                    Yii::app()->ajax->rawText(Yii::t('yupe','Не удалось создать каталог "{dir}" для файлов!',array('{dir}' => $uploadPath)));
+            }                
+            
+            $image = CUploadedFile::getInstanceByName('file');
+
+            if($image)
+            {
+                //сгенерировать имя файла и сохранить его
+                $newFileName = md5(time().uniqid().$image->name).'.'.$image->extensionName;
+
+                if(!$image->saveAs($uploadPath.$newFileName))
+                    Yii::app()->ajax->rawText(Yii::t('yupe','При загрузке произошла ошибка!'));
+
+                $webDir = substr($uploadPath,strpos($uploadPath, Yii::app()->baseUrl) + strlen(Yii::app()->baseUrl));                
+
+                Yii::app()->ajax->rawText(CHtml::image(Yii::app()->baseUrl.$webDir.DIRECTORY_SEPARATOR.$newFileName));
+            }
+        }
+
+        Yii::app()->ajax->rawText(Yii::t('yupe','При загрузке произошла ошибка!'));
     }
 }

@@ -28,4 +28,10 @@ class YAsyncResponse extends CComponent
         echo json_encode($data);
         Yii::app()->end();
     }
+
+    public function rawText($data)
+    {
+        echo $data;
+        Yii::app()->end();
+    }
 }

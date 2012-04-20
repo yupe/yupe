@@ -43,11 +43,15 @@
 
     <div class="row">
         <?php echo $form->labelEx($model, 'body'); ?>
-        <?php $this->widget('application.modules.yupe.widgets.EMarkItUp.EMarkitupWidget', array(
-                                                                                  'model' => $model,
-                                                                                  'attribute' => 'body',
-                                                                                  'htmlOptions' => array('rows' => 16, 'cols' => 50)
-                                                                             ))?>
+        <?php $this->widget($this->module->editor, array(
+                                                      'model' => $model,
+                                                      'attribute' => 'body',
+                                                      'options'   => array(                                                           
+                                                           'toolbar' => 'main',
+                                                           'imageUpload' => Yii::app()->baseUrl.'/index.php/yupe/backend/AjaxFileUpload/'                                                           
+                                                       ),
+                                                      'htmlOptions' => array('rows' => 20,'cols' => 6)
+                                                 ))?>
         <?php echo $form->error($model, 'body'); ?>
     </div>
 
@@ -59,7 +63,7 @@
 
     <div class="row">
         <?php echo $form->labelEx($model, 'description'); ?>
-        <?php echo $form->textArea($model, 'description', array('rows' => 3, 'cols' => 98)); ?>
+        <?php echo $form->textArea($model, 'description', array('rows' => 3, 'cols' => 86)); ?>
         <?php echo $form->error($model, 'description'); ?>
     </div>
 

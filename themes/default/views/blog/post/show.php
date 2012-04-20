@@ -25,3 +25,15 @@
                                                                                          ));?>
 </div>
 
+
+<br/><br/><br/>
+
+<?php $this->widget('application.modules.comment.widgets.CommentsListWidget', array('model' => $post, 'modelId' => $post->id)); ?>
+
+<br/>
+
+<h3>Оставить комментарий</h3>
+
+<?php $this->widget('application.modules.comment.widgets.CommentFormWidget', array('redirectTo' => $this->createUrl('/blog/post/show/', array('slug' => $post->slug)), 'model' => $post, 'modelId' => $post->id)); ?>
+
+

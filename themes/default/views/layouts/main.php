@@ -57,7 +57,11 @@
         </div>
         <div class="span-5 last">
             <div id="sidebar">
-                <?php $this->widget('application.modules.news.widgets.NewsWidget');?>
+                <?php $this->widget('application.modules.news.widgets.LastNewsWidget');?>
+
+                <?php $this->widget('application.modules.blog.widgets.LastPostsWidget');?>
+
+                <?php $this->widget('application.modules.comment.widgets.LastCommentsWidget');?>
             </div>
             <!-- sidebar -->
         </div>

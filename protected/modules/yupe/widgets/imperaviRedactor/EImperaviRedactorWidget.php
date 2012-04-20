@@ -1,114 +1,102 @@
 <?php
+/**
+ * EImperaviRedactorWidget class file.
+ *
+ * @author Veaceslav Medvedev <slavcopost@gmail.com>
+ * @link http://code.google.com/p/yiiext/
+ * @license http://www.opensource.org/licenses/bsd-license.php
+ */
+/**
+ * EImperaviRedactorWidget adds {@link http://imperavi.ru/redactor/ imperavi redactor} as a form field widget.
+ *
+ * Usage:
+ * <pre>
+ * $this->widget('ext.yiiext.widgets.imperaviRedactor.EImperaviRedactorWidget',array(
+ *     // you can either use it for model attribute
+ *     'model'=>$my_model,
+ *     'attribute'=>'my_field',
+ *     // or just for input field
+ *     'name'=>'my_input_name',
+ *     // imperavi redactor {@link http://imperavi.ru/redactor/docs/ options}
+ *     'options'=>array(
+ *         'toolbar'=>'classic',
+ *         'cssPath'=>Yii::app()->theme->baseUrl.'/css/',
+ *     ),
+ * ));
+ * </pre>
 
-/*
-    Файл класса EImperaviRedactorWidget.
+ * @author Veaceslav Medvedev <slavcopost@gmail.com>
+ * @version 0.3
+ * @package yiiext.widgets.imperaviRedactor
+ * @link http://imperavi.ru/redactor/
+ */
+class EImperaviRedactorWidget extends CInputWidget
+{
+	/**
+	 * @var string URL where to look imperavi redactor assets.
+	 */
+	public $assetsUrl;
+	/**
+	 * @var string imperavi redactor script name.
+	 */
+	public $scriptFile;
+	/**
+	 * @var string imperavi redactor stylesheet.
+	 */
+	public $cssFile;
+	/**
+	 * @var array imperavi redactor {@link http://imperavi.ru/redactor/docs/ options}.
+	 */
+	public $options=array();
 
-    Пример использования:
-    
-        $this->widget( 'application.modules.yupe.widgets.imperaviRedactor.EImperaviRedactorWidget', 
-            array(
-                'model' => $model,
-                'attribute' => $attribute,
-                'options' => array(
-                    'air'       => 'true',  // Включение режима AIR. По умолчанию false.
-                    'focus'     => 'true',  // Устанавливает фокус на конкретный Редактор, особенно полезно, когда на странице несколько Редакторов. По умолчанию false.
-                    'resize'    => 'true',  // Включение и отключение изменения высоты Редактора. По умолчанию false.
-                    'toolbar'   => 'main'   // Указание, какой именно тулбар должен отобразиться в этом Редакторе. Возможные значения: false, main, mini. По умолчанию "main"
-                ),
-            )
-        ) 
- 
-    Сайт редактора: http://imperavi.com/
-    Документация по редактору: http://imperavi.com/redactor/docs/
-*/
+	/**
+	 * Init widget.
+	 */
+	public function init()
+	{
+		list($this->name,$this->id)=$this->resolveNameId();
 
-class EImperaviRedactorWidget extends CInputWidget {
+		if($this->assetsUrl===null)
+			$this->assetsUrl=Yii::app()->getAssetManager()->publish(dirname(__FILE__).'/assets',false,-1,YII_DEBUG);
 
-    /* Путь до месторасположения активов (ресурсов) редактора. */
-    public $assetsUrl;
+		if($this->scriptFile===null)
+			// todo: add minified js
+			$this->scriptFile=$this->assetsUrl.'/'.(YII_DEBUG ? 'editor.js' : 'editor.js');
 
-    /* Путь до папки со скриптами */
-    public $scriptFile;
-    
-    /* Путь до папки со стилями */
-    public $cssFile;
-    
-    /*
-        Массив передачи настроек редактору.
-        Со списком возможных настроек можно ознакомится в документации редактора: http://imperavi.com/redactor/docs/.
-    */
-    public $options = array();
+		if($this->cssFile===null)
+			$this->cssFile=$this->assetsUrl.'/css/editor.css';
 
-    /*
-        Инициализация виджета
-    */
-    public function init() {
+		$this->registerClientScript();
+	}
+	/**
+	 * Run widget.
+	 */
+	public function run()
+	{
+		if($this->hasModel())
+			echo CHtml::activeTextArea($this->model,$this->attribute,$this->htmlOptions);
+		else
+			echo CHtml::textArea($this->name,$this->value,$this->htmlOptions);
+	}
+	/**
+	 * Register CSS and Script.
+	 */
+	protected function registerClientScript()
+	{
+		if(isset($this->options['path']))
+			$this->options['path']=rtrim($this->options['path'],'/\\').'/';
 
-        list( $this->name, $this->id ) = $this->resolveNameId();
-
-        if( $this->assetsUrl === null ) { 
-            
-            $this->assetsUrl = Yii::app()->getAssetManager()->publish( dirname(__FILE__) . '/assets', false, -1, YII_DEBUG );
-            
-        }
-
-        if( $this->scriptFile === null ) {
-            
-            /*
-                Выбераем файл скрипта редактора.
-                --------------------------------
-                Продуктивный режим: redactor.min.js (минимизированный)
-                Дебаг режим: redactor.js
-            */
-            $this->scriptFile = $this->assetsUrl . '/' . ( YII_DEBUG ? 'redactor.js' : 'redactor.min.js' );
-            
-        }
-
-        if( $this->cssFile === null ) {
-            
-            $this->cssFile = $this->assetsUrl . '/css/redactor.css';
-            
-        }
-
-        $this->registerClientScript();
-    
-    }
-
-    /*
-        Вызов виджета
-    */
-    public function run() {
-        
-        if( $this->hasModel() ) {
-            
-            echo CHtml::activeTextArea( $this->model, $this->attribute, $this->htmlOptions );
-            
-        } else {
-            
-            echo CHtml::textArea( $this->name, $this->value, $this->htmlOptions );
-            
-        }
-                    
-    }
-        
-    /*
-        Регистрация стилейи и сриптов
-    */
-    protected function registerClientScript() {
-
-        if( isset( $this->options['path'] ) ) {
-
-            $this->options['path'] = rtrim( $this->options['path'], '/\\' ) . '/';
-
-        }
-
-        $cs = Yii::app()->getClientScript();
-        $cs->registerCssFile( $this->cssFile );
-        $cs->registerCoreScript( 'jquery' );
-        $cs->registerScriptFile( $this->scriptFile );
-        $cs->registerScript( __CLASS__ . '#' . $this->id, 'jQuery("#' . $this->id . '").redactor(' . CJavaScript::encode( $this->options ) . ');' );
-    }
-
+		if(!isset($this->options['image_upload'])){
+			$this->options['image_upload'] = CHtml::normalizeUrl(array('/photo_upload'));
+		}
+		if(!isset($this->options['toolbar'])){
+			$this->options['toolbar'] = 'custom';
+		}
+		
+		$cs=Yii::app()->getClientScript();
+		$cs->registerCssFile($this->cssFile);
+		$cs->registerCoreScript('jquery');
+		$cs->registerScriptFile($this->scriptFile);
+		$cs->registerScript(__CLASS__.'#'.$this->id,'jQuery("#'.$this->id.'").editor('.CJavaScript::encode($this->options).');');
+	}
 }
-
-?>

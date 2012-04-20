@@ -1,10 +1,27 @@
 <?php
-
 class BlogModule extends YWebModule
 {
+    public $editor;
+
 	public function getCategory()
     {
         return Yii::t('blog', 'Блоги');
+    }
+
+    public function getParamsLabels()
+    {
+        return array(
+            'adminMenuOrder' => Yii::t('news', 'Порядок следования в меню'),
+            'editor'         => Yii::t('page','Визуальный редактор') 
+        );
+    }
+
+    public function getEditableParams()
+    {
+        return array(
+            'adminMenuOrder',
+            'editor' => Yii::app()->getModule('yupe')->getEditors()
+        );
     }
 
     public function getNavigation()

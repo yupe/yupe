@@ -10,7 +10,7 @@ class CategoryModule extends YWebModule
 
     public function getCategory()
     {
-        return Yii::t('category', 'Контент');
+        return Yii::t('category', 'Структура');
     }
 
     public function getName()

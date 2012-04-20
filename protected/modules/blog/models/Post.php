@@ -230,4 +230,18 @@ class Post extends CActiveRecord
 	{
 		return $this->comment_status ? Yii::t('blog','Да') : Yii::t('blog','Нет');
 	}
+
+	public function scopes()
+	{
+		return array(
+			'published' => array(
+				'condition' => 'status = :status',
+				'params'    => array(':status' => self::STATUS_PUBLISHED)
+			),
+		    'public' => array(
+		    	'condition' => 'access_type = :access_type',
+		    	'params'    => array(':access_type' => self::ACCESS_PUBLIC)
+		    )
+		);
+	}
 }

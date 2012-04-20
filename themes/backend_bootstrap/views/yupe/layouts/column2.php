@@ -14,8 +14,7 @@
     </div>
     <div class="span2">
         <div class="well" style="padding: 8px 0;">
-            <?php
-                $this->menu = array_merge(array(array('label'=> Yii::t('yupe', 'Основное меню'), 'itemOptions'=>array("class"=>"nav-header") )) , $this->menu);
+            <?php               
                 $this->widget('zii.widgets.CMenu', array(
                                                         'items' => $this->menu,
                                                         'htmlOptions' => array('class' => 'nav nav-list'),
@@ -23,5 +22,5 @@
             ?>
         </div>
     </div>
-  </div>
+  </div>  
 <?php $this->endContent(); ?>

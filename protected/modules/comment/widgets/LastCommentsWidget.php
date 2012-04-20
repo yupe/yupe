@@ -5,10 +5,14 @@ class LastCommentsWidget extends YWidget
 
     public $commentStatus;
 
+    public $limit = 10;
+
+    public $onlyWithAuthor = true;
+
     public function init()
     {
 
-        if ( $this-> model )
+        if ( $this->model )
             $this->model = is_object($this->model) ? get_class($this->model)
                 : $this->model;
 
@@ -16,27 +20,26 @@ class LastCommentsWidget extends YWidget
     }
 
     public function run()
-    {
-        if ( $this-> model )
-            $r = array( 'condition' => 'model = :model AND status = :status',
-                        'params' => array(
-                                    ':model' => $this->model,
-                                    ':status' => $this->commentStatus
-                            ),
-                        'order' => 'id DESC'
-                        );
-        else
-            $r = array( 'condition' => 'status = :status',
-                        'params' => array(
-                                    ':status' => $this->commentStatus
-                            ),
-                        'order' => 'id DESC'
-                        );
+    {       
+        $criteria = new CDbCriteria(array(
+            'condition' => 'status = :status',
+            'params'    => array(':status' => $this->commentStatus),
+            'limit'     => $this->limit,
+            'order'     => 'id DESC'         
+        ));
 
+        if($this->model)
+        {
+            $criteria->addCondition('model = :model');
 
+            $criteria->params[':model'] = $this->model;
+        }     
 
-        $comments = Comment::model()->findAll();
+        if($this->onlyWithAuthor)
+            $criteria->addCondition('user_id is not null');
 
-        $this->render('lastcommentswidget', array('comments' => $comments));
+        $comments = Comment::model()->findAll($criteria);       
+
+        $this->render('lastcomments', array('comments' => $comments));
     }
 }

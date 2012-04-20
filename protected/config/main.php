@@ -30,6 +30,7 @@ return array(
         'application.modules.comment.models.*',
         'application.modules.image.models.*',
         'application.modules.vote.models.*',
+        'application.modules.blog.models.*',
 
         'application.modules.yupe.controllers.*', 
         'application.modules.yupe.widgets.*',        
@@ -104,7 +105,7 @@ return array(
         // РЕКОМЕНДУЕМ УКАЗАТЬ СВОЕ ЗНАЧЕНИЕ ДЛЯ ПАРАМЕТРА "csrfTokenName"
         'request' => array(
             'class' => 'CHttpRequest',
-            'enableCsrfValidation' => true,
+            'enableCsrfValidation' => false,
             'csrfTokenName' => 'YUPE_TOKEN'
         ),
     
@@ -146,6 +147,9 @@ return array(
 
     // конфигурация модулей приложения, подробнее http://www.yiiframework.ru/doc/guide/ru/basics.module
     'modules' => array(
+        'menu' => array(
+             'class' => 'application.modules.menu.MenuModule',
+         ),
         'blog' => array(
             'class' => 'application.modules.blog.BlogModule',
         ),

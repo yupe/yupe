@@ -41,11 +41,15 @@
 
     <div class="row">
         <?php echo $form->labelEx($model, 'text'); ?>
-        <?php $this->widget('application.modules.yupe.widgets.EMarkItUp.EMarkitupWidget', array(
-                                                                                  'model' => $model,
-                                                                                  'attribute' => 'text',
-                                                                                  'htmlOptions' => array('rows' => 16, 'cols' => 50)
-                                                                             ))?>
+        <?php $this->widget(Yii::app()->getModule('yupe')->editor, array(
+                                                      'model' => $model,
+                                                      'attribute' => 'text',
+                                                      'options'   => array(                                                           
+                                                           'toolbar' => 'main',
+                                                           'imageUpload' => Yii::app()->baseUrl.'/index.php/yupe/backend/AjaxFileUpload/'                                                           
+                                                       ),
+                                                      'htmlOptions' => array('rows' => 20,'cols' => 6)
+                                                 ))?>
         <?php echo $form->error($model, 'text'); ?>
     </div>
 
