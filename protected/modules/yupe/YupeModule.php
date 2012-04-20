@@ -286,6 +286,19 @@ class YupeModule extends YWebModule
             return 'application.modules.yupe.views.layouts.'.$this->backendLayout;
     }
 
+    /**
+     * Получает полный путь нужного лайаута бэкенда с учетом темы
+     *
+     * @param string $layoutName Название лайаута, если не задан - берется по-умолчанию для бекенда
+     * @return string Полный путь к лайауту
+     */
+    function getBackendLayoutAlias( $layoutName = '' )
+    {
+        if ($this-> backendTheme)
+            return 'webroot.themes.backend_' . $this-> backendTheme . '.views.yupe.layouts.'.($layoutName?$layoutName:$this-> backendLayout);
+        else
+            return 'application.modules.yupe.views.layouts.'.($layoutName?$layoutName:$this-> backendLayout);
+    }
 
     /** 
      * Метод возвращает список доступных для использования в панели управления визуальных редакторов  
