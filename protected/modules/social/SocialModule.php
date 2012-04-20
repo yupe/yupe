@@ -18,12 +18,12 @@ class SocialModule extends YWebModule
 
     public function getAuthor()
     {
-        return Yii::t('social', 'xoma');
+        return Yii::t('social', 'yupe team');
     }
 
     public function getAuthorEmail()
     {
-        return Yii::t('social', 'aopeykin@yandex.ru');
+        return Yii::t('social', 'team@yupe.ru');
     }
 
     public function getUrl()

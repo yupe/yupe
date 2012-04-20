@@ -74,12 +74,12 @@ class ImageModule extends YWebModule
 
     public function getAuthor()
     {
-        return Yii::t('image', 'xoma');
+        return Yii::t('image', 'yupe team');
     }
 
     public function getAuthorEmail()
     {
-        return Yii::t('image', 'aopeykin@yandex.ru');
+        return Yii::t('image', 'team@yupe.ru');
     }
 
     public function getUrl()

@@ -25,12 +25,12 @@ class GalleryModule extends YWebModule
 
     public function getAuthor()
     {
-        return Yii::t('gallery', 'xoma');
+        return Yii::t('gallery', 'yupe team');
     }
 
     public function getAuthorEmail()
     {
-        return Yii::t('gallery', 'aopeykin@yandex.ru');
+        return Yii::t('gallery', 'team@yupe.ru');
     }
 
     public function getUrl()

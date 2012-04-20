@@ -45,12 +45,12 @@ class BlogModule extends YWebModule
 
     public function getAuthor()
     {
-        return Yii::t('blog', 'xoma');
+        return Yii::t('blog', 'yupe team');
     }
 
     public function getAuthorEmail()
     {
-        return Yii::t('blog', 'aopeykin@yandex.ru');
+        return Yii::t('blog', 'team@yupe.ru');
     }
 
     public function getUrl()

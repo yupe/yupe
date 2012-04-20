@@ -14,12 +14,12 @@ class VoteModule extends YWebModule
 
     public function getAuthor()
     {
-        return Yii::t('vote', 'xoma');
+        return Yii::t('vote', 'yupe team');
     }
 
     public function getAuthorEmail()
     {
-        return Yii::t('feedback', 'aopeykin@yandex.ru');
+        return Yii::t('feedback', 'team@yupe.ru');
     }
 
     public function getParamsLabels()

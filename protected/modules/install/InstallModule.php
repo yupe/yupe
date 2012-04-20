@@ -44,12 +44,12 @@ class InstallModule extends YWebModule
 
     public function getAuthor()
     {
-        return Yii::t('install', 'xoma');
+        return Yii::t('install', 'yupe team');
     }
 
     public function getAuthorEmail()
     {
-        return Yii::t('install', 'aopeykin@yandex.ru');
+        return Yii::t('install', 'team@yupe.ru');
     }
 
     public function getUrl()

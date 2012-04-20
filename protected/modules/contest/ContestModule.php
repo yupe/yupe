@@ -13,12 +13,12 @@ class ContestModule extends YWebModule
 
     public function getAuthor()
     {
-        return Yii::t('contest', 'xoma');
+        return Yii::t('contest', 'yupe team');
     }
 
     public function getAuthorEmail()
     {
-        return Yii::t('feedback', 'aopeykin@yandex.ru');
+        return Yii::t('feedback', 'team@yupe.ru');
     }
 
     public function getParamsLabels()

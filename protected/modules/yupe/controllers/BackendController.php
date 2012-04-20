@@ -203,7 +203,7 @@ class BackendController extends YBackController
             
             if(!is_dir($uploadPath))
             {
-                if(!@mkdir($uploadPath, '0777', true))
+                if(!@mkdir($uploadPath))
                     Yii::app()->ajax->rawText(Yii::t('yupe','Не удалось создать каталог "{dir}" для файлов!',array('{dir}' => $uploadPath)));
             }                
             

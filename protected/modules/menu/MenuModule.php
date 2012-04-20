@@ -26,7 +26,7 @@ class MenuModule extends YWebModule
 
     public function getAuthor()
     {
-        return Yii::t('menu', 'Yupe team!');
+        return Yii::t('menu', 'yupe team');
     }
 
     public function getAuthorEmail()

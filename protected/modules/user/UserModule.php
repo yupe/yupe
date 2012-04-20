@@ -113,12 +113,12 @@ class UserModule extends YWebModule
 
     public function getAuthor()
     {
-        return Yii::t('user', 'xoma');
+        return Yii::t('user', 'yupe team');
     }
 
     public function getAuthorEmail()
     {
-        return 'aopeykin@yandex.ru';
+        return 'team@yupe.ru';
     }
 
     public function getUrl()

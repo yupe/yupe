@@ -24,12 +24,12 @@ class ContentBlockModule extends YWebModule
 
     public function getAuthor()
     {
-        return Yii::t('contentblock', 'xoma');
+        return Yii::t('contentblock', 'yupe team');
     }
 
     public function getAuthorEmail()
     {
-        return Yii::t('contentblock', 'aopeykin@yandex.ru');
+        return Yii::t('contentblock', 'team@yupe.ru');
     }
 
     public function getUrl()

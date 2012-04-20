@@ -69,12 +69,12 @@ class FeedbackModule extends YWebModule
 
     public function getAuthor()
     {
-        return Yii::t('feedback', 'xoma');
+        return Yii::t('feedback', 'yupe team');
     }
 
     public function getAuthorEmail()
     {
-        return Yii::t('feedback', 'aopeykin@yandex.ru');
+        return Yii::t('feedback', 'team@yupe.ru');
     }
 
     public function getUrl()
