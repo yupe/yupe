@@ -8,7 +8,7 @@ class PageModule extends YWebModule
     {
         return array(
             'adminMenuOrder' => Yii::t('page','Порядок следования в меню'),
-            'editor'         => Yii::t('page','Визуальный редактор') 
+            'editor'         => Yii::t('page','Визуальный редактор')
         );
     }
 
@@ -59,5 +59,9 @@ class PageModule extends YWebModule
                               'application.modules.page.components.*',
                               'application.modules.page.components.widgets.*',
                          ));
+
+        // Если у модуля не задан редактор - спросим у ядра
+        if ( !$this->editor )
+            $this->editor=Yii::app()->getModule('yupe')->editor;
     }
 }
