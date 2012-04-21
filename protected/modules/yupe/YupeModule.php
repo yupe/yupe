@@ -10,7 +10,7 @@
 
 /**
  * Модуль yupe - основной модуль системы.
- * 
+ *
  * Модуль yupe содержит в себе все основные компоненты, которые используются другими модулями
  * Это наше ядрышко. Классы ядра рекомендуется именовать с буквы "Y", пример YWebUser.
  *
@@ -81,7 +81,7 @@ class YupeModule extends YWebModule
             'coreCacheTime' => Yii::t('yupe','Время кэширования (сек.)'),
             'editorsDir'    => Yii::t('yupe','Каталог для визивиг редакторов'),
             'uploadPath'    => Yii::t('yupe','Каталог для загрузки файлов'),
-            'editor'        => Yii::t('page','Визуальный редактор') 
+            'editor'        => Yii::t('page','Визуальный редактор')
         );
     }
 
@@ -271,24 +271,10 @@ class YupeModule extends YWebModule
             : array('modules' => $modules, 'yiiModules' => $yiiModules, 'modulesNavigation' => $modulesNavigation);
     }
 
-    /** 
-     * Метод возвращает layout (полный алиас) для панели управления
-     *   
-     * @since 0.0.4          
-     *           
-     */
-
-    function getBackendLayoutAlias()
-    {
-        if ($this->backendTheme)
-            return 'webroot.themes.backend_' . $this->backendTheme . '.views.yupe.layouts.'.$this->backendLayout;
-        else
-            return 'application.modules.yupe.views.layouts.'.$this->backendLayout;
-    }
-
     /**
-     * Получает полный путь нужного лайаута бэкенда с учетом темы
+     * Получает полный алиас нужного лайаута бэкенда с учетом темы
      *
+     * @since 0.0.4
      * @param string $layoutName Название лайаута, если не задан - берется по-умолчанию для бекенда
      * @return string Полный путь к лайауту
      */
@@ -300,16 +286,16 @@ class YupeModule extends YWebModule
             return 'application.modules.yupe.views.layouts.'.($layoutName?$layoutName:$this-> backendLayout);
     }
 
-    /** 
-     * Метод возвращает список доступных для использования в панели управления визуальных редакторов  
-     *   
-     * @since 0.0.4     
+    /**
+     * Метод возвращает список доступных для использования в панели управления визуальных редакторов
+     *
+     * @since 0.0.4
      * @todo возможно, стоит добавить кэширование чтобы каждый раз не ходить по файловой системе
-     * 
-     * Для добавления нового редатора необходимо:     
+     *
+     * Для добавления нового редатора необходимо:
      * Скопировать каталог с виджетом редактора в application.modules.yupe.widgets.editors
-     * php-файл с виджетом должен иметь имя *Widget.php, например "EImperaviRedactorWidget"  
-     * 
+     * php-файл с виджетом должен иметь имя *Widget.php, например "EImperaviRedactorWidget"
+     *
      */
 
     public function getEditors()
@@ -321,19 +307,19 @@ class YupeModule extends YWebModule
         if($path && $handler = opendir($path))
         {
             while (($dir = readdir($handler)))
-            {               
-                if ($dir != '.' && $dir != '..' && !is_file($dir))                    
-                {                    
-                   //посмотреть внутри файл с окончанием Widget.php                   
+            {
+                if ($dir != '.' && $dir != '..' && !is_file($dir))
+                {
+                   //посмотреть внутри файл с окончанием Widget.php
                    $files = glob($path.DIRECTORY_SEPARATOR.$dir.DIRECTORY_SEPARATOR.'*Widget.php');
-                   
+
                    if(count($files) == 1)
                    {
                        $editor = $this->editorsDir.'.'.$dir.'.'.basename(array_shift($files),'.php');
 
                        $widgets[$editor] = $editor;
-                   }                       
-                }                    
+                   }
+                }
             }
 
             closedir($handler);
@@ -344,42 +330,42 @@ class YupeModule extends YWebModule
 
 
 
-    /** 
+    /**
      * Метод возвращает доступные темы оформления
      *
      * @param bool $backend - если установлен в true - вернет темы оформления для панели управления, иначе - для публичной части сайта
-     * @return array список доступных тем   
-     * @since 0.0.4     
+     * @return array список доступных тем
+     * @since 0.0.4
      * @todo возможно, стоит добавить кэширование чтобы каждый раз не ходить по файловой системе
-     * 
+     *
      * Для добавления новой темы необходимо:
-     * Прочитать http://yiiframework.ru/doc/guide/ru/topics.theming  
+     * Прочитать http://yiiframework.ru/doc/guide/ru/topics.theming
      * Скопировать тему в каталог  WebRoot/themes или аналогичный (настройки themeManager)
      * Название каталога с темой для панели управления должно начинаться с префикса "backend_", например "backend_bootstrap"
-     * 
+     *
      */
 
     public function getThemes($backend = false)
     {
         $themes = array();
-        
+
         if ($handler = opendir(Yii::app()->themeManager->basePath))
         {
             while (($file = readdir($handler)))
             {
                 if ($file != '.' && $file != '..' && !is_file($file))
                 {
-                    if ("backend_" == substr($file,0,8))                       
+                    if ("backend_" == substr($file,0,8))
                     {
                         if($backend)
                         {
                             $file = str_replace("backend_","",$file);
 
                             $themes[$file] = $file;
-                        }                            
+                        }
                     }
-                    else if(!$backend)                    
-                        $themes[$file] = $file;                    
+                    else if(!$backend)
+                        $themes[$file] = $file;
                 }
             }
 

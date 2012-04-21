@@ -2,13 +2,13 @@
 
 class PageModule extends YWebModule
 {
-    public $editor;
+    public $editor="application.modules.yupe.widgets.editors.imperaviRedactor.EImperaviRedactorWidget";
 
     public function getParamsLabels()
     {
         return array(
             'adminMenuOrder' => Yii::t('page','Порядок следования в меню'),
-            'editor'         => Yii::t('page','Визуальный редактор') 
+            'editor'         => Yii::t('page','Визуальный редактор')
         );
     }
 
