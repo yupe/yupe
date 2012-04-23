@@ -1,6 +1,8 @@
 <?php
+
 class YPerformanceStatistic extends YWidget
-{   
+{
+
     //@todo переделать для использования темы оформления
     public function run()
     {
@@ -14,4 +16,5 @@ class YPerformanceStatistic extends YWidget
            <div style='float:left;padding-right:5px'> выполнение: $time </div>
         </div>";
     }
+
 }
