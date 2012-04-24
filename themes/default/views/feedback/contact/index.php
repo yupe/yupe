@@ -31,6 +31,14 @@
 
     <?php echo $form->errorSummary($model); ?>
 
+    <?php if($model->type):?>
+        <div class="row">
+            <?php echo $form->labelEx($model, 'type'); ?>
+            <?php echo $form->dropDownList($model, 'type', Yii::app()->getModule('feedback')->types); ?>
+            <?php echo $form->error($model, 'type'); ?>
+        </div>
+    <?php endif;?>
+
     <div class="row">
         <?php echo $form->labelEx($model, 'name'); ?>
         <?php echo $form->textField($model, 'name'); ?>

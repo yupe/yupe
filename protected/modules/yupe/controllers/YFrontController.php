@@ -1,12 +1,11 @@
 <?php
+
 class YFrontController extends CController
 {
+
     public $menu = array();
-
     public $breadcrumbs = array();
-
     public $description;
-
     public $keywords;
 
     public function setpageTitle($title)
@@ -24,4 +23,5 @@ class YFrontController extends CController
 
         Yii::app()->clientScript->registerScript('yupe_base_url', "var baseUrl = '$baseUrl';", CClientScript::POS_HEAD);
     }
+
 }

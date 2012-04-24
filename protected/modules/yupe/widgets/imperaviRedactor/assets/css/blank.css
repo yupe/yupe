@@ -79,36 +79,36 @@ iframe, object {
 	margin-bottom: 10px;
 }
 
-.redactor_video_box {
+.editor_video_box {
 	width: 300px;
 	height: 200px;
 	background: url(../i/video_box.png) center no-repeat #000 !important;	
 	margin: 10px;
 	margin-bottom: 1.5em;	
 }
-.redactor_video_box object, .redactor_video_box embed, .redactor_video_box iframe {
+.editor_video_box object, .editor_video_box embed, .editor_video_box iframe {
 	display: none;
 }
 
-.redactor_file_link {
+.editor_file_link {
 	padding-left: 20px;
 }
-.redactor_file_ico_avi 	  { background: url(../i/fileicons/avi.png) no-repeat; }
-.redactor_file_ico_csv 	  { background: url(../i/fileicons/csv.png) no-repeat; }
-.redactor_file_ico_doc 	  { background: url(../i/fileicons/doc.png) no-repeat; }
-.redactor_file_ico_gif 	  { background: url(../i/fileicons/gif.png) no-repeat; }
-.redactor_file_ico_html   { background: url(../i/fileicons/html.png) no-repeat; }
-.redactor_file_ico_jpg 	  { background: url(../i/fileicons/jpg.png) no-repeat; }
-.redactor_file_ico_mov	  { background: url(../i/fileicons/mov.png) no-repeat; }
-.redactor_file_ico_other  { background: url(../i/fileicons/other.png) no-repeat; }
-.redactor_file_ico_pdf 	  { background: url(../i/fileicons/pdf.png) no-repeat; }
-.redactor_file_ico_png 	  { background: url(../i/fileicons/png.png) no-repeat; }
-.redactor_file_ico_ppt 	  { background: url(../i/fileicons/ppt.png) no-repeat; }
-.redactor_file_ico_rar 	  { background: url(../i/fileicons/rar.png) no-repeat; }
-.redactor_file_ico_rtf 	  { background: url(../i/fileicons/rtf.png) no-repeat; }
-.redactor_file_ico_txt 	  { background: url(../i/fileicons/txt.png) no-repeat; }
-.redactor_file_ico_xls 	  { background: url(../i/fileicons/xls.png) no-repeat; }
-.redactor_file_ico_zip 	  { background: url(../i/fileicons/zip.png) no-repeat; }
+.editor_file_ico_avi 	  { background: url(../i/fileicons/avi.png) no-repeat; }
+.editor_file_ico_csv 	  { background: url(../i/fileicons/csv.png) no-repeat; }
+.editor_file_ico_doc 	  { background: url(../i/fileicons/doc.png) no-repeat; }
+.editor_file_ico_gif 	  { background: url(../i/fileicons/gif.png) no-repeat; }
+.editor_file_ico_html   { background: url(../i/fileicons/html.png) no-repeat; }
+.editor_file_ico_jpg 	  { background: url(../i/fileicons/jpg.png) no-repeat; }
+.editor_file_ico_mov	  { background: url(../i/fileicons/mov.png) no-repeat; }
+.editor_file_ico_other  { background: url(../i/fileicons/other.png) no-repeat; }
+.editor_file_ico_pdf 	  { background: url(../i/fileicons/pdf.png) no-repeat; }
+.editor_file_ico_png 	  { background: url(../i/fileicons/png.png) no-repeat; }
+.editor_file_ico_ppt 	  { background: url(../i/fileicons/ppt.png) no-repeat; }
+.editor_file_ico_rar 	  { background: url(../i/fileicons/rar.png) no-repeat; }
+.editor_file_ico_rtf 	  { background: url(../i/fileicons/rtf.png) no-repeat; }
+.editor_file_ico_txt 	  { background: url(../i/fileicons/txt.png) no-repeat; }
+.editor_file_ico_xls 	  { background: url(../i/fileicons/xls.png) no-repeat; }
+.editor_file_ico_zip 	  { background: url(../i/fileicons/zip.png) no-repeat; }
 
 
 h1, h2, h3, h4,h5 {

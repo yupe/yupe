@@ -1,44 +1,117 @@
-var RTOOLBAR = {
-	html: { name: 'html', title: RLANG.html, func: 'toggle' },	
-	styles: 
+var RTOOLBAR = 
+{
+	html:
 	{
-		name: 'styles', title: RLANG.styles, func: 'show', 
-		dropdown: 
-		{
-			p: 			{exec: 'formatblock', name: '<p>', title: RLANG.paragraph},
-			blockquote: {exec: 'formatblock', name: '<blockquote>', title: RLANG.quote},
-			code: 		{exec: 'formatblock', name: '<pre>', title: RLANG.code},
-			h2: 		{exec: 'formatblock', name: '<h2>', title: RLANG.header1, style: 'font-size: 18px;'},
-			h3: 		{exec: 'formatblock', name: '<h3>', title: RLANG.header2, style: 'font-size: 14px; font-weight: bold;'}																	
-		}
-	},
-	format: 
-	{
-		name: 'format', title: RLANG.format, func: 'show',
-		dropdown: 
-		{
-			bold: 		  {exec: 'bold', name: 'bold', title: RLANG.bold, style: 'font-weight: bold;'},
-			italic: 	  {exec: 'italic', name: 'italic', title: RLANG.italic, style: 'font-style: italic;'},
-			superscript:  {exec: 'superscript', name: 'superscript', title: RLANG.superscript},
-			strikethrough:  {exec: 'StrikeThrough', name: 'StrikeThrough', title: RLANG.strikethrough, style: 'text-decoration: line-through !important;'},
-			removeformat: {exec: 'removeformat', name: 'removeformat', title: RLANG.removeformat}
-		}						
-	},
-	lists: 	
-	{
-		name: 'lists', title: RLANG.lists, func: 'show',
-		dropdown: 
-		{
-			ul: 	 {exec: 'insertunorderedlist', name: 'insertunorderedlist', title: '&bull; ' + RLANG.unorderedlist},
-			ol: 	 {exec: 'insertorderedlist', name: 'insertorderedlist', title: '1. ' + RLANG.orderedlist},
-			outdent: {exec: 'outdent', name: 'outdent', title: '< ' + RLANG.outdent},
-			indent:  {exec: 'indent', name: 'indent', title: '> ' + RLANG.indent}
-		}			
-	},				
-	image: { name: 'image', title: RLANG.image, func: 'showImage' },
-	table:
+		title: RLANG.html,
+		func: 'toggle',
+		separator: true
+	},	
+	styles:
 	{ 
-		name: 'table', title: RLANG.table, func: 'show',
+		title: RLANG.styles,
+		func: 'show', 				
+		dropdown: 
+	    {
+			 p:
+			 {
+			 	title: RLANG.paragraph,			 
+			 	exec: 'formatblock',
+			 	param: '<p>'
+			 },
+			 blockquote:
+			 {
+			 	title: RLANG.quote,
+			 	exec: 'formatblock',	
+			 	param: '<blockquote>',
+			 	style: 'font-style: italic; color: #666; padding-left: 10px;'			 			 	
+			 },
+			 pre:
+			 {  
+			 	title: RLANG.code,
+			 	exec: 'formatblock',
+			 	param: '<pre>',
+			 	style: 'font-family: monospace, sans-serif;'
+			 },
+			 h2:
+			 {
+			 	title: RLANG.header1,			 
+			 	exec: 'formatblock',   
+			 	param: '<h2>',			 	
+			 	style: 'font-size: 24px; line-height: 34px; font-weight: bold;'
+			 },
+			 h3:
+			 {
+			 	title: RLANG.header2,			 
+			 	exec: 'formatblock', 
+			 	param: '<h3>',			 	  
+			 	style: 'font-size: 18px; line-height: 24px;  font-weight: bold;'
+			 }																
+		},
+		separator: true
+	},
+	bold:
+	{ 
+		title: RLANG.bold,
+		exec: 'bold',
+	 	param: null	
+	}, 
+	italic:
+	{
+		title: RLANG.italic,
+		exec: 'italic',
+	 	param: null
+	},
+	deleted:
+	{
+		title: RLANG.deleted,
+		exec: 'strikethrough',
+	 	param: null,
+		separator: true	 		
+	},	
+	insertunorderedlist:
+	{
+		title: '&bull; ' + RLANG.unorderedlist,
+		exec: 'insertunorderedlist',
+	 	param: null
+	},
+	insertorderedlist:
+	{
+		title: '1. ' + RLANG.orderedlist,
+		exec: 'insertorderedlist',	
+	 	param: null
+	},
+	outdent:
+	{
+		title: '< ' + RLANG.outdent,
+		exec: 'outdent',
+	 	param: null		
+	},
+	indent:
+	{
+		title: '> ' + RLANG.indent,
+		exec: 'indent',
+	 	param: null,
+		separator: true	 			 			
+	},
+	image:
+	{
+		title: RLANG.image, 						
+		func: 'showImage' 			
+	},
+	video:
+	{
+		title: RLANG.video,
+		func: 'showVideo'
+	},
+	file:
+	{
+		title: RLANG.file,
+		func: 'showFile'
+	},	
+	table: 					
+	{ 
+		title: RLANG.table,
+		func: 'show', 				
 		dropdown: 
 		{
 			insert_table: { name: 'insert_table', title: RLANG.insert_table, func: 'showTable' },
@@ -54,18 +127,72 @@ var RTOOLBAR = {
 			delete_column: { name: 'insert_table', title: RLANG.delete_column, func: 'deleteColumn' },									
 			delete_row: { name: 'delete_row', title: RLANG.delete_row, func: 'deleteRow' },									
 			delete_table: { name: 'delete_table', title: RLANG.delete_table, func: 'deleteTable' }																		
-		}		
+		}								
 	},
-	video: { name: 'video', title: RLANG.video, func: 'showVideo' },
-	video1: { name: 'video1', title: RLANG.video, func: 'showVideo1' },
-	file: { name: 'file', title: RLANG.file, func: 'showFile' },	
-	link: 
-	{
-		name: 'link', title: RLANG.link, func: 'show',
+	link:
+	{ 
+		title: RLANG.link,
+		func: 'show', 				
 		dropdown: 
 		{
-			link: 	{name: 'link', title: RLANG.link_insert, func: 'showLink'},
-			unlink: {exec: 'unlink', name: 'unlink', title: RLANG.unlink}
-		}			
-	}
+			link:
+			{
+				title: RLANG.link_insert, 
+				func: 'showLink'
+			},
+			unlink: 
+			{
+				title: RLANG.unlink,
+				exec: 'unlink', 
+			 	param: null
+			}
+		},
+		separator: true															
+	},
+	fontcolor:
+	{
+		title: RLANG.fontcolor, 
+		func: 'show'
+	},	
+	backcolor:
+	{
+		title: RLANG.backcolor, 
+		func: 'show',
+		separator: true		
+	},
+	justifyleft:
+	{	
+		exec: 'JustifyLeft', 
+		name: 'JustifyLeft', 
+		title: RLANG.align_left
+	},					
+	justifycenter:
+	{
+		exec: 'JustifyCenter', 
+		name: 'JustifyCenter', 
+		title: RLANG.align_center
+	},
+	justifyright: 
+	{
+		exec: 'JustifyRight', 
+		name: 'JustifyRight', 
+		title: RLANG.align_right
+	},	
+	justify: 
+	{
+		exec: 'justifyfull', 
+		name: 'justifyfull', 
+		title: RLANG.align_justify, separator: true
+	},	
+	horizontalrule: 
+	{
+		exec: 'inserthorizontalrule', 
+		name: 'horizontalrule', 
+		title: RLANG.horizontalrule
+	},		
+	fullscreen:
+	{
+		title: RLANG.fullscreen,
+		func: 'fullscreen'
+	}	
 };

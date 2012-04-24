@@ -6,9 +6,9 @@ return array(
     'defaultController' => 'site',
     // название приложения
     'name' => 'Юпи!',
-    // язык поумолчанию
+    // язык по умолчанию
     'language' => 'ru',
-    // тема оформления поумолчанию
+    // тема оформления по умолчанию
     'theme' => 'default',
     // preloading 'log' component
     'preload' => array('log'),
@@ -30,6 +30,7 @@ return array(
         'application.modules.comment.models.*',
         'application.modules.image.models.*',
         'application.modules.vote.models.*',
+        'application.modules.blog.models.*',
 
         'application.modules.yupe.controllers.*', 
         'application.modules.yupe.widgets.*',        
@@ -49,6 +50,14 @@ return array(
 
     // конфигурирование основных компонентов (подробнее http://www.yiiframework.ru/doc/guide/ru/basics.component)
     'components' => array(
+
+        // Библиотека для работы с картинками через GD/ImageMagick
+        // Лучше установите ImageMagick, т.к. он ресайзит анимированные гифы
+        'image' => array(
+            'class' => 'application.modules.yupe.extensions.image.CImageComponent',
+            'driver' => 'GD', // Еще бывает ImageMagick, если используется он, надо указать к нему путь чуть ниже
+            'params' => array('directory'=>'/usr/bin'), // В этой директории должен быть convert
+        ),
 
         // подключение библиотеки для авторизации через социальные сервисы, подробнее https://github.com/Nodge/yii-eauth           
         'loid' => array(
@@ -79,14 +88,16 @@ return array(
             'showScriptName' => true,
             'cacheID' => 'cache',
             'rules' => array(
-		'/' => 'site/index',
+		        '/' => 'site/index',
                 '/login' => 'user/account/login',
                 '/logout' => 'user/account/logout',
                 '/registration' => 'user/account/registration',
                 '/feedback' => 'feedback/feedback',
                 '/pages/<slug>' => 'page/page/show',
                 '/story/<title>' => 'news/news/show/',
-                '/post/<slug>.html' => 'blog/post/show/'
+                '/post/<slug>.html' => 'blog/post/show/',
+                '/blog/<slug>' => 'blog/blog/show/',
+                '/blogs/' => 'blog/blog/index/'
             ),
         ),
          
@@ -94,7 +105,7 @@ return array(
         // РЕКОМЕНДУЕМ УКАЗАТЬ СВОЕ ЗНАЧЕНИЕ ДЛЯ ПАРАМЕТРА "csrfTokenName"
         'request' => array(
             'class' => 'CHttpRequest',
-            'enableCsrfValidation' => true,
+            'enableCsrfValidation' => false,
             'csrfTokenName' => 'YUPE_TOKEN'
         ),
     
@@ -136,6 +147,9 @@ return array(
 
     // конфигурация модулей приложения, подробнее http://www.yiiframework.ru/doc/guide/ru/basics.module
     'modules' => array(
+        'menu' => array(
+             'class' => 'application.modules.menu.MenuModule',
+         ),
         'blog' => array(
             'class' => 'application.modules.blog.BlogModule',
         ),
@@ -180,8 +194,7 @@ return array(
             'class' => 'application.modules.user.UserModule',
             'adminMenuOrder' => 4,
             'autoRecoveryPassword' => true,
-            'minPasswordLength' => 3,
-            'maxPasswordLength' => 6,
+            'minPasswordLength' => 3,            
             'emailAccountVerification' => false,
             'showCaptcha' => true,
             'minCaptchaLength' => 3,
@@ -191,6 +204,10 @@ return array(
             'avatarMaxSize' => 100000,
             'avatarExtensions' => array('jpg', 'png', 'gif'),
             'notifyEmailFrom' => 'test@test.ru',
+            'urlRules' => array(
+              'user/<username:\w+>/<mode:(topics|comments)>' => 'user/people/userInfo',
+              'user/<username:\w+>' => 'user/people/userInfo',
+            ),
         ),
         'page' => array(
             'adminMenuOrder' => 2,
@@ -220,12 +237,5 @@ return array(
         ),
     ),    
 
-    // Обрабатываем правила маршрутизации текущего модуля, если указаны в конфиге
-    'onBeginRequest'=> function($event) {
-    	list( $module ) = explode("/",Yii::app()->getRequest()->getPathInfo());
-    	if(Yii::app()->hasModule($module) && ($module=Yii::app()->getModule($module)) && isset($module->urlRules))
-    	    Yii::app()->getUrlManager()->addRules($module->urlRules);
-    	return true;
-    },
-
+    'behaviors' => array('YupeStartUpBehavior'),
 );

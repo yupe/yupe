@@ -12,7 +12,7 @@ class DictionaryModule extends YWebModule
 
     public function getCategory()
     {
-        return Yii::t('dictionary', 'Контент');
+        return Yii::t('dictionary', 'Структура');
     }
 
     public function getName()
@@ -27,12 +27,12 @@ class DictionaryModule extends YWebModule
 
     public function getAuthor()
     {
-        return Yii::t('dictionary', 'xoma');
+        return Yii::t('dictionary', 'yupe team');
     }
 
     public function getAuthorEmail()
     {
-        return Yii::t('dictionary', 'aopeykin@yandex.ru');
+        return Yii::t('dictionary', 'team@yupe.ru');
     }
 
 	public function init()

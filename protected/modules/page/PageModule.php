@@ -7,7 +7,16 @@ class PageModule extends YWebModule
     public function getParamsLabels()
     {
         return array(
-            'adminMenuOrder' => Yii::t('page', 'Порядок следования в меню')
+            'adminMenuOrder' => Yii::t('page','Порядок следования в меню'),
+            'editor'         => Yii::t('page','Визуальный редактор') 
+        );
+    }
+
+    public function getEditableParams()
+    {
+        return array(
+            'adminMenuOrder',
+            'editor' => Yii::app()->getModule('yupe')->getEditors()
         );
     }
 
@@ -28,12 +37,12 @@ class PageModule extends YWebModule
 
     public function getAuthor()
     {
-        return Yii::t('page', 'xoma');
+        return Yii::t('page', 'yupe team');
     }
 
     public function getAuthorEmail()
     {
-        return Yii::t('page', 'aopeykin@yandex.ru');
+        return Yii::t('page', 'team@yupe.ru');
     }
 
     public function getUrl()

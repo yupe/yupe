@@ -82,6 +82,7 @@ class News extends CActiveRecord
      */
     public function rules()
     {
+        //@todo добавить проверку IN для статуса
         return array(
             array('date, title, alias, short_text, full_text', 'required'),
             array('status, is_protected', 'numerical', 'integerOnly' => true),

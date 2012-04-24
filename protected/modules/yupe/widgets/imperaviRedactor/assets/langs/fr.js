@@ -57,5 +57,16 @@ var RLANG = {
 	video_html_code: 'Le Code de vidéo',
 	file: 'Le Fichier',	
 	upload: 'Charger',
-	download: 'Transférer'	
+	download: 'Transférer',
+	choose: 'Choose',
+	or_choose: 'Or choose',
+	drop_file_here: 'Drop file here',
+	align_left:	'Align left',	
+	align_center: 'Align center',
+	align_right: 'Align right',
+	align_justify: 'Justify',
+	horizontalrule: 'Horizontal rule',
+	fullscreen: 'Fullscreen',
+	deleted: 'Deleted',
+	none: 'None'					
 };

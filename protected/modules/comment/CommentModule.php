@@ -45,12 +45,12 @@ class CommentModule extends YWebModule
 
     public function getAuthor()
     {
-        return Yii::t('comment', 'xoma');
+        return Yii::t('comment', 'yupe team');
     }
 
     public function getAuthorEmail()
     {
-        return Yii::t('comment', 'aopeykin@yandex.ru');
+        return Yii::t('comment', 'team@yupe.ru');
     }
 
     public function getUrl()

@@ -58,5 +58,16 @@ var RLANG = {
 	video_html_code: 'Kod źródłowy pliku wideo',
 	file: 'Plik',
 	upload: 'Wgraj na serwer',
-	download: 'Pobierz'
+	download: 'Pobierz',
+	choose: 'Choose',
+	or_choose: 'Or choose',
+	drop_file_here: 'Drop file here',
+	align_left:	'Align left',	
+	align_center: 'Align center',
+	align_right: 'Align right',
+	align_justify: 'Justify',
+	horizontalrule: 'Horizontal rule',
+	fullscreen: 'Fullscreen',
+	deleted: 'Deleted',
+	none: 'None'						
 };

@@ -29,21 +29,29 @@
 
     <div class="row">
         <?php echo $form->labelEx($model, 'content'); ?>
-        <?php $this->widget('application.modules.yupe.widgets.EMarkItUp.EMarkitupWidget', array(
-                                                                                  'model' => $model,
-                                                                                  'attribute' => 'content',
-                                                                                  'htmlOptions' => array('rows' => 16, 'cols' => 50)
-                                                                             ))?>
+        <?php $this->widget(Yii::app()->getModule('yupe')->editor, array(
+                                                      'model' => $model,
+                                                      'attribute' => 'content',
+                                                      'options'   => array(                                                           
+                                                           'toolbar' => 'main',
+                                                           'imageUpload' => Yii::app()->baseUrl.'/index.php/yupe/backend/AjaxFileUpload/'                                                           
+                                                       ),
+                                                      'htmlOptions' => array('rows' => 20,'cols' => 6)
+                                                 ))?>
         <?php echo $form->error($model, 'content'); ?>
     </div>
 
     <div class="row">
         <?php echo $form->labelEx($model, 'description'); ?>
-        <?php $this->widget('application.modules.yupe.widgets.EMarkItUp.EMarkitupWidget', array(
-                                                                                  'model' => $model,
-                                                                                  'attribute' => 'description',
-                                                                                  'htmlOptions' => array('rows' => 16, 'cols' => 50)
-                                                                             ))?>
+        <?php $this->widget(Yii::app()->getModule('yupe')->editor, array(
+                                                      'model' => $model,
+                                                      'attribute' => 'description',
+                                                      'options'   => array(                                                           
+                                                           'toolbar' => 'main',
+                                                           'imageUpload' => Yii::app()->baseUrl.'/index.php/yupe/backend/AjaxFileUpload/'                                                           
+                                                       ),
+                                                      'htmlOptions' => array('rows' => 20,'cols' => 6)
+                                                 ))?>
         <?php echo $form->error($model, 'description'); ?>
     </div>
 

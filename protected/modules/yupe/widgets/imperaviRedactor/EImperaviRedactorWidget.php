@@ -61,10 +61,10 @@ class EImperaviRedactorWidget extends CInputWidget
 
 		if($this->scriptFile===null)
 			// todo: add minified js
-			$this->scriptFile=$this->assetsUrl.'/'.(YII_DEBUG ? 'redactor.js' : 'redactor.js');
+			$this->scriptFile=$this->assetsUrl.'/'.(YII_DEBUG ? 'editor.js' : 'editor.js');
 
 		if($this->cssFile===null)
-			$this->cssFile=$this->assetsUrl.'/css/redactor.css';
+			$this->cssFile=$this->assetsUrl.'/css/editor.css';
 
 		$this->registerClientScript();
 	}
@@ -86,10 +86,17 @@ class EImperaviRedactorWidget extends CInputWidget
 		if(isset($this->options['path']))
 			$this->options['path']=rtrim($this->options['path'],'/\\').'/';
 
+		if(!isset($this->options['image_upload'])){
+			$this->options['image_upload'] = CHtml::normalizeUrl(array('/photo_upload'));
+		}
+		if(!isset($this->options['toolbar'])){
+			$this->options['toolbar'] = 'custom';
+		}
+		
 		$cs=Yii::app()->getClientScript();
 		$cs->registerCssFile($this->cssFile);
 		$cs->registerCoreScript('jquery');
 		$cs->registerScriptFile($this->scriptFile);
-		$cs->registerScript(__CLASS__.'#'.$this->id,'jQuery("#'.$this->id.'").redactor('.CJavaScript::encode($this->options).');');
+		$cs->registerScript(__CLASS__.'#'.$this->id,'jQuery("#'.$this->id.'").editor('.CJavaScript::encode($this->options).');');
 	}
 }

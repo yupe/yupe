@@ -1,6 +1,9 @@
 <?php
-class YPerformanceStatistic extends CWidget
+
+class YPerformanceStatistic extends YWidget
 {
+
+    //@todo переделать для использования темы оформления
     public function run()
     {
         $dbStat = Yii::app()->db->getStats();
@@ -13,4 +16,5 @@ class YPerformanceStatistic extends CWidget
            <div style='float:left;padding-right:5px'> выполнение: $time </div>
         </div>";
     }
+
 }

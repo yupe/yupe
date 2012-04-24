@@ -14,6 +14,16 @@ class ContactController extends YFrontController
     public function actionIndex()
     {
         $form = new FeedBackForm;
+        // если пользователь авторизован - подставить его данные 
+        if(Yii::app()->user->isAuthenticated())
+        {
+            $form->email = Yii::app()->user->getState('email');
+
+            $form->name = Yii::app()->user->getState('nick_name');
+        }
+
+        // проверить не передан ли тип и присвоить его аттрибуту модели
+        $form->type = (int)Yii::app()->request->getParam('type',FeedBack::TYPE_DEFAULT);
 
         if (Yii::app()->request->isPostRequest && !empty($_POST['FeedBackForm']))
         {
@@ -58,7 +68,6 @@ class ContactController extends YFrontController
                         else
                         {
                             $form->addErrors($feedback->getErrors());
-
                             Yii::log(Yii::t('feedback', 'Ошибка при добавлении обращения пользователя в базу!'), CLogger::LEVEL_ERROR, FeedbackModule::$logCategory);
                             Yii::app()->user->setFlash(YFlashMessages::ERROR_MESSAGE, Yii::t('feedback', 'При отправке сообщения произошла ошибка! Повторите попытку позже!'));
                             $this->render('index', array('model' => $form));                         
@@ -66,8 +75,8 @@ class ContactController extends YFrontController
                     }
 
                     if (in_array('email', $backEnd) && count(explode(',',$module->emails)))
-                    {
-                        $emailBody = $this->renderPartial('application.modules.feedback.views.email.feedbackEmail', array('model' => $feedback), true);
+                    {                        
+                        $emailBody = $this->renderPartial('feedbackEmail', array('model' => $feedback), true);
 
                         foreach (explode(',',$module->emails) as $mail)                        
                             Yii::app()->mail->send($module->notifyEmailFrom, $mail, $form->theme, $emailBody);                        
@@ -84,6 +93,10 @@ class ContactController extends YFrontController
                         $this->redirect(array('/feedback/contact'));
                     }
                 }
+
+                Yii::app()->user->setFlash(YFlashMessages::ERROR_MESSAGE, Yii::t('feedback', 'Сообщение отправить невозможно!'));
+                
+                $this->redirect(array('/feedback/contact'));
             }
         }
 

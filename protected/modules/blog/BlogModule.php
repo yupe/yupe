@@ -1,10 +1,27 @@
 <?php
-
 class BlogModule extends YWebModule
 {
+    public $editor;
+
 	public function getCategory()
     {
         return Yii::t('blog', 'Блоги');
+    }
+
+    public function getParamsLabels()
+    {
+        return array(
+            'adminMenuOrder' => Yii::t('news', 'Порядок следования в меню'),
+            'editor'         => Yii::t('page','Визуальный редактор') 
+        );
+    }
+
+    public function getEditableParams()
+    {
+        return array(
+            'adminMenuOrder',
+            'editor' => Yii::app()->getModule('yupe')->getEditors()
+        );
     }
 
     public function getNavigation()
@@ -12,7 +29,7 @@ class BlogModule extends YWebModule
         return array(
             Yii::t('blog','Блоги')  => '/blog/blogAdmin/admin/',
             Yii::t('blog','Записи') => '/blog/postAdmin/admin/',
-            Yii::t('blog','Участники') => '/blog/BlogToUserAdmin/admin/'
+            Yii::t('blog','Участники') => '/blog/userToBlogAdmin/admin/'
         );
     }
 
@@ -28,12 +45,12 @@ class BlogModule extends YWebModule
 
     public function getAuthor()
     {
-        return Yii::t('blog', 'xoma');
+        return Yii::t('blog', 'yupe team');
     }
 
     public function getAuthorEmail()
     {
-        return Yii::t('blog', 'aopeykin@yandex.ru');
+        return Yii::t('blog', 'team@yupe.ru');
     }
 
     public function getUrl()

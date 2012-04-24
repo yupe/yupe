@@ -4,22 +4,75 @@
  * This is the model class for table "user_to_blog".
  *
  * The followings are the available columns in table 'user_to_blog':
+ * @property string $id
  * @property string $user_id
  * @property string $blog_id
- * @property string $creation_date
+ * @property string $create_date
  * @property string $update_date
  * @property integer $role
  * @property integer $status
+ * @property string $note
  *
  * The followings are the available model relations:
+ * @property Blog $blog
  * @property User $user
- * @property User $blog
  */
 class UserToBlog extends CActiveRecord
 {
+	const ROLE_USER = 1;
+
+	const ROLE_MODERATOR = 2;
+
+	const ROLE_ADMIN = 3;
+
+	const STATUS_ACTIVE = 1;
+
+	const STATUS_BLOCK = 2;
+
+	public function getRoleList()
+	{
+        return array(
+        	self::ROLE_USER      => Yii::t('blog','Пользователь'),
+        	self::ROLE_MODERATOR => Yii::t('blog','Модератор'),
+        	self::ROLE_ADMIN     => Yii::t('blog','Администратор'),        	
+        );        
+	}
+
+	public function getRole()
+	{
+		$data = $this->getRoleList();
+
+		return isset($data[$this->role]) ? $data[$this->role] : Yii::t('blog','*неизвестно*');
+	}
+
+	public function getStatusList()
+	{
+		return array(
+			self::STATUS_ACTIVE => Yii::t('blog','Активен'),
+			self::STATUS_BLOCK  => Yii::t('blog','Заблокирован'),			
+		);
+	}
+
+	public function getStatus()
+	{
+		$data = $this->getStatusList();
+
+		return isset($data[$this->status]) ? $data[$this->status] : Yii::t('blog','*неизвестно*');
+	}
+
+	public function behaviors()
+	{
+		return array(
+			'CTimestampBehavior' => array(
+				'class' => 'zii.behaviors.CTimestampBehavior',
+				'createAttribute' => 'create_date',
+				'updateAttribute' => 'update_date',
+			)
+		);
+    }
+
 	/**
 	 * Returns the static model of the specified AR class.
-	 * @param string $className active record class name.
 	 * @return UserToBlog the static model class
 	 */
 	public static function model($className=__CLASS__)
@@ -32,7 +85,7 @@ class UserToBlog extends CActiveRecord
 	 */
 	public function tableName()
 	{
-		return 'user_to_blog';
+		return '{{user_to_blog}}';
 	}
 
 	/**
@@ -43,13 +96,14 @@ class UserToBlog extends CActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('user_id, blog_id, creation_date, update_date', 'required'),
-			array('role, status', 'numerical', 'integerOnly'=>true),
-			array('user_id, blog_id', 'length', 'max'=>10),
-			array('creation_date, update_date', 'length', 'max'=>11),
-			// The following rule is used by search().
-			// Please remove those attributes that should not be searched.
-			array('user_id, blog_id, creation_date, update_date, role, status', 'safe', 'on'=>'search'),
+			array('user_id, blog_id', 'required'),
+			array('role, status, user_id, blog_id', 'numerical', 'integerOnly'=>true),
+			array('user_id, blog_id, create_date, update_date', 'length', 'max'=>10),
+			array('note', 'length', 'max'=>300),
+			array('role','in','range'  => array_keys($this->getRoleList())),		
+			array('status','in','range'=> array_keys($this->getStatusList())),
+			array('note','filter','filter' => array($obj = new CHtmlPurifier(),'purify')),
+			array('id, user_id, blog_id, create_date, update_date, role, status, note', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -61,8 +115,8 @@ class UserToBlog extends CActiveRecord
 		// NOTE: you may need to adjust the relation name and the related
 		// class name for the relations automatically generated below.
 		return array(
-			'user' => array(self::BELONGS_TO, 'User', 'user_id'),
 			'blog' => array(self::BELONGS_TO, 'Blog', 'blog_id'),
+			'user' => array(self::BELONGS_TO, 'User', 'user_id'),
 		);
 	}
 
@@ -72,12 +126,14 @@ class UserToBlog extends CActiveRecord
 	public function attributeLabels()
 	{
 		return array(
-			'user_id' => 'User',
-			'blog_id' => 'Blog',
-			'creation_date' => 'Creation Date',
-			'update_date' => 'Update Date',
-			'role' => 'Role',
-			'status' => 'Status',
+			'id' => Yii::t('blog','id'),
+			'user_id' => Yii::t('blog','Пользователь'),
+			'blog_id' => Yii::t('blog','Блог'),
+			'create_date' => Yii::t('blog','Дата создания'),
+			'update_date' => Yii::t('blog','Дата обновления'),
+			'role' => Yii::t('blog','Роль'),
+			'status' => Yii::t('blog','Статус'),
+			'note' => Yii::t('blog','Примечание'),
 		);
 	}
 
@@ -92,12 +148,14 @@ class UserToBlog extends CActiveRecord
 
 		$criteria=new CDbCriteria;
 
+		$criteria->compare('id',$this->id,true);
 		$criteria->compare('user_id',$this->user_id,true);
 		$criteria->compare('blog_id',$this->blog_id,true);
-		$criteria->compare('creation_date',$this->creation_date,true);
+		$criteria->compare('create_date',$this->create_date,true);
 		$criteria->compare('update_date',$this->update_date,true);
 		$criteria->compare('role',$this->role);
 		$criteria->compare('status',$this->status);
+		$criteria->compare('note',$this->note,true);
 
 		return new CActiveDataProvider($this, array(
 			'criteria'=>$criteria,

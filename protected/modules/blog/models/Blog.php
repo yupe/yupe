@@ -46,7 +46,7 @@ class Blog extends CActiveRecord
 	 */
 	public function tableName()
 	{
-		return 'blog';
+		return '{{blog}}';
 	}
 
 	/**
@@ -56,10 +56,14 @@ class Blog extends CActiveRecord
 	{		
 		return array(
 			array('name, description, slug', 'required'),
-			array('type, status', 'numerical', 'integerOnly'=>true),
+			array('type, status, create_user_id, update_user_id', 'numerical', 'integerOnly'=>true),
 			array('name, icon', 'length', 'max'=>300),
 			array('slug', 'length', 'max'=>150),
-			array('create_user_id, update_user_id', 'length', 'max'=>10),			
+			array('create_user_id, update_user_id', 'length', 'max'=>10),
+			array('type','in','range' => array_keys($this->getTypeList())),		
+			array('status','in','range' => array_keys($this->getStatusList())),		
+			array('name, slug, description','filter','filter' => array($obj = new CHtmlPurifier(),'purify')),
+			array('slug', 'match', 'pattern' => '/^[a-zA-Z0-9_\-]+$/', 'message' => Yii::t('blog', 'Запрещенные символы в поле {attribute}')),
 			array('id, name, description, icon, slug, type, status, create_user_id, update_user_id, create_date, update_date', 'safe', 'on'=>'search'),
 		);
 	}
@@ -137,6 +141,15 @@ class Blog extends CActiveRecord
 		);
     }
 
+    public function afterFind()
+    {
+    	parent::afterFind();
+
+    	$this->create_date = date('d.m.Y H:m',$this->create_date);
+
+    	$this->update_date = date('d.m.Y H:m',$this->update_date);
+    }
+
     public function beforeSave()
     {
     	if($this->isNewRecord)
@@ -150,8 +163,8 @@ class Blog extends CActiveRecord
     public function getTypeList()
     {
     	return array(
-    		self::TYPE_PRIVATE => Yii::t('blog','личный'),
     		self::TYPE_PUBLIC  => Yii::t('blog','публичный'),
+    		self::TYPE_PRIVATE => Yii::t('blog','личный') 		
 	    );
     }
 
@@ -165,9 +178,9 @@ class Blog extends CActiveRecord
     public function getStatusList()
     {
     	return array(
-    		self::STATUS_DELETED => Yii::t('blog','удален'),
+    		self::STATUS_ACTIVE  => Yii::t('blog','активен'),
     		self::STATUS_BLOCKED => Yii::t('blog','заблокирован'),
-    		self::STATUS_ACTIVE  => Yii::t('blog','активен')
+    		self::STATUS_DELETED => Yii::t('blog','удален'),   		
 	    );
     }
 

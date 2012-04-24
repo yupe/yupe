@@ -10,7 +10,7 @@ class CategoryModule extends YWebModule
 
     public function getCategory()
     {
-        return Yii::t('category', 'Контент');
+        return Yii::t('category', 'Структура');
     }
 
     public function getName()
@@ -25,12 +25,12 @@ class CategoryModule extends YWebModule
 
     public function getAuthor()
     {
-        return Yii::t('category', 'xoma');
+        return Yii::t('category', 'yupe team');
     }
 
     public function getAuthorEmail()
     {
-        return Yii::t('category', 'aopeykin@yandex.ru');
+        return Yii::t('category', 'team@yupe.ru');
     }
 
     public function getUrl()

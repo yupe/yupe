@@ -37,21 +37,29 @@
 
     <div class="row">
         <?php echo $form->labelEx($model, 'short_text'); ?>
-        <?php $this->widget('application.modules.yupe.widgets.EMarkItUp.EMarkitupWidget', array(
-                                                                                  'model' => $model,
-                                                                                  'attribute' => 'short_text',
-                                                                                  'htmlOptions' => array('rows' => 6, 'cols' => 6)
-                                                                             ))?>
+        <?php $this->widget($this->module->editor, array(
+                                                      'model' => $model,
+                                                      'attribute' => 'short_text',
+                                                      'options'   => array(                                                           
+                                                           'toolbar' => 'main',
+                                                           'imageUpload' => Yii::app()->baseUrl.'/index.php/yupe/backend/AjaxFileUpload/'                                                           
+                                                       ),
+                                                      'htmlOptions' => array('rows' => 20,'cols' => 6)
+                                                 ))?>
         <?php echo $form->error($model, 'short_text'); ?>
     </div>
 
     <div class="row">
         <?php echo $form->labelEx($model, 'full_text'); ?>
-        <?php $this->widget('application.modules.yupe.widgets.EMarkItUp.EMarkitupWidget', array(
-                                                                                  'model' => $model,
-                                                                                  'attribute' => 'full_text',
-                                                                                  'htmlOptions' => array('rows' => 16, 'cols' => 6)
-                                                                             ))?>
+        <?php $this->widget($this->module->editor, array(
+                                                      'model' => $model,
+                                                      'attribute' => 'full_text',
+                                                      'options'   => array(                                                           
+                                                           'toolbar' => 'main',
+                                                           'imageUpload' => Yii::app()->baseUrl.'/index.php/yupe/backend/AjaxFileUpload/'                                                           
+                                                       ),
+                                                      'htmlOptions' => array('rows' => 20,'cols' => 6)
+                                                 ))?>
         <?php echo $form->error($model, 'full_text'); ?>
     </div>
 
@@ -64,7 +72,7 @@
 
     <div class="row">
         <?php echo $form->labelEx($model, 'description'); ?>
-        <?php echo $form->textArea($model, 'description', array('rows' => 6, 'cols' => 98)); ?>
+        <?php echo $form->textArea($model, 'description', array('rows' => 6, 'cols' => 86)); ?>
         <?php echo $form->error($model, 'description'); ?>
     </div>
 

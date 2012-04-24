@@ -1,6 +1,6 @@
 <?php
 
-class DefaultController extends YBackControllero
+class DefaultController extends YBackController
 {
 	public function actionIndex()
 	{
