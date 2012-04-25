@@ -11,7 +11,7 @@
             '{id}'     => $module->id
             ));?>:<br/> <?php echo $error['message'];?></b>
     </div>
-    <?php endif; ?>
+<?php endif; ?>
 <?php endforeach; ?>
 
 <p><?php echo Yii::t('yupe','Вы используете Yii версии');?>

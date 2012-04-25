@@ -1,6 +1,8 @@
 <?php
+
 class YandexMetrika extends YWidget
 {
+
     public $counter;
 
     public function run()
@@ -17,4 +19,5 @@ class YandexMetrika extends YWidget
                 <noscript><img src="//mc.yandex.ru/watch/' . $this->counter . '" style="position:absolute; left:-9999px;" alt="" /></noscript>
                 <!-- /Yandex.Metrika counter -->';
     }
+
 }
