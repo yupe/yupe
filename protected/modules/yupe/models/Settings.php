@@ -56,7 +56,8 @@ class Settings extends CActiveRecord
         else
             $this->change_date = new CDbExpression('NOW()');
 
-        $this->user_id = Yii::app()->user->getId();
+        if(!isset($this->user_id))
+            $this->user_id = Yii::app()->user->getId();
 
         return parent::beforeSave();
     }

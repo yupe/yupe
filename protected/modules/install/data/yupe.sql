@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Хост: localhost
--- Время создания: Апр 25 2012 г., 10:38
+-- Время создания: Апр 25 2012 г., 15:47
 -- Версия сервера: 5.1.62
 -- Версия PHP: 5.3.5-1ubuntu7.7
 
@@ -503,7 +503,7 @@ CREATE TABLE IF NOT EXISTS `user` (
   `salt` char(32) NOT NULL,
   `status` tinyint(1) NOT NULL DEFAULT '2',
   `access_level` tinyint(1) NOT NULL DEFAULT '0',
-  `last_visit` datetime NOT NULL,
+  `last_visit` datetime DEFAULT NULL,
   `registration_date` datetime NOT NULL,
   `registration_ip` varchar(20) NOT NULL,
   `activation_ip` varchar(20) NOT NULL,
