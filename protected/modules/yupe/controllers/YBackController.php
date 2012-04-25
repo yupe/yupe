@@ -15,8 +15,9 @@ class YBackController extends Controller
     public function init()
     {
         $module = Yii::app()->getModule('yupe');
-        $this->layout = $module->backendLayoutAlias;        
-        Yii::app()->theme  = "backend_".$module->backendTheme;
+        $this->layout = $module->backendLayoutAlias;
+        if($module->backendTheme)
+            Yii::app()->theme  = "backend_".$module->backendTheme;        
         Yii::app()->clientScript->registerCoreScript('jquery');
         Yii::app()->clientScript->registerCoreScript('jquery.ui');
         Yii::app()->clientScript->registerCssFile(
