@@ -311,11 +311,11 @@ class DefaultController extends Controller
                         $settings = new Settings;
 
                         $settings->setAttributes(array(
-                                                      'module_id' => 'yupe',
-                                                      'param_name' => $param,
-                                                      'param_value' => $model->$param,
-                                                      'user_id' => $user[0]->id
-                                                 ));
+                              'module_id' => 'yupe',
+                              'param_name' => $param,
+                              'param_value' => $model->$param,
+                              'user_id' => $user[0]->id
+                         ));
 
                         if ($settings->save())
                             continue;
