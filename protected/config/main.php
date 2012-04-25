@@ -229,8 +229,8 @@ return array(
             'notifyEmailFrom' => 'test@test.ru',
             'backEnd' => array('email','db'),
             'emails'  => 'test_1@test.ru, test_2@test.ru',
-            'enabled' => true
         ),
+        // подключение gii в режиме боевой работы рекомендуется отключить (подробнее http://www.yiiframework.com/doc/guide/1.1/en/quickstart.first-app)
         'gii' => array(
             'class' => 'system.gii.GiiModule',
             'password' => 'giiYupe'

@@ -64,11 +64,9 @@ class DefaultController extends YBackController
     }
 
 
-    public function actionAnswer()
+    public function actionAnswer($id)
     {
-        $id = (int)Yii::app()->request->getQuery('id');
-
-        $model = FeedBack::model()->findbyPk($id);
+        $model = FeedBack::model()->findbyPk((int)$id);
 
         if (!$model)        
             throw new CHttpException(404, Yii::t('feedback', 'Страница не найдена!'));        
@@ -101,7 +99,7 @@ class DefaultController extends YBackController
                 if ($model->save())
                 {
                     //отправка ответа
-                    $body = $this->renderPartial('answerEmail',array('model' => $model));
+                    $body = $this->renderPartial('answerEmail',array('model' => $model),true);
 
                     Yii::app()->mail->send(Yii::app()->getModule('feedback')->notifyEmailFrom, $model->email, 'RE: '.$model->theme, $body);
 
@@ -130,10 +128,8 @@ class DefaultController extends YBackController
             if (!isset($_GET['ajax']))            
                 $this->redirect(array('index'));            
         }
-        else
-        {
-            throw new CHttpException(400, 'Invalid request. Please do not repeat this request again.');
-        }
+        else        
+            throw new CHttpException(400, 'Invalid request. Please do not repeat this request again.');        
     }
 
     /**

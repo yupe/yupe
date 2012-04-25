@@ -4,10 +4,16 @@
     </head>
     <body>
 
-        <?php echo Yii::t('feedback', 'Сообщение #{id} получено, спасибо!.', array('{id}' => $model->id)); ?>
+        <?php echo Yii::t('feedback', '{name}, Ваше сообщение получено, ему присвоен номер {id}, спасибо!', array('{name}' => $model->name,'{id}' => $model->id)); ?>
 
         <br/><br/>
+        
+        <?php echo Yii::t('feedback', 'Мы ответим Вам в самое ближайшее время!'); ?>
+        
+        <br/></br>
+        
+        <br/></br>
 
-        <?php echo Yii::t('user', 'С уважением, администрация сайта {site} !', array('{site}' => CHtml::encode(Yii::app()->name))); ?>
+        <?php echo Yii::t('user', 'С уважением, администрация сайта "{site}" !', array('{site}' => CHtml::encode(Yii::app()->name))); ?>
     </body>
 </html>

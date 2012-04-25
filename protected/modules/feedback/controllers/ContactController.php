@@ -41,6 +41,8 @@ class ContactController extends YFrontController
                     // запись в базу
                     if (in_array('db', $backEnd))
                     {
+                        unset($backEnd['db']);
+                        
                         $feedback = new FeedBack;
 
                         $feedback->setAttributes(array(
@@ -55,15 +57,13 @@ class ContactController extends YFrontController
                         {
                             Yii::log(Yii::t('feedback', 'Обращение пользователя добавлено в базу!'), CLogger::LEVEL_INFO, FeedbackModule::$logCategory);
 
-                            if ($module->sendConfirmation)                             
+                            if ($module->sendConfirmation && !count($backEnd))                             
                                $this->feedbackConfirmationEmail($feedback);                            
                             
                             Yii::app()->user->setFlash(YFlashMessages::NOTICE_MESSAGE, Yii::t('feedback', 'Ваше сообщение отправлено! Спасибо!'));
-
-                            if($module->successPage)
-                                $this->redirect(array($module->successPage));
-
-                            $this->redirect(array('/feedback/contact'));
+                            
+                            if(!count($backEnd))
+                                $this->redirect($module->successPage ? array($module->successPage) : array('/feedback/contact'));
                         }
                         else
                         {
@@ -73,24 +73,23 @@ class ContactController extends YFrontController
                             $this->render('index', array('model' => $form));                         
                         }
                     }
-
+                    
+                    // отправка на почту
                     if (in_array('email', $backEnd) && count(explode(',',$module->emails)))
                     {                        
-                        $emailBody = $this->renderPartial('feedbackEmail', array('model' => $feedback), true);
+                        $emailBody = $this->renderPartial('feedbackEmail', array('model' => $feedback), true);                       
 
-                        foreach (explode(',',$module->emails) as $mail)                        
-                            Yii::app()->mail->send($module->notifyEmailFrom, $mail, $form->theme, $emailBody);                        
+                        foreach (explode(',',$module->emails) as $mail)                           
+                            Yii::app()->mail->send($module->notifyEmailFrom, $mail, $form->theme, $emailBody);                                                
 
-                        if ($module->sendConfirmation)                         
-                            $this->feedbackConfirmationEmail($feedback);                        
+                        if ($module->sendConfirmation)                                                    
+                            $this->feedbackConfirmationEmail($feedback);                                                
                         
                         Yii::log(Yii::t('feedback', 'Обращение пользователя отправлено на email!'), CLogger::LEVEL_INFO, FeedbackModule::$logCategory);
+                        
                         Yii::app()->user->setFlash(YFlashMessages::NOTICE_MESSAGE, Yii::t('feedback', 'Ваше сообщение отправлено! Спасибо!'));
 
-                        if($module->successPage)
-                            $this->redirect(array($module->successPage));
-
-                        $this->redirect(array('/feedback/contact'));
+                        $this->redirect($module->successPage ? array($module->successPage) : array('/feedback/contact'));
                     }
                 }
 
@@ -111,7 +110,7 @@ class ContactController extends YFrontController
     private function feedbackConfirmationEmail(FeedBack $model) 
     {        
         $emailBody = $this->renderPartial('feedbackConfirmationEmail', array('model' => $model), true);
-        $result = Yii::app()->mail->send(Yii::app()->getModule('user')->notifyEmailFrom, $model->email, Yii::t('feedback', 'Обращение пользователя получено!'), $emailBody);
+        $result = Yii::app()->mail->send(Yii::app()->getModule('feedback')->notifyEmailFrom, $model->email, Yii::t('feedback', 'Ваше обращение на сайте "{site}" получено!',array('{site}' => Yii::app()->name)), $emailBody);
         if ($result)
             Yii::log(Yii::t('feedback', 'Обращение пользователя: подтверждение пользователю на email отослано.'), CLogger::LEVEL_INFO, FeedbackModule::$logCategory);
         else

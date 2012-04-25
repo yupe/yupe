@@ -2,7 +2,7 @@
 
 class PageModule extends YWebModule
 {
-    public $editor="application.modules.yupe.widgets.editors.imperaviRedactor.EImperaviRedactorWidget";
+    public $editor = 'application.modules.yupe.widgets.editors.imperaviRedactor.EImperaviRedactorWidget';
 
     public function getParamsLabels()
     {
@@ -59,5 +59,9 @@ class PageModule extends YWebModule
                               'application.modules.page.components.*',
                               'application.modules.page.components.widgets.*',
                          ));
+
+        // Если у модуля не задан редактор - спросим у ядра
+        if ( !$this->editor )
+            $this->editor=Yii::app()->getModule('yupe')->editor;
     }
 }

@@ -1,4 +1,5 @@
 <?php
+
 class YFlashMessages extends YWidget
 {
     const NOTICE_MESSAGE = 'notice';
@@ -8,17 +9,11 @@ class YFlashMessages extends YWidget
     const ERROR_MESSAGE = 'error';
 
     public $error = 'error';
-
     public $warning = 'warning';
-
     public $notice = 'notice';
-
     public $autoHide = false;
-
     public $autoHideSeconds = 3600;
-
     public $divId = 'flash';
-
     public $customJsCode;
 
     public function run()
@@ -27,7 +22,7 @@ class YFlashMessages extends YWidget
         {
             if ($this->autoHide)
             {
-                $this->autoHideSeconds = (int)$this->autoHideSeconds;
+                $this->autoHideSeconds = (int) $this->autoHideSeconds;
                 $this->error = CHtml::encode($this->error);
                 $this->warning = CHtml::encode($this->warning);
                 $this->notice = CHtml::encode($this->notice);

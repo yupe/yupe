@@ -8,6 +8,16 @@ $this->breadcrumbs = array(
 
 <?php $this->widget('YModuleInfo', array('module' => $module)); ?>
 
+<?php if (is_array($module->checkSelf())): ?>
+    <?php $error = $module->checkSelf(); ?>
+    <div class="flash-<?php echo $error['type'];?>">
+        <b><?php echo Yii::t('yupe','Модуль "{module} ({id})"',array(
+            '{module}' => $module->getName(),
+            '{id}'     => $module->id
+            ));?>:<br/> <?php echo $error['message'];?></b>
+    </div>
+<?php endif; ?>
+
 <?php if (is_array($elements) && count($elements)): ?>
 
 <div class="form">

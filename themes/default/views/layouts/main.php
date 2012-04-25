@@ -60,8 +60,6 @@
                 <?php $this->widget('application.modules.news.widgets.LastNewsWidget');?>
 
                 <?php $this->widget('application.modules.blog.widgets.LastPostsWidget');?>
-
-                <?php $this->widget('application.modules.comment.widgets.LastCommentsWidget');?>
             </div>
             <!-- sidebar -->
         </div>
