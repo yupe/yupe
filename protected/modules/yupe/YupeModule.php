@@ -134,7 +134,11 @@ class YupeModule extends YWebModule
     {
         parent::init();
 
-        $this->getEditors();
+        $editors = $this->getEditors();
+
+        // если не выбран редактор, но редакторы есть - возмем первый попавшийся
+        if ( !$this->editor && is_array($editors) )
+            $this->editor = array_shift($editors);
 
         $this->setImport(array(
             'yupe.models.*',
@@ -256,17 +260,18 @@ class YupeModule extends YWebModule
     }
 
     /**
-     * Метод возвращает layout (полный алиас) для панели управления
+     * Получает полный алиас нужного лайаута бэкенда с учетом темы
      *
      * @since 0.0.4
-     *
+     * @param string $layoutName Название лайаута, если не задан - берется по-умолчанию для бекенда
+     * @return string Полный путь к лайауту
      */
-    function getBackendLayoutAlias()
+    function getBackendLayoutAlias( $layoutName = '' )
     {
-        if ($this->backendTheme)
-            return 'webroot.themes.backend_' . $this->backendTheme . '.views.yupe.layouts.' . $this->backendLayout;
+        if ($this-> backendTheme)
+            return 'webroot.themes.backend_' . $this-> backendTheme . '.views.yupe.layouts.'.($layoutName?$layoutName:$this-> backendLayout);
         else
-            return 'application.modules.yupe.views.layouts.' . $this->backendLayout;
+            return 'application.modules.yupe.views.layouts.'.($layoutName?$layoutName:$this-> backendLayout);
     }
 
     /**

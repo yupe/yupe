@@ -1,0 +1,131 @@
+/*
+	Forms
+*/
+
+span.required {
+	color: #F00;
+}
+
+/*
+	Grid view
+*/
+
+.grid-view {
+	padding-top: 20px;
+}
+
+.grid-view-loading {
+	background: url(../img/loading.gif) no-repeat;
+}
+
+.grid-view table.items th a {
+	display: block;
+	position: relative;
+}
+
+.grid-view table.items th a .caret {
+	display: none;
+	position: absolute;
+	right: 5px;
+	top: 7px;
+}
+
+.grid-view table.items th a.asc .caret {
+	display: block;
+}
+
+.grid-view table.items th a.desc .caret {
+	border-bottom: 4px solid #000;
+	border-top: none;
+	display: block;
+}
+
+.grid-view table.items tr.selected td {
+	background: #EEE;
+}
+
+.grid-view .button-column {
+	text-align: center;
+	width: 50px;
+}
+
+.grid-view .checkbox-column {
+	width: 15px;
+}
+
+.grid-view .summary {
+	margin-bottom: 5px;
+	text-align: right;
+}
+
+.grid-view .pager {
+	margin-top: 5px;
+}
+
+.grid-view .empty {
+	font-style: italic;
+}
+
+.grid-view .filters .filter-container {
+	padding: 0 10px 0 0;
+}
+
+.grid-view .filters input,
+.grid-view .filters select {
+	margin-bottom: 0;
+	width: 100%;
+}
+
+/*
+	List view
+*/
+
+.list-view-loading {
+	background: url(../img/loading.gif) no-repeat;
+}
+
+.list-view .summary {
+	margin-bottom: 5px;
+	text-align: right;
+}
+
+.list-view .pager {
+	margin-top: 5px;
+}
+
+.list-view .sorter ul {
+	display: inline;
+	list-style: none outside none;
+	margin: 0;
+	padding: 0;
+}
+
+.list-view .sorter li {
+	display: inline;
+	margin: 0 0 0 5px;
+	padding: 0;
+}
+
+.list-view .sorter a .caret {
+	position: absolute;
+	right: 5px;
+	top: 7px;
+}
+
+.list-view .sorter a.desc .caret {
+	border-bottom: 4px solid #000;
+	border-top: none;
+}
+
+/*
+	Detail view
+*/
+
+table.detail-view .null {
+	color: #FFC0CB;
+}
+
+table.detail-view th {
+	text-align: right;
+	width: 160px;
+}

@@ -16,8 +16,14 @@ class YBackController extends Controller
     {
         $module = Yii::app()->getModule('yupe');
         $this->layout = $module->backendLayoutAlias;
-        if($module->backendTheme)
-            Yii::app()->theme  = "backend_".$module->backendTheme;        
+        if ( $module->backendTheme )
+        {
+            $themeBase = "webroot.themes.backend_".$module->backendTheme;
+            Yii::app()->theme= "backend_".$module->backendTheme;
+
+            if ( is_file( Yii::app()->theme->basePath."/".ucwords($module->backendTheme)."Theme.php") )
+                require(Yii::app()->theme->basePath."/".ucwords($module->backendTheme)."Theme.php");
+        }
         Yii::app()->clientScript->registerCoreScript('jquery');
         Yii::app()->clientScript->registerCoreScript('jquery.ui');
         Yii::app()->clientScript->registerCssFile(

@@ -1,4 +1,7 @@
-<?php $this->beginContent("/layouts/main"); ?>
+<?php 
+    $module = Yii::app()-> getModule('yupe');
+    $this->beginContent($module-> getBackendLayoutAlias("main"));
+?>
   <div class="row-fluid">
     <div class="span10">
         <?php $this->widget('YBSBreadcrumbs', array(
@@ -13,6 +16,10 @@
         <!-- content -->
     </div>
     <div class="span2">
+        <?php
+        if ( count($this->menu) )
+        {
+        ?>
         <div class="well" style="padding: 8px 0;">
             <?php
               if ( count($this->menu) )
@@ -35,6 +42,9 @@
               }
             ?>
         </div>
+        <?php
+        }
+        ?>
     </div>
   </div>  
 <?php $this->endContent(); ?>
