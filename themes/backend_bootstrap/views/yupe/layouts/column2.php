@@ -1,11 +1,13 @@
-<?php 
+<?php
     $module = Yii::app()-> getModule('yupe');
     $this->beginContent($module-> getBackendLayoutAlias("main"));
 ?>
   <div class="row-fluid">
     <div class="span10">
-        <?php $this->widget('YBSBreadcrumbs', array(
-                                                         'homeLink' => CHtml::link(Yii::t('yupe', 'Главная'), array('/yupe/backend/')),
+        <?php
+        if ( count($this->breadcrumbs) )
+        $this->widget('bootstrap.widgets.BootBreadcrumbs', array(
+                                                         'homeLink' => array('label'=>Yii::t('yupe', 'Главная'), 'url'=>'/yupe/backend/'),
                                                          'links' => $this->breadcrumbs,
                                                     )); ?><!-- breadcrumbs -->
 
@@ -19,32 +21,35 @@
         <?php
         if ( count($this->menu) )
         {
+            $items=array();
+            foreach ( $this->menu as $mid=>$mi )
+            {
+                //if ( isset($mi['label']) )
+                //   $items+=array('label'=>$mi['label']);
+
+                if ( isset($mi['items']) && is_array($mi['items']) )
+                {
+                    $items+=$mi['items'];
+                    unset($mi['items']);
+                }
+                $items+=$mi;
+            }
+//
+//                if ( isset($mi['url']) && $mi['url']=="#" )
+//                    unset($this->menu[$mid]['url']);
+//            print_r($this->menu);
         ?>
         <div class="well" style="padding: 8px 0;">
-            <?php
-              if ( count($this->menu) )
-              {
-                  foreach ( $this->menu as $mid => $m)
-                  {
-                      if (!isset($m['url']) || "#" == $m['url'])
-                      {
-                          if (isset($m['url'])) unset($this->menu[$mid]['url']);
-                          $this->menu[$mid]['itemOptions'] = array("class"=>"nav-header");
-                      }
-                  }
+        <?php $this->widget('bootstrap.widgets.BootMenu', array(
+            'type'=>'list',
+            'items' => $items,
+        ));
 
-
-                  $this->menu = array_merge(array(array('label'=> Yii::t('yupe', 'Основное меню'), 'itemOptions'=>array("class"=>"nav-header") )) , $this-> menu );
-                  $this->widget('zii.widgets.CMenu', array(
-                                                          'items' => $this->menu,
-                                                          'htmlOptions' => array('class' => 'nav nav-list'),
-                                                     ));
-              }
             ?>
         </div>
         <?php
         }
         ?>
     </div>
-  </div>  
+  </div>
 <?php $this->endContent(); ?>

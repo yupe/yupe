@@ -43,7 +43,8 @@ $('.search-form form').submit(function(){
 
 <?php
 
-$this->widget('zii.widgets.grid.CGridView', array(
+$this->widget('bootstrap.widgets.BootGridView', array(
+                                                 'type'=>'striped bordered condensed',
                                                  'id' => 'page-grid',
                                                  'dataProvider' => $model->search(),
                                                  'columns' => array(
@@ -62,7 +63,11 @@ $this->widget('zii.widgets.grid.CGridView', array(
                                                          'name' => 'status',
                                                          'value' => '$data->getStatus()',
                                                      ),
-                                                     'creation_date',
+                                                     array(
+                                                         'name'=>'creation_date',
+                                                         'type'=>'datetime',
+                                                         'value'=> 'Yii::app()->dateFormatter->formatDateTime($data->creation_date,"short")',
+                                                     ),
                                                      'change_date',
                                                      array(
                                                          'name' => 'user_id',
@@ -73,7 +78,8 @@ $this->widget('zii.widgets.grid.CGridView', array(
                                                          'value' => '$data->changeAuthor->getFullName()'
                                                      ),
                                                      array(
-                                                         'class' => 'CButtonColumn',
+                                                         'class' => 'bootstrap.widgets.BootButtonColumn',
+                                                         'htmlOptions'=>array('style'=>'width: 50px'),
                                                      ),
 
                                                  ),
