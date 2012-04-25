@@ -255,16 +255,17 @@ class DefaultController extends Controller
                 $salt = $user->generateSalt();
 
                 $user->setAttributes(array(
-                                          'nick_name' => $model->userName,
-                                          'email' => $model->email,
-                                          'salt' => $salt,
-                                          'password' => User::model()->hashPassword($model->password, $salt),
-                                          'registration_date' => new CDbExpression('NOW()'),
-                                          'registration_ip' => Yii::app()->request->userHostAddress,
-                                          'access_level'  => User::ACCESS_LEVEL_ADMIN,
-                                          'status'        => User::STATUS_ACTIVE,
-                                          'email_confirm' => User::EMAIL_CONFIRM_YES
-                                     ));
+                      'nick_name' => $model->userName,
+                      'email' => $model->email,
+                      'salt' => $salt,
+                      'password' => User::model()->hashPassword($model->password, $salt),
+                      'registration_date' => new CDbExpression('NOW()'),
+                      'registration_ip' => Yii::app()->request->userHostAddress,
+                      'activation_ip' => Yii::app()->request->userHostAddress,
+                      'access_level' => User::ACCESS_LEVEL_ADMIN,
+                      'status' => User::STATUS_ACTIVE,
+                      'email_confirm' => User::EMAIL_CONFIRM_YES
+                 ));
 
                 if ($user->save())
                 {
