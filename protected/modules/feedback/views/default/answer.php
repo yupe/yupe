@@ -16,6 +16,18 @@ $this->menu = array(
 );
 ?>
 
+<script type='text/javascript'>
+    $(document).ready(function(){
+        var email = '<?php echo $model->email?>'; 
+        $('input:submit').click(function(){
+            if(window.confirm('<?php echo Yii::t('feedback','Ответ будет отправлен на ');?>' + email + '<?php echo Yii::t('feedback',' продолжить ?');?>')){
+                return true;
+            }       
+            return false;
+        });
+    });
+</script>
+
 <h1>Ответ на сообщение #<?php echo $model->id; ?></h1>
 
 <?php $this->widget('zii.widgets.CDetailView', array(
