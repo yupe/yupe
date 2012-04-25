@@ -14,5 +14,4 @@ class YModuleInfo extends YWidget
     {
         $this->render('moduleinfowidget', array('module' => $this->module));
     }
-
 }

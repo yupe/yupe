@@ -30,7 +30,8 @@ class YFlashMessages extends YWidget
                 Yii::app()->getClientScript()->registerScript(md5($this->id), "
                         $('#{$this->divId}').fadeOut({$this->autoHideSeconds});                        
                 ", CClientScript::POS_END);
-            } elseif ($this->customJsCode)
+            }
+            elseif ($this->customJsCode)
             {
                 Yii::app()->getClientScript()->registerCoreScript('jquery');
                 Yii::app()->getClientScript()->registerScript(md5($this->customJsCode), $this->customJsCode, CClientScript::POS_END);

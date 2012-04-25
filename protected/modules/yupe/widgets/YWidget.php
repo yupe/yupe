@@ -12,5 +12,4 @@ class YWidget extends CWidget
 
         return file_exists($themeView) ? $themeView : parent::getViewPath($checkTheme = false);
     }
-
 }

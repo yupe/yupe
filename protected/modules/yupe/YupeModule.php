@@ -284,7 +284,10 @@ class YupeModule extends YWebModule
     function getBackendLayoutAlias()
     {
         if($this->backendTheme)
-            return 'webroot.themes.backend_' . $this->backendTheme . '.views.yupe.layouts.' . $this->backendLayout;
+        {
+            $file = 'webroot.themes.backend_' . $this->backendTheme . '.views.yupe.layouts.' . $this->backendLayout;
+            return file_exists($file) ? $file : 'application.modules.yupe.views.layouts.' . $this->backendLayout;
+        }
         else
             return 'application.modules.yupe.views.layouts.' . $this->backendLayout;
     }
