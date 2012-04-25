@@ -1,7 +1,7 @@
 <?php
 class BlogModule extends YWebModule
 {
-    public $editor;
+    public $editor = 'application.modules.yupe.widgets.editors.imperaviRedactor.EImperaviRedactorWidget';
 
 	public function getCategory()
     {

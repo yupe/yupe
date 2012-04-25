@@ -32,7 +32,7 @@ class YupeModule extends YWebModule
     public $coreModuleId = 'yupe';
     public $editorsDir = 'application.modules.yupe.widgets.editors';
     public $uploadPath = 'webroot.uploads';
-    public $editor;
+    public $editor = 'application.modules.yupe.widgets.editors.imperaviRedactor.EImperaviRedactorWidget';
 
     public function getVersion()
     {

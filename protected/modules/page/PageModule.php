@@ -2,7 +2,7 @@
 
 class PageModule extends YWebModule
 {
-    public $editor;
+    public $editor = 'application.modules.yupe.widgets.editors.imperaviRedactor.EImperaviRedactorWidget';
 
     public function getParamsLabels()
     {
