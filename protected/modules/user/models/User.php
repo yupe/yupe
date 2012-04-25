@@ -249,7 +249,7 @@ class User extends CActiveRecord
         else
             $this->change_date = new CDbExpression('NOW()');
 
-        if ($this->birt_date === '') unset($this->birt_date);
+        if ($this->birth_date === '') unset($this->birth_date);
 
         return parent::beforeSave();
     }
