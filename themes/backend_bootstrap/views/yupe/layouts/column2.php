@@ -24,20 +24,13 @@
             $items=array();
             foreach ( $this->menu as $mid=>$mi )
             {
-                //if ( isset($mi['label']) )
-                //   $items+=array('label'=>$mi['label']);
-
                 if ( isset($mi['items']) && is_array($mi['items']) )
                 {
                     $items+=$mi['items'];
                     unset($mi['items']);
                 }
-                $items+=$mi;
+                $items[]=$mi;
             }
-//
-//                if ( isset($mi['url']) && $mi['url']=="#" )
-//                    unset($this->menu[$mid]['url']);
-//            print_r($this->menu);
         ?>
         <div class="well" style="padding: 8px 0;">
         <?php $this->widget('bootstrap.widgets.BootMenu', array(
