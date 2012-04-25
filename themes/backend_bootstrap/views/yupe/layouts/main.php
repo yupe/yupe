@@ -24,7 +24,7 @@
                                                   'hideEmptyItems' => true,
                                                   'items' => Yii::app()->getModule('yupe')->getModules(true),
                                                   'fixed'=> 'top',
-                                                  'brand' => "Yupe!"
+                                                  'brand' => array("Yupe!","/yupe/backend")
                                              )); ?>
 
     <div class="container-fluid" id="page">
