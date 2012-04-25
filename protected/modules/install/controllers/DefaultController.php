@@ -263,7 +263,7 @@ class DefaultController extends Controller
                     'registration_ip'   => Yii::app()->request->userHostAddress,
                     'access_level'      => User::ACCESS_LEVEL_ADMIN,
                     'status'            => User::STATUS_ACTIVE,
-                    'email_confirm'        => User::EMAIL_CONFIRM_YES,
+                    'email_confirm'     => User::EMAIL_CONFIRM_YES,
                 ));
 
                 if ($user->save())
