@@ -186,7 +186,7 @@ class DefaultController extends Controller
 
                     $fh = fopen($dbConfFile, 'w+');
 
-                    if (!$fh)                    
+                    if (!$fh)
                         $form->addError('', Yii::t('install', "Не могу открыть файл '{file}' для записии!", array('{file}' => $dbConfFile)));
                     
                     else
@@ -209,8 +209,8 @@ class DefaultController extends Controller
                         {
                             foreach ($sqlFiles as $file)
                             {
-                                if ($file != $sqlFile)                                
-                                    $this->executeSql($file);                                
+                                if ($file != $sqlFile)
+                                    $this->executeSql($file);
                             }
                         }
 
@@ -229,8 +229,8 @@ class DefaultController extends Controller
 
         $result = $sqlResult = false;
 
-        if (file_exists($dbConfFile) && is_writable($dbConfFile))        
-            $result = true;        
+        if (file_exists($dbConfFile) && is_writable($dbConfFile))
+            $result = true;
 
         if (file_exists($sqlFile) && is_readable($sqlFile))
             $sqlResult = true;
@@ -249,22 +249,22 @@ class DefaultController extends Controller
             $model->setAttributes($_POST['CreateUserForm']);
 
             if ($model->validate())
-            {                
+            {
                 $user = new User;
 
                 $salt = $user->generateSalt();
 
                 $user->setAttributes(array(
-                                          'nick_name' => $model->userName,
-                                          'email' => $model->email,
-                                          'salt' => $salt,
-                                          'password' => User::model()->hashPassword($model->password, $salt),
-                                          'registration_date' => new CDbExpression('NOW()'),
-                                          'registration_ip' => Yii::app()->request->userHostAddress,
-                                          'access_level'  => User::ACCESS_LEVEL_ADMIN,
-                                          'status'        => User::STATUS_ACTIVE,
-                                          'email_confirm' => User::EMAIL_CONFIRM_YES
-                                     ));
+                    'nick_name'         => $model->userName,
+                    'email'             => $model->email,
+                    'salt'              => $salt,
+                    'password'          => User::model()->hashPassword($model->password, $salt),
+                    'registration_date' => new CDbExpression('NOW()'),
+                    'registration_ip'   => Yii::app()->request->userHostAddress,
+                    'access_level'      => User::ACCESS_LEVEL_ADMIN,
+                    'status'            => User::STATUS_ACTIVE,
+                    'email_confirm'     => User::EMAIL_CONFIRM_YES,
+                ));
 
                 if ($user->save())
                 {
@@ -276,10 +276,10 @@ class DefaultController extends Controller
                     }
 
                     $this->redirect(array('/install/default/sitesettings/'));
-                }                
-                //@TODO добавить вывод сообщений об ошибке сохранения                
+                }
+                //@TODO добавить вывод сообщений об ошибке сохранения
             }
-            //@TODO добавить вывод сообщений об ошибке сохранения                
+            //@TODO добавить вывод сообщений об ошибке сохранения
         }
 
         $this->render('createuser', array('model' => $model));
@@ -303,29 +303,29 @@ class DefaultController extends Controller
                 {
                     $user = User::model()->admin()->findAll();
 
-                    if (count($user) > 1)                    
-                        throw new CHttpException(500, Yii::t('install', 'Произошла ошибка при установке =('));                    
+                    if (count($user) > 1)
+                        throw new CHttpException(500, Yii::t('install', 'Произошла ошибка при установке =('));
 
                     foreach (array('siteDescription', 'siteName', 'siteKeyWords') as $param)
                     {
                         $settings = new Settings;
 
                         $settings->setAttributes(array(
-                                                      'module_id' => 'yupe',
-                                                      'param_name' => $param,
-                                                      'param_value' => $model->$param,
-                                                      'user_id' => $user[0]->id
-                                                 ));
+                              'module_id' => 'yupe',
+                              'param_name' => $param,
+                              'param_value' => $model->$param,
+                              'user_id' => $user[0]->id
+                         ));
 
-                        if ($settings->save())                        
-                            continue;                        
-                        else                        
-                            throw new CDbException(print_r($settings->getErrors(), true));                        
+                        if ($settings->save())
+                            continue;
+                        else
+                            throw new CDbException(print_r($settings->getErrors(), true));
                     }
 
                     $transaction->commit();
 
-                    Yii::app()->user->setFlash(YFlashMessages::NOTICE_MESSAGE, Yii::t('install', 'Настройки сайта успешно сохранены!'));                 
+                    Yii::app()->user->setFlash(YFlashMessages::NOTICE_MESSAGE, Yii::t('install', 'Настройки сайта успешно сохранены!'));
 
                     $this->redirect(array('/install/default/finish/'));
                 }
