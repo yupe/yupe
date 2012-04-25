@@ -169,29 +169,29 @@ class User extends CActiveRecord
     public function attributeLabels()
     {
         return array(
-            'id' => Yii::t('user', 'Id'),
-            'creation_date' => Yii::t('user', 'Дата активации'),
-            'change_date' => Yii::t('user', 'Дата изменения'),
-            'first_name' => Yii::t('user', 'Имя'),
-            'last_name' => Yii::t('user', 'Фамилия'),
-            'nick_name' => Yii::t('user', 'Ник'),
-            'email' => Yii::t('user', 'Email'),
-            'gender' => Yii::t('user', 'Пол'),
-            'password' => Yii::t('user', 'Пароль'),
-            'salt' => Yii::t('user', 'Соль'),
-            'status' => Yii::t('user', 'Статус'),
-            'access_level' => Yii::t('user', 'Уровень доступа'),
-            'last_visit' => Yii::t('user', 'Последний визит'),
+            'id' 				=> Yii::t('user', 'Id'),
+            'creation_date' 	=> Yii::t('user', 'Дата активации'),
+            'change_date' 		=> Yii::t('user', 'Дата изменения'),
+            'first_name' 		=> Yii::t('user', 'Имя'),
+            'last_name' 		=> Yii::t('user', 'Фамилия'),
+            'nick_name' 		=> Yii::t('user', 'Ник'),
+            'email' 			=> Yii::t('user', 'Email'),
+            'gender' 			=> Yii::t('user', 'Пол'),
+            'password' 			=> Yii::t('user', 'Пароль'),
+            'salt' 				=> Yii::t('user', 'Соль'),
+            'status' 			=> Yii::t('user', 'Статус'),
+            'access_level' 		=> Yii::t('user', 'Уровень доступа'),
+            'last_visit' 		=> Yii::t('user', 'Последний визит'),
             'registration_date' => Yii::t('user', 'Дата регистрации'),
-            'registration_ip' => Yii::t('user', 'Ip регистрации'),
-            'activation_ip' => Yii::t('user', 'Ip активации'),
-            'avatar' => Yii::t('user', 'Аватар'),
-            'use_gravatar'  => Yii::t('user', 'Граватар'),
-            'email_confirm' => Yii::t('user','Email подтвержден'),
-            'birth_date'    => Yii::t('user','День рождения'), 
-            'site'          => Yii::t('user','Сайт/блог'),
-            'location'      => Yii::t('user','Расположение'),
-            'about'         => Yii::t('user','О себе'),           
+            'registration_ip' 	=> Yii::t('user', 'Ip регистрации'),
+            'activation_ip' 	=> Yii::t('user', 'Ip активации'),
+            'avatar' 			=> Yii::t('user', 'Аватар'),
+            'use_gravatar'  	=> Yii::t('user', 'Граватар'),
+            'email_confirm' 	=> Yii::t('user', 'Email подтвержден'),
+            'birth_date'    	=> Yii::t('user', 'День рождения'), 
+            'site'          	=> Yii::t('user', 'Сайт/блог'),
+            'location'      	=> Yii::t('user', 'Расположение'),
+            'about'         	=> Yii::t('user', 'О себе'),           
         );
     }
 
@@ -233,16 +233,20 @@ class User extends CActiveRecord
         $criteria->compare('activation_ip', $this->activation_ip, true);
 
         return new CActiveDataProvider('User', array(
-                                                    'criteria' => $criteria,
-                                               ));
+			'criteria' => $criteria,
+		));
     }
 
     public function beforeSave()
     {        
         if ($this->isNewRecord)
         {            
-            $this->creation_date = $this->change_date = new CDbExpression('NOW()');            
-
+            $this->creation_date = $this->change_date = $this->last_visit = new CDbExpression('NOW()');
+                        
+			$this->last_visit = $this->birth_date = '0000-00-00 00:00:00';
+			
+			$this->activation_ip = '127.0.0.1';
+			
             $this->activate_key = $this->generateActivationKey();            
 
             $this->registration_ip = Yii::app()->request->userHostAddress;
