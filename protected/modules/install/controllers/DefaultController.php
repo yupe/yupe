@@ -306,7 +306,7 @@ class DefaultController extends Controller
                     if (count($user) > 1)                    
                         throw new CHttpException(500, Yii::t('install', 'Произошла ошибка при установке =('));                    
 
-                    foreach (array('siteDescription', 'siteName', 'siteKeyWords') as $param)
+                    foreach (array('siteDescription', 'siteName', 'siteKeyWords','email ') as $param)
                     {
                         $settings = new Settings;
 

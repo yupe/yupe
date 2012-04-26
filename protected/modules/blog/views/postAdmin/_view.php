@@ -27,7 +27,6 @@
 	<b><?php echo CHtml::encode($data->getAttributeLabel('slug')); ?>:</b>
 	<?php echo CHtml::encode($data->slug); ?>
 	<br />
-
 	
 	<b><?php echo CHtml::encode($data->getAttributeLabel('publish_date')); ?>:</b>
 	<?php echo CHtml::encode($data->publish_date); ?>

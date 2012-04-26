@@ -59,6 +59,8 @@
             <div id="sidebar">
                 <?php $this->widget('application.modules.news.widgets.LastNewsWidget');?>
 
+                <?php $this->widget('application.modules.blog.widgets.BlogsWidget');?>
+
                 <?php $this->widget('application.modules.blog.widgets.LastPostsWidget');?>
             </div>
             <!-- sidebar -->

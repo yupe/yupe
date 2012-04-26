@@ -180,7 +180,7 @@ class User extends CActiveRecord
             'password' => Yii::t('user', 'Пароль'),
             'salt' => Yii::t('user', 'Соль'),
             'status' => Yii::t('user', 'Статус'),
-            'access_level' => Yii::t('user', 'Уровень доступа'),
+            'access_level' => Yii::t('user', 'Доступ'),
             'last_visit' => Yii::t('user', 'Последний визит'),
             'registration_date' => Yii::t('user', 'Дата регистрации'),
             'registration_ip' => Yii::t('user', 'Ip регистрации'),

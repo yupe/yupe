@@ -2,7 +2,7 @@
 $this->breadcrumbs = array(
     $model->title,
 );
-$this->pageTitle = $model->title;
+$this->pageTitle = $model->name;
 ?>
 
 <?php $this->renderPartial('_view', array('data' => $model,)); ?>

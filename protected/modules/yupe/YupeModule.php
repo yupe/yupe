@@ -33,6 +33,7 @@ class YupeModule extends YWebModule
     public $editorsDir = 'application.modules.yupe.widgets.editors';
     public $uploadPath = 'webroot.uploads';
     public $editor = 'application.modules.yupe.widgets.editors.imperaviRedactor.EImperaviRedactorWidget';
+    public $email;
 
     public function getVersion()
     {
@@ -70,7 +71,8 @@ class YupeModule extends YWebModule
             'coreCacheTime' => Yii::t('yupe', 'Время кэширования (сек.)'),
             'editorsDir' => Yii::t('yupe', 'Каталог для визивиг редакторов'),
             'uploadPath' => Yii::t('yupe', 'Каталог для загрузки файлов'),
-            'editor' => Yii::t('page', 'Визуальный редактор')
+            'editor' => Yii::t('page', 'Визуальный редактор'),
+            'email' => Yii::t('page', 'Email администратора')
         );
     }
 
@@ -86,7 +88,8 @@ class YupeModule extends YWebModule
             'siteKeyWords',
             'editorsDir',
             'uploadPath',
-            'editor' => $this->getEditors()
+            'editor' => $this->getEditors(),
+            'email'
         );
     }
 

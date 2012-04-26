@@ -5,6 +5,11 @@
     <?php echo CHtml::errorSummary($model); ?>
 
     <div class="row">
+        <?php echo CHtml::activeLabel($model, 'email'); ?>
+        <?php echo CHtml::activeTextField($model, 'email') ?>
+    </div>
+
+    <div class="row">
         <?php echo CHtml::activeLabel($model, 'siteName'); ?>
         <?php echo CHtml::activeTextField($model, 'siteName') ?>
     </div>

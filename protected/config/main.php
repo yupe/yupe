@@ -97,7 +97,8 @@ return array(
                 '/story/<title>' => 'news/news/show/',
                 '/post/<slug>.html' => 'blog/post/show/',
                 '/blog/<slug>' => 'blog/blog/show/',
-                '/blogs/' => 'blog/blog/index/'
+                '/blogs/' => 'blog/blog/index/',
+                '/users/' =>'user/people/index/'
             ),
         ),
          

@@ -1,5 +1,5 @@
 Перед установкой
-- Скачать фреймворк Yii http://www.yiiframework.com/download/
+- Скачать фреймворк Yii http://www.yiiframework.com/download/ (с версии 0.0.4 в этом нет необходимости, Yii лежит в /yupe/framework/)
 - Скачать архив Юпи! https://github.com/yupe/yupe/archives/master
 - Распаковать его в каталог доступный веб-серверу (далее по тексту - yt)
 - В файле index.php прописать корректный путь к фреймворку Yii (самый первый пункт) (переменная $yii)

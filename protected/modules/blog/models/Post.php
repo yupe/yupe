@@ -64,14 +64,15 @@ class Post extends CActiveRecord
 		// will receive user inputs.
 		return array(
 			array('blog_id, slug, publish_date, title, content', 'required'),
-			array('blog_id, create_user_id, update_user_id, create_date, update_date, status, comment_status, access_type', 'numerical', 'integerOnly'=>true),
+			array('blog_id, create_user_id, update_user_id, status, comment_status, access_type', 'numerical', 'integerOnly'=>true),
 			array('blog_id, create_user_id, update_user_id', 'length', 'max'=>10),
 			array('slug, title, link, keywords', 'length', 'max'=>150),
 			array('quote, description', 'length', 'max'=>300),
 			array('link','url'),
 			array('comment_status','in','range' => array(0,1)),
 			array('access_type','in','range' => array_keys($this->getAccessTypeList())),		
-			array('status','in','range' => array_keys($this->getStatusList())),		
+			array('status','in','range' => array_keys($this->getStatusList())),
+            array('slug','unique'),
 			array('title, slug, link, keywords, description, publish_date','filter','filter' => array($obj = new CHtmlPurifier(),'purify')),			
 			array('id, blog_id, create_user_id, update_user_id, create_date, update_date, slug, publish_date, title, quote, content, link, status, comment_status, access_type, keywords, description', 'safe', 'on'=>'search'),
 		);
@@ -170,12 +171,17 @@ class Post extends CActiveRecord
 
     public function beforeSave()
     {
-    	if($this->isNewRecord)
-    	    $this->create_user_id = $this->update_user_id = Yii::app()->user->getId();
+        if(parent::beforeSave())
+        {
+            if($this->isNewRecord)
+                $this->create_user_id = $this->update_user_id = Yii::app()->user->getId();
+
+            $this->update_user_id = Yii::app()->user->getId();
+
+            return true;
+        }
     	
-    	$this->update_user_id = Yii::app()->user->getId();
-    	
-    	return parent::beforeSave();    	
+    	return false;
     }
 
     public function beforeValidate()
@@ -188,11 +194,13 @@ class Post extends CActiveRecord
 
     public function afterFind()
     {
-    	parent::afterFind();
-
-    	$this->create_date = date('d.m.Y H:m',$this->create_date);
+        $this->create_date = date('d.m.Y H:m',$this->create_date);
 
     	$this->update_date = date('d.m.Y H:m',$this->update_date);
+
+        $this->publish_date = date('d.m.Y H:m',strtotime($this->publish_date));
+
+        return parent::afterFind();
     }
 
 	public function getStatusList()

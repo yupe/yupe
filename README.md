@@ -22,9 +22,11 @@
 
 * Официальный сайт - http://yupe.ru/
 
+* Юпи!блог - http://yupe.ru/index.php/blog/yupe-mini-cms-yii
+
 * Форум - http://talk.allframeworks.ru/categories/yupe-yii-cms (возможно переедем позже)
 
-* Установка - http://yupe.ru/story/ustanovka-yupi
+* Установка - https://github.com/yupe/yupe/wiki/%D0%A3%D1%81%D1%82%D0%B0%D0%BD%D0%BE%D0%B2%D0%BA%D0%B0
 
 * Вики - https://github.com/yupe/yupe/wiki
 

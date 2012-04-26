@@ -10,7 +10,7 @@
         <li><?php echo CHtml::link('Выйти(' . Yii::app()->user->getState('nick_name') . ')', array('/logout/'));?></li>
         <?php endif;?>
 
-        <li><?php echo CHtml::link('Пользователи', array('/user/people/'));?></li>
+        <li><?php echo CHtml::link('Пользователи', array('/user/people/index/'));?></li>
         <?php if (!Yii::app()->user->isAuthenticated()): ?>
         <li><?php echo CHtml::link('Регистрация', array('/registration/'));?></li>
         <?php endif;?>

@@ -4,7 +4,8 @@
     </div>
     <div class="author">
         Опубликовал <b><?php echo $post->createUser->nick_name?></b>
-        дата: <?php echo $post->create_date; ?>
+        в блоге "<?php echo CHtml::link($post->blog->name,array('/blog/blog/show/','slug' => $post->blog->slug))?>"
+        дата: <?php echo $post->publish_date; ?>
     </div>
     <br/>
 

@@ -1,7 +1,7 @@
 <?php
 class SiteController extends YFrontController
 {
-    const NEWS_PER_PAGE = 5;
+    const POST_PER_PAGE = 5;
 
     public function actions()
     {
@@ -14,13 +14,13 @@ class SiteController extends YFrontController
 
     public function actionIndex()
     {
-        $dataProvider = new CActiveDataProvider('News', array(
+        $dataProvider = new CActiveDataProvider('Post', array(
              'criteria' => new CDbCriteria(array(
                                                 'condition' => 't.status = :status',
-                                                'params' => array(':status' => News::STATUS_PUBLISHED),
-                                                'limit' => self::NEWS_PER_PAGE,
-                                                'order' => 't.creation_date DESC',
-                                                'with' => 'user'
+                                                'params' => array(':status' => Post::STATUS_PUBLISHED),
+                                                'limit' => self::POST_PER_PAGE,
+                                                'order' => 't.id DESC',
+                                                'with' => array('createUser','blog')
                                            ))
         ));
 
