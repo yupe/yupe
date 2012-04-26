@@ -47,7 +47,10 @@ class FeedbackModule extends YWebModule
             return array('type' => YWebModule::CHECK_ERROR,'message' => Yii::t('feedback','Укажите куда отправлять сообщения обратной связи на email или сохранять в базу данных (Настройка backEnd в config/main.php)'));
         
         if (in_array(FeedbackModule::BACKEND_EMAIL, $this->backEnd) && (!$this->emails || !count(explode(',',$this->emails))))        
-            return array('type' => YWebModule::CHECK_ERROR,'message' => Yii::t('feedback','Укажите на какие email отправлять сообщения обратной связи (emails) {link}',array('{link}' => CHtml::link(Yii::t('image', 'Изменить настройки модуля'), array('/yupe/backend/modulesettings/', 'module' => $this->id)))));            
+            return array('type' => YWebModule::CHECK_ERROR,'message' => Yii::t('feedback','Укажите на какие email отправлять сообщения обратной связи (emails) {link}',array('{link}' => CHtml::link(Yii::t('image', 'Изменить настройки модуля'), array('/yupe/backend/modulesettings/', 'module' => $this->id)))));
+
+        if (!$this->notifyEmailFrom)
+            return array('type' => YWebModule::CHECK_ERROR,'message' => Yii::t('feedback','Укажите с какого email отправлять сообщения обратной связи {link}',array('{link}' => CHtml::link(Yii::t('image', 'Изменить настройки модуля'), array('/yupe/backend/modulesettings/', 'module' => $this->id)))));
     }
 
     public function getName()
@@ -92,5 +95,8 @@ class FeedbackModule extends YWebModule
         parent::init();
 
         $this->setImport(array('feedback.models.*','feedback.components.*'));
+
+        if(!$this->emails)
+            $this->emails = Yii::app()->getModule('yupe')->email;
     }
 }
