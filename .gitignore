@@ -1,0 +1,13 @@
+*.log
+*.bin
+/assets/
+protected/runtime/*
+uploads/
+*.komodoproject
+/nbproject/private/
+/.komodotools/
+*.xml
+*.properties
+nbproject/
+/.idea/
+.ai

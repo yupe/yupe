@@ -29,7 +29,7 @@ class BlogController extends YFrontController
         $posts = Post::model()->published()->public()->findAll(array(
             'condition' => 'blog_id = :blog_id',
             'limit' => 5,
-            'order' => 'create_date DESC',
+            'order' => 'publish_date DESC',
             'params' => array(':blog_id' => $blog->id)
         ));
 
