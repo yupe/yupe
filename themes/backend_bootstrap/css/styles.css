@@ -6,6 +6,10 @@ html,body {
 
 }
 
+#content .form {
+    margin-left: 18px;
+}
+
 div#page  {
     padding-top: 50px;
 }

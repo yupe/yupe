@@ -1,29 +1,35 @@
 <?php
 class PeopleController extends YFrontController
 {
-    // показать всех пользователей
+    // Вывод публичной страницы всех пользователей
     public function actionIndex()
     {
         $dataProvider = new CActiveDataProvider('User', array(
-                                                             'criteria' => array(
-                                                                 'condition' => 'status = :status',
-                                                                 'params' => array(':status' => User::STATUS_ACTIVE),
-                                                                 'order' => 'last_visit DESC'
-                                                             )
-                                                        ));
+             'criteria' => array(
+                 'condition' => 'status = :status',
+                 'params' => array(':status' => User::STATUS_ACTIVE),
+                 'order' => 'last_visit DESC'
+             )
+        ));
 
         $this->render('index', array(
-                                    'dataProvider' => $dataProvider
-                               ));
+            'dataProvider' => $dataProvider
+        ));
     }
 
-    // Публичная страница пользователя
+    // Вывод публичной страницы пользователя
     public function actionUserInfo($username=null, $mode=null)
     {
+        $user = $username
+            ? User::model()->findByAttributes(array("nick_name" => $username))
+            : Yii::app()->user;
 
-    	if ( !($user = $username?User::model()->findByAttributes(array("nick_name"=> $username)):Yii::app()->user) )
-			throw new CHttpException(404, Yii::t('people','Пользователь не найден'));
+    	if ( !$user )
+			throw new CHttpException(404, Yii::t('people', 'Пользователь не найден'));
 
-    	$this->render('userInfo', array( 'user'=> $user, 'mode' => $mode));
+    	$this->render('userInfo', array(
+    	   'user' => $user,
+    	   'mode' => $mode
+        ));
     }
 }
