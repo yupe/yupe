@@ -1,6 +1,6 @@
 <?php
 $this->breadcrumbs=array(
-	Yii::t('blog','Блоги')=>array('index'),
+	Yii::t('blog','Блоги')=>array('admin'),
 	$model->name=>array('view','id'=>$model->id),
 	Yii::t('blog','Редактирование'),
 );

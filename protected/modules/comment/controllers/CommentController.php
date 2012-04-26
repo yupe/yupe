@@ -13,7 +13,7 @@ class CommentController extends YFrontController
 
     public function actionAdd()
     {
-    	if (Yii::app()->request->isPostRequest && !empty($_POST['Comment']))
+        if (Yii::app()->request->isPostRequest && !empty($_POST['Comment']))
         {
             $redirect = isset($_POST['redirectTo']) ? $_POST['redirectTo']
                 : Yii::app()->user->returnUrl;
@@ -25,25 +25,33 @@ class CommentController extends YFrontController
             //@TODO всю эту логику перенести в метод модели
             $comment->setAttributes($_POST['Comment']);
 
-            $comment->status = $module->defaultCommentStatus;            
+            $comment->status = $module->defaultCommentStatus;
 
             if (Yii::app()->user->isAuthenticated())
             {
                 $comment->setAttributes(array(
-                                             'user_id' => Yii::app()->user->getId(),
-                                             'name' => Yii::app()->user->getState('nick_name'),
-                                             'email' => Yii::app()->user->getState('email'),
-                                        ));
+                    'user_id' => Yii::app()->user->getId(),
+                    'name' => Yii::app()->user->getState('nick_name'),
+                    'email' => Yii::app()->user->getState('email'),
+                ));
 
-                if($module->autoApprove)                
-                    $comment->status = Comment::STATUS_APPROVED;   
-                            
+                if($module->autoApprove)
+                    $comment->status = Comment::STATUS_APPROVED;
+
             }
 
             if ($comment->save())
             {
-                if (Yii::app()->request->isAjaxRequest)                
-                    Yii::app()->ajax->success(Yii::t('comment', 'Комментарий добавлен!'));                
+                // если нужно уведомить администартора - уведомить его =)
+                if($module->notify && $module->email)
+                {
+                    $body = $this->renderPartial('commentnotifyemail',array('model' => $comment),true);
+
+                    Yii::app()->mail->send(Yii::app()->getModule('yupe')->email,$module->email,Yii::t('comment','Добавлен новый комментарий на сайте "{app}"!',array('{app}' => Yii::app()->name)),$body);
+                }
+
+                if (Yii::app()->request->isAjaxRequest)
+                    Yii::app()->ajax->success(Yii::t('comment', 'Комментарий добавлен!'));
 
                 $message = $comment->status !== Comment::STATUS_APPROVED ? Yii::t('comment', 'Спасибо, Ваш комментарий добавлен и ожидает проверки!') : Yii::t('comment', 'Спасибо, Ваш комментарий добавлен!');
 
@@ -52,11 +60,11 @@ class CommentController extends YFrontController
                 $this->redirect($redirect);
             }
             else
-            {                
-                if (Yii::app()->request->isAjaxRequest)                
-                    Yii::app()->ajax->failure(Yii::t('comment', 'Комментарий не добавлен!'));               
-                
-                Yii::app()->user->setFlash(YFlashMessages::ERROR_MESSAGE, Yii::t('comment', 'Комментарий не добавлен! Заполните форму корректно!'));            
+            {
+                if (Yii::app()->request->isAjaxRequest)
+                    Yii::app()->ajax->failure(Yii::t('comment', 'Комментарий не добавлен!'));
+
+                Yii::app()->user->setFlash(YFlashMessages::ERROR_MESSAGE, Yii::t('comment', 'Комментарий не добавлен! Заполните форму корректно!'));
 
                 $this->redirect($redirect);
             }

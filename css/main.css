@@ -40,9 +40,10 @@ body {
 }
 
 #logo {
-    padding: 10px 20px;
-    font-size: 200%;
+    font-size: 190%;
+    padding: 20px 20px;
 }
+
 
 #mainmenu {
     background: white url(bg.gif) repeat-x left top;
