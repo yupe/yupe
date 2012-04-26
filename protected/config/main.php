@@ -206,8 +206,9 @@ return array(
             'avatarExtensions' => array('jpg', 'png', 'gif'),
             'notifyEmailFrom' => 'test@test.ru',
             'urlRules' => array(
-              'user/<username:\w+>/<mode:(topics|comments)>' => 'user/people/userInfo',
-              'user/<username:\w+>' => 'user/people/userInfo',
+              'user/people/<username:\w+>/<mode:(topics|comments)>' => 'user/people/userInfo',
+              'user/people/<username:\w+>' => 'user/people/userInfo',
+              'user/people/' => 'user/people/index',
             ),
         ),
         'page' => array(
