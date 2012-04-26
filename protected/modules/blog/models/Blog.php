@@ -139,6 +139,7 @@ class Blog extends CActiveRecord
         return array(
             'CTimestampBehavior' => array(
                 'class' => 'zii.behaviors.CTimestampBehavior',
+                'setUpdateOnCreate' => true,
                 'createAttribute' => 'create_date',
                 'updateAttribute' => 'update_date',
             )
