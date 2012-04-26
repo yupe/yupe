@@ -22,6 +22,8 @@
 
 * Официальный сайт - http://yupe.ru/
 
+* Официальный твиттер - https://twitter.com/#!/YupeCms
+
 * Юпи!блог - http://yupe.ru/index.php/blog/yupe-mini-cms-yii
 
 * Форум - http://talk.allframeworks.ru/categories/yupe-yii-cms (возможно переедем позже)
