@@ -1,0 +1,106 @@
+body{
+    margin: 0;
+}
+#info_message{
+    display: none;
+    width: 100%;
+    height: 51px;
+    position: absolute;
+    top: 0;
+    position: fixed;
+    z-index: 50000;
+    margin: 0;
+    padding: 0;
+}
+.center_auto{
+    margin: 0 auto;
+    width: 950px;
+    padding: 15px 25px;
+}
+#info_message .message_area{
+    float: left; 
+    width: 98%;
+}
+#info_message .message_area span.link_ribbon{
+    color: #999999;
+    text-decoration: underline;
+    cursor: pointer;
+}
+#info_message .button_area{
+    float: left;
+    width: 11px;
+    height: 10px;
+    margin-top: 3px;
+}
+.error_bg{
+    background: url('../images/error_bg.png') 0 0 repeat-x;
+}
+.error_bg .message_area{
+    font:bold 14px arial;
+    color: #a20510;
+    text-shadow: 0 1px 0 #fff; 
+}
+.error_bg .button_area{
+    background: url('../images/error_close.png') 0 0 no-repeat;    
+    cursor: pointer;
+}
+.error_bg .info_more_descrption{
+
+    -moz-box-shadow: 0 0 5px #b2495b;
+    -webkit-box-shadow: 0 0 5px #b2495b;
+    box-shadow: 0 0 5px #b2495b;
+}
+.succ_bg{
+    background: url('../images/succ_bg.png') 0 0 repeat-x;
+}
+.succ_bg .message_area{
+    font:bold 14px arial;
+    color: #2f7c00;
+    text-shadow: 0 1px 0 #fff; 
+}
+.succ_bg .button_area{
+    background: url('../images/succ_close.png') 0 0 no-repeat;    
+    cursor: pointer;
+}
+.info_bg{
+    background: url('../images/info_bg.png') 0 0 repeat-x;
+}
+.info_bg .message_area{
+    font:bold 14px arial;
+    color: #0d9a95;
+    text-shadow: 0 1px 0 #fff; 
+}
+.info_bg .button_area{
+    background: url('../images/info_close.png') 0 0 no-repeat;    
+    cursor: pointer;
+}
+.warn_bg{
+    background: url('../images/warn_bg.png') 0 0 repeat-x;
+}
+.warn_bg .message_area{
+    font:bold 14px arial;
+    color: #a39709;
+    text-shadow: 0 1px 0 #fff; 
+}
+.warn_bg .button_area{
+    background: url('../images/warn_close.png') 0 0 no-repeat;    
+    cursor: pointer;
+}
+.clearboth{
+    clear: both;
+}
+.info_more_descrption{
+    display: none;
+    width: 950px;
+    height: 300px;
+    background: #fff;
+    margin: 0 auto;
+    padding: 10px;
+    background: #fbfbfb;
+    overflow: auto;
+}
+.succ_bg .info_more_descrption{    
+    -moz-box-shadow: 0 0 5px #56a25e;
+    -webkit-box-shadow: 0 0 5px #56a25e;
+    box-shadow: 0 0 5px #56a25e;
+}

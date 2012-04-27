@@ -15,12 +15,12 @@ class PagesWidget extends YWidget
 
     public function init()
     {
+        parent::init();
+
         if (!$this->pageStatus)
-        {
             $this->pageStatus = Page::STATUS_PUBLISHED;
 
-            $this->parent_Id = (int)$this->parent_Id;
-        }
+        $this->parent_Id = (int)$this->parent_Id;
     }
 
     public function run()
@@ -56,7 +56,7 @@ class PagesWidget extends YWidget
 
 
             $this->render($view, array(
-                                     'pages' => Page::model()->findAll($criteria),
+                                     'pages' => Page::model()->cache($this->cacheTime)->findAll($criteria),
                                      'menu' => $menu,
                                  ));
         }

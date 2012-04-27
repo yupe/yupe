@@ -13,6 +13,15 @@
     </div>    
 </div>
 
+Участники:
+<?php if($members): ?>
+    <?php foreach($members as $member):?>
+        <?php echo CHtml::link($member->nick_name,array('/user/people/userInfo/','username' => $member->nick_name));?>
+    <?php endforeach;?>
+<?php endif; ?>
+
+<br/><br/>
+
 <p>Последние записи</p>
 
 <?php if(count($posts)):?>

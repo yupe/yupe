@@ -10,8 +10,6 @@ class BlogsWidget extends YWidget
 {
     public function run()
     {
-        $blogs = Blog::model()->public()->published()->findAll();
-
-        $this->render('blogswidget',array('blogs' => $blogs));
+        $this->render('blogswidget',array('blogs' => Blog::model()->public()->published()->cache($this->cacheTime)->findAll()));
     }
 }

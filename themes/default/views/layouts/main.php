@@ -8,6 +8,10 @@
     <meta name="keywords" content="<?php echo $this->keywords;?>"/>
     <meta name="description" content="<?php echo $this->description;?>"/>
 
+    <?php  $jNotify = Yii::app()->assetManager->publish(Yii::app()->theme->basePath.'/web/jquery_notification/');?>
+    <?php  Yii::app()->clientScript->registerCssFile($jNotify . '/css/jquery_notification.css');?>
+    <?php  Yii::app()->clientScript->registerScriptFile($jNotify . '/js/jquery_notification_v.1.js');?>
+
     <!-- blueprint CSS framework -->
     <link rel="stylesheet" type="text/css"
           href="<?php echo Yii::app()->request->baseUrl; ?>/css/screen.css"
@@ -49,10 +53,10 @@
     <?php $this->widget('zii.widgets.CBreadcrumbs', array(
                                                          'links' => $this->breadcrumbs,
                                                     )); ?><!-- breadcrumbs -->
-                                                    
+
     <?php $this->widget('YFlashMessages');?>
     <div class="container">
-          <div class="span-19">       
+          <div class="span-19">
             <div id="content">
                 <?php echo $content; ?>
             </div>

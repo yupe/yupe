@@ -81,7 +81,11 @@ class Blog extends CActiveRecord
         return array(
             'createUser' => array(self::BELONGS_TO, 'User', 'create_user_id'),
             'updateUser' => array(self::BELONGS_TO, 'User', 'update_user_id'),
-            'posts' => array(self::HAS_MANY, 'Post', 'blog_id'),
+            'posts' => array(self::HAS_MANY, 'Post','blog_id'),
+            'userToBlog' => array(self::HAS_MANY,'UserToBlog','blog_id'),
+            'members' => array(self::HAS_MANY,'User',array('user_id' => 'id'),'through' => 'userToBlog'),
+            'postsCount'   => array(self::STAT,'Post','blog_id','condition' => 'status = :status','params' => array(':status' => Post::STATUS_PUBLISHED)),
+            'membersCount' => array(self::STAT,'UserToBlog','blog_id','condition' => 'status = :status','params' => array(':status' => UserToBlog::STATUS_ACTIVE))
         );
     }
 
@@ -207,5 +211,22 @@ class Blog extends CActiveRecord
                 'params' => array(':type' => self::TYPE_PUBLIC)
             )
         );
+    }
+
+    public function join($userId)
+    {
+        $userToBlog = new UserToBlog;
+
+        $userToBlog->setAttributes(array(
+            'user_id' => Yii::app()->user->getId(),
+            'blog_id' => $this->id
+        ));
+
+        return $userToBlog->save();
+    }
+
+    public function getMembers()
+    {
+        return UserToBlog::model()->with('user')->findAll('blog_id = :blog_id',array(':blog_id' => $this->id));
     }
 }

@@ -11,6 +11,16 @@
 
     <b><?php echo CHtml::encode($data->getAttributeLabel('description')); ?>:</b>
     <?php echo $data->description; ?>
-    <br/>    
+    <br/>
+
+    <b>Записей:</b>
+    <?php echo $data->postsCount; ?>
+    <br/>
+
+    <b>Участников:</b>
+    <?php echo $data->membersCount; ?>
+    <br/>
+
+    <a href="<?php echo $data->id;?>" class="join-blog">Вступить в блог</a>
     
 </div>

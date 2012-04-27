@@ -5,7 +5,7 @@ class LastPostsWidget extends YWidget
 
 	public function run()
 	{
-		$posts = Post::model()->published()->public()->findAll(array(
+		$posts = Post::model()->published()->public()->cache($this->cacheTime)->findAll(array(
 			'limit' => $this->limit,
             'order' => 'id DESC'
 		));
