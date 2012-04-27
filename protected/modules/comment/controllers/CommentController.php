@@ -42,6 +42,9 @@ class CommentController extends YFrontController
 
             if ($comment->save())
             {
+                // сбросить кэш
+                Yii::app()->cache->delete("Comment{$comment->model}{$comment->model_id}");
+
                 // если нужно уведомить администартора - уведомить его =)
                 if($module->notify && $module->email)
                 {

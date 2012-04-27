@@ -5,8 +5,6 @@ class CommentsListWidget extends YWidget
 
     public $modelId;
 
-    public $commentStatus;
-
     public function init()
     {
         if (!$this->model || !$this->modelId)        
@@ -16,21 +14,24 @@ class CommentsListWidget extends YWidget
             : $this->model;
 
         $this->modelId = (int)$this->modelId;
-
-        $this->commentStatus = Comment::STATUS_APPROVED;
     }
 
     public function run()
     {
-        $comments = Comment::model()->findAll(array(
-                                                   'condition' => 'model = :model AND model_id = :modelId AND status = :status',
-                                                   'params' => array(
-                                                       ':model' => $this->model,
-                                                       ':modelId' => $this->modelId,
-                                                       ':status' => $this->commentStatus
-                                                   ),
-                                                   'order' => 'id'
-                                              ));
+        if(!$comments = Yii::app()->cache->get("Comment{$this->model}{$this->modelId}"))
+        {
+            $comments = Comment::model()->findAll(array(
+                                                       'condition' => 'model = :model AND model_id = :modelId AND status = :status',
+                                                       'params' => array(
+                                                           ':model' => $this->model,
+                                                           ':modelId' => $this->modelId,
+                                                           ':status' => Comment::STATUS_APPROVED
+                                                       ),
+                                                       'order' => 'id'
+                                                  ));
+
+            Yii::app()->cache->set("Comment{$this->model}{$this->modelId}",$comments);
+        }
 
         $this->render('commentslistwidget', array('comments' => $comments));
     }
