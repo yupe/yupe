@@ -22,7 +22,6 @@ class CommentController extends YFrontController
 
             $module  = Yii::app()->getModule('comment');
 
-            //@TODO всю эту логику перенести в метод модели
             $comment->setAttributes($_POST['Comment']);
 
             $comment->status = $module->defaultCommentStatus;

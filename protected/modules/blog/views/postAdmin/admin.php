@@ -35,7 +35,7 @@ $('.search-form form').submit(function(){
 )); ?>
 </div><!-- search-form -->
 
-<?php $this->widget('zii.widgets.grid.CGridView', array(
+<?php $this->widget('YCustomGridView', array(
 	'id'=>'post-grid',
 	'dataProvider'=>$model->search(),	
 	'columns'=>array(
@@ -46,11 +46,12 @@ $('.search-form form').submit(function(){
 		 	'value' => '$data->blog->name'
 	     ),		
 		'slug',
-		'publish_date',			
-		 array(
-		 	'name'  => 'status',
-		 	'value' => '$data->getStatus()'
-	     ),
+		'publish_date',
+        array(
+            'name' => 'status',
+            'type' => 'raw',
+            'value' => '$this->grid->returnStatusHtml($data)'
+        ),
 		array(
 			'name'  => 'comment_status',
             'value' => '$data->getCommentStatus()'

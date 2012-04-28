@@ -34,7 +34,7 @@ $('.search-form form').submit(function(){
 )); ?>
 </div><!-- search-form -->
 
-<?php $this->widget('zii.widgets.grid.CGridView', array(
+<?php $this->widget('YCustomGridView', array(
 	'id'=>'user-to-blog-grid',
 	'dataProvider'=>$model->search(),	
 	'columns'=>array(
@@ -53,10 +53,11 @@ $('.search-form form').submit(function(){
 		 	'name'  => 'role',
 		 	'value' => '$data->getRole()'
 		),
-		array(
-		 	'name'  => 'status',
-		 	'value' => '$data->getStatus()'
-		),
+        array(
+            'name' => 'status',
+            'type' => 'raw',
+            'value' => '$this->grid->returnStatusHtml($data)'
+        ),
 		'note',		
 		array(
 			'class'=>'CButtonColumn',

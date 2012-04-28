@@ -43,7 +43,7 @@ $('.search-form form').submit(function(){
 
 <?php
 
-$this->widget('zii.widgets.grid.CGridView', array(
+$this->widget('YCustomGridView', array(
                                                  'id' => 'page-grid',
                                                  'dataProvider' => $model->search(),
                                                  'columns' => array(
@@ -60,7 +60,8 @@ $this->widget('zii.widgets.grid.CGridView', array(
                                                      'title',
                                                      array(
                                                          'name' => 'status',
-                                                         'value' => '$data->getStatus()',
+                                                         'type' => 'raw',
+                                                         'value' => '$this->grid->returnStatusHtml($data)'
                                                      ),
                                                      'creation_date',
                                                      'change_date',

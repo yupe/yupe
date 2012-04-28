@@ -148,7 +148,7 @@ class Comment extends CActiveRecord
         return array(
             self::STATUS_APPROVED => Yii::t('comment', 'Принят'),
             self::STATUS_DELETED => Yii::t('comment', 'Удален'),
-            self::STATUS_NEED_CHECK => Yii::t('comment', 'На проверке'),
+            self::STATUS_NEED_CHECK => Yii::t('comment', 'Проверка'),
             self::STATUS_SPAM => Yii::t('comment', 'Спам')
         );
     }

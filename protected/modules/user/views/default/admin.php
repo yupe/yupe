@@ -37,7 +37,7 @@ $('.search-form form').submit(function(){
 </div><!-- search-form -->
 
 <?php
-$this->widget('zii.widgets.grid.CGridView', array(
+$this->widget('YCustomGridView', array(
     'id' => 'user-grid',
     'dataProvider' => $model->search(),
     'columns' => array(
@@ -48,11 +48,11 @@ $this->widget('zii.widgets.grid.CGridView', array(
 	    'value' => 'CHtml::link($data->nick_name,array("/user/default/update/","id" => $data->id))'
 	),
 	'email',
-	array(
-	    'name' => 'status',
-	    'value' => '$data->getStatus()',
-	    'filter' => CHtml::activeDropDownList($model, 'status', $model->getStatusList())
-	),
+    array(
+            'name' => 'status',
+            'type' => 'raw',
+            'value' => '$this->grid->returnStatusHtml($data,Comment::STATUS_APPROVED,1)'
+    ),
 	array(
 	    'name' => 'access_level',
 	    'value' => '$data->getAccessLevel()',

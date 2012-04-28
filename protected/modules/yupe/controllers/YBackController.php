@@ -5,6 +5,8 @@ class YBackController extends Controller
 
     public $breadcrumbs = array();
 
+    public $actions = array('activate','deactivate');
+
     public function filters()
     {
         return array(
@@ -31,5 +33,28 @@ class YBackController extends Controller
             '/jui/css/base/jquery-ui.css'
         );
         $this->setPageTitle(Yii::t('yupe', 'Панель управления'));
+    }
+
+    public function actionActivate()
+    {
+        $status = (int)Yii::app()->request->getQuery('status');
+        $id     = (int)Yii::app()->request->getQuery('id');
+        $modelClass   = Yii::app()->request->getQuery('model');
+        $statusField  = Yii::app()->request->getQuery('statusField');
+
+        if(!isset($modelClass,$id,$status,$statusField))
+            throw new CHttpException(404,Yii::t('yupe','Страница не найдена!'));
+
+        $model = new $modelClass;
+        $model = $model->resetScope()->findByPk($id);
+        if(!$model)
+            throw new CHttpException(404,Yii::t('yupe','Страница не найдена!'));
+
+        $model->$statusField = $status;
+        $model->update(array($statusField));
+
+        if(!Yii::app()->request->isAjaxRequest){
+            $this->redirect(isset($_POST['returnUrl']) ? $_POST['returnUrl'] : array('admin'));
+        }
     }
 }

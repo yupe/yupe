@@ -5,9 +5,12 @@
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
     <meta name="language" content="en"/>
 <?php
-        $jqueryslidemenupath = Yii::app()->assetManager->publish(Yii::app()->getModule('yupe')->basePath. '/web/jqueryslidemenu/');
+        $module = Yii::app()->getModule('yupe')->basePath;
+        $jqueryslidemenupath = Yii::app()->assetManager->publish($module. '/web/jqueryslidemenu/');
         Yii::app()->clientScript->registerCssFile($jqueryslidemenupath . '/jqueryslidemenu.css');
         Yii::app()->clientScript->registerScriptFile($jqueryslidemenupath . '/jqueryslidemenu.js');
+        $webPath = Yii::app()->assetManager->publish($module. '/web/');
+        Yii::app()->clientScript->registerScriptFile($webPath.'/yupeAdmin.js');
 ?>
     <!-- blueprint CSS framework -->
     <link rel="stylesheet" type="text/css"

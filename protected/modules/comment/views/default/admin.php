@@ -35,24 +35,33 @@ $('.search-form form').submit(function(){
                                           )); ?>
 </div><!-- search-form -->
 
-<?php $this->widget('zii.widgets.grid.CGridView', array(
+<?php $this->widget('YCustomGridView', array(
                                                        'id' => 'comment-grid',
                                                        'dataProvider' => $model->search(),
                                                        'columns' => array(
+                                                           array(
+                                                               'class'=>'CCheckBoxColumn',
+                                                               'id'=>'itemsSelected',
+                                                               'selectableRows' => '2',
+                                                               'htmlOptions' => array(
+                                                                   'class'=>'center',
+                                                               ),
+                                                           ),
                                                            'id',
                                                            'model',
                                                            'model_id',
+                                                           array(
+                                                               'name' => 'status',
+                                                               'type' => 'raw',
+                                                               'value' => '$this->grid->returnStatusHtml($data)'
+                                                           ),
+                                                           'text',
                                                            'creation_date',
                                                            'name',
                                                            'email',
-                                                           'text',
-                                                           'url',
-                                                           array(
-                                                               'name' => 'status',
-                                                               'value' => '$data->getStatus()'
-                                                           ),
                                                            array(
                                                                'class' => 'CButtonColumn',
+                                                               'deleteConfirmation' => Yii::t('comment','Вы действительно хотите удалить выбранный комментарий?'),
                                                            ),
                                                        ),
                                                   )); ?>
