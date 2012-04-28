@@ -188,7 +188,7 @@ CREATE TABLE IF NOT EXISTS `feedback` (
   `text` text NOT NULL,
   `type` tinyint(4) NOT NULL DEFAULT '0',
   `answer` text NOT NULL,
-  `answer_date` datetime NOT NULL,
+  `answer_date` datetime DEFAULT NULL,
   `is_faq` tinyint(1) NOT NULL DEFAULT '0',
   `status` tinyint(4) NOT NULL DEFAULT '0',
   `ip` varchar(20) NOT NULL,
