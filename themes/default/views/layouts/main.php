@@ -1,12 +1,12 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="<?=Yii::app()->language?>" lang="<?=Yii::app()->language?>">
 <head>
-
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
-    <meta name="language" content="<?php echo Yii::app()->language;?>"/>
-    <meta name="keywords" content="<?php echo $this->keywords;?>"/>
-    <meta name="description" content="<?php echo $this->description;?>"/>
+	<meta http-equiv="X-UA-Compatible" content="IE=Edge"/>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta name="language" content="<?=Yii::app()->language?>" />
+    <meta name="keywords" content="<?=$this->keywords?>" />
+    <meta name="description" content="<?=$this->description?>" />
 
     <?php  $jNotify = Yii::app()->assetManager->publish(Yii::app()->theme->basePath.'/web/jquery_notification/');?>
     <?php  Yii::app()->clientScript->registerCssFile($jNotify . '/css/jquery_notification.css');?>
@@ -14,11 +14,11 @@
 
     <!-- blueprint CSS framework -->
     <link rel="stylesheet" type="text/css"
-          href="<?php echo Yii::app()->request->baseUrl; ?>/css/screen.css"
-          media="screen, projection"/>
+          href="<?=Yii::app()->request->baseUrl?>/css/screen.css"
+          media="screen, projection" />
     <link rel="stylesheet" type="text/css"
-          href="<?php echo Yii::app()->request->baseUrl; ?>/css/print.css"
-          media="print"/>
+          href="<?=Yii::app()->request->baseUrl?>/css/print.css"
+          media="print" />
     <!--[if lt IE 8]>
     <link rel="stylesheet" type="text/css"
           href="<?php echo Yii::app()->request->baseUrl; ?>/css/ie.css"
@@ -26,11 +26,12 @@
     <![endif]-->
 
     <link rel="stylesheet" type="text/css"
-          href="<?php echo Yii::app()->request->baseUrl; ?>/css/main.css"/>
+          href="<?=Yii::app()->request->baseUrl?>/css/main.css" />
     <link rel="stylesheet" type="text/css"
-          href="<?php echo Yii::app()->request->baseUrl; ?>/css/form.css"/>
+          href="<?=Yii::app()->request->baseUrl?>/css/form.css" />
+    <link rel="shortcut icon" href="/favicon.ico" />
 
-    <title><?php echo CHtml::encode($this->pageTitle); ?></title>
+    <title><?=CHtml::encode($this->pageTitle)?></title>
 
 </head>
 
@@ -45,9 +46,7 @@
         </div>
     </div>
     <!-- header -->
-    <div id="mainmenu">
-        <?php $this->widget('application.modules.page.widgets.PagesWidget');?>
-    </div>
+    <?php $this->widget('application.modules.page.widgets.PagesWidget');?>
     <!-- mainmenu -->
 
     <?php $this->widget('zii.widgets.CBreadcrumbs', array(
