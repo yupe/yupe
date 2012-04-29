@@ -21,10 +21,11 @@ class BootInputSearch extends BootInputInline
 	 */
 	protected function textField()
 	{
+		$classes = 'search-query';
 		if (isset($this->htmlOptions['class']))
-			$this->htmlOptions['class'] .= ' search-query';
+			$this->htmlOptions['class'] .= ' '.$classes;
 		else
-			$this->htmlOptions['class'] = 'search-query';
+			$this->htmlOptions['class'] = $classes;
 
 		$this->htmlOptions['placeholder'] = $this->model->getAttributeLabel($this->attribute);
 		echo $this->form->textField($this->model, $this->attribute, $this->htmlOptions);

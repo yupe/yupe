@@ -8,12 +8,10 @@
  * @since 0.9.10
  */
 
-Yii::import('bootstrap.widgets.BootWidget');
-
 /**
  * Bootstrap carousel widget.
  */
-class BootCarousel extends BootWidget
+class BootCarousel extends CWidget
 {
 	/**
 	 * @var string the previous button content.
@@ -27,6 +25,18 @@ class BootCarousel extends BootWidget
 	 * @var array the carousel items configuration.
 	 */
 	public $items = array();
+	/**
+	 * @var array the options for the Bootstrap JavaScript plugin.
+	 */
+	public $options = array();
+	/**
+	 * @var string[] the JavaScript event handlers.
+	 */
+	public $events = array();
+	/**
+	 * @var array the HTML attributes for the widget container.
+	 */
+	public $htmlOptions = array();
 
 	/**
 	 * Initializes the widget.
@@ -36,13 +46,12 @@ class BootCarousel extends BootWidget
 		if (!isset($this->htmlOptions['id']))
 			$this->htmlOptions['id'] = $this->getId();
 
-		$cssClass = 'carousel';
+		$classes = 'carousel';
 		if (isset($this->htmlOptions['class']))
-			$this->htmlOptions['class'] .= ' '.$cssClass;
+			$this->htmlOptions['class'] .= ' '.$classes;
 		else
-			$this->htmlOptions['class'] = $cssClass;
+			$this->htmlOptions['class'] = $classes;
 
-		Yii::app()->bootstrap->registerCarousel();
 	}
 
 	/**
@@ -69,16 +78,14 @@ class BootCarousel extends BootWidget
         if (isset($this->events['slide']))
         {
             $fn = CJavaScript::encode($this->events['slide']);
-	        $cs->registerScript(__CLASS__.'#'.$this->id.'.slide',
-	                "jQuery('#{$id}').on('slide', {$fn});");
+	        $cs->registerScript(__CLASS__.'#'.$id.'.slide', "jQuery('#{$id}').on('slide', {$fn});");
         }
 
         // Register the "slid" event-handler.
         if (isset($this->events['slid']))
         {
             $fn = CJavaScript::encode($this->events['slid']);
-	        $cs->registerScript(__CLASS__.'#'.$this->id.'.slid',
-	                "jQuery('#{$id}').on('slid', {$fn});");
+	        $cs->registerScript(__CLASS__.'#'.$id.'.slid', "jQuery('#{$id}').on('slid', {$fn});");
         }
 	}
 
@@ -90,19 +97,22 @@ class BootCarousel extends BootWidget
 	{
 		foreach ($items as $i => $item)
 		{
+			if (!is_array($item))
+				continue;
+
 			if (!isset($item['itemOptions']))
 				$item['itemOptions'] = array();
 
-			$class = array('item');
+			$classes = array('item');
 
 			if ($i === 0)
-				$class[] = 'active';
+				$classes[] = 'active';
 
-			$cssClass = implode(' ', $class);
+			$classes = implode(' ', $classes);
 			if (isset($item['itemOptions']['class']))
-				$item['itemOptions']['class'] .= ' '.$cssClass;
+				$item['itemOptions']['class'] .= ' '.$classes;
 			else
-				$item['itemOptions']['class'] = $cssClass;
+				$item['itemOptions']['class'] = $classes;
 
 			echo CHtml::openTag('div', $item['itemOptions']);
 
@@ -122,11 +132,11 @@ class BootCarousel extends BootWidget
 				if (!isset($item['captionOptions']))
 					$item['captionOptions'] = array();
 
-				$cssClass = 'carousel-caption';
+				$classes = 'carousel-caption';
 				if (isset($item['captionOptions']['class']))
-					$item['captionOptions']['class'] .= ' '.$cssClass;
+					$item['captionOptions']['class'] .= ' '.$classes;
 				else
-					$item['captionOptions']['class'] = $cssClass;
+					$item['captionOptions']['class'] = $classes;
 
 				echo CHtml::openTag('div', $item['captionOptions']);
 

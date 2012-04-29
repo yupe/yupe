@@ -39,7 +39,7 @@ class BootDetailView extends CDetailView
 	{
 		parent::init();
 
-		$class = array('table');
+		$classes = array('table');
 
 		if (is_string($this->type))
 			$this->type = explode(' ', $this->type);
@@ -48,12 +48,12 @@ class BootDetailView extends CDetailView
 
 		foreach ($this->type as $type)
 			if (in_array($type, $validTypes))
-				$class[] = 'table-'.$type;
+				$classes[] = 'table-'.$type;
 
-		$cssClass = implode(' ', $class);
+		$classes = implode(' ', $classes);
 		if (isset($this->htmlOptions['class']))
-			$this->htmlOptions['class'] .= ' '.$cssClass;
+			$this->htmlOptions['class'] .= ' '.$classes;
 		else
-			$this->htmlOptions['class'] = $cssClass;
+			$this->htmlOptions['class'] = $classes;
 	}
 }

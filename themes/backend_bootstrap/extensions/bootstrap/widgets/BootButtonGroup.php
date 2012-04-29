@@ -9,12 +9,11 @@
  */
 
 Yii::import('bootstrap.widgets.BootButton');
-Yii::import('bootstrap.widgets.BootWidget');
 
 /**
  * Bootstrap button group widget.
  */
-class BootButtonGroup extends BootWidget
+class BootButtonGroup extends CWidget
 {
 	// Toggle options.
 	const TOGGLE_CHECKBOX = 'checkbox';
@@ -40,6 +39,10 @@ class BootButtonGroup extends BootWidget
 	 */
 	public $encodeLabel = true;
 	/**
+	 * @var array the HTML attributes for the widget container.
+	 */
+	public $htmlOptions = array();
+	/**
 	 * @var array the button configuration.
 	 */
 	public $buttons = array();
@@ -53,19 +56,16 @@ class BootButtonGroup extends BootWidget
 	 */
 	public function init()
 	{
-		$cssClass = 'btn-group';
+		$classes = 'btn-group';
 		if (isset($this->htmlOptions['class']))
-			$this->htmlOptions['class'] .= ' '.$cssClass;
+			$this->htmlOptions['class'] .= ' '.$classes;
 		else
-			$this->htmlOptions['class'] = $cssClass;
+			$this->htmlOptions['class'] = $classes;
 
 		$validToggles = array(self::TOGGLE_CHECKBOX, self::TOGGLE_RADIO);
 
 		if (isset($this->toggle) && in_array($this->toggle, $validToggles))
-		{
 			$this->htmlOptions['data-toggle'] = 'buttons-'.$this->toggle;
-			Yii::app()->bootstrap->registerButton();
-		}
 	}
 
 	/**

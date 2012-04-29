@@ -26,7 +26,7 @@ foreach($this->tableSchema->columns as $column)
 ?>
 	<div class="form-actions">
 		<?php echo "<?php \$this->widget('bootstrap.widgets.BootButton', array(
-			'fn'=>'submit',
+			'buttonType'=>'submit',
 			'type'=>'primary',
 			'label'=>\$model->isNewRecord ? 'Create' : 'Save',
 		)); ?>\n"; ?>
