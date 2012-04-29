@@ -2,7 +2,6 @@
 
 class YandexMetrika extends YWidget
 {
-
     public $counter;
 	public $informer = true;
 
@@ -11,9 +10,9 @@ class YandexMetrika extends YWidget
 
         if (!$this->counter)
             throw new CException('Укажите параметр "counter" для YandexMetrikaWidget!');
-		
-		if ($this->informer)
-        	echo <<<EOF
+
+        if ($this->informer)
+            echo <<<EOF
 <!-- Yandex.Metrika informer -->
 <a href="http://metrika.yandex.ru/stat/?id={$this->counter}&amp;from=informer"
 target="_blank" rel="nofollow"><img src="//bs.yandex.ru/informer/{$this->counter}/3_1_FFFFFFFF_EFEFEFFF_0_pageviews"
@@ -22,7 +21,7 @@ title="Яндекс.Метрика: данные за сегодня (просм
 onclick="try{Ya.Metrika.informer({i:this,id:{$this->counter},type:0,lang:'ru'});return false}catch(e){}"/></a>
 <!-- /Yandex.Metrika informer -->
 EOF;
-		echo <<<EOF
+        echo <<<EOF
 <!-- Yandex.Metrika counter -->
 <script type="text/javascript">
 (function (d, w, c) {
