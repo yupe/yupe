@@ -13,7 +13,7 @@ Yii::import('bootstrap.widgets.BootWidget');
 /**
  * Bootstrap navigation bar widget.
  */
-class BootNavbar extends BootWidget
+class BootNavbar extends CWidget
 {
 	// Navbar fix locations.
 	const FIXED_TOP = 'top';
@@ -37,7 +37,9 @@ class BootNavbar extends BootWidget
 	 */
 	public $items = array();
 	/**
-	 * @var string fix location of the navbar if applicable. Valid values are 'top' and 'bottom'. Defaults to 'top'.
+	 * @var mixed fix location of the navbar if applicable.
+	 * Valid values are 'top' and 'bottom'. Defaults to 'top'.
+	 * Setting the value to false will make the navbar static.
 	 * @since 0.9.8
 	 */
 	public $fixed = self::FIXED_TOP;
@@ -50,6 +52,10 @@ class BootNavbar extends BootWidget
 	 * @var boolean whether to enable collapsing on narrow screens. Default to false.
 	 */
 	public $collapse = false;
+	/**
+	 * @var array the HTML attributes for the widget container.
+	 */
+	public $htmlOptions = array();
 
 	/**
 	 * Initializes the widget.
@@ -64,9 +70,6 @@ class BootNavbar extends BootWidget
 			if (!isset($this->brandUrl))
 				$this->brandUrl = Yii::app()->homeUrl;
 		}
-
-		if ($this->collapse)
-			Yii::app()->bootstrap->registerCollapse();
 	}
 
 	/**
@@ -74,18 +77,20 @@ class BootNavbar extends BootWidget
 	 */
 	public function run()
 	{
-		$class = array('navbar');
+		$classes = array('navbar');
 
-		$validFixes = array(self::FIXED_TOP, self::FIXED_BOTTOM);
+		if ($this->fixed !== false)
+		{
+			$validFixes = array(self::FIXED_TOP, self::FIXED_BOTTOM);
+			if (in_array($this->fixed, $validFixes))
+				$classes[] = 'navbar-fixed-'.$this->fixed;
+		}
 
-		if (in_array($this->fixed, $validFixes))
-			$class[] = 'navbar-fixed-'.$this->fixed;
-
-		$cssClass = implode(' ', $class);
+		$classes = implode(' ', $classes);
 		if (isset($this->htmlOptions['class']))
-			$this->htmlOptions['class'] .= ' '.$cssClass;
+			$this->htmlOptions['class'] .= ' '.$classes;
 		else
-			$this->htmlOptions['class'] = $cssClass;
+			$this->htmlOptions['class'] = $classes;
 
 		if (isset($this->brandOptions['class']))
 			$this->brandOptions['class'] .= ' brand';

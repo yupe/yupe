@@ -15,32 +15,43 @@ Yii::import('zii.widgets.CBreadcrumbs');
 class BootBreadcrumbs extends CBreadcrumbs
 {
 	/**
-	 * @var array the HTML attributes for the breadcrumbs container tag.
-	 */
-	public $htmlOptions = array('class'=>'breadcrumb');
-	/**
 	 * @var string the separator between links in the breadcrumbs (defaults to ' / ').
 	 */
 	public $separator = '/';
+
+	/**
+	 * Initializes the widget.
+	 */
+	public function init()
+	{
+		$classes = 'breadcrumb';
+		if (isset($this->htmlOptions['class']))
+			$this->htmlOptions['class'] .= ' '.$classes;
+		else
+			$this->htmlOptions['class'] = $classes;
+	}
 
 	/**
 	 * Renders the content of the widget.
 	 */
 	public function run()
 	{
+		if (empty($this->links))
+			return;
+		
 		$links = array();
 
-		if ($this->homeLink === null || !(isset($this->homeLink['label']) && isset($this->homeLink['url'])))
-			$this->homeLink = array('label'=>Yii::t('bootstrap', 'Home'),'url'=>Yii::app()->homeUrl);
+		if ($this->homeLink === null)
+			$this->homeLink = array('label'=>Yii::t('bootstrap', 'Home'), 'url'=>Yii::app()->homeUrl);
 
-		if (!empty($this->links))
+		if ($this->homeLink !== false)
 		{
-			$content = CHtml::link($this->homeLink['label'], $this->homeLink['url']);
-			$links[] = $this->renderItem($content);
+			if (is_array($this->homeLink))
+				$this->homeLink = CHtml::link($this->homeLink['label'], $this->homeLink['url']);
+			
+			$links[] = $this->renderItem($this->homeLink);
 		}
-		else
-			$links[] = $this->renderItem($this->homeLink['label'], true);
-
+		
 		foreach ($this->links as $label=>$url)
 		{
 			if (is_string($label) || is_array($url))

@@ -50,7 +50,7 @@ class BootGridView extends CGridView
 	{
 		parent::init();
 
-		$class = array('table');
+		$classes = array('table');
 
 		if (is_string($this->type))
 			$this->type = explode(' ', $this->type);
@@ -59,9 +59,9 @@ class BootGridView extends CGridView
 
 		foreach ($this->type as $type)
 			if (in_array($type, $validTypes))
-				$class[] = 'table-'.$type;
+				$classes[] = 'table-'.$type;
 
-		$this->itemsCssClass .= ' '.implode(' ', $class);
+		$this->itemsCssClass .= ' '.implode(' ', $classes);
 	}
 
 	/**

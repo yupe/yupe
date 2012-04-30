@@ -23,13 +23,11 @@ class BootDropdown extends BootBaseMenu
 		$route = $this->controller->getRoute();
 		$this->items = $this->normalizeItems($this->items, $route);
 
-		$cssClass = 'dropdown-menu';
+		$classes = 'dropdown-menu';
 		if (isset($this->htmlOptions['class']))
-			$this->htmlOptions['class'] .= ' '.$cssClass;
+			$this->htmlOptions['class'] .= ' '.$classes;
 		else
-			$this->htmlOptions['class'] = $cssClass;
-
-		Yii::app()->bootstrap->registerDropdown();
+			$this->htmlOptions['class'] = $classes;
 	}
 
 	/**
@@ -47,21 +45,21 @@ class BootDropdown extends BootBaseMenu
 				if (!isset($item['itemOptions']))
 					$item['itemOptions'] = array();
 
-				$class = array();
+				$classes = array();
 				if (!isset($item['url']))
 				{
 					$item['header'] = true;
-					$class[] = 'nav-header';
+					$classes[] = 'nav-header';
 				}
 
 				if ($item['active'])
-					$class[] = 'active';
+					$classes[] = 'active';
 
-				$cssClass = implode(' ', $class);
+				$classes = implode(' ', $classes);
 				if(isset($item['itemOptions']['class']))
-					$item['itemOptions']['class'] .= ' '.$cssClass;
+					$item['itemOptions']['class'] .= ' '.$classes;
 				else
-					$item['itemOptions']['class'] = $cssClass;
+					$item['itemOptions']['class'] = $classes;
 
 				echo CHtml::openTag('li', $item['itemOptions']);
 				$menu = $this->renderItem($item);
@@ -89,9 +87,16 @@ class BootDropdown extends BootBaseMenu
 	{
 		foreach ($items as $i => $item)
 		{
+			if (!is_array($item))
+				continue;
+
 			if (isset($item['visible']) && !$item['visible'])
 			{
 				unset($items[$i]);
+				continue;
+			}
+
+			if (!is_array($item)) {
 				continue;
 			}
 

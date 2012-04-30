@@ -48,21 +48,21 @@ class BootMenu extends BootBaseMenu
 		$route = $this->controller->getRoute();
 		$this->items = $this->normalizeItems($this->items, $route);
 
-		$class = array('nav');
+		$classes = array('nav');
 
 		$validTypes = array(self::TYPE_UNSTYLED, self::TYPE_TABS, self::TYPE_PILLS, self::TYPE_LIST);
 
 		if (!empty($this->type) && in_array($this->type, $validTypes))
-			$class[] = 'nav-'.$this->type;
+			$classes[] = 'nav-'.$this->type;
 
 		if ($this->type !== self::TYPE_LIST && $this->stacked)
-			$class[] = 'nav-stacked';
+			$classes[] = 'nav-stacked';
 
-		$cssClass = implode(' ', $class);
+		$classes = implode(' ', $classes);
 		if (isset($this->htmlOptions['class']))
-			$this->htmlOptions['class'] .= ' '.$cssClass;
+			$this->htmlOptions['class'] .= ' '.$classes;
 		else
-			$this->htmlOptions['class'] = $cssClass;
+			$this->htmlOptions['class'] = $classes;
 
 		if (isset($this->scrollspy) && is_array($this->scrollspy) && isset($this->scrollspy['spy']))
 		{
@@ -72,7 +72,6 @@ class BootMenu extends BootBaseMenu
 			if (!isset($this->scrollspy['offset']))
 				$this->scrollspy['offset'] = null;
 
-			Yii::app()->bootstrap->registerScrollSpy();
 			Yii::app()->bootstrap->spyOn($this->scrollspy['subject'], $this->scrollspy['spy'], $this->scrollspy['offset']);
 		}
 	}
@@ -92,25 +91,25 @@ class BootMenu extends BootBaseMenu
 				if (!isset($item['itemOptions']))
 					$item['itemOptions'] = array();
 
-				$class = array();
+				$classes = array();
 
 				if ($item['active'] || (isset($item['items']) && $this->isChildActive($item['items'])))
-					$class[] = 'active';
+					$classes[] = 'active';
 
 				if ($this->type === self::TYPE_LIST && !isset($item['url']))
 				{
 					$item['header'] = true;
-					$class[] = 'nav-header';
+					$classes[] = 'nav-header';
 				}
 
 				if (isset($item['items']))
-					$class[] = 'dropdown';
+					$classes[] = 'dropdown';
 
-				$cssClass = implode(' ', $class);
+				$classes = implode(' ', $classes);
 				if(isset($item['itemOptions']['class']))
-					$item['itemOptions']['class'] .= ' '.$cssClass;
+					$item['itemOptions']['class'] .= ' '.$classes;
 				else
-					$item['itemOptions']['class'] = $cssClass;
+					$item['itemOptions']['class'] = $classes;
 
 				echo CHtml::openTag('li', $item['itemOptions']);
 				$menu = $this->renderItem($item);
@@ -171,9 +170,16 @@ class BootMenu extends BootBaseMenu
 	{
 		foreach ($items as $i => $item)
 		{
+			if (!is_array($item))
+				continue;
+
 			if (isset($item['visible']) && !$item['visible'])
 			{
 				unset($items[$i]);
+				continue;
+			}
+
+			if (!is_array($item)) {
 				continue;
 			}
 

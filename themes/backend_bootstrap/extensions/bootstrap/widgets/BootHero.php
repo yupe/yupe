@@ -8,13 +8,11 @@
  * @since 0.9.10
  */
 
-Yii::import('bootstrap.widgets.BootWidget');
-
 /**
  * Modest bootstrap hero widget.
  * Thanks to Christphe Boulain for suggesting content capturing.
  */
-class BootHero extends BootWidget
+class BootHero extends CWidget
 {
 	/**
 	 * @var string the heading text.
@@ -24,17 +22,21 @@ class BootHero extends BootWidget
 	 * @var boolean indicates whether to encode the heading.
 	 */
 	public $encodeHeading = true;
+	/**
+	 * @var array the HTML attributes for the widget container.
+	 */
+	public $htmlOptions = array();
 
 	/**
 	 * Initializes the widget.
 	 */
 	public function init()
 	{
-		$cssClass = 'hero-unit';
+		$classes = 'hero-unit';
 		if (isset($this->htmlOptions['class']))
-			$this->htmlOptions['class'] .= ' '.$cssClass;
+			$this->htmlOptions['class'] .= ' '.$classes;
 		else
-			$this->htmlOptions['class'] = $cssClass;
+			$this->htmlOptions['class'] = $classes;
 
 		if ($this->encodeHeading)
 			$this->heading = CHtml::encode($this->heading);

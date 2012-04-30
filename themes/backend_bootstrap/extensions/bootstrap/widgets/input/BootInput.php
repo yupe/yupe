@@ -64,11 +64,11 @@ abstract class BootInput extends CInputWidget
 
 		if ($this->type === self::TYPE_UNEDITABLE)
 		{
-			$cssClass = 'uneditable-input';
+			$classes = 'uneditable-input';
 			if (isset($this->htmlOptions['class']))
-				$this->htmlOptions['class'] .= ' '.$cssClass;
+				$this->htmlOptions['class'] .= ' '.$classes;
 			else
-				$this->htmlOptions['class'] = $cssClass;
+				$this->htmlOptions['class'] = $classes;
 		}
 	}
 
@@ -161,15 +161,15 @@ abstract class BootInput extends CInputWidget
 	{
 		if ($this->hasAddOn())
 		{
-			$cssClass = 'add-on';
+			$classes = 'add-on';
 			if (isset($htmlOptions['class']))
-				$htmlOptions['class'] .= ' '.$cssClass;
+				$htmlOptions['class'] .= ' '.$classes;
 			else
-				$htmlOptions['class'] = $cssClass;
+				$htmlOptions['class'] = $classes;
 
-			$cssClass = $this->getInputContainerCssClass();
+			$classes = $this->getInputContainerCssClass();
 			ob_start();
-			echo '<div class="'.$cssClass.'">';
+			echo '<div class="'.$classes.'">';
 			if (isset($this->htmlOptions['prepend']))
 				echo CHtml::tag('span', $htmlOptions, $this->htmlOptions['prepend']);
 			return ob_get_clean();
@@ -187,11 +187,11 @@ abstract class BootInput extends CInputWidget
 	{
 		if ($this->hasAddOn())
 		{
-			$cssClass = 'add-on';
+			$classes = 'add-on';
 			if (isset($htmlOptions['class']))
-				$htmlOptions['class'] .= ' '.$cssClass;
+				$htmlOptions['class'] .= ' '.$classes;
 			else
-				$htmlOptions['class'] = $cssClass;
+				$htmlOptions['class'] = $classes;
 
 			ob_start();
 			if (isset($this->htmlOptions['append']))
@@ -209,13 +209,13 @@ abstract class BootInput extends CInputWidget
 	 */
 	protected function getInputContainerCssClass()
 	{
-		$class = array();
+		$classes = array();
 		if (isset($this->htmlOptions['prepend']))
-			$class[] = 'input-prepend';
+			$classes[] = 'input-prepend';
 		if (isset($this->htmlOptions['append']))
-			$class[] = 'input-append';
+			$classes[] = 'input-append';
 
-		return implode(' ', $class);
+		return implode(' ', $classes);
 	}
 
 	/**
@@ -259,7 +259,7 @@ abstract class BootInput extends CInputWidget
 	 */
 	protected function getContainerCssClass()
 	{
-		if ($this->model->hasErrors($this->attribute))
+		if ($this->model->hasErrors(CHtml::resolveName($this->model, $this->attribute)))
 			return CHtml::$errorCss;
 		else
 			return '';
