@@ -8,12 +8,10 @@
  * @since 0.9.10
  */
 
-Yii::import('bootstrap.widgets.BootWidget');
-
 /**
  * Bootstrap button widget.
  */
-class BootButton extends BootWidget
+class BootButton extends CWidget
 {
 	// Button callback types.
 	const BUTTON_LINK = 'link';
@@ -92,6 +90,10 @@ class BootButton extends BootWidget
 	 */
 	public $encodeLabel = true;
 	/**
+	 * @var array the HTML attributes for the widget container.
+	 */
+	public $htmlOptions = array();
+	/**
 	 * @var array the button ajax options (used by 'ajaxLink' and 'ajaxButton').
 	 */
 	public $ajaxOptions = array();
@@ -106,21 +108,21 @@ class BootButton extends BootWidget
 	 */
 	public function init()
 	{
-		$class = array('btn');
+		$classes = array('btn');
 
 		$validTypes = array(self::TYPE_PRIMARY, self::TYPE_INFO, self::TYPE_SUCCESS,
 				self::TYPE_WARNING, self::TYPE_DANGER, self::TYPE_INVERSE);
 
 		if (isset($this->type) && in_array($this->type, $validTypes))
-			$class[] = 'btn-'.$this->type;
+			$classes[] = 'btn-'.$this->type;
 
 		$validSizes = array(self::SIZE_LARGE, self::SIZE_SMALL, self::SIZE_MINI);
 
 		if (isset($this->size) && in_array($this->size, $validSizes))
-			$class[] = 'btn-'.$this->size;
+			$classes[] = 'btn-'.$this->size;
 
 		if ($this->active)
-			$class[] = 'active';
+			$classes[] = 'active';
 
 		if ($this->encodeLabel)
 			$this->label = CHtml::encode($this->label);
@@ -130,17 +132,17 @@ class BootButton extends BootWidget
 			if (!isset($this->url))
 				$this->url = '#';
 
-			$class[] = 'dropdown-toggle';
+			$classes[] = 'dropdown-toggle';
 			$this->label .= ' <span class="caret"></span>';
 			$this->htmlOptions['data-toggle'] = 'dropdown';
 		}
 
-		$cssClass = implode(' ', $class);
+		$classes = implode(' ', $classes);
 
 		if (isset($this->htmlOptions['class']))
-			$this->htmlOptions['class'] .= ' '.$cssClass;
+			$this->htmlOptions['class'] .= ' '.$classes;
 		else
-			$this->htmlOptions['class'] = $cssClass;
+			$this->htmlOptions['class'] = $classes;
 
 		if (isset($this->icon))
 		{
@@ -168,8 +170,6 @@ class BootButton extends BootWidget
 
 			if (isset($this->completeText))
 				$this->htmlOptions['data-complete-text'] = $this->completeText;
-
-			Yii::app()->bootstrap->registerButton();
 		}
 	}
 

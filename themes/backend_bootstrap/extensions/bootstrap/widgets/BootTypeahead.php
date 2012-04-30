@@ -8,13 +8,20 @@
  * @since 0.9.10
  */
 
-Yii::import('bootstrap.widgets.BootWidget');
-
 /**
  * Bootstrap type-a-head widget.
  */
-class BootTypeahead extends BootWidget
+class BootTypeahead extends CWidget
 {
+	/**
+	 * @var array the options for the Bootstrap JavaScript plugin.
+	 */
+	public $options = array();
+	/**
+	 * @var array the HTML attributes for the widget container.
+	 */
+	public $htmlOptions = array();
+
 	/**
 	 * Initializes the widget.
 	 */
@@ -25,8 +32,6 @@ class BootTypeahead extends BootWidget
 
 		$this->htmlOptions['type'] = 'text';
 		$this->htmlOptions['data-provide'] = 'typeahead';
-
-		Yii::app()->bootstrap->registerTypeahead();
 	}
 
 	/**
@@ -34,9 +39,10 @@ class BootTypeahead extends BootWidget
 	 */
 	public function run()
 	{
+		$id = $this->id;
+
 		echo CHtml::tag('input', $this->htmlOptions);
 
-		$id = $this->id;
 		$options = !empty($this->options) ? CJavaScript::encode($this->options) : '';
 		Yii::app()->clientScript->registerScript(__CLASS__.'#'.$id, "jQuery('#{$id}').typeahead({$options});");
 	}

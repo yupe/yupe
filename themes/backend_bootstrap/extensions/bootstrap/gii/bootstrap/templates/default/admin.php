@@ -64,7 +64,7 @@ if($count>=7)
 	echo "\t\t*/\n";
 ?>
 		array(
-			'class'=>'BootButtonColumn',
+			'class'=>'bootstrap.widgets.BootButtonColumn',
 		),
 	),
 )); ?>

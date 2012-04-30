@@ -7,12 +7,10 @@
  * @package bootstrap.widgets
  */
 
-Yii::import('bootstrap.widgets.BootWidget');
-
 /**
  * Bootstrap badge widget.
  */
-class BootBadge extends BootWidget
+class BootBadge extends CWidget
 {
 	// Badge types.
 	const TYPE_DEFAULT = '';
@@ -35,6 +33,10 @@ class BootBadge extends BootWidget
 	 * @var boolean whether to encode the label.
 	 */
 	public $encodeLabel = true;
+	/**
+	 * @var array the HTML attributes for the widget container.
+	 */
+	public $htmlOptions = array();
 
 	/**
 	 * Initializes the widget.
@@ -43,17 +45,16 @@ class BootBadge extends BootWidget
 	{
 		$classes = array('badge');
 
-		$validTypes = array(self::TYPE_SUCCESS, self::TYPE_WARNING,
-				self::TYPE_ERROR, self::TYPE_INFO, self::TYPE_INVERSE);
+		$validTypes = array(self::TYPE_SUCCESS, self::TYPE_WARNING, self::TYPE_ERROR, self::TYPE_INFO, self::TYPE_INVERSE);
 
 		if (in_array($this->type, $validTypes))
 			$classes[] = 'badge-'.$this->type;
 
-		$cssClass = implode(' ', $classes);
+		$classes = implode(' ', $classes);
 		if (isset($this->htmlOptions['class']))
-			$this->htmlOptions['class'] .= ' '.$cssClass;
+			$this->htmlOptions['class'] .= ' '.$classes;
 		else
-			$this->htmlOptions['class'] = $cssClass;
+			$this->htmlOptions['class'] = $classes;
 
 		if ($this->encodeLabel === true)
 			$this->label = CHtml::encode($this->label);

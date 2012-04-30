@@ -8,12 +8,10 @@
  * @since 0.9.10
  */
 
-Yii::import('bootstrap.widgets.BootWidget');
-
 /**
  * Bootstrap progress bar widget.
  */
-class BootProgress extends BootWidget
+class BootProgress extends CWidget
 {
 	// Progress bar types.
 	const TYPE_DEFAULT = '';
@@ -38,29 +36,33 @@ class BootProgress extends BootWidget
 	 * @var integer the progress.
 	 */
 	public $percent = 0;
+	/**
+	 * @var array the HTML attributes for the widget container.
+	 */
+	public $htmlOptions = array();
 
 	/**
 	 * Initializes the widget.
 	 */
 	public function init()
 	{
-		$class = array('progress');
+		$classes = array('progress');
 
 		$validTypes = array(self::TYPE_DEFAULT, self::TYPE_INFO, self::TYPE_SUCCESS, self::TYPE_DANGER);
 		if ($this->type !== self::TYPE_DEFAULT && in_array($this->type, $validTypes))
-			$class[] = 'progress-'.$this->type;
+			$classes[] = 'progress-'.$this->type;
 
 		if ($this->striped)
-			$class[] = 'progress-striped';
+			$classes[] = 'progress-striped';
 
 		if ($this->animated)
-			$class[] = 'active';
+			$classes[] = 'active';
 
-		$cssClass = implode(' ', $class);
+		$classes = implode(' ', $classes);
 		if (isset($this->htmlOptions['class']))
-			$this->htmlOptions['class'] .= ' '.$cssClass;
+			$this->htmlOptions['class'] .= ' '.$classes;
 		else
-			$this->htmlOptions['class'] = $cssClass;
+			$this->htmlOptions['class'] = $classes;
 
 		if ($this->percent < 0)
 			$this->percent = 0;

@@ -8,14 +8,12 @@
  */
 
 Yii::import('bootstrap.widgets.BootMenu');
-Yii::import('bootstrap.widgets.BootWidget');
 
 /**
  * Bootstrap JavaScript tabs widget.
  * @since 0.9.8
- * @todo Fix event support. http://twitter.github.com/bootstrap/javascript.html#tabs
  */
-class BootTabbable extends BootWidget
+class BootTabbable extends CWidget
 {
 	// Tab placements.
 	const PLACEMENT_ABOVE = 'above';
@@ -42,6 +40,14 @@ class BootTabbable extends BootWidget
 	 * @var boolean whether to encode item labels.
 	 */
 	public $encodeLabel = true;
+	/**
+	 * @var string[] the JavaScript event handlers.
+	 */
+	public $events = array();
+	/**
+	 * @var array the HTML attributes for the widget container.
+	 */
+	public $htmlOptions = array();
 
     /**
      * Initializes the widget.
@@ -55,14 +61,12 @@ class BootTabbable extends BootWidget
 
 		if (isset($this->placement) && in_array($this->placement, $validPlacements))
 		{
-			$cssClass = 'tabs-'.$this->placement;
+			$classes = 'tabs-'.$this->placement;
 			if (isset($this->htmlOptions['class']))
-				$this->htmlOptions['class'] .= ' '.$cssClass;
+				$this->htmlOptions['class'] .= ' '.$classes;
 			else
-				$this->htmlOptions['class'] = $cssClass;
+				$this->htmlOptions['class'] = $classes;
 		}
-
-		Yii::app()->bootstrap->registerTabs();
     }
 
     /**
@@ -100,16 +104,14 @@ class BootTabbable extends BootWidget
         if (isset($this->events['show']))
         {
             $fn = CJavaScript::encode($this->events['show']);
-	        $cs->registerScript(__CLASS__.'#'.$id.'.show',
-	                "jQuery('#{$id} a[data-toggle=\"tab\"]').on('show', {$fn});");
+	        $cs->registerScript(__CLASS__.'#'.$id.'.show', "jQuery('#{$id} a[data-toggle=\"tab\"]').on('show', {$fn});");
         }
 
         // Register the "shown" event-handler.
         if (isset($this->events['shown']))
         {
             $fn = CJavaScript::encode($this->events['shown']);
-	        $cs->registerScript(__CLASS__.'#'.$id.'.shown',
-	                "jQuery('#{$id} a[data-toggle=\"tab\"]').on('shown', {$fn});");
+	        $cs->registerScript(__CLASS__.'#'.$id.'.shown', "jQuery('#{$id} a[data-toggle=\"tab\"]').on('shown', {$fn});");
         }
     }
 
@@ -123,8 +125,6 @@ class BootTabbable extends BootWidget
 	protected function normalizeTabs($tabs, &$panes, &$i = 0)
 	{
 		$id = $this->getId();
-		$transitions = Yii::app()->bootstrap->isPluginRegistered(Bootstrap::PLUGIN_TRANSITION);
-
 		$items = array();
 
 	    foreach ($tabs as $tab)
@@ -162,24 +162,16 @@ class BootTabbable extends BootWidget
 
 				$paneOptions['id'] = $item['id'];
 
-				$class = array('tab-pane');
-
-				if ($transitions)
-					$class[] = 'fade';
+				$classes = array('tab-pane fade');
 
 				if (isset($item['active']) && $item['active'])
-				{
-					$class[] = 'active';
+					$classes[] = 'active in';
 
-					if ($transitions)
-						$class[] = 'in';
-				}
-
-				$cssClass = implode(' ', $class);
+				$classes = implode(' ', $classes);
 				if (isset($paneOptions['class']))
-					$paneOptions['class'] .= $cssClass;
+					$paneOptions['class'] .= $classes;
 				else
-					$paneOptions['class'] = $cssClass;
+					$paneOptions['class'] = $classes;
 
 				$panes[] = CHtml::tag('div', $paneOptions, $content);
 
