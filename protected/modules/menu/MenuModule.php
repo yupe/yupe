@@ -10,7 +10,7 @@ class MenuModule extends YWebModule
     public function getNavigation()
     {
         return array(
-            Yii::t('menu','Меню')  => '/menu/menu/admin/',            
+            Yii::t('menu', 'Меню')=>'/menu/menu/admin/',
         );
     }
 
@@ -39,11 +39,11 @@ class MenuModule extends YWebModule
         return Yii::t('menu', 'http://yupe.ru');
     }
 
-	public function init()
-	{		
-		$this->setImport(array(
-			'menu.models.*',
-			'menu.components.*',
-		));
-	}
+    public function init()
+    {
+        $this->setImport(array(
+            'menu.models.*',
+            'menu.components.*',
+        ));
+    }
 }
