@@ -16,7 +16,7 @@
         array('label'=>Yii::t('menu', 'Изменить пункт меню'), 'url'=>array('updateMenuItem', 'id'=>$model->id)),
         array('label'=>Yii::t('menu', 'Удалить пункт меню'), 'url'=>'#', 'linkOptions'=>array(
             'submit'=>array('deleteMenuItem', 'id'=>$model->id),
-            'confirm'=>'Are you sure you want to delete this item?'),
+            'confirm'=>Yii::t('menu', 'Подтверждаете удаление?')),
         ),
         array('label'=>Yii::t('menu', 'Cписок пунктов меню'), 'url'=>array('indexMenuItem')),
         array('label'=>Yii::t('menu', 'Управление пунктами меню'), 'url'=>array('adminMenuItem')),

@@ -10,7 +10,7 @@
         array('label'=>Yii::t('menu', 'Изменить меню'), 'url'=>array('update', 'id'=>$model->id)),
         array('label'=>Yii::t('menu', 'Удалить меню'), 'url'=>'#', 'linkOptions'=>array(
             'submit'=>array('delete', 'id'=>$model->id),
-            'confirm'=>'Are you sure you want to delete this item?'),
+            'confirm'=>Yii::t('menu', 'Подтверждаете удаление?')),
         ),
         array('label'=>Yii::t('menu', 'Список меню'), 'url'=>array('index')),
         array('label'=>Yii::t('menu', 'Управление меню'), 'url'=>array('admin')),

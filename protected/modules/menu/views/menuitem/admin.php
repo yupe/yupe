@@ -63,8 +63,7 @@
             ),
             array(
                 'class'=>'CButtonColumn',
-                // :TODO: Найти способ сделать компактнее
-                // или добавить новый контроллер или создать заявку на yiisoft
+                // :TODO: Найти способ сделать компактнее или добавить новый контроллер или создать заявку на yiisoft
                 'viewButtonUrl'=>'Yii::app()->controller->createUrl("viewMenuItem",array("id"=>$data->primaryKey))',
                 'updateButtonUrl'=>'Yii::app()->controller->createUrl("updateMenuItem",array("id"=>$data->primaryKey))',
                 'deleteButtonUrl'=>'Yii::app()->controller->createUrl("deleteMenuItem",array("id"=>$data->primaryKey))',

@@ -24,6 +24,11 @@ class MenuModule extends YWebModule
         return Yii::t('menu', 'Модуль для создания и редактирования меню');
     }
 
+    public function getVersion()
+    {
+        return Yii::t('comment', '0.2');
+    }
+
     public function getAuthor()
     {
         return Yii::t('menu', 'yupe team');
