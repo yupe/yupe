@@ -35,6 +35,7 @@
     <div class="row">
         <?=$form->labelEx($model, 'parent_id')?>
         <?=$form->dropDownList($model, 'parent_id',
+            // :KLUDGE: Обратить внимание, возможно сделать иначе определение корня
             array(0=>'корень меню') + CHtml::listData(MenuItem::model()->findAll(), 'id', 'title')
         )?>
         <?=$form->error($model, 'parent_id')?>

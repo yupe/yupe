@@ -36,6 +36,7 @@
                 'name'=>'menu_id',
                 'value'=>$model->menu->name,
             ),
+            // :KLUDGE: Обратить внимание, возможно сделать иначе определение корня
             array(
                 'name'=>'parent_id',
                 'value'=>$model->parent->title,
