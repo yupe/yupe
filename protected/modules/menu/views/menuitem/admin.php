@@ -1,17 +1,18 @@
 <?php
     $this->breadcrumbs = array(
-        Yii::t('menu', 'Меню'),
+        Yii::t('menu', 'Меню')=>array('admin'),
+        Yii::t('menu', 'Пункты меню'),
     );
 
     $this->menu = array(
         array('label'=>Yii::t('menu', 'Меню')),
         array('label'=>Yii::t('menu', 'Добавить меню'), 'url'=>array('create')),
         array('label'=>Yii::t('menu', 'Список меню'), 'url'=>array('index')),
+        array('label'=>Yii::t('menu', 'Управление меню'), 'url'=>array('admin')),
 
         array('label'=>Yii::t('menu', 'Пункты меню')),
         array('label'=>Yii::t('menu', 'Добавить пункт меню'), 'url'=>array('addMenuItem')),
         array('label'=>Yii::t('menu', 'Cписок пунктов меню'), 'url'=>array('indexMenuItem')),
-        array('label'=>Yii::t('menu', 'Управление пунктами меню'), 'url'=>array('adminMenuItem')),
     );
 
     Yii::app()->clientScript->registerScript('search', "
@@ -34,7 +35,7 @@
 
 <?=CHtml::link(Yii::t('menu', 'Поиск'), '#', array('class'=>'search-button'))?>
 <div class="search-form" style="display:none">
-    <?php $this->renderPartial('_search', array('model'=>$model)); ?>
+    <?php $this->renderPartial('../menuitem/_search', array('model'=>$model)); ?>
 </div><!-- search-form -->
 
 <?php
@@ -43,18 +44,30 @@
         'dataProvider'=>$model->search(),
         'columns'=>array(
             'id',
-            'name',
-            'code',
-            'description',
+            'title',
+            'href',
             array(
-                'name'=>Yii::t('menu', 'Пунктов'),
-                'value'=>'count($data->menuItems)'
+                'name'=>'menu_id',
+                'value'=>'$data->menu->name',
             ),
+            // :KLUDGE: Обратить внимание, возможно сделать иначе определение корня
+            array(
+                'name'=>'parent_id',
+                'value'=>'$data->parent->title',
+            ),
+            'type',
+            'sort',
             array(
                 'name'=>'status',
-                'value'=>'$data->getStatus()'
+                'value'=>'$data->getStatus()',
             ),
-            array('class'=>'CButtonColumn'),
+            array(
+                'class'=>'CButtonColumn',
+                // :TODO: Найти способ сделать компактнее или добавить новый контроллер или создать заявку на yiisoft
+                'viewButtonUrl'=>'Yii::app()->controller->createUrl("viewMenuItem",array("id"=>$data->primaryKey))',
+                'updateButtonUrl'=>'Yii::app()->controller->createUrl("updateMenuItem",array("id"=>$data->primaryKey))',
+                'deleteButtonUrl'=>'Yii::app()->controller->createUrl("deleteMenuItem",array("id"=>$data->primaryKey))',
+            ),
         ),
     ));
 ?>
