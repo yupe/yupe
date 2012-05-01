@@ -18,6 +18,8 @@
  */
 class MenuItem extends CActiveRecord
 {
+    const STATUS_ACTIVE = 1;
+    const STATUS_DISABLED = 0;
     /**
      * Returns the static model of the specified AR class.
      * @param string $className active record class name.
@@ -44,7 +46,7 @@ class MenuItem extends CActiveRecord
         // NOTE: you should only define rules for those attributes that
         // will receive user inputs.
         return array(
-            array('parent_id, menu_id, title, href', 'required'),
+            array('parent_id, menu_id, title', 'required'),
             array('type, sort, status', 'numerical', 'integerOnly'=>true),
             array('parent_id, menu_id', 'length', 'max'=>10),
             array('title, href', 'length', 'max'=>255),
@@ -63,6 +65,7 @@ class MenuItem extends CActiveRecord
         // class name for the relations automatically generated below.
         return array(
             'menu'=>array(self::BELONGS_TO, 'Menu', 'menu_id'),
+            'parent'=>array(self::BELONGS_TO, 'MenuItem', 'id'),
         );
     }
 
@@ -106,5 +109,22 @@ class MenuItem extends CActiveRecord
         return new CActiveDataProvider($this, array(
             'criteria'=>$criteria,
         ));
+    }
+    
+    public function getStatusList()
+    {
+        return array(
+            self::STATUS_DISABLED=>Yii::t('menu', 'не активно'),
+            self::STATUS_ACTIVE=>Yii::t('menu', 'активно'),
+        );
+    }
+
+    public function getStatus()
+    {
+        $data = $this->getStatusList();
+
+        return isset($data[$this->status])
+            ? $data[$this->status]
+            : Yii::t('menu', '*неизвестно*');
     }
 }
