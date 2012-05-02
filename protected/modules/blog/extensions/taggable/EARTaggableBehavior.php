@@ -14,12 +14,12 @@ class EARTaggableBehavior extends ETaggableBehavior {
      */
     public $tagModel = 'Tag';
 
-	/**
-	 * Creates tag model
-	 *
-	 * @param string $title tag title
-	 * @return CActiveRecord
-	 */
+    /**
+     * Creates tag model
+     *
+     * @param string $title tag title
+     * @return CActiveRecord
+     */
     protected function createTag($title) {
         $class = $this->tagModel;
         $tag = new $class();
