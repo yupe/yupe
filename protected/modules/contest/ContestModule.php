@@ -6,6 +6,11 @@ class ContestModule extends YWebModule
         return Yii::t('contest', 'Конкурсы изображений');
     }
 
+    public  function getVersion()
+    {
+        return '0.1 (dev)';
+    }
+
     public function getDescription()
     {
         return Yii::t('contest', 'Модуль для простых конкурсов изображений');
