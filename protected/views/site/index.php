@@ -3,7 +3,7 @@
 <h1><i><?php echo CHtml::encode(Yii::app()->name); ?></i></h1>
 
 <p>Юпи! - блого-социальный движок на фреймворке <a
-    href='http://yiiframework.ru'>Yii</a> !</p>
+    href="http://yiiframework.ru">Yii</a> !</p>
 
 <p>Юпи! можно использовать и для создания "сайтов-визиток" - сделать это очень
     просто!</p>
@@ -26,24 +26,26 @@
     используете его!</p>
 
 <p>Если возникает необходимость добавить какие-то специфичные возможности - <a
-    href='http://www.yiiframework.ru/forum/viewforum.php?f=11&sid=09889fba4daf3bce2daa575e4ec9cec8'>находите
+    href="http://www.yiiframework.ru/forum/viewforum.php?f=11&sid=09889fba4daf3bce2daa575e4ec9cec8">находите
     Yii-разрабочика</a> и получаете то, что хотите!</p>
 
-<p>...или <?php echo CHtml::link('напишите нам', array('/feedback/contact/'));?>
+<p>...или <?php echo CHtml::link('напишите нам', array('/feedback/contact/')); ?>
     =)</p>
 
 <p>Хотите получить самую последнюю версию, сообщить об ошибке или просмотреть
     исходный код - посетите <a
-        href='https://github.com/yupe/yupe'>https://github.com/yupe/yupe</a></p>
+        href="https://github.com/yupe/yupe">https://github.com/yupe/yupe</a></p>
 
 <p>Возможно, Вы хотите присоединиться к разработке
-    !? <?php echo CHtml::link('Напишите нам', array('/feedback/contact/'));?></p>
+    !? <?php echo CHtml::link('Напишите нам', array('/feedback/contact/')); ?></p>
 
-<div style='float:left;'>
-    <div style='float:left;padding-right:5px'>
-        <?php $this->widget('application.modules.social.widgets.ysc.yandex.YandexShareApi', array(
-                                                                                                  'type' => 'button',
-                                                                                                  'services' => 'all'
-                                                                                             ));?>
+<div style="float:left">
+    <div style="float:left;padding-right:5px">
+        <?php
+            $this->widget('application.modules.social.widgets.ysc.yandex.YandexShareApi', array(
+                'type' => 'button',
+                'services' => 'all',
+            ));
+        ?>
     </div>
 </div>

@@ -7,7 +7,7 @@
 <br/><br/>
 
 <p><b>Юпи!</b> - блого-социальный движок (мини CMS) на замечательном фреймворке <a
-    href='http://yiiframework.ru'>Yii</a> !</p>
+    href="http://yiiframework.ru">Yii</a> !</p>
 
 <p><b>Юпи!</b> можно использовать и для создания простых сайтов!</p>
 
@@ -37,11 +37,9 @@
 <p> Вы просто берете готовый  функционал и используете его!</p>
 
 <p>Если возникает необходимость добавить какие-то специфичные возможности - <a
-    href='http://www.yiiframework.ru/forum/viewforum.php?f=11&sid=09889fba4daf3bce2daa575e4ec9cec8'>находите
+    href="http://www.yiiframework.ru/forum/viewforum.php?f=11&sid=09889fba4daf3bce2daa575e4ec9cec8">находите
     Yii-разрабочика</a> и получаете то, что хотите ..или <?php echo CHtml::link('напишите нам', array('/feedback/contact/'));?>
- =)</p>
-
-
+    =)</p>
 
 <p>Хотите получить самую последнюю версию, сообщить об ошибке или просмотреть
     исходный код - посетите <a
@@ -54,17 +52,18 @@
 
 <p>
     Желающим помочь проекту рекомендую
-    посетить <?php echo CHtml::link('эту страничку', array('/site/page/', 'view' => 'help'));?> или сразу <iframe width="200" scrolling="no" height="42" frameborder="0" src="https://money.yandex.ru/embed/small.xml?uid=41001846363811&button-text=05&button-size=m&button-color=orange&targets=%d0%9d%d0%b0+%d1%80%d0%b0%d0%b7%d0%b2%d0%b8%d1%82%d0%b8%d0%b5+%d0%ae%d0%bf%d0%b8!&default-sum=50&fio=on&mail=on" allowtransparency="true" style="vertical-align: middle;"></p>
+    посетить <?php echo CHtml::link('эту страничку', array('/site/page/', 'view' => 'help'));?> или сразу 
+    <iframe width="200" scrolling="no" height="42" frameborder="0"
+            src="https://money.yandex.ru/embed/small.xml?uid=41001846363811&button-text=05&button-size=m&button-color=orange&targets=%d0%9d%d0%b0+%d1%80%d0%b0%d0%b7%d0%b2%d0%b8%d1%82%d0%b8%d0%b5+%d0%ae%d0%bf%d0%b8!&default-sum=50&fio=on&mail=on"
+            allowtransparency="true" style="vertical-align: middle;"></p>
 
-
-
-<br/><br/><br/><br/>
-
-<div style='float:left;'>
-    <div style='float:left;padding-right:5px'>
-        <?php $this->widget('application.modules.social.widgets.ysc.yandex.YandexShareApi', array(
-                                                                                                  'type' => 'button',
-                                                                                                  'services' => 'all'
-                                                                                             ));?>
+<div style="float:left">
+    <div style="float:left;padding-right:5px">
+        <?php
+            $this->widget('application.modules.social.widgets.ysc.yandex.YandexShareApi', array(
+                'type' => 'button',
+                'services' => 'all'
+            ));
+        ?>
     </div>
 </div>

@@ -1,17 +1,17 @@
 <?php
-$this->pageTitle = Yii::app()->name . ' - Contact Us';
-$this->breadcrumbs = array(
-    'Contact',
-);
+    $this->pageTitle = Yii::app()->name . ' - Contact Us';
+    $this->breadcrumbs = array(
+        'Contact',
+    );
 ?>
 
 <h1>Contact Us</h1>
 
 <?php if (Yii::app()->user->hasFlash('contact')): ?>
 
-<div class="flash-success">
-    <?php echo Yii::app()->user->getFlash('contact'); ?>
-</div>
+    <div class="flash-success">
+        <?php echo Yii::app()->user->getFlash('contact'); ?>
+    </div>
 
 <?php else: ?>
 
@@ -24,10 +24,9 @@ $this->breadcrumbs = array(
 
     <?php $form = $this->beginWidget('CActiveForm'); ?>
 
-    <p class="note">Fields with <span class="required">*</span> are required.
-    </p>
+    <p class="note">Fields with <span class="required">*</span> are required.</p>
 
-    <?php echo $form->errorSummary($model); ?>
+    <?php echo $form->errorSummary($model)?>
 
     <div class="row">
         <?php echo $form->labelEx($model, 'name'); ?>

@@ -8,20 +8,25 @@ class BlogController extends YFrontController
             'criteria' => array(
                 'condition' => 't.status = :status',
                 'params' => array(':status' => Blog::STATUS_ACTIVE),
-                'with'   => array('createUser','postsCount','membersCount'),
-                'order'  => 'create_date DESC'
-            )
+                'with' => array('createUser', 'postsCount', 'membersCount'),
+                'order' => 'create_date DESC'
+            ),
         ));
 
         $this->render('index', array(
-            'dataProvider' => $dataProvider
+            'dataProvider' => $dataProvider,
         ));
     }
 
     // отобразить карточку блога
     public function actionShow($slug)
     {
-        $blog = Blog::model()->with('createUser','postsCount','membersCount','members')->find('slug = :slug', array(':slug' => $slug));
+        $blog = Blog::model()->with(
+            'createUser',
+            'postsCount',
+            'membersCount',
+            'members'
+        )->find('slug = :slug', array(':slug' => $slug));
 
         if(!$blog)
             throw new CHttpException(404, Yii::t('blog', 'Блог "{blog}" не найден!', array('{blog}' => $slug)));
@@ -31,10 +36,14 @@ class BlogController extends YFrontController
             'condition' => 'blog_id = :blog_id',
             'limit' => 5,
             'order' => 'publish_date DESC',
-            'params' => array(':blog_id' => $blog->id)
+            'params' => array(':blog_id' => $blog->id),
         ));
 
-        $this->render('show', array('blog' => $blog, 'posts' => $posts, 'members' => $blog->members));
+        $this->render('show', array(
+            'blog' => $blog,
+            'posts' => $posts,
+            'members' => $blog->members,
+        ));
     }
 
     // показать участников блога 
@@ -53,10 +62,10 @@ class BlogController extends YFrontController
         if(!Yii::app()->user->isAuthenticated())
         {
             if(Yii::app()->request->isAjaxRequest)
-                Yii::app()->ajax->failure(Yii::t('blog','Пожалуйста, авторизуйтесь!'));
+                Yii::app()->ajax->failure(Yii::t('blog', 'Пожалуйста, авторизуйтесь!'));
             else
             {
-                Yii::app()->user->setFlash(YFlashMessages::NOTICE_MESSAGE,Yii::t('blog','Пожалуйста, авторизуйтесь!'));
+                Yii::app()->user->setFlash(YFlashMessages::NOTICE_MESSAGE, Yii::t('blog', 'Пожалуйста, авторизуйтесь!'));
                 $this->redirect(array('/'));
             }
         }
@@ -71,7 +80,7 @@ class BlogController extends YFrontController
         $blog = Blog::model()->published()->public()->findByPk($blogId);
 
         if(!$blog)
-            $errorMessage = Yii::t('blog','Блог с id = {id} не найден!',array('{id}' => $blogId));
+            $errorMessage = Yii::t('blog', 'Блог с id = {id} не найден!', array('{id}' => $blogId));
 
         if($errorMessage)
         {
@@ -79,7 +88,7 @@ class BlogController extends YFrontController
                 Yii::app()->ajax->failure($errorMessage);
             else
             {
-                Yii::app()->user->setFlash(YFlashMessages::ERROR_MESSAGE,$errorMessage);
+                Yii::app()->user->setFlash(YFlashMessages::ERROR_MESSAGE, $errorMessage);
                 $this->redirect(array('/'));
             }
         }
@@ -87,11 +96,11 @@ class BlogController extends YFrontController
         if($blog->join(Yii::app()->user->getId()))
         {
            if(Yii::app()->request->isAjaxRequest)
-               Yii::app()->ajax->success(Yii::t('blog','Вы присоединились к блогу!'));
+               Yii::app()->ajax->success(Yii::t('blog', 'Вы присоединились к блогу!'));
            else
            {
-               Yii::app()->user->setFlash(YFlashMessages::NOTICE_MESSAGE,Yii::t('blog','Вы присоединились к блогу!'));
-               $this->redirect(array('/blog/blog/show/','slug' => $blog->slug));
+               Yii::app()->user->setFlash(YFlashMessages::NOTICE_MESSAGE, Yii::t('blog', 'Вы присоединились к блогу!'));
+               $this->redirect(array('/blog/blog/show/', 'slug' => $blog->slug));
            }
         }
     }
