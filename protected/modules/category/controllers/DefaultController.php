@@ -8,8 +8,8 @@ class DefaultController extends YBackController
     public function actionView($id)
     {
         $this->render('view', array(
-                                   'model' => $this->loadModel($id),
-                              ));
+            'model'=>$this->loadModel($id),
+        ));
     }
 
     /**
@@ -31,14 +31,14 @@ class DefaultController extends YBackController
             {
                 Yii::app()->user->setFlash(YFlashMessages::NOTICE_MESSAGE, Yii::t('category', 'Категория добавлена!'));
 
-                $this->redirect(array('view', 'id' => $model->id));
+                $this->redirect(array('view', 'id'=>$model->id));
             }
         }
 
         $this->render('create', array(
-                                     'model' => $model,
-                                     'categoryes' => $model->getAllCategoryList(),
-                                ));
+            'model'=>$model,
+            'categoryes'=>$model->getAllCategoryList(),
+        ));
     }
 
     /**
@@ -58,14 +58,14 @@ class DefaultController extends YBackController
             {
                 Yii::app()->user->setFlash(YFlashMessages::NOTICE_MESSAGE, Yii::t('category', 'Категория обновлена!'));
 
-                $this->redirect(array('update', 'id' => $model->id));
+                $this->redirect(array('update', 'id'=>$model->id));
             }
         }
 
         $this->render('update', array(
-                                     'model' => $model,
-                                     'categoryes' => $model->getAllCategoryList($model->id),
-                                ));
+            'model'=>$model,
+            'categoryes'=>$model->getAllCategoryList($model->id),
+        ));
     }
 
     /**
@@ -82,8 +82,7 @@ class DefaultController extends YBackController
 
             // if AJAX request (triggered by deletion via admin grid view), we should not redirect the browser
             if (!isset($_GET['ajax']))
-                $this->redirect(isset($_POST['returnUrl']) ? $_POST['returnUrl']
-                                    : array('admin'));
+                $this->redirect(isset($_POST['returnUrl']) ? $_POST['returnUrl'] : array('admin'));
         }
         else
             throw new CHttpException(400, 'Invalid request. Please do not repeat this request again.');
@@ -96,8 +95,8 @@ class DefaultController extends YBackController
     {
         $dataProvider = new CActiveDataProvider('Category');
         $this->render('index', array(
-                                    'dataProvider' => $dataProvider,
-                               ));
+            'dataProvider'=>$dataProvider,
+        ));
     }
 
     /**
@@ -107,12 +106,13 @@ class DefaultController extends YBackController
     {
         $model = new Category('search');
         $model->unsetAttributes(); // clear any default values
+
         if (isset($_GET['Category']))
             $model->attributes = $_GET['Category'];
 
         $this->render('admin', array(
-                                    'model' => $model,
-                               ));
+            'model'=>$model,
+        ));
     }
 
     /**
