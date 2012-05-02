@@ -12,7 +12,7 @@
 
     <div class="row">
         <?php echo $form->labelEx($model, 'parent_Id'); ?>
-        <?php echo $form->dropDownList($model, 'parent_Id', $pages); ?>
+        <?php echo $form->dropDownList($model, 'parent_Id', $pages,array('empty' => Yii::t('page','--нет--'))); ?>
         <?php echo $form->error($model, 'parent_Id'); ?>
     </div>
 

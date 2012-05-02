@@ -61,9 +61,8 @@ class Page extends CActiveRecord
         $pages = $selfId
             ? $this->findAll('id != :id', array(':id' => $selfId))
             : $this->findAll();
-        $pages = CHtml::listData($pages, 'id', 'name');
-        $pages[0] = Yii::t('page', '--нет--');
-        return $pages;
+
+        return CHtml::listData($pages, 'id', 'name');
     }
     
     /**
@@ -173,17 +172,25 @@ class Page extends CActiveRecord
     public function scopes()
     {
         return array(
-            'published' => array('condition' => 'status = ' . self::STATUS_PUBLISHED),
-            'protected' => array('condition' => 'is_protected = ' . self::PROTECTED_YES),
-            'public' => array('condition' => 'is_protected = ' . self::PROTECTED_NO),
+            'published' => array(
+                'condition' => 'status = :status',
+                'params'    => array('status' => self::STATUS_PUBLISHED)
+            ),
+            'protected' => array(
+                'condition' => 'is_protected = :is_protected',
+                'params'    => array(':is_protected' => self::PROTECTED_YES)
+            ),
+            'public' => array(
+                'condition' => 'is_protected = :is_protected',
+                'params'    => array(':is_protected' => self::PROTECTED_NO)
+            ),
         );
     }
 
 
     public function findBySlug($slug)
     {
-        $slug = trim($slug);
-        return $this->find('slug = :slug', array(':slug' => $slug));
+        return $this->find('slug = :slug', array(':slug' => trim($slug)));
     }
 
     /**
@@ -214,7 +221,7 @@ class Page extends CActiveRecord
 
         $criteria->compare('description', $this->description);
 
-        $criteria->compare('status', $this->status);
+        $criteria->compare('t.status', $this->status);
 
         $criteria->compare('is_protected', $this->is_protected);
 
