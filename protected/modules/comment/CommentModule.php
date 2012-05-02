@@ -2,18 +2,15 @@
 class CommentModule extends YWebModule
 {
     public $defaultCommentStatus = Comment::STATUS_APPROVED;
-
     public $autoApprove = false;
-
     public $notify = true;
-
     public $email;
 
     public function getParamsLabels()
     {
         return array(
             'defaultCommentStatus' => Yii::t('comment','Статус комментариев по умолчанию'),
-            'autoApprove'          => Yii::t('comment','Автоматическое подтверждение комментариев'),
+            'autoApprove' => Yii::t('comment','Автоматическое подтверждение комментариев'),
             'notify' => Yii::t('comment','Уведомить о новом комментарии?'),
             'email' => Yii::t('comment','Email для уведомлений?'),
             'adminMenuOrder' => Yii::t('comment','Порядок следования в меню')
@@ -39,7 +36,9 @@ class CommentModule extends YWebModule
     public function getName()
     {
         $count = Comment::model()->new()->cache(5)->count();
-        return $count ? Yii::t('comment', 'Комментарии') . " ($count)"
+
+        return $count
+            ? Yii::t('comment', 'Комментарии')." ($count)"
             : Yii::t('comment', 'Комментарии');
     }
 
@@ -74,8 +73,8 @@ class CommentModule extends YWebModule
         parent::init();
 
         $this->setImport(array(
-                              'comment.models.*',
-                         ));
+            'comment.models.*',
+        ));
 
         if(!$this->email)
             $this->email = Yii::app()->getModule('yupe')->email;

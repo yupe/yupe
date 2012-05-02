@@ -31,7 +31,6 @@
         // Соединение с СУБД
         'db' => array(
             'class' => 'CDbConnection',
-            // …
         ),
     ),
 );

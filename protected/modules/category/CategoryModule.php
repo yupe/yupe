@@ -4,7 +4,7 @@ class CategoryModule extends YWebModule
     public function getParamsLabels()
     {
         return array(
-            'adminMenuOrder' => Yii::t('category', 'Порядок следования в меню')
+            'adminMenuOrder' => Yii::t('category', 'Порядок следования в меню'),
         );
     }
 
@@ -44,8 +44,8 @@ class CategoryModule extends YWebModule
         parent::init();
 
         $this->setImport(array(
-                              'category.models.*',
-                              'category.components.*',
-                         ));
+            'category.models.*',
+            'category.components.*',
+        ));
     }
 }
