@@ -74,7 +74,15 @@ $this->widget('YCustomGridView', array(
                                                          'value' => '$data->changeAuthor->getFullName()'
                                                      ),
                                                      array(
-                                                         'class' => 'CButtonColumn',
+                                                         'class'    => 'CButtonColumn',
+                                                         'template' => '{view}{update}{delete}{liveview}',
+                                                         'buttons'  => array(
+                                                             'liveview' => array(
+                                                                 'label' => Yii::t('page','Посмотреть на сайте'),
+                                                                 'url'   => 'Yii::app()->createUrl("/page/page/show/",array("slug" => $data->slug,"preview" => 1))',
+                                                                 'imageUrl' => Yii::app()->baseUrl.'/web/images/www.png'
+                                                             )
+                                                         )
                                                      ),
 
                                                  ),

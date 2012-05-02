@@ -38,7 +38,7 @@
 </div><!-- search-form -->
 
 <?php
-    $this->widget('zii.widgets.grid.CGridView', array(
+    $this->widget('YCustomGridView', array(
         'id'=>'menu-grid',
         'dataProvider'=>$model->search(),
         'columns'=>array(
@@ -51,8 +51,9 @@
                 'value'=>'count($data->menuItems)'
             ),
             array(
-                'name'=>'status',
-                'value'=>'$data->getStatus()'
+                'name' => 'status',
+                'type' => 'raw',
+                'value' => '$this->grid->returnStatusHtml($data)'
             ),
             array('class'=>'CButtonColumn'),
         ),

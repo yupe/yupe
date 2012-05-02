@@ -35,7 +35,7 @@ $('.search-form form').submit(function(){
                                           )); ?>
 </div><!-- search-form -->
 
-<?php $this->widget('zii.widgets.grid.CGridView', array(
+<?php $this->widget('YCustomGridView', array(
                                                        'id' => 'category-grid',
                                                        'dataProvider' => $model->search(),
                                                        'columns' => array(
@@ -49,7 +49,8 @@ $('.search-form form').submit(function(){
                                                            'alias',
                                                            array(
                                                                'name' => 'status',
-                                                               'value' => '$data->getStatus()'
+                                                               'type' => 'raw',
+                                                               'value' => '$this->grid->returnStatusHtml($data)'
                                                            ),
                                                            array(
                                                                'class' => 'CButtonColumn',
