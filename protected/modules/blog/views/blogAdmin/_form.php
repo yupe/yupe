@@ -1,11 +1,11 @@
 <div class="form">
 
 <?php
-    $form = $this->beginWidget('CActiveForm', array(
-        'id'=>'blog-form',
-        'enableAjaxValidation'=>false,
-        'enableClientValidation'=>true,
-    ));
+$form = $this->beginWidget('CActiveForm', array(
+    'id' => 'blog-form',
+    'enableAjaxValidation' => false,
+    'enableClientValidation' => true,
+));
 ?>
 
     <p class="note"><?php echo Yii::t('page', 'Поля, отмеченные * обязательны для заполнения')?></p>
@@ -14,34 +14,52 @@
 
     <div class="row">
         <?php echo $form->labelEx($model, 'name'); ?>
-        <?php echo $form->textField($model, 'name', array('size'=>60, 'maxlength'=>300)); ?>
+        <?php
+        echo $form->textField($model, 'name', array(
+            'size' => 60,
+            'maxlength' => 300
+        ));
+        ?>
         <?php echo $form->error($model, 'name'); ?>
     </div>
 
     <div class="row">
         <?php echo $form->labelEx($model, 'slug'); ?>
-        <?php echo $form->textField($model, 'slug', array('size'=>60, 'maxlength'=>150)); ?>
+        <?php
+        echo $form->textField($model, 'slug', array(
+            'size' => 60,
+            'maxlength' => 150
+        ));
+        ?>
         <?php echo $form->error($model, 'slug'); ?>
     </div>
 
     <div class="row">
         <?php echo $form->labelEx($model, 'icon'); ?>
-        <?php echo $form->textField($model, 'icon',array('size'=>60, 'maxlength'=>300)); ?>
+        <?php
+        echo $form->textField($model, 'icon', array(
+            'size' => 60,
+            'maxlength' => 300
+        ));
+        ?>
         <?php echo $form->error($model, 'icon'); ?>
     </div>
 
     <div class="row">
-        <?php echo $form->labelEx($model,'description'); ?>
+        <?php echo $form->labelEx($model, 'description'); ?>
         <?php
-            $this->widget($this->module->editor, array(
-                'model'=>$model,
-                'attribute'=>'description',
-                'options'=>array(
-                    'toolbar'=>'main',
-                    'imageUpload'=>Yii::app()->baseUrl.'/index.php/yupe/backend/AjaxFileUpload/'
-                   ),
-                  'htmlOptions'=>array('rows'=>20, 'cols'=>6),
-            ));
+        $this->widget($this->module->editor, array(
+            'model' => $model,
+            'attribute' => 'description',
+            'options' => array(
+                'toolbar' => 'main',
+                'imageUpload' => Yii::app()->baseUrl . '/index.php/yupe/backend/AjaxFileUpload/'
+            ),
+            'htmlOptions' => array(
+                'rows' => 20,
+                'cols' => 6
+            ),
+        ));
         ?>
         <?php echo $form->error($model, 'description'); ?>
     </div>
