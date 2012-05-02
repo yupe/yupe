@@ -25,13 +25,10 @@
 class Blog extends CActiveRecord
 {
     const TYPE_PUBLIC = 1;
-
     const TYPE_PRIVATE = 2;
 
     const STATUS_ACTIVE = 1;
-
     const STATUS_BLOCKED = 2;
-
     const STATUS_DELETED = 3;
 
     /**
@@ -81,11 +78,11 @@ class Blog extends CActiveRecord
         return array(
             'createUser' => array(self::BELONGS_TO, 'User', 'create_user_id'),
             'updateUser' => array(self::BELONGS_TO, 'User', 'update_user_id'),
-            'posts' => array(self::HAS_MANY, 'Post','blog_id'),
-            'userToBlog' => array(self::HAS_MANY,'UserToBlog','blog_id'),
-            'members' => array(self::HAS_MANY,'User',array('user_id' => 'id'),'through' => 'userToBlog'),
-            'postsCount'   => array(self::STAT,'Post','blog_id','condition' => 'status = :status','params' => array(':status' => Post::STATUS_PUBLISHED)),
-            'membersCount' => array(self::STAT,'UserToBlog','blog_id','condition' => 'status = :status','params' => array(':status' => UserToBlog::STATUS_ACTIVE))
+            'posts' => array(self::HAS_MANY, 'Post', 'blog_id'),
+            'userToBlog' => array(self::HAS_MANY, 'UserToBlog', 'blog_id'),
+            'members' => array(self::HAS_MANY, 'User', array('user_id' => 'id'), 'through' => 'userToBlog'),
+            'postsCount' => array(self::STAT, 'Post', 'blog_id', 'condition' => 'status = :status', 'params' => array(':status' => Post::STATUS_PUBLISHED)),
+            'membersCount' => array(self::STAT, 'UserToBlog', 'blog_id', 'condition' => 'status = :status', 'params' => array(':status' => UserToBlog::STATUS_ACTIVE)),
         );
     }
 
@@ -153,7 +150,6 @@ class Blog extends CActiveRecord
     public function afterFind()
     {
         $this->create_date = date('d.m.Y H:m', $this->create_date);
-
         $this->update_date = date('d.m.Y H:m', $this->update_date);
 
         return parent::afterFind();
@@ -161,10 +157,10 @@ class Blog extends CActiveRecord
 
     public function beforeSave()
     {
-        if($this->isNewRecord)
-            $this->create_user_id = $this->update_user_id = Yii::app()->user->getId();
-
         $this->update_user_id = Yii::app()->user->getId();
+
+        if($this->isNewRecord)
+            $this->create_user_id = $this->update_user_id;
 
         return parent::beforeSave();
     }
@@ -173,7 +169,7 @@ class Blog extends CActiveRecord
     {
         return array(
             self::TYPE_PUBLIC => Yii::t('blog', 'публичный'),
-            self::TYPE_PRIVATE => Yii::t('blog', 'личный')
+            self::TYPE_PRIVATE => Yii::t('blog', 'личный'),
         );
     }
 
@@ -181,7 +177,9 @@ class Blog extends CActiveRecord
     {
         $data = $this->getTypeList();
 
-        return isset($data[$this->type]) ? $data[$this->type] : Yii::t('blog', '*неизвестно*');
+        return isset($data[$this->type])
+            ? $data[$this->type]
+            : Yii::t('blog', '*неизвестно*');
     }
 
     public function getStatusList()
@@ -197,7 +195,9 @@ class Blog extends CActiveRecord
     {
         $data = $this->getStatusList();
 
-        return isset($data[$this->status]) ? $data[$this->status] : Yii::t('blog', '*неизвестно*');
+        return isset($data[$this->status])
+            ? $data[$this->status]
+            : Yii::t('blog', '*неизвестно*');
     }
 
     public function scopes()
@@ -205,11 +205,11 @@ class Blog extends CActiveRecord
         return array(
             'published' => array(
                 'condition' => 'status = :status',
-                'params' => array(':status' => self::STATUS_ACTIVE)
+                'params' => array(':status' => self::STATUS_ACTIVE),
             ),
             'public' => array(
                 'condition' => 'type = :type',
-                'params' => array(':type' => self::TYPE_PUBLIC)
+                'params' => array(':type' => self::TYPE_PUBLIC),
             )
         );
     }
@@ -220,7 +220,7 @@ class Blog extends CActiveRecord
 
         $userToBlog->setAttributes(array(
             'user_id' => Yii::app()->user->getId(),
-            'blog_id' => $this->id
+            'blog_id' => $this->id,
         ));
 
         return $userToBlog->save();
@@ -228,6 +228,6 @@ class Blog extends CActiveRecord
 
     public function getMembers()
     {
-        return UserToBlog::model()->with('user')->findAll('blog_id = :blog_id',array(':blog_id' => $this->id));
+        return UserToBlog::model()->with('user')->findAll('blog_id = :blog_id', array(':blog_id' => $this->id));
     }
 }

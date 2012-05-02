@@ -15,16 +15,18 @@ class SiteController extends YFrontController
     public function actionIndex()
     {
         $dataProvider = new CActiveDataProvider('Post', array(
-             'criteria' => new CDbCriteria(array(
-                                                'condition' => 't.status = :status',
-                                                'params' => array(':status' => Post::STATUS_PUBLISHED),
-                                                'limit' => self::POST_PER_PAGE,
-                                                'order' => 't.id DESC',
-                                                'with' => array('createUser','blog')
-                                           ))
+            'criteria' => new CDbCriteria(array(
+                'condition' => 't.status = :status',
+                'params' => array(':status' => Post::STATUS_PUBLISHED),
+                'limit' => self::POST_PER_PAGE,
+                'order' => 't.id DESC',
+                'with' => array('createUser', 'blog')
+            )),
         ));
 
-        $this->render('index', array('dataProvider' => $dataProvider));
+        $this->render('index', array(
+            'dataProvider' => $dataProvider,
+        ));
     }
 
     public function actionSocial()

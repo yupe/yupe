@@ -30,7 +30,8 @@ class ContentBlock extends CActiveRecord
     {
         $data = $this->getTypes();
 
-        return array_key_exists($this->type, $data) ? $data[$this->type]
+        return array_key_exists($this->type, $data)
+            ? $data[$this->type]
             : Yii::t('contentblock', '*неизвестный тип*');
     }
 
@@ -55,17 +56,17 @@ class ContentBlock extends CActiveRecord
      * @return array validation rules for model attributes.
      */
     public function rules()
-    {        
+    {
         return array(
-            array('name, code, content, type','filter','filter' => 'trim'),
-            array('name, code','filter','filter' => array($obj = new CHtmlPurifier(),'purify')),
+            array('name, code, content, type', 'filter', 'filter' => 'trim'),
+            array('name, code', 'filter', 'filter' => array($obj = new CHtmlPurifier(), 'purify')),
             array('name, code, content, type', 'required'),
             array('type', 'numerical', 'integerOnly' => true),
             array('type', 'in', 'range' => array_keys($this->getTypes())),
             array('name, code', 'length', 'max' => 50),
-            array('description', 'length', 'max' => 300),            
-            array('code','match','pattern' => '/^[A-Za-z0-9_]{2,50}$/','message' => Yii::t('contentblock','Неверный формат поля "{attribute}" допустимы только буквы, цифры и символ подчеркивания, от 2 до 50 символов')),            
-            array('code','unique'),                        
+            array('description', 'length', 'max' => 300),
+            array('code', 'match', 'pattern' => '/^[A-Za-z0-9_]{2,50}$/', 'message' => Yii::t('contentblock', 'Неверный формат поля "{attribute}" допустимы только буквы, цифры и символ подчеркивания, от 2 до 50 символов')),
+            array('code', 'unique'),
             array('id, name, code, type, content, description', 'safe', 'on' => 'search'),
         );
     }
@@ -102,7 +103,7 @@ class ContentBlock extends CActiveRecord
         $criteria->compare('description', $this->description);
 
         return new CActiveDataProvider(get_class($this), array(
-                                                              'criteria' => $criteria,
-                                                         ));
+            'criteria' => $criteria,
+        ));
     }
 }

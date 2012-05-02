@@ -18,7 +18,6 @@ class Category extends CActiveRecord
     const STATUS_PUBLISHED = 1;
     const STATUS_MODERATION = 2;
 
-
     /**
      * @return string the associated database table name
      */
@@ -39,7 +38,8 @@ class Category extends CActiveRecord
     public function getStatus()
     {
         $data = $this->getStatusList();
-        return array_key_exists($this->status, $data) ? $data[$this->status]
+        return array_key_exists($this->status, $data)
+            ? $data[$this->status]
             : Yii::t('category', '*неизвестно*');
     }
 
@@ -62,7 +62,6 @@ class Category extends CActiveRecord
         return parent::model($className);
     }
 
-
     /**
      * @return array validation rules for model attributes.
      */
@@ -71,19 +70,18 @@ class Category extends CActiveRecord
         // NOTE: you should only define rules for those attributes that
         // will receive user inputs.
         return array(
-            array('name, description, alias','filter','filter' => 'trim'),
-            array('name, alias','filter','filter' => array($obj = new CHtmlPurifier(),'purify')),
+            array('name, description, alias','filter', 'filter' => 'trim'),
+            array('name, alias', 'filter', 'filter' => array($obj = new CHtmlPurifier(), 'purify')),
             array('name, description, alias', 'required'),
             array('parent_id, status', 'numerical', 'integerOnly' => true),
             array('name', 'length', 'max' => 150),
             array('alias', 'length', 'max' => 50),
-            array('alias','match','pattern' => '/^[A-Za-z0-9_]{2,50}$/','message' => Yii::t('category','Неверный формат поля "{attribute}" допустимы только буквы, цифры и символ подчеркивания, от 2 до 20 символов')),            
+            array('alias', 'match', 'pattern' => '/^[A-Za-z0-9_]{2,50}$/', 'message' => Yii::t('category','Неверный формат поля "{attribute}" допустимы только буквы, цифры и символ подчеркивания, от 2 до 20 символов')),
             array('alias', 'unique'),
             array('status', 'in', 'range' => array_keys($this->getStatusList())),
             array('id, parent_id, name, description, alias, status', 'safe', 'on' => 'search'),
         );
     }
-
 
     /**
      * @return array customized attribute labels (name=>label)
@@ -119,7 +117,7 @@ class Category extends CActiveRecord
         $criteria->compare('status', $this->status);
 
         return new CActiveDataProvider(get_class($this), array(
-                                                              'criteria' => $criteria,
-                                                         ));
+            'criteria' => $criteria,
+        ));
     }
 }
