@@ -25,7 +25,6 @@ class Comment extends CActiveRecord
 
     public $verifyCode;
 
-
     /**
      * Returns the static model of the specified AR class.
      * @return Comment the static model class
@@ -49,8 +48,8 @@ class Comment extends CActiveRecord
     public function rules()
     {        
         return array(
-            array('model, name, email, text, url','filter','filter' => 'trim'),
-            array('model, name, email, text, url','filter','filter' => array($obj = new CHtmlPurifier(),'purify')),
+            array('model, name, email, text, url', 'filter', 'filter' => 'trim'),
+            array('model, name, email, text, url', 'filter', 'filter' => array($obj = new CHtmlPurifier(), 'purify')),
             array('model, model_id, name, email, text', 'required'),
             array('status, user_id', 'numerical', 'integerOnly' => true),
             array('name, email, url', 'length', 'max' => 150),
@@ -58,9 +57,9 @@ class Comment extends CActiveRecord
             array('ip', 'length', 'max' => 20),
             array('email', 'email'),
             array('url', 'url'),
-            array('status', 'in', 'range' => array_keys($this->getStatusList())),            
+            array('status', 'in', 'range' => array_keys($this->getStatusList())),
             array('verifyCode', 'YRequiredValidator', 'allowEmpty' => Yii::app()->user->isAuthenticated()),
-            array('verifyCode', 'captcha', 'allowEmpty' => Yii::app()->user->isAuthenticated()),            
+            array('verifyCode', 'captcha', 'allowEmpty' => Yii::app()->user->isAuthenticated()),
             array('id, model, model_id, creation_date, name, email, url, text, status, ip', 'safe', 'on' => 'search'),
         );
     }
@@ -108,8 +107,8 @@ class Comment extends CActiveRecord
         $criteria->compare('ip', $this->ip, true);
 
         return new CActiveDataProvider(get_class($this), array(
-                                                              'criteria' => $criteria,
-                                                         ));
+            'criteria' => $criteria,
+        ));
     }
 
     public function beforeSave()
@@ -117,7 +116,6 @@ class Comment extends CActiveRecord
         if ($this->isNewRecord)
         {
             $this->creation_date = new CDbExpression('NOW()');
-
             $this->ip = Yii::app()->request->userHostAddress;
         }
 
@@ -129,16 +127,16 @@ class Comment extends CActiveRecord
         return array(
             'new' => array(
                 'condition' => 'status = :status',
-                'params' => array(':status' => self::STATUS_NEED_CHECK)
+                'params' => array(':status' => self::STATUS_NEED_CHECK),
             ),
             'approved' => array(
                 'condition' => 'status = :status',
                 'params' => array(':status' => self::STATUS_APPROVED),
-                'order' => 'creation_date DESC'
+                'order' => 'creation_date DESC',
             ),
             'authored' => array(
-                'condition' => 'user_id is not null'
-            )
+                'condition' => 'user_id is not null',
+            ),
         );
     }
 
@@ -149,7 +147,7 @@ class Comment extends CActiveRecord
             self::STATUS_APPROVED => Yii::t('comment', 'Принят'),
             self::STATUS_DELETED => Yii::t('comment', 'Удален'),
             self::STATUS_NEED_CHECK => Yii::t('comment', 'Проверка'),
-            self::STATUS_SPAM => Yii::t('comment', 'Спам')
+            self::STATUS_SPAM => Yii::t('comment', 'Спам'),
         );
     }
 
@@ -157,7 +155,8 @@ class Comment extends CActiveRecord
     {
         $list = $this->getStatusList();
 
-        return array_key_exists($this->status, $list) ? $list[$this->status]
+        return array_key_exists($this->status, $list)
+            ? $list[$this->status]
             : Yii::t('comment', 'Статус неизвестен');
     }
 }
