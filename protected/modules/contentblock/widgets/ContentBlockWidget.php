@@ -1,14 +1,13 @@
 <?php
 class ContentBlockWidget extends YWidget
 {
-    public $code;    
-
+    public $code;
     public $silent = false;
 
     public function init()
     {
-        if (!$this->code)        
-            throw new CException(Yii::t('contentblock', 'Укажите название контент блока для ContentBlockWidget !'));        
+        if (!$this->code)
+            throw new CException(Yii::t('contentblock', 'Укажите название контент блока для ContentBlockWidget !'));
     }
 
     public function run()
@@ -23,8 +22,8 @@ class ContentBlockWidget extends YWidget
 
             if (!$block)
             {
-                if ((bool)$this->silent === false)                
-                    throw new CException(Yii::t('contentblock', 'Контент блок "{code}" не найден !', array('{code}' => $this->code)));                
+                if ((bool)$this->silent === false)
+                    throw new CException(Yii::t('contentblock', 'Контент блок "{code}" не найден !', array('{code}' => $this->code)));
             }
             else
             {
@@ -45,6 +44,8 @@ class ContentBlockWidget extends YWidget
             Yii::app()->cache->set($cacheName, $output);
         }
 
-        $this->render('contentblock', array('output' => $output));
+        $this->render('contentblock', array(
+            'output' => $output
+        ));
     }
 }
