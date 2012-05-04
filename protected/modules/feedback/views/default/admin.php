@@ -36,6 +36,7 @@ Yii::app()->clientScript->registerScript('search', "
 </div><!-- search-form -->
 
 <?php $this->widget('YCustomGridView', array(
+        'statusField' => 'is_faq',
         'id' => 'feed-back-grid',
         'dataProvider' => $model->search(),
         'columns' => array(

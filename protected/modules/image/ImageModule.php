@@ -12,9 +12,9 @@ class ImageModule extends YWebModule
 
     public $types;
 
-    public function getVersion()
+    public  function getVersion()
     {
-        return '0.2';
+        return '0.2 (dev)';
     }
 
     public function getUploadPath()

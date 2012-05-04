@@ -50,6 +50,9 @@
     !? <?php echo CHtml::link('Напишите нам', array('/feedback/contact/'));?>
     !</p>
 
+<p>Наш твиттер - <a href="https://twitter.com/#!/YupeCms">https://twitter.com/#!/YupeCms</a></p>
+
+
 <p>
     Желающим помочь проекту рекомендую
     посетить <?php echo CHtml::link('эту страничку', array('/site/page/', 'view' => 'help'));?> или сразу 

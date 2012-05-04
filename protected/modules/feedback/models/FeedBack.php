@@ -83,9 +83,9 @@ class FeedBack extends CActiveRecord
         return array(
             //@formatter:off
             array('name, email, theme, text', 'required'),
-            array('type, status, answer_user', 'numerical', 'integerOnly' => true),
+            array('type, status, answer_user, is_faq', 'numerical', 'integerOnly' => true),
             array('is_faq', 'in', 'range' => array(0, 1)),
-            array('status', 'in', 'range' => array(0, 1, 2, 3)),
+            array('status', 'in', 'range' => array_keys($this->getStatusList())),
             array('name, email', 'length', 'max' => 100),
             array('theme', 'length', 'max' => 150),
             array('email', 'email'),

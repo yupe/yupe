@@ -47,10 +47,18 @@ return array(
         'application.modules.social.extensions.eoauth.lib.*',
         'application.modules.social.extensions.lightopenid.*',
         'application.modules.social.extensions.eauth.services.*',
+
+        'application.modules.rights.*',
+        'application.modules.rights.components.*',
+
     ),
 
     // конфигурирование основных компонентов (подробнее http://www.yiiframework.ru/doc/guide/ru/basics.component)
     'components' => array(
+
+        'authManager'=>array(
+            'class'=>'RDbAuthManager',
+        ),
 
         // Библиотека для работы с картинками через GD/ImageMagick
         // Лучше установите ImageMagick, т.к. он ресайзит анимированные гифы
@@ -149,6 +157,11 @@ return array(
 
     // конфигурация модулей приложения, подробнее http://www.yiiframework.ru/doc/guide/ru/basics.module
     'modules' => array(
+        'rights'=>array(
+            'class'   => 'application.modules.rights.RightsModule',
+            'userNameColumn' => 'nick_name',
+            'layout'  => 'yupe.views.layouts.column2',
+        ),
         'menu' => array(
              'class' => 'application.modules.menu.MenuModule',
          ),

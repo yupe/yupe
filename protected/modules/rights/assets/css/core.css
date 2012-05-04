@@ -1,0 +1,98 @@
+/**
+* Rights module core style sheet file.
+*
+* @author Christoffer Niska
+* @copyright Copyright &copy; 2008 Christoffer Niska
+* @since 0.9.11
+*/
+
+#rights .form .text-field { width:320px; }
+
+#rights #updateAuthItem .parents,
+#rights #updateAuthItem .children { margin-bottom:30px; }
+
+#rights .type-column { width:100px; }
+#rights .actions-column { width:80px; text-align:right; }
+
+#rights .parent-table,
+#rights .child-table,
+#rights .user-assignment-table { width:420px; }
+
+#rights .assignment-table td { vertical-align:top; }
+#rights .assignment-table .role-column,
+#rights .assignment-table .task-column,
+#rights .assignment-table .operation-column { width:25%; }
+#rights .permission-table .inherited-item { cursor:pointer; }
+
+/**
+* Flash message style.
+*/
+
+#rights .flashes {
+	width:910px;
+	height:40px;
+	position:absolute;
+	top:60px;
+	left:20px;
+}
+#rights .flash {
+	margin:0;
+	padding:8px 12px;
+	font-size:12px;
+	font-style:italic;
+	-moz-border-radius:6px;
+	-webkit-border-radius:6px;
+}
+#rights .flash.success { color:#007700; background-color:#e0f8dd; }
+#rights .flash.error { color:#7a0000; background-color:#fdd9d9; }
+
+/**
+* Installer style.
+*/
+
+#rights #installer { margin:30px 0; text-align:center; }
+
+#rights .green-text { color:#00aa00; }
+#rights .red-text { color:#ff0000; }
+
+/**
+* Generator style.
+*/
+
+#rights #generator table.items { margin:0; }
+#rights #generator table.items th,
+#rights #generator table.items td { padding:10px; }
+#rights #generator table.items td { cursor:pointer; }
+#rights #generator table.items .module-row { background-color:#bdc1d1; }
+#rights #generator table.items .controller-row { background-color:#d3d7e8; }
+#rights #generator table.items .action-row .name-column { padding-left:20px; }
+#rights #generator table.items .checkbox-column { width:20px; text-align:center; }
+#rights #generator table.items .checkbox-column input { margin:2px 0; }
+#rights #generator table.items .path-column { color:#808080; font-style:italic; }
+#rights #generator table.items .exists * { color:#a0a0a0; }
+#rights #generator table.items .odd td { background:#e8edff; }
+#rights #generator table.items .even td { background:transparent; }
+
+/**
+* Sortable style.
+*/
+
+#rights .sortable-table .sortable-placeholder { height:38px; background-color:#000000; }
+
+/**
+* Tooltip style.
+*/
+
+#rightsTooltip {
+	max-width:500px;
+	padding:8px;
+    position:absolute;
+	background:url('../images/bg_tooltip.gif') 100% 100% repeat-x #ffffff;
+    border:1px solid #c0c0c0;
+    font-family:Consolas, Arial, san-serif !important;
+    font-size:11px;
+    -moz-border-radius:6px;
+    -webkit-border-radius:6px;
+}
+#rightsTooltip .heading { font-weight:bold; }
+#rightsTooltip .content { color:#808080; }

@@ -33,6 +33,11 @@ class BlogModule extends YWebModule
         );
     }
 
+    public  function getVersion()
+    {
+        return '0.1 (dev)';
+    }
+
     public function getName()
     {
         return Yii::t('blog', 'Блоги');

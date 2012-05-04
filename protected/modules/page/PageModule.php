@@ -12,6 +12,11 @@ class PageModule extends YWebModule
         );
     }
 
+    public function  getVersion()
+    {
+        return '0.2';
+    }
+
     public function getEditableParams()
     {
         return array(

@@ -1,3 +1,7 @@
+<?php $this->pageTitle = $blog->name;?>
+<?php $this->description = $blog->description;?>
+
+
 <div class="post">
     <div class="title">
         <?php echo $blog->name; ?>

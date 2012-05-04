@@ -1,5 +1,5 @@
 <?php
-class YWebUser extends CWebUser
+class YWebUser extends RWebUser
 {
     public function isAuthenticated()
     {

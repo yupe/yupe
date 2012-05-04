@@ -1,3 +1,7 @@
+<?php $this->pageTitle = $post->title;?>
+<?php $this->description = $post->description;?>
+<?php $this->keywords = $post->keywords;?>
+
 <div class="post">
     <div class="title">
         <?php echo CHtml::link(CHtml::encode($post->title), array('/blog/post/show/', 'slug' => $post->slug)); ?>

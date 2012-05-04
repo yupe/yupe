@@ -8,6 +8,11 @@ class GalleryModule extends YWebModule
         );
     }
 
+    public  function getVersion()
+    {
+        return '0.1 (dev)';
+    }
+
     public function getCategory()
     {
         return Yii::t('gallery', 'Сервисы');
