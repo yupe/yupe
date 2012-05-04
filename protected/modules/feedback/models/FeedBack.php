@@ -35,24 +35,26 @@ class FeedBack extends CActiveRecord
         );
     }
 
-
     public function getStatus()
     {
         $data = $this->getStatusList();
-        return array_key_exists($this->status, $data) ? $data[$this->status]
+        return array_key_exists($this->status, $data)
+            ? $data[$this->status]
             : Yii::t('feedback', 'Статус сообщения неизвестен');
     }
 
     public function getTypeList()
     {
         return is_array(Yii::app()->getModule('feedback')->types)
-            ? Yii::app()->getModule('feedback')->types : array();
+            ? Yii::app()->getModule('feedback')->types
+            : array();
     }
 
     public function getType()
     {
         $data = $this->getTypeList();
-        return array_key_exists($this->type, $data) ? $data[$this->type]
+        return array_key_exists($this->type, $data)
+            ? $data[$this->type]
             : Yii::t('feedback', 'Неизвестный тип сообщения!');
     }
 
@@ -79,6 +81,7 @@ class FeedBack extends CActiveRecord
     public function rules()
     {
         return array(
+            //@formatter:off
             array('name, email, theme, text', 'required'),
             array('type, status, answer_user', 'numerical', 'integerOnly' => true),
             array('is_faq', 'in', 'range' => array(0, 1)),
@@ -88,6 +91,7 @@ class FeedBack extends CActiveRecord
             array('email', 'email'),
             array('answer', 'filter', 'filter' => 'trim'),
             array('id, creation_date, change_date, name, email, theme, text, type, status, ip', 'safe', 'on' => 'search'),
+            //@formatter:on
         );
     }
 
@@ -123,57 +127,43 @@ class FeedBack extends CActiveRecord
         $criteria = new CDbCriteria;
 
         $criteria->compare('id', $this->id);
-
         $criteria->compare('creation_date', $this->creation_date, true);
-
         $criteria->compare('change_date', $this->change_date, true);
-
         $criteria->compare('name', $this->name, true);
-
         $criteria->compare('email', $this->email, true);
-
         $criteria->compare('theme', $this->theme, true);
-
         $criteria->compare('text', $this->text, true);
-
         $criteria->compare('type', $this->type);
-
         $criteria->compare('status', $this->status);
-
         $criteria->compare('ip', $this->ip);
 
-        return new CActiveDataProvider('FeedBack', array(
-                                                        'criteria' => $criteria,
-                                                   ));
+        return new CActiveDataProvider('FeedBack', array('criteria' => $criteria));
     }
 
     public function beforeValidate()
     {
+        $this->change_date = new CDbExpression('NOW()');
+
         if ($this->isNewRecord)
         {
-            $this->creation_date = $this->change_date = new CDbExpression('NOW()');
-
+            $this->creation_date = $this->change_date;
             $this->ip = Yii::app()->request->userHostAddress;
         }
-        else        
-            $this->change_date = new CDbExpression('NOW()');        
 
         return parent::beforeSave();
     }
 
     public function scopes()
     {
-        return array(
-            'new' => array(
-                'condition' => 'status = :status',
-                'params'    => array(':status' => self::STATUS_NEW)
-            )
-        );
+        return array('new' => array(
+            'condition' => 'status = :status',
+            'params' => array(':status' => self::STATUS_NEW),
+        ));
     }
 
     public function getIsFaq()
     {
-        return $this->is_faq ? Yii::t('feedback', 'Да')
-            : Yii::t('feedback', 'Нет');
+        return $this->is_faq ? Yii::t('feedback', 'Да') : Yii::t('feedback', 'Нет');
     }
+
 }
