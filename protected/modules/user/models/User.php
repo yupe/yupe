@@ -38,7 +38,6 @@ class User extends CActiveRecord
     const ACCESS_LEVEL_USER = 0;
     const ACCESS_LEVEL_ADMIN = 1;
 
-
     /**
      * @return string the associated database table name
      */
@@ -58,9 +57,7 @@ class User extends CActiveRecord
     public function getAccessLevel()
     {
         $data = $this->getAccessLevelsList();
-        return array_key_exists($this->access_level, $data)
-            ? $data[$this->access_level]
-            : Yii::t('user', '*нет*');
+        return array_key_exists($this->access_level, $data) ? $data[$this->access_level] : Yii::t('user', '*нет*');
     }
 
     public function getAccessLevelsList()
@@ -70,7 +67,6 @@ class User extends CActiveRecord
             self::ACCESS_LEVEL_USER => Yii::t('user', 'Пользователь')
         );
     }
-
 
     public function getStatusList()
     {
@@ -84,10 +80,10 @@ class User extends CActiveRecord
     public function getStatus()
     {
         $data = $this->getStatusList();
-        return array_key_exists($this->status, $data) ? $data[$this->status]
+        return array_key_exists($this->status, $data)
+            ? $data[$this->status]
             : Yii::t('user', 'ммм...статуса такого нет');
     }
-
 
     public function getGendersList()
     {
@@ -101,7 +97,8 @@ class User extends CActiveRecord
     public function getGender()
     {
         $data = $this->getGendersList();
-        return array_key_exists($this->gender, $data) ? $data[$this->gender]
+        return array_key_exists($this->gender, $data)
+            ? $data[$this->gender]
             : Yii::t('user', 'ммм...пола такого нет');
     }
 
@@ -117,7 +114,9 @@ class User extends CActiveRecord
     {
         $data = $this->getEmailConfirmStatusList();
 
-        return isset($data[$this->email_confirm]) ? $data[$this->email_confirm] : Yii::t('user', '*неизвестно*');
+        return isset($data[$this->email_confirm])
+            ? $data[$this->email_confirm]
+            : Yii::t('user', '*неизвестно*');
     }
 
     /**
@@ -129,7 +128,6 @@ class User extends CActiveRecord
         return parent::model($className);
     }
 
-
     /**
      * @return array validation rules for model attributes.
      */
@@ -138,6 +136,7 @@ class User extends CActiveRecord
         $module = Yii::app()->getModule('user');
 
         return array(
+            //@formatter:off
             array('birth_date, site, about, location, online_status, nick_name, first_name, last_name, email', 'filter', 'filter' => 'trim'),
             array('birth_date, site, about, location, online_status, nick_name, first_name, last_name, email', 'filter', 'filter' => array($obj = new CHtmlPurifier(), 'purify')),
             array('nick_name, email, password', 'required'),
@@ -160,6 +159,7 @@ class User extends CActiveRecord
             array('status', 'in', 'range' => array_keys($this->getStatusList())),
             array('access_level', 'in', 'range' => array_keys($this->getAccessLevelsList())),
             array('id, creation_date, change_date, first_name, last_name, nick_name, email, gender, avatar, password, salt, status, access_level, last_visit, registration_date, registration_ip, activation_ip', 'safe', 'on' => 'search'),
+            //@formatter:on
         );
     }
 
@@ -185,6 +185,7 @@ class User extends CActiveRecord
             'registration_date' => Yii::t('user', 'Дата регистрации'),
             'registration_ip' => Yii::t('user', 'Ip регистрации'),
             'activation_ip' => Yii::t('user', 'Ip активации'),
+            'activate_key' => Yii::t('user', 'Код активации'),
             'avatar' => Yii::t('user', 'Аватар'),
             'use_gravatar' => Yii::t('user', 'Граватар'),
             'email_confirm' => Yii::t('user', 'Email подтвержден'),
@@ -195,61 +196,43 @@ class User extends CActiveRecord
         );
     }
 
-
     public function search()
     {
         $criteria = new CDbCriteria;
 
         $criteria->compare('id', $this->id);
-
         $criteria->compare('creation_date', $this->creation_date, true);
-
         $criteria->compare('change_date', $this->change_date, true);
-
         $criteria->compare('first_name', $this->first_name, true);
-
         $criteria->compare('last_name', $this->last_name, true);
-
         $criteria->compare('nick_name', $this->nick_name, true);
-
         $criteria->compare('email', $this->email, true);
-
         $criteria->compare('gender', $this->gender);
-
         $criteria->compare('password', $this->password, true);
-
         $criteria->compare('salt', $this->salt, true);
-
         $criteria->compare('status', $this->status);
-
         $criteria->compare('access_level', $this->access_level);
-
         $criteria->compare('last_visit', $this->last_visit, true);
-
         $criteria->compare('registration_date', $this->registration_date, true);
-
         $criteria->compare('registration_ip', $this->registration_ip, true);
-
         $criteria->compare('activation_ip', $this->activation_ip, true);
 
-        return new CActiveDataProvider('User', array(
-            'criteria' => $criteria,
-        ));
+        return new CActiveDataProvider('User', array('criteria' => $criteria));
     }
 
     public function beforeSave()
     {
-        if ($this->isNewRecord) {
-            $this->creation_date = $this->change_date = new CDbExpression('NOW()');
+        $this->change_date = new CDbExpression('NOW()');
 
+        if ($this->isNewRecord)
+        {
+            $this->creation_date = $this->change_date;
             $this->activate_key = $this->generateActivationKey();
-
             $this->registration_ip = Yii::app()->request->userHostAddress;
         }
-        else
-            $this->change_date = new CDbExpression('NOW()');
 
-        if ($this->birth_date === '') unset($this->birth_date);
+        if ($this->birth_date === '')
+            unset($this->birth_date);
 
         return parent::beforeSave();
     }
@@ -290,7 +273,6 @@ class User extends CActiveRecord
         return md5(uniqid('', true));
     }
 
-
     public function generateRandomPassword($length = null)
     {
         if (!$length)
@@ -298,7 +280,6 @@ class User extends CActiveRecord
 
         return substr(md5(uniqid(mt_rand(), true) . time()), 0, $length);
     }
-
 
     public function generateActivationKey()
     {
@@ -325,7 +306,8 @@ class User extends CActiveRecord
         // если это граватар
         if ($this->use_gravatar && $this->email)
             return CHtml::image('http://gravatar.com/avatar/' . md5($this->email) . "?d=mm&s=" . $size, $this->nick_name, $htmlOptions);
-        elseif ($this->avatar) {
+        elseif ($this->avatar)
+        {
             $avatarsDir = Yii::app()->getModule('user')->avatarsDir;
             $basePath = Yii::app()->basePath . "/../" . $avatarsDir;
             $sizedFile = str_replace(".", "_" . $size . ".", $this->avatar);
@@ -334,7 +316,8 @@ class User extends CActiveRecord
             if (file_exists($basePath . "/" . $sizedFile))
                 return CHtml::image(Yii::app()->baseUrl . $avatarsDir . "/" . $sizedFile, $this->nick_name, $htmlOptions);
 
-            if (file_exists($basePath . "/" . $this->avatar)) {
+            if (file_exists($basePath . "/" . $this->avatar))
+            {
                 // Есть! Можем сделать нужный размер
                 $image = Yii::app()->image->load($basePath . "/" . $this->avatar);
                 if ($image->ext != 'gif' || $image->config['driver'] == "ImageMagick")
@@ -353,7 +336,8 @@ class User extends CActiveRecord
     public function getFullName($separator = ' ')
     {
         return $this->first_name || $this->last_name
-            ? $this->last_name . $separator . $this->first_name : $this->nick_name;
+            ? $this->last_name . $separator . $this->first_name
+            : $this->nick_name;
     }
 
     public function createAccount($nick_name, $email, $password = null, $salt = null, $status = self::STATUS_NOT_ACTIVE, $emailConfirm = self::EMAIL_CONFIRM_NO, $first_name = '', $last_name = '')
@@ -381,7 +365,8 @@ class User extends CActiveRecord
         $this->save(false);
 
         // для красоты
-        if ($setemail) {
+        if ($setemail)
+        {
             $this->email = "user-{$this->id}@{$_SERVER['HTTP_HOST']}";
             $this->update(array('email'));
         }
@@ -397,9 +382,7 @@ class User extends CActiveRecord
     public function activate()
     {
         $this->activation_ip = Yii::app()->request->userHostAddress;
-
         $this->status = self::STATUS_ACTIVE;
-
         $this->email_confirm = self::EMAIL_CONFIRM_YES;
 
         return $this->save();
@@ -412,4 +395,5 @@ class User extends CActiveRecord
 
         return parent::beforeValidate();
     }
+
 }
