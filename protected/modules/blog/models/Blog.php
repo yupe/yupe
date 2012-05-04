@@ -55,6 +55,7 @@ class Blog extends CActiveRecord
     public function rules()
     {
         return array(
+            //@formatter:off
             array('name, description, slug', 'required'),
             array('type, status, create_user_id, update_user_id', 'numerical', 'integerOnly' => true),
             array('name, icon', 'length', 'max' => 300),
@@ -65,6 +66,7 @@ class Blog extends CActiveRecord
             array('name, slug, description', 'filter', 'filter' => array($obj = new CHtmlPurifier(), 'purify')),
             array('slug', 'match', 'pattern' => '/^[a-zA-Z0-9_\-]+$/', 'message' => Yii::t('blog', 'Запрещенные символы в поле {attribute}')),
             array('id, name, description, icon, slug, type, status, create_user_id, update_user_id, create_date, update_date', 'safe', 'on' => 'search'),
+            //@formatter:on
         );
     }
 
@@ -76,6 +78,7 @@ class Blog extends CActiveRecord
         // NOTE: you may need to adjust the relation name and the related
         // class name for the relations automatically generated below.
         return array(
+            //@formatter:off
             'createUser' => array(self::BELONGS_TO, 'User', 'create_user_id'),
             'updateUser' => array(self::BELONGS_TO, 'User', 'update_user_id'),
             'posts' => array(self::HAS_MANY, 'Post', 'blog_id'),
@@ -83,6 +86,7 @@ class Blog extends CActiveRecord
             'members' => array(self::HAS_MANY, 'User', array('user_id' => 'id'), 'through' => 'userToBlog'),
             'postsCount' => array(self::STAT, 'Post', 'blog_id', 'condition' => 'status = :status', 'params' => array(':status' => Post::STATUS_PUBLISHED)),
             'membersCount' => array(self::STAT, 'UserToBlog', 'blog_id', 'condition' => 'status = :status', 'params' => array(':status' => UserToBlog::STATUS_ACTIVE)),
+            //@formatter:on
         );
     }
 
@@ -109,7 +113,8 @@ class Blog extends CActiveRecord
     /**
      * Retrieves a list of models based on the current search/filter conditions.
      *
-     * @return CActiveDataProvider the data provider that can return the models based on the search/filter conditions.
+     * @return CActiveDataProvider the data provider that can return the models
+     * based on the search/filter conditions.
      */
     public function search()
     {
@@ -130,21 +135,17 @@ class Blog extends CActiveRecord
         $criteria->compare('create_date', $this->create_date);
         $criteria->compare('update_date', $this->update_date);
 
-        return new CActiveDataProvider(get_class($this), array(
-            'criteria' => $criteria,
-        ));
+        return new CActiveDataProvider(get_class($this), array('criteria' => $criteria, ));
     }
 
     public function behaviors()
     {
-        return array(
-            'CTimestampBehavior' => array(
+        return array('CTimestampBehavior' => array(
                 'class' => 'zii.behaviors.CTimestampBehavior',
                 'setUpdateOnCreate' => true,
                 'createAttribute' => 'create_date',
                 'updateAttribute' => 'update_date',
-            )
-        );
+            ));
     }
 
     public function afterFind()
@@ -159,7 +160,7 @@ class Blog extends CActiveRecord
     {
         $this->update_user_id = Yii::app()->user->getId();
 
-        if($this->isNewRecord)
+        if ($this->isNewRecord)
             $this->create_user_id = $this->update_user_id;
 
         return parent::beforeSave();
@@ -177,9 +178,7 @@ class Blog extends CActiveRecord
     {
         $data = $this->getTypeList();
 
-        return isset($data[$this->type])
-            ? $data[$this->type]
-            : Yii::t('blog', '*неизвестно*');
+        return isset($data[$this->type]) ? $data[$this->type] : Yii::t('blog', '*неизвестно*');
     }
 
     public function getStatusList()
@@ -195,9 +194,7 @@ class Blog extends CActiveRecord
     {
         $data = $this->getStatusList();
 
-        return isset($data[$this->status])
-            ? $data[$this->status]
-            : Yii::t('blog', '*неизвестно*');
+        return isset($data[$this->status]) ? $data[$this->status] : Yii::t('blog', '*неизвестно*');
     }
 
     public function scopes()
@@ -230,4 +227,5 @@ class Blog extends CActiveRecord
     {
         return UserToBlog::model()->with('user')->findAll('blog_id = :blog_id', array(':blog_id' => $this->id));
     }
+
 }
