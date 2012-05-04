@@ -47,3 +47,16 @@ footer {
     margin-left: 10px !important;
     text-transform: none;
 }
+
+.inline select, .inline input {
+    display: inline-block !important;
+}
+
+.inline select, .inline input[type=text], .inline textarea {
+    width: 100% !important;
+
+}
+
+.inline .help-inline {
+    margin-top: 27px;
+}

@@ -3,7 +3,7 @@
     $this->beginContent($module-> getBackendLayoutAlias("main"));
 ?>
   <div class="row-fluid">
-    <div class="span10">
+    <div class="span9">
         <?php
         if ( count($this->breadcrumbs) )
         $this->widget('bootstrap.widgets.BootBreadcrumbs', array(
@@ -17,7 +17,7 @@
         </div>
         <!-- content -->
     </div>
-    <div class="span2">
+    <div class="span3">
         <?php
         if ( count($this->menu) )
         {
