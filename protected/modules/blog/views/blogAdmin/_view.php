@@ -12,6 +12,14 @@
     <?php echo CHtml::encode($data->description); ?>
     <br />
 
+    <b><?php echo CHtml::encode(Yii::t('blog','Записей')); ?>:</b>
+    <?php echo CHtml::encode($data->postsCount); ?>
+    <br />
+
+    <b><?php echo CHtml::encode(Yii::t('blog','Участников')); ?>:</b>
+    <?php echo CHtml::encode($data->membersCount); ?>
+    <br />
+
     <b><?php echo CHtml::encode($data->getAttributeLabel('icon')); ?>:</b>
     <?php echo CHtml::encode($data->icon); ?>
     <br />

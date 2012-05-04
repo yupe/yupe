@@ -39,14 +39,16 @@
         'dataProvider'=>$model->search(),    
         'columns'=>array(
             'id',
-             array(
-                 'name'=>'user_id',
-                 'value'=>'$data->user->getFullName()'
-             ),
             array(
-                 'name'=>'blog_id',
-                 'value'=>'$data->blog->name'
-             ),
+                'name'=>'user_id',
+                'type' => 'raw',
+                'value' => 'CHtml::link($data->user->getFullName(),array("/user/default/view/","id" => $data->user->id))'
+            ),
+            array(
+                'name'  => 'blog_id',
+                'type'  => 'raw',
+                'value' => 'CHtml::link($data->blog->name,array("/blog/blogAdmin/view/","id" => $data->blog->id))'
+            ),
             'create_date',
             'update_date',
             array(

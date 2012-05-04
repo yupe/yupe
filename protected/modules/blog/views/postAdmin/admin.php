@@ -39,11 +39,16 @@
         'dataProvider'=>$model->search(),
         'columns'=>array(
             'id',
-            'title',
-             array(
-                 'name'=>'blog_id',
-                 'value'=>'$data->blog->name',
-             ),
+            array(
+                'name'  => 'title',
+                'type'  => 'raw',
+                'value' => 'CHtml::link($data->title,array("/blog/postAdmin/update/","id" => $data->id))'
+            ),
+            array(
+                'name'  => 'blog_id',
+                'type'  => 'raw',
+                'value' => 'CHtml::link($data->blog->name,array("/blog/blogAdmin/view/","id" => $data->blog->id))'
+            ),
             'slug',
             'publish_date',
             array(
@@ -61,11 +66,13 @@
              ),
             array(
                 'name'=>'create_user_id',
-                'value'=>'$data->createUser->getFullName()',
+                'type' => 'raw',
+                'value' => 'CHtml::link($data->createUser->getFullName(),array("/user/default/view/","id" => $data->createUser->id))'
             ),
             array(
                 'name'=>'update_user_id',
-                'value'=>'$data->updateUser->getFullName()',
+                'type' => 'raw',
+                'value' => 'CHtml::link($data->updateUser->getFullName(),array("/user/default/view/","id" => $data->updateUser->id))'
             ),
             array(
                 'name'=>'create_date',

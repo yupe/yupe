@@ -39,7 +39,19 @@
         'dataProvider'=>$model->search(),
         'columns'=>array(
             'id',
-            'name',
+            array(
+                'name'  => 'name',
+                'type'  => 'raw',
+                'value' => 'CHtml::link($data->name,array("/blog/blogAdmin/update/","id" => $data->id))'
+            ),
+            array(
+                'name'  => Yii::t('blog','Записей'),
+                'value' => '$data->postsCount'
+            ),
+            array(
+                'name'  => Yii::t('blog','Участников'),
+                'value' => '$data->membersCount'
+            ),
             'icon',
             'slug',
             array(
@@ -53,11 +65,13 @@
             ),
             array(
                 'name'=>'create_user_id',
-                'value'=>'$data->createUser->getFullName()',
+                'type' => 'raw',
+                'value' => 'CHtml::link($data->createUser->getFullName(),array("/user/default/view/","id" => $data->createUser->id))'
             ),
             array(
                 'name'=>'update_user_id',
-                'value'=>'$data->updateUser->getFullName()',
+                'type' => 'raw',
+                'value' => 'CHtml::link($data->updateUser->getFullName(),array("/user/default/view/","id" => $data->updateUser->id))'
             ),
             array(
                 'name'=>'create_date',
