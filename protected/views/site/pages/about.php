@@ -52,6 +52,9 @@
     !? <?php echo CHtml::link('Напишите нам', array('/feedback/contact/'));?>
     !</p>
 
+<p>Наш твиттер - <a href="https://twitter.com/#!/YupeCms">https://twitter.com/#!/YupeCms</a></p>
+
+
 <p>
     Желающим помочь проекту рекомендую
     посетить <?php echo CHtml::link('эту страничку', array('/site/page/', 'view' => 'help'));?> или сразу <iframe width="200" scrolling="no" height="42" frameborder="0" src="https://money.yandex.ru/embed/small.xml?uid=41001846363811&button-text=05&button-size=m&button-color=orange&targets=%d0%9d%d0%b0+%d1%80%d0%b0%d0%b7%d0%b2%d0%b8%d1%82%d0%b8%d0%b5+%d0%ae%d0%bf%d0%b8!&default-sum=50&fio=on&mail=on" allowtransparency="true" style="vertical-align: middle;"></p>

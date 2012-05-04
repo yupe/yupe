@@ -39,7 +39,7 @@ class InstallModule extends YWebModule
 
     public function getVersion()
     {
-        return Yii::t('install', '0.1');
+        return Yii::t('install', '0.2');
     }
 
     public function getAuthor()
