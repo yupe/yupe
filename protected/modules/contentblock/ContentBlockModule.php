@@ -42,8 +42,8 @@ class ContentBlockModule extends YWebModule
         parent::init();
 
         $this->setImport(array(
-                              'contentblock.models.*',
-                              'contentblock.components.*',
-                         ));
+            'contentblock.models.*',
+            'contentblock.components.*',
+        ));
     }
 }

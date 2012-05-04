@@ -20,9 +20,11 @@ class YCustomGridView extends CGridView
         $this->modelName = $this->dataProvider->modelClass;
     }
 
-    public function returnStatusHtml($data, $active = 1, $onclick = 0, $ignore = 0)
+    public function returnStatusHtml($data, $active = 1, $onclick = 1, $ignore = 0)
     {
-        $status = $data->status == $active ? $this->inActiveStatus : $this->activeStatus;
+        $statusField = $this->statusField;
+
+        $status = $data->$statusField == $active ? $this->inActiveStatus : $this->activeStatus;
 
         $url = Yii::app()->controller->createUrl("activate", array(
             'model' => $this->modelName,
@@ -32,9 +34,9 @@ class YCustomGridView extends CGridView
         ));
 
         $img = CHtml::image(
-            Yii::app()->request->baseUrl . '/images/' . ($data->status == $active ? '' : 'in') . 'active.png',
-            Yii::t('yupe', $data->status ? Yii::t('yupe','Деактивировать') : Yii::t('yupe','Активировать')),
-            array('title' => Yii::t('yupe', $data->status ? Yii::t('yupe','Деактивировать') : Yii::t('yupe','Активировать')))
+            Yii::app()->request->baseUrl . '/images/' . ($data->$statusField == $active ? '' : 'in') . 'active.png',
+            Yii::t('yupe', $data->$statusField ? Yii::t('yupe','Деактивировать') : Yii::t('yupe','Активировать')),
+            array('title' => Yii::t('yupe', $data->$statusField ? Yii::t('yupe','Деактивировать') : Yii::t('yupe','Активировать')))
         );
         $options = array();
         if ($onclick) {

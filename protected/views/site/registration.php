@@ -1,7 +1,7 @@
 <?php
-$this->breadcrumbs = array(
-    'Регистрация',
-);
+    $this->breadcrumbs = array(
+        'Регистрация',
+    );
 ?>
 
 <h1>Регистрация нового пользователя</h1>

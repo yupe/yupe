@@ -14,14 +14,14 @@ return array(
     'preload' => array('log'),
 
     // подключение путей
-    'import' => array(        
-        'application.components.*',   
-             
+    'import' => array(
+        'application.components.*',
+
         // подключение путей из основных модулей 
         'application.modules.user.UserModule',
         'application.modules.user.models.*',
         'application.modules.user.forms.*',
-        'application.modules.user.components.*',                
+        'application.modules.user.components.*',
 
         'application.modules.page.models.*',
 
@@ -32,15 +32,15 @@ return array(
         'application.modules.vote.models.*',
         'application.modules.blog.models.*',
 
-        'application.modules.yupe.controllers.*', 
-        'application.modules.yupe.widgets.*',        
+        'application.modules.yupe.controllers.*',
+        'application.modules.yupe.widgets.*',
         'application.modules.yupe.helpers.*',
-        'application.modules.yupe.models.*',        
-        'application.modules.yupe.components.*',                
+        'application.modules.yupe.models.*',
+        'application.modules.yupe.components.*',
 
         'application.modules.social.widgets.ysc.*',
 
-        'application.modules.social.components.*',              
+        'application.modules.social.components.*',
         'application.modules.social.models.*', 
         'application.modules.social.extensions.eoauth.*',
         'application.modules.social.extensions.eoauth.lib.*',
@@ -64,14 +64,14 @@ return array(
         'image' => array(
             'class' => 'application.modules.yupe.extensions.image.CImageComponent',
             'driver' => 'GD', // Еще бывает ImageMagick, если используется он, надо указать к нему путь чуть ниже
-            'params' => array('directory'=>'/usr/bin'), // В этой директории должен быть convert
+            'params' => array('directory' => '/usr/bin'), // В этой директории должен быть convert
         ),
 
-        // подключение библиотеки для авторизации через социальные сервисы, подробнее https://github.com/Nodge/yii-eauth           
+        // подключение библиотеки для авторизации через социальные сервисы, подробнее https://github.com/Nodge/yii-eauth
         'loid' => array(
             'class' => 'application.modules.social.extensions.lightopenid.loid',
-        ),         
-         
+        ),
+
         'eauth' => array(
             'class' => 'application.modules.social.extensions.eauth.EAuth',
             'popup' => true, // Use the popup window instead of redirecting.
@@ -82,18 +82,18 @@ return array(
                 'yandex' => array(
                    'class' => 'CustomYandexService',
                 ),
-            )
+            ),
         ),
-        
+
         // компонент для отправки почты
         'mail' => array(
-            'class' => 'application.modules.yupe.components.YMail'
+            'class' => 'application.modules.yupe.components.YMail',
         ),
-        
+
         // конфигурирование urlManager, подробнее http://www.yiiframework.ru/doc/guide/ru/topics.url
         'urlManager' => array(
             'urlFormat' => 'path',
-            'showScriptName' => false,
+            'showScriptName' => true,
             'cacheID' => 'cache',
             'rules' => array(
 		        '/' => 'site/index',
@@ -106,50 +106,50 @@ return array(
                 '/post/<slug>.html' => 'blog/post/show/',
                 '/blog/<slug>' => 'blog/blog/show/',
                 '/blogs/' => 'blog/blog/index/',
-                '/users/' =>'user/people/index/'
+                '/users/' =>'user/people/index/',
             ),
         ),
-         
+
         // конфигурируем компонент CHttpRequest для защиты от CSRF атак, подробнее http://www.yiiframework.ru/doc/guide/ru/topics.security
         // РЕКОМЕНДУЕМ УКАЗАТЬ СВОЕ ЗНАЧЕНИЕ ДЛЯ ПАРАМЕТРА "csrfTokenName"
         'request' => array(
             'class' => 'CHttpRequest',
             'enableCsrfValidation' => false,
-            'csrfTokenName' => 'YUPE_TOKEN'
+            'csrfTokenName' => 'YUPE_TOKEN',
         ),
-    
+
         // подключение компонента для генерации ajax-ответов
         'ajax' => array(
-            'class' => 'application.modules.yupe.components.YAsyncResponse'
+            'class' => 'application.modules.yupe.components.YAsyncResponse',
         ),
-        
+
         // компонент Yii::app()->user, подробнее http://www.yiiframework.ru/doc/guide/ru/topics.auth
         'user' => array(
             'class' => 'application.modules.user.components.YWebUser',
             'loginUrl' => '/user/account/login/'
         ),
-         
+
          // параметры подключения к базе данных, подробнее http://www.yiiframework.ru/doc/guide/ru/database.overview
         'db' => require(dirname(__FILE__) . '/db.php'),
-         
+
         // настройки кэширования, подробнее http://www.yiiframework.ru/doc/guide/ru/caching.overview
         'cache' => array(
-            'class' => 'CFileCache'
+            'class' => 'CFileCache',
         ),
 
         // параметры логирования, подробнее http://www.yiiframework.ru/doc/guide/ru/topics.logging
        'log' => array(
             'class' => 'CLogRouter',
-            'routes' => array(                
+            'routes' => array(
                 array(
                     'class' => 'CFileLogRoute',
                     'levels' => 'error, warning, info',
-                ),                
+                ),
                 array(
                     'class'=>'application.modules.yupe.extensions.db_profiler.DbProfileLogRoute',
                     'countLimit' => 1, // How many times the same query should be executed to be considered inefficient
                     'slowQueryMin' => 0.01, // Minimum time for the query to be slow
-                ),                
+                ),
             ),
         ),
     ),
@@ -172,7 +172,7 @@ return array(
         ),
         'comment' => array(
             'class' => 'application.modules.comment.CommentModule',
-            'defaultCommentStatus' => 0
+            'defaultCommentStatus' => 0,
         ),
         'dictionary' => array(
             'class' => 'application.modules.dictionary.DictionaryModule',
@@ -191,24 +191,24 @@ return array(
         ),
         'yupe' => array(
             'class' => 'application.modules.yupe.YupeModule',
-            'brandUrl' => 'http://yupe.ru?from=engine'
+            'brandUrl' => 'http://yupe.ru?from=engine',
         ),
         'install' => array(
-            'class' => 'application.modules.install.InstallModule',            
+            'class' => 'application.modules.install.InstallModule',
         ),
         'category' => array(
             'class' => 'application.modules.category.CategoryModule',
-            'adminMenuOrder' => 5,            
+            'adminMenuOrder' => 5,
         ),
         'news' => array(
             'class' => 'application.modules.news.NewsModule',
-            'adminMenuOrder' => 1,            
+            'adminMenuOrder' => 1,
         ),
         'user' => array(
             'class' => 'application.modules.user.UserModule',
             'adminMenuOrder' => 4,
             'autoRecoveryPassword' => true,
-            'minPasswordLength' => 3,            
+            'minPasswordLength' => 3,
             'emailAccountVerification' => false,
             'showCaptcha' => true,
             'minCaptchaLength' => 3,
@@ -227,7 +227,7 @@ return array(
         'page' => array(
             'adminMenuOrder' => 2,
             'class' => 'application.modules.page.PageModule',
-            'layout' => 'application.views.layouts.column2'
+            'layout' => 'application.views.layouts.column2',
         ),
         'contentblock' => array(
             'class' => 'application.modules.contentblock.ContentBlockModule',
@@ -238,19 +238,19 @@ return array(
             'types' => array(
                 1 => 'Ошибка на сайте',
                 2 => 'Предложение о сотрудничестве',
-                3 => 'Прочее..'
+                3 => 'Прочее..',
             ),
             'showCaptcha' => true,
             'notifyEmailFrom' => 'test@test.ru',
-            'backEnd' => array('email','db'),
+            'backEnd' => array('email', 'db'),
             'emails'  => 'test_1@test.ru, test_2@test.ru',
         ),
         // подключение gii в режиме боевой работы рекомендуется отключить (подробнее http://www.yiiframework.com/doc/guide/1.1/en/quickstart.first-app)
         'gii' => array(
             'class' => 'system.gii.GiiModule',
-            'password' => 'giiYupe'
+            'password' => 'giiYupe',
         ),
-    ),    
+    ),
 
     'behaviors' => array('YupeStartUpBehavior'),
 );

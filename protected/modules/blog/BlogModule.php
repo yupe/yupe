@@ -3,7 +3,7 @@ class BlogModule extends YWebModule
 {
     public $editor = 'application.modules.yupe.widgets.editors.imperaviRedactor.EImperaviRedactorWidget';
 
-	public function getCategory()
+    public function getCategory()
     {
         return Yii::t('blog', 'Блоги');
     }
@@ -12,7 +12,7 @@ class BlogModule extends YWebModule
     {
         return array(
             'adminMenuOrder' => Yii::t('news', 'Порядок следования в меню'),
-            'editor'         => Yii::t('page','Визуальный редактор') 
+            'editor' => Yii::t('page', 'Визуальный редактор'),
         );
     }
 
@@ -20,16 +20,16 @@ class BlogModule extends YWebModule
     {
         return array(
             'adminMenuOrder',
-            'editor' => Yii::app()->getModule('yupe')->getEditors()
+            'editor' => Yii::app()->getModule('yupe')->getEditors(),
         );
     }
 
     public function getNavigation()
     {
         return array(
-            Yii::t('blog','Блоги')  => '/blog/blogAdmin/admin/',
-            Yii::t('blog','Записи') => '/blog/postAdmin/admin/',
-            Yii::t('blog','Участники') => '/blog/userToBlogAdmin/admin/'
+            Yii::t('blog', 'Блоги') => '/blog/blogAdmin/admin/',
+            Yii::t('blog', 'Записи') => '/blog/postAdmin/admin/',
+            Yii::t('blog', 'Участники') => '/blog/userToBlogAdmin/admin/',
         );
     }
 
@@ -68,13 +68,13 @@ class BlogModule extends YWebModule
         return '/blog/blogAdmin/admin/';
     }
 
-	public function init()
-	{
-		parent::init();
+    public function init()
+    {
+        parent::init();
 
-		$this->setImport(array(
-			'blog.models.*',
-			'blog.components.*',
-		));
-	}	
+        $this->setImport(array(
+            'blog.models.*',
+            'blog.components.*',
+        ));
+    }
 }

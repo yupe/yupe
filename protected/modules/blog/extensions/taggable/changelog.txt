@@ -1,0 +1,90 @@
+1.5
+---
+- updateCount now uses proper PK name (RSol)
+
+1.4
+----
+- Change CacheID defaults to false. If false don't use cache.
+- Fixed phpDoc
+- Fixed cache key generation (Sam Dark)
+- Fixed English docs (Sam Dark)
+- #27: Fixed typos (Sam Dark)
+
+1.3
+---
+- Tag table primary key is no longer hardcoded as `id` and can be set via `tagTablePk`.
+- Additional values inserting support (mitallast).
+- Default scope criteria support (mitallast).
+- Better criteria support (mitallast).
+- Files and classnames are renamed to ETaggableBehavior and EARTaggableBehavior.
+- Added criteria support to ETagListWidget.
+- More flexibility for ETagListWidget url.
+
+1.2
+---
+- Fixed getting tags array from string with separator at the end or beginning of line.
+- Fixed getting wrong ids when using withTags() or taggedWith().
+- ETagListWidget.
+- Added getTagsWithModelsCount().
+- getAllTagsWithModelsCount now can accept criteria.
+- Input is being passed through strip_tags now.
+
+1.1
+---
+- DBConnection is now saved in a private variable for better perfomance.
+- Added tagTableName property that allows customizing name field http://code.google.com/p/yiiext/issues/detail?id=12
+- Added tagTableCount property specifying counter field for storing tag count in database http://code.google.com/p/yiiext/issues/detail?id=17
+- New subclass EARTaggableBehaviour for using behavior along with Tags model http://code.google.com/p/yiiext/issues/detail?id=13
+
+1.0.2
+-----
+- New manual section: using taggable with CAutoComplete.
+- Renamed __toString to toString since magic was hard to debug in case of failure.
+- Fixed more possible cache keys overlap when using multiple tag sets within one model.
+
+1.0.1
+-----
+- New naming conventions.
+
+1.0
+---
+- More PHPDoc documentation.
+- Fixed possible cache keys overlap when using multiple tag sets within one model.
+
+0.9
+---
+Warning: this version is not compatible with Yii 1.0.
+
+- Added resetAllTagsCache() and resetAllTagsWithModelsCountCache().
+- Fixed getAllTags() and getAllTagsWithModelsCount() cache issues.
+- Now tags are saved on save() only if they were changed.
+- Extension is now compatible only with Yii 1.1.
+- Fixed saving empty tags.
+- Fixed caching.
+
+0.8
+---
+Warning: this version is not backwards compatible to 0.6.
+
+- Now you can set tagId field name for binding table.
+- Do not try to delete tag bindings when inserting new record.
+- Added taggedWith() alias withTags().
+- Removed getCountByTags(), findAllByTags(). Use taggedWith().
+- Method chaining: $post->addTags("yii, php")->save();
+- New syntax: $posts = Post::model()->taggedWith(array('php', 'yii'))->findAll();
+- Added parent:: calls in event handlers.
+- Added hasTags() and it's alias hasTag() to check if all tags specified are attached to current model.
+- New syntax: echo $post->tags (or by what name behaviour is attached) will print comma separated tags.
+- getTags now returns array since implode is really easy to do yourself.
+- Removed getTagsArray().
+- addTags(), removeTags(), setTags() are now accept both string and array.
+- Added addTag() as alias of addTags(), removeTag() as alias of removeTags().
+- Some methods are now protected.
+- Added $with to findAllByTags().
+- getAllTags().
+- Unit tests.
+- createTagsAutomatically option allows to throw exception when adding nonexisting tag.
+
+0.6
+---
+- Initial public release.

@@ -9,14 +9,13 @@ class BlogAdminController extends YBackController
      */
     public function actionView($id)
     {
-        $this->render('view', array(
-            'model' => $this->loadModel($id),
-        ));
+        $this->render('view', array('model' => $this->loadModel($id)));
     }
 
     /**
      * Creates a new model.
-     * If creation is successful, the browser will be redirected to the 'view' page.
+     * If creation is successful, the browser will be redirected to the 'view'
+     * page.
      */
     public function actionCreate()
     {
@@ -25,21 +24,23 @@ class BlogAdminController extends YBackController
         // Uncomment the following line if AJAX validation is needed
         // $this->performAjaxValidation($model);
 
-        if(isset($_POST['Blog']))
+        if (isset($_POST['Blog']))
         {
             $model->attributes = $_POST['Blog'];
-            if($model->save())
-                $this->redirect(array('view', 'id' => $model->id));
+            if ($model->save())
+                $this->redirect(array(
+                    'view',
+                    'id' => $model->id,
+                ));
         }
 
-        $this->render('create', array(
-            'model' => $model,
-        ));
+        $this->render('create', array('model' => $model, ));
     }
 
     /**
      * Updates a particular model.
-     * If update is successful, the browser will be redirected to the 'view' page.
+     * If update is successful, the browser will be redirected to the 'view'
+     * page.
      *
      * @param integer $id the ID of the model to be updated
      */
@@ -50,33 +51,36 @@ class BlogAdminController extends YBackController
         // Uncomment the following line if AJAX validation is needed
         // $this->performAjaxValidation($model);
 
-        if(isset($_POST['Blog']))
+        if (isset($_POST['Blog']))
         {
             $model->attributes = $_POST['Blog'];
-            if($model->save())
-                $this->redirect(array('view', 'id' => $model->id));
+            if ($model->save())
+                $this->redirect(array(
+                    'view',
+                    'id' => $model->id,
+                ));
         }
 
-        $this->render('update', array(
-            'model' => $model,
-        ));
+        $this->render('update', array('model' => $model, ));
     }
 
     /**
      * Deletes a particular model.
-     * If deletion is successful, the browser will be redirected to the 'admin' page.
+     * If deletion is successful, the browser will be redirected to the 'admin'
+     * page.
      *
      * @param integer $id the ID of the model to be deleted
      */
     public function actionDelete($id)
     {
-        if(Yii::app()->request->isPostRequest)
+        if (Yii::app()->request->isPostRequest)
         {
             // we only allow deletion via POST request
             $this->loadModel($id)->delete();
 
-            // if AJAX request (triggered by deletion via admin grid view), we should not redirect the browser
-            if(!isset($_GET['ajax']))
+            // if AJAX request (triggered by deletion via admin grid view), we
+            // should not redirect the browser
+            if (!isset($_GET['ajax']))
                 $this->redirect(isset($_POST['returnUrl']) ? $_POST['returnUrl'] : array('admin'));
         }
         else
@@ -89,9 +93,7 @@ class BlogAdminController extends YBackController
     public function actionIndex()
     {
         $dataProvider = new CActiveDataProvider('Blog');
-        $this->render('index', array(
-            'dataProvider' => $dataProvider,
-        ));
+        $this->render('index', array('dataProvider' => $dataProvider));
     }
 
     /**
@@ -100,13 +102,12 @@ class BlogAdminController extends YBackController
     public function actionAdmin()
     {
         $model = new Blog('search');
-        $model->unsetAttributes(); // clear any default values
-        if(isset($_GET['Blog']))
+        $model->unsetAttributes();
+        // clear any default values
+        if (isset($_GET['Blog']))
             $model->attributes = $_GET['Blog'];
 
-        $this->render('admin', array(
-            'model' => $model,
-        ));
+        $this->render('admin', array('model' => $model));
     }
 
     /**
@@ -118,7 +119,7 @@ class BlogAdminController extends YBackController
     public function loadModel($id)
     {
         $model = Blog::model()->findByPk((int)$id);
-        if($model === null)
+        if ($model === null)
             throw new CHttpException(404, 'The requested page does not exist.');
         return $model;
     }
@@ -130,10 +131,11 @@ class BlogAdminController extends YBackController
      */
     protected function performAjaxValidation($model)
     {
-        if(isset($_POST['ajax']) && $_POST['ajax'] === 'blog-form')
+        if (isset($_POST['ajax']) && $_POST['ajax'] === 'blog-form')
         {
             echo CActiveForm::validate($model);
             Yii::app()->end();
         }
     }
+
 }

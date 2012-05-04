@@ -1,7 +1,6 @@
 <?php
 class DefaultController extends YBackController
 {
-
     /**
      * Displays a particular model.
      * @param integer $id the ID of the model to be displayed
@@ -10,18 +9,15 @@ class DefaultController extends YBackController
     {
         $model = $this->loadModel($id);
 
-        $code = '<?php $this->widget("application.modules.contentblock.widgets.ContentBlockWidget",array("code" => "' . $model->code . '"));?>';
-
         $highlighter = new CTextHighlighter;
-
         $highlighter->language = 'PHP';
-
+        $code = '<?php $this->widget("application.modules.contentblock.widgets.ContentBlockWidget", array("code" => "'.$model->code.'")); ?>';
         $example = $highlighter->highlight($code); 
 
         $this->render('view', array(
-                                   'model'   => $model,
-                                   'example' => $example
-                              ));
+            'model' => $model,
+            'example' => $example,
+        ));
     }
 
     /**
@@ -48,8 +44,8 @@ class DefaultController extends YBackController
         }
 
         $this->render('create', array(
-                                     'model' => $model,
-                                ));
+            'model' => $model,
+        ));
     }
 
     /**
@@ -79,8 +75,8 @@ class DefaultController extends YBackController
         }
 
         $this->render('update', array(
-                                     'model' => $model,
-                                ));
+            'model' => $model,
+        ));
     }
 
     /**
@@ -97,8 +93,7 @@ class DefaultController extends YBackController
 
             // if AJAX request (triggered by deletion via admin grid view), we should not redirect the browser
             if (!isset($_GET['ajax']))
-                $this->redirect(isset($_POST['returnUrl']) ? $_POST['returnUrl']
-                                    : array('admin'));
+                $this->redirect(isset($_POST['returnUrl']) ? $_POST['returnUrl'] : array('admin'));
         }
         else
             throw new CHttpException(400, 'Invalid request. Please do not repeat this request again.');
@@ -111,23 +106,23 @@ class DefaultController extends YBackController
     {
         $dataProvider = new CActiveDataProvider('ContentBlock');
         $this->render('index', array(
-                                    'dataProvider' => $dataProvider,
-                               ));
+            'dataProvider' => $dataProvider,
+        ));
     }
 
     /**
      * Manages all models.
      */
     public function actionAdmin()
-    {        
+    {
         $model = new ContentBlock('search');
         $model->unsetAttributes(); // clear any default values
         if (isset($_GET['ContentBlock']))
             $model->attributes = $_GET['ContentBlock'];
 
         $this->render('admin', array(
-                                    'model' => $model,
-                               ));
+            'model' => $model,
+        ));
     }
 
     /**
