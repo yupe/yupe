@@ -5,7 +5,7 @@
         $model->user->getFullName()=>array('view', 'id'=>$model->id),
         Yii::t('blog', 'Просмотр'),
     );
-
+    //@formatter:off
     $this->menu=array(
         array('label'=>Yii::t('blog', 'Список участников'), 'url'=>array('index')),
         array('label'=>Yii::t('blog', 'Добавление участника'), 'url'=>array('create')),
@@ -16,6 +16,7 @@
         )),
         array('label'=>Yii::t('blog', 'Управление участниками'), 'url'=>array('admin')),
     );
+    //@formatter:on
 ?>
 
 <h1>
