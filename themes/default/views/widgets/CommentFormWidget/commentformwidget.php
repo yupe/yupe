@@ -10,6 +10,12 @@
         class="required">*</span> <?php echo Yii::t('yupe', 'обязательны для заполнения');?>
     </p>
 
+    <?php if (!Yii::app()->user->isAuthenticated()): ?>
+
+    <p>Пожалуйста, <?php echo CHtml::link('авторизуйтесь',array('/user/account/login/'));?> или <?php echo CHtml::link('зарегистрируйтесь',array('/user/account/registration/'));?> - комментарии добавлять будет проще =)</p>
+
+    <?php endif;?>
+
     <?php echo $form->errorSummary($model)?>
 
     <?php echo $form->hiddenField($model, 'model')?>
