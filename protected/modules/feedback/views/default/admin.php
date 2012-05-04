@@ -43,7 +43,7 @@ Yii::app()->clientScript->registerScript('search', "
             array(
                 'name' => 'theme',
                 'type' => 'raw',
-                'value' => 'CHtml::link($data->theme,array("/feedback/default/update/", "id" => $data->id))',
+                'value' => 'CHtml::link($data->theme, array("/feedback/default/update/", "id" => $data->id))',
             ),
             array(
                 'name' => 'type',
@@ -59,7 +59,7 @@ Yii::app()->clientScript->registerScript('search', "
             array(
                 'name' => 'is_faq',
                 'type' => 'raw',
-                'value' => '$data->getIsFaq()',
+                'value' => '$this->grid->returnStatusHtml($data)',
             ),
             'creation_date',
             'change_date',
