@@ -14,9 +14,11 @@
         <?php if (!Yii::app()->user->isAuthenticated()): ?>
         <li><?php echo CHtml::link('Регистрация', array('/registration/'));?></li>
         <?php endif;?>
-        <li><?php echo CHtml::link('Социальные виджеты', array('/site/social/'));?></li>        
+
+        <li><?php echo CHtml::link('Социальные виджеты', array('/site/social/'));?></li>
         <li><?php echo CHtml::link('Помощь проекту', array('/site/page/view/help/'));?></li>
         <li><?php echo CHtml::link('Контакты', array('/feedback/contact/'));?></li>
+        <li><?php echo CHtml::link('Wiki', array('/wiki/default/index/'));?></li>
 
 
         <?php foreach ($pages as $page): ?>
@@ -28,11 +30,3 @@
         <?php endif;?>
     </ul>
 </div>
-
-
-
-
-
-
-
-

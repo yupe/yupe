@@ -31,6 +31,7 @@ return array(
         'application.modules.image.models.*',
         'application.modules.vote.models.*',
         'application.modules.blog.models.*',
+        'application.modules.wiki.models.*',
 
         'application.modules.yupe.controllers.*',
         'application.modules.yupe.widgets.*',
@@ -88,7 +89,7 @@ return array(
             'showScriptName' => true,
             'cacheID' => 'cache',
             'rules' => array(
-		        '/' => 'site/index',
+                '/' => 'site/index',
                 '/login' => 'user/account/login',
                 '/logout' => 'user/account/logout',
                 '/registration' => 'user/account/registration',
@@ -231,6 +232,13 @@ return array(
             'notifyEmailFrom' => 'test@test.ru',
             'backEnd' => array('email', 'db'),
             'emails'  => 'test_1@test.ru, test_2@test.ru',
+        ),
+        'wiki' => array(
+            'class' => 'application.modules.wiki.WikiModule',
+            'adminMenuOrder' => 6,
+            'userAdapter' => array(
+                'class' => 'WikiUser',
+            ),
         ),
         // подключение gii в режиме боевой работы рекомендуется отключить (подробнее http://www.yiiframework.com/doc/guide/1.1/en/quickstart.first-app)
         'gii' => array(
