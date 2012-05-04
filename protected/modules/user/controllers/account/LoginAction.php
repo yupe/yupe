@@ -17,17 +17,12 @@ class LoginAction extends CAction
 
                 $module = Yii::app()->getModule('user');
 
-                $redirect = array($module->loginSuccess);
-
-                if(Yii::app()->user->isSuperUser() && $module->loginAdminSuccess)
-                    $redirect = array($module->loginAdminSuccess);           
+                $redirect =  (Yii::app()->user->isSuperUser() && $module->loginAdminSuccess) ? $module->loginAdminSuccess : array($module->loginSuccess);
 
                 $this->controller->redirect($redirect);
             }
             else
-            {
                 Yii::log(Yii::t('user', 'Ошибка авторизации! email => {email}, Password => {password}!', array('{email}' => $form->email, '{password}' => $form->password)), CLogger::LEVEL_ERROR, UserModule::$logCategory);
-            }
         }
 
         $this->controller->render('login', array('model' => $form));

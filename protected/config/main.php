@@ -93,7 +93,7 @@ return array(
         // конфигурирование urlManager, подробнее http://www.yiiframework.ru/doc/guide/ru/topics.url
         'urlManager' => array(
             'urlFormat' => 'path',
-            'showScriptName' => true,
+            'showScriptName' => false,
             'cacheID' => 'cache',
             'rules' => array(
 		        '/' => 'site/index',

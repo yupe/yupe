@@ -1,0 +1,112 @@
+/**
+* Rights module default style sheet file.
+* You may override this style sheet by setting the 'cssFile'
+* in the module's configuration.
+*
+* @author Christoffer Niska
+* @copyright Copyright &copy; 2008 Christoffer Niska
+* @since 0.5
+*/
+
+/**
+* Default style.
+*/
+
+#rights * { font-family:Trebuchet MS, Verdana, san-serif !important; }
+#rights a { color:#666699; font-weight:bold; text-decoration:none; }
+#rights a:hover { color:#666699; text-decoration:underline; }
+#rights hr { height:0; border-style:none; border-bottom:1px dashed #f0f0f0; }
+
+#rights #content { position:relative; }
+
+#rights #menu { margin:0 0 25px 0; }
+#rights #menu ul.actions { margin:0; padding:0; list-style-type:none; }
+#rights #menu ul.actions li { display:inline; }
+#rights #menu ul.actions a {
+	color:#ffffff;
+	font-size:12px;
+	text-decoration:none;
+	padding:8px 12px;
+	background:#666699;
+	-moz-border-radius:6px;
+	-webkit-border-radius:6px;
+}
+#rights #menu ul.actions a:hover { color:#ffffff; text-decoration:none; }
+
+#rights .form label {
+	display:block;
+	margin:0 0 8px 0;
+	font-weight:bold;
+	font-size:12px; }
+#rights .form input[type=text],
+#rights .form input[type=password] {
+	padding:5px;
+	background:url('../images/bg_formInputText.gif') repeat-x;
+	border:1px solid #c0c0c0;
+	-moz-border-radius:6px;
+	-webkit-border-radius:6px;
+}
+
+#rights .form input { outline:none !important; }
+#rights .form input[type=submit] { padding:2px 5px; }
+#rights .form span.required { color:#ff0000; }
+
+/**
+* Grid view and table styles.
+*/
+
+#rights .grid-view table.items { border:0; margin:0 0 20px 0; }
+#rights .grid-view table.items * { font-size:12px; }
+#rights .grid-view table.items thead th {
+	background:transparent;
+	color:#404040;
+	font-weight:bold;
+	font-size:13px;
+	text-align:left;
+}
+#rights .grid-view table.items thead th { background:#ffffff; }
+#rights .grid-view table.items th,
+#rights .grid-view table.items td { padding:10px; border-style:none; }
+#rights .grid-view table.items .even { background:transparent; }
+#rights .grid-view table.items .odd { background:#e8edff; }
+
+#rights .grid-view table.mini { border:0; }
+#rights .grid-view table.mini * { font-size:11px; }
+#rights .grid-view table.mini th, #rights .miniTable td { padding:8px; }
+#rights .grid-view table.mini .odd td { background:#e8edff; }
+
+/**
+* Pager style.
+*/
+
+#rights .pager { color:#ffffff; }
+#rights .pager li { margin:0; padding:0; }
+#rights .pager li a { padding:5px 10px; border-style:none; text-decoration:none; }
+#rights .pager li.hidden a { color:#c0c0c0; }
+#rights .pager li.selected a { 
+	background:#666699;
+	color:#ffffff;
+	-moz-border-radius:6px;
+	-webkit-border-radius:6px;
+}
+
+#rights .bizrule-column,
+#rights .data-column {
+	color:#808080;
+	font-family:Consolas, Arial, san-serif !important;
+	font-size:11px;
+}
+
+#rights .hover td { background-color:#ffffdd !important; }
+
+#rights .info { color:#808080; font-size:12px; font-style:italic; }
+#rights .hint { width:320px; color:#808080; font-size:11px; font-style:italic; }
+
+#rights .permission-table .inherited-item { cursor:pointer; font-style:italic; }
+#rights .child-count { font-weight:bold; }
+
+/**
+* Jquery UI style.
+*/
+
+.ui-widget * { font-family:Trebuchet MS, Verdana, san-serif !important; font-size:11px; }

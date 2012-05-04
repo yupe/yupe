@@ -1,3 +1,5 @@
+<?php $this->pageTitle='Блоги';?>
+
 <h1>Блоги</h1>
 
     <script type="text/javascript">
