@@ -14,19 +14,19 @@ $this->breadcrumbs = array(
 
 
     <?php echo CHtml::beginForm(array('/yupe/backend/saveModulesettings', 'post'),'post',array('class'=>'well'));?>
-
+    <fieldset class="inline">
     <?php echo CHtml::hiddenField('module_id', $module->getId());?>
 
     <?php foreach ($elements as $element): ?>
-    
-        <?php echo $element;?>    
-
+        <div class="row-fluid control-group">
+            <div class="span8"><?php echo $element;?></div>
+        </div>
     <?php endforeach;?>
 
     <br />   
     
-    <?php echo CHtml::submitButton(Yii::t('yupe', 'Сохранить настройки модуля'), array('class'=> 'btn btn-primary','id' => 'saveModuleSettings', 'name' => 'saveModuleSettings'));?>    
-
+    <?php echo CHtml::submitButton(Yii::t('yupe', 'Сохранить настройки модуля'), array('class'=> 'btn btn-primary','id' => 'saveModuleSettings', 'name' => 'saveModuleSettings'));?>
+    </fieldset>
     <?php echo CHtml::endForm(); ?>
 
 <?php else: ?>
