@@ -6,8 +6,8 @@ $this->breadcrumbs = array(
 );
 
 $this->menu = array(
-    array('label' => Yii::t('contentblock', 'Список блоков контента'), 'url' => array('index')),
-    array('label' => Yii::t('contentblock', 'Управление блоками контента'), 'url' => array('admin')),
+    array('label' => Yii::t('contentblock', 'Добавить новый блок'), 'url' => array('/contentblock/default/create')),
+    array('label' => Yii::t('contentblock', 'Управление блоками контента'), 'url' => array('/contentblock/default/admin')),
 );
 ?>
 

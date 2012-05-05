@@ -6,39 +6,19 @@ $this->breadcrumbs = array(
 );
 
 $this->menu = array(
-    array('label' => Yii::t('contentblock', 'Добавить новый блок'), 'url' => array('create')),
-    array('label' => Yii::t('contentblock', 'Список блоков'), 'url' => array('index')),
+    array('label' => Yii::t('contentblock', 'Добавить новый блок'), 'url' => array('/contentblock/default/create')),
+    array('label' => Yii::t('contentblock', 'Управление блоками контента'), 'url' => array('/contentblock/default/admin')),
 );
-
-Yii::app()->clientScript->registerScript('search', "
-$('.search-button').click(function(){
-	$('.search-form').toggle();
-	return false;
-});
-$('.search-form form').submit(function(){
-	$.fn.yiiGridView.update('content-block-grid', {
-		data: $(this).serialize()
-	});
-	return false;
-});
-");
 ?>
 
 <h1><?php echo $this->module->getName();?></h1>
 
 <?php $this->widget('YModuleInfo'); ?>
 
-
-<?php echo CHtml::link(Yii::t('contentblock', 'Поиск'), '#', array('class' => 'search-button')); ?>
-<div class="search-form" style="display:none">
-    <?php $this->renderPartial('_search', array(
-                                               'model' => $model,
-                                          )); ?>
-</div><!-- search-form -->
-
-<?php $this->widget('zii.widgets.grid.CGridView', array(
+<?php $this->widget('bootstrap.widgets.BootGridView', array(
                                                        'id' => 'content-block-grid',
                                                        'dataProvider' => $model->search(),
+                                                       'type'=>'condensed',
                                                        'columns' => array(
                                                            'id',
                                                            array(
@@ -53,7 +33,7 @@ $('.search-form form').submit(function(){
                                                            'code',                                                           
                                                            'description',
                                                            array(
-                                                               'class' => 'CButtonColumn',
+                                                               'class' => 'bootstrap.widgets.BootButtonColumn',
                                                            ),
                                                        ),
                                                   )); ?>
