@@ -43,9 +43,11 @@
                                                                                          ));?>
 </div>
 
+<br/><br/>
+
 <?php $this->widget('application.modules.comment.widgets.CommentsListWidget', array('model' => $blog, 'modelId' => $blog->id)); ?>
 
-<br/>
+<br/><br/>
 
 <h3>Оставить комментарий</h3>
 
