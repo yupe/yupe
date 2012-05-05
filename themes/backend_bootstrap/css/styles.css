@@ -52,9 +52,12 @@ footer {
     display: inline-block !important;
 }
 
-.inline select, .inline input[type=text], .inline textarea {
+.inline select {
     width: 100% !important;
+}
 
+.inline input[type=text], .inline textarea {
+    width: 99% !important;
 }
 
 .inline .help-inline {
