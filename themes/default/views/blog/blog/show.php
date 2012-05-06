@@ -43,3 +43,13 @@
                                                                                          ));?>
 </div>
 
+<br/><br/>
+
+<?php $this->widget('application.modules.comment.widgets.CommentsListWidget', array('model' => $blog, 'modelId' => $blog->id)); ?>
+
+<br/><br/>
+
+<h3>Оставить комментарий</h3>
+
+<?php $this->widget('application.modules.comment.widgets.CommentFormWidget', array('redirectTo' => Yii::app()->createUrl('/blog/blog/show/',array('slug' => $blog->slug)), 'model' => $blog, 'modelId' => $blog->id)); ?>
+

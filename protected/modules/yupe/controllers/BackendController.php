@@ -32,7 +32,11 @@ class BackendController extends YBackController
                 $elements[$key] = CHtml::label($moduleParamsLabels[$key], $key) . CHtml::dropDownList($key, $value, $editableParams[$key]);
 
             if (in_array($key, $editableParams))
-                $elements[$key] = CHtml::label($moduleParamsLabels[$key], $key) . CHtml::textField($key, $value, array('maxlength' => 200));
+            {
+                $label = isset($moduleParamsLabels[$key]) ? $moduleParamsLabels[$key] : $key;
+
+                $elements[$key] = CHtml::label($label, $key) . CHtml::textField($key, $value, array('maxlength' => 200));
+            }
         }
 
         // сформировать боковое меню из ссылок на настройки модулей

@@ -134,6 +134,7 @@ class Blog extends CActiveRecord
         $criteria->compare('update_user_id', $this->update_user_id, true);
         $criteria->compare('create_date', $this->create_date);
         $criteria->compare('update_date', $this->update_date);
+        $criteria->with = array('createUser','updateUser');
 
         return new CActiveDataProvider(get_class($this), array('criteria' => $criteria, ));
     }

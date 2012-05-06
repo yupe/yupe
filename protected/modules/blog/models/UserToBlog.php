@@ -157,9 +157,18 @@ class UserToBlog extends CActiveRecord
         $criteria->compare('role', $this->role);
         $criteria->compare('status', $this->status);
         $criteria->compare('note', $this->note, true);
+        $criteria->with = array('user','blog');
 
         return new CActiveDataProvider($this, array(
             'criteria'=>$criteria,
         ));
+    }
+
+    public function afterFind()
+    {
+        $this->create_date = date('d.m.Y H:m', $this->create_date);
+        $this->update_date = date('d.m.Y H:m', $this->update_date);
+
+        return parent::afterFind();
     }
 }

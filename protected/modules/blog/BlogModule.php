@@ -45,7 +45,7 @@ class BlogModule extends YWebModule
 
     public function getDescription()
     {
-        return Yii::t('blog', 'Модуль для построения блогового сообщества');
+        return Yii::t('blog', 'Модуль для построения личного блога или блогового сообщества');
     }
 
     public function getAuthor()

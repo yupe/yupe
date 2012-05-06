@@ -27,6 +27,14 @@ $this->widget('zii.widgets.CDetailView', array(
         'id',
         'name',
         'description',
+        array(
+            'name'  => Yii::t('blog','Записей'),
+            'value' => $model->postsCount
+        ),
+        array(
+            'name'  => Yii::t('blog','Участников'),
+            'value' => $model->membersCount
+        ),
         'icon',
         'slug',
         array(

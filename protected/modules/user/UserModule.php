@@ -15,13 +15,13 @@ class UserModule extends YWebModule
 
     public $notifyEmailFrom;
 
-    public $autoRecoveryPassword = 1;
+    public $autoRecoveryPassword = true;
 
     public $minPasswordLength = 3;
 
-    public $emailAccountVerification = 1;
+    public $emailAccountVerification = true;
 
-    public $showCaptcha = 1;
+    public $showCaptcha = true;
 
     public $minCaptchaLength = 3;
 

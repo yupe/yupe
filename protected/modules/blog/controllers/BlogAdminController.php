@@ -118,7 +118,7 @@ class BlogAdminController extends YBackController
      */
     public function loadModel($id)
     {
-        $model = Blog::model()->findByPk((int)$id);
+        $model = Blog::model()->with('postsCount','membersCount')->findByPk((int)$id);
         if ($model === null)
             throw new CHttpException(404, 'The requested page does not exist.');
         return $model;

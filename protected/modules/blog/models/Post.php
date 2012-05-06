@@ -141,9 +141,10 @@ class Post extends CActiveRecord
         $criteria->compare('status', $this->status);
         $criteria->compare('comment_status', $this->comment_status);
         $criteria->compare('access_type', $this->access_type);
+        $criteria->with = array('createUser','updateUser','blog');
 
         return new CActiveDataProvider($this, array(
-            'criteria'=>$criteria,
+            'criteria' => $criteria
         ));
     }
 

@@ -2,7 +2,7 @@
 // основной конфигурационный файл Yii и Юпи! (подробнее http://www.yiiframework.ru/doc/guide/ru/basics.application)
 return array(
     'basePath' => dirname(__FILE__) . DIRECTORY_SEPARATOR . '..',
-
+    // контроллер по умолчанию
     'defaultController' => 'site',
     // название приложения
     'name' => 'Юпи!',
@@ -47,10 +47,6 @@ return array(
         'application.modules.social.extensions.eoauth.lib.*',
         'application.modules.social.extensions.lightopenid.*',
         'application.modules.social.extensions.eauth.services.*',
-
-        'application.modules.rights.*',
-        'application.modules.rights.components.*',
-
     ),
 
     // конфигурирование основных компонентов (подробнее http://www.yiiframework.ru/doc/guide/ru/basics.component)
@@ -73,6 +69,7 @@ return array(
             'class' => 'application.modules.social.extensions.lightopenid.loid',
         ),
 
+        // экстеншн для авторизации через социальные сети подробнее http://habrahabr.ru/post/129804/
         'eauth' => array(
             'class' => 'application.modules.social.extensions.eauth.EAuth',
             'popup' => true, // Use the popup window instead of redirecting.
@@ -146,6 +143,7 @@ return array(
                     'class' => 'CFileLogRoute',
                     'levels' => 'error, warning, info',
                 ),
+                //профайлер запросов к базе данных, на продакшн серверах рекомендуется отключить
                 array(
                     'class'=>'application.modules.yupe.extensions.db_profiler.DbProfileLogRoute',
                     'countLimit' => 1, // How many times the same query should be executed to be considered inefficient
@@ -157,11 +155,6 @@ return array(
 
     // конфигурация модулей приложения, подробнее http://www.yiiframework.ru/doc/guide/ru/basics.module
     'modules' => array(
-        'rights'=>array(
-            'class'   => 'application.modules.rights.RightsModule',
-            'userNameColumn' => 'nick_name',
-            'layout'  => 'yupe.views.layouts.column2',
-        ),
         'menu' => array(
              'class' => 'application.modules.menu.MenuModule',
          ),
@@ -173,7 +166,6 @@ return array(
         ),
         'comment' => array(
             'class' => 'application.modules.comment.CommentModule',
-            'defaultCommentStatus' => 0,
         ),
         'dictionary' => array(
             'class' => 'application.modules.dictionary.DictionaryModule',
@@ -199,24 +191,14 @@ return array(
         ),
         'category' => array(
             'class' => 'application.modules.category.CategoryModule',
-            'adminMenuOrder' => 5,
         ),
         'news' => array(
             'class' => 'application.modules.news.NewsModule',
-            'adminMenuOrder' => 1,
         ),
         'user' => array(
             'class' => 'application.modules.user.UserModule',
-            'adminMenuOrder' => 4,
-            'autoRecoveryPassword' => true,
-            'minPasswordLength' => 3,
-            'emailAccountVerification' => false,
-            'showCaptcha' => true,
-            'minCaptchaLength' => 3,
-            'maxCaptchaLength' => 5,
             'documentRoot' => $_SERVER['DOCUMENT_ROOT'],
             'avatarsDir' => '/yupe/avatars',
-            'avatarMaxSize' => 100000,
             'avatarExtensions' => array('jpg', 'png', 'gif'),
             'notifyEmailFrom' => 'test@test.ru',
             'urlRules' => array(
@@ -226,7 +208,6 @@ return array(
             ),
         ),
         'page' => array(
-            'adminMenuOrder' => 2,
             'class' => 'application.modules.page.PageModule',
             'layout' => 'application.views.layouts.column2',
         ),
@@ -235,13 +216,11 @@ return array(
         ),
         'feedback' => array(
             'class' => 'application.modules.feedback.FeedbackModule',
-            'adminMenuOrder' => 3,
             'types' => array(
                 1 => 'Ошибка на сайте',
                 2 => 'Предложение о сотрудничестве',
                 3 => 'Прочее..',
             ),
-            'showCaptcha' => true,
             'notifyEmailFrom' => 'test@test.ru',
             'backEnd' => array('email', 'db'),
             'emails'  => 'test_1@test.ru, test_2@test.ru',
