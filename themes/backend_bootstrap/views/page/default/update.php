@@ -9,13 +9,18 @@ $this->breadcrumbs = array(
 );
 
 $this->menu = array(
-    array('label' => Yii::t('page', 'Добавить страницу'), 'url' => array('create')),
-    array('label' => Yii::t('page', 'Список страниц'), 'url' => array('admin')),
+    array('encodeLabel'=> false, 'label' => '<i class="icon-list"></i>'.Yii::t('page', 'Управление страницами'), 'url' => array('admin')),
+    array('encodeLabel'=> false, 'label' => '<i class="icon-file"></i>'.Yii::t('page', 'Добавить страницу'), 'url' => array('/page/default/create')),
+    array('encodeLabel'=> false, 'label' => '<i class="icon-pencil icon-white"></i>'.Yii::t('page', 'Редактирование страницы')."<br /><span class='label' style='font-size: 80%; margin-left:17px;'>".mb_substr($model-> name,0,32)."</span>", 'url' => array('/page/default/update','id'=> $model-> id)),
 );
 ?>
 
-<h1><?php echo Yii::t('page', 'Редактирование страницы')?>
-    "<?php echo $model->title; ?>"</h1>
+<div class="page-header">
+  <h1><?php echo Yii::t('page', 'Редактирование страницы')?>
+  <br /><small>&laquo;<?php echo $model->title; ?>&raquo;</small>
+  </h1>
+</div>
+
 
 <?php echo $this->renderPartial('_form', array('model' => $model, 'pages' => $pages)); ?>
 
