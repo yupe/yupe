@@ -5,50 +5,60 @@
         Yii::t('page', 'Страницы') => array('admin'),
         Yii::t('page', 'Управление'),
     );
-    
-    $this->menu = array(
-        array('label' => Yii::t('page', 'Добавить страницу'), 'url' => array('create')),
+
+$this->menu = array(
+        array('encodeLabel'=> false, 'label' => '<i class="icon-list icon-white"></i>'.Yii::t('page', 'Управление страницами'), 'url' => array('/page/default/admin')),
+        array('encodeLabel'=> false, 'label' => '<i class="icon-file"></i>'.Yii::t('page', 'Добавить страницу'), 'url' => array('/page/default/create')),
     );
-    
-    Yii::app()->clientScript->registerScript('search', "
-        $('#Page_parent_Id').val('');
-        $('#Page_status').val('');
-        $('.search-button').click(function() {
-        	$('.search-form').toggle();
-        	return false;
-        });
-        $('.search-form form').submit(function() {
-        	$.fn.yiiGridView.update('page-grid', {
-        		data: $(this).serialize()
-        	});
-        	return false;
-        });
-    ");
 ?>
+<div class="page-header"><h1><?=$this->module->getName()?> <small>Управление</small></h1></div>
+<button class="btn btn-small dropdown-toggle"
+    data-toggle="collapse"
+    data-target="#search-toggle" >
+    <?=CHtml::link(Yii::t('page', 'Поиск страниц'), '#', array('class' => 'search-button'))?>
+    <span class="caret"></span>
+</button>
 
-<h1><?=$this->module->getName()?></h1>
-
-<?php $this->widget('YModuleInfo'); ?>
-
-<?=CHtml::link(Yii::t('page', 'Поиск страниц'), '#', array('class' => 'search-button'))?>
-
-<div class="search-form" style="display:none">
+    <div id="search-toggle" class="collapse out">
     <?php
-        $this->renderPartial('_search', array(
-           'model' => $model,
-           'pages' => $pages
-        ));
+    Yii::app()->clientScript->registerScript('search', "
+            $('#Page_parent_Id').val('');
+            $('#Page_status').val('');
+            $('.search-form form').submit(function() {
+                $.fn.yiiGridView.update('page-grid', {
+                    data: $(this).serialize()
+                });
+                return false;
+            });
+        ");
     ?>
-</div><!-- search-form -->
+            <?php
+            $this->renderPartial('_search', array(
+                'model' => $model,
+                'pages' => $pages
+            ));
+            ?>
+
+    </div>
+
 
 <?php
-    $this->widget('bootstrap.widgets.BootGridView', array(
-        'type'=>'striped bordered condensed',
+    $dp = $model->search();
+    $dp->sort->defaultOrder = 'parent_Id ASC, menu_order DESC';
+    $this->widget('YCustomGridView', array(
+        'itemsCssClass' => ' table table-condensed',
         'id'=>'page-grid',
-        'dataProvider'=>$model->search(),
+        'dataProvider'=> $dp,
         'columns'=>array(
             'id',
-             array(
+            array(
+                'name' => 'status',
+                'type' => 'raw',
+                'value' => '$this->grid->returnBootstrapStatusHtml($data)',
+                'htmlOptions' => array('style'=>'width:40px; text-align:center;'),
+            ),
+
+            array(
                 'name'=>'name',
                 'type'=>'raw',
                 'value'=>'CHtml::link($data->name,array("/page/default/update","id" => $data->id))'
@@ -59,24 +69,8 @@
              ),
              'title',
              array(
-                'name'=>'status',
-                'value'=>'$data->getStatus()',
-             ),
-             array(
-                'name'=>'creation_date',
-                'value'=>'Yii::app()->dateFormatter->formatDateTime($data->creation_date, "short")',
-             ),
-             array(
-                'name'=>'change_date',
-                'value'=>'Yii::app()->dateFormatter->formatDateTime($data->creation_date, "short")',
-             ),
-             array(
                 'name'=>'user_id',
                 'value'=>'$data->author->getFullName()'
-             ),
-             array(
-                'name'=>'change_user_id',
-                'value'=>'$data->changeAuthor->getFullName()'
              ),
              array(
                 'class'=>'bootstrap.widgets.BootButtonColumn',

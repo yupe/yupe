@@ -12,9 +12,6 @@ $this->menu = array(
 ?>
 
 <h1><?php echo $this->module->getName();?></h1>
-
-<?php $this->widget('YModuleInfo'); ?>
-
 <?php $this->widget('bootstrap.widgets.BootGridView', array(
                                                        'id' => 'content-block-grid',
                                                        'dataProvider' => $model->search(),

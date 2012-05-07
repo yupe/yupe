@@ -8,15 +8,21 @@ $this->breadcrumbs = array(
 );
 
 $this->menu = array(
-    array('label' => Yii::t('page', 'Добавить страницу'), 'url' => array('create')),
-    array('label' => Yii::t('page', 'Список страниц'), 'url' => array('admin')),
-    array('label' => Yii::t('page', 'Редактировать эту страницу'), 'url' => array('update', 'id' => $model->id)),
-    array('label' => Yii::t('page', 'Удалить эту страницу'), 'url' => '#', 'linkOptions' => array('submit' => array('delete', 'id' => $model->id), 'confirm' => Yii::t('page', 'Подтверждаете удаление страницы ?'))),
+    array('encodeLabel'=> false, 'label' => '<i class="icon-list"></i>'.Yii::t('page', 'Управление страницами'), 'url' => array('/page/default/admin')),
+    array('encodeLabel'=> false, 'label' => '<i class="icon-file"></i>'.Yii::t('page', 'Добавить страницу'), 'url' => array('/page/default/create')),
+    array('encodeLabel'=> false, 'label' => '<i class="icon-pencil"></i>'.Yii::t('page', 'Редактировать эту страницу'), 'url' => array('/page/default/update','id'=> $model-> id)),
+    array('encodeLabel'=> false, 'label' => '<i class="icon-eye-open icon-white"></i>'.Yii::t('page', 'Просмотр страницы')."<br /><span class='label' style='font-size: 80%; margin-left:17px;'>".$model-> name."</span>", 'url' => array('/page/default/view','id'=> $model-> id)),
+    array('encodeLabel'=> false, 'label' => '<i class="icon-remove"></i>'.Yii::t('page', 'Удалить эту страницу'), 'url' => '#', 'linkOptions' => array('submit' => array('delete', 'id' => $model->id), 'confirm' => Yii::t('page', 'Подтверждаете удаление страницы ?'))),
+
 );
 ?>
 
-<h1><?php echo Yii::t('page', 'Просмотр страницы');?>
-    "<?php echo $model->title; ?>"</h1>
+<div class="page-header">
+    <h1>
+        <?php echo Yii::t('page', 'Просмотр страницы');?>
+        <br /><small>&laquo;<?php echo $model->title; ?>&raquo;</small>
+    </h1>
+</div>
 
 <?php echo CHtml::link(Yii::t('page', 'Просмотреть на сайте'), array('/page/page/show', 'slug' => $model->slug, 'preview' => 1)); ?>
 

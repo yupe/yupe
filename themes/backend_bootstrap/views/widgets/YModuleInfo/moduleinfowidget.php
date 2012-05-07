@@ -1,15 +1,15 @@
-<script type='text/javascript'>
-    $(document).ready(function(){    	
-    	$('#more-info').click(function(event){
-    		event.preventDefault();
-    		$('#more-info-div').slideDown();
-    		$(this).fadeOut();
-    	});
-    });
-</script>
-
-<p><?php echo $module->getName();?>, <?php echo Yii::t('yupe', 'версия')?> <?php echo $module->getVersion();?> <?php echo CHtml::link(Yii::t('yupe','подробнее'),array(),array('id'=>'more-info'));?></p>
-
-<div id='more-info-div' style='display:none;'>
-<p><?php echo $module->getDescription();?><br/><br/><?php echo Yii::t('yupe','Автор');?>: <?php echo $module->getAuthor();?> ( <?php echo $module->getAuthorEmail();?>, <?php echo $module->getUrl();?> )</p>
+<button class="btn btn-small dropdown-toggle"
+    title="<?php echo Yii::t('yupe','Информация о модуле');?>"
+    data-toggle="collapse"
+    data-target="#module-info-collapse">
+    <span class="label label-info" title="<?php echo Yii::t('yupe', 'версия')?>"><?php echo $module->getVersion();?></span> <?php echo $module->getName();?>
+    <span class="caret"></span>
+</button>
+<div id="module-info-collapse" class="collapse out">
+<br />
+<?php echo $module->getDescription();?><br/><br/>
+<table class="table">
+    <tr><td><?php echo Yii::t('yupe','Автор');?>:</td><td><?php echo CHtml::mailto($module->getAuthor(),$module->getAuthorEmail());?></td></tr>
+    <tr><td><?php echo Yii::t('yupe','Сайт');?>:</td><td><?php echo CHtml::link($module->getUrl(),$module->getUrl());?></td></tr>
+</table>
 </div>
