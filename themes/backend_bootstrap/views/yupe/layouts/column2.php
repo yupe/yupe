@@ -43,6 +43,10 @@
         <?php
         }
         ?>
+        <div class="well" style="padding: 8px;">
+            <?php $this->widget('YModuleInfo'); ?>
+        </div>
     </div>
+
   </div>
 <?php $this->endContent(); ?>
