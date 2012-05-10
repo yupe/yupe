@@ -17,7 +17,7 @@ class LoginAction extends CAction
 
                 $module = Yii::app()->getModule('user');
 
-                $redirect =  (Yii::app()->user->isSuperUser() && $module->loginAdminSuccess) ? $module->loginAdminSuccess : array($module->loginSuccess);
+                $redirect = (Yii::app()->user->isSuperUser() && $module->loginAdminSuccess) ? array($module->loginAdminSuccess) : array($module->loginSuccess);
 
                 $this->controller->redirect($redirect);
             }

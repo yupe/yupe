@@ -5,13 +5,13 @@ class UserModule extends YWebModule
 
     public $accountActivationFailure = '/user/account/registration';
 
-    public $loginSuccess = '/';
+    public $loginSuccess;
 
     public $registrationSucess = '/user/account/login';
 
     public $loginAdminSuccess = '';
 
-    public $logoutSuccess = '/';
+    public $logoutSuccess;
 
     public $notifyEmailFrom;
 
@@ -134,6 +134,12 @@ class UserModule extends YWebModule
     public function init()
     {
         parent::init();
+
+        if(!$this->loginSuccess)
+            $this->loginSuccess = '/'.Yii::app()->defaultController;
+
+        if(!$this->logoutSuccess)
+            $this->logoutSuccess = '/'.Yii::app()->defaultController;
 
         $this->setImport(array(
                               'user.models.*',
