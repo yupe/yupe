@@ -50,7 +50,15 @@
         <div class="row-fluid control-group  <?php echo $model-> hasErrors('text')?'error':'' ?>">
             <div class="span7">
                 <?php echo $form->labelEx($model, 'text'); ?>
-                <?php echo $form->textArea($model, 'text', array('rows' => 7, 'cols' => 65)); ?>
+                <?php $this->widget(Yii::app()->getModule('yupe')->editor, array(
+                'model' => $model,
+                'attribute' => 'text',
+                'options'   => array(
+                    'toolbar' => 'main',
+                    'imageUpload' => Yii::app()->baseUrl.'/index.php/yupe/backend/AjaxFileUpload/'
+                ),
+                'htmlOptions' => array('rows' => 20,'cols' => 6)
+            ))?>
             </div>
             <div class="span5">
                 <?php echo $form->error($model, 'text'); ?>
@@ -66,6 +74,17 @@
                 <?php echo $form->error($model, 'status'); ?>
             </div>
         </div>
+
+        <?php if($model->status == FeedBack::STATUS_ANSWER_SENDED):?>
+
+        <div class="row-fluid control-group">
+            <div class="span7">
+                <label><?php echo Yii::t('feedback','Ответ');?></label>
+                <?php echo $model->answer;?>
+            </div>
+        </div>
+
+        <?php endif;?>
 
             <?php echo CHtml::submitButton($model->isNewRecord
                                                ? Yii::t('feedback', 'Добавить сообщение')
