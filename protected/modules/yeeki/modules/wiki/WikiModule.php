@@ -5,52 +5,8 @@
  * Includes all necessary wiki functionality. Can be used as a module in your
  * application.
  */
-class WikiModule extends YWebModule
+class WikiModule extends CWebModule
 {
-    // Yupe method
-    public function getCategory()
-    {
-        return Yii::t('menu', 'Контент');
-    }
-
-    public function getNavigation()
-    {
-        return array(
-            //Yii::t('menu', 'Wiki')=>'/wiki/default/admin/',
-        );
-    }
-
-    public function getName()
-    {
-        return Yii::t('menu', 'Wiki');
-    }
-
-    public function getDescription()
-    {
-        return Yii::t('menu', 'Модуль для создания и редактирования меню');
-    }
-
-    public function getVersion()
-    {
-        return Yii::t('comment', '1.0');
-    }
-
-    public function getAuthor()
-    {
-        return Yii::t('menu', 'Alexander Makarov, @samdark. Mark Bryk, @mbryk.');
-    }
-
-    public function getAuthorEmail()
-    {
-        return Yii::t('menu', 'sam@rmcreative.ru');
-    }
-
-    public function getUrl()
-    {
-        return Yii::t('menu', 'https://github.com/samdark/Yeeki');
-    }
-    
-    // Yeeki method
 	/**
 	 * @var array Markup transformations config used to process wiki page text.
 	 * These are executed sequentionally
