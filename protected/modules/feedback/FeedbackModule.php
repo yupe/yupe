@@ -1,9 +1,9 @@
 <?php
 class FeedbackModule extends YWebModule
 {
-    public $backEnd;
+    public $backEnd = array('email', 'db');
     public $emails;
-    public $types;
+    public $types =  array(1 => 'Ошибка на сайте', 2 => 'Предложение о сотрудничестве', 3 => 'Прочее..');
     public $showCaptcha = 1; 
     public $notifyEmailFrom;
     public $sendConfirmation = 0;

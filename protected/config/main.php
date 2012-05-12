@@ -215,13 +215,7 @@ return array(
         ),
         'feedback' => array(
             'class' => 'application.modules.feedback.FeedbackModule',
-            'types' => array(
-                1 => 'Ошибка на сайте',
-                2 => 'Предложение о сотрудничестве',
-                3 => 'Прочее..',
-            ),
             'notifyEmailFrom' => 'test@test.ru',
-            'backEnd' => array('email', 'db'),
             'emails'  => 'test_1@test.ru, test_2@test.ru',
         ),
         // подключение gii в режиме боевой работы рекомендуется отключить (подробнее http://www.yiiframework.com/doc/guide/1.1/en/quickstart.first-app)
