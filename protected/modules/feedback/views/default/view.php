@@ -37,7 +37,14 @@ $this->menu = array(
                                                             'name' => 'status',
                                                             'value' => $model->getStatus()
                                                         ),
-                                                        'answer',
+                                                        array(
+                                                            'name'  => 'answer_user',
+                                                            'value' => $model->getAnsweredUser()
+                                                        ),
+                                                        array(
+                                                            'name' => 'answer',
+                                                            'type' => 'raw'
+                                                        ),
                                                         'answer_date',
                                                         array(
                                                             'name' => 'is_faq',

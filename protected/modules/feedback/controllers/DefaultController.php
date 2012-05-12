@@ -75,7 +75,7 @@ class DefaultController extends YBackController
 
         $form->setAttributes(array(
                                   'answer' => $model->answer,
-                                  'is_faq' => $model->is_faq
+                                  'is_faq' => $model->is_faq,
                              ));
         
 

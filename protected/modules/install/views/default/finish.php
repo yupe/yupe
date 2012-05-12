@@ -26,7 +26,7 @@
 
 <br/><br/>
 
-<?php echo CHtml::link(Yii::t('install','Задайте вопрос на форуме'),'http://talk.allframeworks.ru/categories/yupe-yii-cms');?>  - <?php echo Yii::t('install','заходите, поболтаем =)');?>
+<?php echo CHtml::link(Yii::t('install','Задайте вопрос на форуме'),'http://yupe.ru/forum/');?>  - <?php echo Yii::t('install','заходите, поболтаем =)');?>
 
 <br/><br/>
 

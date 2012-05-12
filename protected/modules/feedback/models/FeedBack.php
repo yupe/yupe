@@ -86,7 +86,7 @@ class FeedBack extends CActiveRecord
             array('type, status, answer_user, is_faq', 'numerical', 'integerOnly' => true),
             array('is_faq', 'in', 'range' => array(0, 1)),
             array('status', 'in', 'range' => array_keys($this->getStatusList())),
-            array('name, email', 'length', 'max' => 100),
+            array('name, email, answer_date', 'length', 'max' => 100),
             array('theme', 'length', 'max' => 150),
             array('email', 'email'),
             array('answer', 'filter', 'filter' => 'trim'),
@@ -164,6 +164,11 @@ class FeedBack extends CActiveRecord
     public function getIsFaq()
     {
         return $this->is_faq ? Yii::t('feedback', 'Да') : Yii::t('feedback', 'Нет');
+    }
+
+    public function getAnsweredUser()
+    {
+        return $this->answer_user ? User::model()->findByPk($this->answer_user)->getFullName() : Yii::t('feedback','---');
     }
 
 }

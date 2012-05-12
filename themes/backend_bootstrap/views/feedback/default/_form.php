@@ -79,7 +79,7 @@
 
         <div class="row-fluid control-group">
             <div class="span7">
-                <label><?php echo Yii::t('feedback','Ответ');?></label>
+                <label><?php echo Yii::t('feedback','Ответил');?> <?php echo CHtml::link($model->getAnsweredUser(),array('/user/default/view/','id' => $model->answer_user));?> (<?php echo $model->answer_date;?>)</label>
                 <?php echo $model->answer;?>
             </div>
         </div>
