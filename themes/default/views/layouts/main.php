@@ -56,9 +56,9 @@
         </div>
         <div class="span-5 last">
             <div id="sidebar">
-                <?php $this->widget('application.modules.news.widgets.LastNewsWidget');?>
-                <?php $this->widget('application.modules.blog.widgets.BlogsWidget');?>
-                <?php $this->widget('application.modules.blog.widgets.LastPostsWidget');?>
+                <?php $this->widget('application.modules.news.widgets.LastNewsWidget',array('cacheTime' => 0));?>
+                <?php $this->widget('application.modules.blog.widgets.BlogsWidget',array('cacheTime' => 0));?>
+                <?php $this->widget('application.modules.blog.widgets.LastPostsWidget',array('cacheTime' => 0));?>
             </div>
             <!-- sidebar -->
         </div>

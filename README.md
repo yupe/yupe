@@ -13,6 +13,8 @@
 * Модуль для простого голосования (можно голосовать за любую сущность) (модуль vote)
 * Модуль простых справочников (хранение и управление справочной информацией) (модуль dictionary)
 
++ Вы получаете удобную админку, выполненную на Twitter Boostrap  (примерно вот так выглядит http://s1.ipicture.ru/uploads/20120510/xwyUtY1n.png)
+
 
 **Юпи! - мини ЦМС, написанная на замечательном MVC-фреймворке Yii (http://www.yiiframework.com/)**
 
@@ -27,6 +29,8 @@
 * Юпи!блог - http://yupe.ru/index.php/blog/yupe-mini-cms-yii
 
 * Форум - http://talk.allframeworks.ru/categories/yupe-yii-cms (возможно переедем позже)
+
+* Jabber-конференция сервер: conference.yupe.ru, комната: yupe-talks
 
 * Установка - https://github.com/yupe/yupe/wiki/%D0%A3%D1%81%D1%82%D0%B0%D0%BD%D0%BE%D0%B2%D0%BA%D0%B0
 
