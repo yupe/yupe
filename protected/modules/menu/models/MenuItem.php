@@ -110,7 +110,7 @@ class MenuItem extends CActiveRecord
         $criteria->compare('sort', $this->sort);
         $criteria->compare('status', $this->status);
 
-        return new CActiveDataProvider($this, array('criteria' => $criteria, ));
+        return new CActiveDataProvider($this, array('criteria' => $criteria));
     }
 
     public function getStatusList()

@@ -31,6 +31,7 @@ return array(
         'application.modules.image.models.*',
         'application.modules.vote.models.*',
         'application.modules.blog.models.*',
+        'application.modules.menu.models.*',
 
         'application.modules.yupe.controllers.*',
         'application.modules.yupe.widgets.*',

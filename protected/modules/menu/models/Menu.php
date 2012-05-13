@@ -100,7 +100,7 @@ class Menu extends CActiveRecord
         $criteria->compare('description', $this->description, true);
         $criteria->compare('status', $this->status);
 
-        return new CActiveDataProvider($this, array('criteria' => $criteria, ));
+        return new CActiveDataProvider($this, array('criteria' => $criteria));
     }
 
     public function getStatusList()
@@ -116,5 +116,43 @@ class Menu extends CActiveRecord
         $data = $this->getStatusList();
 
         return isset($data[$this->status]) ? $data[$this->status] : Yii::t('menu', '*неизвестно*');
+    }
+
+    public function getItems($code, $parent_id = 0)
+    {
+
+        $results = $this->with(array('menuItems' => array(
+            'on' => 'menuItems.parent_id=:parent_id AND menuItems.status = 1',
+            'params' => array('parent_id' => (int)$parent_id),
+            'order' => 'menuItems.id ASC, menuItems.sort ASC',
+        )))->findAll(array(
+            'select' => array('id', 'code'),
+            'condition' => 't.code=:code AND t.status = 1',
+            'params' => array(':code' => $code),
+        ));
+
+        $items = array();
+
+        if (empty($results))
+            return $items;
+
+        $resultItems = $results[0]->menuItems;
+
+        foreach ($resultItems AS $result)
+        {
+            $childItems = $this->getItems($code, $result->id);
+            $items[] = array(
+                'label' => $result->title,
+                'url' => $result->href,
+                'itemOptions' => array('class' => 'listItem'),
+                'linkOptions' => array(
+                    'class' => 'listItemLink',
+                    'title' => $result->title,
+                ),
+                'submenuOptions' => array(),
+                'items' => $childItems,
+            );
+        }
+        return $items;
     }
 }

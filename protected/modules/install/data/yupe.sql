@@ -306,6 +306,13 @@ CREATE TABLE IF NOT EXISTS `menu` (
   KEY `status` (`status`)
 ) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=3 ;
 
+--
+-- Дамп данных таблицы `menu`
+--
+
+INSERT INTO `menu` (`id`, `name`, `code`, `description`, `status`) VALUES
+(1, 'Верхнее меню', 'top-menu', 'Основное меню сайта, расположенное сверху в блоке mainmenu.', 1);
+
 -- --------------------------------------------------------
 
 --
@@ -326,6 +333,20 @@ CREATE TABLE IF NOT EXISTS `menu_item` (
   KEY `sort` (`sort`),
   KEY `status` (`status`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+
+--
+-- Дамп данных таблицы `menu_item`
+--
+
+INSERT INTO `menu_item` (`id`, `parent_id`, `menu_id`, `title`, `href`, `type`, `sort`, `status`) VALUES
+(1, 0, 1, 'Главная', '/', 1, 1, 1),
+(2, 0, 1, 'Блог', '/blog/blog/index/', 1, 1, 1),
+(3, 0, 1, 'О проекте', '/site/page/view/about', 1, 1, 1),
+(4, 0, 1, 'Пользователи', '/user/people/index/', 1, 1, 1),
+(5, 0, 1, 'Социальные виджеты', '/site/social/', 1, 1, 1),
+(6, 0, 1, 'Помощь проекту', '/site/page/view/help/', 1, 1, 1),
+(7, 0, 1, 'Контакты', '/feedback/contact/', 1, 1, 1),
+(8, 0, 1, 'Wiki', '/wiki/default/index/', 1, 1, 0);
 
 -- --------------------------------------------------------
 
