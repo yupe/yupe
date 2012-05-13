@@ -133,6 +133,11 @@ class YupeModule extends YWebModule
         return Yii::t('yupe', 'http://yupe.ru');
     }
 
+    public function getIcon()
+    {
+        return "wrench";
+    }
+
     public function init()
     {
         parent::init();
@@ -161,6 +166,7 @@ class YupeModule extends YWebModule
         $modulesNavigation = array(
             'settings' => array(
                 'items' => array(),
+                'icon' => "wrench white",
                 'label' => Yii::t('yupe', 'Настройки'),
                 'url' => '#',
                 'linkOptions' => array('class' => 'sub-menu')
@@ -212,6 +218,11 @@ class YupeModule extends YWebModule
                             $modulesNavigation[$category[$key]]['label'] = $category[$key];
                             $modulesNavigation[$category[$key]]['linkOptions'] = array('class' => 'sub-menu');
                             $modulesNavigation[$category[$key]]['url'] = '#';
+                            if ( $icon = $modules[$key]->icon )
+                                if ( (strpos($icon, ".gif")===FALSE) && (strpos($icon, ".jpg")===FALSE) && (strpos($icon, ".jpeg")===FALSE) && (strpos($icon, ".png")===FALSE) )
+                                    $modulesNavigation[$category[$key]]['icon'] = $modules[$key]->icon.' white';
+                                else
+                                    $modulesNavigation[$category[$key]]['icon'] = $icon;
                         }
 
                         array_push($modulesNavigation[$category[$key]]['items'], $tmp);
@@ -219,7 +230,7 @@ class YupeModule extends YWebModule
                         // собрать все для меню "Настройки"
                         if (!$inSettings && $modules[$key]->getEditableParams())
                         {
-                            array_push($modulesNavigation['settings']['items'], array('label' => $modules[$key]->getName(), 'url' => array('/yupe/backend/modulesettings/', 'module' => $modules[$key]->getId())));
+                            array_push($modulesNavigation['settings']['items'], array('icon' => $modules[$key]->icon,'label' => $modules[$key]->getName(), 'url' => array('/yupe/backend/modulesettings/', 'module' => $modules[$key]->getId())));
 
                             $inSettings = true;
                         }
@@ -238,6 +249,11 @@ class YupeModule extends YWebModule
                                 $modulesNavigation[$category[$key]]['label'] = $category[$key];
                                 $modulesNavigation[$category[$key]]['linkOptions'] = array('class' => 'sub-menu');
                                 $modulesNavigation[$category[$key]]['url'] = '#';
+                                if ( $icon = $modules[$key]->icon )
+                                    if ( (strpos($icon, ".gif")===FALSE) && (strpos($icon, ".jpg")===FALSE) && (strpos($icon, ".jpeg")===FALSE) && (strpos($icon, ".png")===FALSE) )
+                                        $modulesNavigation[$category[$key]]['icon'] = $modules[$key]->icon.' white';
+                                    else
+                                        $modulesNavigation[$category[$key]]['icon'] = $icon;
                             }
 
                             array_push($modulesNavigation[$category[$key]]['items'], $data);
@@ -249,15 +265,15 @@ class YupeModule extends YWebModule
                     // собрать все для меню "Настройки"
                     if ($modules[$key]->getEditableParams())
                     {
-                        array_push($modulesNavigation['settings']['items'], array('label' => $modules[$key]->getName(), 'url' => array('/yupe/backend/modulesettings/', 'module' => $modules[$key]->getId())));
+                        array_push($modulesNavigation['settings']['items'], array('icon' => $modules[$key]->icon, 'label' => $modules[$key]->getName(), 'url' => array('/yupe/backend/modulesettings/', 'module' => $modules[$key]->getId())));
                     }
                 }
             }
         }
-        array_unshift($modulesNavigation['settings']['items'], array('label' => Yii::t('yupe', 'Оформление'), 'url' => array('/yupe/backend/themesettings/')));
-        array_unshift($modulesNavigation, array('label' => Yii::t('yupe', 'На сайт'), 'url' => array('/')));
-        array_push($modulesNavigation, array('label' => Yii::t('yupe', 'Войти'), 'url' => array('/site/login'), 'visible' => !Yii::app()->user->isAuthenticated()));
-        array_push($modulesNavigation, array('label' => Yii::t('yupe', 'Выйти ({nick_name})', array('{nick_name}' => Yii::app()->user->nick_name)), 'url' => array('/user/account/logout'), 'visible' => Yii::app()->user->isAuthenticated()));
+        array_unshift($modulesNavigation['settings']['items'], array('icon'=>'asterisk','label' => Yii::t('yupe', 'Оформление'), 'url' => array('/yupe/backend/themesettings/')));
+        array_unshift($modulesNavigation, array('icon'=>'home white', 'label' => Yii::t('yupe', 'На сайт'), 'url' => array('/')));
+        array_push($modulesNavigation, array('icon' => 'off white', 'label' => Yii::t('yupe', 'Войти'), 'url' => array('/site/login'), 'visible' => !Yii::app()->user->isAuthenticated()));
+        array_push($modulesNavigation, array('icon' => 'off white', 'label' => Yii::t('yupe', 'Выйти ({nick_name})', array('{nick_name}' => Yii::app()->user->nick_name)), 'url' => array('/user/account/logout'), 'visible' => Yii::app()->user->isAuthenticated()));
 
         return $navigationOnly === true ? $modulesNavigation : array('modules' => $modules, 'yiiModules' => $yiiModules, 'modulesNavigation' => $modulesNavigation);
     }

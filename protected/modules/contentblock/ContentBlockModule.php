@@ -37,6 +37,11 @@ class ContentBlockModule extends YWebModule
         return Yii::t('contentblock', 'http://yupe.ru');
     }
 
+    public function getIcon()
+    {
+        return "th-large";
+    }
+
     public function init()
     {
         parent::init();

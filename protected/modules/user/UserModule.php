@@ -131,6 +131,11 @@ class UserModule extends YWebModule
         return '0.3';
     }
 
+    public function getIcon()
+    {
+        return 'user';
+    }
+
     public function init()
     {
         parent::init();

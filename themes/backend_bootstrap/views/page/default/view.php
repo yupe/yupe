@@ -8,11 +8,11 @@ $this->breadcrumbs = array(
 );
 
 $this->menu = array(
-    array('encodeLabel'=> false, 'label' => '<i class="icon-list"></i>'.Yii::t('page', 'Управление страницами'), 'url' => array('/page/default/admin')),
-    array('encodeLabel'=> false, 'label' => '<i class="icon-file"></i>'.Yii::t('page', 'Добавить страницу'), 'url' => array('/page/default/create')),
-    array('encodeLabel'=> false, 'label' => '<i class="icon-pencil"></i>'.Yii::t('page', 'Редактировать эту страницу'), 'url' => array('/page/default/update','id'=> $model-> id)),
-    array('encodeLabel'=> false, 'label' => '<i class="icon-eye-open icon-white"></i>'.Yii::t('page', 'Просмотр страницы')."<br /><span class='label' style='font-size: 80%; margin-left:17px;'>".$model-> name."</span>", 'url' => array('/page/default/view','id'=> $model-> id)),
-    array('encodeLabel'=> false, 'label' => '<i class="icon-remove"></i>'.Yii::t('page', 'Удалить эту страницу'), 'url' => '#', 'linkOptions' => array('submit' => array('delete', 'id' => $model->id), 'confirm' => Yii::t('page', 'Подтверждаете удаление страницы ?'))),
+    array('icon' => 'list-alt', 'label' => Yii::t('page', 'Управление страницами'), 'url' => array('/page/default/admin')),
+    array('icon' => 'file', 'label' => Yii::t('page', 'Добавить страницу'), 'url' => array('/page/default/create')),
+    array('icon' => 'pencil', 'label' => Yii::t('page', 'Редактировать эту страницу'), 'url' => array('/page/default/update','id'=> $model-> id)),
+    array('icon' => 'eye-open white', 'encodeLabel'=> false, 'label' => Yii::t('page', 'Просмотр страницы')."<br /><span class='label' style='font-size: 80%;'>".$model-> name."</span>", 'url' => array('/page/default/view','id'=> $model-> id)),
+    array('icon' => 'remove', 'label' => Yii::t('page', 'Удалить эту страницу'), 'url' => '#', 'linkOptions' => array('submit' => array('delete', 'id' => $model->id), 'confirm' => Yii::t('page', 'Подтверждаете удаление страницы ?'))),
 
 );
 ?>
@@ -20,13 +20,19 @@ $this->menu = array(
 <div class="page-header">
     <h1>
         <?php echo Yii::t('page', 'Просмотр страницы');?>
-        <br /><small>&laquo;<?php echo $model->title; ?>&raquo;</small>
+        <br /><small style="margin-left:-10px;">&laquo;<?php echo $model->title; ?>&raquo;</small>
     </h1>
 </div>
 
-<?php echo CHtml::link(Yii::t('page', 'Просмотреть на сайте'), array('/page/page/show', 'slug' => $model->slug, 'preview' => 1)); ?>
 
-<?php $this->widget('zii.widgets.CDetailView', array(
+<h2><?=$model->title;?></h2>
+<small>Автор: <?=$model->changeAuthor->getFullName();?></small>
+<br /><br />
+<p>
+    <?=$model->body;?>
+
+</p>
+<?php /* $this->widget('zii.widgets.CDetailView', array(
                                                     'data' => $model,
                                                     'attributes' => array(
                                                         'id',
@@ -56,11 +62,13 @@ $this->menu = array(
                                                             'value' => $model->getProtectedStatus()
                                                         )
                                                     ),
-                                               )); ?>
+                                               ));
+*/
+ ?>
 
 <br>
 
-
+<?php echo CHtml::link(Yii::t('page', 'Просмотреть на сайте'), array('/page/page/show', 'slug' => $model->slug, 'preview' => 1)); ?>
 <?php echo CHtml::link(Yii::t('page', 'Редактировать эту страницу'), array('update', 'id' => $model->id)); ?>
 
 <?php echo CHtml::link(Yii::t('page', 'Удалить эту страницу'), array('update', 'id' => $model->id), array('submit' => array('delete', 'id' => $model->id), 'confirm' => Yii::t('page', 'Подтверждаете удаление страницы ?'))); ?>

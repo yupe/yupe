@@ -9,15 +9,15 @@ $this->breadcrumbs = array(
 );
 
 $this->menu = array(
-    array('encodeLabel'=> false, 'label' => '<i class="icon-list"></i>'.Yii::t('page', 'Управление страницами'), 'url' => array('admin')),
-    array('encodeLabel'=> false, 'label' => '<i class="icon-file"></i>'.Yii::t('page', 'Добавить страницу'), 'url' => array('/page/default/create')),
-    array('encodeLabel'=> false, 'label' => '<i class="icon-pencil icon-white"></i>'.Yii::t('page', 'Редактирование страницы')."<br /><span class='label' style='font-size: 80%; margin-left:17px;'>".mb_substr($model-> name,0,32)."</span>", 'url' => array('/page/default/update','id'=> $model-> id)),
+    array('icon' => 'list-alt', 'label' => Yii::t('page', 'Управление страницами'), 'url' => array('admin')),
+    array('icon' => 'file', 'label' => Yii::t('page', 'Добавить страницу'), 'url' => array('/page/default/create')),
+    array('icon' => 'pencil white', 'encodeLabel'=> false, 'label' => Yii::t('page', 'Редактирование страницы')."<br /><span class='label' style='font-size: 80%;'>".mb_substr($model-> name,0,32)."</span>", 'url' => array('/page/default/update','id'=> $model-> id)),
 );
 ?>
 
 <div class="page-header">
   <h1><?php echo Yii::t('page', 'Редактирование страницы')?>
-  <br /><small>&laquo;<?php echo $model->title; ?>&raquo;</small>
+  <br /><small style="margin-left:-10px;">&laquo;<?php echo $model->title; ?>&raquo;</small>
   </h1>
 </div>
 

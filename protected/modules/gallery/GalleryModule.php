@@ -43,6 +43,11 @@ class GalleryModule extends YWebModule
         return Yii::t('gallery', 'http://yupe.ru');
     }
 
+    public function getIcon()
+    {
+        return "picture";
+    }
+
     public function init()
     {
         $this->setImport(array(

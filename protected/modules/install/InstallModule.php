@@ -57,6 +57,11 @@ class InstallModule extends YWebModule
         return Yii::t('install', 'http://yupe.ru');
     }
 
+    public function getIcon()
+    {
+        return "download-alt";
+    }
+
     public function init()
     {
         $this->setImport(array(

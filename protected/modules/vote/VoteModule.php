@@ -34,6 +34,11 @@ class VoteModule extends YWebModule
         return Yii::t('vote', 'Сервисы');
     }
 
+    public function getIcon()
+    {
+        return "signal";
+    }
+
     public function init()
     {
         parent::init();

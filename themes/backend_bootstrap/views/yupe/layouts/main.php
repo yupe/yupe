@@ -16,7 +16,7 @@
         $this->widget('bootstrap.widgets.BootNavbar', array(
             'fixed'=> 'top',
             'fluid'=>true,
-            'brand'=>"Yupe!",
+            'brand'=>Yii::t('yupe',"Юпи!"),
             'brandUrl'=>"/yupe/backend",
             'collapse'=>false, // requires bootstrap-responsive.css
             'items'=>array(

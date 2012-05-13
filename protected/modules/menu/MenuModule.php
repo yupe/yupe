@@ -44,6 +44,11 @@ class MenuModule extends YWebModule
         return Yii::t('menu', 'http://yupe.ru');
     }
 
+    public function getIcon()
+    {
+        return "list";
+    }
+
     public function init()
     {
         $this->setImport(array(
