@@ -22,7 +22,7 @@ class Menu extends CActiveRecord
      * @param string $className active record class name.
      * @return Menu the static model class
      */
-    public static function model($className=__CLASS__)
+    public static function model($className = __CLASS__)
     {
         return parent::model($className);
     }
@@ -41,15 +41,17 @@ class Menu extends CActiveRecord
     public function rules()
     {
         return array(
+            //@formatter:off
             array('name, code, description', 'required'),
-            array('status', 'numerical', 'integerOnly'=>true),
-            array('name, code, description', 'filter', 'filter'=>array($obj = new CHtmlPurifier(), 'purify')),
-            array('name, description', 'length', 'max'=>300),
-            array('code', 'length', 'max'=>100),
-            array('code', 'match', 'pattern'=>'/^[a-zA-Z0-9_\-]+$/', 'message'=>Yii::t('menu', 'Запрещенные символы в поле {attribute}')),
+            array('status', 'numerical', 'integerOnly' => true),
+            array('name, code, description', 'filter', 'filter' => array($obj = new CHtmlPurifier(), 'purify')),
+            array('name, description', 'length', 'max' => 300),
+            array('code', 'length', 'max' => 100),
+            array('code', 'match', 'pattern'=>'/^[a-zA-Z0-9_\-]+$/', 'message' => Yii::t('menu', 'Запрещенные символы в поле {attribute}')),
             array('code', 'unique'),
-            array('status', 'in', 'range'=>array_keys($this->getStatusList())),
-            array('id, name, code, description, status', 'safe', 'on'=>'search'),
+            array('status', 'in', 'range' => array_keys($this->getStatusList())),
+            array('id, name, code, description, status', 'safe', 'on' => 'search'),
+            //@formatter:on
         );
     }
 
@@ -61,7 +63,9 @@ class Menu extends CActiveRecord
         // NOTE: you may need to adjust the relation name and the related
         // class name for the relations automatically generated below.
         return array(
-            'menuItems'=>array(self::HAS_MANY, 'MenuItem', 'menu_id'),
+            //@formatter:off
+            'menuItems' => array(self::HAS_MANY, 'MenuItem', 'menu_id'),
+            //@formatter:on
         );
     }
 
@@ -71,11 +75,11 @@ class Menu extends CActiveRecord
     public function attributeLabels()
     {
         return array(
-            'id'=>Yii::t('menu', 'Id'),
-            'name'=>Yii::t('menu', 'Название'),
-            'code'=>Yii::t('menu', 'Уникальный код'),
-            'description'=>Yii::t('menu', 'Описание'),
-            'status'=>Yii::t('menu', 'Статус'),
+            'id' => Yii::t('menu', 'Id'),
+            'name' => Yii::t('menu', 'Название'),
+            'code' => Yii::t('menu', 'Уникальный код'),
+            'description' => Yii::t('menu', 'Описание'),
+            'status' => Yii::t('menu', 'Статус'),
         );
     }
 
@@ -88,7 +92,7 @@ class Menu extends CActiveRecord
         // Warning: Please modify the following code to remove attributes that
         // should not be searched.
 
-        $criteria=new CDbCriteria;
+        $criteria = new CDbCriteria;
 
         $criteria->compare('id', $this->id, true);
         $criteria->compare('name', $this->name, true);
@@ -96,16 +100,14 @@ class Menu extends CActiveRecord
         $criteria->compare('description', $this->description, true);
         $criteria->compare('status', $this->status);
 
-        return new CActiveDataProvider($this, array(
-            'criteria'=>$criteria,
-        ));
+        return new CActiveDataProvider($this, array('criteria' => $criteria, ));
     }
 
     public function getStatusList()
     {
         return array(
-            self::STATUS_DISABLED=>Yii::t('menu', 'не активно'),
-            self::STATUS_ACTIVE=>Yii::t('menu', 'активно'),
+            self::STATUS_DISABLED => Yii::t('menu', 'не активно'),
+            self::STATUS_ACTIVE => Yii::t('menu', 'активно'),
         );
     }
 
@@ -113,8 +115,6 @@ class Menu extends CActiveRecord
     {
         $data = $this->getStatusList();
 
-        return isset($data[$this->status])
-            ? $data[$this->status]
-            : Yii::t('menu', '*неизвестно*');
+        return isset($data[$this->status]) ? $data[$this->status] : Yii::t('menu', '*неизвестно*');
     }
 }

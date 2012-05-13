@@ -8,9 +8,7 @@ class MenuController extends YBackController
      */
     public function actionViewMenuItem($id)
     {
-        $this->render('../menuitem/view', array(
-            'model'=>$this->loadModelItem($id),
-        ));
+        $this->render('../menuitem/view', array('model' => $this->loadModelItem($id)));
     }
 
     /**
@@ -19,9 +17,7 @@ class MenuController extends YBackController
      */
     public function actionView($id)
     {
-        $this->render('view', array(
-            'model'=>$this->loadModel($id),
-        ));
+        $this->render('view', array('model' => $this->loadModel($id)));
     }
 
     /**
@@ -35,16 +31,17 @@ class MenuController extends YBackController
         // Uncomment the following line if AJAX validation is needed
         // $this->performAjaxValidation($model);
 
-        if(isset($_POST['MenuItem']))
+        if (isset($_POST['MenuItem']))
         {
             $model->attributes = $_POST['MenuItem'];
-            if($model->save())
-                $this->redirect(array('viewMenuItem', 'id'=>$model->id));
+            if ($model->save())
+                $this->redirect(array(
+                    'viewMenuItem',
+                    'id' => $model->id,
+                ));
         }
 
-        $this->render('../menuitem/create', array(
-            'model'=>$model,
-        ));
+        $this->render('../menuitem/create', array('model' => $model));
     }
 
     /**
@@ -58,16 +55,17 @@ class MenuController extends YBackController
         // Uncomment the following line if AJAX validation is needed
         // $this->performAjaxValidation($model);
 
-        if(isset($_POST['Menu']))
+        if (isset($_POST['Menu']))
         {
             $model->attributes = $_POST['Menu'];
-            if($model->save())
-                $this->redirect(array('view', 'id'=>$model->id));
+            if ($model->save())
+                $this->redirect(array(
+                    'view',
+                    'id' => $model->id,
+                ));
         }
 
-        $this->render('create', array(
-            'model'=>$model,
-        ));
+        $this->render('create', array('model' => $model));
     }
 
     /**
@@ -82,18 +80,18 @@ class MenuController extends YBackController
         // Uncomment the following line if AJAX validation is needed
         // $this->performAjaxValidation($model);
 
-        if(isset($_POST['MenuItem']))
+        if (isset($_POST['MenuItem']))
         {
             $model->attributes = $_POST['MenuItem'];
-            if($model->save())
-                $this->redirect(array('viewMenuItem', 'id'=>$model->id));
+            if ($model->save())
+                $this->redirect(array(
+                    'viewMenuItem',
+                    'id' => $model->id,
+                ));
         }
 
-        $this->render('../menuitem/update', array(
-            'model'=>$model,
-        ));
+        $this->render('../menuitem/update', array('model' => $model));
     }
-
 
     /**
      * Updates a particular model.
@@ -107,16 +105,17 @@ class MenuController extends YBackController
         // Uncomment the following line if AJAX validation is needed
         // $this->performAjaxValidation($model);
 
-        if(isset($_POST['Menu']))
+        if (isset($_POST['Menu']))
         {
             $model->attributes = $_POST['Menu'];
-            if($model->save())
-                $this->redirect(array('view', 'id'=>$model->id));
+            if ($model->save())
+                $this->redirect(array(
+                    'view',
+                    'id' => $model->id,
+                ));
         }
 
-        $this->render('update', array(
-            'model'=>$model,
-        ));
+        $this->render('update', array('model' => $model));
     }
 
     /**
@@ -126,17 +125,14 @@ class MenuController extends YBackController
      */
     public function actionDeleteMenuItem($id)
     {
-        if(Yii::app()->request->isPostRequest)
+        if (Yii::app()->request->isPostRequest)
         {
             // we only allow deletion via POST request
             $this->loadModelItem($id)->delete();
 
             // if AJAX request (triggered by deletion via admin grid view), we should not redirect the browser
-            if(!isset($_GET['ajax']))
-                $this->redirect(isset($_POST['returnUrl'])
-                    ? $_POST['returnUrl']
-                    : array('admin')
-                );
+            if (!isset($_GET['ajax']))
+                $this->redirect(isset($_POST['returnUrl']) ? $_POST['returnUrl'] : array('admin'));
         }
         else
             throw new CHttpException(400, 'Invalid request. Please do not repeat this request again.');
@@ -149,17 +145,14 @@ class MenuController extends YBackController
      */
     public function actionDelete($id)
     {
-        if(Yii::app()->request->isPostRequest)
+        if (Yii::app()->request->isPostRequest)
         {
             // we only allow deletion via POST request
             $this->loadModel($id)->delete();
 
             // if AJAX request (triggered by deletion via admin grid view), we should not redirect the browser
-            if(!isset($_GET['ajax']))
-                $this->redirect(isset($_POST['returnUrl'])
-                    ? $_POST['returnUrl']
-                    : array('admin')
-                );
+            if (!isset($_GET['ajax']))
+                $this->redirect(isset($_POST['returnUrl']) ? $_POST['returnUrl'] : array('admin'));
         }
         else
             throw new CHttpException(400, 'Invalid request. Please do not repeat this request again.');
@@ -171,11 +164,8 @@ class MenuController extends YBackController
     public function actionIndexMenuItem()
     {
         $dataProvider = new CActiveDataProvider('MenuItem');
-        $this->render('../menuitem/index', array(
-            'dataProvider'=>$dataProvider,
-        ));
+        $this->render('../menuitem/index', array('dataProvider' => $dataProvider));
     }
-
 
     /**
      * Lists all models.
@@ -183,9 +173,7 @@ class MenuController extends YBackController
     public function actionIndex()
     {
         $dataProvider = new CActiveDataProvider('Menu');
-        $this->render('index', array(
-            'dataProvider'=>$dataProvider,
-        ));
+        $this->render('index', array('dataProvider' => $dataProvider));
     }
 
     /**
@@ -194,14 +182,13 @@ class MenuController extends YBackController
     public function actionAdminMenuItem()
     {
         $model = new MenuItem('search');
-        $model->unsetAttributes(); // clear any default values
+        $model->unsetAttributes();
+        // clear any default values
 
-        if(isset($_GET['MenuItem']))
+        if (isset($_GET['MenuItem']))
             $model->attributes = $_GET['MenuItem'];
 
-        $this->render('../menuitem/admin', array(
-            'model'=>$model,
-        ));
+        $this->render('../menuitem/admin', array('model' => $model));
     }
 
     /**
@@ -210,14 +197,13 @@ class MenuController extends YBackController
     public function actionAdmin()
     {
         $model = new Menu('search');
-        $model->unsetAttributes(); // clear any default values
+        $model->unsetAttributes();
+        // clear any default values
 
-        if(isset($_GET['Menu']))
+        if (isset($_GET['Menu']))
             $model->attributes = $_GET['Menu'];
 
-        $this->render('admin', array(
-            'model'=>$model,
-        ));
+        $this->render('admin', array('model' => $model));
     }
 
     /**
@@ -229,7 +215,7 @@ class MenuController extends YBackController
     {
         $model = MenuItem::model()->findByPk($id);
 
-        if($model === null)
+        if ($model === null)
             throw new CHttpException(404, 'The requested page does not exist.');
 
         return $model;
@@ -244,7 +230,7 @@ class MenuController extends YBackController
     {
         $model = Menu::model()->findByPk($id);
 
-        if($model === null)
+        if ($model === null)
             throw new CHttpException(404, 'The requested page does not exist.');
 
         return $model;
@@ -256,7 +242,7 @@ class MenuController extends YBackController
      */
     protected function performAjaxValidation($model)
     {
-        if(isset($_POST['ajax']) && $_POST['ajax'] === 'menu-form')
+        if (isset($_POST['ajax']) && $_POST['ajax'] === 'menu-form')
         {
             echo CActiveForm::validate($model);
             Yii::app()->end();
