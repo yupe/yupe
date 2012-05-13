@@ -48,7 +48,7 @@ class YeekiModule extends YWebModule
     {
         return Yii::t('menu', 'https://github.com/samdark/Yeeki');
     }
-    
+
     public function init()
     {
         parent::init();
@@ -60,6 +60,6 @@ class YeekiModule extends YWebModule
             'application.modules.yeeki.modules.wiki.*',
             'application.modules.yeeki.modules.wiki.components.*',
         ));
-        
     }
+
 }
