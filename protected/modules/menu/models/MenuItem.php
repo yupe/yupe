@@ -130,7 +130,6 @@ class MenuItem extends CActiveRecord
 
     public function getParentName()
     {
-        //$data->parent->title
         return ($this->parent_id == 0) ? Yii::t('menu', 'Корень меню') : $this->parent->title;
     }
 }

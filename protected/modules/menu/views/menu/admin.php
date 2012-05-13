@@ -8,9 +8,9 @@ $this->menu = array(
     array('label' => Yii::t('menu', 'Список меню'), 'url' => array('index')),
 
     array('label' => Yii::t('menu', 'Пункты меню')),
-    array('label' => Yii::t('menu', 'Добавить пункт меню'), 'url' => array('addMenuItem')),
-    array('label' => Yii::t('menu', 'Cписок пунктов меню'), 'url' => array('indexMenuItem')),
-    array('label' => Yii::t('menu', 'Управление пунктами меню'), 'url' => array('adminMenuItem')),
+    array('label' => Yii::t('menu', 'Добавить пункт меню'), 'url' => array('menuitem/create')),
+    array('label' => Yii::t('menu', 'Cписок пунктов меню'), 'url' => array('menuitem/index')),
+    array('label' => Yii::t('menu', 'Управление пунктами меню'), 'url' => array('menuitem/admin')),
     //@formatter:on
 );
 
