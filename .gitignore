@@ -1,5 +1,7 @@
 *.log
 *.bin
+*.settings
+.project
 /assets/
 protected/runtime/*
 uploads/

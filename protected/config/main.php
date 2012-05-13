@@ -31,6 +31,7 @@ return array(
         'application.modules.image.models.*',
         'application.modules.vote.models.*',
         'application.modules.blog.models.*',
+        'application.modules.menu.models.*',
 
         'application.modules.yupe.controllers.*',
         'application.modules.yupe.widgets.*',
@@ -93,7 +94,7 @@ return array(
             'showScriptName' => true,
             'cacheID' => 'cache',
             'rules' => array(
-		        '/' => 'site/index',
+                '/' => 'site/index',
                 '/login' => 'user/account/login',
                 '/logout' => 'user/account/logout',
                 '/registration' => 'user/account/registration',
@@ -103,7 +104,8 @@ return array(
                 '/post/<slug>.html' => 'blog/post/show/',
                 '/blog/<slug>' => 'blog/blog/show/',
                 '/blogs/' => 'blog/blog/index/',
-                '/users/' =>'user/people/index/',
+                '/users/' => 'user/people/index/',
+                '/wiki/<controller:\w+>/<action:\w+>' => '/yeeki/wiki/<controller>/<action>',
             ),
         ),
 
@@ -217,6 +219,20 @@ return array(
             'class' => 'application.modules.feedback.FeedbackModule',
             'notifyEmailFrom' => 'test@test.ru',
             'emails'  => 'test_1@test.ru, test_2@test.ru',
+        ),
+        'yeeki' => array(
+            'class' => 'application.modules.yeeki.YeekiModule',
+            'modules'=>array(
+                'wiki' => array(
+                    'userAdapter' => array('class' => 'WikiUser'),
+                ),
+            ),
+            /*
+            'controllerMap' => array(
+                'default' => array(
+                    'class' => 'application.modules.yeeki.modules.wiki.controllers.DefaultController',
+                ),
+            ),*/
         ),
         // подключение gii в режиме боевой работы рекомендуется отключить (подробнее http://www.yiiframework.com/doc/guide/1.1/en/quickstart.first-app)
         'gii' => array(

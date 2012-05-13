@@ -25,7 +25,7 @@ class MenuItem extends CActiveRecord
      * @param string $className active record class name.
      * @return MenuItem the static model class
      */
-    public static function model($className=__CLASS__)
+    public static function model($className = __CLASS__)
     {
         return parent::model($className);
     }
@@ -46,13 +46,15 @@ class MenuItem extends CActiveRecord
         // NOTE: you should only define rules for those attributes that
         // will receive user inputs.
         return array(
+            //@formatter:off
             array('parent_id, menu_id, title', 'required'),
-            array('type, sort, status', 'numerical', 'integerOnly'=>true),
-            array('parent_id, menu_id', 'length', 'max'=>10),
-            array('title, href', 'length', 'max'=>255),
+            array('type, sort, status', 'numerical', 'integerOnly' => true),
+            array('parent_id, menu_id', 'length', 'max' => 10),
+            array('title, href', 'length', 'max' => 255),
             // The following rule is used by search().
             // Please remove those attributes that should not be searched.
-            array('id, parent_id, menu_id, title, href, type, sort, status', 'safe', 'on'=>'search'),
+            array('id, parent_id, menu_id, title, href, type, sort, status', 'safe', 'on' => 'search'),
+            //@formatter:on
         );
     }
 
@@ -64,8 +66,10 @@ class MenuItem extends CActiveRecord
         // NOTE: you may need to adjust the relation name and the related
         // class name for the relations automatically generated below.
         return array(
-            'menu'=>array(self::BELONGS_TO, 'Menu', 'menu_id'),
-            'parent'=>array(self::BELONGS_TO, 'MenuItem', 'id'),
+            //@formatter:off
+            'menu' => array(self::BELONGS_TO, 'Menu', 'menu_id'),
+            'parent' => array(self::BELONGS_TO, 'MenuItem', 'id'),
+            //@formatter:on
         );
     }
 
@@ -75,14 +79,14 @@ class MenuItem extends CActiveRecord
     public function attributeLabels()
     {
         return array(
-            'id'=>Yii::t('menu', 'Id'),
-            'parent_id'=>Yii::t('menu', 'Родитель'),
-            'menu_id'=>Yii::t('menu', 'Меню'),
-            'title'=>Yii::t('menu', 'Заголовок'),
-            'href'=>Yii::t('menu', 'Адрес'),
-            'type'=>Yii::t('menu', 'Тип'),
-            'sort'=>Yii::t('menu', 'Сортировка'),
-            'status'=>Yii::t('menu', 'Статус'),
+            'id' => Yii::t('menu', 'Id'),
+            'parent_id' => Yii::t('menu', 'Родитель'),
+            'menu_id' => Yii::t('menu', 'Меню'),
+            'title' => Yii::t('menu', 'Заголовок'),
+            'href' => Yii::t('menu', 'Адрес'),
+            'type' => Yii::t('menu', 'Тип'),
+            'sort' => Yii::t('menu', 'Сортировка'),
+            'status' => Yii::t('menu', 'Статус'),
         );
     }
 
@@ -95,7 +99,7 @@ class MenuItem extends CActiveRecord
         // Warning: Please modify the following code to remove attributes that
         // should not be searched.
 
-        $criteria=new CDbCriteria;
+        $criteria = new CDbCriteria;
 
         $criteria->compare('id', $this->id, true);
         $criteria->compare('parent_id', $this->parent_id, true);
@@ -106,16 +110,14 @@ class MenuItem extends CActiveRecord
         $criteria->compare('sort', $this->sort);
         $criteria->compare('status', $this->status);
 
-        return new CActiveDataProvider($this, array(
-            'criteria'=>$criteria,
-        ));
+        return new CActiveDataProvider($this, array('criteria' => $criteria));
     }
-    
+
     public function getStatusList()
     {
         return array(
-            self::STATUS_DISABLED=>Yii::t('menu', 'не активно'),
-            self::STATUS_ACTIVE=>Yii::t('menu', 'активно'),
+            self::STATUS_DISABLED => Yii::t('menu', 'не активно'),
+            self::STATUS_ACTIVE => Yii::t('menu', 'активно'),
         );
     }
 
@@ -123,8 +125,11 @@ class MenuItem extends CActiveRecord
     {
         $data = $this->getStatusList();
 
-        return isset($data[$this->status])
-            ? $data[$this->status]
-            : Yii::t('menu', '*неизвестно*');
+        return isset($data[$this->status]) ? $data[$this->status] : Yii::t('menu', '*неизвестно*');
+    }
+
+    public function getParentName()
+    {
+        return ($this->parent_id == 0) ? Yii::t('menu', 'Корень меню') : $this->parent->title;
     }
 }

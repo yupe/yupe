@@ -9,9 +9,7 @@ class MenuModule extends YWebModule
 
     public function getNavigation()
     {
-        return array(
-            Yii::t('menu', 'Меню')=>'/menu/menu/admin/',
-        );
+        return array(Yii::t('menu', 'Меню') => '/menu/menu/admin/');
     }
 
     public function getName()
@@ -51,4 +49,5 @@ class MenuModule extends YWebModule
             'menu.components.*',
         ));
     }
+
 }

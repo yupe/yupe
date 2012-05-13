@@ -306,6 +306,13 @@ CREATE TABLE IF NOT EXISTS `menu` (
   KEY `status` (`status`)
 ) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=3 ;
 
+--
+-- Дамп данных таблицы `menu`
+--
+
+INSERT INTO `menu` (`id`, `name`, `code`, `description`, `status`) VALUES
+(1, 'Верхнее меню', 'top-menu', 'Основное меню сайта, расположенное сверху в блоке mainmenu.', 1);
+
 -- --------------------------------------------------------
 
 --
@@ -326,6 +333,20 @@ CREATE TABLE IF NOT EXISTS `menu_item` (
   KEY `sort` (`sort`),
   KEY `status` (`status`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+
+--
+-- Дамп данных таблицы `menu_item`
+--
+
+INSERT INTO `menu_item` (`id`, `parent_id`, `menu_id`, `title`, `href`, `type`, `sort`, `status`) VALUES
+(1, 0, 1, 'Главная', '/', 1, 1, 1),
+(2, 0, 1, 'Блог', '/blog/blog/index/', 1, 1, 1),
+(3, 0, 1, 'О проекте', '/site/page/view/about', 1, 1, 1),
+(4, 0, 1, 'Пользователи', '/user/people/index/', 1, 1, 1),
+(5, 0, 1, 'Социальные виджеты', '/site/social/', 1, 1, 1),
+(6, 0, 1, 'Помощь проекту', '/site/page/view/help/', 1, 1, 1),
+(7, 0, 1, 'Контакты', '/feedback/contact/', 1, 1, 1),
+(8, 0, 1, 'Wiki', '/wiki/default/index/', 1, 1, 0);
 
 -- --------------------------------------------------------
 
@@ -558,6 +579,61 @@ CREATE TABLE IF NOT EXISTS `vote` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
 
 --
+-- Структура таблицы `wiki_link`
+--
+
+CREATE TABLE IF NOT EXISTS `wiki_link` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `page_from_id` int(11) NOT NULL,
+  `page_to_id` int(11) DEFAULT NULL,
+  `wiki_uid` varchar(255) DEFAULT NULL,
+  `title` varchar(255) DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  KEY `wiki_fk_link_page_from` (`page_from_id`),
+  KEY `wiki_fk_link_page_to` (`page_to_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+
+-- --------------------------------------------------------
+
+--
+-- Структура таблицы `wiki_page`
+--
+
+CREATE TABLE IF NOT EXISTS `wiki_page` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `is_redirect` tinyint(1) DEFAULT '0',
+  `page_uid` varchar(255) DEFAULT NULL,
+  `namespace` varchar(255) DEFAULT NULL,
+  `content` text,
+  `revision_id` int(11) DEFAULT NULL,
+  `user_id` varchar(255) DEFAULT NULL,
+  `created_at` int(11) DEFAULT NULL,
+  `updated_at` int(11) DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `wiki_idx_page_revision_id` (`revision_id`),
+  UNIQUE KEY `wiki_idx_page_page_uid` (`page_uid`,`namespace`),
+  KEY `wiki_idx_page_namespace` (`namespace`)
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+
+-- --------------------------------------------------------
+
+--
+-- Структура таблицы `wiki_page_revision`
+--
+
+CREATE TABLE IF NOT EXISTS `wiki_page_revision` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `page_id` int(11) NOT NULL,
+  `comment` varchar(255) DEFAULT NULL,
+  `is_minor` tinyint(1) DEFAULT NULL,
+  `content` text,
+  `user_id` varchar(255) DEFAULT NULL,
+  `created_at` int(11) DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  KEY `wiki_fk_page_revision_page` (`page_id`)
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+
+--
 -- Ограничения внешнего ключа сохраненных таблиц
 --
 
@@ -659,3 +735,16 @@ ALTER TABLE `user_to_blog`
 --
 ALTER TABLE `vote`
   ADD CONSTRAINT `vote_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `user` (`id`) ON UPDATE NO ACTION;
+
+--
+-- Ограничения внешнего ключа таблицы `wiki_link`
+--
+ALTER TABLE `wiki_link`
+  ADD CONSTRAINT `wiki_fk_link_page_to` FOREIGN KEY (`page_to_id`) REFERENCES `wiki_page` (`id`) ON DELETE SET NULL,
+  ADD CONSTRAINT `wiki_fk_link_page_from` FOREIGN KEY (`page_from_id`) REFERENCES `wiki_page` (`id`) ON DELETE CASCADE;
+
+--
+-- Ограничения внешнего ключа таблицы `wiki_page_revision`
+--
+ALTER TABLE `wiki_page_revision`
+  ADD CONSTRAINT `wiki_fk_page_revision_page` FOREIGN KEY (`page_id`) REFERENCES `wiki_page` (`id`) ON DELETE CASCADE;
