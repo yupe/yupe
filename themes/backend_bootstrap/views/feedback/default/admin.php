@@ -59,6 +59,10 @@ Yii::app()->clientScript->registerScript('search', "
                 'filter' => CHtml::activeDropDownList($model, 'status', $model->getTypeList()),
             ),
             array(
+                'name'  => 'answer_user',
+                'value' => '$data->getAnsweredUser()."(".$data->answer_date.")"'
+            ),
+            array(
                 'name' => 'change_date',
                 'value' => "(\$data->change_date!='0000-00-00 00:00:00')?Yii::app()->dateFormatter->formatDateTime(\$data-> change_date,'short'):'—'",
             ),
@@ -72,14 +76,6 @@ Yii::app()->clientScript->registerScript('search', "
                 'name' => 'type',
                 'value' => '$data->getType()',
             ),
-            /*
-                        'name',
-                        'email',
-                        array(
-                            'name' => 'creation_date',
-                            'value' => "Yii::app()->dateFormatter->formatDateTime(\$data-> creation_date,'short')",
-                        ),
-            */
             array('class' => 'bootstrap.widgets.BootButtonColumn'),
         ),
     ));

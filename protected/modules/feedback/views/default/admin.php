@@ -58,6 +58,10 @@ Yii::app()->clientScript->registerScript('search', "
                 'filter' => CHtml::activeDropDownList($model, 'status', $model->getTypeList()),
             ),
             array(
+                'name'  => 'answer_user',
+                'value' => '$data->getAnsweredUser()."(".$data->answer_date.")"'
+            ),
+            array(
                 'name' => 'is_faq',
                 'type' => 'raw',
                 'value' => '$this->grid->returnStatusHtml($data)',

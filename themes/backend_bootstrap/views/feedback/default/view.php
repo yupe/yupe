@@ -43,7 +43,14 @@ $this->menu = array(
                                                             'name' => 'status',
                                                             'value' => $model->getStatus()
                                                         ),
-                                                        'answer',
+                                                        array(
+                                                            'name' => 'answer',
+                                                            'type' => 'raw'
+                                                        ),
+                                                        array(
+                                                            'name'  => 'answer_user',
+                                                            'value' => $model->getAnsweredUser()
+                                                        ),
                                                         array(
                                                             'name' => 'answer_date',
                                                             'value' => ($model-> answer_date!="0000-00-00 00:00:00")?Yii::app()->dateFormatter->formatDateTime($model-> answer_date,'short'):"—",
