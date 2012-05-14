@@ -26,9 +26,3 @@
     $this->widget('zii.widgets.CMenu', array('items' => $menu));
 ?>
 </div>
-
-<?php/*
-<?php foreach ($pages as $page): ?>
-    <li><?php echo CHtml::link($page->name, array("/pages/{$page->slug}"));?></li>
-<?php endforeach;?>
-*/?>
