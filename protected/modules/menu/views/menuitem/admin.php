@@ -57,7 +57,6 @@ $this->widget('YCustomGridView', array(
             'name' => 'parent_id',
             'value' => '$data->parent',
         ),
-        'type',
         array(
             'name' => 'condition_name',
             'value' => '$data->conditionName',

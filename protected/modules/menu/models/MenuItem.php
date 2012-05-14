@@ -9,7 +9,6 @@
  * @property string $menu_id
  * @property string $title
  * @property string $href
- * @property integer $type
  * @property string $condition_name
  * @property integer $condition_denial
  * @property integer $sort
@@ -55,7 +54,7 @@ class MenuItem extends CActiveRecord
             array('title, href, condition_name', 'length', 'max' => 255),
             // The following rule is used by search().
             // Please remove those attributes that should not be searched.
-            array('id, parent_id, menu_id, title, href, type, sort, status, condition_name, condition_denial', 'safe', 'on' => 'search'),
+            array('id, parent_id, menu_id, title, href, sort, status, condition_name, condition_denial', 'safe', 'on' => 'search'),
             //@formatter:on
         );
     }
@@ -85,7 +84,6 @@ class MenuItem extends CActiveRecord
             'menu_id' => Yii::t('menu', 'Меню'),
             'title' => Yii::t('menu', 'Заголовок'),
             'href' => Yii::t('menu', 'Адрес'),
-            'type' => Yii::t('menu', 'Тип'),
             'condition_name' => Yii::t('menu', 'Условие'),
             'condition_denial' => Yii::t('menu', 'Отрицание условия'),
             'sort' => Yii::t('menu', 'Сортировка'),
@@ -109,7 +107,6 @@ class MenuItem extends CActiveRecord
         $criteria->compare('menu_id', $this->menu_id, true);
         $criteria->compare('title', $this->title, true);
         $criteria->compare('href', $this->href, true);
-        $criteria->compare('type', $this->type);
         if($this->condition_name)
         {
             $criteria->compare('condition_name', $this->condition_name, true);

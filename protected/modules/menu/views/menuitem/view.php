@@ -46,7 +46,6 @@ $this->widget('zii.widgets.CDetailView', array(
             'name' => 'condition_name',
             'value' => $model->conditionName,
         ),
-        'type',
         'sort',
         array(
             'name' => 'status',
