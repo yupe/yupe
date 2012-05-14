@@ -67,6 +67,10 @@ class CommentModule extends YWebModule
         return Yii::t('comment', 'http://yupe.ru');
     }
 
+    public function getIcon()
+    {
+        return "comment";
+    }
 
     public function init()
     {

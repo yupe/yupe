@@ -90,6 +90,11 @@ class FeedbackModule extends YWebModule
         return Yii::t('feedback', 'Обратная связь');
     }
 
+    public function getIcon()
+    {
+        return 'envelope';
+    }
+
     public function init()
     {
         parent::init();

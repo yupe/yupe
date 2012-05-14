@@ -54,6 +54,11 @@ class NewsModule extends YWebModule
         return Yii::t('news', 'http://yupe.ru');
     }
 
+    public function getIcon()
+    {
+        return "info-sign";
+    }
+
     public function init()
     {
         parent::init();

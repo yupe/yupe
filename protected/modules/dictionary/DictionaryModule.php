@@ -35,6 +35,11 @@ class DictionaryModule extends YWebModule
         return Yii::t('dictionary', 'team@yupe.ru');
     }
 
+    public function getIcon()
+    {
+        return "book";
+    }
+
 	public function init()
 	{
 		parent::init();

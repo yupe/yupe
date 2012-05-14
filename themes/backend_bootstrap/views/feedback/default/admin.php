@@ -60,7 +60,7 @@ Yii::app()->clientScript->registerScript('search', "
             ),
             array(
                 'name'  => 'answer_user',
-                'value' => '$data->getAnsweredUser()."(".$data->answer_date.")"'
+                'value' => '$data->getAnsweredUser().(($data->answer_date!="0000-00-00 00:00:00")?("(".Yii::app()->dateFormatter->formatDateTime($data-> change_date,"short").")"):"")'
             ),
             array(
                 'name' => 'change_date',

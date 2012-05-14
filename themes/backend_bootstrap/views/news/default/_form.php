@@ -71,7 +71,7 @@
         </div>
         <div class="row-fluid control-group <?php echo $model-> hasErrors('full_text')?'error':'' ?>">
             <div class="span12">
-                <?php echo $form->labelEx($model, 'short_text'); ?>
+                <?php echo $form->labelEx($model, 'full_text'); ?>
                 <?php $this->widget($this->module->editor, array(
                 'model' => $model,
                 'attribute' => 'full_text',

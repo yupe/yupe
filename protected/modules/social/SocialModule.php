@@ -73,4 +73,9 @@ class SocialModule extends YWebModule
     {
         return '/social/default/';
     }
+
+    public function getIcon()
+    {
+        return "globe";
+    }
 }

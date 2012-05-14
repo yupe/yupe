@@ -7,15 +7,16 @@
     );
 
 $this->menu = array(
-        array('encodeLabel'=> false, 'label' => '<i class="icon-list icon-white"></i>'.Yii::t('page', 'Управление страницами'), 'url' => array('/page/default/admin')),
-        array('encodeLabel'=> false, 'label' => '<i class="icon-file"></i>'.Yii::t('page', 'Добавить страницу'), 'url' => array('/page/default/create')),
+        array('icon'=> 'list-alt white', 'label' => Yii::t('page', 'Управление страницами'), 'url' => array('/page/default/admin')),
+        array('icon'=> 'file', 'label' => Yii::t('page', 'Добавить страницу'), 'url' => array('/page/default/create')),
     );
 ?>
-<div class="page-header"><h1><?=$this->module->getName()?> <small>Управление</small></h1></div>
+<div class="page-header"><h1><?=$this->module->getName()?> <small>управление</small></h1></div>
 <button class="btn btn-small dropdown-toggle"
     data-toggle="collapse"
     data-target="#search-toggle" >
-    <?=CHtml::link(Yii::t('page', 'Поиск страниц'), '#', array('class' => 'search-button'))?>
+    <i class="icon-search"></i>
+    <?=CHtml::link(Yii::t('page', 'Поиск страниц'), '#', array('class' => 'search-button',))?>
     <span class="caret"></span>
 </button>
 

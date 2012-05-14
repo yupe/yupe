@@ -38,6 +38,11 @@ class ContestModule extends YWebModule
         return Yii::t('contest', 'Сервисы');
     }    
 
+    public function getIcon()
+    {
+        return "picture";
+    }
+
     public function init()
     {
         $this->setImport(array(
