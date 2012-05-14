@@ -68,7 +68,7 @@ class MenuItem extends CActiveRecord
         return array(
             //@formatter:off
             'menu' => array(self::BELONGS_TO, 'Menu', 'menu_id'),
-            'parent' => array(self::BELONGS_TO, 'MenuItem', 'id'),
+            'parent' => array(self::BELONGS_TO, 'MenuItem', 'parent_id'),
             //@formatter:on
         );
     }
