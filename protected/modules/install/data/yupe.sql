@@ -326,27 +326,33 @@ CREATE TABLE IF NOT EXISTS `menu_item` (
   `title` varchar(255) NOT NULL,
   `href` varchar(255) NOT NULL,
   `type` tinyint(3) unsigned NOT NULL DEFAULT '1',
+  `condition` varchar(255) DEFAULT NULL,
+  `condition_denial` tinyint(3) DEFAULT NULL,
   `sort` tinyint(3) unsigned NOT NULL DEFAULT '1',
   `status` tinyint(3) unsigned NOT NULL DEFAULT '1',
   PRIMARY KEY (`id`),
   KEY `menu_id` (`menu_id`),
   KEY `sort` (`sort`),
   KEY `status` (`status`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=13 ;
 
 --
 -- Дамп данных таблицы `menu_item`
 --
 
-INSERT INTO `menu_item` (`id`, `parent_id`, `menu_id`, `title`, `href`, `type`, `sort`, `status`) VALUES
-(1, 0, 1, 'Главная', '/', 1, 1, 1),
-(2, 0, 1, 'Блог', '/blog/blog/index/', 1, 1, 1),
-(3, 0, 1, 'О проекте', '/site/page/view/about', 1, 1, 1),
-(4, 0, 1, 'Пользователи', '/user/people/index/', 1, 1, 1),
-(5, 0, 1, 'Социальные виджеты', '/site/social/', 1, 1, 1),
-(6, 0, 1, 'Помощь проекту', '/site/page/view/help/', 1, 1, 1),
-(7, 0, 1, 'Контакты', '/feedback/contact/', 1, 1, 1),
-(8, 0, 1, 'Wiki', '/wiki/default/index/', 1, 1, 0);
+INSERT INTO `menu_item` (`id`, `parent_id`, `menu_id`, `title`, `href`, `type`, `condition`, `condition_denial`, `sort`, `status`) VALUES
+(1, 0, 1, 'Главная', '/', 1, NULL, NULL, 1, 1),
+(2, 0, 1, 'Блог', '/blog/blog/index/', 1, NULL, NULL, 1, 1),
+(3, 0, 1, 'О проекте', '/site/page/view/about', 1, NULL, NULL, 1, 1),
+(4, 0, 1, 'Пользователи', '/user/people/index/', 1, NULL, NULL, 1, 1),
+(5, 0, 1, 'Социальные виджеты', '/site/social/', 1, NULL, NULL, 1, 1),
+(6, 0, 1, 'Помощь проекту', '/site/page/view/help/', 1, NULL, NULL, 1, 1),
+(7, 0, 1, 'Контакты', '/feedback/contact/', 1, NULL, NULL, 1, 1),
+(8, 0, 1, 'Wiki', '/wiki/default/index/', 1, NULL, NULL, 1, 0),
+(9, 0, 1, 'Войти', '/login/', 1, 'isAuthenticated', 1, 1, 1),
+(10, 0, 1, 'Выйти', '/logout/', 1, 'isAuthenticated', 0, 1, 1),
+(11, 0, 1, 'Регистрация', '/registration/', 1, 'isAuthenticated', 1, 1, 1),
+(12, 0, 1, 'Панель управления', '/yupe/backend/', 1, 'isSuperUser', 0, 1, 1);
 
 -- --------------------------------------------------------
 

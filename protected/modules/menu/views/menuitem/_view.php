@@ -26,7 +26,7 @@
     <br />
 
     <b><?php echo CHtml::encode($data->getAttributeLabel('parent_id')); ?>:</b>
-    <?php echo CHtml::encode($data->parent->title); ?>
+    <?php echo CHtml::encode($data->parent); ?>
     <br />
 
     <b><?php echo CHtml::encode($data->getAttributeLabel('sort')); ?>:</b>
