@@ -41,7 +41,7 @@ $this->widget('zii.widgets.CDetailView', array(
         // :KLUDGE: Обратить внимание, возможно сделать иначе определение корня
         array(
             'name' => 'parent_id',
-            'value' => $model->parentName,
+            'value' => $model->parent,
         ),
         'type',
         'sort',

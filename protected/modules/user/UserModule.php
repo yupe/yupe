@@ -35,7 +35,11 @@ class UserModule extends YWebModule
 
     public $defaultAvatar;
 
-    public $avatarExtensions = array('jpg', 'png', 'gif');
+    public $avatarExtensions = array(
+        'jpg',
+        'png',
+        'gif',
+    );
 
     public $invalidIpAction = '/user/account/notAllowedIp';
 
@@ -57,7 +61,7 @@ class UserModule extends YWebModule
             'logoutSuccess' => Yii::t('user', 'Страница после выхода с сайта'),
             'notifyEmailFrom' => Yii::t('user', 'Email от имени которого отправлять сообщение'),
             'autoRecoveryPassword' => Yii::t('user', 'Автоматическое восстановление пароля'),
-            'minPasswordLength' => Yii::t('user', 'Минимальная длина пароля'),            
+            'minPasswordLength' => Yii::t('user', 'Минимальная длина пароля'),
             'emailAccountVerification' => Yii::t('user', 'Подтверждать аккаунт по Email'),
             'showCaptcha' => Yii::t('user', 'Показывать капчу при регистрации'),
             'minCaptchaLength' => Yii::t('user', 'Минимальная длина капчи'),
@@ -68,8 +72,8 @@ class UserModule extends YWebModule
             'defaultAvatar' => Yii::t('user', 'Пустой аватар'),
             'invalidIpAction' => Yii::t('user', 'Страница для заблокированных IP'),
             'invalidEmailAction' => Yii::t('user', 'Страница для заблокированных Email'),
-            'loginAdminSuccess'  => Yii::t('user','Страница после авторизации админстратора'),
-            'registrationSucess' => Yii::t('user','Страница после успешной регистрации')
+            'loginAdminSuccess' => Yii::t('user', 'Страница после авторизации админстратора'),
+            'registrationSucess' => Yii::t('user', 'Страница после успешной регистрации'),
         );
     }
 
@@ -92,7 +96,7 @@ class UserModule extends YWebModule
             'accountActivationSuccess',
             'accountActivationFailure',
             'loginAdminSuccess',
-            'registrationSucess'
+            'registrationSucess',
         );
     }
 
@@ -136,41 +140,56 @@ class UserModule extends YWebModule
         return 'user';
     }
 
+    public function getConditions()
+    {
+        return array(
+            'isAuthenticated' => array(
+                'name' => 'Авторизован',
+                'condition' => Yii::app()->user->isAuthenticated(),
+            ),
+            'isSuperUser' => array(
+                'name' => 'Администратор',
+                'condition' => Yii::app()->user->isSuperUser(),
+            ),
+        );
+    }
+
     public function init()
     {
         parent::init();
 
-        if(!$this->loginSuccess)
-            $this->loginSuccess = '/'.Yii::app()->defaultController;
+        if (!$this->loginSuccess)
+            $this->loginSuccess = '/' . Yii::app()->defaultController;
 
-        if(!$this->logoutSuccess)
-            $this->logoutSuccess = '/'.Yii::app()->defaultController;
+        if (!$this->logoutSuccess)
+            $this->logoutSuccess = '/' . Yii::app()->defaultController;
 
         $this->setImport(array(
-                              'user.models.*',
-                              'user.components.*',
-                         ));
+            'user.models.*',
+            'user.components.*',
+        ));
     }
 
     public function isAllowedEmail($email)
     {
         if (is_array($this->emailBlackList) && count($this->emailBlackList))
         {
-            if(in_array(trim($email),$this->emailBlackList))
+            if (in_array(trim($email), $this->emailBlackList))
                 return false;
         }
 
-        return true;        
+        return true;
     }
 
     public function isAllowedIp($ip)
     {
         if (is_array($this->ipBlackList) && count($this->ipBlackList))
         {
-            if(in_array($ip, $this->ipBlackList))            
-                return false;            
+            if (in_array($ip, $this->ipBlackList))
+                return false;
         }
 
-        return true;        
+        return true;
     }
+
 }
