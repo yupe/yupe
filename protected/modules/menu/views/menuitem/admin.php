@@ -55,7 +55,7 @@ $this->widget('YCustomGridView', array(
         // :KLUDGE: Обратить внимание, возможно сделать иначе определение корня
         array(
             'name' => 'parent_id',
-            'value' => '$data->parentName',
+            'value' => '$data->parent',
         ),
         'type',
         'sort',

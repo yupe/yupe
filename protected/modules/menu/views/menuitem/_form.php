@@ -41,11 +41,7 @@
 
     <div class="row">
         <?php echo $form->labelEx($model, 'parent_id'); ?>
-        <?php
-        echo $form->dropDownList($model, 'parent_id',
-        // :KLUDGE: Обратить внимание, возможно сделать иначе определение корня
-        array(0 => Yii::t('menu', 'Корень меню')) + CHtml::listData(MenuItem::model()->findAll(), 'id', 'title'));
-        ?>
+        <?php echo $form->dropDownList($model, 'parent_id', $model->parentList); ?>
         <?php echo $form->error($model, 'parent_id'); ?>
     </div>
 
@@ -58,6 +54,18 @@
         ));
         ?>
         <?php echo $form->error($model, 'type'); ?>
+    </div>
+
+    <div class="row">
+        <?php echo $form->labelEx($model, 'condition'); ?>
+        <?php echo $form->dropDownList($model, 'condition', $model->conditionList); ?>
+        <?php echo $form->error($model, 'condition'); ?>
+    </div>
+
+    <div class="row">
+        <?php echo $form->labelEx($model, 'condition_denial'); ?>
+        <?php echo $form->dropDownList($model, 'condition_denial', $model->conditionDenialList); ?>
+        <?php echo $form->error($model, 'condition_denial'); ?>
     </div>
 
     <div class="row">

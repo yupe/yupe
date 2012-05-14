@@ -150,6 +150,7 @@ class Menu extends CActiveRecord
                 ),
                 'submenuOptions' => array(),
                 'items' => $childItems,
+                'visible' => MenuItem::model()->getConditionVisible($result->condition, $result->condition_denial),
             );
         }
         return $items;
