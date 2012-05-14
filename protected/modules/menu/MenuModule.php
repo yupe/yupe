@@ -24,7 +24,7 @@ class MenuModule extends YWebModule
 
     public function getVersion()
     {
-        return Yii::t('menu', '0.2 (dev)');
+        return Yii::t('menu', '0.3 (dev)');
     }
 
     public function getAuthor()
