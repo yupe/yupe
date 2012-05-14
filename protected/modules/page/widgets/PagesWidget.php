@@ -54,7 +54,6 @@ class PagesWidget extends YWidget
 
             );
 
-
             $this->render($view, array(
                                      'pages' => Page::model()->cache($this->cacheTime)->findAll($criteria),
                                      'menu' => $menu,

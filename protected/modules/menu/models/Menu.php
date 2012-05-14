@@ -118,6 +118,7 @@ class Menu extends CActiveRecord
         return isset($data[$this->status]) ? $data[$this->status] : Yii::t('menu', '*неизвестно*');
     }
 
+    // @todo добавить кэширование
     public function getItems($code, $parent_id = 0)
     {
         $results = $this->with(array('menuItems' => array(
