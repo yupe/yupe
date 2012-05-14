@@ -142,7 +142,7 @@ class Menu extends CActiveRecord
             $childItems = $this->getItems($code, $result->id);
             $items[] = array(
                 'label' => $result->title,
-                'url' => $result->href,
+                'url' => array($result->href),
                 'itemOptions' => array('class' => 'listItem'),
                 'linkOptions' => array(
                     'class' => 'listItemLink',
