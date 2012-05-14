@@ -1,6 +1,6 @@
 <?php
 
-class MenuItemController extends YBackController
+class MenuitemController extends YBackController
 {
     /**
      * Displays a particular model.
