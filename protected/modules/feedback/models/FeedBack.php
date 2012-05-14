@@ -168,7 +168,7 @@ class FeedBack extends CActiveRecord
 
     public function getAnsweredUser()
     {
-        return $this->answer_user ? User::model()->findByPk($this->answer_user)->getFullName() : Yii::t('feedback','---');
+        return $this->answer_user ? User::model()->findByPk($this->answer_user)->getFullName() : Yii::t('feedback','—');
     }
 
 }

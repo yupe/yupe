@@ -55,6 +55,11 @@ class PageModule extends YWebModule
         return Yii::t('page', 'http://yupe.ru');
     }
 
+    public function getIcon()
+    {
+        return "file";
+    }
+
     public function init()
     {
         parent::init();

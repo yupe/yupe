@@ -68,6 +68,11 @@ class BlogModule extends YWebModule
         return '/blog/blogAdmin/admin/';
     }
 
+    public function getIcon()
+    {
+        return "star";
+    }
+
     public function init()
     {
         parent::init();

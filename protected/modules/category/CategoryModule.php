@@ -43,6 +43,11 @@ class CategoryModule extends YWebModule
         return Yii::t('category', 'http://yupe.ru');
     }
 
+    public function getIcon()
+    {
+        return 'folder-open';
+    }
+
 
     public function init()
     {

@@ -6,14 +6,16 @@ $this->breadcrumbs = array(
 );
 
 $this->menu = array(
-    array('encodeLabel'=> false, 'label' => '<i class="icon-list icon-white"></i>'.Yii::t('news', 'Управление новостями'), 'url' => array('/news/default/admin')),
-    array('encodeLabel'=> false, 'label' => '<i class="icon-file"></i>'.Yii::t('news', 'Добавить новость'), 'url' => array('create')),
+    array('icon' => 'list-alt white', 'label' => Yii::t('news', 'Управление новостями'), 'url' => array('/news/default/admin')),
+    array('icon' => 'th-list', 'label' => Yii::t('news', 'Показать анонсами'), 'url' => array('/news/default/index')),
+    array('icon' => 'file', 'label' => Yii::t('news', 'Добавить новость'), 'url' => array('create')),
 );
 ?>
-<div class="page-header"><h1><?=$this->module->getName()?> <small><?php echo Yii::t('news', 'Управление');?></small></h1></div>
+<div class="page-header"><h1><?=$this->module->getName()?> <small><?php echo Yii::t('news', 'управление');?></small></h1></div>
 <button class="btn btn-small dropdown-toggle"
     data-toggle="collapse"
     data-target="#search-toggle" >
+    <i class="icon-search"></i>
     <?=CHtml::link(Yii::t('news', 'Поиск новостей'), '#', array('class' => 'search-button'))?>
     <span class="caret"></span>
 </button>

@@ -17,6 +17,11 @@ class ImageModule extends YWebModule
         return '0.2 (dev)';
     }
 
+    public function getIcon()
+    {
+        return "picture";
+    }
+
     public function getUploadPath()
     {
         return $this->documentRoot . Yii::app()->request->baseUrl . DIRECTORY_SEPARATOR . $this->uploadDir;

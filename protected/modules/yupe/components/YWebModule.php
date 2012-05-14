@@ -182,6 +182,14 @@ abstract class YWebModule extends CWebModule
     }
 
     /**
+     * @return string название иконки для меню админки, например 'user'
+     */
+    public function getIcon()
+    {
+        return null;
+    }
+
+    /**
      *  инициализация модуля, считывание настроек из базы данных и их кэширование
      */
 
