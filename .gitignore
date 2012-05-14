@@ -1,6 +1,7 @@
 *.log
 *.bin
 *.settings
+*.ai
 .project
 /assets/
 protected/runtime/*

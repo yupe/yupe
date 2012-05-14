@@ -44,7 +44,7 @@ class PagesWidget extends YWidget
 
             $view = $this->view ? $this->view : 'pageswidget';
 
-	    // На данный момент хардкод, переделаю
+	        // На данный момент хардкод, переделаю
             $menu = array(
             	array('label'=>'О проекте', 'url'=> array('/site/page','view'=> 'about')),
             	array('label'=>'Документация', 'url'=> array('/site/page','view'=> 'documents')),
