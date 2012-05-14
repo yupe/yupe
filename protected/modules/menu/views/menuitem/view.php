@@ -38,10 +38,13 @@ $this->widget('zii.widgets.CDetailView', array(
             'name' => 'menu_id',
             'value' => $model->menu->name,
         ),
-        // :KLUDGE: Обратить внимание, возможно сделать иначе определение корня
         array(
             'name' => 'parent_id',
             'value' => $model->parent,
+        ),
+        array(
+            'name' => 'condition_name',
+            'value' => $model->conditionName,
         ),
         'type',
         'sort',

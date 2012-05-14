@@ -60,6 +60,18 @@
     </div>
 
     <div class="row">
+        <?php echo $form->labelEx($model, 'condition_name'); ?>
+        <?php echo $form->dropDownList($model, 'condition_name', $model->conditionList); ?>
+        <?php echo $form->error($model, 'condition_name'); ?>
+    </div>
+
+    <div class="row">
+        <?php echo $form->labelEx($model, 'condition_denial'); ?>
+        <?php echo $form->dropDownList($model, 'condition_denial', $model->conditionDenialList); ?>
+        <?php echo $form->error($model, 'condition_denial'); ?>
+    </div>
+
+    <div class="row">
         <?php echo $form->labelEx($model, 'sort'); ?>
         <?php
         echo $form->textField($model, 'sort', array(

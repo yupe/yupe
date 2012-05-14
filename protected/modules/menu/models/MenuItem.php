@@ -10,7 +10,7 @@
  * @property string $title
  * @property string $href
  * @property integer $type
- * @property string $condition
+ * @property string $condition_name
  * @property integer $condition_denial
  * @property integer $sort
  * @property integer $status
@@ -52,10 +52,10 @@ class MenuItem extends CActiveRecord
             array('parent_id, menu_id, title', 'required'),
             array('type, sort, status, condition_denial', 'numerical', 'integerOnly' => true),
             array('parent_id, menu_id', 'length', 'max' => 10),
-            array('title, href, condition', 'length', 'max' => 255),
+            array('title, href, condition_name', 'length', 'max' => 255),
             // The following rule is used by search().
             // Please remove those attributes that should not be searched.
-            array('id, parent_id, menu_id, title, href, type, sort, status, condition, condition_denial', 'safe', 'on' => 'search'),
+            array('id, parent_id, menu_id, title, href, type, sort, status, condition_name, condition_denial', 'safe', 'on' => 'search'),
             //@formatter:on
         );
     }
@@ -86,7 +86,7 @@ class MenuItem extends CActiveRecord
             'title' => Yii::t('menu', 'Заголовок'),
             'href' => Yii::t('menu', 'Адрес'),
             'type' => Yii::t('menu', 'Тип'),
-            'condition' => Yii::t('menu', 'Условие'),
+            'condition_name' => Yii::t('menu', 'Условие'),
             'condition_denial' => Yii::t('menu', 'Отрицание условия'),
             'sort' => Yii::t('menu', 'Сортировка'),
             'status' => Yii::t('menu', 'Статус'),
@@ -110,8 +110,11 @@ class MenuItem extends CActiveRecord
         $criteria->compare('title', $this->title, true);
         $criteria->compare('href', $this->href, true);
         $criteria->compare('type', $this->type);
-        $criteria->compare('condition', $this->condition, true);
-        $criteria->compare('condition_denial', $this->condition_denial);
+        if($this->condition_name)
+        {
+            $criteria->compare('condition_name', $this->condition_name, true);
+            $criteria->compare('condition_denial', $this->condition_denial);
+        }
         $criteria->compare('sort', $this->sort);
         $criteria->compare('status', $this->status);
 
@@ -163,7 +166,7 @@ class MenuItem extends CActiveRecord
                         if (isset($module->conditions))
                         {
                             $conditionsList = array();
-                            foreach($module->conditions as $keyList => $valueList)
+                            foreach ($module->conditions as $keyList => $valueList)
                                 $conditionsList[$keyList] = (!$condition) ? $valueList['name'] : $valueList['condition'];
 
                             $conditions = array_merge($conditions, $conditionsList);
@@ -178,12 +181,19 @@ class MenuItem extends CActiveRecord
 
     public function getConditionVisible($name, $condition_denial)
     {
-        if($name === null)
+        if ($name === null)
             return true;
 
         $data = $this->getConditionList(true);
 
         return (isset($data[$name]) && (($data[$name] && $condition_denial == 0) || (!$data[$name] && $condition_denial == 1))) ? true : false;
+    }
+
+    public function getConditionName()
+    {
+        $data = $this->getConditionList();
+
+        return (isset($data[$this->condition_name])) ? $data[$this->condition_name] . ' (' . $this->conditionDenial . ')' : $data[0];
     }
 
     public function getConditionDenialList()
@@ -192,6 +202,13 @@ class MenuItem extends CActiveRecord
             self::STATUS_DISABLED => Yii::t('menu', 'нет'),
             self::STATUS_ACTIVE => Yii::t('menu', 'да'),
         );
+    }
+
+    public function getConditionDenial()
+    {
+        $data = $this->conditionDenialList;
+
+        return isset($data[$this->condition_denial]) ? Yii::t('menu', 'отрицание').': '.$data[$this->condition_denial] : Yii::t('menu', '*неизвестно*');
     }
 
 }

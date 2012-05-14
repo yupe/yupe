@@ -58,6 +58,10 @@ $this->widget('YCustomGridView', array(
             'value' => '$data->parent',
         ),
         'type',
+        array(
+            'name' => 'condition_name',
+            'value' => '$data->conditionName',
+        ),
         'sort',
         array(
             'name' => 'status',

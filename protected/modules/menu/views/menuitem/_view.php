@@ -20,6 +20,10 @@
     <b><?php echo CHtml::encode($data->getAttributeLabel('type')); ?>:</b>
     <?php echo CHtml::encode($data->type); ?>
     <br />
+    
+    <b><?php echo CHtml::encode($data->getAttributeLabel('condition_name')); ?>:</b>
+    <?php echo CHtml::encode($data->conditionName); ?>
+    <br />
 
     <b><?php echo CHtml::encode($data->getAttributeLabel('menu_id')); ?>:</b>
     <?php echo CHtml::encode($data->menu->name); ?>
