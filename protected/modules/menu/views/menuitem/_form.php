@@ -46,20 +46,9 @@
     </div>
 
     <div class="row">
-        <?php echo $form->labelEx($model, 'type'); ?>
-        <?php
-        echo $form->textField($model, 'type', array(
-            'size' => 60,
-            'maxlength' => 300,
-        ));
-        ?>
-        <?php echo $form->error($model, 'type'); ?>
-    </div>
-
-    <div class="row">
-        <?php echo $form->labelEx($model, 'condition'); ?>
-        <?php echo $form->dropDownList($model, 'condition', $model->conditionList); ?>
-        <?php echo $form->error($model, 'condition'); ?>
+        <?php echo $form->labelEx($model, 'condition_name'); ?>
+        <?php echo $form->dropDownList($model, 'condition_name', $model->conditionList); ?>
+        <?php echo $form->error($model, 'condition_name'); ?>
     </div>
 
     <div class="row">

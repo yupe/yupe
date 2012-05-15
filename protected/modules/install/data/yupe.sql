@@ -326,7 +326,7 @@ CREATE TABLE IF NOT EXISTS `menu_item` (
   `title` varchar(255) NOT NULL,
   `href` varchar(255) NOT NULL,
   `type` tinyint(3) unsigned NOT NULL DEFAULT '1',
-  `condition` varchar(255) DEFAULT NULL,
+  `condition_name` varchar(255) DEFAULT NULL,
   `condition_denial` tinyint(3) DEFAULT NULL,
   `sort` tinyint(3) unsigned NOT NULL DEFAULT '1',
   `status` tinyint(3) unsigned NOT NULL DEFAULT '1',
@@ -340,7 +340,7 @@ CREATE TABLE IF NOT EXISTS `menu_item` (
 -- Дамп данных таблицы `menu_item`
 --
 
-INSERT INTO `menu_item` (`id`, `parent_id`, `menu_id`, `title`, `href`, `type`, `condition`, `condition_denial`, `sort`, `status`) VALUES
+INSERT INTO `menu_item` (`id`, `parent_id`, `menu_id`, `title`, `href`, `type`, `condition_name`, `condition_denial`, `sort`, `status`) VALUES
 (1, 0, 1, 'Главная', '/', 1, NULL, NULL, 1, 1),
 (2, 0, 1, 'Блог', '/blog/blog/index/', 1, NULL, NULL, 1, 1),
 (3, 0, 1, 'О проекте', '/site/page/view/about', 1, NULL, NULL, 1, 1),
