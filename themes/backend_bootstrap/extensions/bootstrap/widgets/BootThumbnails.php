@@ -21,6 +21,8 @@ class BootThumbnails extends BootListView
 	 */
 	public function renderItems()
 	{
+		echo CHtml::openTag($this->itemsTagName,array('class'=>$this->itemsCssClass))."\n";
+		
 		$data = $this->dataProvider->getData();
 		
 		if (!empty($data))
@@ -41,5 +43,7 @@ class BootThumbnails extends BootListView
 		}
 		else
 			$this->renderEmptyText();
+		
+		echo CHtml::closeTag($this->itemsTagName);
 	}
 }

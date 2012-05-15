@@ -16,26 +16,13 @@ Yii::import('bootstrap.widgets.input.BootInput');
 class BootInputVertical extends BootInput
 {
 	/**
-	 * Renders a CAPTCHA.
-	 * @return string the rendered content
-	 */
-	protected function captcha()
-	{
-		echo $this->getLabel().'<div class="captcha">';
-		echo '<div class="widget">'.$this->widget('CCaptcha', $this->data, true).'</div>';
-		echo $this->form->textField($this->model, $this->attribute, $this->htmlOptions);
-		echo $this->getError().$this->getHint();
-		echo '</div>';
-	}
-
-	/**
 	 * Renders a checkbox.
 	 * @return string the rendered content
 	 */
 	protected function checkBox()
 	{
 		$attribute = $this->attribute;
-		echo '<label class="checkbox" for="'.CHtml::getIdByName(CHtml::resolveName($this->model, $attribute)).'">';
+		echo '<label class="checkbox" for="'.$this->getAttributeId($attribute).'">';
 		echo $this->form->checkBox($this->model, $this->attribute, $this->htmlOptions).PHP_EOL;
 		echo $this->model->getAttributeLabel($attribute);
 		echo $this->getError().$this->getHint();
@@ -105,7 +92,7 @@ class BootInputVertical extends BootInput
 	protected function radioButton()
 	{
 		$attribute = $this->attribute;
-		echo '<label class="radio" for="'.CHtml::getIdByName(CHtml::resolveName($this->model, $attribute)).'">';
+		echo '<label class="radio" for="'.$this->getAttributeId($attribute).'">';
 		echo $this->form->radioButton($this->model, $this->attribute, $this->htmlOptions).PHP_EOL;
 		echo $this->model->getAttributeLabel($attribute);
 		echo $this->getError().$this->getHint();
@@ -155,6 +142,19 @@ class BootInputVertical extends BootInput
 		echo $this->form->textField($this->model, $this->attribute, $this->htmlOptions);
 		echo $this->getAppend();
 		echo $this->getError().$this->getHint();
+	}
+
+	/**
+	 * Renders a CAPTCHA.
+	 * @return string the rendered content
+	 */
+	protected function captcha()
+	{
+		echo $this->getLabel().'<div class="captcha">';
+		echo '<div class="widget">'.$this->widget('CCaptcha', $this->getCaptchaOptions(), true).'</div>';
+		echo $this->form->textField($this->model, $this->attribute, $this->htmlOptions);
+		echo $this->getError().$this->getHint();
+		echo '</div>';
 	}
 
 	/**

@@ -8,8 +8,6 @@
  * @since 0.9.3
  */
 
-Yii::import('bootstrap.widgets.BootWidget');
-
 /**
  * Bootstrap modal widget.
  */
@@ -37,13 +35,11 @@ class BootModal extends CWidget
 	 */
 	public function init()
 	{
-		parent::init();
+		if (!isset($this->htmlOptions['id']))
+			$this->htmlOptions['id'] = $this->getId();
 
 		if (!$this->autoOpen && !isset($this->options['show']))
 			$this->options['show'] = false;
-
-		if (!isset($this->htmlOptions['id']))
-			$this->htmlOptions['id'] = $this->getId();
 
 		$classes = 'modal fade';
 		if (isset($this->htmlOptions['class']))
@@ -66,35 +62,13 @@ class BootModal extends CWidget
 		/** @var CClientScript $cs */
 		$cs = Yii::app()->getClientScript();
 
-		$options = CJavaScript::encode($this->options);
+		$options = !empty($this->options) ? CJavaScript::encode($this->options) : '';
 		$cs->registerScript(__CLASS__.'#'.$id, "jQuery('#{$id}').modal({$options});");
 
-		// Register the "show" event-handler.
-		if (isset($this->events['show']))
+		foreach ($this->events as $name => $handler)
 		{
-			$fn = CJavaScript::encode($this->events['show']);
-			$cs->registerScript(__CLASS__.'#'.$id.'.show', "jQuery('#{$id}').on('show', {$fn});");
-		}
-
-		// Register the "shown" event-handler.
-		if (isset($this->events['shown']))
-		{
-			$fn = CJavaScript::encode($this->events['shown']);
-			$cs->registerScript(__CLASS__.'#'.$id.'.shown', "jQuery('#{$id}').on('shown', {$fn});");
-		}
-
-		// Register the "hide" event-handler.
-		if (isset($this->events['hide']))
-		{
-			$fn = CJavaScript::encode($this->events['hide']);
-			$cs->registerScript(__CLASS__.'#'.$id.'.hide', "jQuery('#{$id}').on('hide', {$fn});");
-		}
-
-		// Register the "hidden" event-handler.
-		if (isset($this->events['hidden']))
-		{
-			$fn = CJavaScript::encode($this->events['hidden']);
-			$cs->registerScript(__CLASS__.'#'.$id.'.hidden', "jQuery('#{$id}').on('hidden', {$fn});");
+			$handler = CJavaScript::encode($handler);
+			$cs->registerScript(__CLASS__.'#'.$id.'_'.$name, "jQuery('#{$id}').on('".$name."', {$handler});");
 		}
 	}
 }

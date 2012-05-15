@@ -8,8 +8,6 @@
  * @since 0.9.7
  */
 
-Yii::import('bootstrap.widgets.BootWidget');
-
 /**
  * Bootstrap navigation bar widget.
  */
@@ -69,14 +67,15 @@ class BootNavbar extends CWidget
 
 			if (!isset($this->brandUrl))
 				$this->brandUrl = Yii::app()->homeUrl;
-		}
-	}
 
-	/**
-	 * Runs the widget.
-	 */
-	public function run()
-	{
+			$this->brandOptions['href'] = $this->brandUrl;
+
+			if (isset($this->brandOptions['class']))
+				$this->brandOptions['class'] .= ' brand';
+			else
+				$this->brandOptions['class'] = 'brand';
+		}
+
 		$classes = array('navbar');
 
 		if ($this->fixed !== false)
@@ -91,15 +90,13 @@ class BootNavbar extends CWidget
 			$this->htmlOptions['class'] .= ' '.$classes;
 		else
 			$this->htmlOptions['class'] = $classes;
+	}
 
-		if (isset($this->brandOptions['class']))
-			$this->brandOptions['class'] .= ' brand';
-		else
-			$this->brandOptions['class'] = 'brand';
-
-		if (isset($this->brandUrl))
-			$this->brandOptions['href'] = $this->brandUrl;
-
+	/**
+	 * Runs the widget.
+	 */
+	public function run()
+	{
 		$containerCssClass = $this->fluid ? 'container-fluid' : 'container';
 
 		echo CHtml::openTag('div', $this->htmlOptions);

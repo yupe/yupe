@@ -26,7 +26,7 @@ class BootMenu extends BootBaseMenu
 	 * @var string the menu type.
 	 * Valid values are '', 'tabs' and 'pills'. Defaults to ''.
 	 */
-	public $type = self::TYPE_UNSTYLED;
+	public $type;
 	/**
 	 * @var boolean whether to stack navigation items.
 	 */
@@ -50,9 +50,9 @@ class BootMenu extends BootBaseMenu
 
 		$classes = array('nav');
 
-		$validTypes = array(self::TYPE_UNSTYLED, self::TYPE_TABS, self::TYPE_PILLS, self::TYPE_LIST);
+		$validTypes = array(self::TYPE_TABS, self::TYPE_PILLS, self::TYPE_LIST);
 
-		if (!empty($this->type) && in_array($this->type, $validTypes))
+		if (isset($this->type) && in_array($this->type, $validTypes))
 			$classes[] = 'nav-'.$this->type;
 
 		if ($this->type !== self::TYPE_LIST && $this->stacked)
@@ -176,10 +176,6 @@ class BootMenu extends BootBaseMenu
 			if (isset($item['visible']) && !$item['visible'])
 			{
 				unset($items[$i]);
-				continue;
-			}
-
-			if (!is_array($item)) {
 				continue;
 			}
 
