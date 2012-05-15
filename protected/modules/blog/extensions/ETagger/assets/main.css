@@ -1,0 +1,4 @@
+.tagger-input-container{font-size: 12px;font-family: "Lucida Sans Unicode", "Lucida Grande", sans-serif;-webkit-border-radius: 510px;border-radius: 10px;border:1px solid #AAA;padding: 5px 5px;cursor: text;}
+.tag{display:inline-block;margin-right: 5px;-webkit-border-radius: 5px;border-radius: 5px;padding:0px 5px;height: 20px;line-height: 20px;}
+.tag .close{cursor: pointer;display: inline-block;margin-left: 5px;font-size: 0.8em;line-height: 20px;height: 20px;vertical-align: top;}
+.tagger-input-container input{border:none;outline: none;outline-color:transparent;outline-style:none;font-size: 1em;}

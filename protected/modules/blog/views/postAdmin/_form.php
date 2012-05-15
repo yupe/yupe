@@ -83,7 +83,13 @@
 
     <div class='row'>
         <?php echo $form->labelEx($model, Yii::t('blog', 'Теги')); ?>
-        <?php echo CHtml::textField('tags', $model->tags->toString(), array('size'=>60, 'maxlength'=>150)); ?>
+        <?php $this->widget('application.modules.blog.extensions.ETagger.ETagger', array(
+            'name'=>'tags',
+            'keywords'=>$model->getTags(),
+            'options'=> array(
+                'closeChar'=>'X',
+            ),
+        ));?>
         <?php echo $form->error($model, 'tags'); ?>
     </div>
 
