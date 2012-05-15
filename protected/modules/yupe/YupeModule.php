@@ -218,28 +218,27 @@ class YupeModule extends YWebModule
                 if (is_array($links))
                 {
                     $inSettings = false;
+                    if (!isset($modulesNavigation[$category[$key]]))
+                    {
+                        $modulesNavigation[$category[$key]]['items'] = array();
+                        $modulesNavigation[$category[$key]]['label'] = $category[$key];
+                        $modulesNavigation[$category[$key]]['linkOptions'] = array('class' => 'sub-menu');
+                        $modulesNavigation[$category[$key]]['url'] = '#';
+
+                        // @TODO: Тут подставлять иконку категории вместо первого модуля
+                        $modulesNavigation[$category[$key]]['icon'] = $modules[$key]->icon;
+                    }
+                    $xxx= array( 'label' => $modules[$key]->name, 'items' => array(),'icon'=>$modules[$key]->icon , 'url' => array('#'));
 
                     foreach ($links as $text => $url)
                     {
                         $tmp = array(
                             'label' => $text,
-                            'url' => array($url)
+                            'url' => array($url),
+                            'icon' => $modules[$key]->icon,
                         );
 
-                        if (!isset($modulesNavigation[$category[$key]]))
-                        {
-                            $modulesNavigation[$category[$key]]['items'] = array();
-                            $modulesNavigation[$category[$key]]['label'] = $category[$key];
-                            $modulesNavigation[$category[$key]]['linkOptions'] = array('class' => 'sub-menu');
-                            $modulesNavigation[$category[$key]]['url'] = '#';
-                            if ($icon = $modules[$key]->icon)
-                                if ((strpos($icon, ".gif") === FALSE) && (strpos($icon, ".jpg") === FALSE) && (strpos($icon, ".jpeg") === FALSE) && (strpos($icon, ".png") === FALSE))
-                                    $modulesNavigation[$category[$key]]['icon'] = $modules[$key]->icon . ' white';
-                                else
-                                    $modulesNavigation[$category[$key]]['icon'] = $icon;
-                        }
-
-                        array_push($modulesNavigation[$category[$key]]['items'], $tmp);
+                        array_push($xxx['items'], $tmp);
 
                         // собрать все для меню "Настройки"
                         if (!$inSettings && $modules[$key]->getEditableParams())
@@ -256,6 +255,7 @@ class YupeModule extends YWebModule
                             $inSettings = true;
                         }
                     }
+                    array_push($modulesNavigation[$category[$key]]['items'], $xxx);
                 }
                 else
                 {
