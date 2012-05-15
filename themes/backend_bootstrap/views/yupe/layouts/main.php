@@ -19,7 +19,7 @@
             'fixed'=> 'top',
             'fluid'=>true,
             'brand'=>Yii::t('yupe',"Юпи!"),
-            'brandUrl'=>"/yupe/backend",
+            'brandUrl' => CHtml::normalizeUrl(array("/yupe/backend")),
             'collapse'=>false, // requires bootstrap-responsive.css
             'items'=>array(
                 array(

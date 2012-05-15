@@ -7,7 +7,7 @@
         <?php
         if ( count($this->breadcrumbs) )
         $this->widget('bootstrap.widgets.BootBreadcrumbs', array(
-                                                         'homeLink' => array('label'=>Yii::t('yupe', 'Главная'), 'url'=>'/yupe/backend/'),
+                                                         'homeLink' => array('label'=>Yii::t('yupe', 'Главная'), 'url'=>array('/yupe/backend/')),
                                                          'links' => $this->breadcrumbs,
                                                     )); ?><!-- breadcrumbs -->
 
