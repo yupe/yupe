@@ -17,32 +17,25 @@ abstract class YWebModule extends CWebModule
 {
     const CHECK_ERROR = 'error';
 
-    const CHOICE_YES  = 1;
-    
-    const CHOICE_NO   = 0;
+    const CHOICE_YES = 1;
+    const CHOICE_NO = 0;
 
     /**
      *  @var int порядок следования модуля в меню панели управления (сортировка)
      */
-
     public $adminMenuOrder = 0;
-
     /**
      *  @var int некоторые компоненты Юпи! автоматически кэширует, если время жизни кэша не указано - берется это значение
      */
-
-    public $coreCacheTime  = 3600;
-
+    public $coreCacheTime = 3600;
     /**
      *  @var array правила маршрутизации модуля (импортируются при старте модуля)
      */
-
     public $urlRules = null;
 
     /**
      *  @return string текущая версия модуля
      */
-
     public function getVersion()
     {
         return '0.1';
@@ -51,7 +44,6 @@ abstract class YWebModule extends CWebModule
     /**
      *  @return string веб-сайт разработчика модуля или страничка самого модуля
      */
-
     public function getUrl()
     {
         return 'http://yupe.ru';
@@ -60,7 +52,6 @@ abstract class YWebModule extends CWebModule
     /**
      *  @return string имя автора модуля
      */
-
     public function getAuthor()
     {
         return Yii::t('yupe', 'Сообщество Юпи!');
@@ -69,7 +60,6 @@ abstract class YWebModule extends CWebModule
     /**
      *  @return string контактный email автора модуля
      */
-
     public function getAuthorEmail()
     {
         return 'support@yupe.ru';
@@ -79,7 +69,6 @@ abstract class YWebModule extends CWebModule
      *  @return string ссылка которая будет отображена в панели управления
      *  как правило, ведет на страничку для администрирования модуля
      */
-
     public function getAdminPageLink()
     {
         return '/' . strtolower($this->id) . '/default/admin/';
@@ -99,7 +88,6 @@ abstract class YWebModule extends CWebModule
      * }
      *
      */
-
     public function getNavigation()
     {
         return false;
@@ -125,7 +113,6 @@ abstract class YWebModule extends CWebModule
     /**
      *  @return string каждый модуль должен принадлежать одной категории, именно по категорям делятся модули в панели управления
      */
-
     public function getCategory()
     {
         return null;
@@ -134,18 +121,14 @@ abstract class YWebModule extends CWebModule
     /**
      *  @return array массив лейблов для параметров (свойств) модуля. Используется на странице настроек модуля в панели управления.
      */
-
     public function getParamsLabels()
     {
-        return array(
-            'adminMenuOrder' => Yii::t('yupe', 'Порядок следования в меню'),
-        );
+        return array('adminMenuOrder' => Yii::t('yupe', 'Порядок следования в меню'), );
     }
 
     /**
      *  @return array массив параметров модуля, которые можно редактировать через панель управления (GUI)
      */
-
     public function getEditableParams()
     {
         return array('adminMenuOrder');
@@ -154,7 +137,6 @@ abstract class YWebModule extends CWebModule
     /**
      *  @return int порядок следования модуля в меню панели управления (сортировка)
      */
-
     public function getAdminMenuOrder()
     {
         return $this->adminMenuOrder;
@@ -172,12 +154,11 @@ abstract class YWebModule extends CWebModule
     /**
      *  @return array для многих параметров модуля необходимо вывести варианты выбора да или нет - метод-хелпер именно для этого
      */
-
     public function getChoice()
     {
         return array(
-            self::CHOICE_YES => Yii::t('yupe','да'),
-            self::CHOICE_NO  => Yii::t('yupe','нет')
+            self::CHOICE_YES => Yii::t('yupe', 'да'),
+            self::CHOICE_NO => Yii::t('yupe', 'нет')
         );
     }
 
@@ -192,28 +173,33 @@ abstract class YWebModule extends CWebModule
     /**
      *  инициализация модуля, считывание настроек из базы данных и их кэширование
      */
-
     public function init()
     {
         if (is_object(Yii::app()->theme))
             $this->layout = 'webroot.themes.' . Yii::app()->theme->name . '.views.layouts.main';
 
-        // инициализация модуля		
-        $settings = Settings::model()->cache($this->coreCacheTime)->findAll('module_id = :module_id', array(
-            'module_id' => $this->getId()
-        ));
-
-        $editableParams = $this->getEditableParams();
-
-        //@TODO обход не settings а editableParams как вариант =)
-        foreach ($settings as $model)
+        try
         {
-            $propertie = $model->param_name;
+            // инициализация модуля
+            $settings = Settings::model()->cache($this->coreCacheTime)->findAll('module_id = :module_id', array('module_id' => $this->getId()));
 
-            if (property_exists($this, $propertie) && (in_array($propertie, $editableParams) || array_key_exists($propertie, $editableParams)))            
-                $this->$propertie = $model->param_value;            
+            $editableParams = $this->getEditableParams();
+
+            //@TODO обход не settings а editableParams как вариант =)
+            foreach ($settings as $model)
+            {
+                $propertie = $model->param_name;
+
+                if (property_exists($this, $propertie) && (in_array($propertie, $editableParams) || array_key_exists($propertie, $editableParams)))
+                    $this->$propertie = $model->param_value;
+            }
+        }
+        catch(Exception $e)
+        {
+            // :TODO: Возможно надо будет выдать ошибку, если это не модуль install
         }
 
         parent::init();
     }
+
 }
