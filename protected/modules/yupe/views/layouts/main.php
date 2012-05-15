@@ -5,11 +5,11 @@
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
     <meta name="language" content="en"/>
 <?php
-        $module = Yii::app()->getModule('yupe')->basePath;
-        $jqueryslidemenupath = Yii::app()->assetManager->publish($module. '/web/jqueryslidemenu/');
+        $module = Yii::app()->getModule('yupe');
+        $jqueryslidemenupath = Yii::app()->assetManager->publish($module->basePath. '/web/jqueryslidemenu/');
         Yii::app()->clientScript->registerCssFile($jqueryslidemenupath . '/jqueryslidemenu.css');
         Yii::app()->clientScript->registerScriptFile($jqueryslidemenupath . '/jqueryslidemenu.js');
-        $webPath = Yii::app()->assetManager->publish($module. '/web/');
+        $webPath = Yii::app()->assetManager->publish($module->basePath. '/web/');
         Yii::app()->clientScript->registerScriptFile($webPath.'/yupeAdmin.js');
 ?>
     <!-- blueprint CSS framework -->
@@ -53,7 +53,7 @@
     <div id="myslidemenu" class='jqueryslidemenu'>
         <?php $this->widget('zii.widgets.CMenu', array(
                                                       'hideEmptyItems' => true,
-                                                      'items' => Yii::app()->getModule('yupe')->getModules(true)
+                                                      'items' => $module->getModules(true)
                                                  )); ?>
         <br style="clear: left"/>
     </div>
@@ -68,7 +68,7 @@
 
     <div id="footer">
         Copyright &copy; 2009-<?php echo date('Y'); ?> <a
-        href='<?php echo Yii::app()->getModule('yupe')->brandUrl?>'><?php echo CHtml::encode(Yii::app()->name);?></a><br/>
+        href='<?php echo $module->brandUrl?>'><?php echo CHtml::encode(Yii::app()->name);?></a> <a href="mailto:team@yupe.ru">yupe team</a><br/>
         <?php echo Yii::powered(); ?>
         <?php $this->widget('YPerformanceStatistic');?>
     </div>

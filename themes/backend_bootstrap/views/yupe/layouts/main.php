@@ -1,3 +1,5 @@
+<?php $module = Yii::app()->getModule('yupe');?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -22,7 +24,7 @@
             'items'=>array(
                 array(
                     'class'=>'bootstrap.widgets.BootMenu',
-                    'items'=>Yii::app()->getModule('yupe')->getModules(true),
+                    'items'=>$module->getModules(true),
                 ),
             ),
         ));
@@ -36,7 +38,7 @@
 
     <footer>
         Copyright &copy; 2009-<?php echo date('Y'); ?> <a
-        href='<?php echo Yii::app()->getModule('yupe')->brandUrl?>'><?php echo CHtml::encode(Yii::app()->name);?></a><br/>
+        href='<?php echo $module->brandUrl?>'><?php echo CHtml::encode(Yii::app()->name);?></a> <a href="mailto:team@yupe.ru">yupe team</a><br/>
         <?php echo Yii::powered(); ?>
         <?php $this->widget('YPerformanceStatistic');?>
     </footer>
