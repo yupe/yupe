@@ -26,21 +26,21 @@ $this->breadcrumbs = array(
 
 <br/>
 
-<p><?php echo Yii::t('install', 'Полезные ресурсы:');?></p>
+<p><?php echo Yii::t('yupe', 'Полезные ресурсы:');?></p>
 
-<?php echo CHtml::link(Yii::t('install','Официальный сайт Юпи!'),'http://yupe.ru');?> - <?php echo Yii::t('install','заходите чаще =)');?>
-
-<br/><br/>
-
-<?php echo CHtml::link(Yii::t('install','Исходный код на Github'),'http://github.com/yupe/yupe/');?> - <?php echo Yii::t('install','пришлите нам парочку пулл-реквестов, все только выиграют =)');?>
+<?php echo CHtml::link(Yii::t('yupe','Официальный сайт Юпи!'),'http://yupe.ru');?> - <?php echo Yii::t('yupe','заходите чаще =)');?>
 
 <br/><br/>
 
-<?php echo CHtml::link(Yii::t('install','Официальный твиттер Юпи!'),'https://twitter.com/#!/YupeCms');?>  - <?php echo Yii::t('install','обязательно заффоловьте нас, мы не спамим =)');?>
+<?php echo CHtml::link(Yii::t('yupe','Исходный код на Github'),'http://github.com/yupe/yupe/');?> - <?php echo Yii::t('yupe','пришлите нам парочку пулл-реквестов, все только выиграют =)');?>
 
 <br/><br/>
 
-<?php echo CHtml::link(Yii::t('install','Задайте вопрос на форуме'),'http://yupe.ru/forum/');?>  - <?php echo Yii::t('install','заходите, поболтаем =)');?>
+<?php echo CHtml::link(Yii::t('yupe','Официальный твиттер Юпи!'),'https://twitter.com/#!/YupeCms');?>  - <?php echo Yii::t('yupe','обязательно заффоловьте нас, мы не спамим =)');?>
+
+<br/><br/>
+
+<?php echo CHtml::link(Yii::t('yupe','Задайте вопрос на форуме'),'http://yupe.ru/forum/');?>  - <?php echo Yii::t('yupe','заходите, поболтаем =)');?>
 
 <br/><br/>
 
@@ -48,7 +48,7 @@ Jabber-конференция сервер: conference.yupe.ru, комната: 
 
 <br/><br/>
 
-<?php echo Yii::t('install','Напишите нам на <a href="mailto:team@yupe.ru">team@yupe.ru</a>');?>  - <?php echo Yii::t('install','принимаем всякого рода коммерческие и любые предложения =)');?>
+<?php echo Yii::t('yupe','Напишите нам на <a href="mailto:team@yupe.ru">team@yupe.ru</a>');?>  - <?php echo Yii::t('yupe','принимаем всякого рода коммерческие и любые предложения =)');?>
 
 <br/><br/>
 

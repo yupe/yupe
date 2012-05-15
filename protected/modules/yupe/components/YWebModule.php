@@ -15,7 +15,9 @@
  */
 abstract class YWebModule extends CWebModule
 {
-    const CHECK_ERROR = 'error';
+    const CHECK_ERROR  = 'error';
+
+    const CHECK_NOTICE = 'notice';
 
     const CHOICE_YES = 1;
     const CHOICE_NO = 0;

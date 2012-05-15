@@ -51,6 +51,11 @@ class FeedbackModule extends YWebModule
 
         if (!$this->notifyEmailFrom)
             return array('type' => YWebModule::CHECK_ERROR,'message' => Yii::t('feedback','Укажите с какого email отправлять сообщения обратной связи {link}',array('{link}' => CHtml::link(Yii::t('image', 'Изменить настройки модуля'), array('/yupe/backend/modulesettings/', 'module' => $this->id)))));
+
+        $count = FeedBack::model()->new()->cache($this->cacheTime)->count();
+
+        if($count)
+            return array('type' => YWebModule::CHECK_NOTICE,'message' => Yii::t('feedback','У Вас {{count}} новых сообщений с сайта',array('{{count}}' => $count)));
     }
 
     public function getName()
@@ -58,6 +63,11 @@ class FeedbackModule extends YWebModule
         $count = FeedBack::model()->new()->cache($this->cacheTime)->count();
         return $count ? Yii::t('feedback', 'Сообщения с сайта') . " ($count)"
             : Yii::t('feedback', 'Сообщения с сайта');
+    }
+
+    public function getCategory()
+    {
+        return Yii::t('feedback','Сервисы');
     }
 
     public function getDescription()
@@ -83,11 +93,6 @@ class FeedbackModule extends YWebModule
     public function getUrl()
     {
         return Yii::t('feedback', 'http://yupe.ru');
-    }
-
-    public function getCategory()
-    {
-        return Yii::t('feedback', 'Обратная связь');
     }
 
     public function getIcon()

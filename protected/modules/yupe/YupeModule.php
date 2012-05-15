@@ -302,11 +302,14 @@ class YupeModule extends YWebModule
                 }
             }
         }
+
+        //@todo стоит подумать как этот хардкод убрать =)
         array_unshift($modulesNavigation['settings']['items'], array(
             'icon' => 'asterisk',
             'label' => Yii::t('yupe', 'Оформление'),
             'url' => array('/yupe/backend/themesettings')
         ));
+
         array_unshift($modulesNavigation, array(
             'icon' => 'home white',
             'label' => Yii::t('yupe', 'На сайт'),
@@ -318,16 +321,26 @@ class YupeModule extends YWebModule
             'url' => array('/site/login'),
             'visible' => !Yii::app()->user->isAuthenticated()
         ));
-        array_push($modulesNavigation, array(
-            'icon' => 'trash white',
-            'label' => Yii::t('yupe', 'Очистить кэш'),
-            'url' => array('/yupe/backend/cacheflush'),
-        ));
-        array_push($modulesNavigation, array(
-            'icon' => 'question-sign white',
-            'label' => Yii::t('yupe', 'Помощь'),
-            'url' => array('/yupe/backend/help'),
-        ));
+
+        $modulesNavigation[Yii::t('yupe','Система')] = array(
+            'label' => Yii::t('yupe','Система'),
+            'icon'  => 'info-sign white',
+            'url'   => '#'
+        );
+
+        $modulesNavigation[Yii::t('yupe','Система')]['items'] = array(
+            array(
+                'icon' => 'trash black',
+                'label' => Yii::t('yupe', 'Очистить кэш'),
+                'url' => array('/yupe/backend/cacheflush'),
+            ),
+            array(
+                'icon' => 'question-sign black',
+                'label' => Yii::t('yupe', 'Помощь'),
+                'url' => array('/yupe/backend/help'),
+            )
+        );
+
         array_push($modulesNavigation, array(
             'icon' => 'off white',
             'label' => Yii::t('yupe', 'Выйти ({nick_name})', array('{nick_name}' => Yii::app()->user->nick_name)),

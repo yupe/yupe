@@ -42,6 +42,14 @@ class CommentModule extends YWebModule
             : Yii::t('comment', 'Комментарии');
     }
 
+    public function checkSelf()
+    {
+        $count = Comment::model()->new()->count();
+
+        if($count)
+            return array('type' => YWebModule::CHECK_NOTICE,'message' => Yii::t('comment','У Вас {{count}} новых комментариев',array('{{count}}' => $count)));
+    }
+
     public function getDescription()
     {
         return Yii::t('comment', 'Модуль для простых комментариев');
