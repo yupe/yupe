@@ -120,7 +120,8 @@ class Menu extends CActiveRecord
 
     public function getItems($code, $parent_id = 0)
     {
-        $results = $this->with(array('menuItems' => array(
+        $results = $this->cache(Yii::app()->getModule('yupe')->coreCacheTime)->with(array(
+        'menuItems' => array(
             'on' => 'menuItems.parent_id=:parent_id AND menuItems.status = 1',
             'params' => array('parent_id' => (int)$parent_id),
             'order' => 'menuItems.id ASC, menuItems.sort ASC',
@@ -150,9 +151,10 @@ class Menu extends CActiveRecord
                 ),
                 'submenuOptions' => array(),
                 'items' => $childItems,
-                'visible' => MenuItem::model()->getConditionVisible($result->condition, $result->condition_denial),
+                'visible' => MenuItem::model()->getConditionVisible($result->condition_name, $result->condition_denial),
             );
         }
         return $items;
     }
+
 }

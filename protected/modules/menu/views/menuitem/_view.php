@@ -16,9 +16,9 @@
     <b><?php echo CHtml::encode($data->getAttributeLabel('href')); ?>:</b>
     <?php echo CHtml::encode($data->href); ?>
     <br />
-
-    <b><?php echo CHtml::encode($data->getAttributeLabel('type')); ?>:</b>
-    <?php echo CHtml::encode($data->type); ?>
+    
+    <b><?php echo CHtml::encode($data->getAttributeLabel('condition_name')); ?>:</b>
+    <?php echo CHtml::encode($data->conditionName); ?>
     <br />
 
     <b><?php echo CHtml::encode($data->getAttributeLabel('menu_id')); ?>:</b>
