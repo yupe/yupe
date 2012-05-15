@@ -224,4 +224,17 @@ class BackendController extends YBackController
 
         Yii::app()->ajax->rawText(Yii::t('yupe', 'При загрузке произошла ошибка!'));
     }
+
+    /**
+     * Метод для очистки кэша
+     *
+     * @since 0.0.4
+     *
+     */
+    public function actionCacheflush()
+    {
+        Yii::app()->cache->flush();
+
+        $this->redirect(($referrer = Yii::app()->getRequest()->getUrlReferrer()) !== null ? $referrer : array("/yupe/backend"));
+    }
 }
