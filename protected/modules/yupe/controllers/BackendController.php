@@ -239,4 +239,15 @@ class BackendController extends YBackController
 
         $this->redirect(($referrer = Yii::app()->getRequest()->getUrlReferrer()) !== null ? $referrer : array("/yupe/backend"));
     }
+
+    /**
+     * Страничка для отображения ссылок на ресурсы для получения помощи
+     *
+     * @since 0.0.4
+     *
+     */
+    public function actionHelp()
+    {
+        $this->render('help');
+    }
 }

@@ -30,4 +30,9 @@
 
 <br/><br/>
 
+Jabber-конференция сервер: conference.yupe.ru, комната: yupe-talks (<a href="http://yupe.ru/post/djabber-konferentsiya-yupi.html">http://yupe.ru/post/djabber-konferentsiya-yupi.html</a>)
+
+<br/><br/>
+
 <?php echo Yii::t('install','Напишите нам на <b>team@yupe.ru</b>');?>  - <?php echo Yii::t('install','принимаем всякого рода коммерческие и любые предложения =)');?>
+

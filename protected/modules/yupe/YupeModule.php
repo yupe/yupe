@@ -324,6 +324,11 @@ class YupeModule extends YWebModule
             'url' => array('/yupe/backend/cacheflush'),
         ));
         array_push($modulesNavigation, array(
+            'icon' => 'question-sign white',
+            'label' => Yii::t('yupe', 'Помощь'),
+            'url' => array('/yupe/backend/help'),
+        ));
+        array_push($modulesNavigation, array(
             'icon' => 'off white',
             'label' => Yii::t('yupe', 'Выйти ({nick_name})', array('{nick_name}' => Yii::app()->user->nick_name)),
             'url' => array('/user/account/logout'),
