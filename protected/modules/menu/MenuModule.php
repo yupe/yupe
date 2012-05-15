@@ -24,7 +24,7 @@ class MenuModule extends YWebModule
 
     public function getVersion()
     {
-        return Yii::t('menu', '0.2 (dev)');
+        return Yii::t('menu', '0.3 (dev)');
     }
 
     public function getAuthor()
@@ -50,8 +50,8 @@ class MenuModule extends YWebModule
     public function init()
     {
         $this->setImport(array(
-            'menu.models.*',
-            'menu.components.*',
+            'application.modules.menu.models.*',
+            'application.modules.menu.components.*',
         ));
     }
 
