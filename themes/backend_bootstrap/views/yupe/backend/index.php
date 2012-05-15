@@ -1,6 +1,8 @@
-<h1><?php echo Yii::t('yupe', 'Панель управления "{app}" !',array('{app}' => CHtml::encode(Yii::app()->name)));?></h1>
+<div class="page-header">
+    <h1><?php echo Yii::t('yupe', 'Панель управления "{app}"',array('{app}' => CHtml::encode(Yii::app()->name)));?><br/>
+    <small><?php echo Yii::t('yupe', 'Добро пожаловать в панель управления Вашим сайтом!');?></small></h1>
+</div>
 
-<p><?php echo Yii::t('yupe', 'Добро пожаловать в панель управления Вашим сайтом!');?></p>
 
 <?php foreach ($modules as $module): ?>
 <?php if (is_array($module->checkSelf())): ?>
@@ -21,19 +23,21 @@
     php <?php echo Yii::t('yupe', 'версии');?>
     <b><?php echo phpversion();?></b></p>
 
-<p><?php echo Yii::t('yupe', 'Установлено модулей:');?>
-    <b><?php echo count($modules) + count($yiiModules);?></b></p>
+<p><?php echo Yii::t('yupe', 'Установлено');?>
+    <b><?php echo $mn=count($modules) + count($yiiModules);?></b>
+    <?=Yii::t('yupe','модуль|модуля|модулей',$mn)?>.
+</p>
 
 <?php if (count($modules)): ?>
-<p><?php echo Yii::t('yupe', 'Модули разработанные специально для "{app}" ',array('{app}' => CHtml::encode(Yii::app()->name)));?>
-    (<?php echo count($modules); ?>):</p>
-<table class="table table-striped">
+<div class="page-header">
+<h6><?php echo Yii::t('yupe', 'Модули разработанные специально для "{app}" ',array('{app}' => CHtml::encode(Yii::app()->name)));?></h6>
+</div>
+<table class="table table-striped table-vmiddle">
     <thead>
     <tr>
-        <th><?php echo Yii::t('yupe', 'Название');?></th>
-        <th><?php echo Yii::t('yupe', 'Категория');?></th>
-        <th><?php echo Yii::t('yupe', 'Автор');?></th>
-        <th><?php echo Yii::t('yupe', 'Версия');?></th>
+        <th></th>
+        <th style="width: 32px;"><?php echo Yii::t('yupe', 'Вер.');?></th>
+        <th style="width: 150px;"><?php echo Yii::t('yupe', 'Название');?></th>
         <th><?php echo Yii::t('yupe', 'Описание');?></th>
         <th></th>
         <th></th>
@@ -44,19 +48,27 @@
         <?php $style = is_array($module->checkSelf())
             ? "style='background-color:#FBC2C4;'" : ''; ?>
     <tr>
-        <td><?php echo CHtml::link($module->getName(), array($module->getAdminPageLink())); ?></td>
-        <td><?php echo $module->getCategory();?></td>
-        <td><?php echo $module->getAuthor(); ?>
-            (<?php echo $module->getAuthorEmail(); ?>)
-        </td>
-        <td><?php echo $module->getVersion(); ?></td>
+        <td><?=($module->icon?("<i class='icon-".$module->icon."'> </i> "):"")?></td>
+        <td><small class='label <?php
+            $v = $module->getVersion();
+            if (($n=strpos($v,"(dev)"))!==FALSE)
+                echo "label-warning' title='".Yii::t('yupe','Модуль в разработке')."'>".substr($v,0,$n);
+            else
+                echo "'>".$v;
+            ?></small></td>
+        <td>
+        <small style="font-size: 80%;"><?php echo $module->getCategory();?></small><br />
+        <?php echo CHtml::link($module->getName(), array($module->getAdminPageLink())); ?></td>
         <td>
             <?php echo $module->getDescription(); ?>
-            <?php echo CHtml::link($module->getUrl(), $module->getUrl()); ?>
+            <br />
+            <small style="font-size: 80%;"> <?="<b>".Yii::t('yupe',"Автор:")."</b> ".$module->getAuthor(); ?>
+            (<a href="mailto:<?=$module->getAuthorEmail()?>"><?=$module->getAuthorEmail()?></a>) &nbsp;
+            <?="<b>".Yii::t('yupe',"Сайт модуля:")."</b> ".CHtml::link($module->getUrl(), $module->getUrl()); ?></small><br />
         </td>
         <td>
             <?php if ($module->getEditableParams()): ?>
-            <?php echo CHtml::link(Yii::t('yupe', 'Настройки'), array('/yupe/backend/modulesettings/', 'module' => $module->getId())); ?>
+            <?php echo CHtml::link('<i class="icon-wrench" title="'.Yii::t('yupe', 'Настройки').'"> </i>', array('/yupe/backend/modulesettings/', 'module' => $module->getId())); ?>
             <?php endif;?>
         </td>
         <td>
@@ -68,7 +80,10 @@
 <?php endif; ?>
 
 <?php if (count($yiiModules)): ?>
-<p><?php echo Yii::t('yupe', 'Yii модули');?> (<?php echo count($yiiModules);?>):</p>
+<br />
+<div class="page-header">
+    <h6><?php echo Yii::t('yupe', 'Yii модули');?></h6>
+</div>
 <table  class="table table-striped">
     <thead>
     <tr>
@@ -91,4 +106,7 @@
 </table>
 <?php endif; ?>
 
-<?php $this->menu = $modulesNavigation; ?>
+<?php
+    $this->menu=$modulesNavigation;
+
+?>

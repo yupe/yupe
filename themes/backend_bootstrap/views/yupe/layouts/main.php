@@ -6,15 +6,23 @@
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
     <meta name="language" content="en"/>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    
-    <link rel="stylesheet" type="text/css"  href="<?php echo Yii::app()->theme->baseUrl; ?>/css/styles.css"/>
+
     <title><?php echo CHtml::encode(Yii::app()->name);?> <?php echo CHtml::encode($this->pageTitle); ?></title>
+    <link rel="stylesheet" type="text/css"  href="<?php echo Yii::app()->theme->baseUrl; ?>/css/styles.css"/>
 </head>
 
 <body>
 <div id="overall-wrap">
 <!-- mainmenu -->
     <?php
+
+        $items=$module->getModules(true);
+
+        // Для верхнего меню делаем иконки белыми ибо он с черным фоном
+        foreach($items as &$itm)
+            if (isset($itm['icon']) && $itm['icon'])
+                $itm['icon'].=" white";
+
         $this->widget('bootstrap.widgets.BootNavbar', array(
             'fixed'=> 'top',
             'fluid'=>true,
@@ -24,7 +32,7 @@
             'items'=>array(
                 array(
                     'class'=>'bootstrap.widgets.BootMenu',
-                    'items'=>$module->getModules(true),
+                    'items'=>$items,
                 ),
             ),
         ));

@@ -177,7 +177,7 @@ class YupeModule extends YWebModule
 
         $modulesNavigation = array('settings' => array(
                 'items' => array(),
-                'icon' => "wrench white",
+                'icon' => "wrench",
                 'label' => Yii::t('yupe', 'Настройки'),
                 'url' => '#',
                 'linkOptions' => array('class' => 'sub-menu')
@@ -215,6 +215,7 @@ class YupeModule extends YWebModule
             {
                 $links = $modules[$key]->getNavigation();
 
+                // если у модуля есть сабменю - выводим его выпадающим
                 if (is_array($links))
                 {
                     $inSettings = false;
@@ -228,7 +229,7 @@ class YupeModule extends YWebModule
                         // @TODO: Тут подставлять иконку категории вместо первого модуля
                         $modulesNavigation[$category[$key]]['icon'] = $modules[$key]->icon;
                     }
-                    $xxx= array( 'label' => $modules[$key]->name, 'items' => array(),'icon'=>$modules[$key]->icon , 'url' => array('#'));
+                    $subitem = array( 'label' => $modules[$key]->name, 'items' => array(),'icon'=>$modules[$key]->icon , 'url' => '#');
 
                     foreach ($links as $text => $url)
                     {
@@ -238,7 +239,7 @@ class YupeModule extends YWebModule
                             'icon' => $modules[$key]->icon,
                         );
 
-                        array_push($xxx['items'], $tmp);
+                        array_push($subitem['items'], $tmp);
 
                         // собрать все для меню "Настройки"
                         if (!$inSettings && $modules[$key]->getEditableParams())
@@ -255,13 +256,14 @@ class YupeModule extends YWebModule
                             $inSettings = true;
                         }
                     }
-                    array_push($modulesNavigation[$category[$key]]['items'], $xxx);
+                    array_push($modulesNavigation[$category[$key]]['items'], $subitem);
                 }
                 else
                 {
                     $data = array(
                         'label' => $modules[$key]->getName(),
-                        'url' => array($modules[$key]->getAdminPageLink())
+                        'url' => array($modules[$key]->getAdminPageLink()),
+                        'icon' => $modules[$key]->icon,
                     );
 
                     if ($modules[$key]->getIsShowInAdminMenu())
@@ -274,11 +276,8 @@ class YupeModule extends YWebModule
                                 $modulesNavigation[$category[$key]]['label'] = $category[$key];
                                 $modulesNavigation[$category[$key]]['linkOptions'] = array('class' => 'sub-menu');
                                 $modulesNavigation[$category[$key]]['url'] = '#';
-                                if ($icon = $modules[$key]->icon)
-                                    if ((strpos($icon, ".gif") === FALSE) && (strpos($icon, ".jpg") === FALSE) && (strpos($icon, ".jpeg") === FALSE) && (strpos($icon, ".png") === FALSE))
-                                        $modulesNavigation[$category[$key]]['icon'] = $modules[$key]->icon . ' white';
-                                    else
-                                        $modulesNavigation[$category[$key]]['icon'] = $icon;
+                                if ($modules[$key]->icon)
+                                        $modulesNavigation[$category[$key]]['icon'] = $modules[$key]->icon;
                             }
 
                             array_push($modulesNavigation[$category[$key]]['items'], $data);
@@ -311,12 +310,12 @@ class YupeModule extends YWebModule
         ));
 
         array_unshift($modulesNavigation, array(
-            'icon' => 'home white',
+            'icon' => 'home',
             'label' => Yii::t('yupe', 'На сайт'),
             'url' => array('/')
         ));
         array_push($modulesNavigation, array(
-            'icon' => 'off white',
+            'icon' => 'off',
             'label' => Yii::t('yupe', 'Войти'),
             'url' => array('/site/login'),
             'visible' => !Yii::app()->user->isAuthenticated()
@@ -324,25 +323,25 @@ class YupeModule extends YWebModule
 
         $modulesNavigation[Yii::t('yupe','Система')] = array(
             'label' => Yii::t('yupe','Система'),
-            'icon'  => 'info-sign white',
+            'icon'  => 'info-sign',
             'url'   => '#'
         );
 
         $modulesNavigation[Yii::t('yupe','Система')]['items'] = array(
             array(
-                'icon' => 'trash black',
+                'icon' => 'trash',
                 'label' => Yii::t('yupe', 'Очистить кэш'),
                 'url' => array('/yupe/backend/cacheflush'),
             ),
             array(
-                'icon' => 'question-sign black',
+                'icon' => 'question-sign',
                 'label' => Yii::t('yupe', 'Помощь'),
                 'url' => array('/yupe/backend/help'),
             )
         );
 
         array_push($modulesNavigation, array(
-            'icon' => 'off white',
+            'icon' => 'off',
             'label' => Yii::t('yupe', 'Выйти ({nick_name})', array('{nick_name}' => Yii::app()->user->nick_name)),
             'url' => array('/user/account/logout'),
             'visible' => Yii::app()->user->isAuthenticated()

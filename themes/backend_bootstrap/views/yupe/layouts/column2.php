@@ -8,7 +8,7 @@
         <?php
         if ( count($this->breadcrumbs) )
         $this->widget('bootstrap.widgets.BootBreadcrumbs', array(
-                                                         'homeLink' => array('label'=>Yii::t('yupe', 'Главная'), 'url'=>array('/yupe/backend/')),
+                                                         'homeLink' => CHtml::link(Yii::t('yupe', 'Главная'), array('/yupe/backend/')),
                                                          'links' => $this->breadcrumbs,
                                                     )); ?><!-- breadcrumbs -->
         <div id="content">
@@ -19,16 +19,23 @@
     <div class="span3">
         <?php
         if ( count($this->menu) )
-        {
+        {//print_r($this-> menu);
             $items=array();
             foreach ( $this->menu as $mid=>$mi )
             {
                 if ( isset($mi['items']) && is_array($mi['items']) )
                 {
-                    $items+=$mi['items'];
+                    $it=$mi['items'];
                     unset($mi['items']);
-                }
-                $items[]=$mi;
+                    unset($mi['icon']);
+                    unset($mi['url']);
+                    array_push($items,$mi); //array('label'=>$mid)
+                    $items=array_merge($items,$it);
+                    array_push($items,"---");
+
+
+                } else $items[]=$mi;
+
             }
         ?>
         <div class="well" style="padding: 8px 0;">

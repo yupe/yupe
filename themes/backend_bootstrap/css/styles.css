@@ -64,6 +64,11 @@ footer {
     margin-top: 27px;
 }
 
+.table-vmiddle td {
+    vertical-align: middle;
+}
+
+
 .sidebar-nav {
     padding: 9px 0;
 }
