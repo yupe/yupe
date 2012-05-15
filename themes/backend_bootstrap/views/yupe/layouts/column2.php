@@ -4,14 +4,13 @@
 ?>
   <div class="row-fluid">
     <div class="span9">
+        <?php $this->widget('YFlashMessages');?>
         <?php
         if ( count($this->breadcrumbs) )
         $this->widget('bootstrap.widgets.BootBreadcrumbs', array(
                                                          'homeLink' => array('label'=>Yii::t('yupe', 'Главная'), 'url'=>array('/yupe/backend/')),
                                                          'links' => $this->breadcrumbs,
                                                     )); ?><!-- breadcrumbs -->
-
-        <?php $this->widget('YFlashMessages');?>
         <div id="content">
             <?php echo $content; ?>
         </div>

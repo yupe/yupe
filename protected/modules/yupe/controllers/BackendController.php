@@ -235,6 +235,8 @@ class BackendController extends YBackController
     {
         Yii::app()->cache->flush();
 
+        Yii::app()->user->setFlash(YFlashMessages::NOTICE_MESSAGE, Yii::t('yupe', 'Кэш успешно сброшен!'));
+
         $this->redirect(($referrer = Yii::app()->getRequest()->getUrlReferrer()) !== null ? $referrer : array("/yupe/backend"));
     }
 }
