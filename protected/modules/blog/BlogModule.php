@@ -70,7 +70,7 @@ class BlogModule extends YWebModule
 
     public function getIcon()
     {
-        return "star";
+        return "pencil";
     }
 
     public function init()
