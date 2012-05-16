@@ -23,6 +23,7 @@
             $itm['icon'] .= " white";
 
     $rightMenu = array(
+        "",
         array(
             'icon' => 'home white',
             'label' => Yii::t('yupe', 'На сайт'),
@@ -52,7 +53,10 @@
                 'htmlOptions' => array('class' => 'pull-right'),
                 'items' => $rightMenu,
             ),
-            "<div style='float:right;line-height:15px;'><small style='font-size: 80%;'>" . Yii::t('yupe', 'Администатор') . "</small><br /><span class='label'>" . Yii::app()->user->nick_name . "</span></div>",
+            "<div style='float:right;line-height:16px;text-align:center;'>
+                <small style='font-size: 80%;'>" . Yii::t('yupe', 'Администатор') . "</small><br />
+                <span class='label'>" . Yii::app()->user->nick_name . "</span>
+             </div>",
         ),
     ));
     ?>
