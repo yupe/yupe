@@ -18,6 +18,33 @@
 	                </script>
 	     <![endif]-->
 	</head>
+	<div id="window_background" style="cursor: pointer; display: block; opacity: 0.4;"></div>
+	<div id="window" style="z-index: 9999; top: 160px; left: 50%; position: fixed; display: block">
+		<div class="head-wind">
+			<span>Авторизация</span>
+			<a class="close" href="#" onClick="return false"><img src="images/authorization_bottom_close.png"></a>
+		</div>
+		<div class="enter-block">
+				<form id="authPop" method="post" action="/user/login/">
+			<div style="display:none">
+				<input type="hidden" name="CSRFTOKEN" value="0e530da808125c48ba63ca873f069196d3d92032">
+			</div>
+			<div class="col left">
+				<label>Логин или эл. почта:</label>
+				<input id="LoginForm_username" class="txt-field" type="text" name="LoginForm[username]">
+			</div>
+			<div class="col right">
+				<label>Пароль:</label>
+				<input id="LoginForm_password" class="txt-field" type="password" name="LoginForm[password]">
+				<div class="save_me">
+				<input type="checkbox" id="check2"><label for="check2">Запомнить меня</label>
+				</div>
+				<input class="submit" type="submit" value="Войти">
+				<a href="/user/lostpassword/">Напомнить пароль</a>
+			</div>
+				</form>
+		</div>
+	</div>
 	<body>
 		<section id="overall_wrapper">
 			<header>

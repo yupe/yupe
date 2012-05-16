@@ -1,0 +1,123 @@
+<!doctype html>
+<html>
+	<head>
+		<title>Yupe!</title>
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+		<meta charset="utf-8" />
+		<link href="css/styles.css" type="text/css" rel="stylesheet" />
+	    <!--[if IE]>
+	                <script>
+	                        document.createElement('header');
+	                        document.createElement('nav');
+	                        document.createElement('section');
+	                        document.createElement('article');
+	                        document.createElement('aside');
+	                        document.createElement('footer');
+	                        document.createElement('time');
+
+	                </script>
+	     <![endif]-->
+	</head>
+	<body>
+		<section id="overall_wrapper">
+			<header>
+				<a href="https://github.com/yupe/yupe" id="forkme" rel="nofollow"></a>
+				<div class="center_wrapper">
+					<nav>
+						<ul class="topmenu">
+							<li><a href="#">О проекте</a></li>
+							<li><a href="#">Документация</a>
+								<div>
+									<ul>
+										<li><a href="#">Содержание</a></li>
+										<li><a href="#">Оглавление</a></li>
+
+										<li><a href="#">Кукбук</a></li>
+										<li class="last"><a href="#">Рецепты</a></li>
+									</ul>
+								</div>
+
+							</li>
+							<li><a href="blog.html">Сообщество</a></li>
+							<li>
+								<a href="#">Модули</a>
+								<div>
+									<ul>
+										<li><a href="#">Портал</a></li>
+										<li class="active"><span>Магазин</span></li>
+
+										<li><a href="#">Сообщество</a></li>
+										<li class="last"><a href="#">Календари</a></li>
+									</ul>
+								</div>
+							</li>
+							<li><a href="#">Разработка</a>
+								<div>
+									<ul>
+										<li><a href="#">Портал</a></li>
+										<li class="active"><span>Магазин</span></li>
+
+										<li><a href="#">Сообщество</a></li>
+										<li class="last"><a href="#">Календари</a></li>
+									</ul>
+								</div>
+							</li>
+						</ul>
+					</nav>
+					<div id="right_btns">
+						<a href="#">регистрация</a> / <a href="#">вход</a>
+					</div>
+				</div>
+			</header>
+			<section id="inner">
+					<img class="logo-inner" src="images/logo_main.png" width="211" height="75" alt="Yupe!" title="Yupe!" />
+					<div class="conteiner-reg">
+                        <h2>Регистрация</h2>
+                        <form id="authPop" action="/user/login/" method="post">
+                        <div class="col">
+                        <label>Логин</label>
+                        <input id="conteiner-reg" class="txt-field" type="text" name="registration">
+                        <p>Может состоять только из букв (A-Z a-z), цифр (0-9). Знак подчеркивания (_) лучше не использовать. Длина логина не может быть меньше 3 и больше 30 символов.</p>
+                        <label>Электронная почта</label>
+                        <input id="conteiner-reg" class="txt-field" type="text" name="registration">
+                        <p>Для проверки регистрации и в целях безопасности нам нужен адрес вашей электропочты.</p>
+                        <label>Пароль</label>
+                        <input id="conteiner-reg" class="txt-field" type="text" name="registration">
+                        <p>Должен содержать не менее 5 символов и не может совпадать с логином. Не используйте простые пароли, будьте разумны.</p>
+                        <label>Подтвердите пароль</label>
+                        <input id="conteiner-reg" class="txt-field" type="text" name="registration">
+                        <p>Введите пароль ещё раз</p>
+                        <label>Введите цифры и буквы</label><br>
+                        <img src="img/kod.png">
+                        <input id="conteiner-reg" class="txt-field" type="text" name="registration">
+                        <input class="submit" type="submit" value="Зарегистрироваться">
+                        </div>
+                        <div id="inform-wrap-blog" class="rightly-bgc">
+                            <p>Все поля заполнены верно.</p>
+                        </div>
+                        </form>
+                    </div>
+			</section>
+			<div id="footer-guardian"><!-- --></div>
+		</section>
+		<footer>
+			<div class="center_wrapper">
+				<nav>
+					<a href="#">О проекте</a>&nbsp;/&nbsp;
+					<a href="#">Документация</a>&nbsp;/&nbsp;
+					<a href="#">Модули</a>&nbsp;/&nbsp;
+					<a href="#">Сообщество</a>&nbsp;/&nbsp;
+					<a href="#">Разработка</a> <br />
+					<div>&copy; 2009-2012 Юпи! Powered by Yii</div>
+
+				</nav>
+				<section class="logos">
+					<a href="http://twitter.com/#yupi"><img src="images/twitter.png" title="Yupe! В твиттере" alt="Yupe! В твиттере" /></a>
+					<a href="http://twitter.com/#yupi"><img src="images/rss.png" title="Yupe! RSS-поток" alt="Yupe! RSS-поток" /></a>
+					<a href="https://github.com/yupe/yupe"><img src="images/github.png" title="Yupe! На GitHub" alt="Yupe! На GitHub" /></a>
+				</section>
+
+			</div>
+		</footer>
+	</body>
+</html>
