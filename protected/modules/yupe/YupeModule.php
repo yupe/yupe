@@ -340,13 +340,6 @@ class YupeModule extends YWebModule
             )
         );
 
-        array_push($modulesNavigation, array(
-            'icon' => 'off',
-            'label' => Yii::t('yupe', 'Выйти ({nick_name})', array('{nick_name}' => Yii::app()->user->nick_name)),
-            'url' => array('/user/account/logout'),
-            'visible' => Yii::app()->user->isAuthenticated()
-        ));
-
         return $navigationOnly === true ? $modulesNavigation : array(
             'modules' => $modules,
             'yiiModules' => $yiiModules,

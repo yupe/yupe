@@ -69,6 +69,7 @@ footer {
 }
 
 
+/* третий уровень */
 .sidebar-nav {
     padding: 9px 0;
 }
@@ -111,4 +112,20 @@ footer {
     color: white;
     text-decoration: none;
     background-color: #08C;
+}
+
+/* =========== */
+.navbar .brand {
+    padding:0 5px 0 20px;
+    height:40px;
+    width:40px;
+}
+.navbar .brand img {
+    margin-top:1px;
+}
+
+.navbar .nav > li > a {
+    padding-left: 8px;
+    padding-right: 8px;
+
 }

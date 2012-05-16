@@ -18,9 +18,12 @@
     </div>
     <div class="span3">
         <?php
+
         if ( count($this->menu) )
-        {//print_r($this-> menu);
+        {
             $items=array();
+
+            // Преобразование пунктов, содержащих сабменю в заголовки групп
             foreach ( $this->menu as $mid=>$mi )
             {
                 if ( isset($mi['items']) && is_array($mi['items']) )
@@ -29,11 +32,9 @@
                     unset($mi['items']);
                     unset($mi['icon']);
                     unset($mi['url']);
-                    array_push($items,$mi); //array('label'=>$mid)
+                    array_push($items,$mi);
                     $items=array_merge($items,$it);
                     array_push($items,"---");
-
-
                 } else $items[]=$mi;
 
             }
