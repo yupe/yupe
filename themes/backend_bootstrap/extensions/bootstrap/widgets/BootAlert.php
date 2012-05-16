@@ -66,23 +66,17 @@ class BootAlert extends CWidget
 
 		echo '</div>';
 
+		$selector = "#{$id} .alert";
+		$id .= '_'.uniqid(true, true);
+
 		/** @var CClientScript $cs */
 		$cs = Yii::app()->getClientScript();
-		$selector = "#{$id} .alert";
 		$cs->registerScript(__CLASS__.'#'.$id, "jQuery('{$selector}').alert();");
 
-		// Register the "close" event-handler.
-		if (isset($this->events['close']))
+		foreach ($this->events as $name => $handler)
 		{
-			$fn = CJavaScript::encode($this->events['close']);
-			$cs->registerScript(__CLASS__.'#'.$id.'.close', "jQuery('{$selector}').bind('close', {$fn});");
-		}
-
-		// Register the "closed" event-handler.
-		if (isset($this->events['closed']))
-		{
-			$fn = CJavaScript::encode($this->events['closed']);
-			$cs->registerScript(__CLASS__.'#'.$id.'.closed', "jQuery('{$selector}').bind('closed', {$fn});");
+			$handler = CJavaScript::encode($handler);
+			$cs->registerScript(__CLASS__.'#'.$id.'_'.$name, "jQuery('{$selector}').on('".$name."', {$handler});");
 		}
 	}
 }

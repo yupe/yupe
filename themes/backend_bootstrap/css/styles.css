@@ -63,3 +63,69 @@ footer {
 .inline .help-inline {
     margin-top: 27px;
 }
+
+.table-vmiddle td {
+    vertical-align: middle;
+}
+
+
+/* третий уровень */
+.sidebar-nav {
+    padding: 9px 0;
+}
+
+.dropdown-menu li {
+    position: relative;
+}
+.dropdown-menu .sub-menu {
+    left: 100%;
+    position: absolute;
+    top: 0;
+    visibility: hidden;
+    margin-top: -7px;
+}
+
+.dropdown-menu li:hover .sub-menu {
+    visibility: visible;
+}
+
+.navbar .sub-menu:before {
+    border-bottom: 7px solid transparent;
+    border-left: none;
+    border-right: 7px solid rgba(0, 0, 0, 0.2);
+    border-top: 7px solid transparent;
+    left: -7px;
+    top: 10px;
+}
+
+.navbar .sub-menu:after {
+    border-top: 6px solid transparent;
+    border-left: none;
+    border-right: 6px solid #fff;
+    border-bottom: 6px solid transparent;
+    left: 10px;
+    top: 11px;
+    left: -6px;
+}
+​
+.dropdown-menu li:hover {
+    color: white;
+    text-decoration: none;
+    background-color: #08C;
+}
+
+/* =========== */
+.navbar .brand {
+    padding:0 5px 0 20px;
+    height:40px;
+    width:40px;
+}
+.navbar .brand img {
+    margin-top:1px;
+}
+
+.navbar .nav > li > a {
+    padding-left: 8px;
+    padding-right: 8px;
+
+}

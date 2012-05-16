@@ -100,18 +100,10 @@ class BootTabbable extends CWidget
 	    $cs = Yii::app()->getClientScript();
 	    $cs->registerScript(__CLASS__.'#'.$id, "jQuery('#{$id}').tab('show');");
 
-        // Register the "show" event-handler.
-        if (isset($this->events['show']))
+	    foreach ($this->events as $name => $handler)
         {
-            $fn = CJavaScript::encode($this->events['show']);
-	        $cs->registerScript(__CLASS__.'#'.$id.'.show', "jQuery('#{$id} a[data-toggle=\"tab\"]').on('show', {$fn});");
-        }
-
-        // Register the "shown" event-handler.
-        if (isset($this->events['shown']))
-        {
-            $fn = CJavaScript::encode($this->events['shown']);
-	        $cs->registerScript(__CLASS__.'#'.$id.'.shown', "jQuery('#{$id} a[data-toggle=\"tab\"]').on('shown', {$fn});");
+            $handler = CJavaScript::encode($handler);
+            $cs->registerScript(__CLASS__.'#'.$id.'_'.$name, "jQuery('#{$id}').on('".$name."', {$handler});");
         }
     }
 
