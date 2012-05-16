@@ -5,7 +5,7 @@ class BlogModule extends YWebModule
 
     public function getCategory()
     {
-        return Yii::t('blog', 'Сервисы');
+        return Yii::t('blog', 'Контент');
     }
 
     public function getParamsLabels()
@@ -70,7 +70,7 @@ class BlogModule extends YWebModule
 
     public function getIcon()
     {
-        return "star";
+        return "pencil";
     }
 
     public function init()

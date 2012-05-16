@@ -4,14 +4,14 @@
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
     <meta name="language" content="en"/>
-<?php
-        $module = Yii::app()->getModule('yupe');
-        $jqueryslidemenupath = Yii::app()->assetManager->publish($module->basePath. '/web/jqueryslidemenu/');
-        Yii::app()->clientScript->registerCssFile($jqueryslidemenupath . '/jqueryslidemenu.css');
-        Yii::app()->clientScript->registerScriptFile($jqueryslidemenupath . '/jqueryslidemenu.js');
-        $webPath = Yii::app()->assetManager->publish($module->basePath. '/web/');
-        Yii::app()->clientScript->registerScriptFile($webPath.'/yupeAdmin.js');
-?>
+    <?php
+    $module = Yii::app()->getModule('yupe');
+    $jqueryslidemenupath = Yii::app()->assetManager->publish($module->basePath . '/web/jqueryslidemenu/');
+    Yii::app()->clientScript->registerCssFile($jqueryslidemenupath . '/jqueryslidemenu.css');
+    Yii::app()->clientScript->registerScriptFile($jqueryslidemenupath . '/jqueryslidemenu.js');
+    $webPath = Yii::app()->assetManager->publish($module->basePath . '/web/');
+    Yii::app()->clientScript->registerScriptFile($webPath . '/yupeAdmin.js');
+    ?>
     <!-- blueprint CSS framework -->
     <link rel="stylesheet" type="text/css"
           href="<?php echo Yii::app()->request->baseUrl; ?>/css/screen.css"
@@ -29,10 +29,10 @@
     <link rel="stylesheet" type="text/css"
           href="<?php echo Yii::app()->request->baseUrl; ?>/css/form.css"/>
     <script type='text/javascript'>
-        var arrowimages = {down:['downarrowclass', '<?php echo $webPath;?>/jqueryslidemenu/down.gif', 23], right:['rightarrowclass', '<?php $webPath;?>/jqueryslidemenu/right.gif']}
+        var arrowimages = {down:['downarrowclass', '<?php echo $webPath; ?>/jqueryslidemenu/down.gif', 23], right:['rightarrowclass', '<?php $webPath; ?>/jqueryslidemenu/right.gif']}
     </script>
 
-    <title><?php echo CHtml::encode(Yii::app()->name);?> <?php echo CHtml::encode($this->pageTitle); ?></title>
+    <title><?php echo CHtml::encode(Yii::app()->name); ?> <?php echo CHtml::encode($this->pageTitle); ?></title>
 </head>
 
 <body>
@@ -45,43 +45,49 @@
 <div class="container" id="page">
 
     <div id="header">
-        <div
-            id="logo"><?php echo CHtml::encode(Yii::app()->name);?> <?php echo Yii::t('yupe', 'Панель управления')?></div>
+        <div id="logo"><?php echo CHtml::encode(Yii::app()->name); ?> <?php echo Yii::t('yupe', 'Панель управления')?></div>
     </div>
     <!-- header -->
     <div id="myslidemenu" class='jqueryslidemenu'>
-        <?php 
+        <?php
+        $menu = $module->getModules(true);
+        
+        array_push($menu, array(
+            'icon' => 'home white',
+            'label' => Yii::t('yupe', 'На сайт'),
+            'url' => array('/')
+        ));
+        
+        array_push($menu, array(
+            'icon' => 'off white',
+            'label' => Yii::t('yupe', 'Выйти ({nick_name})', array('{nick_name}' => Yii::app()->user->nick_name)),
+            'url' => array('/user/account/logout'),
+            'visible' => Yii::app()->user->isAuthenticated(),
+        ));
 
-   	 $menu = $module->getModules(true);
-    array_push($menu,
-        array(
-        'icon' => 'off white',
-	'label' => Yii::t('yupe', 'Выйти ({nick_name})', array('{nick_name}' => Yii::app()->user->nick_name)),
-        'url' => array('/user/account/logout'),
-        'visible' => Yii::app()->user->isAuthenticated()
-        )
-    );
-
-	$this->widget('zii.widgets.CMenu', array(
-                                                      'hideEmptyItems' => true,
-                                                      'items' => $menu,
-                                                 )); ?>
+        $this->widget('zii.widgets.CMenu', array(
+            'hideEmptyItems' => true,
+            'items' => $menu,
+        ));
+        ?>
         <br style="clear: left"/>
     </div>
     <!-- mainmenu -->
 
-    <?php $this->widget('zii.widgets.CBreadcrumbs', array(
-                                                         'homeLink' => CHtml::link(Yii::t('yupe', 'Главная'), array('/yupe/backend/')),
-                                                         'links' => $this->breadcrumbs,
-                                                    )); ?><!-- breadcrumbs -->
+    <?php
+    $this->widget('zii.widgets.CBreadcrumbs', array(
+        'homeLink' => CHtml::link(Yii::t('yupe', 'Главная'), array('/yupe/backend/')),
+        'links' => $this->breadcrumbs,
+    ));
+    ?><!-- breadcrumbs -->
 
     <?php echo $content; ?>
 
     <div id="footer">
         Copyright &copy; 2009-<?php echo date('Y'); ?> <a
-        href='<?php echo $module->brandUrl?>'><?php echo CHtml::encode(Yii::app()->name);?></a> <a href="mailto:team@yupe.ru">yupe team</a><br/>
+        href='<?php echo $module->brandUrl?>'><?php echo CHtml::encode(Yii::app()->name); ?></a> <a href="mailto:team@yupe.ru">yupe team</a><br/>
         <?php echo Yii::powered(); ?>
-        <?php $this->widget('YPerformanceStatistic');?>
+        <?php $this->widget('YPerformanceStatistic'); ?>
     </div>
     <!-- footer -->
 </div>
