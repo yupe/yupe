@@ -5,7 +5,7 @@ class BlogModule extends YWebModule
 
     public function getCategory()
     {
-        return Yii::t('blog', 'Сервисы');
+        return Yii::t('blog', 'Контент');
     }
 
     public function getParamsLabels()
