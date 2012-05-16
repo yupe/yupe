@@ -304,16 +304,11 @@ class YupeModule extends YWebModule
 
         //@todo стоит подумать как этот хардкод убрать =)
         array_unshift($modulesNavigation['settings']['items'], array(
-            'icon' => 'asterisk',
+            'icon' => 'gift',
             'label' => Yii::t('yupe', 'Оформление'),
             'url' => array('/yupe/backend/themesettings')
         ));
 
-        array_unshift($modulesNavigation, array(
-            'icon' => 'home',
-            'label' => Yii::t('yupe', 'На сайт'),
-            'url' => array('/')
-        ));
         array_push($modulesNavigation, array(
             'icon' => 'off',
             'label' => Yii::t('yupe', 'Войти'),

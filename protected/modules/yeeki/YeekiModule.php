@@ -7,6 +7,24 @@
  */
 class YeekiModule extends YWebModule
 {
+    public $editor = 'application.modules.yupe.widgets.editors.imperaviRedactor.EImperaviRedactorWidget';
+
+    public function getParamsLabels()
+    {
+        return array(
+            'adminMenuOrder' => Yii::t('page','Порядок следования в меню'),
+            'editor' => Yii::t('page','Визуальный редактор'),
+        );
+    }
+
+    public function getEditableParams()
+    {
+        return array(
+            'adminMenuOrder',
+            'editor' => Yii::app()->getModule('yupe')->getEditors()
+        );
+    }
+
     public function getCategory()
     {
         return Yii::t('menu', 'Контент');
@@ -15,7 +33,7 @@ class YeekiModule extends YWebModule
     public function getNavigation()
     {
         return array(
-            //Yii::t('menu', 'Wiki')=>'/wiki/default/admin/',
+            Yii::t('menu', 'Главная')=>'/wiki/default/index/',
         );
     }
 
@@ -26,27 +44,32 @@ class YeekiModule extends YWebModule
 
     public function getDescription()
     {
-        return Yii::t('menu', 'Модуль для создания и редактирования меню');
+        return Yii::t('menu', 'Модуль для создания раздела wiki');
     }
 
     public function getVersion()
     {
-        return Yii::t('comment', '1.0');
+        return Yii::t('comment', '0.1 (dev)');
     }
 
     public function getAuthor()
     {
-        return Yii::t('menu', 'Alexander Makarov, @samdark. Mark Bryk, @mbryk.');
+        return Yii::t('menu', 'yupe team');
     }
 
     public function getAuthorEmail()
     {
-        return Yii::t('menu', 'sam@rmcreative.ru');
+        return Yii::t('menu', 'team@yupe.ru');
     }
 
     public function getUrl()
     {
-        return Yii::t('menu', 'https://github.com/samdark/Yeeki');
+        return Yii::t('blog', 'http://yupe.ru');
+    }
+
+    public function getIcon()
+    {
+        return "file";
     }
 
     public function init()
@@ -60,6 +83,9 @@ class YeekiModule extends YWebModule
             'application.modules.yeeki.modules.wiki.*',
             'application.modules.yeeki.modules.wiki.components.*',
         ));
+
+        if ( !$this->editor )
+            $this->editor=Yii::app()->getModule('yupe')->editor;
     }
 
 }
