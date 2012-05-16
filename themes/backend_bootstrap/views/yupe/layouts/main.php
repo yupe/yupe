@@ -25,11 +25,16 @@
 
     $rightMenu = array(
         array(
+            'icon' => 'home white',
+            'label' => Yii::t('yupe', 'На сайт'),
+            'url' => array('/')
+        ),
+        array(
         'icon' => 'off white',
         'label' => Yii::t('yupe', 'Выйти'),
         'url' => array('/user/account/logout'),
         'visible' => Yii::app()->user->isAuthenticated()
-        )
+        ),
     );
 
     $this->widget('bootstrap.widgets.BootNavbar', array(

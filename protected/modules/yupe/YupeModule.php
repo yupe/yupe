@@ -309,11 +309,6 @@ class YupeModule extends YWebModule
             'url' => array('/yupe/backend/themesettings')
         ));
 
-        array_unshift($modulesNavigation, array(
-            'icon' => 'home',
-            'label' => Yii::t('yupe', 'На сайт'),
-            'url' => array('/')
-        ));
         array_push($modulesNavigation, array(
             'icon' => 'off',
             'label' => Yii::t('yupe', 'Войти'),

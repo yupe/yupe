@@ -51,6 +51,13 @@
     <div id="myslidemenu" class='jqueryslidemenu'>
         <?php
         $menu = $module->getModules(true);
+        
+        array_push($menu, array(
+            'icon' => 'home white',
+            'label' => Yii::t('yupe', 'На сайт'),
+            'url' => array('/')
+        ));
+        
         array_push($menu, array(
             'icon' => 'off white',
             'label' => Yii::t('yupe', 'Выйти ({nick_name})', array('{nick_name}' => Yii::app()->user->nick_name)),
