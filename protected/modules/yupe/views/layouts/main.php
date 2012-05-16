@@ -28,9 +28,8 @@
           href="<?php echo Yii::app()->request->baseUrl; ?>/css/main.css"/>
     <link rel="stylesheet" type="text/css"
           href="<?php echo Yii::app()->request->baseUrl; ?>/css/form.css"/>
-
     <script type='text/javascript'>
-        var arrowimages = {down:['downarrowclass', '<?php echo Yii::app()->request->baseUrl;?>/web/images/down.gif', 23], right:['rightarrowclass', '<?php echo Yii::app()->request->baseUrl;?>/web/images/right.gif']}
+        var arrowimages = {down:['downarrowclass', '<?php echo $webPath;?>/jqueryslidemenu/down.gif', 23], right:['rightarrowclass', '<?php $webPath;?>/jqueryslidemenu/right.gif']}
     </script>
 
     <title><?php echo CHtml::encode(Yii::app()->name);?> <?php echo CHtml::encode($this->pageTitle); ?></title>
@@ -51,9 +50,21 @@
     </div>
     <!-- header -->
     <div id="myslidemenu" class='jqueryslidemenu'>
-        <?php $this->widget('zii.widgets.CMenu', array(
+        <?php 
+
+   	 $menu = $module->getModules(true);
+    array_push($menu,
+        array(
+        'icon' => 'off white',
+	'label' => Yii::t('yupe', 'Выйти ({nick_name})', array('{nick_name}' => Yii::app()->user->nick_name)),
+        'url' => array('/user/account/logout'),
+        'visible' => Yii::app()->user->isAuthenticated()
+        )
+    );
+
+	$this->widget('zii.widgets.CMenu', array(
                                                       'hideEmptyItems' => true,
-                                                      'items' => $module->getModules(true)
+                                                      'items' => $menu,
                                                  )); ?>
         <br style="clear: left"/>
     </div>

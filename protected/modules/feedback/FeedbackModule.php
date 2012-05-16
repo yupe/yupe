@@ -55,14 +55,12 @@ class FeedbackModule extends YWebModule
         $count = FeedBack::model()->new()->cache($this->cacheTime)->count();
 
         if($count)
-            return array('type' => YWebModule::CHECK_NOTICE,'message' => Yii::t('feedback','У Вас {{count}} новых сообщений с сайта',array('{{count}}' => $count)));
+            return array('type' => YWebModule::CHECK_NOTICE,'message' => Yii::t('feedback','У Вас {{count}} ',array('{{count}}' => $count)).Yii::t('feedback',"новое сообщение с сайта|новых сообщения с сайта|новых сообщений с сайта",$count) );
     }
 
     public function getName()
     {
-        $count = FeedBack::model()->new()->cache($this->cacheTime)->count();
-        return $count ? Yii::t('feedback', 'Сообщения с сайта') . " ($count)"
-            : Yii::t('feedback', 'Сообщения с сайта');
+        return Yii::t('feedback', 'Сообщения с сайта');
     }
 
     public function getCategory()

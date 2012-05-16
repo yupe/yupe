@@ -19,7 +19,7 @@ class BootInputSearch extends BootInputInline
 	 * Renders a text field.
 	 * @return string the rendered content
 	 */
-	protected function textField()
+	protected function searchField()
 	{
 		$classes = 'search-query';
 		if (isset($this->htmlOptions['class']))

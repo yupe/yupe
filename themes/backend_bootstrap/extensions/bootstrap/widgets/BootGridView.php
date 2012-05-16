@@ -62,6 +62,21 @@ class BootGridView extends CGridView
 				$classes[] = 'table-'.$type;
 
 		$this->itemsCssClass .= ' '.implode(' ', $classes);
+
+		$popover = Yii::app()->bootstrap->popoverSelector;
+		$tooltip = Yii::app()->bootstrap->tooltipSelector;
+		
+		$afterAjaxUpdate = "js:function() {
+			jQuery('.popover').remove();
+			jQuery('{$popover}').popover();
+			jQuery('.tooltip').remove();
+			jQuery('{$tooltip}').tooltip();
+		}";
+
+		if (isset($this->afterAjaxUpdate))
+			$this->afterAjaxUpdate .= ' '.$afterAjaxUpdate;
+		else
+			$this->afterAjaxUpdate = $afterAjaxUpdate;
 	}
 
 	/**

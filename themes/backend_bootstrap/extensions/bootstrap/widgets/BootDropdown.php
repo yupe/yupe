@@ -62,7 +62,15 @@ class BootDropdown extends BootBaseMenu
 					$item['itemOptions']['class'] = $classes;
 
 				echo CHtml::openTag('li', $item['itemOptions']);
-				$menu = $this->renderItem($item);
+
+                if ( isset($item['items']) && is_array($item['items']))
+                {
+                    $item['label'].="<i style='float: right;' class='icon-chevron-right'> </i>";
+                    $menu = $this->renderItem($item);
+                    ob_start();
+                    $this->renderItems($item['items']);
+                    $menu.=CHtml::openTag('ul',array('class'=>'dropdown-menu sub-menu')).ob_get_clean().CHtml::closeTag('ul');
+                } else $menu = $this->renderItem($item);
 
 				if (isset($this->itemTemplate) || isset($item['template']))
 				{
