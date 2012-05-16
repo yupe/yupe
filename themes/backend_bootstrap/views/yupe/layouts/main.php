@@ -15,7 +15,7 @@
 <div id="overall-wrap">
 <!-- mainmenu -->
     <?php
-    $items = $module->getModules(true);
+    $items = array_merge(array(""), $module->getModules(true));
 
     // Для верхнего меню делаем иконки белыми ибо он с черным фоном
     foreach ($items as &$itm)
