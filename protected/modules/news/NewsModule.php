@@ -56,7 +56,7 @@ class NewsModule extends YWebModule
 
     public function getIcon()
     {
-        return "info-sign";
+        return "leaf";
     }
 
     public function init()
