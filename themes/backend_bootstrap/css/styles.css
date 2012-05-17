@@ -82,7 +82,7 @@ footer {
     position: absolute;
     top: 0;
     visibility: hidden;
-    margin-top: -7px;
+    margin-top: -6px;
 }
 
 .dropdown-menu li:hover .sub-menu {
@@ -116,7 +116,7 @@ footer {
 
 /* =========== */
 .navbar .brand {
-    padding:0 5px 0 20px;
+    padding:0 5px 0 15px;
     height:40px;
     width:40px;
 }
@@ -125,7 +125,5 @@ footer {
 }
 
 .navbar .nav > li > a {
-    padding-left: 8px;
-    padding-right: 8px;
-
+    padding: 10px 8px;
 }
