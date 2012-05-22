@@ -40,8 +40,9 @@ class SocialController extends YFrontController
                     	Yii::app()->user->login($socialLogin);
 
                     	Yii::app()->user->setFlash(YFlashMessages::NOTICE_MESSAGE, Yii::t('user', 'Вы успешно авторизовались!'));         
-
-                        $this->redirect(array(Yii::app()->getModule('user')->loginSuccess));
+						
+						//редирект с закрытием окна
+						$authIdentity->redirect(array(Yii::app()->getModule('user')->loginSuccess));
                     }
                     else
                     {
@@ -80,7 +81,7 @@ class SocialController extends YFrontController
 
                             Yii::app()->user->setFlash(YFlashMessages::NOTICE_MESSAGE,Yii::t('social','Аккаунт привязан!'));    
 
-                            $this->redirect(array(Yii::app()->getModule('user')->loginSuccess));           
+                            $authIdentity->redirect(array(Yii::app()->getModule('user')->loginSuccess));           
                         } 
 
                         $transaction = Yii::app()->db->beginTransaction();
