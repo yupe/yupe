@@ -12,6 +12,7 @@ $this->menu = array(
 );
 ?>
 <div class="page-header"><h1><?=$this->module->getName()?> <small><?php echo Yii::t('news', 'управление');?></small></h1></div>
+
 <button class="btn btn-small dropdown-toggle"
     data-toggle="collapse"
     data-target="#search-toggle" >
@@ -59,12 +60,6 @@ $this->menu = array(
                                                                 'name' => 'date',
                                                                 'htmlOptions' => array('style'=>'width:80px'),
                                                            ),
-/*                                                           array(
-                                                               'name' => 'change_date',
-                                                               'value' => 'Yii::app()->dateFormatter->formatDateTime($data->change_date,"short")',
-                                                               'htmlOptions' => array('style'=>'width:110px'),
-                                                           ),
-*/
                                                            array(
                                                                'name' => 'title',
                                                                'type' => 'raw',

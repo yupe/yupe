@@ -43,8 +43,9 @@ $('.search-form form').submit(function(){
 
 <?php
 
-$this->widget('YCustomGridView', array(
+    $this->widget('YCustomGridView', array(
                                                  'id' => 'page-grid',
+                                                 'sortField' => 'menu_order',
                                                  'dataProvider' => $model->search(),
                                                  'columns' => array(
                                                      'id',
@@ -66,12 +67,17 @@ $this->widget('YCustomGridView', array(
                                                      'creation_date',
                                                      'change_date',
                                                      array(
-                                                         'name' => 'user_id',
-                                                         'value' => '$data->author->getFullName()'
-                                                     ),
-                                                     array(
                                                          'name' => 'change_user_id',
                                                          'value' => '$data->changeAuthor->getFullName()'
+                                                     ),
+                                                     array(
+                                                         'name'  => 'menu_order',
+                                                         'type'  => 'raw',
+                                                         'value' => '$this->grid->getUpDownButtons($data)'
+                                                     ),
+                                                     array(
+                                                         'name' => 'user_id',
+                                                         'value' => '$data->author->getFullName()'
                                                      ),
                                                      array(
                                                          'class'    => 'CButtonColumn',

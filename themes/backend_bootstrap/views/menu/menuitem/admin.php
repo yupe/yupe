@@ -43,6 +43,7 @@ Yii::app()->clientScript->registerScript('search', "
 <?php
 $this->widget('YCustomGridView', array(
     'id' => 'menu-grid',
+    'itemsCssClass' => ' table table-condensed',
     'dataProvider' => $model->search(),
     'columns' => array(
         'id',
@@ -69,14 +70,10 @@ $this->widget('YCustomGridView', array(
         array(
             'name' => 'status',
             'type' => 'raw',
-            'value' => '$this->grid->returnStatusHtml($data)',
+            'value' => '$this->grid->returnBootstrapStatusHtml($data)',
         ),
         array(
-            'class' => 'CButtonColumn',
-            // :TODO: Найти способ сделать компактнее или добавить новый контроллер или создать заявку на yiisoft
-            'viewButtonUrl' => 'Yii::app()->controller->createUrl("view", array("id" => $data->primaryKey))',
-            'updateButtonUrl' => 'Yii::app()->controller->createUrl("update", array("id" => $data->primaryKey))',
-            'deleteButtonUrl' => 'Yii::app()->controller->createUrl("delete", array("id" => $data->primaryKey))',
+            'class' => 'bootstrap.widgets.BootButtonColumn',
         ),
     ),
 ));

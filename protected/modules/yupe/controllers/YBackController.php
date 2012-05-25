@@ -53,8 +53,34 @@ class YBackController extends Controller
         $model->$statusField = $status;
         $model->update(array($statusField));
 
-        if(!Yii::app()->request->isAjaxRequest){
+        if(!Yii::app()->request->isAjaxRequest)
             $this->redirect(isset($_POST['returnUrl']) ? $_POST['returnUrl'] : array('admin'));
-        }
+
+    }
+
+    public function actionSort()
+    {
+        $direction = Yii::app()->request->getQuery('direction');
+        $id     = (int)Yii::app()->request->getQuery('id');
+        $modelClass = Yii::app()->request->getQuery('model');
+        $sortField  = Yii::app()->request->getQuery('sortField');
+
+        if(!isset($direction,$id,$modelClass,$sortField))
+            throw new CHttpException(404,Yii::t('yupe','Страница не найдена!'));
+
+        $model = new $modelClass;
+        $model = $model->resetScope()->findByPk($id);
+        if(!$model)
+            throw new CHttpException(404,Yii::t('yupe','Страница не найдена!'));
+
+        if($direction === 'up')
+            $model->$sortField++;
+        else
+            $model->$sortField--;
+
+        $model->update(array($sortField));
+
+        if(!Yii::app()->request->isAjaxRequest)
+            $this->redirect(isset($_POST['returnUrl']) ? $_POST['returnUrl'] : array('admin'));
     }
 }

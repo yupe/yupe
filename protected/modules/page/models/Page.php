@@ -59,8 +59,12 @@ class Page extends CActiveRecord
     public function getAllPagesList($selfId = false)
     {
         $pages = $selfId
-            ? $this->findAll('id != :id', array(':id' => $selfId))
-            : $this->findAll();
+            ? $this->findAll(array(
+                'condition' => 'id != :id',
+                'params'    => array(':id' => $selfId),
+                'sort'      => 'menu_order DESC'
+            ))
+            : $this->findAll(array('order' => 'menu_order DESC'));
 
         return CHtml::listData($pages, 'id', 'name');
     }
@@ -225,9 +229,9 @@ class Page extends CActiveRecord
 
         $criteria->compare('is_protected', $this->is_protected);
 
-        $sort = new CSort();
+        $sort = new CSort;
 
-        $sort->defaultOrder = 'parent_Id DESC';
+        $sort->defaultOrder = 'menu_order DESC';
 
         return new CActiveDataProvider('Page', array(
                                                     'criteria' => $criteria,

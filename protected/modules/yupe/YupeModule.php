@@ -47,25 +47,25 @@ class YupeModule extends YWebModule
         if (!is_writable($uploadPath))
             return array(
                 'type' => YWebModule::CHECK_ERROR,
-                'message' => Yii::t('yupe', 'Директория "{dir}" не досутпна для записи!', array('{dir}' => $uploadPath))
+                'message' => Yii::t('yupe', 'Директория "{dir}" не досутпна для записи!', array('{dir}' => $uploadPath)),
             );
 
         if (!is_writable(Yii::app()->runtimePath))
             return array(
                 'type' => YWebModule::CHECK_ERROR,
-                'message' => Yii::t('yupe', 'Директория "{dir}" не досутпна для записи!', array('{dir}' => Yii::app()->runtimePath))
+                'message' => Yii::t('yupe', 'Директория "{dir}" не досутпна для записи!', array('{dir}' => Yii::app()->runtimePath)),
             );
 
         if (!is_writable(Yii::app()->getAssetManager()->basePath))
             return array(
                 'type' => YWebModule::CHECK_ERROR,
-                'message' => Yii::t('yupe', 'Директория "{dir}" не досутпна для записи!', array('{dir}' => Yii::app()->getAssetManager()->basePath))
+                'message' => Yii::t('yupe', 'Директория "{dir}" не досутпна для записи!', array('{dir}' => Yii::app()->getAssetManager()->basePath)),
             );
 
         if (defined('YII_DEBUG') && YII_DEBUG)
             return array(
                 'type' => YWebModule::CHECK_ERROR,
-                'message' => Yii::t('yupe', 'Yii работает в режиме отладки, пожалуйста, отключите его! <br/> <a href="http://www.yiiframework.ru/doc/guide/ru/topics.performance">Подробнее про улучшение производительности Yii приложений</a>')
+                'message' => Yii::t('yupe', 'Yii работает в режиме отладки, пожалуйста, отключите его! <br/> <a href="http://www.yiiframework.ru/doc/guide/ru/topics.performance">Подробнее про улучшение производительности Yii приложений</a>'),
             );
 
         return true;
@@ -84,7 +84,7 @@ class YupeModule extends YWebModule
             'editorsDir' => Yii::t('yupe', 'Каталог для визивиг редакторов'),
             'uploadPath' => Yii::t('yupe', 'Каталог для загрузки файлов'),
             'editor' => Yii::t('page', 'Визуальный редактор'),
-            'email' => Yii::t('page', 'Email администратора')
+            'email' => Yii::t('page', 'Email администратора'),
         );
     }
 
@@ -101,7 +101,7 @@ class YupeModule extends YWebModule
             'editorsDir',
             'uploadPath',
             'editor' => $this->getEditors(),
-            'email'
+            'email',
         );
     }
 
@@ -117,7 +117,7 @@ class YupeModule extends YWebModule
 
     public function getCategory()
     {
-        return Yii::t('yupe', 'Ядрышко');
+        return Yii::t('yupe', 'Система');
     }
 
     public function getName()
@@ -180,7 +180,7 @@ class YupeModule extends YWebModule
                 'icon' => "wrench",
                 'label' => Yii::t('yupe', 'Настройки'),
                 'url' => '#',
-                'linkOptions' => array('class' => 'sub-menu')
+                'linkOptions' => array('class' => 'sub-menu'),
             ));
 
         if (count(Yii::app()->modules))
@@ -198,9 +198,7 @@ class YupeModule extends YWebModule
                         if ($module->getIsShowInAdminMenu() || $module->getEditableParams() || ($module->getIsShowInAdminMenu() == false && is_array($module->checkSelf())))
                         {
                             $modules[$key] = $module;
-
                             $category[$key] = $module->getCategory();
-
                             $order[$key] = $module->adminMenuOrder;
                         }
                     }
@@ -229,7 +227,12 @@ class YupeModule extends YWebModule
                         // @TODO: Тут подставлять иконку категории вместо первого модуля
                         $modulesNavigation[$category[$key]]['icon'] = $modules[$key]->icon;
                     }
-                    $subitem = array( 'label' => $modules[$key]->name, 'items' => array(),'icon'=>$modules[$key]->icon , 'url' => '#');
+                    $subitem = array(
+                        'label' => $modules[$key]->name,
+                        'items' => array(),
+                        'icon' => $modules[$key]->icon,
+                        'url' => '#',
+                    );
 
                     foreach ($links as $text => $url)
                     {
@@ -249,8 +252,8 @@ class YupeModule extends YWebModule
                                 'label' => $modules[$key]->getName(),
                                 'url' => array(
                                     '/yupe/backend/modulesettings/',
-                                    'module' => $modules[$key]->getId()
-                                )
+                                    'module' => $modules[$key]->getId(),
+                                ),
                             ));
 
                             $inSettings = true;
@@ -277,7 +280,7 @@ class YupeModule extends YWebModule
                                 $modulesNavigation[$category[$key]]['linkOptions'] = array('class' => 'sub-menu');
                                 $modulesNavigation[$category[$key]]['url'] = '#';
                                 if ($modules[$key]->icon)
-                                        $modulesNavigation[$category[$key]]['icon'] = $modules[$key]->icon;
+                                    $modulesNavigation[$category[$key]]['icon'] = $modules[$key]->icon;
                             }
 
                             array_push($modulesNavigation[$category[$key]]['items'], $data);
@@ -294,8 +297,8 @@ class YupeModule extends YWebModule
                             'label' => $modules[$key]->getName(),
                             'url' => array(
                                 '/yupe/backend/modulesettings/',
-                                'module' => $modules[$key]->getId()
-                            )
+                                'module' => $modules[$key]->getId(),
+                            ),
                         ));
                     }
                 }
@@ -306,23 +309,23 @@ class YupeModule extends YWebModule
         array_unshift($modulesNavigation['settings']['items'], array(
             'icon' => 'gift',
             'label' => Yii::t('yupe', 'Оформление'),
-            'url' => array('/yupe/backend/themesettings')
+            'url' => array('/yupe/backend/themesettings'),
         ));
 
         array_push($modulesNavigation, array(
             'icon' => 'off',
             'label' => Yii::t('yupe', 'Войти'),
             'url' => array('/site/login'),
-            'visible' => !Yii::app()->user->isAuthenticated()
+            'visible' => !Yii::app()->user->isAuthenticated(),
         ));
 
-        $modulesNavigation[Yii::t('yupe','Система')] = array(
-            'label' => Yii::t('yupe','Система'),
-            'icon'  => 'info-sign',
-            'url'   => '#'
+        $modulesNavigation[Yii::t('yupe', 'Система')] = array(
+            'label' => Yii::t('yupe', 'Система'),
+            'icon' => 'info-sign',
+            'url' => '#',
         );
 
-        $modulesNavigation[Yii::t('yupe','Система')]['items'] = array(
+        $modulesNavigation[Yii::t('yupe', 'Система')]['items'] = array(
             array(
                 'icon' => 'trash',
                 'label' => Yii::t('yupe', 'Очистить кэш'),
@@ -338,7 +341,7 @@ class YupeModule extends YWebModule
         return $navigationOnly === true ? $modulesNavigation : array(
             'modules' => $modules,
             'yiiModules' => $yiiModules,
-            'modulesNavigation' => $modulesNavigation
+            'modulesNavigation' => $modulesNavigation,
         );
     }
 
@@ -442,5 +445,4 @@ class YupeModule extends YWebModule
 
         return $themes;
     }
-
 }

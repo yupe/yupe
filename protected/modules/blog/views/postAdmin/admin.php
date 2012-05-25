@@ -6,8 +6,14 @@
     );
 
     $this->menu = array(
+        array('label'=> Yii::t('blog', 'Блоги')),
+        array('label'=>Yii::t('blog','Список блогов'), 'url'=>array('blogAdmin/index')),
+        array('label'=>Yii::t('blog','Добавить блог'), 'url'=>array('blogAdmin/create')),
+
+        array('label'=> Yii::t('blog', 'Записи')),
         array('label'=>Yii::t('blog', 'Список записей'), 'url'=>array('index')),
         array('label'=>Yii::t('blog', 'Добавить запись'), 'url'=>array('create')),
+        array('label'=>Yii::t('blog', 'Управление записями'), 'url'=>array('admin')),
     );
 
     Yii::app()->clientScript->registerScript('search', "
