@@ -117,7 +117,7 @@ class YupeModule extends YWebModule
 
     public function getCategory()
     {
-        return Yii::t('yupe', 'Ядрышко');
+        return Yii::t('yupe', 'Система');
     }
 
     public function getName()
@@ -445,5 +445,4 @@ class YupeModule extends YWebModule
 
         return $themes;
     }
-
 }

@@ -13,6 +13,8 @@ class YCustomGridView extends CGridView
 
     public $showStatusText = false;
 
+    public $sortField = 'sort';
+
     public  function init()
     {
         parent::init();
@@ -83,6 +85,37 @@ class YCustomGridView extends CGridView
         $text = method_exists($data,'getStatus') ? $data->getStatus() : '';
         $icon = '<i class="icon icon-'.(isset($icons[ $data->$statusField])?$icons[ $data->$statusField]:'question-sign')."\" title='".$text.", ".Yii::t('yupe', $data->$statusField ? Yii::t('yupe','Деактивировать') : Yii::t('yupe','Активировать'))."'></i>";
         return CHtml::link($icon, $url, $options);
+    }
+
+    public function getUpDownButtons($data)
+    {
+        $downUrlImage = CHtml::image(Yii::app()->assetManager->publish(
+            Yii::getPathOfAlias('zii.widgets.assets.gridview').'/down.gif'
+        ),Yii::t('yupe','Опустить ниже'),array('title' => Yii::t('yupe','Опустить ниже')));
+
+        $upUrlImage = CHtml::image(Yii::app()->assetManager->publish(
+            Yii::getPathOfAlias('zii.widgets.assets.gridview').'/up.gif'
+        ),Yii::t('yupe','Поднять выше'),array('title'=> Yii::t('yupe','Поднять выше')));
+
+        $urlUp = Yii::app()->controller->createUrl("sort", array(
+            'model' => $this->modelName,
+            'id'    => $data->id,
+            'sortField' => $this->sortField,
+            'direction' => 'up'
+        ));
+
+        $urlDown = Yii::app()->controller->createUrl("sort", array(
+            'model' => $this->modelName,
+            'id'    => $data->id,
+            'sortField' => $this->sortField,
+            'direction' => 'down'
+        ));
+
+        $options = array(
+            'onclick' => 'ajaxSetSort(this, "' . $this->id . '"); return false;',
+        );
+
+        return CHtml::link($upUrlImage,$urlUp,$options).' '.$data->{$this->sortField}.' '.CHtml::link($downUrlImage,$urlDown,$options);
     }
 
 

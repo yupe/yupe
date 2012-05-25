@@ -48,7 +48,7 @@ class MenuItem extends CActiveRecord
         // will receive user inputs.
         return array(
             //@formatter:off
-            array('parent_id, menu_id, title', 'required'),
+            array('parent_id, menu_id, title, href', 'required'),
             array('type, sort, status, condition_denial', 'numerical', 'integerOnly' => true),
             array('parent_id, menu_id', 'length', 'max' => 10),
             array('title, href, condition_name', 'length', 'max' => 255),
@@ -115,7 +115,11 @@ class MenuItem extends CActiveRecord
         $criteria->compare('sort', $this->sort);
         $criteria->compare('status', $this->status);
 
-        return new CActiveDataProvider($this, array('criteria' => $criteria));
+        $sort = new CSort;
+
+        $sort->defaultOrder = 'sort DESC';
+
+        return new CActiveDataProvider($this, array('criteria' => $criteria,'sort' => $sort ));
     }
 
     public function getStatusList()
