@@ -61,7 +61,11 @@ $this->widget('YCustomGridView', array(
             'name' => 'condition_name',
             'value' => '$data->conditionName',
         ),
-        'sort',
+        array(
+            'name'  => 'sort',
+            'type'  => 'raw',
+            'value' => '$this->grid->getUpDownButtons($data)'
+        ),
         array(
             'name' => 'status',
             'type' => 'raw',

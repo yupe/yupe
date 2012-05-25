@@ -44,21 +44,13 @@ $this->menu = array(
 
 
 <?php
-    $dp = $model->search();
-    $dp->sort->defaultOrder = 'parent_Id ASC, menu_order DESC';
     $this->widget('YCustomGridView', array(
         'itemsCssClass' => ' table table-condensed',
         'id'=>'page-grid',
-        'dataProvider'=> $dp,
+        'sortField' => 'menu_order',
+        'dataProvider'=> $model->search(),
         'columns'=>array(
             'id',
-            array(
-                'name' => 'status',
-                'type' => 'raw',
-                'value' => '$this->grid->returnBootstrapStatusHtml($data)',
-                'htmlOptions' => array('style'=>'width:40px; text-align:center;'),
-            ),
-
             array(
                 'name'=>'name',
                 'type'=>'raw',
@@ -73,6 +65,17 @@ $this->menu = array(
                 'name'=>'user_id',
                 'value'=>'$data->author->getFullName()'
              ),
+            array(
+                'name'  => 'menu_order',
+                'type'  => 'raw',
+                'value' => '$this->grid->getUpDownButtons($data)'
+            ),
+            array(
+                'name' => 'status',
+                'type' => 'raw',
+                'value' => '$this->grid->returnBootstrapStatusHtml($data)',
+                'htmlOptions' => array('style'=>'width:40px; text-align:center;'),
+            ),
              array(
                 'class'=>'bootstrap.widgets.BootButtonColumn',
                 'htmlOptions'=>array('style'=>'width: 50px'),
