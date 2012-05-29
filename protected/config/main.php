@@ -107,6 +107,7 @@ return array(
                 '/blogs/' => 'blog/blog/index/',
                 '/users/' => 'user/people/index/',
                 '/wiki/<controller:\w+>/<action:\w+>' => '/yeeki/wiki/<controller>/<action>',
+                'user/<username:\w+>/' => 'user/people/userInfo',
             ),
         ),
 

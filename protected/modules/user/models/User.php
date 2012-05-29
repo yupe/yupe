@@ -328,9 +328,8 @@ class User extends CActiveRecord
                 return CHtml::image(Yii::app()->baseUrl . $avatarsDir . "/" . $sizedFile, $this->nick_name, $htmlOptions);
             }
         }
-
         // Нету аватарки, печалька :(
-        return Yii::app()->getModule('user')->defaultAvatar;
+        return Yii::app()->request->baseUrl.Yii::app()->getModule('user')->defaultAvatar;
     }
 
     public function getFullName($separator = ' ')

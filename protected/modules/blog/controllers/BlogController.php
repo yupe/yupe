@@ -49,10 +49,19 @@ class BlogController extends YFrontController
     // показать участников блога 
     public function actionPeople($slug)
     {
-        $blog = Blog::model()->find('slug = :slug', array(':slug' => $slug));
+        $blog = Blog::model()->published()->public()->find('slug = :slug', array(':slug' => $slug));
 
         if(!$blog)
             throw new CHttpException(404, Yii::t('blog', 'Блог "{blog}" не найден!', array('{blog}' => $slug)));
+
+        $members = UserToBlog::model()->findAll('blog_id = :blog_id',array(':blog_id' => $blog->id));
+
+    }
+
+
+    // отобразить записи конкретного блога
+    public function actionPosts($slug)
+    {
 
     }
 
