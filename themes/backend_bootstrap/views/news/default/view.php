@@ -23,12 +23,14 @@ $this->menu = array(
 </ul>
 <div class="tab-content">
     <div id="anounce" class="tab-pane fade active in">
+        <?php for ( $i=0; $i<3; $i++ ) { ?>
         <div style="margin-bottom: 20px;">
             <h6><span class="label"><?=$model->date;?></span> <?=CHtml::link($model->title, array('/news/news/show', 'title' => $model->alias))?></h6>
             <p>
                 <?=$model->short_text; ?>
             </p>
         </div>
+        <?php } ?>
     </div>
     <div id="full"  class="tab-pane fade">
         <div style="margin-bottom: 20px;">
