@@ -198,7 +198,9 @@ class BackendController extends YBackController
     {
         if (!empty($_FILES['file']['name']))
         {
-            $uploadPath = Yii::getPathOfAlias(Yii::app()->getModule('yupe')->uploadPath) . '/' . date('dmY') . '/';
+            $webPath = DIRECTORY_SEPARATOR . Yii::app()->getModule('yupe')->uploadPath . DIRECTORY_SEPARATOR. date('dmY') . DIRECTORY_SEPARATOR;
+
+            $uploadPath = Yii::getPathOfAlias('webroot') . $webPath;
 
             if (!is_dir($uploadPath))
             {
@@ -216,9 +218,7 @@ class BackendController extends YBackController
                 if (!$image->saveAs($uploadPath . $newFileName))
                     Yii::app()->ajax->rawText(Yii::t('yupe', 'При загрузке произошла ошибка!'));
 
-                $webDir = substr($uploadPath, strpos($uploadPath, Yii::app()->baseUrl) + strlen(Yii::app()->baseUrl));
-
-                Yii::app()->ajax->rawText(CHtml::image(Yii::app()->baseUrl . $webDir . DIRECTORY_SEPARATOR . $newFileName));
+                Yii::app()->ajax->rawText(CHtml::image(Yii::app()->baseUrl . $webPath . $newFileName));
             }
         }
 

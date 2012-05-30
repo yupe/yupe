@@ -33,7 +33,7 @@ class UserModule extends YWebModule
 
     public $avatarMaxSize = 10000;
 
-    public $defaultAvatar;
+    public $defaultAvatar = '/web/images/avatar.png';
 
     public $avatarExtensions = array(
         'jpg',

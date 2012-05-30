@@ -31,7 +31,7 @@ class YupeModule extends YWebModule
     public $coreCacheTime = 3600;
     public $coreModuleId = 'yupe';
     public $editorsDir = 'application.modules.yupe.widgets.editors';
-    public $uploadPath = 'webroot.uploads';
+    public $uploadPath = 'uploads';
     public $editor = 'application.modules.yupe.widgets.editors.imperaviRedactor.EImperaviRedactorWidget';
     public $email;
 
@@ -42,7 +42,7 @@ class YupeModule extends YWebModule
 
     public function checkSelf()
     {
-        $uploadPath = Yii::getPathOfAlias($this->uploadPath);
+        $uploadPath = Yii::getPathOfAlias('webroot').DIRECTORY_SEPARATOR.$this->uploadPath;
 
         if (!is_writable($uploadPath))
             return array(
@@ -82,7 +82,7 @@ class YupeModule extends YWebModule
             'theme' => Yii::t('yupe', 'Тема'),
             'coreCacheTime' => Yii::t('yupe', 'Время кэширования (сек.)'),
             'editorsDir' => Yii::t('yupe', 'Каталог для визивиг редакторов'),
-            'uploadPath' => Yii::t('yupe', 'Каталог для загрузки файлов'),
+            'uploadPath' => Yii::t('yupe', 'Каталог для загрузки файлов (относительно корня сайта)'),
             'editor' => Yii::t('page', 'Визуальный редактор'),
             'email' => Yii::t('page', 'Email администратора'),
         );

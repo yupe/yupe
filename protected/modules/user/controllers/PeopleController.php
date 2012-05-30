@@ -18,14 +18,12 @@ class PeopleController extends YFrontController
     }
 
     // Вывод публичной страницы пользователя
-    public function actionUserInfo($username=null, $mode=null)
+    public function actionUserInfo($username, $mode=null)
     {
-        $user = $username
-            ? User::model()->findByAttributes(array("nick_name" => $username))
-            : Yii::app()->user;
+        $user = User::model()->findByAttributes(array("nick_name" => $username));
 
-    	if ( !$user )
-			throw new CHttpException(404, Yii::t('people', 'Пользователь не найден'));
+    	if (!$user)
+			throw new CHttpException(404, Yii::t('user', 'Пользователь не найден!'));
 
     	$this->render('userInfo', array(
     	   'user' => $user,

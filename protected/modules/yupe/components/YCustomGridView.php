@@ -36,7 +36,7 @@ class YCustomGridView extends CGridView
         ));
 
         $img = CHtml::image(
-            Yii::app()->request->baseUrl . '/images/' . ($data->$statusField == $active ? '' : 'in') . 'active.png',
+            Yii::app()->request->baseUrl . '/web/images/' . ($data->$statusField == $active ? '' : 'in') . 'active.png',
             Yii::t('yupe', $data->$statusField ? Yii::t('yupe','Деактивировать') : Yii::t('yupe','Активировать')),
             array('title' => Yii::t('yupe', $data->$statusField ? Yii::t('yupe','Деактивировать') : Yii::t('yupe','Активировать')))
         );

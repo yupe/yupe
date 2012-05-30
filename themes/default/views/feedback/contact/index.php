@@ -17,7 +17,25 @@
 <p> Просто хотите поболтать =)</p> <p> Мы стараемся отвечать быстро... очень
     быстро !</p>
 
-<p> Спасибо, за внимание! </p>
+<p><?php echo Yii::t('install', 'Полезные ссылки:');?></p>
+
+<?php echo CHtml::link(Yii::t('install','Официальный твиттер Юпи!'),'https://twitter.com/#!/YupeCms');?>  - <?php echo Yii::t('install','обязательно заффоловьте нас, мы не спамим =)');?>
+
+<br/><br/>
+
+<?php echo CHtml::link(Yii::t('install','Исходный код на Github'),'http://github.com/yupe/yupe/');?> - <?php echo Yii::t('install','пришлите нам парочку пулл-реквестов, все только выиграют =)');?>
+
+<br/><br/>
+
+<?php echo CHtml::link(Yii::t('install','Задайте вопрос на форуме'),'http://yupe.ru/forum/');?>  - <?php echo Yii::t('install','заходите, поболтаем =)');?>
+
+<br/><br/>
+
+Jabber-конференция сервер: conference.yupe.ru, комната:<br/> yupe-talks (<a href="http://yupe.ru/post/djabber-konferentsiya-yupi.html">http://yupe.ru/post/djabber-konferentsiya-yupi.html</a>)
+
+<br/><br/>
+
+<p><b>Спасибо, за внимание!</b></p>
 
 <div class="form">
 
