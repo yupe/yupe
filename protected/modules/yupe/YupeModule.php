@@ -42,7 +42,7 @@ class YupeModule extends YWebModule
 
     public function checkSelf()
     {
-        $uploadPath = Yii::getPathOfAlias($this->uploadPath);
+        $uploadPath = Yii::getPathOfAlias('webroot').DIRECTORY_SEPARATOR.$this->uploadPath;
 
         if (!is_writable($uploadPath))
             return array(
