@@ -1,4 +1,4 @@
-<div class="view">
+<div class="view">    
     <b><?php echo CHtml::image( $data->getAvatar( 100 ),$data->getFullName());?></b>
     <br/>
 
