@@ -5,8 +5,6 @@ class YBackController extends Controller
 
     public $breadcrumbs = array();
 
-    public $actions = array('activate','deactivate');
-
     public function filters()
     {
         return array(

@@ -40,15 +40,19 @@ $('.search-form form').submit(function(){
 	'id'=>'dictionary-data-grid',
 	'dataProvider'=>$model->search(),	
 	'columns'=>array(
-		'id',		
-		'code',
-		'name',
+		'id',
+        array(
+            'name'  => 'name',
+            'type'  => 'raw',
+            'value' => 'CHtml::link($data->name,array("/dictionary/dictionaryData/update/","id" => $data->id))'
+        ),
 		'value',
+        'code',
 		array(
 			'name'  => 'group_id',
-			'value' => '$data->group->name'
+            'type'  => 'raw',
+			'value' => 'CHtml::link($data->group->name,array("/dictionary/default/update/","id" => $data->id))'
 		),
-		'description',
 		'creation_date',		
 		'update_date',
 		array(

@@ -2,13 +2,16 @@
 $this->breadcrumbs = array(
     $this->getModule('dictionary')->getCategory() => array(''),
     Yii::t('dictionary', 'Справочники') => array('admin'),
-    Yii::t('dictionary', 'Группы справочников') => array('admin'),
+    Yii::t('dictionary', 'Справочники') => array('admin'),
     Yii::t('dictionary', 'Управление'),
 );
 
 $this->menu=array(
-	array('label' => Yii::t('dictionary', 'Список групп'), 'url'=>array('index')),
-	array('label' => Yii::t('dictionary', 'Добавить группу'), 'url'=>array('create')),
+    array('label' => Yii::t('dictionary', 'Справочники')),
+	array('label' => Yii::t('dictionary', 'Список справочников'), 'url'=>array('index')),
+	array('label' => Yii::t('dictionary', 'Добавить справочник'), 'url'=>array('create')),
+    array('label' => Yii::t('dictionary', 'Значения')),
+    array('label' => Yii::t('dictionary', 'Список значений'), 'url'=>array('dictionaryData/admin')),
 	array('label' => Yii::t('dictionary', 'Добавить значение'), 'url'=>array('dictionaryData/create')),
 );
 
@@ -42,11 +45,16 @@ $('.search-form form').submit(function(){
 	'dataProvider'=>$model->search(),	
 	'columns'=>array(
 		'id',
-		'code',
-		'name',		
+		array(
+            'name'  => 'name',
+            'type'  => 'raw',
+            'value' => 'CHtml::link($data->name,array("/dictionary/default/update/","id" => $data->id))'
+        ),
+        'code',
 		array(
 			'name'  => Yii::t('dictionary','Записей'),
-			'value' => '$data->dataCount'
+            'type'  => 'raw',
+			'value' => 'CHtml::link($data->dataCount,array("/dictionary/dictionaryData/admin?group_id={$data->id}"))'
 		),
 		'creation_date',
 		'update_date',		
@@ -58,8 +66,16 @@ $('.search-form form').submit(function(){
 			'name'  => 'update_user_id',
 			'value' => '$data->updateUser->getFullName()'
 		),
-		array(
-			'class'=>'CButtonColumn',
-		),
+        array(
+            'class'    => 'CButtonColumn',
+            'template' => '{view}{update}{delete}{add}',
+            'buttons'  => array(
+                'add' => array(
+                    'label' => Yii::t('dictionary','Добавить значение в справочник'),
+                    'url'   => 'Yii::app()->createUrl("/dictionary/dictionaryData/create/",array("gid" => $data->id))',
+                    'imageUrl' => Yii::app()->baseUrl.'/web/images/add.png'
+                )
+            )
+        ),
 	),
 )); ?>
