@@ -38,7 +38,7 @@ Yii::app()->clientScript->registerScript('search', "
     <span class="caret"></span>
 </button>
 
-<div id="search-toggle" class="collapse out">
+<div id="search-toggle" class="collapse <?=isset($_GET[get_class($model)])?'in':'out'; ?>">
     <?php
     Yii::app()->clientScript->registerScript('search', "
         $('.search-form form').submit(function(){
@@ -66,7 +66,7 @@ $this->widget('YCustomGridView', array(
         'code',
         'description',
         array(
-            'name' => Yii::t('menu', 'Пунктов'),
+            'header' => Yii::t('menu', 'Пунктов'),
             'value' => 'count($data->menuItems)',
         ),
         array(

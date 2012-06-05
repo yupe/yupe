@@ -50,7 +50,8 @@ Yii::app()->clientScript->registerScript('search', "
                 'name' => 'is_faq',
                 'type' => 'raw',
                 'header' => 'FAQ',
-                'value' => '$this->grid->returnStatusHtml($data)',
+                'value' => '$this->grid->returnBootstrapStatusHtml($data)',
+                'htmlOptions' => array('style'=>'width:40px; text-align:center;'),
             ),
             array(
                 'name' => 'status',
