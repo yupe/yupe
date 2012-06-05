@@ -127,3 +127,7 @@ footer {
 .navbar .nav > li > a {
     padding: 10px 8px;
 }
+
+.navbar .divider-vertical {
+    margin:0;
+}
