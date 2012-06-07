@@ -114,9 +114,10 @@ return array(
         // конфигурируем компонент CHttpRequest для защиты от CSRF атак, подробнее http://www.yiiframework.ru/doc/guide/ru/topics.security
         // РЕКОМЕНДУЕМ УКАЗАТЬ СВОЕ ЗНАЧЕНИЕ ДЛЯ ПАРАМЕТРА "csrfTokenName"
         'request' => array(
-            'class' => 'CHttpRequest',
-            'enableCsrfValidation' => false,
+            'class' => 'YHttpRequest',
+            'enableCsrfValidation' => true,
             'csrfTokenName' => 'YUPE_TOKEN',
+            'noCsrfValidationRoutes' => array('yupe/backend/AjaxFileUpload')
         ),
 
         // подключение компонента для генерации ajax-ответов
