@@ -386,13 +386,4 @@ class User extends CActiveRecord
 
         return $this->save();
     }
-
-    public function beforeValidate()
-    {
-        if ($this->site = '')
-            $this->site = null;
-
-        return parent::beforeValidate();
-    }
-
 }
