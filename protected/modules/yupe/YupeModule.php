@@ -110,9 +110,13 @@ class YupeModule extends YWebModule
         return '/yupe/backend/modulesettings/module/yupe';
     }
 
-    public function getIsShowInAdminMenu()
+    public function getNavigation()
     {
-        return false;
+        return array(
+            Yii::t('yupe','Очистить кеш') => '/yupe/backend/cacheflush/',
+            Yii::t('yupe', 'Оформление')  => '/yupe/backend/themesettings/',
+            Yii::t('yupe','Помощь')       => '/yupe/backend/help/',
+        );
     }
 
     public function getCategory()
@@ -122,12 +126,12 @@ class YupeModule extends YWebModule
 
     public function getName()
     {
-        return Yii::t('yupe', 'Основные параметры');
+        return Yii::t('yupe', 'Юпи!');
     }
 
     public function getDescription()
     {
-        return Yii::t('yupe', 'Без этого модуля ничего не работает =)');
+        return Yii::t('yupe', 'Наше маленькое ядрышко =)');
     }
 
     public function getAuthor()
@@ -147,7 +151,7 @@ class YupeModule extends YWebModule
 
     public function getIcon()
     {
-        return "wrench";
+        return "cog";
     }
 
     public function init()
@@ -304,39 +308,6 @@ class YupeModule extends YWebModule
                 }
             }
         }
-
-        //@todo стоит подумать как этот хардкод убрать =)
-        array_unshift($modulesNavigation['settings']['items'], array(
-            'icon' => 'gift',
-            'label' => Yii::t('yupe', 'Оформление'),
-            'url' => array('/yupe/backend/themesettings'),
-        ));
-
-        array_push($modulesNavigation, array(
-            'icon' => 'off',
-            'label' => Yii::t('yupe', 'Войти'),
-            'url' => array('/site/login'),
-            'visible' => !Yii::app()->user->isAuthenticated(),
-        ));
-
-        $modulesNavigation[Yii::t('yupe', 'Система')] = array(
-            'label' => Yii::t('yupe', 'Система'),
-            'icon' => 'info-sign',
-            'url' => '#',
-        );
-
-        $modulesNavigation[Yii::t('yupe', 'Система')]['items'] = array(
-            array(
-                'icon' => 'trash',
-                'label' => Yii::t('yupe', 'Очистить кэш'),
-                'url' => array('/yupe/backend/cacheflush'),
-            ),
-            array(
-                'icon' => 'question-sign',
-                'label' => Yii::t('yupe', 'Помощь'),
-                'url' => array('/yupe/backend/help'),
-            )
-        );
 
         return $navigationOnly === true ? $modulesNavigation : array(
             'modules' => $modules,
