@@ -62,7 +62,7 @@ class Page extends CActiveRecord
             ? $this->findAll(array(
                 'condition' => 'id != :id',
                 'params'    => array(':id' => $selfId),
-                'sort'      => 'menu_order DESC'
+                'order'      => 'menu_order DESC'
             ))
             : $this->findAll(array('order' => 'menu_order DESC'));
 
