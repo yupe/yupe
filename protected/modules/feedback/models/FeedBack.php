@@ -24,6 +24,7 @@ class FeedBack extends CActiveRecord
     const STATUS_ANSWER_SENDED = 3;
 
     const TYPE_DEFAULT = 0;
+    const IS_FAQ = 1;
 
     public function getStatusList()
     {
