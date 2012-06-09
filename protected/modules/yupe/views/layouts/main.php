@@ -55,7 +55,7 @@
         array_push($menu, array(
             'icon' => 'home white',
             'label' => Yii::t('yupe', 'На сайт'),
-            'url' => array('/')
+            'url' => '/'
         ));
         
         array_push($menu, array(
