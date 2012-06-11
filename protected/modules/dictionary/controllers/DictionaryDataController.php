@@ -18,7 +18,10 @@ class DictionaryDataController extends YBackController
 	 */
 	public function actionCreate()
 	{
-		$model=new DictionaryData;
+		$model = new DictionaryData;
+
+        if($gid = (int)Yii::app()->request->getQuery('gid'))
+            $model->group_id = $gid;
 
 		// Uncomment the following line if AJAX validation is needed
 		// $this->performAjaxValidation($model);

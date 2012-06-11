@@ -105,7 +105,8 @@ class BackendController extends YBackController
                 Yii::app()->cache->flush();
 
                 $this->redirect(array('/yupe/backend/modulesettings/', 'module' => $module_id));
-            } catch (Exception $e)
+            }
+            catch (Exception $e)
             {
                 $transaction->rollback();
 

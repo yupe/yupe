@@ -31,6 +31,11 @@
     $rightMenu = array(
         "",
         array(
+            'icon' => 'question-sign white',
+            'label' => Yii::t('yupe', 'Помощь'),
+            'url' => array('/yupe/backend/help/'),
+        ),
+        array(
             'icon' => 'home white',
             'label' => Yii::t('yupe', 'На сайт'),
             'url' => array('/'),
@@ -39,7 +44,6 @@
             'icon' => 'off white',
             'label' => Yii::t('yupe', 'Выйти'),
             'url' => array('/user/account/logout'),
-            'visible' => Yii::app()->user->isAuthenticated(),
         ),
     );
 

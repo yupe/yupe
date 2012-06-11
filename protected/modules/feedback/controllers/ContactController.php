@@ -117,4 +117,24 @@ class ContactController extends YFrontController
             Yii::log(Yii::t('feedback', 'Обращение пользователя: не удалось отправить подтверждение.'), CLogger::LEVEL_INFO, FeedbackModule::$logCategory);
         return $result;
     }
+
+    // отобразить сообщения с сайта с признаком is_faq
+    public function actionFaq()
+    {
+        $dataProvider = new CActiveDataProvider('FeedBack',array(
+            'criteria'  => array(
+                'condition' => 'is_faq = :is_faq AND (status = :sended OR status = :finished)',
+                'params'    => array(
+                    ':is_faq'   => FeedBack::IS_FAQ,
+                    ':sended'   => FeedBack::STATUS_ANSWER_SENDED,
+                    ':finished' => FeedBack::STATUS_FINISHED
+                ),
+                'order' => 'id DESC'
+             )
+        ));
+
+        $this->render('faq', array(
+            'dataProvider' => $dataProvider,
+        ));
+    }
 }

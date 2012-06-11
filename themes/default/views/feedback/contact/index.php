@@ -27,10 +27,6 @@
 
 <br/><br/>
 
-<?php echo CHtml::link(Yii::t('install','Задайте вопрос на форуме'),'http://yupe.ru/forum/');?>  - <?php echo Yii::t('install','заходите, поболтаем =)');?>
-
-<br/><br/>
-
 Jabber-конференция сервер: conference.yupe.ru, комната:<br/> yupe-talks (<a href="http://yupe.ru/post/djabber-konferentsiya-yupi.html">http://yupe.ru/post/djabber-konferentsiya-yupi.html</a>)
 
 <br/><br/>

@@ -40,6 +40,11 @@ class DictionaryModule extends YWebModule
         return "book";
     }
 
+    public function getVersion()
+    {
+        return '0.2';
+    }
+
 	public function init()
 	{
 		parent::init();
