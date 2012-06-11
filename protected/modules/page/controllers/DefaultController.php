@@ -51,29 +51,87 @@ class DefaultController extends YBackController
      * Updates a particular model.
      * If update is successful, the browser will be redirected to the 'view' page.
      */
-    public function actionUpdate()
+    public function actionUpdate($slug=null)
     {
-        $model = $this->loadModel();
 
-        if (isset($_POST['Page']))
+
+        if ( !$slug )
         {
-            $model->attributes = $_POST['Page'];
+            // Указан ID страницы, редактируем только ее
+            $model = $this->loadModel();
 
-            if ($model->save())
+            if (isset($_POST['Page']))
             {
-                Yii::app()->user->setFlash(YFlashMessages::NOTICE_MESSAGE, Yii::t('page', 'Страница обновлена!'));
+                $model->attributes = $_POST['Page'];
 
-                if (isset($_POST['saveAndClose']))                
-                    $this->redirect(array('admin'));                
+                if ($model->save())
+                {
+                    Yii::app()->user->setFlash(YFlashMessages::NOTICE_MESSAGE, Yii::t('page', 'Страница обновлена!'));
 
-                $this->redirect(array('update', 'id' => $model->id));
+                    if (isset($_POST['saveAndClose']))
+                        $this->redirect(array('admin'));
+
+                    $this->redirect(array('update', 'id' => $model->id));
+                }
             }
-        }
 
-        $this->render('update', array(
-                                     'model' => $model,
-                                     'pages' => Page::model()->getAllPagesList($model->id)
-                                ));
+            $this->render('update', array(
+                                         'model' => $model,
+                                         'pages' => Page::model()->getAllPagesList($model->id)
+                                    ));
+
+        } else {
+
+            // Указано ключевое слово страницы, ищем все языки
+            $yupe = Yii::app()->getModule('yupe');
+            $langs = explode(",",$yupe->availableLanguages);
+
+            $models = Page::model()->findAllByAttributes(array('slug'=>$slug));
+            if (!$models)
+                throw new CHttpException(404,Yii::t('page','Указанная страница не найдена'));
+
+
+            $model=null;
+            // Собираем модельки по языкам
+            foreach ($models as $m)
+                $modelsByLang[$m->lang]=$m;
+
+            // Выберем модельку для вывода тайтлов и прочего
+            $model = isset($modelsByLang[Yii::app()->language])?$modelsByLang[Yii::app()->language]:reset($models);
+
+            // Теперь создадим недостоающие
+            foreach ($langs as $l)
+                if ( !isset($modelsByLang[$l]))
+                {
+                    $page = new Page();
+                    $page-> setAttributes(
+                        array(
+                            'slug'=>$slug,
+                            'lang'=>$l,
+                            'parent_Id'=>$model->parent_Id,
+                            'user_id'=>Yii::app()->user->id,
+                        )
+                    );
+                    $modelsByLang[$l]= $page;
+                }
+
+            // Проверим пост
+            if ( isset($_POST['Page']) )
+            {
+                print_r(    $_POST);
+                exit;
+            }
+
+
+            $this->render('updateMultilang', array(
+                'model' => $model,
+                'models' => $modelsByLang,
+                'pages' => Page::model()->getAllPagesListBySlug($slug),
+                'langs' => $langs,
+            ));
+
+
+        }
     }
 
     /**
