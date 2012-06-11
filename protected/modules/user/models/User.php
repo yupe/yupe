@@ -140,24 +140,24 @@ class User extends CActiveRecord
             array('birth_date, site, about, location, online_status, nick_name, first_name, last_name, email', 'filter', 'filter' => 'trim'),
             array('birth_date, site, about, location, online_status, nick_name, first_name, last_name, email', 'filter', 'filter' => array($obj = new CHtmlPurifier(), 'purify')),
             array('nick_name, email, password', 'required'),
-            array('nick_name', 'match', 'pattern' => '/^[A-Za-z0-9]{2,50}$/', 'message' => Yii::t('user', 'Неверный формат поля "{attribute}" допустимы только буквы и цифры, от 2 до 20 символов')),
             array('first_name, last_name, nick_name, email', 'length', 'max' => 50),
             array('password, salt, activate_key', 'length', 'max' => 32),
             array('site', 'length', 'max' => 100),
-            array('site', 'url', 'allowEmpty' => true),
             array('about', 'length', 'max' => 300),
             array('location, online_status', 'length', 'max' => 150),
             array('registration_ip, activation_ip, registration_date', 'length', 'max' => 20),
             array('gender, status, access_level, use_gravatar, email_confirm', 'numerical', 'integerOnly' => true),
-            array('email', 'email'),
-            array('email', 'unique', 'message' => Yii::t('user', 'Данный email уже используется другим пользователем')),
-            array('nick_name', 'unique', 'message' => Yii::t('user', 'Данный ник уже используется другим пользователем')),
-            array('avatar', 'file', 'types' => implode(',', $module->avatarExtensions), 'maxSize' => $module->avatarMaxSize, 'allowEmpty' => true),
             array('email_confirm', 'in', 'range' => array_keys($this->getEmailConfirmStatusList())),
             array('use_gravatar', 'in', 'range' => array(0, 1)),
             array('gender', 'in', 'range' => array_keys($this->getGendersList())),
             array('status', 'in', 'range' => array_keys($this->getStatusList())),
             array('access_level', 'in', 'range' => array_keys($this->getAccessLevelsList())),
+            array('nick_name', 'match', 'pattern' => '/^[A-Za-z0-9]{2,50}$/', 'message' => Yii::t('user', 'Неверный формат поля "{attribute}" допустимы только буквы и цифры, от 2 до 20 символов')),
+            array('site', 'url', 'allowEmpty' => true),
+            array('email', 'email'),
+            array('email', 'unique', 'message' => Yii::t('user', 'Данный email уже используется другим пользователем')),
+            array('nick_name', 'unique', 'message' => Yii::t('user', 'Данный ник уже используется другим пользователем')),
+            array('avatar', 'file', 'types' => implode(',', $module->avatarExtensions), 'maxSize' => $module->avatarMaxSize, 'allowEmpty' => true),
             array('id, creation_date, change_date, first_name, last_name, nick_name, email, gender, avatar, password, salt, status, access_level, last_visit, registration_date, registration_ip, activation_ip', 'safe', 'on' => 'search'),
             //@formatter:on
         );
@@ -270,7 +270,7 @@ class User extends CActiveRecord
 
     public function generateSalt()
     {
-        return md5(uniqid('', true));
+        return md5(uniqid('', true).time());
     }
 
     public function generateRandomPassword($length = null)
@@ -386,13 +386,4 @@ class User extends CActiveRecord
 
         return $this->save();
     }
-
-    public function beforeValidate()
-    {
-        if ($this->site = '')
-            $this->site = null;
-
-        return parent::beforeValidate();
-    }
-
 }

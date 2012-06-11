@@ -27,7 +27,7 @@ class BlogModule extends YWebModule
     public function getNavigation()
     {
         return array(
-            Yii::t('blog', 'Управление') => '/blog/blogAdmin/admin/',
+            Yii::t('blog', 'Блоги') => '/blog/blogAdmin/admin/',
             Yii::t('blog', 'Записи') => '/blog/postAdmin/admin/',
             Yii::t('blog', 'Участники') => '/blog/userToBlogAdmin/admin/',
         );

@@ -204,30 +204,46 @@ class DefaultController extends Controller
                     {
                         //@TODO корректная обработка ошибок IO
                         fwrite($fh, $dbConfString);
+
                         fclose($fh);
 
                         @chmod($dbConfFile, 0666);
 
-                        $result = $this->executeSql($sqlFile);
+                        $transaction = Yii::app()->db->beginTransaction();
 
-                        // обработать если есть все файлы с расширением .sql
-                        $sqlFiles = glob("{$sqlDataDir}*.sql");
-
-                        //@TODO завернуть это все в транзакцию
-                        if (is_array($sqlFiles) && count($sqlFiles) > 1)
+                        try
                         {
-                            foreach ($sqlFiles as $file)
+
+                            $result = $this->executeSql($sqlFile);
+
+                            // обработать если есть все файлы с расширением .sql
+                            $sqlFiles = glob("{$sqlDataDir}*.sql");
+
+                            //@TODO завернуть это все в транзакцию
+                            if (is_array($sqlFiles) && count($sqlFiles) > 1)
                             {
-                                if ($file != $sqlFile)
-                                    $this->executeSql($file);
+                                foreach ($sqlFiles as $file)
+                                {
+                                    if ($file != $sqlFile)
+                                        $this->executeSql($file);
+                                }
                             }
+
+                            $transaction->commit();
+
+                            Yii::app()->user->setFlash(YFlashMessages::NOTICE_MESSAGE, Yii::t('install', 'Настройки базы данных успешно сохранены! База данных проинициализирована!'));
+
+                            $this->redirect(array('/install/default/createuser/'));
                         }
+                        catch(Exception $e)
+                        {
+                            $transaction->rollback();
 
-                        Yii::app()->user->setFlash(YFlashMessages::NOTICE_MESSAGE, Yii::t('install', 'Настройки базы данных успешно сохранены! База данных проинициализирована!'));
+                            Yii::app()->user->setFlash(YFlashMessages::ERROR_MESSAGE, Yii::t('install', 'При инициализации базы данных произошла ошибка!'));
 
-                        $this->redirect(array('/install/default/createuser/'));
+                            $this->redirect(array('/install/default/dbsettings/'));
+                        }
                     }
-
                 }
                 catch (Exception $e)
                 {

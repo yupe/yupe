@@ -37,7 +37,7 @@ class FeedbackModule extends YWebModule
             'emails',
             'adminMenuOrder',
             'successPage',
-            'cacheTime'            
+            'cacheTime'
         );
     }
 

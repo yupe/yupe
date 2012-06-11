@@ -40,10 +40,6 @@ $this->breadcrumbs = array(
 
 <br/><br/>
 
-<?php echo CHtml::link(Yii::t('yupe','Задайте вопрос на форуме'),'http://yupe.ru/forum/');?>  - <?php echo Yii::t('yupe','заходите, поболтаем =)');?>
-
-<br/><br/>
-
 Jabber-конференция сервер: conference.yupe.ru, комната: yupe-talks (<a href="http://yupe.ru/post/djabber-konferentsiya-yupi.html">http://yupe.ru/post/djabber-konferentsiya-yupi.html</a>)
 
 <br/><br/>

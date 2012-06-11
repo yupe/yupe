@@ -48,17 +48,17 @@ $this->widget('YCustomGridView', array(
         ),
         'email',
         array(
-            'name' => 'status',
-            'type' => 'raw',
-            'value' => '$this->grid->returnStatusHtml($data, Comment::STATUS_APPROVED, 1)',
-        ),
-        array(
             'name' => 'access_level',
             'value' => '$data->getAccessLevel()',
             'filter' => CHtml::activeDropDownList($model, 'status', $model->getAccessLevelsList()),
         ),
         'creation_date',
         'last_visit',
+        array(
+            'name' => 'status',
+            'type' => 'raw',
+            'value' => '$this->grid->returnStatusHtml($data, Comment::STATUS_APPROVED, 1)',
+        ),
         array(
             'class' => 'CButtonColumn',
             'template' => '{view} {update} {password} {delete}',
