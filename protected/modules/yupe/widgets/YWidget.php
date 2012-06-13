@@ -22,6 +22,8 @@ abstract class YWidget extends CWidget
      */
     public $cacheTime;
 
+    public $limit = 5;
+
     public function init()
     {
         parent::init();
