@@ -1,6 +1,6 @@
 <div id="comments">
     <?php if (count($comments)): ?>
-    <h3>Комментариев: <?php echo count($comments);?></h3>
+    <h3><?php echo $this->label;?>: <?php echo count($comments);?></h3>
     <?php foreach ($comments as $comment): ?>
         <div id="c2" class="comment">
             <div class="author">
@@ -18,7 +18,7 @@
         </div><!-- comment -->
         <?php endforeach; ?>
     <?php else: ?>
-    <p>Комментариев пока нет, станьте первым!</p>
+    <p><?php echo $this->label;?> пока нет, станьте первым!</p>
     <?php endif;?>
 </div>
   

@@ -71,7 +71,7 @@
     <?php endif; ?>
 
     <div class="row buttons">
-        <?php echo CHtml::submitButton('Добавить комментарий'); ?>
+        <?php echo CHtml::submitButton('Написать'); ?>
     </div>
 
     <?php $this->endWidget(); ?>

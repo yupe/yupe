@@ -77,7 +77,7 @@ class Comment extends CActiveRecord
             'name' => Yii::t('comment', 'Имя'),
             'email' => Yii::t('comment', 'Email'),
             'url' => Yii::t('comment', 'Сайт'),
-            'text' => Yii::t('comment', 'Комментарий'),
+            'text' => Yii::t('comment', 'Текст'),
             'status' => Yii::t('comment', 'Статус'),
             'verifyCode' => Yii::t('comment', 'Код проверки'),
             'ip' => Yii::t('comment', 'ip'),

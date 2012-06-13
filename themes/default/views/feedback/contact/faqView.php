@@ -41,3 +41,15 @@ $this->breadcrumbs = array(
     'services' => 'all'
 ));?>
 </div>
+
+<br/><br/><br/>
+
+<?php $this->widget('application.modules.comment.widgets.CommentsListWidget', array('label' => 'Мнений','model' => $model, 'modelId' => $model->id)); ?>
+
+<br/>
+
+<h3>У Вас есть свое мнение по этому вопросу !? Поделитесь им!</h3>
+
+<?php $this->widget('application.modules.comment.widgets.CommentFormWidget', array('redirectTo' => $this->createUrl('/feedback/contact/faqView/', array('id' => $model->id)), 'model' => $model, 'modelId' => $model->id)); ?>
+
+

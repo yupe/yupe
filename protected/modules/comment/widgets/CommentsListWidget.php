@@ -2,7 +2,10 @@
 class CommentsListWidget extends YWidget
 {
     public $model;
+
     public $modelId;
+
+    public $label;
 
     public function init()
     {
@@ -16,6 +19,9 @@ class CommentsListWidget extends YWidget
             : $this->model;
 
         $this->modelId = (int)$this->modelId;
+
+        if(!$this->label)
+            $this->label = Yii::t('comment','Комментариев');
     }
 
     public function run()
