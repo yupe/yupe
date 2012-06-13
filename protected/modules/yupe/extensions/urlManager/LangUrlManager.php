@@ -60,7 +60,10 @@ class LangUrlManager extends CUrlManager{
 		$pi=$request->getPathInfo();
 		$l = substr($pi,0,2);
 		if ( (strlen($l)==2) && in_array($l,$this->languages) && ( $l==Yii::app()-> sourceLanguage ))
-			Yii::app()-> request-> redirect(substr($pi,2));
+		{
+			$newLocation = substr($pi,2);
+			Yii::app()-> request-> redirect($newLocation?$newLocation:"/");
+		}
 				                                        
 	}
     	return parent::parseUrl($request);
