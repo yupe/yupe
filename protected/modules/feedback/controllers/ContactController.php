@@ -137,4 +137,20 @@ class ContactController extends YFrontController
             'dataProvider' => $dataProvider,
         ));
     }
+
+
+    public function actionFaqView($id)
+    {
+        $id = (int)$id;
+
+        if(!$id)
+            throw new CHttpException(404,Yii::t('feedback','Страница не найдена!'));
+
+        $model = FeedBack::model()->answered()->faq()->findByPk($id);
+
+        if(!$model)
+            throw new CHttpException(404,Yii::t('feedback','Страница не найдена!'));
+
+        $this->render('faqView',array('model' => $model));
+    }
 }

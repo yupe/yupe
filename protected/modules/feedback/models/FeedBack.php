@@ -156,10 +156,20 @@ class FeedBack extends CActiveRecord
 
     public function scopes()
     {
-        return array('new' => array(
-            'condition' => 'status = :status',
-            'params' => array(':status' => self::STATUS_NEW),
-        ));
+        return array(
+            'new' => array(
+                'condition' => 'status = :status',
+                'params' => array(':status' => self::STATUS_NEW),
+             ),
+            'answered' => array(
+                'condition' => 'status = :status',
+                'params'    => array(':status' => self::STATUS_ANSWER_SENDED)
+            ),
+            'faq' => array(
+                'condition' => 'is_faq = :is_faq',
+                'params'    => array(':is_faq' => self::IS_FAQ)
+            )
+        );
     }
 
     public function getIsFaq()

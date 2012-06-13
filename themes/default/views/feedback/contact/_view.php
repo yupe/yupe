@@ -10,7 +10,7 @@
     <br/>
 
     <b><?php echo CHtml::encode($data->getAttributeLabel('theme')); ?>:</b>
-    <?php echo CHtml::encode($data->theme); ?>
+    <?php echo CHtml::link(CHtml::encode($data->theme),array('/feedback/contact/faqView/','id' => $data->id)); ?>
     <br/>
 
     <b><?php echo CHtml::encode($data->getAttributeLabel('text')); ?>:</b>
