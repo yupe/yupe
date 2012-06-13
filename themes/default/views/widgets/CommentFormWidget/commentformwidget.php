@@ -12,7 +12,7 @@
 
     <?php if (!Yii::app()->user->isAuthenticated()): ?>
 
-    <p>Пожалуйста, <?php echo CHtml::link('авторизуйтесь',array('/user/account/login/'));?> или <?php echo CHtml::link('зарегистрируйтесь',array('/user/account/registration/'));?> - комментарии добавлять будет проще =)</p>
+    <p>Пожалуйста, <?php echo CHtml::link('авторизуйтесь',array('/user/account/login/'));?> или <?php echo CHtml::link('зарегистрируйтесь',array('/user/account/registration/'));?> - писать будет проще =)</p>
 
     <?php endif;?>
 

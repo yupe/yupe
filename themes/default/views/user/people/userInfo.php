@@ -35,3 +35,17 @@
     'services' => 'all'
 ));?>
 </div>
+
+<br/><br/><br/>
+
+<?php $this->widget('application.modules.comment.widgets.CommentsListWidget', array('label' => 'Мнений','model' => $user, 'modelId' => $user->id)); ?>
+
+<br/>
+
+<h3>На моей стене можно что-то написать!</h3>
+
+<?php if(Yii::app()->user->isAuthenticated()):?>
+    <?php $this->widget('application.modules.comment.widgets.CommentFormWidget', array('redirectTo' => $this->createUrl('/user/people/userInfo/', array('username' => $user->nick_name)), 'model' => $user, 'modelId' => $user->id)); ?>
+<?php else:?>
+    <p>Пожалуйста, <?php echo CHtml::link('авторизуйтесь',array('/user/account/login/'));?> или <?php echo CHtml::link('зарегистрируйтесь',array('/user/account/registration/'));?> - только тогда можно писать на моей стене =)</p>
+<?php endif?>
