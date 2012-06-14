@@ -51,11 +51,6 @@ return array(
 
     // конфигурирование основных компонентов (подробнее http://www.yiiframework.ru/doc/guide/ru/basics.component)
     'components' => array(
-
-        'authManager'=>array(
-            'class'=>'RDbAuthManager',
-        ),
-
         // Библиотека для работы с картинками через GD/ImageMagick
         // Лучше установите ImageMagick, т.к. он ресайзит анимированные гифы
         'image' => array(

@@ -90,7 +90,7 @@ class User extends CActiveRecord
         return array(
             self::GENDER_FEMALE => Yii::t('user', 'женский'),
             self::GENDER_MALE => Yii::t('user', 'мужской'),
-            self::GENDER_THING => Yii::t('user', 'неизвестно')
+            self::GENDER_THING => Yii::t('user', 'нечто')
         );
     }
 

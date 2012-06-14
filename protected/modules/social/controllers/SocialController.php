@@ -23,6 +23,7 @@ class SocialController extends YFrontController
 
             $authIdentity->cancelUrl = $this->createAbsoluteUrl('/social/social/login/');
 
+            // если авторизовались через сервис
             if ($authIdentity->authenticate())
             {
                 $identity = new ServiceUserIdentity($authIdentity);

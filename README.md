@@ -12,6 +12,8 @@
 * Модуль для простого голосования (можно голосовать за любую сущность) (модуль vote)
 * Модуль простых справочников (хранение и управление справочной информацией) (модуль dictionary)
 * Модуль для ведения блогов (как индивидуальных, так и коллективных)
+* Модуль для "Обратной связи" + раздел FAQ (http://yupe.ru/faq)
+
 
 + Вы получаете удобную админку, выполненную на Twitter Boostrap  (примерно вот так выглядит http://yupeko.ru/temp/admin.png)
 
@@ -28,8 +30,6 @@
 * Официальный твиттер - https://twitter.com/#!/YupeCms
 
 * Юпи! блог - http://yupe.ru/index.php/blog/yupe-mini-cms-yii
-
-* Форум - http://yupe.ru/forum/
 
 * Jabber-конференция сервер: conference.yupe.ru, комната: yupe-talks (http://yupe.ru/post/djabber-konferentsiya-yupi.html)
 
