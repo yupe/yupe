@@ -1,6 +1,8 @@
 <?php
 class YWebUser extends CWebUser
 {
+    private $_profile;
+
     public function isAuthenticated()
     {
         if (Yii::app()->user->isGuest)        
@@ -38,4 +40,18 @@ class YWebUser extends CWebUser
 
         return false;
     }    
+
+
+    public function getProfile( $moduleName=null )
+    {
+        if ( !$moduleName )
+        {
+            if ( $this->_profile === null )
+                $this->_profile = User::model()->findByPk($this->id);
+
+            return $this->_profile;
+        }
+        return null;
+    }
+
 }
