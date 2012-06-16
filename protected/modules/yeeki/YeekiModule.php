@@ -30,11 +30,9 @@ class YeekiModule extends YWebModule
         return Yii::t('menu', 'Контент');
     }
 
-    public function getNavigation()
+    public function getAdminPageLink()
     {
-        return array(
-            Yii::t('menu', 'Главная')=>'/wiki/default/index/',
-        );
+        return '/wiki/default/index/';
     }
 
     public function getName()
