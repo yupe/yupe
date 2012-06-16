@@ -1,15 +1,14 @@
 <?php
 class MenuModule extends YWebModule
 {
-
     public function getCategory()
     {
         return Yii::t('menu', 'Структура');
     }
 
-    public function getNavigation()
+    public function getAdminPageLink()
     {
-        return array(Yii::t('menu', 'Меню') => '/menu/menu/admin/');
+        return '/menu/menu/admin/';
     }
 
     public function getName()
