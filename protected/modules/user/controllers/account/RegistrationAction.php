@@ -69,7 +69,7 @@ class RegistrationAction extends CAction
                         }
                     }
                     catch(Exception $e)
-                    {var_dump($e);
+                    {
                         $transaction->rollback();
                         
                         $form->addError('',Yii::t('user','При создании учетной записи произошла ошибка!'));
