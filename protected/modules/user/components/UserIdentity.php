@@ -4,13 +4,13 @@ class UserIdentity extends CUserIdentity
     private $_id;
 
     public function authenticate()
-    {        
+    {
         $user = User::model()->active()->findByAttributes(array('email' => $this->username));
-        
-        if ($user === null)    
-            $this->errorCode = self::ERROR_USERNAME_INVALID;        
-        elseif (!$user->validatePassword($this->password))        
-            $this->errorCode = self::ERROR_PASSWORD_INVALID;        
+
+        if ($user === null)
+            $this->errorCode = self::ERROR_USERNAME_INVALID;
+        elseif (!$user->validatePassword($this->password))
+            $this->errorCode = self::ERROR_PASSWORD_INVALID;
         else
         {
             // запись данных в сессию пользователя
