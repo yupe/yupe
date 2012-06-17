@@ -10,7 +10,7 @@ class BackendController extends YBackController
 
     public function actionSettings()
     {
-        $this->render('settings');
+        $this->render('settings', Yii::app()->getModule('yupe')->getModules());
     }
 
     public function actionModulesettings($module)

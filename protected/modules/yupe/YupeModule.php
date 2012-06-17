@@ -209,11 +209,8 @@ class YupeModule extends YWebModule
 
             $settings = array(
                 'icon' => "wrench",
-                'label' => Yii::t('yupe', 'Настройки'),
-                'url' => array(
-                    '/yupe/backend/modulesettings/',
-                    'module' => $this->id,
-                ),
+                'label' => Yii::t('yupe', 'Настройки модулей'),
+                'url' => array('/yupe/backend/settings/'),
                 'items' => array(),
             );
 
@@ -221,8 +218,8 @@ class YupeModule extends YWebModule
             {
                 $links = $modules[$key]->navigation;
 
-                // собраются подпункты категории "Настройки"
-                if ($modules[$key]->editableParams)
+                // собраются подпункты категории "Настройки", кроме пункта Юпи
+                if ($modules[$key]->editableParams && $key != $this->id)
                     $settings['items'][] = array(
                         'icon' => $modules[$key]->icon,
                         'label' => $modules[$key]->name,
