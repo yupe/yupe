@@ -226,9 +226,9 @@ class User extends CActiveRecord
 
         if ($this->isNewRecord)
         {
-            $this->creation_date = $this->change_date;
+            $this->registration_date = $this->creation_date = $this->change_date;
             $this->activate_key = $this->generateActivationKey();
-            $this->registration_ip = Yii::app()->request->userHostAddress;
+            $this->registration_ip = $this->activation_ip = Yii::app()->request->userHostAddress;
         }
 
         if ($this->birth_date === '')

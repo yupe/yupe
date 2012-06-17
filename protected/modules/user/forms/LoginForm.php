@@ -10,7 +10,7 @@ class LoginForm extends CFormModel
     public function rules()
     {
         return array(
-            array('email, password', 'required'),            
+            array('email, password', 'required'),
             array('email','email'),
             array('password', 'authenticate')
         );
@@ -30,10 +30,10 @@ class LoginForm extends CFormModel
         {
             $this->_identity = new UserIdentity($this->email, $this->password);
 
-            if (!$this->_identity->authenticate())            
-                $this->addError('password', Yii::t('user', 'Email или пароль введены неверно!'));            
+            if (!$this->_identity->authenticate())
+                $this->addError('password', Yii::t('user', 'Email или пароль введены неверно!'));
             else            
-                Yii::app()->user->login($this->_identity);            
+                Yii::app()->user->login($this->_identity);
         }
     }
 }

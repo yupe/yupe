@@ -34,6 +34,9 @@ class YupeModule extends YWebModule
     public $uploadPath = 'uploads';
     public $editor = 'application.modules.yupe.widgets.editors.imperaviRedactor.EImperaviRedactorWidget';
     public $email;
+    public $categoryIcon = array(
+        'Сервисы' => 'briefcase',
+    );
 
     public function getVersion()
     {
@@ -172,39 +175,30 @@ class YupeModule extends YWebModule
 
     public function getModules($navigationOnly = false)
     {
+        //@TODO добавить кэширование
+        //@TODO продумать работу с категориями
 
-        //@TODO сортировка модулей по adminMenuOrder позже переделать более оптимально
-        //@TODO этот метод необходимо оптимизировать, но позже
-        //@TODO возможно хватит добавления кэширования
+        $modulesNavigation = $modules = $category = $yiiModules = $order = array();
 
-        $modules = $category = $yiiModules = $order = array();
-
-        $modulesNavigation = array('settings' => array(
-                'items' => array(),
-                'icon' => "wrench",
-                'label' => Yii::t('yupe', 'Настройки'),
-                'url' => '#',
-                'linkOptions' => array('class' => 'sub-menu'),
-            ));
-
+        // Получаем модули и заполняем основные массивы
         if (count(Yii::app()->modules))
         {
             foreach (Yii::app()->modules as $key => $value)
             {
                 $key = strtolower($key);
-
                 $module = Yii::app()->getModule($key);
 
                 if (!is_null($module))
                 {
-                    if (is_a($module, 'YWebModule'))
-                    {
-                        if ($module->getIsShowInAdminMenu() || $module->getEditableParams() || ($module->getIsShowInAdminMenu() == false && is_array($module->checkSelf())))
-                        {
-                            $modules[$key] = $module;
-                            $category[$key] = $module->getCategory();
-                            $order[$key] = $module->adminMenuOrder;
-                        }
+                    if (is_a($module, 'YWebModule') && (
+                            $module->isShowInAdminMenu || $module->editableParams || (
+                                !$module->isShowInAdminMenu && is_array($module->checkSelf())
+                            )
+                    )) {
+                        $modules[$key] = $module;
+                        $category[$key] = $module->category;
+                        //@TODO сортировку модулей сделать иначе
+                        $order[$key] = $module->adminMenuOrder;
                     }
                     else
                         $yiiModules[$key] = $module;
@@ -213,101 +207,78 @@ class YupeModule extends YWebModule
 
             asort($order, SORT_NUMERIC);
 
+            $settings = array(
+                'icon' => "wrench",
+                'label' => Yii::t('yupe', 'Настройки модулей'),
+                'url' => array('/yupe/backend/settings/'),
+                'items' => array(),
+            );
+
             foreach ($order as $key => $value)
             {
-                $links = $modules[$key]->getNavigation();
+                $links = $modules[$key]->navigation;
 
-                // если у модуля есть сабменю - выводим его выпадающим
+                // собраются подпункты категории "Настройки", кроме пункта Юпи
+                if ($modules[$key]->editableParams && $key != $this->id)
+                    $settings['items'][] = array(
+                        'icon' => $modules[$key]->icon,
+                        'label' => $modules[$key]->name,
+                        'url' => array(
+                            '/yupe/backend/modulesettings/',
+                            'module' => $modules[$key]->id,
+                        ),
+                    );
+
+                // проверка на вывод модуля в категориях, потребуется при отключении модуля
+                if (!$modules[$key]->isShowInAdminMenu)
+                    continue;
+
+                $data = array(
+                    'icon' => $modules[$key]->icon,
+                    'label' => $modules[$key]->name,
+                    'url' => array($modules[$key]->adminPageLink),
+                );
+
+                // если у модуля есть подменю, генерируем его
                 if (is_array($links))
                 {
-                    $inSettings = false;
-                    if (!isset($modulesNavigation[$category[$key]]))
-                    {
-                        $modulesNavigation[$category[$key]]['items'] = array();
-                        $modulesNavigation[$category[$key]]['label'] = $category[$key];
-                        $modulesNavigation[$category[$key]]['linkOptions'] = array('class' => 'sub-menu');
-                        $modulesNavigation[$category[$key]]['url'] = '#';
-
-                        // @TODO: Тут подставлять иконку категории вместо первого модуля
-                        $modulesNavigation[$category[$key]]['icon'] = $modules[$key]->icon;
-                    }
-                    $subitem = array(
-                        'label' => $modules[$key]->name,
-                        'items' => array(),
-                        'icon' => $modules[$key]->icon,
-                        'url' => '#',
-                    );
+                    $data['items'] = array();
 
                     foreach ($links as $text => $url)
-                    {
-                        $tmp = array(
+                        $data['items'][] = array(
+                            'icon' => $modules[$key]->icon,
                             'label' => $text,
                             'url' => array($url),
-                            'icon' => $modules[$key]->icon,
+                        );
+                }
+
+                // если в модуле установлена категория, прикрепляем к ней
+                if (isset($category[$key]))
+                {
+                    // проверяем, создавалась ли ранее категория
+                    if (!isset($modulesNavigation[$category[$key]]))
+                    {
+                        $modulesNavigation[$category[$key]] = array(
+                            'label' => $category[$key],
+                            'items' => array(),
+                            'linkOptions' => array('class' => 'sub-menu'),
                         );
 
-                        array_push($subitem['items'], $tmp);
-
-                        // собрать все для меню "Настройки"
-                        if (!$inSettings && $modules[$key]->getEditableParams())
-                        {
-                            array_push($modulesNavigation['settings']['items'], array(
-                                'icon' => $modules[$key]->icon,
-                                'label' => $modules[$key]->getName(),
-                                'url' => array(
-                                    '/yupe/backend/modulesettings/',
-                                    'module' => $modules[$key]->getId(),
-                                ),
-                            ));
-
-                            $inSettings = true;
-                        }
+                        if(isset($this->categoryIcon[$category[$key]]))
+                            $modulesNavigation[$category[$key]]['icon'] = $this->categoryIcon[$category[$key]];
+                        // Если нет иконка для данной категории, подставляется иконка первого модуля
+                        elseif ($modules[$key]->icon)
+                            $modulesNavigation[$category[$key]]['icon'] = $modules[$key]->icon;
                     }
-                    array_push($modulesNavigation[$category[$key]]['items'], $subitem);
+                    $modulesNavigation[$category[$key]]['items'][] = $data;
                 }
                 else
-                {
-                    $data = array(
-                        'label' => $modules[$key]->getName(),
-                        'url' => array($modules[$key]->getAdminPageLink()),
-                        'icon' => $modules[$key]->icon,
-                    );
-
-                    if ($modules[$key]->getIsShowInAdminMenu())
-                    {
-                        if ($category[$key])
-                        {
-                            if (!isset($modulesNavigation[$category[$key]]))
-                            {
-                                $modulesNavigation[$category[$key]]['items'] = array();
-                                $modulesNavigation[$category[$key]]['label'] = $category[$key];
-                                $modulesNavigation[$category[$key]]['linkOptions'] = array('class' => 'sub-menu');
-                                $modulesNavigation[$category[$key]]['url'] = '#';
-                                if ($modules[$key]->icon)
-                                    $modulesNavigation[$category[$key]]['icon'] = $modules[$key]->icon;
-                            }
-
-                            array_push($modulesNavigation[$category[$key]]['items'], $data);
-                        }
-                        else
-                            array_push($modulesNavigation, $data);
-                    }
-
-                    // собрать все для меню "Настройки"
-                    if ($modules[$key]->getEditableParams())
-                    {
-                        array_push($modulesNavigation['settings']['items'], array(
-                            'icon' => $modules[$key]->icon,
-                            'label' => $modules[$key]->getName(),
-                            'url' => array(
-                                '/yupe/backend/modulesettings/',
-                                'module' => $modules[$key]->getId(),
-                            ),
-                        ));
-                    }
-                }
+                    $modulesNavigation[] = $data;
             }
         }
+
+        // Переносим настройки в категорию система
+        $modulesNavigation[$this->category]['items'][] = $settings;
 
         return $navigationOnly === true ? $modulesNavigation : array(
             'modules' => $modules,

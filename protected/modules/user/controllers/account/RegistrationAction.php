@@ -14,16 +14,16 @@ class RegistrationAction extends CAction
             // проверка по "черным спискам"
             
             // проверить на email
-            if (!$module->isAllowedEmail($form->email))            
+            if (!$module->isAllowedEmail($form->email))
                 // перенаправить на экшн для фиксации невалидных email-адресов
                 $this->controller->redirect(array($module->invalidEmailAction));
             
-            if (!$module->isAllowedIp(Yii::app()->request->userHostAddress))            
+            if (!$module->isAllowedIp(Yii::app()->request->userHostAddress))
                 // перенаправить на экшн для фиксации невалидных ip-адресов
-                $this->controller->redirect(array($module->invalidIpAction));            
+                $this->controller->redirect(array($module->invalidIpAction));
 
             if ($form->validate())
-            {                
+            {
                 // если требуется активация по email
                 if ($module->emailAccountVerification)
                 {
@@ -62,7 +62,7 @@ class RegistrationAction extends CAction
                             $this->controller->redirect(array($module->registrationSucess));
                         }
                         else
-                        {                           
+                        {
                             $form->addErrors($registration->getErrors());
 
                             Yii::log(Yii::t('user', "Ошибка при создании  учетной записи!"), CLogger::LEVEL_ERROR, UserModule::$logCategory);     
@@ -76,9 +76,9 @@ class RegistrationAction extends CAction
                     }
                 }
                 else
-                {                    
+                {
                     // если активации не требуется - сразу создаем аккаунт
-                    $user = new User;                    
+                    $user = new User;
 
                     $user->createAccount($form->nick_name, $form->email, $form->password, null , User::STATUS_ACTIVE, User::EMAIL_CONFIRM_NO);
 
@@ -100,7 +100,7 @@ class RegistrationAction extends CAction
                         $form->addErrors($user->getErrors());
 
                         Yii::log(Yii::t('user', "Ошибка при создании  учетной записи без активации!"), CLogger::LEVEL_ERROR, UserModule::$logCategory);
-                    }                                       
+                    }
                 }
             }
         }
