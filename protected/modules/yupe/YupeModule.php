@@ -34,6 +34,9 @@ class YupeModule extends YWebModule
     public $uploadPath = 'uploads';
     public $editor = 'application.modules.yupe.widgets.editors.imperaviRedactor.EImperaviRedactorWidget';
     public $email;
+    public $categoryIcon = array(
+        'Сервисы' => 'briefcase',
+    );
 
     public function getVersion()
     {
@@ -173,8 +176,9 @@ class YupeModule extends YWebModule
     public function getModules($navigationOnly = false)
     {
         //@TODO добавить кэширование
+        //@TODO продумать работу с категориями
 
-        $modules = $category = $yiiModules = $order = array();
+        $modulesNavigation = $modules = $category = $yiiModules = $order = array();
 
         // Получаем модули и заполняем основные массивы
         if (count(Yii::app()->modules))
@@ -187,13 +191,13 @@ class YupeModule extends YWebModule
                 if (!is_null($module))
                 {
                     if (is_a($module, 'YWebModule') && (
-                            $module->getIsShowInAdminMenu() || $module->getEditableParams() || (
-                                $module->getIsShowInAdminMenu() == false && is_array($module->checkSelf())
+                            $module->isShowInAdminMenu || $module->editableParams || (
+                                !$module->isShowInAdminMenu && is_array($module->checkSelf())
                             )
                     )) {
                         $modules[$key] = $module;
-                        $category[$key] = $module->getCategory();
-                        //@TODO сортировка модулей по adminMenuOrder позже переделать более оптимально
+                        $category[$key] = $module->category;
+                        //@TODO сортировку модулей сделать иначе
                         $order[$key] = $module->adminMenuOrder;
                     }
                     else
@@ -203,44 +207,44 @@ class YupeModule extends YWebModule
 
             asort($order, SORT_NUMERIC);
 
-            $modulesNavigation = array('settings' => array(
+            $settings = array(
                 'icon' => "wrench",
                 'label' => Yii::t('yupe', 'Настройки'),
-                'url' => '#',
+                'url' => array(
+                    '/yupe/backend/modulesettings/',
+                    'module' => $this->id,
+                ),
                 'items' => array(),
-                'linkOptions' => array('class' => 'sub-menu'),
-            ));
+            );
 
             foreach ($order as $key => $value)
             {
-                $links = $modules[$key]->getNavigation();
+                $links = $modules[$key]->navigation;
 
                 // собраются подпункты категории "Настройки"
-                if ($modules[$key]->getEditableParams())
-                    $modulesNavigation['settings']['items'][] = array(
+                if ($modules[$key]->editableParams)
+                    $settings['items'][] = array(
                         'icon' => $modules[$key]->icon,
-                        'label' => $modules[$key]->getName(),
+                        'label' => $modules[$key]->name,
                         'url' => array(
                             '/yupe/backend/modulesettings/',
-                            'module' => $modules[$key]->getId(),
+                            'module' => $modules[$key]->id,
                         ),
                     );
 
                 // проверка на вывод модуля в категориях, потребуется при отключении модуля
-                if (!$modules[$key]->getIsShowInAdminMenu())
+                if (!$modules[$key]->isShowInAdminMenu)
                     continue;
 
                 $data = array(
                     'icon' => $modules[$key]->icon,
                     'label' => $modules[$key]->name,
-                    'url' => array($modules[$key]->getAdminPageLink()),
+                    'url' => array($modules[$key]->adminPageLink),
                 );
 
                 // если у модуля есть подменю, генерируем его
                 if (is_array($links))
                 {
-                    //@TODO изменить # на адрес
-                    $data['url'] = '#';
                     $data['items'] = array();
 
                     foreach ($links as $text => $url)
@@ -259,13 +263,14 @@ class YupeModule extends YWebModule
                     {
                         $modulesNavigation[$category[$key]] = array(
                             'label' => $category[$key],
-                            'url' => '#',
                             'items' => array(),
                             'linkOptions' => array('class' => 'sub-menu'),
                         );
 
-                        // @TODO: Тут подставлять иконку категории вместо первого модуля
-                        if ($modules[$key]->icon)
+                        if(isset($this->categoryIcon[$category[$key]]))
+                            $modulesNavigation[$category[$key]]['icon'] = $this->categoryIcon[$category[$key]];
+                        // Если нет иконка для данной категории, подставляется иконка первого модуля
+                        elseif ($modules[$key]->icon)
                             $modulesNavigation[$category[$key]]['icon'] = $modules[$key]->icon;
                     }
                     $modulesNavigation[$category[$key]]['items'][] = $data;
@@ -274,6 +279,9 @@ class YupeModule extends YWebModule
                     $modulesNavigation[] = $data;
             }
         }
+
+        // Переносим настройки в категорию система
+        $modulesNavigation[$this->category]['items'][] = $settings;
 
         return $navigationOnly === true ? $modulesNavigation : array(
             'modules' => $modules,
