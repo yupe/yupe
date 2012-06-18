@@ -107,6 +107,9 @@ return array(
                 '/users/' => 'user/people/index/',
                 '/wiki/<controller:\w+>/<action:\w+>' => '/yeeki/wiki/<controller>/<action>',
                 'user/<username:\w+>/' => 'user/people/userInfo',
+                '<module:\w+>/<controller:\w+>/<action:\w+>/<id:\d+>' => '<module>/<controller>/<action>',
+                '<module:\w+>/<controller:\w+>/<action:\w+>' => '<module>/<controller>/<action>',
+                '<module:\w+>/<controller:\w+>' => '<module>/<controller>/index',
             ),
         ),
 
@@ -244,5 +247,10 @@ return array(
         ),
     ),
 
-    'behaviors' => array('YupeStartUpBehavior'),
+    'behaviors' => array(
+        'onBeginRequest' => array(
+            'class'  => 'application.modules.yupe.extensions.urlManager.LanguageBehavior'
+        ),
+        'YupeStartUpBehavior'
+    ),
 );
