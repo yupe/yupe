@@ -12,6 +12,18 @@
     <?php echo $form->errorSummary($model); ?>
 
     <div class="row">
+        <?php echo $form->labelEx($model, 'menu_id'); ?>
+        <?php echo $form->dropDownList($model, 'menu_id', CHtml::listData(Menu::model()->findAll(), 'id', 'name'), array('empty' => Yii::t('menu', '--выберите меню--'))); ?>
+        <?php echo $form->error($model, 'menu_id'); ?>
+    </div>
+
+    <div class="row">
+        <?php echo $form->labelEx($model, 'parent_id'); ?>
+        <?php echo $form->dropDownList($model, 'parent_id', $model->parentList); ?>
+        <?php echo $form->error($model, 'parent_id'); ?>
+    </div>
+
+    <div class="row">
         <?php echo $form->labelEx($model, 'title'); ?>
         <?php
         echo $form->textField($model, 'title', array(
@@ -31,18 +43,6 @@
         ));
         ?>
         <?php echo $form->error($model, 'href'); ?>
-    </div>
-
-    <div class="row">
-        <?php echo $form->labelEx($model, 'menu_id'); ?>
-        <?php echo $form->dropDownList($model, 'menu_id', CHtml::listData(Menu::model()->findAll(), 'id', 'name'), array('empty' => Yii::t('menu', 'выберите меню'))); ?>
-        <?php echo $form->error($model, 'menu_id'); ?>
-    </div>
-
-    <div class="row">
-        <?php echo $form->labelEx($model, 'parent_id'); ?>
-        <?php echo $form->dropDownList($model, 'parent_id', $model->parentList); ?>
-        <?php echo $form->error($model, 'parent_id'); ?>
     </div>
 
     <div class="row">

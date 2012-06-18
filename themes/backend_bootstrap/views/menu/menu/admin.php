@@ -76,7 +76,18 @@ $this->widget('YCustomGridView', array(
             'htmlOptions' => array('style'=>'width:40px; text-align:center;'),
         ),
         array(
-            'class' => 'bootstrap.widgets.BootButtonColumn',
+            'class'    => 'bootstrap.widgets.BootButtonColumn',
+            'template' => '{view}{update}{delete}{add}',
+            'buttons'  => array(
+                'add' => array(
+                    'label' => false,
+                    'url'   => 'Yii::app()->createUrl("/menu/menuitem/create/",array("mid" => $data->id))',
+                    'options' => array(
+                        'class' => 'icon-plus-sign',
+                        'title' => Yii::t('menu','Добавить пункт меню')
+                    )
+                )
+            )
         ),
     ),
 ));

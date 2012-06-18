@@ -21,10 +21,20 @@ Yii::app()->clientScript->registerScript('fieldset', "
         <div class="row-fluid control-group <?php echo $model-> hasErrors('menu_id')?'error':'' ?>">
             <div class="span7 popover-help" data-content="<?=Yii::t('menu_id',"Меню к которому добавляете пункт") ?>" data-original-title="<?php echo $model-> getAttributeLabel('menu_id'); ?>" >
                 <?php echo $form->labelEx($model, 'menu_id'); ?>
-                <?php echo $form->dropDownList($model, 'menu_id', CHtml::listData(Menu::model()->findAll(), 'id', 'name'), array('empty' => Yii::t('menu', 'выберите меню'))); ?>
+                <?php echo $form->dropDownList($model, 'menu_id', CHtml::listData(Menu::model()->findAll(), 'id', 'name'), array('empty' => Yii::t('menu', '--выберите меню--'))); ?>
             </div>
             <div class="span5">
                 <?php echo $form->error($model, 'menu_id'); ?>
+            </div>
+        </div>
+
+        <div class="row-fluid control-group <?php echo $model-> hasErrors('parent_id')?'error':'' ?>">
+            <div class="span7 popover-help" data-content="<?=Yii::t('parent_id',"Родительский пункт") ?>" data-original-title="<?php echo $model-> getAttributeLabel('parent_id'); ?>" >
+                <?php echo $form->labelEx($model, 'parent_id'); ?>
+                <?php echo $form->dropDownList($model, 'parent_id', $model->parentList); ?>
+            </div>
+            <div class="span5">
+                <?php echo $form->error($model, 'parent_id'); ?>
             </div>
         </div>
 
@@ -45,16 +55,6 @@ Yii::app()->clientScript->registerScript('fieldset', "
             </div>
             <div class="span5">
                 <?php echo $form->error($model, 'href'); ?>
-            </div>
-        </div>
-
-        <div class="row-fluid control-group <?php echo $model-> hasErrors('parent_id')?'error':'' ?>">
-            <div class="span7 popover-help" data-content="<?=Yii::t('parent_id',"Родительский пункт") ?>" data-original-title="<?php echo $model-> getAttributeLabel('parent_id'); ?>" >
-                <?php echo $form->labelEx($model, 'parent_id'); ?>
-                <?php echo $form->dropDownList($model, 'parent_id', $model->parentList); ?>
-            </div>
-            <div class="span5">
-                <?php echo $form->error($model, 'parent_id'); ?>
             </div>
         </div>
 

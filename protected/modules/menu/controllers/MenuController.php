@@ -22,6 +22,7 @@ class MenuController extends YBackController
         // Uncomment the following line if AJAX validation is needed
         // $this->performAjaxValidation($model);
 
+
         if (isset($_POST['Menu']))
         {
             $model->attributes = $_POST['Menu'];

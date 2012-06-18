@@ -22,6 +22,9 @@ class MenuitemController extends YBackController
         // Uncomment the following line if AJAX validation is needed
         // $this->performAjaxValidation($model);
 
+        if($mid = (int)Yii::app()->request->getQuery('mid'))
+            $model->menu_id = $mid;
+
         if (isset($_POST['MenuItem']))
         {
             $model->attributes = $_POST['MenuItem'];
