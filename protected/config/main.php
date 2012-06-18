@@ -98,6 +98,7 @@ return array(
                 '/pages/<slug>' => 'page/page/show',
                 '/story/<title>' => 'news/news/show/',
                 '/post/<slug>.html' => 'blog/post/show/',
+                '/posts/tag/<tag>' => 'blog/post/list/',
                 '/blog/<slug>' => 'blog/blog/show/',
                 '/blogs/' => 'blog/blog/index/',
                 '/users/' => 'user/people/index/',

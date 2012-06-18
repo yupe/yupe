@@ -17,7 +17,9 @@
         <p><?php echo $post->content; ?></p>
     </div>
     <div class="nav">        
-        <?php echo $post->tags->toString(); ?>        
+        <?php foreach($post->getTags() as $tag): ?>
+          <?php echo CHtml::link(CHtml::encode($tag),array('/posts/','tag' => CHtml::encode($tag)));?>
+        <?php endforeach;?>
         | <?php echo CHtml::link('Постоянная ссылка', array('/blog/post/show/', 'slug' => $post->slug));?>
         | обновлено <?php echo $post->update_date;?>
     </div>

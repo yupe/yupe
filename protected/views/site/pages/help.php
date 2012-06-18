@@ -27,9 +27,13 @@
     материально, отправив денежку</p>
 
 <p>- Если у вас есть блог или сайт - разместите наши баннеры <br/><br/>
-<?php echo CHtml::image(Yii::app()->baseUrl.'/web/images/banners/468yupe.jpg');?>    
+
+<textarea rows="5" cols="50"><a href='http://yupe.ru?from=banner' title='Юпи! - ЦМС на Yiiframework!'><img src='http://yupe.ru/web/images/banners/468yupe.jpg' title='Юпи! - ЦМС на Yiiframework!' alt='Юпи! - ЦМС на Yiiframework!'></a></textarea>   <br/><br/>
+
+    <a href='http://yupe.ru?from=banner' title='Юпи! - ЦМС на Yiiframework!'><img src='http://yupe.ru/web/images/banners/468yupe.jpg' title='Юпи! - ЦМС на Yiiframework!' alt='Юпи! - ЦМС на Yiiframework!'></a>
 <br/><br/>
-<?php echo CHtml::image(Yii::app()->baseUrl.'/web/images/banners/125yupe.jpg');?>
+    <textarea rows="5" cols="50"><a href='http://yupe.ru?from=banner' title='Юпи! - ЦМС на Yiiframework!'><img src='http://yupe.ru/web/images/banners/125yupe.jpg' title='Юпи! - ЦМС на Yiiframework!' alt='Юпи! - ЦМС на Yiiframework!'></a></textarea>   <br/><br/>
+    <a href='http://yupe.ru?from=banner' title='Юпи! - ЦМС на Yiiframework!'><img src='http://yupe.ru/web/images/banners/125yupe.jpg' title='Юпи! - ЦМС на Yiiframework!' alt='Юпи! - ЦМС на Yiiframework!'></a>
 </p> 
 
 <p>- Или перечислите нам денежку =) </p>   

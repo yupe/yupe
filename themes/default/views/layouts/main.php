@@ -56,7 +56,16 @@
         </div>
         <div class="span-5 last">
             <div id="sidebar">
+                <div class="portlet">
+                    <div class="portlet-decoration">
+                        <div class="portlet-title">Юпи! на GitHub!</div>
+                    </div>
+                    <div class="portlet-content">
+                        <a href="https://github.com/yupe/yupe" title="Юпи! на GitHub!" target="_blank"><?php echo CHtml::image(Yii::app()->baseUrl.'/web/images/banners/125yupe.jpg','Юпи! на GitHub!',array('alt' => 'Юпи! на GitHub!'));?></a>
+                    </div>
+                </div>
                 <?php $this->widget('application.modules.blog.widgets.LastPostsWidget',array('cacheTime' => 0));?>
+                <?php $this->widget('application.modules.blog.widgets.TagCloudWidget',array('cacheTime' => 0));?>
                 <?php $this->widget('application.modules.feedback.widgets.FaqWidget',array('cacheTime' => 0));?>
                 <?php $this->widget('application.modules.news.widgets.LastNewsWidget',array('cacheTime' => 0));?>
                 <?php $this->widget('application.modules.blog.widgets.BlogsWidget',array('cacheTime' => 0));?>

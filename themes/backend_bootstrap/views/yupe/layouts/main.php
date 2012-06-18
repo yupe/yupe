@@ -65,7 +65,7 @@
             ),
             "<div style='float:right;line-height:16px;text-align:center;'>
                 <small style='font-size: 80%;'>" . Yii::t('yupe', 'Администатор') . "</small><br />
-                <span class='label'>" . Yii::app()->user->nick_name . "</span>
+                <span class='label'>" . CHtml::link(Yii::app()->user->nick_name,array('/user/default/update/','id' => Yii::app()->user->id)) . "</span>
              </div>",
         ),
     ));

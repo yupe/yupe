@@ -19,16 +19,16 @@ $this->breadcrumbs = array(
 <div class="flash-success">
     <p><?php echo Yii::t('yupe',' Юпи! разрабатывается и поддерживается командой энтузиастов, Вы можете использовать Юпи! и любую его часть <b>совершенно бесплатно</b>');?></p>
 
-    <?php echo CHtml::link(Yii::t('yupe','А вот здесь мы принимаем благодарности =)'),'http://yupe.ru/site/page/view/help',array('target' => '_blank'));?>
+    <?php echo CHtml::link(Yii::t('yupe','А вот здесь мы принимаем благодарности =)'),'http://yupe.ru/site/page/view/help/?form=help',array('target' => '_blank'));?>
 
-    <p><p><b><?php echo Yii::t('yupe','По вопросам коммерческой поддержки и разработки Вы всегда можете <a href="http://yupe.ru/feedback/contact" target="_blank">написать нам</a> (<a href="http://yupe.ru/feedback/contact" target="_blank">http://yupe.ru/feedback/contact</a>)');?></b></p></p>
+    <p><p><b><?php echo Yii::t('yupe','По вопросам коммерческой поддержки и разработки Вы всегда можете <a href="http://yupe.ru/feedback/contact/?form=help" target="_blank">написать нам</a> (<a href="http://yupe.ru/feedback/contact" target="_blank">http://yupe.ru/feedback/contact</a>)');?></b></p></p>
 </div>
 
 <br/>
 
 <p><?php echo Yii::t('yupe', 'Полезные ресурсы:');?></p>
 
-<?php echo CHtml::link(Yii::t('yupe','Официальный сайт Юпи!'),'http://yupe.ru');?> - <?php echo Yii::t('yupe','заходите чаще =)');?>
+<?php echo CHtml::link(Yii::t('yupe','Официальный сайт Юпи!'),'http://yupe.ru/?form=help');?> - <?php echo Yii::t('yupe','заходите чаще =)');?>
 
 <br/><br/>
 
@@ -40,7 +40,7 @@ $this->breadcrumbs = array(
 
 <br/><br/>
 
-Jabber-конференция сервер: conference.yupe.ru, комната: yupe-talks (<a href="http://yupe.ru/post/djabber-konferentsiya-yupi.html">http://yupe.ru/post/djabber-konferentsiya-yupi.html</a>)
+Jabber-конференция сервер: conference.yupe.ru, комната: yupe-talks (<a href="http://yupe.ru/post/djabber-konferentsiya-yupi.html?form=help">http://yupe.ru/post/djabber-konferentsiya-yupi.html</a>)
 
 <br/><br/>
 

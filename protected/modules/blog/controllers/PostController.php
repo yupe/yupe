@@ -15,4 +15,13 @@ class PostController extends YFrontController
             'post' => $post,
         ));
     }
+
+    public function actionList($tag)
+    {
+        $tag = CHtml::encode($tag);
+
+        $posts = Post::model()->published()->public()->taggedWith($tag)->findAll();
+
+        $this->render('list',array('posts' => $posts,'tag' => $tag));
+    }
 }
