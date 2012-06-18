@@ -3,7 +3,7 @@
 
 <?php
 $this->breadcrumbs = array(
-    Yii::t('feedback', 'Сообщения с сайта') => array('/feedback/contact/faq/'),
+    'Вопросы и ответы' => array('/feedback/contact/faq/'),
     $model->theme,
 );
 ?>

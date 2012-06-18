@@ -1,6 +1,13 @@
 <?php $this->pageTitle = $blog->name;?>
 <?php $this->description = $blog->description;?>
 
+<?php
+$this->breadcrumbs = array(
+    'Блоги' => array('/blogs/'),
+    $blog->name,
+);
+?>
+
 
 <div class="post">
     <div class="title">

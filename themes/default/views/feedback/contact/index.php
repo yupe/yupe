@@ -1,4 +1,7 @@
-<?php $this->pageTitle = 'Юпи! | Обратная связь'; ?>
+<?php
+$this->pageTitle = 'Юпи! | Обратная связь';
+$this->breadcrumbs = array('Обратная связь');
+?>
 
 <h1>Обратная связь</h1>
 

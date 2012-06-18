@@ -1,4 +1,7 @@
-<?php $this->pageTitle='Блоги';?>
+<?php
+$this->pageTitle = 'Блоги';
+$this->breadcrumbs = array(Yii::t('blog', 'Блоги'));
+?>
 
 <h1>Блоги</h1>
 

@@ -1,4 +1,7 @@
-<?php $this->pageTitle = Yii::t('user', 'Авторизация'); ?>
+<?php
+$this->pageTitle = Yii::t('user', 'Авторизация');
+$this->breadcrumbs = array('Авторизация');
+?>
 
 <?php Yii::app()->clientScript->registerScriptFile('http://connect.facebook.net/ru_RU/all.js'); ?>
 

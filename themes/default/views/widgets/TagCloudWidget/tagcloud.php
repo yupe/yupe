@@ -1,6 +1,6 @@
 <div class='portlet'>
     <div class='portlet-decoration'>
-        <div class='portlet-title'>Облачко тегов</div>
+        <div class='portlet-title'>Облачко меток</div>
     </div>
     <div class='portlet-content'>
         <ul>

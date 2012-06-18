@@ -1,4 +1,7 @@
-<?php $this->pageTitle = 'Юпи! | Помощь проекту'; ?>
+<?php
+$this->pageTitle = 'Юпи! | Помощь проекту';
+$this->breadcrumbs = array('Помощь проекту');
+?>
 
 <h1><?php echo CHtml::encode(Yii::app()->name); ?> Помощь проекту!</h1>
 

@@ -1,4 +1,8 @@
-<?php $this->pageTitle = 'Социальные виджеты Юпи! или Yii Social Components!'; ?>
+<?php
+$this->pageTitle = 'Социальные виджеты Юпи! или Yii Social Components!';
+$this->breadcrumbs = array('Социальные виджеты Юпи!');
+?>
+
 
 <h1>Социальные виджеты Юпи! или Yii Social Components!</h1>
 

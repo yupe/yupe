@@ -1,4 +1,7 @@
-<?php $this->pageTitle = Yii::t('user', 'Восстановление пароля'); ?>
+<?php
+$this->pageTitle = Yii::t('user', 'Восстановление пароля');
+$this->breadcrumbs = array('Восстановление пароля');
+?>
 
 <h1>Восстановление пароля</h1>
 

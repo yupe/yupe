@@ -1,4 +1,7 @@
-<?php $this->pageTitle = Yii::t('user', 'Регистрация новго пользователя'); ?>
+<?php
+$this->pageTitle = Yii::t('user', 'Регистрация новго пользователя');
+$this->breadcrumbs = array('Регистрация новго пользователя');
+?>
 
 <h1>Регистрация нового пользователя</h1>
 
@@ -65,6 +68,8 @@
 </div><!-- form -->
 
 <?php  $this->widget('application.modules.social.extensions.eauth.EAuthWidget',array('action' => '/social/social/login/'));?>
+
+<br/><br/><br/><br/><br/><br/><br/><br/>
 
 <div style='float:left;'>
     <div style='float:left;padding-right:5px'>

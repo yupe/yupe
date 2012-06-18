@@ -2,6 +2,14 @@
 <?php $this->description = $post->description;?>
 <?php $this->keywords = $post->keywords;?>
 
+<?php
+$this->breadcrumbs = array(
+    'Блоги' => array('/blogs/'),
+    CHtml::encode($post->blog->name) => array('/blog/blog/show/','slug' => $post->blog->slug),
+    CHtml::encode($post->title)
+);
+?>
+
 <div class="post">
     <div class="title">
         <?php echo CHtml::link(CHtml::encode($post->title), array('/blog/post/show/', 'slug' => $post->slug)); ?>

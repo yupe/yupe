@@ -1,6 +1,14 @@
 <?php $this->pageTitle = 'Список записей'; ?>
 
-<p>Записи с тегом <b><?php echo $tag;?></b>...</p>
+
+<?php
+$this->breadcrumbs = array(
+    'Блоги' => array('/blogs/'),
+    'список записей'
+);
+?>
+
+<p>Записи с меткой <b><?php echo $tag;?></b>...</p>
 
 <?php foreach($posts as $post):?>
     <?php $this->renderPartial('_view',array('data' => $post));?>
