@@ -8,7 +8,7 @@
 
     $this->menu = array(
         array('label'=>Yii::t('blog', 'Добавить запись'), 'url'=>array('create')),
-        array('label'=>Yii::t('bog', 'Управление записями'), 'url'=>array('admin')),
+        array('label'=>Yii::t('blog', 'Управление записями'), 'url'=>array('admin')),
     );
 ?>
 

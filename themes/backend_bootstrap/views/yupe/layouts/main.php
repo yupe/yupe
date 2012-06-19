@@ -38,7 +38,7 @@
         array(
             'icon' => 'home white',
             'label' => Yii::t('yupe', 'На сайт'),
-            'url' => array('/'),
+            'url' => array('/site/index/'),
         ),
         array(
             'icon' => 'off white',
@@ -51,7 +51,7 @@
         'fixed' => 'top',
         'fluid' => true,
         'brand' => "<img src='" . Yii::app()->theme->baseUrl . "/images/logo.png' width=\"38\" height=\"38\" title=\"" . Yii::t('yupe', 'Перейти на главную панели управления') . "\"/>", //Yii::t('yupe',"Юпи!"),
-        'brandUrl' => CHtml::normalizeUrl(array("/yupe/backend")),
+        'brandUrl' => CHtml::normalizeUrl(array("/yupe/backend/index/")),
         'collapse' => false, // requires bootstrap-responsive.css
         'items' => array(
             array(

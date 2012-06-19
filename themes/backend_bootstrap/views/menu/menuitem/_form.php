@@ -19,7 +19,7 @@ Yii::app()->clientScript->registerScript('fieldset', "
     <?php echo $form->errorSummary($model); ?>
 
         <div class="row-fluid control-group <?php echo $model-> hasErrors('menu_id')?'error':'' ?>">
-            <div class="span7 popover-help" data-content="<?=Yii::t('menu_id',"Меню к которому добавляете пункт") ?>" data-original-title="<?php echo $model-> getAttributeLabel('menu_id'); ?>" >
+            <div class="span7 popover-help" data-content="<?=Yii::t('menu',"Меню к которому добавляете пункт") ?>" data-original-title="<?php echo $model-> getAttributeLabel('menu_id'); ?>" >
                 <?php echo $form->labelEx($model, 'menu_id'); ?>
                 <?php echo $form->dropDownList($model, 'menu_id', CHtml::listData(Menu::model()->findAll(), 'id', 'name'), array('empty' => Yii::t('menu', '--выберите меню--'))); ?>
             </div>
@@ -29,7 +29,7 @@ Yii::app()->clientScript->registerScript('fieldset', "
         </div>
 
         <div class="row-fluid control-group <?php echo $model-> hasErrors('parent_id')?'error':'' ?>">
-            <div class="span7 popover-help" data-content="<?=Yii::t('parent_id',"Родительский пункт") ?>" data-original-title="<?php echo $model-> getAttributeLabel('parent_id'); ?>" >
+            <div class="span7 popover-help" data-content="<?=Yii::t('menu',"Родительский пункт") ?>" data-original-title="<?php echo $model-> getAttributeLabel('parent_id'); ?>" >
                 <?php echo $form->labelEx($model, 'parent_id'); ?>
                 <?php echo $form->dropDownList($model, 'parent_id', $model->parentList); ?>
             </div>
@@ -49,7 +49,7 @@ Yii::app()->clientScript->registerScript('fieldset', "
         </div>
 
         <div class="row-fluid control-group <?php echo $model-> hasErrors('href')?'error':'' ?>">
-            <div class="span7 popover-help" data-content="<?=Yii::t('href',"Адрес ссылки<br /><br />Например:<br /><pre>'/about/'</pre>") ?>" data-original-title="<?php echo $model-> getAttributeLabel('href'); ?>" >
+            <div class="span7 popover-help" data-content="<?=Yii::t('menu',"Адрес ссылки<br /><br />Например:<br /><pre>'/about/'</pre>") ?>" data-original-title="<?php echo $model-> getAttributeLabel('href'); ?>" >
                 <?php echo $form->labelEx($model, 'href'); ?>
                 <?php echo $form->textField($model, 'href', array('size' => 60, 'maxlength' => 150)); ?>
             </div>
@@ -59,7 +59,7 @@ Yii::app()->clientScript->registerScript('fieldset', "
         </div>
 
         <div class="row-fluid control-group <?php echo $model-> hasErrors('condition_name')?'error':'' ?>">
-            <div class="span7 popover-help" data-content="<?=Yii::t('parent_id',"Условие отображения пункта меню") ?>" data-original-title="<?php echo $model-> getAttributeLabel('condition_name'); ?>" >
+            <div class="span7 popover-help" data-content="<?=Yii::t('menu',"Условие отображения пункта меню") ?>" data-original-title="<?php echo $model-> getAttributeLabel('condition_name'); ?>" >
                 <?php echo $form->labelEx($model, 'condition_name'); ?>
                 <?php echo $form->dropDownList($model, 'condition_name', $model->conditionList); ?>
             </div>
@@ -69,7 +69,7 @@ Yii::app()->clientScript->registerScript('fieldset', "
         </div>
 
         <div class="row-fluid control-group <?php echo $model-> hasErrors('condition_denial')?'error':'' ?>">
-            <div class="span7 popover-help" data-content="<?=Yii::t('parent_id',"Отрицание условие ?") ?>" data-original-title="<?php echo $model-> getAttributeLabel('condition_denial'); ?>" >
+            <div class="span7 popover-help" data-content="<?=Yii::t('menu',"Отрицание условие ?") ?>" data-original-title="<?php echo $model-> getAttributeLabel('condition_denial'); ?>" >
                 <?php echo $form->labelEx($model, 'condition_denial'); ?>
                 <?php echo $form->dropDownList($model, 'condition_denial', $model->conditionDenialList); ?>
             </div>
@@ -80,7 +80,7 @@ Yii::app()->clientScript->registerScript('fieldset', "
 
 
         <div class="row-fluid control-group <?php echo $model-> hasErrors('sort')?'error':'' ?>">
-            <div class="span7 popover-help" data-content="<?=Yii::t('sort',"Порядок следования пункта меню") ?>" data-original-title="<?php echo $model-> getAttributeLabel('sort'); ?>" >
+            <div class="span7 popover-help" data-content="<?=Yii::t('menu',"Порядок следования пункта меню") ?>" data-original-title="<?php echo $model-> getAttributeLabel('sort'); ?>" >
                 <?php echo $form->labelEx($model, 'sort'); ?>
                 <?php echo $form->textField($model, 'sort', array('size' => 60, 'maxlength' => 150)); ?>
             </div>
@@ -90,7 +90,7 @@ Yii::app()->clientScript->registerScript('fieldset', "
         </div>
 
         <div class="row-fluid control-group <?php echo $model-> hasErrors('status')?'error':'' ?>">
-            <div class="span7 popover-help" data-content="<?=Yii::t('status',"Статус пункта меню") ?>" data-original-title="<?php echo $model-> getAttributeLabel('status'); ?>" >
+            <div class="span7 popover-help" data-content="<?=Yii::t('menu',"Статус пункта меню") ?>" data-original-title="<?php echo $model-> getAttributeLabel('status'); ?>" >
                 <?php echo $form->labelEx($model, 'status'); ?>
                 <?php echo $form->dropDownList($model, 'status', $model->getStatusList()); ?>
             </div>

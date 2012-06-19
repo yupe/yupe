@@ -19,6 +19,5 @@
  * @version $Id: $
  */
 return array (
-  'CProfileLogRoute found a mismatching code block "{token}". Make sure the calls to Yii::beginProfile() and Yii::endProfile() be properly nested.' => '',
-  'Your request is invalid.' => '',
+  'The column must be specified in the format of "Name:Type:Label", where "Type" and "Label" are optional.' => '',
 );
