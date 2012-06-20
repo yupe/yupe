@@ -260,6 +260,7 @@ class YupeModule extends YWebModule
                     {
                         $modulesNavigation[$category[$key]] = array(
                             'label' => $category[$key],
+                            'url' => '#',
                             'items' => array(),
                             'linkOptions' => array('class' => 'sub-menu'),
                         );
