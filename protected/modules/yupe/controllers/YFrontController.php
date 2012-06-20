@@ -1,6 +1,6 @@
 <?php
 
-class YFrontController extends CController
+class YFrontController extends Controller
 {
 
     public $menu = array();
