@@ -65,7 +65,7 @@ class BootDropdown extends BootBaseMenu
 
                 if ( isset($item['items']) && is_array($item['items']))
                 {
-                    $item['label'].="<i style='position: absolute; right: 8px; top: 5px;' class='icon-chevron-right'> </i>";
+                    $item['label'].="<i style='position: absolute; right: 1px; top: 5px;' class='icon-chevron-right'> </i>";
                     $menu = $this->renderItem($item);
                     ob_start();
                     $this->renderItems($item['items']);
