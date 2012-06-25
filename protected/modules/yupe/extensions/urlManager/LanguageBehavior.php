@@ -34,7 +34,7 @@ class LanguageBehavior extends CBehavior
                 if ( (2==strlen($l)) && ($l==Yii::app()->sourceLanguage))
                 {
                     $this->setLanguage($l);
-                    Yii::app()-> request-> redirect($lm->getCleanUrl(substr(Yii::app()->request->getPathInfo(),2)));
+                    Yii::app()-> request-> redirect(Yii::app()->homeUrl.$lm->getCleanUrl(substr(Yii::app()->request->getPathInfo(),2)));
                 }
             }
         }
@@ -59,7 +59,7 @@ class LanguageBehavior extends CBehavior
             if ($l!=Yii::app()->sourceLanguage)
             {
                 $this->setLanguage($l);
-                Yii::app()->request->redirect(("/".$l).$lm->getCleanUrl(Yii::app()->request->getPathInfo()));
+                Yii::app()->request->redirect((Yii::app()->homeUrl."/".$l).$lm->getCleanUrl(Yii::app()->request->getPathInfo()));
             } else
                 Yii::app()->language = $l;
         }

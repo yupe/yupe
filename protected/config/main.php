@@ -110,6 +110,8 @@ return array(
                 '<module:\w+>/<controller:\w+>/<action:\w+>/<id:\d+>' => '<module>/<controller>/<action>',
                 '<module:\w+>/<controller:\w+>/<action:\w+>' => '<module>/<controller>/<action>',
                 '<module:\w+>/<controller:\w+>' => '<module>/<controller>/index',
+                '<controller:\w+>/<action:\w+>' => '<controller>/<action>',
+                '<controller:\w+>' => '<controller>/index',
             ),
         ),
 
