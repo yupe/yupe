@@ -34,9 +34,14 @@ class YupeModule extends YWebModule
     public $uploadPath = 'uploads';
     public $editor = 'application.modules.yupe.widgets.editors.imperaviRedactor.EImperaviRedactorWidget';
     public $email;
+
     public $categoryIcon = array(
         'Сервисы' => 'briefcase',
     );
+
+    public $availableLanguages = "ru,en";
+    public $defaultLanguage = "ru";
+    public $defaultBackendLanguage = "ru";
 
     public function getVersion()
     {
@@ -86,8 +91,11 @@ class YupeModule extends YWebModule
             'coreCacheTime' => Yii::t('yupe', 'Время кэширования (сек.)'),
             'editorsDir' => Yii::t('yupe', 'Каталог для визивиг редакторов'),
             'uploadPath' => Yii::t('yupe', 'Каталог для загрузки файлов (относительно корня сайта)'),
-            'editor' => Yii::t('page', 'Визуальный редактор'),
-            'email' => Yii::t('page', 'Email администратора'),
+            'editor' => Yii::t('yupe', 'Визуальный редактор'),
+            'email' => Yii::t('yupe', 'Email администратора'),
+            'availableLanguages' => Yii::t('yupe', 'Список доступных языков через запятую (напр. ru,en,de)'),
+            'defaultLanguage' => Yii::t('yupe', 'Язык по-умолчанию для сайта'),
+            'defaultBackendLanguage' => Yii::t('yupe', 'Язык по-умолчанию для админки'),
         );
     }
 
@@ -105,6 +113,10 @@ class YupeModule extends YWebModule
             'uploadPath',
             'editor' => $this->getEditors(),
             'email',
+            'availableLanguages',
+            'defaultLanguage',
+            'defaultBackendLanguage',
+
         );
     }
 

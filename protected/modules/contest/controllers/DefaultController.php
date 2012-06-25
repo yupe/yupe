@@ -179,7 +179,7 @@ class DefaultController extends YBackController
             {
                 $transaction->rollback();
 
-                Yii::app()->user->setFlash(YFlashMessages::ERROR_MESSAGE, Yii::t('contest', $e->getMessage()));
+                Yii::app()->user->setFlash(YFlashMessages::ERROR_MESSAGE, $e->getMessage());
             }
 
             $this->redirect(array('/contest/default/addImage/', 'id' => $contest->id));

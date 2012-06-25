@@ -41,7 +41,7 @@ class GalleryController extends YFrontController
             {
                 $transaction->rollback();
 
-                Yii::app()->user->setFlash(YFlashMessages::ERROR_MESSAGE, Yii::t('gallery', $e->getMessage()));
+                Yii::app()->user->setFlash(YFlashMessages::ERROR_MESSAGE, $e->getMessage());
             }
         }
 

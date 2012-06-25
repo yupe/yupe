@@ -37,8 +37,8 @@ class YCustomGridView extends CGridView
 
         $img = CHtml::image(
             Yii::app()->request->baseUrl . '/web/images/' . ($data->$statusField == $active ? '' : 'in') . 'active.png',
-            Yii::t('yupe', $data->$statusField ? Yii::t('yupe','Деактивировать') : Yii::t('yupe','Активировать')),
-            array('title' => Yii::t('yupe', $data->$statusField ? Yii::t('yupe','Деактивировать') : Yii::t('yupe','Активировать')))
+            $data->$statusField ? Yii::t('yupe','Деактивировать') : Yii::t('yupe','Активировать'),
+            array('title' => $data->$statusField ? Yii::t('yupe','Деактивировать') : Yii::t('yupe','Активировать'))
         );
         $options = array();
         if ($onclick) {
@@ -83,7 +83,7 @@ class YCustomGridView extends CGridView
         );
 
         $text = method_exists($data,'getStatus') ? $data->getStatus() : '';
-        $icon = '<i class="icon icon-'.(isset($icons[ $data->$statusField])?$icons[ $data->$statusField]:'question-sign')."\" title='".$text.", ".Yii::t('yupe', $data->$statusField ? Yii::t('yupe','Деактивировать') : Yii::t('yupe','Активировать'))."'></i>";
+        $icon = '<i class="icon icon-'.(isset($icons[ $data->$statusField])?$icons[ $data->$statusField]:'question-sign')."\" title='".$text.", ".($data->$statusField ? Yii::t('yupe','Деактивировать') : Yii::t('yupe','Активировать'))."'></i>";
         return CHtml::link($icon, $url, $options);
     }
 

@@ -9,6 +9,7 @@
  * @property string $change_date
  * @property string $title
  * @property string $slug
+ * @property string $lang
  * @property string $body
  * @property string $keywords
  * @property string $description
@@ -62,13 +63,29 @@ class Page extends CActiveRecord
             ? $this->findAll(array(
                 'condition' => 'id != :id',
                 'params'    => array(':id' => $selfId),
-                'order'      => 'menu_order DESC'
+                'order'     => 'menu_order DESC',
+                'group'     => 'slug',
             ))
             : $this->findAll(array('order' => 'menu_order DESC'));
 
         return CHtml::listData($pages, 'id', 'name');
     }
-    
+
+    public function getAllPagesListBySlug($slug = false)
+    {
+        $pages = $slug
+            ? $this->findAll(array(
+                'condition' => 'slug != :slug',
+                'params'    => array(':slug' => $slug),
+                'order'     => 'menu_order DESC',
+                'group'     => 'slug',
+            ))
+            : $this->findAll(array('order' => 'menu_order DESC'));
+
+        return CHtml::listData($pages, 'id', 'name');
+    }
+
+
     /**
      * Returns the static model of the specified AR class.
      * @return Page the static model class
@@ -92,9 +109,11 @@ class Page extends CActiveRecord
     public function rules()
     {
         return array(
-            array('name, title, slug, body, description, keywords', 'required'),
+            array('name, title, slug, body, description, keywords, lang', 'required'),
             array('status, is_protected, parent_Id, menu_order', 'numerical', 'integerOnly' => true),
             array('parent_Id', 'length', 'max' => 45),
+            array('lang', 'length', 'max' => 2),
+            array('lang', 'default', 'value' => Yii::app()->language),
             array('name, title, slug, keywords', 'length', 'max' => 150),
             array('description', 'length', 'max' => 150),
             array('slug', 'unique'),
@@ -102,8 +121,9 @@ class Page extends CActiveRecord
             array('is_protected', 'in', 'range' => array_keys($this->getProtectedStatusList())),
             array('title, slug, body, description, keywords, name', 'filter', 'filter' => 'trim'),
             array('title, slug, description, keywords, name', 'filter', 'filter' => array($obj = new CHtmlPurifier(),'purify')),
-            array('slug', 'match', 'pattern' => '/^[a-zA-Z0-9_\-]+$/', 'message' => Yii::t('page', 'Запрещенные символы в поле {attribute}')),            
-            array('id, parent_Id, creation_date, change_date, title, slug, body, keywords, description, status, menu_order', 'safe', 'on' => 'search'),
+            array('slug', 'match', 'pattern' => '/^[a-zA-Z0-9_\-]+$/', 'message' => Yii::t('page', 'Запрещенные символы в поле {attribute}')),
+            array('lang', 'match', 'pattern' => '/^[a-z]{2}$/', 'message' => Yii::t('page', 'Запрещенные символы в поле {attribute}')),
+            array('lang, id, parent_Id, creation_date, change_date, title, slug, body, keywords, description, status, menu_order', 'safe', 'on' => 'search'),
         );
     }
 
@@ -133,6 +153,7 @@ class Page extends CActiveRecord
             'change_date' => Yii::t('page', 'Дата изменения'),
             'title' => Yii::t('page', 'Заголовок'),
             'slug' => Yii::t('page', 'Url'),
+            'lang' => Yii::t('page', 'Язык'),
             'body' => Yii::t('page', 'Текст'),
             'keywords' => Yii::t('page', 'Ключевые слова (SEO)'),
             'description' => Yii::t('page', 'Описание (SEO)'),
@@ -149,7 +170,10 @@ class Page extends CActiveRecord
     public function beforeValidate()
     {        
         if (!$this->slug)            
-            $this->slug = YText::translit($this->title);            
+            $this->slug = YText::translit($this->title);
+
+        if (!$this->lang)
+            $this->lang = Yii::app()->language;
 
         return parent::beforeValidate();        
     }

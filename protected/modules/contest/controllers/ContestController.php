@@ -41,7 +41,7 @@ class ContestController extends YFrontController
             {
                 $transaction->rollback();
 
-                Yii::app()->user->setFlash(YFlashMessages::ERROR_MESSAGE, Yii::t('contest', $e->getMessage()));
+                Yii::app()->user->setFlash(YFlashMessages::ERROR_MESSAGE,  $e->getMessage());
             }
         }
 

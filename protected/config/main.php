@@ -8,6 +8,8 @@ return array(
     'name' => 'Юпи!',
     // язык по умолчанию
     'language' => 'ru',
+    // Язык исходных непереведенных сообщений
+    'sourceLanguage' => 'ru',
     // тема оформления по умолчанию
     'theme' => 'default',
     // preloading 'log' component
@@ -85,6 +87,7 @@ return array(
 
         // конфигурирование urlManager, подробнее http://www.yiiframework.ru/doc/guide/ru/topics.url
         'urlManager' => array(
+            'class'=>'application.modules.yupe.extensions.urlManager.LangUrlManager',
             'urlFormat' => 'path',
             // для того чтобы убрать index.php из url, читаем статью http://yiiframework.ru/doc/guide/ru/quickstart.apache-nginx-config
             'showScriptName' => true,
@@ -104,6 +107,11 @@ return array(
                 '/users/' => 'user/people/index/',
                 '/wiki/<controller:\w+>/<action:\w+>' => '/yeeki/wiki/<controller>/<action>',
                 'user/<username:\w+>/' => 'user/people/userInfo',
+                '<module:\w+>/<controller:\w+>/<action:\w+>/<id:\d+>' => '<module>/<controller>/<action>',
+                '<module:\w+>/<controller:\w+>/<action:\w+>' => '<module>/<controller>/<action>',
+                '<module:\w+>/<controller:\w+>' => '<module>/<controller>/index',
+                '<controller:\w+>/<action:\w+>' => '<controller>/<action>',
+                '<controller:\w+>' => '<controller>/index',
             ),
         ),
 
@@ -241,5 +249,10 @@ return array(
         ),
     ),
 
-    'behaviors' => array('YupeStartUpBehavior'),
+    'behaviors' => array(
+        'onBeginRequest' => array(
+            'class'  => 'application.modules.yupe.extensions.urlManager.LanguageBehavior'
+        ),
+        'YupeStartUpBehavior'
+    ),
 );
