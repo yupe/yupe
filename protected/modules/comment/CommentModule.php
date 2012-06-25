@@ -43,7 +43,10 @@ class CommentModule extends YWebModule
         $count = Comment::model()->new()->count();
 
         if($count)
-            return array('type' => YWebModule::CHECK_NOTICE,'message' => Yii::t('comment','У Вас {{count}} новых комментариев',array('{{count}}' => $count)));
+            return array('type' => YWebModule::CHECK_NOTICE,'message' => Yii::t('comment','У Вас {{count}} новых комментариев. {{link}}',array(
+                '{{count}}' => $count,
+                '{{link}}'  => CHtml::link('Модерация комментариев',array('/comment/default/admin/order/status.asc/Comment_sort/status/'))
+            )));
     }
 
     public function getDescription()
@@ -53,7 +56,7 @@ class CommentModule extends YWebModule
 
     public function getVersion()
     {
-        return Yii::t('comment', '0.3');
+        return Yii::t('comment', '0.4');
     }
 
     public function getAuthor()

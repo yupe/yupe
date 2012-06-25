@@ -27,7 +27,7 @@ EOF;
 (function (d, w, c) {
     (w[c] = w[c] || []).push(function() {
         try {
-            w.yaCounter {$this->counter} = new Ya.Metrika({id:{$this->counter}, enableAll: true, webvisor:true});
+            w.yaCounter{$this->counter} = new Ya.Metrika({id:{$this->counter}, enableAll: true, webvisor:true});
         } catch(e) {}
     });
 

@@ -5,10 +5,20 @@
         <div id="c2" class="comment">
             <div class="author">
                 <?php if ($comment->url): ?>
-                <a href="<?php echo $comment->url;?>"><?php echo $comment->name;?></a>
+                <a href="<?php echo $comment->url;?>">
+                    <?php if($author = $comment->getAuthor()):?>
+                        <?php echo CHtml::link($comment->name,array('/user/people/userinfo/','username' => $author->nick_name));?>
+                    <?php else:?>
+                        <?php echo $comment->name;?>
+                    <?php endif;?>
+                </a>
                 написал:
                 <?php else: ?>
-                <?php echo $comment->name; ?> написал:
+                <?php if($author = $comment->getAuthor()):?>
+                    <?php echo CHtml::link($comment->name,array('/user/people/userInfo/','username' => $author->nick_name));?>
+                    <?php else:?>
+                    <?php echo $comment->name;?>
+                    <?php endif;?> написал:
                 <?php endif;?>
             </div>
 

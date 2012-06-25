@@ -29,13 +29,14 @@ class CommentsListWidget extends YWidget
         if(!$comments = Yii::app()->cache->get("Comment{$this->model}{$this->modelId}"))
         {
             $comments = Comment::model()->findAll(array(
-                'condition' => 'model = :model AND model_id = :modelId AND status = :status',
+                'condition' => 't.model = :model AND t.model_id = :modelId AND t.status = :status',
                 'params' => array(
                     ':model' => $this->model,
                     ':modelId' => $this->modelId,
                     ':status' => Comment::STATUS_APPROVED,
                 ),
-                'order' => 'id',
+                'with'  => array('author'),
+                'order' => 't.id',
             ));
 
             Yii::app()->cache->set("Comment{$this->model}{$this->modelId}", $comments);

@@ -15,6 +15,6 @@
            <?php echo CHtml::link(CHtml::encode($tag),array('/posts/','tag' => CHtml::encode($tag)));?>
         <?php endforeach;?>
         |<?php echo CHtml::link('Постоянная ссылка', array('/blog/post/show/', 'slug' => $data->slug));?>
-        | последнее обновление <?php echo $data->publish_date;?>
+        | последнее обновление <?php echo $data->update_date;?>
     </div>
 </div>

@@ -84,6 +84,20 @@ class Comment extends CActiveRecord
         );
     }
 
+    public function relations()
+    {
+        return array(
+            'author' => array(self::BELONGS_TO,'User','user_id')
+        );
+    }
+
+    public function getAuthor()
+    {
+        if($this->author)
+            return $this->author;
+        return false;
+    }
+
     /**
      * Retrieves a list of models based on the current search/filter conditions.
      * @return CActiveDataProvider the data provider that can return the models based on the search/filter conditions.
@@ -120,6 +134,14 @@ class Comment extends CActiveRecord
         }
 
         return parent::beforeSave();
+    }
+
+    public function afterSave()
+    {
+        if($cache = Yii::app()->getCache())
+            $cache->delete("Comment{$this->model}{$this->model_id}");
+
+        return parent::afterSave();
     }
 
     public function scopes()
