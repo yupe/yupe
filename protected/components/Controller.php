@@ -12,4 +12,9 @@ class Controller extends CController
      */
     public $breadcrumbs = array();
 
+    /**
+     * Contains data for "CMenu" widget (provides view for menu on the site)
+     */
+    public $menu = array();
+
 }
