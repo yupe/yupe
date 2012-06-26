@@ -26,7 +26,7 @@ Yii::app()->clientScript->registerScript('search', "
     });
 ");
 ?>
-<div class="page-header"><h1><?=$this->module->getName()?> <small><?php echo Yii::t('feedback', 'Управление');?></small></h1></div>
+<div class="page-header"><h1><?php echo $this->module->getName()?> <small><?php echo Yii::t('feedback', 'Управление');; ?></small></h1></div>
 
 <?php echo CHtml::link(Yii::t('feedback', 'Поиск сообщений'), '#', array('class' => 'search-button')); ?>
 <div class="search-form" style="display:none">

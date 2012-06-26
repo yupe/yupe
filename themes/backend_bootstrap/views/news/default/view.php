@@ -18,28 +18,28 @@ $this->menu = array(
 <div class="page-header"><h1><?php echo Yii::t('news', 'Просмотр новости');?>
     <br /><small style="margin-left:-10px;">&laquo;<?php echo $model->title; ?>&raquo;</small></h1></div>
 <ul class="nav nav-tabs">
-    <li class="active"><a href="#anounce" data-toggle="tab"><?=Yii::t('news','Пример краткой версии новости')?></a></li>
-    <li><a href="#full" data-toggle="tab"><?=Yii::t('news','Пример полной версии новости')?></a></li>
+    <li class="active"><a href="#anounce" data-toggle="tab"><?php echo Yii::t('news','Пример краткой версии новости'); ?></a></li>
+    <li><a href="#full" data-toggle="tab"><?php echo Yii::t('news','Пример полной версии новости'); ?></a></li>
 </ul>
 <div class="tab-content">
     <div id="anounce" class="tab-pane fade active in">
         <?php for ( $i=0; $i<3; $i++ ) { ?>
         <div style="margin-bottom: 20px;">
-            <h6><span class="label"><?=$model->date;?></span> <?=CHtml::link($model->title, array('/news/news/show', 'title' => $model->alias))?></h6>
+            <h6><span class="label"><?php echo $model->date;?></span> <?php echo CHtml::link($model->title, array('/news/news/show', 'title' => $model->alias)); ; ?></h6>
             <p>
-                <?=$model->short_text; ?>
+                <?php echo $model->short_text; ; ?>
             </p>
         </div>
         <?php } ?>
     </div>
     <div id="full"  class="tab-pane fade">
         <div style="margin-bottom: 20px;">
-            <h3><?=CHtml::link($model->title, array('/news/news/show', 'title' => $model->alias))?></h3>
+            <h3><?php echo CHtml::link($model->title, array('/news/news/show', 'title' => $model->alias)); ?></h3>
             <p>
-                <?=$model->full_text; ?>
+                <?php echo $model->full_text; ; ?>
             </p>
-            <span class="label"><?=$model->date;?></span>
-            <i class="icon-user"></i><?=CHtml::link($model->user->fullName,array('/user/people/'.$model->user->nick_name));?>
+            <span class="label"><?php echo $model->date;; ?></span>
+            <i class="icon-user"></i><?php echo CHtml::link($model->user->fullName,array('/user/people/'.$model->user->nick_name));; ?>
         </div>
     </div>
 </div>
