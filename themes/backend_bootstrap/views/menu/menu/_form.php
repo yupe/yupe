@@ -17,7 +17,7 @@ Yii::app()->clientScript->registerScript('fieldset', "
          <?php echo $form->errorSummary($model); ?>
 
          <div class="row-fluid control-group <?php echo $model-> hasErrors('name')?'error':'' ?>">
-             <div class="span7 popover-help" data-content="<?=Yii::t('menu',"Название меню, которое будет отображаться в списке меню.<br /><br />Например:<br /><pre>'Основное меню'</pre>") ?>" data-original-title="<?php echo $model-> getAttributeLabel('name'); ?>" >
+             <div class="span7 popover-help" data-content="<?php echo Yii::t('menu',"Название меню, которое будет отображаться в списке меню.<br /><br />Например:<br /><pre>'Основное меню'</pre>") ?>" data-original-title="<?php echo $model-> getAttributeLabel('name'); ; ?>" >
                  <?php echo $form->labelEx($model, 'name'); ?>
                  <?php echo $form->textField($model, 'name', array('size' => 60, 'maxlength' => 150)); ?>
              </div>
@@ -27,7 +27,7 @@ Yii::app()->clientScript->registerScript('fieldset', "
          </div>
 
          <div class="row-fluid control-group <?php echo $model-> hasErrors('code')?'error':'' ?>">
-             <div class="span7 popover-help" data-content="<?=Yii::t('menu',"Уникальный для каждого меню код.<br /><br />Например:<br /><pre>'MAIN_MENU'</pre>") ?>" data-original-title="<?php echo $model-> getAttributeLabel('code'); ?>" >
+             <div class="span7 popover-help" data-content="<?php echo Yii::t('menu',"Уникальный для каждого меню код.<br /><br />Например:<br /><pre>'MAIN_MENU'</pre>") ?>" data-original-title="<?php echo $model-> getAttributeLabel('code'); ; ?>" >
                  <?php echo $form->labelEx($model, 'code'); ?>
                  <?php echo $form->textField($model, 'code', array('size' => 60, 'maxlength' => 150)); ?>
              </div>
@@ -37,7 +37,7 @@ Yii::app()->clientScript->registerScript('fieldset', "
          </div>
 
          <div class="row-fluid control-group <?php echo $model-> hasErrors('description')?'error':'' ?>">
-             <div class="span7 popover-help" data-content="<?=Yii::t('menu',"Простое текстовое описание.<br /><br />") ?>" data-original-title="<?php echo $model-> getAttributeLabel('description'); ?>" >
+             <div class="span7 popover-help" data-content="<?php echo Yii::t('menu',"Простое текстовое описание.<br /><br />") ?>" data-original-title="<?php echo $model-> getAttributeLabel('description'); ; ?>" >
                  <?php echo $form->labelEx($model, 'description'); ?>
                  <?php echo $form->textArea($model, 'description'); ?>
              </div>
@@ -47,7 +47,7 @@ Yii::app()->clientScript->registerScript('fieldset', "
          </div>
 
          <div class="row-fluid control-group <?php echo $model-> hasErrors('status')?'error':'' ?>">
-             <div class="span7  popover-help" data-content="<?=Yii::t('menu',"<span class='label label-success'>Активно</span> &ndash;Меню отображается на сайте.<br /><br /><span class='label label-default'>Не активно</span> &ndash; Меню не отображается на сайте.<br /><br />") ?>" data-original-title="<?php echo $model-> getAttributeLabel('status'); ?>" >
+             <div class="span7  popover-help" data-content="<?php echo Yii::t('menu',"<span class='label label-success'>Активно</span> &ndash;Меню отображается на сайте.<br /><br /><span class='label label-default'>Не активно</span> &ndash; Меню не отображается на сайте.<br /><br />") ?>" data-original-title="<?php echo $model-> getAttributeLabel('status'); ; ?>" >
                  <?php echo $form->labelEx($model, 'status'); ?>
                  <?php echo $form->dropDownList($model, 'status', $model->getStatusList()); ?>
              </div>

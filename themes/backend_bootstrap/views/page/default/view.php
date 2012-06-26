@@ -25,11 +25,11 @@ $this->menu = array(
 </div>
 
 
-<h2><?=$model->title;?></h2>
-<small>Автор: <?=$model->changeAuthor->getFullName();?></small>
+<h2><?php echo $model->title;; ?></h2>
+<small>Автор: <?php echo $model->changeAuthor->getFullName();; ?></small>
 <br /><br />
 <p>
-    <?=$model->body;?>
+    <?php echo $model->body;; ?>
 
 </p>
 <?php /* $this->widget('zii.widgets.CDetailView', array(

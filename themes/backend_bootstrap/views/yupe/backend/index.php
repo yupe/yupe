@@ -25,7 +25,7 @@
 
 <p><?php echo Yii::t('yupe', 'Установлено');?>
     <b><?php echo $mn=count($modules) + count($yiiModules);?></b>
-    <?=Yii::t('yupe','модуль|модуля|модулей',$mn)?>.
+    <?php echo Yii::t('yupe','модуль|модуля|модулей',$mn); ?>.
 </p>
 
 <?php if (count($modules)): ?>
@@ -48,7 +48,7 @@
         <?php $style = is_array($module->checkSelf())
             ? "style='background-color:#FBC2C4;'" : ''; ?>
     <tr>
-        <td><?=($module->icon?("<i class='icon-".$module->icon."'> </i> "):"")?></td>
+        <td><?php echo ($module->icon?("<i class='icon-".$module->icon."'> </i> "):""); ?></td>
         <td><small class='label <?php
             $v = $module->getVersion();
             if (($n=strpos($v,"(dev)"))!==FALSE)
@@ -62,9 +62,9 @@
         <td>
             <?php echo $module->getDescription(); ?>
             <br />
-            <small style="font-size: 80%;"> <?="<b>".Yii::t('yupe',"Автор:")."</b> ".$module->getAuthor(); ?>
-            (<a href="mailto:<?=$module->getAuthorEmail()?>"><?=$module->getAuthorEmail()?></a>) &nbsp;
-            <?="<b>".Yii::t('yupe',"Сайт модуля:")."</b> ".CHtml::link($module->getUrl(), $module->getUrl()); ?></small><br />
+            <small style="font-size: 80%;"> <?php echo "<b>".Yii::t('yupe',"Автор:")."</b> ".$module->getAuthor(); ; ?>
+            (<a href="mailto:<?php echo $module->getAuthorEmail()?>"><?php echo $module->getAuthorEmail(); ; ?></a>) &nbsp;
+            <?php echo "<b>".Yii::t('yupe',"Сайт модуля:")."</b> ".CHtml::link($module->getUrl(), $module->getUrl()); ; ?></small><br />
         </td>
         <td>
             <?php if ($module->getEditableParams()): ?>

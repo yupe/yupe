@@ -6,4 +6,15 @@
 class Controller extends CController
 {
 
+    /**
+     * Contains data for "CBreadcrumbs" widget (navigation element on a site, 
+     * a look "Main >> Category 1 >> Subcategory 1")
+     */
+    public $breadcrumbs = array();
+
+    /**
+     * Contains data for "CMenu" widget (provides view for menu on the site)
+     */
+    public $menu = array();
+
 }

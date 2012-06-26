@@ -10,9 +10,9 @@
                 ?>
 				<dt><img width="24" height="24" src="<?php echo Yii::app()->theme->baseUrl; ?>/images/default_avatar_24.png" title="xoma" alt="xoma" /></dt>
 				<dd>
-					<a href="#" class="nick" rel="author"><?=$c->name; ?></a>&nbsp;&rarr;&nbsp;
+					<a href="#" class="nick" rel="author"><?php echo $c->name; ; ?></a>&nbsp;&rarr;&nbsp;
 					<a href="#" class="blog">Новости</a>
-			&mdash; <a href="#" class="topic"><?=$c->text; ?></a>
+			&mdash; <a href="#" class="topic"><?php echo $c->text; ; ?></a>
 				</dd>
             <?php
             }
