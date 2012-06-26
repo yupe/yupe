@@ -45,7 +45,7 @@ class CommentModule extends YWebModule
         if($count)
             return array('type' => YWebModule::CHECK_NOTICE,'message' => Yii::t('comment','У Вас {{count}} новых комментариев. {{link}}',array(
                 '{{count}}' => $count,
-                '{{link}}'  => CHtml::link('Модерация комментариев',array('/comment/default/admin/order/status.asc/Comment_sort/status/'))
+                '{{link}}'  => CHtml::link(Yii::t('comment','Модерация комментариев'),array('/comment/default/admin/order/status.asc/Comment_sort/status/'))
             )));
     }
 

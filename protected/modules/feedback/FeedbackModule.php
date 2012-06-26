@@ -55,7 +55,7 @@ class FeedbackModule extends YWebModule
         $count = FeedBack::model()->new()->cache($this->cacheTime)->count();
 
         if($count)
-            return array('type' => YWebModule::CHECK_NOTICE,'message' => Yii::t('feedback','У Вас {{count}} ',array('{{count}}' => $count)).Yii::t('feedback',"новое сообщение с сайта|новых сообщения с сайта|новых сообщений с сайта",$count) );
+            return array('type' => YWebModule::CHECK_NOTICE,'message' => Yii::t('feedback','У Вас {{count}} ',array('{{count}}' => $count)).Yii::t('feedback',"новое сообщение с сайта|новых сообщения с сайта|новых сообщений с сайта",$count).' '.CHtml::link(Yii::t('feedback','Посмотреть и ответить?'),array('/feedback/default/admin/order/status.asc/FeedbBack_sort/status/')));
     }
 
     public function getName()

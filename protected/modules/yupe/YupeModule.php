@@ -117,8 +117,9 @@ class YupeModule extends YWebModule
     {
         return array(
             Yii::t('yupe','Очистить кеш') => '/yupe/backend/cacheflush/',
-            Yii::t('yupe', 'Оформление')  => '/yupe/backend/themesettings/',
+            Yii::t('yupe','Оформление')   => '/yupe/backend/themesettings/',
             Yii::t('yupe','Помощь')       => '/yupe/backend/help/',
+            Yii::t('yupe','Парметры сайта') => '/yupe/backend/modulesettings/module/yupe'
         );
     }
 

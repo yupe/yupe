@@ -102,6 +102,7 @@ return array(
                 '/blog/<slug>' => 'blog/blog/show/',
                 '/blogs/' => 'blog/blog/index/',
                 '/users/' => 'user/people/index/',
+                '/profile/' => 'user/people/profile/',
                 '/wiki/<controller:\w+>/<action:\w+>' => '/yeeki/wiki/<controller>/<action>',
                 'user/<username:\w+>/' => 'user/people/userInfo',
             ),
@@ -134,6 +135,14 @@ return array(
         // настройки кэширования, подробнее http://www.yiiframework.ru/doc/guide/ru/caching.overview
         'cache' => array(
             'class' => 'CFileCache',
+        ),
+
+        'messages' => array(
+            'class' => 'CDbMessageSource',
+            'language' => 'ru',
+            'sourceMessageTable' => 'source_message',
+            'translatedMessageTable' => 'message'
+            // config for db message source here, see http://www.yiiframework.com/doc/api/CDbMessageSource
         ),
 
         // параметры логирования, подробнее http://www.yiiframework.ru/doc/guide/ru/topics.logging
@@ -214,6 +223,9 @@ return array(
         ),
         'contentblock' => array(
             'class' => 'application.modules.contentblock.ContentBlockModule',
+        ),
+        'translation' => array(
+            'class' => 'application.modules.translation.TranslationModule',
         ),
         'feedback' => array(
             'class' => 'application.modules.feedback.FeedbackModule',

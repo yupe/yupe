@@ -36,7 +36,8 @@
 <div class="container" id="page">
     <div id="header">
         <div id="logo">
-            <?=CHtml::encode(Yii::app()->getModule('yupe')->siteDescription)?>
+            <?=CHtml::image(Yii::app()->baseUrl.'/web/images/yupe.jpg');?>
+            <?=CHtml::encode(Yii::app()->getModule('yupe')->siteDescription);?>
             <iframe frameborder="0" allowtransparency="true" scrolling="no" src="https://money.yandex.ru/embed/small.xml?uid=41001846363811&amp;button-text=05&amp;button-size=s&amp;button-color=orange&amp;targets=%d0%9d%d0%b0+%d1%80%d0%b0%d0%b7%d0%b2%d0%b8%d1%82%d0%b8%d0%b5+%d0%ae%d0%bf%d0%b8!&amp;default-sum=50&amp;fio=on&amp;mail=on" width="130" height="31" style="float:right;"></iframe>
         </div>
     </div>
