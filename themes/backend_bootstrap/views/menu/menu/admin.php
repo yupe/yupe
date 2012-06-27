@@ -28,13 +28,13 @@ Yii::app()->clientScript->registerScript('search', "
 ");
 ?>
 
-<div class="page-header"><h1><?=$this->module->getName()?> <small><?php echo Yii::t('menu', 'управление');?></small></h1></div>
+<div class="page-header"><h1><?php echo $this->module->getName()?> <small><?php echo Yii::t('menu', 'управление');; ?></small></h1></div>
 
 <button class="btn btn-small dropdown-toggle"
         data-toggle="collapse"
         data-target="#search-toggle" >
     <i class="icon-search"></i>
-    <?=CHtml::link(Yii::t('menu', 'Поиск меню'), '#', array('class' => 'search-button'))?>
+    <?php echo CHtml::link(Yii::t('menu', 'Поиск меню'), '#', array('class' => 'search-button')); ?>
     <span class="caret"></span>
 </button>
 
