@@ -14,8 +14,8 @@ class CustomGoogleService extends GoogleOpenIDService {
 	//protected $jsArguments = array('popup' => array('width' => 450, 'height' => 450));
 	
 	protected $requiredAttributes = array(
-		'name' => array('firstname', 'namePerson/first'),
-		'lastname' => array('lastname', 'namePerson/last'),
+		'first_name' => array('firstname', 'namePerson/first'),
+		'last_name' => array('lastname', 'namePerson/last'),
 		'email' => array('email', 'contact/email'),
 		'language' => array('language', 'pref/language'),
 	);

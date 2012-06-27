@@ -31,6 +31,7 @@ class SocialController extends YFrontController
                 // successful authentication
                 if ($identity->authenticate())
                 {
+
                     //проверить нет ли уже этого пользователя
                     $socialLogin = new SocialLoginIdentity(Yii::app()->user->getState('service'),Yii::app()->user->getState('sid'));
 
@@ -47,14 +48,18 @@ class SocialController extends YFrontController
                     }
                     else
                     {
+
                         // попробуем создать учетную запись, если такой ник уже есть - редирект на форму регистрации
                         $nick_name = preg_replace(
 								'/[^A-Za-z0-9]/','', 
 								YText::translit($authIdentity->getAttribute('nick'))
-						);                  
+						);  
 
-                        $user = User::model()->find('LOWER(nick_name) = :nick_name',array(
-                            ':nick_name' => strtolower($nick_name)
+                        $email = $authIdentity->getAttribute('email');                
+
+                        $user = User::model()->find('LOWER(nick_name) = :nick_name OR LOWER(email) = :email',array(
+                            ':nick_name' => strtolower($nick_name),
+                            ":email" => strtolower($email),
                         ));
 
                         if($user)
@@ -104,8 +109,9 @@ class SocialController extends YFrontController
 									$authIdentity->getAttribute('last_name')
 							);
 
-                            if($account && !$account->hasErrors())
-                            {                            
+
+                            if($account->save())
+                            {
                                 //создадим запись в Login
                                 $login = new Login;
 
@@ -117,7 +123,21 @@ class SocialController extends YFrontController
 
                                 if(!$login->save())
                                     throw new CDbException(Yii::t('social','При создании учетной записи произошла ошибка!'));                
-                            }                            
+                            }
+                            else
+                            {
+                                $sError = "<ul style=\"list-style: disc inside;\">\n";
+
+                                foreach ($account->getErrors() as $error) {
+                                    foreach ($error as $err) {
+                                        $sError .= "<li>" . $err . "</li>\n";
+                                    }
+                                }
+
+                                $sError .= "</ul>";
+
+                                throw new CDbException($sError);
+                            }
 
                             $transaction->commit();
 
@@ -136,7 +156,6 @@ class SocialController extends YFrontController
                             }
                             else
                             {
-                                Yii::app()->user->setFlash(YFlashMessages::ERROR_MESSAGE, Yii::t('user', 'Учетная запись создана, но не удалось авторизоваться!'));
 
                                 $this->cleanState();
 
@@ -151,11 +170,11 @@ class SocialController extends YFrontController
                                 '{servive}' => Yii::app()->user->getState('service')
                             )), CLogger::LEVEL_ERROR);
 
-                            Yii::app()->user->setFlash(YFlashMessages::ERROR_MESSAGE, Yii::t('user', 'При создании учетной записи произошла ошибка {error}!',array('{error}' => $e->getMessage())));
+                            Yii::app()->user->setFlash(YFlashMessages::ERROR_MESSAGE, Yii::t('user', 'При создании учетной записи произошла ошибка: {error}',array('{error}' => $e->getMessage())));
 
                             $this->cleanState();
 
-                            $this->redirect(array('/social/social/registration/'));
+                            $this->redirect(array('/user/account/registration/'));
                         }                       
                     }                    
 
@@ -180,7 +199,7 @@ class SocialController extends YFrontController
 
         $name = Yii::app()->user->getState('name');
 
-        $service = Yii::app()->user->getState('service');        
+        $service = Yii::app()->user->getState('service');
 
         if(!isset($id,$name,$service))
         {
