@@ -367,6 +367,7 @@ CREATE TABLE IF NOT EXISTS `news` (
   `date` date NOT NULL,
   `title` varchar(150) NOT NULL,
   `alias` varchar(150) NOT NULL,
+  `lang` char(2) DEFAULT NULL,
   `short_text` varchar(400) NOT NULL,
   `full_text` text NOT NULL,
   `user_id` int(11) unsigned NOT NULL,
@@ -375,7 +376,8 @@ CREATE TABLE IF NOT EXISTS `news` (
   `keywords` varchar(150) NOT NULL,
   `description` varchar(250) NOT NULL,
   PRIMARY KEY (`id`),
-  UNIQUE KEY `alias_unique` (`alias`),
+  UNIQUE KEY `alias_unique` (`alias`,`lang`),
+  KEY `lang` (`lang`),
   KEY `status` (`status`),
   KEY `is_protected` (`is_protected`),
   KEY `user_id` (`user_id`)
@@ -397,6 +399,7 @@ CREATE TABLE IF NOT EXISTS `page` (
   `name` varchar(150) NOT NULL,
   `title` varchar(150) NOT NULL,
   `slug` varchar(150) NOT NULL,
+  `lang` char(2) DEFAULT NULL,
   `body` text NOT NULL,
   `keywords` varchar(150) NOT NULL,
   `description` varchar(250) NOT NULL,
@@ -404,14 +407,14 @@ CREATE TABLE IF NOT EXISTS `page` (
   `is_protected` int(11) NOT NULL,
   `menu_order` int(11) NOT NULL DEFAULT '0',
   PRIMARY KEY (`id`),
-  UNIQUE KEY `slug_unique` (`slug`),
+  UNIQUE KEY `slug_unique` (`slug`,`lang`),
   KEY `status` (`status`),
+  KEY `lang` (`lang`),
   KEY `is_protected` (`is_protected`),
   KEY `user_id` (`user_id`),
   KEY `change_user_id` (`change_user_id`),
   KEY `order` (`menu_order`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
-
 -- --------------------------------------------------------
 
 --
