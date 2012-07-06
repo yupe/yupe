@@ -180,28 +180,21 @@ abstract class YWebModule extends CWebModule
         if (is_object(Yii::app()->theme))
             $this->layout = 'webroot.themes.' . Yii::app()->theme->name . '.views.layouts.main';
 
-        try
-        {
-            // инициализация модуля
-            $settings = Settings::model()->cache($this->coreCacheTime)->findAll('module_id = :module_id', array('module_id' => $this->getId()));
+        // инициализация модуля
+        $settings = Settings::model()->cache($this->coreCacheTime)->findAll('module_id = :module_id', array('module_id' => $this->getId()));
 
+        if($settings)
+        {
             $editableParams = $this->getEditableParams();
 
             //@TODO обход не settings а editableParams как вариант =)
             foreach ($settings as $model)
             {
-                $propertie = $model->param_name;
-
-                if (property_exists($this, $propertie) && (in_array($propertie, $editableParams) || array_key_exists($propertie, $editableParams)))
-                    $this->$propertie = $model->param_value;
+                if (property_exists($this, $model->param_name) && (in_array($model->param_name, $editableParams) || array_key_exists($model->param_name, $editableParams)))
+                    $this->{$model->param_name} = $model->param_value;
             }
-        }
-        catch(Exception $e)
-        {
-            // :TODO: Возможно надо будет выдать ошибку, если это не модуль install
         }
 
         parent::init();
     }
-
 }
