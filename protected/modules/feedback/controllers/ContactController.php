@@ -25,11 +25,11 @@ class ContactController extends YFrontController
         // проверить не передан ли тип и присвоить его аттрибуту модели
         $form->type = (int)Yii::app()->request->getParam('type',FeedBack::TYPE_DEFAULT);
 
+        $module = Yii::app()->getModule('feedback');
+
         if (Yii::app()->request->isPostRequest && !empty($_POST['FeedBackForm']))
         {
             $form->setAttributes($_POST['FeedBackForm']);
-
-            $module = Yii::app()->getModule('feedback');
 
             if ($form->validate())
             {
@@ -99,7 +99,7 @@ class ContactController extends YFrontController
             }
         }
 
-        $this->render('index', array('model' => $form));
+        $this->render('index', array('model' => $form, 'module' => $module));
     }
     
      /**

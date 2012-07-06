@@ -51,7 +51,7 @@ Jabber-конференция сервер: conference.yupe.ru, комната:<
     <?php if($model->type):?>
         <div class="row">
             <?php echo $form->labelEx($model, 'type'); ?>
-            <?php echo $form->dropDownList($model, 'type', Yii::app()->getModule('feedback')->types); ?>
+            <?php echo $form->dropDownList($model, 'type', $module->types); ?>
             <?php echo $form->error($model, 'type'); ?>
         </div>
     <?php endif;?>
@@ -80,7 +80,7 @@ Jabber-конференция сервер: conference.yupe.ru, комната:<
         <?php echo $form->error($model, 'text'); ?>
     </div>
 
-    <?php if (Yii::app()->getModule('feedback')->showCaptcha): ?>
+    <?php if ($module->showCaptcha && !Yii::app()->user->isAuthenticated()): ?>
     <?php if (extension_loaded('gd')): ?>
         <div class="row">
             <?php echo $form->labelEx($model, 'verifyCode'); ?>
