@@ -13,8 +13,10 @@ class RecoveryPasswordAction extends CAction
             $this->controller->redirect(array('/user/account/recovery'));
         }
 
+        $module = Yii::app()->getModulegetModule('user');
+
         // автоматическое восстановление пароля
-        if (Yii::app()->getModule('user')->autoRecoveryPassword)
+        if ($module->autoRecoveryPassword)
         {
             $newPassword = User::model()->generateRandomPassword();
             $recovery->user->password = User::model()->hashPassword($newPassword, $recovery->user->salt);
@@ -25,7 +27,7 @@ class RecoveryPasswordAction extends CAction
                 {
                     $transaction->commit();
                     $emailBody = $this->controller->renderPartial('passwordAutoRecoverySuccessEmail', array('model' => $recovery->user, 'password' => $newPassword), true);
-                    Yii::app()->mail->send(Yii::app()->getModule('user')->notifyEmailFrom, $recovery->user->email, Yii::t('user', 'Успешное восстановление пароля!'), $emailBody);
+                    Yii::app()->mail->send($module->notifyEmailFrom, $recovery->user->email, Yii::t('user', 'Успешное восстановление пароля!'), $emailBody);
                     Yii::app()->user->setFlash(YFlashMessages::NOTICE_MESSAGE, Yii::t('user', 'Новый пароль отправлен Вам на email!'));
                     Yii::log(Yii::t('user', 'Успешное восстановление пароля!'), CLogger::LEVEL_ERROR, UserModule::$logCategory);
                     $this->controller->redirect(array('/user/account/login'));
@@ -64,7 +66,7 @@ class RecoveryPasswordAction extends CAction
                         Yii::app()->user->setFlash(YFlashMessages::NOTICE_MESSAGE, Yii::t('user', 'Пароль изменен!'));
                         Yii::log(Yii::t('user', 'Успешная смена пароля для пользоателя {user}!', array('{user}' => $recovery->user->id)), CLogger::LEVEL_INFO, UserModule::$logCategory);
                         $emailBody = $this->controller->renderPartial('passwordRecoverySuccessEmail', array('model' => $recovery->user), true);
-                        Yii::app()->mail->send(Yii::app()->getModule('user')->notifyEmailFrom, $recovery->user->email, Yii::t('user', 'Успешное восстановление пароля!'), $emailBody);
+                        Yii::app()->mail->send($module->notifyEmailFrom, $recovery->user->email, Yii::t('user', 'Успешное восстановление пароля!'), $emailBody);
                         $this->controller->redirect(array('/user/account/login'));
                     }
                 }
