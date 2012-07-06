@@ -8,6 +8,7 @@
     <meta name="description" content="<?php echo $this->description; ?>" />
 
     <?php  $jNotify = Yii::app()->assetManager->publish(Yii::app()->theme->basePath.'/web/jquery_notification/');?>
+    <?php  $module  = Yii::app()->getModule('yupe');?>
     <?php  Yii::app()->clientScript->registerCssFile($jNotify.'/css/jquery_notification.css');?>
     <?php  Yii::app()->clientScript->registerScriptFile($jNotify.'/js/jquery_notification_v.1.js');?>
 
@@ -36,8 +37,8 @@
 <div class="container" id="page">
     <div id="header">
         <div id="logo">
-            <a href="<?php echo Yii::app()->baseUrl;?>"><?php echo CHtml::image(Yii::app()->baseUrl.'/web/images/yupe.jpg');?></a>
-            <?php echo CHtml::encode(Yii::app()->getModule('yupe')->siteDescription);?>
+            <a href="<?php echo Yii::app()->baseUrl;?>"><?php echo CHtml::image(Yii::app()->baseUrl.'/web/images/yupe-logo.jpg');?></a>
+            <?php echo CHtml::encode($module->siteDescription);?>
             <iframe frameborder="0" allowtransparency="true" scrolling="no" src="https://money.yandex.ru/embed/small.xml?uid=41001846363811&amp;button-text=05&amp;button-size=s&amp;button-color=orange&amp;targets=%d0%9d%d0%b0+%d1%80%d0%b0%d0%b7%d0%b2%d0%b8%d1%82%d0%b8%d0%b5+%d0%ae%d0%bf%d0%b8!&amp;default-sum=50&amp;fio=on&amp;mail=on" width="130" height="31" style="float:right;"></iframe>
         </div>
     </div>
@@ -79,7 +80,7 @@
     <div id="footer">
         Copyright &copy; 2009-<?php echo date('Y'); ?> <a
         href='http://yupe.ru?from=engine'>Юпи!</a>
-        v<?php echo Yii::app()->getModule('yupe')->getVersion();?><br/>
+        v<?php echo $module->getVersion();?><br/>
         <?php echo Yii::powered(); ?>
         <?php $this->widget('YPerformanceStatistic');?>
     </div>
