@@ -21,13 +21,10 @@ class ActivateAction extends CAction
             // перенаправить на экшн для фиксации невалидных ip адресов
             $this->controller->redirect(array($module->invalidIpAction));
 
-
         // проверить на email
         if (!$module->isAllowedEmail($user->email))
             // перенаправить на экшн для фиксации невалидных ip адресов
             $this->controller->redirect(array($module->invalidEmailAction));
-
-
 
         if($user->activate())
         {
