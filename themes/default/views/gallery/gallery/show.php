@@ -1,3 +1,6 @@
+<?php $this->pageTitle = 'Галерея'; ?>
+<?php $this->breadcrumbs = array('Галереи' => array('/gallery/gallery/list'),$model->name); ?>
+
 <h1><?php echo Yii::t('gallery', 'Галерея');?>
     "<?php echo CHtml::encode($model->name);?>"</h1>
 

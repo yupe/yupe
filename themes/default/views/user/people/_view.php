@@ -1,5 +1,5 @@
 <div class="view">    
-    <b><?php echo CHtml::image( $data->getAvatar( 100 ),$data->getFullName());?></b>
+    <b><a href="<?php echo $this->createUrl('/user/people/userinfo/',array('username' => $data->nick_name));?>"><?php echo CHtml::image( $data->getAvatar( 100 ),$data->getFullName());?></a></b>
     <br/>
 
     <b><?php echo CHtml::encode($data->getAttributeLabel('nick_name'))?>:</b>
