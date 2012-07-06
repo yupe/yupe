@@ -80,7 +80,7 @@ class ContactController extends YFrontController
                         $emailBody = $this->renderPartial('feedbackEmail', array('model' => $feedback), true);                       
 
                         foreach (explode(',',$module->emails) as $mail)                           
-                            Yii::app()->mail->send($module->notifyEmailFrom, $mail, $form->theme, $emailBody);                                                
+                            Yii::app()->mail->send($feedback->email, $mail, $form->theme, $emailBody);
 
                         if ($module->sendConfirmation)                                                    
                             $this->feedbackConfirmationEmail($feedback);                                                
