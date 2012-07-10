@@ -18,10 +18,10 @@ class RecoveryForm extends CFormModel
     {    	
     	if(!$this->hasErrors())
     	{
-    		$this->_user = User::model()->find('email = :email',array(':email' => $this->email));
+    		$this->_user = User::model()->active()->find('email = :email',array(':email' => $this->email));
 
     		if(!$this->_user)
-    		    $this->addError('email',Yii::t('user','Email "{email}" не найден!',array('{email}' => $this->email)));
+    		    $this->addError('email',Yii::t('user','Email "{email}" не найден или пользователь заблокирован !',array('{email}' => $this->email)));
     	}
     }
 

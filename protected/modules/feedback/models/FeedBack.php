@@ -46,9 +46,14 @@ class FeedBack extends CActiveRecord
 
     public function getTypeList()
     {
-        return is_array(Yii::app()->getModule('feedback')->types)
-            ? Yii::app()->getModule('feedback')->types
-            : array();
+        $types = Yii::app()->getModule('feedback')->types;
+
+        if($types)
+            $types[self::TYPE_DEFAULT] = Yii::t('feedback','По умолчанию');
+        else
+            $types = array(self::TYPE_DEFAULT => Yii::t('feedback','По умолчанию'));
+
+        return $types;
     }
 
     public function getType()
@@ -82,17 +87,17 @@ class FeedBack extends CActiveRecord
     public function rules()
     {
         return array(
-            //@formatter:off
             array('name, email, theme, text', 'required'),
-            array('type, status, answer_user, is_faq', 'numerical', 'integerOnly' => true),
+            array('name, email, theme, text', 'filter', 'filter' => array($obj = new CHtmlPurifier(), 'purify')),
+            array('type, status, answer_user, is_faq, type', 'numerical', 'integerOnly' => true),
             array('is_faq', 'in', 'range' => array(0, 1)),
             array('status', 'in', 'range' => array_keys($this->getStatusList())),
+            array('type', 'in', 'range' => array_keys($this->getTypeList())),
             array('name, email, answer_date', 'length', 'max' => 100),
             array('theme', 'length', 'max' => 150),
             array('email', 'email'),
             array('answer', 'filter', 'filter' => 'trim'),
             array('id, creation_date, change_date, name, email, theme, text, type, status, ip', 'safe', 'on' => 'search'),
-            //@formatter:on
         );
     }
 
@@ -148,7 +153,11 @@ class FeedBack extends CActiveRecord
         if ($this->isNewRecord)
         {
             $this->creation_date = $this->change_date;
+
             $this->ip = Yii::app()->request->userHostAddress;
+
+            if(!$this->type)
+                $this->type = self::TYPE_DEFAULT;
         }
 
         return parent::beforeSave();

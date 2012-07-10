@@ -35,29 +35,30 @@ class PageController extends YFrontController
         if (!$slug)        
             throw new CHttpException('404', Yii::t('page', 'Страница не найдена!'));        
 
-        $page = null;
+        $this->currentPage = null;
 
         // превью
-        if ((int)Yii::app()->request->getQuery('preview') === 1 && Yii::app()->user->isSuperUser())        
-            $page = Page::model()->find('slug = :slug', array(':slug' => $slug));        
-        else        
-            $page = Page::model()->published()->find('slug = :slug', array(':slug' => $slug));        
+        if ((int)Yii::app()->request->getQuery('preview') === 1 && Yii::app()->user->isSuperUser())
+            $this->currentPage = Page::model()->find('slug = :slug', array(':slug' => $slug));
+        else
+            $this->currentPage = Page::model()->published()->find('slug = :slug', array(':slug' => $slug));
 
-        if (!$page)        
+        if (!$this->currentPage)
             throw new CHttpException('404', Yii::t('page', 'Страница не найдена!'));        
 
         // проверим что пользователь может просматривать эту страницу
-        if (($page->is_protected == Page::PROTECTED_YES) && !Yii::app()->user->isAuthenticated())
+        if (($this->currentPage->is_protected == Page::PROTECTED_YES) && !Yii::app()->user->isAuthenticated())
         {
             Yii::app()->user->setFlash(YFlashMessages::NOTICE_MESSAGE, Yii::t('page', 'Для просмотра этой страницы Вам необходимо авторизоваться!'));
             $this->redirect(array(Yii::app()->getModule('user')->accountActivationSuccess));
         }
 
-        $this->currentPage = $page;
-
-        $this->render('page', array('page' => $page));
+        $this->render('page', array('page' => $this->currentPage));
     }
 
+
+
+    //@TODO Методы, расположенные ниже лучше всего вынести в модель (я так думаю)
 
     /**
      * getBreadCrumbs
@@ -71,13 +72,14 @@ class PageController extends YFrontController
     public function getBreadCrumbs()
     {
         $pages = array();
-        if($this->currentPage->parentPage){
-                $pages = $this->getBreadCrumbsRecursively($this->currentPage->parentPage);
-        }
+        if($this->currentPage->parentPage)
+            $pages = $this->getBreadCrumbsRecursively($this->currentPage->parentPage);
+
         $pages = array_reverse($pages);
         array_push($pages, $this->currentPage->title);
         return $pages;
     }
+
     /**
      * Рекурсивно возвращает пригодный для zii.widgets.CBreadcrumbs массив, начиная со страницы $page
      * @param int $pageId 
@@ -86,7 +88,8 @@ class PageController extends YFrontController
         $pages = array();
         $pages[$page->title] = array('/page/page/show/', 'slug' => $page->slug);
         $pp = $page->parentPage;
-        if($pp) $pages+= $this->getBreadCrumbsRecursively($pp);
+        if($pp)
+            $pages+= $this->getBreadCrumbsRecursively($pp);
         return $pages;
     }
 }

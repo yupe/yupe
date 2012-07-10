@@ -26,49 +26,13 @@ $this->menu = array(
 
 
 <h2><?php echo $model->title;; ?></h2>
-<small>Автор: <?php echo $model->changeAuthor->getFullName();; ?></small>
+<small><?php echo Yii::t('page', 'Автор');?>: <?php echo $model->changeAuthor->getFullName();; ?></small>
 <br /><br />
-<p>
-    <?php echo $model->body;; ?>
+<p><?php echo $model->body;; ?></p>
 
-</p>
-<?php /* $this->widget('zii.widgets.CDetailView', array(
-                                                    'data' => $model,
-                                                    'attributes' => array(
-                                                        'id',
-                                                        'creation_date',
-                                                        'change_date',
-                                                        array(
-                                                            'name' => 'user_id',
-                                                            'value' => $model->author->getFullName()
-                                                        ),
-                                                        'menu_order',
-                                                        array(
-                                                            'name' => 'change_user_id',
-                                                            'value' => $model->changeAuthor->getFullName()
-                                                        ),
-                                                        'name',
-                                                        'title',
-                                                        'slug',
-                                                        'body',
-                                                        'keywords',
-                                                        'description',
-                                                        array(
-                                                            'name' => 'status',
-                                                            'value' => $model->getStatus()
-                                                        ),
-                                                        array(
-                                                            'name' => 'is_protected',
-                                                            'value' => $model->getProtectedStatus()
-                                                        )
-                                                    ),
-                                               ));
-*/
- ?>
+<br/>
 
-<br>
+<?php echo Yii::t('page', 'Публичный url');?>: <b><?php echo Yii::app()->createAbsoluteUrl('/page/page/show/',array('slug' => $model->slug));?></b>
 
-<?php echo CHtml::link(Yii::t('page', 'Просмотреть на сайте'), array('/page/page/show', 'slug' => $model->slug, 'preview' => 1)); ?>
-<?php echo CHtml::link(Yii::t('page', 'Редактировать эту страницу'), array('update', 'id' => $model->id)); ?>
+(<?php echo CHtml::link(Yii::t('page', 'просмотреть на сайте'), array('/page/page/show', 'slug' => $model->slug, 'preview' => 1));?>)
 
-<?php echo CHtml::link(Yii::t('page', 'Удалить эту страницу'), array('update', 'id' => $model->id), array('submit' => array('delete', 'id' => $model->id), 'confirm' => Yii::t('page', 'Подтверждаете удаление страницы ?'))); ?>

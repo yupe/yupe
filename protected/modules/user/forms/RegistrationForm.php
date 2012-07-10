@@ -39,7 +39,7 @@ class RegistrationForm extends CFormModel
             ':nick_name' => $this->nick_name
         ));
 
-        if($model)        
+        if($model)
             $this->addError('nick_name',Yii::t('user','Ник уже занят'));
     }
 
@@ -49,8 +49,8 @@ class RegistrationForm extends CFormModel
             ':email' => $this->email
         ));
 
-        if($model)        
-            $this->addError('email',Yii::t('user','Email уже занят'));   
+        if($model)
+            $this->addError('email',Yii::t('user','Email уже занят'));
     }
 
     public function attributeLabels()

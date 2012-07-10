@@ -25,11 +25,11 @@ class ContactController extends YFrontController
         // проверить не передан ли тип и присвоить его аттрибуту модели
         $form->type = (int)Yii::app()->request->getParam('type',FeedBack::TYPE_DEFAULT);
 
+        $module = Yii::app()->getModule('feedback');
+
         if (Yii::app()->request->isPostRequest && !empty($_POST['FeedBackForm']))
         {
             $form->setAttributes($_POST['FeedBackForm']);
-
-            $module = Yii::app()->getModule('feedback');
 
             if ($form->validate())
             {
@@ -70,7 +70,7 @@ class ContactController extends YFrontController
                             $form->addErrors($feedback->getErrors());
                             Yii::log(Yii::t('feedback', 'Ошибка при добавлении обращения пользователя в базу!'), CLogger::LEVEL_ERROR, FeedbackModule::$logCategory);
                             Yii::app()->user->setFlash(YFlashMessages::ERROR_MESSAGE, Yii::t('feedback', 'При отправке сообщения произошла ошибка! Повторите попытку позже!'));
-                            $this->render('index', array('model' => $form));                         
+                            $this->render('index', array('model' => $form, 'module' => $module));
                         }
                     }
                     
@@ -80,7 +80,7 @@ class ContactController extends YFrontController
                         $emailBody = $this->renderPartial('feedbackEmail', array('model' => $feedback), true);                       
 
                         foreach (explode(',',$module->emails) as $mail)                           
-                            Yii::app()->mail->send($module->notifyEmailFrom, $mail, $form->theme, $emailBody);                                                
+                            Yii::app()->mail->send($feedback->email, $mail, $form->theme, $emailBody);
 
                         if ($module->sendConfirmation)                                                    
                             $this->feedbackConfirmationEmail($feedback);                                                
@@ -99,7 +99,7 @@ class ContactController extends YFrontController
             }
         }
 
-        $this->render('index', array('model' => $form));
+        $this->render('index', array('model' => $form, 'module' => $module));
     }
     
      /**

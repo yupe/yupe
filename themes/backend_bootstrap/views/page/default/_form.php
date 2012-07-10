@@ -65,6 +65,14 @@
             </div>
         </div>
 
+        <div class="row-fluid control-group <?php echo $model-> hasErrors('slug')?'error':'' ?>">
+            <div class="span7  popover-help" data-content="<?php echo Yii::t('page',"Полный адрес страницы.") ?>" data-original-title="<?php echo Yii::t('page','Публичный Url');?>" >
+                <label><?php echo Yii::t('page','Публичный Url');?></label>
+                <?php echo CHtml::textField('public_url',Yii::app()->createAbsoluteUrl('/page/page/show/',array('slug' => $model->slug)),array('readonly' => true)); ?>
+            </div>
+        </div>
+
+
         <div class="row-fluid control-group <?php echo $model-> hasErrors('body')?'error':'' ?>">
             <div class="span12">
                 <?php echo $form->labelEx($model, 'body'); ?>

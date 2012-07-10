@@ -1,3 +1,6 @@
+<?php $this->pageTitle = 'Фото'; ?>
+<?php $this->breadcrumbs = array('Галереи' => array('/gallery/gallery/list'),$model->name); ?>
+
 <h1><?php echo CHtml::encode($model->name);?></h1>
 
 <?php echo CHtml::image($model->file, $model->name, array('width' => 500, 'height' => 500)); ?>

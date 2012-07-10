@@ -63,7 +63,7 @@ class RegistrationAction extends CAction
                         }
                         else
                         {
-                            $form->addErrors($registration->getErrors());
+                            $form->addErrors($user->getErrors());
 
                             Yii::log(Yii::t('user', "Ошибка при создании  учетной записи!"), CLogger::LEVEL_ERROR, UserModule::$logCategory);     
                         }

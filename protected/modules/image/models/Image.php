@@ -46,6 +46,8 @@ class Image extends CActiveRecord
      */
     public function rules()
     {
+        $module = Yii::app()->getModule('image');
+
         return array(
             array('name, description, alt','filter','filter' => 'trim'),
             array('name, description, alt','filter','filter' => array($obj = new CHtmlPurifier(),'purify')),
@@ -56,7 +58,7 @@ class Image extends CActiveRecord
             array('file', 'length', 'max' => 500),
             array('user_id', 'length', 'max' => 10),
             array('alt', 'length', 'max' => 150),
-            array('file', 'file', 'maxSize' => Yii::app()->getModule('image')->maxSize, 'types' => Yii::app()->getModule('image')->allowedExtensions, 'allowEmpty' => true),
+            array('file', 'file', 'maxSize' => $module->maxSize, 'types' => $module->allowedExtensions, 'allowEmpty' => true),
             array('type', 'in', 'range' => array_keys($this->getTypeList())),
             array('id, name, description, file, creation_date, user_id, alt, status', 'safe', 'on' => 'search'),
         );

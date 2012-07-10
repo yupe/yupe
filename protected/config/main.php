@@ -137,13 +137,13 @@ return array(
             'class' => 'CFileCache',
         ),
 
-        'messages' => array(
+        /*'messages' => array(
             'class' => 'CDbMessageSource',
             'language' => 'ru',
             'sourceMessageTable' => 'source_message',
             'translatedMessageTable' => 'message'
             // config for db message source here, see http://www.yiiframework.com/doc/api/CDbMessageSource
-        ),
+        ),*/
 
         // параметры логирования, подробнее http://www.yiiframework.ru/doc/guide/ru/topics.logging
        'log' => array(

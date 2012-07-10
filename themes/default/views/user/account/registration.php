@@ -42,8 +42,7 @@ $this->breadcrumbs = array('Регистрация новго пользоват
     </div>
 
 
-    <?php if (Yii::app()->getModule('user')->showCaptcha): ?>
-    <?php if (extension_loaded('gd')): ?>
+    <?php if ($module->showCaptcha && extension_loaded('gd')): ?>
         <div class="row">
             <?php echo $form->labelEx($model, 'verifyCode'); ?>
             <div>
@@ -55,10 +54,7 @@ $this->breadcrumbs = array('Регистрация новго пользоват
                 Введите текст указанный на картинке
             </div>
         </div>
-        <?php endif; ?>
     <?php endif; ?>
-
-
 
     <div class="row submit">
         <?php echo CHtml::submitButton('Зарегистрироваться'); ?>

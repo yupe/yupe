@@ -62,6 +62,10 @@ $this->menu = array(
              ),
              'title',
              array(
+               'name'  => Yii::t('page','Публичный url'),
+               'value' => 'Yii::app()->createAbsoluteUrl("/page/page/show/",array("slug"=> $data->slug))'
+             ),
+             array(
                 'name'=>'user_id',
                 'value'=>'$data->author->getFullName()'
              ),
@@ -78,6 +82,14 @@ $this->menu = array(
             ),
              array(
                 'class'=>'bootstrap.widgets.BootButtonColumn',
+                'template' => '{view}{update}{delete}{liveview}',
+                'buttons'  => array(
+                     'liveview' => array(
+                         'label' => false,
+                         'url'   => 'Yii::app()->createUrl("/page/page/show/",array("slug" => $data->slug,"preview" => 1))',
+                         'options' => array('class' => 'icon-globe')
+                     )
+                 ),
                 'htmlOptions'=>array('style'=>'width: 50px'),
             ),
         ),
