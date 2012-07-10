@@ -3,7 +3,7 @@
   'class' => 'CDbConnection',
   'connectionString' => 'mysql:host=localhost;dbname=yupe',
   'username' => 'root',
-  'password' => '147',
+  'password' => 'root',
   'emulatePrepare' => true,
   'charset' => 'utf8',
   'enableParamLogging' => 1,
