@@ -137,14 +137,6 @@ return array(
             'class' => 'CFileCache',
         ),
 
-        /*'messages' => array(
-            'class' => 'CDbMessageSource',
-            'language' => 'ru',
-            'sourceMessageTable' => 'source_message',
-            'translatedMessageTable' => 'message'
-            // config for db message source here, see http://www.yiiframework.com/doc/api/CDbMessageSource
-        ),*/
-
         // параметры логирования, подробнее http://www.yiiframework.ru/doc/guide/ru/topics.logging
        'log' => array(
             'class' => 'CLogRouter',
@@ -180,7 +172,7 @@ return array(
         'dictionary' => array(
             'class' => 'application.modules.dictionary.DictionaryModule',
         ),
-        'gallery' => array(
+        /*'gallery' => array(
             'class' => 'application.modules.gallery.GalleryModule',
         ),
         'vote' => array(
@@ -188,7 +180,7 @@ return array(
         ),
         'contest' => array(
             'class' => 'application.modules.contest.ContestModule',
-        ),
+        ),*/
         'image' => array(
             'class' => 'application.modules.image.ImageModule',
         ),
@@ -223,10 +215,7 @@ return array(
         ),
         'contentblock' => array(
             'class' => 'application.modules.contentblock.ContentBlockModule',
-        ),
-        'translation' => array(
-            'class' => 'application.modules.translation.TranslationModule',
-        ),
+        ),        
         'feedback' => array(
             'class' => 'application.modules.feedback.FeedbackModule',
             'notifyEmailFrom' => 'test@test.ru',
