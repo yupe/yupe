@@ -160,6 +160,9 @@ return array(
         'menu' => array(
              'class' => 'application.modules.menu.MenuModule',
          ),
+        'queue' => array(
+             'class' => 'application.modules.queue.QueueModule',
+         ),
         'blog' => array(
             'class' => 'application.modules.blog.BlogModule',
         ),
