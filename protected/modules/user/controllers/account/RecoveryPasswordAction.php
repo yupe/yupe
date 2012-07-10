@@ -13,7 +13,7 @@ class RecoveryPasswordAction extends CAction
             $this->controller->redirect(array('/user/account/recovery'));
         }
 
-        $module = Yii::app()->getModulegetModule('user');
+        $module = Yii::app()->getModule('user');
 
         // автоматическое восстановление пароля
         if ($module->autoRecoveryPassword)

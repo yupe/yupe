@@ -70,7 +70,7 @@ class ContactController extends YFrontController
                             $form->addErrors($feedback->getErrors());
                             Yii::log(Yii::t('feedback', 'Ошибка при добавлении обращения пользователя в базу!'), CLogger::LEVEL_ERROR, FeedbackModule::$logCategory);
                             Yii::app()->user->setFlash(YFlashMessages::ERROR_MESSAGE, Yii::t('feedback', 'При отправке сообщения произошла ошибка! Повторите попытку позже!'));
-                            $this->render('index', array('model' => $form));                         
+                            $this->render('index', array('model' => $form, 'module' => $module));
                         }
                     }
                     

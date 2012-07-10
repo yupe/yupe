@@ -46,9 +46,14 @@ class FeedBack extends CActiveRecord
 
     public function getTypeList()
     {
-        $module = Yii::app()->getModule('feedback');
+        $types = Yii::app()->getModule('feedback')->types;
 
-        return is_array($module->types) ? $module->types : array();
+        if($types)
+            $types[self::TYPE_DEFAULT] = Yii::t('feedback','По умолчанию');
+        else
+            $types = array(self::TYPE_DEFAULT => Yii::t('feedback','По умолчанию'));
+
+        return $types;
     }
 
     public function getType()
@@ -148,7 +153,11 @@ class FeedBack extends CActiveRecord
         if ($this->isNewRecord)
         {
             $this->creation_date = $this->change_date;
+
             $this->ip = Yii::app()->request->userHostAddress;
+
+            if(!$this->type)
+                $this->type = self::TYPE_DEFAULT;
         }
 
         return parent::beforeSave();
