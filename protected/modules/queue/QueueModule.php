@@ -4,7 +4,7 @@ class QueueModule extends YWebModule
 {
 	 public function  getVersion()
     {
-        return '0.2';
+        return '0.1';
     }    
 
     public function getCategory()
@@ -19,7 +19,7 @@ class QueueModule extends YWebModule
 
     public function getDescription()
     {
-        return Yii::t('queue', 'Модуль для создания фоновых заданий');
+        return Yii::t('queue', 'Модуль для создания заданий');
     }
 
     public function getAuthor()
@@ -55,5 +55,13 @@ class QueueModule extends YWebModule
                          ));
 
         parent::init();
+    }
+
+    public function getNavigation()
+    {
+        return array(
+            Yii::t('queue','Задания') => '/queue/default/',
+            Yii::t('queue','Очистить очередь') => '/queue/default/clear/'
+        );
     }
 }

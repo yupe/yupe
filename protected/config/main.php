@@ -39,6 +39,9 @@ return array(
         'application.modules.yupe.models.*',
         'application.modules.yupe.components.*',
 
+        'application.modules.queue.components.*',
+        'application.modules.queue.models.*',
+
         'application.modules.social.widgets.ysc.*',
 
         'application.modules.social.components.*',
@@ -51,6 +54,14 @@ return array(
 
     // конфигурирование основных компонентов (подробнее http://www.yiiframework.ru/doc/guide/ru/basics.component)
     'components' => array(
+        'queue' => array(
+            'class' => 'application.modules.queue.components.YDbQueue',
+            'connectionId'   => 'db',
+            'workerNamesMap' => array(
+                1 => 'Отправка почты',
+                2 => 'Ресайз изображений'
+             )
+        ),
         // Библиотека для работы с картинками через GD/ImageMagick
         // Лучше установите ImageMagick, т.к. он ресайзит анимированные гифы
         'image' => array(
@@ -80,7 +91,7 @@ return array(
 
         // компонент для отправки почты
         'mail' => array(
-            'class' => 'application.modules.yupe.components.YMail',
+            'class' => 'application.modules.yupe.components.YQueueMail',
         ),
 
         // конфигурирование urlManager, подробнее http://www.yiiframework.ru/doc/guide/ru/topics.url
@@ -156,7 +167,7 @@ return array(
     ),
 
     // конфигурация модулей приложения, подробнее http://www.yiiframework.ru/doc/guide/ru/basics.module
-    'modules' =>  require(dirname(__FILE__) . '/modules.php'),
+    'modules' => require(dirname(__FILE__) . '/modules.php'),
 
     'behaviors' => array('YupeStartUpBehavior'),
 );

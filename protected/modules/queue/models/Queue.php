@@ -63,7 +63,7 @@ class Queue extends CActiveRecord
 	 */
 	public function tableName()
 	{
-		return 'queue';
+		return '{{queue}}';
 	}
 
 	/**
@@ -75,9 +75,9 @@ class Queue extends CActiveRecord
 		// will receive user inputs.
 		return array(
 			array('worker, task', 'required'),
-			array('status', 'numerical', 'integerOnly'=>true),
+			array('status, worker', 'numerical', 'integerOnly'=>true),
 			array('status','in','range' => array_keys($this->getStatusList())),
-			array('worker, notice', 'length', 'max'=>300),
+			array('notice', 'length', 'max'=>300),
 			array('start_time, complete_time', 'safe'),
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.

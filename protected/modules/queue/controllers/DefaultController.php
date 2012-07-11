@@ -82,7 +82,7 @@ class DefaultController extends YBackController
 	 * Управление заданиями.
 	 */
 	public function actionIndex()
-	{
+	{		
 		$model=new Queue('search');
 		$model->unsetAttributes();  // clear any default values
 		if(isset($_GET['Queue']))
@@ -91,6 +91,15 @@ class DefaultController extends YBackController
 		$this->render('index',array(
 			'model'=>$model,
 		));
+	}
+
+	public function actionClear()
+	{
+		Yii::app()->queue->flush();
+
+		Yii::app()->user->setFlash(YFlashMessages::NOTICE_MESSAGE, Yii::t('queue', 'Очередь очищена!'));
+
+        $this->redirect(($referrer = Yii::app()->getRequest()->getUrlReferrer()) !== null ? $referrer : array("/yupe/backend"));
 	}
 
 	/**

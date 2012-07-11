@@ -49,9 +49,11 @@ $this->widget('bootstrap.widgets.BootGridView',array(
 'filter'=>$model,
 'columns'=>array(
 		'id',
-		'worker',
-		'create_time',
-		'task',
+		 array(
+		 	'name'  => 'worker',
+		 	'value' => 'isset(Yii::app()->queue->workerNamesMap[$data->worker]) ? Yii::app()->queue->workerNamesMap[$data->worker] : $data->worker'
+		 ),
+		'create_time',		
 		'start_time',
 		'complete_time',		
 		 array(

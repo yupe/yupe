@@ -1,13 +1,14 @@
 -- phpMyAdmin SQL Dump
--- version 3.3.10deb1
+-- version 3.4.10.1deb1
 -- http://www.phpmyadmin.net
 --
 -- Хост: localhost
--- Время создания: Апр 25 2012 г., 15:47
--- Версия сервера: 5.1.62
--- Версия PHP: 5.3.5-1ubuntu7.7
+-- Время создания: Июл 11 2012 г., 11:05
+-- Версия сервера: 5.5.24
+-- Версия PHP: 5.3.10-1ubuntu3.2
 
 SET SQL_MODE="NO_AUTO_VALUE_ON_ZERO";
+SET time_zone = "+00:00";
 
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
@@ -43,7 +44,7 @@ CREATE TABLE IF NOT EXISTS `blog` (
   KEY `type` (`type`),
   KEY `status` (`status`),
   KEY `update_user_id` (`update_user_id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=3 ;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
 
 -- --------------------------------------------------------
 
@@ -85,7 +86,7 @@ CREATE TABLE IF NOT EXISTS `comment` (
   KEY `status` (`status`),
   KEY `model` (`model`,`model_id`),
   KEY `user_id` (`user_id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=6 ;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
 
 -- --------------------------------------------------------
 
@@ -197,7 +198,7 @@ CREATE TABLE IF NOT EXISTS `feedback` (
   KEY `status` (`status`),
   KEY `isFaq` (`is_faq`),
   KEY `fk_feedback_user` (`answer_user`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=3 ;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
 
 -- --------------------------------------------------------
 
@@ -304,14 +305,7 @@ CREATE TABLE IF NOT EXISTS `menu` (
   PRIMARY KEY (`id`),
   UNIQUE KEY `code` (`code`),
   KEY `status` (`status`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=3 ;
-
---
--- Дамп данных таблицы `menu`
---
-
-INSERT INTO `menu` (`id`, `name`, `code`, `description`, `status`) VALUES
-(1, 'Верхнее меню', 'top-menu', 'Основное меню сайта, расположенное сверху в блоке mainmenu.', 1);
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=2 ;
 
 -- --------------------------------------------------------
 
@@ -335,24 +329,6 @@ CREATE TABLE IF NOT EXISTS `menu_item` (
   KEY `sort` (`sort`),
   KEY `status` (`status`)
 ) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=13 ;
-
---
--- Дамп данных таблицы `menu_item`
---
-
-INSERT INTO `menu_item` (`id`, `parent_id`, `menu_id`, `title`, `href`, `type`, `condition_name`, `condition_denial`, `sort`, `status`) VALUES
-(1, 0, 1, 'Главная', '/', 1, NULL, NULL, 1, 1),
-(2, 0, 1, 'Блог', '/blog/blog/index/', 1, NULL, NULL, 1, 1),
-(3, 0, 1, 'О проекте', '/site/page/view/about', 1, NULL, NULL, 1, 1),
-(4, 0, 1, 'Пользователи', '/user/people/index/', 1, NULL, NULL, 1, 1),
-(5, 0, 1, 'Социальные виджеты', '/site/social/', 1, NULL, NULL, 1, 1),
-(6, 0, 1, 'Помощь проекту', '/site/page/view/help/', 1, NULL, NULL, 1, 1),
-(7, 0, 1, 'Контакты', '/feedback/contact/', 1, NULL, NULL, 1, 1),
-(8, 0, 1, 'Wiki', '/wiki/default/index/', 1, NULL, NULL, 1, 0),
-(9, 0, 1, 'Войти', '/login/', 1, 'isAuthenticated', 1, 1, 1),
-(10, 0, 1, 'Выйти', '/logout/', 1, 'isAuthenticated', 0, 1, 1),
-(11, 0, 1, 'Регистрация', '/registration/', 1, 'isAuthenticated', 1, 1, 1),
-(12, 0, 1, 'Панель управления', '/yupe/backend/', 1, 'isSuperUser', 0, 1, 1);
 
 -- --------------------------------------------------------
 
@@ -444,7 +420,7 @@ CREATE TABLE IF NOT EXISTS `post` (
   KEY `create_user_id` (`create_user_id`),
   KEY `update_user_id` (`update_user_id`),
   KEY `blog_id` (`blog_id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=3 ;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
 
 -- --------------------------------------------------------
 
@@ -462,6 +438,25 @@ CREATE TABLE IF NOT EXISTS `post_to_tag` (
 -- --------------------------------------------------------
 
 --
+-- Структура таблицы `queue`
+--
+
+CREATE TABLE IF NOT EXISTS `queue` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `worker` tinyint(3) unsigned NOT NULL,
+  `create_time` datetime NOT NULL,
+  `task` text NOT NULL,
+  `start_time` datetime DEFAULT NULL,
+  `complete_time` datetime DEFAULT NULL,
+  `status` tinyint(3) unsigned NOT NULL DEFAULT '0',
+  `notice` varchar(300) DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `id_UNIQUE` (`id`)
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=47 ;
+
+-- --------------------------------------------------------
+
+--
 -- Структура таблицы `recovery_password`
 --
 
@@ -473,7 +468,7 @@ CREATE TABLE IF NOT EXISTS `recovery_password` (
   PRIMARY KEY (`id`),
   KEY `index_recoverypassword_code` (`code`),
   KEY `fk_recoverypassword_user` (`user_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=3 ;
 
 -- --------------------------------------------------------
 
@@ -491,7 +486,7 @@ CREATE TABLE IF NOT EXISTS `settings` (
   `user_id` int(10) unsigned NOT NULL,
   PRIMARY KEY (`id`),
   KEY `moduleId` (`module_id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=316 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=327 ;
 
 -- --------------------------------------------------------
 
@@ -504,7 +499,7 @@ CREATE TABLE IF NOT EXISTS `tag` (
   `name` varchar(255) NOT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `Tag_name` (`name`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=10 ;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
 
 -- --------------------------------------------------------
 
@@ -584,6 +579,8 @@ CREATE TABLE IF NOT EXISTS `vote` (
   KEY `model` (`model`,`model_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
 
+-- --------------------------------------------------------
+
 --
 -- Структура таблицы `wiki_link`
 --
@@ -619,7 +616,7 @@ CREATE TABLE IF NOT EXISTS `wiki_page` (
   UNIQUE KEY `wiki_idx_page_revision_id` (`revision_id`),
   UNIQUE KEY `wiki_idx_page_page_uid` (`page_uid`,`namespace`),
   KEY `wiki_idx_page_namespace` (`namespace`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=2 ;
 
 -- --------------------------------------------------------
 
@@ -637,7 +634,7 @@ CREATE TABLE IF NOT EXISTS `wiki_page_revision` (
   `created_at` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `wiki_fk_page_revision_page` (`page_id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=4 ;
 
 --
 -- Ограничения внешнего ключа сохраненных таблиц
@@ -746,11 +743,15 @@ ALTER TABLE `vote`
 -- Ограничения внешнего ключа таблицы `wiki_link`
 --
 ALTER TABLE `wiki_link`
-  ADD CONSTRAINT `wiki_fk_link_page_to` FOREIGN KEY (`page_to_id`) REFERENCES `wiki_page` (`id`) ON DELETE SET NULL,
-  ADD CONSTRAINT `wiki_fk_link_page_from` FOREIGN KEY (`page_from_id`) REFERENCES `wiki_page` (`id`) ON DELETE CASCADE;
+  ADD CONSTRAINT `wiki_fk_link_page_from` FOREIGN KEY (`page_from_id`) REFERENCES `wiki_page` (`id`) ON DELETE CASCADE,
+  ADD CONSTRAINT `wiki_fk_link_page_to` FOREIGN KEY (`page_to_id`) REFERENCES `wiki_page` (`id`) ON DELETE SET NULL;
 
 --
 -- Ограничения внешнего ключа таблицы `wiki_page_revision`
 --
 ALTER TABLE `wiki_page_revision`
   ADD CONSTRAINT `wiki_fk_page_revision_page` FOREIGN KEY (`page_id`) REFERENCES `wiki_page` (`id`) ON DELETE CASCADE;
+
+/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
+/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
+/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;

@@ -6,6 +6,4 @@ abstract class YQueue extends CApplicationComponent implements YQueueInterface
     {
     	parent::init();
     }
-
-    public function add();
 }
