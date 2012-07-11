@@ -43,7 +43,10 @@
         </div>
     </div>
     <!-- header -->
-    <?php $this->widget('application.modules.page.widgets.PagesWidget');?>
+    <?php $this->widget('application.modules.menu.widgets.MenuWidget', array(
+        'name' => 'top-menu',
+        'id' => 'mainmenu',
+    ));?>
     <!-- mainmenu -->
     <?php $this->widget('zii.widgets.CBreadcrumbs', array('links' => $this->breadcrumbs)); ?>
     <!-- breadcrumbs -->
