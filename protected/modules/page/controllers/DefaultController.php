@@ -97,7 +97,8 @@ class DefaultController extends YBackController
                 $modelsByLang[$m->lang]=$m;
 
             // Выберем модельку для вывода тайтлов и прочего
-            $model = isset($modelsByLang[Yii::app()->language])?$modelsByLang[Yii::app()->language]:reset($models);
+            $model = isset($modelsByLang[Yii::app()->language])?$modelsByLang[Yii::app()->language]:
+                (isset($modelsByLang[Yii::app()->sourceLanguage])?$modelsByLang[Yii::app()->sourceLanguage]:reset($models));
 
             // Теперь создадим недостоающие
             foreach ($langs as $l)
@@ -110,16 +111,52 @@ class DefaultController extends YBackController
                             'lang'=>$l,
                             'parent_Id'=>$model->parent_Id,
                             'user_id'=>Yii::app()->user->id,
+                            'status'=> $model-> status,
+                            'is_protected'=> $model-> is_protected,
                         )
                     );
+
+                    if ($l!=Yii::app()->sourceLanguage)
+                        $page->scenario = 'altlang';
+
                     $modelsByLang[$l]= $page;
                 }
 
             // Проверим пост
             if ( isset($_POST['Page']) )
             {
-                print_r(    $_POST);
-                exit;
+                $wasError = false;
+                foreach ($langs as $l)
+                    if (isset($_POST['Page'][$l]))
+                    {
+                        $p = $_POST['Page'][$l];
+                        $modelsByLang[$l]->setAttributes ( array(
+                            'name'=> $p['name'],
+                            'title'=> $p['title'],
+                            'body'=> $p['body'],
+                            'keywords'=> $p['keywords'],
+                            'description'=> $p['description'],
+                            'status' => $_POST['Page']['status'],
+                            'is_protected' => $_POST['Page']['is_protected'],
+                            'menu_order' => $_POST['Page']['menu_order'],
+                        ));
+
+                        if ($l!=Yii::app()->sourceLanguage)
+                            $modelsByLang[$l]->scenario = 'altlang';
+
+                        if (!$modelsByLang[$l]->save())
+                            $wasError=true;
+                    }
+
+                if (!$wasError)
+                {
+                    Yii::app()->user->setFlash(YFlashMessages::NOTICE_MESSAGE, Yii::t('page', 'Страница обновлена!'));
+
+                    if (isset($_POST['saveAndClose']))
+                        $this->redirect(array('admin'));
+
+                    $this->redirect(array('update', 'slug' => $slug));
+                } else Yii::app()->user->setFlash(YFlashMessages::NOTICE_MESSAGE, Yii::t('page', 'Ошибки при сохранении страницы!'));
             }
 
 

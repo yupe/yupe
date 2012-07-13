@@ -20,7 +20,7 @@ $this->menu = array(
     <span class="caret"></span>
 </button>
 
-    <div id="search-toggle" class="collapse out">
+    <div id="search-toggle" class="collapse <?=isset($_GET[get_class($model)])?'in':'out'; ?>">
     <?php
     Yii::app()->clientScript->registerScript('search', "
             $('#Page_parent_Id').val('');
