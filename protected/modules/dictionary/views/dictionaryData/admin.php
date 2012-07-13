@@ -51,7 +51,7 @@ $('.search-form form').submit(function(){
 		array(
 			'name'  => 'group_id',
             'type'  => 'raw',
-			'value' => 'CHtml::link($data->group->name,array("/dictionary/default/update/","id" => $data->id))'
+			'value' => 'CHtml::link($data->group->name,array("/dictionary/default/update/","id" => $data->group->id))'
 		),
 		'creation_date',		
 		'update_date',

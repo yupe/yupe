@@ -91,7 +91,7 @@ return array(
 
         // компонент для отправки почты
         'mail' => array(
-            'class' => 'application.modules.yupe.components.YQueueMail',
+            'class' => 'application.modules.yupe.components.YMail',
         ),
 
         // конфигурирование urlManager, подробнее http://www.yiiframework.ru/doc/guide/ru/topics.url
