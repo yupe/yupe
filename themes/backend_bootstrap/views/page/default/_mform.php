@@ -31,6 +31,7 @@
                                                   //    'model' => $model,
                                                       //'attribute' => 'body',
                                                       'name' => 'Page['.$model->lang.'][body]',
+                                                      'value' => $model->body,
                                                       'options'   => array(
                                                            'toolbar' => 'main',
                                                            'imageUpload' => Yii::app()->baseUrl.'/index.php/yupe/backend/AjaxFileUpload/'

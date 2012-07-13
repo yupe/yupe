@@ -44,11 +44,14 @@ $this->menu = array(
 
 
 <?php
+    /** @var CActiveDataProvider $dp */
+    $dp = $model->search();
+    $dp->criteria->addCondition('lang="'.Yii::app()->language.'" OR lang IS NULL');
     $this->widget('YCustomGridView', array(
         'itemsCssClass' => ' table table-condensed',
         'id'=>'page-grid',
         'sortField' => 'menu_order',
-        'dataProvider'=> $model->search(),
+        'dataProvider'=> $dp,
         'columns'=>array(
             'id',
             array(
@@ -79,6 +82,10 @@ $this->menu = array(
              array(
                 'class'=>'bootstrap.widgets.BootButtonColumn',
                 'htmlOptions'=>array('style'=>'width: 50px'),
+		'buttons'=> array(
+			'update'=> array('url'=> 'array("/page/default/update/","slug"=>$data->slug)'),
+
+		),
             ),
         ),
     ));
