@@ -74,17 +74,14 @@ return array(
                     'userAdapter' => array('class' => 'WikiUser'),
                 ),
             ),
-            /*
-            'controllerMap' => array(
-                'default' => array(
-                    'class' => 'application.modules.yeeki.modules.wiki.controllers.DefaultController',
-                ),
-            ),*/
         ),
         // подключение gii в режиме боевой работы рекомендуется отключить (подробнее http://www.yiiframework.com/doc/guide/1.1/en/quickstart.first-app)
         'gii' => array(
             'class' => 'system.gii.GiiModule',
             'password' => 'giiYupe',
+            'generatorPaths'=>array(
+                'ext.yupe.gii',
+            ),
         ),
     );
 ?>
