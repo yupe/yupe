@@ -34,6 +34,8 @@ abstract class YWebModule extends CWebModule
      *  @var array правила маршрутизации модуля (импортируются при старте модуля)
      */
     public $urlRules = null;
+    
+    private $alreadyInstalledFlag;
 
     /**
      *  @return string текущая версия модуля
@@ -177,11 +179,14 @@ abstract class YWebModule extends CWebModule
      */
     public function init()
     {
+        $this->alreadyInstalledFlag = Yii::app()->basePath . DIRECTORY_SEPARATOR . 'config' . DIRECTORY_SEPARATOR . '.ai';
+            
         if (is_object(Yii::app()->theme))
             $this->layout = 'webroot.themes.' . Yii::app()->theme->name . '.views.layouts.main';
 
         // инициализация модуля
-        $settings = Settings::model()->cache($this->coreCacheTime)->findAll('module_id = :module_id', array('module_id' => $this->getId()));
+        if(file_exists($this->alreadyInstalledFlag))
+            $settings = Settings::model()->cache($this->coreCacheTime)->findAll('module_id = :module_id', array('module_id' => $this->getId()));
 
         if($settings)
         {
