@@ -50,19 +50,19 @@ class YupeModule extends YWebModule
         if (!is_writable($uploadPath))
             return array(
                 'type' => YWebModule::CHECK_ERROR,
-                'message' => Yii::t('yupe', 'Директория "{dir}" не досутпна для записи!', array('{dir}' => $uploadPath)),
+                'message' => Yii::t('yupe', 'Директория "{dir}" не доступна для записи!', array('{dir}' => $uploadPath)),
             );
 
         if (!is_writable(Yii::app()->runtimePath))
             return array(
                 'type' => YWebModule::CHECK_ERROR,
-                'message' => Yii::t('yupe', 'Директория "{dir}" не досутпна для записи!', array('{dir}' => Yii::app()->runtimePath)),
+                'message' => Yii::t('yupe', 'Директория "{dir}" не доступна для записи!', array('{dir}' => Yii::app()->runtimePath)),
             );
 
         if (!is_writable(Yii::app()->getAssetManager()->basePath))
             return array(
                 'type' => YWebModule::CHECK_ERROR,
-                'message' => Yii::t('yupe', 'Директория "{dir}" не досутпна для записи!', array('{dir}' => Yii::app()->getAssetManager()->basePath)),
+                'message' => Yii::t('yupe', 'Директория "{dir}" не доступна для записи!', array('{dir}' => Yii::app()->getAssetManager()->basePath)),
             );
 
         if (defined('YII_DEBUG') && YII_DEBUG)
