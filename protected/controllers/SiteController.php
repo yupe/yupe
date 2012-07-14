@@ -2,6 +2,17 @@
 class SiteController extends YFrontController
 {
     const POST_PER_PAGE = 5;
+    
+    private $alreadyInstalledFlag;
+    
+    public function __construct($id, $module = null)
+    {
+        parent::__construct($id, $module);
+        
+        $this->alreadyInstalledFlag = Yii::app()->basePath . DIRECTORY_SEPARATOR . 'config' . DIRECTORY_SEPARATOR . '.ai';
+        if(!file_exists($this->alreadyInstalledFlag))
+            $this->redirect ('/install');
+    }
 
     public function actions()
     {
@@ -14,6 +25,7 @@ class SiteController extends YFrontController
 
     public function actionIndex()
     {
+        
         $dataProvider = new CActiveDataProvider('Post', array(
             'criteria' => new CDbCriteria(array(
                 'condition' => 't.status = :status',
