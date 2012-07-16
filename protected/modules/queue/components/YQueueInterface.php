@@ -1,8 +1,8 @@
-<?php 
+<?php
 
 interface YQueueInterface
 {
-	public function add($worker, array $task);
+    public function add($worker, array $task);
 
-	public function flush($worker=null);
+    public function flush($worker = null);
 }

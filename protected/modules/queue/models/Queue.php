@@ -4,6 +4,7 @@
  * This is the model class for table "queue".
  *
  * The followings are the available columns in table 'queue':
+ *
  * @property string $id
  * @property string $worker
  * @property string $create_time
@@ -15,126 +16,133 @@
  */
 class Queue extends CActiveRecord
 {
-	const STATUS_NEW = 0;
-    
+    const STATUS_NEW = 0;
+
     const STATUS_COMLETED = 1;
 
     const STATUS_PROGRESS = 2;
 
-    const STATUS_ERROR    = 3;
+    const STATUS_ERROR = 3;
 
     public function getStatusList()
     {
-    	return array(
-    		self::STATUS_NEW => Yii::t('queue','Новая'),
-    		self::STATUS_COMLETED => Yii::t('queue','Выполнена'),
-    		self::STATUS_PROGRESS => Yii::t('queue','В работе'),
-    		self::STATUS_ERROR    => Yii::t('queue','Ошибка')
-    	);
+        return array(
+            self::STATUS_NEW      => Yii::t('queue', 'Новая'),
+            self::STATUS_COMLETED => Yii::t('queue', 'Выполнена'),
+            self::STATUS_PROGRESS => Yii::t('queue', 'В работе'),
+            self::STATUS_ERROR    => Yii::t('queue', 'Ошибка')
+        );
     }
 
     public function getStatus()
     {
-    	$data = $this->getStatusList();
+        $data = $this->getStatusList();
 
-    	return isset($data[$this->status]) ? $data[$this->status] : Yii::t('queue','-неизвестно-');
+        return isset($data[$this->status]) ? $data[$this->status] : Yii::t('queue', '-неизвестно-');
     }
 
     public function beforeSave()
     {
-    	if($this->isNewRecord)    	
-            $this->create_time = new CDbExpression('NOW()');    	
+        if ($this->isNewRecord)
+            $this->create_time = new CDbExpression('NOW()');
 
-    	return parent::beforeSave();
+        return parent::beforeSave();
     }
 
-	/**
-	 * Returns the static model of the specified AR class.
-	 * @param string $className active record class name.
-	 * @return Queue the static model class
-	 */
-	public static function model($className=__CLASS__)
-	{
-		return parent::model($className);
-	}
+    /**
+     * Returns the static model of the specified AR class.
+     *
+     * @param string $className active record class name.
+     *
+     * @return Queue the static model class
+     */
+    public static function model($className = __CLASS__)
+    {
+        return parent::model($className);
+    }
 
-	/**
-	 * @return string the associated database table name
-	 */
-	public function tableName()
-	{
-		return '{{queue}}';
-	}
+    /**
+     * @return string the associated database table name
+     */
+    public function tableName()
+    {
+        return '{{queue}}';
+    }
 
-	/**
-	 * @return array validation rules for model attributes.
-	 */
-	public function rules()
-	{
-		// NOTE: you should only define rules for those attributes that
-		// will receive user inputs.
-		return array(
-			array('worker, task', 'required'),
-			array('status, worker', 'numerical', 'integerOnly'=>true),
-			array('status','in','range' => array_keys($this->getStatusList())),
-			array('notice', 'length', 'max'=>300),
-			array('start_time, complete_time', 'safe'),
-			// The following rule is used by search().
-			// Please remove those attributes that should not be searched.
-			array('id, worker, create_time, task, start_time, complete_time, status, notice', 'safe', 'on'=>'search'),
-		);
-	}
+    /**
+     * @return array validation rules for model attributes.
+     */
+    public function rules()
+    {
+        // NOTE: you should only define rules for those attributes that
+        // will receive user inputs.
+        return array(
+            array('worker, task', 'required'),
+            array('status, worker', 'numerical',
+                'integerOnly'=> true),
+            array('status', 'in',
+                'range' => array_keys($this->getStatusList())),
+            array('notice', 'length',
+                'max'=> 300),
+            array('start_time, complete_time', 'safe'),
+            // The following rule is used by search().
+            // Please remove those attributes that should not be searched.
+            array('id, worker, create_time, task, start_time, complete_time, status, notice', 'safe',
+                'on'=> 'search'),
+        );
+    }
 
-	/**
-	 * @return array relational rules.
-	 */
-	public function relations()
-	{
-		// NOTE: you may need to adjust the relation name and the related
-		// class name for the relations automatically generated below.
-		return array(
-		);
-	}
+    /**
+     * @return array relational rules.
+     */
+    public function relations()
+    {
+        // NOTE: you may need to adjust the relation name and the related
+        // class name for the relations automatically generated below.
+        return array(
+        );
+    }
 
-	/**
-	 * @return array customized attribute labels (name=>label)
-	 */
-	public function attributeLabels()
-	{
-		return array(
-			'id' => Yii::t('queue','ID'),
-			'worker' => Yii::t('queue','Обработчик'),
-			'create_time' => Yii::t('queue','Создано'),
-			'task' => Yii::t('queue','Задача'),
-			'start_time' => Yii::t('queue','Начало'),
-			'complete_time' => Yii::t('queue','Завершение'),
-			'status' => Yii::t('queue','Статус'),
-			'notice' => Yii::t('queue','Примечание'),
-		);
-	}
+    /**
+     * @return array customized attribute labels (name=>label)
+     */
+    public function attributeLabels()
+    {
+        return array(
+            'id'            => Yii::t('queue', 'ID'),
+            'worker'        => Yii::t('queue', 'Обработчик'),
+            'create_time'   => Yii::t('queue', 'Создано'),
+            'task'          => Yii::t('queue', 'Задача'),
+            'start_time'    => Yii::t('queue', 'Начало'),
+            'complete_time' => Yii::t('queue', 'Завершение'),
+            'status'        => Yii::t('queue', 'Статус'),
+            'notice'        => Yii::t('queue', 'Примечание'),
+        );
+    }
 
-	/**
-	 * Retrieves a list of models based on the current search/filter conditions.
-	 * @return CActiveDataProvider the data provider that can return the models based on the search/filter conditions.
-	 */
-	public function search()
-	{
-		// Warning: Please modify the following code to remove attributes that
-		// should not be searched.
+    /**
+     * Retrieves a list of models based on the current search/filter conditions.
+     *
+     * @return CActiveDataProvider the data provider that can return the models based on the search/filter conditions.
+     */
+    public function search()
+    {
+        // Warning: Please modify the following code to remove attributes that
+        // should not be searched.
 
-		$criteria=new CDbCriteria;
+        $criteria = new CDbCriteria;
 
-		$criteria->compare('id',$this->id,true);
-		$criteria->compare('worker',$this->worker,true);
-		$criteria->compare('create_time',$this->create_time,true);
-		$criteria->compare('task',$this->task,true);
-		$criteria->compare('start_time',$this->start_time,true);
-		$criteria->compare('complete_time',$this->complete_time,true);
-		$criteria->compare('status',$this->status);
-		$criteria->compare('notice',$this->notice,true);
+        $criteria->compare('id', $this->id, true);
+        $criteria->compare('worker', $this->worker, true);
+        $criteria->compare('create_time', $this->create_time, true);
+        $criteria->compare('task', $this->task, true);
+        $criteria->compare('start_time', $this->start_time, true);
+        $criteria->compare('complete_time', $this->complete_time, true);
+        $criteria->compare('status', $this->status);
+        $criteria->compare('notice', $this->notice, true);
 
-		return new CActiveDataProvider($this, array(
-			'criteria'=>$criteria,
-		));
-	}
+        return new CActiveDataProvider($this, array(
+            'criteria'=> $criteria,
+        ));
+    }
 }

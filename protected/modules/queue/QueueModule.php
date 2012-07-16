@@ -2,10 +2,10 @@
 
 class QueueModule extends YWebModule
 {
-	 public function  getVersion()
+    public function  getVersion()
     {
         return '0.1';
-    }    
+    }
 
     public function getCategory()
     {
@@ -49,10 +49,10 @@ class QueueModule extends YWebModule
 
     public function init()
     {
-    	$this->setImport(array(
-                              'application.modules.queue.models.*',     
-                              'application.modules.queue.components.*'                       
-                         ));
+        $this->setImport(array(
+            'application.modules.queue.models.*',
+            'application.modules.queue.components.*'
+        ));
 
         parent::init();
     }
@@ -60,8 +60,8 @@ class QueueModule extends YWebModule
     public function getNavigation()
     {
         return array(
-            Yii::t('queue','Задания') => '/queue/default/',
-            Yii::t('queue','Очистить очередь') => '/queue/default/clear/'
+            Yii::t('queue', 'Задания')          => '/queue/default/',
+            Yii::t('queue', 'Очистить очередь') => '/queue/default/clear/'
         );
     }
 }
