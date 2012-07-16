@@ -80,7 +80,7 @@ return array(
             'class' => 'system.gii.GiiModule',
             'password' => 'giiYupe',
             'generatorPaths'=>array(
-                'ext.yupe.gii',
+                'application.modules.yupe.extensions.yupe.gii',
             ),
         ),
     );

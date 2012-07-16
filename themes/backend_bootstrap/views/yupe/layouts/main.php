@@ -79,7 +79,9 @@
 
     <footer>
         Copyright &copy; 2009-<?php echo date('Y'); ?> <a
-        href='<?php echo $module->brandUrl?>'><?php echo CHtml::encode(Yii::app()->name); ?></a> <a href="mailto:team@yupe.ru">yupe team</a><br/>
+        href='<?php echo $module->brandUrl?>'><?php echo CHtml::encode(Yii::app()->name); ?></a>
+        <a href="http://yupe.ru/feedback/contact?from=engine"><?php echo Yii::t('yupe','Разработка и поддержка');?></a>(<a href="mailto:team@yupe.ru">yupe team</a>)
+        <br/>
         <?php echo Yii::powered(); ?>
         <?php $this->widget('YPerformanceStatistic'); ?>
     </footer>
