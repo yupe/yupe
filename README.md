@@ -1,21 +1,22 @@
-Исходный код переехал с svn и гугл-кода (http://code.google.com/p/yupe/)
+#ЮПИ! - мини цмс на Yii
 
 **Из коробки Вы получаете каркас Yii-приложения, со следующим уже готовым функционалом (все разделено на модули - используйте только то, что необходимо):**
 
-* Регистрация, авторизация, восстановление пароля пользователя (модуль user)
-* Регистрация и авторизация через социальные сети (модуль social)
-* Управление пользователями через административный интерфейс (модуль user)
-* Создание и публикация новостей (модуль news)
-* Создание и управление страницами сайта (модуль page)
-* Создание и управление категориями сайта (разделами) (модуль category)
-* Модуль простых комментариев (можно комментировать любую сущность) (модуль comment)
-* Модуль для простого голосования (можно голосовать за любую сущность) (модуль vote)
-* Модуль простых справочников (хранение и управление справочной информацией) (модуль dictionary)
-* Модуль для ведения блогов (как индивидуальных, так и коллективных)
-* Модуль для "Обратной связи" + раздел FAQ (http://yupe.ru/faq)
+* Регистрация (http://yupe.ru/registration), авторизация (http://yupe.ru/login), восстановление пароля пользователя (http://yupe.ru/recovery) (модуль user - https://github.com/yupe/yupe/tree/master/protected/modules/user)
+* Регистрация и авторизация через социальные сети (модуль social - https://github.com/yupe/yupe/tree/master/protected/modules/social)
+* Управление пользователями (блокировка, активация, редактирование и т.д.) через административный интерфейс (модуль user - https://github.com/yupe/yupe/tree/master/protected/modules/user)
+* Создание и публикация новостей (http://yupe.ru/story/ocherednoy-sayt-na-yupi) (модуль news - https://github.com/yupe/yupe/tree/master/protected/modules/news)
+* Создание и управление страницами сайта (модуль page - https://github.com/yupe/yupe/tree/master/protected/modules/page)
+* Создание и управление категориями сайта (разделами) (модуль category - https://github.com/yupe/yupe/tree/master/protected/modules/category)
+* Модуль простых комментариев (можно комментировать любую сущность, пример http://yupe.ru/post/logotip-dlya-yupi.html или http://yupe.ru/gallery/gallery/foto/id/5) (модуль comment - https://github.com/yupe/yupe/tree/master/protected/modules/comment)
+* Модуль для простого голосования (можно голосовать за любую сущность) (модуль vote - https://github.com/yupe/yupe/tree/master/protected/modules/vote)
+* Модуль простых справочников (хранение и управление справочной информацией) (модуль dictionary - https://github.com/yupe/yupe/tree/master/protected/modules/dictionary)
+* Модуль для ведения блогов (как индивидуальных, так и коллективных, пример http://yupe.ru/blog/yupe-mini-cms-yii) (модуль blog - https://github.com/yupe/yupe/tree/master/protected/modules/blog)
+* Модуль для "Обратной связи" + раздел FAQ (http://yupe.ru/faq) (модуль feedback - https://github.com/yupe/yupe/tree/master/protected/modules/feedback)
+* Модуль для работы с блоками контента (модуль contentblock - https://github.com/yupe/yupe/tree/master/protected/modules/contentblock)
 
 
-+ Вы получаете удобную админку, выполненную на Twitter Boostrap  (примерно вот так выглядит http://yupeko.ru/temp/admin.png)
++ Вы получаете удобную админку, выполненную на Twitter Boostrap  (Выглядит вот так http://yupe.ru/gallery/gallery/show/id/1)
 
 Установка - https://github.com/yupe/yupe/wiki/%D0%A3%D1%81%D1%82%D0%B0%D0%BD%D0%BE%D0%B2%D0%BA%D0%B0
 
@@ -45,3 +46,5 @@
 Исходный код Юпи!, PSD макеты дизайна, верстка - все это распространяется по лицензии BSD (http://ru.wikipedia.org/wiki/%D0%9B%D0%B8%D1%86%D0%B5%D0%BD%D0%B7%D0%B8%D1%8F_BSD)
 
 Сообщество будет благодарно если на сайте будет присутствовать ссылка на http://yupe.ru/ =)
+
+Исходный код переехал с svn и гугл-кода (http://code.google.com/p/yupe/)

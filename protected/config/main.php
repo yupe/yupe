@@ -105,6 +105,7 @@ return array(
                 '/login' => 'user/account/login',
                 '/logout' => 'user/account/logout',
                 '/registration' => 'user/account/registration',
+                '/recovery' => 'user/account/recovery',
                 '/feedback' => 'feedback/feedback',
                 '/pages/<slug>' => 'page/page/show',
                 '/story/<title>' => 'news/news/show/',
