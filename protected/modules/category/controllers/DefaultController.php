@@ -1,143 +1,121 @@
 <?php
+
 class DefaultController extends YBackController
 {
-    /**
-     * Displays a particular model.
-     * @param integer $id the ID of the model to be displayed
-     */
-    public function actionView($id)
-    {
-        $this->render('view', array(
-            'model'=>$this->loadModel($id),
-        ));
-    }
+	/**
+	 * Отображает категорию по указанному идентификатору
+	 * @param integer $id Идинтификатор категорию для отображения
+	 */
+	public function actionView($id)
+	{
+		$this->render('view',array(
+			'model'=>$this->loadModel($id),
+		));
+	}
 
-    /**
-     * Creates a new model.
-     * If creation is successful, the browser will be redirected to the 'view' page.
-     */
-    public function actionCreate()
-    {
-        $model = new Category;
+	/**
+	 * Создает новую модель категорию.
+	 * Если создание прошло успешно - перенаправляет на просмотр.
+	 */
+	public function actionCreate()
+	{
+		$model=new Category;
 
-        // Uncomment the following line if AJAX validation is needed
-        // $this->performAjaxValidation($model);
+		// Uncomment the following line if AJAX validation is needed
+		// $this->performAjaxValidation($model);
 
-        if (isset($_POST['Category']))
-        {
-            $model->attributes = $_POST['Category'];
+		if(isset($_POST['Category']))
+		{
+			$model->attributes=$_POST['Category'];
+			if($model->save())
+				$this->redirect(array('view','id'=>$model->id));
+		}
 
-            if ($model->save())
-            {
-                Yii::app()->user->setFlash(YFlashMessages::NOTICE_MESSAGE, Yii::t('category', 'Категория добавлена!'));
+		$this->render('create',array(
+			'model'=>$model,
+		));
+	}
 
-                $this->redirect(array('view', 'id'=>$model->id));
-            }
-        }
+	/**
+	 * Редактирование категорию.
+	 * @param integer $id the ID of the model to be updated
+	 */
+	public function actionUpdate($id)
+	{
+		$model=$this->loadModel($id);
 
-        $this->render('create', array(
-            'model'=>$model,
-            'categoryes'=>$model->getAllCategoryList(),
-        ));
-    }
+		// Uncomment the following line if AJAX validation is needed
+		// $this->performAjaxValidation($model);
 
-    /**
-     * Updates a particular model.
-     * If update is successful, the browser will be redirected to the 'view' page.
-     * @param integer $id the ID of the model to be updated
-     */
-    public function actionUpdate($id)
-    {
-        $model = $this->loadModel($id);
+		if(isset($_POST['Category']))
+		{
+			$model->attributes=$_POST['Category'];
+			if($model->save())
+				$this->redirect('index');
+		}
 
-        if (isset($_POST['Category']))
-        {
-            $model->attributes = $_POST['Category'];
+		$this->render('update',array(
+			'model'=>$model,
+		));
+	}
 
-            if ($model->save())
-            {
-                Yii::app()->user->setFlash(YFlashMessages::NOTICE_MESSAGE, Yii::t('category', 'Категория обновлена!'));
+	/**
+	 * Удаяет модель категорию из базы.
+	 * Если удаление прошло успешно - возвращется в index
+	 * @param integer $id идентификатор категорию, который нужно удалить
+	 */
+	public function actionDelete($id)
+	{
+		if(Yii::app()->request->isPostRequest)
+		{
+			// поддерживаем удаление только из POST-запроса
+			$this->loadModel($id)->delete();
 
-                $this->redirect(array('update', 'id'=>$model->id));
-            }
-        }
+			// если это AJAX запрос ( кликнули удаление в админском grid view), мы не должны никуда редиректить
+			if(!isset($_GET['ajax']))
+				$this->redirect(isset($_POST['returnUrl']) ? $_POST['returnUrl'] : array('штвуч'));
+		}
+		else
+			throw new CHttpException(400,'Неверный запрос. Пожалуйста, больше не повторяйте такие запросы');
+	}
+	/**
+	 * Управление категориями.
+	 */
+	public function actionIndex()
+	{
+		$model=new Category('search');
+		$model->unsetAttributes();  // clear any default values
+		if(isset($_GET['Category']))
+			$model->attributes=$_GET['Category'];
 
-        $this->render('update', array(
-            'model'=>$model,
-            'categoryes'=>$model->getAllCategoryList($model->id),
-        ));
-    }
+		$this->render('index',array(
+			'model'=>$model,
+		));
+	}
 
-    /**
-     * Deletes a particular model.
-     * If deletion is successful, the browser will be redirected to the 'index' page.
-     * @param integer $id the ID of the model to be deleted
-     */
-    public function actionDelete($id)
-    {
-        if (Yii::app()->request->isPostRequest)
-        {
-            // we only allow deletion via POST request
-            $this->loadModel($id)->delete();
+	/**
+	 * Возвращает модель по указанному идентификатору
+	 * Если модель не будет найдена - возникнет HTTP-исключение.
+	 * @param integer идентификатор нужной модели
+	 */
+	public function loadModel($id)
+	{
+		$model=Category::model()->findByPk($id);
+		if($model===null)
+			throw new CHttpException(404,'Запрошенная страница не найдена.');
+		return $model;
+	}
 
-            // if AJAX request (triggered by deletion via admin grid view), we should not redirect the browser
-            if (!isset($_GET['ajax']))
-                $this->redirect(isset($_POST['returnUrl']) ? $_POST['returnUrl'] : array('admin'));
-        }
-        else
-            throw new CHttpException(400, 'Invalid request. Please do not repeat this request again.');
-    }
-
-    /**
-     * Lists all models.
-     */
-    public function actionIndex()
-    {
-        $dataProvider = new CActiveDataProvider('Category');
-        $this->render('index', array(
-            'dataProvider'=>$dataProvider,
-        ));
-    }
-
-    /**
-     * Manages all models.
-     */
-    public function actionAdmin()
-    {
-        $model = new Category('search');
-        $model->unsetAttributes(); // clear any default values
-
-        if (isset($_GET['Category']))
-            $model->attributes = $_GET['Category'];
-
-        $this->render('admin', array(
-            'model'=>$model,
-        ));
-    }
-
-    /**
-     * Returns the data model based on the primary key given in the GET variable.
-     * If the data model is not found, an HTTP exception will be raised.
-     * @param integer the ID of the model to be loaded
-     */
-    public function loadModel($id)
-    {
-        $model = Category::model()->findByPk((int)$id);
-        if ($model === null)
-            throw new CHttpException(404, 'The requested page does not exist.');
-        return $model;
-    }
-
-    /**
-     * Performs the AJAX validation.
-     * @param CModel the model to be validated
-     */
-    protected function performAjaxValidation($model)
-    {
-        if (isset($_POST['ajax']) && $_POST['ajax'] === 'category-form')
-        {
-            echo CActiveForm::validate($model);
-            Yii::app()->end();
-        }
-    }
+	/**
+	 * Производит AJAX-валидацию
+	 * @param CModel модель, которую необходимо валидировать
+	 */
+	protected function performAjaxValidation($model)
+	{
+		if(isset($_POST['ajax']) && $_POST['ajax']==='category-form')
+		{
+			echo CActiveForm::validate($model);
+			Yii::app()->end();
+		}
+	}
 }

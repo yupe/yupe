@@ -1,46 +1,25 @@
-<div class="wide form">
+<?php $form=$this->beginWidget('bootstrap.widgets.BootActiveForm',array(
+	'action'=>Yii::app()->createUrl($this->route),
+	'method'=>'get',
+)); ?>
 
-    <?php
-        $form = $this->beginWidget('CActiveForm', array(
-            'action'=>Yii::app()->createUrl($this->route),
-            'method'=>'get',
-        ));
-    ?>
+	<?php echo  $form->textFieldRow($model,'id',array('class'=>'span5','maxlength'=>10)); ?>
 
-    <div class="row">
-        <?php echo $form->label($model, 'id'); ?>
-        <?php echo $form->textField($model, 'id', array('size'=>10, 'maxlength'=>10)); ?>
-    </div>
+	<?php echo  $form->textFieldRow($model,'parent_id',array('class'=>'span5')); ?>
 
-    <div class="row">
-        <?php echo $form->label($model, 'parent_id'); ?>
-        <?php echo $form->textField($model, 'parent_id'); ?>
-    </div>
+	<?php echo  $form->textFieldRow($model,'name',array('class'=>'span5','maxlength'=>150)); ?>
 
-    <div class="row">
-        <?php echo $form->label($model, 'name'); ?>
-        <?php echo $form->textField($model, 'name', array('size'=>60, 'maxlength'=>150)); ?>
-    </div>
+	<?php echo  $form->textAreaRow($model,'description',array('rows'=>6, 'cols'=>50, 'class'=>'span8')); ?>
 
-    <div class="row">
-        <?php echo $form->label($model, 'description'); ?>
-        <?php echo $form->textArea($model, 'description', array('rows'=>6, 'cols'=>50)); ?>
-    </div>
+	<?php echo  $form->textFieldRow($model,'alias',array('class'=>'span5','maxlength'=>50)); ?>
 
-    <div class="row">
-        <?php echo $form->label($model, 'alias'); ?>
-        <?php echo $form->textField($model, 'alias', array('size'=>50, 'maxlength'=>50)); ?>
-    </div>
+	<?php echo  $form->textFieldRow($model,'status',array('class'=>'span5')); ?>
 
-    <div class="row">
-        <?php echo $form->label($model, 'status'); ?>
-        <?php echo $form->textField($model, 'status'); ?>
-    </div>
+	<div class="form-actions">
+		<?php $this->widget('bootstrap.widgets.BootButton', array(
+			'type'=>'primary',
+			'label'=>'Search',
+		)); ?>
+	</div>
 
-    <div class="row buttons">
-        <?php echo CHtml::submitButton(Yii::t('category', 'Поиск')); ?>
-    </div>
-
-    <?php $this->endWidget(); ?>
-
-</div><!-- search-form -->
+<?php $this->endWidget(); ?>

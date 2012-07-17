@@ -16,17 +16,17 @@ echo "\$this->breadcrumbs=array(
 	'Редактирование',
 );\n";
 ?>
-$this-> pageTitle ="<?=$label ?> - редактирование";
+$this-> pageTitle ="<?php echo $label ?> - редактирование";
 $this->menu=array(
-    array('icon'=> 'list-alt', 'label' => 'Управление <?php echo $this->mtvor; ?>','url'=>array('<?=$this->controller; ?>/index')),
-    array('icon'=> 'file', 'label' => 'Добавить <?php echo $this->vin; ?>','url'=>array('<?=$this->controller; ?>/create')),
-    array('icon'=>'pencil white','encodeLabel'=> false, 'label' => 'Редактирование <?php echo $this->rod; ?><br /><span class="label" style="font-size: 80%; margin-left:20px;">'.mb_substr($model-><?=$nameColumn?>,0,32)."</span>",'url'=>array('<?=$this->controller; ?>/update','<?php echo $this->tableSchema->primaryKey; ?>'=>$model-><?php echo $this->tableSchema->primaryKey; ?>)),
-    array('icon'=>'eye-open','encodeLabel'=> false, 'label' => 'Просмотреть <?php echo $this->vin; ?>','url'=>array('<?=$this->controller; ?>/view','<?php echo $this->tableSchema->primaryKey; ?>'=>$model-><?php echo $this->tableSchema->primaryKey; ?>)),
+    array('icon'=> 'list-alt', 'label' => 'Управление <?php echo  $this->mtvor; ?>','url'=>array('/<?php echo $this->controller; ?>/index')),
+    array('icon'=> 'file', 'label' => 'Добавить <?php echo  $this->vin; ?>','url'=>array('/<?php echo $this->controller; ?>/create')),
+    array('icon'=>'pencil white','encodeLabel'=> false, 'label' => 'Редактирование <?php echo  $this->rod; ?><br /><span class="label" style="font-size: 80%; margin-left:20px;">'.mb_substr($model-><?php echo $nameColumn?>,0,32)."</span>",'url'=>array('<?php echo $this->controller; ?>/update','<?php echo  $this->tableSchema->primaryKey; ?>'=>$model-><?php echo  $this->tableSchema->primaryKey; ?>)),
+    array('icon'=>'eye-open','encodeLabel'=> false, 'label' => 'Просмотреть <?php echo  $this->vin; ?>','url'=>array('/<?php echo $this->controller; ?>/view','<?php echo  $this->tableSchema->primaryKey; ?>'=>$model-><?php echo  $this->tableSchema->primaryKey; ?>)),
 );
 ?>
 <div class="page-header">
-    <h1>Редактирование <?=$this->rod; ?><br />
-        <small style="margin-left: -10px;">&laquo;<?php echo " <?php echo \$model->{$nameColumn}; ?>"; ?>&raquo;</small>
+    <h1>Редактирование <?php echo $this->pre; ?><br />
+        <small style="margin-left: -10px;">&laquo;<?php echo  " <?php echo  \$model->{$nameColumn}; ?>"; ?>&raquo;</small>
     </h1>
 </div>
-<?php echo "<?php echo \$this->renderPartial('_form',array('model'=>\$model)); ?>"; ?>
+<?php echo  "<?php echo  \$this->renderPartial('_form',array('model'=>\$model)); ?>"; ?>

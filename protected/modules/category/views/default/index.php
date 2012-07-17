@@ -1,20 +1,61 @@
 <?php
-    $this->breadcrumbs = array(
-        $this->getModule('category')->getCategory()=>array(''),
-        Yii::t('category', 'Категории'),
-    );
-
-    $this->menu = array(
-        array('label'=>Yii::t('category', 'Добавить категорию'), 'url'=>array('create')),
-        array('label'=>Yii::t('category', 'Управление категориями'), 'url'=>array('admin')),
-    );
+$this->breadcrumbs=array(
+	'категории'=>array('index'),
+	'Управление',
+);
+$this-> pageTitle ="категории - управление";
+$this->menu=array(
+array('icon'=> 'list-alt white', 'label' => 'Управление категориями','url'=>array('/category/default/index')),
+array('icon'=> 'file', 'label' => 'Добавить категорию', 'url' => array('/category/default/create')),
+);
 ?>
+<div class="page-header">
+    <h1>категории    <small>управление</small>
+    </h1>
+</div>
+<button class="btn btn-small dropdown-toggle"
+        data-toggle="collapse"
+        data-target="#search-toggle" >
+    <a class="search-button" href="#">Поиск категории</a>    <span class="caret"></span>
+</button>
 
-<h1><?php echo  Yii::t('category', 'Категории'); ?></h1>
+<div id="search-toggle" class="collapse out">
+<?php Yii::app()->clientScript->registerScript('search', "
+$('.search-form form').submit(function(){
+$.fn.yiiGridView.update('category-grid', {
+data: $(this).serialize()
+});
+return false;
+});
+");
+    $this->renderPartial('_search',array(
+	'model'=>$model,
+));
+?>
+</div>
+
+<p>В данном разделе представлены средства управления категориями.
+</p>
+
 
 <?php
-    $this->widget('zii.widgets.CListView', array(
-        'dataProvider'=>$dataProvider,
-        'itemView'=>'_view',
-    ));
- ?>
+$dp = $model->search();
+//$dp-> sort-> defaultOrder = "";
+$this->widget('bootstrap.widgets.BootGridView',array(
+'id'=>'category-grid',
+'type'=>'condensed ',
+'pager'=>array('class'=>'bootstrap.widgets.BootPager', 	'prevPageLabel'=>"←",'nextPageLabel'=>"→"),
+'dataProvider'=>$dp,
+'filter'=>$model,
+'columns'=>array(
+		'id',
+		'parent_id',
+		'name',
+		'description',
+		'alias',
+		'status',
+array(
+'class'=>'bootstrap.widgets.BootButtonColumn',
+),
+),
+)); ?>

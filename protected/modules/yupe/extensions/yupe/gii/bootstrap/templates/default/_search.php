@@ -4,7 +4,7 @@
  * - $this: the BootCrudCode object
  */
 ?>
-<?php echo "<?php \$form=\$this->beginWidget('bootstrap.widgets.BootActiveForm',array(
+<?php echo  "<?php \$form=\$this->beginWidget('bootstrap.widgets.BootActiveForm',array(
 	'action'=>Yii::app()->createUrl(\$this->route),
 	'method'=>'get',
 )); ?>\n"; ?>
@@ -15,14 +15,14 @@
 	if(strpos($field,'password')!==false)
 		continue;
 ?>
-	<?php echo "<?php echo ".$this->generateActiveRow($this->modelClass,$column)."; ?>\n"; ?>
+	<?php echo  "<?php echo  ".$this->generateActiveRow($this->modelClass,$column)."; ?>\n"; ?>
 
 <?php endforeach; ?>
 	<div class="form-actions">
-		<?php echo "<?php \$this->widget('bootstrap.widgets.BootButton', array(
+		<?php echo  "<?php \$this->widget('bootstrap.widgets.BootButton', array(
 			'type'=>'primary',
 			'label'=>'Search',
 		)); ?>\n"; ?>
 	</div>
 
-<?php echo "<?php \$this->endWidget(); ?>\n"; ?>
+<?php echo  "<?php \$this->endWidget(); ?>\n"; ?>

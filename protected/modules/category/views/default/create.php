@@ -1,16 +1,16 @@
 <?php
-    $this->breadcrumbs = array(
-        $this->getModule('category')->getCategory()=>array(''),
-        Yii::t('category', 'Категории')=>array('index'),
-        Yii::t('category', 'Добавление категории'),
-    );
-    
-    $this->menu = array(
-        array('label'=>Yii::t('category', 'Список категорий'), 'url'=>array('index')),
-        array('label'=>Yii::t('category', 'Управление категориями'), 'url'=>array('admin')),
-    );
+$this->breadcrumbs=array(
+	'категории'=>array('index'),
+	'Создание',
+);
+
+$this->menu=array(
+    array('icon'=> 'list-alt', 'label' => 'Управление категориями','url'=>array('/category/default/index')),
+    array('icon'=> 'file', 'label' => 'Добавление категорию','url'=>array('/category/default/create')),
+);
 ?>
-
-<h1><?php echo Yii::t('category', 'Добавление категории'); ?></h1>
-
-<?php echo $this->renderPartial('_form', array('model'=>$model, 'categoryes'=>$categoryes)); ?>
+<div class="page-header">
+    <h1>категории    <small>добавление</small>
+    </h1>
+</div>
+<?php echo  $this->renderPartial('_form', array('model'=>$model)); ?>

@@ -5,47 +5,13 @@
  * - $this: the BootCrudCode object
  */
 ?>
-<?php echo "<?php\n"; ?>
+<?php echo  "<?php\n"; ?>
 
-class <?php echo $this->controllerClass; ?> extends <?php echo $this->baseControllerClass."\n"; ?>
+class <?php echo  $this->controllerClass; ?> extends <?php echo  $this->baseControllerClass."\n"; ?>
 {
 	/**
-	 * @var string лайаут по-умолчанию для генерации views. По-умолчанию задан в '//layouts/column2', что означает
-	 * использование двухколоночной верстки. Смотрите файл 'protected/views/layouts/column2.php'.
-	 */
-	public $layout='//layouts/column2';
-
-	/**
-	 * @return array action filters
-	 */
-	public function filters()
-	{
-		return array(
-			'accessControl', // проверка прав доступа для CRUD операций
-		);
-	}
-
-	/**
-	 * Задает правила доступа к контроллеру
-	 * Этот метод используется фитром 'accessControl'
-	 * @return array набор правил доступа
-	 */
-	public function accessRules()
-	{
-		return array(
-			array('allow',  // allow all users to perform 'index' and 'view' actions
-				'actions'=>array('index','view','create','update'),
-				'users'=>array('@'),
-			),
-			array('deny',  // deny all users
-				'users'=>array('*'),
-			),
-		);
-	}
-
-	/**
-	 * Отображает <?=$this->vin;?> по указанному идентификатору
-	 * @param integer $id Идинтификатор <?=$this->vin;?> для отображения
+	 * Отображает <?php echo $this->vin;?> по указанному идентификатору
+	 * @param integer $id Идинтификатор <?php echo $this->vin;?> для отображения
 	 */
 	public function actionView($id)
 	{
@@ -55,21 +21,21 @@ class <?php echo $this->controllerClass; ?> extends <?php echo $this->baseContro
 	}
 
 	/**
-	 * Создает новую модель <?=$this->rod;?>.
+	 * Создает новую модель <?php echo $this->rod;?>.
 	 * Если создание прошло успешно - перенаправляет на просмотр.
 	 */
 	public function actionCreate()
 	{
-		$model=new <?php echo $this->modelClass; ?>;
+		$model=new <?php echo  $this->modelClass; ?>;
 
 		// Uncomment the following line if AJAX validation is needed
 		// $this->performAjaxValidation($model);
 
-		if(isset($_POST['<?php echo $this->modelClass; ?>']))
+		if(isset($_POST['<?php echo  $this->modelClass; ?>']))
 		{
-			$model->attributes=$_POST['<?php echo $this->modelClass; ?>'];
+			$model->attributes=$_POST['<?php echo  $this->modelClass; ?>'];
 			if($model->save())
-				$this->redirect(array('view','id'=>$model-><?php echo $this->tableSchema->primaryKey; ?>));
+				$this->redirect(array('view','id'=>$model-><?php echo  $this->tableSchema->primaryKey; ?>));
 		}
 
 		$this->render('create',array(
@@ -78,7 +44,7 @@ class <?php echo $this->controllerClass; ?> extends <?php echo $this->baseContro
 	}
 
 	/**
-	 * Редактирование <?=$this->rod;?>.
+	 * Редактирование <?php echo $this->rod;?>.
 	 * @param integer $id the ID of the model to be updated
 	 */
 	public function actionUpdate($id)
@@ -88,9 +54,9 @@ class <?php echo $this->controllerClass; ?> extends <?php echo $this->baseContro
 		// Uncomment the following line if AJAX validation is needed
 		// $this->performAjaxValidation($model);
 
-		if(isset($_POST['<?php echo $this->modelClass; ?>']))
+		if(isset($_POST['<?php echo  $this->modelClass; ?>']))
 		{
-			$model->attributes=$_POST['<?php echo $this->modelClass; ?>'];
+			$model->attributes=$_POST['<?php echo  $this->modelClass; ?>'];
 			if($model->save())
 				$this->redirect('index');
 		}
@@ -101,9 +67,9 @@ class <?php echo $this->controllerClass; ?> extends <?php echo $this->baseContro
 	}
 
 	/**
-	 * Удаяет модель <?=$this->rod;?> из базы.
+	 * Удаяет модель <?php echo $this->rod;?> из базы.
 	 * Если удаление прошло успешно - возвращется в index
-	 * @param integer $id идентификатор <?=$this->rod;?>, который нужно удалить
+	 * @param integer $id идентификатор <?php echo $this->rod;?>, который нужно удалить
 	 */
 	public function actionDelete($id)
 	{
@@ -120,14 +86,14 @@ class <?php echo $this->controllerClass; ?> extends <?php echo $this->baseContro
 			throw new CHttpException(400,'Неверный запрос. Пожалуйста, больше не повторяйте такие запросы');
 	}
 	/**
-	 * Управление <?=$this->mtvor;?>.
+	 * Управление <?php echo $this->mtvor;?>.
 	 */
 	public function actionIndex()
 	{
-		$model=new <?php echo $this->modelClass; ?>('search');
+		$model=new <?php echo  $this->modelClass; ?>('search');
 		$model->unsetAttributes();  // clear any default values
-		if(isset($_GET['<?php echo $this->modelClass; ?>']))
-			$model->attributes=$_GET['<?php echo $this->modelClass; ?>'];
+		if(isset($_GET['<?php echo  $this->modelClass; ?>']))
+			$model->attributes=$_GET['<?php echo  $this->modelClass; ?>'];
 
 		$this->render('index',array(
 			'model'=>$model,
@@ -141,7 +107,7 @@ class <?php echo $this->controllerClass; ?> extends <?php echo $this->baseContro
 	 */
 	public function loadModel($id)
 	{
-		$model=<?php echo $this->modelClass; ?>::model()->findByPk($id);
+		$model=<?php echo  $this->modelClass; ?>::model()->findByPk($id);
 		if($model===null)
 			throw new CHttpException(404,'Запрошенная страница не найдена.');
 		return $model;
@@ -153,7 +119,7 @@ class <?php echo $this->controllerClass; ?> extends <?php echo $this->baseContro
 	 */
 	protected function performAjaxValidation($model)
 	{
-		if(isset($_POST['ajax']) && $_POST['ajax']==='<?php echo $this->class2id($this->modelClass); ?>-form')
+		if(isset($_POST['ajax']) && $_POST['ajax']==='<?php echo  $this->class2id($this->modelClass); ?>-form')
 		{
 			echo CActiveForm::validate($model);
 			Yii::app()->end();

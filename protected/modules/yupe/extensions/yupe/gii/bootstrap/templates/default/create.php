@@ -17,13 +17,13 @@ echo "\$this->breadcrumbs=array(
 ?>
 
 $this->menu=array(
-    array('icon'=> 'list-alt', 'label' => 'Управление <?php echo $this->mtvor; ?>','url'=>array('<?=$this->controller; ?>/index')),
-    array('icon'=> 'file', 'label' => 'Добавление <?php echo $this->rod; ?>','url'=>array('<?=$this->controller; ?>/create')),
+    array('icon'=> 'list-alt', 'label' => 'Управление <?php echo  $this->mtvor; ?>','url'=>array('/<?php echo $this->controller; ?>/index')),
+    array('icon'=> 'file', 'label' => 'Добавление <?php echo  $this->rod; ?>','url'=>array('/<?php echo $this->controller; ?>/create')),
 );
 ?>
 <div class="page-header">
-    <h1><?php echo $label; ?>
+    <h1><?php echo  $label; ?>
     <small>добавление</small>
     </h1>
 </div>
-<?php echo "<?php echo \$this->renderPartial('_form', array('model'=>\$model)); ?>"; ?>
+<?php echo  "<?php echo  \$this->renderPartial('_form', array('model'=>\$model)); ?>"; ?>

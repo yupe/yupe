@@ -14,9 +14,11 @@
 * Модуль для ведения блогов (как индивидуальных, так и коллективных, пример http://yupe.ru/blog/yupe-mini-cms-yii) (модуль blog - https://github.com/yupe/yupe/tree/master/protected/modules/blog)
 * Модуль для "Обратной связи" + раздел FAQ (http://yupe.ru/faq) (модуль feedback - https://github.com/yupe/yupe/tree/master/protected/modules/feedback)
 * Модуль для работы с блоками контента (модуль contentblock - https://github.com/yupe/yupe/tree/master/protected/modules/contentblock)
+* Wiki - работает через модуль yeeki (http://rmcreative.ru/blog/post/yeeki) - https://github.com/yupe/yupe/tree/master/protected/modules/yeeki
 
 
 + Вы получаете удобную админку, выполненную на Twitter Boostrap  (Выглядит вот так http://yupe.ru/gallery/gallery/show/id/1)
++ Возможность генерировать CRUD в стиле Twitter Boostrap (https://github.com/yupe/yupe/tree/master/protected/modules/yupe/extensions/yupe)
 
 Установка - https://github.com/yupe/yupe/wiki/%D0%A3%D1%81%D1%82%D0%B0%D0%BD%D0%BE%D0%B2%D0%BA%D0%B0
 
@@ -40,7 +42,7 @@
 
 * Помощь проекту - http://yupe.ru/site/page/view/help
 
-* Контакты - http://yupe.ru/feedback/contact
+* Контакты - http://yupe.ru/feedback/contact (Хотите мы создадим Вам сайт ?)
 
 
 Исходный код Юпи!, PSD макеты дизайна, верстка - все это распространяется по лицензии BSD (http://ru.wikipedia.org/wiki/%D0%9B%D0%B8%D1%86%D0%B5%D0%BD%D0%B7%D0%B8%D1%8F_BSD)
