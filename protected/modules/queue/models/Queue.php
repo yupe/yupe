@@ -100,12 +100,10 @@ class Queue extends CActiveRecord
         // will receive user inputs.
         return array(
             array('worker, task', 'required'),
-            array('status, worker, priority', 'numerical',
-                'integerOnly'=> true),
-            array('status', 'in',
-                'range' => array_keys($this->getStatusList())),
-            array('notice', 'length',
-                'max'=> 300),
+            array('status, worker, priority', 'numerical','integerOnly'=> true),
+            array('status', 'in','range'  => array_keys($this->getStatusList())),
+            array('priority','in','range' => array_keys($this->getPriorityList())),
+            array('notice', 'length','max'=> 300),
             array('start_time, complete_time', 'safe'),
             // The following rule is used by search().
             // Please remove those attributes that should not be searched.
