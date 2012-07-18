@@ -24,6 +24,28 @@ class Queue extends CActiveRecord
 
     const STATUS_ERROR = 3;
 
+    const PRIORITY_NORMAL = 1;
+
+    const PRIORITY_LOW    = 0; 
+
+    const PRIORITY_HIGH   = 2;
+
+    public function getPriorityList()
+    {
+        return array(
+            self::PRIORITY_LOW    => Yii::t('queue','Низкий'),
+            self::PRIORITY_NORMAL => Yii::t('queue','Нормальный'),
+            self::PRIORITY_HIGH   => Yii::t('queue','Высокий'),
+        );
+    }
+
+    public function getPriority()
+    {
+        $data = $this->getPriorityList();
+
+        return isset($data[$this->priority]) ? $data[$this->priority] : Yii::t('queue', '-неизвестно-');
+    }
+
     public function getStatusList()
     {
         return array(
@@ -78,7 +100,7 @@ class Queue extends CActiveRecord
         // will receive user inputs.
         return array(
             array('worker, task', 'required'),
-            array('status, worker', 'numerical',
+            array('status, worker, priority', 'numerical',
                 'integerOnly'=> true),
             array('status', 'in',
                 'range' => array_keys($this->getStatusList())),
@@ -92,17 +114,7 @@ class Queue extends CActiveRecord
         );
     }
 
-    /**
-     * @return array relational rules.
-     */
-    public function relations()
-    {
-        // NOTE: you may need to adjust the relation name and the related
-        // class name for the relations automatically generated below.
-        return array(
-        );
-    }
-
+  
     /**
      * @return array customized attribute labels (name=>label)
      */
@@ -117,6 +129,7 @@ class Queue extends CActiveRecord
             'complete_time' => Yii::t('queue', 'Завершение'),
             'status'        => Yii::t('queue', 'Статус'),
             'notice'        => Yii::t('queue', 'Примечание'),
+            'priority'      => Yii::t('queue', 'Приоритет')
         );
     }
 
@@ -140,6 +153,7 @@ class Queue extends CActiveRecord
         $criteria->compare('complete_time', $this->complete_time, true);
         $criteria->compare('status', $this->status);
         $criteria->compare('notice', $this->notice, true);
+        $criteria->compare('priority', $this->priority, true);
 
         return new CActiveDataProvider($this, array(
             'criteria'=> $criteria,

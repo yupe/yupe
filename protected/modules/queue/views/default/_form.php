@@ -21,6 +21,10 @@
     class='control-group <?=$model->hasErrors("notice") ? "error" : "" ?>'><?php echo $form->textFieldRow($model, 'notice', array('class'    => 'span5',
                                                                                                                                   'maxlength'=> 300)); ?></div>
 
+
+<div
+    class='control-group <?=$model->hasErrors("priority") ? "error" : "" ?>'><?php echo $form->dropDownListRow($model, 'priority', $model->getPriorityList(), array('class'=> 'span5')); ?></div>
+
 <div
     class='control-group <?=$model->hasErrors("status") ? "error" : "" ?>'><?php echo $form->dropDownListRow($model, 'status', $model->getStatusList(), array('class'=> 'span5')); ?></div>
 

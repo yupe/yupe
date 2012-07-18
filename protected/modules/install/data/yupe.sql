@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Хост: localhost
--- Время создания: Июл 11 2012 г., 11:05
+-- Время создания: Июл 18 2012 г., 10:17
 -- Версия сервера: 5.5.24
 -- Версия PHP: 5.3.10-1ubuntu3.2
 
@@ -198,7 +198,7 @@ CREATE TABLE IF NOT EXISTS `feedback` (
   KEY `status` (`status`),
   KEY `isFaq` (`is_faq`),
   KEY `fk_feedback_user` (`answer_user`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=2 ;
 
 -- --------------------------------------------------------
 
@@ -448,11 +448,13 @@ CREATE TABLE IF NOT EXISTS `queue` (
   `task` text NOT NULL,
   `start_time` datetime DEFAULT NULL,
   `complete_time` datetime DEFAULT NULL,
+  `priority` tinyint(3) unsigned NOT NULL DEFAULT '1',
   `status` tinyint(3) unsigned NOT NULL DEFAULT '0',
   `notice` varchar(300) DEFAULT NULL,
   PRIMARY KEY (`id`),
-  UNIQUE KEY `id_UNIQUE` (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=47 ;
+  UNIQUE KEY `id_UNIQUE` (`id`),
+  KEY `priority` (`priority`)
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=48 ;
 
 -- --------------------------------------------------------
 

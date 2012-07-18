@@ -52,7 +52,7 @@ class DefaultController extends YBackController
         {
             $model->attributes = $_POST['Queue'];
             if ($model->save())
-                $this->redirect('index');
+                $this->redirect(array('update','id' => $model->id));
         }
 
         $this->render('update', array(

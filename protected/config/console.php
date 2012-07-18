@@ -23,7 +23,7 @@
                 array(
                     'class' => 'CFileLogRoute',
                     'logFile' => 'cron.log',
-                    'levels' => 'error, warning',
+                    'levels' => 'error, warning, info',
                 ),
                 array(
                     'class' => 'CFileLogRoute',

@@ -16,6 +16,10 @@ $this->menu        = array(
 <div class="page-header">
     <h1>задания
         <small>управление</small>
+
+
+
+
     </h1>
 </div>
 <button class="btn btn-small dropdown-toggle"
@@ -57,15 +61,24 @@ $this->widget('bootstrap.widgets.BootGridView', array(
     'columns'     => array(
         'id',
         array(
-            'name'  => 'worker',
-            'value' => 'isset(Yii::app()->queue->workerNamesMap[$data->worker]) ? Yii::app()->queue->workerNamesMap[$data->worker] : $data->worker'
+            'name'   => 'worker',
+            'value'  => 'isset(Yii::app()->queue->workerNamesMap[$data->worker]) ? Yii::app()->queue->workerNamesMap[$data->worker] : $data->worker',
+            'filter' => CHtml::activeDropDownList($model, 'worker', Yii::app()->queue->workerNamesMap)
         ),
         'create_time',
         'start_time',
         'complete_time',
         array(
+            'name'  => 'priority',
+            'type'  => 'raw',
+            'value' => "'<span class=\"label label-'.(\$data->priority?((\$data->priority==Queue::PRIORITY_HIGH)?'warning':((\$data->priority==Queue::PRIORITY_LOW)?'success':'error')):'info').'\">'.\$data->getPriority().'</span>'",
+            'filter' => CHtml::activeDropDownList($model, 'priority', $model->getPriorityList()),
+        ),
+        array(
             'name'  => 'status',
-            'value' => '$data->getStatus()'
+            'type'  => 'raw',
+            'value' => "'<span class=\"label label-'.(\$data->status?((\$data->status==1)?'warning':((\$data->status==3)?'success':'default')):'info').'\">'.\$data->getStatus().'</span>'",
+            'filter' => CHtml::activeDropDownList($model, 'status', $model->getStatusList()),
         ),
         'notice',
 

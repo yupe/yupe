@@ -44,6 +44,10 @@ $this->menu        = array(
         'start_time',
         'complete_time',
         array(
+            'name'  => 'priority',
+            'value' => $model->getPriority()
+        ),
+        array(
             'name'  => 'status',
             'value' => $model->getStatus()
         ),
