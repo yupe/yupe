@@ -38,7 +38,7 @@ class YMailMessage extends CComponent
         ));
         
         if(!$mailEvent)
-            throw new CException(Yii::t('mail','MailEvent c кодом {code} не найден!'),array(':code' => $code));
+            throw new CException(Yii::t('mail','MailEvent c кодом "{code}" не найден!'),array(':code' => $code));
         
         if(!count($mailEvent->templates))
             throw new CException(Yii::t('mail','MailEvent c кодом "{code}" не содержит ни одного активного шаблона!'),array(':code' => $code));

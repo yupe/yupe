@@ -12,7 +12,18 @@
 
 	<div class='control-group <?php echo $model->hasErrors("name")?"error":"" ?>'><?php echo  $form->textFieldRow($model,'name',array('class'=>'span5','maxlength'=>300)); ?></div>
 
-	<div class='control-group <?php echo $model->hasErrors("description")?"error":"" ?>'><?php echo  $form->textAreaRow($model,'description',array('rows'=>6, 'cols'=>50, 'class'=>'span8')); ?></div>
+	<div class='control-group <?php echo $model->hasErrors("description")?"error":"" ?>'>
+              <?php echo $form->labelEx($model, 'description'); ?>
+              <?php $this->widget(Yii::app()->getModule('yupe')->editor, array(
+                                                      'model' => $model,
+                                                      'attribute' => 'description',
+                                                      'options'   => array(                                                           
+                                                           'toolbar' => 'main',
+                                                           'imageUpload' => Yii::app()->baseUrl.'/index.php/yupe/backend/AjaxFileUpload/'                                                           
+                                                       ),
+                                                      'htmlOptions' => array('rows' => 20,'cols' => 6)
+                                                 ))?>
+        </div>
 
 	<div class="form-actions">
 		<?php $this->widget('bootstrap.widgets.BootButton', array(

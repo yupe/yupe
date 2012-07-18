@@ -14,15 +14,37 @@
 
 	<div class='control-group <?php echo $model->hasErrors("name")?"error":"" ?>'><?php echo  $form->textFieldRow($model,'name',array('class'=>'span5','maxlength'=>300)); ?></div>
 
-	<div class='control-group <?php echo $model->hasErrors("description")?"error":"" ?>'><?php echo  $form->textAreaRow($model,'description',array('rows'=>6, 'cols'=>50, 'class'=>'span8')); ?></div>
-
 	<div class='control-group <?php echo $model->hasErrors("from")?"error":"" ?>'><?php echo  $form->textFieldRow($model,'from',array('class'=>'span5','maxlength'=>300)); ?></div>
 
 	<div class='control-group <?php echo $model->hasErrors("to")?"error":"" ?>'><?php echo  $form->textFieldRow($model,'to',array('class'=>'span5','maxlength'=>300)); ?></div>
 
-	<div class='control-group <?php echo $model->hasErrors("theme")?"error":"" ?>'><?php echo  $form->textAreaRow($model,'theme',array('rows'=>6, 'cols'=>50, 'class'=>'span8')); ?></div>
+	<div class='control-group <?php echo $model->hasErrors("theme")?"error":"" ?>'><?php echo  $form->textFieldRow($model,'theme',array('rows'=>6, 'cols'=>50, 'class'=>'span8')); ?></div>
 
-	<div class='control-group <?php echo $model->hasErrors("body")?"error":"" ?>'><?php echo  $form->textAreaRow($model,'body',array('rows'=>6, 'cols'=>50, 'class'=>'span8')); ?></div>
+	<div class='control-group <?php echo $model->hasErrors("body")?"error":"" ?>'>
+         <?php echo $form->labelEx($model, 'body'); ?>
+              <?php $this->widget(Yii::app()->getModule('yupe')->editor, array(
+                                                      'model' => $model,
+                                                      'attribute' => 'body',
+                                                      'options'   => array(                                                           
+                                                           'toolbar' => 'main',
+                                                           'imageUpload' => Yii::app()->baseUrl.'/index.php/yupe/backend/AjaxFileUpload/'                                                           
+                                                       ),
+                                                      'htmlOptions' => array('rows' => 20,'cols' => 6)
+                                                 ))?>
+        </div>
+        
+        <div class='control-group <?php echo $model->hasErrors("description")?"error":"" ?>'>
+               <?php echo $form->labelEx($model, 'description'); ?>
+              <?php $this->widget(Yii::app()->getModule('yupe')->editor, array(
+                                                      'model' => $model,
+                                                      'attribute' => 'description',
+                                                      'options'   => array(                                                           
+                                                           'toolbar' => 'main',
+                                                           'imageUpload' => Yii::app()->baseUrl.'/index.php/yupe/backend/AjaxFileUpload/'                                                           
+                                                       ),
+                                                      'htmlOptions' => array('rows' => 20,'cols' => 6)
+                                                 ))?>
+        </div>
 
 	<div class='control-group <?php echo $model->hasErrors("status")?"error":"" ?>'><?php echo  $form->dropDownListRow($model,'status',$model->getStatusList(),array('class'=>'span5')); ?></div>
 
