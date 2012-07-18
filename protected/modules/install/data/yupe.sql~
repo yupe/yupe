@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Хост: localhost
--- Время создания: Июл 18 2012 г., 16:52
+-- Время создания: Июл 18 2012 г., 10:17
 -- Версия сервера: 5.5.24
 -- Версия PHP: 5.3.10-1ubuntu3.2
 
@@ -62,7 +62,7 @@ CREATE TABLE IF NOT EXISTS `category` (
   PRIMARY KEY (`id`),
   UNIQUE KEY `alias` (`alias`),
   KEY `status` (`status`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=2 ;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
 
 -- --------------------------------------------------------
 
@@ -293,44 +293,6 @@ CREATE TABLE IF NOT EXISTS `login` (
 -- --------------------------------------------------------
 
 --
--- Структура таблицы `mail_event`
---
-
-CREATE TABLE IF NOT EXISTS `mail_event` (
-  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
-  `code` varchar(100) NOT NULL,
-  `name` varchar(300) NOT NULL,
-  `description` text,
-  PRIMARY KEY (`id`),
-  UNIQUE KEY `code` (`code`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=3 ;
-
--- --------------------------------------------------------
-
---
--- Структура таблицы `mail_template`
---
-
-CREATE TABLE IF NOT EXISTS `mail_template` (
-  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
-  `code` varchar(100) NOT NULL,
-  `event_id` int(10) unsigned NOT NULL,
-  `name` varchar(300) NOT NULL,
-  `description` text,
-  `from` varchar(300) NOT NULL,
-  `to` varchar(300) NOT NULL,
-  `theme` tinytext NOT NULL,
-  `body` text NOT NULL,
-  `status` tinyint(3) NOT NULL DEFAULT '1',
-  PRIMARY KEY (`id`),
-  UNIQUE KEY `code` (`code`),
-  KEY `event_id` (`event_id`),
-  KEY `status` (`status`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=3 ;
-
--- --------------------------------------------------------
-
---
 -- Структура таблицы `menu`
 --
 
@@ -492,7 +454,7 @@ CREATE TABLE IF NOT EXISTS `queue` (
   PRIMARY KEY (`id`),
   UNIQUE KEY `id_UNIQUE` (`id`),
   KEY `priority` (`priority`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=55 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=48 ;
 
 -- --------------------------------------------------------
 
@@ -727,12 +689,6 @@ ALTER TABLE `login`
   ADD CONSTRAINT `login_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `user` (`id`) ON DELETE CASCADE ON UPDATE NO ACTION;
 
 --
--- Ограничения внешнего ключа таблицы `mail_template`
---
-ALTER TABLE `mail_template`
-  ADD CONSTRAINT `mail_template_ibfk_1` FOREIGN KEY (`event_id`) REFERENCES `mail_event` (`id`) ON DELETE CASCADE ON UPDATE NO ACTION;
-
---
 -- Ограничения внешнего ключа таблицы `menu_item`
 --
 ALTER TABLE `menu_item`
@@ -801,6 +757,7 @@ ALTER TABLE `wiki_page_revision`
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
+
 --
 -- Дамп данных таблицы `menu`
 --

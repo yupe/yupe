@@ -17,13 +17,13 @@ echo "\$this->breadcrumbs=array(
 $this-> pageTitle ="<?php echo $label ?> - "."Yii::t('yupe','управление')";
 $this->menu=array(
 array('icon'=> 'list-alt white', 'label' => Yii::t('yupe','Управление <?php echo $this->mtvor;?>'),'url'=>array('/<?php echo $this->controller; ?>/index')),
-array('icon'=> 'file','label' => Yii::t('yupe','Добавление <?php echo $this->vin;?>'), 'url' => array('/<?php echo $this->controller; ?>/create')),
+array('icon'=> 'file','label' => Yii::t('yupe','Добавить <?php echo $this->vin;?>'), 'url' => array('/<?php echo $this->controller; ?>/create')),
 );
 <?php echo  "?>"; ?>
 
 <div class="page-header">
     <h1><?php echo "<?php echo Yii::t('yupe','$label');?>"; ?>
-    <small><?php echo "<?php echo Yii::t('yupe','добавление');?>"?></small>
+    <small><?php echo "<?php echo Yii::t('yupe','управление');?>"?></small>
     </h1>
 </div>
 <button class="btn btn-small dropdown-toggle"

@@ -18,7 +18,7 @@ echo "\$this->breadcrumbs=array(
 
 $this->menu=array(
 array('icon'=> 'list-alt', 'label' => Yii::t('yupe','Управление <?php echo $this->mtvor;?>'),'url'=>array('/<?php echo $this->controller; ?>/index')),
-    array('icon'=> 'file', 'label' => Yii::t('yupe','Добавление <?php echo $this->rod;?>'),'url'=>array('/<?php echo $this->controller; ?>/create')),
+    array('icon'=> 'file', 'label' => Yii::t('yupe','Добавить <?php echo $this->vin;?>'),'url'=>array('/<?php echo $this->controller; ?>/create')),
 );
 ?>
 <div class="page-header">

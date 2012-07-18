@@ -6,6 +6,9 @@ return array(
         'queue' => array(
              'class' => 'application.modules.queue.QueueModule',
          ),
+        'mail' => array(
+             'class' => 'application.modules.mail.MailModule',
+         ),
         'blog' => array(
             'class' => 'application.modules.blog.BlogModule',
         ),

@@ -19,7 +19,7 @@ echo "\$this->breadcrumbs=array(
 $this->pageTitle ="<?php echo $label ?> - "."Yii::t('yupe','редактирование')";
 $this->menu=array(
     array('icon'=> 'list-alt', 'label' => Yii::t('yupe','Управление <?php echo $this->mtvor;?>'),'url'=>array('/<?php echo $this->controller; ?>/index')),
-    array('icon'=> 'file', 'label' =>  Yii::t('yupe','Добавление <?php echo $this->rod;?>'),'url'=>array('/<?php echo $this->controller; ?>/create')),
+    array('icon'=> 'file', 'label' =>  Yii::t('yupe','Добавить <?php echo $this->vin;?>'),'url'=>array('/<?php echo $this->controller; ?>/create')),
     array('icon'=>'pencil white','encodeLabel'=> false, 'label' => Yii::t('yupe','Редактирование '). '<?php echo  $this->rod;?><br /><span class="label" style="font-size: 80%; margin-left:20px;">'.mb_substr($model-><?php echo $nameColumn?>,0,32)."</span>",'url'=>array('<?php echo $this->controller; ?>/update','<?php echo  $this->tableSchema->primaryKey; ?>'=>$model-><?php echo  $this->tableSchema->primaryKey; ?>)),
     array('icon'=>'eye-open','encodeLabel'=> false, 'label' => Yii::t('yupe','Просмотреть '). '<?php echo  $this->vin; ?>','url'=>array('/<?php echo $this->controller; ?>/view','<?php echo  $this->tableSchema->primaryKey; ?>'=>$model-><?php echo  $this->tableSchema->primaryKey; ?>)),
 );
