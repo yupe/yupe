@@ -1,22 +1,22 @@
 <?php
 $this->breadcrumbs=array(
 	'категории'=>array('index'),
-	'Управление',
+	Yii::t('yupe','Управление'),
 );
-$this-> pageTitle ="категории - управление";
+$this-> pageTitle ="категории - "."Yii::t('yupe','управление')";
 $this->menu=array(
-array('icon'=> 'list-alt white', 'label' => 'Управление категориями','url'=>array('/category/default/index')),
-array('icon'=> 'file', 'label' => 'Добавить категорию', 'url' => array('/category/default/create')),
+array('icon'=> 'list-alt white', 'label' => Yii::t('yupe','Управление категориями'),'url'=>array('/category/default/index')),
+array('icon'=> 'file','label' => Yii::t('yupe','Добавление категорию'), 'url' => array('/category/default/create')),
 );
 ?>
 <div class="page-header">
-    <h1>категории    <small>управление</small>
+    <h1><?php echo Yii::t('yupe','категории');?>    <small><?php echo Yii::t('yupe','добавление');?></small>
     </h1>
 </div>
 <button class="btn btn-small dropdown-toggle"
         data-toggle="collapse"
         data-target="#search-toggle" >
-    <a class="search-button" href="#">Поиск категории</a>    <span class="caret"></span>
+    <a class="search-button" href="#">Поиск категорий</a>    <span class="caret"></span>
 </button>
 
 <div id="search-toggle" class="collapse out">
@@ -34,7 +34,7 @@ return false;
 ?>
 </div>
 
-<p>В данном разделе представлены средства управления категориями.
+<p><?php echo Yii::t('yupe','В данном разделе представлены средства управления');?> <?php echo Yii::t('yupe','категориями');?>.
 </p>
 
 

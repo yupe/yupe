@@ -4,7 +4,7 @@
 	'type'=>'horizontal',
 )); ?>
 
-	<div class="alert alert-info">Поля, отмеченные звездочкой <span class="required">*</span> обязательны.</div>
+<div class="alert alert-info"><?php echo Yii::t('yupe','Поля, отмеченные');?> <span class="required">*</span> <?php echo Yii::t('yupe','обязательны.');?></div>
 
 	<?php echo  $form->errorSummary($model); ?>
 
@@ -22,7 +22,7 @@
 		<?php $this->widget('bootstrap.widgets.BootButton', array(
 			'buttonType'=>'submit',
 			'type'=>'primary',
-			'label'=>$model->isNewRecord ? 'Создать' : 'Сохранить',
+			'label'=>$model->isNewRecord ? Yii::t('yupe','Создать') : 'Сохранить',
 		)); ?>
 	</div>
 

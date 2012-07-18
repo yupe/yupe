@@ -11,25 +11,25 @@ $label=mb_strtoupper(mb_substr($label,0,1)).mb_substr($label,1);
 
 echo "\$this->breadcrumbs=array(
 	'$label'=>array('index'),
-	'Управление',
+	Yii::t('yupe','Управление'),
 );\n";
 ?>
-$this-> pageTitle ="<?php echo $label ?> - управление";
+$this-> pageTitle ="<?php echo $label ?> - "."Yii::t('yupe','управление')";
 $this->menu=array(
-array('icon'=> 'list-alt white', 'label' => 'Управление <?php echo  $this->mtvor; ?>','url'=>array('/<?php echo $this->controller; ?>/index')),
-array('icon'=> 'file', 'label' => 'Добавить <?php echo $this->vin ?>', 'url' => array('/<?php echo $this->controller; ?>/create')),
+array('icon'=> 'list-alt white', 'label' => Yii::t('yupe','Управление <?php echo $this->mtvor;?>'),'url'=>array('/<?php echo $this->controller; ?>/index')),
+array('icon'=> 'file','label' => Yii::t('yupe','Добавление <?php echo $this->vin;?>'), 'url' => array('/<?php echo $this->controller; ?>/create')),
 );
 <?php echo  "?>"; ?>
 
 <div class="page-header">
-    <h1><?php echo $label ?>
-    <small>управление</small>
+    <h1><?php echo "<?php echo Yii::t('yupe','$label');?>"; ?>
+    <small><?php echo "<?php echo Yii::t('yupe','добавление');?>"?></small>
     </h1>
 </div>
 <button class="btn btn-small dropdown-toggle"
         data-toggle="collapse"
         data-target="#search-toggle" >
-    <?php echo CHtml::link('Поиск '.$this-> mrod, '#', array('class' => 'search-button'))?>
+    <?php echo CHtml::link(Yii::t('yupe','Поиск ').$this->mrod, '#', array('class' => 'search-button'));?>
     <span class="caret"></span>
 </button>
 
@@ -49,7 +49,7 @@ return false;
 ?>\n"; ?>
 </div>
 
-<p>В данном разделе представлены средства управления <?php echo  $this-> mtvor; ?>.
+<p><?php echo "<?php echo Yii::t('yupe','В данном разделе представлены средства управления');?>";?> <?php echo "<?php echo Yii::t('yupe','$this->mtvor');?>"; ?>.
 </p>
 
 

@@ -21,7 +21,7 @@
 	<div class="form-actions">
 		<?php echo  "<?php \$this->widget('bootstrap.widgets.BootButton', array(
 			'type'=>'primary',
-			'label'=>'Search',
+			'label'=>Yii::t('yupe','Искать'),
 		)); ?>\n"; ?>
 	</div>
 

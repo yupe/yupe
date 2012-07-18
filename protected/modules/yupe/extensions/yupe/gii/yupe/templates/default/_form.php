@@ -10,7 +10,7 @@
 	'type'=>'horizontal',
 )); ?>\n"; ?>
 
-	<div class="alert alert-info">Поля, отмеченные звездочкой <span class="required">*</span> обязательны.</div>
+<div class="alert alert-info"><?php echo "<?php echo Yii::t('yupe','Поля, отмеченные');?>";?> <span class="required">*</span> <?php echo "<?php echo Yii::t('yupe','обязательны.');?>";?></div>
 
 	<?php echo  "<?php echo  \$form->errorSummary(\$model); ?>\n"; ?>
 
@@ -29,7 +29,7 @@ foreach($this->tableSchema->columns as $column)
 		<?php echo  "<?php \$this->widget('bootstrap.widgets.BootButton', array(
 			'buttonType'=>'submit',
 			'type'=>'primary',
-			'label'=>\$model->isNewRecord ? 'Создать' : 'Сохранить',
+			'label'=>\$model->isNewRecord ? Yii::t('yupe','Создать') : 'Сохранить',
 		)); ?>\n"; ?>
 	</div>
 

@@ -14,7 +14,7 @@ class DefaultController extends YBackController
 	}
 
 	/**
-	 * Создает новую модель категорию.
+	 * Создает новую модель категории.
 	 * Если создание прошло успешно - перенаправляет на просмотр.
 	 */
 	public function actionCreate()
@@ -37,7 +37,7 @@ class DefaultController extends YBackController
 	}
 
 	/**
-	 * Редактирование категорию.
+	 * Редактирование категории.
 	 * @param integer $id the ID of the model to be updated
 	 */
 	public function actionUpdate($id)
@@ -60,9 +60,9 @@ class DefaultController extends YBackController
 	}
 
 	/**
-	 * Удаяет модель категорию из базы.
+	 * Удаяет модель категории из базы.
 	 * Если удаление прошло успешно - возвращется в index
-	 * @param integer $id идентификатор категорию, который нужно удалить
+	 * @param integer $id идентификатор категории, который нужно удалить
 	 */
 	public function actionDelete($id)
 	{
