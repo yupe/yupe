@@ -1,17 +1,10 @@
 <?php
-/**
- * This is the template for generating a controller class file for CRUD feature.
- * The following variables are available in this template:
- * - $this: the BootCrudCode object
- */
-?>
-<?php echo  "<?php\n"; ?>
 
-class <?php echo  $this->controllerClass; ?> extends <?php echo  $this->baseControllerClass."\n"; ?>
+class CategoryController extends YBackController
 {
 	/**
-	 * Отображает <?php echo $this->vin;?> по указанному идентификатору
-	 * @param integer $id Идинтификатор <?php echo $this->vin;?> для отображения
+	 * Отображает категорию по указанному идентификатору
+	 * @param integer $id Идинтификатор категорию для отображения
 	 */
 	public function actionView($id)
 	{
@@ -21,25 +14,25 @@ class <?php echo  $this->controllerClass; ?> extends <?php echo  $this->baseCont
 	}
 
 	/**
-	 * Создает новую модель <?php echo $this->rod;?>.
+	 * Создает новую модель категории.
 	 * Если создание прошло успешно - перенаправляет на просмотр.
 	 */
 	public function actionCreate()
 	{
-		$model=new <?php echo  $this->modelClass; ?>;
+		$model=new Category;
 
 		// Uncomment the following line if AJAX validation is needed
 		// $this->performAjaxValidation($model);
 
-		if(isset($_POST['<?php echo  $this->modelClass; ?>']))
+		if(isset($_POST['Category']))
 		{
-			$model->attributes=$_POST['<?php echo  $this->modelClass; ?>'];
+			$model->attributes=$_POST['Category'];
 
 			if($model->save())
                         {
                             Yii::app()->user->setFlash(YFlashMessages::NOTICE_MESSAGE,Yii::t('yupe','Запись добавлена!'));
 
-			    $this->redirect(array('view','id'=>$model-><?php echo  $this->tableSchema->primaryKey; ?>));
+			    $this->redirect(array('view','id'=>$model->id));
                         }
 		}
 
@@ -49,7 +42,7 @@ class <?php echo  $this->controllerClass; ?> extends <?php echo  $this->baseCont
 	}
 
 	/**
-	 * Редактирование <?php echo $this->rod;?>.
+	 * Редактирование категории.
 	 * @param integer $id the ID of the model to be updated
 	 */
 	public function actionUpdate($id)
@@ -59,9 +52,9 @@ class <?php echo  $this->controllerClass; ?> extends <?php echo  $this->baseCont
 		// Uncomment the following line if AJAX validation is needed
 		// $this->performAjaxValidation($model);
 
-		if(isset($_POST['<?php echo  $this->modelClass; ?>']))
+		if(isset($_POST['Category']))
 		{
-			$model->attributes=$_POST['<?php echo  $this->modelClass; ?>'];
+			$model->attributes=$_POST['Category'];
 
 			if($model->save())
                         {
@@ -77,9 +70,9 @@ class <?php echo  $this->controllerClass; ?> extends <?php echo  $this->baseCont
 	}
 
 	/**
-	 * Удаяет модель <?php echo $this->rod;?> из базы.
+	 * Удаяет модель категории из базы.
 	 * Если удаление прошло успешно - возвращется в index
-	 * @param integer $id идентификатор <?php echo $this->rod;?>, который нужно удалить
+	 * @param integer $id идентификатор категории, который нужно удалить
 	 */
 	public function actionDelete($id)
 	{
@@ -87,8 +80,6 @@ class <?php echo  $this->controllerClass; ?> extends <?php echo  $this->baseCont
 		{
 			// поддерживаем удаление только из POST-запроса
 			$this->loadModel($id)->delete();
-
-                        Yii::app()->user->setFlash(YFlashMessages::NOTICE_MESSAGE,Yii::t('yupe','Запись удалена!'));
 
 			// если это AJAX запрос ( кликнули удаление в админском grid view), мы не должны никуда редиректить
 			if(!isset($_GET['ajax']))
@@ -98,14 +89,14 @@ class <?php echo  $this->controllerClass; ?> extends <?php echo  $this->baseCont
 			throw new CHttpException(400,'Неверный запрос. Пожалуйста, больше не повторяйте такие запросы');
 	}
 	/**
-	 * Управление <?php echo $this->mtvor;?>.
+	 * Управление категориями.
 	 */
 	public function actionIndex()
 	{
-		$model=new <?php echo  $this->modelClass; ?>('search');
+		$model=new Category('search');
 		$model->unsetAttributes();  // clear any default values
-		if(isset($_GET['<?php echo  $this->modelClass; ?>']))
-			$model->attributes=$_GET['<?php echo  $this->modelClass; ?>'];
+		if(isset($_GET['Category']))
+			$model->attributes=$_GET['Category'];
 
 		$this->render('index',array(
 			'model'=>$model,
@@ -119,7 +110,7 @@ class <?php echo  $this->controllerClass; ?> extends <?php echo  $this->baseCont
 	 */
 	public function loadModel($id)
 	{
-		$model=<?php echo  $this->modelClass; ?>::model()->findByPk($id);
+		$model=Category::model()->findByPk($id);
 		if($model===null)
 			throw new CHttpException(404,'Запрошенная страница не найдена.');
 		return $model;
@@ -131,7 +122,7 @@ class <?php echo  $this->controllerClass; ?> extends <?php echo  $this->baseCont
 	 */
 	protected function performAjaxValidation($model)
 	{
-		if(isset($_POST['ajax']) && $_POST['ajax']==='<?php echo  $this->class2id($this->modelClass); ?>-form')
+		if(isset($_POST['ajax']) && $_POST['ajax']==='category-form')
 		{
 			echo CActiveForm::validate($model);
 			Yii::app()->end();

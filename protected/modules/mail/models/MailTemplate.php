@@ -20,7 +20,7 @@
 class MailTemplate extends CActiveRecord
 {
     const STATUS_ACTIVE = 1;
-    
+
     const STATUS_NOT_ACTIVE = 0;
 
     public function getStatusList()
@@ -30,11 +30,11 @@ class MailTemplate extends CActiveRecord
             self::STATUS_NOT_ACTIVE => Yii::t('mail','не активен')
         );
     }
-    
+
     public function getStatus()
     {
         $data = $this->getStatusList();
-        
+
         return isset($data[$this->status]) ? $data[$this->status] : Yii::t('mail','--неизвестно--');
     }
 
@@ -64,6 +64,7 @@ class MailTemplate extends CActiveRecord
         // NOTE: you should only define rules for those attributes that
         // will receive user inputs.
         return array(
+            array('code, name, from, to, theme', 'filter', 'filter' => array($obj = new CHtmlPurifier(),'purify')),
             array('event_id, code, name, from, to, theme, body', 'required'),
             array('status', 'numerical', 'integerOnly' => true),
             array('event_id', 'length', 'max' => 10),

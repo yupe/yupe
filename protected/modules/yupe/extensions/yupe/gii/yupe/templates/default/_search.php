@@ -1,9 +1,3 @@
-<?php
-/**
- * The following variables are available in this template:
- * - $this: the BootCrudCode object
- */
-?>
 <?php echo  "<?php \$form=\$this->beginWidget('bootstrap.widgets.BootActiveForm',array(
 	'action'=>Yii::app()->createUrl(\$this->route),
 	'method'=>'get',
@@ -20,9 +14,10 @@
 <?php endforeach; ?>
 	<div class="form-actions">
 		<?php echo  "<?php \$this->widget('bootstrap.widgets.BootButton', array(
-			'type'=>'primary',
-			'label'=>Yii::t('yupe','Искать'),
-		)); ?>\n"; ?>
+                                        'type'=>'primary',
+                                        'encodeLabel' => false,
+                                        'label'=>'<i class=\"icon-search icon-white\"></i> '.Yii::t('yupe','Искать'),
+                                )); ?>\n"; ?>
 	</div>
 
 <?php echo  "<?php \$this->endWidget(); ?>\n"; ?>

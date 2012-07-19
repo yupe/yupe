@@ -1,16 +1,17 @@
 <?php
-    $module = Yii::app()-> getModule('yupe');
-    $this->beginContent($module-> getBackendLayoutAlias("main"));
+    $module = Yii::app()->getModule('yupe');
+    $this->beginContent($module->getBackendLayoutAlias("main"));
 ?>
   <div class="row-fluid">
     <div class="span9">
-        <?php $this->widget('YFlashMessages');?>
         <?php
         if ( count($this->breadcrumbs) )
         $this->widget('bootstrap.widgets.BootBreadcrumbs', array(
                                                          'homeLink' => CHtml::link(Yii::t('yupe', 'Главная'), array('/yupe/backend/')),
                                                          'links' => $this->breadcrumbs,
                                                     )); ?><!-- breadcrumbs -->
+        <?php $this->widget('YFlashMessages');?>
+
         <div id="content">
             <?php echo $content; ?>
         </div>
@@ -43,9 +44,7 @@
         <?php $this->widget('bootstrap.widgets.BootMenu', array(
             'type'=>'list',
             'items' => $items,
-        ));
-
-            ?>
+        )); ?>
         </div>
         <?php
         }
@@ -54,6 +53,5 @@
             <?php $this->widget('YModuleInfo'); ?>
         </div>
     </div>
-
   </div>
 <?php $this->endContent(); ?>
