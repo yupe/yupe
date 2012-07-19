@@ -80,16 +80,26 @@ class YBackController extends Controller
             throw new CHttpException(404,Yii::t('yupe','Страница не найдена!'));
 
         $model = new $modelClass;
+        $model_depends = new $modelClass;
         $model = $model->resetScope()->findByPk($id);
         if(!$model)
             throw new CHttpException(404,Yii::t('yupe','Страница не найдена!'));
 
-        if($direction === 'up')
-            $model->$sortField++;
-        else
-            $model->$sortField--;
+    	if ($direction === 'up')
+		{
+			$model_depends = $model_depends->findByAttributes(array($sortField => ($model->$sortField-1)));
+			$model_depends->$sortField++;
+			$model->$sortField--;#example menu_order column in sql
+		}
+		else
+		{
+			$model_depends = $model_depends->findByAttributes(array($sortField => ($model->$sortField+1)));
+			$model_depends->$sortField--;
+			$model->$sortField++;
+		}
 
         $model->update(array($sortField));
+        $model_depends->update(array($sortField));
 
         if(!Yii::app()->request->isAjaxRequest)
             $this->redirect(isset($_POST['returnUrl']) ? $_POST['returnUrl'] : array('admin'));
