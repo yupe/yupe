@@ -14,7 +14,7 @@ class CustomYandexService extends YandexOpenIDService {
 	protected $jsArguments = array('popup' => array('width' => 900, 'height' => 620));
 	
 	protected $requiredAttributes = array(
-		'name' => array('fullname', 'namePerson'),
+		'first_name' => array('fullname', 'namePerson'),
 		'username' => array('nickname', 'namePerson/friendly'),
 		'email' => array('email', 'contact/email'),
 		'gender' => array('gender', 'person/gender'),
