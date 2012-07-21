@@ -321,6 +321,7 @@ INSERT INTO `menu` (`id`, `name`, `code`, `description`, `status`) VALUES
 
 CREATE TABLE IF NOT EXISTS `menu_item` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `lang` char(2) DEFAULT NULL,
   `parent_id` int(10) unsigned NOT NULL,
   `menu_id` int(10) unsigned NOT NULL,
   `title` varchar(255) NOT NULL,
@@ -332,6 +333,7 @@ CREATE TABLE IF NOT EXISTS `menu_item` (
   `status` tinyint(3) unsigned NOT NULL DEFAULT '1',
   PRIMARY KEY (`id`),
   KEY `menu_id` (`menu_id`),
+  KEY `lang` (`lang`),
   KEY `sort` (`sort`),
   KEY `status` (`status`)
 ) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=13 ;

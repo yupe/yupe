@@ -84,10 +84,16 @@ class News extends CActiveRecord
     {
         //@todo добавить проверку IN для статуса
         return array(
-            array('date, title, alias, short_text, full_text', 'required'),
+            array('date, title, alias, short_text, full_text', 'required', 'on'=> array('update','insert')),
             array('status, is_protected', 'numerical', 'integerOnly' => true),
             array('title, alias, keywords', 'length', 'max' => 150),
-            array('alias', 'unique'),
+            array('alias', 'unique', 'criteria'=> array(
+                    'condition'=>'`lang`=:lang',
+                    'params'=>array(':lang'=>$this->lang),
+                ),
+            ),
+            array('lang', 'length', 'max' => 2),
+            array('lang', 'default', 'value' => Yii::app()->sourceLanguage),
             array('description', 'length', 'max' => 250),
             array('short_text', 'length', 'max' => 400),
             array('title, alias, short_text, full_text, keywords, description', 'filter', 'filter' => 'trim'),
@@ -118,6 +124,13 @@ class News extends CActiveRecord
         );
     }
 
+    public function language($lang){
+        $this->getDbCriteria()->mergeWith(array(
+            'condition' => "lang='$lang'",
+        ));
+        return $this;
+    }
+
     /**
      * @return array customized attribute labels (name=>label)
      */
@@ -130,6 +143,7 @@ class News extends CActiveRecord
             'date' => Yii::t('news', 'Дата'),
             'title' => Yii::t('news', 'Заголовок'),
             'alias' => Yii::t('news', 'Url'),
+            'lang' => Yii::t('news', 'Язык'),
             'short_text' => Yii::t('news', 'Короткое описание'),
             'full_text' => Yii::t('news', 'Полный текст'),
             'user_id' => Yii::t('news', 'Автор'),

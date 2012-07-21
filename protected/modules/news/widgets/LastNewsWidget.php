@@ -5,10 +5,18 @@ class LastNewsWidget extends YWidget
 
     public function run()
     {
-        $news = News::model()->published()->cache($this->cacheTime)->findAll(array(
-	        'limit' => $this->count,
-	        'order' => 'date DESC'
-	    ));
+
+        if ( $this->controller->isMultilang() )
+            $news = News::model()->published()->language(Yii::app()->language)->cache($this->cacheTime)->findAll(array(
+                'limit' => $this->count,
+                'order' => 'date DESC'
+            ));
+        else
+            $news = News::model()->published()->cache($this->cacheTime)->findAll(array(
+                'limit' => $this->count,
+                'order' => 'date DESC'
+            ));
+
 
         $this->render('news', array('news' => $news));
     }

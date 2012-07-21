@@ -81,4 +81,9 @@ class YBackController extends Controller
         if(!Yii::app()->request->isAjaxRequest)
             $this->redirect(isset($_POST['returnUrl']) ? $_POST['returnUrl'] : array('admin'));
     }
+
+    public function isMultilang()
+    {
+        return is_array(Yii::app()-> urlManager->languages) && count(Yii::app()-> urlManager->languages);
+    }
 }

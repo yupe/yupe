@@ -94,8 +94,10 @@ class DefaultController extends YBackController
             $model=null;
             // Собираем модельки по языкам
             foreach ($models as $m)
+            {
+                if (!$m->lang) $m->lang = Yii::app()->sourceLanguage;
                 $modelsByLang[$m->lang]=$m;
-
+            }
             // Выберем модельку для вывода тайтлов и прочего
             $model = isset($modelsByLang[Yii::app()->language])?$modelsByLang[Yii::app()->language]:
                 (isset($modelsByLang[Yii::app()->sourceLanguage])?$modelsByLang[Yii::app()->sourceLanguage]:reset($models));
@@ -175,13 +177,21 @@ class DefaultController extends YBackController
      * Deletes a particular model.
      * If deletion is successful, the browser will be redirected to the 'index' page.
      */
-    public function actionDelete()
+    public function actionDelete($id=null, $alias=null)
     {
         if (Yii::app()->request->isPostRequest)
         {
-            // we only allow deletion via POST request
-            $this->loadModel()->delete();
-
+            if ($alias)
+            {
+                if ( !($model = Page::model()->findAllByAttributes(array('alias'=>$alias))) )
+                   throw new CHttpException(404, Yii::t('page','Страница не нейдена'));
+                $model->delete();
+            }
+            else
+            {
+                // we only allow deletion via POST request
+                $this->loadModel()->delete();
+            }
             // if AJAX request (triggered by deletion via admin grid view), we should not redirect the browser
             if (!isset($_GET['ajax']))
                 $this->redirect(array('index'));
