@@ -6,16 +6,15 @@ $this->breadcrumbs=array(
 $this-> pageTitle ="категории - "."Yii::t('yupe','управление')";
 $this->menu=array(
 array('icon'=> 'list-alt white', 'label' => Yii::t('yupe','Управление категориями'),'url'=>array('/category/default/index')),
-array('icon'=> 'file','label' => Yii::t('yupe','Добавление категорию'), 'url' => array('/category/default/create')),
+array('icon'=> 'file','label' => Yii::t('yupe','Добавить категорию'), 'url' => array('/category/default/create')),
 );
 ?>
 <div class="page-header">
-    <h1><?php echo Yii::t('yupe','категории');?>    <small><?php echo Yii::t('yupe','добавление');?></small>
+    <h1><?php echo ucfirst(Yii::t('yupe','категории'));?>    <small><?php echo Yii::t('yupe','управление');?></small>
     </h1>
 </div>
-<button class="btn btn-small dropdown-toggle"
-        data-toggle="collapse"
-        data-target="#search-toggle" >
+<button class="btn btn-small dropdown-toggle"  data-toggle="collapse"  data-target="#search-toggle" >
+    <i class="icon-search"></i>
     <a class="search-button" href="#">Поиск категорий</a>    <span class="caret"></span>
 </button>
 
@@ -34,7 +33,10 @@ return false;
 ?>
 </div>
 
-<p><?php echo Yii::t('yupe','В данном разделе представлены средства управления');?> <?php echo Yii::t('yupe','категориями');?>.
+<br/>
+
+<p>
+    <?php echo Yii::t('yupe','В данном разделе представлены средства управления');?> <?php echo Yii::t('yupe','категориями');?>.
 </p>
 
 

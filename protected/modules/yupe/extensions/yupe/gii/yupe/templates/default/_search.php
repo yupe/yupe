@@ -1,8 +1,10 @@
 <?php echo  "<?php \$form=\$this->beginWidget('bootstrap.widgets.BootActiveForm',array(
 	'action'=>Yii::app()->createUrl(\$this->route),
 	'method'=>'get',
+        'type'=>'vertical',
+        'htmlOptions' => array('class' => 'well form-vertical')
 )); ?>\n"; ?>
-
+<fieldset class="inline">    
 <?php foreach($this->tableSchema->columns as $column): ?>
 <?php
 	$field=$this->generateInputField($this->modelClass,$column);
@@ -12,12 +14,14 @@
 	<?php echo  "<?php echo  ".$this->generateActiveRow($this->modelClass,$column)."; ?>\n"; ?>
 
 <?php endforeach; ?>
-	<div class="form-actions">
-		<?php echo  "<?php \$this->widget('bootstrap.widgets.BootButton', array(
-                                        'type'=>'primary',
-                                        'encodeLabel' => false,
-                                        'label'=>'<i class=\"icon-search icon-white\"></i> '.Yii::t('yupe','Искать'),
-                                )); ?>\n"; ?>
-	</div>
+</fieldset>    
+	
+<?php echo  "<?php \$this->widget('bootstrap.widgets.BootButton', array(
+                        'type'=>'primary',
+                        'encodeLabel' => false,
+                        'buttonType' => 'submit',
+                        'label'=>'<i class=\"icon-search icon-white\"></i> '.Yii::t('yupe','Искать'),
+                )); ?>\n"; ?>
+	
 
 <?php echo  "<?php \$this->endWidget(); ?>\n"; ?>

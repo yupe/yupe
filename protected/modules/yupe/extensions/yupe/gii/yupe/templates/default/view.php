@@ -25,7 +25,7 @@ $this->menu=array(
 );
 ?>
 <div class="page-header">
-    <h1><?php echo "<?php echo Yii::t('yupe','просмотр');?>" ;?> <?php echo $this->rod."<br />
+    <h1><?php echo "<?php echo Yii::t('yupe','Просмотр');?>" ;?> <?php echo $this->rod."<br />
      <small style='margin-left:-10px;'>&laquo;<?php echo  \$model->{$nameColumn}; ?>"; ?>&raquo;</small></h1>
 </div>
 

@@ -1,25 +1,30 @@
 <?php $form=$this->beginWidget('bootstrap.widgets.BootActiveForm',array(
 	'action'=>Yii::app()->createUrl($this->route),
 	'method'=>'get',
+        'type'=>'vertical',
+        'htmlOptions' => array('class' => 'well form-vertical')
 )); ?>
+<fieldset class="inline">    
+	<?php echo  $form->textFieldRow($model,'id',array('class'=>'span5','maxlength'=>10,'size' => 60)); ?>
 
-	<?php echo  $form->textFieldRow($model,'id',array('class'=>'span5','maxlength'=>10)); ?>
+	<?php echo  $form->textFieldRow($model,'parent_id',array('class'=>'span5','size' => 60,'maxlength' => 60)); ?>
 
-	<?php echo  $form->textFieldRow($model,'parent_id',array('class'=>'span5')); ?>
-
-	<?php echo  $form->textFieldRow($model,'name',array('class'=>'span5','maxlength'=>150)); ?>
+	<?php echo  $form->textFieldRow($model,'name',array('class'=>'span5','maxlength'=>150,'size' => 60)); ?>
 
 	<?php echo  $form->textAreaRow($model,'description',array('rows'=>6, 'cols'=>50, 'class'=>'span8')); ?>
 
-	<?php echo  $form->textFieldRow($model,'alias',array('class'=>'span5','maxlength'=>50)); ?>
+	<?php echo  $form->textFieldRow($model,'alias',array('class'=>'span5','maxlength'=>50,'size' => 60)); ?>
 
-	<?php echo  $form->textFieldRow($model,'status',array('class'=>'span5')); ?>
+	<?php echo  $form->textFieldRow($model,'status',array('class'=>'span5','size' => 60,'maxlength' => 60)); ?>
 
-	<div class="form-actions">
-		<?php $this->widget('bootstrap.widgets.BootButton', array(
-			'type'=>'primary',
-			'label'=>Yii::t('yupe','Искать'),
-		)); ?>
-	</div>
+</fieldset>    
+	
+<?php $this->widget('bootstrap.widgets.BootButton', array(
+                        'type'=>'primary',
+                        'encodeLabel' => false,
+                        'buttonType' => 'submit',
+                        'label'=>'<i class="icon-search icon-white"></i> '.Yii::t('yupe','Искать'),
+                )); ?>
+	
 
 <?php $this->endWidget(); ?>
