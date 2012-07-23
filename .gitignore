@@ -3,7 +3,6 @@
 *.settings
 *.ai
 .project
-*db.php
 /assets/
 protected/runtime/*
 protected/config/db.php
