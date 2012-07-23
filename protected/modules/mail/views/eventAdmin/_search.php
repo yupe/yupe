@@ -12,10 +12,7 @@
 	<?php echo  $form->textAreaRow($model,'description',array('rows'=>6, 'cols'=>50, 'class'=>'span8')); ?>
 
 	<div class="form-actions">
-		<?php $this->widget('bootstrap.widgets.BootButton', array(
-			'type'=>'primary',
-			'label'=>Yii::t('yupe','Искать'),
-		)); ?>
+		<button class="btn btn-primary" type="submit" name="yt0"><i class="icon-search icon-white"></i> Искать</button>
 	</div>
 
 <?php $this->endWidget(); ?>

@@ -9,7 +9,7 @@
 - Создать базу данных для Юпи!
 Ручная установка
 - Через phpmyadmin (или что-то похожее) залить основной файл дампа (/yt/protected/modules/install/data/yupe.sql)https://github.com/yupe/yupe/blob/master/protected/modules/install/data/yupe.sql
-- Выполнить скрипт https://github.com/yupe/yupe/blob/master/db/yupe_init.sql для создания учетной записи администратора (логин: admin@admin.ru, пароль: 123456)
+- Выполнить скрипт https://github.com/yupe/yupe/blob/master/protected/modules/install/data/db/yupe_init.sql для создания учетной записи администратора (логин: admin@admin.ru, пароль: 123456)
 Автоматическая установка
 - Запустить установщик http://localhost/yt/index.php/install
 - Следовать инструкциям установщика

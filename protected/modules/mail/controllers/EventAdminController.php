@@ -27,8 +27,13 @@ class EventAdminController extends YBackController
 		if(isset($_POST['MailEvent']))
 		{
 			$model->attributes=$_POST['MailEvent'];
+
 			if($model->save())
-				$this->redirect(array('view','id'=>$model->id));
+                        {
+                            Yii::app()->user->setFlash(YFlashMessages::NOTICE_MESSAGE,Yii::t('mail','Запись добавлена!'));
+
+			    $this->redirect(array('view','id'=>$model->id));
+                        }
 		}
 
 		$this->render('create',array(
@@ -50,8 +55,13 @@ class EventAdminController extends YBackController
 		if(isset($_POST['MailEvent']))
 		{
 			$model->attributes=$_POST['MailEvent'];
+
 			if($model->save())
-				$this->redirect('index');
+                        {
+                            Yii::app()->user->setFlash(YFlashMessages::NOTICE_MESSAGE,Yii::t('mail','Запись обновлена!'));
+
+			    $this->redirect('index');
+                        }
 		}
 
 		$this->render('update',array(
@@ -71,6 +81,8 @@ class EventAdminController extends YBackController
 			// поддерживаем удаление только из POST-запроса
 			$this->loadModel($id)->delete();
 
+                        Yii::app()->user->setFlash(YFlashMessages::NOTICE_MESSAGE,Yii::t('mail','Запись удалена!'));
+
 			// если это AJAX запрос ( кликнули удаление в админском grid view), мы не должны никуда редиректить
 			if(!isset($_GET['ajax']))
 				$this->redirect(isset($_POST['returnUrl']) ? $_POST['returnUrl'] : array('штвуч'));
@@ -82,7 +94,7 @@ class EventAdminController extends YBackController
 	 * Управление почтовыми событиями.
 	 */
 	public function actionIndex()
-	{              
+	{
 		$model=new MailEvent('search');
 		$model->unsetAttributes();  // clear any default values
 		if(isset($_GET['MailEvent']))
