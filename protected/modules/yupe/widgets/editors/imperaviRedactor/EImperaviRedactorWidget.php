@@ -85,10 +85,10 @@ class EImperaviRedactorWidget extends CInputWidget
 	{
 		if(isset($this->options['path']))
 			$this->options['path']=rtrim($this->options['path'],'/\\').'/';
-		
+
 		if(!isset($this->options['toolbar']))
-			$this->options['toolbar'] = 'custom';		
-		
+			$this->options['toolbar'] = 'custom';
+                
 		$cs=Yii::app()->getClientScript();
 		$cs->registerCssFile($this->cssFile);
 		$cs->registerCoreScript('jquery');

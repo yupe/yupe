@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Хост: localhost
--- Время создания: Июл 24 2012 г., 14:31
+-- Время создания: Июл 24 2012 г., 16:24
 -- Версия сервера: 5.1.63
 -- Версия PHP: 5.3.6-13ubuntu3.8
 
@@ -217,6 +217,38 @@ CREATE TABLE IF NOT EXISTS `gallery` (
   PRIMARY KEY (`id`),
   KEY `status` (`status`)
 ) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=2 ;
+
+-- --------------------------------------------------------
+
+--
+-- Структура таблицы `good`
+--
+
+CREATE TABLE IF NOT EXISTS `good` (
+  `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
+  `category_id` int(10) unsigned NOT NULL,
+  `name` varchar(150) NOT NULL,
+  `price` double NOT NULL DEFAULT '0',
+  `article` varchar(100) DEFAULT NULL,
+  `image` varchar(300) DEFAULT NULL,
+  `short_description` text,
+  `description` text NOT NULL,
+  `alias` varchar(100) NOT NULL,
+  `data` text,
+  `status` smallint(1) unsigned NOT NULL DEFAULT '1',
+  `create_time` datetime NOT NULL,
+  `update_time` datetime NOT NULL,
+  `user_id` int(10) unsigned NOT NULL,
+  `change_user_id` int(10) unsigned NOT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `alias` (`alias`),
+  KEY `status` (`status`),
+  KEY `category` (`category_id`),
+  KEY `user_id` (`user_id`),
+  KEY `change_user_id` (`change_user_id`),
+  KEY `article` (`article`),
+  KEY `price` (`price`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
 
 -- --------------------------------------------------------
 
@@ -529,7 +561,7 @@ CREATE TABLE IF NOT EXISTS `settings` (
   `user_id` int(10) unsigned NOT NULL,
   PRIMARY KEY (`id`),
   KEY `moduleId` (`module_id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=508 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=530 ;
 
 -- --------------------------------------------------------
 
@@ -710,6 +742,14 @@ ALTER TABLE `dictionary_group`
 --
 ALTER TABLE `feedback`
   ADD CONSTRAINT `feedback_ibfk_1` FOREIGN KEY (`answer_user`) REFERENCES `user` (`id`) ON UPDATE NO ACTION;
+
+--
+-- Ограничения внешнего ключа таблицы `good`
+--
+ALTER TABLE `good`
+  ADD CONSTRAINT `good_ibfk_8` FOREIGN KEY (`change_user_id`) REFERENCES `user` (`id`) ON UPDATE NO ACTION,
+  ADD CONSTRAINT `good_ibfk_6` FOREIGN KEY (`category_id`) REFERENCES `category` (`id`) ON UPDATE NO ACTION,
+  ADD CONSTRAINT `good_ibfk_7` FOREIGN KEY (`user_id`) REFERENCES `user` (`id`) ON UPDATE NO ACTION;
 
 --
 -- Ограничения внешнего ключа таблицы `image`
