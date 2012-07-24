@@ -178,7 +178,7 @@ class Page extends CActiveRecord
         return array(
             'published' => array(
                 'condition' => 'status = :status',
-                'params'    => array('status' => self::STATUS_PUBLISHED)
+                'params'    => array(':status' => self::STATUS_PUBLISHED)
             ),
             'protected' => array(
                 'condition' => 'is_protected = :is_protected',
