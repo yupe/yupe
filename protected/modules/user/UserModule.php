@@ -49,11 +49,29 @@ class UserModule extends YWebModule
 
     public $emailBlackList;
 
+    public $registrationMailEventActivate = 'USER_REGISTRATION_ACTIVATE';
+
+    public $registrationMailEvent = 'USER_REGISTRATION';
+
+    public $passwordAutoRecoveryMailEvent = 'USER_PASSWORD_AUTO_RECOVERY';
+
+    public $passwordRecoveryMailEvent = 'USER_PASSWORD_RECOVERY';
+
+    public $passwordSuccessRecovery = 'USER_PASSWORD_SUCCESS_RECOVERY';
+
+    public $userAccountActivationMailEvent = 'USER_ACCOUNT_ACTIVATION';
+
     public static $logCategory = 'application.modules.user';
 
     public function getParamsLabels()
     {
         return array(
+            'userAccountActivationMailEvent' => Yii::t('user', 'Почтовое событие при успешной активации пользователя'),
+            'passwordSuccessRecovery' => Yii::t('user', 'Почтовое событие при успешном восстановлении пароля'),
+            'passwordAutoRecoveryMailEvent' => Yii::t('user', 'Почтовое событие при автоматическом восстановлении пароля'),
+            'passwordRecoveryMailEvent' => Yii::t('user', 'Почтовое событие при восстановлении пароля'),
+            'registrationMailEventActivate' => Yii::t('user', 'Почтовое событие при регистрации нового пользователя с активацией'),
+            'registrationMailEvent' => Yii::t('user', 'Почтовое событие при регистрации нового пользователя без активации'),
             'adminMenuOrder' => Yii::t('user', 'Порядок следования в меню'),
             'accountActivationSuccess' => Yii::t('user', 'Страница после активации аккаунта'),
             'accountActivationFailure' => Yii::t('user', 'Страница неудачной активации аккаунта'),
@@ -80,6 +98,12 @@ class UserModule extends YWebModule
     public function getEditableParams()
     {
         return array(
+            'userAccountActivationMailEvent',
+            'passwordRecoveryMailEvent',
+            'passwordSuccessRecovery',
+            'passwordAutoRecoveryMailEvent',
+            'registrationMailEventActivate',
+            'registrationMailEvent',
             'avatarMaxSize',
             'defaultAvatar',
             'avatarsDir',
