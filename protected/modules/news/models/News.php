@@ -82,10 +82,10 @@ class News extends CActiveRecord
      */
     public function rules()
     {
-        //@todo добавить проверку IN для статуса
         return array(
             array('date, title, alias, short_text, full_text', 'required'),
             array('status, is_protected', 'numerical', 'integerOnly' => true),
+            array('status','in','range'=>array_keys($this->getStatusList())),
             array('title, alias, keywords', 'length', 'max' => 150),
             array('alias', 'unique'),
             array('description', 'length', 'max' => 250),
@@ -111,10 +111,22 @@ class News extends CActiveRecord
     public function scopes()
     {
         return array(
-            'published' => array('condition' => 'status = ' . self::STATUS_PUBLISHED),
-            'protected' => array('condition' => 'is_protected = ' . self::PROTECTED_YES),
-            'public' => array('condition' => 'is_protected = ' . self::PROTECTED_NO),
-            'recent' => array('order' => 'creation_date DESC', 'limit' => 5)
+            'published' => array(
+                'condition' => 'status = :status',
+                'params' => array(':status' => self::STATUS_PUBLISHED)
+            ),
+            'protected' => array(
+                'condition' => 'is_protected = :is_protected',
+                'params' => array(':is_protected' => self::PROTECTED_YES)
+            ),
+            'public' => array(
+                'condition' => 'is_protected = :is_protected',
+                'params'  => array(':is_protected' =>  self::PROTECTED_NO)
+            ),
+            'recent' => array(
+                'order' => 'creation_date DESC',
+                'limit' => 5,
+            ),
         );
     }
 
