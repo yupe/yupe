@@ -1,16 +1,16 @@
 <?php
-$this->breadcrumbs=array(
-	'категории'=>array('index'),
-	Yii::t('yupe','Управление'),
+$this->breadcrumbs = array(
+    'категории' => array( 'index' ),
+    Yii::t('yupe', 'Управление'),
 );
-$this-> pageTitle ="категории - "."Yii::t('yupe','управление')";
-$this->menu=array(
-array('icon'=> 'list-alt white', 'label' => Yii::t('yupe','Управление категориями'),'url'=>array('/category/default/index')),
-array('icon'=> 'file','label' => Yii::t('yupe','Добавить категорию'), 'url' => array('/category/default/create')),
+$this->pageTitle = "категории - " . "Yii::t('yupe','управление')";
+$this->menu = array(
+    array( 'icon'  => 'list-alt white', 'label' => Yii::t('yupe', 'Управление категориями'), 'url'   => array( '/category/default/index' ) ),
+    array( 'icon'  => 'file', 'label' => Yii::t('yupe', 'Добавить категорию'), 'url'   => array( '/category/default/create' ) ),
 );
 ?>
 <div class="page-header">
-    <h1><?php echo ucfirst(Yii::t('yupe','категории'));?>    <small><?php echo Yii::t('yupe','управление');?></small>
+    <h1><?php echo ucfirst(Yii::t('yupe', 'категории')); ?>    <small><?php echo Yii::t('yupe', 'управление'); ?></small>
     </h1>
 </div>
 <button class="btn btn-small dropdown-toggle"  data-toggle="collapse"  data-target="#search-toggle" >
@@ -19,7 +19,8 @@ array('icon'=> 'file','label' => Yii::t('yupe','Добавить категор�
 </button>
 
 <div id="search-toggle" class="collapse out">
-<?php Yii::app()->clientScript->registerScript('search', "
+    <?php
+    Yii::app()->clientScript->registerScript('search', "
 $('.search-form form').submit(function(){
 $.fn.yiiGridView.update('category-grid', {
 data: $(this).serialize()
@@ -27,37 +28,47 @@ data: $(this).serialize()
 return false;
 });
 ");
-    $this->renderPartial('_search',array(
-	'model'=>$model,
-));
-?>
+    $this->renderPartial('_search', array(
+        'model' => $model,
+    ));
+    ?>
 </div>
 
 <br/>
 
 <p>
-    <?php echo Yii::t('yupe','В данном разделе представлены средства управления');?> <?php echo Yii::t('yupe','категориями');?>.
+    <?php echo Yii::t('yupe', 'В данном разделе представлены средства управления'); ?> <?php echo Yii::t('yupe', 'категориями'); ?>.
 </p>
 
 
 <?php
-$dp = $model->search();
-//$dp-> sort-> defaultOrder = "";
-$this->widget('bootstrap.widgets.BootGridView',array(
-'id'=>'category-grid',
-'type'=>'condensed ',
-'pager'=>array('class'=>'bootstrap.widgets.BootPager', 	'prevPageLabel'=>"←",'nextPageLabel'=>"→"),
-'dataProvider'=>$dp,
-'filter'=>$model,
-'columns'=>array(
-		'id',
-		'parent_id',
-		'name',
-		'description',
-		'alias',
-		'status',
-array(
-'class'=>'bootstrap.widgets.BootButtonColumn',
-),
-),
-)); ?>
+$dp     = $model->search();
+$this->widget('bootstrap.widgets.BootGridView', array(
+    'id'    => 'category-grid',
+    'type'  => 'condensed ',
+    'pager' => array( 'class'=> 'bootstrap.widgets.BootPager', 'prevPageLabel' => "←", 'nextPageLabel' => "→" ),
+    'dataProvider'  => $dp,
+    'filter'        => $model,
+    'columns'       => array(
+        'id',
+        array(
+            'name'  => 'parent_id',
+            'value' => '$data->getParentName()'
+        ),
+        'name',
+        'alias',
+        array(
+            'name'  => 'image',
+            'type'  => 'raw',
+            'value' => '$data->image ? CHtml::image(Yii::app()->baseUrl . "/" . Yii::app()->getModule("yupe")->uploadPath . DIRECTORY_SEPARATOR . Yii::app()->getModule("category")->uploadPath . DIRECTORY_SEPARATOR . $data->image, $data->name, array( "width"  => 100, "height" => 100 )) : "---"'
+        ),
+        array(
+            'name'  => 'status',
+            'value' => '$data->getStatus()'
+        ),
+        array(
+            'class' => 'bootstrap.widgets.BootButtonColumn',
+        ),
+    ),
+));
+?>

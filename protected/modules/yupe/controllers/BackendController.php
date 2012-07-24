@@ -199,6 +199,8 @@ class BackendController extends YBackController
     {
         if (!empty($_FILES['file']['name']))
         {
+            $rename = (int) Yii::app()->request->getQuery('rename',1);
+
             $webPath = DIRECTORY_SEPARATOR . Yii::app()->getModule('yupe')->uploadPath . DIRECTORY_SEPARATOR. date('dmY') . DIRECTORY_SEPARATOR;
 
             $uploadPath = Yii::getPathOfAlias('webroot') . $webPath;
@@ -214,7 +216,7 @@ class BackendController extends YBackController
             if ($image)
             {
                 //сгенерировать имя файла и сохранить его
-                $newFileName = md5(time() . uniqid() . $image->name) . '.' . $image->extensionName;
+                $newFileName = $rename ? md5(time() . uniqid() . $image->name) . '.' . $image->extensionName : $image->name;
 
                 if (!$image->saveAs($uploadPath . $newFileName))
                     Yii::app()->ajax->rawText(Yii::t('yupe', 'При загрузке произошла ошибка!'));

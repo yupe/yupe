@@ -70,16 +70,17 @@ class Category extends CActiveRecord
         // NOTE: you should only define rules for those attributes that
         // will receive user inputs.
         return array(
-            array('name, description, alias','filter', 'filter' => 'trim'),
-            array('name, alias', 'filter', 'filter' => array($obj = new CHtmlPurifier(), 'purify')),
+            array('name, description, short_description, image, alias','filter', 'filter' => 'trim'),
+            array('name, alias, image', 'filter', 'filter' => array($obj = new CHtmlPurifier(), 'purify')),
             array('name, description, alias', 'required'),
             array('parent_id, status', 'numerical', 'integerOnly' => true),
             array('name', 'length', 'max' => 150),
-            array('alias', 'length', 'max' => 50),
-            array('alias', 'match', 'pattern' => '/^[A-Za-z0-9_]{2,50}$/', 'message' => Yii::t('category','Неверный формат поля "{attribute}" допустимы только буквы, цифры и символ подчеркивания, от 2 до 20 символов')),
+            array('alias', 'length', 'max' => 100),
+            array('alias', 'match', 'pattern' => '/^[A-Za-z0-9_]{1,50}$/', 'message' => Yii::t('category','Неверный формат поля "{attribute}" допустимы только буквы, цифры и символ подчеркивания, от 2 до 20 символов')),
             array('alias', 'unique'),
             array('status', 'in', 'range' => array_keys($this->getStatusList())),
-            array('id, parent_id, name, description, alias, status', 'safe', 'on' => 'search'),
+            array('image', 'file', 'types'=>'jpg, gif, png','allowEmpty' => true),
+            array('id, parent_id, name, description, short_description, alias, status', 'safe', 'on' => 'search'),
         );
     }
 
@@ -92,6 +93,8 @@ class Category extends CActiveRecord
             'id' => Yii::t('category', 'Id'),
             'parent_id' => Yii::t('category', 'Родитель'),
             'name' => Yii::t('category', 'Название'),
+            'image' => Yii::t('category', 'Изображение'),
+            'short_description' => Yii::t('category', 'Короткое описание'),
             'description' => Yii::t('category', 'Описание'),
             'alias' => Yii::t('category', 'Алиас'),
             'status' => Yii::t('category', 'Статус'),
@@ -119,5 +122,26 @@ class Category extends CActiveRecord
         return new CActiveDataProvider(get_class($this), array(
             'criteria' => $criteria,
         ));
+    }
+
+    public function beforeValidate()
+    {
+        if (!$this->alias)
+            $this->alias = YText::translit($this->name);
+
+        return parent::beforeValidate();
+    }
+
+    public function getParentName()
+    {
+        if($this->parent_id)
+        {
+            $model = Category::model()->findByPk($this->parent_id);
+
+            if($model)
+                return $model->name;
+        }
+
+        return '---';
     }
 }

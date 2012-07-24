@@ -21,10 +21,22 @@ $this->menu=array(
 	'data'=>$model,
 	'attributes'=>array(
 		'id',
-		'parent_id',
+		array(
+                    'name'  => 'parent_id',
+                    'value' => $model->getParentName()
+                ),
 		'name',
+		array(
+                    'name'  => 'image',
+                    'type'  => 'raw',
+                    'value' => $model->image ? CHtml::image(Yii::app()->baseUrl.'/'.Yii::app()->getModule('yupe')->uploadPath . DIRECTORY_SEPARATOR . $this->module->uploadPath.DIRECTORY_SEPARATOR.$model->image, $model->name,array('width' => 300,'height' => 300)) : '---'
+                ),
+		'short_description',
 		'description',
 		'alias',
-		'status',
+		array(
+                    'name'  => 'status',
+                    'value' => $model->getStatus()
+                ),
 	),
 )); ?>
