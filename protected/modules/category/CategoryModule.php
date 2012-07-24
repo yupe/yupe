@@ -7,10 +7,15 @@ class CategoryModule extends YWebModule
             'adminMenuOrder' => Yii::t('category', 'Порядок следования в меню'),
         );
     }
+    
+    public function getAdminPageLink()
+    {
+        return '/category/default/';
+    }
 
     public  function getVersion()
     {
-        return '0.1 (dev)';
+        return '0.2 (dev)';
     }
 
     public function getCategory()

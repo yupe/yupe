@@ -28,8 +28,8 @@ abstract class YWidget extends CWidget
     {
         parent::init();
 
-        if (!$this->cacheTime && $this->cacheTime !== 0)
-            $this->cacheTime = Yii::app()->getModule('yupe')->coreCacheTime;
+        //if (!$this->cacheTime && $this->cacheTime !== 0)
+        //    $this->cacheTime = Yii::app()->getModule('yupe')->coreCacheTime;
     }
 
     public function getViewPath($checkTheme = false)

@@ -45,9 +45,9 @@ class YupeCode extendS CrudCode
 				$inputField='textFieldRow';
 
 			if ($column->type!=='string' || $column->size===null)
-				return "\$form->{$inputField}(\$model,'{$column->name}',array('class'=>'span5'))";
+				return "\$form->{$inputField}(\$model,'{$column->name}',array('class'=>'span5','size' => 60,'maxlength' => 60))";
 			else
-				return "\$form->{$inputField}(\$model,'{$column->name}',array('class'=>'span5','maxlength'=>$column->size))";
+				return "\$form->{$inputField}(\$model,'{$column->name}',array('class'=>'span5','maxlength'=>$column->size,'size' => 60))";
 		}
 	}
 }

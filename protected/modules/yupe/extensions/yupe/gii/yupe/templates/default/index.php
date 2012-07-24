@@ -22,13 +22,12 @@ array('icon'=> 'file','label' => Yii::t('yupe','Добавить <?php echo $thi
 <?php echo  "?>"; ?>
 
 <div class="page-header">
-    <h1><?php echo "<?php echo Yii::t('yupe','$label');?>"; ?>
+    <h1><?php echo "<?php echo ucfirst(Yii::t('yupe','$label'));?>"; ?>
     <small><?php echo "<?php echo Yii::t('yupe','управление');?>"?></small>
     </h1>
 </div>
-<button class="btn btn-small dropdown-toggle"
-        data-toggle="collapse"
-        data-target="#search-toggle" >
+<button class="btn btn-small dropdown-toggle"  data-toggle="collapse"  data-target="#search-toggle" >
+    <i class="icon-search"></i>
     <?php echo CHtml::link(Yii::t('yupe','Поиск ').$this->mrod, '#', array('class' => 'search-button'));?>
     <span class="caret"></span>
 </button>
@@ -49,7 +48,10 @@ return false;
 ?>\n"; ?>
 </div>
 
-<p><?php echo "<?php echo Yii::t('yupe','В данном разделе представлены средства управления');?>";?> <?php echo "<?php echo Yii::t('yupe','$this->mtvor');?>"; ?>.
+<br/>
+
+<p>
+    <?php echo "<?php echo Yii::t('yupe','В данном разделе представлены средства управления');?>";?> <?php echo "<?php echo Yii::t('yupe','$this->mtvor');?>"; ?>.
 </p>
 
 

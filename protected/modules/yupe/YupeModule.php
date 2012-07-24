@@ -50,7 +50,10 @@ class YupeModule extends YWebModule
         if (!is_writable($uploadPath))
             return array(
                 'type' => YWebModule::CHECK_ERROR,
-                'message' => Yii::t('yupe', 'Директория "{dir}" не досутпна для записи!', array('{dir}' => $uploadPath)),
+                'message' => Yii::t('yupe', 'Директория "{dir}" не досутпна для записи! {link}', array(
+                    '{dir}'  => $uploadPath,
+                    '{link}' => CHtml::link(Yii::t('yupe','Изменить настройки'),array('/yupe/backend/modulesettings/','module' => 'yupe'))
+                    )),
             );
 
         if (!is_writable(Yii::app()->runtimePath))

@@ -113,7 +113,7 @@
 
     <div id="header">
         <div id="logo"><?php echo Yii::t('install', 'Установка');?> <?php echo CHtml::encode(Yii::app()->name); ?>
-            <?php echo CHtml::link(Yii::t('install','Необходима помощь?'),'http://yupe.ru/feedback/contact',array('target' => '_blank'));?>
+            <?php echo CHtml::link(Yii::t('install','Необходима помощь?'),'http://yupe.ru/feedback/contact?from=install',array('target' => '_blank'));?>
              <br/> <br/><?php echo CHtml::encode($this->stepName);?></div>
     </div>
     <!-- header -->

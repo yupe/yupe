@@ -27,8 +27,13 @@ class DefaultController extends YBackController
 		if(isset($_POST['Category']))
 		{
 			$model->attributes=$_POST['Category'];
+
 			if($model->save())
-				$this->redirect(array('view','id'=>$model->id));
+                        {
+                            Yii::app()->user->setFlash(YFlashMessages::NOTICE_MESSAGE,Yii::t('yupe','Запись добавлена!'));
+
+			    $this->redirect(array('view','id'=>$model->id));
+                        }
 		}
 
 		$this->render('create',array(
@@ -50,8 +55,13 @@ class DefaultController extends YBackController
 		if(isset($_POST['Category']))
 		{
 			$model->attributes=$_POST['Category'];
+
 			if($model->save())
-				$this->redirect('index');
+                        {
+                            Yii::app()->user->setFlash(YFlashMessages::NOTICE_MESSAGE,Yii::t('yupe','Запись обновлена!'));
+
+			    $this->redirect(array('update','id' => $model->id));
+                        }
 		}
 
 		$this->render('update',array(
@@ -70,6 +80,8 @@ class DefaultController extends YBackController
 		{
 			// поддерживаем удаление только из POST-запроса
 			$this->loadModel($id)->delete();
+
+                        Yii::app()->user->setFlash(YFlashMessages::NOTICE_MESSAGE,Yii::t('yupe','Запись удалена!'));
 
 			// если это AJAX запрос ( кликнули удаление в админском grid view), мы не должны никуда редиректить
 			if(!isset($_GET['ajax']))

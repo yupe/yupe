@@ -7,7 +7,8 @@
 <?php echo  "<?php \$form=\$this->beginWidget('bootstrap.widgets.BootActiveForm',array(
 	'id'=>'".$this->class2id($this->modelClass)."-form',
 	'enableAjaxValidation'=>false,
-	'type'=>'horizontal',
+	'type'=>'vertical',
+        'htmlOptions' => array('class' => 'well form-vertical')
 )); ?>\n"; ?>
 
 <div class="alert alert-info"><?php echo "<?php echo Yii::t('yupe','Поля, отмеченные');?>";?> <span class="required">*</span> <?php echo "<?php echo Yii::t('yupe','обязательны.');?>";?></div>
@@ -20,17 +21,17 @@ foreach($this->tableSchema->columns as $column)
 	if($column->autoIncrement)
 		continue;
 ?>
-	<?php echo  "<div class='control-group <?php echo \$model->hasErrors(\"{$column->name}\")?\"error\":\"\" ?>'><?php echo  ".$this->generateActiveRow($this->modelClass,$column)."; ?></div>\n"; ?>
+	<?php echo  "<div class='row-fluid control-group <?php echo \$model->hasErrors(\"{$column->name}\")?\"error\":\"\" ?>'><?php echo  ".$this->generateActiveRow($this->modelClass,$column)."; ?></div>\n"; ?>
 
 <?php
 }
 ?>
-	<div class="form-actions">
-		<?php echo  "<?php \$this->widget('bootstrap.widgets.BootButton', array(
-			'buttonType'=>'submit',
-			'type'=>'primary',
-			'label'=>\$model->isNewRecord ? Yii::t('yupe','Создать') : 'Сохранить',
-		)); ?>\n"; ?>
-	</div>
+	
+<?php echo  "<?php \$this->widget('bootstrap.widgets.BootButton', array(
+        'buttonType'=>'submit',
+        'type'=>'primary',
+        'label'=>\$model->isNewRecord ? Yii::t('yupe','Создать $this->vin') : Yii::t('yupe','Сохранить $this->vin'),
+)); ?>\n"; ?>
+	
 
 <?php echo  "<?php \$this->endWidget(); ?>\n"; ?>

@@ -6,7 +6,7 @@ $this->breadcrumbs=array(
 
 $this->menu=array(
 array('icon'=> 'list-alt', 'label' => Yii::t('yupe','Управление категориями'),'url'=>array('/category/default/index')),
-    array('icon'=> 'file', 'label' => Yii::t('yupe','Добавление категории'),'url'=>array('/category/default/create')),
+    array('icon'=> 'file', 'label' => Yii::t('yupe','Добавить категорию'),'url'=>array('/category/default/create')),
 );
 ?>
 <div class="page-header">
