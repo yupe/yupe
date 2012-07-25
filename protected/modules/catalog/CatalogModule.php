@@ -2,11 +2,40 @@
 
 class CatalogModule extends YWebModule
 {
+    public $uploadPath = 'catalog';
+
+    public function getUploadPath()
+    {
+        return Yii::getPathOfAlias('webroot') . DIRECTORY_SEPARATOR . Yii::app()->getModule('yupe')->uploadPath . DIRECTORY_SEPARATOR . $this->uploadPath.DIRECTORY_SEPARATOR;
+    }
+
+    public function checkSelf()
+    {
+        $uploadPath = Yii::getPathOfAlias('webroot') . DIRECTORY_SEPARATOR . Yii::app()->getModule('yupe')->uploadPath . DIRECTORY_SEPARATOR . $this->uploadPath;
+
+        if (!is_writable($uploadPath))
+            return array(
+                'type'    => YWebModule::CHECK_ERROR,
+                'message' => Yii::t('catalog', 'Директория "{dir}" не досутпна для записи! {link}', array(
+                    '{dir}'  => $uploadPath,
+                    '{link}' => CHtml::link(Yii::t('catalog', 'Изменить настройки'), array( '/yupe/backend/modulesettings/', 'module' => 'catalog' ))
+                )),
+            );
+    }
+    
+    public function getEditableParams()
+    {
+        return array(
+            'uploadPath',
+            'adminMenuOrder'
+        );
+    }
 
     public function getParamsLabels()
     {
         return array(
-            'adminMenuOrder' => Yii::t('news', 'Порядок следования в меню'),
+            'adminMenuOrder' => Yii::t('category', 'Порядок следования в меню'),
+            'uploadPath'     => Yii::t('yupe', 'Каталог для загрузки файлов (относительно Yii::app()->getModule("yupe")->uploadPath)'),
         );
     }
 
@@ -22,14 +51,7 @@ class CatalogModule extends YWebModule
     {
         return '/catalog/default/';
     }
-
-    public function getEditableParams()
-    {
-        return array(
-            'adminMenuOrder',
-        );
-    }
-
+    
     public function getVersion()
     {
         return '0.1 (dev)';

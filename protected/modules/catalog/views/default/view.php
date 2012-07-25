@@ -32,7 +32,11 @@ $this->menu=array(
 			'value' => number_format($model->price,2,'.','')
 		),
 		'article',
-		'image',
+		array(
+                    'name'  => 'image',
+                    'type'  => 'raw',
+                    'value' => $model->image ? CHtml::image(Yii::app()->baseUrl.'/'.Yii::app()->getModule('yupe')->uploadPath . DIRECTORY_SEPARATOR . $this->module->uploadPath.DIRECTORY_SEPARATOR.$model->image, $model->name,array('width' => 300,'height' => 300)) : '---'
+                ),		
 		'create_time',
 		'update_time',
 		array(
