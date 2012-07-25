@@ -21,19 +21,39 @@ $this->menu=array(
 	'data'=>$model,
 	'attributes'=>array(
 		'id',
-		'category_id',
+		array(
+			'name'  => 'category_id',
+			'value' => $model->category->name
+		),
 		'name',
-		'price',
+		'alias',
+		array(
+			'name'  => 'price',
+			'value' => number_format($model->price,2,'.','')
+		),
 		'article',
 		'image',
-		'short_description',
-		'description',
-		'alias',
-		'data',
-		'status',
 		'create_time',
 		'update_time',
-		'user_id',
-		'change_user_id',
+		array(
+			'name'  => 'user_id',
+			'value' => $model->user->getFullName()
+		),
+		array(
+			'name'  => 'change_user_id',
+			'value' => $model->changeUser->getFullName()
+		),		
+		array(
+			'name' => 'description',
+			'type' => 'raw'
+		),
+		array(
+			'name' => 'short_description',
+			'type' => 'raw'
+		),		
+		array(
+			'name'  => 'status',
+			'value' => $model->getStatus()
+		),		
 	),
 )); ?>

@@ -77,6 +77,7 @@ class CatalogModule extends YWebModule
         $this->setImport(array(
             'catalog.models.*',
             'catalog.components.*',
+            'category.models.*'
         ));
     }
 

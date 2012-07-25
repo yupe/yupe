@@ -27,6 +27,28 @@
  */
 class Good extends CActiveRecord
 {
+	const STATUS_ACTIVE = 1;
+
+	const STATUS_NOT_ACTIVE = 2;
+    
+    const STATUS_ZERO = 0;
+
+    public function getStatusList()
+    {
+    	return array(
+    		self::STATUS_ACTIVE => Yii::t('catalog','Доступен'),
+    		self::STATUS_NOT_ACTIVE => Yii::t('catalog','Не доступен'),
+    		self::STATUS_ZERO => Yii::t('catalog','Нет в наличии'),
+    	);
+    }
+
+    public function getStatus()
+    {
+    	$data = $this->getStatusList();
+
+    	return isset($data[$this->status]) ? $data[$this->status] : Yii::t('catalog','*неизвестно*'); 
+    }
+
 	/**
 	 * Returns the static model of the specified AR class.
 	 * @param string $className active record class name.
@@ -53,17 +75,20 @@ class Good extends CActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('category_id, name, description, alias, create_time, update_time, user_id, change_user_id', 'required'),
-			array('status', 'numerical', 'integerOnly'=>true),
+			array('name, description, short_description, image, alias, price, article, data, status, is_special','filter', 'filter' => 'trim'),
+            array('name, image, alias, price, article, data, status, is_special', 'filter', 'filter' => array($obj = new CHtmlPurifier(), 'purify')),
+			array('category_id, name, description, alias', 'required'),
+			array('status, category_id, is_special', 'numerical', 'integerOnly'=>true),
 			array('price', 'numerical'),
-			array('category_id, user_id, change_user_id', 'length', 'max'=>10),
 			array('name', 'length', 'max'=>150),
 			array('article, alias', 'length', 'max'=>100),
 			array('image', 'length', 'max'=>300),
+			array('status','in','range' => array_keys($this->getStatusList())),
+			array('is_special','in','range' => array(0,1)),
 			array('short_description, data', 'safe'),
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
-			array('id, category_id, name, price, article, image, short_description, description, alias, data, status, create_time, update_time, user_id, change_user_id', 'safe', 'on'=>'search'),
+			array('id, category_id, name, price, article, image, short_description, description, alias, data, status, create_time, update_time, user_id, change_user_id, is_special', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -87,21 +112,22 @@ class Good extends CActiveRecord
 	public function attributeLabels()
 	{
 		return array(
-			'id' => 'ID',
-			'category_id' => 'Category',
-			'name' => 'Name',
-			'price' => 'Price',
-			'article' => 'Article',
-			'image' => 'Image',
-			'short_description' => 'Short Description',
-			'description' => 'Description',
-			'alias' => 'Alias',
-			'data' => 'Data',
-			'status' => 'Status',
-			'create_time' => 'Create Time',
-			'update_time' => 'Update Time',
-			'user_id' => 'User',
-			'change_user_id' => 'Change User',
+			'id' => Yii::t('catalog','ID'),
+			'category_id' => Yii::t('catalog','Категория'),
+			'name' => Yii::t('catalog','Название'),
+			'price' => Yii::t('catalog','Цена'),
+			'article' => Yii::t('catalog','Артикул'),
+			'image' => Yii::t('catalog','Изображение'),
+			'short_description' => Yii::t('catalog','Короткое описание'),
+			'description' => Yii::t('catalog','Описание'),
+			'alias' => Yii::t('catalog','Алиас'),
+			'data' => Yii::t('catalog','Данные'),
+			'status' => Yii::t('catalog','Статус'),
+			'create_time' => Yii::t('catalog','Добавлено'),
+			'update_time' => Yii::t('catalog','Изменено'),
+			'user_id' => Yii::t('catalog','Добавил'),
+			'change_user_id' => Yii::t('catalog','Изменил'),
+			'is_special' => Yii::t('catalog','Спецпредложение'),
 		);
 	}
 
@@ -126,6 +152,7 @@ class Good extends CActiveRecord
 		$criteria->compare('description',$this->description,true);
 		$criteria->compare('alias',$this->alias,true);
 		$criteria->compare('data',$this->data,true);
+		$criteria->compare('is_special',$this->is_special,true);
 		$criteria->compare('status',$this->status);
 		$criteria->compare('create_time',$this->create_time,true);
 		$criteria->compare('update_time',$this->update_time,true);
@@ -135,5 +162,31 @@ class Good extends CActiveRecord
 		return new CActiveDataProvider($this, array(
 			'criteria'=>$criteria,
 		));
+	}
+
+	public function beforeValidate()
+	{
+		if($this->isNewRecord)
+		{
+            $this->create_time = $this->update_time = new CDbExpression('NOW()');
+
+            $this->user_id = $this->change_user_id = Yii::app()->user->getId();
+		}
+		else
+		{
+		    $this->update_time = new CDbExpression('NOW()');
+
+            $this->change_user_id = Yii::app()->user->getId();
+		}
+
+		if(!$this->alias)
+			$this->alias = YText::translit($this->name);
+
+		return parent::beforeValidate();
+	}
+
+	public function getIsSpecial()
+	{
+		return $this->is_special ? Yii::t('catalog','Да') : Yii::t('catalog','Нет');
 	}
 }

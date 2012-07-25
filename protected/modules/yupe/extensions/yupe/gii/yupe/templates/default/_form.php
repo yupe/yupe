@@ -30,7 +30,7 @@ foreach($this->tableSchema->columns as $column)
 <?php echo  "<?php \$this->widget('bootstrap.widgets.BootButton', array(
         'buttonType'=>'submit',
         'type'=>'primary',
-        'label'=>\$model->isNewRecord ? Yii::t('yupe','Создать $this->vin') : Yii::t('yupe','Сохранить $this->vin'),
+        'label'=>\$model->isNewRecord ? Yii::t('yupe','Добавить $this->vin') : Yii::t('yupe','Сохранить $this->vin'),
 )); ?>\n"; ?>
 	
 
