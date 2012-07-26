@@ -22,6 +22,7 @@
                 <?php $this->widget('zii.widgets.jui.CJuiDatePicker', array(
                 'model' => $model,
                 'attribute' => 'date',
+                'language' => Yii::app()->language,
                 'options' => array(
                     'dateFormat' => 'dd.mm.yy',
                 ),
