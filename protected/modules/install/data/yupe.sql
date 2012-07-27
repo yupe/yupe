@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 3.4.5deb1
+-- version 3.4.5
 -- http://www.phpmyadmin.net
 --
--- Хост: localhost
--- Время создания: Июл 24 2012 г., 16:24
--- Версия сервера: 5.1.63
--- Версия PHP: 5.3.6-13ubuntu3.8
+-- Host: localhost
+-- Generation Time: Jul 24, 2012 at 06:55 PM
+-- Server version: 5.5.16
+-- PHP Version: 5.3.8
 
 SET SQL_MODE="NO_AUTO_VALUE_ON_ZERO";
 SET time_zone = "+00:00";
@@ -17,13 +17,13 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8 */;
 
 --
--- База данных: `yupe`
+-- Database: `yupe`
 --
 
 -- --------------------------------------------------------
 
 --
--- Структура таблицы `blog`
+-- Table structure for table `blog`
 --
 
 CREATE TABLE IF NOT EXISTS `blog` (
@@ -49,7 +49,7 @@ CREATE TABLE IF NOT EXISTS `blog` (
 -- --------------------------------------------------------
 
 --
--- Структура таблицы `category`
+-- Table structure for table `category`
 --
 
 CREATE TABLE IF NOT EXISTS `category` (
@@ -65,12 +65,12 @@ CREATE TABLE IF NOT EXISTS `category` (
   UNIQUE KEY `alias` (`alias`),
   KEY `status` (`status`),
   KEY `parent_id` (`parent_id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=22 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=23 ;
 
 -- --------------------------------------------------------
 
 --
--- Структура таблицы `comment`
+-- Table structure for table `comment`
 --
 
 CREATE TABLE IF NOT EXISTS `comment` (
@@ -94,7 +94,7 @@ CREATE TABLE IF NOT EXISTS `comment` (
 -- --------------------------------------------------------
 
 --
--- Структура таблицы `content_block`
+-- Table structure for table `content_block`
 --
 
 CREATE TABLE IF NOT EXISTS `content_block` (
@@ -112,7 +112,7 @@ CREATE TABLE IF NOT EXISTS `content_block` (
 -- --------------------------------------------------------
 
 --
--- Структура таблицы `contest`
+-- Table structure for table `contest`
 --
 
 CREATE TABLE IF NOT EXISTS `contest` (
@@ -131,7 +131,7 @@ CREATE TABLE IF NOT EXISTS `contest` (
 -- --------------------------------------------------------
 
 --
--- Структура таблицы `dictionary_data`
+-- Table structure for table `dictionary_data`
 --
 
 CREATE TABLE IF NOT EXISTS `dictionary_data` (
@@ -157,7 +157,7 @@ CREATE TABLE IF NOT EXISTS `dictionary_data` (
 -- --------------------------------------------------------
 
 --
--- Структура таблицы `dictionary_group`
+-- Table structure for table `dictionary_group`
 --
 
 CREATE TABLE IF NOT EXISTS `dictionary_group` (
@@ -178,7 +178,7 @@ CREATE TABLE IF NOT EXISTS `dictionary_group` (
 -- --------------------------------------------------------
 
 --
--- Структура таблицы `feedback`
+-- Table structure for table `feedback`
 --
 
 CREATE TABLE IF NOT EXISTS `feedback` (
@@ -206,7 +206,7 @@ CREATE TABLE IF NOT EXISTS `feedback` (
 -- --------------------------------------------------------
 
 --
--- Структура таблицы `gallery`
+-- Table structure for table `gallery`
 --
 
 CREATE TABLE IF NOT EXISTS `gallery` (
@@ -221,7 +221,7 @@ CREATE TABLE IF NOT EXISTS `gallery` (
 -- --------------------------------------------------------
 
 --
--- Структура таблицы `good`
+-- Table structure for table `good`
 --
 
 CREATE TABLE IF NOT EXISTS `good` (
@@ -235,6 +235,7 @@ CREATE TABLE IF NOT EXISTS `good` (
   `description` text NOT NULL,
   `alias` varchar(100) NOT NULL,
   `data` text,
+  `is_special` tinyint(1) NOT NULL DEFAULT '0',
   `status` smallint(1) unsigned NOT NULL DEFAULT '1',
   `create_time` datetime NOT NULL,
   `update_time` datetime NOT NULL,
@@ -247,13 +248,14 @@ CREATE TABLE IF NOT EXISTS `good` (
   KEY `user_id` (`user_id`),
   KEY `change_user_id` (`change_user_id`),
   KEY `article` (`article`),
-  KEY `price` (`price`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+  KEY `price` (`price`),
+  KEY `is_special` (`is_special`)
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=2 ;
 
 -- --------------------------------------------------------
 
 --
--- Структура таблицы `image`
+-- Table structure for table `image`
 --
 
 CREATE TABLE IF NOT EXISTS `image` (
@@ -276,7 +278,7 @@ CREATE TABLE IF NOT EXISTS `image` (
 -- --------------------------------------------------------
 
 --
--- Структура таблицы `image_to_contest`
+-- Table structure for table `image_to_contest`
 --
 
 CREATE TABLE IF NOT EXISTS `image_to_contest` (
@@ -293,7 +295,7 @@ CREATE TABLE IF NOT EXISTS `image_to_contest` (
 -- --------------------------------------------------------
 
 --
--- Структура таблицы `image_to_gallery`
+-- Table structure for table `image_to_gallery`
 --
 
 CREATE TABLE IF NOT EXISTS `image_to_gallery` (
@@ -310,7 +312,7 @@ CREATE TABLE IF NOT EXISTS `image_to_gallery` (
 -- --------------------------------------------------------
 
 --
--- Структура таблицы `login`
+-- Table structure for table `login`
 --
 
 CREATE TABLE IF NOT EXISTS `login` (
@@ -328,7 +330,7 @@ CREATE TABLE IF NOT EXISTS `login` (
 -- --------------------------------------------------------
 
 --
--- Структура таблицы `mail_event`
+-- Table structure for table `mail_event`
 --
 
 CREATE TABLE IF NOT EXISTS `mail_event` (
@@ -343,7 +345,7 @@ CREATE TABLE IF NOT EXISTS `mail_event` (
 -- --------------------------------------------------------
 
 --
--- Структура таблицы `mail_template`
+-- Table structure for table `mail_template`
 --
 
 CREATE TABLE IF NOT EXISTS `mail_template` (
@@ -366,7 +368,7 @@ CREATE TABLE IF NOT EXISTS `mail_template` (
 -- --------------------------------------------------------
 
 --
--- Структура таблицы `menu`
+-- Table structure for table `menu`
 --
 
 CREATE TABLE IF NOT EXISTS `menu` (
@@ -383,7 +385,7 @@ CREATE TABLE IF NOT EXISTS `menu` (
 -- --------------------------------------------------------
 
 --
--- Структура таблицы `menu_item`
+-- Table structure for table `menu_item`
 --
 
 CREATE TABLE IF NOT EXISTS `menu_item` (
@@ -406,7 +408,7 @@ CREATE TABLE IF NOT EXISTS `menu_item` (
 -- --------------------------------------------------------
 
 --
--- Структура таблицы `news`
+-- Table structure for table `news`
 --
 
 CREATE TABLE IF NOT EXISTS `news` (
@@ -433,7 +435,7 @@ CREATE TABLE IF NOT EXISTS `news` (
 -- --------------------------------------------------------
 
 --
--- Структура таблицы `page`
+-- Table structure for table `page`
 --
 
 CREATE TABLE IF NOT EXISTS `page` (
@@ -464,7 +466,7 @@ CREATE TABLE IF NOT EXISTS `page` (
 -- --------------------------------------------------------
 
 --
--- Структура таблицы `post`
+-- Table structure for table `post`
 --
 
 CREATE TABLE IF NOT EXISTS `post` (
@@ -498,7 +500,7 @@ CREATE TABLE IF NOT EXISTS `post` (
 -- --------------------------------------------------------
 
 --
--- Структура таблицы `post_to_tag`
+-- Table structure for table `post_to_tag`
 --
 
 CREATE TABLE IF NOT EXISTS `post_to_tag` (
@@ -511,7 +513,7 @@ CREATE TABLE IF NOT EXISTS `post_to_tag` (
 -- --------------------------------------------------------
 
 --
--- Структура таблицы `queue`
+-- Table structure for table `queue`
 --
 
 CREATE TABLE IF NOT EXISTS `queue` (
@@ -532,7 +534,7 @@ CREATE TABLE IF NOT EXISTS `queue` (
 -- --------------------------------------------------------
 
 --
--- Структура таблицы `recovery_password`
+-- Table structure for table `recovery_password`
 --
 
 CREATE TABLE IF NOT EXISTS `recovery_password` (
@@ -548,7 +550,7 @@ CREATE TABLE IF NOT EXISTS `recovery_password` (
 -- --------------------------------------------------------
 
 --
--- Структура таблицы `settings`
+-- Table structure for table `settings`
 --
 
 CREATE TABLE IF NOT EXISTS `settings` (
@@ -561,12 +563,12 @@ CREATE TABLE IF NOT EXISTS `settings` (
   `user_id` int(10) unsigned NOT NULL,
   PRIMARY KEY (`id`),
   KEY `moduleId` (`module_id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=530 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=534 ;
 
 -- --------------------------------------------------------
 
 --
--- Структура таблицы `tag`
+-- Table structure for table `tag`
 --
 
 CREATE TABLE IF NOT EXISTS `tag` (
@@ -579,7 +581,7 @@ CREATE TABLE IF NOT EXISTS `tag` (
 -- --------------------------------------------------------
 
 --
--- Структура таблицы `user`
+-- Table structure for table `user`
 --
 
 CREATE TABLE IF NOT EXISTS `user` (
@@ -613,12 +615,12 @@ CREATE TABLE IF NOT EXISTS `user` (
   UNIQUE KEY `user_email_unique` (`email`),
   KEY `user_status_index` (`status`),
   KEY `email_confirm` (`email_confirm`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=85 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=86 ;
 
 -- --------------------------------------------------------
 
 --
--- Структура таблицы `user_to_blog`
+-- Table structure for table `user_to_blog`
 --
 
 CREATE TABLE IF NOT EXISTS `user_to_blog` (
@@ -639,7 +641,7 @@ CREATE TABLE IF NOT EXISTS `user_to_blog` (
 -- --------------------------------------------------------
 
 --
--- Структура таблицы `vote`
+-- Table structure for table `vote`
 --
 
 CREATE TABLE IF NOT EXISTS `vote` (
@@ -657,7 +659,7 @@ CREATE TABLE IF NOT EXISTS `vote` (
 -- --------------------------------------------------------
 
 --
--- Структура таблицы `wiki_link`
+-- Table structure for table `wiki_link`
 --
 
 CREATE TABLE IF NOT EXISTS `wiki_link` (
@@ -674,7 +676,7 @@ CREATE TABLE IF NOT EXISTS `wiki_link` (
 -- --------------------------------------------------------
 
 --
--- Структура таблицы `wiki_page`
+-- Table structure for table `wiki_page`
 --
 
 CREATE TABLE IF NOT EXISTS `wiki_page` (
@@ -696,7 +698,7 @@ CREATE TABLE IF NOT EXISTS `wiki_page` (
 -- --------------------------------------------------------
 
 --
--- Структура таблицы `wiki_page_revision`
+-- Table structure for table `wiki_page_revision`
 --
 
 CREATE TABLE IF NOT EXISTS `wiki_page_revision` (
@@ -712,18 +714,18 @@ CREATE TABLE IF NOT EXISTS `wiki_page_revision` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
 
 --
--- Ограничения внешнего ключа сохраненных таблиц
+-- Constraints for dumped tables
 --
 
 --
--- Ограничения внешнего ключа таблицы `blog`
+-- Constraints for table `blog`
 --
 ALTER TABLE `blog`
   ADD CONSTRAINT `blog_ibfk_1` FOREIGN KEY (`create_user_id`) REFERENCES `user` (`id`) ON DELETE CASCADE ON UPDATE NO ACTION,
   ADD CONSTRAINT `blog_ibfk_2` FOREIGN KEY (`update_user_id`) REFERENCES `user` (`id`) ON DELETE CASCADE ON UPDATE NO ACTION;
 
 --
--- Ограничения внешнего ключа таблицы `dictionary_data`
+-- Constraints for table `dictionary_data`
 --
 ALTER TABLE `dictionary_data`
   ADD CONSTRAINT `dictionary_data_ibfk_1` FOREIGN KEY (`group_id`) REFERENCES `dictionary_group` (`id`) ON DELETE CASCADE ON UPDATE NO ACTION,
@@ -731,71 +733,71 @@ ALTER TABLE `dictionary_data`
   ADD CONSTRAINT `dictionary_data_ibfk_9` FOREIGN KEY (`update_user_id`) REFERENCES `user` (`id`) ON DELETE CASCADE ON UPDATE NO ACTION;
 
 --
--- Ограничения внешнего ключа таблицы `dictionary_group`
+-- Constraints for table `dictionary_group`
 --
 ALTER TABLE `dictionary_group`
   ADD CONSTRAINT `dictionary_group_ibfk_3` FOREIGN KEY (`create_user_id`) REFERENCES `user` (`id`) ON DELETE CASCADE ON UPDATE NO ACTION,
   ADD CONSTRAINT `dictionary_group_ibfk_4` FOREIGN KEY (`update_user_id`) REFERENCES `user` (`id`) ON DELETE CASCADE ON UPDATE NO ACTION;
 
 --
--- Ограничения внешнего ключа таблицы `feedback`
+-- Constraints for table `feedback`
 --
 ALTER TABLE `feedback`
   ADD CONSTRAINT `feedback_ibfk_1` FOREIGN KEY (`answer_user`) REFERENCES `user` (`id`) ON UPDATE NO ACTION;
 
 --
--- Ограничения внешнего ключа таблицы `good`
+-- Constraints for table `good`
 --
 ALTER TABLE `good`
-  ADD CONSTRAINT `good_ibfk_8` FOREIGN KEY (`change_user_id`) REFERENCES `user` (`id`) ON UPDATE NO ACTION,
   ADD CONSTRAINT `good_ibfk_6` FOREIGN KEY (`category_id`) REFERENCES `category` (`id`) ON UPDATE NO ACTION,
-  ADD CONSTRAINT `good_ibfk_7` FOREIGN KEY (`user_id`) REFERENCES `user` (`id`) ON UPDATE NO ACTION;
+  ADD CONSTRAINT `good_ibfk_7` FOREIGN KEY (`user_id`) REFERENCES `user` (`id`) ON UPDATE NO ACTION,
+  ADD CONSTRAINT `good_ibfk_8` FOREIGN KEY (`change_user_id`) REFERENCES `user` (`id`) ON UPDATE NO ACTION;
 
 --
--- Ограничения внешнего ключа таблицы `image`
+-- Constraints for table `image`
 --
 ALTER TABLE `image`
   ADD CONSTRAINT `image_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `user` (`id`) ON DELETE CASCADE ON UPDATE NO ACTION;
 
 --
--- Ограничения внешнего ключа таблицы `image_to_gallery`
+-- Constraints for table `image_to_gallery`
 --
 ALTER TABLE `image_to_gallery`
   ADD CONSTRAINT `image_to_gallery_ibfk_2` FOREIGN KEY (`galleryId`) REFERENCES `gallery` (`id`) ON DELETE CASCADE ON UPDATE NO ACTION;
 
 --
--- Ограничения внешнего ключа таблицы `login`
+-- Constraints for table `login`
 --
 ALTER TABLE `login`
   ADD CONSTRAINT `login_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `user` (`id`) ON DELETE CASCADE ON UPDATE NO ACTION;
 
 --
--- Ограничения внешнего ключа таблицы `mail_template`
+-- Constraints for table `mail_template`
 --
 ALTER TABLE `mail_template`
   ADD CONSTRAINT `mail_template_ibfk_1` FOREIGN KEY (`event_id`) REFERENCES `mail_event` (`id`) ON DELETE CASCADE ON UPDATE NO ACTION;
 
 --
--- Ограничения внешнего ключа таблицы `menu_item`
+-- Constraints for table `menu_item`
 --
 ALTER TABLE `menu_item`
   ADD CONSTRAINT `menu_item_ibfk_1` FOREIGN KEY (`menu_id`) REFERENCES `menu` (`id`) ON DELETE CASCADE ON UPDATE NO ACTION;
 
 --
--- Ограничения внешнего ключа таблицы `news`
+-- Constraints for table `news`
 --
 ALTER TABLE `news`
   ADD CONSTRAINT `news_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `user` (`id`) ON UPDATE NO ACTION;
 
 --
--- Ограничения внешнего ключа таблицы `page`
+-- Constraints for table `page`
 --
 ALTER TABLE `page`
   ADD CONSTRAINT `page_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `user` (`id`) ON UPDATE NO ACTION,
   ADD CONSTRAINT `page_ibfk_2` FOREIGN KEY (`change_user_id`) REFERENCES `user` (`id`) ON UPDATE NO ACTION;
 
 --
--- Ограничения внешнего ключа таблицы `post`
+-- Constraints for table `post`
 --
 ALTER TABLE `post`
   ADD CONSTRAINT `post_ibfk_1` FOREIGN KEY (`create_user_id`) REFERENCES `user` (`id`) ON DELETE CASCADE ON UPDATE NO ACTION,
@@ -803,40 +805,40 @@ ALTER TABLE `post`
   ADD CONSTRAINT `post_ibfk_3` FOREIGN KEY (`blog_id`) REFERENCES `blog` (`id`) ON DELETE CASCADE ON UPDATE NO ACTION;
 
 --
--- Ограничения внешнего ключа таблицы `post_to_tag`
+-- Constraints for table `post_to_tag`
 --
 ALTER TABLE `post_to_tag`
   ADD CONSTRAINT `post_to_tag_ibfk_1` FOREIGN KEY (`post_id`) REFERENCES `post` (`id`) ON DELETE CASCADE ON UPDATE NO ACTION,
   ADD CONSTRAINT `post_to_tag_ibfk_2` FOREIGN KEY (`tag_id`) REFERENCES `tag` (`id`) ON UPDATE NO ACTION;
 
 --
--- Ограничения внешнего ключа таблицы `recovery_password`
+-- Constraints for table `recovery_password`
 --
 ALTER TABLE `recovery_password`
   ADD CONSTRAINT `fk_RecoveryPassword_User1` FOREIGN KEY (`user_id`) REFERENCES `user` (`id`) ON DELETE CASCADE ON UPDATE NO ACTION;
 
 --
--- Ограничения внешнего ключа таблицы `user_to_blog`
+-- Constraints for table `user_to_blog`
 --
 ALTER TABLE `user_to_blog`
   ADD CONSTRAINT `user_to_blog_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `user` (`id`) ON DELETE CASCADE ON UPDATE NO ACTION,
   ADD CONSTRAINT `user_to_blog_ibfk_2` FOREIGN KEY (`blog_id`) REFERENCES `blog` (`id`) ON DELETE CASCADE ON UPDATE NO ACTION;
 
 --
--- Ограничения внешнего ключа таблицы `vote`
+-- Constraints for table `vote`
 --
 ALTER TABLE `vote`
   ADD CONSTRAINT `vote_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `user` (`id`) ON UPDATE NO ACTION;
 
 --
--- Ограничения внешнего ключа таблицы `wiki_link`
+-- Constraints for table `wiki_link`
 --
 ALTER TABLE `wiki_link`
   ADD CONSTRAINT `wiki_fk_link_page_from` FOREIGN KEY (`page_from_id`) REFERENCES `wiki_page` (`id`) ON DELETE CASCADE,
   ADD CONSTRAINT `wiki_fk_link_page_to` FOREIGN KEY (`page_to_id`) REFERENCES `wiki_page` (`id`) ON DELETE SET NULL;
 
 --
--- Ограничения внешнего ключа таблицы `wiki_page_revision`
+-- Constraints for table `wiki_page_revision`
 --
 ALTER TABLE `wiki_page_revision`
   ADD CONSTRAINT `wiki_fk_page_revision_page` FOREIGN KEY (`page_id`) REFERENCES `wiki_page` (`id`) ON DELETE CASCADE;

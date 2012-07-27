@@ -2,7 +2,7 @@
 
 class ImageModule extends YWebModule
 {
-    public $uploadDir;
+    public $uploadDir='uploads';
 
     public $documentRoot;
 

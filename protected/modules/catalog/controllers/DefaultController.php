@@ -29,8 +29,22 @@ class DefaultController extends YBackController
         {
             $model->attributes = $_POST['Good'];
 
-            if ($model->save())
+           if ($model->save())
             {
+                $model->image = CUploadedFile::getInstance($model, 'image');               
+                
+                if ($model->image)
+                {
+                    $imageName = $this->module->getUploadPath() . $model->alias . '.' . $model->image->extensionName;
+
+                    if ($model->image->saveAs($imageName))
+                    {
+                        $model->image = basename($imageName);
+
+                        $model->update(array( 'image' ));
+                    }
+                }
+
                 Yii::app()->user->setFlash(YFlashMessages::NOTICE_MESSAGE, Yii::t('yupe', 'Запись добавлена!'));
 
                 $this->redirect(array( 'view', 'id' => $model->id ));
@@ -52,13 +66,37 @@ class DefaultController extends YBackController
 
         // Uncomment the following line if AJAX validation is needed
         // $this->performAjaxValidation($model);
+        
+         $image = $model->image;
 
         if (isset($_POST['Good']))
         {
             $model->attributes = $_POST['Good'];
 
-            if ($model->save())
+             if ($model->save())
             {
+                $model->image = CUploadedFile::getInstance($model, 'image');
+
+                if ($model->image)
+                {
+                    $imageName = $this->module->getUploadPath() . $model->alias . '.' . $model->image->extensionName;
+
+                    @unlink($this->module->getUploadPath() . $image);
+
+                    if ($model->image->saveAs($imageName))
+                    {
+                        $model->image = basename($imageName);
+
+                        $model->update(array( 'image' ));
+                    }
+                }
+                else
+                {
+                    $model->image = $image;
+
+                    $model->update(array( 'image' ));
+                }
+
                 Yii::app()->user->setFlash(YFlashMessages::NOTICE_MESSAGE, Yii::t('yupe', 'Запись обновлена!'));
 
                 $this->redirect(array( 'update', 'id' => $model->id ));
@@ -80,7 +118,10 @@ class DefaultController extends YBackController
         if (Yii::app()->request->isPostRequest)
         {
             // поддерживаем удаление только из POST-запроса
-            $this->loadModel($id)->delete();
+            $model = $this->loadModel($id);
+
+            if ($model->delete())
+                @unlink($this->module->getUploadPath() . $model->image);
 
             Yii::app()->user->setFlash(YFlashMessages::NOTICE_MESSAGE, Yii::t('yupe', 'Запись удалена!'));
 

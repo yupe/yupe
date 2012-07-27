@@ -21,19 +21,43 @@ $this->menu=array(
 	'data'=>$model,
 	'attributes'=>array(
 		'id',
-		'category_id',
+		array(
+			'name'  => 'category_id',
+			'value' => $model->category->name
+		),
 		'name',
-		'price',
-		'article',
-		'image',
-		'short_description',
-		'description',
 		'alias',
-		'data',
-		'status',
+		array(
+			'name'  => 'price',
+			'value' => number_format($model->price,2,'.','')
+		),
+		'article',
+		array(
+                    'name'  => 'image',
+                    'type'  => 'raw',
+                    'value' => $model->image ? CHtml::image(Yii::app()->baseUrl.'/'.Yii::app()->getModule('yupe')->uploadPath . DIRECTORY_SEPARATOR . $this->module->uploadPath.DIRECTORY_SEPARATOR.$model->image, $model->name,array('width' => 300,'height' => 300)) : '---'
+                ),		
 		'create_time',
 		'update_time',
-		'user_id',
-		'change_user_id',
+		array(
+			'name'  => 'user_id',
+			'value' => $model->user->getFullName()
+		),
+		array(
+			'name'  => 'change_user_id',
+			'value' => $model->changeUser->getFullName()
+		),		
+		array(
+			'name' => 'description',
+			'type' => 'raw'
+		),
+		array(
+			'name' => 'short_description',
+			'type' => 'raw'
+		),		
+		array(
+			'name'  => 'status',
+			'value' => $model->getStatus()
+		),		
 	),
 )); ?>

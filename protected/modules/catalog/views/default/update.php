@@ -13,7 +13,7 @@ $this->menu=array(
 );
 ?>
 <div class="page-header">
-    <h1><?php echo Yii::t('yupe','Редактирование');?> <?php echo Yii::t('yupe','товаре');?><br />
+    <h1><?php echo Yii::t('yupe','Редактирование');?> <?php echo Yii::t('yupe','товара');?><br />
         <small style="margin-left: -10px;">&laquo; <?php echo  $model->name; ?>&raquo;</small>
     </h1>
 </div>

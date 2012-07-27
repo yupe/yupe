@@ -51,22 +51,24 @@ $this->widget('bootstrap.widgets.BootGridView',array(
 'filter'=>$model,
 'columns'=>array(
 		'id',
-		'category_id',
+		array(
+			'name'  => 'category_id',
+			'value' => '$data->category->name'
+		),
 		'name',
+		'alias',
 		'price',
 		'article',
 		'image',
-		/*
-		'short_description',
-		'description',
-		'alias',
-		'data',
-		'status',
-		'create_time',
-		'update_time',
-		'user_id',
-		'change_user_id',
-		*/
+		array(
+			'name'  => 'is_special',
+			'value' => '$data->getIsSpecial()',
+		),
+		array(
+			'name'  => 'status',
+			'value' => '$data->getStatus()'
+		),
+		'create_time',		
 array(
 'class'=>'bootstrap.widgets.BootButtonColumn',
 ),

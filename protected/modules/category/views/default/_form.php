@@ -13,10 +13,10 @@
             <?php echo  $form->dropDownList($model,'parent_id',CHtml::listData(Category::model()->findAll(),'id','name'),array('empty' => Yii::t('category','--нет--'))); ?>
         </div>
 
-        <div class='row-fluid control-group <?php echo $model->hasErrors("alias")?"error":"" ?>'><?php echo  $form->textFieldRow($model,'alias',array('class'=>'span5','maxlength'=>100,'size' => 60)); ?></div>
-
-	<div class='row-fluid control-group <?php echo $model->hasErrors("name")?"error":"" ?>'><?php echo  $form->textFieldRow($model,'name',array('class'=>'span5','maxlength'=>150,'size' => 60)); ?></div>
-
+    <div class='row-fluid control-group <?php echo $model->hasErrors("name")?"error":"" ?>'><?php echo  $form->textFieldRow($model,'name',array('class'=>'span5','maxlength'=>150,'size' => 60)); ?></div>
+    
+    <div class='row-fluid control-group <?php echo $model->hasErrors("alias")?"error":"" ?>'><?php echo  $form->textFieldRow($model,'alias',array('class'=>'span5','maxlength'=>100,'size' => 60)); ?></div>
+	
 	<div class='row-fluid control-group <?php echo $model->hasErrors("image")?"error":"" ?>'>
             <?php if(!$model->isNewRecord && $model->image):?>
                 <?php echo CHtml::image(Yii::app()->baseUrl.'/'.Yii::app()->getModule('yupe')->uploadPath . DIRECTORY_SEPARATOR . $this->module->uploadPath.DIRECTORY_SEPARATOR.$model->image, $model->name,array('width' => 300,'height' => 300));?>
