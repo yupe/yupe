@@ -38,6 +38,10 @@ class YupeModule extends YWebModule
         'Сервисы' => 'briefcase',
     );
 
+    public $availableLanguages = "ru,en";
+    public $defaultLanguage = "ru";
+    public $defaultBackendLanguage = "ru";
+
     public function getVersion()
     {
         return '0.0.4';
@@ -91,6 +95,9 @@ class YupeModule extends YWebModule
             'uploadPath'      => Yii::t('yupe', 'Каталог для загрузки файлов (относительно корня сайта)'),
             'editor'          => Yii::t('page', 'Визуальный редактор'),
             'email'           => Yii::t('page', 'Email администратора'),
+            'availableLanguages' => Yii::t('yupe', 'Список доступных языков через запятую (напр. ru,en,de)'),
+            'defaultLanguage' => Yii::t('yupe', 'Язык по-умолчанию для сайта'),
+            'defaultBackendLanguage' => Yii::t('yupe', 'Язык по-умолчанию для админки'),
         );
     }
 
@@ -108,6 +115,9 @@ class YupeModule extends YWebModule
             'uploadPath',
             'editor' => $this->getEditors(),
             'email',
+            'availableLanguages',
+            'defaultLanguage',
+            'defaultBackendLanguage',
         );
     }
 

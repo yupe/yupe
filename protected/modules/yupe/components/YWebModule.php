@@ -35,6 +35,7 @@ abstract class YWebModule extends CWebModule
      */
     public $urlRules = null;
 
+
     /**
      *  @return string текущая версия модуля
      */

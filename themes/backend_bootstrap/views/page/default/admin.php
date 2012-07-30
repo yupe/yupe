@@ -11,16 +11,16 @@ $this->menu = array(
         array('icon'=> 'file', 'label' => Yii::t('page', 'Добавить страницу'), 'url' => array('/page/default/create')),
     );
 ?>
-<div class="page-header"><h1><?php echo $this->module->getName(); ?> <small>управление</small></h1></div>
+<div class="page-header"><h1><?=$this->module->getName()?> <small>управление</small></h1></div>
 <button class="btn btn-small dropdown-toggle"
     data-toggle="collapse"
     data-target="#search-toggle" >
     <i class="icon-search"></i>
-    <?php echo CHtml::link(Yii::t('page', 'Поиск страниц'), '#', array('class' => 'search-button',)); ?>
+    <?=CHtml::link(Yii::t('page', 'Поиск страниц'), '#', array('class' => 'search-button',))?>
     <span class="caret"></span>
 </button>
 
-    <div id="search-toggle" class="collapse out">
+    <div id="search-toggle" class="collapse <?=isset($_GET[get_class($model)])?'in':'out'; ?>">
     <?php
     Yii::app()->clientScript->registerScript('search', "
             $('#Page_parent_Id').val('');
@@ -44,13 +44,17 @@ $this->menu = array(
 
 
 <?php
+    /** @var CActiveDataProvider $dp */
+    $dp = $model->search();
+    $dp->criteria->addCondition('lang="'.Yii::app()->language.'" OR lang IS NULL');
     $this->widget('YCustomGridView', array(
         'itemsCssClass' => ' table table-condensed',
         'id'=>'page-grid',
         'sortField' => 'menu_order',
-        'dataProvider'=> $model->search(),
+        'dataProvider'=> $dp,
         'columns'=>array(
             'id',
+            'lang',
             array(
                 'name'=>'name',
                 'type'=>'raw',
@@ -61,10 +65,6 @@ $this->menu = array(
                 'value'=>'$data->parent_Id ? page::model()->findByPk($data->parent_Id)->name : Yii::t("page","нет")'
              ),
              'title',
-             array(
-               'name'  => Yii::t('page','Публичный url'),
-               'value' => 'Yii::app()->createAbsoluteUrl("/page/page/show/",array("slug"=> $data->slug))'
-             ),
              array(
                 'name'=>'user_id',
                 'value'=>'$data->author->getFullName()'
@@ -82,15 +82,11 @@ $this->menu = array(
             ),
              array(
                 'class'=>'bootstrap.widgets.BootButtonColumn',
-                'template' => '{view}{update}{delete}{liveview}',
-                'buttons'  => array(
-                     'liveview' => array(
-                         'label' => false,
-                         'url'   => 'Yii::app()->createUrl("/page/page/show/",array("slug" => $data->slug,"preview" => 1))',
-                         'options' => array('class' => 'icon-globe')
-                     )
-                 ),
                 'htmlOptions'=>array('style'=>'width: 50px'),
+		'buttons'=> array(
+			'update'=> array('url'=> 'array("/page/default/update/","slug"=>$data->slug)'),
+
+		),
             ),
         ),
     ));

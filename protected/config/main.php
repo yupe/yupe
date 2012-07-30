@@ -35,6 +35,7 @@ return array(
         'application.modules.yupe.models.*',
         'application.modules.feedback.models.*',
         'application.modules.yupe.components.*',
+        'application.modules.yupe.components.exceptions.*',
         'application.modules.queue.components.*',
         'application.modules.queue.models.*',
         'application.modules.social.widgets.ysc.*',
