@@ -82,7 +82,7 @@ return array(
         ),
         // компонент для отправки почты
         'mail' => array(
-            'class' => 'application.modules.queue.components.YQueueMail',
+            'class' => 'application.modules.mail.components.YMail',
         ),
         'mailMessage' => array(
             'class' => 'application.modules.mail.components.YMailMessage'
