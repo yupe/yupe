@@ -37,7 +37,7 @@ class DefaultController extends YBackController
                 if (isset($_POST['saveAndClose']))
                     $this->redirect(array( 'admin' ));
 
-                if(count(explode(',',Yii::app()->getModule('yupe')->availableLanguages) > 0))
+                if(count(explode(',',Yii::app()->getModule('yupe')->availableLanguages)))
                     $this->redirect(array( 'update', 'slug' => $model->slug ));
 
                 $this->redirect(array( 'update', 'id' => $model->id ));
@@ -83,6 +83,7 @@ class DefaultController extends YBackController
         }
         else
         {
+            $modelsByLang = array();
             // Указано ключевое слово страницы, ищем все языки
             $yupe  = Yii::app()->getModule('yupe');
             $langs = explode(",", $yupe->availableLanguages);

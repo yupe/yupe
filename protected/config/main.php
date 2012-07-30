@@ -89,11 +89,17 @@ return array(
         ),
         // конфигурирование urlManager, подробнее http://www.yiiframework.ru/doc/guide/ru/topics.url
         'urlManager' => array(
+            'class'=>'application.modules.yupe.extensions.urlManager.LangUrlManager',
             'urlFormat'      => 'path',
             // для того чтобы убрать index.php из url, читаем статью http://yiiframework.ru/doc/guide/ru/quickstart.apache-nginx-config
             'showScriptName' => true,
             'cacheID'        => 'cache',
             'rules'          => array(
+                '<module:\w+>/<controller:\w+>/<action:\w+>/<id:\d+>' => '<module>/<controller>/<action>',
+                '<module:\w+>/<controller:\w+>/<action:\w+>' => '<module>/<controller>/<action>',
+                '<module:\w+>/<controller:\w+>' => '<module>/<controller>/index',
+                '<controller:\w+>/<action:\w+>' => '<controller>/<action>',
+                '<controller:\w+>' => '<controller>/index',
                 '/'                                   => 'site/index',
                 '/login'                              => 'user/account/login',
                 '/logout'                             => 'user/account/logout',
@@ -155,5 +161,10 @@ return array(
     ),
     // конфигурация модулей приложения, подробнее http://www.yiiframework.ru/doc/guide/ru/basics.module
     'modules' => require(dirname(__FILE__) . '/modules.php'),
-    'behaviors' => array( 'YupeStartUpBehavior' ),
+    'behaviors' => array(
+        'onBeginRequest' => array(
+            'class'  => 'application.modules.yupe.extensions.urlManager.LanguageBehavior'
+        ),
+        'YupeStartUpBehavior'
+    ),
 );

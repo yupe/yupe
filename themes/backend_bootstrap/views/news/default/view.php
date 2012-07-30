@@ -9,7 +9,7 @@ $this->menu = array(
     array('icon' => 'list-alt', 'label' => Yii::t('news', 'Управление новостями'), 'url' => array('/news/default/admin')),
     array('icon' => 'th-list', 'label' => Yii::t('news', 'Показать анонсами'), 'url' => array('/news/default/index')),
     array('icon' => 'file', 'label' => Yii::t('news', 'Добавить новость'), 'url' => array('/news/default/create')),
-    array('icon' => 'pencil', 'label' => Yii::t('news', 'Редактировать эту новость'), 'url' => array('/news/default/update','id'=> $model-> id)),
+    array('icon' => 'pencil', 'label' => Yii::t('news', 'Редактировать эту новость'), 'url' => array('/news/default/update','alias'=> $model->alias)),
     array('encodeLabel' => false, 'icon' => 'eye-open white', 'label' =>   Yii::t('news', 'Просмотр новости')."<br /><span class='label' style='font-size: 80%;'>".mb_substr($model-> title,0,32)."</span>", 'url' => array('/news/default/view','id'=> $model-> id)),
     array('icon' => 'remove', 'label' => Yii::t('news', 'Удалить эту новость'), 'url' => '#', 'linkOptions' => array('submit' => array('delete', 'id' => $model->id), 'confirm' => 'Подтверждаете удаление ?')),
 );

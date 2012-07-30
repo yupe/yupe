@@ -82,16 +82,22 @@ class News extends CActiveRecord
      */
     public function rules()
     {
+        //@todo добавить проверку IN для статуса
         return array(
-            array('date, title, alias, short_text, full_text', 'required'),
-            array('status, is_protected', 'numerical', 'integerOnly' => true),
-            array('status','in','range'=>array_keys($this->getStatusList())),
-            array('title, alias, keywords', 'length', 'max' => 150),
-            array('alias', 'unique'),
-            array('description', 'length', 'max' => 250),
-            array('short_text', 'length', 'max' => 400),
             array('title, alias, short_text, full_text, keywords, description', 'filter', 'filter' => 'trim'),
             array('title, alias, keywords, description', 'filter', 'filter' => 'strip_tags'),
+            array('date, title, alias, short_text, full_text', 'required', 'on'=> array('update','insert')),
+            array('status, is_protected', 'numerical', 'integerOnly' => true),
+            array('title, alias, keywords', 'length', 'max' => 150),
+            array('lang', 'length', 'max' => 2),
+            array('lang', 'default', 'value' => Yii::app()->sourceLanguage),
+            array('alias', 'unique', 'criteria'=> array(
+                    'condition'=>'lang = :lang',
+                    'params'=>array(':lang'=>$this->lang),
+                ),
+            ),
+            array('description', 'length', 'max' => 250),
+            array('short_text', 'length', 'max' => 400),
             array('alias', 'match', 'pattern' => '/^[a-zA-Z0-9_\-]+$/', 'message' => Yii::t('news', 'Запрещенные символы в поле {attribute}')),
             array('id, keywords, description, creation_date, change_date, date, title, alias, short_text, full_text, user_id, status, is_protected', 'safe', 'on' => 'search'),
         );
@@ -111,23 +117,18 @@ class News extends CActiveRecord
     public function scopes()
     {
         return array(
-            'published' => array(
-                'condition' => 'status = :status',
-                'params' => array(':status' => self::STATUS_PUBLISHED)
-            ),
-            'protected' => array(
-                'condition' => 'is_protected = :is_protected',
-                'params' => array(':is_protected' => self::PROTECTED_YES)
-            ),
-            'public' => array(
-                'condition' => 'is_protected = :is_protected',
-                'params'  => array(':is_protected' =>  self::PROTECTED_NO)
-            ),
-            'recent' => array(
-                'order' => 'creation_date DESC',
-                'limit' => 5,
-            ),
+            'published' => array('condition' => 'status = ' . self::STATUS_PUBLISHED),
+            'protected' => array('condition' => 'is_protected = ' . self::PROTECTED_YES),
+            'public' => array('condition' => 'is_protected = ' . self::PROTECTED_NO),
+            'recent' => array('order' => 'creation_date DESC', 'limit' => 5)
         );
+    }
+
+    public function language($lang){
+        $this->getDbCriteria()->mergeWith(array(
+            'condition' => "lang='$lang'",
+        ));
+        return $this;
     }
 
     /**
@@ -141,7 +142,8 @@ class News extends CActiveRecord
             'change_date' => Yii::t('news', 'Дата изменения'),
             'date' => Yii::t('news', 'Дата'),
             'title' => Yii::t('news', 'Заголовок'),
-            'alias' => Yii::t('news', 'Url'),
+            'alias' => Yii::t('news', 'Алиас'),
+            'lang' => Yii::t('news', 'Язык'),
             'short_text' => Yii::t('news', 'Короткое описание'),
             'full_text' => Yii::t('news', 'Полный текст'),
             'user_id' => Yii::t('news', 'Автор'),
@@ -154,14 +156,14 @@ class News extends CActiveRecord
 
 
     public function beforeValidate()
-    {       
-        if (!$this->alias)            
-           $this->alias = YText::translit($this->title);                   
+    {
+        if (!$this->alias)
+           $this->alias = YText::translit($this->title);
 
-        if (!$this->description)            
-            $this->description = $this->short_text;            
-        
-        return parent::beforeValidate();           
+        if (!$this->description)
+            $this->description = $this->short_text;
+
+        return parent::beforeValidate();
     }
 
 
@@ -173,8 +175,8 @@ class News extends CActiveRecord
 
             $this->user_id = Yii::app()->user->getId();
         }
-        else        
-            $this->change_date = new CDbExpression('NOW()');        
+        else
+            $this->change_date = new CDbExpression('NOW()');
 
         $this->date = date('Y-m-d', strtotime($this->date));
 

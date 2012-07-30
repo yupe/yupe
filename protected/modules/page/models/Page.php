@@ -117,7 +117,7 @@ class Page extends CActiveRecord
             array('name, title, slug, keywords', 'length', 'max' => 150),
             array('description', 'length', 'max' => 150),
             array('slug', 'unique', 'criteria'=> array(
-                                                    'condition'=>'`lang`=:lang',
+                                                    'condition'=>'lang=:lang',
                                                     'params'=>array(':lang'=>$this->lang),
                                                     ),
                  ),

@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Хост: localhost
--- Время создания: Июл 30 2012 г., 11:17
+-- Время создания: Июл 30 2012 г., 13:44
 -- Версия сервера: 5.1.63
 -- Версия PHP: 5.3.6-13ubuntu3.8
 
@@ -89,7 +89,7 @@ CREATE TABLE IF NOT EXISTS `comment` (
   KEY `status` (`status`),
   KEY `model` (`model`,`model_id`),
   KEY `user_id` (`user_id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=5 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=9 ;
 
 -- --------------------------------------------------------
 
@@ -411,6 +411,7 @@ CREATE TABLE IF NOT EXISTS `menu_item` (
 
 CREATE TABLE IF NOT EXISTS `news` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
+  `lang` char(2) DEFAULT 'ru',
   `creation_date` datetime NOT NULL,
   `change_date` datetime NOT NULL,
   `date` date NOT NULL,
@@ -424,11 +425,11 @@ CREATE TABLE IF NOT EXISTS `news` (
   `keywords` varchar(150) NOT NULL,
   `description` varchar(250) NOT NULL,
   PRIMARY KEY (`id`),
-  UNIQUE KEY `alias_unique` (`alias`),
+  UNIQUE KEY `alias_unique` (`alias`,`lang`),
   KEY `status` (`status`),
   KEY `is_protected` (`is_protected`),
   KEY `user_id` (`user_id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=3 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=8 ;
 
 -- --------------------------------------------------------
 

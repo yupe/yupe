@@ -26,4 +26,9 @@ class YFrontController extends Controller
 
         Yii::app()->clientScript->registerScript('yupe_base_url', "var baseUrl = '$baseUrl';", CClientScript::POS_HEAD);
     }
+
+    public function isMultilang()
+    {
+        return is_array(Yii::app()-> urlManager->languages) && count(Yii::app()-> urlManager->languages);
+    }
 }

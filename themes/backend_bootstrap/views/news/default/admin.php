@@ -46,16 +46,10 @@ $this->menu = array(
                                                        'itemsCssClass' => ' table table-condensed',
                                                        'columns' => array(
                                                            array(
-                                                               'header' => '№',
                                                                'name' => 'id',
                                                                'htmlOptions' => array('style'=>'width:20px'),
                                                            ),
-                                                           array(
-                                                               'name' => 'status',
-                                                               'type' => 'raw',
-                                                               'value' => '$this->grid->returnBootstrapStatusHtml($data)',
-                                                               'htmlOptions' => array('style'=>'width:40px; text-align:center;'),
-                                                           ),
+                                                           'lang' => 'lang',
                                                            array(
                                                                 'name' => 'date',
                                                                 'htmlOptions' => array('style'=>'width:80px'),
@@ -65,8 +59,19 @@ $this->menu = array(
                                                                'type' => 'raw',
                                                                'value' => 'CHtml::link($data->title,array("/news/default/update","id" => $data->id))'
                                                            ),
+                                                           'alias',
+                                                           array(
+                                                               'name' => 'status',
+                                                               'type' => 'raw',
+                                                               'value' => '$this->grid->returnBootstrapStatusHtml($data)',
+                                                               'htmlOptions' => array('style'=>'width:40px; text-align:center;'),
+                                                           ),
                                                            array(
                                                                'class' => 'bootstrap.widgets.BootButtonColumn',
+                                                               'buttons'=> array(
+                                                                        'update'=> array('url'=> 'array("/news/default/update/","alias"=>$data->alias)'),
+
+                                                                ),
                                                            ),
                                                        ),
                                                   )); ?>
