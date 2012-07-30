@@ -15,7 +15,7 @@
  * @property CDbSchema $schema The schema for this command builder.
  *
  * @author Qiang Xue <qiang.xue@gmail.com>
- * @version $Id: CDbCommandBuilder.php 3515 2011-12-28 12:29:24Z mdomba $
+ * @version $Id$
  * @package system.db.schema
  * @since 1.0
  */

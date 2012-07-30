@@ -12,7 +12,7 @@
  * CMysqlColumnSchema class describes the column meta data of a MySQL table.
  *
  * @author Qiang Xue <qiang.xue@gmail.com>
- * @version $Id: CMysqlColumnSchema.php 3204 2011-05-05 21:36:32Z alexander.makarow $
+ * @version $Id$
  * @package system.db.schema.mysql
  * @since 1.0
  */

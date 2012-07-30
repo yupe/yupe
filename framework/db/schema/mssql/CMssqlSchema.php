@@ -14,7 +14,7 @@
  *
  * @author Qiang Xue <qiang.xue@gmail.com>
  * @author Christophe Boulain <Christophe.Boulain@gmail.com>
- * @version $Id: CMssqlSchema.php 3515 2011-12-28 12:29:24Z mdomba $
+ * @version $Id$
  * @package system.db.schema.mssql
  */
 class CMssqlSchema extends CDbSchema

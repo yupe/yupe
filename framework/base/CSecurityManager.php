@@ -40,7 +40,7 @@
  * @property string $validation
  *
  * @author Qiang Xue <qiang.xue@gmail.com>
- * @version $Id: CSecurityManager.php 3555 2012-02-09 10:29:44Z mdomba $
+ * @version $Id$
  * @package system.base
  * @since 1.0
  */

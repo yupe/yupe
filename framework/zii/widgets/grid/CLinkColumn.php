@@ -18,7 +18,7 @@ Yii::import('zii.widgets.grid.CGridColumn');
  * In addition, if {@link imageUrl} is set, an image link will be rendered.
  *
  * @author Qiang Xue <qiang.xue@gmail.com>
- * @version $Id: CLinkColumn.php 3424 2011-10-24 20:13:19Z mdomba $
+ * @version $Id$
  * @package zii.widgets.grid
  * @since 1.1
  */

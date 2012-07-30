@@ -37,7 +37,7 @@
  *
  * @author Jonah Turnquist <poppitypop@gmail.com>
  * @author Qiang Xue <qiang.xue@gmail.com>
- * @version $Id: CMenu.php 3520 2011-12-29 09:54:22Z mdomba $
+ * @version $Id$
  * @package zii.widgets
  * @since 1.1
  */
@@ -302,6 +302,7 @@ class CMenu extends CWidget
 	{
 		if(isset($item['url']) && is_array($item['url']) && !strcasecmp(trim($item['url'][0],'/'),$route))
 		{
+			unset($item['url']['#']);
 			if(count($item['url'])>1)
 			{
 				foreach(array_splice($item['url'],1) as $name=>$value)

@@ -25,7 +25,7 @@
  * @property array $children All child items of this item.
  *
  * @author Qiang Xue <qiang.xue@gmail.com>
- * @version $Id: CAuthItem.php 3442 2011-11-09 02:48:50Z alexander.makarow $
+ * @version $Id$
  * @package system.web.auth
  * @since 1.0
  */
@@ -63,7 +63,8 @@ class CAuthItem extends CComponent
 
 	/**
 	 * Checks to see if the specified item is within the hierarchy starting from this item.
-	 * This method is internally used by {@link IAuthManager::checkAccess}.
+	 * This method is expected to be internally used by the actual implementations
+	 * of the {@link IAuthManager::checkAccess}.
 	 * @param string $itemName the name of the item to be checked
 	 * @param array $params the parameters to be passed to business rule evaluation
 	 * @return boolean whether the specified item is within the hierarchy starting from this item.
@@ -249,7 +250,7 @@ class CAuthItem extends CComponent
 	 */
 	public function revoke($userId)
 	{
-		$this->_auth->revoke($this->_name,$userId);
+		return $this->_auth->revoke($this->_name,$userId);
 	}
 
 	/**

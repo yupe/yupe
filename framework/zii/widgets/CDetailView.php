@@ -39,7 +39,7 @@
  * @property CFormatter $formatter The formatter instance. Defaults to the 'format' application component.
  *
  * @author Qiang Xue <qiang.xue@gmail.com>
- * @version $Id: CDetailView.php 3427 2011-10-25 00:03:52Z alexander.makarow $
+ * @version $Id$
  * @package zii.widgets
  * @since 1.1
  */
@@ -96,6 +96,7 @@ class CDetailView extends CWidget
 	public $nullDisplay;
 	/**
 	 * @var string the name of the tag for rendering the detail view. Defaults to 'table'.
+	 * If set to null, no tag will be rendered.
 	 * @see itemTemplate
 	 */
 	public $tagName='table';
@@ -166,7 +167,8 @@ class CDetailView extends CWidget
 	public function run()
 	{
 		$formatter=$this->getFormatter();
-		echo CHtml::openTag($this->tagName,$this->htmlOptions);
+		if ($this->tagName!==null)
+			echo CHtml::openTag($this->tagName,$this->htmlOptions);
 
 		$i=0;
 		$n=is_array($this->itemCssClass) ? count($this->itemCssClass) : 0;
@@ -213,13 +215,25 @@ class CDetailView extends CWidget
 
 			$tr['{value}']=$value===null ? $this->nullDisplay : $formatter->format($value,$attribute['type']);
 
-			echo strtr(isset($attribute['template']) ? $attribute['template'] : $this->itemTemplate,$tr);
-			
+			$this->renderItem($attribute, $tr);
+
 			$i++;
-															
 		}
 
-		echo CHtml::closeTag($this->tagName);
+		if ($this->tagName!==null)
+			echo CHtml::closeTag($this->tagName);
+	}
+
+	/**
+	 * This method is used by run() to render item row
+	 *
+	 * @param array $options config options for this item/attribute from {@link attributes}
+	 * @param string $templateData data that will be inserted into {@link itemTemplate}
+	 * @since 1.1.11
+	 */
+	protected function renderItem($options,$templateData)
+	{
+		echo strtr(isset($options['template']) ? $options['template'] : $this->itemTemplate,$templateData);
 	}
 
 	/**

@@ -13,7 +13,7 @@
  *
  * NOTE, this file must be saved in UTF-8 encoding.
  *
- * @version $Id: yii.php 3525 2012-01-01 03:05:53Z qiang.xue $
+ * @version $Id$
 */
 return array (
   'Active record class "{class}" does not have a scope named "{scope}".' => 'La clase de registro activo "{class}" no tiene un ámbito llamado "{scope}".',
@@ -173,7 +173,7 @@ return array (
   'The pattern for week in month must be "W".' => 'El patron para semana del mes debe ser "W".',
   'The pattern for week in year must be "w".' => 'El patrón para semana del año debe ser "w".',
   'The queue is empty.' => 'La cola está vacía',
-  'The relation "{relation}" in active record class "{class}" is not specified correctly: the join table "{joinTable}" given in the foreign key cannot be found in the database.' => 'La relación "{relation}" en la clase active record "{class}" no se encuentra especificada correctamente: La tabla de junta (join table) "{join table}" dada no se encontro en la base de datos.',
+  'The relation "{relation}" in active record class "{class}" is not specified correctly: the join table "{joinTable}" given in the foreign key cannot be found in the database.' => 'La relación "{relation}" en la clase active record "{class}" no se encuentra especificada correctamente: La tabla de junta (join table) "{joinTable}" dada no se encontro en la base de datos.',
   'The relation "{relation}" in active record class "{class}" is specified with an incomplete foreign key. The foreign key must consist of columns referencing both joining tables.' => 'La relación "{relation}" en la clase active record "{class}" se encuentra especificada con una clave foranea incompleta. La clave foranea debe consistir de las columnas que referencian la junta de tablas.',
   'The relation "{relation}" in active record class "{class}" is specified with an invalid foreign key "{key}". The foreign key does not point to either joining table.' => 'La relación "{relation}" en la clase active record "{class}" se encuentra especificada con una clave foranea inválida "{key}". La clave foranea no apunta a la tabla de junta (joining table).',
   'The relation "{relation}" in active record class "{class}" is specified with an invalid foreign key. The format of the foreign key must be "joinTable(fk1,fk2,...)".' => 'La relación "{relation}" en la clase active record "{class}" se encuentra especificada con una clave foranea inválida. El formato de la clave foranea debe ser "joinTable(fk1,fk2,...)".',

@@ -26,7 +26,7 @@
  * @property array $columnNames List of column names.
  *
  * @author Qiang Xue <qiang.xue@gmail.com>
- * @version $Id: CDbTableSchema.php 3426 2011-10-25 00:01:09Z alexander.makarow $
+ * @version $Id$
  * @package system.db.schema
  * @since 1.0
  */

@@ -21,19 +21,12 @@ Yii::import('zii.widgets.grid.CGridColumn');
  * value will be used by {@link CSort} to render a clickable link in the header cell to trigger the sorting.
  *
  * @author Qiang Xue <qiang.xue@gmail.com>
- * @version $Id: CDataColumn.php 3448 2011-11-18 10:21:42Z mdomba $
+ * @version $Id$
  * @package zii.widgets.grid
  * @since 1.1
  */
 class CDataColumn extends CGridColumn
 {
-	/**
-	 * @var string the attribute name of the data model. The corresponding attribute value will be rendered
-	 * in each data cell. If {@link value} is specified, this property will be ignored
-	 * unless the column needs to be sortable or filtered.
-	 * @see value
-	 * @see sortable
-	 */
 	/**
 	 * @var string the attribute name of the data model. Used for column sorting, filtering and to render the corresponding
 	 * attribute value in each data cell. If {@link value} is specified it will be used to rendered the data cell instead of the attribute value.
@@ -115,7 +108,7 @@ class CDataColumn extends CGridColumn
 	protected function renderHeaderCellContent()
 	{
 		if($this->grid->enableSorting && $this->sortable && $this->name!==null)
-			echo $this->grid->dataProvider->getSort()->link($this->name,$this->header);
+			echo $this->grid->dataProvider->getSort()->link($this->name,$this->header,array('class'=>'sort-link'));
 		else if($this->name!==null && $this->header===null)
 		{
 			if($this->grid->dataProvider instanceof CActiveDataProvider)

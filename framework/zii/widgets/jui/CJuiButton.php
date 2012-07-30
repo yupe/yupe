@@ -22,7 +22,7 @@ Yii::import('zii.widgets.jui.CJuiInputWidget');
  * 		'name'=>'submit',
  * 		'caption'=>'Save',
  * 		'options'=>array(
- *         'onclick'=>'js:function(){alert("Yes");}',
+ *         'onclick'=>new CJavaScriptExpression('function(){alert("Yes");}'),
  *     ),
  * ));
  * </pre>
@@ -34,7 +34,7 @@ Yii::import('zii.widgets.jui.CJuiInputWidget');
  *			'name'=>'button',
  * 			'caption'=>'Save',
  *			'value'=>'asd',
- *			'onclick'=>'js:function(){alert("Save button clicked"); this.blur(); return false;}',
+ *			'onclick'=>new CJavaScriptExpression('function(){alert("Save button clicked"); this.blur(); return false;}'),
  * 		)
  * );
  * </pre>
@@ -45,7 +45,7 @@ Yii::import('zii.widgets.jui.CJuiInputWidget');
  * for possible options (name-value pairs).
  *
  * @author Sebastian Thierer <sebathi@gmail.com>
- * @version $Id: CJuiButton.php 2799 2011-01-01 19:31:13Z qiang.xue $
+ * @version $Id$
  * @package zii.widgets.jui
  * @since 1.1.3
  */
@@ -62,7 +62,8 @@ class CJuiButton extends CJuiInputWidget
 	 */
 	public $htmlTag = 'div';
 	/**
-	 * @var string The url used when a buttonType "link" is selected.
+	 * @var mixed a URL or an action route that can be used to create a URL. Used when a buttonType "link" is selected.
+	 * See {@link normalizeUrl} for more details about how to specify this parameter.
 	 */
 	public $url = null;
 
@@ -170,8 +171,8 @@ class CJuiButton extends CJuiInputWidget
 			$options=empty($this->options) ? '' : CJavaScript::encode($this->options);
 			if (isset($this->onclick))
 			{
-				if(strpos($this->onclick,'js:')!==0)
-				$this->onclick='js:'.$this->onclick;
+				if(!($this->onclick instanceof CJavaScriptExpression) && strpos($this->onclick,'js:')!==0)
+					$this->onclick=new CJavaScriptExpression($this->onclick);
 				$click = CJavaScript::encode($this->onclick);
 				$cs->registerScript(__CLASS__.'#'.$id,"jQuery('#{$id}').button($options).click($click);");
 			}

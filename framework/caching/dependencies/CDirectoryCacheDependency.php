@@ -25,7 +25,7 @@
  * accessing modification time of multiple files under the directory.
  *
  * @author Qiang Xue <qiang.xue@gmail.com>
- * @version $Id: CDirectoryCacheDependency.php 3500 2011-12-20 16:25:43Z mdomba $
+ * @version $Id$
  * @package system.caching.dependencies
  * @since 1.0
  */

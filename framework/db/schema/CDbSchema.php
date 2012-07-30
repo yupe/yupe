@@ -19,7 +19,7 @@
  * @property CDbCommandBuilder $commandBuilder The SQL command builder for this connection.
  *
  * @author Qiang Xue <qiang.xue@gmail.com>
- * @version $Id: CDbSchema.php 3515 2011-12-28 12:29:24Z mdomba $
+ * @version $Id$
  * @package system.db.schema
  * @since 1.0
  */
@@ -29,7 +29,7 @@ abstract class CDbSchema extends CComponent
 	 * @var array the abstract column types mapped to physical column types.
 	 * @since 1.1.6
 	 */
-    public $columnTypes=array();
+	public $columnTypes=array();
 
 	private $_tableNames=array();
 	private $_tables=array();

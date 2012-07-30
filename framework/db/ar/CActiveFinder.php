@@ -15,7 +15,7 @@
  * {@link CActiveRecord}.
  *
  * @author Qiang Xue <qiang.xue@gmail.com>
- * @version $Id: CActiveFinder.php 3562 2012-02-13 01:27:06Z qiang.xue $
+ * @version $Id$
  * @package system.db.ar
  * @since 1.0
  */
@@ -217,6 +217,7 @@ class CActiveFinder extends CComponent
 
 			$relation=clone $relation;
 			$model=CActiveRecord::model($relation->className);
+
 			if($relation instanceof CActiveRelation)
 			{
 				$oldAlias=$model->getTableAlias(false,false);
@@ -228,49 +229,16 @@ class CActiveFinder extends CComponent
 					$model->setTableAlias($relation->alias);
 			}
 
-			if(($scope=$model->defaultScope())!==array())
-				$relation->mergeWith($scope,true);
-
 			if(!empty($relation->scopes))
 				$scopes=array_merge($scopes,(array)$relation->scopes); // no need for complex merging
 
 			if(!empty($options['scopes']))
 				$scopes=array_merge($scopes,(array)$options['scopes']); // no need for complex merging
 
-			if($scopes!==array())
-			{
-				$scs=$model->scopes();
-				foreach($scopes as $k=>$v)
-				{
-					if(is_integer($k))
-					{
-						if(is_string($v))
-						{
-							if(isset($scs[$v]))
-							{
-								$relation->mergeWith($scs[$v],true);
-								continue;
-							}
-							$scope=$v;
-							$params=array();
-						}
-						else if(is_array($v))
-						{
-							$scope=key($v);
-							$params=current($v);
-						}
-					}
-					else if(is_string($k))
-					{
-						$scope=$k;
-						$params=$v;
-					}
-
-					$model->resetScope();
-					call_user_func_array(array($model,$scope),(array)$params);
-					$relation->mergeWith($model->getDbCriteria(),true);
-				}
-			}
+			$criteria=$model->getDbCriteria();
+			$criteria->scopes=$scopes;
+			$model->applyScopes($criteria);
+			$relation->mergeWith($criteria,true);
 
 			// dynamic options
 			if($options!==null)
@@ -319,7 +287,7 @@ class CActiveFinder extends CComponent
  * CJoinElement represents a tree node in the join tree created by {@link CActiveFinder}.
  *
  * @author Qiang Xue <qiang.xue@gmail.com>
- * @version $Id: CActiveFinder.php 3562 2012-02-13 01:27:06Z qiang.xue $
+ * @version $Id$
  * @package system.db.ar
  * @since 1.0
  */
@@ -1206,7 +1174,7 @@ class CJoinElement
  * CJoinQuery represents a JOIN SQL statement.
  *
  * @author Qiang Xue <qiang.xue@gmail.com>
- * @version $Id: CActiveFinder.php 3562 2012-02-13 01:27:06Z qiang.xue $
+ * @version $Id$
  * @package system.db.ar
  * @since 1.0
  */
@@ -1318,7 +1286,7 @@ class CJoinQuery
 	/**
 	 * Creates the SQL statement.
 	 * @param CDbCommandBuilder $builder the command builder
-	 * @return string the SQL statement
+	 * @return CDbCommand DB command instance representing the SQL statement
 	 */
 	public function createCommand($builder)
 	{
@@ -1365,7 +1333,7 @@ class CJoinQuery
  * CStatElement represents STAT join element for {@link CActiveFinder}.
  *
  * @author Qiang Xue <qiang.xue@gmail.com>
- * @version $Id: CActiveFinder.php 3562 2012-02-13 01:27:06Z qiang.xue $
+ * @version $Id$
  * @package system.db.ar
  */
 class CStatElement

@@ -16,7 +16,7 @@
  * @property CActiveRecord $owner The owner AR that this behavior is attached to.
  *
  * @author Qiang Xue <qiang.xue@gmail.com>
- * @version $Id: CActiveRecordBehavior.php 3515 2011-12-28 12:29:24Z mdomba $
+ * @version $Id$
  * @package system.db.ar
  */
 class CActiveRecordBehavior extends CModelBehavior

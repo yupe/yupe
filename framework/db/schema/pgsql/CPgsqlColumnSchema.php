@@ -12,7 +12,7 @@
  * CPgsqlColumnSchema class describes the column meta data of a PostgreSQL table.
  *
  * @author Qiang Xue <qiang.xue@gmail.com>
- * @version $Id: CPgsqlColumnSchema.php 2799 2011-01-01 19:31:13Z qiang.xue $
+ * @version $Id$
  * @package system.db.schema.pgsql
  * @since 1.0
  */

@@ -83,7 +83,7 @@
  * is attached to.
  *
  * @author Qiang Xue <qiang.xue@gmail.com>
- * @version $Id: CComponent.php 3521 2011-12-29 22:10:57Z mdomba $
+ * @version $Id$
  * @package system.base
  * @since 1.0
  */
@@ -601,7 +601,7 @@ class CComponent
 	 */
 	public function evaluateExpression($_expression_,$_data_=array())
 	{
-		if(is_string($_expression_))
+		if(is_string($_expression_) && !function_exists($_expression_))
 		{
 			extract($_data_);
 			return eval('return '.$_expression_.';');
@@ -625,7 +625,7 @@ class CComponent
  * that are not invoked yet will not be invoked anymore.
  *
  * @author Qiang Xue <qiang.xue@gmail.com>
- * @version $Id: CComponent.php 3521 2011-12-29 22:10:57Z mdomba $
+ * @version $Id$
  * @package system.base
  * @since 1.0
  */
@@ -677,7 +677,7 @@ class CEvent extends CComponent
  * TextAlign::Right.
  *
  * @author Qiang Xue <qiang.xue@gmail.com>
- * @version $Id: CComponent.php 3521 2011-12-29 22:10:57Z mdomba $
+ * @version $Id$
  * @package system.base
  * @since 1.0
  */

@@ -42,7 +42,7 @@ Yii::import('zii.widgets.jui.CJuiInputWidget');
  * autocomplete items from an ajax response.
  *
  * @author Sebastian Thierer <sebathi@gmail.com>
- * @version $Id: CJuiAutoComplete.php 2799 2011-01-01 19:31:13Z qiang.xue $
+ * @version $Id$
  * @package zii.widgets.jui
  * @since 1.1.2
  */
@@ -53,7 +53,8 @@ class CJuiAutoComplete extends CJuiInputWidget
 	 * <ul>
 	 * <li>an Array with local data</li>
      * <li>a String, specifying a URL that returns JSON data as the entries.</li>
-     * <li>a javascript callback. Please make sure you prefix the callback name with "js:" in this case.</li>
+     * <li>a javascript callback. Please make sure you wrap the callback with
+	 * {@link CJavaScriptExpression} in this case.</li>
      * </ul>
 	 */
 	public $source = array();

@@ -34,7 +34,7 @@
  * @property string $tableAlias The default table alias.
  *
  * @author Qiang Xue <qiang.xue@gmail.com>
- * @version $Id: CActiveRecord.php 3533 2012-01-08 22:07:55Z mdomba $
+ * @version $Id$
  * @package system.db.ar
  * @since 1.0
  */
@@ -235,7 +235,7 @@ abstract class CActiveRecord extends CModel
 	 * or an empty array.
 	 * @param string $name the relation name (see {@link relations})
 	 * @param boolean $refresh whether to reload the related objects from database. Defaults to false.
-	 * @param array $params additional parameters that customize the query conditions as specified in the relation declaration.
+	 * @param mixed $params array or CDbCriteria object with additional parameters that customize the query conditions as specified in the relation declaration.
 	 * @return mixed the related object(s).
 	 * @throws CDbException if the relation is not specified in {@link relations}.
 	 */
@@ -259,6 +259,10 @@ abstract class CActiveRecord extends CModel
 			$exists=isset($this->_related[$name]) || array_key_exists($name,$this->_related);
 			if($exists)
 				$save=$this->_related[$name];
+
+			if($params instanceof CDbCriteria)
+				$params = $params->toArray();
+
 			$r=array($name=>$params);
 		}
 		else
@@ -943,18 +947,12 @@ abstract class CActiveRecord extends CModel
 	 * The default implementation raises the {@link onBeforeFind} event.
 	 * If you override this method, make sure you call the parent implementation
 	 * so that the event is raised properly.
-	 *
-	 * Starting from version 1.1.5, this method may be called with a hidden {@link CDbCriteria}
-	 * parameter which represents the current query criteria as passed to a find method of AR.
-	 *
 	 */
 	protected function beforeFind()
 	{
 		if($this->hasEventHandler('onBeforeFind'))
 		{
 			$event=new CModelEvent($this);
-			// for backward compatibility
-			$event->criteria=func_num_args()>0 ? func_get_arg(0) : null;
 			$this->onBeforeFind($event);
 		}
 	}
@@ -1174,7 +1172,7 @@ abstract class CActiveRecord extends CModel
 	public function refresh()
 	{
 		Yii::trace(get_class($this).'.refresh()','system.db.ar.CActiveRecord');
-		if(!$this->getIsNewRecord() && ($record=$this->findByPk($this->getPrimaryKey()))!==null)
+		if(($record=$this->findByPk($this->getPrimaryKey()))!==null)
 		{
 			$this->_attributes=array();
 			$this->_related=array();
@@ -1277,8 +1275,9 @@ abstract class CActiveRecord extends CModel
 	 */
 	protected function query($criteria,$all=false)
 	{
-        $this->beforeFind();
+		$this->beforeFind();
 		$this->applyScopes($criteria);
+
 		if(empty($criteria->with))
 		{
 			if(!$all)
@@ -1861,7 +1860,7 @@ abstract class CActiveRecord extends CModel
 /**
  * CBaseActiveRelation is the base class for all active relations.
  * @author Qiang Xue <qiang.xue@gmail.com>
- * @version $Id: CActiveRecord.php 3533 2012-01-08 22:07:55Z mdomba $
+ * @version $Id$
  * @package system.db.ar
  */
 class CBaseActiveRelation extends CComponent
@@ -2002,7 +2001,7 @@ class CBaseActiveRelation extends CComponent
 /**
  * CStatRelation represents a statistical relational query.
  * @author Qiang Xue <qiang.xue@gmail.com>
- * @version $Id: CActiveRecord.php 3533 2012-01-08 22:07:55Z mdomba $
+ * @version $Id$
  * @package system.db.ar
  */
 class CStatRelation extends CBaseActiveRelation
@@ -2038,7 +2037,7 @@ class CStatRelation extends CBaseActiveRelation
 /**
  * CActiveRelation is the base class for representing active relations that bring back related objects.
  * @author Qiang Xue <qiang.xue@gmail.com>
- * @version $Id: CActiveRecord.php 3533 2012-01-08 22:07:55Z mdomba $
+ * @version $Id$
  * @package system.db.ar
  * @since 1.0
  */
@@ -2132,7 +2131,7 @@ class CActiveRelation extends CBaseActiveRelation
 /**
  * CBelongsToRelation represents the parameters specifying a BELONGS_TO relation.
  * @author Qiang Xue <qiang.xue@gmail.com>
- * @version $Id: CActiveRecord.php 3533 2012-01-08 22:07:55Z mdomba $
+ * @version $Id$
  * @package system.db.ar
  * @since 1.0
  */
@@ -2144,7 +2143,7 @@ class CBelongsToRelation extends CActiveRelation
 /**
  * CHasOneRelation represents the parameters specifying a HAS_ONE relation.
  * @author Qiang Xue <qiang.xue@gmail.com>
- * @version $Id: CActiveRecord.php 3533 2012-01-08 22:07:55Z mdomba $
+ * @version $Id$
  * @package system.db.ar
  * @since 1.0
  */
@@ -2162,7 +2161,7 @@ class CHasOneRelation extends CActiveRelation
 /**
  * CHasManyRelation represents the parameters specifying a HAS_MANY relation.
  * @author Qiang Xue <qiang.xue@gmail.com>
- * @version $Id: CActiveRecord.php 3533 2012-01-08 22:07:55Z mdomba $
+ * @version $Id$
  * @package system.db.ar
  * @since 1.0
  */
@@ -2213,7 +2212,7 @@ class CHasManyRelation extends CActiveRelation
 /**
  * CManyManyRelation represents the parameters specifying a MANY_MANY relation.
  * @author Qiang Xue <qiang.xue@gmail.com>
- * @version $Id: CActiveRecord.php 3533 2012-01-08 22:07:55Z mdomba $
+ * @version $Id$
  * @package system.db.ar
  * @since 1.0
  */
@@ -2226,7 +2225,7 @@ class CManyManyRelation extends CHasManyRelation
  * CActiveRecordMetaData represents the meta-data for an Active Record class.
  *
  * @author Qiang Xue <qiang.xue@gmail.com>
- * @version $Id: CActiveRecord.php 3533 2012-01-08 22:07:55Z mdomba $
+ * @version $Id$
  * @package system.db.ar
  * @since 1.0
  */

@@ -38,7 +38,7 @@ Yii::import('zii.widgets.jui.CJuiWidget');
  * for possible options (name-value pairs).
  *
  * @author Sebastian Thierer <sebathi@gmail.com>
- * @version $Id: CJuiTabs.php 3400 2011-09-22 00:47:39Z sebathi $
+ * @version $Id$
  * @package zii.widgets.jui
  * @since 1.1
  */
