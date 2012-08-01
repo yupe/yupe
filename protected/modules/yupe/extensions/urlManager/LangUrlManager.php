@@ -38,16 +38,19 @@ class LangUrlManager extends CUrlManager{
 
     public function createUrl($route, $params=array(), $ampersand='&')
     {
-        // Если указаны языки, дописываем указанны язык
+        // Если указаны языки, дописываем указанный язык
 	    if (is_array($this->languages))
         {
             // Если язык не указан - берем текущий
             if(!isset($params[$this->langParam]))
-                $params[$this->langParam]=Yii::app()->language;
+            {
+                $params[$this->langParam]=Yii::app()->language;                
+            }
 
             // Если указан "нативный" язык и к тому же он текущий  - делаем URL без него, т.к. он соответсвует пустому пути
-            if ( (Yii::app()->sourceLanguage == $params[$this->langParam]) && ($params[$this->langParam]==Yii::app()->language) )
+            if ((Yii::app()->sourceLanguage == $params[$this->langParam]) && ($params[$this->langParam]==Yii::app()->language) )
                 unset($params[$this->langParam]);
+
         }
         return parent::createUrl($route,$params,$ampersand);
     }
@@ -58,6 +61,8 @@ class LangUrlManager extends CUrlManager{
         $r = join("|",$this->languages);
         $url=preg_replace("/^($r)\//","",$url);
         if ( !isset($url[0]) || ($url[0]!='/') ) $url= '/'.$url;
+		
+		
         return $url;
     }
 

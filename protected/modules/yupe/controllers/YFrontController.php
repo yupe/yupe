@@ -19,7 +19,7 @@ class YFrontController extends Controller
         $this->pageTitle   = $module->siteName;
         $this->description = $module->siteDescription;
         $this->keywords    = $module->siteKeyWords;
-        $baseUrl = Yii::app()->baseUrl;
+        $baseUrl = Yii::app()->baseUrl;       
         if ( Yii::app()->theme )
             if ( is_file( Yii::app()->theme->basePath."/".ucwords(Yii::app()->theme->name)."Theme.php") )
                 require(Yii::app()->theme->basePath."/".ucwords(Yii::app()->theme->name)."Theme.php");
@@ -29,6 +29,6 @@ class YFrontController extends Controller
 
     public function isMultilang()
     {
-        return is_array(Yii::app()-> urlManager->languages) && count(Yii::app()-> urlManager->languages);
+        return isset(Yii::app()-> urlManager->languages) && is_array(Yii::app()-> urlManager->languages) && count(Yii::app()-> urlManager->languages);
     }
 }

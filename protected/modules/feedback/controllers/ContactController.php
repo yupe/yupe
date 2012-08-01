@@ -12,7 +12,7 @@ class ContactController extends YFrontController
     }
 
     public function actionIndex()
-    {
+    {        
         $form = new FeedBackForm;
         // если пользователь авторизован - подставить его данные 
         if(Yii::app()->user->isAuthenticated())
@@ -28,11 +28,11 @@ class ContactController extends YFrontController
         $module = Yii::app()->getModule('feedback');
 
         if (Yii::app()->request->isPostRequest && !empty($_POST['FeedBackForm']))
-        {
+        {            
             $form->setAttributes($_POST['FeedBackForm']);
 
             if ($form->validate())
-            {
+            {           
                 // обработка запроса
                 $backEnd = array_unique($module->backEnd);
 
@@ -63,7 +63,12 @@ class ContactController extends YFrontController
                             Yii::app()->user->setFlash(YFlashMessages::NOTICE_MESSAGE, Yii::t('feedback', 'Ваше сообщение отправлено! Спасибо!'));
                             
                             if(!count($backEnd))
+                            {
+                                if(Yii::app()->request->isAjaxRequest)
+                                    Yii::app()->ajax->success(Yii::t('feedback', 'Ваше сообщение отправлено! Спасибо!'));
+                                
                                 $this->redirect($module->successPage ? array($module->successPage) : array('/feedback/contact'));
+                            }
                         }
                         else
                         {
@@ -88,14 +93,25 @@ class ContactController extends YFrontController
                         Yii::log(Yii::t('feedback', 'Обращение пользователя отправлено на email!'), CLogger::LEVEL_INFO, FeedbackModule::$logCategory);
                         
                         Yii::app()->user->setFlash(YFlashMessages::NOTICE_MESSAGE, Yii::t('feedback', 'Ваше сообщение отправлено! Спасибо!'));
-
+                        
+                        if(Yii::app()->request->isAjaxRequest)
+                            Yii::app()->ajax->success(Yii::t('feedback', 'Ваше сообщение отправлено! Спасибо!'));
+                        
                         $this->redirect($module->successPage ? array($module->successPage) : array('/feedback/contact'));
                     }
                 }
 
                 Yii::app()->user->setFlash(YFlashMessages::ERROR_MESSAGE, Yii::t('feedback', 'Сообщение отправить невозможно!'));
                 
+                if(Yii::app()->request->isAjaxRequest)
+                    Yii::app()->ajax->failure(Yii::t('feedback', 'Сообщение отправить невозможно!'));
+                
                 $this->redirect(array('/feedback/contact'));
+            }
+            else
+            {                
+                if(Yii::app()->request->isAjaxRequest)
+                    Yii::app()->ajax->failure(Yii::t('feedback', 'Пожалуйста, заполните форму корректно и проверьте правильнсть E-mail адреса.'));
             }
         }
 

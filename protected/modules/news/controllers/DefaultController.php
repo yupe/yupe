@@ -31,6 +31,20 @@ class DefaultController extends YBackController
 
             if ($model->save())
             {
+                $model->image = CUploadedFile::getInstance($model, 'image');
+
+                if ($model->image)
+                {
+                    $imageName = $this->module->getUploadPath() . $model->alias . '.' . $model->image->extensionName;
+
+                    if ($model->image->saveAs($imageName))
+                    {
+                        $model->image = basename($imageName);
+
+                        $model->update(array( 'image' ));
+                    }
+                }
+
                 Yii::app()->user->setFlash(YFlashMessages::NOTICE_MESSAGE, Yii::t('news', 'Новость добавлена!'));
 
                 if(count(explode(',',Yii::app()->getModule('yupe')->availableLanguages)))
@@ -65,6 +79,7 @@ class DefaultController extends YBackController
             if (isset($_POST['News']))
             {
                 $model->attributes = $_POST['News'];
+
                 if ($model->save())
                 {
                     Yii::app()->user->setFlash(YFlashMessages::NOTICE_MESSAGE, Yii::t('news', 'Новость изменена!'));
@@ -97,7 +112,7 @@ class DefaultController extends YBackController
                 $modelsByLang[$m->lang] = $m;
             }
             // Выберем модельку для вывода тайтлов и прочего
-            $model                  = isset($modelsByLang[Yii::app()->language]) ? $modelsByLang[Yii::app()->language] :
+            $model = isset($modelsByLang[Yii::app()->language]) ? $modelsByLang[Yii::app()->language] :
                 (isset($modelsByLang[Yii::app()->sourceLanguage]) ? $modelsByLang[Yii::app()->sourceLanguage] : reset($models));
 
             // Теперь создадим недостоающие
@@ -111,6 +126,8 @@ class DefaultController extends YBackController
                             'alias'         => $alias,
                             'lang'          => $l,
                             'date'          => $model->date,
+                            'category_id'   => $model->category_id,
+                            'iamge'         => $model->image,
                             'creation_date' => $model->creation_date,
                             'change_date'   => $model->change_date,
                             'user_id'       => Yii::app()->user->id,
@@ -133,12 +150,19 @@ class DefaultController extends YBackController
 
                 foreach ($langs as $l)
                 {
+                    $img = $modelsByLang[$l]->image;
+
+                    $modelsByLang[$l]->image = CUploadedFile::getInstance($modelsByLang[$l], 'image') !== null ? CUploadedFile::getInstance($modelsByLang[$l], 'image') : $img;
+
                     if (isset($_POST['News'][$l]))
                     {
                         $p = $_POST['News'][$l];
+
                         $modelsByLang[$l]->setAttributes(array(
                             'is_protected' => $_POST['News']['is_protected'],
                             'date'         => $_POST['News']['date'],
+                            'category_id'  => $_POST['News']['category_id'],
+                            'image'        => $modelsByLang[$l]->image,
                             'title'        => $p['title'],
                             'short_text'   => $p['short_text'],
                             'full_text'    => $p['full_text'],
@@ -152,6 +176,19 @@ class DefaultController extends YBackController
 
                         if (!$modelsByLang[$l]->save())
                             $wasError = true;
+                        elseif(is_object($modelsByLang[$l]->image))
+                        {
+                            $imageName = $this->module->getUploadPath() . $model->alias . '.' . $model->image->extensionName;
+
+                            @unlink($this->module->getUploadPath() . $image);
+
+                            if ($model->image->saveAs($imageName))
+                            {
+                                $model->image = basename($imageName);
+
+                                $model->update(array( 'image' ));
+                            }
+                        }
                     }
                 }
 

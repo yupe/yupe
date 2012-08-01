@@ -31,8 +31,8 @@ class DefaultController extends YBackController
 
            if ($model->save())
             {
-                $model->image = CUploadedFile::getInstance($model, 'image');               
-                
+                $model->image = CUploadedFile::getInstance($model, 'image');
+
                 if ($model->image)
                 {
                     $imageName = $this->module->getUploadPath() . $model->alias . '.' . $model->image->extensionName;
@@ -66,8 +66,8 @@ class DefaultController extends YBackController
 
         // Uncomment the following line if AJAX validation is needed
         // $this->performAjaxValidation($model);
-        
-         $image = $model->image;
+
+        $image = $model->image;
 
         if (isset($_POST['Good']))
         {

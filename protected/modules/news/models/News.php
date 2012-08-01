@@ -22,10 +22,8 @@ class News extends CActiveRecord
     const STATUS_DRAFT      = 0;
     const STATUS_PUBLISHED  = 1;
     const STATUS_MODERATION = 2;
-
     const PROTECTED_NO  = 0;
     const PROTECTED_YES = 1;
-
 
     /**
      * @return string the associated database table name
@@ -38,8 +36,8 @@ class News extends CActiveRecord
     public function getStatusList()
     {
         return array(
-            self::STATUS_DRAFT => Yii::t('news', 'Черновик'),
-            self::STATUS_PUBLISHED => Yii::t('news', 'Опубликовано'),
+            self::STATUS_DRAFT      => Yii::t('news', 'Черновик'),
+            self::STATUS_PUBLISHED  => Yii::t('news', 'Опубликовано'),
             self::STATUS_MODERATION => Yii::t('news', 'На модерации')
         );
     }
@@ -47,15 +45,13 @@ class News extends CActiveRecord
     public function getStatus()
     {
         $data = $this->getStatusList();
-        return array_key_exists($this->status, $data) ? $data[$this->status]
-            : Yii::t('news', '*неизвестно*');
+        return array_key_exists($this->status, $data) ? $data[$this->status] : Yii::t('news', '*неизвестно*');
     }
-
 
     public function getProtectedStatusList()
     {
         return array(
-            self::PROTECTED_NO => Yii::t('news', 'нет'),
+            self::PROTECTED_NO  => Yii::t('news', 'нет'),
             self::PROTECTED_YES => Yii::t('news', 'да')
         );
     }
@@ -63,8 +59,7 @@ class News extends CActiveRecord
     public function getProtectedStatus()
     {
         $data = $this->getProtectedStatusList();
-        return array_key_exists($this->is_protected, $data)
-            ? $data[$this->is_protected] : Yii::t('news', '*неизвестно*');
+        return array_key_exists($this->is_protected, $data) ? $data[$this->is_protected] : Yii::t('news', '*неизвестно*');
     }
 
     /**
@@ -76,30 +71,30 @@ class News extends CActiveRecord
         return parent::model($className);
     }
 
-
     /**
      * @return array validation rules for model attributes.
      */
     public function rules()
     {
-        //@todo добавить проверку IN для статуса
         return array(
-            array('title, alias, short_text, full_text, keywords, description', 'filter', 'filter' => 'trim'),
-            array('title, alias, keywords, description', 'filter', 'filter' => 'strip_tags'),
-            array('date, title, alias, short_text, full_text', 'required', 'on'=> array('update','insert')),
-            array('status, is_protected', 'numerical', 'integerOnly' => true),
-            array('title, alias, keywords', 'length', 'max' => 150),
-            array('lang', 'length', 'max' => 2),
-            array('lang', 'default', 'value' => Yii::app()->sourceLanguage),
-            array('alias', 'unique', 'criteria'=> array(
-                    'condition'=>'lang = :lang',
-                    'params'=>array(':lang'=>$this->lang),
+            array( 'title, alias, short_text, full_text, keywords, description', 'filter', 'filter' => 'trim' ),
+            array( 'title, alias, keywords, description', 'filter', 'filter' => 'strip_tags' ),
+            array( 'date, title, alias, short_text, full_text', 'required', 'on' => array( 'update', 'insert' ) ),
+            array( 'status, is_protected, category_id', 'numerical', 'integerOnly' => true ),
+            array( 'title, alias, keywords', 'length', 'max' => 150 ),
+            array( 'lang', 'length', 'max' => 2 ),
+            array( 'lang', 'default', 'value' => Yii::app()->sourceLanguage ),
+            array( 'status', 'in', 'range' => array_keys($this->getStatusList()) ),
+            array( 'alias', 'unique', 'criteria' => array(
+                    'condition' => 'lang = :lang',
+                    'params'    => array( ':lang' => $this->lang ),
                 ),
             ),
-            array('description', 'length', 'max' => 250),
-            array('short_text', 'length', 'max' => 400),
-            array('alias', 'match', 'pattern' => '/^[a-zA-Z0-9_\-]+$/', 'message' => Yii::t('news', 'Запрещенные символы в поле {attribute}')),
-            array('id, keywords, description, creation_date, change_date, date, title, alias, short_text, full_text, user_id, status, is_protected', 'safe', 'on' => 'search'),
+            array( 'description', 'length', 'max' => 250 ),
+            array( 'short_text', 'length', 'max' => 400 ),
+            array( 'image', 'length', 'max' => 300 ),
+            array( 'alias', 'match', 'pattern' => '/^[a-zA-Z0-9_\-]+$/', 'message' => Yii::t('news', 'Запрещенные символы в поле {attribute}') ),
+            array( 'id, keywords, description, creation_date, change_date, date, title, alias, short_text, full_text, user_id, status, is_protected', 'safe', 'on' => 'search' ),
         );
     }
 
@@ -109,22 +104,39 @@ class News extends CActiveRecord
     public function relations()
     {
         return array(
-            'user' => array(self::BELONGS_TO, 'User', 'user_id')
+            'category' => array(self::BELONGS_TO, 'Category', 'category_id'),
+            'user' => array( self::BELONGS_TO, 'User', 'user_id' )
         );
     }
-
 
     public function scopes()
     {
         return array(
-            'published' => array('condition' => 'status = ' . self::STATUS_PUBLISHED),
-            'protected' => array('condition' => 'is_protected = ' . self::PROTECTED_YES),
-            'public' => array('condition' => 'is_protected = ' . self::PROTECTED_NO),
-            'recent' => array('order' => 'creation_date DESC', 'limit' => 5)
+            'published' => array(
+                'condition' => 'status = :status',
+                'params'    => array(
+                    ':status'   => self::STATUS_PUBLISHED
+                )
+            ),
+            'protected' => array(
+                'condition' => 'is_protected = :is_protected',
+                'params'    => array( ':is_prtected' => self::PROTECTED_YES )
+            ),
+            'public'       => array(
+                'condition' => 'is_protected = :is_protected',
+                'params'    => array(
+                    ':is_protected' => self::PROTECTED_NO
+                )
+            ),
+            'recent'        => array(
+                'order' => 'creation_date DESC',
+                'limit' => 5
+            )
         );
     }
 
-    public function language($lang){
+    public function language($lang)
+    {
         $this->getDbCriteria()->mergeWith(array(
             'condition' => "lang='$lang'",
         ));
@@ -137,35 +149,35 @@ class News extends CActiveRecord
     public function attributeLabels()
     {
         return array(
-            'id' => Yii::t('news', 'Id'),
+            'id'            => Yii::t('news', 'Id'),
+            'category_id'   => Yii::t('news', 'Категория'),
             'creation_date' => Yii::t('news', 'Дата создания'),
-            'change_date' => Yii::t('news', 'Дата изменения'),
-            'date' => Yii::t('news', 'Дата'),
-            'title' => Yii::t('news', 'Заголовок'),
-            'alias' => Yii::t('news', 'Алиас'),
-            'lang' => Yii::t('news', 'Язык'),
-            'short_text' => Yii::t('news', 'Короткое описание'),
-            'full_text' => Yii::t('news', 'Полный текст'),
-            'user_id' => Yii::t('news', 'Автор'),
-            'status' => Yii::t('news', 'Статус'),
-            'is_protected' => Yii::t('news', 'Доступ: * только для авторизованных пользователей'),
-            'keywords' => Yii::t('news', 'Ключевые слова (SEO)'),
-            'description' => Yii::t('news', 'Описание (SEO)'),
+            'change_date'   => Yii::t('news', 'Дата изменения'),
+            'date'          => Yii::t('news', 'Дата'),
+            'title'         => Yii::t('news', 'Заголовок'),
+            'alias'         => Yii::t('news', 'Алиас'),
+            'image'         => Yii::t('news', 'Изображение'),
+            'lang'          => Yii::t('news', 'Язык'),
+            'short_text'    => Yii::t('news', 'Короткое описание'),
+            'full_text'     => Yii::t('news', 'Полный текст'),
+            'user_id'       => Yii::t('news', 'Автор'),
+            'status'        => Yii::t('news', 'Статус'),
+            'is_protected'  => Yii::t('news', 'Доступ: * только для авторизованных пользователей'),
+            'keywords'      => Yii::t('news', 'Ключевые слова (SEO)'),
+            'description'   => Yii::t('news', 'Описание (SEO)'),
         );
     }
-
 
     public function beforeValidate()
     {
         if (!$this->alias)
-           $this->alias = YText::translit($this->title);
+            $this->alias = YText::translit($this->title);
 
         if (!$this->description)
             $this->description = $this->short_text;
 
         return parent::beforeValidate();
     }
-
 
     public function beforeSave()
     {
@@ -192,7 +204,7 @@ class News extends CActiveRecord
 
     public function getPermaLink()
     {
-        return Yii::app()->createUrl('/news/news/show/', array('title' => $this->alias));
+        return Yii::app()->createUrl('/news/news/show/', array( 'title' => $this->alias ));
     }
 
     /**
@@ -219,7 +231,21 @@ class News extends CActiveRecord
         $criteria->compare('is_protected', $this->is_protected);
 
         return new CActiveDataProvider(get_class($this), array(
-                                                              'criteria' => $criteria,
-                                                         ));
+                'criteria' => $criteria,
+            ));
     }
+
+    public function getCategoryName()
+    {
+        return is_null($this->category) ? '---' : $this->category->name;
+    }
+
+    public function getImageUrl()
+    {
+        if($this->image)
+            return Yii::app()->baseUrl.'/'.Yii::app()->getModule('yupe')->uploadPath .'/'. Yii::app()->getModule('news')->uploadPath.'/'.$this->image;
+
+        return false;
+    }
+
 }

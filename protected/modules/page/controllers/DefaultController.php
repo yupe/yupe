@@ -108,7 +108,8 @@ class DefaultController extends YBackController
             {
                 if (!isset($modelsByLang[$l]))
                 {
-                    $page = new Page();
+                    $page = new Page;
+                    
                     $page->setAttributes(
                         array(
                             'slug'         => $slug,
@@ -147,6 +148,8 @@ class DefaultController extends YBackController
                             'status'       => $_POST['Page']['status'],
                             'is_protected' => $_POST['Page']['is_protected'],
                             'menu_order'   => $_POST['Page']['menu_order'],
+                            'parent_Id'    => $_POST['Page']['parent_Id'],
+                            'slug'         => $_POST['Page']['slug']
                         ));
 
                         if ($l != Yii::app()->sourceLanguage)

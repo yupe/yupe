@@ -54,10 +54,6 @@ $('.search-form form').submit(function(){
                                                          'type' => 'raw',
                                                          'value' => 'CHtml::link($data->name,array("/page/default/update","id" => $data->id))'
                                                      ),
-                                                     array(
-                                                         'name' => 'parent_Id',
-                                                         'value' => '$data->parent_Id ? page::model()->findByPk($data->parent_Id)->name : Yii::t("page","нет")'
-                                                     ),
                                                      'title',
                                                      array(
                                                          'name' => 'status',

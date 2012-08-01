@@ -46,7 +46,7 @@ $this->menu = array(
 <?php
     /** @var CActiveDataProvider $dp */
     $dp = $model->search();
-    $dp->criteria->addCondition('lang="'.Yii::app()->language.'" OR lang IS NULL');
+    $dp->criteria->addCondition('lang="'.Yii::app()->language.'" OR lang is null OR lang = "'.Yii::app()->sourceLanguage.'"');
     $this->widget('YCustomGridView', array(
         'itemsCssClass' => ' table table-condensed',
         'id'=>'page-grid',
@@ -58,11 +58,7 @@ $this->menu = array(
             array(
                 'name'=>'name',
                 'type'=>'raw',
-                'value'=>'CHtml::link($data->name,array("/page/default/update","id" => $data->id))'
-             ),
-             array(
-                'name'=>'parent_Id',
-                'value'=>'$data->parent_Id ? page::model()->findByPk($data->parent_Id)->name : Yii::t("page","нет")'
+                'value'=>'CHtml::link($data->name,array("/page/default/update","slug" => $data->slug))'
              ),
              'title',
              array(

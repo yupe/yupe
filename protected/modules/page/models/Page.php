@@ -107,7 +107,7 @@ class Page extends CActiveRecord
      * @return array validation rules for model attributes.
      */
     public function rules()
-    {
+    {       
         return array(
             array('name, title, slug, body, description, keywords, lang', 'required', 'on'=> array('update','insert')),
             array('status, is_protected, parent_Id, menu_order', 'numerical', 'integerOnly' => true, 'on'=> array('update','insert')),
@@ -116,11 +116,7 @@ class Page extends CActiveRecord
             array('lang', 'default', 'value' => Yii::app()->sourceLanguage),
             array('name, title, slug, keywords', 'length', 'max' => 150),
             array('description', 'length', 'max' => 150),
-            array('slug', 'unique', 'criteria'=> array(
-                                                    'condition'=>'lang=:lang',
-                                                    'params'=>array(':lang'=>$this->lang),
-                                                    ),
-                 ),
+            array('slug', 'unique', 'criteria'=> array('condition'=>'lang=:lang','params'=>array(':lang'=>$this->lang)),'on'=> array('insert')),
             array('status', 'in', 'range' => array_keys($this->getStatusList())),
             array('is_protected', 'in', 'range' => array_keys($this->getProtectedStatusList())),
             array('title, slug, body, description, keywords, name', 'filter', 'filter' => 'trim'),
@@ -260,10 +256,10 @@ class Page extends CActiveRecord
         $sort = new CSort;
 
         $sort->defaultOrder = 'menu_order DESC';
-
+        
         return new CActiveDataProvider('Page', array(
                                                     'criteria' => $criteria,
                                                     'sort' => $sort
-                                               ));
+                                               ));   
     }
 }

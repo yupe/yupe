@@ -62,7 +62,7 @@ class InstallModule extends YWebModule
     }
 
     public function init()
-    {
+    {        
         $this->setImport(array(
                               'install.models.*',
                               'install.components.*',

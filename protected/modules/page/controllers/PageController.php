@@ -39,7 +39,11 @@ class PageController extends YFrontController
         if ((int)Yii::app()->request->getQuery('preview') === 1 && Yii::app()->user->isSuperUser())        
             $page = Page::model()->find('slug = :slug AND (lang=:lang OR (lang IS NULL))', array(':slug' => $slug, ':lang' => Yii::app()->language ));
         else        
-            $page = Page::model()->published()->find('slug = :slug AND (lang=:lang OR (lang IS NULL))', array(':slug' => $slug, ':lang' => Yii::app()->language ));
+            $page = Page::model()->published()->find('slug = :slug AND (lang = :lang OR (lang = :deflang))', array(
+                    ':slug' => $slug,
+                    ':lang' => Yii::app()->language,
+                    ':deflang' => Yii::app()->getModule('yupe')->defaultLanguage
+            ));
 
         if (!$page)        
             throw new CHttpException('404', Yii::t('page', 'Страница не найдена!'));
