@@ -12,7 +12,7 @@ return array(
     
     'sourceLanguage'    => 'ru',
     // тема оформления по умолчанию
-    'theme'             => 'mg',
+    'theme'             => 'default',
     // preloading 'log' component
     'preload'           => array( 'log' ),
     // подключение путей

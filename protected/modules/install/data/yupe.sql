@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Хост: localhost
--- Время создания: Авг 01 2012 г., 14:34
+-- Время создания: Авг 01 2012 г., 14:44
 -- Версия сервера: 5.5.24
 -- Версия PHP: 5.3.10-1ubuntu3.2
 
@@ -17,7 +17,7 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8 */;
 
 --
--- База данных: `mg`
+-- База данных: `ytt`
 --
 
 -- --------------------------------------------------------
@@ -235,6 +235,7 @@ CREATE TABLE IF NOT EXISTS `good` (
   `description` text NOT NULL,
   `alias` varchar(100) NOT NULL,
   `data` text,
+  `is_special` tinyint(1) NOT NULL DEFAULT '0',
   `status` smallint(1) unsigned NOT NULL DEFAULT '1',
   `create_time` datetime NOT NULL,
   `update_time` datetime NOT NULL,
@@ -565,7 +566,7 @@ CREATE TABLE IF NOT EXISTS `settings` (
   `user_id` int(10) unsigned NOT NULL,
   PRIMARY KEY (`id`),
   KEY `moduleId` (`module_id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=564 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=568 ;
 
 -- --------------------------------------------------------
 
@@ -617,7 +618,7 @@ CREATE TABLE IF NOT EXISTS `user` (
   UNIQUE KEY `user_email_unique` (`email`),
   KEY `user_status_index` (`status`),
   KEY `email_confirm` (`email_confirm`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=86 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=87 ;
 
 -- --------------------------------------------------------
 
