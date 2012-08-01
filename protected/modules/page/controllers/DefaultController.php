@@ -147,9 +147,7 @@ class DefaultController extends YBackController
                             'description'  => $p['description'],
                             'status'       => $_POST['Page']['status'],
                             'is_protected' => $_POST['Page']['is_protected'],
-                            'menu_order'   => $_POST['Page']['menu_order'],
-                            'parent_Id'    => $_POST['Page']['parent_Id'],
-                            'slug'         => $_POST['Page']['slug']
+                            'menu_order'   => $_POST['Page']['menu_order'],                           
                         ));
 
                         if ($l != Yii::app()->sourceLanguage)
