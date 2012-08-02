@@ -7,10 +7,7 @@ class DefaultController extends Controller
 
     private $alreadyInstalledFlag;
 
-    private $_freeActions = array(
-        'finish',
-        'sitesettings',
-    );
+    private $_freeActions = array('finish');
 
     public function init()
     {
@@ -218,12 +215,12 @@ class DefaultController extends Controller
 
                             // обработать если есть все файлы с расширением .sql
                             $sqlFiles = glob("{$sqlDataDir}*.sql");
-                            
+
                             if (is_array($sqlFiles) && count($sqlFiles) > 1)
                             {
                                 foreach ($sqlFiles as $file)
                                 {
-                                    if ($file != $sqlFile)                                        
+                                    if ($file != $sqlFile)
                                         $this->executeSql($file);
                                 }
                             }
@@ -301,9 +298,6 @@ class DefaultController extends Controller
                 {
                     Yii::app()->user->setFlash(YFlashMessages::NOTICE_MESSAGE, Yii::t('install', 'Администратор успешно создан!'));
 
-                    if (!@touch($this->alreadyInstalledFlag))
-                        Yii::app()->user->setFlash(YFlashMessages::WARNING_MESSAGE, Yii::t('install', "Не удалось создать файл {file}, для избежания повторной установки, пожалуйста, создайте его самостоятельно или отключите модуль 'Install' сразу после установки!", array('{file}' => $this->alreadyInstalledFlag)));
-
                     $this->redirect(array('/install/default/sitesettings/'));
                 }
                 //@TODO добавить вывод сообщений об ошибке сохранения
@@ -355,6 +349,9 @@ class DefaultController extends Controller
                     $transaction->commit();
 
                     Yii::app()->user->setFlash(YFlashMessages::NOTICE_MESSAGE, Yii::t('install', 'Настройки сайта успешно сохранены!'));
+
+                    if (!@touch($this->alreadyInstalledFlag))
+                        Yii::app()->user->setFlash(YFlashMessages::WARNING_MESSAGE, Yii::t('install', "Не удалось создать файл {file}, для избежания повторной установки, пожалуйста, создайте его самостоятельно или отключите модуль 'Install' сразу после установки!", array('{file}' => $this->alreadyInstalledFlag)));
 
                     $this->redirect(array('/install/default/finish/'));
                 }

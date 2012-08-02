@@ -173,9 +173,6 @@ class News extends CActiveRecord
         if (!$this->alias)
             $this->alias = YText::translit($this->title);
 
-        if (!$this->description)
-            $this->description = $this->short_text;
-
         return parent::beforeValidate();
     }
 
@@ -247,5 +244,4 @@ class News extends CActiveRecord
 
         return false;
     }
-
 }

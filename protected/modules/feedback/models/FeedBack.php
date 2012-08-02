@@ -88,13 +88,14 @@ class FeedBack extends CActiveRecord
     {
         return array(
             array('name, email, theme, text', 'required'),
-            array('name, email, theme, text', 'filter', 'filter' => array($obj = new CHtmlPurifier(), 'purify')),
+            array('name, email, theme, text, phone', 'filter', 'filter' => array($obj = new CHtmlPurifier(), 'purify')),
             array('type, status, answer_user, is_faq, type', 'numerical', 'integerOnly' => true),
             array('is_faq', 'in', 'range' => array(0, 1)),
             array('status', 'in', 'range' => array_keys($this->getStatusList())),
             array('type', 'in', 'range' => array_keys($this->getTypeList())),
             array('name, email, answer_date', 'length', 'max' => 100),
             array('theme', 'length', 'max' => 150),
+            array('phone', 'length', 'max' => 100),
             array('email', 'email'),
             array('answer', 'filter', 'filter' => 'trim'),
             array('id, creation_date, change_date, name, email, theme, text, type, status, ip', 'safe', 'on' => 'search'),
@@ -112,6 +113,7 @@ class FeedBack extends CActiveRecord
             'change_date' => Yii::t('feedback', 'Дата изменения'),
             'name' => Yii::t('feedback', 'Имя'),
             'email' => Yii::t('feedback', 'Email'),
+            'phone' => Yii::t('feedback', 'Телефон'),
             'theme' => Yii::t('feedback', 'Тема'),
             'text' => Yii::t('feedback', 'Текст'),
             'type' => Yii::t('feedback', 'Тип'),

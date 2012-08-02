@@ -37,6 +37,16 @@
             </div>
         </div>
 
+         <div class="row-fluid control-group  <?php echo $model-> hasErrors('phone')?'error':'' ?>">
+            <div class="span7">
+                <?php echo $form->labelEx($model, 'phone'); ?>
+                <?php echo $form->textField($model, 'phone', array('size' => 60, 'maxlength' => 100)); ?>
+            </div>
+            <div class="span5">
+                <?php echo $form->error($model, 'phone'); ?>
+            </div>
+        </div>
+
         <div class="row-fluid control-group  <?php echo $model-> hasErrors('theme')?'error':'' ?>">
             <div class="span7">
                 <?php echo $form->labelEx($model, 'theme'); ?>

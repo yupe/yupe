@@ -18,11 +18,11 @@ $this->menu = array(
 
 <script type='text/javascript'>
     $(document).ready(function(){
-        var email = '<?php echo $model->email?>'; 
+        var email = '<?php echo $model->email?>';
         $('input:submit').click(function(){
             if(window.confirm('<?php echo Yii::t('feedback','Ответ будет отправлен на ');?>' + email + '<?php echo Yii::t('feedback',' продолжить ?');?>')){
                 return true;
-            }       
+            }
             return false;
         });
     });
@@ -36,6 +36,7 @@ $this->menu = array(
                                                         'creation_date',
                                                         'name',
                                                         'email',
+                                                        'phone',
                                                         'theme',
                                                         'text',
                                                         array(

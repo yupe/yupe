@@ -47,10 +47,19 @@ Yii::app()->clientScript->registerScript('search', "
                 'header' => '№',
             ),
             array(
-                'name' => 'is_faq',
+                'name' => 'theme',
                 'type' => 'raw',
-                'header' => 'FAQ',
-                'value' => '$this->grid->returnStatusHtml($data)',
+                'value' => 'CHtml::link($data->theme, array("/feedback/default/update/", "id" => $data->id))',
+            ),
+            array(
+                'name' => 'type',
+                'value' => '$data->getType()',
+            ),
+            'email',
+            'phone',
+            array(
+                'name' => 'creation_date',
+                'value' => "Yii::app()->dateFormatter->formatDateTime(\$data->creation_date,'short')",
             ),
             array(
                 'name' => 'status',
@@ -59,22 +68,10 @@ Yii::app()->clientScript->registerScript('search', "
                 'filter' => CHtml::activeDropDownList($model, 'status', $model->getTypeList()),
             ),
             array(
-                'name'  => 'answer_user',
-                'value' => '$data->getAnsweredUser().(($data->answer_date!="0000-00-00 00:00:00")?("(".Yii::app()->dateFormatter->formatDateTime($data-> change_date,"short").")"):"")'
-            ),
-            array(
-                'name' => 'change_date',
-                'value' => "(\$data->change_date!='0000-00-00 00:00:00')?Yii::app()->dateFormatter->formatDateTime(\$data-> change_date,'short'):'—'",
-            ),
-
-            array(
-                'name' => 'theme',
+                'name' => 'is_faq',
                 'type' => 'raw',
-                'value' => 'CHtml::link($data->theme, array("/feedback/default/update/", "id" => $data->id))',
-            ),
-            array(
-                'name' => 'type',
-                'value' => '$data->getType()',
+                'header' => 'FAQ',
+                'value' => '$this->grid->returnStatusHtml($data)',
             ),
             array('class' => 'bootstrap.widgets.BootButtonColumn'),
         ),

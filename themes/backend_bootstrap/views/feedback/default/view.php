@@ -33,6 +33,7 @@ $this->menu = array(
                                                         ),
                                                         'name',
                                                         'email',
+                                                        'phone',
                                                         'theme',
                                                         'text',
                                                         array(
