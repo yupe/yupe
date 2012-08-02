@@ -192,6 +192,9 @@ class News extends CActiveRecord
 
         $this->date = date('Y-m-d', strtotime($this->date));
 
+        if($this->category_id == '')
+            $this->category_id = NULL;
+
         return parent::beforeSave();
     }
 

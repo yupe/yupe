@@ -9,21 +9,10 @@
     <br/>
 
     <div class="content">
-        <p><?php echo $data->full_text; ?></p>
+        <p><?php echo $data->short_text; ?></p>
     </div>
     <div class="nav">
         <?php echo CHtml::link('Постоянная ссылка', array('/news/news/show', 'title' => $data->alias));?>
         | последнее обновление <?php echo $data->change_date;?>
     </div>
 </div>
-
-
-<br/><br/><br/>
-
-<?php $this->widget('application.modules.comment.widgets.CommentsListWidget', array('model' => $data, 'modelId' => $data->id)); ?>
-
-<br/>
-
-<h3>Оставить комментарий</h3>
-
-<?php $this->widget('application.modules.comment.widgets.CommentFormWidget', array('redirectTo' => $data->getPermaLink(), 'model' => $data, 'modelId' => $data->id)); ?>
