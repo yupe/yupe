@@ -324,26 +324,29 @@ class DefaultController extends Controller
 
                 try
                 {
-                    $user = User::model()->admin()->findAll();
-
-                    if (count($user) > 1)
-                        throw new CHttpException(500, Yii::t('install', 'Произошла ошибка при установке =('));
-
-                    foreach (array('siteDescription', 'siteName', 'siteKeyWords', 'email') as $param)
+                    if(Settings::model()->count() == 0)
                     {
-                        $settings = new Settings;
+                        $user = User::model()->admin()->findAll();
 
-                        $settings->setAttributes(array(
-                            'module_id' => 'yupe',
-                            'param_name' => $param,
-                            'param_value' => $model->$param,
-                            'user_id' => $user[0]->id,
-                        ));
+                        if (count($user) > 1)
+                            throw new CHttpException(500, Yii::t('install', 'Произошла ошибка при установке =('));
+    
+                        foreach (array('siteDescription', 'siteName', 'siteKeyWords', 'email') as $param)
+                        {
+                            $settings = new Settings;
 
-                        if ($settings->save())
-                            continue;
-                        else
-                            throw new CDbException(print_r($settings->getErrors(), true));
+                            $settings->setAttributes(array(
+                                'module_id' => 'yupe',
+                                'param_name' => $param,
+                                'param_value' => $model->$param,
+                                'user_id' => $user[0]->id,
+                            ));
+    
+                            if ($settings->save())
+                                continue;
+                            else
+                                throw new CDbException(print_r($settings->getErrors(), true));
+                        }
                     }
 
                     $transaction->commit();
