@@ -35,7 +35,6 @@ abstract class YWebModule extends CWebModule
      */
     public $urlRules = null;
 
-
     /**
      *  @return string текущая версия модуля
      */
@@ -181,19 +180,26 @@ abstract class YWebModule extends CWebModule
         if (isset(Yii::app()->theme) && is_object(Yii::app()->theme))
             $this->layout = 'webroot.themes.' . Yii::app()->theme->name . '.views.layouts.main';
 
-        // инициализация модуля
-        $settings = Settings::model()->cache($this->coreCacheTime)->findAll('module_id = :module_id', array('module_id' => $this->getId()));
-
-        if($settings)
+        try
         {
-            $editableParams = $this->getEditableParams();
+            // инициализация модуля
+            $settings = Settings::model()->cache($this->coreCacheTime)->findAll('module_id = :module_id', array('module_id' => $this->getId()));
 
-            //@TODO обход не settings а editableParams как вариант =)
-            foreach ($settings as $model)
+            if($settings)
             {
-                if (property_exists($this, $model->param_name) && (in_array($model->param_name, $editableParams) || array_key_exists($model->param_name, $editableParams)))
-                    $this->{$model->param_name} = $model->param_value;
+                $editableParams = $this->getEditableParams();
+
+                //@TODO обход не settings а editableParams как вариант =)
+                foreach ($settings as $model)
+                {
+                    if (property_exists($this, $model->param_name) && (in_array($model->param_name, $editableParams) || array_key_exists($model->param_name, $editableParams)))
+                        $this->{$model->param_name} = $model->param_value;
+                }
             }
+        }
+        catch(Exception $e)
+        {
+
         }
 
         parent::init();
