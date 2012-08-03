@@ -20,7 +20,7 @@ $this->breadcrumbs = array(
     </div>
     <div class="row">
         <?php echo CHtml::label(Yii::t('yupe', 'Выберите тему административной части'), 'backendTheme');?>
-        <?php echo CHtml::dropDownList('backendTheme', $backendTheme, $backendThemes);?>
+        <?php echo CHtml::dropDownList('backendTheme', $backendTheme, $backendThemes,array('empty' => Yii::t('yupe', '--стандартная тема--')));?>
     </div>
 
     <div class="row submit">

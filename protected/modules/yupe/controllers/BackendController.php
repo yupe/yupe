@@ -5,12 +5,12 @@ class BackendController extends YBackController
 
     public function actionIndex()
     {
-        $this->render('index', Yii::app()->getModule('yupe')->getModules());
+        $this->render('index', $this->yupe->getModules());
     }
 
     public function actionSettings()
     {
-        $this->render('settings', Yii::app()->getModule('yupe')->getModules());
+        $this->render('settings', $this->yupe->getModules());
     }
 
     public function actionModulesettings($module)
@@ -40,7 +40,7 @@ class BackendController extends YBackController
         }
 
         // сформировать боковое меню из ссылок на настройки модулей
-        $modules = Yii::app()->getModule('yupe')->getModules();
+        $modules = $this->yupe->getModules();
 
         $this->menu = array();
 
@@ -123,10 +123,8 @@ class BackendController extends YBackController
     {
         // Параметры, которые нам интересны
         $params = array('theme', 'backendTheme');
-        $module = Yii::app()->getModule('yupe');
-        $moduleId = $module->coreModuleId;
 
-        $settings = Settings::model()->fetchModuleSettings($moduleId, $params);
+        $settings = Settings::model()->fetchModuleSettings($this->yupe->coreModuleId, $params);
 
         if (Yii::app()->request->isPostRequest)
         {
@@ -151,7 +149,7 @@ class BackendController extends YBackController
                     $settings[$p] = new Settings;
 
                     $settings[$p]->setAttributes(array(
-                        'module_id' => $moduleId,
+                        'module_id' => $this->yupe->coreModuleId,
                         'param_name' => $p,
                         'param_value' => $pval
                     ));
@@ -168,24 +166,19 @@ class BackendController extends YBackController
                 Yii::app()->cache->flush();
 
                 $this->redirect(array('/yupe/backend/themesettings/'));
-            } else
+            }
+            else
             {
                 Yii::app()->user->setFlash(YFlashMessages::ERROR_MESSAGE, Yii::t('yupe', 'При сохранении произошла ошибка!'));
                 $this->redirect(array('/yupe/backend/themesettings/'));
             }
         }
 
-        $themes = $module->getThemes();
-
-        $backendThemes = $module->getThemes(true);
-
-        $backendThemes[""] = Yii::t('yupe', '--стандартная тема--');
-
         $theme = isset($settings['theme']) ? $settings['theme']->param_value : Yii::t('yupe', 'Тема не используется');
 
-        $backendTheme = isset($settings['backendTheme']) ? $settings['backendTheme']->param_value : ($module->backendTheme ? $module->backendTheme : Yii::t('yupe', 'Тема не используется'));
+        $backendTheme = isset($settings['backendTheme']) ? $settings['backendTheme']->param_value : ($this->yupe->backendTheme ? $this->yupe->backendTheme : Yii::t('yupe', 'Тема не используется'));
 
-        $this->render('themesettings', array('themes' => $themes, 'theme' => $theme, 'backendThemes' => $backendThemes, 'backendTheme' => $backendTheme));
+        $this->render('themesettings', array('themes' => $this->yupe->getThemes(), 'theme' => $theme, 'backendThemes' => $this->yupe->getThemes(true), 'backendTheme' => $backendTheme));
     }
 
     /**
@@ -201,7 +194,7 @@ class BackendController extends YBackController
         {
             $rename = (int) Yii::app()->request->getQuery('rename',1);
 
-            $webPath = DIRECTORY_SEPARATOR . Yii::app()->getModule('yupe')->uploadPath . DIRECTORY_SEPARATOR. date('dmY') . DIRECTORY_SEPARATOR;
+            $webPath = DIRECTORY_SEPARATOR . $this->yupe->uploadPath . DIRECTORY_SEPARATOR. date('dmY') . DIRECTORY_SEPARATOR;
 
             $uploadPath = Yii::getPathOfAlias('webroot') . $webPath;
 

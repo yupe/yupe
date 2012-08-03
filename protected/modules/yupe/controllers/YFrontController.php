@@ -1,8 +1,7 @@
 <?php
 
-class YFrontController extends Controller
+class YFrontController extends YMainController
 {
-
     public $menu = array();
     public $breadcrumbs = array();
     public $description;
@@ -15,20 +14,16 @@ class YFrontController extends Controller
 
     public function init()
     {
-        $module = Yii::app()->getModule('yupe');
-        $this->pageTitle   = $module->siteName;
-        $this->description = $module->siteDescription;
-        $this->keywords    = $module->siteKeyWords;
-        $baseUrl = Yii::app()->baseUrl;       
+        parent::init();
+
+        $this->pageTitle   = $this->yupe->siteName;
+        $this->description = $this->yupe->siteDescription;
+        $this->keywords    = $this->yupe->siteKeyWords;
+        $baseUrl = Yii::app()->baseUrl;
         if ( Yii::app()->theme )
             if ( is_file( Yii::app()->theme->basePath."/".ucwords(Yii::app()->theme->name)."Theme.php") )
                 require(Yii::app()->theme->basePath."/".ucwords(Yii::app()->theme->name)."Theme.php");
 
         Yii::app()->clientScript->registerScript('yupe_base_url', "var baseUrl = '$baseUrl';", CClientScript::POS_HEAD);
-    }
-
-    public function isMultilang()
-    {
-        return isset(Yii::app()-> urlManager->languages) && is_array(Yii::app()-> urlManager->languages) && count(Yii::app()-> urlManager->languages);
     }
 }

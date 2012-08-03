@@ -58,7 +58,7 @@ $this->widget('YCustomGridView', array(
         array(
             'name'  => 'title',
             'type'  => 'raw',
-            'value' => 'CHtml::link($data->title,array("/news/default/update","id" => $data->id))'
+            'value' => 'CHtml::link($data->title,array("/news/default/update","alias" => $data->alias))'
         ),
         array(
            'name'  => 'category_id',

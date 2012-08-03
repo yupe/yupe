@@ -8,7 +8,7 @@ class ImageModule extends YWebModule
 
     public $allowedExtensions = 'jpg,jpeg,png,gif';
 
-    public $maxSize;
+    public $maxSize = 500000;
 
     public $types;
 
@@ -33,7 +33,7 @@ class ImageModule extends YWebModule
 
         $dirName = $this->getUploadPath() . $current;
 
-        if (is_dir($dirName))        
+        if (is_dir($dirName))
             return $current;
 
         return @mkdir($dirName, 0700, true) ? $current : false;

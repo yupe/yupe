@@ -120,7 +120,7 @@ class DefaultController extends YBackController
             {
                 if (!isset($modelsByLang[$l]))
                 {
-                    $news = new News();
+                    $news = new News;
                     $news->setAttributes(
                         array(
                             'alias'         => $alias,
@@ -176,17 +176,18 @@ class DefaultController extends YBackController
 
                         if (!$modelsByLang[$l]->save())
                             $wasError = true;
+                        
                         elseif(is_object($modelsByLang[$l]->image))
                         {
-                            $imageName = $this->module->getUploadPath() . $model->alias . '.' . $model->image->extensionName;
+                            $imageName = $this->module->getUploadPath() . $model->alias . '.' . $modelsByLang[$l]->image->extensionName;
 
                             @unlink($this->module->getUploadPath() . $image);
 
-                            if ($model->image->saveAs($imageName))
+                            if ($modelsByLang[$l]->image->saveAs($imageName))
                             {
-                                $model->image = basename($imageName);
+                                $modelsByLang[$l]->image = basename($imageName);
 
-                                $model->update(array( 'image' ));
+                                $modelsByLang[$l]->update(array( 'image' ));
                             }
                         }
                     }
