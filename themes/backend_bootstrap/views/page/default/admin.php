@@ -11,16 +11,16 @@ $this->menu = array(
         array('icon'=> 'file', 'label' => Yii::t('page', 'Добавить страницу'), 'url' => array('/page/default/create')),
     );
 ?>
-<div class="page-header"><h1><?=$this->module->getName()?> <small>управление</small></h1></div>
+<div class="page-header"><h1><?php echo $this->module->getName()?> <small>управление</small></h1></div>
 <button class="btn btn-small dropdown-toggle"
     data-toggle="collapse"
     data-target="#search-toggle" >
     <i class="icon-search"></i>
-    <?=CHtml::link(Yii::t('page', 'Поиск страниц'), '#', array('class' => 'search-button',))?>
+    <?php echo CHtml::link(Yii::t('page', 'Поиск страниц'), '#', array('class' => 'search-button',))?>
     <span class="caret"></span>
 </button>
 
-    <div id="search-toggle" class="collapse <?=isset($_GET[get_class($model)])?'in':'out'; ?>">
+    <div id="search-toggle" class="collapse <?php echo isset($_GET[get_class($model)])?'in':'out'; ?>">
     <?php
     Yii::app()->clientScript->registerScript('search', "
             $('#Page_parent_Id').val('');
@@ -60,6 +60,14 @@ $this->menu = array(
                 'type'=>'raw',
                 'value'=>'CHtml::link($data->name,array("/page/default/update","slug" => $data->slug))'
              ),
+            array(
+                'name'  => 'category_id',
+                'value' => '$data->getCategoryName()'
+            ),
+            array(
+                'name'  => Yii::t('page','Публичный урл'),
+                'value' => 'Yii::app()->createAbsoluteUrl("/page/page/show/",array("slug" => $data->slug))'
+            ),
             'creation_date',
             'change_date',
             array(

@@ -1,4 +1,5 @@
 <?php
+
 /**
  * This is the model class for table "Page".
  *
@@ -14,21 +15,22 @@
  * @property string $keywords
  * @property string $description
  * @property integer $status
+ * @property integer $category_id
  */
 class Page extends CActiveRecord
 {
+
     const STATUS_DRAFT      = 0;
     const STATUS_PUBLISHED  = 1;
     const STATUS_MODERATION = 2;
-
     const PROTECTED_NO  = 0;
     const PROTECTED_YES = 1;
 
     public function getStatusList()
     {
         return array(
-            self::STATUS_PUBLISHED => Yii::t('page', 'Опубликовано'),
-            self::STATUS_DRAFT => Yii::t('page', 'Черновик'),
+            self::STATUS_PUBLISHED  => Yii::t('page', 'Опубликовано'),
+            self::STATUS_DRAFT      => Yii::t('page', 'Черновик'),
             self::STATUS_MODERATION => Yii::t('page', 'На модерации')
         );
     }
@@ -36,15 +38,13 @@ class Page extends CActiveRecord
     public function getStatus()
     {
         $data = $this->getStatusList();
-        return array_key_exists($this->status, $data) ? $data[$this->status]
-            : Yii::t('page', '*неизвестно*');
+        return array_key_exists($this->status, $data) ? $data[$this->status] : Yii::t('page', '*неизвестно*');
     }
-
 
     public function getProtectedStatusList()
     {
         return array(
-            self::PROTECTED_NO => Yii::t('page', 'нет'),
+            self::PROTECTED_NO  => Yii::t('page', 'нет'),
             self::PROTECTED_YES => Yii::t('page', 'да')
         );
     }
@@ -52,39 +52,32 @@ class Page extends CActiveRecord
     public function getProtectedStatus()
     {
         $data = $this->getProtectedStatusList();
-        return array_key_exists($this->is_protected, $data)
-            ? $data[$this->is_protected] : Yii::t('page', '*неизвестно*');
+        return array_key_exists($this->is_protected, $data) ? $data[$this->is_protected] : Yii::t('page', '*неизвестно*');
     }
-
 
     public function getAllPagesList($selfId = false)
     {
-        $pages = $selfId
-            ? $this->findAll(array(
+        $pages = $selfId ? $this->findAll(array(
                 'condition' => 'id != :id',
-                'params'    => array(':id' => $selfId),
-                'order'     => 'menu_order DESC',
-                'group'     => 'slug',
-            ))
-            : $this->findAll(array('order' => 'menu_order DESC'));
+                'params'    => array( ':id'   => $selfId ),
+                'order' => 'menu_order DESC',
+                'group' => 'slug',
+            )) : $this->findAll(array( 'order' => 'menu_order DESC' ));
 
         return CHtml::listData($pages, 'id', 'name');
     }
 
     public function getAllPagesListBySlug($slug = false)
     {
-        $pages = $slug
-            ? $this->findAll(array(
+        $pages = $slug ? $this->findAll(array(
                 'condition' => 'slug != :slug',
-                'params'    => array(':slug' => $slug),
-                'order'     => 'menu_order DESC',
-                'group'     => 'slug',
-            ))
-            : $this->findAll(array('order' => 'menu_order DESC'));
+                'params'    => array( ':slug' => $slug ),
+                'order' => 'menu_order DESC',
+                'group' => 'slug',
+            )) : $this->findAll(array( 'order' => 'menu_order DESC' ));
 
         return CHtml::listData($pages, 'id', 'name');
     }
-
 
     /**
      * Returns the static model of the specified AR class.
@@ -107,26 +100,26 @@ class Page extends CActiveRecord
      * @return array validation rules for model attributes.
      */
     public function rules()
-    {       
+    {
         return array(
-            array('name, title, slug, body, description, keywords, lang', 'required', 'on'=> array('update','insert')),
-            array('status, is_protected, parent_Id, menu_order', 'numerical', 'integerOnly' => true, 'on'=> array('update','insert')),
-            array('parent_Id', 'length', 'max' => 45),
-            array('lang', 'length', 'max' => 2),
-            array('lang', 'default', 'value' => Yii::app()->sourceLanguage),
-            array('name, title, slug, keywords', 'length', 'max' => 150),
-            array('description', 'length', 'max' => 150),
-            array('slug', 'unique', 'criteria'=> array('condition'=>'lang=:lang','params'=>array(':lang'=>$this->lang)),'on'=> array('insert')),
-            array('status', 'in', 'range' => array_keys($this->getStatusList())),
-            array('is_protected', 'in', 'range' => array_keys($this->getProtectedStatusList())),
-            array('title, slug, body, description, keywords, name', 'filter', 'filter' => 'trim'),
-            array('title, slug, description, keywords, name', 'filter', 'filter' => array($obj = new CHtmlPurifier(),'purify')),
-            array('slug', 'match', 'pattern' => '/^[a-zA-Z0-9_\-]+$/', 'message' => Yii::t('page', 'Запрещенные символы в поле {attribute}')),
-            array('lang', 'match', 'pattern' => '/^[a-z]{2}$/', 'message' => Yii::t('page', 'Запрещенные символы в поле {attribute}')),
-            array('lang, id, parent_Id, creation_date, change_date, title, slug, body, keywords, description, status, menu_order', 'safe', 'on' => 'search'),
+            array( 'name, title, slug, body, description, keywords, lang', 'required', 'on' => array( 'update', 'insert' ) ),
+            array( 'status, is_protected, parent_Id, menu_order, category_id', 'numerical', 'integerOnly' => true, 'on'          => array( 'update', 'insert' ) ),
+            array( 'parent_Id', 'length', 'max' => 45 ),
+            array( 'lang', 'length', 'max' => 2 ),
+            array( 'lang', 'default', 'value' => Yii::app()->sourceLanguage ),
+            array( 'name, title, slug, keywords', 'length', 'max' => 150 ),
+            array( 'description', 'length', 'max' => 150 ),
+            array( 'slug', 'unique', 'criteria' => array( 'condition' => 'lang=:lang', 'params'    => array( ':lang' => $this->lang ) ), 'on'    => array( 'insert' ) ),
+            array( 'status', 'in', 'range' => array_keys($this->getStatusList()) ),
+            array( 'is_protected', 'in', 'range' => array_keys($this->getProtectedStatusList()) ),
+            array( 'title, slug, body, description, keywords, name', 'filter', 'filter' => 'trim' ),
+            array( 'title, slug, description, keywords, name', 'filter', 'filter' => array( $obj = new CHtmlPurifier(), 'purify' ) ),
+            array( 'slug', 'match', 'pattern' => '/^[a-zA-Z0-9_\-]+$/', 'message' => Yii::t('page', 'Запрещенные символы в поле {attribute}') ),
+            array( 'lang', 'match', 'pattern' => '/^[a-z]{2}$/', 'message' => Yii::t('page', 'Запрещенные символы в поле {attribute}') ),
+            array( 'category_id', 'default', 'setOnEmpty' => true, 'value'      => null ),
+            array( 'lang, id, parent_Id, creation_date, change_date, title, slug, body, keywords, description, status, menu_order', 'safe', 'on' => 'search' ),
         );
     }
-
 
     /**
      * @return array relational rules.
@@ -134,10 +127,11 @@ class Page extends CActiveRecord
     public function relations()
     {
         return array(
-            'childPages' => array(self::HAS_MANY, 'Page', 'parent_Id'),
-            'parentPage' => array(self::BELONGS_TO, 'Page', 'parent_Id'),
-            'author' => array(self::BELONGS_TO, 'User', 'user_id'),
-            'changeAuthor' => array(self::BELONGS_TO, 'User', 'change_user_id')
+            'childPages' => array( self::HAS_MANY, 'Page', 'parent_Id' ),
+            'parentPage' => array( self::BELONGS_TO, 'Page', 'parent_Id' ),
+            'author' => array( self::BELONGS_TO, 'User', 'user_id' ),
+            'changeAuthor' => array( self::BELONGS_TO, 'User', 'change_user_id' ),
+            'category' => array( self::BELONGS_TO, 'Category', 'category_id' ),
         );
     }
 
@@ -147,25 +141,25 @@ class Page extends CActiveRecord
     public function attributeLabels()
     {
         return array(
-            'id' => Yii::t('page', 'Id'),
-            'parent_Id' => Yii::t('page', 'Родительская страница'),
-            'creation_date' => Yii::t('page', 'Дата создания'),
-            'change_date' => Yii::t('page', 'Дата изменения'),
-            'title' => Yii::t('page', 'Заголовок'),
-            'slug' => Yii::t('page', 'Url'),
-            'lang' => Yii::t('page', 'Язык'),
-            'body' => Yii::t('page', 'Текст'),
-            'keywords' => Yii::t('page', 'Ключевые слова (SEO)'),
-            'description' => Yii::t('page', 'Описание (SEO)'),
-            'status' => Yii::t('page', 'Статус'),
-            'is_protected' => Yii::t('page', 'Доступ: * только для авторизованных пользователей'),
-            'name' => Yii::t('page', 'Название в меню'),
-            'user_id' => Yii::t('page', 'Создал'),
+            'id'             => Yii::t('page', 'Id'),
+            'parent_Id'      => Yii::t('page', 'Родительская страница'),
+            'category_id'    => Yii::t('page', 'Категория'),
+            'creation_date'  => Yii::t('page', 'Дата создания'),
+            'change_date'    => Yii::t('page', 'Дата изменения'),
+            'title'          => Yii::t('page', 'Заголовок'),
+            'slug'           => Yii::t('page', 'Url'),
+            'lang'           => Yii::t('page', 'Язык'),
+            'body'           => Yii::t('page', 'Текст'),
+            'keywords'       => Yii::t('page', 'Ключевые слова (SEO)'),
+            'description'    => Yii::t('page', 'Описание (SEO)'),
+            'status'         => Yii::t('page', 'Статус'),
+            'is_protected'   => Yii::t('page', 'Доступ: * только для авторизованных пользователей'),
+            'name'           => Yii::t('page', 'Название в меню'),
+            'user_id'        => Yii::t('page', 'Создал'),
             'change_user_id' => Yii::t('page', 'Изменил'),
-            'menu_order' => Yii::t('page', 'Порядок в меню'),
+            'menu_order'     => Yii::t('page', 'Порядок в меню'),
         );
     }
-
 
     public function beforeValidate()
     {
@@ -196,29 +190,27 @@ class Page extends CActiveRecord
         return parent::beforeSave();
     }
 
-
     public function scopes()
     {
         return array(
             'published' => array(
                 'condition' => 'status = :status',
-                'params'    => array('status' => self::STATUS_PUBLISHED)
+                'params'    => array( 'status'    => self::STATUS_PUBLISHED )
             ),
             'protected' => array(
                 'condition' => 'is_protected = :is_protected',
-                'params'    => array(':is_protected' => self::PROTECTED_YES)
+                'params'    => array( ':is_protected' => self::PROTECTED_YES )
             ),
-            'public' => array(
+            'public'        => array(
                 'condition' => 'is_protected = :is_protected',
-                'params'    => array(':is_protected' => self::PROTECTED_NO)
+                'params'    => array( ':is_protected' => self::PROTECTED_NO )
             ),
         );
     }
 
-
     public function findBySlug($slug)
     {
-        return $this->find('slug = :slug', array(':slug' => trim($slug)));
+        return $this->find('slug = :slug', array( ':slug' => trim($slug) ));
     }
 
     /**
@@ -229,7 +221,7 @@ class Page extends CActiveRecord
     {
         $criteria = new CDbCriteria();
 
-        $criteria->with = array('author', 'changeAuthor');
+        $criteria->with = array( 'author', 'changeAuthor' );
 
         $criteria->compare('id', $this->id);
 
@@ -249,17 +241,29 @@ class Page extends CActiveRecord
 
         $criteria->compare('description', $this->description);
 
-        $criteria->compare('t.status', $this->status);
+        if ($this->status != '')
+            $criteria->compare('t.status', $this->status);
+
+        if ($this->category_id != '')
+            $criteria->compare('category_id', $this->category_id);
+
+        $criteria->compare('is_protected', $this->is_protected);
 
         $criteria->compare('is_protected', $this->is_protected);
 
         $sort = new CSort;
 
         $sort->defaultOrder = 'menu_order DESC';
-        
+
         return new CActiveDataProvider('Page', array(
-                                                    'criteria' => $criteria,
-                                                    'sort' => $sort
-                                               ));   
+                'criteria' => $criteria,
+                'sort'     => $sort
+            ));
     }
+
+    public function getCategoryName()
+    {
+        return is_null($this->category) ? '---' : $this->category->name;
+    }
+
 }

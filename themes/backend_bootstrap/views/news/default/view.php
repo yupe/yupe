@@ -25,10 +25,11 @@ $this->menu = array(
     <div id="anounce" class="tab-pane fade active in">
         <?php for ( $i=0; $i<3; $i++ ) { ?>
         <div style="margin-bottom: 20px;">
-            <h6><span class="label"><?php echo $model->date;?></span> <?php echo CHtml::link($model->title, array('/news/news/show', 'title' => $model->alias)); ; ?></h6>
+            <h6><span class="label"><?php echo $model->date;?></span> <?php echo CHtml::link($model->title, array('/news/news/show', 'title' => $model->alias));?></h6>
             <p>
                 <?php echo $model->short_text; ; ?>
             </p>
+            <i class="icon-globe"></i> <?php echo $model->getPermaLink();?>
         </div>
         <?php } ?>
     </div>
@@ -38,42 +39,9 @@ $this->menu = array(
             <p>
                 <?php echo $model->full_text; ; ?>
             </p>
-            <span class="label"><?php echo $model->date;; ?></span>
-            <i class="icon-user"></i><?php echo CHtml::link($model->user->fullName,array('/user/people/'.$model->user->nick_name));; ?>
+            <span class="label"><?php echo $model->date;?></span>
+            <i class="icon-user"></i><?php echo CHtml::link($model->user->fullName,array('/user/people/'.$model->user->nick_name));?>
+            <i class="icon-globe"></i> <?php echo $model->getPermaLink();?>
         </div>
     </div>
 </div>
-
-<?php /* $this->widget('bootstrap.widgets.BootDetailView', array(
-                                                    'data' => $model,
-                                                    'attributes' => array(
-                                                        'id',
-                                                        array(
-                                                            'name' => 'creation_date',
-                                                             'value' => Yii::app()->dateFormatter->formatDateTime($model->creation_date,'short'),
-                                                        ),
-                                                        array(
-                                                            'name' => 'change_date',
-                                                            'value' => Yii::app()->dateFormatter->formatDateTime($model->creation_date,'short'),
-                                                        ),
-                                                        'date',
-                                                        'title',
-                                                        'alias',
-                                                        'short_text',
-//                                                        'full_text',
-                                                        array(
-                                                            'name' => 'user_id',
-                                                            'value' => $model->user->getFullName()
-                                                        ),
-                                                        array(
-                                                            'name' => 'status',
-                                                            'value' => $model->getStatus()
-                                                        ),
-                                                        array(
-                                                            'name' => 'is_protected',
-                                                            'value' => $model->getProtectedStatus()
-                                                        ),
-
-                                                    ),
-                                               )); */?>
-

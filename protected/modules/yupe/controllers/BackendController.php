@@ -29,7 +29,7 @@ class BackendController extends YBackController
         foreach ($module as $key => $value)
         {
             if (array_key_exists($key, $editableParams))
-                $elements[$key] = CHtml::label($moduleParamsLabels[$key], $key) . CHtml::dropDownList($key, $value, $editableParams[$key]);
+                $elements[$key] = CHtml::label($moduleParamsLabels[$key], $key) . CHtml::dropDownList($key, $value, $editableParams[$key],array('empty' => Yii::t('yupe','--выберите--')));
 
             if (in_array($key, $editableParams))
             {

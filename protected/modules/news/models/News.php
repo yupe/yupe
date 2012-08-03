@@ -202,7 +202,7 @@ class News extends CActiveRecord
 
     public function getPermaLink()
     {
-        return Yii::app()->createUrl('/news/news/show/', array( 'title' => $this->alias ));
+        return Yii::app()->createAbsoluteUrl('/news/news/show/', array( 'title' => $this->alias ));
     }
 
     /**

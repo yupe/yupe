@@ -5,6 +5,8 @@ class NewsModule extends YWebModule
 
     public $uploadPath = 'news';
 
+    public $mainCategory;
+
     public function getUploadPath()
     {
         return Yii::getPathOfAlias('webroot') . DIRECTORY_SEPARATOR . Yii::app()->getModule('yupe')->uploadPath . DIRECTORY_SEPARATOR . $this->uploadPath.DIRECTORY_SEPARATOR;
@@ -27,6 +29,7 @@ class NewsModule extends YWebModule
     public function getParamsLabels()
     {
         return array(
+            'mainCategory'   => Yii::t('news','Главная категория новостей'),
             'adminMenuOrder' => Yii::t('news','Порядок следования в меню'),
             'editor'         => Yii::t('news','Визуальный редактор'),
             'uploadPath'     => Yii::t('news', 'Каталог для загрузки файлов (относительно Yii::app()->getModule("yupe")->uploadPath)'),
@@ -37,14 +40,15 @@ class NewsModule extends YWebModule
     {
         return array(
             'adminMenuOrder',
-            'editor' => Yii::app()->getModule('yupe')->getEditors(),
+            'editor'   => Yii::app()->getModule('yupe')->getEditors(),
+            'mainCategory' => CHtml::listData(Category::model()->findAll(),'id','name'),
             'uploadPath'
         );
     }
 
-    public  function getVersion()
+    public function getVersion()
     {
-        return '0.2';
+        return '0.3';
     }
 
     public function getCategory()
@@ -80,6 +84,28 @@ class NewsModule extends YWebModule
     public function getIcon()
     {
         return "leaf";
+    }
+
+    public function getNavigation()
+    {
+        return array(
+            Yii::t('news','Добавить новость') => '/news/default/create/',
+            Yii::t('news','Список новостей')  => '/news/default/admin/'
+        );
+    }
+
+    public function getCategoryList()
+    {
+        $criteria = array();
+
+        if($this->mainCategory)
+            $criteria = array(
+                'condition' => 'id = :id OR parent_id = :id',
+                'params' => array(':id' => $this->mainCategory),
+                'order' => 'id ASC'
+            );
+
+        return Category::model()->findAll($criteria);
     }
 
     public function init()

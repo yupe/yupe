@@ -15,7 +15,7 @@
                 <?php echo $form->dropDownListRow($model, 'status', $model->getStatusList(),array('empty' => Yii::t('news','- не важен -'))); ?>
             </div>
             <div class="span4">
-                <?php echo $form->dropDownListRow($model, 'category_id', CHtml::listData(Category::model()->findAll(),'id','name'),array('empty' => Yii::t('news','- не важна -'))); ?>
+                <?php echo $form->dropDownListRow($model, 'category_id', CHtml::listData($this->module->getCategoryList(),'id','name'),array('empty' => Yii::t('news','- не важно -'))); ?>
             </div>
         </div>
         <div class="row-fluid control-group">

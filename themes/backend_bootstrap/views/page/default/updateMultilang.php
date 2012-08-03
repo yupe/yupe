@@ -31,9 +31,15 @@ $this->menu = array(
         <div class="alert alert-info"><?php echo Yii::t('page', 'Поля, отмеченные * обязательны для заполнения')?></div>
         <div class="row-fluid control-group">
             <div class="span3">
+                <?php echo $form->labelEx($model, 'category_id' ); ?>
+                <?php echo $form->dropDownList($model, 'category_id',CHtml::listData($this->module->getCategoryList(), 'id', 'name'), array( 'empty' => Yii::t('news', '--выберите--'))); ?>
+            </div>
+            <div class="span3">
                 <?php echo $form->labelEx($model, 'parent_Id' ); ?>
                 <?php echo $form->dropDownList($model, 'parent_Id', $pages); ?>
             </div>
+        </div>
+        <div class="row-fluid control-group">
             <div class="span2 popover-help" data-content="<?=Yii::t('page',"<span class='label label-success'>Опубликовано</span> &ndash; Страницу видят все посетители сайта, режим по-умолчанию.<br /><br /><span class='label label-default'>Черновик</span> &ndash; Данная страница еще не окончена и не должна отображаться.<br /><br /><span class='label label-info'>На модерации</span> &ndash; Данная страница еще не проверена и не должна отображаться.") ?>" data-original-title="<?php echo $model-> getAttributeLabel('status'); ?>" >
                 <?php echo $form->labelEx($model, 'status' ); ?>
                 <?php echo $form->dropDownList($model, 'status', $model->getStatusList()); ?>

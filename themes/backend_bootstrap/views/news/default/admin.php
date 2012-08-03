@@ -22,7 +22,7 @@ $this->menu = array(
     <span class="caret"></span>
 </button>
 
-<div id="search-toggle" class="collapse <?=isset($_GET[get_class($model)])?'in':'out'; ?>">
+<div id="search-toggle" class="collapse <?php echo isset($_GET[get_class($model)])?'in':'out'; ?>">
     <?php
     Yii::app()->clientScript->registerScript('search', "
         $('.search-form form').submit(function(){
@@ -64,6 +64,10 @@ $this->widget('YCustomGridView', array(
            'value' => '$data->getCategoryName()'
         ),
         'alias',
+        array(
+            'name'  => Yii::t('news','Публичный урл'),
+            'value' => '$data->getPermaLink()'
+        ),
         'lang',
         array(
             'name'        => 'status',

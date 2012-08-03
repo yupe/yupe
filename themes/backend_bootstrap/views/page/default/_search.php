@@ -33,6 +33,11 @@
             </div>
         </div>
         <div class="row-fluid control-group">
+            <div class="span3">
+                <?php echo $form->dropDownListRow($model, 'category_id',CHtml::listData($this->module->getCategoryList(), 'id', 'name'), array( 'empty' => Yii::t('news', '- не важно -')), array('empty'=>Yii::t('page','- не выбрана -'))); ?>
+            </div>
+        </div>
+        <div class="row-fluid control-group">
             <div class="span12">
                 <?php echo $form->textFieldRow($model, 'body'); ?>
             </div>

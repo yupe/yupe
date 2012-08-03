@@ -19,13 +19,13 @@ Yii::app()->clientScript->registerScript('fieldset', "
 
     <div class="row-fluid control-group <?php echo $model->hasErrors('category_id') ? 'error' : '' ?>">
         <div class="span7  popover-help" data-content="<?php echo Yii::t('news', "Категория не является обязательной.") ?>" data-original-title="<?php echo $model->getAttributeLabel('category_id'); ?>" >
-        <?php echo $form->labelEx($model, 'category_id'); ?>
-        <?php echo $form->dropDownList($model, 'category_id', CHtml::listData(Category::model()->findAll(), 'id', 'name'), array( 'empty' => Yii::t('news', '--выберите--') )); ?>
+            <?php echo $form->labelEx($model, 'category_id'); ?>
+            <?php echo $form->dropDownList($model, 'category_id', CHtml::listData($this->module->getCategoryList(), 'id', 'name'), array( 'empty' => Yii::t('news', '--выберите--') )); ?>
+        </div>
+        <div class="span5">
+            <?php echo $form->error($model, 'category_id'); ?>
+        </div>
     </div>
-    <div class="span5">
-        <?php echo $form->error($model, 'category_id'); ?>
-    </div>
-</div>
 
     <div class="row-fluid control-group <?php echo $model->hasErrors('date') ? 'error' : '' ?>">
         <div class="span7 popover-help" data-content="<?php echo Yii::t('news', "Дата публикации новости, также используется для упорядочивания списка новостей.") ?>" data-original-title="<?php echo $model->getAttributeLabel('date');
