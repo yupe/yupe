@@ -22,7 +22,7 @@ $this->menu = array(
     <span class="caret"></span>
 </button>
 
-<div id="search-toggle" class="collapse out">
+<div id="search-toggle" class="collapse <?=isset($_GET[get_class($model)])?'in':'out'; ?>">
     <?php
     Yii::app()->clientScript->registerScript('search', "
         $('.search-form form').submit(function(){
@@ -39,7 +39,7 @@ $this->menu = array(
 
 </div>
 <?php
-$dp     = $model->search();
+$dp = $model->search();
 $dp->criteria->order = "date DESC";
 $this->widget('YCustomGridView', array(
     'id'            => 'news-grid',
@@ -50,21 +50,21 @@ $this->widget('YCustomGridView', array(
             'name'        => 'id',
             'htmlOptions' => array( 'style' => 'width:20px' ),
         ),
-        'lang'  => 'lang',
-        array(
-            'name'        => 'date',
-            'htmlOptions' => array( 'style' => 'width:80px' ),
-        ),
         array(
             'name'  => 'title',
             'type'  => 'raw',
             'value' => 'CHtml::link($data->title,array("/news/default/update","alias" => $data->alias))'
         ),
         array(
+            'name'        => 'date',
+            'htmlOptions' => array( 'style' => 'width:80px' ),
+        ),
+        array(
            'name'  => 'category_id',
            'value' => '$data->getCategoryName()'
         ),
         'alias',
+        'lang',
         array(
             'name'        => 'status',
             'type'        => 'raw',

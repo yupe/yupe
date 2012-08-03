@@ -54,22 +54,20 @@ $this->menu = array(
         'dataProvider'=> $dp,
         'columns'=>array(
             'id',
-            'lang',
+            'title',
             array(
                 'name'=>'name',
                 'type'=>'raw',
                 'value'=>'CHtml::link($data->name,array("/page/default/update","slug" => $data->slug))'
              ),
-             'title',
-             array(
-                'name'=>'user_id',
-                'value'=>'$data->author->getFullName()'
-             ),
+            'creation_date',
+            'change_date',
             array(
                 'name'  => 'menu_order',
                 'type'  => 'raw',
                 'value' => '$this->grid->getUpDownButtons($data)'
             ),
+            'lang',
             array(
                 'name' => 'status',
                 'type' => 'raw',

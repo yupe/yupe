@@ -14,8 +14,8 @@
             <div class="span3">
                 <?php echo $form->dropDownListRow($model, 'status', $model->getStatusList(),array('empty' => Yii::t('news','- не важен -'))); ?>
             </div>
-            <div class="span6"><br />
-                <?php echo $form->checkBoxRow($model, 'is_protected', $model->getProtectedStatusList()); ?>
+            <div class="span4">
+                <?php echo $form->dropDownListRow($model, 'category_id', CHtml::listData(Category::model()->findAll(),'id','name'),array('empty' => Yii::t('news','- не важна -'))); ?>
             </div>
         </div>
         <div class="row-fluid control-group">
@@ -32,6 +32,9 @@
             </div>
             <div class="span6">
                 <?php echo $form->textFieldRow($model, 'full_text'); ?>
+            </div>
+            <div class="span10">
+                <?php echo $form->checkBoxRow($model, 'is_protected', $model->getProtectedStatusList()); ?>
             </div>
         </div>
         <?php $this->widget('bootstrap.widgets.BootButton', array(

@@ -18,7 +18,7 @@ Yii::app()->clientScript->registerScript('fieldset', "
 <?php echo $form->errorSummary($model); ?>
 
     <div class="row-fluid control-group <?php echo $model->hasErrors('category_id') ? 'error' : '' ?>">
-    <div class="span7  popover-help" data-original-title="<?php echo $model->getAttributeLabel('category_id'); ?>" >
+        <div class="span7  popover-help" data-content="<?php echo Yii::t('news', "Категория не является обязательной.") ?>" data-original-title="<?php echo $model->getAttributeLabel('category_id'); ?>" >
         <?php echo $form->labelEx($model, 'category_id'); ?>
         <?php echo $form->dropDownList($model, 'category_id', CHtml::listData(Category::model()->findAll(), 'id', 'name'), array( 'empty' => Yii::t('news', '--выберите--') )); ?>
     </div>

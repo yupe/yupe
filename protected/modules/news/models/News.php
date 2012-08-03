@@ -94,6 +94,7 @@ class News extends CActiveRecord
             array( 'short_text', 'length', 'max' => 400 ),
             array( 'image', 'length', 'max' => 300 ),
             array( 'alias', 'match', 'pattern' => '/^[a-zA-Z0-9_\-]+$/', 'message' => Yii::t('news', 'Запрещенные символы в поле {attribute}') ),
+            array( 'category_id', 'default', 'setOnEmpty' => true, 'value' => null),
             array( 'id, keywords, description, creation_date, change_date, date, title, alias, short_text, full_text, user_id, status, is_protected', 'safe', 'on' => 'search' ),
         );
     }
@@ -189,9 +190,6 @@ class News extends CActiveRecord
 
         $this->date = date('Y-m-d', strtotime($this->date));
 
-        if($this->category_id == '')
-            $this->category_id = NULL;
-
         return parent::beforeSave();
     }
 
@@ -227,7 +225,10 @@ class News extends CActiveRecord
         $criteria->compare('short_text', $this->short_text, true);
         $criteria->compare('full_text', $this->full_text, true);
         $criteria->compare('user_id', $this->user_id);
-        $criteria->compare('status', $this->status);
+        if($this->status != '')
+            $criteria->compare('status', $this->status);
+        if($this->category_id != '')
+            $criteria->compare('category_id', $this->category_id);
         $criteria->compare('is_protected', $this->is_protected);
 
         return new CActiveDataProvider(get_class($this), array(
