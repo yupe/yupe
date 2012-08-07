@@ -2,14 +2,12 @@
 class NewsModule extends YWebModule
 {
     public $editor = 'application.modules.yupe.widgets.editors.imperaviRedactor.EImperaviRedactorWidget';
-
     public $uploadPath = 'news';
-
     public $mainCategory;
 
     public function getUploadPath()
     {
-        return Yii::getPathOfAlias('webroot') . DIRECTORY_SEPARATOR . Yii::app()->getModule('yupe')->uploadPath . DIRECTORY_SEPARATOR . $this->uploadPath.DIRECTORY_SEPARATOR;
+        return Yii::getPathOfAlias('webroot') . DIRECTORY_SEPARATOR . Yii::app()->getModule('yupe')->uploadPath . DIRECTORY_SEPARATOR . $this->uploadPath . DIRECTORY_SEPARATOR;
     }
 
     public function checkSelf()
@@ -21,7 +19,10 @@ class NewsModule extends YWebModule
                 'type'    => YWebModule::CHECK_ERROR,
                 'message' => Yii::t('news', 'Директория "{dir}" не досутпна для записи! {link}', array(
                     '{dir}'  => $uploadPath,
-                    '{link}' => CHtml::link(Yii::t('news', 'Изменить настройки'), array( '/yupe/backend/modulesettings/', 'module' => 'news' ))
+                    '{link}' => CHtml::link(Yii::t('news', 'Изменить настройки'), array(
+                        '/yupe/backend/modulesettings/',
+                        'module' => 'news',
+                     )),
                 )),
             );
     }
@@ -29,9 +30,9 @@ class NewsModule extends YWebModule
     public function getParamsLabels()
     {
         return array(
-            'mainCategory'   => Yii::t('news','Главная категория новостей'),
-            'adminMenuOrder' => Yii::t('news','Порядок следования в меню'),
-            'editor'         => Yii::t('news','Визуальный редактор'),
+            'mainCategory'   => Yii::t('news', 'Главная категория новостей'),
+            'adminMenuOrder' => Yii::t('news', 'Порядок следования в меню'),
+            'editor'         => Yii::t('news', 'Визуальный редактор'),
             'uploadPath'     => Yii::t('news', 'Каталог для загрузки файлов (относительно Yii::app()->getModule("yupe")->uploadPath)'),
         );
     }
@@ -40,9 +41,9 @@ class NewsModule extends YWebModule
     {
         return array(
             'adminMenuOrder',
-            'editor'   => Yii::app()->getModule('yupe')->getEditors(),
-            'mainCategory' => CHtml::listData(Category::model()->findAll(),'id','name'),
-            'uploadPath'
+            'editor' => Yii::app()->getModule('yupe')->getEditors(),
+            'mainCategory' => CHtml::listData(Category::model()->findAll(), 'id', 'name'),
+            'uploadPath',
         );
     }
 
@@ -90,7 +91,7 @@ class NewsModule extends YWebModule
     {
         return array(
             Yii::t('news','Добавить новость') => '/news/default/create/',
-            Yii::t('news','Список новостей')  => '/news/default/admin/'
+            Yii::t('news','Список новостей')  => '/news/default/admin/',
         );
     }
 
@@ -101,8 +102,8 @@ class NewsModule extends YWebModule
         if($this->mainCategory)
             $criteria = array(
                 'condition' => 'id = :id OR parent_id = :id',
-                'params' => array(':id' => $this->mainCategory),
-                'order' => 'id ASC'
+                'params'    => array(':id' => $this->mainCategory),
+                'order'     => 'id ASC',
             );
 
         return Category::model()->findAll($criteria);
@@ -113,8 +114,8 @@ class NewsModule extends YWebModule
         parent::init();
 
         $this->setImport(array(
-                              'news.models.*',
-                              'news.components.*',
-                         ));
+            'news.models.*',
+            'news.components.*',
+        ));
     }
 }

@@ -104,6 +104,16 @@ class Good extends CActiveRecord
         );
     }
 
+    public function scopes()
+    {
+        return array(
+            'published' => array(
+                'condition' => 'status = :status',
+                'params' => array(':status' => self::STATUS_ACTIVE),
+            ),
+        );
+    }
+
     /**
      * @return array customized attribute labels (name=>label)
      */
@@ -182,5 +192,10 @@ class Good extends CActiveRecord
     public function getIsSpecial()
     {
         return $this->is_special ? Yii::t('catalog', 'Да') : Yii::t('catalog', 'Нет');
+    }
+
+    public function getPermaLink()
+    {
+        return Yii::app()->createAbsoluteUrl('/catalog/catalog/show/', array( 'name' => $this->alias ));
     }
 }
