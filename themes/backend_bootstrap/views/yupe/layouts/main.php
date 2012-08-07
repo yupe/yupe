@@ -1,5 +1,3 @@
-<?php $module = Yii::app()->getModule('yupe'); ?>
-
 <!DOCTYPE html>
 <html lang="en">
 <head>

@@ -29,7 +29,7 @@ class BackendController extends YBackController
         foreach ($module as $key => $value)
         {
             if (array_key_exists($key, $editableParams))
-                $elements[$key] = CHtml::label($moduleParamsLabels[$key], $key) . CHtml::dropDownList($key, $value, $editableParams[$key],array('empty' => Yii::t('yupe','--выберите--')));
+                $elements[$key] = CHtml::label($moduleParamsLabels[$key], $key) . CHtml::dropDownList($key, $value, $editableParams[$key], array('empty' => Yii::t('yupe', '--выберите--')));
 
             if (in_array($key, $editableParams))
             {
@@ -82,9 +82,9 @@ class BackendController extends YBackController
                         $model = new Settings();
 
                         $model->setAttributes(array(
-                            'module_id' => $module_id,
-                            'param_name' => $key,
-                            'param_value' => $value
+                            'module_id'   => $module_id,
+                            'param_name'  => $key,
+                            'param_value' => $value,
                         ));
 
                         if (!$model->save())
@@ -149,9 +149,9 @@ class BackendController extends YBackController
                     $settings[$p] = new Settings;
 
                     $settings[$p]->setAttributes(array(
-                        'module_id' => $this->yupe->coreModuleId,
-                        'param_name' => $p,
-                        'param_value' => $pval
+                        'module_id'   => $this->yupe->coreModuleId,
+                        'param_name'  => $p,
+                        'param_value' => $pval,
                     ));
 
                     if (!$settings[$p]->save())
@@ -192,9 +192,9 @@ class BackendController extends YBackController
     {
         if (!empty($_FILES['file']['name']))
         {
-            $rename = (int) Yii::app()->request->getQuery('rename',1);
+            $rename = (int) Yii::app()->request->getQuery('rename', 1);
 
-            $webPath = DIRECTORY_SEPARATOR . $this->yupe->uploadPath . DIRECTORY_SEPARATOR. date('dmY') . DIRECTORY_SEPARATOR;
+            $webPath = DIRECTORY_SEPARATOR . $this->yupe->uploadPath . DIRECTORY_SEPARATOR . date('dmY') . DIRECTORY_SEPARATOR;
 
             $uploadPath = Yii::getPathOfAlias('webroot') . $webPath;
 
