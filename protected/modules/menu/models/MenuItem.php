@@ -47,7 +47,6 @@ class MenuItem extends CActiveRecord
         // NOTE: you should only define rules for those attributes that
         // will receive user inputs.
         return array(
-            //@formatter:off
             array('parent_id, menu_id, title, href', 'required'),
             array('type, sort, status, condition_denial', 'numerical', 'integerOnly' => true),
             array('parent_id, menu_id', 'length', 'max' => 10),
@@ -55,7 +54,6 @@ class MenuItem extends CActiveRecord
             // The following rule is used by search().
             // Please remove those attributes that should not be searched.
             array('id, parent_id, menu_id, title, href, sort, status, condition_name, condition_denial', 'safe', 'on' => 'search'),
-            //@formatter:on
         );
     }
 
@@ -67,9 +65,7 @@ class MenuItem extends CActiveRecord
         // NOTE: you may need to adjust the relation name and the related
         // class name for the relations automatically generated below.
         return array(
-            //@formatter:off
             'menu' => array(self::BELONGS_TO, 'Menu', 'menu_id'),
-            //@formatter:on
         );
     }
 
@@ -115,11 +111,10 @@ class MenuItem extends CActiveRecord
         $criteria->compare('sort', $this->sort);
         $criteria->compare('status', $this->status);
 
-        $sort = new CSort;
-
-        $sort->defaultOrder = 'sort DESC';
-
-        return new CActiveDataProvider($this, array('criteria' => $criteria,'sort' => $sort ));
+        return new CActiveDataProvider($this, array(
+            'criteria' => $criteria,
+            'sort' => array('defaultOrder' => 'sort'),
+        ));
     }
 
     public function getStatusList()
@@ -158,20 +153,17 @@ class MenuItem extends CActiveRecord
             $key = strtolower($key);
             $module = Yii::app()->getModule($key);
 
-            if (!is_null($module))
+            if (!is_null($module) && is_a($module, 'YWebModule'))
             {
-                if (is_a($module, 'YWebModule'))
+                if ($module->getIsShowInAdminMenu() || $module->getEditableParams() || ($module->getIsShowInAdminMenu() == false && is_array($module->checkSelf())))
                 {
-                    if ($module->getIsShowInAdminMenu() || $module->getEditableParams() || ($module->getIsShowInAdminMenu() == false && is_array($module->checkSelf())))
+                    if (isset($module->conditions))
                     {
-                        if (isset($module->conditions))
-                        {
-                            $conditionsList = array();
-                            foreach ($module->conditions as $keyList => $valueList)
-                                $conditionsList[$keyList] = (!$condition) ? $valueList['name'] : $valueList['condition'];
+                        $conditionsList = array();
+                        foreach ($module->conditions as $keyList => $valueList)
+                            $conditionsList[$keyList] = (!$condition) ? $valueList['name'] : $valueList['condition'];
 
-                            $conditions = array_merge($conditions, $conditionsList);
-                        }
+                        $conditions = array_merge($conditions, $conditionsList);
                     }
                 }
             }
@@ -182,19 +174,12 @@ class MenuItem extends CActiveRecord
 
     public function getConditionVisible($name, $condition_denial)
     {
-        if ($name === null)
+        if ($name == 0)
             return true;
 
         $data = $this->getConditionList(true);
 
         return (isset($data[$name]) && (($data[$name] && $condition_denial == 0) || (!$data[$name] && $condition_denial == 1))) ? true : false;
-    }
-
-    public function getConditionName()
-    {
-        $data = $this->getConditionList();
-
-        return (isset($data[$this->condition_name])) ? $data[$this->condition_name] . ' (' . $this->conditionDenial . ')' : $data[0];
     }
 
     public function getConditionDenialList()
@@ -212,4 +197,10 @@ class MenuItem extends CActiveRecord
         return isset($data[$this->condition_denial]) ? Yii::t('menu', 'отрицание').': '.$data[$this->condition_denial] : Yii::t('menu', '*неизвестно*');
     }
 
+    public function getConditionName()
+    {
+        $data = $this->getConditionList();
+
+        return (isset($data[$this->condition_name])) ? $data[$this->condition_name] . (($this->condition_name == '0') ? '' : ' (' . $this->conditionDenial . ')') : Yii::t('menu', '*неизвестно*');
+    }
 }
