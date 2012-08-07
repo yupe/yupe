@@ -234,7 +234,6 @@ class DefaultController extends Controller
                         }
                         catch(Exception $e)
                         {
-                            var_dump($e);
                             $transaction->rollback();
 
                             Yii::app()->user->setFlash(YFlashMessages::ERROR_MESSAGE, Yii::t('install', 'При инициализации базы данных произошла ошибка!'));
