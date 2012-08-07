@@ -42,7 +42,7 @@ return false;
 
 
 <?php
-$dp     = $model->search();
+$dp = $model->search();
 $this->widget('bootstrap.widgets.BootGridView', array(
     'id'    => 'category-grid',
     'type'  => 'condensed ',

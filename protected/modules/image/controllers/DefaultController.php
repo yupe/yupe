@@ -2,22 +2,22 @@
 
 class DefaultController extends YBackController
 {
-    /**
-     * Displays a particular model.
-     * @param integer $id the ID of the model to be displayed
-     */
-    public function actionView($id)
-    {
-        $this->render('view', array(
-                                   'model' => $this->loadModel($id),
-                              ));
-    }
+	/**
+	 * Отображает изображение по указанному идентификатору
+	 * @param integer $id Идинтификатор изображение для отображения
+	 */
+	public function actionView($id)
+	{
+		$this->render('view',array(
+			'model'=>$this->loadModel($id),
+		));
+	}
 
-    /**
-     * Creates a new model.
-     * If creation is successful, the browser will be redirected to the 'view' page.
-     */
-    public function actionCreate()
+	/**
+	 * Создает новую модель изображения.
+	 * Если создание прошло успешно - перенаправляет на просмотр.
+	 */
+	public function actionCreate()
     {
         $model = new Image;
 
@@ -28,24 +28,27 @@ class DefaultController extends YBackController
                 Yii::app()->user->setFlash(YFlashMessages::NOTICE_MESSAGE,Yii::t('image','Изображение добавлено!'));
 
                 $this->redirect(array('view', 'id' => $model->id));                                         
-            }                            
+            }			
         }
 
         $this->render('create', array('model' => $model));
     }
 
-    /**
-     * Updates a particular model.
-     * If update is successful, the browser will be redirected to the 'view' page.
-     * @param integer $id the ID of the model to be updated
-     */
-    public function actionUpdate($id)
+	/**
+	 * Редактирование изображения.
+	 * @param integer $id the ID of the model to be updated
+	 */
+	public function actionUpdate($id)
     {
         $model = $this->loadModel($id);
+		
+		$file = $model->file;
 
         if (isset($_POST['Image']))
         {
             $model->setAttributes($_POST['Image']);
+			
+			$model->file = $file;
 
             if ($model->save())            
                 $this->redirect(array('view', 'id' => $model->id));            
@@ -54,12 +57,12 @@ class DefaultController extends YBackController
         $this->render('update', array('model' => $model));
     }
 
-    /**
-     * Deletes a particular model.
-     * If deletion is successful, the browser will be redirected to the 'admin' page.
-     * @param integer $id the ID of the model to be deleted
-     */
-    public function actionDelete($id)
+	/**
+	 * Удаяет модель изображения из базы.
+	 * Если удаление прошло успешно - возвращется в index
+	 * @param integer $id идентификатор изображения, который нужно удалить
+	 */
+	public function actionDelete($id)
     {
         if (Yii::app()->request->isPostRequest)
         {
@@ -78,56 +81,44 @@ class DefaultController extends YBackController
             throw new CHttpException(400, 'Invalid request. Please do not repeat this request again.');
         }
     }
+	/**
+	 * Управление изображениями.
+	 */
+	public function actionIndex()
+	{
+		$model=new Image('search');
+		$model->unsetAttributes();  // clear any default values
+		if(isset($_GET['Image']))
+			$model->attributes=$_GET['Image'];
 
-    /**
-     * Lists all models.
-     */
-    public function actionIndex()
-    {
-        $dataProvider = new CActiveDataProvider('Image');
-        $this->render('index', array(
-                                    'dataProvider' => $dataProvider,
-                               ));
-    }
+		$this->render('index',array(
+			'model'=>$model,
+		));
+	}
 
-    /**
-     * Manages all models.
-     */
-    public function actionAdmin()
-    {
-        $model = new Image('search');
-        $model->unsetAttributes(); // clear any default values
-        if (isset($_GET['Image']))
-            $model->attributes = $_GET['Image'];
+	/**
+	 * Возвращает модель по указанному идентификатору
+	 * Если модель не будет найдена - возникнет HTTP-исключение.
+	 * @param integer идентификатор нужной модели
+	 */
+	public function loadModel($id)
+	{
+		$model=Image::model()->findByPk($id);
+		if($model===null)
+			throw new CHttpException(404,'Запрошенная страница не найдена.');
+		return $model;
+	}
 
-        $this->render('admin', array(
-                                    'model' => $model,
-                               ));
-    }
-
-    /**
-     * Returns the data model based on the primary key given in the GET variable.
-     * If the data model is not found, an HTTP exception will be raised.
-     * @param integer the ID of the model to be loaded
-     */
-    public function loadModel($id)
-    {
-        $model = Image::model()->findByPk($id);
-        if ($model === null)
-            throw new CHttpException(404, 'The requested page does not exist.');
-        return $model;
-    }
-
-    /**
-     * Performs the AJAX validation.
-     * @param CModel the model to be validated
-     */
-    protected function performAjaxValidation($model)
-    {
-        if (isset($_POST['ajax']) && $_POST['ajax'] === 'image-form')
-        {
-            echo CActiveForm::validate($model);
-            Yii::app()->end();
-        }
-    }
+	/**
+	 * Производит AJAX-валидацию
+	 * @param CModel модель, которую необходимо валидировать
+	 */
+	protected function performAjaxValidation($model)
+	{
+		if(isset($_POST['ajax']) && $_POST['ajax']==='image-form')
+		{
+			echo CActiveForm::validate($model);
+			Yii::app()->end();
+		}
+	}
 }
