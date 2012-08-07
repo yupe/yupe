@@ -8,13 +8,20 @@ class ImageModule extends YWebModule
 
     public $allowedExtensions = 'jpg,jpeg,png,gif';
 
-    public $maxSize = 500000;
+    public $maxSize = 5000000000000000000;
 
     public $types;
+    
+    public $mainCategory;
+    
+    public function getAdminPageLink()
+    {
+        return '/image/default/';
+    }
 
     public  function getVersion()
     {
-        return '0.2 (dev)';
+        return '0.3(dev)';
     }
 
     public function getIcon()
@@ -54,6 +61,7 @@ class ImageModule extends YWebModule
     public function getParamsLabels()
     {
         return array(
+            'mainCategory'   => Yii::t('image','Главная категория изображений'),
             'uploadDir' => Yii::t('image', 'Каталог для загрузки изображений'),
             'allowedExtensions' => Yii::t('image', 'Разрешенные расширения (перечислите через запятую)'),
             'maxSize' => Yii::t('image', 'Максимальный размер (в байтах)'),
@@ -62,7 +70,12 @@ class ImageModule extends YWebModule
 
     public function getEditableParams()
     {
-        return array('uploadDir', 'allowedExtensions', 'maxSize');
+        return array(
+                     'uploadDir',
+                     'allowedExtensions',
+                     'maxSize',
+                     'mainCategory' => CHtml::listData(Category::model()->findAll(),'id','name'),
+                     );
     }
 
     public function getCategory()
@@ -106,5 +119,27 @@ class ImageModule extends YWebModule
                               'image.models.*',
                               'image.components.*',
                          ));
+    }
+    
+    public function getCategoryList()
+    {
+        $criteria = array();
+
+        if($this->mainCategory)
+            $criteria = array(
+                'condition' => 'id = :id OR parent_id = :id',
+                'params' => array(':id' => $this->mainCategory),
+                'order' => 'id ASC'
+            );
+
+        return Category::model()->findAll($criteria);
+    }
+    
+    public function getNavigation()
+    {
+        return array(
+            Yii::t('news','Добавить изображение') => '/image/default/create/',
+            Yii::t('news','Список изображений')  => '/image/default/'
+        );
     }
 }

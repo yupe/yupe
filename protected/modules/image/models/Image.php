@@ -12,6 +12,7 @@
  * @property string $user_id
  * @property string $alt
  * @property integer $status
+ * @property integer $category_id
  *
  * The followings are the available model relations:
  * @property User $user
@@ -53,13 +54,14 @@ class Image extends CActiveRecord
             array('name, description, alt','filter','filter' => array($obj = new CHtmlPurifier(),'purify')),
             array('name, alt, type', 'required'),
             array('file', 'required', 'on' => 'insert'),
-            array('status, parent_id, type', 'numerical', 'integerOnly' => true),
+            array('status, parent_id, type, category_id', 'numerical', 'integerOnly' => true),
             array('name', 'length', 'max' => 300),
             array('file', 'length', 'max' => 500),
             array('user_id', 'length', 'max' => 10),
             array('alt', 'length', 'max' => 150),
             array('file', 'file', 'maxSize' => $module->maxSize, 'types' => $module->allowedExtensions, 'allowEmpty' => true),
             array('type', 'in', 'range' => array_keys($this->getTypeList())),
+            array( 'category_id', 'default', 'setOnEmpty' => true, 'value' => null),
             array('id, name, description, file, creation_date, user_id, alt, status', 'safe', 'on' => 'search'),
         );
     }
@@ -72,7 +74,8 @@ class Image extends CActiveRecord
         // NOTE: you may need to adjust the relation name and the related
         // class name for the relations automatically generated below.
         return array(
-            'user' => array(self::BELONGS_TO, 'User', 'user_id'),
+            'category' => array(self::BELONGS_TO, 'Category', 'category_id'),
+            'user' => array(self::BELONGS_TO, 'User', 'user_id')
         );
     }
 
@@ -83,6 +86,7 @@ class Image extends CActiveRecord
     {
         return array(
             'id' => Yii::t('image', 'id'),
+            'category_id' => Yii::t('image', 'Категория'),
             'name' => Yii::t('image', 'Название'),
             'description' => Yii::t('image', 'Описание'),
             'file' => Yii::t('image', 'Файл'),
@@ -211,5 +215,10 @@ class Image extends CActiveRecord
         $data = $this->getTypeList();
 
         return isset($data[$this->type]) ?  $data[$this->type] : Yii::t('image','*неизвестно*');
+    }
+    
+    public function getCategoryName()
+    {
+        return is_null($this->category) ? '---' : $this->category->name;
     }
 }

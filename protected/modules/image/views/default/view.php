@@ -1,47 +1,35 @@
 <?php
-$this->breadcrumbs = array(
-    $this->getModule('image')->getCategory() => array(''),
-    Yii::t('image', 'Изображения') => array('admin'),
-    $model->name,
+$this->breadcrumbs=array(
+	'изображения'=>array('index'),
+	$model->name,
 );
-
-$this->menu = array(
-    array('label' => Yii::t('image', 'Список изображений'), 'url' => array('index')),
-    array('label' => Yii::t('image', 'Добавить изображение'), 'url' => array('create')),
-    array('label' => Yii::t('image', 'Редактировать изображение'), 'url' => array('update', 'id' => $model->id)),
-    array('label' => Yii::t('image', 'Удалить изображение'), 'url' => '#', 'linkOptions' => array('submit' => array('delete', 'id' => $model->id), 'confirm' => 'Подтверждаете удаление ?')),
-    array('label' => Yii::t('image', 'Управление изображениями'), 'url' => array('admin')),
+$this-> pageTitle ="изображения - ".Yii::t('yupe','просмотр');
+$this->menu=array(
+    array('icon'=> 'list-alt', 'label' => Yii::t('yupe','Управление изображениями'),'url'=>array('/image/default/index')),
+    array('icon'=> 'file', 'label' =>  Yii::t('yupe','Добавление изображения'),'url'=>array('/image/default/create')),
+    array('icon'=>'pencil white','encodeLabel'=> false, 'label' => Yii::t('yupe','Редактирование '). 'изображения<br /><span class="label" style="font-size: 80%; margin-left:20px;">'.mb_substr($model->name,0,32)."</span>",'url'=>array('/image/default/update','id'=>$model->id)),
+    array('icon'=>'eye-open','encodeLabel'=> false, 'label' => Yii::t('yupe','Просмотреть '). 'изображение','url'=>array('/image/default/view','id'=>$model->id)),
+    array('icon'=>'remove', 'label' =>  Yii::t('yupe','Удалить изображение'),'url'=>'#','linkOptions'=>array('submit'=>array('delete','id'=>$model->id),'confirm'=> Yii::t('yupe','Вы уверены, что хотите удалить?'))),
 );
 ?>
+<div class="page-header">
+    <h1><?php echo Yii::t('yupe','Просмотр');?> изображения<br />
+     <small style='margin-left:-10px;'>&laquo;<?php echo  $model->name; ?>&raquo;</small></h1>
+</div>
 
-<h1><?php echo Yii::t('image', 'Просмотр изображения');?>
-    "<?php echo $model->name; ?>"</h1>
-
-<?php echo CHtml::image($model->file, $model->alt, array('width' => 500, 'height' => 500)); ?>
-
-<br/><br/>
-
-<?php $this->widget('zii.widgets.CDetailView', array(
-                                                    'data' => $model,
-                                                    'attributes' => array(
-                                                        'id',
-                                                        'parent_id',
-                                                        'name',
-                                                        'description',
-                                                        'alt',
-                                                        'file',
-                                                        'creation_date',
-                                                        array(
-                                                            'name' => 'user_id',
-                                                            'value' => $model->user->getFullName()
-                                                        ),
-                                                        array(
-                                                            'name' => 'type',
-                                                            'value' => $model->getType()
-                                                        ),
-                                                        array(
-                                                            'name' => 'status',
-                                                            'value' => $model->getStatus()
-                                                        )
-                                                    ),
-                                               )); ?>
+<?php $this->widget('bootstrap.widgets.BootDetailView',array(
+	'data'=>$model,
+	'attributes'=>array(
+		'id',
+		'category_id',
+		'parent_id',
+		'name',
+		'description',
+		'file',
+		'creation_date',
+		'user_id',
+		'alt',
+		'type',
+		'status',
+	),
+)); ?>

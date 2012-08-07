@@ -1,16 +1,16 @@
 <?php
-$this->breadcrumbs = array(
-    $this->getModule('image')->getCategory() => array(''),
-    Yii::t('image', 'Изображения') => array('admin'),
-    Yii::t('image', 'Добавление изображения'),
+$this->breadcrumbs=array(
+	'изображения'=>array('index'),
+	Yii::t('yupe','Добавление'),
 );
 
-$this->menu = array(
-    array('label' => Yii::t('image', 'Список изображений'), 'url' => array('index')),
-    array('label' => Yii::t('image', 'Управление изображениями'), 'url' => array('admin')),
+$this->menu=array(
+array('icon'=> 'list-alt', 'label' => Yii::t('yupe','Управление изображениями'),'url'=>array('/image/default/index')),
+    array('icon'=> 'file', 'label' => Yii::t('yupe','Добавить изображение'),'url'=>array('/image/default/create')),
 );
 ?>
-
-<h1><?php echo Yii::t('image', 'Добавление изображения');?></h1>
-
-<?php echo $this->renderPartial('_form', array('model' => $model)); ?>
+<div class="page-header">
+    <h1><?php echo Yii::t('yupe','изображения');?>    <small><?php echo Yii::t('yupe','добавление');?></small>
+    </h1>
+</div>
+<?php echo  $this->renderPartial('_form', array('model'=>$model)); ?>

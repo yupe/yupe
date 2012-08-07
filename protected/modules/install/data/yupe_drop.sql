@@ -42,6 +42,7 @@ ALTER TABLE `good`
 -- Удаление внешних ключей таблицы `image`
 --
 ALTER TABLE `image`
+  DROP FOREIGN KEY `image_ibfk_2`,
   DROP FOREIGN KEY `image_ibfk_1`;
 
 --
@@ -78,9 +79,9 @@ ALTER TABLE `news`
 -- Удаление внешних ключей таблицы `page`
 --
 ALTER TABLE `page`
-  DROP FOREIGN KEY `page_ibfk_5`,
   DROP FOREIGN KEY `page_ibfk_3`,
-  DROP FOREIGN KEY `page_ibfk_4`;
+  DROP FOREIGN KEY `page_ibfk_1`,
+  DROP FOREIGN KEY `page_ibfk_2`;
 
 --
 -- Удаление внешних ключей таблицы `post`
