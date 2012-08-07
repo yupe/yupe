@@ -153,8 +153,10 @@ class DefaultController extends Controller
         $dbConfFile = Yii::app()->basePath . DIRECTORY_SEPARATOR . 'config' . DIRECTORY_SEPARATOR . 'db.php';
 
         $sqlDataDir = $this->module->basePath . DIRECTORY_SEPARATOR . 'data' . DIRECTORY_SEPARATOR;
+        $sqlDbDir = $sqlDataDir . DIRECTORY_SEPARATOR . 'db' . DIRECTORY_SEPARATOR;
 
         $sqlFile = $sqlDataDir . 'yupe.sql';
+        $sqlDropFile = $sqlDataDir . 'yupe_drop.sql';
 
         $form = new DbSettingsForm;
 
@@ -210,19 +212,18 @@ class DefaultController extends Controller
 
                         try
                         {
+                            if(Yii::app()->db->schema->getTables() != array())
+                                $this->executeSql($sqlDropFile);
 
-                            $result = $this->executeSql($sqlFile);
+                            $this->executeSql($sqlFile);
 
-                            // обработать если есть все файлы с расширением .sql
-                            $sqlFiles = glob("{$sqlDataDir}*.sql");
+                            // обработать если есть все файлы с расширением .sql в подпапке db
+                            $sqlFiles = glob("{$sqlDbDir}*.sql");
 
-                            if (is_array($sqlFiles) && count($sqlFiles) > 1)
+                            if (is_array($sqlFiles))
                             {
                                 foreach ($sqlFiles as $file)
-                                {
-                                    if ($file != $sqlFile)
-                                        $this->executeSql($file);
-                                }
+                                    $this->executeSql($file);
                             }
 
                             $transaction->commit();
@@ -233,6 +234,7 @@ class DefaultController extends Controller
                         }
                         catch(Exception $e)
                         {
+                            var_dump($e);
                             $transaction->rollback();
 
                             Yii::app()->user->setFlash(YFlashMessages::ERROR_MESSAGE, Yii::t('install', 'При инициализации базы данных произошла ошибка!'));
@@ -278,6 +280,8 @@ class DefaultController extends Controller
             if ($model->validate())
             {
                 $user = new User;
+                //@TODO Добавить сброс auto_increment
+                $user->deleteAll();
 
                 $salt = $user->generateSalt();
 
@@ -300,9 +304,7 @@ class DefaultController extends Controller
 
                     $this->redirect(array('/install/default/sitesettings/'));
                 }
-                //@TODO добавить вывод сообщений об ошибке сохранения
             }
-            //@TODO добавить вывод сообщений об ошибке сохранения
         }
 
         $this->render('createuser', array('model' => $model));
@@ -324,29 +326,26 @@ class DefaultController extends Controller
 
                 try
                 {
-                    if(Settings::model()->count() == 0)
+                    $user = User::model()->admin()->findAll();
+
+                    //@TODO Добавить сброс auto_increment
+                    Settings::model()->deleteAll();
+                    
+                    foreach (array('siteDescription', 'siteName', 'siteKeyWords', 'email') as $param)
                     {
-                        $user = User::model()->admin()->findAll();
+                        $settings = new Settings;
 
-                        if (count($user) > 1)
-                            throw new CHttpException(500, Yii::t('install', 'Произошла ошибка при установке =('));
-    
-                        foreach (array('siteDescription', 'siteName', 'siteKeyWords', 'email') as $param)
-                        {
-                            $settings = new Settings;
+                        $settings->setAttributes(array(
+                            'module_id' => 'yupe',
+                            'param_name' => $param,
+                            'param_value' => $model->$param,
+                            'user_id' => $user[0]->id,
+                        ));
 
-                            $settings->setAttributes(array(
-                                'module_id' => 'yupe',
-                                'param_name' => $param,
-                                'param_value' => $model->$param,
-                                'user_id' => $user[0]->id,
-                            ));
-    
-                            if ($settings->save())
-                                continue;
-                            else
-                                throw new CDbException(print_r($settings->getErrors(), true));
-                        }
+                        if ($settings->save())
+                            continue;
+                        else
+                            throw new CDbException(print_r($settings->getErrors(), true));
                     }
 
                     $transaction->commit();
