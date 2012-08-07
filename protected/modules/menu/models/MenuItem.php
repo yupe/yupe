@@ -47,7 +47,7 @@ class MenuItem extends CActiveRecord
         // NOTE: you should only define rules for those attributes that
         // will receive user inputs.
         return array(
-            array('parent_id, menu_id, title, href', 'required'),
+            array('parent_id, menu_id, title, href', 'required', 'except' => 'search'),
             array('type, sort, status, condition_denial', 'numerical', 'integerOnly' => true),
             array('parent_id, menu_id', 'length', 'max' => 10),
             array('title, href, condition_name', 'length', 'max' => 255),
@@ -103,11 +103,16 @@ class MenuItem extends CActiveRecord
         $criteria->compare('menu_id', $this->menu_id, true);
         $criteria->compare('title', $this->title, true);
         $criteria->compare('href', $this->href, true);
-        if($this->condition_name)
+
+        if($this->condition_name != '0')
         {
             $criteria->compare('condition_name', $this->condition_name, true);
-            $criteria->compare('condition_denial', $this->condition_denial);
+            if($this->condition_name != '')
+                $criteria->compare('condition_denial', $this->condition_denial);
         }
+        else
+            $criteria->addCondition('condition_name = ""');
+
         $criteria->compare('sort', $this->sort);
         $criteria->compare('status', $this->status);
 
@@ -120,8 +125,8 @@ class MenuItem extends CActiveRecord
     public function getStatusList()
     {
         return array(
-            self::STATUS_DISABLED => Yii::t('menu', 'не активно'),
             self::STATUS_ACTIVE => Yii::t('menu', 'активно'),
+            self::STATUS_DISABLED => Yii::t('menu', 'не активно'),
         );
     }
 
@@ -144,9 +149,9 @@ class MenuItem extends CActiveRecord
         return isset($data[$this->parent_id]) ? $data[$this->parent_id] : Yii::t('menu', '*неизвестно*');
     }
 
-    public function getConditionList($condition = false)
+    public function getConditionList($condition = false, $empty = '')
     {
-        $conditions = array(0 => Yii::t('menu', 'Нет условия'));
+        $conditions = array($empty => Yii::t('menu', 'Нет условия'));
 
         foreach (Yii::app()->modules as $key => $value)
         {
@@ -174,7 +179,7 @@ class MenuItem extends CActiveRecord
 
     public function getConditionVisible($name, $condition_denial)
     {
-        if ($name == '0')
+        if ($name == '')
             return true;
 
         $data = $this->getConditionList(true);
@@ -201,6 +206,6 @@ class MenuItem extends CActiveRecord
     {
         $data = $this->getConditionList();
 
-        return (isset($data[$this->condition_name])) ? $data[$this->condition_name] . (($this->condition_name == '0') ? '' : ' (' . $this->conditionDenial . ')') : Yii::t('menu', '*неизвестно*');
+        return (isset($data[$this->condition_name])) ? $data[$this->condition_name] . (($this->condition_name == '') ? '' : ' (' . $this->conditionDenial . ')') : Yii::t('menu', '*неизвестно*');
     }
 }

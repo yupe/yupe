@@ -397,7 +397,6 @@ CREATE TABLE IF NOT EXISTS `menu_item` (
   `href` varchar(255) NOT NULL,
   `condition_name` varchar(255) NOT NULL DEFAULT '0',
   `condition_denial` tinyint(4) NOT NULL DEFAULT '0',
-  `type` tinyint(3) unsigned NOT NULL DEFAULT '1',
   `sort` tinyint(3) unsigned NOT NULL DEFAULT '1',
   `status` tinyint(3) unsigned NOT NULL DEFAULT '1',
   PRIMARY KEY (`id`),
