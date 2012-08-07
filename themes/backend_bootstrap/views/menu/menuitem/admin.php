@@ -1,11 +1,10 @@
 <?php
 $this->breadcrumbs = array(
-    Yii::t('menu', 'Меню') => array('admin'),
+    Yii::t('menu', 'Меню') => array('menu/admin'),
     Yii::t('menu', 'Пункты меню'),
 );
 
 $this->menu = array(
-    //@formatter:off
     array('label' => Yii::t('menu', 'Меню')),
     array('label' => Yii::t('menu', 'Добавить меню'), 'url' => array('menu/create')),
     array('label' => Yii::t('menu', 'Список меню'), 'url' => array('menu/index')),
@@ -14,7 +13,6 @@ $this->menu = array(
     array('label' => Yii::t('menu', 'Пункты меню')),
     array('label' => Yii::t('menu', 'Добавить пункт меню'), 'url' => array('create')),
     array('label' => Yii::t('menu', 'Cписок пунктов меню'), 'url' => array('index')),
-    //@formatter:on
 );
 
 Yii::app()->clientScript->registerScript('search', "
@@ -31,14 +29,29 @@ Yii::app()->clientScript->registerScript('search', "
 ");
 ?>
 
-<h1><?php echo $this->module->getName(); ?></h1>
+<div class="page-header"><h1><?php echo $this->module->getName()?> <small><?php echo Yii::t('menu', 'управление'); ?></small></h1></div>
 
-<?php $this->widget('YModuleInfo'); ?>
+<button class="btn btn-small dropdown-toggle"
+        data-toggle="collapse"
+        data-target="#search-toggle" >
+    <i class="icon-search"></i>
+    <?php echo CHtml::link(Yii::t('menu', 'Поиск пунктов меню'), '#', array('class' => 'search-button')); ?>
+    <span class="caret"></span>
+</button>
 
-<?php echo CHtml::link(Yii::t('menu', 'Поиск'), '#', array('class' => 'search-button')); ?>
-<div class="search-form" style="display:none">
-    <?php $this->renderPartial('_search', array('model' => $model)); ?>
-</div><!-- search-form -->
+<div id="search-toggle" class="collapse out">
+    <?php
+    Yii::app()->clientScript->registerScript('search', "
+        $('.search-form form').submit(function(){
+            $.fn.yiiGridView.update('news-grid', {
+                data: $(this).serialize()
+        });
+        return false;
+        });
+    ");
+    $this->renderPartial('_search', array('model' => $model));
+    ?>
+</div>
 
 <?php
 $this->widget('YCustomGridView', array(

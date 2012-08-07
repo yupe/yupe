@@ -110,8 +110,8 @@ class Settings extends CActiveRecord
         $criteria->compare('user_id', $this->user_id, true);
 
         return new CActiveDataProvider(get_class($this), array(
-                                                              'criteria' => $criteria,
-                                                         ));
+            'criteria' => $criteria,
+        ));
     }
 
     /**
@@ -128,7 +128,7 @@ class Settings extends CActiveRecord
         if ($module_id)
         {
             $criteria = new CDbCriteria();
-            $criteria->compare("module_id" , $module_id );
+            $criteria->compare("module_id", $module_id);
 
             if (is_array($params))
                 $criteria->addInCondition("param_name", $params);
@@ -139,7 +139,6 @@ class Settings extends CActiveRecord
 
             foreach ($q as $s)
                 $settings[$s->param_name] = $s;
-
         }
         return $settings;
     }
