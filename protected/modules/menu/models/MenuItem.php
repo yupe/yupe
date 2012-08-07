@@ -139,7 +139,7 @@ class MenuItem extends CActiveRecord
 
     public function getParentList()
     {
-        return array_merge(array(0 => Yii::t('menu', 'Корень меню')), CHtml::listData($this->findAll(), 'id', 'title'));
+        return array(0 => Yii::t('menu', 'Корень меню')) + CHtml::listData($this->findAll(), 'id', 'title');
     }
 
     public function getParent()
