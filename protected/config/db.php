@@ -2,8 +2,8 @@
  return array (
   'class' => 'CDbConnection',
   'connectionString' => 'mysql:host=localhost;dbname=yupe',
-  'username' => 'yupe',
-  'password' => '000000',
+  'username' => 'root',
+  'password' => 'root',
   'emulatePrepare' => true,
   'charset' => 'utf8',
   'enableParamLogging' => 1,
