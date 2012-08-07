@@ -5,10 +5,10 @@
 ));
 
 Yii::app()->clientScript->registerScript('fieldset', "
-        $('document').ready(function ()
-        { $('.popover-help').popover({ 'delay': 500, });
-        });
-    ");
+    $('document').ready(function () {
+        $('.popover-help').popover({ 'delay': 500, });
+    });
+");
 ?>
 
      <fieldset class="inline">
@@ -64,4 +64,4 @@ Yii::app()->clientScript->registerScript('fieldset', "
              ? Yii::t('menu', 'Добавить меню')
              : Yii::t('menu', 'Сохранить меню'))); ?>
      </fieldset>
-    <?php $this->endWidget(); ?>
+<?php $this->endWidget(); ?>

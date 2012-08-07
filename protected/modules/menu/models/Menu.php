@@ -41,7 +41,7 @@ class Menu extends CActiveRecord
     public function rules()
     {
         return array(
-            array('name, code, description', 'required'),
+            array('name, code, description', 'required', 'except' => 'search'),
             array('status', 'numerical', 'integerOnly' => true),
             array('name, code, description', 'filter', 'filter' => array($obj = new CHtmlPurifier(), 'purify')),
             array('name, description', 'length', 'max' => 300),

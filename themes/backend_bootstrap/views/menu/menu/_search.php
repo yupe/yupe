@@ -13,16 +13,16 @@ $form = $this->beginWidget('bootstrap.widgets.BootActiveForm', array(
             <div class="span2">
                 <?php echo $form->textFieldRow($model, 'name'); ?>
             </div>
-            <div class="span3">
+            <div class="span2">
                 <?php echo $form->textFieldRow($model, 'code'); ?>
             </div>
         </div>
         <div class="row-fluid control-group">
-            <div class="span6">
+            <div class="span3">
                 <?php echo $form->textFieldRow($model, 'description'); ?>
             </div>
-            <div class="span6">
-                <?php echo $form->dropDownListRow($model, 'status',$model->getStatusList()); ?>
+            <div class="span2">
+                <?php echo $form->dropDownListRow($model, 'status', $model->getStatusList(), array('empty' => Yii::t('menu', '--выберите значение--'))); ?>
             </div>
         </div>
 
