@@ -174,7 +174,7 @@ class MenuItem extends CActiveRecord
 
     public function getConditionVisible($name, $condition_denial)
     {
-        if ($name == 0)
+        if ($name == '0')
             return true;
 
         $data = $this->getConditionList(true);
