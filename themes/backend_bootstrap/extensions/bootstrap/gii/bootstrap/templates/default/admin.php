@@ -47,7 +47,7 @@ or <b>=</b>) at the beginning of each of your search values to specify how the c
 )); ?>\n"; ?>
 </div><!-- search-form -->
 
-<?php echo "<?php"; ?> $this->widget('bootstrap.widgets.BootGridView',array(
+<?php echo "<?php"; ?> $this->widget('bootstrap.widgets.TbGridView',array(
 	'id'=>'<?php echo $this->class2id($this->modelClass); ?>-grid',
 	'dataProvider'=>$model->search(),
 	'filter'=>$model,
@@ -64,7 +64,7 @@ if($count>=7)
 	echo "\t\t*/\n";
 ?>
 		array(
-			'class'=>'bootstrap.widgets.BootButtonColumn',
+			'class'=>'bootstrap.widgets.TbButtonColumn',
 		),
 	),
 )); ?>

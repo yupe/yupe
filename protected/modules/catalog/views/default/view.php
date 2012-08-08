@@ -1,7 +1,7 @@
 <?php
 $this->breadcrumbs=array(
-	'товары'=>array('index'),
-	$model->name,
+    'товары'=>array('index'),
+    $model->name,
 );
 $this-> pageTitle ="товары - ".Yii::t('yupe','просмотр');
 $this->menu=array(
@@ -17,47 +17,47 @@ $this->menu=array(
      <small style='margin-left:-10px;'>&laquo;<?php echo  $model->name; ?>&raquo;</small></h1>
 </div>
 
-<?php $this->widget('bootstrap.widgets.BootDetailView',array(
-	'data'=>$model,
-	'attributes'=>array(
-		'id',
-		array(
-			'name'  => 'category_id',
-			'value' => $model->category->name
-		),
-		'name',
-		'alias',
-		array(
-			'name'  => 'price',
-			'value' => number_format($model->price,2,'.','')
-		),
-		'article',
-		array(
-                    'name'  => 'image',
-                    'type'  => 'raw',
-                    'value' => $model->image ? CHtml::image(Yii::app()->baseUrl.'/'.Yii::app()->getModule('yupe')->uploadPath . DIRECTORY_SEPARATOR . $this->module->uploadPath.DIRECTORY_SEPARATOR.$model->image, $model->name,array('width' => 300,'height' => 300)) : '---'
-                ),		
-		'create_time',
-		'update_time',
-		array(
-			'name'  => 'user_id',
-			'value' => $model->user->getFullName()
-		),
-		array(
-			'name'  => 'change_user_id',
-			'value' => $model->changeUser->getFullName()
-		),		
-		array(
-			'name' => 'description',
-			'type' => 'raw'
-		),
-		array(
-			'name' => 'short_description',
-			'type' => 'raw'
-		),		
-		array(
-			'name'  => 'status',
-			'value' => $model->getStatus()
-		),		
-	),
+<?php $this->widget('bootstrap.widgets.TbDetailView',array(
+    'data'=>$model,
+    'attributes'=>array(
+        'id',
+        array(
+            'name'  => 'category_id',
+            'value' => $model->category->name,
+        ),
+        'name',
+        'alias',
+        array(
+            'name'  => 'price',
+            'value' => number_format($model->price, 2, '.', ''),
+        ),
+        'article',
+        array(
+            'name'  => 'image',
+            'type'  => 'raw',
+            'value' => $model->image ? CHtml::image(Yii::app()->baseUrl.'/' . Yii::app()->getModule('yupe')->uploadPath . DIRECTORY_SEPARATOR . $this->module->uploadPath.DIRECTORY_SEPARATOR.$model->image, $model->name,array('width' => 300,'height' => 300)) : '---',
+        ),
+        'create_time',
+        'update_time',
+        array(
+            'name'  => 'user_id',
+            'value' => $model->user->getFullName(),
+        ),
+        array(
+            'name'  => 'change_user_id',
+            'value' => $model->changeUser->getFullName(),
+        ),        
+        array(
+            'name' => 'description',
+            'type' => 'raw',
+        ),
+        array(
+            'name' => 'short_description',
+            'type' => 'raw',
+        ),        
+        array(
+            'name'  => 'status',
+            'value' => $model->getStatus(),
+        ),        
+    ),
 )); ?>

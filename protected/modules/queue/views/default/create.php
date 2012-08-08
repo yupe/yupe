@@ -5,12 +5,8 @@ $this->breadcrumbs = array(
 );
 
 $this->menu = array(
-    array('icon'  => 'list-alt',
-          'label' => 'Управление заданиями',
-          'url'   => array('/queue/default/index')),
-    array('icon'  => 'file',
-          'label' => 'Добавление задание',
-          'url'   => array('/queue/default/create')),
+    array('icon' => 'list-alt', 'label' => 'Управление заданиями', 'url' => array('/queue/default/index')),
+    array('icon' => 'file', 'label' => 'Добавление задание', 'url' => array('/queue/default/create')),
 );
 ?>
 <div class="page-header">

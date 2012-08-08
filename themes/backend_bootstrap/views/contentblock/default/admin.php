@@ -12,25 +12,23 @@ $this->menu = array(
 ?>
 
 <h1><?php echo $this->module->getName();?></h1>
-<?php $this->widget('bootstrap.widgets.BootGridView', array(
-                                                       'id' => 'content-block-grid',
-                                                       'dataProvider' => $model->search(),
-                                                       'type'=>'condensed',
-                                                       'columns' => array(
-                                                           'id',
-                                                           array(
-                                                               'name' => 'name',
-                                                               'type' => 'raw',
-                                                               'value' => 'CHtml::link($data->name,array("/contentblock/default/update","id" => $data->id))'
-                                                           ),
-                                                           array(
-                                                               'name' => 'type',
-                                                               'value' => '$data->getType()'
-                                                           ),
-                                                           'code',                                                           
-                                                           'description',
-                                                           array(
-                                                               'class' => 'bootstrap.widgets.BootButtonColumn',
-                                                           ),
-                                                       ),
-                                                  )); ?>
+<?php $this->widget('bootstrap.widgets.TbGridView', array(
+    'id' => 'content-block-grid',
+    'dataProvider' => $model->search(),
+    'type'=>'condensed',
+    'columns' => array(
+        'id',
+        array(
+            'name' => 'name',
+            'type' => 'raw',
+            'value' => 'CHtml::link($data->name, array("/contentblock/default/update", "id" => $data->id))',
+        ),
+        array(
+            'name' => 'type',
+            'value' => '$data->getType()',
+        ),
+        'code',
+        'description',
+        array('class' => 'bootstrap.widgets.TbButtonColumn'),
+   ),
+ )); ?>

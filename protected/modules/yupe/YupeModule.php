@@ -281,10 +281,10 @@ class YupeModule extends YWebModule
                         );
 
                         if (isset($this->categoryIcon[$category[$key]]))
-                            $modulesNavigation[$category[$key]]['icon']    = $this->categoryIcon[$category[$key]];
+                            $modulesNavigation[$category[$key]]['icon'] = $this->categoryIcon[$category[$key]];
                         // Если нет иконка для данной категории, подставляется иконка первого модуля
                         elseif ($modules[$key]->icon)
-                            $modulesNavigation[$category[$key]]['icon']    = $modules[$key]->icon;
+                            $modulesNavigation[$category[$key]]['icon'] = $modules[$key]->icon;
                     }
                     $modulesNavigation[$category[$key]]['items'][] = $data;
                 }

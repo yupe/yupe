@@ -1,4 +1,4 @@
-<?php $form=$this->beginWidget('bootstrap.widgets.BootActiveForm',array(
+<?php $form=$this->beginWidget('bootstrap.widgets.TbActiveForm',array(
 	'action'=>Yii::app()->createUrl($this->route),
 	'method'=>'get',
 )); ?>
@@ -24,7 +24,7 @@
 	<?php echo  $form->textFieldRow($model,'status',array('class'=>'span5')); ?>
 
 	<div class="form-actions">
-		<?php $this->widget('bootstrap.widgets.BootButton', array(
+		<?php $this->widget('bootstrap.widgets.TbButton', array(
 			'type'=>'primary',
 			'label'=>Yii::t('yupe','Искать'),
 		)); ?>

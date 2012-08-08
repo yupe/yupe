@@ -20,7 +20,7 @@ $this->menu = array(
     <span class="caret"></span>
 </button>
 
-<div id="search-toggle" class="collapse <?php echo isset($_GET[get_class($model)])?'in':'out'; ?>">
+<div id="search-toggle" class="collapse <?php echo isset($_GET[get_class($model)]) ? 'in' : 'out'; ?>">
     <?php
     Yii::app()->clientScript->registerScript('search', "
             $('#Page_parent_Id').val('');
@@ -89,7 +89,7 @@ $this->menu = array(
                 'htmlOptions' => array('style' => 'width:40px;text-align:center;'),
             ),
             array(
-                'class' => 'bootstrap.widgets.BootButtonColumn',
+                'class' => 'bootstrap.widgets.TbButtonColumn',
                 'htmlOptions' => array('style' => 'width:50px'),
                 'buttons' => array(
                     'update' => array('url' => 'array("/page/default/update/", "slug" => $data->slug)'),

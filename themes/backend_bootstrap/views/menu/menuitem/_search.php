@@ -1,5 +1,5 @@
 <?php
-$form = $this->beginWidget('bootstrap.widgets.BootActiveForm', array(
+$form = $this->beginWidget('bootstrap.widgets.TbActiveForm', array(
     'action' => Yii::app()->createUrl($this->route),
     'method' => 'get',
     'htmlOptions'=> array( 'class' => 'well' ),
@@ -39,13 +39,11 @@ $form = $this->beginWidget('bootstrap.widgets.BootActiveForm', array(
             <?php echo $form->dropDownListRow($model, 'status', $model->getStatusList(), array('empty' => Yii::t('menu', '--выберите значение--'))); ?>
         </div>
     </div>
-    <?php
-    $this->widget('bootstrap.widgets.BootButton', array(
+    <?php $this->widget('bootstrap.widgets.TbButton', array(
         'buttonType' => 'submit',
         'type' => 'primary',
         'encodeLabel' => false,
-        'label' => '<i class="icon-search icon-white"></i> '.Yii::t('menu', 'Искать')
-     ));
-     ?>
+        'label' => '<i class="icon-search icon-white"></i> '.Yii::t('menu', 'Искать'),
+     )); ?>
 </fieldset>
 <?php $this->endWidget(); ?>

@@ -29,7 +29,7 @@ Yii::app()->clientScript->registerScript('search', "
 ");
 ?>
 
-<div class="page-header"><h1><?php echo $this->module->getName()?> <small><?php echo Yii::t('menu', 'управление'); ?></small></h1></div>
+<div class="page-header"><h1><?php echo $this->module->getName(); ?> <small><?php echo Yii::t('menu', 'управление'); ?></small></h1></div>
 
 <button class="btn btn-small dropdown-toggle"
         data-toggle="collapse"
@@ -45,8 +45,8 @@ Yii::app()->clientScript->registerScript('search', "
         $('.search-form form').submit(function(){
             $.fn.yiiGridView.update('news-grid', {
                 data: $(this).serialize()
-        });
-        return false;
+            });
+            return false;
         });
     ");
     $this->renderPartial('_search', array('model' => $model));
@@ -66,7 +66,7 @@ $this->widget('YCustomGridView', array(
             'name' => 'menu_id',
             'value' => '$data->menu->name',
         ),
-        // :KLUDGE: Обратить внимание, возможно сделать иначе определение корня
+        //@KLUDGE Обратить внимание, возможно сделать иначе определение корня
         array(
             'name' => 'parent_id',
             'value' => '$data->parent',
@@ -86,7 +86,7 @@ $this->widget('YCustomGridView', array(
             'value' => '$this->grid->returnBootstrapStatusHtml($data)',
         ),
         array(
-            'class' => 'bootstrap.widgets.BootButtonColumn',
+            'class' => 'bootstrap.widgets.TbButtonColumn',
         ),
     ),
 ));

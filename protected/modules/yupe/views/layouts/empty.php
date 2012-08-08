@@ -33,7 +33,7 @@
 <body>
 <script type='text/javascript'>
     $(document).ready(function() {
-        $('input:submit').button();        
+        $('input:submit').button();
     });
 </script>
 

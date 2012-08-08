@@ -1,23 +1,20 @@
 <?php
 $this->breadcrumbs = array(
     Yii::t('menu', 'Меню') => array('admin'),
-    $model->name => array(
-        'view',
-        'id' => $model->id,
-    ),
+    $model->name => array('view', 'id' => $model->id),
     Yii::t('menu', 'Редактирование'),
 );
 
 $this->menu = array(
     array('label' => Yii::t('menu', 'Меню')),
-    array('icon' => 'list-alt','label' => Yii::t('menu', 'Список меню'), 'url' => array('index')),
-    array('icon' => 'list','label' => Yii::t('menu', 'Управление меню'), 'url' => array('admin')),
-    array('icon' => 'file','label' => Yii::t('menu', 'Добавить меню'), 'url' => array('create')),
+    array('icon' => 'list-alt', 'label' => Yii::t('menu', 'Список меню'), 'url' => array('index')),
+    array('icon' => 'list', 'label' => Yii::t('menu', 'Управление меню'), 'url' => array('admin')),
+    array('icon' => 'file', 'label' => Yii::t('menu', 'Добавить меню'), 'url' => array('create')),
 
     array('label' => Yii::t('menu', 'Пункты меню')),
-    array('icon' => 'file','label' => Yii::t('menu', 'Добавить пункт меню'), 'url' => array('menuitem/create')),
-    array('icon' => 'list-alt','label' => Yii::t('menu', 'Cписок пунктов меню'), 'url' => array('menuitem/index')),
-    array('icon' => 'list','label' => Yii::t('menu', 'Управление пунктами меню'), 'url' => array('menuitem/admin')),
+    array('icon' => 'file', 'label' => Yii::t('menu', 'Добавить пункт меню'), 'url' => array('menuitem/create')),
+    array('icon' => 'list-alt', 'label' => Yii::t('menu', 'Cписок пунктов меню'), 'url' => array('menuitem/index')),
+    array('icon' => 'list', 'label' => Yii::t('menu', 'Управление пунктами меню'), 'url' => array('menuitem/admin')),
 );
 ?>
 

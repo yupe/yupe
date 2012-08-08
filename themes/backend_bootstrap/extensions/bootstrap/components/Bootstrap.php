@@ -4,28 +4,28 @@
  * @author Christoffer Niska <ChristofferNiska@gmail.com>
  * @copyright Copyright &copy; Christoffer Niska 2011-
  * @license http://www.opensource.org/licenses/bsd-license.php New BSD License
- * @version 0.9.12
+ * @version 1.0.0
  */
 
 /**
  * Bootstrap application component.
- * Used for registering Bootstrap core functionality.
  */
 class Bootstrap extends CApplicationComponent
 {
 	// Bootstrap plugins.
 	const PLUGIN_ALERT = 'alert';
-	const PLUGIN_BUTTON = 'button';
-	const PLUGIN_CAROUSEL = 'carousel';
-	const PLUGIN_COLLAPSE = 'collapse';
-	const PLUGIN_DROPDOWN = 'dropdown';
-	const PLUGIN_MODAL = 'modal';
-	const PLUGIN_POPOVER = 'popover';
-	const PLUGIN_SCROLLSPY = 'scrollspy';
-	const PLUGIN_TAB = 'tab';
-	const PLUGIN_TOOLTIP = 'tooltip';
-	const PLUGIN_TRANSITION = 'transition';
-	const PLUGIN_TYPEAHEAD = 'typeahead';
+    const PLUGIN_BUTTON = 'button';
+    const PLUGIN_CAROUSEL = 'carousel';
+    const PLUGIN_COLLAPSE = 'collapse';
+    const PLUGIN_DROPDOWN = 'dropdown';
+    const PLUGIN_MODAL = 'modal';
+    const PLUGIN_POPOVER = 'popover';
+    const PLUGIN_SCROLLSPY = 'scrollspy';
+    const PLUGIN_TAB = 'tab';
+    const PLUGIN_TOOLTIP = 'tooltip';
+    const PLUGIN_TRANSITION = 'transition';
+    const PLUGIN_TYPEAHEAD = 'typeahead';
+    // todo: add the affix plugin in version 2.1.0
 
 	/**
 	 * @var boolean whether to register the Bootstrap core CSS (bootstrap.min.css).
@@ -77,28 +77,30 @@ class Bootstrap extends CApplicationComponent
 			Yii::setPathOfAlias('bootstrap', realpath(dirname(__FILE__).'/..'));
 
 		// Prevents the extension from registering scripts and publishing assets when ran from the command line.
-		if (php_sapi_name() === 'cli')
+		if (Yii::app() instanceof CConsoleApplication)
 			return;
 
-		if ($this->coreCss)
-			$this->registerCss();
+		if ($this->coreCss !== false)
+			$this->registerCoreCss();
 
-		if ($this->responsiveCss)
+		if ($this->responsiveCss !== false)
 			$this->registerResponsiveCss();
 
-		if ($this->yiiCss)
+		if ($this->yiiCss !== false)
 			$this->registerYiiCss();
 
-		if ($this->enableJS)
+		if ($this->enableJS !== false)
 			$this->registerCoreScripts();
+
+        parent::init();
 	}
 
 	/**
 	 * Registers the Bootstrap CSS.
 	 */
-	public function registerCss()
+	public function registerCoreCss()
 	{
-		Yii::app()->clientScript->registerCssFile($this->getAssetsUrl().'/css/bootstrap.min.css');
+		Yii::app()->clientScript->registerCssFile($this->getAssetsUrl().'/css/bootstrap.css');
 	}
 
 	/**
@@ -110,7 +112,7 @@ class Bootstrap extends CApplicationComponent
 		/** @var CClientScript $cs */
 		$cs = Yii::app()->getClientScript();
 		$cs->registerMetaTag('width=device-width, initial-scale=1.0', 'viewport');
-		$cs->registerCssFile($this->getAssetsUrl().'/css/bootstrap-responsive.min.css');
+		$cs->registerCssFile($this->getAssetsUrl().'/css/bootstrap-responsive.css');
 	}
 
 	/**
@@ -128,7 +130,7 @@ class Bootstrap extends CApplicationComponent
 	 */
 	public function registerCoreScripts()
 	{
-		$this->registerJS();
+		$this->registerJS(Yii::app()->clientScript->coreScriptPosition);
 		$this->registerTooltip();
 		$this->registerPopover();
 	}
@@ -143,7 +145,7 @@ class Bootstrap extends CApplicationComponent
 		/** @var CClientScript $cs */
 		$cs = Yii::app()->getClientScript();
 		$cs->registerCoreScript('jquery');
-		$cs->registerScriptFile($this->getAssetsUrl().'/js/bootstrap.min.js', $position);
+		$cs->registerScriptFile($this->getAssetsUrl().'/js/bootstrap.js', $position);
 	}
 
 	/**
@@ -280,25 +282,6 @@ class Bootstrap extends CApplicationComponent
 	}
 
 	/**
-	 * Sets the target element for the scrollspy.
-	 * @param string $selector the CSS selector
-	 * @param string $target the target CSS selector
-	 * @param string $offset the offset
-	 */
-	public function spyOn($selector, $target = null, $offset = null)
-	{
-		$script = "jQuery('{$selector}').attr('data-spy', 'scroll');";
-
-		if (isset($target))
-			$script .= "jQuery('{$selector}').attr('data-target', '{$target}');";
-
-		if (isset($offset))
-			$script .= "jQuery('{$selector}').attr('data-offset', '{$offset}');";
-
-		Yii::app()->clientScript->registerScript(__CLASS__.'.spyOn.'.$selector, $script, CClientScript::POS_BEGIN);
-	}
-
-	/**
 	 * Registers a Bootstrap JavaScript plugin.
 	 * @param string $name the name of the plugin
 	 * @param string $selector the CSS selector
@@ -346,4 +329,13 @@ class Bootstrap extends CApplicationComponent
 			return $this->_assetsUrl = $assetsUrl;
 		}
 	}
+
+    /**
+     * Returns the extension version number.
+     * @return string the version
+     */
+    public function getVersion()
+    {
+        return '1.0.0';
+    }
 }

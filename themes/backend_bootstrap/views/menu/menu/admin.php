@@ -42,15 +42,12 @@ Yii::app()->clientScript->registerScript('search', "
         $('.search-form form').submit(function(){
             $.fn.yiiGridView.update('news-grid', {
                 data: $(this).serialize()
-        });
-        return false;
+            });
+            return false;
         });
     ");
-    $this->renderPartial('_search', array(
-        'model' => $model,
-    ));
+    $this->renderPartial('_search', array('model' => $model));
     ?>
-
 </div>
 
 <?php
@@ -74,7 +71,7 @@ $this->widget('YCustomGridView', array(
             'htmlOptions' => array('style'=>'width:40px; text-align:center;'),
         ),
         array(
-            'class'    => 'bootstrap.widgets.BootButtonColumn',
+            'class'    => 'bootstrap.widgets.TbButtonColumn',
             'template' => '{view}{update}{delete}{add}',
             'buttons'  => array(
                 'add' => array(
@@ -82,7 +79,7 @@ $this->widget('YCustomGridView', array(
                     'url'   => 'Yii::app()->createUrl("/menu/menuitem/create/", array("mid" => $data->id))',
                     'options' => array(
                         'class' => 'icon-plus-sign',
-                        'title' => Yii::t('menu','Добавить пункт меню')
+                        'title' => Yii::t('menu', 'Добавить пункт меню')
                     )
                 )
             )

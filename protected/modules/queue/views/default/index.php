@@ -17,9 +17,6 @@ $this->menu        = array(
     <h1>задания
         <small>управление</small>
 
-
-
-
     </h1>
 </div>
 <button class="btn btn-small dropdown-toggle"
@@ -29,13 +26,13 @@ $this->menu        = array(
 </button>
 
 <div id="search-toggle" class="collapse out">
-    <?php Yii::app()->clientScript->registerScript('search', "
-$('.search-form form').submit(function(){
-$.fn.yiiGridView.update('queue-grid', {
-data: $(this).serialize()
-});
-return false;
-});
+<?php Yii::app()->clientScript->registerScript('search', "
+    $('.search-form form').submit(function(){
+        $.fn.yiiGridView.update('queue-grid', {
+            data: $(this).serialize()
+        });
+        return false;
+    });
 ");
     $this->renderPartial('_search', array(
         'model'=> $model,
@@ -50,12 +47,10 @@ return false;
 <?php
 $dp = $model->search();
 //$dp-> sort-> defaultOrder = "";
-$this->widget('bootstrap.widgets.BootGridView', array(
+$this->widget('bootstrap.widgets.TbGridView', array(
     'id'          => 'queue-grid',
     'type'        => 'condensed ',
-    'pager'       => array('class'        => 'bootstrap.widgets.BootPager',
-                           'prevPageLabel'=> "←",
-                           'nextPageLabel'=> "→"),
+    'pager'       => array('class' => 'bootstrap.widgets.TbPager', 'prevPageLabel'=> "←", 'nextPageLabel'=> "→"),
     'dataProvider'=> $dp,
     'filter'      => $model,
     'columns'     => array(
@@ -83,7 +78,7 @@ $this->widget('bootstrap.widgets.BootGridView', array(
         'notice',
 
         array(
-            'class'=> 'bootstrap.widgets.BootButtonColumn',
+            'class'=> 'bootstrap.widgets.TbButtonColumn',
         ),
     ),
 )); ?>

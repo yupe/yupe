@@ -18,20 +18,20 @@ $this->menu = array(
     #<?php echo $model->id; ?></h1>
 
 <?php $this->widget('zii.widgets.CDetailView', array(
-                                                    'data' => $model,
-                                                    'attributes' => array(
-                                                        'id',
-                                                        'model',
-                                                        'model_id',
-                                                        'creation_date',
-                                                        'name',
-                                                        'email',
-                                                        'url',
-                                                        'text',
-                                                        array(
-                                                            'name' => 'status',
-                                                            'value' => $model->getStatus()
-                                                        ),
-                                                        'ip',
-                                                    ),
-                                               )); ?>
+    'data' => $model,
+    'attributes' => array(
+        'id',
+        'model',
+        'model_id',
+        'creation_date',
+        'name',
+        'email',
+        'url',
+        'text',
+        array(
+            'name' => 'status',
+            'value' => $model->getStatus()
+        ),
+        'ip',
+        ),
+)); ?>

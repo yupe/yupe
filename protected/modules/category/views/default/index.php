@@ -21,53 +21,49 @@ $this->menu = array(
 <div id="search-toggle" class="collapse out">
     <?php
     Yii::app()->clientScript->registerScript('search', "
-$('.search-form form').submit(function(){
-$.fn.yiiGridView.update('category-grid', {
-data: $(this).serialize()
-});
-return false;
-});
-");
-    $this->renderPartial('_search', array(
-        'model' => $model,
-    ));
+        $('.search-form form').submit(function() {
+            $.fn.yiiGridView.update('category-grid', {
+                data: $(this).serialize()
+            });
+            return false;
+        });
+    ");
+    $this->renderPartial('_search', array('model' => $model));
     ?>
 </div>
 
 <br/>
 
-<p>
-    <?php echo Yii::t('yupe', 'В данном разделе представлены средства управления'); ?> <?php echo Yii::t('yupe', 'категориями'); ?>.
-</p>
+<p><?php echo Yii::t('yupe', 'В данном разделе представлены средства управления'); ?> <?php echo Yii::t('yupe', 'категориями'); ?>.</p>
 
 
 <?php
 $dp = $model->search();
-$this->widget('bootstrap.widgets.BootGridView', array(
+$this->widget('bootstrap.widgets.TbGridView', array(
     'id'    => 'category-grid',
     'type'  => 'condensed ',
-    'pager' => array( 'class'=> 'bootstrap.widgets.BootPager', 'prevPageLabel' => "←", 'nextPageLabel' => "→" ),
+    'pager' => array( 'class'=> 'bootstrap.widgets.TbPager', 'prevPageLabel' => "←", 'nextPageLabel' => "→" ),
     'dataProvider'  => $dp,
     'filter'        => $model,
     'columns'       => array(
         'id',
         array(
             'name'  => 'parent_id',
-            'value' => '$data->getParentName()'
+            'value' => '$data->getParentName()',
         ),
         'name',
         'alias',
         array(
             'name'  => 'image',
             'type'  => 'raw',
-            'value' => '$data->image ? CHtml::image(Yii::app()->baseUrl . "/" . Yii::app()->getModule("yupe")->uploadPath . DIRECTORY_SEPARATOR . Yii::app()->getModule("category")->uploadPath . DIRECTORY_SEPARATOR . $data->image, $data->name, array( "width"  => 100, "height" => 100 )) : "---"'
+            'value' => '$data->image ? CHtml::image(Yii::app()->baseUrl . "/" . Yii::app()->getModule("yupe")->uploadPath . DIRECTORY_SEPARATOR . Yii::app()->getModule("category")->uploadPath . DIRECTORY_SEPARATOR . $data->image, $data->name, array( "width"  => 100, "height" => 100 )) : "---"',
         ),
         array(
             'name'  => 'status',
-            'value' => '$data->getStatus()'
+            'value' => '$data->getStatus()',
         ),
         array(
-            'class' => 'bootstrap.widgets.BootButtonColumn',
+            'class' => 'bootstrap.widgets.TbButtonColumn',
         ),
     ),
 ));
