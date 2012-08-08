@@ -24,7 +24,7 @@ Yii::app()->clientScript->registerScript('fieldset', "
 
         <div class="span3">
             <?php echo $form->labelEx($model, 'parent_Id' ); ?>
-            <?php echo $form->dropDownList($model, 'parent_Id', $pages,array('empty' => Yii::t('page','--выберите--'))); ?>
+            <?php echo $form->dropDownList($model, 'parent_Id', $pages, array('empty' => Yii::t('page','--выберите--'))); ?>
         </div>
     </div>
 

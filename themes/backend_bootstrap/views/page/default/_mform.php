@@ -13,7 +13,7 @@
     <div class="row-fluid control-group <?php echo $model-> hasErrors('title')?'error':'' ?>">
         <div class="span7 popover-help" data-content="<?php echo Yii::t('page',"Укажите полное название данной страницы для отображения в заголовке при полном просмотре.<br/><br />Например:<pre>Контактная информация и карта проезда.</pre>") ?>" data-original-title="<?php echo $model-> getAttributeLabel('title'); ?>" >
             <?php echo $form->labelEx($model, 'title'); ?>
-            <?php echo CHtml::textField( 'Page['.$model->lang.'][title]',$model->title, array('size' => 60, 'maxlength' => 150)); ?>
+            <?php echo CHtml::textField( 'Page['.$model->lang.'][title]', $model->title, array('size' => 60, 'maxlength' => 150)); ?>
         </div>
         <div class="span5">
             <?php echo $form->error($model, 'title'); ?>
@@ -27,12 +27,12 @@
             $this->widget($this->module->editor, array(
                 'name' => 'Page['.$model->lang.'][body]',
                 'value' => $model->body,
-                'options'   => array(
-                    'height'=> '400px;',
+                'options' => array(
+                    'height' => '400px;',
                     'toolbar' => 'main',
                     'imageUpload' => Yii::app()->baseUrl.'/index.php/yupe/backend/AjaxFileUpload/',
                    ),
-                'htmlOptions' => array('style'=>'height: 400px;','rows' => 20,'cols' => 6, 'id'=>'editor-'.$model->lang),
+                'htmlOptions' => array('style' => 'height: 400px;', 'rows' => 20, 'cols' => 6, 'id' => 'editor-'.$model->lang),
              ));
              ?>
             <br /><?php echo $form->error($model, 'Page['.$model->lang.'][body]'); ?>

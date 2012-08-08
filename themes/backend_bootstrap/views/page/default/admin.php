@@ -56,15 +56,23 @@ $this->menu = array(
             array(
                 'name' => 'name',
                 'type' => 'raw',
-                'value' => 'CHtml::link($data->name,array("/page/default/update","slug" => $data->slug))',
+                'value' => 'CHtml::link($data->name, array("/page/default/update", "slug" => $data->slug))',
             ),
             array(
                 'name' => 'category_id',
-                'value' => '$data->getCategoryName()'
+                'value' => '$data->getCategoryName()',
             ),
             array(
-                'name' => Yii::t('page','Публичный урл'),
-                'value' => 'Yii::app()->createAbsoluteUrl("/page/page/show/",array("slug" => $data->slug))',
+                'name' => 'parent_Id',
+                'value' => '$data->parentName',
+            ),
+            array(
+                'name' => 'slug',
+                'value' => '$data->slug',
+            ),
+            array(
+                'name' => Yii::t('page', 'Публичный урл'),
+                'value' => 'Yii::app()->createAbsoluteUrl("/page/page/show/", array("slug" => $data->slug))',
             ),
             'creation_date',
             'change_date',
@@ -78,13 +86,13 @@ $this->menu = array(
                 'name' => 'status',
                 'type' => 'raw',
                 'value' => '$this->grid->returnBootstrapStatusHtml($data)',
-                'htmlOptions' => array('style' => 'width:40px; text-align:center;'),
+                'htmlOptions' => array('style' => 'width:40px;text-align:center;'),
             ),
             array(
                 'class' => 'bootstrap.widgets.BootButtonColumn',
-                'htmlOptions' => array('style' => 'width: 50px'),
+                'htmlOptions' => array('style' => 'width:50px'),
                 'buttons' => array(
-                    'update' => array('url' => 'array("/page/default/update/","slug"=>$data->slug)'),
+                    'update' => array('url' => 'array("/page/default/update/", "slug" => $data->slug)'),
                 ),
             ),
         ),
