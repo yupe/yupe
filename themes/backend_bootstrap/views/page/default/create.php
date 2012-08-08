@@ -2,7 +2,7 @@
 
 <?php
 $this->breadcrumbs = array(
-    $this->getModule('page')->getCategory() => array(''),
+    $this->getModule('page')->getCategory() => array('admin'),
     Yii::t('page', 'Страницы') => array('admin'),
     Yii::t('page', 'Создать'),
 );

@@ -1,7 +1,7 @@
 <?php
     $this->pageTitle = Yii::t('user', 'Управление страницами');
     $this->breadcrumbs = array(
-        $this->getModule('page')->getCategory() => array(''),
+        $this->getModule('page')->getCategory() => array('admin'),
         Yii::t('page', 'Страницы') => array('admin'),
         Yii::t('page', 'Управление'),
     );
