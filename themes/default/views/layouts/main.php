@@ -56,9 +56,11 @@
     <?php
     $this->widget('application.modules.menu.widgets.MenuWidget', array(
         'name' => 'top-menu',
-        'id' => 'myslidemenu',
         'params' => array('hideEmptyItems' => true),
-        'htmlOptions' => array('class' => 'jqueryslidemenu'),
+        'layoutParams' => array('htmlOptions' => array(
+            'class' => 'jqueryslidemenu',
+            'id' => 'myslidemenu',
+         )),
     ));
     ?>
     <!-- mainmenu -->
