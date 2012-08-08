@@ -45,6 +45,8 @@ class TbAlert extends CWidget
 	 */
 	public $htmlOptions = array();
 
+	private static $_containerId = 0;
+
 	/**
 	 * Initializes the widget.
 	 */
@@ -128,7 +130,7 @@ class TbAlert extends CWidget
 		echo '</div>';
 
 		$selector = "#{$id} .alert";
-		$id .= '_'.uniqid(true, true);
+		$id .= '_'.self::$_containerId++;
 
 		/** @var CClientScript $cs */
 		$cs = Yii::app()->getClientScript();

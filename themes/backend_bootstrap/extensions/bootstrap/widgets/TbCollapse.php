@@ -39,6 +39,8 @@ class TbCollapse extends CWidget
     */
     public $htmlOptions = array();
 
+	private static $_containerId = 0;
+
     /**
      * Initializes the widget.
      */
@@ -76,5 +78,15 @@ class TbCollapse extends CWidget
             $cs->registerScript(__CLASS__.'#'.$id.'_'.$name, "jQuery('#{$id}').on('{$name}', {$handler});");
         }
     }
+
+	/**
+	 * Returns the next collapse container ID.
+	 * @return string the id
+	 * @static
+	 */
+	public static function getNextContainerId()
+	{
+		return 'collapse_'.self::$_containerId++;
+	}
 }
 
