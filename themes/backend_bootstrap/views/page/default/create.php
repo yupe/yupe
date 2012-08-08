@@ -13,8 +13,8 @@ $this->menu = array(
 );
 ?>
 <div class="page-header">
-    <h1><?php echo $this->module->getName()?>
-        <small><?php echo Yii::t('page', 'добавление новой');?></small>
+    <h1><?php echo $this->module->getName(); ?>
+        <small><?php echo Yii::t('page', 'добавление новой'); ?></small>
     </h1>
 </div>
 

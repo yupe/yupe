@@ -25,20 +25,16 @@ $this->menu = array(
 </div>
 
 
-<h2><?=$model->title;?></h2>
-<small><?php echo Yii::t('page','Автор')?>: <?=$model->changeAuthor->getFullName();?></small>
+<h2><?php echo $model->title;?></h2>
+<small><?php echo Yii::t('page','Автор')?>: <?php echo $model->changeAuthor->getFullName(); ?></small>
 <br /><br />
 <p>
-    <?=$model->body;?>
-
+    <?php echo $model->body;?>
 </p>
-
 <br/>
 
 <?php echo CHtml::link(Yii::t('page', 'Просмотреть на сайте'), array('/page/page/show/', 'slug' => $model->slug, 'preview' => 1)); ?>
-
 <?php echo CHtml::link(Yii::t('page', 'Редактировать эту страницу'), array('update', 'slug' => $model->slug)); ?>
-
 <?php echo CHtml::link(Yii::t('page', 'Удалить эту страницу'), array('update', 'id' => $model->id), array('submit' => array('delete', 'id' => $model->id), 'confirm' => Yii::t('page', 'Подтверждаете удаление страницы ?'))); ?>
 
 <br/><br/>
