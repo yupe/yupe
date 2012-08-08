@@ -1,8 +1,10 @@
-    <?php $form = $this->beginWidget('bootstrap.widgets.BootActiveForm', array(
-                                                         'action' => Yii::app()->createUrl($this->route),
-                                                         'method' => 'get',
-                                                         'htmlOptions'=> array( 'class' => 'well' ),
-                                                    )); ?>
+<?php
+$form = $this->beginWidget('bootstrap.widgets.BootActiveForm', array(
+    'action' => Yii::app()->createUrl($this->route),
+    'method' => 'get',
+    'htmlOptions'=> array( 'class' => 'well' ),
+));
+?>
     <fieldset class="inline">
         <div class="row-fluid control-group">
             <div class="span3">
@@ -42,11 +44,13 @@
                 <?php echo $form->textFieldRow($model, 'body'); ?>
             </div>
         </div>
-        <?php $this->widget('bootstrap.widgets.BootButton', array(
-            'buttonType' => 'submit',
-            'type' => 'primary',
-            'encodeLabel' => false,
-            'label' => '<i class="icon-search icon-white"></i> '.Yii::t('page', 'Искать')
-        )); ?>
+        <?php
+        $this->widget('bootstrap.widgets.BootButton', array(
+           'buttonType' => 'submit',
+           'type' => 'primary',
+           'encodeLabel' => false,
+           'label' => '<i class="icon-search icon-white"></i> '.Yii::t('page', 'Искать'),
+        ));
+        ?>
     </fieldset>
-    <?php $this->endWidget(); ?>
+<?php $this->endWidget(); ?>

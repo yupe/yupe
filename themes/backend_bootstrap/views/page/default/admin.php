@@ -1,7 +1,7 @@
 <?php
     $this->pageTitle = Yii::t('user', 'Управление страницами');
     $this->breadcrumbs = array(
-        $this->getModule('page')->getCategory() => array(''),
+        $this->getModule('page')->getCategory() => array('admin'),
         Yii::t('page', 'Страницы') => array('admin'),
         Yii::t('page', 'Управление'),
     );
@@ -20,7 +20,7 @@ $this->menu = array(
     <span class="caret"></span>
 </button>
 
-    <div id="search-toggle" class="collapse <?php echo isset($_GET[get_class($model)])?'in':'out'; ?>">
+<div id="search-toggle" class="collapse <?php echo isset($_GET[get_class($model)])?'in':'out'; ?>">
     <?php
     Yii::app()->clientScript->registerScript('search', "
             $('#Page_parent_Id').val('');
@@ -33,20 +33,18 @@ $this->menu = array(
             });
         ");
     ?>
-            <?php
-            $this->renderPartial('_search', array(
-                'model' => $model,
-                'pages' => $pages
-            ));
-            ?>
-
-    </div>
-
+    <?php
+    $this->renderPartial('_search', array(
+        'model' => $model,
+        'pages' => $pages,
+    ));
+    ?>
+</div>
 
 <?php
     /** @var CActiveDataProvider $dp */
     $dp = $model->search();
-    $dp->criteria->addCondition('lang="'.Yii::app()->language.'" OR lang is null OR lang = "'.Yii::app()->sourceLanguage.'"');
+    $dp->criteria->addCondition('lang = "'.Yii::app()->language.'" OR lang is null OR lang = "'.Yii::app()->sourceLanguage.'"');
     $this->widget('YCustomGridView', array(
         'itemsCssClass' => ' table table-condensed',
         'id'=>'page-grid',
@@ -56,39 +54,46 @@ $this->menu = array(
             'id',
             'title',
             array(
-                'name'=>'name',
-                'type'=>'raw',
-                'value'=>'CHtml::link($data->name,array("/page/default/update","slug" => $data->slug))'
-             ),
-            array(
-                'name'  => 'category_id',
-                'value' => '$data->getCategoryName()'
+                'name' => 'name',
+                'type' => 'raw',
+                'value' => 'CHtml::link($data->name, array("/page/default/update", "slug" => $data->slug))',
             ),
             array(
-                'name'  => Yii::t('page','Публичный урл'),
-                'value' => 'Yii::app()->createAbsoluteUrl("/page/page/show/",array("slug" => $data->slug))'
+                'name' => 'category_id',
+                'value' => '$data->getCategoryName()',
+            ),
+            array(
+                'name' => 'parent_Id',
+                'value' => '$data->parentName',
+            ),
+            array(
+                'name' => 'slug',
+                'value' => '$data->slug',
+            ),
+            array(
+                'name' => Yii::t('page', 'Публичный урл'),
+                'value' => 'Yii::app()->createAbsoluteUrl("/page/page/show/", array("slug" => $data->slug))',
             ),
             'creation_date',
             'change_date',
             array(
-                'name'  => 'menu_order',
-                'type'  => 'raw',
-                'value' => '$this->grid->getUpDownButtons($data)'
+                'name' => 'menu_order',
+                'type' => 'raw',
+                'value' => '$this->grid->getUpDownButtons($data)',
             ),
             'lang',
             array(
                 'name' => 'status',
                 'type' => 'raw',
                 'value' => '$this->grid->returnBootstrapStatusHtml($data)',
-                'htmlOptions' => array('style'=>'width:40px; text-align:center;'),
+                'htmlOptions' => array('style' => 'width:40px;text-align:center;'),
             ),
-             array(
-                'class'=>'bootstrap.widgets.BootButtonColumn',
-                'htmlOptions'=>array('style'=>'width: 50px'),
-		'buttons'=> array(
-			'update'=> array('url'=> 'array("/page/default/update/","slug"=>$data->slug)'),
-
-		),
+            array(
+                'class' => 'bootstrap.widgets.BootButtonColumn',
+                'htmlOptions' => array('style' => 'width:50px'),
+                'buttons' => array(
+                    'update' => array('url' => 'array("/page/default/update/", "slug" => $data->slug)'),
+                ),
             ),
         ),
     ));
