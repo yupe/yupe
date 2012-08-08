@@ -25,16 +25,16 @@
 class MenuWidget extends YWidget
 {
     /**
-     * @var string данный парамметр указывает уникальный код выводимого меню.
+     * @var string данный параметр указывает уникальный код выводимого меню.
      */
     public $name;
     /**
-     * @var string данный парамметр указывает начиная с id какого родителя начинать вывод меню, по умолчанию 0, корень меню.
+     * @var string данный параметр указывает начиная с id какого родителя начинать вывод меню, по умолчанию 0, корень меню.
      */
     public $parent_id = 0;
 
     /**
-     * @var array парамметры виджета zii.widgets.CMenu.
+     * @var array параметры виджета zii.widgets.CMenu.
      */
     public $params = array();
     /**
@@ -45,6 +45,14 @@ class MenuWidget extends YWidget
      * @var array htmlOptions тега div.
      */
     public $htmlOptions = array();
+    /**
+     * string данный параметр указывает название layout, если он не указан, меню выводится стандартные способом.
+     */
+    public $layout;
+    /**
+     * @var array параметры передаваемые в layout.
+     */
+    public $layoutParams = array();
 
     public function init()
     {
@@ -54,10 +62,15 @@ class MenuWidget extends YWidget
 
     public function run()
     {
-        echo CHtml::openTag('div', (array('id' => $this->id) + $this->htmlOptions));
+        $menu = $this->widget('zii.widgets.CMenu', ($this->params + array('items' => Menu::model()->getItems($this->name, $this->parent_id))), true);
 
-        $this->widget('zii.widgets.CMenu', ($this->params + array('items' => Menu::model()->getItems($this->name, $this->parent_id))));
-
-        echo CHtml::closeTag('div');
+        if (!$this->layout)
+        {
+            echo CHtml::openTag('div', (array('id' => $this->id) + $this->htmlOptions));
+            echo $menu;
+            echo CHtml::closeTag('div');
+        }
+        else
+            $this->render($this->layout, (array('content' => $menu) + $this->$layoutParams));
     }
 }
