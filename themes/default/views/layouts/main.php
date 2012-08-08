@@ -49,7 +49,7 @@
         <div id="logo">
             <a href="<?php echo Yii::app()->baseUrl;?>"><?php echo CHtml::image(Yii::app()->baseUrl.'/web/images/yupe-logo.jpg');?></a>
             <?php echo CHtml::encode($module->siteDescription);?>
-            <iframe frameborder="0" allowtransparency="true" scrolling="no" src="https://money.yandex.ru/embed/small.xml?uid=41001846363811&amp;button-text=05&amp;button-size=s&amp;button-color=orange&amp;targets=%d0%9d%d0%b0+%d1%80%d0%b0%d0%b7%d0%b2%d0%b8%d1%82%d0%b8%d0%b5+%d0%ae%d0%bf%d0%b8!&amp;default-sum=50&amp;fio=on&amp;mail=on" width="130" height="31" style="float:right;"></iframe>
+            <iframe frameborder="0" allowtransparency="true" scrolling="no" src="https://money.yandex.ru/embed/small.xml?uid=41001846363811&amp;button-text=05&amp;button-size=s&amp;button-color=orange&amp;targets=%d0%9d%d0%b0+%d1%80%d0%b0%d0%b7%d0%b2%d0%b8%d1%82%d0%b8%d0%b5+%d0%ae%d0%bf%d0%b8!&amp;default-sum=50&amp;fio=on&amp;mail=on" width="130" height="31" style="float:right; position:absolute; margin-top: -15px;"></iframe>
         </div>
     </div>
     <!-- header -->
