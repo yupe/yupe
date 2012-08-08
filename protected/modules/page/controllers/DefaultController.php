@@ -46,7 +46,7 @@ class DefaultController extends YBackController
 
         $this->render('create', array(
             'model' => $model,
-            'pages' => Page::model()->getAllPagesList()
+            'pages' => Page::model()->getAllPagesList(),
         ));
     }
 
@@ -78,7 +78,7 @@ class DefaultController extends YBackController
 
             $this->render('update', array(
                 'model' => $model,
-                'pages' => Page::model()->getAllPagesList($model->id)
+                'pages' => Page::model()->getAllPagesList($model->id),
             ));
         }
         else
@@ -100,7 +100,7 @@ class DefaultController extends YBackController
                 $modelsByLang[$m->lang] = $m;
             }
             // Выберем модельку для вывода тайтлов и прочего
-            $model                  = isset($modelsByLang[Yii::app()->language]) ? $modelsByLang[Yii::app()->language] :
+            $model = isset($modelsByLang[Yii::app()->language]) ? $modelsByLang[Yii::app()->language] :
                 (isset($modelsByLang[Yii::app()->sourceLanguage]) ? $modelsByLang[Yii::app()->sourceLanguage] : reset($models));
 
             // Теперь создадим недостоающие
@@ -147,7 +147,7 @@ class DefaultController extends YBackController
                             'description'  => $p['description'],
                             'status'       => $_POST['Page']['status'],
                             'is_protected' => $_POST['Page']['is_protected'],
-                            'menu_order'   => $_POST['Page']['menu_order'],                           
+                            'menu_order'   => $_POST['Page']['menu_order'],
                         ));
 
                         if ($l != Yii::app()->sourceLanguage)
@@ -214,9 +214,7 @@ class DefaultController extends YBackController
     public function actionIndex()
     {
         $dataProvider = new CActiveDataProvider('Page');
-        $this->render('index', array(
-            'dataProvider' => $dataProvider,
-        ));
+        $this->render('index', array('dataProvider' => $dataProvider));
     }
 
     /**
@@ -231,7 +229,7 @@ class DefaultController extends YBackController
 
         $this->render('admin', array(
             'model' => $model,
-            'pages' => Page::model()->getAllPagesList()
+            'pages' => Page::model()->getAllPagesList(),
         ));
     }
 

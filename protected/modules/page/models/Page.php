@@ -26,59 +26,6 @@ class Page extends CActiveRecord
     const PROTECTED_NO  = 0;
     const PROTECTED_YES = 1;
 
-    public function getStatusList()
-    {
-        return array(
-            self::STATUS_PUBLISHED  => Yii::t('page', 'Опубликовано'),
-            self::STATUS_DRAFT      => Yii::t('page', 'Черновик'),
-            self::STATUS_MODERATION => Yii::t('page', 'На модерации')
-        );
-    }
-
-    public function getStatus()
-    {
-        $data = $this->getStatusList();
-        return array_key_exists($this->status, $data) ? $data[$this->status] : Yii::t('page', '*неизвестно*');
-    }
-
-    public function getProtectedStatusList()
-    {
-        return array(
-            self::PROTECTED_NO  => Yii::t('page', 'нет'),
-            self::PROTECTED_YES => Yii::t('page', 'да')
-        );
-    }
-
-    public function getProtectedStatus()
-    {
-        $data = $this->getProtectedStatusList();
-        return array_key_exists($this->is_protected, $data) ? $data[$this->is_protected] : Yii::t('page', '*неизвестно*');
-    }
-
-    public function getAllPagesList($selfId = false)
-    {
-        $pages = $selfId ? $this->findAll(array(
-                'condition' => 'id != :id',
-                'params'    => array( ':id'   => $selfId ),
-                'order' => 'menu_order DESC',
-                'group' => 'slug',
-            )) : $this->findAll(array( 'order' => 'menu_order DESC' ));
-
-        return CHtml::listData($pages, 'id', 'name');
-    }
-
-    public function getAllPagesListBySlug($slug = false)
-    {
-        $pages = $slug ? $this->findAll(array(
-                'condition' => 'slug != :slug',
-                'params'    => array( ':slug' => $slug ),
-                'order' => 'menu_order DESC',
-                'group' => 'slug',
-            )) : $this->findAll(array( 'order' => 'menu_order DESC' ));
-
-        return CHtml::listData($pages, 'id', 'name');
-    }
-
     /**
      * Returns the static model of the specified AR class.
      * @return Page the static model class
@@ -103,20 +50,20 @@ class Page extends CActiveRecord
     {
         return array(
             array( 'name, title, slug, body, description, keywords, lang', 'required', 'on' => array( 'update', 'insert' ) ),
-            array( 'status, is_protected, parent_Id, menu_order, category_id', 'numerical', 'integerOnly' => true, 'on'          => array( 'update', 'insert' ) ),
+            array( 'status, is_protected, parent_Id, menu_order, category_id', 'numerical', 'integerOnly' => true, 'on' => array( 'update', 'insert' ) ),
             array( 'parent_Id', 'length', 'max' => 45 ),
             array( 'lang', 'length', 'max' => 2 ),
             array( 'lang', 'default', 'value' => Yii::app()->sourceLanguage ),
             array( 'name, title, slug, keywords', 'length', 'max' => 150 ),
             array( 'description', 'length', 'max' => 150 ),
-            array( 'slug', 'unique', 'criteria' => array( 'condition' => 'lang=:lang', 'params'    => array( ':lang' => $this->lang ) ), 'on'    => array( 'insert' ) ),
+            array( 'slug', 'unique', 'criteria' => array( 'condition' => 'lang=:lang', 'params' => array( ':lang' => $this->lang ) ), 'on' => array( 'insert' ) ),
             array( 'status', 'in', 'range' => array_keys($this->getStatusList()) ),
             array( 'is_protected', 'in', 'range' => array_keys($this->getProtectedStatusList()) ),
             array( 'title, slug, body, description, keywords, name', 'filter', 'filter' => 'trim' ),
             array( 'title, slug, description, keywords, name', 'filter', 'filter' => array( $obj = new CHtmlPurifier(), 'purify' ) ),
             array( 'slug', 'match', 'pattern' => '/^[a-zA-Z0-9_\-]+$/', 'message' => Yii::t('page', 'Запрещенные символы в поле {attribute}') ),
             array( 'lang', 'match', 'pattern' => '/^[a-z]{2}$/', 'message' => Yii::t('page', 'Запрещенные символы в поле {attribute}') ),
-            array( 'category_id', 'default', 'setOnEmpty' => true, 'value'      => null ),
+            array( 'category_id', 'default', 'setOnEmpty' => true, 'value' => null ),
             array( 'lang, id, parent_Id, creation_date, change_date, title, slug, body, keywords, description, status, menu_order', 'safe', 'on' => 'search' ),
         );
     }
@@ -127,11 +74,11 @@ class Page extends CActiveRecord
     public function relations()
     {
         return array(
-            'childPages' => array( self::HAS_MANY, 'Page', 'parent_Id' ),
-            'parentPage' => array( self::BELONGS_TO, 'Page', 'parent_Id' ),
-            'author' => array( self::BELONGS_TO, 'User', 'user_id' ),
+            'childPages'   => array( self::HAS_MANY, 'Page', 'parent_Id' ),
+            'parentPage'   => array( self::BELONGS_TO, 'Page', 'parent_Id' ),
+            'author'       => array( self::BELONGS_TO, 'User', 'user_id' ),
             'changeAuthor' => array( self::BELONGS_TO, 'User', 'change_user_id' ),
-            'category' => array( self::BELONGS_TO, 'Category', 'category_id' ),
+            'category'     => array( self::BELONGS_TO, 'Category', 'category_id' ),
         );
     }
 
@@ -261,9 +208,66 @@ class Page extends CActiveRecord
             ));
     }
 
+    public function getStatusList()
+    {
+        return array(
+            self::STATUS_PUBLISHED  => Yii::t('page', 'Опубликовано'),
+            self::STATUS_DRAFT      => Yii::t('page', 'Черновик'),
+            self::STATUS_MODERATION => Yii::t('page', 'На модерации')
+        );
+    }
+
+    public function getStatus()
+    {
+        $data = $this->getStatusList();
+        return array_key_exists($this->status, $data) ? $data[$this->status] : Yii::t('page', '*неизвестно*');
+    }
+
+    public function getProtectedStatusList()
+    {
+        return array(
+            self::PROTECTED_NO  => Yii::t('page', 'нет'),
+            self::PROTECTED_YES => Yii::t('page', 'да')
+        );
+    }
+
+    public function getProtectedStatus()
+    {
+        $data = $this->getProtectedStatusList();
+        return array_key_exists($this->is_protected, $data) ? $data[$this->is_protected] : Yii::t('page', '*неизвестно*');
+    }
+
+    public function getAllPagesList($selfId = false)
+    {
+        $pages = $selfId ? $this->findAll(array(
+            'condition' => 'id != :id',
+            'params' => array( ':id' => $selfId ),
+            'order' => 'menu_order DESC',
+            'group' => 'slug',
+         )) : $this->findAll(array( 'order' => 'menu_order DESC' ));
+
+        return CHtml::listData($pages, 'id', 'name');
+    }
+
+    public function getAllPagesListBySlug($slug = false)
+    {
+        $pages = $slug ? $this->findAll(array(
+            'condition' => 'slug != :slug',
+            'params' => array( ':slug' => $slug ),
+            'order' => 'menu_order DESC',
+            'group' => 'slug',
+        )) : $this->findAll(array( 'order' => 'menu_order DESC' ));
+
+        return CHtml::listData($pages, 'id', 'name');
+    }
+
     public function getCategoryName()
     {
         return is_null($this->category) ? '---' : $this->category->name;
     }
 
+    public function getParentName()
+    {
+        return is_null($this->parentPage) ? '---' : $this->parentPage->name;
+    }
 }
