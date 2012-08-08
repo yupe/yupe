@@ -9,7 +9,6 @@ $this->breadcrumbs = array(
 );
 
 $this->menu = array(
-    //@formatter:off
     array('label' => Yii::t('menu', 'Меню')),
     array('icon' => 'list-alt','label' => Yii::t('menu', 'Список меню'), 'url' => array('index')),
     array('icon' => 'list','label' => Yii::t('menu', 'Управление меню'), 'url' => array('admin')),
@@ -19,7 +18,6 @@ $this->menu = array(
     array('icon' => 'file','label' => Yii::t('menu', 'Добавить пункт меню'), 'url' => array('menuitem/create')),
     array('icon' => 'list-alt','label' => Yii::t('menu', 'Cписок пунктов меню'), 'url' => array('menuitem/index')),
     array('icon' => 'list','label' => Yii::t('menu', 'Управление пунктами меню'), 'url' => array('menuitem/admin')),
-    //@formatter:on
 );
 ?>
 

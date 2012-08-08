@@ -13,7 +13,7 @@
 
     <div class="row">
         <?php echo $form->labelEx($model, 'menu_id'); ?>
-        <?php echo $form->dropDownList($model, 'menu_id', CHtml::listData(Menu::model()->findAll(), 'id', 'name'), array('empty' => Yii::t('menu', '--выберите меню--'))); ?>
+        <?php echo $form->dropDownList($model, 'menu_id', CHtml::listData(Menu::model()->findAll(), 'id', 'name'), array('empty' => Yii::t('menu', '--выберите значение--'))); ?>
         <?php echo $form->error($model, 'menu_id'); ?>
     </div>
 

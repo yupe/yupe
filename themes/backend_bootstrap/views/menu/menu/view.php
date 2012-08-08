@@ -5,7 +5,6 @@ $this->breadcrumbs = array(
 );
 
 $this->menu = array(
-    //@formatter:off
     array('label' => Yii::t('menu', 'Меню')),
     array('label' => Yii::t('menu', 'Добавить меню'), 'url' => array('create')),
     array('label' => Yii::t('menu', 'Изменить меню'), 'url' => array('update', 'id' => $model->id)),
@@ -20,7 +19,6 @@ $this->menu = array(
     array('label' => Yii::t('menu', 'Добавить пункт меню'), 'url' => array('menuitem/create')),
     array('label' => Yii::t('menu', 'Cписок пунктов меню'), 'url' => array('menuitem/index')),
     array('label' => Yii::t('menu', 'Управление пунктами меню'), 'url' => array('menuitem/admin')),
-    //@formatter:off
     );
 ?>
 

@@ -41,8 +41,7 @@ class Menu extends CActiveRecord
     public function rules()
     {
         return array(
-            //@formatter:off
-            array('name, code, description', 'required'),
+            array('name, code, description', 'required', 'except' => 'search'),
             array('status', 'numerical', 'integerOnly' => true),
             array('name, code, description', 'filter', 'filter' => array($obj = new CHtmlPurifier(), 'purify')),
             array('name, description', 'length', 'max' => 300),
@@ -51,7 +50,6 @@ class Menu extends CActiveRecord
             array('code', 'unique'),
             array('status', 'in', 'range' => array_keys($this->getStatusList())),
             array('id, name, code, description, status', 'safe', 'on' => 'search'),
-            //@formatter:on
         );
     }
 
@@ -63,9 +61,7 @@ class Menu extends CActiveRecord
         // NOTE: you may need to adjust the relation name and the related
         // class name for the relations automatically generated below.
         return array(
-            //@formatter:off
             'menuItems' => array(self::HAS_MANY, 'MenuItem', 'menu_id'),
-            //@formatter:on
         );
     }
 
@@ -100,7 +96,10 @@ class Menu extends CActiveRecord
         $criteria->compare('description', $this->description, true);
         $criteria->compare('status', $this->status);
 
-        return new CActiveDataProvider($this, array('criteria' => $criteria));
+        return new CActiveDataProvider($this, array(
+            'criteria' => $criteria,
+            'sort' => array('defaultOrder' => 'status DESC, id'),
+        ));
     }
 
     public function getStatusList()
