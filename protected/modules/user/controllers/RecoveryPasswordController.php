@@ -11,9 +11,7 @@ class RecoveryPasswordController extends YBackController
      */
     public function actionView()
     {
-        $this->render('view', array(
-                                   'model' => $this->loadModel(),
-                              ));
+        $this->render('view', array('model' => $this->loadModel()));
     }  
 
     /**
@@ -41,9 +39,7 @@ class RecoveryPasswordController extends YBackController
     public function actionIndex()
     {
         $dataProvider = new CActiveDataProvider('RecoveryPassword');
-        $this->render('index', array(
-                                    'dataProvider' => $dataProvider,
-                               ));
+        $this->render('index', array('dataProvider' => $dataProvider));
     }
 
     /**
@@ -56,9 +52,7 @@ class RecoveryPasswordController extends YBackController
         if (isset($_GET['RecoveryPassword']))
             $model->attributes = $_GET['RecoveryPassword'];
 
-        $this->render('admin', array(
-                                    'model' => $model,
-                               ));
+        $this->render('admin', array('model' => $model));
     }
 
     /**

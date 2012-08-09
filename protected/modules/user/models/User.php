@@ -24,18 +24,18 @@
  */
 class User extends CActiveRecord
 {
-    const GENDER_MALE = 1;
+    const GENDER_THING  = 0;
+    const GENDER_MALE   = 1;
     const GENDER_FEMALE = 2;
-    const GENDER_THING = 0;
 
-    const STATUS_ACTIVE = 1;
-    const STATUS_BLOCK = 0;
+    const STATUS_BLOCK      = 0;
+    const STATUS_ACTIVE     = 1;
     const STATUS_NOT_ACTIVE = 2;
 
+    const EMAIL_CONFIRM_NO  = 0;
     const EMAIL_CONFIRM_YES = 1;
-    const EMAIL_CONFIRM_NO = 0;
 
-    const ACCESS_LEVEL_USER = 0;
+    const ACCESS_LEVEL_USER  = 0;
     const ACCESS_LEVEL_ADMIN = 1;
 
     /**
@@ -44,79 +44,6 @@ class User extends CActiveRecord
     public function tableName()
     {
         return '{{user}}';
-    }
-
-    public function validatePassword($password)
-    {
-        if ($this->password === $this->hashPassword($password, $this->salt))
-            return true;
-
-        return false;
-    }
-
-    public function getAccessLevel()
-    {
-        $data = $this->getAccessLevelsList();
-        return array_key_exists($this->access_level, $data) ? $data[$this->access_level] : Yii::t('user', '*нет*');
-    }
-
-    public function getAccessLevelsList()
-    {
-        return array(
-            self::ACCESS_LEVEL_ADMIN => Yii::t('user', 'Администратор'),
-            self::ACCESS_LEVEL_USER => Yii::t('user', 'Пользователь')
-        );
-    }
-
-    public function getStatusList()
-    {
-        return array(
-            self::STATUS_ACTIVE => Yii::t('user', 'Активен'),
-            self::STATUS_BLOCK => Yii::t('user', 'Заблокирован'),
-            self::STATUS_NOT_ACTIVE => Yii::t('user', 'Не активирован')
-        );
-    }
-
-    public function getStatus()
-    {
-        $data = $this->getStatusList();
-        return array_key_exists($this->status, $data)
-            ? $data[$this->status]
-            : Yii::t('user', 'ммм...статуса такого нет');
-    }
-
-    public function getGendersList()
-    {
-        return array(
-            self::GENDER_FEMALE => Yii::t('user', 'женский'),
-            self::GENDER_MALE => Yii::t('user', 'мужской'),
-            self::GENDER_THING => Yii::t('user', 'нечто')
-        );
-    }
-
-    public function getGender()
-    {
-        $data = $this->getGendersList();
-        return array_key_exists($this->gender, $data)
-            ? $data[$this->gender]
-            : Yii::t('user', 'ммм...пола такого нет');
-    }
-
-    public function getEmailConfirmStatusList()
-    {
-        return array(
-            self::EMAIL_CONFIRM_YES => Yii::t('user', 'Да'),
-            self::EMAIL_CONFIRM_NO => Yii::t('user', 'Нет'),
-        );
-    }
-
-    public function getEmailConfirmStatus()
-    {
-        $data = $this->getEmailConfirmStatusList();
-
-        return isset($data[$this->email_confirm])
-            ? $data[$this->email_confirm]
-            : Yii::t('user', '*неизвестно*');
     }
 
     /**
@@ -136,7 +63,6 @@ class User extends CActiveRecord
         $module = Yii::app()->getModule('user');
 
         return array(
-            //@formatter:off
             array('birth_date, site, about, location, online_status, nick_name, first_name, last_name, email', 'filter', 'filter' => 'trim'),
             array('birth_date, site, about, location, online_status, nick_name, first_name, last_name, email', 'filter', 'filter' => array($obj = new CHtmlPurifier(), 'purify')),
             array('nick_name, email, password', 'required'),
@@ -159,7 +85,6 @@ class User extends CActiveRecord
             array('nick_name', 'unique', 'message' => Yii::t('user', 'Данный ник уже используется другим пользователем')),
             array('avatar', 'file', 'types' => implode(',', $module->avatarExtensions), 'maxSize' => $module->avatarMaxSize, 'allowEmpty' => true),
             array('id, creation_date, change_date, first_name, last_name, nick_name, email, gender, avatar, password, salt, status, access_level, last_visit, registration_date, registration_ip, activation_ip', 'safe', 'on' => 'search'),
-            //@formatter:on
         );
     }
 
@@ -169,30 +94,30 @@ class User extends CActiveRecord
     public function attributeLabels()
     {
         return array(
-            'id' => Yii::t('user', 'Id'),
-            'creation_date' => Yii::t('user', 'Дата активации'),
-            'change_date' => Yii::t('user', 'Дата изменения'),
-            'first_name' => Yii::t('user', 'Имя'),
-            'last_name' => Yii::t('user', 'Фамилия'),
-            'nick_name' => Yii::t('user', 'Ник'),
-            'email' => Yii::t('user', 'Email'),
-            'gender' => Yii::t('user', 'Пол'),
-            'password' => Yii::t('user', 'Пароль'),
-            'salt' => Yii::t('user', 'Соль'),
-            'status' => Yii::t('user', 'Статус'),
-            'access_level' => Yii::t('user', 'Доступ'),
-            'last_visit' => Yii::t('user', 'Последний визит'),
+            'id'                => Yii::t('user', 'Id'),
+            'creation_date'     => Yii::t('user', 'Дата активации'),
+            'change_date'       => Yii::t('user', 'Дата изменения'),
+            'first_name'        => Yii::t('user', 'Имя'),
+            'last_name'         => Yii::t('user', 'Фамилия'),
+            'nick_name'         => Yii::t('user', 'Ник'),
+            'email'             => Yii::t('user', 'Email'),
+            'gender'            => Yii::t('user', 'Пол'),
+            'password'          => Yii::t('user', 'Пароль'),
+            'salt'              => Yii::t('user', 'Соль'),
+            'status'            => Yii::t('user', 'Статус'),
+            'access_level'      => Yii::t('user', 'Доступ'),
+            'last_visit'        => Yii::t('user', 'Последний визит'),
             'registration_date' => Yii::t('user', 'Дата регистрации'),
-            'registration_ip' => Yii::t('user', 'Ip регистрации'),
-            'activation_ip' => Yii::t('user', 'Ip активации'),
-            'activate_key' => Yii::t('user', 'Код активации'),
-            'avatar' => Yii::t('user', 'Аватар'),
-            'use_gravatar' => Yii::t('user', 'Граватар'),
-            'email_confirm' => Yii::t('user', 'Email подтвержден'),
-            'birth_date' => Yii::t('user', 'День рождения'),
-            'site' => Yii::t('user', 'Сайт/блог'),
-            'location' => Yii::t('user', 'Расположение'),
-            'about' => Yii::t('user', 'О себе'),
+            'registration_ip'   => Yii::t('user', 'Ip регистрации'),
+            'activation_ip'     => Yii::t('user', 'Ip активации'),
+            'activate_key'      => Yii::t('user', 'Код активации'),
+            'avatar'            => Yii::t('user', 'Аватар'),
+            'use_gravatar'      => Yii::t('user', 'Граватар'),
+            'email_confirm'     => Yii::t('user', 'Email подтвержден'),
+            'birth_date'        => Yii::t('user', 'День рождения'),
+            'site'              => Yii::t('user', 'Сайт/блог'),
+            'location'          => Yii::t('user', 'Расположение'),
+            'about'             => Yii::t('user', 'О себе'),
         );
     }
 
@@ -242,25 +167,92 @@ class User extends CActiveRecord
         return array(
             'active' => array(
                 'condition' => 'status = :status',
-                'params' => array(':status' => self::STATUS_ACTIVE)
+                'params'    => array(':status' => self::STATUS_ACTIVE),
             ),
             'blocked' => array(
                 'condition' => 'status = :status',
-                'params' => array(':status' => self::STATUS_BLOCK)
+                'params'    => array(':status' => self::STATUS_BLOCK),
             ),
             'notActivated' => array(
                 'condition' => 'status = :status',
-                'params' => array(':status' => self::STATUS_NOT_ACTIVE)
+                'params'    => array(':status' => self::STATUS_NOT_ACTIVE),
             ),
             'admin' => array(
                 'condition' => 'access_level = :access_level',
-                'params' => array(':access_level' => self::ACCESS_LEVEL_ADMIN)
+                'params'    => array(':access_level' => self::ACCESS_LEVEL_ADMIN),
             ),
             'user' => array(
                 'condition' => 'access_level = :access_level',
-                'params' => array(':access_level' => self::ACCESS_LEVEL_USER)
+                'params'    => array(':access_level' => self::ACCESS_LEVEL_USER),
             ),
         );
+    }
+
+    public function validatePassword($password)
+    {
+        if ($this->password === $this->hashPassword($password, $this->salt))
+            return true;
+
+        return false;
+    }
+
+    public function getAccessLevel()
+    {
+        $data = $this->getAccessLevelsList();
+        return array_key_exists($this->access_level, $data) ? $data[$this->access_level] : Yii::t('user', '*нет*');
+    }
+
+    public function getAccessLevelsList()
+    {
+        return array(
+            self::ACCESS_LEVEL_ADMIN => Yii::t('user', 'Администратор'),
+            self::ACCESS_LEVEL_USER  => Yii::t('user', 'Пользователь')
+        );
+    }
+
+    public function getStatusList()
+    {
+        return array(
+            self::STATUS_ACTIVE     => Yii::t('user', 'Активен'),
+            self::STATUS_BLOCK      => Yii::t('user', 'Заблокирован'),
+            self::STATUS_NOT_ACTIVE => Yii::t('user', 'Не активирован')
+        );
+    }
+
+    public function getStatus()
+    {
+        $data = $this->getStatusList();
+        return array_key_exists($this->status, $data) ? $data[$this->status] : Yii::t('user', 'статус не определен');
+    }
+
+    public function getGendersList()
+    {
+        return array(
+            self::GENDER_FEMALE => Yii::t('user', 'женский'),
+            self::GENDER_MALE   => Yii::t('user', 'мужской'),
+            self::GENDER_THING  => Yii::t('user', 'не указан')
+        );
+    }
+
+    public function getGender()
+    {
+        $data = $this->getGendersList();
+        return array_key_exists($this->gender, $data) ? $data[$this->gender] : Yii::t('user', 'не указан');
+    }
+
+    public function getEmailConfirmStatusList()
+    {
+        return array(
+            self::EMAIL_CONFIRM_YES => Yii::t('user', 'Да'),
+            self::EMAIL_CONFIRM_NO  => Yii::t('user', 'Нет'),
+        );
+    }
+
+    public function getEmailConfirmStatus()
+    {
+        $data = $this->getEmailConfirmStatusList();
+
+        return isset($data[$this->email_confirm]) ? $data[$this->email_confirm] : Yii::t('user', '*неизвестно*');
     }
 
     public function hashPassword($password, $salt)
@@ -270,7 +262,7 @@ class User extends CActiveRecord
 
     public function generateSalt()
     {
-        return md5(uniqid('', true).time());
+        return md5(uniqid('', true) . time());
     }
 
     public function generateRandomPassword($length = null)
@@ -321,7 +313,11 @@ class User extends CActiveRecord
                 // Есть! Можем сделать нужный размер
                 $image = Yii::app()->image->load($basePath . "/" . $this->avatar);
                 if ($image->ext != 'gif' || $image->config['driver'] == "ImageMagick")
-                    $image->resize($size, $size, CImage::AUTO)->crop($size, $size)->quality(75)->sharpen(20)->save($basePath . "/" . $sizedFile);
+                    $image->resize($size, $size, CImage::AUTO)
+                          ->crop($size, $size)
+                          ->quality(75)
+                          ->sharpen(20)
+                          ->save($basePath . "/" . $sizedFile);
                 else
                     @copy($basePath . "/" . $this->avatar, $basePath . "/" . $sizedFile);
 
@@ -334,9 +330,7 @@ class User extends CActiveRecord
 
     public function getFullName($separator = ' ')
     {
-        return $this->first_name || $this->last_name
-            ? $this->last_name . $separator . $this->first_name
-            : $this->nick_name;
+        return ($this->first_name || $this->last_name) ? $this->last_name . $separator . $this->first_name : $this->nick_name;
     }
 
     public function createAccount($nick_name, $email, $password = null, $salt = null, $status = self::STATUS_NOT_ACTIVE, $emailConfirm = self::EMAIL_CONFIRM_NO, $first_name = '', $last_name = '')
@@ -346,16 +340,16 @@ class User extends CActiveRecord
         $password = is_null($password) ? $this->generateRandomPassword() : $password;
 
         $this->setAttributes(array(
-            'nick_name' => $nick_name,
-            'first_name' => $first_name,
-            'last_name' => $last_name,
-            'salt' => $salt,
-            'password' => $this->hashPassword($password, $salt),
+            'nick_name'         => $nick_name,
+            'first_name'        => $first_name,
+            'last_name'         => $last_name,
+            'salt'              => $salt,
+            'password'          => $this->hashPassword($password, $salt),
             'registration_date' => new CDbExpression('NOW()'),
-            'registration_ip' => Yii::app()->request->userHostAddress,
-            'activation_ip' => Yii::app()->request->userHostAddress,
-            'status' => $status,
-            'email_confirm' => $emailConfirm
+            'registration_ip'   => Yii::app()->request->userHostAddress,
+            'activation_ip'     => Yii::app()->request->userHostAddress,
+            'status'            => $status,
+            'email_confirm'     => $emailConfirm
         ));
         // если не определен емэйл то генерим уникальный
         $setemail = empty($email);
@@ -380,9 +374,9 @@ class User extends CActiveRecord
 
     public function activate()
     {
-        $this->activation_ip = Yii::app()->request->userHostAddress;
-        $this->status = self::STATUS_ACTIVE;
-        $this->email_confirm = self::EMAIL_CONFIRM_YES;
+        $this->activation_ip    = Yii::app()->request->userHostAddress;
+        $this->status           = self::STATUS_ACTIVE;
+        $this->email_confirm    = self::EMAIL_CONFIRM_YES;
 
         return $this->save();
     }
