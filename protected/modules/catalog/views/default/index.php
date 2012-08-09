@@ -1,6 +1,7 @@
 <?php
 $this->breadcrumbs=array(
-	'товары'=>array('index'),
+	$this->module->getCategory() => array(''),
+	'Товары'=>array('index'),
 	Yii::t('yupe','Управление'),
 );
 $this-> pageTitle ="товары - "."Yii::t('yupe','управление')";
@@ -10,7 +11,7 @@ array('icon'=> 'file','label' => Yii::t('yupe','Добавить товар'), '
 );
 ?>
 <div class="page-header">
-    <h1><?php echo ucfirst(Yii::t('yupe','товары'));?>    <small><?php echo Yii::t('yupe','управление');?></small>
+    <h1><?php echo ucfirst(Yii::t('yupe','Товары'));?>    <small><?php echo Yii::t('yupe','управление');?></small>
     </h1>
 </div>
 <button class="btn btn-small dropdown-toggle"  data-toggle="collapse"  data-target="#search-toggle" >

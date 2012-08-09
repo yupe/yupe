@@ -1,6 +1,7 @@
 <?php
 $this->breadcrumbs=array(
-	'категории'=>array('index'),
+    $this->module->getCategory() => array(''),
+	'Категории'=>array('index'),
 	$model->name=>array('view','id'=>$model->id),
 	Yii::t('yupe','Редактирование'),
 );

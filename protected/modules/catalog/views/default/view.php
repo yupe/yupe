@@ -1,6 +1,7 @@
 <?php
 $this->breadcrumbs=array(
-	'товары'=>array('index'),
+	$this->module->getCategory() => array(''),
+	'Товары'=>array('index'),
 	$model->name,
 );
 $this-> pageTitle ="товары - ".Yii::t('yupe','просмотр');
@@ -13,7 +14,7 @@ $this->menu=array(
 );
 ?>
 <div class="page-header">
-    <h1><?php echo Yii::t('yupe','Просмотр');?> товара<br />
+    <h1><?php echo Yii::t('yupe','Просмотр товара');?><br />
      <small style='margin-left:-10px;'>&laquo;<?php echo  $model->name; ?>&raquo;</small></h1>
 </div>
 

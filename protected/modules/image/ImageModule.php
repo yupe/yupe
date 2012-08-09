@@ -8,7 +8,7 @@ class ImageModule extends YWebModule
 
     public $allowedExtensions = 'jpg,jpeg,png,gif';
 
-    public $maxSize = 5000000000000000000;
+    public $maxSize;
 
     public $types;
     

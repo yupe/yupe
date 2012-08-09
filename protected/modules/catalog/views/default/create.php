@@ -1,6 +1,7 @@
 <?php
 $this->breadcrumbs=array(
-	'товары'=>array('index'),
+	$this->module->getCategory() => array(''),
+	'Товары'=>array('index'),
 	Yii::t('yupe','Добавление'),
 );
 
@@ -10,7 +11,7 @@ array('icon'=> 'list-alt', 'label' => Yii::t('yupe','Управление тов
 );
 ?>
 <div class="page-header">
-    <h1><?php echo Yii::t('yupe','товары');?>    <small><?php echo Yii::t('yupe','добавление');?></small>
+    <h1><?php echo Yii::t('yupe','Товары');?>    <small><?php echo Yii::t('yupe','добавление');?></small>
     </h1>
 </div>
 <?php echo  $this->renderPartial('_form', array('model'=>$model)); ?>

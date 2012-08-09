@@ -4,7 +4,7 @@
 $this->breadcrumbs = array(
     $this->getModule('page')->getCategory() => array(''),
     Yii::t('page', 'Страницы') => array('admin'),
-    Yii::t('page', 'Создать'),
+    Yii::t('page', 'Добавление страницы'),
 );
 
 $this->menu = array(

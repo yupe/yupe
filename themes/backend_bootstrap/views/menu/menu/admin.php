@@ -1,5 +1,9 @@
 <?php
-$this->breadcrumbs = array(Yii::t('menu', 'Меню'));
+$this->breadcrumbs = array(
+    $this->module->getCategory() => array(''),
+    Yii::t('menu', 'Меню') => array('default/index'),
+    Yii::t('menu','Управление')
+);
 
 $this->menu = array(
     //@formatter:off

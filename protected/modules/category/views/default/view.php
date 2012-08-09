@@ -1,6 +1,7 @@
 <?php
 $this->breadcrumbs=array(
-	'категории'=>array('index'),
+    $this->module->getCategory() => array(''),
+	'Категории'=>array('index'),
 	$model->name,
 );
 $this-> pageTitle ="категории - ".Yii::t('yupe','просмотр');

@@ -1,7 +1,8 @@
 <?php
 $this->breadcrumbs=array(
-	'категории'=>array('index'),
-	Yii::t('yupe','Добавление'),
+	$this->module->getCategory() => array(''),
+	'Категории'=>array('index'),
+	Yii::t('yupe','Добавление категории'),
 );
 
 $this->menu=array(

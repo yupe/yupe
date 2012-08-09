@@ -1,5 +1,6 @@
 <?php
 $this->breadcrumbs = array(
+    $this->module->getCategory() => array(''),
     Yii::t('menu', 'Меню') => array('menu/admin'),
     Yii::t('menu', 'Пункты меню') => array('admin'),
     $model->title => array(

@@ -159,6 +159,7 @@ class DefaultController extends YBackController
                         $p = $_POST['News'][$l];
 
                         $modelsByLang[$l]->setAttributes(array(
+                            'alias'        => $_POST['News']['alias'],
                             'is_protected' => $_POST['News']['is_protected'],
                             'date'         => $_POST['News']['date'],
                             'category_id'  => $_POST['News']['category_id'],
@@ -174,9 +175,9 @@ class DefaultController extends YBackController
                         if ($l != Yii::app()->sourceLanguage)
                             $modelsByLang[$l]->scenario = 'altlang';
 
-                        if (!$modelsByLang[$l]->save())
-                            $wasError = true;
-                        
+                        if (!$modelsByLang[$l]->save())                        
+                            $wasError = true;                 
+                                                               
                         elseif(is_object($modelsByLang[$l]->image))
                         {
                             $imageName = $this->module->getUploadPath() . $model->alias . '.' . $modelsByLang[$l]->image->extensionName;
@@ -190,6 +191,8 @@ class DefaultController extends YBackController
                                 $modelsByLang[$l]->update(array( 'image' ));
                             }
                         }
+                        else
+                            $alias = $modelsByLang[$l]->alias;
                     }
                 }
 

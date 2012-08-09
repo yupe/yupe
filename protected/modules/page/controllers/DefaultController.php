@@ -100,7 +100,7 @@ class DefaultController extends YBackController
                 $modelsByLang[$m->lang] = $m;
             }
             // Выберем модельку для вывода тайтлов и прочего
-            $model                  = isset($modelsByLang[Yii::app()->language]) ? $modelsByLang[Yii::app()->language] :
+            $model = isset($modelsByLang[Yii::app()->language]) ? $modelsByLang[Yii::app()->language] :
                 (isset($modelsByLang[Yii::app()->sourceLanguage]) ? $modelsByLang[Yii::app()->sourceLanguage] : reset($models));
 
             // Теперь создадим недостоающие
@@ -143,8 +143,9 @@ class DefaultController extends YBackController
                             'name'         => $p['name'],
                             'title'        => $p['title'],
                             'body'         => $p['body'],
-                            'keywords'     => $p['keywords'],
+                            'keywords'     => $p['keywords'],                            
                             'description'  => $p['description'],
+                            'slug'         => $_POST['Page']['slug'],
                             'status'       => $_POST['Page']['status'],
                             'is_protected' => $_POST['Page']['is_protected'],
                             'menu_order'   => $_POST['Page']['menu_order'],                           
@@ -155,6 +156,8 @@ class DefaultController extends YBackController
 
                         if (!$modelsByLang[$l]->save())
                             $wasError = true;
+
+                        $slug = $modelsByLang[$l]->slug;
                     }
                 }
 
@@ -170,7 +173,6 @@ class DefaultController extends YBackController
                 else
                     Yii::app()->user->setFlash(YFlashMessages::NOTICE_MESSAGE, Yii::t('page', 'Ошибки при сохранении страницы!'));
             }
-
 
             $this->render('updateMultilang', array(
                 'model'  => $model,

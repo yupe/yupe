@@ -1,6 +1,7 @@
 <?php
 $this->breadcrumbs=array(
-	'изображения'=>array('index'),
+	$this->module->getCategory() => array(''),
+	'Изображения'=>array('index'),
 	Yii::t('yupe','Управление'),
 );
 $this-> pageTitle ="изображения - "."Yii::t('yupe','управление')";
