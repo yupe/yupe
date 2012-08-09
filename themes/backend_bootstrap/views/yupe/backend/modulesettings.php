@@ -9,8 +9,6 @@ $this->breadcrumbs = array(
 
 <br/>
 
-<?php $this->widget('YModuleInfo', array('module' => $module)); ?>
-
 <?php if (is_array($elements) && count($elements)): ?>
     <?php echo CHtml::beginForm(array('/yupe/backend/saveModulesettings', 'post'),'post',array('class'=>'well'));?>
     <fieldset class="inline">

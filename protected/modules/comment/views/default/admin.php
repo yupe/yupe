@@ -26,8 +26,6 @@ Yii::app()->clientScript->registerScript('search', "
 
 <h1><?php echo $this->module->getName();?></h1>
 
-<?php $this->widget('YModuleInfo'); ?>
-
 <?php echo CHtml::link(Yii::t('comment', 'Поиск комментариев'), '#', array('class' => 'search-button')); ?>
 <div class="search-form" style="display:none">
     <?php $this->renderPartial('_search', array(

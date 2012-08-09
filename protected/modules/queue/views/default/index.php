@@ -13,12 +13,7 @@ $this->menu        = array(
           'url'   => array('/queue/default/create')),
 );
 ?>
-<div class="page-header">
-    <h1>задания
-        <small>управление</small>
-
-    </h1>
-</div>
+<div class="page-header"><h1>задания <small>управление</small></h1></div>
 <button class="btn btn-small dropdown-toggle"
         data-toggle="collapse"
         data-target="#search-toggle">
@@ -40,9 +35,7 @@ $this->menu        = array(
     ?>
 </div>
 
-<p>В данном разделе представлены средства управления заданиями.
-</p>
-
+<p>В данном разделе представлены средства управления заданиями.</p>
 
 <?php
 $dp = $model->search();
