@@ -91,6 +91,11 @@ return array(
         'generatorPaths' => array(
             'application.modules.yupe.extensions.yupe.gii',
         ),
+        /*
+        'generatorPaths'=>array(
+            'bootstrap.gii',
+        ),
+        */
     ),
 );
 ?>

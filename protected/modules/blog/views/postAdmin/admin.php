@@ -32,8 +32,6 @@
 
 <h1><?php echo $this->module->getName(); ?></h1>
 
-<?php $this->widget('YModuleInfo'); ?>
-
 <?php echo CHtml::link(Yii::t('blog', 'Поиск'), '#', array('class'=>'search-button')); ?>
 <div class="search-form" style="display:none">
     <?php $this->renderPartial('_search', array('model'=>$model)); ?>

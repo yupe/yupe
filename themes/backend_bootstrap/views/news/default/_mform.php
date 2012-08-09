@@ -18,15 +18,15 @@
             <div class="span12">
                 <?php echo $form->labelEx($model, 'short_text'); ?>
                 <?php $this->widget($this->module->editor, array(
-                                                      'name' => 'News['.$model->lang.'][short_text]',
-                                                      'value' => $model->short_text,
-                                                      'options'   => array(
-                                                           'height'=> '400px;',
-                                                           'toolbar' => 'main',
-                                                           'imageUpload' => Yii::app()->baseUrl.'/index.php/yupe/backend/AjaxFileUpload/',
-                                                       ),
-                                                      'htmlOptions' => array('style'=>'height: 400px;','rows' => 20,'cols' => 6, 'id'=>'editor-'.$model->lang)
-                                                 ))?>
+                      'name' => 'News['.$model->lang.'][short_text]',
+                      'value' => $model->short_text,
+                      'options'   => array(
+                           'height'=> '400px;',
+                           'toolbar' => 'main',
+                           'imageUpload' => Yii::app()->baseUrl.'/index.php/yupe/backend/AjaxFileUpload/',
+                       ),
+                      'htmlOptions' => array('style'=>'height: 400px;','rows' => 20,'cols' => 6, 'id'=>'editor-'.$model->lang)
+                 )); ?>
                 <br /><?php echo $form->error($model, 'News['.$model->lang.'][short_text]'); ?>
             </div>
         </div>
@@ -35,15 +35,15 @@
             <div class="span12">
                 <?php echo $form->labelEx($model, 'full_text'); ?>
                 <?php $this->widget($this->module->editor, array(
-                                                      'name' => 'News['.$model->lang.'][full_text]',
-                                                      'value' => $model->full_text,
-                                                      'options'   => array(
-                                                           'height'=> '400px;',
-                                                           'toolbar' => 'main',
-                                                           'imageUpload' => Yii::app()->baseUrl.'/index.php/yupe/backend/AjaxFileUpload/',
-                                                       ),
-                                                      'htmlOptions' => array('style'=>'height: 400px;','rows' => 20,'cols' => 6, 'id'=>'editor-'.$model->lang.'-'.$model->id)
-                                                 ))?>
+                      'name' => 'News['.$model->lang.'][full_text]',
+                      'value' => $model->full_text,
+                      'options'   => array(
+                           'height'=> '400px;',
+                           'toolbar' => 'main',
+                           'imageUpload' => Yii::app()->baseUrl.'/index.php/yupe/backend/AjaxFileUpload/',
+                       ),
+                      'htmlOptions' => array('style'=>'height: 400px;','rows' => 20,'cols' => 6, 'id'=>'editor-'.$model->lang.'-'.$model->id)
+                 )); ?>
                 <br /><?php echo $form->error($model, 'news['.$model->lang.'][full_text]'); ?>
             </div>
         </div>

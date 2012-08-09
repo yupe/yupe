@@ -16,7 +16,7 @@ $this->menu = array(
 ?>
 
 <div class="page-header">
-  <h1><?php echo Yii::t('page', 'Редактирование страницы')?>
+  <h1><?php echo Yii::t('page', 'Редактирование страницы'); ?>
   <br /><small style="margin-left:-10px;">&laquo;<?php echo $model->title; ?>&raquo;</small>
   </h1>
 </div>

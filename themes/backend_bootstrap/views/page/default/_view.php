@@ -8,8 +8,7 @@
     <?php echo CHtml::encode($data->parent_Id); ?>
     <br/>
 
-    <b><?php echo CHtml::encode($data->getAttributeLabel('creation_date')); ?>
-        :</b>
+    <b><?php echo CHtml::encode($data->getAttributeLabel('creation_date')); ?>:</b>
     <?php echo CHtml::encode($data->creation_date); ?>
     <br/>
 
@@ -49,6 +48,5 @@
     <b><?php echo CHtml::encode($data->getAttributeLabel('status')); ?>:</b>
     <?php echo CHtml::encode($data->status); ?>
     <br />
-
     */ ?>
 </div>

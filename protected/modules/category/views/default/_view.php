@@ -28,11 +28,10 @@
 	<?php echo  CHtml::encode($data->alias); ?>
 	<br />
 
-	<?php /*
+	<?php/*
 	<b><?php echo  CHtml::encode($data->getAttributeLabel('status')); ?>:</b>
 	<?php echo  CHtml::encode($data->status); ?>
 	<br />
-
 	*/ ?>
 
 </div>

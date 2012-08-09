@@ -19,18 +19,16 @@ $this->menu = array(
 
 <div class="page-header">
     <h1>
-        <?php echo Yii::t('page', 'Просмотр страницы');?>
+        <?php echo Yii::t('page', 'Просмотр страницы'); ?>
         <br /><small style="margin-left:-10px;">&laquo;<?php echo $model->title; ?>&raquo;</small>
     </h1>
 </div>
 
 
-<h2><?php echo $model->title;?></h2>
+<h2><?php echo $model->title; ?></h2>
 <small><?php echo Yii::t('page','Автор')?>: <?php echo $model->changeAuthor->getFullName(); ?></small>
 <br /><br />
-<p>
-    <?php echo $model->body;?>
-</p>
+<p><?php echo $model->body; ?></p>
 <br/>
 
 <?php echo CHtml::link(Yii::t('page', 'Просмотреть на сайте'), array('/page/page/show/', 'slug' => $model->slug, 'preview' => 1)); ?>
@@ -39,4 +37,4 @@ $this->menu = array(
 
 <br/><br/>
 
-<li class="icon-globe"></li> <?php echo Yii::app()->createAbsoluteUrl("/page/page/show/",array("slug" => $model->slug));?>
+<li class="icon-globe"></li> <?php echo Yii::app()->createAbsoluteUrl("/page/page/show/",array("slug" => $model->slug)); ?>

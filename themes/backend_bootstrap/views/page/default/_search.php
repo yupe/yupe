@@ -1,5 +1,5 @@
 <?php
-$form = $this->beginWidget('bootstrap.widgets.BootActiveForm', array(
+$form = $this->beginWidget('bootstrap.widgets.TbActiveForm', array(
     'action' => Yii::app()->createUrl($this->route),
     'method' => 'get',
     'htmlOptions'=> array( 'class' => 'well' ),
@@ -36,7 +36,7 @@ $form = $this->beginWidget('bootstrap.widgets.BootActiveForm', array(
         </div>
         <div class="row-fluid control-group">
             <div class="span3">
-                <?php echo $form->dropDownListRow($model, 'category_id',CHtml::listData($this->module->getCategoryList(), 'id', 'name'), array( 'empty' => Yii::t('news', '- не важно -')), array('empty'=>Yii::t('page','- не выбрана -'))); ?>
+                <?php echo $form->dropDownListRow($model, 'category_id', CHtml::listData($this->module->getCategoryList(), 'id', 'name'), array( 'empty' => Yii::t('news', '- не важно -')), array('empty'=>Yii::t('page', '- не выбрана -'))); ?>
             </div>
         </div>
         <div class="row-fluid control-group">
@@ -45,7 +45,7 @@ $form = $this->beginWidget('bootstrap.widgets.BootActiveForm', array(
             </div>
         </div>
         <?php
-        $this->widget('bootstrap.widgets.BootButton', array(
+        $this->widget('bootstrap.widgets.TbButton', array(
            'buttonType' => 'submit',
            'type' => 'primary',
            'encodeLabel' => false,

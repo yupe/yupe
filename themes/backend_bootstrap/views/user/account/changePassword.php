@@ -14,14 +14,13 @@
 
     <div class="row">
         <?php echo $form->labelEx($model, 'password'); ?>
-        <?php echo $form->passwordField($model, 'password') ?>
+        <?php echo $form->passwordField($model, 'password'); ?>
     </div>
 
     <div class="row">
         <?php echo $form->labelEx($model, 'cPassword'); ?>
-        <?php echo $form->passwordField($model, 'cPassword') ?>
+        <?php echo $form->passwordField($model, 'cPassword'); ?>
     </div>
-
 
     <div class="row submit">
         <?php echo CHtml::submitButton('Изменить пароль'); ?>

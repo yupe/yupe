@@ -1,7 +1,7 @@
 <?php
 $this->breadcrumbs=array(
-	'товары'=>array('index'),
-	Yii::t('yupe','Управление'),
+    'товары'=>array('index'),
+    Yii::t('yupe','Управление'),
 );
 $this-> pageTitle ="товары - "."Yii::t('yupe','управление')";
 $this->menu=array(
@@ -19,58 +19,56 @@ array('icon'=> 'file','label' => Yii::t('yupe','Добавить товар'), '
 </button>
 
 <div id="search-toggle" class="collapse out">
-<?php Yii::app()->clientScript->registerScript('search', "
-$('.search-form form').submit(function(){
-$.fn.yiiGridView.update('good-grid', {
-data: $(this).serialize()
-});
-return false;
-});
-");
-    $this->renderPartial('_search',array(
-	'model'=>$model,
-));
-?>
+    <?php Yii::app()->clientScript->registerScript('search', "
+        $('.search-form form').submit(function(){
+            $.fn.yiiGridView.update('good-grid', {
+                data: $(this).serialize()
+            });
+            return false;
+        });
+    ");
+    $this->renderPartial('_search', array('model'=>$model,));
+    ?>
 </div>
 
 <br/>
 
 <p>
-    <?php echo Yii::t('yupe','В данном разделе представлены средства управления');?> <?php echo Yii::t('yupe','товарами');?>.
+    <?php echo Yii::t('yupe','В данном разделе представлены средства управления'); ?> <?php echo Yii::t('yupe','товарами'); ?>.
 </p>
 
 
 <?php
 $dp = $model->search();
 //$dp-> sort-> defaultOrder = "";
-$this->widget('bootstrap.widgets.BootGridView',array(
-'id'=>'good-grid',
-'type'=>'condensed ',
-'pager'=>array('class'=>'bootstrap.widgets.BootPager', 	'prevPageLabel'=>"←",'nextPageLabel'=>"→"),
-'dataProvider'=>$dp,
-'filter'=>$model,
-'columns'=>array(
-		'id',
-		array(
-			'name'  => 'category_id',
-			'value' => '$data->category->name'
-		),
-		'name',
-		'alias',
-		'price',
-		'article',
-		'image',
-		array(
-			'name'  => 'is_special',
-			'value' => '$data->getIsSpecial()',
-		),
-		array(
-			'name'  => 'status',
-			'value' => '$data->getStatus()'
-		),
-		'create_time',		
-array(
-'class'=>'bootstrap.widgets.BootButtonColumn',
-),
-),
+$this->widget('bootstrap.widgets.TbGridView', array(
+    'id'=>'good-grid',
+    'type'=>'condensed ',
+    'pager'=>array('class'=>'bootstrap.widgets.TbPager', 'prevPageLabel'=>"←",'nextPageLabel'=>"→"),
+    'dataProvider'=>$dp,
+    'filter'=>$model,
+    'columns'=>array(
+        'id',
+        array(
+            'name'  => 'category_id',
+            'value' => '$data->category->name',
+        ),
+        'name',
+        'alias',
+        'price',
+        'article',
+        'image',
+        array(
+            'name'  => 'is_special',
+            'value' => '$data->getIsSpecial()',
+        ),
+        array(
+            'name'  => 'status',
+            'value' => '$data->getStatus()',
+        ),
+        'create_time',        
+        array(
+            'class'=>'bootstrap.widgets.TbButtonColumn',
+        ),
+    ),
 )); ?>

@@ -24,8 +24,7 @@ $this->menu = array(
 
 <h1><?php echo Yii::t('menu', 'Просмотр меню'); ?> "<?php echo $model->name; ?>"</h1>
 
-<?php
-$this->widget('zii.widgets.CDetailView', array(
+<?php $this->widget('zii.widgets.CDetailView', array(
     'data' => $model,
     'attributes' => array(
         'id',
@@ -37,5 +36,4 @@ $this->widget('zii.widgets.CDetailView', array(
             'value' => $model->getStatus(),
         ),
     ),
-));
-?>
+)); ?>

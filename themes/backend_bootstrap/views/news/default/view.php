@@ -15,7 +15,7 @@ $this->menu = array(
 );
 ?>
 
-<div class="page-header"><h1><?php echo Yii::t('news', 'Просмотр новости');?>
+<div class="page-header"><h1><?php echo Yii::t('news', 'Просмотр новости'); ?>
     <br /><small style="margin-left:-10px;">&laquo;<?php echo $model->title; ?>&raquo;</small></h1></div>
 <ul class="nav nav-tabs">
     <li class="active"><a href="#anounce" data-toggle="tab"><?php echo Yii::t('news','Пример краткой версии новости'); ?></a></li>
@@ -24,24 +24,22 @@ $this->menu = array(
 <div class="tab-content">
     <div id="anounce" class="tab-pane fade active in">
         <?php for ( $i=0; $i<3; $i++ ) { ?>
-        <div style="margin-bottom: 20px;">
-            <h6><span class="label"><?php echo $model->date;?></span> <?php echo CHtml::link($model->title, array('/news/news/show', 'title' => $model->alias));?></h6>
-            <p>
-                <?php echo $model->short_text; ; ?>
-            </p>
-            <i class="icon-globe"></i> <?php echo $model->getPermaLink();?>
-        </div>
+            <div style="margin-bottom: 20px;">
+                <h6><span class="label"><?php echo $model->date; ?></span> <?php echo CHtml::link($model->title, array('/news/news/show', 'title' => $model->alias)); ?></h6>
+                <p>
+                    <?php echo $model->short_text; ; ?>
+                </p>
+                <i class="icon-globe"></i> <?php echo $model->getPermaLink(); ?>
+            </div>
         <?php } ?>
     </div>
     <div id="full"  class="tab-pane fade">
         <div style="margin-bottom: 20px;">
             <h3><?php echo CHtml::link($model->title, array('/news/news/show', 'title' => $model->alias)); ?></h3>
-            <p>
-                <?php echo $model->full_text; ; ?>
-            </p>
+            <p><?php echo $model->full_text; ?></p>
             <span class="label"><?php echo $model->date;?></span>
-            <i class="icon-user"></i><?php echo CHtml::link($model->user->fullName,array('/user/people/'.$model->user->nick_name));?>
-            <i class="icon-globe"></i> <?php echo $model->getPermaLink();?>
+            <i class="icon-user"></i><?php echo CHtml::link($model->user->fullName,array('/user/people/'.$model->user->nick_name)); ?>
+            <i class="icon-globe"></i> <?php echo $model->getPermaLink(); ?>
         </div>
     </div>
 </div>
