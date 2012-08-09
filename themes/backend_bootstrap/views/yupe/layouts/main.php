@@ -46,11 +46,9 @@
     );
 
     $this->widget('bootstrap.widgets.TbNavbar', array(
-        'fixed' => 'top',
         'fluid' => true,
         'brand' => "<img src='" . Yii::app()->theme->baseUrl . "/images/logo.png' width=\"38\" height=\"38\" title=\"" . Yii::t('yupe', 'Перейти на главную панели управления') . "\"/>", //Yii::t('yupe',"Юпи!"),
         'brandUrl' => CHtml::normalizeUrl(array("/yupe/backend")),
-        'collapse' => false, // requires bootstrap-responsive.css
         'items' => array(
             array(
                 'class' => 'bootstrap.widgets.TbMenu',
