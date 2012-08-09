@@ -1,5 +1,6 @@
 <?php
 $this->breadcrumbs = array(
+	$this->module->getCategory() => array('admin'),
     Yii::t('feedback', 'Сообщения с сайта') => array('admin'),
     Yii::t('feedback', 'Добавление сообщения'),
 );

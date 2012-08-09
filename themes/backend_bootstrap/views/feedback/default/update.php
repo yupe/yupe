@@ -2,6 +2,7 @@
 
 <?php
 $this->breadcrumbs = array(
+	$this->module->getCategory() => array('admin'),
     Yii::t('feedback', 'Сообщения с сайта') => array('admin'),
     $model->theme => array('view', 'id' => $model->id),
     Yii::t('feedback', 'Изменить'),
