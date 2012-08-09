@@ -1,9 +1,9 @@
 <div class="form">
 
     <?php $form = $this->beginWidget('CActiveForm', array(
-                                                         'id' => 'news-form',
-                                                         'enableAjaxValidation' => false,
-                                                    )); ?>
+ 'id' => 'news-form',
+ 'enableAjaxValidation' => false,
+)); ?>
 
     <p class="note"><?php echo Yii::t('news', 'Поля, отмеченные * обязательны для заполнения')?></p>
 
@@ -12,12 +12,12 @@
     <div class="row">
         <?php echo $form->labelEx($model, 'date'); ?>
         <?php $this->widget('zii.widgets.jui.CJuiDatePicker', array(
-                                                                   'model' => $model,
-                                                                   'attribute' => 'date',
-                                                                   'options' => array(
-                                                                       'dateFormat' => 'dd.mm.yy',
-                                                                   ),
-                                                              ));
+               'model' => $model,
+               'attribute' => 'date',
+               'options' => array(
+                   'dateFormat' => 'dd.mm.yy',
+               ),
+          ));
         ?>
         <?php echo $form->error($model, 'date'); ?>
     </div>
@@ -38,28 +38,28 @@
     <div class="row">
         <?php echo $form->labelEx($model, 'short_text'); ?>
         <?php $this->widget($this->module->editor, array(
-                                                      'model' => $model,
-                                                      'attribute' => 'short_text',
-                                                      'options'   => array(                                                           
-                                                           'toolbar' => 'main',
-                                                           'imageUpload' => Yii::app()->baseUrl.'/index.php/yupe/backend/AjaxFileUpload/'                                                           
-                                                       ),
-                                                      'htmlOptions' => array('rows' => 20,'cols' => 6)
-                                                 ))?>
+              'model' => $model,
+              'attribute' => 'short_text',
+              'options'   => array(
+                   'toolbar' => 'main',
+                   'imageUpload' => Yii::app()->baseUrl.'/index.php/yupe/backend/AjaxFileUpload/'
+               ),
+              'htmlOptions' => array('rows' => 20,'cols' => 6)
+         ))?>
         <?php echo $form->error($model, 'short_text'); ?>
     </div>
 
     <div class="row">
         <?php echo $form->labelEx($model, 'full_text'); ?>
         <?php $this->widget($this->module->editor, array(
-                                                      'model' => $model,
-                                                      'attribute' => 'full_text',
-                                                      'options'   => array(                                                           
-                                                           'toolbar' => 'main',
-                                                           'imageUpload' => Yii::app()->baseUrl.'/index.php/yupe/backend/AjaxFileUpload/'                                                           
-                                                       ),
-                                                      'htmlOptions' => array('rows' => 20,'cols' => 6)
-                                                 ))?>
+              'model' => $model,
+              'attribute' => 'full_text',
+              'options'   => array(
+                   'toolbar' => 'main',
+                   'imageUpload' => Yii::app()->baseUrl.'/index.php/yupe/backend/AjaxFileUpload/'
+               ),
+              'htmlOptions' => array('rows' => 20,'cols' => 6)
+         ))?>
         <?php echo $form->error($model, 'full_text'); ?>
     </div>
 

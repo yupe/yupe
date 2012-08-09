@@ -19,9 +19,7 @@ $this->menu = array(
 
 <h1><?php echo Yii::t('menu', 'Пункты меню'); ?></h1>
 
-<?php
-$this->widget('zii.widgets.CListView', array(
+<?php $this->widget('zii.widgets.CListView', array(
     'dataProvider' => $dataProvider,
     'itemView' => '_view',
-));
-?>
+)); ?>

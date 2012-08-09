@@ -11,12 +11,12 @@ $this->menu = array(
 );
 ?>
 <div class="page-header">
-    <h1><?php echo Yii::t('news', 'Новости');?>
+    <h1><?php echo Yii::t('news', 'Новости'); ?>
     <small>как анонсы</small>
     </h1>
 </div>
 
 <?php $this->widget('zii.widgets.CListView', array(
-                                                  'dataProvider' => $dataProvider,
-                                                  'itemView' => '_view',
-                                             )); ?>
+    'dataProvider' => $dataProvider,
+    'itemView' => '_view',
+)); ?>

@@ -1,9 +1,9 @@
 <div class="form">
 
     <?php $form = $this->beginWidget('CActiveForm', array(
-                                                         'id' => 'comment-form',
-                                                         'enableAjaxValidation' => false,
-                                                    )); ?>
+         'id' => 'comment-form',
+         'enableAjaxValidation' => false,
+    )); ?>
 
     <p class="note"><?php echo Yii::t('page', 'Поля, отмеченные * обязательны для заполнения')?></p>
 
@@ -42,14 +42,14 @@
     <div class="row">
         <?php echo $form->labelEx($model, 'text'); ?>
         <?php $this->widget(Yii::app()->getModule('yupe')->editor, array(
-                                                      'model' => $model,
-                                                      'attribute' => 'text',
-                                                      'options'   => array(                                                           
-                                                           'toolbar' => 'main',
-                                                           'imageUpload' => Yii::app()->baseUrl.'/index.php/yupe/backend/AjaxFileUpload/'                                                           
-                                                       ),
-                                                      'htmlOptions' => array('rows' => 20,'cols' => 6)
-                                                 ))?>
+              'model' => $model,
+              'attribute' => 'text',
+              'options'   => array(
+                   'toolbar' => 'main',
+                   'imageUpload' => Yii::app()->baseUrl.'/index.php/yupe/backend/AjaxFileUpload/'
+               ),
+              'htmlOptions' => array('rows' => 20,'cols' => 6)
+        )); ?>
         <?php echo $form->error($model, 'text'); ?>
     </div>
 
@@ -65,9 +65,7 @@
     </div>
 
     <div class="row buttons">
-        <?php echo CHtml::submitButton($model->isNewRecord
-                                           ? Yii::t('comment', 'Добавить комментарий')
-                                           : Yii::t('comment', 'Сохранить комментарий')); ?>
+        <?php echo CHtml::submitButton($model->isNewRecord ? Yii::t('comment', 'Добавить комментарий') : Yii::t('comment', 'Сохранить комментарий')); ?>
     </div>
 
     <?php $this->endWidget(); ?>

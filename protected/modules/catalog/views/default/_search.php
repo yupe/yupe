@@ -1,10 +1,10 @@
-<?php $form=$this->beginWidget('bootstrap.widgets.BootActiveForm',array(
-	'action'=>Yii::app()->createUrl($this->route),
-	'method'=>'get',
+<?php $form=$this->beginWidget('bootstrap.widgets.TbActiveForm', array(
+    'action'=>Yii::app()->createUrl($this->route),
+    'method'=>'get',
         'type'=>'vertical',
         'htmlOptions' => array('class' => 'well form-vertical')
 )); ?>
-<fieldset class="inline">    
+<fieldset class="inline">
 	<?php echo  $form->textFieldRow($model,'id',array('class'=>'span5','maxlength'=>11,'size' => 60)); ?>
 
 	<?php echo  $form->textFieldRow($model,'category_id',array('class'=>'span5','maxlength'=>10,'size' => 60)); ?>
@@ -37,12 +37,11 @@
 
 </fieldset>    
 	
-<?php $this->widget('bootstrap.widgets.BootButton', array(
-                        'type'=>'primary',
-                        'encodeLabel' => false,
-                        'buttonType' => 'submit',
-                        'label'=>'<i class="icon-search icon-white"></i> '.Yii::t('yupe','Искать'),
-                )); ?>
-	
+<?php $this->widget('bootstrap.widgets.TbButton', array(
+        'type'=>'primary',
+        'encodeLabel' => false,
+        'buttonType' => 'submit',
+        'label'=>'<i class="icon-search icon-white"></i> '.Yii::t('yupe','Искать'),
+)); ?>
 
 <?php $this->endWidget(); ?>

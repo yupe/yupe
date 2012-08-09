@@ -1,7 +1,6 @@
 <?php $this->pageTitle = Yii::t('feedback', 'Сообщения с сайта'); ?>
 
 <?php
-//@formatter:off
 $this->breadcrumbs = array(
     Yii::t('feedback', 'Сообщения с сайта') => array('admin'),
     Yii::t('feedback', 'Управление'),
@@ -12,7 +11,6 @@ $this->menu = array(
     array('label' => Yii::t('feedback', 'Добавить сообщение'), 'url' => array('/feedback/default/create')),
 
 );
-//@formatter:on
 Yii::app()->clientScript->registerScript('search', "
     $('.search-button').click(function() {
         $('.search-form').toggle();
@@ -26,7 +24,7 @@ Yii::app()->clientScript->registerScript('search', "
     });
 ");
 ?>
-<div class="page-header"><h1><?php echo $this->module->getName()?> <small><?php echo Yii::t('feedback', 'Управление');; ?></small></h1></div>
+<div class="page-header"><h1><?php echo $this->module->getName(); ?> <small><?php echo Yii::t('feedback', 'Управление'); ?></small></h1></div>
 
 <?php echo CHtml::link(Yii::t('feedback', 'Поиск сообщений'), '#', array('class' => 'search-button')); ?>
 <div class="search-form" style="display:none">
@@ -34,9 +32,9 @@ Yii::app()->clientScript->registerScript('search', "
 </div><!-- search-form -->
 
 <?php
-        $dp = $model->search();
-        $dp->criteria->order = 'status ASC, change_date ASC';
-        $this->widget('YCustomGridView', array(
+    $dp = $model->search();
+    $dp->criteria->order = 'status ASC, change_date ASC';
+    $this->widget('YCustomGridView', array(
         'statusField' => 'is_faq',
         'id' => 'feed-back-grid',
         'dataProvider' => $dp,
@@ -73,7 +71,7 @@ Yii::app()->clientScript->registerScript('search', "
                 'header' => 'FAQ',
                 'value' => '$this->grid->returnStatusHtml($data)',
             ),
-            array('class' => 'bootstrap.widgets.BootButtonColumn'),
+            array('class' => 'bootstrap.widgets.TbButtonColumn'),
         ),
     ));
  ?>

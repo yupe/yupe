@@ -6,35 +6,32 @@ $this->breadcrumbs = array(
 );
 
 $this->menu = array(
-    array( 'icon'  => 'list-alt white', 'label' => Yii::t('news', 'Управление новостями'), 'url'   => array( '/news/default/admin' ) ),
-    array( 'icon'  => 'th-list', 'label' => Yii::t('news', 'Показать анонсами'), 'url'   => array( '/news/default/index' ) ),
-    array( 'icon'  => 'file', 'label' => Yii::t('news', 'Добавить новость'), 'url'   => array( 'create' ) ),
+    array( 'icon' => 'list-alt white', 'label' => Yii::t('news', 'Управление новостями'), 'url'   => array( '/news/default/admin' ) ),
+    array( 'icon' => 'th-list', 'label' => Yii::t('news', 'Показать анонсами'), 'url'   => array( '/news/default/index' ) ),
+    array( 'icon' => 'file', 'label' => Yii::t('news', 'Добавить новость'), 'url'   => array( 'create' ) ),
 );
 ?>
-<div class="page-header"><h1><?php echo $this->module->getName() ?> <small><?php echo Yii::t('news', 'управление');
-; ?></small></h1></div>
+<div class="page-header"><h1><?php echo $this->module->getName(); ?> <small><?php echo Yii::t('news', 'управление'); ?></small></h1></div>
 
 <button class="btn btn-small dropdown-toggle"
         data-toggle="collapse"
         data-target="#search-toggle" >
     <i class="icon-search"></i>
-<?php echo CHtml::link(Yii::t('news', 'Поиск новостей'), '#', array( 'class' => 'search-button' )); ?>
+    <?php echo CHtml::link(Yii::t('news', 'Поиск новостей'), '#', array( 'class' => 'search-button' )); ?>
     <span class="caret"></span>
 </button>
 
-<div id="search-toggle" class="collapse <?php echo isset($_GET[get_class($model)])?'in':'out'; ?>">
+<div id="search-toggle" class="collapse <?php echo isset($_GET[get_class($model)]) ? 'in' : 'out'; ?>">
     <?php
     Yii::app()->clientScript->registerScript('search', "
-        $('.search-form form').submit(function(){
+        $('.search-form form').submit(function() {
             $.fn.yiiGridView.update('news-grid', {
                 data: $(this).serialize()
-        });
-        return false;
+            });
+            return false;
         });
     ");
-    $this->renderPartial('_search', array(
-        'model' => $model,
-    ));
+    $this->renderPartial('_search', array('model' => $model));
     ?>
 
 </div>
@@ -53,7 +50,7 @@ $this->widget('YCustomGridView', array(
         array(
             'name'  => 'title',
             'type'  => 'raw',
-            'value' => 'CHtml::link($data->title,array("/news/default/update","alias" => $data->alias))'
+            'value' => 'CHtml::link($data->title,array("/news/default/update","alias" => $data->alias))',
         ),
         array(
             'name'        => 'date',
@@ -61,12 +58,12 @@ $this->widget('YCustomGridView', array(
         ),
         array(
            'name'  => 'category_id',
-           'value' => '$data->getCategoryName()'
+           'value' => '$data->getCategoryName()',
         ),
         'alias',
         array(
             'name'  => Yii::t('news','Публичный урл'),
-            'value' => '$data->getPermaLink()'
+            'value' => '$data->getPermaLink()',
         ),
         'lang',
         array(
@@ -76,7 +73,7 @@ $this->widget('YCustomGridView', array(
             'htmlOptions' => array( 'style' => 'width:40px; text-align:center;' ),
         ),
         array(
-            'class'   => 'bootstrap.widgets.BootButtonColumn',
+            'class'   => 'bootstrap.widgets.TbButtonColumn',
             'buttons' => array(
                 'update' => array( 'url' => 'array("/news/default/update/","alias"=>$data->alias)' ),
             ),

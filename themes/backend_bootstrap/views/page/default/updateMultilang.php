@@ -21,7 +21,7 @@ $this->menu = array(
   </h1>
 </div>
 <?php
-$form = $this->beginWidget('bootstrap.widgets.BootActiveForm', array(
+$form = $this->beginWidget('bootstrap.widgets.TbActiveForm', array(
     'id' => 'page-form',
     'enableAjaxValidation' => false,
     //'htmlOptions'=> array( 'class' => 'well' ),
@@ -77,7 +77,7 @@ echo CHtml::openTag("fieldset", array("class"=>"inline"));
     foreach ( $langs as $l )
         $items[]=array('label'=>"[".$l."] ".mb_convert_case(Yii::app()->locale-> getLocaleDisplayName($l), MB_CASE_TITLE, 'UTF-8'), 'url'=>'#tab-'.$l, 'linkOptions'=> array("data-toggle"=>"tab"), 'active'=>$l==$model->lang );
 
-    $this->widget('bootstrap.widgets.BootMenu', array(
+    $this->widget('bootstrap.widgets.TbMenu', array(
         'type' => 'tabs', // '', 'tabs', 'pills' (or 'list')
         'stacked' => false, // whether this is a stacked menu
         'items' => $items ,

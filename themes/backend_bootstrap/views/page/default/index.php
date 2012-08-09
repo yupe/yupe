@@ -12,10 +12,9 @@ $this->menu = array(
 );
 ?>
 
-<h1><?php echo Yii::t('page', 'Страницы');?></h1>
+<h1><?php echo Yii::t('page', 'Страницы'); ?></h1>
 
 <?php
-
 $pages = Page::model()-> findAll();
 foreach ($pages as $p)
 {
@@ -51,10 +50,9 @@ function rec_walk( $pages_byparent, $page = 0 )
 //$dataProvider->pagination = false;
 //$data = $dataProvider->fetchData();
 $data = array();
-$data[0] = array( "text" => "<i class='icon-home'></i>".Yii::app()->name, 'id' => 0, 'children' => rec_walk( $pages_byparent )) ;
+$data[0] = array( "text" => "<i class='icon-home'></i>".Yii::app()->name, 'id' => 0, 'children' => rec_walk( $pages_byparent ));
 
 //$data = rec_walk( $pages_byparent ) ;
 
 $this->widget('CTreeView', array( 'data' => $data, 'persist' => true, 'animated' => 'fast'));
-
 ?>

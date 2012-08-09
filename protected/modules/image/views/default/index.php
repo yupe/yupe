@@ -1,12 +1,12 @@
 <?php
 $this->breadcrumbs=array(
-	'изображения'=>array('index'),
-	Yii::t('yupe','Управление'),
+    'изображения'=>array('index'),
+    Yii::t('yupe','Управление'),
 );
-$this-> pageTitle ="изображения - "."Yii::t('yupe','управление')";
+$this->pageTitle ="изображения - "."Yii::t('yupe','управление')";
 $this->menu=array(
-array('icon'=> 'list-alt white', 'label' => Yii::t('yupe','Управление изображениями'),'url'=>array('/image/default/index')),
-array('icon'=> 'file','label' => Yii::t('yupe','Добавить изображение'), 'url' => array('/image/default/create')),
+    array('icon'=> 'list-alt white', 'label' => Yii::t('yupe','Управление изображениями'),'url'=>array('/image/default/index')),
+    array('icon'=> 'file','label' => Yii::t('yupe','Добавить изображение'), 'url' => array('/image/default/create')),
 );
 ?>
 <div class="page-header">
@@ -20,50 +20,48 @@ array('icon'=> 'file','label' => Yii::t('yupe','Добавить изображ�
 
 <div id="search-toggle" class="collapse out">
 <?php Yii::app()->clientScript->registerScript('search', "
-$('.search-form form').submit(function(){
-$.fn.yiiGridView.update('image-grid', {
-data: $(this).serialize()
-});
-return false;
-});
+    $('.search-form form').submit(function() {
+        $.fn.yiiGridView.update('image-grid', {
+            data: $(this).serialize()
+        });
+        return false;
+    });
 ");
-    $this->renderPartial('_search',array(
-	'model'=>$model,
-));
+    $this->renderPartial('_search', array('model'=>$model));
 ?>
 </div>
 
 <br/>
 
 <p>
-    <?php echo Yii::t('yupe','В данном разделе представлены средства управления');?> <?php echo Yii::t('yupe','изображениями');?>.
+    <?php echo Yii::t('yupe','В данном разделе представлены средства управления'); ?> <?php echo Yii::t('yupe','изображениями'); ?>.
 </p>
 
 
 <?php
 $dp = $model->search();
 //$dp-> sort-> defaultOrder = "";
-$this->widget('bootstrap.widgets.BootGridView',array(
-'id'=>'image-grid',
-'type'=>'condensed ',
-'pager'=>array('class'=>'bootstrap.widgets.BootPager', 	'prevPageLabel'=>"←",'nextPageLabel'=>"→"),
-'dataProvider'=>$dp,
-'filter'=>$model,
-'columns'=>array(
-		'id',
-		array(
-			'name' => Yii::t('image','file'),
-			'type' => 'raw',
-			'value' => 'CHtml::image($data->file,$data->alt,array("width" =>75, "height" => 75))'
-		),		
-		array(
-           'name'  => 'category_id',
-           'value' => '$data->getCategoryName()'
+$this->widget('bootstrap.widgets.TbGridView',array(
+    'id'=>'image-grid',
+    'type'=>'condensed ',
+    'pager'=>array('class'=>'bootstrap.widgets.TbPager', 'prevPageLabel'=>"←",'nextPageLabel'=>"→"),
+    'dataProvider'=>$dp,
+    'filter'=>$model,
+    'columns'=>array(
+            'id',
+            array(
+                'name' => Yii::t('image','file'),
+                'type' => 'raw',
+                'value' => 'CHtml::image($data->file,$data->alt,array("width" =>75, "height" => 75))'
+            ),        
+            array(
+               'name'  => 'category_id',
+               'value' => '$data->getCategoryName()'
+            ),
+            'name',
+            'alt',
+            array(
+                'class'=>'bootstrap.widgets.TbButtonColumn',
+            ),
         ),
-		'name',
-		'alt',		
-array(
-'class'=>'bootstrap.widgets.BootButtonColumn',
-),
-),
 )); ?>
