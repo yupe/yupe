@@ -1,7 +1,7 @@
 <?php
 $this->breadcrumbs=array(
-	'почтовые шаблоны'=>array('index'),
-	$model->name,
+    'почтовые шаблоны'=>array('index'),
+    $model->name,
 );
 $this-> pageTitle ="почтовые шаблоны - просмотр";
 $this->menu=array(
@@ -13,28 +13,27 @@ $this->menu=array(
 );
 ?>
 <div class="page-header">
-    <h1>Просмотр почтового шаблона<br />
-     <small style='margin-left:-10px;'>&laquo;<?php echo  $model->name; ?>&raquo;</small></h1>
+    <h1>Просмотр почтового шаблона<br /><small style='margin-left:-10px;'>&laquo;<?php echo  $model->name; ?>&raquo;</small></h1>
 </div>
 
-<?php $this->widget('bootstrap.widgets.BootDetailView',array(
-	'data'=>$model,
-	'attributes'=>array(
-		'id',
-		'code',
-		array(
-                    'name'   => 'event_id',
-                    'value'  => $model->event->name,                    
-                ),
-		'name',
-		'description',
-		'from',
-		'to',
-		'theme',
-		'body',
-		array(
-                    'name'   => 'status',
-                    'value'  => $model->getStatus(),                    
-                ),
-	),
+<?php $this->widget('bootstrap.widgets.TbDetailView',array(
+    'data'=>$model,
+    'attributes'=>array(
+        'id',
+        'code',
+        array(
+            'name'  => 'event_id',
+            'value' => $model->event->name,
+        ),
+        'name',
+        'description',
+        'from',
+        'to',
+        'theme',
+        'body',
+        array(
+            'name'  => 'status',
+            'value' => $model->getStatus(),
+        ),
+    ),
 )); ?>

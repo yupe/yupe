@@ -8,8 +8,7 @@
     <?php echo CHtml::encode($data->parent_Id); ?>
     <br/>
 
-    <b><?php echo CHtml::encode($data->getAttributeLabel('creation_date')); ?>
-        :</b>
+    <b><?php echo CHtml::encode($data->getAttributeLabel('creation_date')); ?>:</b>
     <?php echo CHtml::encode($data->creation_date); ?>
     <br/>
 
@@ -38,18 +37,16 @@
     <br/>
 
     <?php /*
-	<b><?php echo CHtml::encode($data->getAttributeLabel('keywords')); ?>:</b>
-	<?php echo CHtml::encode($data->keywords); ?>
-	<br />
+    <b><?php echo CHtml::encode($data->getAttributeLabel('keywords')); ?>:</b>
+    <?php echo CHtml::encode($data->keywords); ?>
+    <br />
 
-	<b><?php echo CHtml::encode($data->getAttributeLabel('description')); ?>:</b>
-	<?php echo CHtml::encode($data->description); ?>
-	<br />
+    <b><?php echo CHtml::encode($data->getAttributeLabel('description')); ?>:</b>
+    <?php echo CHtml::encode($data->description); ?>
+    <br />
 
-	<b><?php echo CHtml::encode($data->getAttributeLabel('status')); ?>:</b>
-	<?php echo CHtml::encode($data->status); ?>
-	<br />
-
-	*/ ?>
-
+    <b><?php echo CHtml::encode($data->getAttributeLabel('status')); ?>:</b>
+    <?php echo CHtml::encode($data->status); ?>
+    <br />
+    */ ?>
 </div>

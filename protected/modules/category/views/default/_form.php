@@ -1,4 +1,4 @@
-<?php $form=$this->beginWidget('bootstrap.widgets.BootActiveForm',array(
+<?php $form=$this->beginWidget('bootstrap.widgets.TbActiveForm',array(
 	'id'=>'category-form',
 	'enableAjaxValidation'=>false,
 	'type'=>'vertical',
@@ -57,7 +57,7 @@
         </div>
 
 
-<?php $this->widget('bootstrap.widgets.BootButton', array(
+<?php $this->widget('bootstrap.widgets.TbButton', array(
         'buttonType'=>'submit',
         'type'=>'primary',
         'label'=>$model->isNewRecord ? Yii::t('yupe','Создать категорию') : Yii::t('yupe','Сохранить категорию'),

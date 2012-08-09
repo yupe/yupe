@@ -44,10 +44,10 @@ return false;
 <?php
 $dp = $model->search();
 //$dp-> sort-> defaultOrder = "";
-$this->widget('bootstrap.widgets.BootGridView',array(
+$this->widget('bootstrap.widgets.TbGridView',array(
 'id'=>'good-grid',
 'type'=>'condensed ',
-'pager'=>array('class'=>'bootstrap.widgets.BootPager', 	'prevPageLabel'=>"←",'nextPageLabel'=>"→"),
+'pager'=>array('class'=>'bootstrap.widgets.TbPager', 	'prevPageLabel'=>"←",'nextPageLabel'=>"→"),
 'dataProvider'=>$dp,
 'filter'=>$model,
 'columns'=>array(
@@ -71,7 +71,7 @@ $this->widget('bootstrap.widgets.BootGridView',array(
 		),
 		'create_time',		
 array(
-'class'=>'bootstrap.widgets.BootButtonColumn',
+'class'=>'bootstrap.widgets.TbButtonColumn',
 ),
 ),
 )); ?>

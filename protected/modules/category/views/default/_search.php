@@ -1,4 +1,4 @@
-<?php $form=$this->beginWidget('bootstrap.widgets.BootActiveForm',array(
+<?php $form=$this->beginWidget('bootstrap.widgets.TbActiveForm',array(
 	'action'=>Yii::app()->createUrl($this->route),
 	'method'=>'get',
         'type'=>'vertical',
@@ -23,7 +23,7 @@
 
 </fieldset>    
 	
-<?php $this->widget('bootstrap.widgets.BootButton', array(
+<?php $this->widget('bootstrap.widgets.TbButton', array(
                         'type'=>'primary',
                         'encodeLabel' => false,
                         'buttonType' => 'submit',

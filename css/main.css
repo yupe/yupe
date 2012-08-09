@@ -42,8 +42,8 @@ body {
 #logo {
     font-size: 190%;
     padding: 20px 20px;
+    position: relative;
 }
-
 
 #mainmenu {
     background: white url(bg.gif) repeat-x left top;

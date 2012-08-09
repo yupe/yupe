@@ -1,4 +1,4 @@
-<?php $form = $this->beginWidget('bootstrap.widgets.BootActiveForm', array(
+<?php $form = $this->beginWidget('bootstrap.widgets.TbActiveForm', array(
     'action' => Yii::app()->createUrl($this->route),
     'method' => 'get',
     'htmlOptions'=> array( 'class' => 'well' ),
@@ -37,13 +37,13 @@
                 <?php echo $form->checkBoxRow($model, 'is_protected', $model->getProtectedStatusList()); ?>
             </div>
         </div>
-        <?php $this->widget('bootstrap.widgets.BootButton', array(
-        'buttonType' => 'submit',
-        'type' => 'primary',
-        'encodeLabel' => false,
-        'label' => '<i class="icon-search icon-white"></i> '.Yii::t('news', 'Искать')
+        <?php $this->widget('bootstrap.widgets.TbButton', array(
+            'buttonType' => 'submit',
+            'type' => 'primary',
+            'encodeLabel' => false,
+            'label' => '<i class="icon-search icon-white"></i> '.Yii::t('news', 'Искать'),
         )); ?>
 
     </fieldset>
-    <?php $this->endWidget(); ?>
+<?php $this->endWidget(); ?>
 

@@ -1,4 +1,4 @@
-<?php $form=$this->beginWidget('bootstrap.widgets.BootActiveForm',array(
+<?php $form=$this->beginWidget('bootstrap.widgets.TbActiveForm',array(
 	'id'=>'image-form',
 	'enableAjaxValidation'=>false,
 	'type'=>'vertical',
@@ -44,7 +44,7 @@
 	<div class='row-fluid control-group <?php echo $model->hasErrors("status")?"error":"" ?>'><?php echo  $form->dropDownListRow($model,'status', $model->getStatusList()); ?></div>
 
 	
-<?php $this->widget('bootstrap.widgets.BootButton', array(
+<?php $this->widget('bootstrap.widgets.TbButton', array(
         'buttonType'=>'submit',
         'type'=>'primary',
         'label'=>$model->isNewRecord ? Yii::t('yupe','Добавить изображение') : Yii::t('yupe','Сохранить изображение'),

@@ -44,10 +44,10 @@ return false;
 
 <?php
 $dp = $model->search();
-$this->widget('bootstrap.widgets.BootGridView', array(
+$this->widget('bootstrap.widgets.TbGridView', array(
     'id'    => 'category-grid',
     'type'  => 'condensed ',
-    'pager' => array( 'class'=> 'bootstrap.widgets.BootPager', 'prevPageLabel' => "←", 'nextPageLabel' => "→" ),
+    'pager' => array( 'class'=> 'bootstrap.widgets.TbPager', 'prevPageLabel' => "←", 'nextPageLabel' => "→" ),
     'dataProvider'  => $dp,
     'filter'        => $model,
     'columns'       => array(
@@ -68,7 +68,7 @@ $this->widget('bootstrap.widgets.BootGridView', array(
             'value' => '$data->getStatus()'
         ),
         array(
-            'class' => 'bootstrap.widgets.BootButtonColumn',
+            'class' => 'bootstrap.widgets.TbButtonColumn',
         ),
     ),
 ));

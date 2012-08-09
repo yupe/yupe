@@ -16,7 +16,7 @@ return array(
     // preloading 'log' component
     'preload'           => array( 'log' ),
     // подключение путей
-    'import' => array(
+    'import'            => array(
         'application.components.*',
         // подключение путей из основных модулей
         'application.modules.user.UserModule',
@@ -55,8 +55,8 @@ return array(
             'class'          => 'application.modules.queue.components.YDbQueue',
             'connectionId'   => 'db',
             'workerNamesMap' => array(
-                1       => 'Отправка почты',
-                2       => 'Ресайз изображений'
+                1 => 'Отправка почты',
+                2 => 'Ресайз изображений',
             )
         ),
         // Библиотека для работы с картинками через GD/ImageMagick
@@ -75,12 +75,8 @@ return array(
             'class'    => 'application.modules.social.extensions.eauth.EAuth',
             'popup'    => true, // Use the popup window instead of redirecting.
             'services' => array( // You can change the providers and their classes.
-                'google' => array(
-                    'class'  => 'CustomGoogleService',
-                ),
-                'yandex' => array(
-                    'class' => 'CustomYandexService',
-                ),
+                'google' => array('class' => 'CustomGoogleService'),
+                'yandex' => array('class' => 'CustomYandexService'),
             ),
         ),
         // компонент для отправки почты
@@ -90,6 +86,9 @@ return array(
         'mailMessage' => array(
             'class' => 'application.modules.mail.components.YMailMessage'
         ),
+        'bootstrap' => array(
+            'class' => 'ext.bootstrap.components.Bootstrap', // assuming you extracted bootstrap under extensions
+        ),
         // конфигурирование urlManager, подробнее http://www.yiiframework.ru/doc/guide/ru/topics.url
         'urlManager' => array(
             'class'=>'application.modules.yupe.extensions.urlManager.LangUrlManager',
@@ -98,27 +97,28 @@ return array(
             'showScriptName' => true,
             'cacheID'        => 'cache',
             'rules'          => array(
-                '/'                                   => 'site/index',
-                '/login'                              => 'user/account/login',
-                '/logout'                             => 'user/account/logout',
-                '/registration'                       => 'user/account/registration',
-                '/recovery'                           => 'user/account/recovery',
-                '/feedback'                           => 'feedback/feedback',
-                '/pages/<slug>'                       => 'page/page/show',
-                '/story/<title>'                      => 'news/news/show/',
-                '/post/<slug>.html'                   => 'blog/post/show/',
-                '/posts/tag/<tag>'                    => 'blog/post/list/',
-                '/blog/<slug>'                        => 'blog/blog/show/',
-                '/blogs/'                             => 'blog/blog/index/',
-                '/users/'                             => 'user/people/index/',
-                '/profile/'                           => 'user/people/profile/',
-                '/wiki/<controller:\w+>/<action:\w+>' => '/yeeki/wiki/<controller>/<action>',
-                'user/<username:\w+>/'                => 'user/people/userInfo',
-                '<module:\w+>/<controller:\w+>/<action:\w+>/<id:\d+>' => '<module>/<controller>/<action>',
-                '<module:\w+>/<controller:\w+>/<action:\w+>' => '<module>/<controller>/<action>',
-                '<module:\w+>/<controller:\w+>' => '<module>/<controller>/index',
-                '<controller:\w+>/<action:\w+>' => '<controller>/<action>',
-                '<controller:\w+>' => '<controller>/index',
+                '/'                                                     => 'site/index',
+                '/login'                                                => 'user/account/login',
+                '/logout'                                               => 'user/account/logout',
+                '/registration'                                         => 'user/account/registration',
+                '/recovery'                                             => 'user/account/recovery',
+                '/feedback'                                             => 'feedback/feedback',
+                '/pages/<slug>'                                         => 'page/page/show',
+                '/story/<title>'                                        => 'news/news/show/',
+                '/post/<slug>.html'                                     => 'blog/post/show/',
+                '/posts/tag/<tag>'                                      => 'blog/post/list/',
+                '/blog/<slug>'                                          => 'blog/blog/show/',
+                '/blogs/'                                               => 'blog/blog/index/',
+                '/users/'                                               => 'user/people/index/',
+                '/profile/'                                             => 'user/people/profile/',
+                '/install'                                              => 'install/default/index/',
+                '/wiki/<controller:\w+>/<action:\w+>'                   => '/yeeki/wiki/<controller>/<action>',
+                'user/<username:\w+>/'                                  => 'user/people/userInfo',
+                '<module:\w+>/<controller:\w+>/<action:\w+>/<id:\d+>'   => '<module>/<controller>/<action>',
+                '<module:\w+>/<controller:\w+>/<action:\w+>'            => '<module>/<controller>/<action>',
+                '<module:\w+>/<controller:\w+>'                         => '<module>/<controller>/index',
+                '<controller:\w+>/<action:\w+>'                         => '<controller>/<action>',
+                '<controller:\w+>'                                      => '<controller>/index',
             ),
         ),
         // конфигурируем компонент CHttpRequest для защиты от CSRF атак, подробнее http://www.yiiframework.ru/doc/guide/ru/topics.security
@@ -128,7 +128,7 @@ return array(
             'class'                  => 'YHttpRequest',
             'enableCsrfValidation'   => true,
             'csrfTokenName'          => 'YUPE_TOKEN',
-            'noCsrfValidationRoutes' => array( 'yupe/backend/AjaxFileUpload' )
+            'noCsrfValidationRoutes' => array('yupe/backend/AjaxFileUpload'),
         ),
         // подключение компонента для генерации ajax-ответов
         'ajax' => array(
@@ -166,9 +166,7 @@ return array(
     'modules' => require(dirname(__FILE__) . '/modules.php'),
     
     'behaviors' => array(
-        'onBeginRequest' => array(
-            'class'  => 'application.modules.yupe.extensions.urlManager.LanguageBehavior'
-        ),
-        'YupeStartUpBehavior'
+        'onBeginRequest' => array('class' => 'application.modules.yupe.extensions.urlManager.LanguageBehavior'),
+        'YupeStartUpBehavior',
     ),
 );

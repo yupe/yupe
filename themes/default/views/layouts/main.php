@@ -7,10 +7,20 @@
     <meta name="keywords" content="<?php echo $this->keywords; ?>" />
     <meta name="description" content="<?php echo $this->description; ?>" />
 
-    <?php  $jNotify = Yii::app()->assetManager->publish(Yii::app()->theme->basePath.'/web/jquery_notification/');?>
-    <?php  $module  = Yii::app()->getModule('yupe');?>
-    <?php  Yii::app()->clientScript->registerCssFile($jNotify.'/css/jquery_notification.css');?>
-    <?php  Yii::app()->clientScript->registerScriptFile($jNotify.'/js/jquery_notification_v.1.js');?>
+    <?php $module  = Yii::app()->getModule('yupe');?>
+
+    <?php $jNotify = Yii::app()->assetManager->publish(Yii::app()->theme->basePath.'/web/jquery_notification/'); ?>
+    <?php Yii::app()->clientScript->registerCssFile($jNotify.'/css/jquery_notification.css'); ?>
+    <?php Yii::app()->clientScript->registerScriptFile($jNotify.'/js/jquery_notification_v.1.js'); ?>
+
+    <?php $jqueryslidemenupath = Yii::app()->assetManager->publish($module->basePath . '/web/jqueryslidemenu/'); ?>
+    <?php Yii::app()->clientScript->registerCssFile($jqueryslidemenupath . '/jqueryslidemenu.css'); ?>
+    <?php Yii::app()->clientScript->registerScriptFile($jqueryslidemenupath . '/jqueryslidemenu.js'); ?>
+    <?php $webPath = Yii::app()->assetManager->publish($module->basePath . '/web/'); ?>
+
+    <script type='text/javascript'>
+        var arrowimages = {down:['downarrowclass', '<?php echo $webPath; ?>/jqueryslidemenu/down.gif', 23], right:['rightarrowclass', '<?php echo $webPath; ?>/jqueryslidemenu/right.gif']}
+    </script>
 
     <!-- blueprint CSS framework -->
     <link rel="stylesheet" type="text/css"
@@ -39,14 +49,26 @@
         <div id="logo">
             <a href="<?php echo Yii::app()->baseUrl;?>"><?php echo CHtml::image(Yii::app()->baseUrl.'/web/images/yupe-logo.jpg');?></a>
             <?php echo CHtml::encode($module->siteDescription);?>
-            <iframe frameborder="0" allowtransparency="true" scrolling="no" src="https://money.yandex.ru/embed/small.xml?uid=41001846363811&amp;button-text=05&amp;button-size=s&amp;button-color=orange&amp;targets=%d0%9d%d0%b0+%d1%80%d0%b0%d0%b7%d0%b2%d0%b8%d1%82%d0%b8%d0%b5+%d0%ae%d0%bf%d0%b8!&amp;default-sum=50&amp;fio=on&amp;mail=on" width="130" height="31" style="float:right;"></iframe>
+            <div style="position:absolute; right:10px; top:0; text-align:right;">
+                <?php $this->widget('application.modules.yupe.widgets.YLanguageSelector'); ?>
+                <iframe frameborder="0" allowtransparency="true" scrolling="no"
+                    src="https://money.yandex.ru/embed/small.xml?uid=41001846363811&amp;button-text=05&amp;button-size=s&amp;button-color=orange&amp;targets=%d0%9d%d0%b0+%d1%80%d0%b0%d0%b7%d0%b2%d0%b8%d1%82%d0%b8%d0%b5+%d0%ae%d0%bf%d0%b8!&amp;default-sum=50&amp;fio=on&amp;mail=on"
+                    width="130" height="31" style="float:right;">
+                </iframe>
+            </div>
         </div>
     </div>
     <!-- header -->
-    <?php $this->widget('application.modules.menu.widgets.MenuWidget', array(
+    <?php
+    $this->widget('application.modules.menu.widgets.MenuWidget', array(
         'name' => 'top-menu',
-        'id' => 'mainmenu',
-    ));?>
+        'params' => array('hideEmptyItems' => true),
+        'layoutParams' => array('htmlOptions' => array(
+            'class' => 'jqueryslidemenu',
+            'id' => 'myslidemenu',
+         )),
+    ));
+    ?>
     <!-- mainmenu -->
     <?php $this->widget('zii.widgets.CBreadcrumbs', array('links' => $this->breadcrumbs)); ?>
     <!-- breadcrumbs -->

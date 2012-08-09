@@ -1,7 +1,7 @@
 <?php
 $this->breadcrumbs=array(
-	'почтовые события'=>array('index'),
-	$model->name,
+    'почтовые события'=>array('index'),
+    $model->name,
 );
 $this-> pageTitle ="почтовые события - просмотр";
 $this->menu=array(
@@ -14,16 +14,15 @@ $this->menu=array(
 );
 ?>
 <div class="page-header">
-    <h1>Просмотр почтового события<br />
-     <small style='margin-left:-10px;'>&laquo;<?php echo  $model->name; ?>&raquo;</small></h1>
+    <h1>Просмотр почтового события<br /><small style='margin-left:-10px;'>&laquo;<?php echo  $model->name; ?>&raquo;</small></h1>
 </div>
 
-<?php $this->widget('bootstrap.widgets.BootDetailView',array(
-	'data'=>$model,
-	'attributes'=>array(
-		'id',
-		'code',
-		'name',
-		'description',
-	),
+<?php $this->widget('bootstrap.widgets.TbDetailView',array(
+    'data'=>$model,
+    'attributes'=>array(
+        'id',
+        'code',
+        'name',
+        'description',
+    ),
 )); ?>

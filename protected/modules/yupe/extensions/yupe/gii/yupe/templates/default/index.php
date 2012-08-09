@@ -59,10 +59,10 @@ return false;
 "; ?>
 $dp = $model->search();
 //$dp-> sort-> defaultOrder = "";
-$this->widget('bootstrap.widgets.BootGridView',array(
+$this->widget('bootstrap.widgets.TbGridView',array(
 'id'=>'<?php echo  $this->class2id($this->modelClass); ?>-grid',
 'type'=>'condensed ',
-'pager'=>array('class'=>'bootstrap.widgets.BootPager', 	'prevPageLabel'=>"←",'nextPageLabel'=>"→"),
+'pager'=>array('class'=>'bootstrap.widgets.TbPager', 	'prevPageLabel'=>"←",'nextPageLabel'=>"→"),
 'dataProvider'=>$dp,
 'filter'=>$model,
 'columns'=>array(
@@ -78,7 +78,7 @@ if($count>=7)
     echo "\t\t*/\n";
 ?>
 array(
-'class'=>'bootstrap.widgets.BootButtonColumn',
+'class'=>'bootstrap.widgets.TbButtonColumn',
 ),
 ),
 )); ?>

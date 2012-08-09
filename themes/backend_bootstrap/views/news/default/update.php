@@ -14,7 +14,11 @@ $this->menu = array(
 );
 ?>
 
-<div class="page-header"><h1><?php echo Yii::t('news', 'Редактирование новости');?>
-   <br /><small style="margin-left:-10px;">&laquo;<?php echo $model->title; ?>&raquo;</small></h1></div>
+<div class="page-header">
+   <h1>
+       <?php echo Yii::t('news', 'Редактирование новости'); ?>
+       <br /><small style="margin-left:-10px;">&laquo;<?php echo $model->title; ?>&raquo;</small>
+   </h1>
+</div>
 
 <?php echo $this->renderPartial('_form', array('model' => $model)); ?>

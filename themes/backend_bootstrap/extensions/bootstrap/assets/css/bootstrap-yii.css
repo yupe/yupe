@@ -2,6 +2,7 @@
 .clearfix:before, .clearfix:after {
   display:table;
   content:"";
+  line-height:0;
 }
 .clearfix:after { clear:both; }
 .hide-text {
@@ -17,7 +18,6 @@
   min-height:28px;
   -webkit-box-sizing:border-box;
   -moz-box-sizing:border-box;
-  -ms-box-sizing:border-box;
   box-sizing:border-box;
 }
 .grid-view { padding-top:20px; }
@@ -55,6 +55,7 @@
 .grid-view .pager { margin-top:5px; }
 .grid-view .empty { font-style:italic; }
 .grid-view-loading { background:url(../img/loading.gif) no-repeat; }
+.list-view { padding-top:20px; }
 .list-view .summary {
   margin-bottom:5px;
   text-align:right;
@@ -91,15 +92,15 @@
   width:160px;
 }
 span.required { color:#ff0000; }
-.form-inline label.error, .form-vertical label.error { color:#b94a48; }
-.form-inline select.error, .form-inline input.error, .form-inline textarea.error, .form-vertical select.error, .form-vertical input.error, .form-vertical textarea.error {
+.form-inline label.error, .form-horizontal label.error, .form-vertical label.error { color:#b94a48; }
+.form-inline select.error, .form-inline input.error, .form-inline textarea.error, .form-horizontal select.error, .form-horizontal input.error, .form-horizontal textarea.error, .form-vertical select.error, .form-vertical input.error, .form-vertical textarea.error {
   border-color:#b94a48;
   color:#b94a48;
 }
-.form-inline select.error:focus, .form-inline input.error:focus, .form-inline textarea.error:focus, .form-vertical select.error:focus, .form-vertical input.error:focus, .form-vertical textarea.error:focus {
+.form-inline select.error:focus, .form-inline input.error:focus, .form-inline textarea.error:focus, .form-horizontal select.error:focus, .form-horizontal input.error:focus, .form-horizontal textarea.error:focus, .form-vertical select.error:focus, .form-vertical input.error:focus, .form-vertical textarea.error:focus {
   border-color:#953b39;
   -webkit-box-shadow:0 0 6px #d59392;
   -moz-box-shadow:0 0 6px #d59392;
   box-shadow:0 0 6px #d59392;
 }
-.form-inline .help-block.error, .form-inline .help-inline.error, .form-vertical .help-block.error, .form-vertical .help-inline.error { color:#b94a48; }
+.form-inline .help-block.error, .form-inline .help-inline.error, .form-horizontal .help-block.error, .form-horizontal .help-inline.error, .form-vertical .help-block.error, .form-vertical .help-inline.error { color:#b94a48; }

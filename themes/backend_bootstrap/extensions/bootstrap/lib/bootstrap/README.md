@@ -1,9 +1,17 @@
-TWITTER BOOTSTRAP
+[Twitter Bootstrap](http://twitter.github.com/bootstrap) [![Build Status](https://secure.travis-ci.org/twitter/bootstrap.png)](http://travis-ci.org/twitter/bootstrap)
 =================
 
-Bootstrap is Twitter's toolkit for kickstarting CSS for websites, apps, and more. It includes base CSS styles for typography, forms, buttons, tables, grids, navigation, alerts, and more.
+Bootstrap provides simple and flexible HTML, CSS, and Javascript for popular user interface components and interactions. In other words, it's a front-end toolkit for faster, more beautiful web development. It's created and maintained by [Mark Otto](http://twitter.com/mdo) and [Jacob Thornton](http://twitter.com/fat) at Twitter.
 
-To get started -- checkout http://twitter.github.com/bootstrap!
+To get started, checkout http://twitter.github.com/bootstrap!
+
+
+
+Quick start
+-----------
+
+Clone the repo, `git clone git://github.com/twitter/bootstrap.git`, or [download the latest release](https://github.com/twitter/bootstrap/zipball/master).
+
 
 
 Versioning
@@ -17,25 +25,35 @@ Releases will be numbered with the follow format:
 
 And constructed with the following guidelines:
 
-* Breaking backward compatibility bumps the major
-* New additions without breaking backward compatibility bumps the minor
-* Bug fixes and misc changes bump the patch
+* Breaking backward compatibility bumps the major (and resets the minor and patch)
+* New additions without breaking backward compatibility bumps the minor (and resets the patch)
+* Bug fixes and misc changes bumps the patch
 
 For more information on SemVer, please visit http://semver.org/.
+
 
 
 Bug tracker
 -----------
 
-Have a bug? Please create an issue here on GitHub!
+Have a bug? Please create an issue here on GitHub! Also, when filing please make sure you're familiar with [necolas's guidelines](https://github.com/necolas/issue-guidelines). thanks! <3
 
 https://github.com/twitter/bootstrap/issues
+
 
 
 Twitter account
 ---------------
 
-Keep up to date on announcements and more by following Bootstrap on Twitter, <a href="http://twitter.com/TwBootstrap">@TwBootstrap</a>.
+Keep up to date on announcements and more by following Bootstrap on Twitter, [@TwBootstrap](http://twitter.com/TwBootstrap).
+
+
+
+Blog
+----
+
+Read more detailed announcements, discussions, and more on [The Official Twitter Bootstrap Blog](http://blog.getbootstrap.com).
+
 
 
 Mailing list
@@ -48,6 +66,7 @@ twitter-bootstrap@googlegroups.com
 http://groups.google.com/group/twitter-bootstrap
 
 
+
 IRC
 ---
 
@@ -56,16 +75,33 @@ Server: irc.freenode.net
 Channel: ##twitter-bootstrap (the double ## is not a typo)
 
 
+
 Developers
 ----------
 
 We have included a makefile with convenience methods for working with the Bootstrap library.
 
++ **dependencies**
+Our makefile depends on you having recess, uglify.js, and jshint installed. To install, just run the following command in npm:
+
+```
+$ npm install recess uglify-js jshint -g
+```
+
 + **build** - `make`
-Runs the LESS compiler to rebuild the `/less` files and compiles the docs pages. Requires lessc and uglify-js. <a href="http://twitter.github.com/bootstrap/less.html#compiling">Read more in our docs &raquo;</a>
+Runs the recess compiler to rebuild the `/less` files and compiles the docs pages. Requires recess and uglify-js. <a href="http://twitter.github.com/bootstrap/less.html#compiling">Read more in our docs &raquo;</a>
+
++ **test** - `make test`
+Runs jshint and qunit tests headlessly in phantom js (used for ci). Depends on having phatomjs installed.
 
 + **watch** - `make watch`
 This is a convenience method for watching just Less files and automatically building them whenever you save. Requires the Watchr gem.
+
+
+Contributing
+------------
+
+Please make all pull requests against wip-* branches. Also, if your unit test contains javascript patches or features - you must include relevant unit tests. Thanks!
 
 
 Authors
@@ -80,6 +116,7 @@ Authors
 
 + http://twitter.com/fat
 + http://github.com/fat
+
 
 
 Copyright and license

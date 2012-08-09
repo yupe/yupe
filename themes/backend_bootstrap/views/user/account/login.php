@@ -9,9 +9,9 @@
 <div class="form">
 
     <?php $form = $this->beginWidget('CActiveForm', array(
-                                                         'id' => 'login-form',
-                                                         'enableClientValidation' => true
-                                                    ));?>
+         'id' => 'login-form',
+         'enableClientValidation' => true,
+    ));?>
 
     <?php echo $form->errorSummary($model); ?>
 
@@ -30,7 +30,7 @@
     <div class="row">
         <p class="hint">
             <?php echo CHtml::link(Yii::t('user', "Регистрация"), array('/user/account/registration')); ?>
-            | <?php echo CHtml::link(Yii::t('user', "Восстановление пароля"), array('/user/account/recovery')) ?>
+            | <?php echo CHtml::link(Yii::t('user', "Восстановление пароля"), array('/user/account/recovery')); ?>
         </p>
     </div>
 
@@ -41,4 +41,4 @@
     <?php $this->endWidget(); ?>
 </div><!-- form -->
 
-<?php  $this->widget('application.modules.social.extensions.eauth.EAuthWidget',array('action' => '/social/social/login/'));?>
+<?php  $this->widget('application.modules.social.extensions.eauth.EAuthWidget', array('action' => '/social/social/login/')); ?>

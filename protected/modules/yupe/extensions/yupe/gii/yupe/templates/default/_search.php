@@ -1,4 +1,4 @@
-<?php echo  "<?php \$form=\$this->beginWidget('bootstrap.widgets.BootActiveForm',array(
+<?php echo  "<?php \$form=\$this->beginWidget('bootstrap.widgets.TbActiveForm',array(
 	'action'=>Yii::app()->createUrl(\$this->route),
 	'method'=>'get',
         'type'=>'vertical',
@@ -16,7 +16,7 @@
 <?php endforeach; ?>
 </fieldset>    
 	
-<?php echo  "<?php \$this->widget('bootstrap.widgets.BootButton', array(
+<?php echo  "<?php \$this->widget('bootstrap.widgets.TbButton', array(
                         'type'=>'primary',
                         'encodeLabel' => false,
                         'buttonType' => 'submit',

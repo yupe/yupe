@@ -1,4 +1,4 @@
-<?php $form = $this->beginWidget('bootstrap.widgets.BootActiveForm', array(
+<?php $form = $this->beginWidget('bootstrap.widgets.TbActiveForm', array(
     'id' => 'menu-item-form',
     'enableAjaxValidation' => false,
     'htmlOptions'=> array( 'class' => 'well' ),
@@ -100,7 +100,7 @@ Yii::app()->clientScript->registerScript('fieldset', "
         </div>
 
 
-        <?php $this->widget('bootstrap.widgets.BootButton', array(
+        <?php $this->widget('bootstrap.widgets.TbButton', array(
         'buttonType' => 'submit',
         'type' => 'primary',
         'label' =>      $model->isNewRecord

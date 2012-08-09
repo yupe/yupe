@@ -74,7 +74,7 @@ $this->widget('YCustomGridView', array(
             'value' => '$this->grid->returnBootstrapStatusHtml($data)',
         ),
         array(
-            'class' => 'bootstrap.widgets.BootButtonColumn',
+            'class' => 'bootstrap.widgets.TbButtonColumn',
         ),
     ),
 ));

@@ -1,7 +1,6 @@
 <?php $this->pageTitle = Yii::t('user', 'Управление пользователями'); ?>
 
 <?php
-//@formatter:off
 $this->breadcrumbs = array(
     Yii::t('user', 'Пользователи') => array('admin'),
     Yii::t('user', 'Управление'),
@@ -11,7 +10,6 @@ $this->menu = array(
     array('label' => Yii::t('user', 'Добавить пользователя'), 'url' => array('create')),
     array('label' => Yii::t('user', 'Восстановления паролей'), 'url' => array('/user/recoveryPassword/admin')),
 );
-//@formatter:on
 Yii::app()->clientScript->registerScript('search', "
     $('.search-button').click(function() {
         $('.search-form').toggle();
@@ -27,8 +25,6 @@ Yii::app()->clientScript->registerScript('search', "
 ?>
 
 <h1><?php echo $this->module->getName(); ?></h1>
-
-<?php $this->widget('YModuleInfo'); ?>
 
 <?php echo CHtml::link(Yii::t('user', 'Поиск пользователей'), '#', array('class' => 'search-button')); ?>
 <div class="search-form" style="display:none">

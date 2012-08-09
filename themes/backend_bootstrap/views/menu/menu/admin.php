@@ -80,7 +80,7 @@ $this->widget('YCustomGridView', array(
             'htmlOptions' => array('style'=>'width:40px; text-align:center;'),
         ),
         array(
-            'class'    => 'bootstrap.widgets.BootButtonColumn',
+            'class'    => 'bootstrap.widgets.TbButtonColumn',
             'template' => '{view}{update}{delete}{add}',
             'buttons'  => array(
                 'add' => array(

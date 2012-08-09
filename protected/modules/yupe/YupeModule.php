@@ -206,9 +206,9 @@ class YupeModule extends YWebModule
                 {
                     if (is_a($module, 'YWebModule') && (
                         $module->isShowInAdminMenu || $module->editableParams || (
-                        !$module->isShowInAdminMenu && is_array($module->checkSelf())
+                            !$module->isShowInAdminMenu && is_array($module->checkSelf())
                         )
-                        ))
+                    ))
                     {
                         $modules[$key]    = $module;
                         $category[$key]   = $module->category;
@@ -274,22 +274,22 @@ class YupeModule extends YWebModule
                     if (!isset($modulesNavigation[$category[$key]]))
                     {
                         $modulesNavigation[$category[$key]] = array(
-                            'label' => $category[$key],
-                            'url'   => '#',
-                            'items' => array( ),
+                            'label'       => $category[$key],
+                            'url'         => '#',
+                            'items'       => array( ),
                             'linkOptions' => array( 'class' => 'sub-menu' ),
                         );
 
                         if (isset($this->categoryIcon[$category[$key]]))
-                            $modulesNavigation[$category[$key]]['icon']    = $this->categoryIcon[$category[$key]];
+                            $modulesNavigation[$category[$key]]['icon'] = $this->categoryIcon[$category[$key]];
                         // Если нет иконка для данной категории, подставляется иконка первого модуля
                         elseif ($modules[$key]->icon)
-                            $modulesNavigation[$category[$key]]['icon']    = $modules[$key]->icon;
+                            $modulesNavigation[$category[$key]]['icon'] = $modules[$key]->icon;
                     }
                     $modulesNavigation[$category[$key]]['items'][] = $data;
                 }
                 else
-                    $modulesNavigation[]                           = $data;
+                    $modulesNavigation[] = $data;
             }
         }
 
@@ -300,7 +300,7 @@ class YupeModule extends YWebModule
             'modules'           => $modules,
             'yiiModules'        => $yiiModules,
             'modulesNavigation' => $modulesNavigation,
-            );
+        );
     }
 
     /**

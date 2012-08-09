@@ -4,7 +4,7 @@
  * - $this: the BootCrudCode object
  */
 ?>
-<?php echo  "<?php \$form=\$this->beginWidget('bootstrap.widgets.BootActiveForm',array(
+<?php echo  "<?php \$form=\$this->beginWidget('bootstrap.widgets.TbActiveForm',array(
 	'id'=>'".$this->class2id($this->modelClass)."-form',
 	'enableAjaxValidation'=>false,
 	'type'=>'vertical',
@@ -27,7 +27,7 @@ foreach($this->tableSchema->columns as $column)
 }
 ?>
 	
-<?php echo  "<?php \$this->widget('bootstrap.widgets.BootButton', array(
+<?php echo  "<?php \$this->widget('bootstrap.widgets.TbButton', array(
         'buttonType'=>'submit',
         'type'=>'primary',
         'label'=>\$model->isNewRecord ? Yii::t('yupe','Добавить $this->vin') : Yii::t('yupe','Сохранить $this->vin'),

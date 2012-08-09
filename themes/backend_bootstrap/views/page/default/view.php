@@ -2,7 +2,7 @@
 
 <?php
 $this->breadcrumbs = array(
-    $this->getModule('page')->getCategory() => array(''),
+    $this->getModule('page')->getCategory() => array('admin'),
     Yii::t('page', 'Страницы') => array('admin'),
     $model->title,
 );
@@ -19,28 +19,22 @@ $this->menu = array(
 
 <div class="page-header">
     <h1>
-        <?php echo Yii::t('page', 'Просмотр страницы');?>
+        <?php echo Yii::t('page', 'Просмотр страницы'); ?>
         <br /><small style="margin-left:-10px;">&laquo;<?php echo $model->title; ?>&raquo;</small>
     </h1>
 </div>
 
 
-<h2><?=$model->title;?></h2>
-<small><?php echo Yii::t('page','Автор')?>: <?=$model->changeAuthor->getFullName();?></small>
+<h2><?php echo $model->title; ?></h2>
+<small><?php echo Yii::t('page','Автор')?>: <?php echo $model->changeAuthor->getFullName(); ?></small>
 <br /><br />
-<p>
-    <?=$model->body;?>
-
-</p>
-
+<p><?php echo $model->body; ?></p>
 <br/>
 
 <?php echo CHtml::link(Yii::t('page', 'Просмотреть на сайте'), array('/page/page/show/', 'slug' => $model->slug, 'preview' => 1)); ?>
-
 <?php echo CHtml::link(Yii::t('page', 'Редактировать эту страницу'), array('update', 'slug' => $model->slug)); ?>
-
 <?php echo CHtml::link(Yii::t('page', 'Удалить эту страницу'), array('update', 'id' => $model->id), array('submit' => array('delete', 'id' => $model->id), 'confirm' => Yii::t('page', 'Подтверждаете удаление страницы ?'))); ?>
 
 <br/><br/>
 
-<li class="icon-globe"></li> <?php echo Yii::app()->createAbsoluteUrl("/page/page/show/",array("slug" => $model->slug));?>
+<li class="icon-globe"></li> <?php echo Yii::app()->createAbsoluteUrl("/page/page/show/",array("slug" => $model->slug)); ?>

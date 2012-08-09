@@ -1,4 +1,4 @@
-<?php $form=$this->beginWidget('bootstrap.widgets.BootActiveForm',array(
+<?php $form=$this->beginWidget('bootstrap.widgets.TbActiveForm',array(
 	'id'=>'mail-template-form',
 	'enableAjaxValidation'=>false,
 	'type'=>'horizontal',
@@ -23,33 +23,33 @@
 	<div class='control-group <?php echo $model->hasErrors("body")?"error":"" ?>'>
          <?php echo $form->labelEx($model, 'body'); ?>
               <?php $this->widget(Yii::app()->getModule('yupe')->editor, array(
-                                                      'model' => $model,
-                                                      'attribute' => 'body',
-                                                      'options'   => array(                                                           
-                                                           'toolbar' => 'main',
-                                                           'imageUpload' => Yii::app()->baseUrl.'/index.php/yupe/backend/AjaxFileUpload/'                                                           
-                                                       ),
-                                                      'htmlOptions' => array('rows' => 20,'cols' => 6)
-                                                 ))?>
+                  'model' => $model,
+                  'attribute' => 'body',
+                  'options'   => array(
+                       'toolbar' => 'main',
+                       'imageUpload' => Yii::app()->baseUrl.'/index.php/yupe/backend/AjaxFileUpload/'
+                   ),
+                  'htmlOptions' => array('rows' => 20,'cols' => 6)
+             ));?>
         </div>
         
         <div class='control-group <?php echo $model->hasErrors("description")?"error":"" ?>'>
-               <?php echo $form->labelEx($model, 'description'); ?>
+              <?php echo $form->labelEx($model, 'description'); ?>
               <?php $this->widget(Yii::app()->getModule('yupe')->editor, array(
-                                                      'model' => $model,
-                                                      'attribute' => 'description',
-                                                      'options'   => array(                                                           
-                                                           'toolbar' => 'main',
-                                                           'imageUpload' => Yii::app()->baseUrl.'/index.php/yupe/backend/AjaxFileUpload/'                                                           
-                                                       ),
-                                                      'htmlOptions' => array('rows' => 20,'cols' => 6)
-                                                 ))?>
+                  'model' => $model,
+                  'attribute' => 'description',
+                  'options'   => array(
+                       'toolbar' => 'main',
+                       'imageUpload' => Yii::app()->baseUrl.'/index.php/yupe/backend/AjaxFileUpload/'
+                   ),
+                  'htmlOptions' => array('rows' => 20,'cols' => 6)
+             )); ?>
         </div>
 
 	<div class='control-group <?php echo $model->hasErrors("status")?"error":"" ?>'><?php echo  $form->dropDownListRow($model,'status',$model->getStatusList(),array('class'=>'span5')); ?></div>
 
 	<div class="form-actions">
-		<?php $this->widget('bootstrap.widgets.BootButton', array(
+		<?php $this->widget('bootstrap.widgets.TbButton', array(
 			'buttonType'=>'submit',
 			'type'=>'primary',
 			'label'=>$model->isNewRecord ? Yii::t('yupe','Создать') : 'Сохранить',
