@@ -1,6 +1,7 @@
 <?php
 $this->breadcrumbs = array(
-    'задания' => array('index'),
+    $this->module->getCategory() => array('admin'),
+    'Задания' => array('index'),
     $model->id=> array('view',
         'id'=> $model->id),
     'Редактирование',
@@ -15,7 +16,7 @@ $this->menu        = array(
           'url'   => array('/queue/default/create')),
     array('icon'       => 'pencil white',
           'encodeLabel'=> false,
-          'label'      => 'Редактирование задание<br /><span class="label" style="font-size: 80%; margin-left:20px;">' . mb_substr($model->id, 0, 32) . "</span>",
+          'label'      => 'Редактирование задания',
           'url'        => array('/queue/default/update',
               'id'=> $model->id)),
     array('icon'       => 'eye-open',

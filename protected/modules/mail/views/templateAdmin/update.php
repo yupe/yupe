@@ -1,6 +1,7 @@
 <?php
 $this->breadcrumbs=array(
-	'почтовые шаблоны'=>array('index'),
+    $this->module->getCategory() => array('admin'),
+	'Почтовые шаблоны'=>array('index'),
 	$model->name=>array('view','id'=>$model->id),
 	Yii::t('yupe','Редактирование'),
 );

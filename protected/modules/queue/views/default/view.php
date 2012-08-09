@@ -1,6 +1,7 @@
 <?php
 $this->breadcrumbs = array(
-    'задания'=> array('index'),
+    $this->module->getCategory() => array('admin'),
+    'Задания'=> array('index'),
     $model->id,
 );
 $this->pageTitle   = "задания - просмотр";

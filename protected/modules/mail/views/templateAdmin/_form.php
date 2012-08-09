@@ -1,7 +1,7 @@
 <?php $form=$this->beginWidget('bootstrap.widgets.TbActiveForm',array(
 	'id'=>'mail-template-form',
 	'enableAjaxValidation'=>false,
-	'type'=>'horizontal',
+	'htmlOptions' => array('class' => 'well form-vertical'),
 )); ?>
 
 <div class="alert alert-info"><?php echo Yii::t('yupe','Поля, отмеченные');?> <span class="required">*</span> <?php echo Yii::t('yupe','обязательны.');?></div>
@@ -48,12 +48,12 @@
 
 	<div class='control-group <?php echo $model->hasErrors("status")?"error":"" ?>'><?php echo  $form->dropDownListRow($model,'status',$model->getStatusList(),array('class'=>'span5')); ?></div>
 
-	<div class="form-actions">
-		<?php $this->widget('bootstrap.widgets.TbButton', array(
-			'buttonType'=>'submit',
-			'type'=>'primary',
-			'label'=>$model->isNewRecord ? Yii::t('yupe','Создать') : 'Сохранить',
-		)); ?>
-	</div>
+	
+	<?php $this->widget('bootstrap.widgets.TbButton', array(
+		'buttonType'=>'submit',
+		'type'=>'primary',
+		'label'=>$model->isNewRecord ? Yii::t('yupe','Создать почтовый шаблон') : Yii::t('yupe','Сохранить почтовый шаблон'),
+	)); ?>
+	
 
 <?php $this->endWidget(); ?>

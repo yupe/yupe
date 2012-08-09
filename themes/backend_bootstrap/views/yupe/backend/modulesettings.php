@@ -1,11 +1,16 @@
 <?php
 $this->breadcrumbs = array(
+    Yii::t('yupe', 'Система') => array('settings'),
     Yii::t('yupe', 'Настройки') => array('settings'),
     $module->getName()
 );
 ?>
 
-<h1><?php echo Yii::t('yupe', 'Настройки модуля'); ?> "<?php echo $module->getName(); ?>"</h1>
+<h1>
+    <?php echo Yii::t('yupe', 'Настройки модуля'); ?> "<?php echo $module->getName(); ?>"
+    <small><?php echo Yii::t('yupe','версии');?> <?php echo $module->getVersion();?><small>
+</h1>
+
 
 <br/>
 
@@ -20,7 +25,7 @@ $this->breadcrumbs = array(
         </div>
     <?php endforeach;?>
     <br />
-    <?php echo CHtml::submitButton(Yii::t('yupe', 'Сохранить настройки модуля'), array('class'=> 'btn btn-primary', 'id' => 'saveModuleSettings', 'name' => 'saveModuleSettings'));?>
+    <?php echo CHtml::submitButton(Yii::t('yupe', 'Сохранить настройки модуля "{{name}}"',array('{{name}}' => $module->getName())), array('class'=> 'btn btn-primary', 'id' => 'saveModuleSettings', 'name' => 'saveModuleSettings'));?>
     </fieldset>
     <?php echo CHtml::endForm(); ?>
 <?php else: ?>

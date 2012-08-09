@@ -1,5 +1,6 @@
 <?php
 $this->breadcrumbs = array(
+	Yii::t('yupe', 'Система') => array('settings'),
     Yii::t('yupe', 'Настройки') => array('settings'),
     Yii::t('yupe', 'Темы оформления'),
 );

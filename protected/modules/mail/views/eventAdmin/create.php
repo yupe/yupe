@@ -1,6 +1,7 @@
 <?php
 $this->breadcrumbs=array(
-	'почтовые события'=>array('index'),
+	$this->module->getCategory() => array('admin'),
+	'Почтовые события'=>array('index'),
 	Yii::t('yupe','Добавление'),
 );
 
@@ -10,7 +11,7 @@ array('icon'=> 'list-alt', 'label' => Yii::t('yupe','Управление поч
 );
 ?>
 <div class="page-header">
-    <h1><?php echo Yii::t('yupe','почтовые события');?>    <small><?php echo Yii::t('yupe','добавление');?></small>
+    <h1><?php echo Yii::t('yupe','Почтовые события');?>    <small><?php echo Yii::t('yupe','добавление');?></small>
     </h1>
 </div>
 <?php echo  $this->renderPartial('_form', array('model'=>$model)); ?>

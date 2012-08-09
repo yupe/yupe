@@ -29,11 +29,11 @@ class EventAdminController extends YBackController
 			$model->attributes=$_POST['MailEvent'];
 
 			if($model->save())
-                        {
-                            Yii::app()->user->setFlash(YFlashMessages::NOTICE_MESSAGE,Yii::t('mail','Запись добавлена!'));
+            {
+                Yii::app()->user->setFlash(YFlashMessages::NOTICE_MESSAGE,Yii::t('mail','Запись добавлена!'));
 
-			    $this->redirect(array('view','id'=>$model->id));
-                        }
+                $this->redirect(array('update','id'=>$model->id));
+            }
 		}
 
 		$this->render('create',array(
@@ -57,11 +57,11 @@ class EventAdminController extends YBackController
 			$model->attributes=$_POST['MailEvent'];
 
 			if($model->save())
-                        {
-                            Yii::app()->user->setFlash(YFlashMessages::NOTICE_MESSAGE,Yii::t('mail','Запись обновлена!'));
+            {
+                Yii::app()->user->setFlash(YFlashMessages::NOTICE_MESSAGE,Yii::t('mail','Запись обновлена!'));
 
-			    $this->redirect('index');
-                        }
+                $this->redirect(array('update','id'=>$model->id));
+            }
 		}
 
 		$this->render('update',array(

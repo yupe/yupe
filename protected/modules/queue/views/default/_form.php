@@ -1,7 +1,7 @@
 <?php $form = $this->beginWidget('bootstrap.widgets.TbActiveForm', array(
     'id' => 'queue-form',
     'enableAjaxValidation'=> false,
-    'type' => 'horizontal',
+    'htmlOptions' => array('class' => 'well form-vertical'),
 )); ?>
 
 <div class="alert alert-info">Поля, отмеченные звездочкой <span class="required">*</span> обязательны.</div>
@@ -18,12 +18,12 @@
 
 <div class='control-group <?php echo $model->hasErrors("status") ? "error" : "" ?>'><?php echo $form->dropDownListRow($model, 'status', $model->getStatusList(), array('class'=> 'span5')); ?></div>
 
-<div class="form-actions">
+
 <?php $this->widget('bootstrap.widgets.TbButton', array(
     'buttonType' => 'submit',
     'type'       => 'primary',
-    'label'      => $model->isNewRecord ? 'Создать' : 'Сохранить',
+    'label'      => $model->isNewRecord ? Yii::t('queue','Добавить задание') : Yii::t('queue','Сохранить задание'),
 )); ?>
-</div>
+
 
 <?php $this->endWidget(); ?>

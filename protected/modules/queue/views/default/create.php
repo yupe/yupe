@@ -1,6 +1,7 @@
 <?php
 $this->breadcrumbs = array(
-    'задания'=> array('index'),
+	$this->module->getCategory() => array('admin'),
+    'Задания'=> array('index'),
     'Создание',
 );
 
@@ -10,7 +11,7 @@ $this->menu = array(
 );
 ?>
 <div class="page-header">
-    <h1>задания
+    <h1>Задания
         <small>добавление</small>
     </h1>
 </div>

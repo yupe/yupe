@@ -1,8 +1,10 @@
 <?php
 $this->breadcrumbs = array(
-    'задания'=> array('index'),
+    $this->module->getCategory() => array('admin'),
+    'Задания'=> array('index'),
     'Управление',
 );
+
 $this->pageTitle   = "задания - управление";
 $this->menu        = array(
     array('icon'  => 'list-alt white',
@@ -13,7 +15,7 @@ $this->menu        = array(
           'url'   => array('/queue/default/create')),
 );
 ?>
-<div class="page-header"><h1>задания <small>управление</small></h1></div>
+<div class="page-header"><h1>Задания <small>управление</small></h1></div>
 <button class="btn btn-small dropdown-toggle"
         data-toggle="collapse"
         data-target="#search-toggle">

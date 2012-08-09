@@ -1,5 +1,6 @@
 <?php
 $this->breadcrumbs = array(
+    Yii::t('yupe', 'Система') => array('settings'),
     Yii::t('yupe', 'Юпи!') => array('settings'),
     Yii::t('yupe','Помощь')
 );
@@ -30,6 +31,10 @@ $this->breadcrumbs = array(
 <br />
 
 <p><?php echo Yii::t('yupe', 'Полезные ресурсы:');?></p>
+
+<?php echo CHtml::link(Yii::t('yupe','Обязательно прочтите документацию Yii'),'http://yiiframework.ru/doc/guide/ru/index');?>
+<br /><br />
+
 
 <?php echo CHtml::link(Yii::t('yupe', 'Официальный сайт Юпи!'), 'http://yupe.ru/?form=help'); ?> - <?php echo Yii::t('yupe', 'заходите чаще =)'); ?>
 

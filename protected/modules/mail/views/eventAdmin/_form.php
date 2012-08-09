@@ -1,7 +1,7 @@
 <?php $form=$this->beginWidget('bootstrap.widgets.TbActiveForm',array(
     'id'=>'mail-event-form',
     'enableAjaxValidation'=>false,
-    'type'=>'horizontal',
+    'htmlOptions' => array('class' => 'well form-vertical'),
 )); ?>
 
 <div class="alert alert-info"><?php echo Yii::t('yupe','Поля, отмеченные');?> <span class="required">*</span> <?php echo Yii::t('yupe','обязательны.');?></div>
@@ -25,12 +25,12 @@
          )); ?>
         </div>
 
-    <div class="form-actions">
+    
         <?php $this->widget('bootstrap.widgets.TbButton', array(
             'buttonType'=>'submit',
             'type'=>'primary',
-            'label'=>$model->isNewRecord ? Yii::t('yupe','Создать') : 'Сохранить',
+            'label'=>$model->isNewRecord ? Yii::t('yupe','Добавить почтовое событие') : Yii::t('yupe','Сохранить почтовое событие'),
         )); ?>
-    </div>
+    
 
 <?php $this->endWidget(); ?>

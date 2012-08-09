@@ -1,6 +1,7 @@
 <?php
 $this->breadcrumbs=array(
-    'почтовые события'=>array('index'),
+    $this->module->getCategory() => array('admin'),
+    'Почтовые события'=>array('index'),
     Yii::t('yupe','Управление'),
 );
 $this-> pageTitle ="почтовые события - "."Yii::t('yupe','управление')";
