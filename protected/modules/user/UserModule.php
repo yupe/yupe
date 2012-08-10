@@ -120,6 +120,17 @@ class UserModule extends YWebModule
         );
     }
 
+    public function getNavigation()
+    {
+        return array(
+            Yii::t('user', 'Добавить пользователя')              => '/user/default/create/',
+            Yii::t('user', 'Управление пользователями')          => '/user/default/admin/',
+            Yii::t('user', 'Список пользователей пользователей') => '/user/default/index/',
+            Yii::t('user', 'Управление восстановлением паролей') => '/user/recoveryPassword/admin',
+            Yii::t('user', 'Список восстановлений')              => '/user/recoveryPassword/index',
+        );
+    }
+
     public function getName()
     {
         return Yii::t('user', 'Пользователи');
