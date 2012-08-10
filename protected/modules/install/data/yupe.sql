@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Хост: localhost
--- Время создания: Авг 10 2012 г., 17:02
+-- Время создания: Авг 10 2012 г., 17:06
 -- Версия сервера: 5.5.24
 -- Версия PHP: 5.3.10-1ubuntu3.2
 
@@ -396,9 +396,8 @@ CREATE TABLE IF NOT EXISTS `menu_item` (
   `menu_id` int(10) unsigned NOT NULL,
   `title` varchar(255) NOT NULL,
   `href` varchar(255) NOT NULL,
-  `condition_name` varchar(255) DEFAULT NULL,
-  `condition_denial` tinyint(4) DEFAULT NULL,
-  `type` tinyint(3) unsigned NOT NULL DEFAULT '1',
+  `condition_name` varchar(255) DEFAULT '0',
+  `condition_denial` tinyint(4) DEFAULT '0',
   `sort` tinyint(3) unsigned NOT NULL DEFAULT '1',
   `status` tinyint(3) unsigned NOT NULL DEFAULT '1',
   PRIMARY KEY (`id`),
