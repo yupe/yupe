@@ -172,6 +172,11 @@ abstract class YWebModule extends CWebModule
         return null;
     }
 
+    public function isMultiLang()
+    {
+        return false;
+    }
+
     /**
      *  инициализация модуля, считывание настроек из базы данных и их кэширование
      */

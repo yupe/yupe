@@ -89,10 +89,10 @@ class Page extends CActiveRecord
     {
         return array(
             'id'             => Yii::t('page', 'Id'),
-            'parent_Id'      => Yii::t('page', 'Родительская страница'),
+            'parent_Id'      => Yii::t('page', 'Родитель'),
             'category_id'    => Yii::t('page', 'Категория'),
-            'creation_date'  => Yii::t('page', 'Дата создания'),
-            'change_date'    => Yii::t('page', 'Дата изменения'),
+            'creation_date'  => Yii::t('page', 'Создано'),
+            'change_date'    => Yii::t('page', 'Изменено'),
             'title'          => Yii::t('page', 'Заголовок'),
             'slug'           => Yii::t('page', 'Url'),
             'lang'           => Yii::t('page', 'Язык'),
@@ -101,10 +101,10 @@ class Page extends CActiveRecord
             'description'    => Yii::t('page', 'Описание (SEO)'),
             'status'         => Yii::t('page', 'Статус'),
             'is_protected'   => Yii::t('page', 'Доступ: * только для авторизованных пользователей'),
-            'name'           => Yii::t('page', 'Название в меню'),
+            'name'           => Yii::t('page', 'В меню'),
             'user_id'        => Yii::t('page', 'Создал'),
             'change_user_id' => Yii::t('page', 'Изменил'),
-            'menu_order'     => Yii::t('page', 'Порядок в меню'),
+            'menu_order'     => Yii::t('page', 'Сортировка'),
         );
     }
 

@@ -54,56 +54,152 @@ class DefaultController extends YBackController
         ));
     }
 
-    /**
-     * Редактирование категории.
+     /**
+     * Updates a particular model.
+     * If update is successful, the browser will be redirected to the 'view' page.
      * @param integer $id the ID of the model to be updated
      */
-    public function actionUpdate($id)
+    public function actionUpdate($alias = null, $id = null)
     {
-        $model = $this->loadModel($id);
-
-        // Uncomment the following line if AJAX validation is needed
-        // $this->performAjaxValidation($model);
-
-        $image = $model->image;
-
-        if (isset($_POST['Category']))
+        if (!$alias)
         {
-            $model->attributes = $_POST['Category'];
+            // Указан ID новости страницы, редактируем только ее
+            $model = $this->loadModel($id);
 
-            if ($model->save())
+            // Uncomment the following line if AJAX validation is needed
+            // $this->performAjaxValidation($model);
+
+            if (isset($_POST['Category']))
             {
-                $model->image = CUploadedFile::getInstance($model, 'image');
+                $model->attributes = $_POST['Category'];
 
-                if ($model->image)
+                if ($model->save())
                 {
-                    $imageName = $this->module->getUploadPath() . $model->alias . '.' . $model->image->extensionName;
+                    Yii::app()->user->setFlash(YFlashMessages::NOTICE_MESSAGE, Yii::t('category', 'Категория изменена!'));
 
-                    @unlink($this->module->getUploadPath() . $image);
+                    $this->redirect(array( 'update', 'id' => $model->id ));
+                }
+            }
 
-                    if ($model->image->saveAs($imageName))
+            $this->render('update', array(
+                'model' => $model,
+            ));
+        }
+        else
+        {
+            $modelsByLang = array();
+            // Указано ключевое слово новости, ищем все языки
+            $yupe  = Yii::app()->getModule('yupe');
+            $langs = explode(",", $yupe->availableLanguages);
+
+            $models = Category::model()->findAllByAttributes(array( 'alias' => $alias ));
+            if (!$models)
+                throw new CHttpException(404, Yii::t('category', 'Указанная категория не найдена'));
+
+
+            $model = null;
+            // Собираем модельки по языкам
+            foreach ($models as $m)
+            {
+                if (!$m->lang)
+                    $m->lang = Yii::app()->sourceLanguage;
+                $modelsByLang[$m->lang] = $m;
+            }
+            // Выберем модельку для вывода тайтлов и прочего
+            $model = isset($modelsByLang[Yii::app()->language]) ? $modelsByLang[Yii::app()->language] :
+                (isset($modelsByLang[Yii::app()->sourceLanguage]) ? $modelsByLang[Yii::app()->sourceLanguage] : reset($models));
+
+            // Теперь создадим недостоающие
+            foreach ($langs as $l)
+            {
+                if (!isset($modelsByLang[$l]))
+                {
+                    $news = new Category;
+                    $news->setAttributes(
+                        array(
+                            'alias'         => $alias,
+                            'lang'          => $l,
+                            'parent_id'     => $model->parent_id,                            
+                            'iamge'         => $model->image,                            
+                        )
+                    );
+
+                    if ($l != Yii::app()->sourceLanguage)
+                        $news->scenario = 'altlang';
+
+                    $modelsByLang[$l] = $news;
+                }
+            }
+
+            // Проверим пост
+            if (isset($_POST['Category']))
+            {
+                $wasError = false;
+
+                foreach ($langs as $l)
+                {
+                    $img = $modelsByLang[$l]->image;
+
+                    $modelsByLang[$l]->image = CUploadedFile::getInstance($modelsByLang[$l], 'image') !== null ? CUploadedFile::getInstance($modelsByLang[$l], 'image') : $img;
+
+                    if (isset($_POST['Category'][$l]))
                     {
-                        $model->image = basename($imageName);
+                        $p = $_POST['Category'][$l];
 
-                        $model->update(array( 'image' ));
+                        $modelsByLang[$l]->setAttributes(array(
+                            'alias'        => $_POST['Category']['alias'],                            
+                            'parent_id'    => $_POST['Category']['parent_id'],
+                            'image'        => $modelsByLang[$l]->image,
+                            'name'         => $p['name'],
+                            'short_description' => $p['short_description'],
+                            'description'  => $p['description'],                            
+                            'status' => $p['status']
+                        ));
+
+                        if ($l != Yii::app()->sourceLanguage)
+                            $modelsByLang[$l]->scenario = 'altlang';
+
+                        if (!$modelsByLang[$l]->save())                        
+                            $wasError = true;                 
+                                                               
+                        elseif(is_object($modelsByLang[$l]->image))
+                        {
+                            $imageName = $this->module->getUploadPath() . $model->alias . '.' . $modelsByLang[$l]->image->extensionName;
+
+                            @unlink($this->module->getUploadPath() . $image);
+
+                            if ($modelsByLang[$l]->image->saveAs($imageName))
+                            {
+                                $modelsByLang[$l]->image = basename($imageName);
+
+                                $modelsByLang[$l]->update(array( 'image' ));
+                            }
+                        }
+                        else
+                            $alias = $modelsByLang[$l]->alias;
                     }
                 }
-                else
+
+                if (!$wasError)
                 {
-                    $model->image = $image;
+                    Yii::app()->user->setFlash(YFlashMessages::NOTICE_MESSAGE, Yii::t('category', 'Категория обновлена!'));
 
-                    $model->update(array( 'image' ));
+                    if (isset($_POST['saveAndClose']))
+                        $this->redirect(array( 'admin' ));
+
+                    $this->redirect(array( 'update', 'alias' => $alias ));
                 }
-
-                Yii::app()->user->setFlash(YFlashMessages::NOTICE_MESSAGE, Yii::t('yupe', 'Запись обновлена!'));
-
-                $this->redirect(array( 'update', 'id' => $model->id ));
+                else
+                    Yii::app()->user->setFlash(YFlashMessages::NOTICE_MESSAGE, Yii::t('category', 'Ошибки при сохранении Категории!'));
             }
-        }
 
-        $this->render('update', array(
-            'model' => $model,
-        ));
+
+            $this->render('updateMultilang', array(
+                'model'  => $model,
+                'models' => $modelsByLang,
+                'langs'  => $langs,
+            ));
+        }
     }
 
     /**

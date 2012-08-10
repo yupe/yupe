@@ -109,6 +109,12 @@ class NewsModule extends YWebModule
         return Category::model()->findAll($criteria);
     }
 
+    public function isMultiLang()
+    {
+        return true;
+    }
+
+
     public function init()
     {
         parent::init();

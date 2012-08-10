@@ -73,9 +73,7 @@ $this->menu = array(
             array(
                 'name' => Yii::t('page', 'Публичный урл'),
                 'value' => 'Yii::app()->createAbsoluteUrl("/page/page/show/", array("slug" => $data->slug))',
-            ),
-            'creation_date',
-            'change_date',
+            ),          
             array(
                 'name' => 'menu_order',
                 'type' => 'raw',

@@ -39,6 +39,7 @@
         <tr>
             <th></th>
             <th style="width: 32px;"><?php echo Yii::t('yupe', 'Вер.'); ?></th>
+            <th style="width: 32px;"></th>
             <th style="width: 150px;"><?php echo Yii::t('yupe', 'Название'); ?></th>
             <th><?php echo Yii::t('yupe', 'Описание');?></th>
             <th></th>
@@ -58,6 +59,7 @@
                 else
                     echo "'>".$v;
                 ?></small></td>
+            <td><?php if($module->isMultiLang()):?><i class="icon-globe"></i><?php endif;?></td>    
             <td>
             <small style="font-size: 80%;"><?php echo $module->getCategory(); ?></small><br />
             <?php echo CHtml::link($module->getName(), array($module->getAdminPageLink())); ?></td>

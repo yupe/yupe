@@ -51,4 +51,12 @@ class ContentBlockModule extends YWebModule
             'contentblock.components.*',
         ));
     }
+
+    public function getNavigation()
+    {
+        return array(
+            Yii::t('contentblock','Добавить блок') => '/contentblock/default/create/',
+            Yii::t('contentblock','Список блоков') => '/contentblock/default/admin/'
+        );
+    }
 }

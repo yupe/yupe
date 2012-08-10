@@ -11,7 +11,7 @@ array('icon'=> 'list-alt', 'label' => Yii::t('yupe','Управление кат
 );
 ?>
 <div class="page-header">
-    <h1><?php echo Yii::t('yupe','категории');?>    <small><?php echo Yii::t('yupe','добавление');?></small>
+    <h1><?php echo Yii::t('yupe','Категории');?>    <small><?php echo Yii::t('yupe','добавление');?></small>
     </h1>
 </div>
 <?php echo  $this->renderPartial('_form', array('model'=>$model)); ?>

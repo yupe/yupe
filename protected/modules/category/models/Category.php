@@ -78,7 +78,9 @@ class Category extends CActiveRecord
             array('name', 'length', 'max' => 150),
             array('alias', 'length', 'max' => 100),
             array('alias', 'match', 'pattern' => '/^[A-Za-z0-9\-]{1,50}$/', 'message' => Yii::t('category','Неверный формат поля "{attribute}" допустимы только буквы, цифры и символ "-", от 2 до 20 символов')),
-            array('alias', 'unique'),
+            array('lang', 'length', 'max' => 2 ),
+            array('lang', 'default', 'value' => Yii::app()->sourceLanguage),
+            array( 'alias', 'unique', 'criteria' => array( 'condition' => 'lang=:lang', 'params' => array( ':lang' => $this->lang ) ), 'on' => array( 'insert' ) ),                        
             array('status', 'in', 'range' => array_keys($this->getStatusList())),
             array('image', 'file', 'types'=>'jpg, gif, png','allowEmpty' => true),
             array('id, parent_id, name, description, short_description, alias, status', 'safe', 'on' => 'search'),
@@ -100,6 +102,7 @@ class Category extends CActiveRecord
     {
         return array(
             'id' => Yii::t('category', 'Id'),
+            'lang' => Yii::t('category', 'Язык'),
             'parent_id' => Yii::t('category', 'Родитель'),
             'name' => Yii::t('category', 'Название'),
             'image' => Yii::t('category', 'Изображение'),
