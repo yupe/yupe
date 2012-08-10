@@ -1,27 +1,33 @@
-<?php $this->pageTitle = Yii::t('user', 'Управление пользователями'); ?>
-
 <?php
-$this->breadcrumbs = array(
-    Yii::t('user', 'Пользователи') => array('admin'),
-    Yii::t('user', 'Управление'),
-);
 
-$this->menu = array(
-    array('label' => Yii::t('user', 'Добавить пользователя'), 'url' => array('create')),
-    array('label' => Yii::t('user', 'Восстановления паролей'), 'url' => array('/user/recoveryPassword/admin')),
-);
-Yii::app()->clientScript->registerScript('search', "
-    $('.search-button').click(function() {
-        $('.search-form').toggle();
-        return false;
-    });
-    $('.search-form form').submit(function() {
-        $.fn.yiiGridView.update('user-grid', {
-            data: $(this).serialize()
+    $this->pageTitle = Yii::t('user', 'Управление пользователями');
+
+    $this->breadcrumbs = array(
+        Yii::t('user', 'Пользователи') => array('admin'),
+        Yii::t('user', 'Управление'),
+    );
+
+    $this->menu = array(
+        array('icon' => 'th-large white', 'label' => Yii::t('user', 'Управление пользователями'), 'url' => array('/user/default/admin')),
+        array('icon' => 'th-list', 'label' => Yii::t('user', 'Список пользователей'), 'url' => array('/user/default/index')),
+        array('icon' => 'plus-sign', 'label' => Yii::t('user', 'Добавление пользователя'), 'url' => array('/user/default/create')),
+        array('label' => Yii::t('user', 'Восстановления паролей')),
+        array('icon' => 'th-large', 'label' => Yii::t('user', 'Управление восстановлением паролей'), 'url' => array('/user/recoveryPassword/admin')),
+        array('icon' => 'th-list', 'label' => Yii::t('user', 'Список восстановлений'), 'url' => array('/user/recoveryPassword/index')),
+    );
+
+    Yii::app()->clientScript->registerScript('search', "
+        $('.search-button').click(function() {
+            $('.search-form').toggle();
+            return false;
         });
-        return false;
-    });
-");
+        $('.search-form form').submit(function() {
+            $.fn.yiiGridView.update('user-grid', {
+                data: $(this).serialize()
+            });
+            return false;
+        });
+    ");
 ?>
 
 <h1><?php echo $this->module->getName(); ?></h1>
