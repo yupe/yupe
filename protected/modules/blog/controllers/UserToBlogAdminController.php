@@ -9,9 +9,7 @@ class UserToBlogAdminController extends YBackController
      */
     public function actionView($id)
     {
-        $this->render('view', array(
-            'model' => $this->loadModel($id),
-        ));
+        $this->render('view', array('model' => $this->loadModel($id)));
     }
 
     /**
@@ -37,9 +35,7 @@ class UserToBlogAdminController extends YBackController
             $this->redirect(array('admin'));
         }
 
-        $this->render('create', array(
-            'model' => $model,
-        ));
+        $this->render('create', array('model' => $model));
     }
 
     /**
@@ -62,9 +58,7 @@ class UserToBlogAdminController extends YBackController
                 $this->redirect(array('view', 'id' => $model->id));
         }
 
-        $this->render('update', array(
-            'model' => $model,
-        ));
+        $this->render('update', array('model' => $model));
     }
 
     /**
@@ -94,9 +88,8 @@ class UserToBlogAdminController extends YBackController
     public function actionIndex()
     {
         $dataProvider = new CActiveDataProvider('UserToBlog');
-        $this->render('index', array(
-            'dataProvider' => $dataProvider,
-        ));
+
+        $this->render('index', array('dataProvider' => $dataProvider));
     }
 
     /**
@@ -105,13 +98,13 @@ class UserToBlogAdminController extends YBackController
     public function actionAdmin()
     {
         $model = new UserToBlog('search');
+
         $model->unsetAttributes(); // clear any default values
+
         if(isset($_GET['UserToBlog']))
             $model->attributes = $_GET['UserToBlog'];
 
-        $this->render('admin', array(
-            'model' => $model,
-        ));
+        $this->render('admin', array('model' => $model));
     }
 
     /**

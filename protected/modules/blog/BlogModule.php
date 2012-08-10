@@ -12,7 +12,7 @@ class BlogModule extends YWebModule
     {
         return array(
             'adminMenuOrder' => Yii::t('news', 'Порядок следования в меню'),
-            'editor' => Yii::t('page', 'Визуальный редактор'),
+            'editor'         => Yii::t('page', 'Визуальный редактор'),
         );
     }
 
@@ -27,8 +27,8 @@ class BlogModule extends YWebModule
     public function getNavigation()
     {
         return array(
-            Yii::t('blog', 'Блоги') => '/blog/blogAdmin/admin/',
-            Yii::t('blog', 'Записи') => '/blog/postAdmin/admin/',
+            Yii::t('blog', 'Блоги')     => '/blog/blogAdmin/admin/',
+            Yii::t('blog', 'Записи')    => '/blog/postAdmin/admin/',
             Yii::t('blog', 'Участники') => '/blog/userToBlogAdmin/admin/',
         );
     }

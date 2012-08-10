@@ -19,47 +19,12 @@
  */
 class UserToBlog extends CActiveRecord
 {
-    const ROLE_USER = 1;
+    const ROLE_USER      = 1;
     const ROLE_MODERATOR = 2;
-    const ROLE_ADMIN = 3;
+    const ROLE_ADMIN     = 3;
 
     const STATUS_ACTIVE = 1;
-    const STATUS_BLOCK = 2;
-
-    public function getRoleList()
-    {
-        return array(
-            self::ROLE_USER => Yii::t('blog', 'Пользователь'),
-            self::ROLE_MODERATOR => Yii::t('blog', 'Модератор'),
-            self::ROLE_ADMIN => Yii::t('blog', 'Администратор'),
-        );
-    }
-
-    public function getRole()
-    {
-        $data = $this->getRoleList();
-
-        return isset($data[$this->role])
-            ? $data[$this->role]
-            : Yii::t('blog','*неизвестно*');
-    }
-
-    public function getStatusList()
-    {
-        return array(
-            self::STATUS_ACTIVE => Yii::t('blog', 'Активен'),
-            self::STATUS_BLOCK => Yii::t('blog', 'Заблокирован'),
-        );
-    }
-
-    public function getStatus()
-    {
-        $data = $this->getStatusList();
-
-        return isset($data[$this->status])
-            ? $data[$this->status]
-            : Yii::t('blog', '*неизвестно*');
-    }
+    const STATUS_BLOCK  = 2;
 
     public function behaviors()
     {
@@ -127,14 +92,14 @@ class UserToBlog extends CActiveRecord
     public function attributeLabels()
     {
         return array(
-            'id' => Yii::t('blog', 'id'),
-            'user_id' => Yii::t('blog', 'Пользователь'),
-            'blog_id' => Yii::t('blog', 'Блог'),
+            'id'          => Yii::t('blog', 'id'),
+            'user_id'     => Yii::t('blog', 'Пользователь'),
+            'blog_id'     => Yii::t('blog', 'Блог'),
             'create_date' => Yii::t('blog', 'Дата создания'),
             'update_date' => Yii::t('blog', 'Дата обновления'),
-            'role' => Yii::t('blog', 'Роль'),
-            'status' => Yii::t('blog', 'Статус'),
-            'note' => Yii::t('blog', 'Примечание'),
+            'role'        => Yii::t('blog', 'Роль'),
+            'status'      => Yii::t('blog', 'Статус'),
+            'note'        => Yii::t('blog', 'Примечание'),
         );
     }
 
@@ -157,11 +122,10 @@ class UserToBlog extends CActiveRecord
         $criteria->compare('role', $this->role);
         $criteria->compare('status', $this->status);
         $criteria->compare('note', $this->note, true);
-        $criteria->with = array('user','blog');
 
-        return new CActiveDataProvider($this, array(
-            'criteria'=>$criteria,
-        ));
+        $criteria->with = array('user', 'blog');
+
+        return new CActiveDataProvider($this, array('criteria'=>$criteria));
     }
 
     public function afterFind()
@@ -170,5 +134,36 @@ class UserToBlog extends CActiveRecord
         $this->update_date = date('d.m.Y H:m', $this->update_date);
 
         return parent::afterFind();
+    }
+
+    public function getRoleList()
+    {
+        return array(
+            self::ROLE_USER      => Yii::t('blog', 'Пользователь'),
+            self::ROLE_MODERATOR => Yii::t('blog', 'Модератор'),
+            self::ROLE_ADMIN     => Yii::t('blog', 'Администратор'),
+        );
+    }
+
+    public function getRole()
+    {
+        $data = $this->getRoleList();
+
+        return isset($data[$this->role]) ? $data[$this->role] : Yii::t('blog','*неизвестно*');
+    }
+
+    public function getStatusList()
+    {
+        return array(
+            self::STATUS_ACTIVE => Yii::t('blog', 'Активен'),
+            self::STATUS_BLOCK  => Yii::t('blog', 'Заблокирован'),
+        );
+    }
+
+    public function getStatus()
+    {
+        $data = $this->getStatusList();
+
+        return isset($data[$this->status]) ? $data[$this->status] : Yii::t('blog', '*неизвестно*');
     }
 }

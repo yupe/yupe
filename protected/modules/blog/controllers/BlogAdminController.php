@@ -28,10 +28,7 @@ class BlogAdminController extends YBackController
         {
             $model->attributes = $_POST['Blog'];
             if ($model->save())
-                $this->redirect(array(
-                    'view',
-                    'id' => $model->id,
-                ));
+                $this->redirect(array('view', 'id' => $model->id));
         }
 
         $this->render('create', array('model' => $model, ));
@@ -55,13 +52,10 @@ class BlogAdminController extends YBackController
         {
             $model->attributes = $_POST['Blog'];
             if ($model->save())
-                $this->redirect(array(
-                    'view',
-                    'id' => $model->id,
-                ));
+                $this->redirect(array('view', 'id' => $model->id));
         }
 
-        $this->render('update', array('model' => $model, ));
+        $this->render('update', array('model' => $model));
     }
 
     /**
@@ -102,8 +96,10 @@ class BlogAdminController extends YBackController
     public function actionAdmin()
     {
         $model = new Blog('search');
-        $model->unsetAttributes();
+
         // clear any default values
+        $model->unsetAttributes();
+
         if (isset($_GET['Blog']))
             $model->attributes = $_GET['Blog'];
 
@@ -118,7 +114,7 @@ class BlogAdminController extends YBackController
      */
     public function loadModel($id)
     {
-        $model = Blog::model()->with('postsCount','membersCount')->findByPk((int)$id);
+        $model = Blog::model()->with('postsCount', 'membersCount')->findByPk((int) $id);
         if ($model === null)
             throw new CHttpException(404, 'The requested page does not exist.');
         return $model;

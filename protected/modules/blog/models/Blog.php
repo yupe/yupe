@@ -24,10 +24,10 @@
  */
 class Blog extends CActiveRecord
 {
-    const TYPE_PUBLIC = 1;
+    const TYPE_PUBLIC  = 1;
     const TYPE_PRIVATE = 2;
 
-    const STATUS_ACTIVE = 1;
+    const STATUS_ACTIVE  = 1;
     const STATUS_BLOCKED = 2;
     const STATUS_DELETED = 3;
 
@@ -55,7 +55,6 @@ class Blog extends CActiveRecord
     public function rules()
     {
         return array(
-            //@formatter:off
             array('name, description, slug', 'required'),
             array('type, status, create_user_id, update_user_id', 'numerical', 'integerOnly' => true),
             array('name, icon', 'length', 'max' => 300),
@@ -66,7 +65,6 @@ class Blog extends CActiveRecord
             array('name, slug, description', 'filter', 'filter' => array($obj = new CHtmlPurifier(), 'purify')),
             array('slug', 'match', 'pattern' => '/^[a-zA-Z0-9_\-]+$/', 'message' => Yii::t('blog', 'Запрещенные символы в поле {attribute}')),
             array('id, name, description, icon, slug, type, status, create_user_id, update_user_id, create_date, update_date', 'safe', 'on' => 'search'),
-            //@formatter:on
         );
     }
 
@@ -78,15 +76,13 @@ class Blog extends CActiveRecord
         // NOTE: you may need to adjust the relation name and the related
         // class name for the relations automatically generated below.
         return array(
-            //@formatter:off
-            'createUser' => array(self::BELONGS_TO, 'User', 'create_user_id'),
-            'updateUser' => array(self::BELONGS_TO, 'User', 'update_user_id'),
-            'posts' => array(self::HAS_MANY, 'Post', 'blog_id'),
-            'userToBlog' => array(self::HAS_MANY, 'UserToBlog', 'blog_id'),
-            'members' => array(self::HAS_MANY, 'User', array('user_id' => 'id'), 'through' => 'userToBlog'),
-            'postsCount' => array(self::STAT, 'Post', 'blog_id', 'condition' => 'status = :status', 'params' => array(':status' => Post::STATUS_PUBLISHED)),
+            'createUser'   => array(self::BELONGS_TO, 'User', 'create_user_id'),
+            'updateUser'   => array(self::BELONGS_TO, 'User', 'update_user_id'),
+            'posts'        => array(self::HAS_MANY, 'Post', 'blog_id'),
+            'userToBlog'   => array(self::HAS_MANY, 'UserToBlog', 'blog_id'),
+            'members'      => array(self::HAS_MANY, 'User', array('user_id' => 'id'), 'through' => 'userToBlog'),
+            'postsCount'   => array(self::STAT, 'Post', 'blog_id', 'condition' => 'status = :status', 'params' => array(':status' => Post::STATUS_PUBLISHED)),
             'membersCount' => array(self::STAT, 'UserToBlog', 'blog_id', 'condition' => 'status = :status', 'params' => array(':status' => UserToBlog::STATUS_ACTIVE)),
-            //@formatter:on
         );
     }
 
@@ -96,17 +92,17 @@ class Blog extends CActiveRecord
     public function attributeLabels()
     {
         return array(
-            'id' => Yii::t('blog', 'id'),
-            'name' => Yii::t('blog', 'Название'),
-            'description' => Yii::t('blog', 'Описание'),
-            'icon' => Yii::t('blog', 'Иконка'),
-            'slug' => Yii::t('blog', 'Урл'),
-            'type' => Yii::t('blog', 'Тип'),
-            'status' => Yii::t('blog', 'Статус'),
+            'id'             => Yii::t('blog', 'id'),
+            'name'           => Yii::t('blog', 'Название'),
+            'description'    => Yii::t('blog', 'Описание'),
+            'icon'           => Yii::t('blog', 'Иконка'),
+            'slug'           => Yii::t('blog', 'Урл'),
+            'type'           => Yii::t('blog', 'Тип'),
+            'status'         => Yii::t('blog', 'Статус'),
             'create_user_id' => Yii::t('blog', 'Создал'),
             'update_user_id' => Yii::t('blog', 'Обновил'),
-            'create_date' => Yii::t('blog', 'Создан'),
-            'update_date' => Yii::t('blog', 'Обновлен'),
+            'create_date'    => Yii::t('blog', 'Создан'),
+            'update_date'    => Yii::t('blog', 'Обновлен'),
         );
     }
 
@@ -134,19 +130,20 @@ class Blog extends CActiveRecord
         $criteria->compare('update_user_id', $this->update_user_id, true);
         $criteria->compare('create_date', $this->create_date);
         $criteria->compare('update_date', $this->update_date);
-        $criteria->with = array('createUser','updateUser');
 
-        return new CActiveDataProvider(get_class($this), array('criteria' => $criteria, ));
+        $criteria->with = array('createUser', 'updateUser');
+
+        return new CActiveDataProvider(get_class($this), array('criteria' => $criteria));
     }
 
     public function behaviors()
     {
         return array('CTimestampBehavior' => array(
-                'class' => 'zii.behaviors.CTimestampBehavior',
-                'setUpdateOnCreate' => true,
-                'createAttribute' => 'create_date',
-                'updateAttribute' => 'update_date',
-            ));
+            'class'             => 'zii.behaviors.CTimestampBehavior',
+            'setUpdateOnCreate' => true,
+            'createAttribute'   => 'create_date',
+            'updateAttribute'   => 'update_date',
+        ));
     }
 
     public function afterFind()
@@ -170,7 +167,7 @@ class Blog extends CActiveRecord
     public function getTypeList()
     {
         return array(
-            self::TYPE_PUBLIC => Yii::t('blog', 'публичный'),
+            self::TYPE_PUBLIC  => Yii::t('blog', 'публичный'),
             self::TYPE_PRIVATE => Yii::t('blog', 'личный'),
         );
     }
@@ -185,7 +182,7 @@ class Blog extends CActiveRecord
     public function getStatusList()
     {
         return array(
-            self::STATUS_ACTIVE => Yii::t('blog', 'активен'),
+            self::STATUS_ACTIVE  => Yii::t('blog', 'активен'),
             self::STATUS_BLOCKED => Yii::t('blog', 'заблокирован'),
             self::STATUS_DELETED => Yii::t('blog', 'удален'),
         );
@@ -203,11 +200,11 @@ class Blog extends CActiveRecord
         return array(
             'published' => array(
                 'condition' => 'status = :status',
-                'params' => array(':status' => self::STATUS_ACTIVE),
+                'params'    => array(':status' => self::STATUS_ACTIVE),
             ),
             'public' => array(
                 'condition' => 'type = :type',
-                'params' => array(':type' => self::TYPE_PUBLIC),
+                'params'    => array(':type' => self::TYPE_PUBLIC),
             )
         );
     }
