@@ -18,7 +18,10 @@ class CategoryModule extends YWebModule
                 'type'    => YWebModule::CHECK_ERROR,
                 'message' => Yii::t('category', 'Директория "{dir}" не досутпна для записи! {link}', array(
                     '{dir}'  => $uploadPath,
-                    '{link}' => CHtml::link(Yii::t('category', 'Изменить настройки'), array( '/yupe/backend/modulesettings/', 'module' => 'category' ))
+                    '{link}' => CHtml::link(Yii::t('category', 'Изменить настройки'), array(
+                        '/yupe/backend/modulesettings/',
+                        'module' => 'category',
+                    )),
                 )),
             );
     }
@@ -27,7 +30,7 @@ class CategoryModule extends YWebModule
     {
         return array(
             'uploadPath',
-            'adminMenuOrder'
+            'adminMenuOrder',
         );
     }
 
@@ -102,8 +105,8 @@ class CategoryModule extends YWebModule
     public function getNavigation()
     {
         return array(
-            Yii::t('category','Добавить категорию') => '/category/default/create/',
-            Yii::t('category','Список категорий') => '/category/default/'
+            array('icon' => 'plus-sign', 'label' => Yii::t('category', 'Добавить категорию'), 'url' => array('/category/default/create/')),
+            array('icon' => 'th-list', 'label' => Yii::t('category', 'Список категорий'), 'url' => array('/category/default/')),
         );
     }
 }

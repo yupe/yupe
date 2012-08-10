@@ -7,26 +7,21 @@ class BlogController extends YFrontController
         $dataProvider = new CActiveDataProvider('Blog', array(
             'criteria' => array(
                 'condition' => 't.status = :status',
-                'params' => array(':status' => Blog::STATUS_ACTIVE),
-                'with' => array('createUser', 'postsCount', 'membersCount'),
-                'order' => 'create_date DESC'
+                'params'    => array(':status' => Blog::STATUS_ACTIVE),
+                'with'      => array('createUser', 'postsCount', 'membersCount'),
+                'order'     => 'create_date DESC'
             ),
         ));
 
-        $this->render('index', array(
-            'dataProvider' => $dataProvider,
-        ));
+        $this->render('index', array('dataProvider' => $dataProvider));
     }
 
     // отобразить карточку блога
     public function actionShow($slug)
     {
-        $blog = Blog::model()->with(
-            'createUser',
-            'postsCount',
-            'membersCount',
-            'members'
-        )->find('slug = :slug', array(':slug' => $slug));
+        $blog = Blog::model()->with('createUser', 'postsCount', 'membersCount', 'members')->find(
+            'slug = :slug', array(':slug' => $slug)
+        );
 
         if(!$blog)
             throw new CHttpException(404, Yii::t('blog', 'Блог "{blog}" не найден!', array('{blog}' => $slug)));
@@ -34,14 +29,14 @@ class BlogController extends YFrontController
         //получить первые 5 записей для блога
         $posts = Post::model()->published()->public()->findAll(array(
             'condition' => 'blog_id = :blog_id',
-            'limit' => 5,
-            'order' => 'publish_date DESC',
-            'params' => array(':blog_id' => $blog->id),
+            'limit'     => 5,
+            'order'     => 'publish_date DESC',
+            'params'    => array(':blog_id' => $blog->id),
         ));
 
         $this->render('show', array(
-            'blog' => $blog,
-            'posts' => $posts,
+            'blog'    => $blog,
+            'posts'   => $posts,
             'members' => $blog->members,
         ));
     }
@@ -54,7 +49,7 @@ class BlogController extends YFrontController
         if(!$blog)
             throw new CHttpException(404, Yii::t('blog', 'Блог "{blog}" не найден!', array('{blog}' => $slug)));
 
-        $members = UserToBlog::model()->findAll('blog_id = :blog_id',array(':blog_id' => $blog->id));
+        $members = UserToBlog::model()->findAll('blog_id = :blog_id', array(':blog_id' => $blog->id));
 
     }
 
@@ -81,10 +76,10 @@ class BlogController extends YFrontController
 
         $errorMessage = false;
 
-        $blogId = (int)Yii::app()->request->getPost('blogId');
+        $blogId = (int) Yii::app()->request->getPost('blogId');
 
         if(!$blogId)
-            $errorMessage = Yii::t('blog','Не передан blogId!');
+            $errorMessage = Yii::t('blog', 'Не передан blogId!');
 
         $blog = Blog::model()->published()->public()->findByPk($blogId);
 

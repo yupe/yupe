@@ -2,7 +2,7 @@
 class ActivateAction extends CAction
 {
     public function run($key)
-    {       
+    {
         // пытаемся сделать выборку из таблицы пользователей
         $user = User::model()->notActivated()->find('activate_key = :activate_key', array(':activate_key' => $key));
 
@@ -28,7 +28,9 @@ class ActivateAction extends CAction
 
         if($user->activate())
         {
-            Yii::log(Yii::t('user', "Активирован аккаунт с activate_key = {activate_key}!", array('{activate_key}' => $key)), CLogger::LEVEL_INFO, UserModule::$logCategory);
+            Yii::log(Yii::t(
+                'user', "Активирован аккаунт с activate_key = {activate_key}!", array('{activate_key}' => $key)
+            ), CLogger::LEVEL_INFO, UserModule::$logCategory);
 
             Yii::app()->user->setFlash(YFlashMessages::NOTICE_MESSAGE, Yii::t('user', 'Вы успешно активировали аккаунт! Теперь Вы можете войти!'));
 
@@ -43,9 +45,11 @@ class ActivateAction extends CAction
         {
             Yii::app()->user->setFlash(YFlashMessages::ERROR_MESSAGE, Yii::t('user', 'При активации аккаунта произошла ошибка! Попробуйте позже!'));
 
-            Yii::log(Yii::t('user', "При активации аккаунта c activate_key => {activate_key} произошла ошибка!", array('{activate_key}' => $key )), CLogger::LEVEL_ERROR, UserModule::$logCategory);
+            Yii::log(Yii::t(
+                'user', "При активации аккаунта c activate_key => {activate_key} произошла ошибка!", array('{activate_key}' => $key )
+            ), CLogger::LEVEL_ERROR, UserModule::$logCategory);
 
             $this->controller->redirect(array($module->accountActivationFailure));
-        }        
+        }
     }
 }

@@ -6,8 +6,8 @@ $this->breadcrumbs=array(
 );
 $this-> pageTitle ="изображения - "."Yii::t('yupe','управление')";
 $this->menu=array(
-array('icon'=> 'list-alt white', 'label' => Yii::t('yupe','Управление изображениями'),'url'=>array('/image/default/index')),
-array('icon'=> 'file','label' => Yii::t('yupe','Добавить изображение'), 'url' => array('/image/default/create')),
+array('icon'=> 'list-alt white', 'label' => Yii::t('yupe', 'Управление изображениями'), 'url'=>array('/image/default/index')),
+array('icon'=> 'file', 'label' => Yii::t('yupe', 'Добавить изображение'), 'url' => array('/image/default/create')),
 );
 ?>
 <div class="page-header">

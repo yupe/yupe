@@ -12,9 +12,9 @@ class LastLoginUsersWidget extends YWidget
     {
         $models = User::model()->active()->findAll(array(
             'limit' => $this->limit,
-            'order' => 'last_visit DESC'
+            'order' => 'last_visit DESC',
         ));
 
-        $this->render('lastloginuserswidget',array('models' => $models));
+        $this->render('lastloginuserswidget', array('models' => $models));
     }
 }

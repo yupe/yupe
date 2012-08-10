@@ -9,26 +9,26 @@ class AccountController extends YFrontController
                 'backColor' => 0xFFFFFF,
             ),
             'registration' => array(
-                'class' => 'application.modules.user.controllers.account.RegistrationAction'
+                'class' => 'application.modules.user.controllers.account.RegistrationAction',
             ),
             'activate' => array(
-                'class' => 'application.modules.user.controllers.account.ActivateAction'
+                'class' => 'application.modules.user.controllers.account.ActivateAction',
             ),
             'login' => array(
-                'class' => 'application.modules.user.controllers.account.LoginAction'
+                'class' => 'application.modules.user.controllers.account.LoginAction',
             ),
             'fblogin' => array(
-                'class' => 'application.modules.user.controllers.account.FbloginAction'
+                'class' => 'application.modules.user.controllers.account.FbloginAction',
             ),
             'logout' => array(
-                'class' => 'application.modules.user.controllers.account.LogOutAction'
+                'class' => 'application.modules.user.controllers.account.LogOutAction',
             ),
             'recovery' => array(
-                'class' => 'application.modules.user.controllers.account.RecoveryAction'
+                'class' => 'application.modules.user.controllers.account.RecoveryAction',
             ),
             'recoveryPassword' => array(
-                'class' => 'application.modules.user.controllers.account.RecoveryPasswordAction'
-            ),            
+                'class' => 'application.modules.user.controllers.account.RecoveryPasswordAction',
+            ),
         );
     }
 }

@@ -35,11 +35,7 @@ class UserModule extends YWebModule
 
     public $defaultAvatar = '/web/images/avatar.png';
 
-    public $avatarExtensions = array(
-        'jpg',
-        'png',
-        'gif',
-    );
+    public $avatarExtensions = array('jpg', 'png', 'gif');
 
     public $invalidIpAction = '/user/account/notAllowedIp';
 
@@ -66,32 +62,32 @@ class UserModule extends YWebModule
     public function getParamsLabels()
     {
         return array(
-            'userAccountActivationMailEvent' => Yii::t('user', 'Почтовое событие при успешной активации пользователя'),
-            'passwordSuccessRecovery' => Yii::t('user', 'Почтовое событие при успешном восстановлении пароля'),
-            'passwordAutoRecoveryMailEvent' => Yii::t('user', 'Почтовое событие при автоматическом восстановлении пароля'),
-            'passwordRecoveryMailEvent' => Yii::t('user', 'Почтовое событие при восстановлении пароля'),
-            'registrationMailEventActivate' => Yii::t('user', 'Почтовое событие при регистрации нового пользователя с активацией'),
-            'registrationMailEvent' => Yii::t('user', 'Почтовое событие при регистрации нового пользователя без активации'),
-            'adminMenuOrder' => Yii::t('user', 'Порядок следования в меню'),
-            'accountActivationSuccess' => Yii::t('user', 'Страница после активации аккаунта'),
-            'accountActivationFailure' => Yii::t('user', 'Страница неудачной активации аккаунта'),
-            'loginSuccess' => Yii::t('user', 'Страница после авторизации'),
-            'logoutSuccess' => Yii::t('user', 'Страница после выхода с сайта'),
-            'notifyEmailFrom' => Yii::t('user', 'Email от имени которого отправлять сообщение'),
-            'autoRecoveryPassword' => Yii::t('user', 'Автоматическое восстановление пароля'),
-            'minPasswordLength' => Yii::t('user', 'Минимальная длина пароля'),
-            'emailAccountVerification' => Yii::t('user', 'Подтверждать аккаунт по Email'),
-            'showCaptcha' => Yii::t('user', 'Показывать капчу при регистрации'),
-            'minCaptchaLength' => Yii::t('user', 'Минимальная длина капчи'),
-            'maxCaptchaLength' => Yii::t('user', 'Максимальная длина капчи'),
-            'documentRoot' => Yii::t('user', 'Корень сервера'),
-            'avatarsDir' => Yii::t('user', 'Каталог для загрузки аватарок'),
-            'avatarMaxSize' => Yii::t('user', 'Максимальный размер аватарки'),
-            'defaultAvatar' => Yii::t('user', 'Пустой аватар'),
-            'invalidIpAction' => Yii::t('user', 'Страница для заблокированных IP'),
-            'invalidEmailAction' => Yii::t('user', 'Страница для заблокированных Email'),
-            'loginAdminSuccess' => Yii::t('user', 'Страница после авторизации админстратора'),
-            'registrationSucess' => Yii::t('user', 'Страница после успешной регистрации'),
+            'userAccountActivationMailEvent'    => Yii::t('user', 'Почтовое событие при успешной активации пользователя'),
+            'passwordSuccessRecovery'           => Yii::t('user', 'Почтовое событие при успешном восстановлении пароля'),
+            'passwordAutoRecoveryMailEvent'     => Yii::t('user', 'Почтовое событие при автоматическом восстановлении пароля'),
+            'passwordRecoveryMailEvent'         => Yii::t('user', 'Почтовое событие при восстановлении пароля'),
+            'registrationMailEventActivate'     => Yii::t('user', 'Почтовое событие при регистрации нового пользователя с активацией'),
+            'registrationMailEvent'             => Yii::t('user', 'Почтовое событие при регистрации нового пользователя без активации'),
+            'adminMenuOrder'                    => Yii::t('user', 'Порядок следования в меню'),
+            'accountActivationSuccess'          => Yii::t('user', 'Страница после активации аккаунта'),
+            'accountActivationFailure'          => Yii::t('user', 'Страница неудачной активации аккаунта'),
+            'loginSuccess'                      => Yii::t('user', 'Страница после авторизации'),
+            'logoutSuccess'                     => Yii::t('user', 'Страница после выхода с сайта'),
+            'notifyEmailFrom'                   => Yii::t('user', 'Email от имени которого отправлять сообщение'),
+            'autoRecoveryPassword'              => Yii::t('user', 'Автоматическое восстановление пароля'),
+            'minPasswordLength'                 => Yii::t('user', 'Минимальная длина пароля'),
+            'emailAccountVerification'          => Yii::t('user', 'Подтверждать аккаунт по Email'),
+            'showCaptcha'                       => Yii::t('user', 'Показывать капчу при регистрации'),
+            'minCaptchaLength'                  => Yii::t('user', 'Минимальная длина капчи'),
+            'maxCaptchaLength'                  => Yii::t('user', 'Максимальная длина капчи'),
+            'documentRoot'                      => Yii::t('user', 'Корень сервера'),
+            'avatarsDir'                        => Yii::t('user', 'Каталог для загрузки аватарок'),
+            'avatarMaxSize'                     => Yii::t('user', 'Максимальный размер аватарки'),
+            'defaultAvatar'                     => Yii::t('user', 'Пустой аватар'),
+            'invalidIpAction'                   => Yii::t('user', 'Страница для заблокированных IP'),
+            'invalidEmailAction'                => Yii::t('user', 'Страница для заблокированных Email'),
+            'loginAdminSuccess'                 => Yii::t('user', 'Страница после авторизации админстратора'),
+            'registrationSucess'                => Yii::t('user', 'Страница после успешной регистрации'),
         );
     }
 
@@ -121,6 +117,19 @@ class UserModule extends YWebModule
             'accountActivationFailure',
             'loginAdminSuccess',
             'registrationSucess',
+        );
+    }
+
+    public function getNavigation()
+    {
+        return array(
+            array('label' => Yii::t('user', 'Пользователи')),
+            array('icon' => 'th-large', 'label' => Yii::t('user', 'Управление пользователями'), 'url' => array('/user/default/admin')),
+            array('icon' => 'th-list', 'label' => Yii::t('user', 'Список пользователей'), 'url' => array('/user/default/index')),
+            array('icon' => 'plus-sign', 'label' => Yii::t('user', 'Добавление пользователя'), 'url' => array('/user/default/create')),
+            array('label' => Yii::t('user', 'Восстановления паролей')),
+            array('icon' => 'th-large', 'label' => Yii::t('user', 'Управление восстановлением паролей'), 'url' => array('/user/recoveryPassword/admin')),
+            array('icon' => 'th-list', 'label' => Yii::t('user', 'Список восстановлений'), 'url' => array('/user/recoveryPassword/index')),
         );
     }
 
@@ -168,11 +177,11 @@ class UserModule extends YWebModule
     {
         return array(
             'isAuthenticated' => array(
-                'name' => 'Авторизован',
+                'name'      => 'Авторизован',
                 'condition' => Yii::app()->user->isAuthenticated(),
             ),
             'isSuperUser' => array(
-                'name' => 'Администратор',
+                'name'      => 'Администратор',
                 'condition' => Yii::app()->user->isSuperUser(),
             ),
         );
@@ -215,5 +224,4 @@ class UserModule extends YWebModule
 
         return true;
     }
-
 }

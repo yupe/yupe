@@ -18,9 +18,7 @@ class YBackController extends YMainController
         if ($this->yupe->backendTheme && is_dir(Yii::getPathOfAlias("webroot.themes.backend_" . $this->yupe->backendTheme)))
         {
             $themeBase = "webroot.themes.backend_" . $this->yupe->backendTheme;
-
             Yii::app()->theme = "backend_" . $this->yupe->backendTheme;
-
             $themeFile = Yii::app()->theme->basePath . "/" . ucwords($this->yupe->backendTheme) . "Theme.php";
 
             if (is_file($themeFile))
@@ -29,7 +27,6 @@ class YBackController extends YMainController
         else
         {
             Yii::app()->theme = 'default';
-
             $this->layout = 'application.modules.yupe.views.layouts.column2';
         }
 
@@ -37,16 +34,16 @@ class YBackController extends YMainController
         Yii::app()->clientScript->registerCoreScript('jquery');
         Yii::app()->clientScript->registerCoreScript('jquery.ui');
         Yii::app()->clientScript->registerCssFile(
-            Yii::app()->clientScript->getCoreScriptUrl() .
-            '/jui/css/base/jquery-ui.css'
+            Yii::app()->clientScript->getCoreScriptUrl() . '/jui/css/base/jquery-ui.css'
         );
+
         $this->setPageTitle(Yii::t('yupe', 'Панель управления'));
     }
 
     public function actionActivate()
     {
-        $status      = (int)Yii::app()->request->getQuery('status');
-        $id          = (int)Yii::app()->request->getQuery('id');
+        $status      = (int) Yii::app()->request->getQuery('status');
+        $id          = (int) Yii::app()->request->getQuery('id');
         $modelClass  = Yii::app()->request->getQuery('model');
         $statusField = Yii::app()->request->getQuery('statusField');
 
@@ -68,7 +65,7 @@ class YBackController extends YMainController
     public function actionSort()
     {
         $direction  = Yii::app()->request->getQuery('direction');
-        $id         = (int)Yii::app()->request->getQuery('id');
+        $id         = (int) Yii::app()->request->getQuery('id');
         $modelClass = Yii::app()->request->getQuery('model');
         $sortField  = Yii::app()->request->getQuery('sortField');
 

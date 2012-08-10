@@ -43,20 +43,26 @@ class MenuModule extends YWebModule
         return "list";
     }
 
+    public function getNavigation()
+    {
+        return array(
+            array('label' => Yii::t('menu', 'Меню')),
+            array('icon' => 'file','label' => Yii::t('menu', 'Добавить меню'), 'url' => array('/menu/menu/create/')),
+            array('icon' => 'list','label' => Yii::t('menu', 'Список меню'), 'url' => array('/menu/menu/index/')),
+        
+            array('label' => Yii::t('menu', 'Пункты меню')),
+            array('icon' => 'file','label' => Yii::t('menu', 'Добавить пункт меню'), 'url' => array('/menu/menuitem/create/')),
+            array('icon' => 'list','label' => Yii::t('menu', 'Cписок пунктов меню'), 'url' => array('/menu/menuitem/index/')),
+            array('icon' => 'list-alt','label' => Yii::t('menu', 'Управление пунктами меню'), 'url' => array('/menu/menuitem/admin/')),
+        );
+    }
+
     public function init()
     {
         $this->setImport(array(
             'application.modules.menu.models.*',
             'application.modules.menu.components.*',
         ));
-    }
-
-    public function getNavigation()
-    {
-        return array(
-            Yii::t('menu','Меню') => '/menu/menu/admin/',
-            Yii::t('menu','Пункты меню') => '/menu/menuitem/admin/'
-        );
     }
 
 }

@@ -34,7 +34,7 @@
                     unset($mi['icon']);
                     unset($mi['url']);
                     array_push($items, $mi);
-                    $items=array_merge($items, $it);
+                    $items = array_merge($items, $it);
                     array_push($items, "---");
                 }
                 else

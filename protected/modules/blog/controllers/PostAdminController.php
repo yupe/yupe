@@ -8,9 +8,7 @@ class PostAdminController extends YBackController
      */
     public function actionView($id)
     {
-        $this->render('view', array(
-            'model' => $this->loadModel($id),
-        ));
+        $this->render('view', array('model' => $this->loadModel($id)));
     }
 
     /**
@@ -34,9 +32,7 @@ class PostAdminController extends YBackController
                 $this->redirect(array('view', 'id' => $model->id));
         }
 
-        $this->render('create', array(
-            'model' => $model,
-        ));
+        $this->render('create', array('model' => $model));
     }
 
     /**
@@ -62,9 +58,7 @@ class PostAdminController extends YBackController
                 $this->redirect(array('view', 'id' => $model->id));
         }
 
-        $this->render('update', array(
-            'model' => $model,
-        ));
+        $this->render('update', array('model' => $model));
     }
 
     /**
@@ -94,11 +88,12 @@ class PostAdminController extends YBackController
     public function actionIndex()
     {
         $dataProvider = new CActiveDataProvider('Post', array(
-            'criteria' => array('with' => array('blog', 'createUser', 'updateUser'))
+            'criteria' => array(
+                'with' => array('blog', 'createUser', 'updateUser'),
+            ),
         ));
-        $this->render('index', array(
-            'dataProvider' => $dataProvider,
-        ));
+
+        $this->render('index', array('dataProvider' => $dataProvider));
     }
 
     /**
@@ -107,13 +102,13 @@ class PostAdminController extends YBackController
     public function actionAdmin()
     {
         $model = new Post('search');
+
         $model->unsetAttributes(); // clear any default values
+
         if(isset($_GET['Post']))
             $model->attributes = $_GET['Post'];
 
-        $this->render('admin', array(
-            'model' => $model,
-        ));
+        $this->render('admin', array('model' => $model));
     }
 
     /**

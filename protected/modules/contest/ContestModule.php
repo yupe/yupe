@@ -29,7 +29,7 @@ class ContestModule extends YWebModule
     public function getParamsLabels()
     {
         return array(
-            'adminMenuOrder' => Yii::t('contest', 'Порядок следования в меню')
+            'adminMenuOrder' => Yii::t('contest', 'Порядок следования в меню'),
         );
     }
 
@@ -46,8 +46,8 @@ class ContestModule extends YWebModule
     public function init()
     {
         $this->setImport(array(
-                              'contest.models.*',
-                              'contest.components.*',
-                         ));
+            'contest.models.*',
+            'contest.components.*',
+        ));
     }
 }
