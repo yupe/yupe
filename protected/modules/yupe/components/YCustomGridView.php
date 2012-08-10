@@ -44,7 +44,7 @@ class YCustomGridView extends CGridView
         if ($onclick)
             $options = array('onclick' => 'ajaxSetStatus(this, "' . $this->id . '"); return false;');
 
-        $text = ($this->showStatusText && method_exists($data,'getStatus')) ? $data->getStatus() : '';
+        $text = ($this->showStatusText && method_exists($data, 'getStatus')) ? $data->getStatus() : '';
 
         return '<div align="center">' . CHtml::link($img, $url, $options) . $text . '</div>';
     }
