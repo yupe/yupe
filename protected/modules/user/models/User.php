@@ -38,6 +38,8 @@ class User extends CActiveRecord
     const ACCESS_LEVEL_USER  = 0;
     const ACCESS_LEVEL_ADMIN = 1;
 
+    private $_oldAccess_level;
+
     /**
      * @return string the associated database table name
      */
@@ -145,13 +147,18 @@ class User extends CActiveRecord
         return new CActiveDataProvider('User', array('criteria' => $criteria));
     }
 
+    public function afterFind()
+    {
+        $this->_oldAccess_level = $this->access_level;
+    }
+
     public function beforeSave()
     {
         $this->change_date = new CDbExpression('NOW()');
 
         if (!$this->isNewRecord)
         {
-            if($this->admin()->count() == 1 && self::access_level == self::ACCESS_LEVEL_ADMIN)
+            if($this->admin()->count() == 1 && $this->_oldAccess_level == self::ACCESS_LEVEL_ADMIN)
             {
                 if($this->access_level == self::ACCESS_LEVEL_USER || $this->status != self::STATUS_ACTIVE)
                     return false;
@@ -172,7 +179,7 @@ class User extends CActiveRecord
 
     public function beforeDelete()
     {
-        if(User::model()->admin()->count() == 1 && self::access_level == self::ACCESS_LEVEL_ADMIN)
+        if(User::model()->admin()->count() == 1 && $this->_oldAccess_level == self::ACCESS_LEVEL_ADMIN)
             return false;
 
         return parent::beforeDelete();
