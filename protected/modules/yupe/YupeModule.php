@@ -210,10 +210,10 @@ class YupeModule extends YWebModule
                         )
                     ))
                     {
-                        $modules[$key]    = $module;
-                        $category[$key]   = $module->category;
+                        $modules[$key]  = $module;
+                        $category[$key] = $module->category;
                         //@TODO сортировку модулей сделать иначе
-                        $order[$key]      = $module->adminMenuOrder;
+                        $order[$key]    = $module->adminMenuOrder;
                     }
                     else
                         $yiiModules[$key] = $module;
@@ -233,7 +233,7 @@ class YupeModule extends YWebModule
             {
                 $links = $modules[$key]->navigation;
 
-                // собраются подпункты категории "Настройки", кроме пункта Юпи
+                // собраются подпункты категории "Настройки модулей", кроме пункта Юпи
                 if ($modules[$key]->editableParams && $key != $this->id)
                     $settings['items'][] = array(
                         'icon'  => $modules[$key]->icon,
