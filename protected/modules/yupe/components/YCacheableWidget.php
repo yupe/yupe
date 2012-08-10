@@ -64,44 +64,30 @@ class YCacheableWidget extends CWidget
     {
         // если не указали вьюху напрямую - берем ее из имени класса
         if (!$this->view)
-        {
             $this->view = $this->getMagicName();
-        }
 
         // если данные не переданы напрямую - используем модель
         if (!$this->data)
         {
             // разберемся с моделью
             if (!$this->model)
-            {
                 $model = $this->getMagicName();
-            }
             else
-            {
                 $model = $this->model;
-            }
 
             if (is_a($this->criteria, 'CDbCriteria'))
-            {
                 $this->criteria = new CDbCriteria();
-            }
             elseif (is_array($this->criteria))
-            {
                 $this->criteria = new CDbCriteria($this->criteria);
-            }
 
             // получить название кэша, так как виджет может вызываться с разными параметрами
             // имя фрагмента в кэше должно учитывать все параметры виджета (CDbCriteria + $this->view)
             // название вьюхи решил убрать из имени кэша, что бы можно было использовать
             // кэшированные данные с разными вьюхами
-            $cacheName = $this->cacheName ? $this->cacheName
-                : md5(serialize($this->criteria));
+            $cacheName = $this->cacheName ? $this->cacheName : md5(serialize($this->criteria));
         }
         else
-        {
-            $cacheName = $this->cacheName ? $this->cacheName
-                : md5(serialize($this->data));
-        }
+            $cacheName = $this->cacheName ? $this->cacheName : md5(serialize($this->data));
 
         // название компонента кэша
         $cachec = $this->cacheComponent;
@@ -110,13 +96,10 @@ class YCacheableWidget extends CWidget
         if (!$data)
         {
             // получение данных из базы (или данных переданных в виджет) и запись их в кэш
-            $data = $this->data ? $this->data
-                : $model::model()->findAll($this->criteria);
-            $this->cacheDuration = (int)$this->cacheDuration;
+            $data = $this->data ? $this->data : $model::model()->findAll($this->criteria);
+            $this->cacheDuration = (int) $this->cacheDuration;
             Yii::app()->$cachec->set($cacheName, $data, $this->cacheDuration, $this->dependency);
         }
         $this->render($this->view, array('data' => $data));
     }
 }
-
-?>

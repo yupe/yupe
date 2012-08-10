@@ -4,7 +4,7 @@ class DefaultController extends YBackController
     /**
      * @var CActiveRecord the currently loaded data model instance.
      */
-    private $_model;  
+    private $_model;
 
     public function actionChangepassword($id)
     {
