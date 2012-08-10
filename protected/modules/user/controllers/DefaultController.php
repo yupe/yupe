@@ -97,7 +97,6 @@ class DefaultController extends YBackController
      */
     public function actionDelete()
     {
-        var_dump(User::model()->admin()->count());
         if (Yii::app()->request->isPostRequest)
         {
             if(User::model()->admin()->count() > 1)
