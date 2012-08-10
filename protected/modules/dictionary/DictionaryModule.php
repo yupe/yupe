@@ -48,8 +48,8 @@ class DictionaryModule extends YWebModule
     public function getNavigation()
     {
         return array(
-            Yii::t('dictionary','Справочники') => '/dictionary/default/admin',
-            Yii::t('dictionary','Значения справочников') => '/dictionary/dictionaryData/admin'
+            array('icon' => 'th-list', 'label' => Yii::t('dictionary', 'Справочники'), 'url' => array('/dictionary/default/admin')),
+            array('icon' => 'th-list', 'label' => Yii::t('dictionary', 'Значения справочников'), 'url' => array('/dictionary/dictionaryData/admin')),
         );
     }
 

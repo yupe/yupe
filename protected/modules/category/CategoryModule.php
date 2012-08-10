@@ -105,8 +105,8 @@ class CategoryModule extends YWebModule
     public function getNavigation()
     {
         return array(
-            Yii::t('category','Добавить категорию') => '/category/default/create/',
-            Yii::t('category','Список категорий') => '/category/default/'
+            array('icon' => 'plus-sign', 'label' => Yii::t('category', 'Добавить категорию'), 'url' => array('/category/default/create/')),
+            array('icon' => 'th-list', 'label' => Yii::t('category', 'Список категорий'), 'url' => array('/category/default/')),
         );
     }
 }

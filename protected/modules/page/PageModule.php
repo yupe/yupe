@@ -25,7 +25,7 @@ class PageModule extends YWebModule
         return array(
             'adminMenuOrder',
             'editor' => Yii::app()->getModule('yupe')->getEditors(),
-            'mainCategory' => CHtml::listData(Category::model()->findAll(),'id','name'),
+            'mainCategory' => CHtml::listData(Category::model()->findAll(), 'id', 'name'),
         );
     }
 
