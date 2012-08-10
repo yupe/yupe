@@ -50,18 +50,22 @@ class MailModule extends YWebModule
     public function getNavigation()
     {
         return array(
-            Yii::t('queue', 'Почтовые события') => '/mail/eventAdmin/',
-            Yii::t('queue', 'Почтовые шаблоны') => '/mail/templateAdmin/'
+            array('label' => Yii::t('queue', 'Почтовые события')),
+            array('icon' => 'plus-sign', 'label' => Yii::t('yupe', 'Добавить почтовое событие'), 'url' => array('/mail/eventAdmin/create/')),
+            array('icon' => 'th-list', 'label' => Yii::t('yupe', 'Управление почтовыми событиями'), 'url'=>array('/mail/eventAdmin/index/')),
+            array('label' => Yii::t('menu', 'Почтовые шаблоны')),
+            array('icon'=> 'plus-sign', 'label' => Yii::t('yupe', 'Добавить почтовый шаблон'), 'url' => array('/mail/templateAdmin/create/')),
+            array('icon'=> 'th-list', 'label' => Yii::t('yupe', 'Управление почтовыми шаблонами'), 'url'=>array('/mail/templateAdmin/index/')),
         );
     }
     
     public function init()
     {
         $this->setImport(array(
-                'mail.models.*',
-                'mail.components.*',
+            'mail.models.*',
+            'mail.components.*',
         ));
         
-        parent::init();            
+        parent::init();
     }	
 }

@@ -60,8 +60,8 @@ class QueueModule extends YWebModule
     public function getNavigation()
     {
         return array(
-            Yii::t('queue', 'Задания')          => '/queue/default/',
-            Yii::t('queue', 'Очистить очередь') => '/queue/default/clear/'
+            array('icon' => 'th-list', 'label' => Yii::t('queue', 'Задания'), 'url' => array('/queue/default/')),
+            array('icon' => 'trash', 'label' => Yii::t('queue', 'Очистить очередь'), 'url' => array('/queue/default/clear/')),
         );
     }
 }

@@ -12,7 +12,7 @@ class BlogModule extends YWebModule
     {
         return array(
             'adminMenuOrder' => Yii::t('news', 'Порядок следования в меню'),
-            'editor' => Yii::t('page', 'Визуальный редактор'),
+            'editor'         => Yii::t('page', 'Визуальный редактор'),
         );
     }
 
@@ -27,9 +27,15 @@ class BlogModule extends YWebModule
     public function getNavigation()
     {
         return array(
-            Yii::t('blog', 'Блоги') => '/blog/blogAdmin/admin/',
-            Yii::t('blog', 'Записи') => '/blog/postAdmin/admin/',
-            Yii::t('blog', 'Участники') => '/blog/userToBlogAdmin/admin/',
+            array('label' => Yii::t('blog', 'Блоги')),
+            array('icon' => 'plus-sign', 'label' => Yii::t('blog', 'Добавить блог'), 'url'=>array('/blog/blogAdmin/create/')),
+            array('icon' => 'th-list', 'label' => Yii::t('blog', 'Управление блогами'), 'url'=>array('/blog/blogAdmin/admin/')),
+            array('label' => Yii::t('blog', 'Записи')),
+            array('icon' => 'plus-sign', 'label' => Yii::t('blog', 'Добавить запись'), 'url'=>array('/blog/postAdmin/create/')),
+            array('icon' => 'th-list', 'label' => Yii::t('blog', 'Управление записями'), 'url'=>array('/blog/postAdmin/admin/')),
+            array('label' => Yii::t('blog', 'Участники')),
+            array('icon' => 'plus-sign', 'label' => Yii::t('blog', 'Добавить участника'), 'url'=>array('/blog/postAdmin/create/')),
+            array('icon' => 'th-list', 'label' => Yii::t('blog', 'Управление участниками'), 'url'=>array('/blog/postAdmin/admin/')),
         );
     }
 

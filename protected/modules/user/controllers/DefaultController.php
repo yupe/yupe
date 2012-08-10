@@ -4,7 +4,7 @@ class DefaultController extends YBackController
     /**
      * @var CActiveRecord the currently loaded data model instance.
      */
-    private $_model;  
+    private $_model;
 
     public function actionChangepassword($id)
     {
@@ -34,9 +34,7 @@ class DefaultController extends YBackController
      */
     public function actionView()
     {
-        $this->render('view', array(
-                                   'model' => $this->loadModel(),
-                              ));
+        $this->render('view', array('model' => $this->loadModel()));
     }
 
     /**
@@ -52,19 +50,19 @@ class DefaultController extends YBackController
             $model->setAttributes($_POST['User']);
 
             $model->setAttributes(array(
-                'salt'     => $model->generateSalt(),
-                'password' => $model->hashPassword($model->password, $model->salt),
-                'registration_ip' => Yii::app()->request->userHostAddress,
-                'activation_ip' => Yii::app()->request->userHostAddress,
+                'salt'              => $model->generateSalt(),
+                'password'          => $model->hashPassword($model->password, $model->salt),
+                'registration_ip'   => Yii::app()->request->userHostAddress,
+                'activation_ip'     => Yii::app()->request->userHostAddress,
                 'registration_date' => new CDbExpression("NOW()"),
             ));
             
             if ($model->save())
-            {                    
+            {
                 Yii::app()->user->setFlash(YFlashMessages::NOTICE_MESSAGE, Yii::t('user', 'Новый пользователь добавлен!'));
-                
-                $this->redirect(array('view', 'id' => $model->id));                    
-            }            
+
+                $this->redirect(array('view', 'id' => $model->id));
+            }
         }
 
         $this->render('create', array('model' => $model,));
@@ -119,9 +117,7 @@ class DefaultController extends YBackController
     {
         $dataProvider = new CActiveDataProvider('User');
 
-        $this->render('index', array(
-                                    'dataProvider' => $dataProvider,
-                               ));
+        $this->render('index', array('dataProvider' => $dataProvider));
     }
 
     /**
@@ -134,9 +130,7 @@ class DefaultController extends YBackController
         if (isset($_GET['User']))
             $model->attributes = $_GET['User'];
 
-        $this->render('admin', array(
-                                    'model' => $model,
-                               ));
+        $this->render('admin', array('model' => $model));
     }
 
     /**

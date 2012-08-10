@@ -15,7 +15,11 @@ class YMainController extends Controller
 
     public function isMultilang()
     {
-        return isset(Yii::app()->urlManager->languages) && is_array(Yii::app()->urlManager->languages) && count(Yii::app()->urlManager->languages);
+        return isset(
+            Yii::app()->urlManager->languages) &&
+            is_array(Yii::app()->urlManager->languages) &&
+            count(Yii::app()->urlManager->languages
+        );
     }
 
     public function init()

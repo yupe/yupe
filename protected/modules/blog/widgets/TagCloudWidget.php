@@ -12,13 +12,13 @@ class TagCloudWidget extends YWidget
 
         $outtags = array();
 
-        if($total>0)
+        if($total > 0)
         {
             foreach($tags as $tag)
-                $outtags[$tag['name']]=8+(int)(16*$tag['count']/($total+10));
+                $outtags[$tag['name']] = 8 + (int) (16 * $tag['count'] / ($total + 10));
             ksort($outtags);
         }
 
-        $this->render('tagcloud',array('tags' => $outtags));
+        $this->render('tagcloud', array('tags' => $outtags));
     }
 }

@@ -9,11 +9,11 @@ class CommentModule extends YWebModule
     public function getParamsLabels()
     {
         return array(
-            'defaultCommentStatus' => Yii::t('comment','Статус комментариев по умолчанию'),
-            'autoApprove' => Yii::t('comment','Автоматическое подтверждение комментариев'),
-            'notify' => Yii::t('comment','Уведомить о новом комментарии?'),
-            'email' => Yii::t('comment','Email для уведомлений?'),
-            'adminMenuOrder' => Yii::t('comment','Порядок следования в меню')
+            'defaultCommentStatus' => Yii::t('comment', 'Статус комментариев по умолчанию'),
+            'autoApprove'          => Yii::t('comment', 'Автоматическое подтверждение комментариев'),
+            'notify'               => Yii::t('comment', 'Уведомить о новом комментарии?'),
+            'email'                => Yii::t('comment', 'Email для уведомлений?'),
+            'adminMenuOrder'       => Yii::t('comment', 'Порядок следования в меню')
         );
     }
 
@@ -24,7 +24,7 @@ class CommentModule extends YWebModule
             'autoApprove' => $this->getChoice(),
             'notify' => $this->getChoice(),
             'email',
-            'adminMenuOrder'
+            'adminMenuOrder',
         );
     }
 
@@ -43,10 +43,15 @@ class CommentModule extends YWebModule
         $count = Comment::model()->new()->count();
 
         if($count)
-            return array('type' => YWebModule::CHECK_NOTICE,'message' => Yii::t('comment','У Вас {{count}} новых комментариев. {{link}}',array(
-                '{{count}}' => $count,
-                '{{link}}'  => CHtml::link(Yii::t('comment','Модерация комментариев'),array('/comment/default/admin/order/status.asc/Comment_sort/status/'))
-            )));
+            return array(
+                'type' => YWebModule::CHECK_NOTICE,
+                'message' => Yii::t('comment', 'У Вас {{count}} новых комментариев. {{link}}', array(
+                    '{{count}}' => $count,
+                    '{{link}}'  => CHtml::link(Yii::t('comment', 'Модерация комментариев'), array(
+                        '/comment/default/admin/order/status.asc/Comment_sort/status/',
+                    )),
+                )),
+            );
     }
 
     public function getDescription()

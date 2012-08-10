@@ -29,7 +29,7 @@
  */
 class Post extends CActiveRecord
 {
-    const STATUS_DRAFT = 0;
+    const STATUS_DRAFT     = 0;
     const STATUS_PUBLISHED = 1;
     const STATUS_SHEDULED  = 2;
 
@@ -85,7 +85,7 @@ class Post extends CActiveRecord
         return array(
             'createUser' => array(self::BELONGS_TO, 'User', 'create_user_id'),
             'updateUser' => array(self::BELONGS_TO, 'User', 'update_user_id'),
-            'blog' => array(self::BELONGS_TO, 'Blog', 'blog_id'),
+            'blog'       => array(self::BELONGS_TO, 'Blog', 'blog_id'),
         );
     }
 
@@ -95,23 +95,23 @@ class Post extends CActiveRecord
     public function attributeLabels()
     {
         return array(
-            'id' => Yii::t('blog', 'id'),
-            'blog_id' => Yii::t('blog', 'Блог'),
+            'id'             => Yii::t('blog', 'id'),
+            'blog_id'        => Yii::t('blog', 'Блог'),
             'create_user_id' => Yii::t('blog', 'Создал'),
             'update_user_id' => Yii::t('blog', 'Изменил'),
-            'create_date' => Yii::t('blog', 'Создано'),
-            'update_date' => Yii::t('blog', 'Изменено'),
-            'slug' => Yii::t('blog', 'Урл'),
-            'publish_date' => Yii::t('blog', 'Дата'),
-            'title' => Yii::t('blog', 'Заголовок'),
-            'quote' => Yii::t('blog', 'Цитата'),
-            'content' => Yii::t('blog', 'Содержание'),
-            'link' => Yii::t('blog', 'Ссылка'),
-            'status' => Yii::t('blog', 'Статус'),
+            'create_date'    => Yii::t('blog', 'Создано'),
+            'update_date'    => Yii::t('blog', 'Изменено'),
+            'slug'           => Yii::t('blog', 'Урл'),
+            'publish_date'   => Yii::t('blog', 'Дата'),
+            'title'          => Yii::t('blog', 'Заголовок'),
+            'quote'          => Yii::t('blog', 'Цитата'),
+            'content'        => Yii::t('blog', 'Содержание'),
+            'link'           => Yii::t('blog', 'Ссылка'),
+            'status'         => Yii::t('blog', 'Статус'),
             'comment_status' => Yii::t('blog', 'Комментарии'),
-            'access_type' => Yii::t('blog', 'Доступ'),
-            'keywords' => Yii::t('blog', 'Ключевые слова'),
-            'description' => Yii::t('blog', 'Описание'),
+            'access_type'    => Yii::t('blog', 'Доступ'),
+            'keywords'       => Yii::t('blog', 'Ключевые слова'),
+            'description'    => Yii::t('blog', 'Описание'),
         );
     }
 
@@ -124,7 +124,7 @@ class Post extends CActiveRecord
         // Warning: Please modify the following code to remove attributes that
         // should not be searched.
 
-        $criteria=new CDbCriteria;
+        $criteria = new CDbCriteria;
 
         $criteria->compare('id', $this->id, true);
         $criteria->compare('blog_id', $this->blog_id, true);
@@ -141,29 +141,28 @@ class Post extends CActiveRecord
         $criteria->compare('status', $this->status);
         $criteria->compare('comment_status', $this->comment_status);
         $criteria->compare('access_type', $this->access_type);
-        $criteria->with = array('createUser','updateUser','blog');
 
-        return new CActiveDataProvider($this, array(
-            'criteria' => $criteria
-        ));
+        $criteria->with = array('createUser', 'updateUser', 'blog');
+
+        return new CActiveDataProvider($this, array('criteria' => $criteria));
     }
 
     public function behaviors()
     {
         return array(
             'CTimestampBehavior' => array(
-                'class' => 'zii.behaviors.CTimestampBehavior',
+                'class'             => 'zii.behaviors.CTimestampBehavior',
                 'setUpdateOnCreate' => true,
-                'createAttribute' => 'create_date',
-                'updateAttribute' => 'update_date',
+                'createAttribute'   => 'create_date',
+                'updateAttribute'   => 'update_date',
             ),
             'tags' => array(
-                'class' => 'blog.extensions.taggable.ETaggableBehavior',
-                'tagTable' => 'tag',
-                'tagBindingTable' => 'post_to_tag',
-                'modelTableFk' => 'post_id',
+                'class'                => 'blog.extensions.taggable.ETaggableBehavior',
+                'tagTable'             => 'tag',
+                'tagBindingTable'      => 'post_to_tag',
+                'modelTableFk'         => 'post_id',
                 'tagBindingTableTagId' => 'tag_id',
-                'cacheID' => 'cache',
+                'cacheID'              => 'cache',
             ),
         );
     }
@@ -176,7 +175,6 @@ class Post extends CActiveRecord
 
             if($this->isNewRecord)
                 $this->create_user_id = $this->update_user_id;
-
             return true;
         }
 
@@ -193,8 +191,8 @@ class Post extends CActiveRecord
 
     public function afterFind()
     {
-        $this->create_date = date('d.m.Y H:m', $this->create_date);
-        $this->update_date = date('d.m.Y H:m', $this->update_date);
+        $this->create_date  = date('d.m.Y H:m', $this->create_date);
+        $this->update_date  = date('d.m.Y H:m', $this->update_date);
         $this->publish_date = date('d.m.Y H:m', strtotime($this->publish_date));
 
         return parent::afterFind();
@@ -203,8 +201,8 @@ class Post extends CActiveRecord
     public function getStatusList()
     {
         return array(
-            self::STATUS_SHEDULED => Yii::t('blog', 'По рассписанию'),
-            self::STATUS_DRAFT => Yii::t('blog', 'Черновик'),
+            self::STATUS_SHEDULED  => Yii::t('blog', 'По рассписанию'),
+            self::STATUS_DRAFT     => Yii::t('blog', 'Черновик'),
             self::STATUS_PUBLISHED => Yii::t('blog', 'Опубликовано'),
         );
     }
@@ -213,16 +211,14 @@ class Post extends CActiveRecord
     {
         $data = $this->getStatusList();
 
-        return isset($data[$this->status])
-            ? $data[$this->status]
-            : Yii::t('blog', '*неизвестно*');
+        return isset($data[$this->status]) ? $data[$this->status] : Yii::t('blog', '*неизвестно*');
     }
 
     public function getAccessTypeList()
     {
         return array(
             self::ACCESS_PRIVATE => Yii::t('blog', 'Личный'),
-            self::ACCESS_PUBLIC => Yii::t('blog', 'Публичный')
+            self::ACCESS_PUBLIC  => Yii::t('blog', 'Публичный')
         );
     }
 
@@ -230,16 +226,12 @@ class Post extends CActiveRecord
     {
         $data = $this->getAccessTypeList();
 
-        return isset($data[$this->access_type])
-            ? $data[$this->access_type]
-            : Yii::t('blog', '*неизвестно*');
+        return isset($data[$this->access_type]) ? $data[$this->access_type] : Yii::t('blog', '*неизвестно*');
     }
 
     public function getCommentStatus()
     {
-        return $this->comment_status
-            ? Yii::t('blog', 'Да')
-            : Yii::t('blog', 'Нет');
+        return $this->comment_status ? Yii::t('blog', 'Да') : Yii::t('blog', 'Нет');
     }
 
     public function scopes()
@@ -247,11 +239,11 @@ class Post extends CActiveRecord
         return array(
             'published' => array(
                 'condition' => 'status = :status',
-                'params' => array(':status' => self::STATUS_PUBLISHED),
+                'params'    => array(':status' => self::STATUS_PUBLISHED),
             ),
             'public' => array(
                 'condition' => 'access_type = :access_type',
-                'params' => array(':access_type' => self::ACCESS_PUBLIC),
+                'params'    => array(':access_type' => self::ACCESS_PUBLIC),
             ),
         );
     }

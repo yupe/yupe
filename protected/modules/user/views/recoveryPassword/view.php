@@ -18,14 +18,14 @@ $this->menu = array(
     #<?php echo $model->id; ?></h1>
 
 <?php $this->widget('zii.widgets.CDetailView', array(
-                                                    'data' => $model,
-                                                    'attributes' => array(
-                                                        'id',
-                                                        array(
-                                                            'name' => 'user_id',
-                                                            'value' => $model->user->nick_name
-                                                        ),
-                                                        'creation_date',
-                                                        'code',
-                                                    ),
-                                               )); ?>
+    'data' => $model,
+    'attributes' => array(
+        'id',
+        array(
+            'name' => 'user_id',
+            'value' => $model->user->nick_name,
+        ),
+        'creation_date',
+        'code',
+    ),
+)); ?>

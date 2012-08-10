@@ -4,7 +4,7 @@ class GalleryModule extends YWebModule
     public function getParamsLabels()
     {
         return array(
-            'adminMenuOrder' => Yii::t('gallery', 'Порядок следования в меню')
+            'adminMenuOrder' => Yii::t('gallery', 'Порядок следования в меню'),
         );
     }
 
@@ -51,8 +51,8 @@ class GalleryModule extends YWebModule
     public function init()
     {
         $this->setImport(array(
-                              'gallery.models.*',
-                              'gallery.components.*',
-                         ));
+            'gallery.models.*',
+            'gallery.components.*',
+        ));
     }
 }

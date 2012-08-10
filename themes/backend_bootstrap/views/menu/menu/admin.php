@@ -6,7 +6,6 @@ $this->breadcrumbs = array(
 );
 
 $this->menu = array(
-    //@formatter:off
     array('label' => Yii::t('menu', 'Меню')),
     array('icon' => 'file','label' => Yii::t('menu', 'Добавить меню'), 'url' => array('create')),
     array('icon' => 'list','label' => Yii::t('menu', 'Список меню'), 'url' => array('index')),
@@ -15,7 +14,6 @@ $this->menu = array(
     array('icon' => 'file','label' => Yii::t('menu', 'Добавить пункт меню'), 'url' => array('menuitem/create')),
     array('icon' => 'list','label' => Yii::t('menu', 'Cписок пунктов меню'), 'url' => array('menuitem/index')),
     array('icon' => 'list-alt','label' => Yii::t('menu', 'Управление пунктами меню'), 'url' => array('menuitem/admin')),
-    //@formatter:on
 );
 
 Yii::app()->clientScript->registerScript('search', "
@@ -32,7 +30,7 @@ Yii::app()->clientScript->registerScript('search', "
 ");
 ?>
 
-<div class="page-header"><h1><?php echo $this->module->getName()?> <small><?php echo Yii::t('menu', 'управление');; ?></small></h1></div>
+<div class="page-header"><h1><?php echo $this->module->getName(); ?> <small><?php echo Yii::t('menu', 'управление'); ?></small></h1></div>
 
 <button class="btn btn-small dropdown-toggle"
         data-toggle="collapse"
@@ -84,14 +82,14 @@ $this->widget('YCustomGridView', array(
             'template' => '{view}{update}{delete}{add}',
             'buttons'  => array(
                 'add' => array(
-                    'label' => false,
-                    'url'   => 'Yii::app()->createUrl("/menu/menuitem/create/",array("mid" => $data->id))',
+                    'label'   => false,
+                    'url'     => 'Yii::app()->createUrl("/menu/menuitem/create/",array("mid" => $data->id))',
                     'options' => array(
                         'class' => 'icon-plus-sign',
-                        'title' => Yii::t('menu','Добавить пункт меню')
-                    )
-                )
-            )
+                        'title' => Yii::t('menu','Добавить пункт меню'),
+                    ),
+                ),
+            ),
         ),
     ),
 ));

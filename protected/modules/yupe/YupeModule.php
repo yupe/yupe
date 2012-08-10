@@ -129,10 +129,10 @@ class YupeModule extends YWebModule
     public function getNavigation()
     {
         return array(
-            Yii::t('yupe', 'Очистить кеш')   => '/yupe/backend/cacheflush/',
-            Yii::t('yupe', 'Оформление')     => '/yupe/backend/themesettings/',
-            Yii::t('yupe', 'Помощь')         => '/yupe/backend/help/',
-            Yii::t('yupe', 'Парметры сайта') => '/yupe/backend/modulesettings/module/yupe'
+            array('icon' => 'trash', 'label' => Yii::t('yupe', 'Очистить кеш'), 'url' => '/yupe/backend/cacheflush/'),
+            array('icon' => 'picture', 'label' => Yii::t('yupe', 'Оформление'), 'url' => '/yupe/backend/themesettings/'),
+            array('icon' => 'exclamation-sign', 'label' => Yii::t('yupe', 'Помощь'), 'url' => '/yupe/backend/help/'),
+            array('icon' => 'wrench', 'label' => Yii::t('yupe', 'Парметры сайта'), 'url' => '/yupe/backend/modulesettings/module/yupe'),
         );
     }
 
@@ -210,10 +210,10 @@ class YupeModule extends YWebModule
                         )
                     ))
                     {
-                        $modules[$key]    = $module;
-                        $category[$key]   = $module->category;
+                        $modules[$key]  = $module;
+                        $category[$key] = $module->category;
                         //@TODO сортировку модулей сделать иначе
-                        $order[$key]      = $module->adminMenuOrder;
+                        $order[$key]    = $module->adminMenuOrder;
                     }
                     else
                         $yiiModules[$key] = $module;
@@ -233,7 +233,7 @@ class YupeModule extends YWebModule
             {
                 $links = $modules[$key]->navigation;
 
-                // собраются подпункты категории "Настройки", кроме пункта Юпи
+                // собраются подпункты категории "Настройки модулей", кроме пункта Юпи
                 if ($modules[$key]->editableParams && $key != $this->id)
                     $settings['items'][] = array(
                         'icon'  => $modules[$key]->icon,
@@ -256,16 +256,7 @@ class YupeModule extends YWebModule
 
                 // если у модуля есть подменю, генерируем его
                 if (is_array($links))
-                {
-                    $data['items'] = array( );
-
-                    foreach ($links as $text => $url)
-                        $data['items'][] = array(
-                            'icon'  => $modules[$key]->icon,
-                            'label' => $text,
-                            'url'   => array( $url ),
-                        );
-                }
+                    $data['items'] = $links;
 
                 // если в модуле установлена категория, прикрепляем к ней
                 if (isset($category[$key]))

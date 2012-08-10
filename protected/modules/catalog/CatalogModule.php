@@ -6,22 +6,22 @@ class CatalogModule extends YWebModule
 
     public function getUploadPath()
     {
-        return Yii::getPathOfAlias('webroot') . DIRECTORY_SEPARATOR . Yii::app()->getModule('yupe')->uploadPath . DIRECTORY_SEPARATOR . $this->uploadPath . DIRECTORY_SEPARATOR;
+        return  Yii::getPathOfAlias('webroot') . DIRECTORY_SEPARATOR .
+                Yii::app()->getModule('yupe')->uploadPath . DIRECTORY_SEPARATOR .
+                $this->uploadPath . DIRECTORY_SEPARATOR;
     }
 
     public function checkSelf()
     {
-        $uploadPath = Yii::getPathOfAlias('webroot') . DIRECTORY_SEPARATOR . Yii::app()->getModule('yupe')->uploadPath . DIRECTORY_SEPARATOR . $this->uploadPath;
-
-        if (!is_writable($uploadPath))
+        if (!is_writable($this->uploadPath))
             return array(
                 'type'    => YWebModule::CHECK_ERROR,
                 'message' => Yii::t('catalog', 'Директория "{dir}" не досутпна для записи! {link}', array(
-                    '{dir}'  => $uploadPath,
+                    '{dir}'  => $this->uploadPath,
                     '{link}' => CHtml::link(Yii::t('catalog', 'Изменить настройки'), array(
                         '/yupe/backend/modulesettings/',
                         'module' => 'catalog',
-                    ))
+                    )),
                 )),
             );
     }
@@ -45,8 +45,8 @@ class CatalogModule extends YWebModule
     public function getNavigation()
     {
         return array(
-            Yii::t('catalog', 'Список товаров') => '/catalog/default/',
-            Yii::t('catalog', 'Добавить товар') => '/catalog/default/create/',
+            array('icon' => 'plus-sign', 'label' => Yii::t('catalog', 'Добавить товар'), 'url' => array('/catalog/default/create/')),
+            array('icon' => 'th-list', 'label' => Yii::t('catalog', 'Список товаров'), 'url' => array('/catalog/default/index/')),
         );
     }
 

@@ -49,33 +49,58 @@ class ImageModule extends YWebModule
     public function checkSelf()
     {
         if (!$this->uploadDir)
-            return array('type' => YWebModule::CHECK_ERROR, 'message' => Yii::t('image', 'Пожалуйста, укажите каталог для хранения изображений! {link}', array('{link}' => CHtml::link(Yii::t('image', 'Изменить настройки модуля'), array('/yupe/backend/modulesettings/', 'module' => $this->id)))));
+            return array(
+                'type' => YWebModule::CHECK_ERROR,
+                'message' => Yii::t('image', 'Пожалуйста, укажите каталог для хранения изображений! {link}', array(
+                    '{link}' => CHtml::link(Yii::t('image', 'Изменить настройки модуля'), array(
+                        '/yupe/backend/modulesettings/',
+                        'module' => $this->id,
+                     )),
+                )),
+            );
 
         if (!is_dir($this->getUploadPath()) || !is_writable($this->getUploadPath()))
-            return array('type' => YWebModule::CHECK_ERROR, 'message' => Yii::t('image', 'Директория "{dir}" не досутпна для записи или не существует! {link}', array('{dir}' => $this->getUploadPath(), '{link}' => CHtml::link(Yii::t('image', 'Изменить настройки модуля'), array('/yupe/backend/modulesettings/', 'module' => $this->id)))));
+            return array(
+                'type' => YWebModule::CHECK_ERROR,
+                'message' => Yii::t('image', 'Директория "{dir}" не досутпна для записи или не существует! {link}', array(
+                    '{dir}' => $this->getUploadPath(),
+                    '{link}' => CHtml::link(Yii::t('image', 'Изменить настройки модуля'), array(
+                        '/yupe/backend/modulesettings/',
+                        'module' => $this->id,
+                    )),
+                )),
+            );
 
         if(!$this->maxSize || $this->maxSize <= 0)
-            return array('type' => YWebModule::CHECK_ERROR, 'message' => Yii::t('image', 'Укажите максимальный размер изображений {link}', array('{link}' => CHtml::link(Yii::t('image', 'Изменить настройки модуля'), array('/yupe/backend/modulesettings/', 'module' => $this->id)))));
+            return array(
+                'type' => YWebModule::CHECK_ERROR,
+                'message' => Yii::t('image', 'Укажите максимальный размер изображений {link}', array(
+                    '{link}' => CHtml::link(Yii::t('image', 'Изменить настройки модуля'), array(
+                        '/yupe/backend/modulesettings/',
+                        'module' => $this->id,
+                     )),
+                 )),
+            );
     }
 
     public function getParamsLabels()
     {
         return array(
-            'mainCategory'   => Yii::t('image','Главная категория изображений'),
-            'uploadDir' => Yii::t('image', 'Каталог для загрузки изображений'),
+            'mainCategory'      => Yii::t('image','Главная категория изображений'),
+            'uploadDir'         => Yii::t('image', 'Каталог для загрузки изображений'),
             'allowedExtensions' => Yii::t('image', 'Разрешенные расширения (перечислите через запятую)'),
-            'maxSize' => Yii::t('image', 'Максимальный размер (в байтах)'),
+            'maxSize'           => Yii::t('image', 'Максимальный размер (в байтах)'),
         );
     }
 
     public function getEditableParams()
     {
         return array(
-                     'uploadDir',
-                     'allowedExtensions',
-                     'maxSize',
-                     'mainCategory' => CHtml::listData(Category::model()->findAll(),'id','name'),
-                     );
+            'uploadDir',
+            'allowedExtensions',
+            'maxSize',
+            'mainCategory' => CHtml::listData(Category::model()->findAll(),'id','name'),
+        );
     }
 
     public function getCategory()
@@ -116,9 +141,9 @@ class ImageModule extends YWebModule
         $this->documentRoot = $_SERVER['DOCUMENT_ROOT'];
 
         $this->setImport(array(
-                              'image.models.*',
-                              'image.components.*',
-                         ));
+            'image.models.*',
+            'image.components.*',
+        ));
     }
     
     public function getCategoryList()
@@ -128,8 +153,8 @@ class ImageModule extends YWebModule
         if($this->mainCategory)
             $criteria = array(
                 'condition' => 'id = :id OR parent_id = :id',
-                'params' => array(':id' => $this->mainCategory),
-                'order' => 'id ASC'
+                'params'    => array(':id' => $this->mainCategory),
+                'order'     => 'id ASC',
             );
 
         return Category::model()->findAll($criteria);
@@ -138,8 +163,8 @@ class ImageModule extends YWebModule
     public function getNavigation()
     {
         return array(
-            Yii::t('news','Добавить изображение') => '/image/default/create/',
-            Yii::t('news','Список изображений')  => '/image/default/'
+            array('icon' => 'plus-sign', 'label' => Yii::t('image', 'Добавить изображение'), 'url' => array('/image/default/create/')),
+            array('icon' => 'th-list', 'label' => Yii::t('news', 'Список новостей'), 'url' => array('/image/default/index/')),
         );
     }
 }

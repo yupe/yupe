@@ -23,13 +23,15 @@ class BackendController extends YBackController
         $elements = array();
 
         $editableParams = $module->getEditableParams();
-
         $moduleParamsLabels = $module->getParamsLabels();
 
         foreach ($module as $key => $value)
         {
             if (array_key_exists($key, $editableParams))
-                $elements[$key] = CHtml::label($moduleParamsLabels[$key], $key) . CHtml::dropDownList($key, $value, $editableParams[$key], array('empty' => Yii::t('yupe', '--выберите--')));
+                $elements[$key] = CHtml::label(
+                    $moduleParamsLabels[$key], $key) . CHtml::dropDownList($key, $value, $editableParams[$key],
+                    array('empty' => Yii::t('yupe', '--выберите--'))
+                );
 
             if (in_array($key, $editableParams))
             {
@@ -47,10 +49,17 @@ class BackendController extends YBackController
         foreach ($modules['modules'] as $oneModule)
         {
             if ($oneModule->getEditableParams())
-                array_push($this->menu, array('label' => $oneModule->getName(), 'url' => $this->createUrl('/yupe/backend/modulesettings/', array('module' => $oneModule->getId()))));
+                array_push($this->menu, array(
+                    'label' => $oneModule->getName(),
+                    'url'   => $this->createUrl('/yupe/backend/modulesettings/', array('module' => $oneModule->getId())),
+                ));
         }
 
-        $this->render('modulesettings', array('module' => $module, 'elements' => $elements, 'moduleParamsLabels' => $moduleParamsLabels));
+        $this->render('modulesettings', array(
+            'module'             => $module,
+            'elements'           => $elements,
+            'moduleParamsLabels' => $moduleParamsLabels,
+        ));
     }
 
     public function actionSaveModulesettings()
@@ -99,7 +108,9 @@ class BackendController extends YBackController
 
                 $transaction->commit();
 
-                Yii::app()->user->setFlash(YFlashMessages::NOTICE_MESSAGE, Yii::t('yupe', 'Настройки модуля "{module}" сохранены!', array('{module}' => $module->getName())));
+                Yii::app()->user->setFlash(YFlashMessages::NOTICE_MESSAGE, Yii::t(
+                    'yupe', 'Настройки модуля "{module}" сохранены!', array('{module}' => $module->getName())
+                ));
 
                 //@TODO сброс полностью - плохо =(
                 Yii::app()->cache->flush();
@@ -174,11 +185,19 @@ class BackendController extends YBackController
             }
         }
 
-        $theme = isset($settings['theme']) ? $settings['theme']->param_value : Yii::t('yupe', 'Тема не используется');
+        $theme = isset($settings['theme'])
+            ? $settings['theme']->param_value
+            : Yii::t('yupe', 'Тема не используется');
+        $backendTheme = isset($settings['backendTheme']) 
+            ? $settings['backendTheme']->param_value
+            : ($this->yupe->backendTheme ? $this->yupe->backendTheme : Yii::t('yupe', 'Тема не используется'));
 
-        $backendTheme = isset($settings['backendTheme']) ? $settings['backendTheme']->param_value : ($this->yupe->backendTheme ? $this->yupe->backendTheme : Yii::t('yupe', 'Тема не используется'));
-
-        $this->render('themesettings', array('themes' => $this->yupe->getThemes(), 'theme' => $theme, 'backendThemes' => $this->yupe->getThemes(true), 'backendTheme' => $backendTheme));
+        $this->render('themesettings', array(
+            'themes'        => $this->yupe->getThemes(),
+            'theme'         => $theme,
+            'backendThemes' => $this->yupe->getThemes(true),
+            'backendTheme'  => $backendTheme,
+         ));
     }
 
     /**
@@ -195,13 +214,14 @@ class BackendController extends YBackController
             $rename = (int) Yii::app()->request->getQuery('rename', 1);
 
             $webPath = DIRECTORY_SEPARATOR . $this->yupe->uploadPath . DIRECTORY_SEPARATOR . date('dmY') . DIRECTORY_SEPARATOR;
-
             $uploadPath = Yii::getPathOfAlias('webroot') . $webPath;
 
             if (!is_dir($uploadPath))
             {
                 if (!@mkdir($uploadPath))
-                    Yii::app()->ajax->rawText(Yii::t('yupe', 'Не удалось создать каталог "{dir}" для файлов!', array('{dir}' => $uploadPath)));
+                    Yii::app()->ajax->rawText(Yii::t(
+                        'yupe', 'Не удалось создать каталог "{dir}" для файлов!', array('{dir}' => $uploadPath)
+                    ));
             }
 
             $image = CUploadedFile::getInstanceByName('file');
@@ -233,7 +253,10 @@ class BackendController extends YBackController
 
         Yii::app()->user->setFlash(YFlashMessages::NOTICE_MESSAGE, Yii::t('yupe', 'Кэш успешно сброшен!'));
 
-        $this->redirect(($referrer = Yii::app()->getRequest()->getUrlReferrer()) !== null ? $referrer : array("/yupe/backend"));
+        $this->redirect(($referrer = Yii::app()->getRequest()->getUrlReferrer()) !== null
+            ? $referrer 
+            : array("/yupe/backend")
+        );
     }
 
     /**
