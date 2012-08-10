@@ -149,7 +149,15 @@ class User extends CActiveRecord
     {
         $this->change_date = new CDbExpression('NOW()');
 
-        if ($this->isNewRecord)
+        if (!$this->isNewRecord)
+        {
+            if($this->admin()->count() == 1 && self::access_level == self::ACCESS_LEVEL_ADMIN)
+            {
+                if($this->access_level == self::ACCESS_LEVEL_USER || $this->status != self::STATUS_ACTIVE)
+                    return false;
+            }
+        }
+        else
         {
             $this->registration_date = $this->creation_date = $this->change_date;
             $this->activate_key = $this->generateActivationKey();
@@ -160,6 +168,14 @@ class User extends CActiveRecord
             unset($this->birth_date);
 
         return parent::beforeSave();
+    }
+
+    public function beforeDelete()
+    {
+        if(User::model()->admin()->count() == 1 && self::access_level == self::ACCESS_LEVEL_ADMIN)
+            return false;
+
+        return parent::beforeDelete();
     }
 
     public function scopes()

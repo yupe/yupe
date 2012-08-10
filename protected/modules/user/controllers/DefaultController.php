@@ -99,8 +99,8 @@ class DefaultController extends YBackController
     {
         if (Yii::app()->request->isPostRequest)
         {
-            if(User::model()->admin()->count() > 1)
-                $this->loadModel()->delete(); // we only allow deletion via POST request
+            // we only allow deletion via POST request
+            $this->loadModel()->delete();
 
             // if AJAX request (triggered by deletion via admin grid view), we should not redirect the browser
             if (!isset($_GET['ajax']))
