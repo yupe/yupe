@@ -30,17 +30,30 @@
     ");
 ?>
 
-<h1><?php echo $this->module->getName(); ?></h1>
+<div class="page-header"><h1><?php echo $this->module->getName(); ?> <small><?php echo Yii::t('yupe', 'управление'); ?></small></h1></div>
+<button class="btn btn-small dropdown-toggle" data-toggle="collapse" data-target="#search-toggle" >
+    <i class="icon-search"></i>
+    <a class="search-button" href="#"><?php echo Yii::t('user', 'Поиск пользователей'); ?></a> <span class="caret"></span>
+</button>
 
-<?php echo CHtml::link(Yii::t('user', 'Поиск пользователей'), '#', array('class' => 'search-button')); ?>
-<div class="search-form" style="display:none">
-    <?php $this->renderPartial('_search', array('model' => $model)); ?>
-</div><!-- search-form -->
+<div id="search-toggle" class="collapse out">
+    <?php Yii::app()->clientScript->registerScript('search', "
+        $('.search-form form').submit(function(){
+            $.fn.yiiGridView.update('good-grid', {
+                data: $(this).serialize()
+            });
+            return false;
+        });
+    ");
+    $this->renderPartial('_search', array('model' => $model));
+    ?>
+</div>
 
 <?php
 $this->widget('YCustomGridView', array(
     'id' => 'user-grid',
     'dataProvider' => $model->search(),
+    'itemsCssClass' => ' table table-condensed',
     'columns' => array(
         'id',
         array(
@@ -59,16 +72,17 @@ $this->widget('YCustomGridView', array(
         array(
             'name' => 'status',
             'type' => 'raw',
-            'value' => '$this->grid->returnStatusHtml($data, Comment::STATUS_APPROVED, 1)',
+            'value' => '$this->grid->returnBootstrapStatusHtml($data)',
         ),
         array(
-            'class' => 'CButtonColumn',
-            'template' => '{view} {update} {password} {delete}',
+            'class' => 'bootstrap.widgets.TbButtonColumn',
+            'template' => '{view}{update}{password}{delete}',
             'buttons' => array(
                 'password' => array(
-                    'label' => Yii::t('user', 'Изменить пароль'),
+                    'icon'     => 'lock',
+                    'label'    => Yii::t('user', 'Изменить пароль'),
                     'imageUrl' => Yii::app()->request->baseUrl . '/web/images/key.gif',
-                    'url' => 'array("/user/default/changepassword/", "id"=>$data->id)',
+                    'url'      => 'array("/user/default/changepassword/", "id" => $data->id)',
                 ),
             ),
         ),

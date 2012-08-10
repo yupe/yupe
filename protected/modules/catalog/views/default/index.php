@@ -11,11 +11,11 @@ $this->menu = array(
 );
 ?>
 <div class="page-header">
-    <h1><?php echo ucfirst(Yii::t('yupe', 'Товары')); ?> <small><?php echo Yii::t('yupe', 'управление'); ?></small></h1>
+    <h1><?php echo $this->module->getName(); ?> <small><?php echo Yii::t('yupe', 'управление'); ?></small></h1>
 </div>
-<button class="btn btn-small dropdown-toggle"  data-toggle="collapse"  data-target="#search-toggle" >
+<button class="btn btn-small dropdown-toggle" data-toggle="collapse" data-target="#search-toggle" >
     <i class="icon-search"></i>
-    <a class="search-button" href="#">Поиск товаров</a>    <span class="caret"></span>
+    <a class="search-button" href="#">Поиск товаров</a> <span class="caret"></span>
 </button>
 
 <div id="search-toggle" class="collapse out">
@@ -36,13 +36,11 @@ $this->menu = array(
 <p><?php echo Yii::t('yupe', 'В данном разделе представлены средства управления'); ?> <?php echo Yii::t('yupe', 'товарами'); ?>.</p>
 
 <?php
-$dp = $model->search();
-//$dp->sort->defaultOrder = "";
 $this->widget('bootstrap.widgets.TbGridView', array(
     'id' => 'good-grid',
     'type' => 'condensed',
     'pager' => array('class' => 'bootstrap.widgets.TbPager', 'prevPageLabel' => "←",'nextPageLabel' => "→"),
-    'dataProvider' => $dp,
+    'dataProvider' => $model->search(),
     'filter' => $model,
     'columns' => array(
         'id',
