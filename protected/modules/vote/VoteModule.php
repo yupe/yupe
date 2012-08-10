@@ -44,8 +44,8 @@ class VoteModule extends YWebModule
         parent::init();
         
         $this->setImport(array(
-                              'vote.models.*',
-                              'vote.components.*',
-                         ));
+              'vote.models.*',
+              'vote.components.*',
+         ));
     }
 }

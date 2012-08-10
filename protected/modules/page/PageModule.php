@@ -69,10 +69,10 @@ class PageModule extends YWebModule
         parent::init();
 
         $this->setImport(array(
-                              'application.modules.page.models.*',
-                              'application.modules.page.components.*',
-                              'application.modules.page.components.widgets.*',
-                         ));
+              'application.modules.page.models.*',
+              'application.modules.page.components.*',
+              'application.modules.page.components.widgets.*',
+         ));
 
         // Если у модуля не задан редактор - спросим у ядра
         if ( !$this->editor )
@@ -86,8 +86,8 @@ class PageModule extends YWebModule
         if($this->mainCategory)
             $criteria = array(
                 'condition' => 'id = :id OR parent_id = :id',
-                'params' => array(':id' => $this->mainCategory),
-                'order' => 'id ASC'
+                'params'    => array(':id' => $this->mainCategory),
+                'order'     => 'id ASC',
             );
 
         return Category::model()->findAll($criteria);
@@ -96,8 +96,8 @@ class PageModule extends YWebModule
     public function getNavigation()
     {
         return array(
-            Yii::t('news','Добавить страницу') => '/page/default/create/',
-            Yii::t('news','Список страниц') => '/page/default/admin/'
+            array('icon' => 'plus-sign', 'label' => Yii::t('page', 'Добавить страницу'), 'url' => array('/page/default/create/')),
+            array('icon' => 'th-list', 'label' => Yii::t('page', 'Список страниц'), 'url' => array('/page/default/admin/')),
         );
     }
 }
