@@ -17,7 +17,7 @@ class PageModule extends YWebModule
 
     public function  getVersion()
     {
-        return '0.2';
+        return '0.3';
     }
 
     public function getEditableParams()
@@ -77,6 +77,11 @@ class PageModule extends YWebModule
         // Если у модуля не задан редактор - спросим у ядра
         if ( !$this->editor )
             $this->editor=Yii::app()->getModule('yupe')->editor;
+    }
+
+    public function isMultiLang()
+    {
+        return true;
     }
 
     public function getCategoryList()

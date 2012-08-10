@@ -49,7 +49,7 @@ class CategoryModule extends YWebModule
 
     public function getVersion()
     {
-        return '0.2 (dev)';
+        return '0.3';
     }
 
     public function getCategory()
@@ -87,6 +87,11 @@ class CategoryModule extends YWebModule
         return 'folder-open';
     }
 
+    public function isMultiLang()
+    {
+        return true;
+    }
+
     public function init()
     {
         parent::init();
@@ -95,5 +100,13 @@ class CategoryModule extends YWebModule
             'category.models.*',
             'category.components.*',
         ));
+    }
+
+    public function getNavigation()
+    {
+        return array(
+            Yii::t('category','Добавить категорию') => '/category/default/create/',
+            Yii::t('category','Список категорий') => '/category/default/'
+        );
     }
 }

@@ -3,10 +3,10 @@
 class DictionaryModule extends YWebModule
 {
 
-    public function getParamsLabels()
+	public function getParamsLabels()
     {
         return array(
-            'adminMenuOrder' => Yii::t('dictionary', 'Порядок следования в меню'),
+            'adminMenuOrder' => Yii::t('dictionary', 'Порядок следования в меню')
         );
     }
 
@@ -45,13 +45,21 @@ class DictionaryModule extends YWebModule
         return '0.2';
     }
 
-    public function init()
+    public function getNavigation()
     {
-        parent::init();
-
-        $this->setImport(array(
-            'dictionary.models.*',
-            'dictionary.components.*',
-        ));
+        return array(
+            Yii::t('dictionary','Справочники') => '/dictionary/default/admin',
+            Yii::t('dictionary','Значения справочников') => '/dictionary/dictionaryData/admin'
+        );
     }
+
+	public function init()
+	{
+		parent::init();
+		
+		$this->setImport(array(
+			'dictionary.models.*',
+			'dictionary.components.*',
+		));
+	}	
 }

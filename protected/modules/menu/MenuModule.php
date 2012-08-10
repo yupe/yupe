@@ -65,4 +65,12 @@ class MenuModule extends YWebModule
         ));
     }
 
+    public function getNavigation()
+    {
+        return array(
+            Yii::t('menu','Меню') => '/menu/menu/admin/',
+            Yii::t('menu','Пункты меню') => '/menu/menuitem/admin/'
+        );
+    }
+
 }
