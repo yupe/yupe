@@ -9,9 +9,9 @@ $this->breadcrumbs = array(
 );
 
 $this->menu = array(
-    array( 'icon' => 'list-alt', 'label' => Yii::t('category', 'Управление категориями'), 'url'   => array( 'admin' ) ),
+    array( 'icon' => 'list-alt', 'label' => Yii::t('category', 'Управление категориями'), 'url'   => array( 'index' ) ),
     array( 'icon' => 'file', 'label' => Yii::t('category', 'Добавить категорию'), 'url'   => array( 'create' ) ),
-    array( 'icon' => 'pencil white', 'encodeLabel' => false, 'label' => Yii::t('category', 'Редактирование категории') . "<br /><span class='label' style='font-size: 80%;'>" . mb_substr($model->name, 0, 32) . "</span>", 'url'         => array( '/categiry/default/update', 'id'  => $model->id ) ),
+    array( 'icon' => 'pencil white', 'encodeLabel' => false, 'label' => Yii::t('category', 'Редактирование категории "') . mb_substr($model->name, 0, 32) . '"', 'url' => array( '/category/default/update', 'alias' => $model->alias ) ),
 );
 ?>
 
