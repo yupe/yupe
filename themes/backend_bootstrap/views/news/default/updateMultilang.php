@@ -11,7 +11,7 @@ $this->breadcrumbs = array(
 $this->menu = array(
     array( 'icon' => 'list-alt', 'label' => Yii::t('news', 'Управление новостями'), 'url'   => array( 'admin' ) ),
     array( 'icon' => 'file', 'label' => Yii::t('news', 'Добавить новость'), 'url'   => array( '/news/default/create' ) ),
-    array( 'icon' => 'pencil white', 'encodeLabel' => false, 'label' => Yii::t('news', 'Редактирование новости') . "<br /><span class='label' style='font-size: 80%;'>" . mb_substr($model->title, 0, 32) . "</span>", 'url'         => array( '/news/default/update', 'id'  => $model->id ) ),
+    array('icon' => 'pencil white', 'encodeLabel'=> false, 'label' => Yii::t('news', 'Редактирование новости').' "'.mb_substr($model->title,0,32).'"', 'url' => array('/news/default/update','alias'=> $model->alias)),
 );
 ?>
 

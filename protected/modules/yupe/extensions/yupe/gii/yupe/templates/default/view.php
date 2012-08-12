@@ -29,7 +29,7 @@ $this->menu=array(
      <small style='margin-left:-10px;'>&laquo;<?php echo  \$model->{$nameColumn}; ?>"; ?>&raquo;</small></h1>
 </div>
 
-<?php echo  "<?php"; ?> $this->widget('bootstrap.widgets.BootDetailView',array(
+<?php echo  "<?php"; ?> $this->widget('bootstrap.widgets.TbDetailView',array(
 	'data'=>$model,
 	'attributes'=>array(
 <?php
