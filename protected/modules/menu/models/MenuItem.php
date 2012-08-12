@@ -48,7 +48,7 @@ class MenuItem extends CActiveRecord
         // will receive user inputs.
         return array(
             array('parent_id, menu_id, title, href', 'required', 'except' => 'search'),
-            array('type, sort, status, condition_denial', 'numerical', 'integerOnly' => true),
+            array('sort, status, condition_denial', 'numerical', 'integerOnly' => true),
             array('parent_id, menu_id', 'length', 'max' => 10),
             array('title, href, condition_name', 'length', 'max' => 255),
             // The following rule is used by search().
