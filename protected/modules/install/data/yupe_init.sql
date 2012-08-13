@@ -15,5 +15,5 @@ INSERT INTO `user` (`id`, `creation_date`, `change_date`, `first_name`, `last_na
 INSERT INTO `settings` (`id`, `module_id`, `param_name`, `param_value`, `creation_date`, `change_date`, `user_id`) VALUES
 (1, 'yupe', 'siteDescription', 'Юпи! - самый быстрый способ создать сайт на фреймворке Yii', '2012-08-13 12:41:50', '2012-08-13 12:41:50', 1),
 (2, 'yupe', 'siteName', 'Юпи!', '2012-08-13 12:41:50', '2012-08-13 12:41:50', 1),
-(3, 'yupe', 'siteKeyWords', 'Юпи!, yupe, yii, cms, цмс', '2012-08-13 12:41:50', '2012-08-13 12:41:50', 1);
+(3, 'yupe', 'siteKeyWords', 'Юпи!, yupe, yii, cms, цмс', '2012-08-13 12:41:50', '2012-08-13 12:41:50', 1),
 (4, 'yupe', 'email', 'admin@admin.ru', '2012-08-13 12:41:50', '2012-08-13 12:41:50', 1);
