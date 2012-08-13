@@ -29,17 +29,17 @@
     $rightMenu = array(
         "",
         array(
-            'icon' => 'question-sign',// white',
+            'icon' => 'question-sign',
             'label' => Yii::t('yupe', 'Помощь'),
             'url' => array('/yupe/backend/help/'),
         ),
         array(
-            'icon' => 'home',// white',
+            'icon' => 'home',
             'label' => Yii::t('yupe', 'На сайт'),
             'url' => array('/'.Yii::app()->defaultController),
         ),
         array(
-            'icon' => 'off',// white',
+            'icon' => 'off',
             'label' => Yii::t('yupe', 'Выйти'),
             'url' => array('/user/account/logout'),
         ),
