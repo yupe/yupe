@@ -217,6 +217,9 @@ class DefaultController extends Controller
 
                             $this->executeSql($sqlFile);
 
+                            // Чистим кэш, во избежание недоразумений при schemaCachingDuration > 0
+                            Yii::app()->cache->flush();
+
                             // обработать если есть все файлы с расширением .sql в подпапке db
                             $sqlFiles = glob("{$sqlDbDir}*.sql");
 
