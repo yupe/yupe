@@ -14,8 +14,8 @@
 class Category extends CActiveRecord
 {
 
-    const STATUS_DRAFT = 0;
-    const STATUS_PUBLISHED = 1;
+    const STATUS_DRAFT      = 0;
+    const STATUS_PUBLISHED  = 1;
     const STATUS_MODERATION = 2;
 
     /**
@@ -24,33 +24,6 @@ class Category extends CActiveRecord
     public function tableName()
     {
         return '{{category}}';
-    }
-
-    public function getStatusList()
-    {
-        return array(
-            self::STATUS_DRAFT => Yii::t('category', 'Черновик'),
-            self::STATUS_PUBLISHED => Yii::t('category', 'Опубликовано'),
-            self::STATUS_MODERATION => Yii::t('category', 'На модерации')
-        );
-    }
-
-    public function getStatus()
-    {
-        $data = $this->getStatusList();
-        return array_key_exists($this->status, $data)
-            ? $data[$this->status]
-            : Yii::t('category', '*неизвестно*');
-    }
-
-    public function getAllCategoryList($selfId = false)
-    {
-        $category = $selfId
-            ? $this->findAll('id != :id', array(':id' => $selfId))
-            : $this->findAll();
-        $category = CHtml::listData($category, 'id', 'name');
-        $category[0] = Yii::t('category', '--нет--');
-        return $category;
     }
 
     /**
@@ -80,7 +53,11 @@ class Category extends CActiveRecord
             array('alias', 'match', 'pattern' => '/^[A-Za-z0-9\-]{1,50}$/', 'message' => Yii::t('category','Неверный формат поля "{attribute}" допустимы только буквы, цифры и символ "-", от 2 до 20 символов')),
             array('lang', 'length', 'max' => 2 ),
             array('lang', 'default', 'value' => Yii::app()->sourceLanguage),
-            array( 'alias', 'unique', 'criteria' => array( 'condition' => 'lang=:lang', 'params' => array( ':lang' => $this->lang ) ), 'on' => array( 'insert' ) ),                        
+            array('alias', 'unique', 'criteria' => array(
+                'condition' => 'lang = :lang',
+                'params' => array( ':lang' => $this->lang ) ),
+                'on' => array( 'insert' ),
+            ),
             array('status', 'in', 'range' => array_keys($this->getStatusList())),
             array('image', 'file', 'types'=>'jpg, gif, png','allowEmpty' => true),
             array('id, parent_id, name, description, short_description, alias, status', 'safe', 'on' => 'search'),
@@ -131,9 +108,34 @@ class Category extends CActiveRecord
         $criteria->compare('alias', $this->alias, true);
         $criteria->compare('status', $this->status);
 
-        return new CActiveDataProvider(get_class($this), array(
-            'criteria' => $criteria,
-        ));
+        return new CActiveDataProvider(get_class($this), array('criteria' => $criteria));
+    }
+
+    public function getStatusList()
+    {
+        return array(
+            self::STATUS_DRAFT      => Yii::t('category', 'Черновик'),
+            self::STATUS_PUBLISHED  => Yii::t('category', 'Опубликовано'),
+            self::STATUS_MODERATION => Yii::t('category', 'На модерации')
+        );
+    }
+
+    public function getStatus()
+    {
+        $data = $this->getStatusList();
+        return array_key_exists($this->status, $data)
+            ? $data[$this->status]
+            : Yii::t('category', '*неизвестно*');
+    }
+
+    public function getAllCategoryList($selfId = false)
+    {
+        $category = $selfId
+            ? $this->findAll('id != :id', array(':id' => $selfId))
+            : $this->findAll();
+        $category = CHtml::listData($category, 'id', 'name');
+        $category[0] = Yii::t('category', '--нет--');
+        return $category;
     }
 
     public function getParentName()
