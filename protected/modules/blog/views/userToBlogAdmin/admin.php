@@ -44,34 +44,35 @@
 
 <?php
     $this->widget('YCustomGridView', array(
-        'id'=>'user-to-blog-grid',
-        'dataProvider'=>$model->search(),    
-        'columns'=>array(
+        'id'            => 'user-to-blog-grid',
+        'dataProvider'  => $model->search(),
+        'itemsCssClass' => ' table table-condensed',
+        'columns'       => array(
             'id',
             array(
-                'name'=>'user_id',
-                'type' => 'raw',
-                'value' => 'CHtml::link($data->user->getFullName(),array("/user/default/view/","id" => $data->user->id))'
+                'name'  => 'user_id',
+                'type'  => 'raw',
+                'value' => 'CHtml::link($data->user->getFullName(),array("/user/default/view/","id" => $data->user->id))',
             ),
             array(
                 'name'  => 'blog_id',
                 'type'  => 'raw',
-                'value' => 'CHtml::link($data->blog->name,array("/blog/blogAdmin/view/","id" => $data->blog->id))'
+                'value' => 'CHtml::link($data->blog->name,array("/blog/blogAdmin/view/","id" => $data->blog->id))',
             ),
             'create_date',
             'update_date',
             array(
-                 'name'=>'role',
-                 'value'=>'$data->getRole()'
+                'name'  => 'role',
+                'value' => '$data->getRole()',
             ),
             array(
-                'name'=>'status',
-                'type'=>'raw',
-                'value'=>'$this->grid->returnStatusHtml($data)'
+                'name'  => 'status',
+                'type'  => 'raw',
+                'value' => '$this->grid->returnBootstrapStatusHtml($data)',
             ),
             'note',
             array(
-                'class'=>'CButtonColumn',
+                'class' => 'bootstrap.widgets.TbButtonColumn',
             ),
         ),
     ));

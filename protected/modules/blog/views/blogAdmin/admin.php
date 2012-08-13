@@ -44,54 +44,55 @@
 
 <?php
     $this->widget('YCustomGridView', array(
-        'id'=>'blog-grid',
-        'dataProvider'=>$model->search(),
-        'columns'=>array(
+        'id'            => 'blog-grid',
+        'dataProvider'  => $model->search(),
+        'itemsCssClass' => ' table table-condensed',
+        'columns'       => array(
             'id',
             array(
                 'name'  => 'name',
                 'type'  => 'raw',
-                'value' => 'CHtml::link($data->name,array("/blog/blogAdmin/update/","id" => $data->id))'
+                'value' => 'CHtml::link($data->name,array("/blog/blogAdmin/update/","id" => $data->id))',
             ),
             array(
                 'name'  => Yii::t('blog','Записей'),
-                'value' => '$data->postsCount'
+                'value' => '$data->postsCount',
             ),
             array(
                 'name'  => Yii::t('blog','Участников'),
-                'value' => '$data->membersCount'
+                'value' => '$data->membersCount',
             ),
             'icon',
             'slug',
             array(
-                'name'=>'type',
-                'value'=>'$data->getType()',
+                'name'  => 'type',
+                'value' => '$data->getType()',
             ),
             array(
-                'name'=>'status',
-                'type'=>'raw',
-                'value'=>'$this->grid->returnStatusHtml($data)',
+                'name'  => 'status',
+                'type'  => 'raw',
+                'value' => '$this->grid->returnBootstrapStatusHtml($data)',
             ),
             array(
-                'name'=>'create_user_id',
-                'type' => 'raw',
-                'value' => 'CHtml::link($data->createUser->getFullName(),array("/user/default/view/","id" => $data->createUser->id))'
+                'name'  => 'create_user_id',
+                'type'  => 'raw',
+                'value' => 'CHtml::link($data->createUser->getFullName(),array("/user/default/view/","id" => $data->createUser->id))',
             ),
             array(
-                'name'=>'update_user_id',
-                'type' => 'raw',
-                'value' => 'CHtml::link($data->updateUser->getFullName(),array("/user/default/view/","id" => $data->updateUser->id))'
+                'name'  => 'update_user_id',
+                'type'  => 'raw',
+                'value' => 'CHtml::link($data->updateUser->getFullName(),array("/user/default/view/","id" => $data->updateUser->id))',
             ),
             array(
-                'name'=>'create_date',
-                'value'=>'$data->create_date',
+                'name'  => 'create_date',
+                'value' => '$data->create_date',
             ),
             array(
-                'name'=>'update_date',
-                'value'=>'$data->update_date',
+                'name'  => 'update_date',
+                'value' => '$data->update_date',
             ),
             array(
-                'class'=>'CButtonColumn',
+                'class' => 'bootstrap.widgets.TbButtonColumn',
             ),
         ),
     ));
