@@ -28,14 +28,18 @@ class BlogModule extends YWebModule
     {
         return array(
             array('label' => Yii::t('blog', 'Блоги')),
-            array('icon' => 'plus-sign', 'label' => Yii::t('blog', 'Добавить блог'), 'url'=>array('/blog/blogAdmin/create/')),
-            array('icon' => 'th-list', 'label' => Yii::t('blog', 'Управление блогами'), 'url'=>array('/blog/blogAdmin/admin/')),
+            array('icon' => 'th-large', 'label' => Yii::t('blog', 'Управление блогами'), 'url' => array('/blog/blogAdmin/admin/')),
+            array('icon' => 'th-list', 'label' => Yii::t('blog', 'Список блогов'), 'url' => array('/blog/blogAdmin/index/')),
+            array('icon' => 'plus-sign', 'label' => Yii::t('blog', 'Добавить блог'), 'url' => array('/blog/blogAdmin/create/')),
+    
             array('label' => Yii::t('blog', 'Записи')),
-            array('icon' => 'plus-sign', 'label' => Yii::t('blog', 'Добавить запись'), 'url'=>array('/blog/postAdmin/create/')),
-            array('icon' => 'th-list', 'label' => Yii::t('blog', 'Управление записями'), 'url'=>array('/blog/postAdmin/admin/')),
+            array('icon' => 'th-large', 'label' => Yii::t('blog', 'Управление записями'), 'url' => array('/blog/postAdmin/admin/')),
+            array('icon' => 'th-list', 'label' => Yii::t('blog', 'Список записей'), 'url' => array('/blog/postAdmin/index/')),
+            array('icon' => 'plus-sign', 'label' => Yii::t('blog', 'Добавить запись'), 'url' => array('/blog/postAdmin/create/')),
+    
             array('label' => Yii::t('blog', 'Участники')),
-            array('icon' => 'plus-sign', 'label' => Yii::t('blog', 'Добавить участника'), 'url'=>array('/blog/postAdmin/create/')),
-            array('icon' => 'th-list', 'label' => Yii::t('blog', 'Управление участниками'), 'url'=>array('/blog/postAdmin/admin/')),
+            array('icon' => 'th-large', 'label' => Yii::t('blog', 'Управление участниками'), 'url' => array('/blog/userToBlogAdmin/admin/')),
+            array('icon' => 'plus-sign', 'label' => Yii::t('blog', 'Добавить участника'), 'url' => array('/blog/userToBlogAdmin/create/')),
         );
     }
 

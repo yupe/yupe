@@ -11,6 +11,7 @@ $this->menu = array(
     array('icon' => 'th-large', 'label' => Yii::t('user', 'Управление пользователями'), 'url' => array('/user/default/admin')),
     array('icon' => 'th-list', 'label' => Yii::t('user', 'Список пользователей'), 'url' => array('/user/default/index')),
     array('icon' => 'plus-sign', 'label' => Yii::t('user', 'Добавление пользователя'), 'url' => array('/user/default/create')),
+
     array('label' => Yii::t('user', 'Пользователь')),
     array('icon' => 'pencil white', 'label' => Yii::t('user', 'Редактирование пользователя'), 'url' => array('/user/default/update', 'id' => $model->id)),
     array('icon' => 'eye-open', 'label' => Yii::t('user', 'Просмотр пользователя'), 'url' => array('/user/default/view', 'id' => $model->id)),
@@ -19,6 +20,7 @@ $this->menu = array(
         'submit' => array('/user/default/delete', 'id' => $model->id),
         'confirm' => 'Подтверждаете удаление ?'),
     ),
+
     array('label' => Yii::t('user', 'Восстановления паролей')),
     array('icon' => 'th-large', 'label' => Yii::t('user', 'Управление восстановлением паролей'), 'url' => array('/user/recoveryPassword/admin')),
     array('icon' => 'th-list', 'label' => Yii::t('user', 'Список восстановлений'), 'url' => array('/user/recoveryPassword/index')),
