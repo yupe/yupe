@@ -49,6 +49,15 @@ class YupeModule extends YWebModule
 
     public function checkSelf()
     {
+        $settings = Settings::model()->fetchModuleSettings('yupe', 'email');
+        if ($settings['email']->param_value == 'mail@lyzhenkov.ru')
+            return array(
+                'type' => YWebModule::CHECK_ERROR,
+                'message' => Yii::t('yupe', 'У Вас не изменен e-mail администратора, указанный, при установке, по умолчанию! {link}', array(
+                    '{link}' => CHtml::link(Yii::t('yupe', 'Изменить настройки'), array( '/yupe/backend/modulesettings/', 'module' => 'yupe' )),
+                )),
+            );
+
         $uploadPath = Yii::getPathOfAlias('webroot') . DIRECTORY_SEPARATOR . $this->uploadPath;
 
         if (!is_writable($uploadPath))
