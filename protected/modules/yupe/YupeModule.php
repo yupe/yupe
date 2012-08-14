@@ -246,7 +246,8 @@ class YupeModule extends YWebModule
 
             array_walk($this->categorySort, function($iValue) use (&$order, &$orderNew)
             {
-                $orderNew[$iValue] = $order[$iValue];
+                if(isset($order[$iValue]))
+                    $orderNew[$iValue] = $order[$iValue];
             });
             $orderNew = array_merge($orderNew, array_diff($order, $this->categorySort));
 
