@@ -16,7 +16,7 @@ class CategoryModule extends YWebModule
         if (!is_writable($uploadPath))
             return array(
                 'type'    => YWebModule::CHECK_ERROR,
-                'message' => Yii::t('category', 'Директория "{dir}" не досутпна для записи! {link}', array(
+                'message' => Yii::t('category', 'Директория "{dir}" не доступна для записи! {link}', array(
                     '{dir}'  => $uploadPath,
                     '{link}' => CHtml::link(Yii::t('category', 'Изменить настройки'), array(
                         '/yupe/backend/modulesettings/',

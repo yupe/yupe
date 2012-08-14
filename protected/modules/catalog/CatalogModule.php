@@ -16,7 +16,7 @@ class CatalogModule extends YWebModule
         if (!is_writable($this->uploadPath))
             return array(
                 'type'    => YWebModule::CHECK_ERROR,
-                'message' => Yii::t('catalog', 'Директория "{dir}" не досутпна для записи! {link}', array(
+                'message' => Yii::t('catalog', 'Директория "{dir}" не доступна для записи! {link}', array(
                     '{dir}'  => $this->uploadPath,
                     '{link}' => CHtml::link(Yii::t('catalog', 'Изменить настройки'), array(
                         '/yupe/backend/modulesettings/',

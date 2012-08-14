@@ -62,7 +62,7 @@ class ImageModule extends YWebModule
         if (!is_dir($this->getUploadPath()) || !is_writable($this->getUploadPath()))
             return array(
                 'type' => YWebModule::CHECK_ERROR,
-                'message' => Yii::t('image', 'Директория "{dir}" не досутпна для записи или не существует! {link}', array(
+                'message' => Yii::t('image', 'Директория "{dir}" не доступна для записи или не существует! {link}', array(
                     '{dir}' => $this->getUploadPath(),
                     '{link}' => CHtml::link(Yii::t('image', 'Изменить настройки модуля'), array(
                         '/yupe/backend/modulesettings/',
