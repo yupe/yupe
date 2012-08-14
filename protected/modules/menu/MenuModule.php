@@ -5,7 +5,7 @@ class MenuModule extends YWebModule
 
     public function getCategory()
     {
-        //return Yii::t('menu', 'Структура');
+        return Yii::t('menu', 'Структура');
     }
 
     public function getName()
