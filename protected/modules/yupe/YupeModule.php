@@ -331,7 +331,7 @@ class YupeModule extends YWebModule
         // Переносим настройки в категорию система
         $modulesNavigation[$this->category]['items'][] = $settings;
 
-        return $navigationOnly === true ? $modulesNavigation : array(
+        return ($navigationOnly === true) ? $modulesNavigation : array(
             'modules'           => $modules,
             'yiiModules'        => $yiiModules,
             'modulesNavigation' => $modulesNavigation,

@@ -37,46 +37,51 @@
         <thead>
         <tr>
             <th></th>
-            <th style="width: 32px;"><?php echo Yii::t('yupe', 'Вер.'); ?></th>
+            <th style="width: 32px;"><?php echo Yii::t('yupe', 'Версия'); ?></th>
             <th style="width: 32px;"></th>
             <th style="width: 150px;"><?php echo Yii::t('yupe', 'Название'); ?></th>
-            <th><?php echo Yii::t('yupe', 'Описание');?></th>
-            <th></th>
+            <th><?php echo Yii::t('yupe', 'Описание'); ?></th>
             <th></th>
         </tr>
         </thead>
         <tbody>
             <?php foreach ($modules as $module): ?>
-            <?php $style = is_array($module->checkSelf())
-                ? "style='background-color:#FBC2C4;'" : ''; ?>
-        <tr>
-            <td><?php echo ($module->icon?("<i class='icon-".$module->icon."'> </i> "):""); ?></td>
-            <td><small class='label <?php
-                $v = $module->getVersion();
-                if (($n = strpos($v,"(dev)"))!==FALSE)
-                    echo "label-warning' title='".Yii::t('yupe','Модуль в разработке')."'>".substr($v,0,$n);
-                else
-                    echo "'>".$v;
-                ?></small></td>
-            <td><?php if($module->isMultiLang()):?><i class="icon-globe"></i><?php endif;?></td>    
-            <td>
-            <small style="font-size: 80%;"><?php echo $module->getCategory(); ?></small><br />
-            <?php echo CHtml::link($module->getName(), array($module->getAdminPageLink())); ?></td>
-            <td>
-                <?php echo $module->getDescription(); ?>
-                <br />
-                <small style="font-size: 80%;"> <?php echo "<b>".Yii::t('yupe', "Автор:")."</b> ".$module->getAuthor(); ?>
-                (<a href="mailto:<?php echo $module->getAuthorEmail()?>"><?php echo $module->getAuthorEmail(); ?></a>) &nbsp;
-                <?php echo "<b>".Yii::t('yupe',"Сайт модуля:")."</b> ".CHtml::link($module->getUrl(), $module->getUrl()); ?></small><br />
-            </td>
-            <td>
-                <?php if ($module->getEditableParams()): ?>
-                <?php echo CHtml::link('<i class="icon-wrench" title="'.Yii::t('yupe', 'Настройки').'"> </i>', array('/yupe/backend/modulesettings/', 'module' => $module->getId())); ?>
-                <?php endif;?>
-            </td>
-            <td>
-            </td>
-        </tr>
+                <?php $style = is_array($module->checkSelf()) ? "style='background-color:#FBC2C4;'" : ''; ?>
+                <tr>
+                    <td><?php echo ($module->icon ? ("<i class='icon-" . $module->icon . "'> </i> ") : ""); ?></td>
+                    <td>
+                        <small class='label <?php
+                            $v = $module->getVersion();
+                            echo (($n = strpos($v, "(dev)")) !== FALSE)
+                            ? "label-warning' title='" . Yii::t('yupe', 'Модуль в разработке') . "'>" . substr($v, 0, $n)
+                            : "'>" . $v;
+                        ?></small>
+                    </td>
+                    <td>
+                        <?php if ($module->isMultiLang()): ?>
+                            <i class="icon-globe" title="<?php echo Yii::t('yupe', 'Модуль мультиязычный'); ?>"></i>
+                        <?php endif; ?>
+                    </td>
+                    <td>
+                        <small style="font-size: 80%;"><?php echo $module->getCategory(); ?></small><br />
+                        <?php echo CHtml::link($module->getName(), array($module->getAdminPageLink())); ?>
+                    </td>
+                    <td>
+                        <?php echo $module->getDescription(); ?>
+                        <br />
+                        <small style="font-size: 80%;"> <?php echo "<b>" . Yii::t('yupe', "Автор:") . "</b> " . $module->getAuthor(); ?>
+                        (<a href="mailto:<?php echo $module->getAuthorEmail(); ?>"><?php echo $module->getAuthorEmail(); ?></a>) &nbsp;
+                        <?php echo "<b>" . Yii::t('yupe', "Сайт модуля:") . "</b> " . CHtml::link($module->getUrl(), $module->getUrl()); ?></small><br />
+                    </td>
+                    <td>
+                        <?php if ($module->getEditableParams()): ?>
+                        <?php echo CHtml::link('<i class="icon-wrench" title="' . Yii::t('yupe', 'Настройки') . '"> </i>', array(
+                            '/yupe/backend/modulesettings/',
+                            'module' => $module->getId(),
+                        )); ?>
+                        <?php endif;?>
+                    </td>
+                </tr>
             <?php endforeach;?>
         </tbody>
     </table>
