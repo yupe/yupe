@@ -3,7 +3,6 @@
     <small><?php echo Yii::t('yupe', 'Добро пожаловать в панель управления Вашим сайтом!'); ?></small></h1>
 </div>
 
-
 <?php foreach ($modules as $module): ?>
 <?php if (is_array($module->checkSelf())): ?>
     <?php $error = $module->checkSelf(); ?>
