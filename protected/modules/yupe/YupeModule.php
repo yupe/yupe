@@ -203,10 +203,7 @@ class YupeModule extends YWebModule
 
     public function getModules($navigationOnly = false)
     {
-        $modules = $yiiModules = $order = $orderNew = array( );
-
-        $thisRoute = CHtml::normalizeUrl(array_merge(array("/" . Yii::app()->controller->route), $_GET));
-        $home = ($thisRoute == '/index.php/yupe/backend/index') ? true : false;
+        $modules = $yiiModules = $order = array( );
 
         // Получаем модули и заполняем основные массивы
         if (count(Yii::app()->modules))
@@ -236,7 +233,10 @@ class YupeModule extends YWebModule
             
             if ($modulesNavigation === false)
             {
-                $modulesNavigation = array( );
+                $modulesNavigation = $orderNew = array( );
+
+                $thisRoute = CHtml::normalizeUrl(array_merge(array("/" . Yii::app()->controller->route), $_GET));
+                $home = ($thisRoute == '/index.php/yupe/backend/index');
 
                 $settings = array(
                     'icon'  => "wrench",
@@ -253,6 +253,7 @@ class YupeModule extends YWebModule
                 });
                 $orderNew = array_merge($orderNew, array_diff($order, $this->categorySort));
 
+                // Обходим категории
                 foreach ($orderNew as $keyCategory => $valueCategory)
                 {
                     $settings['items'][] = array( 'label' => $keyCategory );
@@ -272,6 +273,7 @@ class YupeModule extends YWebModule
 
                     asort($valueCategory, SORT_NUMERIC);
 
+                    // Обходим модули в категориях
                     foreach ($valueCategory as $key => $value)
                     {
                         // Если нет иконка для данной категории, подставляется иконка первого модуля
