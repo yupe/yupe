@@ -138,10 +138,10 @@ class YupeModule extends YWebModule
     public function getNavigation()
     {
         return array(
-            array('icon' => 'trash', 'label' => Yii::t('yupe', 'Очистить кеш'), 'url' => '/yupe/backend/cacheflush/'),
-            array('icon' => 'picture', 'label' => Yii::t('yupe', 'Оформление'), 'url' => '/yupe/backend/themesettings/'),
-            array('icon' => 'exclamation-sign', 'label' => Yii::t('yupe', 'Помощь'), 'url' => '/yupe/backend/help/'),
-            array('icon' => 'wrench', 'label' => Yii::t('yupe', 'Парметры сайта'), 'url' => '/yupe/backend/modulesettings/module/yupe'),
+            array('icon' => 'trash', 'label' => Yii::t('yupe', 'Очистить кеш'), 'url' => array('/yupe/backend/cacheflush/')),
+            array('icon' => 'picture', 'label' => Yii::t('yupe', 'Оформление'), 'url' => array('/yupe/backend/themesettings/')),
+            array('icon' => 'exclamation-sign', 'label' => Yii::t('yupe', 'Помощь'), 'url' => array('/yupe/backend/help/')),
+            array('icon' => 'wrench', 'label' => Yii::t('yupe', 'Парметры сайта'), 'url' => array('/yupe/backend/modulesettings/', 'module' => 'yupe')),
         );
     }
 
@@ -283,13 +283,9 @@ class YupeModule extends YWebModule
                     {
                         foreach($links as &$link)
                         {
-                            if ( isset($link['url']) )
-                            {
-                                $linkUrl = '/index.php' . preg_replace("/(.*)\/$/", "\\1", $link['url'][0]);
-                                // Устанавливаем белую иконки на текущий пункт
-                                if ( $linkUrl == $thisRoute && isset($link['icon']) )
-                                    $link['icon'] .= " white";
-                            }
+                            // Устанавливаем белую иконки на текущий пункт
+                            if ( isset($link['url']) && CHtml::normalizeUrl($link['url']) == $thisRoute && isset($link['icon']) )
+                                $link['icon'] .= " white";
                         }
                         unset($link);
                     }
