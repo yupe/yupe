@@ -203,9 +203,7 @@ class YupeModule extends YWebModule
 
     public function getModules($navigationOnly = false)
     {
-        //@TODO добавить кэширование
-
-        $modulesNavigation = $modules = $category = $yiiModules = $order = array( );
+        $modules = $yiiModules = $order = $orderNew = array( );
 
         $thisRoute = CHtml::normalizeUrl(array_merge(array("/" . Yii::app()->controller->route), $_GET));
         $home = ($thisRoute == '/index.php/yupe/backend/index') ? true : false;
@@ -227,109 +225,116 @@ class YupeModule extends YWebModule
                     ))
                     {
                         $modules[$key]  = $module;
-
-                        $order[
-                            (!$module->category) ? self::OTHER_CATEGORY : $module->category
-                        ][$key] = $module->adminMenuOrder;
+                        $order[(!$module->category) ? self::OTHER_CATEGORY : $module->category][$key] = $module->adminMenuOrder;
                     }
                     else
                         $yiiModules[$key] = $module;
                 }
             }
 
-            $settings = array(
-                'icon'  => "wrench",
-                'label' => Yii::t( 'yupe', 'Настройки модулей' ),
-                'url'   => array( '/yupe/backend/settings/' ),
-                'items' => array( ),
-            );
-
-            array_walk($this->categorySort, function($iValue) use (&$order, &$orderNew)
+            $modulesNavigation = Yii::app()->cache->get('modulesNavigation');
+            
+            if ($modulesNavigation === false)
             {
-                if(isset($order[$iValue]))
-                    $orderNew[$iValue] = $order[$iValue];
-            });
-            $orderNew = array_merge($orderNew, array_diff($order, $this->categorySort));
+                $modulesNavigation = array( );
 
-            foreach ($orderNew as $keyCategory => $valueCategory)
-            {
-                $settings['items'][] = array( 'label' => $keyCategory );
-
-                $modulesNavigation[$keyCategory] = array(
-                    'label'       => $keyCategory,
-                    'url'         => '#',
-                    'items'       => array( ),
-                    'active'      => (!$home && (
-                        (!Yii::app()->controller->module->category && $keyCategory == self::OTHER_CATEGORY) || 
-                        $keyCategory == Yii::app()->controller->module->category
-                    )),
+                $settings = array(
+                    'icon'  => "wrench",
+                    'label' => Yii::t( 'yupe', 'Настройки модулей' ),
+                    'url'   => array( '/yupe/backend/settings/' ),
+                    'items' => array( ),
                 );
 
-                if (isset($this->categoryIcon[$keyCategory]))
-                    $modulesNavigation[$keyCategory]['icon'] = $this->categoryIcon[$keyCategory];
-
-                asort($valueCategory, SORT_NUMERIC);
-
-                foreach ($valueCategory as $key => $value)
+                // Сортируем категории
+                array_walk($this->categorySort, function($iValue) use (&$order, &$orderNew)
                 {
-                    // Если нет иконка для данной категории, подставляется иконка первого модуля
-                    if(!isset($modulesNavigation[$keyCategory]['icon']) && $modules[$key]->icon)
-                        $modulesNavigation[$keyCategory]['icon'] = $modules[$key]->icon;
+                    if(isset($order[$iValue]))
+                        $orderNew[$iValue] = $order[$iValue];
+                });
+                $orderNew = array_merge($orderNew, array_diff($order, $this->categorySort));
 
-                    // собраются подпункты категории "Настройки модулей", кроме пункта Юпи
-                    if ($modules[$key]->editableParams && $key != $this->id)
-                        $settings['items'][] = array(
-                            'icon'  => $modules[$key]->icon,
-                            'label' => $modules[$key]->name,
-                            'url'   => array(
-                                '/yupe/backend/modulesettings/',
-                                'module' => $modules[$key]->id,
-                            ),
-                        );
+                foreach ($orderNew as $keyCategory => $valueCategory)
+                {
+                    $settings['items'][] = array( 'label' => $keyCategory );
 
-                    // проверка на вывод модуля в категориях, потребуется при отключении модуля
-                    if (!$modules[$key]->isShowInAdminMenu)
-                        continue;
-
-                    // проверка на текущий модуль
-                    $activeClass = $iconClass = false;
-                    if(!$home && $modules[$key]->id == Yii::app()->controller->module->id)
-                    {
-                        $iconClass = ' white';
-                        $activeClass = true;
-                    }
-
-                    $data = array(
-                        'icon'  => $modules[$key]->icon.$iconClass,
-                        'label' => $modules[$key]->name,
-                        'url'   => array( $modules[$key]->adminPageLink ),
-                        'active' => $activeClass,
+                    $modulesNavigation[$keyCategory] = array(
+                        'label'       => $keyCategory,
+                        'url'         => '#',
+                        'items'       => array( ),
+                        'active'      => (!$home && (
+                            (!Yii::app()->controller->module->category && $keyCategory == self::OTHER_CATEGORY) || 
+                            $keyCategory == Yii::app()->controller->module->category
+                        )),
                     );
 
-                    $links = $modules[$key]->navigation;
+                    if (isset($this->categoryIcon[$keyCategory]))
+                        $modulesNavigation[$keyCategory]['icon'] = $this->categoryIcon[$keyCategory];
 
-                    // если у модуля есть подменю, генерируем его
-                    if (is_array($links))
+                    asort($valueCategory, SORT_NUMERIC);
+
+                    foreach ($valueCategory as $key => $value)
                     {
-                        if(!$home)
+                        // Если нет иконка для данной категории, подставляется иконка первого модуля
+                        if(!isset($modulesNavigation[$keyCategory]['icon']) && $modules[$key]->icon)
+                            $modulesNavigation[$keyCategory]['icon'] = $modules[$key]->icon;
+
+                        // собраются подпункты категории "Настройки модулей", кроме пункта Юпи
+                        if ($modules[$key]->editableParams && $key != $this->id)
+                            $settings['items'][] = array(
+                                'icon'  => $modules[$key]->icon,
+                                'label' => $modules[$key]->name,
+                                'url'   => array(
+                                    '/yupe/backend/modulesettings/',
+                                    'module' => $modules[$key]->id,
+                                ),
+                            );
+
+                        // проверка на вывод модуля в категориях, потребуется при отключении модуля
+                        if (!$modules[$key]->isShowInAdminMenu)
+                            continue;
+
+                        // проверка на текущий модуль
+                        $activeClass = $iconClass = false;
+                        if(!$home && $modules[$key]->id == Yii::app()->controller->module->id)
                         {
-                            foreach($links as &$link)
-                            {
-                                // Устанавливаем белую иконки на текущий пункт
-                                if ( isset($link['url']) && CHtml::normalizeUrl($link['url']) == $thisRoute && isset($link['icon']) )
-                                    $link['icon'] .= " white";
-                            }
-                            unset($link);
+                            $iconClass = ' white';
+                            $activeClass = true;
                         }
-                        $data['items'] = $links;
+
+                        $data = array(
+                            'icon'  => $modules[$key]->icon.$iconClass,
+                            'label' => $modules[$key]->name,
+                            'url'   => array( $modules[$key]->adminPageLink ),
+                            'active' => $activeClass,
+                        );
+
+                        $links = $modules[$key]->navigation;
+
+                        // если у модуля есть подменю, генерируем его
+                        if (is_array($links))
+                        {
+                            if(!$home)
+                            {
+                                foreach($links as &$link)
+                                {
+                                    // Устанавливаем белую иконки на текущий пункт
+                                    if ( isset($link['url']) && CHtml::normalizeUrl($link['url']) == $thisRoute && isset($link['icon']) )
+                                        $link['icon'] .= " white";
+                                }
+                                unset($link);
+                            }
+                            $data['items'] = $links;
+                        }
+                        $modulesNavigation[$keyCategory]['items'][] = $data;
                     }
-                    $modulesNavigation[$keyCategory]['items'][] = $data;
                 }
+
+                // Переносим настройки в категорию система
+                $modulesNavigation[$this->category]['items'][] = $settings;
+
+                Yii::app()->cache->set('modulesNavigation', $modulesNavigation, Yii::app()->getModule('yupe')->coreCacheTime);
             }
         }
-
-        // Переносим настройки в категорию система
-        $modulesNavigation[$this->category]['items'][] = $settings;
 
         return ($navigationOnly === true) ? $modulesNavigation : array(
             'modules'           => $modules,

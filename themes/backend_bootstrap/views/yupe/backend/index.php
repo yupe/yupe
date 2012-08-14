@@ -9,7 +9,7 @@
     <div class="alert alert-<?php echo $error['type']; ?>">
         <h4 class="alert-heading">
             <?php echo Yii::t('yupe', 'Модуль "{module} ({id})"', array(
-                '{module}' => $module->getName(),
+                '{module}' => $module->name,
                 '{id}'     => $module->id,
             )); ?>
         </h4>
@@ -20,7 +20,7 @@
 
 <p><?php echo Yii::t('yupe','Вы используете Yii версии'); ?>
     <b><?php echo Yii::getVersion(); ?></b>, <?php echo CHtml::encode(Yii::app()->name); ?>
-    версии <b><?php echo Yii::app()->getModule('yupe')->getVersion(); ?></b>,
+    версии <b><?php echo Yii::app()->getModule('yupe')->version; ?></b>,
     php <?php echo Yii::t('yupe', 'версии'); ?>
     <b><?php echo phpversion(); ?></b></p>
 
@@ -51,7 +51,7 @@
                     <td><?php echo ($module->icon ? ("<i class='icon-" . $module->icon . "'> </i> ") : ""); ?></td>
                     <td>
                         <small class='label <?php
-                            $v = $module->getVersion();
+                            $v = $module->version;
                             echo (($n = strpos($v, "(dev)")) !== FALSE)
                             ? "label-warning' title='" . Yii::t('yupe', 'Модуль в разработке') . "'>" . substr($v, 0, $n)
                             : "'>" . $v;
@@ -63,22 +63,22 @@
                         <?php endif; ?>
                     </td>
                     <td>
-                        <small style="font-size: 80%;"><?php echo $module->getCategory(); ?></small><br />
-                        <?php echo CHtml::link($module->getName(), array($module->getAdminPageLink())); ?>
+                        <small style="font-size: 80%;"><?php echo $module->category; ?></small><br />
+                        <?php echo CHtml::link($module->name, array($module->adminPageLink)); ?>
                     </td>
                     <td>
-                        <?php echo $module->getDescription(); ?>
+                        <?php echo $module->description; ?>
                         <br />
-                        <small style="font-size: 80%;"> <?php echo "<b>" . Yii::t('yupe', "Автор:") . "</b> " . $module->getAuthor(); ?>
-                        (<a href="mailto:<?php echo $module->getAuthorEmail(); ?>"><?php echo $module->getAuthorEmail(); ?></a>) &nbsp;
-                        <?php echo "<b>" . Yii::t('yupe', "Сайт модуля:") . "</b> " . CHtml::link($module->getUrl(), $module->getUrl()); ?></small><br />
+                        <small style="font-size: 80%;"> <?php echo "<b>" . Yii::t('yupe', "Автор:") . "</b> " . $module->author; ?>
+                        (<a href="mailto:<?php echo $module->authorEmail; ?>"><?php echo $module->authorEmail; ?></a>) &nbsp;
+                        <?php echo "<b>" . Yii::t('yupe', "Сайт модуля:") . "</b> " . CHtml::link($module->url, $module->url); ?></small><br />
                     </td>
                     <td>
-                        <?php if ($module->getEditableParams()): ?>
-                        <?php echo CHtml::link('<i class="icon-wrench" title="' . Yii::t('yupe', 'Настройки') . '"> </i>', array(
-                            '/yupe/backend/modulesettings/',
-                            'module' => $module->getId(),
-                        )); ?>
+                        <?php if ($module->editableParams): ?>
+                            <?php echo CHtml::link('<i class="icon-wrench" title="' . Yii::t('yupe', 'Настройки') . '"> </i>', array(
+                                '/yupe/backend/modulesettings/',
+                                'module' => $module->id,
+                            )); ?>
                         <?php endif;?>
                     </td>
                 </tr>
@@ -94,24 +94,24 @@
     </div>
     <table  class="table table-striped">
         <thead>
-        <tr>
-            <th><?php echo Yii::t('yupe', 'id'); ?></th>
-            <th><?php echo Yii::t('yupe', 'Название'); ?></th>
-            <th><?php echo Yii::t('yupe', 'Описание'); ?></th>
-            <th><?php echo Yii::t('yupe', 'Версия'); ?></th>
-        </tr>
+            <tr>
+                <th><?php echo Yii::t('yupe', 'id'); ?></th>
+                <th><?php echo Yii::t('yupe', 'Название'); ?></th>
+                <th><?php echo Yii::t('yupe', 'Описание'); ?></th>
+                <th><?php echo Yii::t('yupe', 'Версия'); ?></th>
+            </tr>
         </thead>
         <tbody>
             <?php foreach ($yiiModules as $module): ?>
-        <tr>
-            <td><?php echo $module->id; ?></td>
-            <td><?php echo $module->name; ?></td>
-            <td><?php echo $module->description; ?></td>
-            <td><?php echo $module->getVersion(); ?></td>
-        </tr>
+                <tr>
+                    <td><?php echo $module->id; ?></td>
+                    <td><?php echo $module->name; ?></td>
+                    <td><?php echo $module->description; ?></td>
+                    <td><?php echo $module->version; ?></td>
+                </tr>
             <?php endforeach; ?>
         </tbody>
     </table>
 <?php endif; ?>
 
-<?php $this->menu=$modulesNavigation; ?>
+<?php $this->menu = $modulesNavigation; ?>
