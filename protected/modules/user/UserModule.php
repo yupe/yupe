@@ -61,7 +61,7 @@ class UserModule extends YWebModule
 
     public function checkSelf()
     {
-        $superAdmin = User::model()->admin()->find();
+        $superAdmin = User::model()->cache(Yii::app()->getModule('yupe')->coreCacheTime)->admin()->find();
         if ($superAdmin->password == User::hashPassword('123456', $superAdmin->salt) || $superAdmin->email == 'admin@admind.ru')
             return array(
                 'type' => YWebModule::CHECK_ERROR,

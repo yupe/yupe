@@ -99,7 +99,7 @@ class ImageModule extends YWebModule
             'uploadDir',
             'allowedExtensions',
             'maxSize',
-            'mainCategory' => CHtml::listData(Category::model()->findAll(),'id','name'),
+            'mainCategory' => Category::model()->allCategoryList,
         );
     }
 

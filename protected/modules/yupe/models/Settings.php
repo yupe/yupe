@@ -135,7 +135,7 @@ class Settings extends CActiveRecord
             else
                 $criteria->compare("param_name", $params);
 
-            $q = $this->findAll($criteria);
+            $q = $this->cache(Yii::app()->getModule('yupe')->coreCacheTime)->findAll($criteria);
 
             foreach ($q as $s)
                 $settings[$s->param_name] = $s;

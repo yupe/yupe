@@ -42,7 +42,7 @@ class NewsModule extends YWebModule
         return array(
             'adminMenuOrder',
             'editor' => Yii::app()->getModule('yupe')->getEditors(),
-            'mainCategory' => CHtml::listData(Category::model()->findAll(), 'id', 'name'),
+            'mainCategory' => Category::model()->allCategoryList,
             'uploadPath',
         );
     }
