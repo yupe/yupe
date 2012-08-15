@@ -42,10 +42,7 @@ return array(
     'yupe'  => array(
         'class'    => 'application.modules.yupe.YupeModule',
         'brandUrl' => 'http://yupe.ru?from=engine',
-    ),/*
-    'yupeparams'  => array(
-        'class'    => 'application.modules.yupe.YupeParams',
-    ),*/
+    ),
     'install'  => array(
         'class' => 'application.modules.install.InstallModule',
     ),
