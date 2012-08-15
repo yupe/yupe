@@ -185,8 +185,8 @@ abstract class YWebModule extends CWebModule
         if (isset(Yii::app()->theme) && is_object(Yii::app()->theme))
             $this->layout = 'webroot.themes.' . Yii::app()->theme->name . '.views.layouts.main';
 
-        try
-        {
+        //try
+        //{
             // инициализация модуля
             $settings = Settings::model()->cache($this->coreCacheTime)->findAll('module_id = :module_id', array('module_id' => $this->getId()));
 
@@ -201,11 +201,11 @@ abstract class YWebModule extends CWebModule
                         $this->{$model->param_name} = $model->param_value;
                 }
             }
-        }
-        catch(Exception $e)
-        {
+        //}
+        //catch(Exception $e)
+        //{
 
-        }
+        //}
 
         parent::init();
     }

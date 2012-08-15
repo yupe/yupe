@@ -164,7 +164,7 @@ return array(
     ),
     // конфигурация модулей приложения, подробнее http://www.yiiframework.ru/doc/guide/ru/basics.module
     'modules' => require(dirname(__FILE__) . '/modules.php'),
-    
+
     'behaviors' => array(
         'onBeginRequest' => array('class' => 'application.modules.yupe.extensions.urlManager.LanguageBehavior'),
         'YupeStartUpBehavior',
