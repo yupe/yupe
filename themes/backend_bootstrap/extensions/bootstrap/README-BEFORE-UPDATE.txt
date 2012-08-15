@@ -52,3 +52,7 @@
     top: 10px;
     left: -12px;
 }
+
+.navbar .nav .dropdown-menu .active > a {
+    color: #FFF !important;
+}

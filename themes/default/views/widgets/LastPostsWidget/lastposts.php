@@ -3,10 +3,12 @@
         <div class='portlet-title'>Последнее в блогах</div>
     </div>
     <div class='portlet-content'>
-        <ul>
-            <?php foreach ($posts as $post): ?>
-            <li><?php echo CHtml::link($post->title, array('/blog/post/show/', 'slug' => $post->slug));?></li>
-            <?php endforeach;?>
-        </ul>
+        <?php if(isset($models) && $models != array()): ?>
+            <ul>
+                <?php foreach ($models as $model): ?>
+                    <li><?php echo CHtml::link($model->title, array('/blog/post/show/', 'slug' => $model->slug)); ?></li>
+                <?php endforeach;?>
+            </ul>
+        <?php endif; ?>
     </div>
 </div>

@@ -122,9 +122,9 @@ class Settings extends CActiveRecord
      * @return array Экземпляры класса Settings, соответствующие запрошенным параметрам
      * @todo Добавить кеширование
      */
-    public function fetchModuleSettings($module_id,$params=null)
+    public function fetchModuleSettings($module_id, $params = null)
     {
-        $settings = array();
+        $settings = array( );
         if ($module_id)
         {
             $criteria = new CDbCriteria();
@@ -135,7 +135,7 @@ class Settings extends CActiveRecord
             else
                 $criteria->compare("param_name", $params);
 
-            $q = $this->findAll($criteria);
+            $q = $this->cache(Yii::app()->getModule('yupe')->coreCacheTime)->findAll($criteria);
 
             foreach ($q as $s)
                 $settings[$s->param_name] = $s;

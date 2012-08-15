@@ -3,10 +3,12 @@
         <div class='portlet-title'>Последние комментарии</div>
     </div>
     <div class='portlet-content'>
-        <ul>
-            <?php foreach ($comments as $comment): ?>
-            <li><?php echo CHtml::link($comment->text);?></li>
-            <?php endforeach;?>
-        </ul>
+        <?php if(isset($models) && $models != array()): ?>
+            <ul>
+                <?php foreach ($models as $model): ?>
+                    <li><?php echo CHtml::link($model->text);?></li>
+                <?php endforeach;?>
+            </ul>
+        <?php endif; ?>
     </div>
 </div>

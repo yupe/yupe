@@ -1,10 +1,10 @@
 <div class="form">
 
     <?php $form = $this->beginWidget('CActiveForm', array(
-                                                         'action' => $this->controller->createUrl('/comment/comment/add'),
-                                                         'id' => 'comment-form',
-                                                         'enableClientValidation' => true,
-                                                    )); ?>
+         'action' => $this->controller->createUrl('/comment/comment/add'),
+         'id' => 'comment-form',
+         'enableClientValidation' => true,
+    )); ?>
 
     <p class="note"><?php echo Yii::t('yupe', 'Поля, отмеченные');?> <span
         class="required">*</span> <?php echo Yii::t('yupe', 'обязательны для заполнения');?>

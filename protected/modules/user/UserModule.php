@@ -59,6 +59,20 @@ class UserModule extends YWebModule
 
     public static $logCategory = 'application.modules.user';
 
+    public function checkSelf()
+    {
+        $superAdmin = User::model()->cache(Yii::app()->getModule('yupe')->coreCacheTime)->admin()->find();
+        if ($superAdmin->password == User::hashPassword('123456', $superAdmin->salt) || $superAdmin->email == 'admin@admind.ru')
+            return array(
+                'type' => YWebModule::CHECK_ERROR,
+                'message' => Yii::t('yupe', 'У Вас не изменен пароли или email, указанный, при установке, по умолчанию! {link}', array(
+                    '{link}' => CHtml::link(Yii::t('yupe', 'Изменить настройки'), array( '/user/default/admin/', 'module' => 'user' )),
+                )),
+            );
+
+        return true;
+    }
+
     public function getParamsLabels()
     {
         return array(

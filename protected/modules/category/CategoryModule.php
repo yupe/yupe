@@ -16,7 +16,7 @@ class CategoryModule extends YWebModule
         if (!is_writable($uploadPath))
             return array(
                 'type'    => YWebModule::CHECK_ERROR,
-                'message' => Yii::t('category', 'Директория "{dir}" не досутпна для записи! {link}', array(
+                'message' => Yii::t('category', 'Директория "{dir}" не доступна для записи! {link}', array(
                     '{dir}'  => $uploadPath,
                     '{link}' => CHtml::link(Yii::t('category', 'Изменить настройки'), array(
                         '/yupe/backend/modulesettings/',
@@ -106,7 +106,7 @@ class CategoryModule extends YWebModule
     {
         return array(
             array('icon' => 'plus-sign', 'label' => Yii::t('category', 'Добавить категорию'), 'url' => array('/category/default/create/')),
-            array('icon' => 'th-list', 'label' => Yii::t('category', 'Список категорий'), 'url' => array('/category/default/')),
+            array('icon' => 'th-list', 'label' => Yii::t('category', 'Список категорий'), 'url' => array('/category/default/index/')),
         );
     }
 }

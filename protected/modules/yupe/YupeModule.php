@@ -19,6 +19,7 @@
  */
 class YupeModule extends YWebModule
 {
+    const OTHER_CATEGORY  = 'Остальное';
 
     public $siteDescription;
     public $siteName;
@@ -35,7 +36,11 @@ class YupeModule extends YWebModule
     public $editor        = 'application.modules.yupe.widgets.editors.imperaviRedactor.EImperaviRedactorWidget';
     public $email;
     public $categoryIcon  = array(
-        'Сервисы' => 'briefcase',
+        'Сервисы'            => 'briefcase',
+        self::OTHER_CATEGORY => 'inbox',
+    );
+    public $categorySort  = array(
+        'Контент', 'Структура', 'Пользователи', 'Сервисы', 'Система', 'Остальное'
     );
 
     public $availableLanguages = "ru,en";
@@ -49,6 +54,15 @@ class YupeModule extends YWebModule
 
     public function checkSelf()
     {
+        $settings = Settings::model()->fetchModuleSettings('yupe', 'email');
+        if ($settings['email']->param_value == 'mail@lyzhenkov.ru')
+            return array(
+                'type' => YWebModule::CHECK_ERROR,
+                'message' => Yii::t('yupe', 'У Вас не изменен e-mail администратора, указанный, при установке, по умолчанию! {link}', array(
+                    '{link}' => CHtml::link(Yii::t('yupe', 'Изменить настройки'), array( '/yupe/backend/modulesettings/', 'module' => 'yupe' )),
+                )),
+            );
+
         $uploadPath = Yii::getPathOfAlias('webroot') . DIRECTORY_SEPARATOR . $this->uploadPath;
 
         if (!is_writable($uploadPath))
@@ -63,13 +77,13 @@ class YupeModule extends YWebModule
         if (!is_writable(Yii::app()->runtimePath))
             return array(
                 'type'    => YWebModule::CHECK_ERROR,
-                'message' => Yii::t('yupe', 'Директория "{dir}" не досутпна для записи!', array( '{dir}' => Yii::app()->runtimePath )),
+                'message' => Yii::t('yupe', 'Директория "{dir}" не доступна для записи!', array( '{dir}' => Yii::app()->runtimePath )),
             );
 
         if (!is_writable(Yii::app()->getAssetManager()->basePath))
             return array(
                 'type'    => YWebModule::CHECK_ERROR,
-                'message' => Yii::t('yupe', 'Директория "{dir}" не досутпна для записи!', array( '{dir}' => Yii::app()->getAssetManager()->basePath )),
+                'message' => Yii::t('yupe', 'Директория "{dir}" не доступна для записи!', array( '{dir}' => Yii::app()->getAssetManager()->basePath )),
             );
 
         if (defined('YII_DEBUG') && YII_DEBUG)
@@ -84,19 +98,19 @@ class YupeModule extends YWebModule
     public function getParamsLabels()
     {
         return array(
-            'siteDescription' => Yii::t('yupe', 'Описание сайта'),
-            'siteName'        => Yii::t('yupe', 'Название сайта'),
-            'siteKeyWords'    => Yii::t('yupe', 'Ключевые слова сайта'),
-            'backendLayout'   => Yii::t('yupe', 'Вид административной части'),
-            'backendTheme'    => Yii::t('yupe', 'Вид административной части'),
-            'theme'           => Yii::t('yupe', 'Тема'),
-            'coreCacheTime'   => Yii::t('yupe', 'Время кэширования (сек.)'),
-            'editorsDir'      => Yii::t('yupe', 'Каталог для визивиг редакторов'),
-            'uploadPath'      => Yii::t('yupe', 'Каталог для загрузки файлов (относительно корня сайта)'),
-            'editor'          => Yii::t('page', 'Визуальный редактор'),
-            'email'           => Yii::t('page', 'Email администратора'),
-            'availableLanguages' => Yii::t('yupe', 'Список доступных языков через запятую (напр. ru,en,de)'),
-            'defaultLanguage' => Yii::t('yupe', 'Язык по-умолчанию для сайта'),
+            'siteDescription'        => Yii::t('yupe', 'Описание сайта'),
+            'siteName'               => Yii::t('yupe', 'Название сайта'),
+            'siteKeyWords'           => Yii::t('yupe', 'Ключевые слова сайта'),
+            'backendLayout'          => Yii::t('yupe', 'Вид административной части'),
+            'backendTheme'           => Yii::t('yupe', 'Вид административной части'),
+            'theme'                  => Yii::t('yupe', 'Тема'),
+            'coreCacheTime'          => Yii::t('yupe', 'Время кэширования (сек.)'),
+            'editorsDir'             => Yii::t('yupe', 'Каталог для визивиг редакторов'),
+            'uploadPath'             => Yii::t('yupe', 'Каталог для загрузки файлов (относительно корня сайта)'),
+            'editor'                 => Yii::t('page', 'Визуальный редактор'),
+            'email'                  => Yii::t('page', 'Email администратора'),
+            'availableLanguages'     => Yii::t('yupe', 'Список доступных языков через запятую (напр. ru,en,de)'),
+            'defaultLanguage'        => Yii::t('yupe', 'Язык по-умолчанию для сайта'),
             'defaultBackendLanguage' => Yii::t('yupe', 'Язык по-умолчанию для админки'),
         );
     }
@@ -129,10 +143,10 @@ class YupeModule extends YWebModule
     public function getNavigation()
     {
         return array(
-            array('icon' => 'trash', 'label' => Yii::t('yupe', 'Очистить кеш'), 'url' => '/yupe/backend/cacheflush/'),
-            array('icon' => 'picture', 'label' => Yii::t('yupe', 'Оформление'), 'url' => '/yupe/backend/themesettings/'),
-            array('icon' => 'exclamation-sign', 'label' => Yii::t('yupe', 'Помощь'), 'url' => '/yupe/backend/help/'),
-            array('icon' => 'wrench', 'label' => Yii::t('yupe', 'Парметры сайта'), 'url' => '/yupe/backend/modulesettings/module/yupe'),
+            array('icon' => 'trash', 'label' => Yii::t('yupe', 'Очистить кеш'), 'url' => array('/yupe/backend/cacheflush/')),
+            array('icon' => 'picture', 'label' => Yii::t('yupe', 'Оформление'), 'url' => array('/yupe/backend/themesettings/')),
+            array('icon' => 'exclamation-sign', 'label' => Yii::t('yupe', 'Помощь'), 'url' => array('/yupe/backend/help/')),
+            array('icon' => 'wrench', 'label' => Yii::t('yupe', 'Парметры сайта'), 'url' => array('/yupe/backend/modulesettings/', 'module' => 'yupe')),
         );
     }
 
@@ -189,10 +203,7 @@ class YupeModule extends YWebModule
 
     public function getModules($navigationOnly = false)
     {
-        //@TODO добавить кэширование
-        //@TODO продумать работу с категориями
-
-        $modulesNavigation = $modules = $category = $yiiModules = $order = array( );
+        $modules = $yiiModules = $order = array( );
 
         // Получаем модули и заполняем основные массивы
         if (count(Yii::app()->modules))
@@ -211,83 +222,123 @@ class YupeModule extends YWebModule
                     ))
                     {
                         $modules[$key]  = $module;
-                        $category[$key] = $module->category;
-                        //@TODO сортировку модулей сделать иначе
-                        $order[$key]    = $module->adminMenuOrder;
+                        $order[(!$module->category) ? self::OTHER_CATEGORY : $module->category][$key] = $module->adminMenuOrder;
                     }
                     else
                         $yiiModules[$key] = $module;
                 }
             }
 
-            asort($order, SORT_NUMERIC);
-
-            $settings = array(
-                'icon'  => "wrench",
-                'label' => Yii::t('yupe', 'Настройки модулей'),
-                'url'   => array( '/yupe/backend/settings/' ),
-                'items' => array( ),
-            );
-
-            foreach ($order as $key => $value)
+            $modulesNavigation = Yii::app()->cache->get('modulesNavigation');
+            
+            if ($modulesNavigation === false)
             {
-                $links = $modules[$key]->navigation;
+                $modulesNavigation = $orderNew = array( );
 
-                // собраются подпункты категории "Настройки модулей", кроме пункта Юпи
-                if ($modules[$key]->editableParams && $key != $this->id)
-                    $settings['items'][] = array(
-                        'icon'  => $modules[$key]->icon,
-                        'label' => $modules[$key]->name,
-                        'url'   => array(
-                            '/yupe/backend/modulesettings/',
-                            'module' => $modules[$key]->id,
-                        ),
-                    );
+                $thisRoute = CHtml::normalizeUrl(array_merge(array("/" . Yii::app()->controller->route), $_GET));
+                $home = ($thisRoute == '/index.php/yupe/backend/index');
 
-                // проверка на вывод модуля в категориях, потребуется при отключении модуля
-                if (!$modules[$key]->isShowInAdminMenu)
-                    continue;
-
-                $data = array(
-                    'icon'  => $modules[$key]->icon,
-                    'label' => $modules[$key]->name,
-                    'url'   => array( $modules[$key]->adminPageLink ),
+                $settings = array(
+                    'icon'  => "wrench",
+                    'label' => Yii::t( 'yupe', 'Настройки модулей' ),
+                    'url'   => array( '/yupe/backend/settings/' ),
+                    'items' => array( ),
                 );
 
-                // если у модуля есть подменю, генерируем его
-                if (is_array($links))
-                    $data['items'] = $links;
-
-                // если в модуле установлена категория, прикрепляем к ней
-                if (isset($category[$key]))
+                // Сортируем категории
+                array_walk($this->categorySort, function($iValue) use (&$order, &$orderNew)
                 {
-                    // проверяем, создавалась ли ранее категория
-                    if (!isset($modulesNavigation[$category[$key]]))
+                    if(isset($order[$iValue]))
+                        $orderNew[$iValue] = $order[$iValue];
+                });
+                $orderNew = array_merge($orderNew, array_diff($order, $this->categorySort));
+
+                // Обходим категории
+                foreach ($orderNew as $keyCategory => $valueCategory)
+                {
+                    $settings['items'][] = array( 'label' => $keyCategory );
+
+                    $modulesNavigation[$keyCategory] = array(
+                        'label'       => $keyCategory,
+                        'url'         => '#',
+                        'items'       => array( ),
+                        'active'      => (!$home && (
+                            (!Yii::app()->controller->module->category && $keyCategory == self::OTHER_CATEGORY) || 
+                            $keyCategory == Yii::app()->controller->module->category
+                        )),
+                    );
+
+                    if (isset($this->categoryIcon[$keyCategory]))
+                        $modulesNavigation[$keyCategory]['icon'] = $this->categoryIcon[$keyCategory];
+
+                    asort($valueCategory, SORT_NUMERIC);
+
+                    // Обходим модули в категориях
+                    foreach ($valueCategory as $key => $value)
                     {
-                        $modulesNavigation[$category[$key]] = array(
-                            'label'       => $category[$key],
-                            'url'         => '#',
-                            'items'       => array( ),
-                            'linkOptions' => array( 'class' => 'sub-menu' ),
+                        // Если нет иконка для данной категории, подставляется иконка первого модуля
+                        if(!isset($modulesNavigation[$keyCategory]['icon']) && $modules[$key]->icon)
+                            $modulesNavigation[$keyCategory]['icon'] = $modules[$key]->icon;
+
+                        // собраются подпункты категории "Настройки модулей", кроме пункта Юпи
+                        if ($modules[$key]->editableParams && $key != $this->id)
+                            $settings['items'][] = array(
+                                'icon'  => $modules[$key]->icon,
+                                'label' => $modules[$key]->name,
+                                'url'   => array(
+                                    '/yupe/backend/modulesettings/',
+                                    'module' => $modules[$key]->id,
+                                ),
+                            );
+
+                        // проверка на вывод модуля в категориях, потребуется при отключении модуля
+                        if (!$modules[$key]->isShowInAdminMenu)
+                            continue;
+
+                        // проверка на текущий модуль
+                        $activeClass = $iconClass = false;
+                        if(!$home && $modules[$key]->id == Yii::app()->controller->module->id)
+                        {
+                            $iconClass = ' white';
+                            $activeClass = true;
+                        }
+
+                        $data = array(
+                            'icon'  => $modules[$key]->icon.$iconClass,
+                            'label' => $modules[$key]->name,
+                            'url'   => array( $modules[$key]->adminPageLink ),
+                            'active' => $activeClass,
                         );
 
-                        if (isset($this->categoryIcon[$category[$key]]))
-                            $modulesNavigation[$category[$key]]['icon'] = $this->categoryIcon[$category[$key]];
-                        // Если нет иконка для данной категории, подставляется иконка первого модуля
-                        elseif ($modules[$key]->icon)
-                            $modulesNavigation[$category[$key]]['icon'] = $modules[$key]->icon;
+                        $links = $modules[$key]->navigation;
+
+                        // если у модуля есть подменю, генерируем его
+                        if (is_array($links))
+                        {
+                            if(!$home)
+                            {
+                                foreach($links as &$link)
+                                {
+                                    // Устанавливаем белую иконки на текущий пункт
+                                    if ( isset($link['url']) && CHtml::normalizeUrl($link['url']) == $thisRoute && isset($link['icon']) )
+                                        $link['icon'] .= " white";
+                                }
+                                unset($link);
+                            }
+                            $data['items'] = $links;
+                        }
+                        $modulesNavigation[$keyCategory]['items'][] = $data;
                     }
-                    $modulesNavigation[$category[$key]]['items'][] = $data;
                 }
-                else
-                    $modulesNavigation[] = $data;
+
+                // Переносим настройки в категорию система
+                $modulesNavigation[$this->category]['items'][] = $settings;
+
+                Yii::app()->cache->set('modulesNavigation', $modulesNavigation, Yii::app()->getModule('yupe')->coreCacheTime);
             }
         }
 
-        // Переносим настройки в категорию система
-        $modulesNavigation[$this->category]['items'][] = $settings;
-
-        return $navigationOnly === true ? $modulesNavigation : array(
+        return ($navigationOnly === true) ? $modulesNavigation : array(
             'modules'           => $modules,
             'yiiModules'        => $yiiModules,
             'modulesNavigation' => $modulesNavigation,
