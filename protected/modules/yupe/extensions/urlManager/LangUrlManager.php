@@ -15,7 +15,7 @@ class LangUrlManager extends CUrlManager
     {
         // Получаем из настроек доступные языки
         $yupe = Yii::app()->getModule('yupe');
-        $this->languages = explode("," , $yupe->availableLanguages);
+        $this->languages = explode(",", $yupe->availableLanguages);
 
         // Если указаны - добавляем правила для обработки, иначе ничего не трогаем вообще
         if (is_array($this->languages))
@@ -23,8 +23,8 @@ class LangUrlManager extends CUrlManager
             // Добавляем правила для обработки языков
             $r = array();
 
-            foreach( $this->rules as $rule => $p )
-                $r[(($rule[0] == '/') ? ('/<'.$this->langParam.':\w{2}>') : ('<'.$this->langParam.':\w{2}>/')) . $rule] = $p;
+            foreach ( $this->rules as $rule => $p )
+                $r[(($rule[0] == '/') ? ('/<' . $this->langParam . ':\w{2}>') : ('<' . $this->langParam . ':\w{2}>/')) . $rule] = $p;
 
             $this->rules = array_merge($r, $this->rules);
 
@@ -42,11 +42,11 @@ class LangUrlManager extends CUrlManager
         if (is_array($this->languages))
         {
             // Если язык не указан - берем текущий
-            if(!isset($params[$this->langParam]))
-                $params[$this->langParam] = Yii::app()->language;                
+            if (!isset($params[$this->langParam]))
+                $params[$this->langParam] = Yii::app()->language;
 
             // Если указан "нативный" язык и к тому же он текущий  - делаем URL без него, т.к. он соответсвует пустому пути
-            if ((Yii::app()->sourceLanguage == $params[$this->langParam]) && ($params[$this->langParam] == Yii::app()->language) )
+            if ((Yii::app()->sourceLanguage == $params[$this->langParam]) && ($params[$this->langParam] == Yii::app()->language))
                 unset($params[$this->langParam]);
 
         }
@@ -57,10 +57,12 @@ class LangUrlManager extends CUrlManager
     {
         if ( in_array($url, $this->languages))
             return "/";
+
         $r = join("|", $this->languages);
         $url = preg_replace("/^($r)\//", "", $url);
+
         if ( !isset($url[0]) || ($url[0] != '/') )
-            $url= '/'  . $url;
+            $url = '/' . $url;
 
         return $url;
     }
