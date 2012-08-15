@@ -33,7 +33,7 @@ class LanguageBehavior extends CBehavior
                 $this->setLanguage($l);
 
             // Если указанный язык в URL в виде пути или параметра - нативный для приложения
-            if ( $l == Yii::app()-> sourceLanguage )
+            if ( $l == Yii::app()->sourceLanguage )
             {
                 // Если указан в пути, редиректим на "чистый URL"
                 $l = substr(Yii::app()->request->getPathInfo(), 0, 2);

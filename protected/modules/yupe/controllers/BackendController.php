@@ -42,18 +42,8 @@ class BackendController extends YBackController
         }
 
         // сформировать боковое меню из ссылок на настройки модулей
-        $modules = $this->yupe->getModules();
-
-        $this->menu = array();
-
-        foreach ($modules['modules'] as $oneModule)
-        {
-            if ($oneModule->getEditableParams())
-                array_push($this->menu, array(
-                    'label' => $oneModule->getName(),
-                    'url'   => $this->createUrl('/yupe/backend/modulesettings/', array('module' => $oneModule->getId())),
-                ));
-        }
+        $yupe = $this->yupe;
+        $this->menu = $yupe->modules['modulesNavigation'][$yupe->category]['items']['settings']['items'];
 
         $this->render('modulesettings', array(
             'module'             => $module,

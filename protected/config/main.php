@@ -86,9 +86,6 @@ return array(
         'mailMessage' => array(
             'class' => 'application.modules.mail.components.YMailMessage'
         ),
-        'bootstrap' => array(
-            'class' => 'ext.bootstrap.components.Bootstrap', // assuming you extracted bootstrap under extensions
-        ),
         // конфигурирование urlManager, подробнее http://www.yiiframework.ru/doc/guide/ru/topics.url
         'urlManager' => array(
             'class'=>'application.modules.yupe.extensions.urlManager.LangUrlManager',
@@ -113,6 +110,7 @@ return array(
                 '/profile/'                                             => 'user/people/profile/',
                 '/install'                                              => 'install/default/index/',
                 '/wiki/<controller:\w+>/<action:\w+>'                   => '/yeeki/wiki/<controller>/<action>',
+                '/site/page/<view:\w+>'                                 => 'site/page/view/<view>',
                 'user/<username:\w+>/'                                  => 'user/people/userInfo',
                 '<module:\w+>/<controller:\w+>/<action:\w+>/<id:\d+>'   => '<module>/<controller>/<action>',
                 '<module:\w+>/<controller:\w+>/<action:\w+>'            => '<module>/<controller>/<action>',
