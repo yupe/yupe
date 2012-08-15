@@ -10,6 +10,6 @@ class LastPostsWidget extends YWidget
             'order' => 'id DESC',
         ));
 
-        $this->render('lastposts', array('posts' =>$posts));
+        $this->render('lastposts', array('models' =>$posts));
     }
 }

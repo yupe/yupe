@@ -17,7 +17,7 @@ class NewsModule extends YWebModule
         if (!is_writable($uploadPath))
             return array(
                 'type'    => YWebModule::CHECK_ERROR,
-                'message' => Yii::t('news', 'Директория "{dir}" не досутпна для записи! {link}', array(
+                'message' => Yii::t('news', 'Директория "{dir}" не доступна для записи! {link}', array(
                     '{dir}'  => $uploadPath,
                     '{link}' => CHtml::link(Yii::t('news', 'Изменить настройки'), array(
                         '/yupe/backend/modulesettings/',
@@ -42,7 +42,7 @@ class NewsModule extends YWebModule
         return array(
             'adminMenuOrder',
             'editor' => Yii::app()->getModule('yupe')->getEditors(),
-            'mainCategory' => CHtml::listData(Category::model()->findAll(), 'id', 'name'),
+            'mainCategory' => Category::model()->allCategoryList,
             'uploadPath',
         );
     }

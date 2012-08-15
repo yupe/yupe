@@ -6,14 +6,19 @@
     );
 
     $this->menu = array(
-        array('label'=> Yii::t('blog', 'Блоги')),
-        array('label'=>Yii::t('blog','Список блогов'), 'url'=>array('blogAdmin/index')),
-        array('label'=>Yii::t('blog','Добавить блог'), 'url'=>array('blogAdmin/create')),
+        array('label' => Yii::t('blog', 'Блоги')),
+        array('icon' => 'th-large', 'label' => Yii::t('blog', 'Управление блогами'), 'url' => array('/blog/blogAdmin/admin/')),
+        array('icon' => 'th-list', 'label' => Yii::t('blog', 'Список блогов'), 'url' => array('/blog/blogAdmin/index/')),
+        array('icon' => 'plus-sign', 'label' => Yii::t('blog', 'Добавить блог'), 'url' => array('/blog/blogAdmin/create/')),
 
-        array('label'=> Yii::t('blog', 'Записи')),
-        array('label'=>Yii::t('blog', 'Список записей'), 'url'=>array('index')),
-        array('label'=>Yii::t('blog', 'Добавить запись'), 'url'=>array('create')),
-        array('label'=>Yii::t('blog', 'Управление записями'), 'url'=>array('admin')),
+        array('label' => Yii::t('blog', 'Записи')),
+        array('icon' => 'th-large white', 'label' => Yii::t('blog', 'Управление записями'), 'url' => array('/blog/postAdmin/admin/')),
+        array('icon' => 'th-list', 'label' => Yii::t('blog', 'Список записей'), 'url' => array('/blog/postAdmin/index/')),
+        array('icon' => 'plus-sign', 'label' => Yii::t('blog', 'Добавить запись'), 'url' => array('/blog/postAdmin/create/')),
+
+        array('label' => Yii::t('blog', 'Участники')),
+        array('icon' => 'th-large', 'label' => Yii::t('blog', 'Управление участниками'), 'url' => array('/blog/userToBlogAdmin/admin/')),
+        array('icon' => 'plus-sign', 'label' => Yii::t('blog', 'Добавить участника'), 'url' => array('/blog/userToBlogAdmin/create/')),
     );
 
     Yii::app()->clientScript->registerScript('search', "
@@ -39,55 +44,56 @@
 
 <?php
     $this->widget('YCustomGridView', array(
-        'id'=>'post-grid',
-        'dataProvider'=>$model->search(),
-        'columns'=>array(
+        'id'            => 'post-grid',
+        'dataProvider'  => $model->search(),
+        'itemsCssClass' => ' table table-condensed',
+        'columns'       => array(
             'id',
             array(
                 'name'  => 'title',
                 'type'  => 'raw',
-                'value' => 'CHtml::link($data->title,array("/blog/postAdmin/update/","id" => $data->id))'
+                'value' => 'CHtml::link($data->title,array("/blog/postAdmin/update/","id" => $data->id))',
             ),
             array(
                 'name'  => 'blog_id',
                 'type'  => 'raw',
-                'value' => 'CHtml::link($data->blog->name,array("/blog/blogAdmin/view/","id" => $data->blog->id))'
+                'value' => 'CHtml::link($data->blog->name,array("/blog/blogAdmin/view/","id" => $data->blog->id))',
             ),
             'slug',
             'publish_date',
             array(
-                'name'=>'status',
-                'type'=>'raw',
-                'value'=>'$this->grid->returnStatusHtml($data)',
+                'name'  => 'status',
+                'type'  => 'raw',
+                'value' => '$this->grid->returnBootstrapStatusHtml($data)',
             ),
             array(
-                'name'=>'comment_status',
-                'value'=>'$data->getCommentStatus()',
+                'name'  => 'comment_status',
+                'value' => '$data->getCommentStatus()',
             ),
             array(
-                 'name'=>'access_type',
-                 'value'=>'$data->getAccessType()',
-             ),
-            array(
-                'name'=>'create_user_id',
-                'type' => 'raw',
-                'value' => 'CHtml::link($data->createUser->getFullName(),array("/user/default/view/","id" => $data->createUser->id))'
+                'name'  => 'access_type',
+                'value' => '$data->getAccessType()',
             ),
             array(
-                'name'=>'update_user_id',
-                'type' => 'raw',
-                'value' => 'CHtml::link($data->updateUser->getFullName(),array("/user/default/view/","id" => $data->updateUser->id))'
+                'name'  => 'create_user_id',
+                'type'  => 'raw',
+                'value' => 'CHtml::link($data->createUser->getFullName(),array("/user/default/view/","id" => $data->createUser->id))',
             ),
             array(
-                'name'=>'create_date',
-                'value'=>'$data->create_date',
+                'name'  => 'update_user_id',
+                'type'  => 'raw',
+                'value' => 'CHtml::link($data->updateUser->getFullName(),array("/user/default/view/","id" => $data->updateUser->id))',
             ),
             array(
-                'name'=>'update_date',
-                'value'=>'$data->update_date',
+                'name'  => 'create_date',
+                'value' => '$data->create_date',
             ),
             array(
-                'class'=>'CButtonColumn',
+                'name'  => 'update_date',
+                'value' => '$data->update_date',
+            ),
+            array(
+                'class' => 'bootstrap.widgets.TbButtonColumn',
             ),
         ),
     ));

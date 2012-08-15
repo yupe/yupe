@@ -22,7 +22,7 @@ class MenuitemController extends YBackController
         // Uncomment the following line if AJAX validation is needed
         // $this->performAjaxValidation($model);
 
-        if($mid = (int)Yii::app()->request->getQuery('mid'))
+        if($mid = (int) Yii::app()->request->getQuery('mid'))
             $model->menu_id = $mid;
 
         if (isset($_POST['MenuItem']))
@@ -38,7 +38,7 @@ class MenuitemController extends YBackController
         $criteria = new CDbCriteria;
         $criteria->select = new CDbExpression('MAX(sort) as sort');
         $max = $model->find($criteria);
-        $model->sort = $max->sort+1;// Set sort in Adding Form as max+1 >>
+        $model->sort = $max->sort + 1;// Set sort in Adding Form as max+1 >>
         
         $this->render('create', array('model' => $model));
     }

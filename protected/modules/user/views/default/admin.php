@@ -51,33 +51,33 @@
 
 <?php
 $this->widget('YCustomGridView', array(
-    'id' => 'user-grid',
-    'dataProvider' => $model->search(),
+    'id'            => 'user-grid',
+    'dataProvider'  => $model->search(),
     'itemsCssClass' => ' table table-condensed',
-    'columns' => array(
+    'columns'       => array(
         'id',
         array(
-            'name' => 'nick_name',
-            'type' => 'raw',
+            'name'  => 'nick_name',
+            'type'  => 'raw',
             'value' => 'CHtml::link($data->nick_name, array("/user/default/update/", "id" => $data->id))',
         ),
         'email',
         array(
-            'name' => 'access_level',
-            'value' => '$data->getAccessLevel()',
+            'name'   => 'access_level',
+            'value'  => '$data->getAccessLevel()',
             'filter' => CHtml::activeDropDownList($model, 'status', $model->getAccessLevelsList()),
         ),
         'creation_date',
         'last_visit',
         array(
-            'name' => 'status',
-            'type' => 'raw',
+            'name'  => 'status',
+            'type'  => 'raw',
             'value' => '$this->grid->returnBootstrapStatusHtml($data)',
         ),
         array(
-            'class' => 'bootstrap.widgets.TbButtonColumn',
+            'class'    => 'bootstrap.widgets.TbButtonColumn',
             'template' => '{view}{update}{password}{delete}',
-            'buttons' => array(
+            'buttons'  => array(
                 'password' => array(
                     'icon'     => 'lock',
                     'label'    => Yii::t('user', 'Изменить пароль'),

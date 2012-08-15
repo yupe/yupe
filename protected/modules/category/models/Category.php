@@ -130,11 +130,18 @@ class Category extends CActiveRecord
 
     public function getAllCategoryList($selfId = false)
     {
-        $category = $selfId
-            ? $this->findAll('id != :id', array(':id' => $selfId))
-            : $this->findAll();
+        $condition = '';
+        $params = array();
+        if($selfId)
+        {
+            $param = 'id != :id';
+            $value = array(':id' => $selfId);
+        }
+
+        $category = $this->cache(Yii::app()->getModule('yupe')->coreCacheTime)->findAll($condition, $params);
         $category = CHtml::listData($category, 'id', 'name');
         $category[0] = Yii::t('category', '--нет--');
+
         return $category;
     }
 

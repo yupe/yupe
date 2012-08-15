@@ -88,25 +88,28 @@
                         <div class="portlet-title">Юпи! на GitHub!</div>
                     </div>
                     <div class="portlet-content">
-                        <a href="https://github.com/yupe/yupe" title="Юпи! на GitHub!" target="_blank"><?php echo CHtml::image(Yii::app()->baseUrl.'/web/images/banners/125yupe.jpg','Юпи! на GitHub!',array('alt' => 'Юпи! на GitHub!'));?></a>
+                        <a href="https://github.com/yupe/yupe" title="Юпи! на GitHub!" target="_blank">
+                            <?php echo CHtml::image(Yii::app()->baseUrl . '/web/images/banners/125yupe.jpg', 'Юпи! на GitHub!', array(
+                                'alt' => 'Юпи! на GitHub!'
+                            )); ?>
+                        </a>
                     </div>
                 </div>
-                <?php $this->widget('application.modules.blog.widgets.LastPostsWidget',array('cacheTime' => 0));?>
-                <?php $this->widget('application.modules.blog.widgets.TagCloudWidget',array('cacheTime' => 0));?>
-                <?php $this->widget('application.modules.feedback.widgets.FaqWidget',array('cacheTime' => 0));?>
-                <?php $this->widget('application.modules.news.widgets.LastNewsWidget',array('cacheTime' => 0));?>
-                <?php $this->widget('application.modules.blog.widgets.BlogsWidget',array('cacheTime' => 0));?>
-                <?php $this->widget('application.modules.user.widgets.LastLoginUsersWidget',array('cacheTime' => 0));?>
+                <?php $this->widget('application.modules.blog.widgets.LastPostsWidget', array('cacheTime' => 0)); ?>
+                <?php $this->widget('application.modules.blog.widgets.TagCloudWidget', array('cacheTime' => 0)); ?>
+                <?php $this->widget('application.modules.feedback.widgets.FaqWidget', array('cacheTime' => 0)); ?>
+                <?php $this->widget('application.modules.news.widgets.LastNewsWidget', array('cacheTime' => 0)); ?>
+                <?php $this->widget('application.modules.blog.widgets.BlogsWidget', array('cacheTime' => 0));?>
+                <?php $this->widget('application.modules.user.widgets.LastLoginUsersWidget', array('cacheTime' => 0)); ?>
             </div>
             <!-- sidebar -->
         </div>
     </div>
 
     <div id="footer">
-        Copyright &copy; 2009-<?php echo date('Y'); ?> <a
-        href='http://yupe.ru?from=engine'>Юпи!</a>
-        v<?php echo $module->getVersion();?><br/>
-        <?php echo Yii::powered(); ?>
+        Copyright &copy; 2009-<?php echo date('Y'); ?> <a href='http://yupe.ru?from=engine'>Юпи!</a>
+        v<?php echo $module->getVersion();?><br/> <?php echo Yii::powered(); ?>
+
         <?php $this->widget('YPerformanceStatistic');?>
     </div>
     <!-- footer -->

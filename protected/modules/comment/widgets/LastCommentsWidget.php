@@ -36,8 +36,6 @@ class LastCommentsWidget extends YWidget
 
         $comments = Comment::model()->findAll($criteria);
 
-        $this->render('lastcomments', array(
-            'comments' => $comments,
-        ));
+        $this->render('lastcomments', array('models' => $comments));
     }
 }

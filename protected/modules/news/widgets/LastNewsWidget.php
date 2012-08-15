@@ -9,15 +9,15 @@ class LastNewsWidget extends YWidget
         if ( $this->controller->isMultilang() )
             $news = News::model()->published()->language(Yii::app()->language)->cache($this->cacheTime)->findAll(array(
                 'limit' => $this->count,
-                'order' => 'date DESC'
+                'order' => 'date DESC',
             ));
         else
             $news = News::model()->published()->cache($this->cacheTime)->findAll(array(
                 'limit' => $this->count,
-                'order' => 'date DESC'
+                'order' => 'date DESC',
             ));
 
 
-        $this->render('news', array('news' => $news));
+        $this->render('news', array('models' => $news));
     }
 }

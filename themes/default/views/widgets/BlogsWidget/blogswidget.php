@@ -3,10 +3,12 @@
         <div class='portlet-title'>Блоги</div>
     </div>
     <div class='portlet-content'>
-        <ul>
-            <?php foreach ($blogs as $blog): ?>
-            <li><?php echo CHtml::link($blog->name, array('/blog/blog/show/', 'slug' => $blog->slug));?></li>
-            <?php endforeach;?>
-        </ul>
+        <?php if(isset($models) && $models != array()): ?>
+            <ul>
+                <?php foreach ($models as $model): ?>
+                    <li><?php echo CHtml::link($model->name, array('/blog/blog/show/', 'slug' => $model->slug)); ?></li>
+                <?php endforeach;?>
+            </ul>
+        <?php endif; ?>
     </div>
 </div>
