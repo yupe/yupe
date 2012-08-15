@@ -58,7 +58,7 @@ class YupeModule extends YupeParams
     public function checkSelf()
     {
         $settings = Settings::model()->fetchModuleSettings('yupe', 'email');
-        if ($settings['email']->param_value == 'mail@lyzhenkov.ru')
+        if ($settings['email']->param_value == 'admin@admin.ru')
             return array(
                 'type' => YWebModule::CHECK_ERROR,
                 'message' => Yii::t('yupe', 'У Вас не изменен e-mail администратора, указанный, при установке, по умолчанию! {link}', array(
