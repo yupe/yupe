@@ -239,7 +239,7 @@ class YupeModule extends YupeParams
                 $modulesNavigation = $orderNew = array( );
 
                 $thisRoute    = CHtml::normalizeUrl(array_merge(array("/" . Yii::app()->controller->route), $_GET));
-                $thisCategory = Yii::app()->controller->module->category;
+                $thisCategory = ($thisCategory = Yii::app()->controller->module->category) ? $thisCategory : self::OTHER_CATEGORY;
                 $thisModule   = Yii::app()->controller->module->id;
                 $home         = ($thisRoute == '/index.php/yupe/backend/index');
 
@@ -268,7 +268,7 @@ class YupeModule extends YupeParams
                         'url'         => '#',
                         'items'       => array( ),
                         // Устанавливает активную категорию
-                        'active'      => (!$home && ((!$thisCategory && $keyCategory == self::OTHER_CATEGORY) || $keyCategory == $thisCategory)),
+                        'active'      => (!$home && $keyCategory == $thisCategory),
                     );
 
                     if (isset($this->categoryIcon[$keyCategory]))
@@ -299,7 +299,7 @@ class YupeModule extends YupeParams
                             continue;
 
                         // устанавливает текущий модуль
-                        $activeClass = ($iconClass = (!$home && $modules[$key]->id == $thisModule)) ? ' white' : '';
+                        $iconClass = ($activeClass = (!$home && $modules[$key]->id == $thisModule)) ? ' white' : '';
 
                         $data = array(
                             'icon'  => $modules[$key]->icon.$iconClass,
