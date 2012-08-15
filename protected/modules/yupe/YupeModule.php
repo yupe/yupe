@@ -232,14 +232,16 @@ class YupeModule extends YupeParams
                 }
             }
 
-            $modulesNavigation = Yii::app()->cache->get('modulesNavigation');
+            $modulesNavigation = false; //Yii::app()->cache->get('modulesNavigation');
             
             if ($modulesNavigation === false)
             {
                 $modulesNavigation = $orderNew = array( );
 
-                $thisRoute = CHtml::normalizeUrl(array_merge(array("/" . Yii::app()->controller->route), $_GET));
-                $home = ($thisRoute == '/index.php/yupe/backend/index');
+                $thisRoute    = CHtml::normalizeUrl(array_merge(array("/" . Yii::app()->controller->route), $_GET));
+                $thisCategory = Yii::app()->controller->module->category;
+                $thisModule   = Yii::app()->controller->module->id;
+                $home         = ($thisRoute == '/index.php/yupe/backend/index');
 
                 $settings = array(
                     'icon'  => "wrench",
@@ -265,10 +267,8 @@ class YupeModule extends YupeParams
                         'label'       => $keyCategory,
                         'url'         => '#',
                         'items'       => array( ),
-                        'active'      => (!$home && (
-                            (!Yii::app()->controller->module->category && $keyCategory == self::OTHER_CATEGORY) || 
-                            $keyCategory == Yii::app()->controller->module->category
-                        )),
+                        // Устанавливает активную категорию
+                        'active'      => (!$home && ((!$thisCategory && $keyCategory == self::OTHER_CATEGORY) || $keyCategory == $thisCategory)),
                     );
 
                     if (isset($this->categoryIcon[$keyCategory]))
@@ -298,13 +298,8 @@ class YupeModule extends YupeParams
                         if (!$modules[$key]->isShowInAdminMenu)
                             continue;
 
-                        // проверка на текущий модуль
-                        $activeClass = $iconClass = false;
-                        if(!$home && $modules[$key]->id == Yii::app()->controller->module->id)
-                        {
-                            $iconClass = ' white';
-                            $activeClass = true;
-                        }
+                        // устанавливает текущий модуль
+                        $activeClass = ($iconClass = (!$home && $modules[$key]->id == $thisModule)) ? ' white' : '';
 
                         $data = array(
                             'icon'  => $modules[$key]->icon.$iconClass,
@@ -337,7 +332,7 @@ class YupeModule extends YupeParams
                 // Переносим настройки в категорию система
                 $modulesNavigation[$this->category]['items'][] = $settings;
 
-                Yii::app()->cache->set('modulesNavigation', $modulesNavigation, Yii::app()->getModule('yupe')->coreCacheTime);
+                //Yii::app()->cache->set('modulesNavigation', $modulesNavigation, Yii::app()->getModule('yupe')->coreCacheTime);
             }
         }
 
