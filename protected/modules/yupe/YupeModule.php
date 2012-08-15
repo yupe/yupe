@@ -17,7 +17,10 @@
  * @package yupe.core
  * @since 0.0.1
  */
-class YupeModule extends YWebModule
+
+Yii::import('application.modules.yupe.YupeParams');
+
+class YupeModule extends YupeParams
 {
     const OTHER_CATEGORY  = 'Остальное';
 
@@ -187,7 +190,7 @@ class YupeModule extends YWebModule
 
     public function init()
     {
-        parent::init();
+        parent::runParentInit();
 
         $editors = $this->getEditors();
 
