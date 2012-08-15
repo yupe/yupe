@@ -28,7 +28,7 @@ class PageController extends YFrontController
      * экшн для отображения конкретной страницы
      * отображает опубликованные страницы и превью
      */
-    public function actionShow($slug=null)
+    public function actionShow($slug = null)
     {
         if (!$slug)
             throw new CHttpException('404', Yii::t('page', 'Страница не найдена!'));
@@ -36,16 +36,16 @@ class PageController extends YFrontController
         $page = null;
 
         // превью
-        if ((int)Yii::app()->request->getQuery('preview') === 1 && Yii::app()->user->isSuperUser())        
+        if ((int)Yii::app()->request->getQuery('preview') === 1 && Yii::app()->user->isSuperUser())
             $page = Page::model()->find('slug = :slug AND (lang=:lang OR (lang IS NULL))', array(':slug' => $slug, ':lang' => Yii::app()->language ));
         else        
             $page = Page::model()->published()->find('slug = :slug AND (lang = :lang OR (lang = :deflang))', array(
-                    ':slug' => $slug,
-                    ':lang' => Yii::app()->language,
-                    ':deflang' => Yii::app()->getModule('yupe')->defaultLanguage
+                ':slug'    => $slug,
+                ':lang'    => Yii::app()->language,
+                ':deflang' => Yii::app()->getModule('yupe')->defaultLanguage,
             ));
 
-        if (!$page)        
+        if (!$page)
             throw new CHttpException('404', Yii::t('page', 'Страница не найдена!'));
 
         // проверим что пользователь может просматривать эту страницу
@@ -73,9 +73,9 @@ class PageController extends YFrontController
     public function getBreadCrumbs()
     {
         $pages = array();
-        if($this->currentPage->parentPage){
-                $pages = $this->getBreadCrumbsRecursively($this->currentPage->parentPage);
-        }
+        if($this->currentPage->parentPage)
+            $pages = $this->getBreadCrumbsRecursively($this->currentPage->parentPage);
+
         $pages = array_reverse($pages);
         array_push($pages, $this->currentPage->title);
         return $pages;

@@ -45,7 +45,7 @@
                     array(
                         'icon' => 'home',
                         'label' => Yii::t('yupe', 'На сайт'),
-                        'url' => array('/'.Yii::app()->defaultController),
+                        'url' => array('/' . Yii::app()->defaultController . '/index/'),
                     ),
                     array(
                         'icon' => 'off',

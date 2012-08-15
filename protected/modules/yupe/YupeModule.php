@@ -140,7 +140,7 @@ class YupeModule extends YupeParams
 
     public function getAdminPageLink()
     {
-        return '/yupe/backend/modulesettings/module/yupe';
+        return CHtml::normalizeUrl('/yupe/backend/modulesettings/', array('module' => 'yupe'));
     }
 
     public function getNavigation()
