@@ -203,7 +203,12 @@ class YupeModule extends YupeParams
         );
 
         $this->categorySort  = array(
-            Yii::t('yupe','Контент'), Yii::t('yupe','Структура'), Yii::t('yupe','Пользователи'),Yii::t('yupe','Сервисы'),Yii::t('yupe','Система'),Yii::t('yupe','Остальное')
+            Yii::t('yupe', 'Контент'),
+            Yii::t('yupe', 'Структура'),
+            Yii::t('yupe', 'Пользователи'),
+            Yii::t('yupe', 'Сервисы'),
+            Yii::t('yupe', 'Система'),
+            Yii::t('yupe', 'Остальное'),
         );
     }
 
@@ -305,7 +310,7 @@ class YupeModule extends YupeParams
                         $data = array(
                             'icon'  => $modules[$key]->icon,
                             'label' => $modules[$key]->name,
-                            'url'   => array( $modules[$key]->adminPageLink ),
+                            'url'   => $modules[$key]->adminPageLinkNormalize,
                         );
 
                         // Добавляем подменю у модулей
