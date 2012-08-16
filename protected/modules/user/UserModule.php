@@ -61,11 +61,11 @@ class UserModule extends YWebModule
 
     public function checkSelf()
     {
-        $superAdmin = User::model()->cache(Yii::app()->getModule('yupe')->coreCacheTime)->admin()->find();
-        if ($superAdmin->password == User::hashPassword('123456', $superAdmin->salt) || $superAdmin->email == 'admin@admind.ru')
+        $superAdmin = User::model()->admin()->find();
+        if ($superAdmin->password == User::hashPassword('123456', $superAdmin->salt) || $superAdmin->email == 'admin@admin.ru')
             return array(
                 'type' => YWebModule::CHECK_ERROR,
-                'message' => Yii::t('yupe', 'У Вас не изменен пароли или email, указанный, при установке, по умолчанию! {link}', array(
+                'message' => Yii::t('yupe', 'У Вас не изменен пароль или email, указанный, при установке, по умолчанию. В целях безопасности, пожалуйста, измените его! {link}', array(
                     '{link}' => CHtml::link(Yii::t('yupe', 'Изменить настройки'), array( '/user/default/admin/', 'module' => 'user' )),
                 )),
             );

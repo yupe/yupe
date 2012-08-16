@@ -57,8 +57,8 @@ class YupeModule extends YupeParams
 
     public function checkSelf()
     {
-        $settings = Settings::model()->fetchModuleSettings('yupe', 'email');
-        if ($settings['email']->param_value == 'admin@admin.ru')
+        $settings = Settings::model()->fetchModuleSettings('yupe', 'email');        
+        if (isset($settings['email']) && $settings['email']->param_value == 'admin@admin.ru')
             return array(
                 'type' => YWebModule::CHECK_ERROR,
                 'message' => Yii::t('yupe', 'У Вас не изменен e-mail администратора, указанный, при установке, по умолчанию! {link}', array(
@@ -234,7 +234,7 @@ class YupeModule extends YupeParams
                 }
             }
 
-            $modulesNavigation = Yii::app()->cache->get('modulesNavigation');
+            $modulesNavigation = Yii::app()->cache->get('YupeModulesNavigation');
             
             if ($modulesNavigation === false)
             {
@@ -255,6 +255,7 @@ class YupeModule extends YupeParams
                     if(isset($order[$iValue]))
                         $orderNew[$iValue] = $order[$iValue];
                 });
+
                 $orderNew = array_merge($orderNew, array_diff($order, $this->categorySort));
 
                 // Обходим категории модулей
@@ -316,7 +317,7 @@ class YupeModule extends YupeParams
                 // Заполняем категорию система
                 $modulesNavigation[$this->category]['items']['settings'] = $settings;
 
-                Yii::app()->cache->set('modulesNavigation', $modulesNavigation, Yii::app()->getModule('yupe')->coreCacheTime);
+                Yii::app()->cache->set('YupeModulesNavigation', $modulesNavigation, Yii::app()->getModule('yupe')->coreCacheTime);
             }
         }
 
