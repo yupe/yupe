@@ -77,6 +77,15 @@ abstract class YWebModule extends CWebModule
     }
 
     /**
+     *  @return string ссылка которая будет отображена в панели управления
+     *  как правило, ведет на страничку для администрирования модуля
+     */
+    public function getAdminPageLinkNormalize()
+    {
+        return (is_array($this->adminPageLink)) ? $this->adminPageLink : array($this->adminPageLink);
+    }
+
+    /**
      * @return array если модуль должен добавить несколько ссылок в панель управления - укажите массив
      * @example
      *
