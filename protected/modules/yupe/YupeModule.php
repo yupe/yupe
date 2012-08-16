@@ -38,14 +38,8 @@ class YupeModule extends YupeParams
     public $uploadPath    = 'uploads';
     public $editor        = 'application.modules.yupe.widgets.editors.imperaviRedactor.EImperaviRedactorWidget';
     public $email;
-    public $categoryIcon  = array(
-        'Сервисы'            => 'briefcase',
-        self::OTHER_CATEGORY => 'inbox',
-    );
-    public $categorySort  = array(
-        'Контент', 'Структура', 'Пользователи', 'Сервисы', 'Система', 'Остальное'
-    );
-
+    public $categoryIcon;
+    public $categorySort;
     public $availableLanguages = "ru,en";
     public $defaultLanguage = "ru";
     public $defaultBackendLanguage = "ru";
@@ -202,6 +196,15 @@ class YupeModule extends YupeParams
             'yupe.models.*',
             'yupe.components.*',
         ));
+
+        $this->categoryIcon  = array(
+            Yii::t('yupe','Сервисы') => 'briefcase',
+            self::OTHER_CATEGORY => 'inbox',
+        );
+
+        $this->categorySort  = array(
+            Yii::t('yupe','Контент'), Yii::t('yupe','Структура'), Yii::t('yupe','Пользователи'),Yii::t('yupe','Сервисы'),Yii::t('yupe','Система'),Yii::t('yupe','Остальное')
+        );
     }
 
     public function getModules($navigationOnly = false)
