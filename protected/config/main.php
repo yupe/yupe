@@ -111,6 +111,7 @@ return array(
                 '/install'                                              => 'install/default/index/',
                 '/wiki/<controller:\w+>/<action:\w+>'                   => '/yeeki/wiki/<controller>/<action>',
                 '/site/page/<view:\w+>'                                 => 'site/page/view/<view>',
+                '/yupe/backend/modulesettings/<module:\w+>'             => '/yupe/backend/modulesettings/',
                 'user/<username:\w+>/'                                  => 'user/people/userInfo',
                 '<module:\w+>/<controller:\w+>/<action:\w+>/<id:\d+>'   => '<module>/<controller>/<action>',
                 '<module:\w+>/<controller:\w+>/<action:\w+>'            => '<module>/<controller>/<action>',
