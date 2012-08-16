@@ -125,6 +125,7 @@ class DefaultController extends YBackController
                         array(
                             'alias'         => $alias,
                             'lang'          => $l,
+                            'link'          => $model->link,
                             'date'          => $model->date,
                             'category_id'   => $model->category_id,
                             'iamge'         => $model->image,
@@ -163,7 +164,8 @@ class DefaultController extends YBackController
                             'is_protected' => $_POST['News']['is_protected'],
                             'date'         => $_POST['News']['date'],
                             'category_id'  => $_POST['News']['category_id'],
-                            'image'        => $modelsByLang[$l]->image,
+                            'link'         => $_POST['News']['link'],
+                            'image'        => $modelsByLang[$l]->image,                            
                             'title'        => $p['title'],
                             'short_text'   => $p['short_text'],
                             'full_text'    => $p['full_text'],

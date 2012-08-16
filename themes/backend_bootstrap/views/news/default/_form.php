@@ -68,6 +68,17 @@ Yii::app()->clientScript->registerScript('fieldset', "
         </div>
     </div>
 
+    <div class="row-fluid control-group <?php echo $model->hasErrors('link') ? 'error' : '' ?>">
+        <div class="span7 popover-help" data-content="<?php echo Yii::t('news','Укажите источник новости (ссылка на произвольную страницу)') ?>" data-original-title="<?php echo $model->getAttributeLabel('link');
+            ; ?>" >
+            <?php echo $form->labelEx($model, 'link'); ?>
+            <?php echo $form->textField($model, 'link', array( 'size' => 60, 'maxlength' => 150 )); ?>
+        </div>
+        <div class="span5">
+            <?php echo $form->error($model, 'link'); ?>
+        </div>
+    </div>
+
     <div class="row-fluid control-group <?php echo $model->hasErrors('image') ? 'error' : '' ?>">
         <div class="span7  popover-help"  data-original-title="<?php echo $model->getAttributeLabel('image'); ?>" >
             <?php if(!$model->isNewRecord && $model->image):?>

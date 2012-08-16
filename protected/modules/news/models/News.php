@@ -15,6 +15,8 @@
  * @property integer $user_id
  * @property integer $status
  * @property integer $is_protected
+ * @property string  $link
+ * @property string  $image
  */
 class News extends CActiveRecord
 {
@@ -64,7 +66,8 @@ class News extends CActiveRecord
             ),
             array( 'description', 'length', 'max' => 250 ),
             array( 'short_text', 'length', 'max' => 400 ),
-            array( 'image', 'length', 'max' => 300 ),
+            array( 'image, link', 'length', 'max' => 300 ),
+            array( 'link', 'url'),
             array( 'alias', 'match', 'pattern' => '/^[a-zA-Z0-9_\-]+$/', 'message' => Yii::t('news', 'Запрещенные символы в поле {attribute}') ),
             array( 'category_id', 'default', 'setOnEmpty' => true, 'value' => null),
             array( 'id, keywords, description, creation_date, change_date, date, title, alias, short_text, full_text, user_id, status, is_protected', 'safe', 'on' => 'search' ),
@@ -124,6 +127,7 @@ class News extends CActiveRecord
             'title'         => Yii::t('news', 'Заголовок'),
             'alias'         => Yii::t('news', 'Алиас'),
             'image'         => Yii::t('news', 'Изображение'),
+            'link'          => Yii::t('news', 'Ссылка'),
             'lang'          => Yii::t('news', 'Язык'),
             'short_text'    => Yii::t('news', 'Короткое описание'),
             'full_text'     => Yii::t('news', 'Полный текст'),

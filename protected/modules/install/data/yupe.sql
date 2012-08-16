@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Хост: localhost
--- Время создания: Авг 10 2012 г., 17:06
+-- Время создания: Авг 17 2012 г., 00:08
 -- Версия сервера: 5.5.24
 -- Версия PHP: 5.3.10-1ubuntu3.2
 
@@ -66,7 +66,7 @@ CREATE TABLE IF NOT EXISTS `category` (
   UNIQUE KEY `alias` (`alias`,`lang`),
   KEY `status` (`status`),
   KEY `parent_id` (`parent_id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=6 ;
 
 -- --------------------------------------------------------
 
@@ -250,7 +250,7 @@ CREATE TABLE IF NOT EXISTS `good` (
   KEY `change_user_id` (`change_user_id`),
   KEY `article` (`article`),
   KEY `price` (`price`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=2 ;
 
 -- --------------------------------------------------------
 
@@ -275,7 +275,7 @@ CREATE TABLE IF NOT EXISTS `image` (
   KEY `user_id` (`user_id`),
   KEY `type` (`type`),
   KEY `category_id` (`category_id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=7 ;
 
 -- --------------------------------------------------------
 
@@ -342,7 +342,7 @@ CREATE TABLE IF NOT EXISTS `mail_event` (
   `description` text,
   PRIMARY KEY (`id`),
   UNIQUE KEY `code` (`code`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=3 ;
 
 -- --------------------------------------------------------
 
@@ -365,7 +365,7 @@ CREATE TABLE IF NOT EXISTS `mail_template` (
   UNIQUE KEY `code` (`code`),
   KEY `event_id` (`event_id`),
   KEY `status` (`status`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=2 ;
 
 -- --------------------------------------------------------
 
@@ -382,7 +382,7 @@ CREATE TABLE IF NOT EXISTS `menu` (
   PRIMARY KEY (`id`),
   UNIQUE KEY `code` (`code`),
   KEY `status` (`status`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=2 ;
 
 -- --------------------------------------------------------
 
@@ -404,7 +404,7 @@ CREATE TABLE IF NOT EXISTS `menu_item` (
   KEY `menu_id` (`menu_id`),
   KEY `sort` (`sort`),
   KEY `status` (`status`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=2 ;
 
 -- --------------------------------------------------------
 
@@ -424,6 +424,7 @@ CREATE TABLE IF NOT EXISTS `news` (
   `short_text` varchar(400) NOT NULL,
   `full_text` text NOT NULL,
   `image` varchar(300) DEFAULT NULL,
+  `link` varchar(300) CHARACTER SET utf32 DEFAULT NULL,
   `user_id` int(11) unsigned NOT NULL,
   `status` tinyint(4) NOT NULL DEFAULT '0',
   `is_protected` tinyint(1) NOT NULL DEFAULT '0',
@@ -434,7 +435,7 @@ CREATE TABLE IF NOT EXISTS `news` (
   KEY `status` (`status`),
   KEY `is_protected` (`is_protected`),
   KEY `user_id` (`user_id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=18 ;
 
 -- --------------------------------------------------------
 
@@ -468,7 +469,7 @@ CREATE TABLE IF NOT EXISTS `page` (
   KEY `change_user_id` (`change_user_id`),
   KEY `order` (`menu_order`),
   KEY `category_id` (`category_id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=9 ;
 
 -- --------------------------------------------------------
 
@@ -536,7 +537,7 @@ CREATE TABLE IF NOT EXISTS `queue` (
   PRIMARY KEY (`id`),
   UNIQUE KEY `id_UNIQUE` (`id`),
   KEY `priority` (`priority`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=2 ;
 
 -- --------------------------------------------------------
 
@@ -570,7 +571,7 @@ CREATE TABLE IF NOT EXISTS `settings` (
   `user_id` int(10) unsigned NOT NULL,
   PRIMARY KEY (`id`),
   KEY `moduleId` (`module_id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=195 ;
 
 -- --------------------------------------------------------
 
@@ -622,7 +623,7 @@ CREATE TABLE IF NOT EXISTS `user` (
   UNIQUE KEY `user_email_unique` (`email`),
   KEY `user_status_index` (`status`),
   KEY `email_confirm` (`email_confirm`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=84 ;
 
 -- --------------------------------------------------------
 
