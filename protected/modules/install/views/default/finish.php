@@ -8,7 +8,7 @@
 
 <br/><br/>
 
-<?php echo CHtml::link(Yii::t('install', 'ПЕРЕЙТИ НА САЙТ'), array('/')); ?>
+<?php echo CHtml::link(Yii::t('install', 'ПЕРЕЙТИ НА САЙТ'), array('/site/index/')); ?>
 
 <?php echo CHtml::link(Yii::t('install', 'ПЕРЕЙТИ В ПАНЕЛЬ УПРАВЛЕНИЯ'), array('/yupe/backend/')); ?>
 

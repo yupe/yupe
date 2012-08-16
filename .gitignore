@@ -3,8 +3,6 @@
 *.settings
 *.ai
 .project
-/assets/
-protected/runtime/*
 protected/config/db.php
 uploads/
 *.komodoproject

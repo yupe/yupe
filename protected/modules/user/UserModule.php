@@ -205,11 +205,13 @@ class UserModule extends YWebModule
     {
         parent::init();
 
+        $homeUrl = '/' . Yii::app()->defaultController . '/index';
+
         if (!$this->loginSuccess)
-            $this->loginSuccess = '/' . Yii::app()->defaultController;
+            $this->loginSuccess = $homeUrl;
 
         if (!$this->logoutSuccess)
-            $this->logoutSuccess = '/' . Yii::app()->defaultController;
+            $this->logoutSuccess = $homeUrl;
 
         $this->setImport(array(
             'user.models.*',

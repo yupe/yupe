@@ -140,7 +140,6 @@ class Category extends CActiveRecord
 
         $category = $this->cache(Yii::app()->getModule('yupe')->coreCacheTime)->findAll($condition, $params);
         $category = CHtml::listData($category, 'id', 'name');
-        $category[0] = Yii::t('category', '--нет--');
 
         return $category;
     }
