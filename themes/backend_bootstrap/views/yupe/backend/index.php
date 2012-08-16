@@ -64,7 +64,7 @@
                     </td>
                     <td>
                         <small style="font-size: 80%;"><?php echo $module->category; ?></small><br />
-                        <?php echo CHtml::link($module->name, array($module->adminPageLink)); ?>
+                        <?php echo CHtml::link($module->name, $module->adminPageLinkNormalize); ?>
                     </td>
                     <td>
                         <?php echo $module->description; ?>

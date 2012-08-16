@@ -134,7 +134,7 @@ class YupeModule extends YupeParams
 
     public function getAdminPageLink()
     {
-        return CHtml::normalizeUrl('/yupe/backend/modulesettings/', array('module' => 'yupe'));
+        return array('/yupe/backend/modulesettings/', 'module' => 'yupe');
     }
 
     public function getNavigation()
@@ -203,7 +203,12 @@ class YupeModule extends YupeParams
         );
 
         $this->categorySort  = array(
-            Yii::t('yupe','Контент'), Yii::t('yupe','Структура'), Yii::t('yupe','Пользователи'),Yii::t('yupe','Сервисы'),Yii::t('yupe','Система'),Yii::t('yupe','Остальное')
+            Yii::t('yupe', 'Контент'),
+            Yii::t('yupe', 'Структура'),
+            Yii::t('yupe', 'Пользователи'),
+            Yii::t('yupe', 'Сервисы'),
+            Yii::t('yupe', 'Система'),
+            Yii::t('yupe', 'Остальное'),
         );
     }
 
@@ -305,7 +310,7 @@ class YupeModule extends YupeParams
                         $data = array(
                             'icon'  => $modules[$key]->icon,
                             'label' => $modules[$key]->name,
-                            'url'   => array( $modules[$key]->adminPageLink ),
+                            'url'   => $modules[$key]->adminPageLinkNormalize,
                         );
 
                         // Добавляем подменю у модулей
@@ -324,8 +329,7 @@ class YupeModule extends YupeParams
             }
         }
 
-        $thisRoute = CHtml::normalizeUrl(array_merge(array("/" . Yii::app()->controller->route), $_GET));
-        if($thisRoute != '/index.php/yupe/backend/index')
+        if(CHtml::normalizeUrl("/" . Yii::app()->controller->route) != '/yupe/backend/index')
         {
             // Устанавливаем активную категорию
             $thisCategory = Yii::app()->controller->module->category
@@ -336,9 +340,13 @@ class YupeModule extends YupeParams
             $thisCategory['active'] = true;
 
             // Устанавливаем активный модуль
-            $thisModule = (Yii::app()->controller->action->id == 'modulesettings')
-                ? 'settings'
-                : Yii::app()->controller->module->id;
+            if (Yii::app()->controller->action->id == 'modulesettings' && isset($_GET['module']) && $_GET['module'] != 'yupe')
+            {
+                $thisModule = 'settings';
+                $thisCategory['items']['yupe']['active'] = false;
+            }
+            else
+                $thisModule = Yii::app()->controller->module->id;
             $thisModule = &$thisCategory['items'][$thisModule];
 
             $thisModule['icon'] .= ' white';
@@ -348,6 +356,7 @@ class YupeModule extends YupeParams
             $moduleItems = &$thisModule['items'];
             if(is_array($moduleItems))
             {
+                $thisRoute = CHtml::normalizeUrl(array_merge(array("/" . Yii::app()->controller->route), $_GET));
                 foreach($moduleItems as &$link)
                 {
                     if ( isset($link['url']) && CHtml::normalizeUrl($link['url']) == $thisRoute && isset($link['icon']) )
@@ -355,6 +364,8 @@ class YupeModule extends YupeParams
                 }
                 unset($link);
             }
+            unset($thisModule);
+            unset($thisCategory);
         }
 
         return ($navigationOnly === true) ? $modulesNavigation : array(
