@@ -38,14 +38,8 @@ class YupeModule extends YupeParams
     public $uploadPath    = 'uploads';
     public $editor        = 'application.modules.yupe.widgets.editors.imperaviRedactor.EImperaviRedactorWidget';
     public $email;
-    public $categoryIcon  = array(
-        'Сервисы'            => 'briefcase',
-        self::OTHER_CATEGORY => 'inbox',
-    );
-    public $categorySort  = array(
-        'Контент', 'Структура', 'Пользователи', 'Сервисы', 'Система', 'Остальное'
-    );
-
+    public $categoryIcon;
+    public $categorySort;
     public $availableLanguages = "ru,en";
     public $defaultLanguage = "ru";
     public $defaultBackendLanguage = "ru";
@@ -57,8 +51,8 @@ class YupeModule extends YupeParams
 
     public function checkSelf()
     {
-        $settings = Settings::model()->fetchModuleSettings('yupe', 'email');
-        if ($settings['email']->param_value == 'admin@admin.ru')
+        $settings = Settings::model()->fetchModuleSettings('yupe', 'email');        
+        if (isset($settings['email']) && $settings['email']->param_value == 'admin@admin.ru')
             return array(
                 'type' => YWebModule::CHECK_ERROR,
                 'message' => Yii::t('yupe', 'У Вас не изменен e-mail администратора, указанный, при установке, по умолчанию! {link}', array(
@@ -202,6 +196,15 @@ class YupeModule extends YupeParams
             'yupe.models.*',
             'yupe.components.*',
         ));
+
+        $this->categoryIcon  = array(
+            Yii::t('yupe','Сервисы') => 'briefcase',
+            self::OTHER_CATEGORY => 'inbox',
+        );
+
+        $this->categorySort  = array(
+            Yii::t('yupe','Контент'), Yii::t('yupe','Структура'), Yii::t('yupe','Пользователи'),Yii::t('yupe','Сервисы'),Yii::t('yupe','Система'),Yii::t('yupe','Остальное')
+        );
     }
 
     public function getModules($navigationOnly = false)
@@ -234,7 +237,7 @@ class YupeModule extends YupeParams
                 }
             }
 
-            $modulesNavigation = Yii::app()->cache->get('modulesNavigation');
+            $modulesNavigation = Yii::app()->cache->get('YupeModulesNavigation');
             
             if ($modulesNavigation === false)
             {
@@ -255,6 +258,7 @@ class YupeModule extends YupeParams
                     if(isset($order[$iValue]))
                         $orderNew[$iValue] = $order[$iValue];
                 });
+
                 $orderNew = array_merge($orderNew, array_diff($order, $this->categorySort));
 
                 // Обходим категории модулей
@@ -316,7 +320,7 @@ class YupeModule extends YupeParams
                 // Заполняем категорию система
                 $modulesNavigation[$this->category]['items']['settings'] = $settings;
 
-                Yii::app()->cache->set('modulesNavigation', $modulesNavigation, Yii::app()->getModule('yupe')->coreCacheTime);
+                Yii::app()->cache->set('YupeModulesNavigation', $modulesNavigation, Yii::app()->getModule('yupe')->coreCacheTime);
             }
         }
 
