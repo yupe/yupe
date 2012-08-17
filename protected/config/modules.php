@@ -25,10 +25,11 @@ return array(
     'dictionary' => array(
         'class' => 'application.modules.dictionary.DictionaryModule',
     ),
-    /*
+    
     'gallery' => array(
         'class' => 'application.modules.gallery.GalleryModule',
     ),
+    /*
     'vote' => array(
         'class' => 'application.modules.vote.VoteModule',
     ),

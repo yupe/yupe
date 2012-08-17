@@ -6,12 +6,13 @@
 ?>
 <?php echo  "<?php \$form=\$this->beginWidget('bootstrap.widgets.TbActiveForm',array(
 	'id'=>'".$this->class2id($this->modelClass)."-form',
-	'enableAjaxValidation'=>false,
+	'enableAjaxValidation' =>false,
+	'enableClientValidation' =>true,
 	'type'=>'vertical',
         'htmlOptions' => array('class' => 'well form-vertical')
 )); ?>\n"; ?>
 
-<div class="alert alert-info"><?php echo "<?php echo Yii::t('yupe','Поля, отмеченные');?>";?> <span class="required">*</span> <?php echo "<?php echo Yii::t('yupe','обязательны.');?>";?></div>
+<div class="alert alert-info"><?php echo "<?php echo Yii::t('{$this->mid}','Поля, отмеченные');?>";?> <span class="required">*</span> <?php echo "<?php echo Yii::t('{$this->mid}','обязательны.');?>";?></div>
 
 	<?php echo  "<?php echo  \$form->errorSummary(\$model); ?>\n"; ?>
 
@@ -30,7 +31,7 @@ foreach($this->tableSchema->columns as $column)
 <?php echo  "<?php \$this->widget('bootstrap.widgets.TbButton', array(
         'buttonType'=>'submit',
         'type'=>'primary',
-        'label'=>\$model->isNewRecord ? Yii::t('yupe','Добавить $this->vin') : Yii::t('yupe','Сохранить $this->vin'),
+        'label'=>\$model->isNewRecord ? Yii::t('{$this->mid}','Добавить $this->vin') : Yii::t('{$this->mid}','Сохранить $this->vin'),
 )); ?>\n"; ?>
 	
 

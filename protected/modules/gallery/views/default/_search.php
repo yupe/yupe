@@ -1,34 +1,26 @@
-<div class="wide form">
+<?php $form=$this->beginWidget('bootstrap.widgets.TbActiveForm',array(
+	'action'=>Yii::app()->createUrl($this->route),
+	'method'=>'get',
+        'type'=>'vertical',
+        'htmlOptions' => array('class' => 'well form-vertical')
+)); ?>
+<fieldset class="inline">    
+	<?php echo  $form->textFieldRow($model,'id',array('class'=>'span5','maxlength'=>10,'size' => 60)); ?>
 
-    <?php $form = $this->beginWidget('CActiveForm', array(
-                                                         'action' => Yii::app()->createUrl($this->route),
-                                                         'method' => 'get',
-                                                    )); ?>
+	<?php echo  $form->textFieldRow($model,'name',array('class'=>'span5','maxlength'=>300,'size' => 60)); ?>
 
-    <div class="row">
-        <?php echo $form->label($model, 'id'); ?>
-        <?php echo $form->textField($model, 'id', array('size' => 10, 'maxlength' => 10)); ?>
-    </div>
+	<?php echo  $form->textAreaRow($model,'description',array('rows'=>6, 'cols'=>50, 'class'=>'span8')); ?>
 
-    <div class="row">
-        <?php echo $form->label($model, 'name'); ?>
-        <?php echo $form->textField($model, 'name', array('size' => 60, 'maxlength' => 300)); ?>
-    </div>
+	<?php echo  $form->textFieldRow($model,'status',array('class'=>'span5','size' => 60,'maxlength' => 60)); ?>
 
-    <div class="row">
-        <?php echo $form->label($model, 'description'); ?>
-        <?php echo $form->textArea($model, 'description', array('rows' => 6, 'cols' => 50)); ?>
-    </div>
+</fieldset>    
+	
+<?php $this->widget('bootstrap.widgets.TbButton', array(
+                        'type'=>'primary',
+                        'encodeLabel' => false,
+                        'buttonType' => 'submit',
+                        'label'=>'<i class="icon-search icon-white"></i> '.Yii::t('gallery','Искать'),
+                )); ?>
+	
 
-    <div class="row">
-        <?php echo $form->label($model, 'status'); ?>
-        <?php echo $form->textField($model, 'status'); ?>
-    </div>
-
-    <div class="row buttons">
-        <?php echo CHtml::submitButton(Yii::t('gallery', 'Поиск')); ?>
-    </div>
-
-    <?php $this->endWidget(); ?>
-
-</div><!-- search-form -->
+<?php $this->endWidget(); ?>

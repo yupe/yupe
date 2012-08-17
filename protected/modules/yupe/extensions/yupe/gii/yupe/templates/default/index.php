@@ -6,29 +6,31 @@
 ?>
 <?php
 echo "<?php\n";
-$label= $this->mim;
-$label=mb_strtoupper(mb_substr($label,0,1)).mb_substr($label,1);
+$label = $this->mim;
+$label = mb_strtoupper(mb_substr($label,0,1)).mb_substr($label,1);
 
-echo "\$this->breadcrumbs=array(
-	'$label'=>array('index'),
-	Yii::t('yupe','Управление'),
+echo "\$this->breadcrumbs=array(    
+    Yii::app()->getModule('{$this->mid}')->getCategory() => array('admin'),
+	Yii::t('{$this->mid}','$label')=>array('index'),
+	Yii::t('{$this->mid}','Управление'),
 );\n";
 ?>
-$this-> pageTitle ="<?php echo $label ?> - "."Yii::t('yupe','управление')";
+$this->pageTitle = Yii::t('<?php echo $this->mid;?>','<?php echo $label ?> - управление');
+
 $this->menu=array(
-array('icon'=> 'list-alt white', 'label' => Yii::t('yupe','Управление <?php echo $this->mtvor;?>'),'url'=>array('/<?php echo $this->controller; ?>/index')),
-array('icon'=> 'file','label' => Yii::t('yupe','Добавить <?php echo $this->vin;?>'), 'url' => array('/<?php echo $this->controller; ?>/create')),
+    array('icon'=> 'list-alt white', 'label' => Yii::t('<?php echo $this->mid;?>','Управление <?php echo $this->mtvor;?>'),'url'=>array('/<?php echo $this->controller; ?>/index')),
+    array('icon'=> 'file','label' => Yii::t('<?php echo  $this->mid;?>','Добавить <?php echo $this->vin;?>'), 'url' => array('/<?php echo $this->controller; ?>/create')),
 );
 <?php echo  "?>"; ?>
 
 <div class="page-header">
-    <h1><?php echo "<?php echo ucfirst(Yii::t('yupe','$label'));?>"; ?>
-    <small><?php echo "<?php echo Yii::t('yupe','управление');?>"?></small>
+    <h1><?php echo "<?php echo ucfirst(Yii::t('{$this->mid}','$label'));?>"; ?>
+    <small><?php echo "<?php echo Yii::t('{$this->mid}','управление');?>"?></small>
     </h1>
 </div>
 <button class="btn btn-small dropdown-toggle"  data-toggle="collapse"  data-target="#search-toggle" >
     <i class="icon-search"></i>
-    <?php echo CHtml::link(Yii::t('yupe','Поиск ').$this->mrod, '#', array('class' => 'search-button'));?>
+    <?php echo "<?php echo CHtml::link(Yii::t('$this->mid','Поиск {$this->mrod}'), '#', array('class' => 'search-button'));?>" ?>
     <span class="caret"></span>
 </button>
 
@@ -51,7 +53,7 @@ return false;
 <br/>
 
 <p>
-    <?php echo "<?php echo Yii::t('yupe','В данном разделе представлены средства управления');?>";?> <?php echo "<?php echo Yii::t('yupe','$this->mtvor');?>"; ?>.
+    <?php echo "<?php echo Yii::t('{$this->mid}','В данном разделе представлены средства управления');?>";?> <?php echo "<?php echo Yii::t('{$this->mid}','$this->mtvor');?>"; ?>.
 </p>
 
 

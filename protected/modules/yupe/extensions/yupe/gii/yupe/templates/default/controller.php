@@ -36,11 +36,11 @@ class <?php echo  $this->controllerClass; ?> extends <?php echo  $this->baseCont
 			$model->attributes=$_POST['<?php echo  $this->modelClass; ?>'];
 
 			if($model->save())
-                        {
-                            Yii::app()->user->setFlash(YFlashMessages::NOTICE_MESSAGE,Yii::t('yupe','Запись добавлена!'));
+            {
+                Yii::app()->user->setFlash(YFlashMessages::NOTICE_MESSAGE,Yii::t('<?php echo $this->mid;?>','Запись добавлена!'));
 
-			    $this->redirect(array('view','id'=>$model-><?php echo  $this->tableSchema->primaryKey; ?>));
-                        }
+                $this->redirect(array('view','id'=>$model-><?php echo  $this->tableSchema->primaryKey; ?>));
+            }
 		}
 
 		$this->render('create',array(
@@ -65,7 +65,7 @@ class <?php echo  $this->controllerClass; ?> extends <?php echo  $this->baseCont
 
 			if($model->save())
                         {
-                            Yii::app()->user->setFlash(YFlashMessages::NOTICE_MESSAGE,Yii::t('yupe','Запись обновлена!'));
+                            Yii::app()->user->setFlash(YFlashMessages::NOTICE_MESSAGE,Yii::t('<?php echo $this->mid;?>','Запись обновлена!'));
 
 			    $this->redirect(array('update','id' => $model->id));
                         }
@@ -88,7 +88,7 @@ class <?php echo  $this->controllerClass; ?> extends <?php echo  $this->baseCont
 			// поддерживаем удаление только из POST-запроса
 			$this->loadModel($id)->delete();
 
-                        Yii::app()->user->setFlash(YFlashMessages::NOTICE_MESSAGE,Yii::t('yupe','Запись удалена!'));
+                        Yii::app()->user->setFlash(YFlashMessages::NOTICE_MESSAGE,Yii::t('<?php echo $this->mid;?>','Запись удалена!'));
 
 			// если это AJAX запрос ( кликнули удаление в админском grid view), мы не должны никуда редиректить
 			if(!isset($_GET['ajax']))

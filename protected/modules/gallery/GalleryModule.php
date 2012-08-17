@@ -50,9 +50,19 @@ class GalleryModule extends YWebModule
 
     public function init()
     {
+        parent::init();
+
         $this->setImport(array(
             'gallery.models.*',
             'gallery.components.*',
         ));
+    }
+
+     public function getNavigation()
+    {
+        return array(
+            array('icon' => 'plus-sign', 'label' => Yii::t('gallery', 'Добавить галерею'), 'url' => array('/gallery/default/create/')),
+            array('icon' => 'th-list', 'label' => Yii::t('gallery', 'Список галерей'), 'url' => array('/gallery/default/index/')),
+        );
     }
 }

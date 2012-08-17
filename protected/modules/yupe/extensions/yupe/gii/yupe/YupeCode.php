@@ -22,12 +22,14 @@ class YupeCode extendS CrudCode
     public $mrod;
     public $mtvor;
 
+    public $mid;
+
 
     public function rules()
     {
         return array_merge(parent::rules(), array(
-            array('im, rod, dat, vin, tvor, pre, mim, mrod, mtvor', 'filter', 'filter'=>'trim'),
-            array('im, rod, dat, vin, tvor, pre, mim, mrod, mtvor', 'required'),
+            array('im, rod, dat, vin, tvor, pre, mim, mrod, mtvor, mid', 'filter', 'filter'=>'trim'),
+            array('im, rod, dat, vin, tvor, pre, mim, mrod, mtvor, mid', 'required'),
         ));
     }
 

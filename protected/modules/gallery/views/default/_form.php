@@ -1,38 +1,27 @@
-<div class="form">
+<?php $form=$this->beginWidget('bootstrap.widgets.TbActiveForm',array(
+	'id'=>'gallery-form',
+	'enableAjaxValidation' =>false,
+	'enableClientValidation' =>true,
+	'type'=>'vertical',
+        'htmlOptions' => array('class' => 'well form-vertical')
+)); ?>
 
-    <?php $form = $this->beginWidget('CActiveForm', array(
-                                                         'id' => 'gallery-form',
-                                                         'enableAjaxValidation' => false,
-                                                    )); ?>
+<div class="alert alert-info"><?php echo Yii::t('gallery','Поля, отмеченные');?> <span class="required">*</span> <?php echo Yii::t('gallery','обязательны.');?></div>
 
-    <p class="note"><?php echo Yii::t('page', 'Поля, отмеченные * обязательны для заполнения')?></p>
+	<?php echo  $form->errorSummary($model); ?>
 
-    <?php echo $form->errorSummary($model); ?>
+	<div class='row-fluid control-group <?php echo $model->hasErrors("name")?"error":"" ?>'><?php echo  $form->textFieldRow($model,'name',array('class'=>'span5','maxlength'=>300,'size' => 60)); ?></div>
 
-    <div class="row">
-        <?php echo $form->labelEx($model, 'name'); ?>
-        <?php echo $form->textField($model, 'name', array('size' => 50, 'maxlength' => 300)); ?>
-        <?php echo $form->error($model, 'name'); ?>
-    </div>
+	<div class='row-fluid control-group <?php echo $model->hasErrors("description")?"error":"" ?>'><?php echo  $form->textAreaRow($model,'description',array('rows'=>6, 'cols'=>50, 'class'=>'span8')); ?></div>
 
-    <div class="row">
-        <?php echo $form->labelEx($model, 'description'); ?>
-        <?php echo $form->textArea($model, 'description', array('rows' => 7, 'cols' => 65)); ?>
-        <?php echo $form->error($model, 'description'); ?>
-    </div>
+	<div class='row-fluid control-group <?php echo $model->hasErrors("status")?"error":"" ?>'><?php echo  $form->textFieldRow($model,'status',array('class'=>'span5','size' => 60,'maxlength' => 60)); ?></div>
 
-    <div class="row">
-        <?php echo $form->labelEx($model, 'status'); ?>
-        <?php echo $form->dropDownList($model, 'status', $model->getStatusList()); ?>
-        <?php echo $form->error($model, 'status'); ?>
-    </div>
+	
+<?php $this->widget('bootstrap.widgets.TbButton', array(
+        'buttonType'=>'submit',
+        'type'=>'primary',
+        'label'=>$model->isNewRecord ? Yii::t('gallery','Добавить Галерею') : Yii::t('gallery','Сохранить Галерею'),
+)); ?>
+	
 
-    <div class="row buttons">
-        <?php echo CHtml::submitButton($model->isNewRecord
-                                           ? Yii::t('gallery', 'Добавить галерею')
-                                           : Yii::t('gallery', 'Сохранить галерею')); ?>
-    </div>
-
-    <?php $this->endWidget(); ?>
-
-</div><!-- form -->
+<?php $this->endWidget(); ?>

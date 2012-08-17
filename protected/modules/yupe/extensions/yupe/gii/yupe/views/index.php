@@ -37,6 +37,15 @@ $('#{$class}_model').bind('keyup change', function(){
 		<?php echo  $form->error($model,'model'); ?>
 	</div>
 
+	<div class="row">
+		<label>Модуль (id) для которого генерируется CRUD</label>
+		<?php echo  $form->textField($model,'mid',array('size'=>65)); ?>
+		<div class="tooltip">
+			Module id (e.g. page, user or news)
+		</div>
+		<?php echo  $form->error($model,'mid'); ?>
+	</div>
+
     <br />
 
     <h2>Единственное число</h2>
