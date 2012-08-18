@@ -242,7 +242,7 @@ class YupeModule extends YupeParams
                 }
             }
 
-            $modulesNavigation = false; //Yii::app()->cache->get('YupeModulesNavigation');
+            $modulesNavigation = Yii::app()->cache->get('YupeModulesNavigation');
             
             if ($modulesNavigation === false)
             {
