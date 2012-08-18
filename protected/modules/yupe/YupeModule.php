@@ -247,7 +247,7 @@ class YupeModule extends YupeParams
             if ($modulesNavigation === false)
             {
                 // Формируем навигационное меню
-                $modulesNavigation = $orderNew = array( );
+                $modulesNavigation = array( );
 
                 // Шаблон модуля настройка модулей
                 $settings = array(
@@ -258,16 +258,23 @@ class YupeModule extends YupeParams
                 );
 
                 // Сортируем категории модулей
-                array_walk($this->categorySort, function($iValue) use (&$order, &$orderNew)
-                {
-                    if(isset($order[$iValue]))
-                        $orderNew[$iValue] = $order[$iValue];
-                });
 
-                $orderNew = array_merge($orderNew, array_diff($order, $this->categorySort));
+                if(count($order) > 1)
+                {
+                    $categorySort = array_reverse($this->categorySort);
+                    foreach($categorySort as $iValue)
+                    {
+                        if(isset($order[$iValue]))
+                        {
+                            $orderValue = $order[$iValue];
+                            unset($order[$iValue]);
+                            $order = array($iValue => $orderValue) + $order;
+                        }
+                    }
+                }
 
                 // Обходим категории модулей
-                foreach ($orderNew as $keyCategory => $valueCategory)
+                foreach ($order as $keyCategory => $valueCategory)
                 {
                     $settings['items'][] = array( 'label' => $keyCategory );
 

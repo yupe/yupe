@@ -62,7 +62,7 @@ class UserModule extends YWebModule
     public function checkSelf()
     {
         $superAdmin = User::model()->admin()->find();
-        if ($superAdmin->password == User::hashPassword('123456', $superAdmin->salt) || $superAdmin->email == 'admin@admin.ru')
+        if ($superAdmin->password == User::model()->hashPassword('123456', $superAdmin->salt) || $superAdmin->email == 'admin@admin.ru')
             return array(
                 'type' => YWebModule::CHECK_ERROR,
                 'message' => Yii::t('yupe', 'У Вас не изменен пароль или email, указанный, при установке, по умолчанию. В целях безопасности, пожалуйста, измените его! {link}', array(
