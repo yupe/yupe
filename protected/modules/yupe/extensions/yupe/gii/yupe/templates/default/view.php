@@ -5,37 +5,53 @@
  */
 ?>
 <?php
-echo "<?php\n";
 $nameColumn = $this->guessNameColumn($this->tableSchema->columns);
-$label = $this->mim;
-$label = mb_strtoupper(mb_substr($label,0,1)).mb_substr($label,1);
+$label = $this->mb_ucfirst($this->mim);
+$labelIm = $this->mb_ucfirst($this->im);
 
-echo "\$this->breadcrumbs=array(   
-    Yii::app()->getModule('{$this->mid}')->getCategory() => array('admin'), 
-	Yii::t('{$this->mid}','$label')=>array('index'),
-	\$model->{$nameColumn},
-);\n";
+echo <<<EOF
+<?php
+    \$this->breadcrumbs = array(
+        Yii::app()->getModule('{$this->mid}')->getCategory() => array(),
+        Yii::t('{$this->mid}', '$label') => array('/{$this->controller}/index'),
+        \$model->{$nameColumn},
+    );
+    \$this->pageTitle = Yii::t('{$this->mid}', '{$label} - просмотр');
+    \$this->menu = array(
+        array('icon' => 'list-alt', 'label' => Yii::t('{$this->mid}', 'Управление {$this->mtvor}'), 'url' => array('/{$this->controller}/index')),
+        array('icon' => 'plus-sign', 'label' => Yii::t('{$this->mid}', 'Добавить {$this->vin}'), 'url' => array('/{$this->controller}/create')),
+        array('label' => Yii::t('{$this->mid}', '{$labelIm}')),
+        array('icon' => 'pencil', 'encodeLabel' => false, 'label' => Yii::t('{$this->mid}', 'Редактирование {$this->rod}'), 'url' => array(
+            '/{$this->controller}/update',
+            '{$this->tableSchema->primaryKey}' => \$model->{$this->tableSchema->primaryKey}
+        )),
+        array('icon' => 'eye-open white', 'encodeLabel' => false, 'label' => Yii::t('{$this->mid}', 'Просмотреть {$this->vin}'), 'url' => array(
+            '/{$this->controller}/view',
+            '{$this->tableSchema->primaryKey}' => \$model->{$this->tableSchema->primaryKey}
+        )),
+        array('icon' => 'trash', 'label' => Yii::t('{$this->mid}', 'Удалить {$this->vin}'), 'url' => '#', 'linkOptions' => array(
+            'submit' => array('delete', 'id' => \$model->{$this->tableSchema->primaryKey}),
+            'confirm' => Yii::t('{$this->mid}', 'Вы уверены, что хотите удалить {$this->vin}?')
+        )),
+    );
 ?>
-$this->pageTitle = Yii::t('<?php echo $this->mid;?>','<?php echo $label ?> - просмотр');
-$this->menu=array(
-    array('icon'=> 'list-alt', 'label' => Yii::t('<?php echo $this->mid;?>','Управление <?php echo $this->mtvor;?>'),'url'=>array('/<?php echo $this->controller; ?>/index')),
-    array('icon'=> 'file', 'label' =>  Yii::t('<?php echo $this->mid;?>','Добавление <?php echo $this->rod;?>'),'url'=>array('/<?php echo $this->controller; ?>/create')),
-    array('icon'=>'pencil white','encodeLabel'=> false, 'label' => Yii::t('<?php echo $this->mid;?>','Редактирование <?php echo  $this->rod;?>'),'url'=>array('/<?php echo $this->controller; ?>/update','<?php echo  $this->tableSchema->primaryKey; ?>'=>$model-><?php echo  $this->tableSchema->primaryKey; ?>)),
-    array('icon'=>'eye-open','encodeLabel'=> false, 'label' => Yii::t('<?php echo $this->mid;?>','Просмотреть '). '<?php echo  $this->vin; ?>','url'=>array('/<?php echo $this->controller; ?>/view','<?php echo  $this->tableSchema->primaryKey; ?>'=>$model-><?php echo  $this->tableSchema->primaryKey; ?>)),
-    array('icon'=>'remove', 'label' =>  Yii::t('<?php echo $this->mid;?>','Удалить <?php echo $this->vin;?>'),'url'=>'#','linkOptions'=>array('submit'=>array('delete','id'=>$model-><?php echo  $this->tableSchema->primaryKey; ?>),'confirm'=> <?php echo "Yii::t('{$this->mid}','Вы уверены, что хотите удалить?')"?>)),
-);
+EOF;
 ?>
+
 <div class="page-header">
-    <h1><?php echo "<?php echo Yii::t('{$this->mid}','Просмотр');?>" ;?> <?php echo $this->rod."<br />
-     <small style='margin-left:-10px;'>&laquo;<?php echo  \$model->{$nameColumn}; ?>"; ?>&raquo;</small></h1>
+    <h1>
+        <?php echo "<?php echo Yii::t('{$this->mid}', 'Просмотр') . ' ' . Yii::t('{$this->mid}', '{$this->rod}'); ?>"; ?><br />
+        <small>&laquo;<?php echo "<?php echo \$model->{$nameColumn}; ?>"; ?>&raquo;</small>
+    </h1>
 </div>
 
-<?php echo  "<?php"; ?> $this->widget('bootstrap.widgets.TbDetailView',array(
-	'data'=>$model,
-	'attributes'=>array(
 <?php
-foreach($this->tableSchema->columns as $column)
-	echo "\t\t'".$column->name."',\n";
+echo "<?php"; ?> $this->widget('bootstrap.widgets.TbDetailView', array(
+    'data'       => $model,
+    'attributes' => array(
+<?php
+foreach ($this->tableSchema->columns as $column)
+    echo "        '{$column->name}',\n";
 ?>
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            ),
+    ),
 )); ?>

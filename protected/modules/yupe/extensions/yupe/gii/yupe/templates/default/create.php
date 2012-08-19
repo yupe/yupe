@@ -6,27 +6,31 @@
 ?>
 <?php
 $nameColumn = $this->guessNameColumn($this->tableSchema->columns);
-$label = $this->mim;
-$label = mb_strtoupper(mb_substr($label,0,1)).mb_substr($label,1);
+$label = $this->mb_ucfirst($this->mim);
 
-echo "<?php\n";
-echo "\$this->breadcrumbs=array(    
-	Yii::app()->getModule('{$this->mid}')->getCategory() => array('admin'),
-	Yii::t('{$this->mid}','$label')=>array('index'),
-	Yii::t('{$this->mid}','Добавление'),
-);\n";
+echo <<<EOF
+<?php
+    \$this->breadcrumbs = array(
+        Yii::app()->getModule('{$this->mid}')->getCategory() => array(),
+        Yii::t('{$this->mid}', '{$label}') => array('/{$this->controller}/index'),
+        Yii::t('{$this->mid}', 'Добавление'),
+    );
+
+    \$this->pageTitle = Yii::t('{$this->mid}', '{$label} - добавление');
+
+    \$this->menu = array(
+        array('icon' => 'list-alt', 'label' => Yii::t('{$this->mid}', 'Управление {$this->mtvor}'), 'url' => array('/{$this->controller}/index')),
+        array('icon' => 'plus-sign white', 'label' => Yii::t('{$this->mid}', 'Добавить {$this->vin}'), 'url' => array('/{$this->controller}/create')),
+    );
+?>
+EOF;
 ?>
 
-$this->pageTitle = Yii::t('<?php echo $this->mid ?>','<?php echo $label ?> - добавление');
-
-$this->menu=array(
-    array('icon'=> 'list-alt', 'label' => Yii::t('<?php echo $this->mid;?>','Управление <?php echo $this->mtvor;?>'),'url'=>array('/<?php echo $this->controller; ?>/index')),
-    array('icon'=> 'file', 'label' => Yii::t('<?php echo $this->mid;?>','Добавить <?php echo $this->vin;?>'),'url'=>array('/<?php echo $this->controller; ?>/create')),
-);
-?>
 <div class="page-header">
-    <h1><?php echo "<?php echo Yii::t('{$this->mid}','$label');?>"; ?>
-    <small><?php echo "<?php echo Yii::t('{$this->mid}','добавление');?>"?></small>
+    <h1>
+        <?php echo "<?php echo Yii::t('{$this->mid}', '{$label}'); ?>\n"; ?>
+        <small><?php echo "<?php echo Yii::t('{$this->mid}', 'добавление'); ?>"; ?></small>
     </h1>
 </div>
-<?php echo  "<?php echo \$this->renderPartial('_form', array('model'=>\$model)); ?>"; ?>
+
+<?php echo "<?php echo \$this->renderPartial('_form', array('model' => \$model)); ?>"; ?>
