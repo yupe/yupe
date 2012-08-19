@@ -5,29 +5,46 @@
  */
 ?>
 <?php
-echo "<?php\n";
-$nameColumn = $this->guessNameColumn($this->tableSchema->columns);
-$label = $this->mim;
-$label = mb_strtoupper(mb_substr($label,0,1)).mb_substr($label,1);
 
-echo "\$this->breadcrumbs=array(   
-    Yii::app()->getModule('{$this->mid}')->getCategory() => array('admin'), 
-	Yii::t('{$this->mid}','$label')=>array('index'),
-	\$model->{$nameColumn}=>array('view','id'=>\$model->{$this->tableSchema->primaryKey}),
-	Yii::t('{$this->mid}','Редактирование'),
-);\n";
+$nameColumn = $this->guessNameColumn($this->tableSchema->columns);
+$label = $this->mb_ucfirst($this->mim);
+$labelIm = $this->mb_ucfirst($this->im);
+
+echo <<<EOF
+<?php
+    \$this->breadcrumbs = array(
+        Yii::app()->getModule('{$this->mid}')->getCategory() => array(),
+        Yii::t('{$this->mid}', '$label') => array('/{$this->controller}/index'),
+        \$model->{$nameColumn} => array('/{$this->controller}/view', 'id' => \$model->{$this->tableSchema->primaryKey}),
+        Yii::t('{$this->mid}', 'Редактирование'),
+    );
+    \$this->pageTitle = Yii::t('{$this->mid}', '{$label} - редактирование');
+    \$this->menu = array(
+        array('icon' => 'list-alt', 'label' => Yii::t('{$this->mid}', 'Управление {$this->mtvor}'), 'url' => array('/{$this->controller}/index')),
+        array('icon' => 'plus-sign', 'label' => Yii::t('{$this->mid}', 'Добавить {$this->vin}'), 'url' => array('/{$this->controller}/create')),
+        array('label' => Yii::t('{$this->mid}', '{$labelIm}')),
+        array('icon' => 'pencil white', 'encodeLabel' => false, 'label' => Yii::t('{$this->mid}', 'Редактирование {$this->rod}'), 'url' => array(
+            '/{$this->controller}/update',
+            '{$this->tableSchema->primaryKey}' => \$model->{$this->tableSchema->primaryKey}
+        )),
+        array('icon' => 'eye-open', 'encodeLabel' => false, 'label' => Yii::t('{$this->mid}', 'Просмотреть {$this->vin}'), 'url' => array(
+            '/{$this->controller}/view',
+            '{$this->tableSchema->primaryKey}' => \$model->{$this->tableSchema->primaryKey}
+        )),
+        array('icon' => 'trash', 'label' => Yii::t('{$this->mid}', 'Удалить {$this->vin}'), 'url' => '#', 'linkOptions' => array(
+            'submit' => array('delete', 'id' => \$model->{$this->tableSchema->primaryKey}),
+            'confirm' => Yii::t('{$this->mid}', 'Вы уверены, что хотите удалить {$this->vin}?')
+        )),
+    );
 ?>
-$this->pageTitle = Yii::t('<?php echo $this->mid;?>','<?php echo $label ?> - редактирование');
-$this->menu=array(
-    array('icon'=> 'list-alt', 'label' => Yii::t('<?php echo $this->mid;?>','Управление <?php echo $this->mtvor;?>'),'url'=>array('/<?php echo $this->controller; ?>/index')),
-    array('icon'=> 'file', 'label' =>  Yii::t('<?php echo $this->mid;?>','Добавить <?php echo $this->vin;?>'),'url'=>array('/<?php echo $this->controller; ?>/create')),
-    array('icon'=>'pencil white','encodeLabel'=> false, 'label' => Yii::t('<?php echo $this->mid;?>','Редактирование <?php echo  $this->rod;?>'),'url'=>array('/<?php echo $this->controller; ?>/update','<?php echo  $this->tableSchema->primaryKey; ?>'=>$model-><?php echo  $this->tableSchema->primaryKey; ?>)),
-    array('icon'=>'eye-open','encodeLabel'=> false, 'label' => Yii::t('<?php echo $this->mid;?>','Просмотреть '). '<?php echo  $this->vin; ?>','url'=>array('/<?php echo $this->controller; ?>/view','<?php echo  $this->tableSchema->primaryKey; ?>'=>$model-><?php echo  $this->tableSchema->primaryKey; ?>)),
-);
+EOF;
 ?>
+
 <div class="page-header">
-    <h1><?php echo "<?php echo Yii::t('{$this->mid}','Редактирование');?>";?> <?php echo "<?php echo Yii::t('{$this->mid}','$this->pre');?>"; ?><br />
-        <small style="margin-left: -10px;">&laquo;<?php echo  " <?php echo  \$model->{$nameColumn}; ?>"; ?>&raquo;</small>
+    <h1>
+        <?php echo "<?php echo Yii::t('{$this->mid}', 'Редактирование') . ' ' . Yii::t('{$this->mid}', '{$this->rod}'); ?>"; ?><br />
+        <small>&laquo;<?php echo "<?php echo \$model->{$nameColumn}; ?>"; ?>&raquo;</small>
     </h1>
 </div>
-<?php echo  "<?php echo  \$this->renderPartial('_form',array('model'=>\$model)); ?>"; ?>
+
+<?php echo "<?php echo \$this->renderPartial('_form', array('model' => \$model)); ?>"; ?>

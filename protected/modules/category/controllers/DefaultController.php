@@ -119,8 +119,8 @@ class DefaultController extends YBackController
                         array(
                             'alias'         => $alias,
                             'lang'          => $l,
-                            'parent_id'     => $model->parent_id,                            
-                            'iamge'         => $model->image,                            
+                            'parent_id'     => $model->parent_id,
+                            'iamge'         => $model->image,
                         )
                     );
 
@@ -147,21 +147,21 @@ class DefaultController extends YBackController
                         $p = $_POST['Category'][$l];
 
                         $modelsByLang[$l]->setAttributes(array(
-                            'alias'        => $_POST['Category']['alias'],                            
+                            'alias'        => $_POST['Category']['alias'],
                             'parent_id'    => $_POST['Category']['parent_id'],
                             'image'        => $modelsByLang[$l]->image,
                             'name'         => $p['name'],
                             'short_description' => $p['short_description'],
-                            'description'  => $p['description'],                            
+                            'description'  => $p['description'],
                             'status' => $p['status']
                         ));
 
                         if ($l != Yii::app()->sourceLanguage)
                             $modelsByLang[$l]->scenario = 'altlang';
 
-                        if (!$modelsByLang[$l]->save())                        
-                            $wasError = true;                 
-                                                               
+                        if (!$modelsByLang[$l]->save())
+                            $wasError = true;
+
                         elseif(is_object($modelsByLang[$l]->image))
                         {
                             $imageName = $this->module->getUploadPath() . $model->alias . '.' . $modelsByLang[$l]->image->extensionName;

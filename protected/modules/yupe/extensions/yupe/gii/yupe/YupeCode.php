@@ -28,28 +28,33 @@ class YupeCode extendS CrudCode
     public function rules()
     {
         return array_merge(parent::rules(), array(
-            array('im, rod, dat, vin, tvor, pre, mim, mrod, mtvor, mid', 'filter', 'filter'=>'trim'),
+            array('im, rod, dat, vin, tvor, pre, mim, mrod, mtvor, mid', 'filter', 'filter' => 'trim'),
             array('im, rod, dat, vin, tvor, pre, mim, mrod, mtvor, mid', 'required'),
         ));
     }
 
-	public function generateActiveRow($modelClass, $column)
-	{
-		if ($column->type === 'boolean')
-			return "\$form->checkBoxRow(\$model,'{$column->name}')";
-		else if (stripos($column->dbType,'text') !== false)
-			return "\$form->textAreaRow(\$model,'{$column->name}',array('rows'=>6, 'cols'=>50, 'class'=>'span8'))";
-		else
-		{
-			if (preg_match('/^(password|pass|passwd|passcode)$/i',$column->name))
-				$inputField='passwordFieldRow';
-			else
-				$inputField='textFieldRow';
+    public function generateActiveRow($modelClass, $column)
+    {
+        if ($column->type === 'boolean')
+            return "\$form->checkBoxRow(\$model, '{$column->name}')";
+        else if (stripos($column->dbType, 'text') !== false)
+            return "\$form->textAreaRow(\$model, '{$column->name}', array('rows' => 6, 'cols' => 50, 'class' => 'span8'))";
+        else
+        {
+            if (preg_match('/^(password|pass|passwd|passcode)$/i', $column->name))
+                $inputField = 'passwordFieldRow';
+            else
+                $inputField = 'textFieldRow';
 
-			if ($column->type!=='string' || $column->size===null)
-				return "\$form->{$inputField}(\$model,'{$column->name}',array('class'=>'span5','size' => 60,'maxlength' => 60))";
-			else
-				return "\$form->{$inputField}(\$model,'{$column->name}',array('class'=>'span5','maxlength'=>$column->size,'size' => 60))";
-		}
-	}
+            if ($column->type !== 'string' || $column->size === null)
+                return "\$form->{$inputField}(\$model, '{$column->name}', array('class' => 'span5', 'size' => 60, 'maxlength' => 60))";
+            else
+                return "\$form->{$inputField}(\$model, '{$column->name}', array('class' => 'span5', 'maxlength' => $column->size, 'size' => 60))";
+        }
+    }
+
+    public function mb_ucfirst($word)
+    {
+        return mb_strtoupper(mb_substr($word, 0, 1, 'UTF-8'), 'UTF-8') . mb_substr(mb_convert_case($word, MB_CASE_LOWER, 'UTF-8'), 1, mb_strlen($word), 'UTF-8');
+    }
 }
