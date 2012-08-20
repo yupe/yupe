@@ -40,10 +40,6 @@ $this->breadcrumbs = array(
 
 <br/><br/>
 
-Jabber-конференция сервер: conference.yupe.ru, комната: yupe-talks (<a href="http://yupe.ru/post/djabber-konferentsiya-yupi.html?form=help">http://yupe.ru/post/djabber-konferentsiya-yupi.html</a>)
-
-<br/><br/>
-
 <?php echo Yii::t('yupe','Напишите нам на <a href="mailto:team@yupe.ru">team@yupe.ru</a>');?>  - <?php echo Yii::t('yupe','принимаем всякого рода коммерческие и любые предложения =)');?>
 
 <br/><br/>
