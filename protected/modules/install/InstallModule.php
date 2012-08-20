@@ -10,7 +10,7 @@ class InstallModule extends YWebModule
 
     public function getAdminPageLink()
     {
-        return '/yupe/backend/';
+        return '/install/';
     }
 
     public function getEditableParams()
@@ -20,7 +20,7 @@ class InstallModule extends YWebModule
 
     public function getCategory()
     {
-        return Yii::t('install', 'Ядрышко');
+        return Yii::t('install', 'Система');
     }
 
     public function getName()
