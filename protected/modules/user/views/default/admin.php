@@ -75,6 +75,12 @@ $this->widget('YCustomGridView', array(
             'value' => '$this->grid->returnBootstrapStatusHtml($data)',
         ),
         array(
+            'type'  => 'raw',
+            'value' => '$data->email_confirm ? null : CHtml::link(\'<i class="icon icon-envelope" title="Выслать просьбу о подтверждении аккаунта"></i>\',
+                Yii::app()->controller->createUrl("notify", array("model" => "User", "id" => $data->id)),
+                array("onclick" => "ajaxSetStatus(this, \"user-grid\"); return false;"))',
+        ),
+        array(
             'class'    => 'bootstrap.widgets.TbButtonColumn',
             'template' => '{view}{update}{password}{delete}',
             'buttons'  => array(
