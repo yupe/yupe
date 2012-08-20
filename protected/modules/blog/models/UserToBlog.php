@@ -39,6 +39,7 @@ class UserToBlog extends CActiveRecord
 
     /**
      * Returns the static model of the specified AR class.
+     * @param string $className
      * @return UserToBlog the static model class
      */
     public static function model($className=__CLASS__)
@@ -63,7 +64,7 @@ class UserToBlog extends CActiveRecord
         // will receive user inputs.
         return array(
             array('user_id, blog_id', 'required'),
-            array('role, status, user_id, blog_id', 'numerical', 'integerOnly' => true),
+            array('role, status, user_id, blog_id', 'numerical', 'integerOnly' => TRUE),
             array('user_id, blog_id, create_date, update_date', 'length', 'max' => 10),
             array('note', 'length', 'max' => 300),
             array('role', 'in', 'range' => array_keys($this->getRoleList())),
@@ -114,14 +115,14 @@ class UserToBlog extends CActiveRecord
 
         $criteria=new CDbCriteria;
 
-        $criteria->compare('id', $this->id, true);
-        $criteria->compare('user_id', $this->user_id, true);
-        $criteria->compare('blog_id', $this->blog_id, true);
-        $criteria->compare('create_date', $this->create_date, true);
-        $criteria->compare('update_date', $this->update_date, true);
+        $criteria->compare('id', $this->id, TRUE);
+        $criteria->compare('user_id', $this->user_id, TRUE);
+        $criteria->compare('blog_id', $this->blog_id, TRUE);
+        $criteria->compare('create_date', $this->create_date, TRUE);
+        $criteria->compare('update_date', $this->update_date, TRUE);
         $criteria->compare('role', $this->role);
         $criteria->compare('status', $this->status);
-        $criteria->compare('note', $this->note, true);
+        $criteria->compare('note', $this->note, TRUE);
 
         $criteria->with = array('user', 'blog');
 

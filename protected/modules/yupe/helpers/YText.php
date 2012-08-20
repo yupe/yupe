@@ -193,8 +193,9 @@ class YText
      * will URLs.
      *
      * @access    public
-     * @param    string    the text string
      * @param    integer    the number of characters to wrap at
+     * @param string $charlim
+     * @internal param \the $string text string
      * @return    string
      */
 

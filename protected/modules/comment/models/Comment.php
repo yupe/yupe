@@ -27,6 +27,7 @@ class Comment extends CActiveRecord
 
     /**
      * Returns the static model of the specified AR class.
+     * @param string $className
      * @return Comment the static model class
      */
     public static function model($className = __CLASS__)
@@ -51,7 +52,7 @@ class Comment extends CActiveRecord
             array('model, name, email, text, url', 'filter', 'filter' => 'trim'),
             array('model, name, email, text, url', 'filter', 'filter' => array($obj = new CHtmlPurifier(), 'purify')),
             array('model, model_id, name, email, text', 'required'),
-            array('status, user_id', 'numerical', 'integerOnly' => true),
+            array('status, user_id', 'numerical', 'integerOnly' => TRUE),
             array('name, email, url', 'length', 'max' => 150),
             array('model', 'length', 'max' => 50),
             array('ip', 'length', 'max' => 20),
@@ -95,7 +96,7 @@ class Comment extends CActiveRecord
     {
         if($this->author)
             return $this->author;
-        return false;
+        return FALSE;
     }
 
     /**
@@ -109,16 +110,16 @@ class Comment extends CActiveRecord
 
         $criteria = new CDbCriteria;
 
-        $criteria->compare('id', $this->id, true);
-        $criteria->compare('model', $this->model, true);
-        $criteria->compare('model_id', $this->model_id, true);
-        $criteria->compare('creation_date', $this->creation_date, true);
-        $criteria->compare('name', $this->name, true);
-        $criteria->compare('email', $this->email, true);
-        $criteria->compare('url', $this->url, true);
-        $criteria->compare('text', $this->text, true);
+        $criteria->compare('id', $this->id, TRUE);
+        $criteria->compare('model', $this->model, TRUE);
+        $criteria->compare('model_id', $this->model_id, TRUE);
+        $criteria->compare('creation_date', $this->creation_date, TRUE);
+        $criteria->compare('name', $this->name, TRUE);
+        $criteria->compare('email', $this->email, TRUE);
+        $criteria->compare('url', $this->url, TRUE);
+        $criteria->compare('text', $this->text, TRUE);
         $criteria->compare('status', $this->status);
-        $criteria->compare('ip', $this->ip, true);
+        $criteria->compare('ip', $this->ip, TRUE);
 
         return new CActiveDataProvider(get_class($this), array(
             'criteria' => $criteria,

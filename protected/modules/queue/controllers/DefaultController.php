@@ -110,6 +110,7 @@ class DefaultController extends YBackController
      * Если модель не будет найдена - возникнет HTTP-исключение.
      *
      * @param integer идентификатор нужной модели
+     * @return \CActiveRecord
      */
     public function loadModel($id)
     {

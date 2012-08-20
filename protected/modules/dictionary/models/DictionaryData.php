@@ -27,10 +27,11 @@ class DictionaryData extends CActiveRecord
 
 	const STATUS_DELETED = 0;
 
-	/**
-	 * Returns the static model of the specified AR class.
-	 * @return DictionaryData the static model class
-	 */
+    /**
+     * Returns the static model of the specified AR class.
+     * @param string $className
+     * @return DictionaryData the static model class
+     */
 	public static function model($className=__CLASS__)
 	{
 		return parent::model($className);
@@ -53,7 +54,7 @@ class DictionaryData extends CActiveRecord
 		// will receive user inputs.
 		return array(
 			array('group_id, code, name, value', 'required'),
-			array('status', 'numerical', 'integerOnly'=>true),
+			array('status', 'numerical', 'integerOnly'=>TRUE),
 			array('group_id, create_user_id, update_user_id', 'length', 'max'=>10),
 			array('code', 'length', 'max'=>50),
 			array('name', 'length', 'max'=>150),
@@ -110,15 +111,15 @@ class DictionaryData extends CActiveRecord
 
 		$criteria=new CDbCriteria;
 
-		$criteria->compare('id',$this->id,true);
-		$criteria->compare('group_id',$this->group_id,true);
-		$criteria->compare('code',$this->code,true);
-		$criteria->compare('name',$this->name,true);
-		$criteria->compare('description',$this->description,true);
-		$criteria->compare('creation_date',$this->creation_date,true);
-		$criteria->compare('update_date',$this->update_date,true);
-		$criteria->compare('create_user_id',$this->create_user_id,true);
-		$criteria->compare('update_user_id',$this->update_user_id,true);
+		$criteria->compare('id',$this->id,TRUE);
+		$criteria->compare('group_id',$this->group_id,TRUE);
+		$criteria->compare('code',$this->code,TRUE);
+		$criteria->compare('name',$this->name,TRUE);
+		$criteria->compare('description',$this->description,TRUE);
+		$criteria->compare('creation_date',$this->creation_date,TRUE);
+		$criteria->compare('update_date',$this->update_date,TRUE);
+		$criteria->compare('create_user_id',$this->create_user_id,TRUE);
+		$criteria->compare('update_user_id',$this->update_user_id,TRUE);
 		$criteria->compare('status',$this->status);
 
 		return new CActiveDataProvider(get_class($this), array(

@@ -19,6 +19,7 @@ class Settings extends CActiveRecord
 {
     /**
      * Returns the static model of the specified AR class.
+     * @param string $className
      * @return Settings the static model class
      */
     public static function model($className = __CLASS__)
@@ -42,7 +43,7 @@ class Settings extends CActiveRecord
         return array(
             array('module_id, param_name', 'required'),
             array('module_id, param_name, param_value', 'length', 'max' => 150),
-            array('user_id', 'numerical', 'integerOnly' => true),
+            array('user_id', 'numerical', 'integerOnly' => TRUE),
             //array('module_id','match','pattern' => '/^[a-zA-Z0-9_\-]+$/'),
             //array('param_name, param_value','match','pattern' => '/^[a-zA-Z0-9_\-]+$/'),
             array('id, module_id, param_name, param_value, creation_date, change_date, user_id', 'safe', 'on' => 'search'),
@@ -101,13 +102,13 @@ class Settings extends CActiveRecord
 
         $criteria = new CDbCriteria;
 
-        $criteria->compare('id', $this->id, true);
-        $criteria->compare('module_id', $this->module_id, true);
-        $criteria->compare('param_name', $this->param_name, true);
-        $criteria->compare('param_value', $this->param_value, true);
-        $criteria->compare('creation_date', $this->creation_date, true);
-        $criteria->compare('change_date', $this->change_date, true);
-        $criteria->compare('user_id', $this->user_id, true);
+        $criteria->compare('id', $this->id, TRUE);
+        $criteria->compare('module_id', $this->module_id, TRUE);
+        $criteria->compare('param_name', $this->param_name, TRUE);
+        $criteria->compare('param_value', $this->param_value, TRUE);
+        $criteria->compare('creation_date', $this->creation_date, TRUE);
+        $criteria->compare('change_date', $this->change_date, TRUE);
+        $criteria->compare('user_id', $this->user_id, TRUE);
 
         return new CActiveDataProvider(get_class($this), array(
             'criteria' => $criteria,
@@ -122,7 +123,7 @@ class Settings extends CActiveRecord
      * @return array Экземпляры класса Settings, соответствующие запрошенным параметрам
      * @todo Добавить кеширование
      */
-    public function fetchModuleSettings($module_id, $params = null)
+    public function fetchModuleSettings($module_id, $params = NULL)
     {
         $settings = array( );
         if ($module_id)

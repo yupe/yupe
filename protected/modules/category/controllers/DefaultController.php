@@ -54,12 +54,15 @@ class DefaultController extends YBackController
         ));
     }
 
-     /**
+    /**
      * Updates a particular model.
      * If update is successful, the browser will be redirected to the 'view' page.
+     * @param null $alias
      * @param integer $id the ID of the model to be updated
+     * @throws CHttpException
+     * @return void
      */
-    public function actionUpdate($alias = null, $id = null)
+    public function actionUpdate($alias = NULL, $id = NULL)
     {
         if (!$alias)
         {
@@ -97,7 +100,7 @@ class DefaultController extends YBackController
                 throw new CHttpException(404, Yii::t('category', 'Указанная категория не найдена'));
 
 
-            $model = null;
+            $model = NULL;
             // Собираем модельки по языкам
             foreach ($models as $m)
             {
@@ -134,13 +137,13 @@ class DefaultController extends YBackController
             // Проверим пост
             if (isset($_POST['Category']))
             {
-                $wasError = false;
+                $wasError = FALSE;
 
                 foreach ($langs as $l)
                 {
                     $img = $modelsByLang[$l]->image;
 
-                    $modelsByLang[$l]->image = CUploadedFile::getInstance($modelsByLang[$l], 'image') !== null ? CUploadedFile::getInstance($modelsByLang[$l], 'image') : $img;
+                    $modelsByLang[$l]->image = CUploadedFile::getInstance($modelsByLang[$l], 'image') !== NULL ? CUploadedFile::getInstance($modelsByLang[$l], 'image') : $img;
 
                     if (isset($_POST['Category'][$l]))
                     {
@@ -160,7 +163,7 @@ class DefaultController extends YBackController
                             $modelsByLang[$l]->scenario = 'altlang';
 
                         if (!$modelsByLang[$l]->save())
-                            $wasError = true;
+                            $wasError = TRUE;
 
                         elseif(is_object($modelsByLang[$l]->image))
                         {
@@ -246,11 +249,12 @@ class DefaultController extends YBackController
      * Возвращает модель по указанному идентификатору
      * Если модель не будет найдена - возникнет HTTP-исключение.
      * @param integer идентификатор нужной модели
+     * @return \CActiveRecord
      */
     public function loadModel($id)
     {
         $model = Category::model()->findByPk($id);
-        if ($model === null)
+        if ($model === NULL)
             throw new CHttpException(404, 'Запрошенная страница не найдена.');
         return $model;
     }

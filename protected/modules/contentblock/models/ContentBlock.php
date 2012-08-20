@@ -37,6 +37,7 @@ class ContentBlock extends CActiveRecord
 
     /**
      * Returns the static model of the specified AR class.
+     * @param string $className
      * @return ContentBlock the static model class
      */
     public static function model($className = __CLASS__)
@@ -61,7 +62,7 @@ class ContentBlock extends CActiveRecord
             array('name, code, content, type', 'filter', 'filter' => 'trim'),
             array('name, code', 'filter', 'filter' => array($obj = new CHtmlPurifier(), 'purify')),
             array('name, code, content, type', 'required'),
-            array('type', 'numerical', 'integerOnly' => true),
+            array('type', 'numerical', 'integerOnly' => TRUE),
             array('type', 'in', 'range' => array_keys($this->getTypes())),
             array('name, code', 'length', 'max' => 50),
             array('description', 'length', 'max' => 300),

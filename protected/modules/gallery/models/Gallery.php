@@ -17,6 +17,7 @@ class Gallery extends CActiveRecord
 
     /**
      * Returns the static model of the specified AR class.
+     * @param string $className
      * @return Gallery the static model class
      */
     public static function model($className = __CLASS__)
@@ -41,7 +42,7 @@ class Gallery extends CActiveRecord
         // will receive user inputs.
         return array(
             array('name', 'required'),
-            array('status', 'numerical', 'integerOnly' => true),
+            array('status', 'numerical', 'integerOnly' => TRUE),
             array('name', 'length', 'max' => 300),
             array('description', 'length', 'max' => 500),
             // The following rule is used by search().
@@ -88,9 +89,9 @@ class Gallery extends CActiveRecord
 
         $criteria = new CDbCriteria;
 
-        $criteria->compare('id', $this->id, true);
-        $criteria->compare('name', $this->name, true);
-        $criteria->compare('description', $this->description, true);
+        $criteria->compare('id', $this->id, TRUE);
+        $criteria->compare('name', $this->name, TRUE);
+        $criteria->compare('description', $this->description, TRUE);
         $criteria->compare('status', $this->status);
 
         return new CActiveDataProvider($this, array(
@@ -131,6 +132,6 @@ class Gallery extends CActiveRecord
                                   'galleryId' => $this->id
                              ));
 
-        return $im2g->save() ? true : false;
+        return $im2g->save() ? TRUE : FALSE;
     }
 }

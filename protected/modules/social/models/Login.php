@@ -16,6 +16,7 @@ class Login extends CActiveRecord
 {
     /**
      * Returns the static model of the specified AR class.
+     * @param string $className
      * @return Login the static model class
      */
     public static function model($className = __CLASS__)
@@ -38,7 +39,7 @@ class Login extends CActiveRecord
     {
         return array(
             array('user_id, identity_id, type', 'required'),
-            array('user_id', 'numerical', 'integerOnly' => true),                        
+            array('user_id', 'numerical', 'integerOnly' => TRUE),
             array('identity_id', 'length', 'max' => 100),
             array('type', 'length', 'max' => 50),
             array('id, user_id, identity_id, type, creation_date', 'safe', 'on' => 'search'),
@@ -90,11 +91,11 @@ class Login extends CActiveRecord
 
         $criteria = new CDbCriteria;
 
-        $criteria->compare('id', $this->id, true);
-        $criteria->compare('user_id', $this->user_id, true);
-        $criteria->compare('identity_id', $this->identity_id, true);
-        $criteria->compare('type', $this->type, true);
-        $criteria->compare('creation_date', $this->creation_date, true);
+        $criteria->compare('id', $this->id, TRUE);
+        $criteria->compare('user_id', $this->user_id, TRUE);
+        $criteria->compare('identity_id', $this->identity_id, TRUE);
+        $criteria->compare('type', $this->type, TRUE);
+        $criteria->compare('creation_date', $this->creation_date, TRUE);
 
         return new CActiveDataProvider(get_class($this), array(
                                                               'criteria' => $criteria,

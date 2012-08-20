@@ -28,12 +28,12 @@ class PageController extends YFrontController
      * экшн для отображения конкретной страницы
      * отображает опубликованные страницы и превью
      */
-    public function actionShow($slug = null)
+    public function actionShow($slug = NULL)
     {
         if (!$slug)
             throw new CHttpException('404', Yii::t('page', 'Страница не найдена!'));
 
-        $page = null;
+        $page = NULL;
 
         // превью
         if ((int)Yii::app()->request->getQuery('preview') === 1 && Yii::app()->user->isSuperUser())
@@ -80,9 +80,12 @@ class PageController extends YFrontController
         array_push($pages, $this->currentPage->title);
         return $pages;
     }
+
     /**
      * Рекурсивно возвращает пригодный для zii.widgets.CBreadcrumbs массив, начиная со страницы $page
-     * @param int $pageId 
+     * @param Page $page
+     * @internal param int $pageId
+     * @return array
      */
     private function getBreadCrumbsRecursively(Page $page){
         $pages = array();

@@ -50,6 +50,7 @@ class User extends CActiveRecord
 
     /**
      * Returns the static model of the specified AR class.
+     * @param string $className
      * @return User the static model class
      */
     public static function model($className = __CLASS__)
@@ -74,18 +75,18 @@ class User extends CActiveRecord
             array('about', 'length', 'max' => 300),
             array('location, online_status', 'length', 'max' => 150),
             array('registration_ip, activation_ip, registration_date', 'length', 'max' => 20),
-            array('gender, status, access_level, use_gravatar, email_confirm', 'numerical', 'integerOnly' => true),
+            array('gender, status, access_level, use_gravatar, email_confirm', 'numerical', 'integerOnly' => TRUE),
             array('email_confirm', 'in', 'range' => array_keys($this->getEmailConfirmStatusList())),
             array('use_gravatar', 'in', 'range' => array(0, 1)),
             array('gender', 'in', 'range' => array_keys($this->getGendersList())),
             array('status', 'in', 'range' => array_keys($this->getStatusList())),
             array('access_level', 'in', 'range' => array_keys($this->getAccessLevelsList())),
             array('nick_name', 'match', 'pattern' => '/^[A-Za-z0-9]{2,50}$/', 'message' => Yii::t('user', 'Неверный формат поля "{attribute}" допустимы только буквы и цифры, от 2 до 20 символов')),
-            array('site', 'url', 'allowEmpty' => true),
+            array('site', 'url', 'allowEmpty' => TRUE),
             array('email', 'email'),
             array('email', 'unique', 'message' => Yii::t('user', 'Данный email уже используется другим пользователем')),
             array('nick_name', 'unique', 'message' => Yii::t('user', 'Данный ник уже используется другим пользователем')),
-            array('avatar', 'file', 'types' => implode(',', $module->avatarExtensions), 'maxSize' => $module->avatarMaxSize, 'allowEmpty' => true),
+            array('avatar', 'file', 'types' => implode(',', $module->avatarExtensions), 'maxSize' => $module->avatarMaxSize, 'allowEmpty' => TRUE),
             array('id, creation_date, change_date, first_name, last_name, nick_name, email, gender, avatar, password, salt, status, access_level, last_visit, registration_date, registration_ip, activation_ip', 'safe', 'on' => 'search'),
         );
     }
@@ -128,21 +129,21 @@ class User extends CActiveRecord
         $criteria = new CDbCriteria;
 
         $criteria->compare('id', $this->id);
-        $criteria->compare('creation_date', $this->creation_date, true);
-        $criteria->compare('change_date', $this->change_date, true);
-        $criteria->compare('first_name', $this->first_name, true);
-        $criteria->compare('last_name', $this->last_name, true);
-        $criteria->compare('nick_name', $this->nick_name, true);
-        $criteria->compare('email', $this->email, true);
+        $criteria->compare('creation_date', $this->creation_date, TRUE);
+        $criteria->compare('change_date', $this->change_date, TRUE);
+        $criteria->compare('first_name', $this->first_name, TRUE);
+        $criteria->compare('last_name', $this->last_name, TRUE);
+        $criteria->compare('nick_name', $this->nick_name, TRUE);
+        $criteria->compare('email', $this->email, TRUE);
         $criteria->compare('gender', $this->gender);
-        $criteria->compare('password', $this->password, true);
-        $criteria->compare('salt', $this->salt, true);
+        $criteria->compare('password', $this->password, TRUE);
+        $criteria->compare('salt', $this->salt, TRUE);
         $criteria->compare('status', $this->status);
         $criteria->compare('access_level', $this->access_level);
-        $criteria->compare('last_visit', $this->last_visit, true);
-        $criteria->compare('registration_date', $this->registration_date, true);
-        $criteria->compare('registration_ip', $this->registration_ip, true);
-        $criteria->compare('activation_ip', $this->activation_ip, true);
+        $criteria->compare('last_visit', $this->last_visit, TRUE);
+        $criteria->compare('registration_date', $this->registration_date, TRUE);
+        $criteria->compare('registration_ip', $this->registration_ip, TRUE);
+        $criteria->compare('activation_ip', $this->activation_ip, TRUE);
 
         return new CActiveDataProvider('User', array('criteria' => $criteria));
     }
@@ -161,7 +162,7 @@ class User extends CActiveRecord
             if($this->admin()->count() == 1 && $this->_oldAccess_level == self::ACCESS_LEVEL_ADMIN)
             {
                 if($this->access_level == self::ACCESS_LEVEL_USER || $this->status != self::STATUS_ACTIVE)
-                    return false;
+                    return FALSE;
             }
         }
         else
@@ -180,7 +181,7 @@ class User extends CActiveRecord
     public function beforeDelete()
     {
         if(User::model()->admin()->count() == 1 && $this->_oldAccess_level == self::ACCESS_LEVEL_ADMIN)
-            return false;
+            return FALSE;
 
         return parent::beforeDelete();
     }
@@ -214,9 +215,9 @@ class User extends CActiveRecord
     public function validatePassword($password)
     {
         if ($this->password === $this->hashPassword($password, $this->salt))
-            return true;
+            return TRUE;
 
-        return false;
+        return FALSE;
     }
 
     public function getAccessLevel()
@@ -285,15 +286,15 @@ class User extends CActiveRecord
 
     public function generateSalt()
     {
-        return md5(uniqid('', true) . time());
+        return md5(uniqid('', TRUE) . time());
     }
 
-    public function generateRandomPassword($length = null)
+    public function generateRandomPassword($length = NULL)
     {
         if (!$length)
             $length = Yii::app()->getModule('user')->minPasswordLength;
 
-        return substr(md5(uniqid(mt_rand(), true) . time()), 0, $length);
+        return substr(md5(uniqid(mt_rand(), TRUE) . time()), 0, $length);
     }
 
     public function generateActivationKey()
@@ -356,7 +357,7 @@ class User extends CActiveRecord
         return ($this->first_name || $this->last_name) ? $this->last_name . $separator . $this->first_name : $this->nick_name;
     }
 
-    public function createAccount($nick_name, $email, $password = null, $salt = null, $status = self::STATUS_NOT_ACTIVE, $emailConfirm = self::EMAIL_CONFIRM_NO, $first_name = '', $last_name = '')
+    public function createAccount($nick_name, $email, $password = NULL, $salt = NULL, $status = self::STATUS_NOT_ACTIVE, $emailConfirm = self::EMAIL_CONFIRM_NO, $first_name = '', $last_name = '')
     {
         $salt = is_null($salt) ? $this->generateSalt() : $salt;
 
@@ -378,7 +379,7 @@ class User extends CActiveRecord
         $setemail = empty($email);
         $this->email = $setemail ? 'user-' . $this->generateSalt() . '@' . $_SERVER['HTTP_HOST'] : $email;
 
-        $this->save(false);
+        $this->save(FALSE);
 
         // для красоты
         if ($setemail)

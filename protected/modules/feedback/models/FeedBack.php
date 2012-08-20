@@ -66,6 +66,7 @@ class FeedBack extends CActiveRecord
 
     /**
      * Returns the static model of the specified AR class.
+     * @param string $className
      * @return FeedBack the static model class
      */
     public static function model($className = __CLASS__)
@@ -89,7 +90,7 @@ class FeedBack extends CActiveRecord
         return array(
             array('name, email, theme, text', 'required'),
             array('name, email, theme, text, phone', 'filter', 'filter' => array($obj = new CHtmlPurifier(), 'purify')),
-            array('type, status, answer_user, is_faq, type', 'numerical', 'integerOnly' => true),
+            array('type, status, answer_user, is_faq, type', 'numerical', 'integerOnly' => TRUE),
             array('is_faq', 'in', 'range' => array(0, 1)),
             array('status', 'in', 'range' => array_keys($this->getStatusList())),
             array('type', 'in', 'range' => array_keys($this->getTypeList())),
@@ -135,12 +136,12 @@ class FeedBack extends CActiveRecord
         $criteria = new CDbCriteria;
 
         $criteria->compare('id', $this->id);
-        $criteria->compare('creation_date', $this->creation_date, true);
-        $criteria->compare('change_date', $this->change_date, true);
-        $criteria->compare('name', $this->name, true);
-        $criteria->compare('email', $this->email, true);
-        $criteria->compare('theme', $this->theme, true);
-        $criteria->compare('text', $this->text, true);
+        $criteria->compare('creation_date', $this->creation_date, TRUE);
+        $criteria->compare('change_date', $this->change_date, TRUE);
+        $criteria->compare('name', $this->name, TRUE);
+        $criteria->compare('email', $this->email, TRUE);
+        $criteria->compare('theme', $this->theme, TRUE);
+        $criteria->compare('text', $this->text, TRUE);
         $criteria->compare('type', $this->type);
         $criteria->compare('status', $this->status);
         $criteria->compare('ip', $this->ip);

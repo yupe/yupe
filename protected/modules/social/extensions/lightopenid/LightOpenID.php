@@ -49,12 +49,12 @@ class LightOpenID
     public $returnUrl
          , $required = array()
          , $optional = array()
-         , $verify_peer = null
-         , $capath = null
-         , $cainfo = null;
+         , $verify_peer = NULL
+         , $capath = NULL
+         , $cainfo = NULL;
     private $identity, $claimed_id;
-    protected $server, $version, $trustRoot, $aliases, $identifier_select = false
-            , $ax = false, $sreg = false, $data;
+    protected $server, $version, $trustRoot, $aliases, $identifier_select = FALSE
+            , $ax = FALSE, $sreg = FALSE, $data;
     static protected $ax_to_sreg = array(
         'namePerson/friendly'     => 'nickname',
         'contact/email'           => 'email',
@@ -110,7 +110,7 @@ class LightOpenID
         case 'realm':
             return $this->trustRoot;
         case 'mode':
-            return empty($this->data['openid_mode']) ? null : $this->data['openid_mode'];
+            return empty($this->data['openid_mode']) ? NULL : $this->data['openid_mode'];
         }
     }
 
@@ -122,14 +122,14 @@ class LightOpenID
      */
     function hostExists($url)
     {
-        if (strpos($url, '/') === false) {
+        if (strpos($url, '/') === FALSE) {
             $server = $url;
         } else {
             $server = @parse_url($url, PHP_URL_HOST);
         }
 
         if (!$server) {
-            return false;
+            return FALSE;
         }
 
         return !!gethostbynamel($server);
@@ -139,13 +139,13 @@ class LightOpenID
     {
         $params = http_build_query($params, '', '&');
         $curl = curl_init($url . ($method == 'GET' && $params ? '?' . $params : ''));
-        curl_setopt($curl, CURLOPT_FOLLOWLOCATION, true);
-        curl_setopt($curl, CURLOPT_HEADER, false);
-        curl_setopt($curl, CURLOPT_SSL_VERIFYPEER, false);
-        curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
+        curl_setopt($curl, CURLOPT_FOLLOWLOCATION, TRUE);
+        curl_setopt($curl, CURLOPT_HEADER, FALSE);
+        curl_setopt($curl, CURLOPT_SSL_VERIFYPEER, FALSE);
+        curl_setopt($curl, CURLOPT_RETURNTRANSFER, TRUE);
         curl_setopt($curl, CURLOPT_HTTPHEADER, array('Accept: application/xrds+xml, */*'));
 
-        if($this->verify_peer !== null) {
+        if($this->verify_peer !== NULL) {
             curl_setopt($curl, CURLOPT_SSL_VERIFYPEER, $this->verify_peer);
             if($this->capath) {
                 curl_setopt($curl, CURLOPT_CAPATH, $this->capath);
@@ -157,13 +157,13 @@ class LightOpenID
         }
 
         if ($method == 'POST') {
-            curl_setopt($curl, CURLOPT_POST, true);
+            curl_setopt($curl, CURLOPT_POST, TRUE);
             curl_setopt($curl, CURLOPT_POSTFIELDS, $params);
         } elseif ($method == 'HEAD') {
-            curl_setopt($curl, CURLOPT_HEADER, true);
-            curl_setopt($curl, CURLOPT_NOBODY, true);
+            curl_setopt($curl, CURLOPT_HEADER, TRUE);
+            curl_setopt($curl, CURLOPT_NOBODY, TRUE);
         } else {
-            curl_setopt($curl, CURLOPT_HTTPGET, true);
+            curl_setopt($curl, CURLOPT_HTTPGET, TRUE);
         }
         $response = curl_exec($curl);
 
@@ -204,7 +204,7 @@ class LightOpenID
                 'http' => array(
                     'method' => 'GET',
                     'header' => 'Accept: application/xrds+xml, */*',
-                    'ignore_errors' => true,
+                    'ignore_errors' => TRUE,
                 )
             );
             $url = $url . ($params ? '?' . $params : '');
@@ -215,7 +215,7 @@ class LightOpenID
                     'method' => 'POST',
                     'header'  => 'Content-type: application/x-www-form-urlencoded',
                     'content' => $params,
-                    'ignore_errors' => true,
+                    'ignore_errors' => TRUE,
                 )
             );
             break;
@@ -228,7 +228,7 @@ class LightOpenID
                 array('http' => array(
                     'method' => 'HEAD',
                     'header' => 'Accept: application/xrds+xml, */*',
-                    'ignore_errors' => true,
+                    'ignore_errors' => TRUE,
                 ))
             );
 
@@ -270,7 +270,7 @@ class LightOpenID
 
         if($this->verify_peer) {
             $opts += array('ssl' => array(
-                'verify_peer' => true,
+                'verify_peer' => TRUE,
                 'capath'      => $this->capath,
                 'cafile'      => $this->cainfo,
             ));
@@ -278,7 +278,7 @@ class LightOpenID
 
         $context = stream_context_create ($opts);
 
-        return file_get_contents($url, false, $context);
+        return file_get_contents($url, FALSE, $context);
     }
 
     protected function request($url, $method='GET', $params=array())
@@ -318,7 +318,7 @@ class LightOpenID
         preg_match_all("#<{$tag}[^>]*$valueName=['\"](.+?)['\"][^>]*$attrName=['\"].*?$attrValue.*?['\"][^>]*/?>#i", $content, $matches2);
 
         $result = array_merge($matches1[1], $matches2[1]);
-        return empty($result)?false:$result[0];
+        return empty($result)?FALSE:$result[0];
     }
 
     /**
@@ -341,22 +341,22 @@ class LightOpenID
         $originalUrl = $url;
 
         # A flag to disable yadis discovery in case of failure in headers.
-        $yadis = true;
+        $yadis = TRUE;
 
         # We'll jump a maximum of 5 times, to avoid endless redirections.
         for ($i = 0; $i < 5; $i ++) {
             if ($yadis) {
                 $headers = $this->request($url, 'HEAD');
 
-                $next = false;
+                $next = FALSE;
                 if (isset($headers['x-xrds-location'])) {
                     $url = $this->build_url(parse_url($url), parse_url(trim($headers['x-xrds-location'])));
-                    $next = true;
+                    $next = TRUE;
                 }
 
                 if (isset($headers['content-type'])
-                    && (strpos($headers['content-type'], 'application/xrds+xml') !== false
-                        || strpos($headers['content-type'], 'text/xml') !== false)
+                    && (strpos($headers['content-type'], 'application/xrds+xml') !== FALSE
+                        || strpos($headers['content-type'], 'text/xml') !== FALSE)
                 ) {
                     # Apparently, some providers return XRDS documents as text/html.
                     # While it is against the spec, allowing this here shouldn't break
@@ -372,12 +372,12 @@ class LightOpenID
                         # OpenID 2
                         $ns = preg_quote('http://specs.openid.net/auth/2.0/');
                         if(preg_match('#<Type>\s*'.$ns.'(server|signon)\s*</Type>#s', $content, $type)) {
-                            if ($type[1] == 'server') $this->identifier_select = true;
+                            if ($type[1] == 'server') $this->identifier_select = TRUE;
 
                             preg_match('#<URI.*?>(.*)</URI>#', $content, $server);
                             preg_match('#<(Local|Canonical)ID>(.*)</\1ID>#', $content, $delegate);
                             if (empty($server)) {
-                                return false;
+                                return FALSE;
                             }
                             # Does the server advertise support for either AX or SREG?
                             $this->ax   = (bool) strpos($content, '<Type>http://openid.net/srv/ax/1.0</Type>');
@@ -399,7 +399,7 @@ class LightOpenID
                             preg_match('#<URI.*?>(.*)</URI>#', $content, $server);
                             preg_match('#<.*?Delegate>(.*)</.*?Delegate>#', $content, $delegate);
                             if (empty($server)) {
-                                return false;
+                                return FALSE;
                             }
                             # AX can be used only with OpenID 2.0, so checking only SREG
                             $this->sreg = strpos($content, '<Type>http://openid.net/sreg/1.0</Type>')
@@ -414,10 +414,10 @@ class LightOpenID
                         }
                     }
 
-                    $next = true;
-                    $yadis = false;
+                    $next = TRUE;
+                    $yadis = FALSE;
                     $url = $originalUrl;
-                    $content = null;
+                    $content = NULL;
                     break;
                 }
                 if ($next) continue;
@@ -582,15 +582,15 @@ class LightOpenID
     /**
      * Returns authentication url. Usually, you want to redirect your user to it.
      * @return String The authentication url.
-     * @param String $select_identifier Whether to request OP to select identity for an user in OpenID 2. Does not affect OpenID 1.
-     * @throws ErrorException
+     * @param null $identifier_select
+     * @internal param String $select_identifier Whether to request OP to select identity for an user in OpenID 2. Does not affect OpenID 1.
      */
-    function authUrl($identifier_select = null)
+    function authUrl($identifier_select = NULL)
     {
         if (!$this->server) $this->discover($this->identity);
 
         if ($this->version == 2) {
-            if ($identifier_select === null) {
+            if ($identifier_select === NULL) {
                 return $this->authUrl_v2($this->identifier_select);
             }
             return $this->authUrl_v2($identifier_select);
@@ -629,7 +629,7 @@ class LightOpenID
         if ($this->data['openid_return_to'] != $this->returnUrl) {
             # The return_to url must match the url of current request.
             # I'm assuing that noone will set the returnUrl to something that doesn't make sense.
-            return false;
+            return FALSE;
         }
 
         $server = $this->discover($this->claimed_id);
@@ -655,7 +655,7 @@ class LightOpenID
 
     protected function getAxAttributes()
     {
-        $alias = null;
+        $alias = NULL;
         if (isset($this->data['openid_ns_ax'])
             && $this->data['openid_ns_ax'] != 'http://openid.net/srv/ax/1.0'
         ) { # It's the most likely case, so we'll check it before

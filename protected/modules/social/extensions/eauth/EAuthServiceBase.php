@@ -47,12 +47,12 @@ abstract class EAuthServiceBase extends CComponent implements IAuthService {
 	 * @var boolean whether user was successfuly authenticated.
 	 * @see getIsAuthenticated
 	 */
-	protected $authenticated = false;
+	protected $authenticated = FALSE;
 	
 	/**
 	 * @var boolean whether is attributes was fetched.
 	 */
-	private $fetched = false;
+	private $fetched = FALSE;
 	
 	/**
 	 * @var EAuth the {@link EAuth} application component.
@@ -92,7 +92,7 @@ abstract class EAuthServiceBase extends CComponent implements IAuthService {
 	 */
 	public function __isset($name) {
 		if ($this->hasAttribute($name))
-			return true;
+			return TRUE;
 		else
 			return parent::__isset($name);
 	}
@@ -216,15 +216,15 @@ abstract class EAuthServiceBase extends CComponent implements IAuthService {
 	 * Redirect to the url. If url is null, {@link redirectUrl} will be used.
 	 * @param string $url url to redirect.
 	 */
-	public function redirect($url = null) {
-		$this->component->redirect(isset($url) ? $url : $this->redirectUrl, true);
+	public function redirect($url = NULL) {
+		$this->component->redirect(isset($url) ? $url : $this->redirectUrl, TRUE);
 	}
 	
 	/**
 	 * Redirect to the {@link cancelUrl} or simply close the popup window.
 	 */
-	public function cancel($url = null) {
-		$this->component->redirect(isset($url) ? $url : $this->cancelUrl, false);
+	public function cancel($url = NULL) {
+		$this->component->redirect(isset($url) ? $url : $this->cancelUrl, FALSE);
 	}
 	
 	/**
@@ -234,7 +234,7 @@ abstract class EAuthServiceBase extends CComponent implements IAuthService {
 	 * @param boolean $parseJson Whether to parse response in json format.
 	 * @return string the response.
 	 */
-	protected function makeRequest($url, $options = array(), $parseJson = true) {
+	protected function makeRequest($url, $options = array(), $parseJson = TRUE) {
 		$ch = $this->initRequest($url, $options);
 		
 		if (isset($options['referer']))
@@ -279,14 +279,14 @@ abstract class EAuthServiceBase extends CComponent implements IAuthService {
 		
 		return $result;
 	}
-	
-	/**
-	 * Initializes a new session and return a cURL handle.
-	 * @param string $url url to request.
-	 * @param array $options HTTP request options. Keys: query, data, referer.
-	 * @param boolean $parseJson Whether to parse response in json format.
-	 * @return cURL handle.
-	 */
+
+    /**
+     * Initializes a new session and return a cURL handle.
+     * @param string $url url to request.
+     * @param array $options HTTP request options. Keys: query, data, referer.
+     * @internal param bool $parseJson Whether to parse response in json format.
+     * @return cURL handle.
+     */
 	protected function initRequest($url, $options = array()) {
 		$ch = curl_init();		
 		//curl_setopt($ch, CURLOPT_FOLLOWLOCATION, 1); // error with open_basedir or safe mode
@@ -333,7 +333,7 @@ abstract class EAuthServiceBase extends CComponent implements IAuthService {
 			);
 		}
 		else
-			return null;
+			return NULL;
 	}
 	
 	/**
@@ -351,7 +351,7 @@ abstract class EAuthServiceBase extends CComponent implements IAuthService {
 	 * removed from the session.
 	 * @see getState
 	 */
-	protected function setState($key, $value, $defaultValue = null) {
+	protected function setState($key, $value, $defaultValue = NULL) {
 		$session = Yii::app()->session;
 		$key = $this->getStateKeyPrefix().$key;
 		if($value === $defaultValue)
@@ -379,7 +379,7 @@ abstract class EAuthServiceBase extends CComponent implements IAuthService {
 	 * the provided default value will be returned.
 	 * @see setState
 	 */
-	protected function getState($key, $defaultValue = null) {
+	protected function getState($key, $defaultValue = NULL) {
 		$session = Yii::app()->session;
 		$key = $this->getStateKeyPrefix().$key;
 		return isset($session[$key]) ? $session[$key] : $defaultValue;
@@ -390,7 +390,7 @@ abstract class EAuthServiceBase extends CComponent implements IAuthService {
 	 * @return boolean whether the attributes was successfully fetched.
 	 */
 	protected function fetchAttributes() {
-		return true;
+		return TRUE;
 	}
 	
 	/**
@@ -399,7 +399,7 @@ abstract class EAuthServiceBase extends CComponent implements IAuthService {
 	 */
 	protected function _fetchAttributes() {
 		if (!$this->fetched) {
-			$this->fetched = true;
+			$this->fetched = TRUE;
 			$result = $this->fetchAttributes();
 			if (isset($result))
 				$this->fetched = $result;
@@ -433,7 +433,7 @@ abstract class EAuthServiceBase extends CComponent implements IAuthService {
 	 * @param mixed $default the default value.
 	 * @return mixed the attribute value.
 	 */
-	public function getAttribute($key, $default = null) {
+	public function getAttribute($key, $default = NULL) {
 		$this->_fetchAttributes();
 		$getter = 'get'.$key;
 		if (method_exists($this, $getter))
