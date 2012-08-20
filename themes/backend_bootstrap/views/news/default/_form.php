@@ -91,25 +91,7 @@ Yii::app()->clientScript->registerScript('fieldset', "
             <?php echo $form->error($model, 'image'); ?>
         </div>
     </div>
-
-    <div class="row-fluid control-group <?php echo $model->hasErrors('short_text') ? 'error' : '' ?>">
-        <div class="span12">
-            <?php echo $form->labelEx($model, 'short_text'); ?>
-            <?php
-            $this->widget($this->module->editor, array(
-                'model'     => $model,
-                'attribute' => 'short_text',
-                'options'   => array(
-                    'toolbar' => 'main',
-                    'imageUpload' => Yii::app()->baseUrl . '/index.php/yupe/backend/AjaxFileUpload/'
-                ),
-                'htmlOptions' => array( 'rows' => 20, 'cols' => 6 )
-            ))
-            ?>
-            <span class="help-block"><?php echo Yii::t('news', "Опишите основную мысль новости или напишие некий вводный текст (анонс), пары предложений обычно достаточно. Данный текст используется при выводе списка новостей, например, на главной странице."); ?></span>
-            <?php echo $form->error($model, 'short_text'); ?>
-        </div>
-    </div>
+   
     <div class="row-fluid control-group <?php echo $model->hasErrors('full_text') ? 'error' : '' ?>">
         <div class="span12">
             <?php echo $form->labelEx($model, 'full_text'); ?>
@@ -127,6 +109,25 @@ Yii::app()->clientScript->registerScript('fieldset', "
 
             <span class="help-block"><?php echo Yii::t('news', "Полный текст новости отображается при переходе по ссылке &laquo;Подробнее&raquo; или иногда при клике на заголовке новости."); ?></span>
             <?php echo $form->error($model, 'full_text'); ?>
+        </div>
+    </div>
+
+     <div class="row-fluid control-group <?php echo $model->hasErrors('short_text') ? 'error' : '' ?>">
+        <div class="span12">
+            <?php echo $form->labelEx($model, 'short_text'); ?>
+            <?php
+            $this->widget($this->module->editor, array(
+                'model'     => $model,
+                'attribute' => 'short_text',
+                'options'   => array(
+                    'toolbar' => 'main',
+                    'imageUpload' => Yii::app()->baseUrl . '/index.php/yupe/backend/AjaxFileUpload/'
+                ),
+                'htmlOptions' => array( 'rows' => 20, 'cols' => 6 )
+            ))
+            ?>
+            <span class="help-block"><?php echo Yii::t('news', "Опишите основную мысль новости или напишие некий вводный текст (анонс), пары предложений обычно достаточно. Данный текст используется при выводе списка новостей, например, на главной странице."); ?></span>
+            <?php echo $form->error($model, 'short_text'); ?>
         </div>
     </div>
 
