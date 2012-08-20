@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Хост: localhost
--- Время создания: Авг 17 2012 г., 00:08
+-- Время создания: Авг 20 2012 г., 23:16
 -- Версия сервера: 5.5.24
 -- Версия PHP: 5.3.10-1ubuntu3.2
 
@@ -404,7 +404,7 @@ CREATE TABLE IF NOT EXISTS `menu_item` (
   KEY `menu_id` (`menu_id`),
   KEY `sort` (`sort`),
   KEY `status` (`status`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=2 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=15 ;
 
 -- --------------------------------------------------------
 
@@ -421,10 +421,10 @@ CREATE TABLE IF NOT EXISTS `news` (
   `date` date NOT NULL,
   `title` varchar(150) NOT NULL,
   `alias` varchar(150) NOT NULL,
-  `short_text` varchar(400) NOT NULL,
+  `short_text` text,
   `full_text` text NOT NULL,
   `image` varchar(300) DEFAULT NULL,
-  `link` varchar(300) CHARACTER SET utf32 DEFAULT NULL,
+  `link` varchar(300) DEFAULT NULL,
   `user_id` int(11) unsigned NOT NULL,
   `status` tinyint(4) NOT NULL DEFAULT '0',
   `is_protected` tinyint(1) NOT NULL DEFAULT '0',
@@ -571,7 +571,7 @@ CREATE TABLE IF NOT EXISTS `settings` (
   `user_id` int(10) unsigned NOT NULL,
   PRIMARY KEY (`id`),
   KEY `moduleId` (`module_id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=195 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=199 ;
 
 -- --------------------------------------------------------
 
@@ -623,7 +623,7 @@ CREATE TABLE IF NOT EXISTS `user` (
   UNIQUE KEY `user_email_unique` (`email`),
   KEY `user_status_index` (`status`),
   KEY `email_confirm` (`email_confirm`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=84 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=85 ;
 
 -- --------------------------------------------------------
 
