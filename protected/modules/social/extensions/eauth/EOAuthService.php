@@ -86,14 +86,14 @@ abstract class EOAuthService extends EAuthServiceBase implements IAuthService {
 	protected function getAccessToken() {
 		return $this->auth->getProvider()->token;
 	}
-	
-	/**
-	 * Initializes a new session and return a cURL handle.
-	 * @param string $url url to request.
-	 * @param array $options HTTP request options. Keys: query, data, referer.
-	 * @param boolean $parseJson Whether to parse response in json format.
-	 * @return cURL handle.
-	 */
+
+    /**
+     * Initializes a new session and return a cURL handle.
+     * @param string $url url to request.
+     * @param array $options HTTP request options. Keys: query, data, referer.
+     * @internal param bool $parseJson Whether to parse response in json format.
+     * @return cURL handle.
+     */
 	protected function initRequest($url, $options = array()) {
 		$ch = parent::initRequest($url, $options);
 		curl_setopt($ch, CURLOPT_HTTPHEADER, array('Expect:'));
@@ -111,7 +111,7 @@ abstract class EOAuthService extends EAuthServiceBase implements IAuthService {
 	 * @return string the response. 
 	 * @see makeRequest
 	 */
-	public function makeSignedRequest($url, $options = array(), $parseJson = true) {
+	public function makeSignedRequest($url, $options = array(), $parseJson = TRUE) {
 		if (!$this->getIsAuthenticated())
 			throw new CHttpException(401, 'Unable to complete the authentication because the required data was not received.');
 						

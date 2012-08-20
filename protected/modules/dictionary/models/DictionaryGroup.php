@@ -20,10 +20,11 @@
  */
 class DictionaryGroup extends CActiveRecord
 {
-	/**
-	 * Returns the static model of the specified AR class.
-	 * @return DictionaryGroup the static model class
-	 */
+    /**
+     * Returns the static model of the specified AR class.
+     * @param string $className
+     * @return DictionaryGroup the static model class
+     */
 	public static function model($className=__CLASS__)
 	{
 		return parent::model($className);
@@ -100,14 +101,14 @@ class DictionaryGroup extends CActiveRecord
 
 		$criteria=new CDbCriteria;
 
-		$criteria->compare('id',$this->id,true);
-		$criteria->compare('code',$this->code,true);
-		$criteria->compare('name',$this->name,true);
-		$criteria->compare('description',$this->description,true);
-		$criteria->compare('creation_date',$this->creation_date,true);
-		$criteria->compare('update_date',$this->update_date,true);
-		$criteria->compare('create_user_id',$this->create_user_id,true);
-		$criteria->compare('update_user_id',$this->update_user_id,true);
+		$criteria->compare('id',$this->id,TRUE);
+		$criteria->compare('code',$this->code,TRUE);
+		$criteria->compare('name',$this->name,TRUE);
+		$criteria->compare('description',$this->description,TRUE);
+		$criteria->compare('creation_date',$this->creation_date,TRUE);
+		$criteria->compare('update_date',$this->update_date,TRUE);
+		$criteria->compare('create_user_id',$this->create_user_id,TRUE);
+		$criteria->compare('update_user_id',$this->update_user_id,TRUE);
 
 		return new CActiveDataProvider(get_class($this), array(
 			'criteria'=>$criteria,

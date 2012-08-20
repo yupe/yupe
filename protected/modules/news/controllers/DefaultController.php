@@ -64,9 +64,12 @@ class DefaultController extends YBackController
     /**
      * Updates a particular model.
      * If update is successful, the browser will be redirected to the 'view' page.
+     * @param null $alias
      * @param integer $id the ID of the model to be updated
+     * @throws CHttpException
+     * @return void
      */
-    public function actionUpdate($alias = null, $id = null)
+    public function actionUpdate($alias = NULL, $id = NULL)
     {
         if (!$alias)
         {
@@ -103,7 +106,7 @@ class DefaultController extends YBackController
                 throw new CHttpException(404, Yii::t('news', 'Указанная новость не найдена'));
 
 
-            $model = null;
+            $model = NULL;
             // Собираем модельки по языкам
             foreach ($models as $m)
             {
@@ -147,13 +150,13 @@ class DefaultController extends YBackController
             // Проверим пост
             if (isset($_POST['News']))
             {
-                $wasError = false;
+                $wasError = FALSE;
 
                 foreach ($langs as $l)
                 {
                     $img = $modelsByLang[$l]->image;
 
-                    $modelsByLang[$l]->image = CUploadedFile::getInstance($modelsByLang[$l], 'image') !== null ? CUploadedFile::getInstance($modelsByLang[$l], 'image') : $img;
+                    $modelsByLang[$l]->image = CUploadedFile::getInstance($modelsByLang[$l], 'image') !== NULL ? CUploadedFile::getInstance($modelsByLang[$l], 'image') : $img;
 
                     if (isset($_POST['News'][$l]))
                     {
@@ -178,7 +181,7 @@ class DefaultController extends YBackController
                             $modelsByLang[$l]->scenario = 'altlang';
 
                         if (!$modelsByLang[$l]->save())                        
-                            $wasError = true;                 
+                            $wasError = TRUE;
                                                                
                         elseif(is_object($modelsByLang[$l]->image))
                         {
@@ -223,9 +226,12 @@ class DefaultController extends YBackController
     /**
      * Deletes a particular model.
      * If deletion is successful, the browser will be redirected to the 'index' page.
+     * @param null $alias
      * @param integer $id the ID of the model to be deleted
+     * @throws CHttpException
+     * @return void
      */
-    public function actionDelete($alias = null, $id = null)
+    public function actionDelete($alias = NULL, $id = NULL)
     {
         if (Yii::app()->request->isPostRequest)
         {
@@ -278,11 +284,12 @@ class DefaultController extends YBackController
      * Returns the data model based on the primary key given in the GET variable.
      * If the data model is not found, an HTTP exception will be raised.
      * @param integer the ID of the model to be loaded
+     * @return \CActiveRecord
      */
     public function loadModel($id)
     {
         $model = News::model()->findByPk((int)$id);
-        if ($model === null)
+        if ($model === NULL)
             throw new CHttpException(404, 'The requested page does not exist.');
         return $model;
     }

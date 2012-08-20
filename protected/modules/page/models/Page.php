@@ -28,6 +28,7 @@ class Page extends CActiveRecord
 
     /**
      * Returns the static model of the specified AR class.
+     * @param string $className
      * @return Page the static model class
      */
     public static function model($className = __CLASS__)
@@ -50,7 +51,7 @@ class Page extends CActiveRecord
     {
         return array(
             array( 'name, title, slug, body, description, keywords, lang', 'required', 'on' => array( 'update', 'insert' ) ),
-            array( 'status, is_protected, parent_Id, menu_order, category_id', 'numerical', 'integerOnly' => true, 'on' => array( 'update', 'insert' ) ),
+            array( 'status, is_protected, parent_Id, menu_order, category_id', 'numerical', 'integerOnly' => TRUE, 'on' => array( 'update', 'insert' ) ),
             array( 'parent_Id', 'length', 'max' => 45 ),
             array( 'lang', 'length', 'max' => 2 ),
             array( 'lang', 'default', 'value' => Yii::app()->sourceLanguage ),
@@ -63,7 +64,7 @@ class Page extends CActiveRecord
             array( 'title, slug, description, keywords, name', 'filter', 'filter' => array( $obj = new CHtmlPurifier(), 'purify' ) ),
             array( 'slug', 'match', 'pattern' => '/^[a-zA-Z0-9_\-]+$/', 'message' => Yii::t('page', 'Запрещенные символы в поле {attribute}') ),
             array( 'lang', 'match', 'pattern' => '/^[a-z]{2}$/', 'message' => Yii::t('page', 'Запрещенные символы в поле {attribute}') ),
-            array( 'category_id', 'default', 'setOnEmpty' => true, 'value' => null ),
+            array( 'category_id', 'default', 'setOnEmpty' => TRUE, 'value' => NULL ),
             array( 'lang, id, parent_Id, creation_date, change_date, title, slug, body, keywords, description, status, menu_order', 'safe', 'on' => 'search' ),
         );
     }
@@ -237,7 +238,7 @@ class Page extends CActiveRecord
         return array_key_exists($this->is_protected, $data) ? $data[$this->is_protected] : Yii::t('page', '*неизвестно*');
     }
 
-    public function getAllPagesList($selfId = false)
+    public function getAllPagesList($selfId = FALSE)
     {
         $pages = $selfId ? $this->findAll(array(
             'condition' => 'id != :id',
@@ -249,7 +250,7 @@ class Page extends CActiveRecord
         return CHtml::listData($pages, 'id', 'name');
     }
 
-    public function getAllPagesListBySlug($slug = false)
+    public function getAllPagesListBySlug($slug = FALSE)
     {
         $pages = $slug ? $this->findAll(array(
             'condition' => 'slug != :slug',

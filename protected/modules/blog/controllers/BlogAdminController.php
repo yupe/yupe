@@ -111,6 +111,7 @@ class BlogAdminController extends YBackController
      * If the data model is not found, an HTTP exception will be raised.
      *
      * @param integer the ID of the model to be loaded
+     * @return array|\CActiveRecord|mixed|null
      */
     public function loadModel($id)
     {

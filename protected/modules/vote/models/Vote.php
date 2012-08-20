@@ -18,6 +18,7 @@ class Vote extends CActiveRecord
 {
     /**
      * Returns the static model of the specified AR class.
+     * @param string $className
      * @return Vote the static model class
      */
     public static function model($className = __CLASS__)
@@ -42,7 +43,7 @@ class Vote extends CActiveRecord
         // will receive user inputs.
         return array(
             array('model, model_id, value', 'required'),
-            array('user_id, value', 'numerical', 'integerOnly' => true),
+            array('user_id, value', 'numerical', 'integerOnly' => TRUE),
             array('model_id, user_id', 'length', 'max' => 10),
             array('model', 'length', 'max' => 50),
             // The following rule is used by search().
@@ -89,11 +90,11 @@ class Vote extends CActiveRecord
 
         $criteria = new CDbCriteria;
 
-        $criteria->compare('id', $this->id, true);
-        $criteria->compare('model', $this->model, true);
-        $criteria->compare('model_id', $this->model_id, true);
-        $criteria->compare('user_id', $this->user_id, true);
-        $criteria->compare('creation_date', $this->creation_date, true);
+        $criteria->compare('id', $this->id, TRUE);
+        $criteria->compare('model', $this->model, TRUE);
+        $criteria->compare('model_id', $this->model_id, TRUE);
+        $criteria->compare('user_id', $this->user_id, TRUE);
+        $criteria->compare('creation_date', $this->creation_date, TRUE);
         $criteria->compare('value', $this->value);
 
         return new CActiveDataProvider(get_class($this), array(

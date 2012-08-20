@@ -52,7 +52,7 @@ abstract class EOAuth2Service extends EAuthServiceBase implements IAuthService {
 		// user denied error
 		if (isset($_GET['error']) && $_GET['error'] == 'access_denied') {
 			$this->cancel();
-			return false;
+			return FALSE;
 		}
 		
 		//Получаем "access_token" и сохр. в сессионной переменной
@@ -62,7 +62,7 @@ abstract class EOAuth2Service extends EAuthServiceBase implements IAuthService {
 			if (isset($token)) {
 				$this->setState('auth_token', $token);
 				$this->access_token = $token;
-				$this->authenticated = true;
+				$this->authenticated = TRUE;
 			}
         }
 		//Получаем "code"
@@ -75,7 +75,7 @@ abstract class EOAuth2Service extends EAuthServiceBase implements IAuthService {
 		}
 		else { 	
 			$this->access_token = $this->getState('auth_token');
-			$this->authenticated = true;
+			$this->authenticated = TRUE;
 		}
 		
 		return $this->getIsAuthenticated();
@@ -89,11 +89,12 @@ abstract class EOAuth2Service extends EAuthServiceBase implements IAuthService {
 	protected function getCodeUrl($redirect_uri) {
 		return $this->providerOptions['authorize'].'?client_id='.$this->client_id.'&redirect_uri='.urlencode($redirect_uri).'&scope='.$this->scope.'&response_type=code';
 	}
-	
-	/**
-	 * Returns the url to request to get OAuth2 access token.
-	 * @return string url to request. 
-	 */
+
+    /**
+     * Returns the url to request to get OAuth2 access token.
+     * @param $code
+     * @return string url to request.
+     */
 	protected function getTokenUrl($code) {
 		return $this->providerOptions['access_token'].'?client_id='.$this->client_id.'&client_secret='.$this->client_secret.'&code='.$code;
 	}
@@ -115,7 +116,7 @@ abstract class EOAuth2Service extends EAuthServiceBase implements IAuthService {
 	 * @return string the response. 
 	 * @see makeRequest
 	 */
-	public function makeSignedRequest($url, $options = array(), $parseJson = true) {
+	public function makeSignedRequest($url, $options = array(), $parseJson = TRUE) {
 		if (!$this->getIsAuthenticated())
 			throw new CHttpException(401, 'Unable to complete the authentication because the required data was not received.');
 		

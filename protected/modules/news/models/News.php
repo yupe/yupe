@@ -38,6 +38,7 @@ class News extends CActiveRecord
 
     /**
      * Returns the static model of the specified AR class.
+     * @param string $className
      * @return News the static model class
      */
     public static function model($className = __CLASS__)
@@ -54,7 +55,7 @@ class News extends CActiveRecord
             array( 'title, alias, short_text, full_text, keywords, description', 'filter', 'filter' => 'trim' ),
             array( 'title, alias, keywords, description', 'filter', 'filter' => 'strip_tags' ),
             array( 'date, title, alias, short_text, full_text', 'required', 'on' => array( 'update', 'insert' ) ),
-            array( 'status, is_protected, category_id', 'numerical', 'integerOnly' => true ),
+            array( 'status, is_protected, category_id', 'numerical', 'integerOnly' => TRUE ),
             array( 'title, alias, keywords', 'length', 'max' => 150 ),
             array( 'lang', 'length', 'max' => 2 ),
             array( 'lang', 'default', 'value' => Yii::app()->sourceLanguage ),
@@ -69,7 +70,7 @@ class News extends CActiveRecord
             array( 'image, link', 'length', 'max' => 300 ),
             array( 'link', 'url'),
             array( 'alias', 'match', 'pattern' => '/^[a-zA-Z0-9_\-]+$/', 'message' => Yii::t('news', 'Запрещенные символы в поле {attribute}') ),
-            array( 'category_id', 'default', 'setOnEmpty' => true, 'value' => null),
+            array( 'category_id', 'default', 'setOnEmpty' => TRUE, 'value' => NULL),
             array( 'id, keywords, description, creation_date, change_date, date, title, alias, short_text, full_text, user_id, status, is_protected', 'safe', 'on' => 'search' ),
         );
     }
@@ -182,13 +183,13 @@ class News extends CActiveRecord
         $criteria = new CDbCriteria;
 
         $criteria->compare('id', $this->id);
-        $criteria->compare('creation_date', $this->creation_date, true);
-        $criteria->compare('change_date', $this->change_date, true);
-        $criteria->compare('date', $this->date, true);
-        $criteria->compare('title', $this->title, true);
-        $criteria->compare('alias', $this->alias, true);
-        $criteria->compare('short_text', $this->short_text, true);
-        $criteria->compare('full_text', $this->full_text, true);
+        $criteria->compare('creation_date', $this->creation_date, TRUE);
+        $criteria->compare('change_date', $this->change_date, TRUE);
+        $criteria->compare('date', $this->date, TRUE);
+        $criteria->compare('title', $this->title, TRUE);
+        $criteria->compare('alias', $this->alias, TRUE);
+        $criteria->compare('short_text', $this->short_text, TRUE);
+        $criteria->compare('full_text', $this->full_text, TRUE);
         $criteria->compare('user_id', $this->user_id);
         if($this->status != '')
             $criteria->compare('status', $this->status);
@@ -247,6 +248,6 @@ class News extends CActiveRecord
                     Yii::app()->getModule('news')->uploadPath . '/' . 
                     $this->image;
 
-        return false;
+        return FALSE;
     }
 }

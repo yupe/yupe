@@ -45,12 +45,12 @@ class ETaggableBehavior extends CActiveRecordBehavior {
     /**
      * @var boolean which create tags automatically or throw exception if tag does not exist.
      */
-    public $createTagsAutomatically = true;
+    public $createTagsAutomatically = TRUE;
     /**
      * @var string|boolean caching component Id. If false don't use cache.
      * Defaults to false.
      */
-    public $cacheID = false;
+    public $cacheID = FALSE;
 
     private $tags = array();
     private $originalTags = array();
@@ -73,7 +73,7 @@ class ETaggableBehavior extends CActiveRecordBehavior {
     /**
      * @var CDbCriteria|null scope CDbCriteria cache.
      */
-    private $scopeCriteria = null;
+    private $scopeCriteria = NULL;
 
     /**
      * Get DB connection.
@@ -92,7 +92,7 @@ class ETaggableBehavior extends CActiveRecordBehavior {
      */
     public function attach($owner) {
         // Prepare cache component
-        if($this->cacheID!==false)
+        if($this->cacheID!==FALSE)
             $this->cache = Yii::app()->getComponent($this->cacheID);
         if(!($this->cache instanceof ICache)){
             // If not set cache component, use dummy cache.
@@ -115,7 +115,7 @@ class ETaggableBehavior extends CActiveRecordBehavior {
      * @return string
      */
     private function getTagBindingTableName() {
-        if($this->tagBindingTable === null){
+        if($this->tagBindingTable === NULL){
             $this->tagBindingTable = $this->getOwner()->tableName().'Tag';
         }
         return $this->tagBindingTable;
@@ -126,7 +126,7 @@ class ETaggableBehavior extends CActiveRecordBehavior {
      * @return string
      */
     private function getModelTableFkName() {
-        if($this->modelTableFk === null){
+        if($this->modelTableFk === NULL){
             $tableName = $this->getOwner()->tableName();
             $tableName[0] = strtolower($tableName[0]);
             $this->modelTableFk = $tableName.'Id';
@@ -227,12 +227,12 @@ class ETaggableBehavior extends CActiveRecordBehavior {
      * @param CDbCriteria $criteria
      * @return array
      */
-    public function getTagsWithModelsCount($criteria = null) {
+    public function getTagsWithModelsCount($criteria = NULL) {
         if(!($tags = $this->cache->get($this->getCacheKey().'WithModelsCount'))){
 
             $builder = $this->getConnection()->getCommandBuilder();
 
-            if($this->tagTableCount !== null){
+            if($this->tagTableCount !== NULL){
                 $findCriteria = new CDbCriteria(array(
                     'select' => "t.{$this->tagTableName} as `name`, t.{$this->tagTableCount} as `count` ",
                     'join' => "INNER JOIN {$this->getTagBindingTableName()} et on t.{$this->tagTablePk} = et.{$this->tagBindingTableTagId} ",
@@ -419,14 +419,16 @@ class ETaggableBehavior extends CActiveRecordBehavior {
 
         parent::afterDelete($event);
     }
+
     /**
      * Load tags into model.
      * @params array|CDbCriteria $criteria, defaults to null.
      * @access protected
+     * @param null $criteria
      * @return void
      */
-    protected function loadTags($criteria = null) {
-        if($this->tags != null) return;
+    protected function loadTags($criteria = NULL) {
+        if($this->tags != NULL) return;
         if($this->getOwner()->getIsNewRecord()) return;
 
         if(!($tags = $this->cache->get($this->getCacheKey()))){
@@ -509,7 +511,7 @@ class ETaggableBehavior extends CActiveRecordBehavior {
      * @param CDbCriteria $criteria
      * @return array
      */
-    public function getAllTags($criteria = null) {
+    public function getAllTags($criteria = NULL) {
         if(!($tags = $this->cache->get('Taggable'.$this->getOwner()->tableName().'All'))){
             // getting associated tags
             $builder = $this->getOwner()->getCommandBuilder();
@@ -533,14 +535,14 @@ class ETaggableBehavior extends CActiveRecordBehavior {
      * @param CDbCriteria $criteria
      * @return array
      */
-    public function getAllTagsWithModelsCount($criteria = null) {
+    public function getAllTagsWithModelsCount($criteria = NULL) {
         if(!($tags = $this->cache->get('Taggable'.$this->getOwner()->tableName().'AllWithCount'))){
             // getting associated tags
             $builder = $this->getOwner()->getCommandBuilder();
 
             $tagsCriteria = new CDbCriteria();
 
-            if($this->tagTableCount !== null){
+            if($this->tagTableCount !== NULL){
                 $tagsCriteria->select = sprintf(
                     "t.%s as `name`, %s as `count`",
                     $this->tagTableName,
@@ -560,7 +562,7 @@ class ETaggableBehavior extends CActiveRecordBehavior {
                 $tagsCriteria->group = 't.'.$this->tagTablePk;
             }
 
-            if($criteria!==null)
+            if($criteria!==NULL)
                 $tagsCriteria->mergeWith($criteria);
 
             if($this->getScopeCriteria())
@@ -584,9 +586,9 @@ class ETaggableBehavior extends CActiveRecordBehavior {
 
         $tags = $this->toTagsArray($tags);
         foreach($tags as $tag){
-            if(!in_array($tag, $this->tags)) return false;
+            if(!in_array($tag, $this->tags)) return FALSE;
         }
-        return true;
+        return TRUE;
     }
     /**
      * Alias of {@link hasTags()}.
@@ -665,7 +667,7 @@ class ETaggableBehavior extends CActiveRecordBehavior {
      * @return void
      */
     protected function updateCount($count) {
-        if($this->tagTableCount !== null){
+        if($this->tagTableCount !== NULL){
             $conn = $this->getConnection();
             $conn->createCommand(
                 sprintf(

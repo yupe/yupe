@@ -55,14 +55,17 @@ class CImage {
 		return new CImage($image, $config);
 	}
 
-	/**
-	 * Creates a new image editor instance.
-	 *
-	 * @throws  Kohana_Exception
-	 * @param   string   filename of image
-	 * @param   array    non-default configurations
-	 * @return  void
-	 */
+    /**
+     * Creates a new image editor instance.
+     *
+     *
+     * @param $image
+     * @param null $config
+     * @throws CException
+     * @internal param \filename $string of image
+     * @internal param \non $array -default configurations
+     * @return \CImage
+     */
 	public function __construct($image, $config = NULL)
 	{
 		static $check;
@@ -106,7 +109,7 @@ class CImage {
 		);
 
 		// Load configuration
-        if ($config === null){
+        if ($config === NULL){
             $this->config = array(
                 'driver'=>'GD',
                 'params'=>array(),
@@ -190,17 +193,22 @@ class CImage {
 	}
 
     /**
-	 * Crop an image to a specific width and height. You may also set the top
-	 * and left offset.
-	 * This method is chainable.
-	 *
-	 * @throws  Kohana_Exception
-	 * @param   integer  width
-	 * @param   integer  height
-	 * @param   integer  top offset, pixel value or one of: top, center, bottom
-	 * @param   integer  left offset, pixel value or one of: left, center, right
-	 * @return  object
-	 */
+     * Crop an image to a specific width and height. You may also set the top
+     * and left offset.
+     * This method is chainable.
+     *
+     *
+     * @param $width
+     * @param $height
+     * @param string $top
+     * @param string $left
+     * @throws CException
+     * @internal param \width $integer
+     * @internal param \height $integer
+     * @internal param \top $integer offset, pixel value or one of: top, center, bottom
+     * @internal param \left $integer offset, pixel value or one of: left, center, right
+     * @return  object
+     */
 	public function crop($width, $height, $top = 'center', $left = 'center')
 	{
 		if ( ! $this->valid_size('width', $width))
@@ -307,15 +315,18 @@ class CImage {
 		return $this;
 	}
 
-	/**
-	 * Save the image to a new image or overwrite this image.
-	 *
-	 * @throws  Kohana_Exception
-	 * @param   string   new image filename
-	 * @param   integer  permissions for new image
-	 * @param   boolean  keep or discard image process actions
-	 * @return  object
-	 */
+    /**
+     * Save the image to a new image or overwrite this image.
+     *
+     *
+     * @param bool $new_image
+     * @param int $chmod permissions for new image
+     * @param bool $keep_actions
+     * @throws CException
+     * @internal param \new $string image filename
+     * @internal param \keep $boolean or discard image process actions
+     * @return  object
+     */
 	public function save($new_image = FALSE, $chmod = 0644, $keep_actions = FALSE)
 	{
 		// If no new image is defined, use the current image

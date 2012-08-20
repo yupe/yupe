@@ -21,13 +21,15 @@ class Image_ImageMagick_Driver extends Image_Driver {
 	// Temporary image filename
 	protected $tmp_image;
 
-	/**
-	 * Attempts to detect the ImageMagick installation directory.
-	 *
-	 * @throws  Kohana_Exception
-	 * @param   array   configuration
-	 * @return  void
-	 */
+    /**
+     * Attempts to detect the ImageMagick installation directory.
+     *
+     *
+     * @param $config
+     * @throws CException
+     * @internal param \configuration $array
+     * @return \Image_ImageMagick_Driver
+     */
 	public function __construct($config)
 	{
 		if (empty($config['directory']))

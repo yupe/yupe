@@ -1,5 +1,5 @@
 <?php
-    return array(
+return array(
     // У вас этот путь может отличаться. Можно подсмотреть в config/main.php.
     'basePath' => dirname(__FILE__) . DIRECTORY_SEPARATOR . '..',
     'name' => 'Cron',
@@ -13,7 +13,7 @@
     ),
     // Перенаправляем журнал для cron-а в отдельные файлы
     'components' => array(
-         // компонент для отправки почты
+        // компонент для отправки почты
         'mail' => array(
             'class' => 'application.modules.yupe.components.YMail',
         ),
@@ -33,7 +33,7 @@
             ),
         ),
 
-           // параметры подключения к базе данных, подробнее http://www.yiiframework.ru/doc/guide/ru/database.overview
+        // параметры подключения к базе данных, подробнее http://www.yiiframework.ru/doc/guide/ru/database.overview
         'db' => require(dirname(__FILE__) . '/db.php'),
     ),
 );

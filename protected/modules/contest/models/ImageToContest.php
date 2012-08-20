@@ -13,6 +13,7 @@ class ImageToContest extends CActiveRecord
 {
     /**
      * Returns the static model of the specified AR class.
+     * @param string $className
      * @return ImageToContest the static model class
      */
     public static function model($className = __CLASS__)
@@ -81,10 +82,10 @@ class ImageToContest extends CActiveRecord
 
         $criteria = new CDbCriteria;
 
-        $criteria->compare('id', $this->id, true);
-        $criteria->compare('image_id', $this->image_id, true);
-        $criteria->compare('contest_id', $this->contest_id, true);
-        $criteria->compare('creation_date', $this->creation_date, true);
+        $criteria->compare('id', $this->id, TRUE);
+        $criteria->compare('image_id', $this->image_id, TRUE);
+        $criteria->compare('contest_id', $this->contest_id, TRUE);
+        $criteria->compare('creation_date', $this->creation_date, TRUE);
 
         return new CActiveDataProvider(get_class($this), array(
                                                               'criteria' => $criteria,

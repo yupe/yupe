@@ -23,6 +23,7 @@ class Contest extends CActiveRecord
 
     /**
      * Returns the static model of the specified AR class.
+     * @param string $className
      * @return Contest the static model class
      */
     public static function model($className = __CLASS__)
@@ -47,7 +48,7 @@ class Contest extends CActiveRecord
         // will receive user inputs.
         return array(
             array('name, start_add_image, stop_add_image, start_vote, stop_vote', 'required'),
-            array('status', 'numerical', 'integerOnly' => true),
+            array('status', 'numerical', 'integerOnly' => TRUE),
             array('name', 'length', 'max' => 150),
             array('description', 'length', 'max' => 300),
             // The following rule is used by search().
@@ -98,13 +99,13 @@ class Contest extends CActiveRecord
 
         $criteria = new CDbCriteria;
 
-        $criteria->compare('id', $this->id, true);
-        $criteria->compare('name', $this->name, true);
-        $criteria->compare('description', $this->description, true);
-        $criteria->compare('start_add_image', $this->start_add_image, true);
-        $criteria->compare('stop_add_image', $this->stop_add_image, true);
-        $criteria->compare('start_vote', $this->start_vote, true);
-        $criteria->compare('stop_vote', $this->stop_vote, true);
+        $criteria->compare('id', $this->id, TRUE);
+        $criteria->compare('name', $this->name, TRUE);
+        $criteria->compare('description', $this->description, TRUE);
+        $criteria->compare('start_add_image', $this->start_add_image, TRUE);
+        $criteria->compare('stop_add_image', $this->stop_add_image, TRUE);
+        $criteria->compare('start_vote', $this->start_vote, TRUE);
+        $criteria->compare('stop_vote', $this->stop_vote, TRUE);
         $criteria->compare('status', $this->status);
 
         return new CActiveDataProvider(get_class($this), array(
@@ -136,6 +137,6 @@ class Contest extends CActiveRecord
                                   'contest_id' => $this->id
                              ));
 
-        return $im2c->save() ? true : false;
+        return $im2c->save() ? TRUE : FALSE;
     }
 }

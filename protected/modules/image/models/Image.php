@@ -27,6 +27,7 @@ class Image extends CActiveRecord
 
     /**
      * Returns the static model of the specified AR class.
+     * @param string $className
      * @return Image the static model class
      */
     public static function model($className = __CLASS__)
@@ -54,14 +55,14 @@ class Image extends CActiveRecord
             array('name, description, alt','filter','filter' => array($obj = new CHtmlPurifier(),'purify')),
             array('name, alt, type', 'required'),
             array('file', 'required', 'on' => 'insert'),
-            array('status, parent_id, type, category_id', 'numerical', 'integerOnly' => true),
+            array('status, parent_id, type, category_id', 'numerical', 'integerOnly' => TRUE),
             array('name', 'length', 'max' => 300),
             array('file', 'length', 'max' => 500),
             array('user_id', 'length', 'max' => 10),
             array('alt', 'length', 'max' => 150),
-            array('file', 'file', 'maxSize' => $module->maxSize, 'types' => $module->allowedExtensions, 'allowEmpty' => true),
+            array('file', 'file', 'maxSize' => $module->maxSize, 'types' => $module->allowedExtensions, 'allowEmpty' => TRUE),
             array('type', 'in', 'range' => array_keys($this->getTypeList())),
-            array( 'category_id', 'default', 'setOnEmpty' => true, 'value' => null),
+            array( 'category_id', 'default', 'setOnEmpty' => TRUE, 'value' => NULL),
             array('id, name, description, file, creation_date, user_id, alt, status', 'safe', 'on' => 'search'),
         );
     }
@@ -110,13 +111,13 @@ class Image extends CActiveRecord
 
         $criteria = new CDbCriteria;
 
-        $criteria->compare('id', $this->id, true);
-        $criteria->compare('name', $this->name, true);
-        $criteria->compare('description', $this->description, true);
-        $criteria->compare('file', $this->file, true);
-        $criteria->compare('creation_date', $this->creation_date, true);
-        $criteria->compare('user_id', $this->user_id, true);
-        $criteria->compare('alt', $this->alt, true);
+        $criteria->compare('id', $this->id, TRUE);
+        $criteria->compare('name', $this->name, TRUE);
+        $criteria->compare('description', $this->description, TRUE);
+        $criteria->compare('file', $this->file, TRUE);
+        $criteria->compare('creation_date', $this->creation_date, TRUE);
+        $criteria->compare('user_id', $this->user_id, TRUE);
+        $criteria->compare('alt', $this->alt, TRUE);
         $criteria->compare('status', $this->status);
 
         return new CActiveDataProvider($this, array(
@@ -178,7 +179,7 @@ class Image extends CActiveRecord
             }              
         }        
         
-        return false;
+        return FALSE;
     }
 
 

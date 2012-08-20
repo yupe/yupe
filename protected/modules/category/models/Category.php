@@ -28,6 +28,7 @@ class Category extends CActiveRecord
 
     /**
      * Returns the static model of the specified AR class.
+     * @param string $className
      * @return Category the static model class
      */
     public static function model($className = __CLASS__)
@@ -46,8 +47,8 @@ class Category extends CActiveRecord
             array('name, description, short_description, image, alias','filter', 'filter' => 'trim'),
             array('name, alias, image', 'filter', 'filter' => array($obj = new CHtmlPurifier(), 'purify')),
             array('name, description, alias', 'required'),
-            array('parent_id, status', 'numerical', 'integerOnly' => true),
-            array('parent_id', 'default', 'setOnEmpty' => true, 'value' => null),
+            array('parent_id, status', 'numerical', 'integerOnly' => TRUE),
+            array('parent_id', 'default', 'setOnEmpty' => TRUE, 'value' => NULL),
             array('name', 'length', 'max' => 150),
             array('alias', 'length', 'max' => 100),
             array('alias', 'match', 'pattern' => '/^[A-Za-z0-9\-]{1,50}$/', 'message' => Yii::t('category','Неверный формат поля "{attribute}" допустимы только буквы, цифры и символ "-", от 2 до 20 символов')),
@@ -59,7 +60,7 @@ class Category extends CActiveRecord
                 'on' => array( 'insert' ),
             ),
             array('status', 'in', 'range' => array_keys($this->getStatusList())),
-            array('image', 'file', 'types'=>'jpg, gif, png','allowEmpty' => true),
+            array('image', 'file', 'types'=>'jpg, gif, png','allowEmpty' => TRUE),
             array('id, parent_id, name, description, short_description, alias, status', 'safe', 'on' => 'search'),
         );
     }
@@ -101,11 +102,11 @@ class Category extends CActiveRecord
 
         $criteria = new CDbCriteria;
 
-        $criteria->compare('id', $this->id, true);
+        $criteria->compare('id', $this->id, TRUE);
         $criteria->compare('parent_id', $this->parent_id);
-        $criteria->compare('name', $this->name, true);
-        $criteria->compare('description', $this->description, true);
-        $criteria->compare('alias', $this->alias, true);
+        $criteria->compare('name', $this->name, TRUE);
+        $criteria->compare('description', $this->description, TRUE);
+        $criteria->compare('alias', $this->alias, TRUE);
         $criteria->compare('status', $this->status);
 
         return new CActiveDataProvider(get_class($this), array('criteria' => $criteria));
@@ -128,7 +129,7 @@ class Category extends CActiveRecord
             : Yii::t('category', '*неизвестно*');
     }
 
-    public function getAllCategoryList($selfId = false)
+    public function getAllCategoryList($selfId = FALSE)
     {
         $condition = '';
         $params = array();

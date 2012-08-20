@@ -109,7 +109,8 @@ class EventAdminController extends YBackController
 	 * Возвращает модель по указанному идентификатору
 	 * Если модель не будет найдена - возникнет HTTP-исключение.
 	 * @param integer идентификатор нужной модели
-	 */
+     * @return \CActiveRecord
+     */
 	public function loadModel($id)
 	{
 		$model=MailEvent::model()->findByPk($id);

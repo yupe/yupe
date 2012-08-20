@@ -100,7 +100,8 @@ class DefaultController extends YBackController
 	 * Возвращает модель по указанному идентификатору
 	 * Если модель не будет найдена - возникнет HTTP-исключение.
 	 * @param integer идентификатор нужной модели
-	 */
+     * @return \CActiveRecord
+     */
 	public function loadModel($id)
 	{
 		$model=Image::model()->findByPk($id);

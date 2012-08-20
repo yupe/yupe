@@ -34,6 +34,7 @@ class Blog extends CActiveRecord
     /**
      * Returns the static model of the specified AR class.
      *
+     * @param string $className
      * @return Blog the static model class
      */
     public static function model($className = __CLASS__)
@@ -56,7 +57,7 @@ class Blog extends CActiveRecord
     {
         return array(
             array('name, description, slug', 'required'),
-            array('type, status, create_user_id, update_user_id', 'numerical', 'integerOnly' => true),
+            array('type, status, create_user_id, update_user_id', 'numerical', 'integerOnly' => TRUE),
             array('name, icon', 'length', 'max' => 300),
             array('slug', 'length', 'max' => 150),
             array('create_user_id, update_user_id', 'length', 'max' => 10),
@@ -119,15 +120,15 @@ class Blog extends CActiveRecord
 
         $criteria = new CDbCriteria;
 
-        $criteria->compare('id', $this->id, true);
-        $criteria->compare('name', $this->name, true);
-        $criteria->compare('description', $this->description, true);
-        $criteria->compare('icon', $this->icon, true);
-        $criteria->compare('slug', $this->slug, true);
+        $criteria->compare('id', $this->id, TRUE);
+        $criteria->compare('name', $this->name, TRUE);
+        $criteria->compare('description', $this->description, TRUE);
+        $criteria->compare('icon', $this->icon, TRUE);
+        $criteria->compare('slug', $this->slug, TRUE);
         $criteria->compare('type', $this->type);
         $criteria->compare('status', $this->status);
-        $criteria->compare('create_user_id', $this->create_user_id, true);
-        $criteria->compare('update_user_id', $this->update_user_id, true);
+        $criteria->compare('create_user_id', $this->create_user_id, TRUE);
+        $criteria->compare('update_user_id', $this->update_user_id, TRUE);
         $criteria->compare('create_date', $this->create_date);
         $criteria->compare('update_date', $this->update_date);
 
@@ -140,7 +141,7 @@ class Blog extends CActiveRecord
     {
         return array('CTimestampBehavior' => array(
             'class'             => 'zii.behaviors.CTimestampBehavior',
-            'setUpdateOnCreate' => true,
+            'setUpdateOnCreate' => TRUE,
             'createAttribute'   => 'create_date',
             'updateAttribute'   => 'update_date',
         ));

@@ -35,8 +35,10 @@ class Post extends CActiveRecord
 
     const ACCESS_PUBLIC  = 1;
     const ACCESS_PRIVATE = 2;
+
     /**
      * Returns the static model of the specified AR class.
+     * @param string $className
      * @return Post the static model class
      */
     public static function model($className=__CLASS__)
@@ -61,7 +63,7 @@ class Post extends CActiveRecord
         // will receive user inputs.
         return array(
             array('blog_id, slug, publish_date, title, content', 'required'),
-            array('blog_id, create_user_id, update_user_id, status, comment_status, access_type', 'numerical', 'integerOnly' => true),
+            array('blog_id, create_user_id, update_user_id, status, comment_status, access_type', 'numerical', 'integerOnly' => TRUE),
             array('blog_id, create_user_id, update_user_id', 'length', 'max' => 10),
             array('slug, title, link, keywords', 'length', 'max' => 150),
             array('quote, description', 'length', 'max' => 300),
@@ -126,18 +128,18 @@ class Post extends CActiveRecord
 
         $criteria = new CDbCriteria;
 
-        $criteria->compare('id', $this->id, true);
-        $criteria->compare('blog_id', $this->blog_id, true);
-        $criteria->compare('create_user_id', $this->create_user_id, true);
-        $criteria->compare('update_user_id', $this->update_user_id, true);
+        $criteria->compare('id', $this->id, TRUE);
+        $criteria->compare('blog_id', $this->blog_id, TRUE);
+        $criteria->compare('create_user_id', $this->create_user_id, TRUE);
+        $criteria->compare('update_user_id', $this->update_user_id, TRUE);
         $criteria->compare('create_date', $this->create_date);
         $criteria->compare('update_date', $this->update_date);
-        $criteria->compare('slug', $this->slug, true);
-        $criteria->compare('publish_date', $this->publish_date, true);
-        $criteria->compare('title', $this->title, true);
-        $criteria->compare('quote', $this->quote, true);
-        $criteria->compare('content', $this->content, true);
-        $criteria->compare('link', $this->link, true);
+        $criteria->compare('slug', $this->slug, TRUE);
+        $criteria->compare('publish_date', $this->publish_date, TRUE);
+        $criteria->compare('title', $this->title, TRUE);
+        $criteria->compare('quote', $this->quote, TRUE);
+        $criteria->compare('content', $this->content, TRUE);
+        $criteria->compare('link', $this->link, TRUE);
         $criteria->compare('status', $this->status);
         $criteria->compare('comment_status', $this->comment_status);
         $criteria->compare('access_type', $this->access_type);
@@ -152,7 +154,7 @@ class Post extends CActiveRecord
         return array(
             'CTimestampBehavior' => array(
                 'class'             => 'zii.behaviors.CTimestampBehavior',
-                'setUpdateOnCreate' => true,
+                'setUpdateOnCreate' => TRUE,
                 'createAttribute'   => 'create_date',
                 'updateAttribute'   => 'update_date',
             ),
@@ -175,10 +177,10 @@ class Post extends CActiveRecord
 
             if($this->isNewRecord)
                 $this->create_user_id = $this->update_user_id;
-            return true;
+            return TRUE;
         }
 
-        return false;
+        return FALSE;
     }
 
     public function beforeValidate()

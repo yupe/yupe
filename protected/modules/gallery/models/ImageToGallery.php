@@ -17,6 +17,7 @@ class ImageToGallery extends CActiveRecord
 {
     /**
      * Returns the static model of the specified AR class.
+     * @param string $className
      * @return ImageToGallery the static model class
      */
     public static function model($className = __CLASS__)
@@ -39,7 +40,7 @@ class ImageToGallery extends CActiveRecord
     {
         return array(
             array('image_id, galleryId', 'required'),
-            array('image_id, galleryId', 'numerical', 'integerOnly' => true),
+            array('image_id, galleryId', 'numerical', 'integerOnly' => TRUE),
             array('id, image_id, galleryId, creation_date', 'safe', 'on' => 'search'),
         );
     }
@@ -81,10 +82,10 @@ class ImageToGallery extends CActiveRecord
 
         $criteria = new CDbCriteria;
 
-        $criteria->compare('id', $this->id, true);
-        $criteria->compare('image_id', $this->image_id, true);
-        $criteria->compare('galleryId', $this->galleryId, true);
-        $criteria->compare('creation_date', $this->creation_date, true);
+        $criteria->compare('id', $this->id, TRUE);
+        $criteria->compare('image_id', $this->image_id, TRUE);
+        $criteria->compare('galleryId', $this->galleryId, TRUE);
+        $criteria->compare('creation_date', $this->creation_date, TRUE);
 
         return new CActiveDataProvider($this, array(
                                                    'criteria' => $criteria,
