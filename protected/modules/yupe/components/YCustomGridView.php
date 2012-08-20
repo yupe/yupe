@@ -87,6 +87,31 @@ class YCustomGridView extends CGridView
         return CHtml::link($icon, $url, $options);
     }
 
+    /**
+     * Генерирует HTML-код для BootStrap-иконки, отвечающей за оповещения пользователя с просьбой о подтверждении электронного адреса
+     *
+     * @param $data экземпляр модели, для которой нужно вывести иконку
+     * @return string HTML-код для BootStrap-иконки иконки в случае не подтвержденного аккаунта, либо null если аккаунт подтвержден
+     */
+    public function returnBootstrapMailNotificationHtml($data)
+    {
+        if(!$data->email_confirm)
+        {
+            $html = '<i class="icon icon-envelope" title="Выслать просьбу о подтверждении аккаунта"></i>';
+
+            $url = Yii::app()->controller->createUrl("notify", array(
+                'model'       => $this->modelName,
+                'id'          => $data->id
+            ));
+
+            $options = array('onclick' => 'ajaxSetStatus(this, "' . $this->id . '"); return false;');
+
+            return CHtml::link($html, $url, $options);
+        }
+
+        return null;
+    }
+
     public function getUpDownButtons($data)
     {
         $downUrlImage = CHtml::image(

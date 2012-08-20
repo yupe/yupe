@@ -134,6 +134,14 @@ class DefaultController extends YBackController
     }
 
     /**
+     * Send notify about account confirmation.
+     */
+    public function actionNotify()
+    {
+        // Need to send email.
+    }
+
+    /**
      * Returns the data model based on the primary key given in the GET variable.
      * If the data model is not found, an HTTP exception will be raised.
      * @return User
