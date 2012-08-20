@@ -78,6 +78,13 @@ class DefaultController extends Controller
                 '',
             ),
             array(
+                Yii::t('yii', 'PDO SQLite extension'),
+                false,
+                extension_loaded('pdo_sqlite'),
+                Yii::t('yii', 'All <a href="http://www.yiiframework.com/doc/api/#system.db">DB-related classes</a>'),
+                Yii::t('yii', 'Необходимо если вы используете SQLite.'),
+            ),
+            array(
                 Yii::t('yii', 'PDO MySQL extension'),
                 false,
                 extension_loaded('pdo_mysql'),
