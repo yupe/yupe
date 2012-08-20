@@ -75,6 +75,10 @@ $this->widget('YCustomGridView', array(
             'value' => '$this->grid->returnBootstrapStatusHtml($data)',
         ),
         array(
+            'type'  => 'raw',
+            'value' => '$this->grid->returnBootstrapMailNotificationHtml($data)',
+        ),
+        array(
             'class'    => 'bootstrap.widgets.TbButtonColumn',
             'template' => '{view}{update}{password}{delete}',
             'buttons'  => array(
