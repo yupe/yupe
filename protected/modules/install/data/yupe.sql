@@ -424,11 +424,7 @@ CREATE TABLE IF NOT EXISTS `news` (
   `short_text` text,
   `full_text` text NOT NULL,
   `image` varchar(300) DEFAULT NULL,
-<<<<<<< HEAD
-  `link` varchar(300) CHARACTER SET utf8 DEFAULT NULL,
-=======
   `link` varchar(300) DEFAULT NULL,
->>>>>>> f0fe5ff5fe4a80152a19e7304304f24140ccdee6
   `user_id` int(11) unsigned NOT NULL,
   `status` tinyint(4) NOT NULL DEFAULT '0',
   `is_protected` tinyint(1) NOT NULL DEFAULT '0',
