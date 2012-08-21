@@ -15,8 +15,8 @@
     <?php echo $data->postsCount; ?>
     <br/>
 
-    <b>Участников:</b>
-    <?php echo $data->membersCount; ?>
+    <?php if($data->membersCount > 0)
+        echo "<b>Участников:</b>" . $data->membersCount;?>
     <br/>
 
     <a href="<?php /* @todo Не работает */ echo $data->id;?>" class="join-blog">Вступить в блог</a>
