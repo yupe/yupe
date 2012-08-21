@@ -230,11 +230,7 @@ class YupeModule extends YupeParams
 
                 if (!is_null($module))
                 {
-                    if (is_a($module, 'YWebModule') && (
-                        $module->isShowInAdminMenu || $module->editableParams || (
-                            !$module->isShowInAdminMenu && is_array($module->checkSelf())
-                        )
-                    ))
+                    if (is_a($module, 'YWebModule'))
                     {
                         $modules[$key]  = $module;
                         $order[
@@ -298,10 +294,6 @@ class YupeModule extends YupeParams
                     // Обходим модули
                     foreach ($valueCategory as $key => $value)
                     {
-                        // Если нет иконка для данной категории, подставляется иконка первого модуля
-                        if(!isset($modulesNavigation[$keyCategory]['icon']) && $modules[$key]->icon)
-                            $modulesNavigation[$keyCategory]['icon'] = $modules[$key]->icon;
-
                         // собраются подпункты категории "Настройки модулей", кроме пункта Юпи
                         if ($modules[$key]->editableParams && $key != $this->id)
                             $settings['items'][] = array(
@@ -316,6 +308,10 @@ class YupeModule extends YupeParams
                         // проверка на вывод модуля в категориях, потребуется при отключении модуля
                         if (!$modules[$key]->isShowInAdminMenu)
                             continue;
+
+                        // Если нет иконка для данной категории, подставляется иконка первого модуля
+                        if(!isset($modulesNavigation[$keyCategory]['icon']) && $modules[$key]->icon)
+                            $modulesNavigation[$keyCategory]['icon'] = $modules[$key]->icon;
 
                         // Шаблон модулей
                         $data = array(
