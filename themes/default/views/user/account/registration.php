@@ -63,7 +63,7 @@ $this->breadcrumbs = array('Регистрация новго пользоват
     <?php $this->endWidget(); ?>
 </div><!-- form -->
 
-<?php  $this->widget('application.modules.social.extensions.eauth.EAuthWidget',array('action' => '/social/social/login/'));?>
+<!-- <?php  $this->widget('application.modules.social.extensions.eauth.EAuthWidget',array('action' => '/social/social/login/'));?> -->
 
 <br/><br/><br/><br/><br/><br/><br/><br/>
 
