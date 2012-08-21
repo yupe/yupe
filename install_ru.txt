@@ -8,10 +8,6 @@
 - Запустить установщик http://localhost/yupe/index.php/install/default/
 - Следовать инструкциям установщика
 
-Ручная установка (устаревшее)
-- Через phpmyadmin (или что-то похожее) залить основной файл дампа (/yupe/protected/modules/install/data/yupe.sql)https://github.com/yupe/yupe/blob/master/protected/modules/install/data/yupe.sql
-- Выполнить скрипт https://github.com/yupe/yupe/blob/master/protected/modules/install/data/db/yupe_init.sql для создания учетной записи администратора (логин: admin@admin.ru, пароль: 123456)
-
 После установки
 - Сообщать об ошибках и замечаниях https://github.com/yupe/yupe/issues
 - Присылать pull requests (патчи)
