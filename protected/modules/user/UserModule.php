@@ -59,11 +59,6 @@ class UserModule extends YWebModule
 
     public static $logCategory = 'application.modules.user';
 
-    public function checkSelf()
-    {
-        return true;
-    }
-
     public function getParamsLabels()
     {
         return array(
