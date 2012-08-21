@@ -19,6 +19,6 @@
     <?php echo $data->membersCount; ?>
     <br/>
 
-    <a href="<?php /* @todo Не работает */ //echo $data->id;?>" class="join-blog">Вступить в блог</a>
+    <a href="<?php /* @todo Не работает */ echo $data->id;?>" class="join-blog">Вступить в блог</a>
     
 </div>
