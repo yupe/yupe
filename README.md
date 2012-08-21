@@ -1,4 +1,4 @@
-#ЮПИ! - мини цмс на Yii
+#ЮПИ! - cms на Yii
 
 **Из коробки Вы получаете каркас Yii-приложения, со следующим уже готовым функционалом (все разделено на модули - используйте только то, что необходимо):**
 
@@ -20,7 +20,8 @@
 + Вы получаете удобную админку, выполненную на Twitter Boostrap  (Выглядит вот так http://yupe.ru/gallery/gallery/show/id/1)
 + Возможность генерировать CRUD в стиле Twitter Boostrap (https://github.com/yupe/yupe/tree/master/protected/modules/yupe/extensions/yupe)
 
-Установка - https://github.com/yupe/yupe/wiki/%D0%A3%D1%81%D1%82%D0%B0%D0%BD%D0%BE%D0%B2%D0%BA%D0%B0
+Установка - https://github.com/yupe/yupe/wiki/Установка
+Либо смотрите в файле install_ru.txt
 
 **Юпи! - мини ЦМС, написанная на замечательном MVC-фреймворке Yii (http://www.yiiframework.com/)**
 
@@ -33,8 +34,6 @@
 * Официальный твиттер - https://twitter.com/#!/YupeCms
 
 * Юпи! блог - http://yupe.ru/index.php/blog/yupe-mini-cms-yii
-
-* Jabber-конференция сервер: conference.yupe.ru, комната: yupe-talks (http://yupe.ru/post/djabber-konferentsiya-yupi.html)
 
 * Вики - https://github.com/yupe/yupe/wiki
 

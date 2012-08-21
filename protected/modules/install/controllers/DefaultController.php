@@ -40,7 +40,7 @@ class DefaultController extends Controller
                 true,
                 version_compare(PHP_VERSION, "5.1.0", ">="),
                 '<a href="http://www.yiiframework.com">Yii Framework</a>',
-                Yii::t('yii', 'PHP 5.1.0 or higher is required.'),
+                Yii::t('yii', 'PHP 5.1 или версия выше.'),
             ),
             array(
                 Yii::t('yii', 'Reflection extension'),
@@ -82,49 +82,49 @@ class DefaultController extends Controller
                 false,
                 extension_loaded('pdo_sqlite'),
                 Yii::t('yii', 'All <a href="http://www.yiiframework.com/doc/api/#system.db">DB-related classes</a>'),
-                Yii::t('yii', 'This is required if you are using SQLite database.'),
+                Yii::t('yii', 'Необходимо если вы используете SQLite.'),
             ),
             array(
                 Yii::t('yii', 'PDO MySQL extension'),
                 false,
                 extension_loaded('pdo_mysql'),
                 Yii::t('yii', 'All <a href="http://www.yiiframework.com/doc/api/#system.db">DB-related classes</a>'),
-                Yii::t('yii', 'This is required if you are using MySQL database.'),
+                Yii::t('yii', 'Необходимо если вы используете MySQL.'),
             ),
             array(
                 Yii::t('yii', 'PDO PostgreSQL extension'),
                 false,
                 extension_loaded('pdo_pgsql'),
                 Yii::t('yii', 'All <a href="http://www.yiiframework.com/doc/api/#system.db">DB-related classes</a>'),
-                Yii::t('yii', 'This is required if you are using PostgreSQL database.'),
+                Yii::t('yii', 'Необходимо если вы используете PostgreSQL.'),
             ),
             array(
                 Yii::t('yii', 'Memcache extension'),
                 false,
                 extension_loaded("memcache"),
                 '<a href="http://www.yiiframework.com/doc/api/CMemCache">CMemCache</a>',
-                '',
+                Yii::t('yii', 'Используется для хэширования, <b>необязательно</b>.'),
             ),
             array(
                 Yii::t('yii', 'APC extension'),
                 false,
                 extension_loaded("apc"),
                 '<a href="http://www.yiiframework.com/doc/api/CApcCache">CApcCache</a>',
-                '',
+                Yii::t('yii', '<b>Необязательно</b>.'),
             ),
             array(
                 Yii::t('yii', 'Mcrypt extension'),
                 false,
                 extension_loaded("mcrypt"),
                 '<a href="http://www.yiiframework.com/doc/api/CSecurityManager">CSecurityManager</a>',
-                Yii::t('yii', 'This is required by encrypt and decrypt methods.'),
+                Yii::t('yii', 'Необходимо для encrypt и decrypt методов.'),
             ),
             array(
                 Yii::t('yii', 'SOAP extension'),
                 false,
                 extension_loaded("soap"),
                 '<a href="http://www.yiiframework.com/doc/api/CWebService">CWebService</a>, <a href="http://www.yiiframework.com/doc/api/CWebServiceAction">CWebServiceAction</a>',
-                '',
+                Yii::t('yii', '<b>Необязательно</b>.'),
             ),
         );
 
@@ -231,7 +231,7 @@ class DefaultController extends Controller
 
                             $transaction->commit();
 
-                            Yii::app()->user->setFlash(YFlashMessages::NOTICE_MESSAGE, Yii::t('install', 'Настройки базы данных успешно сохранены! База данных проинициализирована!'));
+                            Yii::app()->user->setFlash(YFlashMessages::NOTICE_MESSAGE, Yii::t('install', 'База данных успешно заполнена!'));
 
                             $this->redirect(array('/install/default/createuser/'));
                         }
