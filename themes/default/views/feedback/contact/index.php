@@ -7,30 +7,22 @@ $this->breadcrumbs = array('Обратная связь');
 
 <?php $this->widget('application.modules.yupe.widgets.YFlashMessages'); ?>
 
-<p> Напишите нам если: </p>
+<p> Если у Вас есть вопросы, предложения или Вы хотите сообщите об ошибке</p>
 
-<p> У Вас есть вопросы, предложения или Вы хотите сообщите об ошибке.</p>
-
-<p> У Вас есть сайт, написанный на фреймворке <b>Yii</b> и Вы хотите его
-    улучшить или исправить ошибки.</p>
-
-<p> Вы заинтересованы в создании качественного интернет-проекта, легкого в
+<p> Или Вы заинтересованы в создании качественного интернет-проекта, легкого в
     поддержке и сопровождении.</p>
 
-<p> Просто хотите поболтать =)</p> <p> Мы стараемся отвечать быстро... очень
+<p><i>Пожалуйста напишите об этом!</i></p>
+<p> Мы стараемся отвечать быстро... очень
     быстро !</p>
 
 <p><?php echo Yii::t('install', 'Полезные ссылки:');?></p>
 
-<?php echo CHtml::link(Yii::t('install','Официальный твиттер Юпи!'),'https://twitter.com/#!/YupeCms');?>  - <?php echo Yii::t('install','обязательно заффоловьте нас, мы не спамим =)');?>
+<?php echo CHtml::link(Yii::t('install', 'Официальный твиттер Юпи!'), 'https://twitter.com/#!/YupeCms'); ?>  - <?php echo Yii::t('install', 'обязательно заффоловьте нас, мы не спамим =)'); ?>
 
 <br/><br/>
 
-<?php echo CHtml::link(Yii::t('install','Исходный код на Github'),'http://github.com/yupe/yupe/');?> - <?php echo Yii::t('install','пришлите нам парочку пулл-реквестов, все только выиграют =)');?>
-
-<br/><br/>
-
-Jabber-конференция сервер: conference.yupe.ru, комната:<br/> yupe-talks (<a href="http://yupe.ru/post/djabber-konferentsiya-yupi.html">http://yupe.ru/post/djabber-konferentsiya-yupi.html</a>)
+<?php echo CHtml::link(Yii::t('install', 'Исходный код на Github'), 'http://github.com/yupe/yupe/'); ?> - <?php echo Yii::t('install', 'пришлите нам парочку пулл-реквестов, все только выиграют =)'); ?>
 
 <br/><br/>
 
@@ -39,21 +31,21 @@ Jabber-конференция сервер: conference.yupe.ru, комната:<
 <div class="form">
 
     <?php $form = $this->beginWidget('CActiveForm', array(
-                                                         'id' => 'feedback-form',
-                                                         'enableClientValidation' => true
-                                                    )); ?>
+    'id' => 'feedback-form',
+    'enableClientValidation' => true
+)); ?>
 
     <p class="note">Поля, отмеченные <span class="required">*</span> обязательны
         для заполнения</p>
 
     <?php echo $form->errorSummary($model); ?>
 
-    <?php if($model->type):?>
-        <div class="row">
-            <?php echo $form->labelEx($model, 'type'); ?>
-            <?php echo $form->dropDownList($model, 'type', $module->types); ?>
-            <?php echo $form->error($model, 'type'); ?>
-        </div>
+    <?php if ($model->type): ?>
+    <div class="row">
+        <?php echo $form->labelEx($model, 'type'); ?>
+        <?php echo $form->dropDownList($model, 'type', $module->types); ?>
+        <?php echo $form->error($model, 'type'); ?>
+    </div>
     <?php endif;?>
 
     <div class="row">
@@ -103,13 +95,4 @@ Jabber-конференция сервер: conference.yupe.ru, комната:<
 
     <?php $this->endWidget(); ?>
 
-</div>
-
-<div style='float:left;'>
-    <div style='float:left;padding-right:5px'>
-        <?php $this->widget('application.modules.social.widgets.ysc.yandex.YandexShareApi', array(
-                                                                                                  'type' => 'button',
-                                                                                                  'services' => 'all'
-                                                                                             ));?>
-    </div>
 </div>
