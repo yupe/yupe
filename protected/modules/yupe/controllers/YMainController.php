@@ -1,11 +1,6 @@
 <?php
-
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 /**
- * Description of YMainController
+ * Содержит общие функции для админки и фронтенда
  *
  * @author aopeykin
  */
