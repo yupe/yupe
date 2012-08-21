@@ -72,8 +72,8 @@
     <div id="footer-guard"><!-- --></div>
 </div>
 <footer>
-    Copyright &copy; 2009-<?php echo date('Y'); ?> 
-    <a href='<?php echo $module->brandUrl?>'><?php echo CHtml::encode(Yii::app()->name); ?></a> <?php echo Yii::app()->getModule('yupe')->getVersion();?>
+    Copyright &copy; 2009-<?php echo date('Y'); ?>
+    <a href='<?php echo $module->brandUrl?>'><?php echo CHtml::encode(Yii::app()->name); ?></a> <small class="label label-info"><?php echo Yii::app()->getModule('yupe')->getVersion();?></small>
     <br/>
     <a href="http://yupe.ru/feedback/contact?from=engine"><?php echo Yii::t('yupe','Разработка и поддержка');?></a> - <a href="mailto:team@yupe.ru">yupe team</a>
     <br/>

@@ -46,12 +46,13 @@ class YupeModule extends YupeParams
 
     public function getVersion()
     {
-        return '0.0.4';
+        return '0.0.4 (dev)';
     }
 
     public function checkSelf()
     {
-        $settings = Settings::model()->fetchModuleSettings('yupe', 'email');        
+        $settings = Settings::model()->fetchModuleSettings('yupe', 'email');
+
         if (isset($settings['email']) && $settings['email']->param_value == 'admin@admin.ru')
             return array(
                 'type' => YWebModule::CHECK_ERROR,
@@ -59,6 +60,9 @@ class YupeModule extends YupeParams
                     '{link}' => CHtml::link(Yii::t('yupe', 'Изменить настройки'), array( '/yupe/backend/modulesettings/', 'module' => 'yupe' )),
                 )),
             );
+
+        if(Yii::app()->getModule('install'))
+            return array('type' => YWebModule::CHECK_ERROR, 'message' => Yii::t('yupe', 'У Вас активирован модуль "Установщик", после установки системы его необходимо отключить! <a href="http://www.yiiframework.ru/doc/guide/ru/basics.module">Подробнее про Yii модули</a>'));
 
         $uploadPath = Yii::getPathOfAlias('webroot') . DIRECTORY_SEPARATOR . $this->uploadPath;
 
@@ -243,7 +247,7 @@ class YupeModule extends YupeParams
             }
 
             $modulesNavigation = Yii::app()->cache->get('YupeModulesNavigation');
-            
+
             if ($modulesNavigation === false)
             {
                 // Формируем навигационное меню

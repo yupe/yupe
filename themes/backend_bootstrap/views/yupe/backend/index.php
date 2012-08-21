@@ -18,20 +18,36 @@
     <?php endif; ?>
 <?php endforeach; ?>
 
-<p><?php echo Yii::t('yupe','Вы используете Yii версии'); ?>
-    <b><?php echo Yii::getVersion(); ?></b>, <?php echo CHtml::encode(Yii::app()->name); ?>
-    версии <b><?php echo Yii::app()->getModule('yupe')->version; ?></b>,
-    php <?php echo Yii::t('yupe', 'версии'); ?>
-    <b><?php echo phpversion(); ?></b></p>
+<p>
+    <?php echo Yii::t('yupe','Вы используете Yii версии'); ?>
+    <small class="label label-info" title="<?php echo Yii::getVersion(); ?>"><?php echo Yii::getVersion(); ?></small>,
+    <?php echo CHtml::encode(Yii::app()->name); ?>
+    <?php echo Yii::t('yupe', 'версии'); ?> <small class="label label-info" title="<?php echo Yii::app()->getModule('yupe')->version; ?>"><?php echo Yii::app()->getModule('yupe')->version; ?></small>,
+    <?php echo Yii::t('yupe', 'php версии'); ?>
+    <small class="label label-info" title="<?php echo phpversion(); ?>"><?php echo phpversion(); ?></small>
+</p>
+
+</br>
 
 <p><?php echo Yii::t('yupe', 'Установлено');?>
-    <b><?php echo $mn = count($modules) + count($yiiModules); ?></b>
-    <?php echo Yii::t('yupe', 'модуль|модуля|модулей', $mn); ?>.
+    <small class="label label-info"><?php echo $mn = count($modules) + count($yiiModules); ?></small>
+    <?php echo Yii::t('yupe', 'модуль|модуля|модулей', $mn); ?>
+    <small>
+            <?php echo Yii::t('yupe','( дополнительные модули всегда можно поискать на {link} или {order_link} )',array(
+             '{link}'      => CHtml::link(Yii::t('yupe','официальном сайте'),'http://yupe.ru/?from=mlist',array('target' => '_blank')),
+             '{order_link}'=> CHtml::link(Yii::t('yupe','заказать их разработку'),'http://yupe.ru/feedback/contact/?from=mlist',array('target' => '_blank')),
+            ));?>
+    </small>
 </p>
 
 <?php if (count($modules)): ?>
     <div class="page-header">
-    <h6><?php echo Yii::t('yupe', 'Модули разработанные специально для "{app}" ', array('{app}' => CHtml::encode(Yii::app()->name))); ?></h6>
+    <h6>
+        <?php echo Yii::t('yupe', 'Модули разработанные специально для "{app}"', array(
+            '{app}'  => CHtml::encode(Yii::app()->name),
+         ));
+        ?>
+    </h6>
     </div>
     <table class="table table-striped table-vmiddle">
         <thead>
@@ -71,7 +87,7 @@
                         <br />
                         <small style="font-size: 80%;"> <?php echo "<b>" . Yii::t('yupe', "Автор:") . "</b> " . $module->author; ?>
                         (<a href="mailto:<?php echo $module->authorEmail; ?>"><?php echo $module->authorEmail; ?></a>) &nbsp;
-                        <?php echo "<b>" . Yii::t('yupe', "Сайт модуля:") . "</b> " . CHtml::link($module->url, $module->url); ?></small><br />
+                        <?php echo "<b>" . Yii::t('yupe', 'Сайт модуля:') . "</b> " . CHtml::link($module->url, $module->url); ?></small><br />
                     </td>
                     <td>
                         <?php if ($module->editableParams): ?>

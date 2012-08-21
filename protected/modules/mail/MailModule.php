@@ -4,7 +4,7 @@ class MailModule extends YWebModule
 {
      public function  getVersion()
     {
-        return '0.1';
+        return '0.1 (dev)';
     }
 
     public function getCategory()
@@ -45,7 +45,7 @@ class MailModule extends YWebModule
     public function getAdminPageLink()
     {
         return '/mail/default/';
-    }   
+    }
 
     public function getNavigation()
     {
@@ -58,14 +58,14 @@ class MailModule extends YWebModule
             array('icon'=> 'th-list', 'label' => Yii::t('yupe', 'Управление почтовыми шаблонами'), 'url'=>array('/mail/templateAdmin/index/')),
         );
     }
-    
+
     public function init()
     {
         $this->setImport(array(
             'mail.models.*',
             'mail.components.*',
         ));
-        
+
         parent::init();
-    }	
+    }
 }
