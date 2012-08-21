@@ -8,7 +8,7 @@ $this->pageTitle = "товары - " . Yii::t('yupe', 'просмотр');
 $this->menu = array(
     array('icon' => 'list-alt', 'label' => Yii::t('yupe', 'Управление товарами'), 'url' => array('/catalog/default/index')),
     array('icon' => 'file', 'label' => Yii::t('yupe', 'Добавление товара'), 'url' => array('/catalog/default/create')),
-    array('icon' => 'pencil white', 'encodeLabel' => false, 'label' => Yii::t('yupe', 'Редактирование товара') . '<span class="label" style="font-size: 80%; margin-left:20px;">' . mb_substr($model->name, 0, 32) . '</span>', 'url' => array('/catalog/default/update', 'id' => $model->id)),
+    array('icon' => 'pencil white', 'encodeLabel' => false, 'label' => Yii::t('yupe', 'Редактирование товара - '). mb_substr($model->name, 0, 32), 'url' => array('/catalog/default/update', 'id' => $model->id)),
     array('icon' => 'eye-open', 'encodeLabel' => false, 'label' => Yii::t('yupe', 'Просмотреть ') . 'товар', 'url' => array('/catalog/default/view', 'id' => $model->id)),
     array('icon' => 'remove', 'label' => Yii::t('yupe', 'Удалить товар'), 'url' => '#', 'linkOptions' => array('submit' => array('delete', 'id' => $model->id), 'confirm' => Yii::t('yupe', 'Вы уверены, что хотите удалить?'))),
 );
