@@ -2,7 +2,7 @@
 class SiteSettingsForm extends CFormModel
 {
     public $siteName = 'Юпи!';
-    public $siteDescription = 'Юпи! - самый быстрый способ создать сайт на фреймворке Yii';
+    public $siteDescription = 'Юпи! - самый быстрый способ создать сайт на Yii';
     public $siteKeyWords = 'Юпи!, yupe, yii, cms, цмс';
     public $email;
 
