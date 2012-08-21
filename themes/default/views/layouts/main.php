@@ -48,8 +48,10 @@
 <div class="container" id="page">
     <div id="header">
         <div id="logo">
-            <a href="<?php echo Yii::app()->baseUrl;?>"><?php echo CHtml::image(Yii::app()->baseUrl . '/web/images/yupe-logo.jpg');?></a>
-            <?php echo CHtml::encode($module->siteDescription);?>
+            <a href="<?php echo Yii::app()->baseUrl;?>"><?php echo CHtml::image(Yii::app()->baseUrl . '/web/images/yupe-logo.png');?></a>
+            <span style="vertical-align: 20px; margin-left: 20px;">
+                <?php echo CHtml::encode($module->siteDescription);?>
+            </span>
             <div id="header-right">
                 <?php $this->widget('application.modules.yupe.widgets.YLanguageSelector'); ?>
                 <?php $this->widget('application.modules.yupe.widgets.YYupeDownloadWidget', array('cacheTime' =>0)); ?>

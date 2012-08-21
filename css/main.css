@@ -318,3 +318,8 @@ div.search-form {
     font-size: 14px;
     line-height: normal;
 }
+
+.siteDescription
+{
+    vertical-align: -20px;
+}
