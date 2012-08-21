@@ -50,7 +50,7 @@
         <div id="logo">
             <a href="<?php echo Yii::app()->baseUrl;?>"><?php echo CHtml::image(Yii::app()->baseUrl . '/web/images/yupe-logo.jpg');?></a>
             <?php echo CHtml::encode($module->siteDescription);?>
-            <div style="position:absolute; right:10px; top:0; text-align:right;">
+            <div id="header-right">
                 <?php $this->widget('application.modules.yupe.widgets.YLanguageSelector'); ?>
                 <?php $this->widget('application.modules.yupe.widgets.YYupeDownloadWidget', array('cacheTime' =>0)); ?>
             </div>

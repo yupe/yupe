@@ -1,6 +1,4 @@
-.flash {
-    padding: 20px;
-}
+/* main.css */
 
 body {
     margin: 0;
@@ -8,6 +6,10 @@ body {
     color: #555;
     font: normal 10pt Arial, Helvetica, sans-serif;
     background: #EFEFEF;
+}
+
+.flash {
+    padding: 20px;
 }
 
 #page {
@@ -21,6 +23,13 @@ body {
     margin: 0;
     padding: 0;
     border-top: 3px solid #C9E0ED;
+}
+
+#header-right {
+    position: absolute;
+    right: 20px;
+    top: 5px;
+    text-align: right;
 }
 
 #content {
@@ -40,7 +49,7 @@ body {
 }
 
 #logo {
-    font-size: 190%;
+    font-size: 150%;
     padding: 20px 20px;
     position: relative;
 }
@@ -277,8 +286,7 @@ div.search-form {
     background-repeat: repeat-x;
 }
 .yupeDownload a {
-    background-color: #f89200;
-    background-repeat: repeat-x;
+    background: none repeat-x scroll 0 0 #F89200;
 
     border: 1px solid rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.25);
     -moz-border-radius: 5px 5px 5px 5px;
@@ -288,6 +296,20 @@ div.search-form {
     border-width: 1px;
     border-image: none;
 
+    margin: 10px 0;
+    padding: 4px 14px;
+    cursor: pointer;
+
+    -webkit-box-shadow: 0 1px 0 rgba(255, 255, 255, 0.2) inset, 0 1px 2px rgba(0, 0, 0, 0.05);
+    -moz-box-shadow: 0 1px 0 rgba(255, 255, 255, 0.2) inset, 0 1px 2px rgba(0, 0, 0, 0.05);
+    box-shadow: 0 1px 0 rgba(255, 255, 255, 0.2) inset, 0 1px 2px rgba(0, 0, 0, 0.05);
+
+    display: -moz-inline-stack;
+    display: inline-block;
+    _overflow: hidden;
+    *zoom: 1;
+    *display: inline;
+
     text-align: center;
     text-decoration: none;
     text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.25);
@@ -295,18 +317,4 @@ div.search-form {
     color: #FFF;
     font-size: 14px;
     line-height: normal;
-
-    margin: 15px;
-    padding: 9px 14px;
-    -webkit-box-shadow: 0 1px 0 rgba(255, 255, 255, 0.2) inset, 0 1px 2px rgba(0, 0, 0, 0.05);
-    -moz-box-shadow: 0 1px 0 rgba(255, 255, 255, 0.2) inset, 0 1px 2px rgba(0, 0, 0, 0.05);
-    box-shadow: 0 1px 0 rgba(255, 255, 255, 0.2) inset, 0 1px 2px rgba(0, 0, 0, 0.05);
-    display: -moz-inline-stack;
-    display: inline-block;
-    _overflow: hidden;
-    *zoom: 1;
-    *display: inline;
-
-    padding: 9px 14px;
-    cursor: pointer;
 }
