@@ -4,7 +4,7 @@ class QueueModule extends YWebModule
 {
     public function  getVersion()
     {
-        return '0.1';
+        return '0.1 (dev)';
     }
 
     public function getCategory()

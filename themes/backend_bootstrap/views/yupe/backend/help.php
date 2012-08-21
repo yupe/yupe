@@ -10,11 +10,14 @@ $this->breadcrumbs = array(
 
 <br />
 
-<p><?php echo Yii::t('yupe','Вы используете Yii версии');?>
-    <b><?php echo Yii::getVersion();?></b>, <?php echo CHtml::encode(Yii::app()->name); ?>
-    версии <b><?php echo Yii::app()->getModule('yupe')->getVersion(); ?></b>,
-    php <?php echo Yii::t('yupe', 'версии'); ?>
-    <b><?php echo phpversion(); ?></b></p>
+<p>
+    <?php echo Yii::t('yupe','Вы используете Yii версии'); ?>
+    <small class="label label-info" title="<?php echo Yii::getVersion(); ?>"><?php echo Yii::getVersion(); ?></small>,
+    <?php echo CHtml::encode(Yii::app()->name); ?>
+    <?php echo Yii::t('yupe', 'версии'); ?> <small class="label label-info" title="<?php echo Yii::app()->getModule('yupe')->version; ?>"><?php echo Yii::app()->getModule('yupe')->version; ?></small>,
+    <?php echo Yii::t('yupe', 'php версии'); ?>
+    <small class="label label-info" title="<?php echo phpversion(); ?>"><?php echo phpversion(); ?></small>
+</p>
 
 <br/>
 

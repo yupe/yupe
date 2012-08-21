@@ -1,5 +1,6 @@
 <?php
 $this->breadcrumbs = array(
+    Yii::t('yupe', 'Система') => array('settings'),
     Yii::t('yupe', 'Настройки модулей'),
 );
 ?>
@@ -7,6 +8,8 @@ $this->breadcrumbs = array(
 <h1><?php echo Yii::t('yupe', 'Настройки модулей'); ?></h1>
 
 <?php echo Yii::t('yupe', 'Настройте модули "{app}" под Ваши потребности', array('{app}' => Yii::app()->name)); ?>
+
+<br/><br/>
 
 <p><?php echo Yii::t('yupe', 'Установлено');?>
     <b><?php echo $mn = count($modules); ?></b>
