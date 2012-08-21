@@ -218,12 +218,19 @@ class Blog extends CActiveRecord
     {
         $userToBlog = new UserToBlog;
 
-        $userToBlog->setAttributes(array(
+        if(!$userToBlog->find('user_id = :user_id AND blog_id = :blog_id', array(
             'user_id' => Yii::app()->user->getId(),
             'blog_id' => $this->id,
-        ));
+        )))
+        {
+            $userToBlog->setAttributes(array(
+                'user_id' => Yii::app()->user->getId(),
+                'blog_id' => $this->id,
+            ));
 
-        return $userToBlog->save();
+            return $userToBlog->save();
+        }
+        return false;
     }
 
     public function getMembers()
