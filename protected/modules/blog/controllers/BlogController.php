@@ -76,12 +76,12 @@ class BlogController extends YFrontController
 
         $errorMessage = false;
 
-        $blogId = (int) Yii::app()->request->getPost('blogId');
+        $blogId = $_GET['blogId'];
 
         if(!$blogId)
             $errorMessage = Yii::t('blog', 'Не передан blogId!');
 
-        $blog = Blog::model()->published()->public()->findByPk($blogId);
+        $blog = Blog::model()->findByPk($blogId);
 
         if(!$blog)
             $errorMessage = Yii::t('blog', 'Блог с id = {id} не найден!', array('{id}' => $blogId));

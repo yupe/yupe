@@ -52,7 +52,7 @@
             array(
                 'name'  => 'name',
                 'type'  => 'raw',
-                'value' => 'CHtml::link($data->name,array("/blog/blogAdmin/update/","id" => $data->id))',
+                'value' => 'CHtml::link($data->name, array("/blog/blogAdmin/update/", "id" => $data->id))',
             ),
             array(
                 'name'  => Yii::t('blog','Записей'),
@@ -76,21 +76,15 @@
             array(
                 'name'  => 'create_user_id',
                 'type'  => 'raw',
-                'value' => 'CHtml::link($data->createUser->getFullName(),array("/user/default/view/","id" => $data->createUser->id))',
+                'value' => 'CHtml::link($data->createUser->getFullName(), array("/user/default/view/", "id" => $data->createUser->id))',
             ),
             array(
                 'name'  => 'update_user_id',
                 'type'  => 'raw',
-                'value' => 'CHtml::link($data->updateUser->getFullName(),array("/user/default/view/","id" => $data->updateUser->id))',
+                'value' => 'CHtml::link($data->updateUser->getFullName(), array("/user/default/view/", "id" => $data->updateUser->id))',
             ),
-            array(
-                'name'  => 'create_date',
-                'value' => '$data->create_date',
-            ),
-            array(
-                'name'  => 'update_date',
-                'value' => '$data->update_date',
-            ),
+            'create_date',
+            'update_date',
             array(
                 'class' => 'bootstrap.widgets.TbButtonColumn',
             ),

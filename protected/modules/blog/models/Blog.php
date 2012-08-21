@@ -31,6 +31,8 @@ class Blog extends CActiveRecord
     const STATUS_BLOCKED = 2;
     const STATUS_DELETED = 3;
 
+    public $create_date_old;
+
     /**
      * Returns the static model of the specified AR class.
      *
@@ -148,8 +150,9 @@ class Blog extends CActiveRecord
 
     public function afterFind()
     {
-        $this->create_date = date('d.m.Y H:m', $this->create_date);
-        $this->update_date = date('d.m.Y H:m', $this->update_date);
+        $this->create_date_old = $this->create_date;
+        $this->create_date = Yii::app()->getDateFormatter()->formatDateTime($this->create_date, "short", "short");
+        $this->update_date = Yii::app()->getDateFormatter()->formatDateTime($this->update_date, "short", "short");
 
         return parent::afterFind();
     }
@@ -160,6 +163,8 @@ class Blog extends CActiveRecord
 
         if ($this->isNewRecord)
             $this->create_user_id = $this->update_user_id;
+        else
+            $this->create_date = $this->create_date_old;
 
         return parent::beforeSave();
     }

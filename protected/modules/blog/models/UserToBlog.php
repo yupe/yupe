@@ -26,16 +26,7 @@ class UserToBlog extends CActiveRecord
     const STATUS_ACTIVE = 1;
     const STATUS_BLOCK  = 2;
 
-    public function behaviors()
-    {
-        return array(
-            'CTimestampBehavior' => array(
-                'class' => 'zii.behaviors.CTimestampBehavior',
-                'createAttribute' => 'create_date',
-                'updateAttribute' => 'update_date',
-            )
-        );
-    }
+    public $create_date_old;
 
     /**
      * Returns the static model of the specified AR class.
@@ -128,12 +119,33 @@ class UserToBlog extends CActiveRecord
         return new CActiveDataProvider($this, array('criteria'=>$criteria));
     }
 
+    public function behaviors()
+    {
+        return array(
+            'CTimestampBehavior' => array(
+                'class' => 'zii.behaviors.CTimestampBehavior',
+                'setUpdateOnCreate' => true,
+                'createAttribute' => 'create_date',
+                'updateAttribute' => 'update_date',
+            )
+        );
+    }
+
     public function afterFind()
     {
-        $this->create_date = date('d.m.Y H:m', $this->create_date);
-        $this->update_date = date('d.m.Y H:m', $this->update_date);
+        $this->create_date_old = $this->create_date;
+        $this->create_date = Yii::app()->getDateFormatter()->formatDateTime($this->create_date, "short", "short");
+        $this->update_date = Yii::app()->getDateFormatter()->formatDateTime($this->update_date, "short", "short");
 
         return parent::afterFind();
+    }
+
+    public function beforeSave()
+    {
+        if(!$this->isNewRecord)
+            $this->create_date = $this->create_date_old;
+
+        return parent::beforeSave();
     }
 
     public function getRoleList()

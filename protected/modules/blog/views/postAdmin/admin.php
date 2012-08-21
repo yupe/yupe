@@ -84,14 +84,8 @@
                 'type'  => 'raw',
                 'value' => 'CHtml::link($data->updateUser->getFullName(),array("/user/default/view/","id" => $data->updateUser->id))',
             ),
-            array(
-                'name'  => 'create_date',
-                'value' => '$data->create_date',
-            ),
-            array(
-                'name'  => 'update_date',
-                'value' => '$data->update_date',
-            ),
+            'create_date',
+            'update_date',
             array(
                 'class' => 'bootstrap.widgets.TbButtonColumn',
             ),
