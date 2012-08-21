@@ -3,6 +3,9 @@ class RegistrationAction extends CAction
 {
     public function run()
     {
+        if(Yii::app()->user->isAuthenticated())
+            $this->controller->redirect('/site/index');
+
         $form = new RegistrationForm;
 
         $module = Yii::app()->getModule('user');
