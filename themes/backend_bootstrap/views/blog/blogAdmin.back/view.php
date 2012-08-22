@@ -39,11 +39,11 @@ $this->widget('zii.widgets.CDetailView', array(
         'name',
         'description',
         array(
-            'name'  => Yii::t('blog','Записей'),
+            'name'  => Yii::t('blog', 'Записей'),
             'value' => $model->postsCount
         ),
         array(
-            'name'  => Yii::t('blog','Участников'),
+            'name'  => Yii::t('blog', 'Участников'),
             'value' => $model->membersCount
         ),
         'icon',

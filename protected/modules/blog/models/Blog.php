@@ -22,7 +22,7 @@
  * @property User $updateUser
  * @property Post[] $posts
  */
-class Blog extends CActiveRecord
+class Blog extends YModel
 {
     const TYPE_PUBLIC  = 1;
     const TYPE_PRIVATE = 2;
@@ -57,7 +57,7 @@ class Blog extends CActiveRecord
     public function rules()
     {
         return array(
-            array('name, description, slug', 'required'),
+            array('name, description, slug', 'required', 'except' => 'search'),
             array('type, status, create_user_id, update_user_id', 'numerical', 'integerOnly' => true),
             array('name, icon', 'length', 'max' => 300),
             array('slug', 'length', 'max' => 150),
@@ -109,6 +109,17 @@ class Blog extends CActiveRecord
     }
 
     /**
+     * @return array customized attribute labels (name=>label)
+     */
+    public function attributeDescriptions()
+    {
+        return array(
+            'id'             => Yii::t('blog', 'id'),
+            'name'           => Yii::t('blog', 'Название блога'),
+        );
+    }
+
+    /**
      * Retrieves a list of models based on the current search/filter conditions.
      *
      * @return CActiveDataProvider the data provider that can return the models
@@ -127,7 +138,7 @@ class Blog extends CActiveRecord
         $criteria->compare('icon', $this->icon, true);
         $criteria->compare('slug', $this->slug, true);
         $criteria->compare('type', $this->type);
-        $criteria->compare('status', $this->status);
+        $criteria->compare('t.status', $this->status);
         $criteria->compare('create_user_id', $this->create_user_id, true);
         $criteria->compare('update_user_id', $this->update_user_id, true);
         $criteria->compare('create_date', $this->create_date);
@@ -135,7 +146,9 @@ class Blog extends CActiveRecord
 
         $criteria->with = array('createUser', 'updateUser');
 
-        return new CActiveDataProvider(get_class($this), array('criteria' => $criteria));
+        return new CActiveDataProvider(get_class($this), array('criteria' => $criteria, 'pagination' => array(
+                'pageSize' => 10,
+            ),));
     }
 
     public function behaviors()

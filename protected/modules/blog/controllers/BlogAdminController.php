@@ -3,9 +3,8 @@
 class BlogAdminController extends YBackController
 {
     /**
-     * Displays a particular model.
-     *
-     * @param integer $id the ID of the model to be displayed
+     * Отображает блог по указанному идентификатору
+     * @param integer $id Идинтификатор блог для отображения
      */
     public function actionView($id)
     {
@@ -13,9 +12,8 @@ class BlogAdminController extends YBackController
     }
 
     /**
-     * Creates a new model.
-     * If creation is successful, the browser will be redirected to the 'view'
-     * page.
+     * Создает новую модель блога.
+     * Если создание прошло успешно - перенаправляет на просмотр.
      */
     public function actionCreate()
     {
@@ -27,18 +25,23 @@ class BlogAdminController extends YBackController
         if (isset($_POST['Blog']))
         {
             $model->attributes = $_POST['Blog'];
+
             if ($model->save())
+            {
+                Yii::app()->user->setFlash(
+                    YFlashMessages::NOTICE_MESSAGE,
+                    Yii::t('blog', 'Запись добавлена!')
+                );
+
                 $this->redirect(array('view', 'id' => $model->id));
+            }
         }
 
-        $this->render('create', array('model' => $model, ));
+        $this->render('create', array('model' => $model));
     }
 
     /**
-     * Updates a particular model.
-     * If update is successful, the browser will be redirected to the 'view'
-     * page.
-     *
+     * Редактирование блога.
      * @param integer $id the ID of the model to be updated
      */
     public function actionUpdate($id)
@@ -51,79 +54,74 @@ class BlogAdminController extends YBackController
         if (isset($_POST['Blog']))
         {
             $model->attributes = $_POST['Blog'];
+
             if ($model->save())
-                $this->redirect(array('view', 'id' => $model->id));
+            {
+                Yii::app()->user->setFlash(
+                    YFlashMessages::NOTICE_MESSAGE,
+                    Yii::t('blog', 'Запись обновлена!')
+                );
+
+                $this->redirect(array('update', 'id' => $model->id));
+            }
         }
 
         $this->render('update', array('model' => $model));
     }
 
     /**
-     * Deletes a particular model.
-     * If deletion is successful, the browser will be redirected to the 'admin'
-     * page.
-     *
-     * @param integer $id the ID of the model to be deleted
+     * Удаяет модель блога из базы.
+     * Если удаление прошло успешно - возвращется в index
+     * @param integer $id идентификатор блога, который нужно удалить
      */
     public function actionDelete($id)
     {
         if (Yii::app()->request->isPostRequest)
         {
-            // we only allow deletion via POST request
+            // поддерживаем удаление только из POST-запроса
             $this->loadModel($id)->delete();
 
-            // if AJAX request (triggered by deletion via admin grid view), we
-            // should not redirect the browser
+            Yii::app()->user->setFlash(
+                YFlashMessages::NOTICE_MESSAGE,
+                Yii::t('blog', 'Запись удалена!')
+            );
+
+            // если это AJAX запрос ( кликнули удаление в админском grid view), мы не должны никуда редиректить
             if (!isset($_GET['ajax']))
-                $this->redirect(isset($_POST['returnUrl']) ? $_POST['returnUrl'] : array('admin'));
+                $this->redirect(isset($_POST['returnUrl']) ? $_POST['returnUrl'] : array('index'));
         }
         else
-            throw new CHttpException(400, 'Invalid request. Please do not repeat this request again.');
+            throw new CHttpException(400, 'Неверный запрос. Пожалуйста, больше не повторяйте такие запросы');
     }
-
     /**
-     * Lists all models.
+     * Управление блогами.
      */
     public function actionIndex()
     {
-        $dataProvider = new CActiveDataProvider('Blog');
-        $this->render('index', array('dataProvider' => $dataProvider));
-    }
-
-    /**
-     * Manages all models.
-     */
-    public function actionAdmin()
-    {
         $model = new Blog('search');
-
-        // clear any default values
-        $model->unsetAttributes();
-
+        $model->unsetAttributes(); // clear any default values
         if (isset($_GET['Blog']))
             $model->attributes = $_GET['Blog'];
 
-        $this->render('admin', array('model' => $model));
+        $this->render('index', array('model' => $model));
     }
 
     /**
-     * Returns the data model based on the primary key given in the GET variable.
-     * If the data model is not found, an HTTP exception will be raised.
-     *
-     * @param integer the ID of the model to be loaded
+     * Возвращает модель по указанному идентификатору
+     * Если модель не будет найдена - возникнет HTTP-исключение.
+     * @param integer идентификатор нужной модели
      */
     public function loadModel($id)
     {
         $model = Blog::model()->with('postsCount', 'membersCount')->findByPk((int) $id);
         if ($model === null)
-            throw new CHttpException(404, 'The requested page does not exist.');
+            throw new CHttpException(404, 'Запрошенная страница не найдена.');
         return $model;
     }
 
     /**
-     * Performs the AJAX validation.
-     *
-     * @param CModel the model to be validated
+     * Производит AJAX-валидацию
+     * @param CModel модель, которую необходимо валидировать
      */
     protected function performAjaxValidation($model)
     {
@@ -133,5 +131,4 @@ class BlogAdminController extends YBackController
             Yii::app()->end();
         }
     }
-
 }
