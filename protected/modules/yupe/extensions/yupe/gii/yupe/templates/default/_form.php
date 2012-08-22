@@ -4,16 +4,23 @@
  * - $this: the BootCrudCode object
  */
 ?>
-
 <?php
 echo <<<EOF
-<?php \$form = \$this->beginWidget('bootstrap.widgets.TbActiveForm', array(
+<?php
+\$form = \$this->beginWidget('bootstrap.widgets.TbActiveForm', array(
     'id'                     => '{$this->class2id($this->modelClass)}-form',
     'enableAjaxValidation'   => false,
     'enableClientValidation' => true,
     'type'                   => 'vertical',
     'htmlOptions'            => array('class' => 'well form-vertical'),
-)); ?>\n
+));
+
+Yii::app()->clientScript->registerScript('fieldset', "
+    \$('document').ready(function () {
+        \$('.popover-help').popover({ 'delay' : 500 });
+    });
+");
+?>\n
 EOF;
 ?>
 

@@ -5,7 +5,6 @@
  */
 ?>
 <?php
-
 $nameColumn = $this->guessNameColumn($this->tableSchema->columns);
 $label = $this->mb_ucfirst($this->mim);
 $labelIm = $this->mb_ucfirst($this->im);
