@@ -38,7 +38,7 @@ EOF;
     <span class="caret">&nbsp;</span>
 </button>
 
-<div id="search-toggle" class="collapse out">
+<div id="search-toggle" class="collapse out search-form">
 <?php echo <<<EOF
 <?php
 Yii::app()->clientScript->registerScript('search', "
