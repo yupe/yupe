@@ -64,16 +64,10 @@ EOF;
 
 
 <?php echo "<?php\n"; ?>
-$dp = $model->search();
 $this->widget('bootstrap.widgets.TbGridView', array(
     'id'           => '<?php echo $this->class2id($this->modelClass); ?>-grid',
-    'type'         => 'condensed ',
-    'pager'        => array(
-        'class'         => 'bootstrap.widgets.TbPager',
-        'prevPageLabel' => "←",
-        'nextPageLabel' => "→",
-    ),
-    'dataProvider' => $dp,
+    'type'         => 'condensed',
+    'dataProvider' => $model->search(),
     'filter'       => $model,
     'columns'      => array(
 <?php
