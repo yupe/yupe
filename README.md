@@ -8,6 +8,7 @@
 * Создание и публикация новостей (http://yupe.ru/story/ocherednoy-sayt-na-yupi) (модуль news - https://github.com/yupe/yupe/tree/master/protected/modules/news)
 * Создание и управление страницами сайта (модуль page - https://github.com/yupe/yupe/tree/master/protected/modules/page)
 * Создание и управление категориями сайта (разделами) (модуль category - https://github.com/yupe/yupe/tree/master/protected/modules/category)
+* Создание и редактирование меню сайта (модуль menu - https://github.com/yupe/yupe/tree/master/protected/modules/menu )
 * Модуль простых комментариев (можно комментировать любую сущность, пример http://yupe.ru/post/logotip-dlya-yupi.html или http://yupe.ru/gallery/gallery/foto/id/5) (модуль comment - https://github.com/yupe/yupe/tree/master/protected/modules/comment)
 * Модуль для простого голосования (можно голосовать за любую сущность) (модуль vote - https://github.com/yupe/yupe/tree/master/protected/modules/vote)
 * Модуль простых справочников (хранение и управление справочной информацией) (модуль dictionary - https://github.com/yupe/yupe/tree/master/protected/modules/dictionary)
@@ -18,9 +19,11 @@
 
 
 + Вы получаете удобную админку, выполненную на Twitter Boostrap  (Выглядит вот так http://yupe.ru/gallery/gallery/show/id/1)
+
 + Возможность генерировать CRUD в стиле Twitter Boostrap (https://github.com/yupe/yupe/tree/master/protected/modules/yupe/extensions/yupe)
 
 Установка - https://github.com/yupe/yupe/wiki/Установка
+
 Либо смотрите в файле install_ru.txt
 
 **Юпи! - мини ЦМС, написанная на замечательном MVC-фреймворке Yii (http://www.yiiframework.com/)**
@@ -32,6 +35,8 @@
 * Официальный сайт - http://yupe.ru/
 
 * Официальный твиттер - https://twitter.com/#!/YupeCms
+
+* Форум поддержки и идей - http://yupe.ru/talk/
 
 * Юпи! блог - http://yupe.ru/index.php/blog/yupe-mini-cms-yii
 

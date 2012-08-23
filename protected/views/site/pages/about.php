@@ -37,4 +37,6 @@
 
 <p>Наш твиттер - <a href="https://twitter.com/#!/YupeCms">https://twitter.com/#!/YupeCms</a></p>
 
+<p>Форум поддержки - <a href='http://yupe.ru/talk/'>http://yupe.ru/talk/</a></p>
+
 <p><b><h2>Хочешь помочь? <?php echo CHtml::link('Жми сюда!', array('/site/page/', 'view' => 'help'));?></h2></b></p>

@@ -18,6 +18,10 @@ $this->breadcrumbs = array('Обратная связь');
 
 <p><?php echo Yii::t('install', 'Полезные ссылки:');?></p>
 
+<?php echo CHtml::link(Yii::t('install', 'Форум поддержки Юпи!'), 'http://yupe.ru/talk/'); ?>  - <?php echo Yii::t('install', 'Можно просто поболтать =)'); ?>
+
+<br/><br/>
+
 <?php echo CHtml::link(Yii::t('install', 'Официальный твиттер Юпи!'), 'https://twitter.com/#!/YupeCms'); ?>  - <?php echo Yii::t('install', 'обязательно заффоловьте нас, мы не спамим =)'); ?>
 
 <br/><br/>
