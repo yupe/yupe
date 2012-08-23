@@ -109,13 +109,12 @@ class Blog extends YModel
     }
 
     /**
-     * @return array customized attribute labels (name=>label)
+     * @return array customized attribute descriptions (name=>description)
      */
     public function attributeDescriptions()
     {
         return array(
-            'id'             => Yii::t('blog', 'id'),
-            'name'           => Yii::t('blog', 'Название блога'),
+            'id' => Yii::t('blog', 'id'),
         );
     }
 

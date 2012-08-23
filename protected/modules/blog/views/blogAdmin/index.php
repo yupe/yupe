@@ -8,7 +8,7 @@
     $this->pageTitle = Yii::t('blog', 'Блоги - управление');
 
     $this->menu = array(
-        array('icon' => 'list-alt white', 'label' => Yii::t('blog', 'Управление блогами'),'url' => array('/blog/BlogAdmin/index')),
+        array('icon' => 'list-alt white', 'label' => Yii::t('blog', 'Управление блогами'), 'url' => array('/blog/BlogAdmin/index')),
         array('icon' => 'plus-sign', 'label' => Yii::t('blog', 'Добавить блог'), 'url' => array('/blog/BlogAdmin/create')),
     );
 ?>

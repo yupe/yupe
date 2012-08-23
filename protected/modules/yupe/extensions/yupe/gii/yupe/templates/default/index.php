@@ -18,7 +18,7 @@ echo <<<EOF
     \$this->pageTitle = Yii::t('{$this->mid}', '{$label} - управление');
 
     \$this->menu = array(
-        array('icon' => 'list-alt white', 'label' => Yii::t('{$this->mid}', 'Управление {$this->mtvor}'),'url' => array('/{$this->controller}/index')),
+        array('icon' => 'list-alt white', 'label' => Yii::t('{$this->mid}', 'Управление {$this->mtvor}'), 'url' => array('/{$this->controller}/index')),
         array('icon' => 'plus-sign', 'label' => Yii::t('{$this->mid}', 'Добавить {$this->vin}'), 'url' => array('/{$this->controller}/create')),
     );
 ?>

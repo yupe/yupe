@@ -17,7 +17,7 @@
  * @property Blog $blog
  * @property User $user
  */
-class UserToBlog extends CActiveRecord
+class UserToBlog extends YModel
 {
     const ROLE_USER      = 1;
     const ROLE_MODERATOR = 2;
@@ -53,7 +53,7 @@ class UserToBlog extends CActiveRecord
         // NOTE: you should only define rules for those attributes that
         // will receive user inputs.
         return array(
-            array('user_id, blog_id', 'required'),
+            array('user_id, blog_id', 'required', 'except' => 'search'),
             array('role, status, user_id, blog_id', 'numerical', 'integerOnly' => true),
             array('user_id, blog_id, create_date, update_date', 'length', 'max' => 10),
             array('note', 'length', 'max' => 300),
@@ -91,6 +91,16 @@ class UserToBlog extends CActiveRecord
             'role'        => Yii::t('blog', 'Роль'),
             'status'      => Yii::t('blog', 'Статус'),
             'note'        => Yii::t('blog', 'Примечание'),
+        );
+    }
+
+    /**
+     * @return array customized attribute descriptions (name=>description)
+     */
+    public function attributeDescriptions()
+    {
+        return array(
+            'id' => Yii::t('blog', 'id'),
         );
     }
 
