@@ -30,12 +30,12 @@ class TbActiveForm extends CActiveForm
 	 * @var string the form type. See class constants.
 	 */
 	public $type = self::TYPE_VERTICAL;
-    /**
-     * @var string input class.
-     */
-    public $input;
 	/**
-	 * @var boolean flag that indicates if the errors should be displayed as blocks.
+	 * @var string input class.
+	 */
+	public $input;
+	/**
+	 * @var boolean indicates whether to display errors as blocks.
 	 */
 	public $inlineErrors;
 
@@ -504,29 +504,29 @@ class TbActiveForm extends CActiveForm
 	 */
 	protected function getInputClassName()
 	{
-        if (isset($this->input))
-            return $this->input;
-        else
-        {
-            switch ($this->type)
-            {
-                case self::TYPE_HORIZONTAL:
-                    return self::INPUT_HORIZONTAL;
-                    break;
+		if (isset($this->input))
+			return $this->input;
+		else
+		{
+			switch ($this->type)
+			{
+				case self::TYPE_HORIZONTAL:
+					return self::INPUT_HORIZONTAL;
+					break;
 
-                case self::TYPE_INLINE:
-                    return self::INPUT_INLINE;
-                    break;
+				case self::TYPE_INLINE:
+					return self::INPUT_INLINE;
+					break;
 
-                case self::TYPE_SEARCH:
-                    return self::INPUT_SEARCH;
-                    break;
+				case self::TYPE_SEARCH:
+					return self::INPUT_SEARCH;
+					break;
 
-                case self::TYPE_VERTICAL:
-                default:
-                    return self::INPUT_VERTICAL;
-                    break;
-            }
-        }
+				case self::TYPE_VERTICAL:
+				default:
+					return self::INPUT_VERTICAL;
+					break;
+			}
+		}
 	}
 }

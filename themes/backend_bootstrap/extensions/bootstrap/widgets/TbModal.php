@@ -15,13 +15,13 @@
 class TbModal extends CWidget
 {
 	/**
-	 * @var boolean indicates whether to automatically open the modal when initialized. Defaults to 'false'.
+	 * @var boolean indicates whether to automatically open the modal. Defaults to 'false'.
 	 */
 	public $autoOpen = false;
-    /**
-     * @var boolean indicates whether the modal should use transitions. Defaults to 'true'.
-     */
-    public $fade = true;
+	/**
+	 * @var boolean indicates whether the modal should use transitions. Defaults to 'true'.
+	 */
+	public $fade = true;
 	/**
 	 * @var array the options for the Bootstrap Javascript plugin.
 	 */
@@ -46,19 +46,19 @@ class TbModal extends CWidget
 		if ($this->autoOpen === false && !isset($this->options['show']))
 			$this->options['show'] = false;
 
-        $classes = array('modal');
+		$classes = array('modal');
 
-        if ($this->fade === true)
-            $classes[] = 'fade';
+		if ($this->fade === true)
+			$classes[] = 'fade';
 
-        if (!empty($classes))
-        {
-            $classes = implode(' ', $classes);
-            if (isset($this->htmlOptions['class']))
-                $this->htmlOptions['class'] .= ' '.$classes;
-            else
-                $this->htmlOptions['class'] = $classes;
-        }
+		if (!empty($classes))
+		{
+			$classes = implode(' ', $classes);
+			if (isset($this->htmlOptions['class']))
+				$this->htmlOptions['class'] .= ' '.$classes;
+			else
+				$this->htmlOptions['class'] = $classes;
+		}
 
 		echo CHtml::openTag('div', $this->htmlOptions);
 	}

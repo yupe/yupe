@@ -32,9 +32,9 @@ class TbInputInline extends TbInputVertical
 	protected function passwordField()
 	{
 		$this->htmlOptions['placeholder'] = $this->model->getAttributeLabel($this->attribute);
-        echo $this->getPrepend();
+		echo $this->getPrepend();
 		echo $this->form->passwordField($this->model, $this->attribute, $this->htmlOptions);
-        echo $this->getAppend();
+		echo $this->getAppend();
 	}
 
 	/**
@@ -54,8 +54,8 @@ class TbInputInline extends TbInputVertical
 	protected function textField()
 	{
 		$this->htmlOptions['placeholder'] = $this->model->getAttributeLabel($this->attribute);
-        echo $this->getPrepend();
+		echo $this->getPrepend();
 		echo $this->form->textField($this->model, $this->attribute, $this->htmlOptions);
-        echo $this->getAppend();
+		echo $this->getAppend();
 	}
 }

@@ -52,7 +52,11 @@ class TbButtonGroup extends CWidget
 	 */
 	public $toggle;
 	/**
-	 * @var boolean indicates whether dropdowns should be dropups instead.
+	 * @var boolean indicates whether the button group appears vertically stacked. Defaults to 'false'.
+	 */
+	public $stacked = false;
+	/**
+	 * @var boolean indicates whether dropdowns should be dropups instead. Defaults to 'false'.
 	 */
 	public $dropup = false;
 
@@ -63,21 +67,24 @@ class TbButtonGroup extends CWidget
 	{
 		$classes = array('btn-group');
 
-        if ($this->dropup === true)
+		if ($this->stacked === true)
+			$classes[] = 'btn-group-vertical';
+
+		if ($this->dropup === true)
 			$classes[] = 'dropup';
 
-        if (!empty($classes))
-        {
-            $classes = implode(' ', $classes);
-            if (isset($this->htmlOptions['class']))
-                $this->htmlOptions['class'] .= ' '.$classes;
-            else
-                $this->htmlOptions['class'] = $classes;
-        }
+		if (!empty($classes))
+		{
+			$classes = implode(' ', $classes);
+			if (isset($this->htmlOptions['class']))
+				$this->htmlOptions['class'] .= ' '.$classes;
+			else
+				$this->htmlOptions['class'] = $classes;
+		}
 
-        $validToggles = array(self::TOGGLE_CHECKBOX, self::TOGGLE_RADIO);
+		$validToggles = array(self::TOGGLE_CHECKBOX, self::TOGGLE_RADIO);
 
-        if (isset($this->toggle) && in_array($this->toggle, $validToggles))
+		if (isset($this->toggle) && in_array($this->toggle, $validToggles))
 			$this->htmlOptions['data-toggle'] = 'buttons-'.$this->toggle;
 	}
 
@@ -90,8 +97,8 @@ class TbButtonGroup extends CWidget
 
 		foreach ($this->buttons as $button)
 		{
-            if (isset($button['visible']) && $button['visible'] === false)
-                continue;
+			if (isset($button['visible']) && $button['visible'] === false)
+				continue;
 
 			$this->controller->widget('bootstrap.widgets.TbButton', array(
 				'buttonType'=>isset($button['buttonType']) ? $button['buttonType'] : $this->buttonType,

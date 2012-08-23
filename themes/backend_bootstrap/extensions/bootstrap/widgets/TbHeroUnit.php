@@ -24,14 +24,14 @@ class TbHeroUnit extends CWidget
 	 */
 	public $encodeHeading = true;
 	/**
+	 * @var array the HTML attributes for the heading element.
+	 * @since 1.0.0
+	 */
+	public $headingOptions = array();
+	/**
 	 * @var array the HTML attributes for the widget container.
 	 */
 	public $htmlOptions = array();
-    /**
-     * @var array the HTML attributes for the heading element.
-     * @since 1.0.0
-     */
-    public $headingOptions = array();
 
 	/**
 	 * Initializes the widget.
@@ -46,10 +46,10 @@ class TbHeroUnit extends CWidget
 		if ($this->encodeHeading)
 			$this->heading = CHtml::encode($this->heading);
 
-        echo CHtml::openTag('div', $this->htmlOptions);
+		echo CHtml::openTag('div', $this->htmlOptions);
 
-        if (isset($this->heading))
-            echo CHtml::tag('h1', $this->headingOptions, $this->heading);
+		if (isset($this->heading))
+			echo CHtml::tag('h1', $this->headingOptions, $this->heading);
 	}
 
 	/**

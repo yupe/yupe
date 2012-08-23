@@ -24,9 +24,9 @@ class TbTabs extends CWidget
 	/**
 	 * @var string the type of tabs to display. Defaults to 'tabs'. Valid values are 'tabs' and 'pills'.
 	 * Please not that Javascript pills are not fully supported in Bootstrap yet!
-     * @see TbMenu::$type
+	 * @see TbMenu::$type
 	 */
-    public $type = TbMenu::TYPE_TABS;
+	public $type = TbMenu::TYPE_TABS;
 	/**
 	 * @var string the placement of the tabs.
 	 * Valid values are 'above', 'below', 'left' and 'right'.
@@ -35,7 +35,7 @@ class TbTabs extends CWidget
 	/**
 	 * @var array the tab configuration.
 	 */
-    public $tabs = array();
+	public $tabs = array();
 	/**
 	 * @var boolean whether to encode item labels.
 	 */
@@ -49,22 +49,22 @@ class TbTabs extends CWidget
 	 */
 	public $htmlOptions = array();
 
-    /**
-     * Initializes the widget.
-     */
-    public function init()
-    {
+	/**
+	 * Initializes the widget.
+	 */
+	public function init()
+	{
 		if (!isset($this->htmlOptions['id']))
 			$this->htmlOptions['id'] = $this->getId();
 
-        $classes = array();
+		$classes = array();
 
-        $validPlacements = array(self::PLACEMENT_ABOVE, self::PLACEMENT_BELOW, self::PLACEMENT_LEFT, self::PLACEMENT_RIGHT);
+		$validPlacements = array(self::PLACEMENT_ABOVE, self::PLACEMENT_BELOW, self::PLACEMENT_LEFT, self::PLACEMENT_RIGHT);
 
-        if (isset($this->placement) && in_array($this->placement, $validPlacements))
-            $classes[] = 'tabs-'.$this->placement;
+		if (isset($this->placement) && in_array($this->placement, $validPlacements))
+			$classes[] = 'tabs-'.$this->placement;
 
-        if (!empty($classes))
+		if (!empty($classes))
 		{
 			$classes = implode(' ', $classes);
 			if (isset($this->htmlOptions['class']))
@@ -72,16 +72,16 @@ class TbTabs extends CWidget
 			else
 				$this->htmlOptions['class'] = $classes;
 		}
-    }
+	}
 
-    /**
-     * Run this widget.
-     */
-    public function run()
-    {
-	    $id = $this->id;
-	    $content = array();
-	    $items = $this->normalizeTabs($this->tabs, $content);
+	/**
+	 * Run this widget.
+	 */
+	public function run()
+	{
+		$id = $this->id;
+		$content = array();
+		$items = $this->normalizeTabs($this->tabs, $content);
 
 		ob_start();
 		$this->controller->widget('bootstrap.widgets.TbMenu', array(
@@ -101,16 +101,16 @@ class TbTabs extends CWidget
 		echo $this->placement === self::PLACEMENT_BELOW ? $content.$tabs : $tabs.$content;
 		echo '</div>';
 
-	    /** @var CClientScript $cs */
-	    $cs = Yii::app()->getClientScript();
-	    $cs->registerScript(__CLASS__.'#'.$id, "jQuery('#{$id}').tab('show');");
+		/** @var CClientScript $cs */
+		$cs = Yii::app()->getClientScript();
+		$cs->registerScript(__CLASS__.'#'.$id, "jQuery('#{$id}').tab('show');");
 
-	    foreach ($this->events as $name => $handler)
-        {
-            $handler = CJavaScript::encode($handler);
-            $cs->registerScript(__CLASS__.'#'.$id.'_'.$name, "jQuery('#{$id}').on('{$name}', {$handler});");
-        }
-    }
+		foreach ($this->events as $name => $handler)
+		{
+			$handler = CJavaScript::encode($handler);
+			$cs->registerScript(__CLASS__.'#'.$id.'_'.$name, "jQuery('#{$id}').on('{$name}', {$handler});");
+		}
+	}
 
 	/**
 	 * Normalizes the tab configuration.
@@ -124,19 +124,19 @@ class TbTabs extends CWidget
 		$id = $this->getId();
 		$items = array();
 
-	    foreach ($tabs as $tab)
-	    {
+		foreach ($tabs as $tab)
+		{
 			$item = $tab;
 
-		    if (isset($item['visible']) && $item['visible'] === false)
-                continue;
+			if (isset($item['visible']) && $item['visible'] === false)
+				continue;
 
 			if (!isset($item['itemOptions']))
 				$item['itemOptions'] = array();
 
 			$item['linkOptions']['data-toggle'] = 'tab';
 
-		    if (isset($tab['items']))
+			if (isset($tab['items']))
 				$item['items'] = $this->normalizeTabs($item['items'], $panes, $i);
 			else
 			{
@@ -176,7 +176,7 @@ class TbTabs extends CWidget
 			}
 
 			$items[] = $item;
-	    }
+		}
 
 		return $items;
 	}

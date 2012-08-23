@@ -15,7 +15,7 @@
 .input-block-level {
   display:block;
   width:100%;
-  min-height:28px;
+  min-height:30px;
   -webkit-box-sizing:border-box;
   -moz-box-sizing:border-box;
   box-sizing:border-box;
@@ -38,7 +38,7 @@
   display:block;
 }
 .grid-view table.items tr.selected td { background:#eeeeee; }
-.grid-view .filters .filter-container { padding:0 10px 0 0; }
+.grid-view .filters .filter-container { padding:0 15px 0 0; }
 .grid-view .filters input, .grid-view .filters select {
   margin-bottom:0;
   width:100%;
