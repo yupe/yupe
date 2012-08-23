@@ -27,7 +27,7 @@
  * @property User $updateUser
  * @property Blog $blog
  */
-class Post extends CActiveRecord
+class Post extends YModel
 {
     const STATUS_DRAFT     = 0;
     const STATUS_PUBLISHED = 1;
@@ -63,7 +63,7 @@ class Post extends CActiveRecord
         // NOTE: you should only define rules for those attributes that
         // will receive user inputs.
         return array(
-            array('blog_id, slug, publish_date, title, content', 'required'),
+            array('blog_id, slug, publish_date, title, content', 'required', 'except' => 'search'),
             array('blog_id, create_user_id, update_user_id, status, comment_status, access_type', 'numerical', 'integerOnly' => true),
             array('blog_id, create_user_id, update_user_id', 'length', 'max' => 10),
             array('slug, title, link, keywords', 'length', 'max' => 150),
@@ -115,6 +115,16 @@ class Post extends CActiveRecord
             'access_type'    => Yii::t('blog', 'Доступ'),
             'keywords'       => Yii::t('blog', 'Ключевые слова'),
             'description'    => Yii::t('blog', 'Описание'),
+        );
+    }
+
+    /**
+     * @return array customized attribute descriptions (name=>description)
+     */
+    public function attributeDescriptions()
+    {
+        return array(
+            'id' => Yii::t('blog', 'id'),
         );
     }
 

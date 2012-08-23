@@ -32,25 +32,18 @@ Yii::app()->clientScript->registerScript('fieldset', "
         <?php echo $form->textFieldRow($model, 'icon', array('class' => 'span3 popover-help', 'maxlength' => 300, 'size' => 60, 'data-original-title' => $model->getAttributeLabel('icon'), 'data-content' => $model->getAttributeDescription('icon'))); ?>
     </div>
     <div class="row-fluid control-group <?php echo $model->hasErrors('description') ? 'error' : ''; ?>">
-        <div class="popover-help" data-original-title="<?php echo $model->getAttributeLabel('description'); ?>" data-content="<?php echo $model->getAttributeDescription('description'); ?>">
-            <?php
-            $this->widget($this->module->editor, array(
-                'model' => $model,
-                'attribute' => 'description',
-                'options' => array(
-                    'toolbar' => 'main',
-                    'imageUpload' => Yii::app()->baseUrl . '/index.php/yupe/backend/AjaxFileUpload/'
-                ),
-                'htmlOptions' => array(
-                    'rows' => 20,
-                    'cols' => 6,
-                    'class' => 'popover-help',
-                    'data-original-title' => $model->getAttributeLabel('description'),
-                    'data-content' => $model->getAttributeDescription('description'),
-                ),
-            ));
-            ?>
-        </div>
+        <?php echo $form->labelEx($model, 'publish_date'); ?>
+        <?php $this->widget($this->module->editor, array(
+            'model' => $model,
+            'attribute' => 'description',
+            'options' => array(
+                'toolbar' => 'main',
+                'imageUpload' => Yii::app()->baseUrl . '/index.php/yupe/backend/AjaxFileUpload/',
+            ),
+            'htmlOptions' => array('rows' => 20, 'cols' => 6),
+        )); ?>
+        <br />
+        <?php $this->widget('bootstrap.widgets.TbLabel', array('type' => 'info', 'label' => $model->getAttributeDescription('description'))); ?>
     </div>
     <div class="row-fluid control-group <?php echo $model->hasErrors('type') ? 'error' : ''; ?>">
         <?php echo $form->dropDownListRow($model, 'type', $model->getTypeList(), array('class' => 'span3 popover-help', 'data-original-title' => $model->getAttributeLabel('type'), 'data-content' => $model->getAttributeDescription('type'))); ?>

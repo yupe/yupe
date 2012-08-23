@@ -3,9 +3,8 @@
 class UserToBlogAdminController extends YBackController
 {
     /**
-     * Displays a particular model.
-     *
-     * @param integer $id the ID of the model to be displayed
+     * Отображает участника по указанному идентификатору
+     * @param integer $id Идинтификатор участника для отображения
      */
     public function actionView($id)
     {
@@ -13,8 +12,8 @@ class UserToBlogAdminController extends YBackController
     }
 
     /**
-     * Creates a new model.
-     * If creation is successful, the browser will be redirected to the 'view' page.
+     * Создает новую модель участника.
+     * Если создание прошло успешно - перенаправляет на просмотр.
      */
     public function actionCreate()
     {
@@ -22,16 +21,31 @@ class UserToBlogAdminController extends YBackController
 
         try
         {
-            if(isset($_POST['UserToBlog']))
+            // Uncomment the following line if AJAX validation is needed
+            // $this->performAjaxValidation($model);
+
+            if (isset($_POST['UserToBlog']))
             {
                 $model->attributes = $_POST['UserToBlog'];
-                if($model->save())
+
+                if ($model->save())
+                {
+                    Yii::app()->user->setFlash(
+                        YFlashMessages::NOTICE_MESSAGE,
+                        Yii::t('blog', 'Запись добавлена!')
+                    );
+
                     $this->redirect(array('view', 'id' => $model->id));
+                }
             }
         }
         catch(Exception $e)
         {
-            Yii::app()->user->setFlash(YFlashMessages::WARNING_MESSAGE, Yii::t('blog', 'Ошибка! Возможно пользователь уже участник блога!'));
+            Yii::app()->user->setFlash(
+                YFlashMessages::WARNING_MESSAGE,
+                Yii::t('blog', 'Ошибка! Возможно пользователь уже участник блога!')
+            );
+
             $this->redirect(array('admin'));
         }
 
@@ -39,9 +53,7 @@ class UserToBlogAdminController extends YBackController
     }
 
     /**
-     * Updates a particular model.
-     * If update is successful, the browser will be redirected to the 'view' page.
-     *
+     * Редактирование участника.
      * @param integer $id the ID of the model to be updated
      */
     public function actionUpdate($id)
@@ -51,84 +63,81 @@ class UserToBlogAdminController extends YBackController
         // Uncomment the following line if AJAX validation is needed
         // $this->performAjaxValidation($model);
 
-        if(isset($_POST['UserToBlog']))
+        if (isset($_POST['UserToBlog']))
         {
             $model->attributes = $_POST['UserToBlog'];
-            if($model->save())
-                $this->redirect(array('view', 'id' => $model->id));
+
+            if ($model->save())
+            {
+                Yii::app()->user->setFlash(
+                    YFlashMessages::NOTICE_MESSAGE,
+                    Yii::t('blog', 'Запись обновлена!')
+                );
+
+                $this->redirect(array('update', 'id' => $model->id));
+            }
         }
 
         $this->render('update', array('model' => $model));
     }
 
     /**
-     * Deletes a particular model.
-     * If deletion is successful, the browser will be redirected to the 'admin' page.
-     *
-     * @param integer $id the ID of the model to be deleted
+     * Удаяет модель участника из базы.
+     * Если удаление прошло успешно - возвращется в index
+     * @param integer $id идентификатор участника, который нужно удалить
      */
     public function actionDelete($id)
     {
-        if(Yii::app()->request->isPostRequest)
+        if (Yii::app()->request->isPostRequest)
         {
-            // we only allow deletion via POST request
+            // поддерживаем удаление только из POST-запроса
             $this->loadModel($id)->delete();
 
-            // if AJAX request (triggered by deletion via admin grid view), we should not redirect the browser
-            if(!isset($_GET['ajax']))
-                $this->redirect(isset($_POST['returnUrl']) ? $_POST['returnUrl'] : array('admin'));
+            Yii::app()->user->setFlash(
+                YFlashMessages::NOTICE_MESSAGE,
+                Yii::t('blog', 'Запись удалена!')
+            );
+
+            // если это AJAX запрос ( кликнули удаление в админском grid view), мы не должны никуда редиректить
+            if (!isset($_GET['ajax']))
+                $this->redirect(isset($_POST['returnUrl']) ? $_POST['returnUrl'] : array('index'));
         }
         else
-            throw new CHttpException(400, 'Invalid request. Please do not repeat this request again.');
+            throw new CHttpException(400, 'Неверный запрос. Пожалуйста, больше не повторяйте такие запросы');
     }
-
     /**
-     * Lists all models.
+     * Управление участниками.
      */
     public function actionIndex()
     {
-        $dataProvider = new CActiveDataProvider('UserToBlog');
-
-        $this->render('index', array('dataProvider' => $dataProvider));
-    }
-
-    /**
-     * Manages all models.
-     */
-    public function actionAdmin()
-    {
         $model = new UserToBlog('search');
-
         $model->unsetAttributes(); // clear any default values
-
-        if(isset($_GET['UserToBlog']))
+        if (isset($_GET['UserToBlog']))
             $model->attributes = $_GET['UserToBlog'];
 
-        $this->render('admin', array('model' => $model));
+        $this->render('index', array('model' => $model));
     }
 
     /**
-     * Returns the data model based on the primary key given in the GET variable.
-     * If the data model is not found, an HTTP exception will be raised.
-     *
-     * @param integer the ID of the model to be loaded
+     * Возвращает модель по указанному идентификатору
+     * Если модель не будет найдена - возникнет HTTP-исключение.
+     * @param integer идентификатор нужной модели
      */
     public function loadModel($id)
     {
         $model = UserToBlog::model()->findByPk($id);
-        if($model === null)
-            throw new CHttpException(404, 'The requested page does not exist.');
+        if ($model === null)
+            throw new CHttpException(404, 'Запрошенная страница не найдена.');
         return $model;
     }
 
     /**
-     * Performs the AJAX validation.
-     *
-     * @param CModel the model to be validated
+     * Производит AJAX-валидацию
+     * @param CModel модель, которую необходимо валидировать
      */
     protected function performAjaxValidation($model)
     {
-        if(isset($_POST['ajax']) && $_POST['ajax'] === 'user-to-blog-form')
+        if (isset($_POST['ajax']) && $_POST['ajax'] === 'user-to-blog-form')
         {
             echo CActiveForm::validate($model);
             Yii::app()->end();
