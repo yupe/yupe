@@ -61,7 +61,7 @@ class BlogController extends YFrontController
     }
 
     // "вступление" в блог
-    public function actionJoin()
+    public function actionJoin($blogId)
     {
         if(!Yii::app()->user->isAuthenticated())
         {
@@ -73,15 +73,15 @@ class BlogController extends YFrontController
                 $this->redirect(array('/'));
             }
         }
-
+        
         $errorMessage = false;
 
-        $blogId = (int) Yii::app()->request->getPost('blogId');
+        $blogId = (int) $blogId;
 
         if(!$blogId)
             $errorMessage = Yii::t('blog', 'Не передан blogId!');
 
-        $blog = Blog::model()->published()->public()->findByPk($blogId);
+        $blog = Blog::model()->findByPk($blogId);
 
         if(!$blog)
             $errorMessage = Yii::t('blog', 'Блог с id = {id} не найден!', array('{id}' => $blogId));
@@ -104,8 +104,18 @@ class BlogController extends YFrontController
            else
            {
                Yii::app()->user->setFlash(YFlashMessages::NOTICE_MESSAGE, Yii::t('blog', 'Вы присоединились к блогу!'));
-               $this->redirect(array('/blog/blog/show/', 'slug' => $blog->slug));
+               $this->redirect(array('/blog/blog/index/'));
            }
+        }
+        else
+        {
+            if(Yii::app()->request->isAjaxRequest)
+                Yii::app()->ajax->success(Yii::t('blog', 'Вы уже присоеденены к этому блогу!'));
+            else
+            {
+                Yii::app()->user->setFlash(YFlashMessages::NOTICE_MESSAGE, Yii::t('blog', 'Вы уже присоеденены к этому блогу!'));
+                $this->redirect(array('/blog/blog/index/'));
+            }
         }
     }
 }

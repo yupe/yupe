@@ -37,7 +37,7 @@ class TbBreadcrumbs extends CBreadcrumbs
 	 */
 	public function run()
 	{
-        // Hide empty breadcrumbs.
+		// Hide empty breadcrumbs.
 		if (empty($this->links))
 			return;
 

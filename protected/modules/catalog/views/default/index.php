@@ -4,7 +4,7 @@ $this->breadcrumbs = array(
     'Товары' => array('index'),
     Yii::t('yupe', 'Управление'),
 );
-$this->pageTitle = "товары - " . "Yii::t('yupe', 'управление')";
+$this->pageTitle = "товары - " . Yii::t('yupe', 'управление');
 $this->menu = array(
     array('icon' => 'list-alt white', 'label' => Yii::t('yupe', 'Управление товарами'), 'url' => array('/catalog/default/index')),
     array('icon' => 'file', 'label' => Yii::t('yupe', 'Добавить товар'), 'url' => array('/catalog/default/create')),

@@ -5,11 +5,11 @@ $this->breadcrumbs=array(
 	$model->name=>array('view','id'=>$model->id),
 	Yii::t('yupe','Редактирование'),
 );
-$this->pageTitle ="товары - "."Yii::t('yupe','редактирование')";
+$this->pageTitle ="товары - ".Yii::t('yupe','редактирование');
 $this->menu=array(
     array('icon'=> 'list-alt', 'label' => Yii::t('yupe','Управление товарами'),'url'=>array('/catalog/default/index')),
     array('icon'=> 'file', 'label' =>  Yii::t('yupe','Добавить товар'),'url'=>array('/catalog/default/create')),
-    array('icon'=>'pencil white','encodeLabel'=> false, 'label' => Yii::t('yupe','Редактирование '). 'товара<br /><span class="label" style="font-size: 80%; margin-left:20px;">'.mb_substr($model->name,0,32)."</span>",'url'=>array('catalog/default/update','id'=>$model->id)),
+    array('icon' => 'pencil white', 'encodeLabel' => false, 'label' => Yii::t('yupe', 'Редактирование товара - '). mb_substr($model->name, 0, 32), 'url' => array('/catalog/default/update', 'id' => $model->id)),
     array('icon'=>'eye-open','encodeLabel'=> false, 'label' => Yii::t('yupe','Просмотреть '). 'товар','url'=>array('/catalog/default/view','id'=>$model->id)),
 );
 ?>

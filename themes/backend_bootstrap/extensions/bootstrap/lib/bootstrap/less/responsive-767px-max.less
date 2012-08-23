@@ -53,6 +53,7 @@
   }
   .thumbnails > li {
     float: none;
+    margin-left: 0; // Reset the default margin for all li elements when no .span* classes are present
   }
   // Make all grid-sized elements block level again
   [class*="span"],
@@ -61,6 +62,11 @@
     display: block;
     width: auto;
     margin-left: 0;
+  }
+  .span12,
+  .row-fluid .span12 {
+    width: 100%;
+    .box-sizing(border-box);
   }
 
   // FORM FIELDS

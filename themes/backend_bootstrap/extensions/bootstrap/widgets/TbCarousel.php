@@ -22,10 +22,10 @@ class TbCarousel extends CWidget
 	 * @var string the next button label. Defaults to '&rsaquo;'.
 	 */
 	public $nextLabel = '&rsaquo;';
-    /**
-     * @var boolean indicates whether the carousel should slide items.
-     */
-    public $slide = true;
+	/**
+	 * @var boolean indicates whether the carousel should slide items.
+	 */
+	public $slide = true;
 	/**
 	 * @var boolean indicates whether to display the previous and next links.
 	 */
@@ -55,19 +55,19 @@ class TbCarousel extends CWidget
 		if (!isset($this->htmlOptions['id']))
 			$this->htmlOptions['id'] = $this->getId();
 
-        $classes = array('carousel');
+		$classes = array('carousel');
 
-        if ($this->slide === true)
-            $classes[] = 'slide';
+		if ($this->slide === true)
+			$classes[] = 'slide';
 
-        if (!empty($classes))
-        {
-            $classes = implode(' ', $classes);
-            if (isset($this->htmlOptions['class']))
-                $this->htmlOptions['class'] .= ' '.$classes;
-            else
-                $this->htmlOptions['class'] = $classes;
-        }
+		if (!empty($classes))
+		{
+			$classes = implode(' ', $classes);
+			if (isset($this->htmlOptions['class']))
+				$this->htmlOptions['class'] .= ' '.$classes;
+			else
+				$this->htmlOptions['class'] = $classes;
+		}
 	}
 
 	/**
@@ -112,8 +112,8 @@ class TbCarousel extends CWidget
 			if (!is_array($item))
 				continue;
 
-            if (isset($item['visible']) && $item['visible'] === false)
-                continue;
+			if (isset($item['visible']) && $item['visible'] === false)
+				continue;
 
 			if (!isset($item['itemOptions']))
 				$item['itemOptions'] = array();
@@ -123,14 +123,14 @@ class TbCarousel extends CWidget
 			if ($i === 0)
 				$classes[] = 'active';
 
-            if (!empty($classes))
-            {
-                $classes = implode(' ', $classes);
-                if (isset($item['itemOptions']['class']))
-                    $item['itemOptions']['class'] .= ' '.$classes;
-                else
-                    $item['itemOptions']['class'] = $classes;
-            }
+			if (!empty($classes))
+			{
+				$classes = implode(' ', $classes);
+				if (isset($item['itemOptions']['class']))
+					$item['itemOptions']['class'] .= ' '.$classes;
+				else
+					$item['itemOptions']['class'] = $classes;
+			}
 
 			echo CHtml::openTag('div', $item['itemOptions']);
 

@@ -3,6 +3,9 @@ class ActivateAction extends CAction
 {
     public function run($key)
     {
+        if(Yii::app()->user->isAuthenticated())
+            $this->controller->redirect(Yii::app()->user->returnUrl);
+
         // пытаемся сделать выборку из таблицы пользователей
         $user = User::model()->notActivated()->find('activate_key = :activate_key', array(':activate_key' => $key));
 

@@ -49,31 +49,31 @@ class TbGridView extends CGridView
 
 		$classes = array('table');
 
-        if (isset($this->type))
-        {
-            if (is_string($this->type))
-                $this->type = explode(' ', $this->type);
+		if (isset($this->type))
+		{
+			if (is_string($this->type))
+				$this->type = explode(' ', $this->type);
 
-            $validTypes = array(self::TYPE_STRIPED, self::TYPE_BORDERED, self::TYPE_CONDENSED);
+			$validTypes = array(self::TYPE_STRIPED, self::TYPE_BORDERED, self::TYPE_CONDENSED);
 
-            if (!empty($this->type))
-            {
-                foreach ($this->type as $type)
-                {
-                    if (in_array($type, $validTypes))
-                        $classes[] = 'table-'.$type;
-                }
-            }
-        }
+			if (!empty($this->type))
+			{
+				foreach ($this->type as $type)
+				{
+					if (in_array($type, $validTypes))
+						$classes[] = 'table-'.$type;
+				}
+			}
+		}
 
-        if (!empty($classes))
-        {
-            $classes = implode(' ', $classes);
-            if (isset($this->itemsCssClass))
-                $this->itemsCssClass .= ' '.$classes;
-            else
-                $this->itemsCssClass = $classes;
-        }
+		if (!empty($classes))
+		{
+			$classes = implode(' ', $classes);
+			if (isset($this->itemsCssClass))
+				$this->itemsCssClass .= ' '.$classes;
+			else
+				$this->itemsCssClass = $classes;
+		}
 
 		$popover = Yii::app()->bootstrap->popoverSelector;
 		$tooltip = Yii::app()->bootstrap->tooltipSelector;

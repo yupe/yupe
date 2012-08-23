@@ -23,7 +23,7 @@ class TbPager extends CLinkPager
 	public $alignment;
 	/**
 	 * @var string the text shown before page buttons.
-     * Defaults to an empty string, meaning that no header will be displayed.
+	 * Defaults to an empty string, meaning that no header will be displayed.
 	 */
 	public $header = '';
 	/**
@@ -49,19 +49,19 @@ class TbPager extends CLinkPager
 
 		$classes = array();
 
-        $validAlignments = array(self::ALIGNMENT_CENTER, self::ALIGNMENT_RIGHT);
+		$validAlignments = array(self::ALIGNMENT_CENTER, self::ALIGNMENT_RIGHT);
 
-        if (in_array($this->alignment, $validAlignments))
+		if (in_array($this->alignment, $validAlignments))
 			$classes[] = 'pagination-'.$this->alignment;
 
-        if (!empty($classes))
-        {
-            $classes = implode(' ', $classes);
-            if (isset($this->htmlOptions['class']))
-                $this->htmlOptions['class'] = ' '.$classes;
-            else
-                $this->htmlOptions['class'] = $classes;
-        }
+		if (!empty($classes))
+		{
+			$classes = implode(' ', $classes);
+			if (isset($this->htmlOptions['class']))
+				$this->htmlOptions['class'] = ' '.$classes;
+			else
+				$this->htmlOptions['class'] = $classes;
+		}
 
 		parent::init();
 	}

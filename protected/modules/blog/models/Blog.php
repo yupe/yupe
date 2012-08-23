@@ -22,7 +22,7 @@
  * @property User $updateUser
  * @property Post[] $posts
  */
-class Blog extends CActiveRecord
+class Blog extends YModel
 {
     const TYPE_PUBLIC  = 1;
     const TYPE_PRIVATE = 2;
@@ -30,6 +30,8 @@ class Blog extends CActiveRecord
     const STATUS_ACTIVE  = 1;
     const STATUS_BLOCKED = 2;
     const STATUS_DELETED = 3;
+
+    public $create_date_old;
 
     /**
      * Returns the static model of the specified AR class.
@@ -55,7 +57,7 @@ class Blog extends CActiveRecord
     public function rules()
     {
         return array(
-            array('name, description, slug', 'required'),
+            array('name, description, slug', 'required', 'except' => 'search'),
             array('type, status, create_user_id, update_user_id', 'numerical', 'integerOnly' => true),
             array('name, icon', 'length', 'max' => 300),
             array('slug', 'length', 'max' => 150),
@@ -107,6 +109,17 @@ class Blog extends CActiveRecord
     }
 
     /**
+     * @return array customized attribute labels (name=>label)
+     */
+    public function attributeDescriptions()
+    {
+        return array(
+            'id'             => Yii::t('blog', 'id'),
+            'name'           => Yii::t('blog', 'Название блога'),
+        );
+    }
+
+    /**
      * Retrieves a list of models based on the current search/filter conditions.
      *
      * @return CActiveDataProvider the data provider that can return the models
@@ -125,7 +138,7 @@ class Blog extends CActiveRecord
         $criteria->compare('icon', $this->icon, true);
         $criteria->compare('slug', $this->slug, true);
         $criteria->compare('type', $this->type);
-        $criteria->compare('status', $this->status);
+        $criteria->compare('t.status', $this->status);
         $criteria->compare('create_user_id', $this->create_user_id, true);
         $criteria->compare('update_user_id', $this->update_user_id, true);
         $criteria->compare('create_date', $this->create_date);
@@ -133,7 +146,9 @@ class Blog extends CActiveRecord
 
         $criteria->with = array('createUser', 'updateUser');
 
-        return new CActiveDataProvider(get_class($this), array('criteria' => $criteria));
+        return new CActiveDataProvider(get_class($this), array('criteria' => $criteria, 'pagination' => array(
+                'pageSize' => 10,
+            ),));
     }
 
     public function behaviors()
@@ -148,8 +163,9 @@ class Blog extends CActiveRecord
 
     public function afterFind()
     {
-        $this->create_date = date('d.m.Y H:m', $this->create_date);
-        $this->update_date = date('d.m.Y H:m', $this->update_date);
+        $this->create_date_old = $this->create_date;
+        $this->create_date = Yii::app()->getDateFormatter()->formatDateTime($this->create_date, "short", "short");
+        $this->update_date = Yii::app()->getDateFormatter()->formatDateTime($this->update_date, "short", "short");
 
         return parent::afterFind();
     }
@@ -160,6 +176,8 @@ class Blog extends CActiveRecord
 
         if ($this->isNewRecord)
             $this->create_user_id = $this->update_user_id;
+        else
+            $this->create_date = $this->create_date_old;
 
         return parent::beforeSave();
     }
@@ -213,12 +231,19 @@ class Blog extends CActiveRecord
     {
         $userToBlog = new UserToBlog;
 
-        $userToBlog->setAttributes(array(
+        if(!$userToBlog->find('user_id = :user_id AND blog_id = :blog_id', array(
             'user_id' => Yii::app()->user->getId(),
             'blog_id' => $this->id,
-        ));
+        )))
+        {
+            $userToBlog->setAttributes(array(
+                'user_id' => Yii::app()->user->getId(),
+                'blog_id' => $this->id,
+            ));
 
-        return $userToBlog->save();
+            return $userToBlog->save();
+        }
+        return false;
     }
 
     public function getMembers()

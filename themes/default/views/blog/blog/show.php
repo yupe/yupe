@@ -1,5 +1,5 @@
-<?php $this->pageTitle = $blog->name;?>
-<?php $this->description = $blog->description;?>
+<?php $this->pageTitle = $blog->name; ?>
+<?php $this->description = $blog->description; ?>
 
 <?php
 $this->breadcrumbs = array(
@@ -21,33 +21,33 @@ $this->breadcrumbs = array(
 
     <div class="content">
         <p><?php echo $blog->description; ?></p>
-    </div>    
+    </div>
 </div>
 
 Участники:
-<?php if($members): ?>
-    <?php foreach($members as $member):?>
-        <?php echo CHtml::link($member->nick_name,array('/user/people/userInfo/','username' => $member->nick_name));?>
-    <?php endforeach;?>
+<?php if ($members): ?>
+<?php foreach ($members as $member): ?>
+    <?php echo CHtml::link($member->nick_name, array('/user/people/userInfo/', 'username' => $member->nick_name)); ?>
+    <?php endforeach; ?>
 <?php endif; ?>
 
 <br/><br/>
 
 <p>Последние записи</p>
 
-<?php if(count($posts)):?>
-    <ul>
-    <?php foreach ($posts as $post):?>
-        <li><?php echo CHtml::link($post->title,array('/blog/post/show/','slug' => $post->slug));?></li>
+<?php if (count($posts)): ?>
+<ul>
+    <?php foreach ($posts as $post): ?>
+    <li><?php echo CHtml::link($post->title, array('/blog/post/show/', 'slug' => $post->slug));?></li>
     <?php endforeach;?>
-    </ul>
-<?php endif;?>
+</ul>
+<?php endif; ?>
 
 <div style='float:left;padding-right:5px'>
     <?php $this->widget('application.modules.social.widgets.ysc.yandex.YandexShareApi', array(
-                                                                                              'type' => 'button',
-                                                                                              'services' => 'all'
-                                                                                         ));?>
+    'type' => 'button',
+    'services' => 'all'
+));?>
 </div>
 
 <br/><br/>
@@ -58,5 +58,5 @@ $this->breadcrumbs = array(
 
 <h3>Оставить комментарий</h3>
 
-<?php $this->widget('application.modules.comment.widgets.CommentFormWidget', array('redirectTo' => Yii::app()->createUrl('/blog/blog/show/',array('slug' => $blog->slug)), 'model' => $blog, 'modelId' => $blog->id)); ?>
+<?php $this->widget('application.modules.comment.widgets.CommentFormWidget', array('redirectTo' => Yii::app()->createUrl('/blog/blog/show/', array('slug' => $blog->slug)), 'model' => $blog, 'modelId' => $blog->id)); ?>
 

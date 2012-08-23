@@ -1,17 +1,33 @@
 <?php
-
+/**
+ * Контроллер отвечающий за front - часть
+ */
 class YFrontController extends YMainController
 {
     public $menu = array();
     public $breadcrumbs = array();
+    /**
+     * Описание сайта, меняется в админке
+     */
     public $description;
+    /**
+     * Ключевые слова сайта, меняется в админке
+     */
     public $keywords;
 
-    public function setpageTitle($title)
+    /**
+     * Устанавливает заголовок страниц
+     * @param string $title заголовок
+     */
+    public function setPageTitle($title)
     {
         $this->pageTitle = $this->pageTitle . ' | ' . $title;
     }
 
+    /**
+     * Вызывается при инициализации YFrontController
+     * Присваивает значения, необходимым переменным
+     */
     public function init()
     {
         parent::init();

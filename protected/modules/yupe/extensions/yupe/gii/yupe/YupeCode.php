@@ -36,9 +36,9 @@ class YupeCode extendS CrudCode
     public function generateActiveRow($modelClass, $column)
     {
         if ($column->type === 'boolean')
-            return "\$form->checkBoxRow(\$model, '{$column->name}')";
+            return "\$form->checkBoxRow(\$model, '{$column->name}', array('class' => 'popover-help', 'data-original-title' => \$model->getAttributeLabel('{$column->name}'), 'data-content' => \$model->getAttributeDescription('{$column->name}')))";
         else if (stripos($column->dbType, 'text') !== false)
-            return "\$form->textAreaRow(\$model, '{$column->name}', array('rows' => 6, 'cols' => 50, 'class' => 'span8'))";
+            return "\$form->textAreaRow(\$model, '{$column->name}', array('class' => 'span5 popover-help', 'rows' => 6, 'cols' => 50, 'data-original-title' => \$model->getAttributeLabel('{$column->name}'), 'data-content' => \$model->getAttributeDescription('{$column->name}')))";
         else
         {
             if (preg_match('/^(password|pass|passwd|passcode)$/i', $column->name))
@@ -47,9 +47,9 @@ class YupeCode extendS CrudCode
                 $inputField = 'textFieldRow';
 
             if ($column->type !== 'string' || $column->size === null)
-                return "\$form->{$inputField}(\$model, '{$column->name}', array('class' => 'span5', 'size' => 60, 'maxlength' => 60))";
+                return "\$form->{$inputField}(\$model, '{$column->name}', array('class' => 'span3 popover-help', 'size' => 60, 'maxlength' => 60, 'data-original-title' => \$model->getAttributeLabel('{$column->name}'), 'data-content' => \$model->getAttributeDescription('{$column->name}')))";
             else
-                return "\$form->{$inputField}(\$model, '{$column->name}', array('class' => 'span5', 'maxlength' => $column->size, 'size' => 60))";
+                return "\$form->{$inputField}(\$model, '{$column->name}', array('class' => 'span3 popover-help', 'maxlength' => $column->size, 'size' => 60, 'data-original-title' => \$model->getAttributeLabel('{$column->name}'), 'data-content' => \$model->getAttributeDescription('{$column->name}')))";
         }
     }
 

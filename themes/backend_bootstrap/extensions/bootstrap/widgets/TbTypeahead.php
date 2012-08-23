@@ -33,20 +33,20 @@ class TbTypeahead extends CInputWidget
 	 */
 	public function run()
 	{
-        list($name, $id) = $this->resolveNameID();
+		list($name, $id) = $this->resolveNameID();
 
-        if (isset($this->htmlOptions['id']))
-            $id = $this->htmlOptions['id'];
-        else
-            $this->htmlOptions['id'] = $id;
+		if (isset($this->htmlOptions['id']))
+			$id = $this->htmlOptions['id'];
+		else
+			$this->htmlOptions['id'] = $id;
 
-        if (isset($this->htmlOptions['name']))
-            $name = $this->htmlOptions['name'];
+		if (isset($this->htmlOptions['name']))
+			$name = $this->htmlOptions['name'];
 
-        if ($this->hasModel())
-            echo CHtml::activeTextField($this->model, $this->attribute, $this->htmlOptions);
-        else
-            echo CHtml::textField($name, $this->value, $this->htmlOptions);
+		if ($this->hasModel())
+			echo CHtml::activeTextField($this->model, $this->attribute, $this->htmlOptions);
+		else
+			echo CHtml::textField($name, $this->value, $this->htmlOptions);
 
 		$options = !empty($this->options) ? CJavaScript::encode($this->options) : '';
 		Yii::app()->clientScript->registerScript(__CLASS__.'#'.$id, "jQuery('#{$id}').typeahead({$options});");

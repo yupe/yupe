@@ -48,14 +48,13 @@
 <div class="container" id="page">
     <div id="header">
         <div id="logo">
-            <a href="<?php echo Yii::app()->baseUrl;?>"><?php echo CHtml::image(Yii::app()->baseUrl . '/web/images/yupe-logo.jpg');?></a>
-            <?php echo CHtml::encode($module->siteDescription);?>
-            <div style="position:absolute; right:10px; top:0; text-align:right;">
+            <a href="<?php echo Yii::app()->baseUrl;?>"><?php echo CHtml::image(Yii::app()->baseUrl . '/web/images/yupe-logo.png');?></a>
+            <span style="vertical-align: 20px; margin-left: 20px; font-size: 25px;">
+                <?php echo CHtml::encode($module->siteDescription);?>
+            </span>
+            <div id="header-right">
                 <?php $this->widget('application.modules.yupe.widgets.YLanguageSelector'); ?>
-                <iframe frameborder="0" allowtransparency="true" scrolling="no"
-                        src="https://money.yandex.ru/embed/small.xml?uid=41001846363811&amp;button-text=05&amp;button-size=s&amp;button-color=orange&amp;targets=%d0%9d%d0%b0+%d1%80%d0%b0%d0%b7%d0%b2%d0%b8%d1%82%d0%b8%d0%b5+%d0%ae%d0%bf%d0%b8!&amp;default-sum=50&amp;fio=on&amp;mail=on"
-                        width="130" height="31" style="float:right;">
-                </iframe>
+                <?php $this->widget('application.modules.yupe.widgets.YYupeDownloadWidget', array('cacheTime' =>0)); ?>
             </div>
         </div>
     </div>
@@ -84,7 +83,6 @@
         </div>
         <div class="span-5 last">
             <div id="sidebar">
-                <?php $this->widget('application.modules.yupe.widgets.YYupeDownloadWidget', array('cacheTime' =>0)); ?>
                 <?php $this->widget('application.modules.blog.widgets.LastPostsWidget', array('cacheTime' => 0)); ?>
                 <?php $this->widget('application.modules.blog.widgets.TagCloudWidget', array('cacheTime' => 0)); ?>
                 <?php $this->widget('application.modules.feedback.widgets.FaqWidget', array('cacheTime' => 0)); ?>

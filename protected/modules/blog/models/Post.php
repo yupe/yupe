@@ -35,6 +35,9 @@ class Post extends CActiveRecord
 
     const ACCESS_PUBLIC  = 1;
     const ACCESS_PRIVATE = 2;
+
+    public $create_date_old;
+
     /**
      * Returns the static model of the specified AR class.
      * @return Post the static model class
@@ -167,18 +170,29 @@ class Post extends CActiveRecord
         );
     }
 
+    public function afterFind()
+    {
+        $this->create_date_old = $this->create_date;
+        /* Необходим корректный вывод даты публикации */
+        $this->publish_date = date('Y-m-d', strtotime($this->publish_date));
+        
+        $this->create_date = Yii::app()->getDateFormatter()->formatDateTime($this->create_date, "short", "short");
+        $this->update_date = Yii::app()->getDateFormatter()->formatDateTime($this->update_date, "short", "short");
+        //$this->publish_date = Yii::app()->getDateFormatter()->formatDateTime(strtotime($this->publish_date), "short", "short");
+
+        return parent::afterFind();
+    }
+
     public function beforeSave()
     {
-        if(parent::beforeSave())
-        {
-            $this->update_user_id = Yii::app()->user->getId();
+        $this->update_user_id = Yii::app()->user->getId();
 
-            if($this->isNewRecord)
-                $this->create_user_id = $this->update_user_id;
-            return true;
-        }
+        if($this->isNewRecord)
+            $this->create_user_id = $this->update_user_id;
+        else
+            $this->create_date = $this->create_date_old;
 
-        return false;
+        return parent::beforeSave();
     }
 
     public function beforeValidate()
@@ -187,15 +201,6 @@ class Post extends CActiveRecord
             $this->slug = YText::translit($this->title);
 
         return parent::beforeValidate();
-    }
-
-    public function afterFind()
-    {
-        $this->create_date  = date('d.m.Y H:m', $this->create_date);
-        $this->update_date  = date('d.m.Y H:m', $this->update_date);
-        $this->publish_date = date('d.m.Y H:m', strtotime($this->publish_date));
-
-        return parent::afterFind();
     }
 
     public function getStatusList()

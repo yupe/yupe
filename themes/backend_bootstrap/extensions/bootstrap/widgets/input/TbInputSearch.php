@@ -27,9 +27,9 @@ class TbInputSearch extends TbInputInline
 			$this->htmlOptions['class'] = 'search-query';
 
 		$this->htmlOptions['placeholder'] = $this->model->getAttributeLabel($this->attribute);
-        echo $this->getPrepend();
+		echo $this->getPrepend();
 		echo $this->form->textField($this->model, $this->attribute, $this->htmlOptions);
-        echo $this->getAppend();
-        echo $this->getError().$this->getHint();
+		echo $this->getAppend();
+		echo $this->getError().$this->getHint();
 	}
 }

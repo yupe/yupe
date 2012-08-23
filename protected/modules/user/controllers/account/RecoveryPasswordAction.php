@@ -4,6 +4,9 @@ class RecoveryPasswordAction extends CAction
     //сброс пароля
     public function run($code)
     {
+        if(Yii::app()->user->isAuthenticated())
+            $this->controller->redirect(Yii::app()->user->returnUrl);
+
         $recovery = RecoveryPassword::model()->with('user')->find('code = :code', array(':code' => $code));
 
         if (!$recovery)

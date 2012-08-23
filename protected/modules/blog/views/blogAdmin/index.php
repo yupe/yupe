@@ -1,33 +1,98 @@
 <?php
-    $this->pageTitle = Yii::t('blog', 'Блоги');
-
     $this->breadcrumbs = array(
-        $this->getModule('blog')->getCategory() => array(''),
-        Yii::t('page', 'Блоги'),
+        Yii::app()->getModule('blog')->getCategory() => array(),
+        Yii::t('blog', 'Блоги') => array('/blog/BlogAdmin/index'),
+        Yii::t('blog', 'Управление'),
     );
+
+    $this->pageTitle = Yii::t('blog', 'Блоги - управление');
 
     $this->menu = array(
-        array('label' => Yii::t('blog', 'Блоги')),
-        array('icon' => 'th-large', 'label' => Yii::t('blog', 'Управление блогами'), 'url' => array('/blog/blogAdmin/admin/')),
-        array('icon' => 'th-list white', 'label' => Yii::t('blog', 'Список блогов'), 'url' => array('/blog/blogAdmin/index/')),
-        array('icon' => 'plus-sign', 'label' => Yii::t('blog', 'Добавить блог'), 'url' => array('/blog/blogAdmin/create/')),
-
-        array('label' => Yii::t('blog', 'Записи')),
-        array('icon' => 'th-large', 'label' => Yii::t('blog', 'Управление записями'), 'url' => array('/blog/postAdmin/admin/')),
-        array('icon' => 'th-list', 'label' => Yii::t('blog', 'Список записей'), 'url' => array('/blog/postAdmin/index/')),
-        array('icon' => 'plus-sign', 'label' => Yii::t('blog', 'Добавить запись'), 'url' => array('/blog/postAdmin/create/')),
-
-        array('label' => Yii::t('blog', 'Участники')),
-        array('icon' => 'th-large', 'label' => Yii::t('blog', 'Управление участниками'), 'url' => array('/blog/userToBlogAdmin/admin/')),
-        array('icon' => 'plus-sign', 'label' => Yii::t('blog', 'Добавить участника'), 'url' => array('/blog/userToBlogAdmin/create/')),
+        array('icon' => 'list-alt white', 'label' => Yii::t('blog', 'Управление блогами'),'url' => array('/blog/BlogAdmin/index')),
+        array('icon' => 'plus-sign', 'label' => Yii::t('blog', 'Добавить блог'), 'url' => array('/blog/BlogAdmin/create')),
     );
 ?>
+<div class="page-header">
+    <h1>
+        <?php echo Yii::t('blog', 'Блоги'); ?>
+        <small><?php echo Yii::t('blog', 'управление'); ?></small>
+    </h1>
+</div>
 
-<h1><?php echo Yii::t('page', 'Блоги'); ?></h1>
+<button class="btn btn-small dropdown-toggle" data-toggle="collapse" data-target="#search-toggle">
+    <i class="icon-search">&nbsp;</i>
+    <?php echo CHtml::link(Yii::t('blog', 'Поиск блогов'), '#', array('class' => 'search-button')); ?>
+    <span class="caret">&nbsp;</span>
+</button>
+
+<div id="search-toggle" class="collapse out search-form">
+<?php
+Yii::app()->clientScript->registerScript('search', "
+    $('.search-form form').submit(function() {
+        $.fn.yiiGridView.update('blog-grid', {
+            data: $(this).serialize()
+        });
+        return false;
+    });
+");
+$this->renderPartial('_search', array('model' => $model));
+?>
+</div>
+
+<br/>
+
+<p>
+    <?php echo Yii::t('blog', 'В данном разделе представлены средства управления'); ?> 
+    <?php echo Yii::t('blog', 'блогами'); ?>.
+</p>
 
 <?php
-    $this->widget('zii.widgets.CListView', array(
-        'dataProvider'=>$dataProvider,
-        'itemView'=>'_view',
-    ));
+$this->widget('bootstrap.widgets.TbGridView', array(
+    'id'           => 'blog-grid',
+    'type'         => 'condensed',
+    'dataProvider' => $model->search(),
+    'filter'       => $model,
+    'columns'      => array(
+        'id',
+        array(
+            'name'  => 'name',
+            'type'  => 'raw',
+            'value' => 'CHtml::link($data->name, array("/blog/blogAdmin/update/", "id" => $data->id))',
+        ),
+        array(
+            'header'  => Yii::t('blog', 'Записей'),
+            'value' => '$data->postsCount',
+        ),
+        array(
+            'header'  => Yii::t('blog', 'Участников'),
+            'value' => '$data->membersCount',
+        ),
+        'icon',
+        'slug',
+        array(
+            'name'  => 'type',
+            'value' => '$data->getType()',
+        ),
+        array(
+            'name'  => 'status',
+            'type'  => 'raw',
+            //'value' => '$this->grid->returnBootstrapStatusHtml($data)',
+        ),
+        array(
+            'name'  => 'create_user_id',
+            'type'  => 'raw',
+            'value' => 'CHtml::link($data->createUser->getFullName(), array("/user/default/view/", "id" => $data->createUser->id))',
+        ),
+        array(
+            'name'  => 'update_user_id',
+            'type'  => 'raw',
+            'value' => 'CHtml::link($data->updateUser->getFullName(), array("/user/default/view/", "id" => $data->updateUser->id))',
+        ),
+        'create_date',
+        'update_date',
+        array(
+            'class' => 'bootstrap.widgets.TbButtonColumn',
+        ),
+    ),
+));
 ?>

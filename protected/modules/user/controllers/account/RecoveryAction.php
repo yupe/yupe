@@ -3,6 +3,9 @@ class RecoveryAction extends CAction
 {
     public function run()
     {
+        if(Yii::app()->user->isAuthenticated())
+            $this->controller->redirect(Yii::app()->user->returnUrl);
+
         $form = new RecoveryForm;
 
         if (Yii::app()->request->isPostRequest && isset($_POST['RecoveryForm']))
