@@ -1,6 +1,13 @@
 <?php
 
 return array(
+/*
+    // Определение страны, города и прочего по кофейной гуще (IP)
+    // Требует раскоментировать sxGeo в mian конфиге и импортировать data/geo.sql
+    'geo' => array(
+        'class' => 'application.modules.geo.GeoModule',
+    ),
+*/
     'menu' => array(
         'class' => 'application.modules.menu.MenuModule',
     ),
@@ -64,6 +71,8 @@ return array(
             'user/people/<username:\w+>'                          => 'user/people/userInfo',
             'user/people/'                                        => 'user/people/index',
         ),
+        // В случае использования GEO-модуля, подписываем его на события
+        // 'attachedProfileEvents' => array("GeoModule",),
     ),
     'page' => array(
         'class'  => 'application.modules.page.PageModule',

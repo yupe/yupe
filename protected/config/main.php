@@ -51,6 +51,13 @@ return array(
     ),
     // конфигурирование основных компонентов (подробнее http://www.yiiframework.ru/doc/guide/ru/basics.component)
     'components' => array(
+/*
+        // Если используется модуль geo  - надо как-то интегрировать в сам модуль
+        'sxgeo' => array(
+            'class' => 'application.modules.geo.extensions.sxgeo.CSxGeoIP',
+            'filename' => dirname(__FILE__)."/../modules/geo/data/SxGeoCity.dat",
+        ),
+*/
         'queue' => array(
             'class'          => 'application.modules.queue.components.YDbQueue',
             'connectionId'   => 'db',
