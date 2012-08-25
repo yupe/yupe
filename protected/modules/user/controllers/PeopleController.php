@@ -25,33 +25,4 @@ class PeopleController extends YFrontController
 
         $this->render('userInfo', array('user' => $user, 'mode' => $mode));
     }
-
-    public function actionProfile()
-    {
-        if(!Yii::app()->user->isAuthenticated())
-        {
-            Yii::app()->user->setFlash(YFlashMessages::ERROR_MESSAGE, Yii::t('user', 'Пожалуйста, авторизуйтесь!'));
-
-            $this->redirect(array('/user/account/login/'));
-        }
-
-        $user = User::model()->findByPk(Yii::app()->user->getId());
-
-        if(!$user)
-            throw new CHttpException(404, Yii::t('user', 'Пользователь не найден!'));
-
-        if(Yii::app()->request->isPostRequest && !empty($_POST['User']))
-        {
-            $user->setAttributes(Yii::app()->request->getPost('User'));
-
-            if($user->save())
-            {
-                Yii::app()->user->setFlash(YFlashMessages::NOTICE_MESSAGE, Yii::t('user', 'Профиль изменен!'));
-
-                $this->redirect(array('/user/people/profile/'));
-            }
-        }
-
-        $this->render('profile', array('model' => $user));
-    }
 }

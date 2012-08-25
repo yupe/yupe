@@ -597,6 +597,7 @@ CREATE TABLE IF NOT EXISTS `user` (
   `creation_date` datetime NOT NULL,
   `change_date` datetime NOT NULL,
   `first_name` varchar(150) DEFAULT NULL,
+  `middle_name` varchar(150) DEFAULT NULL,
   `last_name` varchar(150) DEFAULT NULL,
   `nick_name` varchar(150) NOT NULL,
   `email` varchar(150) NOT NULL,

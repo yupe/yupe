@@ -5,30 +5,27 @@
         CHtml::encode($user->nick_name),
     );
 ?>
-
+<div style="float:left; margin-right: 20px; height:100px;">
+<?php
+   echo $user->getAvatar(100);
+?>
+</div>
+<div style="float:left;">
+<?php  if(!$this->module->autoNick) echo CHtml::openTag("b").CHtml::encode($user->nick_name).CHtml::closeTag("b")."<br />"; ?>
 <h1><?php echo $user->getFullName();?></h1>
 
-<?php echo CHtml::image($user->getAvatar(100),$user->getFullName())?>
+ <?php 
+        if($user->gender) echo (($user->gender==User::GENDER_MALE)?Yii::t("user","Мужчина"):Yii::t("user","Женщина")).". ";
+	if($user->birth_date) echo Yii::t('user','День рождения: {birth_date}',array("{birth_date}"=>Yii::app()->dateFormatter->formatDateTime($user->birth_date,'long',null))); 
+	echo "<br />";
+	if($user->last_visit) echo Yii::t('user','Последний раз был на сайте {last_visit}',array("{last_visit}"=>Yii::app()->dateFormatter->formatDateTime($user->last_visit,'long',null)));	
+	if($user->location) echo "<br />".Yii::t('user','Откуда: {location}',array("{location}"=>$user->location));	
 
-<?php $this->widget('zii.widgets.CDetailView', array(
-    'data' => $user,
-    'attributes' => array(
-        'first_name',
-        'last_name',
-        'nick_name',
-        'location',
-        'site',
-        'birth_date',
-        'about',
-        array(
-            'name' => 'gender',
-            'value' => $user->getGender(),
-        ),
-        'last_visit',
-    ),
-));
 ?>
-<br/><br/>
+</div>
+<br clear="all"/><br />
+<?php if($user->about) echo "<small>О себе:</small><br /><cite>".CHtml::encode($user->about)."</cite>" ?>
+<br/>
 <div style='float:left;padding-right:5px'>
     <?php $this->widget('application.modules.social.widgets.ysc.yandex.YandexShareApi', array(
     'type' => 'button',

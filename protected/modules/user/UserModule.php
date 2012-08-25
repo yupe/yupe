@@ -59,6 +59,12 @@ class UserModule extends YWebModule
 
     public static $logCategory = 'application.modules.user';
 
+    public $autoNick=false;
+
+    public $profiles= array();
+
+    public $attachedProfileEvents = array();
+
     public function getParamsLabels()
     {
         return array(
@@ -88,6 +94,7 @@ class UserModule extends YWebModule
             'invalidEmailAction'                => Yii::t('user', 'Страница для заблокированных Email'),
             'loginAdminSuccess'                 => Yii::t('user', 'Страница после авторизации админстратора'),
             'registrationSucess'                => Yii::t('user', 'Страница после успешной регистрации'),
+            'autoNick'                          => Yii::t('user', 'Автоматически генерировать уникальный ник и не требовать его указания'),
         );
     }
 
@@ -117,6 +124,7 @@ class UserModule extends YWebModule
             'accountActivationFailure',
             'loginAdminSuccess',
             'registrationSucess',
+            'autoNick' => $this->getChoice(),
         );
     }
 
@@ -203,6 +211,14 @@ class UserModule extends YWebModule
             'user.models.*',
             'user.components.*',
         ));
+
+        if (is_array($this->attachedProfileEvents))
+            foreach($this->attachedProfileEvents as $e)
+            {
+                $this->attachEventHandler("onBeginRegistration", array($e,"onBeginRegistration"));
+                $this->attachEventHandler("onBeginProfile", array($e,"onBeginProfile"));
+            }
+
     }
 
     public function isAllowedEmail($email)
@@ -226,4 +242,15 @@ class UserModule extends YWebModule
 
         return true;
     }
+
+    public function onBeginRegistration($event)
+    {
+        $this->raiseEvent('onBeginRegistration', $event);
+    }
+
+    public function onBeginProfile($event)
+    {
+        $this->raiseEvent('onBeginProfile', $event);
+    }
+
 }

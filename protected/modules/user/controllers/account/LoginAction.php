@@ -3,9 +3,6 @@ class LoginAction extends CAction
 {
     public function run()
     {
-        if(Yii::app()->user->isAuthenticated())
-            $this->controller->redirect(Yii::app()->user->returnUrl);
-
         $form = new LoginForm;
 
         if (Yii::app()->request->isPostRequest && !empty($_POST['LoginForm']))

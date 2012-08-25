@@ -8,6 +8,7 @@
  * @property string $creation_date
  * @property string $change_date
  * @property string $first_name
+ * @property string $middle_name
  * @property string $last_name
  * @property string $nick_name
  * @property string $email
@@ -65,10 +66,10 @@ class User extends CActiveRecord
         $module = Yii::app()->getModule('user');
 
         return array(
-            array('birth_date, site, about, location, online_status, nick_name, first_name, last_name, email', 'filter', 'filter' => 'trim'),
-            array('birth_date, site, about, location, online_status, nick_name, first_name, last_name, email', 'filter', 'filter' => array($obj = new CHtmlPurifier(), 'purify')),
+            array('birth_date, site, about, location, online_status, nick_name, first_name, last_name, middle_name, email', 'filter', 'filter' => 'trim'),
+            array('birth_date, site, about, location, online_status, nick_name, first_name, last_name, middle_name, email', 'filter', 'filter' => array($obj = new CHtmlPurifier(), 'purify')),
             array('nick_name, email, password', 'required'),
-            array('first_name, last_name, nick_name, email', 'length', 'max' => 50),
+            array('first_name, last_name, middle_name, nick_name, email', 'length', 'max' => 50),
             array('password, salt, activate_key', 'length', 'max' => 32),
             array('site', 'length', 'max' => 100),
             array('about', 'length', 'max' => 300),
@@ -86,7 +87,7 @@ class User extends CActiveRecord
             array('email', 'unique', 'message' => Yii::t('user', 'Данный email уже используется другим пользователем')),
             array('nick_name', 'unique', 'message' => Yii::t('user', 'Данный ник уже используется другим пользователем')),
             array('avatar', 'file', 'types' => implode(',', $module->avatarExtensions), 'maxSize' => $module->avatarMaxSize, 'allowEmpty' => true),
-            array('id, creation_date, change_date, first_name, last_name, nick_name, email, gender, avatar, password, salt, status, access_level, last_visit, registration_date, registration_ip, activation_ip', 'safe', 'on' => 'search'),
+            array('id, creation_date, change_date, middle_name, first_name, last_name, nick_name, email, gender, avatar, password, salt, status, access_level, last_visit, registration_date, registration_ip, activation_ip', 'safe', 'on' => 'search'),
         );
     }
 
@@ -101,6 +102,7 @@ class User extends CActiveRecord
             'change_date'       => Yii::t('user', 'Дата изменения'),
             'first_name'        => Yii::t('user', 'Имя'),
             'last_name'         => Yii::t('user', 'Фамилия'),
+            'middle_name'       => Yii::t('user', 'Отчество'),
             'nick_name'         => Yii::t('user', 'Ник'),
             'email'             => Yii::t('user', 'Email'),
             'gender'            => Yii::t('user', 'Пол'),
@@ -131,6 +133,7 @@ class User extends CActiveRecord
         $criteria->compare('creation_date', $this->creation_date, true);
         $criteria->compare('change_date', $this->change_date, true);
         $criteria->compare('first_name', $this->first_name, true);
+        $criteria->compare('middle_name', $this->first_name, true);
         $criteria->compare('last_name', $this->last_name, true);
         $criteria->compare('nick_name', $this->nick_name, true);
         $criteria->compare('email', $this->email, true);
@@ -353,7 +356,7 @@ class User extends CActiveRecord
 
     public function getFullName($separator = ' ')
     {
-        return ($this->first_name || $this->last_name) ? $this->last_name . $separator . $this->first_name : $this->nick_name;
+        return ($this->first_name || $this->last_name) ? $this->last_name . $separator . $this->first_name.($this->middle_name?($separator.$this->middle_name):"") : $this->nick_name;
     }
 
     public function createAccount($nick_name, $email, $password = null, $salt = null, $status = self::STATUS_NOT_ACTIVE, $emailConfirm = self::EMAIL_CONFIRM_NO, $first_name = '', $last_name = '')
