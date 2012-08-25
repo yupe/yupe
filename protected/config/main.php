@@ -48,6 +48,8 @@ return array(
         'application.modules.social.extensions.eoauth.lib.*',
         'application.modules.social.extensions.lightopenid.*',
         'application.modules.social.extensions.eauth.services.*',
+        'application.modules.geo.*',
+        'application.modules.geo.models.*',
     ),
     // конфигурирование основных компонентов (подробнее http://www.yiiframework.ru/doc/guide/ru/basics.component)
     'components' => array(
