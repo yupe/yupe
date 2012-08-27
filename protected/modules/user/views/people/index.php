@@ -5,7 +5,7 @@
     );
 ?>
 
-<h1><?=Yii::t('user', 'Пользователи');?></h1>
+<h1><?php echo Yii::t('user', 'Пользователи');?></h1>
 
 <?php
     $this->widget('zii.widgets.CListView', array(

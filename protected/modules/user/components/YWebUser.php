@@ -40,7 +40,7 @@ class YWebUser extends CWebUser
         return false;
     }
 
-    // TODO: Реализовать выборку любого профиля
+    // TODO: Р РµР°Р»РёР·РѕРІР°С‚СЊ РІС‹Р±РѕСЂРєСѓ Р»СЋР±РѕРіРѕ РїСЂРѕС„РёР»СЏ
     public function getProfile( $moduleName=null )
     {
         if ( !$moduleName )

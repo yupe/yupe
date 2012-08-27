@@ -3,7 +3,7 @@
     <div class="global_auth">
         <ul class="loginbox">
             <li class="loginbtn">
-                <a class="lbn" id="logbtn" href="#"><img src="<?=$base?>/images/browser.png" alt="" border="0" /></a>
+                <a class="lbn" id="logbtn" href="#"><img src="<?php echo $base?>/images/browser.png" alt="" border="0" /></a>
 
                 <form method="post" action="">
                     <div id="logform" class="radial">

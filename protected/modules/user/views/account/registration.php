@@ -1,6 +1,5 @@
 <?php
     $this->pageTitle = Yii::t('user', 'Регистрация нового пользователя');
-    $this->layout="//layouts/contentonly";
 
     Yii::app()->clientScript->registerScript('regs', "
             $(document).ready(
@@ -66,11 +65,11 @@
             <div class="list">
                 <div class="name"></div>
                 <div class="full">
-                    <input id="agree" name="Agreement" type="checkbox" value="ON" <?=isset($_POST['RegistrationForm'])?'checked="checked"':''?> /> <?php echo Yii::t('user','Принимаю <a href="#how_work" name="modal">соглашение</a>.'); ?><br />
+                    <input id="agree" name="Agreement" type="checkbox" value="ON" <?php echo isset($_POST['RegistrationForm'])?'checked="checked"':''?> /> <?php echo Yii::t('user','Принимаю <a href="#how_work" name="modal">соглашение</a>.'); ?><br />
                     <!-- <input name="Name" type="checkbox" value="ON" /> Разрешить авторизацию через социальные сервисы. -->
                 </div>
             </div>
-            <div class="last"><input <?=!isset($_POST['RegistrationForm'])?'disabled="disabled"':''?> type="submit" id="btnsubmit" value="<?php echo Yii::t('user','Зарегистрироваться'); ?>" /></div>
+            <div class="last"><input <?php echo !isset($_POST['RegistrationForm'])?'disabled="disabled"':''?> type="submit" id="btnsubmit" value="<?php echo Yii::t('user','Зарегистрироваться'); ?>" /></div>
         </div>
     <?php $this->endWidget(); ?>
             <div id="mask"></div>
