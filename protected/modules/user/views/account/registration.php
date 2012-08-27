@@ -1,6 +1,5 @@
 <?php
     $this->pageTitle = Yii::t('user', 'Регистрация нового пользователя');
-    $this->layout="//layouts/contentonly";
 
     Yii::app()->clientScript->registerScript('regs', "
             $(document).ready(
