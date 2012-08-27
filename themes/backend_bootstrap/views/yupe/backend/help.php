@@ -39,7 +39,11 @@ $this->breadcrumbs = array(
 <br /><br />
 
 
-<?php echo CHtml::link(Yii::t('yupe', 'Официальный сайт Юпи!'), 'http://yupe.ru/?form=help'); ?> - <?php echo Yii::t('yupe', 'заходите чаще =)'); ?>
+<?php echo CHtml::link(Yii::t('yupe', 'Официальный сайт Юпи!'), 'http://yupe.ru/?form=help'); ?> - <?php echo Yii::t('yupe', 'заходите чаще!'); ?>
+
+<br /><br />
+
+<?php echo CHtml::link(Yii::t('yupe', 'Форум поддержки Юпи!'), 'http://yupe.ru/talk/?form=help'); ?> - <?php echo Yii::t('yupe', 'заходите поболтать!'); ?>
 
 <br /><br />
 

@@ -39,7 +39,7 @@ echo CHtml::openTag("fieldset", array( "class" => "inline" ));
 </div>
 
 <div class="row-fluid control-group <?php echo $model->hasErrors('alias') ? 'error' : '' ?>">
-    <div class="span7  popover-help" data-content="<?= Yii::t('news', "Краткое название страницы латинскими буквами, используется для формирования её адреса.<br /><br /> Например (выделено темным фоном): <pre>http://site.ru/news/<span class='label'>contacts</span>/</pre> Если вы не знаете, для чего вам нужно это поле &ndash; не заполняйте его, заголовка страницы будет достаточно.") ?>" data-original-title="<?php echo $model->getAttributeLabel('alias'); ?>" >
+    <div class="span7  popover-help" data-content="<?php echo Yii::t('news', "Краткое название страницы латинскими буквами, используется для формирования её адреса.<br /><br /> Например (выделено темным фоном): <pre>http://site.ru/news/<span class='label'>contacts</span>/</pre> Если вы не знаете, для чего вам нужно это поле &ndash; не заполняйте его, заголовка страницы будет достаточно.") ?>" data-original-title="<?php echo $model->getAttributeLabel('alias'); ?>" >
         <?php echo $form->labelEx($model, 'alias'); ?>
         <?php echo $form->textField($model, 'alias', array( 'size' => 60, 'maxlength'   => 150, 'placeholder' => Yii::t('news', 'Оставьте пустым для автоматической генерации') )); ?>
     </div>
@@ -95,7 +95,7 @@ echo CHtml::openTag("fieldset", array( "class" => "inline" ));
 </div>
 
 <div class="row-fluid control-group <?php echo $model->hasErrors('is_protected') ? 'error' : '' ?>">
-    <div class="span7  popover-help" data-content="<?= Yii::t('news', "Страница будет видна только авторизованным пользователям") ?>" data-original-title="<?php echo $model->getAttributeLabel('is_protected'); ?>" >
+    <div class="span7  popover-help" data-content="<?php echo Yii::t('news', "Страница будет видна только авторизованным пользователям") ?>" data-original-title="<?php echo $model->getAttributeLabel('is_protected'); ?>" >
 <?php echo $form->labelEx($model, 'is_protected'); ?>
         <?php echo $form->checkBox($model, 'is_protected'); ?>
     </div>

@@ -42,7 +42,7 @@ $this->renderPartial('_search', array('model' => $model));
 <br/>
 
 <p>
-    <?php echo Yii::t('blog', 'В данном разделе представлены средства управления'); ?> 
+    <?php echo Yii::t('blog', 'В данном разделе представлены средства управления'); ?>
     <?php echo Yii::t('blog', 'блогами'); ?>.
 </p>
 

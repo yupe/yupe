@@ -58,13 +58,13 @@ EOF;
 <br/>
 
 <p>
-    <?php echo "<?php echo Yii::t('{$this->mid}', 'В данном разделе представлены средства управления'); ?>"; ?> 
+    <?php echo "<?php echo Yii::t('{$this->mid}', 'В данном разделе представлены средства управления'); ?>"; ?>
     <?php echo "<?php echo Yii::t('{$this->mid}', '{$this->mtvor}'); ?>"; ?>.
 </p>
 
 
 <?php echo "<?php\n"; ?>
-$this->widget('bootstrap.widgets.TbGridView', array(
+$this->widget('application.modules.yupe.components.YCustomGridView', array(
     'id'           => '<?php echo $this->class2id($this->modelClass); ?>-grid',
     'type'         => 'condensed',
     'dataProvider' => $model->search(),

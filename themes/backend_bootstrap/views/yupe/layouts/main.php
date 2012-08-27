@@ -52,6 +52,11 @@
                         'label' => Yii::t('yupe', 'Выйти'),
                         'url' => array('/user/account/logout'),
                     ),
+                    array(
+                        'label' => $this->yupe->getVersion(),
+                        'icon'  => 'icon-thumbs-up',
+                        'url'   => 'http://yupe.ru/?from=navbar'
+                    )
                 ),
             ), "
             <div style='float: right; line-height: 16px; text-align: center;'>

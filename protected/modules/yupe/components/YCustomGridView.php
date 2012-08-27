@@ -1,7 +1,7 @@
 <?php
-Yii::import('zii.widgets.grid.CGridView');
+Yii::import('bootstrap.widgets.TbGridView');
 
-class YCustomGridView extends CGridView
+class YCustomGridView extends TbGridView
 {
     public $modelName;
 
@@ -117,8 +117,8 @@ class YCustomGridView extends CGridView
 
         $options = array('onclick' => 'ajaxSetSort(this, "' . $this->id . '"); return false;',);
 
-        return  CHtml::link($upUrlImage, $urlUp, $options) . ' ' . 
-                $data->{$this->sortField} . ' ' . 
+        return  CHtml::link($upUrlImage, $urlUp, $options) . ' ' .
+                $data->{$this->sortField} . ' ' .
                 CHtml::link($downUrlImage, $urlDown, $options);
     }
 
