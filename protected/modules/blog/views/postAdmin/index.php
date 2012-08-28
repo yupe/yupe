@@ -48,7 +48,7 @@ $this->renderPartial('_search', array('model' => $model));
 
 
 <?php
-$this->widget('bootstrap.widgets.TbGridView', array(
+$this->widget('application.modules.yupe.components.YCustomGridView', array(
     'id'           => 'post-grid',
     'type'         => 'condensed',
     'dataProvider' => $model->search(),
@@ -89,7 +89,7 @@ $this->widget('bootstrap.widgets.TbGridView', array(
         array(
             'name'  => 'status',
             'type'  => 'raw',
-            //'value' => '$this->grid->returnBootstrapStatusHtml($data)',
+            'value' => '$this->grid->returnBootstrapStatusHtml($data)',
         ),
         array(
             'name'  => 'comment_status',
