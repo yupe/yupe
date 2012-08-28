@@ -134,6 +134,21 @@ class DefaultController extends YBackController
     }
 
     /**
+     * Manages all models.
+     */
+    public function actionResetSessions()
+    {
+        $_SESSION = array();
+
+        Yii::app()->user->setFlash(YFlashMessages::NOTICE_MESSAGE, Yii::t('user', 'Сессии всех пользователей сброшены!'));
+
+        $this->redirect(($referrer = Yii::app()->getRequest()->getUrlReferrer()) !== null
+            ? $referrer 
+            : array("/yupe/backend")
+        );
+    }
+
+    /**
      * Returns the data model based on the primary key given in the GET variable.
      * If the data model is not found, an HTTP exception will be raised.
      * @return User

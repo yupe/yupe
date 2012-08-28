@@ -138,6 +138,8 @@ class UserModule extends YWebModule
             array('label' => Yii::t('user', 'Восстановления паролей')),
             array('icon' => 'th-large', 'label' => Yii::t('user', 'Управление восстановлением паролей'), 'url' => array('/user/recoveryPassword/admin')),
             array('icon' => 'th-list', 'label' => Yii::t('user', 'Список восстановлений'), 'url' => array('/user/recoveryPassword/index')),
+            array('label' => Yii::t('user', 'Остальное')),
+            array('icon' => 'retweet', 'label' => Yii::t('user', 'Сбросить сессии пользователей'), 'url' => array('/user/default/resetsessions')),
         );
     }
 
