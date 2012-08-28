@@ -25,6 +25,7 @@ class PostAdminController extends YBackController
         if (isset($_POST['Post']))
         {
             $model->attributes = $_POST['Post'];
+            $model->setTags(Yii::app()->request->getPost('tags'));
 
             if ($model->save())
             {
@@ -54,6 +55,7 @@ class PostAdminController extends YBackController
         if (isset($_POST['Post']))
         {
             $model->attributes = $_POST['Post'];
+            $model->setTags(Yii::app()->request->getPost('tags'));
 
             if ($model->save())
             {
