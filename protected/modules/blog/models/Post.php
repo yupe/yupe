@@ -253,11 +253,11 @@ class Post extends YModel
     {
         return array(
             'published' => array(
-                'condition' => 'status = :status',
+                'condition' => 't.status = :status',
                 'params'    => array(':status' => self::STATUS_PUBLISHED),
             ),
             'public' => array(
-                'condition' => 'access_type = :access_type',
+                'condition' => 't.access_type = :access_type',
                 'params'    => array(':access_type' => self::ACCESS_PUBLIC),
             ),
         );

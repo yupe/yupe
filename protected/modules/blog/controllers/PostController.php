@@ -3,7 +3,7 @@ class PostController extends YFrontController
 {
     public function actionShow($slug)
     {
-        $post = Post::model()->with('blog', 'createUser' )->find(
+        $post = Post::model()->with('blog', 'createUser')->find(
             't.slug = :slug', array(':slug' => $slug)
         );
 
@@ -17,7 +17,7 @@ class PostController extends YFrontController
     {
         $tag = CHtml::encode($tag);
 
-        $posts = Post::model()->published()->public()->taggedWith($tag)->findAll();
+        $posts = Post::model()->with('blog', 'createUser')->published()->public()->taggedWith($tag)->findAll();
 
         $this->render('list', array(
             'posts' => $posts,
