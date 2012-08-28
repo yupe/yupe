@@ -277,6 +277,9 @@ class DefaultController extends Controller
 
         if (Yii::app()->request->isPostRequest && isset($_POST['CreateUserForm']))
         {
+            // Чистим сессии всех пользователей
+            $_SESSION = array();
+
             $model->setAttributes($_POST['CreateUserForm']);
 
             if ($model->validate())
