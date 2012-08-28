@@ -14,6 +14,5 @@
         <?php foreach($data->getTags() as $tag): ?>
             <?php echo CHtml::link(CHtml::encode($tag),array('/posts/','tag' => CHtml::encode($tag)));?>
         <?php endforeach;?>
-
     </div>
 </div>

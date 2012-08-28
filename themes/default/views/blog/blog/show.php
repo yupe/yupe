@@ -3,7 +3,7 @@
 
 <?php
 $this->breadcrumbs = array(
-    'Блоги' => array('/blogs/'),
+    'Блоги' => array('/blog/blog/index/'),
     $blog->name,
 );
 ?>

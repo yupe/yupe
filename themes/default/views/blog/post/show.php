@@ -4,7 +4,7 @@
 
 <?php
 $this->breadcrumbs = array(
-    'Блоги' => array('/blogs/'),
+    'Блоги' => array('/blog/blog/index/'),
     CHtml::encode($post->blog->name) => array('/blog/blog/show/', 'slug' => $post->blog->slug),
     CHtml::encode($post->title)
 );
@@ -49,6 +49,8 @@ $this->breadcrumbs = array(
 
 <h3>Оставить комментарий</h3>
 
-<?php $this->widget('application.modules.comment.widgets.CommentFormWidget', array('redirectTo' => $this->createUrl('/blog/post/show/', array('slug' => $post->slug)), 'model' => $post, 'modelId' => $post->id)); ?>
-
-
+<?php $this->widget('application.modules.comment.widgets.CommentFormWidget', array(
+    'redirectTo' => $this->createUrl('/blog/post/show/', array('slug' => $post->slug)),
+    'model' => $post,
+    'modelId' => $post->id,
+)); ?>

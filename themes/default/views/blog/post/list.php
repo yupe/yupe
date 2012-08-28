@@ -3,7 +3,7 @@
 
 <?php
 $this->breadcrumbs = array(
-    'Блоги' => array('/blogs/'),
+    'Блоги' => array('/blog/blog/index/'),
     'список записей'
 );
 ?>
@@ -15,12 +15,8 @@ $this->breadcrumbs = array(
 <?php endforeach;?>
 
 <div style='float:left;padding-right:5px'>
-    <?php $this->widget('application.modules.social.widgets.ysc.yandex.YandexShareApi', array(
+<?php $this->widget('application.modules.social.widgets.ysc.yandex.YandexShareApi', array(
     'type' => 'button',
-    'services' => 'all'
-));?>
+    'services' => 'all',
+)); ?>
 </div>
-
-
-
-
