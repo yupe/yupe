@@ -10,12 +10,6 @@ class YWebUser extends CWebUser
 
         $authData = $this->getAuthData();
 
-        if(!User::model()->findByPk($authData['id']))
-        {
-            $_SESSION = array();
-            return false;
-        }
-
         if ($authData['nick_name'] && isset($authData['access_level']) && $authData['loginTime'] && $authData['id'])
             return true;
 
