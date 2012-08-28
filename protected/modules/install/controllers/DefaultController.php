@@ -277,7 +277,7 @@ class DefaultController extends Controller
 
         if (Yii::app()->request->isPostRequest && isset($_POST['CreateUserForm']))
         {
-            // Чистим сессии всех пользователей
+            // Чистим сессию текущего пользователя https://github.com/yupe/yupe/issues/256
             $_SESSION = array();
 
             $model->setAttributes($_POST['CreateUserForm']);
