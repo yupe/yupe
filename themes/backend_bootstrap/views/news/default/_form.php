@@ -7,7 +7,7 @@ $form = $this->beginWidget('bootstrap.widgets.TbActiveForm', array(
 
 Yii::app()->clientScript->registerScript('fieldset', "
     $('document').ready(function () {
-        $('.popover-help').popover({trigger:'hover'});
+        $('.popover-help').popover({ trigger : 'hover', delay : 500 });
     });
 ");
 ?>
@@ -44,41 +44,37 @@ Yii::app()->clientScript->registerScript('fieldset', "
                  ?>
         </div>
         <div class="span5">
-<?php echo $form->error($model, 'date'); ?>
+            <?php echo $form->error($model, 'date'); ?>
         </div>
     </div>
 
     <div class="row-fluid control-group <?php echo $model->hasErrors('title') ? 'error' : '' ?>">
-        <div class="span7 popover-help" data-content="<?php echo Yii::t('news', "Русское название, которое будет отображаться заголовком в списке и полной версии.<br /><br />Например:<br /><pre>Вышла новая 0.0.5 версия CMS ЮПИ!Встречайте и качайте!</pre>") ?>" data-original-title="<?php echo $model->getAttributeLabel('title');
-             ;
-?>" >
-<?php echo $form->labelEx($model, 'title'); ?>
+        <div class="span7 popover-help" data-content="<?php echo Yii::t('news', "Русское название, которое будет отображаться заголовком в списке и полной версии.<br /><br />Например:<br /><pre>Вышла новая 0.0.5 версия CMS ЮПИ!Встречайте и качайте!</pre>") ?>" data-original-title="<?php echo $model->getAttributeLabel('title'); ?>" >
+            <?php echo $form->labelEx($model, 'title'); ?>
             <?php echo $form->textField($model, 'title', array( 'size'      => 60, 'maxlength' => 150 )); ?>
         </div>
         <div class="span5">
-<?php echo $form->error($model, 'title'); ?>
+            <?php echo $form->error($model, 'title'); ?>
         </div>
     </div>
 
     <div class="row-fluid control-group <?php echo $model->hasErrors('alias') ? 'error' : '' ?>">
         <div class="span7 popover-help" data-content="<?php echo Yii::t('news', "Краткое название новости латинскими буквами, используется для формирования адреса полной новости.<br /><br /> Например (выделено темным фоном): <pre>http://site.ru/news/<span class='label'>novost-dnya</span>/</pre> Если вы не знаете, для чего вам нужно это поле &ndash; не заполняйте его, заголовка новости будет достаточно.") ?>" data-original-title="<?php echo $model->getAttributeLabel('url'); ?>" >
-<?php echo $form->labelEx($model, 'alias'); ?>
+            <?php echo $form->labelEx($model, 'alias'); ?>
             <?php echo $form->textField($model, 'alias', array( 'size'        => 60, 'maxlength'   => 150, 'placeholder' => Yii::t('news', 'Оставьте пустым для автоматической генерации') )); ?>
         </div>
         <div class="span5">
-<?php echo $form->error($model, 'alias'); ?>
+            <?php echo $form->error($model, 'alias'); ?>
         </div>
     </div>
 
     <div class="row-fluid control-group <?php echo $model->hasErrors('link') ? 'error' : '' ?>">
-        <div class="span7 popover-help" data-content="<?php echo Yii::t('news', 'Укажите источник новости (ссылка на произвольную страницу)') ?>" data-original-title="<?php echo $model->getAttributeLabel('link');
-                 ;
-?>" >
+        <div class="span7 popover-help" data-content="<?php echo Yii::t('news', 'Укажите источник новости (ссылка на произвольную страницу)') ?>" data-original-title="<?php echo $model->getAttributeLabel('link'); ?>" >
             <?php echo $form->labelEx($model, 'link'); ?>
             <?php echo $form->textField($model, 'link', array( 'size'      => 60, 'maxlength' => 150 )); ?>
         </div>
         <div class="span5">
-<?php echo $form->error($model, 'link'); ?>
+            <?php echo $form->error($model, 'link'); ?>
         </div>
     </div>
 
@@ -86,12 +82,12 @@ Yii::app()->clientScript->registerScript('fieldset', "
         <div class="span7  popover-help"  data-original-title="<?php echo $model->getAttributeLabel('image'); ?>" >
             <?php if (!$model->isNewRecord && $model->image): ?>
                 <?php echo CHtml::image(Yii::app()->baseUrl . '/' . Yii::app()->getModule('yupe')->uploadPath . DIRECTORY_SEPARATOR . $this->module->uploadPath . DIRECTORY_SEPARATOR . $model->image, $model->name, array( 'width'  => 300, 'height' => 300 )); ?>
-<?php endif; ?>
+            <?php endif; ?>
             <?php echo $form->labelEx($model, 'image'); ?>
             <?php echo $form->fileField($model, 'image'); ?>
         </div>
         <div class="span5">
-<?php echo $form->error($model, 'image'); ?>
+            <?php echo $form->error($model, 'image'); ?>
         </div>
     </div>
 
@@ -111,7 +107,7 @@ Yii::app()->clientScript->registerScript('fieldset', "
             ?>
 
             <span class="help-block"><?php echo Yii::t('news', "Полный текст новости отображается при переходе по ссылке &laquo;Подробнее&raquo; или иногда при клике на заголовке новости."); ?></span>
-<?php echo $form->error($model, 'full_text'); ?>
+            <?php echo $form->error($model, 'full_text'); ?>
         </div>
     </div>
 
@@ -130,7 +126,7 @@ Yii::app()->clientScript->registerScript('fieldset', "
             ))
             ?>
             <span class="help-block"><?php echo Yii::t('news', "Опишите основную мысль новости или напишие некий вводный текст (анонс), пары предложений обычно достаточно. Данный текст используется при выводе списка новостей, например, на главной странице."); ?></span>
-<?php echo $form->error($model, 'short_text'); ?>
+            <?php echo $form->error($model, 'short_text'); ?>
         </div>
     </div>
 
@@ -141,24 +137,24 @@ Yii::app()->clientScript->registerScript('fieldset', "
             <?php echo $form->textField($model, 'keywords', array( 'size'      => 60, 'maxlength' => 150 )); ?>
         </div>
         <div class="span5">
-<?php echo $form->error($model, 'keywords'); ?>
+            <?php echo $form->error($model, 'keywords'); ?>
         </div>
     </div>
 
     <div class="row-fluid control-group <?php echo $model->hasErrors('description') ? 'error' : '' ?>">
         <div class="span7 popover-help" data-content="<?php echo Yii::t('news', "Краткое описание данной новости, одно или два предложений. Обычно это самая главная мысль новости, к примеру: <pre>Вышла новая 0.4.3 версия CMS ЮПИ!Информация о нововведениях и изменениях.</pre>Данный текст очень часто попадает в <a href='http://help.yandex.ru/webmaster/?id=1111310'>сниппет</a> поисковых систем.") ?>" data-original-title="<?php echo $model->getAttributeLabel('description'); ?>" >
-<?php echo $form->labelEx($model, 'description'); ?>
+            <?php echo $form->labelEx($model, 'description'); ?>
             <?php echo $form->textArea($model, 'description', array( 'rows' => 6, 'cols' => 86 )); ?>
             <div class="alert alert-info"><?php echo Yii::t('news', "Более подробно вы можете прочитать про поисковую оптимизацию сайта в <a href='http://help.yandex.ru/webmaster/recomend.pdf'>этом документе</a>."); ?></div>
         </div>
         <div class="span5">
-<?php echo $form->error($model, 'description'); ?>
+            <?php echo $form->error($model, 'description'); ?>
         </div>
     </div>
 
     <div class="row-fluid control-group <?php echo $model->hasErrors('is_protected') ? 'error' : '' ?>">
         <div class="span7 popover-help" data-content="<?php echo Yii::t('news', "Если установлена данная галочка, новость будет отображаться только для авторизованных пользователей, гости, не вошедшие на сайт, не увидят ее.") ?>" data-original-title="<?php echo $model->getAttributeLabel('is_protected'); ?>" >
-<?php echo $form->checkBoxRow($model, 'is_protected', $model->getProtectedStatusList()); ?>
+            <?php echo $form->checkBoxRow($model, 'is_protected', $model->getProtectedStatusList()); ?>
         </div>
     </div>
 
@@ -168,7 +164,7 @@ Yii::app()->clientScript->registerScript('fieldset', "
             <?php echo $form->dropDownList($model, 'status', $model->getStatusList()); ?>
         </div>
         <div class="span5">
-    <?php echo $form->error($model, 'status'); ?>
+            <?php echo $form->error($model, 'status'); ?>
         </div>
     </div>
 
@@ -180,4 +176,3 @@ Yii::app()->clientScript->registerScript('fieldset', "
     ?>
 </fieldset>
 <?php $this->endWidget(); ?>
-

@@ -49,7 +49,7 @@ class YupeCode extendS CrudCode
             if ($column->type !== 'string' || $column->size === null)
                 return "\$form->{$inputField}(\$model, '{$column->name}', array('class' => 'span3 popover-help', 'size' => 60, 'maxlength' => 60, 'data-original-title' => \$model->getAttributeLabel('{$column->name}'), 'data-content' => \$model->getAttributeDescription('{$column->name}')))";
             else
-                return "\$form->{$inputField}(\$model, '{$column->name}', array('class' => 'span3 popover-help', 'maxlength' => $column->size, 'size' => 60, 'data-original-title' => \$model->getAttributeLabel('{$column->name}'), 'data-content' => \$model->getAttributeDescription('{$column->name}')))";
+                return "\$form->{$inputField}(\$model, '{$column->name}', array('class' => 'span3 popover-help', 'size' => 60, 'maxlength' => $column->size, 'data-original-title' => \$model->getAttributeLabel('{$column->name}'), 'data-content' => \$model->getAttributeDescription('{$column->name}')))";
         }
     }
 
