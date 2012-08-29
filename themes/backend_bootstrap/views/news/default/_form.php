@@ -7,7 +7,7 @@ $form = $this->beginWidget('bootstrap.widgets.TbActiveForm', array(
 
 Yii::app()->clientScript->registerScript('fieldset', "
     $('document').ready(function () {
-        $('.popover-help').popover({ 'delay': 500, });
+        $('.popover-help').popover({trigger:'hover'});
     });
 ");
 ?>
@@ -91,7 +91,7 @@ Yii::app()->clientScript->registerScript('fieldset', "
             <?php echo $form->error($model, 'image'); ?>
         </div>
     </div>
-   
+
     <div class="row-fluid control-group <?php echo $model->hasErrors('full_text') ? 'error' : '' ?>">
         <div class="span12">
             <?php echo $form->labelEx($model, 'full_text'); ?>
@@ -176,5 +176,10 @@ $this->widget('bootstrap.widgets.TbButton', array(
     'label'      => $model->isNewRecord ? Yii::t('news', 'Добавить новость') : Yii::t('news', 'Сохранить изменения') ));
 ?>
 </fieldset>
+
+
+<div class="bs-docs-example" style="padding-bottom: 24px;">
+          <a href="#" class="btn btn-large btn-danger" rel="popover" data-content="And here's some amazing content. It's very engaging. right?" data-original-title="A Title">Click to toggle popover</a>
+        </div>
 <?php $this->endWidget(); ?>
 

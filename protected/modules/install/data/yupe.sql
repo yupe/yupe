@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 3.4.10.1deb1
+-- version 3.4.5deb1
 -- http://www.phpmyadmin.net
 --
 -- Хост: localhost
--- Время создания: Авг 20 2012 г., 23:16
--- Версия сервера: 5.5.24
--- Версия PHP: 5.3.10-1ubuntu3.2
+-- Время создания: Авг 29 2012 г., 15:18
+-- Версия сервера: 5.1.63
+-- Версия PHP: 5.3.6-13ubuntu3.8
 
 SET SQL_MODE="NO_AUTO_VALUE_ON_ZERO";
 SET time_zone = "+00:00";
@@ -189,6 +189,7 @@ CREATE TABLE IF NOT EXISTS `feedback` (
   `change_date` datetime NOT NULL,
   `name` varchar(100) NOT NULL,
   `email` varchar(100) NOT NULL,
+  `phone` varchar(100) DEFAULT NULL,
   `theme` varchar(150) NOT NULL,
   `text` text NOT NULL,
   `type` tinyint(4) NOT NULL DEFAULT '0',
@@ -202,7 +203,7 @@ CREATE TABLE IF NOT EXISTS `feedback` (
   KEY `status` (`status`),
   KEY `isFaq` (`is_faq`),
   KEY `fk_feedback_user` (`answer_user`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=2 ;
 
 -- --------------------------------------------------------
 
@@ -571,7 +572,7 @@ CREATE TABLE IF NOT EXISTS `settings` (
   `user_id` int(10) unsigned NOT NULL,
   PRIMARY KEY (`id`),
   KEY `moduleId` (`module_id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=199 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=203 ;
 
 -- --------------------------------------------------------
 
@@ -624,7 +625,7 @@ CREATE TABLE IF NOT EXISTS `user` (
   UNIQUE KEY `user_email_unique` (`email`),
   KEY `user_status_index` (`status`),
   KEY `email_confirm` (`email_confirm`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=85 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=86 ;
 
 -- --------------------------------------------------------
 

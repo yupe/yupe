@@ -14,6 +14,7 @@
  * @property integer $type
  * @property integer $status
  * @property integer $ip
+ * @property string  $phone
  */
 class FeedBack extends CActiveRecord
 {

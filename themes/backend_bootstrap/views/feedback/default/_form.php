@@ -1,4 +1,13 @@
-<?php $form = $this->beginWidget('CActiveForm', array('id' => 'feed-back-form')); ?>
+<?php
+$form = $this->beginWidget('bootstrap.widgets.TbActiveForm', array(
+    'id'                     => 'feed-back-form',
+    'enableAjaxValidation'   => false,
+    'enableClientValidation' => true,
+    'type'                   => 'vertical',
+    'htmlOptions'            => array('class' => 'well form-vertical'),
+));
+
+?>
     <fieldset class="inline">
         <div class="alert alert-info"><?php echo Yii::t('page', 'Поля, отмеченные * обязательны для заполнения'); ?></div>
 
