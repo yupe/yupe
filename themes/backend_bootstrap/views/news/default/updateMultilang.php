@@ -22,7 +22,7 @@ $this->menu = array(
 $form = $this->beginWidget('bootstrap.widgets.TbActiveForm', array(
     'id' => 'news-form',
     'enableAjaxValidation' => false,
-    'htmlOptions' => array('enctype' => 'multipart/form-data'),
+    'htmlOptions' => array('class' => 'well form-vertical','enctype' => 'multipart/form-data'),
 ));
 echo CHtml::openTag("fieldset", array( "class" => "inline" ));
 ?>
@@ -117,7 +117,7 @@ $this->widget('bootstrap.widgets.TbMenu', array(
 ));
 Yii::app()->clientScript->registerScript('fieldset', "
     $('document').ready(function () {
-        $('.popover-help').popover({ 'delay': 500, });
+        $('.popover-help').popover({trigger : hover,'delay' : 500 });
     });
 ");
 
