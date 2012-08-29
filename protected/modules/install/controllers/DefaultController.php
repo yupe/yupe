@@ -7,8 +7,6 @@ class DefaultController extends Controller
 
     private $alreadyInstalledFlag;
 
-    private $_freeActions = array('finish');
-
     public function init()
     {
         $this->alreadyInstalledFlag = Yii::app()->basePath . DIRECTORY_SEPARATOR . 'config' . DIRECTORY_SEPARATOR . '.ai';
@@ -17,7 +15,7 @@ class DefaultController extends Controller
     protected function beforeAction($action)
     {
         // проверка на то, что сайт уже установлен...
-        if (file_exists($this->alreadyInstalledFlag) && !in_array($this->action->id, $this->_freeActions))
+        if (file_exists($this->alreadyInstalledFlag))
             throw new CHttpException(404, Yii::t('install', 'Страница не найдена!'));
 
         return parent::beforeAction($action);
@@ -357,9 +355,6 @@ class DefaultController extends Controller
 
                     Yii::app()->user->setFlash(YFlashMessages::NOTICE_MESSAGE, Yii::t('install', 'Настройки сайта успешно сохранены!'));
 
-                    if (!@touch($this->alreadyInstalledFlag))
-                        Yii::app()->user->setFlash(YFlashMessages::WARNING_MESSAGE, Yii::t('install', "Не удалось создать файл {file}, для избежания повторной установки, пожалуйста, создайте его самостоятельно или отключите модуль 'Install' сразу после установки!", array('{file}' => $this->alreadyInstalledFlag)));
-
                     $this->redirect(array('/install/default/finish/'));
                 }
                 catch (CDbException $e)
@@ -380,6 +375,9 @@ class DefaultController extends Controller
 
     public function actionFinish()
     {
+        if (!@touch($this->alreadyInstalledFlag))
+            Yii::app()->user->setFlash(YFlashMessages::WARNING_MESSAGE, Yii::t('install', "Не удалось создать файл {file}, для избежания повторной установки, пожалуйста, создайте его самостоятельно или отключите модуль 'Install' сразу после установки!", array('{file}' => $this->alreadyInstalledFlag)));
+
         $this->stepName = Yii::t('install', 'Шаг 6 из 6 : "Окончание установки"');
 
         $this->render('finish');
