@@ -60,7 +60,7 @@ class LanguageBehavior extends CBehavior
 
             // иначе по-умолчанию
             if(!$l || !in_array($l, $lm->languages))
-                $app->language = $app->sourceLanguage;
+                $l = $app->language = $app->sourceLanguage;
 
             // Сделаем редирект на нужный url с указанием языка, если он не нативен
             if ($l != Yii::app()->sourceLanguage)
