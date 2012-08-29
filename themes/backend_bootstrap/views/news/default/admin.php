@@ -36,8 +36,11 @@ $this->menu = array(
 
 </div>
 <?php
+/** @var $dp CActiveDataProvider */
 $dp = $model->search();
 $dp->criteria->order = "date DESC";
+$dp->criteria->with = array("category");
+
 $this->widget('YCustomGridView', array(
     'id'            => 'news-grid',
     'dataProvider'  => $dp,
@@ -61,7 +64,7 @@ $this->widget('YCustomGridView', array(
            'value' => '$data->getCategoryName()',
         ),
         'alias',
-        array(
+          array(
             'name'  => Yii::t('news','Публичный урл'),
             'value' => '$data->getPermaLink()',
         ),

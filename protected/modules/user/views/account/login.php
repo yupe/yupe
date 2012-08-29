@@ -1,13 +1,8 @@
 <?php $this->pageTitle = Yii::t('user', 'Авторизация'); ?>
 
-<div class="top_text">
-    <div class="advertising"><?php echo Yii::t('tenders','Начните экономить прямо сейчас');?> <span><?php echo Yii::t('tenders','Создайте свой тендер');?></span> <?php echo CHtml::link(Yii::t('tenders','Новый тендер'),array('/tenders/my/add/'))?></div>
-</div>
-
-
 <div class="main_content">
 
-<div class="title"><h3><?php echo Yii::t('tenders','Авторизация');?></h3></div>
+<div class="title"><h3><?php echo Yii::t('user','Авторизация');?></h3></div>
 
 <?php $this->widget('application.modules.yupe.widgets.YFlashMessages'); ?>
 

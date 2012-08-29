@@ -279,7 +279,7 @@ class YupeModule extends YupeParams
                     );
 
                     if (isset($this->categoryIcon[$keyCategory]))
-                        $modulesNavigation[$keyCategory]['icon'] = $this->categoryIcon[$keyCategory];
+                        $modulesNavigation[$keyCategory]['icon'] = $this->categoryIcon[$keyCategory]." white";
 
                     // Сортируем модули в категории
                     asort($valueCategory, SORT_NUMERIC);
@@ -304,7 +304,7 @@ class YupeModule extends YupeParams
 
                         // Если нет иконка для данной категории, подставляется иконка первого модуля
                         if(!isset($modulesNavigation[$keyCategory]['icon']) && $modules[$key]->icon)
-                            $modulesNavigation[$keyCategory]['icon'] = $modules[$key]->icon;
+                            $modulesNavigation[$keyCategory]['icon'] = $modules[$key]->icon." white";
 
                         // Шаблон модулей
                         $data = array(

@@ -21,6 +21,7 @@
     $brandTitle = Yii::t('yupe', 'Перейти на главную панели управления');
 
     $this->widget('bootstrap.widgets.TbNavbar', array(
+        'htmlOptions' => array('class'=>'navbar navbar-inverse'),
         'fluid' => true,
         'brand' => CHtml::image(Yii::app()->theme->baseUrl . "/images/logo.png", $brandTitle, array(
             'width'  => '38',
@@ -38,35 +39,37 @@
                 'htmlOptions' => array('class' => 'pull-right'),
                 'items' => array(
                     array(
-                        'icon' => 'question-sign',
+                        'icon' => 'question-sign white',
                         'label' => Yii::t('yupe', 'Помощь'),
                         'url' => array('/yupe/backend/help/'),
                     ),
                     array(
-                        'icon' => 'home',
+                        'icon' => 'home white',
                         'label' => Yii::t('yupe', 'На сайт'),
                         'url' => array('/' . Yii::app()->defaultController . '/index/'),
                     ),
                     array(
-                        'icon' => 'off',
+                        'icon' => 'off white',
                         'label' => Yii::t('yupe', 'Выйти'),
                         'url' => array('/user/account/logout'),
                     ),
                     array(
                         'label' => $this->yupe->getVersion(),
-                        'icon'  => 'icon-thumbs-up',
+                        'icon'  => 'icon-thumbs-up icon-white',
                         'url'   => 'http://yupe.ru/?from=navbar'
                     )
                 ),
             ), "
             <div style='float: right; line-height: 16px; text-align: center;'>
-                <small style='font-size: 80%;'>" . Yii::t('yupe', 'Администатор') . "</small><br />
-                <span class='label'>" .
+                <small style='font-size: 80%;'>" . Yii::t('yupe', 'Администратор') . "</small><br />
+                " .
                     CHtml::link(Yii::app()->user->nick_name, array(
                         '/user/default/update/',
                         'id' => Yii::app()->user->id,
-                    ), array('style' => 'text-shadow: none;'))
-            . "</span>
+                    ), array(
+                        'class'=>'label',
+                    ))
+            . "
             </div>
         "),
     ));

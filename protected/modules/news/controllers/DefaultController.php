@@ -254,6 +254,7 @@ class DefaultController extends YBackController
     public function actionIndex()
     {
         $dataProvider = new CActiveDataProvider('News');
+        $dataProvider->criteria->with = array('category');
         $this->render('index', array(
             'dataProvider' => $dataProvider,
         ));

@@ -131,3 +131,14 @@ footer {
 .navbar .divider-vertical {
     margin:0;
 }
+
+/* news */
+.news_block {
+    margin-bottom: 20px;
+}
+
+.news_block p img {
+    margin-right: 10px;
+    border: none;
+    display: block;
+}

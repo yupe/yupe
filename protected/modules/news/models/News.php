@@ -236,7 +236,7 @@ class News extends CActiveRecord
 
     public function getCategoryName()
     {
-        return is_null($this->category) ? '---' : $this->category->name;
+        return is_null($this->category) ? '&mdash;' : $this->category->name;
     }
 
     public function getImageUrl()
