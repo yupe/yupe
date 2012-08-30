@@ -87,7 +87,7 @@ Yii::app()->clientScript->registerScript('fieldset', "
     </div>
     <div class="row-fluid control-group <?php echo $model->hasErrors('link') ? 'error' : ''; ?>">
         <div class="popover-help" data-original-title='<?php echo $model->getAttributeLabel('tags'); ?>' data-content='<?php echo $model->getAttributeDescription('tags'); ?>'>
-            <?php echo $form->labelEx($model, Yii::t('blog', 'Теги')); ?>
+            <?php echo $form->labelEx($model, 'tags'); ?>
             <?php $this->widget('application.modules.blog.extensions.ETagger.ETagger', array(
                 'name' => 'tags',
                 'keywords' => $model->getTags(),

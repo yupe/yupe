@@ -22,9 +22,13 @@ Yii::app()->clientScript->registerScript('fieldset', "
 
     <?php echo $form->errorSummary($model); ?>
 
-    <div class="wide row-fluid control-group <?php echo ($model->hasErrors('type') || $model->hasErrors('status') )? 'error' : ''; ?>">
-        <div class="span3"><?php echo $form->dropDownListRow($model, 'type', $model->getTypeList(), array('class' => 'popover-help', 'data-original-title' => $model->getAttributeLabel('type'), 'data-content' => $model->getAttributeDescription('type'))); ?></div>
-        <div class="span4"><?php echo $form->dropDownListRow($model, 'status', $model->getStatusList(), array('class' => 'popover-help', 'data-original-title' => $model->getAttributeLabel('status'), 'data-content' => $model->getAttributeDescription('status'))); ?></div>
+    <div class="wide row-fluid control-group <?php echo ($model->hasErrors('type') || $model->hasErrors('status')) ? 'error' : ''; ?>">
+        <div class="span3">
+            <?php echo $form->dropDownListRow($model, 'type', $model->getTypeList(), array('class' => 'popover-help', 'data-original-title' => $model->getAttributeLabel('type'), 'data-content' => $model->getAttributeDescription('type'))); ?>
+        </div>
+        <div class="span4">
+            <?php echo $form->dropDownListRow($model, 'status', $model->getStatusList(), array('class' => 'popover-help', 'data-original-title' => $model->getAttributeLabel('status'), 'data-content' => $model->getAttributeDescription('status'))); ?>
+        </div>
     </div>
     <div class="row-fluid control-group <?php echo $model->hasErrors('name') ? 'error' : ''; ?>">
             <?php echo $form->textFieldRow($model, 'name',
