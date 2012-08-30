@@ -33,21 +33,19 @@ Yii::app()->clientScript->registerScript('fieldset', "
             <br /><br />
             <?php echo $form->checkBoxRow($model, 'comment_status', array('class' => 'popover-help', 'data-original-title' => $model->getAttributeLabel('comment_status'), 'data-content' => $model->getAttributeDescription('comment_status'))); ?>
         </div>
-
     </div>
-<div class="row-fluid control-group <?php echo $model->hasErrors('publish_date') ? 'error' : ''; ?>">
-    <div class="popover-help" data-original-title='<?php echo $model->getAttributeLabel('publish_date'); ?>' data-content='<?php echo $model->getAttributeDescription('publish_date'); ?>'>
-        <?php echo $form->labelEx($model, 'publish_date'); ?>
-        <?php $this->widget('zii.widgets.jui.CJuiDatePicker', array(
-        'model' => $model,
-        'language' => Yii::app()->language,
-        'attribute' => 'publish_date',
-        'htmlOptions' => array("class"=>"span7"),
-    )); ?>
+    <div class="row-fluid control-group <?php echo $model->hasErrors('publish_date') ? 'error' : ''; ?>">
+        <div class="popover-help" data-original-title='<?php echo $model->getAttributeLabel('publish_date'); ?>' data-content='<?php echo $model->getAttributeDescription('publish_date'); ?>'>
+            <?php echo $form->labelEx($model, 'publish_date'); ?>
+            <?php $this->widget('zii.widgets.jui.CJuiDatePicker', array(
+            'model' => $model,
+            'language' => Yii::app()->language,
+            'attribute' => 'publish_date',
+            'htmlOptions' => array("class" => "span7"),
+        )); ?>
+        </div>
     </div>
-</div>
-
-<div class="row-fluid control-group <?php echo $model->hasErrors('blog_id') ? 'error' : ''; ?>">
+    <div class="row-fluid control-group <?php echo $model->hasErrors('blog_id') ? 'error' : ''; ?>">
         <?php echo $form->dropDownListRow($model, 'blog_id', CHtml::listData(Blog::model()->findAll(), 'id', 'name'), array('empty'=>Yii::t('blog', 'выберите блог'), 'class' => 'span7 popover-help', 'data-original-title' => $model->getAttributeLabel('blog_id'), 'data-content' => $model->getAttributeDescription('blog_id'))); ?>
     </div>
     <div class="row-fluid control-group <?php echo $model->hasErrors('title') ? 'error' : ''; ?>">
@@ -59,7 +57,6 @@ Yii::app()->clientScript->registerScript('fieldset', "
     <div class="row-fluid control-group <?php echo $model->hasErrors('link') ? 'error' : ''; ?>">
         <?php echo $form->textFieldRow($model, 'link', array('class' => 'span7 popover-help', 'maxlength' => 150, 'size' => 60, 'data-original-title' => $model->getAttributeLabel('link'), 'data-content' => $model->getAttributeDescription('link'))); ?>
     </div>
-
     <div class="row-fluid control-group <?php echo $model->hasErrors('content') ? 'error' : ''; ?>">
         <div class="popover-help" data-original-title='<?php echo $model->getAttributeLabel('content'); ?>' data-content='<?php echo $model->getAttributeDescription('content'); ?>'>
             <?php echo $form->labelEx($model, 'content'); ?>
