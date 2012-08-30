@@ -5,15 +5,15 @@ $form = $this->beginWidget('bootstrap.widgets.TbActiveForm', array(
     'enableClientValidation' => true,
     'type'                   => 'vertical',
     'htmlOptions'            => array('class' => 'well form-vertical'),
+    'inlineErrors'           => true,
 ));
 
 Yii::app()->clientScript->registerScript('fieldset', "
     $('document').ready(function () {
-        $('.popover-help').popover({ trigger : hover, 'delay' : 500 });
+        $('.popover-help').popover({ 'trigger' : 'hover', 'delay' : 500 });
     });
 ");
 ?>
-
     <div class="alert alert-info">
         <?php echo Yii::t('blog', 'Поля, отмеченные'); ?>
         <span class="required">*</span>
@@ -32,19 +32,19 @@ Yii::app()->clientScript->registerScript('fieldset', "
         <?php echo $form->textFieldRow($model, 'slug', array('class' => 'span3 popover-help', 'maxlength' => 150, 'size' => 60, 'data-original-title' => $model->getAttributeLabel('slug'), 'data-content' => $model->getAttributeDescription('slug'))); ?>
     </div>
     <div class="row-fluid control-group <?php echo $model->hasErrors('publish_date') ? 'error' : ''; ?>">
-        <?php echo $form->labelEx($model, 'publish_date'); ?>
-        <?php $this->widget('zii.widgets.jui.CJuiDatePicker', array(
-            'model' => $model,
-            'attribute' => 'publish_date',
-            'options' => array('dateFormat' => 'yy-mm-dd'),
-        )); ?>
-        <br />
-        <?php $this->widget('bootstrap.widgets.TbLabel', array('type'=>'info', 'label'=>$model->getAttributeDescription('publish_date'))); ?>
+        <div class="popover-help" data-original-title='<?php echo $model->getAttributeLabel('publish_date'); ?>' data-content='<?php echo $model->getAttributeDescription('publish_date'); ?>'>
+            <?php echo $form->labelEx($model, 'publish_date'); ?>
+            <?php $this->widget('zii.widgets.jui.CJuiDatePicker', array(
+                'model' => $model,
+                'attribute' => 'publish_date',
+                'options' => array('dateFormat' => 'yy-mm-dd'),
+            )); ?>
+        </div>
     </div>
     <div class="row-fluid control-group <?php echo $model->hasErrors('content') ? 'error' : ''; ?>">
-        <?php echo $form->labelEx($model, 'content'); ?>
-        <?php
-            $this->widget($this->module->editor, array(
+        <div class="popover-help" data-original-title='<?php echo $model->getAttributeLabel('content'); ?>' data-content='<?php echo $model->getAttributeDescription('content'); ?>'>
+            <?php echo $form->labelEx($model, 'content'); ?>
+            <?php $this->widget($this->module->editor, array(
                 'model' => $model,
                 'attribute' => 'content',
                 'options' => array(
@@ -52,35 +52,32 @@ Yii::app()->clientScript->registerScript('fieldset', "
                     'imageUpload' => Yii::app()->baseUrl.'/index.php/yupe/backend/AjaxFileUpload/',
                 ),
                 'htmlOptions' => array('rows' => 20, 'cols' => 6),
-             ));
-         ?>
-         <br />
-        <?php $this->widget('bootstrap.widgets.TbLabel', array('type'=>'info', 'label'=>$model->getAttributeDescription('content'))); ?>
+             )); ?>
+         </div>
     </div>
     <div class="row-fluid control-group <?php echo $model->hasErrors('quote') ? 'error' : ''; ?>">
-        <?php echo $form->labelEx($model, 'quote'); ?>
-        <?php
-            $this->widget($this->module->editor, array(
-                'model' => $model,
-                'attribute' => 'quote',
-                'options' => array(
-                    'toolbar' => 'main',
-                    'imageUpload' => Yii::app()->baseUrl.'/index.php/yupe/backend/AjaxFileUpload/',
-                ),
-                'htmlOptions' => array('rows' => 20, 'cols' => 6),
-            ));
-        ?>
-        <br />
-        <?php $this->widget('bootstrap.widgets.TbLabel', array('type'=>'info', 'label'=>$model->getAttributeDescription('quote'))); ?>
+        <div class="popover-help" data-original-title='<?php echo $model->getAttributeLabel('quote'); ?>' data-content='<?php echo $model->getAttributeDescription('quote'); ?>'>
+            <?php echo $form->labelEx($model, 'quote'); ?>
+            <?php $this->widget($this->module->editor, array(
+                    'model' => $model,
+                    'attribute' => 'quote',
+                    'options' => array(
+                        'toolbar' => 'main',
+                        'imageUpload' => Yii::app()->baseUrl.'/index.php/yupe/backend/AjaxFileUpload/',
+                    ),
+                    'htmlOptions' => array('rows' => 20, 'cols' => 6),
+            )); ?>
+        </div>
     </div>
     <div class="row-fluid control-group <?php echo $model->hasErrors('link') ? 'error' : ''; ?>">
-        <?php echo $form->labelEx($model, Yii::t('blog', 'Теги')); ?>
-        <?php $this->widget('application.modules.blog.extensions.ETagger.ETagger', array(
-            'name' => 'tags',
-            'keywords' => $model->getTags(),
-            'options' => array('closeChar' => 'X'),
-        )); ?>
-        <?php $this->widget('bootstrap.widgets.TbLabel', array('type'=>'info', 'label'=>$model->getAttributeDescription('tags'))); ?>
+        <div class="popover-help" data-original-title='<?php echo $model->getAttributeLabel('tags'); ?>' data-content='<?php echo $model->getAttributeDescription('tags'); ?>'>
+            <?php echo $form->labelEx($model, Yii::t('blog', 'Теги')); ?>
+            <?php $this->widget('application.modules.blog.extensions.ETagger.ETagger', array(
+                'name' => 'tags',
+                'keywords' => $model->getTags(),
+                'options' => array('closeChar' => 'X'),
+            )); ?>
+        </div>
     </div>
     <div class="row-fluid control-group <?php echo $model->hasErrors('link') ? 'error' : ''; ?>">
         <?php echo $form->textFieldRow($model, 'link', array('class' => 'span3 popover-help', 'maxlength' => 150, 'size' => 60, 'data-original-title' => $model->getAttributeLabel('link'), 'data-content' => $model->getAttributeDescription('link'))); ?>

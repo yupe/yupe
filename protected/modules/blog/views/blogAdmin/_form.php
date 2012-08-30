@@ -19,7 +19,9 @@ Yii::app()->clientScript->registerScript('fieldset', "
         <span class="required">*</span>
         <?php echo Yii::t('blog', 'обязательны.'); ?>
     </div>
+
     <?php echo $form->errorSummary($model); ?>
+
     <div class="wide row-fluid control-group <?php echo ($model->hasErrors('type') || $model->hasErrors('status') )? 'error' : ''; ?>">
         <div class="span3"><?php echo $form->dropDownListRow($model, 'type', $model->getTypeList(), array('class' => 'popover-help', 'data-original-title' => $model->getAttributeLabel('type'), 'data-content' => $model->getAttributeDescription('type'))); ?></div>
         <div class="span4"><?php echo $form->dropDownListRow($model, 'status', $model->getStatusList(), array('class' => 'popover-help', 'data-original-title' => $model->getAttributeLabel('status'), 'data-content' => $model->getAttributeDescription('status'))); ?></div>
@@ -41,7 +43,7 @@ Yii::app()->clientScript->registerScript('fieldset', "
             <?php echo $form->textFieldRow($model, 'icon', array('class' => 'popover-help span7', 'maxlength' => 300, 'size' => 60, 'data-original-title' => $model->getAttributeLabel('icon'), 'data-content' => $model->getAttributeDescription('icon'))); ?>
     </div>
     <div class="row-fluid control-group <?php echo $model->hasErrors('description') ? 'error' : ''; ?>">
-        <div class="popover-help" data-original-title='<?php echo $model->getAttributeLabel('description') ?>' data-content='<?php echo $model->getAttributeDescription('description')?>'>
+        <div class="popover-help" data-original-title='<?php echo $model->getAttributeLabel('description'); ?>' data-content='<?php echo $model->getAttributeDescription('description'); ?>'>
             <?php echo $form->labelEx($model, 'description'); ?>
             <?php $this->widget($this->module->editor, array(
                 'model' => $model,
