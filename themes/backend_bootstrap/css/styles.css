@@ -48,19 +48,19 @@ footer {
     text-transform: none;
 }
 
-.inline select, .inline input {
+.wide select, .wide input {
     display: inline-block !important;
 }
 
-.inline select {
+.wide select {
     width: 100% !important;
 }
 
-.inline input[type=text], .inline textarea {
+.wide input[type=text], .wide textarea {
     width: 99% !important;
 }
 
-.inline .help-inline {
+.wide .help-inline {
     margin-top: 27px;
 }
 
@@ -113,7 +113,9 @@ footer {
     text-decoration: none;
     background-color: #08C;
 }
-
+pre .label{
+    white-space: normal !important;
+}
 /* =========== */
 .navbar .brand {
     padding:0 5px 0 15px;
