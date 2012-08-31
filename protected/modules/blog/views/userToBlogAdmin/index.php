@@ -65,8 +65,14 @@ $this->widget('application.modules.yupe.components.YCustomGridView', array(
             'type'  => 'raw',
             'value' => 'CHtml::link($data->blog->name, array("/blog/blogAdmin/view/", "id" => $data->blog->id))',
         ),
-        'create_date',
-        'update_date',
+        array(
+            'name'  => 'create_date',
+            'value' => 'Yii::app()->getDateFormatter()->formatDateTime($data->create_date, "short", "short")',
+        ),
+        array(
+            'name'  => 'update_date',
+            'value' => 'Yii::app()->getDateFormatter()->formatDateTime($data->update_date, "short", "short")',
+        ),
         array(
             'name'  => 'role',
             'value' => '$data->getRole()',

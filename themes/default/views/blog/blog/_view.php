@@ -4,7 +4,7 @@
 
     <b><?php echo CHtml::encode($data->getAttributeLabel('create_date')); ?>:</b>
     <?php echo CHtml::link(CHtml::encode($data->createUser->getFullName()), array('/user/people/userInfo/', 'username' => $data->createUser->nick_name)); ?>
-    <?php echo CHtml::encode($data->create_date); ?>
+    <?php echo Yii::app()->getDateFormatter()->formatDateTime($data->create_date, "short", "short"); ?>
     <br />
 
     <b><?php echo CHtml::encode($data->getAttributeLabel('description')); ?>:</b>

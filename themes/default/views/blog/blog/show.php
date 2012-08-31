@@ -15,7 +15,7 @@ $this->breadcrumbs = array(
     </div>
     <div class="author">
         Создал: <b><?php echo $blog->createUser->nick_name?></b>
-        дата: <?php echo $blog->create_date; ?>
+        дата: <?php echo Yii::app()->getDateFormatter()->formatDateTime($blog->create_date, "short", "short"); ?>
     </div>
     <br/>
 

@@ -65,7 +65,10 @@ class BlogAdminController extends YBackController
                     Yii::t('blog', 'Запись обновлена!')
                 );
 
-                $this->redirect(array('update', 'id' => $model->id));
+                if (isset($_POST['submit-type']))
+                    $this->redirect(array('index'));
+                else
+                    $this->redirect(array('update', 'id' => $model->id));
             }
         }
 

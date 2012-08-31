@@ -42,8 +42,14 @@
             'name'  => 'blog_id',
             'value' => $model->blog->name,
         ),
-        'create_date',
-        'update_date',
+        array(
+            'name'  => 'create_date',
+            'value' => Yii::app()->getDateFormatter()->formatDateTime($model->create_date, "short", "short"),
+        ),
+        array(
+            'name'  => 'update_date',
+            'value' => Yii::app()->getDateFormatter()->formatDateTime($model->update_date, "short", "short"),
+        ),
         array(
             'name'  => 'role',
             'value' => $model->getRole(),

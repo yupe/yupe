@@ -44,7 +44,12 @@ Yii::app()->clientScript->registerScript('fieldset', "
     <?php $this->widget('bootstrap.widgets.TbButton', array(
         'buttonType' => 'submit',
         'type'       => 'primary',
-        'label'      => $model->isNewRecord ? Yii::t('blog', 'Добавить участника') : Yii::t('blog', 'Сохранить участника'),
+        'label'      => $model->isNewRecord ? Yii::t('blog', 'Добавить участника и продолжить') : Yii::t('blog', 'Сохранить участника и продолжить'),
+    )); ?>
+    <?php $this->widget('bootstrap.widgets.TbButton', array(
+        'buttonType' => 'submit',
+        'htmlOptions'=> array('name' => 'submit-type', 'value' => 'index'),
+        'label'      => $model->isNewRecord ? Yii::t('blog', 'Добавить участника и закрыть') : Yii::t('blog', 'Сохранить участника и закрыть'),
     )); ?>
 
 <?php $this->endWidget(); ?>

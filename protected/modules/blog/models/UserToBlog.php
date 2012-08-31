@@ -116,7 +116,7 @@ class UserToBlog extends YModel
         // Warning: Please modify the following code to remove attributes that
         // should not be searched.
 
-        $criteria=new CDbCriteria;
+        $criteria = new CDbCriteria;
 
         $criteria->compare('id', $this->id, true);
         $criteria->compare('user_id', $this->user_id, true);
@@ -129,17 +129,17 @@ class UserToBlog extends YModel
 
         $criteria->with = array('user', 'blog');
 
-        return new CActiveDataProvider($this, array('criteria'=>$criteria));
+        return new CActiveDataProvider($this, array('criteria' => $criteria));
     }
 
     public function behaviors()
     {
         return array(
             'CTimestampBehavior' => array(
-                'class' => 'zii.behaviors.CTimestampBehavior',
+                'class'             => 'zii.behaviors.CTimestampBehavior',
                 'setUpdateOnCreate' => true,
-                'createAttribute' => 'create_date',
-                'updateAttribute' => 'update_date',
+                'createAttribute'   => 'create_date',
+                'updateAttribute'   => 'update_date',
             )
         );
     }

@@ -46,10 +46,19 @@
             'name'=>'update_user_id',
             'value'=>$model->updateUser->getFullName(),
         ),
-        'create_date',
-        'update_date',
+        array(
+            'name'  => 'publish_date',
+            'value' => Yii::app()->getDateFormatter()->formatDateTime($model->publish_date, "short", null),
+        ),
+        array(
+            'name'  => 'create_date',
+            'value' => Yii::app()->getDateFormatter()->formatDateTime($model->create_date, "short", "short"),
+        ),
+        array(
+            'name'  => 'update_date',
+            'value' => Yii::app()->getDateFormatter()->formatDateTime($model->update_date, "short", "short"),
+        ),
         'slug',
-        'publish_date',
         'title',
         'quote',
         'content',

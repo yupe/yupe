@@ -193,17 +193,21 @@ class Post extends YModel
         );
     }
 
+    public function afterFind()
+    {
+        $this->publish_date = date('d-m-Y', $this->publish_date);
+
+        return parent::afterFind();
+    }
+
     public function beforeSave()
     {
         $this->update_user_id = Yii::app()->user->getId();
-        $this->update_date = new CDbExpression('NOW()');
+        $this->publish_date = strtotime($this->publish_date);
 
         if($this->isNewRecord)
-        {
             $this->create_user_id = $this->update_user_id;
-            $this->create_date = $this->update_date;
-        }
-        
+
         return parent::beforeSave();
     }
 

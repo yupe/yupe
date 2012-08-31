@@ -74,18 +74,25 @@ $this->widget('application.modules.yupe.components.YCustomGridView', array(
         array(
             'name'  => 'create_user_id',
             'type'  => 'raw',
-            'value' => 'CHtml::link($data->createUser->getFullName(),array("/user/default/view/","id" => $data->createUser->id))',
+            'value' => 'CHtml::link($data->createUser->getFullName(), array("/user/default/view/", "id" => $data->createUser->id))',
         ),
         array(
             'name'  => 'update_user_id',
             'type'  => 'raw',
-            'value' => 'CHtml::link($data->updateUser->getFullName(),array("/user/default/view/","id" => $data->updateUser->id))',
+            'value' => 'CHtml::link($data->updateUser->getFullName(), array("/user/default/view/", "id" => $data->updateUser->id))',
         ),
-        'create_date',
-        'update_date',
-        'publish_date',
-        //'quote',
-        //'content',
+        array(
+            'name'  => 'publish_date',
+            'value' => 'Yii::app()->getDateFormatter()->formatDateTime($data->publish_date, "short", null)',
+        ),
+        array(
+            'name'  => 'create_date',
+            'value' => 'Yii::app()->getDateFormatter()->formatDateTime($data->create_date, "short", "short")',
+        ),
+        array(
+            'name'  => 'update_date',
+            'value' => 'Yii::app()->getDateFormatter()->formatDateTime($data->update_date, "short", "short")',
+        ),
         array(
             'name'  => 'status',
             'type'  => 'raw',
@@ -95,6 +102,8 @@ $this->widget('application.modules.yupe.components.YCustomGridView', array(
             'name'  => 'comment_status',
             'value' => '$data->getCommentStatus()',
         ),
+        //'quote',
+        //'content',
         //'keywords',
         //'description',
         array(

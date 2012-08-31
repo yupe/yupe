@@ -47,22 +47,28 @@
         'icon',
         'slug',
         array(
-            'name' => 'type',
+            'name'  => 'type',
             'value' => $model->getType(),
         ),
         array(
-            'name' => 'status',
+            'name'  => 'status',
             'value' => $model->getStatus(),
         ),
         array(
-            'name' => 'create_user_id',
+            'name'  => 'create_user_id',
             'value' => $model->createUser->getFullName(),
         ),
         array(
-            'name' => 'update_user_id',
+            'name'  => 'update_user_id',
             'value' => $model->updateUser->getFullName(),
         ),
-        'create_date',
-        'update_date',
+        array(
+            'name'  => 'create_date',
+            'value' => Yii::app()->getDateFormatter()->formatDateTime($model->create_date, "short", "short"),
+        ),
+        array(
+            'name'  =>'update_date',
+            'value' => Yii::app()->getDateFormatter()->formatDateTime($model->update_date, "short", "short"),
+        )
     ),
 )); ?>
