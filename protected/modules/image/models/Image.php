@@ -61,7 +61,7 @@ class Image extends CActiveRecord
             array('alt', 'length', 'max' => 150),
             array('file', 'file', 'maxSize' => $module->maxSize, 'types' => $module->allowedExtensions, 'allowEmpty' => true),
             array('type', 'in', 'range' => array_keys($this->getTypeList())),
-            array( 'category_id', 'default', 'setOnEmpty' => true, 'value' => null),
+            array('category_id', 'default', 'setOnEmpty' => true, 'value' => null),
             array('id, name, description, file, creation_date, user_id, alt, status', 'safe', 'on' => 'search'),
         );
     }

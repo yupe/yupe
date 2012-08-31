@@ -67,6 +67,7 @@ class Post extends YModel
             array('blog_id, create_user_id, update_user_id, status, comment_status, access_type', 'numerical', 'integerOnly' => true),
             array('blog_id, create_user_id, update_user_id', 'length', 'max' => 10),
             array('slug, title, link, keywords', 'length', 'max' => 150),
+            array('slug', 'unique'),
             array('quote, description', 'length', 'max' => 300),
             array('link', 'url'),
             array('comment_status', 'in', 'range' => array(0, 1)),
@@ -210,9 +211,13 @@ class Post extends YModel
     public function beforeSave()
     {
         $this->update_user_id = Yii::app()->user->getId();
+        $this->update_date = new CDbExpression('NOW()');
 
         if($this->isNewRecord)
+        {
             $this->create_user_id = $this->update_user_id;
+            $this->create_date = $this->update_date;
+        }
         else
             $this->create_date = $this->create_date_old;
 
