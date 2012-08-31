@@ -152,9 +152,7 @@ class Blog extends YModel
 
         $criteria->with = array('createUser', 'updateUser');
 
-        return new CActiveDataProvider(get_class($this), array('criteria' => $criteria, 'pagination' => array(
-                'pageSize' => 10,
-            ),));
+        return new CActiveDataProvider(get_class($this), array('criteria' => $criteria, 'pagination' => array('pageSize' => 10)));
     }
 
     public function behaviors()
@@ -179,9 +177,13 @@ class Blog extends YModel
     public function beforeSave()
     {
         $this->update_user_id = Yii::app()->user->getId();
+        $this->update_date = new CDbExpression('NOW()');
 
         if ($this->isNewRecord)
+        {
             $this->create_user_id = $this->update_user_id;
+            $this->create_date = $this->update_date;
+        }
         else
             $this->create_date = $this->create_date_old;
 
