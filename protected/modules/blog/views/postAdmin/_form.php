@@ -113,4 +113,5 @@ Yii::app()->clientScript->registerScript('fieldset', "
         'htmlOptions'=> array('name' => 'submit-type', 'value' => 'index'),
         'label'      => $model->isNewRecord ? Yii::t('blog', 'Добавить запись и закрыть') : Yii::t('blog', 'Сохранить запись и закрыть'),
     )); ?>
+
 <?php $this->endWidget(); ?>

@@ -1,12 +1,11 @@
-<?php $this->pageTitle = $post->title; ?>
-<?php $this->description = $post->description; ?>
-<?php $this->keywords = $post->keywords; ?>
-
 <?php
+$this->pageTitle = $post->title;
+$this->description = $post->description;
+$this->keywords = $post->keywords;
 $this->breadcrumbs = array(
     'Блоги' => array('/blog/blog/index/'),
     CHtml::encode($post->blog->name) => array('/blog/blog/show/', 'slug' => $post->blog->slug),
-    CHtml::encode($post->title)
+    CHtml::encode($post->title),
 );
 ?>
 
@@ -16,9 +15,9 @@ $this->breadcrumbs = array(
     </div>
     <div class="author">
         Опубликовал
-        <b><?php echo CHtml::link($post->createUser->nick_name, array('/user/people/userInfo', 'username' => $post->createUser->nick_name));?></b>
+        <b><?php echo CHtml::link($post->createUser->nick_name, array('/user/people/userInfo', 'username' => $post->createUser->nick_name)); ?></b>
         в блоге "<?php echo CHtml::link($post->blog->name, array('/blog/blog/show/', 'slug' => $post->blog->slug))?>"
-        дата: <?php echo $post->publish_date; ?>
+        дата: <?php echo Yii::app()->getDateFormatter()->formatDateTime($post->publish_date, "short", null);; ?>
     </div>
     <br/>
 
@@ -27,17 +26,17 @@ $this->breadcrumbs = array(
     </div>
     <div class="nav">
         <?php foreach ($post->getTags() as $tag): ?>
-        <?php echo CHtml::link(CHtml::encode($tag), array('/posts/', 'tag' => CHtml::encode($tag))); ?>
+            <?php echo CHtml::link(CHtml::encode($tag), array('/posts/', 'tag' => CHtml::encode($tag))); ?>
         <?php endforeach;?>
-        | Обновлено <?php echo $post->update_date;?>
+        | Обновлено <?php echo Yii::app()->getDateFormatter()->formatDateTime($post->update_date, "short", "short"); ?>
     </div>
 </div>
 
 <div style='float:left;padding-right:5px'>
-    <?php $this->widget('application.modules.social.widgets.ysc.yandex.YandexShareApi', array(
+<?php $this->widget('application.modules.social.widgets.ysc.yandex.YandexShareApi', array(
     'type' => 'button',
-    'services' => 'all'
-));?>
+    'services' => 'all',
+)); ?>
 </div>
 
 
