@@ -61,6 +61,7 @@ class Blog extends YModel
             array('type, status, create_user_id, update_user_id', 'numerical', 'integerOnly' => true),
             array('name, icon', 'length', 'max' => 300),
             array('slug', 'length', 'max' => 150),
+            array('slug', 'unique'),
             array('create_user_id, update_user_id', 'length', 'max' => 10),
             array('type', 'in', 'range' => array_keys($this->getTypeList())),
             array('status', 'in', 'range' => array_keys($this->getStatusList())),

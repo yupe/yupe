@@ -17,24 +17,6 @@ class ContentBlock extends CActiveRecord
     const PHP_CODE    = 2;
     const HTML_TEXT   = 3;
 
-    public function getTypes()
-    {
-        return array(
-            self::SIMPLE_TEXT => Yii::t('contentblock', 'Простой текст'),
-            self::PHP_CODE    => Yii::t('contentblock', 'Исполняемый PHP код'),
-            self::HTML_TEXT   => Yii::t('contentblock', 'HTML код'),
-        );
-    }
-
-    public function getType()
-    {
-        $data = $this->getTypes();
-
-        return array_key_exists($this->type, $data)
-            ? $data[$this->type]
-            : Yii::t('contentblock', '*неизвестный тип*');
-    }
-
     /**
      * Returns the static model of the specified AR class.
      * @return ContentBlock the static model class
@@ -105,5 +87,23 @@ class ContentBlock extends CActiveRecord
         return new CActiveDataProvider(get_class($this), array(
             'criteria' => $criteria,
         ));
+    }
+
+    public function getTypes()
+    {
+        return array(
+            self::SIMPLE_TEXT => Yii::t('contentblock', 'Простой текст'),
+            self::PHP_CODE    => Yii::t('contentblock', 'Исполняемый PHP код'),
+            self::HTML_TEXT   => Yii::t('contentblock', 'HTML код'),
+        );
+    }
+
+    public function getType()
+    {
+        $data = $this->getTypes();
+
+        return array_key_exists($this->type, $data)
+            ? $data[$this->type]
+            : Yii::t('contentblock', '*неизвестный тип*');
     }
 }

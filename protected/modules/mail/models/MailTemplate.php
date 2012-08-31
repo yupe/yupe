@@ -19,15 +19,14 @@
  */
 class MailTemplate extends CActiveRecord
 {
-    const STATUS_ACTIVE = 1;
-
+    const STATUS_ACTIVE     = 1;
     const STATUS_NOT_ACTIVE = 0;
 
     public function getStatusList()
     {
         return array(
-            self::STATUS_ACTIVE => Yii::t('mail','активен'),
-            self::STATUS_NOT_ACTIVE => Yii::t('mail','не активен')
+            self::STATUS_ACTIVE     => Yii::t('mail', 'активен'),
+            self::STATUS_NOT_ACTIVE => Yii::t('mail', 'не активен')
         );
     }
 
@@ -35,7 +34,7 @@ class MailTemplate extends CActiveRecord
     {
         $data = $this->getStatusList();
 
-        return isset($data[$this->status]) ? $data[$this->status] : Yii::t('mail','--неизвестно--');
+        return isset($data[$this->status]) ? $data[$this->status] : Yii::t('mail', '--неизвестно--');
     }
 
     /**
@@ -64,7 +63,7 @@ class MailTemplate extends CActiveRecord
         // NOTE: you should only define rules for those attributes that
         // will receive user inputs.
         return array(
-            array('code, name, from, to, theme', 'filter', 'filter' => array($obj = new CHtmlPurifier(),'purify')),
+            array('code, name, from, to, theme', 'filter', 'filter' => array($obj = new CHtmlPurifier(), 'purify')),
             array('event_id, code, name, from, to, theme, body', 'required'),
             array('status', 'numerical', 'integerOnly' => true),
             array('event_id', 'length', 'max' => 10),
@@ -95,16 +94,16 @@ class MailTemplate extends CActiveRecord
     public function attributeLabels()
     {
         return array(
-            'id' => Yii::t('mail', 'ID'),
-            'event_id' => Yii::t('mail', 'Событие'),
-            'name' => Yii::t('mail', 'Название'),
+            'id'          => Yii::t('mail', 'ID'),
+            'event_id'    => Yii::t('mail', 'Событие'),
+            'name'        => Yii::t('mail', 'Название'),
             'description' => Yii::t('mail', 'Описание'),
-            'from' => Yii::t('mail', 'От'),
-            'to' => Yii::t('mail', 'Кому'),
-            'theme' => Yii::t('mail', 'Тема'),
-            'body' => Yii::t('mail', 'Сообщение'),
-            'code' => Yii::t('mail', 'Символьный код'),
-            'status' => Yii::t('mail', 'Статус'),
+            'from'        => Yii::t('mail', 'От'),
+            'to'          => Yii::t('mail', 'Кому'),
+            'theme'       => Yii::t('mail', 'Тема'),
+            'body'        => Yii::t('mail', 'Сообщение'),
+            'code'        => Yii::t('mail', 'Символьный код'),
+            'status'      => Yii::t('mail', 'Статус'),
         );
     }
 
@@ -129,9 +128,7 @@ class MailTemplate extends CActiveRecord
         $criteria->compare('body', $this->body, true);
         $criteria->compare('status', $this->status);
 
-        return new CActiveDataProvider($this, array(
-                    'criteria' => $criteria,
-                ));
+        return new CActiveDataProvider($this, array('criteria' => $criteria));
     }
 
 }
