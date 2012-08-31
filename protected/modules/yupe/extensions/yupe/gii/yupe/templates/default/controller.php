@@ -40,7 +40,10 @@ class <?php echo $this->controllerClass; ?> extends <?php echo $this->baseContro
                     Yii::t('<?php echo $this->mid;?>', 'Запись добавлена!')
                 );
 
-                $this->redirect(array('view', 'id' => $model-><?php echo $this->tableSchema->primaryKey; ?>));
+                if (isset($_POST['submit-type']))
+                    $this->redirect(array('index'));
+                else
+                    $this->redirect(array('view', 'id' => $model-><?php echo $this->tableSchema->primaryKey; ?>));
             }
         }
 
