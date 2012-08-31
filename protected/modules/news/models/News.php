@@ -108,7 +108,15 @@ class News extends CActiveRecord
 
     public function language($lang)
     {
-        $this->getDbCriteria()->mergeWith(array('condition' => 'lang = ' . $lang));
+        $this->getDbCriteria()->mergeWith(
+            array(
+                'condition' => 'lang = :lang',
+                'params' => array(
+                    ':lang' => $lang
+                )
+            )
+        );
+        
         return $this;
     }
 
@@ -229,7 +237,7 @@ class News extends CActiveRecord
         $data = $this->getProtectedStatusList();
         return array_key_exists($this->is_protected, $data) ? $data[$this->is_protected] : Yii::t('news', '*неизвестно*');
     }
-    
+
 
     public function getCategoryName()
     {
@@ -239,9 +247,9 @@ class News extends CActiveRecord
     public function getImageUrl()
     {
         if($this->image)
-            return  Yii::app()->baseUrl . '/' . 
-                    Yii::app()->getModule('yupe')->uploadPath . '/' . 
-                    Yii::app()->getModule('news')->uploadPath . '/' . 
+            return  Yii::app()->baseUrl . '/' .
+                    Yii::app()->getModule('yupe')->uploadPath . '/' .
+                    Yii::app()->getModule('news')->uploadPath . '/' .
                     $this->image;
 
         return false;

@@ -31,8 +31,6 @@ class Blog extends YModel
     const STATUS_BLOCKED = 2;
     const STATUS_DELETED = 3;
 
-    public $create_date_old;
-
     /**
      * Returns the static model of the specified AR class.
      *
@@ -166,15 +164,6 @@ class Blog extends YModel
         ));
     }
 
-    public function afterFind()
-    {
-        $this->create_date_old = $this->create_date;
-        $this->create_date = Yii::app()->getDateFormatter()->formatDateTime($this->create_date, "short", "short");
-        $this->update_date = Yii::app()->getDateFormatter()->formatDateTime($this->update_date, "short", "short");
-
-        return parent::afterFind();
-    }
-
     public function beforeSave()
     {
         $this->update_user_id = Yii::app()->user->getId();
@@ -185,16 +174,10 @@ class Blog extends YModel
             $this->create_user_id = $this->update_user_id;
             $this->create_date = $this->update_date;
         }
-        else
-        {
-            $this->update_user_id = Yii::app()->user->getId();
-
-            $this->update_date = new CDbExpression('NOW()');
-        }
 
         return parent::beforeSave();
     }
-
+    
     public function getTypeList()
     {
         return array(
