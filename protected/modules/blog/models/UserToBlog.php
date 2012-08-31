@@ -100,7 +100,12 @@ class UserToBlog extends YModel
     public function attributeDescriptions()
     {
         return array(
-            'id' => Yii::t('blog', 'id'),
+            'id'      => Yii::t('blog', 'Id участника.'),
+            'user_id' => Yii::t('blog', 'Выберите пользователя системы, который станет участником блога.'),
+            'blog_id' => Yii::t('blog', 'Выберите необходимый блог сайта.'),
+            'role'    => Yii::t('blog', 'Установите роль участника блога:<br /><br /><span class="label label-success">Пользователь</span> &ndash; имеет возможность писать записи в блоге и комментировать их.<br /><br /><span class="label label-warning">Модератор</span> &ndash; к правам пользователя добавляется возможность модерировать (удалять, править, блокировать) записи и комментарии, (блокировать, добавлять, удалять) пользователей.<br /><br /><span class="label label-important">Администратор</span> &ndash; к правам модератора добавляется возможность (блокировать, добавлять, удалять) блоги и пользоватилей.'),
+            'status'  => Yii::t('blog', 'Установите статус участника блога:<br /><br /><span class="label label-success">Активен</span> &ndash; данный пользователь будет активным участиком.<br /><br /><span class="label label-warning">заблокирован</span> &ndash; данный участнику не будут доступны функции блога.'),
+            'note'    => Yii::t('blog', 'Небольшая информация о участнике блога.'),
         );
     }
 

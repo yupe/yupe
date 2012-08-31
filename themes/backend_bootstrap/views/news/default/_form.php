@@ -142,7 +142,7 @@ Yii::app()->clientScript->registerScript('fieldset', "
     </div>
 
     <div class="row-fluid control-group <?php echo $model->hasErrors('description') ? 'error' : '' ?>">
-        <div class="span7 popover-help" data-content="<?php echo Yii::t('news', "Краткое описание данной новости, одно или два предложений. Обычно это самая главная мысль новости, к примеру: <pre>Вышла новая 0.4.3 версия CMS ЮПИ!Информация о нововведениях и изменениях.</pre>Данный текст очень часто попадает в <a href='http://help.yandex.ru/webmaster/?id=1111310'>сниппет</a> поисковых систем.") ?>" data-original-title="<?php echo $model->getAttributeLabel('description'); ?>" >
+        <div class="span7 popover-help" data-content="<?php echo Yii::t('news', "Краткое описание данной новости, одно или два предложения. Обычно это самая главная мысль новости, к примеру: <pre>Вышла новая 0.4.3 версия CMS ЮПИ!Информация о нововведениях и изменениях.</pre>Данный текст очень часто попадает в <a href='http://help.yandex.ru/webmaster/?id=1111310'>сниппет</a> поисковых систем.") ?>" data-original-title="<?php echo $model->getAttributeLabel('description'); ?>" >
             <?php echo $form->labelEx($model, 'description'); ?>
             <?php echo $form->textArea($model, 'description', array( 'rows' => 6, 'cols' => 86 )); ?>
             <div class="alert alert-info"><?php echo Yii::t('news', "Более подробно вы можете прочитать про поисковую оптимизацию сайта в <a href='http://help.yandex.ru/webmaster/recomend.pdf'>этом документе</a>."); ?></div>
