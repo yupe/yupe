@@ -66,6 +66,7 @@ class Blog extends YModel
             array('status', 'in', 'range' => array_keys($this->getStatusList())),
             array('name, slug, description', 'filter', 'filter' => array($obj = new CHtmlPurifier(), 'purify')),
             array('slug', 'match', 'pattern' => '/^[a-zA-Z0-9_\-]+$/', 'message' => Yii::t('blog', 'Запрещенные символы в поле {attribute}')),
+            array('slug','unique'),
             array('id, name, description, icon, slug, type, status, create_user_id, update_user_id, create_date, update_date', 'safe', 'on' => 'search'),
         );
     }
@@ -177,12 +178,18 @@ class Blog extends YModel
 
     public function beforeSave()
     {
-        $this->update_user_id = Yii::app()->user->getId();
-
         if ($this->isNewRecord)
-            $this->create_user_id = $this->update_user_id;
+        {
+            $this->update_user_id = $this->create_user_id = Yii::app()->user->getId();
+
+            $this->update_date = $this->create_date = new CDbExpression('NOW()');
+        }
         else
-            $this->create_date = $this->create_date_old;
+        {
+            $this->update_user_id = Yii::app()->user->getId();
+
+            $this->update_date = new CDbExpression('NOW()');
+        }
 
         return parent::beforeSave();
     }
