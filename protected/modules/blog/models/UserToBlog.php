@@ -26,8 +26,6 @@ class UserToBlog extends YModel
     const STATUS_ACTIVE = 1;
     const STATUS_BLOCK  = 2;
 
-    public $create_date_old;
-
     /**
      * Returns the static model of the specified AR class.
      * @return UserToBlog the static model class
@@ -144,27 +142,6 @@ class UserToBlog extends YModel
                 'updateAttribute' => 'update_date',
             )
         );
-    }
-
-    public function afterFind()
-    {
-        $this->create_date_old = $this->create_date;
-        $this->create_date = Yii::app()->getDateFormatter()->formatDateTime($this->create_date, "short", "short");
-        $this->update_date = Yii::app()->getDateFormatter()->formatDateTime($this->update_date, "short", "short");
-
-        return parent::afterFind();
-    }
-
-    public function beforeSave()
-    {
-        $this->update_date = new CDbExpression('NOW()');
-
-        if($this->isNewRecord)
-            $this->create_date = $this->update_date;
-        else
-            $this->create_date = $this->create_date_old;
-
-        return parent::beforeSave();
     }
 
     public function getRoleList()
