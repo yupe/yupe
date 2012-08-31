@@ -50,11 +50,18 @@ EOF;
 
 <?php
 echo <<<EOF
-    <?php \$this->widget('bootstrap.widgets.TbButton', array(
-        'buttonType' => 'submit',
-        'type'       => 'primary',
-        'label'      => \$model->isNewRecord ? Yii::t('{$this->mid}', 'Добавить {$this->vin}') : Yii::t('{$this->mid}', 'Сохранить {$this->vin}'),
-    )); ?>\n
+        <?php \$this->widget('bootstrap.widgets.TbButton', array(
+            'buttonType' => 'submit',
+            'type'       => 'primary',
+            'htmlOptions'=> array('name' => 'saveAndClose'),
+            'label'      => Yii::t('{$this->mid}', \$model->isNewRecord ? 'Добавить {$this->vin} и закрыть' : 'Сохранить {$this->vin} и закрыть')
+        )); ?>\n
+
+       <?php \$this->widget('bootstrap.widgets.TbButton', array(
+            'buttonType' => 'submit',
+            'type'       => 'primary',
+            'label'      => Yii::t('{$this->mid}', \$model->isNewRecord ? 'Добавить {$this->vin} и продолжить' : 'Сохранить {$this->vin} и продолжить')
+        )); ?>\n
 EOF;
 ?>
 

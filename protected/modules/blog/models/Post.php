@@ -36,8 +36,6 @@ class Post extends YModel
     const ACCESS_PUBLIC  = 1;
     const ACCESS_PRIVATE = 2;
 
-    public $create_date_old;
-
     /**
      * Returns the static model of the specified AR class.
      * @return Post the static model class
@@ -67,6 +65,7 @@ class Post extends YModel
             array('blog_id, create_user_id, update_user_id, status, comment_status, access_type', 'numerical', 'integerOnly' => true),
             array('blog_id, create_user_id, update_user_id', 'length', 'max' => 10),
             array('slug, title, link, keywords', 'length', 'max' => 150),
+            array('slug', 'unique'),
             array('quote, description', 'length', 'max' => 300),
             array('link', 'url'),
             array('comment_status', 'in', 'range' => array(0, 1)),
@@ -194,28 +193,17 @@ class Post extends YModel
         );
     }
 
-    public function afterFind()
-    {
-        $this->create_date_old = $this->create_date;
-        /* Необходим корректный вывод даты публикации */
-        $this->publish_date = date('Y-m-d', strtotime($this->publish_date));
-        
-        $this->create_date = Yii::app()->getDateFormatter()->formatDateTime($this->create_date, "short", "short");
-        $this->update_date = Yii::app()->getDateFormatter()->formatDateTime($this->update_date, "short", "short");
-        //$this->publish_date = Yii::app()->getDateFormatter()->formatDateTime(strtotime($this->publish_date), "short", "short");
-
-        return parent::afterFind();
-    }
-
     public function beforeSave()
     {
         $this->update_user_id = Yii::app()->user->getId();
+        $this->update_date = new CDbExpression('NOW()');
 
         if($this->isNewRecord)
+        {
             $this->create_user_id = $this->update_user_id;
-        else
-            $this->create_date = $this->create_date_old;
-
+            $this->create_date = $this->update_date;
+        }
+        
         return parent::beforeSave();
     }
 

@@ -62,10 +62,9 @@ class News extends CActiveRecord
             array( 'alias', 'unique', 'criteria' => array(
                     'condition' => 'lang = :lang',
                     'params'    => array( ':lang' => $this->lang ),
-                ),
-             'on' => 'insert'
+                ), 'on' => 'insert',
             ),
-            array( 'description', 'length', 'max' => 250 ),            
+            array( 'description', 'length', 'max' => 250 ),
             array( 'image, link', 'length', 'max' => 300 ),
             array( 'link', 'url'),
             array( 'alias', 'match', 'pattern' => '/^[a-zA-Z0-9_\-]+$/', 'message' => Yii::t('news', 'Запрещенные символы в поле {attribute}') ),
@@ -109,7 +108,15 @@ class News extends CActiveRecord
 
     public function language($lang)
     {
-        $this->getDbCriteria()->mergeWith(array('condition' => "lang = '$lang'"));
+        $this->getDbCriteria()->mergeWith(
+            array(
+                'condition' => 'lang = :lang',
+                'params' => array(
+                    ':lang' => $lang
+                )
+            )
+        );
+        
         return $this;
     }
 
@@ -149,16 +156,14 @@ class News extends CActiveRecord
 
     public function beforeSave()
     {
+        $this->change_date = new CDbExpression('NOW()');
+        $this->date = date('Y-m-d', strtotime($this->date));
+
         if ($this->isNewRecord)
         {
-            $this->creation_date = $this->change_date = new CDbExpression('NOW()');
-
+            $this->creation_date = $this->change_date;
             $this->user_id = Yii::app()->user->getId();
         }
-        else
-            $this->change_date = new CDbExpression('NOW()');
-
-        $this->date = date('Y-m-d', strtotime($this->date));
 
         return parent::beforeSave();
     }
@@ -232,7 +237,7 @@ class News extends CActiveRecord
         $data = $this->getProtectedStatusList();
         return array_key_exists($this->is_protected, $data) ? $data[$this->is_protected] : Yii::t('news', '*неизвестно*');
     }
-    
+
 
     public function getCategoryName()
     {
@@ -242,9 +247,9 @@ class News extends CActiveRecord
     public function getImageUrl()
     {
         if($this->image)
-            return  Yii::app()->baseUrl . '/' . 
-                    Yii::app()->getModule('yupe')->uploadPath . '/' . 
-                    Yii::app()->getModule('news')->uploadPath . '/' . 
+            return  Yii::app()->baseUrl . '/' .
+                    Yii::app()->getModule('yupe')->uploadPath . '/' .
+                    Yii::app()->getModule('news')->uploadPath . '/' .
                     $this->image;
 
         return false;

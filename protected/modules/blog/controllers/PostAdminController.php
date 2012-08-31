@@ -34,7 +34,10 @@ class PostAdminController extends YBackController
                     Yii::t('blog', 'Запись добавлена!')
                 );
 
-                $this->redirect(array('view', 'id' => $model->id));
+                if (isset($_POST['submit-type']))
+                    $this->redirect(array('index'));
+                else
+                    $this->redirect(array('view', 'id' => $model->id));
             }
         }
 

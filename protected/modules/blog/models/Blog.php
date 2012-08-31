@@ -31,8 +31,6 @@ class Blog extends YModel
     const STATUS_BLOCKED = 2;
     const STATUS_DELETED = 3;
 
-    public $create_date_old;
-
     /**
      * Returns the static model of the specified AR class.
      *
@@ -61,11 +59,13 @@ class Blog extends YModel
             array('type, status, create_user_id, update_user_id', 'numerical', 'integerOnly' => true),
             array('name, icon', 'length', 'max' => 300),
             array('slug', 'length', 'max' => 150),
+            array('slug', 'unique'),
             array('create_user_id, update_user_id', 'length', 'max' => 10),
             array('type', 'in', 'range' => array_keys($this->getTypeList())),
             array('status', 'in', 'range' => array_keys($this->getStatusList())),
             array('name, slug, description', 'filter', 'filter' => array($obj = new CHtmlPurifier(), 'purify')),
             array('slug', 'match', 'pattern' => '/^[a-zA-Z0-9_\-]+$/', 'message' => Yii::t('blog', 'Запрещенные символы в поле {attribute}')),
+            array('slug','unique'),
             array('id, name, description, icon, slug, type, status, create_user_id, update_user_id, create_date, update_date', 'safe', 'on' => 'search'),
         );
     }
@@ -151,9 +151,7 @@ class Blog extends YModel
 
         $criteria->with = array('createUser', 'updateUser');
 
-        return new CActiveDataProvider(get_class($this), array('criteria' => $criteria, 'pagination' => array(
-                'pageSize' => 10,
-            ),));
+        return new CActiveDataProvider(get_class($this), array('criteria' => $criteria, 'pagination' => array('pageSize' => 10)));
     }
 
     public function behaviors()
@@ -166,27 +164,20 @@ class Blog extends YModel
         ));
     }
 
-    public function afterFind()
-    {
-        $this->create_date_old = $this->create_date;
-        $this->create_date = Yii::app()->getDateFormatter()->formatDateTime($this->create_date, "short", "short");
-        $this->update_date = Yii::app()->getDateFormatter()->formatDateTime($this->update_date, "short", "short");
-
-        return parent::afterFind();
-    }
-
     public function beforeSave()
     {
         $this->update_user_id = Yii::app()->user->getId();
+        $this->update_date = new CDbExpression('NOW()');
 
         if ($this->isNewRecord)
+        {
             $this->create_user_id = $this->update_user_id;
-        else
-            $this->create_date = $this->create_date_old;
+            $this->create_date = $this->update_date;
+        }
 
         return parent::beforeSave();
     }
-
+    
     public function getTypeList()
     {
         return array(

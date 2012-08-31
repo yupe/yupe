@@ -14,7 +14,6 @@
  */
 class MailEvent extends CActiveRecord
 {
-
     /**
      * Returns the static model of the specified AR class.
      * @param string $className active record class name.
@@ -41,7 +40,7 @@ class MailEvent extends CActiveRecord
         // NOTE: you should only define rules for those attributes that
         // will receive user inputs.
         return array(
-            array( 'name, code, description', 'filter', 'filter' => array($obj = new CHtmlPurifier(),'purify')),
+            array( 'name, code, description', 'filter', 'filter' => array($obj = new CHtmlPurifier(), 'purify')),
             array( 'code, name', 'required' ),
             array( 'code', 'length', 'max' => 100 ),
             array( 'name', 'length', 'max' => 300 ),
@@ -94,9 +93,7 @@ class MailEvent extends CActiveRecord
         $criteria->compare('name', $this->name, true);
         $criteria->compare('description', $this->description, true);
 
-        return new CActiveDataProvider($this, array(
-                'criteria' => $criteria,
-            ));
+        return new CActiveDataProvider($this, array('criteria' => $criteria));
     }
 
 }

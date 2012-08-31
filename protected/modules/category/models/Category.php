@@ -54,12 +54,13 @@ class Category extends CActiveRecord
             array('lang', 'length', 'max' => 2 ),
             array('lang', 'default', 'value' => Yii::app()->sourceLanguage),
             array('alias', 'unique', 'criteria' => array(
-                'condition' => 'lang = :lang',
-                'params' => array( ':lang' => $this->lang ) ),
-                'on' => array( 'insert' ),
+                    'condition' => 'lang = :lang',
+                    'params' => array(':lang' => $this->lang),
+                ),
+                'on' => array('insert'),
             ),
             array('status', 'in', 'range' => array_keys($this->getStatusList())),
-            array('image', 'file', 'types'=>'jpg, gif, png','allowEmpty' => true),
+            array('image', 'file', 'types'=>'jpg, gif, png', 'allowEmpty' => true),
             array('id, parent_id, name, description, short_description, alias, status', 'safe', 'on' => 'search'),
         );
     }

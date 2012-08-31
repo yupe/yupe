@@ -23,6 +23,7 @@ class Page extends CActiveRecord
     const STATUS_DRAFT      = 0;
     const STATUS_PUBLISHED  = 1;
     const STATUS_MODERATION = 2;
+
     const PROTECTED_NO  = 0;
     const PROTECTED_YES = 1;
 
@@ -56,7 +57,7 @@ class Page extends CActiveRecord
             array( 'lang', 'default', 'value' => Yii::app()->sourceLanguage ),
             array( 'name, title, slug, keywords', 'length', 'max' => 150 ),
             array( 'description', 'length', 'max' => 150 ),
-            array( 'slug', 'unique', 'criteria' => array( 'condition' => 'lang=:lang', 'params' => array( ':lang' => $this->lang ) ), 'on' => array( 'insert' ) ),
+            array( 'slug', 'unique', 'criteria' => array( 'condition' => 'lang = :lang', 'params' => array( ':lang' => $this->lang ) ), 'on' => array( 'insert' ) ),
             array( 'status', 'in', 'range' => array_keys($this->getStatusList()) ),
             array( 'is_protected', 'in', 'range' => array_keys($this->getProtectedStatusList()) ),
             array( 'title, slug, body, description, keywords, name', 'filter', 'filter' => 'trim' ),
@@ -121,17 +122,13 @@ class Page extends CActiveRecord
 
     public function beforeSave()
     {
+        $this->change_date = new CDbExpression('now()');
+        $this->user_id = Yii::app()->user->getId();
+
         if ($this->isNewRecord)
         {
-            $this->change_date = $this->creation_date = new CDbExpression('NOW()');
-
-            $this->user_id = $this->change_user_id = Yii::app()->user->getId();
-        }
-        else
-        {
-            $this->change_date = new CDbExpression('now()');
-
-            $this->user_id = Yii::app()->user->getId();
+            $this->creation_date = $this->change_date;
+            $this->change_user_id = $this->user_id;
         }
 
         return parent::beforeSave();
@@ -142,15 +139,15 @@ class Page extends CActiveRecord
         return array(
             'published' => array(
                 'condition' => 'status = :status',
-                'params'    => array( 'status'    => self::STATUS_PUBLISHED )
+                'params'    => array( 'status' => self::STATUS_PUBLISHED ),
             ),
             'protected' => array(
                 'condition' => 'is_protected = :is_protected',
-                'params'    => array( ':is_protected' => self::PROTECTED_YES )
+                'params'    => array( ':is_protected' => self::PROTECTED_YES ),
             ),
             'public'        => array(
                 'condition' => 'is_protected = :is_protected',
-                'params'    => array( ':is_protected' => self::PROTECTED_NO )
+                'params'    => array( ':is_protected' => self::PROTECTED_NO ),
             ),
         );
     }
@@ -171,21 +168,13 @@ class Page extends CActiveRecord
         $criteria->with = array( 'author', 'changeAuthor' );
 
         $criteria->compare('id', $this->id);
-
         $criteria->compare('parent_Id', $this->parent_Id);
-
         $criteria->compare('creation_date', $this->creation_date);
-
         $criteria->compare('change_date', $this->change_date);
-
         $criteria->compare('title', $this->title);
-
         $criteria->compare('slug', $this->slug);
-
         $criteria->compare('body', $this->body);
-
         $criteria->compare('keywords', $this->keywords);
-
         $criteria->compare('description', $this->description);
 
         if ($this->status != '')
@@ -195,17 +184,15 @@ class Page extends CActiveRecord
             $criteria->compare('category_id', $this->category_id);
 
         $criteria->compare('is_protected', $this->is_protected);
-
         $criteria->compare('is_protected', $this->is_protected);
 
         $sort = new CSort;
-
         $sort->defaultOrder = 'menu_order DESC';
 
         return new CActiveDataProvider('Page', array(
-                'criteria' => $criteria,
-                'sort'     => $sort
-            ));
+            'criteria' => $criteria,
+            'sort'     => $sort,
+        ));
     }
 
     public function getStatusList()
@@ -239,24 +226,28 @@ class Page extends CActiveRecord
 
     public function getAllPagesList($selfId = false)
     {
-        $pages = $selfId ? $this->findAll(array(
-            'condition' => 'id != :id',
-            'params' => array( ':id' => $selfId ),
-            'order' => 'menu_order DESC',
-            'group' => 'slug',
-         )) : $this->findAll(array( 'order' => 'menu_order DESC' ));
+        $pages = $selfId
+            ? $this->findAll(array(
+                'condition' => 'id != :id',
+                'params' => array( ':id' => $selfId ),
+                'order' => 'menu_order DESC',
+                'group' => 'slug',
+            ))
+            : $this->findAll(array( 'order' => 'menu_order DESC' ));
 
         return CHtml::listData($pages, 'id', 'name');
     }
 
     public function getAllPagesListBySlug($slug = false)
     {
-        $pages = $slug ? $this->findAll(array(
+        $pages = $slug
+            ? $this->findAll(array(
             'condition' => 'slug != :slug',
             'params' => array( ':slug' => $slug ),
             'order' => 'menu_order DESC',
             'group' => 'slug',
-        )) : $this->findAll(array( 'order' => 'menu_order DESC' ));
+            ))
+            : $this->findAll(array( 'order' => 'menu_order DESC' ));
 
         return CHtml::listData($pages, 'id', 'name');
     }

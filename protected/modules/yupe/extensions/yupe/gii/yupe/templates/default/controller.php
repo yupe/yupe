@@ -40,6 +40,9 @@ class <?php echo $this->controllerClass; ?> extends <?php echo $this->baseContro
                     Yii::t('<?php echo $this->mid;?>', 'Запись добавлена!')
                 );
 
+                if (isset($_POST['saveAndClose']))
+                    $this->redirect(array('index'));
+
                 $this->redirect(array('view', 'id' => $model-><?php echo $this->tableSchema->primaryKey; ?>));
             }
         }
@@ -68,6 +71,9 @@ class <?php echo $this->controllerClass; ?> extends <?php echo $this->baseContro
                     YFlashMessages::NOTICE_MESSAGE,
                     Yii::t('<?php echo $this->mid; ?>', 'Запись обновлена!')
                 );
+
+                if (isset($_POST['saveAndClose']))
+                    $this->redirect(array('index'));
 
                 $this->redirect(array('update', 'id' => $model->id));
             }
