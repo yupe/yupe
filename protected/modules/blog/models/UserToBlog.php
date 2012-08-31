@@ -157,7 +157,11 @@ class UserToBlog extends YModel
 
     public function beforeSave()
     {
-        if(!$this->isNewRecord)
+        $this->update_date = new CDbExpression('NOW()');
+
+        if($this->isNewRecord)
+            $this->create_date = $this->update_date;
+        else
             $this->create_date = $this->create_date_old;
 
         return parent::beforeSave();
