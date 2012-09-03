@@ -3,7 +3,7 @@ $this->pageTitle = $post->title;
 $this->description = $post->description;
 $this->keywords = $post->keywords;
 $this->breadcrumbs = array(
-    'Блоги' => array('/blog/blog/index/'),
+    Yii::t('blog', 'Блоги') => array('/blog/blog/index/'),
     CHtml::encode($post->blog->name) => array('/blog/blog/show/', 'slug' => $post->blog->slug),
     CHtml::encode($post->title),
 );
@@ -14,33 +14,38 @@ $this->breadcrumbs = array(
         <?php echo CHtml::link(CHtml::encode($post->title), array('/blog/post/show/', 'slug' => $post->slug)); ?>
     </div>
     <div class="author">
-        Опубликовал
+        <?php echo Yii::t('blog', 'Опубликовал'); ?>: 
         <b><?php echo CHtml::link($post->createUser->nick_name, array('/user/people/userInfo', 'username' => $post->createUser->nick_name)); ?></b>
-        в блоге "<?php echo CHtml::link($post->blog->name, array('/blog/blog/show/', 'slug' => $post->blog->slug))?>"
-        дата: <?php echo Yii::app()->getDateFormatter()->formatDateTime($post->publish_date, "short", null);; ?>
+
+        <?php echo Yii::t('blog', 'в блоге'); ?>: 
+        "<?php echo CHtml::link($post->blog->name, array('/blog/blog/show/', 'slug' => $post->blog->slug)); ?>"
+
+        <?php echo Yii::t('blog', 'дата'); ?>: 
+        <?php echo Yii::app()->getDateFormatter()->formatDateTime($post->publish_date, "short", null); ?>
     </div>
-    <br/>
+    <br />
 
     <div class="content">
         <p><?php echo $post->content; ?></p>
     </div>
     <div class="nav">
-        <?php foreach ($post->getTags() as $tag): ?>
-            <?php echo CHtml::link(CHtml::encode($tag), array('/posts/', 'tag' => CHtml::encode($tag))); ?>
-        <?php endforeach;?>
-        | Обновлено <?php echo Yii::app()->getDateFormatter()->formatDateTime($post->update_date, "short", "short"); ?>
+        <?php
+        foreach ($post->getTags() as $tag)
+            echo CHtml::link(CHtml::encode($tag), array('/posts/', 'tag' => CHtml::encode($tag)));
+        ?>
+        | <?php echo Yii::t('blog', 'Обновлено'); ?>: 
+        <?php echo Yii::app()->getDateFormatter()->formatDateTime($post->update_date, "short", "short"); ?>
     </div>
 </div>
 
 <div style='float:left;padding-right:5px'>
-<?php $this->widget('application.modules.social.widgets.ysc.yandex.YandexShareApi', array(
-    'type' => 'button',
-    'services' => 'all',
-)); ?>
+    <?php $this->widget('application.modules.social.widgets.ysc.yandex.YandexShareApi', array(
+        'type' => 'button',
+        'services' => 'all',
+    )); ?>
 </div>
 
-
-<br/><br/><br/>
+<br /><br />
 
 <?php $this->widget('application.modules.comment.widgets.CommentsListWidget', array('model' => $post, 'modelId' => $post->id)); ?>
 

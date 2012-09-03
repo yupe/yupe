@@ -1,5 +1,5 @@
 <?php
-$this->pageTitle = 'Блоги';
+$this->pageTitle = Yii::t('blog', 'Блоги');
 $this->breadcrumbs = array(Yii::t('blog', 'Блоги'));
 ?>
 
