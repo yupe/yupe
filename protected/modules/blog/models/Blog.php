@@ -56,11 +56,12 @@ class Blog extends YModel
     {
         return array(
             array('name, description, slug', 'required', 'except' => 'search'),
-            array('type, status, create_user_id, update_user_id', 'numerical', 'integerOnly' => true),
+            array('type, status, create_user_id, update_user_id, create_date, update_date', 'numerical', 'integerOnly' => true),
             array('name, icon', 'length', 'max' => 300),
             array('slug', 'length', 'max' => 150),
             array('slug', 'unique'),
             array('create_user_id, update_user_id', 'length', 'max' => 10),
+            array('create_date, update_date', 'length', 'max' => 11),
             array('type', 'in', 'range' => array_keys($this->getTypeList())),
             array('status', 'in', 'range' => array_keys($this->getStatusList())),
             array('name, slug, description', 'filter', 'filter' => array($obj = new CHtmlPurifier(), 'purify')),

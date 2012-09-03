@@ -52,8 +52,9 @@ class UserToBlog extends YModel
         // will receive user inputs.
         return array(
             array('user_id, blog_id', 'required', 'except' => 'search'),
-            array('role, status, user_id, blog_id', 'numerical', 'integerOnly' => true),
-            array('user_id, blog_id, create_date, update_date', 'length', 'max' => 10),
+            array('role, status, user_id, blog_id, create_date, update_date', 'numerical', 'integerOnly' => true),
+            array('user_id, blog_id', 'length', 'max' => 10),
+            array('create_date, update_date', 'length', 'max' => 11),
             array('note', 'length', 'max' => 300),
             array('role', 'in', 'range' => array_keys($this->getRoleList())),
             array('status', 'in', 'range' => array_keys($this->getStatusList())),

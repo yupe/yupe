@@ -62,8 +62,9 @@ class Post extends YModel
         // will receive user inputs.
         return array(
             array('blog_id, slug, publish_date, title, content', 'required', 'except' => 'search'),
-            array('blog_id, create_user_id, update_user_id, status, comment_status, access_type', 'numerical', 'integerOnly' => true),
+            array('blog_id, create_user_id, update_user_id, status, comment_status, access_type, create_date, update_date, publish_date', 'numerical', 'integerOnly' => true),
             array('blog_id, create_user_id, update_user_id', 'length', 'max' => 10),
+            array('create_date, update_date, publish_date', 'length', 'max' => 11),
             array('slug, title, link, keywords', 'length', 'max' => 150),
             array('slug', 'unique'),
             array('quote, description', 'length', 'max' => 300),
