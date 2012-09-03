@@ -6,20 +6,30 @@
     );
     $this->pageTitle = Yii::t('blog', 'Записи - просмотр');
     $this->menu = array(
-        array('icon' => 'list-alt', 'label' => Yii::t('blog', 'Управление записьями'), 'url' => array('/blog/PostAdmin/index')),
-        array('icon' => 'plus-sign', 'label' => Yii::t('blog', 'Добавить запись'), 'url' => array('/blog/PostAdmin/create')),
-        array('label' => Yii::t('blog', 'Запись')),
-        array('icon' => 'pencil', 'encodeLabel' => false, 'label' => Yii::t('blog', 'Редактирование записи'), 'url' => array(
-            '/blog/PostAdmin/update',
-            'id' => $model->id
+        array('label' => Yii::t('blog', 'Блоги'), 'items' => array(
+            array('icon' => 'list-alt', 'label' => Yii::t('blog', 'Управление блогами'), 'url' => array('/blog/BlogAdmin/index')),
+            array('icon' => 'plus-sign', 'label' => Yii::t('blog', 'Добавить блог'), 'url' => array('/blog/BlogAdmin/create')),
         )),
-        array('icon' => 'eye-open white', 'encodeLabel' => false, 'label' => Yii::t('blog', 'Просмотреть запись'), 'url' => array(
-            '/blog/PostAdmin/view',
-            'id' => $model->id
+        array('label' => Yii::t('blog', 'Записи'), 'items' => array(
+            array('icon' => 'list-alt', 'label' => Yii::t('blog', 'Управление записьями'), 'url' => array('/blog/PostAdmin/index')),
+            array('icon' => 'plus-sign', 'label' => Yii::t('blog', 'Добавить запись'), 'url' => array('/blog/PostAdmin/create')),
+            array('label' => Yii::t('blog', 'Запись') . ' «' . $model->title . '»'),
+            array('icon' => 'pencil', 'encodeLabel' => false, 'label' => Yii::t('blog', 'Редактирование записи'), 'url' => array(
+                '/blog/PostAdmin/update',
+                'id' => $model->id
+            )),
+            array('icon' => 'eye-open white', 'encodeLabel' => false, 'label' => Yii::t('blog', 'Просмотреть запись'), 'url' => array(
+                '/blog/PostAdmin/view',
+                'id' => $model->id
+            )),
+            array('icon' => 'trash', 'label' => Yii::t('blog', 'Удалить запись'), 'url' => '#', 'linkOptions' => array(
+                'submit' => array('delete', 'id' => $model->id),
+                'confirm' => Yii::t('blog', 'Вы уверены, что хотите удалить запись?')
+            )),
         )),
-        array('icon' => 'trash', 'label' => Yii::t('blog', 'Удалить запись'), 'url' => '#', 'linkOptions' => array(
-            'submit' => array('delete', 'id' => $model->id),
-            'confirm' => Yii::t('blog', 'Вы уверены, что хотите удалить запись?')
+        array('label' => Yii::t('blog', 'Участники'), 'items' => array(
+            array('icon' => 'list-alt', 'label' => Yii::t('blog', 'Управление участниками'), 'url' => array('/blog/UserToBlogAdmin/index')),
+            array('icon' => 'plus-sign', 'label' => Yii::t('blog', 'Добавить участника'), 'url' => array('/blog/UserToBlogAdmin/create')),
         )),
     );
 ?>
@@ -46,10 +56,19 @@
             'name'=>'update_user_id',
             'value'=>$model->updateUser->getFullName(),
         ),
-        'create_date',
-        'update_date',
+        array(
+            'name'  => 'publish_date',
+            'value' => Yii::app()->getDateFormatter()->formatDateTime($model->publish_date, "short", null),
+        ),
+        array(
+            'name'  => 'create_date',
+            'value' => Yii::app()->getDateFormatter()->formatDateTime($model->create_date, "short", "short"),
+        ),
+        array(
+            'name'  => 'update_date',
+            'value' => Yii::app()->getDateFormatter()->formatDateTime($model->update_date, "short", "short"),
+        ),
         'slug',
-        'publish_date',
         'title',
         'quote',
         'content',

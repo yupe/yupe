@@ -38,11 +38,12 @@ Yii::app()->clientScript->registerScript('fieldset', "
         <div class="popover-help" data-original-title='<?php echo $model->getAttributeLabel('publish_date'); ?>' data-content='<?php echo $model->getAttributeDescription('publish_date'); ?>'>
             <?php echo $form->labelEx($model, 'publish_date'); ?>
             <?php $this->widget('zii.widgets.jui.CJuiDatePicker', array(
-            'model' => $model,
-            'language' => Yii::app()->language,
-            'attribute' => 'publish_date',
-            'htmlOptions' => array("class" => "span7"),
-        )); ?>
+                'model' => $model,
+                'language' => Yii::app()->language,
+                'attribute' => 'publish_date',
+                'htmlOptions' => array("class" => "span7"),
+                'options' => array('dateFormat' => 'dd-mm-yy'),
+            )); ?>
         </div>
     </div>
     <div class="row-fluid control-group <?php echo $model->hasErrors('blog_id') ? 'error' : ''; ?>">
@@ -105,7 +106,12 @@ Yii::app()->clientScript->registerScript('fieldset', "
     <?php $this->widget('bootstrap.widgets.TbButton', array(
         'buttonType' => 'submit',
         'type'       => 'primary',
-        'label'      => $model->isNewRecord ? Yii::t('blog', 'Добавить запись') : Yii::t('blog', 'Сохранить запись'),
+        'label'      => $model->isNewRecord ? Yii::t('blog', 'Добавить запись и продолжить') : Yii::t('blog', 'Сохранить запись и продолжить'),
+    )); ?>
+    <?php $this->widget('bootstrap.widgets.TbButton', array(
+        'buttonType' => 'submit',
+        'htmlOptions'=> array('name' => 'submit-type', 'value' => 'index'),
+        'label'      => $model->isNewRecord ? Yii::t('blog', 'Добавить запись и закрыть') : Yii::t('blog', 'Сохранить запись и закрыть'),
     )); ?>
 
 <?php $this->endWidget(); ?>
