@@ -27,7 +27,7 @@ if ($members)
     foreach ($members as $member)
         echo CHtml::link($member->nick_name, array('/user/people/userInfo/', 'username' => $member->nick_name));
 ?>
-<br/><br/>
+<br /><br />
 
 <p><?php echo Yii::t('blog', 'Последние записи'); ?>:</p>
 <?php if (count($posts)): ?>
@@ -47,14 +47,12 @@ if ($members)
         'services' => 'all',
     )); ?>
 </div>
-<br/><br/>
+<br /><br />
 
 <?php $this->widget('application.modules.comment.widgets.CommentsListWidget', array('model' => $blog, 'modelId' => $blog->id)); ?>
-
-<br/><br/>
+<br /><br />
 
 <h3><?php echo Yii::t('blog', 'Оставить комментарий'); ?></h3>
-
 <?php $this->widget('application.modules.comment.widgets.CommentFormWidget', array(
     'redirectTo' => Yii::app()->createUrl('/blog/blog/show/', array('slug' => $blog->slug)),
     'model' => $blog,
