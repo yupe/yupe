@@ -17,7 +17,7 @@
     </div>
     <div class="nav">
         <?php
-        foreach ($data->getTags() as $tag)
+        foreach ($data->tags as &$tag)
             echo CHtml::link(CHtml::encode($tag), array('/posts/', 'tag' => CHtml::encode($tag)));
         ?>
     </div>
