@@ -44,15 +44,12 @@ $this->breadcrumbs = array(
         'services' => 'all',
     )); ?>
 </div>
-
 <br /><br />
 
 <?php $this->widget('application.modules.comment.widgets.CommentsListWidget', array('model' => $post, 'modelId' => $post->id)); ?>
+<br/><br />
 
-<br/>
-
-<h3>Оставить комментарий</h3>
-
+<h3><?php echo Yii::t('blog', 'Оставить комментарий'); ?></h3>
 <?php $this->widget('application.modules.comment.widgets.CommentFormWidget', array(
     'redirectTo' => $this->createUrl('/blog/post/show/', array('slug' => $post->slug)),
     'model' => $post,
