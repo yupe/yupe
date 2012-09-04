@@ -41,7 +41,7 @@ class LanguageBehavior extends CBehavior
                 {
                     $this->setLanguage($l);
                     if(!Yii::app()->request->isAjaxRequest)
-                        Yii::app()->request->redirect(Yii::app()->homeUrl . $lm->getCleanUrl(substr(Yii::app()->request->getPathInfo(), 2)));
+                        Yii::app()->request->redirect( ((substr(Yii::app()->homeUrl,-1,1)=="/")?substr(Yii::app()->homeUrl,0,strlen(Yii::app()->homeUrl)-1):Yii::app()->homeUrl ) . $lm->getCleanUrl(substr(Yii::app()->request->getPathInfo(), 2)));
                 }
             }
         }
@@ -66,8 +66,9 @@ class LanguageBehavior extends CBehavior
             if ($l != Yii::app()->sourceLanguage)
             {
                 $this->setLanguage($l);
+
                 if(!Yii::app()->request->isAjaxRequest)
-                    Yii::app()->request->redirect((Yii::app()->homeUrl . "/" . $l) . $lm->getCleanUrl(Yii::app()->request->getPathInfo()));
+                    Yii::app()->request->redirect((Yii::app()->homeUrl . (substr(Yii::app()->homeUrl,-1,1)!="/"?"/":"") . $l) . $lm->getCleanUrl(Yii::app()->request->getPathInfo()));
             } else
                 Yii::app()->language = $l;
         }
