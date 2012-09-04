@@ -20,7 +20,7 @@
 </script>
 
 <div id='votes'>
-    <?php if (!is_null($model)): ?>
+    <?php if ($model !== NULL): ?>
     <p><?php echo Yii::t('vote', 'Ваша оценка');?>:
         <b><?php echo $model->value;?></b></p>
     <?php else: ?>

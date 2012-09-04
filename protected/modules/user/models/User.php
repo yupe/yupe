@@ -361,9 +361,9 @@ class User extends CActiveRecord
 
     public function createAccount($nick_name, $email, $password = null, $salt = null, $status = self::STATUS_NOT_ACTIVE, $emailConfirm = self::EMAIL_CONFIRM_NO, $first_name = '', $last_name = '')
     {
-        $salt = is_null($salt) ? $this->generateSalt() : $salt;
+        $salt = ($salt === NULL) ? $this->generateSalt() : $salt;
 
-        $password = is_null($password) ? $this->generateRandomPassword() : $password;
+        $password = ($password === NULL) ? $this->generateRandomPassword() : $password;
 
         $this->setAttributes(array(
             'nick_name'         => $nick_name,

@@ -38,7 +38,7 @@ class SocialLoginIdentity extends CBaseUserIdentity
                                                                                                          ':identity_id' => $this->identity_id
                                                                                                     ));
 
-            if (is_null($user) || is_null($user->user))
+            if (($user === NULL) || ($user->user === NULL))
             {
                 $this->errorCode = self::ERROR_USERNAME_INVALID;
             }
