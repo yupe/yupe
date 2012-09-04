@@ -51,9 +51,9 @@ return array(
         'class'    => 'application.modules.yupe.YupeModule',
         'brandUrl' => 'http://yupe.ru?from=engine',
     ),
-    'install'  => array(
+    /*'install'  => array(
         'class' => 'application.modules.install.InstallModule',
-    ),
+    ),*/
     'category' => array(
         'class' => 'application.modules.category.CategoryModule',
     ),
@@ -95,7 +95,7 @@ return array(
         ),
     ),
     // подключение gii в режиме боевой работы рекомендуется отключить (подробнее http://www.yiiframework.com/doc/guide/1.1/en/quickstart.first-app)
-    'gii'   => array(
+    /*'gii'   => array(
         'class'          => 'system.gii.GiiModule',
         'password'       => 'giiYupe',
         'generatorPaths' => array(
@@ -106,7 +106,7 @@ return array(
         'generatorPaths'=>array(
             'bootstrap.gii',
         ),
-        */
-    ),
+
+    ),*/
 );
 ?>

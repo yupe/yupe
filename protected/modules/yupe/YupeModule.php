@@ -221,7 +221,7 @@ class YupeModule extends YupeParams
                 $key    = strtolower($key);
                 $module = Yii::app()->getModule($key);
 
-                if (!is_null($module))
+                if (($module !== NULL))
                 {
                     if (is_a($module, 'YWebModule'))
                     {

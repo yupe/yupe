@@ -383,17 +383,17 @@ class CImage {
 	 */
 	protected function valid_size($type, & $value)
 	{
-		if (is_null($value))
+		if ($value === NULL)
 			return TRUE;
 
-		if ( ! is_scalar($value))
+		if (!is_scalar($value))
 			return FALSE;
 
 		switch ($type)
 		{
 			case 'width':
 			case 'height':
-				if (is_string($value) AND ! ctype_digit($value))
+				if (is_string($value) AND !ctype_digit($value))
 				{
 					// Only numbers and percent signs
 					if ( ! preg_match('/^[0-9]++%$/D', $value))
@@ -401,13 +401,13 @@ class CImage {
 				}
 				else
 				{
-					$value = (int) $value;
+					$value = (int)$value;
 				}
 			break;
 			case 'top':
-				if (is_string($value) AND ! ctype_digit($value))
+				if (is_string($value) AND !ctype_digit($value))
 				{
-					if ( ! in_array($value, array('top', 'bottom', 'center')))
+					if (!in_array($value, array('top', 'bottom', 'center')))
 						return FALSE;
 				}
 				else
@@ -416,9 +416,9 @@ class CImage {
 				}
 			break;
 			case 'left':
-				if (is_string($value) AND ! ctype_digit($value))
+				if (is_string($value) AND !ctype_digit($value))
 				{
-					if ( ! in_array($value, array('left', 'right', 'center')))
+					if (!in_array($value, array('left', 'right', 'center')))
 						return FALSE;
 				}
 				else

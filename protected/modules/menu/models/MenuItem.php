@@ -158,7 +158,7 @@ class MenuItem extends CActiveRecord
             $key = strtolower($key);
             $module = Yii::app()->getModule($key);
 
-            if (!is_null($module) && is_a($module, 'YWebModule'))
+            if (($module !== NULL) && is_a($module, 'YWebModule'))
             {
                 if ($module->getIsShowInAdminMenu() || $module->getEditableParams() || ($module->getIsShowInAdminMenu() == false && is_array($module->checkSelf())))
                 {

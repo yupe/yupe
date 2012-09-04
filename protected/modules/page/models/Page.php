@@ -254,11 +254,11 @@ class Page extends CActiveRecord
 
     public function getCategoryName()
     {
-        return is_null($this->category) ? '---' : $this->category->name;
+        return ($this->category === NULL) ? '---' : $this->category->name;
     }
 
     public function getParentName()
     {
-        return is_null($this->parentPage) ? '---' : $this->parentPage->name;
+        return ($this->parentPage === NULL) ? '---' : $this->parentPage->name;
     }
 }

@@ -219,6 +219,6 @@ class Image extends CActiveRecord
     
     public function getCategoryName()
     {
-        return is_null($this->category) ? '---' : $this->category->name;
+        return ($this->category === NULL) ? '---' : $this->category->name;
     }
 }
