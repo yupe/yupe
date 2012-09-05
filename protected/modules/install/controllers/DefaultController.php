@@ -151,7 +151,7 @@ class DefaultController extends Controller
         $dbConfFile = Yii::app()->basePath . DIRECTORY_SEPARATOR . 'config' . DIRECTORY_SEPARATOR . 'db.php';
 
         $sqlDataDir = $this->module->basePath . DIRECTORY_SEPARATOR . 'data' . DIRECTORY_SEPARATOR;
-        $sqlDbDir = $sqlDataDir . DIRECTORY_SEPARATOR . 'db' . DIRECTORY_SEPARATOR;
+        $sqlDbDir = $sqlDataDir . 'db' . DIRECTORY_SEPARATOR;
 
         $sqlFile = $sqlDataDir . 'yupe.sql';
         $sqlDropFile = $sqlDataDir . 'yupe_drop.sql';
@@ -201,9 +201,7 @@ class DefaultController extends Controller
                     {
                         //@TODO корректная обработка ошибок IO
                         fwrite($fh, $dbConfString);
-
                         fclose($fh);
-
                         @chmod($dbConfFile, 0666);
 
                         $transaction = Yii::app()->db->beginTransaction();
