@@ -617,7 +617,7 @@ CREATE TABLE IF NOT EXISTS `user` (
   `registration_ip` varchar(20) NOT NULL,
   `activation_ip` varchar(20) NOT NULL,
   `avatar` varchar(100) DEFAULT NULL,
-  `use_gravatar` tinyint(4) NOT NULL DEFAULT '0',
+  `use_gravatar` tinyint(4) NOT NULL DEFAULT '1',
   `activate_key` char(32) NOT NULL,
   `email_confirm` tinyint(1) NOT NULL DEFAULT '0',
   PRIMARY KEY (`id`),
