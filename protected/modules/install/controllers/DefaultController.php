@@ -166,8 +166,10 @@ class DefaultController extends Controller
             {
                 try
                 {
+                    $socket = ($form->socket == '') ? '': ';unix_socket:' . $form->socket;
+
                     //@TODO правильня обработка указанного номера порта - сейчас вообще не учитывается
-                    $connectionString = "mysql:host={$form->host};dbname=$form->dbName";
+                    $connectionString = "mysql:host={$form->host};dbname={$form->dbName}{$socket}";
                     $connection = new CDbConnection($connectionString, $form->user, $form->password);
                     $connection->connectionString = $connectionString;
                     $connection->username = $form->user;
@@ -180,7 +182,7 @@ class DefaultController extends Controller
 
                     $dbParams = array(
                         'class' => 'CDbConnection',
-                        'connectionString' => "mysql:host={$form->host};dbname=$form->dbName",
+                        'connectionString' => $connectionString,
                         'username' => $form->user,
                         'password' => $form->password,
                         'emulatePrepare' => true,
