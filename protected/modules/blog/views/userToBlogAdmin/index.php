@@ -85,12 +85,13 @@ $this->widget('application.modules.yupe.components.YCustomGridView', array(
         ),
         array(
             'name'  => 'role',
-            'value' => '$data->getRole()',
+            'type'  => 'raw',
+            'value' => '$this->grid->returnBootstrapStatusHtml($data, "role", "Role", array(1 => "user", 2 => "eye-open", 3 => "asterisk"))',
         ),
         array(
             'name'  => 'status',
             'type'  => 'raw',
-            'value' => '$this->grid->returnBootstrapStatusHtml($data)',
+            'value' => '$this->grid->returnBootstrapStatusHtml($data, "status", "Status", array(1 => "ok-sign", 2 => "lock"))',
         ),
         'note',
         array(

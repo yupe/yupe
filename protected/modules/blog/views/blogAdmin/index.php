@@ -81,12 +81,13 @@ $this->widget('application.modules.yupe.components.YCustomGridView', array(
         'slug',
         array(
             'name'  => 'type',
-            'value' => '$data->getType()',
+            'type'  => 'raw',
+            'value' => '$this->grid->returnBootstrapStatusHtml($data, "type", "Type", array(1 => "globe", 2 => "home"))',
         ),
         array(
             'name'  => 'status',
             'type'  => 'raw',
-            'value' => '$this->grid->returnBootstrapStatusHtml($data)',
+            'value' => '$this->grid->returnBootstrapStatusHtml($data, "status", "Status", array("lock", "ok-sign", "remove"))',
         ),
         array(
             'name'  => 'create_user_id',

@@ -8,7 +8,6 @@ class YCustomGridView extends TbGridView
     public $inActiveStatus = 0;
     public $activeStatus   = 1;
 
-    public $statusField = 'status';
     public $sortField   = 'sort';
 
     public $showStatusText = false;
@@ -63,28 +62,41 @@ class YCustomGridView extends TbGridView
      * @return string HTML-код для BootStrap-иконки переключателя
      *
      */
-    public function returnBootstrapStatusHtml($data, $active = 1, $icons = array('eye-close', 'ok-sign', 'time'))
+    public function returnBootstrapStatusHtml($data, $statusField = 'status', $method = 'Status', $icons = array('lock', 'ok-sign', 'time'))
     {
-        $statusField = $this->statusField;
+        $funcStatus = 'get' . $method;
+        $funcStatusList = 'get' . $method . 'List';
 
-        $status = ($data->$statusField == $active) ? $this->inActiveStatus : $this->activeStatus;
+        $text = method_exists($data, $funcStatus) ? $data->$funcStatus() : '';
+        $iconStatus = isset($icons[$data->$statusField]) ? $icons[$data->$statusField] : 'question-sign';
 
-        $url = Yii::app()->controller->createUrl("activate", array(
-            'model'       => $this->modelName,
-            'id'          => $data->id,
-            'status'      => $status,
-            'statusField' => $this->statusField,
-        ));
+        $icon = '<i class="icon icon-' . $iconStatus . '" title="' . $text . '"></i>';
 
-        $options = array('onclick' => 'ajaxSetStatus(this, "' . $this->id . '"); return false;');
+        if (method_exists($data, $funcStatusList))
+        {
+            $statusList = $data->$funcStatusList();
 
-        $iconStatus = isset($icons[ $data->$statusField]) ? $icons[ $data->$statusField] : 'question-sign';
-        $text = method_exists($data,'getStatus') ? $data->getStatus() : '';
-        $iconTitle = Yii::t('yupe', $data->$statusField ? Yii::t('yupe', 'Деактивировать') : Yii::t('yupe', 'Активировать'));
+            reset($statusList);
+            $status = key($statusList);
+            while (list($key, $val) = each($statusList))
+                if ($key == $data->$statusField)
+                    if(($keyNext = key($statusList)))
+                    {
+                        $status = $keyNext;
+                        break;
+                    }
 
-        $icon = '<i class="icon icon-' . $iconStatus . '" title="' . $text . ', ' . $iconTitle . '"></i>';
+            $url = Yii::app()->controller->createUrl("activate", array(
+                'model'       => $this->modelName,
+                'id'          => $data->id,
+                'status'      => $status,
+                'statusField' => $statusField,
+            ));
+            $options = array('onclick' => 'ajaxSetStatus(this, "' . $this->id . '"); return false;');
 
-        return CHtml::link($icon, $url, $options);
+            return CHtml::link($icon, $url, $options);
+        }
+        return $icon;
     }
 
     public function getUpDownButtons($data)

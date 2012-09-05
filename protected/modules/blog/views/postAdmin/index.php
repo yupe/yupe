@@ -79,7 +79,8 @@ $this->widget('application.modules.yupe.components.YCustomGridView', array(
         ),
         array(
             'name'  => 'access_type',
-            'value' => '$data->getAccessType()',
+            'type'  => 'raw',
+            'value' => '$this->grid->returnBootstrapStatusHtml($data, "access_type", "AccessType", array(1 => "globe", 2 => "home"))',
         ),
         array(
             'name'  => 'create_user_id',
@@ -106,11 +107,12 @@ $this->widget('application.modules.yupe.components.YCustomGridView', array(
         array(
             'name'  => 'status',
             'type'  => 'raw',
-            'value' => '$this->grid->returnBootstrapStatusHtml($data)',
+            'value' => '$this->grid->returnBootstrapStatusHtml($data, "status", "Status", array("pencil", "ok-sign", "time"))',
         ),
         array(
             'name'  => 'comment_status',
-            'value' => '$data->getCommentStatus()',
+            'type'  => 'raw',
+            'value' => '$this->grid->returnBootstrapStatusHtml($data, "comment_status", "CommentStatus", array(1 => "ok-sign", 2 => "lock"))',
         ),
         //'quote',
         //'content',

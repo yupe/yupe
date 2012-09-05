@@ -24,12 +24,12 @@
  */
 class Blog extends YModel
 {
+    const STATUS_BLOCKED = 0;
+    const STATUS_ACTIVE  = 1;
+    const STATUS_DELETED = 2;
+
     const TYPE_PUBLIC  = 1;
     const TYPE_PRIVATE = 2;
-
-    const STATUS_ACTIVE  = 1;
-    const STATUS_BLOCKED = 2;
-    const STATUS_DELETED = 3;
 
     /**
      * Returns the static model of the specified AR class.
@@ -187,27 +187,13 @@ class Blog extends YModel
 
         return parent::beforeSave();
     }
-    
-    public function getTypeList()
-    {
-        return array(
-            self::TYPE_PUBLIC  => Yii::t('blog', 'публичный'),
-            self::TYPE_PRIVATE => Yii::t('blog', 'личный'),
-        );
-    }
-
-    public function getType()
-    {
-        $data = $this->typeList;
-        return isset($data[$this->type]) ? $data[$this->type] : Yii::t('blog', '*неизвестно*');
-    }
 
     public function getStatusList()
     {
         return array(
-            self::STATUS_ACTIVE  => Yii::t('blog', 'активен'),
-            self::STATUS_BLOCKED => Yii::t('blog', 'заблокирован'),
-            self::STATUS_DELETED => Yii::t('blog', 'удален'),
+            self::STATUS_BLOCKED => Yii::t('blog', 'Заблокирован'),
+            self::STATUS_ACTIVE  => Yii::t('blog', 'Активен'),
+            self::STATUS_DELETED => Yii::t('blog', 'Удален'),
         );
     }
 
@@ -215,6 +201,20 @@ class Blog extends YModel
     {
         $data = $this->statusList;
         return isset($data[$this->status]) ? $data[$this->status] : Yii::t('blog', '*неизвестно*');
+    }
+
+    public function getTypeList()
+    {
+        return array(
+            self::TYPE_PUBLIC  => Yii::t('blog', 'Публичный'),
+            self::TYPE_PRIVATE => Yii::t('blog', 'Личный'),
+        );
+    }
+
+    public function getType()
+    {
+        $data = $this->typeList;
+        return isset($data[$this->type]) ? $data[$this->type] : Yii::t('blog', '*неизвестно*');
     }
 
     public function join($userId)

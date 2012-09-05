@@ -229,9 +229,9 @@ class Post extends YModel
     public function getStatusList()
     {
         return array(
-            self::STATUS_SHEDULED  => Yii::t('blog', 'По расписанию'),
             self::STATUS_DRAFT     => Yii::t('blog', 'Черновик'),
             self::STATUS_PUBLISHED => Yii::t('blog', 'Опубликовано'),
+            self::STATUS_SHEDULED  => Yii::t('blog', 'По расписанию'),
         );
     }
 
@@ -245,7 +245,7 @@ class Post extends YModel
     {
         return array(
             self::ACCESS_PRIVATE => Yii::t('blog', 'Личный'),
-            self::ACCESS_PUBLIC  => Yii::t('blog', 'Публичный')
+            self::ACCESS_PUBLIC  => Yii::t('blog', 'Публичный'),
         );
     }
 
@@ -257,6 +257,15 @@ class Post extends YModel
 
     public function getCommentStatus()
     {
-        return $this->comment_status ? Yii::t('blog', 'Да') : Yii::t('blog', 'Нет');
+        $data = $this->commentStatusList;
+        return isset($data[$this->comment_status]) ? $data[$this->comment_status] : Yii::t('blog', '*неизвестно*');
+    }
+
+    public function getCommentStatusList()
+    {
+        return array(
+            self::ACCESS_PRIVATE => Yii::t('blog', 'Запрещены'),
+            self::ACCESS_PUBLIC  => Yii::t('blog', 'Разрешены'),
+        );
     }
 }
