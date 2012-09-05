@@ -38,9 +38,10 @@ Yii::app()->clientScript->registerScript('fieldset', "
         <div class="popover-help" data-original-title='<?php echo $model->getAttributeLabel('publish_date'); ?>' data-content='<?php echo $model->getAttributeDescription('publish_date'); ?>'>
             <?php echo $form->labelEx($model, 'publish_date'); ?>
             <?php $this->widget('zii.widgets.jui.CJuiDatePicker', array(
-                'model' => $model,
-                'language' => Yii::app()->language,
                 'attribute' => 'publish_date',
+                'name' => class_name($model).'[publish_date]',
+                'value' => date('d-m-Y', $model->publish_date),
+                'language' => Yii::app()->language,
                 'htmlOptions' => array("class" => "span7"),
                 'options' => array('dateFormat' => 'dd-mm-yy'),
             )); ?>

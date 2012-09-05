@@ -207,13 +207,6 @@ class Post extends YModel
         );
     }
 
-    public function afterFind()
-    {
-        $this->publish_date = date('d-m-Y', $this->publish_date);
-
-        return parent::afterFind();
-    }
-
     public function beforeSave()
     {
         $this->publish_date = strtotime($this->publish_date);
