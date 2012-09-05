@@ -196,7 +196,7 @@ class Post extends YModel
 
     public function afterFind()
     {
-        $this->publish_date = date('d-m-Y', strtotime($this->publish_date));
+        $this->publish_date = date('d-m-Y', $this->publish_date);
 
         return parent::afterFind();
     }
