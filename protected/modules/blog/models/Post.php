@@ -40,7 +40,7 @@ class Post extends YModel
      * Returns the static model of the specified AR class.
      * @return Post the static model class
      */
-    public static function model($className=__CLASS__)
+    public static function model($className = __CLASS__)
     {
         return parent::model($className);
     }
@@ -66,12 +66,11 @@ class Post extends YModel
             array('blog_id, create_user_id, update_user_id', 'length', 'max' => 10),
             array('create_date, update_date', 'length', 'max' => 11),
             array('slug, title, link, keywords', 'length', 'max' => 150),
-            array('slug', 'unique'),
             array('quote, description', 'length', 'max' => 300),
             array('link', 'url'),
             array('comment_status', 'in', 'range' => array(0, 1)),
-            array('access_type', 'in', 'range' => array_keys($this->getAccessTypeList())),
-            array('status', 'in', 'range' => array_keys($this->getStatusList())),
+            array('access_type', 'in', 'range' => array_keys($this->accessTypeList)),
+            array('status', 'in', 'range' => array_keys($this->statusList)),
             array('slug', 'unique'),
             array('title, slug, link, keywords, description, publish_date', 'filter', 'filter' => array($obj = new CHtmlPurifier(), 'purify')),
             array('id, blog_id, create_user_id, update_user_id, create_date, update_date, slug, publish_date, title, quote, content, link, status, comment_status, access_type, keywords, description', 'safe', 'on' => 'search'),
@@ -89,6 +88,20 @@ class Post extends YModel
             'createUser' => array(self::BELONGS_TO, 'User', 'create_user_id'),
             'updateUser' => array(self::BELONGS_TO, 'User', 'update_user_id'),
             'blog'       => array(self::BELONGS_TO, 'Blog', 'blog_id'),
+        );
+    }
+
+    public function scopes()
+    {
+        return array(
+            'published' => array(
+                'condition' => 't.status = :status',
+                'params'    => array(':status' => self::STATUS_PUBLISHED),
+            ),
+            'public' => array(
+                'condition' => 't.access_type = :access_type',
+                'params'    => array(':access_type' => self::ACCESS_PUBLIC),
+            ),
         );
     }
 
@@ -171,7 +184,7 @@ class Post extends YModel
 
         $criteria->with = array('createUser', 'updateUser', 'blog');
 
-        return new CActiveDataProvider($this, array('criteria' => $criteria));
+        return new CActiveDataProvider(get_class($this), array('criteria' => $criteria));
     }
 
     public function behaviors()
@@ -203,10 +216,10 @@ class Post extends YModel
 
     public function beforeSave()
     {
-        $this->update_user_id = Yii::app()->user->getId();
         $this->publish_date = strtotime($this->publish_date);
+        $this->update_user_id = Yii::app()->user->id;
 
-        if($this->isNewRecord)
+        if ($this->isNewRecord)
             $this->create_user_id = $this->update_user_id;
 
         return parent::beforeSave();
@@ -231,8 +244,7 @@ class Post extends YModel
 
     public function getStatus()
     {
-        $data = $this->getStatusList();
-
+        $data = $this->statusList;
         return isset($data[$this->status]) ? $data[$this->status] : Yii::t('blog', '*неизвестно*');
     }
 
@@ -246,27 +258,12 @@ class Post extends YModel
 
     public function getAccessType()
     {
-        $data = $this->getAccessTypeList();
-
+        $data = $this->accessTypeList;
         return isset($data[$this->access_type]) ? $data[$this->access_type] : Yii::t('blog', '*неизвестно*');
     }
 
     public function getCommentStatus()
     {
         return $this->comment_status ? Yii::t('blog', 'Да') : Yii::t('blog', 'Нет');
-    }
-
-    public function scopes()
-    {
-        return array(
-            'published' => array(
-                'condition' => 't.status = :status',
-                'params'    => array(':status' => self::STATUS_PUBLISHED),
-            ),
-            'public' => array(
-                'condition' => 't.access_type = :access_type',
-                'params'    => array(':access_type' => self::ACCESS_PUBLIC),
-            ),
-        );
     }
 }

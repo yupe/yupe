@@ -59,14 +59,13 @@ class Blog extends YModel
             array('type, status, create_user_id, update_user_id, create_date, update_date', 'numerical', 'integerOnly' => true),
             array('name, icon', 'length', 'max' => 300),
             array('slug', 'length', 'max' => 150),
-            array('slug', 'unique'),
             array('create_user_id, update_user_id', 'length', 'max' => 10),
             array('create_date, update_date', 'length', 'max' => 11),
-            array('type', 'in', 'range' => array_keys($this->getTypeList())),
-            array('status', 'in', 'range' => array_keys($this->getStatusList())),
+            array('slug', 'unique'),
             array('name, slug, description', 'filter', 'filter' => array($obj = new CHtmlPurifier(), 'purify')),
             array('slug', 'match', 'pattern' => '/^[a-zA-Z0-9_\-]+$/', 'message' => Yii::t('blog', 'Запрещенные символы в поле {attribute}')),
-            array('slug','unique'),
+            array('type', 'in', 'range' => array_keys($this->typeList)),
+            array('status', 'in', 'range' => array_keys($this->statusList)),
             array('id, name, description, icon, slug, type, status, create_user_id, update_user_id, create_date, update_date', 'safe', 'on' => 'search'),
         );
     }
@@ -86,6 +85,20 @@ class Blog extends YModel
             'members'      => array(self::HAS_MANY, 'User', array('user_id' => 'id'), 'through' => 'userToBlog'),
             'postsCount'   => array(self::STAT, 'Post', 'blog_id', 'condition' => 'status = :status', 'params' => array(':status' => Post::STATUS_PUBLISHED)),
             'membersCount' => array(self::STAT, 'UserToBlog', 'blog_id', 'condition' => 'status = :status', 'params' => array(':status' => UserToBlog::STATUS_ACTIVE)),
+        );
+    }
+
+    public function scopes()
+    {
+        return array(
+            'published' => array(
+                'condition' => 'status = :status',
+                'params'    => array(':status' => self::STATUS_ACTIVE),
+            ),
+            'public' => array(
+                'condition' => 'type = :type',
+                'params'    => array(':type' => self::TYPE_PUBLIC),
+            ),
         );
     }
 
@@ -167,7 +180,7 @@ class Blog extends YModel
 
     public function beforeSave()
     {
-        $this->update_user_id = Yii::app()->user->getId();
+        $this->update_user_id = Yii::app()->user->id;
 
         if ($this->isNewRecord)
             $this->create_user_id = $this->update_user_id;
@@ -185,8 +198,7 @@ class Blog extends YModel
 
     public function getType()
     {
-        $data = $this->getTypeList();
-
+        $data = $this->typeList;
         return isset($data[$this->type]) ? $data[$this->type] : Yii::t('blog', '*неизвестно*');
     }
 
@@ -201,39 +213,21 @@ class Blog extends YModel
 
     public function getStatus()
     {
-        $data = $this->getStatusList();
-
+        $data = $this->statusList;
         return isset($data[$this->status]) ? $data[$this->status] : Yii::t('blog', '*неизвестно*');
-    }
-
-    public function scopes()
-    {
-        return array(
-            'published' => array(
-                'condition' => 'status = :status',
-                'params'    => array(':status' => self::STATUS_ACTIVE),
-            ),
-            'public' => array(
-                'condition' => 'type = :type',
-                'params'    => array(':type' => self::TYPE_PUBLIC),
-            )
-        );
     }
 
     public function join($userId)
     {
-        $userToBlog = new UserToBlog;
-
-        if(!$userToBlog->find('user_id = :user_id AND blog_id = :blog_id', array(
-            'user_id' => Yii::app()->user->getId(),
+        $params = array(
+            'user_id' => Yii::app()->user->id,
             'blog_id' => $this->id,
-        )))
-        {
-            $userToBlog->setAttributes(array(
-                'user_id' => Yii::app()->user->getId(),
-                'blog_id' => $this->id,
-            ));
+        );
 
+        $userToBlog = new UserToBlog;
+        if (!$userToBlog->find('user_id = :user_id AND blog_id = :blog_id', $params))
+        {
+            $userToBlog->setAttributes($params);
             return $userToBlog->save();
         }
         return false;
@@ -243,5 +237,4 @@ class Blog extends YModel
     {
         return UserToBlog::model()->with('user')->findAll('blog_id = :blog_id', array(':blog_id' => $this->id));
     }
-
 }

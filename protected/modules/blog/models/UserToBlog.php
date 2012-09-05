@@ -56,8 +56,8 @@ class UserToBlog extends YModel
             array('user_id, blog_id', 'length', 'max' => 10),
             array('create_date, update_date', 'length', 'max' => 11),
             array('note', 'length', 'max' => 300),
-            array('role', 'in', 'range' => array_keys($this->getRoleList())),
-            array('status', 'in', 'range' => array_keys($this->getStatusList())),
+            array('role', 'in', 'range' => array_keys($this->roleList)),
+            array('status', 'in', 'range' => array_keys($this->statusList)),
             array('note', 'filter', 'filter' => array($obj = new CHtmlPurifier(), 'purify')),
             array('id, user_id, blog_id, create_date, update_date, role, status, note', 'safe', 'on' => 'search'),
         );
@@ -130,7 +130,7 @@ class UserToBlog extends YModel
 
         $criteria->with = array('user', 'blog');
 
-        return new CActiveDataProvider($this, array('criteria' => $criteria));
+        return new CActiveDataProvider(get_class($this), array('criteria' => $criteria));
     }
 
     public function behaviors()
@@ -141,7 +141,7 @@ class UserToBlog extends YModel
                 'setUpdateOnCreate' => true,
                 'createAttribute'   => 'create_date',
                 'updateAttribute'   => 'update_date',
-            )
+            ),
         );
     }
 
@@ -156,9 +156,8 @@ class UserToBlog extends YModel
 
     public function getRole()
     {
-        $data = $this->getRoleList();
-
-        return isset($data[$this->role]) ? $data[$this->role] : Yii::t('blog','*неизвестно*');
+        $data = $this->roleList;
+        return isset($data[$this->role]) ? $data[$this->role] : Yii::t('blog', '*неизвестно*');
     }
 
     public function getStatusList()
@@ -171,8 +170,7 @@ class UserToBlog extends YModel
 
     public function getStatus()
     {
-        $data = $this->getStatusList();
-
+        $data = $this->statusList;
         return isset($data[$this->status]) ? $data[$this->status] : Yii::t('blog', '*неизвестно*');
     }
 }
