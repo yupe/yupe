@@ -39,7 +39,7 @@ Yii::app()->clientScript->registerScript('fieldset', "
             <?php echo $form->labelEx($model, 'publish_date'); ?>
             <?php $this->widget('zii.widgets.jui.CJuiDatePicker', array(
                 'name' => CHtml::activeName($model, 'publish_date'),
-                'value' => ($model->publish_date) ? date('d-m-Y', $model->publish_date) : date('d-m-Y'),
+                'value' => ($model->publish_date !== NULL) ? ((is_int($model->publish_date)) ? date('d-m-Y', $model->publish_date) : $model->publish_date) : date('d-m-Y'),
                 'language' => Yii::app()->language,
                 'htmlOptions' => array("class" => "span7"),
                 'options' => array('dateFormat' => 'dd-mm-yy'),
