@@ -21,7 +21,7 @@ $this->breadcrumbs = array(
         "<?php echo CHtml::link($post->blog->name, array('/blog/blog/show/', 'slug' => $post->blog->slug)); ?>"
 
         <?php echo Yii::t('blog', 'дата'); ?>: 
-        <?php echo Yii::app()->getDateFormatter()->formatDateTime($post->publish_date, "short", null); ?>
+        <?php echo Yii::app()->getDateFormatter()->formatDateTime($post->publish_date, "short", "short"); ?>
     </div>
     <br />
 

@@ -36,6 +36,9 @@ class Post extends YModel
     const ACCESS_PUBLIC  = 1;
     const ACCESS_PRIVATE = 2;
 
+    public $publish_date_tmp;
+    public $publish_time_tmp;
+
     /**
      * Returns the static model of the specified AR class.
      * @return Post the static model class
@@ -61,8 +64,10 @@ class Post extends YModel
         // NOTE: you should only define rules for those attributes that
         // will receive user inputs.
         return array(
-            array('blog_id, slug, publish_date, title, content', 'required', 'except' => 'search'),
+            array('blog_id, slug, publish_date_tmp, publish_time_tmp, title, content', 'required', 'except' => 'search'),
             array('blog_id, create_user_id, update_user_id, status, comment_status, access_type, create_date, update_date', 'numerical', 'integerOnly' => true),
+            array('publish_date_tmp', 'type', 'type' => 'date', 'dateFormat' => 'dd-mm-yyyy'),
+            array('publish_time_tmp', 'type', 'type' => 'time', 'timeFormat' => 'hh:mm'),
             array('blog_id, create_user_id, update_user_id', 'length', 'max' => 10),
             array('create_date, update_date', 'length', 'max' => 11),
             array('slug, title, link, keywords', 'length', 'max' => 150),
@@ -111,24 +116,26 @@ class Post extends YModel
     public function attributeLabels()
     {
         return array(
-            'id'             => Yii::t('blog', 'id'),
-            'blog_id'        => Yii::t('blog', 'Блог'),
-            'create_user_id' => Yii::t('blog', 'Создал'),
-            'update_user_id' => Yii::t('blog', 'Изменил'),
-            'create_date'    => Yii::t('blog', 'Создано'),
-            'update_date'    => Yii::t('blog', 'Изменено'),
-            'slug'           => Yii::t('blog', 'Урл'),
-            'publish_date'   => Yii::t('blog', 'Дата'),
-            'title'          => Yii::t('blog', 'Заголовок'),
-            'quote'          => Yii::t('blog', 'Цитата'),
-            'content'        => Yii::t('blog', 'Содержание'),
-            'link'           => Yii::t('blog', 'Ссылка'),
-            'status'         => Yii::t('blog', 'Статус'),
-            'comment_status' => Yii::t('blog', 'Комментарии'),
-            'access_type'    => Yii::t('blog', 'Доступ'),
-            'keywords'       => Yii::t('blog', 'Ключевые слова'),
-            'description'    => Yii::t('blog', 'Описание'),
-            'tags'           => Yii::t('blog', 'Теги'),
+            'id'               => Yii::t('blog', 'id'),
+            'blog_id'          => Yii::t('blog', 'Блог'),
+            'create_user_id'   => Yii::t('blog', 'Создал'),
+            'update_user_id'   => Yii::t('blog', 'Изменил'),
+            'create_date'      => Yii::t('blog', 'Создано'),
+            'update_date'      => Yii::t('blog', 'Изменено'),
+            'publish_date'     => Yii::t('blog', 'Дата'),
+            'publish_date_tmp' => Yii::t('blog', 'Дата публикации'),
+            'publish_time_tmp' => Yii::t('blog', 'Время публикации'),
+            'slug'             => Yii::t('blog', 'Урл'),
+            'title'            => Yii::t('blog', 'Заголовок'),
+            'quote'            => Yii::t('blog', 'Цитата'),
+            'content'          => Yii::t('blog', 'Содержание'),
+            'link'             => Yii::t('blog', 'Ссылка'),
+            'status'           => Yii::t('blog', 'Статус'),
+            'comment_status'   => Yii::t('blog', 'Комментарии'),
+            'access_type'      => Yii::t('blog', 'Доступ'),
+            'keywords'         => Yii::t('blog', 'Ключевые слова'),
+            'description'      => Yii::t('blog', 'Описание'),
+            'tags'             => Yii::t('blog', 'Теги'),
         );
     }
 
@@ -138,20 +145,22 @@ class Post extends YModel
     public function attributeDescriptions()
     {
         return array(
-            'id'             => Yii::t('blog', 'Id записи.'),
-            'blog_id'        => Yii::t('blog', 'Выберите блог, в который вы желаете поместить данную запись'),
-            'slug'           => Yii::t('blog', 'Краткое название записи латинскими буквами, используется для формирования адреса записи.<br /><br /> Например (выделено темным фоном): <br /><br /><pre>http://site.ru/blogs/my/<br /><span class="label">my-na-more</span>/</pre> Если вы не знаете, для чего вам нужно это поле &ndash; не заполняйте его, названия записи будет достаточно.'),
-            'publish_date'   => Yii::t('blog', 'Дата публикации поста'),
-            'title'          => Yii::t('blog', 'Выберите заголовок для записи, например:<br /><span class="label">Как мы на море были!</span>'),
-            'quote'          => Yii::t('blog', 'Опишите основную мысль записи или напишие некий вводный текст (анонс), пары предложений обычно достаточно. Данный текст используется при выводе списка записей, например, на главной странице.'),
-            'content'        => Yii::t('blog', 'Полный текст записи отображается при переходе по ссылке &laquo;Подробнее&raquo; или иногда при клике на заголовке записи.'),
-            'link'           => Yii::t('blog', 'Ссылка на текст, который использовалсь для написания данной записи.'),
-            'status'         => Yii::t('blog', 'Установите статус записи:<br /><br /><span class="label label-success">опубликовано</span> &ndash; данная запись в блоге будет отображаться всем посетителям.<br /><br /><span class="label label-warning">черновик</span> &ndash; данная запись не публикуется на сайте, а видна только в административном интерфейсе.<br /><br /><span class="label label-info">по расписанию</span> &ndash; откладывает публикацию данной записи до момента наступления указанной даты.'),
-            'comment_status' => Yii::t('blog', 'Если галочка установлена &ndash; пользователи получат возможность комментировать данную запись в блоге'),
-            'access_type'    => Yii::t('blog', 'Доступ к записи<br /><br /><span class="label label-success">публичный</span> &ndash; запись видят все посетители сайта<br /><br /><span class="label label-warning">личный</span> &ndash; запись видит только автор'),
-            'keywords'       => Yii::t('blog', 'Ключевые слова необходимы для SEO-оптимизации страниц сайта. Выделите несколько основных смысловых слов из записи и напишите их здесь через запятую. К примеру, если запись &ndash; об отдыхе на море, логично использовать такие ключевые слова: <pre>море, приключения, солнце, акулы, челюсти</pre>'),
-            'description'    => Yii::t('blog', 'Краткое описание данной записи, одно или два предложения. Обычно это самая главная мысль записи, к примеру: <pre>Рассказ о том, как нас на море чуть не сожрали акулы. Как наши отдыхают &ndash; так не отдыхает никто!</pre>Данный текст очень часто попадает в <a href="http://help.yandex.ru/webmaster/?id=111131">сниппет</a> поисковых систем.'),
-            'tags'           => Yii::t('blog', 'Ключевые слова к которым требуется отнести данную запись, служат для категоризии записей, например:<br /><span class="label">море</span>'),
+            'id'               => Yii::t('blog', 'Id записи.'),
+            'blog_id'          => Yii::t('blog', 'Выберите блог, в который вы желаете поместить данную запись'),
+            'slug'             => Yii::t('blog', 'Краткое название записи латинскими буквами, используется для формирования адреса записи.<br /><br /> Например (выделено темным фоном): <br /><br /><pre>http://site.ru/blogs/my/<br /><span class="label">my-na-more</span>/</pre> Если вы не знаете, для чего вам нужно это поле &ndash; не заполняйте его, названия записи будет достаточно.'),
+            'publish_date'     => Yii::t('blog', 'Дата публикации поста'),
+            'publish_date_tmp' => Yii::t('blog', 'Дата публикации, формат:<br /><span class="label">05-09-2012</span>'),
+            'publish_time_tmp' => Yii::t('blog', 'Время публикации, формат:<br /><span class="label">12:00</span>'),
+            'title'            => Yii::t('blog', 'Выберите заголовок для записи, например:<br /><span class="label">Как мы на море были!</span>'),
+            'quote'            => Yii::t('blog', 'Опишите основную мысль записи или напишие некий вводный текст (анонс), пары предложений обычно достаточно. Данный текст используется при выводе списка записей, например, на главной странице.'),
+            'content'          => Yii::t('blog', 'Полный текст записи отображается при переходе по ссылке &laquo;Подробнее&raquo; или иногда при клике на заголовке записи.'),
+            'link'             => Yii::t('blog', 'Ссылка на текст, который использовалсь для написания данной записи.'),
+            'status'           => Yii::t('blog', 'Установите статус записи:<br /><br /><span class="label label-success">опубликовано</span> &ndash; данная запись в блоге будет отображаться всем посетителям.<br /><br /><span class="label label-warning">черновик</span> &ndash; данная запись не публикуется на сайте, а видна только в административном интерфейсе.<br /><br /><span class="label label-info">по расписанию</span> &ndash; откладывает публикацию данной записи до момента наступления указанной даты.'),
+            'comment_status'   => Yii::t('blog', 'Если галочка установлена &ndash; пользователи получат возможность комментировать данную запись в блоге'),
+            'access_type'      => Yii::t('blog', 'Доступ к записи<br /><br /><span class="label label-success">публичный</span> &ndash; запись видят все посетители сайта<br /><br /><span class="label label-warning">личный</span> &ndash; запись видит только автор'),
+            'keywords'         => Yii::t('blog', 'Ключевые слова необходимы для SEO-оптимизации страниц сайта. Выделите несколько основных смысловых слов из записи и напишите их здесь через запятую. К примеру, если запись &ndash; об отдыхе на море, логично использовать такие ключевые слова: <pre>море, приключения, солнце, акулы, челюсти</pre>'),
+            'description'      => Yii::t('blog', 'Краткое описание данной записи, одно или два предложения. Обычно это самая главная мысль записи, к примеру: <pre>Рассказ о том, как нас на море чуть не сожрали акулы. Как наши отдыхают &ndash; так не отдыхает никто!</pre>Данный текст очень часто попадает в <a href="http://help.yandex.ru/webmaster/?id=111131">сниппет</a> поисковых систем.'),
+            'tags'             => Yii::t('blog', 'Ключевые слова к которым требуется отнести данную запись, служат для категоризии записей, например:<br /><span class="label">море</span>'),
         );
     }
 
@@ -209,7 +218,7 @@ class Post extends YModel
 
     public function beforeSave()
     {
-        $this->publish_date = strtotime($this->publish_date);
+        $this->publish_date = strtotime($this->publish_date_tmp . ' ' . $this->publish_time_tmp);
         $this->update_user_id = Yii::app()->user->id;
 
         if ($this->isNewRecord)

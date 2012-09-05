@@ -3,7 +3,7 @@
 <script type='text/javascript'>
     $(document).ready(function() {
         var model = '<?php echo $this->model;?>';
-        var model_id = '<?php echo $this->modelId;?>';        
+        var model_id = '<?php echo $this->modelId;?>';
         $('a.vote').click(function(event) {
             event.preventDefault();
             var value = $(this).attr('id');

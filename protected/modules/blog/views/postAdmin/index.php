@@ -94,7 +94,7 @@ $this->widget('application.modules.yupe.components.YCustomGridView', array(
         ),
         array(
             'name'  => 'publish_date',
-            'value' => 'Yii::app()->getDateFormatter()->formatDateTime($data->publish_date, "short", null)',
+            'value' => 'Yii::app()->getDateFormatter()->formatDateTime($data->publish_date, "short", "short")',
         ),
         array(
             'name'  => 'create_date',

@@ -58,7 +58,7 @@
         ),
         array(
             'name'  => 'publish_date',
-            'value' => Yii::app()->getDateFormatter()->formatDateTime($model->publish_date, "short", null),
+            'value' => Yii::app()->getDateFormatter()->formatDateTime($model->publish_date, "short", "short"),
         ),
         array(
             'name'  => 'create_date',

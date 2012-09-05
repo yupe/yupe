@@ -34,15 +34,28 @@ Yii::app()->clientScript->registerScript('fieldset', "
             <?php echo $form->checkBoxRow($model, 'comment_status', array('class' => 'popover-help', 'data-original-title' => $model->getAttributeLabel('comment_status'), 'data-content' => $model->getAttributeDescription('comment_status'))); ?>
         </div>
     </div>
-    <div class="row-fluid control-group <?php echo $model->hasErrors('publish_date') ? 'error' : ''; ?>">
-        <div class="popover-help" data-original-title='<?php echo $model->getAttributeLabel('publish_date'); ?>' data-content='<?php echo $model->getAttributeDescription('publish_date'); ?>'>
-            <?php echo $form->labelEx($model, 'publish_date'); ?>
+    <div class="wide row-fluid control-group <?php echo ($model->hasErrors('publish_date_tmp') || $model->hasErrors('publish_time_tmp')) ? 'error' : ''; ?>">
+        <div class="span4 popover-help" data-original-title='<?php echo $model->getAttributeLabel('publish_date_tmp'); ?>' data-content='<?php echo $model->getAttributeDescription('publish_date_tmp'); ?>'>
+            <?php echo $form->labelEx($model, 'publish_date_tmp'); ?>
             <?php $this->widget('zii.widgets.jui.CJuiDatePicker', array(
-                'name' => CHtml::activeName($model, 'publish_date'),
-                'value' => ($model->publish_date !== NULL) ? ((is_int($model->publish_date)) ? date('d-m-Y', $model->publish_date) : $model->publish_date) : date('d-m-Y'),
+                'name' => CHtml::activeName($model, 'publish_date_tmp'),
+                'value' => isset($model->publish_date_tmp)
+                    ? $model->publish_date_tmp
+                    : (($model->publish_date) ? date('d-m-Y', $model->publish_date) : date('d-m-Y')),
                 'language' => Yii::app()->language,
-                'htmlOptions' => array("class" => "span7"),
                 'options' => array('dateFormat' => 'dd-mm-yy'),
+            )); ?>
+        </div>
+        <div class="span3">
+            <?php echo $form->textFieldRow($model, 'publish_time_tmp', array(
+                'value' => isset($model->publish_time_tmp)
+                    ? $model->publish_time_tmp
+                    : (($model->publish_date) ? date('H:i', $model->publish_date) : date('H:i')),
+                'class' => 'popover-help',
+                'maxlength' => 5,
+                'size' => 60,
+                'data-original-title' => $model->getAttributeLabel('publish_time_tmp'),
+                'data-content' => $model->getAttributeDescription('publish_time_tmp')
             )); ?>
         </div>
     </div>

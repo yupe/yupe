@@ -10,7 +10,7 @@
         "<?php echo CHtml::link($data->blog->name, array('/blog/blog/show/', 'slug' => $data->blog->slug)); ?>"
 
         <?php echo Yii::t('blog', 'дата'); ?>: 
-        <?php echo Yii::app()->getDateFormatter()->formatDateTime($data->publish_date, "short", null); ?>
+        <?php echo Yii::app()->getDateFormatter()->formatDateTime($data->publish_date, "short", "short"); ?>
     </div>
     <div class="content">
         <p><?php echo $data->quote; ?></p>
