@@ -9,12 +9,12 @@ class DefaultController extends Controller
 
     public function init()
     {
-        $this->alreadyInstalledFlag = Yii::app()->basePath . DIRECTORY_SEPARATOR . 'config' . DIRECTORY_SEPARATOR . '.ai';
+        $this->alreadyInstalledFlag = Yii::app()->basePath . '/config/' . '.ai';
     }
 
     protected function beforeAction($action)
     {
-        // проверка на то, что сайт уже установлен...
+        // Проверяем установку сайта
         if (file_exists($this->alreadyInstalledFlag))
             throw new CHttpException(404, Yii::t('install', 'Страница не найдена!'));
 
@@ -65,7 +65,8 @@ class DefaultController extends Controller
                 Yii::t('yii', 'DOM extension'),
                 false,
                 class_exists("DOMDocument", false),
-                '<a href="http://www.yiiframework.com/doc/api/CHtmlPurifier">CHtmlPurifier</a>, <a href="http://www.yiiframework.com/doc/api/CWsdlGenerator">CWsdlGenerator</a>',
+                '<a href="http://www.yiiframework.com/doc/api/CHtmlPurifier">CHtmlPurifier</a>, 
+                 <a href="http://www.yiiframework.com/doc/api/CWsdlGenerator">CWsdlGenerator</a>',
                 '',
             ),
             array(
@@ -121,7 +122,8 @@ class DefaultController extends Controller
                 Yii::t('yii', 'SOAP extension'),
                 false,
                 extension_loaded("soap"),
-                '<a href="http://www.yiiframework.com/doc/api/CWebService">CWebService</a>, <a href="http://www.yiiframework.com/doc/api/CWebServiceAction">CWebServiceAction</a>',
+                '<a href="http://www.yiiframework.com/doc/api/CWebService">CWebService</a>, 
+                 <a href="http://www.yiiframework.com/doc/api/CWebServiceAction">CWebServiceAction</a>',
                 Yii::t('yii', '<b>Необязательно</b>.'),
             ),
         );
@@ -140,7 +142,7 @@ class DefaultController extends Controller
 
         $this->render('requirements', array(
             'requirements' => $requirements,
-            'result' => $result,
+            'result'       => $result,
         ));
     }
 
@@ -148,10 +150,10 @@ class DefaultController extends Controller
     {
         $this->stepName = Yii::t('install', 'Шаг 3 из 6 : "Соединение с базой данных"');
 
-        $dbConfFile = Yii::app()->basePath . DIRECTORY_SEPARATOR . 'config' . DIRECTORY_SEPARATOR . 'db.php';
+        $dbConfFile = Yii::app()->basePath . '/config/' . 'db.php';
 
-        $sqlDataDir = $this->module->basePath . DIRECTORY_SEPARATOR . 'data' . DIRECTORY_SEPARATOR;
-        $sqlDbDir = $sqlDataDir . 'db' . DIRECTORY_SEPARATOR;
+        $sqlDataDir = $this->module->basePath . '/data/';
+        $sqlDbDir = $sqlDataDir . 'db/';
 
         $sqlFile = $sqlDataDir . 'yupe.sql';
         $sqlDropFile = $sqlDataDir . 'yupe_drop.sql';
@@ -166,10 +168,10 @@ class DefaultController extends Controller
             {
                 try
                 {
-                    $socket = ($form->socket == '') ? '': ';unix_socket:' . $form->socket;
+                    $socket = ($form->socket == '') ? '': 'unix_socket=' . $form->socket . ';';
+                    $port = ($form->port == '') ? '': 'port=' . $form->port . ';';
 
-                    //@TODO правильня обработка указанного номера порта - сейчас вообще не учитывается
-                    $connectionString = "mysql:host={$form->host};dbname={$form->dbName}{$socket}";
+                    $connectionString = "mysql:host={$form->host};{$port}{$socket}dbname={$form->dbName}";
                     $connection = new CDbConnection($connectionString, $form->user, $form->password);
                     $connection->connectionString = $connectionString;
                     $connection->username = $form->user;
@@ -181,16 +183,16 @@ class DefaultController extends Controller
                     Yii::app()->setComponent('db', $connection);
 
                     $dbParams = array(
-                        'class' => 'CDbConnection',
-                        'connectionString' => $connectionString,
-                        'username' => $form->user,
-                        'password' => $form->password,
-                        'emulatePrepare' => true,
-                        'charset' => 'utf8',
-                        'enableParamLogging' => 1,
-                        'enableProfiling' => 1,
+                        'class'                 => 'CDbConnection',
+                        'connectionString'      => $connectionString,
+                        'username'              => $form->user,
+                        'password'              => $form->password,
+                        'emulatePrepare'        => true,
+                        'charset'               => 'utf8',
+                        'enableParamLogging'    => 1,
+                        'enableProfiling'       => 1,
                         'schemaCachingDuration' => 108000,
-                        'tablePrefix' => '',
+                        'tablePrefix'           => '',
                     );
 
                     $dbConfString = "<?php\n return " . var_export($dbParams, true) . " ;\n?>";
@@ -212,24 +214,24 @@ class DefaultController extends Controller
                         {
                             if(Yii::app()->db->schema->getTables() != array())
                                 $this->executeSql($sqlDropFile);
-
                             $this->executeSql($sqlFile);
 
-                            // Чистим кэш, во избежание недоразумений при schemaCachingDuration > 0
+                            // Чистим кэш, исключает проблемы при {schemaCachingDuration > 0}
                             Yii::app()->cache->flush();
 
-                            // обработать если есть все файлы с расширением .sql в подпапке db
+                            // Установить .sql файлы модулей yupe
                             $sqlFiles = glob("{$sqlDbDir}*.sql");
 
                             if (is_array($sqlFiles))
-                            {
                                 foreach ($sqlFiles as $file)
                                     $this->executeSql($file);
-                            }
 
                             $transaction->commit();
 
-                            Yii::app()->user->setFlash(YFlashMessages::NOTICE_MESSAGE, Yii::t('install', 'База данных успешно заполнена!'));
+                            Yii::app()->user->setFlash(
+                                YFlashMessages::NOTICE_MESSAGE,
+                                Yii::t('install', 'База данных успешно заполнена!')
+                            );
 
                             $this->redirect(array('/install/default/createuser/'));
                         }
@@ -237,7 +239,10 @@ class DefaultController extends Controller
                         {
                             $transaction->rollback();
 
-                            Yii::app()->user->setFlash(YFlashMessages::ERROR_MESSAGE, Yii::t('install', 'При инициализации базы данных произошла ошибка!'));
+                            Yii::app()->user->setFlash(
+                                YFlashMessages::ERROR_MESSAGE,
+                                Yii::t('install', 'При инициализации базы данных произошла ошибка!')
+                            );
 
                             $this->redirect(array('/install/default/dbsettings/'));
                         }
@@ -259,11 +264,11 @@ class DefaultController extends Controller
             $sqlResult = true;
 
         $this->render('dbsettings', array(
-            'model' => $form,
+            'model'     => $form,
             'sqlResult' => $sqlResult,
-            'sqlFile' => $sqlFile,
-            'result' => $result,
-            'file' => $dbConfFile,
+            'sqlFile'   => $sqlFile,
+            'result'    => $result,
+            'file'      => $dbConfFile,
         ));
     }
 
@@ -275,35 +280,37 @@ class DefaultController extends Controller
 
         if (Yii::app()->request->isPostRequest && isset($_POST['CreateUserForm']))
         {
-            // Чистим сессию текущего пользователя https://github.com/yupe/yupe/issues/256
-            $_SESSION = array();
+            // Сбрасываем сессию текущего пользователя, может поменяться id
+            Yii::app()->user->clearStates();
 
             $model->setAttributes($_POST['CreateUserForm']);
 
             if ($model->validate())
             {
                 $user = new User;
-                //@TODO Добавить сброс auto_increment
                 $user->deleteAll();
 
                 $salt = $user->generateSalt();
 
                 $user->setAttributes(array(
-                    'nick_name' => $model->userName,
-                    'email' => $model->email,
-                    'salt' => $salt,
-                    'password' => User::model()->hashPassword($model->password, $salt),
+                    'nick_name'         => $model->userName,
+                    'email'             => $model->email,
+                    'salt'              => $salt,
+                    'password'          => User::model()->hashPassword($model->password, $salt),
                     'registration_date' => new CDbExpression('NOW()'),
-                    'registration_ip' => Yii::app()->request->userHostAddress,
-                    'activation_ip' => Yii::app()->request->userHostAddress,
-                    'access_level' => User::ACCESS_LEVEL_ADMIN,
-                    'status' => User::STATUS_ACTIVE,
-                    'email_confirm' => User::EMAIL_CONFIRM_YES,
+                    'registration_ip'   => Yii::app()->request->userHostAddress,
+                    'activation_ip'     => Yii::app()->request->userHostAddress,
+                    'access_level'      => User::ACCESS_LEVEL_ADMIN,
+                    'status'            => User::STATUS_ACTIVE,
+                    'email_confirm'     => User::EMAIL_CONFIRM_YES,
                 ));
 
                 if ($user->save())
                 {
-                    Yii::app()->user->setFlash(YFlashMessages::NOTICE_MESSAGE, Yii::t('install', 'Администратор успешно создан!'));
+                    Yii::app()->user->setFlash(
+                        YFlashMessages::NOTICE_MESSAGE,
+                        Yii::t('install', 'Администратор успешно создан!')
+                    );
 
                     $this->redirect(array('/install/default/sitesettings/'));
                 }
@@ -329,20 +336,19 @@ class DefaultController extends Controller
 
                 try
                 {
+                    Settings::model()->deleteAll();
+
                     $user = User::model()->admin()->findAll();
 
-                    //@TODO Добавить сброс auto_increment
-                    Settings::model()->deleteAll();
-                    
                     foreach (array('siteDescription', 'siteName', 'siteKeyWords', 'email') as $param)
                     {
                         $settings = new Settings;
 
                         $settings->setAttributes(array(
-                            'module_id' => 'yupe',
-                            'param_name' => $param,
+                            'module_id'   => 'yupe',
+                            'param_name'  => $param,
                             'param_value' => $model->$param,
-                            'user_id' => $user[0]->id,
+                            'user_id'     => $user[0]->id,
                         ));
 
                         if ($settings->save())
@@ -353,7 +359,10 @@ class DefaultController extends Controller
 
                     $transaction->commit();
 
-                    Yii::app()->user->setFlash(YFlashMessages::NOTICE_MESSAGE, Yii::t('install', 'Настройки сайта успешно сохранены!'));
+                    Yii::app()->user->setFlash(
+                        YFlashMessages::NOTICE_MESSAGE,
+                        Yii::t('install', 'Настройки сайта успешно сохранены!')
+                    );
 
                     $this->redirect(array('/install/default/finish/'));
                 }
@@ -376,7 +385,10 @@ class DefaultController extends Controller
     public function actionFinish()
     {
         if (!@touch($this->alreadyInstalledFlag))
-            Yii::app()->user->setFlash(YFlashMessages::WARNING_MESSAGE, Yii::t('install', "Не удалось создать файл {file}, для избежания повторной установки, пожалуйста, создайте его самостоятельно или отключите модуль 'Install' сразу после установки!", array('{file}' => $this->alreadyInstalledFlag)));
+            Yii::app()->user->setFlash(
+                YFlashMessages::WARNING_MESSAGE,
+                Yii::t('install', "Не удалось создать файл {file}, для избежания повторной установки, пожалуйста, создайте его самостоятельно или отключите модуль 'Install' сразу после установки!", array('{file}' => $this->alreadyInstalledFlag))
+            );
 
         $this->stepName = Yii::t('install', 'Шаг 6 из 6 : "Окончание установки"');
 
