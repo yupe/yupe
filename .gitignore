@@ -12,3 +12,4 @@ uploads/
 nbproject/
 /.idea/
 .ai
+protected/config/db.php
