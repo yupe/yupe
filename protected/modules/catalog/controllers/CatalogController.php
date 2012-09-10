@@ -22,7 +22,7 @@ class CatalogController extends YFrontController
             'criteria' => new CDbCriteria(array(
                 'limit' => self::NEWS_PER_PAGE,
                 'order' => 't.create_time DESC',
-            ))
+            )),
         ));
 
         $this->render('index', array('dataProvider' => $dataProvider));

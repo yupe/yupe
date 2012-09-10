@@ -2,13 +2,16 @@
 
 class DefaultController extends YBackController
 {
+
     /**
      * Отображает товар по указанному идентификатору
      * @param integer $id Идинтификатор товар для отображения
      */
     public function actionView($id)
     {
-        $this->render('view', array('model' => $this->loadModel($id)));
+        $this->render('view', array(
+            'model' => $this->loadModel($id),
+        ));
     }
 
     /**
@@ -26,32 +29,31 @@ class DefaultController extends YBackController
         {
             $model->attributes = $_POST['Good'];
 
-            if ($model->save())
+           if ($model->save())
             {
                 $model->image = CUploadedFile::getInstance($model, 'image');
+
                 if ($model->image)
                 {
                     $imageName = $this->module->getUploadPath() . $model->alias . '.' . $model->image->extensionName;
+
                     if ($model->image->saveAs($imageName))
                     {
                         $model->image = basename($imageName);
+
                         $model->update(array( 'image' ));
                     }
                 }
 
-                Yii::app()->user->setFlash(
-                    YFlashMessages::NOTICE_MESSAGE,
-                    Yii::t('catalog', 'Запись добавлена!')
-                );
+                Yii::app()->user->setFlash(YFlashMessages::NOTICE_MESSAGE, Yii::t('yupe', 'Запись добавлена!'));
 
-                if (isset($_POST['submit-type']))
-                    $this->redirect(array('index'));
-                else
-                    $this->redirect(array('view', 'id' => $model->id));
+                $this->redirect(array( 'view', 'id' => $model->id ));
             }
         }
 
-        $this->render('create', array('model' => $model));
+        $this->render('create', array(
+            'model' => $model,
+        ));
     }
 
     /**
@@ -71,39 +73,39 @@ class DefaultController extends YBackController
         {
             $model->attributes = $_POST['Good'];
 
-            if ($model->save())
+             if ($model->save())
             {
                 $model->image = CUploadedFile::getInstance($model, 'image');
+
                 if ($model->image)
                 {
                     $imageName = $this->module->getUploadPath() . $model->alias . '.' . $model->image->extensionName;
+
                     @unlink($this->module->getUploadPath() . $image);
 
                     if ($model->image->saveAs($imageName))
                     {
                         $model->image = basename($imageName);
+
                         $model->update(array( 'image' ));
                     }
                 }
                 else
                 {
                     $model->image = $image;
+
                     $model->update(array( 'image' ));
                 }
 
-                Yii::app()->user->setFlash(
-                    YFlashMessages::NOTICE_MESSAGE,
-                    Yii::t('catalog', 'Запись обновлена!')
-                );
+                Yii::app()->user->setFlash(YFlashMessages::NOTICE_MESSAGE, Yii::t('yupe', 'Запись обновлена!'));
 
-                if (isset($_POST['submit-type']))
-                    $this->redirect(array('index'));
-                else
-                    $this->redirect(array('update', 'id' => $model->id));
+                $this->redirect(array( 'update', 'id' => $model->id ));
             }
         }
 
-        $this->render('update', array('model' => $model));
+        $this->render('update', array(
+            'model' => $model,
+        ));
     }
 
     /**
@@ -116,31 +118,34 @@ class DefaultController extends YBackController
         if (Yii::app()->request->isPostRequest)
         {
             // поддерживаем удаление только из POST-запроса
-            $this->loadModel($id)->delete();
+            $model = $this->loadModel($id);
 
-            Yii::app()->user->setFlash(
-                YFlashMessages::NOTICE_MESSAGE,
-                Yii::t('catalog', 'Запись удалена!')
-            );
+            if ($model->delete())
+                @unlink($this->module->getUploadPath() . $model->image);
+
+            Yii::app()->user->setFlash(YFlashMessages::NOTICE_MESSAGE, Yii::t('yupe', 'Запись удалена!'));
 
             // если это AJAX запрос ( кликнули удаление в админском grid view), мы не должны никуда редиректить
             if (!isset($_GET['ajax']))
-                $this->redirect(isset($_POST['returnUrl']) ? $_POST['returnUrl'] : array('index'));
+                $this->redirect(isset($_POST['returnUrl']) ? $_POST['returnUrl'] : array( 'штвуч' ));
         }
         else
             throw new CHttpException(400, 'Неверный запрос. Пожалуйста, больше не повторяйте такие запросы');
     }
+
     /**
      * Управление товарами.
      */
     public function actionIndex()
     {
         $model = new Good('search');
-        $model->unsetAttributes(); // clear any default values
+        $model->unsetAttributes();  // clear any default values
         if (isset($_GET['Good']))
             $model->attributes = $_GET['Good'];
 
-        $this->render('index', array('model' => $model));
+        $this->render('index', array(
+            'model' => $model,
+        ));
     }
 
     /**
@@ -168,4 +173,5 @@ class DefaultController extends YBackController
             Yii::app()->end();
         }
     }
+
 }

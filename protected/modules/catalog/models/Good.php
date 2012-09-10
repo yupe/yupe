@@ -27,32 +27,16 @@
  */
 class Good extends CActiveRecord
 {
-    const STATUS_ACTIVE = 1;
+    const STATUS_ACTIVE     = 1;
     const STATUS_NOT_ACTIVE = 2;
-    const STATUS_ZERO = 0;
-
-    public function getStatusList()
-    {
-        return array(
-            self::STATUS_ACTIVE => Yii::t('catalog' ,'Доступен'),
-            self::STATUS_NOT_ACTIVE => Yii::t('catalog', 'Не доступен'),
-            self::STATUS_ZERO => Yii::t('catalog', 'Нет в наличии'),
-        );
-    }
-
-    public function getStatus()
-    {
-        $data = $this->getStatusList();
-
-        return isset($data[$this->status]) ? $data[$this->status] : Yii::t('catalog', '*неизвестно*'); 
-    }
+    const STATUS_ZERO       = 0;
 
     /**
      * Returns the static model of the specified AR class.
      * @param string $className active record class name.
      * @return Good the static model class
      */
-    public static function model($className=__CLASS__)
+    public static function model($className = __CLASS__)
     {
         return parent::model($className);
     }
@@ -62,7 +46,7 @@ class Good extends CActiveRecord
      */
     public function tableName()
     {
-        return 'good';
+        return '{{good}}';
     }
 
     /**
@@ -81,7 +65,7 @@ class Good extends CActiveRecord
             array('name', 'length', 'max' => 150),
             array('article, alias', 'length', 'max' => 100),
             array('image', 'length', 'max' => 300),
-            array('status','in','range' => array_keys($this->getStatusList())),
+            array('status','in','range' => array_keys($this->statusList)),
             array('is_special','in','range' => array(0, 1)),
             array('short_description, data', 'safe'),
             // The following rule is used by search().
@@ -99,8 +83,8 @@ class Good extends CActiveRecord
         // class name for the relations automatically generated below.
         return array(
             'changeUser' => array(self::BELONGS_TO, 'User', 'change_user_id'),
-            'category' => array(self::BELONGS_TO, 'Category', 'category_id'),
-            'user' => array(self::BELONGS_TO, 'User', 'user_id'),
+            'category'   => array(self::BELONGS_TO, 'Category', 'category_id'),
+            'user'       => array(self::BELONGS_TO, 'User', 'user_id'),
         );
     }
 
@@ -109,7 +93,7 @@ class Good extends CActiveRecord
         return array(
             'published' => array(
                 'condition' => 'status = :status',
-                'params' => array(':status' => self::STATUS_ACTIVE),
+                'params'    => array(':status' => self::STATUS_ACTIVE),
             ),
         );
     }
@@ -120,22 +104,22 @@ class Good extends CActiveRecord
     public function attributeLabels()
     {
         return array(
-            'id' => Yii::t('catalog', 'ID'),
-            'category_id' => Yii::t('catalog', 'Категория'),
-            'name' => Yii::t('catalog', 'Название'),
-            'price' => Yii::t('catalog', 'Цена'),
-            'article' => Yii::t('catalog', 'Артикул'),
-            'image' => Yii::t('catalog', 'Изображение'),
+            'id'                => Yii::t('catalog', 'ID'),
+            'category_id'       => Yii::t('catalog', 'Категория'),
+            'name'              => Yii::t('catalog', 'Название'),
+            'price'             => Yii::t('catalog', 'Цена'),
+            'article'           => Yii::t('catalog', 'Артикул'),
+            'image'             => Yii::t('catalog', 'Изображение'),
             'short_description' => Yii::t('catalog', 'Короткое описание'),
-            'description' => Yii::t('catalog', 'Описание'),
-            'alias' => Yii::t('catalog', 'Алиас'),
-            'data' => Yii::t('catalog', 'Данные'),
-            'status' => Yii::t('catalog', 'Статус'),
-            'create_time' => Yii::t('catalog', 'Добавлено'),
-            'update_time' => Yii::t('catalog', 'Изменено'),
-            'user_id' => Yii::t('catalog', 'Добавил'),
-            'change_user_id' => Yii::t('catalog', 'Изменил'),
-            'is_special' => Yii::t('catalog', 'Спецпредложение'),
+            'description'       => Yii::t('catalog', 'Описание'),
+            'alias'             => Yii::t('catalog', 'Алиас'),
+            'data'              => Yii::t('catalog', 'Данные'),
+            'status'            => Yii::t('catalog', 'Статус'),
+            'create_time'       => Yii::t('catalog', 'Добавлено'),
+            'update_time'       => Yii::t('catalog', 'Изменено'),
+            'user_id'           => Yii::t('catalog', 'Добавил'),
+            'change_user_id'    => Yii::t('catalog', 'Изменил'),
+            'is_special'        => Yii::t('catalog', 'Спецпредложение'),
         );
     }
 
@@ -148,7 +132,7 @@ class Good extends CActiveRecord
         // Warning: Please modify the following code to remove attributes that
         // should not be searched.
 
-        $criteria=new CDbCriteria;
+        $criteria = new CDbCriteria;
 
         $criteria->compare('id', $this->id, true);
         $criteria->compare('category_id', $this->category_id, true);
@@ -167,23 +151,36 @@ class Good extends CActiveRecord
         $criteria->compare('user_id', $this->user_id,true);
         $criteria->compare('change_user_id', $this->change_user_id, true);
 
-        return new CActiveDataProvider($this, array('criteria'=>$criteria));
+        return new CActiveDataProvider(get_class($this), array('criteria' => $criteria));
+    }
+
+    public function behaviors()
+    {
+        return array('CTimestampBehavior' => array(
+            'class'             => 'zii.behaviors.CTimestampBehavior',
+            'setUpdateOnCreate' => true,
+            'createAttribute'   => 'create_time',
+            'updateAttribute'   => 'update_time',
+        ));
+    }
+
+    /**
+     * This is invoked after the record is deleted.
+     */
+    protected function afterDelete()
+    {
+        if(parent::afterDelete())
+            @unlink($this->module->getUploadPath() . $this->image);
     }
 
     public function beforeValidate()
     {
-        if($this->isNewRecord)
-        {
-            $this->create_time = $this->update_time = new CDbExpression('NOW()');
-            $this->user_id = $this->change_user_id = Yii::app()->user->getId();
-        }
-        else
-        {
-            $this->update_time = new CDbExpression('NOW()');
-            $this->change_user_id = Yii::app()->user->getId();
-        }
+        $this->change_user_id = Yii::app()->user->getId();
 
-        if(!$this->alias)
+        if ($this->isNewRecord)
+            $this->user_id = $this->change_user_id;
+
+        if (!$this->alias)
             $this->alias = YText::translit($this->name);
 
         return parent::beforeValidate();
@@ -197,5 +194,20 @@ class Good extends CActiveRecord
     public function getPermaLink()
     {
         return Yii::app()->createAbsoluteUrl('/catalog/catalog/show/', array( 'name' => $this->alias ));
+    }
+
+    public function getStatusList()
+    {
+        return array(
+            self::STATUS_ACTIVE     => Yii::t('catalog', 'Доступен'),
+            self::STATUS_NOT_ACTIVE => Yii::t('catalog', 'Не доступен'),
+            self::STATUS_ZERO       => Yii::t('catalog', 'Нет в наличии'),
+        );
+    }
+
+    public function getStatus()
+    {
+        $data = $this->statusList;
+        return isset($data[$this->status]) ? $data[$this->status] : Yii::t('catalog', '*неизвестно*'); 
     }
 }

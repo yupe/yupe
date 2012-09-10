@@ -6,9 +6,9 @@ class CatalogModule extends YWebModule
 
     public function getUploadPath()
     {
-        return  Yii::getPathOfAlias('webroot') . DIRECTORY_SEPARATOR .
-                Yii::app()->getModule('yupe')->uploadPath . DIRECTORY_SEPARATOR .
-                $this->uploadPath . DIRECTORY_SEPARATOR;
+        return  Yii::getPathOfAlias('webroot') . '/' .
+                Yii::app()->getModule('yupe')->uploadPath . '/' .
+                $this->uploadPath . '/';
     }
 
     public function checkSelf()
@@ -92,7 +92,7 @@ class CatalogModule extends YWebModule
 
     public function getIcon()
     {
-        return "camera";
+        return 'camera';
     }
 
     public function init()

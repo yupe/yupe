@@ -1,65 +1,53 @@
 <?php
-$this->breadcrumbs = array(
-    $this->module->getCategory() => array(''),
-    'Товары' => array('index'),
-    $model->name,
-);
-$this->pageTitle = "товары - " . Yii::t('yupe', 'просмотр');
-$this->menu = array(
-    array('icon' => 'list-alt', 'label' => Yii::t('yupe', 'Управление товарами'), 'url' => array('/catalog/default/index')),
-    array('icon' => 'file', 'label' => Yii::t('yupe', 'Добавление товара'), 'url' => array('/catalog/default/create')),
-    array('icon' => 'pencil white', 'encodeLabel' => false, 'label' => Yii::t('yupe', 'Редактирование товара - '). mb_substr($model->name, 0, 32), 'url' => array('/catalog/default/update', 'id' => $model->id)),
-    array('icon' => 'eye-open', 'encodeLabel' => false, 'label' => Yii::t('yupe', 'Просмотреть ') . 'товар', 'url' => array('/catalog/default/view', 'id' => $model->id)),
-    array('icon' => 'remove', 'label' => Yii::t('yupe', 'Удалить товар'), 'url' => '#', 'linkOptions' => array('submit' => array('delete', 'id' => $model->id), 'confirm' => Yii::t('yupe', 'Вы уверены, что хотите удалить?'))),
-);
+    $this->breadcrumbs = array(
+        Yii::app()->getModule('catalog')->getCategory() => array(),
+        Yii::t('catalog', 'Товары') => array('/catalog/default/index'),
+        $model->name,
+    );
+    $this->pageTitle = Yii::t('catalog', 'Товары - просмотр');
+    $this->menu = array(
+        array('icon' => 'list-alt', 'label' => Yii::t('catalog', 'Управление товарами'), 'url' => array('/catalog/default/index')),
+        array('icon' => 'plus-sign', 'label' => Yii::t('catalog', 'Добавить товар'), 'url' => array('/catalog/default/create')),
+        array('label' => Yii::t('catalog', 'Товар')),
+        array('icon' => 'pencil', 'encodeLabel' => false, 'label' => Yii::t('catalog', 'Редактирование товара'), 'url' => array(
+            '/catalog/default/update',
+            'id' => $model->id
+        )),
+        array('icon' => 'eye-open white', 'encodeLabel' => false, 'label' => Yii::t('catalog', 'Просмотреть товар'), 'url' => array(
+            '/catalog/default/view',
+            'id' => $model->id
+        )),
+        array('icon' => 'trash', 'label' => Yii::t('catalog', 'Удалить товар'), 'url' => '#', 'linkOptions' => array(
+            'submit' => array('delete', 'id' => $model->id),
+            'confirm' => Yii::t('catalog', 'Вы уверены, что хотите удалить товар?')
+        )),
+    );
 ?>
 <div class="page-header">
-    <h1><?php echo Yii::t('yupe', 'Просмотр товара');?><br/>
-        <small style='margin-left:-10px;'>&laquo;<?php echo  $model->name; ?>&raquo;</small>
+    <h1>
+        <?php echo Yii::t('catalog', 'Просмотр') . ' ' . Yii::t('catalog', 'товара'); ?><br />
+        <small>&laquo;<?php echo $model->name; ?>&raquo;</small>
     </h1>
 </div>
 
 <?php $this->widget('bootstrap.widgets.TbDetailView', array(
-    'data' => $model,
+    'data'       => $model,
     'attributes' => array(
         'id',
-        array(
-            'name' => 'category_id',
-            'value' => $model->category->name
-        ),
+        'category_id',
         'name',
-        'alias',
-        array(
-            'name' => 'price',
-            'value' => number_format($model->price, 2, '.', '')
-        ),
+        'price',
         'article',
-        array(
-            'name' => 'image',
-            'type' => 'raw',
-            'value' => $model->image ? CHtml::image(Yii::app()->baseUrl . '/' . Yii::app()->getModule('yupe')->uploadPath . DIRECTORY_SEPARATOR . $this->module->uploadPath . DIRECTORY_SEPARATOR . $model->image, $model->name, array('width' => 300, 'height' => 300)) : '---'
-        ),
+        'image',
+        'short_description',
+        'description',
+        'alias',
+        'data',
+        'is_special',
+        'status',
         'create_time',
         'update_time',
-        array(
-            'name' => 'user_id',
-            'value' => $model->user->getFullName()
-        ),
-        array(
-            'name' => 'change_user_id',
-            'value' => $model->changeUser->getFullName()
-        ),
-        array(
-            'name' => 'description',
-            'type' => 'raw'
-        ),
-        array(
-            'name' => 'short_description',
-            'type' => 'raw'
-        ),
-        array(
-            'name' => 'status',
-            'value' => $model->getStatus()
-        ),
+        'user_id',
+        'change_user_id',
     ),
 )); ?>
