@@ -25,7 +25,7 @@
  * @property Category $category
  * @property User $user
  */
-class Good extends CActiveRecord
+class Good extends YModel
 {
     const STATUS_ACTIVE     = 1;
     const STATUS_NOT_ACTIVE = 2;
@@ -102,6 +102,31 @@ class Good extends CActiveRecord
      * @return array customized attribute labels (name=>label)
      */
     public function attributeLabels()
+    {
+        return array(
+            'id'                => Yii::t('catalog', 'ID'),
+            'category_id'       => Yii::t('catalog', 'Категория'),
+            'name'              => Yii::t('catalog', 'Название'),
+            'price'             => Yii::t('catalog', 'Цена'),
+            'article'           => Yii::t('catalog', 'Артикул'),
+            'image'             => Yii::t('catalog', 'Изображение'),
+            'short_description' => Yii::t('catalog', 'Короткое описание'),
+            'description'       => Yii::t('catalog', 'Описание'),
+            'alias'             => Yii::t('catalog', 'Алиас'),
+            'data'              => Yii::t('catalog', 'Данные'),
+            'status'            => Yii::t('catalog', 'Статус'),
+            'create_time'       => Yii::t('catalog', 'Добавлено'),
+            'update_time'       => Yii::t('catalog', 'Изменено'),
+            'user_id'           => Yii::t('catalog', 'Добавил'),
+            'change_user_id'    => Yii::t('catalog', 'Изменил'),
+            'is_special'        => Yii::t('catalog', 'Спецпредложение'),
+        );
+    }
+
+    /**
+     * @return array customized attribute descriptions (name=>description)
+     */
+    public function attributeDescriptions()
     {
         return array(
             'id'                => Yii::t('catalog', 'ID'),

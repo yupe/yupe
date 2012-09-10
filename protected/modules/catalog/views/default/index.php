@@ -59,7 +59,7 @@ $this->widget('application.modules.yupe.components.YCustomGridView', array(
         'price',
         'article',
         'image',
-    /*
+        /*
         'short_description',
         'description',
         'alias',

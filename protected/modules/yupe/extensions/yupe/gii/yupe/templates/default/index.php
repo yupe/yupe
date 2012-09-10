@@ -75,7 +75,7 @@ $count = 0;
 foreach ($this->tableSchema->columns as $column)
 {
     if(++$count == 7)
-        echo "    /*\n";
+        echo "        /*\n";
     echo "        '" . $column->name . "',\n";
 }
 if ($count >= 7)

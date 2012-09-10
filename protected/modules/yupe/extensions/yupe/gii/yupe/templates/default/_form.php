@@ -26,7 +26,7 @@ EOF;
 ?>
 
     <div class="alert alert-info">
-        <?php echo "<?php echo Yii::t('{$this->mid}', 'Поля, отмеченные'); ?>"; ?>
+        <?php echo "<?php echo Yii::t('{$this->mid}', 'Поля, отмеченные'); ?>\n"; ?>
         <span class="required">*</span>
         <?php echo "<?php echo Yii::t('{$this->mid}', 'обязательны.'); ?>\n"; ?>
     </div>

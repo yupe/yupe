@@ -16,7 +16,8 @@ Yii::app()->clientScript->registerScript('fieldset', "
 ?>
 
     <div class="alert alert-info">
-        <?php echo Yii::t('catalog', 'Поля, отмеченные'); ?>        <span class="required">*</span>
+        <?php echo Yii::t('catalog', 'Поля, отмеченные'); ?>
+        <span class="required">*</span>
         <?php echo Yii::t('catalog', 'обязательны.'); ?>
     </div>
 
@@ -55,6 +56,7 @@ Yii::app()->clientScript->registerScript('fieldset', "
     <div class="row-fluid control-group <?php echo $model->hasErrors('status') ? 'error' : ''; ?>">
         <?php echo $form->textFieldRow($model, 'status', array('class' => 'span3 popover-help', 'size' => 60, 'maxlength' => 60, 'data-original-title' => $model->getAttributeLabel('status'), 'data-content' => $model->getAttributeDescription('status'))); ?>
     </div>
+    <?php /*
     <div class="row-fluid control-group <?php echo $model->hasErrors('create_time') ? 'error' : ''; ?>">
         <?php echo $form->textFieldRow($model, 'create_time', array('class' => 'span3 popover-help', 'size' => 60, 'maxlength' => 60, 'data-original-title' => $model->getAttributeLabel('create_time'), 'data-content' => $model->getAttributeDescription('create_time'))); ?>
     </div>
@@ -67,7 +69,7 @@ Yii::app()->clientScript->registerScript('fieldset', "
     <div class="row-fluid control-group <?php echo $model->hasErrors('change_user_id') ? 'error' : ''; ?>">
         <?php echo $form->textFieldRow($model, 'change_user_id', array('class' => 'span3 popover-help', 'size' => 60, 'maxlength' => 10, 'data-original-title' => $model->getAttributeLabel('change_user_id'), 'data-content' => $model->getAttributeDescription('change_user_id'))); ?>
     </div>
-
+    */ ?>
     <?php $this->widget('bootstrap.widgets.TbButton', array(
         'buttonType' => 'submit',
         'type'       => 'primary',
