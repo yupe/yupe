@@ -65,7 +65,7 @@ class DefaultController extends Controller
                 Yii::t('yii', 'DOM extension'),
                 false,
                 class_exists("DOMDocument", false),
-                '<a href="http://www.yiiframework.com/doc/api/CHtmlPurifier">CHtmlPurifier</a>, 
+                '<a href="http://www.yiiframework.com/doc/api/CHtmlPurifier">CHtmlPurifier</a>,
                  <a href="http://www.yiiframework.com/doc/api/CWsdlGenerator">CWsdlGenerator</a>',
                 '',
             ),
@@ -122,7 +122,7 @@ class DefaultController extends Controller
                 Yii::t('yii', 'SOAP extension'),
                 false,
                 extension_loaded("soap"),
-                '<a href="http://www.yiiframework.com/doc/api/CWebService">CWebService</a>, 
+                '<a href="http://www.yiiframework.com/doc/api/CWebService">CWebService</a>,
                  <a href="http://www.yiiframework.com/doc/api/CWebServiceAction">CWebServiceAction</a>',
                 Yii::t('yii', '<b>Необязательно</b>.'),
             ),
@@ -214,6 +214,7 @@ class DefaultController extends Controller
                         {
                             if(Yii::app()->db->schema->getTables() != array())
                                 $this->executeSql($sqlDropFile);
+                            
                             $this->executeSql($sqlFile);
 
                             // Чистим кэш, исключает проблемы при {schemaCachingDuration > 0}
@@ -364,6 +365,12 @@ class DefaultController extends Controller
                         Yii::t('install', 'Настройки сайта успешно сохранены!')
                     );
 
+                    // попробуем создать каталог assets
+                    $assetsPath = dirname(Yii::app()->request->getScriptFile()).'/'.CAssetManager::DEFAULT_BASEPATH;
+
+                    if(!is_dir($assetsPath))
+                        @mkdir ($assetsPath);
+
                     $this->redirect(array('/install/default/finish/'));
                 }
                 catch (CDbException $e)
@@ -403,5 +410,4 @@ class DefaultController extends Controller
 
         return $command->execute();
     }
-
 }

@@ -3,7 +3,7 @@
 *.settings
 *.ai
 .project
-protected/config/db.php
+*db.php
 uploads/
 *.komodoproject
 /nbproject/private/
@@ -13,3 +13,5 @@ uploads/
 nbproject/
 /.idea/
 .ai
+protected/config/db.php
+assets/

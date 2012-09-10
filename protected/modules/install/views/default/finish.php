@@ -16,7 +16,11 @@
 
 <p><?php echo Yii::t('install', 'Полезные ссылки:');?></p>
 
-<?php echo CHtml::link(Yii::t('install','Официальный сайт Юпи!'),'http://yupe.ru');?> - <?php echo Yii::t('install','заходите чаще =)');?>
+<?php echo CHtml::link(Yii::t('install','Официальный сайт Юпи!'),'http://yupe.ru/?from=finish');?> - <?php echo Yii::t('install','заходите чаще =)');?>
+
+<br/><br/>
+
+<?php echo CHtml::link(Yii::t('install','Форум поддержки Юпи!'),'http://yupe.ru/?from=finish');?> - <?php echo Yii::t('install','интересные мысли и идеи =)');?>
 
 <br/><br/>
 
