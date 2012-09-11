@@ -74,7 +74,7 @@ $this->widget('application.modules.yupe.components.YCustomGridView', array(
         array(
             'name'  => 'is_special',
             'type'  => 'raw',
-            'value' => '$this->grid->returnBootstrapStatusHtml($data, "is_special", "Special", array("minus", "thumbs-up"))',
+            'value' => '$this->grid->returnBootstrapStatusHtml($data, "is_special", "Special", array("minus", "star"))',
         ),
         array(
             'name'  => 'status',
