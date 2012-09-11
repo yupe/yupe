@@ -50,9 +50,9 @@ class Image extends CActiveRecord
         $module = Yii::app()->getModule('image');
 
         return array(
-            array('name, description, alt','filter','filter' => 'trim'),
-            array('name, description, alt','filter','filter' => array($obj = new CHtmlPurifier(),'purify')),
             array('name, alt, type', 'required'),
+            array('name, description, alt', 'filter', 'filter' => 'trim'),
+            array('name, description, alt', 'filter', 'filter' => array($obj = new CHtmlPurifier(), 'purify')),
             array('file', 'required', 'on' => 'insert'),
             array('status, parent_id, type, category_id', 'numerical', 'integerOnly' => true),
             array('name', 'length', 'max' => 300),
@@ -60,7 +60,7 @@ class Image extends CActiveRecord
             array('user_id', 'length', 'max' => 10),
             array('alt', 'length', 'max' => 150),
             array('file', 'file', 'maxSize' => $module->maxSize, 'types' => $module->allowedExtensions, 'allowEmpty' => true),
-            array('type', 'in', 'range' => array_keys($this->getTypeList())),
+            array('type', 'in', 'range' => array_keys($this->typeList)),
             array('category_id', 'default', 'setOnEmpty' => true, 'value' => null),
             array('id, name, description, file, creation_date, user_id, alt, status', 'safe', 'on' => 'search'),
         );
@@ -75,7 +75,7 @@ class Image extends CActiveRecord
         // class name for the relations automatically generated below.
         return array(
             'category' => array(self::BELONGS_TO, 'Category', 'category_id'),
-            'user' => array(self::BELONGS_TO, 'User', 'user_id')
+            'user'     => array(self::BELONGS_TO, 'User', 'user_id'),
         );
     }
 
@@ -85,17 +85,17 @@ class Image extends CActiveRecord
     public function attributeLabels()
     {
         return array(
-            'id' => Yii::t('image', 'id'),
-            'category_id' => Yii::t('image', 'Категория'),
-            'name' => Yii::t('image', 'Название'),
-            'description' => Yii::t('image', 'Описание'),
-            'file' => Yii::t('image', 'Файл'),
+            'id'            => Yii::t('image', 'id'),
+            'category_id'   => Yii::t('image', 'Категория'),
+            'name'          => Yii::t('image', 'Название'),
+            'description'   => Yii::t('image', 'Описание'),
+            'file'          => Yii::t('image', 'Файл'),
             'creation_date' => Yii::t('image', 'Дата создания'),
-            'user_id' => Yii::t('image', 'Добавил'),
-            'alt' => Yii::t('image', 'Альтернативный текст'),
-            'status'    => Yii::t('image', 'Статус'),
-            'parent_id' => Yii::t('image','Родитель'),
-            'type'      => Yii::t('image','Тип картинки')
+            'user_id'       => Yii::t('image', 'Добавил'),
+            'alt'           => Yii::t('image', 'Альтернативный текст'),
+            'status'        => Yii::t('image', 'Статус'),
+            'parent_id'     => Yii::t('image','Родитель'),
+            'type'          => Yii::t('image','Тип картинки'),
         );
     }
 
@@ -119,27 +119,24 @@ class Image extends CActiveRecord
         $criteria->compare('alt', $this->alt, true);
         $criteria->compare('status', $this->status);
 
-        return new CActiveDataProvider($this, array(
-                                                   'criteria' => $criteria,
-                                              ));
+        return new CActiveDataProvider(get_class($this), array('criteria' => $criteria));
     }
 
     public function beforeValidate()
-    {        
+    {
         if ($this->isNewRecord)
         {
             $this->creation_date = new CDbExpression('NOW()');
-
             $this->user_id = Yii::app()->user->getId();
         }
 
-        return parent::beforeValidate();        
+        return parent::beforeValidate();
     }
 
     public function getStatusList()
     {
         return array(
-            self::STATUS_CHECKED => Yii::t('image', 'доступно'),
+            self::STATUS_CHECKED    => Yii::t('image', 'доступно'),
             self::STATUS_NEED_CHECK => Yii::t('image', 'требуется проверка')
         );
     }
@@ -148,18 +145,16 @@ class Image extends CActiveRecord
     {
         $data = $this->getStatusList();
 
-        return isset($data[$this->status]) ? $data[$this->status]
-            : Yii::t('image', '*неизвестно*');
+        return isset($data[$this->status]) ? $data[$this->status] : Yii::t('image', '*неизвестно*');
     }
 
     public function create(array $param, $file = 'file')
     {
         $this->setAttributes($param);
 
-        $this->file = CUploadedFile::getInstance($this, $file);                
+        $this->file = CUploadedFile::getInstance($this, $file);
 
         $module = Yii::app()->getModule('image');
-
         $dir = $module->createUploadDir();
 
         if ($dir)
@@ -167,20 +162,17 @@ class Image extends CActiveRecord
             if ($this->save())
             {
                 $fileName = $this->id . '.' . CFileHelper::getExtension($this->file->name);
-
-                $fullFileName = $module->getUploadPath() . $dir . DIRECTORY_SEPARATOR . $fileName;
+                $fullFileName = $module->getUploadPath() . $dir . '/' . $fileName;
 
                 $this->file->saveAs($fullFileName);
-
-                $this->file = Yii::app()->request->baseUrl . DIRECTORY_SEPARATOR . $module->uploadDir . $dir . DIRECTORY_SEPARATOR . $fileName;
+                $this->file = Yii::app()->request->baseUrl . '/' . $module->uploadDir . $dir . '/' . $fileName;
 
                 return $this->update(array('file'));
-            }              
-        }        
-        
+            }
+        }
+
         return false;
     }
-
 
     public function delete()
     {
@@ -189,32 +181,32 @@ class Image extends CActiveRecord
         if (file_exists($file))
         {
             //удалить файл картинки
-            if (@unlink($file))            
-                return parent::delete();            
-            else            
-                throw new CException(Yii::t('image', 'При удалении файла произошла ошибка!'));            
+            if (@unlink($file))
+                return parent::delete();
+            else
+                throw new CException(Yii::t('image', 'При удалении файла произошла ошибка!'));
         }
-        else        
-            return parent::delete();        
+        else
+            return parent::delete();
     }
 
     public function getTypeList()
     {
         $list = array(
-            self::TYPE_PREVIEW => Yii::t('image','Превью'),
-            self::TYPE_SIMPLE  => Yii::t('image','Картинка'),
+            self::TYPE_PREVIEW => Yii::t('image', 'Превью'),
+            self::TYPE_SIMPLE  => Yii::t('image', 'Картинка'),
         );
-        
+
         $types = Yii::app()->getModule('image')->types;
 
-        return count($types) ? CMap::mergeArray($list,$types) : $list;
+        return count($types) ? CMap::mergeArray($list, $types) : $list;
     }
 
     public function getType()
     {
         $data = $this->getTypeList();
 
-        return isset($data[$this->type]) ?  $data[$this->type] : Yii::t('image','*неизвестно*');
+        return isset($data[$this->type]) ?  $data[$this->type] : Yii::t('image', '*неизвестно*');
     }
     
     public function getCategoryName()

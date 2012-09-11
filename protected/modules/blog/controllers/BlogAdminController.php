@@ -33,7 +33,7 @@ class BlogAdminController extends YBackController
                     Yii::t('blog', 'Запись добавлена!')
                 );
 
-                if (isset($_POST['submit-type']))
+                if (!isset($_POST['submit-type']))
                     $this->redirect(array('index'));
                 else
                     $this->redirect(array('view', 'id' => $model->id));
@@ -65,7 +65,7 @@ class BlogAdminController extends YBackController
                     Yii::t('blog', 'Запись обновлена!')
                 );
 
-                if (isset($_POST['submit-type']))
+                if (!isset($_POST['submit-type']))
                     $this->redirect(array('index'));
                 else
                     $this->redirect(array('update', 'id' => $model->id));

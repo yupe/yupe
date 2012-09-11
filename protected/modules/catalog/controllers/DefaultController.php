@@ -44,7 +44,7 @@ class DefaultController extends YBackController
                     Yii::t('catalog', 'Запись добавлена!')
                 );
 
-                if (isset($_POST['submit-type']))
+                if (!isset($_POST['submit-type']))
                     $this->redirect(array('index'));
                 else
                     $this->redirect(array('view', 'id' => $model->id));
@@ -87,6 +87,7 @@ class DefaultController extends YBackController
                 }
                 else
                 {
+                    var_dump($model->image); die;
                     $model->image = $image;
                     $model->update(array( 'image' ));
                 }
@@ -96,7 +97,7 @@ class DefaultController extends YBackController
                     Yii::t('catalog', 'Запись обновлена!')
                 );
 
-                if (isset($_POST['submit-type']))
+                if (!isset($_POST['submit-type']))
                     $this->redirect(array('index'));
                 else
                     $this->redirect(array('update', 'id' => $model->id));

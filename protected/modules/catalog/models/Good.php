@@ -57,9 +57,9 @@ class Good extends YModel
         // NOTE: you should only define rules for those attributes that
         // will receive user inputs.
         return array(
-            array('name, description, short_description, image, alias, price, article, data, status, is_special','filter', 'filter' => 'trim'),
+            array('category_id, name, description, alias', 'required', 'except' => 'search'),
+            array('name, description, short_description, image, alias, price, article, data, status, is_special', 'filter', 'filter' => 'trim'),
             array('name, image, alias, price, article, data, status, is_special', 'filter', 'filter' => array($obj = new CHtmlPurifier(), 'purify')),
-            array('category_id, name, description, alias', 'required'),
             array('status, category_id, is_special', 'numerical', 'integerOnly' => true),
             array('price', 'numerical'),
             array('name', 'length', 'max' => 150),
@@ -234,5 +234,15 @@ class Good extends YModel
     {
         $data = $this->statusList;
         return isset($data[$this->status]) ? $data[$this->status] : Yii::t('catalog', '*неизвестно*'); 
+    }
+
+    public function getImageUrl()
+    {
+        return ($this->image)
+            ? Yii::app()->baseUrl . '/' .
+              Yii::app()->getModule('yupe')->uploadPath . '/' .
+              Yii::app()->getModule('catalog')->uploadPath . '/' .
+              $this->image
+            : false;
     }
 }

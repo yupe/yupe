@@ -2,6 +2,7 @@
 
 class CatalogModule extends YWebModule
 {
+    public $editor = 'application.modules.yupe.widgets.editors.imperaviRedactor.EImperaviRedactorWidget';
     public $uploadPath = 'catalog';
 
     public function getUploadPath()
@@ -13,11 +14,13 @@ class CatalogModule extends YWebModule
 
     public function checkSelf()
     {
-        if (!is_writable($this->uploadPath))
+        $uploadPath = Yii::getPathOfAlias('webroot') . '/' . Yii::app()->getModule('yupe')->uploadPath . '/' . $this->uploadPath;
+
+        if (!is_writable($uploadPath))
             return array(
                 'type'    => YWebModule::CHECK_ERROR,
                 'message' => Yii::t('catalog', 'Директория "{dir}" не доступна для записи! {link}', array(
-                    '{dir}'  => $this->uploadPath,
+                    '{dir}'  => $uploadPath,
                     '{link}' => CHtml::link(Yii::t('catalog', 'Изменить настройки'), array(
                         '/yupe/backend/modulesettings/',
                         'module' => 'catalog',
@@ -25,7 +28,7 @@ class CatalogModule extends YWebModule
                 )),
             );
     }
-    
+
     public function getEditableParams()
     {
         return array(

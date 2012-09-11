@@ -12,7 +12,7 @@ echo <<<EOF
     'enableAjaxValidation'   => false,
     'enableClientValidation' => true,
     'type'                   => 'vertical',
-    'htmlOptions'            => array('class' => 'well form-vertical'),
+    'htmlOptions'            => array('class' => 'well'),
     'inlineErrors'           => true,
 ));
 

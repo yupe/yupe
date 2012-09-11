@@ -81,7 +81,7 @@ Yii::app()->clientScript->registerScript('fieldset', "
     <div class="row-fluid control-group <?php echo $model->hasErrors('image') ? 'error' : '' ?>">
         <div class="span7  popover-help"  data-original-title="<?php echo $model->getAttributeLabel('image'); ?>" >
             <?php if (!$model->isNewRecord && $model->image): ?>
-                <?php echo CHtml::image(Yii::app()->baseUrl . '/' . Yii::app()->getModule('yupe')->uploadPath . DIRECTORY_SEPARATOR . $this->module->uploadPath . DIRECTORY_SEPARATOR . $model->image, $model->name, array( 'width'  => 300, 'height' => 300 )); ?>
+                <?php echo CHtml::image($model->imageUrl, $model->name, array( 'width'  => 300, 'height' => 300 )); ?>
             <?php endif; ?>
             <?php echo $form->labelEx($model, 'image'); ?>
             <?php echo $form->fileField($model, 'image'); ?>
