@@ -87,7 +87,6 @@ class DefaultController extends YBackController
                 }
                 else
                 {
-                    var_dump($model->image); die;
                     $model->image = $image;
                     $model->update(array( 'image' ));
                 }

@@ -95,7 +95,7 @@ class CatalogModule extends YWebModule
 
     public function getIcon()
     {
-        return 'camera';
+        return 'shopping-cart';
     }
 
     public function init()

@@ -27,9 +27,12 @@
  */
 class Good extends YModel
 {
+    const SPECIAL_NOT_ACTIVE = 0;
+    const SPECIAL_ACTIVE     = 1;
+
+    const STATUS_ZERO       = 0;
     const STATUS_ACTIVE     = 1;
     const STATUS_NOT_ACTIVE = 2;
-    const STATUS_ZERO       = 0;
 
     /**
      * Returns the static model of the specified AR class.
@@ -211,11 +214,6 @@ class Good extends YModel
         return parent::beforeValidate();
     }
 
-    public function getIsSpecial()
-    {
-        return $this->is_special ? Yii::t('catalog', 'Да') : Yii::t('catalog', 'Нет');
-    }
-
     public function getPermaLink()
     {
         return Yii::app()->createAbsoluteUrl('/catalog/catalog/show/', array( 'name' => $this->alias ));
@@ -224,9 +222,9 @@ class Good extends YModel
     public function getStatusList()
     {
         return array(
+            self::STATUS_ZERO       => Yii::t('catalog', 'Нет в наличии'),
             self::STATUS_ACTIVE     => Yii::t('catalog', 'Доступен'),
             self::STATUS_NOT_ACTIVE => Yii::t('catalog', 'Не доступен'),
-            self::STATUS_ZERO       => Yii::t('catalog', 'Нет в наличии'),
         );
     }
 
@@ -234,6 +232,20 @@ class Good extends YModel
     {
         $data = $this->statusList;
         return isset($data[$this->status]) ? $data[$this->status] : Yii::t('catalog', '*неизвестно*'); 
+    }
+
+    public function getSpecialList()
+    {
+        return array(
+            self::SPECIAL_NOT_ACTIVE => Yii::t('catalog', 'Нет'),
+            self::STATUS_ACTIVE      => Yii::t('catalog', 'Да'),
+        );
+    }
+
+    public function getSpecial()
+    {
+        $data = $this->specialList;
+        return isset($data[$this->is_special]) ? $data[$this->is_special] : Yii::t('catalog', '*неизвестно*'); 
     }
 
     public function getImageUrl()

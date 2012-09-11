@@ -54,22 +54,56 @@ $this->widget('application.modules.yupe.components.YCustomGridView', array(
     'filter'       => $model,
     'columns'      => array(
         'id',
-        'category_id',
-        'name',
+        array(
+            'name'  => 'name',
+            'type'  => 'raw',
+            'value' => 'CHtml::link($data->name, array("/catalog/default/update/", "id" => $data->id))',
+        ),
+        array(
+            'name'  => 'alias',
+            'type'  => 'raw',
+            'value' => 'CHtml::link($data->alias, $data->permaLink)',
+        ),
+        array(
+            'name'  => 'category_id',
+            'type'  => 'raw',
+            'value' => 'CHtml::link($data->name, array("/category/default/view/", "id" => $data->id))',
+        ),
         'price',
         'article',
-        'image',
+        array(
+            'name'  => 'is_special',
+            'type'  => 'raw',
+            'value' => '$this->grid->returnBootstrapStatusHtml($data, "is_special", "Special", array("minus", "thumbs-up"))',
+        ),
+        array(
+            'name'  => 'status',
+            'type'  => 'raw',
+            'value' => '$this->grid->returnBootstrapStatusHtml($data, "status", "Status", array("time", "ok-sign", "minus-sign"))',
+        ),
+        array(
+            'name'  => 'user_id',
+            'type'  => 'raw',
+            'value' => 'CHtml::link($data->user->getFullName(), array("/user/default/view/", "id" => $data->user->id))',
+        ),
+        array(
+            'name'  => 'change_user_id',
+            'type'  => 'raw',
+            'value' => 'CHtml::link($data->changeUser->getFullName(), array("/user/default/view/", "id" => $data->changeUser->id))',
+        ),
+        array(
+            'name'  => 'create_time',
+            'value' => 'Yii::app()->getDateFormatter()->formatDateTime($data->create_time, "short", "short")',
+        ),
+        array(
+            'name'  => 'update_time',
+            'value' => 'Yii::app()->getDateFormatter()->formatDateTime($data->update_time, "short", "short")',
+        ),
         /*
+        'image',
         'short_description',
         'description',
-        'alias',
         'data',
-        'is_special',
-        'status',
-        'create_time',
-        'update_time',
-        'user_id',
-        'change_user_id',
         */
         array(
             'class' => 'bootstrap.widgets.TbButtonColumn',

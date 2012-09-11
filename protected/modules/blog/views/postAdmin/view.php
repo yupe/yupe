@@ -45,16 +45,16 @@
     'attributes' => array(
         'id',
         array(
-            'name'=>'blog',
-            'value'=>$model->blog->name,
+            'name'  => 'blog',
+            'value' => $model->blog->name,
         ),
         array(
-            'name'=>'create_user_id',
-            'value'=>$model->createUser->getFullName(),
+            'name'  => 'create_user_id',
+            'value' => $model->createUser->getFullName(),
         ),
         array(
-            'name'=>'update_user_id',
-            'value'=>$model->updateUser->getFullName(),
+            'name'  => 'update_user_id',
+            'value' => $model->updateUser->getFullName(),
         ),
         array(
             'name'  => 'publish_date',
@@ -74,16 +74,16 @@
         'content',
         'link',
         array(
-            'name'=>'status',
-            'value'=>$model->getStatus(),
+            'name'  => 'status',
+            'value' => $model->getStatus(),
         ),
         array(
-            'name'=>'comment_status',
-            'value'=>$model->getCommentStatus(),
+            'name'  => 'comment_status',
+            'value' => $model->getCommentStatus(),
         ),
         array(
-            'name'=>'access_type',
-            'value'=>$model->getAccessType(),
+            'name'  => 'access_type',
+            'value' => $model->getAccessType(),
         ),
         'keywords',
         'description',
