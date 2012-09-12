@@ -48,8 +48,8 @@
 <div class="container" id="page">
     <div id="header">
         <div id="logo">
-            <a href="<?php echo Yii::app()->baseUrl;?>"><?php echo CHtml::image(Yii::app()->baseUrl . '/web/images/yupe-logo.png');?></a>
-            <span style="vertical-align: 20px; margin-left: 20px; font-size: 25px;">
+            <a href="<?php echo Yii::app()->baseUrl;?>"><?php echo CHtml::image(Yii::app()->baseUrl . '/web/images/yupe-logo-style.jpg');?></a>
+            <span style="vertical-align: 40px; margin-left: 20px; font-size: 25px;">
                 <?php echo CHtml::encode($module->siteDescription);?>
             </span>
             <div id="header-right">
