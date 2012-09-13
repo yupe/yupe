@@ -16,8 +16,11 @@ class PeopleController extends YFrontController
     }
 
     // Вывод публичной страницы пользователя
-    public function actionUserInfo($username, $mode = null)
+    public function actionUserInfo($username = null, $mode = null)
     {
+        if ($username == null) {
+            $username = User::model()->findByPk(Yii::app()->user->id)->nick_name;
+        }
         $user = User::model()->findByAttributes(array("nick_name" => $username));
 
         if (!$user)
