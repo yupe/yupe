@@ -124,7 +124,7 @@ class Menu extends CActiveRecord
         'menuItems' => array(
             'on' => 'menuItems.parent_id=:parent_id AND menuItems.status = 1',
             'params' => array('parent_id' => (int)$parent_id),
-            'order' => 'menuItems.id ASC, menuItems.sort ASC',
+            'order' => 'menuItems.sort ASC, menuItems.id ASC',
         )))->findAll(array(
             'select' => array('id', 'code'),
             'condition' => 't.code=:code AND t.status = 1',
