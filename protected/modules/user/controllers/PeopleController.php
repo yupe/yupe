@@ -19,7 +19,7 @@ class PeopleController extends YFrontController
     public function actionUserInfo($username = null, $mode = null)
     {
         if ($username == null) {
-            $username = User::model()->findByPk(Yii::app()->user->id)->nick_name;
+            $username = Yii::app()->user->getState('nick_name');
         }
         $user = User::model()->findByAttributes(array("nick_name" => $username));
 
