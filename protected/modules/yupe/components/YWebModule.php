@@ -194,8 +194,17 @@ abstract class YWebModule extends CWebModule
         if (isset(Yii::app()->theme) && is_object(Yii::app()->theme))
             $this->layout = 'webroot.themes.' . Yii::app()->theme->name . '.views.layouts.main';
 
-        // инициализация модуля
-        $settings = Settings::model()->cache($this->coreCacheTime)->findAll('module_id = :module_id', array('module_id' => $this->getId()));
+        try
+        {
+            // инициализация модуля
+            $settings = Settings::model()->cache($this->coreCacheTime)->findAll('module_id = :module_id', array('module_id' => $this->getId()));
+        }
+
+        // Если базы нет, берем по-умолчанию, а не падаем в инсталлере
+        catch(CDbException $e)
+        {
+            $settings=null;
+        }
 
         if ($settings)
         {

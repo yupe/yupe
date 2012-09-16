@@ -18,9 +18,7 @@
  * @since 0.0.1
  */
 
-Yii::import('application.modules.yupe.YupeParams');
-
-class YupeModule extends YupeParams
+class YupeModule extends YWebModule
 {
     const OTHER_CATEGORY  = 'Остальное';
 
@@ -181,8 +179,6 @@ class YupeModule extends YupeParams
 
     public function init()
     {
-        parent::runParentInit();
-
         $editors = $this->getEditors();
 
         // если не выбран редактор, но редакторы есть - возмем первый попавшийся
