@@ -194,6 +194,7 @@ abstract class YWebModule extends CWebModule
         if (isset(Yii::app()->theme) && is_object(Yii::app()->theme))
             $this->layout = 'webroot.themes.' . Yii::app()->theme->name . '.views.layouts.main';
 
+        $settings = null;
         try
         {
             // инициализация модуля
