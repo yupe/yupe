@@ -436,7 +436,8 @@ CREATE TABLE IF NOT EXISTS `news` (
   KEY `status` (`status`),
   KEY `is_protected` (`is_protected`),
   KEY `user_id` (`user_id`),
-  KEY `category` (`category_id`)
+  KEY `category` (`category_id`),
+  KEY `date` (`date`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
 
 -- --------------------------------------------------------
