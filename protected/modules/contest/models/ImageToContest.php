@@ -53,7 +53,7 @@ class ImageToContest extends YModel
         // class name for the relations automatically generated below.
         return array(
             'gallery' => array(self::BELONGS_TO, 'Gallery', 'galleryId'),
-            'image' => array(self::BELONGS_TO, 'Image', 'image_id'),
+            'image'   => array(self::BELONGS_TO, 'Image', 'image_id'),
         );
     }
 
@@ -63,9 +63,9 @@ class ImageToContest extends YModel
     public function attributeLabels()
     {
         return array(
-            'id' => 'ID',
-            'image_id' => 'Image',
-            'contest_id' => 'Contest',
+            'id'            => 'ID',
+            'image_id'      => 'Image',
+            'contest_id'    => 'Contest',
             'creation_date' => 'Creation Date',
         );
     }
@@ -86,15 +86,13 @@ class ImageToContest extends YModel
         $criteria->compare('contest_id', $this->contest_id, true);
         $criteria->compare('creation_date', $this->creation_date, true);
 
-        return new CActiveDataProvider(get_class($this), array(
-                                                              'criteria' => $criteria,
-                                                         ));
+        return new CActiveDataProvider(get_class($this), array('criteria' => $criteria));
     }
 
     public function beforeSave()
     {
-        if ($this->isNewRecord)        
-            $this->creation_date = new CDbExpression('NOW()');        
+        if ($this->isNewRecord)
+            $this->creation_date = new CDbExpression('NOW()');
 
         return parent::beforeSave();
     }
