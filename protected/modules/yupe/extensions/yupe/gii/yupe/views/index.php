@@ -45,33 +45,6 @@ Yii::app()->clientScript->registerScript('gii.crud', "
         <?php echo $form->error($model, 'mid'); ?>
     </div>
 
-    <br />
-
-    <h2>Единственное число</h2>
-
-    <br />
-       <label>Именительный (кто? что? есть ...)</label>
-       <?php echo $form->textField($model, 'im', array('size' => 65)); ?>
-    <br />
-    <label>Родительный (Кого? Чего? нет ...)</label><?php echo $form->textField($model, 'rod', array('size' => 65)); ?>
-    <br />
-    <label>Дательный (Кому? Чему? дам ...)</label><?php echo $form->textField($model, 'dat', array('size' => 65)); ?>
-    <br />
-    <label>Винительный (Кого? Что? вижу ...)</label><?php echo $form->textField($model, 'vin', array('size' => 65)); ?>
-    <br />
-    <label>Творительный (Кем? Чем? горжусь ...)</label><?php echo $form->textField($model, 'tvor', array('size' => 65)); ?>
-    <br />
-    <label>Предложный (О ком? О чем? думаю о ...)</label><?php echo $form->textField($model, 'pre', array('size' => 65)); ?>
-    <br />  <br />
-    <h2>Множественное число</h2>
-    <br />
-    <label>Именительный (кто? что? есть ...)</label><?php echo $form->textField($model, 'mim', array('size' => 65)); ?>
-    <br />
-    <label>Родительный (Кого? Чего? нет ...)</label><?php echo $form->textField($model, 'mrod', array('size' => 65)); ?>
-    <br />
-    <label>Творительный (Кем? Чем? горжусь ...)</label><?php echo $form->textField($model, 'mtvor', array('size' => 65)); ?>
-    <br />
-
     <div class="row">
         <?php echo $form->labelEx($model, 'controller'); ?>
         <?php echo $form->textField($model, 'controller', array('size' => 65)); ?>
@@ -100,5 +73,32 @@ Yii::app()->clientScript->registerScript('gii.crud', "
         </div>
         <?php echo $form->error($model, 'baseControllerClass'); ?>
     </div>
+
+    <br />
+
+    <h2>Единственное число</h2>
+
+    <br />
+       <label>Именительный (кто? что? есть ...)</label>
+       <?php echo $form->textField($model, 'im', array('size' => 65)); ?>
+    <br />
+    <label>Родительный (Кого? Чего? нет ...)</label><?php echo $form->textField($model, 'rod', array('size' => 65)); ?>
+    <br />
+    <label>Дательный (Кому? Чему? дам ...)</label><?php echo $form->textField($model, 'dat', array('size' => 65)); ?>
+    <br />
+    <label>Винительный (Кого? Что? вижу ...)</label><?php echo $form->textField($model, 'vin', array('size' => 65)); ?>
+    <br />
+    <label>Творительный (Кем? Чем? горжусь ...)</label><?php echo $form->textField($model, 'tvor', array('size' => 65)); ?>
+    <br />
+    <label>Предложный (О ком? О чем? думаю о ...)</label><?php echo $form->textField($model, 'pre', array('size' => 65)); ?>
+    <br />  <br />
+    <h2>Множественное число</h2>
+    <br />
+    <label>Именительный (кто? что? есть ...)</label><?php echo $form->textField($model, 'mim', array('size' => 65)); ?>
+    <br />
+    <label>Родительный (Кого? Чего? нет ...)</label><?php echo $form->textField($model, 'mrod', array('size' => 65)); ?>
+    <br />
+    <label>Творительный (Кем? Чем? горжусь ...)</label><?php echo $form->textField($model, 'mtvor', array('size' => 65)); ?>
+    <br />
 
 <?php $this->endWidget(); ?>
