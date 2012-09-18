@@ -36,6 +36,18 @@ class YFrontController extends YMainController
         $this->description = $this->yupe->siteDescription;
         $this->keywords    = $this->yupe->siteKeyWords;
 
+        try
+        {
+            $yupeModule = Yii::app()->getModule('yupe');
+            if ($yupeModule && $yupeModule->theme)
+                Yii::app()->theme = $yupeModule->theme;
+        }
+
+        catch (CDbException $e)
+        {
+            Yii::app()->theme = 'default';
+        }
+
         $baseUrl = Yii::app()->baseUrl;
         $fileUrl = Yii::app()->theme->basePath . "/" . ucwords(Yii::app()->theme->name) . "Theme.php";
 
