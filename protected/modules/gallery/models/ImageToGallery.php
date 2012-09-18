@@ -13,7 +13,7 @@
  * @property Gallery $gallery
  * @property Image $image
  */
-class ImageToGallery extends CActiveRecord
+class ImageToGallery extends YModel
 {
     /**
      * Returns the static model of the specified AR class.

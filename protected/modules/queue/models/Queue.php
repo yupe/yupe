@@ -14,7 +14,7 @@
  * @property integer $status
  * @property string $notice
  */
-class Queue extends CActiveRecord
+class Queue extends YModel
 {
     const STATUS_NEW = 0;
 

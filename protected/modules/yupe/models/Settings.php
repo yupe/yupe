@@ -15,7 +15,7 @@
  * The followings are the available model relations:
  * @property User $user
  */
-class Settings extends CActiveRecord
+class Settings extends YModel
 {
     /**
      * Returns the static model of the specified AR class.

@@ -9,7 +9,7 @@
  * @property string $creation_date
  * @property string $code
  */
-class RecoveryPassword extends CActiveRecord
+class RecoveryPassword extends YModel
 {
     public static function model($className = __CLASS__)
     {

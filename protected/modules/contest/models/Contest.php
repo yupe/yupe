@@ -14,11 +14,10 @@
 
  * @property integer $status
  */
-class Contest extends CActiveRecord
+class Contest extends YModel
 {
 
-    const STATUS_DRAFT = 0;
-
+    const STATUS_DRAFT     = 0;
     const STATUS_PUBLISHED = 1;
 
     /**
@@ -64,9 +63,9 @@ class Contest extends CActiveRecord
         // NOTE: you may need to adjust the relation name and the related
         // class name for the relations automatically generated below.
         return array(
-            'imagesRell' => array(self::HAS_MANY, 'ImageToContest', 'contest_id'),
-            'images' => array(self::HAS_MANY, 'Images', 'image_id', 'through' => 'imagesRell'),
-            'imagesCount' => array(self::STAT, 'ImageToContest', 'contest_id')
+            'imagesRell'  => array(self::HAS_MANY, 'ImageToContest', 'contest_id'),
+            'images'      => array(self::HAS_MANY, 'Images', 'image_id', 'through' => 'imagesRell'),
+            'imagesCount' => array(self::STAT, 'ImageToContest', 'contest_id'),
         );
     }
 
@@ -76,14 +75,14 @@ class Contest extends CActiveRecord
     public function attributeLabels()
     {
         return array(
-            'id' => Yii::t('contest', 'id'),
-            'name' => Yii::t('contest', 'Название'),
-            'description' => Yii::t('contest', 'Описание'),
+            'id'              => Yii::t('contest', 'id'),
+            'name'            => Yii::t('contest', 'Название'),
+            'description'     => Yii::t('contest', 'Описание'),
             'start_add_image' => Yii::t('contest', 'Начало'),
-            'stop_add_image' => Yii::t('contest', 'Завершение'),
-            'start_vote' => Yii::t('contest', 'Начало голосования'),
-            'stop_vote' => Yii::t('contest', 'Завершение голосования'),
-            'status' => Yii::t('contest', 'Статус'),
+            'stop_add_image'  => Yii::t('contest', 'Завершение'),
+            'start_vote'      => Yii::t('contest', 'Начало голосования'),
+            'stop_vote'       => Yii::t('contest', 'Завершение голосования'),
+            'status'          => Yii::t('contest', 'Статус'),
         );
     }
 
@@ -107,15 +106,13 @@ class Contest extends CActiveRecord
         $criteria->compare('stop_vote', $this->stop_vote, true);
         $criteria->compare('status', $this->status);
 
-        return new CActiveDataProvider(get_class($this), array(
-                                                              'criteria' => $criteria,
-                                                         ));
+        return new CActiveDataProvider(get_class($this), array('criteria' => $criteria));
     }
 
     public function getStatusList()
     {
         return array(
-            self::STATUS_DRAFT => Yii::t('contest', 'Черновик'),
+            self::STATUS_DRAFT     => Yii::t('contest', 'Черновик'),
             self::STATUS_PUBLISHED => Yii::t('contest', 'Опубликовано'),
         );
     }
@@ -123,19 +120,18 @@ class Contest extends CActiveRecord
     public function getStatus()
     {
         $data = $this->getStatusList();
-        return array_key_exists($this->status, $data) ? $data[$this->status]
-            : Yii::t('contest', '*неизвестно*');
+        return isset($data[$this->status]) ? $data[$this->status] : Yii::t('contest', '*неизвестно*');
     }
 
     public function addImage(Image $image)
     {
-        $im2c = new ImageToContest;
+        $imgContent = new ImageToContest;
 
-        $im2c->setAttributes(array(
-                                  'image_id' => $image->id,
-                                  'contest_id' => $this->id
-                             ));
+        $imgContent->setAttributes(array(
+            'image_id'   => $image->id,
+            'contest_id' => $this->id,
+        ));
 
-        return $im2c->save() ? true : false;
+        return $imgContent->save() ? true : false;
     }
 }

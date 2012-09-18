@@ -11,7 +11,7 @@
  * @property string $alias
  * @property integer $status
  */
-class Category extends CActiveRecord
+class Category extends YModel
 {
 
     const STATUS_DRAFT      = 0;
@@ -43,14 +43,14 @@ class Category extends CActiveRecord
         // NOTE: you should only define rules for those attributes that
         // will receive user inputs.
         return array(
-            array('name, description, short_description, image, alias','filter', 'filter' => 'trim'),
+            array('name, description, short_description, image, alias', 'filter', 'filter' => 'trim'),
             array('name, alias, image', 'filter', 'filter' => array($obj = new CHtmlPurifier(), 'purify')),
             array('name, description, alias', 'required'),
             array('parent_id, status', 'numerical', 'integerOnly' => true),
             array('parent_id', 'default', 'setOnEmpty' => true, 'value' => null),
             array('name', 'length', 'max' => 150),
             array('alias', 'length', 'max' => 100),
-            array('alias', 'match', 'pattern' => '/^[A-Za-z0-9\-]{1,50}$/', 'message' => Yii::t('category','Неверный формат поля "{attribute}" допустимы только буквы, цифры и символ "-", от 2 до 20 символов')),
+            array('alias', 'match', 'pattern' => '/^[A-Za-z0-9\-]{1,50}$/', 'message' => Yii::t('category', 'Неверный формат поля "{attribute}" допустимы только буквы, цифры и символ "-", от 2 до 20 символов')),
             array('lang', 'length', 'max' => 2 ),
             array('lang', 'default', 'value' => Yii::app()->sourceLanguage),
             array('alias', 'unique', 'criteria' => array(
@@ -59,15 +59,15 @@ class Category extends CActiveRecord
                 ),
                 'on' => array('insert'),
             ),
-            array('status', 'in', 'range' => array_keys($this->getStatusList())),
-            array('image', 'file', 'types'=>'jpg, gif, png', 'allowEmpty' => true),
+            array('status', 'in', 'range' => array_keys($this->statusList)),
+            array('image', 'file', 'types' => 'jpg, gif, png', 'allowEmpty' => true),
             array('id, parent_id, name, description, short_description, alias, status', 'safe', 'on' => 'search'),
         );
     }
 
     public function beforeValidate()
     {
-        if(!$this->alias)
+        if (!$this->alias)
             $this->alias = YText::translit($this->name);
 
         return parent::beforeValidate();
@@ -79,15 +79,15 @@ class Category extends CActiveRecord
     public function attributeLabels()
     {
         return array(
-            'id' => Yii::t('category', 'Id'),
-            'lang' => Yii::t('category', 'Язык'),
-            'parent_id' => Yii::t('category', 'Родитель'),
-            'name' => Yii::t('category', 'Название'),
-            'image' => Yii::t('category', 'Изображение'),
+            'id'                => Yii::t('category', 'Id'),
+            'lang'              => Yii::t('category', 'Язык'),
+            'parent_id'         => Yii::t('category', 'Родитель'),
+            'name'              => Yii::t('category', 'Название'),
+            'image'             => Yii::t('category', 'Изображение'),
             'short_description' => Yii::t('category', 'Короткое описание'),
-            'description' => Yii::t('category', 'Описание'),
-            'alias' => Yii::t('category', 'Алиас'),
-            'status' => Yii::t('category', 'Статус'),
+            'description'       => Yii::t('category', 'Описание'),
+            'alias'             => Yii::t('category', 'Алиас'),
+            'status'            => Yii::t('category', 'Статус'),
         );
     }
 
@@ -123,35 +123,31 @@ class Category extends CActiveRecord
 
     public function getStatus()
     {
-        $data = $this->getStatusList();
-        return array_key_exists($this->status, $data)
-            ? $data[$this->status]
-            : Yii::t('category', '*неизвестно*');
+        $data = $this->statusList;
+        return isset($data[$this->status]) ? $data[$this->status] : Yii::t('category', '*неизвестно*');
     }
 
     public function getAllCategoryList($selfId = false)
     {
-        $condition = '';
-        $params = array();
-        if($selfId)
-        {
-            $param = 'id != :id';
-            $value = array(':id' => $selfId);
-        }
+        $conditionArray = ($selfId) 
+            ? array(
+                'condition' => 'id != :id',
+                'params' => array(':id' => $selfId),
+            )
+            : array();
 
-        $category = $this->cache(Yii::app()->getModule('yupe')->coreCacheTime)->findAll($condition, $params);
-        $category = CHtml::listData($category, 'id', 'name');
+        $category = $this->cache(Yii::app()->getModule('yupe')->coreCacheTime)->findAll($conditionArray);
 
-        return $category;
+        return CHtml::listData($category, 'id', 'name');
     }
 
     public function getParentName()
     {
-        if($this->parent_id)
+        if ($this->parent_id)
         {
             $model = Category::model()->findByPk($this->parent_id);
 
-            if($model)
+            if ($model)
                 return $model->name;
         }
 

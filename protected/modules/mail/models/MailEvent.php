@@ -12,7 +12,7 @@
  * The followings are the available model relations:
  * @property MailTemplate[] $mailTemplates
  */
-class MailEvent extends CActiveRecord
+class MailEvent extends YModel
 {
     /**
      * Returns the static model of the specified AR class.

@@ -1,20 +1,19 @@
 <?php
+
 class DefaultController extends YBackController
 {
     /**
-     * Displays a particular model.
-     * @param integer $id the ID of the model to be displayed
+     * Отображает конкурс по указанному идентификатору
+     * @param integer $id Идинтификатор конкурс для отображения
      */
     public function actionView($id)
     {
-        $this->render('view', array(
-                                   'model' => $this->loadModel($id),
-                              ));
+        $this->render('view', array('model' => $this->loadModel($id)));
     }
 
     /**
-     * Creates a new model.
-     * If creation is successful, the browser will be redirected to the 'view' page.
+     * Создает новую модель конкурса.
+     * Если создание прошло успешно - перенаправляет на просмотр.
      */
     public function actionCreate()
     {
@@ -28,17 +27,24 @@ class DefaultController extends YBackController
             $model->attributes = $_POST['Contest'];
 
             if ($model->save())
-                $this->redirect(array('view', 'id' => $model->id));
+            {
+                Yii::app()->user->setFlash(
+                    YFlashMessages::NOTICE_MESSAGE,
+                    Yii::t('contest', 'Запись добавлена!')
+                );
+
+                if (!isset($_POST['submit-type']))
+                    $this->redirect(array('index'));
+                else
+                    $this->redirect(array('view', 'id' => $model->id));
+            }
         }
 
-        $this->render('create', array(
-                                     'model' => $model,
-                                ));
+        $this->render('create', array('model' => $model));
     }
 
     /**
-     * Updates a particular model.
-     * If update is successful, the browser will be redirected to the 'view' page.
+     * Редактирование конкурса.
      * @param integer $id the ID of the model to be updated
      */
     public function actionUpdate($id)
@@ -51,79 +57,77 @@ class DefaultController extends YBackController
         if (isset($_POST['Contest']))
         {
             $model->attributes = $_POST['Contest'];
+
             if ($model->save())
-                $this->redirect(array('view', 'id' => $model->id));
+            {
+                Yii::app()->user->setFlash(
+                    YFlashMessages::NOTICE_MESSAGE,
+                    Yii::t('contest', 'Запись обновлена!')
+                );
+
+                if (!isset($_POST['submit-type']))
+                    $this->redirect(array('index'));
+                else
+                    $this->redirect(array('update', 'id' => $model->id));
+            }
         }
 
-        $this->render('update', array(
-                                     'model' => $model,
-                                ));
+        $this->render('update', array('model' => $model));
     }
 
     /**
-     * Deletes a particular model.
-     * If deletion is successful, the browser will be redirected to the 'admin' page.
-     * @param integer $id the ID of the model to be deleted
+     * Удаяет модель конкурса из базы.
+     * Если удаление прошло успешно - возвращется в index
+     * @param integer $id идентификатор конкурса, который нужно удалить
      */
     public function actionDelete($id)
     {
         if (Yii::app()->request->isPostRequest)
         {
-            // we only allow deletion via POST request
+            // поддерживаем удаление только из POST-запроса
             $this->loadModel($id)->delete();
 
-            // if AJAX request (triggered by deletion via admin grid view), we should not redirect the browser
+            Yii::app()->user->setFlash(
+                YFlashMessages::NOTICE_MESSAGE,
+                Yii::t('contest', 'Запись удалена!')
+            );
+
+            // если это AJAX запрос ( кликнули удаление в админском grid view), мы не должны никуда редиректить
             if (!isset($_GET['ajax']))
-                $this->redirect(isset($_POST['returnUrl']) ? $_POST['returnUrl']
-                                    : array('admin'));
+                $this->redirect(isset($_POST['returnUrl']) ? $_POST['returnUrl'] : array('index'));
         }
         else
-            throw new CHttpException(400, 'Invalid request. Please do not repeat this request again.');
+            throw new CHttpException(400, 'Неверный запрос. Пожалуйста, больше не повторяйте такие запросы');
     }
-
     /**
-     * Lists all models.
+     * Управление конкурсами.
      */
     public function actionIndex()
-    {
-        $dataProvider = new CActiveDataProvider('Contest');
-
-        $this->render('index', array(
-                                    'dataProvider' => $dataProvider,
-                               ));
-    }
-
-    /**
-     * Manages all models.
-     */
-    public function actionAdmin()
     {
         $model = new Contest('search');
         $model->unsetAttributes(); // clear any default values
         if (isset($_GET['Contest']))
             $model->attributes = $_GET['Contest'];
 
-        $this->render('admin', array(
-                                    'model' => $model,
-                               ));
+        $this->render('index', array('model' => $model));
     }
 
     /**
-     * Returns the data model based on the primary key given in the GET variable.
-     * If the data model is not found, an HTTP exception will be raised.
-     * @param integer the ID of the model to be loaded
+     * Возвращает модель по указанному идентификатору
+     * Если модель не будет найдена - возникнет HTTP-исключение.
+     * @param integer идентификатор нужной модели
      */
     public function loadModel($id)
     {
-        $model = Contest::model()->findByPk((int)$id);
+        $model = Contest::model()->findByPk($id);
         if ($model === null)
-            throw new CHttpException(404, 'The requested page does not exist.');
+            throw new CHttpException(404, 'Запрошенная страница не найдена.');
         return $model;
     }
 
     /**
-     * Performs the AJAX validation.
-     * @param CModel the model to be validated
+     * Производит AJAX-валидацию
+     * @param CModel модель, которую необходимо валидировать
      */
     protected function performAjaxValidation($model)
     {
@@ -132,59 +136,5 @@ class DefaultController extends YBackController
             echo CActiveForm::validate($model);
             Yii::app()->end();
         }
-    }
-
-    public function actionDeleteImage($id)
-    {
-        if (Yii::app()->request->isPostRequest)
-        {
-            ImageToContest::model()->findByPk((int)$id)->delete();
-
-            if (!isset($_GET['ajax']))
-            {
-                $this->redirect(isset($_POST['returnUrl']) ? $_POST['returnUrl']
-                                    : array('admin'));
-            }
-
-        }
-        else        
-            throw new CHttpException(400, 'Invalid request. Please do not repeat this request again.');        
-    }
-
-    public function actionAddImage($contest_id)
-    {
-        $contest = $this->loadModel((int)$contest_id);
-
-        $image = new Image;
-
-        if (Yii::app()->request->isPostRequest)
-        {
-            $transaction = Yii::app()->db->beginTransaction();
-
-            try
-            {                
-                if ($image->create($_POST['Image']))
-                {
-                    if ($contest->addImage($image))                    
-                        Yii::app()->user->setFlash(YFlashMessages::NOTICE_MESSAGE, Yii::t('contest', 'Фотография добавлена!'));                    
-
-                    $transaction->commit();
-
-                    $this->redirect(array('/contest/default/view/', 'id' => $contest->id));
-                }
-
-                throw new CDbException(Yii::t('contest', 'При добавлении изображения произошла ошибка!'));
-            }
-            catch (Exception $e)
-            {
-                $transaction->rollback();
-
-                Yii::app()->user->setFlash(YFlashMessages::ERROR_MESSAGE, Yii::t('contest', $e->getMessage()));
-            }
-
-            $this->redirect(array('/contest/default/addImage/', 'id' => $contest->id));
-        }
-
-        $this->render('addImage', array('contest' => $contest, 'model' => $image));
     }
 }

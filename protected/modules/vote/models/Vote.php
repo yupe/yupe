@@ -14,7 +14,7 @@
  * The followings are the available model relations:
  * @property User $user
  */
-class Vote extends CActiveRecord
+class Vote extends YModel
 {
     /**
      * Returns the static model of the specified AR class.

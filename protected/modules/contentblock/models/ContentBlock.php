@@ -10,7 +10,7 @@
  * @property string $content
  * @property string $description
  */
-class ContentBlock extends CActiveRecord
+class ContentBlock extends YModel
 {
 
     const SIMPLE_TEXT = 1;

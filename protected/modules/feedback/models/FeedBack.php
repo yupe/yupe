@@ -16,54 +16,18 @@
  * @property integer $ip
  * @property string  $phone
  */
-class FeedBack extends CActiveRecord
+class FeedBack extends YModel
 {
 
-    const STATUS_NEW = 0;
-    const STATUS_PROCESS = 1;
-    const STATUS_FINISHED = 2;
+    const STATUS_NEW           = 0;
+    const STATUS_PROCESS       = 1;
+    const STATUS_FINISHED      = 2;
     const STATUS_ANSWER_SENDED = 3;
 
     const TYPE_DEFAULT = 0;
-    const IS_FAQ = 1;
-
-    public function getStatusList()
-    {
-        return array(
-            self::STATUS_NEW => Yii::t('feedback', 'Новое сообщение'),
-            self::STATUS_PROCESS => Yii::t('feedback', 'Сообщение в обработке'),
-            self::STATUS_FINISHED => Yii::t('feedback', 'Сообщение обработано'),
-            self::STATUS_ANSWER_SENDED => Yii::t('feedback', 'Ответ отправлен'),
-        );
-    }
-
-    public function getStatus()
-    {
-        $data = $this->getStatusList();
-        return array_key_exists($this->status, $data)
-            ? $data[$this->status]
-            : Yii::t('feedback', 'Статус сообщения неизвестен');
-    }
-
-    public function getTypeList()
-    {
-        $types = Yii::app()->getModule('feedback')->types;
-
-        if($types)
-            $types[self::TYPE_DEFAULT] = Yii::t('feedback','По умолчанию');
-        else
-            $types = array(self::TYPE_DEFAULT => Yii::t('feedback','По умолчанию'));
-
-        return $types;
-    }
-
-    public function getType()
-    {
-        $data = $this->getTypeList();
-        return array_key_exists($this->type, $data)
-            ? $data[$this->type]
-            : Yii::t('feedback', 'Неизвестный тип сообщения!');
-    }
+    
+    const IS_FAQ_NO = 0;
+    const IS_FAQ    = 1;
 
     /**
      * Returns the static model of the specified AR class.
@@ -184,14 +148,58 @@ class FeedBack extends CActiveRecord
         );
     }
 
-    public function getIsFaq()
-    {
-        return $this->is_faq ? Yii::t('feedback', 'Да') : Yii::t('feedback', 'Нет');
-    }
-
     public function getAnsweredUser()
     {
         return $this->answer_user ? User::model()->findByPk($this->answer_user)->getFullName() : Yii::t('feedback','—');
     }
 
+    public function getStatusList()
+    {
+        return array(
+            self::STATUS_NEW           => Yii::t('feedback', 'Новое сообщение'),
+            self::STATUS_PROCESS       => Yii::t('feedback', 'Сообщение в обработке'),
+            self::STATUS_FINISHED      => Yii::t('feedback', 'Сообщение обработано'),
+            self::STATUS_ANSWER_SENDED => Yii::t('feedback', 'Ответ отправлен'),
+        );
+    }
+
+    public function getStatus()
+    {
+        $data = $this->getStatusList();
+        return isset($data[$this->status]) ? $data[$this->status] : Yii::t('feedback', 'Статус сообщения неизвестен');
+    }
+
+    public function getTypeList()
+    {
+        $types = Yii::app()->getModule('feedback')->types;
+
+        if ($types)
+            $types[self::TYPE_DEFAULT] = Yii::t('feedback', 'По умолчанию');
+        else
+            $types = array(self::TYPE_DEFAULT => Yii::t('feedback', 'По умолчанию'));
+
+        return $types;
+    }
+
+    public function getType()
+    {
+        $data = $this->getTypeList();
+        return array_key_exists($this->type, $data)
+            ? $data[$this->type]
+            : Yii::t('feedback', 'Неизвестный тип сообщения!');
+    }
+
+    public function getIsFaqList()
+    {
+        return array(
+            self::IS_FAQ_NO => Yii::t('feedback', 'Нет'),
+            self::IS_FAQ    => Yii::t('feedback', 'Да'),
+        );
+    }
+
+    public function getIsFaq()
+    {
+        $data = $this->getIsFaqList();
+        return isset($data[$this->is_faq]) ? $data[$this->is_faq] : Yii::t('feedback', '*неизвестно*');
+    }
 }

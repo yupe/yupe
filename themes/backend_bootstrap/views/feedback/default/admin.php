@@ -36,7 +36,6 @@ Yii::app()->clientScript->registerScript('search', "
     $dp = $model->search();
     $dp->criteria->order = 'status ASC, change_date ASC';
     $this->widget('YCustomGridView', array(
-        'statusField' => 'is_faq',
         'id' => 'feed-back-grid',
         'dataProvider' => $dp,
         'itemsCssClass' => ' table table-condensed',
@@ -63,14 +62,14 @@ Yii::app()->clientScript->registerScript('search', "
             array(
                 'name' => 'status',
                 'type' => 'raw',
-                'value' => "'<span class=\"label label-'.(\$data->status?((\$data->status==1)?'warning':((\$data->status==3)?'success':'default')):'info').'\">'.\$data-> getStatus().'</span>'",
+                'value' => "'<span class=\"label label-'.(\$data->status?((\$data->status==1)?'warning':((\$data->status==3)?'success':'default')):'info').'\">' . \$data->getStatus().'</span>'",
                 'filter' => CHtml::activeDropDownList($model, 'status', $model->getTypeList()),
             ),
             array(
                 'name' => 'is_faq',
                 'type' => 'raw',
                 'header' => 'FAQ',
-                'value' => '$this->grid->returnStatusHtml($data)',
+                'value' => '$this->grid->returnBootstrapStatusHtml($data, "is_faq", "IsFaq")',
             ),
             array('class' => 'bootstrap.widgets.TbButtonColumn'),
         ),

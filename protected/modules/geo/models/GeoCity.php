@@ -9,7 +9,7 @@
  * @property string $name
  * @property string $state
  */
-class GeoCity extends CActiveRecord
+class GeoCity extends YModel
 {
 
     /**
