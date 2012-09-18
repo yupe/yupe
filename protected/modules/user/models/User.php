@@ -23,7 +23,7 @@
  * @property string $registration_ip
  * @property string $activation_ip
  */
-class User extends CActiveRecord
+class User extends YModel
 {
     const GENDER_THING  = 0;
     const GENDER_MALE   = 1;

@@ -17,7 +17,7 @@
  * The followings are the available model relations:
  * @property Menu $menu
  */
-class MenuItem extends CActiveRecord
+class MenuItem extends YModel
 {
     const STATUS_ACTIVE = 1;
     const STATUS_DISABLED = 0;

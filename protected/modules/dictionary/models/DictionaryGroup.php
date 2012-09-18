@@ -18,7 +18,7 @@
  * @property User $updateUser
  * @property User $createUser
  */
-class DictionaryGroup extends CActiveRecord
+class DictionaryGroup extends YModel
 {
     /**
      * Returns the static model of the specified AR class.

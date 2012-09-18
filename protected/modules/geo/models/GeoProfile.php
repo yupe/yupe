@@ -7,7 +7,7 @@
  * @property integer $user_id
  * @property integer $geo_city_id
  */
-class GeoProfile extends CActiveRecord
+class GeoProfile extends YModel
 {
 
     /**

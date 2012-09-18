@@ -21,7 +21,7 @@
  * @property DictionaryGroup $group
  * @property User $createUser
  */
-class DictionaryData extends CActiveRecord
+class DictionaryData extends YModel
 {
     const STATUS_ACTIVE  = 1;
     const STATUS_DELETED = 0;

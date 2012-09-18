@@ -11,7 +11,7 @@
  * @property string $alias
  * @property integer $status
  */
-class Category extends CActiveRecord
+class Category extends YModel
 {
 
     const STATUS_DRAFT      = 0;

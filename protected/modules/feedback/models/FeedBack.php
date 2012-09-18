@@ -16,7 +16,7 @@
  * @property integer $ip
  * @property string  $phone
  */
-class FeedBack extends CActiveRecord
+class FeedBack extends YModel
 {
 
     const STATUS_NEW = 0;

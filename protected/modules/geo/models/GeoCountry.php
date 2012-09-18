@@ -7,7 +7,7 @@
  * @property integer $id
  * @property string $name
  */
-class GeoCountry extends CActiveRecord
+class GeoCountry extends YModel
 {
 
     /**

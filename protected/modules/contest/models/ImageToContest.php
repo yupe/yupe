@@ -9,7 +9,7 @@
  * @property string $contest_id
  * @property string $creation_date
  */
-class ImageToContest extends CActiveRecord
+class ImageToContest extends YModel
 {
     /**
      * Returns the static model of the specified AR class.

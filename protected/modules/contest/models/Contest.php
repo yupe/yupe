@@ -14,7 +14,7 @@
 
  * @property integer $status
  */
-class Contest extends CActiveRecord
+class Contest extends YModel
 {
 
     const STATUS_DRAFT = 0;

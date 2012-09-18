@@ -17,7 +17,7 @@
  * @property integer $status
  * @property integer $category_id
  */
-class Page extends CActiveRecord
+class Page extends YModel
 {
 
     const STATUS_DRAFT      = 0;

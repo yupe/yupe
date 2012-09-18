@@ -18,7 +18,7 @@
  * @property string  $link
  * @property string  $image
  */
-class News extends CActiveRecord
+class News extends YModel
 {
 
     const STATUS_DRAFT      = 0;

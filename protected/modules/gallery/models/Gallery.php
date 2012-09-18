@@ -9,7 +9,7 @@
  * @property string $description
  * @property integer $status
  */
-class Gallery extends CActiveRecord
+class Gallery extends YModel
 {
     const STATUS_PUBLIC = 1;
 

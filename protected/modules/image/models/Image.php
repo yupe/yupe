@@ -17,7 +17,7 @@
  * The followings are the available model relations:
  * @property User $user
  */
-class Image extends CActiveRecord
+class Image extends YModel
 {
     const STATUS_CHECKED    = 1;
     const STATUS_NEED_CHECK = 0;

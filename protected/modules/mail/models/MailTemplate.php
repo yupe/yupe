@@ -17,7 +17,7 @@
  * The followings are the available model relations:
  * @property MailEvent $event
  */
-class MailTemplate extends CActiveRecord
+class MailTemplate extends YModel
 {
     const STATUS_ACTIVE     = 1;
     const STATUS_NOT_ACTIVE = 0;

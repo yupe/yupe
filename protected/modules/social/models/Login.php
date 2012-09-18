@@ -12,7 +12,7 @@
  * The followings are the available model relations:
  * @property User $user
  */
-class Login extends CActiveRecord
+class Login extends YModel
 {
     /**
      * Returns the static model of the specified AR class.

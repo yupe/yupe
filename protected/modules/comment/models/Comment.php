@@ -15,7 +15,7 @@
  * @property string $ip
  * @property string $user_id
  */
-class Comment extends CActiveRecord
+class Comment extends YModel
 {
 
     const STATUS_NEED_CHECK = 0;
