@@ -27,7 +27,6 @@ class LanguageBehavior extends CBehavior
                 in_array($l, $lm->languages)
         ))
         {
-
             // Если текущий язык у нас не тот же, что указан - поставим куку и все дела
             if ($app->language != $l)
                 $this->setLanguage($l);
@@ -76,11 +75,9 @@ class LanguageBehavior extends CBehavior
 
     protected function setLanguage($language)
     {
-        $lp  = Yii::app()->urlManager->langParam;
+        $lp = Yii::app()->urlManager->langParam;
         Yii::app()->user->setState($lp, $language);
-        $cookie = new CHttpCookie($lp, $language);
-        $cookie->expire = time() + (60 * 60 * 24 * 365); // (1 year)
-        Yii::app()->request->cookies[$lp] = $cookie;
+        Yii::app()->request->cookies[$lp] = new CHttpCookie($lp, $language, array('expire'=>time() + (60 * 60 * 24 * 365)));
         Yii::app()->language = $language;
     }
 }
