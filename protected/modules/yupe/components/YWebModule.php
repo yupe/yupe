@@ -146,6 +146,19 @@ abstract class YWebModule extends CWebModule
     }
 
     /**
+     *  @return array массив параметров модуля, которые можно редактировать через панель управления (GUI)
+     */
+    public function getEditableParamsKey()
+    {
+        $keyParams = array( );
+
+        foreach($this->editableParams as $key => $value)
+            $keyParams[] = (is_int($key)) ? $value : $key;
+
+        return $keyParams;
+    }
+
+    /**
      *  @return int порядок следования модуля в меню панели управления (сортировка)
      */
     public function getAdminMenuOrder()
