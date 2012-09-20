@@ -16,7 +16,6 @@
 abstract class YWebModule extends CWebModule
 {
     const CHECK_ERROR  = 'error';
-
     const CHECK_NOTICE = 'notice';
 
     const CHOICE_YES = 1;
@@ -82,7 +81,7 @@ abstract class YWebModule extends CWebModule
      */
     public function getAdminPageLinkNormalize()
     {
-        return (is_array($this->adminPageLink)) ? $this->adminPageLink : array($this->adminPageLink);
+        return is_array($this->adminPageLink) ? $this->adminPageLink : array($this->adminPageLink);
     }
 
     /**
@@ -106,13 +105,17 @@ abstract class YWebModule extends CWebModule
 
     /**
      *   @return array или false
+     *   @todo проработать вывод сразу нескольких ошибок
      *   Работосопособность модуля может зависеть от разных факторов: версия php, версия Yii, наличие определенных модулей и т.д.
      *   В этом методе необходимо выполнить все проверки.
      *   @example
-     *
      *   if (!$this->uploadDir)
-     *        return array('type' => YWebModule::CHECK_ERROR, 'message' => Yii::t('image', 'Пожалуйста, укажите каталог для хранения изображений! {link}', array('{link}' => CHtml::link(Yii::t('image', 'Изменить настройки модуля'), array('/yupe/backend/modulesettings/', 'module' => $this->id)))));
-     *
+     *        return array(
+     *            'type' => YWebModule::CHECK_ERROR,
+     *            'message' => Yii::t('image', 'Пожалуйста, укажите каталог для хранения изображений! {link}', array(
+     *                '{link}' => CHtml::link(Yii::t('image', 'Изменить настройки модуля'), array('/yupe/backend/modulesettings/', 'module' => $this->id))
+     *            ))
+     *        );
      *   Данные сообщения выводятся на главной странице панели управления
      *
      */
@@ -134,7 +137,7 @@ abstract class YWebModule extends CWebModule
      */
     public function getParamsLabels()
     {
-        return array('adminMenuOrder' => Yii::t('yupe', 'Порядок следования в меню'), );
+        return array('adminMenuOrder' => Yii::t('yupe', 'Порядок следования в меню'));
     }
 
     /**
@@ -146,14 +149,14 @@ abstract class YWebModule extends CWebModule
     }
 
     /**
-     *  @return array массив параметров модуля, которые можно редактировать через панель управления (GUI)
+     *  @return array получение имена парамметров из getEditableParams()
      */
     public function getEditableParamsKey()
     {
         $keyParams = array( );
 
         foreach($this->editableParams as $key => $value)
-            $keyParams[] = (is_int($key)) ? $value : $key;
+            $keyParams[] = is_int($key) ? $value : $key;
 
         return $keyParams;
     }
@@ -182,7 +185,7 @@ abstract class YWebModule extends CWebModule
     {
         return array(
             self::CHOICE_YES => Yii::t('yupe', 'да'),
-            self::CHOICE_NO => Yii::t('yupe', 'нет')
+            self::CHOICE_NO  => Yii::t('yupe', 'нет'),
         );
     }
 
@@ -213,11 +216,10 @@ abstract class YWebModule extends CWebModule
             // инициализация модуля
             $settings = Settings::model()->cache($this->coreCacheTime)->findAll('module_id = :module_id', array('module_id' => $this->getId()));
         }
-
-        // Если базы нет, берем по-умолчанию, а не падаем в инсталлере
-        catch(CDbException $e)
+        catch (CDbException $e)
         {
-            $settings=null;
+            // Если базы нет, берем по-умолчанию, а не падаем в инсталлере
+            $settings = null;
         }
 
         if ($settings)
@@ -231,7 +233,6 @@ abstract class YWebModule extends CWebModule
                     $this->{$model->param_name} = $model->param_value;
             }
         }
-
         parent::init();
     }
 }

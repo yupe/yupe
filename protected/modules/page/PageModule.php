@@ -3,15 +3,14 @@
 class PageModule extends YWebModule
 {
     public $editor = 'application.modules.yupe.widgets.editors.imperaviRedactor.EImperaviRedactorWidget';
-
     public $mainCategory;
 
     public function getParamsLabels()
     {
         return array(
-            'mainCategory'   => Yii::t('news','Главная категория страниц'),
             'adminMenuOrder' => Yii::t('page','Порядок следования в меню'),
-            'editor'         => Yii::t('page','Визуальный редактор')
+            'editor'         => Yii::t('page','Визуальный редактор'),
+            'mainCategory'   => Yii::t('news','Главная категория страниц'),
         );
     }
 
@@ -24,8 +23,8 @@ class PageModule extends YWebModule
     {
         return array(
             'adminMenuOrder',
-            'editor' => Yii::app()->getModule('yupe')->getEditors(),
-            'mainCategory' => Category::model()->allCategoryList,
+            'editor'        => Yii::app()->getModule('yupe')->editors,
+            'mainCategory'  => Category::model()->allCategoryList,
         );
     }
 
@@ -76,7 +75,7 @@ class PageModule extends YWebModule
 
         // Если у модуля не задан редактор - спросим у ядра
         if ( !$this->editor )
-            $this->editor=Yii::app()->getModule('yupe')->editor;
+            $this->editor = Yii::app()->getModule('yupe')->editor;
     }
 
     public function isMultiLang()
@@ -88,7 +87,7 @@ class PageModule extends YWebModule
     {
         $criteria = array();
 
-        if($this->mainCategory)
+        if ($this->mainCategory)
             $criteria = array(
                 'condition' => 'id = :id OR parent_id = :id',
                 'params'    => array(':id' => $this->mainCategory),
