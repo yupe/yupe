@@ -106,6 +106,18 @@ class News extends YModel
         );
     }
 
+    public function last($num)
+    {
+        $this->getDbCriteria()->mergeWith(
+            array(
+                'order' => 'date DESC',
+                'limit'=>$num,
+            )
+        );
+        
+        return $this;
+    }
+
     public function language($lang)
     {
         $this->getDbCriteria()->mergeWith(
@@ -116,9 +128,25 @@ class News extends YModel
                 )
             )
         );
-        
+
         return $this;
     }
+
+
+    public function category($category_id)
+    {
+        $this->getDbCriteria()->mergeWith(
+            array(
+                'condition' => 'category_id = :category_id',
+                'params' => array(
+                    ':category_id' => $category_id
+                )
+            )
+        );
+
+        return $this;
+    }
+
 
     /**
      * @return array customized attribute labels (name=>label)
