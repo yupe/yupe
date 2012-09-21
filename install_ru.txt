@@ -11,7 +11,7 @@
 - Следовать инструкциям установщика
 
 После установки
-- Расскажите нам о новом сафте на Юпи! http://yupe.ru/feedback/contact
+- Расскажите нам о новом сайте на Юпи! http://yupe.ru/feedback/contact
 - Сообщать об ошибках и замечаниях https://github.com/yupe/yupe/issues
 - Присылать pull requests (патчи)
 - Рассказать друзьям о Юпи! и читать нас в твиттере https://twitter.com/YupeCms
