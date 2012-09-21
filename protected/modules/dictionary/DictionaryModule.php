@@ -5,7 +5,7 @@ class DictionaryModule extends YWebModule
     public function getParamsLabels()
     {
         return array(
-            'adminMenuOrder' => Yii::t('dictionary', 'Порядок следования в меню')
+            'adminMenuOrder' => Yii::t('dictionary', 'Порядок следования в меню'),
         );
     }
 
