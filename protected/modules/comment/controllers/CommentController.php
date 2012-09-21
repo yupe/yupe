@@ -5,7 +5,7 @@ class CommentController extends YFrontController
     {
         return array(
             'captcha' => array(
-                'class' => 'CCaptchaAction',
+                'class'     => 'CCaptchaAction',
                 'backColor' => 0xFFFFFF,
             )
         );
