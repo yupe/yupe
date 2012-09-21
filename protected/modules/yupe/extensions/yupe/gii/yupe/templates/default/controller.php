@@ -106,6 +106,7 @@ class <?php echo $this->controllerClass; ?> extends <?php echo $this->baseContro
         else
             throw new CHttpException(400, 'Неверный запрос. Пожалуйста, больше не повторяйте такие запросы');
     }
+
     /**
      * Управление <?php echo $this->mtvor; ?>.
      */

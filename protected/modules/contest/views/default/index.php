@@ -42,9 +42,9 @@ $this->renderPartial('_search', array('model' => $model));
 <br/>
 
 <p>
-    <?php echo Yii::t('contest', 'В данном разделе представлены средства управления'); ?>    <?php echo Yii::t('contest', 'конкурсами'); ?>.
+    <?php echo Yii::t('contest', 'В данном разделе представлены средства управления'); ?>
+    <?php echo Yii::t('contest', 'конкурсами'); ?>.
 </p>
-
 
 <?php
 $this->widget('application.modules.yupe.components.YCustomGridView', array(

@@ -99,6 +99,7 @@ class DefaultController extends YBackController
         else
             throw new CHttpException(400, 'Неверный запрос. Пожалуйста, больше не повторяйте такие запросы');
     }
+
     /**
      * Управление конкурсами.
      */
@@ -110,6 +111,68 @@ class DefaultController extends YBackController
             $model->attributes = $_GET['Contest'];
 
         $this->render('index', array('model' => $model));
+    }
+
+    /**
+     * Добавление изображения.
+     */
+    public function actionAddImage($contest_id)
+    {
+        $contest = $this->loadModel((int) $contest_id);
+
+        $image = new Image;
+
+        if (Yii::app()->request->isPostRequest)
+        {
+            $transaction = Yii::app()->db->beginTransaction();
+
+            try
+            {
+                if ($image->create($_POST['Image']))
+                {
+                    if ($contest->addImage($image))
+                        Yii::app()->user->setFlash(
+                            YFlashMessages::NOTICE_MESSAGE,
+                            Yii::t('contest', 'Фотография добавлена!')
+                        );
+
+                    $transaction->commit();
+
+                    $this->redirect(array('/contest/default/view/', 'id' => $contest->id));
+                }
+
+                throw new CDbException(Yii::t('contest', 'При добавлении изображения произошла ошибка!'));
+            }
+            catch (Exception $e)
+            {
+                $transaction->rollback();
+
+                Yii::app()->user->setFlash(
+                    YFlashMessages::ERROR_MESSAGE,
+                    Yii::t('contest', $e->getMessage())
+                );
+            }
+
+            $this->redirect(array('/contest/default/addImage/', 'id' => $contest->id));
+        }
+
+        $this->render('addImage', array('contest' => $contest, 'model' => $image));
+    }
+
+    /**
+     * Удаление изображения.
+     */
+    public function actionDeleteImage($id)
+    {
+        if (Yii::app()->request->isPostRequest)
+        {
+            ImageToContest::model()->findByPk((int) $id)->delete();
+
+            if (!isset($_GET['ajax']))
+                $this->redirect(isset($_POST['returnUrl']) ? $_POST['returnUrl'] : array('admin'));
+        }
+        else
+            throw new CHttpException(400, 'Invalid request. Please do not repeat this request again.');
     }
 
     /**

@@ -99,6 +99,7 @@ class BlogAdminController extends YBackController
         else
             throw new CHttpException(400, 'Неверный запрос. Пожалуйста, больше не повторяйте такие запросы');
     }
+
     /**
      * Управление блогами.
      */
