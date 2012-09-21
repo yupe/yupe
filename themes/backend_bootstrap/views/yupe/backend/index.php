@@ -1,6 +1,8 @@
 <div class="page-header">
     <h1><?php echo Yii::t('yupe', 'Панель управления "{app}"', array('{app}' => CHtml::encode(Yii::app()->name))); ?><br/>
-    <small><?php echo Yii::t('yupe', 'Добро пожаловать в панель управления Вашим сайтом!'); ?></small></h1>
+    <small><?php echo Yii::t('yupe', '{nick_name}, добро пожаловать в панель управления Вашим сайтом!',array(
+        '{nick_name}' => Yii::app()->user->getState('nick_name')
+        )); ?></small></h1>
 </div>
 
 <?php foreach ($modules as $module): ?>

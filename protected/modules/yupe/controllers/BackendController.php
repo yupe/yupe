@@ -26,12 +26,12 @@ class BackendController extends YBackController
         foreach ($module as $key => $value)
         {
             if (array_key_exists($key, $editableParams))
-                $elements[$key] = CHtml::label($moduleParamsLabels[$key], $key) . 
-                                  CHtml::dropDownList($key, $value, $editableParams[$key], array('empty' => Yii::t('yupe', '--выберите--')));
+                $elements[$key] = CHtml::label($moduleParamsLabels[$key], $key) .
+                                  CHtml::dropDownList($key, $value, $editableParams[$key], array('empty' => Yii::t('yupe', '--выберите--'),'class' => 'span10'));
 
             else if (in_array($key, $editableParams))
-                $elements[$key] = CHtml::label((isset($moduleParamsLabels[$key]) ? $moduleParamsLabels[$key] : $key), $key) . 
-                                  CHtml::textField($key, $value, array('maxlength' => 200));
+                $elements[$key] = CHtml::label((isset($moduleParamsLabels[$key]) ? $moduleParamsLabels[$key] : $key), $key) .
+                                  CHtml::textField($key, $value, array('maxlength' => 300,'class' => 'span10'));
         }
 
         // сформировать боковое меню из ссылок на настройки модулей
@@ -68,7 +68,7 @@ class BackendController extends YBackController
             else
                 Yii::app()->user->setFlash(
                     YFlashMessages::ERROR_MESSAGE,
-                    Yii::t('yupe', 'При сохранении произошла ошибка! ') . print_r($model->getErrors(), true)
+                    Yii::t('yupe', 'При сохранении произошла ошибка! ')
                 );
 
             $this->redirect(array('/yupe/backend/modulesettings', 'module' => $module_id));
@@ -85,7 +85,7 @@ class BackendController extends YBackController
             {
                 Yii::app()->user->setFlash(
                     YFlashMessages::NOTICE_MESSAGE,
-                    Yii::t('yupe', 'Настройки сохранены!')
+                    Yii::t('yupe', 'Настройки тем сохранены!')
                 );
 
                 //@TODO сброс полностью - плохо =(
@@ -94,7 +94,7 @@ class BackendController extends YBackController
             else
                 Yii::app()->user->setFlash(
                     YFlashMessages::ERROR_MESSAGE,
-                    Yii::t('yupe', 'При сохранении произошла ошибка!')
+                    Yii::t('yupe', 'При сохранении настроек произошла ошибка!')
                 );
 
             $this->redirect(array('/yupe/backend/themesettings/'));
@@ -103,7 +103,7 @@ class BackendController extends YBackController
         $theme = isset($settings['theme'])
             ? $settings['theme']->param_value
             : Yii::t('yupe', 'Тема не используется');
-        $backendTheme = isset($settings['backendTheme']) 
+        $backendTheme = isset($settings['backendTheme'])
             ? $settings['backendTheme']->param_value
             : ($this->yupe->backendTheme ? $this->yupe->backendTheme : Yii::t('yupe', 'Тема не используется'));
 
@@ -147,7 +147,7 @@ class BackendController extends YBackController
                     return true;
             }
         }
-        
+
         return false;
     }
 
