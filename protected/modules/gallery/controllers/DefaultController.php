@@ -33,10 +33,10 @@ class DefaultController extends YBackController
                     Yii::t('gallery', 'Запись добавлена!')
                 );
 
-                if (isset($_POST['saveAndClose']))
-                    $this->redirect(array('index'));
-
-                $this->redirect(array('view', 'id' => $model->id));
+                if (!isset($_POST['submit-type']))
+                    $this->redirect(array('update', 'id' => $model->id));
+                else
+                    $this->redirect(array($_POST['submit-type']));
             }
         }
 
@@ -65,10 +65,10 @@ class DefaultController extends YBackController
                     Yii::t('gallery', 'Запись обновлена!')
                 );
 
-                if (isset($_POST['saveAndClose']))
-                    $this->redirect(array('index'));
-
-                $this->redirect(array('update', 'id' => $model->id));
+                if (!isset($_POST['submit-type']))
+                    $this->redirect(array('update', 'id' => $model->id));
+                else
+                    $this->redirect(array($_POST['submit-type']));
             }
         }
 
@@ -99,6 +99,7 @@ class DefaultController extends YBackController
         else
             throw new CHttpException(400, 'Неверный запрос. Пожалуйста, больше не повторяйте такие запросы');
     }
+
     /**
      * Управление галереями.
      */
