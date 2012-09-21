@@ -57,7 +57,7 @@ class Comment extends YModel
             array('ip', 'length', 'max' => 20),
             array('email', 'email'),
             array('url', 'url'),
-            array('status', 'in', 'range' => array_keys($this->getStatusList())),
+            array('status', 'in', 'range' => array_keys($this->statusList)),
             array('verifyCode', 'YRequiredValidator', 'allowEmpty' => Yii::app()->user->isAuthenticated()),
             array('verifyCode', 'captcha', 'allowEmpty' => Yii::app()->user->isAuthenticated()),
             array('id, model, model_id, creation_date, name, email, url, text, status, ip', 'safe', 'on' => 'search'),
