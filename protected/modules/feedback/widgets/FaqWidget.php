@@ -12,9 +12,9 @@ class FaqWidget extends YWidget
     {
         $models = FeedBack::model()->answered()->faq()->cache($this->cacheTime)->findAll(array(
             'limit' => $this->limit,
-            'order' => 'id DESC'
+            'order' => 'id DESC',
         ));
 
-        $this->render('faqwidget',array('models' => $models));
+        $this->render('faqwidget', array('models' => $models));
     }
 }

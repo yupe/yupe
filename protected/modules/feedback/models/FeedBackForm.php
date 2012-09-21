@@ -26,13 +26,13 @@ class FeedBackForm extends CFormModel
     public function attributeLabels()
     {
         return array(
-            'name' => Yii::t('feedback','Ваше имя'),
-            'email' => Yii::t('feedback','Email'),
-            'phone' => Yii::t('feedback','Телефон'),
-            'theme' => Yii::t('feedback','Тема'),
-            'text' => Yii::t('feedback','Текст'),
-            'verifyCode' => Yii::t('feedback','Код проверки'),
-            'type' => Yii::t('feedback','Тип')
+            'name'       => Yii::t('feedback', 'Ваше имя'),
+            'email'      => Yii::t('feedback', 'Email'),
+            'phone'      => Yii::t('feedback', 'Телефон'),
+            'theme'      => Yii::t('feedback', 'Тема'),
+            'text'       => Yii::t('feedback', 'Текст'),
+            'verifyCode' => Yii::t('feedback', 'Код проверки'),
+            'type'       => Yii::t('feedback', 'Тип'),
         );
     }
 }

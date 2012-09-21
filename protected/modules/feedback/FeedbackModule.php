@@ -6,7 +6,7 @@ class FeedbackModule extends YWebModule
     public $types =  array(
         1 => 'Ошибка на сайте',
         2 => 'Предложение о сотрудничестве',
-        3 => 'Прочее..'
+        3 => 'Прочее..',
     );
     public $showCaptcha = 1;
     public $notifyEmailFrom;
@@ -28,14 +28,14 @@ class FeedbackModule extends YWebModule
             'adminMenuOrder'   => Yii::t('feedback', 'Порядок следования в меню'),
             'sendConfirmation' => Yii::t('feedback', 'Отправлять подтверждение'),
             'successPage'      => Yii::t('feedback', 'Страница после отправки формы'),
-            'cacheTime'        => Yii::t('feedback', 'Время кэширования счетчика (сек.)')
+            'cacheTime'        => Yii::t('feedback', 'Время кэширования счетчика (сек.)'),
         );
     }
 
     public function getEditableParams()
     {
         return array(
-            'showCaptcha' => $this->getChoice(),
+            'showCaptcha'      => $this->getChoice(),
             'sendConfirmation' => $this->getChoice(),
             'notifyEmailFrom',
             'emails',
@@ -82,7 +82,7 @@ class FeedbackModule extends YWebModule
                 'message' => Yii::t('feedback', 'У Вас {{count}} ', array(
                     '{{count}}' => $count
                  )) . Yii::t('feedback', "новое сообщение с сайта|новых сообщения с сайта|новых сообщений с сайта", $count) . ' ' . CHtml::link(Yii::t('feedback', 'Посмотреть и ответить?'), array(
-                        '/feedback/default/admin/order/status.asc/FeedbBack_sort/status/',
+                    '/feedback/default/admin/order/status.asc/FeedbBack_sort/status/',
                  ))
             );
     }
@@ -133,7 +133,7 @@ class FeedbackModule extends YWebModule
 
         $this->setImport(array('feedback.models.*', 'feedback.components.*'));
 
-        if(!$this->emails)
+        if (!$this->emails)
             $this->emails = Yii::app()->getModule('yupe')->email;
     }
 }
