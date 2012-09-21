@@ -43,7 +43,7 @@ class BlogModule extends YWebModule
 
     public  function getVersion()
     {
-        return '0.1 (dev)';
+        return '0.2 (dev)';
     }
 
     public function getName()

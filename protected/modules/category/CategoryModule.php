@@ -6,12 +6,12 @@ class CategoryModule extends YWebModule
 
     public function getUploadPath()
     {
-        return Yii::getPathOfAlias('webroot') . DIRECTORY_SEPARATOR . Yii::app()->getModule('yupe')->uploadPath . DIRECTORY_SEPARATOR . $this->uploadPath.DIRECTORY_SEPARATOR;
+        return Yii::getPathOfAlias('webroot') . '/' . Yii::app()->getModule('yupe')->uploadPath . '/' . $this->uploadPath . '/';
     }
 
     public function checkSelf()
     {
-        $uploadPath = Yii::getPathOfAlias('webroot') . DIRECTORY_SEPARATOR . Yii::app()->getModule('yupe')->uploadPath . DIRECTORY_SEPARATOR . $this->uploadPath;
+        $uploadPath = Yii::getPathOfAlias('webroot') . '/' . Yii::app()->getModule('yupe')->uploadPath . '/' . $this->uploadPath;
 
         if (!is_writable($uploadPath))
             return array(
@@ -29,8 +29,8 @@ class CategoryModule extends YWebModule
     public function getEditableParams()
     {
         return array(
-            'uploadPath',
             'adminMenuOrder',
+            'uploadPath',
         );
     }
 
