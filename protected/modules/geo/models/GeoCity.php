@@ -11,7 +11,6 @@
  */
 class GeoCity extends YModel
 {
-
     /**
      * @return string the associated database table name
      */
@@ -35,8 +34,6 @@ class GeoCity extends YModel
     public function rules()
     {
         return array(
-            //@formatter:off
-            //@formatter:on
         );
     }
 
@@ -47,18 +44,16 @@ class GeoCity extends YModel
         );
     }
 
-
-
     /**
      * @return array customized attribute labels (name=>label)
      */
     public function attributeLabels()
     {
         return array(
-            'id' => Yii::t('geo', 'Id'),
+            'id'             => Yii::t('geo', 'Id'),
             'geo_country_id' => Yii::t('geo', 'Страна'),
-            'name' => Yii::t('geo', 'Город'),
-            'state' => Yii::t('geo', 'Область'),
+            'name'           => Yii::t('geo', 'Город'),
+            'state'          => Yii::t('geo', 'Область'),
         );
     }
 
@@ -75,6 +70,6 @@ class GeoCity extends YModel
 
     public function getCombinedName()
     {
-        return $this->country->name.", ".$this->name." (".$this->state.")";
+        return $this->country->name . ", " . $this->name . " (" . $this->state . ")";
     }
 }

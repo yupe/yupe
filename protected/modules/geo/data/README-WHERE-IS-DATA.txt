@@ -7,4 +7,3 @@ mysql --databas=yupedb -pPASSWORD -uUSER < geo_data.sql
 
 Файл можно скачать отсюда / Please, download SQL+data from:
 http://yupe.ru/geo_data.rar
-

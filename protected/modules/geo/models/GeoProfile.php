@@ -9,7 +9,6 @@
  */
 class GeoProfile extends YModel
 {
-
     /**
      * @return string the associated database table name
      */
@@ -33,11 +32,9 @@ class GeoProfile extends YModel
     public function rules()
     {
         return array(
-            //@formatter:off
             array('user_id, geo_city_id', 'required'),
             array('user_id, geo_city_id', 'numerical', 'integerOnly' => true),
-            array('geo_city_id','exist','allowEmpty' => true, 'attributeName' => 'id', 'className' => 'GeoCity'),
-            //@formatter:on
+            array('geo_city_id', 'exist', 'allowEmpty' => true, 'attributeName' => 'id', 'className' => 'GeoCity'),
         );
     }
 
@@ -55,7 +52,7 @@ class GeoProfile extends YModel
     public function attributeLabels()
     {
         return array(
-            'user_id' => Yii::t('geo', 'Пользователь'),
+            'user_id'     => Yii::t('geo', 'Пользователь'),
             'geo_city_id' => Yii::t('geo', 'Город'),
         );
     }
@@ -64,10 +61,9 @@ class GeoProfile extends YModel
     {
         $criteria = new CDbCriteria;
 
-        $criteria->compare('user_id', $this->id,true);
+        $criteria->compare('user_id', $this->id, true);
         $criteria->compare('geo_city_id', $this->geo_city_id, true);
 
         return new CActiveDataProvider('GeoProfile', array('criteria' => $criteria));
     }
-
 }

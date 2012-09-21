@@ -9,7 +9,6 @@
  */
 class GeoCountry extends YModel
 {
-
     /**
      * @return string the associated database table name
      */
@@ -33,8 +32,6 @@ class GeoCountry extends YModel
     public function rules()
     {
         return array(
-            //@formatter:off
-            //@formatter:on
         );
     }
 
@@ -45,15 +42,13 @@ class GeoCountry extends YModel
         );
     }
 
-
-
     /**
      * @return array customized attribute labels (name=>label)
      */
     public function attributeLabels()
     {
         return array(
-            'id' => Yii::t('geo', 'Id'),
+            'id'   => Yii::t('geo', 'Id'),
             'name' => Yii::t('geo', 'Страна'),
         );
     }
@@ -67,5 +62,4 @@ class GeoCountry extends YModel
 
         return new CActiveDataProvider('GeoCountry', array('criteria' => $criteria));
     }
-
 }
