@@ -14,7 +14,7 @@ class DefaultController extends Controller
 
     protected function beforeAction($action)
     {
-        // Проверяем установку сайта
+        // Проверяем установку сайта       
         if (file_exists($this->alreadyInstalledFlag))
             throw new CHttpException(404, Yii::t('install', 'Страница не найдена!'));
 
@@ -370,6 +370,8 @@ class DefaultController extends Controller
 
                     if(!is_dir($assetsPath))
                         @mkdir ($assetsPath);
+                    
+                    Yii::app()->cache->flush();
 
                     $this->redirect(array('/install/default/finish/'));
                 }
