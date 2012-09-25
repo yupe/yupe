@@ -41,7 +41,7 @@ class NewsModule extends YWebModule
     {
         return array(
             'adminMenuOrder',
-            'editor' => Yii::app()->getModule('yupe')->getEditors(),
+            'editor'       => Yii::app()->getModule('yupe')->getEditors(),
             'mainCategory' => Category::model()->allCategoryList,
             'uploadPath',
         );
@@ -97,14 +97,13 @@ class NewsModule extends YWebModule
 
     public function getCategoryList()
     {
-        $criteria = array();
-
-        if($this->mainCategory)
-            $criteria = array(
+        $criteria = ($this->mainCategory)
+            ? array(
                 'condition' => 'id = :id OR parent_id = :id',
                 'params'    => array(':id' => $this->mainCategory),
                 'order'     => 'id ASC',
-            );
+            )
+            : array();
 
         return Category::model()->findAll($criteria);
     }
@@ -113,7 +112,6 @@ class NewsModule extends YWebModule
     {
         return true;
     }
-
 
     public function init()
     {
