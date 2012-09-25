@@ -101,12 +101,7 @@ return array(
         'generatorPaths' => array(
             'application.modules.yupe.extensions.yupe.gii',
         ),
-        'ipFilters'=>array(),
-        /*
-        'generatorPaths'=>array(
-            'bootstrap.gii',
-        ),
-        */
+        'ipFilters'=>array(),       
     ),
 );
 ?>

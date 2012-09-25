@@ -44,7 +44,7 @@ class YupeModule extends YWebModule
 
     public function getVersion()
     {
-        return '0.0.4 (dev)';
+        return '0.4 (dev)';
     }
 
     public function checkSelf()
