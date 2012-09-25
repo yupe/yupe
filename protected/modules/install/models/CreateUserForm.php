@@ -2,11 +2,8 @@
 class CreateUserForm extends CFormModel
 {
     public $userName;
-
     public $password;
-
     public $cPassword;
-
     public $email;
 
     public function rules()
@@ -22,9 +19,9 @@ class CreateUserForm extends CFormModel
     public function attributeLabels()
     {
         return array(
-            'userName' => Yii::t('install', 'Имя пользователя'),
-            'email' => Yii::t('install', 'Email'),
-            'password' => Yii::t('install', 'Пароль'),
+            'userName'  => Yii::t('install', 'Имя пользователя'),
+            'email'     => Yii::t('install', 'Email'),
+            'password'  => Yii::t('install', 'Пароль'),
             'cPassword' => Yii::t('install', 'Подтверждение пароля'),
         );
     }

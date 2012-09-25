@@ -2,9 +2,7 @@
 class DefaultController extends Controller
 {
     public $layout = 'application.modules.install.views.layouts.main';
-
     public $stepName;
-
     private $alreadyInstalledFlag;
 
     public function init()
@@ -172,13 +170,14 @@ class DefaultController extends Controller
                     $port = ($form->port == '') ? '': 'port=' . $form->port . ';';
 
                     $connectionString = "mysql:host={$form->host};{$port}{$socket}dbname={$form->dbName}";
+
                     $connection = new CDbConnection($connectionString, $form->user, $form->password);
                     $connection->connectionString = $connectionString;
-                    $connection->username = $form->user;
-                    $connection->password = $form->password;
-                    $connection->emulatePrepare = true;
-                    $connection->charset = 'utf8';
-                    $connection->active = true;
+                    $connection->username         = $form->user;
+                    $connection->password         = $form->password;
+                    $connection->emulatePrepare   = true;
+                    $connection->charset          = 'utf8';
+                    $connection->active           = true;
 
                     Yii::app()->setComponent('db', $connection);
 
@@ -236,7 +235,7 @@ class DefaultController extends Controller
 
                             $this->redirect(array('/install/default/createuser/'));
                         }
-                        catch(Exception $e)
+                        catch (Exception $e)
                         {
                             $transaction->rollback();
 
@@ -366,9 +365,9 @@ class DefaultController extends Controller
                     );
 
                     // попробуем создать каталог assets
-                    $assetsPath = dirname(Yii::app()->request->getScriptFile()).'/'.CAssetManager::DEFAULT_BASEPATH;
+                    $assetsPath = dirname(Yii::app()->request->getScriptFile()) . '/' . CAssetManager::DEFAULT_BASEPATH;
 
-                    if(!is_dir($assetsPath))
+                    if (!is_dir($assetsPath))
                         @mkdir ($assetsPath);
 
                     $this->redirect(array('/install/default/finish/'));
@@ -377,7 +376,10 @@ class DefaultController extends Controller
                 {
                     $transaction->rollback();
 
-                    Yii::app()->user->setFlash(YFlashMessages::ERROR_MESSAGE, $e->getMessage());
+                    Yii::app()->user->setFlash(
+                        YFlashMessages::ERROR_MESSAGE,
+                        $e->getMessage()
+                    );
 
                     $this->redirect(array('/install/default/sitesettings/'));
                 }
