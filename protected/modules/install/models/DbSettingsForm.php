@@ -1,8 +1,8 @@
 <?php
 class DbSettingsForm extends CFormModel
 {
-    public $host = 'localhost';
-    public $port = '3306';
+    public $host   = 'localhost';
+    public $port   = '3306';
     public $socket = '';
     public $dbName;
     public $user;
