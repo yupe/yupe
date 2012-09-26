@@ -2,6 +2,7 @@
 /**
  * CHttpRequest переопределен для загрузки файлов через ajax, подробнее:
  * http://www.yiiframework.com/forum/index.php/topic/8689-disable-csrf-verification-per-controller-action/
+ * 
  */
 
 class YHttpRequest extends CHttpRequest

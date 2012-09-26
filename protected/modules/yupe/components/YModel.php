@@ -9,6 +9,7 @@
  * @author yupe team
  * @version 0.0.3
  * @link http://yupe.ru - основной сайт
+ * 
  */
  
 abstract class YModel extends Model
