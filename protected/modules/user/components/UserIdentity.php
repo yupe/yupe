@@ -9,12 +9,12 @@ class UserIdentity extends CUserIdentity
 
         if ($user === null)
             $this->errorCode = self::ERROR_USERNAME_INVALID;
-        elseif (!$user->validatePassword($this->password))
+        else if (!$user->validatePassword($this->password))
             $this->errorCode = self::ERROR_PASSWORD_INVALID;
         else
         {
             // запись данных в сессию пользователя
-            $this->_id = $user->id;
+            $this->_id      = $user->id;
             $this->username = $user->nick_name;
 
             Yii::app()->user->setState('id', $user->id);
