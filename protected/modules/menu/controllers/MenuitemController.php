@@ -29,6 +29,10 @@ class MenuitemController extends YBackController
         {
             $model->attributes = $_POST['MenuItem'];
             if ($model->save())
+
+                Yii::app()->cache->flush();
+                Yii::app()->user->setFlash(YFlashMessages::NOTICE_MESSAGE, Yii::t('yupe', 'Кэш успешно сброшен!'));
+
                 $this->redirect(array(
                     'view',
                     'id' => $model->id,
@@ -59,6 +63,10 @@ class MenuitemController extends YBackController
         {
             $model->attributes = $_POST['MenuItem'];
             if ($model->save())
+
+                Yii::app()->cache->flush();
+                Yii::app()->user->setFlash(YFlashMessages::NOTICE_MESSAGE, Yii::t('yupe', 'Кэш успешно сброшен!'));
+
                 $this->redirect(array(
                     'view',
                     'id' => $model->id,
@@ -79,6 +87,9 @@ class MenuitemController extends YBackController
         {
             // we only allow deletion via POST request
             $this->loadModel($id)->delete();
+
+            Yii::app()->cache->flush();
+            Yii::app()->user->setFlash(YFlashMessages::NOTICE_MESSAGE, Yii::t('yupe', 'Кэш успешно сброшен!'));
 
             // if AJAX request (triggered by deletion via admin grid view), we should not redirect the browser
             if (!isset($_GET['ajax']))
