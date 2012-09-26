@@ -2,19 +2,12 @@
 class SocialModule extends YWebModule
 {
     public $twitterKey;
-
     public $twitterSecret;
-
     public $facebookClientId;
-
     public $facebookClientSecret;
-
     public $vkontakteClientId;
-
     public $vkontakteClientSecret;
-
     public $mailruClientId;
-
     public $mailruClientSecret;
 
     public function getEditableParams()
@@ -27,19 +20,19 @@ class SocialModule extends YWebModule
             'vkontakteClientId',
             'vkontakteClientSecret',
             'mailruClientId',
-            'mailruClientSecret'
+            'mailruClientSecret',
         );
     }
 
     public function getParamsLabels()
     {
         return array(
-            'vkontakteClientId' => Yii::t('social','Вконтакте. ID приложения'),
-            'vkontakteClientSecret' => Yii::t('social','Вконтакте. Защищенный ключ')
+            'vkontakteClientId'     => Yii::t('social','Вконтакте. ID приложения'),
+            'vkontakteClientSecret' => Yii::t('social','Вконтакте. Защищенный ключ'),
         );
     }
 
-	public function getCategory()
+    public function getCategory()
     {
         return Yii::t('social', 'Сервисы');
     }

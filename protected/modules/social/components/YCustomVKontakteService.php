@@ -8,14 +8,13 @@
  */
 class YCustomVkontakteService extends CustomVKontakteService
 {
-    public function init($component,$options = array())
+    public function init($component, $options = array())
     {
         $module = Yii::app()->getModule('social');
 
-        $this->client_id = $module->vkontakteClientId;
-
+        $this->client_id     = $module->vkontakteClientId;
         $this->client_secret = $module->vkontakteClientSecret;
 
-        parent::init($component,$options);
+        parent::init($component, $options);
     }
 }
