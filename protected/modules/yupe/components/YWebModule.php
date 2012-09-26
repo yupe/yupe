@@ -10,9 +10,8 @@
  * @author yupe team
  * @version 0.0.3
  * @link http://yupe.ru - основной сайт
- *
- *
  */
+
 abstract class YWebModule extends CWebModule
 {
     const CHECK_ERROR  = 'error';
@@ -91,9 +90,9 @@ abstract class YWebModule extends CWebModule
      * public function getNavigation()
      * {
      *       return array(
-     *           Yii::t('blog','Блоги')  => '/blog/blogAdmin/admin/',
-     *           Yii::t('blog','Записи') => '/blog/postAdmin/admin/',
-     *           Yii::t('blog','Участники') => '/blog/BlogToUserAdmin/admin/'
+     *           Yii::t('blog','Блоги')     => '/blog/blogAdmin/admin/',
+     *           Yii::t('blog','Записи')    => '/blog/postAdmin/admin/',
+     *           Yii::t('blog','Участники') => '/blog/BlogToUserAdmin/admin/',
      *      );
      * }
      *
@@ -153,9 +152,9 @@ abstract class YWebModule extends CWebModule
      */
     public function getEditableParamsKey()
     {
-        $keyParams = array( );
+        $keyParams = array();
 
-        foreach($this->editableParams as $key => $value)
+        foreach ($this->editableParams as $key => $value)
             $keyParams[] = is_int($key) ? $value : $key;
 
         return $keyParams;
@@ -211,10 +210,11 @@ abstract class YWebModule extends CWebModule
             $this->layout = 'webroot.themes.' . Yii::app()->theme->name . '.views.layouts.main';
 
         $settings = null;
+
         try
         {
             // инициализация модуля
-            $settings = Settings::model()->cache($this->coreCacheTime)->findAll('module_id = :module_id', array('module_id' => $this->getId()));
+            $settings = Settings::model()->cache($this->coreCacheTime)->findAll('module_id = :module_id', array('module_id' => $this->id()));
         }
         catch (CDbException $e)
         {
@@ -228,11 +228,10 @@ abstract class YWebModule extends CWebModule
 
             //@TODO обход не settings а editableParams как вариант =)
             foreach ($settings as $model)
-            {
                 if (property_exists($this, $model->param_name) && (in_array($model->param_name, $editableParams) || array_key_exists($model->param_name, $editableParams)))
                     $this->{$model->param_name} = $model->param_value;
-            }
         }
+
         parent::init();
     }
 }

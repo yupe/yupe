@@ -121,7 +121,7 @@ class Settings extends YModel
      */
     public function fetchModuleSettings($module_id, $params = null)
     {
-        $settings = array( );
+        $settings = array();
         if ($module_id)
         {
             $criteria = new CDbCriteria();

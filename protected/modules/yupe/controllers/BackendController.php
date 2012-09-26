@@ -20,18 +20,18 @@ class BackendController extends YBackController
 
         $elements = array();
 
-        $editableParams = $module->editableParams;
+        $editableParams     = $module->editableParams;
         $moduleParamsLabels = $module->paramsLabels;
 
         foreach ($module as $key => $value)
         {
             if (array_key_exists($key, $editableParams))
                 $elements[$key] = CHtml::label($moduleParamsLabels[$key], $key) .
-                                  CHtml::dropDownList($key, $value, $editableParams[$key], array('empty' => Yii::t('yupe', '--выберите--'),'class' => 'span10'));
+                                  CHtml::dropDownList($key, $value, $editableParams[$key], array('empty' => Yii::t('yupe', '--выберите--'), 'class' => 'span10'));
 
             else if (in_array($key, $editableParams))
                 $elements[$key] = CHtml::label((isset($moduleParamsLabels[$key]) ? $moduleParamsLabels[$key] : $key), $key) .
-                                  CHtml::textField($key, $value, array('maxlength' => 300,'class' => 'span10'));
+                                  CHtml::textField($key, $value, array('maxlength' => 300, 'class' => 'span10'));
         }
 
         // сформировать боковое меню из ссылок на настройки модулей
@@ -124,7 +124,6 @@ class BackendController extends YBackController
             $pval = Yii::app()->request->getPost($p);
             // Если параметр уже был - обновим, иначе надо создать новый
             if (isset($settings[$p]))
-            {
                 // Если действительно изменили настройку
                 if ($settings[$p]->param_value != $pval)
                 {
@@ -132,7 +131,6 @@ class BackendController extends YBackController
                     if (!$settings[$p]->save())
                         return true;
                 }
-            }
             else
             {
                 $settings[$p] = new Settings;
@@ -162,18 +160,13 @@ class BackendController extends YBackController
     {
         if (!empty($_FILES['file']['name']))
         {
-            $rename = (int) Yii::app()->request->getQuery('rename', 1);
-
-            $webPath = '/' . $this->yupe->uploadPath . '/' . date('dmY') . '/';
+            $rename     = (int) Yii::app()->request->getQuery('rename', 1);
+            $webPath    = '/' . $this->yupe->uploadPath . '/' . date('dmY') . '/';
             $uploadPath = Yii::getPathOfAlias('webroot') . $webPath;
 
             if (!is_dir($uploadPath))
-            {
                 if (!@mkdir($uploadPath))
-                    Yii::app()->ajax->rawText(Yii::t(
-                        'yupe', 'Не удалось создать каталог "{dir}" для файлов!', array('{dir}' => $uploadPath)
-                    ));
-            }
+                    Yii::app()->ajax->rawText(Yii::t('yupe', 'Не удалось создать каталог "{dir}" для файлов!', array('{dir}' => $uploadPath)));
 
             $image = CUploadedFile::getInstanceByName('file');
 
@@ -188,7 +181,6 @@ class BackendController extends YBackController
                 Yii::app()->ajax->rawText(CHtml::image(Yii::app()->baseUrl . $webPath . $newFileName));
             }
         }
-
         Yii::app()->ajax->rawText(Yii::t('yupe', 'При загрузке произошла ошибка!'));
     }
 
@@ -201,8 +193,10 @@ class BackendController extends YBackController
     public function actionCacheflush()
     {
         Yii::app()->cache->flush();
-
-        Yii::app()->user->setFlash(YFlashMessages::NOTICE_MESSAGE, Yii::t('yupe', 'Кэш успешно сброшен!'));
+        Yii::app()->user->setFlash(
+            YFlashMessages::NOTICE_MESSAGE,
+            Yii::t('yupe', 'Кэш успешно сброшен!')
+        );
 
         $referrer = Yii::app()->getRequest()->getUrlReferrer();
         $this->redirect($referrer !== null ? $referrer : array("/yupe/backend"));
