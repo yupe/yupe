@@ -49,13 +49,13 @@ class BackendController extends YBackController
     {
         if (Yii::app()->request->isPostRequest)
         {
-            if (!($module_id = Yii::app()->request->getPost('module_id')))
+            if (!($moduleId = Yii::app()->request->getPost('module_id')))
                 throw new CHttpException(404, Yii::t('yupe', 'Страница не найдена!'));
 
-            if (!($module = Yii::app()->getModule($module_id)))
+            if (!($module = Yii::app()->getModule($moduleId)))
                 throw new CHttpException(404, Yii::t('yupe', 'Модуль "{module}" не найден!', array('{module}' => $module_id)));
 
-           if (!$this->saveParamsSetting($module_id, $module->editableParamsKey))
+           if (!$this->saveParamsSetting($moduleId, $module->editableParamsKey))
            {
                 Yii::app()->user->setFlash(
                     YFlashMessages::NOTICE_MESSAGE,
@@ -71,7 +71,7 @@ class BackendController extends YBackController
                     Yii::t('yupe', 'При сохранении произошла ошибка! ')
                 );
 
-            $this->redirect(array('/yupe/backend/modulesettings', 'module' => $module_id));
+            $this->redirect(array('/yupe/backend/modulesettings', 'module' => $moduleId));
         }
 
         throw new CHttpException(404, Yii::t('yupe', 'Страница не найдена!'));
@@ -115,9 +115,9 @@ class BackendController extends YBackController
          ));
     }
 
-    public function saveParamsSetting($module_id, $params)
+    public function saveParamsSetting($moduleId, $params)
     {
-        $settings = Settings::model()->fetchModuleSettings($module_id, $params);
+        $settings = Settings::model()->fetchModuleSettings($moduleId, $params);
 
         foreach ($params as $p)
         {
@@ -136,7 +136,7 @@ class BackendController extends YBackController
                 $settings[$p] = new Settings;
 
                 $settings[$p]->setAttributes(array(
-                    'module_id'   => $module_id,
+                    'module_id'   => $moduleId,
                     'param_name'  => $p,
                     'param_value' => $pval,
                 ));
