@@ -34,9 +34,8 @@ class BackendController extends YBackController
                                   CHtml::textField($key, $value, array('maxlength' => 300, 'class' => 'span10'));
         }
 
-        // сформировать боковое меню из ссылок на настройки модулей
-        $yupe = $this->yupe;
-        $this->menu = $yupe->modules['modulesNavigation'][$yupe->category]['items']['settings']['items'];
+        // сформировать боковое меню из ссылок на настройки модулей        
+        $this->menu = $this->yupe->modules['modulesNavigation'][$this->yupe->category]['items']['settings']['items'];
 
         $this->render('modulesettings', array(
             'module'             => $module,
