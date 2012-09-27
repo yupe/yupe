@@ -215,7 +215,7 @@ abstract class YWebModule extends CWebModule
         try
         {
             // инициализация модуля
-            $settings = Settings::model()->cache($this->coreCacheTime)->findAll('module_id = :module_id', array('module_id' => $this->getId()));
+            $settings = Settings::model()->cache($this->coreCacheTime)->findAll('module_id = :module_id', array('module_id' => $this->id));
         }
         catch (CDbException $e)
         {
