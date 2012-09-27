@@ -123,6 +123,7 @@ class BackendController extends YBackController
             $pval = Yii::app()->request->getPost($p);
             // Если параметр уже был - обновим, иначе надо создать новый
             if (isset($settings[$p]))
+            {            
                 // Если действительно изменили настройку
                 if ($settings[$p]->param_value != $pval)
                 {
@@ -130,9 +131,10 @@ class BackendController extends YBackController
                     if (!$settings[$p]->save())
                         return true;
                 }
+            }
             else
             {
-                $settings[$p] = new Settings;
+                $settings[$p] = new Settings;                
 
                 $settings[$p]->setAttributes(array(
                     'module_id'   => $moduleId,
