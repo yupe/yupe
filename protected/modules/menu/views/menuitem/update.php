@@ -3,7 +3,7 @@ $this->breadcrumbs = array(
     Yii::t('menu', 'Меню') => array('menu/admin'),
     Yii::t('menu', 'Пункты меню') => array('admin'),
     $model->title => array(
-        'viewMenuItem',
+        'view',
         'id' => $model->id,
     ),
     Yii::t('menu', 'Редактирование'),
