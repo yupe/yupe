@@ -27,8 +27,8 @@ class LangUrlManager extends CUrlManager
 
             foreach ($this->rules as $rule => $p)
                 $r[(($rule[0] == '/')
-                        ? '/<' . $this->langParam . ':\w{2}>'
-                        : '<' . $this->langParam . ':\w{2}>/'
+                    ? '/<' . $this->langParam . ':\w{2}>'
+                    : '<' . $this->langParam . ':\w{2}>/'
                 ) . $rule] = $p;
 
             $this->rules = array_merge($r, $this->rules);
