@@ -13,11 +13,11 @@ class SearchModule extends YWebModule
     public function getParamsLabels()
     {
         return array(
-            'param' => Yii::t('email',''),
+            'param' => Yii::t('email', ''),
         );
     }
 
-	public function getCategory()
+    public function getCategory()
     {
         return Yii::t('email', 'Сервисы');
     }
@@ -60,6 +60,7 @@ class SearchModule extends YWebModule
     public function init()
     {
         parent::init();
+
         $this->setImport(array(
             'email.models.*',
             'email.components.*',
@@ -68,27 +69,25 @@ class SearchModule extends YWebModule
 
     public static function onBeginRegistration($event)
     {
-
+        //
     }
 
     public static function onBeginProfile($event)
     {
         /** @var CEvent $event */
-        $profile = emailProfile::model()->findByPk(Yii::app()->user-> id);
-        $profile = $profile?$profile:new emailProfile;
-        $profile->user_id = Yii::app()->user-> id;
+        $profile = emailProfile::model()->findByPk(Yii::app()->user->id);
+        $profile = $profile ? $profile : new emailProfile;
+        $profile->user_id = Yii::app()->user->id;
 
         // Если идет сохранение профиля
         if (isset($_POST['emailProfile']))
         {
             $profile->attributes = $_POST['emailProfile'];
-            $profile->user_id = Yii::app()->user-> id;
+            $profile->user_id    = Yii::app()->user->id;
 
             // Тут можно делать дополнительные манипуляции с профилем
         }
-        $event-> sender-> module-> profiles['email'] = $profile;
+        $event->sender->module->profiles['email'] = $profile;
         return true;
     }
-
-
 }

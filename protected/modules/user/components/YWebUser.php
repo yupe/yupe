@@ -5,9 +5,10 @@ class YWebUser extends CWebUser
 
     public function init()
     {
-        $this->allowAutoLogin = true;
-	$this->authTimeout = 24 * 2600;
-	$this->autoRenewCookie = true;
+        $this->allowAutoLogin  = true;
+        $this->authTimeout     = 24 * 2600;
+        $this->autoRenewCookie = true;
+
         return parent::init();
     }
 
