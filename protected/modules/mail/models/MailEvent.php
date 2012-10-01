@@ -40,15 +40,15 @@ class MailEvent extends YModel
         // NOTE: you should only define rules for those attributes that
         // will receive user inputs.
         return array(
-            array( 'name, code, description', 'filter', 'filter' => array($obj = new CHtmlPurifier(), 'purify')),
-            array( 'code, name', 'required' ),
-            array( 'code', 'length', 'max' => 100 ),
-            array( 'name', 'length', 'max' => 300 ),
-            array( 'description', 'safe' ),
-            array( 'code', 'unique' ),
+            array('name, code, description', 'filter', 'filter' => array($obj = new CHtmlPurifier(), 'purify')),
+            array('code, name', 'required'),
+            array('code', 'length', 'max' => 100),
+            array('name', 'length', 'max' => 300),
+            array('description', 'safe'),
+            array('code', 'unique'),
             // The following rule is used by search().
             // Please remove those attributes that should not be searched.
-            array( 'id, code, name, description', 'safe', 'on' => 'search' ),
+            array('id, code, name, description', 'safe', 'on' => 'search'),
         );
     }
 
@@ -60,7 +60,7 @@ class MailEvent extends YModel
         // NOTE: you may need to adjust the relation name and the related
         // class name for the relations automatically generated below.
         return array(
-            'templates' => array( self::HAS_MANY, 'MailTemplate', 'event_id' ),
+            'templates' => array(self::HAS_MANY, 'MailTemplate', 'event_id'),
         );
     }
 
@@ -93,7 +93,6 @@ class MailEvent extends YModel
         $criteria->compare('name', $this->name, true);
         $criteria->compare('description', $this->description, true);
 
-        return new CActiveDataProvider($this, array('criteria' => $criteria));
+        return new CActiveDataProvider(get_class($this), array('criteria' => $criteria));
     }
-
 }

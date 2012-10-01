@@ -4,7 +4,7 @@
  */
 class YFrontController extends YMainController
 {
-    public $menu = array();
+    public $menu        = array();
     public $breadcrumbs = array();
     /**
      * Описание сайта, меняется в админке
@@ -42,7 +42,6 @@ class YFrontController extends YMainController
             if ($yupeModule && $yupeModule->theme)
                 Yii::app()->theme = $yupeModule->theme;
         }
-
         catch (CDbException $e)
         {
             Yii::app()->theme = 'default';
@@ -51,7 +50,7 @@ class YFrontController extends YMainController
         $baseUrl = Yii::app()->baseUrl;
         $fileUrl = Yii::app()->theme->basePath . "/" . ucwords(Yii::app()->theme->name) . "Theme.php";
 
-        if ( Yii::app()->theme && is_file($fileUrl))
+        if (Yii::app()->theme && is_file($fileUrl))
             require($fileUrl);
 
         Yii::app()->clientScript->registerScript('yupe_base_url', "var baseUrl = '$baseUrl';", CClientScript::POS_HEAD);

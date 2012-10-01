@@ -12,8 +12,8 @@ class YeekiModule extends YWebModule
     public function getParamsLabels()
     {
         return array(
-            'adminMenuOrder' => Yii::t('page','Порядок следования в меню'),
-            'editor' => Yii::t('page','Визуальный редактор'),
+            'adminMenuOrder' => Yii::t('page', 'Порядок следования в меню'),
+            'editor'         => Yii::t('page', 'Визуальный редактор'),
         );
     }
 
@@ -21,7 +21,7 @@ class YeekiModule extends YWebModule
     {
         return array(
             'adminMenuOrder',
-            'editor' => Yii::app()->getModule('yupe')->getEditors()
+            'editor' => Yii::app()->getModule('yupe')->editors,
         );
     }
 
@@ -73,6 +73,7 @@ class YeekiModule extends YWebModule
     public function init()
     {
         parent::init();
+
         $this->setImport(array(
             'yeeki.components.*',
             'application.modules.yeeki.modules.wiki.WikiModule',
@@ -82,8 +83,7 @@ class YeekiModule extends YWebModule
             'application.modules.yeeki.modules.wiki.components.*',
         ));
 
-        if ( !$this->editor )
-            $this->editor=Yii::app()->getModule('yupe')->editor;
+        if (!$this->editor)
+            $this->editor = Yii::app()->getModule('yupe')->editor;
     }
-
 }

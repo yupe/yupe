@@ -1,18 +1,17 @@
-function ajaxSetStatus(elem, id){
+function ajaxSetStatus(elem, id) {
     $.ajax({
         url: $(elem).attr('href'),
-        success: function(){
+        success: function() {
             $('#'+id).yiiGridView.update(id);
         }
     });
 }
 
-function ajaxSetSort(elem, id){
+function ajaxSetSort(elem, id) {
     $.ajax({
         url: $(elem).attr('href'),
-        success: function(){
+        success: function() {
             $('#'+id).yiiGridView.update(id);
         }
     });
 }
-

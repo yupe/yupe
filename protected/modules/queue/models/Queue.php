@@ -16,52 +16,14 @@
  */
 class Queue extends YModel
 {
-    const STATUS_NEW = 0;
-
+    const STATUS_NEW      = 0;
     const STATUS_COMLETED = 1;
-
     const STATUS_PROGRESS = 2;
-
-    const STATUS_ERROR = 3;
+    const STATUS_ERROR    = 3;
 
     const PRIORITY_NORMAL = 1;
-
-    const PRIORITY_LOW    = 0; 
-
+    const PRIORITY_LOW    = 0;
     const PRIORITY_HIGH   = 2;
-
-    public function getPriorityList()
-    {
-        return array(
-            self::PRIORITY_LOW    => Yii::t('queue','Низкий'),
-            self::PRIORITY_NORMAL => Yii::t('queue','Нормальный'),
-            self::PRIORITY_HIGH   => Yii::t('queue','Высокий'),
-        );
-    }
-
-    public function getPriority()
-    {
-        $data = $this->getPriorityList();
-
-        return isset($data[$this->priority]) ? $data[$this->priority] : Yii::t('queue', '-неизвестно-');
-    }
-
-    public function getStatusList()
-    {
-        return array(
-            self::STATUS_NEW      => Yii::t('queue', 'Новая'),
-            self::STATUS_COMLETED => Yii::t('queue', 'Выполнена'),
-            self::STATUS_PROGRESS => Yii::t('queue', 'В работе'),
-            self::STATUS_ERROR    => Yii::t('queue', 'Ошибка')
-        );
-    }
-
-    public function getStatus()
-    {
-        $data = $this->getStatusList();
-
-        return isset($data[$this->status]) ? $data[$this->status] : Yii::t('queue', '-неизвестно-');
-    }
 
     public function beforeSave()
     {
@@ -100,15 +62,14 @@ class Queue extends YModel
         // will receive user inputs.
         return array(
             array('worker, task', 'required'),
-            array('status, worker, priority', 'numerical','integerOnly'=> true),
-            array('status', 'in','range'  => array_keys($this->getStatusList())),
-            array('priority','in','range' => array_keys($this->getPriorityList())),
-            array('notice', 'length','max'=> 300),
+            array('status, worker, priority', 'numerical', 'integerOnly' => true),
+            array('status', 'in', 'range'  => array_keys($this->statusList)),
+            array('priority', 'in', 'range' => array_keys($this->priorityList)),
+            array('notice', 'length', 'max' => 300),
             array('start_time, complete_time', 'safe'),
             // The following rule is used by search().
             // Please remove those attributes that should not be searched.
-            array('id, worker, create_time, task, start_time, complete_time, status, notice', 'safe',
-                'on'=> 'search'),
+            array('id, worker, create_time, task, start_time, complete_time, status, notice', 'safe', 'on' => 'search'),
         );
     }
 
@@ -153,8 +114,37 @@ class Queue extends YModel
         $criteria->compare('notice', $this->notice, true);
         $criteria->compare('priority', $this->priority, true);
 
-        return new CActiveDataProvider($this, array(
-            'criteria'=> $criteria,
-        ));
+        return new CActiveDataProvider(get_class($this), array('criteria'=> $criteria));
+    }
+
+        public function getPriorityList()
+    {
+        return array(
+            self::PRIORITY_LOW    => Yii::t('queue', 'Низкий'),
+            self::PRIORITY_NORMAL => Yii::t('queue', 'Нормальный'),
+            self::PRIORITY_HIGH   => Yii::t('queue', 'Высокий'),
+        );
+    }
+
+    public function getPriority()
+    {
+        $data = $this->priorityList;
+        return isset($data[$this->priority]) ? $data[$this->priority] : Yii::t('queue', '-неизвестно-');
+    }
+
+    public function getStatusList()
+    {
+        return array(
+            self::STATUS_NEW      => Yii::t('queue', 'Новая'),
+            self::STATUS_COMLETED => Yii::t('queue', 'Выполнена'),
+            self::STATUS_PROGRESS => Yii::t('queue', 'В работе'),
+            self::STATUS_ERROR    => Yii::t('queue', 'Ошибка'),
+        );
+    }
+
+    public function getStatus()
+    {
+        $data = $this->statusList;
+        return isset($data[$this->status]) ? $data[$this->status] : Yii::t('queue', '-неизвестно-');
     }
 }

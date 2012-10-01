@@ -119,13 +119,15 @@ class Settings extends YModel
      * @param mixed $params Список параметров, которые требуется прочитать
      * @return array Экземпляры класса Settings, соответствующие запрошенным параметрам
      */
-    public function fetchModuleSettings($module_id, $params = null)
+    public function fetchModuleSettings($moduleId, $params = null)
     {
-        $settings = array( );
-        if ($module_id)
+        $settings = array();
+
+        if ($moduleId)
         {
             $criteria = new CDbCriteria();
-            $criteria->compare("module_id", $module_id);
+
+            $criteria->compare("module_id", $moduleId);
 
             if (is_array($params))
                 $criteria->addInCondition("param_name", $params);
@@ -134,9 +136,18 @@ class Settings extends YModel
 
             $q = $this->cache(Yii::app()->getModule('yupe')->coreCacheTime)->findAll($criteria);
 
-            foreach ($q as $s)
-                $settings[$s->param_name] = $s;
+            if(count($q))
+            {
+                foreach ($q as $s)
+                    $settings[$s->param_name] = $s;
+            }
+            elseif (count($params))
+            {
+                foreach($params as $param)
+                    $settings[$param] = null;
+            }
         }
+
         return $settings;
     }
 }

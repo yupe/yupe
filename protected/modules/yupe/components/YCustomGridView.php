@@ -8,11 +8,10 @@ class YCustomGridView extends TbGridView
     public $inActiveStatus = 0;
     public $activeStatus   = 1;
 
-    public $sortField   = 'sort';
-
+    public $sortField      = 'sort';
     public $showStatusText = false;
 
-    public  function init()
+    public function init()
     {
         parent::init();
 
@@ -39,7 +38,6 @@ class YCustomGridView extends TbGridView
         );
 
         $options = array();
-
         if ($onclick)
             $options = array('onclick' => 'ajaxSetStatus(this, "' . $this->id . '"); return false;');
 
@@ -133,5 +131,4 @@ class YCustomGridView extends TbGridView
                 $data->{$this->sortField} . ' ' .
                 CHtml::link($downUrlImage, $urlDown, $options);
     }
-
 }

@@ -58,7 +58,7 @@ class RecoveryPassword extends YModel
         $criteria->compare('creation_date', $this->creation_date, true);
         $criteria->compare('code', $this->code, true);
 
-        return new CActiveDataProvider('RecoveryPassword', array('criteria' => $criteria));
+        return new CActiveDataProvider(get_class($this), array('criteria' => $criteria));
     }
 
     public function generateRecoveryCode($user_id)
@@ -70,7 +70,7 @@ class RecoveryPassword extends YModel
     {
         if ($this->isNewRecord)
             $this->creation_date = new CDbExpression('NOW()');
-        
+
         return parent::beforeSave();
     }
 }

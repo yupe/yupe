@@ -50,22 +50,26 @@ class Page extends YModel
     public function rules()
     {
         return array(
-            array( 'name, title, slug, body, description, keywords, lang', 'required', 'on' => array( 'update', 'insert' ) ),
-            array( 'status, is_protected, parent_Id, menu_order, category_id', 'numerical', 'integerOnly' => true, 'on' => array( 'update', 'insert' ) ),
-            array( 'parent_Id', 'length', 'max' => 45 ),
-            array( 'lang', 'length', 'max' => 2 ),
-            array( 'lang', 'default', 'value' => Yii::app()->sourceLanguage ),
-            array( 'name, title, slug, keywords', 'length', 'max' => 150 ),
-            array( 'description', 'length', 'max' => 150 ),
-            array( 'slug', 'unique', 'criteria' => array( 'condition' => 'lang = :lang', 'params' => array( ':lang' => $this->lang ) ), 'on' => array( 'insert' ) ),
-            array( 'status', 'in', 'range' => array_keys($this->getStatusList()) ),
-            array( 'is_protected', 'in', 'range' => array_keys($this->getProtectedStatusList()) ),
-            array( 'title, slug, body, description, keywords, name', 'filter', 'filter' => 'trim' ),
-            array( 'title, slug, description, keywords, name', 'filter', 'filter' => array( $obj = new CHtmlPurifier(), 'purify' ) ),
-            array( 'slug', 'match', 'pattern' => '/^[a-zA-Z0-9_\-]+$/', 'message' => Yii::t('page', 'Запрещенные символы в поле {attribute}') ),
-            array( 'lang', 'match', 'pattern' => '/^[a-z]{2}$/', 'message' => Yii::t('page', 'Запрещенные символы в поле {attribute}') ),
-            array( 'category_id', 'default', 'setOnEmpty' => true, 'value' => null ),
-            array( 'lang, id, parent_Id, creation_date, change_date, title, slug, body, keywords, description, status, menu_order', 'safe', 'on' => 'search' ),
+            array('name, title, slug, body, description, keywords, lang', 'required', 'on' => array('update', 'insert')),
+            array('status, is_protected, parent_Id, menu_order, category_id', 'numerical', 'integerOnly' => true, 'on' => array('update', 'insert')),
+            array('parent_Id', 'length', 'max' => 45),
+            array('lang', 'length', 'max' => 2),
+            array('lang', 'default', 'value' => Yii::app()->sourceLanguage),
+            array('name, title, slug, keywords', 'length', 'max' => 150),
+            array('description', 'length', 'max' => 150),
+            array('slug', 'unique', 'criteria' => array(
+                    'condition' => 'lang = :lang',
+                    'params'    => array(':lang' => $this->lang),
+                ), 'on' => array('insert')
+            ),
+            array('status', 'in', 'range' => array_keys($this->statusList)),
+            array('is_protected', 'in', 'range' => array_keys($this->protectedStatusList)),
+            array('title, slug, body, description, keywords, name', 'filter', 'filter' => 'trim'),
+            array('title, slug, description, keywords, name', 'filter', 'filter' => array($obj = new CHtmlPurifier(), 'purify')),
+            array('slug', 'match', 'pattern' => '/^[a-zA-Z0-9_\-]+$/', 'message' => Yii::t('page', 'Запрещенные символы в поле {attribute}')),
+            array('lang', 'match', 'pattern' => '/^[a-z]{2}$/', 'message' => Yii::t('page', 'Запрещенные символы в поле {attribute}')),
+            array('category_id', 'default', 'setOnEmpty' => true, 'value' => null),
+            array('lang, id, parent_Id, creation_date, change_date, title, slug, body, keywords, description, status, menu_order', 'safe', 'on' => 'search'),
         );
     }
 
@@ -75,11 +79,11 @@ class Page extends YModel
     public function relations()
     {
         return array(
-            'childPages'   => array( self::HAS_MANY, 'Page', 'parent_Id' ),
-            'parentPage'   => array( self::BELONGS_TO, 'Page', 'parent_Id' ),
-            'author'       => array( self::BELONGS_TO, 'User', 'user_id' ),
-            'changeAuthor' => array( self::BELONGS_TO, 'User', 'change_user_id' ),
-            'category'     => array( self::BELONGS_TO, 'Category', 'category_id' ),
+            'childPages'   => array(self::HAS_MANY, 'Page', 'parent_Id'),
+            'parentPage'   => array(self::BELONGS_TO, 'Page', 'parent_Id'),
+            'author'       => array(self::BELONGS_TO, 'User', 'user_id'),
+            'changeAuthor' => array(self::BELONGS_TO, 'User', 'change_user_id'),
+            'category'     => array(self::BELONGS_TO, 'Category', 'category_id'),
         );
     }
 
@@ -139,22 +143,22 @@ class Page extends YModel
         return array(
             'published' => array(
                 'condition' => 'status = :status',
-                'params'    => array( 'status' => self::STATUS_PUBLISHED ),
+                'params'    => array('status' => self::STATUS_PUBLISHED),
             ),
             'protected' => array(
                 'condition' => 'is_protected = :is_protected',
-                'params'    => array( ':is_protected' => self::PROTECTED_YES ),
+                'params'    => array(':is_protected' => self::PROTECTED_YES),
             ),
-            'public'        => array(
+            'public'    => array(
                 'condition' => 'is_protected = :is_protected',
-                'params'    => array( ':is_protected' => self::PROTECTED_NO ),
+                'params'    => array(':is_protected' => self::PROTECTED_NO),
             ),
         );
     }
 
     public function findBySlug($slug)
     {
-        return $this->find('slug = :slug', array( ':slug' => trim($slug) ));
+        return $this->find('slug = :slug', array(':slug' => trim($slug)));
     }
 
     /**
@@ -179,19 +183,15 @@ class Page extends YModel
 
         if ($this->status != '')
             $criteria->compare('t.status', $this->status);
-
         if ($this->category_id != '')
             $criteria->compare('category_id', $this->category_id);
 
         $criteria->compare('is_protected', $this->is_protected);
         $criteria->compare('is_protected', $this->is_protected);
 
-        $sort = new CSort;
-        $sort->defaultOrder = 'menu_order DESC';
-
-        return new CActiveDataProvider('Page', array(
+        return new CActiveDataProvider(get_class($this), array(
             'criteria' => $criteria,
-            'sort'     => $sort,
+            'sort' => array('defaultOrder' => 'menu_order DESC'),
         ));
     }
 
@@ -200,28 +200,28 @@ class Page extends YModel
         return array(
             self::STATUS_PUBLISHED  => Yii::t('page', 'Опубликовано'),
             self::STATUS_DRAFT      => Yii::t('page', 'Черновик'),
-            self::STATUS_MODERATION => Yii::t('page', 'На модерации')
+            self::STATUS_MODERATION => Yii::t('page', 'На модерации'),
         );
     }
 
     public function getStatus()
     {
-        $data = $this->getStatusList();
-        return array_key_exists($this->status, $data) ? $data[$this->status] : Yii::t('page', '*неизвестно*');
+        $data = $this->statusList;
+        return isset($data[$this->status]) ? $data[$this->status] : Yii::t('page', '*неизвестно*');
     }
 
     public function getProtectedStatusList()
     {
         return array(
             self::PROTECTED_NO  => Yii::t('page', 'нет'),
-            self::PROTECTED_YES => Yii::t('page', 'да')
+            self::PROTECTED_YES => Yii::t('page', 'да'),
         );
     }
 
     public function getProtectedStatus()
     {
-        $data = $this->getProtectedStatusList();
-        return array_key_exists($this->is_protected, $data) ? $data[$this->is_protected] : Yii::t('page', '*неизвестно*');
+        $data = $this->protectedStatusList;
+        return isset($data[$this->is_protected]) ? $data[$this->is_protected] : Yii::t('page', '*неизвестно*');
     }
 
     public function getAllPagesList($selfId = false)
@@ -229,11 +229,11 @@ class Page extends YModel
         $pages = $selfId
             ? $this->findAll(array(
                 'condition' => 'id != :id',
-                'params' => array( ':id' => $selfId ),
-                'order' => 'menu_order DESC',
-                'group' => 'slug',
+                'params'    => array(':id' => $selfId),
+                'order'     => 'menu_order DESC',
+                'group'     => 'slug',
             ))
-            : $this->findAll(array( 'order' => 'menu_order DESC' ));
+            : $this->findAll(array('order' => 'menu_order DESC'));
 
         return CHtml::listData($pages, 'id', 'name');
     }
@@ -242,12 +242,12 @@ class Page extends YModel
     {
         $pages = $slug
             ? $this->findAll(array(
-            'condition' => 'slug != :slug',
-            'params' => array( ':slug' => $slug ),
-            'order' => 'menu_order DESC',
-            'group' => 'slug',
+                'condition' => 'slug != :slug',
+                'params'    => array(':slug' => $slug),
+                'order'     => 'menu_order DESC',
+                'group'     => 'slug',
             ))
-            : $this->findAll(array( 'order' => 'menu_order DESC' ));
+            : $this->findAll(array('order' => 'menu_order DESC'));
 
         return CHtml::listData($pages, 'id', 'name');
     }

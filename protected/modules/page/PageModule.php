@@ -74,7 +74,7 @@ class PageModule extends YWebModule
          ));
 
         // Если у модуля не задан редактор - спросим у ядра
-        if ( !$this->editor )
+        if (!$this->editor)
             $this->editor = Yii::app()->getModule('yupe')->editor;
     }
 
@@ -85,14 +85,13 @@ class PageModule extends YWebModule
 
     public function getCategoryList()
     {
-        $criteria = array();
-
-        if ($this->mainCategory)
-            $criteria = array(
+        $criteria = ($this->mainCategory)
+            ? array(
                 'condition' => 'id = :id OR parent_id = :id',
                 'params'    => array(':id' => $this->mainCategory),
                 'order'     => 'id ASC',
-            );
+            )
+            : array();
 
         return Category::model()->findAll($criteria);
     }

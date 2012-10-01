@@ -22,21 +22,6 @@ class MailTemplate extends YModel
     const STATUS_ACTIVE     = 1;
     const STATUS_NOT_ACTIVE = 0;
 
-    public function getStatusList()
-    {
-        return array(
-            self::STATUS_ACTIVE     => Yii::t('mail', 'активен'),
-            self::STATUS_NOT_ACTIVE => Yii::t('mail', 'не активен')
-        );
-    }
-
-    public function getStatus()
-    {
-        $data = $this->getStatusList();
-
-        return isset($data[$this->status]) ? $data[$this->status] : Yii::t('mail', '--неизвестно--');
-    }
-
     /**
      * Returns the static model of the specified AR class.
      * @param string $className active record class name.
@@ -128,7 +113,20 @@ class MailTemplate extends YModel
         $criteria->compare('body', $this->body, true);
         $criteria->compare('status', $this->status);
 
-        return new CActiveDataProvider($this, array('criteria' => $criteria));
+        return new CActiveDataProvider(get_class($this), array('criteria' => $criteria));
     }
 
+    public function getStatusList()
+    {
+        return array(
+            self::STATUS_ACTIVE     => Yii::t('mail', 'активен'),
+            self::STATUS_NOT_ACTIVE => Yii::t('mail', 'не активен'),
+        );
+    }
+
+    public function getStatus()
+    {
+        $data = $this->statusList;
+        return isset($data[$this->status]) ? $data[$this->status] : Yii::t('mail', '--неизвестно--');
+    }
 }

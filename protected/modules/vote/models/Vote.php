@@ -69,12 +69,12 @@ class Vote extends YModel
     public function attributeLabels()
     {
         return array(
-            'id' => Yii::t('vote', 'id'),
-            'model' => Yii::t('vote', 'Тип модели'),
-            'model_id' => Yii::t('vote', 'Модель'),
-            'user_id' => Yii::t('vote', 'Добавил'),
+            'id'            => Yii::t('vote', 'id'),
+            'model'         => Yii::t('vote', 'Тип модели'),
+            'model_id'      => Yii::t('vote', 'Модель'),
+            'user_id'       => Yii::t('vote', 'Добавил'),
             'creation_date' => Yii::t('vote', 'Дата добавления'),
-            'value' => Yii::t('vote', 'Значение'),
+            'value'         => Yii::t('vote', 'Значение'),
         );
     }
 
@@ -96,9 +96,7 @@ class Vote extends YModel
         $criteria->compare('creation_date', $this->creation_date, true);
         $criteria->compare('value', $this->value);
 
-        return new CActiveDataProvider(get_class($this), array(
-                                                              'criteria' => $criteria,
-                                                         ));
+        return new CActiveDataProvider(get_class($this), array('criteria' => $criteria));
     }
 
     public function beforeSave()
@@ -106,10 +104,9 @@ class Vote extends YModel
         if ($this->isNewRecord)
         {
             $this->creation_date = new CDbExpression('NOW()');
-
-            $this->user_id = Yii::app()->user->getId();
+            $this->user_id       = Yii::app()->user->getId();
         }
 
-        return parent::beforeSave();        
+        return parent::beforeSave();
     }
 }
