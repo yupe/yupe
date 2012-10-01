@@ -25,8 +25,11 @@ class LangUrlManager extends CUrlManager
             // Добавляем правила для обработки языков
             $r = array();
 
-            foreach ( $this->rules as $rule => $p )
-                $r[(($rule[0] == '/') ? ('/<' . $this->langParam . ':\w{2}>') : ('<' . $this->langParam . ':\w{2}>/')) . $rule] = $p;
+            foreach ($this->rules as $rule => $p)
+                $r[(($rule[0] == '/')
+                        ? '/<' . $this->langParam . ':\w{2}>'
+                        : '<' . $this->langParam . ':\w{2}>/'
+                ) . $rule] = $p;
 
             $this->rules = array_merge($r, $this->rules);
 
@@ -57,14 +60,11 @@ class LangUrlManager extends CUrlManager
 
     public function getCleanUrl($url)
     {
-        if ( in_array($url, $this->languages))
+        if (in_array($url, $this->languages))
             return "/";
 
         $r = join("|", $this->languages);
-        $url = preg_replace("/^($r)\//", "", $url);
-
-        if ( !isset($url[0]) || ($url[0] != '/') )
-            $url = '/' . $url;
+        $url = (!isset($url[0]) || ($url[0] != '/')) ? '/' . $url : preg_replace("/^($r)\//", "", $url);
 
         return $url;
     }
