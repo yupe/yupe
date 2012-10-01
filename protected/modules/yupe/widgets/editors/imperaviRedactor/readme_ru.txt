@@ -15,7 +15,7 @@ $this->widget('ext.yiiext.widgets.imperaviRedactor.EImperaviRedactorWidget',arra
 	'name'=>'my_input_name',
 	// [настройки](http://redactor.imperavi.ru/) редактора imperavi
 	'options'=>array(
-		'toolbar'=>'classic',
+		'toolbar'=>'main', // или 'mini' или по-умолчанию null
 		'cssPath'=>Yii::app()->theme->baseUrl.'/css/',
 	),
 ));

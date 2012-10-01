@@ -185,7 +185,7 @@ class BackendController extends YBackController
                 if (!$image->saveAs($uploadPath . $newFileName))
                     Yii::app()->ajax->rawText(Yii::t('yupe', 'При загрузке произошла ошибка!'));
 
-                Yii::app()->ajax->rawText(CHtml::image(Yii::app()->baseUrl . $webPath . $newFileName));
+                Yii::app()->ajax->rawText(json_encode(array('filelink'=>Yii::app()->baseUrl . $webPath . $newFileName)));
             }
         }
 
