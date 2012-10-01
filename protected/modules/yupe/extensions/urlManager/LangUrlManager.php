@@ -16,6 +16,7 @@ class LangUrlManager extends CUrlManager
         // Получаем из настроек доступные языки
         $yupe = Yii::app()->getModule('yupe');
         $this->languages = explode(",", $yupe->availableLanguages);
+        if (isset($this->languages[0]) && !$this->languages[0]) $this->languages=null;
 
         // Если указаны - добавляем правила для обработки, иначе ничего не трогаем вообще
         if (is_array($this->languages))
