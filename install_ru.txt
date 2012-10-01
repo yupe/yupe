@@ -10,6 +10,8 @@
 - Запустить установщик http://localhost/yupe/index.php/install
 - Следовать инструкциям установщика
 
+При возникновении проблем с установкой - напишите нам http://yupe.ru/talk/viewforum.php?id=10
+
 После установки
 - Расскажите нам о новом сайте на Юпи! http://yupe.ru/feedback/contact
 - Сообщать об ошибках и замечаниях https://github.com/yupe/yupe/issues

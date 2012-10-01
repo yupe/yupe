@@ -59,7 +59,7 @@ class Page extends YModel
             array('description', 'length', 'max' => 150),
             array('slug', 'unique', 'criteria' => array(
                     'condition' => 'lang = :lang',
-                    'params'    => array(':lang' => $this->lan),
+                    'params'    => array(':lang' => $this->lang),
                 ), 'on' => array('insert')
             ),
             array('status', 'in', 'range' => array_keys($this->statusList)),

@@ -3,6 +3,14 @@ class YWebUser extends CWebUser
 {
     private $_profile;
 
+    public function init()
+    {
+        $this->allowAutoLogin = true;
+	$this->authTimeout = 24 * 2600;
+	$this->autoRenewCookie = true;
+        return parent::init();
+    }
+
     public function isAuthenticated()
     {
         if (Yii::app()->user->isGuest)

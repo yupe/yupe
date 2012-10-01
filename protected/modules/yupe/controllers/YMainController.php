@@ -12,9 +12,7 @@ class YMainController extends Controller
     {
         return isset(
             Yii::app()->urlManager->languages) &&
-            is_array(Yii::app()->urlManager->languages) &&
-            count(Yii::app()->urlManager->languages
-        );
+            is_array(Yii::app()->urlManager->languages) ;
     }
 
     public function init()

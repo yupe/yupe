@@ -34,9 +34,8 @@ class BackendController extends YBackController
                                   CHtml::textField($key, $value, array('maxlength' => 300, 'class' => 'span10'));
         }
 
-        // сформировать боковое меню из ссылок на настройки модулей
-        $yupe = $this->yupe;
-        $this->menu = $yupe->modules['modulesNavigation'][$yupe->category]['items']['settings']['items'];
+        // сформировать боковое меню из ссылок на настройки модулей        
+        $this->menu = $this->yupe->modules['modulesNavigation'][$this->yupe->category]['items']['settings']['items'];
 
         $this->render('modulesettings', array(
             'module'             => $module,
@@ -49,13 +48,13 @@ class BackendController extends YBackController
     {
         if (Yii::app()->request->isPostRequest)
         {
-            if (!($module_id = Yii::app()->request->getPost('module_id')))
+            if (!($moduleId = Yii::app()->request->getPost('module_id')))
                 throw new CHttpException(404, Yii::t('yupe', 'Страница не найдена!'));
 
-            if (!($module = Yii::app()->getModule($module_id)))
+            if (!($module = Yii::app()->getModule($moduleId)))
                 throw new CHttpException(404, Yii::t('yupe', 'Модуль "{module}" не найден!', array('{module}' => $module_id)));
 
-           if (!$this->saveParamsSetting($module_id, $module->editableParamsKey))
+           if (!$this->saveParamsSetting($moduleId, $module->editableParamsKey))
            {
                 Yii::app()->user->setFlash(
                     YFlashMessages::NOTICE_MESSAGE,
@@ -71,7 +70,7 @@ class BackendController extends YBackController
                     Yii::t('yupe', 'При сохранении произошла ошибка! ')
                 );
 
-            $this->redirect(array('/yupe/backend/modulesettings', 'module' => $module_id));
+            $this->redirect(array('/yupe/backend/modulesettings', 'module' => $moduleId));
         }
 
         throw new CHttpException(404, Yii::t('yupe', 'Страница не найдена!'));
@@ -115,15 +114,16 @@ class BackendController extends YBackController
          ));
     }
 
-    public function saveParamsSetting($module_id, $params)
+    public function saveParamsSetting($moduleId, $params)
     {
-        $settings = Settings::model()->fetchModuleSettings($module_id, $params);
+        $settings = Settings::model()->fetchModuleSettings($moduleId, $params);
 
         foreach ($params as $p)
         {
             $pval = Yii::app()->request->getPost($p);
             // Если параметр уже был - обновим, иначе надо создать новый
             if (isset($settings[$p]))
+            {            
                 // Если действительно изменили настройку
                 if ($settings[$p]->param_value != $pval)
                 {
@@ -131,12 +131,13 @@ class BackendController extends YBackController
                     if (!$settings[$p]->save())
                         return true;
                 }
+            }
             else
             {
-                $settings[$p] = new Settings;
+                $settings[$p] = new Settings;                
 
                 $settings[$p]->setAttributes(array(
-                    'module_id'   => $module_id,
+                    'module_id'   => $moduleId,
                     'param_name'  => $p,
                     'param_value' => $pval,
                 ));
@@ -178,7 +179,7 @@ class BackendController extends YBackController
                 if (!$image->saveAs($uploadPath . $newFileName))
                     Yii::app()->ajax->rawText(Yii::t('yupe', 'При загрузке произошла ошибка!'));
 
-                Yii::app()->ajax->rawText(CHtml::image(Yii::app()->baseUrl . $webPath . $newFileName));
+                Yii::app()->ajax->rawText(json_encode(array('filelink'=>Yii::app()->baseUrl . $webPath . $newFileName)));
             }
         }
         Yii::app()->ajax->rawText(Yii::t('yupe', 'При загрузке произошла ошибка!'));
