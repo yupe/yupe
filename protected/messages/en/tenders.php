@@ -19,6 +19,13 @@
  * @version $Id: $
  */
 return array (
-  'CProfileLogRoute found a mismatching code block "{token}". Make sure the calls to Yii::beginProfile() and Yii::endProfile() be properly nested.' => '',
-  'Your request is invalid.' => '',
+  'Войти' => '',
+  'Восстановить пароль' => '',
+  'Восстановление пароля' => '',
+  'Вход' => '',
+  'Начните экономить прямо сейчас' => '',
+  'Новый тендер' => '',
+  'Создайте свой тендер' => '',
+  'забыли пароль?' => '',
+  'логин' => '',
 );

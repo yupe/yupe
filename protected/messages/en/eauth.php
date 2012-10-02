@@ -19,6 +19,6 @@
  * @version $Id: $
  */
 return array (
-  'CProfileLogRoute found a mismatching code block "{token}". Make sure the calls to Yii::beginProfile() and Yii::endProfile() be properly nested.' => '',
-  'Your request is invalid.' => '',
+  'Unable to complete the authentication because the required data was not received.' => '',
+  'Undefined service name: {service}' => '',
 );

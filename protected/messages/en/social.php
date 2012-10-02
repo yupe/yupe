@@ -19,6 +19,14 @@
  * @version $Id: $
  */
 return array (
-  'CProfileLogRoute found a mismatching code block "{token}". Make sure the calls to Yii::beginProfile() and Yii::endProfile() be properly nested.' => '',
-  'Your request is invalid.' => '',
+  'http://yupe.ru' => '',
+  'team@yupe.ru' => '',
+  'yupe team' => '',
+  'Аккаунт привязан!' => '',
+  'Вконтакте. ID приложения' => '',
+  'Вконтакте. Защищенный ключ' => '',
+  'Модуль содержит компоненты и виджеты для взаимодействия с социальными сетями' => '',
+  'При создании учетной записи произошла ошибка!' => '',
+  'Сервисы' => '',
+  'Социализация' => '',
 );

@@ -20,6 +20,7 @@ class YCustomGridView extends TbGridView
 
     public function returnStatusHtml($data, $active = 1, $onclick = 1, $ignore = 0)
     {
+        die();
         $statusField = $this->statusField;
 
         $status = ($data->$statusField == $active) ? $this->inActiveStatus : $this->activeStatus;
@@ -33,8 +34,8 @@ class YCustomGridView extends TbGridView
 
         $img = CHtml::image(
             Yii::app()->request->baseUrl . '/web/images/' . ($data->$statusField == $active ? '' : 'in') . 'active.png',
-            Yii::t('yupe', $data->$statusField ? Yii::t('yupe', 'Деактивировать') : Yii::t('yupe', 'Активировать')),
-            array('title' => Yii::t('yupe', $data->$statusField ? Yii::t('yupe', 'Деактивировать') : Yii::t('yupe', 'Активировать')))
+            Yii::t('yupe','{label}',array('{label}' => $data->$statusField ? Yii::t('yupe', 'Деактивировать') : Yii::t('yupe', 'Активировать'))),
+            array('title' => Yii::t('yupe', '{label}',array('{label}' => $data->$statusField ? Yii::t('yupe', 'Деактивировать') : Yii::t('yupe', 'Активировать'))))
         );
 
         $options = array();
