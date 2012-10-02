@@ -35,24 +35,17 @@ class YFrontController extends YMainController
         $this->pageTitle   = $this->yupe->siteName;
         $this->description = $this->yupe->siteDescription;
         $this->keywords    = $this->yupe->siteKeyWords;
-
-        try
-        {
-            $yupeModule = Yii::app()->getModule('yupe');
-            if ($yupeModule && $yupeModule->theme)
-                Yii::app()->theme = $yupeModule->theme;
-        }
-        catch (CDbException $e)
-        {
-            Yii::app()->theme = 'default';
-        }
-
-        $baseUrl = Yii::app()->baseUrl;
+       
+        Yii::app()->theme = 'default';
+                
+        if ($this->yupe->theme)
+            Yii::app()->theme = $this->yupe->theme;
+        
         $fileUrl = Yii::app()->theme->basePath . "/" . ucwords(Yii::app()->theme->name) . "Theme.php";
 
         if (Yii::app()->theme && is_file($fileUrl))
             require($fileUrl);
 
-        Yii::app()->clientScript->registerScript('yupe_base_url', "var baseUrl = '$baseUrl';", CClientScript::POS_HEAD);
+        Yii::app()->clientScript->registerScript('yupe_base_url', "var baseUrl = '".Yii::app()->baseUrl."';", CClientScript::POS_HEAD);
     }
 }

@@ -5,7 +5,7 @@
  */
 class Controller extends CController
 {
-    public $layout="//layouts/two_col";
+    public $layout="//layouts/main";
     /**
      * Contains data for "CBreadcrumbs" widget (navigation element on a site, 
      * a look "Main >> Category 1 >> Subcategory 1")
