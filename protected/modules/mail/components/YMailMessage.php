@@ -62,7 +62,7 @@ class YMailMessage extends CComponent
         ));
 
         if (!$template)
-            throw new CException(Yii::t('Шаблон с кодом "{code}" не найден!'), array('{code}' => $code));
+            throw new CException(Yii::t('mail','Шаблон с кодом "{code}" не найден!'), array('{code}' => $code));
 
         $parsedData = $this->parseTemplate($template, $data);
 

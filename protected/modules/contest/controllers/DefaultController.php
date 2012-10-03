@@ -149,7 +149,7 @@ class DefaultController extends YBackController
 
                 Yii::app()->user->setFlash(
                     YFlashMessages::ERROR_MESSAGE,
-                    Yii::t('contest', $e->getMessage())
+                    Yii::t('contest','Произошла ошибка!')
                 );
             }
 

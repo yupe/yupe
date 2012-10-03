@@ -19,6 +19,16 @@
  * @version $Id: $
  */
 return array (
-  'CProfileLogRoute found a mismatching code block "{token}". Make sure the calls to Yii::beginProfile() and Yii::endProfile() be properly nested.' => '',
-  'Your request is invalid.' => '',
+  '' => '',
+  'Archaron' => '',
+  'Id' => '',
+  'http://yupe.ru/' => '',
+  'tsm@glavset.ru' => '',
+  'ГЕО-Локация' => '',
+  'Город' => '',
+  'Модуль содержит компоненты и виджеты для работы с базой GeoIP. Добавляет поддержку стран и городов к профилю пользователя.' => '',
+  'Область' => '',
+  'Пользователь' => '',
+  'Сервисы' => '',
+  'Страна' => '',
 );

@@ -214,12 +214,12 @@ abstract class YWebModule extends CWebModule
 
         try
         {
-            // инициализация модуля
-            $settings = Settings::model()->cache($this->coreCacheTime)->findAll('module_id = :module_id', array('module_id' => $this->getId()));
+            // инициализация модуля, понимаю, что @ - это зло, но пока это самое простое решение
+            $settings = @Settings::model()->cache($this->coreCacheTime)->findAll('module_id = :module_id', array('module_id' => $this->getId()));                 
         }
         catch (CDbException $e)
         {
-            // Если базы нет, берем по-умолчанию, а не падаем в инсталлере
+            // Если базы нет, берем по-умолчанию, а не падаем в инсталлере - тут все равно падаем так как нотис не ловится кетчем
             $settings = null;
         }
 
