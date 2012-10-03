@@ -50,7 +50,7 @@ class Page extends YModel
     public function rules()
     {
         return array(
-            array( 'name, title, slug, body, description, keywords, lang', 'required', 'on' => array( 'update', 'insert' ) ),
+            array( 'name, title, slug, body, lang', 'required', 'on' => array( 'update', 'insert' ) ),
             array( 'status, is_protected, parent_Id, menu_order, category_id', 'numerical', 'integerOnly' => true, 'on' => array( 'update', 'insert' ) ),
             array( 'parent_Id', 'length', 'max' => 45 ),
             array( 'lang', 'length', 'max' => 2 ),
