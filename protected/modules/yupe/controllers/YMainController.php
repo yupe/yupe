@@ -1,6 +1,6 @@
 <?php
 /**
- * Содержит общие функции для админки и фронтенда
+ * Содержит общие функции для панели управления и фронтенда
  *
  * @author aopeykin
  */
@@ -15,8 +15,8 @@ class YMainController extends Controller
 
     public function init()
     {
-        $this->yupe = Yii::app()->getModule('yupe');
-
         parent::init();
+        
+        $this->yupe = Yii::app()->getModule('yupe');        
     }
 }

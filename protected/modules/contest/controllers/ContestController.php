@@ -46,7 +46,7 @@ class ContestController extends YFrontController
 
                 Yii::app()->user->setFlash(
                     YFlashMessages::ERROR_MESSAGE,
-                    Yii::t('contest', $e->getMessage())
+                    Yii::t('contest','Произошла ошибка!')
                 );
             }
         }
@@ -70,7 +70,7 @@ class ContestController extends YFrontController
         $model = Image::model()->findByPk((int) $id);
 
         if (!$model)
-            throw new CHttpException(404, Yii::t('gallery', 'Страница не найдена!'));
+            throw new CHttpException(404, Yii::t('contest', 'Страница не найдена!'));
 
         $this->render('foto', array('model' => $model));
     }

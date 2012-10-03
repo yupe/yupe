@@ -190,7 +190,7 @@ class YupeModule extends YWebModule
     public function init()
     {
         parent::init();
-
+               
         $editors = $this->getEditors();
         // если не выбран редактор, но редакторы есть - возмем первый попавшийся
         if (!$this->editor && is_array($editors))
