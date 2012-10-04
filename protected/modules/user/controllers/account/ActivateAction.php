@@ -45,9 +45,7 @@ class ActivateAction extends CAction
         {
             Yii::app()->user->setFlash(YFlashMessages::ERROR_MESSAGE, Yii::t('user', 'При активации аккаунта произошла ошибка! Попробуйте позже!'));
 
-            Yii::log(Yii::t(
-                'user', "При активации аккаунта c activate_key => {activate_key} произошла ошибка!", array('{activate_key}' => $key )
-            ), CLogger::LEVEL_ERROR, UserModule::$logCategory);
+            Yii::log(Yii::t('user', "При активации аккаунта c activate_key => {activate_key} произошла ошибка!", array('{activate_key}' => $key )), CLogger::LEVEL_ERROR, UserModule::$logCategory);
 
             $this->controller->redirect(array($module->accountActivationFailure));
         }

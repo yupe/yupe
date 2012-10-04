@@ -11,7 +11,7 @@ class CatalogController extends YFrontController
             $good = Good::model()->published()->find('alias = :alias', array(':alias' => $name));
 
         if (!$good)
-            throw new CHttpException(404, Yii::t('news', 'Товар не найдена!'));
+            throw new CHttpException(404, Yii::t('catalog', 'Товар не найдена!'));
 
         $this->render('good', array('good' => $good));
     }

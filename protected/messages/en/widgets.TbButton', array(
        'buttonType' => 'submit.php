@@ -19,14 +19,5 @@
  * @version $Id: $
  */
 return array (
-  'Change summary' => '',
-  'Create' => '',
-  'Created new page' => '',
-  'Edit' => '',
-  'History' => '',
-  'Page Index' => '',
-  'Save' => '',
-  'Show diff' => '',
-  'There is no page yet.' => '',
-  'version history' => '',
+  0 => '',
 );

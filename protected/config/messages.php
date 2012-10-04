@@ -12,16 +12,12 @@ return array(
         '.svn',
         '.git',
         'yiilite.php',
-        'yiit.php',
-        'db.php',
-        'DefaultController.php',
-        '/i18n/data',
-        '/messages',
-        '/vendors',
+        'yiit.php',        
+        '/messages',        
         '/web/js',
-        '/protected/config',
-        '/protected/modules',        
-        '/modules/yupe/extensions/yupe/gii/',
-        '/protected/modules/yupe/widgets/'        
+        '/config',        
+        '/modules/yupe/extensions/yupe/gii/',        
+        '/commands/',
+        '../themes/backend_bootstrap/extensions/'
     ),
 );
