@@ -1,11 +1,11 @@
 -- Основное меню
 
-INSERT INTO `menu` (`id`, `name`, `code`, `description`, `status`) VALUES
+INSERT INTO `yupe_menu` (`id`, `name`, `code`, `description`, `status`) VALUES
 (1, 'Верхнее меню', 'top-menu', 'Основное меню сайта, расположенное сверху в блоке mainmenu.', 1);
 
 -- Пункты основного меню
 
-INSERT INTO `menu_item` (`id`, `parent_id`, `menu_id`, `title`, `href`, `condition_name`, `condition_denial`, `sort`, `status`) VALUES
+INSERT INTO `yupe_menu_item` (`id`, `parent_id`, `menu_id`, `title`, `href`, `condition_name`, `condition_denial`, `sort`, `status`) VALUES
 (1, 0, 1, 'Главная', '/site/index', '', 0, 1, 1),
 (2, 0, 1, 'Блоги', '/blog/blog/index/', '', 0, 2, 1),
 (3, 0, 1, 'О проекте', '/site/page/view/about/', '', 0, 3, 1),

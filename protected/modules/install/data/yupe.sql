@@ -26,7 +26,7 @@ SET time_zone = "+00:00";
 -- Структура таблицы `blog`
 --
 
-CREATE TABLE IF NOT EXISTS `blog` (
+CREATE TABLE IF NOT EXISTS `yupe_blog` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `name` varchar(300) NOT NULL,
   `description` text NOT NULL,
@@ -52,7 +52,7 @@ CREATE TABLE IF NOT EXISTS `blog` (
 -- Структура таблицы `category`
 --
 
-CREATE TABLE IF NOT EXISTS `category` (
+CREATE TABLE IF NOT EXISTS `yupe_category` (
   `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
   `parent_id` int(11) unsigned DEFAULT NULL,
   `name` varchar(150) NOT NULL,
@@ -74,7 +74,7 @@ CREATE TABLE IF NOT EXISTS `category` (
 -- Структура таблицы `comment`
 --
 
-CREATE TABLE IF NOT EXISTS `comment` (
+CREATE TABLE IF NOT EXISTS `yupe_comment` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `user_id` int(10) unsigned DEFAULT NULL,
   `model` varchar(50) NOT NULL,
@@ -98,7 +98,7 @@ CREATE TABLE IF NOT EXISTS `comment` (
 -- Структура таблицы `content_block`
 --
 
-CREATE TABLE IF NOT EXISTS `content_block` (
+CREATE TABLE IF NOT EXISTS `yupe_content_block` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `name` varchar(50) NOT NULL,
   `code` varchar(50) NOT NULL,
@@ -116,7 +116,7 @@ CREATE TABLE IF NOT EXISTS `content_block` (
 -- Структура таблицы `contest`
 --
 
-CREATE TABLE IF NOT EXISTS `contest` (
+CREATE TABLE IF NOT EXISTS `yupe_contest` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `name` varchar(150) NOT NULL,
   `description` varchar(300) DEFAULT NULL,
@@ -135,7 +135,7 @@ CREATE TABLE IF NOT EXISTS `contest` (
 -- Структура таблицы `dictionary_data`
 --
 
-CREATE TABLE IF NOT EXISTS `dictionary_data` (
+CREATE TABLE IF NOT EXISTS `yupe_dictionary_data` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `group_id` int(10) unsigned NOT NULL,
   `code` varchar(50) NOT NULL,
@@ -161,7 +161,7 @@ CREATE TABLE IF NOT EXISTS `dictionary_data` (
 -- Структура таблицы `dictionary_group`
 --
 
-CREATE TABLE IF NOT EXISTS `dictionary_group` (
+CREATE TABLE IF NOT EXISTS `yupe_dictionary_group` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `code` varchar(50) NOT NULL,
   `name` varchar(150) NOT NULL DEFAULT '',
@@ -182,7 +182,7 @@ CREATE TABLE IF NOT EXISTS `dictionary_group` (
 -- Структура таблицы `feedback`
 --
 
-CREATE TABLE IF NOT EXISTS `feedback` (
+CREATE TABLE IF NOT EXISTS `yupe_feedback` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `answer_user` int(10) unsigned DEFAULT NULL,
   `creation_date` datetime NOT NULL,
@@ -211,7 +211,7 @@ CREATE TABLE IF NOT EXISTS `feedback` (
 -- Структура таблицы `gallery`
 --
 
-CREATE TABLE IF NOT EXISTS `gallery` (
+CREATE TABLE IF NOT EXISTS `yupe_gallery` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `name` varchar(300) NOT NULL,
   `description` text,
@@ -226,7 +226,7 @@ CREATE TABLE IF NOT EXISTS `gallery` (
 -- Структура таблицы `good`
 --
 
-CREATE TABLE IF NOT EXISTS `good` (
+CREATE TABLE IF NOT EXISTS `yupe_good` (
   `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
   `category_id` int(10) unsigned NOT NULL,
   `name` varchar(150) NOT NULL,
@@ -259,7 +259,7 @@ CREATE TABLE IF NOT EXISTS `good` (
 -- Структура таблицы `image`
 --
 
-CREATE TABLE IF NOT EXISTS `image` (
+CREATE TABLE IF NOT EXISTS `yupe_image` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `category_id` int(10) unsigned DEFAULT NULL,
   `parent_id` int(11) DEFAULT NULL,
@@ -284,7 +284,7 @@ CREATE TABLE IF NOT EXISTS `image` (
 -- Структура таблицы `image_to_contest`
 --
 
-CREATE TABLE IF NOT EXISTS `image_to_contest` (
+CREATE TABLE IF NOT EXISTS `yupe_image_to_contest` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `image_id` int(10) unsigned NOT NULL,
   `contest_id` int(10) unsigned NOT NULL,
@@ -301,7 +301,7 @@ CREATE TABLE IF NOT EXISTS `image_to_contest` (
 -- Структура таблицы `image_to_gallery`
 --
 
-CREATE TABLE IF NOT EXISTS `image_to_gallery` (
+CREATE TABLE IF NOT EXISTS `yupe_image_to_gallery` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `image_id` int(10) unsigned NOT NULL,
   `galleryId` int(10) unsigned NOT NULL,
@@ -318,7 +318,7 @@ CREATE TABLE IF NOT EXISTS `image_to_gallery` (
 -- Структура таблицы `login`
 --
 
-CREATE TABLE IF NOT EXISTS `login` (
+CREATE TABLE IF NOT EXISTS `yupe_login` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `user_id` int(10) unsigned NOT NULL,
   `identity_id` varchar(100) NOT NULL,
@@ -336,7 +336,7 @@ CREATE TABLE IF NOT EXISTS `login` (
 -- Структура таблицы `mail_event`
 --
 
-CREATE TABLE IF NOT EXISTS `mail_event` (
+CREATE TABLE IF NOT EXISTS `yupe_mail_event` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `code` varchar(100) NOT NULL,
   `name` varchar(300) NOT NULL,
@@ -351,7 +351,7 @@ CREATE TABLE IF NOT EXISTS `mail_event` (
 -- Структура таблицы `mail_template`
 --
 
-CREATE TABLE IF NOT EXISTS `mail_template` (
+CREATE TABLE IF NOT EXISTS `yupe_mail_template` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `code` varchar(100) NOT NULL,
   `event_id` int(10) unsigned NOT NULL,
@@ -374,7 +374,7 @@ CREATE TABLE IF NOT EXISTS `mail_template` (
 -- Структура таблицы `menu`
 --
 
-CREATE TABLE IF NOT EXISTS `menu` (
+CREATE TABLE IF NOT EXISTS `yupe_menu` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `name` varchar(300) NOT NULL,
   `code` varchar(100) NOT NULL,
@@ -391,7 +391,7 @@ CREATE TABLE IF NOT EXISTS `menu` (
 -- Структура таблицы `menu_item`
 --
 
-CREATE TABLE IF NOT EXISTS `menu_item` (
+CREATE TABLE IF NOT EXISTS `yupe_menu_item` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `parent_id` int(10) unsigned NOT NULL,
   `menu_id` int(10) unsigned NOT NULL,
@@ -413,7 +413,7 @@ CREATE TABLE IF NOT EXISTS `menu_item` (
 -- Структура таблицы `news`
 --
 
-CREATE TABLE IF NOT EXISTS `news` (
+CREATE TABLE IF NOT EXISTS `yupe_news` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `category_id` int(10) unsigned DEFAULT NULL,
   `lang` char(2) DEFAULT NULL,
@@ -446,7 +446,7 @@ CREATE TABLE IF NOT EXISTS `news` (
 -- Структура таблицы `page`
 --
 
-CREATE TABLE IF NOT EXISTS `page` (
+CREATE TABLE IF NOT EXISTS `yupe_page` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `category_id` int(10) unsigned DEFAULT NULL,
   `lang` char(2) DEFAULT NULL,
@@ -480,7 +480,7 @@ CREATE TABLE IF NOT EXISTS `page` (
 -- Структура таблицы `post`
 --
 
-CREATE TABLE IF NOT EXISTS `post` (
+CREATE TABLE IF NOT EXISTS `yupe_post` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `blog_id` int(10) unsigned NOT NULL,
   `create_user_id` int(10) unsigned NOT NULL,
@@ -514,7 +514,7 @@ CREATE TABLE IF NOT EXISTS `post` (
 -- Структура таблицы `post_to_tag`
 --
 
-CREATE TABLE IF NOT EXISTS `post_to_tag` (
+CREATE TABLE IF NOT EXISTS `yupe_post_to_tag` (
   `post_id` int(10) unsigned NOT NULL,
   `tag_id` int(10) unsigned NOT NULL,
   PRIMARY KEY (`post_id`,`tag_id`),
@@ -527,7 +527,7 @@ CREATE TABLE IF NOT EXISTS `post_to_tag` (
 -- Структура таблицы `queue`
 --
 
-CREATE TABLE IF NOT EXISTS `queue` (
+CREATE TABLE IF NOT EXISTS `yupe_queue` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `worker` tinyint(3) unsigned NOT NULL,
   `create_time` datetime NOT NULL,
@@ -548,7 +548,7 @@ CREATE TABLE IF NOT EXISTS `queue` (
 -- Структура таблицы `recovery_password`
 --
 
-CREATE TABLE IF NOT EXISTS `recovery_password` (
+CREATE TABLE IF NOT EXISTS `yupe_recovery_password` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `user_id` int(10) unsigned NOT NULL,
   `creation_date` datetime NOT NULL,
@@ -564,7 +564,7 @@ CREATE TABLE IF NOT EXISTS `recovery_password` (
 -- Структура таблицы `settings`
 --
 
-CREATE TABLE IF NOT EXISTS `settings` (
+CREATE TABLE IF NOT EXISTS `yupe_settings` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `module_id` varchar(150) NOT NULL,
   `param_name` varchar(150) NOT NULL,
@@ -582,7 +582,7 @@ CREATE TABLE IF NOT EXISTS `settings` (
 -- Структура таблицы `tag`
 --
 
-CREATE TABLE IF NOT EXISTS `tag` (
+CREATE TABLE IF NOT EXISTS `yupe_tag` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `name` varchar(255) NOT NULL,
   PRIMARY KEY (`id`),
@@ -595,7 +595,7 @@ CREATE TABLE IF NOT EXISTS `tag` (
 -- Структура таблицы `user`
 --
 
-CREATE TABLE IF NOT EXISTS `user` (
+CREATE TABLE IF NOT EXISTS `yupe_user` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `creation_date` datetime NOT NULL,
   `change_date` datetime NOT NULL,
@@ -635,7 +635,7 @@ CREATE TABLE IF NOT EXISTS `user` (
 -- Структура таблицы `user_to_blog`
 --
 
-CREATE TABLE IF NOT EXISTS `user_to_blog` (
+CREATE TABLE IF NOT EXISTS `yupe_user_to_blog` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `user_id` int(10) unsigned NOT NULL,
   `blog_id` int(10) unsigned NOT NULL,
@@ -656,7 +656,7 @@ CREATE TABLE IF NOT EXISTS `user_to_blog` (
 -- Структура таблицы `vote`
 --
 
-CREATE TABLE IF NOT EXISTS `vote` (
+CREATE TABLE IF NOT EXISTS `yupe_vote` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `model` varchar(50) NOT NULL,
   `model_id` int(10) unsigned NOT NULL,
@@ -674,7 +674,7 @@ CREATE TABLE IF NOT EXISTS `vote` (
 -- Структура таблицы `wiki_link`
 --
 
-CREATE TABLE IF NOT EXISTS `wiki_link` (
+CREATE TABLE IF NOT EXISTS `yupe_wiki_link` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `page_from_id` int(11) NOT NULL,
   `page_to_id` int(11) DEFAULT NULL,
@@ -691,7 +691,7 @@ CREATE TABLE IF NOT EXISTS `wiki_link` (
 -- Структура таблицы `wiki_page`
 --
 
-CREATE TABLE IF NOT EXISTS `wiki_page` (
+CREATE TABLE IF NOT EXISTS `yupe_wiki_page` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `is_redirect` tinyint(1) DEFAULT '0',
   `page_uid` varchar(255) DEFAULT NULL,
@@ -713,7 +713,7 @@ CREATE TABLE IF NOT EXISTS `wiki_page` (
 -- Структура таблицы `wiki_page_revision`
 --
 
-CREATE TABLE IF NOT EXISTS `wiki_page_revision` (
+CREATE TABLE IF NOT EXISTS `yupe_wiki_page_revision` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `page_id` int(11) NOT NULL,
   `comment` varchar(255) DEFAULT NULL,
@@ -732,130 +732,130 @@ CREATE TABLE IF NOT EXISTS `wiki_page_revision` (
 --
 -- Ограничения внешнего ключа таблицы `blog`
 --
-ALTER TABLE `blog`
-  ADD CONSTRAINT `blog_ibfk_1` FOREIGN KEY (`create_user_id`) REFERENCES `user` (`id`) ON DELETE CASCADE ON UPDATE NO ACTION,
-  ADD CONSTRAINT `blog_ibfk_2` FOREIGN KEY (`update_user_id`) REFERENCES `user` (`id`) ON DELETE CASCADE ON UPDATE NO ACTION;
+ALTER TABLE `yupe_blog`
+  ADD CONSTRAINT `blog_ibfk_1` FOREIGN KEY (`create_user_id`) REFERENCES `yupe_user` (`id`) ON DELETE CASCADE ON UPDATE NO ACTION,
+  ADD CONSTRAINT `blog_ibfk_2` FOREIGN KEY (`update_user_id`) REFERENCES `yupe_user` (`id`) ON DELETE CASCADE ON UPDATE NO ACTION;
 
 --
 -- Ограничения внешнего ключа таблицы `dictionary_data`
 --
-ALTER TABLE `dictionary_data`
-  ADD CONSTRAINT `dictionary_data_ibfk_1` FOREIGN KEY (`group_id`) REFERENCES `dictionary_group` (`id`) ON DELETE CASCADE ON UPDATE NO ACTION,
-  ADD CONSTRAINT `dictionary_data_ibfk_8` FOREIGN KEY (`create_user_id`) REFERENCES `user` (`id`) ON DELETE CASCADE ON UPDATE NO ACTION,
-  ADD CONSTRAINT `dictionary_data_ibfk_9` FOREIGN KEY (`update_user_id`) REFERENCES `user` (`id`) ON DELETE CASCADE ON UPDATE NO ACTION;
+ALTER TABLE `yupe_dictionary_data`
+  ADD CONSTRAINT `dictionary_data_ibfk_1` FOREIGN KEY (`group_id`) REFERENCES `yupe_dictionary_group` (`id`) ON DELETE CASCADE ON UPDATE NO ACTION,
+  ADD CONSTRAINT `dictionary_data_ibfk_8` FOREIGN KEY (`create_user_id`) REFERENCES `yupe_user` (`id`) ON DELETE CASCADE ON UPDATE NO ACTION,
+  ADD CONSTRAINT `dictionary_data_ibfk_9` FOREIGN KEY (`update_user_id`) REFERENCES `yupe_user` (`id`) ON DELETE CASCADE ON UPDATE NO ACTION;
 
 --
 -- Ограничения внешнего ключа таблицы `dictionary_group`
 --
-ALTER TABLE `dictionary_group`
-  ADD CONSTRAINT `dictionary_group_ibfk_3` FOREIGN KEY (`create_user_id`) REFERENCES `user` (`id`) ON DELETE CASCADE ON UPDATE NO ACTION,
-  ADD CONSTRAINT `dictionary_group_ibfk_4` FOREIGN KEY (`update_user_id`) REFERENCES `user` (`id`) ON DELETE CASCADE ON UPDATE NO ACTION;
+ALTER TABLE `yupe_dictionary_group`
+  ADD CONSTRAINT `dictionary_group_ibfk_3` FOREIGN KEY (`create_user_id`) REFERENCES `yupe_user` (`id`) ON DELETE CASCADE ON UPDATE NO ACTION,
+  ADD CONSTRAINT `dictionary_group_ibfk_4` FOREIGN KEY (`update_user_id`) REFERENCES `yupe_user` (`id`) ON DELETE CASCADE ON UPDATE NO ACTION;
 
 --
 -- Ограничения внешнего ключа таблицы `feedback`
 --
-ALTER TABLE `feedback`
-  ADD CONSTRAINT `feedback_ibfk_1` FOREIGN KEY (`answer_user`) REFERENCES `user` (`id`) ON UPDATE NO ACTION;
+ALTER TABLE `yupe_feedback`
+  ADD CONSTRAINT `feedback_ibfk_1` FOREIGN KEY (`answer_user`) REFERENCES `yupe_user` (`id`) ON UPDATE NO ACTION;
 
 --
 -- Ограничения внешнего ключа таблицы `good`
 --
-ALTER TABLE `good`
-  ADD CONSTRAINT `good_ibfk_6` FOREIGN KEY (`category_id`) REFERENCES `category` (`id`) ON UPDATE NO ACTION,
-  ADD CONSTRAINT `good_ibfk_7` FOREIGN KEY (`user_id`) REFERENCES `user` (`id`) ON UPDATE NO ACTION,
-  ADD CONSTRAINT `good_ibfk_8` FOREIGN KEY (`change_user_id`) REFERENCES `user` (`id`) ON UPDATE NO ACTION;
+ALTER TABLE `yupe_good`
+  ADD CONSTRAINT `good_ibfk_6` FOREIGN KEY (`category_id`) REFERENCES `yupe_category` (`id`) ON UPDATE NO ACTION,
+  ADD CONSTRAINT `good_ibfk_7` FOREIGN KEY (`user_id`) REFERENCES `yupe_user` (`id`) ON UPDATE NO ACTION,
+  ADD CONSTRAINT `good_ibfk_8` FOREIGN KEY (`change_user_id`) REFERENCES `yupe_user` (`id`) ON UPDATE NO ACTION;
 
 --
 -- Ограничения внешнего ключа таблицы `image`
 --
-ALTER TABLE `image`
-  ADD CONSTRAINT `image_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `user` (`id`) ON DELETE CASCADE ON UPDATE NO ACTION,
-  ADD CONSTRAINT `image_ibfk_2` FOREIGN KEY (`category_id`) REFERENCES `category` (`id`) ON UPDATE NO ACTION;
+ALTER TABLE `yupe_image`
+  ADD CONSTRAINT `image_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `yupe_user` (`id`) ON DELETE CASCADE ON UPDATE NO ACTION,
+  ADD CONSTRAINT `image_ibfk_2` FOREIGN KEY (`category_id`) REFERENCES `yupe_category` (`id`) ON UPDATE NO ACTION;
 
 --
 -- Ограничения внешнего ключа таблицы `image_to_gallery`
 --
-ALTER TABLE `image_to_gallery`
-  ADD CONSTRAINT `image_to_gallery_ibfk_2` FOREIGN KEY (`galleryId`) REFERENCES `gallery` (`id`) ON DELETE CASCADE ON UPDATE NO ACTION;
+ALTER TABLE `yupe_image_to_gallery`
+  ADD CONSTRAINT `image_to_gallery_ibfk_2` FOREIGN KEY (`galleryId`) REFERENCES `yupe_gallery` (`id`) ON DELETE CASCADE ON UPDATE NO ACTION;
 
 --
 -- Ограничения внешнего ключа таблицы `login`
 --
-ALTER TABLE `login`
-  ADD CONSTRAINT `login_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `user` (`id`) ON DELETE CASCADE ON UPDATE NO ACTION;
+ALTER TABLE `yupe_login`
+  ADD CONSTRAINT `login_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `yupe_user` (`id`) ON DELETE CASCADE ON UPDATE NO ACTION;
 
 --
 -- Ограничения внешнего ключа таблицы `mail_template`
 --
-ALTER TABLE `mail_template`
-  ADD CONSTRAINT `mail_template_ibfk_1` FOREIGN KEY (`event_id`) REFERENCES `mail_event` (`id`) ON DELETE CASCADE ON UPDATE NO ACTION;
+ALTER TABLE `yupe_mail_template`
+  ADD CONSTRAINT `mail_template_ibfk_1` FOREIGN KEY (`event_id`) REFERENCES `yupe_mail_event` (`id`) ON DELETE CASCADE ON UPDATE NO ACTION;
 
 --
 -- Ограничения внешнего ключа таблицы `menu_item`
 --
-ALTER TABLE `menu_item`
-  ADD CONSTRAINT `menu_item_ibfk_1` FOREIGN KEY (`menu_id`) REFERENCES `menu` (`id`) ON DELETE CASCADE ON UPDATE NO ACTION;
+ALTER TABLE `yupe_menu_item`
+  ADD CONSTRAINT `menu_item_ibfk_1` FOREIGN KEY (`menu_id`) REFERENCES `yupe_menu` (`id`) ON DELETE CASCADE ON UPDATE NO ACTION;
 
 --
 -- Ограничения внешнего ключа таблицы `news`
 --
-ALTER TABLE `news`
-  ADD CONSTRAINT `news_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `user` (`id`) ON UPDATE NO ACTION;
+ALTER TABLE `yupe_news`
+  ADD CONSTRAINT `news_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `yupe_user` (`id`) ON UPDATE NO ACTION;
 
 --
 -- Ограничения внешнего ключа таблицы `page`
 --
-ALTER TABLE `page`
-  ADD CONSTRAINT `page_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `user` (`id`) ON UPDATE NO ACTION,
-  ADD CONSTRAINT `page_ibfk_2` FOREIGN KEY (`change_user_id`) REFERENCES `user` (`id`) ON UPDATE NO ACTION,
-  ADD CONSTRAINT `page_ibfk_3` FOREIGN KEY (`category_id`) REFERENCES `category` (`id`) ON UPDATE NO ACTION;
+ALTER TABLE `yupe_page`
+  ADD CONSTRAINT `page_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `yupe_user` (`id`) ON UPDATE NO ACTION,
+  ADD CONSTRAINT `page_ibfk_2` FOREIGN KEY (`change_user_id`) REFERENCES `yupe_user` (`id`) ON UPDATE NO ACTION,
+  ADD CONSTRAINT `page_ibfk_3` FOREIGN KEY (`category_id`) REFERENCES `yupe_category` (`id`) ON UPDATE NO ACTION;
 
 --
 -- Ограничения внешнего ключа таблицы `post`
 --
-ALTER TABLE `post`
-  ADD CONSTRAINT `post_ibfk_1` FOREIGN KEY (`create_user_id`) REFERENCES `user` (`id`) ON DELETE CASCADE ON UPDATE NO ACTION,
-  ADD CONSTRAINT `post_ibfk_2` FOREIGN KEY (`update_user_id`) REFERENCES `user` (`id`) ON DELETE CASCADE ON UPDATE NO ACTION,
-  ADD CONSTRAINT `post_ibfk_3` FOREIGN KEY (`blog_id`) REFERENCES `blog` (`id`) ON DELETE CASCADE ON UPDATE NO ACTION;
+ALTER TABLE `yupe_post`
+  ADD CONSTRAINT `post_ibfk_1` FOREIGN KEY (`create_user_id`) REFERENCES `yupe_user` (`id`) ON DELETE CASCADE ON UPDATE NO ACTION,
+  ADD CONSTRAINT `post_ibfk_2` FOREIGN KEY (`update_user_id`) REFERENCES `yupe_user` (`id`) ON DELETE CASCADE ON UPDATE NO ACTION,
+  ADD CONSTRAINT `post_ibfk_3` FOREIGN KEY (`blog_id`) REFERENCES `yupe_blog` (`id`) ON DELETE CASCADE ON UPDATE NO ACTION;
 
 --
 -- Ограничения внешнего ключа таблицы `post_to_tag`
 --
-ALTER TABLE `post_to_tag`
-  ADD CONSTRAINT `post_to_tag_ibfk_1` FOREIGN KEY (`post_id`) REFERENCES `post` (`id`) ON DELETE CASCADE ON UPDATE NO ACTION,
-  ADD CONSTRAINT `post_to_tag_ibfk_2` FOREIGN KEY (`tag_id`) REFERENCES `tag` (`id`) ON UPDATE NO ACTION;
+ALTER TABLE `yupe_post_to_tag`
+  ADD CONSTRAINT `post_to_tag_ibfk_1` FOREIGN KEY (`post_id`) REFERENCES `yupe_post` (`id`) ON DELETE CASCADE ON UPDATE NO ACTION,
+  ADD CONSTRAINT `post_to_tag_ibfk_2` FOREIGN KEY (`tag_id`) REFERENCES `yupe_tag` (`id`) ON UPDATE NO ACTION;
 
 --
 -- Ограничения внешнего ключа таблицы `recovery_password`
 --
-ALTER TABLE `recovery_password`
-  ADD CONSTRAINT `fk_RecoveryPassword_User1` FOREIGN KEY (`user_id`) REFERENCES `user` (`id`) ON DELETE CASCADE ON UPDATE NO ACTION;
+ALTER TABLE `yupe_recovery_password`
+  ADD CONSTRAINT `fk_RecoveryPassword_User1` FOREIGN KEY (`user_id`) REFERENCES `yupe_user` (`id`) ON DELETE CASCADE ON UPDATE NO ACTION;
 
 --
 -- Ограничения внешнего ключа таблицы `user_to_blog`
 --
-ALTER TABLE `user_to_blog`
-  ADD CONSTRAINT `user_to_blog_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `user` (`id`) ON DELETE CASCADE ON UPDATE NO ACTION,
-  ADD CONSTRAINT `user_to_blog_ibfk_2` FOREIGN KEY (`blog_id`) REFERENCES `blog` (`id`) ON DELETE CASCADE ON UPDATE NO ACTION;
+ALTER TABLE `yupe_user_to_blog`
+  ADD CONSTRAINT `user_to_blog_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `yupe_user` (`id`) ON DELETE CASCADE ON UPDATE NO ACTION,
+  ADD CONSTRAINT `user_to_blog_ibfk_2` FOREIGN KEY (`blog_id`) REFERENCES `yupe_blog` (`id`) ON DELETE CASCADE ON UPDATE NO ACTION;
 
 --
 -- Ограничения внешнего ключа таблицы `vote`
 --
-ALTER TABLE `vote`
-  ADD CONSTRAINT `vote_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `user` (`id`) ON UPDATE NO ACTION;
+ALTER TABLE `yupe_vote`
+  ADD CONSTRAINT `vote_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `yupe_user` (`id`) ON UPDATE NO ACTION;
 
 --
 -- Ограничения внешнего ключа таблицы `wiki_link`
 --
-ALTER TABLE `wiki_link`
-  ADD CONSTRAINT `wiki_fk_link_page_from` FOREIGN KEY (`page_from_id`) REFERENCES `wiki_page` (`id`) ON DELETE CASCADE,
-  ADD CONSTRAINT `wiki_fk_link_page_to` FOREIGN KEY (`page_to_id`) REFERENCES `wiki_page` (`id`) ON DELETE SET NULL;
+ALTER TABLE `yupe_wiki_link`
+  ADD CONSTRAINT `wiki_fk_link_page_from` FOREIGN KEY (`page_from_id`) REFERENCES `yupe_wiki_page` (`id`) ON DELETE CASCADE,
+  ADD CONSTRAINT `wiki_fk_link_page_to` FOREIGN KEY (`page_to_id`) REFERENCES `yupe_wiki_page` (`id`) ON DELETE SET NULL;
 
 --
 -- Ограничения внешнего ключа таблицы `wiki_page_revision`
 --
-ALTER TABLE `wiki_page_revision`
-  ADD CONSTRAINT `wiki_fk_page_revision_page` FOREIGN KEY (`page_id`) REFERENCES `wiki_page` (`id`) ON DELETE CASCADE;
+ALTER TABLE `yupe_wiki_page_revision`
+  ADD CONSTRAINT `wiki_fk_page_revision_page` FOREIGN KEY (`page_id`) REFERENCES `yupe_wiki_page` (`id`) ON DELETE CASCADE;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;

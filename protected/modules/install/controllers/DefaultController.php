@@ -178,6 +178,7 @@ class DefaultController extends Controller
                     $connection->emulatePrepare   = true;
                     $connection->charset          = 'utf8';
                     $connection->active           = true;
+                    $connection->tablePrefix      = $form->tablePrefix;
 
                     Yii::app()->setComponent('db', $connection);
 
@@ -191,7 +192,7 @@ class DefaultController extends Controller
                         'enableParamLogging'    => 1,
                         'enableProfiling'       => 1,
                         'schemaCachingDuration' => 108000,
-                        'tablePrefix'           => '',
+                        'tablePrefix'           => $form->tablePrefix,
                     );
 
                     $dbConfString = "<?php\n return " . var_export($dbParams, true) . " ;\n?>";
@@ -211,9 +212,17 @@ class DefaultController extends Controller
 
                         try
                         {
-                            if(Yii::app()->db->schema->getTables() != array())
+                            //@TODO проверяет наличие таблиц с заданным префиксом
+                            $tables = Yii::app()->db->schema->getTables();
+                            foreach ($tables as $table)
+                            {
+                                if (strpos($table->name, $form->tablePrefix . '_') === 0)
+                                    $issetTable = true;
+                            }
+
+                            if (isset($issetTable))
                                 $this->executeSql($sqlDropFile);
-                            
+
                             $this->executeSql($sqlFile);
 
                             // Чистим кэш, исключает проблемы при {schemaCachingDuration > 0}
@@ -223,8 +232,10 @@ class DefaultController extends Controller
                             $sqlFiles = glob("{$sqlDbDir}*.sql");
 
                             if (is_array($sqlFiles))
+                            {
                                 foreach ($sqlFiles as $file)
                                     $this->executeSql($file);
+                            }
 
                             $transaction->commit();
 
@@ -241,7 +252,7 @@ class DefaultController extends Controller
 
                             Yii::app()->user->setFlash(
                                 YFlashMessages::ERROR_MESSAGE,
-                                Yii::t('install', 'При инициализации базы данных произошла ошибка!')
+                                Yii::t('install', 'При инициализации базы данных произошла ошибка!').$e
                             );
 
                             $this->redirect(array('/install/default/dbsettings/'));
@@ -369,8 +380,6 @@ class DefaultController extends Controller
 
                     if (!is_dir($assetsPath))
                         @mkdir ($assetsPath);
-                    
-                    Yii::app()->cache->flush();
 
                     $this->redirect(array('/install/default/finish/'));
                 }
@@ -395,6 +404,8 @@ class DefaultController extends Controller
 
     public function actionFinish()
     {
+        Yii::app()->cache->flush();
+
         if (!@touch($this->alreadyInstalledFlag))
             Yii::app()->user->setFlash(
                 YFlashMessages::WARNING_MESSAGE,
@@ -406,10 +417,9 @@ class DefaultController extends Controller
         $this->render('finish');
     }
 
-    private function executeSql($sqlFile, $prefix = '')
+    private function executeSql($sqlFile)
     {
         $sql = file_get_contents($sqlFile);
-
         $command = Yii::app()->db->createCommand($sql);
 
         return $command->execute();
