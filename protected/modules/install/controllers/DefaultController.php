@@ -16,6 +16,8 @@ class DefaultController extends Controller
         if (file_exists($this->alreadyInstalledFlag))
             throw new CHttpException(404, Yii::t('install', 'Страница не найдена!'));
 
+        Yii::app()->cache->flush();
+
         return parent::beforeAction($action);
     }
 
@@ -195,7 +197,7 @@ class DefaultController extends Controller
                         'tablePrefix'           => $form->tablePrefix,
                     );
 
-                    $dbConfString = "<?php\n return" . var_export($dbParams, true) . ";\n?>";
+                    $dbConfString = "<?php\n return " . var_export($dbParams, true) . ";\n?>";
 
                     $fh = fopen($dbConfFile, 'w+');
 
@@ -224,9 +226,6 @@ class DefaultController extends Controller
                                 $this->executeSql($sqlDropFile);
 
                             $this->executeSql($sqlFile);
-
-                            // Чистим кэш, исключает проблемы при {schemaCachingDuration > 0}
-                            Yii::app()->cache->flush();
 
                             // Установить .sql файлы модулей yupe
                             $sqlFiles = glob("{$sqlDbDir}*.sql");
@@ -404,8 +403,6 @@ class DefaultController extends Controller
 
     public function actionFinish()
     {
-        Yii::app()->cache->flush();
-
         if (!@touch($this->alreadyInstalledFlag))
             Yii::app()->user->setFlash(
                 YFlashMessages::WARNING_MESSAGE,
