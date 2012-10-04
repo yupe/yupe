@@ -166,8 +166,8 @@ class DefaultController extends Controller
             {
                 try
                 {
-                    $socket = ($form->socket == '') ? '': 'unix_socket=' . $form->socket . ';';
-                    $port = ($form->port == '') ? '': 'port=' . $form->port . ';';
+                    $socket = ($form->socket == '') ? '' : 'unix_socket=' . $form->socket . ';';
+                    $port = ($form->port == '') ? '' : 'port=' . $form->port . ';';
 
                     $connectionString = "mysql:host={$form->host};{$port}{$socket}dbname={$form->dbName}";
 
@@ -195,7 +195,7 @@ class DefaultController extends Controller
                         'tablePrefix'           => $form->tablePrefix,
                     );
 
-                    $dbConfString = "<?php\n return " . var_export($dbParams, true) . " ;\n?>";
+                    $dbConfString = "<?php\n return" . var_export($dbParams, true) . ";\n?>";
 
                     $fh = fopen($dbConfFile, 'w+');
 
@@ -212,7 +212,7 @@ class DefaultController extends Controller
 
                         try
                         {
-                            //@TODO проверяет наличие таблиц с заданным префиксом
+                            //@TODO проверяет наличие таблиц с заданным префиксом, требуется доработка
                             $tables = Yii::app()->db->schema->getTables();
                             foreach ($tables as $table)
                             {
@@ -252,7 +252,7 @@ class DefaultController extends Controller
 
                             Yii::app()->user->setFlash(
                                 YFlashMessages::ERROR_MESSAGE,
-                                Yii::t('install', 'При инициализации базы данных произошла ошибка!').$e
+                                Yii::t('install', 'При инициализации базы данных произошла ошибка!')
                             );
 
                             $this->redirect(array('/install/default/dbsettings/'));
@@ -261,7 +261,7 @@ class DefaultController extends Controller
                 }
                 catch (Exception $e)
                 {
-                    $form->addError('', $e->getMessage());
+                    $form->addError('', Yii::t('install', 'С указанными параметрами подключение к БД не удалось выполнить!'));
                 }
             }
         }
