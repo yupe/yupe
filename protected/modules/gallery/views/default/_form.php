@@ -36,12 +36,13 @@ Yii::app()->clientScript->registerScript('fieldset', "
     <?php $this->widget('bootstrap.widgets.TbButton', array(
         'buttonType' => 'submit',
         'type'       => 'primary',
-        'label'      => Yii::t('gallery', $model->isNewRecord ? 'Добавить галерею и закрыть' : 'Сохранить галерею и закрыть'),
+        'label'      => Yii::t('gallery', 'Сохранить галерею и закрыть'),
     )); ?>
+    
    <?php $this->widget('bootstrap.widgets.TbButton', array(
         'buttonType' => 'submit',
         'htmlOptions'=> array('name' => 'submit-type', 'value' => 'index'),
-        'label'      => Yii::t('gallery', $model->isNewRecord ? 'Добавить галерею и продолжить' : 'Сохранить галерею и продолжить'),
+        'label'      => Yii::t('gallery','Сохранить галерею и продолжить'),
     )); ?>
 
 <?php $this->endWidget(); ?>

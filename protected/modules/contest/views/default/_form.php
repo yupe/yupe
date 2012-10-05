@@ -48,12 +48,13 @@ Yii::app()->clientScript->registerScript('fieldset', "
     <?php $this->widget('bootstrap.widgets.TbButton', array(
         'buttonType' => 'submit',
         'type'       => 'primary',
-        'label'      => Yii::t('contest', $model->isNewRecord ? 'Добавить конкурс и закрыть' : 'Сохранить конкурс и закрыть'),
+        'label'      => Yii::t('contest', 'Сохранить конкурс и закрыть'),
     )); ?>
+
    <?php $this->widget('bootstrap.widgets.TbButton', array(
         'buttonType' => 'submit',
         'htmlOptions'=> array('name' => 'submit-type', 'value' => 'index'),
-        'label'      => Yii::t('contest', $model->isNewRecord ? 'Добавить конкурс и продолжить' : 'Сохранить конкурс и продолжить'),
-    )); ?>
+        'label'      => Yii::t('contest', 'Сохранить конкурс и продолжить'),
+   )); ?>
 
 <?php $this->endWidget(); ?>

@@ -53,12 +53,12 @@ echo <<<EOF
     <?php \$this->widget('bootstrap.widgets.TbButton', array(
         'buttonType' => 'submit',
         'type'       => 'primary',
-        'label'      => Yii::t('{$this->mid}', \$model->isNewRecord ? 'Добавить {$this->vin} и закрыть' : 'Сохранить {$this->vin} и закрыть'),
+        'label'      => Yii::t('{$this->mid}', 'Сохранить {$this->vin} и закрыть'),
     )); ?>
    <?php \$this->widget('bootstrap.widgets.TbButton', array(
         'buttonType' => 'submit',
         'htmlOptions'=> array('name' => 'submit-type', 'value' => 'index'),
-        'label'      => Yii::t('{$this->mid}', \$model->isNewRecord ? 'Добавить {$this->vin} и продолжить' : 'Сохранить {$this->vin} и продолжить'),
+        'label'      => Yii::t('{$this->mid}', 'Сохранить {$this->vin} и продолжить'),
     )); ?>\n
 EOF;
 ?>
