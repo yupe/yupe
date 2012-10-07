@@ -50,24 +50,22 @@ class Page extends YModel
     public function rules()
     {
         return array(
-<<<<<<< HEAD
-            array( 'name, title, slug, body, lang', 'required', 'on' => array( 'update', 'insert' ) ),
-            array( 'status, is_protected, parent_Id, menu_order, category_id', 'numerical', 'integerOnly' => true, 'on' => array( 'update', 'insert' ) ),
-            array( 'parent_Id', 'length', 'max' => 45 ),
-            array( 'lang', 'length', 'max' => 2 ),
-            array( 'lang', 'default', 'value' => Yii::app()->sourceLanguage ),
-            array( 'name, title, slug, keywords', 'length', 'max' => 150 ),
-            array( 'description', 'length', 'max' => 150 ),
-            array( 'slug', 'unique', 'criteria' => array( 'condition' => 'lang = :lang', 'params' => array( ':lang' => $this->lang ) ), 'on' => array( 'insert' ) ),
-            array( 'status', 'in', 'range' => array_keys($this->getStatusList()) ),
-            array( 'is_protected', 'in', 'range' => array_keys($this->getProtectedStatusList()) ),
-            array( 'title, slug, body, description, keywords, name', 'filter', 'filter' => 'trim' ),
-            array( 'title, slug, description, keywords, name', 'filter', 'filter' => array( $obj = new CHtmlPurifier(), 'purify' ) ),
-            array( 'slug', 'match', 'pattern' => '/^[a-zA-Z0-9_\-]+$/', 'message' => Yii::t('page', 'Запрещенные символы в поле {attribute}') ),
-            array( 'lang', 'match', 'pattern' => '/^[a-z]{2}$/', 'message' => Yii::t('page', 'Запрещенные символы в поле {attribute}') ),
-            array( 'category_id', 'default', 'setOnEmpty' => true, 'value' => null ),
-            array( 'lang, id, parent_Id, creation_date, change_date, title, slug, body, keywords, description, status, menu_order', 'safe', 'on' => 'search' ),
-=======
+            array('name, title, slug, body, lang', 'required', 'on' => array('update', 'insert')),
+            array('status, is_protected, parent_Id, menu_order, category_id', 'numerical', 'integerOnly' => true, 'on' => array('update', 'insert')),
+            array('parent_Id', 'length', 'max' => 45),
+            array('lang', 'length', 'max' => 2),
+            array('lang', 'default', 'value' => Yii::app()->sourceLanguage),
+            array('name, title, slug, keywords', 'length', 'max' => 150),
+            array('description', 'length', 'max' => 150),
+            array('slug', 'unique', 'criteria' => array('condition' => 'lang = :lang', 'params' => array(':lang' => $this->lang)), 'on' => array('insert')),
+            array('status', 'in', 'range' => array_keys($this->getStatusList())),
+            array('is_protected', 'in', 'range' => array_keys($this->getProtectedStatusList())),
+            array('title, slug, body, description, keywords, name', 'filter', 'filter' => 'trim'),
+            array('title, slug, description, keywords, name', 'filter', 'filter' => array($obj = new CHtmlPurifier(), 'purify')),
+            array('slug', 'match', 'pattern' => '/^[a-zA-Z0-9_\-]+$/', 'message' => Yii::t('page', 'Запрещенные символы в поле {attribute}')),
+            array('lang', 'match', 'pattern' => '/^[a-z]{2}$/', 'message' => Yii::t('page', 'Запрещенные символы в поле {attribute}')),
+            array('category_id', 'default', 'setOnEmpty' => true, 'value' => null),
+            array('lang, id, parent_Id, creation_date, change_date, title, slug, body, keywords, description, status, menu_order', 'safe', 'on' => 'search'),
             array('name, title, slug, body, description, keywords, lang', 'required', 'on' => array('update', 'insert')),
             array('status, is_protected, parent_Id, menu_order, category_id', 'numerical', 'integerOnly' => true, 'on' => array('update', 'insert')),
             array('parent_Id', 'length', 'max' => 45),
@@ -88,7 +86,6 @@ class Page extends YModel
             array('lang', 'match', 'pattern' => '/^[a-z]{2}$/', 'message' => Yii::t('page', 'Запрещенные символы в поле {attribute}')),
             array('category_id', 'default', 'setOnEmpty' => true, 'value' => null),
             array('lang, id, parent_Id, creation_date, change_date, title, slug, body, keywords, description, status, menu_order', 'safe', 'on' => 'search'),
->>>>>>> FETCH_HEAD
         );
     }
 
