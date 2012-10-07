@@ -57,7 +57,7 @@ class Comment extends YModel
             array('ip', 'length', 'max' => 20),
             array('email', 'email'),
             array('url', 'url'),
-            array('status', 'in', 'range' => array_keys($this->getStatusList())),
+            array('status', 'in', 'range' => array_keys($this->statusList)),
             array('verifyCode', 'YRequiredValidator', 'allowEmpty' => Yii::app()->user->isAuthenticated()),
             array('verifyCode', 'captcha', 'allowEmpty' => Yii::app()->user->isAuthenticated()),
             array('id, model, model_id, creation_date, name, email, url, text, status, ip', 'safe', 'on' => 'search'),
@@ -70,32 +70,43 @@ class Comment extends YModel
     public function attributeLabels()
     {
         return array(
-            'id' => Yii::t('comment', 'id'),
-            'model' => Yii::t('comment', 'Тип модели'),
-            'model_id' => Yii::t('comment', 'Модель'),
+            'id'            => Yii::t('comment', 'id'),
+            'model'         => Yii::t('comment', 'Тип модели'),
+            'model_id'      => Yii::t('comment', 'Модель'),
             'creation_date' => Yii::t('comment', 'Дата создания'),
-            'name' => Yii::t('comment', 'Имя'),
-            'email' => Yii::t('comment', 'Email'),
-            'url' => Yii::t('comment', 'Сайт'),
-            'text' => Yii::t('comment', 'Текст'),
-            'status' => Yii::t('comment', 'Статус'),
-            'verifyCode' => Yii::t('comment', 'Код проверки'),
-            'ip' => Yii::t('comment', 'ip'),
+            'name'          => Yii::t('comment', 'Имя'),
+            'email'         => Yii::t('comment', 'Email'),
+            'url'           => Yii::t('comment', 'Сайт'),
+            'text'          => Yii::t('comment', 'Текст'),
+            'status'        => Yii::t('comment', 'Статус'),
+            'verifyCode'    => Yii::t('comment', 'Код проверки'),
+            'ip'            => Yii::t('comment', 'ip'),
         );
     }
 
     public function relations()
     {
         return array(
-            'author' => array(self::BELONGS_TO,'User','user_id')
+            'author' => array(self::BELONGS_TO, 'User', 'user_id'),
         );
     }
 
-    public function getAuthor()
+    public function scopes()
     {
-        if($this->author)
-            return $this->author;
-        return false;
+        return array(
+            'new'      => array(
+                'condition' => 'status = :status',
+                'params'    => array(':status' => self::STATUS_NEED_CHECK),
+            ),
+            'approved' => array(
+                'condition' => 'status = :status',
+                'params'    => array(':status' => self::STATUS_APPROVED),
+                'order'     => 'creation_date DESC',
+            ),
+            'authored' => array(
+                'condition' => 'user_id is not null',
+            ),
+        );
     }
 
     /**
@@ -120,13 +131,11 @@ class Comment extends YModel
         $criteria->compare('status', $this->status);
         $criteria->compare('ip', $this->ip, true);
 
-        return new CActiveDataProvider(get_class($this), array(
-            'criteria' => $criteria,
-        ));
+        return new CActiveDataProvider(get_class($this), array('criteria' => $criteria));
     }
 
     public function beforeSave()
-    {       
+    {
         if ($this->isNewRecord)
         {
             $this->creation_date = new CDbExpression('NOW()');
@@ -138,38 +147,19 @@ class Comment extends YModel
 
     public function afterSave()
     {
-        if($cache = Yii::app()->getCache())
+        if ($cache = Yii::app()->getCache())
             $cache->delete("Comment{$this->model}{$this->model_id}");
 
         return parent::afterSave();
     }
 
-    public function scopes()
-    {
-        return array(
-            'new' => array(
-                'condition' => 'status = :status',
-                'params' => array(':status' => self::STATUS_NEED_CHECK),
-            ),
-            'approved' => array(
-                'condition' => 'status = :status',
-                'params' => array(':status' => self::STATUS_APPROVED),
-                'order' => 'creation_date DESC',
-            ),
-            'authored' => array(
-                'condition' => 'user_id is not null',
-            ),
-        );
-    }
-
-
     public function getStatusList()
     {
         return array(
-            self::STATUS_APPROVED => Yii::t('comment', 'Принят'),
-            self::STATUS_DELETED => Yii::t('comment', 'Удален'),
+            self::STATUS_APPROVED   => Yii::t('comment', 'Принят'),
+            self::STATUS_DELETED    => Yii::t('comment', 'Удален'),
             self::STATUS_NEED_CHECK => Yii::t('comment', 'Проверка'),
-            self::STATUS_SPAM => Yii::t('comment', 'Спам'),
+            self::STATUS_SPAM       => Yii::t('comment', 'Спам'),
         );
     }
 
@@ -177,8 +167,11 @@ class Comment extends YModel
     {
         $list = $this->getStatusList();
 
-        return array_key_exists($this->status, $list)
-            ? $list[$this->status]
-            : Yii::t('comment', 'Статус неизвестен');
+        return isset($list[$this->status]) ? $list[$this->status] : Yii::t('comment', 'Статус неизвестен');
+    }
+
+    public function getAuthor()
+    {
+        return ($this->author) ? $this->author : false;
     }
 }

@@ -13,7 +13,7 @@ class CommentModule extends YWebModule
             'autoApprove'          => Yii::t('comment', 'Автоматическое подтверждение комментариев'),
             'notify'               => Yii::t('comment', 'Уведомить о новом комментарии?'),
             'email'                => Yii::t('comment', 'Email для уведомлений?'),
-            'adminMenuOrder'       => Yii::t('comment', 'Порядок следования в меню')
+            'adminMenuOrder'       => Yii::t('comment', 'Порядок следования в меню'),
         );
     }
 
@@ -21,8 +21,8 @@ class CommentModule extends YWebModule
     {
         return array(
             'defaultCommentStatus' => Comment::model()->getStatusList(),
-            'autoApprove' => $this->getChoice(),
-            'notify' => $this->getChoice(),
+            'autoApprove'          => $this->getChoice(),
+            'notify'               => $this->getChoice(),
             'email',
             'adminMenuOrder',
         );
@@ -42,7 +42,7 @@ class CommentModule extends YWebModule
     {
         $count = Comment::model()->cache(Yii::app()->getModule('yupe')->coreCacheTime)->new()->count();
 
-        if($count)
+        if ($count)
             return array(
                 'type' => YWebModule::CHECK_NOTICE,
                 'message' => Yii::t('comment', 'У Вас {{count}} новых комментариев. {{link}}', array(
@@ -92,7 +92,7 @@ class CommentModule extends YWebModule
             'comment.models.*',
         ));
 
-        if(!$this->email)
+        if (!$this->email)
             $this->email = Yii::app()->getModule('yupe')->email;
     }
 }

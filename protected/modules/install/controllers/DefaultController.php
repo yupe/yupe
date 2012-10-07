@@ -2,9 +2,7 @@
 class DefaultController extends Controller
 {
     public $layout = 'application.modules.install.views.layouts.main';
-
     public $stepName;
-
     private $alreadyInstalledFlag;
 
     public function init()
@@ -14,9 +12,11 @@ class DefaultController extends Controller
 
     protected function beforeAction($action)
     {
-        // Проверяем установку сайта
+        // Проверяем установку сайта       
         if (file_exists($this->alreadyInstalledFlag))
             throw new CHttpException(404, Yii::t('install', 'Страница не найдена!'));
+
+        Yii::app()->cache->flush();
 
         return parent::beforeAction($action);
     }
@@ -34,35 +34,35 @@ class DefaultController extends Controller
 
         $requirements = array(
             array(
-                Yii::t('yii', 'PHP version'),
+                Yii::t('install', 'PHP version'),
                 true,
                 version_compare(PHP_VERSION, "5.1.0", ">="),
                 '<a href="http://www.yiiframework.com">Yii Framework</a>',
-                Yii::t('yii', 'PHP 5.1 или версия выше.'),
+                Yii::t('install', 'PHP 5.1 или версия выше.'),
             ),
             array(
-                Yii::t('yii', 'Reflection extension'),
+                Yii::t('install', 'Reflection extension'),
                 true,
                 class_exists('Reflection', false),
                 '<a href="http://www.yiiframework.com">Yii Framework</a>',
                 '',
             ),
             array(
-                Yii::t('yii', 'PCRE extension'),
+                Yii::t('install', 'PCRE extension'),
                 true,
                 extension_loaded("pcre"),
                 '<a href="http://www.yiiframework.com">Yii Framework</a>',
                 '',
             ),
             array(
-                Yii::t('yii', 'SPL extension'),
+                Yii::t('install', 'SPL extension'),
                 true,
                 extension_loaded("SPL"),
                 '<a href="http://www.yiiframework.com">Yii Framework</a>',
                 '',
             ),
             array(
-                Yii::t('yii', 'DOM extension'),
+                Yii::t('install', 'DOM extension'),
                 false,
                 class_exists("DOMDocument", false),
                 '<a href="http://www.yiiframework.com/doc/api/CHtmlPurifier">CHtmlPurifier</a>,
@@ -70,61 +70,61 @@ class DefaultController extends Controller
                 '',
             ),
             array(
-                Yii::t('yii', 'PDO extension'),
+                Yii::t('install', 'PDO extension'),
                 false,
                 extension_loaded('pdo'),
-                Yii::t('yii', 'All <a href="http://www.yiiframework.com/doc/api/#system.db">DB-related classes</a>'),
+                Yii::t('install', 'All <a href="http://www.yiiframework.com/doc/api/#system.db">DB-related classes</a>'),
                 '',
             ),
             array(
-                Yii::t('yii', 'PDO SQLite extension'),
+                Yii::t('install', 'PDO SQLite extension'),
                 false,
                 extension_loaded('pdo_sqlite'),
-                Yii::t('yii', 'All <a href="http://www.yiiframework.com/doc/api/#system.db">DB-related classes</a>'),
-                Yii::t('yii', 'Необходимо если вы используете SQLite.'),
+                Yii::t('install', 'All <a href="http://www.yiiframework.com/doc/api/#system.db">DB-related classes</a>'),
+                Yii::t('install', 'Необходимо если вы используете SQLite.'),
             ),
             array(
-                Yii::t('yii', 'PDO MySQL extension'),
+                Yii::t('install', 'PDO MySQL extension'),
                 false,
                 extension_loaded('pdo_mysql'),
-                Yii::t('yii', 'All <a href="http://www.yiiframework.com/doc/api/#system.db">DB-related classes</a>'),
-                Yii::t('yii', 'Необходимо если вы используете MySQL.'),
+                Yii::t('install', 'All <a href="http://www.yiiframework.com/doc/api/#system.db">DB-related classes</a>'),
+                Yii::t('install', 'Необходимо если вы используете MySQL.'),
             ),
             array(
-                Yii::t('yii', 'PDO PostgreSQL extension'),
+                Yii::t('install', 'PDO PostgreSQL extension'),
                 false,
                 extension_loaded('pdo_pgsql'),
-                Yii::t('yii', 'All <a href="http://www.yiiframework.com/doc/api/#system.db">DB-related classes</a>'),
-                Yii::t('yii', 'Необходимо если вы используете PostgreSQL.'),
+                Yii::t('install', 'All <a href="http://www.yiiframework.com/doc/api/#system.db">DB-related classes</a>'),
+                Yii::t('install', 'Необходимо если вы используете PostgreSQL.'),
             ),
             array(
-                Yii::t('yii', 'Memcache extension'),
+                Yii::t('install', 'Memcache extension'),
                 false,
                 extension_loaded("memcache"),
                 '<a href="http://www.yiiframework.com/doc/api/CMemCache">CMemCache</a>',
-                Yii::t('yii', 'Используется для хэширования, <b>необязательно</b>.'),
+                Yii::t('install', 'Используется для хэширования, <b>необязательно</b>.'),
             ),
             array(
-                Yii::t('yii', 'APC extension'),
+                Yii::t('install', 'APC extension'),
                 false,
                 extension_loaded("apc"),
                 '<a href="http://www.yiiframework.com/doc/api/CApcCache">CApcCache</a>',
-                Yii::t('yii', '<b>Необязательно</b>.'),
+                Yii::t('install', '<b>Необязательно</b>.'),
             ),
             array(
-                Yii::t('yii', 'Mcrypt extension'),
+                Yii::t('install', 'Mcrypt extension'),
                 false,
                 extension_loaded("mcrypt"),
                 '<a href="http://www.yiiframework.com/doc/api/CSecurityManager">CSecurityManager</a>',
-                Yii::t('yii', 'Необходимо для encrypt и decrypt методов.'),
+                Yii::t('install', 'Необходимо для encrypt и decrypt методов.'),
             ),
             array(
-                Yii::t('yii', 'SOAP extension'),
+                Yii::t('install', 'SOAP extension'),
                 false,
                 extension_loaded("soap"),
                 '<a href="http://www.yiiframework.com/doc/api/CWebService">CWebService</a>,
                  <a href="http://www.yiiframework.com/doc/api/CWebServiceAction">CWebServiceAction</a>',
-                Yii::t('yii', '<b>Необязательно</b>.'),
+                Yii::t('install', '<b>Необязательно</b>.'),
             ),
         );
 
@@ -168,17 +168,19 @@ class DefaultController extends Controller
             {
                 try
                 {
-                    $socket = ($form->socket == '') ? '': 'unix_socket=' . $form->socket . ';';
-                    $port = ($form->port == '') ? '': 'port=' . $form->port . ';';
+                    $socket = ($form->socket == '') ? '' : 'unix_socket=' . $form->socket . ';';
+                    $port = ($form->port == '') ? '' : 'port=' . $form->port . ';';
 
                     $connectionString = "mysql:host={$form->host};{$port}{$socket}dbname={$form->dbName}";
+
                     $connection = new CDbConnection($connectionString, $form->user, $form->password);
                     $connection->connectionString = $connectionString;
-                    $connection->username = $form->user;
-                    $connection->password = $form->password;
-                    $connection->emulatePrepare = true;
-                    $connection->charset = 'utf8';
-                    $connection->active = true;
+                    $connection->username         = $form->user;
+                    $connection->password         = $form->password;
+                    $connection->emulatePrepare   = true;
+                    $connection->charset          = 'utf8';
+                    $connection->active           = true;
+                    $connection->tablePrefix      = $form->tablePrefix;
 
                     Yii::app()->setComponent('db', $connection);
 
@@ -192,10 +194,10 @@ class DefaultController extends Controller
                         'enableParamLogging'    => 1,
                         'enableProfiling'       => 1,
                         'schemaCachingDuration' => 108000,
-                        'tablePrefix'           => '',
+                        'tablePrefix'           => $form->tablePrefix,
                     );
 
-                    $dbConfString = "<?php\n return " . var_export($dbParams, true) . " ;\n?>";
+                    $dbConfString = "<?php\n return " . var_export($dbParams, true) . ";\n?>";
 
                     $fh = fopen($dbConfFile, 'w+');
 
@@ -212,20 +214,27 @@ class DefaultController extends Controller
 
                         try
                         {
-                            if(Yii::app()->db->schema->getTables() != array())
-                                $this->executeSql($sqlDropFile);
-                            
-                            $this->executeSql($sqlFile);
+                            //@TODO проверяет наличие таблиц с заданным префиксом, требуется доработка
+                            $tables = Yii::app()->db->schema->getTables();
+                            foreach ($tables as $table)
+                            {
+                                if (strpos($table->name, $form->tablePrefix . '_') === 0)
+                                    $issetTable = true;
+                            }
 
-                            // Чистим кэш, исключает проблемы при {schemaCachingDuration > 0}
-                            Yii::app()->cache->flush();
+                            if (isset($issetTable))
+                                $this->executeSql($sqlDropFile);
+
+                            $this->executeSql($sqlFile);
 
                             // Установить .sql файлы модулей yupe
                             $sqlFiles = glob("{$sqlDbDir}*.sql");
 
                             if (is_array($sqlFiles))
+                            {
                                 foreach ($sqlFiles as $file)
                                     $this->executeSql($file);
+                            }
 
                             $transaction->commit();
 
@@ -236,7 +245,7 @@ class DefaultController extends Controller
 
                             $this->redirect(array('/install/default/createuser/'));
                         }
-                        catch(Exception $e)
+                        catch (Exception $e)
                         {
                             $transaction->rollback();
 
@@ -251,7 +260,7 @@ class DefaultController extends Controller
                 }
                 catch (Exception $e)
                 {
-                    $form->addError('', $e->getMessage());
+                    $form->addError('', Yii::t('install', 'С указанными параметрами подключение к БД не удалось выполнить!'));
                 }
             }
         }
@@ -366,9 +375,9 @@ class DefaultController extends Controller
                     );
 
                     // попробуем создать каталог assets
-                    $assetsPath = dirname(Yii::app()->request->getScriptFile()).'/'.CAssetManager::DEFAULT_BASEPATH;
+                    $assetsPath = dirname(Yii::app()->request->getScriptFile()) . '/' . CAssetManager::DEFAULT_BASEPATH;
 
-                    if(!is_dir($assetsPath))
+                    if (!is_dir($assetsPath))
                         @mkdir ($assetsPath);
 
                     $this->redirect(array('/install/default/finish/'));
@@ -377,7 +386,10 @@ class DefaultController extends Controller
                 {
                     $transaction->rollback();
 
-                    Yii::app()->user->setFlash(YFlashMessages::ERROR_MESSAGE, $e->getMessage());
+                    Yii::app()->user->setFlash(
+                        YFlashMessages::ERROR_MESSAGE,
+                        $e->getMessage()
+                    );
 
                     $this->redirect(array('/install/default/sitesettings/'));
                 }
@@ -402,10 +414,9 @@ class DefaultController extends Controller
         $this->render('finish');
     }
 
-    private function executeSql($sqlFile, $prefix = '')
+    private function executeSql($sqlFile)
     {
         $sql = file_get_contents($sqlFile);
-
         $command = Yii::app()->db->createCommand($sql);
 
         return $command->execute();

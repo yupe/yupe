@@ -25,7 +25,7 @@ class VoteModule extends YWebModule
     public function getParamsLabels()
     {
         return array(
-            'adminMenuOrder' => Yii::t('vote', 'Порядок следования в меню')
+            'adminMenuOrder' => Yii::t('vote', 'Порядок следования в меню'),
         );
     }
 
@@ -42,10 +42,10 @@ class VoteModule extends YWebModule
     public function init()
     {
         parent::init();
-        
+
         $this->setImport(array(
-              'vote.models.*',
-              'vote.components.*',
-         ));
+            'vote.models.*',
+            'vote.components.*',
+        ));
     }
 }

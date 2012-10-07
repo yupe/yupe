@@ -12,7 +12,6 @@
 class Gallery extends YModel
 {
     const STATUS_PUBLIC = 1;
-
     const STATUS_DRAFT  = 0;
 
     /**
@@ -58,9 +57,17 @@ class Gallery extends YModel
         // NOTE: you may need to adjust the relation name and the related
         // class name for the relations automatically generated below.
         return array(
-            'imagesRell' => array(self::HAS_MANY, 'ImageToGallery', 'galleryId'),
-            'images' => array(self::HAS_MANY, 'Images', 'image_id', 'through' => 'imagesRell'),
+            'imagesRell'  => array(self::HAS_MANY, 'ImageToGallery', 'galleryId'),
+            'images'      => array(self::HAS_MANY, 'Images', 'image_id', 'through' => 'imagesRell'),
             'imagesCount' => array(self::STAT, 'ImageToGallery', 'galleryId')
+        );
+    }
+
+    public function defaultScope()
+    {
+        return array(
+            'condition' => 'status = :status',
+            'params'    => array(':status' => self::STATUS_PUBLIC),
         );
     }
 
@@ -70,10 +77,10 @@ class Gallery extends YModel
     public function attributeLabels()
     {
         return array(
-            'id' => Yii::t('gallery', 'Id'),
-            'name' => Yii::t('gallery', 'Название'),
+            'id'          => Yii::t('gallery', 'Id'),
+            'name'        => Yii::t('gallery', 'Название'),
             'description' => Yii::t('gallery', 'Описание'),
-            'status' => Yii::t('gallery', 'Статус'),
+            'status'      => Yii::t('gallery', 'Статус'),
         );
     }
 
@@ -93,33 +100,21 @@ class Gallery extends YModel
         $criteria->compare('description', $this->description, true);
         $criteria->compare('status', $this->status);
 
-        return new CActiveDataProvider($this, array(
-                                                   'criteria' => $criteria,
-                                              ));
+        return new CActiveDataProvider($this, array('criteria' => $criteria));
     }
 
     public function getStatusList()
     {
         return array(
             self::STATUS_PUBLIC => Yii::t('gallery', 'опубликовано'),
-            self::STATUS_DRAFT => Yii::t('gallery', 'скрыто'),
+            self::STATUS_DRAFT  => Yii::t('gallery', 'скрыто'),
         );
     }
 
     public function getStatus()
     {
-        $data = $this->getStatusList();
-
-        return isset($data[$this->status]) ? $data[$this->status]
-            : Yii::t('gallery', '*неизвестно*');
-    }
-
-    public function defaultScope()
-    {
-        return array(
-            'condition' => 'status = :status',
-            'params' => array(':status' => self::STATUS_PUBLIC)
-        );
+        $data = $this->statusList;
+        return isset($data[$this->status]) ? $data[$this->status] : Yii::t('gallery', '*неизвестно*');
     }
 
     public function addImage(Image $image)
@@ -127,9 +122,9 @@ class Gallery extends YModel
         $im2g = new ImageToGallery;
 
         $im2g->setAttributes(array(
-                                  'image_id' => $image->id,
-                                  'galleryId' => $this->id
-                             ));
+            'image_id'  => $image->id,
+            'galleryId' => $this->id,
+        ));
 
         return $im2g->save() ? true : false;
     }

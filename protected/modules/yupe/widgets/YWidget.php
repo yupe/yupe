@@ -21,15 +21,14 @@ abstract class YWidget extends CWidget
      *
      */
     public $cacheTime;
-
     public $limit = 5;
 
     public function init()
     {
         parent::init();
 
-        //if (!$this->cacheTime && $this->cacheTime !== 0)
-        //    $this->cacheTime = Yii::app()->getModule('yupe')->coreCacheTime;
+     // if (!$this->cacheTime && $this->cacheTime !== 0)
+     //     $this->cacheTime = Yii::app()->getModule('yupe')->coreCacheTime;
     }
 
     public function getViewPath($checkTheme = false)
@@ -37,7 +36,7 @@ abstract class YWidget extends CWidget
         if (!is_object(Yii::app()->theme))
             return parent::getViewPath();
 
-        $themeView = Yii::app()->themeManager->basePath . DIRECTORY_SEPARATOR . Yii::app()->theme->name . DIRECTORY_SEPARATOR . 'views' . DIRECTORY_SEPARATOR . 'widgets' . DIRECTORY_SEPARATOR . get_class($this);
+        $themeView = Yii::app()->themeManager->basePath . '/' . Yii::app()->theme->name . '/' . 'views' . '/' . 'widgets' . '/' . get_class($this);
 
         return file_exists($themeView) ? $themeView : parent::getViewPath($checkTheme = false);
     }

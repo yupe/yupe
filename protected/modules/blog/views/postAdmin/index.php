@@ -13,7 +13,7 @@
             array('icon' => 'plus-sign', 'label' => Yii::t('blog', 'Добавить блог'), 'url' => array('/blog/BlogAdmin/create')),
         )),
         array('label' => Yii::t('blog', 'Записи'), 'items' => array(
-            array('icon' => 'list-alt white', 'label' => Yii::t('blog', 'Управление записьями'), 'url' => array('/blog/PostAdmin/index')),
+            array('icon' => 'list-alt white', 'label' => Yii::t('blog', 'Управление записями'), 'url' => array('/blog/PostAdmin/index')),
             array('icon' => 'plus-sign', 'label' => Yii::t('blog', 'Добавить запись'), 'url' => array('/blog/PostAdmin/create')),
         )),
         array('label' => Yii::t('blog', 'Участники'), 'items' => array(
@@ -53,7 +53,7 @@ $this->renderPartial('_search', array('model' => $model));
 
 <p>
     <?php echo Yii::t('blog', 'В данном разделе представлены средства управления'); ?> 
-    <?php echo Yii::t('blog', 'записьями'); ?>.
+    <?php echo Yii::t('blog', 'записями'); ?>.
 </p>
 
 

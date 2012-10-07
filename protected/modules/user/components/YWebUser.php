@@ -3,6 +3,15 @@ class YWebUser extends CWebUser
 {
     private $_profile;
 
+    public function init()
+    {
+        $this->allowAutoLogin  = true;
+        $this->authTimeout     = 24 * 2600;
+        $this->autoRenewCookie = true;
+
+        return parent::init();
+    }
+
     public function isAuthenticated()
     {
         if (Yii::app()->user->isGuest)
@@ -41,16 +50,15 @@ class YWebUser extends CWebUser
     }
 
     // TODO: Реализовать выборку любого профиля
-    public function getProfile( $moduleName=null )
+    public function getProfile($moduleName = null)
     {
-        if ( !$moduleName )
+        if (!$moduleName)
         {
-            if ( $this->_profile === null )
+            if ($this->_profile === null)
                 $this->_profile = User::model()->findByPk($this->id);
 
             return $this->_profile;
         }
         return null;
     }
-
 }

@@ -16,6 +16,8 @@ class LangUrlManager extends CUrlManager
         // Получаем из настроек доступные языки
         $yupe = Yii::app()->getModule('yupe');
         $this->languages = explode(",", $yupe->availableLanguages);
+        if (isset($this->languages[0]) && !$this->languages[0])
+            $this->languages = null;
 
         // Если указаны - добавляем правила для обработки, иначе ничего не трогаем вообще
         if (is_array($this->languages))
@@ -23,8 +25,11 @@ class LangUrlManager extends CUrlManager
             // Добавляем правила для обработки языков
             $r = array();
 
-            foreach ( $this->rules as $rule => $p )
-                $r[(($rule[0] == '/') ? ('/<' . $this->langParam . ':\w{2}>') : ('<' . $this->langParam . ':\w{2}>/')) . $rule] = $p;
+            foreach ($this->rules as $rule => $p)
+                $r[(($rule[0] == '/')
+                    ? '/<' . $this->langParam . ':\w{2}>'
+                    : '<' . $this->langParam . ':\w{2}>/'
+                ) . $rule] = $p;
 
             $this->rules = array_merge($r, $this->rules);
 
@@ -55,14 +60,11 @@ class LangUrlManager extends CUrlManager
 
     public function getCleanUrl($url)
     {
-        if ( in_array($url, $this->languages))
+        if (in_array($url, $this->languages))
             return "/";
 
         $r = join("|", $this->languages);
-        $url = preg_replace("/^($r)\//", "", $url);
-
-        if ( !isset($url[0]) || ($url[0] != '/') )
-            $url = '/' . $url;
+        $url = (!isset($url[0]) || ($url[0] != '/')) ? '/' . $url : preg_replace("/^($r)\//", "", $url);
 
         return $url;
     }

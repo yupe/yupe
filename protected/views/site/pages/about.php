@@ -40,3 +40,14 @@
 <p>Форум поддержки - <a href='http://yupe.ru/talk/'>http://yupe.ru/talk/</a></p>
 
 <p><b><h2>Хочешь помочь? <?php echo CHtml::link('Жми сюда!', array('/site/page/', 'view' => 'help'));?></h2></b></p>
+
+<div style="float:left">
+    <div style="float:left;padding-right:5px">
+        <?php
+            $this->widget('application.modules.social.widgets.ysc.yandex.YandexShareApi', array(
+              'type' => 'button',
+              'services' => 'all',
+            ));
+        ?>
+    </div>
+</div>

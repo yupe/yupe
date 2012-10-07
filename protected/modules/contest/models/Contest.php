@@ -125,13 +125,13 @@ class Contest extends YModel
 
     public function addImage(Image $image)
     {
-        $imgContent = new ImageToContest;
+        $im2g = new ImageToContest;
 
-        $imgContent->setAttributes(array(
+        $im2g->setAttributes(array(
             'image_id'   => $image->id,
             'contest_id' => $this->id,
         ));
 
-        return $imgContent->save() ? true : false;
+        return $im2g->save() ? true : false;
     }
 }

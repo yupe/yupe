@@ -8,13 +8,13 @@ $this->breadcrumbs = array('Помощь проекту');
 <p>Если у Вас есть желание помочь развитию проекта, вот список того, что Вы
     можете сделать:</p>
 
-<p>- <?php echo CHtml::link('Сообщить', array('/feedback/contact/'));?> о
+<p>- <?php echo CHtml::link('Сообщить', 'http://yupe.ru/feedback/contact/?from=helppage');?> о
     найденной ошибке (или на <a
         href="https://github.com/yupe/yupe/issues">github</a>)</p>
 
 
 <p>- <b>Возможно, Вы хотите присоединиться к разработке
-    !? <?php echo CHtml::link('Напишите нам', array('/feedback/contact/'));?>
+    !? <?php echo CHtml::link('Напишите нам', 'http://yupe.ru/feedback/contact/?from=helppage');?>
     !</b></p>
 
 <p>- Нам очень сильно не хватает яркого и интересного дизайна для сайта =)</p>
@@ -25,13 +25,13 @@ $this->breadcrumbs = array('Помощь проекту');
     и патчи на любые участки <a
         href="https://github.com/yupe/yupe">кода</a>)</p>
 
-<p>- <?php echo CHtml::link('Закажите', array('/feedback/contact/'));?> у нас
-    разработку сайта на <b>Yii</b> И 25% от
+<p>- <?php echo CHtml::link('Закажите', 'http://yupe.ru/feedback/contact/?from=helppage');?> у нас
+    <a href='http://yupe.ru/feedback/contact/?from=helppage'>разработку сайта</a> на <b>Yii</b> И 25% от
     суммы работ пойдет на развитие <b>Юпи!</b></p>
 
 
 <p>- Всегда можно поддержать нас
-    морально, <?php echo CHtml::link('написав письмо', array('/feedback/contact/'));?>
+    морально, <?php echo CHtml::link('написав письмо', 'http://yupe.ru/feedback/contact/?from=helppage');?>
     или
     материально, отправив денежку</p>
 

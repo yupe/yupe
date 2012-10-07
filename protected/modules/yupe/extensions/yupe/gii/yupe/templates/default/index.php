@@ -58,10 +58,9 @@ EOF;
 <br/>
 
 <p>
-    <?php echo "<?php echo Yii::t('{$this->mid}', 'В данном разделе представлены средства управления'); ?>"; ?>
+    <?php echo "<?php echo Yii::t('{$this->mid}', 'В данном разделе представлены средства управления'); ?>\n"; ?>
     <?php echo "<?php echo Yii::t('{$this->mid}', '{$this->mtvor}'); ?>"; ?>.
 </p>
-
 
 <?php echo "<?php\n"; ?>
 $this->widget('application.modules.yupe.components.YCustomGridView', array(

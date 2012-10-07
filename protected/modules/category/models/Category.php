@@ -117,7 +117,7 @@ class Category extends YModel
         return array(
             self::STATUS_DRAFT      => Yii::t('category', 'Черновик'),
             self::STATUS_PUBLISHED  => Yii::t('category', 'Опубликовано'),
-            self::STATUS_MODERATION => Yii::t('category', 'На модерации')
+            self::STATUS_MODERATION => Yii::t('category', 'На модерации'),
         );
     }
 
@@ -130,10 +130,7 @@ class Category extends YModel
     public function getAllCategoryList($selfId = false)
     {
         $conditionArray = ($selfId) 
-            ? array(
-                'condition' => 'id != :id',
-                'params' => array(':id' => $selfId),
-            )
+            ? array('condition' => 'id != :id', 'params' => array(':id' => $selfId))
             : array();
 
         $category = $this->cache(Yii::app()->getModule('yupe')->coreCacheTime)->findAll($conditionArray);

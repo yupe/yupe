@@ -56,8 +56,8 @@ class FeedBack extends YModel
             array('name, email, theme, text, phone', 'filter', 'filter' => array($obj = new CHtmlPurifier(), 'purify')),
             array('type, status, answer_user, is_faq, type', 'numerical', 'integerOnly' => true),
             array('is_faq', 'in', 'range' => array(0, 1)),
-            array('status', 'in', 'range' => array_keys($this->getStatusList())),
-            array('type', 'in', 'range' => array_keys($this->getTypeList())),
+            array('status', 'in', 'range' => array_keys($this->statusList)),
+            array('type', 'in', 'range' => array_keys($this->typeList)),
             array('name, email, answer_date', 'length', 'max' => 100),
             array('theme', 'length', 'max' => 150),
             array('phone', 'length', 'max' => 100),
@@ -73,21 +73,21 @@ class FeedBack extends YModel
     public function attributeLabels()
     {
         return array(
-            'id' => Yii::t('feedback', 'Идентификатор'),
+            'id'            => Yii::t('feedback', 'Идентификатор'),
             'creation_date' => Yii::t('feedback', 'Дата создания'),
-            'change_date' => Yii::t('feedback', 'Дата изменения'),
-            'name' => Yii::t('feedback', 'Имя'),
-            'email' => Yii::t('feedback', 'Email'),
-            'phone' => Yii::t('feedback', 'Телефон'),
-            'theme' => Yii::t('feedback', 'Тема'),
-            'text' => Yii::t('feedback', 'Текст'),
-            'type' => Yii::t('feedback', 'Тип'),
-            'answer' => Yii::t('feedback', 'Ответ'),
-            'answer_date' => Yii::t('feedback', 'Дата ответа'),
-            'answer_user' => Yii::t('feedback', 'Ответил'),
-            'is_faq' => Yii::t('feedback', 'В разделе FAQ'),
-            'status' => Yii::t('feedback', 'Статус'),
-            'ip' => Yii::t('feedback', 'Ip-адрес'),
+            'change_date'   => Yii::t('feedback', 'Дата изменения'),
+            'name'          => Yii::t('feedback', 'Имя'),
+            'email'         => Yii::t('feedback', 'Email'),
+            'phone'         => Yii::t('feedback', 'Телефон'),
+            'theme'         => Yii::t('feedback', 'Тема'),
+            'text'          => Yii::t('feedback', 'Текст'),
+            'type'          => Yii::t('feedback', 'Тип'),
+            'answer'        => Yii::t('feedback', 'Ответ'),
+            'answer_date'   => Yii::t('feedback', 'Дата ответа'),
+            'answer_user'   => Yii::t('feedback', 'Ответил'),
+            'is_faq'        => Yii::t('feedback', 'В разделе FAQ'),
+            'status'        => Yii::t('feedback', 'Статус'),
+            'ip'            => Yii::t('feedback', 'Ip-адрес'),
         );
     }
 
@@ -110,7 +110,7 @@ class FeedBack extends YModel
         $criteria->compare('status', $this->status);
         $criteria->compare('ip', $this->ip);
 
-        return new CActiveDataProvider('FeedBack', array('criteria' => $criteria));
+        return new CActiveDataProvider(get_class($this), array('criteria' => $criteria));
     }
 
     public function beforeValidate()
@@ -120,7 +120,6 @@ class FeedBack extends YModel
         if ($this->isNewRecord)
         {
             $this->creation_date = $this->change_date;
-
             $this->ip = Yii::app()->request->userHostAddress;
 
             if(!$this->type)
@@ -133,24 +132,24 @@ class FeedBack extends YModel
     public function scopes()
     {
         return array(
-            'new' => array(
+            'new'      => array(
                 'condition' => 'status = :status',
-                'params' => array(':status' => self::STATUS_NEW),
+                'params'    => array(':status' => self::STATUS_NEW),
              ),
             'answered' => array(
                 'condition' => 'status = :status',
-                'params'    => array(':status' => self::STATUS_ANSWER_SENDED)
+                'params'    => array(':status' => self::STATUS_ANSWER_SENDED),
             ),
-            'faq' => array(
+            'faq'      => array(
                 'condition' => 'is_faq = :is_faq',
-                'params'    => array(':is_faq' => self::IS_FAQ)
+                'params'    => array(':is_faq' => self::IS_FAQ),
             )
         );
     }
 
     public function getAnsweredUser()
     {
-        return $this->answer_user ? User::model()->findByPk($this->answer_user)->getFullName() : Yii::t('feedback','—');
+        return $this->answer_user ? User::model()->findByPk($this->answer_user)->getFullName() : Yii::t('feedback', '—');
     }
 
     public function getStatusList()
@@ -165,7 +164,7 @@ class FeedBack extends YModel
 
     public function getStatus()
     {
-        $data = $this->getStatusList();
+        $data = $this->statusList;
         return isset($data[$this->status]) ? $data[$this->status] : Yii::t('feedback', 'Статус сообщения неизвестен');
     }
 
@@ -183,10 +182,8 @@ class FeedBack extends YModel
 
     public function getType()
     {
-        $data = $this->getTypeList();
-        return array_key_exists($this->type, $data)
-            ? $data[$this->type]
-            : Yii::t('feedback', 'Неизвестный тип сообщения!');
+        $data = $this->typeList;
+        return isset($data[$this->type]) ? $data[$this->type] : Yii::t('feedback', 'Неизвестный тип сообщения!');
     }
 
     public function getIsFaqList()
@@ -199,7 +196,7 @@ class FeedBack extends YModel
 
     public function getIsFaq()
     {
-        $data = $this->getIsFaqList();
+        $data = $this->isFaqList;
         return isset($data[$this->is_faq]) ? $data[$this->is_faq] : Yii::t('feedback', '*неизвестно*');
     }
 }

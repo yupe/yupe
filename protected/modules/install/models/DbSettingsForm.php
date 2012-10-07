@@ -7,8 +7,8 @@ class DbSettingsForm extends CFormModel
     public $dbName;
     public $user;
     public $password;
-
     //@TODO в форму "Настройки соединения с БД" вынести поле "Префикс таблиц"
+    public $tablePrefix = 'yupe_';
 
     public function rules()
     {

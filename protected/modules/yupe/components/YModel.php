@@ -9,8 +9,7 @@
  * @author yupe team
  * @version 0.0.3
  * @link http://yupe.ru - основной сайт
- *
- *
+ * 
  */
  
 abstract class YModel extends Model
@@ -23,11 +22,6 @@ abstract class YModel extends Model
     public function getAttributeDescription($attribute)
     {
         $descriptions = $this->attributeDescriptions();
-
-        if (isset($descriptions[$attribute]))
-            return $descriptions[$attribute];
-        else
-            return '';
+        return (isset($descriptions[$attribute])) ? $descriptions[$attribute] : '';
     }
-
 }

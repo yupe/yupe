@@ -34,7 +34,6 @@ class MenuWidget extends YWidget
      * @var string данный параметр указывает начиная с id какого родителя начинать вывод меню, по умолчанию 0, корень меню.
      */
     public $parent_id = 0;
-
     /**
      * string данный параметр указывает название layout.
      */
@@ -51,6 +50,9 @@ class MenuWidget extends YWidget
     public function run()
     {
         $this->params['items'] = Menu::model()->getItems($this->name, $this->parent_id);
-        $this->render($this->layout, array('params' => $this->params, 'layoutParams' => $this->layoutParams));
+        $this->render($this->layout, array(
+            'params'       => $this->params,
+            'layoutParams' => $this->layoutParams,
+        ));
     }
 }

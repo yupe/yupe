@@ -15,35 +15,27 @@ class BackendController extends YBackController
 
     public function actionModulesettings($module)
     {
-        $module = Yii::app()->getModule($module);
-
-        if (!$module)
+        if (!($module = Yii::app()->getModule($module)))
             throw new CHttpException(404, Yii::t('yupe', 'Страница настроек данного модуля недоступна!'));
 
         $elements = array();
 
-        $editableParams = $module->getEditableParams();
-        $moduleParamsLabels = $module->getParamsLabels();
+        $editableParams     = $module->editableParams;
+        $moduleParamsLabels = $module->paramsLabels;
 
         foreach ($module as $key => $value)
         {
             if (array_key_exists($key, $editableParams))
-                $elements[$key] = CHtml::label(
-                    $moduleParamsLabels[$key], $key) . CHtml::dropDownList($key, $value, $editableParams[$key],
-                    array('empty' => Yii::t('yupe', '--выберите--'))
-                );
+                $elements[$key] = CHtml::label($moduleParamsLabels[$key], $key) .
+                                  CHtml::dropDownList($key, $value, $editableParams[$key], array('empty' => Yii::t('yupe', '--выберите--'), 'class' => 'span10'));
 
-            if (in_array($key, $editableParams))
-            {
-                $label = isset($moduleParamsLabels[$key]) ? $moduleParamsLabels[$key] : $key;
-
-                $elements[$key] = CHtml::label($label, $key) . CHtml::textField($key, $value, array('maxlength' => 200));
-            }
+            else if (in_array($key, $editableParams))
+                $elements[$key] = CHtml::label((isset($moduleParamsLabels[$key]) ? $moduleParamsLabels[$key] : $key), $key) .
+                                  CHtml::textField($key, $value, array('maxlength' => 300, 'class' => 'span10'));
         }
 
-        // сформировать боковое меню из ссылок на настройки модулей
-        $yupe = $this->yupe;
-        $this->menu = $yupe->modules['modulesNavigation'][$yupe->category]['items']['settings']['items'];
+        // сформировать боковое меню из ссылок на настройки модулей        
+        $this->menu = $this->yupe->modules['modulesNavigation'][$this->yupe->category]['items']['settings']['items'];
 
         $this->render('modulesettings', array(
             'module'             => $module,
@@ -56,65 +48,29 @@ class BackendController extends YBackController
     {
         if (Yii::app()->request->isPostRequest)
         {
-            $module_id = Yii::app()->request->getPost('module_id');
-
-            if (!$module_id)
+            if (!($moduleId = Yii::app()->request->getPost('module_id')))
                 throw new CHttpException(404, Yii::t('yupe', 'Страница не найдена!'));
 
-            $module = Yii::app()->getModule($module_id);
-
-            if (!$module)
+            if (!($module = Yii::app()->getModule($moduleId)))
                 throw new CHttpException(404, Yii::t('yupe', 'Модуль "{module}" не найден!', array('{module}' => $module_id)));
 
-            $editableParams = $module->getEditableParams();
-
-            $transaction = Yii::app()->db->beginTransaction();
-
-            try
-            {
-                Settings::model()->deleteAll('module_id = :module_id', array(':module_id' => $module_id));
-
-                foreach ($_POST as $key => $value)
-                {
-                    if (in_array($key, $editableParams) || array_key_exists($key, $editableParams))
-                    {
-                        $model = new Settings();
-
-                        $model->setAttributes(array(
-                            'module_id'   => $module_id,
-                            'param_name'  => $key,
-                            'param_value' => $value,
-                        ));
-
-                        if (!$model->save())
-                        {
-                            //@TODO  исправить вывод ошибок
-                            Yii::app()->user->setFlash(YFlashMessages::ERROR_MESSAGE, print_r($model->getErrors(), true));
-
-                            $this->redirect(array('/yupe/backend/modulesettings', 'module' => $module_id));
-                        }
-                    }
-                }
-
-                $transaction->commit();
-
-                Yii::app()->user->setFlash(YFlashMessages::NOTICE_MESSAGE, Yii::t(
-                    'yupe', 'Настройки модуля "{module}" сохранены!', array('{module}' => $module->getName())
+           if (!$this->saveParamsSetting($moduleId, $module->editableParamsKey))
+           {
+                Yii::app()->user->setFlash(
+                    YFlashMessages::NOTICE_MESSAGE,
+                    Yii::t('yupe', 'Настройки модуля "{module}" сохранены!', array('{module}' => $module->getName())
                 ));
 
-                //@TODO сброс полностью - плохо =(
+                //@TODO исправить очистку кэша
                 Yii::app()->cache->flush();
-
-                $this->redirect(array('/yupe/backend/modulesettings/', 'module' => $module_id));
             }
-            catch (Exception $e)
-            {
-                $transaction->rollback();
+            else
+                Yii::app()->user->setFlash(
+                    YFlashMessages::ERROR_MESSAGE,
+                    Yii::t('yupe', 'При сохранении произошла ошибка! ')
+                );
 
-                Yii::app()->user->setFlash(YFlashMessages::ERROR_MESSAGE, $e->getMEssage());
-
-                $this->redirect(array('/yupe/backend/modulesettings', 'module' => $module_id));
-            }
+            $this->redirect(array('/yupe/backend/modulesettings', 'module' => $moduleId));
         }
 
         throw new CHttpException(404, Yii::t('yupe', 'Страница не найдена!'));
@@ -122,63 +78,31 @@ class BackendController extends YBackController
 
     public function actionThemesettings()
     {
-        // Параметры, которые нам интересны
-        $params = array('theme', 'backendTheme');
-
-        $settings = Settings::model()->fetchModuleSettings($this->yupe->coreModuleId, $params);
-
         if (Yii::app()->request->isPostRequest)
         {
-            $wasErrors = false;
-            foreach ($params as $p)
+            if (!$this->saveParamsSetting($this->yupe->coreModuleId, array('theme', 'backendTheme')))
             {
-                $pval = Yii::app()->request->getPost($p);
-                // Если параметр уже был - обновим, иначе надо создать новый
-                if (isset($settings[$p]))
-                {
-                    // Если действительно изменили настройку
-                    if ($settings[$p]->param_value != $pval)
-                    {
-                        $settings[$p]->param_value = $pval;
-
-                        if (!$settings[$p]->save())
-                            $wasErrors = true;
-                    }
-                }
-                else
-                {
-                    $settings[$p] = new Settings;
-
-                    $settings[$p]->setAttributes(array(
-                        'module_id'   => $this->yupe->coreModuleId,
-                        'param_name'  => $p,
-                        'param_value' => $pval,
-                    ));
-
-                    if (!$settings[$p]->save())
-                        $wasErrors = true;
-                }
-            }
-            if (!$wasErrors)
-            {
-                Yii::app()->user->setFlash(YFlashMessages::NOTICE_MESSAGE, Yii::t('yupe', 'Настройки сохранены!'));
+                Yii::app()->user->setFlash(
+                    YFlashMessages::NOTICE_MESSAGE,
+                    Yii::t('yupe', 'Настройки тем сохранены!')
+                );
 
                 //@TODO сброс полностью - плохо =(
                 Yii::app()->cache->flush();
-
-                $this->redirect(array('/yupe/backend/themesettings/'));
             }
             else
-            {
-                Yii::app()->user->setFlash(YFlashMessages::ERROR_MESSAGE, Yii::t('yupe', 'При сохранении произошла ошибка!'));
-                $this->redirect(array('/yupe/backend/themesettings/'));
-            }
+                Yii::app()->user->setFlash(
+                    YFlashMessages::ERROR_MESSAGE,
+                    Yii::t('yupe', 'При сохранении настроек произошла ошибка!')
+                );
+
+            $this->redirect(array('/yupe/backend/themesettings/'));
         }
 
         $theme = isset($settings['theme'])
             ? $settings['theme']->param_value
             : Yii::t('yupe', 'Тема не используется');
-        $backendTheme = isset($settings['backendTheme']) 
+        $backendTheme = isset($settings['backendTheme'])
             ? $settings['backendTheme']->param_value
             : ($this->yupe->backendTheme ? $this->yupe->backendTheme : Yii::t('yupe', 'Тема не используется'));
 
@@ -188,6 +112,42 @@ class BackendController extends YBackController
             'backendThemes' => $this->yupe->getThemes(true),
             'backendTheme'  => $backendTheme,
          ));
+    }
+
+    public function saveParamsSetting($moduleId, $params)
+    {
+        $settings = Settings::model()->fetchModuleSettings($moduleId, $params);
+
+        foreach ($params as $p)
+        {
+            $pval = Yii::app()->request->getPost($p);
+            // Если параметр уже был - обновим, иначе надо создать новый
+            if (isset($settings[$p]))
+            {            
+                // Если действительно изменили настройку
+                if ($settings[$p]->param_value != $pval)
+                {
+                    $settings[$p]->param_value = $pval;
+                    if (!$settings[$p]->save())
+                        return true;
+                }
+            }
+            else
+            {
+                $settings[$p] = new Settings;                
+
+                $settings[$p]->setAttributes(array(
+                    'module_id'   => $moduleId,
+                    'param_name'  => $p,
+                    'param_value' => $pval,
+                ));
+
+                if (!$settings[$p]->save())
+                    return true;
+            }
+        }
+
+        return false;
     }
 
     /**
@@ -201,18 +161,13 @@ class BackendController extends YBackController
     {
         if (!empty($_FILES['file']['name']))
         {
-            $rename = (int) Yii::app()->request->getQuery('rename', 1);
-
-            $webPath = DIRECTORY_SEPARATOR . $this->yupe->uploadPath . DIRECTORY_SEPARATOR . date('dmY') . DIRECTORY_SEPARATOR;
+            $rename     = (int) Yii::app()->request->getQuery('rename', 1);
+            $webPath    = '/' . $this->yupe->uploadPath . '/' . date('dmY') . '/';
             $uploadPath = Yii::getPathOfAlias('webroot') . $webPath;
 
             if (!is_dir($uploadPath))
-            {
                 if (!@mkdir($uploadPath))
-                    Yii::app()->ajax->rawText(Yii::t(
-                        'yupe', 'Не удалось создать каталог "{dir}" для файлов!', array('{dir}' => $uploadPath)
-                    ));
-            }
+                    Yii::app()->ajax->rawText(Yii::t('yupe', 'Не удалось создать каталог "{dir}" для файлов!', array('{dir}' => $uploadPath)));
 
             $image = CUploadedFile::getInstanceByName('file');
 
@@ -224,10 +179,9 @@ class BackendController extends YBackController
                 if (!$image->saveAs($uploadPath . $newFileName))
                     Yii::app()->ajax->rawText(Yii::t('yupe', 'При загрузке произошла ошибка!'));
 
-                Yii::app()->ajax->rawText(CHtml::image(Yii::app()->baseUrl . $webPath . $newFileName));
+                Yii::app()->ajax->rawText(CJSON::encode(array('filelink' => Yii::app()->baseUrl . $webPath . $newFileName)));
             }
         }
-
         Yii::app()->ajax->rawText(Yii::t('yupe', 'При загрузке произошла ошибка!'));
     }
 
@@ -240,13 +194,13 @@ class BackendController extends YBackController
     public function actionCacheflush()
     {
         Yii::app()->cache->flush();
-
-        Yii::app()->user->setFlash(YFlashMessages::NOTICE_MESSAGE, Yii::t('yupe', 'Кэш успешно сброшен!'));
-
-        $this->redirect(($referrer = Yii::app()->getRequest()->getUrlReferrer()) !== null
-            ? $referrer 
-            : array("/yupe/backend")
+        Yii::app()->user->setFlash(
+            YFlashMessages::NOTICE_MESSAGE,
+            Yii::t('yupe', 'Кэш успешно сброшен!')
         );
+
+        $referrer = Yii::app()->getRequest()->getUrlReferrer();
+        $this->redirect($referrer !== null ? $referrer : array("/yupe/backend"));
     }
 
     /**

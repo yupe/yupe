@@ -10,16 +10,14 @@ return array(
     'fileTypes' => array('php'),
     'exclude' => array(
         '.svn',
+        '.git',
         'yiilite.php',
-        'yiit.php',
-        'dbConfFile.php',
-        'DefaultController.php',
-        '/i18n/data',
-        '/messages',
-        '/vendors',
+        'yiit.php',        
+        '/messages',        
         '/web/js',
-        '/protected/config',
-        '/protected/modules',
-        '/protected/modules/install/views/default/dbsettings.php'
+        '/config',        
+        '/modules/yupe/extensions/yupe/gii/',        
+        '/commands/',
+        '../themes/backend_bootstrap/extensions/'
     ),
 );

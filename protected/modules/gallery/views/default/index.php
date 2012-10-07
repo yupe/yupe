@@ -41,10 +41,7 @@ $this->renderPartial('_search', array('model' => $model));
 
 <br/>
 
-<p>
-    <?php echo Yii::t('gallery', 'В данном разделе представлены средства управления'); ?>    <?php echo Yii::t('gallery', 'галереями'); ?>.
-</p>
-
+<p><?php echo Yii::t('gallery', 'В данном разделе представлены средства управления галереями'); ?></p>
 
 <?php
 $this->widget('application.modules.yupe.components.YCustomGridView', array(

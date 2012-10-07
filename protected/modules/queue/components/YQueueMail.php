@@ -2,9 +2,7 @@
 class YQueueMail extends YMail
 {
     public $queueComponent = 'queue';
-
     public $queueMailWorkerId = 1;
-
     private $_queue;
 
     public function init()
@@ -17,10 +15,8 @@ class YQueueMail extends YMail
         if ($this->_queue !== null)
             return $this->_queue;
         else if (($id = $this->queueComponent) !== null)
-        {
             if (($this->_queue = Yii::app()->getComponent($id)) instanceof YQueue)
                 return $this->_queue;
-        }
 
         throw new Exception(Yii::t('queue', 'YQuemail.queueComponent содержит неправильный идентификатор компонента queue!'));
     }
@@ -31,7 +27,7 @@ class YQueueMail extends YMail
             'from'  => $from,
             'to'    => $to,
             'theme' => $theme,
-            'body'  => $body
+            'body'  => $body,
         ));
     }
 }

@@ -1,11 +1,10 @@
 <div class="form">
 
     <?php $form = $this->beginWidget('CActiveForm', array(
-                                                         'id' => 'add-image-form',
-                                                         'enableClientValidation' => true,
-                                                         'htmlOptions' => array('enctype' => 'multipart/form-data')
-                                                    )); ?>
-
+         'id' => 'add-image-form',
+         'enableClientValidation' => true,
+         'htmlOptions' => array('enctype' => 'multipart/form-data'),
+    )); ?>
 
     <?php echo $form->errorSummary($model); ?>
 
@@ -34,7 +33,7 @@
     </div>
 
     <div class="row buttons">
-        <?php echo CHtml::submitButton(Yii::t('image', 'Добавить изображение')); ?>
+        <?php echo CHtml::submitButton(Yii::t('contest', 'Добавить изображение')); ?>
     </div>
 
     <?php $this->endWidget(); ?>

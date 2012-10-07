@@ -25,7 +25,7 @@
 ?>
 <div class="page-header">
     <h1>
-        <?php echo Yii::t('catalog', 'Просмотр') . ' ' . Yii::t('catalog', 'товара'); ?><br />
+        <?php echo Yii::t('catalog', 'Просмотр товара'); ?><br />
         <small>&laquo;<?php echo $model->name; ?>&raquo;</small>
     </h1>
 </div>

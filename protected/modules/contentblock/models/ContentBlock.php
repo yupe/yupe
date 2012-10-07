@@ -44,7 +44,7 @@ class ContentBlock extends YModel
             array('name, code', 'filter', 'filter' => array($obj = new CHtmlPurifier(), 'purify')),
             array('name, code, content, type', 'required'),
             array('type', 'numerical', 'integerOnly' => true),
-            array('type', 'in', 'range' => array_keys($this->getTypes())),
+            array('type', 'in', 'range' => array_keys($this->types)),
             array('name, code', 'length', 'max' => 50),
             array('description', 'length', 'max' => 300),
             array('code', 'match', 'pattern' => '/^[A-Za-z0-9_]{2,50}$/', 'message' => Yii::t('contentblock', 'Неверный формат поля "{attribute}" допустимы только буквы, цифры и символ подчеркивания, от 2 до 50 символов')),
@@ -59,11 +59,11 @@ class ContentBlock extends YModel
     public function attributeLabels()
     {
         return array(
-            'id' => 'ID',
-            'name' => Yii::t('contentblock', 'Название'),
-            'code' => Yii::t('contentblock', 'Символьный код'),
-            'type' => Yii::t('contentblock', 'Тип'),
-            'content' => Yii::t('contentblock', 'Контент'),
+            'id'          => 'ID',
+            'name'        => Yii::t('contentblock', 'Название'),
+            'code'        => Yii::t('contentblock', 'Символьный код'),
+            'type'        => Yii::t('contentblock', 'Тип'),
+            'content'     => Yii::t('contentblock', 'Контент'),
             'description' => Yii::t('contentblock', 'Описание'),
         );
     }
@@ -84,9 +84,7 @@ class ContentBlock extends YModel
         $criteria->compare('content', $this->content);
         $criteria->compare('description', $this->description);
 
-        return new CActiveDataProvider(get_class($this), array(
-            'criteria' => $criteria,
-        ));
+        return new CActiveDataProvider(get_class($this), array('criteria' => $criteria));
     }
 
     public function getTypes()
@@ -100,10 +98,7 @@ class ContentBlock extends YModel
 
     public function getType()
     {
-        $data = $this->getTypes();
-
-        return array_key_exists($this->type, $data)
-            ? $data[$this->type]
-            : Yii::t('contentblock', '*неизвестный тип*');
+        $data = $this->types;
+        return isset($data[$this->type]) ? $data[$this->type] : Yii::t('contentblock', '*неизвестный тип*');
     }
 }

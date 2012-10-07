@@ -95,15 +95,19 @@ Yii::app()->clientScript->registerScript('fieldset', "
              )); ?>
         </div>
     </div>
+
     <?php $this->widget('bootstrap.widgets.TbButton', array(
         'buttonType' => 'submit',
-        'type'       => 'primary',
-        'label'      => Yii::t('catalog', $model->isNewRecord ? 'Добавить товар и закрыть' : 'Сохранить товар и закрыть'),
+        'type'       => 'primary',        
+        'label'      => Yii::t('catalog','Сохранить товар и продолжить'),
     )); ?>
-   <?php $this->widget('bootstrap.widgets.TbButton', array(
+
+    <?php $this->widget('bootstrap.widgets.TbButton', array(
         'buttonType' => 'submit',
         'htmlOptions'=> array('name' => 'submit-type', 'value' => 'index'),
-        'label'      => Yii::t('catalog', $model->isNewRecord ? 'Добавить товар и продолжить' : 'Сохранить товар и продолжить'),
+        'label'      => Yii::t('catalog','Сохранить товар и закрыть'),
     )); ?>
+
+
 
 <?php $this->endWidget(); ?>

@@ -12,13 +12,21 @@ $this->breadcrumbs = array(
 <br/><br/>
 
 <p><?php echo Yii::t('yupe', 'Установлено');?>
-    <b><?php echo $mn = count($modules); ?></b>
+    <small class="label label-info"><?php echo $mn = count($modules); ?></small>
     <?php echo Yii::t('yupe', 'модуль|модуля|модулей', $mn); ?>.
 </p>
 
 <?php if (count($modules)): ?>
     <div class="page-header">
-    <h6><?php echo Yii::t('yupe', 'Модули разработанные специально для "{app}" ', array('{app}' => CHtml::encode(Yii::app()->name))); ?></h6>
+    <h6>
+        <?php echo Yii::t('yupe', 'Модули разработанные специально для "{app}" ', array('{app}' => CHtml::encode(Yii::app()->name))); ?>
+        <small>
+            <?php echo Yii::t('yupe','( дополнительные модули всегда можно поискать на {link} или {order_link} )',array(
+             '{link}'      => CHtml::link(Yii::t('yupe','официальном сайте'),'http://yupe.ru/?from=mlist',array('target' => '_blank')),
+             '{order_link}'=> CHtml::link(Yii::t('yupe','заказать их разработку'),'http://yupe.ru/feedback/contact/?from=mlist',array('target' => '_blank')),
+            ));?>
+        </small>
+    </h6>
     </div>
     <table class="table table-striped table-vmiddle">
         <thead>

@@ -49,7 +49,6 @@ class MenuModule extends YWebModule
             array('label' => Yii::t('menu', 'Меню')),
             array('icon' => 'file','label' => Yii::t('menu', 'Добавить меню'), 'url' => array('/menu/menu/create/')),
             array('icon' => 'list','label' => Yii::t('menu', 'Список меню'), 'url' => array('/menu/menu/index/')),
-
             array('label' => Yii::t('menu', 'Пункты меню')),
             array('icon' => 'file','label' => Yii::t('menu', 'Добавить пункт меню'), 'url' => array('/menu/menuitem/create/')),
             array('icon' => 'list','label' => Yii::t('menu', 'Cписок пунктов меню'), 'url' => array('/menu/menuitem/index/')),
@@ -64,5 +63,4 @@ class MenuModule extends YWebModule
             'application.modules.menu.components.*',
         ));
     }
-
 }

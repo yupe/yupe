@@ -13,7 +13,7 @@ class GeoModule extends YWebModule
     public function getParamsLabels()
     {
         return array(
-            'param' => Yii::t('geo',''),
+            'param' => Yii::t('geo', ''),
         );
     }
 
@@ -60,6 +60,7 @@ class GeoModule extends YWebModule
     public function init()
     {
         parent::init();
+
         $this->setImport(array(
             'geo.models.*',
             'geo.components.*',
@@ -74,19 +75,20 @@ class GeoModule extends YWebModule
     public static function onBeginProfile($event)
     {
         /** @var CEvent $event */
-        $profile = GeoProfile::model()->findByPk(Yii::app()->user-> id);
-        $profile = $profile?$profile:new GeoProfile;
-        $profile->user_id = Yii::app()->user-> id;
+        $profile = GeoProfile::model()->findByPk(Yii::app()->user->id);
+        $profile = $profile ? $profile : new GeoProfile;
+        $profile->user_id = Yii::app()->user->id;
 
         // Если идет сохранение профиля
         if (isset($_POST['GeoProfile']))
         {
             $profile->attributes = $_POST['GeoProfile'];
-            $profile->user_id = Yii::app()->user-> id;
+            $profile->user_id = Yii::app()->user->id;
 
             // Тут можно делать дополнительные манипуляции с профилем
         }
-        $event-> sender-> module-> profiles['geo'] = $profile;
+
+        $event->sender->module->profiles['geo'] = $profile;
         return true;
     }
 
@@ -96,29 +98,32 @@ class GeoModule extends YWebModule
      */
     public function getSxInfo()
     {
-        if ($this->info) return $this->info;
+        if ($this->info)
+            return $this->info;
+
         $ip = Yii::app()->request->getUserHostAddress();
-        ( $ip!="127.0.0.1" && $ip!="::1" )|| ($ip = "194.213.102.1");
-        $handle = 'SxGeoIP:'.$ip;
+        ($ip != "127.0.0.1" && $ip != "::1")|| ($ip = "194.213.102.1");
+
+        $handle = 'SxGeoIP:' . $ip;
         $this->info = Yii::app()->cache->get($handle);
+
         if ($this->info === false)
         {
-            if ( !($this->info = Yii::app()->sxgeo->getAll($ip)) )
-                $this->info=false;
+            if (!($this->info = Yii::app()->sxgeo->getAll($ip)))
+                $this->info = false;
 
             Yii::app()->cache->set($handle, $this->info, 3600);
         }
+
         return $this->info;
     }
 
     public function guessCity()
     {
-        $city=false;
+        $city = false;
         if ($info = $this->sxInfo)
-            $city = GeoCity::model()->findByAttributes(array("name"=>$info['city']));
+            $city = GeoCity::model()->findByAttributes(array("name" => $info['city']));
 
         return $city;
-
     }
-
 }

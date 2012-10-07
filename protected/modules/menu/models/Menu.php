@@ -15,8 +15,8 @@
  */
 class Menu extends YModel
 {
-    const STATUS_ACTIVE = 1;
     const STATUS_DISABLED = 0;
+    const STATUS_ACTIVE   = 1;
     /**
      * Returns the static model of the specified AR class.
      * @param string $className active record class name.
@@ -32,7 +32,7 @@ class Menu extends YModel
      */
     public function tableName()
     {
-        return 'menu';
+        return '{{menu}}';
     }
 
     /**
@@ -46,9 +46,9 @@ class Menu extends YModel
             array('name, code, description', 'filter', 'filter' => array($obj = new CHtmlPurifier(), 'purify')),
             array('name, description', 'length', 'max' => 300),
             array('code', 'length', 'max' => 100),
-            array('code', 'match', 'pattern'=>'/^[a-zA-Z0-9_\-]+$/', 'message' => Yii::t('menu', 'Запрещенные символы в поле {attribute}')),
+            array('code', 'match', 'pattern' => '/^[a-zA-Z0-9_\-]+$/', 'message' => Yii::t('menu', 'Запрещенные символы в поле {attribute}')),
             array('code', 'unique'),
-            array('status', 'in', 'range' => array_keys($this->getStatusList())),
+            array('status', 'in', 'range' => array_keys($this->statusList)),
             array('id, name, code, description, status', 'safe', 'on' => 'search'),
         );
     }
@@ -71,11 +71,11 @@ class Menu extends YModel
     public function attributeLabels()
     {
         return array(
-            'id' => Yii::t('menu', 'Id'),
-            'name' => Yii::t('menu', 'Название'),
-            'code' => Yii::t('menu', 'Уникальный код'),
+            'id'          => Yii::t('menu', 'Id'),
+            'name'        => Yii::t('menu', 'Название'),
+            'code'        => Yii::t('menu', 'Уникальный код'),
             'description' => Yii::t('menu', 'Описание'),
-            'status' => Yii::t('menu', 'Статус'),
+            'status'      => Yii::t('menu', 'Статус'),
         );
     }
 
@@ -96,7 +96,7 @@ class Menu extends YModel
         $criteria->compare('description', $this->description, true);
         $criteria->compare('status', $this->status);
 
-        return new CActiveDataProvider($this, array(
+        return new CActiveDataProvider(get_class($this), array(
             'criteria' => $criteria,
             'sort' => array('defaultOrder' => 'status DESC, id'),
         ));
@@ -106,29 +106,27 @@ class Menu extends YModel
     {
         return array(
             self::STATUS_DISABLED => Yii::t('menu', 'не активно'),
-            self::STATUS_ACTIVE => Yii::t('menu', 'активно'),
+            self::STATUS_ACTIVE   => Yii::t('menu', 'активно'),
         );
     }
 
     public function getStatus()
     {
-        $data = $this->getStatusList();
-
+        $data = $this->statusList;
         return isset($data[$this->status]) ? $data[$this->status] : Yii::t('menu', '*неизвестно*');
     }
 
     // @todo добавить кэширование
     public function getItems($code, $parent_id = 0)
     {
-        $results = $this->cache(Yii::app()->getModule('yupe')->coreCacheTime)->with(array(
-        'menuItems' => array(
-            'on' => 'menuItems.parent_id=:parent_id AND menuItems.status = 1',
-            'params' => array('parent_id' => (int)$parent_id),
-            'order' => 'menuItems.sort ASC, menuItems.id ASC',
+        $results = $this->cache(Yii::app()->getModule('yupe')->coreCacheTime)->with(array('menuItems' => array(
+            'on'     => 'menuItems.parent_id = :parent_id AND menuItems.status = 1',
+            'params' => array('parent_id' => (int) $parent_id),
+            'order'  => 'menuItems.sort ASC, menuItems.id ASC',
         )))->findAll(array(
-            'select' => array('id', 'code'),
-            'condition' => 't.code=:code AND t.status = 1',
-            'params' => array(':code' => $code),
+            'select'    => array('id', 'code'),
+            'condition' => 't.code = :code AND t.status = 1',
+            'params'    => array(':code' => $code),
         ));
 
         $items = array();
@@ -142,19 +140,18 @@ class Menu extends YModel
         {
             $childItems = $this->getItems($code, $result->id);
             $items[] = array(
-                'label' => $result->title,
-                'url' => array($result->href),
-                'itemOptions' => array('class' => 'listItem'),
-                'linkOptions' => array(
+                'label'          => $result->title,
+                'url'            => array($result->href),
+                'itemOptions'    => array('class' => 'listItem'),
+                'linkOptions'    => array(
                     'class' => 'listItemLink',
                     'title' => $result->title,
                 ),
                 'submenuOptions' => array(),
-                'items' => $childItems,
-                'visible' => MenuItem::model()->getConditionVisible($result->condition_name, $result->condition_denial),
+                'items'          => $childItems,
+                'visible'        => MenuItem::model()->getConditionVisible($result->condition_name, $result->condition_denial),
             );
         }
         return $items;
     }
-
 }

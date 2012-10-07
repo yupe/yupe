@@ -11,7 +11,7 @@ $this->breadcrumbs = array(
 $this->menu = array(
     array('icon' => 'list-alt', 'label' => Yii::t('page', 'Управление страницами'), 'url' => array('admin')),
     array('icon' => 'file', 'label' => Yii::t('page', 'Добавить страницу'), 'url' => array('/page/default/create')),
-    array('icon' => 'pencil white', 'encodeLabel' => false, 'label' => Yii::t('page', 'Редактирование страницы')."<br /><span class='label' style='font-size: 80%;'>".mb_substr($model->name, 0, 32)."</span>", 'url' => array('/page/default/update/', 'slug' => $model->slug)),
+    array('icon' => 'pencil white', 'encodeLabel' => false, 'label' => Yii::t('page', 'Редактирование страницы') . '<br /><span class="label" style="font-size: 80%;">' . mb_substr($model-> name, 0, 32) . '</span>', 'url' => array('/page/default/update', 'id'=> $model->id)),
 );
 ?>
 

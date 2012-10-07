@@ -51,13 +51,13 @@ class Settings extends YModel
 
     public function beforeSave()
     {
-        if ($this->isNewRecord)
-            $this->creation_date = $this->change_date = new CDbExpression('NOW()');
-        else
-            $this->change_date = new CDbExpression('NOW()');
+        $this->change_date = new CDbExpression('NOW()');
 
-        if(!isset($this->user_id))
-            $this->user_id = Yii::app()->user->getId();
+        if ($this->isNewRecord)
+            $this->creation_date = $this->change_date;
+
+        if (!isset($this->user_id))
+            $this->user_id = Yii::app()->user->id;
 
         return parent::beforeSave();
     }
@@ -80,13 +80,13 @@ class Settings extends YModel
     public function attributeLabels()
     {
         return array(
-            'id' => 'ID',
-            'module_id' => 'Module',
-            'param_name' => 'Param Name',
-            'param_value' => 'Param Value',
-            'creation_date' => 'Creation Date',
-            'change_date' => 'Change Date',
-            'user_id' => 'User',
+            'id'            => Yii::t('settings', 'ID'),
+            'module_id'     => Yii::t('settings', 'Модуль'),
+            'param_name'    => Yii::t('settings', 'Имя парамметра'),
+            'param_value'   => Yii::t('settings', 'Значение парамметра'),
+            'creation_date' => Yii::t('settings', 'Дата создания'),
+            'change_date'   => Yii::t('settings', 'Дата изменения'),
+            'user_id'       => Yii::t('settings', 'Пользователь'),
         );
     }
 
@@ -109,26 +109,25 @@ class Settings extends YModel
         $criteria->compare('change_date', $this->change_date, true);
         $criteria->compare('user_id', $this->user_id, true);
 
-        return new CActiveDataProvider(get_class($this), array(
-            'criteria' => $criteria,
-        ));
+        return new CActiveDataProvider(get_class($this), array('criteria' => $criteria));
     }
 
     /**
-     * Получает настройки модуля
+     * Получает настройки модуля из базы данных
      *
      * @param string $module_id Идентификатор модуля
      * @param mixed $params Список параметров, которые требуется прочитать
      * @return array Экземпляры класса Settings, соответствующие запрошенным параметрам
-     * @todo Добавить кеширование
      */
-    public function fetchModuleSettings($module_id, $params = null)
+    public function fetchModuleSettings($moduleId, $params = null)
     {
-        $settings = array( );
-        if ($module_id)
+        $settings = array();
+
+        if ($moduleId)
         {
             $criteria = new CDbCriteria();
-            $criteria->compare("module_id", $module_id);
+
+            $criteria->compare("module_id", $moduleId);
 
             if (is_array($params))
                 $criteria->addInCondition("param_name", $params);
@@ -137,9 +136,18 @@ class Settings extends YModel
 
             $q = $this->cache(Yii::app()->getModule('yupe')->coreCacheTime)->findAll($criteria);
 
-            foreach ($q as $s)
-                $settings[$s->param_name] = $s;
+            if(count($q))
+            {
+                foreach ($q as $s)
+                    $settings[$s->param_name] = $s;
+            }
+            elseif (count($params))
+            {
+                foreach($params as $param)
+                    $settings[$param] = null;
+            }
         }
+
         return $settings;
     }
 }

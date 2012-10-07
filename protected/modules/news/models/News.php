@@ -51,25 +51,26 @@ class News extends YModel
     public function rules()
     {
         return array(
-            array( 'title, alias, short_text, full_text, keywords, description', 'filter', 'filter' => 'trim' ),
-            array( 'title, alias, keywords, description', 'filter', 'filter' => 'strip_tags' ),
-            array( 'date, title, alias, full_text', 'required', 'on' => array( 'update', 'insert' ) ),
-            array( 'status, is_protected, category_id', 'numerical', 'integerOnly' => true ),
-            array( 'title, alias, keywords', 'length', 'max' => 150 ),
-            array( 'lang', 'length', 'max' => 2 ),
-            array( 'lang', 'default', 'value' => Yii::app()->sourceLanguage ),
-            array( 'status', 'in', 'range' => array_keys( $this->getStatusList()) ),
-            array( 'alias', 'unique', 'criteria' => array(
+            array('title, alias, short_text, full_text, keywords, description', 'filter', 'filter' => 'trim'),
+            array('title, alias, keywords, description', 'filter', 'filter' => 'strip_tags'),
+            array('date, title, alias, full_text', 'required', 'on' => array('update', 'insert')),
+            array('status, is_protected, category_id', 'numerical', 'integerOnly' => true),
+            array('title, alias, keywords', 'length', 'max' => 150),
+            array('lang', 'length', 'max' => 2),
+            array('lang', 'default', 'value' => Yii::app()->sourceLanguage),
+            array('status', 'in', 'range' => array_keys($this->statusList)),
+            array('alias', 'unique', 'criteria' => array(
                     'condition' => 'lang = :lang',
-                    'params'    => array( ':lang' => $this->lang ),
-                ), 'on' => 'insert',
+                    'params'    => array(':lang' => $this->lang),
+                ),
+                'on' => 'insert',
             ),
-            array( 'description', 'length', 'max' => 250 ),
-            array( 'image, link', 'length', 'max' => 300 ),
-            array( 'link', 'url'),
-            array( 'alias', 'match', 'pattern' => '/^[a-zA-Z0-9_\-]+$/', 'message' => Yii::t('news', 'Запрещенные символы в поле {attribute}') ),
-            array( 'category_id', 'default', 'setOnEmpty' => true, 'value' => null),
-            array( 'id, keywords, description, creation_date, change_date, date, title, alias, short_text, full_text, user_id, status, is_protected', 'safe', 'on' => 'search' ),
+            array('description', 'length', 'max' => 250 ),
+            array('image, link', 'length', 'max' => 300 ),
+            array('link', 'url'),
+            array('alias', 'match', 'pattern' => '/^[a-zA-Z0-9_\-]+$/', 'message' => Yii::t('news', 'Запрещенные символы в поле {attribute}')),
+            array('category_id', 'default', 'setOnEmpty' => true, 'value' => null),
+            array('id, keywords, description, creation_date, change_date, date, title, alias, short_text, full_text, user_id, status, is_protected', 'safe', 'on' => 'search'),
         );
     }
 
@@ -79,8 +80,8 @@ class News extends YModel
     public function relations()
     {
         return array(
-            'category' => array( self::BELONGS_TO, 'Category', 'category_id' ),
-            'user'     => array( self::BELONGS_TO, 'User', 'user_id' ),
+            'category' => array(self::BELONGS_TO, 'Category', 'category_id'),
+            'user'     => array(self::BELONGS_TO, 'User', 'user_id'),
         );
     }
 
@@ -89,17 +90,17 @@ class News extends YModel
         return array(
             'published' => array(
                 'condition' => 'status = :status',
-                'params'    => array( ':status'   => self::STATUS_PUBLISHED ),
+                'params'    => array(':status'   => self::STATUS_PUBLISHED),
             ),
             'protected' => array(
                 'condition' => 'is_protected = :is_protected',
-                'params'    => array( ':is_prtected' => self::PROTECTED_YES ),
+                'params'    => array(':is_prtected' => self::PROTECTED_YES),
             ),
-            'public' => array(
+            'public'    => array(
                 'condition' => 'is_protected = :is_protected',
-                'params'    => array( ':is_protected' => self::PROTECTED_NO ),
+                'params'    => array(':is_protected' => self::PROTECTED_NO),
             ),
-            'recent' => array(
+            'recent'    => array(
                 'order' => 'creation_date DESC',
                 'limit' => 5,
             )
@@ -108,45 +109,30 @@ class News extends YModel
 
     public function last($num)
     {
-        $this->getDbCriteria()->mergeWith(
-            array(
-                'order' => 'date DESC',
-                'limit'=>$num,
-            )
-        );
-        
+        $this->getDbCriteria()->mergeWith(array(
+            'order' => 'date DESC',
+            'limit' => $num,
+        ));
         return $this;
     }
 
     public function language($lang)
     {
-        $this->getDbCriteria()->mergeWith(
-            array(
-                'condition' => 'lang = :lang',
-                'params' => array(
-                    ':lang' => $lang
-                )
-            )
-        );
-
+        $this->getDbCriteria()->mergeWith(array(
+            'condition' => 'lang = :lang',
+            'params'    => array(':lang' => $lang),
+        ));
         return $this;
     }
-
 
     public function category($category_id)
     {
-        $this->getDbCriteria()->mergeWith(
-            array(
-                'condition' => 'category_id = :category_id',
-                'params' => array(
-                    ':category_id' => $category_id
-                )
-            )
-        );
-
+        $this->getDbCriteria()->mergeWith(array(
+            'condition' => 'category_id = :category_id',
+            'params'    => array(':category_id' => $category_id),
+        ));
         return $this;
     }
-
 
     /**
      * @return array customized attribute labels (name=>label)
@@ -223,9 +209,9 @@ class News extends YModel
         $criteria->compare('short_text', $this->short_text, true);
         $criteria->compare('full_text', $this->full_text, true);
         $criteria->compare('user_id', $this->user_id);
-        if($this->status != '')
+        if ($this->status != '')
             $criteria->compare('status', $this->status);
-        if($this->category_id != '')
+        if ($this->category_id != '')
             $criteria->compare('category_id', $this->category_id);
         $criteria->compare('is_protected', $this->is_protected);
 
@@ -234,7 +220,7 @@ class News extends YModel
 
     public function getPermaLink()
     {
-        return Yii::app()->createAbsoluteUrl('/news/news/show/', array( 'title' => $this->alias ));
+        return Yii::app()->createAbsoluteUrl('/news/news/show/', array('title' => $this->alias));
     }
 
     public function getStatusList()
@@ -248,8 +234,8 @@ class News extends YModel
 
     public function getStatus()
     {
-        $data = $this->getStatusList();
-        return array_key_exists($this->status, $data) ? $data[$this->status] : Yii::t('news', '*неизвестно*');
+        $data = $this->statusList;
+        return isset($data[$this->status]) ? $data[$this->status] : Yii::t('news', '*неизвестно*');
     }
 
     public function getProtectedStatusList()
@@ -262,10 +248,9 @@ class News extends YModel
 
     public function getProtectedStatus()
     {
-        $data = $this->getProtectedStatusList();
-        return array_key_exists($this->is_protected, $data) ? $data[$this->is_protected] : Yii::t('news', '*неизвестно*');
+        $data = $this->protectedStatusList;
+        return isset($data[$this->is_protected]) ? $data[$this->is_protected] : Yii::t('news', '*неизвестно*');
     }
-
 
     public function getCategoryName()
     {
@@ -275,11 +260,8 @@ class News extends YModel
     public function getImageUrl()
     {
         if($this->image)
-            return  Yii::app()->baseUrl . '/' .
-                    Yii::app()->getModule('yupe')->uploadPath . '/' .
-                    Yii::app()->getModule('news')->uploadPath . '/' .
-                    $this->image;
-
+            return Yii::app()->baseUrl . '/' . Yii::app()->getModule('yupe')->uploadPath . '/' .
+                   Yii::app()->getModule('news')->uploadPath . '/' . $this->image;
         return false;
     }
 }

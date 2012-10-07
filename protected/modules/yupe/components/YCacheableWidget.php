@@ -12,32 +12,27 @@
  */
 class YCacheableWidget extends CWidget
 {
-
     /**
      * $criteria - экземпляр CDbCriteria для выборки данных
      * @var CDbCriteria
      */
     public $criteria = null;
-
     /**
      * $cacheDuration - время жизни кэша
      * @var int
      */
     public $cacheDuration = 3600;
-
     /**
      * $cacheComponent - название компонента Yii::app(), который будет производить кэширование
      * @var string
      */
     public $cacheComponent = 'cache';
-
     /**
      * $cacheName - название фрагмета кэша, которое будет использовано при кэшировании данных
      * если данный параметр не передан - уникальное название будет сгенерировано автоматически
      * @var string
      */
     public $cacheName;
-
     /**
      * $prefix - часть имени класса виджета, по которому будет определяться название используемой модели и вьюхи
      * например, если класс виджета имеет название UserSomeWidget, а префикс = 'SomeWidget', то
@@ -47,11 +42,8 @@ class YCacheableWidget extends CWidget
     public $prefix = 'Widget';
 
     public $dependency;
-
     public $view;
-
     public $model;
-
     public $data;
 
     protected function getMagicName()
@@ -70,14 +62,11 @@ class YCacheableWidget extends CWidget
         if (!$this->data)
         {
             // разберемся с моделью
-            if (!$this->model)
-                $model = $this->getMagicName();
-            else
-                $model = $this->model;
+            $model = (!$this->model) ? $this->getMagicName() : $this->model;
 
             if (is_a($this->criteria, 'CDbCriteria'))
                 $this->criteria = new CDbCriteria();
-            elseif (is_array($this->criteria))
+            else if (is_array($this->criteria))
                 $this->criteria = new CDbCriteria($this->criteria);
 
             // получить название кэша, так как виджет может вызываться с разными параметрами

@@ -207,8 +207,8 @@ class Post extends YModel
             ),
             'tags' => array(
                 'class'                => 'blog.extensions.taggable.ETaggableBehavior',
-                'tagTable'             => 'tag',
-                'tagBindingTable'      => 'post_to_tag',
+                'tagTable'             => Yii::app()->db->tablePrefix . 'tag',
+                'tagBindingTable'      => Yii::app()->db->tablePrefix . 'post_to_tag',
                 'modelTableFk'         => 'post_id',
                 'tagBindingTableTagId' => 'tag_id',
                 'cacheID'              => 'cache',

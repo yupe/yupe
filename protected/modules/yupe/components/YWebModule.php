@@ -10,13 +10,12 @@
  * @author yupe team
  * @version 0.0.3
  * @link http://yupe.ru - основной сайт
- *
- *
+ * 
  */
+
 abstract class YWebModule extends CWebModule
 {
     const CHECK_ERROR  = 'error';
-
     const CHECK_NOTICE = 'notice';
 
     const CHOICE_YES = 1;
@@ -82,7 +81,7 @@ abstract class YWebModule extends CWebModule
      */
     public function getAdminPageLinkNormalize()
     {
-        return (is_array($this->adminPageLink)) ? $this->adminPageLink : array($this->adminPageLink);
+        return is_array($this->adminPageLink) ? $this->adminPageLink : array($this->adminPageLink);
     }
 
     /**
@@ -92,9 +91,9 @@ abstract class YWebModule extends CWebModule
      * public function getNavigation()
      * {
      *       return array(
-     *           Yii::t('blog','Блоги')  => '/blog/blogAdmin/admin/',
-     *           Yii::t('blog','Записи') => '/blog/postAdmin/admin/',
-     *           Yii::t('blog','Участники') => '/blog/BlogToUserAdmin/admin/'
+     *           Yii::t('blog','Блоги')     => '/blog/blogAdmin/admin/',
+     *           Yii::t('blog','Записи')    => '/blog/postAdmin/admin/',
+     *           Yii::t('blog','Участники') => '/blog/BlogToUserAdmin/admin/',
      *      );
      * }
      *
@@ -106,13 +105,17 @@ abstract class YWebModule extends CWebModule
 
     /**
      *   @return array или false
+     *   @todo проработать вывод сразу нескольких ошибок
      *   Работосопособность модуля может зависеть от разных факторов: версия php, версия Yii, наличие определенных модулей и т.д.
      *   В этом методе необходимо выполнить все проверки.
      *   @example
-     *
      *   if (!$this->uploadDir)
-     *        return array('type' => YWebModule::CHECK_ERROR, 'message' => Yii::t('image', 'Пожалуйста, укажите каталог для хранения изображений! {link}', array('{link}' => CHtml::link(Yii::t('image', 'Изменить настройки модуля'), array('/yupe/backend/modulesettings/', 'module' => $this->id)))));
-     *
+     *        return array(
+     *            'type' => YWebModule::CHECK_ERROR,
+     *            'message' => Yii::t('image', 'Пожалуйста, укажите каталог для хранения изображений! {link}', array(
+     *                '{link}' => CHtml::link(Yii::t('image', 'Изменить настройки модуля'), array('/yupe/backend/modulesettings/', 'module' => $this->id))
+     *            ))
+     *        );
      *   Данные сообщения выводятся на главной странице панели управления
      *
      */
@@ -134,7 +137,7 @@ abstract class YWebModule extends CWebModule
      */
     public function getParamsLabels()
     {
-        return array('adminMenuOrder' => Yii::t('yupe', 'Порядок следования в меню'), );
+        return array('adminMenuOrder' => Yii::t('yupe', 'Порядок следования в меню'));
     }
 
     /**
@@ -143,6 +146,19 @@ abstract class YWebModule extends CWebModule
     public function getEditableParams()
     {
         return array('adminMenuOrder');
+    }
+
+    /**
+     *  @return array получение имена парамметров из getEditableParams()
+     */
+    public function getEditableParamsKey()
+    {
+        $keyParams = array();
+
+        foreach ($this->editableParams as $key => $value)
+            $keyParams[] = is_int($key) ? $value : $key;
+
+        return $keyParams;
     }
 
     /**
@@ -169,7 +185,7 @@ abstract class YWebModule extends CWebModule
     {
         return array(
             self::CHOICE_YES => Yii::t('yupe', 'да'),
-            self::CHOICE_NO => Yii::t('yupe', 'нет')
+            self::CHOICE_NO  => Yii::t('yupe', 'нет'),
         );
     }
 
@@ -195,16 +211,16 @@ abstract class YWebModule extends CWebModule
             $this->layout = 'webroot.themes.' . Yii::app()->theme->name . '.views.layouts.main';
 
         $settings = null;
+
         try
         {
-            // инициализация модуля
-            $settings = Settings::model()->cache($this->coreCacheTime)->findAll('module_id = :module_id', array('module_id' => $this->getId()));
+            // инициализация модуля, понимаю, что @ - это зло, но пока это самое простое решение
+            $settings = @Settings::model()->cache($this->coreCacheTime)->findAll('module_id = :module_id', array('module_id' => $this->getId()));                 
         }
-
-        // Если базы нет, берем по-умолчанию, а не падаем в инсталлере
-        catch(CDbException $e)
+        catch (CDbException $e)
         {
-            $settings=null;
+            // Если базы нет, берем по-умолчанию, а не падаем в инсталлере - тут все равно падаем так как нотис не ловится кетчем
+            $settings = null;
         }
 
         if ($settings)
@@ -213,10 +229,8 @@ abstract class YWebModule extends CWebModule
 
             //@TODO обход не settings а editableParams как вариант =)
             foreach ($settings as $model)
-            {
                 if (property_exists($this, $model->param_name) && (in_array($model->param_name, $editableParams) || array_key_exists($model->param_name, $editableParams)))
                     $this->{$model->param_name} = $model->param_value;
-            }
         }
 
         parent::init();

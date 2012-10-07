@@ -19,8 +19,8 @@
  */
 class MenuItem extends YModel
 {
-    const STATUS_ACTIVE = 1;
     const STATUS_DISABLED = 0;
+    const STATUS_ACTIVE   = 1;
     /**
      * Returns the static model of the specified AR class.
      * @param string $className active record class name.
@@ -36,7 +36,7 @@ class MenuItem extends YModel
      */
     public function tableName()
     {
-        return 'menu_item';
+        return '{{menu_item}}';
     }
 
     /**
@@ -75,15 +75,15 @@ class MenuItem extends YModel
     public function attributeLabels()
     {
         return array(
-            'id' => Yii::t('menu', 'Id'),
-            'parent_id' => Yii::t('menu', 'Родитель'),
-            'menu_id' => Yii::t('menu', 'Меню'),
-            'title' => Yii::t('menu', 'Заголовок'),
-            'href' => Yii::t('menu', 'Адрес'),
-            'condition_name' => Yii::t('menu', 'Условие'),
+            'id'               => Yii::t('menu', 'Id'),
+            'parent_id'        => Yii::t('menu', 'Родитель'),
+            'menu_id'          => Yii::t('menu', 'Меню'),
+            'title'            => Yii::t('menu', 'Заголовок'),
+            'href'             => Yii::t('menu', 'Адрес'),
+            'condition_name'   => Yii::t('menu', 'Условие'),
             'condition_denial' => Yii::t('menu', 'Отрицание условия'),
-            'sort' => Yii::t('menu', 'Сортировка'),
-            'status' => Yii::t('menu', 'Статус'),
+            'sort'             => Yii::t('menu', 'Сортировка'),
+            'status'           => Yii::t('menu', 'Статус'),
         );
     }
 
@@ -104,10 +104,10 @@ class MenuItem extends YModel
         $criteria->compare('title', $this->title, true);
         $criteria->compare('href', $this->href, true);
 
-        if($this->condition_name != '0')
+        if ($this->condition_name != '0')
         {
             $criteria->compare('condition_name', $this->condition_name, true);
-            if($this->condition_name != '')
+            if ($this->condition_name != '')
                 $criteria->compare('condition_denial', $this->condition_denial);
         }
         else
@@ -116,16 +116,16 @@ class MenuItem extends YModel
         $criteria->compare('sort', $this->sort);
         $criteria->compare('status', $this->status);
 
-        return new CActiveDataProvider($this, array(
+        return new CActiveDataProvider(get_class($this), array(
             'criteria' => $criteria,
-            'sort' => array('defaultOrder' => 'sort'),
+            'sort'     => array('defaultOrder' => 'sort'),
         ));
     }
 
     public function getStatusList()
     {
         return array(
-            self::STATUS_ACTIVE => Yii::t('menu', 'активно'),
+            self::STATUS_ACTIVE   => Yii::t('menu', 'активно'),
             self::STATUS_DISABLED => Yii::t('menu', 'не активно'),
         );
     }
@@ -133,7 +133,6 @@ class MenuItem extends YModel
     public function getStatus()
     {
         $data = $this->statusList;
-
         return isset($data[$this->status]) ? $data[$this->status] : Yii::t('menu', '*неизвестно*');
     }
 
@@ -145,7 +144,6 @@ class MenuItem extends YModel
     public function getParent()
     {
         $data = $this->parentList;
-
         return isset($data[$this->parent_id]) ? $data[$this->parent_id] : Yii::t('menu', '*неизвестно*');
     }
 
@@ -159,9 +157,7 @@ class MenuItem extends YModel
             $module = Yii::app()->getModule($key);
 
             if (($module !== NULL) && is_a($module, 'YWebModule'))
-            {
                 if ($module->getIsShowInAdminMenu() || $module->getEditableParams() || ($module->getIsShowInAdminMenu() == false && is_array($module->checkSelf())))
-                {
                     if (isset($module->conditions))
                     {
                         $conditionsList = array();
@@ -170,8 +166,6 @@ class MenuItem extends YModel
 
                         $conditions = array_merge($conditions, $conditionsList);
                     }
-                }
-            }
         }
 
         return $conditions;
@@ -191,21 +185,19 @@ class MenuItem extends YModel
     {
         return array(
             self::STATUS_DISABLED => Yii::t('menu', 'нет'),
-            self::STATUS_ACTIVE => Yii::t('menu', 'да'),
+            self::STATUS_ACTIVE   => Yii::t('menu', 'да'),
         );
     }
 
     public function getConditionDenial()
     {
         $data = $this->conditionDenialList;
-
-        return isset($data[$this->condition_denial]) ? Yii::t('menu', 'отрицание').': '.$data[$this->condition_denial] : Yii::t('menu', '*неизвестно*');
+        return isset($data[$this->condition_denial]) ? Yii::t('menu', 'отрицание') . ': ' . $data[$this->condition_denial] : Yii::t('menu', '*неизвестно*');
     }
 
     public function getConditionName()
     {
-        $data = $this->getConditionList();
-
+        $data = $this->conditionList;
         return (isset($data[$this->condition_name])) ? $data[$this->condition_name] . (($this->condition_name == '') ? '' : ' (' . $this->conditionDenial . ')') : Yii::t('menu', '*неизвестно*');
     }
 }

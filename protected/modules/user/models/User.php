@@ -76,11 +76,11 @@ class User extends YModel
             array('location, online_status', 'length', 'max' => 150),
             array('registration_ip, activation_ip, registration_date', 'length', 'max' => 20),
             array('gender, status, access_level, use_gravatar, email_confirm', 'numerical', 'integerOnly' => true),
-            array('email_confirm', 'in', 'range' => array_keys($this->getEmailConfirmStatusList())),
+            array('email_confirm', 'in', 'range' => array_keys($this->emailConfirmStatusList)),
             array('use_gravatar', 'in', 'range' => array(0, 1)),
-            array('gender', 'in', 'range' => array_keys($this->getGendersList())),
-            array('status', 'in', 'range' => array_keys($this->getStatusList())),
-            array('access_level', 'in', 'range' => array_keys($this->getAccessLevelsList())),
+            array('gender', 'in', 'range' => array_keys($this->gendersList)),
+            array('status', 'in', 'range' => array_keys($this->statusList)),
+            array('access_level', 'in', 'range' => array_keys($this->accessLevelsList)),
             array('nick_name', 'match', 'pattern' => '/^[A-Za-z0-9]{2,50}$/', 'message' => Yii::t('user', 'Неверный формат поля "{attribute}" допустимы только буквы и цифры, от 2 до 20 символов')),
             array('site', 'url', 'allowEmpty' => true),
             array('email', 'email'),
@@ -147,7 +147,7 @@ class User extends YModel
         $criteria->compare('registration_ip', $this->registration_ip, true);
         $criteria->compare('activation_ip', $this->activation_ip, true);
 
-        return new CActiveDataProvider('User', array('criteria' => $criteria));
+        return new CActiveDataProvider(get_class($this), array('criteria' => $criteria));
     }
 
     public function afterFind()
@@ -159,19 +159,16 @@ class User extends YModel
     {
         $this->change_date = new CDbExpression('NOW()');
 
-        if (!$this->isNewRecord)
-        {
-            if($this->admin()->count() == 1 && $this->_oldAccess_level == self::ACCESS_LEVEL_ADMIN)
-            {
-                if($this->access_level == self::ACCESS_LEVEL_USER || $this->status != self::STATUS_ACTIVE)
-                    return false;
-            }
-        }
+        if (!$this->isNewRecord &&
+            ($this->admin()->count() == 1 && $this->_oldAccess_level == self::ACCESS_LEVEL_ADMIN) &&
+            ($this->access_level == self::ACCESS_LEVEL_USER || $this->status != self::STATUS_ACTIVE)
+        )
+            return false;
         else
         {
             $this->registration_date = $this->creation_date = $this->change_date;
-            $this->activate_key = $this->generateActivationKey();
-            $this->registration_ip = $this->activation_ip = Yii::app()->request->userHostAddress;
+            $this->registration_ip   = $this->activation_ip = Yii::app()->request->userHostAddress;
+            $this->activate_key      = $this->generateActivationKey();
         }
 
         if ($this->birth_date === '')
@@ -182,7 +179,7 @@ class User extends YModel
 
     public function beforeDelete()
     {
-        if(User::model()->admin()->count() == 1 && $this->_oldAccess_level == self::ACCESS_LEVEL_ADMIN)
+        if (User::model()->admin()->count() == 1 && $this->_oldAccess_level == self::ACCESS_LEVEL_ADMIN)
             return false;
 
         return parent::beforeDelete();
@@ -191,11 +188,11 @@ class User extends YModel
     public function scopes()
     {
         return array(
-            'active' => array(
+            'active'       => array(
                 'condition' => 'status = :status',
                 'params'    => array(':status' => self::STATUS_ACTIVE),
             ),
-            'blocked' => array(
+            'blocked'      => array(
                 'condition' => 'status = :status',
                 'params'    => array(':status' => self::STATUS_BLOCK),
             ),
@@ -203,11 +200,11 @@ class User extends YModel
                 'condition' => 'status = :status',
                 'params'    => array(':status' => self::STATUS_NOT_ACTIVE),
             ),
-            'admin' => array(
+            'admin'        => array(
                 'condition' => 'access_level = :access_level',
                 'params'    => array(':access_level' => self::ACCESS_LEVEL_ADMIN),
             ),
-            'user' => array(
+            'user'         => array(
                 'condition' => 'access_level = :access_level',
                 'params'    => array(':access_level' => self::ACCESS_LEVEL_USER),
             ),
@@ -222,18 +219,18 @@ class User extends YModel
         return false;
     }
 
-    public function getAccessLevel()
-    {
-        $data = $this->getAccessLevelsList();
-        return array_key_exists($this->access_level, $data) ? $data[$this->access_level] : Yii::t('user', '*нет*');
-    }
-
     public function getAccessLevelsList()
     {
         return array(
             self::ACCESS_LEVEL_ADMIN => Yii::t('user', 'Администратор'),
-            self::ACCESS_LEVEL_USER  => Yii::t('user', 'Пользователь')
+            self::ACCESS_LEVEL_USER  => Yii::t('user', 'Пользователь'),
         );
+    }
+
+    public function getAccessLevel()
+    {
+        $data = $this->accessLevelsList;
+        return isset($data[$this->access_level]) ? $data[$this->access_level] : Yii::t('user', '*нет*');
     }
 
     public function getStatusList()
@@ -241,14 +238,14 @@ class User extends YModel
         return array(
             self::STATUS_ACTIVE     => Yii::t('user', 'Активен'),
             self::STATUS_BLOCK      => Yii::t('user', 'Заблокирован'),
-            self::STATUS_NOT_ACTIVE => Yii::t('user', 'Не активирован')
+            self::STATUS_NOT_ACTIVE => Yii::t('user', 'Не активирован'),
         );
     }
 
     public function getStatus()
     {
-        $data = $this->getStatusList();
-        return array_key_exists($this->status, $data) ? $data[$this->status] : Yii::t('user', 'статус не определен');
+        $data = $this->statusList;
+        return isset($data[$this->status]) ? $data[$this->status] : Yii::t('user', 'статус не определен');
     }
 
     public function getGendersList()
@@ -256,14 +253,14 @@ class User extends YModel
         return array(
             self::GENDER_FEMALE => Yii::t('user', 'женский'),
             self::GENDER_MALE   => Yii::t('user', 'мужской'),
-            self::GENDER_THING  => Yii::t('user', 'не указан')
+            self::GENDER_THING  => Yii::t('user', 'не указан'),
         );
     }
 
     public function getGender()
     {
-        $data = $this->getGendersList();
-        return array_key_exists($this->gender, $data) ? $data[$this->gender] : Yii::t('user', 'не указан');
+        $data = $this->gendersList;
+        return isset($data[$this->gender]) ? $data[$this->gender] : Yii::t('user', 'не указан');
     }
 
     public function getEmailConfirmStatusList()
@@ -276,8 +273,7 @@ class User extends YModel
 
     public function getEmailConfirmStatus()
     {
-        $data = $this->getEmailConfirmStatusList();
-
+        $data = $this->emailConfirmStatusList;
         return isset($data[$this->email_confirm]) ? $data[$this->email_confirm] : Yii::t('user', '*неизвестно*');
     }
 
@@ -324,11 +320,11 @@ class User extends YModel
         // если это граватар
         if ($this->use_gravatar && $this->email)
             return CHtml::image('http://gravatar.com/avatar/' . md5($this->email) . "?d=mm&s=" . $size, $this->nick_name, $htmlOptions);
-        elseif ($this->avatar)
+        else if ($this->avatar)
         {
             $avatarsDir = Yii::app()->getModule('user')->avatarsDir;
-            $basePath = Yii::app()->basePath . "/../" . $avatarsDir;
-            $sizedFile = str_replace(".", "_" . $size . ".", $this->avatar);
+            $basePath   = Yii::app()->basePath . "/../" . $avatarsDir;
+            $sizedFile  = str_replace(".", "_" . $size . ".", $this->avatar);
 
             // Посмотрим, есть ли у нас уже нужный размер? Если есть - используем его
             if (file_exists($basePath . "/" . $sizedFile))
@@ -351,18 +347,28 @@ class User extends YModel
             }
         }
         // Нету аватарки, печалька :(
-        return Yii::app()->request->baseUrl.Yii::app()->getModule('user')->defaultAvatar;
+        return Yii::app()->request->baseUrl . Yii::app()->getModule('user')->defaultAvatar;
     }
 
     public function getFullName($separator = ' ')
     {
-        return ($this->first_name || $this->last_name) ? $this->last_name . $separator . $this->first_name.($this->middle_name?($separator.$this->middle_name):"") : $this->nick_name;
+        return ($this->first_name || $this->last_name)
+            ? $this->last_name . $separator . $this->first_name . ($this->middle_name ? ($separator . $this->middle_name) : "")
+            : $this->nick_name;
     }
 
-    public function createAccount($nick_name, $email, $password = null, $salt = null, $status = self::STATUS_NOT_ACTIVE, $emailConfirm = self::EMAIL_CONFIRM_NO, $first_name = '', $last_name = '')
+    public function createAccount(
+        $nick_name,
+        $email,
+        $password     = null,
+        $salt         = null,
+        $status       = self::STATUS_NOT_ACTIVE,
+        $emailConfirm = self::EMAIL_CONFIRM_NO,
+        $first_name   = '',
+        $last_name    = ''
+    )
     {
         $salt = ($salt === NULL) ? $this->generateSalt() : $salt;
-
         $password = ($password === NULL) ? $this->generateRandomPassword() : $password;
 
         $this->setAttributes(array(
@@ -375,8 +381,9 @@ class User extends YModel
             'registration_ip'   => Yii::app()->request->userHostAddress,
             'activation_ip'     => Yii::app()->request->userHostAddress,
             'status'            => $status,
-            'email_confirm'     => $emailConfirm
+            'email_confirm'     => $emailConfirm,
         ));
+
         // если не определен емэйл то генерим уникальный
         $setemail = empty($email);
         $this->email = $setemail ? 'user-' . $this->generateSalt() . '@' . $_SERVER['HTTP_HOST'] : $email;

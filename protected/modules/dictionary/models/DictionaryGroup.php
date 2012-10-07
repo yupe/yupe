@@ -24,7 +24,7 @@ class DictionaryGroup extends YModel
      * Returns the static model of the specified AR class.
      * @return DictionaryGroup the static model class
      */
-    public static function model($className=__CLASS__)
+    public static function model($className = __CLASS__)
     {
         return parent::model($className);
     }
@@ -34,7 +34,7 @@ class DictionaryGroup extends YModel
      */
     public function tableName()
     {
-        return 'dictionary_group';
+        return '{{dictionary_group}}';
     }
 
     /**
@@ -98,7 +98,7 @@ class DictionaryGroup extends YModel
         // Warning: Please modify the following code to remove attributes that
         // should not be searched.
 
-        $criteria=new CDbCriteria;
+        $criteria = new CDbCriteria;
 
         $criteria->compare('id', $this->id, true);
         $criteria->compare('code', $this->code, true);
@@ -117,7 +117,7 @@ class DictionaryGroup extends YModel
         $this->update_user_id = Yii::app()->user->getId();
         $this->update_date = new CDbExpression('NOW()');
 
-        if($this->isNewRecord)
+        if ($this->isNewRecord)
         {
             $this->create_user_id = $this->update_user_id;
             $this->creation_date = $this->update_date;
@@ -130,9 +130,7 @@ class DictionaryGroup extends YModel
     {
         return DictionaryData::model()->cache(Yii::app()->getModule('yupe')->coreCacheTime)->findAll(array(
             'condition' => 'group_id = :group_id',
-            'params'    => array(
-                ':group_id' => $this->id,
-            ),
+            'params'    => array(':group_id' => $this->id),
             'order'     => 'name DESC',
         ));
     }

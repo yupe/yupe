@@ -8,11 +8,10 @@ class YCustomGridView extends TbGridView
     public $inActiveStatus = 0;
     public $activeStatus   = 1;
 
-    public $sortField   = 'sort';
-
+    public $sortField      = 'sort';
     public $showStatusText = false;
 
-    public  function init()
+    public function init()
     {
         parent::init();
 
@@ -21,6 +20,7 @@ class YCustomGridView extends TbGridView
 
     public function returnStatusHtml($data, $active = 1, $onclick = 1, $ignore = 0)
     {
+        die();
         $statusField = $this->statusField;
 
         $status = ($data->$statusField == $active) ? $this->inActiveStatus : $this->activeStatus;
@@ -34,12 +34,11 @@ class YCustomGridView extends TbGridView
 
         $img = CHtml::image(
             Yii::app()->request->baseUrl . '/web/images/' . ($data->$statusField == $active ? '' : 'in') . 'active.png',
-            Yii::t('yupe', $data->$statusField ? Yii::t('yupe', 'Деактивировать') : Yii::t('yupe', 'Активировать')),
-            array('title' => Yii::t('yupe', $data->$statusField ? Yii::t('yupe', 'Деактивировать') : Yii::t('yupe', 'Активировать')))
+            Yii::t('yupe','{label}',array('{label}' => $data->$statusField ? Yii::t('yupe', 'Деактивировать') : Yii::t('yupe', 'Активировать'))),
+            array('title' => Yii::t('yupe', '{label}',array('{label}' => $data->$statusField ? Yii::t('yupe', 'Деактивировать') : Yii::t('yupe', 'Активировать'))))
         );
 
         $options = array();
-
         if ($onclick)
             $options = array('onclick' => 'ajaxSetStatus(this, "' . $this->id . '"); return false;');
 
@@ -133,5 +132,4 @@ class YCustomGridView extends TbGridView
                 $data->{$this->sortField} . ' ' .
                 CHtml::link($downUrlImage, $urlDown, $options);
     }
-
 }

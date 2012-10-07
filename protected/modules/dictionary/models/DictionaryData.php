@@ -30,7 +30,7 @@ class DictionaryData extends YModel
      * Returns the static model of the specified AR class.
      * @return DictionaryData the static model class
      */
-    public static function model($className=__CLASS__)
+    public static function model($className = __CLASS__)
     {
         return parent::model($className);
     }
@@ -40,7 +40,7 @@ class DictionaryData extends YModel
      */
     public function tableName()
     {
-        return 'dictionary_data';
+        return '{{dictionary_data}}';
     }
 
     /**
@@ -84,17 +84,17 @@ class DictionaryData extends YModel
     public function attributeLabels()
     {
         return array(
-            'id'             => Yii::t('dictionary','id'),
-            'group_id'       => Yii::t('dictionary','Группа'),
-            'code'           => Yii::t('dictionary','Код'),
-            'name'           => Yii::t('dictionary','Название'),
-            'value'          => Yii::t('dictionary','Значение'),
-            'description'    => Yii::t('dictionary','Описание'),
-            'creation_date'  => Yii::t('dictionary','Дата создания'),
-            'update_date'    => Yii::t('dictionary','Дата обновления'),
-            'create_user_id' => Yii::t('dictionary','Создал'),
-            'update_user_id' => Yii::t('dictionary','Обновил'),
-            'status'         => Yii::t('dictionary','Активно'),
+            'id'             => Yii::t('dictionary', 'id'),
+            'group_id'       => Yii::t('dictionary', 'Группа'),
+            'code'           => Yii::t('dictionary', 'Код'),
+            'name'           => Yii::t('dictionary', 'Название'),
+            'value'          => Yii::t('dictionary', 'Значение'),
+            'description'    => Yii::t('dictionary', 'Описание'),
+            'creation_date'  => Yii::t('dictionary', 'Дата создания'),
+            'update_date'    => Yii::t('dictionary', 'Дата обновления'),
+            'create_user_id' => Yii::t('dictionary', 'Создал'),
+            'update_user_id' => Yii::t('dictionary', 'Обновил'),
+            'status'         => Yii::t('dictionary', 'Активно'),
         );
     }
 
@@ -107,7 +107,7 @@ class DictionaryData extends YModel
         // Warning: Please modify the following code to remove attributes that
         // should not be searched.
 
-        $criteria=new CDbCriteria;
+        $criteria = new CDbCriteria;
 
         $criteria->compare('id', $this->id, true);
         $criteria->compare('group_id', $this->group_id, true);
@@ -128,7 +128,7 @@ class DictionaryData extends YModel
         $this->update_user_id = Yii::app()->user->getId();
         $this->update_date = new CDbExpression('NOW()');
 
-        if($this->isNewRecord)
+        if ($this->isNewRecord)
         {
             $this->create_user_id = $this->update_user_id;
             $this->creation_date = $this->update_date;

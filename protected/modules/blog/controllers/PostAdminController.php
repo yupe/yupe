@@ -35,9 +35,9 @@ class PostAdminController extends YBackController
                 );
 
                 if (!isset($_POST['submit-type']))
-                    $this->redirect(array('index'));
+                    $this->redirect(array('update', 'id' => $model->id));
                 else
-                    $this->redirect(array('view', 'id' => $model->id));
+                    $this->redirect(array($_POST['submit-type']));
             }
         }
 
@@ -68,9 +68,9 @@ class PostAdminController extends YBackController
                 );
 
                 if (!isset($_POST['submit-type']))
-                    $this->redirect(array('index'));
-                else
                     $this->redirect(array('update', 'id' => $model->id));
+                else
+                    $this->redirect(array($_POST['submit-type']));
             }
         }
 
@@ -101,8 +101,9 @@ class PostAdminController extends YBackController
         else
             throw new CHttpException(400, 'Неверный запрос. Пожалуйста, больше не повторяйте такие запросы');
     }
+
     /**
-     * Управление записьями.
+     * Управление записями.
      */
     public function actionIndex()
     {
