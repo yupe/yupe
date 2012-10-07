@@ -29,11 +29,11 @@ Yii::app()->clientScript->registerScript('fieldset', "
     </div>
 
     <div class="row-fluid control-group">
-        <div class="span2 popover-help" data-content="<?php echo Yii::t('page',"<span class='label label-success'>Опубликовано</span> &ndash; Страницу видят все посетители сайта, режим по-умолчанию.<br /><br /><span class='label label-default'>Черновик</span> &ndash; Данная страница еще не окончена и не должна отображаться.<br /><br /><span class='label label-info'>На модерации</span> &ndash; Данная страница еще не проверена и не должна отображаться."); ?>" data-original-title="<?php echo $model->getAttributeLabel('status'); ?>" >
+        <div class="span3 popover-help" data-content="<?php echo Yii::t('page',"<span class='label label-success'>Опубликовано</span> &ndash; Страницу видят все посетители сайта, режим по-умолчанию.<br /><br /><span class='label label-default'>Черновик</span> &ndash; Данная страница еще не окончена и не должна отображаться.<br /><br /><span class='label label-info'>На модерации</span> &ndash; Данная страница еще не проверена и не должна отображаться."); ?>" data-original-title="<?php echo $model->getAttributeLabel('status'); ?>" >
             <?php echo $form->labelEx($model, 'status' ); ?>
             <?php echo $form->dropDownList($model, 'status', $model->getStatusList()); ?>
         </div>
-        <div class="span2 popover-help" data-content="<?php echo Yii::t('page',"Чем большее числовое значение вы укажете в этом поле, тем выше будет позиция данной страницы в меню.") ?>" data-original-title="<?php echo $model-> getAttributeLabel('menu_order'); ?>" >
+        <div class="span3 popover-help" data-content="<?php echo Yii::t('page',"Чем большее числовое значение вы укажете в этом поле, тем выше будет позиция данной страницы в меню.") ?>" data-original-title="<?php echo $model-> getAttributeLabel('menu_order'); ?>" >
             <?php echo $form->labelEx($model, 'menu_order' ); ?>
             <?php echo $form->textField($model, 'menu_order', array('size' => 10, 'maxlength' => 10)); ?>
         </div>
