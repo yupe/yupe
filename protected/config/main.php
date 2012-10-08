@@ -137,6 +137,8 @@ return array(
             'enableCsrfValidation'   => true,
             'csrfTokenName'          => 'YUPE_TOKEN',
             'noCsrfValidationRoutes' => array('yupe/backend/AjaxFileUpload'),
+            // подробнее http://www.yiiframework.com/doc/guide/1.1/ru/topics.security#sec-4
+            'enableCookieValidation' => true
         ),
         // подключение компонента для генерации ajax-ответов
         'ajax' => array(
