@@ -11,8 +11,8 @@ class BlogModule extends YWebModule
     public function getParamsLabels()
     {
         return array(
-            'adminMenuOrder' => Yii::t('news', 'Порядок следования в меню'),
-            'editor'         => Yii::t('page', 'Визуальный редактор'),
+            'adminMenuOrder' => Yii::t('blog', 'Порядок следования в меню'),
+            'editor'         => Yii::t('blog', 'Визуальный редактор'),
         );
     }
 
@@ -58,7 +58,7 @@ class BlogModule extends YWebModule
 
     public function getAuthor()
     {
-        return Yii::t('blog', 'yupe team');
+        return Yii::t('blog','yupe team');
     }
 
     public function getAuthorEmail()

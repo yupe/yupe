@@ -253,6 +253,8 @@ class DefaultController extends Controller
                                 YFlashMessages::ERROR_MESSAGE,
                                 Yii::t('install', 'При инициализации базы данных произошла ошибка!')
                             );
+                            
+                            Yii::log($e->getMessage(), CLogger::LEVEL_ERROR);
 
                             $this->redirect(array('/install/default/dbsettings/'));
                         }

@@ -31,7 +31,7 @@ class ImageModule extends YWebModule
 
     public function getUploadPath()
     {
-        return $this->documentRoot . Yii::app()->request->baseUrl . DIRECTORY_SEPARATOR . $this->uploadDir;
+        return $this->documentRoot . Yii::app()->request->baseUrl . '/' . $this->uploadDir;
     }
 
     public function createUploadDir()
