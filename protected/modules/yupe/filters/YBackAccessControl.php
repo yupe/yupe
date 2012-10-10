@@ -1,11 +1,11 @@
 <?php
-class YBackAccessControl extends CFilter
+class YBackAccessControl extends CAccessControlFilter
 {
     public function preFilter($filterChain)
     {
         if (Yii::app()->user->isSuperUser())        
             return true;        
 
-        $filterChain->controller->redirect(array(Yii::app()->user->loginUrl));
+        $this->accessDenied(Yii::app()->user, Yii::t('yii','You are not authorized to perform this action.'));
     }
 }
