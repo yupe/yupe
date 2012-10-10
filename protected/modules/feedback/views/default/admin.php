@@ -8,8 +8,8 @@ $this->breadcrumbs = array(
 );
 
 $this->menu = array(
-    array('label' => Yii::t('feedback', 'Управление сообщениями'), 'url' => array('/feedback/default/admin')),
-    array('label' => Yii::t('feedback', 'Добавить сообщение'), 'url' => array('/feedback/default/create')),
+    array('icon' => 'list-alt white','label' => Yii::t('feedback', 'Управление сообщениями'), 'url' => array('/feedback/default/admin')),
+    array('icon' => 'plus-sign','label' => Yii::t('feedback', 'Добавить сообщение'), 'url' => array('/feedback/default/create')),
 
 );
 Yii::app()->clientScript->registerScript('search', "
@@ -25,7 +25,7 @@ Yii::app()->clientScript->registerScript('search', "
     });
 ");
 ?>
-<div class="page-header"><h1><?php echo $this->module->getName(); ?> <small><?php echo Yii::t('feedback', 'Управление'); ?></small></h1></div>
+<div class="page-header"><h1><?php echo $this->module->getName(); ?> <small><?php echo Yii::t('feedback', 'управление'); ?></small></h1></div>
 
 <?php echo CHtml::link(Yii::t('feedback', 'Поиск сообщений'), '#', array('class' => 'search-button')); ?>
 <div class="search-form" style="display:none">

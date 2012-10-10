@@ -30,6 +30,7 @@ Yii::app()->clientScript->registerScript('fieldset', "
             <?php echo $form->dropDownListRow($model, 'status', $model->getStatusList(), array('class' => 'popover-help', 'data-original-title' => $model->getAttributeLabel('status'), 'data-content' => $model->getAttributeDescription('status'))); ?>
         </div>
     </div>
+
     <div class="row-fluid control-group <?php echo $model->hasErrors('name') ? 'error' : ''; ?>">
             <?php echo $form->textFieldRow($model, 'name',
                 array('class' => 'popover-help span7',

@@ -24,6 +24,13 @@ class DefaultController extends YBackController
         if (isset($_POST['FeedBack']))
         {
             $model->attributes = $_POST['FeedBack'];
+            
+            if($model->status == FeedBack::STATUS_ANSWER_SENDED)
+            {
+                $model->answer_user = Yii::app()->user->getId();
+                
+                $model->answer_date = new CDbExpression('NOW()');
+            }
 
             if ($model->save())
             {
@@ -49,9 +56,18 @@ class DefaultController extends YBackController
     {
         $model = $this->loadModel();
 
+        $status = $model->status; 
+        
         if (isset($_POST['FeedBack']))
         {
             $model->attributes = $_POST['FeedBack'];
+            
+            if($status != FeedBack::STATUS_ANSWER_SENDED && $model->status == FeedBack::STATUS_ANSWER_SENDED)
+            {
+                $model->answer_user = Yii::app()->user->getId();
+                
+                $model->answer_date = new CDbExpression('NOW()');
+            }
 
             if ($model->save())
             {
@@ -137,19 +153,7 @@ class DefaultController extends YBackController
         else
             throw new CHttpException(400, 'Invalid request. Please do not repeat this request again.');
     }
-
-    /**
-     * Lists all models.
-     */
-    public function actionIndex()
-    {
-        $dataProvider = new CActiveDataProvider('FeedBack');
-
-        $this->render('index', array(
-                                    'dataProvider' => $dataProvider,
-                               ));
-    }
-
+    
     /**
      * Manages all models.
      */

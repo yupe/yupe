@@ -17,7 +17,7 @@ class AnswerForm extends CFormModel
     {
         return array(
             'answer' => Yii::t('feedback', 'Ответ'),
-            'is_faq' => Yii::t('feedback', 'Добавить в faq'),
+            'is_faq' => Yii::t('feedback', 'В разделе FAQ'),
         );
     }
 }
