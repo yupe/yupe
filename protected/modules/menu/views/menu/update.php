@@ -1,5 +1,6 @@
 <?php
 $this->breadcrumbs = array(
+    $this->module->getCategory() => array(''),
     Yii::t('menu', 'Меню') => array('admin'),
     $model->name => array(
         'view',
@@ -11,15 +12,14 @@ $this->breadcrumbs = array(
 $this->menu = array(
     //@formatter:off
     array('label' => Yii::t('menu', 'Меню')),
-    array('label' => Yii::t('menu', 'Добавить меню'), 'url' => array('create')),
-    array('label' => Yii::t('menu', 'Просмотр меню'), 'url' => array('view', 'id' => $model->id)),
-    array('label' => Yii::t('menu', 'Список меню'), 'url' => array('index')),
-    array('label' => Yii::t('menu', 'Управление меню'), 'url' => array('admin')),
+    array('icon' => 'list-alt','label' => Yii::t('menu', 'Список меню'), 'url' => array('index')),
+    array('icon' => 'list','label' => Yii::t('menu', 'Управление меню'), 'url' => array('admin')),
+    array('icon' => 'file','label' => Yii::t('menu', 'Добавить меню'), 'url' => array('create')),
 
     array('label' => Yii::t('menu', 'Пункты меню')),
-    array('label' => Yii::t('menu', 'Добавить пункт меню'), 'url' => array('menuitem/create')),
-    array('label' => Yii::t('menu', 'Cписок пунктов меню'), 'url' => array('menuitem/index')),
-    array('label' => Yii::t('menu', 'Управление пунктами меню'), 'url' => array('menuitem/admin')),
+    array('icon' => 'file','label' => Yii::t('menu', 'Добавить пункт меню'), 'url' => array('menuitem/create')),
+    array('icon' => 'list-alt','label' => Yii::t('menu', 'Cписок пунктов меню'), 'url' => array('menuitem/index')),
+    array('icon' => 'list','label' => Yii::t('menu', 'Управление пунктами меню'), 'url' => array('menuitem/admin')),
     //@formatter:on
 );
 ?>

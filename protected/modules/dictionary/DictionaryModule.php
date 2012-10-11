@@ -47,8 +47,12 @@ class DictionaryModule extends YWebModule
     public function getNavigation()
     {
         return array(
-            array('icon' => 'th-list', 'label' => Yii::t('dictionary', 'Справочники'), 'url' => array('/dictionary/default/admin')),
-            array('icon' => 'th-list', 'label' => Yii::t('dictionary', 'Значения справочников'), 'url' => array('/dictionary/dictionaryData/admin')),
+            array('label' => Yii::t('dictionary', 'Справочники')),
+            array('icon' => 'plus-sign', 'label' => Yii::t('dictionary', 'Добавить справочник'), 'url' => array('/dictionary/default/create')),
+            array('icon' => 'th-list', 'label' => Yii::t('dictionary', 'Список справочников'), 'url' => array('/dictionary/default/admin')),
+            array('label' => Yii::t('dictionary', 'Значения')),
+            array('icon' => 'plus-sign', 'label' => Yii::t('dictionary', 'Добавить значение'), 'url' => array('/dictionary/dictionaryData/create')),
+            array('icon' => 'th-list', 'label' => Yii::t('dictionary', 'Список значений'), 'url' => array('/dictionary/dictionaryData/admin')),
         );
     }
 

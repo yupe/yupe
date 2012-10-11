@@ -89,9 +89,9 @@ class FeedbackModule extends YWebModule
     
     public function getNavigation()
     {
-        return array(
-            array('icon' => 'list-alt', 'label' => Yii::t('feedback', 'Управление сообщениями'), 'url' => array('/feedback/default/admin/')),
+        return array(            
             array('icon' => 'plus-sign', 'label' => Yii::t('feedback', 'Добавить сообщение'), 'url' => array('/feedback/default/create/')),
+            array('icon' => 'list-alt', 'label' => Yii::t('feedback', 'Список сообщений'), 'url' => array('/feedback/default/admin/')),
         );
     }
 

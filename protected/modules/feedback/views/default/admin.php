@@ -27,10 +27,30 @@ Yii::app()->clientScript->registerScript('search', "
 ?>
 <div class="page-header"><h1><?php echo $this->module->getName(); ?> <small><?php echo Yii::t('feedback', 'управление'); ?></small></h1></div>
 
-<?php echo CHtml::link(Yii::t('feedback', 'Поиск сообщений'), '#', array('class' => 'search-button')); ?>
-<div class="search-form" style="display:none">
-    <?php $this->renderPartial('_search', array('model' => $model)); ?>
-</div><!-- search-form -->
+<button class="btn btn-small dropdown-toggle" data-toggle="collapse" data-target="#search-toggle">
+    <i class="icon-search">&nbsp;</i>
+    <?php echo CHtml::link(Yii::t('feedback', 'Поиск сообщений'), '#', array('class' => 'search-button')); ?>
+    <span class="caret">&nbsp;</span>
+</button>
+
+<div id="search-toggle" class="collapse out search-form">
+<?php
+Yii::app()->clientScript->registerScript('search', "
+    $('.search-form form').submit(function() {
+        $.fn.yiiGridView.update('blog-grid', {
+            data: $(this).serialize()
+        });
+        return false;
+    });
+");
+$this->renderPartial('_search', array('model' => $model));
+?>
+</div>
+
+<br/>
+
+<p><?php echo Yii::t('feedback', 'В данном разделе представлены средства управления сообщенияами'); ?></p>
+
 
 <?php
     $dp = $model->search();

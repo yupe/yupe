@@ -1,59 +1,41 @@
-<div class="wide form">
-    <?php
-    $form = $this->beginWidget('CActiveForm', array(
-        'action' => Yii::app()->createUrl($this->route),
-        'method' => 'get',
-    ));
-    ?>
+<?php $form = $this->beginWidget('bootstrap.widgets.TbActiveForm', array(
+    'action' => Yii::app()->createUrl($this->route),
+    'method' => 'get',
+    'htmlOptions'=> array( 'class' => 'well' ),
+)); ?>
 
-    <div class="row">
-        <?php echo $form->label($model, 'id'); ?>
-        <?php
-        echo $form->textField($model, 'id', array(
-            'size' => 10,
-            'maxlength' => 10,
-        ));
-        ?>
-    </div>
+    <fieldset class="inline">
+        <div class="row-fluid control-group">
+            <div class="span1">
+                <?php echo $form->textFieldRow($model, 'id'); ?>
+            </div>
 
-    <div class="row">
-        <?php echo $form->label($model, 'name'); ?>
-        <?php
-        echo $form->textField($model, 'name', array(
-            'size' => 60,
-            'maxlength' => 300,
-        ));
-        ?>
-    </div>
+            <div class="span2">
+                <?php echo $form->textFieldRow($model, 'name'); ?>
+            </div>
 
-    <div class="row">
-        <?php echo $form->label($model, 'code'); ?>
-        <?php
-        echo $form->textField($model, 'code', array(
-            'size' => 60,
-            'maxlength' => 100,
-        ));
-        ?>
-    </div>
+            <div class="span3">
+                <?php echo $form->textFieldRow($model, 'code'); ?>
+            </div>
+        </div>
 
-    <div class="row">
-        <?php echo $form->label($model, 'description'); ?>
-        <?php
-        echo $form->textField($model, 'description', array(
-            'size' => 60,
-            'maxlength' => 300,
-        ));
-        ?>
-    </div>
+        <div class="row-fluid control-group">
 
-    <div class="row">
-        <?php echo $form->label($model, 'status'); ?>
-        <?php echo $form->dropDownList($model, 'status', $model->getStatusList()); ?>
-    </div>
+            <div class="span6">
+                <?php echo $form->textFieldRow($model, 'description'); ?>
+            </div>
 
-    <div class="row buttons">
-        <?php echo CHtml::submitButton(Yii::t('menu', 'Поиск')); ?>
-    </div>
+            <div class="span6">
+                <?php echo $form->dropDownListRow($model, 'status',$model->getStatusList()); ?>
+            </div>
+        </div>
 
-    <?php $this->endWidget(); ?>
-</div><!-- search-form -->
+        <?php $this->widget('bootstrap.widgets.TbButton', array(
+            'buttonType' => 'submit',
+            'type' => 'primary',
+            'encodeLabel' => false,
+            'label' => '<i class="icon-search icon-white"></i> '.Yii::t('menu', 'Искать')
+        )); ?>
+    </fieldset>
+
+<?php $this->endWidget(); ?>

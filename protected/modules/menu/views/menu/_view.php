@@ -22,7 +22,7 @@
     <br />
 
     <b><?php echo CHtml::encode($data->getAttributeLabel('status')); ?>:</b>
-    <?php echo CHtml::encode($data->status); ?>
+    <?php echo CHtml::encode($data->getStatus()); ?>
     <br />
 
 </div>

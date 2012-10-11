@@ -47,12 +47,11 @@ class MenuModule extends YWebModule
     {
         return array(
             array('label' => Yii::t('menu', 'Меню')),
-            array('icon' => 'file','label' => Yii::t('menu', 'Добавить меню'), 'url' => array('/menu/menu/create/')),
-            array('icon' => 'list','label' => Yii::t('menu', 'Список меню'), 'url' => array('/menu/menu/index/')),
+            array('icon' => 'plus-sign','label' => Yii::t('menu', 'Добавить меню'), 'url' => array('/menu/menu/create/')),
+            array('icon' => 'list','label' => Yii::t('menu', 'Список меню'), 'url' => array('/menu/menu/admin/')),
             array('label' => Yii::t('menu', 'Пункты меню')),
-            array('icon' => 'file','label' => Yii::t('menu', 'Добавить пункт меню'), 'url' => array('/menu/menuitem/create/')),
-            array('icon' => 'list','label' => Yii::t('menu', 'Cписок пунктов меню'), 'url' => array('/menu/menuitem/index/')),
-            array('icon' => 'list-alt','label' => Yii::t('menu', 'Управление пунктами меню'), 'url' => array('/menu/menuitem/admin/')),
+            array('icon' => 'plus-sign','label' => Yii::t('menu', 'Добавить пункт меню'), 'url' => array('/menu/menuitem/create/')),           
+            array('icon' => 'list-alt','label' => Yii::t('menu', 'Cписок пунктов меню'), 'url' => array('/menu/menuitem/admin/')),
         );
     }
 

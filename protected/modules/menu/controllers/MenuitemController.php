@@ -88,16 +88,7 @@ class MenuitemController extends YBackController
             throw new CHttpException(400, 'Invalid request. Please do not repeat this request again.');
     }
 
-    /**
-     * Lists all models.
-     */
-    public function actionIndex()
-    {
-        $dataProvider = new CActiveDataProvider('MenuItem');
-        $this->render('index', array('dataProvider' => $dataProvider));
-    }
-
-    /**
+     /**
      * Manages all models.
      */
     public function actionAdmin()
