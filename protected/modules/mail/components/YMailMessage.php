@@ -4,7 +4,7 @@
  *
  * @author andrey
  */
-class YMailMessage extends CComponent
+class YMailMessage extends CApplicationComponent
 {
     public $mailComponent = 'mail';
     private $_mail;

@@ -69,7 +69,7 @@ $this->widget('YCustomGridView', array(
         array(
             'name' => 'status',
             'type' => 'raw',
-            'value' => '$this->grid->returnStatusHtml($data)',
+            'value' => '$this->grid->returnBootstrapStatusHtml($data)',
         ),
         array(
             'class' => 'CButtonColumn',

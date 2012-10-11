@@ -1,5 +1,5 @@
 <?php
-class YAsyncResponse extends CComponent
+class YAsyncResponse extends CApplicationComponent
 {
     public $success         = true;
     public $failure         = false;

@@ -66,7 +66,7 @@ $('.search-form form').submit(function(){
         array(
             'name' => 'status',
             'type' => 'raw',
-            'value' => '$this->grid->returnStatusHtml($data)'
+            'value' => '$this->grid->returnBootstrapStatusHtml($data)'
         ),
 		array(
 			'class'=>'CButtonColumn',

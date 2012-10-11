@@ -1,5 +1,5 @@
 <?php
-class YMail extends CComponent
+class YMail extends CApplicationComponent
 {
     public function init()
     {

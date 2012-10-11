@@ -16,36 +16,7 @@ class YCustomGridView extends TbGridView
         parent::init();
 
         $this->modelName = $this->dataProvider->modelClass;
-    }
-
-    public function returnStatusHtml($data, $active = 1, $onclick = 1, $ignore = 0)
-    {
-        die();
-        $statusField = $this->statusField;
-
-        $status = ($data->$statusField == $active) ? $this->inActiveStatus : $this->activeStatus;
-
-        $url = Yii::app()->controller->createUrl("activate", array(
-            'model'       => $this->modelName,
-            'id'          => $data->id,
-            'status'      => $status,
-            'statusField' => $this->statusField,
-        ));
-
-        $img = CHtml::image(
-            Yii::app()->request->baseUrl . '/web/images/' . ($data->$statusField == $active ? '' : 'in') . 'active.png',
-            Yii::t('yupe','{label}',array('{label}' => $data->$statusField ? Yii::t('yupe', 'Деактивировать') : Yii::t('yupe', 'Активировать'))),
-            array('title' => Yii::t('yupe', '{label}',array('{label}' => $data->$statusField ? Yii::t('yupe', 'Деактивировать') : Yii::t('yupe', 'Активировать'))))
-        );
-
-        $options = array();
-        if ($onclick)
-            $options = array('onclick' => 'ajaxSetStatus(this, "' . $this->id . '"); return false;');
-
-        $text = ($this->showStatusText && method_exists($data, 'getStatus')) ? $data->getStatus() : '';
-
-        return '<div align="center">' . CHtml::link($img, $url, $options) . $text . '</div>';
-    }
+    }  
 
     /**
      * Генерирует HTML-код для BootStrap-иконки переключателя активности в зависимости от текущего состояния модели

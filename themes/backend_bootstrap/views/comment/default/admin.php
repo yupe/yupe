@@ -51,7 +51,7 @@ Yii::app()->clientScript->registerScript('search', "
            array(
                'name' => 'status',
                'type' => 'raw',
-               'value' => '$this->grid->returnStatusHtml($data)'
+               'value' => '$this->grid->returnBootstrapStatusHtml($data)'
            ),
            'text',
            'creation_date',
