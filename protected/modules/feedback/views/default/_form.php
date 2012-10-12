@@ -17,17 +17,16 @@ $form = $this->beginWidget('bootstrap.widgets.TbActiveForm', array(
     </div>
 
     <?php echo $form->errorSummary($model); ?>
-    
+
     <div class="wide row-fluid control-group <?php echo ($model->hasErrors('type') || $model->hasErrors('status')) ? 'error' : ''; ?>">
         <div class="span3">
             <?php echo $form->dropDownListRow($model, 'type', Yii::app()->getModule('feedback')->types, array('class' => 'popover-help', 'data-original-title' => $model->getAttributeLabel('type'), 'data-content' => $model->getAttributeDescription('type'))); ?>
-        </div>    
+        </div>
         <div class="span3">
             <?php echo $form->dropDownListRow($model, 'status', $model->getStatusList(), array('class' => 'popover-help', 'data-original-title' => $model->getAttributeLabel('status'), 'data-content' => $model->getAttributeDescription('status'))); ?>
-        </div>        
+        </div>
     </div>
-    
-   
+
     <div class="row-fluid control-group  <?php echo $model->hasErrors('name') ? 'error' : ''; ?>">
         <?php echo $form->textFieldRow($model, 'name', array('class' => 'popover-help span7', 'maxlength' => 150, 'size' => 60, 'data-original-title' => $model->getAttributeLabel('name'), 'data-content' => $model->getAttributeDescription('name'))); ?>
     </div>
@@ -49,18 +48,18 @@ $form = $this->beginWidget('bootstrap.widgets.TbActiveForm', array(
             <?php echo $form->labelEx($model, 'text'); ?>
             <?php
             $this->widget(Yii::app()->getModule('yupe')->editor, array(
-                'model'     => $model,
-                'attribute' => 'text',
-                'options'   => array(
+                'model'       => $model,
+                'attribute'   => 'text',
+                'options'     => array(
                     'toolbar'     => 'main',
-                    'imageUpload' => Yii::app()->baseUrl . '/index.php/yupe/backend/AjaxFileUpload/'
+                    'imageUpload' => Yii::app()->baseUrl . '/index.php/yupe/backend/AjaxFileUpload/',
                 ),
-                'htmlOptions' => array( 'rows' => 20, 'cols' => 6 ),
+                'htmlOptions' => array('rows' => 20, 'cols' => 6),
             ));
             ?>
         </div>
         <div class="span5">
-<?php echo $form->error($model, 'text'); ?>
+            <?php echo $form->error($model, 'text'); ?>
         </div>
     </div>
     
@@ -69,18 +68,18 @@ $form = $this->beginWidget('bootstrap.widgets.TbActiveForm', array(
             <?php echo $form->labelEx($model, 'answer'); ?>
             <?php
             $this->widget(Yii::app()->getModule('yupe')->editor, array(
-                'model'     => $model,
-                'attribute' => 'answer',
-                'options'   => array(
+                'model'       => $model,
+                'attribute'   => 'answer',
+                'options'     => array(
                     'toolbar'     => 'main',
-                    'imageUpload' => Yii::app()->baseUrl . '/index.php/yupe/backend/AjaxFileUpload/'
+                    'imageUpload' => Yii::app()->baseUrl . '/index.php/yupe/backend/AjaxFileUpload/',
                 ),
-                'htmlOptions' => array( 'rows' => 20, 'cols' => 6 ),
+                'htmlOptions' => array('rows' => 20, 'cols' => 6),
             ));
             ?>
         </div>
         <div class="span5">
-<?php echo $form->error($model, 'answer'); ?>
+            <?php echo $form->error($model, 'answer'); ?>
         </div>
     </div>
     
@@ -92,7 +91,7 @@ $form = $this->beginWidget('bootstrap.widgets.TbActiveForm', array(
         <div class="row-fluid control-group">
             <div class="span7">
                 <label><?php echo Yii::t('feedback', 'Ответил'); ?> <?php echo CHtml::link($model->getAnsweredUser(), array( '/user/default/view/', 'id' => $model->answer_user )); ?> (<?php echo $model->answer_date; ?>)</label>
-    <?php echo $model->answer; ?>
+                <?php echo $model->answer; ?>
             </div>
         </div>
     <?php endif; ?>

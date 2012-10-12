@@ -3,27 +3,25 @@ class ContactController extends YFrontController
 {
     public function actions()
     {
-        return array(
-            'captcha' => array(
-                'class' => 'CCaptchaAction',
-                'backColor' => 0xFFFFFF,
-            )
-        );
+        return array('captcha' => array(
+            'class'     => 'CCaptchaAction',
+            'backColor' => 0xFFFFFF,
+        ));
     }
 
     public function actionIndex()
     {
         $form = new FeedBackForm;
+
         // если пользователь авторизован - подставить его данные
-        if(Yii::app()->user->isAuthenticated())
+        if (Yii::app()->user->isAuthenticated())
         {
             $form->email = Yii::app()->user->getState('email');
-
-            $form->name = Yii::app()->user->getState('nick_name');
+            $form->name  = Yii::app()->user->getState('nick_name');
         }
 
         // проверить не передан ли тип и присвоить его аттрибуту модели
-        $form->type = (int)Yii::app()->request->getParam('type',FeedBack::TYPE_DEFAULT);
+        $form->type = (int) Yii::app()->request->getParam('type', FeedBack::TYPE_DEFAULT);
 
         $module = Yii::app()->getModule('feedback');
 
@@ -46,13 +44,13 @@ class ContactController extends YFrontController
                         $feedback = new FeedBack;
 
                         $feedback->setAttributes(array(
-                                                      'name'  => $form->name,
-                                                      'email' => $form->email,
-                                                      'theme' => $form->theme,
-                                                      'text'  => $form->text,
-                                                      'phone' => $form->phone,
-                                                      'type'  => $form->type
-                                                 ));
+                            'name'  => $form->name,
+                            'email' => $form->email,
+                            'theme' => $form->theme,
+                            'text'  => $form->text,
+                            'phone' => $form->phone,
+                            'type'  => $form->type,
+                        ));
 
                         if ($feedback->save())
                         {
@@ -61,11 +59,14 @@ class ContactController extends YFrontController
                             if ($module->sendConfirmation && !count($backEnd))
                                $this->feedbackConfirmationEmail($feedback);
 
-                            Yii::app()->user->setFlash(YFlashMessages::NOTICE_MESSAGE, Yii::t('feedback', 'Ваше сообщение отправлено! Спасибо!'));
+                            Yii::app()->user->setFlash(
+                                YFlashMessages::NOTICE_MESSAGE,
+                                Yii::t('feedback', 'Ваше сообщение отправлено! Спасибо!')
+                            );
 
-                            if(!count($backEnd))
+                            if (!count($backEnd))
                             {
-                                if(Yii::app()->request->isAjaxRequest)
+                                if (Yii::app()->request->isAjaxRequest)
                                     Yii::app()->ajax->success(Yii::t('feedback', 'Ваше сообщение отправлено! Спасибо!'));
 
                                 $this->redirect($module->successPage ? array($module->successPage) : array('/feedback/contact'));
@@ -74,18 +75,23 @@ class ContactController extends YFrontController
                         else
                         {
                             $form->addErrors($feedback->getErrors());
+
                             Yii::log(Yii::t('feedback', 'Ошибка при добавлении обращения пользователя в базу!'), CLogger::LEVEL_ERROR, FeedbackModule::$logCategory);
-                            Yii::app()->user->setFlash(YFlashMessages::ERROR_MESSAGE, Yii::t('feedback', 'При отправке сообщения произошла ошибка! Повторите попытку позже!'));
+                            Yii::app()->user->setFlash(
+                                YFlashMessages::ERROR_MESSAGE,
+                                Yii::t('feedback', 'При отправке сообщения произошла ошибка! Повторите попытку позже!')
+                            );
+
                             $this->render('index', array('model' => $form, 'module' => $module));
                         }
                     }
 
                     // отправка на почту
-                    if (in_array('email', $backEnd) && count(explode(',',$module->emails)))
+                    if (in_array('email', $backEnd) && count(explode(',', $module->emails)))
                     {
                         $emailBody = $this->renderPartial('feedbackEmail', array('model' => $feedback), true);
 
-                        foreach (explode(',',$module->emails) as $mail)
+                        foreach (explode(',', $module->emails) as $mail)
                             Yii::app()->mail->send($feedback->email, $mail, $form->theme, $emailBody);
 
                         if ($module->sendConfirmation)
@@ -93,25 +99,31 @@ class ContactController extends YFrontController
 
                         Yii::log(Yii::t('feedback', 'Обращение пользователя отправлено на email!'), CLogger::LEVEL_INFO, FeedbackModule::$logCategory);
 
-                        Yii::app()->user->setFlash(YFlashMessages::NOTICE_MESSAGE, Yii::t('feedback', 'Ваше сообщение отправлено! Спасибо!'));
+                        Yii::app()->user->setFlash(
+                            YFlashMessages::NOTICE_MESSAGE,
+                            Yii::t('feedback', 'Ваше сообщение отправлено! Спасибо!')
+                        );
 
-                        if(Yii::app()->request->isAjaxRequest)
+                        if (Yii::app()->request->isAjaxRequest)
                             Yii::app()->ajax->success(Yii::t('feedback', 'Ваше сообщение отправлено! Спасибо!'));
 
                         $this->redirect($module->successPage ? array($module->successPage) : array('/feedback/contact'));
                     }
                 }
 
-                Yii::app()->user->setFlash(YFlashMessages::ERROR_MESSAGE, Yii::t('feedback', 'Сообщение отправить невозможно!'));
+                Yii::app()->user->setFlash(
+                    YFlashMessages::ERROR_MESSAGE,
+                    Yii::t('feedback', 'Сообщение отправить невозможно!')
+                );
 
-                if(Yii::app()->request->isAjaxRequest)
+                if (Yii::app()->request->isAjaxRequest)
                     Yii::app()->ajax->failure(Yii::t('feedback', 'Сообщение отправить невозможно!'));
 
                 $this->redirect(array('/feedback/contact'));
             }
             else
             {
-                if(Yii::app()->request->isAjaxRequest)
+                if (Yii::app()->request->isAjaxRequest)
                     Yii::app()->ajax->failure(Yii::t('feedback', 'Пожалуйста, заполните форму корректно и проверьте правильность E-mail адреса.'));
             }
         }
@@ -127,47 +139,50 @@ class ContactController extends YFrontController
     private function feedbackConfirmationEmail(FeedBack $model)
     {
         $emailBody = $this->renderPartial('feedbackConfirmationEmail', array('model' => $model), true);
-        $result = Yii::app()->mail->send(Yii::app()->getModule('feedback')->notifyEmailFrom, $model->email, Yii::t('feedback', 'Ваше обращение на сайте "{site}" получено!',array('{site}' => Yii::app()->name)), $emailBody);
+        $result = Yii::app()->mail->send(
+            Yii::app()->getModule('feedback')->notifyEmailFrom,
+            $model->email,
+            Yii::t('feedback', 'Ваше обращение на сайте "{site}" получено!', array('{site}' => Yii::app()->name)),
+            $emailBody
+        );
+
         if ($result)
             Yii::log(Yii::t('feedback', 'Обращение пользователя: подтверждение пользователю на email отослано.'), CLogger::LEVEL_INFO, FeedbackModule::$logCategory);
         else
             Yii::log(Yii::t('feedback', 'Обращение пользователя: не удалось отправить подтверждение.'), CLogger::LEVEL_INFO, FeedbackModule::$logCategory);
+
         return $result;
     }
 
     // отобразить сообщения с сайта с признаком is_faq
+    // @TODO CActiveDataProvider перенести в модуль
     public function actionFaq()
     {
-        $dataProvider = new CActiveDataProvider('FeedBack',array(
-            'criteria'  => array(
-                'condition' => 'is_faq = :is_faq AND (status = :sended OR status = :finished)',
-                'params'    => array(
-                    ':is_faq'   => FeedBack::IS_FAQ,
-                    ':sended'   => FeedBack::STATUS_ANSWER_SENDED,
-                    ':finished' => FeedBack::STATUS_FINISHED
-                ),
-                'order' => 'id DESC'
-             )
-        ));
+        $dataProvider = new CActiveDataProvider('FeedBack', array('criteria'  => array(
+            'condition' => 'is_faq = :is_faq AND (status = :sended OR status = :finished)',
+            'params'    => array(
+                ':is_faq'   => FeedBack::IS_FAQ,
+                ':sended'   => FeedBack::STATUS_ANSWER_SENDED,
+                ':finished' => FeedBack::STATUS_FINISHED,
+            ),
+            'order'     => 'id DESC',
+        )));
 
-        $this->render('faq', array(
-            'dataProvider' => $dataProvider,
-        ));
+        $this->render('faq', array('dataProvider' => $dataProvider));
     }
-
 
     public function actionFaqView($id)
     {
-        $id = (int)$id;
+        $id = (int) $id;
 
-        if(!$id)
-            throw new CHttpException(404,Yii::t('feedback','Страница не найдена!'));
+        if (!$id)
+            throw new CHttpException(404, Yii::t('feedback', 'Страница не найдена!'));
 
         $model = FeedBack::model()->answered()->faq()->findByPk($id);
 
-        if(!$model)
-            throw new CHttpException(404,Yii::t('feedback','Страница не найдена!'));
+        if (!$model)
+            throw new CHttpException(404, Yii::t('feedback', 'Страница не найдена!'));
 
-        $this->render('faqView',array('model' => $model));
+        $this->render('faqView', array('model' => $model));
     }
 }

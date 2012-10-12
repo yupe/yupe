@@ -110,7 +110,10 @@ class FeedBack extends YModel
         $criteria->compare('status', $this->status);
         $criteria->compare('ip', $this->ip);
 
-        return new CActiveDataProvider(get_class($this), array('criteria' => $criteria));
+        return new CActiveDataProvider(get_class($this), array(
+            'criteria' => $criteria,
+            'sort'     => array('defaultOrder' => 'status ASC, change_date ASC'),
+        ));
     }
 
     public function beforeValidate()
@@ -122,7 +125,7 @@ class FeedBack extends YModel
             $this->creation_date = $this->change_date;
             $this->ip = Yii::app()->request->userHostAddress;
 
-            if(!$this->type)
+            if (!$this->type)
                 $this->type = self::TYPE_DEFAULT;
         }
 
@@ -143,7 +146,7 @@ class FeedBack extends YModel
             'faq'      => array(
                 'condition' => 'is_faq = :is_faq',
                 'params'    => array(':is_faq' => self::IS_FAQ),
-            )
+            ),
         );
     }
 
