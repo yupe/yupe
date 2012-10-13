@@ -1,12 +1,12 @@
 <?php
 $this->breadcrumbs = array(
-	$this->module->getCategory() => array('admin'),
+    $this->module->getCategory() => array('admin'),
     Yii::t('feedback', 'Сообщения с сайта') => array('admin'),
     Yii::t('feedback', 'Добавление сообщения'),
 );
 
 $this->menu = array(
-    array('icon' => 'list-alt','label' => Yii::t('feedback', 'Управление сообщениями'), 'url' => array('/feedback/default/admin')),
+    array('icon' => 'list-alt', 'label' => Yii::t('feedback', 'Управление сообщениями'), 'url' => array('/feedback/default/admin')),
     array('icon' => 'plus-sign white', 'label' => Yii::t('feedback', 'Добавить сообщение'), 'url' => array('/feedback/default/create')),
 );
 ?>

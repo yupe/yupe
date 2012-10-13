@@ -8,8 +8,8 @@ $this->breadcrumbs = array(
 );
 
 $this->menu = array(
-    array('icon' => 'list-alt white','label' => Yii::t('feedback', 'Управление сообщениями'), 'url' => array('/feedback/default/admin')),
-    array('icon' => 'plus-sign','label' => Yii::t('feedback', 'Добавить сообщение'), 'url' => array('/feedback/default/create')),
+    array('icon' => 'list-alt white', 'label' => Yii::t('feedback', 'Управление сообщениями'), 'url' => array('/feedback/default/admin')),
+    array('icon' => 'plus-sign', 'label' => Yii::t('feedback', 'Добавить сообщение'), 'url' => array('/feedback/default/create')),
 
 );
 Yii::app()->clientScript->registerScript('search', "
@@ -53,11 +53,9 @@ $this->renderPartial('_search', array('model' => $model));
 
 
 <?php
-    $dp = $model->search();
-    $dp->criteria->order = 'status ASC, change_date ASC';
     $this->widget('YCustomGridView', array(
         'id' => 'feed-back-grid',
-        'dataProvider' => $dp,
+        'dataProvider' => $model->search(),
         'itemsCssClass' => ' table table-condensed',
         'columns' => array(
             array(
@@ -77,13 +75,13 @@ $this->renderPartial('_search', array('model' => $model));
             'phone',
             array(
                 'name' => 'creation_date',
-                'value' => "Yii::app()->dateFormatter->formatDateTime(\$data->creation_date,'short')",
+                'value' => "Yii::app()->dateFormatter->formatDateTime(\$data->creation_date, 'short')",
             ),
             array(
                 'name' => 'status',
                 'type' => 'raw',
-                'value' => "'<span class=\"label label-'.(\$data->status?((\$data->status==1)?'warning':((\$data->status==3)?'success':'default')):'info').'\">' . \$data->getStatus().'</span>'",
-                'filter' => CHtml::activeDropDownList($model, 'status', $model->getTypeList()),
+                'value' => "'<span class=\"label label-' . (\$data->status ? ((\$data->status == 1) ? 'warning' : ((\$data->status==3)?  'success' : 'default')) : 'info').'\">' . \$data->getStatus() . '</span>'",
+                'filter' => CHtml::activeDropDownList($model, 'status', $model->typeList),
             ),
             array(
                 'name' => 'is_faq',

@@ -22,24 +22,22 @@ class MenuitemController extends YBackController
         // Uncomment the following line if AJAX validation is needed
         // $this->performAjaxValidation($model);
 
-        if($mid = (int) Yii::app()->request->getQuery('mid'))
+        if ($mid = (int) Yii::app()->request->getQuery('mid'))
             $model->menu_id = $mid;
 
         if (isset($_POST['MenuItem']))
         {
             $model->attributes = $_POST['MenuItem'];
             if ($model->save())
-                $this->redirect(array(
-                    'view',
-                    'id' => $model->id,
-                ));
+                $this->redirect(array('view', 'id' => $model->id));
         }
-        
+
         $criteria = new CDbCriteria;
         $criteria->select = new CDbExpression('MAX(sort) as sort');
         $max = $model->find($criteria);
-        $model->sort = $max->sort + 1;// Set sort in Adding Form as max+1 >>
-        
+
+        $model->sort = $max->sort + 1; // Set sort in Adding Form as max+1 >>
+
         $this->render('create', array('model' => $model));
     }
 
@@ -59,10 +57,7 @@ class MenuitemController extends YBackController
         {
             $model->attributes = $_POST['MenuItem'];
             if ($model->save())
-                $this->redirect(array(
-                    'view',
-                    'id' => $model->id,
-                ));
+                $this->redirect(array('view', 'id' => $model->id));
         }
 
         $this->render('update', array('model' => $model));

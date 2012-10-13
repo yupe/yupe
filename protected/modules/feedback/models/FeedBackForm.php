@@ -19,7 +19,7 @@ class FeedBackForm extends CFormModel
             array('theme', 'length', 'max' => 150),
             array('email', 'email'),
             array('verifyCode', 'YRequiredValidator', 'allowEmpty' => !$module->showCaptcha || Yii::app()->user->isAuthenticated()),
-            array('verifyCode', 'captcha', 'allowEmpty' => !$module->showCaptcha || Yii::app()->user->isAuthenticated())
+            array('verifyCode', 'captcha', 'allowEmpty' => !$module->showCaptcha || Yii::app()->user->isAuthenticated()),
         );
     }
 

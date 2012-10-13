@@ -157,7 +157,9 @@ class MenuItem extends YModel
             $module = Yii::app()->getModule($key);
 
             if (($module !== NULL) && is_a($module, 'YWebModule'))
+            {
                 if ($module->getIsShowInAdminMenu() || $module->getEditableParams() || ($module->getIsShowInAdminMenu() == false && is_array($module->checkSelf())))
+                {
                     if (isset($module->conditions))
                     {
                         $conditionsList = array();
@@ -166,6 +168,8 @@ class MenuItem extends YModel
 
                         $conditions = array_merge($conditions, $conditionsList);
                     }
+                }
+            }
         }
 
         return $conditions;

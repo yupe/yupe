@@ -98,7 +98,7 @@ class Menu extends YModel
 
         return new CActiveDataProvider(get_class($this), array(
             'criteria' => $criteria,
-            'sort' => array('defaultOrder' => 'status DESC, id'),
+            'sort'     => array('defaultOrder' => 'status DESC, id'),
         ));
     }
 
