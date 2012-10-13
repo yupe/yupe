@@ -15,9 +15,6 @@ $this->breadcrumbs = array(
                                                   'itemView' => '_view',
                                              )); ?>
 
-<?php echo CHtml::link('ЗАДАЙТЕ ВОПРОС',array('/feedback/contact/'));?> <br/><br/>
-
-
 <div style='float:left;padding-right:5px'>
     <?php $this->widget('application.modules.social.widgets.ysc.yandex.YandexShareApi', array(
     'type' => 'button',

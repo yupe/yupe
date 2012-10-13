@@ -62,16 +62,3 @@ $this->breadcrumbs = array('Регистрация новго пользоват
 
     <?php $this->endWidget(); ?>
 </div><!-- form -->
-
-<!-- <?php  $this->widget('application.modules.social.extensions.eauth.EAuthWidget',array('action' => '/social/social/login/'));?> -->
-
-<br/><br/><br/><br/><br/><br/><br/><br/>
-
-<div style='float:left;'>
-    <div style='float:left;padding-right:5px'>
-        <?php $this->widget('application.modules.social.widgets.ysc.yandex.YandexShareApi', array(
-                                                                                                  'type' => 'button',
-                                                                                                  'services' => 'all'
-                                                                                             ));?>
-    </div>
-</div>

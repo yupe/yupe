@@ -18,9 +18,7 @@ if (!$this->module->autoNick)
 if ($user->gender)
     echo (($user->gender == User::GENDER_MALE) ? Yii::t("user", "Мужчина") : Yii::t("user", "Женщина")) . ". ";
 if ($user->birth_date)
-    echo Yii::t('user', 'День рождения: {birth_date}', array("
-        {birth_date}" => Yii::app()->dateFormatter->formatDateTime($user->birth_date, 'long', null)
-    ));
+    echo Yii::t('user', 'День рождения: {birth_date}', array("{birth_date}" => Yii::app()->dateFormatter->formatDateTime($user->birth_date, 'long', null)));
 ?>
 <br />
 <?php
@@ -62,8 +60,8 @@ if ($user->location)
     )); ?>
 <?php else: ?>
     <p>
-        Пожалуйста, <?php echo CHtml::link('авторизуйтесь', array('/user/account/login/')); ?> или 
-        <?php echo CHtml::link('зарегистрируйтесь', array('/user/account/registration/')); ?> 
+        Пожалуйста, <?php echo CHtml::link('авторизуйтесь', array('/user/account/login/')); ?> или
+        <?php echo CHtml::link('зарегистрируйтесь', array('/user/account/registration/')); ?>
         - только тогда можно писать на моей стене =)
     </p>
 <?php endif; ?>
