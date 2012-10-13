@@ -161,7 +161,8 @@ return array(
             'routes' => array(
                 array(
                     'class'  => 'CFileLogRoute',
-                    'levels' => 'error, warning, info',
+                    // в боевом режиме рекомендуется оставить error, warning
+                    'levels' => 'error, warning, info, trace',
                 ),
                 //профайлер запросов к базе данных, на продакшн серверах рекомендуется отключить
                 array(
