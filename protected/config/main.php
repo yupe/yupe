@@ -179,5 +179,6 @@ return array(
         'onBeginRequest' => array('class' => 'application.modules.yupe.extensions.urlManager.LanguageBehavior'),
         'YupeStartUpBehavior',
     ),
+    
     'params' => @require(dirname(__FILE__) . '/params.php'),
 );
