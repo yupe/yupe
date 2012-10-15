@@ -102,14 +102,14 @@ class DefaultController extends Controller
                 false,
                 extension_loaded("memcache"),
                 '<a href="http://www.yiiframework.com/doc/api/CMemCache">CMemCache</a>',
-                Yii::t('install', 'Используется для хэширования, <b>необязательно</b>.'),
+                Yii::t('install', 'Используется для кэширования, <b>необязательно</b>.'),
             ),
             array(
                 Yii::t('install', 'APC extension'),
                 false,
                 extension_loaded("apc"),
                 '<a href="http://www.yiiframework.com/doc/api/CApcCache">CApcCache</a>',
-                Yii::t('install', '<b>Необязательно</b>.'),
+                Yii::t('install', 'Акселератор PHP — программа, ускоряющая исполнение сценариев PHP интерпретатором путём кэширования их байткода. <b>Необязательно</b>.'),
             ),
             array(
                 Yii::t('install', 'Mcrypt extension'),
@@ -218,7 +218,7 @@ class DefaultController extends Controller
                             $tables = Yii::app()->db->schema->getTables();
                             foreach ($tables as $table)
                             {
-                                if (strpos($table->name, $form->tablePrefix . '_') === 0)
+                                if (strpos($table->name, $form->tablePrefix) === 0)
                                     $issetTable = true;
                             }
 
@@ -253,7 +253,7 @@ class DefaultController extends Controller
                                 YFlashMessages::ERROR_MESSAGE,
                                 Yii::t('install', 'При инициализации базы данных произошла ошибка!')
                             );
-                            
+                            var_dump($e);
                             Yii::log($e->getMessage(), CLogger::LEVEL_ERROR);
 
                             $this->redirect(array('/install/default/dbsettings/'));
