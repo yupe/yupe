@@ -1,12 +1,18 @@
 <?php
 class DefaultController extends YBackController
 {
-    public $layout = 'application.modules.install.views.layouts.main';
     public $stepName;
     private $alreadyInstalledFlag;
 
+    public function filters()
+    {
+        return array();
+    }
+
     public function init()
     {
+        parent::init();
+        $this->layout = 'application.modules.install.views.layouts.main';
         $this->alreadyInstalledFlag = Yii::app()->basePath . '/config/' . '.ai';
     }
 

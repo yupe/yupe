@@ -1,33 +1,45 @@
-<div class="form">
+<?php
+$form = $this->beginWidget('bootstrap.widgets.TbActiveForm', array(
+    'id'                     => 'sitesettings-form',
+    'enableAjaxValidation'   => false,
+    'enableClientValidation' => true,
+    'type'                   => 'vertical',
+    'inlineErrors'           => true,
+));
 
-    <?php echo CHtml::beginForm(); ?>
+Yii::app()->clientScript->registerScript('fieldset', "
+    $('document').ready(function () {
+        $('.popover-help').popover({ trigger : 'hover', 'delay' : 500 });
+    });
+");
+?>
 
-    <?php echo CHtml::errorSummary($model); ?>
+    <?php echo $form->errorSummary($model); ?>
 
-    <div class="row">
-        <?php echo CHtml::activeLabel($model, 'email'); ?>
-        <?php echo CHtml::activeTextField($model, 'email') ?>
+    <div class="row-fluid control-group <?php echo $model->hasErrors('email') ? 'error' : ''; ?>">
+        <?php echo $form->textFieldRow($model, 'email', array('class' => 'popover-help span7', 'maxlength' => 150, 'size' => 60, 'data-original-title' => $model->getAttributeLabel('email'), 'data-content' => $model->getAttributeDescription('email'))); ?>
     </div>
 
-    <div class="row">
-        <?php echo CHtml::activeLabel($model, 'siteName'); ?>
-        <?php echo CHtml::activeTextField($model, 'siteName') ?>
+    <div class="row-fluid control-group <?php echo $model->hasErrors('siteName') ? 'error' : ''; ?>">
+        <?php echo $form->textFieldRow($model, 'siteName', array('class' => 'popover-help span7', 'maxlength' => 150, 'size' => 60, 'data-original-title' => $model->getAttributeLabel('siteName'), 'data-content' => $model->getAttributeDescription('siteName'))); ?>
     </div>
 
-    <div class="row">
-        <?php echo CHtml::activeLabel($model, 'siteDescription'); ?>
-        <?php echo CHtml::activeTextArea($model, 'siteDescription', array('rows' => 10, 'cols' => 50)); ?>
+    <div class="row-fluid control-group <?php echo $model->hasErrors('siteDescription') ? 'error' : ''; ?>">
+        <?php echo $form->textAreaRow($model, 'siteDescription', array('class' => 'span7 popover-help', 'rows' => 6, 'cols' => 50, 'data-original-title' => $model->getAttributeLabel('siteDescription'), 'data-content' => $model->getAttributeDescription('siteDescription'))); ?>
     </div>
 
-    <div class="row">
-        <?php echo CHtml::activeLabel($model, 'siteKeyWords'); ?>
-        <?php echo CHtml::activeTextArea($model, 'siteKeyWords', array('rows' => 10, 'cols' => 50)); ?>
+    <div class="row-fluid control-group <?php echo $model->hasErrors('siteKeyWords') ? 'error' : ''; ?>">
+        <?php echo $form->textAreaRow($model, 'siteKeyWords', array('class' => 'span7 popover-help', 'rows' => 6, 'cols' => 50, 'data-original-title' => $model->getAttributeLabel('siteKeyWords'), 'data-content' => $model->getAttributeDescription('siteKeyWords'))); ?>
     </div>
 
-    <div class="row submit">
-        <?php echo CHtml::submitButton('Продолжить >>>');?>
-    </div>
+    <?php $this->widget('bootstrap.widgets.TbButton', array(
+        'label' => Yii::t('install', '< Назад'),
+        'url'   => array('default/createuser'),
+    )); ?>
+    <?php $this->widget('bootstrap.widgets.TbButton', array(
+        'buttonType' => 'submit',
+        'type'       => 'primary',
+        'label'      => Yii::t('install', 'Продолжить >'),
+    )); ?>
 
-    <?php echo CHtml::endForm(); ?>
-</div><!-- form -->
-
+<?php $this->endWidget(); ?>
