@@ -1,5 +1,5 @@
 <?php
-class DefaultController extends Controller
+class DefaultController extends YBackController
 {
     public $layout = 'application.modules.install.views.layouts.main';
     public $stepName;
@@ -12,7 +12,7 @@ class DefaultController extends Controller
 
     protected function beforeAction($action)
     {
-        // Проверяем установку сайта       
+        // Проверяем установку сайта
         if (file_exists($this->alreadyInstalledFlag))
             throw new CHttpException(404, Yii::t('install', 'Страница не найдена!'));
 

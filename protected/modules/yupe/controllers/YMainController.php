@@ -16,7 +16,7 @@ class YMainController extends Controller
     public function init()
     {
         parent::init();
-        
-        $this->yupe = Yii::app()->getModule('yupe');        
+
+        $this->yupe = Yii::app()->getModule('yupe');
     }
 }
