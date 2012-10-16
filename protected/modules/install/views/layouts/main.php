@@ -53,9 +53,9 @@
     ));
     ?>
 
-    <div class="container-fluid" id="page">
-        <div class="row-fluid"> 
-            <div class="span4 offset4 well">
+    <div class="container" id="page">
+        <div class="row"> 
+            <div class="span8 offset2 well">
                 <?php
                 if (count($this->breadcrumbs))
                     $this->widget('bootstrap.widgets.TbBreadcrumbs', array('links' => $this->breadcrumbs));
