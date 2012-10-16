@@ -1,5 +1,5 @@
 <?php
-class CreateUserForm extends CFormModel
+class CreateUserForm extends YFormModel
 {
     public $userName;
     public $password;
@@ -23,6 +23,16 @@ class CreateUserForm extends CFormModel
             'email'     => Yii::t('install', 'Email'),
             'password'  => Yii::t('install', 'Пароль'),
             'cPassword' => Yii::t('install', 'Подтверждение пароля'),
+        );
+    }
+
+    public function attributeDescriptions()
+    {
+        return array(
+            'userName'  => Yii::t('install', 'Логин администратора сайта.'),
+            'email'     => Yii::t('install', 'Email администратора сайта. Используется для авторизации в панели управления.'),
+            'password'  => Yii::t('install', 'Пароль администратора сайта.'),
+            'cPassword' => Yii::t('install', 'Подтверждение пароля администратора сайта.'),
         );
     }
 }
