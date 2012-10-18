@@ -35,12 +35,12 @@ class DbSettingsForm extends YFormModel
     public function attributeDescriptions()
     {
         return array(
-            'host'     => Yii::t('install', 'Домен и ip-адрес используемый для доступа к БД.'),
-            'port'     => Yii::t('install', 'Порт mysql-сервер.'),
-            'socket'   => Yii::t('install', 'Путь к mysql. Заполнение не обязательно.'),
-            'dbName'   => Yii::t('install', 'Имя БД на mysql-сервере.'),
-            'user'     => Yii::t('install', 'Пользователь для доступа к указанной БД.'),
-            'password' => Yii::t('install', 'Пароль для доступа к указанной БД.'),
+            'host'     => Yii::t('install', 'Домен и ip-адрес используемый для доступа к БД'),
+            'port'     => Yii::t('install', 'Порт mysql-сервер'),
+            'socket'   => Yii::t('install', 'Путь к mysql'),
+            'dbName'   => Yii::t('install', 'Имя БД на mysql-сервере'),
+            'user'     => Yii::t('install', 'Пользователь для доступа к указанной БД'),
+            'password' => Yii::t('install', 'Пароль для доступа к указанной БД'),
         );
     }
 }

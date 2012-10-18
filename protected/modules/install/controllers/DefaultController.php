@@ -246,7 +246,7 @@ class DefaultController extends YBackController
 
                             Yii::app()->user->setFlash(
                                 YFlashMessages::NOTICE_MESSAGE,
-                                Yii::t('install', 'База данных успешно заполнена!')
+                                Yii::t('install', 'База данных успешно создана!')
                             );
 
                             $this->redirect(array('/install/default/createuser/'));
