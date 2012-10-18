@@ -33,23 +33,25 @@ Yii::app()->clientScript->registerScript('search', "
     <span class="caret">&nbsp;</span>
 </button>
 
-<div id="search-toggle" class="collapse out search-form">
-<?php
-Yii::app()->clientScript->registerScript('search', "
-    $('.search-form form').submit(function() {
-        $.fn.yiiGridView.update('blog-grid', {
-            data: $(this).serialize()
-        });
-        return false;
-    });
+<div id="search-toggle" class="collapse out">
+ <?php
+    Yii::app()->clientScript->registerScript('search', "
+$('.search-form form').submit(function(){
+$.fn.yiiGridView.update('category-grid', {
+data: $(this).serialize()
+});
+return false;
+});
 ");
-$this->renderPartial('_search', array('model' => $model));
-?>
+    $this->renderPartial('_search', array(
+        'model' => $model,
+    ));
+    ?>
 </div>
 
 <br/>
 
-<p><?php echo Yii::t('feedback', 'В данном разделе представлены средства управления сообщенияами'); ?></p>
+<p><?php echo Yii::t('feedback', 'В данном разделе представлены средства управления сообщениями с сайта'); ?></p>
 
 
 <?php

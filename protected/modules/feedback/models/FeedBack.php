@@ -109,6 +109,7 @@ class FeedBack extends YModel
         $criteria->compare('type', $this->type);
         $criteria->compare('status', $this->status);
         $criteria->compare('ip', $this->ip);
+        $criteria->compare('is_faq', $this->is_faq);
 
         return new CActiveDataProvider(get_class($this), array(
             'criteria' => $criteria,

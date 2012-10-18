@@ -27,7 +27,7 @@
                         'type'=>'primary',
                         'encodeLabel' => false,
                         'buttonType' => 'submit',
-                        'label'=>'<i class="icon-search icon-white"></i> '.Yii::t('yupe','Искать'),
+                        'label'=>'<i class="icon-search icon-white"></i> '.Yii::t('category','Искать'),
                 )); ?>
 	
 
