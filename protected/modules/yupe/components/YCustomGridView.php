@@ -49,12 +49,17 @@ class YCustomGridView extends TbGridView
             reset($statusList);
             $status = key($statusList);
             while (list($key, $val) = each($statusList))
+            {
                 if ($key == $data->$statusField)
-                    if(($keyNext = key($statusList)))
+                {
+                    $keyNext = key($statusList);
+                    if(is_numeric($keyNext))
                     {
                         $status = $keyNext;
                         break;
                     }
+                }
+            }
 
             $url = Yii::app()->controller->createUrl("activate", array(
                 'model'       => $this->modelName,
