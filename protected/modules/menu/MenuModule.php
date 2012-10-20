@@ -2,7 +2,8 @@
 class MenuModule extends YWebModule
 {
     public $defaultController = 'menu';
-
+    public $menuCache = 'menu.cache';    
+    
     public function getCategory()
     {
         return Yii::t('menu', 'Структура');

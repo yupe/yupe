@@ -21,6 +21,7 @@ class MenuItem extends YModel
 {
     const STATUS_DISABLED = 0;
     const STATUS_ACTIVE   = 1;
+
     /**
      * Returns the static model of the specified AR class.
      * @param string $className active record class name.
@@ -203,5 +204,15 @@ class MenuItem extends YModel
     {
         $data = $this->conditionList;
         return (isset($data[$this->condition_name])) ? $data[$this->condition_name] . (($this->condition_name == '') ? '' : ' (' . $this->conditionDenial . ')') : Yii::t('menu', '*неизвестно*');
+    }
+
+    protected function afterSave()
+    {
+        Yii::app()->setGlobalState(Yii::app()->getModule('menu')->menuCache, YII_BEGIN_TIME);        
+    }
+
+    protected function afterDelete()
+    {
+        Yii::app()->setGlobalState(Yii::app()->getModule('menu')->menuCache, YII_BEGIN_TIME);
     }
 }

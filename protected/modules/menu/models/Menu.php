@@ -119,7 +119,8 @@ class Menu extends YModel
     // @todo добавить кэширование
     public function getItems($code, $parent_id = 0)
     {
-        $results = $this->cache(Yii::app()->getModule('yupe')->coreCacheTime)->with(array('menuItems' => array(
+        $dependency = new CGlobalStateCacheDependency(Yii::app()->getModule('menu')->menuCache);
+        $results = self::model()->cache(Yii::app()->getModule('yupe')->coreCacheTime,$dependency,2)->with(array('menuItems' => array(
             'on'     => 'menuItems.parent_id = :parent_id AND menuItems.status = 1',
             'params' => array('parent_id' => (int) $parent_id),
             'order'  => 'menuItems.sort ASC, menuItems.id ASC',
@@ -153,5 +154,15 @@ class Menu extends YModel
             );
         }
         return $items;
+    }
+
+    protected function afterSave()
+    {
+        Yii::app()->setGlobalState(Yii::app()->getModule('yupe')->menuCache, YII_BEGIN_TIME);        
+    }
+
+    protected function afterDelete()
+    {
+        Yii::app()->setGlobalState(Yii::app()->getModule('yupe')->menuCache, YII_BEGIN_TIME);
     }
 }
