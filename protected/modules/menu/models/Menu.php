@@ -158,11 +158,11 @@ class Menu extends YModel
 
     protected function afterSave()
     {
-        Yii::app()->setGlobalState(Yii::app()->getModule('yupe')->menuCache, YII_BEGIN_TIME);        
+        Yii::app()->setGlobalState(Yii::app()->getModule('menu')->menuCache, YII_BEGIN_TIME);        
     }
 
     protected function afterDelete()
     {
-        Yii::app()->setGlobalState(Yii::app()->getModule('yupe')->menuCache, YII_BEGIN_TIME);
+        Yii::app()->setGlobalState(Yii::app()->getModule('menu')->menuCache, YII_BEGIN_TIME);
     }
 }
