@@ -1,7 +1,7 @@
 <?php
 class YDbQueue extends YQueue
 {
-    public $queueTableName = 'queue';
+    public $queueTableName = 'yupe_queue';
     public $connectionId;
     public $workerNamesMap;
     private $_db;

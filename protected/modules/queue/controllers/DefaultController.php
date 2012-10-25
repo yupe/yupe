@@ -27,9 +27,19 @@ class DefaultController extends YBackController
         if (isset($_POST['Queue']))
         {
             $model->attributes = $_POST['Queue'];
+
             if ($model->save())
-                $this->redirect(array('view',
-                    'id'=> $model->id));
+            {
+                Yii::app()->user->setFlash(
+                    YFlashMessages::NOTICE_MESSAGE,
+                    Yii::t('queue', 'Запись добавлена!')
+                );
+
+                if (!isset($_POST['submit-type']))
+                    $this->redirect(array('update', 'id' => $model->id));
+                else
+                    $this->redirect(array($_POST['submit-type']));
+            }
         }
 
         $this->render('create', array(
@@ -51,8 +61,19 @@ class DefaultController extends YBackController
         if (isset($_POST['Queue']))
         {
             $model->attributes = $_POST['Queue'];
+
             if ($model->save())
-                $this->redirect(array('update','id' => $model->id));
+            {
+                Yii::app()->user->setFlash(
+                    YFlashMessages::NOTICE_MESSAGE,
+                    Yii::t('queue', 'Запись обновлена!')
+                );
+
+                if (!isset($_POST['submit-type']))
+                    $this->redirect(array('update', 'id' => $model->id));
+                else
+                    $this->redirect(array($_POST['submit-type']));
+            }
         }
 
         $this->render('update', array(

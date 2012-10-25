@@ -28,12 +28,9 @@
     <b><?php echo CHtml::encode($data->getAttributeLabel('status')); ?>:</b>
     <?php echo CHtml::encode($data->status); ?>
     <br/>
-
-    <?php /*
-	<b><?php echo CHtml::encode($data->getAttributeLabel('error')); ?>:</b>
-	<?php echo CHtml::encode($data->error); ?>
-	<br />
-
-	*/ ?>
+   
+    <b><?php echo CHtml::encode($data->getAttributeLabel('error')); ?>:</b>
+    <?php echo CHtml::encode($data->error); ?>
+    <br />
 
 </div>

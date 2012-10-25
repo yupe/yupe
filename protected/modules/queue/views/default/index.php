@@ -1,25 +1,25 @@
 <?php
 $this->breadcrumbs = array(
     $this->module->getCategory() => array('admin'),
-    'Задания'=> array('index'),
-    'Управление',
+    Yii::t('queue','Задания')=> array('index'),
+    Yii::t('queue','Список'),
 );
 
-$this->pageTitle   = "задания - управление";
+$this->pageTitle   = Yii::t('queue',"Задания - Список");
 $this->menu        = array(
     array('icon'  => 'list-alt white',
-          'label' => 'Управление заданиями',
+          'label' => Yii::t('queue','Список заданий'),
           'url'   => array('/queue/default/index')),
-    array('icon'  => 'file',
-          'label' => 'Добавить задание',
+    array('icon'  => 'plus-sign',
+          'label' => Yii::t('queue','Добавить задание'),
           'url'   => array('/queue/default/create')),
 );
 ?>
-<div class="page-header"><h1>Задания <small>управление</small></h1></div>
+<div class="page-header"><h1><?php echo Yii::t('queue','Задания')?> <small><?php echo Yii::t('queue','Список');?></small></h1></div>
 <button class="btn btn-small dropdown-toggle"
         data-toggle="collapse"
         data-target="#search-toggle">
-    <a class="search-button" href="#">Поиск заданий</a> <span class="caret"></span>
+    <a class="search-button" href="#"><?php echo Yii::t('queue','Поиск заданий');?></a> <span class="caret"></span>
 </button>
 
 <div id="search-toggle" class="collapse out">
@@ -37,7 +37,9 @@ $this->menu        = array(
     ?>
 </div>
 
-<p>В данном разделе представлены средства управления заданиями.</p>
+<br/>
+
+<p><?php echo Yii::t('queue','В данном разделе представлены средства управления заданиями');?></p>
 
 <?php
 $dp = $model->search();

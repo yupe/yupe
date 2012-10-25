@@ -1,7 +1,11 @@
 <?php $form = $this->beginWidget('bootstrap.widgets.TbActiveForm', array(
     'action'=> Yii::app()->createUrl($this->route),
     'method'=> 'get',
+    'type'=>'vertical',
+    'htmlOptions' => array('class' => 'well form-vertical')
 )); ?>
+
+<fieldset class="inline"> 
 
 <?php echo $form->textFieldRow($model, 'id', array('class' => 'span5', 'maxlength'=> 10)); ?>
 
@@ -19,10 +23,12 @@
 
 <?php echo $form->textFieldRow($model, 'notice', array('class' => 'span5', 'maxlength'=> 300)); ?>
 
+</fieldset>    
+
 <div class="form-actions">
 <?php $this->widget('bootstrap.widgets.TbButton', array(
     'type' => 'primary',
-    'label'=> 'Search',
+    'label'=> Yii::t('queue','Искать'),
 )); ?>
 </div>
 

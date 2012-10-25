@@ -121,9 +121,9 @@ class YupeModule extends YWebModule
     {
         return array(
             'coreCacheTime',
-            'theme',
+            'theme' => $this->getThemes(),
             'backendLayout',
-            'backendTheme',
+            'backendTheme' => $this->getThemes(true),
             'siteName',
             'siteDescription',
             'siteKeyWords',
@@ -132,9 +132,19 @@ class YupeModule extends YWebModule
             'editor' => $this->getEditors(),
             'email',
             'availableLanguages',
-            'defaultLanguage',
-            'defaultBackendLanguage',
+            'defaultLanguage' => $this->getLanguagesList(),
+            'defaultBackendLanguage' => $this->getLanguagesList(),
         );
+    }
+    
+    protected function getLanguagesList()
+    {
+        $langs = array();
+        
+        foreach (explode(',',$this->availableLanguages) as $lang)
+                $langs[$lang] = Yii::app()->locale->getLocaleDisplayName($lang);
+        
+        return $langs;
     }
 
     public function getAdminPageLink()
@@ -154,7 +164,7 @@ class YupeModule extends YWebModule
 
     public function getCategory()
     {
-        return Yii::t('yupe', 'Система');
+        return Yii::t('yupe', 'Юпи!');
     }
 
     public function getName()
@@ -203,16 +213,16 @@ class YupeModule extends YWebModule
 
         $this->categoryIcon  = array(
             Yii::t('yupe','Сервисы') => 'briefcase',
-            self::OTHER_CATEGORY     => 'inbox',
+            self::OTHER_CATEGORY     => 'cog',
         );
 
         $this->categorySort  = array(
             Yii::t('yupe', 'Контент'),
             Yii::t('yupe', 'Структура'),
             Yii::t('yupe', 'Пользователи'),
-            Yii::t('yupe', 'Сервисы'),
-            Yii::t('yupe', 'Система'),
+            Yii::t('yupe', 'Сервисы'),            
             Yii::t('yupe', 'Остальное'),
+            Yii::t('yupe', 'Юпи!'),
         );
     }
 
