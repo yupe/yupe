@@ -1,0 +1,76 @@
+<?php
+$this->breadcrumbs=array(
+    $this->module->getCategory() => array('index'),
+    Yii::t('mail','Почтовые события')=>array('/mail/eventAdmin/'),
+    Yii::t('mail','Почтовые шаблоны')=>array('index'),
+    Yii::t('mail','Управление'),
+);
+$this-> pageTitle = Yii::t('mail','Список почтовых шаблонов');
+$this->menu=array(
+    array('label' => Yii::t('menu', 'Почтовые шаблоны')),  
+    array('icon'=> 'list-alt', 'label' => Yii::t('mail','Список шаблонов'),'url'=>array('/mail/templateAdmin/index')),
+    array('icon'=> 'plus-sign','label' => Yii::t('mail','Добавить шаблон'), 'url' => array('/mail/templateAdmin/create')),    
+    array('label' => Yii::t('menu', 'Почтовые события')),    
+    array('icon'=> 'list-alt', 'label' => Yii::t('mail','Список событий'),'url'=>array('/mail/eventAdmin/index')),
+    array('icon'=> 'plus-sign','label' => Yii::t('mail','Добавить событие'), 'url' => array('/mail/eventAdmin/create')),
+ 
+);
+?>
+<div class="page-header">
+    <h1><?php echo Yii::t('mail','Почтовые шаблоны');?> <small><?php echo Yii::t('mail','управление');?></small></h1>
+</div>
+<button class="btn btn-small dropdown-toggle"
+        data-toggle="collapse"
+        data-target="#search-toggle" >
+    <a class="search-button" href="#"><?php echo Yii::t('mail','Поиск почтовых шаблонов');?></a>    <span class="caret"></span>
+</button>
+
+<div id="search-toggle" class="collapse out">
+<?php Yii::app()->clientScript->registerScript('search', "
+    $('.search-form form').submit(function() {
+        $.fn.yiiGridView.update('mail-template-grid', {
+            data: $(this).serialize()
+        });
+        return false;
+    });
+");
+$this->renderPartial('_search', array('model'=>$model));
+?>
+</div>
+
+<br/>
+
+<p>
+    <?php echo Yii::t('mail','В данном разделе представлены средства управления почтовыми шаблонами'); ?>
+</p>
+
+<?php
+$dp = $model->search();
+//$dp-> sort-> defaultOrder = "";
+$this->widget('bootstrap.widgets.TbGridView',array(
+    'id'=>'mail-template-grid',
+    'type'=>'condensed ',
+    'pager'=>array('class'=>'bootstrap.widgets.TbPager', 'prevPageLabel'=>"←",'nextPageLabel'=>"→"),
+    'dataProvider'=>$dp,
+    'filter'=>$model,
+    'columns'=>array(
+        'id',
+        'code',
+        array(
+            'name'   => 'event_id',
+            'value'  => '$data->event->name',
+            'filter' => CHtml::listData(MailEvent::model()->findAll(),'id','name')
+        ),
+        'name',
+        'theme',
+        'from',
+        'to',
+        array(
+            'name'   => 'status',
+            'value'  => '$data->getStatus()',
+        ),
+        array(
+            'class'=>'bootstrap.widgets.TbButtonColumn',
+        ),
+    ),
+)); ?>

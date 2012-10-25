@@ -1,30 +1,29 @@
 <?php
 $this->breadcrumbs=array(
-    $this->module->getCategory() => array('admin'),
-    'Почтовые события'=>array('index'),
-    Yii::t('yupe','Управление'),
+    $this->module->getCategory() => array('index'),
+    Yii::t('mail','Почтовые события')=>array('index'),
+    Yii::t('mail','Список'),
 );
-$this-> pageTitle ="почтовые события - "."Yii::t('yupe','управление')";
-$this->menu=array(
-    array('icon'=> 'list-alt white', 'label' => Yii::t('yupe','Управление почтовыми событиями'),'url'=>array('/mail/eventAdmin/index')),
-    array('icon'=> 'file','label' => Yii::t('yupe','Добавить почтовое событие'), 'url' => array('/mail/eventAdmin/create')),
-    
-    array('label' => Yii::t('menu', 'Почтовые шаблоны')),
-    
-    array('icon'=> 'list-alt white', 'label' => Yii::t('yupe','Управление почтовыми шаблонами'),'url'=>array('/mail/templateAdmin/index')),
-    array('icon'=> 'file','label' => Yii::t('yupe','Добавить почтовый шаблон'), 'url' => array('/mail/templateAdmin/create')),
+$this-> pageTitle = Yii::t('mail','Список почтовых событий');
+$this->menu=array(    
+    array('label' => Yii::t('mail', 'Почтовые события')),
+    array('icon'=> 'list-alt white', 'label' => Yii::t('mail','Список событий'),'url'=>array('/mail/eventAdmin/index')),
+    array('icon'=> 'plus-sign','label' => Yii::t('mail','Добавить событие'), 'url' => array('/mail/eventAdmin/create')),    
+    array('label' => Yii::t('mail', 'Почтовые шаблоны')),    
+    array('icon'=> 'list-alt', 'label' => Yii::t('mail','Список шаблонов'),'url'=>array('/mail/templateAdmin/index')),
+    array('icon'=> 'plus-sign','label' => Yii::t('mail','Добавить шаблон'), 'url' => array('/mail/templateAdmin/create')),
     
     
 );
 ?>
 <div class="page-header">
-    <h1><?php echo Yii::t('yupe','почтовые события');?>    <small><?php echo Yii::t('yupe','управление');?></small>
+    <h1><?php echo Yii::t('mail','Почтовые события');?> <small><?php echo Yii::t('mail','управление');?></small>
     </h1>
 </div>
 <button class="btn btn-small dropdown-toggle"
         data-toggle="collapse"
         data-target="#search-toggle" >
-    <a class="search-button" href="#">Поиск почтовых событий</a>    <span class="caret"></span>
+    <a class="search-button" href="#"><?php echo Yii::t('mail','Поиск почтовых событий');?></a><span class="caret"></span>
 </button>
 
 <div id="search-toggle" class="collapse out">
@@ -40,7 +39,10 @@ $this->renderPartial('_search', array('model'=>$model));
 ?>
 </div>
 
-<p><?php echo Yii::t('yupe','В данном разделе представлены средства управления'); ?> <?php echo Yii::t('yupe','почтовыми событиями'); ?>.
+<br/>
+
+<p>
+    <?php echo Yii::t('mail','В данном разделе представлены средства управления почтовыми событиями'); ?>
 </p>
 
 <?php

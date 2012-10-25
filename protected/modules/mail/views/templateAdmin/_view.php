@@ -27,20 +27,12 @@
 	<b><?php echo  CHtml::encode($data->getAttributeLabel('to')); ?>:</b>
 	<?php echo  CHtml::encode($data->to); ?>
 	<br />
-
-	<?php /*
+	
 	<b><?php echo  CHtml::encode($data->getAttributeLabel('theme')); ?>:</b>
 	<?php echo  CHtml::encode($data->theme); ?>
-	<br />
-
-	<b><?php echo  CHtml::encode($data->getAttributeLabel('body')); ?>:</b>
-	<?php echo  CHtml::encode($data->body); ?>
 	<br />
 
 	<b><?php echo  CHtml::encode($data->getAttributeLabel('status')); ?>:</b>
 	<?php echo  CHtml::encode($data->status); ?>
 	<br />
-
-	*/ ?>
-
 </div>

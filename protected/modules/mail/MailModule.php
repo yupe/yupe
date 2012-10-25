@@ -51,11 +51,11 @@ class MailModule extends YWebModule
     {
         return array(
             array('label' => Yii::t('queue', 'Почтовые события')),
-            array('icon' => 'plus-sign', 'label' => Yii::t('yupe', 'Добавить почтовое событие'), 'url' => array('/mail/eventAdmin/create/')),
-            array('icon' => 'th-list', 'label' => Yii::t('yupe', 'Список почтовых событий'), 'url'=>array('/mail/eventAdmin/index/')),
-            array('label' => Yii::t('menu', 'Почтовые шаблоны')),
-            array('icon'=> 'plus-sign', 'label' => Yii::t('yupe', 'Добавить почтовый шаблон'), 'url' => array('/mail/templateAdmin/create/')),
-            array('icon'=> 'th-list', 'label' => Yii::t('yupe', 'Список почтовых шаблонов'), 'url'=>array('/mail/templateAdmin/index/')),
+            array('icon' => 'plus-sign', 'label' => Yii::t('mail', 'Добавить событие'), 'url' => array('/mail/eventAdmin/create/')),
+            array('icon' => 'th-list', 'label' => Yii::t('mail', 'Список событий'), 'url'=>array('/mail/eventAdmin/index/')),
+            array('label' => Yii::t('mail', 'Почтовые шаблоны')),
+            array('icon'=> 'plus-sign', 'label' => Yii::t('mail', 'Добавить шаблон'), 'url' => array('/mail/templateAdmin/create/')),
+            array('icon'=> 'th-list', 'label' => Yii::t('mail', 'Список шаблонов'), 'url'=>array('/mail/templateAdmin/index/')),
         );
     }
 

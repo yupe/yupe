@@ -2,132 +2,147 @@
 
 class EventAdminController extends YBackController
 {
-	/**
-	 * Отображает почтовое событие по указанному идентификатору
-	 * @param integer $id Идинтификатор почтовое событие для отображения
-	 */
-	public function actionView($id)
-	{
-		$this->render('view',array(
-			'model'=>$this->loadModel($id),
-		));
-	}
 
-	/**
-	 * Создает новую модель почтового события.
-	 * Если создание прошло успешно - перенаправляет на просмотр.
-	 */
-	public function actionCreate()
-	{
-		$model=new MailEvent;
+    /**
+     * Отображает почтовое событие по указанному идентификатору
+     * @param integer $id Идинтификатор почтовое событие для отображения
+     */
+    public function actionView($id)
+    {
+        $this->render('view', array(
+            'model' => $this->loadModel($id),
+        ));
+    }
 
-		// Uncomment the following line if AJAX validation is needed
-		// $this->performAjaxValidation($model);
+    /**
+     * Создает новую модель почтового события.
+     * Если создание прошло успешно - перенаправляет на просмотр.
+     */
+    public function actionCreate()
+    {
+        $model = new MailEvent;
 
-		if(isset($_POST['MailEvent']))
-		{
-			$model->attributes=$_POST['MailEvent'];
+        // Uncomment the following line if AJAX validation is needed
+        // $this->performAjaxValidation($model);
 
-			if($model->save())
+        if (isset($_POST['MailEvent']))
+        {
+            $model->attributes = $_POST['MailEvent'];
+
+            if ($model->save())
             {
-                Yii::app()->user->setFlash(YFlashMessages::NOTICE_MESSAGE,Yii::t('mail','Запись добавлена!'));
+                Yii::app()->user->setFlash(
+                    YFlashMessages::NOTICE_MESSAGE,
+                    Yii::t('mail', 'Запись добавлена!')
+                );
 
-                $this->redirect(array('update','id'=>$model->id));
+                if (!isset($_POST['submit-type']))
+                    $this->redirect(array('update', 'id' => $model->id));
+                else
+                    $this->redirect(array($_POST['submit-type']));
             }
-		}
+        }
 
-		$this->render('create',array(
-			'model'=>$model,
-		));
-	}
+        $this->render('create', array(
+            'model' => $model,
+        ));
+    }
 
-	/**
-	 * Редактирование почтового события.
-	 * @param integer $id the ID of the model to be updated
-	 */
-	public function actionUpdate($id)
-	{
-		$model=$this->loadModel($id);
+    /**
+     * Редактирование почтового события.
+     * @param integer $id the ID of the model to be updated
+     */
+    public function actionUpdate($id)
+    {
+        $model = $this->loadModel($id);
 
-		// Uncomment the following line if AJAX validation is needed
-		// $this->performAjaxValidation($model);
+        // Uncomment the following line if AJAX validation is needed
+        // $this->performAjaxValidation($model);
 
-		if(isset($_POST['MailEvent']))
-		{
-			$model->attributes=$_POST['MailEvent'];
+        if (isset($_POST['MailEvent']))
+        {
+            $model->attributes = $_POST['MailEvent'];
 
-			if($model->save())
+           if ($model->save())
             {
-                Yii::app()->user->setFlash(YFlashMessages::NOTICE_MESSAGE,Yii::t('mail','Запись обновлена!'));
+                Yii::app()->user->setFlash(
+                    YFlashMessages::NOTICE_MESSAGE,
+                    Yii::t('mail', 'Запись добавлена!')
+                );
 
-                $this->redirect(array('update','id'=>$model->id));
+                if (!isset($_POST['submit-type']))
+                    $this->redirect(array('update', 'id' => $model->id));
+                else
+                    $this->redirect(array($_POST['submit-type']));
             }
-		}
+        }
 
-		$this->render('update',array(
-			'model'=>$model,
-		));
-	}
+        $this->render('update', array(
+            'model' => $model,
+        ));
+    }
 
-	/**
-	 * Удаяет модель почтового события из базы.
-	 * Если удаление прошло успешно - возвращется в index
-	 * @param integer $id идентификатор почтового события, который нужно удалить
-	 */
-	public function actionDelete($id)
-	{
-		if(Yii::app()->request->isPostRequest)
-		{
-			// поддерживаем удаление только из POST-запроса
-			$this->loadModel($id)->delete();
+    /**
+     * Удаяет модель почтового события из базы.
+     * Если удаление прошло успешно - возвращется в index
+     * @param integer $id идентификатор почтового события, который нужно удалить
+     */
+    public function actionDelete($id)
+    {
+        if (Yii::app()->request->isPostRequest)
+        {
+            // поддерживаем удаление только из POST-запроса
+            $this->loadModel($id)->delete();
 
-                        Yii::app()->user->setFlash(YFlashMessages::NOTICE_MESSAGE,Yii::t('mail','Запись удалена!'));
+            Yii::app()->user->setFlash(YFlashMessages::NOTICE_MESSAGE, Yii::t('mail', 'Запись удалена!'));
 
-			// если это AJAX запрос ( кликнули удаление в админском grid view), мы не должны никуда редиректить
-			if(!isset($_GET['ajax']))
-				$this->redirect(isset($_POST['returnUrl']) ? $_POST['returnUrl'] : array('штвуч'));
-		}
-		else
-			throw new CHttpException(400,'Неверный запрос. Пожалуйста, больше не повторяйте такие запросы');
-	}
-	/**
-	 * Управление почтовыми событиями.
-	 */
-	public function actionIndex()
-	{
-		$model=new MailEvent('search');
-		$model->unsetAttributes();  // clear any default values
-		if(isset($_GET['MailEvent']))
-			$model->attributes=$_GET['MailEvent'];
+            // если это AJAX запрос ( кликнули удаление в админском grid view), мы не должны никуда редиректить
+            if (!isset($_GET['ajax']))
+                $this->redirect(isset($_POST['returnUrl']) ? $_POST['returnUrl'] : array('штвуч'));
+        }
+        else
+            throw new CHttpException(400, 'Неверный запрос. Пожалуйста, больше не повторяйте такие запросы');
+    }
 
-		$this->render('index',array(
-			'model'=>$model,
-		));
-	}
+    /**
+     * Управление почтовыми событиями.
+     */
+    public function actionIndex()
+    {
+        $model = new MailEvent('search');
+        $model->unsetAttributes();  // clear any default values
+        if (isset($_GET['MailEvent']))
+            $model->attributes = $_GET['MailEvent'];
 
-	/**
-	 * Возвращает модель по указанному идентификатору
-	 * Если модель не будет найдена - возникнет HTTP-исключение.
-	 * @param integer идентификатор нужной модели
-	 */
-	public function loadModel($id)
-	{
-		$model=MailEvent::model()->findByPk($id);
-		if($model===null)
-			throw new CHttpException(404,'Запрошенная страница не найдена.');
-		return $model;
-	}
+        $this->render('index', array(
+            'model' => $model,
+        ));
+    }
 
-	/**
-	 * Производит AJAX-валидацию
-	 * @param CModel модель, которую необходимо валидировать
-	 */
-	protected function performAjaxValidation($model)
-	{
-		if(isset($_POST['ajax']) && $_POST['ajax']==='mail-event-form')
-		{
-			echo CActiveForm::validate($model);
-			Yii::app()->end();
-		}
-	}
+    /**
+     * Возвращает модель по указанному идентификатору
+     * Если модель не будет найдена - возникнет HTTP-исключение.
+     * @param integer идентификатор нужной модели
+     */
+    public function loadModel($id)
+    {
+        $model = MailEvent::model()->findByPk($id);
+        if ($model === null)
+            throw new CHttpException(404, 'Запрошенная страница не найдена.');
+        return $model;
+    }
+
+    /**
+     * Производит AJAX-валидацию
+     * @param CModel модель, которую необходимо валидировать
+     */
+    protected function performAjaxValidation($model)
+    {
+        if (isset($_POST['ajax']) && $_POST['ajax'] === 'mail-event-form')
+        {
+            echo CActiveForm::validate($model);
+            Yii::app()->end();
+        }
+    }
+
 }
