@@ -2,7 +2,6 @@
 
 class BackendController extends YBackController
 {
-
     public function actionIndex()
     {
         $this->render('index', $this->yupe->getModules());
@@ -67,7 +66,7 @@ class BackendController extends YBackController
             else
                 Yii::app()->user->setFlash(
                     YFlashMessages::ERROR_MESSAGE,
-                    Yii::t('yupe', 'При сохранении произошла ошибка! ')
+                    Yii::t('yupe', 'При сохранении произошла ошибка!')
                 );
 
             $this->redirect(array('/yupe/backend/modulesettings', 'module' => $moduleId));
@@ -134,7 +133,7 @@ class BackendController extends YBackController
             }
             else
             {
-                $settings[$p] = new Settings;                
+                $settings[$p] = new Settings;
 
                 $settings[$p]->setAttributes(array(
                     'module_id'   => $moduleId,
@@ -146,7 +145,6 @@ class BackendController extends YBackController
                     return true;
             }
         }
-
         return false;
     }
 
@@ -166,8 +164,10 @@ class BackendController extends YBackController
             $uploadPath = Yii::getPathOfAlias('webroot') . $webPath;
 
             if (!is_dir($uploadPath))
+            {
                 if (!@mkdir($uploadPath))
                     Yii::app()->ajax->rawText(Yii::t('yupe', 'Не удалось создать каталог "{dir}" для файлов!', array('{dir}' => $uploadPath)));
+            }
 
             $image = CUploadedFile::getInstanceByName('file');
 
@@ -186,7 +186,7 @@ class BackendController extends YBackController
     }
 
     /**
-     * Метод для очистки кэша
+     * Очистка кэша сайта
      *
      * @since 0.0.4
      *

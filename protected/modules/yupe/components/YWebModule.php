@@ -19,7 +19,7 @@ abstract class YWebModule extends CWebModule
     const CHECK_NOTICE = 'notice';
 
     const CHOICE_YES = 1;
-    const CHOICE_NO = 0;
+    const CHOICE_NO  = 0;
 
     /**
      *  @var int порядок следования модуля в меню панели управления (сортировка)
@@ -28,7 +28,7 @@ abstract class YWebModule extends CWebModule
     /**
      *  @var int некоторые компоненты Юпи! автоматически кэширует, если время жизни кэша не указано - берется это значение
      */
-    public $coreCacheTime = 3600;
+    public $coreCacheTime  = 3600;
     /**
      *  @var array правила маршрутизации модуля (импортируются при старте модуля)
      */
@@ -172,7 +172,6 @@ abstract class YWebModule extends CWebModule
     /**
      *  @return bool показать или нет модуль в панели управления
      */
-
     public function getIsShowInAdminMenu()
     {
         return true;
@@ -197,6 +196,9 @@ abstract class YWebModule extends CWebModule
         return null;
     }
 
+    /**
+     * @return bool стутус работы мультиязычности в модуле
+     */
     public function isMultiLang()
     {
         return false;
@@ -229,10 +231,11 @@ abstract class YWebModule extends CWebModule
 
             //@TODO обход не settings а editableParams как вариант =)
             foreach ($settings as $model)
+            {
                 if (property_exists($this, $model->param_name) && (in_array($model->param_name, $editableParams) || array_key_exists($model->param_name, $editableParams)))
                     $this->{$model->param_name} = $model->param_value;
+            }
         }
-
         parent::init();
     }
 }

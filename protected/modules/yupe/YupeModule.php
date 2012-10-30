@@ -140,10 +140,8 @@ class YupeModule extends YWebModule
     protected function getLanguagesList()
     {
         $langs = array();
-        
-        foreach (explode(',',$this->availableLanguages) as $lang)
+        foreach (explode(',', $this->availableLanguages) as $lang)
                 $langs[$lang] = Yii::app()->locale->getLocaleDisplayName($lang);
-        
         return $langs;
     }
 
@@ -200,7 +198,7 @@ class YupeModule extends YWebModule
     public function init()
     {
         parent::init();
-               
+
         $editors = $this->getEditors();
         // если не выбран редактор, но редакторы есть - возмем первый попавшийся
         if (!$this->editor && is_array($editors))
@@ -275,12 +273,14 @@ class YupeModule extends YWebModule
                     $categorySort = array_reverse($this->categorySort);
 
                     foreach ($categorySort as $iValue)
-                        if(isset($order[$iValue]))
+                    {
+                        if (isset($order[$iValue]))
                         {
                             $orderValue = $order[$iValue];
                             unset($order[$iValue]);
                             $order = array($iValue => $orderValue) + $order;
                         }
+                    }
                 }
 
                 // Обходим категории модулей
@@ -363,6 +363,7 @@ class YupeModule extends YWebModule
             }
             else
                 $thisModule = Yii::app()->controller->module->id;
+
             $thisModule = &$thisCategory['items'][$thisModule];
             $thisModule['icon'] .= ' white';
             $thisModule['active'] = true;
@@ -372,9 +373,11 @@ class YupeModule extends YWebModule
             if (is_array($moduleItems))
             {
                 $thisRoute = CHtml::normalizeUrl(array_merge(array("/" . Yii::app()->controller->route), $_GET));
-                foreach($moduleItems as &$link)
+                foreach ($moduleItems as &$link)
+                {
                     if (isset($link['url']) && CHtml::normalizeUrl($link['url']) == $thisRoute && isset($link['icon']))
                         $link['icon'] .= " white";
+                }
                 unset($link);
             }
             unset($thisModule);
@@ -423,6 +426,7 @@ class YupeModule extends YWebModule
         if ($path && $handler = opendir($path))
         {
             while (($dir = readdir($handler)))
+            {
                 if ($dir != '.' && $dir != '..' && !is_file($dir))
                 {
                     //посмотреть внутри файл с окончанием Widget.php
@@ -434,10 +438,9 @@ class YupeModule extends YWebModule
                         $widgets[$editor] = $editor;
                     }
                 }
-
+            }
             closedir($handler);
         }
-
         return $widgets;
     }
 
@@ -457,11 +460,12 @@ class YupeModule extends YWebModule
      */
     public function getThemes($backend = false)
     {
-        $themes = array( );
+        $themes = array();
 
         if ($handler = opendir(Yii::app()->themeManager->basePath))
         {
             while (($file = readdir($handler)))
+            {
                 if ($file != '.' && $file != '..' && !is_file($file))
                 {
                     if ("backend_" == substr($file, 0, 8))
@@ -475,10 +479,9 @@ class YupeModule extends YWebModule
                     else if (!$backend)
                         $themes[$file] = $file;
                 }
-
+            }
             closedir($handler);
         }
-
         return $themes;
     }
 }

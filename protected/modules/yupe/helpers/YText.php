@@ -1,6 +1,5 @@
 <?php
 /**
- *
  *    Хелпер, содержащий самые необходимые функции для работы с текстом
  *    Большинство функций взяты из фреймворка Codeigniter (text_helper)
  *
@@ -8,13 +7,12 @@
  * @subpackage helpers
  * @version 0.0.1
  * @author  Opeykin A. <aopeykin@yandex.ru>
- * @link http://code.google.com/p/yupe/
+ * @link http://yupe.ru
  *
  */
 
 class YText
 {
-
     public static function translit($str)
     {
         $str = str_replace(' ', '-', $str);

@@ -81,7 +81,7 @@ class YCacheableWidget extends CWidget
         // название компонента кэша
         $cachec = $this->cacheComponent;
         // попытка чтения из кэша
-        $data = Yii::app()->$cachec->get($cacheName);
+        $data   = Yii::app()->$cachec->get($cacheName);
         if (!$data)
         {
             // получение данных из базы (или данных переданных в виджет) и запись их в кэш

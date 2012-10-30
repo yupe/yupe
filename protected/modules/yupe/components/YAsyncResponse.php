@@ -8,7 +8,7 @@ class YAsyncResponse extends CApplicationComponent
 
     public function init()
     {
-        //
+        return true;
     }
 
     public function success($data = null)

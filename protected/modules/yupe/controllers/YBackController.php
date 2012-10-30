@@ -42,8 +42,8 @@ class YBackController extends YMainController
     {
         $status      = (int) Yii::app()->request->getQuery('status');
         $id          = (int) Yii::app()->request->getQuery('id');
-        $modelClass  = Yii::app()->request->getQuery('model');
-        $statusField = Yii::app()->request->getQuery('statusField');
+        $modelClass  =       Yii::app()->request->getQuery('model');
+        $statusField =       Yii::app()->request->getQuery('statusField');
 
         if (!isset($modelClass, $id, $status, $statusField))
             throw new CHttpException(404, Yii::t('yupe', 'Страница не найдена!'));
@@ -63,9 +63,9 @@ class YBackController extends YMainController
     public function actionSort()
     {
         $id         = (int) Yii::app()->request->getQuery('id');
-        $direction  = Yii::app()->request->getQuery('direction');
-        $modelClass = Yii::app()->request->getQuery('model');
-        $sortField  = Yii::app()->request->getQuery('sortField');
+        $direction  =       Yii::app()->request->getQuery('direction');
+        $modelClass =       Yii::app()->request->getQuery('model');
+        $sortField  =       Yii::app()->request->getQuery('sortField');
 
         if (!isset($direction, $id, $modelClass, $sortField))
             throw new CHttpException(404, Yii::t('yupe', 'Страница не найдена!'));

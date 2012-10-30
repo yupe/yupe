@@ -13,6 +13,7 @@ class YRequiredValidator extends CValidator
             return;
 
         if ($this->requiredValue !== null)
+        {
             if (!$this->strict && $value != $this->requiredValue || $this->strict && $value !== $this->requiredValue)
             {
                 $message = ($this->message !== null)
@@ -21,6 +22,7 @@ class YRequiredValidator extends CValidator
 
                 $this->addError($object, $attribute, $message);
             }
+        }
         else if ($this->isEmpty($value, true))
         {
             $message = ($this->message !== null)

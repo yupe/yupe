@@ -14,9 +14,8 @@ class YCustomGridView extends TbGridView
     public function init()
     {
         parent::init();
-
         $this->modelName = $this->dataProvider->modelClass;
-    }  
+    }
 
     /**
      * Генерирует HTML-код для BootStrap-иконки переключателя активности в зависимости от текущего состояния модели
@@ -34,13 +33,12 @@ class YCustomGridView extends TbGridView
      */
     public function returnBootstrapStatusHtml($data, $statusField = 'status', $method = 'Status', $icons = array('lock', 'ok-sign', 'time'))
     {
-        $funcStatus = 'get' . $method;
+        $funcStatus     = 'get' . $method;
         $funcStatusList = 'get' . $method . 'List';
 
-        $text = method_exists($data, $funcStatus) ? $data->$funcStatus() : '';
+        $text       = method_exists($data, $funcStatus) ? $data->$funcStatus() : '';
         $iconStatus = isset($icons[$data->$statusField]) ? $icons[$data->$statusField] : 'question-sign';
-
-        $icon = '<i class="icon icon-' . $iconStatus . '" title="' . $text . '"></i>';
+        $icon       = '<i class="icon icon-' . $iconStatus . '" title="' . $text . '"></i>';
 
         if (method_exists($data, $funcStatusList))
         {
@@ -53,7 +51,7 @@ class YCustomGridView extends TbGridView
                 if ($key == $data->$statusField)
                 {
                     $keyNext = key($statusList);
-                    if(is_numeric($keyNext))
+                    if (is_numeric($keyNext))
                     {
                         $status = $keyNext;
                         break;

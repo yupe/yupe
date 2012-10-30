@@ -5,7 +5,7 @@ class InstallModule extends YWebModule
     {
         if (!file_exists(Yii::app()->basePath . '/' . 'config' . '/' . '.ai'))
             return array(
-                'type' => YWebModule::CHECK_ERROR,
+                'type'    => YWebModule::CHECK_ERROR,
                 'message' => Yii::t('yupe', 'У Вас активирован модуль "Установщик", после установки системы его необходимо отключить! <a href="http://www.yiiframework.ru/doc/guide/ru/basics.module">Подробнее про Yii модули</a>')
             );
         return true;
