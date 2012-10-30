@@ -45,7 +45,10 @@ class LanguageBehavior extends CBehavior
                             (substr(Yii::app()->homeUrl, -1, 1) == "/")
                                 ? substr(Yii::app()->homeUrl, 0, strlen(Yii::app()->homeUrl) - 1)
                                 : Yii::app()->homeUrl
-                            ) . substr(Yii::app()->request->getPathInfo(), 0, 2));
+                            ) . '/' . (substr(Yii::app()->request->getPathInfo(), 0, 2) != Yii::app()->sourceLanguage
+                                        ? substr(Yii::app()->request->getPathInfo(), 0, 2)
+                                        : '')
+                        );
                 }
             }
         }
