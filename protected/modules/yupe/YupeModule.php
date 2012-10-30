@@ -7,8 +7,7 @@
  * @link http://yupe.ru
  * @copyright Copyright &copy; 2012 Yupe!
  * @license BSD http://ru.wikipedia.org/wiki/%D0%9B%D0%B8%D1%86%D0%B5%D0%BD%D0%B7%D0%B8%D1%8F_BSD
- */
-/**
+ *
  * Модуль yupe - основной модуль системы.
  *
  * Модуль yupe содержит в себе все основные компоненты, которые используются другими модулями
@@ -20,7 +19,7 @@
 
 class YupeModule extends YWebModule
 {
-    const OTHER_CATEGORY  = 'Остальное';
+    const OTHER_CATEGORY           = 'Остальное';
 
     public $siteDescription;
     public $siteName;
@@ -121,18 +120,18 @@ class YupeModule extends YWebModule
     {
         return array(
             'coreCacheTime',
-            'theme' => $this->getThemes(),
+            'theme'                  => $this->getThemes(),
             'backendLayout',
-            'backendTheme' => $this->getThemes(true),
+            'backendTheme'           => $this->getThemes(true),
             'siteName',
             'siteDescription',
             'siteKeyWords',
             'editorsDir',
             'uploadPath',
-            'editor' => $this->getEditors(),
+            'editor'                 => $this->getEditors(),
             'email',
             'availableLanguages',
-            'defaultLanguage' => $this->getLanguagesList(),
+            'defaultLanguage'        => $this->getLanguagesList(),
             'defaultBackendLanguage' => $this->getLanguagesList(),
         );
     }
@@ -141,7 +140,7 @@ class YupeModule extends YWebModule
     {
         $langs = array();
         foreach (explode(',', $this->availableLanguages) as $lang)
-                $langs[$lang] = Yii::app()->locale->getLocaleDisplayName($lang);
+            $langs[$lang] = Yii::app()->locale->getLocaleDisplayName($lang);
         return $langs;
     }
 
