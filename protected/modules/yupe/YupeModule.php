@@ -461,7 +461,7 @@ class YupeModule extends YWebModule
     {
         $themes = array();
 
-        if ($handler = opendir(Yii::app()->themeManager->basePath))
+        if (isset(Yii::app()->themeManager->basePath) && $handler = opendir(Yii::app()->themeManager->basePath))
         {
             while (($file = readdir($handler)))
             {
