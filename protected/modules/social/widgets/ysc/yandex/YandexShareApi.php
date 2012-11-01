@@ -1,11 +1,38 @@
 <?php
+/**
+ *  Виджет ysc.yandex.YandexShareApi
+ *
+ *  Выводит виджет "поделиться" от компании Яндекс.
+ *  Конструктор виджета: http://api.yandex.ru/share/
+ *  Документация виджета: http://api.yandex.ru/share/doc/dg/concepts/share-button-ov.xml
+ *
+ * @author Yupe Team
+ * @link   http://yupe.ru/
+ * @version 0.0.2
+ * @example В коде представления <?php $this->widget('application.components.ysc.yandex.YandexShareApi'); ?>
+ *
+ */
 class YandexShareApi extends YscPortlet
 {
+    /**
+     *  @var string вид виджета
+     */
     public $type;
+    /**
+     *  @var string, array, false сервисы используемые в виджете
+     */
     public $services;
 
     private $_validTypes    = array('button', 'link', 'icon', 'none');
-    private $_validServices = array('yaru', 'yazakladki', 'twitter', 'vkontakte', 'facebook', 'odnoklassniki', 'gplus', 'blogger', 'lj', 'linkedin', 'moikrug', 'moimir', 'liveinternet', 'myspace', 'digg', 'evernote', 'delicious', 'diary', 'friendfeed', 'juick', 'tutby');
+    private $_validServices = array(
+        'yaru',         'yazakladki', 'twitter',
+        'vkontakte',    'facebook',   'odnoklassniki',
+        'gplus',        'blogger',    'lj',
+        'linkedin',     'moikrug',    'moimir',
+        'liveinternet', 'myspace',    'digg',
+        'evernote',     'delicious',  'diary',
+        'friendfeed',   'juick',      'tutby',
+    );
 
     public function init()
     {
