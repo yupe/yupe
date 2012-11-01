@@ -20,19 +20,17 @@ $this->menu = array(
 </button>
 
 <div id="search-toggle" class="collapse out">
-    <?php
-    Yii::app()->clientScript->registerScript('search', "
-$('.search-form form').submit(function(){
-$.fn.yiiGridView.update('category-grid', {
-data: $(this).serialize()
-});
-return false;
-});
+<?php
+Yii::app()->clientScript->registerScript('search', "
+    $('.search-form form').submit(function() {
+        $.fn.yiiGridView.update('category-grid', {
+            data: $(this).serialize()
+        });
+        return false;
+    });
 ");
-    $this->renderPartial('_search', array(
-        'model' => $model,
-    ));
-    ?>
+    $this->renderPartial('_search', array('model' => $model));
+?>
 </div>
 
 <br/>
@@ -41,42 +39,37 @@ return false;
     <?php echo Yii::t('yupe', 'В данном разделе представлены средства управления'); ?> <?php echo Yii::t('yupe', 'категориями'); ?>.
 </p>
 
-
 <?php
-$dp = $model->search();
-$this->widget('bootstrap.widgets.TbGridView', array(
-    'id'    => 'category-grid',    
-    'type'  => 'condensed ',
-    'pager' => array( 'class'=> 'bootstrap.widgets.TbPager', 'prevPageLabel' => "←", 'nextPageLabel' => "→" ),
-    'dataProvider'  => $dp,
-    'filter'        => $model,
-    'columns'       => array(
+$this->widget('application.modules.yupe.components.YCustomGridView', array(
+    'id'           => 'category-grid',
+    'type'         => 'condensed',
+    'dataProvider' => $model->search(),
+    'filter'       => $model,
+    'columns'      => array(
         'id',
          array(
             'name'  => 'name',
             'type'  => 'raw',
-            'value' => 'CHtml::link($data->name,array("/category/default/update/","alias"=>$data->alias))'
+            'value' => 'CHtml::link($data->name, array("/category/default/update/", "alias" => $data->alias))',
         ),
-        'alias',        
+        'alias',
         array(
             'name'  => 'parent_id',
-            'value' => '$data->getParentName()'
-        ),       
+            'value' => '$data->getParentName()',
+        ),
         array(
             'name'  => 'image',
             'type'  => 'raw',
-            'value' => '$data->image ? CHtml::image(Yii::app()->baseUrl . "/" . Yii::app()->getModule("yupe")->uploadPath . DIRECTORY_SEPARATOR . Yii::app()->getModule("category")->uploadPath . DIRECTORY_SEPARATOR . $data->image, $data->name, array( "width"  => 100, "height" => 100 )) : "---"'
+            'value' => '$data->image ? CHtml::image($data->imageSrc, $data->name, array("width"  => 100, "height" => 100)) : "---"',
         ),
         'lang',
         array(
             'name'  => 'status',
-            'value' => '$data->getStatus()'
+            'type'  => 'raw',
+            'value' => '$this->grid->returnBootstrapStatusHtml($data, "status", "Status")',
         ),
         array(
-            'class'   => 'bootstrap.widgets.TbButtonColumn',
-            'buttons' => array(
-                'update' => array( 'url' => 'array("/category/default/update/","alias"=>$data->alias)' ),
-            ),
+            'class' => 'bootstrap.widgets.TbButtonColumn',
         ),
     ),
 ));

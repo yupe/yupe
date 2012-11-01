@@ -147,7 +147,14 @@ class Category extends YModel
             if ($model)
                 return $model->name;
         }
-
         return '---';
+    }
+
+    public function getImageSrc()
+    {
+        return Yii::app()->baseUrl . "/" .
+               Yii::app()->getModule("yupe")->uploadPath . "/" .
+               Yii::app()->getModule("category")->uploadPath . "/" .
+               $this->image;
     }
 }

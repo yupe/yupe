@@ -5,15 +5,14 @@ $this->breadcrumbs=array(
     Yii::t('mail','Почтовые шаблоны')=>array('index'),
     Yii::t('mail','Управление'),
 );
-$this-> pageTitle = Yii::t('mail','Список почтовых шаблонов');
-$this->menu=array(
-    array('label' => Yii::t('menu', 'Почтовые шаблоны')),  
-    array('icon'=> 'list-alt', 'label' => Yii::t('mail','Список шаблонов'),'url'=>array('/mail/templateAdmin/index')),
-    array('icon'=> 'plus-sign','label' => Yii::t('mail','Добавить шаблон'), 'url' => array('/mail/templateAdmin/create')),    
-    array('label' => Yii::t('menu', 'Почтовые события')),    
-    array('icon'=> 'list-alt', 'label' => Yii::t('mail','Список событий'),'url'=>array('/mail/eventAdmin/index')),
-    array('icon'=> 'plus-sign','label' => Yii::t('mail','Добавить событие'), 'url' => array('/mail/eventAdmin/create')),
- 
+$this->pageTitle = Yii::t('mail','Список почтовых шаблонов');
+$this->menu = array(
+    array('label' => Yii::t('menu', 'Почтовые шаблоны')),
+    array('icon' => 'list-alt', 'label' => Yii::t('mail','Список шаблонов'),'url'=>array('/mail/templateAdmin/index')),
+    array('icon' => 'plus-sign','label' => Yii::t('mail','Добавить шаблон'), 'url' => array('/mail/templateAdmin/create')),
+    array('label' => Yii::t('menu', 'Почтовые события')),
+    array('icon' => 'list-alt', 'label' => Yii::t('mail','Список событий'),'url'=>array('/mail/eventAdmin/index')),
+    array('icon' => 'plus-sign','label' => Yii::t('mail','Добавить событие'), 'url' => array('/mail/eventAdmin/create')),
 );
 ?>
 <div class="page-header">
@@ -45,29 +44,26 @@ $this->renderPartial('_search', array('model'=>$model));
 </p>
 
 <?php
-$dp = $model->search();
-//$dp-> sort-> defaultOrder = "";
-$this->widget('bootstrap.widgets.TbGridView',array(
-    'id'=>'mail-template-grid',
-    'type'=>'condensed ',
-    'pager'=>array('class'=>'bootstrap.widgets.TbPager', 'prevPageLabel'=>"←",'nextPageLabel'=>"→"),
-    'dataProvider'=>$dp,
-    'filter'=>$model,
-    'columns'=>array(
+$this->widget('application.modules.yupe.components.YCustomGridView', array(
+    'id'           => 'mail-template-grid',
+    'type'         => 'condensed',
+    'dataProvider' => $model->search(),
+    'filter'       => $model,
+    'columns'      => array(
         'id',
         'code',
         array(
             'name'   => 'event_id',
             'value'  => '$data->event->name',
-            'filter' => CHtml::listData(MailEvent::model()->findAll(),'id','name')
+            'filter' => CHtml::listData(MailEvent::model()->findAll(), 'id', 'name')
         ),
         'name',
         'theme',
         'from',
         'to',
         array(
-            'name'   => 'status',
-            'value'  => '$data->getStatus()',
+            'name'  => 'status',
+            'value' => '$data->getStatus()',
         ),
         array(
             'class'=>'bootstrap.widgets.TbButtonColumn',
