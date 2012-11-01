@@ -6,9 +6,4 @@
     'template'     => "{items}\n{pager}",
 )); ?>
 
-<div style="float:left;padding-right:5px">
-    <?php $this->widget('application.modules.social.widgets.ysc.yandex.YandexShareApi', array(
-        'type'     => 'button',
-        'services' => 'all',
-    )); ?>
-</div>
+<?php $this->widget('application.modules.social.widgets.ysc.yandex.YandexShareApi'); ?>
