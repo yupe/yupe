@@ -1,21 +1,20 @@
 <div class="form">
 
 <?php $form = $this->beginWidget('CActiveForm', array(
-     'action' => $this->controller->createUrl('/comment/comment/add'),
-     'id' => 'comment-form',
+     'action'                 => $this->controller->createUrl('/comment/comment/add'),
+     'id'                     => 'comment-form',
      'enableClientValidation' => true,
 )); ?>
 
-    <p class="note"><?php echo Yii::t('yupe', 'Поля, отмеченные'); ?> <span
-        class="required">*</span> <?php echo Yii::t('yupe', 'обязательны для заполнения'); ?>
+    <p class="note"><?php echo Yii::t('yupe', 'Поля, отмеченные'); ?>
+        <span class="required">*</span> 
+        <?php echo Yii::t('yupe', 'обязательны для заполнения'); ?>
     </p>
 
     <?php echo $form->errorSummary($model); ?>
 
     <?php echo $form->hiddenField($model, 'model'); ?>
-
     <?php echo $form->hiddenField($model, 'model_id'); ?>
-
     <?php echo CHtml::hiddenField('redirectTo', $redirectTo); ?>
 
     <?php if (!Yii::app()->user->isAuthenticated()): ?>
@@ -56,16 +55,15 @@
                     'clickableImage'    => true,
                 )); ?>
                 <?php echo $form->textField($model, 'verifyCode'); ?>
-                
             </div>
             <div class="hint">
-                Введите цифры указанные на картинке
+                <?php echo Yii::t('comment', 'Введите цифры указанные на картинке'); ?>
             </div>
         </div> 
     <?php endif; ?>
 
     <div class="row buttons">
-        <?php echo CHtml::submitButton('Добавить комментарий'); ?>
+        <?php echo CHtml::submitButton(Yii::t('comment', 'Добавить комментарий')); ?>
     </div>
 
 <?php $this->endWidget(); ?>

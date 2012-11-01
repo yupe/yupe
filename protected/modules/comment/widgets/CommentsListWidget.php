@@ -12,7 +12,7 @@ class CommentsListWidget extends YWidget
                 '{widget}' => get_class($this),
             )));
 
-        $this->model = is_object($this->model) ? get_class($this->model) : $this->model;
+        $this->model   =       is_object($this->model) ? get_class($this->model) : $this->model;
         $this->modelId = (int) $this->modelId;
 
         if (!$this->label)
@@ -33,10 +33,8 @@ class CommentsListWidget extends YWidget
                 'with'      => array('author'),
                 'order'     => 't.id',
             ));
-
             Yii::app()->cache->set("Comment{$this->model}{$this->modelId}", $comments);
         }
-
         $this->render('commentslistwidget', array('comments' => $comments));
     }
 }

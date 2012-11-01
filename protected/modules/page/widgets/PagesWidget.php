@@ -3,7 +3,7 @@ class PagesWidget extends YWidget
 {
     public $pageStatus;
     public $topLevelOnly = false;
-    public $order = 'menu_order ASC';
+    public $order        = 'menu_order ASC';
     public $parent_Id;
     public $view;
     public $visible = true;
@@ -39,11 +39,11 @@ class PagesWidget extends YWidget
 
             // На данный момент хардкод, переделаю
             $menu = array(
-                array('label' => 'О проекте', 'url' => array('/site/page', 'view' => 'about')),
-                array('label' => 'Документация', 'url' => array('/site/page', 'view' => 'documents')),
-                array('label' => 'Сообщество', 'url' => array('/site/page', 'view' => 'community')),
-                array('label' => 'Модули', 'url' => array('/site/page', 'view' => 'modules')),
-                array('label' => 'Разработка', 'url' => array('/site/page', 'view' => 'developement')),
+                array('label' => Yii::t('page', 'О проекте'), 'url' => array('/site/page', 'view' => 'about')),
+                array('label' => Yii::t('page', 'Документация'), 'url' => array('/site/page', 'view' => 'documents')),
+                array('label' => Yii::t('page', 'Сообщество'), 'url' => array('/site/page', 'view' => 'community')),
+                array('label' => Yii::t('page', 'Модули'), 'url' => array('/site/page', 'view' => 'modules')),
+                array('label' => Yii::t('page', 'Разработка'), 'url' => array('/site/page', 'view' => 'developement')),
             );
 
             $this->render($view, array(

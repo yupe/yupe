@@ -21,9 +21,9 @@ class YFlashMessages extends YWidget
             if ($this->autoHide)
             {
                 $this->autoHideSeconds = (int) $this->autoHideSeconds;
-                $this->error           = CHtml::encode($this->error);
-                $this->warning         = CHtml::encode($this->warning);
-                $this->notice          = CHtml::encode($this->notice);
+                $this->error           =       CHtml::encode($this->error);
+                $this->warning         =       CHtml::encode($this->warning);
+                $this->notice          =       CHtml::encode($this->notice);
 
                 $js = "$('#{$this->divId}').fadeOut({$this->autoHideSeconds});";
 

@@ -10,12 +10,12 @@ class YPerformanceStatistic extends YWidget
         $time   = round(Yii::getLogger()->executionTime, 3);
 
         echo <<<EOF
-        <div class="stat" id="stat">
-           <div style="float:left;padding-right:5px">запросов: {$dbStat[0]}</div>
-           <div style="float:left;padding-right:5px">время: {$dbStat[1]}</div>
-           <div style="float:left;padding-right:5px">память: {$memory}</div>
-           <div style="float:left;padding-right:5px">выполнение: {$time}</div>
-        </div>
+            <div class="stat" id="stat">
+               <div style="float:left;padding-right:5px">запросов: {$dbStat[0]}</div>
+               <div style="float:left;padding-right:5px">время: {$dbStat[1]}</div>
+               <div style="float:left;padding-right:5px">память: {$memory}</div>
+               <div style="float:left;padding-right:5px">выполнение: {$time}</div>
+            </div>
 EOF;
     }
 }

@@ -3,7 +3,7 @@ class LastCommentsWidget extends YWidget
 {
     public $model;
     public $commentStatus;
-    public $limit = 10;
+    public $limit          = 10;
     public $onlyWithAuthor = true;
 
     public function init()

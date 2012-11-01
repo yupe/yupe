@@ -1,7 +1,6 @@
 <?php
 class ContentBlockModule extends YWebModule
 {
-
     public function getCategory()
     {
         return Yii::t('contentblock', 'Контент');

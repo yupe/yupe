@@ -23,6 +23,7 @@ class ContentBlockWidget extends YWidget
             if (!$block && (bool) $this->silent === false)
                 throw new CException(Yii::t('contentblock', 'Контент блок "{code}" не найден !', array('{code}' => $this->code)));
             else
+            {
                 switch ($block->type)
                 {
                     case ContentBlock::PHP_CODE:
@@ -35,10 +36,9 @@ class ContentBlockWidget extends YWidget
                         $output = $block->content;
                         break;
                 }
-
+            }
             Yii::app()->cache->set($cacheName, $output);
         }
-
         $this->render('contentblock', array('output' => $output));
     }
 }

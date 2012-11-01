@@ -21,6 +21,6 @@ class LastNewsWidget extends YWidget
             ? News::model()->published()->language(Yii::app()->language)->cache($this->cacheTime)->findAll($criteria)
             : News::model()->published()->cache($this->cacheTime)->findAll($criteria);
 
-        $this->render('news', array('models' => $news));
+        $this->render('lastnewswidget', array('models' => $news));
     }
 }
