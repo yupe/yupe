@@ -250,7 +250,7 @@ class YupeModule extends YWebModule
                 }
             }
 
-            $modulesNavigation = Yii::app()->cache->get('YupeModulesNavigation');
+            $modulesNavigation = Yii::app()->cache->get('YupeModulesNavigation-'.Yii::app()->language);
 
             if ($modulesNavigation === false)
             {
@@ -341,7 +341,7 @@ class YupeModule extends YWebModule
                 // Заполняем категорию система
                 $modulesNavigation[$this->category]['items']['settings'] = $settings;
 
-                Yii::app()->cache->set('YupeModulesNavigation', $modulesNavigation, Yii::app()->getModule('yupe')->coreCacheTime);
+                Yii::app()->cache->set('YupeModulesNavigation-'.Yii::app()->language, $modulesNavigation, Yii::app()->getModule('yupe')->coreCacheTime);
             }
         }
 
