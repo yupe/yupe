@@ -2,7 +2,7 @@
 	'action'=>Yii::app()->createUrl($this->route),
 	'method'=>'get',
         'type'=>'vertical',
-        'htmlOptions' => array('class' => 'well form-vertical')
+        'htmlOptions' => array('class' => 'well form-vertical search-form')
 )); ?>
 <fieldset class="inline">    
 	<?php echo  $form->textFieldRow($model,'id',array('class'=>'span5','maxlength'=>10,'size' => 60)); ?>

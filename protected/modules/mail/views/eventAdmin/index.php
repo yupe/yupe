@@ -5,6 +5,7 @@ $this->breadcrumbs=array(
     Yii::t('mail','Список'),
 );
 $this->pageTitle = Yii::t('mail','Список почтовых событий');
+
 $this->menu = array(
     array('label' => Yii::t('mail', 'Почтовые события')),
     array('icon'=> 'list-alt white', 'label' => Yii::t('mail','Список событий'),'url'=>array('/mail/eventAdmin/index')),
@@ -13,26 +14,40 @@ $this->menu = array(
     array('icon'=> 'list-alt', 'label' => Yii::t('mail','Список шаблонов'),'url'=>array('/mail/templateAdmin/index')),
     array('icon'=> 'plus-sign','label' => Yii::t('mail','Добавить шаблон'), 'url' => array('/mail/templateAdmin/create')),
 );
+
+Yii::app()->clientScript->registerScript('search', "
+$('.search-button').click(function(){
+	$('.search-form').toggle();
+	return false;
+});
+$('.search-form').submit(function(){
+	$.fn.yiiGridView.update('dictionary-group-grid', {
+		data: $(this).serialize()
+	});
+	return false;
+});
+");
+
 ?>
 <div class="page-header">
     <h1><?php echo Yii::t('mail','Почтовые события');?> <small><?php echo Yii::t('mail','управление');?></small>
     </h1>
 </div>
-<button class="btn btn-small dropdown-toggle"
-        data-toggle="collapse"
-        data-target="#search-toggle" >
+<button class="btn btn-small dropdown-toggle"  data-toggle="collapse" data-target="#search-toggle" >
+    <i class="icon-search"></i>
     <a class="search-button" href="#"><?php echo Yii::t('mail','Поиск почтовых событий');?></a><span class="caret"></span>
 </button>
 
 <div id="search-toggle" class="collapse out">
 <?php Yii::app()->clientScript->registerScript('search', "
-    $('.search-form form').submit(function(){
+    $('.search-form').submit(function(){       
         $.fn.yiiGridView.update('mail-event-grid', {
             data: $(this).serialize()
         });
         return false;
     });
 ");
+
 $this->renderPartial('_search', array('model'=>$model));
 ?>
 </div>

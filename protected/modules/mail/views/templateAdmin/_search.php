@@ -2,7 +2,7 @@
 $form = $this->beginWidget('bootstrap.widgets.TbActiveForm', array(
     'action' => Yii::app()->createUrl($this->route),
     'method' => 'get',
-    'htmlOptions' => array('class' => 'well'),
+    'htmlOptions' => array('class' => 'well search-form'),
         ));
 ?>
 <fieldset class="inline">

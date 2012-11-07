@@ -6,6 +6,7 @@ $this->breadcrumbs=array(
     Yii::t('mail','Управление'),
 );
 $this->pageTitle = Yii::t('mail','Список почтовых шаблонов');
+
 $this->menu = array(
     array('label' => Yii::t('menu', 'Почтовые шаблоны')),
     array('icon' => 'list-alt', 'label' => Yii::t('mail','Список шаблонов'),'url'=>array('/mail/templateAdmin/index')),
@@ -18,21 +19,21 @@ $this->menu = array(
 <div class="page-header">
     <h1><?php echo Yii::t('mail','Почтовые шаблоны');?> <small><?php echo Yii::t('mail','управление');?></small></h1>
 </div>
-<button class="btn btn-small dropdown-toggle"
-        data-toggle="collapse"
-        data-target="#search-toggle" >
+<button class="btn btn-small dropdown-toggle"  data-toggle="collapse" data-target="#search-toggle" >
+    <i class="icon-search"></i>
     <a class="search-button" href="#"><?php echo Yii::t('mail','Поиск почтовых шаблонов');?></a>    <span class="caret"></span>
 </button>
 
 <div id="search-toggle" class="collapse out">
 <?php Yii::app()->clientScript->registerScript('search', "
-    $('.search-form form').submit(function() {
+    $('.search-form').submit(function(){         
         $.fn.yiiGridView.update('mail-template-grid', {
             data: $(this).serialize()
         });
         return false;
     });
 ");
+
 $this->renderPartial('_search', array('model'=>$model));
 ?>
 </div>

@@ -1,28 +1,28 @@
 <?php
 $this->breadcrumbs = array(
     $this->module->getCategory() => array(''),
-    'Категории' => array( 'index' ),
-    Yii::t('yupe', 'Управление'),
+    Yii::t('category','Категории') => array( 'index' ),
+    Yii::t('category', 'Управление'),
 );
-$this->pageTitle = Yii::t('yupe','Категории управление');
+$this->pageTitle = Yii::t('category','Категории управление');
 $this->menu = array(
-    array( 'icon'  => 'list-alt white', 'label' => Yii::t('yupe', 'Управление категориями'), 'url'   => array( '/category/default/index' ) ),
-    array( 'icon'  => 'file', 'label' => Yii::t('yupe', 'Добавить категорию'), 'url'   => array( '/category/default/create' ) ),
+    array( 'icon'  => 'list-alt white', 'label' => Yii::t('category', 'Управление категориями'), 'url'   => array( '/category/default/index' ) ),
+    array( 'icon'  => 'plus-sign', 'label' => Yii::t('category', 'Добавить категорию'), 'url'   => array( '/category/default/create' ) ),
 );
 ?>
 <div class="page-header">
-    <h1><?php echo ucfirst(Yii::t('yupe', 'Категории')); ?>    <small><?php echo Yii::t('yupe', 'управление'); ?></small>
+    <h1><?php echo ucfirst(Yii::t('category', 'Категории')); ?>    <small><?php echo Yii::t('category', 'управление'); ?></small>
     </h1>
 </div>
 <button class="btn btn-small dropdown-toggle"  data-toggle="collapse"  data-target="#search-toggle" >
     <i class="icon-search"></i>
-    <a class="search-button" href="#">Поиск категорий</a>    <span class="caret"></span>
+    <a class="search-button" href="#"><?php echo Yii::t('category','Поиск категорий');?></a>    <span class="caret"></span>
 </button>
 
 <div id="search-toggle" class="collapse out">
 <?php
 Yii::app()->clientScript->registerScript('search', "
-    $('.search-form form').submit(function() {
+    $('.search-form').submit(function() {
         $.fn.yiiGridView.update('category-grid', {
             data: $(this).serialize()
         });
@@ -36,7 +36,7 @@ Yii::app()->clientScript->registerScript('search', "
 <br/>
 
 <p>
-    <?php echo Yii::t('yupe', 'В данном разделе представлены средства управления'); ?> <?php echo Yii::t('yupe', 'категориями'); ?>.
+    <?php echo Yii::t('category', 'В данном разделе представлены средства управления категориями'); ?>
 </p>
 
 <?php
