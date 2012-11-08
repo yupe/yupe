@@ -40,8 +40,8 @@ class CatalogModule extends YWebModule
     public function getParamsLabels()
     {
         return array(
-            'adminMenuOrder' => Yii::t('category', 'Порядок следования в меню'),
-            'uploadPath'     => Yii::t('yupe', 'Каталог для загрузки файлов (относительно Yii::app()->getModule("yupe")->uploadPath)'),
+            'adminMenuOrder' => Yii::t('catalog', 'Порядок следования в меню'),
+            'uploadPath'     => Yii::t('catalog', 'Каталог для загрузки файлов (относительно Yii::app()->getModule("yupe")->uploadPath)'),
         );
     }
 

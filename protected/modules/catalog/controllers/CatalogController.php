@@ -1,15 +1,12 @@
 <?php
 class CatalogController extends YFrontController
 {
-    const NEWS_PER_PAGE = 10;
+    const GOOD_PER_PAGE = 10;
 
     public function actionShow($name)
     {
-        //if ( $this->isMultilang() )
-           //$good = Good::model()->published()->language(Yii::app()->language)->find('alias = :alias', array(':alias' => $name));
-        //else
-            $good = Good::model()->published()->find('alias = :alias', array(':alias' => $name));
-
+        $good = Good::model()->published()->find('alias = :alias', array(':alias' => $name));
+        
         if (!$good)
             throw new CHttpException(404, Yii::t('catalog', 'Товар не найден!'));
 
@@ -20,7 +17,7 @@ class CatalogController extends YFrontController
     {
         $dataProvider = new CActiveDataProvider(Good::model()->published(), array(
             'criteria' => new CDbCriteria(array(
-                'limit' => self::NEWS_PER_PAGE,
+                'limit' => self::GOOD_PER_PAGE,
                 'order' => 't.create_time DESC',
             )),
         ));
