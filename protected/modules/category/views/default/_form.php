@@ -66,7 +66,7 @@
 <?php $this->widget('bootstrap.widgets.TbButton', array(
       'buttonType' => 'submit',
       'htmlOptions'=> array('name' => 'submit-type', 'value' => 'index'),
-      'label'      => $model->isNewRecord ? Yii::t('mail', 'Добавить категорию и закрыть') : Yii::t('mail', 'Сохранить категорию и закрыть'),
+      'label'      => $model->isNewRecord ? Yii::t('category', 'Добавить категорию и закрыть') : Yii::t('category', 'Сохранить категорию и закрыть'),
   )); ?>
 
 <?php $this->endWidget(); ?>
