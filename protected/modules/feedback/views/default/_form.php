@@ -11,9 +11,9 @@ $form = $this->beginWidget('bootstrap.widgets.TbActiveForm', array(
 <fieldset class="inline">
 
     <div class="alert alert-info">
-        <?php echo Yii::t('blog', 'Поля, отмеченные'); ?>
+        <?php echo Yii::t('feedback', 'Поля, отмеченные'); ?>
         <span class="required">*</span>
-        <?php echo Yii::t('blog', 'обязательны.'); ?>
+        <?php echo Yii::t('feedback', 'обязательны.'); ?>
     </div>
 
     <?php echo $form->errorSummary($model); ?>

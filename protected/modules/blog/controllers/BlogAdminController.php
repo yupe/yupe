@@ -122,7 +122,7 @@ class BlogAdminController extends YBackController
     {
         $model = Blog::model()->with('postsCount', 'membersCount')->findByPk((int) $id);
         if ($model === null)
-            throw new CHttpException(404, 'Запрошенная страница не найдена.');
+            throw new CHttpException(404, Yii::t('blog','Запрошенная страница не найдена!'));
         return $model;
     }
 

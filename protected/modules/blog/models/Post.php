@@ -187,7 +187,7 @@ class Post extends YModel
         $criteria->compare('quote', $this->quote, true);
         $criteria->compare('content', $this->content, true);
         $criteria->compare('link', $this->link, true);
-        $criteria->compare('status', $this->status);
+        $criteria->compare('t.status', $this->status);
         $criteria->compare('comment_status', $this->comment_status);
         $criteria->compare('access_type', $this->access_type);
 

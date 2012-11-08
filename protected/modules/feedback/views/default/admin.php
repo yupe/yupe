@@ -17,7 +17,7 @@ Yii::app()->clientScript->registerScript('search', "
         $('.search-form').toggle();
         return false;
     });
-    $('.search-form form').submit(function() {
+    $('.search-form').submit(function() {
         $.fn.yiiGridView.update('feed-back-grid', {
             data: $(this).serialize()
         });
@@ -35,14 +35,7 @@ Yii::app()->clientScript->registerScript('search', "
 
 <div id="search-toggle" class="collapse out">
  <?php
-    Yii::app()->clientScript->registerScript('search', "
-$('.search-form form').submit(function(){
-$.fn.yiiGridView.update('category-grid', {
-data: $(this).serialize()
-});
-return false;
-});
-");
+  
     $this->renderPartial('_search', array(
         'model' => $model,
     ));

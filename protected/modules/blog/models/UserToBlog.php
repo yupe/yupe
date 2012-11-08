@@ -125,7 +125,7 @@ class UserToBlog extends YModel
         $criteria->compare('create_date', $this->create_date, true);
         $criteria->compare('update_date', $this->update_date, true);
         $criteria->compare('role', $this->role);
-        $criteria->compare('status', $this->status);
+        $criteria->compare('t.status', $this->status);
         $criteria->compare('note', $this->note, true);
 
         $criteria->with = array('user', 'blog');

@@ -109,7 +109,7 @@ class UserToBlogAdminController extends YBackController
                 $this->redirect(isset($_POST['returnUrl']) ? $_POST['returnUrl'] : array('index'));
         }
         else
-            throw new CHttpException(400, 'Неверный запрос. Пожалуйста, больше не повторяйте такие запросы');
+            throw new CHttpException(400,Yii::t('blog','Неверный запрос. Пожалуйста, больше не повторяйте такие запросы'));
     }
 
     /**
@@ -134,7 +134,7 @@ class UserToBlogAdminController extends YBackController
     {
         $model = UserToBlog::model()->findByPk($id);
         if ($model === null)
-            throw new CHttpException(404, 'Запрошенная страница не найдена.');
+            throw new CHttpException(404, Yii::t('blog','Запрошенная страница не найдена!'));
         return $model;
     }
 
