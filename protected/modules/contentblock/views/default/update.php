@@ -7,10 +7,10 @@ $this->breadcrumbs = array(
 );
 
 $this->menu = array(
-    array('label' => Yii::t('contentblock', 'Добавить блок контента'), 'url' => array('create')),
-    array('label' => Yii::t('contentblock', 'Управление блоками контента'), 'url' => array('admin')),
-    array('label' => Yii::t('contentblock', 'Редактирование блока контента'), 'url' => array('/contentblock/default/update', 'id' => $model->id)),
-    array('label' => Yii::t('contentblock', 'Просмотреть этот блок контента'), 'url' => array('view', 'id' => $model->id)),
+    array('icon' => 'plus-sign','label' => Yii::t('contentblock', 'Добавить блок контента'), 'url' => array('create')),
+    array('icon' => 'list-alt','label' => Yii::t('contentblock', 'Управление блоками контента'), 'url' => array('admin')),
+    array('icon' => 'pencil','label' => Yii::t('contentblock', 'Редактирование блока контента'), 'url' => array('/contentblock/default/update', 'id' => $model->id)),
+    array('icon' => 'eye-open','label' => Yii::t('contentblock', 'Просмотреть этот блок контента'), 'url' => array('view', 'id' => $model->id)),
 );
 ?>
 

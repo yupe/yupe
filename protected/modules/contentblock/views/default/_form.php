@@ -5,12 +5,12 @@
 )); ?>
 
     <fieldset class="inline">
-        <div class="alert alert-info"><?php echo Yii::t('page', 'Поля, отмеченные * обязательны для заполнения'); ?></div>
+        <div class="alert alert-info"><?php echo Yii::t('contentblock', 'Поля, отмеченные * обязательны для заполнения'); ?></div>
         <?php echo $form->errorSummary($model); ?>
 
     <div class="row-fluid control-group <?php echo $model->hasErrors('type') ? 'error' : ''; ?>">
         <div class="span7">
-            <?php echo $form->dropDownListRow($model, 'type', $model->getTypes()); ?>
+            <?php echo $form->dropDownListRow($model, 'type', $model->getTypes(),array('class' => 'span7')); ?>
         </div>
         <div class="span5">
             <?php echo $form->error($model, 'type'); ?>
@@ -20,7 +20,7 @@
     <div class="row-fluid control-group <?php echo $model->hasErrors('name') ? 'error' : ''; ?>">
         <div class="span7">
             <?php echo $form->labelEx($model, 'name'); ?>
-            <?php echo $form->textField($model, 'name', array('size' => 50, 'maxlength' => 50)); ?>
+            <?php echo $form->textField($model, 'name', array('class' => 'span7','size' => 50, 'maxlength' => 50)); ?>
         </div>
         <div class="span5">
             <?php echo $form->error($model, 'name'); ?>
@@ -30,7 +30,7 @@
     <div class="row-fluid control-group <?php echo $model->hasErrors('code') ? 'error' : ''; ?>">
         <div class="span7">
             <?php echo $form->labelEx($model, 'code'); ?>
-            <?php echo $form->textField($model, 'code', array('size' => 50, 'maxlength' => 50)); ?>
+            <?php echo $form->textField($model, 'code', array('class' => 'span7','size' => 50, 'maxlength' => 50)); ?>
         </div>
         <div class="span5">
             <?php echo $form->error($model, 'code'); ?>
@@ -69,10 +69,16 @@
             </div>
     </div>
 
-        <?php $this->widget('bootstrap.widgets.TbButton', array(
-            'buttonType' => 'submit',
-            'type' => 'primary',
-            'label' => $model->isNewRecord ? Yii::t('contentblock', 'Добавить блок') : Yii::t('contentblock', 'Сохранить изменения'),
+         <?php $this->widget('bootstrap.widgets.TbButton', array(
+            'buttonType'=>'submit',
+            'type'=>'primary',
+            'label'=>$model->isNewRecord ? Yii::t('contentblock','Добавить блок и продолжить') : Yii::t('contentblock','Сохранить блок и продолжить'),
         )); ?>
+    
+        <?php $this->widget('bootstrap.widgets.TbButton', array(
+           'buttonType' => 'submit',
+           'htmlOptions'=> array('name' => 'submit-type', 'value' => 'admin'),
+           'label'      => $model->isNewRecord ? Yii::t('contentblock', 'Добавить блок и закрыть') : Yii::t('contentblock', 'Сохранить блок и закрыть'),
+       )); ?>
     </fieldset>
 <?php $this->endWidget(); ?>

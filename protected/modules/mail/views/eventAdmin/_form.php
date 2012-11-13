@@ -24,7 +24,6 @@
               'htmlOptions' => array('rows' => 20,'cols' => 6)
          )); ?>
         </div>
-
     
         <?php $this->widget('bootstrap.widgets.TbButton', array(
             'buttonType'=>'submit',

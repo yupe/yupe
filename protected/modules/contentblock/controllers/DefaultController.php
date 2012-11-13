@@ -11,7 +11,7 @@ class DefaultController extends YBackController
 
         $highlighter = new CTextHighlighter;
         $highlighter->language = 'PHP';
-        $code = '<?php $this->widget("application.modules.contentblock.widgets.ContentBlockWidget", array("code" => "'.$model->code.'")); ?>';
+        $code = '<?php $this->widget("application.modules.contentblock.widgets.ContentBlockWidget", array("code" => "'.$model->code.'"));?>';
         $example = $highlighter->highlight($code); 
 
         $this->render('view', array(
@@ -39,7 +39,10 @@ class DefaultController extends YBackController
             {
                 Yii::app()->user->setFlash(YFlashMessages::NOTICE_MESSAGE, Yii::t('contentblock', 'Новый контент блок добавлен!'));
 
-                $this->redirect(array('view', 'id' => $model->id));
+                if (!isset($_POST['submit-type']))
+                    $this->redirect(array('update', 'id' => $model->id));
+                else
+                    $this->redirect(array($_POST['submit-type']));
             }
         }
 
@@ -70,7 +73,10 @@ class DefaultController extends YBackController
 
                 Yii::app()->cache->delete("ContentBlock{$model->code}");
 
-                $this->redirect(array('view', 'id' => $model->id));
+                if (!isset($_POST['submit-type']))
+                    $this->redirect(array('update', 'id' => $model->id));
+                else
+                    $this->redirect(array($_POST['submit-type']));
             }
         }
 
@@ -97,17 +103,6 @@ class DefaultController extends YBackController
         }
         else
             throw new CHttpException(400, 'Invalid request. Please do not repeat this request again.');
-    }
-
-    /**
-     * Lists all models.
-     */
-    public function actionIndex()
-    {
-        $dataProvider = new CActiveDataProvider('ContentBlock');
-        $this->render('index', array(
-            'dataProvider' => $dataProvider,
-        ));
     }
 
     /**
