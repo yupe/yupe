@@ -2,7 +2,7 @@
     $this->breadcrumbs = array(
         Yii::app()->getModule('blog')->getCategory() => array(),
         Yii::t('blog', 'Участники') => array('/blog/UserToBlogAdmin/index'),
-        $model->id => array('/blog/UserToBlogAdmin/view', 'id' => $model->id),
+        $model->user->nick_name => array('/blog/UserToBlogAdmin/view', 'id' => $model->id),
         Yii::t('blog', 'Редактирование'),
     );
     $this->pageTitle = Yii::t('blog', 'Участники - редактирование');
@@ -12,7 +12,7 @@
             array('icon' => 'plus-sign', 'label' => Yii::t('blog', 'Добавить блог'), 'url' => array('/blog/BlogAdmin/create')),
         )),
         array('label' => Yii::t('blog', 'Записи'), 'items' => array(
-            array('icon' => 'list-alt', 'label' => Yii::t('blog', 'Управление записьями'), 'url' => array('/blog/PostAdmin/index')),
+            array('icon' => 'list-alt', 'label' => Yii::t('blog', 'Управление записями'), 'url' => array('/blog/PostAdmin/index')),
             array('icon' => 'plus-sign', 'label' => Yii::t('blog', 'Добавить запись'), 'url' => array('/blog/PostAdmin/create')),
         )),
         array('label' => Yii::t('blog', 'Участники'), 'items' => array(
@@ -36,8 +36,8 @@
 ?>
 <div class="page-header">
     <h1>
-        <?php echo Yii::t('blog', 'Редактирование') . ' ' . Yii::t('blog', 'участника'); ?><br />
-        <small>&laquo;<?php echo $model->id; ?>&raquo;</small>
+        <?php echo Yii::t('blog', 'Редактирование участника');?><br />
+        <small>&laquo;<?php echo $model->user->nick_name; ?>&raquo;</small>
     </h1>
 </div>
 

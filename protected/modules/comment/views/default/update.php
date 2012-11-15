@@ -1,16 +1,15 @@
 <?php
 $this->breadcrumbs = array(
-    $this->getModule('category')->getCategory() => array(''),
+    $this->getModule('comment')->getCategory() => array(''),
     Yii::t('comment', 'Комментарии') => array('admin'),
     $model->id => array('view', 'id' => $model->id),
     Yii::t('comment', 'Редактирование'),
 );
 
 $this->menu = array(
-    array('label' => Yii::t('comment', 'Список комментариев'), 'url' => array('index')),
-    array('label' => Yii::t('comment', 'Добавить комментарий'), 'url' => array('create')),
-    array('label' => Yii::t('comment', 'Просмотреть комментарий'), 'url' => array('view', 'id' => $model->id)),
-    array('label' => Yii::t('comment', 'Управление комментариями'), 'url' => array('admin')),
+    array('icon'=> 'list-alt','label' => Yii::t('comment', 'Список комментариев'), 'url' => array('admin')),
+    array('icon'=> 'plus-sign','label' => Yii::t('comment', 'Добавить комментарий'), 'url' => array('create')),
+    array('icon'=> 'eye-open','label' => Yii::t('comment', 'Просмотреть комментарий'), 'url' => array('view', 'id' => $model->id)),
 );
 ?>
 

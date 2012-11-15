@@ -13,7 +13,7 @@
             array('icon' => 'plus-sign', 'label' => Yii::t('blog', 'Добавить блог'), 'url' => array('/blog/BlogAdmin/create')),
         )),
         array('label' => Yii::t('blog', 'Записи'), 'items' => array(
-            array('icon' => 'list-alt', 'label' => Yii::t('blog', 'Управление записьями'), 'url' => array('/blog/PostAdmin/index')),
+            array('icon' => 'list-alt', 'label' => Yii::t('blog', 'Управление записями'), 'url' => array('/blog/PostAdmin/index')),
             array('icon' => 'plus-sign', 'label' => Yii::t('blog', 'Добавить запись'), 'url' => array('/blog/PostAdmin/create')),
         )),
         array('label' => Yii::t('blog', 'Участники'), 'items' => array(
@@ -90,20 +90,11 @@ $this->widget('application.modules.yupe.components.YCustomGridView', array(
             'name'  => 'create_user_id',
             'type'  => 'raw',
             'value' => 'CHtml::link($data->createUser->getFullName(), array("/user/default/view/", "id" => $data->createUser->id))',
-        ),
-        array(
-            'name'  => 'update_user_id',
-            'type'  => 'raw',
-            'value' => 'CHtml::link($data->updateUser->getFullName(), array("/user/default/view/", "id" => $data->updateUser->id))',
-        ),
+        ),        
         array(
             'name'  => 'create_date',
             'value' => 'Yii::app()->getDateFormatter()->formatDateTime($data->create_date, "short", "short")',
-        ),
-        array(
-            'name'  => 'update_date',
-            'value' => 'Yii::app()->getDateFormatter()->formatDateTime($data->update_date, "short", "short")',
-        ),
+        ),       
         array(
             'class' => 'bootstrap.widgets.TbButtonColumn',
         ),

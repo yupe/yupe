@@ -1,73 +1,49 @@
-<div class="form">
+<?php $form=$this->beginWidget('bootstrap.widgets.TbActiveForm',array(
+    'id'=>'mail-event-form',
+    'enableAjaxValidation'=>false,
+    'htmlOptions' => array('class' => 'well form-vertical'),
+)); ?>
 
-    <?php $form = $this->beginWidget('CActiveForm', array(
-         'id' => 'comment-form',
-         'enableAjaxValidation' => false,
-    )); ?>
-
-    <p class="note"><?php echo Yii::t('page', 'Поля, отмеченные * обязательны для заполнения')?></p>
+    <div class="alert alert-info"><?php echo Yii::t('comment','Поля, отмеченные');?> <span class="required">*</span> <?php echo Yii::t('comment','обязательны для заполнения');?></div>
 
     <?php echo $form->errorSummary($model); ?>
 
-    <div class="row">
-        <?php echo $form->labelEx($model, 'model'); ?>
-        <?php echo $form->textField($model, 'model', array('size' => 60, 'maxlength' => 150)); ?>
-        <?php echo $form->error($model, 'model'); ?>
-    </div>
+    <div class='control-group <?php echo $model->hasErrors("model")?"error":"" ?>'><?php echo  $form->textFieldRow($model,'model',array('class'=>'span7','maxlength'=>300)); ?></div>
 
-    <div class="row">
-        <?php echo $form->labelEx($model, 'model_id'); ?>
-        <?php echo $form->textField($model, 'model_id', array('size' => 60, 'maxlength' => 150)); ?>
-        <?php echo $form->error($model, 'model_id'); ?>
-    </div>
+    <div class='control-group <?php echo $model->hasErrors("model_id")?"error":"" ?>'><?php echo  $form->textFieldRow($model,'model_id',array('class'=>'span7','maxlength'=>300)); ?></div>
 
-    <div class="row">
-        <?php echo $form->labelEx($model, 'name'); ?>
-        <?php echo $form->textField($model, 'name', array('size' => 60, 'maxlength' => 150)); ?>
-        <?php echo $form->error($model, 'name'); ?>
-    </div>
+    <div class='control-group <?php echo $model->hasErrors("name")?"error":"" ?>'><?php echo  $form->textFieldRow($model,'name',array('class'=>'span7','maxlength'=>300)); ?></div>
 
-    <div class="row">
-        <?php echo $form->labelEx($model, 'email'); ?>
-        <?php echo $form->textField($model, 'email', array('size' => 60, 'maxlength' => 150)); ?>
-        <?php echo $form->error($model, 'email'); ?>
-    </div>
+   <div class='control-group <?php echo $model->hasErrors("email")?"error":"" ?>'><?php echo  $form->textFieldRow($model,'email',array('class'=>'span7','maxlength'=>300)); ?></div>
 
-    <div class="row">
-        <?php echo $form->labelEx($model, 'url'); ?>
-        <?php echo $form->textField($model, 'url', array('size' => 60, 'maxlength' => 150)); ?>
-        <?php echo $form->error($model, 'url'); ?>
-    </div>
+   <div class='control-group <?php echo $model->hasErrors("url")?"error":"" ?>'><?php echo  $form->textFieldRow($model,'url',array('class'=>'span7','maxlength'=>300)); ?></div>
 
-    <div class="row">
+    <div class='control-group <?php echo $model->hasErrors("text")?"error":"" ?>'>
         <?php echo $form->labelEx($model, 'text'); ?>
         <?php $this->widget(Yii::app()->getModule('yupe')->editor, array(
               'model' => $model,
               'attribute' => 'text',
               'options'   => array(
                    'toolbar' => 'main',
-                   'imageUpload' => Yii::app()->baseUrl.'/index.php/yupe/backend/AjaxFileUpload/'
+                   'imageUpload' => Yii::app()->baseUrl.'/index.php/yupe/backend/AjaxFileUpload/',
                ),
               'htmlOptions' => array('rows' => 20,'cols' => 6)
+         )); ?>
+        </div>
+   
+        <div class='control-group <?php echo $model->hasErrors("status")?"error":"" ?>'><?php echo  $form->dropDownListRow($model,'status',$model->getStatusList()); ?></div>
+
+        <?php $this->widget('bootstrap.widgets.TbButton', array(
+            'buttonType'=>'submit',
+            'type'=>'primary',
+            'label'=>$model->isNewRecord ? Yii::t('comment','Добавить комментарий и продолжить') : Yii::t('comment','Сохранить комментарий и продолжить'),
         )); ?>
-        <?php echo $form->error($model, 'text'); ?>
-    </div>
-
-    <div class="row">
-        <?php echo $form->labelEx($model, 'status'); ?>
-        <?php echo $form->dropDownList($model, 'status', $model->getStatusList()); ?>
-        <?php echo $form->error($model, 'status'); ?>
-    </div>
-
-    <div class="row">
-        <?php echo $form->labelEx($model, 'ip'); ?>
-        <?php echo $model->ip; ?>
-    </div>
-
-    <div class="row buttons">
-        <?php echo CHtml::submitButton($model->isNewRecord ? Yii::t('comment', 'Добавить комментарий') : Yii::t('comment', 'Сохранить комментарий')); ?>
-    </div>
+    
+        <?php $this->widget('bootstrap.widgets.TbButton', array(
+           'buttonType' => 'submit',
+           'htmlOptions'=> array('name' => 'submit-type', 'value' => 'admin'),
+           'label'      => $model->isNewRecord ? Yii::t('comment', 'Добавить комментарий и закрыть') : Yii::t('comment', 'Сохранить комментарий и закрыть'),
+       )); ?>
+    
 
     <?php $this->endWidget(); ?>
-
-</div><!-- form -->

@@ -42,8 +42,7 @@ $this->renderPartial('_search', array('model' => $model));
 <br/>
 
 <p>
-    <?php echo Yii::t('catalog', 'В данном разделе представлены средства управления'); ?>
-    <?php echo Yii::t('catalog', 'товарами'); ?>.
+    <?php echo Yii::t('catalog', 'В данном разделе представлены средства управления товарами'); ?>    
 </p>
 
 <?php
@@ -85,26 +84,11 @@ $this->widget('application.modules.yupe.components.YCustomGridView', array(
             'name'  => 'user_id',
             'type'  => 'raw',
             'value' => 'CHtml::link($data->user->getFullName(), array("/user/default/view/", "id" => $data->user->id))',
-        ),
-        array(
-            'name'  => 'change_user_id',
-            'type'  => 'raw',
-            'value' => 'CHtml::link($data->changeUser->getFullName(), array("/user/default/view/", "id" => $data->changeUser->id))',
-        ),
+        ),       
         array(
             'name'  => 'create_time',
             'value' => 'Yii::app()->getDateFormatter()->formatDateTime($data->create_time, "short", "short")',
-        ),
-        array(
-            'name'  => 'update_time',
-            'value' => 'Yii::app()->getDateFormatter()->formatDateTime($data->update_time, "short", "short")',
-        ),
-        /*
-        'image',
-        'short_description',
-        'description',
-        'data',
-        */
+        ),              
         array(
             'class' => 'bootstrap.widgets.TbButtonColumn',
         ),

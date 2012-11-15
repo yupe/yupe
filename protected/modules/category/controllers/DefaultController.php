@@ -43,7 +43,12 @@ class DefaultController extends YBackController
                     }
                 }
 
-                Yii::app()->user->setFlash(YFlashMessages::NOTICE_MESSAGE, Yii::t('yupe', 'Запись добавлена!'));
+                Yii::app()->user->setFlash(YFlashMessages::NOTICE_MESSAGE, Yii::t('category', 'Запись добавлена!'));
+                
+                if (!isset($_POST['submit-type']))
+                    $this->redirect(array('update', 'alias' => $model->alias));
+                else
+                    $this->redirect(array($_POST['submit-type']));
 
                 $this->redirect(array( 'view', 'id' => $model->id ));
             }
@@ -76,8 +81,11 @@ class DefaultController extends YBackController
                 if ($model->save())
                 {
                     Yii::app()->user->setFlash(YFlashMessages::NOTICE_MESSAGE, Yii::t('category', 'Категория изменена!'));
-
-                    $this->redirect(array( 'update', 'id' => $model->id ));
+                    
+                    if (!isset($_POST['submit-type']))
+                        $this->redirect(array('update', 'alias' => $model->alias));
+                    else
+                        $this->redirect(array($_POST['submit-type']));
                 }
             }
 
@@ -95,7 +103,6 @@ class DefaultController extends YBackController
             $models = Category::model()->findAllByAttributes(array( 'alias' => $alias ));
             if (!$models)
                 throw new CHttpException(404, Yii::t('category', 'Указанная категория не найдена'));
-
 
             $model = null;
             // Собираем модельки по языкам
@@ -184,10 +191,10 @@ class DefaultController extends YBackController
                 {
                     Yii::app()->user->setFlash(YFlashMessages::NOTICE_MESSAGE, Yii::t('category', 'Категория обновлена!'));
 
-                    if (isset($_POST['saveAndClose']))
-                        $this->redirect(array( 'admin' ));
-
-                    $this->redirect(array( 'update', 'alias' => $alias ));
+                     if (!isset($_POST['submit-type']))
+                        $this->redirect(array('update', 'alias' => $model->alias));
+                    else
+                        $this->redirect(array($_POST['submit-type']));
                 }
                 else
                     Yii::app()->user->setFlash(YFlashMessages::NOTICE_MESSAGE, Yii::t('category', 'Ошибки при сохранении Категории!'));
@@ -217,14 +224,14 @@ class DefaultController extends YBackController
             if ($model->delete())
                 @unlink($this->module->getUploadPath() . $model->image);
 
-            Yii::app()->user->setFlash(YFlashMessages::NOTICE_MESSAGE, Yii::t('yupe', 'Запись удалена!'));
+            Yii::app()->user->setFlash(YFlashMessages::NOTICE_MESSAGE, Yii::t('category', 'Запись удалена!'));
 
             // если это AJAX запрос ( кликнули удаление в админском grid view), мы не должны никуда редиректить
             if (!isset($_GET['ajax']))
-                $this->redirect(isset($_POST['returnUrl']) ? $_POST['returnUrl'] : array( 'штвуч' ));
+                $this->redirect(isset($_POST['returnUrl']) ? $_POST['returnUrl'] : array( 'index' ));
         }
         else
-            throw new CHttpException(400, 'Неверный запрос. Пожалуйста, больше не повторяйте такие запросы');
+            throw new CHttpException(400, Yii::t('category','Неверный запрос. Пожалуйста, больше не повторяйте такие запросы'));
     }
 
     /**
@@ -251,7 +258,7 @@ class DefaultController extends YBackController
     {
         $model = Category::model()->findByPk($id);
         if ($model === null)
-            throw new CHttpException(404, 'Запрошенная страница не найдена.');
+            throw new CHttpException(404, Yii::t('category','Запрошенная страница не найдена!'));
         return $model;
     }
 

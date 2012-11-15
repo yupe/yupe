@@ -83,6 +83,14 @@ class CommentModule extends YWebModule
     {
         return "comment";
     }
+    
+    public function getNavigation()
+    {
+        return array(
+             array('icon' => 'plus-sign', 'label' => Yii::t('comment', 'Добавить комментарий'), 'url' => array('/comment/default/create/')),
+             array('icon' => 'th-list', 'label' => Yii::t('comment', 'Список комментариев'), 'url'=>array('/comment/default/admin/')),
+        );
+    }
 
     public function init()
     {

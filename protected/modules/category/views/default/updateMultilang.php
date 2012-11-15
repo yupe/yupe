@@ -3,14 +3,14 @@
 <?php
 $this->breadcrumbs = array(
     $this->getModule('category')->getCategory() => array( '' ),
-    Yii::t('category', 'Новости') => array( 'admin' ),
+    Yii::t('category', 'Категории') => array( 'index' ),
     $model->name => array( 'view', 'id' => $model->id ),
-    Yii::t('category', 'Изменение'),
+    Yii::t('category', 'Редактирование'),
 );
 
 $this->menu = array(
     array( 'icon' => 'list-alt', 'label' => Yii::t('category', 'Управление категориями'), 'url'   => array( 'index' ) ),
-    array( 'icon' => 'file', 'label' => Yii::t('category', 'Добавить категорию'), 'url'   => array( 'create' ) ),
+    array( 'icon' => 'plus-sign', 'label' => Yii::t('category', 'Добавить категорию'), 'url'   => array( 'create' ) ),
     array( 'icon' => 'pencil white', 'encodeLabel' => false, 'label' => Yii::t('category', 'Редактирование категории "') . mb_substr($model->name, 0, 32) . '"', 'url' => array( '/category/default/update', 'alias' => $model->alias ) ),
 );
 ?>
@@ -33,7 +33,7 @@ echo CHtml::openTag("fieldset", array( "class" => "inline" ));
 <div class="row-fluid control-group <?php echo $model->hasErrors('parent_id') ? 'error' : '' ?>">
     <div class="span7  popover-help" data-original-title="<?php echo $model->getAttributeLabel('parent_id'); ?>" >
         <?php echo $form->labelEx($model, 'parent_id'); ?>
-        <?php echo $form->dropDownList($model, 'parent_id', CHtml::listData(Category::model()->findAll(), 'id', 'name'), array( 'empty' => Yii::t('news', '--выберите--') )); ?>
+        <?php echo $form->dropDownList($model, 'parent_id', CHtml::listData(Category::model()->findAll(), 'id', 'name'), array( 'empty' => Yii::t('category', '--выберите--') )); ?>
     </div>
     <div class="span5">
         <?php echo $form->error($model, 'parent_id'); ?>
@@ -41,9 +41,9 @@ echo CHtml::openTag("fieldset", array( "class" => "inline" ));
 </div>
 
 <div class="row-fluid control-group <?php echo $model->hasErrors('alias') ? 'error' : '' ?>">
-    <div class="span7  popover-help" data-content="<?php echo Yii::t('category', "Краткое название страницы латинскими буквами, используется для формирования её адреса.<br /><br /> Например (выделено темным фоном): <pre>http://site.ru/news/<span class='label'>contacts</span>/</pre> Если вы не знаете, для чего вам нужно это поле &ndash; не заполняйте его, заголовка страницы будет достаточно.") ?>" data-original-title="<?php echo $model->getAttributeLabel('alias'); ?>" >
+    <div class="span7  popover-help" data-content="<?php echo Yii::t('category', "Краткое название категории латинскими буквами, используется для формирования её адреса.") ?>" data-original-title="<?php echo $model->getAttributeLabel('alias'); ?>" >
         <?php echo $form->labelEx($model, 'alias'); ?>
-        <?php echo $form->textField($model, 'alias', array( 'size' => 60, 'maxlength'   => 150, 'placeholder' => Yii::t('news', 'Оставьте пустым для автоматической генерации') )); ?>
+        <?php echo $form->textField($model, 'alias', array( 'size' => 60, 'maxlength'   => 150, 'placeholder' => Yii::t('category', 'Оставьте пустым для автоматической генерации') )); ?>
     </div>
     <div class="span5">
         <?php echo $form->error($model, 'alias'); ?>

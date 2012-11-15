@@ -1,13 +1,12 @@
 <?php
 $this->breadcrumbs = array(
-    $this->getModule('category')->getCategory() => array(''),
+    $this->getModule('comment')->getCategory() => array(''),
     Yii::t('comment', 'Комментарии') => array('admin'),
     Yii::t('comment', 'Управление'),
 );
 
-$this->menu = array(
-    array('label' => Yii::t('comment', 'Добавить комментарий'), 'url' => array('create')),
-    array('label' => Yii::t('comment', 'Список комментариев'), 'url' => array('index')),
+$this->menu = array(    
+    array('icon'  => 'plus-sign','label' => Yii::t('comment', 'Добавить комментарий'), 'url' => array('create')),    
 );
 
 Yii::app()->clientScript->registerScript('search', "
@@ -24,16 +23,34 @@ Yii::app()->clientScript->registerScript('search', "
 ");
 ?>
 
-<h1><?php echo $this->module->getName();?></h1>
+<h1><?php echo $this->module->getName();?> <small><?php echo Yii::t('comment', 'управление'); ?></small></h1>
 
-<?php echo CHtml::link(Yii::t('comment', 'Поиск комментариев'), '#', array('class' => 'search-button')); ?>
-<div class="search-form" style="display:none">
-    <?php $this->renderPartial('_search', array(
-       'model' => $model,
-    )); ?>
-</div><!-- search-form -->
+<button class="btn btn-small dropdown-toggle"  data-toggle="collapse"  data-target="#search-toggle" >
+    <i class="icon-search"></i>
+    <a class="search-button" href="#"><?php echo Yii::t('comment','Поиск комментариев');?></a>    <span class="caret"></span>
+</button>
 
-<?php $this->widget('YCustomGridView', array(
+<div id="search-toggle" class="collapse out">
+<?php
+Yii::app()->clientScript->registerScript('search', "
+    $('.search-form').submit(function() {
+        $.fn.yiiGridView.update('comment-grid', {
+            data: $(this).serialize()
+        });
+        return false;
+    });
+");
+    $this->renderPartial('_search', array('model' => $model));
+?>
+</div>
+
+<br/>
+
+<p>
+    <?php echo Yii::t('comment','В данном разделе представлены средства управления комментариями'); ?>
+</p>
+
+<?php $this->widget('application.modules.yupe.components.YCustomGridView', array(
        'id' => 'comment-grid',
        'dataProvider' => $model->search(),
        'columns' => array(
@@ -58,7 +75,7 @@ Yii::app()->clientScript->registerScript('search', "
            'name',
            'email',
            array(
-               'class' => 'CButtonColumn',
+               'class' => 'bootstrap.widgets.TbButtonColumn',
                'deleteConfirmation' => Yii::t('comment','Вы действительно хотите удалить выбранный комментарий?'),
            ),
        ),

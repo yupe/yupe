@@ -26,8 +26,14 @@ class DefaultController extends YBackController
         if (isset($_POST['Comment']))
         {
             $model->attributes = $_POST['Comment'];
+            
             if ($model->save())
-                $this->redirect(array('view', 'id' => $model->id));
+            {
+                if (!isset($_POST['submit-type']))
+                    $this->redirect(array('update', 'id' => $model->id));
+                else
+                    $this->redirect(array($_POST['submit-type']));
+            }            
         }
 
         $this->render('create', array(
@@ -50,8 +56,14 @@ class DefaultController extends YBackController
         if (isset($_POST['Comment']))
         {
             $model->attributes = $_POST['Comment'];
+            
             if ($model->save())
-                $this->redirect(array('view', 'id' => $model->id));
+            {
+                if (!isset($_POST['submit-type']))
+                    $this->redirect(array('update', 'id' => $model->id));
+                else
+                    $this->redirect(array($_POST['submit-type']));
+            }
         }
 
         $this->render('update', array(
@@ -79,16 +91,7 @@ class DefaultController extends YBackController
             throw new CHttpException(400, 'Invalid request. Please do not repeat this request again.');
     }
 
-    /**
-     * Lists all models.
-     */
-    public function actionIndex()
-    {
-        $dataProvider = new CActiveDataProvider('Comment');
-        $this->render('index', array(
-            'dataProvider' => $dataProvider,
-        ));
-    }
+   
 
     /**
      * Manages all models.

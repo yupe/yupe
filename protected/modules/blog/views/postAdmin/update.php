@@ -36,7 +36,7 @@
 ?>
 <div class="page-header">
     <h1>
-        <?php echo Yii::t('blog', 'Редактирование') . ' ' . Yii::t('blog', 'записи'); ?><br />
+        <?php echo Yii::t('blog', 'Редактирование записи'); ?><br />
         <small>&laquo;<?php echo $model->title; ?>&raquo;</small>
     </h1>
 </div>
