@@ -1,11 +1,6 @@
 <?php
 class YMail extends CApplicationComponent
 {
-    public function init()
-    {
-        //
-    }
-
     public function send($from, $to, $theme, $body, $isText = false)
     {
         $headers = "From: {$from}\r\nReply-To: {$from}";
