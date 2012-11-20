@@ -9,20 +9,17 @@ class YMailMessage extends CApplicationComponent
     public $mailComponent = 'mail';
     private $_mail;
 
-    public function init()
-    {
-        //
-    }
-
     protected function getMailComponent()
     {
         if ($this->_mail !== null)
             return $this->_mail;
         else if (($id = $this->mailComponent) !== null)
+        {
             if ($this->_mail = Yii::app()->getComponent($id))
                 return $this->_mail;
+        }
 
-        throw new CException(Yii::t('mail','YMailMessage.mailComponent is invalid!'));
+        throw new CException(Yii::t('mail', 'YMailMessage.mailComponent is invalid!'));
     }
 
     public function setMailComponent($value)
@@ -71,7 +68,6 @@ class YMailMessage extends CApplicationComponent
 
         return true;
     }
-
 
     public function parseTemplate(MailTemplate $template, array $data)
     {

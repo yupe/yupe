@@ -3,7 +3,7 @@ class CommentModule extends YWebModule
 {
     public $defaultCommentStatus = Comment::STATUS_APPROVED;
     public $autoApprove          = false;
-    public $notify               = true;
+    public $notify               = false;
     public $email;
 
     public function getParamsLabels()
