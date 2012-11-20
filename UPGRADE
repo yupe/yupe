@@ -1,19 +1,19 @@
-         Upgrading Instructions for Yupe CMS v0.4
+         Инструкция по обновлению Yupe CMS v0.4
          ================================================
 
-!!!IMPORTANT!!!
+!!!ВАЖНО!!!
 
-The following upgrading instructions are cumulative. That is,
-if you want to upgrade from version A to version C and there is
-version B between A and C, you need to following the instructions
-for both A and B.
+Следующие инструкции по обновлению являются накопительными. То есть,
+если вы хотите обновить версию с A до версии C и есть версия B
+между A и C, необходимо выполнить инструкцию по обновлению и от
+A до B.
 
-General upgrade instructions
+Общие указания по обновлению
 ----------------------------
-- Make a backup.
-- Clean up your 'assets' folder.
-- Check if everything is OK, if not — revert from backup and post
-  issues to Yupe issue tracker.
+- Сделайте резервную копию.
+- Очистите папку 'assets'.
+- Проверьте, все ли в порядке, если нет — вернитесь к резервной копии и напишите
+  на трекер ошибок Yupe.
 
-Upgrading from v0.4
+Обновление с версии v0.4
 ----------------------
