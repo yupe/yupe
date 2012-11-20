@@ -63,7 +63,7 @@ class LangUrlManager extends CUrlManager
     {
         $url = preg_replace("#" . Yii::app()->homeUrl . "#", '', $url);
         if ($url != '' && $url != '/')
-            $url = preg_replace("/\/(" . implode("|", $this->languages) . ")\//", '/', 
+            $url = preg_replace("#/(" . implode("|", $this->languages) . ")/#", '/', 
                 ($url[0] == '/' ? '' : '/') . $url . ($url[strlen($url) - 1] == '/' ? '' : '/')
             );
         if ($url != '' && $url[strlen($url) - 1] == '/')

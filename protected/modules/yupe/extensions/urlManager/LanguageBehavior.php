@@ -11,10 +11,10 @@ class LanguageBehavior extends CBehavior
     {
         $app  = Yii::app();
         $user = $app->user;
-        $home = $app->homeUrl;
+        $home = $app->homeUrl . ($app->homeUrl[strlen($app->homeUrl) - 1] == "/" ? "" : "/");
         $path = $app->request->getPathInfo();
         $lm   = $app->urlManager;
-        $l    = null;
+        $l    = false;
 
         if (!is_array($lm->languages))
             return;
@@ -39,20 +39,17 @@ class LanguageBehavior extends CBehavior
             {
                 $l = substr($path, 0, 2);
                 // Если указан в пути, редиректим на "чистый URL"
-                if ((2 == strlen($l)) && ($l == Yii::app()->sourceLanguage))
+                if (strlen($l) == 2 && $l == Yii::app()->sourceLanguage)
                 {
                     $this->setLanguage($l);
                     if (!Yii::app()->request->isAjaxRequest)
-                        Yii::app()->request->redirect(((substr($home, -1, 1) == "/")
-                            ? substr($home, 0, strlen($home) - 1)
-                            : $home
-                        ) . '/' . substr($path, 3));
+                        Yii::app()->request->redirect($home . substr($path, 3));
                 }
             }
         }
         else
         {
-            $l = null;
+            $l = false;
 
             // Пытаемся определить язык из сессии
             if ($user->hasState($lm->langParam))
@@ -74,10 +71,7 @@ class LanguageBehavior extends CBehavior
                 $this->setLanguage($l);
 
                 if(!Yii::app()->request->isAjaxRequest)
-                    Yii::app()->request->redirect(
-                        ($home . (substr($home, -1, 1) != "/" ? "/" : "") . $l) . 
-                        $lm->getCleanUrl(Yii::app()->request->url)
-                    );
+                    Yii::app()->request->redirect($home . $l . $lm->getCleanUrl(Yii::app()->request->url));
             }
             else
                 Yii::app()->language = $l;
