@@ -58,14 +58,16 @@ class LangUrlManager extends CUrlManager
         return parent::createUrl($route, $params, $ampersand);
     }
 
+    // Выполняет очистку адреса от языка
     public function getCleanUrl($url)
     {
-        if (in_array($url, $this->languages))
-            return "/";
-
-        $r = join("|", $this->languages);
-        $url = (!isset($url[0]) || ($url[0] != '/')) ? '/' . $url : preg_replace("/^($r)\//", "", $url);
-
+        $url = preg_replace("#" . Yii::app()->homeUrl . "#", '', $url);
+        if ($url != '' && $url != '/')
+            $url = preg_replace("/\/(" . implode("|", $this->languages) . ")\//", '/', 
+                ($url[0] == '/' ? '' : '/') . $url . ($url[strlen($url) - 1] == '/' ? '' : '/')
+            );
+        if ($url != '' && $url[strlen($url) - 1] == '/')
+            $url = substr($url, 0, strlen($url) - 1);
         return $url;
     }
 }
