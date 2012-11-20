@@ -2,7 +2,7 @@
 class MenuModule extends YWebModule
 {
     public $defaultController = 'menu';
-    public $menuCache = 'menu.cache';    
+    public $menuCache = 'menu.cache';
     
     public function getCategory()
     {

@@ -123,6 +123,16 @@ class MenuItem extends YModel
         ));
     }
 
+    protected function afterSave()
+    {
+        Yii::app()->cache->delete(Yii::app()->getModule('menu')->menuCache . $this->id);
+    }
+
+    protected function afterDelete()
+    {
+        Yii::app()->cache->delete(Yii::app()->getModule('menu')->menuCache . $this->id);
+    }
+
     public function getStatusList()
     {
         return array(
@@ -204,15 +214,5 @@ class MenuItem extends YModel
     {
         $data = $this->conditionList;
         return (isset($data[$this->condition_name])) ? $data[$this->condition_name] . (($this->condition_name == '') ? '' : ' (' . $this->conditionDenial . ')') : Yii::t('menu', '*неизвестно*');
-    }
-
-    protected function afterSave()
-    {
-        Yii::app()->setGlobalState(Yii::app()->getModule('menu')->menuCache, YII_BEGIN_TIME);        
-    }
-
-    protected function afterDelete()
-    {
-        Yii::app()->setGlobalState(Yii::app()->getModule('menu')->menuCache, YII_BEGIN_TIME);
     }
 }
