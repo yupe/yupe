@@ -66,7 +66,7 @@ $this->widget('application.modules.yupe.components.YCustomGridView', array(
         array(
             'name'  => 'category_id',
             'type'  => 'raw',
-            'value' => 'CHtml::link($data->name, array("/category/default/view/", "id" => $data->id))',
+            'value' => 'CHtml::link($data->category->name, array("/category/default/view/", "id" => $data->id))',
         ),
         'price',
         'article',
