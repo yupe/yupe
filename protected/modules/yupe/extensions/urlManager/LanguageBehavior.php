@@ -39,16 +39,22 @@ class LanguageBehavior extends CBehavior
                 $l = substr(Yii::app()->request->getPathInfo(), 0, 2);
                 if ((2 == strlen($l)) && ($l == Yii::app()->sourceLanguage))
                 {
-                    $this->setLanguage($l);
-                    if(!Yii::app()->request->isAjaxRequest)
-                        Yii::app()->request->redirect((
-                            (substr(Yii::app()->homeUrl, -1, 1) == "/")
-                                ? substr(Yii::app()->homeUrl, 0, strlen(Yii::app()->homeUrl) - 1)
-                                : Yii::app()->homeUrl
-                            ) . '/' . (substr(Yii::app()->request->getPathInfo(), 0, 2) != Yii::app()->sourceLanguage
-                                        ? substr(Yii::app()->request->getPathInfo(), 0, 2)
-                                        : '')
-                        );
+                    /* Есть ли в адресе 'index.php' */
+                $is_index = substr_count(Yii::app()->homeUrl,'index.php') > 0 ? '/index.php' : '';
+                /* Избавляемся от вхождения языка и индексового файла: */
+                $link = strtr(Yii::app()->request->url, array(
+                    '/index.php'       => '',
+                    '/'.$app->language => '',
+                ));
+                /* Возможно остался старый язык в УРЛ: */
+                $old_lang = substr($link, 1, 2);
+                /* Избавляемся от него: */
+                in_array($old_lang, $lm->languages)
+                    ? $link = str_replace('/'.$old_lang, '', $link)
+                    : FALSE;
+                $this->setLanguage($l);
+                if(!Yii::app()->request->isAjaxRequest)
+                    Yii::app()->request->redirect($is_index . $link);
                 }
             }
         }
