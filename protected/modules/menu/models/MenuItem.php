@@ -125,12 +125,14 @@ class MenuItem extends YModel
 
     protected function afterSave()
     {
-        Yii::app()->cache->delete(Yii::app()->getModule('menu')->menuCache . $this->id);
+        foreach (explode(',', Yii::app()->getModule('yupe')->availableLanguages) as &$lang)
+            Yii::app()->cache->delete(Yii::app()->getModule('menu')->menuCache . $this->menu->id . trim($lang));
     }
 
     protected function afterDelete()
     {
-        Yii::app()->cache->delete(Yii::app()->getModule('menu')->menuCache . $this->id);
+        foreach (explode(',', Yii::app()->getModule('yupe')->availableLanguages) as &$lang)
+            Yii::app()->cache->delete(Yii::app()->getModule('menu')->menuCache . $this->menu->id . trim($lang));
     }
 
     public function getStatusList()

@@ -104,12 +104,14 @@ class Menu extends YModel
 
     protected function afterSave()
     {
-        Yii::app()->cache->delete(Yii::app()->getModule('menu')->menuCache . $this->id);
+        foreach (explode(',', Yii::app()->getModule('yupe')->availableLanguages) as &$lang)
+            Yii::app()->cache->delete(Yii::app()->getModule('menu')->menuCache . $this->id . trim($lang));
     }
 
     protected function afterDelete()
     {
-        Yii::app()->cache->delete(Yii::app()->getModule('menu')->menuCache . $this->id);
+        foreach (explode(',', Yii::app()->getModule('yupe')->availableLanguages) as &$lang)
+            Yii::app()->cache->delete(Yii::app()->getModule('menu')->menuCache . $this->id . trim($lang));
     }
 
     public function getStatusList()
@@ -129,7 +131,7 @@ class Menu extends YModel
     // @todo добавить кэширование
     public function getItems($code, $parent_id = 0)
     {
-        $items = Yii::app()->cache->get(Yii::app()->getModule('menu')->menuCache . $this->id);
+        $items = Yii::app()->cache->get(Yii::app()->getModule('menu')->menuCache . $this->id . Yii::app()->language);
 
         if ($items === false)
         {
