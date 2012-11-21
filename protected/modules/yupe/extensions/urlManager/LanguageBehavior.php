@@ -15,6 +15,7 @@ class LanguageBehavior extends CBehavior
         $home = $app->homeUrl . ($app->homeUrl[strlen($app->homeUrl) - 1] != "/" ? '/' : '');
         $path = $app->request->getPathInfo();
         $lm   = $app->urlManager;
+        $l = false;
 
         if (!is_array($lm->languages))
             return;
