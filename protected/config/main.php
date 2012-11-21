@@ -98,6 +98,8 @@ return array(
         // конфигурирование urlManager, подробнее http://www.yiiframework.ru/doc/guide/ru/topics.url
         'urlManager' => array(
             'class'          => 'application.modules.yupe.extensions.urlManager.LangUrlManager',
+            'languageInPath' => true,
+            'langParam'      => 'language',
             'urlFormat'      => 'path',
             // для того чтобы убрать index.php из url, читаем статью http://yiiframework.ru/doc/guide/ru/quickstart.apache-nginx-config
             'showScriptName' => true,

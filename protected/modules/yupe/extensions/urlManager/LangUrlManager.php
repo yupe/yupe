@@ -9,7 +9,8 @@
 class LangUrlManager extends CUrlManager
 {
     public $languages;
-    public $langParam = 'language';
+    public $langParam      = 'language';
+    public $languageInPath = true;
 
     public function init()
     {
@@ -20,7 +21,7 @@ class LangUrlManager extends CUrlManager
             $this->languages = null;
 
         // Если указаны - добавляем правила для обработки, иначе ничего не трогаем вообще
-        if ($yupe->languageInPath && is_array($this->languages))
+        if ($this->languageInPath && is_array($this->languages))
         {
             // Добавляем правила для обработки языков
             $r = array();
@@ -101,7 +102,7 @@ class LangUrlManager extends CUrlManager
     public function replaceLangUrl($url, $lang = false)
     {
         if ($lang)
-            $url = (Yii::app()->getModule('yupe')->languageInPath)
+            $url = ($this->languageInPath)
                 ? $lang . ($url != '' ? '/' . $url : '')
                 : $url . (strstr($url, '?') ? '&' : '?') . $this->langParam . '=' . $lang;
         return $url;

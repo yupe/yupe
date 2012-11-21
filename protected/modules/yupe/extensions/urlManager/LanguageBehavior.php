@@ -22,7 +22,7 @@ class LanguageBehavior extends CBehavior
 
         // Если указан язык известный нам
         if ((
-            // Если метод соответствует YupeModule->languageInPath или было обращение через GET парамметр
+            // Если метод соответствует urlManager->languageInPath или было обращение через GET парамметр
             isset($_GET[$lm->langParam])                    &&
             in_array($_GET[$lm->langParam], $lm->languages) &&
             $l = $_GET[$lm->langParam]
@@ -44,7 +44,7 @@ class LanguageBehavior extends CBehavior
                 // Язык установлен на вывод в GET-парамметре, но обращение было через путь
                 !isset($_GET[$lm->langParam]) ||
                 // Язык установлен на вывод в пути, но обращение было через GET-парамметр
-                ($app->getModule('yupe')->languageInPath && substr($path, 0, 2) != $l)
+                ($lm->languageInPath && substr($path, 0, 2) != $l)
             )
             {
                 // Редирект на URL без указания языка
