@@ -3,22 +3,16 @@
 // основной конфигурационный файл Yii и Юпи! (подробнее http://www.yiiframework.ru/doc/guide/ru/basics.application)
 return array(
     'basePath'          => dirname(__FILE__) . DIRECTORY_SEPARATOR . '..',
-    // контроллер по умолчанию
-    'defaultController' => 'site',
-    // название приложения
-    'name'              => 'Юпи!',
-    // язык по умолчанию
-    'language'          => 'ru',
-    
+    'defaultController' => 'site',       // контроллер по умолчанию
+    'name'              => 'Юпи!',       // название приложения
+    'language'          => 'ru',         // язык по умолчанию
     'sourceLanguage'    => 'ru',
-    // тема оформления по умолчанию
-    'theme'             => 'default',
-    // preloading 'log' component
-    'preload'           => array( 'log' ),
-    // подключение путей
+    'theme'             => 'default',    // тема оформления по умолчанию
+    'preload'           => array('log'), // preloading 'log' component
     'import'            => array(
+        // подключение основых путей
         'application.components.*',
-        // подключение путей из основных модулей
+        // подключение путей из модулей
         'application.modules.user.UserModule',
         'application.modules.user.models.*',
         'application.modules.user.forms.*',
@@ -51,39 +45,40 @@ return array(
         'application.modules.geo.*',
         'application.modules.geo.models.*',
     ),
+    // подключение и конфигурирование модулей,
+    // подробнее: http://www.yiiframework.ru/doc/guide/ru/basics.module
+    'modules' => require(dirname(__FILE__) . '/modules.php'),
+    'behaviors' => array(
+        'onBeginRequest' => array('class' => 'application.modules.yupe.extensions.urlManager.LanguageBehavior'),
+        'YupeStartUpBehavior',
+    ),
+    'params' => require(dirname(__FILE__) . '/params.php'),
     // конфигурирование основных компонентов (подробнее http://www.yiiframework.ru/doc/guide/ru/basics.component)
     'components' => array(
-/*
-        // Если используется модуль geo  - надо как-то интегрировать в сам модуль
-        'sxgeo' => array(
-            'class' => 'application.modules.geo.extensions.sxgeo.CSxGeoIP',
-            'filename' => dirname(__FILE__)."/../modules/geo/data/SxGeoCity.dat",
-        ),
-*/
         'queue' => array(
             'class'          => 'application.modules.queue.components.YDbQueue',
             'connectionId'   => 'db',
             'workerNamesMap' => array(
                 1 => 'Отправка почты',
                 2 => 'Ресайз изображений',
-            )
+            ),
         ),
-        // Библиотека для работы с картинками через GD/ImageMagick
-        // Лучше установите ImageMagick, т.к. он ресайзит анимированные гифы
+        // библиотека для работы с картинками через GD/ImageMagick
+        // лучше установите ImageMagick, т.к. он ресайзит анимированные гифы
         'image' => array(
             'class'  => 'application.modules.yupe.extensions.image.CImageComponent',
-            'driver' => 'GD', // Еще бывает ImageMagick, если используется он, надо указать к нему путь чуть ниже
-            'params' => array( 'directory' => '/usr/bin' ), // В этой директории должен быть convert
+            'driver' => 'GD',                               // если ImageMagick, надо указать к нему путь ниже
+            'params' => array( 'directory' => '/usr/bin' ), // в этой директории должен быть convert
         ),
-        // подключение библиотеки для авторизации через социальные сервисы, подробнее https://github.com/Nodge/yii-eauth
+        // подключение библиотеки для авторизации через социальные сервисы, подробнее: https://github.com/Nodge/yii-eauth
         'loid' => array(
             'class' => 'application.modules.social.extensions.lightopenid.loid',
         ),
-        // экстеншн для авторизации через социальные сети подробнее http://habrahabr.ru/post/129804/
+        // экстеншн для авторизации через социальные сети подробнее: http://habrahabr.ru/post/129804/
         'eauth' => array(
             'class'    => 'application.modules.social.extensions.eauth.EAuth',
-            'popup'    => true, // Use the popup window instead of redirecting.
-            'services' => array( // You can change the providers and their classes.
+            'popup'    => true,  // use the popup window instead of redirecting.
+            'services' => array( // you can change the providers and their classes.
                 'google' => array('class' => 'CustomGoogleService'),
                 'yandex' => array('class' => 'CustomYandexService'),
             ),
@@ -95,52 +90,50 @@ return array(
         'mailMessage' => array(
             'class' => 'application.modules.mail.components.YMailMessage'
         ),
-        // конфигурирование urlManager, подробнее http://www.yiiframework.ru/doc/guide/ru/topics.url
+        // конфигурирование urlManager, подробнее: http://www.yiiframework.ru/doc/guide/ru/topics.url
         'urlManager' => array(
             'class'          => 'application.modules.yupe.extensions.urlManager.LangUrlManager',
             'languageInPath' => true,
             'langParam'      => 'language',
             'urlFormat'      => 'path',
-            // для того чтобы убрать index.php из url, читаем статью http://yiiframework.ru/doc/guide/ru/quickstart.apache-nginx-config
-            'showScriptName' => true,
+            'showScriptName' => true, // чтобы убрать index.php из url, читаем: http://yiiframework.ru/doc/guide/ru/quickstart.apache-nginx-config
             'cacheID'        => 'cache',
             'rules'          => array(
-                '/'                                                     => 'site/index',
-                '/login'                                                => 'user/account/login',
-                '/logout'                                               => 'user/account/logout',
-                '/registration'                                         => 'user/account/registration',
-                '/recovery'                                             => 'user/account/recovery',
-                '/feedback'                                             => 'feedback/feedback',
-                '/pages/<slug>'                                         => 'page/page/show',
-                '/story/<title>'                                        => 'news/news/show/',
-                '/post/<slug>.html'                                     => 'blog/post/show/',
-                '/posts/tag/<tag>'                                      => 'blog/post/list/',
-                '/blog/<slug>'                                          => 'blog/blog/show/',
-                '/blogs/'                                               => 'blog/blog/index/',
-                '/users/'                                               => 'user/people/index/',
-                '/profile/'                                             => 'user/people/profile/',
-                '/install'                                              => 'install/default/index/',
-                '/wiki/<controller:\w+>/<action:\w+>'                   => '/yeeki/wiki/<controller>/<action>',
-                '/site/page/<view:\w+>'                                 => 'site/page/view/<view>',
-                '/yupe/backend/modulesettings/<module:\w+>'             => '/yupe/backend/modulesettings/',
-                'user/<username:\w+>/'                                  => 'user/people/userInfo',
-                '<module:\w+>/<controller:\w+>/<action:\w+>/<id:\d+>'   => '<module>/<controller>/<action>',
-                '<module:\w+>/<controller:\w+>/<action:\w+>'            => '<module>/<controller>/<action>',
-                '<module:\w+>/<controller:\w+>'                         => '<module>/<controller>/index',
-                '<controller:\w+>/<action:\w+>'                         => '<controller>/<action>',
-                '<controller:\w+>'                                      => '<controller>/index',
+                '/'                                                   => 'site/index',
+                '/login'                                              => 'user/account/login',
+                '/logout'                                             => 'user/account/logout',
+                '/registration'                                       => 'user/account/registration',
+                '/recovery'                                           => 'user/account/recovery',
+                '/feedback'                                           => 'feedback/feedback',
+                '/pages/<slug>'                                       => 'page/page/show',
+                '/story/<title>'                                      => 'news/news/show/',
+                '/post/<slug>.html'                                   => 'blog/post/show/',
+                '/posts/tag/<tag>'                                    => 'blog/post/list/',
+                '/blog/<slug>'                                        => 'blog/blog/show/',
+                '/blogs/'                                             => 'blog/blog/index/',
+                '/users/'                                             => 'user/people/index/',
+                '/profile/'                                           => 'user/people/profile/',
+                '/install'                                            => 'install/default/index/',
+                '/wiki/<controller:\w+>/<action:\w+>'                 => '/yeeki/wiki/<controller>/<action>',
+                '/site/page/<view:\w+>'                               => 'site/page/view/<view>',
+                '/yupe/backend/modulesettings/<module:\w+>'           => '/yupe/backend/modulesettings/',
+                'user/<username:\w+>/'                                => 'user/people/userInfo',
+                '<module:\w+>/<controller:\w+>/<action:\w+>/<id:\d+>' => '<module>/<controller>/<action>',
+                '<module:\w+>/<controller:\w+>/<action:\w+>'          => '<module>/<controller>/<action>',
+                '<module:\w+>/<controller:\w+>'                       => '<module>/<controller>/index',
+                '<controller:\w+>/<action:\w+>'                       => '<controller>/<action>',
+                '<controller:\w+>'                                    => '<controller>/index',
             ),
         ),
-        // конфигурируем компонент CHttpRequest для защиты от CSRF атак, подробнее http://www.yiiframework.ru/doc/guide/ru/topics.security
+        // конфигурируем компонент CHttpRequest для защиты от CSRF атак, подробнее: http://www.yiiframework.ru/doc/guide/ru/topics.security
         // РЕКОМЕНДУЕМ УКАЗАТЬ СВОЕ ЗНАЧЕНИЕ ДЛЯ ПАРАМЕТРА "csrfTokenName"
-        // Базовый класс CHttpRequest переопределен для загрузки файлов через ajax, подробнее http://www.yiiframework.com/forum/index.php/topic/8689-disable-csrf-verification-per-controller-action/
+        // базовый класс CHttpRequest переопределен для загрузки файлов через ajax, подробнее: http://www.yiiframework.com/forum/index.php/topic/8689-disable-csrf-verification-per-controller-action/
         'request' => array(
             'class'                  => 'YHttpRequest',
             'enableCsrfValidation'   => true,
             'csrfTokenName'          => 'YUPE_TOKEN',
             'noCsrfValidationRoutes' => array('yupe/backend/AjaxFileUpload'),
-            // подробнее http://www.yiiframework.com/doc/guide/1.1/ru/topics.security#sec-4
-            'enableCookieValidation' => true,
+            'enableCookieValidation' => true, // подробнее: http://www.yiiframework.com/doc/guide/1.1/ru/topics.security#sec-4
         ),
         // подключение компонента для генерации ajax-ответов
         'ajax' => array(
@@ -149,7 +142,7 @@ return array(
         // компонент Yii::app()->user, подробнее http://www.yiiframework.ru/doc/guide/ru/topics.auth
         'user' => array(
             'class'    => 'application.modules.user.components.YWebUser',
-            'loginUrl' => '/user/account/login/'
+            'loginUrl' => '/user/account/login/',
         ),
         // параметры подключения к базе данных, подробнее http://www.yiiframework.ru/doc/guide/ru/database.overview
         'db' => require(dirname(__FILE__) . '/db.php'),
@@ -163,25 +156,22 @@ return array(
             'routes' => array(
                 array(
                     'class'  => 'CFileLogRoute',
-                    // в боевом режиме рекомендуется оставить error, warning
-                    'levels' => 'error, warning, info, trace',
+                    'levels' => 'error, warning, info, trace', // на продакшн лучше оставить error, warning
                 ),
-                //профайлер запросов к базе данных, на продакшн серверах рекомендуется отключить
+                // профайлер запросов к базе данных, на продакшн рекомендуется отключить
                 array(
                     'class'        => 'application.modules.yupe.extensions.db_profiler.DbProfileLogRoute',
-                    'countLimit'   => 1, // How many times the same query should be executed to be considered inefficient
+                    'countLimit'   => 1,    // How many times the same query should be executed to be considered inefficient
                     'slowQueryMin' => 0.01, // Minimum time for the query to be slow
                 ),
             ),
         ),
+/*
+        // Если используется модуль geo  - надо как-то интегрировать в сам модуль
+        'sxgeo' => array(
+            'class' => 'application.modules.geo.extensions.sxgeo.CSxGeoIP',
+            'filename' => dirname(__FILE__)."/../modules/geo/data/SxGeoCity.dat",
+        ),
+*/
     ),
-    // конфигурация модулей приложения, подробнее http://www.yiiframework.ru/doc/guide/ru/basics.module
-    'modules' => require(dirname(__FILE__) . '/modules.php'),
-
-    'behaviors' => array(
-        'onBeginRequest' => array('class' => 'application.modules.yupe.extensions.urlManager.LanguageBehavior'),
-        'YupeStartUpBehavior',
-    ),
-
-    'params' => require(dirname(__FILE__) . '/params.php'),
 );
