@@ -44,6 +44,7 @@ class YupeModule extends YWebModule
     public $availableLanguages     = "ru,en";
     public $defaultLanguage        = "ru";
     public $defaultBackendLanguage = "ru";
+    public $languageInPath         = true;
 
     public function getVersion()
     {
@@ -113,6 +114,7 @@ class YupeModule extends YWebModule
             'availableLanguages'     => Yii::t('yupe', 'Список доступных языков через запятую (напр. ru,en,de)'),
             'defaultLanguage'        => Yii::t('yupe', 'Язык по-умолчанию для сайта'),
             'defaultBackendLanguage' => Yii::t('yupe', 'Язык по-умолчанию для админки'),
+            'languageInPath'         => Yii::t('yupe', 'Добавляется язык в виде GET-параметра или в путь'),
         );
     }
 
@@ -133,6 +135,7 @@ class YupeModule extends YWebModule
             'availableLanguages',
             'defaultLanguage'        => $this->getLanguagesList(),
             'defaultBackendLanguage' => $this->getLanguagesList(),
+            'languageInPath',
         );
     }
     
