@@ -15,8 +15,8 @@
  * Параметр служит для установки нужной версии темы. Варианты: bootstrap и booster.
  */
 Yii::app()->setComponent('bootstrap', Yii::createComponent(array(
-    'class' => $themeBase . '.extensions.booster.components.Bootstrap',
+    'class' => 'application.modules.yupe.extensions.booster.components.Bootstrap',
 )));
 
-Yii::setPathOfAlias('bootstrap', Yii::app()->theme->basePath . '/extensions/booster');
+Yii::setPathOfAlias('bootstrap', Yii::app()->getModule('yupe')->basePath . '/extensions/booster');
 Yii::app()->preload[] = 'bootstrap';

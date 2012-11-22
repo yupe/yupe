@@ -1,4 +1,5 @@
 <h1>Поздравляем!</h1>
+<p>Юпи! - <a href='http://yupe.ru?from=mainpage'>CMS на Yii</a>!</p>
 <p> Ваш очередной сайт на <a href='http://yupe.ru/?from=mainpage'>Юпи!</a> готов к работе!</p>
 <p> Для управления сайтом, пожалуйста, перейдите в <?php echo CHtml::link('панель управления', array('/yupe/backend/')); ?>.</p>
 <p> При возникновении вопросов или проблем - обращайтесь на наш <a href='http://yupe.ru/talk/?from=mainpage'>форум</a>.</p>
