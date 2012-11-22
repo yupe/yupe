@@ -2,6 +2,7 @@
 class DefaultController extends YBackController
 {
     public $stepName;
+    
     private $alreadyInstalledFlag;
 
     public function filters()
@@ -217,6 +218,8 @@ class DefaultController extends YBackController
                         @chmod($dbConfFile, 0666);
 
                         $transaction = Yii::app()->db->beginTransaction();
+                        
+                        Yii::app()->db->setAttribute(PDO::MYSQL_ATTR_USE_BUFFERED_QUERY,1);
 
                         try
                         {
@@ -253,14 +256,14 @@ class DefaultController extends YBackController
                         }
                         catch (Exception $e)
                         {
-                            $transaction->rollback();
+                            $transaction->rollback();                            
 
                             Yii::app()->user->setFlash(
                                 YFlashMessages::ERROR_MESSAGE,
                                 Yii::t('install', 'При инициализации базы данных произошла ошибка!')
                             );
 
-                            Yii::log($e->getMessage(), CLogger::LEVEL_ERROR);
+                            Yii::log($e->__toString(), CLogger::LEVEL_ERROR);
 
                             $this->redirect(array('/install/default/dbsettings/'));
                         }
@@ -269,6 +272,8 @@ class DefaultController extends YBackController
                 catch (Exception $e)
                 {
                     $form->addError('', Yii::t('install', 'С указанными параметрами подключение к БД не удалось выполнить!'));
+
+                    Yii::log($e->__toString(),CLogger::LEVEL_ERROR);                                      
                 }
             }
         }
@@ -306,6 +311,7 @@ class DefaultController extends YBackController
             if ($model->validate())
             {
                 $user = new User;
+                
                 $user->deleteAll();
 
                 $salt = $user->generateSalt();
@@ -398,6 +404,8 @@ class DefaultController extends YBackController
                         YFlashMessages::ERROR_MESSAGE,
                         $e->getMessage()
                     );
+                    
+                    Yii::log($e->__toString(),  CLogger::LEVEL_ERROR);
 
                     $this->redirect(array('/install/default/sitesettings/'));
                 }
@@ -423,10 +431,7 @@ class DefaultController extends YBackController
     }
 
     private function executeSql($sqlFile)
-    {
-        $sql = file_get_contents($sqlFile);
-        $command = Yii::app()->db->createCommand($sql);
-
-        return $command->execute();
+    {        
+        return Yii::app()->db->createCommand(file_get_contents($sqlFile))->execute();        
     }
 }
