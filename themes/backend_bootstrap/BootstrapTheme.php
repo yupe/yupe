@@ -14,11 +14,9 @@
 /**
  * Параметр служит для установки нужной версии темы. Варианты: bootstrap и booster.
  */
-const THEME_NAME = 'bootstrap';
-
 Yii::app()->setComponent('bootstrap', Yii::createComponent(array(
-    'class' => $themeBase . '.extensions.' . THEME_NAME . '.components.Bootstrap',
+    'class' => $themeBase . '.extensions.booster.components.Bootstrap',
 )));
 
-Yii::setPathOfAlias('bootstrap', Yii::app()->theme->basePath . '/extensions/' . THEME_NAME);
+Yii::setPathOfAlias('bootstrap', Yii::app()->theme->basePath . '/extensions/booster');
 Yii::app()->preload[] = 'bootstrap';
