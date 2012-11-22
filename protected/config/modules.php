@@ -1,26 +1,19 @@
 <?php
 
 return array(
-/*
-    // Определение страны, города и прочего по кофейной гуще (IP)
-    // Требует раскоментировать sxGeo в mian конфиге и импортировать data/geo.sql
-    'geo' => array(
-        'class' => 'application.modules.geo.GeoModule',
-    ),
-*/
     'menu' => array(
         'class' => 'application.modules.menu.MenuModule',
     ),
     'queue' => array(
         'class' => 'application.modules.queue.QueueModule',
     ),
-    'catalog'  => array(
+    'catalog' => array(
         'class' => 'application.modules.catalog.CatalogModule',
     ),
-    'mail'  => array(
+    'mail' => array(
         'class' => 'application.modules.mail.MailModule',
     ),
-    'blog'  => array(
+    'blog' => array(
         'class' => 'application.modules.blog.BlogModule',
     ),
     'social' => array(
@@ -32,18 +25,9 @@ return array(
     'dictionary' => array(
         'class' => 'application.modules.dictionary.DictionaryModule',
     ),
-    
     'gallery' => array(
         'class' => 'application.modules.gallery.GalleryModule',
     ),
-    /*
-    'vote' => array(
-        'class' => 'application.modules.vote.VoteModule',
-    ),
-    'contest' => array(
-        'class' => 'application.modules.contest.ContestModule',
-    ),
-    */
     'image' => array(
         'class' => 'application.modules.image.ImageModule',
     ),
@@ -71,8 +55,7 @@ return array(
             'user/people/<username:\w+>'                          => 'user/people/userInfo',
             'user/people/'                                        => 'user/people/index',
         ),
-        // В случае использования GEO-модуля, подписываем его на события
-        // 'attachedProfileEvents' => array("GeoModule",),
+        // 'attachedProfileEvents' => array("GeoModule"), // В случае использования GEO-модуля, подписываем его на события
     ),
     'page' => array(
         'class'  => 'application.modules.page.PageModule',
@@ -94,14 +77,27 @@ return array(
             ),
         ),
     ),
-    // подключение gii в режиме боевой работы рекомендуется отключить (подробнее http://www.yiiframework.com/doc/guide/1.1/en/quickstart.first-app)
+    // на продакшне gii рекомендуется отключить, подробнее: http://www.yiiframework.com/doc/guide/1.1/en/quickstart.first-app
     'gii'   => array(
         'class'          => 'system.gii.GiiModule',
         'password'       => 'giiYupe',
         'generatorPaths' => array(
             'application.modules.yupe.extensions.yupe.gii',
         ),
-        'ipFilters'=>array(),       
+        'ipFilters'=>array(),
     ),
+    /*
+    'vote' => array(
+        'class' => 'application.modules.vote.VoteModule',
+    ),
+    'contest' => array(
+        'class' => 'application.modules.contest.ContestModule',
+    ),
+    // Определение страны, города и прочего по кофейной гуще (IP)
+    // Требует раскоментировать sxGeo в mian конфиге и импортировать data/geo.sql
+    'geo' => array(
+        'class' => 'application.modules.geo.GeoModule',
+    ),
+    */
 );
 ?>

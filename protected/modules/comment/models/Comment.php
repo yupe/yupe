@@ -139,7 +139,7 @@ class Comment extends YModel
         if ($this->isNewRecord)
         {
             $this->creation_date = new CDbExpression('NOW()');
-            $this->ip = Yii::app()->request->userHostAddress;
+            $this->ip            = Yii::app()->request->userHostAddress;
         }
 
         return parent::beforeSave();
@@ -165,8 +165,7 @@ class Comment extends YModel
 
     public function getStatus()
     {
-        $list = $this->getStatusList();
-
+        $list = $this->statusList;
         return isset($list[$this->status]) ? $list[$this->status] : Yii::t('comment', 'Статус неизвестен');
     }
 

@@ -36,9 +36,7 @@ class DefaultController extends YBackController
             }            
         }
 
-        $this->render('create', array(
-            'model' => $model,
-        ));
+        $this->render('create', array('model' => $model));
     }
 
     /**
@@ -66,9 +64,7 @@ class DefaultController extends YBackController
             }
         }
 
-        $this->render('update', array(
-            'model' => $model,
-        ));
+        $this->render('update', array('model' => $model));
     }
 
     /**
@@ -91,8 +87,6 @@ class DefaultController extends YBackController
             throw new CHttpException(400, 'Invalid request. Please do not repeat this request again.');
     }
 
-   
-
     /**
      * Manages all models.
      */
@@ -103,9 +97,7 @@ class DefaultController extends YBackController
         if (isset($_GET['Comment']))
             $model->attributes = $_GET['Comment'];
 
-        $this->render('admin', array(
-            'model' => $model,
-        ));
+        $this->render('admin', array('model' => $model));
     }
 
     /**
@@ -115,7 +107,7 @@ class DefaultController extends YBackController
      */
     public function loadModel($id)
     {
-        $model = Comment::model()->findByPk((int)$id);
+        $model = Comment::model()->findByPk((int) $id);
         if ($model === null)
             throw new CHttpException(404, 'The requested page does not exist.');
         return $model;

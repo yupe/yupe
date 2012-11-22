@@ -102,6 +102,20 @@ class Menu extends YModel
         ));
     }
 
+    protected function afterSave()
+    {
+        $availableLanguages = explode(',', Yii::app()->getModule('yupe')->availableLanguages);
+        foreach ($availableLanguages as &$lang)
+            Yii::app()->cache->delete(Yii::app()->getModule('menu')->menuCache . $this->id . trim($lang));
+    }
+
+    protected function afterDelete()
+    {
+        $availableLanguages = explode(',', Yii::app()->getModule('yupe')->availableLanguages);
+        foreach ($availableLanguages as &$lang)
+            Yii::app()->cache->delete(Yii::app()->getModule('menu')->menuCache . $this->id . trim($lang));
+    }
+
     public function getStatusList()
     {
         return array(
@@ -119,50 +133,44 @@ class Menu extends YModel
     // @todo добавить кэширование
     public function getItems($code, $parent_id = 0)
     {
-        $dependency = new CGlobalStateCacheDependency(Yii::app()->getModule('menu')->menuCache);
-        $results = self::model()->cache(Yii::app()->getModule('yupe')->coreCacheTime,$dependency,2)->with(array('menuItems' => array(
-            'on'     => 'menuItems.parent_id = :parent_id AND menuItems.status = 1',
-            'params' => array('parent_id' => (int) $parent_id),
-            'order'  => 'menuItems.sort ASC, menuItems.id ASC',
-        )))->findAll(array(
-            'select'    => array('id', 'code'),
-            'condition' => 't.code = :code AND t.status = 1',
-            'params'    => array(':code' => $code),
-        ));
+        $items = Yii::app()->cache->get(Yii::app()->getModule('menu')->menuCache . $this->id . Yii::app()->language);
 
-        $items = array();
-
-        if (empty($results))
-            return $items;
-
-        $resultItems = $results[0]->menuItems;
-
-        foreach ($resultItems AS $result)
+        if ($items === false)
         {
-            $childItems = $this->getItems($code, $result->id);
-            $items[] = array(
-                'label'          => $result->title,
-                'url'            => array($result->href),
-                'itemOptions'    => array('class' => 'listItem'),
-                'linkOptions'    => array(
-                    'class' => 'listItemLink',
-                    'title' => $result->title,
-                ),
-                'submenuOptions' => array(),
-                'items'          => $childItems,
-                'visible'        => MenuItem::model()->getConditionVisible($result->condition_name, $result->condition_denial),
-            );
+            $results = self::model()->with(array('menuItems' => array(
+                'on'     => 'menuItems.parent_id = :parent_id AND menuItems.status = 1',
+                'params' => array('parent_id' => (int) $parent_id),
+                'order'  => 'menuItems.sort ASC, menuItems.id ASC',
+            )))->findAll(array(
+                'select'    => array('id', 'code'),
+                'condition' => 't.code = :code AND t.status = 1',
+                'params'    => array(':code' => $code),
+            ));
+
+            $items = array();
+
+            if (empty($results))
+                return $items;
+
+            $resultItems = $results[0]->menuItems;
+
+            foreach ($resultItems AS $result)
+            {
+                $childItems = $this->getItems($code, $result->id);
+                $items[] = array(
+                    'label'          => $result->title,
+                    'url'            => array($result->href),
+                    'itemOptions'    => array('class' => 'listItem'),
+                    'linkOptions'    => array(
+                        'class' => 'listItemLink',
+                        'title' => $result->title,
+                    ),
+                    'submenuOptions' => array(),
+                    'items'          => $childItems,
+                    'visible'        => MenuItem::model()->getConditionVisible($result->condition_name, $result->condition_denial),
+                );
+            }
         }
         return $items;
-    }
-
-    protected function afterSave()
-    {
-        Yii::app()->setGlobalState(Yii::app()->getModule('menu')->menuCache, YII_BEGIN_TIME);        
-    }
-
-    protected function afterDelete()
-    {
-        Yii::app()->setGlobalState(Yii::app()->getModule('menu')->menuCache, YII_BEGIN_TIME);
     }
 }

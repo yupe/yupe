@@ -1,11 +1,6 @@
 <?php
 class YMail extends CApplicationComponent
 {
-    public function init()
-    {
-        //
-    }
-
     public function send($from, $to, $theme, $body, $isText = false)
     {
         $headers = "From: {$from}\r\nReply-To: {$from}";
@@ -14,6 +9,6 @@ class YMail extends CApplicationComponent
         if (!$isText)
             $headers = 'MIME-Version: 1.0' . "\r\n" . 'Content-type: text/html; charset=UTF-8' . "\r\n" . $headers;
 
-        return mail($to, '=?UTF-8?B?' . base64_encode($theme) . '?=', $body, $headers);
+        return @mail($to, '=?UTF-8?B?' . base64_encode($theme) . '?=', $body, $headers);
     }
 }

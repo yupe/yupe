@@ -9,7 +9,8 @@
 class LangUrlManager extends CUrlManager
 {
     public $languages;
-    public $langParam = 'language';
+    public $langParam      = 'language';
+    public $languageInPath = true;
 
     public function init()
     {
@@ -20,7 +21,7 @@ class LangUrlManager extends CUrlManager
             $this->languages = null;
 
         // Если указаны - добавляем правила для обработки, иначе ничего не трогаем вообще
-        if (is_array($this->languages))
+        if ($this->languageInPath && is_array($this->languages))
         {
             // Добавляем правила для обработки языков
             $r = array();
@@ -58,14 +59,52 @@ class LangUrlManager extends CUrlManager
         return parent::createUrl($route, $params, $ampersand);
     }
 
+    /**
+     * Выполняет очистку адреса от языка
+     * @return string обработанную строку адреса
+     */
     public function getCleanUrl($url)
     {
-        if (in_array($url, $this->languages))
-            return "/";
+        strstr($url, '?')
+            ? list($url, $param) = explode("?", $url)
+            : $param = false;
+        // Убираем homeUrl из адреса
+        $url = preg_replace("#^" . Yii::app()->homeUrl . "#", '', $url);
+        // Убираем из пути адреса языковой параметр
+        if ($url != '' && $url != '/')
+        {
+            if ($url[0] == '/')
+                $url = substr($url, 1);
+            if ($url[strlen($url) - 1] != '/')
+                $url .= '/';
+            $url = preg_replace("#^(" . implode("|", $this->languages) . ")/#", '', $url);
+        }
+        // Убираем косую черту в конце пути для единоообразия
+        if ($url != '' && $url[strlen($url) - 1] == '/')
+            $url = substr($url, 0, strlen($url) - 1);
+        // Убираем из GET-парамметров адреса языковой парамметр
+        if($param != false)
+        {
+            parse_str($param, $param);
+            if (isset($param[$this->langParam]))
+                unset($param[$this->langParam]);
+            if ($param != array())
+                $url .= '?' . http_build_query($param);
+        }
+        return $url;
+    }
 
-        $r = join("|", $this->languages);
-        $url = (!isset($url[0]) || ($url[0] != '/')) ? '/' . $url : preg_replace("/^($r)\//", "", $url);
-
+    /**
+     * При принудительном изменении языка, определяет как добавлять язык
+     * @return string обработанную строку адреса
+     * первый парамметр url должен быть очищен от языкового парамметра с помощью getCleanUrl.
+     */
+    public function replaceLangUrl($url, $lang = false)
+    {
+        if ($lang)
+            $url = ($this->languageInPath)
+                ? $lang . ($url != '' ? '/' . $url : '')
+                : $url . (strstr($url, '?') ? '&' : '?') . $this->langParam . '=' . $lang;
         return $url;
     }
 }

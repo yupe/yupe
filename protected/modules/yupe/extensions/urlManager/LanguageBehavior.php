@@ -1,96 +1,97 @@
 <?php
 class LanguageBehavior extends CBehavior
 {
-
     public function attach($owner)
     {
         $owner->attachEventHandler('onBeginRequest', array($this, 'handleLanguageBehavior'));
     }
 
+    /**
+     *  Обработка запросов, предназначена для корректной обработки запросов определения текущего языка
+     */
     public function handleLanguageBehavior($event)
     {
         $app  = Yii::app();
-        $user = $app->user;
-        $lm   = Yii::app()->urlManager;
-        $l    = null;
+        $home = $app->homeUrl . ($app->homeUrl[strlen($app->homeUrl) - 1] != "/" ? '/' : '');
+        $path = $app->request->getPathInfo();
+        $lm   = $app->urlManager;
+        $l = false;
 
         if (!is_array($lm->languages))
             return;
 
         // Если указан язык известный нам
         if ((
-            isset($_GET[$lm->langParam]) && 
-            in_array($_GET[$lm->langParam], $lm->languages) && 
-            ($l = $_GET[$lm->langParam])
+            // Если метод соответствует urlManager->languageInPath или было обращение через GET парамметр
+            isset($_GET[$lm->langParam])                    &&
+            in_array($_GET[$lm->langParam], $lm->languages) &&
+            $l = $_GET[$lm->langParam]
         ) || (
-            ($l = substr(Yii::app()->request->getPathInfo(), 0, 2)) &&
-            (2 == strlen($l)) &&
-            in_array($l, $lm->languages)
+            // Используется метод передачи в виде GET-переменной, но заход выполнен с указанием языка в пути
+            $l = substr($path, 0, 2)     &&
+            strlen($l) == 2              &&
+            in_array($l, $lm->languages) &&
+            isset($path[3])              &&
+            $path[3] == '/'
         ))
         {
             // Если текущий язык у нас не тот же, что указан - поставим куку и все дела
-            if ($app->language != $l)
+            if ($app->language != $l || $l == $app->sourceLanguage)
                 $this->setLanguage($l);
 
-            // Если указанный язык в URL в виде пути или параметра - нативный для приложения
-            if ($l == Yii::app()->sourceLanguage)
+            if (//язык в URL в виде пути или параметра - нативный для приложения
+                $l == $app->sourceLanguage    ||
+                // Язык установлен на вывод в GET-парамметре, но обращение было через путь
+                !isset($_GET[$lm->langParam]) ||
+                // Язык установлен на вывод в пути, но обращение было через GET-парамметр
+                ($lm->languageInPath && substr($path, 0, 2) != $l)
+            )
             {
-                // Если указан в пути, редиректим на "чистый URL"
-                $l = substr(Yii::app()->request->getPathInfo(), 0, 2);
-                if ((2 == strlen($l)) && ($l == Yii::app()->sourceLanguage))
-                {
-                    $this->setLanguage($l);
-                    if(!Yii::app()->request->isAjaxRequest)
-                        Yii::app()->request->redirect((
-                            (substr(Yii::app()->homeUrl, -1, 1) == "/")
-                                ? substr(Yii::app()->homeUrl, 0, strlen(Yii::app()->homeUrl) - 1)
-                                : Yii::app()->homeUrl
-                            ) . '/' . (substr(Yii::app()->request->getPathInfo(), 0, 2) != Yii::app()->sourceLanguage
-                                        ? substr(Yii::app()->request->getPathInfo(), 0, 2)
-                                        : '')
-                        );
-                }
+                // Редирект на URL без указания языка
+                if (!$app->request->isAjaxRequest)
+                    $app->request->redirect($home . $lm->getCleanUrl($app->request->url));
             }
         }
         else
         {
-            $l = null;
+            $user = $app->user;
 
-            // Пытаемся определить язык из сессии
+            // Пытаемся определить код языка из сессии
             if ($user->hasState($lm->langParam))
                 $l = $user->getState($lm->langParam);
-            // Если в сессии нет - пробуем получить из кук
+            // Пробуем получить код языка из кук
             else if (isset($app->request->cookies[$lm->langParam]) && in_array($app->request->cookies[$lm->langParam]->value, $lm->languages))
                 $l = $app->request->cookies[$lm->langParam]->value;
-            // Если и в куках не нашлось языка - получаем код языка из предпочтительной локали, указанной в браузере у клиента
-            else if ($l = Yii::app()->getRequest()->getPreferredLanguage())
-                $l = Yii::app()->locale->getLanguageID($l);
+            // Получаем код языка из предпочтительной локали, указанной в браузере клиента
+            else if ($l = $app->request->getPreferredLanguage())
+                $l = $app->locale->getLanguageID($l);
+            else
+                $l = false;
 
-            // иначе по-умолчанию
-            if(!$l || !in_array($l, $lm->languages))
+            // Если язык не получен, и не найден в списке возможных
+            if (!$l || !in_array($l, $lm->languages))
                 $l = $app->language = $app->sourceLanguage;
 
             // Сделаем редирект на нужный url с указанием языка, если он не нативен
-            if ($l != Yii::app()->sourceLanguage)
+            if ($l != $app->sourceLanguage)
             {
                 $this->setLanguage($l);
 
-                if(!Yii::app()->request->isAjaxRequest)
-                    Yii::app()->request->redirect(
-                        (Yii::app()->homeUrl . (substr(Yii::app()->homeUrl, -1, 1) != "/" ? "/" : "") . $l) . 
-                        $lm->getCleanUrl(Yii::app()->request->url)
-                    );
+                if (!$app->request->isAjaxRequest)
+                    $app->request->redirect($home . $lm->replaceLangUrl($lm->getCleanUrl($app->request->url), $l));
             }
             else
-                Yii::app()->language = $l;
+                $app->language = $l;
         }
     }
 
     protected function setLanguage($language)
     {
-        $lp = Yii::app()->urlManager->langParam;
-        Yii::app()->user->setState($lp, $language);
-        Yii::app()->request->cookies[$lp] = new CHttpCookie($lp, $language, array('expire' => time() + (60 * 60 * 24 * 365)));
-        Yii::app()->language = $language;
+        $app = Yii::app();
+        $lp  = $app->urlManager->langParam;
+
+        $app->user->setState($lp, $language);
+        $app->request->cookies[$lp] = new CHttpCookie($lp, $language, array('expire' => time() + (60 * 60 * 24 * 365)));
+        $app->language = $language;
     }
 }

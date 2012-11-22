@@ -1,4 +1,5 @@
 <?php
+
 class CommentController extends YFrontController
 {
     public function actions()
@@ -7,7 +8,7 @@ class CommentController extends YFrontController
             'captcha' => array(
                 'class'     => 'CCaptchaAction',
                 'backColor' => 0xFFFFFF,
-            )
+            ),
         );
     }
 
@@ -20,21 +21,20 @@ class CommentController extends YFrontController
                 : Yii::app()->user->returnUrl;
 
             $comment = new Comment;
-
             $comment->setAttributes($_POST['Comment']);
-            
+
             $module = Yii::app()->getModule('comment');
             $comment->status = $module->defaultCommentStatus;
 
             if (Yii::app()->user->isAuthenticated())
             {
                 $comment->setAttributes(array(
-                    'user_id' => Yii::app()->user->getId(),
-                    'name' => Yii::app()->user->getState('nick_name'),
-                    'email' => Yii::app()->user->getState('email'),
+                    'user_id' => Yii::app()->user->id,
+                    'name'    => Yii::app()->user->getState('nick_name'),
+                    'email'   => Yii::app()->user->getState('email'),
                 ));
 
-                if($module->autoApprove)
+                if ($module->autoApprove)
                     $comment->status = Comment::STATUS_APPROVED;
             }
 
@@ -44,15 +44,15 @@ class CommentController extends YFrontController
                 Yii::app()->cache->delete("Comment{$comment->model}{$comment->model_id}");
 
                 // если нужно уведомить администратора - уведомляем =)
-                if($module->notify && $module->email)
+                if ($module->notify && $module->email)
                 {
-                    $body = $this->renderPartial('commentnotifyemail', array('model'=>$comment), true);
+                    $body = $this->renderPartial('commentnotifyemail', array('model' => $comment), true);
 
                     Yii::app()->mail->send(
                         Yii::app()->getModule('yupe')->email,
                         $module->email,
                         Yii::t('comment', 'Добавлена новая запись на сайте "{app}"!',
-                        array('{app}'=>Yii::app()->name)
+                        array('{app}' => Yii::app()->name)
                     ), $body);
                 }
 
@@ -77,7 +77,6 @@ class CommentController extends YFrontController
                 $this->redirect($redirect);
             }
         }
-
         throw new CHttpException(404, Yii::t('comment', 'Страница не найдена!'));
     }
 }
