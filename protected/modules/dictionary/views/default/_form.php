@@ -20,10 +20,9 @@ Yii::app()->clientScript->registerScript('fieldset', "
 
  <?php echo  $form->errorSummary($model); ?>
 
-<div class='control-group <?php echo $model->hasErrors("code")?"error":"" ?>'><?php echo  $form->textFieldRow($model,'code',array('class'=>'span7','maxlength'=>100)); ?></div>
+ <div class='control-group <?php echo $model->hasErrors("code")?"error":"" ?>'><?php echo  $form->textFieldRow($model,'code',array('class'=>'span7','maxlength'=>100)); ?></div>
 
-<div class='control-group <?php echo $model->hasErrors("name")?"error":"" ?>'><?php echo  $form->textFieldRow($model,'name',array('class'=>'span7','maxlength'=>300)); ?></div>
-
+ <div class='control-group <?php echo $model->hasErrors("name")?"error":"" ?>'><?php echo  $form->textFieldRow($model,'name',array('class'=>'span7','maxlength'=>300)); ?></div>
 
  <div class="row-fluid control-group <?php echo $model->hasErrors('description') ? 'error' : ''; ?>">
             <div class="span12">

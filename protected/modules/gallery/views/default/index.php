@@ -53,7 +53,10 @@ $this->widget('application.modules.yupe.components.YCustomGridView', array(
         'id',
         'name',
         'description',
-        'status',
+        array(
+            'name'  => 'status',
+            'value' => '$data->getStatus()'
+        ),
         array(
             'class' => 'bootstrap.widgets.TbButtonColumn',
         ),

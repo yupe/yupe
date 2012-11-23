@@ -23,16 +23,27 @@ Yii::app()->clientScript->registerScript('fieldset', "
 
     <?php echo $form->errorSummary($model); ?>
 
-    <div class="row-fluid control-group <?php echo $model->hasErrors('name') ? 'error' : ''; ?>">
-        <?php echo $form->textFieldRow($model, 'name', array('class' => 'span3 popover-help', 'size' => 60, 'maxlength' => 300, 'data-original-title' => $model->getAttributeLabel('name'), 'data-content' => $model->getAttributeDescription('name'))); ?>
-    </div>
+    <div class='control-group <?php echo $model->hasErrors("name")?"error":"" ?>'><?php echo  $form->textFieldRow($model,'name',array('class'=>'span7','maxlength'=>300)); ?></div>
+   
     <div class="row-fluid control-group <?php echo $model->hasErrors('description') ? 'error' : ''; ?>">
-        <?php echo $form->textAreaRow($model, 'description', array('class' => 'span5 popover-help', 'rows' => 6, 'cols' => 50, 'data-original-title' => $model->getAttributeLabel('description'), 'data-content' => $model->getAttributeDescription('description'))); ?>
-    </div>
-    <div class="row-fluid control-group <?php echo $model->hasErrors('status') ? 'error' : ''; ?>">
-        <?php echo $form->textFieldRow($model, 'status', array('class' => 'span3 popover-help', 'size' => 60, 'maxlength' => 60, 'data-original-title' => $model->getAttributeLabel('status'), 'data-content' => $model->getAttributeDescription('status'))); ?>
+            <div class="span12">
+                <?php echo $form->labelEx($model, 'description'); ?>
+                <?php $this->widget(Yii::app()->getModule('yupe')->editor, array(
+                    'model' => $model,
+                    'attribute' => 'description',
+                    'options' => array(
+                        'toolbar' => 'main',
+                        'imageUpload' => Yii::app()->baseUrl . '/index.php/yupe/backend/AjaxFileUpload/'
+                    ),
+                    'htmlOptions' => array('rows' => 20, 'cols' => 6)
+                ))?>
+                <?php echo $form->error($model, 'description'); ?>
+            </div>
     </div>
 
+    
+    <div class='control-group <?php echo $model->hasErrors("status")?"error":"" ?>'><?php echo  $form->dropDownListRow($model,'status',$model->getStatusList()); ?></div>
+   
     <?php $this->widget('bootstrap.widgets.TbButton', array(
         'buttonType' => 'submit',
         'type'       => 'primary',

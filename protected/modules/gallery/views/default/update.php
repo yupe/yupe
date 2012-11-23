@@ -7,9 +7,8 @@
     );
     $this->pageTitle = Yii::t('gallery', 'Галереи - редактирование');
     $this->menu = array(
-        array('icon' => 'list-alt', 'label' => Yii::t('gallery', 'Управление галереями'), 'url' => array('/gallery/default/index')),
-        array('icon' => 'plus-sign', 'label' => Yii::t('gallery', 'Добавить галерею'), 'url' => array('/gallery/default/create')),
-        array('label' => Yii::t('gallery', 'Галерея')),
+        array('icon' => 'list-alt', 'label' => Yii::t('gallery', 'Список галарей'), 'url' => array('/gallery/default/index')),
+        array('icon' => 'plus-sign', 'label' => Yii::t('gallery', 'Добавить галерею'), 'url' => array('/gallery/default/create')),      
         array('icon' => 'pencil white', 'encodeLabel' => false, 'label' => Yii::t('gallery', 'Редактирование галереи'), 'url' => array(
             '/gallery/default/update',
             'id' => $model->id
