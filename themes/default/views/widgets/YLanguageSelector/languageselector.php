@@ -8,7 +8,7 @@
         <?php if($currentLanguage == $lang): ?>
             <span><?php echo strtoupper($lang); ?></span>
         <?php else:?>
-            <?php echo CHtml::link(strtoupper($lang), Yii::app()->baseUrl . Yii::app()->homeUrl . '/' . Yii::app()->urlManager->replaceLangUrl($cp, $lang));?>
+            <?php echo CHtml::link(strtoupper($lang), Yii::app()->homeUrl . '/' . Yii::app()->urlManager->replaceLangUrl($cp, $lang));?>
         <?php endif?>
             <?php if($i == count($langs)): ?>|<?php endif; ?>
     <?php endforeach;?>

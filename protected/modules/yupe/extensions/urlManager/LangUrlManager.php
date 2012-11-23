@@ -70,7 +70,7 @@ class LangUrlManager extends CUrlManager
             ? list($url, $param) = explode("?", $url)
             : $param = false;
         // Убираем homeUrl из адреса
-        $url = preg_replace("#^" . Yii::app()->homeUrl . "#", '', $url);
+        $url = preg_replace("#^(" . Yii::app()->request->scriptUrl . "|" . Yii::app()->request->baseUrl . ")#", '', $url);
         // Убираем из пути адреса языковой параметр
         if ($url != '' && $url != '/')
         {
