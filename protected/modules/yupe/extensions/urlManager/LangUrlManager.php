@@ -9,8 +9,9 @@
 class LangUrlManager extends CUrlManager
 {
     public $languages;
-    public $langParam      = 'language';
-    public $languageInPath = true;
+    public $langParam         = 'language';
+    public $languageInPath    = true;
+    public $preferredLanguage = false;
 
     public function init()
     {

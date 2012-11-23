@@ -63,7 +63,7 @@ class LanguageBehavior extends CBehavior
             else if (isset($app->request->cookies[$lm->langParam]) && in_array($app->request->cookies[$lm->langParam]->value, $lm->languages))
                 $l = $app->request->cookies[$lm->langParam]->value;
             // Получаем код языка из предпочтительной локали, указанной в браузере клиента
-            else if ($l = $app->request->getPreferredLanguage())
+            else if ($lm->preferredLanguage && $l = $app->request->getPreferredLanguage())
                 $l = $app->locale->getLanguageID($l);
             else
                 $l = false;
