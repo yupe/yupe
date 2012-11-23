@@ -34,9 +34,4 @@ class SiteController extends YFrontController
 
         $this->render('index', array('dataProvider' => $dataProvider));
     }*/
-
-    public function actionSocial()
-    {
-        $this->render('social');
-    }
 }

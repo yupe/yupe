@@ -8,11 +8,10 @@ $this->breadcrumbs = array(
 
 
 $this->menu=array(
-	array('label' => Yii::t('dictionary', 'Список справочников'), 'url'=>array('index')),
-	array('label' => Yii::t('dictionary', 'Добавить справочник'), 'url'=>array('create')),
-	array('label' => Yii::t('dictionary', 'Просмотр справочника'), 'url'=>array('view', 'id'=>$model->id)),
-	array('label' => Yii::t('dictionary', 'Управление справочниками'), 'url'=>array('admin')),
-	array('label' => Yii::t('dictionary', 'Данные справочника'), 'url'=>array("/dictionary/dictionaryData/admin?group_id={$model->id}")),
+	array('icon' => 'list-alt','label' => Yii::t('dictionary', 'Список справочников'), 'url'=>array('/dictionary/default/admin')),
+	array('icon' => 'plus-sign','label' => Yii::t('dictionary', 'Добавить справочник'), 'url'=>array('/dictionary/default/create')),
+	array('icon' => 'eye-open','label' => Yii::t('dictionary', 'Просмотр справочника'), 'url'=>array('/dictionary/default/view', 'id'=>$model->id)),	
+	array('icon' => 'list-alt','label' => Yii::t('dictionary', 'Данные справочника'), 'url'=>array("/dictionary/dictionaryData/admin?group_id={$model->id}")),
 );
 ?>
 

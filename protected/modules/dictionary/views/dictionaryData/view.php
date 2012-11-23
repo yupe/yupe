@@ -9,17 +9,16 @@ $this->breadcrumbs = array(
 
 
 $this->menu=array(
-	array('label' => Yii::t('dictionary', 'Список значений'), 'url'=>array('index')),
-	array('label' => Yii::t('dictionary', 'Добавить значение'), 'url'=>array('create')),
-	array('label' => Yii::t('dictionary', 'Редактирование значения'), 'url'=>array('update', 'id'=>$model->id)),
-	array('label' => Yii::t('dictionary', 'Удалить значение'), 'url'=>'#', 'linkOptions'=>array('submit'=>array('delete','id'=>$model->id),'confirm'=>'Подтверждаете удаление ?')),
-	array('label' => Yii::t('dictionary', 'Управление значениями'), 'url'=>array('admin')),
+	array('icon' => 'list-alt','label' => Yii::t('dictionary', 'Список значений'), 'url'=>array('/dictionary/dictionaryData/admin')),
+	array('icon' => 'plus-sign','label' => Yii::t('dictionary', 'Добавить значение'), 'url'=>array('/dictionary/dictionaryData/create')),
+	array('icon' => 'eye-open','label' => Yii::t('dictionary', 'Редактирование значения'), 'url'=>array('/dictionary/dictionaryData/update', 'id'=>$model->id)),
+	array('icon' => 'trash','label' => Yii::t('dictionary', 'Удалить значение'), 'url'=>'#', 'linkOptions'=>array('submit'=>array('delete','id'=>$model->id),'confirm'=>'Подтверждаете удаление ?')),	
 );
 ?>
 
-<h1><?php echo Yii::t('dictionary','Просмотр значения');?> #<?php echo $model->id; ?></h1>
+<h1><?php echo Yii::t('dictionary','Просмотр значения');?> "<?php echo $model->name; ?>"</h1>
 
-<?php $this->widget('zii.widgets.CDetailView', array(
+<?php $this->widget('bootstrap.widgets.TbDetailView', array(
 	'data'=>$model,
 	'attributes'=>array(
 		'id',

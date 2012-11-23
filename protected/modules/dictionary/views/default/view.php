@@ -2,23 +2,22 @@
 $this->breadcrumbs = array(
     $this->getModule('dictionary')->getCategory() => array(''),
     Yii::t('dictionary', 'Справочники') => array('admin'),
-    Yii::t('dictionary', 'Группы справочников') => array('admin'),
+    Yii::t('dictionary', 'Справочники') => array('admin'),
     Yii::t('dictionary', 'Просмотр'),
 );
 
 $this->menu=array(
-	array('label' => Yii::t('dictionary', 'Список групп'), 'url'=>array('index')),
-	array('label' => Yii::t('dictionary', 'Добавить группу'), 'url'=>array('create')),
-	array('label' => Yii::t('dictionary', 'Редактировать группу'), 'url'=>array('update', 'id'=>$model->id)),
-	array('label' => Yii::t('dictionary', 'Удалить группу'), 'url'=>'#', 'linkOptions'=>array('submit'=>array('delete','id'=>$model->id),'confirm'=>'Подтверждаете удаление ?')),
-	array('label' => Yii::t('dictionary', 'Управление группами'), 'url'=>array('admin')),
-	array('label' => Yii::t('dictionary', 'Данные этой группы'), 'url'=>array("/dictionary/dictionaryData/admin?group_id={$model->id}")),
+	array('icon' => 'list-alt','label' => Yii::t('dictionary', 'Список справочников'), 'url'=>array('/dictionary/default/admin')),
+	array('icon' => 'plus-sign','label' => Yii::t('dictionary', 'Добавить справочник'), 'url'=>array('/dictionary/default/create')),
+	array('icon' => 'pencil','label' => Yii::t('dictionary', 'Редактировать справочник'), 'url'=>array('update', 'id'=>$model->id)),
+	array('icon' => 'trash','label' => Yii::t('dictionary', 'Удалить справочник'), 'url'=>'#', 'linkOptions'=>array('submit'=>array('delete','id'=>$model->id),'confirm'=>'Подтверждаете удаление ?')),	
+	array('icon' => 'list-alt','label' => Yii::t('dictionary', 'Данные справочника'), 'url'=>array("/dictionary/dictionaryData/admin?group_id={$model->id}")),
 );
 ?>
 
-<h1><?php echo Yii::t('dictionary', 'Просмотр группы справочников');?> "<?php echo $model->name; ?>"</h1>
+<h1><?php echo Yii::t('dictionary', 'Просмотр справочника');?> "<?php echo $model->name; ?>"</h1>
 
-<?php $this->widget('zii.widgets.CDetailView', array(
+<?php $this->widget('bootstrap.widgets.TbDetailView', array(
 	'data'=>$model,
 	'attributes'=>array(
 		'id',

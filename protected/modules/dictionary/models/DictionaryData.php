@@ -85,7 +85,7 @@ class DictionaryData extends YModel
     {
         return array(
             'id'             => Yii::t('dictionary', 'id'),
-            'group_id'       => Yii::t('dictionary', 'Группа'),
+            'group_id'       => Yii::t('dictionary', 'Справочник'),
             'code'           => Yii::t('dictionary', 'Код'),
             'name'           => Yii::t('dictionary', 'Название'),
             'value'          => Yii::t('dictionary', 'Значение'),

@@ -7,8 +7,8 @@ $this->breadcrumbs = array(
 );
 
 $this->menu=array(
-	array('label' => Yii::t('dictionary', 'Список справочников'), 'url'=>array('index')),
-	array('label' => Yii::t('dictionary', 'Управление справочниками'), 'url'=>array('admin')),
+	array('icon' => 'plus-sign','label' => Yii::t('dictionary', 'Добавление справочника'), 'url'=>array('/dictionary/default/create')),
+	array('icon' => 'list-alt','label' => Yii::t('dictionary', 'Управление справочниками'), 'url'=>array('admin')),
 );
 ?>
 

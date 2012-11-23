@@ -2,13 +2,12 @@
 $this->breadcrumbs = array(
     $this->getModule('dictionary')->getCategory() => array(''),
     Yii::t('dictionary', 'Справочники') => array('admin'),
-    Yii::t('dictionary', 'Данные справочников') => array('admin'),
+    Yii::t('dictionary', 'Значения справочников') => array('admin'),
     Yii::t('dictionary', 'Добавление'),
 );
 
 $this->menu=array(
-	array('label' => Yii::t('dictionary', 'Список значений'), 'url'=>array('index')),
-	array('label' => Yii::t('dictionary', 'Управление значениями'), 'url'=>array('admin')),
+	array('icon' => 'list-alt','label' => Yii::t('dictionary', 'Список значений'), 'url'=>array('/dictionary/dictionaryData/admin/')),	
 );
 ?>
 

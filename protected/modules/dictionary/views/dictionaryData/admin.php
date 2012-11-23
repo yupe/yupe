@@ -1,40 +1,51 @@
 <?php
 $this->breadcrumbs = array(
     $this->getModule('dictionary')->getCategory() => array(''),
-    Yii::t('dictionary', 'Справочники') => array('admin'),
-    Yii::t('dictionary', 'Данные справочников') => array('admin'),
+    Yii::t('dictionary', 'Справочники') => array('/dictionary/default/admin'),
+    Yii::t('dictionary', 'Значения справочников') => array('/dictionary/dictionaryData/admin'),
     Yii::t('dictionary', 'Управление'),
 );
 
-$this->menu=array(
-	array('label' => Yii::t('dictionary','Список данных'), 'url'=>array('index')),
-	array('label' => Yii::t('dictionary','Добавить данные'), 'url'=>array('create')),
+$this->menu = array(
+    array('label' => Yii::t('dictionary', 'Значения')),
+    array('icon' => 'list-alt','label' => Yii::t('dictionary', 'Список значений'), 'url' => array('/dictionary/dictionaryData/admin')),
+    array('icon' => 'plus-sign','label' => Yii::t('dictionary', 'Добавить значение'), 'url' => array('/dictionary/dictionaryData/create')),
+    array('label' => Yii::t('dictionary', 'Справочники')),
+    array('icon' => 'list-alt','label' => Yii::t('dictionary', 'Список справочников'), 'url' => array('/dictionary/default/admin')),
+    array('icon' => 'plus-sign','label' => Yii::t('dictionary', 'Добавить справочник'), 'url' => array('/dictionary/default/create')),   
 );
 
-Yii::app()->clientScript->registerScript('search', "
-$('.search-button').click(function(){
-	$('.search-form').toggle();
-	return false;
-});
-$('.search-form form').submit(function(){
-	$.fn.yiiGridView.update('dictionary-data-grid', {
-		data: $(this).serialize()
-	});
-	return false;
-});
-");
 ?>
+<div class="page-header">
+    <h1>
+        <?php echo Yii::t('dictionary', 'Значения справочников'); ?>
+        <small><?php echo Yii::t('dictionary', 'управление'); ?></small>
+    </h1>
+</div>
 
-<h1><?php echo $this->module->getName();?></h1>
+<button class="btn btn-small dropdown-toggle" data-toggle="collapse" data-target="#search-toggle">
+    <i class="icon-search">&nbsp;</i>
+    <?php echo CHtml::link(Yii::t('dictionary', 'Поиск значений'), '#', array('class' => 'search-button')); ?>
+    <span class="caret">&nbsp;</span>
+</button>
 
-<?php $this->widget('YModuleInfo'); ?>
+<div id="search-toggle" class="collapse out search-form">
+<?php
+Yii::app()->clientScript->registerScript('search', "
+    $('.search-form form').submit(function() {
+        $.fn.yiiGridView.update('dictionary-data-grid', {
+            data: $(this).serialize()
+        });
+        return false;
+    });
+");
+$this->renderPartial('_search', array('model' => $model));
+?>
+</div>
 
-<?php echo CHtml::link(Yii::t('dictionary','Поиск'),'#',array('class'=>'search-button')); ?>
-<div class="search-form" style="display:none">
-<?php $this->renderPartial('_search',array(
-	'model'=>$model,
-)); ?>
-</div><!-- search-form -->
+<br/>
+
+<p><?php echo Yii::t('dictionary', 'В данном разделе представлены средства управления значениями справочников'); ?></p>
 
 <?php $this->widget('YCustomGridView', array(
 	'id'=>'dictionary-data-grid',
