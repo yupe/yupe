@@ -104,7 +104,7 @@ $form = $this->beginWidget('bootstrap.widgets.TbActiveForm', array(
 
     <?php $this->widget('bootstrap.widgets.TbButton', array(
         'buttonType' => 'submit',
-        'htmlOptions'=> array('name' => 'submit-type', 'value' => 'index'),
+        'htmlOptions'=> array('name' => 'submit-type', 'value' => 'admin'),
         'label'      => $model->isNewRecord ? Yii::t('feedback', 'Добавить сообщение и закрыть') : Yii::t('feedback', 'Сохранить сообщение и закрыть'),
     )); ?>
 </fieldset>

@@ -16,7 +16,7 @@ $this->menu = array(
     array('icon' => 'envelope', 'label' => Yii::t('feedback', 'Ответить на сообщение'), 'url' => array('/feedback/default/answer', 'id' => $model->id)),
     array('icon' => 'trash', 'label' => Yii::t('feedback', 'Удалить сообщение'), 'url' => '#', 'linkOptions' => array(
         'submit'  => array('delete', 'id' => $model->id),
-        'confirm' => Yii::t('blog', 'Вы уверены, что хотите удалить сообщение?'),
+        'confirm' => Yii::t('feedback', 'Вы уверены, что хотите удалить сообщение?'),
     )),
 );
 ?>

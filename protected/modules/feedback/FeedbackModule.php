@@ -3,11 +3,7 @@ class FeedbackModule extends YWebModule
 {
     public $backEnd = array('email', 'db');
     public $emails;
-    public $types =  array(
-        1 => 'Ошибка на сайте',
-        2 => 'Предложение о сотрудничестве',
-        3 => 'Прочее..',
-    );
+    public $types;
     public $showCaptcha = 1;
     public $notifyEmailFrom;
     public $sendConfirmation = 0;
@@ -138,6 +134,13 @@ class FeedbackModule extends YWebModule
     public function init()
     {
         parent::init();
+        
+        if(!$this->types)
+            $this->types = array(
+                1 => Yii::t('feedback','Ошибка на сайте'),
+                2 => Yii::t('feedback','Предложение о сотрудничестве'),
+                3 => Yii::t('feedback','Прочее..'),
+            );
 
         $this->setImport(array('feedback.models.*', 'feedback.components.*'));
 
