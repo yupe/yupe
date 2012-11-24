@@ -50,7 +50,7 @@ class MailModule extends YWebModule
     public function getNavigation()
     {
         return array(
-            array('label' => Yii::t('queue', 'Почтовые события')),
+            array('label' => Yii::t('mail', 'Почтовые события')),
             array('icon' => 'plus-sign', 'label' => Yii::t('mail', 'Добавить событие'), 'url' => array('/mail/eventAdmin/create/')),
             array('icon' => 'th-list', 'label' => Yii::t('mail', 'Список событий'), 'url'=>array('/mail/eventAdmin/index/')),
             array('label' => Yii::t('mail', 'Почтовые шаблоны')),

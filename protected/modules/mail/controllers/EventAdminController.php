@@ -101,7 +101,7 @@ class EventAdminController extends YBackController
                 $this->redirect(isset($_POST['returnUrl']) ? $_POST['returnUrl'] : array('штвуч'));
         }
         else
-            throw new CHttpException(400, 'Неверный запрос. Пожалуйста, больше не повторяйте такие запросы');
+            throw new CHttpException(400,Yii::t('mail', 'Неверный запрос. Пожалуйста, больше не повторяйте такие запросы'));
     }
 
     /**
@@ -128,7 +128,7 @@ class EventAdminController extends YBackController
     {
         $model = MailEvent::model()->findByPk($id);
         if ($model === null)
-            throw new CHttpException(404, 'Запрошенная страница не найдена.');
+            throw new CHttpException(404, Yii::t('mail', 'Запрошенная страница не найдена.'));
         return $model;
     }
 
