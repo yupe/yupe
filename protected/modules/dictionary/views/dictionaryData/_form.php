@@ -1,9 +1,9 @@
 <?php
 $form = $this->beginWidget('bootstrap.widgets.TbActiveForm', array(
-    'id' => 'dictionary-form',
+    'id'                   => 'dictionary-form',
     'enableAjaxValidation' => false,
-    'htmlOptions' => array('class' => 'well form-vertical'),
-        ));
+    'htmlOptions'          => array('class' => 'well form-vertical'),
+));
 
 Yii::app()->clientScript->registerScript('fieldset', "
     $('document').ready(function () {
@@ -12,59 +12,59 @@ Yii::app()->clientScript->registerScript('fieldset', "
 ");
 ?>
 
-<div class="alert alert-info">
-    <?php echo Yii::t('dictionary', 'Поля, отмеченные'); ?>
-    <span class="required">*</span>
-    <?php echo Yii::t('dictionary', 'обязательны.'); ?>
-</div>
-
-<?php echo $form->errorSummary($model); ?>
-
-<div class='control-group <?php echo $model->hasErrors("group_id") ? "error" : "" ?>'>
-    <?php echo $form->dropDownListRow($model, 'group_id', CHtml::listData(DictionaryGroup::model()->findAll(), 'id', 'name')); ?>
-</div>
-
-<div class='control-group <?php echo $model->hasErrors("code") ? "error" : "" ?>'><?php echo $form->textFieldRow($model, 'code', array('class' => 'span7', 'maxlength' => 100)); ?></div>
-
-<div class='control-group <?php echo $model->hasErrors("name") ? "error" : "" ?>'><?php echo $form->textFieldRow($model, 'name', array('class' => 'span7', 'maxlength' => 300)); ?></div>
-
-<div class='control-group <?php echo $model->hasErrors("value") ? "error" : "" ?>'><?php echo $form->textFieldRow($model, 'value', array('class' => 'span7', 'maxlength' => 100)); ?></div>
-
-<div class="row-fluid control-group <?php echo $model->hasErrors('description') ? 'error' : ''; ?>">
-    <div class="popover-help" data-original-title='<?php echo $model->getAttributeLabel('description'); ?>' data-content='<?php echo $model->getAttributeDescription('description'); ?>'>
-        <?php echo $form->labelEx($model, 'description'); ?>
-        <?php
-        $this->widget(Yii::app()->getModule('yupe')->editor, array(
-            'model' => $model,
-            'attribute' => 'description',
-            'options' => array(
-                'toolbar' => 'main',
-                'imageUpload' => Yii::app()->baseUrl . '/index.php/yupe/backend/AjaxFileUpload/',
-            ),
-            'htmlOptions' => array('rows' => 20, 'cols' => 6),
-        ));
-        ?>
+    <div class="alert alert-info">
+        <?php echo Yii::t('dictionary', 'Поля, отмеченные'); ?>
+        <span class="required">*</span>
+        <?php echo Yii::t('dictionary', 'обязательны.'); ?>
     </div>
-</div>
 
-<div class='control-group <?php echo $model->hasErrors("status") ? "error" : "" ?>'>
-<?php echo $form->dropDownListRow($model, 'status', $model->getStatusList()); ?>
-</div>
+    <?php echo $form->errorSummary($model); ?>
 
-<?php
-$this->widget('bootstrap.widgets.TbButton', array(
-    'buttonType' => 'submit',
-    'type' => 'primary',
-    'label' => $model->isNewRecord ? Yii::t('dictionary', 'Добавить значение и продолжить') : Yii::t('dictionary', 'Сохранить значение и продолжить'),
-));
-?>
+    <div class='control-group <?php echo $model->hasErrors("group_id") ? "error" : ""; ?>'>
+        <?php echo $form->dropDownListRow($model, 'group_id', CHtml::listData(DictionaryGroup::model()->findAll(), 'id', 'name')); ?>
+    </div>
 
-<?php
-$this->widget('bootstrap.widgets.TbButton', array(
-    'buttonType' => 'submit',
-    'htmlOptions' => array('name' => 'submit-type', 'value' => 'admin'),
-    'label' => $model->isNewRecord ? Yii::t('dictionary', 'Добавить значение и закрыть') : Yii::t('dictionary', 'Сохранить значение и закрыть'),
-));
-?>
+    <div class='control-group <?php echo $model->hasErrors("code") ? "error" : ""; ?>'>
+        <?php echo $form->textFieldRow($model, 'code', array('class' => 'span7', 'maxlength' => 100)); ?>
+    </div>
+
+    <div class='control-group <?php echo $model->hasErrors("name") ? "error" : ""; ?>'>
+        <?php echo $form->textFieldRow($model, 'name', array('class' => 'span7', 'maxlength' => 300)); ?>
+    </div>
+
+    <div class='control-group <?php echo $model->hasErrors("value") ? "error" : ""; ?>'>
+        <?php echo $form->textFieldRow($model, 'value', array('class' => 'span7', 'maxlength' => 100)); ?>
+    </div>
+
+    <div class="row-fluid control-group <?php echo $model->hasErrors('description') ? 'error' : ''; ?>">
+        <div class="popover-help" data-original-title='<?php echo $model->getAttributeLabel('description'); ?>' data-content='<?php echo $model->getAttributeDescription('description'); ?>'>
+            <?php echo $form->labelEx($model, 'description'); ?>
+            <?php $this->widget(Yii::app()->getModule('yupe')->editor, array(
+                'model'       => $model,
+                'attribute'   => 'description',
+                'options'     => array(
+                    'toolbar'     => 'main',
+                    'imageUpload' => Yii::app()->baseUrl . '/index.php/yupe/backend/AjaxFileUpload/',
+                ),
+                'htmlOptions' => array('rows' => 20, 'cols' => 6),
+            )); ?>
+        </div>
+    </div>
+
+    <div class='control-group <?php echo $model->hasErrors("status") ? "error" : ""; ?>'>
+        <?php echo $form->dropDownListRow($model, 'status', $model->getStatusList()); ?>
+    </div>
+
+    <?php $this->widget('bootstrap.widgets.TbButton', array(
+        'buttonType' => 'submit',
+        'type'       => 'primary',
+        'label'      => $model->isNewRecord ? Yii::t('dictionary', 'Добавить значение и продолжить') : Yii::t('dictionary', 'Сохранить значение и продолжить'),
+    )); ?>
+
+    <?php $this->widget('bootstrap.widgets.TbButton', array(
+        'buttonType'  => 'submit',
+        'htmlOptions' => array('name' => 'submit-type', 'value' => 'admin'),
+        'label'       => $model->isNewRecord ? Yii::t('dictionary', 'Добавить значение и закрыть') : Yii::t('dictionary', 'Сохранить значение и закрыть'),
+    )); ?>
 
 <?php $this->endWidget(); ?>

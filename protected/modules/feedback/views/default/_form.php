@@ -62,7 +62,7 @@ $form = $this->beginWidget('bootstrap.widgets.TbActiveForm', array(
             <?php echo $form->error($model, 'text'); ?>
         </div>
     </div>
-    
+
     <div class="row-fluid control-group <?php echo $model->hasErrors('answer') ? 'error' : ''; ?>">
         <div class="popover-help" data-original-title='<?php echo $model->getAttributeLabel('answer'); ?>' data-content='<?php echo $model->getAttributeDescription('answer'); ?>'>
             <?php echo $form->labelEx($model, 'answer'); ?>
@@ -82,7 +82,7 @@ $form = $this->beginWidget('bootstrap.widgets.TbActiveForm', array(
             <?php echo $form->error($model, 'answer'); ?>
         </div>
     </div>
-    
+
      <div class="row-fluid control-group  <?php echo $model->hasErrors('is_faq') ? 'error' : ''; ?>">
          <?php echo $form->checkBoxRow($model, 'is_faq', array('class' => 'popover-help', 'maxlength' => 150, 'size' => 60, 'data-original-title' => $model->getAttributeLabel('is_faq'), 'data-content' => $model->getAttributeDescription('is_faq'))); ?>
     </div>

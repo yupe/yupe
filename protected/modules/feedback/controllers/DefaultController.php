@@ -154,7 +154,7 @@ class DefaultController extends YBackController
     /**
      * Manages all models.
      */
-    public function actionAdmin()
+    public function actionIndex()
     {
         $model = new FeedBack('search');
 
@@ -163,7 +163,7 @@ class DefaultController extends YBackController
         if (isset($_GET['FeedBack']))
             $model->attributes = $_GET['FeedBack'];
 
-        $this->render('admin', array('model' => $model));
+        $this->render('index', array('model' => $model));
     }
 
     /**

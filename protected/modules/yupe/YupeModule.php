@@ -19,8 +19,6 @@
 
 class YupeModule extends YWebModule
 {
-    const OTHER_CATEGORY           = 'Остальное';
-
     public $siteDescription;
     public $siteName;
     public $siteKeyWords;
@@ -44,6 +42,8 @@ class YupeModule extends YWebModule
     public $availableLanguages     = "ru,en";
     public $defaultLanguage        = "ru";
     public $defaultBackendLanguage = "ru";
+
+    public $otherCategoryName;
 
     public function getVersion()
     {
@@ -166,7 +166,7 @@ class YupeModule extends YWebModule
 
     public function getName()
     {
-        return Yii::t('yupe', 'Юпи!');
+        return Yii::t('yupe', 'Система');
     }
 
     public function getDescription()
@@ -198,6 +198,8 @@ class YupeModule extends YWebModule
     {
         parent::init();
 
+        $this->otherCategoryName = Yii::t('yupe', 'Остальное');
+
         $editors = $this->getEditors();
         // если не выбран редактор, но редакторы есть - возмем первый попавшийся
         if (!$this->editor && is_array($editors))
@@ -209,17 +211,17 @@ class YupeModule extends YWebModule
         ));
 
         $this->categoryIcon  = array(
-            Yii::t('yupe','Сервисы') => 'briefcase',
-            self::OTHER_CATEGORY     => 'cog',
+            Yii::t('yupe', 'Сервисы') => 'briefcase',
+            $this->otherCategoryName  => 'cog',
         );
 
         $this->categorySort  = array(
             Yii::t('yupe', 'Контент'),
             Yii::t('yupe', 'Структура'),
             Yii::t('yupe', 'Пользователи'),
-            Yii::t('yupe', 'Сервисы'),            
-            Yii::t('yupe', 'Остальное'),
+            Yii::t('yupe', 'Сервисы'),
             Yii::t('yupe', 'Юпи!'),
+            Yii::t('yupe', $this->otherCategoryName),
         );
     }
 
@@ -241,7 +243,7 @@ class YupeModule extends YWebModule
                     {
                         $modules[$key]  = $module;
                         $order[(!$module->category)
-                            ? self::OTHER_CATEGORY
+                            ? $this->otherCategoryName
                             : $module->category
                         ][$key] = $module->adminMenuOrder;
                     }
@@ -250,7 +252,7 @@ class YupeModule extends YWebModule
                 }
             }
 
-            $modulesNavigation = Yii::app()->cache->get('YupeModulesNavigation-'.Yii::app()->language);
+            $modulesNavigation = Yii::app()->cache->get('YupeModulesNavigation-' . Yii::app()->language);
 
             if ($modulesNavigation === false)
             {
@@ -266,7 +268,6 @@ class YupeModule extends YWebModule
                 );
 
                 // Сортируем категории модулей
-
                 if (count($order) > 1)
                 {
                     $categorySort = array_reverse($this->categorySort);
@@ -308,10 +309,7 @@ class YupeModule extends YWebModule
                             $settings['items'][] = array(
                                 'icon'  => $modules[$key]->icon,
                                 'label' => $modules[$key]->name,
-                                'url'   => array(
-                                    '/yupe/backend/modulesettings/',
-                                    'module' => $modules[$key]->id,
-                                ),
+                                'url'   => array('/yupe/backend/modulesettings/', 'module' => $modules[$key]->id),
                             );
 
                         // проверка на вывод модуля в категориях, потребуется при отключении модуля
@@ -338,10 +336,10 @@ class YupeModule extends YWebModule
                     }
                 }
 
-                // Заполняем категорию система
+                // Заполняем категорию Юпи!
                 $modulesNavigation[$this->category]['items']['settings'] = $settings;
 
-                Yii::app()->cache->set('YupeModulesNavigation-'.Yii::app()->language, $modulesNavigation, Yii::app()->getModule('yupe')->coreCacheTime);
+                Yii::app()->cache->set('YupeModulesNavigation-' . Yii::app()->language, $modulesNavigation, Yii::app()->getModule('yupe')->coreCacheTime);
             }
         }
 
@@ -350,7 +348,7 @@ class YupeModule extends YWebModule
             // Устанавливаем активную категорию
             $thisCategory = Yii::app()->controller->module->category
                 ? Yii::app()->controller->module->category
-                : self::OTHER_CATEGORY;
+                : $this->otherCategoryName;
             $thisCategory = &$modulesNavigation[$thisCategory];
             $thisCategory['active'] = true;
 

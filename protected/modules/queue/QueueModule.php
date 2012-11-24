@@ -9,7 +9,7 @@ class QueueModule extends YWebModule
 
     public function getCategory()
     {
-        return Yii::t('queue', 'Система');
+        return Yii::t('queue', 'Сервисы');
     }
 
     public function getName()

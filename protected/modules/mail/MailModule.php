@@ -9,7 +9,7 @@ class MailModule extends YWebModule
 
     public function getCategory()
     {
-        return Yii::t('mail', 'Система');
+        return Yii::t('mail', 'Сервисы');
     }
 
     public function getName()

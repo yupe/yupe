@@ -17,6 +17,7 @@ div#page {
 }
 .navbar-fixed-top {
     border-bottom: 5px solid #FF9600;
+    min-width: 1024px;
 }
 footer {
     clear: both;
@@ -59,7 +60,7 @@ footer {
 .table-vmiddle td {
     vertical-align: middle;
 }
-/* РўСЂРµС‚РёР№ СѓСЂРѕРІРµРЅСЊ */
+/* Третий уровень */
 .sidebar-nav {
     padding: 9px 0;
 }

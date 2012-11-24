@@ -1,14 +1,14 @@
 <?php
 class FeedbackModule extends YWebModule
 {
-    public $backEnd = array('email', 'db');
+    public $backEnd          = array('email', 'db');
     public $emails;
     public $types;
-    public $showCaptcha = 1;
+    public $showCaptcha      = 1;
     public $notifyEmailFrom;
     public $sendConfirmation = 0;
     public $successPage;
-    public $cacheTime = 60;
+    public $cacheTime        = 60;
 
     const BACKEND_EMAIL = 'email';
     const BACKEND_DB    = 'db';
@@ -87,7 +87,7 @@ class FeedbackModule extends YWebModule
     {
         return array(
             array('icon' => 'plus-sign', 'label' => Yii::t('feedback', 'Добавить сообщение'), 'url' => array('/feedback/default/create/')),
-            array('icon' => 'th-list', 'label' => Yii::t('feedback', 'Список сообщений'), 'url' => array('/feedback/default/admin/')),
+            array('icon' => 'th-list', 'label' => Yii::t('feedback', 'Список сообщений'), 'url' => array('/feedback/default/index/')),
         );
     }
 
@@ -134,12 +134,12 @@ class FeedbackModule extends YWebModule
     public function init()
     {
         parent::init();
-        
+
         if(!$this->types)
             $this->types = array(
-                1 => Yii::t('feedback','Ошибка на сайте'),
-                2 => Yii::t('feedback','Предложение о сотрудничестве'),
-                3 => Yii::t('feedback','Прочее..'),
+                1 => Yii::t('feedback', 'Ошибка на сайте'),
+                2 => Yii::t('feedback', 'Предложение о сотрудничестве'),
+                3 => Yii::t('feedback', 'Прочее..'),
             );
 
         $this->setImport(array('feedback.models.*', 'feedback.components.*'));
