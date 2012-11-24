@@ -77,16 +77,15 @@ class MenuController extends YBackController
     /**
      * Manages all models.
      */
-    public function actionAdmin()
+    public function actionIndex()
     {
         $model = new Menu('search');
-        $model->unsetAttributes();
-        // clear any default values
+        $model->unsetAttributes();  // clear any default values
 
         if (isset($_GET['Menu']))
             $model->attributes = $_GET['Menu'];
 
-        $this->render('admin', array('model' => $model));
+        $this->render('index', array('model' => $model));
     }
 
     /**

@@ -1,19 +1,17 @@
 <?php
 $this->breadcrumbs = array(
     $this->module->getCategory() => array(''),
-    Yii::t('menu', 'Меню') => array('default/index'),
-    Yii::t('menu','Управление')
+    Yii::t('menu', 'Меню') => array('/menu/menu/index'),
+    Yii::t('menu', 'Управление')
 );
 
 $this->menu = array(
     array('label' => Yii::t('menu', 'Меню')),
-    array('icon' => 'file','label' => Yii::t('menu', 'Добавить меню'), 'url' => array('create')),
-    array('icon' => 'list','label' => Yii::t('menu', 'Список меню'), 'url' => array('index')),
-
+    array('icon' => 'plus-sign', 'label' => Yii::t('menu', 'Добавить меню'), 'url' => array('/menu/menu/create')),
+    array('icon' => 'list-alt', 'label' => Yii::t('menu', 'Управление меню'), 'url' => array('/menu/menu/index')),
     array('label' => Yii::t('menu', 'Пункты меню')),
-    array('icon' => 'file','label' => Yii::t('menu', 'Добавить пункт меню'), 'url' => array('menuitem/create')),
-    array('icon' => 'list','label' => Yii::t('menu', 'Cписок пунктов меню'), 'url' => array('menuitem/index')),
-    array('icon' => 'list-alt','label' => Yii::t('menu', 'Управление пунктами меню'), 'url' => array('menuitem/admin')),
+    array('icon' => 'plus-sign', 'label' => Yii::t('menu', 'Добавить пункт меню'), 'url' => array('/menu/menuitem/create')),
+    array('icon' => 'list-alt', 'label' => Yii::t('menu', 'Управление пунктами меню'), 'url' => array('/menu/menuitem/index')),
 );
 
 Yii::app()->clientScript->registerScript('search', "
@@ -30,11 +28,14 @@ Yii::app()->clientScript->registerScript('search', "
 ");
 ?>
 
-<div class="page-header"><h1><?php echo $this->module->getName(); ?> <small><?php echo Yii::t('menu', 'управление'); ?></small></h1></div>
+<div class="page-header">
+    <h1>
+        <?php echo $this->module->getName(); ?> 
+        <small><?php echo Yii::t('menu', 'управление'); ?></small>
+    </h1>
+</div>
 
-<button class="btn btn-small dropdown-toggle"
-        data-toggle="collapse"
-        data-target="#search-toggle" >
+<button class="btn btn-small dropdown-toggle" data-toggle="collapse" data-target="#search-toggle">
     <i class="icon-search"></i>
     <?php echo CHtml::link(Yii::t('menu', 'Поиск меню'), '#', array('class' => 'search-button')); ?>
     <span class="caret"></span>
@@ -50,31 +51,28 @@ Yii::app()->clientScript->registerScript('search', "
         return false;
         });
     ");
-    $this->renderPartial('_search', array(
-        'model' => $model,
-    ));
+    $this->renderPartial('_search', array('model' => $model));
     ?>
-
 </div>
 
 <?php
 $this->widget('YCustomGridView', array(
-    'id' => 'menu-grid',
+    'id'            => 'menu-grid',
     'itemsCssClass' => ' table table-condensed',
-    'dataProvider' => $model->search(),
-    'columns' => array(
+    'dataProvider'  => $model->search(),
+    'columns'       => array(
         'id',
         'name',
         'code',
         'description',
         array(
-            'name' => Yii::t('menu', 'Пунктов'),
+            'name'  => Yii::t('menu', 'Пунктов'),
             'value' => 'count($data->menuItems)',
         ),
         array(
-            'name' => 'status',
-            'type' => 'raw',
-            'value' => '$this->grid->returnBootstrapStatusHtml($data)',
+            'name'        => 'status',
+            'type'        => 'raw',
+            'value'       => '$this->grid->returnBootstrapStatusHtml($data)',
             'htmlOptions' => array('style'=>'width:40px; text-align:center;'),
         ),
         array(

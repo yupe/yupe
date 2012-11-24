@@ -105,14 +105,14 @@ class DefaultController extends YBackController
     /**
      * Manages all models.
      */
-    public function actionAdmin()
+    public function actionIndex()
     {
         $model = new ContentBlock('search');
         $model->unsetAttributes(); // clear any default values
         if (isset($_GET['ContentBlock']))
             $model->attributes = $_GET['ContentBlock'];
 
-        $this->render('admin', array('model' => $model));
+        $this->render('index', array('model' => $model));
     }
 
     /**

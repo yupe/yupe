@@ -33,11 +33,11 @@ class MenuWidget extends YWidget
     /**
      * @var string данный параметр указывает начиная с id какого родителя начинать вывод меню, по умолчанию 0, корень меню.
      */
-    public $parent_id = 0;
+    public $parent_id    = 0;
     /**
      * string данный параметр указывает название layout.
      */
-    public $layout = 'main';
+    public $layout       = 'main';
     /**
      * @var array особенные параметры передаваемые в layout.
      */
@@ -45,7 +45,7 @@ class MenuWidget extends YWidget
     /**
      * @var array параметры виджета zii.widgets.CMenu.
      */
-    public $params = array();
+    public $params       = array();
 
     public function run()
     {
