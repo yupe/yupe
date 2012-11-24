@@ -1,17 +1,16 @@
 <?php
 $this->breadcrumbs = array(
     $this->getModule('dictionary')->getCategory() => array(''),
-    Yii::t('dictionary', 'Справочники') => array('admin'),
-    Yii::t('dictionary', 'Справочники') => array('admin'),
+    Yii::t('dictionary', 'Справочники') => array('/dictionary/default/index'),
     Yii::t('dictionary', 'Управление'),
 );
 
 $this->menu = array(
     array('label' => Yii::t('dictionary', 'Справочники')),
-    array('icon' => 'list-alt white','label' => Yii::t('dictionary', 'Список справочников'), 'url' => array('/dictionary/default/admin')),
+    array('icon' => 'list-alt white','label' => Yii::t('dictionary', 'Список справочников'), 'url' => array('/dictionary/default/index')),
     array('icon' => 'plus-sign','label' => Yii::t('dictionary', 'Добавить справочник'), 'url' => array('/dictionary/default/create')),
     array('label' => Yii::t('dictionary', 'Значения')),
-    array('icon' => 'list-alt','label' => Yii::t('dictionary', 'Список значений'), 'url' => array('/dictionary/dictionaryData/admin')),
+    array('icon' => 'list-alt','label' => Yii::t('dictionary', 'Список значений'), 'url' => array('/dictionary/dictionaryData/index')),
     array('icon' => 'plus-sign','label' => Yii::t('dictionary', 'Добавить значение'), 'url' => array('/dictionary/dictionaryData/create')),
 );
 ?>
@@ -49,33 +48,33 @@ $this->renderPartial('_search', array('model' => $model));
 
 <?php
 $this->widget('application.modules.yupe.components.YCustomGridView', array(
-    'id' => 'dictionary-group-grid',
+    'id'           => 'dictionary-group-grid',
     'dataProvider' => $model->search(),
-    'columns' => array(
+    'columns'      => array(
         'id',
         array(
-            'name' => 'name',
-            'type' => 'raw',
-            'value' => 'CHtml::link($data->name,array("/dictionary/default/update/","id" => $data->id))'
+            'name'  => 'name',
+            'type'  => 'raw',
+            'value' => 'CHtml::link($data->name,array("/dictionary/default/update/","id" => $data->id))',
         ),
         'code',
         array(
-            'name' => Yii::t('dictionary', 'Записей'),
-            'type' => 'raw',
-            'value' => 'CHtml::link($data->dataCount,array("/dictionary/dictionaryData/admin?group_id={$data->id}"))'
+            'name'  => Yii::t('dictionary', 'Записей'),
+            'type'  => 'raw',
+            'value' => 'CHtml::link($data->dataCount,array("/dictionary/dictionaryData/admin?group_id={$data->id}"))',
         ),
         'creation_date',
         'update_date',
         array(
-            'name' => 'create_user_id',
-            'value' => '$data->createUser->getFullName()'
+            'name'  => 'create_user_id',
+            'value' => '$data->createUser->getFullName()',
         ),
         array(
-            'name' => 'update_user_id',
-            'value' => '$data->updateUser->getFullName()'
-        ),        
+            'name'  => 'update_user_id',
+            'value' => '$data->updateUser->getFullName()',
+        ),
         array(
-            'class' => 'bootstrap.widgets.TbButtonColumn',            
+            'class' => 'bootstrap.widgets.TbButtonColumn',
         ),
     ),
 ));

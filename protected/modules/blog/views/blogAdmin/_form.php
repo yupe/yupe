@@ -32,14 +32,13 @@ Yii::app()->clientScript->registerScript('fieldset', "
     </div>
 
     <div class="row-fluid control-group <?php echo $model->hasErrors('name') ? 'error' : ''; ?>">
-            <?php echo $form->textFieldRow($model, 'name',
-                array('class' => 'popover-help span7',
-                      'maxlength' => 300,
-                      'size' => 60,
-                      'data-original-title' => $model->getAttributeLabel('name'),
-                      'data-content' => $model->getAttributeDescription('name'),
-                )
-            ); ?>
+        <?php echo $form->textFieldRow($model, 'name', array(
+            'class'               => 'popover-help span7',
+            'maxlength'           => 300,
+            'size'                => 60,
+            'data-original-title' => $model->getAttributeLabel('name'),
+            'data-content'        => $model->getAttributeDescription('name'),
+        )); ?>
     </div>
     <div class="row-fluid control-group <?php echo $model->hasErrors('slug') ? 'error' : ''; ?>">
             <?php echo $form->textFieldRow($model, 'slug', array('class' => 'popover-help span7', 'maxlength' => 150, 'size' => 60, 'data-original-title' => $model->getAttributeLabel('slug'), 'data-content' => $model->getAttributeDescription('slug'))); ?>
@@ -51,10 +50,10 @@ Yii::app()->clientScript->registerScript('fieldset', "
         <div class="popover-help" data-original-title='<?php echo $model->getAttributeLabel('description'); ?>' data-content='<?php echo $model->getAttributeDescription('description'); ?>'>
             <?php echo $form->labelEx($model, 'description'); ?>
             <?php $this->widget($this->module->editor, array(
-                'model' => $model,
-                'attribute' => 'description',
-                'options' => array(
-                    'toolbar' => 'main',
+                'model'       => $model,
+                'attribute'   => 'description',
+                'options'     => array(
+                    'toolbar'     => 'main',
                     'imageUpload' => Yii::app()->baseUrl . '/index.php/yupe/backend/AjaxFileUpload/',
                 ),
                 'htmlOptions' => array('rows' => 20, 'cols' => 6),
@@ -67,9 +66,9 @@ Yii::app()->clientScript->registerScript('fieldset', "
         'label'      => $model->isNewRecord ? Yii::t('blog', 'Добавить блог и продолжить') : Yii::t('blog', 'Сохранить блог и продолжить'),
     )); ?>
     <?php $this->widget('bootstrap.widgets.TbButton', array(
-        'buttonType' => 'submit',
-        'htmlOptions'=> array('name' => 'submit-type', 'value' => 'index'),
-        'label'      => $model->isNewRecord ? Yii::t('blog', 'Добавить блог и закрыть') : Yii::t('blog', 'Сохранить блог и закрыть'),
+        'buttonType'  => 'submit',
+        'htmlOptions' => array('name' => 'submit-type', 'value' => 'index'),
+        'label'       => $model->isNewRecord ? Yii::t('blog', 'Добавить блог и закрыть') : Yii::t('blog', 'Сохранить блог и закрыть'),
     )); ?>
 
 <?php $this->endWidget(); ?>

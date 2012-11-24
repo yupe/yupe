@@ -2,16 +2,13 @@
 
 class DefaultController extends YBackController
 {
-
     /**
      * Displays a particular model.
      * @param integer $id the ID of the model to be displayed
      */
     public function actionView($id)
     {
-        $this->render('view', array(
-            'model' => $this->loadModel($id),
-        ));
+        $this->render('view', array('model' => $this->loadModel($id)));
     }
 
     /**
@@ -28,11 +25,12 @@ class DefaultController extends YBackController
         if (isset($_POST['DictionaryGroup']))
         {
             $model->attributes = $_POST['DictionaryGroup'];
-            
+
             if ($model->save())
             {
                 Yii::app()->user->setFlash(
-                        YFlashMessages::NOTICE_MESSAGE, Yii::t('dictionary', 'Запись добавлена!')
+                    YFlashMessages::NOTICE_MESSAGE,
+                    Yii::t('dictionary', 'Запись добавлена!')
                 );
 
                 if (!isset($_POST['submit-type']))
@@ -42,9 +40,7 @@ class DefaultController extends YBackController
             }
         }
 
-        $this->render('create', array(
-            'model' => $model,
-        ));
+        $this->render('create', array('model' => $model));
     }
 
     /**
@@ -62,11 +58,12 @@ class DefaultController extends YBackController
         if (isset($_POST['DictionaryGroup']))
         {
             $model->attributes = $_POST['DictionaryGroup'];
-            
+
             if ($model->save())
             {
                 Yii::app()->user->setFlash(
-                        YFlashMessages::NOTICE_MESSAGE, Yii::t('dictionary', 'Запись добавлена!')
+                    YFlashMessages::NOTICE_MESSAGE,
+                    Yii::t('dictionary', 'Запись добавлена!')
                 );
 
                 if (!isset($_POST['submit-type']))
@@ -76,9 +73,7 @@ class DefaultController extends YBackController
             }
         }
 
-        $this->render('update', array(
-            'model' => $model,
-        ));
+        $this->render('update', array('model' => $model));
     }
 
     /**
@@ -104,16 +99,14 @@ class DefaultController extends YBackController
     /**
      * Manages all models.
      */
-    public function actionAdmin()
+    public function actionIndex()
     {
         $model = new DictionaryGroup('search');
         $model->unsetAttributes();  // clear any default values
         if (isset($_GET['DictionaryGroup']))
             $model->attributes = $_GET['DictionaryGroup'];
 
-        $this->render('admin', array(
-            'model' => $model,
-        ));
+        $this->render('index', array('model' => $model));
     }
 
     /**
@@ -141,5 +134,4 @@ class DefaultController extends YBackController
             Yii::app()->end();
         }
     }
-
 }

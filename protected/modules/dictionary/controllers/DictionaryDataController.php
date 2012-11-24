@@ -2,16 +2,13 @@
 
 class DictionaryDataController extends YBackController
 {
-
     /**
      * Displays a particular model.
      * @param integer $id the ID of the model to be displayed
      */
     public function actionView($id)
     {
-        $this->render('view', array(
-            'model' => $this->loadModel($id),
-        ));
+        $this->render('view', array('model' => $this->loadModel($id)));
     }
 
     /**
@@ -23,7 +20,7 @@ class DictionaryDataController extends YBackController
         $model = new DictionaryData;
 
         $gid = (int) Yii::app()->request->getQuery('gid');
-                
+
         if ($gid)
             $model->group_id = $gid;
 
@@ -33,9 +30,9 @@ class DictionaryDataController extends YBackController
         if (isset($_POST['DictionaryData']))
         {
             $model->attributes = $_POST['DictionaryData'];
-            
+
             if ($model->save())
-            {           
+            {
                 if (!isset($_POST['submit-type']))
                     $this->redirect(array('update', 'id' => $model->id));
                 else
@@ -43,9 +40,7 @@ class DictionaryDataController extends YBackController
             }
         }
 
-        $this->render('create', array(
-            'model' => $model,
-        ));
+        $this->render('create', array('model' => $model));
     }
 
     /**
@@ -63,9 +58,9 @@ class DictionaryDataController extends YBackController
         if (isset($_POST['DictionaryData']))
         {
             $model->attributes = $_POST['DictionaryData'];
-            
+
             if ($model->save())
-            {                
+            {
                 if (!isset($_POST['submit-type']))
                     $this->redirect(array('update', 'id' => $model->id));
                 else
@@ -73,9 +68,7 @@ class DictionaryDataController extends YBackController
             }
         }
 
-        $this->render('update', array(
-            'model' => $model,
-        ));
+        $this->render('update', array('model' => $model));
     }
 
     /**
@@ -101,7 +94,7 @@ class DictionaryDataController extends YBackController
     /**
      * Manages all models.
      */
-    public function actionAdmin()
+    public function actionIndex()
     {
         $model = new DictionaryData('search');
 
@@ -115,9 +108,7 @@ class DictionaryDataController extends YBackController
         if (isset($_GET['DictionaryData']))
             $model->attributes = $_GET['DictionaryData'];
 
-        $this->render('admin', array(
-            'model' => $model,
-        ));
+        $this->render('index', array('model' => $model));
     }
 
     /**
@@ -145,5 +136,4 @@ class DictionaryDataController extends YBackController
             Yii::app()->end();
         }
     }
-
 }
