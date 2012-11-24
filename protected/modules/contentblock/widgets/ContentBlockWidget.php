@@ -12,7 +12,7 @@ class ContentBlockWidget extends YWidget
 
     public function run()
     {
-        $cacheName = "ContentBlock{$this->code}";
+        $cacheName = "ContentBlock{$this->code}" . Yii::app()->language;
 
         $output = Yii::app()->cache->get($cacheName);
 
