@@ -1,8 +1,18 @@
-<?php $form = $this->beginWidget('bootstrap.widgets.TbActiveForm', array(
-    'action' => Yii::app()->createUrl($this->route),
-    'method' => 'get',
-    'htmlOptions'=> array( 'class' => 'well' ),
-)); ?>
+<?php
+$form = $this->beginWidget('bootstrap.widgets.TbActiveForm', array(
+    'action'      => Yii::app()->createUrl($this->route),
+    'method'      => 'get',
+    'type'        => 'vertical',
+    'htmlOptions' => array('class' => 'well form-vertical'),
+));
+
+Yii::app()->clientScript->registerScript('fieldset', "
+    $('document').ready(function () {
+        $('.popover-help').popover({ trigger : 'hover', 'delay' : 500 });
+    });
+");
+?>
+
     <fieldset class="inline">
         <div class="row-fluid control-group">
             <div class="span1">
@@ -12,10 +22,10 @@
                 <?php echo $form->textFieldRow($model, 'date'); ?>
             </div>
             <div class="span3">
-                <?php echo $form->dropDownListRow($model, 'status', $model->getStatusList(),array('empty' => Yii::t('news','- не важен -'))); ?>
+                <?php echo $form->dropDownListRow($model, 'status', $model->getStatusList(), array('empty' => Yii::t('news', '- не важен -'))); ?>
             </div>
             <div class="span4">
-                <?php echo $form->dropDownListRow($model, 'category_id', CHtml::listData($this->module->getCategoryList(),'id','name'),array('empty' => Yii::t('news','- не важно -'))); ?>
+                <?php echo $form->dropDownListRow($model, 'category_id', CHtml::listData($this->module->getCategoryList(), 'id', 'name'), array('empty' => Yii::t('news', '- не важно -'))); ?>
             </div>
         </div>
         <div class="row-fluid control-group">
@@ -37,13 +47,12 @@
                 <?php echo $form->checkBoxRow($model, 'is_protected', $model->getProtectedStatusList()); ?>
             </div>
         </div>
-        <?php $this->widget('bootstrap.widgets.TbButton', array(
-            'buttonType' => 'submit',
-            'type' => 'primary',
-            'encodeLabel' => false,
-            'label' => '<i class="icon-search icon-white"></i> '.Yii::t('news', 'Искать'),
-        )); ?>
-
     </fieldset>
-<?php $this->endWidget(); ?>
+    <?php $this->widget('bootstrap.widgets.TbButton', array(
+        'type'        => 'primary',
+        'encodeLabel' => false,
+        'buttonType'  => 'submit',
+        'label'       => '<i class="icon-search icon-white">&nbsp;</i> ' . Yii::t('blog', 'Найти новость'),
+    )); ?>
 
+<?php $this->endWidget(); ?>

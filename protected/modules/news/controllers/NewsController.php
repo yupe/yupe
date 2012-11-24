@@ -5,10 +5,12 @@ class NewsController extends YFrontController
 
     public function actionShow($title)
     {
-        if ( $this->isMultilang() )
-            $news = News::model()->published()->language(Yii::app()->language)->find('alias = :alias', array(':alias' => $title));
+        $news = News::model()->published();
+
+        if ($this->isMultilang())
+            $news = $news->language(Yii::app()->language)->find('alias = :alias', array(':alias' => $title));
         else
-            $news = News::model()->published()->find('alias = :alias', array(':alias' => $title));
+            $news = $news->find('alias = :alias', array(':alias' => $title));
 
         if (!$news)
             throw new CHttpException(404, Yii::t('news', 'Новость не найдена!'));
@@ -21,10 +23,10 @@ class NewsController extends YFrontController
         $dataProvider = new CActiveDataProvider('News', array(
             'criteria' => new CDbCriteria(array(
                 'condition' => 't.status = :status',
-                'params' => array(':status' => News::STATUS_PUBLISHED),
-                'limit' => self::NEWS_PER_PAGE,
-                'order' => 't.creation_date DESC',
-                'with' => 'user'
+                'params'    => array(':status' => News::STATUS_PUBLISHED),
+                'limit'     => self::NEWS_PER_PAGE,
+                'order'     => 't.creation_date DESC',
+                'with'      => 'user',
             ))
         ));
 

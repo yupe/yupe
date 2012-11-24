@@ -2,16 +2,16 @@
 
 <?php
 $this->breadcrumbs = array(
-    $this->getModule('news')->getCategory() => array( '' ),
-    Yii::t('news', 'Новости') => array( 'admin' ),
-    $model->title => array( 'view', 'id' => $model->id ),
+    $this->getModule('news')->getCategory() => array(''),
+    Yii::t('news', 'Новости') => array('/news/default/index'),
+    $model->title => array('view', 'id' => $model->id),
     Yii::t('news', 'Изменение'),
 );
 
 $this->menu = array(
-    array( 'icon' => 'list-alt', 'label' => Yii::t('news', 'Управление новостями'), 'url'   => array( 'admin' ) ),
-    array( 'icon' => 'file', 'label' => Yii::t('news', 'Добавить новость'), 'url'   => array( '/news/default/create' ) ),
-    array('icon' => 'pencil white', 'encodeLabel'=> false, 'label' => Yii::t('news', 'Редактирование новости').' "'.mb_substr($model->title,0,32).'"', 'url' => array('/news/default/update','alias'=> $model->alias)),
+    array('icon' => 'list-alt', 'label' => Yii::t('news', 'Управление новостями'), 'url' => array('/news/default/index')),
+    array('icon' => 'file', 'label' => Yii::t('news', 'Добавить новость'), 'url' => array('/news/default/create')),
+    array('icon' => 'pencil', 'encodeLabel'=> false, 'label' => Yii::t('news', 'Редактирование новости') . ' "' . mb_substr($model->title, 0, 32) . '"', 'url' => array('/news/default/update', 'alias' => $model->alias)),
 );
 ?>
 
@@ -20,13 +20,16 @@ $this->menu = array(
 </div>
 <?php
 $form = $this->beginWidget('bootstrap.widgets.TbActiveForm', array(
-    'id' => 'news-form',
+    'id'                   => 'news-form',
     'enableAjaxValidation' => false,
-    'htmlOptions' => array('class' => 'well form-vertical','enctype' => 'multipart/form-data'),
+    'htmlOptions'          => array(
+        'class'   => 'well form-vertical',
+        'enctype' => 'multipart/form-data',
+    ),
 ));
 echo CHtml::openTag("fieldset", array( "class" => "inline" ));
 ?>
-<div class="alert alert-info"><?php echo Yii::t('news', 'Поля, отмеченные * обязательны для заполнения') ?></div>
+<div class="alert alert-info"><?php echo Yii::t('news', 'Поля, отмеченные * обязательны для заполнения'); ?></div>
 
 <div class="row-fluid control-group <?php echo $model->hasErrors('category_id') ? 'error' : '' ?>">
     <div class="span7  popover-help" data-original-title="<?php echo $model->getAttributeLabel('category_id'); ?>" >
@@ -69,14 +72,13 @@ echo CHtml::openTag("fieldset", array( "class" => "inline" ));
 </div>
 
  <div class="row-fluid control-group <?php echo $model->hasErrors('link') ? 'error' : '' ?>">
-        <div class="span7 popover-help" data-content="<?php echo Yii::t('news','Укажите источник новости (ссылка на произвольную страницу)') ?>" data-original-title="<?php echo $model->getAttributeLabel('link');
-            ; ?>" >
-            <?php echo $form->labelEx($model, 'link'); ?>
-            <?php echo $form->textField($model, 'link', array( 'size' => 60, 'maxlength' => 150 )); ?>
-        </div>
-        <div class="span5">
-            <?php echo $form->error($model, 'link'); ?>
-        </div>
+    <div class="span7 popover-help" data-content="<?php echo Yii::t('news','Укажите источник новости (ссылка на произвольную страницу)') ?>" data-original-title="<?php echo $model->getAttributeLabel('link'); ?>" >
+        <?php echo $form->labelEx($model, 'link'); ?>
+        <?php echo $form->textField($model, 'link', array( 'size' => 60, 'maxlength' => 150 )); ?>
+    </div>
+    <div class="span5">
+        <?php echo $form->error($model, 'link'); ?>
+    </div>
 </div>
 
 <div class="row-fluid control-group <?php echo $model->hasErrors('image') ? 'error' : '' ?>">
@@ -107,7 +109,7 @@ echo CHtml::openTag("fieldset", array( "class" => "inline" ));
 <?php
 $items = array( );
 foreach ($langs as $l)
-    $items[] = array( 'label'       => "[" . $l . "] " . mb_convert_case(Yii::app()->locale->getLocaleDisplayName($l), MB_CASE_TITLE, 'UTF-8'), 'url'         => '#tab-' . $l, 'linkOptions' => array( "data-toggle" => "tab" ), 'active'      => $l == $model->lang );
+    $items[] = array( 'label' => "[" . $l . "] " . mb_convert_case(Yii::app()->locale->getLocaleDisplayName($l), MB_CASE_TITLE, 'UTF-8'), 'url'         => '#tab-' . $l, 'linkOptions' => array( "data-toggle" => "tab" ), 'active'      => $l == $model->lang );
 
 $this->widget('bootstrap.widgets.TbMenu', array(
     'type'        => 'tabs', // '', 'tabs', 'pills' (or 'list')
@@ -121,7 +123,6 @@ Yii::app()->clientScript->registerScript('fieldset', "
     });
 ");
 
-
 echo CHtml::openTag("div", array( "class" => "tab-content", 'style' => 'background-color: whiteSmoke; padding: 5px; border-bottom: 1px solid #DDD; border-left: 1px solid #DDD; border-right: 1px solid #DDD;' ));
 foreach ($langs as $l)
 {
@@ -130,8 +131,6 @@ foreach ($langs as $l)
     echo CHtml::closeTag("div");
 }
 echo CHtml::closeTag("div");
-
-
 echo CHtml::closeTag("fieldset");
 echo "<br />";
 echo CHtml::submitButton($model->isNewRecord ? Yii::t('news', 'Добавить новость и продолжить редактирование') : Yii::t('news', 'Сохранить и продолжить редактирование'), array('class' => 'btn btn-primary'));
@@ -140,6 +139,3 @@ echo CHtml::submitButton($model->isNewRecord ? Yii::t('news', 'Добавить 
 
 $this->endWidget();
 ?>
-
-
-

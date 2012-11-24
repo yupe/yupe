@@ -171,12 +171,12 @@ class News extends YModel
     public function beforeSave()
     {
         $this->change_date = new CDbExpression('NOW()');
-        $this->date = date('Y-m-d', strtotime($this->date));
+        $this->date        = date('Y-m-d', strtotime($this->date));
 
         if ($this->isNewRecord)
         {
             $this->creation_date = $this->change_date;
-            $this->user_id = Yii::app()->user->getId();
+            $this->user_id       = Yii::app()->user->getId();
         }
 
         return parent::beforeSave();
@@ -215,7 +215,12 @@ class News extends YModel
             $criteria->compare('category_id', $this->category_id);
         $criteria->compare('is_protected', $this->is_protected);
 
-        return new CActiveDataProvider(get_class($this), array('criteria' => $criteria));
+        $criteria->with = array("category");
+
+        return new CActiveDataProvider(get_class($this), array(
+            'criteria' => $criteria,
+            'sort'     => array('defaultOrder' => 'date DESC'),
+        ));
     }
 
     public function getPermaLink()
@@ -228,7 +233,7 @@ class News extends YModel
         return array(
             self::STATUS_DRAFT      => Yii::t('news', 'Черновик'),
             self::STATUS_PUBLISHED  => Yii::t('news', 'Опубликовано'),
-            self::STATUS_MODERATION => Yii::t('news', 'На модерации')
+            self::STATUS_MODERATION => Yii::t('news', 'На модерации'),
         );
     }
 
@@ -242,7 +247,7 @@ class News extends YModel
     {
         return array(
             self::PROTECTED_NO  => Yii::t('news', 'нет'),
-            self::PROTECTED_YES => Yii::t('news', 'да')
+            self::PROTECTED_YES => Yii::t('news', 'да'),
         );
     }
 
