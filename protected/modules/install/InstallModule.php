@@ -23,7 +23,7 @@ class InstallModule extends YWebModule
 
     public function getCategory()
     {
-        return Yii::t('install', 'Система');
+        return Yii::t('install', 'Юпи!');
     }
 
     public function getName()
