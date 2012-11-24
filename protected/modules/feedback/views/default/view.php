@@ -2,13 +2,13 @@
 
 <?php
 $this->breadcrumbs = array(
-    $this->module->getCategory() => array('admin'),
-    Yii::t('feedback', 'Сообщения с сайта') => array('admin'),
+    $this->module->getCategory() => array('/feedback/default/index'),
+    Yii::t('feedback', 'Сообщения с сайта') => array('/feedback/default/index'),
     $model->theme,
 );
 
 $this->menu = array(
-    array('icon' => 'list-alt', 'label' => Yii::t('feedback', 'Управление сообщениями'), 'url' => array('/feedback/default/admin')),
+    array('icon' => 'list-alt', 'label' => Yii::t('feedback', 'Управление сообщениями'), 'url' => array('/feedback/default/index')),
     array('icon' => 'plus-sign', 'label' => Yii::t('feedback', 'Добавить сообщение'), 'url' => array('/feedback/default/create')),
     array('icon' => 'pencil', 'label' => Yii::t('feedback', 'Редактировать данное сообщение'), 'url' => array('/feedback/default/update', 'id' => $model->id)),
     array('icon' => 'eye-open white', 'label' => Yii::t('feedback', 'Просмотр сообщения'), 'url' => array('/feedback/default/view', 'id' => $model->id)),
@@ -24,15 +24,15 @@ $this->menu = array(
 
 <?php
 $this->widget('bootstrap.widgets.TbDetailView', array(
-    'data' => $model,
+    'data'       => $model,
     'attributes' => array(
         'id',
         array(
-            'name' => 'creation_date',
+            'name'  => 'creation_date',
             'value' => Yii::app()->dateFormatter->formatDateTime($model->creation_date, 'short'),
         ),
         array(
-            'name' => 'change_date',
+            'name'  => 'change_date',
             'value' => Yii::app()->dateFormatter->formatDateTime($model->change_date, 'short'),
         ),
         'name',
@@ -44,11 +44,11 @@ $this->widget('bootstrap.widgets.TbDetailView', array(
             'type' => 'raw'
         ),
         array(
-            'name' => 'type',
+            'name'  => 'type',
             'value' => $model->getType(),
         ),
         array(
-            'name' => 'status',
+            'name'  => 'status',
             'value' => $model->getStatus(),
         ),
         array(
@@ -60,11 +60,11 @@ $this->widget('bootstrap.widgets.TbDetailView', array(
             'value' => $model->getAnsweredUser(),
         ),
         array(
-            'name' => 'answer_date',
+            'name'  => 'answer_date',
             'value' => ($model->answer_date != "0000-00-00 00:00:00") ? Yii::app()->dateFormatter->formatDateTime($model->answer_date, 'short') : "—",
         ),
         array(
-            'name' => 'is_faq',
+            'name'  => 'is_faq',
             'value' => $model->getIsFaq(),
         ),
         'ip',
