@@ -80,7 +80,7 @@ class MenuitemController extends YBackController
                 $this->redirect(isset($_POST['returnUrl']) ? $_POST['returnUrl'] : array('admin'));
         }
         else
-            throw new CHttpException(400, 'Invalid request. Please do not repeat this request again.');
+            throw new CHttpException(400, Yii::t('menu','Ошибка запроса!'));
     }
 
      /**
@@ -108,7 +108,7 @@ class MenuitemController extends YBackController
         $model = MenuItem::model()->findByPk($id);
 
         if ($model === null)
-            throw new CHttpException(404, 'The requested page does not exist.');
+            throw new CHttpException(404,Yii::t('menu','Страница не найдена!'));
 
         return $model;
     }

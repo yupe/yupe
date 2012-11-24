@@ -17,7 +17,7 @@ class YBackController extends YMainController
 
         if ($this->yupe->backendTheme && is_dir(Yii::getPathOfAlias("webroot.themes.backend_" . $this->yupe->backendTheme)))
         {
-            $themeBase        = "webroot.themes.backend_" . $this->yupe->backendTheme;
+            //$themeBase        = "webroot.themes.backend_" . $this->yupe->backendTheme;
             Yii::app()->theme = "backend_" . $this->yupe->backendTheme;
             $themeFile        = Yii::app()->theme->basePath . "/" . ucwords($this->yupe->backendTheme) . "Theme.php";
 

@@ -25,7 +25,7 @@
 ?>
 <div class="page-header">
     <h1>
-        <?php echo Yii::t('gallery', 'Редактирование') . ' ' . Yii::t('gallery', 'галереи'); ?><br />
+        <?php echo Yii::t('gallery', 'Редактирование галереи'); ?><br />
         <small>&laquo;<?php echo $model->name; ?>&raquo;</small>
     </h1>
 </div>

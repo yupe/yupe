@@ -111,8 +111,8 @@ class YupeModule extends YWebModule
             'editor'                 => Yii::t('page', 'Визуальный редактор'),
             'email'                  => Yii::t('page', 'Email администратора'),
             'availableLanguages'     => Yii::t('yupe', 'Список доступных языков через запятую (напр. ru,en,de)'),
-            'defaultLanguage'        => Yii::t('yupe', 'Язык по-умолчанию для сайта'),
-            'defaultBackendLanguage' => Yii::t('yupe', 'Язык по-умолчанию для админки'),
+            'defaultLanguage'        => Yii::t('yupe', 'Язык по умолчанию для сайта'),
+            'defaultBackendLanguage' => Yii::t('yupe', 'Язык по умолчанию для панели управления'),
         );
     }
 
