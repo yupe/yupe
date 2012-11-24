@@ -164,7 +164,7 @@ class ImageModule extends YWebModule
     {
         return array(
             array('icon' => 'plus-sign', 'label' => Yii::t('image', 'Добавить изображение'), 'url' => array('/image/default/create/')),
-            array('icon' => 'th-list', 'label' => Yii::t('news', 'Список изображений'), 'url' => array('/image/default/index/')),
+            array('icon' => 'th-list', 'label' => Yii::t('image', 'Список изображений'), 'url' => array('/image/default/index/')),
         );
     }
 }
