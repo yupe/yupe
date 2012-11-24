@@ -90,14 +90,14 @@ class DefaultController extends YBackController
     /**
      * Manages all models.
      */
-    public function actionAdmin()
+    public function actionIndex()
     {
         $model = new Comment('search');
         $model->unsetAttributes(); // clear any default values
         if (isset($_GET['Comment']))
             $model->attributes = $_GET['Comment'];
 
-        $this->render('admin', array('model' => $model));
+        $this->render('index', array('model' => $model));
     }
 
     /**
