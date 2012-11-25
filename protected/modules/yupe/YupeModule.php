@@ -35,6 +35,7 @@ class YupeModule extends YWebModule
     public $uploadPath             = 'uploads';
     public $editor                 = 'application.modules.yupe.widgets.editors.imperaviRedactor.EImperaviRedactorWidget';
     public $email;
+    public $gridRowsPerPage;
 
     public $categoryIcon;
     public $categorySort;
@@ -113,6 +114,7 @@ class YupeModule extends YWebModule
             'availableLanguages'     => Yii::t('yupe', 'Список доступных языков через запятую (напр. ru,en,de)'),
             'defaultLanguage'        => Yii::t('yupe', 'Язык по-умолчанию для сайта'),
             'defaultBackendLanguage' => Yii::t('yupe', 'Язык по-умолчанию для админки'),
+            'gridRowsPerPage'        => Yii::t('yupe', 'Количество записей в таблицах'),
         );
     }
 
@@ -133,6 +135,7 @@ class YupeModule extends YWebModule
             'availableLanguages',
             'defaultLanguage'        => $this->getLanguagesList(),
             'defaultBackendLanguage' => $this->getLanguagesList(),
+            'gridRowsPerPage',
         );
     }
     
