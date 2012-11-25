@@ -41,11 +41,19 @@ class TbGridView extends CGridView
 	 */
 	public $cssFile = false;
 
+
+
 	/**
 	 * Initializes the widget.
 	 */
 	public function init()
 	{
+		if(!isset($this->pager['pageSize']))
+		{
+			$pagination=$this->dataProvider->getPagination();
+			$pagination->pageSize = (Yii::app()->getModule('yupe')->gridRowsPerPage !== null) ? Yii::app()->getModule('yupe')->gridRowsPerPage : 10;
+		}
+
 		parent::init();
 
 		$classes = array('table');

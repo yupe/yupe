@@ -17,7 +17,7 @@ class DefaultController extends YBackController
      */
     public function actionCreate()
     {
-        $model = new Good;
+        $model = new Good('save');
 
         // Uncomment the following line if AJAX validation is needed
         // $this->performAjaxValidation($model);
@@ -31,7 +31,12 @@ class DefaultController extends YBackController
                 $model->image = CUploadedFile::getInstance($model, 'image');
                 if ($model->image)
                 {
-                    $imageName = $this->module->getUploadPath() . $model->alias . '.' . $model->image->extensionName;
+                    $path = $this->module->getUploadPath();
+                    $imageName = $path . uniqid() . '.' . $model->image->extensionName;
+
+                    if(!is_dir($path) or !is_readable($path))
+                        mkdir($path, '0777', true);
+
                     if ($model->image->saveAs($imageName))
                     {
                         $model->image = basename($imageName);

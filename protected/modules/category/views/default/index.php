@@ -72,5 +72,9 @@ $this->widget('application.modules.yupe.components.YCustomGridView', array(
             'class' => 'bootstrap.widgets.TbButtonColumn',
         ),
     ),
+    // 'pager' => array(
+    //     'class' => 'bootstrap.widgets.TbPager',
+    //     'pageSize' => 5
+    // ),
 ));
 ?>
