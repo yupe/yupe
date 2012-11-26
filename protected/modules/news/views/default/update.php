@@ -1,16 +1,15 @@
 <?php
 $this->breadcrumbs = array(
     $this->getModule('news')->getCategory() => array(''),
-    Yii::t('news', 'Новости') => array('admin'),
-    $model->title => array('view', 'id' => $model->id),
+    Yii::t('news', 'Новости') => array('/news/default/index'),
+    $model->title => array('/news/default/view', 'id' => $model->id),
     Yii::t('news', 'Редактирование новости'),
 );
 
 $this->menu = array(
-    array('icon' => 'list-alt', 'label' => Yii::t('news', 'Управление новостями'), 'url' => array('/news/default/admin')),
-    array('icon' => 'th-list', 'label' => Yii::t('news', 'Показать анонсами'), 'url' => array('/news/default/index')),
+    array('icon' => 'list-alt', 'label' => Yii::t('news', 'Управление новостями'), 'url' => array('/news/default/index')),
     array('icon' => 'file', 'label' => Yii::t('news', 'Добавить новость'), 'url' => array('/news/default/create')),
-    array('icon' => 'pencil white', 'encodeLabel'=> false, 'label' => Yii::t('news', 'Редактирование новости').' "'.mb_substr($model-> title,0,32).'"', 'url' => array('/news/default/update','alias'=> $model->alias)),
+    array('icon' => 'pencil white', 'encodeLabel'=> false, 'label' => Yii::t('news', 'Редактирование новости') . ' "' . mb_substr($model-> title, 0, 32) . '"', 'url' => array('/news/default/update', 'alias'=> $model->alias)),
 );
 ?>
 

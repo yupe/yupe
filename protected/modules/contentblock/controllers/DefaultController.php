@@ -9,13 +9,14 @@ class DefaultController extends YBackController
     {
         $model = $this->loadModel($id);
 
+        $code = '<?php $this->widget("application.modules.contentblock.widgets.ContentBlockWidget", array("code" => "' . $model->code . '")); ?>';
+
         $highlighter = new CTextHighlighter;
         $highlighter->language = 'PHP';
-        $code = '<?php $this->widget("application.modules.contentblock.widgets.ContentBlockWidget", array("code" => "'.$model->code.'"));?>';
         $example = $highlighter->highlight($code); 
 
         $this->render('view', array(
-            'model' => $model,
+            'model'   => $model,
             'example' => $example,
         ));
     }
@@ -46,9 +47,7 @@ class DefaultController extends YBackController
             }
         }
 
-        $this->render('create', array(
-            'model' => $model,
-        ));
+        $this->render('create', array('model' => $model));
     }
 
     /**
@@ -80,9 +79,7 @@ class DefaultController extends YBackController
             }
         }
 
-        $this->render('update', array(
-            'model' => $model,
-        ));
+        $this->render('update', array('model' => $model));
     }
 
     /**
@@ -108,16 +105,14 @@ class DefaultController extends YBackController
     /**
      * Manages all models.
      */
-    public function actionAdmin()
+    public function actionIndex()
     {
         $model = new ContentBlock('search');
         $model->unsetAttributes(); // clear any default values
         if (isset($_GET['ContentBlock']))
             $model->attributes = $_GET['ContentBlock'];
 
-        $this->render('admin', array(
-            'model' => $model,
-        ));
+        $this->render('index', array('model' => $model));
     }
 
     /**
@@ -127,7 +122,7 @@ class DefaultController extends YBackController
      */
     public function loadModel($id)
     {
-        $model = ContentBlock::model()->findByPk((int)$id);
+        $model = ContentBlock::model()->findByPk((int) $id);
         if ($model === null)
             throw new CHttpException(404, 'The requested page does not exist.');
         return $model;

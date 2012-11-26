@@ -1,26 +1,23 @@
 <?php
 $this->breadcrumbs = array(
     $this->module->getCategory() => array(''),
-    Yii::t('menu', 'Меню') => array('admin'),
-    $model->name => array(
-        'view',
-        'id' => $model->id,
-    ),
+    Yii::t('menu', 'Меню') => array('/menu/menu/index'),
+    $model->name => array('/menu/menu/view', 'id' => $model->id),
     Yii::t('menu', 'Редактирование'),
 );
 
 $this->menu = array(
-    //@formatter:off
     array('label' => Yii::t('menu', 'Меню')),
-    array('icon' => 'list-alt','label' => Yii::t('menu', 'Список меню'), 'url' => array('index')),
-    array('icon' => 'list','label' => Yii::t('menu', 'Управление меню'), 'url' => array('admin')),
-    array('icon' => 'file','label' => Yii::t('menu', 'Добавить меню'), 'url' => array('create')),
-
+    array('icon' => 'plus-sign', 'label' => Yii::t('menu', 'Добавить меню'), 'url' => array('/menu/menu/create')),
+    array('icon' => 'list-alt', 'label' => Yii::t('menu', 'Управление меню'), 'url' => array('/menu/menu/index')),
+    array('icon' => 'pencil', 'label' => Yii::t('menu', 'Изменить меню'), 'url' => array('/menu/menu/update', 'id' => $model->id)),
+    array('icon' => 'trash', 'label' => Yii::t('menu', 'Удалить меню'), 'url' => '#', 'linkOptions' => array(
+        'submit' => array('/menu/menu/delete', 'id' => $model->id),
+        'confirm' => Yii::t('menu', 'Подтверждаете удаление?')),
+    ),
     array('label' => Yii::t('menu', 'Пункты меню')),
-    array('icon' => 'file','label' => Yii::t('menu', 'Добавить пункт меню'), 'url' => array('menuitem/create')),
-    array('icon' => 'list-alt','label' => Yii::t('menu', 'Cписок пунктов меню'), 'url' => array('menuitem/index')),
-    array('icon' => 'list','label' => Yii::t('menu', 'Управление пунктами меню'), 'url' => array('menuitem/admin')),
-    //@formatter:on
+    array('icon' => 'plus-sign', 'label' => Yii::t('menu', 'Добавить пункт меню'), 'url' => array('/menu/menuitem/create')),
+    array('icon' => 'list-alt', 'label' => Yii::t('menu', 'Управление пунктами меню'), 'url' => array('/menu/menuitem/index')),
 );
 ?>
 

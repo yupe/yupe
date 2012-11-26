@@ -16,14 +16,12 @@
         <?php echo $form->dropDownListRow($model, 'status', $model->statusList); ?>
         <?php echo $form->textFieldRow($model, 'ip', array('size' => 20, 'maxlength' => 20)); ?>
         <div class="form-actions">
-            <?php
-            $this->widget('bootstrap.widgets.TbButton', array(
+            <?php $this->widget('bootstrap.widgets.TbButton', array(
                 'buttonType'  => 'submit',
                 'type'        => 'primary',
                 'encodeLabel' => false,
                 'label'       => '<i class="icon-search icon-white"></i> ' . Yii::t('mail', 'Искать'),
-            ));
-            ?>
+            )); ?>
         </div>
     </fieldset>
 

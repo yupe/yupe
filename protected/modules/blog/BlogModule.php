@@ -29,13 +29,13 @@ class BlogModule extends YWebModule
         return array(
             array('label' => Yii::t('blog', 'Блоги')),
             array('icon' => 'plus-sign', 'label' => Yii::t('blog', 'Добавить блог'), 'url' => array('/blog/BlogAdmin/create')),
-            array('icon' => 'th-list', 'label' => Yii::t('blog', 'Список блогов'), 'url' => array('/blog/BlogAdmin/index')),   
+            array('icon' => 'th-list', 'label' => Yii::t('blog', 'Список блогов'), 'url' => array('/blog/BlogAdmin/index')),
             array('label' => Yii::t('blog', 'Записи')),
-            array('icon' => 'plus-sign', 'label' => Yii::t('blog', 'Добавить запись'), 'url' => array('/blog/PostAdmin/create')),   
+            array('icon' => 'plus-sign', 'label' => Yii::t('blog', 'Добавить запись'), 'url' => array('/blog/PostAdmin/create')),
             array('icon' => 'th-list', 'label' => Yii::t('blog', 'Список записей'), 'url' => array('/blog/PostAdmin/index')),
             array('label' => Yii::t('blog', 'Участники')),
             array('icon' => 'plus-sign', 'label' => Yii::t('blog', 'Добавить участника'), 'url' => array('/blog/UserToBlogAdmin/create')),
-            array('icon' => 'th-list', 'label' => Yii::t('blog', 'Список участников'), 'url' => array('/blog/UserToBlogAdmin/index')),            
+            array('icon' => 'th-list', 'label' => Yii::t('blog', 'Список участников'), 'url' => array('/blog/UserToBlogAdmin/index')),
         );
     }
 

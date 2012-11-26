@@ -59,7 +59,7 @@ class ContentBlock extends YModel
     public function attributeLabels()
     {
         return array(
-            'id'          => 'ID',
+            'id'          => Yii::t('contentblock', 'id'),
             'name'        => Yii::t('contentblock', 'Название'),
             'code'        => Yii::t('contentblock', 'Символьный код'),
             'type'        => Yii::t('contentblock', 'Тип'),

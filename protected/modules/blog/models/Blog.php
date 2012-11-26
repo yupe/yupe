@@ -165,7 +165,10 @@ class Blog extends YModel
 
         $criteria->with = array('createUser', 'updateUser');
 
-        return new CActiveDataProvider(get_class($this), array('criteria' => $criteria, 'pagination' => array('pageSize' => 10)));
+        return new CActiveDataProvider(get_class($this), array(
+            'criteria' => $criteria,
+            'pagination' => array('pageSize' => 10),
+        ));
     }
 
     public function behaviors()

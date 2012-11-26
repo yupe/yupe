@@ -1,13 +1,13 @@
 <?php
 $this->breadcrumbs = array(
     $this->getModule('contentblock')->getCategory() => array(''),
-    Yii::t('contentblock', 'Блоки контента') => array('admin'),
+    Yii::t('contentblock', 'Блоки контента') => array('/contentblock/default/index'),
     Yii::t('contentblock', 'Добавление нового блока'),
 );
 
 $this->menu = array(
     array('icon' => 'plus-sign','label' => Yii::t('contentblock', 'Добавить новый блок'), 'url' => array('/contentblock/default/create')),
-    array('icon' => 'list-alt','label' => Yii::t('contentblock', 'Управление блоками контента'), 'url' => array('/contentblock/default/admin')),
+    array('icon' => 'list-alt','label' => Yii::t('contentblock', 'Управление блоками контента'), 'url' => array('/contentblock/default/index')),
 );
 ?>
 

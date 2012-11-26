@@ -9,9 +9,7 @@ class DefaultController extends YBackController
      */
     public function actionView($id)
     {
-        $this->render('view', array(
-            'model' => $this->loadModel($id),
-        ));
+        $this->render('view', array('model' => $this->loadModel($id)));
     }
 
     /**
@@ -40,25 +38,25 @@ class DefaultController extends YBackController
                     if ($model->image->saveAs($imageName))
                     {
                         $model->image = basename($imageName);
-
-                        $model->update(array( 'image' ));
+                        $model->update(array('image'));
                     }
                 }
 
-                Yii::app()->user->setFlash(YFlashMessages::NOTICE_MESSAGE, Yii::t('news', 'Новость добавлена!'));
+                Yii::app()->user->setFlash(
+                    YFlashMessages::NOTICE_MESSAGE,
+                    Yii::t('news', 'Новость добавлена!')
+                );
 
-                if(count(explode(',',Yii::app()->getModule('yupe')->availableLanguages)))
-                    $this->redirect(array( 'update', 'alias' => $model->alias ));
+                if (count(explode(',', Yii::app()->getModule('yupe')->availableLanguages)))
+                    $this->redirect(array('update', 'alias' => $model->alias));
 
-                $this->redirect(array( 'view', 'id' => $model->id ));
+                $this->redirect(array('view', 'id' => $model->id));
             }
         }
 
         $model->date = date('d.m.Y');
 
-        $this->render('create', array(
-            'model' => $model,
-        ));
+        $this->render('create', array('model' => $model));
     }
 
     /**
@@ -82,14 +80,15 @@ class DefaultController extends YBackController
 
                 if ($model->save())
                 {
-                    Yii::app()->user->setFlash(YFlashMessages::NOTICE_MESSAGE, Yii::t('news', 'Новость изменена!'));
-                    $this->redirect(array( 'update', 'id' => $model->id ));
+                    Yii::app()->user->setFlash(
+                        YFlashMessages::NOTICE_MESSAGE,
+                        Yii::t('news', 'Новость изменена!')
+                    );
+                    $this->redirect(array('update', 'id' => $model->id));
                 }
             }
 
-            $this->render('update', array(
-                'model' => $model,
-            ));
+            $this->render('update', array('model' => $model));
         }
         else
         {
@@ -98,10 +97,9 @@ class DefaultController extends YBackController
             $yupe  = Yii::app()->getModule('yupe');
             $langs = explode(",", $yupe->availableLanguages);
 
-            $models = News::model()->findAllByAttributes(array( 'alias' => $alias ));
+            $models = News::model()->findAllByAttributes(array('alias' => $alias));
             if (!$models)
                 throw new CHttpException(404, Yii::t('news', 'Указанная новость не найдена'));
-
 
             $model = null;
             // Собираем модельки по языкам
@@ -153,7 +151,9 @@ class DefaultController extends YBackController
                 {
                     $img = $modelsByLang[$l]->image;
 
-                    $modelsByLang[$l]->image = CUploadedFile::getInstance($modelsByLang[$l], 'image') !== null ? CUploadedFile::getInstance($modelsByLang[$l], 'image') : $img;
+                    $modelsByLang[$l]->image = CUploadedFile::getInstance($modelsByLang[$l], 'image') !== null
+                        ? CUploadedFile::getInstance($modelsByLang[$l], 'image')
+                        : $img;
 
                     if (isset($_POST['News'][$l]))
                     {
@@ -165,22 +165,22 @@ class DefaultController extends YBackController
                             'date'         => $_POST['News']['date'],
                             'category_id'  => $_POST['News']['category_id'],
                             'link'         => $_POST['News']['link'],
-                            'image'        => $modelsByLang[$l]->image,                            
+                            'image'        => $modelsByLang[$l]->image,
                             'title'        => $p['title'],
                             'short_text'   => $p['short_text'],
                             'full_text'    => $p['full_text'],
                             'keywords'     => $p['keywords'],
                             'description'  => $p['description'],
-                            'status'       => $p['status']
+                            'status'       => $p['status'],
                         ));
 
                         if ($l != Yii::app()->sourceLanguage)
                             $modelsByLang[$l]->scenario = 'altlang';
 
-                        if (!$modelsByLang[$l]->save())                        
-                            $wasError = true;                 
-                                                               
-                        elseif(is_object($modelsByLang[$l]->image))
+                        if (!$modelsByLang[$l]->save())
+                            $wasError = true;
+
+                        else if (is_object($modelsByLang[$l]->image))
                         {
                             $imageName = $this->module->getUploadPath() . $model->alias . '.' . $modelsByLang[$l]->image->extensionName;
 
@@ -189,8 +189,7 @@ class DefaultController extends YBackController
                             if ($modelsByLang[$l]->image->saveAs($imageName))
                             {
                                 $modelsByLang[$l]->image = basename($imageName);
-
-                                $modelsByLang[$l]->update(array( 'image' ));
+                                $modelsByLang[$l]->update(array('image'));
                             }
                         }
                         else
@@ -200,15 +199,21 @@ class DefaultController extends YBackController
 
                 if (!$wasError)
                 {
-                    Yii::app()->user->setFlash(YFlashMessages::NOTICE_MESSAGE, Yii::t('news', 'Новость обновлена!'));
+                    Yii::app()->user->setFlash(
+                        YFlashMessages::NOTICE_MESSAGE,
+                        Yii::t('news', 'Новость обновлена!')
+                    );
 
                     if (isset($_POST['saveAndClose']))
-                        $this->redirect(array( 'admin' ));
+                        $this->redirect(array('admin'));
 
-                    $this->redirect(array( 'update', 'alias' => $alias ));
+                    $this->redirect(array('update', 'alias' => $alias));
                 }
                 else
-                    Yii::app()->user->setFlash(YFlashMessages::NOTICE_MESSAGE, Yii::t('news', 'Ошибки при сохранении новости!'));
+                    Yii::app()->user->setFlash(
+                        YFlashMessages::NOTICE_MESSAGE,
+                        Yii::t('news', 'Ошибки при сохранении новости!')
+                    );
             }
 
 
@@ -231,7 +236,7 @@ class DefaultController extends YBackController
         {
             if ($alias)
             {
-                if (!($model = News::model()->findAllByAttributes(array( 'alias' => $alias ))))
+                if (!($model = News::model()->findAllByAttributes(array('alias' => $alias))))
                     throw new CHttpException(404, Yii::t('news', 'Новость не нейдена'));
                 $model->delete();
             }
@@ -242,37 +247,23 @@ class DefaultController extends YBackController
             }
             // if AJAX request (triggered by deletion via admin grid view), we should not redirect the browser
             if (!isset($_GET['ajax']))
-                $this->redirect(isset($_POST['returnUrl']) ? $_POST['returnUrl'] : array( 'admin' ));
+                $this->redirect(isset($_POST['returnUrl']) ? $_POST['returnUrl'] : array('admin'));
         }
         else
             throw new CHttpException(400, 'Invalid request. Please do not repeat this request again.');
     }
 
     /**
-     * Lists all models.
-     */
-    public function actionIndex()
-    {
-        $dataProvider = new CActiveDataProvider('News');
-        $dataProvider->criteria->with = array('category');
-        $this->render('index', array(
-            'dataProvider' => $dataProvider,
-        ));
-    }
-
-    /**
      * Manages all models.
      */
-    public function actionAdmin()
+    public function actionIndex()
     {
         $model = new News('search');
         $model->unsetAttributes(); // clear any default values
         if (isset($_GET['News']))
             $model->attributes = $_GET['News'];
 
-        $this->render('admin', array(
-            'model' => $model,
-        ));
+        $this->render('index', array('model' => $model));
     }
 
     /**
@@ -300,5 +291,4 @@ class DefaultController extends YBackController
             Yii::app()->end();
         }
     }
-
 }

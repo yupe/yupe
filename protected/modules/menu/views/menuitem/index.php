@@ -1,21 +1,17 @@
 <?php
 $this->breadcrumbs = array(
     $this->module->getCategory() => array(''),
-    Yii::t('menu', 'Меню') => array('admin'),
+    Yii::t('menu', 'Меню') => array('/menu/menu/index'),
     Yii::t('menu', 'Пункты меню'),
 );
 
 $this->menu = array(
-    //@formatter:off
     array('label' => Yii::t('menu', 'Меню')),
-    array('label' => Yii::t('menu', 'Добавить меню'), 'url' => array('menu/create')),
-    array('label' => Yii::t('menu', 'Список меню'), 'url' => array('menu/index')),
-    array('label' => Yii::t('menu', 'Управление меню'), 'url' => array('menu/admin')),
-
+    array('icon' => 'plus-sign', 'label' => Yii::t('menu', 'Добавить меню'), 'url' => array('/menu/menu/create')),
+    array('icon' => 'list-alt', 'label' => Yii::t('menu', 'Управление меню'), 'url' => array('/menu/menu/index')),
     array('label' => Yii::t('menu', 'Пункты меню')),
-    array('label' => Yii::t('menu', 'Добавить пункт меню'), 'url' => array('create')),
-    array('label' => Yii::t('menu', 'Cписок пунктов меню'), 'url' => array('index')),
-    //@formatter:on
+    array('icon' => 'plus-sign', 'label' => Yii::t('menu', 'Добавить пункт меню'), 'url' => array('/menu/menuitem/create')),
+    array('icon' => 'list-alt', 'label' => Yii::t('menu', 'Управление пунктами меню'), 'url' => array('/menu/menuitem/index')),
 );
 
 Yii::app()->clientScript->registerScript('search', "
@@ -43,34 +39,34 @@ Yii::app()->clientScript->registerScript('search', "
 
 <?php
 $this->widget('YCustomGridView', array(
-    'id' => 'menu-grid',
-    'itemsCssClass' => ' table table-condensed',
-    'dataProvider' => $model->search(),
-    'columns' => array(
+    'id'            => 'menu-grid',
+    'itemsCssClass' => 'table table-condensed',
+    'dataProvider'  => $model->search(),
+    'columns'       => array(
         'id',
         'title',
         'href',
         array(
-            'name' => 'menu_id',
+            'name'  => 'menu_id',
             'value' => '$data->menu->name',
         ),
-        // :KLUDGE: Обратить внимание, возможно сделать иначе определение корня
+        // @TODO Обратить внимание, возможно сделать иначе определение корня
         array(
-            'name' => 'parent_id',
+            'name'  => 'parent_id',
             'value' => '$data->parent',
         ),
         array(
-            'name' => 'condition_name',
+            'name'  => 'condition_name',
             'value' => '$data->conditionName',
         ),
         array(
             'name'  => 'sort',
             'type'  => 'raw',
-            'value' => '$this->grid->getUpDownButtons($data)'
+            'value' => '$this->grid->getUpDownButtons($data)',
         ),
         array(
-            'name' => 'status',
-            'type' => 'raw',
+            'name'  => 'status',
+            'type'  => 'raw',
             'value' => '$this->grid->returnBootstrapStatusHtml($data)',
         ),
         array(

@@ -2,8 +2,8 @@
 class MenuModule extends YWebModule
 {
     public $defaultController = 'menu';
-    public $menuCache = 'menu.cache';
-    
+    public $menuCache         = 'menu.cache';
+
     public function getCategory()
     {
         return Yii::t('menu', 'Структура');
@@ -48,11 +48,11 @@ class MenuModule extends YWebModule
     {
         return array(
             array('label' => Yii::t('menu', 'Меню')),
-            array('icon' => 'plus-sign','label' => Yii::t('menu', 'Добавить меню'), 'url' => array('/menu/menu/create/')),
-            array('icon' => 'list','label' => Yii::t('menu', 'Список меню'), 'url' => array('/menu/menu/admin/')),
+            array('icon' => 'plus-sign','label' => Yii::t('menu', 'Добавить меню'), 'url' => array('/menu/menu/create')),
+            array('icon' => 'list-alt','label' => Yii::t('menu', 'Управление меню'), 'url' => array('/menu/menu/index')),
             array('label' => Yii::t('menu', 'Пункты меню')),
-            array('icon' => 'plus-sign','label' => Yii::t('menu', 'Добавить пункт меню'), 'url' => array('/menu/menuitem/create/')),           
-            array('icon' => 'list','label' => Yii::t('menu', 'Cписок пунктов меню'), 'url' => array('/menu/menuitem/admin/')),
+            array('icon' => 'plus-sign','label' => Yii::t('menu', 'Добавить пункт меню'), 'url' => array('/menu/menuitem/create')),
+            array('icon' => 'list-alt','label' => Yii::t('menu', 'Упрвление пунктами меню'), 'url' => array('/menu/menuitem/index')),
         );
     }
 

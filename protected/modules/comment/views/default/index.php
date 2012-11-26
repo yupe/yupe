@@ -1,12 +1,13 @@
 <?php
 $this->breadcrumbs = array(
     $this->getModule('comment')->getCategory() => array(''),
-    Yii::t('comment', 'Комментарии') => array('admin'),
+    Yii::t('comment', 'Комментарии') => array('/comment/default/index'),
     Yii::t('comment', 'Управление'),
 );
 
 $this->menu = array(
-    array('icon'  => 'plus-sign','label' => Yii::t('comment', 'Добавить комментарий'), 'url' => array('create')),
+    array('icon' => 'list-alt', 'label' => Yii::t('comment', 'Список комментариев'), 'url' => array('/comment/default/index')),
+    array('icon' => 'plus-sign', 'label' => Yii::t('comment', 'Добавить комментарий'), 'url' => array('/comment/default/create')),
 );
 
 Yii::app()->clientScript->registerScript('search', "
@@ -27,7 +28,7 @@ Yii::app()->clientScript->registerScript('search', "
 
 <button class="btn btn-small dropdown-toggle"  data-toggle="collapse"  data-target="#search-toggle" >
     <i class="icon-search"></i>
-    <a class="search-button" href="#"><?php echo Yii::t('comment', 'Поиск комментариев');?></a><span class="caret"></span>
+    <a class="search-button" href="#"><?php echo Yii::t('comment', 'Поиск комментариев'); ?></a><span class="caret"></span>
 </button>
 
 <div id="search-toggle" class="collapse out">

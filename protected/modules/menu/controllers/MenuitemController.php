@@ -86,16 +86,15 @@ class MenuitemController extends YBackController
      /**
      * Manages all models.
      */
-    public function actionAdmin()
+    public function actionIndex()
     {
         $model = new MenuItem('search');
-        $model->unsetAttributes();
-        // clear any default values
+        $model->unsetAttributes();  // clear any default values
 
         if (isset($_GET['MenuItem']))
             $model->attributes = $_GET['MenuItem'];
 
-        $this->render('admin', array('model' => $model));
+        $this->render('index', array('model' => $model));
     }
 
     /**
@@ -106,7 +105,6 @@ class MenuitemController extends YBackController
     public function loadModel($id)
     {
         $model = MenuItem::model()->findByPk($id);
-
         if ($model === null)
             throw new CHttpException(404,Yii::t('menu','Страница не найдена!'));
 
