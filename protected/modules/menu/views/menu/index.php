@@ -13,19 +13,6 @@ $this->menu = array(
     array('icon' => 'plus-sign', 'label' => Yii::t('menu', 'Добавить пункт меню'), 'url' => array('/menu/menuitem/create')),
     array('icon' => 'list-alt', 'label' => Yii::t('menu', 'Управление пунктами меню'), 'url' => array('/menu/menuitem/index')),
 );
-
-Yii::app()->clientScript->registerScript('search', "
-    $('.search-button').click(function() {
-        $('.search-form').toggle();
-        return false;
-    });
-    $('.search-form form').submit(function() {
-        $.fn.yiiGridView.update('menu-grid', {
-            data: $(this).serialize()
-        });
-        return false;
-    });
-");
 ?>
 
 <div class="page-header">
@@ -36,24 +23,28 @@ Yii::app()->clientScript->registerScript('search', "
 </div>
 
 <button class="btn btn-small dropdown-toggle" data-toggle="collapse" data-target="#search-toggle">
-    <i class="icon-search"></i>
+    <i class="icon-search">&nbsp;</i>
     <?php echo CHtml::link(Yii::t('menu', 'Поиск меню'), '#', array('class' => 'search-button')); ?>
-    <span class="caret"></span>
+    <span class="caret">&nbsp;</span>
 </button>
 
-<div id="search-toggle" class="collapse out">
-    <?php
-    Yii::app()->clientScript->registerScript('search', "
-        $('.search-form form').submit(function(){
-            $.fn.yiiGridView.update('news-grid', {
-                data: $(this).serialize()
+<div id="search-toggle" class="collapse out search-form">
+<?php
+Yii::app()->clientScript->registerScript('search', "
+    $('.search-form form').submit(function() {
+        $.fn.yiiGridView.update('menu-grid', {
+            data: $(this).serialize()
         });
         return false;
-        });
-    ");
-    $this->renderPartial('_search', array('model' => $model));
-    ?>
+    });
+");
+$this->renderPartial('_search', array('model' => $model));
+?>
 </div>
+
+</br>
+
+<p><?php echo Yii::t('menu', 'В данном разделе представлены средства управления меню'); ?></p>
 
 <?php
 $this->widget('YCustomGridView', array(

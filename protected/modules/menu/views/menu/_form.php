@@ -22,34 +22,26 @@ Yii::app()->clientScript->registerScript('fieldset', "
 
     <?php echo $form->errorSummary($model); ?>
 
-     <div class="row-fluid control-group <?php echo $model->hasErrors('name') ? 'error' : ''; ?>">
-         <div class="span7 popover-help" data-content="<?php echo Yii::t('menu', "Название меню, которое будет отображаться в списке меню.<br /><br />Например:<br /><pre>'Основное меню'</pre>"); ?>" data-original-title="<?php echo $model-> getAttributeLabel('name'); ?>">
-             <?php echo $form->labelEx($model, 'name'); ?>
-             <?php echo $form->textField($model, 'name', array('size' => 60, 'maxlength' => 150)); ?>
-         </div>
-         <div class="span5">
-             <?php echo $form->error($model, 'name'); ?>
-         </div>
-     </div>
+    <div class='control-group <?php echo $model->hasErrors("name") ? "error" : ""; ?>'>
+        <?php echo $form->textFieldRow($model, 'name', array('class' => 'span7', 'maxlength' => 300)); ?>
+    </div>
 
-     <div class="row-fluid control-group <?php echo $model->hasErrors('code') ? 'error' : ''; ?>">
-         <div class="span7 popover-help" data-content="<?php echo Yii::t('menu', "Уникальный для каждого меню код.<br /><br />Например:<br /><pre>'MAIN_MENU'</pre>"); ?>" data-original-title="<?php echo $model-> getAttributeLabel('code'); ?>">
-             <?php echo $form->labelEx($model, 'code'); ?>
-             <?php echo $form->textField($model, 'code', array('size' => 60, 'maxlength' => 150)); ?>
-         </div>
-         <div class="span5">
-             <?php echo $form->error($model, 'code'); ?>
-         </div>
-     </div>
+     <div class='control-group <?php echo $model->hasErrors("code") ? "error" : ""; ?>'>
+        <?php echo $form->textFieldRow($model, 'code', array('class' => 'span7', 'maxlength' => 300)); ?>
+    </div>
 
-     <div class="row-fluid control-group <?php echo $model->hasErrors('description') ? 'error' : ''; ?>">
-         <div class="span7 popover-help" data-content="<?php echo Yii::t('menu', "Простое текстовое описание.<br /><br />"); ?>" data-original-title="<?php echo $model-> getAttributeLabel('description'); ?>">
-             <?php echo $form->labelEx($model, 'description'); ?>
-             <?php echo $form->textArea($model, 'description'); ?>
-         </div>
-         <div class="span5">
-             <?php echo $form->error($model, 'description'); ?>
-         </div>
+      <div class='row-fluid control-group <?php echo $model->hasErrors("description")?"error":"" ?>'>
+            <?php echo $form->labelEx($model, 'description'); ?>
+            <?php $this->widget(Yii::app()->getModule('yupe')->editor, array(
+                                                'model' => $model,
+                                                'attribute' => 'description',
+                                                'options'   => array(
+                                                    'toolbar' => 'main',
+                                                    'imageUpload' => Yii::app()->baseUrl.'/index.php/yupe/backend/AjaxFileUpload/'
+                                                ),
+                                                'htmlOptions' => array('rows' => 20,'cols' => 6)
+                                            ))?>
+            <br /><?php echo $form->error($model, 'description'); ?>
      </div>
 
      <div class="row-fluid control-group <?php echo $model->hasErrors('status') ? 'error' : '' ?>">
@@ -65,7 +57,13 @@ Yii::app()->clientScript->registerScript('fieldset', "
      <?php $this->widget('bootstrap.widgets.TbButton', array(
          'buttonType' => 'submit',
          'type'       => 'primary',
-         'label'      => $model->isNewRecord ? Yii::t('menu', 'Добавить меню') : Yii::t('menu', 'Сохранить меню'),
+         'label'      => $model->isNewRecord ? Yii::t('menu', 'Добавить меню и продолжить') : Yii::t('menu', 'Сохранить меню и продолжить'),
      )); ?>
+ 
+      <?php $this->widget('bootstrap.widgets.TbButton', array(
+        'buttonType'  => 'submit',
+        'htmlOptions' => array('name' => 'submit-type', 'value' => 'index'),
+        'label'       => $model->isNewRecord ? Yii::t('menu', 'Добавить меню и закрыть') : Yii::t('menu', 'Сохранить меню и закрыть'),
+      )); ?>
 
 <?php $this->endWidget(); ?>

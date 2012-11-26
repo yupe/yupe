@@ -25,8 +25,14 @@ class MenuController extends YBackController
         if (isset($_POST['Menu']))
         {
             $model->attributes = $_POST['Menu'];
+            
             if ($model->save())
-                $this->redirect(array('view', 'id' => $model->id));
+            {
+                 if (!isset($_POST['submit-type']))
+                    $this->redirect(array('update', 'id' => $model->id));
+                else
+                    $this->redirect(array($_POST['submit-type']));
+            }
         }
 
         $this->render('create', array('model' => $model));
@@ -47,8 +53,14 @@ class MenuController extends YBackController
         if (isset($_POST['Menu']))
         {
             $model->attributes = $_POST['Menu'];
+            
             if ($model->save())
-                $this->redirect(array('view', 'id' => $model->id));
+            {
+                if (!isset($_POST['submit-type']))
+                    $this->redirect(array('update', 'id' => $model->id));
+                else
+                    $this->redirect(array($_POST['submit-type']));
+            }
         }
 
         $this->render('update', array('model' => $model));

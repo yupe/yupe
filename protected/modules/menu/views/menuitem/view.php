@@ -24,7 +24,7 @@ $this->menu = array(
 <h1><?php echo Yii::t('menu', 'Просмотр пункта меню'); ?> "<?php echo $model->title; ?>"</h1>
 
 <?php
-$this->widget('zii.widgets.CDetailView', array(
+$this->widget('bootstrap.widgets.TbDetailView', array(
     'data'       => $model,
     'attributes' => array(
         'id',

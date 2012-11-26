@@ -1,67 +1,31 @@
-<div class="wide form">
-    <?php $form = $this->beginWidget('CActiveForm', array(
-        'action' => Yii::app()->createUrl($this->route),
-        'method' => 'get',
-    )); ?>
+<?php
+$form = $this->beginWidget('bootstrap.widgets.TbActiveForm', array(
+    'action' => Yii::app()->createUrl($this->route),
+    'method' => 'get',
+    'htmlOptions' => array('class' => 'well search-form'),
+        ));
+?>
 
-    <div class="row">
-        <?php echo $form->label($model, 'id'); ?>
-        <?php echo $form->textField($model, 'id', array(
-            'size'      => 10,
-            'maxlength' => 10,
-        )); ?>
-    </div>
-    <div class="row">
-        <?php echo $form->label($model, 'title'); ?>
-        <?php echo $form->textField($model, 'title', array(
-            'size'      => 60,
-            'maxlength' => 300,
-        )); ?>
-    </div>
-    <div class="row">
-        <?php echo $form->labelEx($model, 'href'); ?>
-        <?php echo $form->textField($model, 'href', array(
-            'size'      => 60,
-            'maxlength' => 300,
-        )); ?>
-        <?php echo $form->error($model, 'href'); ?>
-    </div>
-    <div class="row">
-        <?php echo $form->labelEx($model, 'menu_id'); ?>
-        <?php echo $form->dropDownList($model, 'menu_id', CHtml::listData(Menu::model()->findAll(), 'id', 'name'), array('empty' => Yii::t('menu', 'выберите меню'))); ?>
-        <?php echo $form->error($model, 'menu_id'); ?>
-    </div>
-    <div class="row">
-        <?php echo $form->labelEx($model, 'parent_id'); ?>
-        <?php echo $form->dropDownList($model, 'parent_id', $model->parentList); ?>
-        <?php echo $form->error($model, 'parent_id'); ?>
-    </div>
-    <div class="row">
-        <?php echo $form->labelEx($model, 'condition_name'); ?>
-        <?php echo $form->dropDownList($model, 'condition_name', $model->conditionList); ?>
-        <?php echo $form->error($model, 'condition_name'); ?>
-    </div>
-    <div class="row">
-        <?php echo $form->labelEx($model, 'condition_denial'); ?>
-        <?php echo $form->dropDownList($model, 'condition_denial', $model->conditionDenialList); ?>
-        <?php echo $form->error($model, 'condition_denial'); ?>
-    </div>
-    <div class="row">
-        <?php echo $form->labelEx($model, 'sort'); ?>
-        <?php echo $form->textField($model, 'sort', array(
-            'size'      => 60,
-            'maxlength' => 300,
-        )); ?>
-        <?php echo $form->error($model, 'sort'); ?>
-    </div>
-    <div class="row">
-        <?php echo $form->label($model, 'status'); ?>
-        <?php echo $form->dropDownList($model, 'status', $model->getStatusList()); ?>
-    </div>
+<fieldset>
+    <?php echo $form->textFieldRow($model, 'id') ?>        
+    <?php echo $form->textFieldRow($model, 'title'); ?>
+    <?php echo $form->textFieldRow($model, 'href'); ?>        
+    <?php echo $form->dropDownListRow($model, 'menu_id', CHtml::listData(Menu::model()->findAll(), 'id', 'name'), array('empty' => Yii::t('menu', 'выберите меню'))); ?>        
+    <?php echo $form->dropDownListRow($model, 'parent_id', $model->parentList); ?>
+    <?php echo $form->dropDownListRow($model, 'condition_name', $model->conditionList); ?>        
+    <?php echo $form->dropDownListRow($model, 'condition_denial', $model->conditionDenialList); ?>        
+    <?php echo $form->textFieldRow($model, 'sort'); ?>
+    <?php echo $form->dropDownListRow($model, 'status', $model->getStatusList()); ?>
+</fieldset>
 
-    <div class="row buttons">
-        <?php echo CHtml::submitButton(Yii::t('menu', 'Поиск')); ?>
-    </div>
 
-    <?php $this->endWidget(); ?>
-</div><!-- search-form -->
+<?php
+$this->widget('bootstrap.widgets.TbButton', array(
+    'buttonType' => 'submit',
+    'type' => 'primary',
+    'encodeLabel' => false,
+    'label' => '<i class="icon-search icon-white"></i> ' . Yii::t('menu', 'Искать')
+));
+?>
+
+<?php $this->endWidget(); ?>

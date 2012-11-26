@@ -1,6 +1,7 @@
 <?php $form=$this->beginWidget('bootstrap.widgets.TbActiveForm',array(
 	'id'=>'category-form',
 	'enableAjaxValidation'=>false,
+        'enableClientValidation' => true,
 	'type'=>'vertical',
         'htmlOptions' => array('class' => 'well form-vertical','enctype' => 'multipart/form-data')
 )); ?>
@@ -13,9 +14,13 @@
             <?php echo  $form->dropDownList($model,'parent_id',CHtml::listData(Category::model()->findAll(),'id','name'),array('empty' => Yii::t('category','--нет--'))); ?>
         </div>
 
-    <div class='row-fluid control-group <?php echo $model->hasErrors("name")?"error":"" ?>'><?php echo  $form->textFieldRow($model,'name',array('class'=>'span5','maxlength'=>150,'size' => 60)); ?></div>
+     <div class='control-group <?php echo $model->hasErrors("name") ? "error" : ""; ?>'>
+        <?php echo $form->textFieldRow($model, 'name', array('class' => 'span7', 'maxlength' => 300)); ?>
+     </div>
     
-    <div class='row-fluid control-group <?php echo $model->hasErrors("alias")?"error":"" ?>'><?php echo  $form->textFieldRow($model,'alias',array('class'=>'span5','maxlength'=>100,'size' => 60)); ?></div>
+    <div class='control-group <?php echo $model->hasErrors("alias") ? "error" : ""; ?>'>
+        <?php echo $form->textFieldRow($model, 'alias', array('class' => 'span7', 'maxlength' => 300)); ?>
+     </div>
 	
 	<div class='row-fluid control-group <?php echo $model->hasErrors("image")?"error":"" ?>'>
             <?php if(!$model->isNewRecord && $model->image):?>

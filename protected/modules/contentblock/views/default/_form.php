@@ -24,25 +24,13 @@
         </div>
     </div>
 
-    <div class="row-fluid control-group <?php echo $model->hasErrors('name') ? 'error' : ''; ?>">
-        <div class="span7">
-            <?php echo $form->labelEx($model, 'name'); ?>
-            <?php echo $form->textField($model, 'name', array('class' => 'span7','size' => 50, 'maxlength' => 50)); ?>
-        </div>
-        <div class="span5">
-            <?php echo $form->error($model, 'name'); ?>
-        </div>
-    </div>
+   <div class='control-group <?php echo $model->hasErrors("name") ? "error" : ""; ?>'>
+        <?php echo $form->textFieldRow($model, 'name', array('class' => 'span7', 'maxlength' => 300)); ?>
+   </div>
 
-    <div class="row-fluid control-group <?php echo $model->hasErrors('code') ? 'error' : ''; ?>">
-        <div class="span7">
-            <?php echo $form->labelEx($model, 'code'); ?>
-            <?php echo $form->textField($model, 'code', array('class' => 'span7','size' => 50, 'maxlength' => 50)); ?>
-        </div>
-        <div class="span5">
-            <?php echo $form->error($model, 'code'); ?>
-        </div>
-    </div>
+   <div class='control-group <?php echo $model->hasErrors("code") ? "error" : ""; ?>'>
+        <?php echo $form->textFieldRow($model, 'code', array('class' => 'span7', 'maxlength' => 300)); ?>
+   </div>
 
     <div class="row-fluid control-group <?php echo $model->hasErrors('content') ? 'error' : ''; ?>">
         <div class="span12">

@@ -1,6 +1,7 @@
 <?php $form=$this->beginWidget('bootstrap.widgets.TbActiveForm',array(
 	'id'=>'image-form',
 	'enableAjaxValidation'=>false,
+        'enableClientValidation' => true,
 	'type'=>'vertical',
         'htmlOptions' => array('class' => 'well form-vertical','enctype' => 'multipart/form-data')
 )); ?>

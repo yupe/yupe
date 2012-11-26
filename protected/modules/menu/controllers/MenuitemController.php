@@ -28,8 +28,14 @@ class MenuitemController extends YBackController
         if (isset($_POST['MenuItem']))
         {
             $model->attributes = $_POST['MenuItem'];
+            
             if ($model->save())
-                $this->redirect(array('view', 'id' => $model->id));
+            {
+                 if (!isset($_POST['submit-type']))
+                    $this->redirect(array('update', 'id' => $model->id));
+                 else
+                    $this->redirect(array($_POST['submit-type']));
+            }
         }
 
         $criteria = new CDbCriteria;
@@ -56,8 +62,14 @@ class MenuitemController extends YBackController
         if (isset($_POST['MenuItem']))
         {
             $model->attributes = $_POST['MenuItem'];
+            
             if ($model->save())
-                $this->redirect(array('view', 'id' => $model->id));
+            {
+                 if (!isset($_POST['submit-type']))
+                    $this->redirect(array('update', 'id' => $model->id));
+                 else
+                    $this->redirect(array($_POST['submit-type']));
+            }
         }
 
         $this->render('update', array('model' => $model));

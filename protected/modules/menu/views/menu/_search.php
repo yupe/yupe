@@ -1,37 +1,31 @@
-<?php $form = $this->beginWidget('bootstrap.widgets.TbActiveForm', array(
-    'action'      => Yii::app()->createUrl($this->route),
-    'method'      => 'get',
-    'htmlOptions' => array( 'class' => 'well' ),
-)); ?>
+<?php
+$form = $this->beginWidget('bootstrap.widgets.TbActiveForm', array(
+    'action' => Yii::app()->createUrl($this->route),
+    'method' => 'get',
+    'htmlOptions' => array('class' => 'well search-form'),
+        ));
+?>
 
-    <fieldset class="inline">
-        <div class="row-fluid control-group">
-            <div class="span1">
-                <?php echo $form->textFieldRow($model, 'id'); ?>
-            </div>
-            <div class="span2">
-                <?php echo $form->textFieldRow($model, 'name'); ?>
-            </div>
-            <div class="span3">
-                <?php echo $form->textFieldRow($model, 'code'); ?>
-            </div>
-        </div>
+<fieldset>
+    <?php echo $form->textFieldRow($model, 'id'); ?>
 
-        <div class="row-fluid control-group">
-            <div class="span6">
-                <?php echo $form->textFieldRow($model, 'description'); ?>
-            </div>
-            <div class="span6">
-                <?php echo $form->dropDownListRow($model, 'status', $model->getStatusList()); ?>
-            </div>
-        </div>
+    <?php echo $form->textFieldRow($model, 'name'); ?>
 
-        <?php $this->widget('bootstrap.widgets.TbButton', array(
-            'buttonType'  => 'submit',
-            'type'        => 'primary',
-            'encodeLabel' => false,
-            'label'       => '<i class="icon-search icon-white"></i> ' . Yii::t('menu', 'Искать')
-        )); ?>
-    </fieldset>
+    <?php echo $form->textFieldRow($model, 'code'); ?>
+
+    <?php echo $form->textFieldRow($model, 'description'); ?>
+
+    <?php echo $form->dropDownListRow($model, 'status', $model->getStatusList()); ?>
+</fieldset>
+
+<?php
+$this->widget('bootstrap.widgets.TbButton', array(
+    'buttonType' => 'submit',
+    'type' => 'primary',
+    'encodeLabel' => false,
+    'label' => '<i class="icon-search icon-white"></i> ' . Yii::t('menu', 'Искать')
+));
+?>
+
 
 <?php $this->endWidget(); ?>
