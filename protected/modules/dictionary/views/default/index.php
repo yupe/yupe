@@ -61,7 +61,7 @@ $this->widget('application.modules.yupe.components.YCustomGridView', array(
         array(
             'name'  => Yii::t('dictionary', 'Записей'),
             'type'  => 'raw',
-            'value' => 'CHtml::link($data->dataCount,array("/dictionary/dictionaryData/admin?group_id={$data->id}"))',
+            'value' => 'CHtml::link($data->dataCount,array("/dictionary/dictionaryData/index?group_id={$data->id}"))',
         ),
         'creation_date',
         'update_date',

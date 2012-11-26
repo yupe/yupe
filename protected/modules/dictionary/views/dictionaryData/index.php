@@ -80,7 +80,7 @@ $this->renderPartial('_search', array('model' => $model));
             'value' => '$this->grid->returnBootstrapStatusHtml($data)',
         ),
         array(
-            'class' => 'CButtonColumn',
+            'class' => 'bootstrap.widgets.TbButtonColumn',
         ),
     ),
 )); ?>
