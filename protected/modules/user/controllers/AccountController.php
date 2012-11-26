@@ -4,38 +4,37 @@ class AccountController extends YFrontController
     public function actions()
     {
         return array(
-            'captcha' => array(
-                'class' => 'CCaptchaAction',
+            'captcha'          => array(
+                'class'     => 'CCaptchaAction',
                 'backColor' => 0xFFFFFF,
             ),
-            'registration' => array(
+            'registration'     => array(
                 'class' => 'application.modules.user.controllers.account.RegistrationAction',
             ),
-            'profile' => array(
+            'profile'          => array(
                 'class' => 'application.modules.user.controllers.account.ProfileAction'
             ),
-            'activate' => array(
+            'activate'         => array(
                 'class' => 'application.modules.user.controllers.account.ActivateAction',
             ),
-            'login' => array(
+            'login'            => array(
                 'class' => 'application.modules.user.controllers.account.LoginAction',
             ),
-            'fblogin' => array(
+            'fblogin'          => array(
                 'class' => 'application.modules.user.controllers.account.FbloginAction',
             ),
-            'logout' => array(
+            'logout'           => array(
                 'class' => 'application.modules.user.controllers.account.LogOutAction',
             ),
-            'recovery' => array(
+            'recovery'         => array(
                 'class' => 'application.modules.user.controllers.account.RecoveryAction',
             ),
             'recoveryPassword' => array(
                 'class' => 'application.modules.user.controllers.account.RecoveryPasswordAction',
             ),
-            'emailConfirm' => array(
-                'class' => 'application.modules.user.controllers.account.EmailConfirmAction'
+            'emailConfirm'     => array(
+                'class' => 'application.modules.user.controllers.account.EmailConfirmAction',
             ),
-
         );
     }
 }

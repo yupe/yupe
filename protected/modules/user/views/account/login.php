@@ -2,14 +2,14 @@
 
 <?php Yii::app()->clientScript->registerScriptFile('http://connect.facebook.net/ru_RU/all.js'); ?>
 
-<h1>Авторизация</h1>
+<h1><?php echo Yii::t('user', 'Авторизация'); ?></h1>
 
 <?php $this->widget('application.modules.yupe.widgets.YFlashMessages'); ?>
 
 <div class="form">
 
     <?php $form = $this->beginWidget('CActiveForm', array(
-         'id' => 'login-form',
+         'id'                     => 'login-form',
          'enableClientValidation' => true,
     ));?>
 
@@ -41,4 +41,4 @@
     <?php $this->endWidget(); ?>
 </div><!-- form -->
 
-<?php  $this->widget('application.modules.social.extensions.eauth.EAuthWidget', array('action' => '/social/social/login/')); ?>
+<?php  $this->widget('application.modules.social.extensions.eauth.EAuthWidget', array('action' => '/social/social/login')); ?>

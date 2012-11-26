@@ -1,8 +1,8 @@
 <?php $this->pageTitle = Yii::t('user', 'Регистрация новго пользователя'); ?>
 
-<h1>Регистрация нового пользователя</h1>
+<h1><?php echo Yii::t('user', 'Регистрация нового пользователя'); ?></h1>
 
-<div class='hint'>Пожалуйста, имя пользователя и пароль заполняйте только латинскими буквами и цифрами.</div>
+<div class='hint'><?php echo Yii::t('user', 'Пожалуйста, имя пользователя и пароль заполняйте только латинскими буквами и цифрами.'); ?></div>
 
 <br/><br/>
 
@@ -38,7 +38,6 @@
         <?php echo $form->error($model, 'cPassword'); ?>
     </div>
 
-
     <?php if (Yii::app()->getModule('user')->showCaptcha): ?>
         <?php if (extension_loaded('gd')): ?>
             <div class="row">
@@ -49,13 +48,11 @@
                     <?php echo $form->error($model, 'verifyCode'); ?>
                 </div>
                 <div class="hint">
-                    Введите текст указанный на картинке
+                    <?php echo Yii::t('user', 'Введите текст указанный на картинке'); ?>
                 </div>
             </div>
         <?php endif; ?>
     <?php endif; ?>
-
-
 
     <div class="row submit">
         <?php echo CHtml::submitButton('Зарегистрироваться'); ?>
@@ -64,13 +61,13 @@
     <?php $this->endWidget(); ?>
 </div><!-- form -->
 
-<?php  $this->widget('application.modules.social.extensions.eauth.EAuthWidget',array('action' => '/social/social/login/'));?>
+<?php  $this->widget('application.modules.social.extensions.eauth.EAuthWidget', array('action' => '/social/social/login')); ?>
 
 <div style='float:left;'>
     <div style='float:left;padding-right:5px'>
         <?php $this->widget('application.modules.social.widgets.ysc.yandex.YandexShareApi', array(
-                                                                                                  'type' => 'button',
-                                                                                                  'services' => 'all'
-                                                                                             ));?>
+            'type'     => 'button',
+            'services' => 'all',
+        )); ?>
     </div>
 </div>

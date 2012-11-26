@@ -1,7 +1,7 @@
 <?php $form = $this->beginWidget('bootstrap.widgets.TbActiveForm', array(
-    'action' => Yii::app()->createUrl($this->route),
-    'method' => 'get',
-    'htmlOptions'=> array( 'class' => 'well' ),
+    'action'      => Yii::app()->createUrl($this->route),
+    'method'      => 'get',
+    'htmlOptions' => array('class' => 'well'),
 )); ?>
 
     <fieldset class="inline">
@@ -57,10 +57,10 @@
         </div>
 
         <?php $this->widget('bootstrap.widgets.TbButton', array(
-            'buttonType' => 'submit',
-            'type' => 'primary',
+            'buttonType'  => 'submit',
+            'type'        => 'primary',
             'encodeLabel' => false,
-            'label' => '<i class="icon-search icon-white"></i> '.Yii::t('menu', 'Искать')
+            'label'       => '<i class="icon-search icon-white"></i> '.Yii::t('user', 'Искать'),
         )); ?>
 </fieldset>
 

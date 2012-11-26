@@ -5,13 +5,12 @@ class ProfileAction extends CAction
     {
         $form = new ProfileForm;
 
-        if(!Yii::app()->user->isAuthenticated())
+        if (!Yii::app()->user->isAuthenticated())
             $this->controller->redirect(array(Yii::app()->user->loginUrl));
 
-        /** @var $user User */
         $user = Yii::app()->user->profile;
         $form->setAttributes($user->attributes);
-        $form->password=$form->cPassword=null;
+        $form->password = $form->cPassword = null;
 
         $module = Yii::app()->getModule('user');
 
@@ -31,68 +30,88 @@ class ProfileAction extends CAction
 
             if ($form->validate())
             {
+                // скопируем данные формы
+                $data = $form->getAttributes();
+                $newPass = isset($data['password']) ? $data['password'] : null;
+                unset($data['password']);
 
-                    // скопируем данные формы
-                    $data = $form->getAttributes();
-                    $newPass = isset($data['password'])?$data['password']:null;
-                    unset($data['password']);
+                $orgMail = $user->email;
+                $user->setAttributes($data);
 
+                if ($newPass)
+                {
+                    $user->salt     = $user->generateSalt();
+                    $user->password = $user->hashPassword($newPass, $user->salt);
+                }
 
-                    $orgMail = $user->email;
-                    $user->setAttributes($data);
+                // Если есть ошибки в профиле - перекинем их в форму
+                if ( $user->hasErrors())
+                    $form->addErrors($user->getErrors());
 
-                    if ($newPass)
+                // Если у нас есть дополнительные профили - проверим их
+                if (is_array($this->controller->module->profiles))
+                {
+                    foreach ($this->controller->module->profiles as $p)
                     {
-                        $user->salt = $user-> generateSalt();
-                        $user->password = $user->hashPassword($newPass,$user->salt);
+                        if (!$p->validate())
+                            $form->addErrors($p->getErrors());
                     }
+                }
 
+                if (!$form->hasErrors())
+                {
 
-                    // Если есть ошибки в профиле - перекинем их в форму
-                    if ( $user-> hasErrors())
-                        $form->addErrors($user->getErrors());
+                    Yii::log(
+                        Yii::t('user', "Изменен профиль учетной запись #{id}-{nick_name}!", array(
+                            '{id}'        => $user->id,
+                            '{nick_name}' => $user->nick_name,
+                        )),
+                        CLogger::LEVEL_INFO, UserModule::$logCategory
+                    );
+                    Yii::app()->user->setFlash(
+                        YFlashMessages::NOTICE_MESSAGE,
+                        Yii::t('user', 'Ваш профиль успешно изменен!')
+                    );
 
-                    // Если у нас есть дополнительные профили - проверим их
+                    if ($module->emailAccountVerification && ($orgMail != $form->email))
+                    {
+                        // отправить email с сообщением о подтверждении мыла
+
+                        $user->email_confirm = User::EMAIL_CONFIRM_NO;
+                        $user->activate_key  = $user->generateActivationKey();
+
+                        $emailBody = $this->controller->renderPartial('needEmailActivationEmail', array('model' => $user), true);
+                        Yii::app()->mail->send(
+                            $module->notifyEmailFrom,
+                            $user->email,
+                            Yii::t('user', 'Подтверждение нового e-mail адреса на сайте {site} !', array('{site}' => Yii::app()->name)),
+                            $emailBody
+                        );
+
+                        Yii::app()->user->setFlash(
+                            YFlashMessages::NOTICE_MESSAGE,
+                            Yii::t('user', 'Вам необходимо продтвердить новый e-mail, проверьте почту!')
+                        );
+                    }
+                    // Сохраняем профиль
+                    $user->save(false);
+
+                    // И дополнительные профили, если они есть
                     if (is_array($this->controller->module->profiles))
-                            foreach($this->controller->module->profiles as $p)
-                                if (!$p->validate())
-                                    $form->addErrors($p->getErrors());
-
-
-                    if (!$form->hasErrors())
                     {
-
-                        Yii::log(Yii::t('user', "Изменен профиль учетной запись #{id}-{nick_name}!", array('{id}'=>$user->id, '{nick_name}' => $user->nick_name)), CLogger::LEVEL_INFO, UserModule::$logCategory);
-                        Yii::app()->user->setFlash(YFlashMessages::NOTICE_MESSAGE, Yii::t('user', 'Ваш профиль успешно изменен!'));
-                        if ( $module->emailAccountVerification && ($orgMail!=$form->email) )
-                        {
-                            // отправить email с сообщением о подтверждении мыла
-
-                            $user->email_confirm = User::EMAIL_CONFIRM_NO;
-                            $user->activate_key = $user->generateActivationKey();
-
-                            $emailBody = $this->controller->renderPartial('needEmailActivationEmail', array('model' => $user), true);
-                            Yii::app()->mail->send($module->notifyEmailFrom, $user->email, Yii::t('user', 'Подтверждение нового e-mail адреса на сайте {site} !', array('{site}' => Yii::app()->name)), $emailBody);
-
-                            Yii::app()->user->setFlash(YFlashMessages::NOTICE_MESSAGE, Yii::t('user', 'Вам необходимо продтвердить новый e-mail, проверьте почту!'));
-
-                        }
-                        // Сохраняем профиль
-                        $user->save(false);
-
-                        // И дополнительные профили, если они есть
-                        if (is_array($this->controller->module->profiles))
-                            foreach($this->controller->module->profiles as $k=>$p)
-                                $p->save(false);
-
-                        $this->controller->redirect(array('/user/account/profile'));
+                        foreach ($this->controller->module->profiles as $k => $p)
+                            $p->save(false);
                     }
-                    else
-                        Yii::log(Yii::t('user', "Ошибка при сохранении профиля! #{id}", array('{id}'=>$user->id)), CLogger::LEVEL_ERROR, UserModule::$logCategory);
+
+                    $this->controller->redirect(array('/user/account/profile'));
+                }
+                else
+                    Yii::log(
+                        Yii::t('user', "Ошибка при сохранении профиля! #{id}", array('{id}' => $user->id)),
+                        CLogger::LEVEL_ERROR, UserModule::$logCategory
+                     );
             }
         }
-
         $this->controller->render('profile', array('model' => $form, 'module' => $module));
     }
-
 }

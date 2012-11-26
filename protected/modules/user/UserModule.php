@@ -104,12 +104,10 @@ class UserModule extends YWebModule
     {
         return array(
             array('label' => Yii::t('user', 'Пользователи')),
-            array('icon' => 'th-large', 'label' => Yii::t('user', 'Управление пользователями'), 'url' => array('/user/default/admin')),
-            array('icon' => 'th-list', 'label' => Yii::t('user', 'Список пользователей'), 'url' => array('/user/default/index')),
+            array('icon' => 'list', 'label' => Yii::t('user', 'Управление пользователями'), 'url' => array('/user/default/index')),
             array('icon' => 'plus-sign', 'label' => Yii::t('user', 'Добавление пользователя'), 'url' => array('/user/default/create')),
             array('label' => Yii::t('user', 'Восстановления паролей')),
-            array('icon' => 'th-large', 'label' => Yii::t('user', 'Управление восстановлением паролей'), 'url' => array('/user/recoveryPassword/admin')),
-            array('icon' => 'th-list', 'label' => Yii::t('user', 'Список восстановлений'), 'url' => array('/user/recoveryPassword/index')),
+            array('icon' => 'list', 'label' => Yii::t('user', 'Управление восстановлением паролей'), 'url' => array('/user/recoveryPassword/index')),
         );
     }
 
@@ -185,28 +183,32 @@ class UserModule extends YWebModule
         ));
 
         if (is_array($this->attachedProfileEvents))
+        {
             foreach ($this->attachedProfileEvents as $e)
             {
                 $this->attachEventHandler("onBeginRegistration", array($e, "onBeginRegistration"));
                 $this->attachEventHandler("onBeginProfile", array($e, "onBeginProfile"));
             }
+        }
     }
 
     public function isAllowedEmail($email)
     {
         if (is_array($this->emailBlackList) && count($this->emailBlackList))
+        {
             if (in_array(trim($email), $this->emailBlackList))
                 return false;
-
+        }
         return true;
     }
 
     public function isAllowedIp($ip)
     {
         if (is_array($this->ipBlackList) && count($this->ipBlackList))
+        {
             if (in_array($ip, $this->ipBlackList))
                 return false;
-
+        }
         return true;
     }
 

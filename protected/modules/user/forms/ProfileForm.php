@@ -56,7 +56,6 @@ class ProfileForm extends CFormModel
     {
         if (Yii::app()->getModule('user')->autoNick)
             $this->nick_name = substr(User::model()->generateSalt(), 10);
-
         return parent::beforeValidate();
     }
 
@@ -64,7 +63,6 @@ class ProfileForm extends CFormModel
     {
         if ($this->birth_date)
             $this->birth_date = date("c", strtotime($this->birth_date));
-
         parent::afterValidate();
     }
 

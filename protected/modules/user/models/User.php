@@ -159,8 +159,8 @@ class User extends YModel
     {
         $this->change_date = new CDbExpression('NOW()');
 
-        if (!$this->isNewRecord &&
-            ($this->admin()->count() == 1 && $this->_oldAccess_level == self::ACCESS_LEVEL_ADMIN) &&
+        if (!$this->isNewRecord                                                                      &&
+            ($this->admin()->count() == 1 && $this->_oldAccess_level == self::ACCESS_LEVEL_ADMIN)    &&
             ($this->access_level == self::ACCESS_LEVEL_USER || $this->status != self::STATUS_ACTIVE)
         )
             return false;
@@ -215,7 +215,6 @@ class User extends YModel
     {
         if ($this->password === $this->hashPassword($password, $this->salt))
             return true;
-
         return false;
     }
 
@@ -291,7 +290,6 @@ class User extends YModel
     {
         if (!$length)
             $length = Yii::app()->getModule('user')->minPasswordLength;
-
         return substr(md5(uniqid(mt_rand(), true) . time()), 0, $length);
     }
 
@@ -401,7 +399,6 @@ class User extends YModel
     public function changePassword($password)
     {
         $this->password = $this->hashPassword($password, $this->salt);
-
         return $this->update(array('password'));
     }
 

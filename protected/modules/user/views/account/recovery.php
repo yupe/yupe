@@ -1,14 +1,14 @@
 <?php $this->pageTitle = Yii::t('user', 'Восстановление пароля'); ?>
 
-<h1>Восстановление пароля</h1>
+<h1><?php echo Yii::t('user', 'Восстановление пароля'); ?></h1>
 
 <?php $this->widget('application.modules.yupe.widgets.YFlashMessages'); ?>
 
-<p>Для восстановления пароля - введите email, указанный при регистрации.</p>
+<p><?php echo Yii::t('user', 'Для восстановления пароля - введите email, указанный при регистрации.'); ?></p>
 
 <div class="form">
     <?php $form = $this->beginWidget('CActiveForm', array(
-         'id' => 'recovery-password-form',
+         'id'                     => 'recovery-password-form',
          'enableClientValidation' => true,
     )); ?>
 
@@ -21,7 +21,7 @@
     </div>
 
     <div class="row submit">
-        <?php echo CHtml::submitButton('Восстановить пароль'); ?>
+        <?php echo CHtml::submitButton(Yii::t('user', 'Восстановить пароль')); ?>
     </div>
 
     <?php $this->endWidget(); ?>

@@ -43,7 +43,6 @@ class RegistrationForm extends CFormModel
     {
         if (Yii::app()->getModule('user')->autoNick)
             $this->nick_name = substr(User::model()->generateSalt(), 10);
-
         return parent::beforeValidate();
     }
 

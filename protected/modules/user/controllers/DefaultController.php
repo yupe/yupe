@@ -12,21 +12,24 @@ class DefaultController extends YBackController
 
         $form = new ChangePasswordForm;
 
-        if(Yii::app()->request->isPostRequest && !empty($_POST['ChangePasswordForm']))
+        if (Yii::app()->request->isPostRequest && !empty($_POST['ChangePasswordForm']))
         {
             $form->setAttributes($_POST['ChangePasswordForm']);
 
-            if($form->validate() && $model->changePassword($form->password))
+            if ($form->validate() && $model->changePassword($form->password))
             {
                 $model->changePassword($form->password);
 
-                Yii::app()->user->setFlash(YFlashMessages::NOTICE_MESSAGE, Yii::t('user', 'Пароль успешно изменен!'));
+                Yii::app()->user->setFlash(
+                    YFlashMessages::NOTICE_MESSAGE,
+                    Yii::t('user', 'Пароль успешно изменен!')
+                );
 
-                $this->redirect(array('/user/default/view/','id' => $model->id ));
+                $this->redirect(array('/user/default/view', 'id' => $model->id));
             }
         }
 
-        $this->render('changepassword',array('model' => $model, 'changePasswordForm' => $form));
+        $this->render('changepassword', array('model' => $model, 'changePasswordForm' => $form));
     }
 
     /**
@@ -48,7 +51,6 @@ class DefaultController extends YBackController
         if (Yii::app()->request->isPostRequest && !empty($_POST['User']))
         {
             $model->setAttributes($_POST['User']);
-
             $model->setAttributes(array(
                 'salt'              => $model->generateSalt(),
                 'password'          => $model->hashPassword($model->password, $model->salt),
@@ -59,13 +61,16 @@ class DefaultController extends YBackController
             
             if ($model->save())
             {
-                Yii::app()->user->setFlash(YFlashMessages::NOTICE_MESSAGE, Yii::t('user', 'Новый пользователь добавлен!'));
+                Yii::app()->user->setFlash(
+                    YFlashMessages::NOTICE_MESSAGE,
+                    Yii::t('user', 'Новый пользователь добавлен!')
+                );
 
                 $this->redirect(array('view', 'id' => $model->id));
             }
         }
 
-        $this->render('create', array('model' => $model,));
+        $this->render('create', array('model' => $model));
     }
 
     /**
@@ -82,13 +87,16 @@ class DefaultController extends YBackController
 
             if ($model->save())
             {
-                Yii::app()->user->setFlash(YFlashMessages::NOTICE_MESSAGE, Yii::t('user', 'Данные обновлены!'));
+                Yii::app()->user->setFlash(
+                    YFlashMessages::NOTICE_MESSAGE,
+                    Yii::t('user', 'Данные обновлены!')
+                );
 
                 $this->redirect(array('view', 'id' => $model->id));
             }
         }
 
-        $this->render('update', array('model' => $model,));
+        $this->render('update', array('model' => $model));
     }
 
     /**
@@ -111,26 +119,16 @@ class DefaultController extends YBackController
     }
 
     /**
-     * Lists all models.
-     */
-    public function actionIndex()
-    {
-        $dataProvider = new CActiveDataProvider('User');
-
-        $this->render('index', array('dataProvider' => $dataProvider));
-    }
-
-    /**
      * Manages all models.
      */
-    public function actionAdmin()
+    public function actionIndex()
     {
         $model = new User('search');
         $model->unsetAttributes(); // clear any default values
         if (isset($_GET['User']))
             $model->attributes = $_GET['User'];
 
-        $this->render('admin', array('model' => $model));
+        $this->render('index', array('model' => $model));
     }
 
     /**

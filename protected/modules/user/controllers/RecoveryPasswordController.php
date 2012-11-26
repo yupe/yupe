@@ -34,25 +34,16 @@ class RecoveryPasswordController extends YBackController
     }
 
     /**
-     * Lists all models.
-     */
-    public function actionIndex()
-    {
-        $dataProvider = new CActiveDataProvider('RecoveryPassword');
-        $this->render('index', array('dataProvider' => $dataProvider));
-    }
-
-    /**
      * Manages all models.
      */
-    public function actionAdmin()
+    public function actionIndex()
     {
         $model = new RecoveryPassword('search');
         $model->unsetAttributes(); // clear any default values
         if (isset($_GET['RecoveryPassword']))
             $model->attributes = $_GET['RecoveryPassword'];
 
-        $this->render('admin', array('model' => $model));
+        $this->render('index', array('model' => $model));
     }
 
     /**

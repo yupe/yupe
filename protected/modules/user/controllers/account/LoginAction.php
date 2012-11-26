@@ -11,25 +11,32 @@ class LoginAction extends CAction
 
             if ($form->validate())
             {
-                Yii::app()->user->setFlash(YFlashMessages::NOTICE_MESSAGE, Yii::t('user', 'Вы успешно авторизовались!'));
+                Yii::app()->user->setFlash(
+                    YFlashMessages::NOTICE_MESSAGE,
+                    Yii::t('user', 'Вы успешно авторизовались!')
+                );
 
-                Yii::log(Yii::t(
-                    'user', 'Пользователь {email} авторизовался!', array('{email}' => $form->email)
-                ), CLogger::LEVEL_INFO, UserModule::$logCategory);
+                Yii::log(
+                    Yii::t('user', 'Пользователь {email} авторизовался!', array('{email}' => $form->email)), 
+                    CLogger::LEVEL_INFO, UserModule::$logCategory
+                );
 
                 $module = Yii::app()->getModule('user');
 
-                $redirect = (Yii::app()->user->isSuperUser() && $module->loginAdminSuccess) ? array($module->loginAdminSuccess) : array($module->loginSuccess);
+                $redirect = (Yii::app()->user->isSuperUser() && $module->loginAdminSuccess)
+                    ? array($module->loginAdminSuccess)
+                    : array($module->loginSuccess);
 
                 $this->controller->redirect($redirect);
             }
             else
-                Yii::log(Yii::t(
-                    'user', 'Ошибка авторизации! email => {email}, Password => {password}!', array(
+                Yii::log(
+                    Yii::t('user', 'Ошибка авторизации! email => {email}, Password => {password}!', array(
                         '{email}' => $form->email,
                         '{password}' => $form->password
-                     )
-                ), CLogger::LEVEL_ERROR, UserModule::$logCategory);
+                    )),
+                    CLogger::LEVEL_ERROR, UserModule::$logCategory
+                );
         }
 
         $this->controller->render('login', array('model' => $form));
