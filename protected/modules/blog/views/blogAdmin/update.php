@@ -12,7 +12,7 @@
         array('label' => Yii::t('blog', 'Блоги'), 'items' => array(
             array('icon' => 'list-alt', 'label' => Yii::t('blog', 'Управление блогами'), 'url' => array('/blog/BlogAdmin/index')),
             array('icon' => 'plus-sign', 'label' => Yii::t('blog', 'Добавить блог'), 'url' => array('/blog/BlogAdmin/create')),
-            array('label' => Yii::t('blog', 'Блог') . ' «' . $model->name . '»'),
+            array('label' => Yii::t('blog', 'Блог') . ' «' . mb_substr($model->name, 0, 32) . '»'),
             array('icon' => 'pencil', 'encodeLabel' => false, 'label' => Yii::t('blog', 'Редактирование блога'), 'url' => array(
                 '/blog/BlogAdmin/update',
                 'id' => $model->id

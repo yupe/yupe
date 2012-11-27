@@ -2,7 +2,6 @@
 
 class DefaultController extends YBackController
 {
-
     /**
      * @var CActiveRecord the currently loaded data model instance.
      */
@@ -13,9 +12,7 @@ class DefaultController extends YBackController
      */
     public function actionView()
     {
-        $this->render('view', array(
-            'model' => $this->loadModel(),
-        ));
+        $this->render('view', array('model' => $this->loadModel()));
     }
 
     /**
@@ -32,15 +29,18 @@ class DefaultController extends YBackController
 
             if ($model->save())
             {
-                Yii::app()->user->setFlash(YFlashMessages::NOTICE_MESSAGE, Yii::t('page', 'Страница добавлена!'));
+                Yii::app()->user->setFlash(
+                    YFlashMessages::NOTICE_MESSAGE,
+                    Yii::t('page', 'Страница добавлена!')
+                );
 
-                if (isset($_POST['saveAndClose']))
-                    $this->redirect(array( 'admin' ));
-
-                if(count(explode(',',Yii::app()->getModule('yupe')->availableLanguages)))
-                    $this->redirect(array( 'update', 'slug' => $model->slug ));
-
-                $this->redirect(array( 'update', 'id' => $model->id ));
+                if (!isset($_POST['submit-type']))
+                    $this->redirect(array('update') + (count(explode(',', Yii::app()->getModule('yupe')->availableLanguages)))
+                        ? array('slug' => $model->slug)
+                        : array('id' => $model->id)
+                    );
+                else
+                    $this->redirect(array($_POST['submit-type']));
             }
         }
 
@@ -67,12 +67,18 @@ class DefaultController extends YBackController
 
                 if ($model->save())
                 {
-                    Yii::app()->user->setFlash(YFlashMessages::NOTICE_MESSAGE, Yii::t('page', 'Страница обновлена!'));
+                    Yii::app()->user->setFlash(
+                        YFlashMessages::NOTICE_MESSAGE,
+                        Yii::t('page', 'Страница обновлена!')
+                    );
 
-                    if (isset($_POST['saveAndClose']))
-                        $this->redirect(array( 'admin' ));
-
-                    $this->redirect(array( 'update', 'id' => $model->id ));
+                    if (!isset($_POST['submit-type']))
+                        $this->redirect(array('update') + (count(explode(',', Yii::app()->getModule('yupe')->availableLanguages)))
+                            ? array('slug' => $model->slug)
+                            : array('id' => $model->id)
+                        );
+                    else
+                        $this->redirect(array($_POST['submit-type']));
                 }
             }
 
@@ -87,7 +93,8 @@ class DefaultController extends YBackController
             // Указано ключевое слово страницы, ищем все языки
             $yupe  = Yii::app()->getModule('yupe');
             $langs = explode(",", $yupe->availableLanguages);
-            $models = Page::model()->findAllByAttributes(array( 'slug' => $slug ));
+
+            $models = Page::model()->findAllByAttributes(array('slug' => $slug));
             if (!$models)
                 throw new CHttpException(404, Yii::t('page', 'Указанная страница не найдена!'));
 
@@ -100,8 +107,12 @@ class DefaultController extends YBackController
                 $modelsByLang[$m->lang] = $m;
             }
             // Выберем модельку для вывода тайтлов и прочего
-            $model = isset($modelsByLang[Yii::app()->language]) ? $modelsByLang[Yii::app()->language] :
-                (isset($modelsByLang[Yii::app()->sourceLanguage]) ? $modelsByLang[Yii::app()->sourceLanguage] : reset($models));
+            $model = isset($modelsByLang[Yii::app()->language])
+                ? $modelsByLang[Yii::app()->language]
+                : (isset($modelsByLang[Yii::app()->sourceLanguage])
+                    ? $modelsByLang[Yii::app()->sourceLanguage]
+                    : reset($models)
+                );
 
             // Теперь создадим недостоающие
             foreach ($langs as $l)
@@ -109,17 +120,15 @@ class DefaultController extends YBackController
                 if (!isset($modelsByLang[$l]))
                 {
                     $page = new Page;
-                    
-                    $page->setAttributes(
-                        array(
-                            'slug'         => $slug,
-                            'lang'         => $l,
-                            'parent_Id'    => $model->parent_Id,
-                            'user_id'      => Yii::app()->user->id,
-                            'status'       => $model->status,
-                            'is_protected' => $model->is_protected,
-                        )
-                    );
+
+                    $page->setAttributes(array(
+                        'slug'         => $slug,
+                        'lang'         => $l,
+                        'parent_Id'    => $model->parent_Id,
+                        'user_id'      => Yii::app()->user->id,
+                        'status'       => $model->status,
+                        'is_protected' => $model->is_protected,
+                    ));
 
                     if ($l != Yii::app()->sourceLanguage)
                         $page->scenario = 'altlang';
@@ -143,7 +152,7 @@ class DefaultController extends YBackController
                             'name'         => $p['name'],
                             'title'        => $p['title'],
                             'body'         => $p['body'],
-                            'keywords'     => $p['keywords'],                            
+                            'keywords'     => $p['keywords'],
                             'description'  => $p['description'],
                             'slug'         => $_POST['Page']['slug'],
                             'status'       => $_POST['Page']['status'],
@@ -163,15 +172,24 @@ class DefaultController extends YBackController
 
                 if (!$wasError)
                 {
-                    Yii::app()->user->setFlash(YFlashMessages::NOTICE_MESSAGE, Yii::t('page', 'Страница обновлена!'));
+                    Yii::app()->user->setFlash(
+                        YFlashMessages::NOTICE_MESSAGE,
+                        Yii::t('page', 'Страница обновлена!')
+                    );
 
-                    if (isset($_POST['saveAndClose']))
-                        $this->redirect(array( 'admin' ));
-
-                    $this->redirect(array( 'update', 'slug' => $slug ));
+                    if (!isset($_POST['submit-type']))
+                        $this->redirect(array('update') + (count(explode(',', Yii::app()->getModule('yupe')->availableLanguages)))
+                            ? array('slug' => $model->slug)
+                            : array('id' => $model->id)
+                        );
+                    else
+                        $this->redirect(array($_POST['submit-type']));
                 }
                 else
-                    Yii::app()->user->setFlash(YFlashMessages::NOTICE_MESSAGE, Yii::t('page', 'Ошибки при сохранении страницы!'));
+                    Yii::app()->user->setFlash(
+                        YFlashMessages::NOTICE_MESSAGE,
+                        Yii::t('page', 'Ошибки при сохранении страницы!')
+                    );
             }
 
             $this->render('updateMultilang', array(
@@ -193,43 +211,32 @@ class DefaultController extends YBackController
         {
             if ($alias)
             {
-                if (!($model = Page::model()->findAllByAttributes(array( 'alias' => $alias ))))
+                if (!($model = Page::model()->findAllByAttributes(array('alias' => $alias))))
                     throw new CHttpException(404, Yii::t('page', 'Страница не нейдена'));
                 $model->delete();
             }
             else
-            {
                 // we only allow deletion via POST request
                 $this->loadModel()->delete();
-            }
             // if AJAX request (triggered by deletion via admin grid view), we should not redirect the browser
             if (!isset($_GET['ajax']))
-                $this->redirect(array( 'index' ));
+                $this->redirect(array('index'));
         }
         else
-            throw new YPageNotFoundException('Invalid request. Please do not repeat this request again.');
-    }
-
-    /**
-     * Lists all models.
-     */
-    public function actionIndex()
-    {
-        $dataProvider = new CActiveDataProvider('Page');
-        $this->render('index', array('dataProvider' => $dataProvider));
+            throw new YPageNotFoundException(Yii::t('page', 'Неверный запрос. Пожалуйста, больше не повторяйте такие запросы'));
     }
 
     /**
      * Manages all models.
      */
-    public function actionAdmin()
+    public function actionIndex()
     {
         $model = new Page('search');
 
         if (isset($_GET['Page']))
             $model->attributes = $_GET['Page'];
 
-        $this->render('admin', array(
+        $this->render('index', array(
             'model' => $model,
             'pages' => Page::model()->getAllPagesList(),
         ));
@@ -247,7 +254,7 @@ class DefaultController extends YBackController
                 $this->_model = Page::model()->with('author', 'changeAuthor')->findbyPk($_GET['id']);
 
             if ($this->_model === null)
-                throw new YPageNotFoundException('The requested page does not exist.');
+                throw new YPageNotFoundException(Yii::t('page', 'Запрошенная страница не найдена!'));
         }
 
         return $this->_model;
@@ -265,5 +272,4 @@ class DefaultController extends YBackController
             Yii::app()->end();
         }
     }
-
 }

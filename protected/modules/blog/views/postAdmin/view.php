@@ -15,7 +15,7 @@
         array('label' => Yii::t('blog', 'Записи'), 'items' => array(
             array('icon' => 'list-alt', 'label' => Yii::t('blog', 'Управление записями'), 'url' => array('/blog/PostAdmin/index')),
             array('icon' => 'plus-sign', 'label' => Yii::t('blog', 'Добавить запись'), 'url' => array('/blog/PostAdmin/create')),
-            array('label' => Yii::t('blog', 'Запись') . ' «' . $model->title . '»'),
+            array('label' => Yii::t('blog', 'Запись') . ' «' . mb_substr($model->title, 0, 32) . '»'),
             array('icon' => 'pencil', 'encodeLabel' => false, 'label' => Yii::t('blog', 'Редактирование записи'), 'url' => array(
                 '/blog/PostAdmin/update',
                 'id' => $model->id

@@ -1,33 +1,38 @@
-<?php $this->pageTitle = Yii::t('page', 'Редактирование страницы'); ?>
-
 <?php
-$this->breadcrumbs = array(
-    $this->getModule('page')->getCategory() => array('admin'),
-    Yii::t('page', 'Страницы') => array('admin'),
-    $model->title => array('view', 'id' => $model->id),
-    Yii::t('page', 'Изменение'),
-);
+    $this->breadcrumbs = array(
+        $this->getModule('page')->getCategory() => array('/page/default/index'),
+        Yii::t('page', 'Страницы') => array('/page/default/index'),
+        $model->title => array('/page/default/view', 'id' => $model->id),
+        Yii::t('page', 'Изменение'),
+    );
 
-$this->menu = array(
-    array('icon' => 'list-alt', 'label' => Yii::t('page', 'Управление страницами'), 'url' => array('admin')),
-    array('icon' => 'file', 'label' => Yii::t('page', 'Добавить страницу'), 'url' => array('/page/default/create')),
-    array('icon' => 'pencil white', 'encodeLabel' => false, 'label' => Yii::t('page', 'Редактирование страницы') . '<br /><span class="label" style="font-size: 80%;">' . mb_substr($model->name, 0, 32) . '</span>', 'url' => array('/page/default/update/', 'slug' => $model->slug)),
-);
+    $this->pageTitle = Yii::t('page', 'Редактирование страницы');
+
+    $this->menu = array(
+        array('icon' => 'list-alt', 'label' => Yii::t('page', 'Управление страницами'), 'url' => array('/page/default/index')),
+        array('icon' => 'plus-sign', 'label' => Yii::t('page', 'Добавить страницу'), 'url' => array('/page/default/create')),
+        array('label' => Yii::t('page', 'Страница') . ' «' . $model->title . '»'),
+        array('icon' => 'pencil', 'encodeLabel' => false, 'label' => Yii::t('page', 'Редактирование страницы'), 'url' => array('/page/default/update', 'id'=> $model->id)),
+        array('icon' => 'eye-open', 'encodeLabel'=> false, 'label' => Yii::t('page', 'Просмотр страницы'), 'url' => array('/page/default/view', 'id' => $model->id)),
+        array('icon' => 'remove', 'label' => Yii::t('page', 'Удалить эту страницу'), 'url' => '#', 'linkOptions' => array('submit' => array('/page/default/delete', 'id' => $model->id), 'confirm' => Yii::t('page', 'Подтверждаете удаление страницы ?'))),
+    );
 ?>
 
 <div class="page-header">
-  <h1><?php echo Yii::t('page', 'Редактирование страницы')?>
-  <br /><small style="margin-left:-10px;">&laquo;<?php echo $model->title; ?>&raquo;</small>
-  </h1>
+    <h1>
+        <?php echo Yii::t('page', 'Редактирование записи'); ?><br />
+        <small>&laquo;<?php echo $model->title; ?>&raquo;</small>
+    </h1>
 </div>
+
 <?php
 $form = $this->beginWidget('bootstrap.widgets.TbActiveForm', array(
     'id' => 'page-form',
     'enableAjaxValidation' => false,
     //'htmlOptions'=> array( 'class' => 'well' ),
 ));
-echo CHtml::openTag("fieldset", array("class"=>"inline"));
 ?>
+<fieldset class="inline">
     <div class="alert alert-info"><?php echo Yii::t('page', 'Поля, отмеченные * обязательны для заполнения')?></div>
     <div class="row-fluid control-group">
         <div class="span3">
@@ -72,37 +77,43 @@ echo CHtml::openTag("fieldset", array("class"=>"inline"));
         </div>
     </div>
 
-<?php
-    $items = array();
-    foreach ( $langs as $l )
-        $items[]=array('label'=>"[".$l."] ".mb_convert_case(Yii::app()->locale-> getLocaleDisplayName($l), MB_CASE_TITLE, 'UTF-8'), 'url'=>'#tab-'.$l, 'linkOptions'=> array("data-toggle"=>"tab"), 'active'=>$l==$model->lang );
+    <?php
+        $items = array();
+        foreach ($langs as $l)
+            $items[] = array(
+                'label'       => "[" . $l . "] " . mb_convert_case(Yii::app()->locale->getLocaleDisplayName($l), MB_CASE_TITLE, 'UTF-8'),
+                'url'         => '#tab-' . $l,
+                'linkOptions' => array("data-toggle" => "tab"),
+                'active'      => $l == $model->lang,
+            );
 
-    $this->widget('bootstrap.widgets.TbMenu', array(
-        'type' => 'tabs', // '', 'tabs', 'pills' (or 'list')
-        'stacked' => false, // whether this is a stacked menu
-        'items' => $items ,
-        'htmlOptions' => array('style' => 'margin-bottom:0;'),
-    ));
-    Yii::app()->clientScript->registerScript('fieldset', "
-        $('document').ready(function () {
-            $('.popover-help').popover({ 'delay': 500, });
-        });
-    ");
+        $this->widget('bootstrap.widgets.TbMenu', array(
+            'type'        => 'tabs', // '', 'tabs', 'pills' (or 'list')
+            'stacked'     => false, // whether this is a stacked menu
+            'items'       => $items ,
+            'htmlOptions' => array('style' => 'margin-bottom:0;'),
+        ));
+        Yii::app()->clientScript->registerScript('fieldset', "
+            $('document').ready(function () {
+                $('.popover-help').popover({ delay: 500, });
+            });
+        ");
 
-    echo CHtml::openTag("div", array(
-        "class" => "tab-content",
-        'style' => 'background-color: whiteSmoke; padding: 5px; border-bottom: 1px solid #DDD; border-left: 1px solid #DDD; border-right: 1px solid #DDD;'
-    ));
-    foreach ( $langs as $l )
-    {
-        echo CHtml::openTag("div", array("class"=>"tab-pane ".($l == $model->lang ? "active" : ""), "id" => "tab-".$l));
-        echo $this->renderPartial('_mform', array('model' => $models[$l], 'pages' => $pages, 'form' => $form ));
+        echo CHtml::openTag("div", array(
+            "class" => "tab-content",
+            'style' => 'background-color: whiteSmoke; padding: 5px; border-bottom: 1px solid #DDD; border-left: 1px solid #DDD; border-right: 1px solid #DDD;'
+        ));
+        foreach ($langs as $l)
+        {
+            echo CHtml::openTag("div", array("class" => "tab-pane " . ($l == $model->lang ? "active" : ""), "id" => "tab-" . $l));
+            echo $this->renderPartial('_mform', array('model' => $models[$l], 'pages' => $pages, 'form' => $form ));
+            echo CHtml::closeTag("div");
+        }
         echo CHtml::closeTag("div");
-    }
-    echo CHtml::closeTag("div");
+    ?>
+</fieldset>
 
-
-    echo CHtml::closeTag("fieldset");
+<?php
     echo "<br />";
     echo CHtml::submitButton($model->isNewRecord
         ? Yii::t('page', 'Добавить страницу и продолжить редактирование')
@@ -115,5 +126,4 @@ echo CHtml::openTag("fieldset", array("class"=>"inline"));
     );
 
     $this->endWidget();
-
 ?>

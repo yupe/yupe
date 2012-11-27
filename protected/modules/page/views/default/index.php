@@ -1,58 +1,91 @@
-<?php $this->pageTitle = Yii::t('page', 'Список страниц'); ?>
-
 <?php
-$this->breadcrumbs = array(
-    $this->getModule('page')->getCategory() => array('admin'),
-    Yii::t('page', 'Страницы'),
-);
+    $this->breadcrumbs = array(
+        $this->getModule('page')->getCategory() => array('/page/default/index'),
+        Yii::t('page', 'Страницы') => array('/page/default/index'),
+        Yii::t('page', 'Управление'),
+    );
 
-$this->menu = array(
-    array('label' => Yii::t('page', 'Добавить страницу'), 'url' => array('create')),
-    array('label' => Yii::t('page', 'Управление страницами'), 'url' => array('admin')),
-);
+    $this->pageTitle = Yii::t('page', 'Управление страницами');
+
+    $this->menu = array(
+        array('icon' => 'list-alt', 'label' => Yii::t('page', 'Управление страницами'), 'url' => array('/page/default/index')),
+        array('icon' => 'plus-sign', 'label' => Yii::t('page', 'Добавить страницу'), 'url' => array('/page/default/create')),
+    );
 ?>
+<div class="page-header">
+    <h1>
+        <?php echo Yii::t('page', 'Страницы'); ?>
+        <small><?php echo Yii::t('page', 'управление'); ?></small>
+    </h1>
+</div>
 
-<h1><?php echo Yii::t('page', 'Страницы'); ?></h1>
+<button class="btn btn-small dropdown-toggle" data-toggle="collapse" data-target="#search-toggle">
+    <i class="icon-search">&nbsp;</i>
+    <?php echo CHtml::link(Yii::t('page', 'Поиск страниц'), '#', array('class' => 'search-button')); ?>
+    <span class="caret">&nbsp;</span>
+</button>
 
+<div id="search-toggle" class="collapse out search-form">
 <?php
-$pages = Page::model()-> findAll();
-foreach ($pages as $p)
-{
-    $pages_byparent[$p->parent_Id][$p->id] = $p;
-    $pages_byid[$p->id] = $p;
-}
-
-$organized_pages = array();
-
-function rec_walk( $pages_byparent, $page = 0 )
-{
-    $pg = null;
-    if ( isset($pages_byparent[$page]) )
-    {
-        foreach ( $pages_byparent[$page] as $p )
-        {
-            $pp = array( 'id' => $p->id );
-            if ( isset($pages_byparent[$p->id]) )
-                $pp['children'] = rec_walk( $pages_byparent, $p->id );
-
-            $btns = CHtml::link("<i class='icon-plus-sign'></i>", array('default/create', 'Page[parent_Id]' => $p->id), array('class' => 'page_add' ) );
-            if ( !isset($pp['children']) )
-                $btns .= CHtml::link("<i class='icon-trash'></i>", array('default/delete', 'id' => $p->id), array('class' => 'page_delete' ) );
-            $btns .= CHtml::link("<i class='icon-edit'></i>", array('default/update', 'id' => $p->id), array('class' => 'page_edit' ) );
-
-            $pp['text'] = "<i class='icon-file'></i>".CHtml::link($p->title, array('default/view', 'id' => $p->id)).$btns;
-            $pg[] = $pp;
-        }
-    }
-    return $pg;
-}
-
-//$dataProvider->pagination = false;
-//$data = $dataProvider->fetchData();
-$data = array();
-$data[0] = array( "text" => "<i class='icon-home'></i>".Yii::app()->name, 'id' => 0, 'children' => rec_walk( $pages_byparent ));
-
-//$data = rec_walk( $pages_byparent ) ;
-
-$this->widget('CTreeView', array( 'data' => $data, 'persist' => true, 'animated' => 'fast'));
+Yii::app()->clientScript->registerScript('search', "
+    $('.search-form form').submit(function() {
+        $.fn.yiiGridView.update('blog-grid', {
+            data: $(this).serialize()
+        });
+        return false;
+    });
+");
+$this->renderPartial('_search', array('model' => $model, 'pages' => $pages));
 ?>
+</div>
+
+<br/>
+
+<p><?php echo Yii::t('page', 'В данном разделе представлены средства управления страницами'); ?></p>
+
+<?php $this->widget('application.modules.yupe.components.YCustomGridView', array(
+    'id'           => 'page-grid',
+    'type'         => 'condensed',
+    'dataProvider' => $model->search(),
+    'filter'       => $model,
+    'sortField'    => 'menu_order',
+    'columns'      => array(
+        'id',
+        'title',
+        array(
+            'name'  => 'name',
+            'type'  => 'raw',
+            'value' => 'CHtml::link($data->name, array("/page/default/update", "slug" => $data->slug))',
+        ),
+        array(
+            'name'  => 'category_id',
+            'value' => '$data->getCategoryName()',
+        ),
+        array(
+            'name'  => 'parent_Id',
+            'value' => '$data->parentName',
+        ),
+        array(
+            'name'  => 'slug',
+            'value' => '$data->slug',
+        ),
+        array(
+            'header' => Yii::t('page', 'Публичный урл'),
+            'value'  => 'Yii::app()->createAbsoluteUrl("/page/page/show", array("slug" => $data->slug))',
+        ),
+        array(
+            'name'  => 'menu_order',
+            'type'  => 'raw',
+            'value' => '$this->grid->getUpDownButtons($data)',
+        ),
+        'lang',
+        array(
+            'name'  => 'status',
+            'type'  => 'raw',
+            'value' => '$this->grid->returnBootstrapStatusHtml($data, "status", "Status", array("pencil", "ok-sign", "time"))',
+        ),
+        array(
+            'class' => 'bootstrap.widgets.TbButtonColumn',
+        ),
+    ),
+)); ?>
