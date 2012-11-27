@@ -33,6 +33,7 @@ class CatalogModule extends YWebModule
         return array(
             'uploadPath',
             'adminMenuOrder',
+            'editor' => Yii::app()->getModule('yupe')->editors,
         );
     }
 
@@ -41,6 +42,7 @@ class CatalogModule extends YWebModule
         return array(
             'adminMenuOrder' => Yii::t('category', 'Порядок следования в меню'),
             'uploadPath'     => Yii::t('yupe', 'Каталог для загрузки файлов (относительно Yii::app()->getModule("yupe")->uploadPath)'),
+            'editor'         => Yii::t('catalog', 'Визуальный редактор'),
         );
     }
 
