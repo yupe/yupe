@@ -9,13 +9,11 @@ SET foreign_key_checks = 0;
 DROP TABLE IF EXISTS
     `yupe_comment`,
     `yupe_content_block`,
-    `yupe_contest`,
     `yupe_dictionary_data`,
     `yupe_dictionary_group`,
     `yupe_feedback`,
     `yupe_good`,
     `yupe_image`,
-    `yupe_image_to_contest`,
     `yupe_image_to_gallery`,
     `yupe_login`,
     `yupe_mail_template`,

@@ -113,25 +113,6 @@ CREATE TABLE IF NOT EXISTS `yupe_content_block` (
 -- --------------------------------------------------------
 
 --
--- Структура таблицы `contest`
---
-
-CREATE TABLE IF NOT EXISTS `yupe_contest` (
-  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
-  `name` varchar(150) NOT NULL,
-  `description` varchar(300) DEFAULT NULL,
-  `start_add_image` datetime NOT NULL,
-  `stop_add_image` datetime NOT NULL,
-  `start_vote` datetime NOT NULL,
-  `stop_vote` datetime NOT NULL,
-  `status` tinyint(3) unsigned NOT NULL DEFAULT '1',
-  PRIMARY KEY (`id`),
-  KEY `status` (`status`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
-
--- --------------------------------------------------------
-
---
 -- Структура таблицы `dictionary_data`
 --
 
@@ -276,23 +257,6 @@ CREATE TABLE IF NOT EXISTS `yupe_image` (
   KEY `user_id` (`user_id`),
   KEY `type` (`type`),
   KEY `category_id` (`category_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
-
--- --------------------------------------------------------
-
---
--- Структура таблицы `image_to_contest`
---
-
-CREATE TABLE IF NOT EXISTS `yupe_image_to_contest` (
-  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
-  `image_id` int(10) unsigned NOT NULL,
-  `contest_id` int(10) unsigned NOT NULL,
-  `creation_date` datetime NOT NULL,
-  PRIMARY KEY (`id`),
-  UNIQUE KEY `image_contest_unique` (`image_id`,`contest_id`),
-  KEY `image_id` (`image_id`),
-  KEY `contestId` (`contest_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
 
 -- --------------------------------------------------------
