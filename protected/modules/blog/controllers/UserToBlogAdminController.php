@@ -48,10 +48,8 @@ class UserToBlogAdminController extends YBackController
                 YFlashMessages::WARNING_MESSAGE,
                 Yii::t('blog', 'Ошибка! Возможно пользователь уже участник блога!')
             );
-
             $this->redirect(array('admin'));
         }
-
         $this->render('create', array('model' => $model));
     }
 
@@ -83,12 +81,11 @@ class UserToBlogAdminController extends YBackController
                     $this->redirect(array($_POST['submit-type']));
             }
         }
-
         $this->render('update', array('model' => $model));
     }
 
     /**
-     * Удаяет модель участника из базы.
+     * Удаляет модель участника из базы.
      * Если удаление прошло успешно - возвращется в index
      * @param integer $id идентификатор участника, который нужно удалить
      */
@@ -109,7 +106,7 @@ class UserToBlogAdminController extends YBackController
                 $this->redirect(isset($_POST['returnUrl']) ? $_POST['returnUrl'] : array('index'));
         }
         else
-            throw new CHttpException(400,Yii::t('blog','Неверный запрос. Пожалуйста, больше не повторяйте такие запросы'));
+            throw new CHttpException(400, Yii::t('blog', 'Неверный запрос. Пожалуйста, больше не повторяйте такие запросы'));
     }
 
     /**
@@ -121,7 +118,6 @@ class UserToBlogAdminController extends YBackController
         $model->unsetAttributes(); // clear any default values
         if (isset($_GET['UserToBlog']))
             $model->attributes = $_GET['UserToBlog'];
-
         $this->render('index', array('model' => $model));
     }
 
@@ -134,7 +130,7 @@ class UserToBlogAdminController extends YBackController
     {
         $model = UserToBlog::model()->findByPk($id);
         if ($model === null)
-            throw new CHttpException(404, Yii::t('blog','Запрошенная страница не найдена!'));
+            throw new CHttpException(404, Yii::t('blog', 'Запрошенная страница не найдена!'));
         return $model;
     }
 

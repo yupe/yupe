@@ -5,7 +5,9 @@
         $model->title => array('/blog/PostAdmin/view', 'id' => $model->id),
         Yii::t('blog', 'Редактирование'),
     );
+
     $this->pageTitle = Yii::t('blog', 'Записи - редактирование');
+
     $this->menu = array(
         array('label' => Yii::t('blog', 'Блоги'), 'items' => array(
             array('icon' => 'list-alt', 'label' => Yii::t('blog', 'Управление блогами'), 'url' => array('/blog/BlogAdmin/index')),
@@ -15,7 +17,7 @@
             array('icon' => 'list-alt', 'label' => Yii::t('blog', 'Управление записями'), 'url' => array('/blog/PostAdmin/index')),
             array('icon' => 'plus-sign', 'label' => Yii::t('blog', 'Добавить запись'), 'url' => array('/blog/PostAdmin/create')),
             array('label' => Yii::t('blog', 'Запись') . ' «' . $model->title . '»'),
-            array('icon' => 'pencil white', 'encodeLabel' => false, 'label' => Yii::t('blog', 'Редактирование записи'), 'url' => array(
+            array('icon' => 'pencil', 'encodeLabel' => false, 'label' => Yii::t('blog', 'Редактирование записи'), 'url' => array(
                 '/blog/PostAdmin/update',
                 'id' => $model->id
             )),

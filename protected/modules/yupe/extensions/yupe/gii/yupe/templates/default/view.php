@@ -16,7 +16,9 @@ echo <<<EOF
         Yii::t('{$this->mid}', '$label') => array('/{$this->controller}/index'),
         \$model->{$nameColumn},
     );
+
     \$this->pageTitle = Yii::t('{$this->mid}', '{$label} - просмотр');
+
     \$this->menu = array(
         array('icon' => 'list-alt', 'label' => Yii::t('{$this->mid}', 'Управление {$this->mtvor}'), 'url' => array('/{$this->controller}/index')),
         array('icon' => 'plus-sign', 'label' => Yii::t('{$this->mid}', 'Добавить {$this->vin}'), 'url' => array('/{$this->controller}/create')),
@@ -25,7 +27,7 @@ echo <<<EOF
             '/{$this->controller}/update',
             '{$this->tableSchema->primaryKey}' => \$model->{$this->tableSchema->primaryKey}
         )),
-        array('icon' => 'eye-open white', 'encodeLabel' => false, 'label' => Yii::t('{$this->mid}', 'Просмотреть {$this->vin}'), 'url' => array(
+        array('icon' => 'eye-open', 'encodeLabel' => false, 'label' => Yii::t('{$this->mid}', 'Просмотреть {$this->vin}'), 'url' => array(
             '/{$this->controller}/view',
             '{$this->tableSchema->primaryKey}' => \$model->{$this->tableSchema->primaryKey}
         )),

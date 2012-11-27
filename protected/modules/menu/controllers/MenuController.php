@@ -3,8 +3,8 @@
 class MenuController extends YBackController
 {
     /**
-     * Displays a particular model.
-     * @param integer $id the ID of the model to be displayed
+     * Отображает меню по указанному идентификатору
+     * @param integer $id Идинтификатор меню для отображения
      */
     public function actionView($id)
     {
@@ -12,8 +12,8 @@ class MenuController extends YBackController
     }
 
     /**
-     * Creates a new model.
-     * If creation is successful, the browser will be redirected to the 'view' page.
+     * Создает новую модель меню.
+     * Если создание прошло успешно - перенаправляет на просмотр.
      */
     public function actionCreate()
     {
@@ -39,9 +39,8 @@ class MenuController extends YBackController
     }
 
     /**
-     * Updates a particular model.
-     * If update is successful, the browser will be redirected to the 'view' page.
-     * @param integer $id the ID of the model to be updated
+     * Редактирование меню.
+     * @param integer $id Идинтификатор меню для редактирования
      */
     public function actionUpdate($id)
     {
@@ -67,9 +66,9 @@ class MenuController extends YBackController
     }
 
     /**
-     * Deletes a particular model.
-     * If deletion is successful, the browser will be redirected to the 'admin' page.
-     * @param integer $id the ID of the model to be deleted
+     * Удаляет модель меню из базы.
+     * Если удаление прошло успешно - возвращется в index
+     * @param integer $id идентификатор меню, который нужно удалить
      */
     public function actionDelete($id)
     {
@@ -87,7 +86,7 @@ class MenuController extends YBackController
     }   
 
     /**
-     * Manages all models.
+     * Управление блогами.
      */
     public function actionIndex()
     {
@@ -101,9 +100,9 @@ class MenuController extends YBackController
     }
 
     /**
-     * Returns the data model based on the primary key given in the GET variable.
-     * If the data model is not found, an HTTP exception will be raised.
-     * @param integer the ID of the model to be loaded
+     * Возвращает модель по указанному идентификатору
+     * Если модель не будет найдена - возникнет HTTP-исключение.
+     * @param integer идентификатор нужной модели
      */
     public function loadModel($id)
     {
@@ -116,8 +115,8 @@ class MenuController extends YBackController
     }
 
     /**
-     * Performs the AJAX validation.
-     * @param CModel the model to be validated
+     * Производит AJAX-валидацию
+     * @param CModel модель, которую необходимо валидировать
      */
     protected function performAjaxValidation($model)
     {

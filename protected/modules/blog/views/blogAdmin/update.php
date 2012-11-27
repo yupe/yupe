@@ -5,13 +5,15 @@
         $model->name => array('/blog/BlogAdmin/view', 'id' => $model->id),
         Yii::t('blog', 'Редактирование'),
     );
+
     $this->pageTitle = Yii::t('blog', 'Блоги - редактирование');
+
     $this->menu = array(
         array('label' => Yii::t('blog', 'Блоги'), 'items' => array(
             array('icon' => 'list-alt', 'label' => Yii::t('blog', 'Управление блогами'), 'url' => array('/blog/BlogAdmin/index')),
             array('icon' => 'plus-sign', 'label' => Yii::t('blog', 'Добавить блог'), 'url' => array('/blog/BlogAdmin/create')),
             array('label' => Yii::t('blog', 'Блог') . ' «' . $model->name . '»'),
-            array('icon' => 'pencil white', 'encodeLabel' => false, 'label' => Yii::t('blog', 'Редактирование блога'), 'url' => array(
+            array('icon' => 'pencil', 'encodeLabel' => false, 'label' => Yii::t('blog', 'Редактирование блога'), 'url' => array(
                 '/blog/BlogAdmin/update',
                 'id' => $model->id
             )),

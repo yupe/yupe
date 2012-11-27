@@ -40,7 +40,6 @@ class PostAdminController extends YBackController
                     $this->redirect(array($_POST['submit-type']));
             }
         }
-
         $this->render('create', array('model' => $model));
     }
 
@@ -73,12 +72,11 @@ class PostAdminController extends YBackController
                     $this->redirect(array($_POST['submit-type']));
             }
         }
-
         $this->render('update', array('model' => $model));
     }
 
     /**
-     * Удаяет модель записи из базы.
+     * Удаляет модель записи из базы.
      * Если удаление прошло успешно - возвращется в index
      * @param integer $id идентификатор записи, который нужно удалить
      */
@@ -99,7 +97,7 @@ class PostAdminController extends YBackController
                 $this->redirect(isset($_POST['returnUrl']) ? $_POST['returnUrl'] : array('index'));
         }
         else
-            throw new CHttpException(400,Yii::t('blog','Неверный запрос. Пожалуйста, больше не повторяйте такие запросы'));
+            throw new CHttpException(400, Yii::t('blog', 'Неверный запрос. Пожалуйста, больше не повторяйте такие запросы'));
     }
 
     /**
@@ -111,7 +109,6 @@ class PostAdminController extends YBackController
         $model->unsetAttributes(); // clear any default values
         if (isset($_GET['Post']))
             $model->attributes = $_GET['Post'];
-
         $this->render('index', array('model' => $model));
     }
 
@@ -124,7 +121,7 @@ class PostAdminController extends YBackController
     {
         $model = Post::model()->findByPk($id);
         if ($model === null)
-            throw new CHttpException(404, Yii::t('blog','Запрошенная страница не найдена!'));
+            throw new CHttpException(404, Yii::t('blog', 'Запрошенная страница не найдена!'));
         return $model;
     }
 

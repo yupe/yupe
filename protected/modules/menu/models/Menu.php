@@ -80,6 +80,20 @@ class Menu extends YModel
     }
 
     /**
+     * @return array customized attribute descriptions (name=>description)
+     */
+    public function attributeDescriptions()
+    {
+        return array(
+            'id'          => Yii::t('menu', 'Id меню'),
+            'name'        => Yii::t('menu', 'Название меню в системе.'),
+            'code'        => Yii::t('menu', 'Уникальный код используется в виджете, как идентификатор для вывода меню, заполняется латинскими символами.'),
+            'description' => Yii::t('menu', 'Краткое описание меню.'),
+            'status'      => Yii::t('menu', 'Установите статус меню: <br /><br /><span class="label label-success">активно</span> &ndash; меню будет отображаться на странице сайта.<br /><br /><span class="label label-warning">не активно</span> &ndash; меню отображаться не будет.'),
+        );
+    }
+
+    /**
      * Retrieves a list of models based on the current search/filter conditions.
      * @return CActiveDataProvider the data provider that can return the models based on the search/filter conditions.
      */

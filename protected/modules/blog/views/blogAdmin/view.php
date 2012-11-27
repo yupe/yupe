@@ -4,7 +4,9 @@
         Yii::t('blog', 'Блоги') => array('/blog/BlogAdmin/index'),
         $model->name,
     );
+
     $this->pageTitle = Yii::t('blog', 'Блоги - просмотр');
+
     $this->menu = array(
         array('label' => Yii::t('blog', 'Блоги'), 'items' => array(
             array('icon' => 'list-alt', 'label' => Yii::t('blog', 'Управление блогами'), 'url' => array('/blog/BlogAdmin/index')),
@@ -14,7 +16,7 @@
                 '/blog/BlogAdmin/update',
                 'id' => $model->id
             )),
-            array('icon' => 'eye-open white', 'encodeLabel' => false, 'label' => Yii::t('blog', 'Просмотреть блог'), 'url' => array(
+            array('icon' => 'eye-open', 'encodeLabel' => false, 'label' => Yii::t('blog', 'Просмотреть блог'), 'url' => array(
                 '/blog/BlogAdmin/view',
                 'id' => $model->id
             )),

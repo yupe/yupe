@@ -18,7 +18,7 @@ echo <<<EOF
     \$this->pageTitle = Yii::t('{$this->mid}', '{$label} - управление');
 
     \$this->menu = array(
-        array('icon' => 'list-alt white', 'label' => Yii::t('{$this->mid}', 'Управление {$this->mtvor}'), 'url' => array('/{$this->controller}/index')),
+        array('icon' => 'list-alt', 'label' => Yii::t('{$this->mid}', 'Управление {$this->mtvor}'), 'url' => array('/{$this->controller}/index')),
         array('icon' => 'plus-sign', 'label' => Yii::t('{$this->mid}', 'Добавить {$this->vin}'), 'url' => array('/{$this->controller}/create')),
     );
 ?>
@@ -59,8 +59,7 @@ EOF;
 
 <p> <?php echo "<?php echo Yii::t('{$this->mid}', 'В данном разделе представлены средства управления {$this->mtvor}'); ?>\n"; ?></p>
 
-<?php echo "<?php\n"; ?>
-$this->widget('application.modules.yupe.components.YCustomGridView', array(
+<?php echo "<?php\n"; ?> $this->widget('application.modules.yupe.components.YCustomGridView', array(
     'id'           => '<?php echo $this->class2id($this->modelClass); ?>-grid',
     'type'         => 'condensed',
     'dataProvider' => $model->search(),
@@ -81,5 +80,4 @@ if ($count >= 7)
             'class' => 'bootstrap.widgets.TbButtonColumn',
         ),
     ),
-));
-?>
+)); ?>

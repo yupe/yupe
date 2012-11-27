@@ -5,7 +5,9 @@
         $model->user->nick_name => array('/blog/UserToBlogAdmin/view', 'id' => $model->id),
         Yii::t('blog', 'Редактирование'),
     );
+
     $this->pageTitle = Yii::t('blog', 'Участники - редактирование');
+
     $this->menu = array(
         array('label' => Yii::t('blog', 'Блоги'), 'items' => array(
             array('icon' => 'list-alt', 'label' => Yii::t('blog', 'Управление блогами'), 'url' => array('/blog/BlogAdmin/index')),
@@ -19,7 +21,7 @@
             array('icon' => 'list-alt', 'label' => Yii::t('blog', 'Управление участниками'), 'url' => array('/blog/UserToBlogAdmin/index')),
             array('icon' => 'plus-sign', 'label' => Yii::t('blog', 'Добавить участника'), 'url' => array('/blog/UserToBlogAdmin/create')),
             array('label' => Yii::t('blog', 'Участник') . ' «' . $model->id . '»'),
-            array('icon' => 'pencil white', 'encodeLabel' => false, 'label' => Yii::t('blog', 'Редактирование участника'), 'url' => array(
+            array('icon' => 'pencil', 'encodeLabel' => false, 'label' => Yii::t('blog', 'Редактирование участника'), 'url' => array(
                 '/blog/UserToBlogAdmin/update',
                 'id' => $model->id
             )),

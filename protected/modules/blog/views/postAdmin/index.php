@@ -13,7 +13,7 @@
             array('icon' => 'plus-sign', 'label' => Yii::t('blog', 'Добавить блог'), 'url' => array('/blog/BlogAdmin/create')),
         )),
         array('label' => Yii::t('blog', 'Записи'), 'items' => array(
-            array('icon' => 'list-alt white', 'label' => Yii::t('blog', 'Управление записями'), 'url' => array('/blog/PostAdmin/index')),
+            array('icon' => 'list-alt', 'label' => Yii::t('blog', 'Управление записями'), 'url' => array('/blog/PostAdmin/index')),
             array('icon' => 'plus-sign', 'label' => Yii::t('blog', 'Добавить запись'), 'url' => array('/blog/PostAdmin/create')),
         )),
         array('label' => Yii::t('blog', 'Участники'), 'items' => array(
@@ -51,14 +51,9 @@ $this->renderPartial('_search', array('model' => $model));
 
 <br/>
 
-<p>
-    <?php echo Yii::t('blog', 'В данном разделе представлены средства управления'); ?> 
-    <?php echo Yii::t('blog', 'записями'); ?>.
-</p>
+<p><?php echo Yii::t('blog', 'В данном разделе представлены средства управления записями'); ?></p>
 
-
-<?php
-$this->widget('application.modules.yupe.components.YCustomGridView', array(
+<?php $this->widget('application.modules.yupe.components.YCustomGridView', array(
     'id'           => 'post-grid',
     'type'         => 'condensed',
     'dataProvider' => $model->search(),
@@ -112,5 +107,4 @@ $this->widget('application.modules.yupe.components.YCustomGridView', array(
             'class' => 'bootstrap.widgets.TbButtonColumn',
         ),
     ),
-));
-?>
+)); ?>

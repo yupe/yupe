@@ -4,7 +4,9 @@
         Yii::t('blog', 'Участники') => array('/blog/UserToBlogAdmin/index'),
         $model->user->nick_name,
     );
+
     $this->pageTitle = Yii::t('blog', 'Участники - просмотр');
+
     $this->menu = array(
         array('label' => Yii::t('blog', 'Блоги'), 'items' => array(
             array('icon' => 'list-alt', 'label' => Yii::t('blog', 'Управление блогами'), 'url' => array('/blog/BlogAdmin/index')),
@@ -22,7 +24,7 @@
                 '/blog/UserToBlogAdmin/update',
                 'id' => $model->id
             )),
-            array('icon' => 'eye-open white', 'encodeLabel' => false, 'label' => Yii::t('blog', 'Просмотреть участника'), 'url' => array(
+            array('icon' => 'eye-open', 'encodeLabel' => false, 'label' => Yii::t('blog', 'Просмотреть участника'), 'url' => array(
                 '/blog/UserToBlogAdmin/view',
                 'id' => $model->id
             )),

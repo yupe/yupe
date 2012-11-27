@@ -39,13 +39,12 @@ class BlogAdminController extends YBackController
                     $this->redirect(array($_POST['submit-type']));
             }
         }
-
         $this->render('create', array('model' => $model));
     }
 
     /**
      * Редактирование блога.
-     * @param integer $id the ID of the model to be updated
+     * @param integer $id Идинтификатор блога для редактирования
      */
     public function actionUpdate($id)
     {
@@ -71,12 +70,11 @@ class BlogAdminController extends YBackController
                     $this->redirect(array($_POST['submit-type']));
             }
         }
-
         $this->render('update', array('model' => $model));
     }
 
     /**
-     * Удаяет модель блога из базы.
+     * Удаляет модель блога из базы.
      * Если удаление прошло успешно - возвращется в index
      * @param integer $id идентификатор блога, который нужно удалить
      */
@@ -97,7 +95,7 @@ class BlogAdminController extends YBackController
                 $this->redirect(isset($_POST['returnUrl']) ? $_POST['returnUrl'] : array('index'));
         }
         else
-            throw new CHttpException(400, 'Неверный запрос. Пожалуйста, больше не повторяйте такие запросы');
+            throw new CHttpException(400, Yii::t('blog', 'Неверный запрос. Пожалуйста, больше не повторяйте такие запросы'));
     }
 
     /**
@@ -122,7 +120,7 @@ class BlogAdminController extends YBackController
     {
         $model = Blog::model()->with('postsCount', 'membersCount')->findByPk((int) $id);
         if ($model === null)
-            throw new CHttpException(404, Yii::t('blog','Запрошенная страница не найдена!'));
+            throw new CHttpException(404, Yii::t('blog', 'Запрошенная страница не найдена!'));
         return $model;
     }
 

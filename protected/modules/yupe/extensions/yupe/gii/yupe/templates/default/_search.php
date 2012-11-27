@@ -5,12 +5,12 @@ echo <<<EOF
     'action'      => Yii::app()->createUrl(\$this->route),
     'method'      => 'get',
     'type'        => 'vertical',
-    'htmlOptions' => array('class' => 'well form-vertical'),
+    'htmlOptions' => array('class' => 'well'),
 ));
 
 Yii::app()->clientScript->registerScript('fieldset', "
     \$('document').ready(function () {
-        \$('.popover-help').popover({ trigger : 'hover', 'delay' : 500 });
+        \$('.popover-help').popover({ trigger : 'hover', delay : 500 });
     });
 ");
 ?>\n

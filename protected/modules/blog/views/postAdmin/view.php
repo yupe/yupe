@@ -4,7 +4,9 @@
         Yii::t('blog', 'Записи') => array('/blog/PostAdmin/index'),
         $model->title,
     );
+
     $this->pageTitle = Yii::t('blog', 'Записи - просмотр');
+
     $this->menu = array(
         array('label' => Yii::t('blog', 'Блоги'), 'items' => array(
             array('icon' => 'list-alt', 'label' => Yii::t('blog', 'Управление блогами'), 'url' => array('/blog/BlogAdmin/index')),
@@ -18,7 +20,7 @@
                 '/blog/PostAdmin/update',
                 'id' => $model->id
             )),
-            array('icon' => 'eye-open white', 'encodeLabel' => false, 'label' => Yii::t('blog', 'Просмотреть запись'), 'url' => array(
+            array('icon' => 'eye-open', 'encodeLabel' => false, 'label' => Yii::t('blog', 'Просмотреть запись'), 'url' => array(
                 '/blog/PostAdmin/view',
                 'id' => $model->id
             )),
@@ -35,7 +37,7 @@
 ?>
 <div class="page-header">
     <h1>
-        <?php echo Yii::t('blog', 'Просмотр записи')?><br />
+        <?php echo Yii::t('blog', 'Просмотр записи'); ?><br />
         <small>&laquo;<?php echo $model->title; ?>&raquo;</small>
     </h1>
 </div>

@@ -9,7 +9,7 @@
 
     $this->menu = array(
         array('label' => Yii::t('blog', 'Блоги'), 'items' => array(
-            array('icon' => 'list-alt white', 'label' => Yii::t('blog', 'Управление блогами'), 'url' => array('/blog/BlogAdmin/index')),
+            array('icon' => 'list-alt', 'label' => Yii::t('blog', 'Управление блогами'), 'url' => array('/blog/BlogAdmin/index')),
             array('icon' => 'plus-sign', 'label' => Yii::t('blog', 'Добавить блог'), 'url' => array('/blog/BlogAdmin/create')),
         )),
         array('label' => Yii::t('blog', 'Записи'), 'items' => array(
@@ -53,8 +53,7 @@ $this->renderPartial('_search', array('model' => $model));
 
 <p><?php echo Yii::t('blog', 'В данном разделе представлены средства управления блогами'); ?></p>
 
-<?php
-$this->widget('application.modules.yupe.components.YCustomGridView', array(
+<?php $this->widget('application.modules.yupe.components.YCustomGridView', array(
     'id'           => 'blog-grid',
     'type'         => 'condensed',
     'dataProvider' => $model->search(),
@@ -67,12 +66,12 @@ $this->widget('application.modules.yupe.components.YCustomGridView', array(
             'value' => 'CHtml::link($data->name, array("/blog/blogAdmin/update/", "id" => $data->id))',
         ),
         array(
-            'header'  => Yii::t('blog', 'Записей'),
-            'value' => '$data->postsCount',
+            'header' => Yii::t('blog', 'Записей'),
+            'value'  => '$data->postsCount',
         ),
         array(
-            'header'  => Yii::t('blog', 'Участников'),
-            'value' => '$data->membersCount',
+            'header' => Yii::t('blog', 'Участников'),
+            'value'  => '$data->membersCount',
         ),
         'icon',
         'slug',
@@ -99,5 +98,4 @@ $this->widget('application.modules.yupe.components.YCustomGridView', array(
             'class' => 'bootstrap.widgets.TbButtonColumn',
         ),
     ),
-));
-?>
+)); ?>

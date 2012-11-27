@@ -18,7 +18,7 @@
         )),
         array('label' => Yii::t('blog', 'Участники'), 'items' => array(
             array('icon' => 'list-alt', 'label' => Yii::t('blog', 'Управление участниками'), 'url' => array('/blog/UserToBlogAdmin/index')),
-            array('icon' => 'plus-sign white', 'label' => Yii::t('blog', 'Добавить участника'), 'url' => array('/blog/UserToBlogAdmin/create')),
+            array('icon' => 'plus-sign', 'label' => Yii::t('blog', 'Добавить участника'), 'url' => array('/blog/UserToBlogAdmin/create')),
         )),
     );
 ?>

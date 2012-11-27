@@ -89,6 +89,24 @@ class MenuItem extends YModel
     }
 
     /**
+     * @return array customized attribute descriptions (name=>description)
+     */
+    public function attributeDescriptions()
+    {
+        return array(
+            'id'               => Yii::t('menu', 'Id пункта меню.'),
+            'parent_id'        => Yii::t('menu', 'Родитель данного пункта меню. Если пункт необходимо указать в корне, выберите корень меню.'),
+            'menu_id'          => Yii::t('menu', 'Укажите к какому меню относится данный пункт.'),
+            'title'            => Yii::t('menu', 'Заголовок пункта меню.'),
+            'href'             => Yii::t('menu', 'Адрес странице на сайте.'),
+            'condition_name'   => Yii::t('menu', 'Если данный пункт меню, необходимо выводить только при определенном условии, укажите его.'),
+            'condition_denial' => Yii::t('menu', 'Условие применяется при совпадении или отрацании.'),
+            'sort'             => Yii::t('menu', 'Порядковый номер пункта в меню.'),
+            'status'           => Yii::t('menu', 'Установите статус пункта меню: <br /><br /><span class="label label-success">активно</span> &ndash; пункт меню и все его потомки выводятся.<br /><br /><span class="label label-warning">не активно</span> &ndash; пункт меню и все его потомки выводиться не будут.'),
+        );
+    }
+
+    /**
      * Retrieves a list of models based on the current search/filter conditions.
      * @return CActiveDataProvider the data provider that can return the models based on the search/filter conditions.
      */

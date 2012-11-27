@@ -17,12 +17,14 @@ echo <<<EOF
         \$model->{$nameColumn} => array('/{$this->controller}/view', 'id' => \$model->{$this->tableSchema->primaryKey}),
         Yii::t('{$this->mid}', 'Редактирование'),
     );
+
     \$this->pageTitle = Yii::t('{$this->mid}', '{$label} - редактирование');
+
     \$this->menu = array(
         array('icon' => 'list-alt', 'label' => Yii::t('{$this->mid}', 'Управление {$this->mtvor}'), 'url' => array('/{$this->controller}/index')),
         array('icon' => 'plus-sign', 'label' => Yii::t('{$this->mid}', 'Добавить {$this->vin}'), 'url' => array('/{$this->controller}/create')),
         array('label' => Yii::t('{$this->mid}', '{$labelIm}')),
-        array('icon' => 'pencil white', 'encodeLabel' => false, 'label' => Yii::t('{$this->mid}', 'Редактирование {$this->rod}'), 'url' => array(
+        array('icon' => 'pencil', 'encodeLabel' => false, 'label' => Yii::t('{$this->mid}', 'Редактирование {$this->rod}'), 'url' => array(
             '/{$this->controller}/update',
             '{$this->tableSchema->primaryKey}' => \$model->{$this->tableSchema->primaryKey}
         )),

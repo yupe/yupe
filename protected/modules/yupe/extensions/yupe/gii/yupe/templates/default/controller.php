@@ -46,13 +46,12 @@ class <?php echo $this->controllerClass; ?> extends <?php echo $this->baseContro
                     $this->redirect(array($_POST['submit-type']));
             }
         }
-
         $this->render('create', array('model' => $model));
     }
 
     /**
      * Редактирование <?php echo $this->rod; ?>.
-     * @param integer $id the ID of the model to be updated
+     * @param integer $id Идинтификатор <?php echo $this->vin; ?> для редактирования
      */
     public function actionUpdate($id)
     {
@@ -78,12 +77,11 @@ class <?php echo $this->controllerClass; ?> extends <?php echo $this->baseContro
                     $this->redirect(array($_POST['submit-type']));
             }
         }
-
         $this->render('update', array('model' => $model));
     }
 
     /**
-     * Удаяет модель <?php echo $this->rod; ?> из базы.
+     * Удаляет модель <?php echo $this->rod; ?> из базы.
      * Если удаление прошло успешно - возвращется в index
      * @param integer $id идентификатор <?php echo $this->rod; ?>, который нужно удалить
      */
@@ -116,7 +114,6 @@ class <?php echo $this->controllerClass; ?> extends <?php echo $this->baseContro
         $model->unsetAttributes(); // clear any default values
         if (isset($_GET['<?php echo $this->modelClass; ?>']))
             $model->attributes = $_GET['<?php echo $this->modelClass; ?>'];
-
         $this->render('index', array('model' => $model));
     }
 

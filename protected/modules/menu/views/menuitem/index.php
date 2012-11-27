@@ -1,43 +1,33 @@
 <?php
-$this->breadcrumbs = array(
-    $this->module->getCategory() => array(''),
-    Yii::t('menu', 'Меню') => array('/menu/menu/index'),
-    Yii::t('menu', 'Пункты меню'),
-);
+    $this->breadcrumbs = array(
+        Yii::app()->getModule('menu')->getCategory() => array(),
+        Yii::t('menu', 'Меню') => array('/menu/menu/index'),
+        Yii::t('menu', 'Пункты меню'),
+    );
 
-$this->menu = array(
-    array('label' => Yii::t('menu', 'Меню')),
-    array('icon' => 'plus-sign', 'label' => Yii::t('menu', 'Добавить меню'), 'url' => array('/menu/menu/create')),
-    array('icon' => 'list-alt', 'label' => Yii::t('menu', 'Управление меню'), 'url' => array('/menu/menu/index')),
-    array('label' => Yii::t('menu', 'Пункты меню')),
-    array('icon' => 'plus-sign', 'label' => Yii::t('menu', 'Добавить пункт меню'), 'url' => array('/menu/menuitem/create')),
-    array('icon' => 'list-alt', 'label' => Yii::t('menu', 'Управление пунктами меню'), 'url' => array('/menu/menuitem/index')),
-);
+    $this->pageTitle = Yii::t('menu', 'Пункты меню - управление');
 
-Yii::app()->clientScript->registerScript('search', "
-    $('.search-button').click(function() {
-        $('.search-form').toggle();
-        return false;
-    });
-    $('.search-form form').submit(function() {
-        $.fn.yiiGridView.update('menu-grid', {
-            data: $(this).serialize()
-        });
-        return false;
-    });
-");
+    $this->menu = array(
+        array('label' => Yii::t('menu', 'Меню'), 'items' => array(
+            array('icon' => 'plus-sign', 'label' => Yii::t('menu', 'Добавить меню'), 'url' => array('/menu/menu/create')),
+            array('icon' => 'list-alt', 'label' => Yii::t('menu', 'Управление меню'), 'url' => array('/menu/menu/index')),
+        )),
+        array('label' => Yii::t('menu', 'Пункты меню'), 'items' => array(
+            array('icon' => 'plus-sign', 'label' => Yii::t('menu', 'Добавить пункт меню'), 'url' => array('/menu/menuitem/create')),
+            array('icon' => 'list-alt', 'label' => Yii::t('menu', 'Управление пунктами меню'), 'url' => array('/menu/menuitem/index')),
+        )),
+    );
 ?>
-
 <div class="page-header">
     <h1>
-        <?php echo Yii::t('menu','Пункты меню'); ?> 
+        <?php echo Yii::t('menu', 'Пункты меню'); ?> 
         <small><?php echo Yii::t('menu', 'управление'); ?></small>
     </h1>
 </div>
 
 <button class="btn btn-small dropdown-toggle" data-toggle="collapse" data-target="#search-toggle">
     <i class="icon-search">&nbsp;</i>
-    <?php echo CHtml::link(Yii::t('menu', 'Поиск меню'), '#', array('class' => 'search-button')); ?>
+    <?php echo CHtml::link(Yii::t('menu', 'Поиск пунктов меню'), '#', array('class' => 'search-button')); ?>
     <span class="caret">&nbsp;</span>
 </button>
 
@@ -45,7 +35,7 @@ Yii::app()->clientScript->registerScript('search', "
 <?php
 Yii::app()->clientScript->registerScript('search', "
     $('.search-form form').submit(function() {
-        $.fn.yiiGridView.update('menu-items-grid', {
+        $.fn.yiiGridView.update('blog-grid', {
             data: $(this).serialize()
         });
         return false;
@@ -57,15 +47,14 @@ $this->renderPartial('_search', array('model' => $model));
 
 </br>
 
-<p><?php echo Yii::t('menu', 'В данном разделе представлены средства управления пуектами меню'); ?></p>
+<p><?php echo Yii::t('menu', 'В данном разделе представлены средства управления пунктами меню'); ?></p>
 
-
-<?php
-$this->widget('YCustomGridView', array(
-    'id'            => 'menu-items-grid',
-    'itemsCssClass' => 'table table-condensed',
-    'dataProvider'  => $model->search(),
-    'columns'       => array(
+<?php $this->widget('application.modules.yupe.components.YCustomGridView', array(
+    'id'           => 'menu-items-grid',
+    'type'         => 'condensed',
+    'dataProvider' => $model->search(),
+    'filter'       => $model,
+    'columns'      => array(
         'id',
         'title',
         'href',
@@ -90,11 +79,10 @@ $this->widget('YCustomGridView', array(
         array(
             'name'  => 'status',
             'type'  => 'raw',
-            'value' => '$this->grid->returnBootstrapStatusHtml($data)',
+            'value' => '$this->grid->returnBootstrapStatusHtml($data, "status", "Status", array("lock", "ok-sign"))',
         ),
         array(
             'class' => 'bootstrap.widgets.TbButtonColumn',
         ),
     ),
-));
-?>
+)); ?>
