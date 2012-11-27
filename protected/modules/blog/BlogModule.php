@@ -56,7 +56,7 @@ class BlogModule extends YWebModule
 
     public function getAuthor()
     {
-        return Yii::t('blog','yupe team');
+        return Yii::t('blog', 'yupe team');
     }
 
     public function getAuthorEmail()

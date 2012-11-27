@@ -11,9 +11,11 @@
                 'modelType' : model,
                 'model_id'  : model_id,
                 'value'     : value,
-                '<?php echo Yii::app()->request->csrfTokenName; ?>' : '<?php echo Yii::app()->request->csrfToken?>'
+                '<?php echo Yii::app()->request->csrfTokenName; ?>' : '<?php echo Yii::app()->request->csrfToken; ?>'
             }, function(response) {
-                response.result ? $('#votes').html('Ваша оценка: <b>' + value + '</b> спасибо за голос!') : alert(response.data);
+                response.result
+                    ? $('#votes').html('<?php echo Yii::t('vote', 'Ваша оценка'); ?>: <b>' + value + '</b> <?php echo Yii::t('vote', 'спасибо за голос!'); ?>')
+                    : alert(response.data);
             }, 'json');
         });
     });

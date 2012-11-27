@@ -1,9 +1,9 @@
 <div class="form">
 
     <?php $form = $this->beginWidget('CActiveForm', array(
-                                                         'id' => 'vote-form',
-                                                         'enableAjaxValidation' => false,
-                                                    )); ?>
+         'id' => 'vote-form',
+         'enableAjaxValidation' => false,
+    )); ?>
 
     <p class="note"><?php echo Yii::t('news', 'Поля, отмеченные * обязательны для заполнения')?></p>
 
@@ -28,9 +28,7 @@
     </div>
 
     <div class="row buttons">
-        <?php echo CHtml::submitButton($model->isNewRecord
-                                           ? Yii::t('vote', 'Добавить голос')
-                                           : Yii::t('vote', 'Сохранить голос')); ?>
+        <?php echo CHtml::submitButton($model->isNewRecord ? Yii::t('vote', 'Добавить голос') : Yii::t('vote', 'Сохранить голос')); ?>
     </div>
 
     <?php $this->endWidget(); ?>

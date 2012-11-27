@@ -7,9 +7,27 @@ class VoteModule extends YWebModule
         return Yii::t('vote', 'Голосование');
     }
 
+    public function getCategory()
+    {
+        return Yii::t('vote', 'Сервисы');
+    }
+
     public function getDescription()
     {
         return Yii::t('vote', 'Голосование за любой контент');
+    }
+
+    public function getNavigation()
+    {
+        return array(
+            array('icon' => 'plus-sign', 'label' => Yii::t('blog', 'Добавить голос'), 'url' => array('/vote/default/create')),
+            array('icon' => 'th-list', 'label' => Yii::t('blog', 'Список голосов'), 'url' => array('/vote/default/index')),
+        );
+    }
+
+    public  function getVersion()
+    {
+        return '0.1 (dev)';
     }
 
     public function getAuthor()
@@ -19,7 +37,12 @@ class VoteModule extends YWebModule
 
     public function getAuthorEmail()
     {
-        return Yii::t('feedback', 'team@yupe.ru');
+        return Yii::t('vote', 'team@yupe.ru');
+    }
+
+    public function getUrl()
+    {
+        return Yii::t('blog', 'http://yupe.ru');
     }
 
     public function getParamsLabels()
@@ -27,11 +50,6 @@ class VoteModule extends YWebModule
         return array(
             'adminMenuOrder' => Yii::t('vote', 'Порядок следования в меню'),
         );
-    }
-
-    public function getCategory()
-    {
-        return Yii::t('vote', 'Сервисы');
     }
 
     public function getIcon()
