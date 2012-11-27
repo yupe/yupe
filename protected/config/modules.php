@@ -86,15 +86,17 @@ return array(
         ),
         'ipFilters'=>array(),
     ),
+    /*
     'vote' => array(
         'class' => 'application.modules.vote.VoteModule',
     ),
+     */
     /*
     // Определение страны, города и прочего по кофейной гуще (IP)
     // Требует раскоментировать sxGeo в mian конфиге и импортировать data/geo.sql
     'geo' => array(
         'class' => 'application.modules.geo.GeoModule',
     ),
-    */
+     */
 );
 ?>
