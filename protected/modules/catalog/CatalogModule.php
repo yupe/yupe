@@ -14,8 +14,7 @@ class CatalogModule extends YWebModule
 
     public function checkSelf()
     {
-        $uploadPath = Yii::getPathOfAlias('webroot') . '/' . Yii::app()->getModule('yupe')->uploadPath . '/' . $this->uploadPath;
-
+        $uploadPath = $this->getUploadPath();
         if (!is_writable($uploadPath))
             return array(
                 'type'    => YWebModule::CHECK_ERROR,
