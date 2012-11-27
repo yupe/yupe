@@ -6,7 +6,7 @@ class SearchModule extends YWebModule
     public function getEditableParams()
     {
         return array(
-//            'param',
+        //    'param',
         );
     }
 
@@ -49,7 +49,7 @@ class SearchModule extends YWebModule
 
     public function getAdminPageLink()
     {
-        return '/email/default/';
+        return '/';
     }
 
     public function getIcon()
@@ -69,12 +69,11 @@ class SearchModule extends YWebModule
 
     public static function onBeginRegistration($event)
     {
-        //
+
     }
 
     public static function onBeginProfile($event)
     {
-        /** @var CEvent $event */
         $profile = emailProfile::model()->findByPk(Yii::app()->user->id);
         $profile = $profile ? $profile : new emailProfile;
         $profile->user_id = Yii::app()->user->id;
@@ -85,7 +84,7 @@ class SearchModule extends YWebModule
             $profile->attributes = $_POST['emailProfile'];
             $profile->user_id    = Yii::app()->user->id;
 
-            // Тут можно делать дополнительные манипуляции с профилем
+            // @TODO Тут можно делать дополнительные манипуляции с профилем
         }
         $event->sender->module->profiles['email'] = $profile;
         return true;
