@@ -38,7 +38,10 @@ class DefaultController extends YBackController
 
             if ($model->save())
             {
-                Yii::app()->user->setFlash(YFlashMessages::NOTICE_MESSAGE, Yii::t('contentblock', 'Новый контент блок добавлен!'));
+                Yii::app()->user->setFlash(
+                    YFlashMessages::NOTICE_MESSAGE,
+                    Yii::t('contentblock', 'Новый контент блок добавлен!')
+                );
 
                 if (!isset($_POST['submit-type']))
                     $this->redirect(array('update', 'id' => $model->id));
@@ -46,7 +49,6 @@ class DefaultController extends YBackController
                     $this->redirect(array($_POST['submit-type']));
             }
         }
-
         $this->render('create', array('model' => $model));
     }
 
@@ -68,7 +70,10 @@ class DefaultController extends YBackController
 
             if ($model->save())
             {
-                Yii::app()->user->setFlash(YFlashMessages::NOTICE_MESSAGE, Yii::t('contentblock', 'Контент блок изменен!'));
+                Yii::app()->user->setFlash(
+                    YFlashMessages::NOTICE_MESSAGE,
+                    Yii::t('contentblock', 'Контент блок изменен!')
+                );
 
                 Yii::app()->cache->delete("ContentBlock{$model->code}");
 
@@ -78,7 +83,6 @@ class DefaultController extends YBackController
                     $this->redirect(array($_POST['submit-type']));
             }
         }
-
         $this->render('update', array('model' => $model));
     }
 
@@ -99,7 +103,7 @@ class DefaultController extends YBackController
                 $this->redirect(isset($_POST['returnUrl']) ? $_POST['returnUrl'] : array('admin'));
         }
         else
-            throw new CHttpException(400, 'Invalid request. Please do not repeat this request again.');
+            throw new CHttpException(400, Yii::t('contentblock', 'Неверный запрос. Пожалуйста, больше не повторяйте такие запросы!'));
     }
 
     /**
@@ -111,7 +115,6 @@ class DefaultController extends YBackController
         $model->unsetAttributes(); // clear any default values
         if (isset($_GET['ContentBlock']))
             $model->attributes = $_GET['ContentBlock'];
-
         $this->render('index', array('model' => $model));
     }
 
@@ -124,7 +127,7 @@ class DefaultController extends YBackController
     {
         $model = ContentBlock::model()->findByPk((int) $id);
         if ($model === null)
-            throw new CHttpException(404, 'The requested page does not exist.');
+            throw new CHttpException(404, Yii::t('contentblock', 'Запрошенная страница не найдена!'));
         return $model;
     }
 
