@@ -12,7 +12,7 @@
         array('icon' => 'plus-sign', 'label' =>  Yii::t('category', 'Добавить категорию'), 'url' => array('/category/default/create')),
         array('label' => Yii::t('catalog', 'Категория') . ' «' . mb_substr($model->name, 0, 32) . '»'),
         array('icon' => 'pencil', 'label' => Yii::t('category', 'Редактирование категории'), 'url' => array(
-            'category/default/update',
+            '/category/default/update',
             'id' => $model->id
         )),
         array('icon' => 'eye-open', 'label' => Yii::t('category', 'Просмотреть категорию'), 'url' => array(

@@ -2,7 +2,6 @@
     if ($model->hasErrors())
         echo $form->errorSummary($model);
 ?>
-
     <div class="row-fluid control-group  <?php echo $model-> hasErrors('title') ? 'error' : ''; ?>">
         <div class="span7 popover-help" data-content="<?php echo Yii::t('news', "Укажите краткое название данной страницы для отображения её в меню.<br/><br />Например:<pre>Контакты</pre>"); ?>" data-original-title="<?php echo $model->getAttributeLabel('title'); ?>">
             <?php echo $form->labelEx($model, 'title'); ?>

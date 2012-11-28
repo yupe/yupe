@@ -1,47 +1,55 @@
 <?php
-$this->breadcrumbs = array(
-    $this->getModule('news')->getCategory() => array(''),
-    Yii::t('news', 'Новости') => array('/news/default/index'),
-    Yii::t('news', 'Управление'),
-);
+    $this->breadcrumbs = array(
+        Yii::app()->getModule('news')->getCategory() => array(),
+        Yii::t('news', 'Новости') => array('/news/default/index'),
+        Yii::t('news', 'Управление'),
+    );
 
-$this->menu = array(
-    array('icon' => 'list-alt', 'label' => Yii::t('news', 'Управление новостями'), 'url' => array('/news/default/index')),
-    array('icon' => 'plus-sign', 'label' => Yii::t('news', 'Добавить новость'), 'url' => array('/news/default/create')),
-);
+    $this->pageTitle = Yii::t('news', 'Новости - управление');
+
+    $this->menu = array(
+        array('icon' => 'list-alt', 'label' => Yii::t('news', 'Управление новостями'), 'url' => array('/news/default/index')),
+        array('icon' => 'plus-sign', 'label' => Yii::t('news', 'Добавить новость'), 'url' => array('/news/default/create')),
+    );
 ?>
 <div class="page-header">
     <h1>
-        <?php echo $this->module->getName(); ?> 
+        <?php echo Yii::t('news', 'Новости'); ?>
         <small><?php echo Yii::t('news', 'управление'); ?></small>
     </h1>
 </div>
 
+
 <button class="btn btn-small dropdown-toggle" data-toggle="collapse" data-target="#search-toggle">
-    <i class="icon-search"></i>
+    <i class="icon-search">&nbsp;</i>
     <?php echo CHtml::link(Yii::t('news', 'Поиск новостей'), '#', array('class' => 'search-button')); ?>
-    <span class="caret"></span>
+    <span class="caret">&nbsp;</span>
 </button>
 
-<div id="search-toggle" class="collapse <?php echo isset($_GET[get_class($model)]) ? 'in' : 'out'; ?>">
-    <?php
-    Yii::app()->clientScript->registerScript('search', "
-        $('.search-form form').submit(function() {
-            $.fn.yiiGridView.update('news-grid', {
-                data: $(this).serialize()
-            });
-            return false;
-        });
-    ");
-    $this->renderPartial('_search', array('model' => $model));
-    ?>
-</div>
+<div id="search-toggle" class="collapse out search-form">
 <?php
-$this->widget('YCustomGridView', array(
+Yii::app()->clientScript->registerScript('search', "
+    $('.search-form form').submit(function() {
+        $.fn.yiiGridView.update('good-grid', {
+            data: $(this).serialize()
+        });
+        return false;
+    });
+");
+$this->renderPartial('_search', array('model' => $model));
+?>
+</div>
+
+<br/>
+
+<p><?php echo Yii::t('news', 'В данном разделе представлены средства управления новостями'); ?></p>
+
+<?php $this->widget('application.modules.yupe.components.YCustomGridView', array(
     'id'            => 'news-grid',
-    'dataProvider'  => $model->search(),
-    'itemsCssClass' => ' table table-condensed',
-    'columns'       => array(
+    'type'         => 'condensed',
+    'dataProvider' => $model->search(),
+    'filter'       => $model,
+    'columns'      => array(
         array(
             'name'        => 'id',
             'htmlOptions' => array('style' => 'width:20px'),
@@ -60,16 +68,15 @@ $this->widget('YCustomGridView', array(
            'value' => '$data->getCategoryName()',
         ),
         'alias',
-          array(
-            'name'  => Yii::t('news', 'Публичный урл'),
-            'value' => '$data->getPermaLink()',
+        array(
+            'header' => Yii::t('news', 'Публичный урл'),
+            'value'  => '$data->getPermaLink()',
         ),
         'lang',
         array(
-            'name'        => 'status',
-            'type'        => 'raw',
-            'value'       => '$this->grid->returnBootstrapStatusHtml($data)',
-            'htmlOptions' => array('style' => 'width:40px; text-align:center;'),
+            'name'   => 'status',
+            'type'  => 'raw',
+            'value' => '$this->grid->returnBootstrapStatusHtml($data, "status", "Status", array("pencil", "ok-sign", "time"))',
         ),
         array(
             'class'   => 'bootstrap.widgets.TbButtonColumn',
@@ -78,5 +85,4 @@ $this->widget('YCustomGridView', array(
             ),
         ),
     ),
-));
-?>
+)); ?>

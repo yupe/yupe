@@ -156,9 +156,9 @@ Yii::app()->clientScript->registerScript('fieldset', "
         'label'      => $model->isNewRecord ? Yii::t('news', 'Добавить новость и продолжить') : Yii::t('news', 'Сохранить новость и продолжить'),
     )); ?>
     <?php $this->widget('bootstrap.widgets.TbButton', array(
-        'buttonType' => 'submit',
-        'htmlOptions'=> array('name' => 'submit-type', 'value' => 'index'),
-        'label'      => $model->isNewRecord ? Yii::t('news', 'Добавить новость и закрыть') : Yii::t('news', 'Сохранить новость и закрыть'),
+        'buttonType'  => 'submit',
+        'htmlOptions' => array('name' => 'submit-type', 'value' => 'index'),
+        'label'       => $model->isNewRecord ? Yii::t('news', 'Добавить новость и закрыть') : Yii::t('news', 'Сохранить новость и закрыть'),
     )); ?>
 
 <?php $this->endWidget(); ?>

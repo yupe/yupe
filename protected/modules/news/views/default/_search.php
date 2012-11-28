@@ -8,11 +8,10 @@ $form = $this->beginWidget('bootstrap.widgets.TbActiveForm', array(
 
 Yii::app()->clientScript->registerScript('fieldset', "
     $('document').ready(function () {
-        $('.popover-help').popover({ trigger : 'hover', 'delay' : 500 });
+        $('.popover-help').popover({ trigger : 'hover', delay : 500 });
     });
 ");
 ?>
-
     <fieldset class="inline">
         <div class="row-fluid control-group">
             <div class="span1">
@@ -22,10 +21,10 @@ Yii::app()->clientScript->registerScript('fieldset', "
                 <?php echo $form->textFieldRow($model, 'date'); ?>
             </div>
             <div class="span3">
-                <?php echo $form->dropDownListRow($model, 'status', $model->getStatusList(), array('empty' => Yii::t('news', '- не важен -'))); ?>
+                <?php echo $form->dropDownListRow($model, 'status', $model->statusList, array('empty' => Yii::t('news', '- не важен -'))); ?>
             </div>
             <div class="span4">
-                <?php echo $form->dropDownListRow($model, 'category_id', CHtml::listData($this->module->getCategoryList(), 'id', 'name'), array('empty' => Yii::t('news', '- не важно -'))); ?>
+                <?php echo $form->dropDownListRow($model, 'category_id', CHtml::listData($this->module->categoryList, 'id', 'name'), array('empty' => Yii::t('news', '- не важно -'))); ?>
             </div>
         </div>
         <div class="row-fluid control-group">
@@ -44,15 +43,16 @@ Yii::app()->clientScript->registerScript('fieldset', "
                 <?php echo $form->textFieldRow($model, 'full_text'); ?>
             </div>
             <div class="span10">
-                <?php echo $form->checkBoxRow($model, 'is_protected', $model->getProtectedStatusList()); ?>
+                <?php echo $form->checkBoxRow($model, 'is_protected', $model->protectedStatusList); ?>
             </div>
         </div>
     </fieldset>
+
     <?php $this->widget('bootstrap.widgets.TbButton', array(
         'type'        => 'primary',
         'encodeLabel' => false,
         'buttonType'  => 'submit',
-        'label'       => '<i class="icon-search icon-white">&nbsp;</i> ' . Yii::t('blog', 'Найти новость'),
+        'label'       => '<i class="icon-search icon-white">&nbsp;</i> ' . Yii::t('blog', 'Искать новость'),
     )); ?>
 
 <?php $this->endWidget(); ?>
