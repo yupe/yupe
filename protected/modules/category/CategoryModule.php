@@ -11,7 +11,7 @@ class CategoryModule extends YWebModule
 
     public function checkSelf()
     {
-        $uploadPath = Yii::getPathOfAlias('webroot') . '/' . Yii::app()->getModule('yupe')->uploadPath . '/' . $this->uploadPath;
+        $uploadPath = $this->getUploadPath();
 
         if (!is_writable($uploadPath))
             return array(
@@ -44,7 +44,7 @@ class CategoryModule extends YWebModule
 
     public function getAdminPageLink()
     {
-        return '/category/default/';
+        return '/category/default/index';
     }
 
     public function getVersion()
@@ -105,8 +105,8 @@ class CategoryModule extends YWebModule
     public function getNavigation()
     {
         return array(
-            array('icon' => 'plus-sign', 'label' => Yii::t('category', 'Добавить категорию'), 'url' => array('/category/default/create/')),
-            array('icon' => 'th-list', 'label' => Yii::t('category', 'Список категорий'), 'url' => array('/category/default/index/')),
+            array('icon' => 'list-alt', 'label' => Yii::t('category', 'Список категорий'), 'url' => array('/category/default/index')),
+            array('icon' => 'plus-sign', 'label' => Yii::t('category', 'Добавить категорию'), 'url' => array('/category/default/create')),
         );
     }
 }

@@ -48,11 +48,11 @@ class DictionaryModule extends YWebModule
     {
         return array(
             array('label' => Yii::t('dictionary', 'Справочники')),
+            array('icon' => 'list-alt', 'label' => Yii::t('dictionary', 'Список справочников'), 'url' => array('/dictionary/default/index')),
             array('icon' => 'plus-sign', 'label' => Yii::t('dictionary', 'Добавить справочник'), 'url' => array('/dictionary/default/create')),
-            array('icon' => 'th-list', 'label' => Yii::t('dictionary', 'Список справочников'), 'url' => array('/dictionary/default/index')),
             array('label' => Yii::t('dictionary', 'Значения')),
+            array('icon' => 'list-alt', 'label' => Yii::t('dictionary', 'Список значений'), 'url' => array('/dictionary/dictionaryData/index')),
             array('icon' => 'plus-sign', 'label' => Yii::t('dictionary', 'Добавить значение'), 'url' => array('/dictionary/dictionaryData/create')),
-            array('icon' => 'th-list', 'label' => Yii::t('dictionary', 'Список значений'), 'url' => array('/dictionary/dictionaryData/index')),
         );
     }
 

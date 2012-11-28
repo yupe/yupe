@@ -44,7 +44,7 @@ class QueueModule extends YWebModule
 
     public function getAdminPageLink()
     {
-        return '/queue/default/';
+        return '/queue/default/index';
     }
 
     public function init()
@@ -60,9 +60,9 @@ class QueueModule extends YWebModule
     public function getNavigation()
     {
         return array(
-            array('icon' => 'plus-sign', 'label' => Yii::t('queue', 'Добавить задание'), 'url' => array('/queue/default/create/')),
-            array('icon' => 'th-list', 'label' => Yii::t('queue', 'Список заданий'), 'url' => array('/queue/default/')),
-            array('icon' => 'trash', 'label' => Yii::t('queue', 'Очистить очередь'), 'url' => array('/queue/default/clear/')),
+            array('icon' => 'list-alt', 'label' => Yii::t('queue', 'Список заданий'), 'url' => array('/queue/default/index')),
+            array('icon' => 'plus-sign', 'label' => Yii::t('queue', 'Добавить задание'), 'url' => array('/queue/default/create')),
+            array('icon' => 'trash', 'label' => Yii::t('queue', 'Очистить очередь'), 'url' => array('/queue/default/clear')),
         );
     }
 }

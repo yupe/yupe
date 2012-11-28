@@ -9,7 +9,7 @@
 
     $this->menu = array(
         array('icon' => 'list-alt', 'label' => Yii::t('catalog', 'Управление товарами'), 'url' => array('/catalog/default/index')),
-        array('icon' => 'plus-sign white', 'label' => Yii::t('catalog', 'Добавить товар'), 'url' => array('/catalog/default/create')),
+        array('icon' => 'plus-sign', 'label' => Yii::t('catalog', 'Добавить товар'), 'url' => array('/catalog/default/create')),
     );
 ?>
 <div class="page-header">

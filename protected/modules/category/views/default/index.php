@@ -1,46 +1,49 @@
 <?php
-$this->breadcrumbs = array(
-    $this->module->getCategory() => array(''),
-    Yii::t('category','Категории') => array( 'index' ),
-    Yii::t('category', 'Управление'),
-);
-$this->pageTitle = Yii::t('category','Категории управление');
-$this->menu = array(
-    array( 'icon'  => 'list-alt white', 'label' => Yii::t('category', 'Управление категориями'), 'url'   => array( '/category/default/index' ) ),
-    array( 'icon'  => 'plus-sign', 'label' => Yii::t('category', 'Добавить категорию'), 'url'   => array( '/category/default/create' ) ),
-);
+    $this->breadcrumbs = array(
+        Yii::app()->getModule('category')->getCategory() => array(),
+        Yii::t('category', 'Категории') => array('/category/default/index'),
+        Yii::t('category', 'Управление'),
+    );
+
+    $this->pageTitle = Yii::t('category', 'Категории - управление');
+
+    $this->menu = array(
+        array('icon' => 'list-alt', 'label' => Yii::t('category', 'Управление категориями'), 'url' => array('/category/default/index')),
+        array('icon' => 'plus-sign', 'label' => Yii::t('category', 'Добавить категорию'), 'url' => array('/category/default/create')),
+    );
 ?>
 <div class="page-header">
-    <h1><?php echo ucfirst(Yii::t('category', 'Категории')); ?>    <small><?php echo Yii::t('category', 'управление'); ?></small>
+    <h1>
+        <?php echo Yii::t('category', 'Категории'); ?>
+        <small><?php echo Yii::t('category', 'управление'); ?></small>
     </h1>
 </div>
-<button class="btn btn-small dropdown-toggle"  data-toggle="collapse"  data-target="#search-toggle" >
-    <i class="icon-search"></i>
-    <a class="search-button" href="#"><?php echo Yii::t('category','Поиск категорий');?></a>    <span class="caret"></span>
+
+<button class="btn btn-small dropdown-toggle" data-toggle="collapse" data-target="#search-toggle">
+    <i class="icon-search">&nbsp;</i>
+    <?php echo CHtml::link(Yii::t('category', 'Поиск категорий'), '#', array('class' => 'search-button')); ?>
+    <span class="caret">&nbsp;</span>
 </button>
 
-<div id="search-toggle" class="collapse out">
+<div id="search-toggle" class="collapse out search-form">
 <?php
 Yii::app()->clientScript->registerScript('search', "
-    $('.search-form').submit(function() {
-        $.fn.yiiGridView.update('category-grid', {
+    $('.search-form form').submit(function() {
+        $.fn.yiiGridView.update('post-grid', {
             data: $(this).serialize()
         });
         return false;
     });
 ");
-    $this->renderPartial('_search', array('model' => $model));
+$this->renderPartial('_search', array('model' => $model));
 ?>
 </div>
 
 <br/>
 
-<p>
-    <?php echo Yii::t('category', 'В данном разделе представлены средства управления категориями'); ?>
-</p>
+<p><?php echo Yii::t('category', 'В данном разделе представлены средства управления категориями'); ?></p>
 
-<?php
-$this->widget('application.modules.yupe.components.YCustomGridView', array(
+<?php $this->widget('application.modules.yupe.components.YCustomGridView', array(
     'id'           => 'category-grid',
     'type'         => 'condensed',
     'dataProvider' => $model->search(),
@@ -50,7 +53,7 @@ $this->widget('application.modules.yupe.components.YCustomGridView', array(
          array(
             'name'  => 'name',
             'type'  => 'raw',
-            'value' => 'CHtml::link($data->name, array("/category/default/update/", "alias" => $data->alias))',
+            'value' => 'CHtml::link($data->name, array("/category/default/update", "alias" => $data->alias))',
         ),
         'alias',
         array(
@@ -72,5 +75,4 @@ $this->widget('application.modules.yupe.components.YCustomGridView', array(
             'class' => 'bootstrap.widgets.TbButtonColumn',
         ),
     ),
-));
-?>
+)); ?>

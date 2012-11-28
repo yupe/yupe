@@ -92,6 +92,24 @@ class Category extends YModel
     }
 
     /**
+     * @return array customized attribute descriptions (name=>description)
+     */
+    public function attributeDescriptions()
+    {
+       return array(
+            'id'                => Yii::t('category', 'Id'),
+            'lang'              => Yii::t('category', 'Язык'),
+            'parent_id'         => Yii::t('category', 'Родитель'),
+            'name'              => Yii::t('category', 'Название'),
+            'image'             => Yii::t('category', 'Изображение'),
+            'short_description' => Yii::t('category', 'Короткое описание'),
+            'description'       => Yii::t('category', 'Описание'),
+            'alias'             => Yii::t('category', 'Алиас'),
+            'status'            => Yii::t('category', 'Статус'),
+        );
+    }
+
+    /**
      * Retrieves a list of models based on the current search/filter conditions.
      * @return CActiveDataProvider the data provider that can return the models based on the search/filter conditions.
      */

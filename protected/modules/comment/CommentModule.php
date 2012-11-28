@@ -44,7 +44,7 @@ class CommentModule extends YWebModule
 
         if ($count)
             return array(
-                'type' => YWebModule::CHECK_NOTICE,
+                'type'    => YWebModule::CHECK_NOTICE,
                 'message' => Yii::t('comment', 'У Вас {{count}} новых комментариев. {{link}}', array(
                     '{{count}}' => $count,
                     '{{link}}'  => CHtml::link(Yii::t('comment', 'Модерация комментариев'), array(
@@ -87,8 +87,8 @@ class CommentModule extends YWebModule
     public function getNavigation()
     {
         return array(
-             array('icon' => 'plus-sign', 'label' => Yii::t('comment', 'Добавить комментарий'), 'url' => array('/comment/default/create/')),
-             array('icon' => 'th-list', 'label' => Yii::t('comment', 'Список комментариев'), 'url'=>array('/comment/default/index/')),
+            array('icon' => 'list-alt', 'label' => Yii::t('comment', 'Список комментариев'), 'url'=>array('/comment/default/index')),
+            array('icon' => 'plus-sign', 'label' => Yii::t('comment', 'Добавить комментарий'), 'url' => array('/comment/default/create')),
         );
     }
 

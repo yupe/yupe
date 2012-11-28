@@ -8,7 +8,7 @@
     $this->pageTitle = Yii::t('catalog', 'Товары - управление');
 
     $this->menu = array(
-        array('icon' => 'list-alt white', 'label' => Yii::t('catalog', 'Управление товарами'), 'url' => array('/catalog/default/index')),
+        array('icon' => 'list-alt', 'label' => Yii::t('catalog', 'Управление товарами'), 'url' => array('/catalog/default/index')),
         array('icon' => 'plus-sign', 'label' => Yii::t('catalog', 'Добавить товар'), 'url' => array('/catalog/default/create')),
     );
 ?>
@@ -41,12 +41,9 @@ $this->renderPartial('_search', array('model' => $model));
 
 <br/>
 
-<p>
-    <?php echo Yii::t('catalog', 'В данном разделе представлены средства управления товарами'); ?>    
-</p>
+<p><?php echo Yii::t('catalog', 'В данном разделе представлены средства управления товарами'); ?></p>
 
-<?php
-$this->widget('application.modules.yupe.components.YCustomGridView', array(
+<?php $this->widget('application.modules.yupe.components.YCustomGridView', array(
     'id'           => 'good-grid',
     'type'         => 'condensed',
     'dataProvider' => $model->search(),
@@ -56,7 +53,7 @@ $this->widget('application.modules.yupe.components.YCustomGridView', array(
         array(
             'name'  => 'name',
             'type'  => 'raw',
-            'value' => 'CHtml::link($data->name, array("/catalog/default/update/", "id" => $data->id))',
+            'value' => 'CHtml::link($data->name, array("/catalog/default/update", "id" => $data->id))',
         ),
         array(
             'name'  => 'alias',
@@ -66,7 +63,7 @@ $this->widget('application.modules.yupe.components.YCustomGridView', array(
         array(
             'name'  => 'category_id',
             'type'  => 'raw',
-            'value' => 'CHtml::link($data->category->name, array("/category/default/view/", "id" => $data->id))',
+            'value' => 'CHtml::link($data->category->name, array("/category/default/view", "id" => $data->id))',
         ),
         'price',
         'article',
@@ -83,7 +80,7 @@ $this->widget('application.modules.yupe.components.YCustomGridView', array(
         array(
             'name'  => 'user_id',
             'type'  => 'raw',
-            'value' => 'CHtml::link($data->user->getFullName(), array("/user/default/view/", "id" => $data->user->id))',
+            'value' => 'CHtml::link($data->user->getFullName(), array("/user/default/view", "id" => $data->user->id))',
         ),       
         array(
             'name'  => 'create_time',
@@ -93,5 +90,4 @@ $this->widget('application.modules.yupe.components.YCustomGridView', array(
             'class' => 'bootstrap.widgets.TbButtonColumn',
         ),
     ),
-));
-?>
+)); ?>

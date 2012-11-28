@@ -12,7 +12,7 @@ class NewsModule extends YWebModule
 
     public function checkSelf()
     {
-        $uploadPath = Yii::getPathOfAlias('webroot') . '/' . Yii::app()->getModule('yupe')->uploadPath . '/' . $this->uploadPath;
+        $uploadPath = $this->getUploadPath();
 
         if (!is_writable($uploadPath))
             return array(
@@ -90,8 +90,8 @@ class NewsModule extends YWebModule
     public function getNavigation()
     {
         return array(
+            array('icon' => 'list-alt', 'label' => Yii::t('news', 'Список новостей'), 'url' => array('/news/default/index')),
             array('icon' => 'plus-sign', 'label' => Yii::t('news', 'Добавить новость'), 'url' => array('/news/default/create')),
-            array('icon' => 'th-list', 'label' => Yii::t('news', 'Список новостей'), 'url' => array('/news/default/index')),
         );
     }
 

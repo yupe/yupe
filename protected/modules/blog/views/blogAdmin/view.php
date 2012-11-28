@@ -21,8 +21,8 @@
                 'id' => $model->id
             )),
             array('icon' => 'trash', 'label' => Yii::t('blog', 'Удалить блог'), 'url' => '#', 'linkOptions' => array(
-                'submit' => array('delete', 'id' => $model->id),
-                'confirm' => Yii::t('blog', 'Вы уверены, что хотите удалить блог?')
+                'submit' => array('/blog/BlogAdmin/delete', 'id' => $model->id),
+                'confirm' => Yii::t('blog', 'Вы уверены, что хотите удалить блог?'),
             )),
         )),
         array('label' => Yii::t('blog', 'Записи'), 'items' => array(

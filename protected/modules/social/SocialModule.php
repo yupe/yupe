@@ -64,7 +64,7 @@ class SocialModule extends YWebModule
 
     public function getAdminPageLink()
     {
-        return '/social/default/';
+        return '/social/default/index';
     }
 
     public function getIcon()

@@ -49,7 +49,7 @@ class FeedbackModule extends YWebModule
                 'message' => Yii::t('feedback', 'Укажите куда отправлять сообщения обратной связи на email или сохранять в базу данных (Настройка backEnd в config/main.php)'),
             );
 
-        if (in_array(FeedbackModule::BACKEND_EMAIL, $this->backEnd) && (!$this->emails || !count(explode(',',$this->emails))))
+        if (in_array(FeedbackModule::BACKEND_EMAIL, $this->backEnd) && (!$this->emails || !count(explode(',', $this->emails))))
             return array(
                 'type'    => YWebModule::CHECK_ERROR,
                 'message' => Yii::t('feedback', 'Укажите на какие email отправлять сообщения обратной связи (emails) {link}', array(
@@ -62,7 +62,7 @@ class FeedbackModule extends YWebModule
 
         if (!$this->notifyEmailFrom)
             return array(
-                'type' => YWebModule::CHECK_ERROR,
+                'type'    => YWebModule::CHECK_ERROR,
                 'message' => Yii::t('feedback', 'Укажите с какого email отправлять сообщения обратной связи {link}', array(
                     '{link}' => CHtml::link(Yii::t('feedback', 'Изменить настройки модуля'), array(
                         '/yupe/backend/modulesettings/',
@@ -72,9 +72,9 @@ class FeedbackModule extends YWebModule
             );
 
         $count = FeedBack::model()->new()->cache($this->cacheTime)->count();
-        if($count)
+        if ($count)
             return array(
-                'type' => YWebModule::CHECK_NOTICE,
+                'type'    => YWebModule::CHECK_NOTICE,
                 'message' => Yii::t('feedback', 'У Вас {{count}} ', array(
                     '{{count}}' => $count
                  )) . Yii::t('feedback', "новое сообщение с сайта|новых сообщения с сайта|новых сообщений с сайта", $count) . ' ' . CHtml::link(Yii::t('feedback', 'Посмотреть и ответить?'), array(
@@ -86,8 +86,8 @@ class FeedbackModule extends YWebModule
     public function getNavigation()
     {
         return array(
-            array('icon' => 'plus-sign', 'label' => Yii::t('feedback', 'Добавить сообщение'), 'url' => array('/feedback/default/create/')),
-            array('icon' => 'th-list', 'label' => Yii::t('feedback', 'Список сообщений'), 'url' => array('/feedback/default/index/')),
+            array('icon' => 'list-alt', 'label' => Yii::t('feedback', 'Список сообщений'), 'url' => array('/feedback/default/index')),
+            array('icon' => 'plus-sign', 'label' => Yii::t('feedback', 'Добавить сообщение'), 'url' => array('/feedback/default/create')),
         );
     }
 
@@ -135,7 +135,7 @@ class FeedbackModule extends YWebModule
     {
         parent::init();
 
-        if(!$this->types)
+        if (!$this->types)
             $this->types = array(
                 1 => Yii::t('feedback', 'Ошибка на сайте'),
                 2 => Yii::t('feedback', 'Предложение о сотрудничестве'),
