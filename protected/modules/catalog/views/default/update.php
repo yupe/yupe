@@ -12,7 +12,7 @@
         array('icon' => 'list-alt', 'label' => Yii::t('catalog', 'Управление товарами'), 'url' => array('/catalog/default/index')),
         array('icon' => 'plus-sign', 'label' => Yii::t('catalog', 'Добавить товар'), 'url' => array('/catalog/default/create')),
         array('label' => Yii::t('catalog', 'Товар') . ' «' . mb_substr($model->name, 0, 32) . '»'),
-        array('icon' => 'pencil white', 'label' => Yii::t('catalog', 'Редактирование товара'), 'url' => array(
+        array('icon' => 'pencil', 'label' => Yii::t('catalog', 'Редактирование товара'), 'url' => array(
             '/catalog/default/update',
             'id' => $model->id
         )),

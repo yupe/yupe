@@ -85,7 +85,7 @@ $this->renderPartial('_search', array('model' => $model));
         array(
             'name'  => 'create_time',
             'value' => 'Yii::app()->getDateFormatter()->formatDateTime($data->create_time, "short", "short")',
-        ),              
+        ),
         array(
             'class' => 'bootstrap.widgets.TbButtonColumn',
         ),

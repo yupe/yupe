@@ -15,7 +15,7 @@
             '/catalog/default/update',
             'id' => $model->id
         )),
-        array('icon' => 'eye-open white', 'label' => Yii::t('catalog', 'Просмотреть товар'), 'url' => array(
+        array('icon' => 'eye-open', 'label' => Yii::t('catalog', 'Просмотреть товар'), 'url' => array(
             '/catalog/default/view',
             'id' => $model->id
         )),

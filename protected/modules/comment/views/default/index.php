@@ -1,48 +1,42 @@
 <?php
-$this->breadcrumbs = array(
-    $this->getModule('comment')->getCategory() => array(''),
-    Yii::t('comment', 'Комментарии') => array('/comment/default/index'),
-    Yii::t('comment', 'Управление'),
-);
+    $this->breadcrumbs = array(
+        Yii::app()->getModule('comment')->getCategory() => array(),
+        Yii::t('comment', 'Комментарии') => array('/comment/default/index'),
+        Yii::t('comment', 'Управление'),
+    );
 
-$this->menu = array(
-    array('icon' => 'list-alt', 'label' => Yii::t('comment', 'Список комментариев'), 'url' => array('/comment/default/index')),
-    array('icon' => 'plus-sign', 'label' => Yii::t('comment', 'Добавить комментарий'), 'url' => array('/comment/default/create')),
-);
+    $this->pageTitle = Yii::t('comment', 'Комментарии - управление');
 
+    $this->menu = array(
+        array('icon' => 'list-alt', 'label' => Yii::t('comment', 'Список комментариев'), 'url' => array('/comment/default/index')),
+        array('icon' => 'plus-sign', 'label' => Yii::t('comment', 'Добавить комментарий'), 'url' => array('/comment/default/create')),
+    );
+?>
+<div class="page-header">
+    <h1>
+        <?php echo Yii::t('comment', 'Комментарии'); ?>
+        <small><?php echo Yii::t('comment', 'управление'); ?></small>
+    </h1>
+</div>
+
+<button class="btn btn-small dropdown-toggle" data-toggle="collapse" data-target="#search-toggle">
+    <i class="icon-search">&nbsp;</i>
+    <?php echo CHtml::link(Yii::t('comment', 'Поиск комментариев'), '#', array('class' => 'search-button')); ?>
+    <span class="caret">&nbsp;</span>
+</button>
+
+<div id="search-toggle" class="collapse out search-form">
+<?php
 Yii::app()->clientScript->registerScript('search', "
-    $('.search-button').click(function(){
-        $('.search-form').toggle();
-        return false;
-    });
     $('.search-form form').submit(function() {
-        $.fn.yiiGridView.update('comment-grid', {
+        $.fn.yiiGridView.update('post-grid', {
             data: $(this).serialize()
         });
         return false;
     });
 ");
+$this->renderPartial('_search', array('model' => $model));
 ?>
-
-<h1><?php echo $this->module->getName(); ?> <small><?php echo Yii::t('comment', 'управление'); ?></small></h1>
-
-<button class="btn btn-small dropdown-toggle"  data-toggle="collapse"  data-target="#search-toggle" >
-    <i class="icon-search"></i>
-    <a class="search-button" href="#"><?php echo Yii::t('comment', 'Поиск комментариев'); ?></a><span class="caret"></span>
-</button>
-
-<div id="search-toggle" class="collapse out">
-    <?php
-    Yii::app()->clientScript->registerScript('search', "
-        $('.search-form').submit(function() {
-            $.fn.yiiGridView.update('comment-grid', {
-                data: $(this).serialize()
-            });
-            return false;
-        });
-    ");
-    $this->renderPartial('_search', array('model' => $model));
-    ?>
 </div>
 
 <br/>
@@ -51,7 +45,9 @@ Yii::app()->clientScript->registerScript('search', "
 
 <?php $this->widget('application.modules.yupe.components.YCustomGridView', array(
     'id'           => 'comment-grid',
+    'type'         => 'condensed',
     'dataProvider' => $model->search(),
+    'filter'       => $model,
     'columns'      => array(
         array(
             'class'          => 'CCheckBoxColumn',
@@ -65,15 +61,17 @@ Yii::app()->clientScript->registerScript('search', "
         array(
             'name'  => 'status',
             'type'  => 'raw',
-            'value' => '$this->grid->returnBootstrapStatusHtml($data)'
+            'value' => '$this->grid->returnBootstrapStatusHtml($data, "status", "Status", array("pencil", "ok-sign", "fire", "remove"))',
         ),
         'text',
-        'creation_date',
+        array(
+            'name'  => 'creation_date',
+            'value' => 'Yii::app()->getDateFormatter()->formatDateTime($data->creation_date, "short", "short")',
+        ),
         'name',
         'email',
         array(
-            'class'              => 'bootstrap.widgets.TbButtonColumn',
-            'deleteConfirmation' => Yii::t('comment', 'Вы действительно хотите удалить выбранный комментарий?'),
+            'class' => 'bootstrap.widgets.TbButtonColumn',
         ),
     ),
 )); ?>

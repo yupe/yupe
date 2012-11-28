@@ -4,9 +4,9 @@
         Yii::t('page', 'Страницы') => array('/page/default/index'),
         Yii::t('page', 'Добавление страницы'),
     );
-    
+
     $this->pageTitle = Yii::t('page', 'Добавление страницы');
-    
+
     $this->menu = array(
         array('icon' => 'list-alt', 'label' => Yii::t('page', 'Управление страницами'), 'url' => array('/page/default/index')),
         array('icon' => 'plus-sign', 'label' => Yii::t('page', 'Добавление страницы'), 'url' => array('/page/default/create')),
