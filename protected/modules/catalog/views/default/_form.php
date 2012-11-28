@@ -4,13 +4,13 @@ $form = $this->beginWidget('bootstrap.widgets.TbActiveForm', array(
     'enableAjaxValidation'   => false,
     'enableClientValidation' => true,
     'type'                   => 'vertical',
-    'htmlOptions'            => array('class' => 'well',  'enctype'=>'multipart/form-data'),
+    'htmlOptions'            => array('class' => 'well', 'enctype'=>'multipart/form-data'),
     'inlineErrors'           => true,
 ));
 
 Yii::app()->clientScript->registerScript('fieldset', "
     $('document').ready(function () {
-        $('.popover-help').popover({ 'trigger' : 'hover', 'delay' : 500 });
+        $('.popover-help').popover({ trigger : 'hover', delay : 500 });
     });
 ");
 ?>
@@ -99,7 +99,6 @@ Yii::app()->clientScript->registerScript('fieldset', "
         'type'       => 'primary',
         'label'      => $model->isNewRecord ? Yii::t('catalog', 'Добавить товар и продолжить') : Yii::t('catalog', 'Сохранить товар и продолжить'),
     )); ?>
-
     <?php $this->widget('bootstrap.widgets.TbButton', array(
         'buttonType' => 'submit',
         'htmlOptions'=> array('name' => 'submit-type', 'value' => 'index'),

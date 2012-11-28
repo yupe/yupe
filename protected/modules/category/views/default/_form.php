@@ -14,7 +14,6 @@ Yii::app()->clientScript->registerScript('fieldset', "
     });
 ");
 ?>
-
     <div class="alert alert-info">
         <?php echo Yii::t('category', 'Поля, отмеченные'); ?>
         <span class="required">*</span> 
@@ -67,6 +66,7 @@ Yii::app()->clientScript->registerScript('fieldset', "
     <div class='row-fluid control-group <?php echo $model->hasErrors("status") ? "error" : ""; ?>'>
         <?php echo  $form->dropDownList($model, 'status', $model->statusList); ?>
     </div>
+
     <?php $this->widget('bootstrap.widgets.TbButton', array(
         'buttonType' => 'submit',
         'type'       => 'primary',

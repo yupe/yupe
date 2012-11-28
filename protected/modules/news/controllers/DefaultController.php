@@ -47,15 +47,15 @@ class DefaultController extends YBackController
                     Yii::t('news', 'Новость добавлена!')
                 );
 
-                if (count(explode(',', Yii::app()->getModule('yupe')->availableLanguages)))
+                if (!isset($_POST['submit-type']))
                     $this->redirect(array('update', 'alias' => $model->alias));
+                else
+                    $this->redirect(array($_POST['submit-type']));
 
                 $this->redirect(array('view', 'id' => $model->id));
             }
         }
-
         $model->date = date('d.m.Y');
-
         $this->render('create', array('model' => $model));
     }
 
@@ -84,10 +84,13 @@ class DefaultController extends YBackController
                         YFlashMessages::NOTICE_MESSAGE,
                         Yii::t('news', 'Новость изменена!')
                     );
-                    $this->redirect(array('update', 'id' => $model->id));
+
+                    if (!isset($_POST['submit-type']))
+                        $this->redirect(array('update', 'alias' => $model->alias));
+                    else
+                        $this->redirect(array($_POST['submit-type']));
                 }
             }
-
             $this->render('update', array('model' => $model));
         }
         else
@@ -141,7 +144,6 @@ class DefaultController extends YBackController
                     $modelsByLang[$l] = $news;
                 }
             }
-
             // Проверим пост
             if (isset($_POST['News']))
             {
@@ -176,7 +178,6 @@ class DefaultController extends YBackController
 
                         if ($l != Yii::app()->sourceLanguage)
                             $modelsByLang[$l]->scenario = 'altlang';
-
                         if (!$modelsByLang[$l]->save())
                             $wasError = true;
 
@@ -204,10 +205,10 @@ class DefaultController extends YBackController
                         Yii::t('news', 'Новость обновлена!')
                     );
 
-                    if (isset($_POST['saveAndClose']))
-                        $this->redirect(array('admin'));
-
-                    $this->redirect(array('update', 'alias' => $alias));
+                    if (!isset($_POST['submit-type']))
+                        $this->redirect(array('update', 'alias' => $model->alias));
+                    else
+                        $this->redirect(array($_POST['submit-type']));
                 }
                 else
                     Yii::app()->user->setFlash(
@@ -215,8 +216,6 @@ class DefaultController extends YBackController
                         Yii::t('news', 'Ошибки при сохранении новости!')
                     );
             }
-
-
             $this->render('updateMultilang', array(
                 'model'  => $model,
                 'models' => $modelsByLang,
@@ -241,16 +240,13 @@ class DefaultController extends YBackController
                 $model->delete();
             }
             else
-            {
-                // we only allow deletion via POST request
-                $this->loadModel($id)->delete();
-            }
+                $this->loadModel($id)->delete(); // we only allow deletion via POST request
             // if AJAX request (triggered by deletion via admin grid view), we should not redirect the browser
             if (!isset($_GET['ajax']))
                 $this->redirect(isset($_POST['returnUrl']) ? $_POST['returnUrl'] : array('admin'));
         }
         else
-            throw new CHttpException(400, 'Invalid request. Please do not repeat this request again.');
+            throw new CHttpException(400, Yii::t('news', 'Неверный запрос. Пожалуйста, больше не повторяйте такие запросы!'));
     }
 
     /**
@@ -262,7 +258,6 @@ class DefaultController extends YBackController
         $model->unsetAttributes(); // clear any default values
         if (isset($_GET['News']))
             $model->attributes = $_GET['News'];
-
         $this->render('index', array('model' => $model));
     }
 
@@ -275,7 +270,7 @@ class DefaultController extends YBackController
     {
         $model = News::model()->findByPk((int)$id);
         if ($model === null)
-            throw new CHttpException(404, 'The requested page does not exist.');
+            throw new CHttpException(404, Yii::t('catalog', 'Запрошенная страница не найдена!'));
         return $model;
     }
 

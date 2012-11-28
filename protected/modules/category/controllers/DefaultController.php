@@ -50,7 +50,7 @@ class DefaultController extends YBackController
                 else
                     $this->redirect(array($_POST['submit-type']));
 
-                $this->redirect(array( 'view', 'id' => $model->id ));
+                $this->redirect(array('view', 'id' => $model->id));
             }
         }
         $this->render('create', array('model' => $model));

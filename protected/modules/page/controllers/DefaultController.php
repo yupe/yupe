@@ -35,10 +35,7 @@ class DefaultController extends YBackController
                 );
 
                 if (!isset($_POST['submit-type']))
-                    $this->redirect(array('update') + (count(explode(',', Yii::app()->getModule('yupe')->availableLanguages)))
-                        ? array('slug' => $model->slug)
-                        : array('id' => $model->id)
-                    );
+                    $this->redirect(array('update', 'slug' => $model->slug));
                 else
                     $this->redirect(array($_POST['submit-type']));
             }
@@ -73,10 +70,7 @@ class DefaultController extends YBackController
                     );
 
                     if (!isset($_POST['submit-type']))
-                        $this->redirect(array('update') + (count(explode(',', Yii::app()->getModule('yupe')->availableLanguages)))
-                            ? array('slug' => $model->slug)
-                            : array('id' => $model->id)
-                        );
+                        $this->redirect(array('update', 'slug' => $model->slug));
                     else
                         $this->redirect(array($_POST['submit-type']));
                 }
@@ -178,10 +172,7 @@ class DefaultController extends YBackController
                     );
 
                     if (!isset($_POST['submit-type']))
-                        $this->redirect(array('update') + (count(explode(',', Yii::app()->getModule('yupe')->availableLanguages)))
-                            ? array('slug' => $model->slug)
-                            : array('id' => $model->id)
-                        );
+                        $this->redirect(array('update', 'slug' => $model->slug));
                     else
                         $this->redirect(array($_POST['submit-type']));
                 }
@@ -256,7 +247,6 @@ class DefaultController extends YBackController
             if ($this->_model === null)
                 throw new YPageNotFoundException(Yii::t('page', 'Запрошенная страница не найдена!'));
         }
-
         return $this->_model;
     }
 
