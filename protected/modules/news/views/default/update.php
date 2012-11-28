@@ -8,8 +8,8 @@ $this->breadcrumbs = array(
 
 $this->menu = array(
     array('icon' => 'list-alt', 'label' => Yii::t('news', 'Управление новостями'), 'url' => array('/news/default/index')),
-    array('icon' => 'file', 'label' => Yii::t('news', 'Добавить новость'), 'url' => array('/news/default/create')),
-    array('icon' => 'pencil white', 'encodeLabel'=> false, 'label' => Yii::t('news', 'Редактирование новости') . ' "' . mb_substr($model-> title, 0, 32) . '"', 'url' => array('/news/default/update', 'alias'=> $model->alias)),
+    array('icon' => 'plus-sign', 'label' => Yii::t('news', 'Добавить новость'), 'url' => array('/news/default/create')),
+    array('icon' => 'pencil', 'label' => Yii::t('news', 'Редактирование новости'), 'url' => array('/news/default/update', 'alias'=> $model->alias)),
 );
 ?>
 
