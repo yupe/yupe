@@ -14,7 +14,6 @@ Yii::app()->clientScript->registerScript('fieldset', "
     });
 ");
 ?>
-
     <div class="alert alert-info">
         <?php echo Yii::t('page', 'Поля, отмеченные'); ?>
         <span class="required">*</span>

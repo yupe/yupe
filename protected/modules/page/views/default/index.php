@@ -1,6 +1,6 @@
 <?php
     $this->breadcrumbs = array(
-        $this->getModule('page')->getCategory() => array('/page/default/index'),
+        Yii::app()->getModule('page')->getCategory() => array(),
         Yii::t('page', 'Страницы') => array('/page/default/index'),
         Yii::t('page', 'Управление'),
     );

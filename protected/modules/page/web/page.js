@@ -14,7 +14,7 @@ if (yupe.modules.page)
     throw new Error('yupe.modules.page already exists!');
 else
     yupe.modules.page = {
-        translit:function(text) {
+        translit: function(text) {
             alert(text);
             return text;
         }
