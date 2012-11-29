@@ -21,7 +21,7 @@ $('.search-button').click(function(){
 	return false;
 });
 $('.search-form').submit(function(){
-	$.fn.yiiGridView.update('dictionary-group-grid', {
+	$.fn.yiiGridView.update('mail-event-grid', {
 		data: $(this).serialize()
 	});
 	return false;

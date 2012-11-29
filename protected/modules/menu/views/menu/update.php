@@ -13,14 +13,17 @@
             array('icon' => 'plus-sign', 'label' => Yii::t('menu', 'Добавить меню'), 'url' => array('/menu/menu/create')),
             array('icon' => 'list-alt', 'label' => Yii::t('menu', 'Управление меню'), 'url' => array('/menu/menu/index')),
             array('label' => Yii::t('blog', 'Меню') . ' «' . $model->name . '»'),
-            array('icon' => 'pencil', 'label' => Yii::t('menu', 'Изменить меню'), 'url' => array('/menu/menu/update', 'id' => $model->id)),
-            array('icon' => 'eye-open', 'encodeLabel' => false, 'label' => Yii::t('blog', 'Просмотреть меню'), 'url' => array(
+            array('icon' => 'pencil', 'label' => Yii::t('menu', 'Изменить меню'), 'url' => array(
+                '/menu/menu/update',
+                'id' => $model->id
+            )),
+            array('icon' => 'eye-open', 'label' => Yii::t('blog', 'Просмотреть меню'), 'url' => array(
                 '/menu/menu/view',
                 'id' => $model->id
             )),
             array('icon' => 'trash', 'label' => Yii::t('menu', 'Удалить меню'), 'url' => '#', 'linkOptions' => array(
                 'submit' => array('/menu/menu/delete', 'id' => $model->id),
-                'confirm' => Yii::t('menu', 'Подтверждаете удаление?')),
+                'confirm' => Yii::t('menu', 'Вы уверены, что хотите удалить меню?')),
             ),
         )),
         array('label' => Yii::t('menu', 'Пункты меню'), 'items' => array(
@@ -31,7 +34,7 @@
 ?>
 <div class="page-header">
     <h1>
-        <?php echo Yii::t('blog', 'Редактирование меню'); ?><br />
+        <?php echo Yii::t('menu', 'Редактирование меню'); ?><br />
         <small>&laquo;<?php echo $model->name; ?>&raquo;</small>
     </h1>
 </div>
