@@ -1,7 +1,7 @@
 <?php
 class NewsController extends YFrontController
 {
-    const NEWS_PER_PAGE = 16;
+    const NEWS_PER_PAGE = 10;
 
     public function actionShow($title)
     {

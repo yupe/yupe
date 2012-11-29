@@ -7,7 +7,7 @@ $this->breadcrumbs = array(
 
 $this->menu = array(
     array('icon' => 'list-alt', 'label' => Yii::t('news', 'Управление новостями'), 'url' => array('/news/default/index')),
-    array('icon' => 'file', 'label' => Yii::t('news', 'Добавить новость'), 'url' => array('/news/default/create')),
+    array('icon' => 'plus-sign', 'label' => Yii::t('news', 'Добавить новость'), 'url' => array('/news/default/create')),
 );
 ?>
 <div class="page-header">
