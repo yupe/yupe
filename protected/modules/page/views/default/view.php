@@ -21,7 +21,7 @@
         )),
         array('icon' => 'remove', 'label' => Yii::t('page', 'Удалить эту страницу'), 'url' => '#', 'linkOptions' => array(
             'submit' => array('/page/default/delete', 'id' => $model->id),
-            'confirm' => Yii::t('page', 'Подтверждаете удаление страницы ?'),
+            'confirm' => Yii::t('page', 'Подтверждаете удаление страницы?'),
         )),
     );
 ?>

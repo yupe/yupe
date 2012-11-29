@@ -3,6 +3,7 @@
         Yii::app()->getModule('dictionary')->getCategory() => array(''),
         Yii::t('dictionary', 'Справочники') => array('/dictionary/default/index'),
         Yii::t('dictionary', 'Значения справочников') => array('/dictionary/dictionaryData/index'),
+        $model->name => array('/dictionary/dictionaryData/view', 'id' => $model->id),
         Yii::t('dictionary', 'Редактирование'),
     );
 

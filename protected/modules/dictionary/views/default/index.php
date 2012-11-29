@@ -28,7 +28,7 @@
 
 <button class="btn btn-small dropdown-toggle" data-toggle="collapse" data-target="#search-toggle">
     <i class="icon-search">&nbsp;</i>
-    <?php echo CHtml::link(Yii::t('blog', 'Поиск записей'), '#', array('class' => 'search-button')); ?>
+    <?php echo CHtml::link(Yii::t('dictionary', 'Поиск справочников'), '#', array('class' => 'search-button')); ?>
     <span class="caret">&nbsp;</span>
 </button>
 

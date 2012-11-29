@@ -65,7 +65,7 @@ $this->renderPartial('_search', array('model' => $model));
             'type'  => 'raw',
             'value' => 'CHtml::link($data->title, array("/blog/postAdmin/update", "id" => $data->id))',
         ),
-        'slug',       
+        'slug',
         array(
             'name'  => 'blog_id',
             'type'  => 'raw',
@@ -80,7 +80,7 @@ $this->renderPartial('_search', array('model' => $model));
             'name'  => 'create_user_id',
             'type'  => 'raw',
             'value' => 'CHtml::link($data->createUser->getFullName(), array("/user/default/view", "id" => $data->createUser->id))',
-        ),       
+        ),
         array(
             'name'  => 'publish_date',
             'value' => 'Yii::app()->getDateFormatter()->formatDateTime($data->publish_date, "short", "short")',
@@ -88,7 +88,7 @@ $this->renderPartial('_search', array('model' => $model));
         array(
             'name'  => 'create_date',
             'value' => 'Yii::app()->getDateFormatter()->formatDateTime($data->create_date, "short", "short")',
-        ),       
+        ),
         array(
             'name'  => 'status',
             'type'  => 'raw',

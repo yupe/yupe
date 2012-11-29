@@ -2,7 +2,7 @@
     $this->breadcrumbs = array(
         Yii::app()->getModule('dictionary')->getCategory() => array(),
         Yii::t('dictionary', 'Справочники') => array('/dictionary/default/index'),
-        Yii::t('dictionary', 'Просмотр'),
+        $model->name,
     );
 
     $this->pageTitle = Yii::t('dictionary', 'Справочники - просмотр');

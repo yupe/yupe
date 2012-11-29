@@ -14,8 +14,6 @@ Yii::app()->clientScript->registerScript('fieldset', "
     });
 ");
 ?>
-
-<fieldset class="inline">
     <div class="alert alert-info">
         <?php echo Yii::t('feedback', 'Поля, отмеченные'); ?>
         <span class="required">*</span>
@@ -88,22 +86,21 @@ Yii::app()->clientScript->registerScript('fieldset', "
     <?php if ($model->status == FeedBack::STATUS_ANSWER_SENDED): ?>
         <div class="row-fluid control-group">
             <div class="span7">
-                <label><?php echo Yii::t('feedback', 'Ответил'); ?> <?php echo CHtml::link($model->getAnsweredUser(), array( '/user/default/view/', 'id' => $model->answer_user )); ?> (<?php echo $model->answer_date; ?>)</label>
+                <label><?php echo Yii::t('feedback', 'Ответил'); ?> <?php echo CHtml::link($model->getAnsweredUser(), array( '/user/default/view', 'id' => $model->answer_user )); ?> (<?php echo $model->answer_date; ?>)</label>
                 <?php echo $model->answer; ?>
             </div>
         </div>
     <?php endif; ?>
 
-   <?php $this->widget('bootstrap.widgets.TbButton', array(
+    <?php $this->widget('bootstrap.widgets.TbButton', array(
         'buttonType' => 'submit',
         'type'       => 'primary',
-        'label'      => $model->isNewRecord ? Yii::t('feedback', 'Добавить сообщение и продолжить') : Yii::t('feedback', 'Сохранить сообщение и продолжить'),
+        'label'      => $model->isNewRecord ? Yii::t('feedback', 'Добавить сообщение с сайта и продолжить') : Yii::t('feedback', 'Сохранить с сайта сообщение и продолжить'),
     )); ?>
     <?php $this->widget('bootstrap.widgets.TbButton', array(
         'buttonType' => 'submit',
         'htmlOptions'=> array('name' => 'submit-type', 'value' => 'admin'),
-        'label'      => $model->isNewRecord ? Yii::t('feedback', 'Добавить сообщение и закрыть') : Yii::t('feedback', 'Сохранить сообщение и закрыть'),
+        'label'      => $model->isNewRecord ? Yii::t('feedback', 'Добавить сообщение с сайта и закрыть') : Yii::t('feedback', 'Сохранить с сайта сообщение и закрыть'),
     )); ?>
 
-</fieldset>
 <?php $this->endWidget(); ?>

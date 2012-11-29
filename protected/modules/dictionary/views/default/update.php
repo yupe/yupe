@@ -2,6 +2,7 @@
     $this->breadcrumbs = array(
         $this->getModule('dictionary')->getCategory() => array(''),
         Yii::t('dictionary', 'Справочники') => array('/dictionary/default/index'),
+        $model->name => array('/dictionary/default/view', 'id' => $model->id),
         Yii::t('dictionary', 'Редактирование'),
     );
 

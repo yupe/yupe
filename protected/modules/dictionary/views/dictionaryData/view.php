@@ -3,7 +3,7 @@
         $this->getModule('dictionary')->getCategory() => array(''),
         Yii::t('dictionary', 'Справочники') => array('/dictionary/default/index'),
         Yii::t('dictionary', 'Значения справочников') => array('/dictionary/dictionaryData/index'),
-        Yii::t('dictionary', 'Просмотр'),
+        $model->name,
     );
 
     $this->pageTitle = Yii::t('dictionary', 'Значения справочников - просмотр');
