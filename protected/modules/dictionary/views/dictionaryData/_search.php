@@ -2,11 +2,18 @@
 $form = $this->beginWidget('bootstrap.widgets.TbActiveForm', array(
     'action'      => Yii::app()->createUrl($this->route),
     'method'      => 'get',
-    'htmlOptions' => array('class' => 'well search-form'),
+    'type'        => 'vertical',
+    'htmlOptions' => array('class' => 'well'),
 ));
+
+Yii::app()->clientScript->registerScript('fieldset', "
+    $('document').ready(function () {
+        $('.popover-help').popover({ trigger : 'hover', delay : 500 });
+    });
+");
 ?>
 
-    <fieldset>
+    <fieldset class="inline">
         <?php echo $form->textFieldRow($model, 'id', array('size' => 10, 'maxlength' => 10)); ?>
         <?php echo $form->dropDownListRow($model, 'group_id', CHtml::listData(DictionaryGroup::model()->findAll(), 'id', 'name')); ?>
         <?php echo $form->textFieldRow($model, 'code', array('size' => 50, 'maxlength' => 50)); ?>
@@ -19,7 +26,7 @@ $form = $this->beginWidget('bootstrap.widgets.TbActiveForm', array(
         'type'        => 'primary',
         'encodeLabel' => false,
         'buttonType'  => 'submit',
-        'label'       => '<i class="icon-search icon-white">&nbsp;</i> ' . Yii::t('dictionary', 'Найти значение'),
+        'label'       => '<i class="icon-search icon-white">&nbsp;</i> ' . Yii::t('dictionary', 'Искать значение справочника'),
     )); ?>
 
 <?php $this->endWidget(); ?>

@@ -49,7 +49,7 @@ Yii::app()->clientScript->registerScript('fieldset', "
         </div>
     </div>
     <div class='control-group <?php echo $model->hasErrors("status") ? "error" : ""; ?>'>
-        <?php echo $form->dropDownListRow($model, 'status', $model->getStatusList()); ?>
+        <?php echo $form->dropDownListRow($model, 'status', $model->statusList); ?>
     </div>
 
     <?php $this->widget('bootstrap.widgets.TbButton', array(
