@@ -11,7 +11,7 @@ $this->menu = array(
     array('icon' => 'list', 'label' => Yii::t('user', 'Управление пользователями'), 'url' => array('/user/default/index')),
     array('icon' => 'plus-sign', 'label' => Yii::t('user', 'Добавление пользователя'), 'url' => array('/user/default/create')),
     array('label' => Yii::t('user', 'Восстановления паролей')),
-    array('icon' => 'list', 'label' => Yii::t('user', 'Управление восстановлением паролей'), 'url' => array('/user/recoveryPassword/index')),
+    array('icon' => 'list', 'label' => Yii::t('user', 'Восстановления паролей'), 'url' => array('/user/recoveryPassword/index')),
 );
 
 Yii::app()->clientScript->registerScript('search', "
@@ -28,25 +28,36 @@ Yii::app()->clientScript->registerScript('search', "
 ");
 ?>
 
-<div class="page-header"><h1><?php echo $this->module->getName(); ?> <small><?php echo Yii::t('user', 'управление'); ?></small></h1></div>
+<div class="page-header">
+    <h1>
+        <?php echo Yii::t('user', 'Пользователи'); ?>
+        <small><?php echo Yii::t('user', 'управление'); ?></small>
+    </h1>
+</div>
+
 <button class="btn btn-small dropdown-toggle" data-toggle="collapse" data-target="#search-toggle">
     <i class="icon-search">&nbsp;</i>
-    <a class="search-button" href="#"><?php echo Yii::t('user', 'Поиск пользователей'); ?></a> 
+    <?php echo CHtml::link(Yii::t('user', 'Поиск пользователей'), '#', array('class' => 'search-button')); ?>
     <span class="caret">&nbsp;</span>
 </button>
 
-<div id="search-toggle" class="collapse out">
-    <?php Yii::app()->clientScript->registerScript('search', "
-        $('.search-form form').submit(function(){
-            $.fn.yiiGridView.update('good-grid', {
-                data: $(this).serialize()
-            });
-            return false;
+<div id="search-toggle" class="collapse out search-form">
+<?php
+Yii::app()->clientScript->registerScript('search', "
+    $('.search-form form').submit(function() {
+        $.fn.yiiGridView.update('user-grid', {
+            data: $(this).serialize()
         });
-    ");
-    $this->renderPartial('_search', array('model' => $model));
-    ?>
+        return false;
+    });
+");
+$this->renderPartial('_search', array('model' => $model));
+?>
 </div>
+
+<br/>
+
+<p><?php echo Yii::t('user', 'В данном разделе представлены средства управления пользователями'); ?></p>
 
 <?php
 $this->widget('YCustomGridView', array(
@@ -80,7 +91,6 @@ $this->widget('YCustomGridView', array(
                 'password' => array(
                     'icon'     => 'lock',
                     'label'    => Yii::t('user', 'Изменить пароль'),
-                    'imageUrl' => Yii::app()->request->baseUrl . '/web/images/key.gif',
                     'url'      => 'array("/user/default/changepassword", "id" => $data->id)',
                 ),
             ),

@@ -51,6 +51,7 @@ class DefaultController extends YBackController
         if (Yii::app()->request->isPostRequest && !empty($_POST['User']))
         {
             $model->setAttributes($_POST['User']);
+
             $model->setAttributes(array(
                 'salt'              => $model->generateSalt(),
                 'password'          => $model->hashPassword($model->password, $model->salt),
@@ -66,7 +67,10 @@ class DefaultController extends YBackController
                     Yii::t('user', 'Новый пользователь добавлен!')
                 );
 
-                $this->redirect(array('view', 'id' => $model->id));
+                if (!isset($_POST['submit-type']))
+                    $this->redirect(array('update', 'id' => $model->id));
+                else
+                    $this->redirect(array($_POST['submit-type']));
             }
         }
 
@@ -92,7 +96,10 @@ class DefaultController extends YBackController
                     Yii::t('user', 'Данные обновлены!')
                 );
 
-                $this->redirect(array('view', 'id' => $model->id));
+                if (!isset($_POST['submit-type']))
+                    $this->redirect(array('update', 'id' => $model->id));
+                else
+                    $this->redirect(array($_POST['submit-type']));
             }
         }
 

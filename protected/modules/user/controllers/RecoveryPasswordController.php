@@ -7,14 +7,6 @@ class RecoveryPasswordController extends YBackController
     private $_model;
 
     /**
-     * Displays a particular model.
-     */
-    public function actionView()
-    {
-        $this->render('view', array('model' => $this->loadModel()));
-    }  
-
-    /**
      * Deletes a particular model.
      * If deletion is successful, the browser will be redirected to the 'index' page.
      */

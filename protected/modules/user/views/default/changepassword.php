@@ -19,35 +19,46 @@ $this->menu = array(
         'confirm' => 'Подтверждаете удаление ?'),
     ),
     array('label' => Yii::t('user', 'Восстановления паролей')),
-    array('icon' => 'list', 'label' => Yii::t('user', 'Управление восстановлением паролей'), 'url' => array('/user/recoveryPassword/index')),
+    array('icon' => 'list', 'label' => Yii::t('user', 'Восстановления паролей'), 'url' => array('/user/recoveryPassword/index')),
 );
 ?>
 
-<h1><?php echo Yii::t('user', 'Изменение пароля'); ?> "<?php echo $model->getFullName(); ?> (<?php echo $model->nick_name; ?>)"</h1>
+<div class="page-header">
+    <h1>
+        <?php echo Yii::t('user', 'Изменение пароля'); ?><br />
+        <small>&laquo;<?php echo $model->getFullName(); ?> (<?php echo $model->nick_name; ?>)&raquo;</small>
+    </h1>
+</div>
 
-<div class="form">
-    <?php $form = $this->beginWidget('CActiveForm',array(
-        'id'                     => 'change-user-password-form',
-        'enableClientValidation' => true
-    )); ?>
+<?php
+$form = $this->beginWidget('bootstrap.widgets.TbActiveForm', array(
+    'id'                     => 'user-form',
+    'enableAjaxValidation'   => false,
+    'enableClientValidation' => true,
+    'type'                   => 'vertical',
+    'htmlOptions'            => array('class' => 'well'),
+    'inlineErrors'           => true,
+));
 
+Yii::app()->clientScript->registerScript('fieldset', "
+    $('document').ready(function () {
+        $('.popover-help').popover({ trigger : 'hover', delay : 500 });
+    });
+");
+?>
     <?php echo $form->errorSummary($changePasswordForm); ?>
 
-    <div class="row">
-        <?php echo $form->labelEx($changePasswordForm, 'password'); ?>
-        <?php echo $form->passwordField($changePasswordForm, 'password'); ?>
-        <?php echo $form->error($changePasswordForm, 'password'); ?>
+    <div class="row-fluid control-group <?php echo $model->hasErrors('password') ? 'error' : ''; ?>"> 
+        <?php echo $form->passwordFieldRow($changePasswordForm, 'password'); ?>
     </div>
-
-    <div class="row">
-        <?php echo $form->labelEx($changePasswordForm, 'cPassword'); ?>
-        <?php echo $form->passwordField($changePasswordForm, 'cPassword'); ?>
-        <?php echo $form->error($changePasswordForm, 'cPassword'); ?>
+    <div class="row-fluid control-group <?php echo $model->hasErrors('cPassword') ? 'error' : ''; ?>"> 
+        <?php echo $form->passwordFieldRow($changePasswordForm, 'cPassword'); ?>
     </div>
-
-    <div class="row submit">
-        <?php echo CHtml::submitButton(Yii::t('user', 'Изменить пароль')); ?>
-    </div>
+        
+    <?php $this->widget('bootstrap.widgets.TbButton', array(
+        'buttonType' => 'submit',
+        'type'       => 'primary',
+        'label'      =>  Yii::t('user', 'Изменить пароль'),
+    )); ?>
 
     <?php $this->endWidget(); ?>
-</div><!-- form -->

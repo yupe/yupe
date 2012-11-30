@@ -20,13 +20,15 @@ $this->menu = array(
         'confirm' => 'Подтверждаете удаление ?'),
     ),
     array('label' => Yii::t('user', 'Восстановления паролей')),
-    array('icon' => 'th-large', 'label' => Yii::t('user', 'Управление восстановлением паролей'), 'url' => array('/user/recoveryPassword/index')),
+    array('icon' => 'th-large', 'label' => Yii::t('user', 'Восстановления паролей'), 'url' => array('/user/recoveryPassword/index')),
 );
 ?>
 
-<h1>
-    <?php echo Yii::t('user', 'Редактирование пользователя'); ?>
-    "<?php echo $model->getFullName(); ?> (<?php echo $model->nick_name; ?>)"
-</h1>
+<div class="page-header">
+    <h1>
+        <?php echo Yii::t('user', 'Редактирование пользователя'); ?><br />
+        <small>&laquo;<?php echo $model->getFullName(); ?>&raquo;</small>
+    </h1>
+</div>
 
 <?php echo $this->renderPartial('_form', array('model' => $model)); ?>

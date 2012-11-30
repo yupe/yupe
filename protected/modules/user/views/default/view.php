@@ -10,7 +10,7 @@ $this->menu = array(
     array('label' => Yii::t('user', 'Пользователи')),
     array('icon' => 'list', 'label' => Yii::t('user', 'Управление пользователями'), 'url' => array('/user/default/index')),
     array('icon' => 'plus-sign', 'label' => Yii::t('user', 'Добавление пользователя'), 'url' => array('/user/default/create')),
-    array('label' => Yii::t('user', 'Пользователь')),
+    array('label' => Yii::t('user', 'Пользователь') . ' «' . mb_substr($model->nick_name, 0, 32) . '»'),
     array('icon' => 'pencil', 'label' => Yii::t('user', 'Редактирование пользователя'), 'url' => array('/user/default/update', 'id' => $model->id)),
     array('icon' => 'eye-open', 'label' => Yii::t('user', 'Просмотр пользователя'), 'url' => array('/user/default/view', 'id' => $model->id)),
     array('icon' => 'lock', 'label' => Yii::t('user', 'Изменить пароль пользователя'), 'url' => array('/user/default/changepassword', 'id' => $model->id)),
@@ -19,13 +19,17 @@ $this->menu = array(
         'confirm' => 'Подтверждаете удаление ?'),
     ),
     array('label' => Yii::t('user', 'Восстановления паролей')),
-    array('icon' => 'list', 'label' => Yii::t('user', 'Управление восстановлением паролей'), 'url' => array('/user/recoveryPassword/index')),);
+    array('icon' => 'list', 'label' => Yii::t('user', 'Восстановления паролей'), 'url' => array('/user/recoveryPassword/index')),);
 ?>
 
-<h1><?php echo Yii::t('user', 'Просмотр пользователя'); ?> 
-"<?php echo $model->getFullName(); ?> (<?php echo $model->nick_name; ?>)" </h1>
+<div class="page-header">
+    <h1>
+        <?php echo Yii::t('user', 'Просмотр пользователя'); ?><br />
+        <small>&laquo;<?php echo $model->nick_name; ?>&raquo;</small>
+    </h1>
+</div>
 
-<?php $this->widget('zii.widgets.CDetailView', array(
+<?php $this->widget('bootstrap.widgets.TbDetailView', array(
     'data'       => $model,
     'attributes' => array(
         'id',

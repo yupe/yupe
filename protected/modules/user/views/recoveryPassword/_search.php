@@ -1,34 +1,23 @@
-<div class="wide form">
+<?php
+$form = $this->beginWidget('bootstrap.widgets.TbActiveForm', array(
+    'action'      => Yii::app()->createUrl($this->route),
+    'method'      => 'get',
+    'htmlOptions' => array('class' => 'well search-form'),
+));
+?>
+    <fieldset>
+        <?php echo $form->textFieldRow($model, 'id'); ?>   
+        <?php echo $form->textFieldRow($model, 'user_id'); ?>  
+        <?php echo $form->textFieldRow($model, 'creation_date'); ?>            
+        <?php echo $form->textFieldRow($model, 'code', array('size' => 32, 'maxlength' => 32)); ?>
+    </fieldset>
 
-    <?php $form = $this->beginWidget('CActiveForm', array(
-         'action' => Yii::app()->createUrl($this->route),
-         'method' => 'get',
+
+     <?php $this->widget('bootstrap.widgets.TbButton', array(
+        'buttonType'  => 'submit',
+        'type'        => 'primary',
+        'encodeLabel' => false,
+        'label'       => '<i class="icon-search icon-white"></i> '.Yii::t('user', 'Искать'),
     )); ?>
 
-    <div class="row">
-        <?php echo $form->label($model, 'id'); ?>
-        <?php echo $form->textField($model, 'id'); ?>
-    </div>
-
-    <div class="row">
-        <?php echo $form->label($model, 'user_id'); ?>
-        <?php echo $form->textField($model, 'user_id'); ?>
-    </div>
-
-    <div class="row">
-        <?php echo $form->label($model, 'creation_date'); ?>
-        <?php echo $form->textField($model, 'creation_date'); ?>
-    </div>
-
-    <div class="row">
-        <?php echo $form->label($model, 'code'); ?>
-        <?php echo $form->textField($model, 'code', array('size' => 32, 'maxlength' => 32)); ?>
-    </div>
-
-    <div class="row buttons">
-        <?php echo CHtml::submitButton(Yii::t('user', 'Поиск')); ?>
-    </div>
-
     <?php $this->endWidget(); ?>
-
-</div><!-- search-form -->

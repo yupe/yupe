@@ -12,7 +12,7 @@ $this->menu = array(
     array('icon' => 'list', 'label' => Yii::t('user', 'Управление пользователями'), 'url' => array('/user/default/index')),
     array('icon' => 'plus-sign', 'label' => Yii::t('user', 'Добавление пользователя'), 'url' => array('/user/default/create')),
     array('label' => Yii::t('user', 'Восстановления паролей')),
-    array('icon' => 'list', 'label' => Yii::t('user', 'Управление восстановлением паролей'), 'url' => array('/user/recoveryPassword/штвуч')),
+    array('icon' => 'list', 'label' => Yii::t('user', 'Восстановления паролей'), 'url' => array('/user/recoveryPassword/index')),
 );
 
 Yii::app()->clientScript->registerScript('search', "
@@ -28,17 +28,38 @@ $('.search-form form').submit(function(){
 });
 ");
 ?>
+<div class="page-header">
+    <h1>
+        <?php echo Yii::t('user', 'Восстановления паролей'); ?>
+        <small><?php echo Yii::t('user', 'управление'); ?></small>
+    </h1>
+</div>
 
-<h1><?php echo Yii::t('user', 'Управление восстановлениями пароля');?></h1>
+<button class="btn btn-small dropdown-toggle" data-toggle="collapse" data-target="#search-toggle">
+    <i class="icon-search">&nbsp;</i>
+    <?php echo CHtml::link(Yii::t('user', 'Поиск записей'), '#', array('class' => 'search-button')); ?>
+    <span class="caret">&nbsp;</span>
+</button>
 
-<?php echo CHtml::link(Yii::t('user', 'Поиск восстановлений пароля'), '#', array('class' => 'search-button')); ?>
-<div class="search-form" style="display:none">
-    <?php $this->renderPartial('_search', array(
-                                               'model' => $model,
-                                          )); ?>
-</div><!-- search-form -->
+<div id="search-toggle" class="collapse out search-form">
+<?php
+Yii::app()->clientScript->registerScript('search', "
+    $('.search-form form').submit(function() {
+        $.fn.yiiGridView.update('recovery-password-grid', {
+            data: $(this).serialize()
+        });
+        return false;
+    });
+");
+$this->renderPartial('_search', array('model' => $model));
+?>
+</div>
 
-<?php $this->widget('zii.widgets.grid.CGridView', array(
+<br/>
+
+<p><?php echo Yii::t('user', 'В данном разделе представлены средства управления восстановлениями паролей'); ?></p>
+
+<?php $this->widget('YCustomGridView', array(
                                                        'id' => 'recovery-password-grid',
                                                        'dataProvider' => $model->search(),
                                                        'columns' => array(
@@ -50,8 +71,8 @@ $('.search-form form').submit(function(){
                                                            'creation_date',
                                                            'code',
                                                            array(
-                                                               'class' => 'CButtonColumn',
-                                                               'template' => '{view}{delete}',
+                                                               'class' => 'bootstrap.widgets.TbButtonColumn',
+                                                               'template' => '{delete}',
                                                            ),
                                                        ),
                                                   )); ?>
