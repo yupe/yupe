@@ -63,12 +63,12 @@ $this->renderPartial('_search', array('model' => $model));
         array(
             'name'  => 'user_id',
             'type'  => 'raw',
-            'value' => 'CHtml::link($data->user->getFullName(), array("/user/default/view/", "id" => $data->user->id))',
+            'value' => 'CHtml::link($data->user->getFullName(), array("/user/default/view", "id" => $data->user->id))',
         ),
         array(
             'name'  => 'blog_id',
             'type'  => 'raw',
-            'value' => 'CHtml::link($data->blog->name, array("/blog/blogAdmin/view/", "id" => $data->blog->id))',
+            'value' => 'CHtml::link($data->blog->name, array("/blog/blogAdmin/view", "id" => $data->blog->id))',
         ),
         array(
             'name'  => 'create_date',

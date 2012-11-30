@@ -6,9 +6,10 @@
      'enableClientValidation' => true,
 )); ?>
 
-    <p class="note"><?php echo Yii::t('yupe', 'Поля, отмеченные'); ?>
+    <p class="note">
+        <?php echo Yii::t('comment', 'Поля, отмеченные'); ?>
         <span class="required">*</span> 
-        <?php echo Yii::t('yupe', 'обязательны для заполнения'); ?>
+        <?php echo Yii::t('comment', 'обязательны для заполнения'); ?>
     </p>
 
     <?php echo $form->errorSummary($model); ?>
@@ -36,8 +37,8 @@
             <?php echo $form->error($model, 'url'); ?>
         </div>
     <?php else: ?>
-        <p><?php echo Yii::t('comment', 'От имени'); ?> : <?php echo Yii::app()->user->getState('nick_name'); ?></p>
-    <?php endif;?>
+        <p><?php echo Yii::t('comment', 'От имени'); ?>: <?php echo Yii::app()->user->getState('nick_name'); ?></p>
+    <?php endif; ?>
 
     <div class="row">
         <?php echo $form->labelEx($model, 'text'); ?>

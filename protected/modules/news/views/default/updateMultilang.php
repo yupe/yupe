@@ -1,110 +1,122 @@
-<?php $this->pageTitle = Yii::t('news', 'Редактирование новости'); ?>
-
 <?php
-$this->breadcrumbs = array(
-    $this->getModule('news')->getCategory() => array(''),
-    Yii::t('news', 'Новости') => array('/news/default/index'),
-    $model->title => array('view', 'id' => $model->id),
-    Yii::t('news', 'Изменение'),
-);
+    $this->breadcrumbs = array(
+        Yii::app()->getModule('news')->getCategory() => array(),
+        Yii::t('news', 'Новости') => array('/news/default/index'),
+        $model->title => array('/news/default/view', 'id' => $model->id),
+        Yii::t('news', 'Редактирование'),
+    );
 
-$this->menu = array(
-    array('icon' => 'list-alt', 'label' => Yii::t('news', 'Управление новостями'), 'url' => array('/news/default/index')),
-    array('icon' => 'file', 'label' => Yii::t('news', 'Добавить новость'), 'url' => array('/news/default/create')),
-    array('icon' => 'pencil', 'encodeLabel'=> false, 'label' => Yii::t('news', 'Редактирование новости') . ' "' . mb_substr($model->title, 0, 32) . '"', 'url' => array('/news/default/update', 'alias' => $model->alias)),
-);
+    $this->pageTitle = Yii::t('news', 'Новости - редактирование');
+
+    $this->menu = array(
+        array('icon' => 'list-alt', 'label' => Yii::t('news', 'Управление новостями'), 'url' => array('/news/default/index')),
+        array('icon' => 'plus-sign', 'label' => Yii::t('news', 'Добавить новость'), 'url' => array('/news/default/create')),
+        array('label' => Yii::t('news', 'Новость') . ' «' . mb_substr($model->title, 0, 32) . '»'),
+        array('icon' => 'pencil', 'label' => Yii::t('news', 'Редактирование новости'), 'url' => array(
+            '/news/default/update',
+            'id' => $model->id
+        )),
+        array('icon' => 'eye-open', 'label' => Yii::t('news', 'Просмотреть новость'), 'url' => array(
+            '/news/default/view',
+            'id' => $model->id
+        )),
+        array('icon' => 'trash', 'label' => Yii::t('news', 'Удалить новость'), 'url' => '#', 'linkOptions' => array(
+            'submit' => array('/news/default/delete', 'id' => $model->id),
+            'confirm' => Yii::t('news', 'Вы уверены, что хотите удалить новость?'),
+        )),
+    );
 ?>
-
-<div class="news-header">
-    <h1><?php echo Yii::t('news', 'Редактирование новости'); ?></h1>
+<div class="page-header">
+    <h1>
+        <?php echo Yii::t('news', 'Редактирование новости'); ?><br />
+        <small>&laquo;<?php echo $model->title; ?>&raquo;</small>
+    </h1>
 </div>
+
 <?php
 $form = $this->beginWidget('bootstrap.widgets.TbActiveForm', array(
-    'id'                   => 'news-form',
-    'enableAjaxValidation' => false,
-    'htmlOptions'          => array(
-        'class'   => 'well form-vertical',
-        'enctype' => 'multipart/form-data',
-    ),
+    'id'                     => 'news-form',
+    'enableAjaxValidation'   => false,
+    'enableClientValidation' => true,
+    'type'                   => 'vertical',
+    'htmlOptions'            => array('class' => 'well', 'enctype'=>'multipart/form-data'),
+    'inlineErrors'           => true,
 ));
 echo CHtml::openTag("fieldset", array( "class" => "inline" ));
 ?>
-<div class="alert alert-info"><?php echo Yii::t('news', 'Поля, отмеченные * обязательны для заполнения'); ?></div>
-
-<div class="row-fluid control-group <?php echo $model->hasErrors('category_id') ? 'error' : '' ?>">
-    <div class="span7  popover-help" data-original-title="<?php echo $model->getAttributeLabel('category_id'); ?>" >
-        <?php echo $form->labelEx($model, 'category_id'); ?>
-        <?php echo $form->dropDownList($model, 'category_id', CHtml::listData(Category::model()->findAll(), 'id', 'name'), array( 'empty' => Yii::t('news', '--выберите--') )); ?>
+    <div class="alert alert-info">
+        <?php echo Yii::t('news', 'Поля, отмеченные'); ?>
+        <span class="required">*</span>
+        <?php echo Yii::t('news', 'обязательны.'); ?>
     </div>
-    <div class="span5">
-        <?php echo $form->error($model, 'category_id'); ?>
+    <div class="row-fluid control-group <?php echo $model->hasErrors('category_id') ? 'error' : '' ?>">
+        <div class="span7  popover-help" data-original-title="<?php echo $model->getAttributeLabel('category_id'); ?>" >
+            <?php echo $form->labelEx($model, 'category_id'); ?>
+            <?php echo $form->dropDownList($model, 'category_id', CHtml::listData(Category::model()->findAll(), 'id', 'name'), array( 'empty' => Yii::t('news', '--выберите--') )); ?>
+        </div>
+        <div class="span5">
+            <?php echo $form->error($model, 'category_id'); ?>
+        </div>
     </div>
-</div>
-
-<div class="row-fluid control-group <?php echo $model->hasErrors('alias') ? 'error' : '' ?>">
-    <div class="span7  popover-help" data-content="<?php echo Yii::t('news', "Краткое название страницы латинскими буквами, используется для формирования её адреса.<br /><br /> Например (выделено темным фоном): <pre>http://site.ru/news/<span class='label'>contacts</span>/</pre> Если вы не знаете, для чего вам нужно это поле &ndash; не заполняйте его, заголовка страницы будет достаточно.") ?>" data-original-title="<?php echo $model->getAttributeLabel('alias'); ?>" >
-        <?php echo $form->labelEx($model, 'alias'); ?>
-        <?php echo $form->textField($model, 'alias', array( 'size' => 60, 'maxlength'   => 150, 'placeholder' => Yii::t('news', 'Оставьте пустым для автоматической генерации') )); ?>
+    <div class="row-fluid control-group <?php echo $model->hasErrors('alias') ? 'error' : '' ?>">
+        <div class="span7  popover-help" data-content="<?php echo Yii::t('news', "Краткое название страницы латинскими буквами, используется для формирования её адреса.<br /><br /> Например (выделено темным фоном): <pre>http://site.ru/news/<span class='label'>contacts</span>/</pre> Если вы не знаете, для чего вам нужно это поле &ndash; не заполняйте его, заголовка страницы будет достаточно.") ?>" data-original-title="<?php echo $model->getAttributeLabel('alias'); ?>" >
+            <?php echo $form->labelEx($model, 'alias'); ?>
+            <?php echo $form->textField($model, 'alias', array( 'size' => 60, 'maxlength'   => 150, 'placeholder' => Yii::t('news', 'Оставьте пустым для автоматической генерации') )); ?>
+        </div>
+        <div class="span5">
+            <?php echo $form->error($model, 'alias'); ?>
+        </div>
     </div>
-    <div class="span5">
-        <?php echo $form->error($model, 'alias'); ?>
+    <div class="row-fluid control-group <?php echo $model->hasErrors('date') ? 'error' : '' ?>">
+        <div class="span7 popover-help" data-content="<?php echo Yii::t('news', "Дата публикации новости, также используется для упорядочивания списка новостей.") ?>" data-original-title="<?php echo $model->getAttributeLabel('date');
+            ; ?>" >
+            <?php echo $form->labelEx($model, 'date'); ?>
+            <?php
+            $this->widget('zii.widgets.jui.CJuiDatePicker', array(
+                'model'     => $model,
+                'attribute' => 'date',
+                'language'  => Yii::app()->language,
+                'options'   => array(
+                    'dateFormat' => 'dd.mm.yy',
+                ),
+            ));
+            ?>
+        </div>
+        <div class="span5">
+            <?php echo $form->error($model, 'date'); ?>
+        </div>
     </div>
-</div>
-
-<div class="row-fluid control-group <?php echo $model->hasErrors('date') ? 'error' : '' ?>">
-    <div class="span7 popover-help" data-content="<?php echo Yii::t('news', "Дата публикации новости, также используется для упорядочивания списка новостей.") ?>" data-original-title="<?php echo $model->getAttributeLabel('date');
-        ; ?>" >
-        <?php echo $form->labelEx($model, 'date'); ?>
-        <?php
-        $this->widget('zii.widgets.jui.CJuiDatePicker', array(
-            'model'     => $model,
-            'attribute' => 'date',
-            'language'  => Yii::app()->language,
-            'options'   => array(
-                'dateFormat' => 'dd.mm.yy',
-            ),
-        ));
-        ?>
+    <div class="row-fluid control-group <?php echo $model->hasErrors('link') ? 'error' : '' ?>">
+        <div class="span7 popover-help" data-content="<?php echo Yii::t('news','Укажите источник новости (ссылка на произвольную страницу)') ?>" data-original-title="<?php echo $model->getAttributeLabel('link'); ?>" >
+            <?php echo $form->labelEx($model, 'link'); ?>
+            <?php echo $form->textField($model, 'link', array( 'size' => 60, 'maxlength' => 150 )); ?>
+        </div>
+        <div class="span5">
+            <?php echo $form->error($model, 'link'); ?>
+        </div>
     </div>
-    <div class="span5">
-<?php echo $form->error($model, 'date'); ?>
+    <div class="row-fluid control-group <?php echo $model->hasErrors('image') ? 'error' : '' ?>">
+        <div class="span7  popover-help"  data-original-title="<?php echo $model->getAttributeLabel('image'); ?>" >
+            <?php echo $form->labelEx($model, 'image'); ?>
+            <?php if(!$model->isNewRecord && $model->image):?>
+                <?php echo CHtml::image(Yii::app()->baseUrl.'/'.Yii::app()->getModule('yupe')->uploadPath . DIRECTORY_SEPARATOR . $this->module->uploadPath.DIRECTORY_SEPARATOR.$model->image, $model->title,array('width' => 300,'height' => 300));?>
+                <br/>
+            <?php endif;?>
+            <?php echo $form->fileField($model, 'image'); ?>
+        </div>
+        <div class="span5">
+            <?php echo $form->error($model, 'image'); ?>
+        </div>
     </div>
-</div>
-
- <div class="row-fluid control-group <?php echo $model->hasErrors('link') ? 'error' : '' ?>">
-    <div class="span7 popover-help" data-content="<?php echo Yii::t('news','Укажите источник новости (ссылка на произвольную страницу)') ?>" data-original-title="<?php echo $model->getAttributeLabel('link'); ?>" >
-        <?php echo $form->labelEx($model, 'link'); ?>
-        <?php echo $form->textField($model, 'link', array( 'size' => 60, 'maxlength' => 150 )); ?>
+    <div class="row-fluid control-group <?php echo $model->hasErrors('is_protected') ? 'error' : '' ?>">
+        <div class="span7  popover-help" data-content="<?php echo Yii::t('news', "Страница будет видна только авторизованным пользователям") ?>" data-original-title="<?php echo $model->getAttributeLabel('is_protected'); ?>" >
+            <?php echo $form->labelEx($model, 'is_protected'); ?>
+            <?php echo $form->checkBox($model, 'is_protected'); ?>
+        </div>
+        <div class="span5">
+            <?php echo $form->error($model, 'slug'); ?>
+        </div>
     </div>
-    <div class="span5">
-        <?php echo $form->error($model, 'link'); ?>
-    </div>
-</div>
-
-<div class="row-fluid control-group <?php echo $model->hasErrors('image') ? 'error' : '' ?>">
-    <div class="span7  popover-help"  data-original-title="<?php echo $model->getAttributeLabel('image'); ?>" >
-<?php echo $form->labelEx($model, 'image'); ?>
-        <?php if(!$model->isNewRecord && $model->image):?>
-            <?php echo CHtml::image(Yii::app()->baseUrl.'/'.Yii::app()->getModule('yupe')->uploadPath . DIRECTORY_SEPARATOR . $this->module->uploadPath.DIRECTORY_SEPARATOR.$model->image, $model->title,array('width' => 300,'height' => 300));?>
-            <br/>
-        <?php endif;?>
-
-        <?php echo $form->fileField($model, 'image'); ?>
-    </div>
-    <div class="span5">
-<?php echo $form->error($model, 'image'); ?>
-    </div>
-</div>
-
-<div class="row-fluid control-group <?php echo $model->hasErrors('is_protected') ? 'error' : '' ?>">
-    <div class="span7  popover-help" data-content="<?php echo Yii::t('news', "Страница будет видна только авторизованным пользователям") ?>" data-original-title="<?php echo $model->getAttributeLabel('is_protected'); ?>" >
-<?php echo $form->labelEx($model, 'is_protected'); ?>
-        <?php echo $form->checkBox($model, 'is_protected'); ?>
-    </div>
-    <div class="span5">
-<?php echo $form->error($model, 'slug'); ?>
-    </div>
-</div>
 
 <?php
 $items = array( );

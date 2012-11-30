@@ -7,9 +7,15 @@ $form = $this->beginWidget('bootstrap.widgets.TbActiveForm', array(
     'htmlOptions'            => array('class' => 'well'),
     'inlineErrors'           => true,
 ));
-?>
-<fieldset class="inline">
 
+Yii::app()->clientScript->registerScript('fieldset', "
+    $('document').ready(function () {
+        $('.popover-help').popover({ trigger : 'hover', delay : 500 });
+    });
+");
+?>
+
+<fieldset class="inline">
     <div class="alert alert-info">
         <?php echo Yii::t('feedback', 'Поля, отмеченные'); ?>
         <span class="required">*</span>
@@ -26,23 +32,18 @@ $form = $this->beginWidget('bootstrap.widgets.TbActiveForm', array(
             <?php echo $form->dropDownListRow($model, 'status', $model->getStatusList(), array('class' => 'popover-help', 'data-original-title' => $model->getAttributeLabel('status'), 'data-content' => $model->getAttributeDescription('status'))); ?>
         </div>
     </div>
-
     <div class="row-fluid control-group  <?php echo $model->hasErrors('name') ? 'error' : ''; ?>">
         <?php echo $form->textFieldRow($model, 'name', array('class' => 'popover-help span7', 'maxlength' => 150, 'size' => 60, 'data-original-title' => $model->getAttributeLabel('name'), 'data-content' => $model->getAttributeDescription('name'))); ?>
     </div>
-
     <div class="row-fluid control-group  <?php echo $model->hasErrors('email') ? 'error' : ''; ?>">
         <?php echo $form->textFieldRow($model, 'email', array('class' => 'popover-help span7', 'maxlength' => 150, 'size' => 60, 'data-original-title' => $model->getAttributeLabel('email'), 'data-content' => $model->getAttributeDescription('email'))); ?>
     </div>
-
     <div class="row-fluid control-group  <?php echo $model->hasErrors('phone') ? 'error' : ''; ?>">
         <?php echo $form->textFieldRow($model, 'phone', array('class' => 'popover-help span7', 'maxlength' => 150, 'size' => 60, 'data-original-title' => $model->getAttributeLabel('phone'), 'data-content' => $model->getAttributeDescription('phone'))); ?>
     </div>
-
     <div class="row-fluid control-group  <?php echo $model->hasErrors('theme') ? 'error' : ''; ?>">
         <?php echo $form->textFieldRow($model, 'theme', array('class' => 'popover-help span7', 'maxlength' => 150, 'size' => 60, 'data-original-title' => $model->getAttributeLabel('theme'), 'data-content' => $model->getAttributeDescription('theme'))); ?>
     </div>
-
     <div class="row-fluid control-group <?php echo $model->hasErrors('text') ? 'error' : ''; ?>">
         <div class="popover-help" data-original-title='<?php echo $model->getAttributeLabel('text'); ?>' data-content='<?php echo $model->getAttributeDescription('text'); ?>'>
             <?php echo $form->labelEx($model, 'text'); ?>
@@ -62,7 +63,6 @@ $form = $this->beginWidget('bootstrap.widgets.TbActiveForm', array(
             <?php echo $form->error($model, 'text'); ?>
         </div>
     </div>
-
     <div class="row-fluid control-group <?php echo $model->hasErrors('answer') ? 'error' : ''; ?>">
         <div class="popover-help" data-original-title='<?php echo $model->getAttributeLabel('answer'); ?>' data-content='<?php echo $model->getAttributeDescription('answer'); ?>'>
             <?php echo $form->labelEx($model, 'answer'); ?>
@@ -82,11 +82,9 @@ $form = $this->beginWidget('bootstrap.widgets.TbActiveForm', array(
             <?php echo $form->error($model, 'answer'); ?>
         </div>
     </div>
-
-     <div class="row-fluid control-group  <?php echo $model->hasErrors('is_faq') ? 'error' : ''; ?>">
-         <?php echo $form->checkBoxRow($model, 'is_faq', array('class' => 'popover-help', 'maxlength' => 150, 'size' => 60, 'data-original-title' => $model->getAttributeLabel('is_faq'), 'data-content' => $model->getAttributeDescription('is_faq'))); ?>
+    <div class="row-fluid control-group  <?php echo $model->hasErrors('is_faq') ? 'error' : ''; ?>">
+        <?php echo $form->checkBoxRow($model, 'is_faq', array('class' => 'popover-help', 'maxlength' => 150, 'size' => 60, 'data-original-title' => $model->getAttributeLabel('is_faq'), 'data-content' => $model->getAttributeDescription('is_faq'))); ?>
     </div>
-
     <?php if ($model->status == FeedBack::STATUS_ANSWER_SENDED): ?>
         <div class="row-fluid control-group">
             <div class="span7">
@@ -101,11 +99,11 @@ $form = $this->beginWidget('bootstrap.widgets.TbActiveForm', array(
         'type'       => 'primary',
         'label'      => $model->isNewRecord ? Yii::t('feedback', 'Добавить сообщение и продолжить') : Yii::t('feedback', 'Сохранить сообщение и продолжить'),
     )); ?>
-
     <?php $this->widget('bootstrap.widgets.TbButton', array(
         'buttonType' => 'submit',
         'htmlOptions'=> array('name' => 'submit-type', 'value' => 'admin'),
         'label'      => $model->isNewRecord ? Yii::t('feedback', 'Добавить сообщение и закрыть') : Yii::t('feedback', 'Сохранить сообщение и закрыть'),
     )); ?>
+
 </fieldset>
 <?php $this->endWidget(); ?>

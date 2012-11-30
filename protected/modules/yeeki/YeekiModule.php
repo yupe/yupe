@@ -32,7 +32,7 @@ class YeekiModule extends YWebModule
 
     public function getAdminPageLink()
     {
-        return '/wiki/default/index/';
+        return '/wiki/default/index';
     }
 
     public function getName()

@@ -1,39 +1,54 @@
 <?php
-$this->breadcrumbs = array(
-    $this->getModule('news')->getCategory() => array(''),
-    Yii::t('news', 'Новости') => array('/news/default/index'),
-    $model->title,
-);
+    $this->breadcrumbs = array(
+        $this->getModule('news')->getCategory() => array(''),
+        Yii::t('news', 'Новости') => array('/news/default/index'),
+        $model->title,
+    );
 
-$this->menu = array(
-    array('icon' => 'list-alt', 'label' => Yii::t('news', 'Управление новостями'), 'url' => array('/news/default/index')),
-    array('icon' => 'file', 'label' => Yii::t('news', 'Добавить новость'), 'url' => array('/news/default/create')),
-    array('icon' => 'pencil', 'label' => Yii::t('news', 'Редактировать эту новость'), 'url' => array('/news/default/update','alias'=> $model->alias)),
-    array('encodeLabel' => false, 'icon' => 'eye-open white', 'label' => Yii::t('news', 'Просмотр новости') . ' "' . mb_substr($model->title, 0, 32) . ' "', 'url' => array('/news/default/view', 'id' => $model-> id)),
-    array('icon' => 'remove', 'label' => Yii::t('news', 'Удалить эту новость'), 'url' => '#', 'linkOptions' => array('submit' => array('/news/default/delete', 'id' => $model->id), 'confirm' => 'Подтверждаете удаление ?')),
-);
+    $this->pageTitle = Yii::t('news', 'Новости - просмотр');
+
+    $this->menu = array(
+        array('icon' => 'list-alt', 'label' => Yii::t('news', 'Управление новостями'), 'url' => array('/news/default/index')),
+        array('icon' => 'plus-sign', 'label' => Yii::t('news', 'Добавить новость'), 'url' => array('/news/default/create')),
+        array('label' => Yii::t('news', 'Новость') . ' «' . mb_substr($model->title, 0, 32) . '»'),
+        array('icon' => 'pencil', 'label' => Yii::t('news', 'Редактирование новости'), 'url' => array(
+            '/news/default/update',
+            'id' => $model->id
+        )),
+        array('icon' => 'eye-open', 'label' => Yii::t('news', 'Просмотреть новость'), 'url' => array(
+            '/news/default/view',
+            'id' => $model->id
+        )),
+        array('icon' => 'trash', 'label' => Yii::t('news', 'Удалить новость'), 'url' => '#', 'linkOptions' => array(
+            'submit' => array('/news/default/delete', 'id' => $model->id),
+            'confirm' => Yii::t('news', 'Вы уверены, что хотите удалить новость?'),
+        )),
+    );
 ?>
 
-<div class="page-header"><h1><?php echo Yii::t('news', 'Просмотр новости'); ?>
-    <br /><small style="margin-left:-10px;">&laquo;<?php echo $model->title; ?>&raquo;</small></h1></div>
+<div class="page-header">
+     <h1>
+         <?php echo Yii::t('news', 'Просмотр новости'); ?><br />
+        <small>&laquo;<?php echo $model->title; ?>&raquo;</small>
+     </h1>
+</div>
+
 <ul class="nav nav-tabs">
     <li class="active"><a href="#anounce" data-toggle="tab"><?php echo Yii::t('news', 'Пример краткой версии новости'); ?></a></li>
     <li><a href="#full" data-toggle="tab"><?php echo Yii::t('news', 'Пример полной версии новости'); ?></a></li>
 </ul>
 <div class="tab-content">
     <div id="anounce" class="tab-pane fade active in">
-        <?php for ($i=0; $i<3; $i++ ) { ?>
-            <div style="margin-bottom: 20px;">
-                <h6>
-                    <span class="label"><?php echo $model->date; ?></span> 
-                    <?php echo CHtml::link($model->title, array('/news/news/show', 'title' => $model->alias)); ?>
-                </h6>
-                <p>
-                    <?php echo $model->short_text; ?>
-                </p>
-                <i class="icon-globe"></i> <?php echo $model->getPermaLink(); ?>
-            </div>
-        <?php } ?>
+        <div style="margin-bottom: 20px;">
+            <h6>
+                <span class="label"><?php echo $model->date; ?></span> 
+                <?php echo CHtml::link($model->title, array('/news/news/show', 'title' => $model->alias)); ?>
+            </h6>
+            <p>
+                <?php echo $model->short_text; ?>
+            </p>
+            <i class="icon-globe"></i> <?php echo $model->getPermaLink(); ?>
+        </div>
     </div>
     <div id="full"  class="tab-pane fade">
         <div style="margin-bottom: 20px;">

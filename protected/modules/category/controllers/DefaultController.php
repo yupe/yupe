@@ -7,9 +7,7 @@ class DefaultController extends YBackController
      */
     public function actionView($id)
     {
-        $this->render('view', array(
-            'model' => $this->loadModel($id),
-        ));
+        $this->render('view', array('model' => $this->loadModel($id)));
     }
 
     /**
@@ -38,25 +36,24 @@ class DefaultController extends YBackController
                     if ($model->image->saveAs($imageName))
                     {
                         $model->image = basename($imageName);
-
                         $model->update(array( 'image' ));
                     }
                 }
 
-                Yii::app()->user->setFlash(YFlashMessages::NOTICE_MESSAGE, Yii::t('category', 'Запись добавлена!'));
-                
+                Yii::app()->user->setFlash(
+                    YFlashMessages::NOTICE_MESSAGE,
+                    Yii::t('category', 'Запись добавлена!')
+                );
+
                 if (!isset($_POST['submit-type']))
                     $this->redirect(array('update', 'alias' => $model->alias));
                 else
                     $this->redirect(array($_POST['submit-type']));
 
-                $this->redirect(array( 'view', 'id' => $model->id ));
+                $this->redirect(array('view', 'id' => $model->id));
             }
         }
-
-        $this->render('create', array(
-            'model' => $model,
-        ));
+        $this->render('create', array('model' => $model));
     }
 
      /**
@@ -80,18 +77,18 @@ class DefaultController extends YBackController
 
                 if ($model->save())
                 {
-                    Yii::app()->user->setFlash(YFlashMessages::NOTICE_MESSAGE, Yii::t('category', 'Категория изменена!'));
-                    
+                    Yii::app()->user->setFlash(
+                        YFlashMessages::NOTICE_MESSAGE,
+                        Yii::t('category', 'Категория изменена!')
+                    );
+
                     if (!isset($_POST['submit-type']))
                         $this->redirect(array('update', 'alias' => $model->alias));
                     else
                         $this->redirect(array($_POST['submit-type']));
                 }
             }
-
-            $this->render('update', array(
-                'model' => $model,
-            ));
+            $this->render('update', array('model' => $model));
         }
         else
         {
@@ -100,7 +97,7 @@ class DefaultController extends YBackController
             $yupe  = Yii::app()->getModule('yupe');
             $langs = explode(",", $yupe->availableLanguages);
 
-            $models = Category::model()->findAllByAttributes(array( 'alias' => $alias ));
+            $models = Category::model()->findAllByAttributes(array('alias' => $alias));
             if (!$models)
                 throw new CHttpException(404, Yii::t('category', 'Указанная категория не найдена'));
 
@@ -113,23 +110,25 @@ class DefaultController extends YBackController
                 $modelsByLang[$m->lang] = $m;
             }
             // Выберем модельку для вывода тайтлов и прочего
-            $model = isset($modelsByLang[Yii::app()->language]) ? $modelsByLang[Yii::app()->language] :
-                (isset($modelsByLang[Yii::app()->sourceLanguage]) ? $modelsByLang[Yii::app()->sourceLanguage] : reset($models));
+            $model = isset($modelsByLang[Yii::app()->language])
+                ? $modelsByLang[Yii::app()->language]
+                : (isset($modelsByLang[Yii::app()->sourceLanguage])
+                    ? $modelsByLang[Yii::app()->sourceLanguage]
+                    : reset($models)
+                );
 
-            // Теперь создадим недостоающие
+            // Теперь создадим недостающие
             foreach ($langs as $l)
             {
                 if (!isset($modelsByLang[$l]))
                 {
                     $news = new Category;
-                    $news->setAttributes(
-                        array(
-                            'alias'         => $alias,
-                            'lang'          => $l,
-                            'parent_id'     => $model->parent_id,
-                            'iamge'         => $model->image,
-                        )
-                    );
+                    $news->setAttributes( array(
+                        'alias'     => $alias,
+                        'lang'      => $l,
+                        'parent_id' => $model->parent_id,
+                        'image'     => $model->image,
+                    ));
 
                     if ($l != Yii::app()->sourceLanguage)
                         $news->scenario = 'altlang';
@@ -147,29 +146,30 @@ class DefaultController extends YBackController
                 {
                     $img = $modelsByLang[$l]->image;
 
-                    $modelsByLang[$l]->image = CUploadedFile::getInstance($modelsByLang[$l], 'image') !== null ? CUploadedFile::getInstance($modelsByLang[$l], 'image') : $img;
+                    $modelsByLang[$l]->image = CUploadedFile::getInstance($modelsByLang[$l], 'image') !== null
+                        ? CUploadedFile::getInstance($modelsByLang[$l], 'image')
+                        : $img;
 
                     if (isset($_POST['Category'][$l]))
                     {
                         $p = $_POST['Category'][$l];
 
                         $modelsByLang[$l]->setAttributes(array(
-                            'alias'        => $_POST['Category']['alias'],
-                            'parent_id'    => $_POST['Category']['parent_id'],
-                            'image'        => $modelsByLang[$l]->image,
-                            'name'         => $p['name'],
+                            'alias'             => $_POST['Category']['alias'],
+                            'parent_id'         => $_POST['Category']['parent_id'],
+                            'image'             => $modelsByLang[$l]->image,
+                            'name'              => $p['name'],
                             'short_description' => $p['short_description'],
-                            'description'  => $p['description'],
-                            'status' => $p['status']
+                            'description'       => $p['description'],
+                            'status'            => $p['status'],
                         ));
 
                         if ($l != Yii::app()->sourceLanguage)
                             $modelsByLang[$l]->scenario = 'altlang';
-
                         if (!$modelsByLang[$l]->save())
                             $wasError = true;
 
-                        elseif(is_object($modelsByLang[$l]->image))
+                        else if (is_object($modelsByLang[$l]->image))
                         {
                             $imageName = $this->module->getUploadPath() . $model->alias . '.' . $modelsByLang[$l]->image->extensionName;
 
@@ -178,8 +178,7 @@ class DefaultController extends YBackController
                             if ($modelsByLang[$l]->image->saveAs($imageName))
                             {
                                 $modelsByLang[$l]->image = basename($imageName);
-
-                                $modelsByLang[$l]->update(array( 'image' ));
+                                $modelsByLang[$l]->update(array('image'));
                             }
                         }
                         else
@@ -189,17 +188,22 @@ class DefaultController extends YBackController
 
                 if (!$wasError)
                 {
-                    Yii::app()->user->setFlash(YFlashMessages::NOTICE_MESSAGE, Yii::t('category', 'Категория обновлена!'));
+                    Yii::app()->user->setFlash(
+                        YFlashMessages::NOTICE_MESSAGE,
+                        Yii::t('category', 'Категория обновлена!')
+                    );
 
-                     if (!isset($_POST['submit-type']))
+                    if (!isset($_POST['submit-type']))
                         $this->redirect(array('update', 'alias' => $model->alias));
                     else
                         $this->redirect(array($_POST['submit-type']));
                 }
                 else
-                    Yii::app()->user->setFlash(YFlashMessages::NOTICE_MESSAGE, Yii::t('category', 'Ошибки при сохранении Категории!'));
+                    Yii::app()->user->setFlash(
+                        YFlashMessages::NOTICE_MESSAGE,
+                        Yii::t('category', 'Ошибки при сохранении Категории!')
+                    );
             }
-
 
             $this->render('updateMultilang', array(
                 'model'  => $model,
@@ -224,14 +228,17 @@ class DefaultController extends YBackController
             if ($model->delete())
                 @unlink($this->module->getUploadPath() . $model->image);
 
-            Yii::app()->user->setFlash(YFlashMessages::NOTICE_MESSAGE, Yii::t('category', 'Запись удалена!'));
+            Yii::app()->user->setFlash(
+                YFlashMessages::NOTICE_MESSAGE,
+                Yii::t('category', 'Запись удалена!')
+            );
 
             // если это AJAX запрос ( кликнули удаление в админском grid view), мы не должны никуда редиректить
             if (!isset($_GET['ajax']))
                 $this->redirect(isset($_POST['returnUrl']) ? $_POST['returnUrl'] : array( 'index' ));
         }
         else
-            throw new CHttpException(400, Yii::t('category','Неверный запрос. Пожалуйста, больше не повторяйте такие запросы'));
+            throw new CHttpException(400, Yii::t('category', 'Неверный запрос. Пожалуйста, больше не повторяйте такие запросы'));
     }
 
     /**
@@ -243,10 +250,7 @@ class DefaultController extends YBackController
         $model->unsetAttributes();  // clear any default values
         if (isset($_GET['Category']))
             $model->attributes = $_GET['Category'];
-
-        $this->render('index', array(
-            'model' => $model,
-        ));
+        $this->render('index', array('model' => $model));
     }
 
     /**
@@ -258,7 +262,7 @@ class DefaultController extends YBackController
     {
         $model = Category::model()->findByPk($id);
         if ($model === null)
-            throw new CHttpException(404, Yii::t('category','Запрошенная страница не найдена!'));
+            throw new CHttpException(404, Yii::t('category', 'Запрошенная страница не найдена!'));
         return $model;
     }
 

@@ -13,7 +13,7 @@ class InstallModule extends YWebModule
 
     public function getAdminPageLink()
     {
-        return '/install/';
+        return '/install/default/index';
     }
 
     public function getEditableParams()

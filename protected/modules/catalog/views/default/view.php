@@ -4,21 +4,23 @@
         Yii::t('catalog', 'Товары') => array('/catalog/default/index'),
         $model->name,
     );
+
     $this->pageTitle = Yii::t('catalog', 'Товары - просмотр');
+
     $this->menu = array(
         array('icon' => 'list-alt', 'label' => Yii::t('catalog', 'Управление товарами'), 'url' => array('/catalog/default/index')),
         array('icon' => 'plus-sign', 'label' => Yii::t('catalog', 'Добавить товар'), 'url' => array('/catalog/default/create')),
-        array('label' => Yii::t('catalog', 'Товар')),
-        array('icon' => 'pencil', 'encodeLabel' => false, 'label' => Yii::t('catalog', 'Редактирование товара'), 'url' => array(
+        array('label' => Yii::t('catalog', 'Товар') . ' «' . mb_substr($model->name, 0, 32) . '»'),
+        array('icon' => 'pencil', 'label' => Yii::t('catalog', 'Редактирование товара'), 'url' => array(
             '/catalog/default/update',
             'id' => $model->id
         )),
-        array('icon' => 'eye-open white', 'encodeLabel' => false, 'label' => Yii::t('catalog', 'Просмотреть товар'), 'url' => array(
+        array('icon' => 'eye-open', 'label' => Yii::t('catalog', 'Просмотреть товар'), 'url' => array(
             '/catalog/default/view',
             'id' => $model->id
         )),
         array('icon' => 'trash', 'label' => Yii::t('catalog', 'Удалить товар'), 'url' => '#', 'linkOptions' => array(
-            'submit' => array('delete', 'id' => $model->id),
+            'submit' => array('/catalog/default/delete', 'id' => $model->id),
             'confirm' => Yii::t('catalog', 'Вы уверены, что хотите удалить товар?')
         )),
     );

@@ -1,16 +1,17 @@
 <?php
-$this->breadcrumbs = array(
-    $this->getModule('contentblock')->getCategory() => array(''),
-    Yii::t('contentblock', 'Блоки контента') => array('/contentblock/default/index'),
-    Yii::t('contentblock', 'Управление'),
-);
+    $this->breadcrumbs = array(
+        Yii::app()->getModule('contentblock')->getCategory() => array(''),
+        Yii::t('contentblock', 'Блоки контента') => array('/contentblock/default/index'),
+        Yii::t('contentblock', 'Управление'),
+    );
 
-$this->menu = array(
-    array('icon'  => 'plus-sign','label' => Yii::t('contentblock', 'Добавить новый блок'), 'url' => array('/contentblock/default/create')),
-    array('icon' => 'list-alt','label' => Yii::t('contentblock', 'Управление блоками контента'), 'url' => array('/contentblock/default/index')),
-);
+    $this->pageTitle = Yii::t('catalog', 'Блоки контента - управление');
+
+    $this->menu = array(
+        array('icon' => 'list-alt','label' => Yii::t('contentblock', 'Управление блоками контента'), 'url' => array('/contentblock/default/index')),
+        array('icon' => 'plus-sign','label' => Yii::t('contentblock', 'Добавить блок контента'), 'url' => array('/contentblock/default/create')),
+    );
 ?>
-
 <div class="page-header">
     <h1>
         <?php echo Yii::t('contentblock', 'Блоки контента'); ?>
@@ -44,8 +45,9 @@ $this->renderPartial('_search', array('model' => $model));
 
 <?php $this->widget('bootstrap.widgets.TbGridView', array(
     'id'           => 'content-block-grid',
-    'dataProvider' => $model->search(),
     'type'         => 'condensed',
+    'dataProvider' => $model->search(),
+    'filter'       => $model,
     'columns'      => array(
         'id',
         array(
@@ -59,6 +61,8 @@ $this->renderPartial('_search', array('model' => $model));
         ),
         'code',
         'description',
-        array('class' => 'bootstrap.widgets.TbButtonColumn'),
+        array(
+            'class' => 'bootstrap.widgets.TbButtonColumn',
+        ),
    ),
 )); ?>

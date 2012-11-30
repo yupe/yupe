@@ -16,18 +16,18 @@
         array('label' => Yii::t('blog', 'Записи'), 'items' => array(
             array('icon' => 'list-alt', 'label' => Yii::t('blog', 'Управление записями'), 'url' => array('/blog/PostAdmin/index')),
             array('icon' => 'plus-sign', 'label' => Yii::t('blog', 'Добавить запись'), 'url' => array('/blog/PostAdmin/create')),
-            array('label' => Yii::t('blog', 'Запись') . ' «' . $model->title . '»'),
-            array('icon' => 'pencil', 'encodeLabel' => false, 'label' => Yii::t('blog', 'Редактирование записи'), 'url' => array(
+            array('label' => Yii::t('blog', 'Запись') . ' «' . mb_substr($model->title, 0, 32) . '»'),
+            array('icon' => 'pencil', 'label' => Yii::t('blog', 'Редактирование записи'), 'url' => array(
                 '/blog/PostAdmin/update',
                 'id' => $model->id
             )),
-            array('icon' => 'eye-open', 'encodeLabel' => false, 'label' => Yii::t('blog', 'Просмотреть запись'), 'url' => array(
+            array('icon' => 'eye-open', 'label' => Yii::t('blog', 'Просмотреть запись'), 'url' => array(
                 '/blog/PostAdmin/view',
                 'id' => $model->id
             )),
             array('icon' => 'trash', 'label' => Yii::t('blog', 'Удалить запись'), 'url' => '#', 'linkOptions' => array(
-                'submit' => array('delete', 'id' => $model->id),
-                'confirm' => Yii::t('blog', 'Вы уверены, что хотите удалить запись?')
+                'submit' => array('/blog/PostAdmin/delete', 'id' => $model->id),
+                'confirm' => Yii::t('blog', 'Вы уверены, что хотите удалить запись?'),
             )),
         )),
         array('label' => Yii::t('blog', 'Участники'), 'items' => array(

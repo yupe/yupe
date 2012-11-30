@@ -22,36 +22,36 @@
 
     $this->widget('bootstrap.widgets.TbNavbar', array(
         'htmlOptions' => array('class'=>'navbar navbar-inverse'),
-        'fluid' => true,
-        'brand' => CHtml::image(Yii::app()->theme->baseUrl . "/images/logo.png", $brandTitle, array(
+        'fluid'       => true,
+        'brand'       => CHtml::image(Yii::app()->theme->baseUrl . "/images/logo.png", $brandTitle, array(
             'width'  => '38',
             'height' => '38',
             'title'  => $brandTitle,
         )),
         'brandUrl' => CHtml::normalizeUrl(array("/yupe/backend")),
-        'items' => array(
+        'items'    => array(
             array(
                 'class' => 'bootstrap.widgets.TbMenu',
                 'items' => $module->getModules(true),
             ),
             array(
-                'class' => 'bootstrap.widgets.TbMenu',
+                'class'       => 'bootstrap.widgets.TbMenu',
                 'htmlOptions' => array('class' => 'pull-right'),
-                'items' => array(
+                'items'       => array(
                     array(
-                        'icon' => 'question-sign white',
+                        'icon'  => 'question-sign white',
                         'label' => Yii::t('yupe', 'Помощь'),
-                        'url' => array('/yupe/backend/help/'),
+                        'url'   => array('/yupe/backend/help/'),
                     ),
                     array(
-                        'icon' => 'home white',
+                        'icon'  => 'home white',
                         'label' => Yii::t('yupe', 'На сайт'),
-                        'url' => array('/' . Yii::app()->defaultController . '/index/'),
+                        'url'   => array('/' . Yii::app()->defaultController . '/index/'),
                     ),
                     array(
-                        'icon' => 'off white',
+                        'icon'  => 'off white',
                         'label' => Yii::t('yupe', 'Выйти'),
-                        'url' => array('/user/account/logout'),
+                        'url'   => array('/user/account/logout'),
                     ),
                     array(
                         'label' => $this->yupe->getVersion(),
@@ -81,7 +81,7 @@
 </div>
 <footer>
     Copyright &copy; 2009-<?php echo date('Y'); ?>
-    <a href='<?php echo $module->brandUrl?>'><?php echo CHtml::encode(Yii::app()->name); ?></a> <small class="label label-info"><?php echo Yii::app()->getModule('yupe')->getVersion();?></small>
+    <a href='<?php echo $module->brandUrl; ?>'><?php echo CHtml::encode(Yii::app()->name); ?></a> <small class="label label-info"><?php echo Yii::app()->getModule('yupe')->getVersion();?></small>
     <br/>
     <a href="http://yupe.ru/feedback/contact?from=engine"><?php echo Yii::t('yupe','Разработка и поддержка');?></a> - <a href="mailto:team@yupe.ru">yupe team</a>
     <br/>

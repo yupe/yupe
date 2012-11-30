@@ -108,6 +108,32 @@ class Page extends YModel
         );
     }
 
+    /**
+     * @return array customized attribute descriptions (name=>description)
+     */
+    public function attributeDescriptions()
+    {
+        return array(
+            'id'             => Yii::t('page', 'Id страницы.'),
+            'parent_Id'      => Yii::t('page', 'Родительская страница.'),
+            'category_id'    => Yii::t('page', 'Категория к которой привязана страница.'),
+            'creation_date'  => Yii::t('page', 'Дата создания страницы.'),
+            'change_date'    => Yii::t('page', 'Дата изменения страницы.'),
+            'title'          => Yii::t('page', 'Укажите полное название данной страницы для отображения в заголовке при полном просмотре.<br/><br />Например:<pre>Контактная информация и карта проезда.</pre>'),
+            'slug'           => Yii::t('page', "Краткое название страницы латинскими буквами, используется для формирования её адреса.<br /><br /> Например (выделено темным фоном): <pre>http://site.ru/page/<span class='label'>contacts</span>/</pre> Если вы не знаете, для чего вам нужно это поле &ndash; не заполняйте его, заголовка страницы будет достаточно."),
+            'lang'           => Yii::t('page', 'Язык страницы.'),
+            'body'           => Yii::t('page', 'Основной текст страницы.'),
+            'keywords'       => Yii::t('page', 'Ключевые слова необходимы для SEO-оптимизации страниц сайта. Выделите несколько основных смысловых слов из страницы и напишите их здесь через запятую. К примеру, если страница содержит контактную информацию, логично использовать такие ключевые слова: <pre>адрес, карта проезда, контакты, реквизиты.</pre>'),
+            'description'    => Yii::t('page', 'Краткое описание данной страницы, одно или два предложений. Обычно это самая главная мысль, к примеру: <pre>Контактная информация, реквизиты и карта проезда компании ОАО &laquo;Рога-унд-Копыта индастриз&raquo;</pre>Данный текст очень часто попадает в <a href="http://help.yandex.ru/webmaster/?id=1111310">сниппет</a> поисковых систем.'),
+            'status'         => Yii::t('page', "<span class='label label-success'>Опубликовано</span> &ndash; Страницу видят все посетители сайта, режим по-умолчанию.<br /><br /><span class='label label-default'>Черновик</span> &ndash; Данная страница еще не окончена и не должна отображаться.<br /><br /><span class='label label-info'>На модерации</span> &ndash; Данная страница еще не проверена и не должна отображаться."),
+            'is_protected'   => Yii::t('page', 'Доступ: * только для авторизованных пользователей.'),
+            'name'           => Yii::t('page', 'Укажите краткое название данной страницы для отображения её в меню.<br/><br />Например:<pre>Контакты</pre>'),
+            'user_id'        => Yii::t('page', 'Пользователь, который добавил страницу.'),
+            'change_user_id' => Yii::t('page', 'Пользователь, который последний изменил страницу.'),
+            'menu_order'     => Yii::t('page', 'Чем большее числовое значение вы укажете в этом поле, тем выше будет позиция данной страницы в меню.'),
+        );
+    }
+
     public function beforeValidate()
     {
         if (!$this->slug)
@@ -183,6 +209,8 @@ class Page extends YModel
 
         $criteria->compare('is_protected', $this->is_protected);
         $criteria->compare('is_protected', $this->is_protected);
+
+        $criteria->addCondition('lang = "' . Yii::app()->language . '" OR lang is null OR lang = "' . Yii::app()->sourceLanguage . '"');
 
         return new CActiveDataProvider(get_class($this), array(
             'criteria' => $criteria,

@@ -1,20 +1,21 @@
-<?php $this->pageTitle = Yii::t('page', 'Добавление страницы'); ?>
-
 <?php
-$this->breadcrumbs = array(
-    $this->getModule('page')->getCategory() => array('admin'),
-    Yii::t('page', 'Страницы') => array('admin'),
-    Yii::t('page', 'Добавление страницы'),
-);
+    $this->breadcrumbs = array(
+        $this->getModule('page')->getCategory() => array('/page/default/index'),
+        Yii::t('page', 'Страницы') => array('/page/default/index'),
+        Yii::t('page', 'Добавление страницы'),
+    );
 
-$this->menu = array(
-    array( 'icon' => 'list-alt', 'label' => Yii::t('page', 'Управление страницами'), 'url' => array('admin')),
-    array( 'icon' => 'file white', 'label' => Yii::t('page', 'Добавление страницы'), 'url' => array('/page/default/create')),
-);
+    $this->pageTitle = Yii::t('page', 'Добавление страницы');
+
+    $this->menu = array(
+        array('icon' => 'list-alt', 'label' => Yii::t('page', 'Управление страницами'), 'url' => array('/page/default/index')),
+        array('icon' => 'plus-sign', 'label' => Yii::t('page', 'Добавление страницы'), 'url' => array('/page/default/create')),
+    );
 ?>
 <div class="page-header">
-    <h1><?php echo $this->module->getName(); ?>
-        <small><?php echo Yii::t('page', 'добавление новой'); ?></small>
+    <h1>
+        <?php echo Yii::t('page', 'Страницы'); ?>
+        <small><?php echo Yii::t('page', 'добавление'); ?></small>
     </h1>
 </div>
 

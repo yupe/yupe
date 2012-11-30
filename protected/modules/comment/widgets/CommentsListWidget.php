@@ -12,7 +12,7 @@ class CommentsListWidget extends YWidget
                 '{widget}' => get_class($this),
             )));
 
-        $this->model   =       is_object($this->model) ? get_class($this->model) : $this->model;
+        $this->model   = is_object($this->model) ? get_class($this->model) : $this->model;
         $this->modelId = (int) $this->modelId;
 
         if (!$this->label)

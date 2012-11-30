@@ -19,7 +19,7 @@
         array('label' => Yii::t('blog', 'Участники'), 'items' => array(
             array('icon' => 'list-alt', 'label' => Yii::t('blog', 'Управление участниками'), 'url' => array('/blog/UserToBlogAdmin/index')),
             array('icon' => 'plus-sign', 'label' => Yii::t('blog', 'Добавить участника'), 'url' => array('/blog/UserToBlogAdmin/create')),
-            array('label' => Yii::t('blog', 'Участник') . ' «' . $model->id . '»'),
+            array('label' => Yii::t('blog', 'Участник') . ' «' . mb_substr($model->id, 0, 32) . '»'),
             array('icon' => 'pencil', 'encodeLabel' => false, 'label' => Yii::t('blog', 'Редактирование участника'), 'url' => array(
                 '/blog/UserToBlogAdmin/update',
                 'id' => $model->id
@@ -29,8 +29,8 @@
                 'id' => $model->id
             )),
             array('icon' => 'trash', 'label' => Yii::t('blog', 'Удалить участника'), 'url' => '#', 'linkOptions' => array(
-                'submit' => array('delete', 'id' => $model->id),
-                'confirm' => Yii::t('blog', 'Вы уверены, что хотите удалить участника?')
+                'submit' => array('/blog/UserToBlogAdmin/delete', 'id' => $model->id),
+                'confirm' => Yii::t('blog', 'Вы уверены, что хотите удалить участника?'),
             )),
         )),
     );

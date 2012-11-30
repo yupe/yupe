@@ -2,7 +2,7 @@
 
 class CatalogModule extends YWebModule
 {
-    public $editor = 'application.modules.yupe.widgets.editors.imperaviRedactor.EImperaviRedactorWidget';
+    public $editor     = 'application.modules.yupe.widgets.editors.imperaviRedactor.EImperaviRedactorWidget';
     public $uploadPath = 'catalog';
 
     public function getUploadPath()
@@ -14,7 +14,7 @@ class CatalogModule extends YWebModule
 
     public function checkSelf()
     {
-        $uploadPath = Yii::getPathOfAlias('webroot') . '/' . Yii::app()->getModule('yupe')->uploadPath . '/' . $this->uploadPath;
+        $uploadPath = $this->getUploadPath();
 
         if (!is_writable($uploadPath))
             return array(
@@ -34,6 +34,7 @@ class CatalogModule extends YWebModule
         return array(
             'uploadPath',
             'adminMenuOrder',
+            'editor' => Yii::app()->getModule('yupe')->editors,
         );
     }
 
@@ -42,20 +43,21 @@ class CatalogModule extends YWebModule
         return array(
             'adminMenuOrder' => Yii::t('catalog', 'Порядок следования в меню'),
             'uploadPath'     => Yii::t('catalog', 'Каталог для загрузки файлов (относительно Yii::app()->getModule("yupe")->uploadPath)'),
+            'editor'         => Yii::t('catalog', 'Визуальный редактор'),
         );
     }
 
     public function getNavigation()
     {
         return array(
-            array('icon' => 'plus-sign', 'label' => Yii::t('catalog', 'Добавить товар'), 'url' => array('/catalog/default/create/')),
-            array('icon' => 'th-list', 'label' => Yii::t('catalog', 'Список товаров'), 'url' => array('/catalog/default/index/')),
+            array('icon' => 'list-alt', 'label' => Yii::t('catalog', 'Список товаров'), 'url' => array('/catalog/default/index')),
+            array('icon' => 'plus-sign', 'label' => Yii::t('catalog', 'Добавить товар'), 'url' => array('/catalog/default/create')),
         );
     }
 
     public function getAdminPageLink()
     {
-        return '/catalog/default/';
+        return '/catalog/default/index';
     }
     
     public function getVersion()
@@ -108,5 +110,4 @@ class CatalogModule extends YWebModule
             'category.models.*',
         ));
     }
-
 }

@@ -4,17 +4,16 @@ $form = $this->beginWidget('bootstrap.widgets.TbActiveForm', array(
     'enableAjaxValidation'   => false,
     'enableClientValidation' => true,
     'type'                   => 'vertical',
-    'htmlOptions'            => array('class' => 'well',  'enctype'=>'multipart/form-data'),
+    'htmlOptions'            => array('class' => 'well', 'enctype'=>'multipart/form-data'),
     'inlineErrors'           => true,
 ));
 
 Yii::app()->clientScript->registerScript('fieldset', "
     $('document').ready(function () {
-        $('.popover-help').popover({ 'trigger' : 'hover', 'delay' : 500 });
+        $('.popover-help').popover({ trigger : 'hover', delay : 500 });
     });
 ");
 ?>
-
     <div class="alert alert-info">
         <?php echo Yii::t('catalog', 'Поля, отмеченные'); ?>
         <span class="required">*</span>
@@ -57,10 +56,10 @@ Yii::app()->clientScript->registerScript('fieldset', "
         <div class="popover-help" data-original-title='<?php echo $model->getAttributeLabel('short_description'); ?>' data-content='<?php echo $model->getAttributeDescription('short_description'); ?>'>
             <?php echo $form->labelEx($model, 'short_description'); ?>
             <?php $this->widget($this->module->editor, array(
-                'model' => $model,
-                'attribute' => 'short_description',
-                'options' => array(
-                    'toolbar' => 'main',
+                'model'       => $model,
+                'attribute'   => 'short_description',
+                'options'     => array(
+                    'toolbar'     => 'main',
                     'imageUpload' => Yii::app()->baseUrl.'/index.php/yupe/backend/AjaxFileUpload/',
                 ),
                 'htmlOptions' => array('rows' => 10, 'cols' => 6),
@@ -71,10 +70,10 @@ Yii::app()->clientScript->registerScript('fieldset', "
         <div class="popover-help" data-original-title='<?php echo $model->getAttributeLabel('description'); ?>' data-content='<?php echo $model->getAttributeDescription('description'); ?>'>
             <?php echo $form->labelEx($model, 'description'); ?>
             <?php $this->widget($this->module->editor, array(
-                'model' => $model,
-                'attribute' => 'description',
-                'options' => array(
-                    'toolbar' => 'main',
+                'model'       => $model,
+                'attribute'   => 'description',
+                'options'     => array(
+                    'toolbar'     => 'main',
                     'imageUpload' => Yii::app()->baseUrl.'/index.php/yupe/backend/AjaxFileUpload/',
                 ),
                 'htmlOptions' => array('rows' => 20, 'cols' => 6),
@@ -85,29 +84,25 @@ Yii::app()->clientScript->registerScript('fieldset', "
         <div class="popover-help" data-original-title='<?php echo $model->getAttributeLabel('data'); ?>' data-content='<?php echo $model->getAttributeDescription('data'); ?>'>
             <?php echo $form->labelEx($model, 'data'); ?>
             <?php $this->widget($this->module->editor, array(
-                'model' => $model,
-                'attribute' => 'data',
-                'options' => array(
-                    'toolbar' => 'main',
+                'model'       => $model,
+                'attribute'   => 'data',
+                'options'     => array(
+                    'toolbar'     => 'main',
                     'imageUpload' => Yii::app()->baseUrl.'/index.php/yupe/backend/AjaxFileUpload/',
                 ),
                 'htmlOptions' => array('rows' => 10, 'cols' => 6),
              )); ?>
         </div>
     </div>
-
     <?php $this->widget('bootstrap.widgets.TbButton', array(
         'buttonType' => 'submit',
-        'type'       => 'primary',        
-        'label'      => Yii::t('catalog','Сохранить товар и продолжить'),
+        'type'       => 'primary',
+        'label'      => $model->isNewRecord ? Yii::t('catalog', 'Добавить товар и продолжить') : Yii::t('catalog', 'Сохранить товар и продолжить'),
     )); ?>
-
     <?php $this->widget('bootstrap.widgets.TbButton', array(
         'buttonType' => 'submit',
         'htmlOptions'=> array('name' => 'submit-type', 'value' => 'index'),
-        'label'      => Yii::t('catalog','Сохранить товар и закрыть'),
+        'label'      => $model->isNewRecord ? Yii::t('catalog', 'Добавить товар и закрыть') : Yii::t('catalog', 'Сохранить товар и закрыть'),
     )); ?>
-
-
 
 <?php $this->endWidget(); ?>

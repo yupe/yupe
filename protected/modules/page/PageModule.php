@@ -8,9 +8,9 @@ class PageModule extends YWebModule
     public function getParamsLabels()
     {
         return array(
-            'adminMenuOrder' => Yii::t('page','Порядок следования в меню'),
-            'editor'         => Yii::t('page','Визуальный редактор'),
-            'mainCategory'   => Yii::t('news','Главная категория страниц'),
+            'adminMenuOrder' => Yii::t('page', 'Порядок следования в меню'),
+            'editor'         => Yii::t('page', 'Визуальный редактор'),
+            'mainCategory'   => Yii::t('news', 'Главная категория страниц'),
         );
     }
 
@@ -99,8 +99,8 @@ class PageModule extends YWebModule
     public function getNavigation()
     {
         return array(
-            array('icon' => 'plus-sign', 'label' => Yii::t('page', 'Добавить страницу'), 'url' => array('/page/default/create/')),
-            array('icon' => 'th-list', 'label' => Yii::t('page', 'Список страниц'), 'url' => array('/page/default/admin/')),
+            array('icon' => 'list-alt', 'label' => Yii::t('page', 'Список страниц'), 'url' => array('/page/default/index')),
+            array('icon' => 'plus-sign', 'label' => Yii::t('page', 'Добавить страницу'), 'url' => array('/page/default/create')),
         );
     }
 }

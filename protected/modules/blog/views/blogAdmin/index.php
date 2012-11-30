@@ -63,7 +63,7 @@ $this->renderPartial('_search', array('model' => $model));
         array(
             'name'  => 'name',
             'type'  => 'raw',
-            'value' => 'CHtml::link($data->name, array("/blog/blogAdmin/update/", "id" => $data->id))',
+            'value' => 'CHtml::link($data->name, array("/blog/blogAdmin/update", "id" => $data->id))',
         ),
         array(
             'header' => Yii::t('blog', 'Записей'),
@@ -88,7 +88,7 @@ $this->renderPartial('_search', array('model' => $model));
         array(
             'name'  => 'create_user_id',
             'type'  => 'raw',
-            'value' => 'CHtml::link($data->createUser->getFullName(), array("/user/default/view/", "id" => $data->createUser->id))',
+            'value' => 'CHtml::link($data->createUser->getFullName(), array("/user/default/view", "id" => $data->createUser->id))',
         ),        
         array(
             'name'  => 'create_date',

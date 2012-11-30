@@ -49,7 +49,7 @@ class GeoModule extends YWebModule
 
     public function getAdminPageLink()
     {
-        return '/geo/default/';
+        return '/geo/default/index';
     }
 
     public function getIcon()

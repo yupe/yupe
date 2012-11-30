@@ -63,13 +63,13 @@ $this->renderPartial('_search', array('model' => $model));
         array(
             'name'  => 'title',
             'type'  => 'raw',
-            'value' => 'CHtml::link($data->title, array("/blog/postAdmin/update/", "id" => $data->id))',
+            'value' => 'CHtml::link($data->title, array("/blog/postAdmin/update", "id" => $data->id))',
         ),
         'slug',       
         array(
             'name'  => 'blog_id',
             'type'  => 'raw',
-            'value' => 'CHtml::link($data->blog->name, array("/blog/blogAdmin/view/", "id" => $data->blog->id))',
+            'value' => 'CHtml::link($data->blog->name, array("/blog/blogAdmin/view", "id" => $data->blog->id))',
         ),
         array(
             'name'  => 'access_type',
@@ -79,7 +79,7 @@ $this->renderPartial('_search', array('model' => $model));
         array(
             'name'  => 'create_user_id',
             'type'  => 'raw',
-            'value' => 'CHtml::link($data->createUser->getFullName(), array("/user/default/view/", "id" => $data->createUser->id))',
+            'value' => 'CHtml::link($data->createUser->getFullName(), array("/user/default/view", "id" => $data->createUser->id))',
         ),       
         array(
             'name'  => 'publish_date',
