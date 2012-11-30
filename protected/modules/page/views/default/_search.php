@@ -52,11 +52,12 @@ Yii::app()->clientScript->registerScript('fieldset', "
             </div>
         </div>
     </fieldset>
+
     <?php $this->widget('bootstrap.widgets.TbButton', array(
        'buttonType'  => 'submit',
        'type'        => 'primary',
        'encodeLabel' => false,
-       'label'       => '<i class="icon-search icon-white"></i> '.Yii::t('page', 'Искать страницу'),
+       'label'       => '<i class="icon-search icon-white">&nbsp;</i> '.Yii::t('page', 'Искать страницы'),
     )); ?>
 
 <?php $this->endWidget(); ?>

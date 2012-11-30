@@ -19,7 +19,6 @@
     </h1>
 </div>
 
-
 <button class="btn btn-small dropdown-toggle" data-toggle="collapse" data-target="#search-toggle">
     <i class="icon-search">&nbsp;</i>
     <?php echo CHtml::link(Yii::t('news', 'Поиск новостей'), '#', array('class' => 'search-button')); ?>
@@ -30,7 +29,7 @@
 <?php
 Yii::app()->clientScript->registerScript('search', "
     $('.search-form form').submit(function() {
-        $.fn.yiiGridView.update('good-grid', {
+        $.fn.yiiGridView.update('news-grid', {
             data: $(this).serialize()
         });
         return false;
@@ -45,7 +44,7 @@ $this->renderPartial('_search', array('model' => $model));
 <p><?php echo Yii::t('news', 'В данном разделе представлены средства управления новостями'); ?></p>
 
 <?php $this->widget('application.modules.yupe.components.YCustomGridView', array(
-    'id'            => 'news-grid',
+    'id'           => 'news-grid',
     'type'         => 'condensed',
     'dataProvider' => $model->search(),
     'filter'       => $model,

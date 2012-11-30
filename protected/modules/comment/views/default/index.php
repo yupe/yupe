@@ -29,7 +29,7 @@
 <?php
 Yii::app()->clientScript->registerScript('search', "
     $('.search-form form').submit(function() {
-        $.fn.yiiGridView.update('post-grid', {
+        $.fn.yiiGridView.update('comment-grid', {
             data: $(this).serialize()
         });
         return false;

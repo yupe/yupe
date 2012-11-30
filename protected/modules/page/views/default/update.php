@@ -1,6 +1,6 @@
 <?php
     $this->breadcrumbs = array(
-        $this->getModule('page')->getCategory() => array('/page/default/index'),
+        Yii::app()->getModule('page')->getCategory() => array(),
         Yii::t('page', 'Страницы') => array('/page/default/index'),
         $model->title => array('/page/default/view', 'id' => $model->id),
         Yii::t('page', 'Изменение'),
@@ -20,9 +20,9 @@
             '/page/default/view',
             'id' => $model->id
         )),
-        array('icon' => 'remove', 'label' => Yii::t('page', 'Удалить эту страницу'), 'url' => '#', 'linkOptions' => array(
+        array('icon' => 'trash', 'label' => Yii::t('page', 'Удалить эту страницу'), 'url' => '#', 'linkOptions' => array(
             'submit' => array('/page/default/delete', 'id' => $model->id),
-            'confirm' => Yii::t('page', 'Подтверждаете удаление страницы ?'),
+            'confirm' => Yii::t('page', 'Вы уверены, что хотите удалить страницу?'),
         )),
     );
 ?>

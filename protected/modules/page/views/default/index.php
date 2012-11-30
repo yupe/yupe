@@ -1,6 +1,6 @@
 <?php
     $this->breadcrumbs = array(
-        $this->getModule('page')->getCategory() => array('/page/default/index'),
+        Yii::app()->getModule('page')->getCategory() => array(),
         Yii::t('page', 'Страницы') => array('/page/default/index'),
         Yii::t('page', 'Управление'),
     );
@@ -29,7 +29,7 @@
 <?php
 Yii::app()->clientScript->registerScript('search', "
     $('.search-form form').submit(function() {
-        $.fn.yiiGridView.update('blog-grid', {
+        $.fn.yiiGridView.update('page-grid', {
             data: $(this).serialize()
         });
         return false;

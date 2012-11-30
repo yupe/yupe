@@ -1,72 +1,104 @@
-<?php $this->pageTitle = Yii::t('feedback', 'Сообщения с сайта'); ?>
-
 <?php
-$this->breadcrumbs = array(
-    $this->module->getCategory() => array('/feedback/default/index'),
-    Yii::t('feedback', 'Сообщения с сайта') => array('/feedback/default/index'),
-    $model->theme,
-);
+    $this->breadcrumbs = array(
+        Yii::app()->getModule('feedback')->getCategory() => array(),
+        Yii::t('feedback', 'Сообщения с сайта') => array('/feedback/default/index'),
+        $model->theme => array('/feedback/default/view', 'id' => $model->id),
+        Yii::t('feedback', 'Ответ'),
+    );
 
-$this->menu = array(
-    array('icon' => 'list-alt', 'label' => Yii::t('feedback', 'Управление сообщениями'), 'url' => array('/feedback/default/index')),
-    array('icon' => 'plus-sign', 'label' => Yii::t('feedback', 'Добавить сообщение'), 'url' => array('/feedback/default/create')),
-    array('icon' => 'pencil', 'label' => Yii::t('feedback', 'Редактировать данное сообщение'), 'url' => array('/feedback/default/update', 'id' => $model->id)),
-    array('icon' => 'eye-open', 'label' => Yii::t('feedback', 'Просмотр сообщения'), 'url' => array('/feedback/default/view', 'id' => $model->id)),
-    array('icon' => 'trash', 'label' => Yii::t('feedback', 'Удалить данное сообщение'), 'url' => '#', 'linkOptions' => array(
-        'submit'  => array('delete', 'id' => $model->id),
-        'confirm' => 'Подтверждаете удаление сообщения ?',
-    )),
-    array('icon' => 'envelope white', 'label' => Yii::t('feedback', 'Ответить на сообщение'), 'url' => array('/feedback/default/answer', 'id' => $model->id)),
-);;
+    $this->pageTitle = Yii::t('feedback', 'Сообщения с сайта - ответ');
+
+    $this->menu = array(
+        array('icon' => 'list-alt', 'label' => Yii::t('feedback', 'Управление сообщениями с сайта'), 'url' => array('/feedback/default/index')),
+        array('icon' => 'plus-sign', 'label' => Yii::t('feedback', 'Добавить сообщение с сайта'), 'url' => array('/feedback/default/create')),
+        array('label' => Yii::t('dictionary', 'Значение справочника') . ' «' . mb_substr($model->theme, 0, 32) . '»'),
+        array('icon' => 'pencil', 'label' => Yii::t('feedback', 'Редактирование сообщения с сайта'), 'url' => array(
+            '/feedback/default/update',
+            'id' => $model->id
+        )),
+        array('icon' => 'eye-open', 'label' => Yii::t('feedback', 'Просмотреть сообщение с сайта'), 'url' => array(
+            '/feedback/default/view',
+            'id' => $model->id
+        )),
+        array('icon' => 'envelope', 'label' => Yii::t('feedback', 'Ответить на сообщение с сайта'), 'url' => array(
+            '/feedback/default/answer',
+            'id' => $model->id
+        )),
+        array('icon' => 'trash', 'label' => Yii::t('feedback', 'Удалить сообщение с сайта'), 'url' => '#', 'linkOptions' => array(
+            'submit'  => array('/feedback/default/delete', 'id' => $model->id),
+            'confirm' => Yii::t('feedback', 'Вы уверены, что хотите удалить сообщение с сайта?'),
+        )),
+    );
 ?>
 
-<script type='text/javascript'>
-    $(document).ready(function() {
-        var email = '<?php echo $model->email; ?>';
-        $('input:submit').click(function() {
-            if(window.confirm('<?php echo Yii::t('feedback', 'Ответ будет отправлен на '); ?>' + email + '<?php echo Yii::t('feedback', ' продолжить ?'); ?>'))
-                return true;
-            return false;
+    <script type='text/javascript'>
+        $(document).ready(function() {
+            var email = '<?php echo $model->email; ?>';
+            $('input:submit').click(function() {
+                if(window.confirm('<?php echo Yii::t('feedback', 'Ответ будет отправлен на '); ?>' + email + '<?php echo Yii::t('feedback', ' продолжить ?'); ?>'))
+                    return true;
+                return false;
+            });
         });
-    });
-</script>
-
-<h1><?php echo Yii::t('feedback','Ответ на сообщение'); ?> <small>#<?php echo $model->id; ?></small></h1>
-
-<?php $this->widget('bootstrap.widgets.TbDetailView', array(
-    'data'       => $model,
-    'attributes' => array(
-        'creation_date',
-        'name',
-        'email',
-        'phone',
-        'theme',
-        array(
-            'name' => 'text',
-            'type' => 'raw',
+    </script>
+    
+    <div class="page-header">
+        <h1>
+            <?php echo Yii::t('feedback', 'Ответ на сообщение с сайта '); ?><br />
+            <small>&laquo;<?php echo $model->theme; ?>&raquo;</small>
+        </h1>
+    </div>
+    
+    <?php $this->widget('bootstrap.widgets.TbDetailView', array(
+        'data'       => $model,
+        'attributes' => array(
+            'creation_date',
+            'name',
+            'email',
+            'phone',
+            'theme',
+            array(
+                'name' => 'text',
+                'type' => 'raw',
+            ),
+            array(
+                'name'  => 'type',
+                'value' => $model->getType(),
+            ),
+            array(
+                'name'  => 'status',
+                'value' => $model->getStatus(),
+            ),
         ),
-        array(
-            'name'  => 'type',
-            'value' => $model->getType(),
-        ),
-        array(
-            'name'  => 'status',
-            'value' => $model->getStatus(),
-        ),
-    ),
-)); ?>
-
-<br/><br/>
-
-    <?php $form = $this->beginWidget('bootstrap.widgets.TbActiveForm', array(
-        'id'          => 'feed-back-form-answer',
-        'action'      => array('/feedback/default/answer/', 'id' => $model->id),
-        'htmlOptions' => array('class' => 'well'),
     )); ?>
+    
+    <br/><br/>
 
-    <fieldset class="inline">
-        <div class="alert alert-info"><?php echo Yii::t('page', 'Поля, отмеченные * обязательны для заполнения'); ?></div>
+    <?php
+    $form = $this->beginWidget('bootstrap.widgets.TbActiveForm', array(
+        'id'                     => 'feed-back-form-answer',
+        'action'                 => array('/feedback/default/answer', 'id' => $model->id),
+        'enableAjaxValidation'   => false,
+        'enableClientValidation' => true,
+        'type'                   => 'vertical',
+        'htmlOptions'            => array('class' => 'well'),
+        'inlineErrors'           => true,
+    ));
+
+    Yii::app()->clientScript->registerScript('fieldset', "
+        $('document').ready(function () {
+            $('.popover-help').popover({ trigger : 'hover', delay : 500 });
+        });
+    ");
+    ?>
+        <div class="alert alert-info">
+            <?php echo Yii::t('feedback', 'Поля, отмеченные'); ?>
+            <span class="required">*</span>
+            <?php echo Yii::t('feedback', 'обязательны.'); ?>
+        </div>
+
         <?php echo $form->errorSummary($answerForm); ?>
+
         <div class="row-fluid control-group">
             <div class="span12">
                 <?php echo $form->labelEx($answerForm, 'answer'); ?>
@@ -82,13 +114,16 @@ $this->menu = array(
                 <?php echo $form->error($answerForm, 'answer'); ?>
             </div>
         </div>
-
         <div class="row-fluid control-group">
             <div class="span12">
                 <?php echo $form->checkBoxRow($answerForm, 'is_faq'); ?>
             </div>
         </div>
 
-        <?php echo CHtml::submitButton(Yii::t('feedback', 'Отправить ответ на сообщение'), array('class' => 'btn btn-primary')); ?>
-    </fieldset>
+        <?php $this->widget('bootstrap.widgets.TbButton', array(
+            'buttonType' => 'submit',
+            'type'       => 'primary',
+            'label'      => Yii::t('feedback', 'Отправить ответ на сообщение с сайта'),
+        )); ?>
+
 <?php $this->endWidget(); ?>

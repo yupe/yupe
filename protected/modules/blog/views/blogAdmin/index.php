@@ -89,11 +89,11 @@ $this->renderPartial('_search', array('model' => $model));
             'name'  => 'create_user_id',
             'type'  => 'raw',
             'value' => 'CHtml::link($data->createUser->getFullName(), array("/user/default/view", "id" => $data->createUser->id))',
-        ),        
+        ),
         array(
             'name'  => 'create_date',
             'value' => 'Yii::app()->getDateFormatter()->formatDateTime($data->create_date, "short", "short")',
-        ),       
+        ),
         array(
             'class' => 'bootstrap.widgets.TbButtonColumn',
         ),

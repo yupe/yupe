@@ -20,7 +20,6 @@ class DictionaryDataController extends YBackController
         $model = new DictionaryData;
 
         $gid = (int) Yii::app()->request->getQuery('gid');
-
         if ($gid)
             $model->group_id = $gid;
 
@@ -39,7 +38,6 @@ class DictionaryDataController extends YBackController
                     $this->redirect(array($_POST['submit-type']));
             }
         }
-
         $this->render('create', array('model' => $model));
     }
 
@@ -67,7 +65,6 @@ class DictionaryDataController extends YBackController
                     $this->redirect(array($_POST['submit-type']));
             }
         }
-
         $this->render('update', array('model' => $model));
     }
 
@@ -88,26 +85,23 @@ class DictionaryDataController extends YBackController
                 $this->redirect(isset($_POST['returnUrl']) ? $_POST['returnUrl'] : array('admin'));
         }
         else
-            throw new CHttpException(400, 'Invalid request. Please do not repeat this request again.');
+            throw new CHttpException(400, Yii::t('dictionary', 'Неверный запрос. Пожалуйста, больше не повторяйте такие запросы'));
     }
-    
+
     /**
      * Manages all models.
      */
     public function actionIndex()
     {
         $model = new DictionaryData('search');
-
         $model->unsetAttributes();  // clear any default values
 
         $group_id = (int) Yii::app()->request->getQuery('group_id');
-
         if ($group_id)
             $model->group_id = $group_id;
 
         if (isset($_GET['DictionaryData']))
             $model->attributes = $_GET['DictionaryData'];
-
         $this->render('index', array('model' => $model));
     }
 
@@ -120,7 +114,7 @@ class DictionaryDataController extends YBackController
     {
         $model = DictionaryData::model()->findByPk((int) $id);
         if ($model === null)
-            throw new CHttpException(404, 'The requested page does not exist.');
+            throw new CHttpException(404, Yii::t('dictionary', 'Запрошенная страница не найдена!'));
         return $model;
     }
 
