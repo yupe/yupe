@@ -8,7 +8,7 @@
     $this->pageTitle = Yii::t('gallery', 'Галереи - управление');
 
     $this->menu = array(
-        array('icon' => 'list-alt white', 'label' => Yii::t('gallery', 'Управление галереями'), 'url' => array('/gallery/default/index')),
+        array('icon' => 'list-alt', 'label' => Yii::t('gallery', 'Управление галереями'), 'url' => array('/gallery/default/index')),
         array('icon' => 'plus-sign', 'label' => Yii::t('gallery', 'Добавить галерею'), 'url' => array('/gallery/default/create')),
     );
 ?>
@@ -43,8 +43,7 @@ $this->renderPartial('_search', array('model' => $model));
 
 <p><?php echo Yii::t('gallery', 'В данном разделе представлены средства управления галереями'); ?></p>
 
-<?php
-$this->widget('application.modules.yupe.components.YCustomGridView', array(
+<?php $this->widget('application.modules.yupe.components.YCustomGridView', array(
     'id'           => 'gallery-grid',
     'type'         => 'condensed',
     'dataProvider' => $model->search(),
@@ -61,5 +60,4 @@ $this->widget('application.modules.yupe.components.YCustomGridView', array(
             'class' => 'bootstrap.widgets.TbButtonColumn',
         ),
     ),
-));
-?>
+)); ?>

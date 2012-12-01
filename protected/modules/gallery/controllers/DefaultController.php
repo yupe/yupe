@@ -39,7 +39,6 @@ class DefaultController extends YBackController
                     $this->redirect(array($_POST['submit-type']));
             }
         }
-
         $this->render('create', array('model' => $model));
     }
 
@@ -71,7 +70,6 @@ class DefaultController extends YBackController
                     $this->redirect(array($_POST['submit-type']));
             }
         }
-
         $this->render('update', array('model' => $model));
     }
 
@@ -97,7 +95,7 @@ class DefaultController extends YBackController
                 $this->redirect(isset($_POST['returnUrl']) ? $_POST['returnUrl'] : array('index'));
         }
         else
-            throw new CHttpException(400, 'Неверный запрос. Пожалуйста, больше не повторяйте такие запросы');
+            throw new CHttpException(400, Yii::t('gallery', 'Неверный запрос. Пожалуйста, больше не повторяйте такие запросы'));
     }
 
     /**
@@ -109,7 +107,6 @@ class DefaultController extends YBackController
         $model->unsetAttributes(); // clear any default values
         if (isset($_GET['Gallery']))
             $model->attributes = $_GET['Gallery'];
-
         $this->render('index', array('model' => $model));
     }
 
@@ -122,7 +119,7 @@ class DefaultController extends YBackController
     {
         $model = Gallery::model()->findByPk($id);
         if ($model === null)
-            throw new CHttpException(404, 'Запрошенная страница не найдена.');
+            throw new CHttpException(404, Yii::t('gallery', 'Запрошенная страница не найдена.'));
         return $model;
     }
 

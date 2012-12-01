@@ -86,7 +86,7 @@ class ImageToGallery extends YModel
         $criteria->compare('galleryId', $this->galleryId, true);
         $criteria->compare('creation_date', $this->creation_date, true);
 
-        return new CActiveDataProvider($this, array('criteria' => $criteria));
+        return new CActiveDataProvider(get_class($this), array('criteria' => $criteria));
     }
 
     public function beforeSave()

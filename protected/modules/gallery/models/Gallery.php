@@ -100,7 +100,7 @@ class Gallery extends YModel
         $criteria->compare('description', $this->description, true);
         $criteria->compare('status', $this->status);
 
-        return new CActiveDataProvider($this, array('criteria' => $criteria));
+        return new CActiveDataProvider(get_class($this), array('criteria' => $criteria));
     }
 
     public function getStatusList()

@@ -27,20 +27,26 @@ class GalleryController extends YFrontController
                 if ($image->create($_POST['Image']))
                 {
                     if ($model->addImage($image))
-                        Yii::app()->user->setFlash(YFlashMessages::NOTICE_MESSAGE, Yii::t('gallery', 'Фотография добавлена!'));
+                        Yii::app()->user->setFlash(
+                            YFlashMessages::NOTICE_MESSAGE,
+                            Yii::t('gallery', 'Фотография добавлена!')
+                        );
 
                     $transaction->commit();
 
-                    $this->redirect(array('/gallery/gallery/show/', 'id' => $model->id));
+                    $this->redirect(array('/gallery/gallery/show', 'id' => $model->id));
                 }
 
-                throw new CDbException(Yii::t('gallery', 'При добавлении изображения произошла ошибка!'));
+                throw new CDbException(Yii::t('gallery', Yii::t('gallery', 'При добавлении изображения произошла ошибка!')));
             }
             catch (Exception $e)
             {
                 $transaction->rollback();
 
-                Yii::app()->user->setFlash(YFlashMessages::ERROR_MESSAGE, Yii::t('gallery', 'При добавлении изображения произошла ошибка!'));
+                Yii::app()->user->setFlash(
+                    YFlashMessages::ERROR_MESSAGE,
+                    Yii::t('gallery', 'При добавлении изображения произошла ошибка!')
+                );
             }
         }
 
@@ -58,7 +64,7 @@ class GalleryController extends YFrontController
         $this->render('show', array(
             'image'        => $image,
             'model'        => $model,
-            'dataProvider' => $dataProvider
+            'dataProvider' => $dataProvider,
         ));
     }
 
