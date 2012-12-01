@@ -28,7 +28,6 @@ class DefaultController extends YBackController
                 $this->redirect(array('/user/default/view', 'id' => $model->id));
             }
         }
-
         $this->render('changepassword', array('model' => $model, 'changePasswordForm' => $form));
     }
 
@@ -59,7 +58,7 @@ class DefaultController extends YBackController
                 'activation_ip'     => Yii::app()->request->userHostAddress,
                 'registration_date' => new CDbExpression("NOW()"),
             ));
-            
+
             if ($model->save())
             {
                 Yii::app()->user->setFlash(
@@ -73,7 +72,6 @@ class DefaultController extends YBackController
                     $this->redirect(array($_POST['submit-type']));
             }
         }
-
         $this->render('create', array('model' => $model));
     }
 
@@ -102,7 +100,6 @@ class DefaultController extends YBackController
                     $this->redirect(array($_POST['submit-type']));
             }
         }
-
         $this->render('update', array('model' => $model));
     }
 
@@ -122,7 +119,7 @@ class DefaultController extends YBackController
                 $this->redirect(array('index'));
         }
         else
-            throw new CHttpException(400, 'Invalid request. Please do not repeat this request again.');
+            throw new CHttpException(400, Yii::t('user', 'Неверный запрос. Пожалуйста, больше не повторяйте такие запросы'));
     }
 
     /**
@@ -134,7 +131,6 @@ class DefaultController extends YBackController
         $model->unsetAttributes(); // clear any default values
         if (isset($_GET['User']))
             $model->attributes = $_GET['User'];
-
         $this->render('index', array('model' => $model));
     }
 
@@ -150,7 +146,7 @@ class DefaultController extends YBackController
             if (isset($_GET['id']))
                 $this->_model = User::model()->findbyPk($_GET['id']);
             if ($this->_model === null)
-                throw new CHttpException(404, 'The requested page does not exist.');
+                throw new CHttpException(404, Yii::t('user', 'Запрошенная страница не найдена!'));
         }
         return $this->_model;
     }

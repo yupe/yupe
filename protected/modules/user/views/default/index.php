@@ -1,33 +1,22 @@
 <?php
-$this->pageTitle = Yii::t('user', 'Управление пользователями');
+    $this->breadcrumbs = array(
+        Yii::app()->getModule('user')->getCategory() => array(),
+        Yii::t('user', 'Пользователи') => array('/user/default/index'),
+        Yii::t('user', 'Управление'),
+    );
 
-$this->breadcrumbs = array(
-    Yii::t('user', 'Пользователи') => array('/user/default/index'),
-    Yii::t('user', 'Управление'),
-);
+    $this->pageTitle = Yii::t('user', 'Пользователи - управление');
 
-$this->menu = array(
-    array('label' => Yii::t('user', 'Пользователи')),
-    array('icon' => 'list', 'label' => Yii::t('user', 'Управление пользователями'), 'url' => array('/user/default/index')),
-    array('icon' => 'plus-sign', 'label' => Yii::t('user', 'Добавление пользователя'), 'url' => array('/user/default/create')),
-    array('label' => Yii::t('user', 'Восстановления паролей')),
-    array('icon' => 'list', 'label' => Yii::t('user', 'Восстановления паролей'), 'url' => array('/user/recoveryPassword/index')),
-);
-
-Yii::app()->clientScript->registerScript('search', "
-    $('.search-button').click(function() {
-        $('.search-form').toggle();
-        return false;
-    });
-    $('.search-form form').submit(function() {
-        $.fn.yiiGridView.update('user-grid', {
-            data: $(this).serialize()
-        });
-        return false;
-    });
-");
+    $this->menu = array(
+        array('label' => Yii::t('user', 'Пользователи'), 'items' => array(
+            array('icon' => 'list-alt', 'label' => Yii::t('user', 'Управление пользователями'), 'url' => array('/user/default/index')),
+            array('icon' => 'plus-sign', 'label' => Yii::t('user', 'Добавление пользователя'), 'url' => array('/user/default/create')),
+        )),
+        array('label' => Yii::t('user', 'Восстановления паролей'), 'items' => array(
+            array('icon' => 'list-alt', 'label' => Yii::t('user', 'Восстановления паролей'), 'url' => array('/user/recoveryPassword/index')),
+        )),
+    );
 ?>
-
 <div class="page-header">
     <h1>
         <?php echo Yii::t('user', 'Пользователи'); ?>
@@ -59,12 +48,12 @@ $this->renderPartial('_search', array('model' => $model));
 
 <p><?php echo Yii::t('user', 'В данном разделе представлены средства управления пользователями'); ?></p>
 
-<?php
-$this->widget('YCustomGridView', array(
+<?php $this->widget('YCustomGridView', array(
     'id'            => 'user-grid',
-    'dataProvider'  => $model->search(),
-    'itemsCssClass' => ' table table-condensed',
-    'columns'       => array(
+    'type'         => 'condensed',
+    'dataProvider' => $model->search(),
+    'filter'       => $model,
+    'columns'      => array(
         'id',
         array(
             'name'  => 'nick_name',
@@ -75,14 +64,17 @@ $this->widget('YCustomGridView', array(
         array(
             'name'   => 'access_level',
             'value'  => '$data->getAccessLevel()',
-            'filter' => CHtml::activeDropDownList($model, 'status', $model->getAccessLevelsList()),
+            'filter' => CHtml::activeDropDownList($model, 'status', $model->accessLevelsList),
         ),
-        'creation_date',
+        array(
+            'name'  => 'creation_date',
+            'value' => 'Yii::app()->getDateFormatter()->formatDateTime($data->creation_date, "short", "short")',
+        ),
         'last_visit',
         array(
             'name'  => 'status',
             'type'  => 'raw',
-            'value' => '$this->grid->returnBootstrapStatusHtml($data)',
+            'value' => '$this->grid->returnBootstrapStatusHtml($data, "status", "Status"',
         ),
         array(
             'class'    => 'bootstrap.widgets.TbButtonColumn',
@@ -96,5 +88,4 @@ $this->widget('YCustomGridView', array(
             ),
         ),
     ),
-));
-?>
+)); ?>

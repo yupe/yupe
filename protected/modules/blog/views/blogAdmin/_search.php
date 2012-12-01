@@ -61,7 +61,7 @@ Yii::app()->clientScript->registerScript('fieldset', "
         'type'        => 'primary',
         'encodeLabel' => false,
         'buttonType'  => 'submit',
-        'label'       => '<i class="icon-search icon-white">&nbsp;</i> ' . Yii::t('blog', 'Найти блог'),
+        'label'       => '<i class="icon-search icon-white">&nbsp;</i> ' . Yii::t('blog', 'Искать блог'),
     )); ?>
 
 <?php $this->endWidget(); ?>
