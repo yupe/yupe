@@ -31,11 +31,13 @@ class DefaultController extends YBackController
                 $model->image = CUploadedFile::getInstance($model, 'image');
                 if ($model->image)
                 {
-                    $imageName = $this->module->getUploadPath() . $model->alias . '.' . $model->image->extensionName;
-                    if ($model->image->saveAs($imageName))
+                    if($imageName = $this->beforeUploadImage($model))
                     {
-                        $model->image = basename($imageName);
-                        $model->update(array( 'image' ));
+                        if ($model->image->saveAs($imageName))
+                        {
+                            $model->image = basename($imageName);
+                            $model->update(array( 'image' ));
+                        }
                     }
                 }
 
@@ -52,6 +54,28 @@ class DefaultController extends YBackController
         }
 
         $this->render('create', array('model' => $model));
+    }
+
+    private function beforeUploadImage($model)
+    {
+        $path = $this->module->getUploadPath();
+        if($this->checkUploadPath($path))
+            return $path . $this->generateName($model->alias) . '.' . $model->image->extensionName;
+        else
+            return false;
+    }
+
+    private function checkUploadPath($path)
+    {
+        if(!is_dir($path) or !is_readable($path))
+            return mkdir($path);
+
+        return true;
+    }
+
+    private function generateName($word)
+    {
+        return YText::translit($word);
     }
 
     /**
@@ -76,13 +100,15 @@ class DefaultController extends YBackController
                 $model->image = CUploadedFile::getInstance($model, 'image');
                 if ($model->image)
                 {
-                    $imageName = $this->module->getUploadPath() . $model->alias . '.' . $model->image->extensionName;
-                    @unlink($this->module->getUploadPath() . $image);
-
-                    if ($model->image->saveAs($imageName))
+                    if($imageName = $this->beforeUploadImage($model))
                     {
-                        $model->image = basename($imageName);
-                        $model->update(array( 'image' ));
+                        @unlink($this->module->getUploadPath() . $image);
+
+                        if ($model->image->saveAs($imageName))
+                        {
+                            $model->image = basename($imageName);
+                            $model->update(array( 'image' ));
+                        }
                     }
                 }
                 else
