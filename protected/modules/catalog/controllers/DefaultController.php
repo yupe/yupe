@@ -31,7 +31,9 @@ class DefaultController extends YBackController
                 $model->image = CUploadedFile::getInstance($model, 'image');
                 if ($model->image)
                 {
-                    $imageName = $this->module->getUploadPath() . $model->alias . '.' . $model->image->extensionName;
+                    $path = $this->module->getUploadPath();
+                    $this->checkUploadPath($path);
+                    $imageName = $this->module->getUploadPath() . $this->generateName($model->alias) . '.' . $model->image->extensionName;
                     if ($model->image->saveAs($imageName))
                     {
                         $model->image = basename($imageName);
@@ -52,6 +54,19 @@ class DefaultController extends YBackController
         }
 
         $this->render('create', array('model' => $model));
+    }
+
+    private function checkUploadPath($path)
+    {
+        if(!is_dir($path) or !is_readable($path))
+        {
+            mkdir($path);
+        }
+    }
+
+    private function generateName($word)
+    {
+        return YText::translit($word);
     }
 
     /**
@@ -76,7 +91,10 @@ class DefaultController extends YBackController
                 $model->image = CUploadedFile::getInstance($model, 'image');
                 if ($model->image)
                 {
-                    $imageName = $this->module->getUploadPath() . $model->alias . '.' . $model->image->extensionName;
+                    $path = $this->module->getUploadPath();
+                    $this->checkUploadPath($path);
+                    $imageName = $this->module->getUploadPath() . $this->generateName($model->alias) . '.' . $model->image->extensionName;
+
                     @unlink($this->module->getUploadPath() . $image);
 
                     if ($model->image->saveAs($imageName))
