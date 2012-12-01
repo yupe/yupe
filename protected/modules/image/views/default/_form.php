@@ -14,7 +14,6 @@ Yii::app()->clientScript->registerScript('fieldset', "
     });
 ");
 ?>
-
     <div class="alert alert-info">
         <?php echo Yii::t('image', 'Поля, отмеченные'); ?>
         <span class="required">*</span>
@@ -43,31 +42,29 @@ Yii::app()->clientScript->registerScript('fieldset', "
         <?php echo $form->dropDownListRow($model, 'type', $model->getTypeList()); ?>
     </div>
     <div class='row-fluid control-group <?php echo $model->hasErrors("description") ? "error" : ""; ?>'>
-        <?php
-          $this->widget($this->yupe->editor, array(
-                'model'     => $model,
-                'attribute' => 'description',
-                'options'   => array(
-                    'toolbar'     => 'main',
-                    'imageUpload' => Yii::app()->baseUrl . '/index.php/yupe/backend/AjaxFileUpload/',
-                ),
-                'htmlOptions' => array('rows' => 20, 'cols' => 6),
-            ));
-        ?>
+        <?php $this->widget($this->yupe->editor, array(
+            'model'     => $model,
+            'attribute' => 'description',
+            'options'   => array(
+                'toolbar'     => 'main',
+                'imageUpload' => Yii::app()->baseUrl . '/index.php/yupe/backend/AjaxFileUpload/',
+            ),
+            'htmlOptions' => array('rows' => 20, 'cols' => 6),
+        )); ?>
     </div>
     <div class='row-fluid control-group <?php echo $model->hasErrors("status") ? "error" : ""; ?>'>
-        <?php echo $form->dropDownListRow($model, 'status', $model->getStatusList()); ?>
+        <?php echo $form->dropDownListRow($model, 'status', $model->statusList); ?>
     </div>
 
     <?php $this->widget('bootstrap.widgets.TbButton', array(
-            'buttonType'=>'submit',
-            'type'=>'primary',
-            'label'=>$model->isNewRecord ? Yii::t('image', 'Добавить изображение и продолжить') : Yii::t('image', 'Сохранить изображение и продолжить'),
+        'buttonType' => 'submit',
+        'type'       => 'primary',
+        'label'      => $model->isNewRecord ? Yii::t('image', 'Добавить изображение и продолжить') : Yii::t('image', 'Сохранить изображение и продолжить'),
     )); ?>
     <?php $this->widget('bootstrap.widgets.TbButton', array(
-               'buttonType' => 'submit',
-               'htmlOptions'=> array('name' => 'submit-type', 'value' => 'index'),
-               'label'      => $model->isNewRecord ? Yii::t('image', 'Добавить изображение и закрыть') : Yii::t('image', 'Сохранить изображение и закрыть'),
+        'buttonType'  => 'submit',
+        'htmlOptions' => array('name' => 'submit-type', 'value' => 'index'),
+        'label'       => $model->isNewRecord ? Yii::t('image', 'Добавить изображение и закрыть') : Yii::t('image', 'Сохранить изображение и закрыть'),
     )); ?>
 
 <?php $this->endWidget(); ?>

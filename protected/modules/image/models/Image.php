@@ -127,7 +127,7 @@ class Image extends YModel
         if ($this->isNewRecord)
         {
             $this->creation_date = new CDbExpression('NOW()');
-            $this->user_id = Yii::app()->user->getId();
+            $this->user_id       = Yii::app()->user->getId();
         }
 
         return parent::beforeValidate();
@@ -155,13 +155,13 @@ class Image extends YModel
         $this->file = CUploadedFile::getInstance($this, $file);
 
         $module = Yii::app()->getModule('image');
-        $dir = $module->createUploadDir();
+        $dir    = $module->createUploadDir();
 
         if ($dir)
         {
             if ($this->save())
             {
-                $fileName = $this->id . '.' . CFileHelper::getExtension($this->file->name);
+                $fileName     = $this->id . '.' . CFileHelper::getExtension($this->file->name);
                 $fullFileName = $module->getUploadPath() . $dir . '/' . $fileName;
 
                 $this->file->saveAs($fullFileName);
@@ -206,9 +206,9 @@ class Image extends YModel
     {
         $data = $this->getTypeList();
 
-        return isset($data[$this->type]) ?  $data[$this->type] : Yii::t('image', '*неизвестно*');
+        return isset($data[$this->type]) ? $data[$this->type] : Yii::t('image', '*неизвестно*');
     }
-    
+
     public function getCategoryName()
     {
         return ($this->category === NULL) ? '---' : $this->category->name;

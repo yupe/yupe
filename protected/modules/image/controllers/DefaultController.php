@@ -2,16 +2,13 @@
 
 class DefaultController extends YBackController
 {
-
     /**
      * Отображает изображение по указанному идентификатору
      * @param integer $id Идинтификатор изображение для отображения
      */
     public function actionView($id)
     {
-        $this->render('view', array(
-            'model' => $this->loadModel($id),
-        ));
+        $this->render('view', array('model' => $this->loadModel($id)));
     }
 
     /**
@@ -26,7 +23,10 @@ class DefaultController extends YBackController
         {
             if ($model->create($_POST['Image']))
             {
-                Yii::app()->user->setFlash(YFlashMessages::NOTICE_MESSAGE, Yii::t('image', 'Изображение добавлено!'));
+                Yii::app()->user->setFlash(
+                    YFlashMessages::NOTICE_MESSAGE,
+                    Yii::t('image', 'Изображение добавлено!')
+                );
 
                 if (!isset($_POST['submit-type']))
                     $this->redirect(array('update', 'id' => $model->id));
@@ -34,7 +34,6 @@ class DefaultController extends YBackController
                     $this->redirect(array($_POST['submit-type']));
             }
         }
-
         $this->render('create', array('model' => $model));
     }
 
@@ -46,23 +45,26 @@ class DefaultController extends YBackController
     {
         $model = $this->loadModel($id);
 
-        $file = $model->file;
+        $file  = $model->file;
 
         if (isset($_POST['Image']))
         {
             $model->setAttributes($_POST['Image']);
-
             $model->file = $file;
 
             if ($model->save())
             {
-                 if (!isset($_POST['submit-type']))
+                Yii::app()->user->setFlash(
+                    YFlashMessages::NOTICE_MESSAGE,
+                    Yii::t('user', 'Изображение обновлено!')
+                );
+
+                if (!isset($_POST['submit-type']))
                     $this->redirect(array('update', 'id' => $model->id));
                 else
                     $this->redirect(array($_POST['submit-type']));
             }
         }
-
         $this->render('update', array('model' => $model));
     }
 
@@ -78,16 +80,17 @@ class DefaultController extends YBackController
             // we only allow deletion via POST request
             $model = $this->loadModel($id)->delete();
 
+            Yii::app()->user->setFlash(
+                YFlashMessages::NOTICE_MESSAGE,
+                Yii::t('user', 'Изображение удалено!')
+            );
+
             // if AJAX request (triggered by deletion via admin grid view), we should not redirect the browser
             if (!isset($_GET['ajax']))
-            {
                 $this->redirect(isset($_POST['returnUrl']) ? $_POST['returnUrl'] : array('admin'));
-            }
         }
         else
-        {
-            throw new CHttpException(400, Yii::t('image','Ошибка запроса!'));
-        }
+            throw new CHttpException(400, Yii::t('image', 'Неверный запрос. Пожалуйста, больше не повторяйте такие запросы'));
     }
 
     /**
@@ -99,10 +102,7 @@ class DefaultController extends YBackController
         $model->unsetAttributes();  // clear any default values
         if (isset($_GET['Image']))
             $model->attributes = $_GET['Image'];
-
-        $this->render('index', array(
-            'model' => $model,
-        ));
+        $this->render('index', array('model' => $model));
     }
 
     /**
@@ -114,7 +114,7 @@ class DefaultController extends YBackController
     {
         $model = Image::model()->findByPk($id);
         if ($model === null)
-            throw new CHttpException(404, Yii::t('image','Запрошенная страница не найдена!'));
+            throw new CHttpException(404, Yii::t('image', 'Запрошенная страница не найдена!'));
         return $model;
     }
 
@@ -130,5 +130,4 @@ class DefaultController extends YBackController
             Yii::app()->end();
         }
     }
-
 }

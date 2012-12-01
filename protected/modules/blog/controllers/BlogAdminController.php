@@ -107,7 +107,6 @@ class BlogAdminController extends YBackController
         $model->unsetAttributes(); // clear any default values
         if (isset($_GET['Blog']))
             $model->attributes = $_GET['Blog'];
-
         $this->render('index', array('model' => $model));
     }
 
