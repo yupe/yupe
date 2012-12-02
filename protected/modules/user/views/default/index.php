@@ -74,7 +74,7 @@ $this->renderPartial('_search', array('model' => $model));
         array(
             'name'  => 'status',
             'type'  => 'raw',
-            'value' => '$this->grid->returnBootstrapStatusHtml($data, "status", "Status"',
+            'value' => '$this->grid->returnBootstrapStatusHtml($data, "status", "Status")',
         ),
         array(
             'class'    => 'bootstrap.widgets.TbButtonColumn',

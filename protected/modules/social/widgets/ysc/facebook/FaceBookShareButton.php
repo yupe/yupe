@@ -15,25 +15,27 @@
  */
 class FacebookShareButton extends YscPortlet
 {
-    public $type = 'button_count';
-    public $text = 'Опубликовать';
+    public $type        = 'button_count';
+    public $text        = 'Опубликовать';
     public $url;
     private $validTypes = array('button_count', 'icon_link', 'button', 'box_count');
 
     public function init()
     {
         $this->text = CHtml::encode(Yii::t($this->translate, $this->text));
+        $this->url  = $this->url ? 'share_url="' . urlencode($this->url) . '"' : '';
         if (!in_array($this->type, $this->validTypes))
-        {
             $this->type = 'button_count';
-        }
-        $this->url = $this->url ? 'share_url="' . urlencode($this->url) . '"'
-            : '';
         parent::init();
     }
 
     public function renderContent()
     {
-        echo '<a name="fb_share" type="' . $this->type . '" ' . $this->url . ' href="http://www.facebook.com/sharer.php">' . $this->text . '</a><script src="http://static.ak.fbcdn.net/connect.php/js/FB.Share" type="text/javascript"></script>';
+        echo <<<EOF
+        <a name="fb_share" type="{$this->type}" {$this->url} href="http://www.facebook.com/sharer.php">
+            {$this->text}
+        </a>
+        <script src="http://static.ak.fbcdn.net/connect.php/js/FB.Share" type="text/javascript"></script>
+EOF;
     }
 }

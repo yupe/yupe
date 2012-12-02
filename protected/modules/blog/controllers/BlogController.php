@@ -23,7 +23,7 @@ class BlogController extends YFrontController
             'postsCount',
             'membersCount',
             'members'
-         )->find('slug = :slug', array(':slug' => $slug));
+        )->find('slug = :slug', array(':slug' => $slug));
 
         if (!$blog)
             throw new CHttpException(404, Yii::t('blog', 'Блог "{blog}" не найден!', array('{blog}' => $slug)));
@@ -57,7 +57,7 @@ class BlogController extends YFrontController
     // Отобразить записи конкретного блога
     public function actionPosts($slug)
     {
-
+        // @TODO реализовать в 0.5
     }
 
     // "вступление" в блог
@@ -76,15 +76,15 @@ class BlogController extends YFrontController
                 $this->redirect(array('/'));
             }
         }
-        
+
         $errorMessage = false;
 
         $blogId = (int) $blogId;
-        if(!$blogId)
+        if (!$blogId)
             $errorMessage = Yii::t('blog', 'Не передан blogId!');
 
         $blog = Blog::model()->findByPk($blogId);
-        if(!$blog)
+        if (!$blog)
             $errorMessage = Yii::t('blog', 'Блог с id = {id} не найден!', array('{id}' => $blogId));
 
         if ($errorMessage)
@@ -101,7 +101,7 @@ class BlogController extends YFrontController
             }
         }
 
-        if ($blog->join(Yii::app()->user->getId()))
+        if ($blog->join(Yii::app()->user->id))
         {
             if (Yii::app()->request->isAjaxRequest)
                 Yii::app()->ajax->success(Yii::t('blog', 'Вы присоединились к блогу!'));
@@ -111,7 +111,7 @@ class BlogController extends YFrontController
                     YFlashMessages::NOTICE_MESSAGE,
                     Yii::t('blog', 'Вы присоединились к блогу!')
                );
-               $this->redirect(array('/blog/blog/index/'));
+               $this->redirect(array('/blog/blog/index'));
             }
         }
         else
@@ -124,7 +124,7 @@ class BlogController extends YFrontController
                     YFlashMessages::NOTICE_MESSAGE,
                     Yii::t('blog', 'Вы уже присоеденены к этому блогу!')
                 );
-                $this->redirect(array('/blog/blog/index/'));
+                $this->redirect(array('/blog/blog/index'));
             }
         }
     }

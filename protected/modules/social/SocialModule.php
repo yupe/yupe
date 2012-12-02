@@ -27,8 +27,8 @@ class SocialModule extends YWebModule
     public function getParamsLabels()
     {
         return array(
-            'vkontakteClientId'     => Yii::t('social','Вконтакте. ID приложения'),
-            'vkontakteClientSecret' => Yii::t('social','Вконтакте. Защищенный ключ'),
+            'vkontakteClientId'     => Yii::t('social', 'Вконтакте. ID приложения'),
+            'vkontakteClientSecret' => Yii::t('social', 'Вконтакте. Защищенный ключ'),
         );
     }
 

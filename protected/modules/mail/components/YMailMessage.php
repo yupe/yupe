@@ -18,8 +18,7 @@ class YMailMessage extends CApplicationComponent
             if ($this->_mail = Yii::app()->getComponent($id))
                 return $this->_mail;
         }
-
-        throw new CException(Yii::t('mail', 'YMailMessage.mailComponent is invalid!'));
+        throw new CException(Yii::t('mail', 'Компонент YMailMessage.mailComponent не работает!'));
     }
 
     public function setMailComponent($value)
@@ -47,7 +46,6 @@ class YMailMessage extends CApplicationComponent
            if (!$this->getMailComponent()->send($parsedData['from'], $parsedData['to'], $parsedData['theme'], $parsedData['body']))
                throw new CException(Yii::t('mail', 'Ошибка отправка почты!'));
         }
-
         return true;
     }
 
@@ -65,7 +63,6 @@ class YMailMessage extends CApplicationComponent
 
         if (!$this->getMailComponent()->send($parsedData['from'], $parsedData['to'], $parsedData['theme'], $parsedData['body']))
                throw new CException(Yii::t('mail', 'Ошибка отправка почты!'));
-
         return true;
     }
 

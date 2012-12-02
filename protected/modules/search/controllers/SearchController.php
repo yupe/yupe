@@ -28,7 +28,6 @@ class SearchController extends YFrontController
             $c->order = 'FIELD(id,' . join(",", array_keys($resArray['matches'])) . ')';
             $news = News::model()->findAllByPk(array_keys($resArray['matches']), $c);
         }
-
         $this->render("search_results", array('news' => $news));
     }
 }

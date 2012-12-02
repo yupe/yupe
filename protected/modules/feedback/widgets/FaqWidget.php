@@ -1,10 +1,6 @@
 <?php
 /**
- * Created by JetBrains PhpStorm.
- * User: aopeykin
- * Date: 13.06.12
- * Time: 11:17
- * To change this template use File | Settings | File Templates.
+ * Виджет для вывода faq сообщений
  */
 class FaqWidget extends YWidget
 {

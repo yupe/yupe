@@ -28,7 +28,6 @@ class CustomYandexService extends YandexOpenIDService
     {
         if (isset($this->attributes['username']) && !empty($this->attributes['username']))
             $this->attributes['url'] = 'http://openid.yandex.ru/' . $this->attributes['username'];
-
         if (isset($this->attributes['birthDate']) && !empty($this->attributes['birthDate']))
             $this->attributes['birthDate'] = strtotime($this->attributes['birthDate']);
 

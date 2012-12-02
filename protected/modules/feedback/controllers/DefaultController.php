@@ -31,7 +31,10 @@ class DefaultController extends YBackController
 
             if ($model->save())
             {
-                Yii::app()->user->setFlash(YFlashMessages::NOTICE_MESSAGE, 'Сообщение сохранено!');
+                Yii::app()->user->setFlash(
+                    YFlashMessages::NOTICE_MESSAGE,
+                    Yii::t('feedback', 'Сообщение сохранено!')
+                );
 
                 if (!isset($_POST['submit-type']))
                     $this->redirect(array('update', 'id' => $model->id));
@@ -39,7 +42,6 @@ class DefaultController extends YBackController
                     $this->redirect(array($_POST['submit-type']));
             }
         }
-
         $this->render('create', array('model' => $model));
     }
 
@@ -65,7 +67,10 @@ class DefaultController extends YBackController
 
             if ($model->save())
             {
-                Yii::app()->user->setFlash(YFlashMessages::NOTICE_MESSAGE, 'Сообщение обновлено!');
+                Yii::app()->user->setFlash(
+                    YFlashMessages::NOTICE_MESSAGE,
+                    Yii::t('feedback', 'Сообщение обновлено!')
+                );
 
                 if (!isset($_POST['submit-type']))
                     $this->redirect(array('update', 'id' => $model->id));
@@ -73,15 +78,12 @@ class DefaultController extends YBackController
                     $this->redirect(array($_POST['submit-type']));
             }
         }
-
         $this->render('update', array('model' => $model));
     }
-
 
     public function actionAnswer($id)
     {
         $model = FeedBack::model()->findbyPk((int) $id);
-
         if (!$model)
             throw new CHttpException(404, Yii::t('feedback', 'Страница не найдена!'));
 
@@ -117,8 +119,12 @@ class DefaultController extends YBackController
                     //отправка ответа
                     $body = $this->renderPartial('answerEmail', array('model' => $model), true);
 
-                    Yii::app()->mail->send(Yii::app()->getModule('feedback')->notifyEmailFrom, $model->email, 'RE: ' . $model->theme, $body);
-
+                    Yii::app()->mail->send(
+                        Yii::app()->getModule('feedback')->notifyEmailFrom,
+                        $model->email,
+                        'RE: ' . $model->theme,
+                        $body
+                    );
                     Yii::app()->user->setFlash(
                         YFlashMessages::NOTICE_MESSAGE,
                         Yii::t('feedback', 'Ответ на сообщение отправлен!')
@@ -128,7 +134,6 @@ class DefaultController extends YBackController
                 }
             }
         }
-
         $this->render('answer', array('model' => $model, 'answerForm' => $form));
     }
 
@@ -145,10 +150,10 @@ class DefaultController extends YBackController
 
             // if AJAX request (triggered by deletion via admin grid view), we should not redirect the browser
             if (!isset($_GET['ajax']))
-                $this->redirect(array('index'));
+                $this->redirect(isset($_POST['returnUrl']) ? $_POST['returnUrl'] : array('index'));
         }
         else
-            throw new CHttpException(400, 'Invalid request. Please do not repeat this request again.');
+            throw new CHttpException(400, Yii::t('feedback', 'Неверный запрос. Пожалуйста, больше не повторяйте такие запросы'));
     }
     
     /**
@@ -157,12 +162,9 @@ class DefaultController extends YBackController
     public function actionIndex()
     {
         $model = new FeedBack('search');
-
         $model->unsetAttributes(); // clear any default values
-
         if (isset($_GET['FeedBack']))
             $model->attributes = $_GET['FeedBack'];
-
         $this->render('index', array('model' => $model));
     }
 
@@ -176,9 +178,8 @@ class DefaultController extends YBackController
         {
             if (isset($_GET['id']))
                 $this->_model = FeedBack::model()->findbyPk($_GET['id']);
-
             if ($this->_model === null)
-                throw new CHttpException(404, 'The requested page does not exist.');
+                throw new CHttpException(404, Yii::t('feedback', 'Запрошенная страница не найдена!'));
         }
         return $this->_model;
     }

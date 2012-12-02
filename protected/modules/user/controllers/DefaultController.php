@@ -6,6 +6,14 @@ class DefaultController extends YBackController
      */
     private $_model;
 
+    /**
+     * Displays a particular model.
+     */
+    public function actionView()
+    {
+        $this->render('view', array('model' => $this->loadModel()));
+    }
+
     public function actionChangepassword($id)
     {
         $model = $this->loadModel();
@@ -24,19 +32,10 @@ class DefaultController extends YBackController
                     YFlashMessages::NOTICE_MESSAGE,
                     Yii::t('user', 'Пароль успешно изменен!')
                 );
-
                 $this->redirect(array('/user/default/view', 'id' => $model->id));
             }
         }
         $this->render('changepassword', array('model' => $model, 'changePasswordForm' => $form));
-    }
-
-    /**
-     * Displays a particular model.
-     */
-    public function actionView()
-    {
-        $this->render('view', array('model' => $this->loadModel()));
     }
 
     /**
@@ -116,10 +115,10 @@ class DefaultController extends YBackController
 
             // if AJAX request (triggered by deletion via admin grid view), we should not redirect the browser
             if (!isset($_GET['ajax']))
-                $this->redirect(array('index'));
+                $this->redirect(isset($_POST['returnUrl']) ? $_POST['returnUrl'] : array('index'));
         }
         else
-            throw new CHttpException(400, Yii::t('user', 'Неверный запрос. Пожалуйста, больше не повторяйте такие запросы'));
+            throw new CHttpException(400, Yii::t('user', 'Неверный запрос. Пожалуйста, больше не повторяйте такие запросы!'));
     }
 
     /**

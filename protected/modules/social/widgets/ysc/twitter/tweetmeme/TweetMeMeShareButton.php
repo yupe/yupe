@@ -16,8 +16,8 @@
 class TweetMeMeShareButton extends YscPortlet
 {
     public $url;
-    public $style = 'normal';
-    public $source = '';
+    public $style   = 'normal';
+    public $source  = '';
     public $service = '';
     public $api;
 
@@ -26,12 +26,9 @@ class TweetMeMeShareButton extends YscPortlet
     public function init()
     {
         if (!in_array($this->style, $this->validStyles))
-        {
             $this->style = 'normal';
-        }
         $this->style = 'tweetmeme_style = "' . CHtml::encode($this->style) . '";';
-        $this->url = $this->url
-            ? 'tweetmeme_url = ' . urlencode($this->url) . ';' : '';
+        $this->url = $this->url ? 'tweetmeme_url = ' . urlencode($this->url) . ';' : '';
         $this->source = 'tweetmeme_source = "' . CHtml::encode($this->source) . '";';
         $this->service = 'tweetmeme_source = "' . CHtml::encode($this->service) . '";';
         $this->api = 'tweetmeme_source = "' . CHtml::encode($this->api) . '";';
@@ -44,7 +41,3 @@ class TweetMeMeShareButton extends YscPortlet
         echo '<script type="text/javascript" src="http://tweetmeme.com/i/scripts/button.js"></script>';
     }
 }
-
-?>
-
-    

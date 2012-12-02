@@ -2,16 +2,13 @@
 
 class EventAdminController extends YBackController
 {
-
     /**
      * Отображает почтовое событие по указанному идентификатору
      * @param integer $id Идинтификатор почтовое событие для отображения
      */
     public function actionView($id)
     {
-        $this->render('view', array(
-            'model' => $this->loadModel($id),
-        ));
+        $this->render('view', array('model' => $this->loadModel($id)));
     }
 
     /**
@@ -42,10 +39,7 @@ class EventAdminController extends YBackController
                     $this->redirect(array($_POST['submit-type']));
             }
         }
-
-        $this->render('create', array(
-            'model' => $model,
-        ));
+        $this->render('create', array('model' => $model));
     }
 
     /**
@@ -76,10 +70,7 @@ class EventAdminController extends YBackController
                     $this->redirect(array($_POST['submit-type']));
             }
         }
-
-        $this->render('update', array(
-            'model' => $model,
-        ));
+        $this->render('update', array('model' => $model));
     }
 
     /**
@@ -94,14 +85,17 @@ class EventAdminController extends YBackController
             // поддерживаем удаление только из POST-запроса
             $this->loadModel($id)->delete();
 
-            Yii::app()->user->setFlash(YFlashMessages::NOTICE_MESSAGE, Yii::t('mail', 'Запись удалена!'));
+            Yii::app()->user->setFlash(
+                YFlashMessages::NOTICE_MESSAGE,
+                Yii::t('mail', 'Запись удалена!')
+            );
 
             // если это AJAX запрос ( кликнули удаление в админском grid view), мы не должны никуда редиректить
             if (!isset($_GET['ajax']))
-                $this->redirect(isset($_POST['returnUrl']) ? $_POST['returnUrl'] : array('штвуч'));
+                $this->redirect(isset($_POST['returnUrl']) ? $_POST['returnUrl'] : array('index'));
         }
         else
-            throw new CHttpException(400,Yii::t('mail', 'Неверный запрос. Пожалуйста, больше не повторяйте такие запросы'));
+            throw new CHttpException(400, Yii::t('mail', 'Неверный запрос. Пожалуйста, больше не повторяйте такие запросы'));
     }
 
     /**
@@ -113,10 +107,7 @@ class EventAdminController extends YBackController
         $model->unsetAttributes();  // clear any default values
         if (isset($_GET['MailEvent']))
             $model->attributes = $_GET['MailEvent'];
-
-        $this->render('index', array(
-            'model' => $model,
-        ));
+        $this->render('index', array('model' => $model));
     }
 
     /**
@@ -126,7 +117,7 @@ class EventAdminController extends YBackController
      */
     public function loadModel($id)
     {
-        $model = MailEvent::model()->findByPk($id);
+        $model = MailEvent::model()->findByPk((int) $id);
         if ($model === null)
             throw new CHttpException(404, Yii::t('mail', 'Запрошенная страница не найдена.'));
         return $model;
@@ -144,5 +135,4 @@ class EventAdminController extends YBackController
             Yii::app()->end();
         }
     }
-
 }

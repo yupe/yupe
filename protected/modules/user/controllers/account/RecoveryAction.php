@@ -22,7 +22,6 @@ class RecoveryAction extends CAction
                 if ($module->autoRecoveryPassword)
                 {
                     $recovery = new RecoveryPassword;
-
                     $recovery->setAttributes(array(
                         'user_id' => $user->id,
                         'code'    => $recovery->generateRecoveryCode($user->id),
@@ -61,7 +60,6 @@ class RecoveryAction extends CAction
                 else
                 {
                     $recovery = new RecoveryPassword;
-
                     $recovery->setAttributes(array(
                         'user_id' => $user->id,
                         'code'    => $recovery->generateRecoveryCode($user->id),

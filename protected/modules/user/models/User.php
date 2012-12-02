@@ -407,7 +407,6 @@ class User extends YModel
         $this->activation_ip    = Yii::app()->request->userHostAddress;
         $this->status           = self::STATUS_ACTIVE;
         $this->email_confirm    = self::EMAIL_CONFIRM_YES;
-
         return $this->save();
     }
 }

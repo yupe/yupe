@@ -1,5 +1,4 @@
 <div class="form">
-
 <?php $form = $this->beginWidget('CActiveForm', array(
      'action'                 => $this->controller->createUrl('/comment/comment/add'),
      'id'                     => 'comment-form',
@@ -17,7 +16,6 @@
     <?php echo $form->hiddenField($model, 'model'); ?>
     <?php echo $form->hiddenField($model, 'model_id'); ?>
     <?php echo CHtml::hiddenField('redirectTo', $redirectTo); ?>
-
     <?php if (!Yii::app()->user->isAuthenticated()): ?>
         <div class="row">
             <?php echo $form->labelEx($model, 'name'); ?>
@@ -39,13 +37,11 @@
     <?php else: ?>
         <p><?php echo Yii::t('comment', 'От имени'); ?>: <?php echo Yii::app()->user->getState('nick_name'); ?></p>
     <?php endif; ?>
-
     <div class="row">
         <?php echo $form->labelEx($model, 'text'); ?>
         <?php echo $form->textArea($model, 'text', array('rows' => 6, 'cols' => 50)); ?>
         <?php echo $form->error($model, 'text'); ?>
     </div>
-
     <?php if (!Yii::app()->user->isAuthenticated() && extension_loaded('gd')): ?>
         <div class="row">
             <?php echo $form->labelEx($model, 'verifyCode'); ?>
@@ -62,11 +58,9 @@
             </div>
         </div> 
     <?php endif; ?>
-
     <div class="row buttons">
         <?php echo CHtml::submitButton(Yii::t('comment', 'Добавить комментарий')); ?>
     </div>
 
 <?php $this->endWidget(); ?>
-
 </div><!-- form -->

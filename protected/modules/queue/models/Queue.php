@@ -29,7 +29,6 @@ class Queue extends YModel
     {
         if ($this->isNewRecord)
             $this->create_time = new CDbExpression('NOW()');
-
         return parent::beforeSave();
     }
 
@@ -73,7 +72,6 @@ class Queue extends YModel
         );
     }
 
-  
     /**
      * @return array customized attribute labels (name=>label)
      */
@@ -88,7 +86,7 @@ class Queue extends YModel
             'complete_time' => Yii::t('queue', 'Завершение'),
             'status'        => Yii::t('queue', 'Статус'),
             'notice'        => Yii::t('queue', 'Примечание'),
-            'priority'      => Yii::t('queue', 'Приоритет')
+            'priority'      => Yii::t('queue', 'Приоритет'),
         );
     }
 
@@ -114,7 +112,7 @@ class Queue extends YModel
         $criteria->compare('notice', $this->notice, true);
         $criteria->compare('priority', $this->priority, true);
 
-        return new CActiveDataProvider(get_class($this), array('criteria'=> $criteria));
+        return new CActiveDataProvider(get_class($this), array('criteria' => $criteria));
     }
 
         public function getPriorityList()

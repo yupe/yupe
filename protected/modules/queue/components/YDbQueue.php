@@ -16,8 +16,10 @@ class YDbQueue extends YQueue
         if ($this->_db !== null)
             return $this->_db;
         else if (($id = $this->connectionId) !== null)
+        {
             if (($this->_db = Yii::app()->getComponent($id)) instanceof CDbConnection)
                 return $this->_db;
+        }
 
         throw new CException(Yii::t('queue', 'CDbQueue.connectionId "{id}" is invalid. Please make sure it refers to the ID of a CDbConnection application component.', array('{id}' => $id)));
     }
@@ -47,8 +49,8 @@ class YDbQueue extends YQueue
     public function flush($worker = null)
     {
         $sql = "DELETE FROM {$this->queueTableName}";
-        $worker = (int) $worker;
 
+        $worker = (int) $worker;
         if ($worker)
             $sql .= " WHERE worker = '$worker'";
 

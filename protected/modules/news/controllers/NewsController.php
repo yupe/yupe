@@ -6,15 +6,11 @@ class NewsController extends YFrontController
     public function actionShow($title)
     {
         $news = News::model()->published();
-
-        if ($this->isMultilang())
-            $news = $news->language(Yii::app()->language)->find('alias = :alias', array(':alias' => $title));
-        else
-            $news = $news->find('alias = :alias', array(':alias' => $title));
-
+        $news = ($this->isMultilang())
+            ? $news->language(Yii::app()->language)->find('alias = :alias', array(':alias' => $title))
+            : $news->find('alias = :alias', array(':alias' => $title));
         if (!$news)
             throw new CHttpException(404, Yii::t('news', 'Новость не найдена!'));
-
         $this->render('news', array('news' => $news));
     }
 
@@ -29,7 +25,6 @@ class NewsController extends YFrontController
                 'with'      => 'user',
             ))
         ));
-
         $this->render('index', array('dataProvider' => $dataProvider));
     }
 }

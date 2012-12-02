@@ -25,7 +25,7 @@ class MenuController extends YBackController
         if (isset($_POST['Menu']))
         {
             $model->attributes = $_POST['Menu'];
-            
+
             if ($model->save())
             {
                  if (!isset($_POST['submit-type']))
@@ -34,7 +34,6 @@ class MenuController extends YBackController
                     $this->redirect(array($_POST['submit-type']));
             }
         }
-
         $this->render('create', array('model' => $model));
     }
 
@@ -52,7 +51,7 @@ class MenuController extends YBackController
         if (isset($_POST['Menu']))
         {
             $model->attributes = $_POST['Menu'];
-            
+
             if ($model->save())
             {
                 if (!isset($_POST['submit-type']))
@@ -61,7 +60,6 @@ class MenuController extends YBackController
                     $this->redirect(array($_POST['submit-type']));
             }
         }
-
         $this->render('update', array('model' => $model));
     }
 
@@ -79,10 +77,10 @@ class MenuController extends YBackController
 
             // if AJAX request (triggered by deletion via admin grid view), we should not redirect the browser
             if (!isset($_GET['ajax']))
-                $this->redirect(isset($_POST['returnUrl']) ? $_POST['returnUrl'] : array('admin'));
+                $this->redirect(isset($_POST['returnUrl']) ? $_POST['returnUrl'] : array('index'));
         }
         else
-            throw new CHttpException(400, Yii::t('menu','Ошибка запроса!'));
+            throw new CHttpException(400, Yii::t('menu', 'Неверный запрос. Пожалуйста, больше не повторяйте такие запросы!'));
     }   
 
     /**
@@ -92,10 +90,8 @@ class MenuController extends YBackController
     {
         $model = new Menu('search');
         $model->unsetAttributes();  // clear any default values
-
         if (isset($_GET['Menu']))
             $model->attributes = $_GET['Menu'];
-
         $this->render('index', array('model' => $model));
     }
 
@@ -107,10 +103,8 @@ class MenuController extends YBackController
     public function loadModel($id)
     {
         $model = Menu::model()->findByPk($id);
-
         if ($model === null)
-            throw new CHttpException(404,Yii::t('menu','Страница не найдена!'));
-
+            throw new CHttpException(404, Yii::t('menu', 'Запрошенная страница не найдена!'));
         return $model;
     }
 

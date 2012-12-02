@@ -46,7 +46,6 @@ class RecoveryPasswordAction extends CAction
                             Yii::t('user', 'Успешное восстановление пароля!'),
                             $emailBody
                         );
-
                         Yii::app()->user->setFlash(
                             YFlashMessages::NOTICE_MESSAGE,
                             Yii::t('user', 'Новый пароль отправлен Вам на email!')
@@ -72,7 +71,6 @@ class RecoveryPasswordAction extends CAction
                     Yii::t('user', 'Ошибка при автоматической смене пароля {error}!', array('{error}' => $e->getMessage())),
                     CLogger::LEVEL_ERROR, UserModule::$logCategory
                 );
-
                 $this->controller->redirect(array('/user/account/recovery'));
             }
         }
@@ -88,12 +86,10 @@ class RecoveryPasswordAction extends CAction
             if ($changePasswordForm->validate())
             {
                 $transaction = Yii::app()->db->beginTransaction();
-
                 try
                 {
                     // смена пароля пользователя
                     $recovery->user->password = User::model()->hashPassword($changePasswordForm->password, $recovery->user->salt);
-
                     // удалить все запросы на восстановление для данного пользователя
                     if ($recovery->user->save())
                     {
@@ -117,7 +113,6 @@ class RecoveryPasswordAction extends CAction
                                 Yii::t('user', 'Успешное восстановление пароля!'),
                                 $emailBody
                             );
-
                             $this->controller->redirect(array('/user/account/login'));
                         }
                     }
@@ -134,7 +129,6 @@ class RecoveryPasswordAction extends CAction
                         Yii::t('Ошибка при смене пароля {error}!', array('{error}' => $e->getMessage())),
                         CLogger::LEVEL_ERROR, UserModule::$logCategory
                     );
-
                     $this->controller->redirect(array('/user/account/recovery'));
                 }
             }

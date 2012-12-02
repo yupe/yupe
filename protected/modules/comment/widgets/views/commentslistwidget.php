@@ -17,5 +17,5 @@
         <?php endforeach; ?>
     <?php else: ?>
         <p><?php echo Yii::t('comment', 'Комментариев пока нет, станьте первым!'); ?></p>
-    <?php endif;?>
+    <?php endif; ?>
 </div>

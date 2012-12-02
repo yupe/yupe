@@ -22,12 +22,9 @@ class ProfileAction extends CAction
             $form->setAttributes($_POST['ProfileForm']);
 
             // проверка по "черным спискам"
-
-            // проверить на email
-            if (!$module->isAllowedEmail($form->email))
+            if (!$module->isAllowedEmail($form->email)) // проверить на email
                 // перенаправить на экшн для фиксации невалидных email-адресов
                 $this->controller->redirect(array($module->invalidEmailAction));
-
             if ($form->validate())
             {
                 // скопируем данные формы
@@ -45,7 +42,7 @@ class ProfileAction extends CAction
                 }
 
                 // Если есть ошибки в профиле - перекинем их в форму
-                if ( $user->hasErrors())
+                if ($user->hasErrors())
                     $form->addErrors($user->getErrors());
 
                 // Если у нас есть дополнительные профили - проверим их

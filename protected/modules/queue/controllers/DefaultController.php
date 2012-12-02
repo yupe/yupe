@@ -8,9 +8,7 @@ class DefaultController extends YBackController
      */
     public function actionView($id)
     {
-        $this->render('view', array(
-            'model'=> $this->loadModel($id),
-        ));
+        $this->render('view', array('model'=> $this->loadModel($id)));
     }
 
     /**
@@ -41,10 +39,7 @@ class DefaultController extends YBackController
                     $this->redirect(array($_POST['submit-type']));
             }
         }
-
-        $this->render('create', array(
-            'model'=> $model,
-        ));
+        $this->render('create', array('model'=> $model));
     }
 
     /**
@@ -75,10 +70,7 @@ class DefaultController extends YBackController
                     $this->redirect(array($_POST['submit-type']));
             }
         }
-
-        $this->render('update', array(
-            'model'=> $model,
-        ));
+        $this->render('update', array('model'=> $model));
     }
 
     /**
@@ -96,10 +88,10 @@ class DefaultController extends YBackController
 
             // если это AJAX запрос ( кликнули удаление в админском grid view), мы не должны никуда редиректить
             if (!isset($_GET['ajax']))
-                $this->redirect(isset($_POST['returnUrl']) ? $_POST['returnUrl'] : array('штвуч'));
+                $this->redirect(isset($_POST['returnUrl']) ? $_POST['returnUrl'] : array('index'));
         }
         else
-            throw new CHttpException(400, 'Неверный запрос. Пожалуйста, больше не повторяйте такие запросы');
+            throw new CHttpException(400, Yii::t('queue', 'Неверный запрос. Пожалуйста, больше не повторяйте такие запросы'));
     }
 
     /**
@@ -111,18 +103,13 @@ class DefaultController extends YBackController
         $model->unsetAttributes(); // clear any default values
         if (isset($_GET['Queue']))
             $model->attributes = $_GET['Queue'];
-
-        $this->render('index', array(
-            'model'=> $model,
-        ));
+        $this->render('index', array('model'=> $model));
     }
 
     public function actionClear()
     {
         Yii::app()->queue->flush();
-
         Yii::app()->user->setFlash(YFlashMessages::NOTICE_MESSAGE, Yii::t('queue', 'Очередь очищена!'));
-
         $this->redirect(($referrer = Yii::app()->getRequest()->getUrlReferrer()) !== null ? $referrer : array("/yupe/backend"));
     }
 
@@ -136,7 +123,7 @@ class DefaultController extends YBackController
     {
         $model = Queue::model()->findByPk($id);
         if ($model === null)
-            throw new CHttpException(404, 'Запрошенная страница не найдена.');
+            throw new CHttpException(404, Yii::t('queue', 'Запрошенная страница не найдена.'));
         return $model;
     }
 

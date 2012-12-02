@@ -40,7 +40,6 @@ class DefaultController extends YBackController
                     $this->redirect(array($_POST['submit-type']));
             }
         }
-
         $this->render('create', array(
             'model' => $model,
             'pages' => Page::model()->getAllPagesList(),
@@ -182,7 +181,6 @@ class DefaultController extends YBackController
                         Yii::t('page', 'Ошибки при сохранении страницы!')
                     );
             }
-
             $this->render('updateMultilang', array(
                 'model'  => $model,
                 'models' => $modelsByLang,
@@ -209,12 +207,12 @@ class DefaultController extends YBackController
             else
                 // we only allow deletion via POST request
                 $this->loadModel()->delete();
-            // if AJAX request (triggered by deletion via admin grid view), we should not redirect the browser
+            // if AJAX request (triggered by deletion via index grid view), we should not redirect the browser
             if (!isset($_GET['ajax']))
-                $this->redirect(array('index'));
+                $this->redirect(isset($_POST['returnUrl']) ? $_POST['returnUrl'] : array('index'));
         }
         else
-            throw new YPageNotFoundException(Yii::t('page', 'Неверный запрос. Пожалуйста, больше не повторяйте такие запросы'));
+            throw new YPageNotFoundException(Yii::t('page', 'Неверный запрос. Пожалуйста, больше не повторяйте такие запросы!'));
     }
 
     /**
@@ -223,10 +221,8 @@ class DefaultController extends YBackController
     public function actionIndex()
     {
         $model = new Page('search');
-
         if (isset($_GET['Page']))
             $model->attributes = $_GET['Page'];
-
         $this->render('index', array(
             'model' => $model,
             'pages' => Page::model()->getAllPagesList(),
@@ -243,7 +239,6 @@ class DefaultController extends YBackController
         {
             if (isset($_GET['id']))
                 $this->_model = Page::model()->with('author', 'changeAuthor')->findbyPk($_GET['id']);
-
             if ($this->_model === null)
                 throw new YPageNotFoundException(Yii::t('page', 'Запрошенная страница не найдена!'));
         }

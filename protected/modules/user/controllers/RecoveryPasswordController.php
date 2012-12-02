@@ -19,10 +19,10 @@ class RecoveryPasswordController extends YBackController
 
             // if AJAX request (triggered by deletion via admin grid view), we should not redirect the browser
             if (!isset($_GET['ajax']))
-                $this->redirect(array('index'));
+                $this->redirect(isset($_POST['returnUrl']) ? $_POST['returnUrl'] : array('index'));
         }
         else
-            throw new CHttpException(400, 'Invalid request. Please do not repeat this request again.');
+            throw new CHttpException(400, Yii::t('user', 'Неверный запрос. Пожалуйста, больше не повторяйте такие запросы!'));
     }
 
     /**
@@ -49,7 +49,7 @@ class RecoveryPasswordController extends YBackController
             if (isset($_GET['id']))
                 $this->_model = RecoveryPassword::model()->findbyPk($_GET['id']);
             if ($this->_model === null)
-                throw new CHttpException(404, 'The requested page does not exist.');
+                throw new CHttpException(404, Yii::t('user', 'Запрошенная страница не найдена!'));
         }
         return $this->_model;
     }

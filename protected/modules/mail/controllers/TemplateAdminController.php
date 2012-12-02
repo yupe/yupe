@@ -2,16 +2,13 @@
 
 class TemplateAdminController extends YBackController
 {
-
     /**
      * Отображает почтовый шаблон по указанному идентификатору
      * @param integer $id Идинтификатор почтовый шаблон для отображения
      */
     public function actionView($id)
     {
-        $this->render('view', array(
-            'model' => $this->loadModel($id),
-        ));
+        $this->render('view', array('model' => $this->loadModel($id)));
     }
 
     /**
@@ -25,7 +22,7 @@ class TemplateAdminController extends YBackController
         // Uncomment the following line if AJAX validation is needed
         // $this->performAjaxValidation($model);
         if (Yii::app()->request->getParam('eid'))
-            $model->event_id = (int)Yii::app()->request->getParam('eid');
+            $model->event_id = (int) Yii::app()->request->getParam('eid');
 
         if (isset($_POST['MailTemplate']))
         {
@@ -33,15 +30,15 @@ class TemplateAdminController extends YBackController
 
             if ($model->save())
             {
-                Yii::app()->user->setFlash(YFlashMessages::NOTICE_MESSAGE, Yii::t('mail', 'Запись добавлена!'));
+                Yii::app()->user->setFlash(
+                    YFlashMessages::NOTICE_MESSAGE,
+                    Yii::t('mail', 'Запись добавлена!')
+                );
 
-                $this->redirect(array( 'view', 'id' => $model->id ));
+                $this->redirect(array('view', 'id' => $model->id));
             }
         }
-
-        $this->render('create', array(
-            'model' => $model,
-        ));
+        $this->render('create', array('model' => $model));
     }
 
     /**
@@ -61,15 +58,15 @@ class TemplateAdminController extends YBackController
 
             if ($model->save())
             {
-                Yii::app()->user->setFlash(YFlashMessages::NOTICE_MESSAGE, Yii::t('mail', 'Запись обновлена!'));
+                Yii::app()->user->setFlash(
+                    YFlashMessages::NOTICE_MESSAGE,
+                    Yii::t('mail', 'Запись обновлена!')
+                );
 
                 $this->redirect(array('update','id' => $model->id));
             }
         }
-
-        $this->render('update', array(
-            'model' => $model,
-        ));
+        $this->render('update', array('model' => $model));
     }
 
     /**
@@ -84,11 +81,14 @@ class TemplateAdminController extends YBackController
             // поддерживаем удаление только из POST-запроса
             $this->loadModel($id)->delete();
 
-            Yii::app()->user->setFlash(YFlashMessages::NOTICE_MESSAGE, Yii::t('mail', 'Запись удалена!'));
+            Yii::app()->user->setFlash(
+                YFlashMessages::NOTICE_MESSAGE,
+                Yii::t('mail', 'Запись удалена!')
+            );
 
             // если это AJAX запрос ( кликнули удаление в админском grid view), мы не должны никуда редиректить
             if (!isset($_GET['ajax']))
-                $this->redirect(isset($_POST['returnUrl']) ? $_POST['returnUrl'] : array( 'штвуч' ));
+                $this->redirect(isset($_POST['returnUrl']) ? $_POST['returnUrl'] : array( 'index' ));
         }
         else
             throw new CHttpException(400, Yii::t('mail', 'Неверный запрос. Пожалуйста, больше не повторяйте такие запросы'));
@@ -102,14 +102,10 @@ class TemplateAdminController extends YBackController
         $model = new MailTemplate('search');
         $model->unsetAttributes();  // clear any default values
         if (Yii::app()->request->getQuery('event'))
-            $model->event_id = (int)Yii::app()->request->getQuery('event');
-
+            $model->event_id = (int) Yii::app()->request->getQuery('event');
         if (isset($_GET['MailTemplate']))
             $model->attributes = $_GET['MailTemplate'];
-
-        $this->render('index', array(
-            'model' => $model,
-        ));
+        $this->render('index', array('model' => $model));
     }
 
     /**

@@ -15,25 +15,25 @@
  */
 class MailShareButton extends YscPortlet
 {
-    public $type = 'button_count';
-    public $text = 'В Мой Мир';
-    public $url = null;
+    public $type        = 'button_count';
+    public $text        = 'В Мой Мир';
+    public $url         = null;
     private $validTypes = array('button_count', 'button', 'big', 'micro');
 
     public function init()
     {
         if (!in_array($this->type, $this->validTypes))
-        {
             $this->type = 'button_count';
-        }
         $this->text = CHtml::encode(Yii::t($this->translate, $this->text));
-        $this->url = $this->url ? "?share_url=" . urlencode($this->url) . ""
-            : '';
+        $this->url = $this->url ? "?share_url=" . urlencode($this->url) . "" : '';
         parent::init();
     }
 
     public function renderContent()
     {
-        echo "<a class='mrc__share' type='{$this->type}' href='http://connect.mail.ru/share{$this->url}'>{$this->text}</a><script src='http://cdn.connect.mail.ru/js/share/2/share.js' type='text/javascript'></script>";
+        echo <<<EOF
+        <a class='mrc__share' type='{$this->type}' href='http://connect.mail.ru/share{$this->url}'>{$this->text}</a>
+        <script src='http://cdn.connect.mail.ru/js/share/2/share.js' type='text/javascript'></script>
+EOF;
     }
 }

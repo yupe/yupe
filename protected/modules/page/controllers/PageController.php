@@ -12,7 +12,6 @@
  */
 class PageController extends YFrontController
 {
-
     /**
      * Текущая просматриваемая страница
      */
@@ -27,20 +26,17 @@ class PageController extends YFrontController
             throw new CHttpException('404', Yii::t('page', 'Страница не найдена!'));
 
         $page = null;
-
         // превью
-        if ((int) Yii::app()->request->getQuery('preview') === 1 && Yii::app()->user->isSuperUser())
-            $page = Page::model()->find('slug = :slug AND (lang=:lang OR (lang IS NULL))', array(
+        $page = ((int) Yii::app()->request->getQuery('preview') === 1 && Yii::app()->user->isSuperUser())
+            ? Page::model()->find('slug = :slug AND (lang=:lang OR (lang IS NULL))', array(
                 ':slug' => $slug,
-                ':lang' => Yii::app()->language
-            ));
-        else
-            $page = Page::model()->published()->find('slug = :slug AND (lang = :lang OR (lang = :deflang))', array(
+                ':lang' => Yii::app()->language,
+            ))
+            : Page::model()->published()->find('slug = :slug AND (lang = :lang OR (lang = :deflang))', array(
                 ':slug'    => $slug,
                 ':lang'    => Yii::app()->language,
                 ':deflang' => Yii::app()->getModule('yupe')->defaultLanguage,
             ));
-
         if (!$page)
             throw new CHttpException('404', Yii::t('page', 'Страница не найдена!'));
 
@@ -53,7 +49,6 @@ class PageController extends YFrontController
             );
             $this->redirect(array(Yii::app()->getModule('user')->accountActivationSuccess));
         }
-
         $this->currentPage = $page;
         $this->render('page', array('page' => $page));
     }
@@ -78,7 +73,7 @@ class PageController extends YFrontController
     private function getBreadCrumbsRecursively(Page $page)
     {
         $pages = array();
-        $pages[$page->title] = array('/page/page/show/', 'slug' => $page->slug);
+        $pages[$page->title] = array('/page/page/show', 'slug' => $page->slug);
         $pp = $page->parentPage;
         if ($pp)
             $pages += $this->getBreadCrumbsRecursively($pp);

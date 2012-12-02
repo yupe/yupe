@@ -33,7 +33,6 @@ class DefaultController extends YBackController
                     $this->redirect(array($_POST['submit-type']));
             }
         }
-
         $this->render('create', array('model' => $model));
     }
 
@@ -78,7 +77,7 @@ class DefaultController extends YBackController
 
             // if AJAX request (triggered by deletion via admin grid view), we should not redirect the browser
             if (!isset($_GET['ajax']))
-                $this->redirect(isset($_POST['returnUrl']) ? $_POST['returnUrl'] : array('admin'));
+                $this->redirect(isset($_POST['returnUrl']) ? $_POST['returnUrl'] : array('index'));
         }
         else
             throw new CHttpException(400, Yii::t('comment', 'Неверный запрос. Пожалуйста, больше не повторяйте такие запросы'));

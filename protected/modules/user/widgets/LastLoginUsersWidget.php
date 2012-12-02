@@ -10,7 +10,6 @@ class LastLoginUsersWidget extends YWidget
             'limit' => $this->limit,
             'order' => 'last_visit DESC',
         ));
-
         $this->render('lastloginuserswidget', array('models' => $models));
     }
 }

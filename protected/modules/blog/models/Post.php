@@ -218,7 +218,7 @@ class Post extends YModel
 
     public function beforeSave()
     {
-        $this->publish_date = strtotime($this->publish_date_tmp . ' ' . $this->publish_time_tmp);
+        $this->publish_date   = strtotime($this->publish_date_tmp . ' ' . $this->publish_time_tmp);
         $this->update_user_id = Yii::app()->user->id;
 
         if ($this->isNewRecord)

@@ -69,7 +69,7 @@ class Vote extends YModel
     public function attributeLabels()
     {
         return array(
-            'id'            => Yii::t('vote', 'id'),
+            'id'            => Yii::t('vote', 'ID'),
             'model'         => Yii::t('vote', 'Тип модели'),
             'model_id'      => Yii::t('vote', 'Модель'),
             'user_id'       => Yii::t('vote', 'Добавил'),
@@ -106,7 +106,6 @@ class Vote extends YModel
             $this->creation_date = new CDbExpression('NOW()');
             $this->user_id       = Yii::app()->user->getId();
         }
-
         return parent::beforeSave();
     }
 }

@@ -17,10 +17,8 @@ class RegistrationAction extends CAction
         {
             $form->setAttributes($_POST['RegistrationForm']);
 
-            // проверка по "черным спискам"
-
             // проверить на email
-            if (!$module->isAllowedEmail($form->email))
+            if (!$module->isAllowedEmail($form->email)) // проверить на email
                 // перенаправить на экшн для фиксации невалидных email-адресов
                 $this->controller->redirect(array($module->invalidEmailAction));
 
@@ -47,7 +45,6 @@ class RegistrationAction extends CAction
                     ));
 
                     $transaction = Yii::app()->db->beginTransaction();
-
                     try
                     {
                         if ($user->save())
@@ -74,7 +71,6 @@ class RegistrationAction extends CAction
                                 YFlashMessages::NOTICE_MESSAGE,
                                 Yii::t('user', 'Учетная запись создана! Проверьте Вашу почту!')
                             );
-
                             $this->controller->redirect(array($module->registrationSucess));
                         }
                         else
@@ -90,7 +86,6 @@ class RegistrationAction extends CAction
                     catch (Exception $e)
                     {
                         $transaction->rollback();
-
                         $form->addError('', Yii::t('user', 'При создании учетной записи произошла ошибка!'));
                     }
                 }
@@ -122,7 +117,6 @@ class RegistrationAction extends CAction
                             YFlashMessages::NOTICE_MESSAGE,
                             Yii::t('user', 'Учетная запись создана! Пожалуйста, авторизуйтесь!')
                         );
-
                         $this->controller->redirect(array($module->registrationSucess));
                     }
                     else

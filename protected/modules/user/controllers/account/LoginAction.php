@@ -17,7 +17,7 @@ class LoginAction extends CAction
                 );
 
                 Yii::log(
-                    Yii::t('user', 'Пользователь {email} авторизовался!', array('{email}' => $form->email)), 
+                    Yii::t('user', 'Пользователь {email} авторизовался!', array('{email}' => $form->email)),
                     CLogger::LEVEL_INFO, UserModule::$logCategory
                 );
 
@@ -38,7 +38,6 @@ class LoginAction extends CAction
                     CLogger::LEVEL_ERROR, UserModule::$logCategory
                 );
         }
-
         $this->controller->render('login', array('model' => $form));
     }
 }

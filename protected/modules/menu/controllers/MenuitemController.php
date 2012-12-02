@@ -28,7 +28,7 @@ class MenuitemController extends YBackController
         if (isset($_POST['MenuItem']))
         {
             $model->attributes = $_POST['MenuItem'];
-            
+
             if ($model->save())
             {
                  if (!isset($_POST['submit-type']))
@@ -42,7 +42,7 @@ class MenuitemController extends YBackController
         $criteria->select = new CDbExpression('MAX(sort) as sort');
         $max = $model->find($criteria);
 
-        $model->sort = $max->sort + 1; // Set sort in Adding Form as max+1 >>
+        $model->sort = $max->sort + 1; // Set sort in Adding Form as ma x+ 1
 
         $this->render('create', array('model' => $model));
     }
@@ -61,7 +61,7 @@ class MenuitemController extends YBackController
         if (isset($_POST['MenuItem']))
         {
             $model->attributes = $_POST['MenuItem'];
-            
+
             if ($model->save())
             {
                  if (!isset($_POST['submit-type']))
@@ -70,7 +70,6 @@ class MenuitemController extends YBackController
                     $this->redirect(array($_POST['submit-type']));
             }
         }
-
         $this->render('update', array('model' => $model));
     }
 
@@ -88,10 +87,10 @@ class MenuitemController extends YBackController
 
             // if AJAX request (triggered by deletion via admin grid view), we should not redirect the browser
             if (!isset($_GET['ajax']))
-                $this->redirect(isset($_POST['returnUrl']) ? $_POST['returnUrl'] : array('admin'));
+                $this->redirect(isset($_POST['returnUrl']) ? $_POST['returnUrl'] : array('index'));
         }
         else
-            throw new CHttpException(400, Yii::t('menu','Ошибка запроса!'));
+            throw new CHttpException(400, Yii::t('menu', 'Неверный запрос. Пожалуйста, больше не повторяйте такие запросы!'));
     }
 
     /**
@@ -101,10 +100,8 @@ class MenuitemController extends YBackController
     {
         $model = new MenuItem('search');
         $model->unsetAttributes();  // clear any default values
-
         if (isset($_GET['MenuItem']))
             $model->attributes = $_GET['MenuItem'];
-
         $this->render('index', array('model' => $model));
     }
 
@@ -117,8 +114,7 @@ class MenuitemController extends YBackController
     {
         $model = MenuItem::model()->findByPk($id);
         if ($model === null)
-            throw new CHttpException(404,Yii::t('menu','Страница не найдена!'));
-
+            throw new CHttpException(404, Yii::t('menu', 'Запрошенная страница не найдена!'));
         return $model;
     }
 

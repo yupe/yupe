@@ -2,7 +2,7 @@
 
 class MailModule extends YWebModule
 {
-     public function  getVersion()
+    public function  getVersion()
     {
         return '0.1 (dev)';
     }

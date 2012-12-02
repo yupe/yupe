@@ -124,7 +124,7 @@ class FeedBack extends YModel
         if ($this->isNewRecord)
         {
             $this->creation_date = $this->change_date;
-            $this->ip = Yii::app()->request->userHostAddress;
+            $this->ip            = Yii::app()->request->userHostAddress;
 
             if (!$this->type)
                 $this->type = self::TYPE_DEFAULT;

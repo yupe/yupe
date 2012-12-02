@@ -20,8 +20,8 @@ class VoteModule extends YWebModule
     public function getNavigation()
     {
         return array(
-            array('icon' => 'list-alt', 'label' => Yii::t('blog', 'Список голосов'), 'url' => array('/vote/default/index')),
-            array('icon' => 'plus-sign', 'label' => Yii::t('blog', 'Добавить голос'), 'url' => array('/vote/default/create')),
+            array('icon' => 'list-alt', 'label' => Yii::t('vote', 'Управление голосами'), 'url' => array('/vote/default/index')),
+            array('icon' => 'plus-sign', 'label' => Yii::t('vote', 'Добавить голос'), 'url' => array('/vote/default/create')),
         );
     }
 

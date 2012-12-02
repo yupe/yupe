@@ -74,7 +74,6 @@ class GeoModule extends YWebModule
 
     public static function onBeginProfile($event)
     {
-        /** @var CEvent $event */
         $profile = GeoProfile::model()->findByPk(Yii::app()->user->id);
         $profile = $profile ? $profile : new GeoProfile;
         $profile->user_id = Yii::app()->user->id;
@@ -84,7 +83,6 @@ class GeoModule extends YWebModule
         {
             $profile->attributes = $_POST['GeoProfile'];
             $profile->user_id = Yii::app()->user->id;
-
             // Тут можно делать дополнительные манипуляции с профилем
         }
 
@@ -102,7 +100,7 @@ class GeoModule extends YWebModule
             return $this->info;
 
         $ip = Yii::app()->request->getUserHostAddress();
-        ($ip != "127.0.0.1" && $ip != "::1")|| ($ip = "194.213.102.1");
+        ($ip != "127.0.0.1" && $ip != "::1") || ($ip = "194.213.102.1");
 
         $handle = 'SxGeoIP:' . $ip;
         $this->info = Yii::app()->cache->get($handle);
@@ -114,7 +112,6 @@ class GeoModule extends YWebModule
 
             Yii::app()->cache->set($handle, $this->info, 3600);
         }
-
         return $this->info;
     }
 
@@ -123,7 +120,6 @@ class GeoModule extends YWebModule
         $city = false;
         if ($info = $this->sxInfo)
             $city = GeoCity::model()->findByAttributes(array("name" => $info['city']));
-
         return $city;
     }
 }

@@ -6,10 +6,8 @@ class CatalogController extends YFrontController
     public function actionShow($name)
     {
         $good = Good::model()->published()->find('alias = :alias', array(':alias' => $name));
-        
         if (!$good)
             throw new CHttpException(404, Yii::t('catalog', 'Товар не найден!'));
-
         $this->render('good', array('good' => $good));
     }
 
@@ -21,7 +19,6 @@ class CatalogController extends YFrontController
                 'order' => 't.create_time DESC',
             )),
         ));
-
         $this->render('index', array('dataProvider' => $dataProvider));
     }
 }

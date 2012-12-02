@@ -102,7 +102,7 @@ class <?php echo $this->controllerClass; ?> extends <?php echo $this->baseContro
                 $this->redirect(isset($_POST['returnUrl']) ? $_POST['returnUrl'] : array('index'));
         }
         else
-            throw new CHttpException(400, 'Неверный запрос. Пожалуйста, больше не повторяйте такие запросы');
+            throw new CHttpException(400, Yii::t('<?php echo $this->mid; ?>', 'Неверный запрос. Пожалуйста, больше не повторяйте такие запросы'));
     }
 
     /**
@@ -126,7 +126,7 @@ class <?php echo $this->controllerClass; ?> extends <?php echo $this->baseContro
     {
         $model = <?php echo $this->modelClass; ?>::model()->findByPk($id);
         if ($model === null)
-            throw new CHttpException(404, 'Запрошенная страница не найдена.');
+            throw new CHttpException(404, Yii::t('<?php echo $this->mid; ?>', 'Запрошенная страница не найдена.'));
         return $model;
     }
 

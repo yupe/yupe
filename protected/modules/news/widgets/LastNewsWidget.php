@@ -1,7 +1,7 @@
 <?php
 class LastNewsWidget extends YWidget
 {
-    public $count = 5;
+    public $count      = 5;
     /** @var $categories mixed Список категорий, из которых выбирать новости. NULL - все */
     public $categories = null;
 

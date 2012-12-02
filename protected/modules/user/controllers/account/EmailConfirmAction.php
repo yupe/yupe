@@ -21,13 +21,12 @@ class EmailConfirmAction extends CAction
         if (!Yii::app()->getModule('user')->isAllowedIp(Yii::app()->request->userHostAddress))
             // перенаправить на экшн для фиксации невалидных ip адресов
             $this->controller->redirect(array(Yii::app()->getModule('user')->invalidIpAction));
-
         // проверить на email
         if (!Yii::app()->getModule('user')->isAllowedEmail($user->email))
             // перенаправить на экшн для фиксации невалидных ip адресов
             $this->controller->redirect(array(Yii::app()->getModule('user')->invalidEmailAction));
 
-        if($user->confirmEmail())
+        if ($user->confirmEmail())
         {
             Yii::log(
                 Yii::t('user', "Активирован e-mail с activate_key = {activate_key}, id = {id}!", array(

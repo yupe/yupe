@@ -70,7 +70,7 @@ class Comment extends YModel
     public function attributeLabels()
     {
         return array(
-            'id'            => Yii::t('comment', 'id'),
+            'id'            => Yii::t('comment', 'ID'),
             'model'         => Yii::t('comment', 'Тип модели'),
             'model_id'      => Yii::t('comment', 'Модель'),
             'creation_date' => Yii::t('comment', 'Дата создания'),
@@ -80,7 +80,7 @@ class Comment extends YModel
             'text'          => Yii::t('comment', 'Текст'),
             'status'        => Yii::t('comment', 'Статус'),
             'verifyCode'    => Yii::t('comment', 'Код проверки'),
-            'ip'            => Yii::t('comment', 'ip'),
+            'ip'            => Yii::t('comment', 'IP адрес'),
         );
     }
 
@@ -141,7 +141,6 @@ class Comment extends YModel
             $this->creation_date = new CDbExpression('NOW()');
             $this->ip            = Yii::app()->request->userHostAddress;
         }
-
         return parent::beforeSave();
     }
 

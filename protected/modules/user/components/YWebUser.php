@@ -21,7 +21,6 @@ class YWebUser extends CWebUser
 
         if ($authData['nick_name'] && isset($authData['access_level']) && $authData['loginTime'] && $authData['id'])
             return true;
-
         return false;
     }
 
@@ -45,7 +44,6 @@ class YWebUser extends CWebUser
 
         if ($isAdmin == User::ACCESS_LEVEL_ADMIN && $loginAdmTime)
             return true;
-
         return false;
     }
 
@@ -56,7 +54,6 @@ class YWebUser extends CWebUser
         {
             if ($this->_profile === null)
                 $this->_profile = User::model()->findByPk($this->id);
-
             return $this->_profile;
         }
         return null;

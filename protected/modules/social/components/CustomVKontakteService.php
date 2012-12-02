@@ -36,7 +36,7 @@ class CustomVKontakteService extends VKontakteOAuthService
         $this->attributes['city']         = $info->city;
         $this->attributes['country']      = $info->country;
 
-        $this->attributes['timezone']     = timezone_name_from_abbr('', $info->timezone * 3600, date('I'));;
+        $this->attributes['timezone']     = timezone_name_from_abbr('', $info->timezone * 3600, date('I'));
 
         $this->attributes['photo']        = $info->photo;
         $this->attributes['photo_medium'] = $info->photo_medium;

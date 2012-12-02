@@ -59,7 +59,7 @@ class Gallery extends YModel
         return array(
             'imagesRell'  => array(self::HAS_MANY, 'ImageToGallery', 'galleryId'),
             'images'      => array(self::HAS_MANY, 'Images', 'image_id', 'through' => 'imagesRell'),
-            'imagesCount' => array(self::STAT, 'ImageToGallery', 'galleryId')
+            'imagesCount' => array(self::STAT, 'ImageToGallery', 'galleryId'),
         );
     }
 

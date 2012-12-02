@@ -204,7 +204,6 @@ class DefaultController extends YBackController
                         Yii::t('category', 'Ошибки при сохранении Категории!')
                     );
             }
-
             $this->render('updateMultilang', array(
                 'model'  => $model,
                 'models' => $modelsByLang,
@@ -235,7 +234,7 @@ class DefaultController extends YBackController
 
             // если это AJAX запрос ( кликнули удаление в админском grid view), мы не должны никуда редиректить
             if (!isset($_GET['ajax']))
-                $this->redirect(isset($_POST['returnUrl']) ? $_POST['returnUrl'] : array( 'index' ));
+                $this->redirect(isset($_POST['returnUrl']) ? $_POST['returnUrl'] : array('index'));
         }
         else
             throw new CHttpException(400, Yii::t('category', 'Неверный запрос. Пожалуйста, больше не повторяйте такие запросы'));

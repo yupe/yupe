@@ -9,7 +9,9 @@ class DefaultController extends YBackController
     {
         $model = $this->loadModel($id);
 
-        $code = '<?php $this->widget("application.modules.contentblock.widgets.ContentBlockWidget", array("code" => "' . $model->code . '")); ?>';
+        $code = <<<EOF
+<?php $this->widget("application.modules.contentblock.widgets.ContentBlockWidget", array("code" => "{$model->code}")); ?>
+EOF;
 
         $highlighter = new CTextHighlighter;
         $highlighter->language = 'PHP';
@@ -100,7 +102,7 @@ class DefaultController extends YBackController
 
             // if AJAX request (triggered by deletion via admin grid view), we should not redirect the browser
             if (!isset($_GET['ajax']))
-                $this->redirect(isset($_POST['returnUrl']) ? $_POST['returnUrl'] : array('admin'));
+                $this->redirect(isset($_POST['returnUrl']) ? $_POST['returnUrl'] : array('index'));
         }
         else
             throw new CHttpException(400, Yii::t('contentblock', 'Неверный запрос. Пожалуйста, больше не повторяйте такие запросы!'));

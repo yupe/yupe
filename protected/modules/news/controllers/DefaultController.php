@@ -2,7 +2,6 @@
 
 class DefaultController extends YBackController
 {
-
     /**
      * Displays a particular model.
      * @param integer $id the ID of the model to be displayed
@@ -55,7 +54,9 @@ class DefaultController extends YBackController
                 $this->redirect(array('view', 'id' => $model->id));
             }
         }
+
         $model->date = date('d.m.Y');
+
         $this->render('create', array('model' => $model));
     }
 
@@ -113,8 +114,12 @@ class DefaultController extends YBackController
                 $modelsByLang[$m->lang] = $m;
             }
             // Выберем модельку для вывода тайтлов и прочего
-            $model = isset($modelsByLang[Yii::app()->language]) ? $modelsByLang[Yii::app()->language] :
-                (isset($modelsByLang[Yii::app()->sourceLanguage]) ? $modelsByLang[Yii::app()->sourceLanguage] : reset($models));
+            $model = isset($modelsByLang[Yii::app()->language])
+                ? $modelsByLang[Yii::app()->language]
+                : (isset($modelsByLang[Yii::app()->sourceLanguage])
+                    ? $modelsByLang[Yii::app()->sourceLanguage]
+                    : reset($models)
+                );
 
             // Теперь создадим недостоающие
             foreach ($langs as $l)
@@ -243,7 +248,7 @@ class DefaultController extends YBackController
                 $this->loadModel($id)->delete(); // we only allow deletion via POST request
             // if AJAX request (triggered by deletion via admin grid view), we should not redirect the browser
             if (!isset($_GET['ajax']))
-                $this->redirect(isset($_POST['returnUrl']) ? $_POST['returnUrl'] : array('admin'));
+                $this->redirect(isset($_POST['returnUrl']) ? $_POST['returnUrl'] : array('index'));
         }
         else
             throw new CHttpException(400, Yii::t('news', 'Неверный запрос. Пожалуйста, больше не повторяйте такие запросы!'));

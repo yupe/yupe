@@ -63,8 +63,10 @@ class CommentController extends YFrontController
                     ? Yii::t('comment', 'Спасибо, Ваша запись добавлена и ожидает проверки!')
                     : Yii::t('comment', 'Спасибо, Ваша запись добавлена!');
 
-                Yii::app()->user->setFlash(YFlashMessages::NOTICE_MESSAGE, $message);
-
+                Yii::app()->user->setFlash(
+                    YFlashMessages::NOTICE_MESSAGE,
+                    $message
+                );
                 $this->redirect($redirect);
             }
             else
@@ -72,8 +74,10 @@ class CommentController extends YFrontController
                 if (Yii::app()->request->isAjaxRequest)
                     Yii::app()->ajax->failure(Yii::t('comment', 'Запись не добавлена!'));
 
-                Yii::app()->user->setFlash(YFlashMessages::ERROR_MESSAGE, Yii::t('comment', 'Запись не добавлена! Заполните форму корректно!'));
-
+                Yii::app()->user->setFlash(
+                    YFlashMessages::ERROR_MESSAGE,
+                    Yii::t('comment', 'Запись не добавлена! Заполните форму корректно!')
+                );
                 $this->redirect($redirect);
             }
         }

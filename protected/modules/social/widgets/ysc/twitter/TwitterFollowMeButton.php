@@ -16,38 +16,36 @@
 
 class TwitterFollowMeButton extends YscPortlet
 {
-    const BLUE = 'a';
+    const BLUE  = 'a';
     const WHITE = 'b';
     const BLACK = 'c';
 
     public $color;
-
     public $type;
-
     public $user;
-
     public $alt;
 
     private $_validColors = array(
-        'blue' => self::BLUE,
+        'blue'  => self::BLUE,
         'white' => self::WHITE,
-        'black' => self::BLACK
+        'black' => self::BLACK,
     );
 
     private $_validTypes = array(
-        'follow_me', 'follow_bird', 'twitter', 't_logo', 't_small', 't_mini'
+        'follow_me', 'follow_bird', 'twitter', 't_logo', 't_small', 't_mini',
     );
 
     public function init()
     {
-        if (!$this->user)        
-            throw new CException('Укажите учетную запись в Твиттере для виджета TwitterFollowMeButton! user => @youTwitterAccount!');        
+        if (!$this->user)
+            throw new CException('Укажите учетную запись в Твиттере для виджета TwitterFollowMeButton! user => @youTwitterAccount!');
 
         $this->color = array_key_exists(strtolower($this->color), $this->_validColors)
-            ? $this->_validColors[strtolower($this->color)] : self::WHITE;
-
+            ? $this->_validColors[strtolower($this->color)]
+            : self::WHITE;
         $this->type = in_array(strtolower($this->type), $this->_validTypes)
-            ? strtolower($this->type) : 'follow_me';
+            ? strtolower($this->type)
+            : 'follow_me';
 
         parent::init();
     }

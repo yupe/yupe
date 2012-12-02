@@ -71,10 +71,8 @@ class GalleryController extends YFrontController
     public function actionFoto($id)
     {
         $model = Image::model()->findByPk((int) $id);
-
         if (!$model)
             throw new CHttpException(404, Yii::t('gallery', 'Страница не найдена!'));
-
         $this->render('foto', array('model' => $model));
     }
 }

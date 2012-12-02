@@ -22,7 +22,7 @@ class ServiceUserIdentity extends UserIdentity
      * @return boolean whether authentication succeeds.
      */
     public function authenticate()
-    {        
+    {
         if ($this->service->isAuthenticated)
         {
             $this->username = $this->service->getAttribute('name');
@@ -33,7 +33,6 @@ class ServiceUserIdentity extends UserIdentity
         }
         else
             $this->errorCode = self::ERROR_NOT_AUTHENTICATED;
-
         return !$this->errorCode;
     }
 }
