@@ -195,10 +195,12 @@ var RLANG = {
 			// modal windows container
 			modal_file: String() + 
 				'<form id="redactorUploadFileForm" method="post" action="" enctype="multipart/form-data">' +
-					'<label>Name (optional)</label>' +
-					'<input type="text" id="redactor_filename" class="redactor_input" />' +
-					'<div style="margin-top: 7px;">' +
-						'<input type="file" id="redactor_file" name="file" />' +
+					'<div id="redactor_tab1" class="redactor_tab">' +
+						'<label>' + RLANG.text + '</label>' +
+						'<input type="text" id="redactor_filename" class="redactor_input" />' +
+						'<div style="margin-top: 7px;">' +
+							'<input type="file" id="redactor_file" name="file" />' +
+						'</div>' +
 					'</div>' +
 				'</form>',
 	
@@ -234,17 +236,17 @@ var RLANG = {
 					'<div id="redactor_tab2" class="redactor_tab" style="display: none;">' +
 						'<div id="redactor_image_box"></div>' +
 					'</div>' +
-				'</form>' +
-				'<div id="redactor_tab3" class="redactor_tab" style="display: none;">' +
-					'<label>' + RLANG.image_web_link + '</label>' +
-					'<input name="redactor_file_link" id="redactor_file_link" class="redactor_input"  />' +
-				'</div>' +
-				'<div id="redactor_modal_footer">' +
-					'<span class="redactor_btns_box">' +
-						'<input type="button" name="upload" id="redactor_upload_btn" value="' + RLANG.insert + '" />' +
-						'<a href="javascript:void(null);" id="redactor_btn_modal_close">' + RLANG.cancel + '</a>' +
-					'</span>' +
-				'</div>',
+					'<div id="redactor_tab3" class="redactor_tab" style="display: none;">' +
+						'<label>' + RLANG.image_web_link + '</label>' +
+						'<input name="redactor_file_link" id="redactor_file_link" class="redactor_input"  />' +
+						'<div id="redactor_modal_footer">' +
+							'<span class="redactor_btns_box">' +
+								'<input type="button" name="upload" id="redactor_upload_btn" value="' + RLANG.insert + '" />' +
+								'<a href="javascript:void(null);" id="redactor_btn_modal_close">' + RLANG.cancel + '</a>' +
+							'</span>' +
+						'</div>' +
+					'</div>' +
+				'</form>',
 	
 			modal_link: String() + 
 				'<form id="redactorInsertLinkForm" method="post" action="">' +
@@ -2794,11 +2796,14 @@ var RLANG = {
 					});
 				}
 	
-				this.uploadInit('redactor_file', { auto: true, url: this.opts.fileUpload, success: $.proxy(function(data) {
+				this.uploadInit('redactor_file', { 
+					auto: true, 
+					url: this.opts.fileUpload, 
+					success: $.proxy(function(data) {
+						this.fileUploadCallback(data);
 	
-					this.fileUploadCallback(data);
-	
-				}, this)});
+					},this)
+				});
 				
 			}, this);
 	
@@ -2817,7 +2822,7 @@ var RLANG = {
 				{
 					text = data.filename;
 				}
-				
+
 				var link = '<a href="' + data.filelink + '">' + text + '</a>';
 			
 				// chrome fix
@@ -2837,8 +2842,6 @@ var RLANG = {
 			
 			this.modalClose();
 		},	
-	
-		
 		
 		// MODAL
 		modalInit: function(title, url, width, handler, endCallback)

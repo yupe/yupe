@@ -32,6 +32,23 @@
  * @package yiiext.widgets.imperaviRedactor
  * @modified Alexander Tischenko <tsm@archaron.ru>
  * @link http://imperavi.ru/redactor/
+ * 
+ * 
+ * @modified ApexWire <apewire@gmail.com>
+ * 1) подправлен баг с отсутствием toolbar.
+ * 2) модальное окно загрузки изображения, кнопка "Вставить", перенесена во вкладку "Ссылка", убрана из вкладки "Загрузить" - так как является лишней из за ненужности
+ * 3) удален файл lang/en.js за ненадобностью, так как английский уже встроен в файл и является языком по умолчанию
+ * 4) путь '/index.php/yupe/backend/AjaxFileUpload/' внесен в переменные, добавленна опция 'upload', если она указана то прописывается путь загрузки файлов для изображений и файлов
+ * 5) добавлена функция setOptions, в которую перенесена установка опций.
+ * 6) загрузка файлов в BackendController 
+ * 		изменена строка:
+ * 		Yii::app()->ajax->rawText(CJSON::encode(array('filelink' => Yii::app()->baseUrl . $webPath . $newFileName)));
+ * 		на:
+ * 		Yii::app()->ajax->rawText(CJSON::encode(array(
+        	'filelink' => Yii::app()->baseUrl . $webPath . $newFileName,
+            'filename' => $image->name
+        )));
+        чтобы возвращать название файла
  */
 class EImperaviRedactorWidget extends CInputWidget
 {
@@ -53,8 +70,14 @@ class EImperaviRedactorWidget extends CInputWidget
 	public $options=array();
 
 	public $lang;
+	
+	/**
+	 * @var string default buttons
+	 */
+	public $uploadPath = '/index.php/yupe/backend/AjaxFileUpload/';
 
 	protected $scriptLangFile;
+	
 
 	protected $buttons = array (
 		'mini' => array("formatting", "|", "bold", "italic", "deleted", "|", "unorderedlist", "orderedlist"),
@@ -83,6 +106,7 @@ class EImperaviRedactorWidget extends CInputWidget
 		if($this->cssFile===null)
 			$this->cssFile=$this->assetsUrl.'/css/redactor.css';
 
+		$this->setOptions();
 		$this->registerClientScript();
 	}
 
@@ -96,31 +120,41 @@ class EImperaviRedactorWidget extends CInputWidget
 		else
 			echo CHtml::textArea($this->name,$this->value,$this->htmlOptions);
 	}
+	
+	protected function setOptions()
+	{
+		if(isset($this->options['path']))
+			$this->options['path']=rtrim($this->options['path'],'/\\').'/';
+		
+		if( isset($this->options['toolbar']) AND isset($this->buttons[$this->options['toolbar']]) )
+			$this->options['buttons'] = $this->buttons[$this->options['toolbar']];
+		
+		
+		if(isset($this->options['toolbar']))
+			unset($this->options['toolbar']);
+		
+		if($this->lang)
+			$this->options['lang'] = $this->lang;
+		
+		if(!isset($this->options['autoresize']))
+			$this->options['autoresize'] = false;
+		
+		if ( isset($this->options['upload']) AND $this->options['upload'] ) {
+			$this->options['imageUpload'] = $this->uploadPath;
+			$this->options['fileUpload'] = $this->uploadPath;
+		}
+	}
+	
 	/**
 	 * Register CSS and Script.
 	 */
 	protected function registerClientScript()
 	{
-		if(isset($this->options['path']))
-			$this->options['path']=rtrim($this->options['path'],'/\\').'/';
-
-		if(isset($this->options['toolbar']) || !isset($this->buttons[$this->options['toolbar']]))
-			$this->options['buttons'] = $this->buttons[$this->options['toolbar']];		
-
-		if(isset($this->options['toolbar']))
-			unset($this->options['toolbar']);
-
-		if($this->lang)
-			$this->options['lang'] = $this->lang;		
-
-		if(!isset($this->options['autoresize']))
-			$this->options['autoresize'] = false;
-
 		$cs=Yii::app()->getClientScript();
 		$cs->registerCssFile($this->cssFile);
 		$cs->registerCoreScript('jquery');
 		$cs->registerScriptFile($this->scriptFile);
-
+		
 		if($this->scriptLangFile)
 			$cs->registerScriptFile($this->scriptLangFile);
 		$cs->registerScript(__CLASS__.'#'.$this->id,'jQuery("#'.$this->id.'").redactor('.CJavaScript::encode($this->options).');');
