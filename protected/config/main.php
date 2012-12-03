@@ -166,6 +166,10 @@ return array(
                 ),
             ),
         ),
+        // подключение CURL-обертки, подробнее https://github.com/hackerone/curl
+        'curl' => array(
+            'class' => 'application.modules.yupe.extensions.curl.Curl'
+        ),
 /*
         // Если используется модуль geo  - надо как-то интегрировать в сам модуль
         'sxgeo' => array(
