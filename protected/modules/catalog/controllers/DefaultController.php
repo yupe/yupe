@@ -31,11 +31,13 @@ class DefaultController extends YBackController
                 $model->image = CUploadedFile::getInstance($model, 'image');
                 if ($model->image)
                 {
-                    $imageName = $this->module->getUploadPath() . $model->alias . '.' . $model->image->extensionName;
-                    if ($model->image->saveAs($imageName))
+                    if($imageName = YFile::pathIsWritable($model->alias, $model->image->extensionName, $this->module->getUploadPath()))
                     {
-                        $model->image = basename($imageName);
-                        $model->update(array( 'image' ));
+                        if ($model->image->saveAs($imageName))
+                        {
+                            $model->image = basename($imageName);
+                            $model->update(array('image'));
+                        }
                     }
                 }
 
@@ -76,13 +78,15 @@ class DefaultController extends YBackController
                 $model->image = CUploadedFile::getInstance($model, 'image');
                 if ($model->image)
                 {
-                    $imageName = $this->module->getUploadPath() . $model->alias . '.' . $model->image->extensionName;
-                    @unlink($this->module->getUploadPath() . $image);
-
-                    if ($model->image->saveAs($imageName))
+                    if($imageName = YFile::pathIsWritable($model->alias, $model->image->extensionName, $this->module->getUploadPath()))
                     {
-                        $model->image = basename($imageName);
-                        $model->update(array( 'image' ));
+                        @unlink($this->module->getUploadPath() . $image);
+
+                        if ($model->image->saveAs($imageName))
+                        {
+                            $model->image = basename($imageName);
+                            $model->update(array('image'));
+                        }
                     }
                 }
                 else
