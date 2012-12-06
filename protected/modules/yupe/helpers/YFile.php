@@ -8,7 +8,7 @@ class YFile extends CFileHelper
 
     public static function pathIsWritable($name, $ext, $path)
     {
-        if(self::checkPath($path))
+        if (self::checkPath($path))
             return $path . self::getTranslatedName($name) . '.' . $ext;
         else
             return false;

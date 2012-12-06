@@ -28,17 +28,13 @@ class DefaultController extends YBackController
 
             if ($model->save())
             {
-                $model->image = CUploadedFile::getInstance($model, 'image');
-                if ($model->image)
+                if (($model->image = CUploadedFile::getInstance($model, 'image'))                                                     &&
+                    ($imageName = YFile::pathIsWritable($model->alias, $model->image->extensionName, $this->module->getUploadPath())) &&
+                    $model->image->saveAs($imageName)
+                )
                 {
-                    if($imageName = YFile::pathIsWritable($model->alias, $model->image->extensionName, $this->module->getUploadPath()))
-                    {
-                        if ($model->image->saveAs($imageName))
-                        {
-                            $model->image = basename($imageName);
-                            $model->update(array('image'));
-                        }
-                    }
+                    $model->image = basename($imageName);
+                    $model->update(array('image'));
                 }
 
                 Yii::app()->user->setFlash(
@@ -75,19 +71,14 @@ class DefaultController extends YBackController
 
             if ($model->save())
             {
-                $model->image = CUploadedFile::getInstance($model, 'image');
-                if ($model->image)
+                if (($model->image = CUploadedFile::getInstance($model, 'image'))                                                     &&
+                    ($imageName = YFile::pathIsWritable($model->alias, $model->image->extensionName, $this->module->getUploadPath())) &&
+                    $model->image->saveAs($imageName)
+                )
                 {
-                    if($imageName = YFile::pathIsWritable($model->alias, $model->image->extensionName, $this->module->getUploadPath()))
-                    {
-                        @unlink($this->module->getUploadPath() . $image);
-
-                        if ($model->image->saveAs($imageName))
-                        {
-                            $model->image = basename($imageName);
-                            $model->update(array('image'));
-                        }
-                    }
+                    @unlink($this->module->getUploadPath() . $image);
+                    $model->image = basename($imageName);
+                    $model->update(array('image'));
                 }
                 else
                 {
