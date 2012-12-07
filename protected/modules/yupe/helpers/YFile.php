@@ -1,4 +1,11 @@
-<?
+<?php
+/**
+ * CFileHelper класс для работы с файлами.
+ *
+ * @author Yupe Team
+ * @link http://yupe.ru/
+ */
+ 
 class YFile extends CFileHelper
 {
     public static function getTranslatedName($word)
