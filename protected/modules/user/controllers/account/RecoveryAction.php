@@ -97,6 +97,6 @@ class RecoveryAction extends CAction
                 }
             }
         }
-        $this->controller->render('/user/account/recovery', array('model' => $form));
+        $this->controller->render('recovery', array('model' => $form));
     }
 }
