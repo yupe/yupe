@@ -27,18 +27,7 @@ class DefaultController extends YBackController
 
             if ($model->save())
             {
-                $model->image = CUploadedFile::getInstance($model, 'image');
-
-                if ($model->image)
-                {
-                    $imageName = $this->module->getUploadPath() . $model->alias . '.' . $model->image->extensionName;
-
-                    if ($model->image->saveAs($imageName))
-                    {
-                        $model->image = basename($imageName);
-                        $model->update(array( 'image' ));
-                    }
-                }
+                $model->saveWithImage('image', $this->module->getUploadPath());
 
                 Yii::app()->user->setFlash(
                     YFlashMessages::NOTICE_MESSAGE,
@@ -144,15 +133,10 @@ class DefaultController extends YBackController
 
                 foreach ($langs as $l)
                 {
-                    $img = $modelsByLang[$l]->image;
-
-                    $modelsByLang[$l]->image = CUploadedFile::getInstance($modelsByLang[$l], 'image') !== null
-                        ? CUploadedFile::getInstance($modelsByLang[$l], 'image')
-                        : $img;
-
                     if (isset($_POST['Category'][$l]))
                     {
-                        $p = $_POST['Category'][$l];
+                        $image = $modelsByLang[$l]->image;
+                        $p     = $_POST['Category'][$l];
 
                         $modelsByLang[$l]->setAttributes(array(
                             'alias'             => $_POST['Category']['alias'],
@@ -166,23 +150,14 @@ class DefaultController extends YBackController
 
                         if ($l != Yii::app()->sourceLanguage)
                             $modelsByLang[$l]->scenario = 'altlang';
+
                         if (!$modelsByLang[$l]->save())
                             $wasError = true;
-
-                        else if (is_object($modelsByLang[$l]->image))
-                        {
-                            $imageName = $this->module->getUploadPath() . $model->alias . '.' . $modelsByLang[$l]->image->extensionName;
-
-                            @unlink($this->module->getUploadPath() . $image);
-
-                            if ($modelsByLang[$l]->image->saveAs($imageName))
-                            {
-                                $modelsByLang[$l]->image = basename($imageName);
-                                $modelsByLang[$l]->update(array('image'));
-                            }
-                        }
                         else
+                        {
+                            $modelsByLang[$l]->saveWithImage('image', $this->module->getUploadPath(), $image);
                             $alias = $modelsByLang[$l]->alias;
+                        }
                     }
                 }
 
