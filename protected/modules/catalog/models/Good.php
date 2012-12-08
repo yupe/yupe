@@ -68,7 +68,7 @@ class Good extends YModel
             array('alias', 'unique'),
             array('name', 'length', 'max' => 150),
             array('article, alias', 'length', 'max' => 100),
-            array('image', 'length', 'max' => 300),
+            array('image',  'file', 'types' => 'jpg, png, jpeg'),
             array('status','in','range' => array_keys($this->statusList)),
             array('is_special','in','range' => array(0, 1)),
             array('short_description, data', 'safe'),
