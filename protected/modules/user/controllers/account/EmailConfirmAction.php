@@ -12,7 +12,7 @@ class EmailConfirmAction extends CAction
                 YFlashMessages::ERROR_MESSAGE,
                 Yii::t('user', 'Ошибка активации! Возможно данный e-mail уже проверен или указан неверный ключ активации! Попробуйте другой e-mail.')
             );
-            $this->controller->redirect(array('/user/account/profile'));
+            $this->controller->redirect(array('/user/account/login'));
         }
 
         // процедура активации

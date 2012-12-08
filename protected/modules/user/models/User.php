@@ -70,7 +70,8 @@ class User extends YModel
             array('birth_date, site, about, location, online_status, nick_name, first_name, last_name, middle_name, email', 'filter', 'filter' => array($obj = new CHtmlPurifier(), 'purify')),
             array('nick_name, email, password', 'required'),
             array('first_name, last_name, middle_name, nick_name, email', 'length', 'max' => 50),
-            array('password, salt, activate_key', 'length', 'max' => 32),
+            array('activate_key', 'length', 'max' => 32),
+            array('password, salt', 'length', 'max' => $module->maxPasswordLength, 'min' => $module->minPasswordLength),
             array('site', 'length', 'max' => 100),
             array('about', 'length', 'max' => 300),
             array('location, online_status', 'length', 'max' => 150),
@@ -90,6 +91,7 @@ class User extends YModel
             array('id, creation_date, change_date, middle_name, first_name, last_name, nick_name, email, gender, avatar, password, salt, status, access_level, last_visit, registration_date, registration_ip, activation_ip', 'safe', 'on' => 'search'),
         );
     }
+
 
     /**
      * @return array customized attribute labels (name=>label)
@@ -289,7 +291,7 @@ class User extends YModel
     public function generateRandomPassword($length = null)
     {
         if (!$length)
-            $length = Yii::app()->getModule('user')->minPasswordLength;
+            $length = Yii::app()->getModule('user')->maxPasswordLength;
         return substr(md5(uniqid(mt_rand(), true) . time()), 0, $length);
     }
 

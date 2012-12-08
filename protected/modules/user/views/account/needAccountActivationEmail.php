@@ -8,13 +8,10 @@
     <br/><br/>
 
     <?php echo Yii::t('user', 'Для активации аккаунта, пожалуйста, перейдите по'); ?>
-    <a href='<?php echo Yii::app()->request->hostInfo . $this->createUrl('account/activate', array('key' => $model->activate_key)); ?>'>
-        <?php echo Yii::t('user', 'ссылке'); ?>
-    </a>
-
+    &nbsp;<?php echo CHtml::link(Yii::t('user', 'ссылке'),$link=Yii::app()->createAbsoluteUrl('/user/account/activate', array('key' => $model->activate_key))); ?>
     <br/><br/>
 
-    <?php  echo Yii::app()->request->hostInfo . $this->createUrl('account/activate', array('key' => $model->activate_key)); ?>
+    <?php  echo $link; ?>
 
     <br/><br/>
 
