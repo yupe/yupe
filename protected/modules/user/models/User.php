@@ -70,8 +70,7 @@ class User extends YModel
             array('birth_date, site, about, location, online_status, nick_name, first_name, last_name, middle_name, email', 'filter', 'filter' => array($obj = new CHtmlPurifier(), 'purify')),
             array('nick_name, email, password', 'required'),
             array('first_name, last_name, middle_name, nick_name, email', 'length', 'max' => 50),
-            array('activate_key', 'length', 'max' => 32),
-            array('password, salt', 'length', 'max' => $module->maxPasswordLength, 'min' => $module->minPasswordLength),
+            array('password, salt, activate_key', 'length', 'max' => 32),
             array('site', 'length', 'max' => 100),
             array('about', 'length', 'max' => 300),
             array('location, online_status', 'length', 'max' => 150),
@@ -290,9 +289,7 @@ class User extends YModel
 
     public function generateRandomPassword($length = null)
     {
-        if (!$length)
-            $length = Yii::app()->getModule('user')->maxPasswordLength;
-        return substr(md5(uniqid(mt_rand(), true) . time()), 0, $length);
+        return substr(md5(uniqid(mt_rand(), true) . time()), 0, $length?$length:32);
     }
 
     public function generateActivationKey()
