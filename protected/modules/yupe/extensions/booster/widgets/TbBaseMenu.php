@@ -69,6 +69,9 @@ abstract class TbBaseMenu extends CMenu
 					if (isset($item['items']))
 						$classes[] = $this->getDropdownCssClass();
 
+					if (isset($item['disabled']))
+						$classes[] = 'disabled';
+
 					if (!empty($classes))
 					{
 						$classes = implode(' ', $classes);

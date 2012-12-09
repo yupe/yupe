@@ -88,6 +88,11 @@ class TbCarousel extends CWidget
 			echo '<a class="carousel-control right" href="#'.$id.'" data-slide="next">'.$this->nextLabel.'</a>';
 			echo '</div>';
 		}
+		else
+		{
+			echo '</div>';
+			echo '</div>';
+		}
 
 		/** @var CClientScript $cs */
 		$cs = Yii::app()->getClientScript();

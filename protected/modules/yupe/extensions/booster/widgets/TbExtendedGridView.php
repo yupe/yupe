@@ -247,7 +247,7 @@ class TbExtendedGridView extends TbGridView
 			'title'=>Yii::app()->getRequest()->getUrl(),
 		));
 		foreach($data as $d)
-			echo CHtml::tag('span',array('data-order' => $this->getAttribute($d, $this->sortableAttribute), CHtml::encode($this->getPrimaryKey($d))));
+   			echo CHtml::tag('span',array('data-order' => $this->getAttribute($d, $this->sortableAttribute), ), CHtml::encode($this->getPrimaryKey($d)));
 		echo "</div>\n";
 	}
 
@@ -288,7 +288,7 @@ class TbExtendedGridView extends TbGridView
 	{
 		if($this->dataProvider instanceof CActiveDataProvider)
 		{
-			$key=$this->grid->dataProvider->keyAttribute===null ? $data->getPrimaryKey() : $data->{$this->keyAttribute};
+			$key=$this->dataProvider->keyAttribute===null ? $data->getPrimaryKey() : $data->{$this->keyAttribute};
 			return is_array($key) ? implode(',',$key) : $key;
 		}
 		if($this->dataProvider instanceof CArrayDataProvider)

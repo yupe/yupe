@@ -40,13 +40,42 @@
 }
 .bootstrap-widget-header .bootstrap-toolbar
 {
-    margin: 3px 2px;
+    margin: 0 2px;
 }
 .bootstrap-widget-header .bootstrap-toolbar ul.dropdown-menu i
 {
     margin-left: -18px;
     margin-right: 1px;
 }
+.bootstrap-widget-header .bootstrap-toolbar > .btn,
+.bootstrap-widget-header .bootstrap-toolbar > .btn-group{
+    margin-left: 7px;
+}
+.bootstrap-widget-header .bootstrap-toolbar > .btn,
+.bootstrap-widget-header .bootstrap-toolbar > .btn-group > .btn{
+    margin-top: 5px;
+    margin-bottom: 5px;
+}
+.bootstrap-widget-header .bootstrap-toolbar > *:last-child{
+    margin-left: 0;
+}
+.bootstrap-widget-header .bootstrap-toolbar > .btn-large,
+.bootstrap-widget-header .bootstrap-toolbar > .btn-group > .btn-large{
+    margin-top: 1px;
+    margin-bottom: 1px;
+}
+.bootstrap-widget-header .bootstrap-toolbar > .btn-small,
+.bootstrap-widget-header .bootstrap-toolbar > .btn-group > .btn-small{
+    margin-top: 7px;
+    margin-bottom: 7px;
+}
+.bootstrap-widget-header .bootstrap-toolbar > .btn-mini,
+.bootstrap-widget-header .bootstrap-toolbar > .btn-group > .btn-mini{
+    margin-top: 8px;
+    margin-bottom: 9px;
+}
+
+
 .bootstrap-widget-header h3 {
 
     position: relative;
@@ -164,4 +193,3 @@
     background: #E3E3E3;
     background: #FFF;
 }
-

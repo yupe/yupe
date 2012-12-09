@@ -58,14 +58,14 @@
                 if(action.length)
                 {
                     $.fn.yiiGridView.update(id,
-                        {
-                            type:'POST',
-                            url:action,
-                            data:{sortOrder: sortOrder},
-                            success:function(){
-                                grid.removeClass('grid-view-loading');
-                            }
-                        });
+                    {
+                        type:'POST',
+                        url:action,
+                        data:{sortOrder: sortOrder},
+                        success:function(){
+                        grid.removeClass('grid-view-loading');
+                        }
+                    });
                 }
                 if($.isFunction(callback))
                 {

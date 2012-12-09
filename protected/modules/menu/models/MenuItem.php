@@ -9,6 +9,12 @@
  * @property string $menu_id
  * @property string $title
  * @property string $href
+ * @property string $class
+ * @property string $title_attr
+ * @property string $before_link
+ * @property string $after_link
+ * @property string $target
+ * @property string $rel
  * @property string $condition_name
  * @property integer $condition_denial
  * @property integer $sort
@@ -48,10 +54,11 @@ class MenuItem extends YModel
         // NOTE: you should only define rules for those attributes that
         // will receive user inputs.
         return array(
-            array('parent_id, menu_id, title, href', 'required', 'except' => 'search'),
+            array('parent_id, menu_id, title', 'required', 'except' => 'search'),
             array('sort, status, condition_denial', 'numerical', 'integerOnly' => true),
-            array('parent_id, menu_id', 'length', 'max' => 10),
-            array('title, href, condition_name', 'length', 'max' => 255),
+            array('parent_id, menu_id, rel, target', 'length', 'max' => 10),
+            array('title, href, condition_name, title_attr, before_link, after_link', 'length', 'max' => 255),
+            array('class', 'length', 'max' => 50),
             // The following rule is used by search().
             // Please remove those attributes that should not be searched.
             array('id, parent_id, menu_id, title, href, sort, status, condition_name, condition_denial', 'safe', 'on' => 'search'),
@@ -81,6 +88,12 @@ class MenuItem extends YModel
             'menu_id'          => Yii::t('menu', 'Меню'),
             'title'            => Yii::t('menu', 'Заголовок'),
             'href'             => Yii::t('menu', 'Адрес'),
+            'title_attr'       => Yii::t('menu', 'Атрибут title'),
+            'class'            => Yii::t('menu', 'Атрибут class'),
+            'rel'              => Yii::t('menu', 'Атрибут rel'),
+            'target'           => Yii::t('menu', 'Атрибут target'),
+            'before_link'      => Yii::t('menu', 'Текст перед ссылкой'),
+            'after_link'       => Yii::t('menu', 'Текст после ссылки'),
             'condition_name'   => Yii::t('menu', 'Условие'),
             'condition_denial' => Yii::t('menu', 'Отрицание условия'),
             'sort'             => Yii::t('menu', 'Сортировка'),
@@ -99,6 +112,12 @@ class MenuItem extends YModel
             'menu_id'          => Yii::t('menu', 'Укажите к какому меню относится данный пункт.'),
             'title'            => Yii::t('menu', 'Заголовок пункта меню.'),
             'href'             => Yii::t('menu', 'Адрес странице на сайте.'),
+            'class'            => Yii::t('menu', 'Добавляет необходимые классы тегу &lt;li&gt;'),
+            'title_attr'       => Yii::t('menu', 'Добавляет подсказку к ссылке'),
+            'rel'              => Yii::t('menu', 'Используется для указания xfr'),
+            'target'           => Yii::t('menu', 'Используется для указания открытия новой страницы в новом окне или вкладке, фрейме.'),
+            'before_link'      => Yii::t('menu', 'Текст перед ссылкой'),
+            'after_link'       => Yii::t('menu', 'Текст после ссылки'),
             'condition_name'   => Yii::t('menu', 'Если данный пункт меню, необходимо выводить только при определенном условии, укажите его.'),
             'condition_denial' => Yii::t('menu', 'Условие применяется при совпадении или отрацании.'),
             'sort'             => Yii::t('menu', 'Порядковый номер пункта в меню.'),

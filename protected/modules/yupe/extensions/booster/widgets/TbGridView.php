@@ -42,6 +42,11 @@ class TbGridView extends CGridView
 	public $cssFile = false;
 
 	/**
+	 * @var bool whether to make the grid responsive
+	 */
+	public $responsiveTable = false;
+
+	/**
 	 * Initializes the widget.
 	 */
 	public function init()
@@ -102,6 +107,9 @@ class TbGridView extends CGridView
 		}
 
 		parent::initColumns();
+
+		if($this->responsiveTable)
+			$this->writeResponsiveCss();
 	}
 
 	/**
@@ -125,5 +133,71 @@ class TbGridView extends CGridView
 			$column->header = $matches[5];
 
 		return $column;
+	}
+
+	/**
+	 * Writes responsiveCSS
+	 */
+	protected function writeResponsiveCss()
+	{
+		$cnt = 1; $labels='';
+		foreach($this->columns as $column)
+		{
+			ob_start();
+			$column->renderHeaderCell();
+			$name = strip_tags(ob_get_clean());
+
+			$labels .= "td:nth-of-type($cnt):before { content: '{$name}'; }\n";
+			$cnt++;
+		}
+
+		$css = <<<EOD
+@media
+	only screen and (max-width: 760px),
+	(min-device-width: 768px) and (max-device-width: 1024px)  {
+
+		/* Force table to not be like tables anymore */
+		#{$this->id} table,#{$this->id} thead,#{$this->id} tbody,#{$this->id} th,#{$this->id} td,#{$this->id} tr {
+			display: block;
+		}
+
+		/* Hide table headers (but not display: none;, for accessibility) */
+		#{$this->id} thead tr {
+			position: absolute;
+			top: -9999px;
+			left: -9999px;
+		}
+
+		#{$this->id} tr { border: 1px solid #ccc; }
+
+		#{$this->id} td {
+			/* Behave  like a "row" */
+			border: none;
+			border-bottom: 1px solid #eee;
+			position: relative;
+			padding-left: 50%;
+		}
+
+		#{$this->id} td:before {
+			/* Now like a table header */
+			position: absolute;
+			/* Top/left values mimic padding */
+			top: 6px;
+			left: 6px;
+			width: 45%;
+			padding-right: 10px;
+			white-space: nowrap;
+		}
+		.grid-view .button-column {
+			text-align: left;
+			width:auto;
+		}
+		/*
+		Label the data
+		*/
+		{$labels}
+	}
+EOD;
+		Yii::app()->clientScript->registerCss(__CLASS__.'#'.$this->id, $css);
 	}
 }

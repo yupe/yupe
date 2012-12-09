@@ -65,7 +65,7 @@ class TbInputHorizontal extends TbInput
 			'model' => $this->model,
 			'attribute' => $this->attribute
 		);
-		if(isset($this->htmlOptions['options']))
+		if (isset($this->htmlOptions['options']))
 		{
 			$options = CMap::mergeArray($options, $this->htmlOptions['options']);
 			unset($this->htmlOptions['options']);
@@ -179,6 +179,32 @@ class TbInputHorizontal extends TbInput
 	{
 		$this->htmlOptions['inline'] = true;
 		$this->radioButtonList();
+	}
+
+	/**
+	 * Renders a list of radio buttons using Button Groups.
+	 * @return string the rendered content
+	 */
+	protected function radioButtonGroupsList()
+	{
+		if (isset($this->htmlOptions['for']) && !empty($this->htmlOptions['for'])) {
+			$label_for = $this->htmlOptions['for'];
+			unset($this->htmlOptions['for']);
+		} else if (isset($this->data) && !empty($this->data)) {
+			$label_for = CHtml::getIdByName(get_class($this->model) . '[' . $this->attribute . '][' . key($this->data) . ']');
+		}
+
+		if (isset($label_for)) {
+			$this->labelOptions = array('for' => $label_for);
+		}
+
+		$this->htmlOptions['class'] = 'pull-left';
+
+		echo $this->getLabel();
+		echo '<div class="controls">';
+		echo $this->form->radioButtonGroupsList($this->model, $this->attribute, $this->data, $this->htmlOptions);
+		echo $this->getError().$this->getHint();
+		echo '</div>';
 	}
 
 	/**
@@ -341,6 +367,40 @@ class TbInputHorizontal extends TbInput
 	}
 
 	/**
+	 * Renders a Markdown Editor.
+	 * @return string the rendered content
+	 */
+	protected function markdownEditorJs()
+	{
+
+		if (isset($this->htmlOptions['width']))
+		{
+			$width = $this->htmlOptions['width'];
+			unset($this->htmlOptions['width']);
+		}
+		if (isset($this->htmlOptions['height']))
+		{
+			$height = $this->htmlOptions['height'];
+			unset($this->htmlOptions['height']);
+		}
+		echo $this->getLabel();
+		echo '<div class="controls">';
+		echo '<div class="wmd-panel">';
+		echo '<div id="wmd-button-bar" class="btn-toolbar"></div>';
+		$this->widget('bootstrap.widgets.TbMarkdownEditorJs', array(
+			'model' => $this->model,
+			'attribute' => $this->attribute,
+			'width' => isset($width) ? $width : '100%',
+			'height' => isset($height) ? $height : '400px',
+			'htmlOptions' => $this->htmlOptions
+		));
+		echo $this->getError() . $this->getHint();
+		echo '<div id="wmd-preview" class="wmd-panel wmd-preview" style="width:' . (isset($width) ? $width : '100%') . '"></div>';
+		echo '</div>'; // wmd-panel
+		echo '</div>'; // controls
+	}
+
+	/**
 	 * Renders Bootstrap wysihtml5 editor.
 	 * @return mixed|void
 	 */
@@ -376,6 +436,31 @@ class TbInputHorizontal extends TbInput
 	}
 
 	/**
+	 * Renders a ckEditor.
+	 * @return string the rendered content
+	 * @author antonio ramirez <antonio@clevertech.biz>
+	 */
+	protected function ckEditor()
+	{
+		if (isset($this->htmlOptions['options']))
+		{
+			$options = $this->htmlOptions['options'];
+			unset($this->htmlOptions['options']);
+		}
+
+		echo $this->getLabel();
+		echo '<div class="controls">';
+		$this->widget('bootstrap.widgets.TbCKEditor', array(
+			'model' => $this->model,
+			'attribute' => $this->attribute,
+			'editorOptions' => isset($options) ? $options : array(),
+			'htmlOptions' => $this->htmlOptions
+		));
+		echo $this->getError() . $this->getHint();
+		echo '</div>';
+	}
+
+	/**
 	 * Renders a daterange field.
 	 * @return string the rendered content
 	 * @author antonio ramirez <antonio@clevertech.biz>
@@ -404,43 +489,90 @@ class TbInputHorizontal extends TbInput
 			'callback' => isset($callback) ? $callback : array(),
 			'htmlOptions' => $this->htmlOptions,
 		));
+		echo $this->getError() . $this->getHint();
+		echo '</div>';
+	}
+
+	/**
+	 * Renders a timepicker field.
+	 * @return string the rendered content
+	 * @author Sergii Gamaiunov <hello@webkadabra.com>
+	 */
+	protected function timepickerField()
+	{
+		if (isset($this->htmlOptions['options']))
+		{
+			$options = $this->htmlOptions['options'];
+			unset($this->htmlOptions['options']);
+		}
+
+		if (isset($this->htmlOptions['events']))
+		{
+			$events = $this->htmlOptions['events'];
+			unset($this->htmlOptions['events']);
+		}
+
+		echo $this->getLabel();
+		echo '<div class="controls">';
+		echo $this->getPrepend();
+		$this->widget('bootstrap.widgets.TbTimePicker', array(
+			'model' => $this->model,
+			'attribute' => $this->attribute,
+			'options' => isset($options) ? $options : array(),
+			'events' => isset($events) ? $events : array(),
+			'htmlOptions' => $this->htmlOptions,
+			'form' => $this->form
+		));
 		echo $this->getAppend();
 		echo $this->getError() . $this->getHint();
 		echo '</div>';
 	}
-	
+
 	/**
-     * Renders a datepicker field.
-     * @return string the rendered content
-	 * @author Sergii Gamaiunov <hello@webkadabra.com>
-     */
-    protected function timepickerField()
-    {
-        if (isset($this->htmlOptions['options']))
-        {
-            $options = $this->htmlOptions['options'];
-            unset($this->htmlOptions['options']);
-        }
+	 * Renders a select2Field
+	 * @return mixed|void
+	 */
+	protected function select2Field()
+	{
+		if (isset($this->htmlOptions['options']))
+		{
+			$options = $this->htmlOptions['options'];
+			unset($this->htmlOptions['options']);
+		}
 
-        if (isset($this->htmlOptions['events']))
-        {
-            $events = $this->htmlOptions['events'];
-            unset($this->htmlOptions['events']);
-        }
+		if (isset($this->htmlOptions['events']))
+		{
+			$events = $this->htmlOptions['events'];
+			unset($this->htmlOptions['events']);
+		}
 
-        echo $this->getLabel();
-        echo '<div class="controls">';
-	    echo $this->getPrepend();
-        $this->widget('bootstrap.widgets.TbTimePicker', array(
-            'model'=>$this->model,
-            'attribute'=>$this->attribute,
-            'options'=>isset($options) ? $options : array(),
-            'events'=>isset($events) ? $events : array(),
-            'htmlOptions'=>$this->htmlOptions,
-            'form'=>$this->form
-        ));
-	    echo $this->getAppend();
-        echo $this->getError().$this->getHint();
-        echo '</div>';
-    }
+		if (isset($this->htmlOptions['data']))
+		{
+			$data = $this->htmlOptions['data'];
+			unset($this->htmlOptions['data']);
+		}
+
+		if (isset($this->htmlOptions['asDropDownList']))
+		{
+			$asDropDownList = $this->htmlOptions['asDropDownList'];
+			unset($this->htmlOptions['asDropDownList']);
+		}
+
+		echo $this->getLabel();
+		echo '<div class="controls">';
+		echo $this->getPrepend();
+		$this->widget('bootstrap.widgets.TbSelect2', array(
+			'model' => $this->model,
+			'attribute' => $this->attribute,
+			'options' => isset($options) ? $options : array(),
+			'events' => isset($events) ? $events : array(),
+			'data' => isset($data) ? $data : array(),
+			'asDropDownList' => isset($asDropDownList) ? $asDropDownList : true,
+			'htmlOptions' => $this->htmlOptions,
+			'form' => $this->form
+		));
+		echo $this->getAppend();
+		echo $this->getError() . $this->getHint();
+		echo '</div>';
+	}
 }

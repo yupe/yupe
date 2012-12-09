@@ -28,16 +28,7 @@ class DefaultController extends YBackController
 
             if ($model->save())
             {
-                $model->image = CUploadedFile::getInstance($model, 'image');
-                if ($model->image)
-                {
-                    $imageName = $this->module->getUploadPath() . $model->alias . '.' . $model->image->extensionName;
-                    if ($model->image->saveAs($imageName))
-                    {
-                        $model->image = basename($imageName);
-                        $model->update(array( 'image' ));
-                    }
-                }
+                $model->saveWithImage('image', $this->module->getUploadPath());
 
                 Yii::app()->user->setFlash(
                     YFlashMessages::NOTICE_MESSAGE,
@@ -50,7 +41,6 @@ class DefaultController extends YBackController
                     $this->redirect(array($_POST['submit-type']));
             }
         }
-
         $this->render('create', array('model' => $model));
     }
 
@@ -65,31 +55,14 @@ class DefaultController extends YBackController
         // Uncomment the following line if AJAX validation is needed
         // $this->performAjaxValidation($model);
 
-        $image = $model->image;
-
         if (isset($_POST['Good']))
         {
+            $image = $model->image;
             $model->attributes = $_POST['Good'];
 
             if ($model->save())
             {
-                $model->image = CUploadedFile::getInstance($model, 'image');
-                if ($model->image)
-                {
-                    $imageName = $this->module->getUploadPath() . $model->alias . '.' . $model->image->extensionName;
-                    @unlink($this->module->getUploadPath() . $image);
-
-                    if ($model->image->saveAs($imageName))
-                    {
-                        $model->image = basename($imageName);
-                        $model->update(array( 'image' ));
-                    }
-                }
-                else
-                {
-                    $model->image = $image;
-                    $model->update(array( 'image' ));
-                }
+                $model->saveWithImage('image', $this->module->getUploadPath(), $image);
 
                 Yii::app()->user->setFlash(
                     YFlashMessages::NOTICE_MESSAGE,
@@ -98,11 +71,10 @@ class DefaultController extends YBackController
 
                if (!isset($_POST['submit-type']))
                     $this->redirect(array('update', 'id' => $model->id));
-                else
+               else
                     $this->redirect(array($_POST['submit-type']));
             }
         }
-
         $this->render('update', array('model' => $model));
     }
 
@@ -140,7 +112,6 @@ class DefaultController extends YBackController
         $model->unsetAttributes(); // clear any default values
         if (isset($_GET['Good']))
             $model->attributes = $_GET['Good'];
-
         $this->render('index', array('model' => $model));
     }
 

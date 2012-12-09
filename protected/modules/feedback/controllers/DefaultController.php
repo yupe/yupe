@@ -22,7 +22,7 @@ class DefaultController extends YBackController
         if (isset($_POST['FeedBack']))
         {
             $model->attributes = $_POST['FeedBack'];
-            
+
             if ($model->status == FeedBack::STATUS_ANSWER_SENDED)
             {
                 $model->answer_user = Yii::app()->user->id;

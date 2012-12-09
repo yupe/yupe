@@ -16,7 +16,7 @@ Yii::import('zii.widgets.CBreadcrumbs');
 class TbBreadcrumbs extends CBreadcrumbs
 {
 	/**
-	 * @var string the tag name for the breadcrumbs container tag. Defaults to 'div'.
+	 * @var string the separator between links in the breadcrumbs. Defaults to '/'.
 	 */
 	public $separator = '/';
 

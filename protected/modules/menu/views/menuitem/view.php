@@ -42,6 +42,12 @@
         'id',
         'title',
         'href',
+        'class',
+        'title_attr',
+        'before_link',
+        'after_link',
+        'target',
+        'rel',
         array(
             'name'  => 'menu_id',
             'value' => $model->menu->name,

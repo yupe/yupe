@@ -91,6 +91,7 @@ class User extends YModel
         );
     }
 
+
     /**
      * @return array customized attribute labels (name=>label)
      */
@@ -288,9 +289,7 @@ class User extends YModel
 
     public function generateRandomPassword($length = null)
     {
-        if (!$length)
-            $length = Yii::app()->getModule('user')->minPasswordLength;
-        return substr(md5(uniqid(mt_rand(), true) . time()), 0, $length);
+        return substr(md5(uniqid(mt_rand(), true) . time()), 0, $length?$length:32);
     }
 
     public function generateActivationKey()

@@ -66,7 +66,7 @@ RELANG['hu'] = {
 	horizontalrule: 'Vízszintes vonal',
 	fullscreen: 'Teljes képernyő',
 	deleted: 'Törölt',
-	anchor: 'Horgony'
+	anchor: 'Horgony',
 	link_new_tab: 'Link megnyitása új fülön',
 	underline: 'Aláhúzás',
 	alignment: 'Elrendezés'  

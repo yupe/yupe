@@ -8,7 +8,7 @@ We included his library into our own Yii project startup library, [YiiBoilerplat
 To get started, checkout [http://yii-booster.clevertech.biz](http://yii-booster.clevertech.biz)!
 
 ###Quick Start
-Clone the repo, `git clone git://github.com/clevertech/yiibooster.git`, or [download the latest release](https://github.com/clevertech/YiiBooster/zipball/master).
+Clone the repo, `git clone git://github.com/clevertech/YiiBooster.git`, or [download the latest release](https://github.com/clevertech/YiiBooster/zipball/master).
 
 ###Widgets
 
@@ -38,9 +38,11 @@ The YiiBooster library includes:
 * Typeahead
 * Datepicker
 * Colorpicker
+* Timepicker
 * WYSIWYG HTML Editors
     * RedactorJS
     * Html5Editor
+    * CKEditor
 * Boxes 
 * Google Charts
 * HighCharts

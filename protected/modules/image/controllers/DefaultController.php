@@ -19,10 +19,14 @@ class DefaultController extends YBackController
     {
         $model = new Image;
 
-        if (Yii::app()->request->isPostRequest)
+        if (isset($_POST['Good']))
         {
-            if ($model->create($_POST['Image']))
+            $model->attributes = $_POST['Image'];
+
+            if ($model->save())
             {
+                $model->saveWithImage('file', $this->module->getUploadPath());
+
                 Yii::app()->user->setFlash(
                     YFlashMessages::NOTICE_MESSAGE,
                     Yii::t('image', 'Изображение добавлено!')
@@ -45,15 +49,15 @@ class DefaultController extends YBackController
     {
         $model = $this->loadModel($id);
 
-        $file  = $model->file;
-
         if (isset($_POST['Image']))
         {
-            $model->setAttributes($_POST['Image']);
-            $model->file = $file;
+            $file = $model->file;
+            $model->attributes = $_POST['Image'];
 
             if ($model->save())
             {
+                $model->saveWithImage('file', $this->module->getUploadPath(), $file);
+
                 Yii::app()->user->setFlash(
                     YFlashMessages::NOTICE_MESSAGE,
                     Yii::t('user', 'Изображение обновлено!')

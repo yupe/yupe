@@ -171,18 +171,28 @@ class Menu extends YModel
             foreach ($resultItems AS $result)
             {
                 $childItems = $this->getItems($code, $result->id);
+
+                // @TODO Если не ставить url и присутствует items, пункт не выводится, возможно баг yii
+                $url        = ($result->href)
+                    ? array('url'   => array($result->href), 'items' => $childItems)
+                    : (($childItems) 
+                        ? array('url' => array('#'), 'items' => $childItems)
+                        : array()
+                );
+                $class      = ($result->class) ? ' ' . $result->class : '';
+                $title_attr = ($result->title_attr) ? array('title' => $result->title_attr) : array();
+                $target     = ($result->target && $url) ? array('target' => $result->target) : array();
+                $rel        = ($result->rel && $url) ? array('rel' => $result->rel) : array();
+
                 $items[] = array(
                     'label'          => $result->title,
-                    'url'            => array($result->href),
-                    'itemOptions'    => array('class' => 'listItem'),
+                    'template'       => $result->before_link . '{menu}' . $result->after_link,
+                    'itemOptions'    => array('class' => 'listItem' . $class),
                     'linkOptions'    => array(
                         'class' => 'listItemLink',
-                        'title' => $result->title,
-                    ),
-                    'submenuOptions' => array(),
-                    'items'          => $childItems,
+                    ) + $title_attr + $target + $rel,
                     'visible'        => MenuItem::model()->getConditionVisible($result->condition_name, $result->condition_denial),
-                );
+                ) + $url;
             }
         }
         return $items;

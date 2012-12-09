@@ -148,32 +148,6 @@ class Image extends YModel
         return isset($data[$this->status]) ? $data[$this->status] : Yii::t('image', '*неизвестно*');
     }
 
-    public function create(array $param, $file = 'file')
-    {
-        $this->setAttributes($param);
-
-        $this->file = CUploadedFile::getInstance($this, $file);
-
-        $module = Yii::app()->getModule('image');
-        $dir    = $module->createUploadDir();
-
-        if ($dir)
-        {
-            if ($this->save())
-            {
-                $fileName     = $this->id . '.' . CFileHelper::getExtension($this->file->name);
-                $fullFileName = $module->getUploadPath() . $dir . '/' . $fileName;
-
-                $this->file->saveAs($fullFileName);
-                $this->file = Yii::app()->request->baseUrl . '/' . $module->uploadDir . $dir . '/' . $fileName;
-
-                return $this->update(array('file'));
-            }
-        }
-
-        return false;
-    }
-
     public function delete()
     {
         $file = Yii::app()->getModule('image')->documentRoot . $this->file;
