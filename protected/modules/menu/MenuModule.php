@@ -51,7 +51,7 @@ class MenuModule extends YWebModule
             array('icon' => 'list-alt','label' => Yii::t('menu', 'Управление меню'), 'url' => array('/menu/menu/index')),
             array('icon' => 'plus-sign','label' => Yii::t('menu', 'Добавить меню'), 'url' => array('/menu/menu/create')),
             array('label' => Yii::t('menu', 'Пункты меню')),
-            array('icon' => 'list-alt','label' => Yii::t('menu', 'Упрвление пунктами меню'), 'url' => array('/menu/menuitem/index')),
+            array('icon' => 'list-alt','label' => Yii::t('menu', 'Управление пунктами меню'), 'url' => array('/menu/menuitem/index')),
             array('icon' => 'plus-sign','label' => Yii::t('menu', 'Добавить пункт меню'), 'url' => array('/menu/menuitem/create')),
         );
     }
