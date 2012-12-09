@@ -2,7 +2,12 @@
 	Imports
 */
 
+@import "variables.less";
 @import "mixins.less";
+
+// These "required" form colors were pulled from forms.less
+@requiredText:        #b94a48;
+@baseRequiredBorder:  #ee5f5b;
 
 /*
 	Grid view
@@ -28,20 +33,20 @@
 			}
 
 			&.desc .caret {
-				border-bottom: 4px solid #000;
+				border-bottom: 4px solid @tableBorder;
 				border-top: none;
 				display: block;
 			}
 		}
 
 		tr.selected td {
-			background: #EEE;
+			background: @tableBackgroundHover;
 		}
 	}
 
 	.filters {
 		.filter-container {
-			padding: 0 10px 0 0;
+			padding: 0 15px 0 0;
 		}
 
 		input,
@@ -117,7 +122,7 @@
 			top: 7px;
 
 			&.desc .caret {
-				border-bottom: 4px solid #000;
+				border-bottom: 4px solid @tableBorder;
 				border-top: none;
 			}
 		}
@@ -134,7 +139,7 @@
 
 .detail-view {
 	.null {
-		color: #FFC0CB;
+      color: lighten(@red, 50%);
 	}
 
 	th {
@@ -148,30 +153,30 @@
 */
 
 span.required {
-	color: #F00;
+	color: @requiredText;
 }
 
 .form-inline,
 .form-horizontal,
 .form-vertical {
 	label.error {
-		color: #B94A48;
+		color: @requiredText;
 	}
 
 	select.error,
 	input.error,
 	textarea.error {
-		border-color: #B94A48;
-		color: #B94A48;
+		border-color: @baseRequiredBorder;
+		color: @requiredText;
 
 		&:focus {
-			border-color: #953B39;
-		    .box-shadow(0 0 6px #D59392);
+			border-color: darken(@baseRequiredBorder, 10%);
+		    .box-shadow(0 0 6px lighten(@baseRequiredBorder, 20%));
 		}
 	}
 
 	.help-block.error,
 	.help-inline.error {
-		color: #B94A48;
+		color: @requiredText;
 	}
 }

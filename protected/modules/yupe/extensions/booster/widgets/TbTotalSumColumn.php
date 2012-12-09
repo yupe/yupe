@@ -15,7 +15,7 @@ class TbTotalSumColumn extends TbDataColumn
 
 	public $totalValue;
 
-	protected $total;
+	protected $total=0;
 
 	public function init()
 	{

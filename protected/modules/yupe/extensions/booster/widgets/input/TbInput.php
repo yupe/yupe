@@ -23,18 +23,22 @@ abstract class TbInput extends CInputWidget
 	const TYPE_RADIO = 'radiobutton';
 	const TYPE_RADIOLIST = 'radiobuttonlist';
 	const TYPE_RADIOLIST_INLINE = 'radiobuttonlist_inline';
+	const TYPE_RADIOBUTTONGROUPSLIST = 'radiobuttongroupslist';
 	const TYPE_TEXTAREA = 'textarea';
 	const TYPE_TEXT = 'textfield';
 	const TYPE_CAPTCHA = 'captcha';
 	const TYPE_UNEDITABLE = 'uneditable';
 	const TYPE_DATEPICKER = 'datepicker';
 	const TYPE_REDACTOR = 'redactor';
+	const TYPE_MARKDOWNEDITOR = 'markdowneditor';
 	const TYPE_HTML5EDITOR = 'wysihtml5';
 	const TYPE_DATERANGEPICKER = 'daterangepicker';
 	const TYPE_TOGGLEBUTTON = 'togglebutton';
 	const TYPE_COLORPICKER = 'colorpicker';
+	const TYPE_CKEDITOR = 'ckeditor';
 	const TYPE_TIMEPICKER = 'timepicker';
-	
+	const TYPE_SELECT2 = 'select2';
+
 	/**
 	 * @var TbActiveForm the associated form widget.
 	 */
@@ -221,6 +225,10 @@ abstract class TbInput extends CInputWidget
 				$this->radioButtonListInline();
 				break;
 
+			case self::TYPE_RADIOBUTTONGROUPSLIST:
+				$this->radioButtonGroupsList();
+				break;
+
 			case self::TYPE_TEXTAREA:
 				$this->textArea();
 				break;
@@ -245,6 +253,10 @@ abstract class TbInput extends CInputWidget
 				$this->redactorJs();
 				break;
 
+			case self::TYPE_MARKDOWNEDITOR:
+				$this->markdownEditorJs();
+				break;
+
 			case self::TYPE_HTML5EDITOR:
 				$this->html5Editor();
 				break;
@@ -260,12 +272,20 @@ abstract class TbInput extends CInputWidget
 			case self::TYPE_COLORPICKER:
 				$this->colorpickerField();
 				break;
-		
+
+			case self::TYPE_CKEDITOR:
+				$this->ckEditor();
+				break;
+
 			// Adding timepicker (Sergii)
 			case self::TYPE_TIMEPICKER:
-                $this->timepickerField();
-                break;
-			
+				$this->timepickerField();
+				break;
+
+			case self::TYPE_SELECT2:
+				$this->select2Field();
+				break;
+
 			default:
 				throw new CException(__CLASS__ . ': Failed to run widget! Type is invalid.');
 		}
@@ -481,6 +501,13 @@ abstract class TbInput extends CInputWidget
 	abstract protected function radioButtonListInline();
 
 	/**
+	 * Renders a list of radio buttons using Button Groups.
+	 * @return string the rendered content
+	 * @abstract
+	 */
+	abstract protected function radioButtonGroupsList();
+
+	/**
 	 * Renders a textarea.
 	 * @return string the rendered content
 	 * @abstract
@@ -522,6 +549,21 @@ abstract class TbInput extends CInputWidget
 	 */
 	abstract protected function redactorJs();
 
+
+	/**
+	 * Renders a markdownEditorJS wysiwyg field.
+	 * @abstract
+	 * @return mixed
+	 */
+	abstract protected function markdownEditorJs();
+
+	/**
+	 * Renders a bootstrap CKEditor wysiwyg editor.
+	 * @abstract
+	 * @return mixed
+	 */
+	abstract protected function ckEditor();
+
 	/**
 	 * Renders a bootstrap wysihtml5 editor.
 	 * @abstract
@@ -542,11 +584,17 @@ abstract class TbInput extends CInputWidget
 	 * @abstract
 	 */
 	abstract protected function colorpickerField();
-	
+
 	/**
-     * Renders a timepicker field.
-     * @return string the rendered content
-     * @abstract
-     */
-    abstract protected function timepickerField();
+	 * Renders a timepicker field.
+	 * @return string the rendered content
+	 * @abstract
+	 */
+	abstract protected function timepickerField();
+
+	/**
+	 * Renders a select2 field.
+	 * @return mixed
+	 */
+	abstract protected function select2Field();
 }

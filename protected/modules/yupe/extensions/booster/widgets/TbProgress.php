@@ -40,7 +40,10 @@ class TbProgress extends CWidget
 	 * @var array the HTML attributes for the widget container.
 	 */
 	public $htmlOptions = array();
-
+	/**
+	 * @var string div content
+	 */
+	public $content;
 	/**
 	 * @var array $stacked set to an array of progress bar values to display stacked progress bars
 	 * <pre>
@@ -98,7 +101,7 @@ class TbProgress extends CWidget
 		echo CHtml::openTag('div', $this->htmlOptions);
 		if(empty($this->stacked))
 		{
-			echo '<div class="bar" style="width: '.$this->percent.'%;"></div>';
+			echo '<div class="bar" style="width: '.$this->percent.'%;">'.$this->content.'</div>';
 		}
 		elseif (is_array($this->stacked))
 		{
@@ -107,7 +110,7 @@ class TbProgress extends CWidget
 				$options = isset($bar['htmlOptions'])? $bar['htmlOptions'] : array();
 				$options['style'] = 'width: ' . $bar['percent']. '%';
 				$options['class'] = 'bar bar-'.$bar['type'];
-				echo '<div '.CHtml::renderAttributes($options).'></div>';
+				echo '<div '.CHtml::renderAttributes($options).'>'.@$bar['content'].'</div>';
 			}
 		}
 		echo '</div>';

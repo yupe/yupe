@@ -11,7 +11,7 @@ class TbRedactorJS extends CInputWidget
 {
 	/**
 	 * Editor language
-	 * Supports: de, en, fr, lv, pl, pt_br, ru, ua
+	 * Supports: de, en, fr, lv, pl, pt_br, ru, ua, hu
 	 */
 	public $lang = 'en';
 	/**

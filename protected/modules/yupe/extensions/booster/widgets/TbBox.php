@@ -50,23 +50,26 @@ class TbBox extends CWidget
 	public $htmlContentOptions = array();
 
 	/**
-	 * @var array the configuration for additional header actions. Each array element specifies a single menu item
+	 * @var array the configuration for additional header buttons. Each array element specifies a single button
 	 * which has the following format:
 	 * <pre>
 	 *     array(
-	 *     'label'=>'...',     // text label of the menu
-	 *     'url'=>'...',       // link of the menu item
-	 *     'icon'=>'...',  // icon of the menu item. If set will be prepended to the label.
-	 *     'linkOptions'=>array(...), // HTML options for the menu item link tag
+	 *        array(
+	 *          'class' => 'bootstrap.widgets.TbButton',
+	 *          'label' => '...',
+	 *          'size' => '...',
+	 *          ...
+	 *        ),
+	 *      array(
+	 *          'class' => 'bootstrap.widgets.TbButtonGroup',
+	 *          'buttons' => array( ... ),
+	 *          'size' => '...',
+	 *        ),
+	 *      ...
 	 * )
 	 * </pre>
 	 */
-	public $headerActions = array();
-
-	/**
-	 * @var string $headerButtonActionsLabel sets the label of the button with dropdown actions
-	 */
-	public $headerButtonActionsLabel = 'Actions';
+	public $headerButtons = array();
 
 	/**
 	 * Widget initialization
@@ -125,7 +128,7 @@ class TbBox extends CWidget
 				}
 
 				echo $this->title;
-				$this->renderActions();
+				$this->renderButtons();
 			}
 
 			echo CHtml::closeTag('div');
@@ -133,27 +136,36 @@ class TbBox extends CWidget
 	}
 
 	/**
-	 * Renders a small button dropdown box to display the configured actions
+	 * Renders a header buttons to display the configured actions
 	 */
-	public function renderActions()
+	public function renderButtons()
 	{
-		if (empty($this->headerActions))
+		if (empty($this->headerButtons))
 			return;
 
 		echo '<div class="bootstrap-toolbar pull-right">';
 
-		$this->controller->widget('bootstrap.widgets.TbButtonGroup',
-			array(
-				'type' => '',
-				'size' => 'mini',
-				'buttons' => array(
-					array(
-						'label' => $this->headerButtonActionsLabel,
-						'url' => '#'),
-					array(
-						'items' => $this->headerActions
-					))
-			));
+		if(!empty($this->headerButtons) && is_array($this->headerButtons))
+		{
+			foreach($this->headerButtons as $button)
+			{
+				$options = $button;
+				$button = $options['class'];
+				unset($options['class']);
+
+				if(strpos($button, 'TbButton') === false)
+					throw new CException('message');
+
+				if(!isset($options['htmlOptions']))
+					$options['htmlOptions'] = array();
+
+				$class = isset($options['htmlOptions']['class']) ? $options['htmlOptions']['class'] : '';
+				$options['htmlOptions']['class'] = $class .' pull-right';
+
+				$this->controller->widget($button, $options);
+			}
+		}
+
 		echo '</div>';
 	}
 

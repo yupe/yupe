@@ -27,11 +27,12 @@ class Bootstrap extends CApplicationComponent
 	const PLUGIN_TYPEAHEAD = 'typeahead';
 	const PLUGIN_DATEPICKER = 'bdatepicker';
 	const PLUGIN_REDACTOR = 'redactor';
+	const PLUGIN_MARKDOWNEDITOR = 'markdowneditor';
 	const PLUGIN_AFFIX = 'affix';
 	const PLUGIN_DATERANGEPICKER = 'daterangepicker';
 	const PLUGIN_HTML5EDITOR = 'wysihtml5';
-	const PLUGIN_TIMEPICKER = 'timepicker';
-	
+	const PLUGIN_COLORPICKER = 'colorpicker';
+
 	/**
 	 * @var boolean whether to register the Bootstrap core CSS (bootstrap.min.css).
 	 * Defaults to true.
@@ -75,6 +76,12 @@ class Bootstrap extends CApplicationComponent
 	 * @since 0.10.0
 	 */
 	public $tooltipSelector = 'a[rel="tooltip"]';
+
+	/**
+	 * @var bool whether to enable bootbox messages or not. Default value is true.
+	 * @since YiiBooster 1.0.5
+	 */
+	public $enableBootboxJS = true;
 
 	protected $_assetsUrl;
 
@@ -177,7 +184,12 @@ class Bootstrap extends CApplicationComponent
 		/** @var CClientScript $cs */
 		$cs = Yii::app()->getClientScript();
 		$cs->registerCoreScript('jquery');
-		$cs->registerScriptFile($this->getAssetsUrl() . '/js/bootstrap.bootbox.min.js', $position);
+
+		/** enable bootboxJS? */
+		if($this->enableBootboxJS)
+		{
+			$cs->registerScriptFile($this->getAssetsUrl() . '/js/bootstrap.bootbox.min.js', $position);
+		}
 		$cs->registerScriptFile($this->getAssetsUrl() . '/js/bootstrap' . (!YII_DEBUG ? '.min' : '') . '.js', $position);
 	}
 
@@ -339,18 +351,6 @@ class Bootstrap extends CApplicationComponent
 	}
 
 	/**
-	 * Register the Bootstrap timepicker plugin.
-	 * @param string $selector the CSS selector
-	 * @param array $options the plugin options
-	 * @see http://www.eyecon.ro/bootstrap-datepicker/
-	 * @since 1.0.3
-	 */
-	public function registerTimePicker($selector = null, $options = array())
-	{
-		$this->registerPlugin(self::PLUGIN_TIMEPICKER, $selector, $options);
-	}
-	
-	/**
 	 * Registers the RedactorJS plugin.
 	 * @param null $selector
 	 * @param $options
@@ -368,6 +368,16 @@ class Bootstrap extends CApplicationComponent
 	public function registerHtml5Editor($selector = null, $options = array())
 	{
 		$this->registerPlugin(self::PLUGIN_HTML5EDITOR, $selector, $options);
+	}
+
+	/**
+	 * Registers the Bootstrap-colorpicker plugin.
+	 * @param null $selector
+	 * @param $options
+	 */
+	public function registerColorPicker($selector = null, $options = array())
+	{
+		$this->registerPlugin(self::PLUGIN_COLORPICKER, $selector, $options);
 	}
 
 	/**
@@ -456,6 +466,6 @@ class Bootstrap extends CApplicationComponent
 	 */
 	public function getVersion()
 	{
-		return '1.0.0';
+		return '1.0.4';
 	}
 }
