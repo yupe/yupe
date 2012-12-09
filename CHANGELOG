@@ -6,7 +6,7 @@
 ----------------------------------------------
 #208,#78  Панель управления полностью перевдена на twitter bootstrap (adminnu, yupe, archaron)
 #330,#388 Добавлен curl (https://github.com/hackerone/curl/), доступен как Yii::app()->curl (Smileo)
-#362,#353,#352 Многочисленные правки и улучшения в LangUrlManager (adminnu,	angel-kulikov)
+#362,#353,#352 Многочисленные правки и улучшения в LangUrlManager (archaron ,adminnu,	angel-kulikov)
 #357 Мигрировали на YiiBooster (adminnu, yupe)
 #356,#285 Многочисленные исправления в модуле Catalog (adminnu, yupe)
 #343,#342 Инсталлятор переведен ан bootstrap (adminnu)

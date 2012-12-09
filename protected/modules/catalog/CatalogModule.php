@@ -4,6 +4,7 @@ class CatalogModule extends YWebModule
 {
     public $editor     = 'application.modules.yupe.widgets.editors.imperaviRedactor.EImperaviRedactorWidget';
     public $uploadPath = 'catalog';
+    public $mainCategory;
 
     public function getUploadPath()
     {
@@ -32,6 +33,7 @@ class CatalogModule extends YWebModule
     public function getEditableParams()
     {
         return array(
+            'mainCategory' => Category::model()->allCategoryList,
             'uploadPath',
             'adminMenuOrder',
             'editor' => Yii::app()->getModule('yupe')->editors,
@@ -41,6 +43,7 @@ class CatalogModule extends YWebModule
     public function getParamsLabels()
     {
         return array(
+            'mainCategory'   => Yii::t('catalog', 'Главная категория каталога товаров'),
             'adminMenuOrder' => Yii::t('catalog', 'Порядок следования в меню'),
             'uploadPath'     => Yii::t('catalog', 'Каталог для загрузки файлов (относительно Yii::app()->getModule("yupe")->uploadPath)'),
             'editor'         => Yii::t('catalog', 'Визуальный редактор'),
@@ -109,5 +112,18 @@ class CatalogModule extends YWebModule
             'catalog.components.*',
             'category.models.*',
         ));
+    }
+
+    public function getCategoryList()
+    {
+        $criteria = ($this->mainCategory)
+            ? array(
+                'condition' => 'id = :id OR parent_id = :id',
+                'params'    => array(':id' => $this->mainCategory),
+                'order'     => 'id ASC',
+            )
+            : array();
+
+        return Category::model()->findAll($criteria);
     }
 }
