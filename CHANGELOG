@@ -28,4 +28,4 @@
 #330, #388 : Добавлен curl (https://github.com/hackerone/curl/), доступен как Yii::app()->curl (Smileo)
 #163 : Добален сброс кэша (adminnu)
 #129 : Исправления защиты от CSRF (yupe)
-#310, #373, #387 : Исправления загрузчика изображений (adminnu, miroslav-chandler)
+#310, #373, #387, #396 : Исправления загрузчика изображений (adminnu, miroslav-chandler)

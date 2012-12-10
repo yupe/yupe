@@ -2,8 +2,12 @@
 
 class CatalogModule extends YWebModule
 {
-    public $editor     = 'application.modules.yupe.widgets.editors.imperaviRedactor.EImperaviRedactorWidget';
-    public $uploadPath = 'catalog';
+    public $editor            = 'application.modules.yupe.widgets.editors.imperaviRedactor.EImperaviRedactorWidget';
+    public $uploadPath        = 'catalog';
+    public $allowedExtensions = 'jpg,jpeg,png,gif';
+    public $minSize           = 0;
+    public $maxSize;
+    public $maxFiles          = 1;
 
     public function getUploadPath()
     {
@@ -35,15 +39,21 @@ class CatalogModule extends YWebModule
             'uploadPath',
             'adminMenuOrder',
             'editor' => Yii::app()->getModule('yupe')->editors,
+            'allowedExtensions',
+            'minSize',
+            'maxSize',
         );
     }
 
     public function getParamsLabels()
     {
         return array(
-            'adminMenuOrder' => Yii::t('catalog', 'Порядок следования в меню'),
-            'uploadPath'     => Yii::t('catalog', 'Каталог для загрузки файлов (относительно Yii::app()->getModule("yupe")->uploadPath)'),
-            'editor'         => Yii::t('catalog', 'Визуальный редактор'),
+            'adminMenuOrder'    => Yii::t('catalog', 'Порядок следования в меню'),
+            'uploadPath'        => Yii::t('catalog', 'Каталог для загрузки файлов (относительно Yii::app()->getModule("yupe")->uploadPath)'),
+            'editor'            => Yii::t('catalog', 'Визуальный редактор'),
+            'allowedExtensions' => Yii::t('catalog', 'Разрешенные расширения (перечислите через запятую)'),
+            'minSize'           => Yii::t('catalog', 'Минимальный размер (в байтах)'),
+            'maxSize'           => Yii::t('catalog', 'Максимальный размер (в байтах)'),
         );
     }
 

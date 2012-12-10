@@ -62,19 +62,19 @@ class Good extends YModel
         return array(
             array('category_id, name, description, alias', 'required', 'except' => 'search'),
             array('name, description, short_description, image, alias, price, article, data, status, is_special', 'filter', 'filter' => 'trim'),
-            array('name, image, alias, price, article, data, status, is_special', 'filter', 'filter' => array($obj = new CHtmlPurifier(), 'purify')),
+            array('name, alias, price, article, data, status, is_special', 'filter', 'filter' => array($obj = new CHtmlPurifier(), 'purify')),
             array('status, category_id, is_special', 'numerical', 'integerOnly' => true),
             array('price', 'numerical'),
             array('alias', 'unique'),
             array('name', 'length', 'max' => 150),
             array('article, alias', 'length', 'max' => 100),
-            array('image', 'length', 'max' => 300),
+            array('image', 'file', 'minSize' => $module->minSize, 'maxSize' => $module->maxSize, 'types' => $module->allowedExtensions, 'maxFiles' => $module->maxFiles, 'allowEmpty' => true),
             array('status','in','range' => array_keys($this->statusList)),
             array('is_special','in','range' => array(0, 1)),
             array('short_description, data', 'safe'),
             // The following rule is used by search().
             // Please remove those attributes that should not be searched.
-            array('id, category_id, name, price, article, image, short_description, description, alias, data, status, create_time, update_time, user_id, change_user_id, is_special', 'safe', 'on' => 'search'),
+            array('id, category_id, name, price, article, short_description, description, alias, data, status, create_time, update_time, user_id, change_user_id, is_special', 'safe', 'on' => 'search'),
         );
     }
 

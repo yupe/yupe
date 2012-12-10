@@ -1,8 +1,12 @@
 <?php
 class NewsModule extends YWebModule
 {
-    public $editor     = 'application.modules.yupe.widgets.editors.imperaviRedactor.EImperaviRedactorWidget';
-    public $uploadPath = 'news';
+    public $editor            = 'application.modules.yupe.widgets.editors.imperaviRedactor.EImperaviRedactorWidget';
+    public $uploadPath        = 'news';
+    public $allowedExtensions = 'jpg,jpeg,png,gif';
+    public $minSize           = 0;
+    public $maxSize;
+    public $maxFiles          = 1;
     public $mainCategory;
 
     public function getUploadPath()
@@ -30,10 +34,13 @@ class NewsModule extends YWebModule
     public function getParamsLabels()
     {
         return array(
-            'mainCategory'   => Yii::t('news', 'Главная категория новостей'),
-            'adminMenuOrder' => Yii::t('news', 'Порядок следования в меню'),
-            'editor'         => Yii::t('news', 'Визуальный редактор'),
-            'uploadPath'     => Yii::t('news', 'Каталог для загрузки файлов (относительно Yii::app()->getModule("yupe")->uploadPath)'),
+            'mainCategory'      => Yii::t('news', 'Главная категория новостей'),
+            'adminMenuOrder'    => Yii::t('news', 'Порядок следования в меню'),
+            'editor'            => Yii::t('news', 'Визуальный редактор'),
+            'uploadPath'        => Yii::t('news', 'Каталог для загрузки файлов (относительно Yii::app()->getModule("yupe")->uploadPath)'),
+            'allowedExtensions' => Yii::t('news', 'Разрешенные расширения (перечислите через запятую)'),
+            'minSize'           => Yii::t('news', 'Минимальный размер (в байтах)'),
+            'maxSize'           => Yii::t('news', 'Максимальный размер (в байтах)'),
         );
     }
 
@@ -44,6 +51,9 @@ class NewsModule extends YWebModule
             'editor'       => Yii::app()->getModule('yupe')->getEditors(),
             'mainCategory' => Category::model()->allCategoryList,
             'uploadPath',
+            'allowedExtensions',
+            'minSize',
+            'maxSize',
         );
     }
 

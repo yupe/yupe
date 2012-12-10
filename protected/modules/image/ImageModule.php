@@ -2,10 +2,12 @@
 
 class ImageModule extends YWebModule
 {
-    public $uploadDir         = 'uploads';
+    public $uploadDir         = 'image';
     public $documentRoot;
     public $allowedExtensions = 'jpg,jpeg,png,gif';
+    public $minSize           = 0;
     public $maxSize;
+    public $maxFiles          = 1;
     public $types;
 
     public $mainCategory;
@@ -23,6 +25,28 @@ class ImageModule extends YWebModule
     public function getIcon()
     {
         return "picture";
+    }
+
+    public function getParamsLabels()
+    {
+        return array(
+            'mainCategory'      => Yii::t('image','Главная категория изображений'),
+            'uploadDir'         => Yii::t('image', 'Каталог для загрузки изображений'),
+            'allowedExtensions' => Yii::t('image', 'Разрешенные расширения (перечислите через запятую)'),
+            'minSize'           => Yii::t('image', 'Минимальный размер (в байтах)'),
+            'maxSize'           => Yii::t('image', 'Максимальный размер (в байтах)'),
+        );
+    }
+
+    public function getEditableParams()
+    {
+        return array(
+            'uploadDir',
+            'allowedExtensions',
+            'minSize',
+            'maxSize',
+            'mainCategory' => Category::model()->allCategoryList,
+        );
     }
 
     public function getUploadPath()
@@ -76,26 +100,6 @@ class ImageModule extends YWebModule
                      )),
                  )),
             );
-    }
-
-    public function getParamsLabels()
-    {
-        return array(
-            'mainCategory'      => Yii::t('image','Главная категория изображений'),
-            'uploadDir'         => Yii::t('image', 'Каталог для загрузки изображений'),
-            'allowedExtensions' => Yii::t('image', 'Разрешенные расширения (перечислите через запятую)'),
-            'maxSize'           => Yii::t('image', 'Максимальный размер (в байтах)'),
-        );
-    }
-
-    public function getEditableParams()
-    {
-        return array(
-            'uploadDir',
-            'allowedExtensions',
-            'maxSize',
-            'mainCategory' => Category::model()->allCategoryList,
-        );
     }
 
     public function getCategory()
