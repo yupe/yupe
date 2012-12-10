@@ -49,7 +49,7 @@ class CategoryModule extends YWebModule
 
     public function getVersion()
     {
-        return '0.3';
+        return Yii::t('category', '0.3');
     }
 
     public function getCategory()

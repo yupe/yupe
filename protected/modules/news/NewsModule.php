@@ -59,7 +59,7 @@ class NewsModule extends YWebModule
 
     public function getVersion()
     {
-        return '0.3';
+        return Yii::t('page', '0.3');
     }
 
     public function getCategory()

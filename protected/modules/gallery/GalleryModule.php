@@ -10,7 +10,7 @@ class GalleryModule extends YWebModule
 
     public  function getVersion()
     {
-        return '0.1 (dev)';
+        return Yii::t('gallery', '0.1');
     }
 
     public function getCategory()

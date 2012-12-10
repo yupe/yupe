@@ -4,7 +4,7 @@ class QueueModule extends YWebModule
 {
     public function  getVersion()
     {
-        return '0.1 (dev)';
+        return Yii::t('queue', '0.1');
     }
 
     public function getCategory()

@@ -19,7 +19,7 @@ class ImageModule extends YWebModule
 
     public  function getVersion()
     {
-        return '0.3(dev)';
+        return Yii::t('image', '0.3');
     }
 
     public function getIcon()

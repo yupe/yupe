@@ -47,7 +47,7 @@ class YeekiModule extends YWebModule
 
     public function getVersion()
     {
-        return Yii::t('comment', '0.1 (dev)');
+        return Yii::t('comment', '0.1');
     }
 
     public function getAuthor()

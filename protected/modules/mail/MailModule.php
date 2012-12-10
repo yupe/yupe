@@ -4,7 +4,7 @@ class MailModule extends YWebModule
 {
     public function  getVersion()
     {
-        return '0.1 (dev)';
+        return Yii::t('mail', '0.1');
     }
 
     public function getCategory()

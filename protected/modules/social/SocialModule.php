@@ -57,6 +57,11 @@ class SocialModule extends YWebModule
         return Yii::t('social', 'team@yupe.ru');
     }
 
+    public function getVersion()
+    {
+        return Yii::t('social', '0.1');
+    }
+
     public function getUrl()
     {
         return Yii::t('social', 'http://yupe.ru');

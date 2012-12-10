@@ -27,7 +27,7 @@ class VoteModule extends YWebModule
 
     public  function getVersion()
     {
-        return '0.1 (dev)';
+        return Yii::t('vote', '0.1');
     }
 
     public function getAuthor()

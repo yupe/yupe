@@ -41,7 +41,7 @@ class DictionaryModule extends YWebModule
 
     public function getVersion()
     {
-        return '0.2';
+        return Yii::t('dictionary', '0.2');
     }
 
     public function getNavigation()

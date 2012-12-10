@@ -75,7 +75,7 @@ class CatalogModule extends YWebModule
     
     public function getVersion()
     {
-        return '0.1 (dev)';
+        return Yii::t('catalog', '0.2');
     }
 
     public function getCategory()

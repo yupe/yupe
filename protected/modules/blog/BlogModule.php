@@ -41,7 +41,7 @@ class BlogModule extends YWebModule
 
     public  function getVersion()
     {
-        return '0.2 (dev)';
+        return Yii::t('blog', '0.3');
     }
 
     public function getName()

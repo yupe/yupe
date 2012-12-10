@@ -1,7 +1,7 @@
 <?php
 class SearchModule extends YWebModule
 {
-    protected $info=false;
+    protected $info = false;
 
     public function getEditableParams()
     {
@@ -13,23 +13,23 @@ class SearchModule extends YWebModule
     public function getParamsLabels()
     {
         return array(
-            'param' => Yii::t('email', ''),
+            'param' => Yii::t('search', ''),
         );
     }
 
     public function getCategory()
     {
-        return Yii::t('email', 'Сервисы');
+        return Yii::t('search', 'Сервисы');
     }
 
     public function getName()
     {
-        return Yii::t('email', 'E-Mail');
+        return Yii::t('search', 'E-Mail');
     }
 
     public function getDescription()
     {
-        return Yii::t('email', 'Функции сайта E-Mail.ru.');
+        return Yii::t('search', 'Функции сайта E-Mail.ru.');
     }
 
     public function getAuthor()
@@ -39,12 +39,17 @@ class SearchModule extends YWebModule
 
     public function getAuthorEmail()
     {
-        return Yii::t('email', 'tsm@glavset.ru');
+        return Yii::t('search', 'tsm@glavset.ru');
+    }
+
+    public function getVersion()
+    {
+        return Yii::t('search', '0.5');
     }
 
     public function getUrl()
     {
-        return Yii::t('email', 'http://yupe.ru/');
+        return Yii::t('search', 'http://yupe.ru/');
     }
 
     public function getAdminPageLink()

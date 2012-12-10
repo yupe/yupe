@@ -42,6 +42,11 @@ class GeoModule extends YWebModule
         return Yii::t('geo', 'tsm@glavset.ru');
     }
 
+    public function getVersion()
+    {
+        return Yii::t('geo', '0.1');
+    }
+
     public function getUrl()
     {
         return Yii::t('geo', 'http://yupe.ru/');
