@@ -47,7 +47,7 @@ class YupeModule extends YWebModule
 
     public function getVersion()
     {
-        return Yii::t('yupe', '0.5 (dev)');
+        return Yii::t('yupe', '0.4');
     }
 
     public function checkSelf()
