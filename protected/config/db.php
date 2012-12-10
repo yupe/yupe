@@ -9,6 +9,6 @@
   'enableParamLogging' => 0,
   'enableProfiling' => 0,
   'schemaCachingDuration' => 108000,
-  'tablePrefix' => '',
-) ;
+  'tablePrefix' => 'yupe_',
+);
 ?>

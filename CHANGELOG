@@ -8,7 +8,7 @@
 #357, #360, #382 : Мигрировали на YiiBooster (adminnu, yupe)
 #252, #343, #342 : Инсталлятор переведен на bootstrap (adminnu)
 #164, #178, #191, #320, #324, #361 : Переписано и доработано меню в административной части и исправления ядра (adminnu, archaron, yupe)
-#248, #297, #362, #353, #352, #351 : Многочисленные правки и улучшения в LangUrlManager (adminnu, angel-kulikov)
+#248, #297, #362, #353, #352, #351 : Многочисленные правки и улучшения в LangUrlManager (archaron, adminnu, angel-kulikov)
 #297 : В LangUrlManager добавлен параметр preferredLanguage (проверять или нет локаль браузера) (adminnu)
 #311 : Улучшения генератора (adminnu, yupe, kafeg)
 #52, #162: Добавление документаций и исправления readme, добавление changelog, upgrade, license (adminnu, yupe, TBIKC)
