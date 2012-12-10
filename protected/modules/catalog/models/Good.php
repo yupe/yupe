@@ -57,8 +57,8 @@ class Good extends YModel
      */
     public function rules()
     {
-        // NOTE: you should only define rules for those attributes that
-        // will receive user inputs.
+        $module = Yii::app()->getModule('catalog');
+
         return array(
             array('category_id, name, description, alias', 'required', 'except' => 'search'),
             array('name, description, short_description, image, alias, price, article, data, status, is_special', 'filter', 'filter' => 'trim'),

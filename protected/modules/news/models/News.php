@@ -50,6 +50,8 @@ class News extends YModel
      */
     public function rules()
     {
+        $module = Yii::app()->getModule('news');
+
         return array(
             array('title, alias, short_text, full_text, keywords, description', 'filter', 'filter' => 'trim'),
             array('title, alias, keywords, description', 'filter', 'filter' => 'strip_tags'),
