@@ -168,7 +168,7 @@ class Menu extends YModel
 
             $resultItems = $results[0]->menuItems;
 
-            foreach ($resultItems AS $result)
+            foreach ($resultItems as $result)
             {
                 $childItems = $this->getItems($code, $result->id);
 

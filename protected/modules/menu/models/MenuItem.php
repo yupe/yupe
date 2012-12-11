@@ -174,6 +174,11 @@ class MenuItem extends YModel
             Yii::app()->cache->delete(Yii::app()->getModule('menu')->menuCache . $this->menu->id . trim($lang));
     }
 
+    public function getMenuList()
+    {
+        return CHtml::listData(Menu::model()->findAll(array('select' => 'id, name')), 'id', 'name');
+    }
+
     public function getStatusList()
     {
         return array(
@@ -188,20 +193,55 @@ class MenuItem extends YModel
         return isset($data[$this->status]) ? $data[$this->status] : Yii::t('menu', '*неизвестно*');
     }
 
-    public function getParentList()
+    public function getParentList($list = true)
     {
-        return array(0 => Yii::t('menu', 'Корень меню')) + CHtml::listData($this->findAll(), 'id', 'title');
+        return array(0 => Yii::t('menu', 'Корень меню')) + CHtml::listData($this->findAll(array(
+            'select' => 'id, title',
+        ) + ($list ? array(
+            'condition' => 'id <> ' . (int) $this->id,
+            'order'     => 'sort',
+        ) : array())), 'id', 'title');
+    }
+
+    public function getParentTree()
+    {
+        return array(0 => Yii::t('menu', 'Корень меню')) + $this->getParentTreeIterator();
+    }
+
+    public function getParentTreeIterator($parent_id = 0, $level = 1)
+    {
+        $items = false; //Yii::app()->cache->get(Yii::app()->getModule('menu')->menuCache . 'items' . Yii::app()->language);
+
+        if ($items === false)
+        {
+            $results = $this->findAll(array(
+                'condition' => 'parent_id = :parent_id AND id <> ' . (int) $this->id,
+                'params'    => array('parent_id' => (int) $parent_id),
+                'order'     => 'sort',
+            ));
+
+            $items = array();
+            if (empty($results))
+                return $items;
+
+            foreach ($results as $result)
+            {
+                $childItems = $this->getParentTreeIterator($result->id, ($level + 1));
+                $items += array($result->id => str_repeat('&nbsp;&nbsp;&nbsp;&nbsp;', $level) . $result->title) + $childItems;
+            }
+        }
+        return $items;
     }
 
     public function getParent()
     {
-        $data = $this->parentList;
+        $data = $this->getParentList(false);
         return isset($data[$this->parent_id]) ? $data[$this->parent_id] : Yii::t('menu', '*неизвестно*');
     }
 
     public function getConditionList($condition = false, $empty = '')
     {
-        $conditions = array($empty => Yii::t('menu', 'Нет условия'));
+        $conditions = array();
 
         foreach (Yii::app()->modules as $key => $value)
         {
@@ -227,6 +267,12 @@ class MenuItem extends YModel
         return $conditions;
     }
 
+    public function getConditionName()
+    {
+        $data = array('' => Yii::t('menu', 'Нет условия')) + $this->conditionList;
+        return (isset($data[$this->condition_name])) ? $data[$this->condition_name] . (($this->condition_name == '') ? '' : ' (' . $this->conditionDenial . ')') : Yii::t('menu', '*неизвестно*');
+    }
+
     public function getConditionVisible($name, $condition_denial)
     {
         if ($name == '')
@@ -249,11 +295,5 @@ class MenuItem extends YModel
     {
         $data = $this->conditionDenialList;
         return isset($data[$this->condition_denial]) ? Yii::t('menu', 'отрицание') . ': ' . $data[$this->condition_denial] : Yii::t('menu', '*неизвестно*');
-    }
-
-    public function getConditionName()
-    {
-        $data = $this->conditionList;
-        return (isset($data[$this->condition_name])) ? $data[$this->condition_name] . (($this->condition_name == '') ? '' : ' (' . $this->conditionDenial . ')') : Yii::t('menu', '*неизвестно*');
     }
 }

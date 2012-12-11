@@ -44,7 +44,7 @@ Yii::app()->clientScript->registerScript('fieldset', "
             <?php echo $form->dropDownListRow($model, 'menu_id', CHtml::listData(Menu::model()->findAll(), 'id', 'name'), array('empty' => Yii::t('menu', '--выберите меню--'), 'class' => 'popover-help', 'data-original-title' => $model->getAttributeLabel('menu_id'), 'data-content' => $model->getAttributeDescription('menu_id'))); ?>
         </div>
         <div class="span4">
-            <?php echo $form->dropDownListRow($model, 'parent_id', $model->parentList, array('class' => 'popover-help', 'data-original-title' => $model->getAttributeLabel('parent_id'), 'data-content' => $model->getAttributeDescription('parent_id'))); ?>
+            <?php echo $form->dropDownListRow($model, 'parent_id', $model->parentTree, array('encode' => false, 'class' => 'popover-help', 'data-original-title' => $model->getAttributeLabel('parent_id'), 'data-content' => $model->getAttributeDescription('parent_id'))); ?>
         </div>
     </div>
     <div class="wide row-fluid control-group <?php echo ($model->hasErrors('before_link') || $model->hasErrors('after_link')) ? 'error' : ''; ?>">

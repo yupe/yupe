@@ -55,22 +55,29 @@ $this->renderPartial('_search', array('model' => $model));
     'dataProvider' => $model->search(),
     'filter'       => $model,
     'columns'      => array(
-        'id',
+        array(
+            'name'        => 'id',
+            'htmlOptions' => array('style' => 'width:50px'),
+        ),
         'name',
         'code',
         'description',
         array(
             'header' => Yii::t('menu', 'Пунктов'),
-            'value'  => 'count($data->menuItems)',
+            'type'   => 'raw',
+            'value'  => 'CHtml::link(count($data->menuItems), Yii::app()->createUrl("/menu/menuitem/view", array("MenuItem[menu_id]" => $data->id)))',
         ),
         array(
-            'name'  => 'status',
-            'type'  => 'raw',
-            'value' => '$this->grid->returnBootstrapStatusHtml($data, "status", "Status", array("lock", "ok-sign"))',
+            'name'        => 'status',
+            'type'        => 'raw',
+            'value'       => '$this->grid->returnBootstrapStatusHtml($data, "status", "Status", array("lock", "ok-sign"))',
+            'filter'      => $model->statusList,
+            'htmlOptions' => array('style' => 'width:110px'),
         ),
         array(
-            'class'    => 'bootstrap.widgets.TbButtonColumn',
-            'template' => '{view}{update}{delete}{add}',
+            'class'       => 'bootstrap.widgets.TbButtonColumn',
+            'template'    => '{view}{update}{delete}{add}',
+            'htmlOptions' => array('style' => 'width:60px'),
             'buttons'  => array(
                 'add' => array(
                     'label'   => false,

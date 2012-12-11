@@ -55,7 +55,10 @@ $this->renderPartial('_search', array('model' => $model));
     'dataProvider' => $model->search(),
     'filter'       => $model,
     'columns'      => array(
-        'id',
+        array(
+            'name'        => 'id',
+            'htmlOptions' => array('style' => 'width:50px'),
+        ),
         'title',
         'href',
         'class',
@@ -65,17 +68,21 @@ $this->renderPartial('_search', array('model' => $model));
         //'target',
         //'rel',
         array(
-            'name'  => 'menu_id',
-            'value' => '$data->menu->name',
-        ),
-        // @TODO Обратить внимание, возможно сделать иначе определение корня
-        array(
-            'name'  => 'parent_id',
-            'value' => '$data->parent',
+            'name'        => 'menu_id',
+            'type'        => 'raw',
+            'value'       => 'CHtml::link($data->menu->name, Yii::app()->createUrl("/menu/menu/update", array("id" => $data->menu->id)))',
+            'filter'      => CHtml::activeDropDownList($model, 'menu_id', $model->menuList, array('empty' => '')),
+            'htmlOptions' => array('style' => 'width:110px'),
         ),
         array(
-            'name'  => 'condition_name',
-            'value' => '$data->conditionName',
+            'name'   => 'parent_id',
+            'value'  => '$data->parent',
+            'filter' => CHtml::activeDropDownList($model, 'status', $model->parentTree, array('encode' => false)),
+        ),
+        array(
+            'name'   => 'condition_name',
+            'value'  => '$data->conditionName',
+            'filter' => $model->conditionList,
         ),
         array(
             'name'  => 'sort',
@@ -83,9 +90,11 @@ $this->renderPartial('_search', array('model' => $model));
             'value' => '$this->grid->getUpDownButtons($data)',
         ),
         array(
-            'name'  => 'status',
-            'type'  => 'raw',
-            'value' => '$this->grid->returnBootstrapStatusHtml($data, "status", "Status", array("lock", "ok-sign"))',
+            'name'        => 'status',
+            'type'        => 'raw',
+            'value'       => '$this->grid->returnBootstrapStatusHtml($data, "status", "Status", array("lock", "ok-sign"))',
+            'filter'      => $model->statusList,
+            'htmlOptions' => array('style' => 'width:110px'),
         ),
         array(
             'class' => 'bootstrap.widgets.TbButtonColumn',
