@@ -193,14 +193,9 @@ class MenuItem extends YModel
         return isset($data[$this->status]) ? $data[$this->status] : Yii::t('menu', '*неизвестно*');
     }
 
-    public function getParentList($list = true)
+    public function getParentList()
     {
-        return array(0 => Yii::t('menu', 'Корень меню')) + CHtml::listData($this->findAll(array(
-            'select' => 'id, title',
-        ) + ($list ? array(
-            'condition' => 'id <> ' . (int) $this->id,
-            'order'     => 'sort',
-        ) : array())), 'id', 'title');
+        return array(0 => Yii::t('menu', 'Корень меню')) + CHtml::listData($this->findAll(array('select' => 'id, title')), 'id', 'title');
     }
 
     public function getParentTree()
@@ -210,7 +205,7 @@ class MenuItem extends YModel
 
     public function getParentTreeIterator($parent_id = 0, $level = 1)
     {
-        $items = false; //Yii::app()->cache->get(Yii::app()->getModule('menu')->menuCache . 'items' . Yii::app()->language);
+        $items = Yii::app()->cache->get(Yii::app()->getModule('menu')->menuCache . 'items' . Yii::app()->language);
 
         if ($items === false)
         {
@@ -235,11 +230,11 @@ class MenuItem extends YModel
 
     public function getParent()
     {
-        $data = $this->getParentList(false);
+        $data = $this->parentList;
         return isset($data[$this->parent_id]) ? $data[$this->parent_id] : Yii::t('menu', '*неизвестно*');
     }
 
-    public function getConditionList($condition = false, $empty = '')
+    public function getConditionList($condition = false)
     {
         $conditions = array();
 
@@ -263,7 +258,6 @@ class MenuItem extends YModel
                 }
             }
         }
-
         return $conditions;
     }
 

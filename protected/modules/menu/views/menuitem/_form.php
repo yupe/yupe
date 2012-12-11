@@ -65,7 +65,7 @@ Yii::app()->clientScript->registerScript('fieldset', "
     </div>
     <div class="wide row-fluid control-group <?php echo ($model->hasErrors('condition_name') || $model->hasErrors('condition_denial')) ? 'error' : ''; ?>">
         <div class="span4">
-            <?php echo $form->dropDownListRow($model, 'condition_name', $model->conditionList, array('class' => 'popover-help', 'data-original-title' => $model->getAttributeLabel('condition_name'), 'data-content' => $model->getAttributeDescription('condition_name'))); ?>
+            <?php echo $form->dropDownListRow($model, 'condition_name', $model->conditionList, array('empty' => '', 'class' => 'popover-help', 'data-original-title' => $model->getAttributeLabel('condition_name'), 'data-content' => $model->getAttributeDescription('condition_name'))); ?>
         </div>
         <div class="span3">
             <?php echo $form->dropDownListRow($model, 'condition_denial', $model->conditionDenialList, array('class' => 'popover-help', 'data-original-title' => $model->getAttributeLabel('condition_denial'), 'data-content' => $model->getAttributeDescription('condition_denial'))); ?>
