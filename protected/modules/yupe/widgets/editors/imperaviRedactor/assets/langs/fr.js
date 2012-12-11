@@ -62,5 +62,7 @@ RELANG['fr'] = {
 	horizontalrule: 'Insérer une ligne horizontale',
 	deleted: 'Supprimé',
 	anchor: 'Ancre',
-	link_new_tab: 'Ouvrir le lien dans un nouvel onglet'
+	link_new_tab: 'Ouvrir le lien dans un nouvel onglet',
+	underline: 'Underline',
+	alignment: 'Alignment'
 };

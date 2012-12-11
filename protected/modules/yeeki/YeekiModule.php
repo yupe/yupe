@@ -7,7 +7,7 @@
  */
 class YeekiModule extends YWebModule
 {
-    public $editor = 'application.modules.yupe.widgets.editors.imperaviRedactor.EImperaviRedactorWidget';
+    public $editor = 'application.modules.yupe.widgets.editors.imperaviRedactor.ImperaviRedactorWidget';
 
     public function getParamsLabels()
     {

@@ -66,5 +66,7 @@ RELANG['nl'] = {
 	fullscreen: 'Volledig scherm',
 	deleted: 'Verwijderd',
 	anchor: 'Anker',
-	link_new_tab: 'Open link in new tab'
+	link_new_tab: 'Open link in new tab',
+	underline: 'Underline',
+	alignment: 'Alignment'
 };

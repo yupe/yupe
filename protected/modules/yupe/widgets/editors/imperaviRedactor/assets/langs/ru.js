@@ -63,5 +63,7 @@ RELANG['ru'] = {
 	fullscreen: 'Во весь экран',
 	deleted: 'Зачеркнутый',
 	anchor: 'Якорь',
-	link_new_tab: 'Открывать в новой вкладке'
+	link_new_tab: 'Открывать в новой вкладке',
+	underline: 'Подчеркнутый',
+	alignment: 'Выравнивание'	
 };

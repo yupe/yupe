@@ -64,5 +64,7 @@ RELANG['ua'] = {
 	fullscreen: 'На весь екран',
 	deleted: 'Закреслений',
     anchor: 'Anchor',
-	link_new_tab: 'Open link in new tab'				
+	link_new_tab: 'Open link in new tab',
+	underline: 'Underline',
+	alignment: 'Alignment'				
 };
