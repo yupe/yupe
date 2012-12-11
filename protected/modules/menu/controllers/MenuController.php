@@ -6,9 +6,27 @@ class MenuController extends YBackController
      * Отображает меню по указанному идентификатору
      * @param integer $id Идинтификатор меню для отображения
      */
-    public function actionView($id)
+     public function actionView($id)
     {
-        $this->render('view', array('model' => $this->loadModel($id)));
+        $model = $this->loadModel($id);
+
+        $code = "<?php \$this->widget('application.modules.menu.widgets.MenuWidget', array(
+        'name' => '{$model->code}',
+        'params' => array('hideEmptyItems' => true),
+        'layoutParams' => array('htmlOptions' => array(
+            'class' => 'jqueryslidemenu',
+            'id' => 'myslidemenu',
+        )),
+        )); ?>";
+
+        $highlighter = new CTextHighlighter;
+        $highlighter->language = 'PHP';
+        $example = $highlighter->highlight($code); 
+
+        $this->render('view', array(
+            'model'   => $model,
+            'example' => $example,
+        ));
     }
 
     /**
