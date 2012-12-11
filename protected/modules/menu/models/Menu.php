@@ -147,7 +147,7 @@ class Menu extends YModel
     // @todo добавить кэширование
     public function getItems($code, $parent_id = 0)
     {
-        $items = Yii::app()->cache->get(Yii::app()->getModule('menu')->menuCache . $this->id . Yii::app()->language);
+        $items = false;//Yii::app()->cache->get(Yii::app()->getModule('menu')->menuCache . $this->id . Yii::app()->language);
 
         if ($items === false)
         {
@@ -173,12 +173,19 @@ class Menu extends YModel
                 $childItems = $this->getItems($code, $result->id);
 
                 // @TODO Если не ставить url и присутствует items, пункт не выводится, возможно баг yii
-                $url        = ($result->href)
-                    ? array('url'   => array($result->href), 'items' => $childItems)
-                    : (($childItems) 
-                        ? array('url' => array('#'), 'items' => $childItems)
-                        : array()
-                );
+                if ($result->href)
+                {
+                    $url = $result->href;
+                    strstr($url, '?') ? list($url, $param) = explode("?", $url) : $param = array();
+                    if ($param)
+                        parse_str($param, $param);
+                    $url = array('url' => array($url) + $param, 'items' => $childItems);
+                }
+                else if ($childItems)
+                    $url = array('url' => array('#'), 'items' => $childItems);
+                else
+                    $url = array();
+
                 $class      = ($result->class) ? ' ' . $result->class : '';
                 $title_attr = ($result->title_attr) ? array('title' => $result->title_attr) : array();
                 $target     = ($result->target && $url) ? array('target' => $result->target) : array();
