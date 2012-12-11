@@ -9,9 +9,8 @@ class DefaultController extends YBackController
     {
         $model = $this->loadModel($id);
 
-        $code = <<<EOF
-<?php $this->widget("application.modules.contentblock.widgets.ContentBlockWidget", array("code" => "{$model->code}")); ?>
-EOF;
+        $code = "<?php \$this->widget(\"application.modules.contentblock.widgets.ContentBlockWidget\", array(\"code\" => \"{$model->code}\")); ?>";
+
 
         $highlighter = new CTextHighlighter;
         $highlighter->language = 'PHP';
