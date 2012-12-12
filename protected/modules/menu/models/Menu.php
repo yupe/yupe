@@ -186,7 +186,8 @@ class Menu extends YModel
                 else
                     $url = array();
 
-                $class      = ($result->class) ? ' ' . $result->class : '';
+                $class      = (($childItems) ? ' submenuItem' : '') . 
+                              (($result->class) ? ' ' . $result->class : '');
                 $title_attr = ($result->title_attr) ? array('title' => $result->title_attr) : array();
                 $target     = ($result->target && $url) ? array('target' => $result->target) : array();
                 $rel        = ($result->rel && $url) ? array('rel' => $result->rel) : array();
