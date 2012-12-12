@@ -59,12 +59,8 @@ Yii::app()->clientScript->registerScript('fieldset', "
             <?php $this->widget($this->module->editor, array(
                 'model'       => $model,
                 'attribute'   => 'short_description',
-                'options'     => array(
-                    'toolbar'     => 'main',
-                    'imageUpload' => Yii::app()->baseUrl.'/index.php/yupe/backend/AjaxFileUpload/',
-                ),
-                'htmlOptions' => array('rows' => 10, 'cols' => 6),
-             )); ?>
+                'options'     => $this->module->editorOptions,
+            )); ?>
          </div>
     </div>
     <div class="row-fluid control-group <?php echo $model->hasErrors('description') ? 'error' : ''; ?>">
@@ -73,12 +69,8 @@ Yii::app()->clientScript->registerScript('fieldset', "
             <?php $this->widget($this->module->editor, array(
                 'model'       => $model,
                 'attribute'   => 'description',
-                'options'     => array(
-                    'toolbar'     => 'main',
-                    'imageUpload' => Yii::app()->baseUrl.'/index.php/yupe/backend/AjaxFileUpload/',
-                ),
-                'htmlOptions' => array('rows' => 20, 'cols' => 6),
-             )); ?>
+                'options'     => $this->module->editorOptions,
+            )); ?>
          </div>
     </div>
     <div class="row-fluid control-group <?php echo $model->hasErrors('data') ? 'error' : ''; ?>">
@@ -87,12 +79,8 @@ Yii::app()->clientScript->registerScript('fieldset', "
             <?php $this->widget($this->module->editor, array(
                 'model'       => $model,
                 'attribute'   => 'data',
-                'options'     => array(
-                    'toolbar'     => 'main',
-                    'imageUpload' => Yii::app()->baseUrl.'/index.php/yupe/backend/AjaxFileUpload/',
-                ),
-                'htmlOptions' => array('rows' => 10, 'cols' => 6),
-             )); ?>
+                'options'     => $this->module->editorOptions,
+            )); ?>
         </div>
     </div>
     <?php $this->widget('bootstrap.widgets.TbButton', array(

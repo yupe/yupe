@@ -1,8 +1,6 @@
 <?php
 class BlogModule extends YWebModule
 {
-    public $editor = 'application.modules.yupe.widgets.editors.imperaviRedactor.ImperaviRedactorWidget';
-
     public function getCategory()
     {
         return Yii::t('blog', 'Контент');

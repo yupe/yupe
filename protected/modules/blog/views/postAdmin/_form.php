@@ -75,27 +75,19 @@ Yii::app()->clientScript->registerScript('fieldset', "
         <div class="popover-help" data-original-title='<?php echo $model->getAttributeLabel('content'); ?>' data-content='<?php echo $model->getAttributeDescription('content'); ?>'>
             <?php echo $form->labelEx($model, 'content'); ?>
             <?php $this->widget($this->module->editor, array(
-                'model' => $model,
-                'attribute' => 'content',
-                'options' => array(
-                    'toolbar' => 'main',
-                    'imageUpload' => Yii::app()->baseUrl.'/index.php/yupe/backend/AjaxFileUpload/',
-                ),
-                'htmlOptions' => array('rows' => 20, 'cols' => 6),
-             )); ?>
+                'model'       => $model,
+                'attribute'   => 'description',
+                'options'     => $this->module->editorOptions,
+            )); ?>
          </div>
     </div>
     <div class="row-fluid control-group <?php echo $model->hasErrors('quote') ? 'error' : ''; ?>">
         <div class="popover-help" data-original-title='<?php echo $model->getAttributeLabel('quote'); ?>' data-content='<?php echo $model->getAttributeDescription('quote'); ?>'>
             <?php echo $form->labelEx($model, 'quote'); ?>
             <?php $this->widget($this->module->editor, array(
-                    'model' => $model,
-                    'attribute' => 'quote',
-                    'options' => array(
-                        'toolbar' => 'main',
-                        'imageUpload' => Yii::app()->baseUrl.'/index.php/yupe/backend/AjaxFileUpload/',
-                    ),
-                    'htmlOptions' => array('rows' => 20, 'cols' => 6),
+                'model'       => $model,
+                'attribute'   => 'quote',
+                'options'     => $this->module->editorOptions,
             )); ?>
         </div>
     </div>

@@ -88,13 +88,9 @@ Yii::app()->clientScript->registerScript('fieldset', "
         <div class="span12">
             <?php echo $form->labelEx($model, 'full_text'); ?>
             <?php $this->widget($this->module->editor, array(
-                'model'     => $model,
-                'attribute' => 'full_text',
-                'options'   => array(
-                    'toolbar'     => 'main',
-                    'imageUpload' => Yii::app()->baseUrl . '/index.php/yupe/backend/AjaxFileUpload/',
-                ),
-                'htmlOptions' => array('rows' => 20, 'cols' => 6),
+                'model'       => $model,
+                'attribute'   => 'full_text',
+                'options'     => $this->module->editorOptions,
             )); ?>
             <span class="help-block"><?php echo Yii::t('news', "Полный текст новости отображается при переходе по ссылке &laquo;Подробнее&raquo; или иногда при клике на заголовке новости."); ?></span>
             <?php echo $form->error($model, 'full_text'); ?>
@@ -104,13 +100,9 @@ Yii::app()->clientScript->registerScript('fieldset', "
         <div class="span12">
             <?php echo $form->labelEx($model, 'short_text'); ?>
             <?php $this->widget($this->module->editor, array(
-                'model'     => $model,
-                'attribute' => 'short_text',
-                'options'   => array(
-                    'toolbar'     => 'main',
-                    'imageUpload' => Yii::app()->baseUrl . '/index.php/yupe/backend/AjaxFileUpload/',
-                ),
-                'htmlOptions' => array('rows' => 20, 'cols' => 6),
+                'model'       => $model,
+                'attribute'   => 'short_text',
+                'options'     => $this->module->editorOptions,
             )); ?>
             <span class="help-block"><?php echo Yii::t('news', "Опишите основную мысль новости или напишие некий вводный текст (анонс), пары предложений обычно достаточно. Данный текст используется при выводе списка новостей, например, на главной странице."); ?></span>
             <?php echo $form->error($model, 'short_text'); ?>
@@ -128,7 +120,7 @@ Yii::app()->clientScript->registerScript('fieldset', "
     <div class="row-fluid control-group <?php echo $model->hasErrors('description') ? 'error' : ''; ?>">
         <div class="span7 popover-help" data-content="<?php echo Yii::t('news', "Краткое описание данной новости, одно или два предложения. Обычно это самая главная мысль новости, к примеру: <pre>Вышла новая 0.4.3 версия CMS ЮПИ!Информация о нововведениях и изменениях.</pre>Данный текст очень часто попадает в <a href='http://help.yandex.ru/webmaster/?id=1111310'>сниппет</a> поисковых систем."); ?>" data-original-title="<?php echo $model->getAttributeLabel('description'); ?>">
             <?php echo $form->labelEx($model, 'description'); ?>
-            <?php echo $form->textArea($model, 'description', array('rows' => 6, 'cols' => 86)); ?>
+            <?php echo $form->textArea($model, 'description', array('rows' => 6, 'cols' => 180)); ?>
             <div class="alert alert-info"><?php echo Yii::t('news', "Более подробно вы можете прочитать про поисковую оптимизацию сайта в <a href='http://help.yandex.ru/webmaster/recomend.pdf'>этом документе</a>."); ?></div>
         </div>
         <div class="span5">

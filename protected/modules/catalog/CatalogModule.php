@@ -3,7 +3,6 @@
 class CatalogModule extends YWebModule
 {
     public $mainCategory;
-    public $editor            = 'application.modules.yupe.widgets.editors.imperaviRedactor.ImperaviRedactorWidget';
     public $uploadPath        = 'catalog';
     public $allowedExtensions = 'jpg,jpeg,png,gif';
     public $minSize           = 0;

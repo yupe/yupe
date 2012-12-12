@@ -21,18 +21,12 @@
     <div class="row-fluid control-group <?php echo $model->hasErrors('body') ? 'error' : '' ?>">
         <div class="span12">
             <?php echo $form->labelEx($model, 'body'); ?>
-            <?php
-            $this->widget($this->module->editor, array(
-                'name' => 'Page['.$model->lang.'][body]',
-                'value' => $model->body,
-                'options' => array(
-                    'height' => '400px;',
-                    'toolbar' => 'main',
-                    'imageUpload' => Yii::app()->baseUrl.'/index.php/yupe/backend/AjaxFileUpload/',
-                   ),
-                'htmlOptions' => array('style' => 'height: 400px;', 'rows' => 20, 'cols' => 6, 'id' => 'editor-'.$model->lang),
-             ));
-             ?>
+            <?php $this->widget($this->module->editor, array(
+                'name'        => 'Page['.$model->lang.'][body]',
+                'value'        => $model->body,
+                'options'     => $this->module->editorOptions,
+                'htmlOptions' => array('id' => 'editor-' . $model->lang),
+            )); ?>
             <br /><?php echo $form->error($model, 'Page['.$model->lang.'][body]'); ?>
         </div>
     </div>

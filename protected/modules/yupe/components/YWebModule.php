@@ -32,7 +32,15 @@ abstract class YWebModule extends CWebModule
     /**
      *  @var array правила маршрутизации модуля (импортируются при старте модуля)
      */
-    public $urlRules = null;
+    public $urlRules       = null;
+    /**
+     *  @var array редактор
+     */
+    public $editor         = 'application.modules.yupe.widgets.editors.imperaviRedactor.ImperaviRedactorWidget';
+    /**
+     *  @var array опции редактора
+     */
+    public $editorOptions  = array();
 
     /**
      *  @return string текущая версия модуля
@@ -236,6 +244,13 @@ abstract class YWebModule extends CWebModule
                     $this->{$model->param_name} = $model->param_value;
             }
         }
+
         parent::init();
+
+        $uploadController = '/yupe/backend/AjaxFileUpload';
+        $this->editorOptions =  array(
+            'imageUpload' => $uploadController,
+            'fileUpload'  => $uploadController,
+        );
     }
 }
