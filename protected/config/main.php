@@ -99,25 +99,31 @@ return array(
             'showScriptName' => true, // чтобы убрать index.php из url, читаем: http://yiiframework.ru/doc/guide/ru/quickstart.apache-nginx-config
             'cacheID'        => 'cache',
             'rules'          => array(
-                '/'                                                   => 'site/index',
+                // правила аккаунтинга модуля user
                 '/login'                                              => 'user/account/login',
                 '/logout'                                             => 'user/account/logout',
                 '/registration'                                       => 'user/account/registration',
                 '/recovery'                                           => 'user/account/recovery',
-                '/feedback'                                           => 'feedback/feedback',
+                '/users'                                              => 'user/people/index',
+                '/profile'                                            => 'user/people/profile',
+                '/user/<username:\w+>/'                               => 'user/people/userInfo',
+                // правила модуля news и page
                 '/pages/<slug>'                                       => 'page/page/show',
-                '/story/<title>'                                      => 'news/news/show/',
-                '/post/<slug>.html'                                   => 'blog/post/show/',
-                '/posts/tag/<tag>'                                    => 'blog/post/list/',
-                '/blog/<slug>'                                        => 'blog/blog/show/',
-                '/blogs/'                                             => 'blog/blog/index/',
-                '/users/'                                             => 'user/people/index/',
-                '/profile/'                                           => 'user/people/profile/',
-                '/install'                                            => 'install/default/index/',
-                '/wiki/<controller:\w+>/<action:\w+>'                 => '/yeeki/wiki/<controller>/<action>',
-                '/site/page/<view:\w+>'                               => 'site/page/view/<view>',
-                '/yupe/backend/modulesettings/<module:\w+>'           => '/yupe/backend/modulesettings/',
-                'user/<username:\w+>/'                                => 'user/people/userInfo',
+                '/story/<title>'                                      => 'news/news/show',
+                // правила модуля blog
+                '/post/<slug>.html'                                   => 'blog/post/show',
+                '/posts/tag/<tag>'                                    => 'blog/post/list',
+                '/blog/<slug>'                                        => 'blog/blog/show',
+                '/blogs'                                              => 'blog/blog/index',
+                // правила остальных модулей
+                '/wiki/<controller:\w+>/<action:\w+>'                 => 'yeeki/wiki/<controller>/<action>',
+                '/feedback/<action:\w+>'                              => 'feedback/contact/<action>',
+                '/yupe/backend/modulesettings/<module:\w+>'           => 'yupe/backend/modulesettings',
+                '/install'                                            => 'install/default/index',
+                // правила контроллера site
+                '/'                                                   => 'site/index',
+                '/<view:\w+>'                                         => 'site/page',
+                // общие правила
                 '<module:\w+>/<controller:\w+>/<action:\w+>/<id:\d+>' => '<module>/<controller>/<action>',
                 '<module:\w+>/<controller:\w+>/<action:\w+>'          => '<module>/<controller>/<action>',
                 '<module:\w+>/<controller:\w+>'                       => '<module>/<controller>/index',
