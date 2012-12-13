@@ -5,14 +5,13 @@
   <div class="row-fluid">
     <div class="span9">
         <?php
-        if ( count($this->breadcrumbs) )
+        if (count($this->breadcrumbs))
             $this->widget('bootstrap.widgets.TbBreadcrumbs', array(
-                 'homeLink' => CHtml::link(Yii::t('yupe', 'Главная'), array('/yupe/backend/')),
-                 'links' => $this->breadcrumbs,
+                 'homeLink' => CHtml::link(Yii::t('yupe', 'Главная'), array('/yupe/backend/index')),
+                 'links'    => $this->breadcrumbs,
             ));
         ?><!-- breadcrumbs -->
         <?php $this->widget('YFlashMessages');?>
-
         <div id="content">
             <?php echo $content; ?>
         </div>
@@ -20,26 +19,9 @@
     </div>
     <div class="span3">
         <?php
-        if ( count($this->menu) )
+        if (count($this->menu))
         {
-            $items = array();
-
-            // Преобразование пунктов, содержащих сабменю в заголовки групп
-            foreach ( $this->menu as $mid => $mi )
-            {
-                if ( isset($mi['items']) && is_array($mi['items']) )
-                {
-                    $it = $mi['items'];
-                    unset($mi['items']);
-                    unset($mi['icon']);
-                    unset($mi['url']);
-                    array_push($items, $mi);
-                    $items = array_merge($items, $it);
-                    array_push($items, "---");
-                }
-                else
-                    $items[] = $mi;
-            }
+            $items = $this->yupe->getSubMenu($this->menu);
         ?>
             <div class="well" style="padding: 8px 0;">
             <?php $this->widget('bootstrap.widgets.TbMenu', array(

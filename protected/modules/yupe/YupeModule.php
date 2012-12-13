@@ -24,7 +24,7 @@ class YupeModule extends YWebModule
     public $siteKeyWords;
 
     public $backendLayout          = 'column2';
-    public $backendTheme           = 'bootstrap';
+    public $backendTheme           = false;
     public $emptyLayout            = 'empty';
     public $theme;
 
@@ -394,7 +394,7 @@ class YupeModule extends YWebModule
     /**
      * Получает полный алиас нужного лайаута бэкенда с учетом темы
      *
-     * @since 0.0.4
+     * @since 0.4
      * @param string $layoutName Название лайаута, если не задан - берется по-умолчанию для бекенда
      * @return string Полный путь к лайауту
      */
@@ -409,7 +409,7 @@ class YupeModule extends YWebModule
     /**
      * Метод возвращает список доступных для использования в панели управления визуальных редакторов
      *
-     * @since 0.0.4
+     * @since 0.4
      * @todo возможно, стоит добавить кэширование чтобы каждый раз не ходить по файловой системе
      *
      * Для добавления нового редатора необходимо:
@@ -449,7 +449,7 @@ class YupeModule extends YWebModule
      *
      * @param bool $backend - если установлен в true - вернет темы оформления для панели управления, иначе - для публичной части сайта
      * @return array список доступных тем
-     * @since 0.0.4
+     * @since 0.4
      * @todo возможно, стоит добавить кэширование чтобы каждый раз не ходить по файловой системе
      *
      * Для добавления новой темы необходимо:
@@ -483,5 +483,36 @@ class YupeModule extends YWebModule
             closedir($handler);
         }
         return $themes;
+    }
+
+    /**
+     * Метод возвращает пункты, содержащие сабменю для заголовок групп
+     *
+     * @param array $menu - список пунктов
+     * @return array приобразованный список пунктов
+     * @since 0.5
+     *
+     */
+    public function getSubMenu($menu)
+    {
+        $items = array();
+        // Преобразование пунктов, содержащих сабменю в заголовки групп
+        foreach ($menu as $key => $item)
+        {
+            if (isset($item['items']) && is_array($item['items']))
+            {
+                $subItems = $item['items'];
+                unset($item['items']);
+                unset($item['icon']);
+                unset($item['url']);
+                array_push($items, $item);
+                $items = array_merge($items, $subItems);
+                array_push($items, "---");
+            }
+            else
+                $items[] = $item;
+        }
+        array_pop($items);
+        return $items;
     }
 }

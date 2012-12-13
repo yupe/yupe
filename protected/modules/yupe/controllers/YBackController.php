@@ -17,7 +17,7 @@ class YBackController extends YMainController
 
         if ($this->yupe->backendTheme && is_dir(Yii::getPathOfAlias("webroot.themes.backend_" . $this->yupe->backendTheme)))
         {
-            //$themeBase        = "webroot.themes.backend_" . $this->yupe->backendTheme;
+          //$themeBase        = "webroot.themes.backend_" . $this->yupe->backendTheme;
             Yii::app()->theme = "backend_" . $this->yupe->backendTheme;
             $themeFile        = Yii::app()->theme->basePath . "/" . ucwords($this->yupe->backendTheme) . "Theme.php";
 
@@ -26,12 +26,19 @@ class YBackController extends YMainController
         }
         else
         {
-            Yii::app()->theme = 'default';
+            Yii::app()->theme = 'backend_bootstrap'; // установить null для отключения темирования
             $this->layout     = 'application.modules.yupe.views.layouts.column2';
+
+            Yii::app()->setComponent('bootstrap', Yii::createComponent(array(
+                'class' => 'application.modules.yupe.extensions.booster.components.Bootstrap',
+            )));
+
+            Yii::setPathOfAlias('bootstrap', Yii::app()->getModule('yupe')->basePath . '/extensions/booster');
+            Yii::app()->preload[] = 'bootstrap';
         }
 
-
         Yii::app()->clientScript->registerCoreScript('jquery');
+        // @TODO необходимо избавиться от эллементво использующих jquery ui
         Yii::app()->clientScript->registerCoreScript('jquery.ui');
         Yii::app()->clientScript->registerCssFile(Yii::app()->clientScript->getCoreScriptUrl() . '/jui/css/base/jquery-ui.css');
 
