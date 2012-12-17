@@ -14,19 +14,20 @@ class YBackController extends YMainController
         parent::init();
 
         $this->layout = $this->yupe->backendLayoutAlias;
+        $backendTheme = $this->yupe->backendTheme;
 
-        if ($this->yupe->backendTheme && is_dir(Yii::getPathOfAlias("webroot.themes.backend_" . $this->yupe->backendTheme)))
+        if ($backendTheme && is_dir(Yii::getPathOfAlias("webroot.themes.backend_" . $backendTheme)))
         {
-          //$themeBase        = "webroot.themes.backend_" . $this->yupe->backendTheme;
-            Yii::app()->theme = "backend_" . $this->yupe->backendTheme;
-            $themeFile        = Yii::app()->theme->basePath . "/" . ucwords($this->yupe->backendTheme) . "Theme.php";
+          //$themeBase        = "webroot.themes.backend_" . $backendTheme;
+            Yii::app()->theme = "backend_" . $backendTheme;
+            $themeFile        = Yii::app()->theme->basePath . "/" . ucwords($backendTheme) . "Theme.php";
 
             if (is_file($themeFile))
                 require($themeFile);
         }
         else
         {
-            Yii::app()->theme = 'backend_bootstrap'; // установить null для отключения темирования
+            Yii::app()->theme = null;
             $this->layout     = 'application.modules.yupe.views.layouts.column2';
 
             Yii::app()->setComponent('bootstrap', Yii::createComponent(array(

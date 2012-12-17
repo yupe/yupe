@@ -103,7 +103,9 @@ class BackendController extends YBackController
             : Yii::t('yupe', 'Тема не используется');
         $backendTheme = isset($settings['backendTheme'])
             ? $settings['backendTheme']->param_value
-            : ($this->yupe->backendTheme ? $this->yupe->backendTheme : Yii::t('yupe', 'Тема не используется'));
+            : (($this->yupe->backendTheme && $this->yupe->backendTheme != 'bootstrap')
+                ? $this->yupe->backendTheme
+                : Yii::t('yupe', 'Тема не используется'));
 
         $this->render('themesettings', array(
             'themes'        => $this->yupe->getThemes(),

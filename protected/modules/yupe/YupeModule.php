@@ -515,4 +515,16 @@ class YupeModule extends YWebModule
         array_pop($items);
         return $items;
     }
+
+    /**
+     * Выдает путь к стилям, определяет вкелючена тема или нет
+     *
+     * @return string путь к директории
+     * @since 0.5
+     *
+     */
+    public function getThemeBaseUrl()
+    {
+        return (Yii::app()->theme) ? Yii::app()->theme->baseUrl : Yii::app()->baseUrl;
+    }
 }

@@ -96,7 +96,7 @@ return array(
             'languageInPath' => true,
             'langParam'      => 'language',
             'urlFormat'      => 'path',
-            'showScriptName' => true, // чтобы убрать index.php из url, читаем: http://yiiframework.ru/doc/guide/ru/quickstart.apache-nginx-config
+            'showScriptName' => false, // чтобы убрать index.php из url, читаем: http://yiiframework.ru/doc/guide/ru/quickstart.apache-nginx-config
             'cacheID'        => 'cache',
             'rules'          => array(
                 // правила аккаунтинга модуля user

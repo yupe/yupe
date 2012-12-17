@@ -5,13 +5,12 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <?php
-        $module = Yii::app()->getModule('yupe');
-        $webPath = Yii::app()->assetManager->publish($module->basePath . '/web/');
+        $webPath = Yii::app()->assetManager->publish($this->yupe->basePath . '/web/');
         Yii::app()->clientScript->registerScriptFile($webPath . '/yupeAdmin.js');
     ?>
 
     <title><?php echo CHtml::encode(Yii::app()->name); ?> <?php echo CHtml::encode($this->pageTitle); ?></title>
-    <link rel="stylesheet" type="text/css"  href="<?php echo Yii::app()->theme->baseUrl; ?>/css/styles.css"/>
+    <link rel="stylesheet" type="text/css"  href="<?php echo $this->yupe->themeBaseUrl; ?>/css/styles.css"/>
 </head>
 
 <body>
@@ -23,7 +22,7 @@
         $this->widget('bootstrap.widgets.TbNavbar', array(
             'htmlOptions' => array('class'=>'navbar navbar-inverse'),
             'fluid'       => true,
-            'brand'       => CHtml::image(Yii::app()->theme->baseUrl . "/images/logo.png", $brandTitle, array(
+            'brand'       => CHtml::image($this->yupe->themeBaseUrl . "/images/logo.png", $brandTitle, array(
                 'width'  => '38',
                 'height' => '38',
                 'title'  => $brandTitle,
@@ -32,7 +31,7 @@
             'items'       => array(
                 array(
                     'class' => 'bootstrap.widgets.TbMenu',
-                    'items' => $module->getModules(true),
+                    'items' => $this->yupe->getModules(true),
                 ),
                 array(
                     'class'       => 'bootstrap.widgets.TbMenu',
@@ -84,9 +83,14 @@
     </div>
     <footer>
         Copyright &copy; 2009-<?php echo date('Y'); ?>
-        <a href='<?php echo $module->brandUrl?>'><?php echo CHtml::encode(Yii::app()->name); ?></a> <small class="label label-info"><?php echo Yii::app()->getModule('yupe')->getVersion();?></small>
+        <a href='<?php echo $this->yupe->brandUrl; ?>'>
+            <?php echo CHtml::encode(Yii::app()->name); ?>
+        </a> 
+        <small class="label label-info"><?php echo $this->yupe->getVersion(); ?></small>
         <br/>
-        <a href="http://yupe.ru/feedback/contact?from=engine"><?php echo Yii::t('yupe','Разработка и поддержка');?></a> - <a href="mailto:team@yupe.ru">yupe team</a>
+        <a href="http://yupe.ru/feedback/contact?from=engine">
+            <?php echo Yii::t('yupe','Разработка и поддержка'); ?></a> - <a href="mailto:team@yupe.ru">yupe team
+        </a>
         <br/>
         <?php echo Yii::powered(); ?>
         <?php $this->widget('YPerformanceStatistic'); ?>

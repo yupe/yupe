@@ -1,7 +1,4 @@
-<?php
-    $module = Yii::app()->getModule('yupe');
-    $this->beginContent($module->getBackendLayoutAlias("main"));
-?>
+<?php $this->beginContent($this->yupe->getBackendLayoutAlias("main")); ?>
   <div class="row-fluid">
     <div class="span9">
         <?php
@@ -18,21 +15,15 @@
         <!-- content -->
     </div>
     <div class="span3">
-        <?php
-        if (count($this->menu))
-        {
-            $items = $this->yupe->getSubMenu($this->menu);
-        ?>
+        <?php if (count($this->menu)): ?>
             <div class="well" style="padding: 8px 0;">
-            <?php $this->widget('bootstrap.widgets.TbMenu', array(
-                'type' => 'list',
-                'items' => $items,
-            )); ?>
+                <?php $this->widget('bootstrap.widgets.TbMenu', array(
+                    'type' => 'list',
+                    'items' => $this->yupe->getSubMenu($this->menu),
+                )); ?>
             </div>
-        <?php } ?>
-        <div class="well" style="padding: 8px;">
-            <?php $this->widget('YModuleInfo'); ?>
-        </div>
+        <?php endif; ?>
+        <div class="well" style="padding: 8px;"><?php $this->widget('YModuleInfo'); ?></div>
     </div>
   </div>
 <?php $this->endContent(); ?>
