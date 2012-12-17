@@ -1,47 +1,76 @@
-<?php $this->pageTitle = Yii::t('user', 'Изменение пароля'); ?>
+<?php
+    $this->breadcrumbs = array(
+        Yii::app()->getModule('user')->getCategory() => array(),
+        Yii::t('user', 'Пользователи') => array('/user/default/index'),
+        $model->nick_name => array('/user/default/view', 'id' => $model->id),
+        Yii::t('user', 'Изменение паролья'),
+    );
+
+    $this->pageTitle = Yii::t('user', 'Пользователи - изменение пароля');
+
+    $this->menu = array(
+        array('label' => Yii::t('user', 'Пользователи'), 'items' => array(
+            array('icon' => 'list-alt', 'label' => Yii::t('user', 'Управление пользователями'), 'url' => array('/user/default/index')),
+            array('icon' => 'plus-sign', 'label' => Yii::t('user', 'Добавление пользователя'), 'url' => array('/user/default/create')),
+            array('label' => Yii::t('user', 'Пользователь') . ' «' . $model->nick_name . '»'),
+            array('icon' => 'pencil', 'label' => Yii::t('user', 'Редактирование пользователя'), 'url' => array(
+                '/user/default/update',
+                'id' => $model->id
+            )),
+            array('icon' => 'eye-open', 'label' => Yii::t('user', 'Просмотр пользователя'), 'url' => array(
+                '/user/default/view',
+                'id' => $model->id
+            )),
+            array('icon' => 'lock', 'label' => Yii::t('user', 'Изменить пароль пользователя'), 'url' => array(
+                '/user/default/changepassword',
+                'id' => $model->id
+            )),
+            array('icon' => 'trash', 'label' => Yii::t('user', 'Удалить пользователя'), 'url' => '#', 'linkOptions' => array(
+                'submit' => array('/user/default/delete', 'id' => $model->id),
+                'confirm' => Yii::t('user', 'Вы уверены, что хотите удалить пользователя?')),
+            ),
+        )),
+        array('label' => Yii::t('user', 'Восстановления паролей'), 'items' => array(
+            array('icon' => 'list-alt', 'label' => Yii::t('user', 'Восстановления паролей'), 'url' => array('/user/recoveryPassword/index')),
+        )),
+    );
+?>
+<div class="page-header">
+    <h1>
+        <?php echo Yii::t('user', 'Изменение пароля'); ?><br />
+        <small>&laquo;<?php echo $model->nick_name; ?>&raquo;</small>
+    </h1>
+</div>
 
 <?php
-$this->breadcrumbs = array(
-    Yii::t('user', 'Пользователи') => array('admin'),
-    $model->nick_name,
-);
+$form = $this->beginWidget('bootstrap.widgets.TbActiveForm', array(
+    'id'                     => 'user-form',
+    'enableAjaxValidation'   => false,
+    'enableClientValidation' => true,
+    'type'                   => 'vertical',
+    'htmlOptions'            => array('class' => 'well'),
+    'inlineErrors'           => true,
+));
 
-$this->menu = array(
-    array('label' => Yii::t('user', 'Список пользователей'), 'url' => array('index')),
-    array('label' => Yii::t('user', 'Добавление пользователя'), 'url' => array('create')),
-    array('label' => Yii::t('user', 'Редактирование пользователя'), 'url' => array('update', 'id' => $model->id)),
-    array('label' => Yii::t('user', 'Удалить пользователя'), 'url' => '#', 'linkOptions' => array('submit' => array('delete', 'id' => $model->id), 'confirm' => 'Подтверждаете удаление ?')),
-    array('label' => Yii::t('user', 'Управление пользователями'), 'url' => array('admin')),    
-);
+Yii::app()->clientScript->registerScript('fieldset', "
+    $('document').ready(function () {
+        $('.popover-help').popover({ trigger : 'hover', delay : 500 });
+    });
+");
 ?>
-
-<h1><?php echo Yii::t('user', 'Изменение пароля')?> "<?php echo $model->getFullName(); ?> (<?php echo $model->nick_name;?>)"</h1>
-
-
-<div class="form">
-    <?php $form = $this->beginWidget('CActiveForm',array(
-        'id' => 'change-user-password-form',
-        'enableClientValidation' => true
-    )); ?>
-
     <?php echo $form->errorSummary($changePasswordForm); ?>
 
-    <div class="row">
-        <?php echo $form->labelEx($changePasswordForm, 'password'); ?>
-        <?php echo $form->passwordField($changePasswordForm, 'password') ?>
-        <?php echo $form->error($changePasswordForm, 'password'); ?>
+    <div class="row-fluid control-group <?php echo $model->hasErrors('password') ? 'error' : ''; ?>"> 
+        <?php echo $form->passwordFieldRow($changePasswordForm, 'password'); ?>
+    </div>
+    <div class="row-fluid control-group <?php echo $model->hasErrors('cPassword') ? 'error' : ''; ?>"> 
+        <?php echo $form->passwordFieldRow($changePasswordForm, 'cPassword'); ?>
     </div>
 
-    <div class="row">
-        <?php echo $form->labelEx($changePasswordForm, 'cPassword'); ?>
-        <?php echo $form->passwordField($changePasswordForm, 'cPassword') ?>
-        <?php echo $form->error($changePasswordForm, 'cPassword'); ?>
-    </div>
+    <?php $this->widget('bootstrap.widgets.TbButton', array(
+        'buttonType' => 'submit',
+        'type'       => 'primary',
+        'label'      =>  Yii::t('user', 'Изменить пароль'),
+    )); ?>
 
-
-    <div class="row submit">
-        <?php echo CHtml::submitButton(Yii::t('seeline','Изменить пароль')); ?>
-    </div>
-
-    <?php $this->endWidget(); ?>
-</div><!-- form -->
+<?php $this->endWidget(); ?>

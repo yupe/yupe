@@ -13,7 +13,7 @@
  * @property Gallery $gallery
  * @property Image $image
  */
-class ImageToGallery extends CActiveRecord
+class ImageToGallery extends YModel
 {
     /**
      * Returns the static model of the specified AR class.
@@ -53,7 +53,7 @@ class ImageToGallery extends CActiveRecord
         // class name for the relations automatically generated below.
         return array(
             'gallery' => array(self::BELONGS_TO, 'Gallery', 'galleryId'),
-            'image' => array(self::BELONGS_TO, 'Image', 'image_id'),
+            'image'   => array(self::BELONGS_TO, 'Image', 'image_id'),
         );
     }
 
@@ -63,9 +63,9 @@ class ImageToGallery extends CActiveRecord
     public function attributeLabels()
     {
         return array(
-            'id' => Yii::t('gallery', 'id'),
-            'image_id' => Yii::t('gallery', 'Изображение'),
-            'galleryId' => Yii::t('gallery', 'Галерея'),
+            'id'            => Yii::t('gallery', 'id'),
+            'image_id'      => Yii::t('gallery', 'Изображение'),
+            'galleryId'     => Yii::t('gallery', 'Галерея'),
             'creation_date' => Yii::t('gallery', 'Дата добавления'),
         );
     }
@@ -86,16 +86,13 @@ class ImageToGallery extends CActiveRecord
         $criteria->compare('galleryId', $this->galleryId, true);
         $criteria->compare('creation_date', $this->creation_date, true);
 
-        return new CActiveDataProvider($this, array(
-                                                   'criteria' => $criteria,
-                                              ));
+        return new CActiveDataProvider(get_class($this), array('criteria' => $criteria));
     }
 
     public function beforeSave()
     {
-        if ($this->isNewRecord)        
-            $this->creation_date = new CDbExpression('NOW()');        
-        
+        if ($this->isNewRecord)
+            $this->creation_date = new CDbExpression('NOW()');
         return parent::beforeSave();
     }
 }

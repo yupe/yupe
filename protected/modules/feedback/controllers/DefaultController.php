@@ -8,9 +8,7 @@ class DefaultController extends YBackController
      */
     public function actionView()
     {
-        $this->render('view', array(
-                                   'model' => $this->loadModel(),
-                              ));
+        $this->render('view', array('model' => $this->loadModel()));
     }
 
     /**
@@ -25,17 +23,26 @@ class DefaultController extends YBackController
         {
             $model->attributes = $_POST['FeedBack'];
 
+            if ($model->status == FeedBack::STATUS_ANSWER_SENDED)
+            {
+                $model->answer_user = Yii::app()->user->id;
+                $model->answer_date = new CDbExpression('NOW()');
+            }
+
             if ($model->save())
             {
-                Yii::app()->user->setFlash(YFlashMessages::NOTICE_MESSAGE, 'Сообщение сохранено!');
+                Yii::app()->user->setFlash(
+                    YFlashMessages::NOTICE_MESSAGE,
+                    Yii::t('feedback', 'Сообщение сохранено!')
+                );
 
-                $this->redirect(array('update', 'id' => $model->id));
+                if (!isset($_POST['submit-type']))
+                    $this->redirect(array('update', 'id' => $model->id));
+                else
+                    $this->redirect(array($_POST['submit-type']));
             }
         }
-
-        $this->render('create', array(
-                                     'model' => $model,
-                                ));
+        $this->render('create', array('model' => $model));
     }
 
     /**
@@ -45,73 +52,88 @@ class DefaultController extends YBackController
     public function actionUpdate()
     {
         $model = $this->loadModel();
-        
+
+        $status = $model->status; 
+
         if (isset($_POST['FeedBack']))
         {
             $model->attributes = $_POST['FeedBack'];
 
+            if ($status != FeedBack::STATUS_ANSWER_SENDED && $model->status == FeedBack::STATUS_ANSWER_SENDED)
+            {
+                $model->answer_user = Yii::app()->user->id;
+                $model->answer_date = new CDbExpression('NOW()');
+            }
+
             if ($model->save())
             {
-                Yii::app()->user->setFlash(YFlashMessages::NOTICE_MESSAGE, 'Сообщение обновлено!');
+                Yii::app()->user->setFlash(
+                    YFlashMessages::NOTICE_MESSAGE,
+                    Yii::t('feedback', 'Сообщение обновлено!')
+                );
 
-                $this->redirect(array('view', 'id' => $model->id));
+                if (!isset($_POST['submit-type']))
+                    $this->redirect(array('update', 'id' => $model->id));
+                else
+                    $this->redirect(array($_POST['submit-type']));
             }
         }
-
-        $this->render('update', array(
-                                     'model' => $model,
-                                ));
+        $this->render('update', array('model' => $model));
     }
 
-
-    public function actionAnswer()
+    public function actionAnswer($id)
     {
-        $id = (int)Yii::app()->request->getQuery('id');
-
-        $model = FeedBack::model()->findbyPk($id);
-
-        if (!$model)        
-            throw new CHttpException(404, Yii::t('feedback', 'Страница не найдена!'));        
+        $model = FeedBack::model()->findbyPk((int) $id);
+        if (!$model)
+            throw new CHttpException(404, Yii::t('feedback', 'Страница не найдена!'));
 
         $form = new AnswerForm;
 
         $form->setAttributes(array(
-                                  'answer' => $model->answer,
-                                  'is_faq' => $model->is_faq
-                             ));
-        
+            'answer' => $model->answer,
+            'is_faq' => $model->is_faq,
+        ));
 
-        if ($model->status == FeedBack::STATUS_ANSWER_SENDED)        
-            Yii::app()->user->setFlash(YFlashMessages::NOTICE_MESSAGE, Yii::t('feedback', 'Внимание! Ответ на это сообщение уже был отправлен!'));        
+        if ($model->status == FeedBack::STATUS_ANSWER_SENDED)
+            Yii::app()->user->setFlash(
+                YFlashMessages::NOTICE_MESSAGE,
+                Yii::t('feedback', 'Внимание! Ответ на это сообщение уже был отправлен!')
+            );
 
         if (Yii::app()->request->isPostRequest && isset($_POST['AnswerForm']))
         {
             $form->setAttributes($_POST['AnswerForm']);
 
             if ($form->validate())
-            {                
+            {
                 $model->setAttributes(array(
-                                           'answer' => $form->answer,
-                                           'is_faq' => $form->is_faq,
-                                           'answer_user' => Yii::app()->user->getId(),
-                                           'answer_date' => new CDbExpression('NOW()'),
-                                           'status' => FeedBack::STATUS_ANSWER_SENDED
-                                      ));
+                    'answer'      => $form->answer,
+                    'is_faq'      => $form->is_faq,
+                    'answer_user' => Yii::app()->user->id,
+                    'answer_date' => new CDbExpression('NOW()'),
+                    'status'      => FeedBack::STATUS_ANSWER_SENDED,
+                 ));
 
                 if ($model->save())
                 {
                     //отправка ответа
-                    $body = $this->renderPartial('answerEmail',array('model' => $model));
+                    $body = $this->renderPartial('answerEmail', array('model' => $model), true);
 
-                    Yii::app()->mail->send(Yii::app()->getModule('feedback')->notifyEmailFrom, $model->email, 'RE: '.$model->theme, $body);
-
-                    Yii::app()->user->setFlash(YFlashMessages::NOTICE_MESSAGE, Yii::t('feedback', 'Ответ на сообщение отправлен!'));
+                    Yii::app()->mail->send(
+                        Yii::app()->getModule('feedback')->notifyEmailFrom,
+                        $model->email,
+                        'RE: ' . $model->theme,
+                        $body
+                    );
+                    Yii::app()->user->setFlash(
+                        YFlashMessages::NOTICE_MESSAGE,
+                        Yii::t('feedback', 'Ответ на сообщение отправлен!')
+                    );
 
                     $this->redirect(array('/feedback/default/view/', 'id' => $model->id));
                 }
             }
         }
-        
         $this->render('answer', array('model' => $model, 'answerForm' => $form));
     }
 
@@ -127,43 +149,23 @@ class DefaultController extends YBackController
             $this->loadModel()->delete();
 
             // if AJAX request (triggered by deletion via admin grid view), we should not redirect the browser
-            if (!isset($_GET['ajax']))            
-                $this->redirect(array('index'));            
+            if (!isset($_GET['ajax']))
+                $this->redirect(isset($_POST['returnUrl']) ? $_POST['returnUrl'] : array('index'));
         }
         else
-        {
-            throw new CHttpException(400, 'Invalid request. Please do not repeat this request again.');
-        }
+            throw new CHttpException(400, Yii::t('feedback', 'Неверный запрос. Пожалуйста, больше не повторяйте такие запросы'));
     }
-
-    /**
-     * Lists all models.
-     */
-    public function actionIndex()
-    {
-        $dataProvider = new CActiveDataProvider('FeedBack');
-
-        $this->render('index', array(
-                                    'dataProvider' => $dataProvider,
-                               ));
-    }
-
+    
     /**
      * Manages all models.
      */
-    public function actionAdmin()
+    public function actionIndex()
     {
         $model = new FeedBack('search');
-
         $model->unsetAttributes(); // clear any default values
-
-        if (isset($_GET['FeedBack']))        
+        if (isset($_GET['FeedBack']))
             $model->attributes = $_GET['FeedBack'];
-        
-
-        $this->render('admin', array(
-                                    'model' => $model,
-                               ));
+        $this->render('index', array('model' => $model));
     }
 
     /**
@@ -174,11 +176,10 @@ class DefaultController extends YBackController
     {
         if ($this->_model === null)
         {
-            if (isset($_GET['id']))            
+            if (isset($_GET['id']))
                 $this->_model = FeedBack::model()->findbyPk($_GET['id']);
-            
-            if ($this->_model === null)            
-                throw new CHttpException(404, 'The requested page does not exist.');            
+            if ($this->_model === null)
+                throw new CHttpException(404, Yii::t('feedback', 'Запрошенная страница не найдена!'));
         }
         return $this->_model;
     }
@@ -192,7 +193,6 @@ class DefaultController extends YBackController
         if (isset($_POST['ajax']) && $_POST['ajax'] === 'feed-back-form')
         {
             echo CActiveForm::validate($model);
-
             Yii::app()->end();
         }
     }

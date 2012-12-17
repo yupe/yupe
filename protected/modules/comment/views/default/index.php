@@ -1,18 +1,77 @@
 <?php
-$this->breadcrumbs = array(
-    $this->getModule('category')->getCategory() => array(''),
-    Yii::t('comment', 'Комментарии'),
-);
+    $this->breadcrumbs = array(
+        Yii::app()->getModule('comment')->getCategory() => array(),
+        Yii::t('comment', 'Комментарии') => array('/comment/default/index'),
+        Yii::t('comment', 'Управление'),
+    );
 
-$this->menu = array(
-    array('label' => Yii::t('comment', 'Добавить комментарий'), 'url' => array('create')),
-    array('label' => Yii::t('comment', 'Управление комментариями'), 'url' => array('admin')),
-);
+    $this->pageTitle = Yii::t('comment', 'Комментарии - управление');
+
+    $this->menu = array(
+        array('icon' => 'list-alt', 'label' => Yii::t('comment', 'Список комментариев'), 'url' => array('/comment/default/index')),
+        array('icon' => 'plus-sign', 'label' => Yii::t('comment', 'Добавить комментарий'), 'url' => array('/comment/default/create')),
+    );
 ?>
+<div class="page-header">
+    <h1>
+        <?php echo Yii::t('comment', 'Комментарии'); ?>
+        <small><?php echo Yii::t('comment', 'управление'); ?></small>
+    </h1>
+</div>
 
-<h1><?php echo Yii::t('comment', 'Комментарии');?></h1>
+<button class="btn btn-small dropdown-toggle" data-toggle="collapse" data-target="#search-toggle">
+    <i class="icon-search">&nbsp;</i>
+    <?php echo CHtml::link(Yii::t('comment', 'Поиск комментариев'), '#', array('class' => 'search-button')); ?>
+    <span class="caret">&nbsp;</span>
+</button>
 
-<?php $this->widget('zii.widgets.CListView', array(
-                                                  'dataProvider' => $dataProvider,
-                                                  'itemView' => '_view',
-                                             )); ?>
+<div id="search-toggle" class="collapse out search-form">
+<?php
+Yii::app()->clientScript->registerScript('search', "
+    $('.search-form form').submit(function() {
+        $.fn.yiiGridView.update('comment-grid', {
+            data: $(this).serialize()
+        });
+        return false;
+    });
+");
+$this->renderPartial('_search', array('model' => $model));
+?>
+</div>
+
+<br/>
+
+<p><?php echo Yii::t('comment', 'В данном разделе представлены средства управления комментариями'); ?></p>
+
+<?php $this->widget('application.modules.yupe.components.YCustomGridView', array(
+    'id'           => 'comment-grid',
+    'type'         => 'condensed',
+    'dataProvider' => $model->search(),
+    'filter'       => $model,
+    'columns'      => array(
+        array(
+            'class'          => 'CCheckBoxColumn',
+            'id'             => 'itemsSelected',
+            'selectableRows' => '2',
+            'htmlOptions'    => array('class' => 'center'),
+        ),
+        'id',
+        'model',
+        'model_id',
+        array(
+            'name'  => 'status',
+            'type'  => 'raw',
+            'value' => '$this->grid->returnBootstrapStatusHtml($data, "status", "Status", array("pencil", "ok-sign", "fire", "remove"))',
+        ),
+        'text',
+        array(
+            'name'  => 'creation_date',
+            'value' => 'Yii::app()->getDateFormatter()->formatDateTime($data->creation_date, "short", "short")',
+        ),
+        'name',
+        'email',
+        array(
+            'class' => 'bootstrap.widgets.TbButtonColumn',
+        ),
+    ),
+)); ?>

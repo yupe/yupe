@@ -11,13 +11,12 @@
  * @property string $alias
  * @property integer $status
  */
-class Category extends CActiveRecord
+class Category extends YModel
 {
 
-    const STATUS_DRAFT = 0;
-    const STATUS_PUBLISHED = 1;
+    const STATUS_DRAFT      = 0;
+    const STATUS_PUBLISHED  = 1;
     const STATUS_MODERATION = 2;
-
 
     /**
      * @return string the associated database table name
@@ -25,32 +24,6 @@ class Category extends CActiveRecord
     public function tableName()
     {
         return '{{category}}';
-    }
-
-    public function getStatusList()
-    {
-        return array(
-            self::STATUS_DRAFT => Yii::t('category', 'Черновик'),
-            self::STATUS_PUBLISHED => Yii::t('category', 'Опубликовано'),
-            self::STATUS_MODERATION => Yii::t('category', 'На модерации')
-        );
-    }
-
-    public function getStatus()
-    {
-        $data = $this->getStatusList();
-        return array_key_exists($this->status, $data) ? $data[$this->status]
-            : Yii::t('category', '*неизвестно*');
-    }
-
-    public function getAllCategoryList($selfId = false)
-    {
-        $category = $selfId
-            ? $this->findAll('id != :id', array(':id' => $selfId))
-            : $this->findAll();
-        $category = CHtml::listData($category, 'id', 'name');
-        $category[0] = Yii::t('category', '--нет--');
-        return $category;
     }
 
     /**
@@ -62,7 +35,6 @@ class Category extends CActiveRecord
         return parent::model($className);
     }
 
-
     /**
      * @return array validation rules for model attributes.
      */
@@ -71,19 +43,35 @@ class Category extends CActiveRecord
         // NOTE: you should only define rules for those attributes that
         // will receive user inputs.
         return array(
-            array('name, description, alias','filter','filter' => 'trim'),
-            array('name, alias','filter','filter' => array($obj = new CHtmlPurifier(),'purify')),
+            array('name, description, short_description, image, alias', 'filter', 'filter' => 'trim'),
+            array('name, alias, image', 'filter', 'filter' => array($obj = new CHtmlPurifier(), 'purify')),
             array('name, description, alias', 'required'),
             array('parent_id, status', 'numerical', 'integerOnly' => true),
+            array('parent_id', 'default', 'setOnEmpty' => true, 'value' => null),
             array('name', 'length', 'max' => 150),
-            array('alias', 'length', 'max' => 50),
-            array('alias','match','pattern' => '/^[A-Za-z0-9_]{2,50}$/','message' => Yii::t('seeline','Неверный формат поля "{attribute}" допустимы только буквы, цифры и символ подчеркивания, от 2 до 20 символов')),            
-            array('alias', 'unique'),
-            array('status', 'in', 'range' => array_keys($this->getStatusList())),
-            array('id, parent_id, name, description, alias, status', 'safe', 'on' => 'search'),
+            array('alias', 'length', 'max' => 100),
+            array('alias', 'match', 'pattern' => '/^[A-Za-z0-9\-]{1,50}$/', 'message' => Yii::t('category', 'Неверный формат поля "{attribute}" допустимы только буквы, цифры и символ "-", от 2 до 20 символов')),
+            array('lang', 'length', 'max' => 2 ),
+            array('lang', 'default', 'value' => Yii::app()->sourceLanguage),
+            array('alias', 'unique', 'criteria' => array(
+                    'condition' => 'lang = :lang',
+                    'params' => array(':lang' => $this->lang),
+                ),
+                'on' => array('insert'),
+            ),
+            array('status', 'in', 'range' => array_keys($this->statusList)),
+            array('image', 'file', 'types' => 'jpg, gif, png', 'allowEmpty' => true),
+            array('id, parent_id, name, description, short_description, alias, status', 'safe', 'on' => 'search'),
         );
     }
 
+    public function beforeValidate()
+    {
+        if (!$this->alias)
+            $this->alias = YText::translit($this->name);
+
+        return parent::beforeValidate();
+    }
 
     /**
      * @return array customized attribute labels (name=>label)
@@ -91,12 +79,33 @@ class Category extends CActiveRecord
     public function attributeLabels()
     {
         return array(
-            'id' => Yii::t('category', 'Id'),
-            'parent_id' => Yii::t('category', 'Родитель'),
-            'name' => Yii::t('category', 'Название'),
-            'description' => Yii::t('category', 'Описание'),
-            'alias' => Yii::t('category', 'Алиас'),
-            'status' => Yii::t('category', 'Статус'),
+            'id'                => Yii::t('category', 'Id'),
+            'lang'              => Yii::t('category', 'Язык'),
+            'parent_id'         => Yii::t('category', 'Родитель'),
+            'name'              => Yii::t('category', 'Название'),
+            'image'             => Yii::t('category', 'Изображение'),
+            'short_description' => Yii::t('category', 'Короткое описание'),
+            'description'       => Yii::t('category', 'Описание'),
+            'alias'             => Yii::t('category', 'Алиас'),
+            'status'            => Yii::t('category', 'Статус'),
+        );
+    }
+
+    /**
+     * @return array customized attribute descriptions (name=>description)
+     */
+    public function attributeDescriptions()
+    {
+       return array(
+            'id'                => Yii::t('category', 'Id'),
+            'lang'              => Yii::t('category', 'Язык'),
+            'parent_id'         => Yii::t('category', 'Родитель'),
+            'name'              => Yii::t('category', 'Название'),
+            'image'             => Yii::t('category', 'Изображение'),
+            'short_description' => Yii::t('category', 'Короткое описание'),
+            'description'       => Yii::t('category', 'Описание'),
+            'alias'             => Yii::t('category', 'Алиас'),
+            'status'            => Yii::t('category', 'Статус'),
         );
     }
 
@@ -118,8 +127,52 @@ class Category extends CActiveRecord
         $criteria->compare('alias', $this->alias, true);
         $criteria->compare('status', $this->status);
 
-        return new CActiveDataProvider(get_class($this), array(
-                                                              'criteria' => $criteria,
-                                                         ));
+        return new CActiveDataProvider(get_class($this), array('criteria' => $criteria));
+    }
+
+    public function getStatusList()
+    {
+        return array(
+            self::STATUS_DRAFT      => Yii::t('category', 'Черновик'),
+            self::STATUS_PUBLISHED  => Yii::t('category', 'Опубликовано'),
+            self::STATUS_MODERATION => Yii::t('category', 'На модерации'),
+        );
+    }
+
+    public function getStatus()
+    {
+        $data = $this->statusList;
+        return isset($data[$this->status]) ? $data[$this->status] : Yii::t('category', '*неизвестно*');
+    }
+
+    public function getAllCategoryList($selfId = false)
+    {
+        $conditionArray = ($selfId) 
+            ? array('condition' => 'id != :id', 'params' => array(':id' => $selfId))
+            : array();
+
+        $category = $this->cache(Yii::app()->getModule('yupe')->coreCacheTime)->findAll($conditionArray);
+
+        return CHtml::listData($category, 'id', 'name');
+    }
+
+    public function getParentName()
+    {
+        if ($this->parent_id)
+        {
+            $model = Category::model()->findByPk($this->parent_id);
+
+            if ($model)
+                return $model->name;
+        }
+        return '---';
+    }
+
+    public function getImageSrc()
+    {
+        return Yii::app()->baseUrl . "/" .
+               Yii::app()->getModule("yupe")->uploadPath . "/" .
+               Yii::app()->getModule("category")->uploadPath . "/" .
+               $this->image;
     }
 }

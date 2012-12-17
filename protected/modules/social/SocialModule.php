@@ -1,7 +1,38 @@
 <?php
 class SocialModule extends YWebModule
-{	
-	public function getCategory()
+{
+    public $twitterKey;
+    public $twitterSecret;
+    public $facebookClientId;
+    public $facebookClientSecret;
+    public $vkontakteClientId;
+    public $vkontakteClientSecret;
+    public $mailruClientId;
+    public $mailruClientSecret;
+
+    public function getEditableParams()
+    {
+        return array(
+            'twitterKey',
+            'twitterSecret',
+            'facebookClientId',
+            'facebookClientSecret',
+            'vkontakteClientId',
+            'vkontakteClientSecret',
+            'mailruClientId',
+            'mailruClientSecret',
+        );
+    }
+
+    public function getParamsLabels()
+    {
+        return array(
+            'vkontakteClientId'     => Yii::t('social', 'Вконтакте. ID приложения'),
+            'vkontakteClientSecret' => Yii::t('social', 'Вконтакте. Защищенный ключ'),
+        );
+    }
+
+    public function getCategory()
     {
         return Yii::t('social', 'Сервисы');
     }
@@ -18,12 +49,17 @@ class SocialModule extends YWebModule
 
     public function getAuthor()
     {
-        return Yii::t('social', 'xoma');
+        return Yii::t('social', 'yupe team');
     }
 
     public function getAuthorEmail()
     {
-        return Yii::t('social', 'aopeykin@yandex.ru');
+        return Yii::t('social', 'team@yupe.ru');
+    }
+
+    public function getVersion()
+    {
+        return Yii::t('social', '0.1');
     }
 
     public function getUrl()
@@ -33,6 +69,11 @@ class SocialModule extends YWebModule
 
     public function getAdminPageLink()
     {
-        return '/social/default/';
+        return '/social/default/index';
+    }
+
+    public function getIcon()
+    {
+        return "globe";
     }
 }

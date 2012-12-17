@@ -1,44 +1,33 @@
-<div class="wide form">
+<?php
+$form = $this->beginWidget('bootstrap.widgets.TbActiveForm', array(
+    'action'      => Yii::app()->createUrl($this->route),
+    'method'      => 'get',
+    'type'        => 'vertical',
+    'htmlOptions' => array('class' => 'well'),
+));
 
-    <?php $form = $this->beginWidget('CActiveForm', array(
-                                                         'action' => Yii::app()->createUrl($this->route),
-                                                         'method' => 'get',
-                                                    )); ?>
+Yii::app()->clientScript->registerScript('fieldset', "
+    $('document').ready(function () {
+        $('.popover-help').popover({ trigger : 'hover', delay : 500 });
+    });
+");
+?>
+    <fieldset class="inline">
+        <?php echo $form->textFieldRow($model, 'id', array('class' => 'span5', 'maxlength' => 10, 'size' => 60)); ?>
+        <?php echo $form->textFieldRow($model, 'parent_id', array('class' => 'span5', 'size' => 60, 'maxlength' => 60)); ?>
+        <?php echo $form->textFieldRow($model, 'name', array('class' => 'span5', 'maxlength' => 150, 'size' => 60)); ?>
+        <?php echo $form->textFieldRow($model, 'image', array('class' => 'span5', 'maxlength' => 300, 'size' => 60)); ?>
+        <?php echo $form->textAreaRow($model, 'short_description', array('rows' => 6, 'cols' => 50, 'class' => 'span8')); ?>
+        <?php echo $form->textAreaRow($model, 'description', array('rows' => 6, 'cols' => 50, 'class' => 'span8')); ?>
+        <?php echo $form->textFieldRow($model, 'alias', array('class' => 'span5', 'maxlength' => 100, 'size' => 60)); ?>
+        <?php echo $form->textFieldRow($model, 'status', array('class' => 'span5', 'size' => 60, 'maxlength' => 60)); ?>
+    </fieldset>
 
-    <div class="row">
-        <?php echo $form->label($model, 'id'); ?>
-        <?php echo $form->textField($model, 'id', array('size' => 10, 'maxlength' => 10)); ?>
-    </div>
+    <?php $this->widget('bootstrap.widgets.TbButton', array(
+        'type'        => 'primary',
+        'encodeLabel' => false,
+        'buttonType'  => 'submit',
+        'label'       => '<i class="icon-search icon-white">&nbsp;</i> ' . Yii::t('blog', 'Искать категорию'),
+    )); ?>
 
-    <div class="row">
-        <?php echo $form->label($model, 'parent_id'); ?>
-        <?php echo $form->textField($model, 'parent_id'); ?>
-    </div>
-
-    <div class="row">
-        <?php echo $form->label($model, 'name'); ?>
-        <?php echo $form->textField($model, 'name', array('size' => 60, 'maxlength' => 150)); ?>
-    </div>
-
-    <div class="row">
-        <?php echo $form->label($model, 'description'); ?>
-        <?php echo $form->textArea($model, 'description', array('rows' => 6, 'cols' => 50)); ?>
-    </div>
-
-    <div class="row">
-        <?php echo $form->label($model, 'alias'); ?>
-        <?php echo $form->textField($model, 'alias', array('size' => 50, 'maxlength' => 50)); ?>
-    </div>
-
-    <div class="row">
-        <?php echo $form->label($model, 'status'); ?>
-        <?php echo $form->textField($model, 'status'); ?>
-    </div>
-
-    <div class="row buttons">
-        <?php echo CHtml::submitButton(Yii::t('category', 'Поиск')); ?>
-    </div>
-
-    <?php $this->endWidget(); ?>
-
-</div><!-- search-form -->
+<?php $this->endWidget(); ?>

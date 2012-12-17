@@ -1,14 +1,20 @@
 <div class="form">
 
     <?php $form = $this->beginWidget('CActiveForm', array(
-                                                         'action' => $this->controller->createUrl('/comment/comment/add'),
-                                                         'id' => 'comment-form',
-                                                         'enableClientValidation' => true,
-                                                    )); ?>
+         'action' => $this->controller->createUrl('/comment/comment/add'),
+         'id' => 'comment-form',
+         'enableClientValidation' => true,
+    )); ?>
 
     <p class="note"><?php echo Yii::t('yupe', 'Поля, отмеченные');?> <span
         class="required">*</span> <?php echo Yii::t('yupe', 'обязательны для заполнения');?>
     </p>
+
+    <?php if (!Yii::app()->user->isAuthenticated()): ?>
+
+    <p>Пожалуйста, <?php echo CHtml::link('авторизуйтесь',array('/user/account/login/'));?> или <?php echo CHtml::link('зарегистрируйтесь',array('/user/account/registration/'));?> - писать будет проще =)</p>
+
+    <?php endif;?>
 
     <?php echo $form->errorSummary($model)?>
 
@@ -65,7 +71,7 @@
     <?php endif; ?>
 
     <div class="row buttons">
-        <?php echo CHtml::submitButton('Добавить комментарий'); ?>
+        <?php echo CHtml::submitButton('Написать'); ?>
     </div>
 
     <?php $this->endWidget(); ?>

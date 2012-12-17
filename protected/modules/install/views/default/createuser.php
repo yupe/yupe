@@ -1,33 +1,45 @@
-<div class="form">
+<?php
+$form = $this->beginWidget('bootstrap.widgets.TbActiveForm', array(
+    'id'                     => 'createuser-form',
+    'enableAjaxValidation'   => false,
+    'enableClientValidation' => true,
+    'type'                   => 'vertical',
+    'inlineErrors'           => true,
+));
 
-    <?php echo CHtml::beginForm(); ?>
+Yii::app()->clientScript->registerScript('fieldset', "
+    $('document').ready(function () {
+        $('.popover-help').popover({ trigger : 'hover', 'delay' : 500 });
+    });
+");
+?>
 
-    <?php echo CHtml::errorSummary($model); ?>
+    <?php echo $form->errorSummary($model); ?>
 
-    <div class="row">
-        <?php echo CHtml::activeLabel($model, 'userName'); ?>
-        <?php echo CHtml::activeTextField($model, 'userName') ?>
+    <div class="row-fluid control-group <?php echo $model->hasErrors('userName') ? 'error' : ''; ?>">
+        <?php echo $form->textFieldRow($model, 'userName', array('class' => 'popover-help span7', 'maxlength' => 150, 'size' => 60, 'data-original-title' => $model->getAttributeLabel('userName'), 'data-content' => $model->getAttributeDescription('userName'))); ?>
     </div>
 
-    <div class="row">
-        <?php echo CHtml::activeLabel($model, 'email'); ?> (<?php echo Yii::t('install','используется для авторизации в панели управления)');?><br/>
-        <?php echo CHtml::activeTextField($model, 'email') ?>
+    <div class="row-fluid control-group <?php echo $model->hasErrors('email') ? 'error' : ''; ?>">
+        <?php echo $form->textFieldRow($model, 'email', array('class' => 'popover-help span7', 'maxlength' => 150, 'size' => 60, 'data-original-title' => $model->getAttributeLabel('email'), 'data-content' => $model->getAttributeDescription('email'))); ?>
     </div>
 
-    <div class="row">
-        <?php echo CHtml::activeLabel($model, 'password'); ?>
-        <?php echo CHtml::activePasswordField($model, 'password') ?>
+    <div class="row-fluid control-group <?php echo $model->hasErrors('password') ? 'error' : ''; ?>">
+        <?php echo $form->passwordFieldRow($model, 'password', array('class' => 'popover-help span7', 'maxlength' => 150, 'size' => 60, 'data-original-title' => $model->getAttributeLabel('password'), 'data-content' => $model->getAttributeDescription('password'))); ?>
     </div>
 
-    <div class="row">
-        <?php echo CHtml::activeLabel($model, 'cPassword'); ?>
-        <?php echo CHtml::activePasswordField($model, 'cPassword') ?>
+    <div class="row-fluid control-group <?php echo $model->hasErrors('cPassword') ? 'error' : ''; ?>">
+        <?php echo $form->passwordFieldRow($model, 'cPassword', array('class' => 'popover-help span7', 'maxlength' => 150, 'size' => 60, 'data-original-title' => $model->getAttributeLabel('cPassword'), 'data-content' => $model->getAttributeDescription('cPassword'))); ?>
     </div>
 
-    <div class="row submit">
-        <?php echo CHtml::submitButton('Продолжить >>>');?>
-    </div>
+    <?php $this->widget('bootstrap.widgets.TbButton', array(
+        'label' => Yii::t('install', '< Назад'),
+        'url'   => array('default/dbsettings'),
+    )); ?>
+    <?php $this->widget('bootstrap.widgets.TbButton', array(
+        'buttonType' => 'submit',
+        'type'       => 'primary',
+        'label'      => Yii::t('install', 'Продолжить >'),
+    )); ?>
 
-    <?php echo CHtml::endForm(); ?>
-</div><!-- form -->
-
+<?php $this->endWidget(); ?>

@@ -9,16 +9,21 @@
     'import' => array(
         'application.components.*',
         'application.models.*',
+        'application.modules.queue.models.*'
     ),
     // Перенаправляем журнал для cron-а в отдельные файлы
     'components' => array(
+         // компонент для отправки почты
+        'mail' => array(
+            'class' => 'application.modules.yupe.components.YMail',
+        ),
         'log' => array(
             'class' => 'CLogRouter',
             'routes' => array(
                 array(
                     'class' => 'CFileLogRoute',
                     'logFile' => 'cron.log',
-                    'levels' => 'error, warning',
+                    'levels' => 'error, warning, info',
                 ),
                 array(
                     'class' => 'CFileLogRoute',
@@ -26,12 +31,8 @@
                     'levels' => 'trace',
                 ),
             ),
-        ),
-
-        // Соединение с СУБД
-        'db' => array(
-            'class' => 'CDbConnection',
-            // …
-        ),
+        ),      
+           // параметры подключения к базе данных, подробнее http://www.yiiframework.ru/doc/guide/ru/database.overview
+        'db' => require(dirname(__FILE__) . '/db.php'),
     ),
 );

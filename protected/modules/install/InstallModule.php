@@ -1,15 +1,19 @@
 <?php
 class InstallModule extends YWebModule
 {
-
     public function checkSelf()
     {
-        return array('type' => YWebModule::CHECK_ERROR, 'message' => Yii::t('yupe', 'У Вас активирован модуль "Установщик", после установки системы его необходимо отключить! <br/> <a href="http://www.yiiframework.ru/doc/guide/ru/basics.module">Подробнее про Yii модули</a>'));
+        if (!file_exists(Yii::app()->basePath . '/' . 'config' . '/' . '.ai'))
+            return array(
+                'type'    => YWebModule::CHECK_ERROR,
+                'message' => Yii::t('yupe', 'У Вас активирован модуль "Установщик", после установки системы его необходимо отключить! <a href="http://www.yiiframework.ru/doc/guide/ru/basics.module">Подробнее про Yii модули</a>')
+            );
+        return true;
     }
 
     public function getAdminPageLink()
     {
-        return '/yupe/backend/';
+        return '/install/default/index';
     }
 
     public function getEditableParams()
@@ -19,7 +23,7 @@ class InstallModule extends YWebModule
 
     public function getCategory()
     {
-        return Yii::t('install', 'Ядрышко');
+        return Yii::t('install', 'Юпи!');
     }
 
     public function getName()
@@ -39,17 +43,17 @@ class InstallModule extends YWebModule
 
     public function getVersion()
     {
-        return Yii::t('install', '0.1');
+        return Yii::t('install', '0.2');
     }
 
     public function getAuthor()
     {
-        return Yii::t('install', 'xoma');
+        return Yii::t('install', 'yupe team');
     }
 
     public function getAuthorEmail()
     {
-        return Yii::t('install', 'aopeykin@yandex.ru');
+        return Yii::t('install', 'team@yupe.ru');
     }
 
     public function getUrl()
@@ -57,11 +61,16 @@ class InstallModule extends YWebModule
         return Yii::t('install', 'http://yupe.ru');
     }
 
-    public function init()
+    public function getIcon()
     {
+        return "download-alt";
+    }
+
+    public function init()
+    {        
         $this->setImport(array(
-                              'install.models.*',
-                              'install.components.*',
-                         ));
+            'install.models.*',
+            'install.components.*',
+        ));
     }
 }

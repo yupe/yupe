@@ -1,16 +1,22 @@
 <?php
-$this->breadcrumbs = array(
-    $this->getModule('category')->getCategory() => array(''),
-    Yii::t('gallery', 'Галереи изображений') => array('admin'),
-    Yii::t('gallery', 'Добавление галереи'),
-);
+    $this->breadcrumbs = array(
+        Yii::app()->getModule('gallery')->getCategory() => array(),
+        Yii::t('gallery', 'Галереи') => array('/gallery/default/index'),
+        Yii::t('gallery', 'Добавление'),
+    );
 
-$this->menu = array(
-    array('label' => Yii::t('gallery', 'Список галерей'), 'url' => array('index')),
-    array('label' => Yii::t('gallery', 'Управление галереями'), 'url' => array('admin')),
-);
+    $this->pageTitle = Yii::t('gallery', 'Галереи - добавление');
+
+    $this->menu = array(
+        array('icon' => 'list-alt', 'label' => Yii::t('gallery', 'Список галарей'), 'url' => array('/gallery/default/index')),
+        array('icon' => 'plus-sign', 'label' => Yii::t('gallery', 'Добавить галерею'), 'url' => array('/gallery/default/create')),
+    );
 ?>
-
-<h1><?php echo Yii::t('gallery', 'Добавление галереи');?></h1>
+<div class="page-header">
+    <h1>
+        <?php echo Yii::t('gallery', 'Галереи'); ?>
+        <small><?php echo Yii::t('gallery', 'добавление'); ?></small>
+    </h1>
+</div>
 
 <?php echo $this->renderPartial('_form', array('model' => $model)); ?>

@@ -2,14 +2,18 @@
 class CommentModule extends YWebModule
 {
     public $defaultCommentStatus = Comment::STATUS_APPROVED;
-
-    public $autoApprove = false;
+    public $autoApprove          = false;
+    public $notify               = false;
+    public $email;
 
     public function getParamsLabels()
     {
         return array(
-            'defaultCommentStatus' => Yii::t('comment','Статус комментариев по умолчанию'),
-            'autoApprove'          => Yii::t('comment','Автоматическое подтверждение комментариев')
+            'defaultCommentStatus' => Yii::t('comment', 'Статус комментариев по умолчанию'),
+            'autoApprove'          => Yii::t('comment', 'Автоматическое подтверждение комментариев'),
+            'notify'               => Yii::t('comment', 'Уведомить о новом комментарии?'),
+            'email'                => Yii::t('comment', 'Email для уведомлений?'),
+            'adminMenuOrder'       => Yii::t('comment', 'Порядок следования в меню'),
         );
     }
 
@@ -17,7 +21,10 @@ class CommentModule extends YWebModule
     {
         return array(
             'defaultCommentStatus' => Comment::model()->getStatusList(),
-            'autoApprove' => $this->getChoice()
+            'autoApprove'          => $this->getChoice(),
+            'notify'               => $this->getChoice(),
+            'email',
+            'adminMenuOrder',
         );
     }
 
@@ -28,9 +35,23 @@ class CommentModule extends YWebModule
 
     public function getName()
     {
-        $count = Comment::model()->new()->cache(5)->count();
-        return $count ? Yii::t('comment', 'Комментарии') . " ($count)"
-            : Yii::t('comment', 'Комментарии');
+        return Yii::t('comment', 'Комментарии');
+    }
+
+    public function checkSelf()
+    {
+        $count = Comment::model()->cache(Yii::app()->getModule('yupe')->coreCacheTime)->new()->count();
+
+        if ($count)
+            return array(
+                'type'    => YWebModule::CHECK_NOTICE,
+                'message' => Yii::t('comment', 'У Вас {{count}} новых комментариев. {{link}}', array(
+                    '{{count}}' => $count,
+                    '{{link}}'  => CHtml::link(Yii::t('comment', 'Модерация комментариев'), array(
+                        '/comment/default/admin/order/status.asc/Comment_sort/status/',
+                    )),
+                )),
+            );
     }
 
     public function getDescription()
@@ -40,17 +61,17 @@ class CommentModule extends YWebModule
 
     public function getVersion()
     {
-        return Yii::t('comment', '0.2');
+        return Yii::t('comment', '0.4');
     }
 
     public function getAuthor()
     {
-        return Yii::t('comment', 'xoma');
+        return Yii::t('comment', 'yupe team');
     }
 
     public function getAuthorEmail()
     {
-        return Yii::t('comment', 'aopeykin@yandex.ru');
+        return Yii::t('comment', 'team@yupe.ru');
     }
 
     public function getUrl()
@@ -58,13 +79,28 @@ class CommentModule extends YWebModule
         return Yii::t('comment', 'http://yupe.ru');
     }
 
+    public function getIcon()
+    {
+        return "comment";
+    }
+    
+    public function getNavigation()
+    {
+        return array(
+            array('icon' => 'list-alt', 'label' => Yii::t('comment', 'Список комментариев'), 'url'=>array('/comment/default/index')),
+            array('icon' => 'plus-sign', 'label' => Yii::t('comment', 'Добавить комментарий'), 'url' => array('/comment/default/create')),
+        );
+    }
 
     public function init()
     {
         parent::init();
 
         $this->setImport(array(
-                              'comment.models.*',
-                         ));
+            'comment.models.*',
+        ));
+
+        if (!$this->email)
+            $this->email = Yii::app()->getModule('yupe')->email;
     }
 }

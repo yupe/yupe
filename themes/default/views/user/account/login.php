@@ -1,4 +1,7 @@
-<?php $this->pageTitle = Yii::t('user', 'Авторизация'); ?>
+<?php
+$this->pageTitle = Yii::t('user', 'Авторизация');
+$this->breadcrumbs = array('Авторизация');
+?>
 
 <?php Yii::app()->clientScript->registerScriptFile('http://connect.facebook.net/ru_RU/all.js'); ?>
 
@@ -23,7 +26,7 @@
 
     <div class="row">
         <?php echo $form->labelEx($model, 'password'); ?>
-        <?php echo $form->passwordField($model, 'password',array('maxlength' => Yii::app()->getModule('user')->maxPasswordLength)) ?>
+        <?php echo $form->passwordField($model, 'password') ?>
         <?php echo $form->error($model, 'password'); ?>
     </div>
 
@@ -40,5 +43,3 @@
 
     <?php $this->endWidget(); ?>
 </div><!-- form -->
-
-<?php  $this->widget('application.modules.social.extensions.eauth.EAuthWidget',array('action' => '/social/social/login/'));?>

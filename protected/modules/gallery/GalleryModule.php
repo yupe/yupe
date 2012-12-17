@@ -4,8 +4,13 @@ class GalleryModule extends YWebModule
     public function getParamsLabels()
     {
         return array(
-            'adminMenuOrder' => Yii::t('gallery', 'Порядок следования в меню')
+            'adminMenuOrder' => Yii::t('gallery', 'Порядок следования в меню'),
         );
+    }
+
+    public  function getVersion()
+    {
+        return Yii::t('gallery', '0.1');
     }
 
     public function getCategory()
@@ -25,12 +30,12 @@ class GalleryModule extends YWebModule
 
     public function getAuthor()
     {
-        return Yii::t('gallery', 'xoma');
+        return Yii::t('gallery', 'yupe team');
     }
 
     public function getAuthorEmail()
     {
-        return Yii::t('gallery', 'aopeykin@yandex.ru');
+        return Yii::t('gallery', 'team@yupe.ru');
     }
 
     public function getUrl()
@@ -38,11 +43,26 @@ class GalleryModule extends YWebModule
         return Yii::t('gallery', 'http://yupe.ru');
     }
 
+    public function getIcon()
+    {
+        return "picture";
+    }
+
     public function init()
     {
+        parent::init();
+
         $this->setImport(array(
-                              'gallery.models.*',
-                              'gallery.components.*',
-                         ));
+            'gallery.models.*',
+            'gallery.components.*',
+        ));
+    }
+
+     public function getNavigation()
+    {
+        return array(
+            array('icon' => 'list-alt', 'label' => Yii::t('gallery', 'Список галерей'), 'url' => array('/gallery/default/index')),
+            array('icon' => 'plus-sign', 'label' => Yii::t('gallery', 'Добавить галерею'), 'url' => array('/gallery/default/create')),
+        );
     }
 }

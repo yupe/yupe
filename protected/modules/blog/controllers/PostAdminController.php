@@ -1,141 +1,140 @@
 <?php
+
 class PostAdminController extends YBackController
 {
-	/**
-	 * Displays a particular model.
-	 * @param integer $id the ID of the model to be displayed
-	 */
-	public function actionView($id)
-	{
-		$this->render('view',array(
-			'model'=>$this->loadModel($id),
-		));
-	}
+    /**
+     * Отображает запись по указанному идентификатору
+     * @param integer $id Идинтификатор запись для отображения
+     */
+    public function actionView($id)
+    {
+        $this->render('view', array('model' => $this->loadModel($id)));
+    }
 
-	/**
-	 * Creates a new model.
-	 * If creation is successful, the browser will be redirected to the 'view' page.
-	 */
-	public function actionCreate()
-	{
-		$model=new Post;
+    /**
+     * Создает новую модель записи.
+     * Если создание прошло успешно - перенаправляет на просмотр.
+     */
+    public function actionCreate()
+    {
+        $model = new Post;
 
-		// Uncomment the following line if AJAX validation is needed
-		// $this->performAjaxValidation($model);
+        // Uncomment the following line if AJAX validation is needed
+        // $this->performAjaxValidation($model);
 
-		if(isset($_POST['Post']))
-		{
-			$model->attributes=$_POST['Post'];
+        if (isset($_POST['Post']))
+        {
+            $model->attributes = $_POST['Post'];
+            $model->setTags(Yii::app()->request->getPost('tags'));
 
-			$model->setTags(Yii::app()->request->getPost('tags'));
+            if ($model->save())
+            {
+                Yii::app()->user->setFlash(
+                    YFlashMessages::NOTICE_MESSAGE,
+                    Yii::t('blog', 'Запись добавлена!')
+                );
 
-			if($model->save())
-				$this->redirect(array('view','id'=>$model->id));			
-		}
+                if (!isset($_POST['submit-type']))
+                    $this->redirect(array('update', 'id' => $model->id));
+                else
+                    $this->redirect(array($_POST['submit-type']));
+            }
+        }
+        $this->render('create', array('model' => $model));
+    }
 
-		$this->render('create',array(
-			'model'=>$model,
-		));
-	}
+    /**
+     * Редактирование записи.
+     * @param integer $id the ID of the model to be updated
+     */
+    public function actionUpdate($id)
+    {
+        $model = $this->loadModel($id);
 
-	/**
-	 * Updates a particular model.
-	 * If update is successful, the browser will be redirected to the 'view' page.
-	 * @param integer $id the ID of the model to be updated
-	 */
-	public function actionUpdate($id)
-	{
-		$model=$this->loadModel($id);
+        // Uncomment the following line if AJAX validation is needed
+        // $this->performAjaxValidation($model);
 
-		// Uncomment the following line if AJAX validation is needed
-		// $this->performAjaxValidation($model);
+        if (isset($_POST['Post']))
+        {
+            $model->attributes = $_POST['Post'];
+            $model->setTags(Yii::app()->request->getPost('tags'));
 
-		if(isset($_POST['Post']))
-		{
-			$model->attributes=$_POST['Post'];
+            if ($model->save())
+            {
+                Yii::app()->user->setFlash(
+                    YFlashMessages::NOTICE_MESSAGE,
+                    Yii::t('blog', 'Запись обновлена!')
+                );
 
-			$model->setTags(Yii::app()->request->getPost('tags'));
+                if (!isset($_POST['submit-type']))
+                    $this->redirect(array('update', 'id' => $model->id));
+                else
+                    $this->redirect(array($_POST['submit-type']));
+            }
+        }
+        $this->render('update', array('model' => $model));
+    }
 
-			if($model->save())
-				$this->redirect(array('view','id'=>$model->id));
-		}
+    /**
+     * Удаляет модель записи из базы.
+     * Если удаление прошло успешно - возвращется в index
+     * @param integer $id идентификатор записи, который нужно удалить
+     */
+    public function actionDelete($id)
+    {
+        if (Yii::app()->request->isPostRequest)
+        {
+            // поддерживаем удаление только из POST-запроса
+            $this->loadModel($id)->delete();
 
-		$this->render('update',array(
-			'model'=>$model,
-		));
-	}
+            Yii::app()->user->setFlash(
+                YFlashMessages::NOTICE_MESSAGE,
+                Yii::t('blog', 'Запись удалена!')
+            );
 
-	/**
-	 * Deletes a particular model.
-	 * If deletion is successful, the browser will be redirected to the 'admin' page.
-	 * @param integer $id the ID of the model to be deleted
-	 */
-	public function actionDelete($id)
-	{
-		if(Yii::app()->request->isPostRequest)
-		{
-			// we only allow deletion via POST request
-			$this->loadModel($id)->delete();
+            // если это AJAX запрос ( кликнули удаление в админском grid view), мы не должны никуда редиректить
+            if (!isset($_GET['ajax']))
+                $this->redirect(isset($_POST['returnUrl']) ? $_POST['returnUrl'] : array('index'));
+        }
+        else
+            throw new CHttpException(400, Yii::t('blog', 'Неверный запрос. Пожалуйста, больше не повторяйте такие запросы!'));
+    }
 
-			// if AJAX request (triggered by deletion via admin grid view), we should not redirect the browser
-			if(!isset($_GET['ajax']))
-				$this->redirect(isset($_POST['returnUrl']) ? $_POST['returnUrl'] : array('admin'));
-		}
-		else
-			throw new CHttpException(400,'Invalid request. Please do not repeat this request again.');
-	}
+    /**
+     * Управление записями.
+     */
+    public function actionIndex()
+    {
+        $model = new Post('search');
+        $model->unsetAttributes(); // clear any default values
+        if (isset($_GET['Post']))
+            $model->attributes = $_GET['Post'];
+        $this->render('index', array('model' => $model));
+    }
 
-	/**
-	 * Lists all models.
-	 */
-	public function actionIndex()
-	{
-		$dataProvider=new CActiveDataProvider('Post',array(
-			'criteria' => array('with' => array('blog','createUser','updateUser'))
-		));
-		$this->render('index',array(
-			'dataProvider'=>$dataProvider,
-		));
-	}
+    /**
+     * Возвращает модель по указанному идентификатору
+     * Если модель не будет найдена - возникнет HTTP-исключение.
+     * @param integer идентификатор нужной модели
+     */
+    public function loadModel($id)
+    {
+        $model = Post::model()->findByPk($id);
+        if ($model === null)
+            throw new CHttpException(404, Yii::t('blog', 'Запрошенная страница не найдена!'));
+        return $model;
+    }
 
-	/**
-	 * Manages all models.
-	 */
-	public function actionAdmin()
-	{
-		$model=new Post('search');
-		$model->unsetAttributes();  // clear any default values
-		if(isset($_GET['Post']))
-			$model->attributes=$_GET['Post'];
-
-		$this->render('admin',array(
-			'model'=>$model,
-		));
-	}
-
-	/**
-	 * Returns the data model based on the primary key given in the GET variable.
-	 * If the data model is not found, an HTTP exception will be raised.
-	 * @param integer the ID of the model to be loaded
-	 */
-	public function loadModel($id)
-	{
-		$model=Post::model()->findByPk($id);
-		if($model===null)
-			throw new CHttpException(404,'The requested page does not exist.');
-		return $model;
-	}
-
-	/**
-	 * Performs the AJAX validation.
-	 * @param CModel the model to be validated
-	 */
-	protected function performAjaxValidation($model)
-	{
-		if(isset($_POST['ajax']) && $_POST['ajax']==='post-form')
-		{
-			echo CActiveForm::validate($model);
-			Yii::app()->end();
-		}
-	}
+    /**
+     * Производит AJAX-валидацию
+     * @param CModel модель, которую необходимо валидировать
+     */
+    protected function performAjaxValidation($model)
+    {
+        if (isset($_POST['ajax']) && $_POST['ajax'] === 'post-form')
+        {
+            echo CActiveForm::validate($model);
+            Yii::app()->end();
+        }
+    }
 }

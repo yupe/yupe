@@ -15,7 +15,7 @@
  * The followings are the available model relations:
  * @property User $user
  */
-class Settings extends CActiveRecord
+class Settings extends YModel
 {
     /**
      * Returns the static model of the specified AR class.
@@ -51,12 +51,13 @@ class Settings extends CActiveRecord
 
     public function beforeSave()
     {
-        if ($this->isNewRecord)        
-            $this->creation_date = $this->change_date = new CDbExpression('NOW()');                                        
-        else        
-            $this->change_date = new CDbExpression('NOW()');
-                
-        $this->user_id = Yii::app()->user->getId();
+        $this->change_date = new CDbExpression('NOW()');
+
+        if ($this->isNewRecord)
+            $this->creation_date = $this->change_date;
+
+        if (!isset($this->user_id))
+            $this->user_id = Yii::app()->user->id;
 
         return parent::beforeSave();
     }
@@ -79,13 +80,13 @@ class Settings extends CActiveRecord
     public function attributeLabels()
     {
         return array(
-            'id' => 'ID',
-            'module_id' => 'Module',
-            'param_name' => 'Param Name',
-            'param_value' => 'Param Value',
-            'creation_date' => 'Creation Date',
-            'change_date' => 'Change Date',
-            'user_id' => 'User',
+            'id'            => Yii::t('settings', 'ID'),
+            'module_id'     => Yii::t('settings', 'Модуль'),
+            'param_name'    => Yii::t('settings', 'Имя парамметра'),
+            'param_value'   => Yii::t('settings', 'Значение парамметра'),
+            'creation_date' => Yii::t('settings', 'Дата создания'),
+            'change_date'   => Yii::t('settings', 'Дата изменения'),
+            'user_id'       => Yii::t('settings', 'Пользователь'),
         );
     }
 
@@ -108,8 +109,45 @@ class Settings extends CActiveRecord
         $criteria->compare('change_date', $this->change_date, true);
         $criteria->compare('user_id', $this->user_id, true);
 
-        return new CActiveDataProvider(get_class($this), array(
-                                                              'criteria' => $criteria,
-                                                         ));
+        return new CActiveDataProvider(get_class($this), array('criteria' => $criteria));
+    }
+
+    /**
+     * Получает настройки модуля из базы данных
+     *
+     * @param string $module_id Идентификатор модуля
+     * @param mixed $params Список параметров, которые требуется прочитать
+     * @return array Экземпляры класса Settings, соответствующие запрошенным параметрам
+     */
+    public function fetchModuleSettings($moduleId, $params = null)
+    {
+        $settings = array();
+
+        if ($moduleId)
+        {
+            $criteria = new CDbCriteria();
+
+            $criteria->compare("module_id", $moduleId);
+
+            if (is_array($params))
+                $criteria->addInCondition("param_name", $params);
+            else
+                $criteria->compare("param_name", $params);
+
+            $q = $this->cache(Yii::app()->getModule('yupe')->coreCacheTime)->findAll($criteria);
+
+            if(count($q))
+            {
+                foreach ($q as $s)
+                    $settings[$s->param_name] = $s;
+            }
+            elseif (count($params))
+            {
+                foreach($params as $param)
+                    $settings[$param] = null;
+            }
+        }
+
+        return $settings;
     }
 }

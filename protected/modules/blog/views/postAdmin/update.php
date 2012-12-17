@@ -1,19 +1,46 @@
 <?php
-$this->breadcrumbs=array(
-	Yii::t('blog','Блоги')  => array('blogAdmin/admin'),
-	Yii::t('blog','Записи')  => array('postAdmin/admin'),	
-	$model->title=>array('view','id'=>$model->id),
-	Yii::t('blog','Редактирование'),
-);
+    $this->breadcrumbs = array(
+        Yii::app()->getModule('blog')->getCategory() => array(),
+        Yii::t('blog', 'Записи') => array('/blog/PostAdmin/index'),
+        $model->title => array('/blog/PostAdmin/view', 'id' => $model->id),
+        Yii::t('blog', 'Редактирование'),
+    );
 
-$this->menu=array(
-	array('label' => Yii::t('blog','Список записей'), 'url'=>array('index')),
-	array('label' => Yii::t('blog','Добавить запись'), 'url'=>array('create')),
-	array('label' => Yii::t('blog','Просмотр записи'), 'url'=>array('view', 'id'=>$model->id)),
-	array('label' => Yii::t('blog','Управление записями'), 'url'=>array('admin')),
-);
+    $this->pageTitle = Yii::t('blog', 'Записи - редактирование');
+
+    $this->menu = array(
+        array('label' => Yii::t('blog', 'Блоги'), 'items' => array(
+            array('icon' => 'list-alt', 'label' => Yii::t('blog', 'Управление блогами'), 'url' => array('/blog/BlogAdmin/index')),
+            array('icon' => 'plus-sign', 'label' => Yii::t('blog', 'Добавить блог'), 'url' => array('/blog/BlogAdmin/create')),
+        )),
+        array('label' => Yii::t('blog', 'Записи'), 'items' => array(
+            array('icon' => 'list-alt', 'label' => Yii::t('blog', 'Управление записями'), 'url' => array('/blog/PostAdmin/index')),
+            array('icon' => 'plus-sign', 'label' => Yii::t('blog', 'Добавить запись'), 'url' => array('/blog/PostAdmin/create')),
+            array('label' => Yii::t('blog', 'Запись') . ' «' . mb_substr($model->title, 0, 32) . '»'),
+            array('icon' => 'pencil', 'label' => Yii::t('blog', 'Редактирование записи'), 'url' => array(
+                '/blog/PostAdmin/update',
+                'id' => $model->id
+            )),
+            array('icon' => 'eye-open', 'label' => Yii::t('blog', 'Просмотреть запись'), 'url' => array(
+                '/blog/PostAdmin/view',
+                'id' => $model->id
+            )),
+            array('icon' => 'trash', 'label' => Yii::t('blog', 'Удалить запись'), 'url' => '#', 'linkOptions' => array(
+                'submit' => array('/blog/PostAdmin/delete', 'id' => $model->id),
+                'confirm' => Yii::t('blog', 'Вы уверены, что хотите удалить запись?'),
+            )),
+        )),
+        array('label' => Yii::t('blog', 'Участники'), 'items' => array(
+            array('icon' => 'list-alt', 'label' => Yii::t('blog', 'Управление участниками'), 'url' => array('/blog/UserToBlogAdmin/index')),
+            array('icon' => 'plus-sign', 'label' => Yii::t('blog', 'Добавить участника'), 'url' => array('/blog/UserToBlogAdmin/create')),
+        )),
+    );
 ?>
+<div class="page-header">
+    <h1>
+        <?php echo Yii::t('blog', 'Редактирование записи'); ?><br />
+        <small>&laquo;<?php echo $model->title; ?>&raquo;</small>
+    </h1>
+</div>
 
-<h1><?php echo Yii::t('blog','Редактирование записи');?> "<?php echo $model->title; ?>"</h1>
-
-<?php echo $this->renderPartial('_form', array('model'=>$model)); ?>
+<?php echo $this->renderPartial('_form', array('model' => $model)); ?>

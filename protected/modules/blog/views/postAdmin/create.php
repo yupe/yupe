@@ -1,16 +1,32 @@
 <?php
-$this->breadcrumbs=array(
-	Yii::t('blog','Блоги')  => array('blogAdmin/admin'),
-	Yii::t('blog','Записи') => array('admin'),
-	Yii::t('blog','Добавление'),
-);
+    $this->breadcrumbs = array(
+        Yii::app()->getModule('blog')->getCategory() => array(),
+        Yii::t('blog', 'Записи') => array('/blog/PostAdmin/index'),
+        Yii::t('blog', 'Добавление'),
+    );
 
-$this->menu=array(
-	array('label' => Yii::t('blog','Список записей'), 'url'=>array('index')),
-	array('label' => Yii::t('blog','Управление записями'), 'url'=>array('admin')),
-);
+    $this->pageTitle = Yii::t('blog', 'Записи - добавление');
+
+    $this->menu = array(
+        array('label' => Yii::t('blog', 'Блоги'), 'items' => array(
+            array('icon' => 'list-alt', 'label' => Yii::t('blog', 'Управление блогами'), 'url' => array('/blog/BlogAdmin/index')),
+            array('icon' => 'plus-sign', 'label' => Yii::t('blog', 'Добавить блог'), 'url' => array('/blog/BlogAdmin/create')),
+        )),
+        array('label' => Yii::t('blog', 'Записи'), 'items' => array(
+            array('icon' => 'list-alt', 'label' => Yii::t('blog', 'Управление записями'), 'url' => array('/blog/PostAdmin/index')),
+            array('icon' => 'plus-sign', 'label' => Yii::t('blog', 'Добавить запись'), 'url' => array('/blog/PostAdmin/create')),
+        )),
+        array('label' => Yii::t('blog', 'Участники'), 'items' => array(
+            array('icon' => 'list-alt', 'label' => Yii::t('blog', 'Управление участниками'), 'url' => array('/blog/UserToBlogAdmin/index')),
+            array('icon' => 'plus-sign', 'label' => Yii::t('blog', 'Добавить участника'), 'url' => array('/blog/UserToBlogAdmin/create')),
+        )),
+    );
 ?>
+<div class="page-header">
+    <h1>
+        <?php echo Yii::t('blog', 'Записи'); ?>
+        <small><?php echo Yii::t('blog', 'добавление'); ?></small>
+    </h1>
+</div>
 
-<h1><?php echo Yii::t('blog','Добавление записи');?></h1>
-
-<?php echo $this->renderPartial('_form', array('model'=>$model)); ?>
+<?php echo $this->renderPartial('_form', array('model' => $model)); ?>

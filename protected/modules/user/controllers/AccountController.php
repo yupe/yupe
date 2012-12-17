@@ -4,31 +4,37 @@ class AccountController extends YFrontController
     public function actions()
     {
         return array(
-            'captcha' => array(
-                'class' => 'CCaptchaAction',
+            'captcha'          => array(
+                'class'     => 'CCaptchaAction',
                 'backColor' => 0xFFFFFF,
             ),
-            'registration' => array(
-                'class' => 'application.modules.user.controllers.account.RegistrationAction'
+            'registration'     => array(
+                'class' => 'application.modules.user.controllers.account.RegistrationAction',
             ),
-            'activate' => array(
-                'class' => 'application.modules.user.controllers.account.ActivateAction'
+            'profile'          => array(
+                'class' => 'application.modules.user.controllers.account.ProfileAction'
             ),
-            'login' => array(
-                'class' => 'application.modules.user.controllers.account.LoginAction'
+            'activate'         => array(
+                'class' => 'application.modules.user.controllers.account.ActivateAction',
             ),
-            'fblogin' => array(
-                'class' => 'application.modules.user.controllers.account.FbloginAction'
+            'login'            => array(
+                'class' => 'application.modules.user.controllers.account.LoginAction',
             ),
-            'logout' => array(
-                'class' => 'application.modules.user.controllers.account.LogOutAction'
+            'fblogin'          => array(
+                'class' => 'application.modules.user.controllers.account.FbloginAction',
             ),
-            'recovery' => array(
-                'class' => 'application.modules.user.controllers.account.RecoveryAction'
+            'logout'           => array(
+                'class' => 'application.modules.user.controllers.account.LogOutAction',
+            ),
+            'recovery'         => array(
+                'class' => 'application.modules.user.controllers.account.RecoveryAction',
             ),
             'recoveryPassword' => array(
-                'class' => 'application.modules.user.controllers.account.RecoveryPasswordAction'
-            ),            
+                'class' => 'application.modules.user.controllers.account.RecoveryPasswordAction',
+            ),
+            'emailConfirm'     => array(
+                'class' => 'application.modules.user.controllers.account.EmailConfirmAction',
+            ),
         );
     }
 }

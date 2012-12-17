@@ -1,15 +1,19 @@
-<?php $this->pageTitle = Yii::t('user', 'Регистрация новго пользователя'); ?>
+<?php
+$this->pageTitle = Yii::t('user', 'Регистрация новго пользователя');
+$this->breadcrumbs = array('Регистрация новго пользователя');
+?>
 
 <h1>Регистрация нового пользователя</h1>
+
+<div class='hint'>Пожалуйста, имя пользователя и пароль заполняйте только латинскими буквами и цифрами.</div>
+
+<br/><br/>
 
 <?php $this->widget('application.modules.yupe.widgets.YFlashMessages'); ?>
 
 <div class="form">
 
-    <?php $form = $this->beginWidget('CActiveForm', array(
-                                                         'id' => 'registration-form',
-                                                         'enableClientValidation' => true
-                                                    ));?>
+    <?php $form = $this->beginWidget('CActiveForm', array('id' => 'registration-form'));?>
 
     <?php echo $form->errorSummary($model); ?>
 
@@ -26,20 +30,19 @@
     </div>
 
     <div class="row">
-        <?php echo $form->labelEx($model, 'password',array('maxlength' => Yii::app()->getModule('user')->maxPasswordLength)); ?>
-        <?php echo $form->passwordField($model, 'password') ?>
+        <?php echo $form->labelEx($model, 'password'); ?>
+        <?php echo $form->passwordField($model, 'password');?>
         <?php echo $form->error($model, 'password'); ?>
     </div>
 
     <div class="row">
         <?php echo $form->labelEx($model, 'cPassword'); ?>
-        <?php echo $form->passwordField($model, 'cPassword',array('maxlength' => Yii::app()->getModule('user')->maxPasswordLength)) ?>
+        <?php echo $form->passwordField($model, 'cPassword');?>
         <?php echo $form->error($model, 'cPassword'); ?>
     </div>
 
 
-    <?php if (Yii::app()->getModule('user')->showCaptcha): ?>
-    <?php if (extension_loaded('gd')): ?>
+    <?php if ($module->showCaptcha && extension_loaded('gd')): ?>
         <div class="row">
             <?php echo $form->labelEx($model, 'verifyCode'); ?>
             <div>
@@ -48,13 +51,10 @@
                 <?php echo $form->error($model, 'verifyCode'); ?>
             </div>
             <div class="hint">
-                Введите цифры указанные на картинке
+                Введите текст указанный на картинке
             </div>
         </div>
-        <?php endif; ?>
     <?php endif; ?>
-
-
 
     <div class="row submit">
         <?php echo CHtml::submitButton('Зарегистрироваться'); ?>
@@ -62,14 +62,3 @@
 
     <?php $this->endWidget(); ?>
 </div><!-- form -->
-
-<?php  $this->widget('application.modules.social.extensions.eauth.EAuthWidget',array('action' => '/social/social/login/'));?>
-
-<div style='float:left;'>
-    <div style='float:left;padding-right:5px'>
-        <?php $this->widget('application.modules.social.widgets.ysc.yandex.YandexShareApi', array(
-                                                                                                  'type' => 'button',
-                                                                                                  'services' => 'all'
-                                                                                             ));?>
-    </div>
-</div>

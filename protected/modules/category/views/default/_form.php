@@ -1,54 +1,81 @@
-<div class="form">
+<?php
+$form = $this->beginWidget('bootstrap.widgets.TbActiveForm', array(
+    'id'                     => 'category-form',
+    'enableAjaxValidation'   => false,
+    'enableClientValidation' => true,
+    'type'                   => 'vertical',
+    'htmlOptions'            => array('class' => 'well', 'enctype' => 'multipart/form-data'),
+    'inlineErrors'           => true,
+));
 
-    <?php $form = $this->beginWidget('CActiveForm', array(
-                                                         'id' => 'category-form',
-                                                         'enableAjaxValidation' => false,
-                                                    )); ?>
-
-    <p class="note"><?php echo Yii::t('page', 'Поля, отмеченные * обязательны для заполнения')?></p>
-
-    <?php echo $form->errorSummary($model); ?>
-
-    <div class="row">
-        <?php echo $form->labelEx($model, 'parent_id'); ?>
-        <?php echo $form->dropDownList($model, 'parent_id', $categoryes); ?>
-        <?php echo $form->error($model, 'parent_id'); ?>
+Yii::app()->clientScript->registerScript('fieldset', "
+    $('document').ready(function () {
+        $('.popover-help').popover({ trigger : 'hover', delay : 500 });
+    });
+");
+?>
+    <div class="alert alert-info">
+        <?php echo Yii::t('category', 'Поля, отмеченные'); ?>
+        <span class="required">*</span> 
+        <?php echo Yii::t('category', 'обязательны.'); ?>
     </div>
 
-    <div class="row">
-        <?php echo $form->labelEx($model, 'name'); ?>
-        <?php echo $form->textField($model, 'name', array('size' => 60, 'maxlength' => 150)); ?>
-        <?php echo $form->error($model, 'name'); ?>
-    </div>
+    <?php echo  $form->errorSummary($model); ?>
 
-    <div class="row">
-        <?php echo $form->labelEx($model, 'alias'); ?>
-        <?php echo $form->textField($model, 'alias', array('size' => 50, 'maxlength' => 50)); ?>
-        <?php echo $form->error($model, 'alias'); ?>
+    <div class='row-fluid control-group <?php echo $model->hasErrors("parent_id") ? "error" : ""; ?>'>
+        <?php echo  $form->dropDownList($model, 'parent_id', CHtml::listData(Category::model()->findAll(), 'id', 'name'), array('empty' => Yii::t('category', '--нет--'))); ?>
     </div>
-
-    <div class="row">
+    <div class='control-group <?php echo $model->hasErrors("name") ? "error" : ""; ?>'>
+        <?php echo $form->textFieldRow($model, 'name', array('class' => 'span7', 'maxlength' => 300)); ?>
+    </div>
+    <div class='control-group <?php echo $model->hasErrors("alias") ? "error" : ""; ?>'>
+        <?php echo $form->textFieldRow($model, 'alias', array('class' => 'span7', 'maxlength' => 300)); ?>
+    </div>
+    <div class='row-fluid control-group <?php echo $model->hasErrors("image") ? "error" : ""; ?>'>
+        <?php if (!$model->isNewRecord && $model->image): ?>
+            <?php echo CHtml::image(Yii::app()->baseUrl . '/' . Yii::app()->getModule('yupe')->uploadPath . '/' . $this->module->uploadPath . '/' . $model->image, $model->name, array('width' => 300, 'height' => 300)); ?>
+        <?php endif; ?>
+        <?php echo  $form->fileFieldRow($model, 'image', array('class' => 'span5', 'maxlength' => 300, 'size' => 60)); ?>
+    </div>
+    <div class='row-fluid control-group <?php echo $model->hasErrors("description") ? "error" : ""; ?>'>
         <?php echo $form->labelEx($model, 'description'); ?>
-        <?php $this->widget('application.modules.yupe.widgets.EMarkItUp.EMarkitupWidget', array(
-                                                                                  'model' => $model,
-                                                                                  'attribute' => 'description',
-                                                                                  'htmlOptions' => array('rows' => 16, 'cols' => 50)
-                                                                             ))?>
-        <?php echo $form->error($model, 'description'); ?>
+        <?php $this->widget(Yii::app()->getModule('yupe')->editor, array(
+            'model'     => $model,
+            'attribute' => 'description',
+            'options'   => array(
+                'toolbar'     => 'main',
+                'imageUpload' => Yii::app()->baseUrl.'/index.php/yupe/backend/AjaxFileUpload/',
+            ),
+            'htmlOptions' => array('rows' => 20,'cols' => 6),
+        )); ?>
+        <br /><?php echo $form->error($model, 'description'); ?>
+    </div>
+    <div class='row-fluid control-group <?php echo $model->hasErrors("short_description") ? "error" : ""; ?>'>
+        <?php echo $form->labelEx($model, 'short_description'); ?>
+        <?php $this->widget(Yii::app()->getModule('yupe')->editor, array(
+            'model'     => $model,
+            'attribute' => 'short_description',
+            'options'   => array(
+                'toolbar'     => 'main',
+                'imageUpload' => Yii::app()->baseUrl.'/index.php/yupe/backend/AjaxFileUpload/',
+            ),
+            'htmlOptions' => array('rows' => 20,'cols' => 6),
+        )); ?>
+        <br /><?php echo $form->error($model, 'short_description'); ?>
+    </div>
+    <div class='row-fluid control-group <?php echo $model->hasErrors("status") ? "error" : ""; ?>'>
+        <?php echo  $form->dropDownList($model, 'status', $model->statusList); ?>
     </div>
 
-    <div class="row">
-        <?php echo $form->labelEx($model, 'status'); ?>
-        <?php echo $form->dropDownList($model, 'status', $model->getStatusList()); ?>
-        <?php echo $form->error($model, 'status'); ?>
-    </div>
+    <?php $this->widget('bootstrap.widgets.TbButton', array(
+        'buttonType' => 'submit',
+        'type'       => 'primary',
+        'label'      => $model->isNewRecord ? Yii::t('category', 'Добавить категорию и продолжить') : Yii::t('category', 'Сохранить категорию и продолжить'),
+    )); ?>
+    <?php $this->widget('bootstrap.widgets.TbButton', array(
+        'buttonType'  => 'submit',
+        'htmlOptions' => array('name' => 'submit-type', 'value' => 'index'),
+        'label'       => $model->isNewRecord ? Yii::t('category', 'Добавить категорию и закрыть') : Yii::t('category', 'Сохранить категорию и закрыть'),
+    )); ?>
 
-    <div class="row buttons">
-        <?php echo CHtml::submitButton($model->isNewRecord
-                                           ? Yii::t('category', 'Добавить категорию')
-                                           : Yii::t('category', 'Сохранить измнения')); ?>
-    </div>
-
-    <?php $this->endWidget(); ?>
-
-</div><!-- form -->
+<?php $this->endWidget(); ?>

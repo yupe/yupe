@@ -1,26 +1,29 @@
-<?php $this->beginContent('application.modules.yupe.views.layouts.main'); ?>
-<div class="container">
-    <div class="span-19">
+<?php $this->beginContent($this->yupe->getBackendLayoutAlias("main")); ?>
+  <div class="row-fluid">
+    <div class="span9">
+        <?php
+        if (count($this->breadcrumbs))
+            $this->widget('bootstrap.widgets.TbBreadcrumbs', array(
+                 'homeLink' => CHtml::link(Yii::t('yupe', 'Главная'), array('/yupe/backend/index')),
+                 'links'    => $this->breadcrumbs,
+            ));
+        ?><!-- breadcrumbs -->
         <?php $this->widget('YFlashMessages');?>
-        <div id="content">            
+        <div id="content">
             <?php echo $content; ?>
         </div>
         <!-- content -->
     </div>
-    <div class="span-5 last">
-        <div id="sidebar">
-            <?php
-            $this->beginWidget('zii.widgets.CPortlet', array(
-                                                            'title' => Yii::t('page', 'Основное меню'),
-                                                        ));
-            $this->widget('zii.widgets.CMenu', array(
-                                                    'items' => $this->menu,
-                                                    'htmlOptions' => array('class' => 'operations'),
-                                               ));
-            $this->endWidget();
-            ?>
-        </div>
-        <!-- sidebar -->
+    <div class="span3">
+        <?php if (count($this->menu)): ?>
+            <div class="well" style="padding: 8px 0;">
+                <?php $this->widget('bootstrap.widgets.TbMenu', array(
+                    'type' => 'list',
+                    'items' => $this->yupe->getSubMenu($this->menu),
+                )); ?>
+            </div>
+        <?php endif; ?>
+        <div class="well" style="padding: 8px;"><?php $this->widget('YModuleInfo'); ?></div>
     </div>
-</div>
+  </div>
 <?php $this->endContent(); ?>

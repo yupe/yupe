@@ -1,60 +1,82 @@
-<?php $this->pageTitle = Yii::t('user', 'Просмотр пользователя'); ?>
-
 <?php
-$this->breadcrumbs = array(
-    Yii::t('user', 'Пользователи') => array('admin'),
-    $model->nick_name,
-);
+    $this->breadcrumbs = array(
+        Yii::app()->getModule('user')->getCategory() => array(),
+        Yii::t('user', 'Пользователи') => array('/user/default/index'),
+        $model->nick_name,
+    );
 
-$this->menu = array(
-    array('label' => Yii::t('user', 'Список пользователей'), 'url' => array('index')),
-    array('label' => Yii::t('user', 'Добавление пользователя'), 'url' => array('create')),
-    array('label' => Yii::t('user', 'Редактирование пользователя'), 'url' => array('update', 'id' => $model->id)),
-    array('label' => Yii::t('user', 'Удалить пользователя'), 'url' => '#', 'linkOptions' => array('submit' => array('delete', 'id' => $model->id), 'confirm' => 'Подтверждаете удаление ?')),
-    array('label' => Yii::t('user', 'Управление пользователями'), 'url' => array('admin')),
-    array('label' => Yii::t('user', 'Изменить пароль'), 'url' => array('changepassword', 'id' => $model->id)),
-);
+    $this->pageTitle = Yii::t('user', 'Пользователи - просмотр');
+
+    $this->menu = array(
+        array('label' => Yii::t('user', 'Пользователи'), 'items' => array(
+            array('icon' => 'list-alt', 'label' => Yii::t('user', 'Управление пользователями'), 'url' => array('/user/default/index')),
+            array('icon' => 'plus-sign', 'label' => Yii::t('user', 'Добавление пользователя'), 'url' => array('/user/default/create')),
+            array('label' => Yii::t('user', 'Пользователь') . ' «' . $model->nick_name . '»'),
+            array('icon' => 'pencil', 'label' => Yii::t('user', 'Редактирование пользователя'), 'url' => array(
+                '/user/default/update',
+                'id' => $model->id
+            )),
+            array('icon' => 'eye-open', 'label' => Yii::t('user', 'Просмотр пользователя'), 'url' => array(
+                '/user/default/view',
+                'id' => $model->id
+            )),
+            array('icon' => 'lock', 'label' => Yii::t('user', 'Изменить пароль пользователя'), 'url' => array(
+                '/user/default/changepassword',
+                'id' => $model->id
+            )),
+            array('icon' => 'trash', 'label' => Yii::t('user', 'Удалить пользователя'), 'url' => '#', 'linkOptions' => array(
+                'submit' => array('/user/default/delete', 'id' => $model->id),
+                'confirm' => Yii::t('user', 'Вы уверены, что хотите удалить пользователя?')),
+            ),
+        )),
+        array('label' => Yii::t('user', 'Восстановления паролей'), 'items' => array(
+            array('icon' => 'list-alt', 'label' => Yii::t('user', 'Восстановления паролей'), 'url' => array('/user/recoveryPassword/index')),
+        )),
+    );
 ?>
+<div class="page-header">
+    <h1>
+        <?php echo Yii::t('user', 'Просмотр пользователя'); ?><br />
+        <small>&laquo;<?php echo $model->nick_name; ?>&raquo;</small>
+    </h1>
+</div>
 
-<h1><?php echo Yii::t('user', 'Просмотр пользователя')?>
-    "<?php echo $model->getFullName(); ?>
-    (<?php echo $model->nick_name;?>)"</h1>
-
-<?php $this->widget('zii.widgets.CDetailView', array(
-                                                    'data' => $model,
-                                                    'attributes' => array(
-                                                        'id',
-                                                        'creation_date',
-                                                        'change_date',
-                                                        'first_name',
-                                                        'last_name',
-                                                        'nick_name',
-                                                        'email',
-                                                        'location',
-                                                        'site',
-                                                        'birth_date',
-                                                        'about',
-                                                        array(
-                                                            'name' => 'gender',
-                                                            'value' => $model->getGender()
-                                                        ),
-                                                        'password',
-                                                        'salt',
-                                                        array(
-                                                            'name' => 'status',
-                                                            'value' => $model->getStatus()
-                                                        ),
-                                                        array(
-                                                            'name' => 'access_level',
-                                                            'value' => $model->getAccessLevel()
-                                                        ),
-                                                        array(
-                                                            'name' => 'email_confirm',
-                                                            'value' => $model->getEmailConfirmStatus()
-                                                        ),
-                                                        'last_visit',
-                                                        'registration_date',
-                                                        'registration_ip',
-                                                        'activation_ip',
-                                                    ),
-                                               )); ?>
+<?php $this->widget('bootstrap.widgets.TbDetailView', array(
+    'data'       => $model,
+    'attributes' => array(
+        'id',
+        'creation_date',
+        'change_date',
+        'first_name',
+        'last_name',
+        'nick_name',
+        'email',
+        'location',
+        'site',
+        'birth_date',
+        'about',
+        array(
+            'name'  => 'gender',
+            'value' => $model->getGender(),
+        ),
+        'password',
+        'salt',
+        'activate_key',
+        array(
+            'name'  => 'status',
+            'value' => $model->getStatus(),
+        ),
+        array(
+            'name'  => 'access_level',
+            'value' => $model->getAccessLevel(),
+        ),
+        array(
+            'name'  => 'email_confirm',
+            'value' => $model->getEmailConfirmStatus(),
+        ),
+        'last_visit',
+        'registration_date',
+        'registration_ip',
+        'activation_ip',
+    ),
+)); ?>

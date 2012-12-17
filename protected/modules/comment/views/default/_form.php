@@ -1,71 +1,67 @@
-<div class="form">
+<?php
+$form = $this->beginWidget('bootstrap.widgets.TbActiveForm', array(
+    'id'                     => 'comment-form',
+    'enableAjaxValidation'   => false,
+    'enableClientValidation' => true,
+    'type'                   => 'vertical',
+    'htmlOptions'            => array('class' => 'well'),
+    'inlineErrors'           => true,
+));
 
-    <?php $form = $this->beginWidget('CActiveForm', array(
-                                                         'id' => 'comment-form',
-                                                         'enableAjaxValidation' => false,
-                                                    )); ?>
-
-    <p class="note"><?php echo Yii::t('page', 'Поля, отмеченные * обязательны для заполнения')?></p>
+Yii::app()->clientScript->registerScript('fieldset', "
+    $('document').ready(function () {
+        $('.popover-help').popover({ trigger : 'hover', delay : 500 });
+    });
+");
+?>
+    <div class="alert alert-info">
+        <?php echo Yii::t('comment', 'Поля, отмеченные'); ?>
+        <span class="required">*</span> 
+        <?php echo Yii::t('comment', 'обязательны.'); ?>
+    </div>
 
     <?php echo $form->errorSummary($model); ?>
 
-    <div class="row">
-        <?php echo $form->labelEx($model, 'model'); ?>
-        <?php echo $form->textField($model, 'model', array('size' => 60, 'maxlength' => 150)); ?>
-        <?php echo $form->error($model, 'model'); ?>
+    <div class='control-group <?php echo $model->hasErrors("model") ? "error" : ""; ?>'>
+        <?php echo $form->textFieldRow($model, 'model', array('class' => 'span7', 'maxlength' => 300)); ?>
     </div>
-
-    <div class="row">
-        <?php echo $form->labelEx($model, 'model_id'); ?>
-        <?php echo $form->textField($model, 'model_id', array('size' => 60, 'maxlength' => 150)); ?>
-        <?php echo $form->error($model, 'model_id'); ?>
+    <div class='control-group <?php echo $model->hasErrors("model_id") ? "error" : ""; ?>'>
+        <?php echo $form->textFieldRow($model, 'model_id', array('class' => 'span7', 'maxlength' => 300)); ?>
     </div>
-
-    <div class="row">
-        <?php echo $form->labelEx($model, 'name'); ?>
-        <?php echo $form->textField($model, 'name', array('size' => 60, 'maxlength' => 150)); ?>
-        <?php echo $form->error($model, 'name'); ?>
+    <div class='control-group <?php echo $model->hasErrors("name") ? "error" : ""; ?>'>
+        <?php echo $form->textFieldRow($model, 'name', array('class' => 'span7', 'maxlength' => 300)); ?>
     </div>
-
-    <div class="row">
-        <?php echo $form->labelEx($model, 'email'); ?>
-        <?php echo $form->textField($model, 'email', array('size' => 60, 'maxlength' => 150)); ?>
-        <?php echo $form->error($model, 'email'); ?>
+    <div class='control-group <?php echo $model->hasErrors("email") ? "error" : ""; ?>'>
+        <?php echo $form->textFieldRow($model, 'email', array('class' => 'span7', 'maxlength' => 300)); ?>
     </div>
-
-    <div class="row">
-        <?php echo $form->labelEx($model, 'url'); ?>
-        <?php echo $form->textField($model, 'url', array('size' => 60, 'maxlength' => 150)); ?>
-        <?php echo $form->error($model, 'url'); ?>
+    <div class='control-group <?php echo $model->hasErrors("url") ? "error" : ""; ?>'>
+        <?php echo $form->textFieldRow($model, 'url', array('class' => 'span7', 'maxlength' => 300)); ?>
     </div>
-
-    <div class="row">
+    <div class='control-group <?php echo $model->hasErrors("text") ? "error" : "" ?>'>
         <?php echo $form->labelEx($model, 'text'); ?>
-        <?php $this->widget('application.modules.yupe.widgets.EMarkItUp.EMarkitupWidget', array(
-                                                                                  'model' => $model,
-                                                                                  'attribute' => 'text',
-                                                                                  'htmlOptions' => array('rows' => 16, 'cols' => 50)
-                                                                             ))?>
-        <?php echo $form->error($model, 'text'); ?>
+        <?php $this->widget(Yii::app()->getModule('yupe')->editor, array(
+              'model'       => $model,
+              'attribute'   => 'text',
+              'options'     => array(
+                   'toolbar'     => 'main',
+                   'imageUpload' => Yii::app()->baseUrl.'/index.php/yupe/backend/AjaxFileUpload/',
+               ),
+              'htmlOptions' => array('rows' => 20, 'cols' => 6),
+         )); ?>
+    </div>
+    <div class='control-group <?php echo $model->hasErrors("status") ? "error" : ""; ?>'>
+        <?php echo $form->dropDownListRow($model, 'status', $model->statusList); ?>
     </div>
 
-    <div class="row">
-        <?php echo $form->labelEx($model, 'status'); ?>
-        <?php echo $form->dropDownList($model, 'status', $model->getStatusList()); ?>
-        <?php echo $form->error($model, 'status'); ?>
-    </div>
+    <?php $this->widget('bootstrap.widgets.TbButton', array(
+        'buttonType' => 'submit',
+        'type'       => 'primary',
+        'label'      => $model->isNewRecord ? Yii::t('comment', 'Добавить комментарий и продолжить') : Yii::t('comment', 'Сохранить комментарий и продолжить'),
+    )); ?>
+    <?php $this->widget('bootstrap.widgets.TbButton', array(
+       'buttonType'  => 'submit',
+       'htmlOptions' => array('name' => 'submit-type', 'value' => 'admin'),
+       'label'       => $model->isNewRecord ? Yii::t('comment', 'Добавить комментарий и закрыть') : Yii::t('comment', 'Сохранить комментарий и закрыть'),
+    )); ?>
 
-    <div class="row">
-        <?php echo $form->labelEx($model, 'ip'); ?>
-        <?php echo $model->ip; ?>
-    </div>
-
-    <div class="row buttons">
-        <?php echo CHtml::submitButton($model->isNewRecord
-                                           ? Yii::t('comment', 'Добавить комментарий')
-                                           : Yii::t('comment', 'Сохранить комментарий')); ?>
-    </div>
-
-    <?php $this->endWidget(); ?>
-
-</div><!-- form -->
+<?php $this->endWidget(); ?>

@@ -15,7 +15,7 @@
  * @property string $ip
  * @property string $user_id
  */
-class Comment extends CActiveRecord
+class Comment extends YModel
 {
 
     const STATUS_NEED_CHECK = 0;
@@ -24,7 +24,6 @@ class Comment extends CActiveRecord
     const STATUS_DELETED    = 3;
 
     public $verifyCode;
-
 
     /**
      * Returns the static model of the specified AR class.
@@ -49,18 +48,18 @@ class Comment extends CActiveRecord
     public function rules()
     {        
         return array(
-            array('model, name, email, text, url','filter','filter' => 'trim'),
-            array('model, name, email, text, url','filter','filter' => array($obj = new CHtmlPurifier(),'purify')),
+            array('model, name, email, text, url', 'filter', 'filter' => 'trim'),
+            array('model, name, email, text, url', 'filter', 'filter' => array($obj = new CHtmlPurifier(), 'purify')),
             array('model, model_id, name, email, text', 'required'),
-            array('status, user_id', 'numerical', 'integerOnly' => true),
+            array('status, user_id, model_id', 'numerical', 'integerOnly' => true),
             array('name, email, url', 'length', 'max' => 150),
             array('model', 'length', 'max' => 50),
             array('ip', 'length', 'max' => 20),
             array('email', 'email'),
             array('url', 'url'),
-            array('status', 'in', 'range' => array_keys($this->getStatusList())),            
+            array('status', 'in', 'range' => array_keys($this->statusList)),
             array('verifyCode', 'YRequiredValidator', 'allowEmpty' => Yii::app()->user->isAuthenticated()),
-            array('verifyCode', 'captcha', 'allowEmpty' => Yii::app()->user->isAuthenticated()),            
+            array('verifyCode', 'captcha', 'allowEmpty' => Yii::app()->user->isAuthenticated()),
             array('id, model, model_id, creation_date, name, email, url, text, status, ip', 'safe', 'on' => 'search'),
         );
     }
@@ -71,17 +70,42 @@ class Comment extends CActiveRecord
     public function attributeLabels()
     {
         return array(
-            'id' => Yii::t('comment', 'id'),
-            'model' => Yii::t('comment', 'Тип модели'),
-            'model_id' => Yii::t('comment', 'Модель'),
+            'id'            => Yii::t('comment', 'ID'),
+            'model'         => Yii::t('comment', 'Тип модели'),
+            'model_id'      => Yii::t('comment', 'Модель'),
             'creation_date' => Yii::t('comment', 'Дата создания'),
-            'name' => Yii::t('comment', 'Имя'),
-            'email' => Yii::t('comment', 'Email'),
-            'url' => Yii::t('comment', 'Сайт'),
-            'text' => Yii::t('comment', 'Комментарий'),
-            'status' => Yii::t('comment', 'Статус'),
-            'verifyCode' => Yii::t('comment', 'Код проверки'),
-            'ip' => Yii::t('comment', 'ip'),
+            'name'          => Yii::t('comment', 'Имя'),
+            'email'         => Yii::t('comment', 'Email'),
+            'url'           => Yii::t('comment', 'Сайт'),
+            'text'          => Yii::t('comment', 'Текст'),
+            'status'        => Yii::t('comment', 'Статус'),
+            'verifyCode'    => Yii::t('comment', 'Код проверки'),
+            'ip'            => Yii::t('comment', 'IP адрес'),
+        );
+    }
+
+    public function relations()
+    {
+        return array(
+            'author' => array(self::BELONGS_TO, 'User', 'user_id'),
+        );
+    }
+
+    public function scopes()
+    {
+        return array(
+            'new'      => array(
+                'condition' => 'status = :status',
+                'params'    => array(':status' => self::STATUS_NEED_CHECK),
+            ),
+            'approved' => array(
+                'condition' => 'status = :status',
+                'params'    => array(':status' => self::STATUS_APPROVED),
+                'order'     => 'creation_date DESC',
+            ),
+            'authored' => array(
+                'condition' => 'user_id is not null',
+            ),
         );
     }
 
@@ -107,54 +131,45 @@ class Comment extends CActiveRecord
         $criteria->compare('status', $this->status);
         $criteria->compare('ip', $this->ip, true);
 
-        return new CActiveDataProvider(get_class($this), array(
-                                                              'criteria' => $criteria,
-                                                         ));
+        return new CActiveDataProvider(get_class($this), array('criteria' => $criteria));
     }
 
     public function beforeSave()
-    {       
+    {
         if ($this->isNewRecord)
         {
             $this->creation_date = new CDbExpression('NOW()');
-
-            $this->ip = Yii::app()->request->userHostAddress;
+            $this->ip            = Yii::app()->request->userHostAddress;
         }
-
         return parent::beforeSave();
     }
 
-    public function scopes()
+    public function afterSave()
     {
-        return array(
-            'new' => array(
-                'condition' => 'status = :status',
-                'params' => array(':status' => self::STATUS_NEED_CHECK)
-            ),
-            'approved' => array(
-                'condition' => 'status = :status',
-                'params' => array(':status' => self::STATUS_APPROVED),
-                'order' => 'creation_date DESC'
-            )
-        );
-    }
+        if ($cache = Yii::app()->getCache())
+            $cache->delete("Comment{$this->model}{$this->model_id}");
 
+        return parent::afterSave();
+    }
 
     public function getStatusList()
     {
         return array(
-            self::STATUS_APPROVED => Yii::t('comment', 'Принят'),
-            self::STATUS_DELETED => Yii::t('comment', 'Удален'),
-            self::STATUS_NEED_CHECK => Yii::t('comment', 'На проверке'),
-            self::STATUS_SPAM => Yii::t('comment', 'Спам')
+            self::STATUS_APPROVED   => Yii::t('comment', 'Принят'),
+            self::STATUS_DELETED    => Yii::t('comment', 'Удален'),
+            self::STATUS_NEED_CHECK => Yii::t('comment', 'Проверка'),
+            self::STATUS_SPAM       => Yii::t('comment', 'Спам'),
         );
     }
 
     public function getStatus()
     {
-        $list = $this->getStatusList();
+        $list = $this->statusList;
+        return isset($list[$this->status]) ? $list[$this->status] : Yii::t('comment', 'Статус неизвестен');
+    }
 
-        return array_key_exists($this->status, $list) ? $list[$this->status]
-            : Yii::t('comment', 'Статус неизвестен');
+    public function getAuthor()
+    {
+        return ($this->author) ? $this->author : false;
     }
 }

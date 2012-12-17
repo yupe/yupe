@@ -10,29 +10,12 @@
  * @property string $content
  * @property string $description
  */
-class ContentBlock extends CActiveRecord
+class ContentBlock extends YModel
 {
 
     const SIMPLE_TEXT = 1;
     const PHP_CODE    = 2;
     const HTML_TEXT   = 3;
-
-    public function getTypes()
-    {
-        return array(
-            self::SIMPLE_TEXT => Yii::t('contentblock', 'Простой текст'),
-            self::PHP_CODE    => Yii::t('contentblock', 'Исполняемый PHP код'),
-            self::HTML_TEXT   => Yii::t('contentblock', 'HTML код'),
-        );
-    }
-
-    public function getType()
-    {
-        $data = $this->getTypes();
-
-        return array_key_exists($this->type, $data) ? $data[$this->type]
-            : Yii::t('contentblock', '*неизвестный тип*');
-    }
 
     /**
      * Returns the static model of the specified AR class.
@@ -55,17 +38,17 @@ class ContentBlock extends CActiveRecord
      * @return array validation rules for model attributes.
      */
     public function rules()
-    {        
+    {
         return array(
-            array('name, code, content, type','filter','filter' => 'trim'),
-            array('name, code','filter','filter' => array($obj = new CHtmlPurifier(),'purify')),
+            array('name, code, content, type', 'filter', 'filter' => 'trim'),
+            array('name, code', 'filter', 'filter' => array($obj = new CHtmlPurifier(), 'purify')),
             array('name, code, content, type', 'required'),
             array('type', 'numerical', 'integerOnly' => true),
-            array('type', 'in', 'range' => array_keys($this->getTypes())),
+            array('type', 'in', 'range' => array_keys($this->types)),
             array('name, code', 'length', 'max' => 50),
-            array('description', 'length', 'max' => 300),            
-            array('code','match','pattern' => '/^[A-Za-z0-9_]{2,50}$/','message' => Yii::t('seeline','Неверный формат поля "{attribute}" допустимы только буквы, цифры и символ подчеркивания, от 2 до 50 символов')),            
-            array('code','unique'),                        
+            array('description', 'length', 'max' => 300),
+            array('code', 'match', 'pattern' => '/^[A-Za-z0-9_]{2,50}$/', 'message' => Yii::t('contentblock', 'Неверный формат поля "{attribute}" допустимы только буквы, цифры и символ подчеркивания, от 2 до 50 символов')),
+            array('code', 'unique'),
             array('id, name, code, type, content, description', 'safe', 'on' => 'search'),
         );
     }
@@ -76,11 +59,11 @@ class ContentBlock extends CActiveRecord
     public function attributeLabels()
     {
         return array(
-            'id' => 'ID',
-            'name' => Yii::t('contentblock', 'Название'),
-            'code' => Yii::t('contentblock', 'Символьный код'),
-            'type' => Yii::t('contentblock', 'Тип'),
-            'content' => Yii::t('contentblock', 'Контент'),
+            'id'          => Yii::t('contentblock', 'id'),
+            'name'        => Yii::t('contentblock', 'Название'),
+            'code'        => Yii::t('contentblock', 'Символьный код'),
+            'type'        => Yii::t('contentblock', 'Тип'),
+            'content'     => Yii::t('contentblock', 'Контент'),
             'description' => Yii::t('contentblock', 'Описание'),
         );
     }
@@ -101,8 +84,21 @@ class ContentBlock extends CActiveRecord
         $criteria->compare('content', $this->content);
         $criteria->compare('description', $this->description);
 
-        return new CActiveDataProvider(get_class($this), array(
-                                                              'criteria' => $criteria,
-                                                         ));
+        return new CActiveDataProvider(get_class($this), array('criteria' => $criteria));
+    }
+
+    public function getTypes()
+    {
+        return array(
+            self::SIMPLE_TEXT => Yii::t('contentblock', 'Простой текст'),
+            self::PHP_CODE    => Yii::t('contentblock', 'Исполняемый PHP код'),
+            self::HTML_TEXT   => Yii::t('contentblock', 'HTML код'),
+        );
+    }
+
+    public function getType()
+    {
+        $data = $this->types;
+        return isset($data[$this->type]) ? $data[$this->type] : Yii::t('contentblock', '*неизвестный тип*');
     }
 }

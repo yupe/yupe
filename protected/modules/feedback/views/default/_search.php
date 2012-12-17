@@ -1,64 +1,34 @@
-<div class="wide form">
+<?php
+$form = $this->beginWidget('bootstrap.widgets.TbActiveForm', array(
+    'action'      => Yii::app()->createUrl($this->route),
+    'method'      => 'get',
+    'type'        => 'vertical',
+    'htmlOptions' => array('class' => 'well'),
+));
 
-    <?php $form = $this->beginWidget('CActiveForm', array(
-                                                         'action' => Yii::app()->createUrl($this->route),
-                                                         'method' => 'get',
-                                                    )); ?>
+Yii::app()->clientScript->registerScript('fieldset', "
+    $('document').ready(function () {
+        $('.popover-help').popover({ trigger : 'hover', delay : 500 });
+    });
+");
+?>
 
-    <div class="row">
-        <?php echo $form->label($model, 'id'); ?>
-        <?php echo $form->textField($model, 'id'); ?>
-    </div>
+    <fieldset class="inline">
+        <?php echo $form->textFieldRow($model, 'id', array('class' => 'span5', 'maxlength' => 10, 'size' => 60)); ?>
+        <?php echo $form->textFieldRow($model, 'name', array('class' => 'span5', 'maxlength' => 150, 'size' => 60)); ?>
+        <?php echo $form->textFieldRow($model, 'email', array('class' => 'span5', 'size' => 60, 'maxlength' => 60)); ?>
+        <?php echo $form->textFieldRow($model, 'theme', array('class' => 'span5', 'size' => 60, 'maxlength' => 60)); ?>
+        <?php echo $form->textFieldRow($model, 'phone', array('class' => 'span5', 'size' => 60, 'maxlength' => 60)); ?>
+        <?php echo $form->dropDownListRow($model, 'type', $model->typeList, array('class' => 'span5')); ?>
+        <?php echo $form->dropDownListRow($model, 'status', $model->statusList, array('class' => 'span5')); ?>
+        <?php echo $form->checkBoxRow($model, 'is_faq', $model->isFaqList, array('class' => 'span5')); ?>
+    </fieldset>
 
-    <div class="row">
-        <?php echo $form->label($model, 'creation_date'); ?>
-        <?php echo $form->textField($model, 'creation_date'); ?>
-    </div>
+    <?php $this->widget('bootstrap.widgets.TbButton', array(
+        'type'        => 'primary',
+        'encodeLabel' => false,
+        'buttonType'  => 'submit',
+        'label'       => '<i class="icon-search icon-white">&nbsp;</i> ' . Yii::t('feedback', 'Искать сообщения с сайта'),
+    )); ?>
 
-    <div class="row">
-        <?php echo $form->label($model, 'change_date'); ?>
-        <?php echo $form->textField($model, 'change_date'); ?>
-    </div>
-
-    <div class="row">
-        <?php echo $form->label($model, 'name'); ?>
-        <?php echo $form->textField($model, 'name'); ?>
-    </div>
-
-    <div class="row">
-        <?php echo $form->label($model, 'email'); ?>
-        <?php echo $form->textField($model, 'email'); ?>
-    </div>
-
-    <div class="row">
-        <?php echo $form->label($model, 'theme'); ?>
-        <?php echo $form->textField($model, 'theme'); ?>
-    </div>
-
-    <div class="row">
-        <?php echo $form->label($model, 'text'); ?>
-        <?php echo $form->textArea($model, 'text', array('rows' => 6, 'cols' => 50)); ?>
-    </div>
-
-    <div class="row">
-        <?php echo $form->label($model, 'type'); ?>
-        <?php echo $form->dropDownList($model, 'type', $model->getTypeList()); ?>
-    </div>
-
-    <div class="row">
-        <?php echo $form->label($model, 'status'); ?>
-        <?php echo $form->dropDownList($model, 'status', $model->getStatusList()); ?>
-    </div>
-
-    <div class="row">
-        <?php echo $form->label($model, 'ip'); ?>
-        <?php echo $form->textField($model, 'ip'); ?>
-    </div>
-
-    <div class="row buttons">
-        <?php echo CHtml::submitButton(Yii::t('feedback', 'Поиск')); ?>
-    </div>
-
-    <?php $this->endWidget(); ?>
-
-</div><!-- search-form -->
+<?php $this->endWidget(); ?>

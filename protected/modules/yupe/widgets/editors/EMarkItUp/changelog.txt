@@ -1,0 +1,17 @@
+1.1
+---
+- Add minified js (Veaceslav Medvedev) 
+
+1.0
+---
+- Updated markItUp to 1.1.8 (Sam Dark)
+- Removed packed version (Sam Dark)
+- Added docs (Sam Dark)
+
+0.02
+----
+- Fixed bug when using widget without model (creocoder)
+
+0.01
+----
+- Initial release (creocoder)

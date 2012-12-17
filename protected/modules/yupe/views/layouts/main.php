@@ -1,75 +1,99 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
-    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<!DOCTYPE html>
+<html lang="en">
 <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
-    <meta name="language" content="en"/>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <!-- blueprint CSS framework -->
-    <link rel="stylesheet" type="text/css"
-          href="<?php echo Yii::app()->request->baseUrl; ?>/css/screen.css"
-          media="screen, projection"/>
-    <link rel="stylesheet" type="text/css"
-          href="<?php echo Yii::app()->request->baseUrl; ?>/css/print.css"
-          media="print"/>
-    <!--[if lt IE 8]>
-    <link rel="stylesheet" type="text/css"
-          href="<?php echo Yii::app()->request->baseUrl; ?>/css/ie.css"
-          media="screen, projection"/>
-    <![endif]-->
+    <?php
+        $webPath = Yii::app()->assetManager->publish($this->yupe->basePath . '/web/');
+        Yii::app()->clientScript->registerScriptFile($webPath . '/yupeAdmin.js');
+    ?>
 
-    <link rel="stylesheet" type="text/css"
-          href="<?php echo Yii::app()->request->baseUrl; ?>/css/main.css"/>
-    <link rel="stylesheet" type="text/css"
-          href="<?php echo Yii::app()->request->baseUrl; ?>/css/form.css"/>
-
-    <script type='text/javascript'>
-        var arrowimages = {down:['downarrowclass', '<?php echo Yii::app()->request->baseUrl;?>/web/images/down.gif', 23], right:['rightarrowclass', '<?php echo Yii::app()->request->baseUrl;?>/web/images/right.gif']}
-    </script>
-
-    <title><?php echo CHtml::encode(Yii::app()->name);?> <?php echo CHtml::encode($this->pageTitle); ?></title>
+    <title><?php echo CHtml::encode(Yii::app()->name); ?> <?php echo CHtml::encode($this->pageTitle); ?></title>
+    <link rel="stylesheet" type="text/css"  href="<?php echo $this->yupe->themeBaseUrl; ?>/css/styles.css"/>
 </head>
 
 <body>
-<script type='text/javascript'>
-    $(document).ready(function() {
-        $('input:submit').button();        
-    });
-</script>
-
-<div class="container" id="page">
-
-    <div id="header">
-        <div
-            id="logo"><?php echo CHtml::encode(Yii::app()->name);?> <?php echo Yii::t('yupe', 'Панель управления')?></div>
+    <div id="overall-wrap">
+        <!-- mainmenu -->
+        <?php
+        $brandTitle = Yii::t('yupe', 'Перейти на главную панели управления');
+    
+        $this->widget('bootstrap.widgets.TbNavbar', array(
+            'htmlOptions' => array('class'=>'navbar navbar-inverse'),
+            'fluid'       => true,
+            'brand'       => CHtml::image($this->yupe->themeBaseUrl . "/images/logo.png", $brandTitle, array(
+                'width'  => '38',
+                'height' => '38',
+                'title'  => $brandTitle,
+            )),
+            'brandUrl'    => CHtml::normalizeUrl(array("/yupe/backend/index")),
+            'items'       => array(
+                array(
+                    'class' => 'bootstrap.widgets.TbMenu',
+                    'items' => $this->yupe->getModules(true),
+                ),
+                array(
+                    'class'       => 'bootstrap.widgets.TbMenu',
+                    'htmlOptions' => array('class' => 'pull-right'),
+                    'encodeLabel' => false,
+                    'items'       => array(
+                        array(
+                            'icon'  => 'question-sign white',
+                            'label' => Yii::t('yupe', 'Помощь'),
+                            'url'   => array('/yupe/backend/help'),
+                        ),
+                        array(
+                            'icon'  => 'home white',
+                            'label' => Yii::t('yupe', 'На сайт'),
+                            'url'   => array('/' . Yii::app()->defaultController . '/index/'),
+                        ),
+                        array(
+                            'label' => $this->yupe->getVersion(),
+                            'icon'  => 'icon-thumbs-up icon-white',
+                            'url'   => '/yupe/backend/index'
+                        ),
+                        array(
+                            'label'       => '
+                                <div style="float: left; line-height: 16px; text-align: center; margin-top: -10px;">
+                                    <small style="font-size: 80%;">' . Yii::t('yupe', 'Администратор') . '</small><br />
+                                    <span class="label">' . Yii::app()->user->nick_name . '</span>
+                                </div>',
+                            'encodeLabel' => false,
+                            'items'       => array(
+                                array(
+                                    'icon'  => 'user',
+                                    'label' => Yii::t('yupe', 'Профиль'),
+                                    'url'   => array('/user/default/update', 'id' => Yii::app()->user->id),
+                                ),
+                                array(
+                                    'icon'  => 'off',
+                                    'label' => Yii::t('yupe', 'Выйти'),
+                                    'url'   => array('/user/account/logout'),
+                                ),
+                            ),
+                        ),
+                    ),
+                ),
+            ),
+        ));
+        ?>
+        <div class="container-fluid" id="page"><?php echo $content; ?></div>
+        <div id="footer-guard"><!-- --></div>
     </div>
-    <!-- header -->
-    <div id="myslidemenu" class='jqueryslidemenu'>
-        <?php $this->widget('zii.widgets.CMenu', array(
-                                                      'hideEmptyItems' => true,
-                                                      'items' => Yii::app()->getModule('yupe')->getModules(true)
-                                                 )); ?>
-        <br style="clear: left"/>
-    </div>
-    <!-- mainmenu -->
-
-    <?php $this->widget('zii.widgets.CBreadcrumbs', array(
-                                                         'homeLink' => CHtml::link(Yii::t('yupe', 'Главная'), array('/yupe/backend/')),
-                                                         'links' => $this->breadcrumbs,
-                                                    )); ?><!-- breadcrumbs -->
-
-    <?php echo $content; ?>
-
-    <div id="footer">
-        Copyright &copy; 2009-<?php echo date('Y'); ?> <a
-        href='<?php echo Yii::app()->getModule('yupe')->brandUrl?>'><?php echo CHtml::encode(Yii::app()->name);?></a><br/>
+    <footer>
+        Copyright &copy; 2009-<?php echo date('Y'); ?>
+        <a href='<?php echo $this->yupe->brandUrl; ?>'>
+            <?php echo CHtml::encode(Yii::app()->name); ?>
+        </a> 
+        <small class="label label-info"><?php echo $this->yupe->getVersion(); ?></small>
+        <br/>
+        <a href="http://yupe.ru/feedback/contact?from=engine">
+            <?php echo Yii::t('yupe','Разработка и поддержка'); ?></a> - <a href="mailto:team@yupe.ru">yupe team
+        </a>
+        <br/>
         <?php echo Yii::powered(); ?>
-        <?php $this->widget('YPerformanceStatistic');?>
-    </div>
-    <!-- footer -->
-
-
-</div>
-<!-- page -->
+        <?php $this->widget('YPerformanceStatistic'); ?>
+    </footer>
 </body>
 </html>

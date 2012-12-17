@@ -1,27 +1,58 @@
 <?php
-class YFrontController extends CController
+/**
+ * Контроллер отвечающий за front - часть
+ */
+class YFrontController extends YMainController
 {
-    public $menu = array();
-
+    /**
+     * Меню сайта, меняется в админке
+     * @TODO скорее всего можно эту переменную убрать, необходима проверка
+     */
+    public $menu        = array();
+    /**
+     * Хлебные крошки сайта, меняется в админке
+     */
     public $breadcrumbs = array();
-
+    /**
+     * Описание сайта, меняется в админке
+     */
     public $description;
-
+    /**
+     * Ключевые слова сайта, меняется в админке
+     */
     public $keywords;
 
-    public function setpageTitle($title)
+    /**
+     * Устанавливает заголовок страниц
+     * @param string $title заголовок
+     */
+    public function setPageTitle($title)
     {
         $this->pageTitle = $this->pageTitle . ' | ' . $title;
     }
 
+    /**
+     * Вызывается при инициализации YFrontController
+     * Присваивает значения, необходимым переменным
+     */
     public function init()
     {
-        $this->pageTitle = Yii::app()->getModule('yupe')->siteName;
-        $this->description = Yii::app()->getModule('yupe')->siteDescription;
-        $this->keywords = Yii::app()->getModule('yupe')->siteKeyWords;
+        parent::init();
 
-        $baseUrl = Yii::app()->baseUrl;
+        $this->pageTitle   = $this->yupe->siteName;
+        $this->description = $this->yupe->siteDescription;
+        $this->keywords    = $this->yupe->siteKeyWords;
 
-        Yii::app()->clientScript->registerScript('yupe_base_url', "var baseUrl = '$baseUrl';", CClientScript::POS_HEAD);
+        Yii::app()->theme = 'default';
+
+        if ($this->yupe->theme)
+            Yii::app()->theme = $this->yupe->theme;
+
+        $fileUrl = Yii::app()->theme->basePath . "/" . ucwords(Yii::app()->theme->name) . "Theme.php";
+
+        if (Yii::app()->theme && is_file($fileUrl))
+            require($fileUrl);
+
+        Yii::app()->clientScript->registerScript('yupe_base_url', "var baseUrl = '" . Yii::app()->baseUrl . "';", CClientScript::POS_HEAD);
     }
 }

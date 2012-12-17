@@ -1,34 +1,29 @@
-<div class="wide form">
+<?php
+$form = $this->beginWidget('bootstrap.widgets.TbActiveForm', array(
+    'action'      => Yii::app()->createUrl($this->route),
+    'method'      => 'get',
+    'type'        => 'vertical',
+    'htmlOptions' => array('class' => 'well'),
+));
 
-    <?php $form = $this->beginWidget('CActiveForm', array(
-                                                         'action' => Yii::app()->createUrl($this->route),
-                                                         'method' => 'get',
-                                                    )); ?>
+Yii::app()->clientScript->registerScript('fieldset', "
+    $('document').ready(function () {
+        $('.popover-help').popover({ trigger : 'hover', delay : 500 });
+    });
+");
+?>
+    <fieldset class="inline">
+        <?php echo $form->textFieldRow($model, 'id', array('class' => 'span5 popover-help', 'size' => 60, 'maxlength' => 10, 'data-original-title' => $model->getAttributeLabel('id'), 'data-content' => $model->getAttributeDescription('id'))); ?>
+        <?php echo $form->textFieldRow($model, 'name', array('class' => 'span5 popover-help', 'size' => 60, 'maxlength' => 300, 'data-original-title' => $model->getAttributeLabel('name'), 'data-content' => $model->getAttributeDescription('name'))); ?>
+        <?php echo $form->textAreaRow($model, 'description', array('class' => 'span5 popover-help', 'rows' => 6, 'cols' => 50, 'data-original-title' => $model->getAttributeLabel('description'), 'data-content' => $model->getAttributeDescription('description'))); ?>
+        <?php echo $form->dropDownListRow($model, 'status', $model->statusList); ?>
+    </fieldset>
 
-    <div class="row">
-        <?php echo $form->label($model, 'id'); ?>
-        <?php echo $form->textField($model, 'id', array('size' => 10, 'maxlength' => 10)); ?>
-    </div>
+    <?php $this->widget('bootstrap.widgets.TbButton', array(
+        'type'        => 'primary',
+        'encodeLabel' => false,
+        'buttonType'  => 'submit',
+        'label'       => '<i class="icon-search icon-white">&nbsp;</i> ' . Yii::t('gallery', 'Искать галерею'),
+    )); ?>
 
-    <div class="row">
-        <?php echo $form->label($model, 'name'); ?>
-        <?php echo $form->textField($model, 'name', array('size' => 60, 'maxlength' => 300)); ?>
-    </div>
-
-    <div class="row">
-        <?php echo $form->label($model, 'description'); ?>
-        <?php echo $form->textArea($model, 'description', array('rows' => 6, 'cols' => 50)); ?>
-    </div>
-
-    <div class="row">
-        <?php echo $form->label($model, 'status'); ?>
-        <?php echo $form->textField($model, 'status'); ?>
-    </div>
-
-    <div class="row buttons">
-        <?php echo CHtml::submitButton(Yii::t('gallery', 'Поиск')); ?>
-    </div>
-
-    <?php $this->endWidget(); ?>
-
-</div><!-- search-form -->
+<?php $this->endWidget(); ?>

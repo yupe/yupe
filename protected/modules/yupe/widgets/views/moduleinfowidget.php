@@ -1,15 +1,25 @@
-<script type='text/javascript'>
-    $(document).ready(function(){    	
-    	$('#more-info').click(function(event){
-    		event.preventDefault();
-    		$('#more-info-div').slideDown();
-    		$(this).fadeOut();
-    	});
-    });
-</script>
-
-<p><?php echo $module->getName();?>, <?php echo Yii::t('yupe', 'версия')?> <?php echo $module->getVersion();?> <?php echo CHtml::link(Yii::t('yupe','подробнее'),array(),array('id'=>'more-info'));?></p>
-
-<div id='more-info-div' style='display:none;'>
-<p><?php echo $module->getDescription();?><br/><br/><?php echo Yii::t('yupe','Автор');?>: <?php echo $module->getAuthor();?> ( <?php echo $module->getAuthorEmail();?>, <?php echo $module->getUrl();?> )</p>
+<button class="btn btn-small dropdown-toggle" title="<?php echo Yii::t('yupe', 'Информация о модуле'); ?>"
+        data-toggle="collapse" data-target="#module-info-collapse-<?php echo $module->id; ?>">
+    <?php
+    // @TODO: В случае, если это не бутстраповская иконка - выводить бекграундом
+    if ($module->icon)
+        echo '<i class="icon-' . $module->icon. '"><!-- icon --></i>';
+    ?>
+    <span class="label label-info" title="<?php echo Yii::t('yupe', 'версия'); ?>"><?php echo $module->version; ?></span> 
+    <?php echo $module->name; ?>
+    <span class="caret"></span>
+</button>
+<div id="module-info-collapse-<?php echo $module->id; ?>" class="collapse out">
+    <br />
+    <?php echo $module->description; ?><br/><br/>
+    <table class="table">
+        <tr>
+            <td><?php echo Yii::t('yupe', 'Автор'); ?>:</td>
+            <td><?php echo CHtml::mailto($module->author, $module->authorEmail); ?></td>
+        </tr>
+        <tr>
+            <td><?php echo Yii::t('yupe', 'Сайт'); ?>:</td>
+            <td><?php echo CHtml::link($module->url, $module->url); ?></td>
+        </tr>
+    </table>
 </div>

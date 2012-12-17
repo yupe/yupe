@@ -1,98 +1,91 @@
-<div class="form">
+<?php
+$form = $this->beginWidget('bootstrap.widgets.TbActiveForm', array(
+    'id'                     => 'user-form',
+    'enableAjaxValidation'   => false,
+    'enableClientValidation' => true,
+    'type'                   => 'vertical',
+    'htmlOptions'            => array('class' => 'well'),
+    'inlineErrors'           => true,
+));
 
-    <?php $form = $this->beginWidget('CActiveForm',array(
-        'id' => 'add-user-form',
-        'enableClientValidation' => true
-    )); ?>
-
-    <p class="note"><?php echo Yii::t('user', 'Поля, отмеченные * обязательны для заполнения')?></p>
+Yii::app()->clientScript->registerScript('fieldset', "
+    $('document').ready(function () {
+        $('.popover-help').popover({ trigger : 'hover', delay : 500 });
+    });
+");
+?>
+ 
+    <div class="alert alert-info">
+        <?php echo Yii::t('user', 'Поля, отмеченные'); ?>
+        <span class="required">*</span>
+        <?php echo Yii::t('user', 'обязательны.'); ?>
+    </div>
 
     <?php echo $form->errorSummary($model); ?>
-    
-    <div class="row">
-        <?php echo $form->labelEx($model, 'nick_name'); ?>
-        <?php echo $form->textField($model, 'nick_name', array('size' => 25, 'maxlength' => 150)); ?>
-        <?php echo $form->error($model, 'nick_name'); ?>
+
+    <div class="row-fluid control-group <?php echo $model->hasErrors('nick_name') ? 'error' : ''; ?>">
+        <?php echo $form->textFieldRow($model, 'nick_name', array('class' => 'popover-help span7', 'maxlength' => 150, 'size' => 60, 'data-original-title' => $model->getAttributeLabel('nick_name'), 'data-content' => $model->getAttributeDescription('nick_name'))); ?>
     </div>
-
-    <div class="row">
-        <?php echo $form->labelEx($model, 'email'); ?>
-        <?php echo $form->textField($model, 'email', array('size' => 25, 'maxlength' => 150)); ?>
-        <?php echo $form->error($model, 'email'); ?>
+    <div class="row-fluid control-group <?php echo $model->hasErrors('email') ? 'error' : ''; ?>">
+        <?php echo $form->textFieldRow($model, 'email', array('class' => 'popover-help span7', 'maxlength' => 150, 'size' => 60, 'data-original-title' => $model->getAttributeLabel('email'), 'data-content' => $model->getAttributeDescription('email'))); ?>
     </div>
-
-    <div class="row">
-        <?php echo $form->labelEx($model, 'last_name'); ?>
-        <?php echo $form->textField($model, 'last_name', array('size' => 25, 'maxlength' => 150)); ?>
-        <?php echo $form->error($model, 'last_name'); ?>
-    </div>    
-
-    <div class="row">
-        <?php echo $form->labelEx($model, 'first_name'); ?>
-        <?php echo $form->textField($model, 'first_name', array('size' => 25, 'maxlength' => 150)); ?>
-        <?php echo $form->error($model, 'first_name'); ?>
-    </div>    
-
-    <div class="row">
-        <?php echo $form->labelEx($model, 'location'); ?>
-        <?php echo $form->textField($model, 'location', array('size' => 25, 'maxlength' => 150)); ?>
-        <?php echo $form->error($model, 'location'); ?>
-    </div>    
-
-    <div class="row">
-        <?php echo $form->labelEx($model, 'site'); ?>
-        <?php echo $form->textField($model, 'site', array('size' => 25, 'maxlength' => 100)); ?>
-        <?php echo $form->error($model, 'site'); ?>
-    </div>    
-
-    <div class="row">
+    <div class="row-fluid control-group <?php echo $model->hasErrors('last_name') ? 'error' : ''; ?>">
+        <?php echo $form->textFieldRow($model, 'last_name', array('class' => 'popover-help span7', 'maxlength' => 150, 'size' => 60, 'data-original-title' => $model->getAttributeLabel('last_name'), 'data-content' => $model->getAttributeDescription('last_name'))); ?>
+    </div>
+    <div class="row-fluid control-group <?php echo $model->hasErrors('first_name') ? 'error' : ''; ?>">
+        <?php echo $form->textFieldRow($model, 'first_name', array('class' => 'popover-help span7', 'maxlength' => 150, 'size' => 60, 'data-original-title' => $model->getAttributeLabel('first_name'), 'data-content' => $model->getAttributeDescription('first_name'))); ?>
+    </div>
+    <div class="row-fluid control-group <?php echo $model->hasErrors('middle_name') ? 'error' : ''; ?>">
+        <?php echo $form->textFieldRow($model, 'middle_name', array('class' => 'popover-help span7', 'maxlength' => 150, 'size' => 60, 'data-original-title' => $model->getAttributeLabel('middle_name'), 'data-content' => $model->getAttributeDescription('middle_name'))); ?>
+    </div>
+    <div class="row-fluid control-group <?php echo $model->hasErrors('site') ? 'error' : ''; ?>">
+        <?php echo $form->textFieldRow($model, 'site', array('class' => 'popover-help span7', 'maxlength' => 150, 'size' => 60, 'data-original-title' => $model->getAttributeLabel('site'), 'data-content' => $model->getAttributeDescription('site'))); ?>
+    </div>
+    <div class="row-fluid control-group <?php echo $model->hasErrors('birth_date') ? 'error' : ''; ?>">
         <?php echo $form->labelEx($model, 'birth_date'); ?>
         <?php $this->widget('zii.widgets.jui.CJuiDatePicker', array(
-            'model'=>$model,            
+            'model'     => $model,
             'attribute' => 'birth_date',
-            'options'   => array(
-                'dateFormat' => 'yy-mm-dd'
-             )          
+            'options'   => array('dateFormat' => 'yy-mm-dd'),
+            'htmlOptions' => array('class' => 'span7')
         )); ?>
-        <?php echo $form->error($model, 'birth_date'); ?>
-    </div>    
-
-    <div class="row">
-        <?php echo $form->labelEx($model, 'about'); ?>
-        <?php echo $form->textArea($model, 'about', array('rows' => 7, 'cols' => 45)); ?>
-        <?php echo $form->error($model, 'about'); ?>
-    </div>    
-
-    <div class="row">
-        <?php echo $form->labelEx($model, 'gender'); ?>
-        <?php echo $form->dropDownList($model, 'gender', $model->getGendersList()); ?>
-        <?php echo $form->error($model, 'gender'); ?>
+    </div>
+    <div class="row-fluid control-group <?php echo $model->hasErrors('about') ? 'error' : ''; ?>">
+        <div class="popover-help" data-original-title='<?php echo $model->getAttributeLabel('about'); ?>' data-content='<?php echo $model->getAttributeDescription('about'); ?>'>
+            <?php echo $form->labelEx($model, 'about'); ?>
+            <?php $this->widget(Yii::app()->getModule('yupe')->editor, array(
+                'model'       => $model,
+                'attribute'   => 'about',
+                'options'     => array(
+                    'toolbar'     => 'main',
+                    'imageUpload' => Yii::app()->baseUrl . '/index.php/yupe/backend/AjaxFileUpload/',
+                ),
+                'htmlOptions' => array('rows' => 20, 'cols' => 6),
+            )); ?>
+        </div>
+    </div>
+    <div class="row-fluid control-group <?php echo $model->hasErrors('gender') ? 'error' : ''; ?>"> 
+        <?php echo $form->dropDownListRow($model, 'gender', $model->gendersList,array('class' => 'popover-help span7','data-original-title' => $model->getAttributeLabel('gender'), 'data-content' => $model->getAttributeDescription('gender'))); ?>
+    </div>
+    <div class="row-fluid control-group <?php echo $model->hasErrors('status') ? 'error' : ''; ?>"> 
+        <?php echo $form->dropDownListRow($model, 'status', $model->statusList,array('class' => 'popover-help span7','data-original-title' => $model->getAttributeLabel('status'), 'data-content' => $model->getAttributeDescription('status'))); ?>
+    </div>
+    <div class="row-fluid control-group <?php echo $model->hasErrors('access_level') ? 'error' : ''; ?>">     
+        <?php echo $form->dropDownListRow($model, 'access_level', $model->accessLevelsList,array('class' => 'popover-help span7','data-original-title' => $model->getAttributeLabel('access_level'), 'data-content' => $model->getAttributeDescription('access_level'))); ?>        
+    </div>
+    <div class="row-fluid control-group <?php echo $model->hasErrors('email_confirm') ? 'error' : ''; ?>"> 
+        <?php echo $form->dropDownListRow($model, 'email_confirm', $model->emailConfirmStatusList,array('class' => 'popover-help span7','data-original-title' => $model->getAttributeLabel('email_confirm'), 'data-content' => $model->getAttributeDescription('email_confirm'))); ?>
     </div>
 
-    <div class="row">
-        <?php echo $form->labelEx($model, 'status'); ?>
-        <?php echo $form->dropDownList($model, 'status', $model->getStatusList()); ?>
-        <?php echo $form->error($model, 'status'); ?>
-    </div>
+   <?php $this->widget('bootstrap.widgets.TbButton', array(
+        'buttonType' => 'submit',
+        'type'       => 'primary',
+        'label'      => $model->isNewRecord ? Yii::t('user', 'Добавить пользователя и продолжить') : Yii::t('user', 'Сохранить пользователя и продолжить'),
+    )); ?>
+    <?php $this->widget('bootstrap.widgets.TbButton', array(
+        'buttonType'  => 'submit',
+        'htmlOptions' => array('name' => 'submit-type', 'value' => 'index'),
+        'label'       => $model->isNewRecord ? Yii::t('user', 'Добавить пользователя и закрыть') : Yii::t('user', 'Сохранить пользователя и закрыть'),
+    )); ?>
 
-    <div class="row">
-        <?php echo $form->labelEx($model, 'access_level'); ?>
-        <?php echo $form->dropDownList($model, 'access_level', $model->getAccessLevelsList()); ?>
-        <?php echo $form->error($model, 'access_level'); ?>
-    </div>
-
-    <div class="row">
-        <?php echo $form->labelEx($model, 'email_confirm'); ?>
-        <?php echo $form->dropDownList($model, 'email_confirm', $model->getEmailConfirmStatusList()); ?>
-        <?php echo $form->error($model, 'email_confirm'); ?>
-    </div>
-
-    <div class="row buttons">
-        <?php echo CHtml::submitButton($model->isNewRecord
-                                           ? Yii::t('user', 'Сохранить пользователя')
-                                           : Yii::t('user', 'Обновить данные пользователя')); ?>
-    </div>
-
-    <?php $this->endWidget(); ?>
-
-</div><!-- form -->
+<?php $this->endWidget(); ?>

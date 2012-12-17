@@ -1,64 +1,58 @@
-<div class="wide form">
+<?php
+$form = $this->beginWidget('bootstrap.widgets.TbActiveForm', array(
+    'action'      => Yii::app()->createUrl($this->route),
+    'method'      => 'get',
+    'type'        => 'vertical',
+    'htmlOptions' => array('class' => 'well form-vertical'),
+));
 
-    <?php $form = $this->beginWidget('CActiveForm', array(
-                                                         'action' => Yii::app()->createUrl($this->route),
-                                                         'method' => 'get',
-                                                    )); ?>
+Yii::app()->clientScript->registerScript('fieldset', "
+    $('document').ready(function () {
+        $('.popover-help').popover({ trigger : 'hover', delay : 500 });
+    });
+");
+?>
+    <fieldset class="inline">
+        <div class="row-fluid control-group">
+            <div class="span1">
+                <?php echo $form->textFieldRow($model, 'id'); ?>
+            </div>
+            <div class="span2">
+                <?php echo $form->textFieldRow($model, 'date'); ?>
+            </div>
+            <div class="span3">
+                <?php echo $form->dropDownListRow($model, 'status', $model->statusList, array('empty' => Yii::t('news', '- не важен -'))); ?>
+            </div>
+            <div class="span4">
+                <?php echo $form->dropDownListRow($model, 'category_id', CHtml::listData($this->module->categoryList, 'id', 'name'), array('empty' => Yii::t('news', '- не важно -'))); ?>
+            </div>
+        </div>
+        <div class="row-fluid control-group">
+            <div class="span6">
+                <?php echo $form->textFieldRow($model, 'title', array('size' => 60, 'maxlength' => 150)); ?>
+            </div>
+            <div class="span6">
+                <?php echo $form->textFieldRow($model, 'alias', array('size' => 60, 'maxlength' => 150)); ?>
+            </div>
+        </div>
+        <div class="row-fluid control-group">
+            <div class="span6">
+                <?php echo $form->textFieldRow($model, 'short_text', array('size' => 60, 'maxlength' => 400)); ?>
+            </div>
+            <div class="span6">
+                <?php echo $form->textFieldRow($model, 'full_text'); ?>
+            </div>
+            <div class="span10">
+                <?php echo $form->checkBoxRow($model, 'is_protected', $model->protectedStatusList); ?>
+            </div>
+        </div>
+    </fieldset>
 
-    <div class="row">
-        <?php echo $form->label($model, 'id'); ?>
-        <?php echo $form->textField($model, 'id'); ?>
-    </div>
+    <?php $this->widget('bootstrap.widgets.TbButton', array(
+        'type'        => 'primary',
+        'encodeLabel' => false,
+        'buttonType'  => 'submit',
+        'label'       => '<i class="icon-search icon-white">&nbsp;</i> ' . Yii::t('blog', 'Искать новость'),
+    )); ?>
 
-    <div class="row">
-        <?php echo $form->label($model, 'creation_date'); ?>
-        <?php echo $form->textField($model, 'creation_date'); ?>
-    </div>
-
-    <div class="row">
-        <?php echo $form->label($model, 'change_date'); ?>
-        <?php echo $form->textField($model, 'change_date'); ?>
-    </div>
-
-    <div class="row">
-        <?php echo $form->label($model, 'date'); ?>
-        <?php echo $form->textField($model, 'date'); ?>
-    </div>
-
-    <div class="row">
-        <?php echo $form->label($model, 'title'); ?>
-        <?php echo $form->textField($model, 'title', array('size' => 60, 'maxlength' => 150)); ?>
-    </div>
-
-    <div class="row">
-        <?php echo $form->label($model, 'alias'); ?>
-        <?php echo $form->textField($model, 'alias', array('size' => 60, 'maxlength' => 150)); ?>
-    </div>
-
-    <div class="row">
-        <?php echo $form->label($model, 'short_text'); ?>
-        <?php echo $form->textField($model, 'short_text', array('size' => 60, 'maxlength' => 400)); ?>
-    </div>
-
-    <div class="row">
-        <?php echo $form->label($model, 'full_text'); ?>
-        <?php echo $form->textArea($model, 'full_text', array('rows' => 6, 'cols' => 50)); ?>
-    </div>
-
-    <div class="row">
-        <?php echo $form->label($model, 'status'); ?>
-        <?php echo $form->dropDownList($model, 'status', $model->getStatusList()); ?>
-    </div>
-
-    <div class="row">
-        <?php echo $form->label($model, 'is_protected'); ?>
-        <?php echo $form->checkBox($model, 'is_protected', $model->getProtectedStatusList()); ?>
-    </div>
-
-    <div class="row buttons">
-        <?php echo CHtml::submitButton(Yii::t('news', 'Поиск')); ?>
-    </div>
-
-    <?php $this->endWidget(); ?>
-
-</div><!-- search-form -->
+<?php $this->endWidget(); ?>

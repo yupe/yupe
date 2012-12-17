@@ -12,7 +12,7 @@
  * The followings are the available model relations:
  * @property User $user
  */
-class Login extends CActiveRecord
+class Login extends YModel
 {
     /**
      * Returns the static model of the specified AR class.
@@ -38,7 +38,7 @@ class Login extends CActiveRecord
     {
         return array(
             array('user_id, identity_id, type', 'required'),
-            array('user_id', 'numerical', 'integerOnly' => true),                        
+            array('user_id', 'numerical', 'integerOnly' => true),
             array('identity_id', 'length', 'max' => 100),
             array('type', 'length', 'max' => 50),
             array('id, user_id, identity_id, type, creation_date', 'safe', 'on' => 'search'),
@@ -48,9 +48,8 @@ class Login extends CActiveRecord
     public function beforeSave()
     {
         if ($this->isNewRecord)
-            $this->creation_date = new CDbExpression('NOW()');        
-
-        return parent::beforeSave();        
+            $this->creation_date = new CDbExpression('NOW()');
+        return parent::beforeSave();
     }
 
     /**
@@ -71,10 +70,10 @@ class Login extends CActiveRecord
     public function attributeLabels()
     {
         return array(
-            'id' => Yii::t('user', 'id'),
-            'user_id' => Yii::t('user', 'Пользователь'),
-            'identity_id' => Yii::t('user', 'Идентификатор'),
-            'type' => Yii::t('user', 'Тип'),
+            'id'            => Yii::t('user', 'id'),
+            'user_id'       => Yii::t('user', 'Пользователь'),
+            'identity_id'   => Yii::t('user', 'Идентификатор'),
+            'type'          => Yii::t('user', 'Тип'),
             'creation_date' => Yii::t('user', 'Дата создания'),
         );
     }
@@ -96,8 +95,6 @@ class Login extends CActiveRecord
         $criteria->compare('type', $this->type, true);
         $criteria->compare('creation_date', $this->creation_date, true);
 
-        return new CActiveDataProvider(get_class($this), array(
-                                                              'criteria' => $criteria,
-                                                         ));
+        return new CActiveDataProvider(get_class($this), array('criteria' => $criteria));
     }
 }

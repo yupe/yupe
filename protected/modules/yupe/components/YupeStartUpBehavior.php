@@ -8,16 +8,10 @@ class YupeStartUpBehavior extends CBehavior
 
     public function beginRequest(CEvent $event)
     {
-        try
-        {
-            $yupeModule = Yii::app()->getModule('yupe');
+        // Обрабатываем правила маршрутизации текущего модуля, если указаны
+        list($module) = explode("/", Yii::app()->getRequest()->getPathInfo());
 
-            if ($yupeModule && $yupeModule->theme)            
-                Yii::app()->theme = $yupeModule->theme;
-        }
-        catch (CDbException $e)
-        {
-             //throw new CException(500,Yii::t('yupe','Ошибка в YupeStartUpBehavior...'));
-        }
+        if (Yii::app()->hasModule($module) && ($module = Yii::app()->getModule($module)) && isset($module->urlRules))
+            Yii::app()->getUrlManager()->addRules($module->urlRules);
     }
 }

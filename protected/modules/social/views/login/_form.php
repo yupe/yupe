@@ -1,11 +1,11 @@
 <div class="form">
 
     <?php $form = $this->beginWidget('CActiveForm', array(
-                                                         'id' => 'login-form',
-                                                         'enableAjaxValidation' => false,
-                                                    )); ?>
+         'id' => 'login-form',
+         'enableAjaxValidation' => false,
+    )); ?>
 
-    <p class="note"><?php echo Yii::t('user', 'Поля, отмеченные * обязательны для заполнения')?></p>
+    <p class="note"><?php echo Yii::t('social', 'Поля, отмеченные * обязательны для заполнения')?></p>
 
     <?php echo $form->errorSummary($model); ?>
 
@@ -34,8 +34,7 @@
     </div>
 
     <div class="row buttons">
-        <?php echo CHtml::submitButton($model->isNewRecord ? 'Create'
-                                           : 'Save'); ?>
+        <?php echo CHtml::submitButton($model->isNewRecord ? 'Create' : 'Save'); ?>
     </div>
 
     <?php $this->endWidget(); ?>

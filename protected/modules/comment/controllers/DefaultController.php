@@ -7,9 +7,7 @@ class DefaultController extends YBackController
      */
     public function actionView($id)
     {
-        $this->render('view', array(
-                                   'model' => $this->loadModel($id),
-                              ));
+        $this->render('view', array('model' => $this->loadModel($id)));
     }
 
     /**
@@ -26,13 +24,16 @@ class DefaultController extends YBackController
         if (isset($_POST['Comment']))
         {
             $model->attributes = $_POST['Comment'];
-            if ($model->save())
-                $this->redirect(array('view', 'id' => $model->id));
-        }
 
-        $this->render('create', array(
-                                     'model' => $model,
-                                ));
+            if ($model->save())
+            {
+                if (!isset($_POST['submit-type']))
+                    $this->redirect(array('update', 'id' => $model->id));
+                else
+                    $this->redirect(array($_POST['submit-type']));
+            }
+        }
+        $this->render('create', array('model' => $model));
     }
 
     /**
@@ -50,13 +51,16 @@ class DefaultController extends YBackController
         if (isset($_POST['Comment']))
         {
             $model->attributes = $_POST['Comment'];
-            if ($model->save())
-                $this->redirect(array('view', 'id' => $model->id));
-        }
 
-        $this->render('update', array(
-                                     'model' => $model,
-                                ));
+            if ($model->save())
+            {
+                if (!isset($_POST['submit-type']))
+                    $this->redirect(array('update', 'id' => $model->id));
+                else
+                    $this->redirect(array($_POST['submit-type']));
+            }
+        }
+        $this->render('update', array('model' => $model));
     }
 
     /**
@@ -73,37 +77,22 @@ class DefaultController extends YBackController
 
             // if AJAX request (triggered by deletion via admin grid view), we should not redirect the browser
             if (!isset($_GET['ajax']))
-                $this->redirect(isset($_POST['returnUrl']) ? $_POST['returnUrl']
-                                    : array('admin'));
+                $this->redirect(isset($_POST['returnUrl']) ? $_POST['returnUrl'] : array('index'));
         }
         else
-            throw new CHttpException(400, 'Invalid request. Please do not repeat this request again.');
-    }
-
-    /**
-     * Lists all models.
-     */
-    public function actionIndex()
-    {
-        $dataProvider = new CActiveDataProvider('Comment');
-        $this->render('index', array(
-                                    'dataProvider' => $dataProvider,
-                               ));
+            throw new CHttpException(400, Yii::t('comment', 'Неверный запрос. Пожалуйста, больше не повторяйте такие запросы'));
     }
 
     /**
      * Manages all models.
      */
-    public function actionAdmin()
+    public function actionIndex()
     {
         $model = new Comment('search');
         $model->unsetAttributes(); // clear any default values
         if (isset($_GET['Comment']))
             $model->attributes = $_GET['Comment'];
-
-        $this->render('admin', array(
-                                    'model' => $model,
-                               ));
+        $this->render('index', array('model' => $model));
     }
 
     /**
@@ -113,9 +102,9 @@ class DefaultController extends YBackController
      */
     public function loadModel($id)
     {
-        $model = Comment::model()->findByPk((int)$id);
+        $model = Comment::model()->findByPk((int) $id);
         if ($model === null)
-            throw new CHttpException(404, 'The requested page does not exist.');
+            throw new CHttpException(404, Yii::t('comment', 'Запрошенная страница не найдена!'));
         return $model;
     }
 

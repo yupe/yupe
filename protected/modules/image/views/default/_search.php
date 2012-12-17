@@ -1,49 +1,36 @@
-<div class="wide form">
+<?php
+$form = $this->beginWidget('bootstrap.widgets.TbActiveForm', array(
+    'action'      => Yii::app()->createUrl($this->route),
+    'method'      => 'get',
+    'type'        => 'vertical',
+    'htmlOptions' => array('class' => 'well'),
+));
 
-    <?php $form = $this->beginWidget('CActiveForm', array(
-                                                         'action' => Yii::app()->createUrl($this->route),
-                                                         'method' => 'get',
-                                                    )); ?>
+Yii::app()->clientScript->registerScript('fieldset', "
+    $('document').ready(function () {
+        $('.popover-help').popover({ trigger : 'hover', delay : 500 });
+    });
+");
+?>
+    <fieldset class="inline">
+        <?php echo $form->textFieldRow($model, 'id', array('class' => 'span5', 'maxlength' => 10,'size' => 60)); ?>
+        <?php echo $form->textFieldRow($model, 'category_id', array('class' => 'span5', 'maxlength'=>10,'size' => 60)); ?>
+        <?php echo $form->textFieldRow($model, 'parent_id', array('class' => 'span5', 'size' => 60,'maxlength' => 60)); ?>
+        <?php echo $form->textFieldRow($model, 'name', array('class' => 'span5', 'maxlength' => 300,'size' => 60)); ?>
+        <?php echo $form->textAreaRow($model, 'description', array('rows' => 6, 'cols' => 50, 'class' => 'span8')); ?>
+        <?php echo $form->textFieldRow($model, 'file', array('class' => 'span5', 'maxlength'=>500, 'size' => 60)); ?>
+        <?php echo $form->textFieldRow($model, 'creation_date', array('class' => 'span5', 'size' => 60, 'maxlength' => 60)); ?>
+        <?php echo $form->textFieldRow($model, 'user_id', array('class' => 'span5', 'maxlength' => 10, 'size' => 60)); ?>
+        <?php echo $form->textFieldRow($model, 'alt', array('class' => 'span5', 'maxlength' => 150, 'size' => 60)); ?>
+        <?php echo $form->textFieldRow($model, 'type', array('class' => 'span5', 'size' => 60, 'maxlength' => 60)); ?>
+        <?php echo $form->textFieldRow($model, 'status', array('class' => 'span5', 'size' => 60, 'maxlength' => 60)); ?>
+    </fieldset>
 
-    <div class="row">
-        <?php echo $form->label($model, 'id'); ?>
-        <?php echo $form->textField($model, 'id', array('size' => 10, 'maxlength' => 10)); ?>
-    </div>
+    <?php $this->widget('bootstrap.widgets.TbButton', array(
+            'type'        =>'primary',
+            'encodeLabel' => false,
+            'buttonType'  => 'submit',
+            'label'       => '<i class="icon-search icon-white">&nbsp;</i> '.Yii::t('image','Искать изображение'),
+    )); ?>
 
-    <div class="row">
-        <?php echo $form->label($model, 'name'); ?>
-        <?php echo $form->textField($model, 'name', array('size' => 38, 'maxlength' => 300)); ?>
-    </div>
-
-    <div class="row">
-        <?php echo $form->label($model, 'description'); ?>
-        <?php echo $form->textArea($model, 'description', array('rows' => 6, 'cols' => 50)); ?>
-    </div>
-
-    <div class="row">
-        <?php echo $form->label($model, 'creation_date'); ?>
-        <?php echo $form->textField($model, 'creation_date'); ?>
-    </div>
-
-    <div class="row">
-        <?php echo $form->label($model, 'user_id'); ?>
-        <?php echo $form->textField($model, 'user_id', array('size' => 10, 'maxlength' => 10)); ?>
-    </div>
-
-    <div class="row">
-        <?php echo $form->label($model, 'alt'); ?>
-        <?php echo $form->textField($model, 'alt', array('size' => 38, 'maxlength' => 150)); ?>
-    </div>
-
-    <div class="row">
-        <?php echo $form->label($model, 'status'); ?>
-        <?php echo $form->dropDownList($model, 'status', $model->getStatusList()); ?>
-    </div>
-
-    <div class="row buttons">
-        <?php echo CHtml::submitButton(Yii::t('image', 'Поиск')); ?>
-    </div>
-
-    <?php $this->endWidget(); ?>
-
-</div><!-- search-form -->
+<?php $this->endWidget(); ?>

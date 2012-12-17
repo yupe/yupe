@@ -2,16 +2,13 @@
 class CommentFormWidget extends YWidget
 {
     public $model;
-
     public $modelId;
-
     public $redirectTo;
 
     public function init()
     {
-        $this->model = is_object($this->model) ? get_class($this->model) : $this->model;
-
-        $this->modelId = (int)$this->modelId;
+        $this->model   = is_object($this->model) ? get_class($this->model) : $this->model;
+        $this->modelId = (int) $this->modelId;
     }
 
     public function run()
@@ -19,10 +16,13 @@ class CommentFormWidget extends YWidget
         $model = new Comment;
 
         $model->setAttributes(array(
-                                   'model' => $this->model,
-                                   'model_id' => $this->modelId
-                              ));
+            'model'    => $this->model,
+            'model_id' => $this->modelId,
+        ));
 
-        $this->render('commentformwidget', array('redirectTo' => $this->redirectTo, 'model' => $model));
+        $this->render('commentformwidget', array(
+            'redirectTo' => $this->redirectTo,
+            'model'      => $model,
+        ));
     }
 }
