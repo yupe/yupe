@@ -68,10 +68,8 @@ class BackendController extends YBackController
                     YFlashMessages::ERROR_MESSAGE,
                     Yii::t('yupe', 'При сохранении произошла ошибка!')
                 );
-
             $this->redirect(array('/yupe/backend/modulesettings', 'module' => $moduleId));
         }
-
         throw new CHttpException(404, Yii::t('yupe', 'Страница не найдена!'));
     }
 
@@ -85,7 +83,6 @@ class BackendController extends YBackController
                     YFlashMessages::NOTICE_MESSAGE,
                     Yii::t('yupe', 'Настройки тем сохранены!')
                 );
-
                 //@TODO сброс полностью - плохо =(
                 Yii::app()->cache->flush();
             }
@@ -94,7 +91,6 @@ class BackendController extends YBackController
                     YFlashMessages::ERROR_MESSAGE,
                     Yii::t('yupe', 'При сохранении настроек произошла ошибка!')
                 );
-
             $this->redirect(array('/yupe/backend/themesettings/'));
         }
 
@@ -103,7 +99,7 @@ class BackendController extends YBackController
             : Yii::t('yupe', 'Тема не используется');
         $backendTheme = isset($settings['backendTheme'])
             ? $settings['backendTheme']->param_value
-            : (($this->yupe->backendTheme && $this->yupe->backendTheme != 'bootstrap')
+            : (($this->yupe->backendTheme)
                 ? $this->yupe->backendTheme
                 : Yii::t('yupe', 'Тема не используется'));
 
@@ -203,7 +199,6 @@ class BackendController extends YBackController
             YFlashMessages::NOTICE_MESSAGE,
             Yii::t('yupe', 'Кэш успешно сброшен!')
         );
-
         $referrer = Yii::app()->getRequest()->getUrlReferrer();
         $this->redirect($referrer !== null ? $referrer : array("/yupe/backend"));
     }
