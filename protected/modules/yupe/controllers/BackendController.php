@@ -94,14 +94,15 @@ class BackendController extends YBackController
             $this->redirect(array('/yupe/backend/themesettings/'));
         }
 
-        $theme = isset($settings['theme'])
+        $settings = Settings::model()->fetchModuleSettings('yupe', array('theme', 'backendTheme'));
+        $noThemeValue = Yii::t('yupe', 'Тема не используется');
+
+        $theme = isset($settings['theme']) && $settings['theme']->param_value != ''
             ? $settings['theme']->param_value
-            : Yii::t('yupe', 'Тема не используется');
-        $backendTheme = isset($settings['backendTheme'])
+            : $noThemeValue;
+        $backendTheme = isset($settings['backendTheme']) && $settings['backendTheme']->param_value != ''
             ? $settings['backendTheme']->param_value
-            : (($this->yupe->backendTheme)
-                ? $this->yupe->backendTheme
-                : Yii::t('yupe', 'Тема не используется'));
+            : $noThemeValue;
 
         $this->render('themesettings', array(
             'themes'        => $this->yupe->getThemes(),
