@@ -24,7 +24,7 @@ class YupeModule extends YWebModule
     public $siteKeyWords;
 
     public $backendLayout          = 'column2';
-    public $backendTheme           = false;
+    public $backendTheme;
     public $emptyLayout            = 'empty';
     public $theme;
 
