@@ -1,7 +1,6 @@
 <?php
 class NewsModule extends YWebModule
 {
-    public $editor            = 'application.modules.yupe.widgets.editors.imperaviRedactor.ImperaviRedactorWidget';
     public $uploadPath        = 'news';
     public $allowedExtensions = 'jpg,jpeg,png,gif';
     public $minSize           = 0;

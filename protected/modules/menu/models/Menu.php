@@ -173,13 +173,21 @@ class Menu extends YModel
                 $childItems = $this->getItems($code, $result->id);
 
                 // @TODO Если не ставить url и присутствует items, пункт не выводится, возможно баг yii
-                $url        = ($result->href)
-                    ? array('url'   => array($result->href), 'items' => $childItems)
-                    : (($childItems) 
-                        ? array('url' => array('#'), 'items' => $childItems)
-                        : array()
-                );
-                $class      = ($result->class) ? ' ' . $result->class : '';
+                if ($result->href)
+                {
+                    $url = $result->href;
+                    strstr($url, '?') ? list($url, $param) = explode("?", $url) : $param = array();
+                    if ($param)
+                        parse_str($param, $param);
+                    $url = array('url' => array($url) + $param, 'items' => $childItems);
+                }
+                else if ($childItems)
+                    $url = array('url' => array('#'), 'items' => $childItems);
+                else
+                    $url = array();
+
+                $class      = (($childItems) ? ' submenuItem' : '') . 
+                              (($result->class) ? ' ' . $result->class : '');
                 $title_attr = ($result->title_attr) ? array('title' => $result->title_attr) : array();
                 $target     = ($result->target && $url) ? array('target' => $result->target) : array();
                 $rel        = ($result->rel && $url) ? array('rel' => $result->rel) : array();

@@ -14,24 +14,32 @@ class YBackController extends YMainController
         parent::init();
 
         $this->layout = $this->yupe->backendLayoutAlias;
+        $backendTheme = $this->yupe->backendTheme;
 
-        if ($this->yupe->backendTheme && is_dir(Yii::getPathOfAlias("webroot.themes.backend_" . $this->yupe->backendTheme)))
+        if ($backendTheme && is_dir(Yii::getPathOfAlias("webroot.themes.backend_" . $backendTheme)))
         {
-            //$themeBase        = "webroot.themes.backend_" . $this->yupe->backendTheme;
-            Yii::app()->theme = "backend_" . $this->yupe->backendTheme;
-            $themeFile        = Yii::app()->theme->basePath . "/" . ucwords($this->yupe->backendTheme) . "Theme.php";
+          //$themeBase        = "webroot.themes.backend_" . $backendTheme;
+            Yii::app()->theme = "backend_" . $backendTheme;
+            $themeFile        = Yii::app()->theme->basePath . "/" . ucwords($backendTheme) . "Theme.php";
 
             if (is_file($themeFile))
                 require($themeFile);
         }
         else
         {
-            Yii::app()->theme = 'default';
+            Yii::app()->theme = null;
             $this->layout     = 'application.modules.yupe.views.layouts.column2';
+
+            Yii::app()->setComponent('bootstrap', Yii::createComponent(array(
+                'class' => 'application.modules.yupe.extensions.booster.components.Bootstrap',
+            )));
+
+            Yii::setPathOfAlias('bootstrap', Yii::app()->getModule('yupe')->basePath . '/extensions/booster');
+            Yii::app()->preload[] = 'bootstrap';
         }
 
-
         Yii::app()->clientScript->registerCoreScript('jquery');
+        // @TODO необходимо избавиться от эллементво использующих jquery ui
         Yii::app()->clientScript->registerCoreScript('jquery.ui');
         Yii::app()->clientScript->registerCssFile(Yii::app()->clientScript->getCoreScriptUrl() . '/jui/css/base/jquery-ui.css');
 

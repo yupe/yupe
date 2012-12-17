@@ -68,10 +68,8 @@ class BackendController extends YBackController
                     YFlashMessages::ERROR_MESSAGE,
                     Yii::t('yupe', 'При сохранении произошла ошибка!')
                 );
-
             $this->redirect(array('/yupe/backend/modulesettings', 'module' => $moduleId));
         }
-
         throw new CHttpException(404, Yii::t('yupe', 'Страница не найдена!'));
     }
 
@@ -85,7 +83,6 @@ class BackendController extends YBackController
                     YFlashMessages::NOTICE_MESSAGE,
                     Yii::t('yupe', 'Настройки тем сохранены!')
                 );
-
                 //@TODO сброс полностью - плохо =(
                 Yii::app()->cache->flush();
             }
@@ -94,16 +91,18 @@ class BackendController extends YBackController
                     YFlashMessages::ERROR_MESSAGE,
                     Yii::t('yupe', 'При сохранении настроек произошла ошибка!')
                 );
-
             $this->redirect(array('/yupe/backend/themesettings/'));
         }
 
-        $theme = isset($settings['theme'])
+        $settings = Settings::model()->fetchModuleSettings('yupe', array('theme', 'backendTheme'));
+        $noThemeValue = Yii::t('yupe', 'Тема не используется');
+
+        $theme = isset($settings['theme']) && $settings['theme']->param_value != ''
             ? $settings['theme']->param_value
-            : Yii::t('yupe', 'Тема не используется');
-        $backendTheme = isset($settings['backendTheme'])
+            : $noThemeValue;
+        $backendTheme = isset($settings['backendTheme']) && $settings['backendTheme']->param_value != ''
             ? $settings['backendTheme']->param_value
-            : ($this->yupe->backendTheme ? $this->yupe->backendTheme : Yii::t('yupe', 'Тема не используется'));
+            : $noThemeValue;
 
         $this->render('themesettings', array(
             'themes'        => $this->yupe->getThemes(),
@@ -201,7 +200,6 @@ class BackendController extends YBackController
             YFlashMessages::NOTICE_MESSAGE,
             Yii::t('yupe', 'Кэш успешно сброшен!')
         );
-
         $referrer = Yii::app()->getRequest()->getUrlReferrer();
         $this->redirect($referrer !== null ? $referrer : array("/yupe/backend"));
     }

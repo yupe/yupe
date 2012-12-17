@@ -40,7 +40,7 @@
 
 .jqueryslidemenu ul li a:hover {
     background: url("bg.gif") repeat-x scroll left top white; /*tab link background during hover state*/
-    color: white;
+    color: #FDBB29;
 }
 
 /*1st sub level menu*/
@@ -71,10 +71,18 @@
 
 }
 
-.jqueryslidemenuz ul li ul li a:hover {
+.jqueryslidemenu ul li ul li a:hover {
     /*sub menus hover style*/
     background: url("bg.gif") repeat-x scroll left top white;
-    color: black;
+    color: #FDBB29;
+}
+
+.jqueryslidemenu li.login-text {
+    float: right;
+}
+
+.jqueryslidemenu li.active > a {
+    text-decoration: underline;
 }
 
 /* ######### CSS classes applied to down and right arrow images  ######### */

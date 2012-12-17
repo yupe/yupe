@@ -84,7 +84,7 @@ class LangUrlManager extends CUrlManager
         if ($url != '' && $url[strlen($url) - 1] == '/')
             $url = substr($url, 0, strlen($url) - 1);
         // Убираем из GET-парамметров адреса языковой парамметр
-        if($param != false)
+        if ($param != false)
         {
             parse_str($param, $param);
             if (isset($param[$this->langParam]))

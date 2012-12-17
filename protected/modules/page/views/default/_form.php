@@ -56,11 +56,7 @@ Yii::app()->clientScript->registerScript('fieldset', "
             <?php $this->widget($this->module->editor, array(
                 'model'       => $model,
                 'attribute'   => 'body',
-                'options'     => array(
-                    'toolbar'     => 'main',
-                    'imageUpload' => Yii::app()->baseUrl.'/index.php/yupe/backend/AjaxFileUpload/',
-                ),
-                'htmlOptions' => array('rows' => 20,'cols' => 6),
+                'options'     => $this->module->editorOptions,
             )); ?>
         </div>
     </div>

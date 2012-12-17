@@ -59,14 +59,19 @@ class ImperaviRedactorWidget extends \CInputWidget
         /** @var $cs CClientScript */
         $cs = Yii::app()->clientScript;
         if (!isset($cs->packages[self::PACKAGE_ID])) {
+            /**  Fix Lang **/
+            $lang = (isset($this->options['lang'])) ? $this->options['lang'] : Yii::app()->language;
+            $lang = ($lang != 'en') ? array('langs/' . $lang . '.js') : array();
+            /** /Fix Lang **/
+
             /** @var $am CAssetManager */
             $am = Yii::app()->assetManager;
             $cs->packages[self::PACKAGE_ID] = array(
                 'basePath' => dirname(__FILE__) . '/assets',
                 'baseUrl' => $am->publish(dirname(__FILE__) . '/assets'),
-                'js' => array(
-                    'redactor' . (YII_DEBUG ? '' : '.min') . '.js',
-                ),
+                'js' => array_merge($lang, array(
+                    'redactor' . (YII_DEBUG ? '' : '.min') . '.js'
+                )),
                 'css' => array(
                     'redactor.css',
                 ),

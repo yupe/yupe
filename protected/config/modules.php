@@ -1,5 +1,4 @@
 <?php
-
 return array(
     'menu' => array(
         'class' => 'application.modules.menu.MenuModule',
@@ -99,4 +98,3 @@ return array(
     ),
      */
 );
-?>

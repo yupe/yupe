@@ -9,42 +9,17 @@ return array(
     'sourceLanguage'    => 'ru',
     'theme'             => 'default',    // тема оформления по умолчанию
     'preload'           => array('log'), // preloading 'log' component
-    'import'            => array(
+    'import'            => array_merge(array(
         // подключение основых путей
         'application.components.*',
         // подключение путей из модулей
-        'application.modules.user.UserModule',
-        'application.modules.user.models.*',
-        'application.modules.user.forms.*',
-        'application.modules.user.components.*',
-        'application.modules.page.models.*',
-        'application.modules.news.models.*',
-        'application.modules.contentblock.models.*',
-        'application.modules.comment.models.*',
-        'application.modules.image.models.*',
-        'application.modules.vote.models.*',
-        'application.modules.blog.models.*',
-        'application.modules.menu.models.*',
         'application.modules.yupe.controllers.*',
         'application.modules.yupe.widgets.*',
         'application.modules.yupe.helpers.*',
         'application.modules.yupe.models.*',
-        'application.modules.feedback.models.*',
-        'application.modules.category.models.*',
         'application.modules.yupe.components.*',
         'application.modules.yupe.components.exceptions.*',
-        'application.modules.queue.components.*',
-        'application.modules.queue.models.*',
-        'application.modules.social.widgets.ysc.*',
-        'application.modules.social.components.*',
-        'application.modules.social.models.*',
-        'application.modules.social.extensions.eoauth.*',
-        'application.modules.social.extensions.eoauth.lib.*',
-        'application.modules.social.extensions.lightopenid.*',
-        'application.modules.social.extensions.eauth.services.*',
-        'application.modules.geo.*',
-        'application.modules.geo.models.*',
-    ),
+    ), require(dirname(__FILE__) . '/modulesImport.php')),
     // подключение и конфигурирование модулей,
     // подробнее: http://www.yiiframework.ru/doc/guide/ru/basics.module
     'modules' => require(dirname(__FILE__) . '/modules.php'),
@@ -54,15 +29,7 @@ return array(
     ),
     'params' => require(dirname(__FILE__) . '/params.php'),
     // конфигурирование основных компонентов (подробнее http://www.yiiframework.ru/doc/guide/ru/basics.component)
-    'components' => array(
-        'queue' => array(
-            'class'          => 'application.modules.queue.components.YDbQueue',
-            'connectionId'   => 'db',
-            'workerNamesMap' => array(
-                1 => 'Отправка почты',
-                2 => 'Ресайз изображений',
-            ),
-        ),
+    'components' => array_merge(array(
         // библиотека для работы с картинками через GD/ImageMagick
         // лучше установите ImageMagick, т.к. он ресайзит анимированные гифы
         'image' => array(
@@ -70,60 +37,25 @@ return array(
             'driver' => 'GD',                               // если ImageMagick, надо указать к нему путь ниже
             'params' => array( 'directory' => '/usr/bin' ), // в этой директории должен быть convert
         ),
-        // подключение библиотеки для авторизации через социальные сервисы, подробнее: https://github.com/Nodge/yii-eauth
-        'loid' => array(
-            'class' => 'application.modules.social.extensions.lightopenid.loid',
-        ),
-        // экстеншн для авторизации через социальные сети подробнее: http://habrahabr.ru/post/129804/
-        'eauth' => array(
-            'class'    => 'application.modules.social.extensions.eauth.EAuth',
-            'popup'    => true,  // use the popup window instead of redirecting.
-            'services' => array( // you can change the providers and their classes.
-                'google' => array('class' => 'CustomGoogleService'),
-                'yandex' => array('class' => 'CustomYandexService'),
-            ),
-        ),
-        // компонент для отправки почты
-        'mail' => array(
-            'class' => 'application.modules.mail.components.YMail',
-        ),
-        'mailMessage' => array(
-            'class' => 'application.modules.mail.components.YMailMessage'
-        ),
         // конфигурирование urlManager, подробнее: http://www.yiiframework.ru/doc/guide/ru/topics.url
         'urlManager' => array(
             'class'          => 'application.modules.yupe.extensions.urlManager.LangUrlManager',
             'languageInPath' => true,
             'langParam'      => 'language',
             'urlFormat'      => 'path',
-            'showScriptName' => true, // чтобы убрать index.php из url, читаем: http://yiiframework.ru/doc/guide/ru/quickstart.apache-nginx-config
+            'showScriptName' => false, // чтобы убрать index.php из url, читаем: http://yiiframework.ru/doc/guide/ru/quickstart.apache-nginx-config
             'cacheID'        => 'cache',
-            'rules'          => array(
+            'rules'          => array_merge(require(dirname(__FILE__) . '/modulesRules.php'), array(
+                // правила контроллера site
                 '/'                                                   => 'site/index',
-                '/login'                                              => 'user/account/login',
-                '/logout'                                             => 'user/account/logout',
-                '/registration'                                       => 'user/account/registration',
-                '/recovery'                                           => 'user/account/recovery',
-                '/feedback'                                           => 'feedback/feedback',
-                '/pages/<slug>'                                       => 'page/page/show',
-                '/story/<title>'                                      => 'news/news/show/',
-                '/post/<slug>.html'                                   => 'blog/post/show/',
-                '/posts/tag/<tag>'                                    => 'blog/post/list/',
-                '/blog/<slug>'                                        => 'blog/blog/show/',
-                '/blogs/'                                             => 'blog/blog/index/',
-                '/users/'                                             => 'user/people/index/',
-                '/profile/'                                           => 'user/people/profile/',
-                '/install'                                            => 'install/default/index/',
-                '/wiki/<controller:\w+>/<action:\w+>'                 => '/yeeki/wiki/<controller>/<action>',
-                '/site/page/<view:\w+>'                               => 'site/page/view/<view>',
-                '/yupe/backend/modulesettings/<module:\w+>'           => '/yupe/backend/modulesettings/',
-                'user/<username:\w+>/'                                => 'user/people/userInfo',
+                '/<view:\w+>'                                         => 'site/page',
+                // общие правила
                 '<module:\w+>/<controller:\w+>/<action:\w+>/<id:\d+>' => '<module>/<controller>/<action>',
                 '<module:\w+>/<controller:\w+>/<action:\w+>'          => '<module>/<controller>/<action>',
                 '<module:\w+>/<controller:\w+>'                       => '<module>/<controller>/index',
                 '<controller:\w+>/<action:\w+>'                       => '<controller>/<action>',
                 '<controller:\w+>'                                    => '<controller>/index',
-            ),
+            )),
         ),
         // конфигурируем компонент CHttpRequest для защиты от CSRF атак, подробнее: http://www.yiiframework.ru/doc/guide/ru/topics.security
         // РЕКОМЕНДУЕМ УКАЗАТЬ СВОЕ ЗНАЧЕНИЕ ДЛЯ ПАРАМЕТРА "csrfTokenName"
@@ -138,11 +70,6 @@ return array(
         // подключение компонента для генерации ajax-ответов
         'ajax' => array(
             'class' => 'application.modules.yupe.components.YAsyncResponse',
-        ),
-        // компонент Yii::app()->user, подробнее http://www.yiiframework.ru/doc/guide/ru/topics.auth
-        'user' => array(
-            'class'    => 'application.modules.user.components.YWebUser',
-            'loginUrl' => '/user/account/login/',
         ),
         // параметры подключения к базе данных, подробнее http://www.yiiframework.ru/doc/guide/ru/database.overview
         'db' => require(dirname(__FILE__) . '/db.php'),
@@ -170,12 +97,5 @@ return array(
         'curl' => array(
             'class' => 'application.modules.yupe.extensions.curl.Curl'
         ),
-/*
-        // Если используется модуль geo  - надо как-то интегрировать в сам модуль
-        'sxgeo' => array(
-            'class' => 'application.modules.geo.extensions.sxgeo.CSxGeoIP',
-            'filename' => dirname(__FILE__)."/../modules/geo/data/SxGeoCity.dat",
-        ),
-*/
-    ),
+    ), require(dirname(__FILE__) . '/modulesComponent.php')),
 );
