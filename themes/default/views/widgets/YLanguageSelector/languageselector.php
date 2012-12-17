@@ -1,7 +1,7 @@
 <?php $currentLanguage = Yii::app()->language; ?>
 <?php $cp = Yii::app()->urlManager->getCleanUrl(Yii::app()->request->url); ?>
 <?php $i = 1; ?>
-<?php $homeUrl = $app->homeUrl . ($app->homeUrl[strlen($app->homeUrl) - 1] != "/" ? '/' : ''); ?>
+<?php $homeUrl = Yii::app()->homeUrl . (Yii::app()->homeUrl[strlen(Yii::app()->homeUrl) - 1] != "/" ? '/' : ''); ?>
 <?php $langs = explode(',', $this->controller->yupe->availableLanguages); ?>
 <div style="font-size: 11px">
     <?php if(count($langs) > 1):?>
