@@ -1,5 +1,30 @@
 <?php
 
+$path = dirname(__FILE__) . '/modules';
+$import = $rules = $components = $modules = array();
+
+if ($path && $handler = opendir($path))
+{
+    while (($file = readdir($handler)))
+    {
+        if ($file != '.' && $file != '..' && !is_file($file))
+        {
+            $name   = str_replace('.php', '', $file);
+            $config = require($path . '/' . $file);
+
+            if(!empty($config['import']))
+                $import = array_merge($import, $config['import']);
+            if(!empty($config['rules']))
+                $rules = array_merge($rules, $config['rules']);
+            if(!empty($config['component']))
+                $components = array_merge($components, $config['component']);
+            if(!empty($config['module']))
+                $modules = array_merge($modules, array($name => $config['module']));
+        }
+    }
+    closedir($handler);
+}
+
 // основной конфигурационный файл Yii и Юпи! (подробнее http://www.yiiframework.ru/doc/guide/ru/basics.application)
 return array(
     'basePath'          => dirname(__FILE__) . DIRECTORY_SEPARATOR . '..',
@@ -19,10 +44,25 @@ return array(
         'application.modules.yupe.models.*',
         'application.modules.yupe.components.*',
         'application.modules.yupe.components.exceptions.*',
-    ), require(dirname(__FILE__) . '/modulesImport.php')),
+    ), $import),
     // подключение и конфигурирование модулей,
     // подробнее: http://www.yiiframework.ru/doc/guide/ru/basics.module
-    'modules' => require(dirname(__FILE__) . '/modules.php'),
+    'modules' => array_merge(array(
+            'yupe'  => array(
+                'class'    => 'application.modules.yupe.YupeModule',
+                'brandUrl' => 'http://yupe.ru?from=engine',
+            ),
+            // на продакшне gii рекомендуется отключить, подробнее: http://www.yiiframework.com/doc/guide/1.1/en/quickstart.first-app
+            'gii'   => array(
+                'class'          => 'system.gii.GiiModule',
+                'password'       => 'giiYupe',
+                'generatorPaths' => array(
+                    'application.modules.yupe.extensions.yupe.gii',
+                ),
+                'ipFilters'=>array(),
+            ),
+        ), $modules
+    ),
     'behaviors' => array(
         'onBeginRequest' => array('class' => 'application.modules.yupe.extensions.urlManager.LanguageBehavior'),
         'YupeStartUpBehavior',
@@ -45,7 +85,8 @@ return array(
             'urlFormat'      => 'path',
             'showScriptName' => true, // чтобы убрать index.php из url, читаем: http://yiiframework.ru/doc/guide/ru/quickstart.apache-nginx-config
             'cacheID'        => 'cache',
-            'rules'          => array_merge(require(dirname(__FILE__) . '/modulesRules.php'), array(
+            'rules'          => array_merge($rules, array(
+                '/yupe/backend/modulesettings/<module:\w+>'           => 'yupe/backend/modulesettings',
                 // правила контроллера site
                 '/'                                                   => 'site/index',
                 '/<view:\w+>'                                         => 'site/page',
@@ -97,5 +138,5 @@ return array(
         'curl' => array(
             'class' => 'application.modules.yupe.extensions.curl.Curl'
         ),
-    ), require(dirname(__FILE__) . '/modulesComponent.php')),
+    ), $components),
 );
