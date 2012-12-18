@@ -1,5 +1,4 @@
 <?php
-
 /**
  * YupeModule файл класса.
  *
@@ -134,7 +133,12 @@ class YupeModule extends YWebModule
             'defaultBackendLanguage' => $this->getLanguagesList(),
         );
     }
-    
+
+    public function getIsNoDisable()
+    {
+        return true;
+    }
+
     protected function getLanguagesList()
     {
         $langs = array();
@@ -224,12 +228,13 @@ class YupeModule extends YWebModule
         );
     }
 
-    public function getModules($navigationOnly = false)
+    public function getModules($navigationOnly = false, $disableModule = false)
     {
         $modules = $yiiModules = $order = array();
 
         if (count(Yii::app()->modules))
         {
+            // @TODO внести получение модулей в кэш
             // Получаем модули и заполняем основные массивы
             foreach (Yii::app()->modules as $key => $value)
             {
@@ -348,6 +353,7 @@ class YupeModule extends YWebModule
 
         if (CHtml::normalizeUrl("/" . Yii::app()->controller->route) != '/yupe/backend/index')
         {
+            // @TODO возможно ...['icon'] .= ' white'; уже не требуется
             // Устанавливаем активную категорию
             $thisCategory = Yii::app()->controller->module->category
                 ? Yii::app()->controller->module->category
@@ -382,6 +388,34 @@ class YupeModule extends YWebModule
             }
             unset($thisModule);
             unset($thisCategory);
+        }
+
+        // Подгрузка отключенных модулей
+        if ($disableModule)
+        {
+            $path         = Yii::getPathOfAlias('application.modules');
+            $enableModule = array_keys($modules);
+
+            if ($path && $handler = opendir($path))
+            {
+                while (($dir = readdir($handler)))
+                {
+                    if ($dir != '.' && $dir != '..' && !is_file($dir) && empty($enableModule[$dir]))
+                    {
+                        //посмотреть внутри файл с окончанием Module.php
+                        $files = glob($path . '/' . $dir . '/' . '*Module.php');
+
+                        // @TODO А если файлов не 1?
+                        if (count($files) == 1)
+                        {
+                            $name = preg_replace('#^.*/([^\.]*).php$#', '$1', $files[0]);
+                            Yii::import('application.modules.' . $dir . '.' . $name);
+                            $modules[$dir] = Yii::createComponent($name, $dir, null, false);
+                        }
+                    }
+                }
+                closedir($handler);
+            }
         }
 
         return ($navigationOnly === true) ? $modulesNavigation : array(
