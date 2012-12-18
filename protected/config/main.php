@@ -1,28 +1,22 @@
 <?php
-
-$path = dirname(__FILE__) . '/modules';
 $import = $rules = $components = $modules = array();
+$files = glob(dirname(__FILE__) . '/modules/*.php');
 
-if ($path && $handler = opendir($path))
+foreach ($files as $file)
 {
-    while (($file = readdir($handler)))
-    {
-        if ($file != '.' && $file != '..' && !is_file($file))
-        {
-            $name   = str_replace('.php', '', $file);
-            $config = require($path . '/' . $file);
+    $config = require_once($file);
 
-            if(!empty($config['import']))
-                $import = array_merge($import, $config['import']);
-            if(!empty($config['rules']))
-                $rules = array_merge($rules, $config['rules']);
-            if(!empty($config['component']))
-                $components = array_merge($components, $config['component']);
-            if(!empty($config['module']))
-                $modules = array_merge($modules, array($name => $config['module']));
-        }
+    if (!empty($config['import']))
+        $import = array_merge($import, $config['import']);
+    if (!empty($config['rules']))
+        $rules = array_merge($rules, $config['rules']);
+    if (!empty($config['component']))
+        $components = array_merge($components, $config['component']);
+    if (!empty($config['module']))
+    {
+        $name    = preg_replace('#^.*/([^\.]*).php$#', '$1', $file);
+        $modules = array_merge($modules, array($name => $config['module']));
     }
-    closedir($handler);
 }
 
 // основной конфигурационный файл Yii и Юпи! (подробнее http://www.yiiframework.ru/doc/guide/ru/basics.application)
