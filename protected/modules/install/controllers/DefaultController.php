@@ -256,7 +256,7 @@ class DefaultController extends YBackController
                         }
                         catch (Exception $e)
                         {
-                            $transaction->rollback();                            
+                            $transaction->rollback();
 
                             Yii::app()->user->setFlash(
                                 YFlashMessages::ERROR_MESSAGE,
@@ -311,7 +311,7 @@ class DefaultController extends YBackController
             if ($model->validate())
             {
                 $user = new User;
-                
+
                 $user->deleteAll();
 
                 $salt = $user->generateSalt();

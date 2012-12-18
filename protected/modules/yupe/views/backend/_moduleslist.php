@@ -37,7 +37,7 @@
                     </td>
                     <td>
                         <small style="font-size: 80%;"><?php echo $module->category; ?></small><br />
-                        <?php if ($module->isStatus): ?>
+                        <?php if ($module->isStatus || $module->isNoDisable): ?>
                             <?php echo CHtml::link($module->name, $module->adminPageLinkNormalize); ?>
                         <?php else: ?>
                             <span><?php echo $module->name; ?></span>
@@ -51,7 +51,7 @@
                         <?php echo "<b>" . Yii::t('yupe', 'Сайт модуля:') . "</b> " . CHtml::link($module->url, $module->url); ?></small><br />
                     </td>
                     <td>
-                        <?php if ($module->editableParams && $module->isStatus): ?>
+                        <?php if ($module->editableParams && ($module->isStatus || $module->isNoDisable)): ?>
                             <?php echo CHtml::link('<i class="icon-wrench" title="' . Yii::t('yupe', 'Настройки') . '">&nbsp;</i>', array(
                                 '/yupe/backend/modulesettings/',
                                 'module' => $module->id,
