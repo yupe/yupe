@@ -55,8 +55,7 @@ return array(
                 ),
                 'ipFilters'=>array(),
             ),
-        ), $modules
-    ),
+    ), $modules),
     'behaviors' => array(
         'onBeginRequest' => array('class' => 'application.modules.yupe.extensions.urlManager.LanguageBehavior'),
         'YupeStartUpBehavior',
@@ -77,7 +76,7 @@ return array(
             'languageInPath' => true,
             'langParam'      => 'language',
             'urlFormat'      => 'path',
-            'showScriptName' => true, // чтобы убрать index.php из url, читаем: http://yiiframework.ru/doc/guide/ru/quickstart.apache-nginx-config
+            'showScriptName' => false, // чтобы убрать index.php из url, читаем: http://yiiframework.ru/doc/guide/ru/quickstart.apache-nginx-config
             'cacheID'        => 'cache',
             'rules'          => array_merge($rules, array(
                 '/yupe/backend/modulesettings/<module:\w+>'           => 'yupe/backend/modulesettings',
