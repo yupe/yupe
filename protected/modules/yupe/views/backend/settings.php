@@ -23,4 +23,4 @@ $this->breadcrumbs = array(
     </small>
 </p>
 
-<?php echo $this->renderPartial('_modulelist', array('modules' => $modules)); ?>
+<?php echo $this->renderPartial('_moduleslist', array('modules' => $modules)); ?>
