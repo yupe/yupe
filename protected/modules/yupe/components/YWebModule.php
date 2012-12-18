@@ -162,10 +162,8 @@ abstract class YWebModule extends CWebModule
     public function getEditableParamsKey()
     {
         $keyParams = array();
-
         foreach ($this->editableParams as $key => $value)
             $keyParams[] = is_int($key) ? $value : $key;
-
         return $keyParams;
     }
 
@@ -183,6 +181,24 @@ abstract class YWebModule extends CWebModule
     public function getIsShowInAdminMenu()
     {
         return true;
+    }
+
+    /**
+     *  @return bool определяет, включен или выключен модуль
+     *  @since 0.5
+     */
+    public function getIsStatus()
+    {
+        return is_file(Yii::app()->basePath . '/config/modules/' . $this->id . '.php');
+    }
+
+    /**
+     *  @return bool разрешено ли выключение
+     *  @since 0.5
+     */
+    public function getIsNoDisable()
+    {
+        return false;
     }
 
     /**

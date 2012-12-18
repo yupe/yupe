@@ -4,12 +4,12 @@ class BackendController extends YBackController
 {
     public function actionIndex()
     {
-        $this->render('index', $this->yupe->getModules());
+        $this->render('index', $this->yupe->getModules(false, true));
     }
 
     public function actionSettings()
     {
-        $this->render('settings', $this->yupe->getModules());
+        $this->render('settings', $this->yupe->getModules(false, true));
     }
 
     public function actionModulesettings($module)
@@ -33,7 +33,7 @@ class BackendController extends YBackController
                                   CHtml::textField($key, $value, array('maxlength' => 300, 'class' => 'span10'));
         }
 
-        // сформировать боковое меню из ссылок на настройки модулей        
+        // сформировать боковое меню из ссылок на настройки модулей
         $this->menu = $this->yupe->modules['modulesNavigation'][$this->yupe->category]['items']['settings']['items'];
 
         $this->render('modulesettings', array(
@@ -121,7 +121,7 @@ class BackendController extends YBackController
             $pval = Yii::app()->request->getPost($p);
             // Если параметр уже был - обновим, иначе надо создать новый
             if (isset($settings[$p]))
-            {            
+            {
                 // Если действительно изменили настройку
                 if ($settings[$p]->param_value != $pval)
                 {
@@ -148,9 +148,63 @@ class BackendController extends YBackController
     }
 
     /**
+     * Метод для включения и отключения модуля
+     *
+     * @since 0.5
+     *
+     */
+    public function actionModuleChange($module, $status)
+    {
+        $fileModule     = Yii::getPathOfAlias('application.modules.' . $module) . '/install/' . $module . '.php';
+        $fileConfig     = Yii::app()->basePath . '/config/modules/' . $module . '.php';
+        $fileConfigBack = Yii::app()->basePath . '/config/modulesBack/' . $module . '.php';
+
+        // @TODO добавить проверку зависимостей
+        if ($status == 0)
+        {
+            if(md5_file($fileModule) != md5_file($fileConfig))
+            {
+                @copy($fileConfig, $fileConfigBack)
+                    ? Yii::app()->user->setFlash(
+                        YFlashMessages::NOTICE_MESSAGE,
+                        Yii::t('yupe', 'Старый конфигурационный файл отличался от оригинала, он скопирован в папку modulesBack')
+                    )
+                    : Yii::app()->user->setFlash(
+                        YFlashMessages::ERROR_MESSAGE,
+                        Yii::t('yupe', 'Произошла ошибка при копировании старого конфигурационного файла в папку modulesBack!')
+                    );
+            }
+            @unlink($fileConfig)
+                ? Yii::app()->user->setFlash(
+                    YFlashMessages::NOTICE_MESSAGE,
+                    Yii::t('yupe', 'Модуль отключен!')
+                )
+                : Yii::app()->user->setFlash(
+                    YFlashMessages::ERROR_MESSAGE,
+                    Yii::t('yupe', 'Произошла ошибка при отключении модуля, нет доступа к конфигурационному файлу!')
+                );
+        }
+        else
+        {
+            @copy($fileModule, $fileConfig)
+                ? Yii::app()->user->setFlash(
+                    YFlashMessages::NOTICE_MESSAGE,
+                    Yii::t('yupe', 'Модуль включен!')
+                )
+                : Yii::app()->user->setFlash(
+                    YFlashMessages::ERROR_MESSAGE,
+                    Yii::t('yupe', 'Произошла ошибка при включении модуля, конфигурационный файл поврежден или отсутствует доступ к папке config!')
+                );
+        }
+        Yii::app()->cache->flush();
+        $referrer = Yii::app()->getRequest()->getUrlReferrer();
+        $this->redirect($referrer !== null ? $referrer : array("/yupe/backend"));
+    }
+
+    /**http://yupe.local/yupe/backend/modulechange?module=geo&status=1
      * Метод для загрузки файлов из редактора при создании контента
      *
-     * @since 0.0.4
+     * @since 0.4
      *
      * Подробнее http://imperavi.com/redactor/docs/images/
      */
@@ -179,8 +233,8 @@ class BackendController extends YBackController
                     Yii::app()->ajax->rawText(Yii::t('yupe', 'При загрузке произошла ошибка!'));
 
                 Yii::app()->ajax->rawText(CJSON::encode(array(
-                	'filelink' => Yii::app()->baseUrl . $webPath . $newFileName,
-                	'filename' => $image->name
+                    'filelink' => Yii::app()->baseUrl . $webPath . $newFileName,
+                    'filename' => $image->name
                 )));
             }
         }
@@ -190,7 +244,7 @@ class BackendController extends YBackController
     /**
      * Очистка кэша сайта
      *
-     * @since 0.0.4
+     * @since 0.4
      *
      */
     public function actionCacheflush()
@@ -207,7 +261,7 @@ class BackendController extends YBackController
     /**
      * Страничка для отображения ссылок на ресурсы для получения помощи
      *
-     * @since 0.0.4
+     * @since 0.4
      *
      */
     public function actionHelp()

@@ -67,8 +67,8 @@ class SearchModule extends YWebModule
         parent::init();
 
         $this->setImport(array(
-            'email.models.*',
-            'email.components.*',
+            'search.models.*',
+            'search.components.*',
         ));
     }
 
