@@ -2,9 +2,8 @@
     <div class="page-header">
     <h6>
         <?php echo Yii::t('yupe', 'Модули разработанные специально для "{app}"', array(
-            '{app}'  => CHtml::encode(Yii::app()->name),
-         ));
-        ?>
+            '{app}' => CHtml::encode(Yii::app()->name),
+        )); ?>
     </h6>
     </div>
     <table class="table table-striped table-vmiddle">
@@ -22,7 +21,7 @@
             <?php foreach ($modules as $module): ?>
                 <?php $style = is_array($module->checkSelf()) ? "style='background-color:#FBC2C4;'" : ''; ?>
                 <tr>
-                    <td><?php echo ($module->icon ? ("<i class='icon-" . $module->icon . "'> </i> ") : ""); ?></td>
+                    <td><?php echo ($module->icon ? ("<i class='icon-" . $module->icon . "'>&nbsp;</i> ") : ""); ?></td>
                     <td>
                         <small class='label <?php
                             $v = $module->version;
@@ -53,18 +52,20 @@
                     </td>
                     <td>
                         <?php if ($module->editableParams && $module->isStatus): ?>
-                            <?php echo CHtml::link('<i class="icon-wrench" title="' . Yii::t('yupe', 'Настройки') . '"> </i>', array(
+                            <?php echo CHtml::link('<i class="icon-wrench" title="' . Yii::t('yupe', 'Настройки') . '">&nbsp;</i>', array(
                                 '/yupe/backend/modulesettings/',
                                 'module' => $module->id,
                             )); ?>
                         <?php endif;?>
-                        <?php echo !$module->isNoDisable
-                        ? CHtml::link(
-                            $module->isStatus
-                                ? '<i class="icon-ok-sign" title="' . Yii::t('yupe', 'Выключить') . '"> </i>'
-                                : '<i class="icon-remove-circle" title="' . Yii::t('yupe', 'Включить') . '"> </i>', 
-                            array('/yupe/backend/modulechange/', 'module' => $module->id)) 
-                        : ''; ?>
+                        <?php
+                        $url = array('/yupe/backend/modulechange/', 'module' => $module->id);
+                        echo !$module->isNoDisable
+                            ? ($module->isStatus
+                                ? CHtml::link('<i class="icon-remove-circle" title="' . Yii::t('yupe', 'Выключить') . '">&nbsp;</i>', $url + array('status' => '0'))
+                                : CHtml::link('<i class="icon-ok-sign" title="' . Yii::t('yupe', 'Включить') . '">&nbsp;</i>', $url + array('status' => '1'))
+                            )
+                            : '';
+                        ?>
                     </td>
                 </tr>
             <?php endforeach;?>

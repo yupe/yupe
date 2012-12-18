@@ -162,10 +162,8 @@ abstract class YWebModule extends CWebModule
     public function getEditableParamsKey()
     {
         $keyParams = array();
-
         foreach ($this->editableParams as $key => $value)
             $keyParams[] = is_int($key) ? $value : $key;
-
         return $keyParams;
     }
 

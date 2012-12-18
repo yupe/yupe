@@ -33,7 +33,7 @@ class BackendController extends YBackController
                                   CHtml::textField($key, $value, array('maxlength' => 300, 'class' => 'span10'));
         }
 
-        // сформировать боковое меню из ссылок на настройки модулей        
+        // сформировать боковое меню из ссылок на настройки модулей
         $this->menu = $this->yupe->modules['modulesNavigation'][$this->yupe->category]['items']['settings']['items'];
 
         $this->render('modulesettings', array(
@@ -121,7 +121,7 @@ class BackendController extends YBackController
             $pval = Yii::app()->request->getPost($p);
             // Если параметр уже был - обновим, иначе надо создать новый
             if (isset($settings[$p]))
-            {            
+            {
                 // Если действительно изменили настройку
                 if ($settings[$p]->param_value != $pval)
                 {
@@ -153,36 +153,55 @@ class BackendController extends YBackController
      * @since 0.5
      *
      */
-    public function actionModuleChange($module)
+    public function actionModuleChange($module, $status)
     {
-        $module = Yii::app()->getModule($module);
-        if ($module)
-        {
-            // @TODO добавить проверку зависимостей
+        $fileModule     = Yii::getPathOfAlias('application.modules.' . $module) . '/install/' . $module . '.php';
+        $fileConfig     = Yii::app()->basePath . '/config/modules/' . $module . '.php';
+        $fileConfigBack = Yii::app()->basePath . '/config/modulesBack/' . $module . '.php';
 
-            if ($module->isStatus)
+        // @TODO добавить проверку зависимостей
+        if ($status == 0)
+        {
+            if(md5_file($fileModule) != md5_file($fileConfig))
             {
-                // @TODO отключаем модуль: удаляем файл из папки конфигураций, если файл отличается от оригинала, отправляем в бэкап
-                Yii::app()->user->setFlash(
+                @copy($fileConfig, $fileConfigBack)
+                    ? Yii::app()->user->setFlash(
+                        YFlashMessages::NOTICE_MESSAGE,
+                        Yii::t('yupe', 'Старый конфигурационный файл отличался от оригинала, он скопирован в папку modulesBack')
+                    )
+                    : Yii::app()->user->setFlash(
+                        YFlashMessages::ERROR_MESSAGE,
+                        Yii::t('yupe', 'Произошла ошибка при копировании старого конфигурационного файла в папку modulesBack!')
+                    );
+            }
+            @unlink($fileConfig)
+                ? Yii::app()->user->setFlash(
                     YFlashMessages::NOTICE_MESSAGE,
                     Yii::t('yupe', 'Модуль отключен!')
+                )
+                : Yii::app()->user->setFlash(
+                    YFlashMessages::ERROR_MESSAGE,
+                    Yii::t('yupe', 'Произошла ошибка при отключении модуля, нет доступа к конфигурационному файлу!')
                 );
-            }
-            else
-            {
-                // @TODO включаем модуль: копируем файл оригинальный
-                Yii::app()->user->setFlash(
+        }
+        else
+        {
+            @copy($fileModule, $fileConfig)
+                ? Yii::app()->user->setFlash(
                     YFlashMessages::NOTICE_MESSAGE,
                     Yii::t('yupe', 'Модуль включен!')
+                )
+                : Yii::app()->user->setFlash(
+                    YFlashMessages::ERROR_MESSAGE,
+                    Yii::t('yupe', 'Произошла ошибка при включении модуля, конфигурационный файл поврежден или отсутствует доступ к папке config!')
                 );
-            }
         }
         Yii::app()->cache->flush();
         $referrer = Yii::app()->getRequest()->getUrlReferrer();
         $this->redirect($referrer !== null ? $referrer : array("/yupe/backend"));
     }
 
-    /**
+    /**http://yupe.local/yupe/backend/modulechange?module=geo&status=1
      * Метод для загрузки файлов из редактора при создании контента
      *
      * @since 0.4
