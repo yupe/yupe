@@ -186,6 +186,24 @@ abstract class YWebModule extends CWebModule
     }
 
     /**
+     *  @return bool определяет, включен или выключен модуль
+     *  @since 0.5
+     */
+    public function getIsStatus()
+    {
+        return is_file(Yii::app()->basePath . '/config/modules/' . $this->id . '.php');
+    }
+
+    /**
+     *  @return bool разрешено ли выключение
+     *  @since 0.5
+     */
+    public function getIsNoDisable()
+    {
+        return false;
+    }
+
+    /**
      *  @return array для многих параметров модуля необходимо вывести варианты выбора да или нет - метод-хелпер именно для этого
      */
     public function getChoice()

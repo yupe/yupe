@@ -4,12 +4,12 @@ class BackendController extends YBackController
 {
     public function actionIndex()
     {
-        $this->render('index', $this->yupe->getModules());
+        $this->render('index', $this->yupe->getModules(false, true));
     }
 
     public function actionSettings()
     {
-        $this->render('settings', $this->yupe->getModules());
+        $this->render('settings', $this->yupe->getModules(false, true));
     }
 
     public function actionModulesettings($module)
@@ -148,9 +148,44 @@ class BackendController extends YBackController
     }
 
     /**
+     * Метод для включения и отключения модуля
+     *
+     * @since 0.5
+     *
+     */
+    public function actionModuleChange($module)
+    {
+        $module = Yii::app()->getModule($module);
+        if ($module)
+        {
+            // @TODO добавить проверку зависимостей
+
+            if ($module->isStatus)
+            {
+                // @TODO отключаем модуль: удаляем файл из папки конфигураций, если файл отличается от оригинала, отправляем в бэкап
+                Yii::app()->user->setFlash(
+                    YFlashMessages::NOTICE_MESSAGE,
+                    Yii::t('yupe', 'Модуль отключен!')
+                );
+            }
+            else
+            {
+                // @TODO включаем модуль: копируем файл оригинальный
+                Yii::app()->user->setFlash(
+                    YFlashMessages::NOTICE_MESSAGE,
+                    Yii::t('yupe', 'Модуль включен!')
+                );
+            }
+        }
+        Yii::app()->cache->flush();
+        $referrer = Yii::app()->getRequest()->getUrlReferrer();
+        $this->redirect($referrer !== null ? $referrer : array("/yupe/backend"));
+    }
+
+    /**
      * Метод для загрузки файлов из редактора при создании контента
      *
-     * @since 0.0.4
+     * @since 0.4
      *
      * Подробнее http://imperavi.com/redactor/docs/images/
      */
@@ -179,8 +214,8 @@ class BackendController extends YBackController
                     Yii::app()->ajax->rawText(Yii::t('yupe', 'При загрузке произошла ошибка!'));
 
                 Yii::app()->ajax->rawText(CJSON::encode(array(
-                	'filelink' => Yii::app()->baseUrl . $webPath . $newFileName,
-                	'filename' => $image->name
+                    'filelink' => Yii::app()->baseUrl . $webPath . $newFileName,
+                    'filename' => $image->name
                 )));
             }
         }
@@ -190,7 +225,7 @@ class BackendController extends YBackController
     /**
      * Очистка кэша сайта
      *
-     * @since 0.0.4
+     * @since 0.4
      *
      */
     public function actionCacheflush()
@@ -207,7 +242,7 @@ class BackendController extends YBackController
     /**
      * Страничка для отображения ссылок на ресурсы для получения помощи
      *
-     * @since 0.0.4
+     * @since 0.4
      *
      */
     public function actionHelp()

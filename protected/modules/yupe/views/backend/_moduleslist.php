@@ -27,8 +27,8 @@
                         <small class='label <?php
                             $v = $module->version;
                             echo (($n = strpos($v, "(dev)")) !== FALSE)
-                            ? "label-warning' title='" . Yii::t('yupe', 'Модуль в разработке') . "'>" . substr($v, 0, $n)
-                            : "'>" . $v;
+                                ? "label-warning' title='" . Yii::t('yupe', 'Модуль в разработке') . "'>" . substr($v, 0, $n)
+                                : "'>" . $v;
                         ?></small>
                     </td>
                     <td>
@@ -38,7 +38,11 @@
                     </td>
                     <td>
                         <small style="font-size: 80%;"><?php echo $module->category; ?></small><br />
-                        <?php echo CHtml::link($module->name, $module->adminPageLinkNormalize); ?>
+                        <?php if ($module->isStatus): ?>
+                            <?php echo CHtml::link($module->name, $module->adminPageLinkNormalize); ?>
+                        <?php else: ?>
+                            <span><?php echo $module->name; ?></span>
+                        <?php endif; ?>
                     </td>
                     <td>
                         <?php echo $module->description; ?>
@@ -48,12 +52,19 @@
                         <?php echo "<b>" . Yii::t('yupe', 'Сайт модуля:') . "</b> " . CHtml::link($module->url, $module->url); ?></small><br />
                     </td>
                     <td>
-                        <?php if ($module->editableParams): ?>
+                        <?php if ($module->editableParams && $module->isStatus): ?>
                             <?php echo CHtml::link('<i class="icon-wrench" title="' . Yii::t('yupe', 'Настройки') . '"> </i>', array(
                                 '/yupe/backend/modulesettings/',
                                 'module' => $module->id,
                             )); ?>
                         <?php endif;?>
+                        <?php echo !$module->isNoDisable
+                        ? CHtml::link(
+                            $module->isStatus
+                                ? '<i class="icon-ok-sign" title="' . Yii::t('yupe', 'Выключить') . '"> </i>'
+                                : '<i class="icon-remove-circle" title="' . Yii::t('yupe', 'Включить') . '"> </i>', 
+                            array('/yupe/backend/modulechange/', 'module' => $module->id)) 
+                        : ''; ?>
                     </td>
                 </tr>
             <?php endforeach;?>
