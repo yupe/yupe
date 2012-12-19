@@ -62,6 +62,11 @@ class SearchModule extends YWebModule
         return "globe";
     }
 
+    public function getIsInstallDefault()
+    {
+        return false;
+    }
+
     public function init()
     {
         parent::init();

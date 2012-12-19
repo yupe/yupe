@@ -162,7 +162,7 @@ class BackendController extends YBackController
         // @TODO добавить проверку зависимостей
         if ($status == 0)
         {
-            if(md5_file($fileModule) != md5_file($fileConfig))
+            if (@md5_file($fileModule) != @md5_file($fileConfig))
             {
                 @copy($fileConfig, $fileConfigBack)
                     ? Yii::app()->user->setFlash(
@@ -201,7 +201,7 @@ class BackendController extends YBackController
         $this->redirect($referrer !== null ? $referrer : array("/yupe/backend"));
     }
 
-    /**http://yupe.local/yupe/backend/modulechange?module=geo&status=1
+    /**
      * Метод для загрузки файлов из редактора при создании контента
      *
      * @since 0.4

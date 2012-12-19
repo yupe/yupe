@@ -1,7 +1,7 @@
 <?php
 class CommentModule extends YWebModule
 {
-    public $defaultCommentStatus = Comment::STATUS_APPROVED;
+    public $defaultCommentStatus;
     public $autoApprove          = false;
     public $notify               = false;
     public $email;
@@ -102,5 +102,7 @@ class CommentModule extends YWebModule
 
         if (!$this->email)
             $this->email = Yii::app()->getModule('yupe')->email;
+
+        $this->defaultCommentStatus = Comment::STATUS_APPROVED;
     }
 }

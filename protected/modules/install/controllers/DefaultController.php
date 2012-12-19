@@ -30,14 +30,14 @@ class DefaultController extends YBackController
 
     public function actionIndex()
     {
-        $this->stepName = Yii::t('install', 'Шаг 1 из 6 : "Приветствие!"');
+        $this->stepName = Yii::t('install', 'Шаг 1 из 7 : "Приветствие!"');
 
         $this->render('index');
     }
 
     public function actionRequirements()
     {
-        $this->stepName = Yii::t('install', 'Шаг 2 из 6 : "Проверка системных требований"');
+        $this->stepName = Yii::t('install', 'Шаг 2 из 7 : "Проверка системных требований"');
 
         $requirements = array(
             array(
@@ -155,14 +155,14 @@ class DefaultController extends YBackController
 
     public function actionDbsettings()
     {
-        $this->stepName = Yii::t('install', 'Шаг 3 из 6 : "Соединение с базой данных"');
+        $this->stepName = Yii::t('install', 'Шаг 3 из 7 : "Соединение с базой данных"');
 
         $dbConfFile = Yii::app()->basePath . '/config/' . 'db.php';
 
         $sqlDataDir = $this->module->basePath . '/data/';
-        $sqlDbDir = $sqlDataDir . 'db/';
+        $sqlDbDir   = $sqlDataDir . 'db/';
 
-        $sqlFile = $sqlDataDir . 'yupe.sql';
+        $sqlFile     = $sqlDataDir . 'yupe.sql';
         $sqlDropFile = $sqlDataDir . 'yupe_drop.sql';
 
         $form = new DbSettingsForm;
@@ -252,7 +252,7 @@ class DefaultController extends YBackController
                                 Yii::t('install', 'База данных успешно создана!')
                             );
 
-                            $this->redirect(array('/install/default/createuser/'));
+                            $this->redirect(array('/install/default/modulesinstall'));
                         }
                         catch (Exception $e)
                         {
@@ -265,7 +265,7 @@ class DefaultController extends YBackController
 
                             Yii::log($e->getTraceAsString(), CLogger::LEVEL_ERROR);
 
-                            $this->redirect(array('/install/default/dbsettings/'));
+                            $this->redirect(array('/install/default/dbsettings'));
                         }
                     }
                 }
@@ -295,9 +295,125 @@ class DefaultController extends YBackController
         ));
     }
 
+    public function actionModulesinstall()
+    {
+        $this->stepName = Yii::t('install', 'Шаг 4 из 7 : "Установка модулей"');
+        $error = false;
+
+        $modules = array();
+        $path    = Yii::getPathOfAlias('application.modules');
+
+        // Получаем список модулей и подгружаем их
+        if ($path && $handler = opendir($path))
+        {
+            while (($dir = readdir($handler)))
+            {
+                if ($dir != '.' && $dir != '..' && !is_file($dir))
+                {
+                    $files = glob($path . '/' . $dir . '/' . '*Module.php');
+
+                    // @TODO А если файлов не 1?
+                    if (count($files) == 1)
+                    {
+                        $name = preg_replace('#^.*/([^\.]*).php$#', '$1', $files[0]);
+                        Yii::import('application.modules.' . $dir . '.' . $name);
+                        $modules[$dir] = Yii::createComponent($name, $dir, null, false);
+                    }
+                }
+            }
+            closedir($handler);
+        }
+
+        if (Yii::app()->request->isPostRequest)
+        {
+            $issetModule = array_keys($modules);
+
+            $dirConfig     = Yii::app()->basePath . '/config/modules/';
+            $dirConfigBack = Yii::app()->basePath . '/config/modulesBack/';
+
+            // Переносим старые конфигурационные файлы в back-папку
+            $files = glob($dirConfig . "*.php");
+            foreach ($files as $file)
+            {
+                if ($error)
+                    break;
+                $name = preg_replace('#^.*/([^\.]*)\.php$#', '$1', $file);
+                if (!@copy($dirConfig . $name . '.php', $dirConfigBack . $name . '.php'))
+                {
+                    $error = true;
+                    Yii::app()->user->setFlash(
+                        YFlashMessages::ERROR_MESSAGE,
+                        Yii::t('install', 'Произошла ошибка установки модулей - ошибка копирования файла в папку modulesBack!')
+                    );
+                }
+                else
+                {
+                    if ($name != 'install' && !@unlink($file))
+                    {
+                        $error = true;
+                        Yii::app()->user->setFlash(
+                            YFlashMessages::ERROR_MESSAGE,
+                            Yii::t('install', 'Произошла ошибка установки модулей - ошибка удаления файла из папки modules!')
+                        );
+                    }
+                }
+            }
+            if (!$error)
+            {
+                foreach ($modules as $module)
+                {
+                    if ($error)
+                        break;
+                    if ($module->id == 'yupe')
+                        continue;
+
+                    $fileModule     = Yii::getPathOfAlias('application.modules.' . $module->id) . '/install/' . $module->id . '.php';
+                    $fileConfigBack = $dirConfigBack . $module->id . '.php';
+                    // Удаляем неизмененные файлы конфигураций из back-папки
+                    if (is_file($fileConfigBack) && @md5_file($fileModule) == md5_file($fileConfigBack))
+                    {
+                        if (!@unlink($fileConfigBack))
+                        {
+                            $error = true;
+                            Yii::app()->user->setFlash(
+                                YFlashMessages::ERROR_MESSAGE,
+                                Yii::t('install', 'Произошла ошибка установки модулей - ошибка удаления файлов из папки modulesBack!')
+                            );
+                        }
+                    }
+
+                    // Копируем конфигурационные файлы из модулей
+                    if (!$error && ($module->isNoDisable || (isset($_POST['module_' . $module->id]) && $_POST['module_' . $module->id])))
+                    {
+                        $fileConfig = $dirConfig . $module->id . '.php';
+
+                        if (!@copy($fileModule, $fileConfig))
+                        {
+                            $error = true;
+                            Yii::app()->user->setFlash(
+                                YFlashMessages::ERROR_MESSAGE,
+                                Yii::t('install', 'Произошла ошибка установки модулей - ошибка копирования файла в папку modules!')
+                            );
+                        }
+                    }
+                }
+            }
+
+            if (!$error)
+            {
+                Yii::app()->user->setFlash(
+                    YFlashMessages::NOTICE_MESSAGE,
+                    Yii::t('install', 'Администратор успешно создан!')
+                );
+                $this->redirect(array('/install/default/createuser'));
+            }
+        }
+        $this->render('modulesinstall', array('modules' => $modules));
+    }
+
     public function actionCreateuser()
     {
-        $this->stepName = Yii::t('install', 'Шаг 4 из 6 : "Создание учетной записи администратора"');
+        $this->stepName = Yii::t('install', 'Шаг 5 из 7 : "Создание учетной записи администратора"');
 
         $model = new CreateUserForm;
 
@@ -340,13 +456,12 @@ class DefaultController extends YBackController
                 }
             }
         }
-
         $this->render('createuser', array('model' => $model));
     }
 
     public function actionSitesettings()
     {
-        $this->stepName = Yii::t('install', 'Шаг 5 из 6 : "Настройки проекта"');
+        $this->stepName = Yii::t('install', 'Шаг 6 из 7 : "Настройки проекта"');
 
         $model = new SiteSettingsForm;
 
@@ -413,7 +528,6 @@ class DefaultController extends YBackController
         }
         else
             $model->email = $model->emailName;
-
         $this->render('sitesettings', array('model' => $model));
     }
 
@@ -425,8 +539,7 @@ class DefaultController extends YBackController
                 Yii::t('install', "Не удалось создать файл {file}, для избежания повторной установки, пожалуйста, создайте его самостоятельно или отключите модуль 'Install' сразу после установки!", array('{file}' => $this->alreadyInstalledFlag))
             );
 
-        $this->stepName = Yii::t('install', 'Шаг 6 из 6 : "Окончание установки"');
-
+        $this->stepName = Yii::t('install', 'Шаг 7 из 7 : "Окончание установки"');
         $this->render('finish');
     }
 

@@ -14,7 +14,7 @@ foreach ($files as $file)
         $components = array_merge($components, $config['component']);
     if (!empty($config['module']))
     {
-        $name    = preg_replace('#^.*/([^\.]*).php$#', '$1', $file);
+        $name    = preg_replace('#^.*/([^\.]*)\.php$#', '$1', $file);
         $modules = array_merge($modules, array($name => $config['module']));
     }
 }

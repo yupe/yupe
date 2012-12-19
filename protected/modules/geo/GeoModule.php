@@ -72,6 +72,11 @@ class GeoModule extends YWebModule
         ));
     }
 
+    public function getIsInstallDefault()
+    {
+        return false;
+    }
+
     public static function onBeginRegistration($event)
     {
 

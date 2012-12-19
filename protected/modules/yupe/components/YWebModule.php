@@ -202,6 +202,15 @@ abstract class YWebModule extends CWebModule
     }
 
     /**
+     *  @return bool устанавливает checkbox включенным по умолчанию при установке Yupe
+     *  @since 0.5
+     */
+    public function getIsInstallDefault()
+    {
+        return true;
+    }
+
+    /**
      *  @return array для многих параметров модуля необходимо вывести варианты выбора да или нет - метод-хелпер именно для этого
      */
     public function getChoice()
