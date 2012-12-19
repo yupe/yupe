@@ -320,16 +320,13 @@ class DefaultController extends YBackController
                         Yii::t('install', 'Произошла ошибка установки модулей - ошибка копирования файла в папку modulesBack!')
                     );
                 }
-                else
+                else if (!@unlink($file))
                 {
-                    if ($name != 'install' && !@unlink($file))
-                    {
-                        $error = true;
-                        Yii::app()->user->setFlash(
-                            YFlashMessages::ERROR_MESSAGE,
-                            Yii::t('install', 'Произошла ошибка установки модулей - ошибка удаления файла из папки modules!')
-                        );
-                    }
+                    $error = true;
+                    Yii::app()->user->setFlash(
+                        YFlashMessages::ERROR_MESSAGE,
+                        Yii::t('install', 'Произошла ошибка установки модулей - ошибка удаления файла из папки modules!')
+                    );
                 }
             }
             if (!$error)
@@ -344,28 +341,29 @@ class DefaultController extends YBackController
                     $fileModule     = $this->yupe->getModulesConfigDefault($module->id);
                     $fileConfigBack = $this->yupe->getModulesConfigBack($module->id);
                     // Удаляем неизмененные файлы конфигураций из back-папки
-                    if (is_file($fileConfigBack) && @md5_file($fileModule) == @md5_file($fileConfigBack))
+                    if (is_file($fileConfigBack) && @md5_file($fileModule) == @md5_file($fileConfigBack) && !@unlink($fileConfigBack))
                     {
-                        if (!@unlink($fileConfigBack))
-                        {
-                            $error = true;
-                            Yii::app()->user->setFlash(
-                                YFlashMessages::ERROR_MESSAGE,
-                                Yii::t('install', 'Произошла ошибка установки модулей - ошибка удаления файлов из папки modulesBack!')
-                            );
-                        }
+                        $error = true;
+                        Yii::app()->user->setFlash(
+                            YFlashMessages::ERROR_MESSAGE,
+                            Yii::t('install', 'Произошла ошибка установки модулей - ошибка удаления файлов из папки modulesBack!')
+                        );
                     }
                     // Копируем конфигурационные файлы из модулей
-                    if (!$error && ($module->isNoDisable || (isset($_POST['module_' . $module->id]) && $_POST['module_' . $module->id])))
+                    if (!$error && (
+                            $module->id == 'install' || $module->isNoDisable || (
+                                isset($_POST['module_' . $module->id]) &&
+                                $_POST['module_' . $module->id]
+                            )
+                        ) &&
+                        !@copy($fileModule, $this->yupe->getModulesConfig($module->id))
+                    )
                     {
-                        if (!@copy($fileModule, $this->yupe->getModulesConfig($module->id)))
-                        {
-                            $error = true;
-                            Yii::app()->user->setFlash(
-                                YFlashMessages::ERROR_MESSAGE,
-                                Yii::t('install', 'Произошла ошибка установки модулей - ошибка копирования файла в папку modules!')
-                            );
-                        }
+                        $error = true;
+                        Yii::app()->user->setFlash(
+                            YFlashMessages::ERROR_MESSAGE,
+                            Yii::t('install', 'Произошла ошибка установки модулей - ошибка копирования файла в папку modules!')
+                        );
                     }
                 }
                 if (!$error)
@@ -378,6 +376,7 @@ class DefaultController extends YBackController
                 }
             }
         }
+        unset($modules['install']);
         $this->render('modulesinstall', array('modules' => $modules));
     }
 
@@ -508,6 +507,20 @@ class DefaultController extends YBackController
                 YFlashMessages::WARNING_MESSAGE,
                 Yii::t('install', "Не удалось создать файл {file}, для избежания повторной установки, пожалуйста, создайте его самостоятельно или отключите модуль 'Install' сразу после установки!", array('{file}' => $this->alreadyInstalledFlag))
             );
+        else if (!$this->yupe->getModuleChange('install', 0))
+        {
+            Yii::app()->user->setFlash(
+                YFlashMessages::WARNING_MESSAGE,
+                Yii::t('install', "Модуль install не удалось отключить, отключите его в панеле управления!")
+            );
+        }
+        else
+        {
+            Yii::app()->user->setFlash(
+                YFlashMessages::NOTICE_MESSAGE,
+                Yii::t('install', "Модуль install отключен!")
+            );
+        }
 
         $this->stepName = Yii::t('install', 'Шаг 7 из 7 : "Окончание установки"');
         $this->render('finish');

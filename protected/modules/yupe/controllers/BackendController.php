@@ -155,47 +155,7 @@ class BackendController extends YBackController
      */
     public function actionModuleChange($module, $status)
     {
-        $fileModule     = $this->yupe->getModulesConfigDefault($module);
-        $fileConfig     = $this->yupe->getModulesConfig($module);
-        $fileConfigBack = $this->yupe->getModulesConfigBack($module);
-
-        // @TODO добавить проверку зависимостей
-        if ($status == 0)
-        {
-            if (@md5_file($fileModule) != @md5_file($fileConfig))
-            {
-                @copy($fileConfig, $fileConfigBack)
-                    ? Yii::app()->user->setFlash(
-                        YFlashMessages::NOTICE_MESSAGE,
-                        Yii::t('yupe', 'Старый конфигурационный файл отличался от оригинала, он скопирован в папку modulesBack')
-                    )
-                    : Yii::app()->user->setFlash(
-                        YFlashMessages::ERROR_MESSAGE,
-                        Yii::t('yupe', 'Произошла ошибка при копировании старого конфигурационного файла в папку modulesBack!')
-                    );
-            }
-            @unlink($fileConfig)
-                ? Yii::app()->user->setFlash(
-                    YFlashMessages::NOTICE_MESSAGE,
-                    Yii::t('yupe', 'Модуль отключен!')
-                )
-                : Yii::app()->user->setFlash(
-                    YFlashMessages::ERROR_MESSAGE,
-                    Yii::t('yupe', 'Произошла ошибка при отключении модуля, нет доступа к конфигурационному файлу!')
-                );
-        }
-        else
-        {
-            @copy($fileModule, $fileConfig)
-                ? Yii::app()->user->setFlash(
-                    YFlashMessages::NOTICE_MESSAGE,
-                    Yii::t('yupe', 'Модуль включен!')
-                )
-                : Yii::app()->user->setFlash(
-                    YFlashMessages::ERROR_MESSAGE,
-                    Yii::t('yupe', 'Произошла ошибка при включении модуля, конфигурационный файл поврежден или отсутствует доступ к папке config!')
-                );
-        }
+        $this->yupe->getModuleChange($module, $status);
         Yii::app()->cache->flush();
         $referrer = Yii::app()->getRequest()->getUrlReferrer();
         $this->redirect($referrer !== null ? $referrer : array("/yupe/backend"));

@@ -437,6 +437,74 @@ class YupeModule extends YWebModule
     }
 
     /**
+     * Включение/отключение модуля
+     *
+     * @since 0.5
+     * @param array $module имя модуля, $status - статуc: 0 - выключить 1 - включить
+     * @return array статус отключения
+     */
+    function getModuleChange($module, $status)
+    {
+        $fileModule     = $this->getModulesConfigDefault($module);
+        $fileConfig     = $this->getModulesConfig($module);
+        $fileConfigBack = $this->getModulesConfigBack($module);
+
+        // @TODO добавить проверку зависимостей
+        if ($status == 0)
+        {
+            if (($moduleClass = Yii::app()->getModule($module)) == NULL || $moduleClass->isNoDisable)
+            {
+                Yii::app()->user->setFlash(
+                    YFlashMessages::ERROR_MESSAGE,
+                    Yii::t('yupe', 'Этот модуль запрещено отключать!')
+                );
+                return false;
+            }
+            if (@md5_file($fileModule) != @md5_file($fileConfig))
+            {
+                if (!@copy($fileConfig, $fileConfigBack))
+                {
+                    Yii::app()->user->setFlash(
+                        YFlashMessages::ERROR_MESSAGE,
+                        Yii::t('yupe', 'Произошла ошибка при копировании старого конфигурационного файла в папку modulesBack!')
+                    );
+                    return false;
+                }
+            }
+            if (@unlink($fileConfig))
+                Yii::app()->user->setFlash(
+                    YFlashMessages::NOTICE_MESSAGE,
+                    Yii::t('yupe', 'Модуль отключен!')
+                );
+            else
+            {
+                Yii::app()->user->setFlash(
+                    YFlashMessages::ERROR_MESSAGE,
+                    Yii::t('yupe', 'Произошла ошибка при отключении модуля, нет доступа к конфигурационному файлу!')
+                );
+                return false;
+            }
+        }
+        else
+        {
+            if (@copy($fileModule, $fileConfig))
+                Yii::app()->user->setFlash(
+                    YFlashMessages::NOTICE_MESSAGE,
+                    Yii::t('yupe', 'Модуль включен!')
+                );
+            else
+            {
+                Yii::app()->user->setFlash(
+                    YFlashMessages::ERROR_MESSAGE,
+                    Yii::t('yupe', 'Произошла ошибка при включении модуля, конфигурационный файл поврежден или отсутствует доступ к папке config!')
+                );
+                return false;
+            }
+        }
+        return true;
+    }
+
+    /**
      * Получаем путь к папке или файлу с конфигурацией модуля(-ей)
      *
      * @since 0.5
