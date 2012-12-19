@@ -16,7 +16,20 @@ class YMainController extends Controller
     public function init()
     {
         parent::init();
-
         $this->yupe = Yii::app()->getModule('yupe');
+    }
+
+    public function widget($className, $properties = array(), $captureOutput = false)
+    {
+        if (stripos($className, 'application.modules.', 0) !== false)
+        {
+            $module = preg_replace('/^application\.modules\.([^\.]*).*$/', '$1', $className);
+            if (!is_file(Yii::getPathOfAlias($className) . '.php') || Yii::app()->getModule($module) == NULL)
+            {
+                echo Yii::t('yupe', 'Виджет '.$className.' не найден! Подключите модуль ' . $module . '!');
+                return;
+            }
+        }
+        parent::widget($className, $properties, $captureOutput);
     }
 }
