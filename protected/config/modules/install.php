@@ -6,6 +6,9 @@ return array(
     'import'    => array(),
     'component' => array(),
     'rules'     => array(
-        '/install' => 'install/default/index',
+        '*'                                            => 'install/default/index',
+        '/<action>'                                    => 'install/default/index',
+        '/<controller>/<action>'                       => 'install/default/index',
+        '/<module:[^install].*>/<controller>/<action>' => 'install/default/index',
     ),
 );
