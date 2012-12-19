@@ -24,7 +24,7 @@ class YMainController extends Controller
         if (stripos($className, 'application.modules.', 0) !== false)
         {
             $module = preg_replace('/^application\.modules\.([^\.]*).*$/', '$1', $className);
-            if (!is_file(Yii::getPathOfAlias($className) . '.php') || Yii::app()->getModule($module) == NULL)
+            if (Yii::app()->getModule($module) == NULL)
             {
                 echo Yii::t('yupe', 'Виджет '.$className.' не найден! Подключите модуль ' . $module . '!');
                 return;
