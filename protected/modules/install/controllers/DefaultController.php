@@ -300,45 +300,19 @@ class DefaultController extends YBackController
         $this->stepName = Yii::t('install', 'Шаг 4 из 7 : "Установка модулей"');
         $error = false;
 
-        $modules = array();
-        $path    = Yii::getPathOfAlias('application.modules');
-
-        // Получаем список модулей и подгружаем их
-        if ($path && $handler = opendir($path))
-        {
-            while (($dir = readdir($handler)))
-            {
-                if ($dir != '.' && $dir != '..' && !is_file($dir))
-                {
-                    $files = glob($path . '/' . $dir . '/' . '*Module.php');
-
-                    // @TODO А если файлов не 1?
-                    if (count($files) == 1)
-                    {
-                        $name = preg_replace('#^.*/([^\.]*).php$#', '$1', $files[0]);
-                        Yii::import('application.modules.' . $dir . '.' . $name);
-                        $modules[$dir] = Yii::createComponent($name, $dir, null, false);
-                    }
-                }
-            }
-            closedir($handler);
-        }
+        $modules = $this->yupe->getModulesDisabled();
 
         if (Yii::app()->request->isPostRequest)
         {
-            $issetModule = array_keys($modules);
-
-            $dirConfig     = Yii::app()->basePath . '/config/modules/';
-            $dirConfigBack = Yii::app()->basePath . '/config/modulesBack/';
-
             // Переносим старые конфигурационные файлы в back-папку
-            $files = glob($dirConfig . "*.php");
+            $files = glob($this->yupe->getModulesConfig() . "*.php");
             foreach ($files as $file)
             {
                 if ($error)
                     break;
+
                 $name = preg_replace('#^.*/([^\.]*)\.php$#', '$1', $file);
-                if (!@copy($dirConfig . $name . '.php', $dirConfigBack . $name . '.php'))
+                if (!@copy($this->yupe->getModulesConfig($name), $this->yupe->getModulesConfigBack($name)))
                 {
                     $error = true;
                     Yii::app()->user->setFlash(
@@ -367,10 +341,10 @@ class DefaultController extends YBackController
                     if ($module->id == 'yupe')
                         continue;
 
-                    $fileModule     = Yii::getPathOfAlias('application.modules.' . $module->id) . '/install/' . $module->id . '.php';
-                    $fileConfigBack = $dirConfigBack . $module->id . '.php';
+                    $fileModule     = $this->yupe->getModulesConfigDefault($module->id);
+                    $fileConfigBack = $this->yupe->getModulesConfigBack($module->id);
                     // Удаляем неизмененные файлы конфигураций из back-папки
-                    if (is_file($fileConfigBack) && @md5_file($fileModule) == md5_file($fileConfigBack))
+                    if (is_file($fileConfigBack) && @md5_file($fileModule) == @md5_file($fileConfigBack))
                     {
                         if (!@unlink($fileConfigBack))
                         {
@@ -381,13 +355,10 @@ class DefaultController extends YBackController
                             );
                         }
                     }
-
                     // Копируем конфигурационные файлы из модулей
                     if (!$error && ($module->isNoDisable || (isset($_POST['module_' . $module->id]) && $_POST['module_' . $module->id])))
                     {
-                        $fileConfig = $dirConfig . $module->id . '.php';
-
-                        if (!@copy($fileModule, $fileConfig))
+                        if (!@copy($fileModule, $this->yupe->getModulesConfig($module->id)))
                         {
                             $error = true;
                             Yii::app()->user->setFlash(
@@ -397,15 +368,14 @@ class DefaultController extends YBackController
                         }
                     }
                 }
-            }
-
-            if (!$error)
-            {
-                Yii::app()->user->setFlash(
-                    YFlashMessages::NOTICE_MESSAGE,
-                    Yii::t('install', 'Администратор успешно создан!')
-                );
-                $this->redirect(array('/install/default/createuser'));
+                if (!$error)
+                {
+                    Yii::app()->user->setFlash(
+                        YFlashMessages::NOTICE_MESSAGE,
+                        Yii::t('install', 'Модули успешно установлены!')
+                    );
+                    $this->redirect(array('/install/default/createuser'));
+                }
             }
         }
         $this->render('modulesinstall', array('modules' => $modules));

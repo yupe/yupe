@@ -155,9 +155,9 @@ class BackendController extends YBackController
      */
     public function actionModuleChange($module, $status)
     {
-        $fileModule     = Yii::getPathOfAlias('application.modules.' . $module) . '/install/' . $module . '.php';
-        $fileConfig     = Yii::app()->basePath . '/config/modules/' . $module . '.php';
-        $fileConfigBack = Yii::app()->basePath . '/config/modulesBack/' . $module . '.php';
+        $fileModule     = $this->yupe->getModulesConfigDefault($module);
+        $fileConfig     = $this->yupe->getModulesConfig($module);
+        $fileConfigBack = $this->yupe->getModulesConfigBack($module);
 
         // @TODO добавить проверку зависимостей
         if ($status == 0)

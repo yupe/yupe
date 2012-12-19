@@ -392,37 +392,86 @@ class YupeModule extends YWebModule
 
         // Подгрузка отключенных модулей
         if ($disableModule)
-        {
-            $path         = Yii::getPathOfAlias('application.modules');
-            $enableModule = array_keys($modules);
-
-            if ($path && $handler = opendir($path))
-            {
-                while (($dir = readdir($handler)))
-                {
-                    if ($dir != '.' && $dir != '..' && !is_file($dir) && empty($enableModule[$dir]))
-                    {
-                        //посмотреть внутри файл с окончанием Module.php
-                        $files = glob($path . '/' . $dir . '/' . '*Module.php');
-
-                        // @TODO А если файлов не 1?
-                        if (count($files) == 1)
-                        {
-                            $name = preg_replace('#^.*/([^\.]*).php$#', '$1', $files[0]);
-                            Yii::import('application.modules.' . $dir . '.' . $name);
-                            $modules[$dir] = Yii::createComponent($name, $dir, null, false);
-                        }
-                    }
-                }
-                closedir($handler);
-            }
-        }
+            $modules += $this->getModulesDisabled($modules);
 
         return ($navigationOnly === true) ? $modulesNavigation : array(
             'modules'           => $modules,
             'yiiModules'        => $yiiModules,
             'modulesNavigation' => $modulesNavigation,
         );
+    }
+
+    /**
+     * Подгружает и выдает список отключенных модулей
+     *
+     * @since 0.5
+     * @param array $modules список активных модулей, по умолчанию array()
+     * @return array список отключенных модулей
+     */
+    function getModulesDisabled($enableModule = array())
+    {
+        $path         = $this->getModulesConfigDefault();
+        $enableModule = array_keys($enableModule);
+        $modules      = array();
+
+        if ($path && $handler = opendir($path))
+        {
+            while (($dir = readdir($handler)))
+            {
+                if ($dir != '.' && $dir != '..' && !is_file($dir) && empty($enableModule[$dir]))
+                {
+                    //посмотреть внутри файл с окончанием Module.php
+                    $files = glob($path . '/' . $dir . '/' . '*Module.php');
+                    // @TODO А если файлов не 1, добавить прочтение install/module.php
+                    if (count($files) == 1)
+                    {
+                        $name = preg_replace('#^.*/([^\.]*).php$#', '$1', $files[0]);
+                        Yii::import('application.modules.' . $dir . '.' . $name);
+                        $modules[$dir] = Yii::createComponent($name, $dir, null, false);
+                    }
+                }
+            }
+            closedir($handler);
+        }
+        return $modules;
+    }
+
+    /**
+     * Получаем путь к папке или файлу с конфигурацией модуля(-ей)
+     *
+     * @since 0.5
+     * @param string $moduke Имя модуля
+     * @return string путь к папке или файлу с конфигурацией модуля(-ей)
+     */
+    function getModulesConfig($module = false)
+    {
+        return Yii::app()->basePath . '/config/modules/' . ($module ? $module . '.php' : '');
+    }
+
+    /**
+     * Получаем путь к папке или файлу с резервной конфигурацией модуля(-ей)
+     *
+     * @since 0.5
+     * @param string $moduke Имя модуля
+     * @return string путь к папке или файлу с резервной конфигурацией модуля(-ей)
+     */
+    function getModulesConfigBack($module = false)
+    {
+        return Yii::app()->basePath . '/config/modulesBack/' . ($module ? $module . '.php' : '');
+    }
+    
+    /**
+     * Получаем путь к папке c дефолтной конфигурацией модуля
+     *
+     * @since 0.5
+     * @param string $moduke Имя модуля
+     * @return string путь к папке c дефолтной конфигурацией модуля или путь к модулям
+     */
+    function getModulesConfigDefault($module = false)
+    {
+        return ($module
+            ? Yii::getPathOfAlias('application.modules.' . $module) . '/install/' . $module . '.php'
+            : Yii::getPathOfAlias('application.modules'));
     }
 
     /**
