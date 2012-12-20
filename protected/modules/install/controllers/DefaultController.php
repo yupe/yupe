@@ -260,10 +260,10 @@ class DefaultController extends YBackController
 
                             Yii::app()->user->setFlash(
                                 YFlashMessages::ERROR_MESSAGE,
-                                Yii::t('install', 'При инициализации базы данных произошла ошибка! '.$e->getTraceAsString())
+                                Yii::t('install', 'При инициализации базы данных произошла ошибка! '.$e->__toString())
                             );
 
-                            Yii::log($e->getTraceAsString(), CLogger::LEVEL_ERROR);
+                            Yii::log($e->__toString(), CLogger::LEVEL_ERROR);
 
                             $this->redirect(array('/install/default/dbsettings'));
                         }
@@ -271,7 +271,7 @@ class DefaultController extends YBackController
                 }
                 catch (Exception $e)
                 {
-                    $form->addError('', Yii::t('install', 'С указанными параметрами подключение к БД не удалось выполнить! '.$e->getTraceAsString()));
+                    $form->addError('', Yii::t('install', 'С указанными параметрами подключение к БД не удалось выполнить! '.$e->__toString()));
 
                     Yii::log($e->getTraceAsString(),CLogger::LEVEL_ERROR);
                 }
@@ -483,10 +483,10 @@ class DefaultController extends YBackController
 
                     Yii::app()->user->setFlash(
                         YFlashMessages::ERROR_MESSAGE,
-                        $e->getTraceAsString()
+                        $e->__toString()
                     );
                     
-                    Yii::log($e->getTraceAsString(),  CLogger::LEVEL_ERROR);
+                    Yii::log($e->__toString(),  CLogger::LEVEL_ERROR);
 
                     $this->redirect(array('/install/default/sitesettings/'));
                 }

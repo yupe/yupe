@@ -26,7 +26,6 @@ Yii::app()->clientScript->registerScript('fieldset', "
         </thead>
         <tbody>
             <?php foreach ($modules as $module): ?>
-                <?php $style = is_array($module->checkSelf()) ? "style='background-color:#FBC2C4;'" : ''; ?>
                 <tr>
                     <td><?php echo CHtml::checkBox(
                         'module_' . $module->id,
@@ -56,7 +55,7 @@ Yii::app()->clientScript->registerScript('fieldset', "
                         <br />
                         <small style="font-size: 80%;"> <?php echo "<b>" . Yii::t('yupe', "Автор:") . "</b> " . $module->author; ?>
                         (<a href="mailto:<?php echo $module->authorEmail; ?>"><?php echo $module->authorEmail; ?></a>) &nbsp;
-                        <?php echo "<b>" . Yii::t('yupe', 'Сайт модуля:') . "</b> " . CHtml::link($module->url, $module->url); ?></small><br />
+                        <?php echo "<br/><b>" . Yii::t('yupe', 'Сайт модуля:') . "</b> " . CHtml::link($module->url, $module->url); ?></small><br />
                     </td>
                 </tr>
             <?php endforeach;?>
