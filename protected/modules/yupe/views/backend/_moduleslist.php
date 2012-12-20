@@ -58,7 +58,7 @@
                             )); ?>
                         <?php endif;?>
                         <?php
-                        $url = array('/yupe/backend/modulechange/', 'module' => $module->id);
+                        $url = array('/yupe/backend/modulechange/', 'name' => $module->id);
                         echo !$module->isNoDisable
                             ? ($module->isStatus
                                 ? CHtml::link('<i class="icon-remove-circle" title="' . Yii::t('yupe', 'Выключить') . '">&nbsp;</i>', $url + array('status' => '0'))
