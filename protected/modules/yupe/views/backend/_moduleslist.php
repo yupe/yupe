@@ -19,7 +19,7 @@
         </thead>
         <tbody>
             <?php foreach ($modules as $module): ?>
-                <tr>
+                <tr <?php echo is_array($module->checkSelf()) ? "style='background-color:#FBC2C4;'" : '';?>>
                     <td><?php echo ($module->icon ? ("<i class='icon-" . $module->icon . "'>&nbsp;</i> ") : ""); ?></td>
                     <td>
                         <small class='label <?php
