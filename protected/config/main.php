@@ -37,6 +37,8 @@ return array(
         'application.modules.yupe.helpers.*',
         'application.modules.yupe.models.*',
         'application.modules.yupe.components.*',
+        'application.modules.yupe.components.controllers.*',
+        'application.modules.yupe.components.validators.*',
         'application.modules.yupe.components.exceptions.*',
     ), $import),
     // подключение и конфигурирование модулей,
@@ -76,7 +78,7 @@ return array(
             'languageInPath' => true,
             'langParam'      => 'language',
             'urlFormat'      => 'path',
-            'showScriptName' => false, // чтобы убрать index.php из url, читаем: http://yiiframework.ru/doc/guide/ru/quickstart.apache-nginx-config
+            'showScriptName' => true, // чтобы убрать index.php из url, читаем: http://yiiframework.ru/doc/guide/ru/quickstart.apache-nginx-config
             'cacheID'        => 'cache',
             'rules'          => array_merge($rules, array(
                 '/yupe/backend/modulesettings/<module:\w+>'           => 'yupe/backend/modulesettings',
