@@ -26,7 +26,6 @@ Yii::app()->clientScript->registerScript('fieldset', "
         </thead>
         <tbody>
             <?php foreach ($modules as $module): ?>
-                <?php $style = is_array($module->checkSelf()) ? "style='background-color:#FBC2C4;'" : ''; ?>
                 <tr>
                     <td><?php echo CHtml::checkBox(
                         'module_' . $module->id,
