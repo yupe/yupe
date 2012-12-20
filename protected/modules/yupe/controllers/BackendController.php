@@ -153,9 +153,24 @@ class BackendController extends YBackController
      * @since 0.5
      *
      */
-    public function actionModuleChange($module, $status)
+    public function actionModuleChange($name, $status)
     {
-        $this->yupe->getModuleChange($module, $status);
+        if (($module = Yii::app()->getModule($name)) == NULL && $status == 0)
+            Yii::app()->user->setFlash(
+                YFlashMessages::ERROR_MESSAGE,
+                Yii::t('yupe', 'Ошибка отключения модуля!')
+            );
+        else
+        {
+            if ($status == 0)
+                $module->deactivate;
+            else
+            {
+                $module = $this->yupe->getCreateModule($name);
+                $module->activate;
+            }
+        }
+
         Yii::app()->cache->flush();
         $referrer = Yii::app()->getRequest()->getUrlReferrer();
         $this->redirect($referrer !== null ? $referrer : array("/yupe/backend"));

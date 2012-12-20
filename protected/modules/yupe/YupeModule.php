@@ -419,17 +419,7 @@ class YupeModule extends YWebModule
             while (($dir = readdir($handler)))
             {
                 if ($dir != '.' && $dir != '..' && !is_file($dir) && empty($enableModule[$dir]))
-                {
-                    //посмотреть внутри файл с окончанием Module.php
-                    $files = glob($path . '/' . $dir . '/' . '*Module.php');
-                    // @TODO А если файлов не 1, добавить прочтение install/module.php
-                    if (count($files) == 1)
-                    {
-                        $name = preg_replace('#^.*/([^\.]*).php$#', '$1', $files[0]);
-                        Yii::import('application.modules.' . $dir . '.' . $name);
-                        $modules[$dir] = Yii::createComponent($name, $dir, null, false);
-                    }
-                }
+                    $modules[$dir] = $this->getCreateModule($dir);
             }
             closedir($handler);
         }
@@ -437,71 +427,30 @@ class YupeModule extends YWebModule
     }
 
     /**
-     * Включение/отключение модуля
+     * Подгружает модуль
      *
      * @since 0.5
-     * @param array $module имя модуля, $status - статуc: 0 - выключить 1 - включить
-     * @return array статус отключения
+     * @param array $name имя модуля
+     * @return array класс модуля
      */
-    function getModuleChange($module, $status)
+    function getCreateModule($name)
     {
-        $fileModule     = $this->getModulesConfigDefault($module);
-        $fileConfig     = $this->getModulesConfig($module);
-        $fileConfigBack = $this->getModulesConfigBack($module);
+        $path   = $this->getModulesConfigDefault();
+        $module = NULL;
 
-        // @TODO добавить проверку зависимостей
-        if ($status == 0)
+        if ($path)
         {
-            if (($moduleClass = Yii::app()->getModule($module)) == NULL || $moduleClass->isNoDisable)
+            //посмотреть внутри файл с окончанием Module.php
+            $files = glob($path . '/' . $name . '/' . '*Module.php');
+            // @TODO А если файлов не 1, добавить прочтение install/module.php
+            if (count($files) == 1)
             {
-                Yii::app()->user->setFlash(
-                    YFlashMessages::ERROR_MESSAGE,
-                    Yii::t('yupe', 'Этот модуль запрещено отключать!')
-                );
-                return false;
-            }
-            if (@md5_file($fileModule) != @md5_file($fileConfig))
-            {
-                if (!@copy($fileConfig, $fileConfigBack))
-                {
-                    Yii::app()->user->setFlash(
-                        YFlashMessages::ERROR_MESSAGE,
-                        Yii::t('yupe', 'Произошла ошибка при копировании старого конфигурационного файла в папку modulesBack!')
-                    );
-                    return false;
-                }
-            }
-            if (@unlink($fileConfig))
-                Yii::app()->user->setFlash(
-                    YFlashMessages::NOTICE_MESSAGE,
-                    Yii::t('yupe', 'Модуль отключен!')
-                );
-            else
-            {
-                Yii::app()->user->setFlash(
-                    YFlashMessages::ERROR_MESSAGE,
-                    Yii::t('yupe', 'Произошла ошибка при отключении модуля, нет доступа к конфигурационному файлу!')
-                );
-                return false;
+                $className = preg_replace('#^.*/([^\.]*).php$#', '$1', $files[0]);
+                Yii::import('application.modules.' . $name . '.' . $className);
+                $module = Yii::createComponent($className, $name, null, false);
             }
         }
-        else
-        {
-            if (@copy($fileModule, $fileConfig))
-                Yii::app()->user->setFlash(
-                    YFlashMessages::NOTICE_MESSAGE,
-                    Yii::t('yupe', 'Модуль включен!')
-                );
-            else
-            {
-                Yii::app()->user->setFlash(
-                    YFlashMessages::ERROR_MESSAGE,
-                    Yii::t('yupe', 'Произошла ошибка при включении модуля, конфигурационный файл поврежден или отсутствует доступ к папке config!')
-                );
-                return false;
-            }
-        }
-        return true;
+        return $module;
     }
 
     /**

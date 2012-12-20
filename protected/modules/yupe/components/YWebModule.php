@@ -211,6 +211,95 @@ abstract class YWebModule extends CWebModule
     }
 
     /**
+     *  @return bool включает модуль
+     *  @since 0.5
+     */
+    public function getActivate()
+    {
+        $yupe = Yii::app()->getModule('yupe');
+        $fileModule = $yupe->getModulesConfigDefault($this->id);
+        $fileConfig = $yupe->getModulesConfig($this->id);
+
+        if (@copy($fileModule, $fileConfig))
+            Yii::app()->user->setFlash(
+                YFlashMessages::NOTICE_MESSAGE,
+                Yii::t('yupe', 'Модуль включен!')
+            );
+        else
+        {
+            Yii::app()->user->setFlash(
+                YFlashMessages::ERROR_MESSAGE,
+                Yii::t('yupe', 'Произошла ошибка при включении модуля, конфигурационный файл поврежден или отсутствует доступ к папке config!')
+            );
+            return false;
+        }
+        return true;
+    }
+
+    /**
+     *  @return bool выключает модуль
+     *  @since 0.5
+     */
+    public function getDeActivate()
+    {
+        $yupe = Yii::app()->getModule('yupe');
+        $fileModule = $yupe->getModulesConfigDefault($this->id);
+        $fileConfig = $yupe->getModulesConfig($this->id);
+
+        if (!$this->isNoDisable)
+        {
+            if (@md5_file($fileModule) != @md5_file($fileConfig))
+            {
+                $fileConfigBack = $yupe->getModulesConfigBack($this->id);
+                if (!@copy($fileConfig, $fileConfigBack))
+                    Yii::app()->user->setFlash(
+                        YFlashMessages::ERROR_MESSAGE,
+                        Yii::t('yupe', 'Произошла ошибка при копировании старого конфигурационного файла в папку modulesBack!')
+                    );
+            }
+            if (@unlink($fileConfig))
+            {
+                Yii::app()->user->setFlash(
+                    YFlashMessages::NOTICE_MESSAGE,
+                    Yii::t('yupe', 'Модуль отключен!')
+                );
+                return true;
+            }
+            else
+                Yii::app()->user->setFlash(
+                    YFlashMessages::ERROR_MESSAGE,
+                    Yii::t('yupe', 'Произошла ошибка при отключении модуля, нет доступа к конфигурационному файлу!')
+                );
+        }
+        else
+            Yii::app()->user->setFlash(
+                YFlashMessages::ERROR_MESSAGE,
+                Yii::t('yupe', 'Этот модуль запрещено отключать!')
+            );
+        return false;
+    }
+
+    /**
+     *  @return bool включает модуль
+     *  @since 0.5
+     */
+    public function getInstall()
+    {
+        $this->activate;
+        return true;
+    }
+
+    /**
+     *  @return bool выключает модуль
+     *  @since 0.5
+     */
+    public function getUnInstall()
+    {
+        $this->deactivate;
+        return true;
+    }
+
+    /**
      *  @return array для многих параметров модуля необходимо вывести варианты выбора да или нет - метод-хелпер именно для этого
      */
     public function getChoice()
