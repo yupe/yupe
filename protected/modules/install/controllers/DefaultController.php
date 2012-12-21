@@ -2,7 +2,6 @@
 class DefaultController extends YBackController
 {
     public $stepName;
-    
     private $alreadyInstalledFlag;
 
     public function filters()
@@ -23,16 +22,28 @@ class DefaultController extends YBackController
         if (file_exists($this->alreadyInstalledFlag))
             throw new CHttpException(404, Yii::t('install', 'Страница не найдена!'));
 
-        Yii::app()->cache->flush();
+        if ($this->yupe->cache)
+            Yii::app()->cache->flush();
 
         return parent::beforeAction($action);
     }
 
     public function actionIndex()
     {
-        $this->stepName = Yii::t('install', 'Шаг 1 из 7 : "Приветствие!"');
+        $this->stepName = Yii::t('install', 'Запуск инсталятора!"');
 
         $this->render('index');
+    }
+
+    public function actionHello()
+    {
+        $this->stepName = Yii::t('install', 'Шаг 1 из 7 : "Приветствие!"');
+
+        $path = Yii::app()->basePath . '/config/';
+        if (@copy($path . 'db.php.back', $path . 'db.php'))
+            if (Yii::app()->getModule('yupe')->activate)
+                $this->render('hello');
+        throw new CHttpException(400, Yii::t('install', 'Установка невозможна, исправьте ошибки на шаге запуска инсталятора!'));
     }
 
     public function actionRequirements()

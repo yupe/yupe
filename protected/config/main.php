@@ -1,10 +1,17 @@
 <?php
-$import = $rules = $components = $modules = array();
+$import = $rules = $components = $preload = array();
+$cache = $enableAssets = false;
+$modules = array(
+    'install' => array(
+        'class' => 'application.modules.install.InstallModule',
+    ),
+);
 $files = glob(dirname(__FILE__) . '/modules/*.php');
 
 foreach ($files as $file)
 {
     $config = require_once($file);
+    $name   = preg_replace('#^.*/([^\.]*)\.php$#', '$1', $file);
 
     if (!empty($config['import']))
         $import = array_merge($import, $config['import']);
@@ -13,9 +20,17 @@ foreach ($files as $file)
     if (!empty($config['component']))
         $components = array_merge($components, $config['component']);
     if (!empty($config['module']))
-    {
-        $name    = preg_replace('#^.*/([^\.]*)\.php$#', '$1', $file);
         $modules = array_merge($modules, array($name => $config['module']));
+    if (!empty($config['preload']))
+        $preload = array_merge($preload, $config['preload']);
+    if ($name == 'yupe')
+    {
+        if (!empty($config['cache']))
+            $cache = $config['cache'];
+        if (!empty($config['enableAssets']))
+            $enableAssets = $config['enableAssets'];
+        if (!empty($config['install']))
+            unset($modules['install']);
     }
 }
 
@@ -27,7 +42,7 @@ return array(
     'language'          => 'ru',         // язык по умолчанию
     'sourceLanguage'    => 'ru',
     'theme'             => 'default',    // тема оформления по умолчанию
-    'preload'           => array('log'), // preloading 'log' component
+    'preload'           => $preload,     // preloading 'log' component
     'import'            => array_merge(array(
         // подключение основых путей
         'application.components.*',
@@ -42,19 +57,21 @@ return array(
     // подключение и конфигурирование модулей,
     // подробнее: http://www.yiiframework.ru/doc/guide/ru/basics.module
     'modules' => array_merge(array(
-            'yupe'  => array(
-                'class'    => 'application.modules.yupe.YupeModule',
-                'brandUrl' => 'http://yupe.ru?from=engine',
+        'yupe'  => array(
+            'class'        => 'application.modules.yupe.YupeModule',
+            'brandUrl'     => 'http://yupe.ru?from=engine',
+            'enableAssets' => $enableAssets,
+            'cache'        => $cache,
+        ),
+        // на продакшне gii рекомендуется отключить, подробнее: http://www.yiiframework.com/doc/guide/1.1/en/quickstart.first-app
+        'gii'   => array(
+            'class'          => 'system.gii.GiiModule',
+            'password'       => 'giiYupe',
+            'generatorPaths' => array(
+                'application.modules.yupe.extensions.yupe.gii',
             ),
-            // на продакшне gii рекомендуется отключить, подробнее: http://www.yiiframework.com/doc/guide/1.1/en/quickstart.first-app
-            'gii'   => array(
-                'class'          => 'system.gii.GiiModule',
-                'password'       => 'giiYupe',
-                'generatorPaths' => array(
-                    'application.modules.yupe.extensions.yupe.gii',
-                ),
-                'ipFilters'=>array(),
-            ),
+            'ipFilters'=>array(),
+        ),
     ), $modules),
     'behaviors' => array(
         'onBeginRequest' => array('class' => 'application.modules.yupe.extensions.urlManager.LanguageBehavior'),
@@ -77,18 +94,13 @@ return array(
             'langParam'      => 'language',
             'urlFormat'      => 'path',
             'showScriptName' => false, // чтобы убрать index.php из url, читаем: http://yiiframework.ru/doc/guide/ru/quickstart.apache-nginx-config
-            'cacheID'        => 'cache',
+            'cacheID'        => $cache,
             'rules'          => array_merge($rules, array(
-                '/yupe/backend/modulesettings/<module:\w+>'           => 'yupe/backend/modulesettings',
-                // правила контроллера site
-                '/'                                                   => 'site/index',
-                '/<view:\w+>'                                         => 'site/page',
-                // общие правила
-                '<module:\w+>/<controller:\w+>/<action:\w+>/<id:\d+>' => '<module>/<controller>/<action>',
-                '<module:\w+>/<controller:\w+>/<action:\w+>'          => '<module>/<controller>/<action>',
-                '<module:\w+>/<controller:\w+>'                       => '<module>/<controller>/index',
-                '<controller:\w+>/<action:\w+>'                       => '<controller>/<action>',
-                '<controller:\w+>'                                    => '<controller>/index',
+                // правила переадресации
+                '*'                                                   => 'install/default/index',
+                '/<action>'                                           => 'install/default/index',
+                '/<controller>/<action>'                              => 'install/default/index',
+                '/<module:[^install].*>/<controller>/<action>'        => 'install/default/index',
             )),
         ),
         // конфигурируем компонент CHttpRequest для защиты от CSRF атак, подробнее: http://www.yiiframework.ru/doc/guide/ru/topics.security
@@ -105,8 +117,6 @@ return array(
         'ajax' => array(
             'class' => 'application.modules.yupe.components.YAsyncResponse',
         ),
-        // параметры подключения к базе данных, подробнее http://www.yiiframework.ru/doc/guide/ru/database.overview
-        'db' => require(dirname(__FILE__) . '/db.php'),
         // настройки кэширования, подробнее http://www.yiiframework.ru/doc/guide/ru/caching.overview
         'cache' => array(
             'class' => 'CFileCache',
