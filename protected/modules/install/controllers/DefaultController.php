@@ -32,21 +32,76 @@ class DefaultController extends YBackController
     {
         $this->stepName = Yii::t('install', 'Проверка окружения!"');
 
-        $this->render('index');
+        $basePath = Yii::app()->basePath;
+        $webRoot  = Yii::getPathOfAlias('webroot');
+        $dp       = DIRECTORY_SEPARATOR;
+
+        $requirements = array(
+            array(
+                Yii::t('install', 'Папка assets'),
+                is_writable($webRoot . '/assets/'),
+                @chmod($webRoot . '/assets/', 0777),
+                Yii::t('install', 'Необходимо установить права записи на папку ' . $basePath . $dp . 'assets'),
+            ),
+            array(
+                Yii::t('install', 'Папка runtime'),
+                is_writable($webRoot . '/protected/runtime/'),
+                @chmod($webRoot . '/protected/runtime/', 0777),
+                Yii::t('install', 'Необходимо установить права записи на папку ' . $basePath . $dp . 'protected' . $dp . 'runtime'),
+            ),
+            array(
+                Yii::t('install', 'Папка uploads'),
+                is_writable($webRoot . '/uploads/'),
+                @chmod($webRoot . '/uploads/', 0777),
+                Yii::t('install', 'Необходимо установить права записи на папку ' . $basePath . $dp . 'uploads'),
+            ),
+            array(
+                Yii::t('install', 'Папка modules'),
+                is_writable($webRoot . '/protected/config/modules/'),
+                @chmod($webRoot . '/protected/config/modules/', 0777),
+                Yii::t('install', 'Необходимо установить права записи на папку ' . $basePath . $dp . 'config' . $dp . 'modules'),
+            ),
+            array(
+                Yii::t('install', 'Папка modulesBack'),
+                is_writable($webRoot . '/protected/config/modulesBack/'),
+                @chmod($webRoot . '/protected/config/modulesBack/', 0777),
+                Yii::t('install', 'Необходимо установить права записи на папку ' . $basePath . $dp . 'config' . $dp . 'modulesBack'),
+            ),
+            array(
+                Yii::t('install', 'Файл db.php'),
+                is_writable($webRoot . '/protected/config/db.php'),
+                @copy($webRoot . '/protected/config/db.back.php', $webRoot . '/protected/config/db.php'),
+                Yii::t('install', 'Необходимо скопировать ' . $basePath . $dp . 'config' . $dp . 'db.back.php в ' . $basePath . $dp . 'config' . $dp . 'db.php и дать ему права на запись'),
+            ),
+        );
+
+        $result = true;
+
+        foreach ($requirements as $i => $requirement)
+        {
+            if (!$requirement[1] && !$requirement[2] && !$requirement[1])
+            {
+                $result = $requirements[$i][1] = false;
+                continue;
+            }
+            $requirements[$i][1] = true;
+            $requirements[$i][3] = Yii::t('install', 'Все хорошо!');
+        }
+
+        $this->render('index', array(
+            'requirements' => $requirements,
+            'result'       => $result,
+        ));
     }
 
     public function actionHello()
     {
         $this->stepName = Yii::t('install', 'Шаг 1 из 7 : "Приветствие!"');
 
-        $path = Yii::app()->basePath . '/config/';
-        if (@copy($path . 'db.php.back', $path . 'db.php'))
-        {
-            if (Yii::app()->getModule('yupe')->activate)
-                $this->render('hello');
-        }
-
-        throw new CHttpException(400, Yii::t('install', 'Установка невозможна, исправьте ошибки на шаге "проверка окружения"!'));
+        if (Yii::app()->getModule('yupe')->activate)
+            $this->render('hello');
+        else
+            throw new CHttpException(400, Yii::t('install', 'Установка невозможна, исправьте ошибки на шаге "проверка окружения"!'));
     }
 
     public function actionRequirements()
@@ -327,6 +382,9 @@ class DefaultController extends YBackController
                     break;
 
                 $name = preg_replace('#^.*/([^\.]*)\.php$#', '$1', $file);
+                if ($name == 'yupe')
+                    continue;
+
                 if (!@copy($this->yupe->getModulesConfig($name), $this->yupe->getModulesConfigBack($name)))
                 {
                     $error = true;

@@ -162,6 +162,7 @@ class BackendController extends YBackController
             );
         else
         {
+            $module->flashMess = true;
             if ($status == 0)
                 $module->deactivate;
             else

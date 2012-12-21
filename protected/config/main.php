@@ -102,10 +102,13 @@ return array(
             'cacheID'        => $cache,
             'rules'          => array_merge($rules, array(
                 // правила переадресации
-                '*'                                                   => 'install/default/index',
-                '/<action>'                                           => 'install/default/index',
-                '/<controller>/<action>'                              => 'install/default/index',
-                '/<module:[^install].*>/<controller>/<action>'        => 'install/default/index',
+                '/'                                                   => 'install/default/index',
+                // общие правила
+                '<module:\w+>/<controller:\w+>/<action:\w+>/<id:\d+>' => '<module>/<controller>/<action>',
+                '<module:\w+>/<controller:\w+>/<action:\w+>'          => '<module>/<controller>/<action>',
+                '<module:\w+>/<controller:\w+>'                       => '<module>/<controller>/index',
+                '<controller:\w+>/<action:\w+>'                       => '<controller>/<action>',
+                '<controller:\w+>'                                    => '<controller>/index',
             )),
         ),
         // конфигурируем компонент CHttpRequest для защиты от CSRF атак, подробнее: http://www.yiiframework.ru/doc/guide/ru/topics.security

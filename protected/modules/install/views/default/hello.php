@@ -5,7 +5,12 @@
 <p><?php echo Yii::t('install', 'Мы всегда рады видеть Вас на нашем сайте {link} !',array('{link}' => CHtml::link('http://yupe.ru','http://yupe.ru?from=install'))); ?></p>
 
 <?php $this->widget('bootstrap.widgets.TbButton', array(
-     'type'  => 'primary',
-     'label' => Yii::t('install', 'Продолжить >'),
-     'url'   => array('default/requirements'),
- )); ?>
+    'label' => Yii::t('install', '< Назад'),
+    'url'   => array('default/index'),
+)); ?>
+
+<?php $this->widget('bootstrap.widgets.TbButton', array(
+    'type'  => 'primary',
+    'label' => Yii::t('install', 'Продолжить >'),
+    'url'   => array('default/requirements'),
+)); ?>
