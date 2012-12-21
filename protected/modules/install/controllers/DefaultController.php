@@ -82,6 +82,9 @@ class DefaultController extends YBackController
             $requirements[$i][3] = Yii::t('install', 'Все хорошо!');
         }
 
+        if($result)
+            Yii::app()->getModule('yupe')->activate;
+
         $this->render('index', array(
             'requirements' => $requirements,
             'result'       => $result,
@@ -92,7 +95,7 @@ class DefaultController extends YBackController
     {
         $this->stepName = Yii::t('install', 'Шаг 1 из 7 : "Приветствие!"');
 
-        if (Yii::app()->getModule('yupe')->activate)
+        if (Yii::app()->getModule('yupe') !== NULL)
             $this->render('hello');
         else
             throw new CHttpException(400, Yii::t('install', 'Установка невозможна, исправьте ошибки на шаге "проверка окружения"!'));
