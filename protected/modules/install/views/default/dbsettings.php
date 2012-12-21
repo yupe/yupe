@@ -9,7 +9,7 @@ $form = $this->beginWidget('bootstrap.widgets.TbActiveForm', array(
 
 Yii::app()->clientScript->registerScript('fieldset', "
     $('document').ready(function () {
-        $('.popover-help').popover({ trigger : 'hover', 'delay' : 500 });
+        $('.popover-help').popover({ trigger : 'hover', delay : 500 });
     });
 ");
 ?>
@@ -58,7 +58,7 @@ Yii::app()->clientScript->registerScript('fieldset', "
 
     <?php $this->widget('bootstrap.widgets.TbButton', array(
         'label' => Yii::t('install', '< Назад'),
-        'url'   => array('default/requirements'),
+        'url'   => array('/install/default/requirements'),
     )); ?>
     <?php if ($result && $sqlResult): ?>
         <?php $this->widget('bootstrap.widgets.TbButton', array(

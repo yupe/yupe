@@ -18,6 +18,9 @@
 
 class YupeModule extends YWebModule
 {
+    public $enableAssets;
+    public $cache;
+
     public $siteDescription;
     public $siteName;
     public $siteKeyWords;
