@@ -52,6 +52,8 @@ return array(
         'application.modules.yupe.helpers.*',
         'application.modules.yupe.models.*',
         'application.modules.yupe.components.*',
+        'application.modules.yupe.components.controllers.*',
+        'application.modules.yupe.components.validators.*',
         'application.modules.yupe.components.exceptions.*',
     ), $import),
     // подключение и конфигурирование модулей,
