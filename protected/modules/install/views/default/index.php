@@ -1,11 +1,29 @@
 <h1><?php echo Yii::t('install', 'Добро пожаловать!'); ?></h1>
 
-<p><?php echo Yii::t('install', 'Теперь вы сможете очень легко и просто запустить Ваш сайт или блог на "<b>{app}</b>"', array('{app}' => Yii::app()->name)); ?></p>
-<p><?php echo Yii::t('install', 'Просто следуйте инструкциям установщика и все у Вас получиться!'); ?></p>
-<p><?php echo Yii::t('install', 'Мы всегда рады видеть Вас на нашем сайте {link} !',array('{link}' => CHtml::link('http://yupe.ru','http://yupe.ru?from=install'))); ?></p>
+<?php if (!$result): ?>
+    <div class="flash-error">
+        <b><?php echo Yii::t('install', 'Дальнейшая установка невозможна, пожалуйста, исправьте ошибки!'); ?></b>
+    </div>
+<?php endif; ?>
 
-<?php $this->widget('bootstrap.widgets.TbButton', array(
-     'type'  => 'primary',
-     'label' => Yii::t('install', 'Продолжить >'),
-     'url'   => array('default/requirements'),
- )); ?>
+<table class="table table-striped">
+    <tr>
+        <th>Значение</th>
+        <th>Результат</th>
+        <th>Комментарий</th>
+    </tr>
+    <?php foreach ($requirements as $requirement): ?>
+    <tr>
+        <td width="200"><?php echo $requirement[0]; ?></td>
+        <td>
+            <?php echo $requirement[1] ? 'ОК' : 'Ошибка'; ?>
+        </td>
+        <td><?php echo $requirement[3]; ?></td>
+    </tr>
+    <?php endforeach;?>
+</table>
+<br /><br /><br />
+<?php if ($result): ?>
+    <?php echo CHtml::link('Далее', '/install/default/hello'); ?>
+<?php endif; ?>
+<br /><br /><br />

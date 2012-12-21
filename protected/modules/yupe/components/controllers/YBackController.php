@@ -15,6 +15,10 @@ class YBackController extends YMainController
 
         $this->layout = $this->yupe->backendLayoutAlias;
         $backendTheme = $this->yupe->backendTheme;
+        $this->setPageTitle(Yii::t('yupe', 'Панель управления'));
+
+        if (!$this->yupe->enableAssets)
+            return;
 
         if ($backendTheme && is_dir(Yii::getPathOfAlias("webroot.themes.backend_" . $backendTheme)))
         {
@@ -39,11 +43,11 @@ class YBackController extends YMainController
         }
 
         Yii::app()->clientScript->registerCoreScript('jquery');
-        // @TODO необходимо избавиться от эллементво использующих jquery ui
+        // @TODO необходимо избавиться от эллементво использующих jquery ui и yupeAdmin.js
         Yii::app()->clientScript->registerCoreScript('jquery.ui');
         Yii::app()->clientScript->registerCssFile(Yii::app()->clientScript->getCoreScriptUrl() . '/jui/css/base/jquery-ui.css');
-
-        $this->setPageTitle(Yii::t('yupe', 'Панель управления'));
+        $webPath = Yii::app()->assetManager->publish($this->yupe->basePath . '/web/');
+        Yii::app()->clientScript->registerScriptFile($webPath . '/yupeAdmin.js');
     }
 
     public function actionActivate()

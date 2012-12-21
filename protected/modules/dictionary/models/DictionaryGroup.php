@@ -50,6 +50,7 @@ class DictionaryGroup extends YModel
             array('name', 'length', 'max' => 150),
             array('description', 'length', 'max' => 300),
             array('create_user_id, update_user_id', 'length', 'max' => 10),
+            array('code', 'YSLugValidator'),
             array('code', 'unique'),
             // The following rule is used by search().
             // Please remove those attributes that should not be searched.

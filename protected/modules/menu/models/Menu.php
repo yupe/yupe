@@ -46,7 +46,7 @@ class Menu extends YModel
             array('name, code, description', 'filter', 'filter' => array($obj = new CHtmlPurifier(), 'purify')),
             array('name, description', 'length', 'max' => 300),
             array('code', 'length', 'max' => 100),
-            array('code', 'match', 'pattern' => '/^[a-zA-Z0-9_\-]+$/', 'message' => Yii::t('menu', 'Запрещенные символы в поле {attribute}')),
+            array('code', 'YSLugValidator'),
             array('code', 'unique'),
             array('status', 'in', 'range' => array_keys($this->statusList)),
             array('id, name, code, description, status', 'safe', 'on' => 'search'),

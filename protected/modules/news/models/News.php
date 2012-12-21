@@ -66,7 +66,7 @@ class News extends YModel
             array('link', 'length', 'max' => 300),
             array('image', 'file', 'minSize' => $module->minSize, 'maxSize' => $module->maxSize, 'types' => $module->allowedExtensions, 'maxFiles' => $module->maxFiles, 'allowEmpty' => true),
             array('link', 'url'),
-            array('alias', 'match', 'pattern' => '/^[a-zA-Z0-9_\-]+$/', 'message' => Yii::t('news', 'Запрещенные символы в поле {attribute}')),
+            array('alias', 'YSLugValidator', 'message' => Yii::t('news', 'Запрещенные символы в поле {attribute}')),
             array('category_id', 'default', 'setOnEmpty' => true, 'value' => null),
             array('id, keywords, description, creation_date, change_date, date, title, alias, short_text, full_text, user_id, status, is_protected', 'safe', 'on' => 'search'),
         );

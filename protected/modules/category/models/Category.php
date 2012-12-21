@@ -50,7 +50,7 @@ class Category extends YModel
             array('parent_id', 'default', 'setOnEmpty' => true, 'value' => null),
             array('name', 'length', 'max' => 150),
             array('alias', 'length', 'max' => 100),
-            array('alias', 'match', 'pattern' => '/^[A-Za-z0-9\-]{1,50}$/', 'message' => Yii::t('category', 'Неверный формат поля "{attribute}" допустимы только буквы, цифры и символ "-", от 2 до 20 символов')),
+            array('alias', 'YSLugValidator', 'message' => Yii::t('catalog', 'Запрещенные символы в поле {attribute}')),
             array('lang', 'length', 'max' => 2 ),
             array('lang', 'default', 'value' => Yii::app()->sourceLanguage),
             array('alias', 'unique', 'criteria' => array(

@@ -91,7 +91,9 @@ class LanguageBehavior extends CBehavior
         $lp  = $app->urlManager->langParam;
 
         $app->user->setState($lp, $language);
-        $app->request->cookies[$lp] = new CHttpCookie($lp, $language, array('expire' => time() + (60 * 60 * 24 * 365)));
+        // @TODO если не доступна папка runtime в установщие не создавать куку
+        if ($app->getModule('yupe')->cache)
+            $app->request->cookies[$lp] = new CHttpCookie($lp, $language, array('expire' => time() + (60 * 60 * 24 * 365)));
         $app->language = $language;
     }
 }

@@ -41,6 +41,10 @@ abstract class YWebModule extends CWebModule
      *  @var array опции редактора
      */
     public $editorOptions  = array();
+    /**
+     *  @var bool разрещение на вывод YFlashMessages
+     */
+    public $flashMess = false;
 
     /**
      *  @return string текущая версия модуля
@@ -189,7 +193,7 @@ abstract class YWebModule extends CWebModule
      */
     public function getIsStatus()
     {
-        return is_file(Yii::app()->basePath . '/config/modules/' . $this->id . '.php');
+        return is_file(Yii::app()->basePath . '/config/modules/' . $this->id . '.php') && $this->id != 'install';
     }
 
     /**
@@ -221,6 +225,12 @@ abstract class YWebModule extends CWebModule
         return true;
     }
 
+    protected function setFlash($type, $message)
+    {
+        if ($this->flashMess)
+            Yii::app()->user->setFlash($type, $message);
+    }
+
     /**
      *  @return bool включает модуль
      *  @since 0.5
@@ -231,18 +241,26 @@ abstract class YWebModule extends CWebModule
         $fileModule = $yupe->getModulesConfigDefault($this->id);
         $fileConfig = $yupe->getModulesConfig($this->id);
 
-        if (@copy($fileModule, $fileConfig))
-            Yii::app()->user->setFlash(
+        if (is_file($fileConfig))
+            $this->setFlash(
                 YFlashMessages::NOTICE_MESSAGE,
-                Yii::t('yupe', 'Модуль включен!')
+                Yii::t('yupe', 'Модуль уже включен!')
             );
         else
         {
-            Yii::app()->user->setFlash(
-                YFlashMessages::ERROR_MESSAGE,
-                Yii::t('yupe', 'Произошла ошибка при включении модуля, конфигурационный файл поврежден или отсутствует доступ к папке config!')
-            );
-            return false;
+            if (@copy($fileModule, $fileConfig))
+                $this->setFlash(
+                    YFlashMessages::NOTICE_MESSAGE,
+                    Yii::t('yupe', 'Модуль включен!')
+                );
+            else
+            {
+                $this->setFlash(
+                    YFlashMessages::ERROR_MESSAGE,
+                    Yii::t('yupe', 'Произошла ошибка при включении модуля, конфигурационный файл поврежден или отсутствует доступ к папке config!')
+                );
+                return false;
+            }
         }
         return true;
     }
@@ -257,33 +275,41 @@ abstract class YWebModule extends CWebModule
         $fileModule = $yupe->getModulesConfigDefault($this->id);
         $fileConfig = $yupe->getModulesConfig($this->id);
 
+        if (!is_file($fileConfig))
+        {
+            $this->setFlash(
+                YFlashMessages::NOTICE_MESSAGE,
+                Yii::t('yupe', 'Модуль уже отключен!')
+            );
+            return true;
+        }
         if (!$this->isNoDisable)
         {
             if (@md5_file($fileModule) != @md5_file($fileConfig))
             {
                 $fileConfigBack = $yupe->getModulesConfigBack($this->id);
                 if (!@copy($fileConfig, $fileConfigBack))
-                    Yii::app()->user->setFlash(
+                    $this->setFlash(
                         YFlashMessages::ERROR_MESSAGE,
                         Yii::t('yupe', 'Произошла ошибка при копировании старого конфигурационного файла в папку modulesBack!')
                     );
             }
             if (@unlink($fileConfig))
             {
-                Yii::app()->user->setFlash(
+                $this->setFlash(
                     YFlashMessages::NOTICE_MESSAGE,
                     Yii::t('yupe', 'Модуль отключен!')
                 );
                 return true;
             }
             else
-                Yii::app()->user->setFlash(
+                $this->setFlash(
                     YFlashMessages::ERROR_MESSAGE,
                     Yii::t('yupe', 'Произошла ошибка при отключении модуля, нет доступа к конфигурационному файлу!')
                 );
         }
         else
-            Yii::app()->user->setFlash(
+            $this->setFlash(
                 YFlashMessages::ERROR_MESSAGE,
                 Yii::t('yupe', 'Этот модуль запрещено отключать!')
             );
