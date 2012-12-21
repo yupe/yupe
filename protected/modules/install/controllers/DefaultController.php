@@ -2,7 +2,7 @@
 class DefaultController extends YBackController
 {
     public $stepName;
-    
+
     private $alreadyInstalledFlag;
 
     public function filters()
@@ -148,9 +148,9 @@ class DefaultController extends YBackController
         }
 
         $this->render('requirements', array(
-            'requirements' => $requirements,
-            'result'       => $result,
-        ));
+                'requirements' => $requirements,
+                'result'       => $result,
+            ));
     }
 
     public function actionDbsettings()
@@ -216,57 +216,7 @@ class DefaultController extends YBackController
                         fwrite($fh, $dbConfString);
                         fclose($fh);
                         @chmod($dbConfFile, 0666);
-
-                        $transaction = Yii::app()->db->beginTransaction();
-                        
-                        Yii::app()->db->setAttribute(PDO::MYSQL_ATTR_USE_BUFFERED_QUERY,1);
-
-                        try
-                        {
-                            //@TODO проверяет наличие таблиц с заданным префиксом, требуется доработка
-                            $tables = Yii::app()->db->schema->getTables();
-                            foreach ($tables as $table)
-                            {
-                                if (strpos($table->name, $form->tablePrefix) === 0)
-                                    $issetTable = true;
-                            }
-
-                            if (isset($issetTable))
-                                $this->executeSql($sqlDropFile);
-
-                            $this->executeSql($sqlFile);
-
-                            // Установить .sql файлы модулей yupe
-                            $sqlFiles = glob("{$sqlDbDir}*.sql");
-
-                            if (is_array($sqlFiles))
-                            {
-                                foreach ($sqlFiles as $file)
-                                    $this->executeSql($file);
-                            }
-
-                            $transaction->commit();
-
-                            Yii::app()->user->setFlash(
-                                YFlashMessages::NOTICE_MESSAGE,
-                                Yii::t('install', 'База данных успешно создана!')
-                            );
-
-                            $this->redirect(array('/install/default/modulesinstall'));
-                        }
-                        catch (Exception $e)
-                        {
-                            $transaction->rollback();
-
-                            Yii::app()->user->setFlash(
-                                YFlashMessages::ERROR_MESSAGE,
-                                Yii::t('install', 'При инициализации базы данных произошла ошибка! '.$e->__toString())
-                            );
-
-                            Yii::log($e->__toString(), CLogger::LEVEL_ERROR);
-
-                            $this->redirect(array('/install/default/dbsettings'));
-                        }
+                        $this->redirect(array('/install/default/modulesinstall'));
                     }
                 }
                 catch (Exception $e)
@@ -287,12 +237,12 @@ class DefaultController extends YBackController
             $sqlResult = true;
 
         $this->render('dbsettings', array(
-            'model'     => $form,
-            'sqlResult' => $sqlResult,
-            'sqlFile'   => $sqlFile,
-            'result'    => $result,
-            'file'      => $dbConfFile,
-        ));
+                'model'     => $form,
+                'sqlResult' => $sqlResult,
+                'sqlFile'   => $sqlFile,
+                'result'    => $result,
+                'file'      => $dbConfFile,
+            ));
     }
 
     public function actionModulesinstall()
@@ -304,31 +254,75 @@ class DefaultController extends YBackController
 
         if (Yii::app()->request->isPostRequest)
         {
-            // Переносим старые конфигурационные файлы в back-папку
-            $files = glob($this->yupe->getModulesConfig() . "*.php");
-            foreach ($files as $file)
-            {
-                if ($error)
-                    break;
+            $migrator = Yii::app()->migrator;
+            $modulesByName = array();
+            $toInstall = array();
 
-                $name = preg_replace('#^.*/([^\.]*)\.php$#', '$1', $file);
-                if (!@copy($this->yupe->getModulesConfig($name), $this->yupe->getModulesConfigBack($name)))
-                {
-                    $error = true;
-                    Yii::app()->user->setFlash(
-                        YFlashMessages::ERROR_MESSAGE,
-                        Yii::t('install', 'Произошла ошибка установки модулей - ошибка копирования файла в папку modulesBack!')
-                    );
-                }
-                else if (!@unlink($file))
-                {
-                    $error = true;
-                    Yii::app()->user->setFlash(
-                        YFlashMessages::ERROR_MESSAGE,
-                        Yii::t('install', 'Произошла ошибка установки модулей - ошибка удаления файла из папки modules!')
-                    );
-                }
+
+            foreach($modules as &$m)
+            {
+                $modulesByName[$m->id] = $m;
+                if(($m->id == 'install' || $m->isNoDisable) || (isset($_POST['module_' . $m->id]) && $_POST['module_' . $m->id]))
+                    $toInstall[$m->id]=$m;
             }
+
+            // проверим зависимости
+            $deps = array();
+            foreach($modulesByName as $m)
+                if($m->dependencies!==array())
+                    foreach($m->dependencies as $dep)
+                        if(!isset($toInstall[$dep]))
+                        {
+                            $error=true;
+                            Yii::app()->user->setFlash(
+                                YFlashMessages::ERROR_MESSAGE,
+                                Yii::t('install','Модуль "{module}" зависит от модуля "{dep}", который не активирован.', array('{module}'=>$m->name,'{dep}'=>isset($modulesByName[$dep])?$modulesByName[$dep]->name:$dep))
+                            );
+                            break;
+                        }
+
+            if (!$error)
+            {
+                $installed = array();
+                foreach($toInstall as $m )
+                    if (!isset($installed[$m->id]))
+                        if (!$this->migrateWithDependencies($m, $toInstall, $installed))
+                        {
+                            $error=true;
+                            Yii::app()->user->setFlash(
+                                YFlashMessages::ERROR_MESSAGE,
+                                Yii::t('install','Ошибка установки базы модуля "{module}" или одной из его зависимостей.', array('{module}'=>$m->name))
+                            );
+
+                            break;
+                        }
+            }
+
+                        // Переносим старые конфигурационные файлы в back-папку
+                        $files = glob($this->yupe->getModulesConfig() . "*.php");
+                        foreach ($files as $file)
+                        {
+                            if ($error)
+                                break;
+                            $name = preg_replace('#^.*/([^\.]*)\.php$#', '$1', $file);
+                            if (!@copy($this->yupe->getModulesConfig($name), $this->yupe->getModulesConfigBack($name)))
+                            {
+                                $error = true;
+                                Yii::app()->user->setFlash(
+                                    YFlashMessages::ERROR_MESSAGE,
+                                    Yii::t('install', 'Произошла ошибка установки модулей - ошибка копирования файла в папку modulesBack!')
+                                );
+                            }
+                            else if (!@unlink($file))
+                            {
+                                $error = true;
+                                Yii::app()->user->setFlash(
+                                    YFlashMessages::ERROR_MESSAGE,
+                                    Yii::t('install', 'Произошла ошибка установки модулей - ошибка удаления файла из папки modules!')
+                                );
+                            }
+                        }
+
             if (!$error)
             {
                 foreach ($modules as $module)
@@ -340,6 +334,7 @@ class DefaultController extends YBackController
 
                     $fileModule     = $this->yupe->getModulesConfigDefault($module->id);
                     $fileConfigBack = $this->yupe->getModulesConfigBack($module->id);
+
                     // Удаляем неизмененные файлы конфигураций из back-папки
                     if (is_file($fileConfigBack) && @md5_file($fileModule) == @md5_file($fileConfigBack) && !@unlink($fileConfigBack))
                     {
@@ -377,6 +372,17 @@ class DefaultController extends YBackController
         $this->render('modulesinstall', array('modules' => $modules));
     }
 
+    private function migrateWithDependencies( $m, &$toInstall, &$installed )
+    {
+        if($m->dependencies!==array())
+            foreach($m->dependencies as $dep)
+                if(!isset($installed[$dep]))
+                    if ( !$this->migrateWithDependencies( $toInstall[$dep], $toInstall, $installed ) )
+                        return false;
+        // migrate here
+        return Yii::app()->migrator->updateToLatest($m->id) && ($installed[$m->id]=true);
+    }
+
     public function actionCreateuser()
     {
         $this->stepName = Yii::t('install', 'Шаг 5 из 7 : "Создание учетной записи администратора"');
@@ -399,17 +405,17 @@ class DefaultController extends YBackController
                 $salt = $user->generateSalt();
 
                 $user->setAttributes(array(
-                    'nick_name'         => $model->userName,
-                    'email'             => $model->email,
-                    'salt'              => $salt,
-                    'password'          => User::model()->hashPassword($model->password, $salt),
-                    'registration_date' => new CDbExpression('NOW()'),
-                    'registration_ip'   => Yii::app()->request->userHostAddress,
-                    'activation_ip'     => Yii::app()->request->userHostAddress,
-                    'access_level'      => User::ACCESS_LEVEL_ADMIN,
-                    'status'            => User::STATUS_ACTIVE,
-                    'email_confirm'     => User::EMAIL_CONFIRM_YES,
-                ));
+                        'nick_name'         => $model->userName,
+                        'email'             => $model->email,
+                        'salt'              => $salt,
+                        'password'          => User::model()->hashPassword($model->password, $salt),
+                        'registration_date' => new CDbExpression('NOW()'),
+                        'registration_ip'   => Yii::app()->request->userHostAddress,
+                        'activation_ip'     => Yii::app()->request->userHostAddress,
+                        'access_level'      => User::ACCESS_LEVEL_ADMIN,
+                        'status'            => User::STATUS_ACTIVE,
+                        'email_confirm'     => User::EMAIL_CONFIRM_YES,
+                    ));
 
                 if ($user->save())
                 {
@@ -450,11 +456,11 @@ class DefaultController extends YBackController
                         $settings = new Settings;
 
                         $settings->setAttributes(array(
-                            'module_id'   => 'yupe',
-                            'param_name'  => $param,
-                            'param_value' => $model->$param,
-                            'user_id'     => $user[0]->id,
-                        ));
+                                'module_id'   => 'yupe',
+                                'param_name'  => $param,
+                                'param_value' => $model->$param,
+                                'user_id'     => $user[0]->id,
+                            ));
 
                         if ($settings->save())
                             continue;
@@ -485,7 +491,7 @@ class DefaultController extends YBackController
                         YFlashMessages::ERROR_MESSAGE,
                         $e->__toString()
                     );
-                    
+
                     Yii::log($e->__toString(),  CLogger::LEVEL_ERROR);
 
                     $this->redirect(array('/install/default/sitesettings/'));
@@ -524,7 +530,7 @@ class DefaultController extends YBackController
     }
 
     private function executeSql($sqlFile)
-    {        
-        return Yii::app()->db->createCommand(file_get_contents($sqlFile))->execute();        
+    {
+        return Yii::app()->db->createCommand(file_get_contents($sqlFile))->execute();
     }
 }

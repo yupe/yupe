@@ -65,6 +65,10 @@ return array(
     'params' => require(dirname(__FILE__) . '/params.php'),
     // конфигурирование основных компонентов (подробнее http://www.yiiframework.ru/doc/guide/ru/basics.component)
     'components' => array_merge(array(
+        // Работа с миграциями, обновление БД модулей
+        'migrator'=>array(
+            'class'=>'application.modules.yupe.extensions.migrator.Migrator',
+        ),
         // библиотека для работы с картинками через GD/ImageMagick
         // лучше установите ImageMagick, т.к. он ресайзит анимированные гифы
         'image' => array(
