@@ -29,6 +29,9 @@ foreach ($files as $file)
             $cache = $config['cache'];
         if (!empty($config['enableAssets']))
             $enableAssets = $config['enableAssets'];
+    }
+    if ($name == 'install')
+    {
         if (!empty($config['install']))
             unset($modules['install']);
     }

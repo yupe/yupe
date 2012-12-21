@@ -19,5 +19,4 @@ return array(
         '<controller:\w+>/<action:\w+>'                       => '<controller>/<action>',
         '<controller:\w+>'                                    => '<controller>/index',
     ),
-    'install' => true,
 );

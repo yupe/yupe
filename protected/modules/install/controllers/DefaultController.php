@@ -312,6 +312,7 @@ class DefaultController extends YBackController
         $error = false;
 
         $modules = $this->yupe->getModulesDisabled();
+        unset($modules['install']);
 
         if (Yii::app()->request->isPostRequest)
         {
@@ -361,7 +362,7 @@ class DefaultController extends YBackController
                         );
                     }
                     // Копируем конфигурационные файлы из модулей
-                    if (!$error && ($module->id == 'install' || $module->isNoDisable || (
+                    if (!$error && ($module->isNoDisable || (
                             isset($_POST['module_' . $module->id]) &&
                             $_POST['module_' . $module->id]
                         )) && !$module->activate
@@ -384,7 +385,6 @@ class DefaultController extends YBackController
                 }
             }
         }
-        unset($modules['install']);
         $this->render('modulesinstall', array('modules' => $modules));
     }
 
@@ -515,11 +515,11 @@ class DefaultController extends YBackController
                 YFlashMessages::WARNING_MESSAGE,
                 Yii::t('install', "Не удалось создать файл {file}, для избежания повторной установки, пожалуйста, создайте его самостоятельно или отключите модуль 'Install' сразу после установки!", array('{file}' => $this->alreadyInstalledFlag))
             );
-        else if (!Yii::app()->getModule('install')->deactivate)
+        else if (!Yii::app()->getModule('install')->activate)
         {
             Yii::app()->user->setFlash(
                 YFlashMessages::WARNING_MESSAGE,
-                Yii::t('install', "Модуль install не удалось отключить, отключите его в панеле управления!")
+                Yii::t('install', "Модуль install не удалось отключить, обновите конфигурационный файл install!")
             );
         }
         else
