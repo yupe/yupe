@@ -11,7 +11,7 @@ class m000000_000000_blog_base extends CDbMigration
         $this->createTable($tableName, array(
             'id' => 'pk',
             'name' => 'varchar(300) NOT NULL',
-            'description' => "text NOT NULL DEFAULT ''",
+            'description' => "text",
             'icon' => "varchar(300) NOT NULL DEFAULT ''",
             'slug' => 'varchar(150) NOT NULL',
             'lang' => 'char(2) DEFAULT NULL',
