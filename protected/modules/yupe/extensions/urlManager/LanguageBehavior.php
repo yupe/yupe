@@ -60,7 +60,7 @@ class LanguageBehavior extends CBehavior
             if ($user->hasState($lm->langParam))
                 $l = $user->getState($lm->langParam);
             // Пробуем получить код языка из кук
-            else if (isset($app->request->cookies[$lm->langParam]) && in_array($app->request->cookies[$lm->langParam]->value, $lm->languages))
+            else if ($app->getModule('yupe')->cache && isset($app->request->cookies[$lm->langParam]) && in_array($app->request->cookies[$lm->langParam]->value, $lm->languages))
                 $l = $app->request->cookies[$lm->langParam]->value;
             // Получаем код языка из предпочтительной локали, указанной в браузере клиента
             else if ($lm->preferredLanguage && $l = $app->request->getPreferredLanguage())
