@@ -63,7 +63,7 @@ class Blog extends YModel
             array('create_date, update_date', 'length', 'max' => 11),
             array('slug', 'unique'),
             array('name, slug, description', 'filter', 'filter' => array($obj = new CHtmlPurifier(), 'purify')),
-            array('slug', 'match', 'pattern' => '/^[a-zA-Z0-9_\-]+$/', 'message' => Yii::t('blog', 'Запрещенные символы в поле {attribute}')),
+            array('slug', 'YSLugValidator', 'message' => Yii::t('blog', 'Запрещенные символы в поле {attribute}')),
             array('type', 'in', 'range' => array_keys($this->typeList)),
             array('status', 'in', 'range' => array_keys($this->statusList)),
             array('id, name, description, icon, slug, type, status, create_user_id, update_user_id, create_date, update_date', 'safe', 'on' => 'search'),
