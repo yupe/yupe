@@ -6,6 +6,13 @@ class CommentModule extends YWebModule
     public $notify               = false;
     public $email;
 
+    public function getDependencies()
+    {
+        return array(
+            'user',
+        );
+    }
+
     public function getParamsLabels()
     {
         return array(

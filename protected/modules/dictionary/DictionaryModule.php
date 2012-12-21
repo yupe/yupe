@@ -2,6 +2,13 @@
 
 class DictionaryModule extends YWebModule
 {
+    public function getDependencies()
+    {
+        return array(
+            'user',
+        );
+    }
+
     public function getParamsLabels()
     {
         return array(
