@@ -206,6 +206,17 @@ abstract class YWebModule extends CWebModule
     }
 
     /**
+     *  @return array Массив с именами модулей, от которых зависит работа данного модуля
+     *  @since 0.5
+     */
+    public function getDependencies()
+    {
+        return array(
+
+        );
+    }
+
+    /**
      *  @return bool устанавливает checkbox включенным по умолчанию при установке Yupe
      *  @since 0.5
      */

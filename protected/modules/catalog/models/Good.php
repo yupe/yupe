@@ -65,6 +65,7 @@ class Good extends YModel
             array('name, alias, price, article, data, status, is_special', 'filter', 'filter' => array($obj = new CHtmlPurifier(), 'purify')),
             array('status, category_id, is_special', 'numerical', 'integerOnly' => true),
             array('price', 'numerical'),
+            array('alias', 'YSLugValidator', 'message' => Yii::t('catalog', 'Запрещенные символы в поле {attribute}')),
             array('alias', 'unique'),
             array('name', 'length', 'max' => 150),
             array('article, alias', 'length', 'max' => 100),

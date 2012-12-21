@@ -25,11 +25,14 @@ Yii::app()->clientScript->registerScript('fieldset', "
         </tr>
         </thead>
         <tbody>
-            <?php foreach ($modules as $module): ?>
+            <?php
+            $post = Yii::app()->request->isPostRequest;
+
+            foreach ($modules as $module): ?>
                 <tr>
                     <td><?php echo CHtml::checkBox(
                         'module_' . $module->id,
-                        $module->isInstallDefault ? true : false,
+                        ($post && !$module->isNoDisable )?(isset($_POST['module_' . $module->id]) && $_POST['module_' . $module->id]): ($module->isInstallDefault ? true : false),
                         $module->isNoDisable ? array('disabled' => true) : array()
                     ); ?></td>
                     <td><?php echo ($module->icon ? ("<i class='icon-" . $module->icon . "'>&nbsp;</i> ") : ""); ?></td>

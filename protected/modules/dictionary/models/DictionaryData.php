@@ -57,6 +57,7 @@ class DictionaryData extends YModel
             array('code', 'length', 'max' => 50),
             array('name', 'length', 'max' => 150),
             array('description', 'length', 'max' => 300),
+            array('code', 'YSLugValidator'),
             array('code', 'unique'),
             // The following rule is used by search().
             // Please remove those attributes that should not be searched.

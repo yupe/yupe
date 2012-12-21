@@ -76,6 +76,7 @@ class Post extends YModel
             array('comment_status', 'in', 'range' => array(0, 1)),
             array('access_type', 'in', 'range' => array_keys($this->accessTypeList)),
             array('status', 'in', 'range' => array_keys($this->statusList)),
+            array('slug', 'YSLugValidator', 'message' => Yii::t('blog', 'Запрещенные символы в поле {attribute}')),
             array('slug', 'unique'),
             array('title, slug, link, keywords, description, publish_date', 'filter', 'filter' => array($obj = new CHtmlPurifier(), 'purify')),
             array('id, blog_id, create_user_id, update_user_id, create_date, update_date, slug, publish_date, title, quote, content, link, status, comment_status, access_type, keywords, description', 'safe', 'on' => 'search'),
