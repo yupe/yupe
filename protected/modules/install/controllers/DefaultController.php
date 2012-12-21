@@ -211,9 +211,9 @@ class DefaultController extends YBackController
         }
 
         $this->render('requirements', array(
-                'requirements' => $requirements,
-                'result'       => $result,
-            ));
+            'requirements' => $requirements,
+            'result'       => $result,
+        ));
     }
 
     public function actionDbsettings()
@@ -300,12 +300,12 @@ class DefaultController extends YBackController
             $sqlResult = true;
 
         $this->render('dbsettings', array(
-                'model'     => $form,
-                'sqlResult' => $sqlResult,
-                'sqlFile'   => $sqlFile,
-                'result'    => $result,
-                'file'      => $dbConfFile,
-            ));
+            'model'     => $form,
+            'sqlResult' => $sqlResult,
+            'sqlFile'   => $sqlFile,
+            'result'    => $result,
+            'file'      => $dbConfFile,
+        ));
     }
 
     public function actionModulesinstall()
@@ -449,15 +449,21 @@ class DefaultController extends YBackController
         $this->render('modulesinstall', array('modules' => $modules));
     }
 
-    private function migrateWithDependencies( $m, &$toInstall, &$installed )
+    private function migrateWithDependencies($m, &$toInstall, &$installed)
     {
-        if($m->dependencies!==array())
-            foreach($m->dependencies as $dep)
-                if(!isset($installed[$dep]))
-                    if ( !$this->migrateWithDependencies( $toInstall[$dep], $toInstall, $installed ) )
+        if ($m->dependencies !== array())
+        {
+            foreach ($m->dependencies as $dep)
+            {
+                if (!isset($installed[$dep]))
+                {
+                    if (!$this->migrateWithDependencies($toInstall[$dep], $toInstall, $installed))
                         return false;
+                }
+            }
+        }
         // migrate here
-        return Yii::app()->migrator->updateToLatest($m->id) && ($installed[$m->id]=true);
+        return Yii::app()->migrator->updateToLatest($m->id) && ($installed[$m->id] = true);
     }
 
     public function actionCreateuser()
@@ -482,17 +488,17 @@ class DefaultController extends YBackController
                 $salt = $user->generateSalt();
 
                 $user->setAttributes(array(
-                        'nick_name'         => $model->userName,
-                        'email'             => $model->email,
-                        'salt'              => $salt,
-                        'password'          => User::model()->hashPassword($model->password, $salt),
-                        'registration_date' => new CDbExpression('NOW()'),
-                        'registration_ip'   => Yii::app()->request->userHostAddress,
-                        'activation_ip'     => Yii::app()->request->userHostAddress,
-                        'access_level'      => User::ACCESS_LEVEL_ADMIN,
-                        'status'            => User::STATUS_ACTIVE,
-                        'email_confirm'     => User::EMAIL_CONFIRM_YES,
-                    ));
+                    'nick_name'         => $model->userName,
+                    'email'             => $model->email,
+                    'salt'              => $salt,
+                    'password'          => User::model()->hashPassword($model->password, $salt),
+                    'registration_date' => new CDbExpression('NOW()'),
+                    'registration_ip'   => Yii::app()->request->userHostAddress,
+                    'activation_ip'     => Yii::app()->request->userHostAddress,
+                    'access_level'      => User::ACCESS_LEVEL_ADMIN,
+                    'status'            => User::STATUS_ACTIVE,
+                    'email_confirm'     => User::EMAIL_CONFIRM_YES,
+                ));
 
                 if ($user->save())
                 {
@@ -533,11 +539,11 @@ class DefaultController extends YBackController
                         $settings = new Settings;
 
                         $settings->setAttributes(array(
-                                'module_id'   => 'yupe',
-                                'param_name'  => $param,
-                                'param_value' => $model->$param,
-                                'user_id'     => $user[0]->id,
-                            ));
+                            'module_id'   => 'yupe',
+                            'param_name'  => $param,
+                            'param_value' => $model->$param,
+                            'user_id'     => $user[0]->id,
+                        ));
 
                         if ($settings->save())
                             continue;
