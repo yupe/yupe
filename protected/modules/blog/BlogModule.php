@@ -1,6 +1,13 @@
 <?php
 class BlogModule extends YWebModule
 {
+    public function getDependencies()
+    {
+        return array(
+            'user',
+        );
+    }
+
     public function getCategory()
     {
         return Yii::t('blog', 'Контент');

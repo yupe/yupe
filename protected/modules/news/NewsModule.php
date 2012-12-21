@@ -8,6 +8,14 @@ class NewsModule extends YWebModule
     public $maxFiles          = 1;
     public $mainCategory;
 
+    public function getDependencies()
+    {
+        return array(
+            'user',
+            'category',
+        );
+    }
+
     public function getUploadPath()
     {
         return Yii::getPathOfAlias('webroot') . '/' . Yii::app()->getModule('yupe')->uploadPath . '/' . $this->uploadPath . '/';

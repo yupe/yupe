@@ -9,6 +9,14 @@ class CatalogModule extends YWebModule
     public $maxSize;
     public $maxFiles          = 1;
 
+    public function getDependencies()
+    {
+        return array(
+            'user',
+            'category'
+        );
+    }
+
     public function getUploadPath()
     {
         return  Yii::getPathOfAlias('webroot') . '/' .
