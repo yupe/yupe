@@ -43,9 +43,11 @@ class YBackController extends YMainController
         }
 
         Yii::app()->clientScript->registerCoreScript('jquery');
-        // @TODO необходимо избавиться от эллементво использующих jquery ui
+        // @TODO необходимо избавиться от эллементво использующих jquery ui и yupeAdmin.js
         Yii::app()->clientScript->registerCoreScript('jquery.ui');
         Yii::app()->clientScript->registerCssFile(Yii::app()->clientScript->getCoreScriptUrl() . '/jui/css/base/jquery-ui.css');
+        $webPath = Yii::app()->assetManager->publish($this->yupe->basePath . '/web/');
+        Yii::app()->clientScript->registerScriptFile($webPath . '/yupeAdmin.js');
     }
 
     public function actionActivate()

@@ -30,7 +30,7 @@ class DefaultController extends YBackController
 
     public function actionIndex()
     {
-        $this->stepName = Yii::t('install', 'Запуск инсталятора!"');
+        $this->stepName = Yii::t('install', 'Проверка окружения!"');
 
         $this->render('index');
     }
@@ -41,9 +41,12 @@ class DefaultController extends YBackController
 
         $path = Yii::app()->basePath . '/config/';
         if (@copy($path . 'db.php.back', $path . 'db.php'))
+        {
             if (Yii::app()->getModule('yupe')->activate)
                 $this->render('hello');
-        throw new CHttpException(400, Yii::t('install', 'Установка невозможна, исправьте ошибки на шаге запуска инсталятора!'));
+        }
+
+        throw new CHttpException(400, Yii::t('install', 'Установка невозможна, исправьте ошибки на шаге "проверка окружения"!'));
     }
 
     public function actionRequirements()
@@ -54,9 +57,9 @@ class DefaultController extends YBackController
             array(
                 Yii::t('install', 'PHP version'),
                 true,
-                version_compare(PHP_VERSION, "5.1.0", ">="),
+                version_compare(PHP_VERSION, "5.3.0", ">="),
                 '<a href="http://www.yiiframework.com">Yii Framework</a>',
-                Yii::t('install', 'PHP 5.1 или версия выше.'),
+                Yii::t('install', 'PHP 5.3 или версия выше.'),
             ),
             array(
                 Yii::t('install', 'Reflection extension'),

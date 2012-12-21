@@ -1,7 +1,7 @@
 <?php
 return array(
     'preload'      => array('log'),
-    'cache'        => true,
+    'cache'        => 'cache',
     'enableAssets' => true,
     'components'   => array(
         // параметры подключения к базе данных, подробнее http://www.yiiframework.ru/doc/guide/ru/database.overview
