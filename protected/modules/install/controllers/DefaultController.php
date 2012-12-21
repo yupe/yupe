@@ -2,7 +2,6 @@
 class DefaultController extends YBackController
 {
     public $stepName;
-    private $alreadyInstalledFlag;
 
     public function filters()
     {
@@ -13,15 +12,10 @@ class DefaultController extends YBackController
     {
         parent::init();
         $this->layout = 'application.modules.install.views.layouts.main';
-        $this->alreadyInstalledFlag = Yii::app()->basePath . '/config/' . '.ai';
     }
 
     protected function beforeAction($action)
     {
-        // Проверяем установку сайта
-        if (file_exists($this->alreadyInstalledFlag))
-            throw new CHttpException(404, Yii::t('install', 'Страница не найдена!'));
-
         if ($this->yupe->cache)
             Yii::app()->cache->flush();
 
@@ -571,12 +565,7 @@ class DefaultController extends YBackController
 
     public function actionFinish()
     {
-        if (!@touch($this->alreadyInstalledFlag))
-            Yii::app()->user->setFlash(
-                YFlashMessages::WARNING_MESSAGE,
-                Yii::t('install', "Не удалось создать файл {file}, для избежания повторной установки, пожалуйста, создайте его самостоятельно или отключите модуль 'Install' сразу после установки!", array('{file}' => $this->alreadyInstalledFlag))
-            );
-        else if (!Yii::app()->getModule('install')->activate)
+        if (!Yii::app()->getModule('install')->activate)
         {
             Yii::app()->user->setFlash(
                 YFlashMessages::WARNING_MESSAGE,

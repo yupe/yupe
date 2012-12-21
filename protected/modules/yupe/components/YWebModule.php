@@ -193,7 +193,7 @@ abstract class YWebModule extends CWebModule
      */
     public function getIsStatus()
     {
-        return is_file(Yii::app()->basePath . '/config/modules/' . $this->id . '.php');
+        return is_file(Yii::app()->basePath . '/config/modules/' . $this->id . '.php') && $this->id != 'install';
     }
 
     /**
