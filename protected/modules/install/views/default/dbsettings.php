@@ -24,12 +24,6 @@ Yii::app()->clientScript->registerScript('fieldset', "
         </div>
     <?php endif; ?>
 
-    <?php if (!$sqlResult): ?>
-        <div class="alert alert-error">
-            <b><?php echo Yii::t('install', "Файл {file} не существует или не доступен для чтения!", array('{file}' => $sqlFile)); ?></b>
-        </div>
-    <?php endif; ?>
-
     <?php echo $form->errorSummary($model); ?>
 
     <div class="row-fluid control-group <?php echo $model->hasErrors('host') ? 'error' : ''; ?>">
@@ -60,7 +54,7 @@ Yii::app()->clientScript->registerScript('fieldset', "
         'label' => Yii::t('install', '< Назад'),
         'url'   => array('/install/default/requirements'),
     )); ?>
-    <?php if ($result && $sqlResult): ?>
+    <?php if ($result): ?>
         <?php $this->widget('bootstrap.widgets.TbButton', array(
             'buttonType' => 'submit',
             'type'       => 'primary',

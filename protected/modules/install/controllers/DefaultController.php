@@ -228,12 +228,6 @@ class DefaultController extends YBackController
 
         $dbConfFile = Yii::app()->basePath . '/config/' . 'db.php';
 
-        $sqlDataDir = $this->module->basePath . '/data/';
-        $sqlDbDir   = $sqlDataDir . 'db/';
-
-        $sqlFile     = $sqlDataDir . 'yupe.sql';
-        $sqlDropFile = $sqlDataDir . 'yupe_drop.sql';
-
         $form = new DbSettingsForm;
 
         if (Yii::app()->request->isPostRequest)
@@ -245,7 +239,7 @@ class DefaultController extends YBackController
                 try
                 {
                     $socket = ($form->socket == '') ? '' : 'unix_socket=' . $form->socket . ';';
-                    $port = ($form->port == '') ? '' : 'port=' . $form->port . ';';
+                    $port   = ($form->port == '') ? '' : 'port=' . $form->port . ';';
 
                     $connectionString = "mysql:host={$form->host};{$port}{$socket}dbname={$form->dbName}";
 
@@ -276,39 +270,31 @@ class DefaultController extends YBackController
                     $dbConfString = "<?php\n return " . var_export($dbParams, true) . ";\n?>";
 
                     $fh = fopen($dbConfFile, 'w+');
-
                     if (!$fh)
                         $form->addError('', Yii::t('install', "Не могу открыть файл '{file}' для записии!", array('{file}' => $dbConfFile)));
                     else
                     {
-                        //@TODO корректная обработка ошибок IO
-                        fwrite($fh, $dbConfString);
-                        fclose($fh);
-                        @chmod($dbConfFile, 0666);
-                        $this->redirect(array('/install/default/modulesinstall'));
+                        if (fwrite($fh, $dbConfString) && fclose($fh) && @chmod($dbConfFile, 0666))
+                            $this->redirect(array('/install/default/modulesinstall'));
+                        else
+                            $form->addError('', Yii::t('install', "Произошла ошибка записи в файл '{file}'!", array('{file}' => $dbConfFile)));
                     }
                 }
                 catch (Exception $e)
                 {
-                    $form->addError('', Yii::t('install', 'С указанными параметрами подключение к БД не удалось выполнить! '.$e->__toString()));
-
-                    Yii::log($e->getTraceAsString(),CLogger::LEVEL_ERROR);
+                    $form->addError('', Yii::t('install', 'С указанными параметрами подключение к БД не удалось выполнить! ' . $e->__toString()));
+                    Yii::log($e->getTraceAsString(), CLogger::LEVEL_ERROR);
                 }
             }
         }
 
-        $result = $sqlResult = false;
+        $result = false;
 
         if (file_exists($dbConfFile) && is_writable($dbConfFile))
             $result = true;
 
-        if (file_exists($sqlFile) && is_readable($sqlFile))
-            $sqlResult = true;
-
         $this->render('dbsettings', array(
             'model'     => $form,
-            'sqlResult' => $sqlResult,
-            'sqlFile'   => $sqlFile,
             'result'    => $result,
             'file'      => $dbConfFile,
         ));
@@ -334,8 +320,9 @@ class DefaultController extends YBackController
                 if ($m->isNoDisable || (isset($_POST['module_' . $m->id]) && $_POST['module_' . $m->id]))
                     $toInstall[$m->id] = $m;
             }
+            unset($m);
 
-            // проверим зависимости
+            // Проверим зависимости
             $deps = array();
             foreach ($modulesByName as $m)
             {
@@ -345,7 +332,6 @@ class DefaultController extends YBackController
                     {
                         if (!isset($toInstall[$dep]))
                         {
-                            $error = true;
                             Yii::app()->user->setFlash(
                                 YFlashMessages::ERROR_MESSAGE,
                                 Yii::t('install', 'Модуль "{module}" зависит от модуля "{dep}", который не активирован.', array(
@@ -353,6 +339,7 @@ class DefaultController extends YBackController
                                     '{dep}'    => isset($modulesByName[$dep]) ? $modulesByName[$dep]->name : $dep
                                 ))
                             );
+                            $error = true;
                             break;
                         }
                     }
@@ -362,19 +349,16 @@ class DefaultController extends YBackController
             if (!$error)
             {
                 $installed = array();
-                foreach ($toInstall as $m )
+                foreach ($toInstall as $m)
                 {
-                    if (!isset($installed[$m->id]))
+                    if (!isset($installed[$m->id]) && !$this->migrateWithDependencies($m, $toInstall, $installed))
                     {
-                        if (!$this->migrateWithDependencies($m, $toInstall, $installed))
-                        {
-                            $error = true;
-                            Yii::app()->user->setFlash(
-                                YFlashMessages::ERROR_MESSAGE,
-                                Yii::t('install', 'Ошибка установки базы модуля "{module}" или одной из его зависимостей.', array('{module}' => $m->name))
-                            );
-                            break;
-                        }
+                        Yii::app()->user->setFlash(
+                            YFlashMessages::ERROR_MESSAGE,
+                            Yii::t('install', 'Ошибка установки базы модуля "{module}" или одной из его зависимостей.', array('{module}' => $m->name))
+                        );
+                        $error = true;
+                        break;
                     }
                 }
             }
@@ -611,10 +595,5 @@ class DefaultController extends YBackController
 
         $this->stepName = Yii::t('install', 'Шаг 7 из 7 : "Окончание установки"');
         $this->render('finish');
-    }
-
-    private function executeSql($sqlFile)
-    {
-        return Yii::app()->db->createCommand(file_get_contents($sqlFile))->execute();
     }
 }
