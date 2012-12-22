@@ -155,22 +155,20 @@ class BackendController extends YBackController
      */
     public function actionModuleChange($name, $status)
     {
-        if (($module = Yii::app()->getModule($name)) == NULL && $status == 0)
-            Yii::app()->user->setFlash(
-                YFlashMessages::ERROR_MESSAGE,
-                Yii::t('yupe', 'Ошибка отключения модуля!')
-            );
-        else
+        if (($module = Yii::app()->getModule($name)) == NULL)
+            $module = $this->yupe->getCreateModule($name);
+
+        $module->flashMess = true;
+
+        // @TODO Временный хак, дающий возможность переустановки, после появления обновлению, будет закрыт
+        if ($name == 'install')
         {
-            $module->flashMess = true;
-            if ($status == 0)
-                $module->deactivate;
-            else
-            {
-                $module = $this->yupe->getCreateModule($name);
-                $module->activate;
-            }
+            $module->flashMess = false;
+            $status = ($status == 0) ? 1 : 0;
         }
+        ($status == 0)
+            ? $module->deactivate
+            : $module->activate;
 
         Yii::app()->cache->flush();
         $referrer = Yii::app()->getRequest()->getUrlReferrer();

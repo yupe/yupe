@@ -17,9 +17,6 @@ class YBackController extends YMainController
         $backendTheme = $this->yupe->backendTheme;
         $this->setPageTitle(Yii::t('yupe', 'Панель управления'));
 
-        if (!$this->yupe->enableAssets)
-            return;
-
         if ($backendTheme && is_dir(Yii::getPathOfAlias("webroot.themes.backend_" . $backendTheme)))
         {
           //$themeBase        = "webroot.themes.backend_" . $backendTheme;
@@ -34,11 +31,21 @@ class YBackController extends YMainController
             Yii::app()->theme = null;
             $this->layout     = 'application.modules.yupe.views.layouts.column2';
 
+            $assets = ($this->yupe->enableAssets) ? array() : array(
+                'coreCss' => false,
+                'responsiveCss' => false,
+                'yiiCss' => false,
+                'jqueryCss' => false,
+                'enableJS' => false,
+            );
+
             Yii::app()->setComponent('bootstrap', Yii::createComponent(array(
                 'class' => 'application.modules.yupe.extensions.booster.components.Bootstrap',
-            )));
+            ) + $assets));
 
-            Yii::setPathOfAlias('bootstrap', Yii::app()->getModule('yupe')->basePath . '/extensions/booster');
+            if (!$this->yupe->enableAssets)
+                return;
+
             Yii::app()->preload[] = 'bootstrap';
         }
 

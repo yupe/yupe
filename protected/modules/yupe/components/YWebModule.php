@@ -193,7 +193,11 @@ abstract class YWebModule extends CWebModule
      */
     public function getIsStatus()
     {
-        return is_file(Yii::app()->basePath . '/config/modules/' . $this->id . '.php') && $this->id != 'install';
+        $status = is_file(Yii::app()->basePath . '/config/modules/' . $this->id . '.php');
+        // @TODO Временный хак, дающий возможность переустановки, после появления обновлению, будет закрыт
+        if ($this->id == 'install')
+            $status = ($status == false) ? true : false;
+        return $status;
     }
 
     /**
@@ -241,7 +245,8 @@ abstract class YWebModule extends CWebModule
         $fileModule = $yupe->getModulesConfigDefault($this->id);
         $fileConfig = $yupe->getModulesConfig($this->id);
 
-        if (is_file($fileConfig))
+        // @TODO Временный хак, дающий возможность переустановки, после появления обновлению, будет закрыт
+        if (is_file($fileConfig) && $this->id != 'install')
             $this->setFlash(
                 YFlashMessages::NOTICE_MESSAGE,
                 Yii::t('yupe', 'Модуль уже включен!')
@@ -275,7 +280,8 @@ abstract class YWebModule extends CWebModule
         $fileModule = $yupe->getModulesConfigDefault($this->id);
         $fileConfig = $yupe->getModulesConfig($this->id);
 
-        if (!is_file($fileConfig))
+        // @TODO Временный хак, дающий возможность переустановки, после появления обновлению, будет закрыт
+        if (!is_file($fileConfig) && $this->id != 'install')
         {
             $this->setFlash(
                 YFlashMessages::NOTICE_MESSAGE,

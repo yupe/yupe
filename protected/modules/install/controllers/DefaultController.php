@@ -24,7 +24,14 @@ class DefaultController extends YBackController
 
     public function actionIndex()
     {
-        $this->stepName = Yii::t('install', 'Проверка окружения!"');
+        $this->stepName = Yii::t('install', 'Шаг 1 из 8 : "Приветствие!"');
+
+        $this->render('index');
+    }
+
+    public function actionEnvironment()
+    {
+        $this->stepName = Yii::t('install', 'Шаг 2 из 8 : "Проверка окружения!"');
 
         $basePath = Yii::app()->basePath;
         $webRoot  = Yii::getPathOfAlias('webroot');
@@ -88,25 +95,15 @@ class DefaultController extends YBackController
             $requirements[$i][3] = Yii::t('install', 'Все хорошо!');
         }
 
-        $this->render('index', array(
+        $this->render('environment', array(
             'requirements' => $requirements,
             'result'       => $result,
         ));
     }
 
-    public function actionHello()
-    {
-        $this->stepName = Yii::t('install', 'Шаг 1 из 7 : "Приветствие!"');
-
-        if (Yii::app()->getModule('yupe') !== NULL)
-            $this->render('hello');
-        else
-            throw new CHttpException(400, Yii::t('install', 'Установка невозможна, исправьте ошибки на шаге "проверка окружения"!'));
-    }
-
     public function actionRequirements()
     {
-        $this->stepName = Yii::t('install', 'Шаг 2 из 7 : "Проверка системных требований"');
+        $this->stepName = Yii::t('install', 'Шаг 3 из 8 : "Проверка системных требований"');
 
         $requirements = array(
             array(
@@ -204,14 +201,12 @@ class DefaultController extends YBackController
             ),
         );
 
-        $result = 1;
+        $result = true;
 
         foreach ($requirements as $i => $requirement)
         {
             if ($requirement[1] && !$requirement[2])
-                $result = 0;
-            else if ($result > 0 && !$requirement[1] && !$requirement[2])
-                $result = -1;
+                $result = false;
             if ($requirement[4] === '')
                 $requirements[$i][4] = '&nbsp;';
         }
@@ -224,7 +219,7 @@ class DefaultController extends YBackController
 
     public function actionDbsettings()
     {
-        $this->stepName = Yii::t('install', 'Шаг 3 из 7 : "Соединение с базой данных"');
+        $this->stepName = Yii::t('install', 'Шаг 4 из 8 : "Соединение с базой данных"');
 
         $dbConfFile = Yii::app()->basePath . '/config/' . 'db.php';
 
@@ -302,7 +297,7 @@ class DefaultController extends YBackController
 
     public function actionModulesinstall()
     {
-        $this->stepName = Yii::t('install', 'Шаг 4 из 7 : "Установка модулей"');
+        $this->stepName = Yii::t('install', 'Шаг 5 из 8 : "Установка модулей"');
         $error = false;
 
         $modules = $this->yupe->getModulesDisabled();
@@ -458,7 +453,7 @@ class DefaultController extends YBackController
 
     public function actionCreateuser()
     {
-        $this->stepName = Yii::t('install', 'Шаг 5 из 7 : "Создание учетной записи администратора"');
+        $this->stepName = Yii::t('install', 'Шаг 6 из 8 : "Создание учетной записи администратора"');
 
         $model = new CreateUserForm;
 
@@ -506,7 +501,7 @@ class DefaultController extends YBackController
 
     public function actionSitesettings()
     {
-        $this->stepName = Yii::t('install', 'Шаг 6 из 7 : "Настройки проекта"');
+        $this->stepName = Yii::t('install', 'Шаг 7 из 8 : "Настройки проекта"');
 
         $model = new SiteSettingsForm;
 
@@ -578,6 +573,8 @@ class DefaultController extends YBackController
 
     public function actionFinish()
     {
+        $this->stepName = Yii::t('install', 'Шаг 8 из 8 : "Окончание установки"');
+
         if (!Yii::app()->getModule('install')->activate)
         {
             Yii::app()->user->setFlash(
@@ -593,7 +590,6 @@ class DefaultController extends YBackController
             );
         }
 
-        $this->stepName = Yii::t('install', 'Шаг 7 из 7 : "Окончание установки"');
         $this->render('finish');
     }
 }

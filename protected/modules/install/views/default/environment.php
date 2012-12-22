@@ -15,23 +15,23 @@
         <td style="width:200px;"><?php echo $requirement[0]; ?></td>
         <td>
             <?php $this->widget('bootstrap.widgets.TbLabel', array(
-                'type'  => $requirement[2] ? 'success' : ($requirement[1] ? 'important' : 'important'),
-                'label' => $requirement[2] ? 'ОК' : ($requirement[1] ? 'Ошибка' : 'Предупреждение'),
+                'type'  => $requirement[1] ? 'success' : 'important',
+                'label' => $requirement[1] ? 'ОК' : 'Ошибка',
             )); ?>
         </td>
-        <td><?php echo $requirement[4]; ?></td>
+        <td><?php echo $requirement[3]; ?></td>
     </tr>
     <?php endforeach; ?>
 </table>
 
 <?php $this->widget('bootstrap.widgets.TbButton', array(
     'label' => Yii::t('install', '< Назад'),
-    'url'   => array('/install/default/environment'),
+    'url'   => array('/install/default/index'),
 )); ?>
 
 <?php $this->widget('bootstrap.widgets.TbButton', array(
      'type'       => 'primary',
      'label'      => Yii::t('install', 'Продолжить >'),
-     'url'        => array('/install/default/dbsettings'),
+     'url'        => array('/install/default/requirements'),
      'disabled'   => ($result) ? false : true,
  )); ?>
