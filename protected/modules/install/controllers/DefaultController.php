@@ -33,7 +33,6 @@ class DefaultController extends YBackController
     {
         $this->stepName = Yii::t('install', 'Шаг 2 из 8 : "Проверка окружения!"');
 
-        $basePath = Yii::app()->basePath;
         $webRoot  = Yii::getPathOfAlias('webroot');
         $dp       = DIRECTORY_SEPARATOR;
 
@@ -42,37 +41,37 @@ class DefaultController extends YBackController
                 Yii::t('install', 'Папка assets'),
                 is_writable($webRoot . '/assets/'),
                 @chmod($webRoot . '/assets/', 0777),
-                Yii::t('install', 'Необходимо установить права записи на папку ' . $basePath . $dp . 'assets'),
+                Yii::t('install', 'Необходимо установить права записи на папку ' . $webRoot . $dp . 'assets'),
             ),
             array(
                 Yii::t('install', 'Папка runtime'),
                 is_writable($webRoot . '/protected/runtime/'),
                 @chmod($webRoot . '/protected/runtime/', 0777),
-                Yii::t('install', 'Необходимо установить права записи на папку ' . $basePath . $dp . 'protected' . $dp . 'runtime'),
+                Yii::t('install', 'Необходимо установить права записи на папку ' . $webRoot . $dp . 'protected' . $dp . 'runtime'),
             ),
             array(
                 Yii::t('install', 'Папка uploads'),
                 is_writable($webRoot . '/uploads/'),
                 @chmod($webRoot . '/uploads/', 0777),
-                Yii::t('install', 'Необходимо установить права записи на папку ' . $basePath . $dp . 'uploads'),
+                Yii::t('install', 'Необходимо установить права записи на папку ' . $webRoot . $dp . 'uploads'),
             ),
             array(
                 Yii::t('install', 'Папка modules'),
                 is_writable($webRoot . '/protected/config/modules/'),
                 @chmod($webRoot . '/protected/config/modules/', 0777),
-                Yii::t('install', 'Необходимо установить права записи на папку ' . $basePath . $dp . 'config' . $dp . 'modules'),
+                Yii::t('install', 'Необходимо установить права записи на папку ' . $webRoot . $dp . 'protected' . $dp . 'config' . $dp . 'modules'),
             ),
             array(
                 Yii::t('install', 'Папка modulesBack'),
                 is_writable($webRoot . '/protected/config/modulesBack/'),
                 @chmod($webRoot . '/protected/config/modulesBack/', 0777),
-                Yii::t('install', 'Необходимо установить права записи на папку ' . $basePath . $dp . 'config' . $dp . 'modulesBack'),
+                Yii::t('install', 'Необходимо установить права записи на папку ' . $webRoot . $dp . 'protected' . $dp . 'config' . $dp . 'modulesBack'),
             ),
             array(
                 Yii::t('install', 'Файл db.php'),
                 is_writable($webRoot . '/protected/config/db.php'),
                 @copy($webRoot . '/protected/config/db.back.php', $webRoot . '/protected/config/db.php'),
-                Yii::t('install', 'Необходимо скопировать ' . $basePath . $dp . 'config' . $dp . 'db.back.php в ' . $basePath . $dp . 'config' . $dp . 'db.php и дать ему права на запись'),
+                Yii::t('install', 'Необходимо скопировать ' . $webRoot . $dp . 'protected' . $dp . 'config' . $dp . 'db.back.php в ' . $webRoot . $dp . 'protected' . $dp . 'config' . $dp . 'db.php и дать ему права на запись'),
             ),
             array(
                 Yii::t('install', 'Активация Yupe'),
