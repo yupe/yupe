@@ -6,11 +6,11 @@
 
 <?php $this->widget('bootstrap.widgets.TbButton', array(
     'label' => Yii::t('install', '< Назад'),
-    'url'   => array('default/index'),
+    'url'   => array('/install/default/index'),
 )); ?>
 
 <?php $this->widget('bootstrap.widgets.TbButton', array(
     'type'  => 'primary',
     'label' => Yii::t('install', 'Продолжить >'),
-    'url'   => array('default/requirements'),
+    'url'   => array('/install/default/requirements'),
 )); ?>
