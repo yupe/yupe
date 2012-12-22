@@ -42,19 +42,19 @@ class DefaultController extends YBackController
                 Yii::t('install', 'Папка assets'),
                 is_writable($webRoot . '/assets/'),
                 @chmod($webRoot . '/assets/', 0777),
-                Yii::t('install', 'Необходимо установить права записи на папку ' . $basePath . $dp . 'assets'),
+                Yii::t('install', 'Необходимо установить права записи на папку ' . $webRoot . $dp . 'assets'),
             ),
             array(
                 Yii::t('install', 'Папка runtime'),
                 is_writable($webRoot . '/protected/runtime/'),
                 @chmod($webRoot . '/protected/runtime/', 0777),
-                Yii::t('install', 'Необходимо установить права записи на папку ' . $basePath . $dp . 'protected' . $dp . 'runtime'),
+                Yii::t('install', 'Необходимо установить права записи на папку ' . $webRoot . $dp . 'protected' . $dp . 'runtime'),
             ),
             array(
                 Yii::t('install', 'Папка uploads'),
                 is_writable($webRoot . '/uploads/'),
                 @chmod($webRoot . '/uploads/', 0777),
-                Yii::t('install', 'Необходимо установить права записи на папку ' . $basePath . $dp . 'uploads'),
+                Yii::t('install', 'Необходимо установить права записи на папку ' . $webRoot . $dp . 'uploads'),
             ),
             array(
                 Yii::t('install', 'Папка modules'),
