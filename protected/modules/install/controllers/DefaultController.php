@@ -268,7 +268,7 @@ class DefaultController extends YBackController
                         $form->addError('', Yii::t('install', "Не могу открыть файл '{file}' для записии!", array('{file}' => $dbConfFile)));
                     else
                     {
-                        if (fwrite($fh, $dbConfString) && fclose($fh) && @chmod($dbConfFile, 0666))
+                        if (fwrite($fh, $dbConfString) && fclose($fh))
                             $this->redirect(array('/install/default/modulesinstall'));
                         else
                             $form->addError('', Yii::t('install', "Произошла ошибка записи в файл '{file}'!", array('{file}' => $dbConfFile)));
