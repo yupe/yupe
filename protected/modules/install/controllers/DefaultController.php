@@ -67,6 +67,12 @@ class DefaultController extends YBackController
                 @copy($webRoot . '/protected/config/db.back.php', $webRoot . '/protected/config/db.php'),
                 Yii::t('install', 'Необходимо скопировать ' . $basePath . $dp . 'config' . $dp . 'db.back.php в ' . $basePath . $dp . 'config' . $dp . 'db.php и дать ему права на запись'),
             ),
+            array(
+                Yii::t('install', 'Активация Yupe'),
+                Yii::app()->getModule('yupe')->activate,
+                false,
+                Yii::t('install', 'Необходимо исправить все ошибки'),
+            ),
         );
 
         $result = true;
@@ -81,9 +87,6 @@ class DefaultController extends YBackController
             $requirements[$i][1] = true;
             $requirements[$i][3] = Yii::t('install', 'Все хорошо!');
         }
-
-        if($result)
-            Yii::app()->getModule('yupe')->activate;
 
         $this->render('index', array(
             'requirements' => $requirements,

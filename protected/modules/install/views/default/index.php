@@ -1,5 +1,3 @@
-<h1><?php echo Yii::t('install', 'Добро пожаловать!'); ?></h1>
-
 <?php if (!$result): ?>
     <div class="flash-error">
         <b><?php echo Yii::t('install', 'Дальнейшая установка невозможна, пожалуйста, исправьте ошибки!'); ?></b>
@@ -14,7 +12,7 @@
     </tr>
     <?php foreach ($requirements as $requirement): ?>
     <tr>
-        <td width="200"><?php echo $requirement[0]; ?></td>
+        <td style="width:200px;"><?php echo $requirement[0]; ?></td>
         <td>
             <?php echo $requirement[1] ? 'ОК' : 'Ошибка'; ?>
         </td>

@@ -1,38 +1,40 @@
 <?php
+// @TODO Вомзможно добавить кэширование настроек модулей
+// Определяем основные переменные
 $import = $rules = $components = $preload = array();
-$cache = $enableAssets = false;
 $modules = array(
     'install' => array(
         'class' => 'application.modules.install.InstallModule',
     ),
 );
+$cache = $enableAssets = false;
+// Получаем настройки модулей
 $files = glob(dirname(__FILE__) . '/modules/*.php');
-
-foreach ($files as $file)
+if (!empty($files))
 {
-    $config = require_once($file);
-    $name   = preg_replace('#^.*/([^\.]*)\.php$#', '$1', $file);
+    foreach ($files as $file)
+    {
+        $config = require_once($file);
+        $name   = preg_replace('#^.*/([^\.]*)\.php$#', '$1', $file);
 
-    if (!empty($config['import']))
-        $import = array_merge($import, $config['import']);
-    if (!empty($config['rules']))
-        $rules = array_merge($rules, $config['rules']);
-    if (!empty($config['component']))
-        $components = array_merge($components, $config['component']);
-    if (!empty($config['module']))
-        $modules = array_merge($modules, array($name => $config['module']));
-    if (!empty($config['preload']))
-        $preload = array_merge($preload, $config['preload']);
-    if ($name == 'yupe')
-    {
-        if (!empty($config['cache']))
-            $cache = $config['cache'];
-        if (!empty($config['enableAssets']))
-            $enableAssets = $config['enableAssets'];
-    }
-    if ($name == 'install')
-    {
-        if (!empty($config['install']))
+        if (!empty($config['import']))
+            $import = array_merge($import, $config['import']);
+        if (!empty($config['rules']))
+            $rules = array_merge($rules, $config['rules']);
+        if (!empty($config['component']))
+            $components = array_merge($components, $config['component']);
+        if (!empty($config['module']))
+            $modules = array_merge($modules, array($name => $config['module']));
+        if (!empty($config['preload']))
+            $preload = array_merge($preload, $config['preload']);
+        if ($name == 'yupe')
+        {
+            if (!empty($config['cache']))
+                $cache = $config['cache'];
+            if (!empty($config['enableAssets']))
+                $enableAssets = $config['enableAssets'];
+        }
+        if ($name == 'install' && !empty($config['install']))
             unset($modules['install']);
     }
 }

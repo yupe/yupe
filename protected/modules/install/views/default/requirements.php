@@ -12,7 +12,7 @@
     </tr>
     <?php foreach ($requirements as $requirement): ?>
     <tr>
-        <td width="200"><?php echo $requirement[0]; ?></td>
+        <td style="width:200px;"><?php echo $requirement[0]; ?></td>
         <td>
             <?php $this->widget('bootstrap.widgets.TbLabel', array(
                 'type'  => $requirement[2] ? 'success' : ($requirement[1] ? 'important' : 'important'),
@@ -21,7 +21,7 @@
         </td>
         <td><?php echo $requirement[4]; ?></td>
     </tr>
-    <?php endforeach;?>
+    <?php endforeach; ?>
 </table>
 
 <?php $this->widget('bootstrap.widgets.TbButton', array(

@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title><?php echo CHtml::encode(Yii::app()->name); ?> <?php echo CHtml::encode($this->pageTitle); ?></title>
     <link rel="stylesheet" type="text/css"  href="<?php echo $this->yupe->themeBaseUrl; ?>/css/styles.css"/>
+    <link rel="stylesheet" type="text/css"  href="/protected/modules/yupe/extensions/booster/assets/css/bootstrap.min.css"/>
 </head>
 
 <body>
@@ -69,5 +70,6 @@
 <footer>
     Copyright &copy; 2009-<?php echo date('Y'); ?> <?php echo CHtml::link('Юпи!', 'http://yupe.ru/'); ?><br/>
     <?php echo Yii::powered(); ?>
-</body><!-- footer -->
+</footer><!-- footer -->
+</body>
 </html>
