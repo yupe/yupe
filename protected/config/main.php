@@ -8,34 +8,35 @@ $modules = array(
 );
 $files = glob(dirname(__FILE__) . '/modules/*.php');
 
-foreach ($files as $file)
-{
-    $config = require_once($file);
-    $name   = preg_replace('#^.*/([^\.]*)\.php$#', '$1', $file);
+if ($files && is_array($files))
+    foreach ($files as $file)
+    {
+        $config = require_once($file);
+        $name   = preg_replace('#^.*/([^\.]*)\.php$#', '$1', $file);
 
-    if (!empty($config['import']))
-        $import = array_merge($import, $config['import']);
-    if (!empty($config['rules']))
-        $rules = array_merge($rules, $config['rules']);
-    if (!empty($config['component']))
-        $components = array_merge($components, $config['component']);
-    if (!empty($config['module']))
-        $modules = array_merge($modules, array($name => $config['module']));
-    if (!empty($config['preload']))
-        $preload = array_merge($preload, $config['preload']);
-    if ($name == 'yupe')
-    {
-        if (!empty($config['cache']))
-            $cache = $config['cache'];
-        if (!empty($config['enableAssets']))
-            $enableAssets = $config['enableAssets'];
+        if (!empty($config['import']))
+            $import = array_merge($import, $config['import']);
+        if (!empty($config['rules']))
+            $rules = array_merge($rules, $config['rules']);
+        if (!empty($config['component']))
+            $components = array_merge($components, $config['component']);
+        if (!empty($config['module']))
+            $modules = array_merge($modules, array($name => $config['module']));
+        if (!empty($config['preload']))
+            $preload = array_merge($preload, $config['preload']);
+        if ($name == 'yupe')
+        {
+            if (!empty($config['cache']))
+                $cache = $config['cache'];
+            if (!empty($config['enableAssets']))
+                $enableAssets = $config['enableAssets'];
+        }
+        if ($name == 'install')
+        {
+            if (!empty($config['install']))
+                unset($modules['install']);
+        }
     }
-    if ($name == 'install')
-    {
-        if (!empty($config['install']))
-            unset($modules['install']);
-    }
-}
 
 // основной конфигурационный файл Yii и Юпи! (подробнее http://www.yiiframework.ru/doc/guide/ru/basics.application)
 return array(
