@@ -58,10 +58,9 @@ Yii::app()->clientScript->registerScript('fieldset', "
         'url'   => array('/install/default/requirements'),
     )); ?>
     <?php $this->widget('bootstrap.widgets.TbButton', array(
-        'buttonType' => 'submit',
         'type'       => 'primary',
         'label'      => Yii::t('install', 'Продолжить >'),
         'disabled'   => ($result) ? false : true,
-    )); ?>
+     ) + (($result) ? array('buttonType' => 'submit') : array())); ?>
 
 <?php $this->endWidget(); ?>

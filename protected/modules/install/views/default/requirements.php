@@ -30,8 +30,7 @@
 )); ?>
 
 <?php $this->widget('bootstrap.widgets.TbButton', array(
-     'type'       => 'primary',
-     'label'      => Yii::t('install', 'Продолжить >'),
-     'url'        => array('/install/default/dbsettings'),
-     'disabled'   => ($result) ? false : true,
- )); ?>
+    'type'     => 'primary',
+    'label'    => Yii::t('install', 'Продолжить >'),
+    'disabled' => ($result) ? false : true,
+) + (($result) ? array('url' => array('/install/default/dbsettings')) : array())); ?>
