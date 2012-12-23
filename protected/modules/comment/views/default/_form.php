@@ -60,7 +60,7 @@ Yii::app()->clientScript->registerScript('fieldset', "
     )); ?>
     <?php $this->widget('bootstrap.widgets.TbButton', array(
        'buttonType'  => 'submit',
-       'htmlOptions' => array('name' => 'submit-type', 'value' => 'admin'),
+       'htmlOptions' => array('name' => 'submit-type', 'value' => 'index'),
        'label'       => $model->isNewRecord ? Yii::t('comment', 'Добавить комментарий и закрыть') : Yii::t('comment', 'Сохранить комментарий и закрыть'),
     )); ?>
 

@@ -1,6 +1,15 @@
 <?php
 class GalleryModule extends YWebModule
 {
+
+    public function getDependencies()
+    {
+        return array(
+            'user',
+            'category',
+        );
+    }
+
     public function getParamsLabels()
     {
         return array(

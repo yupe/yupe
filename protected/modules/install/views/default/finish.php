@@ -8,9 +8,9 @@
 
 <br/><br/>
 
-<?php echo CHtml::link(Yii::t('install', 'ПЕРЕЙТИ НА САЙТ'), array('/site/index/')); ?>
+<?php echo CHtml::link(Yii::t('install', 'ПЕРЕЙТИ НА САЙТ'), array('/site/index')); ?>
 
-<?php echo CHtml::link(Yii::t('install', 'ПЕРЕЙТИ В ПАНЕЛЬ УПРАВЛЕНИЯ'), array('/yupe/backend/')); ?>
+<?php echo CHtml::link(Yii::t('install', 'ПЕРЕЙТИ В ПАНЕЛЬ УПРАВЛЕНИЯ'), array('/yupe/backend/index')); ?>
 
 <br/><br/>
 
@@ -33,4 +33,3 @@
 <br/><br/>
 
 <?php echo Yii::t('install', 'Пишите нам на <b>team@yupe.ru</b>'); ?>  - <?php echo Yii::t('install', 'принимаем всякого рода коммерческие и любые предложения =)'); ?>
-

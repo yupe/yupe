@@ -111,6 +111,11 @@ class UserModule extends YWebModule
         );
     }
 
+    public function getIsNoDisable()
+    {
+        return true;
+    }
+
     public function getName()
     {
         return Yii::t('user', 'Пользователи');

@@ -24,12 +24,12 @@ class SearchModule extends YWebModule
 
     public function getName()
     {
-        return Yii::t('search', 'E-Mail');
+        return Yii::t('search', 'Поиск');
     }
 
     public function getDescription()
     {
-        return Yii::t('search', 'Функции сайта E-Mail.ru.');
+        return Yii::t('search', 'Функции поиска по сайту.');
     }
 
     public function getAuthor()
@@ -44,7 +44,7 @@ class SearchModule extends YWebModule
 
     public function getVersion()
     {
-        return Yii::t('search', '0.5');
+        return Yii::t('search', '0.1');
     }
 
     public function getUrl()
@@ -59,7 +59,12 @@ class SearchModule extends YWebModule
 
     public function getIcon()
     {
-        return "globe";
+        return "search";
+    }
+
+    public function getIsInstallDefault()
+    {
+        return false;
     }
 
     public function init()
@@ -67,31 +72,8 @@ class SearchModule extends YWebModule
         parent::init();
 
         $this->setImport(array(
-            'email.models.*',
-            'email.components.*',
+            'search.models.*',
+            'search.components.*',
         ));
-    }
-
-    public static function onBeginRegistration($event)
-    {
-
-    }
-
-    public static function onBeginProfile($event)
-    {
-        $profile = emailProfile::model()->findByPk(Yii::app()->user->id);
-        $profile = $profile ? $profile : new emailProfile;
-        $profile->user_id = Yii::app()->user->id;
-
-        // Если идет сохранение профиля
-        if (isset($_POST['emailProfile']))
-        {
-            $profile->attributes = $_POST['emailProfile'];
-            $profile->user_id    = Yii::app()->user->id;
-
-            // @TODO Тут можно делать дополнительные манипуляции с профилем
-        }
-        $event->sender->module->profiles['email'] = $profile;
-        return true;
     }
 }

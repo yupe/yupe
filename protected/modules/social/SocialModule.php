@@ -10,6 +10,13 @@ class SocialModule extends YWebModule
     public $mailruClientId;
     public $mailruClientSecret;
 
+    public function getDependencies()
+    {
+        return array(
+            'user',
+        );
+    }
+
     public function getEditableParams()
     {
         return array(

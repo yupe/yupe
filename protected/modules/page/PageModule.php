@@ -4,6 +4,14 @@ class PageModule extends YWebModule
 {
     public $mainCategory;
 
+    public function getDependencies()
+    {
+        return array(
+            'user',
+            'category',
+        );
+    }
+
     public function getParamsLabels()
     {
         return array(

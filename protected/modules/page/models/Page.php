@@ -62,7 +62,7 @@ class Page extends YModel
             array('is_protected', 'in', 'range' => array_keys($this->protectedStatusList)),
             array('title, slug, body, description, keywords, name', 'filter', 'filter' => 'trim'),
             array('title, slug, description, keywords, name', 'filter', 'filter' => array($obj = new CHtmlPurifier(), 'purify')),
-            array('slug', 'match', 'pattern' => '/^[a-zA-Z0-9_\-]+$/', 'message' => Yii::t('page', 'Запрещенные символы в поле {attribute}')),
+            array('slug', 'YSLugValidator'),
             array('lang', 'match', 'pattern' => '/^[a-z]{2}$/', 'message' => Yii::t('page', 'Запрещенные символы в поле {attribute}')),
             array('lang, id, parent_Id, creation_date, change_date, title, slug, body, keywords, description, status, menu_order', 'safe', 'on' => 'search'),
         );

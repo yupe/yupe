@@ -3,15 +3,12 @@
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-    <?php
-        $module = Yii::app()->getModule('yupe');
-        $webPath = Yii::app()->assetManager->publish($module->basePath . '/web/');
-        Yii::app()->clientScript->registerScriptFile($webPath . '/yupeAdmin.js');
-    ?>
-
     <title><?php echo CHtml::encode(Yii::app()->name); ?> <?php echo CHtml::encode($this->pageTitle); ?></title>
-    <link rel="stylesheet" type="text/css"  href="<?php echo Yii::app()->theme->baseUrl; ?>/css/styles.css"/>
+    <?php if (!$this->yupe->enableAssets): ?>
+        <link rel="stylesheet" type="text/css"  href="/protected/modules/yupe/extensions/booster/assets/css/bootstrap.css"/>
+        <link rel="stylesheet" type="text/css"  href="/protected/modules/yupe/extensions/booster/assets/js/bootstrap.min.js"/>
+    <?php endif; ?>
+    <link rel="stylesheet" type="text/css"  href="<?php echo $this->yupe->themeBaseUrl; ?>/css/styles.css"/>
 </head>
 
 <body>
@@ -24,7 +21,7 @@
     $this->widget('bootstrap.widgets.TbNavbar', array(
         'htmlOptions' => array('class'=>'navbar navbar-inverse'),
         'fluid' => true,
-        'brand' => CHtml::image(Yii::app()->theme->baseUrl . "/images/logo.png", $brandTitle, array(
+        'brand' => CHtml::image($this->yupe->themeBaseUrl . "/images/logo.png", $brandTitle, array(
             'width'  => '38',
             'height' => '38',
             'title'  => $brandTitle,
@@ -55,13 +52,12 @@
 
     <div class="container" id="page">
         <div class="row"> 
-            <div class="span8 offset2 well">
+            <div class="span10 offset1 well">
                 <?php
                 if (count($this->breadcrumbs))
                     $this->widget('bootstrap.widgets.TbBreadcrumbs', array('links' => $this->breadcrumbs));
                 ?><!-- breadcrumbs -->
                 <?php $this->widget('YFlashMessages');?>
-
                 <div id="content">
                     <?php echo $content; ?>
                 </div>
@@ -74,6 +70,6 @@
 <footer>
     Copyright &copy; 2009-<?php echo date('Y'); ?> <?php echo CHtml::link('Юпи!', 'http://yupe.ru/'); ?><br/>
     <?php echo Yii::powered(); ?>
-</body><!-- footer -->
-
+</footer><!-- footer -->
+</body>
 </html>

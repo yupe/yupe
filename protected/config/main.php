@@ -1,4 +1,43 @@
 <?php
+// @TODO Вомзможно добавить кэширование настроек модулей
+// Определяем основные переменные
+$import = $rules = $components = $preload = array();
+$modules = array(
+    'install' => array(
+        'class' => 'application.modules.install.InstallModule',
+    ),
+);
+$cache = $enableAssets = false;
+// Получаем настройки модулей
+$files = glob(dirname(__FILE__) . '/modules/*.php');
+if (!empty($files))
+{
+    foreach ($files as $file)
+    {
+        $config = require_once($file);
+        $name   = preg_replace('#^.*/([^\.]*)\.php$#', '$1', $file);
+
+        if (!empty($config['import']))
+            $import = array_merge($import, $config['import']);
+        if (!empty($config['rules']))
+            $rules = array_merge($rules, $config['rules']);
+        if (!empty($config['component']))
+            $components = array_merge($components, $config['component']);
+        if (!empty($config['module']))
+            $modules = array_merge($modules, array($name => $config['module']));
+        if (!empty($config['preload']))
+            $preload = array_merge($preload, $config['preload']);
+        if ($name == 'yupe')
+        {
+            if (!empty($config['cache']))
+                $cache = $config['cache'];
+            if (!empty($config['enableAssets']))
+                $enableAssets = $config['enableAssets'];
+        }
+        if ($name == 'install' && !empty($config['install']))
+            unset($modules['install']);
+    }
+}
 
 // основной конфигурационный файл Yii и Юпи! (подробнее http://www.yiiframework.ru/doc/guide/ru/basics.application)
 return array(
@@ -8,7 +47,7 @@ return array(
     'language'          => 'ru',         // язык по умолчанию
     'sourceLanguage'    => 'ru',
     'theme'             => 'default',    // тема оформления по умолчанию
-    'preload'           => array('log'), // preloading 'log' component
+    'preload'           => $preload,     // preloading 'log' component
     'import'            => array_merge(array(
         // подключение основых путей
         'application.components.*',
@@ -18,11 +57,29 @@ return array(
         'application.modules.yupe.helpers.*',
         'application.modules.yupe.models.*',
         'application.modules.yupe.components.*',
+        'application.modules.yupe.components.controllers.*',
+        'application.modules.yupe.components.validators.*',
         'application.modules.yupe.components.exceptions.*',
-    ), require(dirname(__FILE__) . '/modulesImport.php')),
+    ), $import),
     // подключение и конфигурирование модулей,
     // подробнее: http://www.yiiframework.ru/doc/guide/ru/basics.module
-    'modules' => require(dirname(__FILE__) . '/modules.php'),
+    'modules' => array_merge(array(
+        'yupe'  => array(
+            'class'        => 'application.modules.yupe.YupeModule',
+            'brandUrl'     => 'http://yupe.ru?from=engine',
+            'enableAssets' => $enableAssets,
+            'cache'        => $cache,
+        ),
+        // на продакшне gii рекомендуется отключить, подробнее: http://www.yiiframework.com/doc/guide/1.1/en/quickstart.first-app
+        'gii'   => array(
+            'class'          => 'system.gii.GiiModule',
+            'password'       => 'giiYupe',
+            'generatorPaths' => array(
+                'application.modules.yupe.extensions.yupe.gii',
+            ),
+            'ipFilters'=>array(),
+        ),
+    ), $modules),
     'behaviors' => array(
         'onBeginRequest' => array('class' => 'application.modules.yupe.extensions.urlManager.LanguageBehavior'),
         'YupeStartUpBehavior',
@@ -30,6 +87,10 @@ return array(
     'params' => require(dirname(__FILE__) . '/params.php'),
     // конфигурирование основных компонентов (подробнее http://www.yiiframework.ru/doc/guide/ru/basics.component)
     'components' => array_merge(array(
+        // Работа с миграциями, обновление БД модулей
+        'migrator'=>array(
+            'class'=>'application.modules.yupe.extensions.migrator.Migrator',
+        ),
         // библиотека для работы с картинками через GD/ImageMagick
         // лучше установите ImageMagick, т.к. он ресайзит анимированные гифы
         'image' => array(
@@ -44,11 +105,10 @@ return array(
             'langParam'      => 'language',
             'urlFormat'      => 'path',
             'showScriptName' => false, // чтобы убрать index.php из url, читаем: http://yiiframework.ru/doc/guide/ru/quickstart.apache-nginx-config
-            'cacheID'        => 'cache',
-            'rules'          => array_merge(require(dirname(__FILE__) . '/modulesRules.php'), array(
-                // правила контроллера site
-                '/'                                                   => 'site/index',
-                '/<view:\w+>'                                         => 'site/page',
+            'cacheID'        => $cache,
+            'rules'          => array_merge($rules, array(
+                // правила переадресации
+                '/'                                                   => 'install/default/index',
                 // общие правила
                 '<module:\w+>/<controller:\w+>/<action:\w+>/<id:\d+>' => '<module>/<controller>/<action>',
                 '<module:\w+>/<controller:\w+>/<action:\w+>'          => '<module>/<controller>/<action>',
@@ -71,8 +131,6 @@ return array(
         'ajax' => array(
             'class' => 'application.modules.yupe.components.YAsyncResponse',
         ),
-        // параметры подключения к базе данных, подробнее http://www.yiiframework.ru/doc/guide/ru/database.overview
-        'db' => require(dirname(__FILE__) . '/db.php'),
         // настройки кэширования, подробнее http://www.yiiframework.ru/doc/guide/ru/caching.overview
         'cache' => array(
             'class' => 'CFileCache',
@@ -97,5 +155,5 @@ return array(
         'curl' => array(
             'class' => 'application.modules.yupe.extensions.curl.Curl'
         ),
-    ), require(dirname(__FILE__) . '/modulesComponent.php')),
+    ), $components),
 );

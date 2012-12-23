@@ -1,59 +1,53 @@
-#ЮПИ! - cms на Yii
+ЮПИ! - CMS на Yii
+=================
 
-**Из коробки Вы получаете каркас Yii-приложения, со следующим уже готовым функционалом (все разделено на модули - используйте только то, что необходимо):**
+Юпи! — мини CMS, написанная на замечательном MVC-фреймворке Yii (http://www.yiiframework.com/),
+на которой рабоает уже более 30 проектов.
 
-* Регистрация (http://yupe.ru/registration), авторизация (http://yupe.ru/login), восстановление пароля пользователя (http://yupe.ru/recovery) (модуль user - https://github.com/yupe/yupe/tree/master/protected/modules/user)
-* Регистрация и авторизация через социальные сети (модуль social - https://github.com/yupe/yupe/tree/master/protected/modules/social)
-* Управление пользователями (блокировка, активация, редактирование и т.д.) через административный интерфейс (модуль user - https://github.com/yupe/yupe/tree/master/protected/modules/user)
-* Создание и публикация новостей (http://yupe.ru/story/ocherednoy-sayt-na-yupi) (модуль news - https://github.com/yupe/yupe/tree/master/protected/modules/news)
-* Создание и управление страницами сайта (модуль page - https://github.com/yupe/yupe/tree/master/protected/modules/page)
-* Создание и управление категориями сайта (разделами) (модуль category - https://github.com/yupe/yupe/tree/master/protected/modules/category)
-* Создание и редактирование меню сайта (модуль menu - https://github.com/yupe/yupe/tree/master/protected/modules/menu )
-* Модуль простых комментариев (можно комментировать любую сущность, пример http://yupe.ru/post/logotip-dlya-yupi.html или http://yupe.ru/gallery/gallery/foto/id/5) (модуль comment - https://github.com/yupe/yupe/tree/master/protected/modules/comment)
-* Модуль для простого голосования (можно голосовать за любую сущность) (модуль vote - https://github.com/yupe/yupe/tree/master/protected/modules/vote)
-* Модуль простых справочников (хранение и управление справочной информацией) (модуль dictionary - https://github.com/yupe/yupe/tree/master/protected/modules/dictionary)
-* Модуль для ведения блогов (как индивидуальных, так и коллективных, пример http://yupe.ru/blog/yupe-mini-cms-yii) (модуль blog - https://github.com/yupe/yupe/tree/master/protected/modules/blog)
-* Модуль для "Обратной связи" + раздел FAQ (http://yupe.ru/faq) (модуль feedback - https://github.com/yupe/yupe/tree/master/protected/modules/feedback)
-* Модуль для работы с блоками контента (модуль contentblock - https://github.com/yupe/yupe/tree/master/protected/modules/contentblock)
-* Wiki - работает через модуль yeeki (http://rmcreative.ru/blog/post/yeeki) - https://github.com/yupe/yupe/tree/master/protected/modules/yeeki
+Подробнее [о проекте можно прочитать здесь](http://yupe.ru/site/page/view/about).
 
+Ссылки
+------
 
-+ Вы получаете удобную админку, выполненную на Twitter Boostrap  (Выглядит вот так http://yupe.ru/gallery/gallery/show/id/1)
+* [Официальный сайт](http://yupe.ru/).
+* [twitter](https://twitter.com/#!/YupeCms).
+* [Форум](http://yupe.ru/talk/).
+* [Блог проекта](http://yupe.ru/index.php/blog/yupe-mini-cms-yii).
+* [wiki](https://github.com/yupe/yupe/wiki).
+* [Контакты](http://yupe.ru/feedback/contact).
+* [Как помочь проекту](http://yupe.ru/site/page/view/help).
 
-+ Возможность генерировать CRUD в стиле Twitter Boostrap (https://github.com/yupe/yupe/tree/master/protected/modules/yupe/extensions/yupe)
+Возможности
+-----------
 
-Установка - https://github.com/yupe/yupe/wiki/Установка
+Из коробки Вы получаете каркас приложения, со следующим уже готовым
+функционалом (всё разделено на модули - используйте только то, что необходимо):
 
-Либо смотрите в файле install_ru.txt
+* [Регистрация](http://yupe.ru/registration), [аутентификация](http://yupe.ru/login), [восстановление пароля](http://yupe.ru/recovery) ([модуль user](https://github.com/yupe/yupe/tree/master/protected/modules/user)).
+* Регистрация и авторизация через социальные сети ([модуль social](https://github.com/yupe/yupe/tree/master/protected/modules/social)).
+* Управление пользователями (блокировка, активация, редактирование и т.д.) через административный интерфейс ([модуль user](https://github.com/yupe/yupe/tree/master/protected/modules/user)).
+* [Создание и публикация новостей](http://yupe.ru/story/ocherednoy-sayt-na-yupi) ([модуль news](https://github.com/yupe/yupe/tree/master/protected/modules/news)).
+* Создание и управление страницами сайта ([модуль page](https://github.com/yupe/yupe/tree/master/protected/modules/page)).
+* Создание и управление категориями сайта (разделами) ([модуль category](https://github.com/yupe/yupe/tree/master/protected/modules/category)).
+* Создание и редактирование меню сайта ([модуль menu](https://github.com/yupe/yupe/tree/master/protected/modules/menu)).
+* Модуль простых комментариев (можно комментировать любую сущность, пример [http://yupe.ru/post/logotip-dlya-yupi.html](http://yupe.ru/post/logotip-dlya-yupi.html) или [http://yupe.ru/gallery/gallery/foto/id/5](http://yupe.ru/gallery/gallery/foto/id/5)) ([модуль comment](https://github.com/yupe/yupe/tree/master/protected/modules/comment)).
+* Модуль для простого голосования (можно голосовать за любую сущность) ([модуль vote](https://github.com/yupe/yupe/tree/master/protected/modules/vote)).
+* Модуль простых справочников (хранение и управление справочной информацией) ([модуль dictionary](https://github.com/yupe/yupe/tree/master/protected/modules/dictionary)).
+* Модуль для ведения блогов ([как индивидуальных, так и коллективных](http://yupe.ru/blog/yupe-mini-cms-yii)) ([модуль blog](https://github.com/yupe/yupe/tree/master/protected/modules/blog)).
+* Модуль для "Обратной связи" + [раздел FAQ](http://yupe.ru/faq) ([модуль feedback](https://github.com/yupe/yupe/tree/master/protected/modules/feedback)).
+* Модуль для работы с блоками контента ([модуль contentblock](https://github.com/yupe/yupe/tree/master/protected/modules/contentblock)).
+* Wiki - работает через [модуль yeeki](http://rmcreative.ru/blog/post/yeeki).
+* Удобная админка на Twitter Boostrap  ([Выглядит вот так](http://yupe.ru/gallery/gallery/show/id/1)).
+* [Возможность генерировать CRUD в стиле Twitter Boostrap](https://github.com/yupe/yupe/tree/master/protected/modules/yupe/extensions/yupe).
 
-**Юпи! - мини ЦМС, написанная на замечательном MVC-фреймворке Yii (http://www.yiiframework.com/)**
+Установка
+---------
 
+Инструкции по установке можно [почитать здесь](https://github.com/yupe/yupe/wiki/Установка), либо в файле `install_ru.txt`.
 
-**На Юпи! работает уже более 30-ти проектов!**
+Лицензия
+--------
 
-Изначально Юпи! был задуман как блого-социальный движок, для построения модных, веб-два-нольных сайтов, я уверен, что когда-нибудь это обязательно будет!
+Исходный код, макеты дизайна и вёрстка распространяются по [лицензии BSD](http://ru.wikipedia.org/wiki/%D0%9B%D0%B8%D1%86%D0%B5%D0%BD%D0%B7%D0%B8%D1%8F_BSD).
 
-#ПРИСОЕДИНЯЙТЕСЬ К РАЗРАБОТКЕ!
-
-* Официальный сайт - http://yupe.ru/
-
-* Официальный твиттер - https://twitter.com/#!/YupeCms
-
-* Форум поддержки и идей - http://yupe.ru/talk/
-
-* Юпи! блог - http://yupe.ru/index.php/blog/yupe-mini-cms-yii
-
-* Вики - https://github.com/yupe/yupe/wiki
-
-* Подробнее о проекте - http://yupe.ru/site/page/view/about
-
-* Помощь проекту - http://yupe.ru/site/page/view/help
-
-* Контакты - http://yupe.ru/feedback/contact (Хотите мы создадим Вам сайт ?)
-
-
-Исходный код Юпи!, PSD макеты дизайна, верстка - все это распространяется по лицензии BSD (http://ru.wikipedia.org/wiki/%D0%9B%D0%B8%D1%86%D0%B5%D0%BD%D0%B7%D0%B8%D1%8F_BSD)
-
-Сообщество будет благодарно если на сайте будет присутствовать ссылка на http://yupe.ru/ =)
-
-Исходный код переехал с svn и гугл-кода (http://code.google.com/p/yupe/)
+Сообщество будет благодарно если на сайте будет присутствовать ссылка на [http://yupe.ru/](http://yupe.ru/).

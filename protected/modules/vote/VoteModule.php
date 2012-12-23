@@ -2,6 +2,13 @@
 
 class VoteModule extends YWebModule
 {
+
+    public function getDependencies()
+    {
+        return array(
+            'user',
+        );
+    }
     public function getName()
     {
         return Yii::t('vote', 'Голосование');
@@ -55,6 +62,11 @@ class VoteModule extends YWebModule
     public function getIcon()
     {
         return "signal";
+    }
+
+    public function getIsInstallDefault()
+    {
+        return false;
     }
 
     public function init()

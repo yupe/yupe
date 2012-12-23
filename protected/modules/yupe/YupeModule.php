@@ -1,5 +1,4 @@
 <?php
-
 /**
  * YupeModule файл класса.
  *
@@ -19,6 +18,9 @@
 
 class YupeModule extends YWebModule
 {
+    public $enableAssets;
+    public $cache;
+
     public $siteDescription;
     public $siteName;
     public $siteKeyWords;
@@ -134,7 +136,12 @@ class YupeModule extends YWebModule
             'defaultBackendLanguage' => $this->getLanguagesList(),
         );
     }
-    
+
+    public function getIsNoDisable()
+    {
+        return true;
+    }
+
     protected function getLanguagesList()
     {
         $langs = array();
@@ -224,12 +231,13 @@ class YupeModule extends YWebModule
         );
     }
 
-    public function getModules($navigationOnly = false)
+    public function getModules($navigationOnly = false, $disableModule = false)
     {
         $modules = $yiiModules = $order = array();
 
         if (count(Yii::app()->modules))
         {
+            // @TODO внести получение модулей в кэш
             // Получаем модули и заполняем основные массивы
             foreach (Yii::app()->modules as $key => $value)
             {
@@ -348,6 +356,7 @@ class YupeModule extends YWebModule
 
         if (CHtml::normalizeUrl("/" . Yii::app()->controller->route) != '/yupe/backend/index')
         {
+            // @TODO возможно ...['icon'] .= ' white'; уже не требуется
             // Устанавливаем активную категорию
             $thisCategory = Yii::app()->controller->module->category
                 ? Yii::app()->controller->module->category
@@ -384,11 +393,105 @@ class YupeModule extends YWebModule
             unset($thisCategory);
         }
 
+        // Подгрузка отключенных модулей
+        if ($disableModule)
+            $modules += $this->getModulesDisabled($modules);
+
         return ($navigationOnly === true) ? $modulesNavigation : array(
             'modules'           => $modules,
             'yiiModules'        => $yiiModules,
             'modulesNavigation' => $modulesNavigation,
         );
+    }
+
+    /**
+     * Подгружает и выдает список отключенных модулей
+     *
+     * @since 0.5
+     * @param array $modules список активных модулей, по умолчанию array()
+     * @return array список отключенных модулей
+     */
+    function getModulesDisabled($enableModule = array())
+    {
+        $path         = $this->getModulesConfigDefault();
+        $enableModule = array_keys($enableModule);
+        $modules      = array();
+
+        if ($path && $handler = opendir($path))
+        {
+            while (($dir = readdir($handler)))
+            {
+                if ($dir != '.' && $dir != '..' && !is_file($dir) && empty($enableModule[$dir]))
+                    $modules[$dir] = $this->getCreateModule($dir);
+            }
+            closedir($handler);
+        }
+        return $modules;
+    }
+
+    /**
+     * Подгружает модуль
+     *
+     * @since 0.5
+     * @param array $name имя модуля
+     * @return array класс модуля
+     */
+    function getCreateModule($name)
+    {
+        $path   = $this->getModulesConfigDefault();
+        $module = NULL;
+
+        if ($path)
+        {
+            //посмотреть внутри файл с окончанием Module.php
+            $files = glob($path . '/' . $name . '/' . '*Module.php');
+            // @TODO А если файлов не 1, добавить прочтение install/module.php
+            if (count($files) == 1)
+            {
+                $className = preg_replace('#^.*/([^\.]*).php$#', '$1', $files[0]);
+                Yii::import('application.modules.' . $name . '.' . $className);
+                $module = Yii::createComponent($className, $name, null, false);
+            }
+        }
+        return $module;
+    }
+
+    /**
+     * Получаем путь к папке или файлу с конфигурацией модуля(-ей)
+     *
+     * @since 0.5
+     * @param string $moduke Имя модуля
+     * @return string путь к папке или файлу с конфигурацией модуля(-ей)
+     */
+    function getModulesConfig($module = false)
+    {
+        return Yii::app()->basePath . '/config/modules/' . ($module ? $module . '.php' : '');
+    }
+
+    /**
+     * Получаем путь к папке или файлу с резервной конфигурацией модуля(-ей)
+     *
+     * @since 0.5
+     * @param string $moduke Имя модуля
+     * @return string путь к папке или файлу с резервной конфигурацией модуля(-ей)
+     */
+    function getModulesConfigBack($module = false)
+    {
+        return Yii::app()->basePath . '/config/modulesBack/' . ($module ? $module . '.php' : '');
+    }
+    
+    /**
+     * Получаем путь к папке c дефолтной конфигурацией модуля
+     *
+     * @since 0.5
+     * @param string $moduke Имя модуля
+     * @return string путь к папке c дефолтной конфигурацией модуля или путь к модулям
+     */
+    function getModulesConfigDefault($module = false)
+    {
+        return ($module
+            ? Yii::getPathOfAlias('application.modules.' . $module) . '/install/' . $module . '.php'
+            : Yii::getPathOfAlias('application.modules'));
     }
 
     /**
