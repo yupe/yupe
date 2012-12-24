@@ -3,14 +3,11 @@
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-    <?php
-        $webPath = Yii::app()->assetManager->publish($this->yupe->basePath . '/web/');
-        Yii::app()->clientScript->registerScriptFile($webPath . '/yupeAdmin.js');
-    ?>
-
     <title><?php echo CHtml::encode(Yii::app()->name); ?> <?php echo CHtml::encode($this->pageTitle); ?></title>
     <link rel="stylesheet" type="text/css"  href="<?php echo $this->yupe->themeBaseUrl; ?>/css/styles.css"/>
+    <?php if (($langs = $this->yupe->languageSelectorArray) != array()): ?>
+        <link rel="stylesheet" type="text/css"  href="<?php echo $this->yupe->themeBaseUrl; ?>/css/flags.css"/>
+    <?php endif; ?>
 </head>
 
 <body>
@@ -18,7 +15,7 @@
         <!-- mainmenu -->
         <?php
         $brandTitle = Yii::t('yupe', 'Перейти на главную панели управления');
-    
+
         $this->widget('bootstrap.widgets.TbNavbar', array(
             'htmlOptions' => array('class'=>'navbar navbar-inverse'),
             'fluid'       => true,
@@ -73,6 +70,7 @@
                                 ),
                             ),
                         ),
+                        $this->yupe->languageSelectorArray,
                     ),
                 ),
             ),

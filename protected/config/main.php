@@ -106,7 +106,7 @@ return array(
             'urlFormat'      => 'path',
             'showScriptName' => false, // чтобы убрать index.php из url, читаем: http://yiiframework.ru/doc/guide/ru/quickstart.apache-nginx-config
             'cacheID'        => $cache,
-            'rules'          => array_merge($rules, array(
+            'rules'          => array_merge(array(
                 // правила переадресации
                 '/'                                                   => 'install/default/index',
                 // общие правила
@@ -115,7 +115,7 @@ return array(
                 '<module:\w+>/<controller:\w+>'                       => '<module>/<controller>/index',
                 '<controller:\w+>/<action:\w+>'                       => '<controller>/<action>',
                 '<controller:\w+>'                                    => '<controller>/index',
-            )),
+            ), $rules),
         ),
         // конфигурируем компонент CHttpRequest для защиты от CSRF атак, подробнее: http://www.yiiframework.ru/doc/guide/ru/topics.security
         // РЕКОМЕНДУЕМ УКАЗАТЬ СВОЕ ЗНАЧЕНИЕ ДЛЯ ПАРАМЕТРА "csrfTokenName"
