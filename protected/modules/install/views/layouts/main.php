@@ -5,22 +5,18 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title><?php echo CHtml::encode(Yii::app()->name); ?> <?php echo CHtml::encode($this->pageTitle); ?></title>
     <?php if (!$this->yupe->enableAssets): ?>
-        <link rel="stylesheet" type="text/css"  href="/protected/modules/yupe/extensions/booster/assets/css/bootstrap.css"/>
-        <link rel="stylesheet" type="text/css"  href="/protected/modules/yupe/extensions/booster/assets/js/bootstrap.min.js"/>
+        <link rel="stylesheet" type="text/css" href="<?php echo $this->yupe->themeBaseUrl; ?>/web/booster-install/assets/css/bootstrap.css"/>
+        <link rel="stylesheet" type="text/css" href="<?php echo $this->yupe->themeBaseUrl; ?>/web/booster-install/assets/js/bootstrap.min.js"/>
     <?php endif; ?>
     <?php if (($langs = $this->yupe->languageSelectorArray) != array()): ?>
-        <link rel="stylesheet" type="text/css"  href="<?php echo $this->yupe->themeBaseUrl; ?>/css/flags.css"/>
+        <link rel="stylesheet" type="text/css" href="<?php echo $this->yupe->themeBaseUrl; ?>/css/flags.css"/>
     <?php endif; ?>
-    <link rel="stylesheet" type="text/css"  href="<?php echo $this->yupe->themeBaseUrl; ?>/css/styles.css"/>
+    <link rel="stylesheet" type="text/css" href="<?php echo $this->yupe->themeBaseUrl; ?>/css/styles.css"/>
 </head>
-
 <body>
-
 <div id="overall-wrap">
-
     <?php
     $brandTitle = Yii::t('install', 'Установка') . ' ' . CHtml::encode(Yii::app()->name);
-
     $this->widget('bootstrap.widgets.TbNavbar', array(
         'htmlOptions' => array('class'=>'navbar navbar-inverse'),
         'fluid' => true,
@@ -53,7 +49,6 @@
         ),
     ));
     ?>
-
     <div class="container" id="page">
         <div class="row"> 
             <div class="span10 offset1 well">
