@@ -1,18 +1,15 @@
-<?php $currentLanguage = Yii::app()->language; ?>
-<?php $cp = Yii::app()->urlManager->getCleanUrl(Yii::app()->request->url); ?>
 <?php $i = 1; ?>
-<?php $homeUrl = Yii::app()->homeUrl . (Yii::app()->homeUrl[strlen(Yii::app()->homeUrl) - 1] != "/" ? '/' : ''); ?>
-<?php $langs = explode(',', $this->controller->yupe->availableLanguages); ?>
 <div style="font-size: 11px">
-    <?php if(count($langs) > 1):?>
     <?php foreach($langs as $lang): ?>
-        <?php $i++; ?>
-        <?php if($currentLanguage == $lang): ?>
-            <span><?php echo strtoupper($lang); ?></span>
+        <?php
+        $i++;
+        $icon = ($this->enableFlag) ? '<i class="iconflags iconflags-' . $lang . '"></i>' : '';
+        ?>
+        <?php if ($currentLanguage == $lang): ?>
+            <span><?php echo $icon . strtoupper(Yii::t('yupe', $lang)); ?></span>
         <?php else:?>
-            <?php echo CHtml::link(strtoupper($lang), $homeUrl . Yii::app()->urlManager->replaceLangUrl($cp, $lang));?>
+            <?php echo CHtml::link($icon . strtoupper(Yii::t('yupe', $lang)), $homeUrl . Yii::app()->urlManager->replaceLangUrl($cleanUrl, $lang));?>
         <?php endif?>
-            <?php if($i == count($langs)): ?>|<?php endif; ?>
+        <?php if ($i == count($langs)): ?>|<?php endif; ?>
     <?php endforeach;?>
-    <?php endif;?>
 </div>

@@ -8,6 +8,9 @@
         <link rel="stylesheet" type="text/css"  href="/protected/modules/yupe/extensions/booster/assets/css/bootstrap.css"/>
         <link rel="stylesheet" type="text/css"  href="/protected/modules/yupe/extensions/booster/assets/js/bootstrap.min.js"/>
     <?php endif; ?>
+    <?php if (($langs = $this->yupe->languageSelectorArray) != array()): ?>
+        <link rel="stylesheet" type="text/css"  href="<?php echo $this->yupe->themeBaseUrl; ?>/css/flags.css"/>
+    <?php endif; ?>
     <link rel="stylesheet" type="text/css"  href="<?php echo $this->yupe->themeBaseUrl; ?>/css/styles.css"/>
 </head>
 
@@ -44,6 +47,7 @@
                         'icon'  => 'icon-thumbs-up icon-white',
                         'url'   => 'http://yupe.ru/?from=navbar'
                     ),
+                    $this->yupe->languageSelectorArray,
                 ),
             ),
         ),

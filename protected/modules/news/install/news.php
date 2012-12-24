@@ -8,6 +8,6 @@ return array(
     ),
     'component' => array(),
     'rules'     => array(
-        //'/story/<title>' => 'news/news/show',
+        '/story/<title>' => 'news/news/show',
     ),
 );

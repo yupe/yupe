@@ -630,4 +630,43 @@ class YupeModule extends YWebModule
     {
         return (Yii::app()->theme) ? Yii::app()->theme->baseUrl : Yii::app()->baseUrl;
     }
+
+    /**
+     * Выдает массив для меню в административной панеле
+     *
+     * @return array массив меню
+     * @since 0.5
+     *
+     */
+    public function getLanguageSelectorArray()
+    {
+        $langs = explode(',', $this->availableLanguages);
+        if (count($langs) <= 1)
+            return array();
+
+        $items           = array();
+        $currentLanguage = Yii::app()->language;
+
+        $homeUrl = Yii::app()->homeUrl . (Yii::app()->homeUrl[strlen(Yii::app()->homeUrl) - 1] != "/" ? '/' : '');
+        $cp      = Yii::app()->urlManager->getCleanUrl(Yii::app()->request->url);
+
+        foreach ($langs as $lang)
+        {
+            if ($lang == $currentLanguage)
+                continue;
+            else
+                $items[] = array(
+                    'icon'  => 'iconflags iconflags-' . $lang,
+                    'label' => Yii::t('yupe', $lang),
+                    'url'   => $homeUrl . Yii::app()->urlManager->replaceLangUrl($cp, $lang),
+                );
+        }
+
+        return array(
+            'icon'           => 'iconflags iconflags-' . $currentLanguage,
+            'label'          => Yii::t('yupe', $currentLanguage),
+            'items'          => $items,
+            'submenuOptions' => array('style' => 'min-width: 20px;'),
+        );
+    }
 }
