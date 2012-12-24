@@ -17,6 +17,12 @@
  */
 class Settings extends YModel
 {
+    /*
+        TYPE_CORE - для модуля,
+        TYPE_USER - для пользователей
+    */
+    const TYPE_CORE = 1;
+    const TYPE_USER = 2;
     /**
      * Returns the static model of the specified AR class.
      * @return Settings the static model class
