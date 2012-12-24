@@ -41,9 +41,10 @@
                             'url'   => array('/yupe/backend/help'),
                         ),
                         array(
-                            'icon'  => 'home white',
-                            'label' => Yii::t('yupe', 'На сайт'),
-                            'url'   => array('/' . Yii::app()->defaultController . '/index/'),
+                            'icon'        => 'home white',
+                            'label'       => Yii::t('yupe', 'На сайт'),
+                            'linkOptions' => array('target'=>'_blank'),
+                            'url'         => array('/' . Yii::app()->defaultController . '/index/'),
                         ),
                         array(
                             'label' => $this->yupe->getVersion(),

@@ -134,6 +134,7 @@ class Settings extends YModel
             $criteria = new CDbCriteria();
 
             $criteria->compare("module_id", $moduleId);
+            $criteria->compare("type", self::TYPE_CORE);
 
             if (is_array($params))
                 $criteria->addInCondition("param_name", $params);
