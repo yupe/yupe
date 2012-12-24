@@ -43,7 +43,7 @@
                         array(
                             'icon'        => 'home white',
                             'label'       => Yii::t('yupe', 'На сайт'),
-                            'linkOptions' => array('target'=>'_blank'),
+                            'linkOptions' => array('target' => '_blank'),
                             'url'         => array('/' . Yii::app()->defaultController . '/index/'),
                         ),
                         array(
