@@ -13,6 +13,7 @@ class m000000_000000_yupe_base extends CDbMigration
             'creation_date' => 'datetime NOT NULL',
             'change_date' => 'datetime NOT NULL',
             'user_id' => 'integer DEFAULT NULL',
+            'type' => "integer NOT NULL DEFAULT '1'",
         ),"ENGINE=InnoDB DEFAULT CHARSET=utf8");
 
         $this->createIndex("settings_module_id",$tableName,"module_id", false);

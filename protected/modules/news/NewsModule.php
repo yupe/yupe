@@ -44,7 +44,7 @@ class NewsModule extends YWebModule
             'mainCategory'      => Yii::t('news', 'Главная категория новостей'),
             'adminMenuOrder'    => Yii::t('news', 'Порядок следования в меню'),
             'editor'            => Yii::t('news', 'Визуальный редактор'),
-            'uploadPath'        => Yii::t('news', 'Каталог для загрузки файлов (относительно Yii::app()->getModule("yupe")->uploadPath)'),
+            'uploadPath'        => Yii::t('news', 'Каталог для загрузки файлов (относительно {path})', array('{path}' => Yii::getPathOfAlias('webroot') . DIRECTORY_SEPARATOR . Yii::app()->getModule("yupe")->uploadPath)),
             'allowedExtensions' => Yii::t('news', 'Разрешенные расширения (перечислите через запятую)'),
             'minSize'           => Yii::t('news', 'Минимальный размер (в байтах)'),
             'maxSize'           => Yii::t('news', 'Максимальный размер (в байтах)'),
