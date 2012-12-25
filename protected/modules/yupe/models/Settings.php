@@ -119,14 +119,15 @@ class Settings extends YModel
     }
 
     /**
-     * Получает настройки модуля из базы данных
+     * Получает настройки модуля из базы данных (для модуля)
      *
      * @param string $module_id Идентификатор модуля
      * @param mixed $params Список параметров, которые требуется прочитать
      * @return array Экземпляры класса Settings, соответствующие запрошенным параметрам
      */
-    public function fetchModuleSettings($moduleId, $params = null)
+    public function fetchModuleSettings($moduleId, array $params = null)
     {
+
         $settings = array();
 
         if ($moduleId)
@@ -135,11 +136,8 @@ class Settings extends YModel
 
             $criteria->compare("module_id", $moduleId);
             $criteria->compare("type", self::TYPE_CORE);
-
-            if (is_array($params))
+            if (!empty($params))
                 $criteria->addInCondition("param_name", $params);
-            else
-                $criteria->compare("param_name", $params);
 
             $q = $this->cache(Yii::app()->getModule('yupe')->coreCacheTime)->findAll($criteria);
 
@@ -153,6 +151,39 @@ class Settings extends YModel
                 foreach($params as $param)
                     $settings[$param] = null;
             }
+        }
+
+        return $settings;
+    }
+
+    /**
+     * Получает настройки модуля/модулей из базы данных (для пользователей)
+     *
+     * @param string $user_id Идентификатор пользователя
+     * @param mixed $modulesId Список идентификаторов модулей
+     * @return array Экземпляры класса Settings, соответствующие запрошенным параметрам
+     */
+    public function fetchUserModuleSettings($user_id = null, array $modulesId = null)
+    {
+        if (empty($user_id)) return array();
+
+        $settings = array();
+
+        $criteria = new CDbCriteria();
+        /* Выборка всех модулей или только указанных */
+        if (!empty($modulesId))
+            $criteria->addInCondition("module_id", $modulesId);
+        /* Выборка для определённого пользователя: */
+        $criteria->compare("user_id", $user_id);
+        /* Выборка параметров клиентов */
+        $criteria->compare("type", self::TYPE_USER);
+
+        $q = $this->findAll($criteria);
+
+        if(count($q))
+        {
+            foreach ($q as $s)
+                $settings[$s->param_name] = $s;
         }
 
         return $settings;

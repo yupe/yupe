@@ -1,7 +1,7 @@
 <?php
-Yii::import('bootstrap.widgets.TbGridView');
+Yii::import('bootstrap.widgets.TbExtendedGridView');
 
-class YCustomGridView extends TbGridView
+class YCustomGridView extends TbExtendedGridView
 {
     public $modelName;
 
@@ -11,10 +11,28 @@ class YCustomGridView extends TbGridView
     public $sortField      = 'sort';
     public $showStatusText = false;
 
+    /* Дефолтное количество отображаемых элементов: */
+    const DEFAULT_PAGE_SIZE = 10;
+    /* Количество отображаемых элементов: */
+    public $_pageSize;
+    /* Дефолтные значения, для количества отображаемых элементов: */
+    public $pageSizes = array(5, 10, 15, 20, 50, 100);
+
+    public $modSettings;
+
     public function init()
     {
-        parent::init();
+        $this->modSettings = Yii::app()->session['modSettings'];
         $this->modelName = $this->dataProvider->modelClass;
+        /* Если существует настройки pageSize для этой модели - устанавливаем, иначе - DEFAULT_PAGE_SIZE: */
+        $this->_pageSize = isset(Yii::app()->session['modSettings'][strtolower($this->modelName)]['pageSize'])?Yii::app()->session['modSettings'][strtolower($this->modelName)]['pageSize']:self::DEFAULT_PAGE_SIZE;
+        if (Yii::app()->request->getParam('pageSize') !== null)
+            $this->_pageSize = Yii::app()->request->getParam('pageSize');
+        $this->dataProvider->pagination->pageSize=$this->_pageSize;
+
+        parent::init();
+
+        $this->template = "{headline}\n".$this->template;
     }
 
     /**
@@ -105,5 +123,95 @@ class YCustomGridView extends TbGridView
         return  CHtml::link($upUrlImage, $urlUp, $options) . ' ' .
                 $data->{$this->sortField} . ' ' .
                 CHtml::link($downUrlImage, $urlDown, $options);
+    }
+
+    public function renderHeadline()
+    {
+        $cs = Yii::app()->getClientScript();
+
+        $buttons = array();
+
+        if (Yii::app()->request->getParam('pageSize') !== null)
+        {
+            $module_id = strtolower($this->modelName);
+
+            if (isset($this->modSettings[$module_id]['pageSize']))
+            {
+                $settings = Settings::model()->fetchUserModuleSettings(Yii::app()->user->id);
+                $sessionSettings = array();
+                /* Если передан не пустой массив, проходим по нему: */
+                if (!empty($settings) && is_array($settings))
+                    foreach ($settings as $s)
+                        /* Если есть атрибуты - продолжаем: */
+                        if (isset($s->attributes))
+                        {
+                            if (($s->module_id == $module_id) && ($s->param_name == 'pageSize'))
+                            {
+                                $s->param_value = Yii::app()->request->getParam('pageSize');
+                                $s->change_date = date('Y-m-d H:i:s');
+                                $s->update();
+                            }
+                            /* Наполняем нашу сессию: */
+                            if (!isset($sessionSettings[$s->module_id]))
+                                $sessionSettings[$s->module_id] = array();
+                            $sessionSettings[$s->module_id][$s->param_name] = $s->param_value;
+                        }
+                Yii::app()->session['modSettings'] = $sessionSettings;
+            } else {
+                $newSettings = new Settings;
+                $newSettings->module_id = $module_id;
+                $newSettings->creation_date = date('Y-m-d H:i:s');
+                $newSettings->change_date = date('Y-m-d H:i:s');
+                $newSettings->user_id = Yii::app()->user->id;
+                $newSettings->param_name = 'pageSize';
+                $newSettings->param_value = Yii::app()->request->getParam('pageSize');
+                $newSettings->type = Settings::TYPE_USER;
+                $newSettings->save();
+
+                $settings = Settings::model()->fetchUserModuleSettings(Yii::app()->user->id);
+                $sessionSettings = array();
+                /* Если передан не пустой массив, проходим по нему: */
+                if (!empty($settings) && is_array($settings))
+                    foreach ($settings as $s)
+                        /* Если есть атрибуты - продолжаем: */
+                        if (isset($s->attributes))
+                        {
+                            /* Наполняем нашу сессию: */
+                            if (!isset($sessionSettings[$s->module_id]))
+                                $sessionSettings[$s->module_id] = array();
+                            $sessionSettings[$s->module_id][$s->param_name] = $s->param_value;
+                        }
+                Yii::app()->session['modSettings'] = $sessionSettings;
+            }
+
+        }
+
+        foreach ($this->pageSizes as $pageSize)
+            $buttons[] = array(
+                'label'       => $pageSize,
+                'active'      => $pageSize == $this->_pageSize,
+                'htmlOptions' => array(
+                    'class'   => 'pageSize',
+                    'rel'     => $pageSize,
+                ),
+                'url'         => '#',
+            );
+
+        echo Yii::t('YCustomGridView', 'Количество отображаемых эллементов:').'<br />';
+
+        $this->widget('bootstrap.widgets.TbButtonGroup', array(
+            'type' => 'action',
+            'toggle' => 'radio',
+            'buttons' => $buttons,
+        ));
+
+        $cs->registerScript(__CLASS__ . '#' . $this->id . 'Ex','
+        jQuery(document).ready(function($) {
+            $(document).on("click", ".pageSize", function(){
+                $.fn.yiiGridView.update("blog-grid", {
+                    data: "pageSize=" + $(this).attr("rel")
+                });
+            });
+        });', CClientScript::POS_BEGIN);
     }
 }
