@@ -38,6 +38,10 @@ Yii::app()->clientScript->registerScript('fieldset', "
         <?php echo $form->textFieldRow($model, 'dbName', array('class' => 'popover-help span7', 'maxlength' => 150, 'size' => 60, 'data-original-title' => $model->getAttributeLabel('dbName'), 'data-content' => $model->getAttributeDescription('dbName'))); ?>
     </div>
 
+    <div class="row-fluid control-group <?php echo $model->hasErrors('tablePrefix') ? 'error' : ''; ?>">
+        <?php echo $form->textFieldRow($model, 'tablePrefix', array('class' => 'popover-help span7', 'maxlength' => 150, 'size' => 60, 'data-original-title' => $model->getAttributeLabel('tablePrefix'), 'data-content' => $model->getAttributeDescription('tablePrefix'))); ?>
+    </div>
+
     <div class="row-fluid control-group <?php echo $model->hasErrors('user') ? 'error' : ''; ?>">
         <?php echo $form->textFieldRow($model, 'user', array('class' => 'popover-help span7', 'maxlength' => 150, 'size' => 60, 'data-original-title' => $model->getAttributeLabel('user'), 'data-content' => $model->getAttributeDescription('user'))); ?>
     </div>
@@ -49,9 +53,7 @@ Yii::app()->clientScript->registerScript('fieldset', "
     <div class="row-fluid control-group <?php echo $model->hasErrors('socket') ? 'error' : ''; ?>">
         <?php echo $form->textFieldRow($model, 'socket', array('class' => 'popover-help span7', 'maxlength' => 150, 'size' => 60, 'data-original-title' => $model->getAttributeLabel('socket'), 'data-content' => $model->getAttributeDescription('socket') . ' (обязательно только при подключении через сокет)')); ?>
     </div>
-    <div class="row-fluid control-group <?php echo $model->hasErrors('tablePrefix') ? 'error' : ''; ?>">
-        <?php echo $form->textFieldRow($model, 'tablePrefix', array('class' => 'popover-help span7', 'maxlength' => 150, 'size' => 60, 'data-original-title' => $model->getAttributeLabel('tablePrefix'), 'data-content' => $model->getAttributeDescription('tablePrefix'))); ?>
-    </div>
+
 
     <?php $this->widget('bootstrap.widgets.TbButton', array(
         'label' => Yii::t('install', '< Назад'),
