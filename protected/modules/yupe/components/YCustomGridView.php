@@ -132,7 +132,7 @@ class YCustomGridView extends TbExtendedGridView
         {
             $module_id = strtolower($this->modelName);
 
-            if (isset($this->modSettings[$module_id]['pageSize']))
+            if (isset(Yii::app()->session['modSettings'][$module_id]['pageSize']))
             {
                 $settings = Settings::model()->fetchUserModuleSettings(Yii::app()->user->id);
                 $sessionSettings = array();

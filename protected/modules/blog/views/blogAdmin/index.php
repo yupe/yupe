@@ -58,6 +58,22 @@ $this->renderPartial('_search', array('model' => $model));
     'type'         => 'condensed',
     'dataProvider' => $model->search(),
     'filter'       => $model,
+    'bulkActions' => array(
+        'actionButtons' => array(
+            array(
+                'buttonType' => 'button',
+                'type' => 'primary',
+                'size' => 'small',
+                'label' => Yii::t('YCustomGridView', 'выполнить'),
+                'click' => 'js:function(values){ console.log(values); }'
+            )
+        ),
+        // if grid doesn't have a checkbox column type, it will attach
+        // one and this configuration will be part of it
+        'checkBoxColumnConfig' => array(
+            'name' => 'id'
+        ),
+    ),
     'columns'      => array(
         'id',
         array(
