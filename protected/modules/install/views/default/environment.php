@@ -19,7 +19,7 @@
                 'label' => $requirement[1] ? 'ОК' : 'Ошибка',
             )); ?>
         </td>
-        <td><?php echo $requirement[3]; ?></td>
+        <td><?php echo $requirement[2]; ?></td>
     </tr>
     <?php endforeach; ?>
 </table>
