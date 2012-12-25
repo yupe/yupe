@@ -65,7 +65,7 @@ $this->renderPartial('_search', array('model' => $model));
         array(
             'header' => Yii::t('menu', 'Пунктов'),
             'type'   => 'raw',
-            'value'  => 'CHtml::link(count($data->menuItems), Yii::app()->createUrl("/menu/menuitem/view", array("MenuItem[menu_id]" => $data->id)))',
+            'value'  => 'CHtml::link(count($data->menuItems), Yii::app()->createUrl("/menu/menuitem/index", array("MenuItem[menu_id]" => $data->id)))',
         ),
         array(
             'name'        => 'status',
