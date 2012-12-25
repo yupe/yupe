@@ -19,7 +19,7 @@
         </thead>
         <tbody>
             <?php foreach ($modules as $module): ?>
-                <tr <?php echo is_array($module->checkSelf()) ? "style='background-color:#FBC2C4;'" : '';?>>
+                <tr class="<?php echo (is_array($module->checkSelf()) ? 'error' : '') . (($module->isStatus || $module->isNoDisable) ? '' : ' muted');?>">
                     <td><?php echo ($module->icon ? ("<i class='icon-" . $module->icon . "'>&nbsp;</i> ") : ""); ?></td>
                     <td>
                         <small class='label <?php
