@@ -205,7 +205,7 @@ class YCustomGridView extends TbExtendedGridView
         $cs->registerScript(__CLASS__ . '#' . $this->id . 'Ex','
         jQuery(document).ready(function($) {
             $(document).on("click", ".pageSize", function(){
-                $.fn.yiiGridView.update("blog-grid", {
+                $.fn.yiiGridView.update("' . $this->id . '", {
                     data: "pageSize=" + $(this).attr("rel")
                 });
             });
