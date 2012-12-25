@@ -18,11 +18,8 @@ class YCustomGridView extends TbExtendedGridView
     /* Дефолтные значения, для количества отображаемых элементов: */
     public $pageSizes = array(5, 10, 15, 20, 50, 100);
 
-    public $modSettings;
-
     public function init()
     {
-        $this->modSettings = Yii::app()->session['modSettings'];
         $this->modelName = $this->dataProvider->modelClass;
         /* Если существует настройки pageSize для этой модели - устанавливаем, иначе - DEFAULT_PAGE_SIZE: */
         $this->_pageSize = isset(Yii::app()->session['modSettings'][strtolower($this->modelName)]['pageSize'])?Yii::app()->session['modSettings'][strtolower($this->modelName)]['pageSize']:self::DEFAULT_PAGE_SIZE;
