@@ -106,35 +106,42 @@ class DefaultController extends YBackController
 
         $requirements = array(
             array(
-                Yii::t('install', 'PHP version'),
+                Yii::t('install', 'Версия РНР'),
                 true,
                 version_compare(PHP_VERSION, "5.3.0", ">="),
                 '<a href="http://www.yiiframework.com">Yii Framework</a>',
-                Yii::t('install', 'PHP 5.3 или версия выше.'),
+                Yii::t('install', 'Необходима версия PHP 5.3 и выше.'),
             ),
             array(
-                Yii::t('install', 'Reflection extension'),
+                Yii::t('install', 'Переменная $_SERVER'),
+                true,
+                '' === $message=$this->checkServerVar(),
+                '<a href="http://www.yiiframework.com">Yii Framework</a>',
+                $message,
+            ),
+            array(
+                Yii::t('install', 'Расширение Reflection'),
                 true,
                 class_exists('Reflection', false),
                 '<a href="http://www.yiiframework.com">Yii Framework</a>',
                 '',
             ),
             array(
-                Yii::t('install', 'PCRE extension'),
+                Yii::t('install', 'Расширение PCRE'),
                 true,
                 extension_loaded("pcre"),
                 '<a href="http://www.yiiframework.com">Yii Framework</a>',
                 '',
             ),
             array(
-                Yii::t('install', 'SPL extension'),
+                Yii::t('install', 'Расширение SPL'),
                 true,
                 extension_loaded("SPL"),
                 '<a href="http://www.yiiframework.com">Yii Framework</a>',
                 '',
             ),
             array(
-                Yii::t('install', 'DOM extension'),
+                Yii::t('install', 'Расширение DOM'),
                 false,
                 class_exists("DOMDocument", false),
                 '<a href="http://www.yiiframework.com/doc/api/CHtmlPurifier">CHtmlPurifier</a>,
@@ -142,61 +149,107 @@ class DefaultController extends YBackController
                 '',
             ),
             array(
-                Yii::t('install', 'PDO extension'),
+                Yii::t('install', 'Расширение PDO'),
                 false,
                 extension_loaded('pdo'),
-                Yii::t('install', 'All <a href="http://www.yiiframework.com/doc/api/#system.db">DB-related classes</a>'),
+                Yii::t('install', 'Все <a href="http://www.yiiframework.com/doc/api/#system.db">DB-классы</a>'),
                 '',
             ),
             array(
-                Yii::t('install', 'PDO SQLite extension'),
+                Yii::t('install', 'Расширение PDO SQLite'),
                 false,
                 extension_loaded('pdo_sqlite'),
-                Yii::t('install', 'All <a href="http://www.yiiframework.com/doc/api/#system.db">DB-related classes</a>'),
-                Yii::t('install', 'Необходимо если вы используете SQLite.'),
+                Yii::t('install', 'Все <a href="http://www.yiiframework.com/doc/api/#system.db">DB-классы</a>'),
+                Yii::t('install', 'Требуется для работы с БД SQLite.'),
             ),
             array(
-                Yii::t('install', 'PDO MySQL extension'),
+                Yii::t('install', 'Расширение PDO MySQL'),
                 false,
                 extension_loaded('pdo_mysql'),
-                Yii::t('install', 'All <a href="http://www.yiiframework.com/doc/api/#system.db">DB-related classes</a>'),
-                Yii::t('install', 'Необходимо если вы используете MySQL.'),
+                Yii::t('install', 'Все <a href="http://www.yiiframework.com/doc/api/#system.db">DB-классы</a>'),
+                Yii::t('install', 'Требуется для работы с БД MySQL.'),
             ),
             array(
                 Yii::t('install', 'PDO PostgreSQL extension'),
                 false,
                 extension_loaded('pdo_pgsql'),
-                Yii::t('install', 'All <a href="http://www.yiiframework.com/doc/api/#system.db">DB-related classes</a>'),
+                Yii::t('install', 'Все <a href="http://www.yiiframework.com/doc/api/#system.db">DB-классы</a>'),
                 Yii::t('install', 'Необходимо если вы используете PostgreSQL.'),
             ),
             array(
-                Yii::t('install', 'Memcache extension'),
+                Yii::t('install', 'Расширение PDO PostgreSQL'),
                 false,
-                extension_loaded("memcache"),
+                extension_loaded('pdo_pgsql'),
+                Yii::t('install', 'Все <a href="http://www.yiiframework.com/doc/api/#system.db">DB-классы</a>'),
+                Yii::t('install', 'Требуется для работы с БД PostgreSQL.')),
+            array(
+                Yii::t('install', 'Расширение PDO Oracle'),
+                false,
+                extension_loaded('pdo_oci'),
+                Yii::t('install', 'Все <a href="http://www.yiiframework.com/doc/api/#system.db">DB-классы</a>'),
+                Yii::t('install', 'Требуется для работы с БД Oracle.')),
+            array(
+                Yii::t('install', 'Расширение PDO MSSQL (pdo_mssql)'),
+                false,
+                extension_loaded('pdo_mssql'),
+                Yii::t('install', 'Все <a href="http://www.yiiframework.com/doc/api/#system.db">DB-классы</a>'),
+                Yii::t('install', 'Требуется для работы с БД MSSQL при использовании из MS Windows.')),
+            array(
+                Yii::t('install', 'Расширение PDO MSSQL (pdo_dblib)'),
+                false,
+                extension_loaded('pdo_dblib'),
+                Yii::t('install', 'Все <a href="http://www.yiiframework.com/doc/api/#system.db">DB-классы</a>'),
+                Yii::t('install', 'Требуется для работы с БД MSSQL при использовании из GNU/Linux или UNIX.')),
+            array(
+                Yii::t('install', 'Расширение PDO MSSQL (<a href="http://sqlsrvphp.codeplex.com/">pdo_sqlsrv</a>)'),
+                false,
+                extension_loaded('pdo_sqlsrv'),
+                Yii::t('install', 'Все <a href="http://www.yiiframework.com/doc/api/#system.db">DB-классы</a>'),
+                Yii::t('install', 'Требуется для работы с БД MSSQL при использовании драйвера от Microsoft')),
+            array(
+                Yii::t('install', 'Расширение Memcache'),
+                false,
+                extension_loaded("memcache") || extension_loaded("memcached"),
                 '<a href="http://www.yiiframework.com/doc/api/CMemCache">CMemCache</a>',
-                Yii::t('install', 'Используется для кэширования, <b>необязательно</b>.'),
+                extension_loaded("memcached") ? Yii::t('install', 'Чтобы использовать memcached установите значение свойства <a href="http://www.yiiframework.com/doc/api/CMemCache#useMemcached-detail">CMemCache::useMemcached</a> равным <code>true</code>.') : '',
             ),
             array(
-                Yii::t('install', 'APC extension'),
+                Yii::t('install', 'Расширение APC'),
                 false,
                 extension_loaded("apc"),
                 '<a href="http://www.yiiframework.com/doc/api/CApcCache">CApcCache</a>',
                 Yii::t('install', 'Акселератор PHP — программа, ускоряющая исполнение сценариев PHP интерпретатором путём кэширования их байткода. <b>Необязательно</b>.'),
             ),
             array(
-                Yii::t('install', 'Mcrypt extension'),
+                Yii::t('install', 'Расширение Mcrypt'),
                 false,
                 extension_loaded("mcrypt"),
                 '<a href="http://www.yiiframework.com/doc/api/CSecurityManager">CSecurityManager</a>',
-                Yii::t('install', 'Необходимо для encrypt и decrypt методов.'),
+                Yii::t('install', 'Требуется для работы методов шифрования и дешифрации.'),
             ),
             array(
-                Yii::t('install', 'SOAP extension'),
+                Yii::t('install', 'Расширение SOAP'),
                 false,
                 extension_loaded("soap"),
                 '<a href="http://www.yiiframework.com/doc/api/CWebService">CWebService</a>,
                  <a href="http://www.yiiframework.com/doc/api/CWebServiceAction">CWebServiceAction</a>',
                 Yii::t('install', '<b>Необязательно</b>.'),
+            ),
+            array(
+                Yii::t('install', 'Расширение GD<br />с поддержкой FreeType<br />или ImageMagick<br />с поддержкой PNG'),
+                false,
+                '' === $message=$this->checkCaptchaSupport(),
+                '<a href="http://www.yiiframework.com/doc/api/CCaptchaAction">CCaptchaAction</a>',
+                $message),
+            array(
+                Yii::t('install', 'Расширение Ctype'),
+                true,
+                extension_loaded("ctype"),
+                '<a href="http://www.yiiframework.com/doc/api/CDateFormatter">CDateFormatter</a>,
+                 <a href="http://www.yiiframework.com/doc/api/CDateFormatter">CDateTimeParser</a>,
+                 <a href="http://www.yiiframework.com/doc/api/CTextHighlighter">CTextHighlighter</a>,
+                 <a href="http://www.yiiframework.com/doc/api/CHtmlPurifier">CHtmlPurifier</a>',
+                ''
             ),
         );
 
@@ -214,6 +267,49 @@ class DefaultController extends YBackController
             'requirements' => $requirements,
             'result'       => $result,
         ));
+    }
+
+    private function checkServerVar()
+    {
+        $vars = array('HTTP_HOST', 'SERVER_NAME', 'SERVER_PORT', 'SCRIPT_NAME', 'SCRIPT_FILENAME', 'PHP_SELF', 'HTTP_ACCEPT', 'HTTP_USER_AGENT');
+        $missing = array();
+        foreach ($vars as $var)
+        {
+            if (!isset($_SERVER[$var]))
+                $missing[] = $var;
+        }
+        if (!empty($missing))
+            return Yii::t('install', 'Переменная $_SERVER не содержит {vars}.', array('{vars}' => implode(', ', $missing)));
+        // @TODO У меня следующие значения:
+        // C:\Webserver\apache\htdocs\public_html\yupe.local\index.php
+        // C:\Webserver\apache\htdocs\public_html\yupe.local\protected\modules\install\controllers\DefaultController.php
+        // if (realpath($_SERVER["SCRIPT_FILENAME"]) !== realpath(__FILE__))
+            // return Yii::t('install', 'Переменная $_SERVER["SCRIPT_FILENAME"] должна соответствовать пути к файлу входного скрипта.');
+        if (!isset($_SERVER["REQUEST_URI"]) && isset($_SERVER["QUERY_STRING"]))
+            return Yii::t('install', 'Должна существовать хотя бы одна из серверных переменных: $_SERVER["REQUEST_URI"] или $_SERVER["QUERY_STRING"].');
+        if (!isset($_SERVER["PATH_INFO"]) && strpos($_SERVER["PHP_SELF"], $_SERVER["SCRIPT_NAME"]) !== 0)
+            return Yii::t('install', 'Не удалось получить информацию о пути. Пожалуйста, проверьте, содержится ли корректное значение в переменной $_SERVER["PATH_INFO"] (или $_SERVER["PHP_SELF"] и $_SERVER["SCRIPT_NAME"]).');
+        return '';
+    }
+
+    private function checkCaptchaSupport()
+    {
+        if (extension_loaded('imagick'))
+        {
+            $imagick = new Imagick();
+            $imagickFormats = $imagick->queryFormats('PNG');
+        }
+        if (extension_loaded('gd'))
+            $gdInfo = gd_info();
+        if (isset($imagickFormats) && in_array('PNG', $imagickFormats))
+            return '';
+        else if (isset($gdInfo))
+        {
+            if ($gdInfo['FreeType Support'])
+                return '';
+            return Yii::t('install', 'Расширение GD установлено<br />без поддержки FreeType');
+        }
+        return Yii::t('install', 'Расширение GD или ImageMagick не установлены');
     }
 
     public function actionDbsettings()
