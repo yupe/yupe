@@ -39,44 +39,37 @@ class DefaultController extends YBackController
         $requirements = array(
             array(
                 Yii::t('install', 'Папка assets'),
-                is_writable($webRoot . '/assets/'),
-                @chmod($webRoot . '/assets/', 0777),
+                $this->checkWritable($webRoot . '/assets/'),
                 Yii::t('install', 'Необходимо установить права записи на папку ' . $webRoot . $dp . 'assets'),
             ),
             array(
                 Yii::t('install', 'Папка runtime'),
-                is_writable($webRoot . '/protected/runtime/'),
-                @chmod($webRoot . '/protected/runtime/', 0777),
+                $this->checkWritable($webRoot . '/protected/runtime/'),
                 Yii::t('install', 'Необходимо установить права записи на папку ' . $webRoot . $dp . 'protected' . $dp . 'runtime'),
             ),
             array(
                 Yii::t('install', 'Папка uploads'),
-                is_writable($webRoot . '/uploads/'),
-                @chmod($webRoot . '/uploads/', 0777),
+                $this->checkWritable($webRoot . '/uploads/'),
                 Yii::t('install', 'Необходимо установить права записи на папку ' . $webRoot . $dp . 'uploads'),
             ),
             array(
                 Yii::t('install', 'Папка modules'),
-                is_writable($webRoot . '/protected/config/modules/'),
-                @chmod($webRoot . '/protected/config/modules/', 0777),
+                $this->checkWritable($webRoot . '/protected/config/modules/'),
                 Yii::t('install', 'Необходимо установить права записи на папку ' . $webRoot . $dp . 'protected' . $dp . 'config' . $dp . 'modules'),
             ),
             array(
                 Yii::t('install', 'Папка modulesBack'),
-                is_writable($webRoot . '/protected/config/modulesBack/'),
-                @chmod($webRoot . '/protected/config/modulesBack/', 0777),
+                $this->checkWritable($webRoot . '/protected/config/modulesBack/'),
                 Yii::t('install', 'Необходимо установить права записи на папку ' . $webRoot . $dp . 'protected' . $dp . 'config' . $dp . 'modulesBack'),
             ),
             array(
                 Yii::t('install', 'Файл db.php'),
-                is_writable($webRoot . '/protected/config/db.php'),
-                @copy($webRoot . '/protected/config/db.back.php', $webRoot . '/protected/config/db.php'),
+                $this->checkConfigFileWritable($webRoot . '/protected/config/db.back.php', $webRoot . '/protected/config/db.php'),
                 Yii::t('install', 'Необходимо скопировать ' . $webRoot . $dp . 'protected' . $dp . 'config' . $dp . 'db.back.php в ' . $webRoot . $dp . 'protected' . $dp . 'config' . $dp . 'db.php и дать ему права на запись'),
             ),
             array(
                 Yii::t('install', 'Активация Yupe'),
                 Yii::app()->getModule('yupe')->activate,
-                false,
                 Yii::t('install', 'Необходимо исправить все ошибки'),
             ),
         );
@@ -85,19 +78,25 @@ class DefaultController extends YBackController
 
         foreach ($requirements as $i => $requirement)
         {
-            if (!$requirement[1] && !$requirement[2] && !$requirement[1])
-            {
-                $result = $requirements[$i][1] = false;
-                continue;
-            }
-            $requirements[$i][1] = true;
-            $requirements[$i][3] = Yii::t('install', 'Все хорошо!');
+            (!$requirement[1])
+                ? $result = false
+                : $requirements[$i][2] = Yii::t('install', 'Все хорошо!');
         }
 
         $this->render('environment', array(
             'requirements' => $requirements,
             'result'       => $result,
         ));
+    }
+
+    private function checkWritable($path)
+    {
+        return is_writable($path) || @chmod($path, 0777) && is_writable($path);
+    }
+
+    private function checkConfigFileWritable($pathOld, $pathNew)
+    {
+        return is_writable($pathNew) || @copy($pathOld, $pathNew) && is_writable($pathNew);
     }
 
     public function actionRequirements()
@@ -259,8 +258,6 @@ class DefaultController extends YBackController
         {
             if ($requirement[1] && !$requirement[2])
                 $result = false;
-            if ($requirement[4] === '')
-                $requirements[$i][4] = '&nbsp;';
         }
 
         $this->render('requirements', array(

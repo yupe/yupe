@@ -3,7 +3,7 @@ class InstallModule extends YWebModule
 {
     public function checkSelf()
     {
-        if (false)
+        if ($this->isStatus)
             return array(
                 'type'    => YWebModule::CHECK_ERROR,
                 'message' => Yii::t('yupe', 'У Вас активирован модуль "Установщик", после установки системы его необходимо отключить!')
