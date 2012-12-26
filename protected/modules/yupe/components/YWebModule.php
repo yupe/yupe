@@ -224,7 +224,7 @@ abstract class YWebModule extends CWebModule
      */
     public function getDependent()
     {
-        $modulesDependent = false; //Yii::app()->cache->get('YupeModulesDependent');
+        $modulesDependent = Yii::app()->cache->get('YupeModulesDependent');
         if ($modulesDependent === false)
         {
             $modules          = Yii::app()->getModule('yupe')->getModules(false, true);

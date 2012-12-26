@@ -70,7 +70,7 @@
                                 '/yupe/backend/modulesettings/',
                                 'module' => $module->id,
                             )); ?>
-                        <?php endif;?>
+                        <?php endif; ?>
                         <?php
                         $url = array('/yupe/backend/modulechange/', 'name' => $module->id);
                         echo !$module->isNoDisable
@@ -82,7 +82,7 @@
                         ?>
                     </td>
                 </tr>
-            <?php endforeach;?>
+            <?php endforeach; ?>
         </tbody>
     </table>
 <?php endif; ?>

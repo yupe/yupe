@@ -96,7 +96,7 @@ class YupeModule extends YWebModule
                 'message' => Yii::t('yupe', 'Yii работает в режиме отладки, пожалуйста, отключите его! <br/> <a href="http://www.yiiframework.ru/doc/guide/ru/topics.performance">Подробнее про улучшение производительности Yii приложений</a>'),
             );
 
-        return count($messages[YWebModule::CHECK_ERROR]) ? $messages : true;
+        return isset($messages[YWebModule::CHECK_ERROR]) ? $messages : true;
     }
 
     public function getParamsLabels()

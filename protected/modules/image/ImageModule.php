@@ -102,7 +102,7 @@ class ImageModule extends YWebModule
                      )),
                  )),
             );
-        return (count($messages[YWebModule::CHECK_ERROR])) ? $messages : true;
+        return (isset($messages[YWebModule::CHECK_ERROR])) ? $messages : true;
     }
 
     public function getCategory()
