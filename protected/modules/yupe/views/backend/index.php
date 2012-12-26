@@ -18,9 +18,10 @@
                             data-parent="#accordion<?php echo $module->id; ?>"
                             href="#collapse<?php echo $module->id; ?>"
                         >
-                            <?php echo Yii::t('yupe', 'Модуль "{module}", сообщений: {count}', array(
+                            <?php echo Yii::t('yupe', 'Модуль {icon} "{module}", сообщений: {count}', array(
+                                '{icon}'   => $module->icon ? "<i class='icon-" . $module->icon . "'>&nbsp;</i> " : "",
                                 '{module}' => $module->getName(),
-                                '{count}'  => count($value),
+                                '{count}'  => '<small class="label label-warning">' . count($value) . '</small>',
                             )); ?>
                         </a>
                     </div>

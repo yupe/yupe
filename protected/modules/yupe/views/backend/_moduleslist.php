@@ -21,7 +21,7 @@
         <tbody>
             <?php foreach ($modules as $module): ?>
                 <tr class="<?php echo ($module->isStatus) ? (is_array($module->checkSelf()) ? 'error' : '') : 'muted';?>">
-                    <td><?php echo ($module->icon ? ("<i class='icon-" . $module->icon . "'>&nbsp;</i> ") : ""); ?></td>
+                    <td><?php echo $module->icon ? "<i class='icon-" . $module->icon . "'>&nbsp;</i> " : ""; ?></td>
                     <td>
                         <small class='label <?php
                             $v = $module->version;

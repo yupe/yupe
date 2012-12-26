@@ -12,6 +12,13 @@ class ImageModule extends YWebModule
 
     public $mainCategory;
 
+    public function getDependencies()
+    {
+        return array(
+            'category',
+        );
+    }
+
     public function getAdminPageLink()
     {
         return '/image/default/index';
