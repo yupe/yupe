@@ -215,9 +215,34 @@ abstract class YWebModule extends CWebModule
      */
     public function getDependencies()
     {
-        return array(
+        return array();
+    }
 
-        );
+    /**
+     *  @return array Массив с именами модулей которые зависят от текущего модуля
+     *  @since 0.5
+     */
+    public function getDependent()
+    {
+        $modulesDependent = false; //Yii::app()->cache->get('YupeModulesDependent');
+        if ($modulesDependent === false)
+        {
+            $modules          = Yii::app()->getModule('yupe')->getModules(false, true);
+            $modulesDependent = array();
+
+            foreach ($modules['modules'] as $module)
+            {
+                if (!empty($module->dependencies) && is_array($module->dependencies))
+                {
+                    foreach ($module->dependencies as $dependency)
+                    {
+                        $modulesDependent[$dependency][] = $module->id;
+                    }
+                }
+            }
+            Yii::app()->cache->set('YupeModulesDependent', $modulesDependent, Yii::app()->getModule('yupe')->coreCacheTime);
+        }
+        return isset($modulesDependent[$this->id]) ? $modulesDependent[$this->id] : array();
     }
 
     /**
