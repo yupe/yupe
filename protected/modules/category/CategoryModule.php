@@ -11,10 +11,12 @@ class CategoryModule extends YWebModule
 
     public function checkSelf()
     {
+        $messages = array();
+
         $uploadPath = $this->getUploadPath();
 
         if (!is_writable($uploadPath))
-            return array(
+            $messages[YWebModule::CHECK_ERROR][] = array(
                 'type'    => YWebModule::CHECK_ERROR,
                 'message' => Yii::t('category', 'Директория "{dir}" не доступна для записи! {link}', array(
                     '{dir}'  => $uploadPath,
@@ -24,6 +26,8 @@ class CategoryModule extends YWebModule
                     )),
                 )),
             );
+
+        return count($messages[YWebModule::CHECK_ERROR]) ? $messages : true;
     }
 
     public function getEditableParams()
