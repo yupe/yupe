@@ -112,6 +112,19 @@ class TbActiveForm extends CActiveForm
 	}
 
 	/**
+	 * Renders a checkbox list input row using Button Groups.
+	 * @param CModel $model the data model
+	 * @param string $attribute the attribute
+	 * @param array $data the list data
+	 * @param array $htmlOptions additional HTML attributes
+	 * @return string the generated row
+	 */
+	public function checkBoxGroupsListRow($model, $attribute, $data = array(), $htmlOptions = array())
+	{
+		return $this->inputRow(TbInput::TYPE_CHECKBOXGROUPSLIST, $model, $attribute, $data, $htmlOptions);
+	}
+
+	/**
 	 * Renders a drop-down list input row.
 	 * @param CModel $model the data model
 	 * @param string $attribute the attribute
@@ -379,6 +392,76 @@ class TbActiveForm extends CActiveForm
 	}
 
 	/**
+	 * Renders a checkbox list for a model attribute using Button Groups.
+	 * @param CModel $model the data model
+	 * @param string $attribute the attribute
+	 * @param array $data value-label pairs used to generate the checkbox list.
+	 * @param array $htmlOptions additional HTML options.
+	 * @return string the generated checkbox list
+	 * @since 0.9.5
+	 */
+	public function checkBoxGroupsList($model, $attribute, $data, $htmlOptions = array())
+	{
+		$buttons = array();
+		$scripts = array();
+
+		$buttonType = isset($htmlOptions['type']) ? $htmlOptions['type'] : null;
+
+		$values = CHtml::value($model, $attribute);
+		if ($values == null)
+		{
+			$values = array();
+		}
+
+		foreach ($data as $key => $value) {
+			$btnId = CHtml::getIdByName(get_class($model) . '[' . $attribute . '][' . $key . ']');
+
+			$active = in_array($key, $values);
+
+			$button = array();
+			$button['label'] = $value;
+			$button['active'] = $active;
+			$button['htmlOptions'] = array(
+				'value' => $key,
+				'id' => $btnId,
+			);
+			$buttons[] = $button;
+
+			// event as ordinary input
+			$hiddenFieldName = get_class($model) . '[' . $attribute . '][]';
+			$hiddenFieldId = CHtml::getIdByName(get_class($model) . '[' . $attribute . '][' . $key . '][hidden]');
+			$scripts[] = "\$('#" . $btnId . "').click(function(){
+                if (\$('#" . $hiddenFieldId . "').length > 0)
+                {
+                	\$('#" . $hiddenFieldId . "').remove();
+                }
+                else
+                {
+                	var hidden = \$('<input type=\"hidden\">')
+                		.attr('id', '" . $hiddenFieldId . "')
+                		.attr('name', '" . $hiddenFieldName . "')
+                		.val('" . $key . "');
+                	hidden.appendTo(\$('#" . $btnId . "'));
+                }
+            });";
+			if ($active)
+			{
+				echo CHtml::hiddenField($hiddenFieldName, $key, array('id' => $hiddenFieldId));
+			}
+		}
+
+		Yii::app()->controller->widget('bootstrap.widgets.TbButtonGroup', array(
+			'buttonType' => 'button',
+			'toggle' => 'checkbox',
+			'htmlOptions' => $htmlOptions,
+			'buttons' => $buttons,
+			'type' => $buttonType,
+		));
+
+		Yii::app()->clientScript->registerScript('checkboxgrouplist-' . $attribute, implode("\n", $scripts));
+	}
+
+	/**
 	 * Renders a radio button list for a model attribute.
 	 * This method is a wrapper of {@link CHtml::activeRadioButtonList}.
 	 * Please check {@link CHtml::activeRadioButtonList} for detailed information
@@ -489,6 +572,12 @@ class TbActiveForm extends CActiveForm
 		if ($checkbox && substr($name, -2) !== '[]')
 			$name .= '[]';
 
+		if(isset($htmlOptions['checkAll']))
+		{
+			$checkAllLabel = $htmlOptions['checkAll'];
+			$checkAllLast = isset($htmlOptions['checkAllLast']) && $htmlOptions['checkAllLast'];
+		}
+
 		unset($htmlOptions['checkAll'], $htmlOptions['checkAllLast']);
 
 		$labelOptions = isset($htmlOptions['labelOptions']) ? $htmlOptions['labelOptions'] : array();
@@ -506,9 +595,11 @@ class TbActiveForm extends CActiveForm
 			unset($htmlOptions['inline']);
 		}
 
+		$checkAll = true;
 		foreach ($data as $value => $label)
 		{
 			$checked = !is_array($select) && !strcmp($value, $select) || is_array($select) && in_array($value, $select);
+			$checkAll = $checkAll && $checked;
 			$htmlOptions['value'] = $value;
 			$htmlOptions['id'] = $baseID . '_' . $id++;
 			$option = CHtml::$method($name, $checked, $htmlOptions);
@@ -518,6 +609,37 @@ class TbActiveForm extends CActiveForm
 				'{input}' => $option,
 				'{label}' => $label,
 			));
+		}
+
+		if(isset($checkAllLabel))
+		{
+			$htmlOptions['value']=1;
+			$itemId = $baseID.'_all';
+			$htmlOptions['id'] = $itemId;
+			$option = CHtml::$method($id,$checkAll,$htmlOptions);
+			$label = CHtml::label($checkAllLabel,$id,$labelOptions);
+			$item = strtr($template, array(
+				'{labelCssClass}' => $labelCssClass,
+				'{input}' => $option,
+				'{label}' => $label,
+			));
+			if($checkAllLast)
+				$items[]=$item;
+			else
+				array_unshift($items,$item);
+			$name = strtr($name,array('['=>'\\[',']'=>'\\]'));
+			$js=<<<EOD
+$('#$itemId').click(function() {
+	$("input[name='$name']").prop('checked', this.checked);
+});
+$("input[name='$name']").click(function() {
+	$('#$itemId').prop('checked', !$("input[name='$name']:not(:checked)").length);
+});
+$('#$itemId').prop('checked', !$("input[name='$name']:not(:checked)").length);
+EOD;
+			$cs = Yii::app()->getClientScript();
+			$cs->registerCoreScript('jquery');
+			$cs->registerScript($itemId,$js);
 		}
 
 		return $hidden . implode('', $items);

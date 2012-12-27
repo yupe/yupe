@@ -44,6 +44,10 @@ class TbAlert extends CWidget
 	 * @var array the HTML attributes for the widget container.
 	 */
 	public $htmlOptions = array();
+    /**
+     * @var string User-component for getting flash messages.
+     */
+    public $userComponentId = 'user';
 
 	private static $_containerId = 0;
 
@@ -83,7 +87,7 @@ class TbAlert extends CWidget
 			if (isset($alert['visible']) && $alert['visible'] === false)
 				continue;
 
-			if (Yii::app()->user->hasFlash($type))
+			if (Yii::app()->getComponent($this->userComponentId)->hasFlash($type))
 			{
 				$classes = array('alert in');
 
@@ -123,7 +127,7 @@ class TbAlert extends CWidget
 				if (isset($alert['closeText']) && $alert['closeText'] !== false)
 					echo '<a class="close" data-dismiss="alert">'.$alert['closeText'].'</a>';
 
-				echo Yii::app()->user->getFlash($type);
+				echo Yii::app()->getComponent($this->userComponentId)->getFlash($type);
 
 				echo '</div>';
 			}

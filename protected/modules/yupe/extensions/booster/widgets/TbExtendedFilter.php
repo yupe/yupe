@@ -229,7 +229,7 @@ EOD
 			$registry = $this->jsonStorage->getRegistry($this->registry);
 
 			echo '<p><span class="span6" >';
-			echo '<label class="label label-info">Saved Filters [select and click ok sign button]</label>';
+			echo '<label class="label label-info">Saved Filters [select and click ok sign button]</label><br/>';
 			echo '<select class="select-extended-filter">';
 			echo '<option value="-1" data-filter="{}" '.(!$registryKey?'selected':'').'>No Filters</option>';
 			foreach ($registry as $key=>$filter)

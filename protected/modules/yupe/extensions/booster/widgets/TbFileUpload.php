@@ -102,6 +102,29 @@ class TbFileUpload extends CJuiInputWidget
 
 		$this->options['url'] = $this->url;
 
+		// if acceptFileTypes is not set as option, try getting it from models rules
+		if(!isset($this->options['acceptFileTypes']))
+		{
+			$fileTypes = $this->getFileValidatorProperty($this->model, $this->attribute, 'types');
+
+			if(isset($fileTypes))
+			{
+				$fileTypes = (preg_match(':jpg:', $fileTypes) && !preg_match(':jpe:', $fileTypes) ? preg_replace(':jpg:','jpe?g',$fileTypes) : $fileTypes);
+				$this->options['acceptFileTypes'] = 'js:/(\.)('.preg_replace(':,:', '|', $fileTypes).')$/i';
+			}
+		}
+
+		// if maxFileSize is not set as option, try getting it from models rules
+		if(!isset($this->options['maxFileSize']))
+		{
+			$fileSize = $this->getFileValidatorProperty($this->model, $this->attribute, 'maxSize');
+
+			if(isset($fileSize))
+			{
+				$this->options['maxFileSize'] = $fileSize;
+			}
+		}
+
 		$htmlOptions = array();
 
 		if ($this->multiple)
@@ -111,7 +134,7 @@ class TbFileUpload extends CJuiInputWidget
 
 		$this->render($this->uploadView);
 		$this->render($this->downloadView);
-		$this->render($this->formView, compact('htmlOptions'));
+    		$this->render($this->formView, array('name'=>$name, 'htmlOptions'=>$this->htmlOptions)); 
 
 		if ($this->previewImages || $this->imageProcessing)
 		{
@@ -166,4 +189,23 @@ class TbFileUpload extends CJuiInputWidget
 		Yii::app()->clientScript->registerScript(__CLASS__ . '#' . $id, "jQuery('#{$id}').fileupload({$options});");
 	}
 
+	/**
+	 * Check for a property of CFileValidator
+	 * @param $model
+	 * @param $attribute
+	 * @return string property's value or null
+	 */
+	private function getFileValidatorProperty($model=null, $attribute=null, $property=null)
+	{
+		if(!isset($model,$attribute,$property)) return null;
+
+		foreach($model->getValidators($attribute) as $validator)
+		{
+			if($validator instanceof CFileValidator)
+			{
+		        	$ret = $validator->$property;
+			}
+		}
+		return isset($ret) ? $ret : null;
+	}
 }

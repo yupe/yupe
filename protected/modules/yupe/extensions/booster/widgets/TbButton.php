@@ -168,6 +168,11 @@ class TbButton extends CWidget
 			$this->label = '<i class="'.$this->icon.'"></i> '.$this->label;
 		}
 
+		if(!isset($this->htmlOptions['id']))
+		{
+			$this->htmlOptions['id'] = $this->getId();
+		}
+
 		if (isset($this->toggle))
 			$this->htmlOptions['data-toggle'] = 'button';
 

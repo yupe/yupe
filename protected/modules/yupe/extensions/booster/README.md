@@ -64,6 +64,8 @@ The YiiBooster library includes:
 * TbToggleColumn
 * Grouping Grid
     * Merge cells or columns
+* JQRangeSlider
+* TbTags
 
 
 ###Contributing

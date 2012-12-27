@@ -5,6 +5,13 @@
  * @copyright Copyright &copy; Christoffer Niska 2011-
  * @license http://www.opensource.org/licenses/bsd-license.php New BSD License
  * @version 1.0.0
+ *
+ * Modified for YiiBooster
+ * @author Antonio Ramirez <antonio@clevertech.biz>
+ * @version 1.0.5
+ *
+ * Added Bootstrap Modal Manager Plugin
+ * @author Thiago Otaviani Vidal <thiagovidal@gmail.com>
  */
 
 /**
@@ -19,6 +26,7 @@ class Bootstrap extends CApplicationComponent
 	const PLUGIN_COLLAPSE = 'collapse';
 	const PLUGIN_DROPDOWN = 'dropdown';
 	const PLUGIN_MODAL = 'modal';
+	const PLUGIN_MODALMANAGER = 'modalmanager';
 	const PLUGIN_POPOVER = 'popover';
 	const PLUGIN_SCROLLSPY = 'scrollspy';
 	const PLUGIN_TAB = 'tab';
@@ -70,12 +78,12 @@ class Bootstrap extends CApplicationComponent
 	 * @var string default popover CSS selector.
 	 * @since 0.10.0
 	 */
-	public $popoverSelector = 'a[rel="popover"]';
+	public $popoverSelector = 'body';
 	/**
 	 * @var string default tooltip CSS selector.
 	 * @since 0.10.0
 	 */
-	public $tooltipSelector = 'a[rel="tooltip"]';
+	public $tooltipSelector = 'body';
 
 	/**
 	 * @var bool whether to enable bootbox messages or not. Default value is true.
@@ -83,6 +91,15 @@ class Bootstrap extends CApplicationComponent
 	 */
 	public $enableBootboxJS = true;
 
+	/**
+	 * @var bool enable [bootstrap notifier](https://github.com/Nijikokun/bootstrap-notify). Default value is `true`
+	 * @see [https://github.com/Nijikokun/bootstrap-notify](https://github.com/Nijikokun/bootstrap-notify]
+	 */
+	public $enableNotifierJS = true;
+
+	/**
+	 * @var string handles the assets folder path.
+	 */
 	protected $_assetsUrl;
 
 	/**
@@ -181,14 +198,21 @@ class Bootstrap extends CApplicationComponent
 	 */
 	public function registerJS($position = CClientScript::POS_HEAD)
 	{
-		/** @var CClientScript $cs */
+		/* @var CClientScript $cs */
 		$cs = Yii::app()->getClientScript();
 		$cs->registerCoreScript('jquery');
 
-		/** enable bootboxJS? */
+		/* enable bootboxJS? */
 		if($this->enableBootboxJS)
 		{
 			$cs->registerScriptFile($this->getAssetsUrl() . '/js/bootstrap.bootbox.min.js', $position);
+		}
+		/* enable bootstrap notifier ? */
+		if($this->enableNotifierJS)
+		{
+			// notifier requires a style
+			$cs->registerCssFile($this->getAssetsUrl() . '/css/bootstrap-notify.css');
+			$cs->registerScriptFile($this->getAssetsUrl() . '/js/bootstrap.notify.js', $position);
 		}
 		$cs->registerScriptFile($this->getAssetsUrl() . '/js/bootstrap' . (!YII_DEBUG ? '.min' : '') . '.js', $position);
 	}
@@ -277,6 +301,18 @@ class Bootstrap extends CApplicationComponent
 	}
 
 	/**
+	 * Registers the Modal manager plugin.
+	 * @param string $selector the CSS selector
+	 * @param array $options the plugin options
+	 * @see https://github.com/jschr/bootstrap-modal/
+	 * @since 0.9.8
+	 */
+	public function registerModalManager($selector = null, $options = array())
+	{
+		$this->registerPlugin(self::PLUGIN_MODALMANAGER, $selector, $options);
+	}
+
+	/**
 	 * Registers the Bootstrap scrollspy plugin.
 	 * @param string $selector the CSS selector
 	 * @param array $options the plugin options
@@ -298,6 +334,14 @@ class Bootstrap extends CApplicationComponent
 	public function registerPopover($selector = null, $options = array())
 	{
 		$this->registerTooltip(); // Popover requires the tooltip plugin
+		if (!isset($options['selector']))
+		{
+			$options['selector'] = '[rel=popover]';
+			if(null === $selector)
+			{
+				$selector = 'body';
+			}
+		}
 		$this->registerPlugin(self::PLUGIN_POPOVER, $selector, $options, $this->popoverSelector);
 	}
 
@@ -322,6 +366,14 @@ class Bootstrap extends CApplicationComponent
 	 */
 	public function registerTooltip($selector = null, $options = array())
 	{
+		if (!isset($options['selector']))
+		{
+			$options['selector'] = '[rel=tooltip]';
+			if(null === $selector)
+			{
+				$selector = 'body';
+			}
+		}
 		$this->registerPlugin(self::PLUGIN_TOOLTIP, $selector, $options, $this->tooltipSelector);
 	}
 
@@ -466,6 +518,6 @@ class Bootstrap extends CApplicationComponent
 	 */
 	public function getVersion()
 	{
-		return '1.0.4';
+		return '1.0.6';
 	}
 }
