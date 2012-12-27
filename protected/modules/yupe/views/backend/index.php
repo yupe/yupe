@@ -6,43 +6,45 @@
 </div>
 
 <?php foreach ($modules as $module): ?>
-    <?php $messages = $module->checkSelf(); ?>
-    <?php if (is_array($messages)): ?>
-        <?php foreach ($messages as $key => $value): ?>
-            <?php if (!is_array($value)) continue; ?>
-            <div class="accordion" id="accordion<?php echo $module->id; ?>">
-                <div class="accordion-group">
-                    <div class="accordion-heading">
-                        <a  class="accordion-toggle"
-                            data-toggle="collapse"
-                            data-parent="#accordion<?php echo $module->id; ?>"
-                            href="#collapse<?php echo $module->id; ?>"
-                        >
-                            <?php echo Yii::t('yupe', 'Модуль {icon} "{module}", сообщений: {count}', array(
-                                '{icon}'   => $module->icon ? "<i class='icon-" . $module->icon . "'>&nbsp;</i> " : "",
-                                '{module}' => $module->getName(),
-                                '{count}'  => '<small class="label label-warning">' . count($value) . '</small>',
-                            )); ?>
-                        </a>
-                    </div>
-                    <div id="collapse<?php echo $module->id; ?>" class="accordion-body collapse">
-                    <?php foreach ($value as $error): ?>
-                        <div class="accordion-inner">
-                            <div class="alert alert-<?php echo $error['type']; ?>">
-                                <h4 class="alert-heading">
-                                    <?php echo Yii::t('yupe', 'Модуль "{module} ({id})"', array(
-                                        '{module}' => $module->name,
-                                        '{id}'     => $module->id,
-                                    )); ?>
-                                </h4>
-                                <?php echo $error['message']; ?>
-                            </div>
+    <?php if ($module->isStatus): ?>
+        <?php $messages = $module->checkSelf(); ?>
+        <?php if (is_array($messages)): ?>
+            <?php foreach ($messages as $key => $value): ?>
+                <?php if (!is_array($value)) continue; ?>
+                <div class="accordion" id="accordion<?php echo $module->id; ?>">
+                    <div class="accordion-group">
+                        <div class="accordion-heading">
+                            <a  class="accordion-toggle"
+                                data-toggle="collapse"
+                                data-parent="#accordion<?php echo $module->id; ?>"
+                                href="#collapse<?php echo $module->id; ?>"
+                            >
+                                <?php echo Yii::t('yupe', 'Модуль {icon} "{module}", сообщений: {count}', array(
+                                    '{icon}'   => $module->icon ? "<i class='icon-" . $module->icon . "'>&nbsp;</i> " : "",
+                                    '{module}' => $module->getName(),
+                                    '{count}'  => '<small class="label label-warning">' . count($value) . '</small>',
+                                )); ?>
+                            </a>
                         </div>
-                    <?php endforeach; ?>
+                        <div id="collapse<?php echo $module->id; ?>" class="accordion-body collapse">
+                        <?php foreach ($value as $error): ?>
+                            <div class="accordion-inner">
+                                <div class="alert alert-<?php echo $error['type']; ?>">
+                                    <h4 class="alert-heading">
+                                        <?php echo Yii::t('yupe', 'Модуль "{module} ({id})"', array(
+                                            '{module}' => $module->name,
+                                            '{id}'     => $module->id,
+                                        )); ?>
+                                    </h4>
+                                    <?php echo $error['message']; ?>
+                                </div>
+                            </div>
+                        <?php endforeach; ?>
+                        </div>
                     </div>
                 </div>
-            </div>
-        <?php endforeach; ?>
+            <?php endforeach; ?>
+        <?php endif; ?>
     <?php endif; ?>
 <?php endforeach; ?>
 
