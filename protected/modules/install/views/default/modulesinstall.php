@@ -36,7 +36,7 @@ Yii::app()->clientScript->registerScript('fieldset', "
                                 ? (isset($_POST['module_' . $module->id]) && $_POST['module_' . $module->id])
                                 : ($module->isInstallDefault ? true : false),
                             $module->isNoDisable
-                                ? array('disabled' => true)
+                                ? array('onclick' => 'this.checked=true', 'class' => 'error')
                                 : array()
                         ); ?>
                     </td>
@@ -78,10 +78,10 @@ Yii::app()->clientScript->registerScript('fieldset', "
                                     : (count($module->dependent) ? implode(', ', $module->dependent) : '-')
                             ) . '</b>'; ?><br />
                             <?php echo $module->isNoDisable
-                                ? '<span class="label label-info">' . Yii::t('install', "Модуль не отключаемый") . '</span>'
+                                ? '<span class="label label-warning">' . Yii::t('install', "Модуль не отключаемый") . '</span>'
                                 : ''
                             ?>
-                            <?php echo '<span class="label label-info dependents" style="display: none;">' . Yii::t('install', "Отключите зависимые, чтобы не устанавливать") . '</span>'; ?>
+                            <?php echo '<span class="label label-warning dependents" style="display: none;">' . Yii::t('install', "Отключите зависимые, чтобы не устанавливать") . '</span>'; ?>
                         </small>
                     </td>
                 </tr>
@@ -104,7 +104,7 @@ Yii::app()->clientScript->registerScript('fieldset', "
             {
                 $.each(val, function(iRevert, valRevert) {
                     if ($('#module_' + valRevert).attr('checked')) {
-                        $('#module_' + i).attr('checked', true).attr('disabled', true);
+                        $('#module_' + i).attr('onclick', "this.checked=true").attr('readonly', true);
                         $('#module_' + i).parent().siblings('.check-label').find('.dependents').show();
                         return false;
                     }
@@ -115,7 +115,7 @@ Yii::app()->clientScript->registerScript('fieldset', "
             var id = $(this).attr('id').replace('module_', '');
             if ($(this).attr('checked')) {
                 $.each(array[id], function(i, val) {
-                    $('#module_' + val).attr('checked', true).attr('disabled', true);
+                    $('#module_' + val).attr('checked', true).attr('onclick', "this.checked=true");
                 });
             } else {
                 $.each(array[id], function(i, val) {
@@ -128,7 +128,7 @@ Yii::app()->clientScript->registerScript('fieldset', "
                             }
                         });
                         if (!all)
-                            $('#module_' + val).attr('disabled', false);
+                            $('#module_' + val).attr('onclick', '');
                     }
                 });
             }
