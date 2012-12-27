@@ -317,19 +317,23 @@ abstract class YWebModule extends CWebModule
      *  @return bool статус выключения модуля
      *  @since 0.5
      */
-    public function getActivate()
+    public function getActivate($noDependen = false)
     {
-        if (!empty($this->dependencies) && is_array($this->dependencies))
+        if (!$noDependen)
         {
-            foreach ($this->dependencies as $dependency)
+            $dependencies = $this->dependencies;
+            if (!empty($dependencies) && is_array($dependencies))
             {
-                if (Yii::app()->getModule($dependency) == NULL)
+                foreach ($dependencies as $dependency)
                 {
-                    $this->setFlash(
-                        YFlashMessages::ERROR_MESSAGE,
-                        Yii::t('yupe', 'Произошла ошибка, модули от которых зависит этот модуль не включены, включите сначала их!')
-                    );
-                    return false;
+                    if (Yii::app()->getModule($dependency) == NULL)
+                    {
+                        $this->setFlash(
+                            YFlashMessages::ERROR_MESSAGE,
+                            Yii::t('yupe', 'Произошла ошибка, модули от которых зависит этот модуль не включены, включите сначала их!')
+                        );
+                        return false;
+                    }
                 }
             }
         }
@@ -368,23 +372,26 @@ abstract class YWebModule extends CWebModule
      *  @return bool статус включения модуля
      *  @since 0.5
      */
-    public function getDeActivate()
+    public function getDeActivate($noDependen = false)
     {
-        if (!empty($this->dependent) && is_array($this->dependent))
+        if (!$noDependen)
         {
-            foreach ($this->dependent as $dependen)
+            $dependent = $this->dependent;
+            if (!empty($dependent) && is_array($dependent))
             {
-                if (Yii::app()->getModule($dependen) != NULL)
+                foreach ($dependent as $dependen)
                 {
-                    $this->setFlash(
-                        YFlashMessages::ERROR_MESSAGE,
-                        Yii::t('yupe', 'Произошла ошибка, есть включенные зависимые модули, отключите сначало их!')
-                    );
-                    return false;
+                    if (Yii::app()->getModule($dependen) != NULL)
+                    {
+                        $this->setFlash(
+                            YFlashMessages::ERROR_MESSAGE,
+                            Yii::t('yupe', 'Произошла ошибка, есть включенные зависимые модули, отключите сначало их!')
+                        );
+                        return false;
+                    }
                 }
             }
         }
-
         $yupe = Yii::app()->getModule('yupe');
         $fileModule = $yupe->getModulesConfigDefault($this->id);
         $fileConfig = $yupe->getModulesConfig($this->id);

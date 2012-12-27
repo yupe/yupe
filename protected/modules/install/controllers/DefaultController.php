@@ -503,7 +503,7 @@ class DefaultController extends YBackController
                     if (!$error && ($module->isNoDisable || (
                             isset($_POST['module_' . $module->id]) &&
                             $_POST['module_' . $module->id]
-                        )) && !$module->activate
+                        )) && !$module->getActivate(true)
                     )
                     {
                         $error = true;

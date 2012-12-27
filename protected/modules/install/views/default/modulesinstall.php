@@ -36,7 +36,7 @@ Yii::app()->clientScript->registerScript('fieldset', "
                                 ? (isset($_POST['module_' . $module->id]) && $_POST['module_' . $module->id])
                                 : ($module->isInstallDefault ? true : false),
                             $module->isNoDisable
-                                ? array('onclick' => 'this.checked=true', 'class' => 'error')
+                                ? array('onclick' => 'this.checked=true')
                                 : array()
                         ); ?>
                     </td>
@@ -104,7 +104,7 @@ Yii::app()->clientScript->registerScript('fieldset', "
             {
                 $.each(val, function(iRevert, valRevert) {
                     if ($('#module_' + valRevert).attr('checked')) {
-                        $('#module_' + i).attr('onclick', "this.checked=true").attr('readonly', true);
+                        $('#module_' + i).attr('checked', true).attr('onclick', "this.checked=true");
                         $('#module_' + i).parent().siblings('.check-label').find('.dependents').show();
                         return false;
                     }
