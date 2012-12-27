@@ -96,7 +96,7 @@ class YupeModule extends YWebModule
                 'message' => Yii::t('yupe', 'Yii работает в режиме отладки, пожалуйста, отключите его! <br/> <a href="http://www.yiiframework.ru/doc/guide/ru/topics.performance">Подробнее про улучшение производительности Yii приложений</a>'),
             );
 
-        return count($messages[YWebModule::CHECK_ERROR]) ? $messages : true;
+        return isset($messages[YWebModule::CHECK_ERROR]) ? $messages : true;
     }
 
     public function getParamsLabels()
@@ -179,7 +179,7 @@ class YupeModule extends YWebModule
 
     public function getDescription()
     {
-        return Yii::t('yupe', 'Наше маленькое ядрышко =)');
+        return Yii::t('yupe', 'Ядро CMS Yupe');
     }
 
     public function getAuthor()
@@ -262,7 +262,6 @@ class YupeModule extends YWebModule
             }
 
             $modulesNavigation = Yii::app()->cache->get('YupeModulesNavigation-' . Yii::app()->language);
-
             if ($modulesNavigation === false)
             {
                 // Формируем навигационное меню
@@ -376,20 +375,23 @@ class YupeModule extends YWebModule
                 $thisModule = Yii::app()->controller->module->id;
 
             $thisModule = &$thisCategory['items'][$thisModule];
-            $thisModule['icon'] .= ' white';
-            $thisModule['active'] = true;
-
-            // Устанавливаем активный пункт подменю модуля
-            $moduleItems = &$thisModule['items'];
-            if (is_array($moduleItems))
+            if (!empty($thisModule))
             {
-                $thisRoute = CHtml::normalizeUrl(array_merge(array("/" . Yii::app()->controller->route), $_GET));
-                foreach ($moduleItems as &$link)
+                $thisModule['icon']  .= ' white';
+                $thisModule['active'] = true;
+
+                // Устанавливаем активный пункт подменю модуля
+                $moduleItems = &$thisModule['items'];
+                if (is_array($moduleItems))
                 {
-                    if (isset($link['url']) && CHtml::normalizeUrl($link['url']) == $thisRoute && isset($link['icon']))
-                        $link['icon'] .= " white";
+                    $thisRoute = CHtml::normalizeUrl(array_merge(array("/" . Yii::app()->controller->route), $_GET));
+                    foreach ($moduleItems as &$link)
+                    {
+                        if (isset($link['url']) && CHtml::normalizeUrl($link['url']) == $thisRoute && isset($link['icon']))
+                            $link['icon'] .= " white";
+                    }
+                    unset($link);
                 }
-                unset($link);
             }
             unset($thisModule);
             unset($thisCategory);

@@ -84,7 +84,7 @@ class FeedbackModule extends YWebModule
                  ))
             );
 
-        return (count($messages[YWebModule::CHECK_ERROR]) || count($messages[YWebModule::CHECK_NOTICE]) ) ? $messages : true;
+        return (isset($messages[YWebModule::CHECK_ERROR]) || isset($messages[YWebModule::CHECK_NOTICE]) ) ? $messages : true;
     }
 
     public function getNavigation()

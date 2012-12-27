@@ -14,13 +14,14 @@
             <th style="width: 32px;"></th>
             <th style="width: 150px;"><?php echo Yii::t('yupe', 'Название'); ?></th>
             <th><?php echo Yii::t('yupe', 'Описание'); ?></th>
+            <th><?php echo Yii::t('yupe', 'Зависимости'); ?></th>
             <th></th>
         </tr>
         </thead>
         <tbody>
             <?php foreach ($modules as $module): ?>
-                <tr class="<?php echo (is_array($module->checkSelf()) ? 'error' : '') . (($module->isStatus || $module->isNoDisable) ? '' : ' muted');?>">
-                    <td><?php echo ($module->icon ? ("<i class='icon-" . $module->icon . "'>&nbsp;</i> ") : ""); ?></td>
+                <tr class="<?php echo ($module->isStatus) ? (is_array($module->checkSelf()) ? 'error' : '') : 'muted';?>">
+                    <td><?php echo $module->icon ? "<i class='icon-" . $module->icon . "'>&nbsp;</i> " : ""; ?></td>
                     <td>
                         <small class='label <?php
                             $v = $module->version;
@@ -37,9 +38,9 @@
                     <td>
                         <small style="font-size: 80%;"><?php echo $module->category; ?></small><br />
                         <?php if ($module->isStatus || $module->isNoDisable): ?>
-                            <?php echo CHtml::link($module->name, $module->adminPageLinkNormalize); ?>
+                            <?php echo CHtml::link($module->name . ' <small>(' . $module->id . ')</small>', $module->adminPageLinkNormalize); ?>
                         <?php else: ?>
-                            <span><?php echo $module->name; ?></span>
+                            <span><?php echo $module->name . ' <small>(' . $module->id . ')</small>'; ?></span>
                         <?php endif; ?>
                     </td>
                     <td>
@@ -50,12 +51,26 @@
                         <?php echo "<b>" . Yii::t('yupe', 'Сайт модуля:') . "</b> " . CHtml::link($module->url, $module->url); ?></small><br />
                     </td>
                     <td>
-                        <?php if ($module->editableParams && ($module->isStatus || $module->isNoDisable)): ?>
+                        <small>
+                            <?php echo Yii::t('yupe', 'Зависит от:') . ' <b>' . (
+                                ($module->id != 'yupe' && count($module->dependencies))
+                                    ? implode(', ', $module->dependencies)
+                                    : '-'
+                            ) . '</b>'; ?><br />
+                            <?php echo Yii::t('yupe', 'Зависимые:') . ' <b>' . (
+                                ($module->id == 'yupe')
+                                    ? Yii::t('yupe', 'Все модули')
+                                    : (count($module->dependent) ? implode(', ', $module->dependent) : '-')
+                            ) . '</b>'; ?>
+                        </small>
+                    </td>
+                    <td>
+                        <?php if ($module->isStatus && $module->editableParams): ?>
                             <?php echo CHtml::link('<i class="icon-wrench" title="' . Yii::t('yupe', 'Настройки') . '">&nbsp;</i>', array(
                                 '/yupe/backend/modulesettings/',
                                 'module' => $module->id,
                             )); ?>
-                        <?php endif;?>
+                        <?php endif; ?>
                         <?php
                         $url = array('/yupe/backend/modulechange/', 'name' => $module->id);
                         echo !$module->isNoDisable
@@ -67,7 +82,7 @@
                         ?>
                     </td>
                 </tr>
-            <?php endforeach;?>
+            <?php endforeach; ?>
         </tbody>
     </table>
 <?php endif; ?>

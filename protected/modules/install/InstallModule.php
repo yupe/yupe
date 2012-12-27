@@ -11,7 +11,7 @@ class InstallModule extends YWebModule
                 'message' => Yii::t('yupe', 'У Вас активирован модуль "Установщик", после установки системы его необходимо отключить!')
             );
 
-        return (count($messages[YWebModule::CHECK_ERROR])) ? $messages : true;
+        return (isset($messages[YWebModule::CHECK_ERROR])) ? $messages : true;
     }
 
     public function getAdminPageLink()
