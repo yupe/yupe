@@ -59,7 +59,7 @@
                             ) . '</b>'; ?><br />
                             <?php echo Yii::t('yupe', 'Зависимые:') . ' <b>' . (
                                 ($module->id == 'yupe')
-                                    ? 'Все модули'
+                                    ? Yii::t('yupe', 'Все модули')
                                     : (count($module->dependent) ? implode(', ', $module->dependent) : '-')
                             ) . '</b>'; ?>
                         </small>

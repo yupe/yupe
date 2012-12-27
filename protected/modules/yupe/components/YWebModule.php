@@ -210,6 +210,50 @@ abstract class YWebModule extends CWebModule
     }
 
     /**
+     *  @return array Массив с именами модулей и их зависимостями
+     *  @since 0.5
+     */
+    public function getModulesNoDisable()
+    {
+        $modulesNoDisable = Yii::app()->cache->get('YupeModulesNoDisable');
+        if ($modulesNoDisable === false)
+        {
+            $modules          = Yii::app()->getModule('yupe')->getModules(false, true);
+            $modulesNoDisable = array();
+
+            foreach ($modules['modules'] as $module)
+            {
+                if ($module->isNoDisable)
+                    $modulesNoDisable[] = $module->id;
+            }
+            Yii::app()->cache->set('YupeModulesNoDisable', $modulesNoDisable, Yii::app()->getModule('yupe')->coreCacheTime);
+        }
+        return $modulesNoDisable;
+    }
+
+    /**
+     *  @return array Массив с именами модулей и их зависимостями
+     *  @since 0.5
+     */
+    public function getDependenciesAll()
+    {
+        $modulesDependent = Yii::app()->cache->get('YupeModulesDependenciesAll');
+        if ($modulesDependent === false)
+        {
+            $modules          = Yii::app()->getModule('yupe')->getModules(false, true);
+            $modulesDependent = array();
+
+            foreach ($modules['modules'] as $module)
+            {
+                if (!empty($module->dependencies) && is_array($module->dependencies))
+                    $modulesDependent[$module->id] = $module->dependencies;
+            }
+            Yii::app()->cache->set('YupeModulesDependenciesAll', $modulesDependent, Yii::app()->getModule('yupe')->coreCacheTime);
+        }
+        return $modulesDependent;
+    }
+
+    /**
      *  @return array Массив с именами модулей, от которых зависит работа данного модуля
      *  @since 0.5
      */
@@ -219,10 +263,10 @@ abstract class YWebModule extends CWebModule
     }
 
     /**
-     *  @return array Массив с именами модулей которые зависят от текущего модуля
+     *  @return array Массив с зависимостями модулей
      *  @since 0.5
      */
-    public function getDependent()
+    public function getDependents()
     {
         $modulesDependent = Yii::app()->cache->get('YupeModulesDependent');
         if ($modulesDependent === false)
@@ -240,6 +284,16 @@ abstract class YWebModule extends CWebModule
             }
             Yii::app()->cache->set('YupeModulesDependent', $modulesDependent, Yii::app()->getModule('yupe')->coreCacheTime);
         }
+        return $modulesDependent;
+    }
+
+    /**
+     *  @return array Массив с именами модулей которые зависят от текущего модуля
+     *  @since 0.5
+     */
+    public function getDependent()
+    {
+        $modulesDependent = $this->dependents;
         return isset($modulesDependent[$this->id]) ? $modulesDependent[$this->id] : array();
     }
 
