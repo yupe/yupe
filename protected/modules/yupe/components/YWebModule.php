@@ -84,7 +84,7 @@ abstract class YWebModule extends CWebModule
      */
     public function getAdminPageLink()
     {
-        return '/' . strtolower($this->id) . '/' . strtolower($this->defaultController) . '/admin/';
+        return '/' . strtolower($this->id) . '/' . strtolower($this->defaultController) . '/index';
     }
 
     /**
