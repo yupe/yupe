@@ -115,7 +115,7 @@ class TbBox extends CWidget
 	 */
 	public function renderHeader()
 	{
-		if ($this->title !== false || $this->headerCtrl !== false)
+		if ($this->title !== false )
 		{
 			echo CHtml::openTag('div', $this->htmlHeaderOptions);
 			if ($this->title)

@@ -66,7 +66,7 @@ class TbBreadcrumbs extends CBreadcrumbs
 				$links[] = $this->renderItem($this->encodeLabel ? CHtml::encode($url) : $url, ($counter === $count));
 		}
 
-		echo CHtml::tag('ul', $this->htmlOptions, implode($this->separator, $links));
+		echo CHtml::tag('ul', $this->htmlOptions, implode("\n", $links));
 	}
 
 	/**
@@ -80,6 +80,7 @@ class TbBreadcrumbs extends CBreadcrumbs
 		ob_start();
 		echo CHtml::openTag('li', $active ? array('class' => 'active') : array());
 		echo $content;
+		if (!$active) echo $this->separator; 
 		echo '</li>';
 		return ob_get_clean();
 	}

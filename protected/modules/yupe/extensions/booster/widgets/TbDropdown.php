@@ -50,7 +50,7 @@ class TbDropdown extends TbBaseMenu
 		if (!isset($item['linkOptions']))
 			$item['linkOptions'] = array();
 
-		if (isset($item['items']) && !empty($item['items']))
+		if (isset($item['items']) && !empty($item['items']) && empty($item['url']))
 			$item['url'] = '#';
 
 		$item['linkOptions']['tabindex'] = -1;

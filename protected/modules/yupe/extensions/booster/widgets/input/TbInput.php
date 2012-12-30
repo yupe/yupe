@@ -17,6 +17,7 @@ abstract class TbInput extends CInputWidget
 	const TYPE_CHECKBOX = 'checkbox';
 	const TYPE_CHECKBOXLIST = 'checkboxlist';
 	const TYPE_CHECKBOXLIST_INLINE = 'checkboxlist_inline';
+	const TYPE_CHECKBOXGROUPSLIST = 'checkboxgroupslist';
 	const TYPE_DROPDOWN = 'dropdownlist';
 	const TYPE_FILE = 'filefield';
 	const TYPE_PASSWORD = 'password';
@@ -199,6 +200,10 @@ abstract class TbInput extends CInputWidget
 
 			case self::TYPE_CHECKBOXLIST_INLINE:
 				$this->checkBoxListInline();
+				break;
+
+			case self::TYPE_CHECKBOXGROUPSLIST:
+				$this->checkBoxGroupsList();
 				break;
 
 			case self::TYPE_DROPDOWN:
@@ -457,6 +462,13 @@ abstract class TbInput extends CInputWidget
 	 * @abstract
 	 */
 	abstract protected function checkBoxListInline();
+
+	/**
+	 * Renders a list of checkboxes using Button Groups.
+	 * @return string the rendered content
+	 * @abstract
+	 */
+	abstract protected function checkBoxGroupsList();
 
 	/**
 	 * Renders a drop down list (select).

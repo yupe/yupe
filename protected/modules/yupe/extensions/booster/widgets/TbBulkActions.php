@@ -151,9 +151,12 @@ class TbBulkActions extends CComponent
 
 		foreach ($this->actionButtons as $action)
 		{
+			if(!isset($action['id']))
+				throw new CException(Yii::t('zii', 'Each bulk action button should have its "id" attribute set to ensure its functionality among ajax updates'));
 			// button configuration is a regular TbButton
 			$this->buttons[] = array(
 				'class' => 'bootstrap.widgets.TbButton',
+				'id' => $action['id'],   // we must ensure this
 				'buttonType' => isset($action['buttonType']) ? $action['buttonType'] : TbButton::BUTTON_LINK,
 				'type' => isset($action['type']) ? $action['type'] : '',
 				'size' => isset($action['size']) ? $action['size'] : TbButton::SIZE_SMALL,

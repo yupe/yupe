@@ -43,14 +43,16 @@ class FeedbackModule extends YWebModule
 
     public function checkSelf()
     {
+        $messages = array();
+
         if (!is_array($this->backEnd) || !count($this->backEnd) || (!in_array(FeedbackModule::BACKEND_DB, $this->backEnd) && !in_array(FeedbackModule::BACKEND_EMAIL, $this->backEnd)))
-            return array(
+            $messages[YWebModule::CHECK_ERROR][] = array(
                 'type'    => YWebModule::CHECK_ERROR,
                 'message' => Yii::t('feedback', 'Укажите куда отправлять сообщения обратной связи на email или сохранять в базу данных (Настройка backEnd в config/main.php)'),
             );
 
         if (in_array(FeedbackModule::BACKEND_EMAIL, $this->backEnd) && (!$this->emails || !count(explode(',', $this->emails))))
-            return array(
+            $messages[YWebModule::CHECK_ERROR][] = array(
                 'type'    => YWebModule::CHECK_ERROR,
                 'message' => Yii::t('feedback', 'Укажите на какие email отправлять сообщения обратной связи (emails) {link}', array(
                     '{link}' => CHtml::link(Yii::t('feedback', 'Изменить настройки модуля'), array(
@@ -61,7 +63,7 @@ class FeedbackModule extends YWebModule
             );
 
         if (!$this->notifyEmailFrom)
-            return array(
+            $messages[YWebModule::CHECK_ERROR][] = array(
                 'type'    => YWebModule::CHECK_ERROR,
                 'message' => Yii::t('feedback', 'Укажите с какого email отправлять сообщения обратной связи {link}', array(
                     '{link}' => CHtml::link(Yii::t('feedback', 'Изменить настройки модуля'), array(
@@ -73,7 +75,7 @@ class FeedbackModule extends YWebModule
 
         $count = FeedBack::model()->new()->cache($this->cacheTime)->count();
         if ($count)
-            return array(
+            $messages[YWebModule::CHECK_NOTICE][] = array(
                 'type'    => YWebModule::CHECK_NOTICE,
                 'message' => Yii::t('feedback', 'У Вас {{count}} ', array(
                     '{{count}}' => $count
@@ -81,6 +83,8 @@ class FeedbackModule extends YWebModule
                     '/feedback/default/admin/order/status.asc/FeedbBack_sort/status/',
                  ))
             );
+
+        return (isset($messages[YWebModule::CHECK_ERROR]) || isset($messages[YWebModule::CHECK_NOTICE]) ) ? $messages : true;
     }
 
     public function getNavigation()

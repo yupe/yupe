@@ -11,10 +11,12 @@ class CategoryModule extends YWebModule
 
     public function checkSelf()
     {
+        $messages = array();
+
         $uploadPath = $this->getUploadPath();
 
         if (!is_writable($uploadPath))
-            return array(
+            $messages[YWebModule::CHECK_ERROR][] = array(
                 'type'    => YWebModule::CHECK_ERROR,
                 'message' => Yii::t('category', 'Директория "{dir}" не доступна для записи! {link}', array(
                     '{dir}'  => $uploadPath,
@@ -24,6 +26,8 @@ class CategoryModule extends YWebModule
                     )),
                 )),
             );
+
+        return isset($messages[YWebModule::CHECK_ERROR]) ? $messages : true;
     }
 
     public function getEditableParams()
@@ -40,11 +44,6 @@ class CategoryModule extends YWebModule
             'adminMenuOrder' => Yii::t('category', 'Порядок следования в меню'),
             'uploadPath'     => Yii::t('category', 'Каталог для загрузки файлов (относительно Yii::app()->getModule("yupe")->uploadPath)'),
         );
-    }
-
-    public function getAdminPageLink()
-    {
-        return '/category/default/index';
     }
 
     public function getVersion()

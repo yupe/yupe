@@ -12,9 +12,11 @@ class ImageModule extends YWebModule
 
     public $mainCategory;
 
-    public function getAdminPageLink()
+    public function getDependencies()
     {
-        return '/image/default/index';
+        return array(
+            'category',
+        );
     }
 
     public  function getVersion()
@@ -67,8 +69,10 @@ class ImageModule extends YWebModule
 
     public function checkSelf()
     {
+        $messages = array();
+
         if (!$this->uploadDir)
-            return array(
+             $messages[YWebModule::CHECK_ERROR][] = array(
                 'type'    => YWebModule::CHECK_ERROR,
                 'message' => Yii::t('image', 'Пожалуйста, укажите каталог для хранения изображений! {link}', array(
                     '{link}' => CHtml::link(Yii::t('image', 'Изменить настройки модуля'), array(
@@ -79,7 +83,7 @@ class ImageModule extends YWebModule
             );
 
         if (!is_dir($this->getUploadPath()) || !is_writable($this->getUploadPath()))
-            return array(
+            $messages[YWebModule::CHECK_ERROR][] = array(
                 'type'    => YWebModule::CHECK_ERROR,
                 'message' => Yii::t('image', 'Директория "{dir}" не доступна для записи или не существует! {link}', array(
                     '{dir}' => $this->getUploadPath(),
@@ -91,7 +95,7 @@ class ImageModule extends YWebModule
             );
 
         if (!$this->maxSize || $this->maxSize <= 0)
-            return array(
+            $messages[YWebModule::CHECK_ERROR][] = array(
                 'type'    => YWebModule::CHECK_ERROR,
                 'message' => Yii::t('image', 'Укажите максимальный размер изображений {link}', array(
                     '{link}' => CHtml::link(Yii::t('image', 'Изменить настройки модуля'), array(
@@ -100,6 +104,7 @@ class ImageModule extends YWebModule
                      )),
                  )),
             );
+        return (isset($messages[YWebModule::CHECK_ERROR])) ? $messages : true;
     }
 
     public function getCategory()

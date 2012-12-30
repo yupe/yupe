@@ -84,7 +84,7 @@ abstract class YWebModule extends CWebModule
      */
     public function getAdminPageLink()
     {
-        return '/' . strtolower($this->id) . '/' . strtolower($this->defaultController) . '/admin/';
+        return '/' . strtolower($this->id) . '/' . strtolower($this->defaultController) . '/index';
     }
 
     /**
@@ -210,14 +210,91 @@ abstract class YWebModule extends CWebModule
     }
 
     /**
+     *  @return array Массив с именами модулей и их зависимостями
+     *  @since 0.5
+     */
+    public function getModulesNoDisable()
+    {
+        $modulesNoDisable = Yii::app()->cache->get('YupeModulesNoDisable');
+        if ($modulesNoDisable === false)
+        {
+            $modules          = Yii::app()->getModule('yupe')->getModules(false, true);
+            $modulesNoDisable = array();
+
+            foreach ($modules['modules'] as $module)
+            {
+                if ($module->isNoDisable)
+                    $modulesNoDisable[] = $module->id;
+            }
+            Yii::app()->cache->set('YupeModulesNoDisable', $modulesNoDisable, Yii::app()->getModule('yupe')->coreCacheTime);
+        }
+        return $modulesNoDisable;
+    }
+
+    /**
+     *  @return array Массив с именами модулей и их зависимостями
+     *  @since 0.5
+     */
+    public function getDependenciesAll()
+    {
+        $modulesDependent = Yii::app()->cache->get('YupeModulesDependenciesAll');
+        if ($modulesDependent === false)
+        {
+            $modules          = Yii::app()->getModule('yupe')->getModules(false, true);
+            $modulesDependent = array();
+
+            foreach ($modules['modules'] as $module)
+            {
+                if (!empty($module->dependencies) && is_array($module->dependencies))
+                    $modulesDependent[$module->id] = $module->dependencies;
+            }
+            Yii::app()->cache->set('YupeModulesDependenciesAll', $modulesDependent, Yii::app()->getModule('yupe')->coreCacheTime);
+        }
+        return $modulesDependent;
+    }
+
+    /**
      *  @return array Массив с именами модулей, от которых зависит работа данного модуля
      *  @since 0.5
      */
     public function getDependencies()
     {
-        return array(
+        return array();
+    }
 
-        );
+    /**
+     *  @return array Массив с зависимостями модулей
+     *  @since 0.5
+     */
+    public function getDependents()
+    {
+        $modulesDependent = Yii::app()->cache->get('YupeModulesDependent');
+        if ($modulesDependent === false)
+        {
+            $modules          = Yii::app()->getModule('yupe')->getModules(false, true);
+            $modulesDependent = array();
+
+            foreach ($modules['modules'] as $module)
+            {
+                if (!empty($module->dependencies) && is_array($module->dependencies))
+                {
+                    foreach ($module->dependencies as $dependency)
+                        $modulesDependent[$dependency][] = $module->id;
+                }
+            }
+            Yii::app()->cache->set('YupeModulesDependent', $modulesDependent, Yii::app()->getModule('yupe')->coreCacheTime);
+        }
+        return $modulesDependent;
+    }
+
+    /**
+     *  @return array Массив с именами модулей которые зависят от текущего модуля
+     *  @since 0.5
+     */
+    public function getDependent()
+    {
+        $modulesDependent = $this->dependents;
+        return isset($modulesDependent[$this->id]) ? $modulesDependent[$this->id] : array();
     }
 
     /**
@@ -236,11 +313,31 @@ abstract class YWebModule extends CWebModule
     }
 
     /**
-     *  @return bool включает модуль
+     *  Метод выключает модуль
+     *  @return bool статус выключения модуля
      *  @since 0.5
      */
-    public function getActivate()
+    public function getActivate($noDependen = false)
     {
+        if (!$noDependen)
+        {
+            $dependencies = $this->dependencies;
+            if (!empty($dependencies) && is_array($dependencies))
+            {
+                foreach ($dependencies as $dependency)
+                {
+                    if (Yii::app()->getModule($dependency) == NULL)
+                    {
+                        $this->setFlash(
+                            YFlashMessages::ERROR_MESSAGE,
+                            Yii::t('yupe', 'Произошла ошибка, модули от которых зависит этот модуль не включены, включите сначала их!')
+                        );
+                        return false;
+                    }
+                }
+            }
+        }
+
         $yupe = Yii::app()->getModule('yupe');
         $fileModule = $yupe->getModulesConfigDefault($this->id);
         $fileConfig = $yupe->getModulesConfig($this->id);
@@ -271,11 +368,30 @@ abstract class YWebModule extends CWebModule
     }
 
     /**
-     *  @return bool выключает модуль
+     *  Метод включает модуль
+     *  @return bool статус включения модуля
      *  @since 0.5
      */
-    public function getDeActivate()
+    public function getDeActivate($noDependen = false)
     {
+        if (!$noDependen)
+        {
+            $dependent = $this->dependent;
+            if (!empty($dependent) && is_array($dependent))
+            {
+                foreach ($dependent as $dependen)
+                {
+                    if (Yii::app()->getModule($dependen) != NULL)
+                    {
+                        $this->setFlash(
+                            YFlashMessages::ERROR_MESSAGE,
+                            Yii::t('yupe', 'Произошла ошибка, есть включенные зависимые модули, отключите сначало их!')
+                        );
+                        return false;
+                    }
+                }
+            }
+        }
         $yupe = Yii::app()->getModule('yupe');
         $fileModule = $yupe->getModulesConfigDefault($this->id);
         $fileConfig = $yupe->getModulesConfig($this->id);
@@ -323,7 +439,8 @@ abstract class YWebModule extends CWebModule
     }
 
     /**
-     *  @return bool включает модуль
+     *  Метод устанавливающий модуль
+     *  @return bool статус установки модуля
      *  @since 0.5
      */
     public function getInstall()
@@ -333,7 +450,8 @@ abstract class YWebModule extends CWebModule
     }
 
     /**
-     *  @return bool выключает модуль
+     * Метод удаляющий модуль
+     *  @return bool стутус удаления модуля
      *  @since 0.5
      */
     public function getUnInstall()

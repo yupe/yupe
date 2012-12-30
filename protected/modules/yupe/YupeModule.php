@@ -53,14 +53,16 @@ class YupeModule extends YWebModule
 
     public function checkSelf()
     {
+        $messages = array();
+
         if (Yii::app()->getModule('install'))
-            return array(
+            $messages[YWebModule::CHECK_ERROR][] =  array(
                 'type'    => YWebModule::CHECK_ERROR,
                 'message' => Yii::t('yupe', 'У Вас активирован модуль "Установщик", после установки системы его необходимо отключить! <a href="http://www.yiiframework.ru/doc/guide/ru/basics.module">Подробнее про Yii модули</a>'),
             );
 
         if (Yii::app()->getModule('gii'))
-            return array(
+            $messages[YWebModule::CHECK_ERROR][] =  array(
                 'type'    => YWebModule::CHECK_ERROR,
                 'message' => Yii::t('yupe', 'У Вас активирован модуль "gii" после установки системы его необходимо отключить! <a href="http://www.yiiframework.ru/doc/guide/ru/basics.module">Подробнее про Yii модули</a>'),
             );
@@ -68,7 +70,7 @@ class YupeModule extends YWebModule
         $uploadPath = Yii::getPathOfAlias('webroot') . '/' . $this->uploadPath;
 
         if (!is_writable($uploadPath))
-            return array(
+            $messages[YWebModule::CHECK_ERROR][] =  array(
                 'type'    => YWebModule::CHECK_ERROR,
                 'message' => Yii::t('yupe', 'Директория "{dir}" не доступна для записи! {link}', array(
                     '{dir}'  => $uploadPath,
@@ -77,24 +79,24 @@ class YupeModule extends YWebModule
             );
 
         if (!is_writable(Yii::app()->runtimePath))
-            return array(
+            $messages[YWebModule::CHECK_ERROR][] =  array(
                 'type'    => YWebModule::CHECK_ERROR,
                 'message' => Yii::t('yupe', 'Директория "{dir}" не доступна для записи!', array('{dir}' => Yii::app()->runtimePath)),
             );
 
         if (!is_writable(Yii::app()->getAssetManager()->basePath))
-            return array(
+            $messages[YWebModule::CHECK_ERROR][] =  array(
                 'type'    => YWebModule::CHECK_ERROR,
                 'message' => Yii::t('yupe', 'Директория "{dir}" не доступна для записи!', array('{dir}' => Yii::app()->getAssetManager()->basePath)),
             );
 
         if (defined('YII_DEBUG') && YII_DEBUG)
-            return array(
+            $messages[YWebModule::CHECK_ERROR][] =  array(
                 'type'    => YWebModule::CHECK_ERROR,
                 'message' => Yii::t('yupe', 'Yii работает в режиме отладки, пожалуйста, отключите его! <br/> <a href="http://www.yiiframework.ru/doc/guide/ru/topics.performance">Подробнее про улучшение производительности Yii приложений</a>'),
             );
 
-        return true;
+        return isset($messages[YWebModule::CHECK_ERROR]) ? $messages : true;
     }
 
     public function getParamsLabels()
@@ -177,7 +179,7 @@ class YupeModule extends YWebModule
 
     public function getDescription()
     {
-        return Yii::t('yupe', 'Наше маленькое ядрышко =)');
+        return Yii::t('yupe', 'Ядро CMS Yupe');
     }
 
     public function getAuthor()
@@ -260,7 +262,6 @@ class YupeModule extends YWebModule
             }
 
             $modulesNavigation = Yii::app()->cache->get('YupeModulesNavigation-' . Yii::app()->language);
-
             if ($modulesNavigation === false)
             {
                 // Формируем навигационное меню
@@ -374,20 +375,23 @@ class YupeModule extends YWebModule
                 $thisModule = Yii::app()->controller->module->id;
 
             $thisModule = &$thisCategory['items'][$thisModule];
-            $thisModule['icon'] .= ' white';
-            $thisModule['active'] = true;
-
-            // Устанавливаем активный пункт подменю модуля
-            $moduleItems = &$thisModule['items'];
-            if (is_array($moduleItems))
+            if (!empty($thisModule))
             {
-                $thisRoute = CHtml::normalizeUrl(array_merge(array("/" . Yii::app()->controller->route), $_GET));
-                foreach ($moduleItems as &$link)
+                $thisModule['icon']  .= ' white';
+                $thisModule['active'] = true;
+
+                // Устанавливаем активный пункт подменю модуля
+                $moduleItems = &$thisModule['items'];
+                if (is_array($moduleItems))
                 {
-                    if (isset($link['url']) && CHtml::normalizeUrl($link['url']) == $thisRoute && isset($link['icon']))
-                        $link['icon'] .= " white";
+                    $thisRoute = CHtml::normalizeUrl(array_merge(array("/" . Yii::app()->controller->route), $_GET));
+                    foreach ($moduleItems as &$link)
+                    {
+                        if (isset($link['url']) && CHtml::normalizeUrl($link['url']) == $thisRoute && isset($link['icon']))
+                            $link['icon'] .= " white";
+                    }
+                    unset($link);
                 }
-                unset($link);
             }
             unset($thisModule);
             unset($thisCategory);

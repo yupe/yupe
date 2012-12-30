@@ -49,8 +49,10 @@ class CommentModule extends YWebModule
     {
         $count = Comment::model()->cache(Yii::app()->getModule('yupe')->coreCacheTime)->new()->count();
 
+        $messages = array();
+
         if ($count)
-            return array(
+            $messages[YWebModule::CHECK_NOTICE][] = array(
                 'type'    => YWebModule::CHECK_NOTICE,
                 'message' => Yii::t('comment', 'У Вас {{count}} новых комментариев. {{link}}', array(
                     '{{count}}' => $count,
@@ -59,6 +61,8 @@ class CommentModule extends YWebModule
                     )),
                 )),
             );
+
+        return isset($messages[YWebModule::CHECK_ERROR]) ? $messages : true;
     }
 
     public function getDescription()
