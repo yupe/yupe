@@ -42,12 +42,14 @@
  * @property CHtmlPurifier $htmlPurifier The HTML purifier instance.
  *
  * @author Qiang Xue <qiang.xue@gmail.com>
- * @version $Id$
  * @package system.utils
  * @since 1.1.0
  */
 class CFormatter extends CApplicationComponent
 {
+	/**
+	 * @var CHtmlPurifier
+	 */
 	private $_htmlPurifier;
 
 	/**
@@ -64,8 +66,8 @@ class CFormatter extends CApplicationComponent
 	public $datetimeFormat='Y/m/d h:i:s A';
 	/**
 	 * @var array the format used to format a number with PHP number_format() function.
-	 * Three elements may be specified: "decimals", "decimalSeparator" and "thousandSeparator". They
-	 * correspond to the number of digits after the decimal point, the character displayed as the decimal point,
+	 * Three elements may be specified: "decimals", "decimalSeparator" and "thousandSeparator".
+	 * They correspond to the number of digits after the decimal point, the character displayed as the decimal point
 	 * and the thousands separator character.
 	 */
 	public $numberFormat=array('decimals'=>null, 'decimalSeparator'=>null, 'thousandSeparator'=>null);
@@ -74,15 +76,23 @@ class CFormatter extends CApplicationComponent
 	 * to the text display for false, the second element for true. Defaults to <code>array('No', 'Yes')</code>.
 	 */
 	public $booleanFormat=array('No','Yes');
-
 	/**
-	 * @var array the format used to format size (bytes). Two elements may be specified: "base" and "decimals".
-	 * They correspond to the base at which KiloByte is calculated (1000 or 1024) bytes per KiloByte and
-	 * the number of digits after decimal point.
+	 * @var array the options to be passed to CHtmlPurifier instance used in this class. CHtmlPurifier is used
+	 * in {@link formatHtml} method, so this property could be useful to customize HTML filtering behavior.
+	 * @since 1.1.13
+	 */
+	public $htmlPurifierOptions=array();
+	/**
+	 * @var array the format used to format size (bytes). Three elements may be specified: "base", "decimals" and "decimalSeparator".
+	 * They correspond to the base at which a kilobyte is calculated (1000 or 1024 bytes per kilobyte, defaults to 1024),
+	 * the number of digits after the decimal point (defaults to 2) and the character displayed as the decimal point.
+	 * "decimalSeparator" is available since version 1.1.13
+	 * @since 1.1.11
 	 */
 	public $sizeFormat=array(
 		'base'=>1024,
 		'decimals'=>2,
+		'decimalSeparator'=>null,
 	);
 
 	/**
@@ -165,7 +175,7 @@ class CFormatter extends CApplicationComponent
 	 */
 	public function formatDate($value)
 	{
-		return date($this->dateFormat,$value);
+		return date($this->dateFormat,$this->normalizeDateValue($value));
 	}
 
 	/**
@@ -176,7 +186,7 @@ class CFormatter extends CApplicationComponent
 	 */
 	public function formatTime($value)
 	{
-		return date($this->timeFormat,$value);
+		return date($this->timeFormat,$this->normalizeDateValue($value));
 	}
 
 	/**
@@ -187,7 +197,19 @@ class CFormatter extends CApplicationComponent
 	 */
 	public function formatDatetime($value)
 	{
-		return date($this->datetimeFormat,$value);
+		return date($this->datetimeFormat,$this->normalizeDateValue($value));
+	}
+
+	private function normalizeDateValue($time)
+	{
+		if(is_string($time))
+		{
+			if(ctype_digit($time) || ($time{0}=='-' && ctype_digit(substr($time, 1))))
+				return (int)$time;
+			else
+				return strtotime($time);
+		}
+		return (int)$time;
 	}
 
 	/**
@@ -252,15 +274,18 @@ class CFormatter extends CApplicationComponent
 	{
 		if($this->_htmlPurifier===null)
 			$this->_htmlPurifier=new CHtmlPurifier;
+		$this->_htmlPurifier->options=$this->htmlPurifierOptions;
 		return $this->_htmlPurifier;
 	}
 
 	/**
 	 * Formats the value in bytes as a size in human readable form.
 	 * @param integer $value value in bytes to be formatted
-	 * @param boolean $verbose if full names should be used (e.g. Bytes, KiloBytes, ...).
+	 * @param boolean $verbose if full names should be used (e.g. bytes, kilobytes, ...).
 	 * Defaults to false meaning that short names will be used (e.g. B, KB, ...).
 	 * @return string the formatted result
+	 * @see sizeFormat
+	 * @since 1.1.11
 	 */
 	public function formatSize($value,$verbose=false)
 	{
@@ -269,19 +294,21 @@ class CFormatter extends CApplicationComponent
 			$value=$value/$base;
 
 		$value=round($value, $this->sizeFormat['decimals']);
+		$formattedValue=isset($this->sizeFormat['decimalSeparator']) ? str_replace('.',$this->sizeFormat['decimalSeparator'],$value) : $value;
+		$params=array($value,'{n}'=>$formattedValue);
 
 		switch($i)
 		{
 			case 0:
-				return $verbose ? Yii::t('size_units', '{n} Bytes', $value) : Yii::t('size_units', '{n} B', $value);
+				return $verbose ? Yii::t('yii','{n} byte|{n} bytes',$params) : Yii::t('yii', '{n} B',$params);
 			case 1:
-				return $verbose ? Yii::t('size_units', '{n} KiloBytes', $value) : Yii::t('size_units', '{n} KB', $value);
+				return $verbose ? Yii::t('yii','{n} kilobyte|{n} kilobytes',$params) : Yii::t('yii','{n} KB',$params);
 			case 2:
-				return $verbose ? Yii::t('size_units', '{n} MegaBytes', $value) : Yii::t('size_units', '{n} MB', $value);
+				return $verbose ? Yii::t('yii','{n} megabyte|{n} megabytes',$params) : Yii::t('yii','{n} MB',$params);
 			case 3:
-				return $verbose ? Yii::t('size_units', '{n} GigaBytes', $value) : Yii::t('size_units', '{n} GB', $value);
+				return $verbose ? Yii::t('yii','{n} gigabyte|{n} gigabytes',$params) : Yii::t('yii','{n} GB',$params);
 			default:
-				return $verbose ? Yii::t('size_units', '{n} TeraBytes', $value) : Yii::t('size_units', '{n} TB', $value);
+				return $verbose ? Yii::t('yii','{n} terabyte|{n} terabytes',$params) : Yii::t('yii','{n} TB',$params);
 		}
 	}
 }

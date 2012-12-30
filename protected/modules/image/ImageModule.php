@@ -19,11 +19,6 @@ class ImageModule extends YWebModule
         );
     }
 
-    public function getAdminPageLink()
-    {
-        return '/image/default/index';
-    }
-
     public  function getVersion()
     {
         return Yii::t('image', '0.3');

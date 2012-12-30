@@ -46,11 +46,6 @@ class CategoryModule extends YWebModule
         );
     }
 
-    public function getAdminPageLink()
-    {
-        return '/category/default/index';
-    }
-
     public function getVersion()
     {
         return Yii::t('category', '0.3');
