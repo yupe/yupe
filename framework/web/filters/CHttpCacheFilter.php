@@ -13,14 +13,13 @@
  * as a filter, except that content caching is being done on the client side.
  *
  * @author Da:Sourcerer <webmaster@dasourcerer.net>
- * @version $Id$
  * @package system.web.filters
  * @since 1.1.11
  */
 class CHttpCacheFilter extends CFilter
 {
 	/**
-	 * Timestamp for the last modification date. Must be either a string parsable by 
+	 * Timestamp for the last modification date. Must be either a string parsable by
 	 * {@link http://php.net/strtotime strtotime()} or an integer representing a unix timestamp.
 	 * @var string|integer
 	 */
@@ -36,7 +35,7 @@ class CHttpCacheFilter extends CFilter
 	 */
 	public $etagSeed;
 	/**
-	 * Expression for the ETag seed. If set, this takes precedence over {@link etag}. 
+	 * Expression for the ETag seed. If set, this takes precedence over {@link etagSeed}.
 	 * @var string|callback
 	 */
 	public $etagSeedExpression;
@@ -76,7 +75,7 @@ class CHttpCacheFilter extends CFilter
 				return false;
 			}
 		}
-		else if(isset($_SERVER['HTTP_IF_MODIFIED_SINCE']))
+		elseif(isset($_SERVER['HTTP_IF_MODIFIED_SINCE']))
 		{
 			if($this->checkLastModified($lastModified))
 			{
@@ -85,7 +84,7 @@ class CHttpCacheFilter extends CFilter
 				return false;
 			}
 		}
-		else if(isset($_SERVER['HTTP_IF_NONE_MATCH']))
+		elseif(isset($_SERVER['HTTP_IF_NONE_MATCH']))
 		{
 			if($this->checkEtag($etag))
 			{
@@ -93,11 +92,11 @@ class CHttpCacheFilter extends CFilter
 				$this->sendCacheControlHeader();
 				return false;
 			}
-			
+
 		}
-				
+
 		if($lastModified)
-			header('Last-Modified: '.date('r', $lastModified));
+			header('Last-Modified: '.gmdate('D, d M Y H:i:s', $lastModified).' GMT');
 
 		$this->sendCacheControlHeader();
 		return true;
@@ -117,7 +116,7 @@ class CHttpCacheFilter extends CFilter
 			$value=$this->evaluateExpression($this->lastModifiedExpression);
 			if(is_numeric($value)&&$value==(int)$value)
 				return $value;
-			else if(($lastModified=strtotime($value))===false)
+			elseif(($lastModified=strtotime($value))===false)
 				throw new CException(Yii::t('yii','Invalid expression for CHttpCacheFilter.lastModifiedExpression: The evaluation result "{value}" could not be understood by strtotime()',
 					array('{value}'=>$value)));
 			return $lastModified;
@@ -127,7 +126,7 @@ class CHttpCacheFilter extends CFilter
 		{
 			if(is_numeric($this->lastModified)&&$this->lastModified==(int)$this->lastModified)
 				return $this->lastModified;
-			else if(($lastModified=strtotime($this->lastModified))===false)
+			elseif(($lastModified=strtotime($this->lastModified))===false)
 				throw new CException(Yii::t('yii','CHttpCacheFilter.lastModified contained a value that could not be understood by strtotime()'));
 			return $lastModified;
 		}
@@ -136,15 +135,15 @@ class CHttpCacheFilter extends CFilter
 
 	/**
 	 *  Gets the ETag out of either {@link etagSeedExpression} or {@link etagSeed}
-	 *  @return string|boolean Either a quoted string serving as ETag or false if neither etagSeed nor etagSeedExpression have been set 
+	 *  @return string|boolean Either a quoted string serving as ETag or false if neither etagSeed nor etagSeedExpression have been set
 	 */
 	protected function getEtagValue()
 	{
 		if($this->etagSeedExpression)
 			return $this->generateEtag($this->evaluateExpression($this->etagSeedExpression));
-		else if($this->etagSeed)
+		elseif($this->etagSeed)
 			return $this->generateEtag($this->etagSeed);
-		return false;		
+		return false;
 	}
 
 	/**
@@ -174,7 +173,7 @@ class CHttpCacheFilter extends CFilter
 	{
 		header('HTTP/1.1 304 Not Modified');
 	}
-	
+
 	/**
 	 * Sends the cache control header to the client
 	 * @see cacheControl
@@ -182,7 +181,12 @@ class CHttpCacheFilter extends CFilter
 	 */
 	protected function sendCacheControlHeader()
 	{
-		header('Cache-Control: '.$this->cacheControl, true);
+		if(Yii::app()->session->isStarted)
+		{
+			session_cache_limiter('public');
+			header('Pragma:',true);
+		}
+		header('Cache-Control: '.$this->cacheControl,true);
 	}
 
 	/**

@@ -15,7 +15,6 @@
  * {@link CActiveRecord}.
  *
  * @author Qiang Xue <qiang.xue@gmail.com>
- * @version $Id$
  * @package system.db.ar
  * @since 1.0
  */
@@ -59,7 +58,6 @@ class CActiveFinder extends CComponent
 	public function query($criteria,$all=false)
 	{
 		$this->joinAll=$criteria->together===true;
-		$this->_joinTree->beforeFind(false);
 
 		if($criteria->alias!='')
 		{
@@ -82,7 +80,7 @@ class CActiveFinder extends CComponent
 				$result=$array;
 			}
 		}
-		else if(count($this->_joinTree->records))
+		elseif(count($this->_joinTree->records))
 			$result = reset($this->_joinTree->records);
 		else
 			$result = null;
@@ -103,7 +101,6 @@ class CActiveFinder extends CComponent
 		if(($row=$this->_builder->createSqlCommand($sql,$params)->queryRow())!==false)
 		{
 			$baseRecord=$this->_joinTree->model->populateRecord($row,false);
-			$this->_joinTree->beforeFind(false);
 			$this->_joinTree->findWithBase($baseRecord);
 			$this->_joinTree->afterFind();
 			$this->destroyJoinTree();
@@ -125,7 +122,6 @@ class CActiveFinder extends CComponent
 		if(($rows=$this->_builder->createSqlCommand($sql,$params)->queryAll())!==array())
 		{
 			$baseRecords=$this->_joinTree->model->populateRecords($rows,false);
-			$this->_joinTree->beforeFind(false);
 			$this->_joinTree->findWithBase($baseRecords);
 			$this->_joinTree->afterFind();
 			$this->destroyJoinTree();
@@ -167,9 +163,8 @@ class CActiveFinder extends CComponent
 		$this->_joinTree->lazyFind($baseRecord);
 		if(!empty($this->_joinTree->children))
 		{
-			foreach($this->_joinTree->children as $child) {
-			  $child->afterFind();
-      }
+			foreach($this->_joinTree->children as $child)
+				$child->afterFind();
 		}
 		$this->destroyJoinTree();
 	}
@@ -224,7 +219,7 @@ class CActiveFinder extends CComponent
 				$oldAlias=$model->getTableAlias(false,false);
 				if(isset($options['alias']))
 					$model->setTableAlias($options['alias']);
-				else if($relation->alias===null)
+				elseif($relation->alias===null)
 					$model->setTableAlias($relation->name);
 				else
 					$model->setTableAlias($relation->alias);
@@ -239,7 +234,13 @@ class CActiveFinder extends CComponent
 			$model->resetScope(false);
 			$criteria=$model->getDbCriteria();
 			$criteria->scopes=$scopes;
+			$model->beforeFindInternal();
 			$model->applyScopes($criteria);
+
+			// select has a special meaning in stat relation, so we need to ignore select from scope or model criteria
+			if($relation instanceof CStatRelation)
+				$criteria->select='*';
+
 			$relation->mergeWith($criteria,true);
 
 			// dynamic options
@@ -278,7 +279,7 @@ class CActiveFinder extends CComponent
 		{
 			if(is_string($value))  // the value is a relation name
 				$this->buildJoinTree($parent,$value);
-			else if(is_string($key) && is_array($value))
+			elseif(is_string($key) && is_array($value))
 				$this->buildJoinTree($parent,$key,$value);
 		}
 	}
@@ -289,7 +290,6 @@ class CActiveFinder extends CComponent
  * CJoinElement represents a tree node in the join tree created by {@link CActiveFinder}.
  *
  * @author Qiang Xue <qiang.xue@gmail.com>
- * @version $Id$
  * @package system.db.ar
  * @since 1.0
  */
@@ -388,7 +388,7 @@ class CJoinElement
 			$this->_columnAliases[$name]=$alias;
 			if($table->primaryKey===$name)
 				$this->_pkAlias=$alias;
-			else if(is_array($table->primaryKey) && in_array($name,$table->primaryKey))
+			elseif(is_array($table->primaryKey) && in_array($name,$table->primaryKey))
 				$this->_pkAlias[$name]=$alias;
 		}
 	}
@@ -421,7 +421,7 @@ class CJoinElement
 			$this->_finder->baseLimited=false;
 			$this->runQuery($query);
 		}
-		else if(!$this->_joined && !empty($this->_parent->records)) // not joined before
+		elseif(!$this->_joined && !empty($this->_parent->records)) // not joined before
 		{
 			$query=new CJoinQuery($this->_parent);
 			$this->_joined=true;
@@ -456,25 +456,16 @@ class CJoinElement
 		foreach($this->stats as $stat)
 			$stat->query();
 
-		switch(count($this->children))
-		{
-			case 0:
-				return;
-			break;
-			case 1:
-				$child=reset($this->children);
-			break;
-			default: // bridge(s) inside
-				$child=end($this->children);
-			break;
-		}
+		if(!$this->children)
+			return;
+		$child=end($this->children); // bridge(s) inside, we're taking only last necessary child
 
 		$query=new CJoinQuery($child);
-		$query->selects=array();
-		$query->selects[]=$child->getColumnSelect($child->relation->select);
-		$query->conditions=array();
-		$query->conditions[]=$child->relation->condition;
-		$query->conditions[]=$child->relation->on;
+		$query->selects=array($child->getColumnSelect($child->relation->select));
+		$query->conditions=array(
+			$child->relation->condition,
+			$child->relation->on,
+		);
 		$query->groups[]=$child->relation->group;
 		$query->joins[]=$child->relation->join;
 		$query->havings[]=$child->relation->having;
@@ -488,7 +479,6 @@ class CJoinElement
 			$query->offset=$child->relation->offset;
 		}
 
-		$child->beforeFind();
 		$child->applyLazyCondition($query,$baseRecord);
 
 		$this->_joined=true;
@@ -552,7 +542,7 @@ class CJoinElement
 						$params[':ypl'.$count]=$record->$pk;
 						$count++;
 					}
-					else if(!isset($childCondition[$pk]) && $schema->compareTableNames($this->_table->rawName,$tableName))
+					elseif(!isset($childCondition[$pk]) && $schema->compareTableNames($this->_table->rawName,$tableName))
 						$childCondition[$pk]=$this->getColumnPrefix().$schema->quoteColumnName($pk).'='.$joinAlias.'.'.$schema->quoteColumnName($fk);
 					else
 					{
@@ -630,7 +620,7 @@ class CJoinElement
 					{
 						if(isset($parent->_table->foreignKeys[$fk]))  // FK defined
 							$pk=$parent->_table->foreignKeys[$fk][1];
-						else if(is_array($this->_table->primaryKey)) // composite PK
+						elseif(is_array($this->_table->primaryKey)) // composite PK
 							$pk=$this->_table->primaryKey[$i];
 						else
 							$pk=$this->_table->primaryKey;
@@ -643,7 +633,7 @@ class CJoinElement
 					{
 						if(isset($this->_table->foreignKeys[$fk]))  // FK defined
 							$pk=$this->_table->foreignKeys[$fk][1];
-						else if(is_array($parent->_table->primaryKey)) // composite PK
+						elseif(is_array($parent->_table->primaryKey)) // composite PK
 							$pk=$parent->_table->primaryKey[$i];
 						else
 							$pk=$parent->_table->primaryKey;
@@ -712,7 +702,7 @@ class CJoinElement
 		$select=is_array($criteria->select) ? implode(',',$criteria->select) : $criteria->select;
 		if($select!=='*' && !strncasecmp($select,'count',5))
 			$query->selects=array($select);
-		else if(is_string($this->_table->primaryKey))
+		elseif(is_string($this->_table->primaryKey))
 		{
 			$prefix=$this->getColumnPrefix();
 			$schema=$this->_builder->getSchema();
@@ -726,19 +716,6 @@ class CJoinElement
 		$query->limit=$query->offset=-1;
 		$command=$query->createCommand($this->_builder);
 		return $command->queryScalar();
-	}
-
-	/**
-	 * Calls {@link CActiveRecord::beforeFind}.
-	 * @param boolean $isChild whether is called for a child
-	 */
-	public function beforeFind($isChild=true)
-	{
-		if($isChild)
-			$this->model->beforeFindInternal();
-
-		foreach($this->children as $child)
-			$child->beforeFind(true);
 	}
 
 	/**
@@ -764,7 +741,7 @@ class CJoinElement
 		{
 			if($child->master!==null)
 				$child->_joined=true;
-			else if($child->relation instanceof CHasOneRelation || $child->relation instanceof CBelongsToRelation
+			elseif($child->relation instanceof CHasOneRelation || $child->relation instanceof CBelongsToRelation
 				|| $this->_finder->joinAll || $child->relation->together || (!$this->_finder->baseLimited && $child->relation->together===null))
 			{
 				$child->_joined=true;
@@ -926,7 +903,7 @@ class CJoinElement
 					$columns[]=$prefix.$schema->quoteColumnName($key).' AS '.$schema->quoteColumnName($this->_columnAliases[$key]);
 					$selected[$this->_columnAliases[$key]]=1;
 				}
-				else if(preg_match('/^(.*?)\s+AS\s+(\w+)$/im',$name,$matches)) // if the column is already aliased
+				elseif(preg_match('/^(.*?)\s+AS\s+(\w+)$/im',$name,$matches)) // if the column is already aliased
 				{
 					$alias=$matches[2];
 					if(!isset($this->_columnAliases[$alias]) || $this->_columnAliases[$alias]!==$alias)
@@ -943,7 +920,7 @@ class CJoinElement
 			// add primary key selection if they are not selected
 			if(is_string($this->_pkAlias) && !isset($selected[$this->_pkAlias]))
 				$columns[]=$prefix.$schema->quoteColumnName($this->_table->primaryKey).' AS '.$schema->quoteColumnName($this->_pkAlias);
-			else if(is_array($this->_pkAlias))
+			elseif(is_array($this->_pkAlias))
 			{
 				foreach($this->_table->primaryKey as $name)
 					if(!isset($selected[$name]))
@@ -964,7 +941,7 @@ class CJoinElement
 		$columns=array();
 		if(is_string($this->_pkAlias))
 			$columns[]=$prefix.$schema->quoteColumnName($this->_table->primaryKey).' AS '.$schema->quoteColumnName($this->_pkAlias);
-		else if(is_array($this->_pkAlias))
+		elseif(is_array($this->_pkAlias))
 		{
 			foreach($this->_pkAlias as $name=>$alias)
 				$columns[]=$prefix.$schema->quoteColumnName($name).' AS '.$schema->quoteColumnName($alias);
@@ -1024,7 +1001,7 @@ class CJoinElement
 				$pke=$this;
 				$fke=$parent;
 			}
-			else if($this->slave===null)
+			elseif($this->slave===null)
 			{
 				$pke=$parent;
 				$fke=$this;
@@ -1113,7 +1090,7 @@ class CJoinElement
 				list($tableName,$pk)=$joinTable->foreignKeys[$fk];
 				if(!isset($parentCondition[$pk]) && $schema->compareTableNames($parent->_table->rawName,$tableName))
 					$parentCondition[$pk]=$parent->getColumnPrefix().$schema->quoteColumnName($pk).'='.$joinAlias.'.'.$schema->quoteColumnName($fk);
-				else if(!isset($childCondition[$pk]) && $schema->compareTableNames($this->_table->rawName,$tableName))
+				elseif(!isset($childCondition[$pk]) && $schema->compareTableNames($this->_table->rawName,$tableName))
 					$childCondition[$pk]=$this->getColumnPrefix().$schema->quoteColumnName($pk).'='.$joinAlias.'.'.$schema->quoteColumnName($fk);
 				else
 				{
@@ -1169,7 +1146,6 @@ class CJoinElement
  * CJoinQuery represents a JOIN SQL statement.
  *
  * @author Qiang Xue <qiang.xue@gmail.com>
- * @version $Id$
  * @package system.db.ar
  * @since 1.0
  */
@@ -1328,7 +1304,6 @@ class CJoinQuery
  * CStatElement represents STAT join element for {@link CActiveFinder}.
  *
  * @author Qiang Xue <qiang.xue@gmail.com>
- * @version $Id$
  * @package system.db.ar
  */
 class CStatElement
@@ -1512,7 +1487,7 @@ class CStatElement
 				list($tableName,$pk)=$joinTable->foreignKeys[$fk];
 				if(!isset($joinCondition[$pk]) && $schema->compareTableNames($table->rawName,$tableName))
 					$joinCondition[$pk]=$tableAlias.'.'.$schema->quoteColumnName($pk).'='.$joinTable->rawName.'.'.$schema->quoteColumnName($fk);
-				else if(!isset($map[$pk]) && $schema->compareTableNames($pkTable->rawName,$tableName))
+				elseif(!isset($map[$pk]) && $schema->compareTableNames($pkTable->rawName,$tableName))
 					$map[$pk]=$fk;
 				else
 				{
