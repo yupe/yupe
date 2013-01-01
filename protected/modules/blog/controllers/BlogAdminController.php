@@ -30,7 +30,7 @@ class BlogAdminController extends YBackController
             {
                 Yii::app()->user->setFlash(
                     YFlashMessages::NOTICE_MESSAGE,
-                    Yii::t('blog', 'Запись добавлена!')
+                    Yii::t('blog', 'Блог добавлен!')
                 );
 
                 if (!isset($_POST['submit-type']))
@@ -61,7 +61,7 @@ class BlogAdminController extends YBackController
             {
                 Yii::app()->user->setFlash(
                     YFlashMessages::NOTICE_MESSAGE,
-                    Yii::t('blog', 'Запись обновлена!')
+                    Yii::t('blog', 'Блог обновлен!')
                 );
 
                 if (!isset($_POST['submit-type']))
@@ -87,7 +87,7 @@ class BlogAdminController extends YBackController
 
             Yii::app()->user->setFlash(
                 YFlashMessages::NOTICE_MESSAGE,
-                Yii::t('blog', 'Запись удалена!')
+                Yii::t('blog', 'Блог удален!')
             );
 
             // если это AJAX запрос ( кликнули удаление в админском grid view), мы не должны никуда редиректить
