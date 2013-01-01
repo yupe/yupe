@@ -71,14 +71,14 @@ return array(
             'cache'        => $cache,
         ),
         // на продакшне gii рекомендуется отключить, подробнее: http://www.yiiframework.com/doc/guide/1.1/en/quickstart.first-app
-        'gii'   => array(
+        /*'gii'   => array(
             'class'          => 'system.gii.GiiModule',
             'password'       => 'giiYupe',
             'generatorPaths' => array(
                 'application.modules.yupe.extensions.yupe.gii',
             ),
             'ipFilters'=>array(),
-        ),
+        ),*/
     ), $modules),
     'behaviors' => array(
         'onBeginRequest' => array('class' => 'application.modules.yupe.extensions.urlManager.LanguageBehavior'),

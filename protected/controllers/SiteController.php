@@ -18,7 +18,6 @@ class SiteController extends YFrontController
         $this->render('welcome');
     }
 
-
     // раскомментируйте перед запуском сайта в работу
     /**public function actionIndex()
     {
