@@ -118,7 +118,6 @@
  * Please refer to the guide for more details about the difference between these two formats.
  *
  * @author Qiang Xue <qiang.xue@gmail.com>
- * @version $Id$
  * @package system.web
  * @since 1.0
  */
@@ -344,7 +343,7 @@ class CUrlManager extends CApplicationComponent
 				if(($query=$this->createPathInfo($params,'=',$ampersand))!=='')
 					$url.=$ampersand.$query;
 			}
-			else if(($query=$this->createPathInfo($params,'=',$ampersand))!=='')
+			elseif(($query=$this->createPathInfo($params,'=',$ampersand))!=='')
 				$url.='?'.$query;
 			return $url;
 		}
@@ -374,9 +373,9 @@ class CUrlManager extends CApplicationComponent
 			else
 				return $pathInfo;
 		}
-		else if(isset($_GET[$this->routeVar]))
+		elseif(isset($_GET[$this->routeVar]))
 			return $_GET[$this->routeVar];
-		else if(isset($_POST[$this->routeVar]))
+		elseif(isset($_POST[$this->routeVar]))
 			return $_POST[$this->routeVar];
 		else
 			return '';
@@ -518,7 +517,6 @@ class CUrlManager extends CApplicationComponent
  * {@link createUrl} and {@link parseUrl}.
  *
  * @author Qiang Xue <qiang.xue@gmail.com>
- * @version $Id$
  * @package system.web
  * @since 1.1.8
  */
@@ -557,7 +555,6 @@ abstract class CBaseUrlRule extends CComponent
  * may have a set of named parameters.
  *
  * @author Qiang Xue <qiang.xue@gmail.com>
- * @version $Id$
  * @package system.web
  * @since 1.0
  */
@@ -834,7 +831,7 @@ class CUrlRule extends CBaseUrlRule
 			{
 				if(isset($this->references[$key]))
 					$tr[$this->references[$key]]=$value;
-				else if(isset($this->params[$key]))
+				elseif(isset($this->params[$key]))
 					$_REQUEST[$key]=$_GET[$key]=$value;
 			}
 			if($pathInfo!==$matches[0]) // there're additional GET params

@@ -15,8 +15,6 @@
  * of the guide for details.
  *
  * NOTE, this file must be saved in UTF-8 encoding.
- *
- * @version $Id: $
  */
 return array (
   '"{path}" is not a valid directory.' => '{path} は有効なディレクトリではありません。',
@@ -27,6 +25,7 @@ return array (
   'Active record "{class}" has an invalid configuration for relation "{relation}". It must specify the relation type, the related active record class and the foreign key.' => 'アクティブレコード "{class}" の、リレーション {relation} のコンフィギュレーションに誤りがあります。リレーションタイプ、関係するアクティブレコードクラスと外部キーを指定して下さい。',
   'Active record "{class}" is trying to select an invalid column "{column}". Note, the column must exist in the table or be an expression with alias.' => 'アクティブレコード "{class}" は誤ったカラム "{column}" を選択しようとしました。テーブルに存在するカラムか別名を指定した式でなければいけません。',
   'Adding a foreign key constraint to an existing table is not supported by SQLite.' => 'SQLiteでは既存のテーブルに外部キー制約を与えられません。',
+  'Adding a primary key after table has been created is not supported by SQLite.' => 'SQLiteでは既存のテーブルにプライマリキーを追加することはできません。',
   'Alias "{alias}" is invalid. Make sure it points to an existing PHP file and the file is readable.' => '"{alias}"は無効です。phpファイルが存在し、読み込み可能か確認してください。',
   'Alias "{alias}" is invalid. Make sure it points to an existing directory or file.' => 'パスエイリアス "{alias}" が間違っています。存在するディレクトリやファイルを指しているかを確認してください。',
   'Alias "{alias}" is invalid. Make sure it points to an existing directory.' => '"{alias}"は無効です。ディレクトリが存在するか確認してください。',
@@ -69,7 +68,7 @@ return array (
   'CHttpRequest is unable to determine the path info of the request.' => 'CHttpRequest はリクエストのパス情報を決定できません。',
   'CHttpRequest is unable to determine the request URI.' => 'CHttpRequest はリクエストURIを決定できません。',
   'CHttpSession.cookieMode can only be "none", "allow" or "only".' => 'CHttpSession.cookieMode の取る値は"none"か"allow"か又は"only"です。',
-  'CHttpSession.gcProbability "{value}" is invalid. It must be an integer between 0 and 100.' => 'CHttpSession.gcProbability "{value}" が無効です。0から100までの整数にしてください。',
+  'CHttpSession.gcProbability "{value}" is invalid. It must be a float between 0 and 100.' => 'CHttpSession.gcProbability "{value}" が無効です。0から100までの実数にしてください。',
   'CHttpSession.savePath "{path}" is not a valid directory.' => 'CHttpSession.savePath "{path}" は無効なディレクトリです。',
   'CMemCache requires PHP {extension} extension to be loaded.' => 'CMemCache は PHP {extension}拡張のロードを必要とします。',
   'CMemCache server configuration must be an array.' => 'CMemCache サーバコンフィギュレーションは配列にしてください。',
@@ -106,9 +105,10 @@ return array (
   'Failed to write the uploaded file "{file}" to disk.' => 'アップロードされたファイル "{file}" をディスクに書き込めませんでした。',
   'File upload was stopped by extension.' => 'ファイルアップロードが拡張により停止されました。',
   'Filter "{filter}" is invalid. Controller "{class}" does not have the filter method "filter{filter}".' => '"{filter}"というフィルタは無効です。コントローラ"{class}"にはフィルタメソッド"filter{filter}"は存在しません。',
-  'GD and FreeType PHP extensions are required.' => 'GDとFreeTypeのPHP拡張が必要です。',
+  'GD with FreeType or ImageMagick PHP extensions are required.' => 'GD と FreeType、または ImageMagick の PHP 拡張が必要です。',
   'Get a new code' => '新しいコードを取得',
   'Go to page: ' => 'ページ:',
+  'In order to use MIME-type validation provided by CFileValidator fileinfo PECL extension should be installed.' => 'CFileValidator が提供する MIME タイプ検証を使うためには、fileinfo PECL 拡張のインストールが必要です。',
   'Invalid MO file revision: {revision}.' => '無効な MO ファイル版数({revision})です。',
   'Invalid MO file: {file} (magic: {magic}).' => '無効な MO ファイル: {file} (magic: {magic})です。',
   'Invalid enumerable value "{value}". Please make sure it is among ({enum}).' => '無効な列挙値("{value}")です。{enum} に存在するか確認してください。',
@@ -131,12 +131,14 @@ return array (
   'Property CMaskedTextField.mask cannot be empty.' => 'CMaskedTextField.maskプロパティは空ではいけません。',
   'Queue data must be an array or an object implementing Traversable.' => 'キューデータは配列かTraversableを実装したオブジェクトでなければいけません。',
   'Relation "{name}" is not defined in active record class "{class}".' => 'アクティブレコードクラス "{class}" にリレーション "{name}" が定義されていません。',
+  'Removing a primary key after table has been created is not supported by SQLite.' => 'SQLiteではテーブル作成後にプライマリキーを削除することはできません。',
   'Renaming a DB column is not supported by SQLite.' => 'SQLiteではデータベースカラムをリネームすることはできません。',
   'Stack data must be an array or an object implementing Traversable.' => 'スタックデータは配列かTraversableを実装したオブジェクトでなければいけません。',
   'Table "{table}" does not exist.' => 'テーブル"{table}"は存在しません。',
   'Table "{table}" does not have a column named "{column}".' => 'テーブル "{table}" には "{column}" というカラムは存在しません。',
   'The "db" application component must be configured to be a CDbConnection object.' => '"db"アプリケーションコンポーネントはCDbConnectionオブジェクトとして構成される必要があります。',
   'The "filter" property must be specified with a valid callback.' => '"filter"プロパティには有効なコールバックを指定する必要があります。',
+  'The "forceCopy" and "linkAssets" cannot be both true.' => '"foreceCopy" と "linkAssets" を両方とも true にすることは出来ません。',
   'The "pattern" property must be specified with a valid regular expression.' => '"pattern" プロパティには有効な正規表現を指定する必要があります。',
   'The "range" property must be specified with a list of values.' => '"range"プロパティは値のリストとして指定される必要があります。',
   'The CSRF token could not be verified.' => 'CSRFトークンを検証できませんでした。',
@@ -149,7 +151,8 @@ return array (
   'The asset "{asset}" to be published does not exist.' => 'アセット"{asset}"は存在しません。',
   'The command path "{path}" is not a valid directory.' => 'コマンドパス "{path}" は有効なディレクトリではありません。',
   'The controller path "{path}" is not a valid directory.' => 'コントローラパス "{path}" は有効なディレクトリではありません。',
-  'The file "{file}" cannot be uploaded. Only files with these extensions are allowed: {extensions}.' => 'ファイル "{file}" がアップロードできません。以下の拡張子を持つファイルだけが認められます。{extensions}',
+  'The file "{file}" cannot be uploaded. Only files of these MIME-types are allowed: {mimeTypes}.' => 'ファイル "{file}" はアップロード出来ません。以下の MIME タイプのファイルだけが許可されています : {mimeTypes}',
+  'The file "{file}" cannot be uploaded. Only files with these extensions are allowed: {extensions}.' => 'ファイル "{file}" はアップロード出来ません。以下の拡張子を持つファイルだけが許可されています : {extensions}',
   'The file "{file}" is too large. Its size cannot exceed {limit} bytes.' => 'ファイル "{file}" が大きすぎます。サイズは {limit} バイトを超えることができません。',
   'The file "{file}" is too small. Its size cannot be smaller than {limit} bytes.' => 'ファイル "{file}" が小さすぎます。サイズは {limit} バイトを下回ることができません。',
   'The file "{file}" was only partially uploaded.' => 'ファイル "{file}" は部分的にアップロードされました。',
@@ -253,5 +256,15 @@ return array (
   '{controller} cannot find the requested view "{view}".' => '{controller} はリクエストされたビュー "{view}" を見つけられません。',
   '{controller} contains improperly nested widget tags in its view "{view}". A {widget} widget does not have an endWidget() call.' => '{controller} にはビュー"{view}"の中に不適切にネストされたウィジェットタグがあります。{widget} ウィジェットには endWidget() 呼び出しがありません。',
   '{controller} has an extra endWidget({id}) call in its view.' => '{controller} のビューには余分な endWidget({id}) 呼び出しがあります。',
+  '{n} B' => '{n} B',
+  '{n} GB' => '{n} GB',
+  '{n} KB' => '{n} KB',
+  '{n} MB' => '{n} MB',
+  '{n} TB' => '{n} TB',
+  '{n} byte|{n} bytes' => '{n} バイト',
+  '{n} gigabyte|{n} gigabytes' => '{n} ギガバイト',
+  '{n} kilobyte|{n} kilobytes' => '{n} キロバイト',
+  '{n} megabyte|{n} megabytes' => '{n} メガバイト',
+  '{n} terabyte|{n} terabytes' => '{n} テラバイト',
   '{widget} cannot find the view "{view}".' => '{widget} はビュー "{view}" を見つけられません。',
 );
