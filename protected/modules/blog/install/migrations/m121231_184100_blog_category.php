@@ -23,6 +23,6 @@ class m121231_184100_blog_category extends CDbMigration
         $tableName = $db->tablePrefix.'blog';
         $this->dropForeignKey("blog_category_fk", $tableName);
         $this->dropIndex("blog_category_idx", $tableName);
-
+        $this->dropColumn($tableName,'category_id');
     }
 }
