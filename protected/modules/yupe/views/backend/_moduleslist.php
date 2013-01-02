@@ -1,4 +1,10 @@
-<?php if (count($modules)): ?>
+<?php
+
+if (count($modules))
+{
+  $updates = Yii::app()->migrator->checkForUpdates($modules);
+  ?>
+
     <div class="page-header">
     <h6>
         <?php echo Yii::t('yupe', 'Модули разработанные специально для "{app}"', array(
@@ -79,10 +85,15 @@
                                 : CHtml::link('<i class="icon-ok-sign" title="' . Yii::t('yupe', 'Включить') . '">&nbsp;</i>', $url + array('status' => '1'))
                             )
                             : '';
+
+                        if (isset($updates[$module->id]))
+                            echo CHtml::link('<i class="icon-refresh" title="' . Yii::t('yupe', 'Есть {n} обновление базы!|Есть {n} обновления базы!|Есть {n} обновлений базы!',count($updates[$module->id])) . '">&nbsp;</i>', array('/yupe/backend/modupdate','name' => $module->id));
                         ?>
                     </td>
                 </tr>
             <?php endforeach; ?>
         </tbody>
     </table>
-<?php endif; ?>
+<?php
+}
+?>

@@ -169,4 +169,24 @@ class Migrator extends CApplicationComponent
 		return $migrations;
 	}
 
+    /*
+     * Check each modules for new migrations
+     *
+     */
+    public function checkForUpdates($modules)
+    {
+        // check for table
+        $db=$this->getDbConnection();
+        if($db->schema->getTable($db->tablePrefix.$this->migrationTable)===null)
+            $this->createMigrationHistoryTable();
+
+        $updates = array();
+
+        foreach($modules as $mid=>$module)
+            if ($a=$this->getNewMigrations($mid))
+                $updates[$mid]=$a;
+
+        return $updates;
+    }
+
 }
