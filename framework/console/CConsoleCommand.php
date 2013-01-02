@@ -43,6 +43,7 @@
  * the help information for a single action.
  *
  * @author Qiang Xue <qiang.xue@gmail.com>
+ * @version $Id$
  * @package system.console
  * @since 1.0
  */
@@ -131,14 +132,14 @@ abstract class CConsoleCommand extends CComponent
 			{
 				if($param->isArray())
 					$params[]=is_array($options[$name]) ? $options[$name] : array($options[$name]);
-				elseif(!is_array($options[$name]))
+				else if(!is_array($options[$name]))
 					$params[]=$options[$name];
 				else
 					$this->usageError("Option --$name requires a scalar. Array is given.");
 			}
-			elseif($name==='args')
+			else if($name==='args')
 				$params[]=$args;
-			elseif($param->isDefaultValueAvailable())
+			else if($param->isDefaultValueAvailable())
 				$params[]=$param->getDefaultValue();
 			else
 				$this->usageError("Missing required option --$name.");
@@ -237,7 +238,7 @@ abstract class CConsoleCommand extends CComponent
 				else
 					$options[$name]=$value;
 			}
-			elseif(isset($action))
+			else if(isset($action))
 				$params[]=$arg;
 			else
 				$action=$arg;
@@ -386,9 +387,9 @@ abstract class CConsoleCommand extends CComponent
 					$answer=trim(fgets(STDIN));
 					if(!strncasecmp($answer,'q',1))
 						return;
-					elseif(!strncasecmp($answer,'y',1))
+					else if(!strncasecmp($answer,'y',1))
 						echo "  overwrite $name\n";
-					elseif(!strncasecmp($answer,'a',1))
+					else if(!strncasecmp($answer,'a',1))
 					{
 						echo "  overwrite $name\n";
 						$overwriteAll=true;
@@ -489,13 +490,13 @@ abstract class CConsoleCommand extends CComponent
 	public function pluralize($name)
 	{
 		$rules=array(
-			'/(m)ove$/i' => '\1oves',
-			'/(f)oot$/i' => '\1eet',
-			'/(c)hild$/i' => '\1hildren',
-			'/(h)uman$/i' => '\1umans',
-			'/(m)an$/i' => '\1en',
-			'/(t)ooth$/i' => '\1eeth',
-			'/(p)erson$/i' => '\1eople',
+			'/move$/i' => 'moves',
+			'/foot$/i' => 'feet',
+			'/child$/i' => 'children',
+			'/human$/i' => 'humans',
+			'/man$/i' => 'men',
+			'/tooth$/i' => 'teeth',
+			'/person$/i' => 'people',
 			'/([m|l])ouse$/i' => '\1ice',
 			'/(x|ch|ss|sh|us|as|is|os)$/i' => '\1es',
 			'/([^aeiouy]|qu)y$/i' => '\1ies',

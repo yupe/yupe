@@ -12,6 +12,7 @@
  * This is an extension of default PDO class for mssql driver only
  * It provides some missing functionalities of pdo driver
  * @author Christophe Boulain <Christophe.Boulain@gmail.com>
+ * @version $Id$
  * @package system.db.schema.mssql
  */
 class CMssqlPdoAdapter extends PDO

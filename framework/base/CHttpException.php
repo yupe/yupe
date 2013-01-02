@@ -15,6 +15,7 @@
  * Error handlers may use this status code to decide how to format the error page.
  *
  * @author Qiang Xue <qiang.xue@gmail.com>
+ * @version $Id$
  * @package system.base
  * @since 1.0
  */

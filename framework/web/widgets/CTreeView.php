@@ -21,6 +21,7 @@
  * {@link url} to be the URL that can serve the tree view data upon request.
  *
  * @author Qiang Xue <qiang.xue@gmail.com>
+ * @version $Id$
  * @package system.web.widgets
  * @since 1.0
  */
@@ -146,7 +147,7 @@ class CTreeView extends CWidget
 		$cs->registerScript('Yii.CTreeView#'.$id,"jQuery(\"#{$id}\").treeview($options);");
 		if($this->cssFile===null)
 			$cs->registerCssFile($cs->getCoreScriptUrl().'/treeview/jquery.treeview.css');
-		elseif($this->cssFile!==false)
+		else if($this->cssFile!==false)
 			$cs->registerCssFile($this->cssFile);
 
 		echo CHtml::tag('ul',$this->htmlOptions,false,false)."\n";

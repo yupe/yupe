@@ -14,6 +14,7 @@
  * CCaptchaValidator should be used together with {@link CCaptchaAction}.
  *
  * @author Qiang Xue <qiang.xue@gmail.com>
+ * @version $Id$
  * @package system.validators
  * @since 1.0
  */
@@ -96,7 +97,7 @@ class CCaptchaValidator extends CValidator
 		$code=$captcha->getVerifyCode(false);
 		$hash=$captcha->generateValidationHash($this->caseSensitive ? $code : strtolower($code));
 		$js="
-var hash = jQuery('body').data('{$this->captchaAction}.hash');
+var hash = $('body').data('{$this->captchaAction}.hash');
 if (hash == null)
 	hash = $hash;
 else
@@ -110,7 +111,7 @@ if(h != hash) {
 		if($this->allowEmpty)
 		{
 			$js="
-if(jQuery.trim(value)!='') {
+if($.trim(value)!='') {
 	$js
 }
 ";

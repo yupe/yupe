@@ -19,6 +19,7 @@
  * @property string $viewPath The directory containing the view files for this controller.
  *
  * @author Qiang Xue <qiang.xue@gmail.com>
+ * @version $Id$
  * @package system.web
  * @since 1.0
  */

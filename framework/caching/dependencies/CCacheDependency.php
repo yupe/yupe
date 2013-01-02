@@ -20,6 +20,7 @@
  * This data is available after {@link evaluateDependency} is called.
  *
  * @author Qiang Xue <qiang.xue@gmail.com>
+ * @version $Id$
  * @package system.caching.dependencies
  * @since 1.0
  */

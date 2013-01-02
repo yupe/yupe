@@ -53,6 +53,7 @@
  * when the page is initially loaded, set {@link activeTab} to be the ID of the desired tab.
  *
  * @author Qiang Xue <qiang.xue@gmail.com>
+ * @version $Id$
  * @package system.web.widgets
  * @since 1.0
  */
@@ -200,7 +201,7 @@ class CTabView extends CWidget
 			echo "<div class=\"view\" id=\"{$id}\"{$inactive}>\n";
 			if(isset($tab['content']))
 				echo $tab['content'];
-			elseif(isset($tab['view']))
+			else if(isset($tab['view']))
 			{
 				if(isset($tab['data']))
 				{

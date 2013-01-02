@@ -6,12 +6,14 @@
  * @link http://www.yiiframework.com/
  * @copyright Copyright &copy; 2008-2011 Yii Software LLC
  * @license http://www.yiiframework.com/license/
+ * @version $Id$
  */
 
 /**
  * ModelCommand generates a model class.
  *
  * @author Qiang Xue <qiang.xue@gmail.com>
+ * @version $Id$
  * @package system.cli.commands.shell
  * @since 1.0
  */
@@ -205,7 +207,7 @@ EOD;
 		{
 			if($pattern===null)
 				$this->_tables[$name]=$this->generateClassName($this->removePrefix($name));
-			elseif(preg_match($pattern,$name,$matches))
+			else if(preg_match($pattern,$name,$matches))
 			{
 				if(count($matches)>1 && !empty($matches[1]))
 					$className=$this->generateClassName($matches[1]);
@@ -406,11 +408,11 @@ EOD;
 					$required[]=$column->name;
 				if($column->type==='integer')
 					$integers[]=$column->name;
-				elseif($column->type==='double')
+				else if($column->type==='double')
 					$numerical[]=$column->name;
-				elseif($column->type==='string' && $column->size>0)
+				else if($column->type==='string' && $column->size>0)
 					$length[$column->size][]=$column->name;
-				elseif(!$column->isPrimaryKey && !$r)
+				else if(!$column->isPrimaryKey && !$r)
 					$safe[]=$column->name;
 			}
 			if($required!==array())

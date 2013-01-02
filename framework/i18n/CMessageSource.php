@@ -21,6 +21,7 @@
  * Defaults to {@link CApplication::language application language}.
  *
  * @author Qiang Xue <qiang.xue@gmail.com>
+ * @version $Id$
  * @package system.i18n
  * @since 1.0
  */
@@ -103,7 +104,7 @@ abstract class CMessageSource extends CApplicationComponent
 			$this->_messages[$key]=$this->loadMessages($category,$language);
 		if(isset($this->_messages[$key][$message]) && $this->_messages[$key][$message]!=='')
 			return $this->_messages[$key][$message];
-		elseif($this->hasEventHandler('onMissingTranslation'))
+		else if($this->hasEventHandler('onMissingTranslation'))
 		{
 			$event=new CMissingTranslationEvent($this,$category,$message,$language);
 			$this->onMissingTranslation($event);
@@ -131,6 +132,7 @@ abstract class CMessageSource extends CApplicationComponent
  * CMissingTranslationEvent represents the parameter for the {@link CMessageSource::onMissingTranslation onMissingTranslation} event.
  *
  * @author Qiang Xue <qiang.xue@gmail.com>
+ * @version $Id$
  * @package system.i18n
  * @since 1.0
  */

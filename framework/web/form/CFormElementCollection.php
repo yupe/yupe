@@ -25,6 +25,7 @@
  * to {@link CFormElement} objects.
  *
  * @author Qiang Xue <qiang.xue@gmail.com>
+ * @version $Id$
  * @package system.web.form
  * @since 1.1
  */
@@ -75,7 +76,7 @@ class CFormElementCollection extends CMap
 					unset($value['type'],$value['name']);
 					$element=new CFormStringElement($value,$this->_form);
 				}
-				elseif(!strcasecmp(substr($value['type'],-4),'form'))	// a form
+				else if(!strcasecmp(substr($value['type'],-4),'form'))	// a form
 				{
 					$class=$value['type']==='form' ? get_class($this->_form) : Yii::import($value['type']);
 					$element=new $class($value,null,$this->_form);
@@ -87,7 +88,7 @@ class CFormElementCollection extends CMap
 				}
 			}
 		}
-		elseif($value instanceof CFormElement)
+		else if($value instanceof CFormElement)
 		{
 			if(property_exists($value,'name') && is_string($key))
 				$value->name=$key;

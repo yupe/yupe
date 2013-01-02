@@ -177,7 +177,7 @@ pre span.error-ln {
 		<?php
 			if($this->isCoreCode($trace))
 				$cssClass='core collapsed';
-			elseif(++$count>3)
+			else if(++$count>3)
 				$cssClass='app collapsed';
 			else
 				$cssClass='app expanded';

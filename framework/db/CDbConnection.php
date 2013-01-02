@@ -100,6 +100,7 @@
  * and the second element the total time spent in SQL execution.
  *
  * @author Qiang Xue <qiang.xue@gmail.com>
+ * @version $Id$
  * @package system.db
  * @since 1.0
  */
@@ -414,10 +415,8 @@ class CDbConnection extends CApplicationComponent
 		if(($pos=strpos($this->connectionString,':'))!==false)
 		{
 			$driver=strtolower(substr($this->connectionString,0,$pos));
-			if($driver==='mssql' || $driver==='dblib')
+			if($driver==='mssql' || $driver==='dblib' || $driver==='sqlsrv')
 				$pdoClass='CMssqlPdoAdapter';
-			elseif($driver==='sqlsrv')
-				$pdoClass='CMssqlSqlsrvPdoAdapter';
 		}
 		return new $pdoClass($this->connectionString,$this->username,
 									$this->password,$this->_attributes);
@@ -588,7 +587,6 @@ class CDbConnection extends CApplicationComponent
 			'boolean'=>PDO::PARAM_BOOL,
 			'integer'=>PDO::PARAM_INT,
 			'string'=>PDO::PARAM_STR,
-			'resource'=>PDO::PARAM_LOB,
 			'NULL'=>PDO::PARAM_NULL,
 		);
 		return isset($map[$type]) ? $map[$type] : PDO::PARAM_STR;

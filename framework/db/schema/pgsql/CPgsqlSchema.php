@@ -12,6 +12,7 @@
  * CPgsqlSchema is the class for retrieving metadata information from a PostgreSQL database.
  *
  * @author Qiang Xue <qiang.xue@gmail.com>
+ * @version $Id$
  * @package system.db.schema.pgsql
  * @since 1.0
  */
@@ -112,7 +113,7 @@ class CPgsqlSchema extends CDbSchema
 
 		if(is_string($table->primaryKey) && isset($this->_sequences[$table->rawName.'.'.$table->primaryKey]))
 			$table->sequenceName=$this->_sequences[$table->rawName.'.'.$table->primaryKey];
-		elseif(is_array($table->primaryKey))
+		else if(is_array($table->primaryKey))
 		{
 			foreach($table->primaryKey as $pk)
 			{
@@ -162,8 +163,7 @@ class CPgsqlSchema extends CDbSchema
 	protected function findColumns($table)
 	{
 		$sql=<<<EOD
-SELECT a.attname, LOWER(format_type(a.atttypid, a.atttypmod)) AS type, d.adsrc, a.attnotnull, a.atthasdef,
-	pg_catalog.col_description(a.attrelid, a.attnum) AS comment
+SELECT a.attname, LOWER(format_type(a.atttypid, a.atttypmod)) AS type, d.adsrc, a.attnotnull, a.atthasdef
 FROM pg_attribute a LEFT JOIN pg_attrdef d ON a.attrelid = d.adrelid AND a.attnum = d.adnum
 WHERE a.attnum > 0 AND NOT a.attisdropped
 	AND a.attrelid = (SELECT oid FROM pg_catalog.pg_class WHERE relname=:table
@@ -207,7 +207,6 @@ EOD;
 		$c->allowNull=!$column['attnotnull'];
 		$c->isPrimaryKey=false;
 		$c->isForeignKey=false;
-		$c->comment=$column['comment']===null ? '' : $column['comment'];
 
 		$c->init($column['type'],$column['atthasdef'] ? $column['adsrc'] : null);
 
@@ -269,7 +268,7 @@ EOD;
 		{
 			if($row['contype']==='p') // primary key
 				$this->findPrimaryKey($table,$row['indkey']);
-			elseif($row['contype']==='f') // foreign key
+			else if($row['contype']==='f') // foreign key
 				$this->findForeignKey($table,$row['consrc']);
 		}
 	}
@@ -302,7 +301,7 @@ EOD;
 				$table->columns[$name]->isPrimaryKey=true;
 				if($table->primaryKey===null)
 					$table->primaryKey=$name;
-				elseif(is_string($table->primaryKey))
+				else if(is_string($table->primaryKey))
 					$table->primaryKey=array($table->primaryKey,$name);
 				else
 					$table->primaryKey[]=$name;

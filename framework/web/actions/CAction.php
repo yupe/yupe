@@ -22,9 +22,8 @@
  * @property CController $controller The controller who owns this action.
  * @property string $id Id of this action.
  *
- * @method run() executes action
- *
  * @author Qiang Xue <qiang.xue@gmail.com>
+ * @version $Id$
  * @package system.web.actions
  * @since 1.0
  */
@@ -95,12 +94,12 @@ abstract class CAction extends CComponent implements IAction
 			{
 				if($param->isArray())
 					$ps[]=is_array($params[$name]) ? $params[$name] : array($params[$name]);
-				elseif(!is_array($params[$name]))
+				else if(!is_array($params[$name]))
 					$ps[]=$params[$name];
 				else
 					return false;
 			}
-			elseif($param->isDefaultValueAvailable())
+			else if($param->isDefaultValueAvailable())
 				$ps[]=$param->getDefaultValue();
 			else
 				return false;

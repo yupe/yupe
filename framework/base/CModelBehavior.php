@@ -15,6 +15,7 @@
  * @property CModel $owner The owner model that this behavior is attached to.
  *
  * @author Qiang Xue <qiang.xue@gmail.com>
+ * @version $Id$
  * @package system.base
  */
 class CModelBehavior extends CBehavior
@@ -37,32 +38,29 @@ class CModelBehavior extends CBehavior
 
 	/**
 	 * Responds to {@link CModel::onAfterConstruct} event.
-	 * Override this method and make it public if you want to handle the corresponding event
-	 * of the {@link CBehavior::owner owner}.
+	 * Overrides this method if you want to handle the corresponding event of the {@link CBehavior::owner owner}.
 	 * @param CEvent $event event parameter
 	 */
-	protected function afterConstruct($event)
+	public function afterConstruct($event)
 	{
 	}
 
 	/**
 	 * Responds to {@link CModel::onBeforeValidate} event.
-	 * Override this method and make it public if you want to handle the corresponding event
-	 * of the {@link owner}.
+	 * Overrides this method if you want to handle the corresponding event of the {@link owner}.
 	 * You may set {@link CModelEvent::isValid} to be false to quit the validation process.
 	 * @param CModelEvent $event event parameter
 	 */
-	protected function beforeValidate($event)
+	public function beforeValidate($event)
 	{
 	}
 
 	/**
 	 * Responds to {@link CModel::onAfterValidate} event.
-	 * Override this method and make it public if you want to handle the corresponding event
-	 * of the {@link owner}.
+	 * Overrides this method if you want to handle the corresponding event of the {@link owner}.
 	 * @param CEvent $event event parameter
 	 */
-	protected function afterValidate($event)
+	public function afterValidate($event)
 	{
 	}
 }

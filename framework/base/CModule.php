@@ -33,6 +33,7 @@
  * </pre>.
  *
  * @author Qiang Xue <qiang.xue@gmail.com>
+ * @version $Id$
  * @package system.base
  */
 abstract class CModule extends CComponent
@@ -270,7 +271,7 @@ abstract class CModule extends CComponent
 	{
 		if(isset($this->_modules[$id]) || array_key_exists($id,$this->_modules))
 			return $this->_modules[$id];
-		elseif(isset($this->_moduleConfig[$id]))
+		else if(isset($this->_moduleConfig[$id]))
 		{
 			$config=$this->_moduleConfig[$id];
 			if(!isset($config['enabled']) || $config['enabled'])
@@ -376,7 +377,7 @@ abstract class CModule extends CComponent
 	{
 		if(isset($this->_components[$id]))
 			return $this->_components[$id];
-		elseif(isset($this->_componentConfig[$id]) && $createIfNull)
+		else if(isset($this->_componentConfig[$id]) && $createIfNull)
 		{
 			$config=$this->_componentConfig[$id];
 			if(!isset($config['enabled']) || $config['enabled'])
@@ -395,57 +396,19 @@ abstract class CModule extends CComponent
 	 * The component will be initialized by calling its {@link CApplicationComponent::init() init()}
 	 * method if it has not done so.
 	 * @param string $id component ID
-	 * @param array|IApplicationComponent $component application component
-	 * (either configuration array or instance). If this parameter is null,
-	 * component will be unloaded from the module.
-	 * @param boolean $merge whether to merge the new component configuration
-	 * with the existing one. Defaults to true, meaning the previously registered
-	 * component configuration with the same ID will be merged with the new configuration.
-	 * If set to false, the existing configuration will be replaced completely.
-	 * This parameter is available since 1.1.13.
+	 * @param IApplicationComponent $component the component to be added to the module.
+	 * If this parameter is null, it will unload the component from the module.
 	 */
-	public function setComponent($id,$component,$merge=true)
+	public function setComponent($id,$component)
 	{
 		if($component===null)
-		{
 			unset($this->_components[$id]);
-			return;
-		}
-		elseif($component instanceof IApplicationComponent)
+		else
 		{
 			$this->_components[$id]=$component;
-
 			if(!$component->getIsInitialized())
 				$component->init();
-
-			return;
 		}
-		elseif(isset($this->_components[$id]))
-		{
-			if(isset($component['class']) && get_class($this->_components[$id])!==$component['class'])
-			{
-				unset($this->_components[$id]);
-				$this->_componentConfig[$id]=$component; //we should ignore merge here
-				return;
-			}
-
-			foreach($component as $key=>$value)
-			{
-				if($key!=='class')
-					$this->_components[$id]->$key=$value;
-			}
-		}
-		elseif(isset($this->_componentConfig[$id]['class'],$component['class'])
-			&& $this->_componentConfig[$id]['class']!==$component['class'])
-		{
-			$this->_componentConfig[$id]=$component; //we should ignore merge here
-			return;
-		}
-
-		if(isset($this->_componentConfig[$id]) && $merge)
-			$this->_componentConfig[$id]=CMap::mergeArray($this->_componentConfig[$id],$component);
-		else
-			$this->_componentConfig[$id]=$component;
 	}
 
 	/**
@@ -498,7 +461,14 @@ abstract class CModule extends CComponent
 	public function setComponents($components,$merge=true)
 	{
 		foreach($components as $id=>$component)
-			$this->setComponent($id,$component,$merge);
+		{
+			if($component instanceof IApplicationComponent)
+				$this->setComponent($id,$component);
+			else if(isset($this->_componentConfig[$id]) && $merge)
+				$this->_componentConfig[$id]=CMap::mergeArray($this->_componentConfig[$id],$component);
+			else
+				$this->_componentConfig[$id]=$component;
+		}
 	}
 
 	/**

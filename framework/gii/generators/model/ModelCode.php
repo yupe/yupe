@@ -182,14 +182,13 @@ class ModelCode extends CCodeModel
 		$class=@Yii::import($this->baseClass,true);
 		if(!is_string($class) || !$this->classExists($class))
 			$this->addError('baseClass', "Class '{$this->baseClass}' does not exist or has syntax error.");
-		elseif($class!=='CActiveRecord' && !is_subclass_of($class,'CActiveRecord'))
+		else if($class!=='CActiveRecord' && !is_subclass_of($class,'CActiveRecord'))
 			$this->addError('baseClass', "'{$this->model}' must extend from CActiveRecord.");
 	}
 
 	public function getTableSchema($tableName)
 	{
-		$connection=Yii::app()->{$this->connectionId};
-		return $connection->getSchema()->getTable($tableName, $connection->schemaCachingDuration!==0);
+		return Yii::app()->{$this->connectionId}->getSchema()->getTable($tableName);
 	}
 
 	public function generateLabels($table)
@@ -225,11 +224,11 @@ class ModelCode extends CCodeModel
 				$required[]=$column->name;
 			if($column->type==='integer')
 				$integers[]=$column->name;
-			elseif($column->type==='double')
+			else if($column->type==='double')
 				$numerical[]=$column->name;
-			elseif($column->type==='string' && $column->size>0)
+			else if($column->type==='string' && $column->size>0)
 				$length[$column->size][]=$column->name;
-			elseif(!$column->isPrimaryKey && !$r)
+			else if(!$column->isPrimaryKey && !$r)
 				$safe[]=$column->name;
 		}
 		if($required!==array())
@@ -276,7 +275,7 @@ class ModelCode extends CCodeModel
 				if(strpos($name,$prefix)===0)
 					return $schema.'.'.$lb.substr($name,strlen($prefix)).$rb;
 			}
-			elseif(strpos($tableName,$prefix)===0)
+			else if(strpos($tableName,$prefix)===0)
 				return $lb.substr($tableName,strlen($prefix)).$rb;
 		}
 		return $tableName;
@@ -309,12 +308,6 @@ class ModelCode extends CCodeModel
 				$relations[$className0][$relationName]="array(self::MANY_MANY, '$className1', '$unprefixedTableName($pks[0], $pks[1])')";
 
 				$relationName=$this->generateRelationName($table1, $table0, true);
-
-				$i=1;
-				$rawName=$relationName;
-				while(isset($relations[$className1][$relationName]))
-					$relationName=$rawName.$i++;
-
 				$relations[$className1][$relationName]="array(self::MANY_MANY, '$className0', '$unprefixedTableName($pks[1], $pks[0])')";
 			}
 			else

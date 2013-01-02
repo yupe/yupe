@@ -67,7 +67,7 @@ EOD;
 			{
 				if(CFileHelper::getExtension($file)==='php')
 					$content=$this->render($file);
-				elseif(basename($file)==='.yii')  // an empty directory
+				else if(basename($file)==='.yii')  // an empty directory
 				{
 					$file=dirname($file);
 					$content=null;

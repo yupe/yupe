@@ -12,6 +12,7 @@
  * CUnsafeValidator marks the associated attributes to be unsafe so that they cannot be massively assigned.
  *
  * @author Qiang Xue <qiang.xue@gmail.com>
+ * @version $Id$
  * @package system.validators
  * @since 1.0
  */

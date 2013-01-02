@@ -17,6 +17,7 @@
  * Child classes may use {@link resolveNameID} and {@link hasModel}.
  *
  * @author Qiang Xue <qiang.xue@gmail.com>
+ * @version $Id$
  * @package system.web.widgets
  * @since 1.0
  */
@@ -52,9 +53,9 @@ abstract class CInputWidget extends CWidget
 	{
 		if($this->name!==null)
 			$name=$this->name;
-		elseif(isset($this->htmlOptions['name']))
+		else if(isset($this->htmlOptions['name']))
 			$name=$this->htmlOptions['name'];
-		elseif($this->hasModel())
+		else if($this->hasModel())
 			$name=CHtml::activeName($this->model,$this->attribute);
 		else
 			throw new CException(Yii::t('yii','{class} must specify "model" and "attribute" or "name" property values.',array('{class}'=>get_class($this))));

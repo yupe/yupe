@@ -27,6 +27,7 @@
  * moduleDir is the directory containing the module class.
  *
  * @author Qiang Xue <qiang.xue@gmail.com>
+ * @version $Id$
  * @package system.web
  */
 class CWebModule extends CModule

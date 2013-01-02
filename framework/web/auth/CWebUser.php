@@ -52,6 +52,7 @@
  * @property array $flashes Flash messages (key => message).
  *
  * @author Qiang Xue <qiang.xue@gmail.com>
+ * @version $Id$
  * @package system.web.auth
  * @since 1.0
  */
@@ -193,7 +194,7 @@ class CWebUser extends CApplicationComponent implements IWebUser
 		Yii::app()->getSession()->open();
 		if($this->getIsGuest() && $this->allowAutoLogin)
 			$this->restoreFromCookie();
-		elseif($this->autoRenewCookie && $this->allowAutoLogin)
+		else if($this->autoRenewCookie && $this->allowAutoLogin)
 			$this->renewCookie();
 		if($this->autoUpdateFlash)
 			$this->updateFlash();
@@ -266,7 +267,6 @@ class CWebUser extends CApplicationComponent implements IWebUser
 				Yii::app()->getSession()->destroy();
 			else
 				$this->clearStates();
-			$this->_access=array();
 			$this->afterLogout();
 		}
 	}
@@ -331,15 +331,7 @@ class CWebUser extends CApplicationComponent implements IWebUser
 	 */
 	public function getReturnUrl($defaultUrl=null)
 	{
-		if($defaultUrl===null)
-		{
-			$defaultReturnUrl=Yii::app()->getUrlManager()->showScriptName ? Yii::app()->getRequest()->getScriptUrl() : Yii::app()->getRequest()->getBaseUrl().'/';
-		}
-		else
-		{
-			$defaultReturnUrl=CHtml::normalizeUrl($defaultUrl);
-		}
-		return $this->getState('__returnUrl',$defaultReturnUrl);
+		return $this->getState('__returnUrl', $defaultUrl===null ? Yii::app()->getRequest()->getScriptUrl() : CHtml::normalizeUrl($defaultUrl));
 	}
 
 	/**

@@ -24,6 +24,7 @@
  *
  * @author Steve Heyns http://customgothic.com/
  * @author Qiang Xue <qiang.xue@gmail.com>
+ * @version $Id$
  * @package system.web.renderers
  * @since 1.0
  */

@@ -15,6 +15,7 @@
  * @property integer $totalItemCount Total number of possible data items.
  *
  * @author Qiang Xue <qiang.xue@gmail.com>
+ * @version $Id$
  * @package system.web
  * @since 1.1
  */
@@ -63,14 +64,13 @@ abstract class CDataProvider extends CComponent implements IDataProvider
 
 	/**
 	 * Returns the pagination object.
-	 * @param string $className the pagination object class name. Parameter is available since version 1.1.13.
-	 * @return CPagination|false the pagination object. If this is false, it means the pagination is disabled.
+	 * @return CPagination the pagination object. If this is false, it means the pagination is disabled.
 	 */
-	public function getPagination($className='CPagination')
+	public function getPagination()
 	{
 		if($this->_pagination===null)
 		{
-			$this->_pagination=new $className;
+			$this->_pagination=new CPagination;
 			if(($id=$this->getId())!='')
 				$this->_pagination->pageVar=$id.'_page';
 		}
@@ -81,27 +81,12 @@ abstract class CDataProvider extends CComponent implements IDataProvider
 	 * Sets the pagination for this data provider.
 	 * @param mixed $value the pagination to be used by this data provider. This could be a {@link CPagination} object
 	 * or an array used to configure the pagination object. If this is false, it means the pagination should be disabled.
-	 *
-	 * You can configure this property same way as a component:
-	 * <pre>
-	 * array(
-	 *     'class' => 'MyPagination',
-	 *     'pageSize' => 20,
-	 * ),
-	 * </pre>
 	 */
 	public function setPagination($value)
 	{
 		if(is_array($value))
 		{
-			if(isset($value['class']))
-			{
-				$pagination=$this->getPagination($value['class']);
-				unset($value['class']);
-			}
-			else
-				$pagination=$this->getPagination();
-
+			$pagination=$this->getPagination();
 			foreach($value as $k=>$v)
 				$pagination->$k=$v;
 		}
@@ -111,14 +96,13 @@ abstract class CDataProvider extends CComponent implements IDataProvider
 
 	/**
 	 * Returns the sort object.
-	 * @param string $className the sorting object class name. Parameter is available since version 1.1.13.
-	 * @return CSort|false the sorting object. If this is false, it means the sorting is disabled.
+	 * @return CSort the sorting object. If this is false, it means the sorting is disabled.
 	 */
-	public function getSort($className='CSort')
+	public function getSort()
 	{
 		if($this->_sort===null)
 		{
-			$this->_sort=new $className;
+			$this->_sort=new CSort;
 			if(($id=$this->getId())!='')
 				$this->_sort->sortVar=$id.'_sort';
 		}
@@ -129,27 +113,12 @@ abstract class CDataProvider extends CComponent implements IDataProvider
 	 * Sets the sorting for this data provider.
 	 * @param mixed $value the sorting to be used by this data provider. This could be a {@link CSort} object
 	 * or an array used to configure the sorting object. If this is false, it means the sorting should be disabled.
-	 *
-	 * You can configure this property same way as a component:
-	 * <pre>
-	 * array(
-	 *     'class' => 'MySort',
-	 *     'attributes' => array('name', 'weight'),
-	 * ),
-	 * </pre>
 	 */
 	public function setSort($value)
 	{
 		if(is_array($value))
 		{
-			if(isset($value['class']))
-			{
-				$sort=$this->getSort($value['class']);
-				unset($value['class']);
-			}
-			else
-				$sort=$this->getSort();
-
+			$sort=$this->getSort();
 			foreach($value as $k=>$v)
 				$sort->$k=$v;
 		}

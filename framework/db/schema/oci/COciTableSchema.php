@@ -12,6 +12,7 @@
  * COciTableSchema represents the metadata for an Oracle table.
  *
  * @author Ricardo Grana <rickgrana@yahoo.com.br>
+ * @version $Id$
  * @package system.db.schema.oci
  */
 class COciTableSchema extends CDbTableSchema

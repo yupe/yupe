@@ -37,6 +37,7 @@
  * </ul>
  *
  * @author Qiang Xue <qiang.xue@gmail.com>
+ * @version $Id$
  * @package system.utils
  * @since 1.0
  */

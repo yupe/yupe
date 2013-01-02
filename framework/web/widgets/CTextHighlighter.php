@@ -21,6 +21,7 @@ require_once(Yii::getPathOfAlias('system.vendors.TextHighlighter.Text.Highlighte
  * to true, the highlighted result may be shown with line numbers.
  *
  * @author Qiang Xue <qiang.xue@gmail.com>
+ * @version $Id$
  * @package system.web.widgets
  * @since 1.0
  */

@@ -26,6 +26,7 @@
  * @property integer $count The number of items in the queue.
  *
  * @author Qiang Xue <qiang.xue@gmail.com>
+ * @version $Id$
  * @package system.collections
  * @since 1.0
  */
@@ -79,7 +80,7 @@ class CQueue extends CComponent implements IteratorAggregate,Countable
 				++$this->_c;
 			}
 		}
-		elseif($data!==null)
+		else if($data!==null)
 			throw new CException(Yii::t('yii','Queue data must be an array or an object implementing Traversable.'));
 	}
 

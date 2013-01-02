@@ -20,6 +20,7 @@
  * @property integer $currentPage The zero-based index of the current page. Defaults to 0.
  *
  * @author Qiang Xue <qiang.xue@gmail.com>
+ * @version $Id$
  * @package system.web.widgets.pagers
  * @since 1.0
  */

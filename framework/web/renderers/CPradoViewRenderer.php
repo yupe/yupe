@@ -62,6 +62,7 @@
  *
  * @author Steve Heyns http://customgothic.com/
  * @author Qiang Xue <qiang.xue@gmail.com>
+ * @version $Id$
  * @package system.web.renderers
  * @since 1.0
  */
@@ -108,9 +109,9 @@ class CPradoViewRenderer extends CViewRenderer
 				else
 					$this->_output.=$this->processWidget($type,$match[4][0],$match[2][1]);
 			}
-			elseif(strpos($str,'</com:')===0)	// closing component tag
+			else if(strpos($str,'</com:')===0)	// closing component tag
 				$this->_output.=$this->processEndWidget($match[3][0],$match[2][1]);
-			elseif(strpos($str,'<cache:')===0)	// opening cache tag
+			else if(strpos($str,'<cache:')===0)	// opening cache tag
 			{
 				$id=$match[3][0];
 				if($str[strlen($str)-2]!=='/')  // open tag
@@ -118,9 +119,9 @@ class CPradoViewRenderer extends CViewRenderer
 				else
 					$this->_output.=$this->processCache($id,$match[4][0],$match[2][1]);
 			}
-			elseif(strpos($str,'</cache:')===0)	// closing cache tag
+			else if(strpos($str,'</cache:')===0)	// closing cache tag
 				$this->_output.=$this->processEndCache($match[3][0],$match[2][1]);
-			elseif(strpos($str,'<clip:')===0)	// opening clip tag
+			else if(strpos($str,'<clip:')===0)	// opening clip tag
 			{
 				$id=$match[3][0];
 				if($str[strlen($str)-2]!=='/')  // open tag
@@ -128,11 +129,11 @@ class CPradoViewRenderer extends CViewRenderer
 				else
 					$this->_output.=$this->processClip($id,$match[4][0],$match[2][1]);
 			}
-			elseif(strpos($str,'</clip:')===0)	// closing clip tag
+			else if(strpos($str,'</clip:')===0)	// closing clip tag
 				$this->_output.=$this->processEndClip($match[3][0],$match[2][1]);
-			elseif(strpos($str,'<%=')===0)	// expression
+			else if(strpos($str,'<%=')===0)	// expression
 				$this->_output.=$this->processExpression($match[1][0],$match[1][1]);
-			elseif(strpos($str,'<%')===0)	// statement
+			else if(strpos($str,'<%')===0)	// statement
 				$this->_output.=$this->processStatement($match[1][0],$match[1][1]);
 		}
 		if($textStart<strlen($this->_input))

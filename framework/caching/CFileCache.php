@@ -21,6 +21,7 @@
  * when storing a piece of data in the cache. Defaults to 100, meaning 0.01% chance.
  *
  * @author Qiang Xue <qiang.xue@gmail.com>
+ * @version $Id$
  * @package system.caching
  */
 class CFileCache extends CCache
@@ -105,7 +106,7 @@ class CFileCache extends CCache
 		$cacheFile=$this->getCacheFile($key);
 		if(($time=@filemtime($cacheFile))>time())
 			return @file_get_contents($cacheFile);
-		elseif($time>0)
+		else if($time>0)
 			@unlink($cacheFile);
 		return false;
 	}
@@ -212,7 +213,7 @@ class CFileCache extends CCache
 			$fullPath=$path.DIRECTORY_SEPARATOR.$file;
 			if(is_dir($fullPath))
 				$this->gc($expiredOnly,$fullPath);
-			elseif($expiredOnly && @filemtime($fullPath)<time() || !$expiredOnly)
+			else if($expiredOnly && @filemtime($fullPath)<time() || !$expiredOnly)
 				@unlink($fullPath);
 		}
 		closedir($handle);

@@ -15,6 +15,7 @@
  * <code>$model->validate()</code> or <code>$model->save()</code>.
  *
  * @author Qiang Xue <qiang.xue@gmail.com>
+ * @version $Id$
  * @package system.validators
  */
 class CDefaultValueValidator extends CValidator

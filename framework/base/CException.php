@@ -12,6 +12,7 @@
  * CException represents a generic exception for all purposes.
  *
  * @author Qiang Xue <qiang.xue@gmail.com>
+ * @version $Id$
  * @package system.base
  * @since 1.0
  */

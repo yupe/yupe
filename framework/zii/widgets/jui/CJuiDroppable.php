@@ -18,7 +18,7 @@ Yii::import('zii.widgets.jui.CJuiWidget');
  *
  * To use this widget, you may insert the following code in a view:
  * <pre>
- * $this->beginWidget('zii.widgets.jui.CJuiDroppable',array(
+ * $this->beginWidget('zii.widgets.jui.CJuiDroppable', array(
  *     // additional javascript options for the droppable plugin
  *     'options'=>array(
  *         'scope'=>'myScope',
@@ -36,6 +36,7 @@ Yii::import('zii.widgets.jui.CJuiWidget');
  * for possible options (name-value pairs).
  *
  * @author Sebastian Thierer <sebathi@gmail.com>
+ * @version $Id$
  * @package zii.widgets.jui
  * @since 1.1
  */
@@ -53,24 +54,25 @@ class CJuiDroppable extends CJuiWidget
 	public function init()
 	{
 		parent::init();
-
 		$id=$this->getId();
-		if(isset($this->htmlOptions['id']))
-			$id=$this->htmlOptions['id'];
+		if (isset($this->htmlOptions['id']))
+			$id = $this->htmlOptions['id'];
 		else
 			$this->htmlOptions['id']=$id;
 
-		$options=CJavaScript::encode($this->options);
-		Yii::app()->getClientScript()->registerScript(__CLASS__.'#'.$id,"jQuery('#{$id}').droppable($options);");
-
 		echo CHtml::openTag($this->tagName,$this->htmlOptions)."\n";
+		
+		$options=empty($this->options) ? '' : CJavaScript::encode($this->options);
+		Yii::app()->getClientScript()->registerScript(__CLASS__.'#'.$id,"jQuery('#{$id}').droppable($options);");
 	}
 
 	/**
 	 * Renders the close tag of the droppable element.
 	 */
-	public function run()
-	{
+	public function run(){
 		echo CHtml::closeTag($this->tagName);
 	}
+
 }
+
+

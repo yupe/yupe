@@ -35,6 +35,7 @@
  * @property CSort $sort The sorting object. If this is false, it means the sorting is disabled.
  *
  * @author Qiang Xue <qiang.xue@gmail.com>
+ * @version $Id$
  * @package system.web
  * @since 1.1
  */
@@ -73,7 +74,7 @@ class CActiveDataProvider extends CDataProvider
 			$this->modelClass=$modelClass;
 			$this->model=CActiveRecord::model($this->modelClass);
 		}
-		elseif($modelClass instanceof CActiveRecord)
+		else if($modelClass instanceof CActiveRecord)
 		{
 			$this->modelClass=get_class($modelClass);
 			$this->model=$modelClass;
@@ -106,12 +107,11 @@ class CActiveDataProvider extends CDataProvider
 
 	/**
 	 * Returns the sorting object.
-	 * @param string $className the sorting object class name. Parameter is available since version 1.1.13.
 	 * @return CSort the sorting object. If this is false, it means the sorting is disabled.
 	 */
-	public function getSort($className='CSort')
+	public function getSort()
 	{
-		if(($sort=parent::getSort($className))!==false)
+		if(($sort=parent::getSort())!==false)
 			$sort->modelClass=$this->modelClass;
 		return $sort;
 	}

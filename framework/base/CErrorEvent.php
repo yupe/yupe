@@ -12,6 +12,7 @@
  * CErrorEvent represents the parameter for the {@link CApplication::onError onError} event.
  *
  * @author Qiang Xue <qiang.xue@gmail.com>
+ * @version $Id$
  * @package system.base
  * @since 1.0
  */

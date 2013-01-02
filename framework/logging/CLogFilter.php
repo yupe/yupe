@@ -19,6 +19,7 @@
  * issues encountered.
  *
  * @author Qiang Xue <qiang.xue@gmail.com>
+ * @version $Id$
  * @package system.logging
  */
 class CLogFilter extends CComponent implements ILogFilter

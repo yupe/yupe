@@ -20,6 +20,7 @@
  * </pre>
  *
  * @author Qiang Xue <qiang.xue@gmail.com>
+ * @version $Id$
  * @package system.utils
  * @since 1.0
  */
@@ -97,7 +98,7 @@ class CVarDumper
 			case 'array':
 				if(self::$_depth<=$level)
 					self::$_output.='array(...)';
-				elseif(empty($var))
+				else if(empty($var))
 					self::$_output.='array()';
 				else
 				{
@@ -106,10 +107,13 @@ class CVarDumper
 					self::$_output.="array\n".$spaces.'(';
 					foreach($keys as $key)
 					{
-						self::$_output.="\n".$spaces.'    ';
-						self::dumpInternal($key,0);
-						self::$_output.=' => ';
-						self::dumpInternal($var[$key],$level+1);
+						if(gettype($key)=='integer')
+							$key2=$key;
+						else
+							$key2="'".str_replace("'","\\'",$key)."'";
+							
+						self::$_output.="\n".$spaces."    $key2 => ";
+						self::$_output.=self::dumpInternal($var[$key],$level+1);
 					}
 					self::$_output.="\n".$spaces.')';
 				}
@@ -117,7 +121,7 @@ class CVarDumper
 			case 'object':
 				if(($id=array_search($var,self::$_objects,true))!==false)
 					self::$_output.=get_class($var).'#'.($id+1).'(...)';
-				elseif(self::$_depth<=$level)
+				else if(self::$_depth<=$level)
 					self::$_output.=get_class($var).'(...)';
 				else
 				{

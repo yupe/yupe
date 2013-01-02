@@ -15,26 +15,27 @@
  * of the guide for details.
  *
  * NOTE, this file must be saved in UTF-8 encoding.
+ *
+ * @version $Id: $
  */
 return array (
-  'The property filterSelector should be defined.' => 'Je potrebné definovať vlastnosť filterSelector.',
+  'The property updateSelector should be defined.' => 'Je potrebné definovať vlastnosť updateSelector.',
   'Are you sure you want to delete this item?' => 'Odstrániť záznam?',
   'Delete' => 'Odstrániť',
-  'Displaying {start}-{end} of 1 result.|Displaying {start}-{end} of {count} results.' => 'Zobrazených {start}-{end} z 1 záznamu.|Zobrazených {start}-{end} z celkovo {count} záznamov.',
+  'Displaying {start}-{end} of 1 result.|Displaying {start}-{end} of {count} results.' => 'Zobrazených {start}-{end} z celkovo {count} záznamov.',
   'Either "name" or "value" must be specified for CDataColumn.' => 'Uveďte prosím  "name" alebo "value" pre CDataColumn.',
   'Home' => 'Úvod',
   'No results found.' => 'Neboli nájdené žiadne záznamy.',
   'Not set' => 'Nie je nastavené',
   'Please specify the "attributes" property.' => 'Zadajte prosím vlastnosti pre "attributes".',
   'Please specify the "data" property.' => 'Zadajte prosím vlastnosti pre "data".',
-  'Sort by: ' => 'Zoradiť podľa:',
+  'Sort by: ' => 'Zoradané podľa:',
   'The "dataProvider" property cannot be empty.' => 'Vlastnosť "dataProvider" nesmie byť prázdna.',
   'The attribute must be specified in the format of "Name:Type:Label", where "Type" and "Label" are optional.' => 'Atribút musí byť špecifikovaný v tvare "Name:Type:Label", pričom "Type" a "Label" sú nepovinné.',
   'The button type "{type}" is not supported.' => 'Tlačidlo typu "{type}" nie je podporované.',
   'The column must be specified in the format of "Name:Type:Label", where "Type" and "Label" are optional.' => 'Stĺpec musí byť špecifikovaný v tvare "Name:Type:Label", pričom "Type" a "Label" sú nepovinné.',
   'The property "itemView" cannot be empty.' => 'Vlastnosť "itemView" nesmie byť prázdna.',
-  'The property updateSelector should be defined.' => 'Je potrebné definovať vlastnosť updateSelector.',
-  'Total 1 result.|Total {count} results.' => 'Nájdený 1 záznam.|Nájdených {count} záznamov.',
+  'Total 1 result.|Total {count} results.' => 'Nájdených celkovo {count} záznamov',
   'Update' => 'Upraviť',
   'View' => 'Náhľad',
   '{class} must specify "model" and "attribute" or "name" property values.' => '{class} musí mať špecifikované vlastnosti pre "model" a "attribute" alebo "name".',

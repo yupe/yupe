@@ -20,6 +20,7 @@ Yii::import('zii.widgets.grid.CGridColumn');
  * and customize the display order of the buttons.
  *
  * @author Qiang Xue <qiang.xue@gmail.com>
+ * @version $Id$
  * @package zii.widgets.grid
  * @since 1.1
  */
@@ -106,7 +107,7 @@ class CButtonColumn extends CGridColumn
 	 */
 	public $deleteButtonUrl='Yii::app()->controller->createUrl("delete",array("id"=>$data->primaryKey))';
 	/**
-	 * @var array the HTML options for the delete button tag.
+	 * @var array the HTML options for the view button tag.
 	 */
 	public $deleteButtonOptions=array('class'=>'delete');
 	/**
@@ -137,7 +138,7 @@ class CButtonColumn extends CGridColumn
 	 */
 	public $afterDelete;
 	/**
-	 * @var array the configuration for buttons. Each array element specifies a single button
+	 * @var array the configuration for additional buttons. Each array element specifies a single button
 	 * which has the following format:
 	 * <pre>
 	 * 'buttonID' => array(
@@ -149,14 +150,11 @@ class CButtonColumn extends CGridColumn
 	 *     'visible'=>'...',   // a PHP expression for determining whether the button is visible
 	 * )
 	 * </pre>
-	 *
 	 * In the PHP expression for the 'url' option and/or 'visible' option, the variable <code>$row</code>
 	 * refers to the current row number (zero-based), and <code>$data</code> refers to the data model for
 	 * the row.
 	 *
-	 * If the 'buttonID' is 'view', 'update' or 'delete' the options will be applied to the default buttons.
-	 *
-	 * Note that in order to display non-default buttons, the {@link template} property needs to
+	 * Note that in order to display these additional buttons, the {@link template} property needs to
 	 * be configured so that the corresponding button IDs appear as tokens in the template.
 	 */
 	public $buttons=array();
@@ -173,7 +171,7 @@ class CButtonColumn extends CGridColumn
 		{
 			if(strpos($this->template,'{'.$id.'}')===false)
 				unset($this->buttons[$id]);
-			elseif(isset($button['click']))
+			else if(isset($button['click']))
 			{
 				if(!isset($button['options']['class']))
 					$this->buttons[$id]['options']['class']=$id;
@@ -241,17 +239,17 @@ class CButtonColumn extends CGridColumn
 			$this->buttons['delete']['click']=<<<EOD
 function() {
 	$confirmation
-	var th = this,
-		afterDelete = $this->afterDelete;
-	jQuery('#{$this->grid->id}').yiiGridView('update', {
-		type: 'POST',
-		url: jQuery(this).attr('href'),$csrf
-		success: function(data) {
-			jQuery('#{$this->grid->id}').yiiGridView('update');
-			afterDelete(th, true, data);
+	var th=this;
+	var afterDelete=$this->afterDelete;
+	$.fn.yiiGridView.update('{$this->grid->id}', {
+		type:'POST',
+		url:$(this).attr('href'),$csrf
+		success:function(data) {
+			$.fn.yiiGridView.update('{$this->grid->id}');
+			afterDelete(th,true,data);
 		},
-		error: function(XHR) {
-			return afterDelete(th, false, XHR);
+		error:function(XHR) {
+			return afterDelete(th,false,XHR);
 		}
 	});
 	return false;
@@ -272,7 +270,7 @@ EOD;
 			{
 				$function=CJavaScript::encode($button['click']);
 				$class=preg_replace('/\s+/','.',$button['options']['class']);
-				$js[]="jQuery(document).on('click','#{$this->grid->id} a.{$class}',$function);";
+				$js[]="$(document).on('click','#{$this->grid->id} a.{$class}',$function);";
 			}
 		}
 

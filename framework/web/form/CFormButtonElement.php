@@ -33,6 +33,7 @@
  * @property string $on Scenario names separated by commas. Defaults to null.
  *
  * @author Qiang Xue <qiang.xue@gmail.com>
+ * @version $Id$
  * @package system.web.form
  * @since 1.1
  */
@@ -104,7 +105,7 @@ class CFormButtonElement extends CFormElement
 				if(!isset($attributes['params'][$this->name]))
 					$attributes['params'][$this->name]=1;
 			}
-			elseif($method==='htmlButton')
+			else if($method==='htmlButton')
 			{
 				$attributes['type']=$this->type==='htmlSubmit' ? 'submit' : ($this->type==='htmlReset' ? 'reset' : 'button');
 				$attributes['name']=$this->name;

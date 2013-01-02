@@ -39,6 +39,7 @@
  * @property CFormatter $formatter The formatter instance. Defaults to the 'format' application component.
  *
  * @author Qiang Xue <qiang.xue@gmail.com>
+ * @version $Id$
  * @package zii.widgets
  * @since 1.1
  */
@@ -139,7 +140,7 @@ class CDetailView extends CWidget
 		{
 			if($this->data instanceof CModel)
 				$this->attributes=$this->data->attributeNames();
-			elseif(is_array($this->data))
+			else if(is_array($this->data))
 				$this->attributes=array_keys($this->data);
 			else
 				throw new CException(Yii::t('zii','Please specify the "attributes" property.'));
@@ -171,7 +172,7 @@ class CDetailView extends CWidget
 
 		$i=0;
 		$n=is_array($this->itemCssClass) ? count($this->itemCssClass) : 0;
-
+						
 		foreach($this->attributes as $attribute)
 		{
 			if(is_string($attribute))
@@ -185,7 +186,7 @@ class CDetailView extends CWidget
 				if(isset($matches[5]))
 					$attribute['label']=$matches[5];
 			}
-
+			
 			if(isset($attribute['visible']) && !$attribute['visible'])
 				continue;
 
@@ -195,7 +196,7 @@ class CDetailView extends CWidget
 
 			if(isset($attribute['label']))
 				$tr['{label}']=$attribute['label'];
-			elseif(isset($attribute['name']))
+			else if(isset($attribute['name']))
 			{
 				if($this->data instanceof CModel)
 					$tr['{label}']=$this->data->getAttributeLabel($attribute['name']);
@@ -207,7 +208,7 @@ class CDetailView extends CWidget
 				$attribute['type']='text';
 			if(isset($attribute['value']))
 				$value=$attribute['value'];
-			elseif(isset($attribute['name']))
+			else if(isset($attribute['name']))
 				$value=CHtml::value($this->data,$attribute['name']);
 			else
 				$value=null;

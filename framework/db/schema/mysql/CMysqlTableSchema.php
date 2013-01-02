@@ -12,6 +12,7 @@
  * CMysqlTableSchema represents the metadata for a MySQL table.
  *
  * @author Qiang Xue <qiang.xue@gmail.com>
+ * @version $Id$
  * @package system.db.schema.mysql
  * @since 1.0
  */

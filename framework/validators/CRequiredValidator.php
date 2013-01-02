@@ -20,6 +20,7 @@
  * </ul>
  *
  * @author Qiang Xue <qiang.xue@gmail.com>
+ * @version $Id$
  * @package system.validators
  * @since 1.0
  */
@@ -58,7 +59,7 @@ class CRequiredValidator extends CValidator
 				$this->addError($object,$attribute,$message);
 			}
 		}
-		elseif($this->isEmpty($value,true))
+		else if($this->isEmpty($value,true))
 		{
 			$message=$this->message!==null?$this->message:Yii::t('yii','{attribute} cannot be blank.');
 			$this->addError($object,$attribute,$message);
@@ -98,7 +99,7 @@ if(value!=" . CJSON::encode($this->requiredValue) . ") {
 				'{attribute}'=>$object->getAttributeLabel($attribute),
 			));
 			return "
-if(jQuery.trim(value)=='') {
+if($.trim(value)=='') {
 	messages.push(".CJSON::encode($message).");
 }
 ";

@@ -55,6 +55,7 @@
  * @property array $servers List of memcache server configurations. Each element is a {@link CMemCacheServerConfiguration}.
  *
  * @author Qiang Xue <qiang.xue@gmail.com>
+ * @version $Id$
  * @package system.caching
  * @since 1.0
  */
@@ -94,7 +95,7 @@ class CMemCache extends CCache
 				if($this->useMemcached)
 					$cache->addServer($server->host,$server->port,$server->weight);
 				else
-					$cache->addServer($server->host,$server->port,$server->persistent,$server->weight,$server->timeout,$server->retryInterval,$server->status);
+					$cache->addServer($server->host,$server->port,$server->persistent,$server->weight,$server->timeout,$server->status);
 			}
 		}
 		else
@@ -227,6 +228,7 @@ class CMemCache extends CCache
  * for detailed explanation of each configuration property.
  *
  * @author Qiang Xue <qiang.xue@gmail.com>
+ * @version $Id$
  * @package system.caching
  * @since 1.0
  */

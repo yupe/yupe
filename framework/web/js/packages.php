@@ -68,14 +68,11 @@ return array(
 		'depends'=>array('jquery'),
 	),
 	'bbq'=>array(
-		'js'=>array(YII_DEBUG ? 'jquery.ba-bbq.js' : 'jquery.ba-bbq.min.js'),
+		'js'=>array('jquery.ba-bbq.js'),
 		'depends'=>array('jquery'),
 	),
 	'history'=>array(
 		'js'=>array('jquery.history.js'),
 		'depends'=>array('jquery'),
-	),
-	'punycode'=>array(
-		'js'=>array(YII_DEBUG ? 'punycode.js' : 'punycode.min.js'),
 	),
 );

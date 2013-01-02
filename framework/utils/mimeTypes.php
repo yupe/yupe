@@ -9,6 +9,7 @@
  * @link http://www.yiiframework.com/
  * @copyright Copyright &copy; 2008-2011 Yii Software LLC
  * @license http://www.yiiframework.com/license/
+ * @version $Id$
  */
 
 return array(
@@ -16,12 +17,9 @@ return array(
 	'aif'=>'audio/x-aiff',
 	'aifc'=>'audio/x-aiff',
 	'aiff'=>'audio/x-aiff',
-	'anx'=>'application/annodex',
 	'asc'=>'text/plain',
 	'au'=>'audio/basic',
 	'avi'=>'video/x-msvideo',
-	'axa'=>'audio/annodex',
-	'axv'=>'video/annodex',
 	'bcpio'=>'application/x-bcpio',
 	'bin'=>'application/octet-stream',
 	'bmp'=>'image/bmp',
@@ -34,7 +32,6 @@ return array(
 	'cpt'=>'application/mac-compactpro',
 	'csh'=>'application/x-csh',
 	'css'=>'text/css',
-	'csv'=>'text/csv',
 	'dcr'=>'application/x-director',
 	'dir'=>'application/x-director',
 	'dms'=>'application/octet-stream',
@@ -50,7 +47,6 @@ return array(
 	'ez'=>'application/andrew-inset',
 	'f'=>'text/plain',
 	'f90'=>'text/plain',
-	'flac'=>'audio/flac',
 	'fli'=>'video/x-fli',
 	'flv'=>'video/x-flv',
 	'gif'=>'image/gif',
@@ -96,10 +92,6 @@ return array(
 	'ms'=>'application/x-troff-ms',
 	'msh'=>'model/mesh',
 	'nc'=>'application/x-netcdf',
-	'oga'=>'audio/ogg',
-	'ogg'=>'audio/ogg',
-	'ogv'=>'video/ogg',
-	'ogx'=>'application/ogg',
 	'oda'=>'application/oda',
 	'pbm'=>'image/x-portable-bitmap',
 	'pdb'=>'chemical/x-pdb',
@@ -143,7 +135,6 @@ return array(
 	'snd'=>'audio/basic',
 	'sol'=>'application/solids',
 	'spl'=>'application/x-futuresplash',
-	'spx'=>'audio/ogg',
 	'src'=>'application/x-wais-source',
 	'step'=>'application/STEP',
 	'stl'=>'application/SLA',
@@ -181,7 +172,6 @@ return array(
 	'xlw'=>'application/vnd.ms-excel',
 	'xml'=>'application/xml',
 	'xpm'=>'image/x-xpixmap',
-	'xspf'=>'application/xspf+xml',
 	'xwd'=>'image/x-xwindowdump',
 	'xyz'=>'chemical/x-pdb',
 	'zip'=>'application/zip',

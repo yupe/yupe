@@ -19,6 +19,7 @@
  * before the action, and {@link postFilter()} for filtering logic after the action.
  *
  * @author Qiang Xue <qiang.xue@gmail.com>
+ * @version $Id$
  * @package system.web.filters
  * @since 1.0
  */

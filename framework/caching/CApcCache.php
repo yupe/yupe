@@ -17,6 +17,7 @@
  * See {@link CCache} manual for common cache operations that are supported by CApcCache.
  *
  * @author Qiang Xue <qiang.xue@gmail.com>
+ * @version $Id$
  * @package system.caching
  * @since 1.0
  */

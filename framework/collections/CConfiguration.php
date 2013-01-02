@@ -34,6 +34,7 @@
  * used like an associative array. See {@link CMap} for more details.
  *
  * @author Qiang Xue <qiang.xue@gmail.com>
+ * @version $Id$
  * @package system.collections
  * @since 1.0
  */

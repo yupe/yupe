@@ -19,6 +19,7 @@
  * to true, the output will not be echoed anymore. Otherwise (by default), the output will be echoed.
  *
  * @author Qiang Xue <qiang.xue@gmail.com>
+ * @version $Id$
  * @package system.web.widgets
  * @since 1.0
  */

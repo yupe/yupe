@@ -26,6 +26,7 @@ Yii::import('zii.widgets.grid.CGridColumn');
  * {@link value}.
  *
  * @author Qiang Xue <qiang.xue@gmail.com>
+ * @version $Id$
  * @package zii.widgets.grid
  * @since 1.1
  */
@@ -53,15 +54,6 @@ class CCheckBoxColumn extends CGridColumn
 	 */
 	public $checked;
 	/**
-	 * @var string a PHP expression that will be evaluated for every data cell and whose result will
-	 * determine if checkbox for each data cell is disabled. In this expression, the variable
-	 * <code>$row</code> the row number (zero-based); <code>$data</code> the data model for the row;
-	 * and <code>$this</code> the column object. Note that expression result will
-	 * overwrite value set with <code>checkBoxHtmlOptions['disabled']</code>.
-	 * @since 1.1.13
-	 */
-	public $disabled;
-	/**
 	 * @var array the HTML options for the data cell tags.
 	 */
 	public $htmlOptions=array('class'=>'checkbox-column');
@@ -85,9 +77,9 @@ class CCheckBoxColumn extends CGridColumn
 	 * <li>1 - only one row can be checked. Checking a checkbox has nothing to do with selecting the row</li>
 	 * <li>2 or more - multiple checkboxes can be checked. Checking a checkbox has nothing to do with selecting the row</li>
 	 * <li>null - {@link CGridView::selectableRows} is used to control how many checkboxes can be checked.
-	 * Checking a checkbox will also select the row.</li>
+	 * Cheking a checkbox will also select the row.</li>
 	 * </ul>
-	 * You may also call the JavaScript function <code>$(gridID).yiiGridView.('getChecked', columnID)</code>
+	 * You may also call the JavaScript function <code>$.fn.yiiGridView.getChecked(containerID,columnID)</code>
 	 * to retrieve the key values of the checked rows.
 	 * @since 1.1.6
 	 */
@@ -95,7 +87,7 @@ class CCheckBoxColumn extends CGridColumn
 	/**
 	 * @var string the template to be used to control the layout of the header cell.
 	 * The token "{item}" is recognized and it will be replaced with a "check all" checkbox.
-	 * By default if in multiple checking mode, the header cell will display an additional checkbox,
+	 * By default if in multiple checking mode, the header cell will display an additional checkbox, 
 	 * clicking on which will check or uncheck all of the checkboxes in the data cells.
 	 * See {@link selectableRows} for more details.
 	 * @since 1.1.11
@@ -137,26 +129,26 @@ class CCheckBoxColumn extends CGridColumn
 		elseif($this->selectableRows==1)
 		{
 			//.. only one can be checked, uncheck all other
-			$cbcode="jQuery(\"input:not(#\"+this.id+\")[name='$name']\").prop('checked',false);";
+			$cbcode="$(\"input:not(#\"+this.id+\")[name='$name']\").prop('checked',false);";
 		}
 		elseif(strpos($this->headerTemplate,'{item}')!==false)
 		{
 			//.. process check/uncheck all
 			$cball=<<<CBALL
-jQuery(document).on('click','#{$this->id}_all',function() {
+$(document).on('click','#{$this->id}_all',function() {
 	var checked=this.checked;
-	jQuery("input[name='$name']:enabled").each(function() {this.checked=checked;});
+	$("input[name='$name']").each(function() {this.checked=checked;});
 });
 
 CBALL;
-			$cbcode="jQuery('#{$this->id}_all').prop('checked', jQuery(\"input[name='$name']\").length==jQuery(\"input[name='$name']:checked\").length);";
+			$cbcode="$('#{$this->id}_all').prop('checked', $(\"input[name='$name']\").length==$(\"input[name='$name']:checked\").length);";
 		}
 
 		if($cbcode!=='')
 		{
 			$js=$cball;
 			$js.=<<<EOD
-jQuery(document).on('click', "input[name='$name']", function() {
+$(document).on('click', "input[name='$name']", function() {
 	$cbcode
 });
 EOD;
@@ -180,7 +172,7 @@ EOD;
 		$item = '';
 		if($this->selectableRows===null && $this->grid->selectableRows>1)
 			$item = CHtml::checkBox($this->id.'_all',false,array('class'=>'select-on-check-all'));
-		elseif($this->selectableRows>1)
+		else if($this->selectableRows>1)
 			$item = CHtml::checkBox($this->id.'_all',false);
 		else
 		{
@@ -204,7 +196,7 @@ EOD;
 	{
 		if($this->value!==null)
 			$value=$this->evaluateExpression($this->value,array('data'=>$data,'row'=>$row));
-		elseif($this->name!==null)
+		else if($this->name!==null)
 			$value=CHtml::value($data,$this->name);
 		else
 			$value=$this->grid->dataProvider->keys[$row];
@@ -214,9 +206,6 @@ EOD;
 			$checked=$this->evaluateExpression($this->checked,array('data'=>$data,'row'=>$row));
 
 		$options=$this->checkBoxHtmlOptions;
-		if($this->disabled!==null)
-			$options['disabled']=$this->evaluateExpression($this->disabled,array('data'=>$data,'row'=>$row));
-
 		$name=$options['name'];
 		unset($options['name']);
 		$options['value']=$value;

@@ -20,6 +20,7 @@
  * @property boolean $isInitialized Whether this application component has been initialized (ie, {@link init()} is invoked).
  *
  * @author Qiang Xue <qiang.xue@gmail.com>
+ * @version $Id$
  * @package system.base
  * @since 1.0
  */

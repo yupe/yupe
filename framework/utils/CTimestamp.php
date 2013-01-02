@@ -27,6 +27,7 @@
  * to the PHP manual for more information.
  *
  * @author Wei Zhuo <weizhuo[at]gmail[dot]com>
+ * @version $Id$
  * @package system.utils
  * @since 1.0
  */
@@ -98,7 +99,7 @@ class CTimestamp
 		if ($year % 400 == 0)
 			return true;
 		// if gregorian calendar (>1582), century not-divisible by 400 is not leap
-		elseif ($year > 1582 && $year % 100 == 0 )
+		else if ($year > 1582 && $year % 100 == 0 )
 			return false;
 		return true;
 	}
@@ -287,8 +288,8 @@ class CTimestamp
 			case 'S':
 				$d10 = $day % 10;
 				if ($d10 == 1) $dates .= 'st';
-				elseif ($d10 == 2 && $day != 12) $dates .= 'nd';
-				elseif ($d10 == 3) $dates .= 'rd';
+				else if ($d10 == 2 && $day != 12) $dates .= 'nd';
+				else if ($d10 == 3) $dates .= 'rd';
 				else $dates .= 'th';
 				break;
 

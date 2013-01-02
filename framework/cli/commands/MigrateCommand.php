@@ -23,6 +23,7 @@
  * </ul>
  *
  * @author Qiang Xue <qiang.xue@gmail.com>
+ * @version $Id$
  * @package system.cli.commands
  * @since 1.1.6
  */
@@ -439,7 +440,7 @@ class MigrateCommand extends CConsoleCommand
 	{
 		if($this->_db!==null)
 			return $this->_db;
-		elseif(($this->_db=Yii::app()->getComponent($this->connectionID)) instanceof CDbConnection)
+		else if(($this->_db=Yii::app()->getComponent($this->connectionID)) instanceof CDbConnection)
 			return $this->_db;
 
 		echo "Error: CMigrationCommand.connectionID '{$this->connectionID}' is invalid. Please make sure it refers to the ID of a CDbConnection application component.\n";

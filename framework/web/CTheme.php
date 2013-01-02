@@ -19,6 +19,7 @@
  * @property string $skinPath The path for widget skins. Defaults to 'ThemeRoot/views/skins'.
  *
  * @author Qiang Xue <qiang.xue@gmail.com>
+ * @version $Id$
  * @package system.web
  * @since 1.0
  */
@@ -132,7 +133,7 @@ class CTheme extends CComponent
 				$moduleViewPath.='/'.$module->getId();
 			}
 		}
-		elseif($module!==null)
+		else if($module!==null)
 			$moduleViewPath.='/'.$module->getId();
 
 		return $controller->resolveViewFile($layoutName,$moduleViewPath.'/layouts',$basePath,$moduleViewPath);

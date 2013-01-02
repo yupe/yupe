@@ -20,6 +20,7 @@
  * @property mixed $data Additional data for this assignment.
  *
  * @author Qiang Xue <qiang.xue@gmail.com>
+ * @version $Id$
  * @package system.web.auth
  * @since 1.0
  */

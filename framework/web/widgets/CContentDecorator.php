@@ -25,6 +25,7 @@
  * accessed with variable <code>$content</code>.
  *
  * @author Qiang Xue <qiang.xue@gmail.com>
+ * @version $Id$
  * @package system.web.widgets
  * @since 1.0
  */

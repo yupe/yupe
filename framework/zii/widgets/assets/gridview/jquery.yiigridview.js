@@ -5,6 +5,7 @@
  * @link http://www.yiiframework.com/
  * @copyright Copyright &copy; 2008-2010 Yii Software LLC
  * @license http://www.yiiframework.com/license/
+ * @version $Id$
  */
 
 (function ($) {
@@ -76,8 +77,6 @@
 				settings.updateSelector = settings.updateSelector
 								.replace('{page}', pagerSelector)
 								.replace('{sort}', sortSelector);
-				settings.filterSelector = settings.filterSelector
-								.replace('{filter}', inputSelector);
 
 				gridSettings[id] = settings;
 
@@ -86,11 +85,11 @@
 						// Check to see if History.js is enabled for our Browser
 						if (settings.enableHistory && window.History.enabled) {
 							// Ajaxify this link
-							var url = $(this).attr('href').split('?'),
-								params = $.deparam.querystring('?'+url[1]);
+							var url = $(this).attr('href'),
+								params = $.deparam.querystring(url);
 
 							delete params[settings.ajaxVar];
-							window.History.pushState(null, document.title, decodeURIComponent($.param.querystring(url[0], params)));
+							window.History.pushState(null, document.title, $.param.querystring(url.substr(0, url.indexOf('?')), params));
 						} else {
 							$('#' + id).yiiGridView('update', {url: $(this).attr('href')});
 						}
@@ -98,7 +97,7 @@
 					});
 				}
 
-				$(document).on('change.yiiGridView keydown.yiiGridView', settings.filterSelector, function (event) {
+				$(document).on('change.yiiGridView keydown.yiiGridView', inputSelector, function (event) {
 					if (event.type === 'keydown') {
 						if( event.keyCode !== 13) {
 							return; // only react to enter key
@@ -112,7 +111,7 @@
 							return;
 						}
 					}
-					var data = $(settings.filterSelector).serialize();
+					var data = $(inputSelector).serialize();
 					if (settings.pageVar !== undefined) {
 						data += '&' + settings.pageVar + '=1';
 					}
@@ -122,7 +121,7 @@
 							params = $.deparam.querystring($.param.querystring(url, data));
 
 						delete params[settings.ajaxVar];
-						window.History.pushState(null, document.title, decodeURIComponent($.param.querystring(url.substr(0, url.indexOf('?')), params)));
+						window.History.pushState(null, document.title, $.param.querystring(url.substr(0, url.indexOf('?')), params));
 					} else {
 						$('#' + id).yiiGridView('update', {data: data});
 					}
@@ -368,7 +367,6 @@
 			});
 			return checked;
 		}
-		
 	};
 
 	$.fn.yiiGridView = function (method) {
