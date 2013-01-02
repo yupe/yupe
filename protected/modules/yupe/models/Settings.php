@@ -157,15 +157,17 @@ class Settings extends YModel
     }
 
     /**
-     * Получает настройки модуля/модулей из базы данных (пользователельские)
+     *  Получает настройки модуля/модулей из базы данных (пользователельские)
      *
-     * @param string $user_id Идентификатор пользователя
-     * @param mixed $modulesId Список идентификаторов модулей
-     * @return array Экземпляры класса Settings, соответствующие запрошенным параметрам
-     */
-    public function fetchUserModuleSettings($user_id = null, array $modulesId = null)
+     *  @param string $user_id  - Идентификатор пользователя
+     *  @param mixed  $modulesId - Список идентификаторов модулей
+     *
+     *  @return array Экземпляры класса Settings, соответствующие запрошенным параметрам
+     **/
+    public function fetchUserModuleSettings($user_id = false, $modulesId = array())
     {
-        if (empty($user_id)) return array();
+        if (empty($user_id))
+            return array();
 
         $settings = array();
 
@@ -178,12 +180,11 @@ class Settings extends YModel
         /* Выборка параметров клиентов */
         $criteria->compare("type", self::TYPE_USER);
 
-        $q = $this->findAll($criteria);
+        $result = $this->findAll($criteria);
 
-        if(count($q))
-        {
-            foreach ($q as $s)
-                $settings[$s->param_name] = $s;
+        if (count($result)) {
+            foreach ($result as $s)
+                $settings[] = $s;
         }
 
         return $settings;

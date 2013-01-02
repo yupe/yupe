@@ -61,6 +61,7 @@ $this->renderPartial('_search', array('model' => $model));
     'bulkActions' => array(
         'actionButtons' => array(
             array(
+                'id' => 'actionButton',
                 'buttonType' => 'button',
                 'type' => 'primary',
                 'size' => 'small',
