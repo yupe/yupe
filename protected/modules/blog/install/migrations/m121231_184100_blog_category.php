@@ -10,6 +10,9 @@ class m121231_184100_blog_category extends CDbMigration
 
         // blog
         $tableName = $db->tablePrefix.'blog';
+
+        $this->addColumn($tableName, 'category_id', 'integer DEFAULT NULL');
+
         $this->createIndex("blog_category_idx",$tableName,"category_id", false);
         $this->addForeignKey("blog_category_fk",$tableName,'category_id',$db->tablePrefix.'category','id','SET NULL','CASCADE');
     }
