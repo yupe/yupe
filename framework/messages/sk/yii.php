@@ -15,12 +15,10 @@
  * of the guide for details.
  *
  * NOTE, this file must be saved in UTF-8 encoding.
- *
- * @version $Id: $
  */
 return array (
-  'In order to use MIME-type validation provided by CFileValidator fileinfo PECL extension should be installed.' => 'Pre využitie kontroly MIME-typ súboru v rámci validátora CFileValidator je potrebné mať inštalované PECL rozšírenie fileinfo.',
-  'The file "{file}" cannot be uploaded. Only files of these MIME-types are allowed: {mimeTypes}.' => 'Súbor "{file}" nemohol byť nahratý. Povolené sú len súbory nasledovných MIME typov: {mimeTypes}.',
+  'Adding a primary key after table has been created is not supported by SQLite.' => 'Pridanie primárneho kľúča po vytvorení tabuľky nie je podporované databázou SQLite.',
+  'Removing a primary key after table has been created is not supported by SQLite.' => 'Odstránenie primárneho kľúča po vytvorení tabuľky nie je podporované databázou SQLite.',
   '"{path}" is not a valid directory.' => '"{path}" nie je platný adresár.',
   '&lt; Previous' => '&lt; Predchádzajúca',
   '&lt;&lt; First' => '&lt;&lt; Prvá',
@@ -71,7 +69,7 @@ return array (
   'CHttpRequest is unable to determine the path info of the request.' => 'CHttpRequest nedokázal identifikovať informácie o ceste k súboru požiadavky.',
   'CHttpRequest is unable to determine the request URI.' => 'CHttpRequest nedokázal identifikovať požadovanú URI.',
   'CHttpSession.cookieMode can only be "none", "allow" or "only".' => 'CHttpSession.cookieMode môže nadobudnúť len hodnoty "none", "allow" alebo "only".',
-  'CHttpSession.gcProbability "{value}" is invalid. It must be an integer between 0 and 100.' => 'CHttpSession.gcProbability "{value}" je neplatná. Zadajte prosím integer medzi 0 az 100.',
+  'CHttpSession.gcProbability "{value}" is invalid. It must be a float between 0 and 100.' => 'Neplatná hodnota CHttpSession.gcProbability "{value}". Zadajte prosím float medzi 0 az 100.',
   'CHttpSession.savePath "{path}" is not a valid directory.' => 'CHttpSession.savePath "{path}" nie je platný adresár.',
   'CMemCache requires PHP {extension} extension to be loaded.' => 'CMemCache vyžaduje nahraté rozšírenie PHP {extension}.',
   'CMemCache server configuration must be an array.' => 'Konfigurácia CMemCache musí byť pole.',
@@ -108,9 +106,10 @@ return array (
   'Failed to write the uploaded file "{file}" to disk.' => 'Nepodarilo sa zapísať nahratý súbor "{file}" na disk.',
   'File upload was stopped by extension.' => 'Nahrávanie súboru bolo prerušené rozšírením.',
   'Filter "{filter}" is invalid. Controller "{class}" does not have the filter method "filter{filter}".' => 'Filter "{filter}" je neplatný. Controller "{class}" nemá implementovanú metódu pre filter "filter{filter}".',
-  'GD and FreeType PHP extensions are required.' => 'Požadované sú PHP Rozšírenia GD a FreeType.',
+  'GD with FreeType or ImageMagick PHP extensions are required.' => 'Požadované je PHP rozšírenie GD s FreeType alebo ImageMagick.',
   'Get a new code' => 'Nový kód',
   'Go to page: ' => 'Prejsť na stránku: ',
+  'In order to use MIME-type validation provided by CFileValidator fileinfo PECL extension should be installed.' => 'Pre využitie kontroly MIME-typ súboru v rámci validátora CFileValidator je potrebné mať inštalované PECL rozšírenie fileinfo.',
   'Invalid MO file revision: {revision}.' => 'Neplatná revízia MO súboru: {revision}.',
   'Invalid MO file: {file} (magic: {magic}).' => 'Neplatný MO súbor: {file} (magic: {magic}).',
   'Invalid enumerable value "{value}". Please make sure it is among ({enum}).' => 'Neplatná spočítateľná hodnota "{value}". Ubezpečte sa, že hodnota je z výberu ({enum}).',
@@ -151,6 +150,7 @@ return array (
   'The asset "{asset}" to be published does not exist.' => 'Položka "{asset}" určená na publikovanie neexistuje.',
   'The command path "{path}" is not a valid directory.' => 'Príkazový riadok "{path}" neobsahuje cestu ku platnému adresáru.',
   'The controller path "{path}" is not a valid directory.' => 'Cesta kontrollera "{path}" neobsahuje cestu ku platnému adresáru.',
+  'The file "{file}" cannot be uploaded. Only files of these MIME-types are allowed: {mimeTypes}.' => 'Súbor "{file}" nemohol byť nahratý. Povolené sú len súbory nasledovných MIME typov: {mimeTypes}.',
   'The file "{file}" cannot be uploaded. Only files with these extensions are allowed: {extensions}.' => 'Súbor "{file}" nemôže byť nahratý. Povolené sú len súbory s nasledovnými príponami: {extensions}.',
   'The file "{file}" is too large. Its size cannot exceed {limit} bytes.' => 'Súbor "{file}" je príliš veľký. Jeho veľkosť nesmie presiahnuť {limit} bajtov.',
   'The file "{file}" is too small. Its size cannot be smaller than {limit} bytes.' => 'Súbor "{file}" je príliš malý. Jeho veľkosť nesmie byť menej ako {limit} bajtov.',
@@ -255,5 +255,15 @@ return array (
   '{controller} cannot find the requested view "{view}".' => '{controller} nenašiel požadovanú šablónu "{view}".',
   '{controller} contains improperly nested widget tags in its view "{view}". A {widget} widget does not have an endWidget() call.' => '{controller} obsahuje nesprávne umiestnené Widget tagy v šablóne "{view}". Blok pre {widget} nemá korektne ukončený blok zavolaním metódy endWidget().',
   '{controller} has an extra endWidget({id}) call in its view.' => '{controller} má naviac volanú metódu endWidget ({id}) v šablóne.',
+  '{n} B' => '{n} B',
+  '{n} GB' => '{n} GB',
+  '{n} KB' => '{n} KB',
+  '{n} MB' => '{n} MB',
+  '{n} TB' => '{n} TB',
+  '{n} byte|{n} bytes' => '{n} bajt|{n} bajtov',
+  '{n} gigabyte|{n} gigabytes' => '{n} gigabajt|{n} gigabajtov',
+  '{n} kilobyte|{n} kilobytes' => '{n} kilobajt|{n} kilobajtov',
+  '{n} megabyte|{n} megabytes' => '{n} megabajt|{n} megabajtov',
+  '{n} terabyte|{n} terabytes' => '{n} terabajt|{n} terabajtov',
   '{widget} cannot find the view "{view}".' => '{widget} nenašiel šablónu "{view}".',
 );
