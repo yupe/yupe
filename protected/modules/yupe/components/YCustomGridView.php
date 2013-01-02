@@ -266,14 +266,11 @@ class YCustomGridView extends TbExtendedGridView
                 'label'       => $pageSize,
                 'active'      => $pageSize == $this->_pageSize,
                 'htmlOptions' => array(
-                    'class'   => 'pageSize',
-                    'rel'     => $pageSize,
+                    'class' => 'pageSize',
+                    'rel'   => $pageSize,
                 ),
                 'url'         => '#',
             );
-        echo '<pre>';
-        print_r(Yii::app()->session['modSettings']);
-        echo '</pre>';
         /* Текстовка: */
         echo Yii::t('yupe', 'Количество отображаемых эллементов:') . '<br />';
         /* Отрисовываем переключатели PageSize'a: */
