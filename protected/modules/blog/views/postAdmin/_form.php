@@ -76,7 +76,7 @@ Yii::app()->clientScript->registerScript('fieldset', "
             <?php echo $form->labelEx($model, 'content'); ?>
             <?php $this->widget($this->module->editor, array(
                 'model'       => $model,
-                'attribute'   => 'description',
+                'attribute'   => 'content',
                 'options'     => $this->module->editorOptions,
             )); ?>
          </div>

@@ -71,14 +71,14 @@ return array(
             'cache'        => $cache,
         ),
         // на продакшне gii рекомендуется отключить, подробнее: http://www.yiiframework.com/doc/guide/1.1/en/quickstart.first-app
-        'gii'   => array(
+        /*'gii'   => array(
             'class'          => 'system.gii.GiiModule',
             'password'       => 'giiYupe',
             'generatorPaths' => array(
                 'application.modules.yupe.extensions.yupe.gii',
             ),
             'ipFilters'=>array(),
-        ),
+        ),*/
     ), $modules),
     'behaviors' => array(
         'onBeginRequest' => array('class' => 'application.modules.yupe.extensions.urlManager.LanguageBehavior'),
@@ -106,16 +106,17 @@ return array(
             'urlFormat'      => 'path',
             'showScriptName' => false, // чтобы убрать index.php из url, читаем: http://yiiframework.ru/doc/guide/ru/quickstart.apache-nginx-config
             'cacheID'        => $cache,
-            'rules'          => array_merge(array(
+            'rules'          => array_merge(array_merge(array(
                 // правила переадресации
                 '/'                                                   => 'install/default/index',
+           ), $rules), array(
                 // общие правила
                 '<module:\w+>/<controller:\w+>/<action:\w+>/<id:\d+>' => '<module>/<controller>/<action>',
                 '<module:\w+>/<controller:\w+>/<action:\w+>'          => '<module>/<controller>/<action>',
                 '<module:\w+>/<controller:\w+>'                       => '<module>/<controller>/index',
                 '<controller:\w+>/<action:\w+>'                       => '<controller>/<action>',
                 '<controller:\w+>'                                    => '<controller>/index',
-            ), $rules),
+            )),
         ),
         // конфигурируем компонент CHttpRequest для защиты от CSRF атак, подробнее: http://www.yiiframework.ru/doc/guide/ru/topics.security
         // РЕКОМЕНДУЕМ УКАЗАТЬ СВОЕ ЗНАЧЕНИЕ ДЛЯ ПАРАМЕТРА "csrfTokenName"
