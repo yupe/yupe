@@ -82,17 +82,22 @@ class YCustomGridView extends TbExtendedGridView
     public function init()
     {
         $this->_modelName = $this->dataProvider->modelClass;
+        
         /* Если существует настройки pageSize для этой модели - устанавливаем, иначе - DEFAULT_PAGE_SIZE: */
         $this->_pageSize = isset(Yii::app()->session['modSettings'][strtolower($this->_modelName)]['pageSize'])?Yii::app()->session['modSettings'][strtolower($this->_modelName)]['pageSize']:self::DEFAULT_PAGE_SIZE;
+        
         /* Если существует запрос на установку количества эллементов на страницу: */
         if (Yii::app()->request->getParam('pageSize') !== null)
             $this->_pageSize = Yii::app()->request->getParam('pageSize');
+        
         /* Устанавливаем PageSize: */
         $this->dataProvider->pagination->pageSize = $this->_pageSize;
+        
         /* Инициализируем родителя: */
         parent::init();
+        
         /* Добавляем headline с возможностью переключения PageSize: */
-        $this->template = "{headline}\n" . $this->template;
+        $this->template = "{headline}\n" . $this->template . "{multiaction}\n";
     }
 
     /**
@@ -207,8 +212,10 @@ class YCustomGridView extends TbExtendedGridView
     {
         /* ID текущей модели: */
         $module_id = strtolower($this->_modelName);
+        
         /* Индикатор изменения PageSize: */
         $changedPageSize = false;
+        
         /* Если для данного модуля не установлен pageSize - устанавливаем его: */
         if (!isset(Yii::app()->session['modSettings'][$module_id]['pageSize'])) {
             $newSettings = new Settings;
@@ -223,10 +230,13 @@ class YCustomGridView extends TbExtendedGridView
             $changedPageSize = true;
             
         }
+        
         /* Получаем настройки модулей: */
         $settings = Settings::model()->fetchUserModuleSettings(Yii::app()->user->id);
+        
         /* Объявляем массив настроек для сессии: */
         $sessionSettings = array();
+        
         /* Проходим по массиву настроек наполняя сессию: */
         if (!empty($settings) && is_array($settings)) {
             /* Парсим все параметры и обновляем данные в сессии: */
@@ -256,10 +266,12 @@ class YCustomGridView extends TbExtendedGridView
     {
         $cscript = Yii::app()->getClientScript();
         $buttons = array();
+        
         /* Если передан запрос на установку PageSize - обновляем данные: */
         if (Yii::app()->request->getParam('pageSize') !== null) {
             $this->_updatePageSize();
         }
+        
         /* Перебор переключателей: */
         foreach ($this->pageSizes as $pageSize)
             $buttons[] = array(
@@ -271,25 +283,56 @@ class YCustomGridView extends TbExtendedGridView
                 ),
                 'url'         => '#',
             );
+        
         /* Текстовка: */
         echo Yii::t('yupe', 'Количество отображаемых эллементов:') . '<br />';
+        
         /* Отрисовываем переключатели PageSize'a: */
         $this->widget(
             'bootstrap.widgets.TbButtonGroup', array(
-                'type' => 'action',
-                'toggle' => 'radio',
+                'type'    => 'action',
+                'toggle'  => 'radio',
                 'buttons' => $buttons,
             )
         );
+        
         /* Скрипт передачи PageSize: */
         $cscript->registerScript(
             __CLASS__ . '#' . $this->id . 'Ex',
             'jQuery(document).ready(function($) {
-                $(document).on("click", ".pageSize", function(){
+                $(document).on("mousedown", ".pageSize", function(){
                     $.fn.yiiGridView.update("' . $this->id . '", {
                         data: "pageSize=" + $(this).attr("rel")
                     });
+                    return false;
                 });
+            });', CClientScript::POS_BEGIN
+        );
+    }
+
+    /**
+     * Function for rendering multiaction:
+     *
+     *  JS function variables:
+     *      status - type of action:
+     *          1  - delete
+     *          -------------------
+     *
+     *  @return nothing
+     */
+    public function renderMultiaction()
+    {
+        $cscript = Yii::app()->getClientScript();
+        
+        /* Скрипт для мультиекшена: */
+        $cscript->registerScript(
+            __CLASS__ . '#' . $this->id . 'Ex',
+            'jQuery(document).ready(function($) {
+                function multiaction(status, values) {
+                    $.ajax({
+                        url: "' . Yii::app()->createUrl('#multiaction') . '"
+                    });
+                }
             });', CClientScript::POS_BEGIN
         );
     }
