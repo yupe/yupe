@@ -226,9 +226,6 @@ class YCustomGridView extends TbExtendedGridView
         if (!isset($sessionSession[$module_id]['pageSize'])) {
             $newSets = new Settings;
             $newSets->module_id = $module_id;
-            $newSets->creation_date = date('Y-m-d H:i:s');
-            $newSets->change_date = date('Y-m-d H:i:s');
-            $newSets->user_id = Yii::app()->user->id;
             $newSets->param_name = 'pageSize';
             $newSets->param_value = Yii::app()->request->getParam('pageSize');
             $newSets->type = Settings::TYPE_USER;
@@ -242,7 +239,6 @@ class YCustomGridView extends TbExtendedGridView
                     'type'       => Settings::TYPE_USER,
                 )
             );
-            $oldSets->change_date = date('Y-m-d H:i:s');
             $oldSets->param_value = Yii::app()->request->getParam('pageSize');
             $oldSets->update();
         }
