@@ -25,30 +25,6 @@ class LoginAction extends CAction
                     ? array($module->loginAdminSuccess)
                     : array($module->loginSuccess);
 
-                /* Если админ - получаем настройки модулей: */
-                if (Yii::app()->user->isSuperUser()) {
-                    
-                    /* Получаем настройки по всем модулям для данного пользователя: */
-                    $settings = Settings::model()->fetchUserModuleSettings(Yii::app()->user->id);
-                    $sessionSettings = array();
-                    
-                    /* Если передан не пустой массив, проходим по нему: */
-                    if (!empty($settings) && is_array($settings)) {
-                        foreach ($settings as $sets) {
-                            
-                            /* Если есть атрибуты - продолжаем: */
-                            if (isset($sets->attributes)) {
-                                
-                                /* Наполняем нашу сессию: */
-                                if (!isset($sessionSettings[$sets->module_id]))
-                                    $sessionSettings[$sets->module_id] = array();
-                                $sessionSettings[$sets->module_id][$sets->param_name] = $sets->param_value;
-                            }
-                        }
-                    }
-                    Yii::app()->session['modSettings'] = $sessionSettings;
-                }
-
                 $this->controller->redirect($redirect);
             }
             else

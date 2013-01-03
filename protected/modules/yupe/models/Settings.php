@@ -159,16 +159,13 @@ class Settings extends YModel
     /**
      *  Получает настройки модуля/модулей из базы данных (пользователельские)
      *
-     *  @param string $user_id  - Идентификатор пользователя
+     *  @param string $userId  - Идентификатор пользователя
      *  @param mixed  $modulesId - Список идентификаторов модулей
      *
      *  @return array Экземпляры класса Settings, соответствующие запрошенным параметрам
      **/
-    public function fetchUserModuleSettings($user_id = false, $modulesId = array())
+    public function fetchUserModuleSettings($userId, $modulesId = array())
     {
-        if (empty($user_id))
-            return array();
-
         $settings = array();
 
         $criteria = new CDbCriteria();
@@ -176,7 +173,7 @@ class Settings extends YModel
         if (!empty($modulesId))
             $criteria->addInCondition("module_id", $modulesId);
         /* Выборка для определённого пользователя: */
-        $criteria->compare("user_id", $user_id);
+        $criteria->compare("user_id", $userId);
         /* Выборка параметров клиентов */
         $criteria->compare("type", self::TYPE_USER);
 

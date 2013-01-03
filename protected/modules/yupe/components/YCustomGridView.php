@@ -216,48 +216,39 @@ class YCustomGridView extends TbExtendedGridView
         /* ID текущей модели: */
         $module_id = strtolower($this->_modelName);
         
-        /* Индикатор изменения PageSize: */
-        $changedPageSize = false;
-        
+        $sessionSession = Yii::app()->session['modSettings'];
+
+        if (!isset($sessionSession[$module_id]))
+            $sessionSession[$module_id] = array();
+
+        /* Обновляем PageSize: */
         /* Если для данного модуля не установлен pageSize - устанавливаем его: */
-        if (!isset(Yii::app()->session['modSettings'][$module_id]['pageSize'])) {
-            $newSettings = new Settings;
-            $newSettings->module_id = $module_id;
-            $newSettings->creation_date = date('Y-m-d H:i:s');
-            $newSettings->change_date = date('Y-m-d H:i:s');
-            $newSettings->user_id = Yii::app()->user->id;
-            $newSettings->param_name = 'pageSize';
-            $newSettings->param_value = Yii::app()->request->getParam('pageSize');
-            $newSettings->type = Settings::TYPE_USER;
-            $newSettings->save();
-            $changedPageSize = true;
-            
+        if (!isset($sessionSession[$module_id]['pageSize'])) {
+            $newSets = new Settings;
+            $newSets->module_id = $module_id;
+            $newSets->creation_date = date('Y-m-d H:i:s');
+            $newSets->change_date = date('Y-m-d H:i:s');
+            $newSets->user_id = Yii::app()->user->id;
+            $newSets->param_name = 'pageSize';
+            $newSets->param_value = Yii::app()->request->getParam('pageSize');
+            $newSets->type = Settings::TYPE_USER;
+            $newSets->save();
+        } else {
+            $oldSets = Settings::model()->findByAttributes(
+                array(
+                    'user_id'    => Yii::app()->user->id,
+                    'module_id'  => $module_id,
+                    'param_name' => 'pageSize',
+                    'type'       => Settings::TYPE_USER,
+                )
+            );
+            $oldSets->change_date = date('Y-m-d H:i:s');
+            $oldSets->param_value = Yii::app()->request->getParam('pageSize');
+            $oldSets->update();
         }
-        
-        /* Получаем настройки модулей: */
-        $settings = Settings::model()->fetchUserModuleSettings(Yii::app()->user->id);
-        
-        /* Объявляем массив настроек для сессии: */
-        $sessionSettings = array();
-        
-        /* Проходим по массиву настроек наполняя сессию: */
-        if (!empty($settings) && is_array($settings)) {
-            /* Парсим все параметры и обновляем данные в сессии: */
-            foreach ($settings as $sets) {
-                /* Если есть атрибуты - продолжаем: */
-                if (isset($sets->attributes)) {
-                    if ( (!$changedPageSize) && ($sets->module_id == $module_id) && ($sets->param_name == 'pageSize')) {
-                        $sets->param_value = Yii::app()->request->getParam('pageSize');
-                        $sets->change_date = date('Y-m-d H:i:s');
-                        $sets->update();
-                        $changedPageSize = true;
-                    }
-                    /* Наполняем нашу сессию: */
-                    $sessionSettings[$sets->module_id][$sets->param_name] = $sets->param_value;
-                }
-            }
-        }
-        Yii::app()->session['modSettings'] = $sessionSettings;
+        $sessionSession[$module_id]['pageSize'] = Yii::app()->request->getParam('pageSize');
+        /* Перезаписываем сессию: */
+        Yii::app()->session['modSettings'] = $sessionSession;
     }
 
     /**

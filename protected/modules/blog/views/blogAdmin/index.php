@@ -80,7 +80,7 @@ $this->renderPartial('_search', array('model' => $model));
                     'buttonType' => 'button',
                     'type'       => 'danger',
                     'size'       => 'small',
-                    'label'      => Yii::t('YCustomGridView', 'Удалить'),
+                    'label'      => Yii::t('blog', 'Удалить'),
                     /**
                      *   Логика следующая - получаем массив выбранных эллементов в переменную values,
                      *   далее передаём в функцию multiaction - необходимое действие и эллементы.

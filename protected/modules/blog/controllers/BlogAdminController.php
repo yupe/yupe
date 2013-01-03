@@ -141,7 +141,7 @@ class BlogAdminController extends YBackController
                 break;
                 
             default:
-                throw new CHttpException(404, 'Not found');
+                throw new CHttpException(404, Yii::t('blog', 'Запрошенная страница не найдена!'));
                 break;
             }
         }
