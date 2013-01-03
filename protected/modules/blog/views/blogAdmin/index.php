@@ -69,7 +69,8 @@ $this->renderPartial('_search', array('model' => $model));
         'type'         => 'condensed',
         'dataProvider' => $model->search(),
         'filter'       => $model,
-        'bulkActions' => array(
+        'pageSizes'    => array(1, 3, 5, 10),
+        'bulkActions'  => array(
             'actionButtons' => array(
                 array(
                     'id'         => 'deleteAction',

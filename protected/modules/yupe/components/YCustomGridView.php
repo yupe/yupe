@@ -298,7 +298,7 @@ class YCustomGridView extends TbExtendedGridView
         
         /* Скрипт передачи PageSize: */
         $cscript->registerScript(
-            __CLASS__ . '#' . $this->id . 'Ex',
+            __CLASS__ . '#' . $this->id . 'ExHeadline',
             'jQuery(document).ready(function($) {
                 $(document).on("mousedown", ".pageSize", function(){
                     $.fn.yiiGridView.update("' . $this->id . '", {
@@ -328,16 +328,23 @@ class YCustomGridView extends TbExtendedGridView
 
         /* Скрипт для мультиекшена: */
         $cscript->registerScript(
-            __CLASS__ . '#' . $this->id . 'Ex',
+            __CLASS__ . '#' . $this->id . 'ExMultiaction',
             'var multiaction = function(status, values) {
                 var queryString = "";
                 $.map(values, function(itemInput) {
                     queryString += ((queryString.length > 0) ? "&" : "") + "items[]=" + $(itemInput).val() ;
                 });
+                $("#' . $this->id . '").addClass("grid-view-loading");
                 $.ajax({
                     url: "' . $multiactionUrl . '",
                     type: "GET",
-                    data: "ajax=' . $this->_modelName . '&do=" + status + "&" + queryString
+                    data: "ajax=' . $this->_modelName . '&do=" + status + "&" + queryString,
+                    success: function(data) {
+                        if (data) {
+                            var gridContent = $(data).find("#' . $this->id . '");
+                            $("#' . $this->id . '").html(gridContent.html()).removeClass("grid-view-loading");
+                        }
+                    }
                 });
             }', CClientScript::POS_BEGIN
         );
