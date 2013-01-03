@@ -78,11 +78,19 @@ class YCustomGridView extends TbExtendedGridView
     public $pageSizes = array(5, 10, 15, 20, 50, 100);
 
     /**
+     *  constant of headline positions:
+     *  @uses renderHeadline
+     *  @var string
+     **/
+    const HP_LEFT = 'left';
+    const HP_RIGHT = 'right';
+
+    /**
      *  Value of headlinePosition:
      *  @uses renderHeadline
      *  @var string
      **/
-    public $headlinePosition = 'right';
+    public $headlinePosition;
 
     /**
     *   Widget initialize function:
@@ -92,6 +100,10 @@ class YCustomGridView extends TbExtendedGridView
     public function init()
     {
         $this->_modelName = $this->dataProvider->modelClass;
+
+        $this->headlinePosition = empty($this->headlinePosition)
+                                    ? self::HP_RIGHT
+                                    : $this->headlinePosition;
         
         /* Устанавливаем PageSize: */
         $this->dataProvider->pagination->pageSize = $this->_pageSize = (Yii::app()->request->getParam('pageSize') !== null) 
