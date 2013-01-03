@@ -1,54 +1,53 @@
 <?php
-// @TODO Вомзможно добавить кэширование настроек модулей
-// Определяем основные переменные
-$import = $rules = $components = $preload = array();
-$modules = array(
-    'install' => array(
-        'class' => 'application.modules.install.InstallModule',
-    ),
+$config = array(
+    'import'       => array(),
+    'rules'        => array(),
+    'components'   => array(),
+    'preload'      => array(),
+    'modules'      => array('install' => array('class' => 'application.modules.install.InstallModule')),
+    'cache'        => false,
+    'enableAssets' => false,
 );
-$cache = $enableAssets = false;
 // Получаем настройки модулей
 $files = glob(dirname(__FILE__) . '/modules/*.php');
 if (!empty($files))
 {
     foreach ($files as $file)
     {
-        $config = require_once($file);
-        $name   = preg_replace('#^.*/([^\.]*)\.php$#', '$1', $file);
+        $moduleConfig = require_once($file);
+        $name         = preg_replace('#^.*/([^\.]*)\.php$#', '$1', $file);
 
-        if (!empty($config['import']))
-            $import = array_merge($import, $config['import']);
-        if (!empty($config['rules']))
-            $rules = array_merge($rules, $config['rules']);
-        if (!empty($config['component']))
-            $components = array_merge($components, $config['component']);
-        if (!empty($config['module']))
-            $modules = array_merge($modules, array($name => $config['module']));
-        if (!empty($config['preload']))
-            $preload = array_merge($preload, $config['preload']);
         if ($name == 'yupe')
         {
-            if (!empty($config['cache']))
-                $cache = $config['cache'];
-            if (!empty($config['enableAssets']))
-                $enableAssets = $config['enableAssets'];
+            $config['cache']        = 'cache';
+            $config['enableAssets'] = true;
         }
-        if ($name == 'install' && !empty($config['install']))
-            unset($modules['install']);
+        if ($name == 'install')
+            unset($config['modules']['install']);
+
+        if (!empty($moduleConfig['import']))
+            $config['import']     = CMap::mergeArray($config['import'], $moduleConfig['import']);
+        if (!empty($moduleConfig['rules']))
+            $config['rules']      = CMap::mergeArray($config['rules'], $moduleConfig['rules']);
+        if (!empty($moduleConfig['component']))
+            $config['components'] = CMap::mergeArray($config['components'], $moduleConfig['component']);
+        if (!empty($moduleConfig['preload']))
+            $config['preload']    = CMap::mergeArray($config['preload'], $moduleConfig['preload']);
+        if (!empty($moduleConfig['module']))
+            $config['modules']    = CMap::mergeArray($config['modules'], array($name => $moduleConfig['module']));
     }
 }
 
 // основной конфигурационный файл Yii и Юпи! (подробнее http://www.yiiframework.ru/doc/guide/ru/basics.application)
 return array(
-    'basePath'          => dirname(__FILE__) . DIRECTORY_SEPARATOR . '..',
-    'defaultController' => 'site',       // контроллер по умолчанию
-    'name'              => 'Юпи!',       // название приложения
-    'language'          => 'ru',         // язык по умолчанию
+    'basePath'          => dirname(__FILE__) . '/..',
+    'defaultController' => 'site',             // контроллер по умолчанию
+    'name'              => 'Юпи!',             // название приложения
+    'language'          => 'ru',               // язык по умолчанию
     'sourceLanguage'    => 'ru',
-    'theme'             => 'default',    // тема оформления по умолчанию
-    'preload'           => $preload,     // preloading 'log' component
-    'import'            => array_merge(array(
+    'theme'             => 'default',          // тема оформления по умолчанию
+    'preload'           => $config['preload'], // preloading components
+    'import'            => CMap::mergeArray(array(
         // подключение основых путей
         'application.components.*',
         // подключение путей из модулей
@@ -60,15 +59,15 @@ return array(
         'application.modules.yupe.components.controllers.*',
         'application.modules.yupe.components.validators.*',
         'application.modules.yupe.components.exceptions.*',
-    ), $import),
+    ), $config['import']),
     // подключение и конфигурирование модулей,
     // подробнее: http://www.yiiframework.ru/doc/guide/ru/basics.module
-    'modules' => array_merge(array(
+    'modules' => CMap::mergeArray(array(
         'yupe'  => array(
             'class'        => 'application.modules.yupe.YupeModule',
             'brandUrl'     => 'http://yupe.ru?from=engine',
-            'enableAssets' => $enableAssets,
-            'cache'        => $cache,
+            'enableAssets' => $config['enableAssets'],
+            'cache'        => $config['cache'],
         ),
         // на продакшне gii рекомендуется отключить, подробнее: http://www.yiiframework.com/doc/guide/1.1/en/quickstart.first-app
         /*'gii'   => array(
@@ -79,14 +78,14 @@ return array(
             ),
             'ipFilters'=>array(),
         ),*/
-    ), $modules),
+    ), $config['modules']),
     'behaviors' => array(
         'onBeginRequest' => array('class' => 'application.modules.yupe.extensions.urlManager.LanguageBehavior'),
         'YupeStartUpBehavior',
     ),
     'params' => require(dirname(__FILE__) . '/params.php'),
     // конфигурирование основных компонентов (подробнее http://www.yiiframework.ru/doc/guide/ru/basics.component)
-    'components' => array_merge(array(
+    'components' => CMap::mergeArray(array(
         // Работа с миграциями, обновление БД модулей
         'migrator'=>array(
             'class'=>'application.modules.yupe.extensions.migrator.Migrator',
@@ -105,11 +104,11 @@ return array(
             'langParam'      => 'language',
             'urlFormat'      => 'path',
             'showScriptName' => false, // чтобы убрать index.php из url, читаем: http://yiiframework.ru/doc/guide/ru/quickstart.apache-nginx-config
-            'cacheID'        => $cache,
-            'rules'          => array_merge(array_merge(array(
-                // правила переадресации
+            'cacheID'        => $config['cache'],
+            'rules'          => CMap::mergeArray(CMap::mergeArray(array(
+                // правило переадресации инсталятора
                 '/'                                                   => 'install/default/index',
-           ), $rules), array(
+           ), $config['rules']), array(
                 // общие правила
                 '<module:\w+>/<controller:\w+>/<action:\w+>/<id:\d+>' => '<module>/<controller>/<action>',
                 '<module:\w+>/<controller:\w+>/<action:\w+>'          => '<module>/<controller>/<action>',
@@ -156,5 +155,5 @@ return array(
         'curl' => array(
             'class' => 'application.modules.yupe.extensions.curl.Curl'
         ),
-    ), $components),
+    ), $config['components']),
 );
