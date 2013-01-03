@@ -5,12 +5,10 @@ class LoginAction extends CAction
     {
         $form = new LoginForm;
 
-        if (Yii::app()->request->isPostRequest && !empty($_POST['LoginForm']))
-        {
+        if (Yii::app()->request->isPostRequest && !empty($_POST['LoginForm'])) {
             $form->setAttributes($_POST['LoginForm']);
 
-            if ($form->validate())
-            {
+            if ($form->validate()) {
                 Yii::app()->user->setFlash(
                     YFlashMessages::NOTICE_MESSAGE,
                     Yii::t('user', 'Вы успешно авторизовались!')
@@ -31,10 +29,12 @@ class LoginAction extends CAction
             }
             else
                 Yii::log(
-                    Yii::t('user', 'Ошибка авторизации! email => {email}, Password => {password}!', array(
-                        '{email}' => $form->email,
-                        '{password}' => $form->password
-                    )),
+                    Yii::t(
+                        'user', 'Ошибка авторизации! email => {email}, Password => {password}!', array(
+                            '{email}' => $form->email,
+                            '{password}' => $form->password
+                        )
+                    ),
                     CLogger::LEVEL_ERROR, UserModule::$logCategory
                 );
         }
