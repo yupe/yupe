@@ -4,7 +4,7 @@ class PagesWidget extends YWidget
     public $pageStatus;
     public $topLevelOnly = false;
     public $order        = 'menu_order ASC';
-    public $parent_Id;
+    public $parent_id;
     public $view;
     public $visible = true;
 
@@ -14,7 +14,7 @@ class PagesWidget extends YWidget
 
         if (!$this->pageStatus)
             $this->pageStatus = Page::STATUS_PUBLISHED;
-        $this->parent_Id = (int) $this->parent_Id;
+        $this->parent_id = (int) $this->parent_id;
     }
 
     public function run()
@@ -27,10 +27,10 @@ class PagesWidget extends YWidget
 
             if (!Yii::app()->user->isAuthenticated())
                 $criteria->addCondition('is_protected = ' . Page::PROTECTED_NO);
-            if ($this->parent_Id)
-                $criteria->addCondition("id = {$this->parent_Id} OR parent_Id = {$this->parent_Id}");
+            if ($this->parent_id)
+                $criteria->addCondition("id = {$this->parent_id} OR parent_id = {$this->parent_id}");
             if ($this->topLevelOnly)
-                $criteria->addCondition("parent_Id is null or parent_Id = 0");
+                $criteria->addCondition("parent_id is null or parent_id = 0");
 
             $view = $this->view ? $this->view : 'pageswidget';
 

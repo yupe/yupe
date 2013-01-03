@@ -22,12 +22,12 @@ Yii::app()->clientScript->registerScript('fieldset', "
 
     <?php echo $form->errorSummary($model); ?>
 
-    <div class="wide row-fluid control-group <?php echo ($model->hasErrors('category_id') || $model->hasErrors('parent_Id')) ? 'error' : ''; ?>">
+    <div class="wide row-fluid control-group <?php echo ($model->hasErrors('category_id') || $model->hasErrors('parent_id')) ? 'error' : ''; ?>">
         <div class="span4">
             <?php echo $form->dropDownListRow($model, 'category_id', CHtml::listData($this->module->getCategoryList(), 'id', 'name'), array('empty' => Yii::t('page', '--выберите--'), 'class' => 'span7 popover-help', 'data-original-title' => $model->getAttributeLabel('category_id'), 'data-content' => $model->getAttributeDescription('category_id'))); ?>
         </div>
         <div class="span3">
-            <?php echo $form->dropDownListRow($model, 'parent_Id', $pages, array('empty' => Yii::t('page', '--выберите--'), 'class' => 'span7 popover-help', 'data-original-title' => $model->getAttributeLabel('parent_Id'), 'data-content' => $model->getAttributeDescription('parent_Id'))); ?>
+            <?php echo $form->dropDownListRow($model, 'parent_id', $pages, array('empty' => Yii::t('page', '--выберите--'), 'class' => 'span7 popover-help', 'data-original-title' => $model->getAttributeLabel('parent_id'), 'data-content' => $model->getAttributeDescription('parent_id'))); ?>
         </div>
     </div>
     <div class="wide row-fluid control-group <?php echo ($model->hasErrors('status') || $model->hasErrors('menu_order')) ? 'error' : ''; ?>">

@@ -48,8 +48,8 @@ $form = $this->beginWidget('bootstrap.widgets.TbActiveForm', array(
             <?php echo $form->dropDownList($model, 'category_id', CHtml::listData($this->module->getCategoryList(), 'id', 'name'), array( 'empty' => Yii::t('news', '--выберите--'))); ?>
         </div>
         <div class="span3">
-            <?php echo $form->labelEx($model, 'parent_Id' ); ?>
-            <?php echo $form->dropDownList($model, 'parent_Id', $pages); ?>
+            <?php echo $form->labelEx($model, 'parent_id' ); ?>
+            <?php echo $form->dropDownList($model, 'parent_id', $pages); ?>
         </div>
     </div>
     <div class="row-fluid control-group">

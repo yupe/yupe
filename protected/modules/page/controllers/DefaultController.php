@@ -117,7 +117,7 @@ class DefaultController extends YBackController
                     $page->setAttributes(array(
                         'slug'         => $slug,
                         'lang'         => $l,
-                        'parent_Id'    => $model->parent_Id,
+                        'parent_id'    => $model->parent_id,
                         'user_id'      => Yii::app()->user->id,
                         'status'       => $model->status,
                         'is_protected' => $model->is_protected,
