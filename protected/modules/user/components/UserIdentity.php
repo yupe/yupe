@@ -24,8 +24,7 @@ class UserIdentity extends CUserIdentity
             Yii::app()->user->setState('loginTime', time());
 
             // для админа в сессию запишем еще несколько значений
-            if ($user->access_level == User::ACCESS_LEVEL_ADMIN)
-            {
+            if ($user->access_level == User::ACCESS_LEVEL_ADMIN) {
                 Yii::app()->user->setState('loginAdmTime', time());
                 Yii::app()->user->setState('isAdmin', $user->access_level);
 
@@ -36,10 +35,8 @@ class UserIdentity extends CUserIdentity
                 /* Если передан не пустой массив, проходим по нему: */
                 if (!empty($settings) && is_array($settings)) {
                     foreach ($settings as $sets) {
-                        
                         /* Если есть атрибуты - продолжаем: */
                         if (isset($sets->attributes)) {
-                            
                             /* Наполняем нашу сессию: */
                             if (!isset($sessionSettings[$sets->module_id]))
                                 $sessionSettings[$sets->module_id] = array();

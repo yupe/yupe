@@ -86,15 +86,13 @@ class YCustomGridView extends TbExtendedGridView
     {
         $this->_modelName = $this->dataProvider->modelClass;
         
-        /* Если существует настройки pageSize для этой модели - устанавливаем, иначе - DEFAULT_PAGE_SIZE: */
-        $this->_pageSize = isset(Yii::app()->session['modSettings'][strtolower($this->_modelName)]['pageSize'])?Yii::app()->session['modSettings'][strtolower($this->_modelName)]['pageSize']:self::DEFAULT_PAGE_SIZE;
-        
-        /* Если существует запрос на установку количества эллементов на страницу: */
-        if (Yii::app()->request->getParam('pageSize') !== null)
-            $this->_pageSize = Yii::app()->request->getParam('pageSize');
-        
         /* Устанавливаем PageSize: */
-        $this->dataProvider->pagination->pageSize = $this->_pageSize;
+        $this->dataProvider->pagination->pageSize = $this->_pageSize = (Yii::app()->request->getParam('pageSize') !== null) 
+                    ? Yii::app()->request->getParam('pageSize')
+                    : (isset(Yii::app()->session['modSettings'][strtolower($this->_modelName)]['pageSize'])
+                          ? Yii::app()->session['modSettings'][strtolower($this->_modelName)]['pageSize']
+                          : self::DEFAULT_PAGE_SIZE
+                    );
         
         /* Инициализируем родителя: */
         parent::init();
@@ -215,20 +213,20 @@ class YCustomGridView extends TbExtendedGridView
     {
         /* ID текущей модели: */
         $module_id = strtolower($this->_modelName);
-        
-        $sessionSession = Yii::app()->session['modSettings'];
+        /* Делаем так, так как при попытке править Yii::app()->session['modSettings'] - получаем ошибку: */
+        $sessionSettings = Yii::app()->session['modSettings'];
 
-        if (!isset($sessionSession[$module_id]))
-            $sessionSession[$module_id] = array();
+        if (!isset($sessionSettings[$module_id]))
+            $sessionSettings[$module_id] = array();
 
         /* Обновляем PageSize: */
         /* Если для данного модуля не установлен pageSize - устанавливаем его: */
-        if (!isset($sessionSession[$module_id]['pageSize'])) {
-            $newSets = new Settings;
-            $newSets->module_id = $module_id;
-            $newSets->param_name = 'pageSize';
-            $newSets->param_value = Yii::app()->request->getParam('pageSize');
-            $newSets->type = Settings::TYPE_USER;
+        if (!isset($sessionSettings[$module_id]['pageSize'])) {
+            $newSets              = new Settings;
+            $newSets->module_id   = $module_id;
+            $newSets->param_name  = 'pageSize';
+            $newSets->param_value = $this->dataProvider->pagination->pageSize;
+            $newSets->type        = Settings::TYPE_USER;
             $newSets->save();
         } else {
             $oldSets = Settings::model()->findByAttributes(
@@ -239,12 +237,12 @@ class YCustomGridView extends TbExtendedGridView
                     'type'       => Settings::TYPE_USER,
                 )
             );
-            $oldSets->param_value = Yii::app()->request->getParam('pageSize');
+            $oldSets->param_value = $this->dataProvider->pagination->pageSize;
             $oldSets->update();
         }
-        $sessionSession[$module_id]['pageSize'] = Yii::app()->request->getParam('pageSize');
+        $sessionSettings[$module_id]['pageSize'] = $this->dataProvider->pagination->pageSize;
         /* Перезаписываем сессию: */
-        Yii::app()->session['modSettings'] = $sessionSession;
+        Yii::app()->session['modSettings'] = $sessionSettings;
     }
 
     /**
@@ -290,7 +288,7 @@ class YCustomGridView extends TbExtendedGridView
         $cscript->registerScript(
             __CLASS__ . '#' . $this->id . 'ExHeadline',
             'jQuery(document).ready(function($) {
-                $(document).on("mousedown", ".pageSize", function(){
+                $(document).on("mousedown", ".pageSize", function() {
                     $.fn.yiiGridView.update("' . $this->id . '", {
                         data: "pageSize=" + $(this).attr("rel")
                     });

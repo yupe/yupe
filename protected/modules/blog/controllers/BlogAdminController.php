@@ -130,13 +130,11 @@ class BlogAdminController extends YBackController
      **/
     public function actionMultiaction()
     {
-        if ((isset($_GET['ajax'])) && ($_GET['ajax'] == 'Blog') && (isset($_GET['do'])) && (isset($_GET['items']))) {
+        if ((isset($_GET['ajax'])) && ($_GET['ajax'] == 'Blog') && (isset($_GET['do'])) && (isset($_GET['items'])) && (is_array($_GET['items'])) && (!empty($_GET['items']))) {
             switch ($_GET['do']) {
             case 'delete':
-                if ((is_array($_GET['items'])) && (!empty($_GET['items']))) {
-                    foreach ($_GET['items'] as $itemId)
-                        $this->actionDelete($itemId, true);
-                }
+                foreach ($_GET['items'] as $itemId)
+                    $this->actionDelete($itemId, true);
                 break;
                 
             default:
