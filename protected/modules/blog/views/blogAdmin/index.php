@@ -62,14 +62,16 @@ $this->renderPartial('_search', array('model' => $model));
 <br/>
 
 <p><?php echo Yii::t('blog', 'В данном разделе представлены средства управления блогами'); ?></p>
-
 <?php $this->widget(
     'application.modules.yupe.components.YCustomGridView', array(
         'id'           => 'blog-grid',
         'type'         => 'condensed',
         'dataProvider' => $model->search(),
         'filter'       => $model,
-        'pageSizes'    => array(1, 3, 5, 10),
+        /*
+            Можно указать количество прямо из вызова виджета:
+            'pageSizes'    => array(1, 3, 5, 10),
+        */
         'bulkActions'  => array(
             'actionButtons' => array(
                 array(
