@@ -324,16 +324,22 @@ class YCustomGridView extends TbExtendedGridView
     {
         $cscript = Yii::app()->getClientScript();
         
+        $multiactionUrl = str_replace(Yii::app()->controller->action->id, 'multiaction', Yii::app()->request->requestUri);
+
         /* Скрипт для мультиекшена: */
         $cscript->registerScript(
             __CLASS__ . '#' . $this->id . 'Ex',
-            'jQuery(document).ready(function($) {
-                function multiaction(status, values) {
-                    $.ajax({
-                        url: "' . Yii::app()->createUrl('#multiaction') . '"
-                    });
-                }
-            });', CClientScript::POS_BEGIN
+            'var multiaction = function(status, values) {
+                var queryString = "";
+                $.map(values, function(itemInput) {
+                    queryString += ((queryString.length > 0) ? "&" : "") + "items[]=" + $(itemInput).val() ;
+                });
+                $.ajax({
+                    url: "' . $multiactionUrl . '",
+                    type: "GET",
+                    data: "ajax=' . $this->_modelName . '&do=" + status + "&" + queryString
+                });
+            }', CClientScript::POS_BEGIN
         );
     }
 }

@@ -74,10 +74,10 @@ $this->renderPartial('_search', array('model' => $model));
                 array(
                     'id'         => 'deleteAction',
                     'buttonType' => 'button',
-                    'type'       => 'error',
+                    'type'       => 'danger',
                     'size'       => 'small',
                     'label'      => Yii::t('YCustomGridView', 'Удалить'),
-                    'click'      => 'js:function(values){ console.log(values); }'
+                    'click'      => 'js:function(values){ multiaction("delete", values); }',
                 ),
             ),
             // if grid doesn't have a checkbox column type, it will attach
