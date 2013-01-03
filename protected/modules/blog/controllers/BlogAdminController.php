@@ -134,9 +134,8 @@ class BlogAdminController extends YBackController
             switch ($_GET['do']) {
             case 'delete':
                 if ((is_array($_GET['items'])) && (!empty($_GET['items']))) {
-                    foreach ($_GET['items'] as $itemId) {
+                    foreach ($_GET['items'] as $itemId)
                         $this->actionDelete($itemId, true);
-                    }
                 }
                 break;
                 
