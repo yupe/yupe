@@ -5,7 +5,7 @@
  *
  * The followings are the available columns in table 'Page':
  * @property integer $id
- * @property string $parent_Id
+ * @property string $parent_id
  * @property string $creation_date
  * @property string $change_date
  * @property string $title
@@ -51,8 +51,8 @@ class Page extends YModel
     {
         return array(
             array('name, title, slug, body, lang', 'required', 'on' => array('update', 'insert')),
-            array('status, is_protected, parent_Id, menu_order, category_id', 'numerical', 'integerOnly' => true, 'on' => array('update', 'insert')),
-            array('parent_Id', 'length', 'max' => 45),
+            array('status, is_protected, parent_id, menu_order, category_id', 'numerical', 'integerOnly' => true, 'on' => array('update', 'insert')),
+            array('parent_id', 'length', 'max' => 45),
             array('lang', 'length', 'max' => 2),
             array('lang', 'default', 'value' => Yii::app()->sourceLanguage),
             array('category_id', 'default', 'setOnEmpty' => true, 'value' => null),
@@ -64,7 +64,7 @@ class Page extends YModel
             array('title, slug, description, keywords, name', 'filter', 'filter' => array($obj = new CHtmlPurifier(), 'purify')),
             array('slug', 'YSLugValidator'),
             array('lang', 'match', 'pattern' => '/^[a-z]{2}$/', 'message' => Yii::t('page', 'Запрещенные символы в поле {attribute}')),
-            array('lang, id, parent_Id, creation_date, change_date, title, slug, body, keywords, description, status, menu_order', 'safe', 'on' => 'search'),
+            array('lang, id, parent_id, creation_date, change_date, title, slug, body, keywords, description, status, menu_order', 'safe', 'on' => 'search'),
         );
     }
 
@@ -74,8 +74,8 @@ class Page extends YModel
     public function relations()
     {
         return array(
-            'childPages'   => array(self::HAS_MANY, 'Page', 'parent_Id'),
-            'parentPage'   => array(self::BELONGS_TO, 'Page', 'parent_Id'),
+            'childPages'   => array(self::HAS_MANY, 'Page', 'parent_id'),
+            'parentPage'   => array(self::BELONGS_TO, 'Page', 'parent_id'),
             'author'       => array(self::BELONGS_TO, 'User', 'user_id'),
             'changeAuthor' => array(self::BELONGS_TO, 'User', 'change_user_id'),
             'category'     => array(self::BELONGS_TO, 'Category', 'category_id'),
@@ -89,7 +89,7 @@ class Page extends YModel
     {
         return array(
             'id'             => Yii::t('page', 'Id'),
-            'parent_Id'      => Yii::t('page', 'Родитель'),
+            'parent_id'      => Yii::t('page', 'Родитель'),
             'category_id'    => Yii::t('page', 'Категория'),
             'creation_date'  => Yii::t('page', 'Создано'),
             'change_date'    => Yii::t('page', 'Изменено'),
@@ -115,7 +115,7 @@ class Page extends YModel
     {
         return array(
             'id'             => Yii::t('page', 'Id страницы.'),
-            'parent_Id'      => Yii::t('page', 'Родительская страница.'),
+            'parent_id'      => Yii::t('page', 'Родительская страница.'),
             'category_id'    => Yii::t('page', 'Категория к которой привязана страница.'),
             'creation_date'  => Yii::t('page', 'Дата создания страницы.'),
             'change_date'    => Yii::t('page', 'Дата изменения страницы.'),
@@ -190,7 +190,7 @@ class Page extends YModel
         $criteria->with = array( 'author', 'changeAuthor' );
 
         $criteria->compare('id', $this->id);
-        $criteria->compare('parent_Id', $this->parent_Id);
+        $criteria->compare('parent_id', $this->parent_id);
         $criteria->compare('creation_date', $this->creation_date);
         $criteria->compare('change_date', $this->change_date);
         $criteria->compare('title', $this->title);

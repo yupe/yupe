@@ -62,7 +62,7 @@ $this->renderPartial('_search', array('model' => $model, 'pages' => $pages));
             'value' => '$data->getCategoryName()',
         ),
         array(
-            'name'  => 'parent_Id',
+            'name'  => 'parent_id',
             'value' => '$data->parentName',
         ),
         array(

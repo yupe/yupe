@@ -15,7 +15,7 @@ Yii::app()->clientScript->registerScript('fieldset', "
     <fieldset class="inline">
         <div class="row-fluid control-group">
             <div class="span3">
-                <?php echo $form->dropDownListRow($model, 'parent_Id', $pages, array('empty' => Yii::t('page', '- не выбрана -'))); ?>
+                <?php echo $form->dropDownListRow($model, 'parent_id', $pages, array('empty' => Yii::t('page', '- не выбрана -'))); ?>
             </div>
             <div class="span3">
                 <?php echo $form->dropDownListRow($model, 'status', $model->statusList, array('empty' => Yii::t('page', '- не важно -'))); ?>
