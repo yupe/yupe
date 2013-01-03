@@ -5,6 +5,7 @@ class BlogModule extends YWebModule
     {
         return array(
             'user',
+            'category'
         );
     }
 

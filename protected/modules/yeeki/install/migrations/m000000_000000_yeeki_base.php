@@ -62,6 +62,19 @@ class m000000_000000_yeeki_base extends CDbMigration
     public function safeDown()
     {
         $db = $this->getDbConnection();
+
+        // remove foreign keys prior to table drop to avoid loop
+        // wiki_page_link
+        $this->dropForeignKey("wiki_link_page_from_fk",$db->tablePrefix.'wiki_link');
+        $this->dropForeignKey("wiki_link_page_to_fk",$db->tablePrefix.'wiki_link');
+
+        // wiki_page_revision
+        $this->dropForeignKey("wiki_page_revision_pagefk",$db->tablePrefix.'wiki_page_revision');
+        $this->dropForeignKey("wiki_page_revision_fk",$db->tablePrefix.'wiki_page_revision');
+
+        // wiki_page
+        $this->dropForeignKey("wiki_page_user_fk",$db->tablePrefix.'wiki_page');
+
         $this->dropTable($db->tablePrefix.'wiki_page_revision');
         $this->dropTable($db->tablePrefix.'wiki_link');
         $this->dropTable($db->tablePrefix.'wiki_page');

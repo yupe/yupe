@@ -91,7 +91,6 @@ class User extends YModel
         );
     }
 
-
     /**
      * @return array customized attribute labels (name=>label)
      */

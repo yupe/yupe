@@ -242,4 +242,17 @@ class BackendController extends YBackController
     {
         $this->render('help');
     }
+
+    public function actionModupdate($name=null)
+    {
+        if($name && ($module=Yii::app()->getModule($name)))
+        {
+             $updates = Yii::app()->migrator->checkForUpdates(array($name=>$module));
+             $this->render('modupdate', array( 'updates' => $updates, 'module' => $module));
+             return;
+        }
+
+        $this->render('modupdate_index', array());
+
+    }
 }
