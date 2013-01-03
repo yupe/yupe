@@ -68,11 +68,12 @@ $this->renderPartial('_search', array('model' => $model));
         'type'         => 'condensed',
         'dataProvider' => $model->search(),
         'filter'       => $model,
-        /*
-            Можно указать количество прямо из вызова виджета:
-            'pageSizes'    => array(1, 3, 5, 10),
-        */
+        /**
+         *   Можно указать количество прямо из вызова виджета:
+         **/
+        //'pageSizes'    => array(1, 3, 5, 10),
         'bulkActions'  => array(
+            /* Массив кнопок действий: */
             'actionButtons' => array(
                 array(
                     'id'         => 'deleteAction',
@@ -80,6 +81,13 @@ $this->renderPartial('_search', array('model' => $model));
                     'type'       => 'danger',
                     'size'       => 'small',
                     'label'      => Yii::t('YCustomGridView', 'Удалить'),
+                    /**
+                     *   Логика следующая - получаем массив выбранных эллементов в переменную values,
+                     *   далее передаём в функцию multiaction - необходимое действие и эллементы.
+                     *   Multiaction - делает ajax-запрос на actionMultiaction, где уже происходит
+                     *   обработка данных (указывая собственные действия - необходимо создавать их
+                     *   обработчики в actionMultiaction):
+                     **/
                     'click'      => 'js:function(values){ multiaction("delete", values); }',
                 ),
             ),

@@ -19,7 +19,10 @@ Yii::import('bootstrap.widgets.TbExtendedGridView');
 *   @author   Yupe Team <team@yupe.ru>
 *   @license  https://github.com/yupe/yupe/blob/master/LICENSE BSD
 *   @link     http://yupe.ru
-*/
+*   @todo     можно реализовать мультиекшен на основе вызова
+*             метода из YCustomGridView и обращаться непосредственно
+*             к модели.
+**/
 class YCustomGridView extends TbExtendedGridView
 {
     /**
