@@ -271,16 +271,11 @@ abstract class YWebModule extends CWebModule
         $modulesDependent = Yii::app()->cache->get('YupeModulesDependent');
         if ($modulesDependent === false)
         {
-            $modules          = Yii::app()->getModule('yupe')->getModules(false, true);
-            $modulesDependent = array();
-
-            foreach ($modules['modules'] as $module)
+            $modules = $this->dependenciesAll;
+            foreach ($modules as $id => $dependencies)
             {
-                if (!empty($module->dependencies) && is_array($module->dependencies))
-                {
-                    foreach ($module->dependencies as $dependency)
-                        $modulesDependent[$dependency][] = $module->id;
-                }
+                foreach ($dependencies as $dependency)
+                    $modulesDependent[$dependency][] = $id;
             }
             Yii::app()->cache->set('YupeModulesDependent', $modulesDependent, Yii::app()->getModule('yupe')->coreCacheTime);
         }
