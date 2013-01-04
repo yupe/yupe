@@ -1,6 +1,6 @@
 <?php
 /**
- * Add category relations to blog
+ * Add category relations to feedback
  */
 class m130104_035800_feedback_category extends CDbMigration
 {
