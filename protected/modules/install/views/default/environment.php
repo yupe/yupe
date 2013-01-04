@@ -6,9 +6,9 @@
 
 <table class="table table-striped">
     <tr>
-        <th>Значение</th>
-        <th>Результат</th>
-        <th>Комментарий</th>
+        <th><?php echo Yii::t('install','Значение');?></th>
+        <th><?php echo Yii::t('install','Результат');?></th>
+        <th><?php echo Yii::t('install','Комментарий');?></th>
     </tr>
     <?php foreach ($requirements as $requirement): ?>
     <tr>

@@ -11,6 +11,9 @@ class DefaultController extends YBackController
     public function init()
     {
         parent::init();
+
+        $this->setPageTitle(Yii::t('install', 'Установка Юпи!'));
+
         $this->layout = 'application.modules.install.views.layouts.main';
     }
 
@@ -40,37 +43,37 @@ class DefaultController extends YBackController
             array(
                 Yii::t('install', 'Папка assets'),
                 $this->checkWritable($webRoot . '/assets/'),
-                Yii::t('install', 'Необходимо установить права записи на папку ' . $webRoot . $dp . 'assets'),
+                Yii::t('install', 'Необходимо установить права записи на папку {folder} assets',array('{folder}' => $webRoot . $dp)),
             ),
             array(
                 Yii::t('install', 'Папка runtime'),
                 $this->checkWritable($webRoot . '/protected/runtime/'),
-                Yii::t('install', 'Необходимо установить права записи на папку ' . $webRoot . $dp . 'protected' . $dp . 'runtime'),
+                Yii::t('install', 'Необходимо установить права записи на папку {folder}',array('{folder}' => $webRoot . $dp . 'protected' . $dp . 'runtime')),
             ),
             array(
                 Yii::t('install', 'Папка uploads'),
                 $this->checkWritable($webRoot . '/uploads/'),
-                Yii::t('install', 'Необходимо установить права записи на папку ' . $webRoot . $dp . 'uploads'),
+                Yii::t('install', 'Необходимо установить права записи на папку {folder}',array('{folder}' => $webRoot . $dp . 'uploads')),
             ),
             array(
                 Yii::t('install', 'Папка modules'),
                 $this->checkWritable($webRoot . '/protected/config/modules/'),
-                Yii::t('install', 'Необходимо установить права записи на папку ' . $webRoot . $dp . 'protected' . $dp . 'config' . $dp . 'modules'),
+                Yii::t('install', 'Необходимо установить права записи на папку {folder}',array('{folder}' => $webRoot . $dp . 'protected' . $dp . 'config' . $dp . 'modules')),
             ),
             array(
                 Yii::t('install', 'Папка modulesBack'),
                 $this->checkWritable($webRoot . '/protected/config/modulesBack/'),
-                Yii::t('install', 'Необходимо установить права записи на папку ' . $webRoot . $dp . 'protected' . $dp . 'config' . $dp . 'modulesBack'),
+                Yii::t('install', 'Необходимо установить права записи на папку {folder}',array('{folder}' => $webRoot . $dp . 'protected' . $dp . 'config' . $dp . 'modulesBack')),
             ),
             array(
                 Yii::t('install', 'Файл db.php'),
                 $this->checkConfigFileWritable($webRoot . '/protected/config/db.back.php', $webRoot . '/protected/config/db.php'),
-                Yii::t('install', 'Необходимо скопировать ' . $webRoot . $dp . 'protected' . $dp . 'config' . $dp . 'db.back.php в ' . $webRoot . $dp . 'protected' . $dp . 'config' . $dp . 'db.php и дать ему права на запись'),
+                Yii::t('install', 'Необходимо скопировать {file} и дать ему права на запись',array('{file}' =>  $webRoot . $dp . 'protected' . $dp . 'config' . $dp . 'db.back.php в ' . $webRoot . $dp . 'protected' . $dp . 'config' . $dp.'db.php')),
             ),
             array(
-                Yii::t('install', 'Активация Yupe'),
+                Yii::t('install', 'Активация ядра Юпи!'),
                 Yii::app()->getModule('yupe')->activate,
-                Yii::t('install', 'Необходимо исправить все ошибки'),
+                Yii::t('install', 'При запуске ядра произошли ошибки, пожалуйста, проверьте права доступа на все необходимые файлы и каталоги (см. ошибки выше)'),
             ),
         );
 
