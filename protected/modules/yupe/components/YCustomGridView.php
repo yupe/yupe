@@ -78,6 +78,21 @@ class YCustomGridView extends TbExtendedGridView
     public $pageSizes = array(5, 10, 15, 20, 50, 100);
 
     /**
+     *  constant of headline positions:
+     *  @uses renderHeadline
+     *  @var string
+     **/
+    const HP_LEFT = 'left';
+    const HP_RIGHT = 'right';
+
+    /**
+     *  Value of headlinePosition:
+     *  @uses renderHeadline
+     *  @var string
+     **/
+    public $headlinePosition;
+
+    /**
     *   Widget initialize function:
     *
     *   @return None
@@ -85,6 +100,10 @@ class YCustomGridView extends TbExtendedGridView
     public function init()
     {
         $this->_modelName = $this->dataProvider->modelClass;
+
+        $this->headlinePosition = empty($this->headlinePosition)
+                                    ? self::HP_RIGHT
+                                    : $this->headlinePosition;
         
         /* Устанавливаем PageSize: */
         $this->dataProvider->pagination->pageSize = $this->_pageSize = (Yii::app()->request->getParam('pageSize') !== null) 
@@ -271,19 +290,25 @@ class YCustomGridView extends TbExtendedGridView
                 ),
                 'url'         => '#',
             );
-        
+        /* Установка позиции headline'а: */
+        $headlinePosition = '';
+        if (in_array($this->headlinePosition, array('left', 'right')))
+            $headlinePosition = ' style="text-align: ' . $this->headlinePosition . ';" ';
+        echo '<div class="headline" ' . $headlinePosition .' >';
         /* Текстовка: */
         echo Yii::t('yupe', 'Количество отображаемых эллементов:') . '<br />';
         
         /* Отрисовываем переключатели PageSize'a: */
         $this->widget(
             'bootstrap.widgets.TbButtonGroup', array(
+                'size'    => 'small',
                 'type'    => 'action',
                 'toggle'  => 'radio',
                 'buttons' => $buttons,
             )
         );
-        
+        echo '</div>';
+        echo '<br />';
         /* Скрипт передачи PageSize: */
         $cscript->registerScript(
             __CLASS__ . '#' . $this->id . 'ExHeadline',
