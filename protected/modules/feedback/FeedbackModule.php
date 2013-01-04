@@ -15,6 +15,13 @@ class FeedbackModule extends YWebModule
 
     public static $logCategory = 'application.modules.feedback';
 
+    public function getDependencies()
+    {
+        return array(
+            'category'
+        );
+    }
+
     public function getParamsLabels()
     {
         return array(
