@@ -6,17 +6,17 @@
 
 <table class="table table-striped">
     <tr>
-        <th>Значение</th>
-        <th>Результат</th>
-        <th>Комментарий</th>
+        <th><?php echo Yii::t('install','Значение');?></th>
+        <th><?php echo Yii::t('install','Результат');?></th>
+        <th><?php echo Yii::t('install','Комментарий');?></th>
     </tr>
     <?php foreach ($requirements as $requirement): ?>
     <tr>
         <td style="width:200px;"><?php echo $requirement[0]; ?></td>
         <td>
             <?php $this->widget('bootstrap.widgets.TbLabel', array(
-                'type'  => $requirement[2] ? 'success' : ($requirement[1] ? 'important' : 'important'),
-                'label' => $requirement[2] ? 'ОК' : ($requirement[1] ? 'Ошибка' : 'Предупреждение'),
+                'type'  => $requirement[2] ? 'success' : ($requirement[1] ? 'important' : 'notice'),
+                'label' => $requirement[2] ? 'ОК' : ($requirement[1] ? Yii::t('install','Ошибка') : Yii::t('install','Предупреждение')),
             )); ?>
         </td>
         <td><?php echo ($requirement[4] == '') ? '&nbsp;' : $requirement[4]; ?></td>
