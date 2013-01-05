@@ -45,7 +45,7 @@ class YupeModule extends YWebModule
     public $defaultBackendLanguage = 'ru';
 
     public $otherCategoryName;
-    public $updateChanel           = 'nightly';
+    public $updateChanel           = 'release';
 
     public function getVersion()
     {
@@ -117,7 +117,7 @@ class YupeModule extends YWebModule
             'availableLanguages'     => Yii::t('yupe', 'Список доступных языков через запятую (напр. ru,en,de)'),
             'defaultLanguage'        => Yii::t('yupe', 'Язык по умолчанию для сайта'),
             'defaultBackendLanguage' => Yii::t('yupe', 'Язык по умолчанию для панели управления'),
-            'updateChanel'           => Yii::t('yupe', 'Канал обновления'),
+            'updateChanel'           => Yii::t('yupe', 'Обновление Yupe'),
         );
     }
 
@@ -159,8 +159,7 @@ class YupeModule extends YWebModule
     {
         $chanelsList = array(
             'disabled' => Yii::t('yupe', 'Обновление отключено'),
-            'nightly'  => Yii::t('yupe', 'Ночные сборки'),
-            'release'  => Yii::t('yupe', 'Релизы'),
+            'release'  => Yii::t('yupe', 'Обновление релизами'),
         );
         return $chanelsList;
     }
