@@ -25,7 +25,7 @@ class Migrator extends CApplicationComponent
             foreach($newMigrations as $migration)
                 if($this->migrateUp($module, $migration)===false)
                     return false;
-        }
+        } else Yii::log(Yii::t('yupe','Для модуля {module} новых миграций не найдено', array('{module}'=>$module)));
 
         return true;
     }

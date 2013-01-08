@@ -536,17 +536,27 @@ abstract class YWebModule extends CWebModule
 
     public function installDB(&$installed=array())
     {
-        $log=null;
+        Yii::log(Yii::t('yupe',$this->id."->installDB() : Запрошена установка БД модуля {m}", array('{m}'=>$this->name)));
+
+        $log=array();
         if ($this->dependencies !== array())
+        {
             foreach ($this->dependencies as $dep)
+            {
+                Yii::log(Yii::t('yupe','Для модуля {module} сначала будет установлена база модуля {m2} как зависимость', array('{module}'=>$this->id, '{m2}'=>$dep)));
                 if (($m=Yii::app()->getModule($dep)) == NULL)
                     throw new CException(Yii::t('yupe',"Необходимый для установки модуль {dm} не найден", array('{dm}'=>$dep)));
                 else
                 {
-                    if (!isset($installed[$dep]) && !($m->installDB($installed)))
+                    if (!isset($installed[$dep]))
+                        if (!$i = $m->installDB($installed))
                             return false;
-                    $log[]=$m->name;
+                    $log=array_merge($log,$i);
                 }
+            }
+        }
+
+        $log[]=$this->id;
 
         // migrate here
         return (Yii::app()->migrator->updateToLatest($this->id) && ($installed[$this->id] = true))?$log:false;
