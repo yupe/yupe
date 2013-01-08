@@ -4,7 +4,7 @@
  *
  * @author Andrey Opeykin <aopeykin@gmail.com>
  * @link http://yupe.ru
- * @copyright Copyright &copy; 2012 Yupe!
+ * @copyright Copyright &copy; 2012-2013 Yupe!
  * @license BSD http://ru.wikipedia.org/wiki/%D0%9B%D0%B8%D1%86%D0%B5%D0%BD%D0%B7%D0%B8%D1%8F_BSD
  *
  * Модуль yupe - основной модуль системы.
@@ -45,7 +45,7 @@ class YupeModule extends YWebModule
     public $defaultBackendLanguage = 'ru';
 
     public $otherCategoryName;
-    public $updateChanel           = 'release';
+    public $updateChannel           = 'release';
 
     public function getVersion()
     {
@@ -117,7 +117,7 @@ class YupeModule extends YWebModule
             'availableLanguages'     => Yii::t('yupe', 'Список доступных языков через запятую (напр. ru,en,de)'),
             'defaultLanguage'        => Yii::t('yupe', 'Язык по умолчанию для сайта'),
             'defaultBackendLanguage' => Yii::t('yupe', 'Язык по умолчанию для панели управления'),
-            'updateChanel'           => Yii::t('yupe', 'Обновление Yupe'),
+            'updateChannel'           => Yii::t('yupe', 'Обновление Yupe'),
         );
     }
 
@@ -138,7 +138,7 @@ class YupeModule extends YWebModule
             'availableLanguages',
             'defaultLanguage'        => $this->languagesList,
             'defaultBackendLanguage' => $this->languagesList,
-            'updateChanel'           => $this->updateChanelList,
+            'updateChannel'           => $this->updateChannelList,
         );
     }
 
@@ -155,13 +155,13 @@ class YupeModule extends YWebModule
         return $langs;
     }
 
-    protected function getUpdateChanelList()
+    protected function getUpdateChannelList()
     {
-        $chanelsList = array(
+        $channelsList = array(
             'disabled' => Yii::t('yupe', 'Обновление отключено'),
             'release'  => Yii::t('yupe', 'Обновление релизами'),
         );
-        return $chanelsList;
+        return $channelsList;
     }
 
     public function getAdminPageLink()
