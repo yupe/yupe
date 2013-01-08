@@ -445,6 +445,7 @@ abstract class YWebModule extends CWebModule
      */
     public function getInstall()
     {
+
         $this->activate;
         return true;
     }
@@ -456,8 +457,17 @@ abstract class YWebModule extends CWebModule
      */
     public function getUnInstall()
     {
-        $this->deactivate;
-        return true;
+
+        if ($this->deactivate)
+        {
+            if ( ($history = Yii::app()->migrator->getMigrationHistory($this->id, -1))!== array())
+            {
+                print_r($history);
+            }
+
+        } else echo "deactivate:false";
+
+        return false;
     }
 
     /**
@@ -527,5 +537,28 @@ abstract class YWebModule extends CWebModule
             'imageUpload' => $uploadController,
             'fileUpload'  => $uploadController,
         );
+    }
+
+    public function installDB(&$installed=array())
+    {
+        $log=null;
+        if ($this->dependencies !== array())
+            foreach ($this->dependencies as $dep)
+                if (($m=Yii::app()->getModule($dep)) == NULL)
+                    throw new CException(Yii::t('yupe',"Необходимый для установки модуль {dm} не найден", array('{dm}'=>$dep)));
+                else
+                {
+                    if (!isset($installed[$dep]) && !($m->installDB($installed)))
+                            return false;
+                    $log[]=$m->name;
+                }
+
+        // migrate here
+        return (Yii::app()->migrator->updateToLatest($this->id) && ($installed[$this->id] = true))?$log:false;
+    }
+
+    public function uninstallDB($noDependencies=false)
+    {
+        throw new CException("Проверка экзепшена");
     }
 }

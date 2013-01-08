@@ -33,22 +33,31 @@ class Migrator extends CApplicationComponent
 	protected function migrateUp($module, $class)
 	{
         $db = $this->getDbConnection();
-        Yii::log(Yii::t('yupe',"Применяем миграцию {class}", array('{class}'=> $class)));
-        $start=microtime(true);
-		$migration=$this->instantiateMigration($module,$class);
 
         ob_start();
         ob_implicit_flush(false);
+
+        echo Yii::t('yupe',"Применяем миграцию {class}", array('{class}'=> $class));
+
+        $start=microtime(true);
+		$migration=$this->instantiateMigration($module,$class);
+
+        // Вставляем запись о начале миграции
+        $db->createCommand()->insert($db->tablePrefix.$this->migrationTable, array(
+                'version'=>$class,
+                'module'=>$module,
+                'apply_time'=>0,
+            ));
+
         $result = $migration->up();
-        Yii::log(ob_get_clean());
+        Yii::log($msg=ob_get_clean());
 
 		if($result!==false)
 		{
-			$db->createCommand()->insert($db->tablePrefix.$this->migrationTable, array(
-				'version'=>$class,
-                'module'=>$module,
+            // Проставляем "установлено"
+			$db->createCommand()->update($db->tablePrefix.$this->migrationTable, array(
 				'apply_time'=>time(),
-			));
+			), "`version`=:ver AND `module`=:mod", array(':ver'=> $class, 'mod'=>$module));
 			$time=microtime(true)-$start;
             Yii::log(Yii::t('yupe',"Миграция {class} применена за {s} сек.", array('{class}'=> $class, '{s}'=> sprintf("%.3f",$time))));
 		}
@@ -56,6 +65,7 @@ class Migrator extends CApplicationComponent
 		{
 			$time=microtime(true)-$start;
             Yii::log(Yii::t('yupe',"Ошибка применения миграции {class} ({s} сек.)", array('{class}'=> $class, '{s}'=> sprintf("%.3f",$time))));
+            Yii::app()->user->setFlash('warning',$msg);
 			return false;
 		}
 	}
@@ -70,7 +80,7 @@ class Migrator extends CApplicationComponent
         ob_start();
         ob_implicit_flush(false);
         $result = $migration->down();
-        Yii::log(ob_get_clean());
+        Yii::log($msg=ob_get_clean());
 
         if($result !==false)
 		{
@@ -85,6 +95,7 @@ class Migrator extends CApplicationComponent
 		{
 			$time=microtime(true)-$start;
             Yii::log(Yii::t('yupe',"Ошибка отмены миграции {class} ({s} сек.)", array('{class}'=> $class, '{s}'=> sprintf("%.3f",$time))));
+            Yii::app()->user->setFlash('warning',$msg);
 			return false;
 		}
 	}
@@ -149,7 +160,8 @@ class Migrator extends CApplicationComponent
 	{
 		$applied=array();
 		foreach($this->getMigrationHistory($module, -1) as $version=>$time)
-			$applied[substr($version,1,13)]=true;
+            if ($time)
+			    $applied[substr($version,1,13)]=true;
 
 		$migrations=array();
         if ( ($migrationsPath = Yii::getPathOfAlias("application.modules.".$module.".install.migrations")) && is_dir($migrationsPath) )
