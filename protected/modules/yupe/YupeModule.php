@@ -40,11 +40,12 @@ class YupeModule extends YWebModule
     public $categoryIcon;
     public $categorySort;
 
-    public $availableLanguages     = "ru,en";
-    public $defaultLanguage        = "ru";
-    public $defaultBackendLanguage = "ru";
+    public $availableLanguages     = 'ru,en';
+    public $defaultLanguage        = 'ru';
+    public $defaultBackendLanguage = 'ru';
 
     public $otherCategoryName;
+    public $updateChanel           = 'release';
 
     public function getVersion()
     {
@@ -116,6 +117,7 @@ class YupeModule extends YWebModule
             'availableLanguages'     => Yii::t('yupe', 'Список доступных языков через запятую (напр. ru,en,de)'),
             'defaultLanguage'        => Yii::t('yupe', 'Язык по умолчанию для сайта'),
             'defaultBackendLanguage' => Yii::t('yupe', 'Язык по умолчанию для панели управления'),
+            'updateChanel'           => Yii::t('yupe', 'Обновление Yupe'),
         );
     }
 
@@ -123,7 +125,7 @@ class YupeModule extends YWebModule
     {
         return array(
             'coreCacheTime',
-            'theme'                  => $this->getThemes(),
+            'theme'                  => $this->themes,
             'backendLayout',
             'backendTheme'           => $this->getThemes(true),
             'siteName',
@@ -131,11 +133,12 @@ class YupeModule extends YWebModule
             'siteKeyWords',
             'editorsDir',
             'uploadPath',
-            'editor'                 => $this->getEditors(),
+            'editor'                 => $this->editors,
             'email',
             'availableLanguages',
-            'defaultLanguage'        => $this->getLanguagesList(),
-            'defaultBackendLanguage' => $this->getLanguagesList(),
+            'defaultLanguage'        => $this->languagesList,
+            'defaultBackendLanguage' => $this->languagesList,
+            'updateChanel'           => $this->updateChanelList,
         );
     }
 
@@ -150,6 +153,15 @@ class YupeModule extends YWebModule
         foreach (explode(',', $this->availableLanguages) as $lang)
             $langs[$lang] = Yii::app()->locale->getLocaleDisplayName($lang);
         return $langs;
+    }
+
+    protected function getUpdateChanelList()
+    {
+        $chanelsList = array(
+            'disabled' => Yii::t('yupe', 'Обновление отключено'),
+            'release'  => Yii::t('yupe', 'Обновление релизами'),
+        );
+        return $chanelsList;
     }
 
     public function getAdminPageLink()

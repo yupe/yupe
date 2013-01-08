@@ -77,7 +77,7 @@ $this->renderPartial('_search', array('model' => $model));
         array(
             'name'   => 'parent_id',
             'value'  => '$data->parent',
-            'filter' => CHtml::activeDropDownList($model, 'status', $model->parentTree, array('encode' => false)),
+            'filter' => CHtml::activeDropDownList($model, 'status', $model->parentTree, array('disabled' => ($model->menu_id) ? false : true) + array('encode' => false)),
         ),
         array(
             'name'   => 'condition_name',
