@@ -9,7 +9,7 @@
         <small id="modstate"></small>
 
 <?php
-    Yii::app()->clientScript->registerCoreScript('jquery');
+
     $this->widget('bootstrap.widgets.TbBox', array(
     'title' => Yii::t('install','Журнал установки'),
     'headerIcon' => 'icon-list',
