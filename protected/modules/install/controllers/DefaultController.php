@@ -400,7 +400,6 @@ class DefaultController extends YBackController
 
         if (Yii::app()->request->isPostRequest)
         {
-            $migrator      = Yii::app()->migrator;
             $modulesByName = array();
             $toInstall     = array();
 
@@ -414,7 +413,7 @@ class DefaultController extends YBackController
 
             // Проверим зависимости
             $deps = array();
-            foreach ($modulesByName as $m)
+            foreach ($toInstall as $m)
             {
                 if ($m->dependencies !== array())
                 {
@@ -468,26 +467,9 @@ class DefaultController extends YBackController
 
             // Начали установку тут
             if(!$error)
-                return $this->render('begininstall', array('modules' => $modules));
+                return $this->render('begininstall', array('modules' => $toInstall));
         }
         $this->render('modulesinstall', array('modules' => $modules));
-    }
-
-    private function migrateWithDependencies($m, &$toInstall, &$installed)
-    {
-        if ($m->dependencies !== array())
-        {
-            foreach ($m->dependencies as $dep)
-            {
-                if (!isset($installed[$dep]))
-                {
-                    if (!$this->migrateWithDependencies($toInstall[$dep], $toInstall, $installed))
-                        return false;
-                }
-            }
-        }
-        // migrate here
-        return Yii::app()->migrator->updateToLatest($m->id) && ($installed[$m->id] = true);
     }
 
     private function logMessage($module, $msg, $category="notice")

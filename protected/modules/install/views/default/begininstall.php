@@ -9,23 +9,24 @@
         <small id="modstate"></small>
 
 <?php
+    Yii::app()->clientScript->registerCoreScript('jquery');
     $this->widget('bootstrap.widgets.TbBox', array(
     'title' => Yii::t('install','Журнал установки'),
     'headerIcon' => 'icon-list',
     'content' => '',
     'id'=> 'log-content',
-    'htmlOptions' => array('style'=>'margin-top: 20px;')
+    'htmlOptions' => array('style'=>'margin-top: 20px;font-size: 10px; line-height: 12px;')
     ));
 ?>
 <script type="text/javascript">
     <?php
 
         // Выясним, какие модули нам нужно постараться поставить первыми
-        $morder=array('yupe'=>99999);
+        $morder=array('yupe'=>99999, 'user'=> 99998);
         foreach($modules as $mid=>$m)
-            if (!empty($m->dependencies))
-                foreach ($m->dependencies as $d)
-                    $morder[$d]=isset($morder[$d])?($morder[$d]+1):1;
+                if (!empty($m->dependencies))
+                    foreach ($m->dependencies as $d)
+                        $morder[$d]=isset($morder[$d])?($morder[$d]+1):1;
 
         // Отсортируем модули, чтобы по очереди ставились
         uksort($modules,
@@ -58,8 +59,9 @@
 
     function installNext()
     {
-
+        var ic=0;
         $.each(modules, function(i,m) {
+            ic++;
             if (!m.installed)
             {
                 setModuleProgress(ic,"<i class='icon-"+ m.icon+"'>&nbsp;</i>&nbsp; <?php echo Yii::t('install','Устанавливаем модуль')?> <b>"+m.description+"</b>");
@@ -74,7 +76,7 @@
                                     modules[m.id].installed=true;
                                     if(typeof (data.log)!=undefined)
                                         log(data.log);
-                                    ic++;
+
                                     setModuleProgress(ic,"<i class='icon-"+ m.icon+"'>&nbsp;</i>&nbsp; <?php echo Yii::t('install','Установлен модуль')?> <b>"+m.description+"</b>");
                                     // проверить, остались ли еще не установленные
                                     if (ic<total)
