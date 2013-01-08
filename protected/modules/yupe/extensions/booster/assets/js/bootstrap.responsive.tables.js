@@ -1,16 +1,16 @@
-$(document).ready(function() {
+$(document).ready(function () {
     var switched = false;
-    var updateTables = function() {
-        if (($(window).width() < 767) && !switched ){
+    var updateTables = function () {
+        if (($(window).width() < 767) && !switched) {
             switched = true;
-            $("table.responsive").each(function(i, element) {
+            $("table.responsive").each(function (i, element) {
                 splitTable($(element));
             });
             return true;
         }
         else if (switched && ($(window).width() > 767)) {
             switched = false;
-            $("table.responsive").each(function(i, element) {
+            $("table.responsive").each(function (i, element) {
                 unsplitTable($(element));
             });
         }
@@ -20,8 +20,7 @@ $(document).ready(function() {
     $(window).bind("resize", updateTables);
 
 
-    function splitTable(original)
-    {
+    function splitTable(original) {
         original.wrap("<div class='table-wrapper' />");
 
         var copy = original.clone();

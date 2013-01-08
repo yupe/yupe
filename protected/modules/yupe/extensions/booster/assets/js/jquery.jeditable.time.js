@@ -12,17 +12,17 @@
  * Revision: $Id$
  *
  */
- 
+
 $.editable.addInputType('time', {
     /* Create input element. */
-    element : function(settings, original) {
+    element:function (settings, original) {
         /* Create and pulldowns for hours and minutes. Append them to */
-        /* form which is accessible as variable this.                 */        
+        /* form which is accessible as variable this.                 */
         var hourselect = $('<select class="hour_" />');
-        var minselect  = $('<select class="min_" />');
+        var minselect = $('<select class="min_" />');
 
 
-        for (var hour=0; hour <= 23; hour++) {
+        for (var hour = 0; hour <= 23; hour++) {
             if (hour < 10) {
                 hour = '0' + hour;
             }
@@ -31,7 +31,7 @@ $.editable.addInputType('time', {
         }
         $(this).append(hourselect);
 
-        for (var min=0; min <= 45; min = parseInt(min, 10) + 15) {
+        for (var min = 0; min <= 45; min = parseInt(min, 10) + 15) {
             if (min < 10) {
                 min = '0' + min;
             }
@@ -39,7 +39,7 @@ $.editable.addInputType('time', {
             minselect.append(option);
         }
         $(this).append(minselect);
-                
+
         /* Last create an hidden input. This is returned to plugin. It will */
         /* later hold the actual value which will be submitted to server.   */
         var hidden = $('<input type="hidden" />');
@@ -47,18 +47,18 @@ $.editable.addInputType('time', {
         return(hidden);
     },
     /* Set content / value of previously created input element. */
-    content : function(string, settings, original) {
-        
-        /* Select correct hour and minute in pulldowns. */
-        var hour = parseInt(string.substr(0,2), 10);
-        var min  = parseInt(string.substr(3,2), 10);
+    content:function (string, settings, original) {
 
-        $('.hour_', this).children().each(function() {
+        /* Select correct hour and minute in pulldowns. */
+        var hour = parseInt(string.substr(0, 2), 10);
+        var min = parseInt(string.substr(3, 2), 10);
+
+        $('.hour_', this).children().each(function () {
             if (hour == $(this).val()) {
                 $(this).attr('selected', 'selected');
             }
         });
-        $('.min_', this).children().each(function() {
+        $('.min_', this).children().each(function () {
             if (min == $(this).val()) {
                 $(this).attr('selected', 'selected');
             }
@@ -66,7 +66,7 @@ $.editable.addInputType('time', {
 
     },
     /* Call before submit hook. */
-    submit: function (settings, original) {
+    submit:function (settings, original) {
         /* Take values from hour and minute pulldowns. Create string such as    */
         /* 13:45 from them. Set value of the hidden input field to this string. */
         var value = $('.hour_', this).val() + ':' + $('.min_', this).val();

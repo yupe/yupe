@@ -2,19 +2,19 @@
 // Alerts
 // --------------------------------------------------
 
-
 // Base styles
 // -------------------------
 
 .alert {
   padding: 8px 35px 8px 14px;
   margin-bottom: @baseLineHeight;
-  text-shadow: 0 1px 0 rgba(255,255,255,.5);
+  text-shadow: 0 1px 0 rgba(255, 255, 255, .5);
   background-color: @warningBackground;
   border: 1px solid @warningBorder;
   .border-radius(@baseBorderRadius);
   color: @warningText;
 }
+
 .alert h4 {
   margin: 0;
 }
@@ -27,7 +27,6 @@
   line-height: @baseLineHeight;
 }
 
-
 // Alternate styles
 // -------------------------
 
@@ -36,18 +35,19 @@
   border-color: @successBorder;
   color: @successText;
 }
+
 .alert-danger,
 .alert-error {
   background-color: @errorBackground;
   border-color: @errorBorder;
   color: @errorText;
 }
+
 .alert-info {
   background-color: @infoBackground;
   border-color: @infoBorder;
   color: @infoText;
 }
-
 
 // Block alerts
 // -------------------------
@@ -56,10 +56,12 @@
   padding-top: 14px;
   padding-bottom: 14px;
 }
+
 .alert-block > p,
 .alert-block > ul {
   margin-bottom: 0;
 }
+
 .alert-block p + p {
   margin-top: 5px;
 }

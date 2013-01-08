@@ -43,4 +43,6 @@ switch
 /console/config/*-env.php
 /console/config/*-local.php
 
-
+# Composer stuff
+composer*
+vendor*
