@@ -82,7 +82,7 @@ class YCustomGridView extends TbExtendedGridView
      *  @uses renderHeadline
      *  @var string
      **/
-    const HP_LEFT = 'left';
+    const HP_LEFT  = 'left';
     const HP_RIGHT = 'right';
 
     /**
@@ -101,21 +101,19 @@ class YCustomGridView extends TbExtendedGridView
     {
         $this->_modelName = $this->dataProvider->modelClass;
 
-        $this->headlinePosition = empty($this->headlinePosition)
-                                    ? self::HP_RIGHT
-                                    : $this->headlinePosition;
-        
+        $this->headlinePosition = empty($this->headlinePosition) ? self::HP_RIGHT : $this->headlinePosition;
+
         /* Устанавливаем PageSize: */
-        $this->dataProvider->pagination->pageSize = $this->_pageSize = (Yii::app()->request->getParam('pageSize') !== null) 
-                    ? Yii::app()->request->getParam('pageSize')
-                    : (isset(Yii::app()->session['modSettings'][strtolower($this->_modelName)]['pageSize'])
-                          ? Yii::app()->session['modSettings'][strtolower($this->_modelName)]['pageSize']
-                          : self::DEFAULT_PAGE_SIZE
-                    );
-        
+        $this->dataProvider->pagination->pageSize = $this->_pageSize = (Yii::app()->request->getParam('pageSize') !== null)
+            ? Yii::app()->request->getParam('pageSize')
+            : (isset(Yii::app()->session['modSettings'][strtolower($this->_modelName)]['pageSize'])
+                ? Yii::app()->session['modSettings'][strtolower($this->_modelName)]['pageSize']
+                : self::DEFAULT_PAGE_SIZE
+            );
+
         /* Инициализируем родителя: */
         parent::init();
-        
+
         /* Добавляем headline с возможностью переключения PageSize: */
         $this->template = "{headline}\n" . $this->template . "{multiaction}\n";
     }
