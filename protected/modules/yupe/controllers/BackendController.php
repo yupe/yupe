@@ -248,11 +248,21 @@ class BackendController extends YBackController
         if($name && ($module=Yii::app()->getModule($name)))
         {
              $updates = Yii::app()->migrator->checkForUpdates(array($name=>$module));
-             $this->render('modupdate', array( 'updates' => $updates, 'module' => $module));
+             if(Yii::app()->request->isPostRequest)
+             {
+                Yii::app()->migrator->updateToLatest($name);
+                Yii::app()->user->setFlash(
+                     YFlashMessages::NOTICE_MESSAGE,
+                     Yii::t('yupe', 'Модуль обновил свои миграции!')
+                 );
+                $this->redirect(array("/yupe/backend"));
+             } else
+                $this->render('modupdate', array( 'updates'=> $updates, $module => $module));
              return;
         }
 
-        $this->render('modupdate_index', array());
+        //$this->render('modupdate_index', array());
+        throw new CHttpException(500,'not implemented yet');
 
     }
 }

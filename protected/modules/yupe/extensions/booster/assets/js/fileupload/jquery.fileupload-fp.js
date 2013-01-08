@@ -36,53 +36,53 @@
     // with file processing functionality:
     $.widget('blueimp.fileupload', $.blueimp.fileupload, {
 
-        options: {
+        options:{
             // The list of file processing actions:
-            process: [
-            /*
-                {
-                    action: 'load',
-                    fileTypes: /^image\/(gif|jpeg|png)$/,
-                    maxFileSize: 20000000 // 20MB
-                },
-                {
-                    action: 'resize',
-                    maxWidth: 1920,
-                    maxHeight: 1200,
-                    minWidth: 800,
-                    minHeight: 600
-                },
-                {
-                    action: 'save'
-                }
-            */
+            process:[
+                /*
+                 {
+                 action: 'load',
+                 fileTypes: /^image\/(gif|jpeg|png)$/,
+                 maxFileSize: 20000000 // 20MB
+                 },
+                 {
+                 action: 'resize',
+                 maxWidth: 1920,
+                 maxHeight: 1200,
+                 minWidth: 800,
+                 minHeight: 600
+                 },
+                 {
+                 action: 'save'
+                 }
+                 */
             ],
 
             // The add callback is invoked as soon as files are added to the
             // fileupload widget (via file input selection, drag & drop or add
             // API call). See the basic file upload widget for more information:
-            add: function (e, data) {
+            add:function (e, data) {
                 $(this).fileupload('process', data).done(function () {
                     data.submit();
                 });
             }
         },
 
-        processActions: {
+        processActions:{
             // Loads the image given via data.files and data.index
             // as img element if the browser supports canvas.
             // Accepts the options fileTypes (regular expression)
             // and maxFileSize (integer) to limit the files to load:
-            load: function (data, options) {
+            load:function (data, options) {
                 var that = this,
                     file = data.files[data.index],
                     dfd = $.Deferred();
                 if (window.HTMLCanvasElement &&
-                        window.HTMLCanvasElement.prototype.toBlob &&
-                        ($.type(options.maxFileSize) !== 'number' ||
-                            file.size < options.maxFileSize) &&
-                        (!options.fileTypes ||
-                            options.fileTypes.test(file.type))) {
+                    window.HTMLCanvasElement.prototype.toBlob &&
+                    ($.type(options.maxFileSize) !== 'number' ||
+                        file.size < options.maxFileSize) &&
+                    (!options.fileTypes ||
+                        options.fileTypes.test(file.type))) {
                     loadImage(
                         file,
                         function (img) {
@@ -99,14 +99,14 @@
             // data.canvas with the resized image as canvas element.
             // Accepts the options maxWidth, maxHeight, minWidth and
             // minHeight to scale the given image:
-            resize: function (data, options) {
+            resize:function (data, options) {
                 var img = data.img,
                     canvas;
-                options = $.extend({canvas: true}, options);
+                options = $.extend({canvas:true}, options);
                 if (img) {
                     canvas = loadImage.scale(img, options);
                     if (canvas.width !== img.width ||
-                            canvas.height !== img.height) {
+                        canvas.height !== img.height) {
                         data.canvas = canvas;
                     }
                 }
@@ -114,7 +114,7 @@
             },
             // Saves the processed image given as data.canvas
             // inplace at data.index of data.files:
-            save: function (data, options) {
+            save:function (data, options) {
                 // Do nothing if no processing has happened:
                 if (!data.canvas) {
                     return data;
@@ -157,12 +157,14 @@
 
         // Resizes the file at the given index and stores the created blob at
         // the original position of the files list, returns a Promise object:
-        _processFile: function (files, index, options) {
+        _processFile:function (files, index, options) {
             var that = this,
-                dfd = $.Deferred().resolveWith(that, [{
-                    files: files,
-                    index: index
-                }]),
+                dfd = $.Deferred().resolveWith(that, [
+                    {
+                        files:files,
+                        index:index
+                    }
+                ]),
                 chain = dfd.promise();
             that._processing += 1;
             $.each(options.process, function (i, settings) {
@@ -187,11 +189,11 @@
         // Processes the files given as files property of the data parameter,
         // returns a Promise object that allows to bind a done handler, which
         // will be invoked after processing all files (inplace) is done:
-        process: function (data) {
+        process:function (data) {
             var that = this,
                 options = $.extend({}, this.options, data);
             if (options.process && options.process.length &&
-                    this._isXHRUpload(options)) {
+                this._isXHRUpload(options)) {
                 $.each(data.files, function (index, file) {
                     that._processingQueue = that._processingQueue.pipe(
                         function () {
@@ -208,7 +210,7 @@
             return this._processingQueue;
         },
 
-        _create: function () {
+        _create:function () {
             this._super();
             this._processing = 0;
             this._processingQueue = $.Deferred().resolveWith(this)

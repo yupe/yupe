@@ -200,30 +200,29 @@ class MenuItem extends YModel
 
     public function getParentTree()
     {
-        return array(0 => Yii::t('menu', 'Корень меню')) + $this->getParentTreeIterator();
+        return array(0 => Yii::t('menu', 'Корень меню')) + $this->parentTreeIterator;
     }
 
     public function getParentTreeIterator($parent_id = 0, $level = 1)
     {
-        $items = Yii::app()->cache->get(Yii::app()->getModule('menu')->menuCache . 'items' . Yii::app()->language);
+        $results = $this->findAll(array(
+            'order'     => 'sort',
+            'condition' => 'parent_id = :parent_id AND id <> :id AND menu_id = :menu_id',
+            'params'    => array(
+                'parent_id' => (int) $parent_id,
+                'id'        => (int) $this->id,
+                'menu_id'   => (int) $this->menu_id,
+            ),
+        ));
 
-        if ($items === false)
+        $items = array();
+        if (empty($results))
+            return $items;
+
+        foreach ($results as $result)
         {
-            $results = $this->findAll(array(
-                'condition' => 'parent_id = :parent_id AND id <> ' . (int) $this->id,
-                'params'    => array('parent_id' => (int) $parent_id),
-                'order'     => 'sort',
-            ));
-
-            $items = array();
-            if (empty($results))
-                return $items;
-
-            foreach ($results as $result)
-            {
-                $childItems = $this->getParentTreeIterator($result->id, ($level + 1));
-                $items += array($result->id => str_repeat('&nbsp;&nbsp;&nbsp;&nbsp;', $level) . $result->title) + $childItems;
-            }
+            $childItems = $this->getParentTreeIterator($result->id, ($level + 1));
+            $items += array($result->id => str_repeat('&nbsp;&nbsp;&nbsp;&nbsp;', $level) . $result->title) + $childItems;
         }
         return $items;
     }
@@ -243,19 +242,12 @@ class MenuItem extends YModel
             $key = strtolower($key);
             $module = Yii::app()->getModule($key);
 
-            if (($module !== NULL) && is_a($module, 'YWebModule'))
+            if (($module !== NULL) && is_a($module, 'YWebModule') && isset($module->conditions))
             {
-                if ($module->getIsShowInAdminMenu() || $module->getEditableParams() || ($module->getIsShowInAdminMenu() == false && is_array($module->checkSelf())))
-                {
-                    if (isset($module->conditions))
-                    {
-                        $conditionsList = array();
-                        foreach ($module->conditions as $keyList => $valueList)
-                            $conditionsList[$keyList] = (!$condition) ? $valueList['name'] : $valueList['condition'];
-
-                        $conditions = array_merge($conditions, $conditionsList);
-                    }
-                }
+                $conditionsList = array();
+                foreach ($module->conditions as $keyList => $valueList)
+                    $conditionsList[$keyList] = (!$condition) ? $valueList['name'] : $valueList['condition'];
+                $conditions = array_merge($conditions, $conditionsList);
             }
         }
         return $conditions;

@@ -62,7 +62,7 @@
         $.each(modules, function(i,m) {
             if (!m.installed)
             {
-                setModuleProgress(ic,"<i class='icon-"+ m.icon+"'>&nbsp;</i> Устанавливаем модуль <b>"+ m.description+ "</b>");
+                setModuleProgress(ic,"<i class='icon-"+ m.icon+"'>&nbsp;</i>&nbsp; <?php echo Yii::t('install','Устанавливаем модуль')?> <b>"+m.description+"</b>");
                 $.ajax({
                         url:"<?php echo $this->createUrl('/install/default/moduleinstall') ?>",
                         data: { 'name':m.id},
@@ -75,13 +75,16 @@
                                     if(typeof (data.log)!=undefined)
                                         log(data.log);
                                     ic++;
-                                    setModuleProgress(ic,"<i class='icon-"+ m.icon+"'>&nbsp;</i>Установлен модуль <b>"+ m.description+ "</b>");
+                                    setModuleProgress(ic,"<i class='icon-"+ m.icon+"'>&nbsp;</i>&nbsp; <?php echo Yii::t('install','Установлен модуль')?> <b>"+m.description+"</b>");
                                     // проверить, остались ли еще не установленные
-            /*                        if (ic<total)
+                                    if (ic<total)
                                         installNext();
                                     else
-                                        alert("Установка оке");
-            */
+                                    {
+                                        alert("<?php echo Yii::t('install','Установка модулей успешно завершена!')?> ");
+                                        document.location = "<?php echo $this->createUrl('/install/default/createuser/'); ?>"
+                                    }
+
                                 }
                         },
                         error: function(e)

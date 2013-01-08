@@ -41,6 +41,7 @@ class YBackController extends YMainController
 
             Yii::app()->setComponent('bootstrap', Yii::createComponent(array(
                 'class' => 'application.modules.yupe.extensions.booster.components.Bootstrap',
+                'republishAssetsOnRequest'=>false,
             ) + $assets));
 
             if (!$this->yupe->enableAssets)

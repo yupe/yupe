@@ -40,11 +40,33 @@ Yii::app()->clientScript->registerScript('fieldset', "
         <?php echo $form->textFieldRow($model, 'class', array('class' => 'popover-help span7', 'maxlength' => 50, 'data-original-title' => $model->getAttributeLabel('class'), 'data-content' => $model->getAttributeDescription('class'))); ?>
     </div>
     <div class="wide row-fluid control-group <?php echo ($model->hasErrors('menu_id') || $model->hasErrors('parent_id')) ? 'error' : ''; ?>">
+        <?php
+            $menu_id   = '#' . CHtml::activeId($model, 'menu_id');
+            $parent_id = '#' . CHtml::activeId($model, 'parent_id');
+        ?>
         <div class="span3">
-            <?php echo $form->dropDownListRow($model, 'menu_id', CHtml::listData(Menu::model()->findAll(), 'id', 'name'), array('empty' => Yii::t('menu', '--выберите меню--'), 'class' => 'popover-help', 'data-original-title' => $model->getAttributeLabel('menu_id'), 'data-content' => $model->getAttributeDescription('menu_id'))); ?>
+            <?php echo $form->dropDownListRow($model, 'menu_id', CHtml::listData(Menu::model()->findAll(), 'id', 'name'), array(
+                'empty'               => Yii::t('menu', '--выберите меню--'),
+                'class'               => 'popover-help',
+                'data-original-title' => $model->getAttributeLabel('menu_id'),
+                'data-content'        => $model->getAttributeDescription('menu_id'),
+                'ajax' => array(
+                    'type'       => 'POST',
+                    'url'        => $this->createUrl('/menu/menuitem/dynamicparent', (!$model->isNewRecord ? array('id' => $model->id) : array())),
+                    'update'     => $parent_id,
+                    'beforeSend' => "function() {
+                        $('" . $parent_id . "').attr('disabled', true);
+                        if ($('" . $menu_id . " option:selected').val() == '')
+                            return false;
+                    }",
+                    'complete'   => "function() {
+                        $('" . $parent_id . "').attr('disabled', false);
+                    }",
+                ),
+             )); ?>
         </div>
         <div class="span4">
-            <?php echo $form->dropDownListRow($model, 'parent_id', $model->parentTree, array('encode' => false, 'class' => 'popover-help', 'data-original-title' => $model->getAttributeLabel('parent_id'), 'data-content' => $model->getAttributeDescription('parent_id'))); ?>
+            <?php echo $form->dropDownListRow($model, 'parent_id', $model->parentTree, array('disabled' => ($model->menu_id) ? false : true) + array('encode' => false, 'class' => 'popover-help', 'data-original-title' => $model->getAttributeLabel('parent_id'), 'data-content' => $model->getAttributeDescription('parent_id'))); ?>
         </div>
     </div>
     <div class="wide row-fluid control-group <?php echo ($model->hasErrors('before_link') || $model->hasErrors('after_link')) ? 'error' : ''; ?>">
