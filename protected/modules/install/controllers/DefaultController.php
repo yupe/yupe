@@ -1,4 +1,5 @@
 <?php
+
 class DefaultController extends YBackController
 {
     public $stepName;
@@ -396,12 +397,12 @@ class DefaultController extends YBackController
         $error = false;
 
         $modules = $this->yupe->getModulesDisabled();
+        // Не выводить модуль install
         unset($modules['install']);
 
         if (Yii::app()->request->isPostRequest)
         {
-            $modulesByName = array();
-            $toInstall     = array();
+            $modulesByName = $toInstall = array();
 
             foreach ($modules as &$m)
             {
@@ -436,96 +437,85 @@ class DefaultController extends YBackController
             }
             if (!$error)
             {
-                // Переносим старые конфигурационные файлы в back-папку
+                // Переносим конфигурационные файлы не устанавливаемых модулей в back-папку
                 $files = glob($this->yupe->getModulesConfig() . "*.php");
                 foreach ($files as $file)
                 {
-                    if ($error)
-                        break;
                     $name = preg_replace('#^.*/([^\.]*)\.php$#', '$1', $file);
+
                     if ($name == 'yupe')
                         continue;
 
-                    if (!@copy($this->yupe->getModulesConfig($name), $this->yupe->getModulesConfigBack($name)))
+                    $fileModule     = $this->yupe->getModulesConfigDefault($name);
+                    $fileConfig     = $this->yupe->getModulesConfig($name);
+                    $fileConfigBack = $this->yupe->getModulesConfigBack($name);
+
+                    if ($name != 'yupe' && ((
+                                !(@is_file($fileModule) && @md5_file($fileModule) == @md5_file($fileConfig)) &&
+                                !@copy($fileConfig, $fileConfigBack)
+                            ) || !@unlink($fileConfig)
+                        )
+                    )
                     {
                         $error = true;
                         Yii::app()->user->setFlash(
                             YFlashMessages::ERROR_MESSAGE,
                             Yii::t('install', 'Произошла ошибка установки модулей - ошибка копирования файла в папку modulesBack!')
                         );
-                    }
-                    else if (!@unlink($file))
-                    {
-                        $error = true;
-                        Yii::app()->user->setFlash(
-                            YFlashMessages::ERROR_MESSAGE,
-                            Yii::t('install', 'Произошла ошибка установки модулей - ошибка удаления файла из папки modules!')
-                        );
+                        break;
                     }
                 }
             }
 
-            // Начали установку тут
-            if(!$error)
+            // Продолжаем установку модулей
+            if (!$error)
                 return $this->render('begininstall', array('modules' => $toInstall));
         }
         $this->render('modulesinstall', array('modules' => $modules));
     }
 
-    private function logMessage($module, $msg, $category="notice")
+    private function logMessage($module, $msg, $category = 'notice')
     {
-        $ccolor = array( "warning" => "FF9600", "error" => "FF0000");
+        $color = array(
+            'warning' => 'FF9600',
+            'error'   => 'FF0000',
+        );
+
         $msg = CHtml::tag("b", array(), $module->name . ": ") . $msg;
-        if (isset($ccolor[$category]))
-            echo CHtml::openTag("span", array('style' => ('color:#' . $ccolor[$category]))) . $msg . CHtml::closeTag("span") . "<br>";
-        else
-            echo $msg . "<br>";
+        if (isset($color[$category]))
+            $msg = CHtml::openTag("span", array('style' => ('color: #' . $color[$category]))) . $msg . CHtml::closeTag("span");
+        echo $msg . "<br />";
     }
 
-    public function actionModuleinstall($name=null)
+    public function actionModuleinstall($name = null)
     {
         $modules = $this->yupe->getModulesDisabled();
-        unset($modules['install']);
 
-        if (!$name || !isset($modules[$name]) || !($module = $modules[$name]))
+        if (empty($name) || !isset($modules[$name]))
         {
-            throw new CHttpException(404, Yii::t('install', 'Указанный модуль {name} не найден', array('{name}' => $name)));
+            throw new CHttpException(404, Yii::t('install', 'Указанный модуль {name} не найден!', array('{name}' => $name)));
             Yii::app()->end();
         }
 
         ob_start();
         ob_implicit_flush(false);
-        $this->logMessage($module, Yii::t('install', 'Обновляем базу модуля до актуального состояния'));
-        $error = false;
+
+        $module = $modules[$name];
+
+        $this->logMessage($module, Yii::t('install', 'Обновляем базу модуля до актуального состояния!'));
+
         try
         {
-            if ($module->id != 'yupe')
-            {
-                $fileModule     = $this->yupe->getModulesConfigDefault($module->id);
-                $fileConfigBack = $this->yupe->getModulesConfigBack($module->id);
+            $installed = $module->install;
 
-                // Удаляем неизмененные файлы конфигураций из back-папки
-                if (is_file($fileConfigBack) && @md5_file($fileModule) == @md5_file($fileConfigBack) && !@unlink($fileConfigBack))
-                    throw new CException(
-                        Yii::t('install', 'Произошла ошибка установки модулей - ошибка удаления файлов из папки modulesBack!')
-                    );
-                // Копируем конфигурационные файлы из модулей
-                $installed = $module->install;
-                $this->logMessage($module, Yii::t('install', 'Модуль установлен'));
-            }
-            else
-                $module->installDB();
+            $this->logMessage($module, Yii::t('install', 'Модуль установлен!'));
+            echo CJSON::encode(array('installed' => array($module->id), 'log' => ob_get_clean()));
         }
         catch(Exception $e)
         {
             $this->logMessage($module, $e->getMessage(), "error");
             echo ob_get_clean();
-            Yii::app()->end();
         }
-
-        $log = ob_get_clean();
-        $installed = array($module->id);
-        echo CJSON::encode(array( 'installed' => $installed, 'log' => $log));
         Yii::app()->end();
     }
 
