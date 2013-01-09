@@ -42,14 +42,10 @@ Yii::app()->clientScript->registerScript('fieldset', "
         <?php echo $form->dropDownListRow($model, 'type', $model->getTypeList()); ?>
     </div>
     <div class='row-fluid control-group <?php echo $model->hasErrors("description") ? "error" : ""; ?>'>
-        <?php $this->widget($this->yupe->editor, array(
-            'model'     => $model,
-            'attribute' => 'description',
-            'options'   => array(
-                'toolbar'     => 'main',
-                'imageUpload' => Yii::app()->baseUrl . '/index.php/yupe/backend/AjaxFileUpload/',
-            ),
-            'htmlOptions' => array('rows' => 20, 'cols' => 6),
+        <?php $this->widget($this->module->editor, array(
+            'model'       => $model,
+            'attribute'   => 'description',
+            'options'     => $this->module->editorOptions,
         )); ?>
     </div>
     <div class='row-fluid control-group <?php echo $model->hasErrors("status") ? "error" : ""; ?>'>

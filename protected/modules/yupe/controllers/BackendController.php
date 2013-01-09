@@ -158,19 +158,27 @@ class BackendController extends YBackController
         if (($module = Yii::app()->getModule($name)) == NULL)
             $module = $this->yupe->getCreateModule($name);
 
-        $module->flashMess = true;
-
         // @TODO Временный хак, дающий возможность переустановки, после появления обновлению, будет закрыт
         if ($name == 'install')
-        {
-            $module->flashMess = false;
             $status = ($status == 0) ? 1 : 0;
+        try
+        {
+            ($status == 0) ? $module->deactivate : $module->activate;
+            Yii::app()->user->setFlash(
+                YFlashMessages::NOTICE_MESSAGE,
+                Yii::t('yupe', 'Модуль успешно активирован/деактивирован!')
+            );
         }
-        ($status == 0)
-            ? $module->deactivate
-            : $module->activate;
+        catch(Exception $e)
+        {
+            Yii::app()->user->setFlash(
+                YFlashMessages::ERROR_MESSAGE,
+                $e->getMessage()
+            );
+        }
 
         Yii::app()->cache->flush();
+
         $referrer = Yii::app()->getRequest()->getUrlReferrer();
         $this->redirect($referrer !== null ? $referrer : array("/yupe/backend"));
     }

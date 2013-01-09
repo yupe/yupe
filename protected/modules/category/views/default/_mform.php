@@ -15,32 +15,24 @@
     <div class="row-fluid control-group <?php echo $model-> hasErrors('short_description')?'error':'' ?>">
         <div class="span12">
             <?php echo $form->labelEx($model, 'short_description'); ?>
-            <?php $this->widget($this->yupe->editor, array(
-                  'name' => 'Category['.$model->lang.'][short_description]',
-                  'value' => $model->short_description,
-                  'options'   => array(
-                       'height'=> '400px;',
-                       'toolbar' => 'main',
-                       'imageUpload' => Yii::app()->baseUrl.'/index.php/yupe/backend/AjaxFileUpload/',
-                   ),
-                  'htmlOptions' => array('style'=>'height: 400px;','rows' => 20,'cols' => 6, 'id'=>'editor-short-'.$model->lang)
-             )); ?>
+            <?php $this->widget($this->module->editor, array(
+                'name'        => 'Category['.$model->lang.'][short_description]',
+                'value'       => $model->short_description,
+                'options'     => $this->module->editorOptions,
+                'htmlOptions' => array('id' => 'editor-short-' . $model->lang),
+            )); ?>
             <br /><?php echo $form->error($model, 'Category['.$model->lang.'][short_description]'); ?>
         </div>
     </div>
     <div class="row-fluid control-group <?php echo $model-> hasErrors('description')?'error':'' ?>">
         <div class="span12">
             <?php echo $form->labelEx($model, 'description'); ?>
-            <?php $this->widget($this->yupe->editor, array(
-                  'name' => 'Category['.$model->lang.'][description]',
-                  'value' => $model->description,
-                  'options'   => array(
-                       'height'=> '400px;',
-                       'toolbar' => 'main',
-                       'imageUpload' => Yii::app()->baseUrl.'/index.php/yupe/backend/AjaxFileUpload/',
-                   ),
-                  'htmlOptions' => array('style'=>'height: 400px;','rows' => 20,'cols' => 6, 'id'=>'editor-'.$model->lang)
-             )); ?>
+            <?php $this->widget($this->module->editor, array(
+                'name'        => 'Category['.$model->lang.'][description]',
+                'value'       => $model->description,
+                'options'     => $this->module->editorOptions,
+                'htmlOptions' => array('id' => 'editor-' . $model->lang),
+            )); ?>
             <br /><?php echo $form->error($model, 'Category['.$model->lang.'][description]'); ?>
         </div>
     </div>

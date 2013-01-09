@@ -111,7 +111,7 @@ class Blog extends YModel
             'id'             => Yii::t('blog', 'id'),
             'name'           => Yii::t('blog', 'Название'),
             'description'    => Yii::t('blog', 'Описание'),
-            'icon'           => Yii::t('blog', 'Иконка'),
+            'icon'           => Yii::t('BlogModule.blog', 'Иконка'),
             'slug'           => Yii::t('blog', 'Урл'),
             'type'           => Yii::t('blog', 'Тип'),
             'status'         => Yii::t('blog', 'Статус'),

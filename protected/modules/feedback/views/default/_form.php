@@ -45,17 +45,11 @@ Yii::app()->clientScript->registerScript('fieldset', "
     <div class="row-fluid control-group <?php echo $model->hasErrors('text') ? 'error' : ''; ?>">
         <div class="popover-help" data-original-title='<?php echo $model->getAttributeLabel('text'); ?>' data-content='<?php echo $model->getAttributeDescription('text'); ?>'>
             <?php echo $form->labelEx($model, 'text'); ?>
-            <?php
-            $this->widget(Yii::app()->getModule('yupe')->editor, array(
+            <?php $this->widget($this->module->editor, array(
                 'model'       => $model,
                 'attribute'   => 'text',
-                'options'     => array(
-                    'toolbar'     => 'main',
-                    'imageUpload' => Yii::app()->baseUrl . '/index.php/yupe/backend/AjaxFileUpload/',
-                ),
-                'htmlOptions' => array('rows' => 20, 'cols' => 6),
-            ));
-            ?>
+                'options'     => $this->module->editorOptions,
+            )); ?>
         </div>
         <div class="span5">
             <?php echo $form->error($model, 'text'); ?>
@@ -64,17 +58,11 @@ Yii::app()->clientScript->registerScript('fieldset', "
     <div class="row-fluid control-group <?php echo $model->hasErrors('answer') ? 'error' : ''; ?>">
         <div class="popover-help" data-original-title='<?php echo $model->getAttributeLabel('answer'); ?>' data-content='<?php echo $model->getAttributeDescription('answer'); ?>'>
             <?php echo $form->labelEx($model, 'answer'); ?>
-            <?php
-            $this->widget(Yii::app()->getModule('yupe')->editor, array(
+            <?php $this->widget($this->module->editor, array(
                 'model'       => $model,
                 'attribute'   => 'answer',
-                'options'     => array(
-                    'toolbar'     => 'main',
-                    'imageUpload' => Yii::app()->baseUrl . '/index.php/yupe/backend/AjaxFileUpload/',
-                ),
-                'htmlOptions' => array('rows' => 20, 'cols' => 6),
-            ));
-            ?>
+                'options'     => $this->module->editorOptions,
+            )); ?>
         </div>
         <div class="span5">
             <?php echo $form->error($model, 'answer'); ?>

@@ -39,15 +39,11 @@ Yii::app()->clientScript->registerScript('fieldset', "
     </div>
     <div class='control-group <?php echo $model->hasErrors("text") ? "error" : "" ?>'>
         <?php echo $form->labelEx($model, 'text'); ?>
-        <?php $this->widget(Yii::app()->getModule('yupe')->editor, array(
-              'model'       => $model,
-              'attribute'   => 'text',
-              'options'     => array(
-                   'toolbar'     => 'main',
-                   'imageUpload' => Yii::app()->baseUrl.'/index.php/yupe/backend/AjaxFileUpload/',
-               ),
-              'htmlOptions' => array('rows' => 20, 'cols' => 6),
-         )); ?>
+        <?php $this->widget($this->module->editor, array(
+            'model'       => $model,
+            'attribute'   => 'text',
+            'options'     => $this->module->editorOptions,
+        )); ?>
     </div>
     <div class='control-group <?php echo $model->hasErrors("status") ? "error" : ""; ?>'>
         <?php echo $form->dropDownListRow($model, 'status', $model->statusList); ?>
