@@ -507,30 +507,15 @@ class DefaultController extends YBackController
 
                 // Удаляем неизмененные файлы конфигураций из back-папки
                 if (is_file($fileConfigBack) && @md5_file($fileModule) == @md5_file($fileConfigBack) && !@unlink($fileConfigBack))
-                {
-                    $error = true;
                     throw new CException(
                         Yii::t('install', 'Произошла ошибка установки модулей - ошибка удаления файлов из папки modulesBack!')
                     );
-                }
 
                 // Копируем конфигурационные файлы из модулей
-                if (!$error)
-                {
-                    if(!$module->getActivate(true))
-                    {
-                        $error = true;
-                        throw new CException(
-                            Yii::t('install', 'Произошла ошибка установки модулей - ошибка копирования файла в папку modules!')
-                        );
-                    } else  $this->logMessage($module, Yii::t('install','Скопированы конфигурационные файлы модуля'));
-                } else   $this->logMessage($module,"Err or disabled [".($module->isNoDisable?"NOdisable":"disable")."]","error" );
-            }
-            if (!$error)
-                $installed = $module->installDB();
-            else
-                throw new CException(Yii::t('install','Ошибка установки модуля'));
-
+                $installed = $module->install;
+                $this->logMessage($module, Yii::t('install','Модуль установлен'));
+            } else
+                $module->installDB();
         }
 
         catch(Exception $e)
