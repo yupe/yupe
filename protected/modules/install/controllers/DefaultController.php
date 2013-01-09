@@ -646,7 +646,7 @@ class DefaultController extends YBackController
         if (!Yii::app()->getModule('install')->activate)
         {
             Yii::app()->user->setFlash(
-                YFlashMessages::WARNING_MESSAGE,
+                YFlashMessages::ERROR_MESSAGE,
                 Yii::t('install', "Модуль install не удалось отключить, обновите конфигурационный файл install!")
             );
         }
