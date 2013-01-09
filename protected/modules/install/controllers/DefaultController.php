@@ -404,12 +404,13 @@ class DefaultController extends YBackController
         {
             $modulesByName = $toInstall = array();
 
-            foreach ($modules as $m)
+            foreach ($modules as &$m)
             {
                 $modulesByName[$m->id] = $m;
                 if ($m->isNoDisable || (isset($_POST['module_' . $m->id]) && $_POST['module_' . $m->id]))
                     $toInstall[$m->id] = $m;
             }
+            unset($m);
 
             // Проверим зависимости
             $deps = array();
