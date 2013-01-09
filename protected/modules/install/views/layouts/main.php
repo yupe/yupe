@@ -67,7 +67,7 @@
     <div id="footer-guard"><!-- --></div>
 </div>
 <footer>
-    Copyright &copy; 2009-<?php echo date('Y'); ?> <?php echo CHtml::link('Юпи!', 'http://yupe.ru/?from=install'); ?><br/>
+    Copyright &copy; 2009-<?php echo date('Y'); ?> <?php echo CHtml::link(Yii::t('yupe','Юпи!'), 'http://yupe.ru/?from=install'); ?><br/>
     <?php echo Yii::powered(); ?>
 </footer><!-- footer -->
 </body>

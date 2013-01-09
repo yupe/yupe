@@ -17,14 +17,11 @@
  * NOTE, this file must be saved in UTF-8 encoding.
  */
 return array (
-  'Change summary' => '',
-  'Create' => '',
-  'Created new page' => '',
-  'Edit' => '',
-  'History' => '',
-  'Page Index' => '',
-  'Save' => '',
-  'Show diff' => '',
-  'There is no page yet.' => '',
-  'version history' => '',
+  '' => '',
+  '0.1' => '',
+  'http://yupe.ru/' => '',
+  'tsm@glavset.ru' => '',
+  'Поиск' => '',
+  'Сервисы' => '',
+  'Функции поиска по сайту.' => '',
 );

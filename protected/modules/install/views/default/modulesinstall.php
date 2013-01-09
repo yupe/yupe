@@ -13,6 +13,12 @@ Yii::app()->clientScript->registerScript('fieldset', "
     });
 ");
 ?>
+
+    <div class="alert alert-block alert-info">
+        <p><?php echo Yii::t('install', 'Пожалуйста, выберите модули, которые хотите установить.'); ?></p>
+        <p><?php echo Yii::t('install', 'Дополнительные модули можно будет установить/активировать через панель управления.'); ?></p>
+    </div>
+
     <table class="table table-striped table-vmiddle">
         <thead>
         <tr>

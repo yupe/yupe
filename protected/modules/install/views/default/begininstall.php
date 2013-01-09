@@ -1,11 +1,12 @@
-<h1>Идет установка модулей</h1>
-    <p>На данном этапе Юпи постарается установить запрошенные вами модули. Установка может занять некоторое время.</p>
+<h1><?php echo Yii::t('install','Идет установка модулей...');?></h1>
+<div class="alert alert-block alert-info">
+    <p><?php echo Yii::t('install','На данном этапе Юпи! постарается установить запрошенные вами модули. Установка может занять некоторое время...');?></p>
+</div>
 <div id="msg"></div>
 <div class="progress progress-striped active">
     <div class="bar" style="width: 0%;"></div>
 </div>
 <small id="modstate"></small>
-
 <?php
     $this->widget('bootstrap.widgets.TbBox', array(
         'title'       => Yii::t('install', 'Журнал установки'),
