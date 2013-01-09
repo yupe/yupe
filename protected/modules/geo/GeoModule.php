@@ -34,7 +34,7 @@ class GeoModule extends YWebModule
 
     public function getAuthor()
     {
-        return Yii::t('geo', 'Archaron');
+        return 'Archaron';
     }
 
     public function getAuthorEmail()

@@ -86,13 +86,13 @@ class Settings extends YModel
     public function attributeLabels()
     {
         return array(
-            'id'            => Yii::t('settings', 'ID'),
-            'module_id'     => Yii::t('settings', 'Модуль'),
-            'param_name'    => Yii::t('settings', 'Имя парамметра'),
-            'param_value'   => Yii::t('settings', 'Значение парамметра'),
-            'creation_date' => Yii::t('settings', 'Дата создания'),
-            'change_date'   => Yii::t('settings', 'Дата изменения'),
-            'user_id'       => Yii::t('settings', 'Пользователь'),
+            'id'            => Yii::t('yupe', 'ID'),
+            'module_id'     => Yii::t('yupe', 'Модуль'),
+            'param_name'    => Yii::t('yupe', 'Имя парамметра'),
+            'param_value'   => Yii::t('yupe', 'Значение парамметра'),
+            'creation_date' => Yii::t('yupe', 'Дата создания'),
+            'change_date'   => Yii::t('yupe', 'Дата изменения'),
+            'user_id'       => Yii::t('yupe', 'Пользователь'),
         );
     }
 
