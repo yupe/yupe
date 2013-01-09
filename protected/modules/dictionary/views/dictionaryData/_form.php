@@ -37,14 +37,10 @@ Yii::app()->clientScript->registerScript('fieldset', "
     <div class="row-fluid control-group <?php echo $model->hasErrors('description') ? 'error' : ''; ?>">
         <div class="popover-help" data-original-title='<?php echo $model->getAttributeLabel('description'); ?>' data-content='<?php echo $model->getAttributeDescription('description'); ?>'>
             <?php echo $form->labelEx($model, 'description'); ?>
-            <?php $this->widget(Yii::app()->getModule('yupe')->editor, array(
+            <?php $this->widget($this->module->editor, array(
                 'model'       => $model,
                 'attribute'   => 'description',
-                'options'     => array(
-                    'toolbar'     => 'main',
-                    'imageUpload' => Yii::app()->baseUrl . '/index.php/yupe/backend/AjaxFileUpload/',
-                ),
-                'htmlOptions' => array('rows' => 20, 'cols' => 6),
+                'options'     => $this->module->editorOptions,
             )); ?>
         </div>
     </div>

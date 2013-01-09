@@ -31,14 +31,10 @@ Yii::app()->clientScript->registerScript('fieldset', "
     <div class="row-fluid control-group <?php echo $model->hasErrors('description') ? 'error' : ''; ?>">
         <div class="span12">
             <?php echo $form->labelEx($model, 'description'); ?>
-            <?php $this->widget(Yii::app()->getModule('yupe')->editor, array(
+            <?php $this->widget($this->module->editor, array(
                 'model'       => $model,
                 'attribute'   => 'description',
-                'options'     => array(
-                    'toolbar'     => 'main',
-                    'imageUpload' => Yii::app()->baseUrl . '/index.php/yupe/backend/AjaxFileUpload/',
-                ),
-                'htmlOptions' => array('rows' => 20, 'cols' => 6),
+                'options'     => $this->module->editorOptions,
             )); ?>
             <?php echo $form->error($model, 'description'); ?>
         </div>
