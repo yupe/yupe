@@ -41,10 +41,6 @@ abstract class YWebModule extends CWebModule
      *  @var array опции редактора
      */
     public $editorOptions  = array();
-    /**
-     *  @var bool разрещение на вывод YFlashMessages
-     */
-    public $flashMess = false;
 
     /**
      *  @return string текущая версия модуля
@@ -301,12 +297,6 @@ abstract class YWebModule extends CWebModule
         return true;
     }
 
-    protected function setFlash($type, $message)
-    {
-        if ($this->flashMess)
-            Yii::app()->user->setFlash($type, $message);
-    }
-
     /**
      *  Метод выключает модуль
      *  @return bool статус выключения модуля
@@ -314,52 +304,38 @@ abstract class YWebModule extends CWebModule
      */
     public function getActivate($noDependen = false)
     {
-        if (!$noDependen)
-        {
-            $dependencies = $this->dependencies;
-            if (!empty($dependencies) && is_array($dependencies))
-            {
-                foreach ($dependencies as $dependency)
-                {
-                    if (Yii::app()->getModule($dependency) == NULL)
-                    {
-                        $this->setFlash(
-                            YFlashMessages::ERROR_MESSAGE,
-                            Yii::t('yupe', 'Произошла ошибка, модули от которых зависит этот модуль не включены, включите сначала их!')
-                        );
-                        return false;
-                    }
-                }
-            }
-        }
-
-        $yupe = Yii::app()->getModule('yupe');
+        $yupe       = Yii::app()->getModule('yupe');
         $fileModule = $yupe->getModulesConfigDefault($this->id);
         $fileConfig = $yupe->getModulesConfig($this->id);
 
         // @TODO Временный хак, дающий возможность переустановки, после появления обновлению, будет закрыт
         if (is_file($fileConfig) && $this->id != 'install')
-            $this->setFlash(
-                YFlashMessages::NOTICE_MESSAGE,
-                Yii::t('yupe', 'Модуль уже включен!')
-            );
+            throw new CException(Yii::t('yupe', 'Модуль уже включен!'));
         else
         {
-            if (@copy($fileModule, $fileConfig))
-                $this->setFlash(
-                    YFlashMessages::NOTICE_MESSAGE,
-                    Yii::t('yupe', 'Модуль включен!')
-                );
-            else
+            // Проверка модулей от которых зависит данный
+            if (!$noDependen)
             {
-                $this->setFlash(
-                    YFlashMessages::ERROR_MESSAGE,
-                    Yii::t('yupe', 'Произошла ошибка при включении модуля, конфигурационный файл поврежден или отсутствует доступ к папке config!')
-                );
-                return false;
+                $dependencies = $this->dependencies;
+                if (!empty($dependencies) && is_array($dependencies))
+                {
+                    foreach ($dependencies as $dependency)
+                    {
+                        if (Yii::app()->getModule($dependency) == NULL)
+                        {
+                            throw new CException(Yii::t('yupe', 'Произошла ошибка, модули от которых зависит этот модуль не включены, включите сначала их!'));
+                            return false;
+                        }
+                    }
+                }
             }
+           
+            if (@copy($fileModule, $fileConfig))
+                return true;
+            else
+                throw new CException(Yii::t('yupe', 'Произошла ошибка при включении модуля, конфигурационный файл поврежден или отсутствует доступ к папке config!'));
         }
-        return true;
+        return false;
     }
 
     /**
@@ -369,67 +345,42 @@ abstract class YWebModule extends CWebModule
      */
     public function getDeActivate($noDependen = false)
     {
-        if (!$noDependen)
-        {
-            $dependent = $this->dependent;
-            if (!empty($dependent) && is_array($dependent))
-            {
-                foreach ($dependent as $dependen)
-                {
-                    if (Yii::app()->getModule($dependen) != NULL)
-                    {
-                        $this->setFlash(
-                            YFlashMessages::ERROR_MESSAGE,
-                            Yii::t('yupe', 'Произошла ошибка, есть включенные зависимые модули, отключите сначало их!')
-                        );
-                        return false;
-                    }
-                }
-            }
-        }
-        $yupe = Yii::app()->getModule('yupe');
-        $fileModule = $yupe->getModulesConfigDefault($this->id);
-        $fileConfig = $yupe->getModulesConfig($this->id);
+        $yupe           = Yii::app()->getModule('yupe');
+        $fileModule     = $yupe->getModulesConfigDefault($this->id);
+        $fileConfig     = $yupe->getModulesConfig($this->id);
+        $fileConfigBack = $yupe->getModulesConfigBack($this->id);
 
         // @TODO Временный хак, дающий возможность переустановки, после появления обновлению, будет закрыт
         if (!is_file($fileConfig) && $this->id != 'install')
-        {
-            $this->setFlash(
-                YFlashMessages::NOTICE_MESSAGE,
-                Yii::t('yupe', 'Модуль уже отключен!')
-            );
-            return true;
-        }
-        if (!$this->isNoDisable)
-        {
-            if (@md5_file($fileModule) != @md5_file($fileConfig))
-            {
-                $fileConfigBack = $yupe->getModulesConfigBack($this->id);
-                if (!@copy($fileConfig, $fileConfigBack))
-                    $this->setFlash(
-                        YFlashMessages::ERROR_MESSAGE,
-                        Yii::t('yupe', 'Произошла ошибка при копировании старого конфигурационного файла в папку modulesBack!')
-                    );
-            }
-            if (@unlink($fileConfig))
-            {
-                $this->setFlash(
-                    YFlashMessages::NOTICE_MESSAGE,
-                    Yii::t('yupe', 'Модуль отключен!')
-                );
-                return true;
-            }
-            else
-                $this->setFlash(
-                    YFlashMessages::ERROR_MESSAGE,
-                    Yii::t('yupe', 'Произошла ошибка при отключении модуля, нет доступа к конфигурационному файлу!')
-                );
-        }
+            throw new CException(Yii::t('yupe', 'Модуль уже отключен!'));
         else
-            $this->setFlash(
-                YFlashMessages::ERROR_MESSAGE,
-                Yii::t('yupe', 'Этот модуль запрещено отключать!')
-            );
+        {
+            // Проверка зависимых модулей
+            if (!$noDependen)
+            {
+                $dependent = $this->dependent;
+                if (!empty($dependent) && is_array($dependent))
+                {
+                    foreach ($dependent as $dependen)
+                    {
+                        if (Yii::app()->getModule($dependen) != null)
+                        {
+                            throw new CException(Yii::t('yupe', 'Произошла ошибка, есть включенные зависимые модули, отключите сначало их!'));
+                            return false;
+                        }
+                    }
+                }
+            }
+
+            if ($this->isNoDisable)
+                throw new CException(Yii::t('yupe', 'Этот модуль запрещено отключать!'));
+            else if (@md5_file($fileModule) != @md5_file($fileConfig) && !@copy($fileConfig, $fileConfigBack))
+                throw new CException(Yii::t('yupe', 'Произошла ошибка при копировании старого конфигурационного файла в папку modulesBack!'));
+            else if (!@unlink($fileConfig))
+                throw new CException(Yii::t('yupe', 'Произошла ошибка при отключении модуля, нет доступа к конфигурационному файлу!'));
+            else
+                return true;
+        }
         return false;
     }
 
@@ -440,9 +391,7 @@ abstract class YWebModule extends CWebModule
      */
     public function getInstall()
     {
-        if ($this->activate)
-            return $this->installDB();
-        return false;
+        return ($this->id != 'yupe' && !$this->activate) ? false : $this->installDB();
     }
 
     /**
@@ -473,9 +422,10 @@ abstract class YWebModule extends CWebModule
      */
     public function installDB(&$installed = array())
     {
+        $log = array();
+
         Yii::log(Yii::t('yupe', $this->id . "->installDB() : Запрошена установка БД модуля {m}", array('{m}' => $this->name)));
 
-        $log = array();
         if ($this->dependencies !== array())
         {
             foreach ($this->dependencies as $dep)
@@ -484,21 +434,19 @@ abstract class YWebModule extends CWebModule
                     '{module}' => $this->id,
                     '{m2}'     => $dep,
                 )));
-                if (($m = Yii::app()->getModule($dep)) == NULL)
+
+                if (($m = Yii::app()->getModule($dep)) == null)
                     throw new CException(Yii::t('yupe', "Необходимый для установки модуль {dm} не найден", array('{dm}' => $dep)));
                 else
                 {
-                    if (!isset($installed[$dep]))
-                    {
-                        if (!$i = $m->installDB($installed))
-                            return false;
-                    }
+                    if (!isset($installed[$dep]) && !($i = $m->installDB($installed)))
+                        return false;
                     $log = array_merge($log, $i);
                 }
             }
         }
         $log[] = $this->id;
-        // migrate here
+
         return (Yii::app()->migrator->updateToLatest($this->id) && ($installed[$this->id] = true)) ? $log : false;
     }
 
