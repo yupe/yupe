@@ -440,8 +440,9 @@ abstract class YWebModule extends CWebModule
      */
     public function getInstall()
     {
-        $this->activate;
-        return true;
+        if ($this->activate)
+            return $this->installDB();
+        return false;
     }
 
     /**
