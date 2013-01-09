@@ -440,29 +440,76 @@ abstract class YWebModule extends CWebModule
      */
     public function getInstall()
     {
-
         $this->activate;
         return true;
     }
 
     /**
      * Метод удаляющий модуль
-     *  @return bool стутус удаления модуля
+     *  @return bool статус удаления модуля
      *  @since 0.5
      */
     public function getUnInstall()
     {
-
         if ($this->deactivate)
         {
-            if ( ($history = Yii::app()->migrator->getMigrationHistory($this->id, -1))!== array())
+            $history = Yii::app()->migrator->getMigrationHistory($this->id, -1);
+            if ($history !== array())
             {
                 print_r($history);
+                return true;
             }
-
-        } else echo "deactivate:false";
-
+        }
+        else
+            echo "deactivate:false";
         return false;
+    }
+
+    /**
+     * Метод установки БД модуля
+     *  @return bool статус установки БД модуля
+     *  @since 0.5
+     */
+    public function installDB(&$installed = array())
+    {
+        Yii::log(Yii::t('yupe', $this->id . "->installDB() : Запрошена установка БД модуля {m}", array('{m}' => $this->name)));
+
+        $log = array();
+        if ($this->dependencies !== array())
+        {
+            foreach ($this->dependencies as $dep)
+            {
+                Yii::log(Yii::t('yupe', 'Для модуля {module} сначала будет установлена база модуля {m2} как зависимость', array(
+                    '{module}' => $this->id,
+                    '{m2}'     => $dep,
+                )));
+                if (($m = Yii::app()->getModule($dep)) == NULL)
+                    throw new CException(Yii::t('yupe', "Необходимый для установки модуль {dm} не найден", array('{dm}' => $dep)));
+                else
+                {
+                    if (!isset($installed[$dep]))
+                    {
+                        if (!$i = $m->installDB($installed))
+                            return false;
+                    }
+                    $log = array_merge($log, $i);
+                }
+            }
+        }
+        $log[] = $this->id;
+        // migrate here
+        return (Yii::app()->migrator->updateToLatest($this->id) && ($installed[$this->id] = true)) ? $log : false;
+    }
+
+    /**
+     * Метод удаляющий БД модуля
+     *  @return bool статус удаления БД модуля
+     *  @since 0.5
+     */
+    public function uninstallDB($noDependencies = false)
+    {
+        throw new CException("Проверка экзепшена");
+        return true;
     }
 
     /**
@@ -532,38 +579,5 @@ abstract class YWebModule extends CWebModule
             'imageUpload' => $uploadController,
             'fileUpload'  => $uploadController,
         );
-    }
-
-    public function installDB(&$installed=array())
-    {
-        Yii::log(Yii::t('yupe',$this->id."->installDB() : Запрошена установка БД модуля {m}", array('{m}'=>$this->name)));
-
-        $log=array();
-        if ($this->dependencies !== array())
-        {
-            foreach ($this->dependencies as $dep)
-            {
-                Yii::log(Yii::t('yupe','Для модуля {module} сначала будет установлена база модуля {m2} как зависимость', array('{module}'=>$this->id, '{m2}'=>$dep)));
-                if (($m=Yii::app()->getModule($dep)) == NULL)
-                    throw new CException(Yii::t('yupe',"Необходимый для установки модуль {dm} не найден", array('{dm}'=>$dep)));
-                else
-                {
-                    if (!isset($installed[$dep]))
-                        if (!$i = $m->installDB($installed))
-                            return false;
-                    $log=array_merge($log,$i);
-                }
-            }
-        }
-
-        $log[]=$this->id;
-
-        // migrate here
-        return (Yii::app()->migrator->updateToLatest($this->id) && ($installed[$this->id] = true))?$log:false;
-    }
-
-    public function uninstallDB($noDependencies=false)
-    {
-        throw new CException("Проверка экзепшена");
     }
 }
