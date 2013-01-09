@@ -1,7 +1,7 @@
-        <h1>Идет установка модулей</h1>
-            <p>
-                На данном этапе Юпи постарается установить запрошенные вами модули. Установка может занять некоторое время.
-            </p>
+        <h1><?php echo Yii::t('install','Идет установка модулей...');?></h1>
+        <div class="alert alert-block alert-info">
+            <p><?php echo Yii::t('install','На данном этапе Юпи постарается установить запрошенные вами модули. Установка может занять некоторое время');?></p>
+        </div>    
         <div id="msg"></div>
         <div class="progress progress-striped active">
             <div class="bar" style="width: 0%;"></div>
@@ -83,7 +83,7 @@
                                         installNext();
                                     else
                                     {
-                                        alert("<?php echo Yii::t('install','Установка модулей успешно завершена!')?> ");
+                                        alert("<?php echo Yii::t('install','Установка модулей успешно завершена!');?> ");
                                         document.location = "<?php echo $this->createUrl('/install/default/createuser/'); ?>"
                                     }
 
@@ -92,7 +92,7 @@
                         error: function(e)
                         {
                             log(e.responseText);
-                            alert("Ошибка установки модуля");
+                            alert("<?php echo Yii::t('install','Ошибка установки модуля!')?> ");
                         }
                 });
                 return false;
@@ -102,7 +102,7 @@
     }
 
     $(document).ready( function(){
-              setModuleProgress(0,"Начало установки");
+              setModuleProgress(0,"<?php echo Yii::t('install','Начало установки...');?> ");
               installNext();
         }
     );

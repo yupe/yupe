@@ -4,6 +4,12 @@
     </div>
 <?php endif; ?>
 
+<div class="alert alert-block alert-info">
+        <p><?php echo Yii::t('install', 'На данном этапе Юпи! проверяет версию PHP и наличие всех необходимых модулей.'); ?></p>
+        <p><?php echo Yii::t('install', 'Для продолжения установки все возникшие проблемы Вам необходимо исправить.'); ?></p>
+</div>
+
+
 <table class="table table-striped">
     <tr>
         <th><?php echo Yii::t('install','Значение');?></th>

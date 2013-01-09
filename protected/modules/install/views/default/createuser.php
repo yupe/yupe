@@ -14,6 +14,12 @@ Yii::app()->clientScript->registerScript('fieldset', "
 ");
 ?>
 
+    <div class="alert alert-block alert-info">
+        <p><?php echo Yii::t('install', 'Создайте учетную запись администратора сайта.'); ?></p>
+        <p><?php echo Yii::t('install', 'Пожалуйста, указывайте сложный пароль, содержащий как цифры и буквы, так и специальные символы.'); ?></p>
+        <p><?php echo Yii::t('install', 'Запомните, указанные на данном этапе данные, они Вам потребуются для доступа к панели управления.'); ?></p>
+    </div>
+
     <?php echo $form->errorSummary($model); ?>
 
     <div class="row-fluid control-group <?php echo $model->hasErrors('userName') ? 'error' : ''; ?>">

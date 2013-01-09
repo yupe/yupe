@@ -24,7 +24,7 @@ class DbSettingsForm extends YFormModel
         return array(
             'host'        => Yii::t('install', 'Хост'),
             'port'        => Yii::t('install', 'Порт'),
-            'socket'      => Yii::t('install', 'Сокет (если необходимо  )'),
+            'socket'      => Yii::t('install', 'Сокет (если необходимо)'),
             'dbName'      => Yii::t('install', 'Название базы данных'),
             'user'        => Yii::t('install', 'Пользователь'),
             'password'    => Yii::t('install', 'Пароль'),

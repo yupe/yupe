@@ -15,7 +15,8 @@ Yii::app()->clientScript->registerScript('fieldset', "
 ?>
 
     <div class="alert alert-block alert-info">
-        <?php echo Yii::t('install', 'Укажите параметры соединения с базой данных'); ?>:
+        <p><?php echo Yii::t('install', 'Укажите параметры соединения с существующей базой данных.'); ?></p>
+        <p><?php echo Yii::t('install', 'Базу данных можно создать при помощи phpmyadmin или любого другого инструмента.'); ?></p>
     </div>
 
     <?php if (!$result): ?>
