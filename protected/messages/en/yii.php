@@ -15,10 +15,10 @@
  * of the guide for details.
  *
  * NOTE, this file must be saved in UTF-8 encoding.
- *
- * @version $Id: $
  */
 return array (
   'CProfileLogRoute found a mismatching code block "{token}". Make sure the calls to Yii::beginProfile() and Yii::endProfile() be properly nested.' => '',
+  'You are not authorized to perform this action.' => '',
   'Your request is invalid.' => '',
+  '{attribute} "{value}" is invalid.' => '',
 );
