@@ -1,21 +1,21 @@
 <?php
-
 if (count($modules))
 {
-  $on=$off=$has=array();
-  $updates = Yii::app()->migrator->checkForUpdates($modules);
+    $on = $off = $has = array();
+    $updates = Yii::app()->migrator->checkForUpdates($modules);
 
-  foreach($modules as &$m)
-    if ($m->isStatus || $m->isNoDisable)
+    foreach($modules as &$m)
     {
-        $on[$m->id] = $m;
-        if (isset($updates[$m->id]))
-            $has[$m->id] = $m;
+        if ($m->isStatus || $m->isNoDisable)
+        {
+            $on[$m->id] = $m;
+            if (isset($updates[$m->id]))
+                $has[$m->id] = $m;
+        }
+        else
+            $off[$m->id] = $m;
     }
-    else
-        $off[$m->id] = $m;
-  ?>
-
+?>
     <div class="page-header">
     <h6>
         <?php echo Yii::t('yupe', 'Модули разработанные специально для "{app}"', array(
@@ -24,110 +24,129 @@ if (count($modules))
     </h6>
     </div>
 <?php
-    $tabs=array();
+    $tabs = array();
 
     if (count($on))
-        $tabs[] = array('label'=>Yii::t('yupe','Активные')."&nbsp;".CHtml::tag('span',array('class'=>'label label-success flash'),CHtml::tag('small', array(),count($on))), 'content'=>modulesTable($on,$updates,$modules,$this), 'active'=>true);
-
+        $tabs[] = array(
+            'label'   => Yii::t('yupe', 'Активные') . "&nbsp;" . CHtml::tag('span', array('class' => 'label label-success flash'), CHtml::tag('small', array(), count($on))),
+            'content' => modulesTable($on, $updates, $modules, $this),
+            'active'  => true
+        );
     if (count($off))
-        $tabs[] = array('label'=>Yii::t('yupe','Отключенные')."&nbsp;".CHtml::tag('span',array('class'=>'label'),CHtml::tag('small', array(),count($off))), 'content'=>modulesTable($off,$updates,$modules,$this));
-
+        $tabs[] = array(
+            'label'   => Yii::t('yupe', 'Отключенные') . "&nbsp;" . CHtml::tag('span', array('class' => 'label'), CHtml::tag('small', array(), count($off))),
+            'content' => modulesTable($off, $updates, $modules, $this)
+        );
     if (count($has))
-        $tabs[] = array('label'=>Yii::t('yupe','Есть обновления')."&nbsp;".CHtml::tag('span',array('class'=>'label label-waring'),CHtml::tag('small', array(),count($has))), 'content'=>modulesTable($has,$updates,$modules,$this));
+        $tabs[] = array(
+            'label'   => Yii::t('yupe', 'Есть обновления') . "&nbsp;" . CHtml::tag('span', array('class' => 'label label-waring'), CHtml::tag('small', array(), count($has))),
+            'content' => modulesTable($has, $updates, $modules, $this)
+        );
 
     $tabs[0]['active'] = true;
 
     $this->widget('bootstrap.widgets.TbTabs', array(
-            'type'=>'tabs', // 'tabs' or 'pills'
-            'tabs'=> $tabs,
-            'encodeLabel' => false,
-        ));
-
+        'type'        => 'tabs', // 'tabs' or 'pills'
+        'tabs'        => $tabs,
+        'encodeLabel' => false,
+    ));
 }
-
-
 
 function moduleRow($module, &$updates, &$modules, &$controller)
 {
 ?>
     <tr class="<?php echo ($module->isStatus) ? (is_array($module->checkSelf()) ? 'error' : '') : 'muted';?>">
-                    <td><?php echo $module->icon ? "<i class='icon-" . $module->icon . "'>&nbsp;</i> " : ""; ?></td>
-                    <td>
-                        <small class='label <?php
-                            $v = $module->version;
-                            echo (($n = strpos($v, "(dev)")) !== FALSE)
-                                ? "label-warning' title='" . Yii::t('yupe', 'Модуль в разработке') . "'>" . substr($v, 0, $n)
-                                : "'>" . $v;
-                            ?></small>
-                    </td>
-                    <td>
-                        <?php if ($module->isMultiLang()): ?>
-                            <i class="icon-globe" title="<?php echo Yii::t('yupe', 'Модуль мультиязычный'); ?>"></i>
-                        <?php endif; ?>
-                    </td>
-                    <td>
-                        <small style="font-size: 80%;"><?php echo $module->category; ?></small><br />
-                        <?php if ($module->isStatus || $module->isNoDisable): ?>
-                            <?php echo CHtml::link($module->name . ' <small>(' . $module->id . ')</small>', $module->adminPageLinkNormalize); ?>
-                        <?php else: ?>
-                            <span><?php echo $module->name . ' <small>(' . $module->id . ')</small>'; ?></span>
-                        <?php endif; ?>
-                    </td>
-                    <td>
-                        <?php echo $module->description; ?>
-                        <br />
-                        <small style="font-size: 80%;"> <?php echo "<b>" . Yii::t('yupe', "Автор:") . "</b> " . $module->author; ?>
-                        (<a href="mailto:<?php echo $module->authorEmail; ?>"><?php echo $module->authorEmail; ?></a>) &nbsp;
-                        <?php echo "<b>" . Yii::t('yupe', 'Сайт модуля:') . "</b> " . CHtml::link($module->url, $module->url); ?></small><br />
-                    </td>
-                    <td style="font-size: 10px;">
-                            <?php
-                                $tabs =array();
+        <td><?php echo $module->icon ? "<i class='icon-" . $module->icon . "'>&nbsp;</i> " : ""; ?></td>
+        <td>
+            <small class='label <?php
+                $v = $module->version;
+                echo (($n = strpos($v, "(dev)")) !== FALSE)
+                    ? "label-warning' title='" . Yii::t('yupe', 'Модуль в разработке') . "'>" . substr($v, 0, $n)
+                    : "'>" . $v;
+                ?></small>
+        </td>
+        <td>
+            <?php if ($module->isMultiLang()): ?>
+                <i class="icon-globe" title="<?php echo Yii::t('yupe', 'Модуль мультиязычный'); ?>"></i>
+            <?php endif; ?>
+        </td>
+        <td>
+            <small style="font-size: 80%;"><?php echo $module->category; ?></small><br />
+            <?php if ($module->isStatus || $module->isNoDisable): ?>
+                <?php echo CHtml::link($module->name . ' <small>(' . $module->id . ')</small>', $module->adminPageLinkNormalize); ?>
+            <?php else: ?>
+                <span><?php echo $module->name . ' <small>(' . $module->id . ')</small>'; ?></span>
+            <?php endif; ?>
+        </td>
+        <td>
+            <?php echo $module->description; ?>
+            <br />
+            <small style="font-size: 80%;"> <?php echo "<b>" . Yii::t('yupe', "Автор:") . "</b> " . $module->author; ?>
+            (<a href="mailto:<?php echo $module->authorEmail; ?>"><?php echo $module->authorEmail; ?></a>) &nbsp;
+            <?php echo "<b>" . Yii::t('yupe', 'Сайт модуля:') . "</b> " . CHtml::link($module->url, $module->url); ?></small><br />
+        </td>
+        <td style="font-size: 10px;">
+                <?php
+                    $tabs = array();
 
-                                if ($module->id != 'yupe' && count($module->dependencies))
-                                {
-                                    $deps = $module->dependencies;
-                                    foreach($deps as &$dep)
-                                        $dep = $modules[$dep]->name;
+                    if ($module->id != 'yupe' && count($module->dependencies))
+                    {
+                        $deps = $module->dependencies;
+                        foreach($deps as &$dep)
+                            $dep = $modules[$dep]->name;
+                        $tabs[] = array(
+                            'label'   => Yii::t('yupe', 'Зависит от'),
+                            'content' => implode(', ', $deps),
+                            'count'   => count($deps),
+                        );
+                    }
+                    if( $module->id == 'yupe')
+                        $tabs[] = array(
+                            'label'   => Yii::t('yupe', 'Зависимые'),
+                            'content' => Yii::t('yupe', 'Все модули'),
+                            'count'   => 'Все',
+                        );
+                    else
+                        if(count($deps = $module->dependent))
+                        {
+                            foreach($deps as &$dep)
+                                $dep = $modules[$dep]->name;
+                            $tabs[] = array(
+                                'label'   => Yii::t('yupe', 'Зависимые'),
+                                'content' => implode(', ', $deps),
+                                'count'   => count($deps),
+                            );
+                        }
+                    foreach ($tabs as $t)
+                        echo $t['label'] . " " . CHtml::tag('span', array(
+                            'class' => 'label label-info',
+                            'rel'   => 'tooltip',
+                            'title' => $t['content'],
+                        ), CHtml::tag('small', array(), $t['count']));
 
-                                    $tabs[] = array('label' => Yii::t('yupe', 'Зависит от'),  'content' => implode(', ', $deps), 'count'=>count($deps));
-                                }
+                  ?>
+        </td>
+        <td>
+            <?php if ($module->isStatus && $module->editableParams): ?>
+                <?php echo CHtml::link('<i class="icon-wrench" rel="tooltip" title="' . Yii::t('yupe', 'Настройки') . '">&nbsp;</i>', array(
+                    '/yupe/backend/modulesettings/',
+                    'module' => $module->id,
+                )); ?>
+            <?php endif; ?>
+            <?php
+                $url = array('/yupe/backend/modulechange/', 'name' => $module->id);
+                echo !$module->isNoDisable
+                    ? ($module->isStatus
+                        ? CHtml::link('<i class="icon-remove-circle" rel="tooltip" title="' . Yii::t('yupe', 'Выключить') . '">&nbsp;</i>', $url + array('status' => '0'))
+                        : CHtml::link('<i class="icon-ok-sign" rel="tooltip" title="' . Yii::t('yupe', 'Включить') . '">&nbsp;</i>', $url + array('status' => '1'))
+                    )
+                    : '<br />';
 
-                                if( $module->id == 'yupe')
-                                    $tabs[]= array( 'label'=> Yii::t('yupe', 'Зависимые'), 'content' => Yii::t('yupe', 'Все модули'), 'count'=>'Все' );
-                                else
-                                    if( count($deps=$module->dependent) )
-                                    {
-                                        foreach($deps as &$dep)
-                                            $dep = $modules[$dep]->name;
-                                        $tabs[]= array( 'label'=> Yii::t('yupe', 'Зависимые'), 'content' => implode(', ', $deps), 'count'=>count($deps) );
-                                    }
-                                foreach ($tabs as $t)
-                                    echo $t['label']." ".CHtml::tag('span',array('class'=>'label label-info','rel'=>'tooltip', 'title'=>$t['content']),CHtml::tag('small',array(),$t['count']));
-
-                              ?>
-                    </td>
-                    <td>
-                        <?php if ($module->isStatus && $module->editableParams): ?>
-                            <?php echo CHtml::link('<i class="icon-wrench" rel="tooltip" title="' . Yii::t('yupe', 'Настройки') . '">&nbsp;</i>', array(
-                                    '/yupe/backend/modulesettings/',
-                                    'module' => $module->id,
-                                )); ?>
-                        <?php endif; ?>
-                        <?php
-                            $url = array('/yupe/backend/modulechange/', 'name' => $module->id);
-                            echo !$module->isNoDisable
-                                ? ($module->isStatus
-                                    ? CHtml::link('<i class="icon-remove-circle" rel="tooltip" title="' . Yii::t('yupe', 'Выключить') . '">&nbsp;</i>', $url + array('status' => '0'))
-                                    : CHtml::link('<i class="icon-ok-sign" rel="tooltip" title="' . Yii::t('yupe', 'Включить') . '">&nbsp;</i>', $url + array('status' => '1'))
-                                )
-                                : '<br />';
-
-                            if (isset($updates[$module->id]))
-                                echo CHtml::link('<i class="icon-refresh" rel="tooltip" title="' . Yii::t('yupe', 'Есть {n} обновление базы!|Есть {n} обновления базы!|Есть {n} обновлений базы!',count($updates[$module->id])) . '">&nbsp;</i>', array('/yupe/backend/modupdate','name' => $module->id));
-                            ?>
-                    </td>
-                </tr>
+                if (isset($updates[$module->id]))
+                    echo CHtml::link('<i class="icon-refresh" rel="tooltip" title="' . Yii::t('yupe', 'Есть {n} обновление базы!|Есть {n} обновления базы!|Есть {n} обновлений базы!',count($updates[$module->id])) . '">&nbsp;</i>', array('/yupe/backend/modupdate','name' => $module->id));
+                ?>
+        </td>
+    </tr>
 <?php
 }
 
@@ -135,8 +154,7 @@ function modulesTable($modules, &$updates, &$allmodules,&$controller)
 {
     ob_start();
     ob_implicit_flush(false);
-
-    ?>
+?>
     <table class="table table-striped table-vmiddle">
         <thead>
         <tr>
@@ -151,12 +169,12 @@ function modulesTable($modules, &$updates, &$allmodules,&$controller)
         </thead>
         <tbody>
             <?php
-                foreach ($modules as $module)
-                    moduleRow($module,$updates,$allmodules,$controller);
-                    ?>
+            foreach ($modules as $module)
+                moduleRow($module, $updates, $allmodules, $controller);
+            ?>
         </tbody>
     </table>
-    <?php
+<?php
     return ob_get_clean();
-
 }
+?>

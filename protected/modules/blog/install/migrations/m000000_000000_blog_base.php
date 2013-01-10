@@ -62,7 +62,7 @@ class m000000_000000_blog_base extends CDbMigration
             ),"ENGINE=InnoDB DEFAULT CHARSET=utf8");
 
         $this->createIndex("blog_post_slug_uniq",$tableName,"slug,lang", true);
-        $this->createIndex("blog_post_blog_id",$tableName,"blog_id", true);
+        $this->createIndex("blog_post_blog_id",$tableName,"blog_id", false);
         $this->createIndex("blog_post_create_user_id",$tableName,"create_user_id", false);
         $this->createIndex("blog_post_update_user_id",$tableName,"update_user_id", false);
         $this->createIndex("blog_post_status",$tableName,"status", false);

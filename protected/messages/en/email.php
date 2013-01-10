@@ -15,15 +15,7 @@
  * of the guide for details.
  *
  * NOTE, this file must be saved in UTF-8 encoding.
- *
- * @version $Id: $
  */
 return array (
-  '' => '',
   'Archaron' => '',
-  'E-Mail' => '',
-  'http://yupe.ru/' => '',
-  'tsm@glavset.ru' => '',
-  'Сервисы' => '',
-  'Функции сайта E-Mail.ru.' => '',
 );
