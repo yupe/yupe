@@ -187,7 +187,7 @@ abstract class YWebModule extends CWebModule
      *  @return bool определяет, включен или выключен модуль
      *  @since 0.5
      */
-    public function getIsStatus()
+    public function getIsActive()
     {
         $status = is_file(Yii::app()->basePath . '/config/modules/' . $this->id . '.php');
         // @TODO Временный хак, дающий возможность переустановки, после появления обновлению, будет закрыт

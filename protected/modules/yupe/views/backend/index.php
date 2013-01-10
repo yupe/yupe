@@ -6,7 +6,7 @@
 </div>
 
 <?php foreach ($modules as $module): ?>
-    <?php if ($module->isStatus): ?>
+    <?php if ($module->isActive): ?>
         <?php $messages = $module->checkSelf(); ?>
         <?php if (is_array($messages)): ?>
             <?php foreach ($messages as $key => $value): ?>
@@ -69,7 +69,7 @@
         $enableCount = 0;
         foreach ($modules as $module)
         {
-            if ($module->isStatus || $module->isNoDisable)
+            if ($module->isActive || $module->isNoDisable)
                 $enableCount++;
         }
     ?>

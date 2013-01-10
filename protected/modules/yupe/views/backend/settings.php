@@ -17,7 +17,7 @@ $this->breadcrumbs = array(
         $enableCount = 0;
         foreach ($modules as $module)
         {
-            if ($module->isStatus || $module->isNoDisable)
+            if ($module->isActive || $module->isNoDisable)
                 $enableCount++;
         }
     ?>

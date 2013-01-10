@@ -6,7 +6,7 @@ if (count($modules))
 
     foreach($modules as &$m)
     {
-        if ($m->isStatus || $m->isNoDisable)
+        if ($m->isActive || $m->isNoDisable)
         {
             $on[$m->id] = $m;
             if (isset($updates[$m->id]))
@@ -55,7 +55,7 @@ if (count($modules))
 function moduleRow($module, &$updates, &$modules, &$controller)
 {
 ?>
-    <tr class="<?php echo ($module->isStatus) ? (is_array($module->checkSelf()) ? 'error' : '') : 'muted';?>">
+    <tr class="<?php echo ($module->isActive) ? (is_array($module->checkSelf()) ? 'error' : '') : 'muted';?>">
         <td><?php echo $module->icon ? "<i class='icon-" . $module->icon . "'>&nbsp;</i> " : ""; ?></td>
         <td>
             <small class='label <?php
@@ -72,7 +72,7 @@ function moduleRow($module, &$updates, &$modules, &$controller)
         </td>
         <td>
             <small style="font-size: 80%;"><?php echo $module->category; ?></small><br />
-            <?php if ($module->isStatus || $module->isNoDisable): ?>
+            <?php if ($module->isActive || $module->isNoDisable): ?>
                 <?php echo CHtml::link($module->name . ' <small>(' . $module->id . ')</small>', $module->adminPageLinkNormalize); ?>
             <?php else: ?>
                 <span><?php echo $module->name . ' <small>(' . $module->id . ')</small>'; ?></span>
@@ -127,7 +127,7 @@ function moduleRow($module, &$updates, &$modules, &$controller)
                   ?>
         </td>
         <td>
-            <?php if ($module->isStatus && $module->editableParams): ?>
+            <?php if ($module->isActive && $module->editableParams): ?>
                 <?php echo CHtml::link('<i class="icon-wrench" rel="tooltip" title="' . Yii::t('YupeModule.yupe', 'Настройки') . '">&nbsp;</i>', array(
                     '/yupe/backend/modulesettings/',
                     'module' => $module->id,
@@ -136,7 +136,7 @@ function moduleRow($module, &$updates, &$modules, &$controller)
             <?php
                 $url = array('/yupe/backend/modulechange/', 'name' => $module->id);
                 echo !$module->isNoDisable
-                    ? ($module->isStatus
+                    ? ($module->isActive
                         ? CHtml::link('<i class="icon-remove-circle" rel="tooltip" title="' . Yii::t('YupeModule.yupe', 'Выключить') . '">&nbsp;</i>', $url + array('status' => '0'))
                         : CHtml::link('<i class="icon-ok-sign" rel="tooltip" title="' . Yii::t('YupeModule.yupe', 'Включить') . '">&nbsp;</i>', $url + array('status' => '1'))
                     )
