@@ -48,7 +48,7 @@ class CatalogModule extends YWebModule
     public function getEditableParams()
     {
         return array(
-            'mainCategory' => Category::model()->allCategoryList,
+            'mainCategory' => CHtml::listData($this->getCategoryList(),'id','name'),
             'uploadPath',
             'adminMenuOrder',
             'editor'       => Yii::app()->getModule('yupe')->editors,

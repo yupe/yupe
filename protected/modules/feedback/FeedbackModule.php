@@ -9,6 +9,7 @@ class FeedbackModule extends YWebModule
     public $sendConfirmation = 0;
     public $successPage;
     public $cacheTime        = 60;
+    public $mainCategory;
 
     const BACKEND_EMAIL = 'email';
     const BACKEND_DB    = 'db';
@@ -32,6 +33,7 @@ class FeedbackModule extends YWebModule
             'sendConfirmation' => Yii::t('FeedbackModule.feedback', 'Отправлять подтверждение'),
             'successPage'      => Yii::t('FeedbackModule.feedback', 'Страница после отправки формы'),
             'cacheTime'        => Yii::t('FeedbackModule.feedback', 'Время кэширования счетчика (сек.)'),
+            'mainCategory'     => Yii::t('FeedbackModule.feedback', 'Главная категория сообщений'),
         );
     }
 
@@ -45,6 +47,7 @@ class FeedbackModule extends YWebModule
             'adminMenuOrder',
             'successPage',
             'cacheTime',
+            'mainCategory' => CHtml::listData($this->getCategoryList(),'id','name'),
         );
     }
 
@@ -140,6 +143,19 @@ class FeedbackModule extends YWebModule
     public function getIcon()
     {
         return 'envelope';
+    }
+
+    public function getCategoryList()
+    {
+        $criteria = ($this->mainCategory)
+            ? array(
+                'condition' => 'id = :id OR parent_id = :id',
+                'params'    => array(':id' => $this->mainCategory),
+                'order'     => 'id ASC',
+            )
+            : array();
+
+        return Category::model()->findAll($criteria);
     }
 
     public function init()

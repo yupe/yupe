@@ -31,7 +31,7 @@ class PageModule extends YWebModule
         return array(
             'adminMenuOrder',
             'editor'        => Yii::app()->getModule('yupe')->editors,
-            'mainCategory'  => Category::model()->allCategoryList,
+            'mainCategory' => CHtml::listData($this->getCategoryList(),'id','name'),
         );
     }
 

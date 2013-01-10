@@ -61,6 +61,10 @@
             'value' => $model->getType(),
         ),
         array(
+            'name'  => 'category_id',
+            'value' => $model->getCategory(),
+        ),
+        array(
             'name'  => 'status',
             'value' => $model->getStatus(),
         ),

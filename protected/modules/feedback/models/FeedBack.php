@@ -14,6 +14,7 @@
  * @property integer $type
  * @property integer $status
  * @property integer $ip
+ * @property category_id $ip
  * @property string  $phone
  */
 class FeedBack extends YModel
@@ -54,7 +55,7 @@ class FeedBack extends YModel
         return array(
             array('name, email, theme, text', 'required'),
             array('name, email, theme, text, phone', 'filter', 'filter' => array($obj = new CHtmlPurifier(), 'purify')),
-            array('type, status, answer_user, is_faq, type', 'numerical', 'integerOnly' => true),
+            array('type, status, answer_user, is_faq, type, category_id', 'numerical', 'integerOnly' => true),
             array('is_faq', 'in', 'range' => array(0, 1)),
             array('status', 'in', 'range' => array_keys($this->statusList)),
             array('type', 'in', 'range' => array_keys($this->typeList)),
@@ -88,6 +89,7 @@ class FeedBack extends YModel
             'is_faq'        => Yii::t('FeedbackModule.feedback', 'В разделе FAQ'),
             'status'        => Yii::t('FeedbackModule.feedback', 'Статус'),
             'ip'            => Yii::t('FeedbackModule.feedback', 'Ip-адрес'),
+            'category_id'   => Yii::t('FeedbackModule.feedback', 'Категория'),
         );
     }
 
@@ -110,6 +112,7 @@ class FeedBack extends YModel
         $criteria->compare('status', $this->status);
         $criteria->compare('ip', $this->ip);
         $criteria->compare('is_faq', $this->is_faq);
+        $criteria->compare('category_id', $this->category_id);
 
         return new CActiveDataProvider(get_class($this), array(
             'criteria' => $criteria,
@@ -130,7 +133,7 @@ class FeedBack extends YModel
                 $this->type = self::TYPE_DEFAULT;
         }
 
-        return parent::beforeSave();
+        return parent::beforeValidate();
     }
 
     public function scopes()
@@ -198,9 +201,22 @@ class FeedBack extends YModel
         );
     }
 
+
     public function getIsFaq()
     {
         $data = $this->isFaqList;
         return isset($data[$this->is_faq]) ? $data[$this->is_faq] : Yii::t('FeedbackModule.feedback', '*неизвестно*');
+    }
+
+    public function relations()
+    {
+        return array(
+            'category' => array(self::BELONGS_TO,'Category','category_id')
+        );
+    }
+
+    public function getCategory()
+    {
+        return empty($this->category) ? '---' : $this->category->name;
     }
 }

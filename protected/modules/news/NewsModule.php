@@ -60,7 +60,7 @@ class NewsModule extends YWebModule
         return array(
             'adminMenuOrder',
             'editor'       => Yii::app()->getModule('yupe')->getEditors(),
-            'mainCategory' => Category::model()->allCategoryList,
+            'mainCategory' => CHtml::listData($this->getCategoryList(),'id','name'),
             'uploadPath',
             'allowedExtensions',
             'minSize',

@@ -47,7 +47,7 @@ class ImageModule extends YWebModule
             'allowedExtensions',
             'minSize',
             'maxSize',
-            'mainCategory' => Category::model()->allCategoryList,
+            'mainCategory' => CHtml::listData($this->getCategoryList(),'id','name'),
         );
     }
 

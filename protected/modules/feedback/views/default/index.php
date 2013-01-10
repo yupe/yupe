@@ -63,6 +63,11 @@ $this->renderPartial('_search', array('model' => $model));
             'value' => '$data->getType()',
             'filter' => CHtml::activeDropDownList($model, 'type', $model->typeList),
         ),
+        array(
+            'name'  => 'category_id',
+            'value' => '$data->getCategory()',
+            'filter' => CHtml::activeDropDownList($model, 'category_id', CHtml::listData($this->module->getCategoryList(),'id','name')),
+        ),
         'email',
         'phone',
         array(
