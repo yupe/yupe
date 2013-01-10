@@ -17,31 +17,26 @@ class YBackController extends YMainController
         $backendTheme = $this->yupe->backendTheme;
         $this->setPageTitle(Yii::t('yupe', 'Панель управления'));
 
-        if ($backendTheme && is_dir(Yii::getPathOfAlias("webroot.themes.backend_" . $backendTheme)))
-        {
+        if ($backendTheme && is_dir(Yii::getPathOfAlias("webroot.themes.backend_" . $backendTheme))) {
           //$themeBase        = "webroot.themes.backend_" . $backendTheme;
             Yii::app()->theme = "backend_" . $backendTheme;
             $themeFile        = Yii::app()->theme->basePath . "/" . ucwords($backendTheme) . "Theme.php";
 
             if (is_file($themeFile))
                 require($themeFile);
-        }
-        else
-        {
-            Yii::app()->theme = null;
-            $this->layout     = 'application.modules.yupe.views.layouts.column2';
-
+        } else {
             $assets = ($this->yupe->enableAssets) ? array() : array(
-                'coreCss' => false,
+                'coreCss'       => false,
                 'responsiveCss' => false,
-                'yiiCss' => false,
-                'jqueryCss' => false,
-                'enableJS' => false,
+                'yiiCss'        => false,
+                'jqueryCss'     => false,
+                'enableJS'      => false,
             );
 
+            Yii::app()->theme = null;
             Yii::app()->setComponent('bootstrap', Yii::createComponent(array(
-                'class' => 'application.modules.yupe.extensions.booster.components.Bootstrap',
-                'republishAssetsOnRequest'=>false,
+                'class'                    => 'application.modules.yupe.extensions.booster.components.Bootstrap',
+                'republishAssetsOnRequest' => false,
             ) + $assets));
 
             if (!$this->yupe->enableAssets)
@@ -96,14 +91,11 @@ class YBackController extends YMainController
         if (!$model)
             throw new CHttpException(404, Yii::t('yupe', 'Страница не найдена!'));
 
-        if ($direction === 'up')
-        {
+        if ($direction === 'up') {
             $model_depends = $model_depends->findByAttributes(array($sortField => ($model->$sortField - 1)));
             $model_depends->$sortField++;
             $model->$sortField--; #example menu_order column in sql
-        }
-        else
-        {
+        } else {
             $model_depends = $model_depends->findByAttributes(array($sortField => ($model->$sortField + 1)));
             $model_depends->$sortField--;
             $model->$sortField++;

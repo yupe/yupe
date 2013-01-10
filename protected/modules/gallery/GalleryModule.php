@@ -1,7 +1,6 @@
 <?php
 class GalleryModule extends YWebModule
 {
-
     public function getDependencies()
     {
         return array(

@@ -73,15 +73,14 @@ class DefaultController extends YBackController
             ),
             array(
                 Yii::t('install', 'Активация ядра Юпи!'),
-                Yii::app()->getModule('yupe')->activate,
+                $this->checkYupeActivate(),
                 Yii::t('install', 'При запуске ядра произошли ошибки, пожалуйста, проверьте права доступа на все необходимые файлы и каталоги (см. ошибки выше)'),
             ),
         );
 
         $result = true;
 
-        foreach ($requirements as $i => $requirement)
-        {
+        foreach ($requirements as $i => $requirement) {
             (!$requirement[1])
                 ? $result = false
                 : $requirements[$i][2] = Yii::t('install', 'Все хорошо!');
@@ -101,6 +100,15 @@ class DefaultController extends YBackController
     private function checkConfigFileWritable($pathOld, $pathNew)
     {
         return is_writable($pathNew) || @copy($pathOld, $pathNew) && is_writable($pathNew);
+    }
+
+    private function checkYupeActivate()
+    {
+        try {
+            return Yii::app()->getModule('yupe')->activate;
+        } catch(Exception $e) {
+            return ($e->getCode() == 304) ? true : false;
+        }
     }
 
     public function actionRequirements()
@@ -504,15 +512,12 @@ class DefaultController extends YBackController
 
         $this->logMessage($module, Yii::t('install', 'Обновляем базу модуля до актуального состояния!'));
 
-        try
-        {
+        try {
             $installed = $module->install;
 
             $this->logMessage($module, Yii::t('install', 'Модуль установлен!'));
             echo CJSON::encode(array('installed' => array($module->id), 'log' => ob_get_clean()));
-        }
-        catch(Exception $e)
-        {
+        } catch(Exception $e) {
             $this->logMessage($module, $e->getMessage(), "error");
             echo ob_get_clean();
         }
@@ -581,8 +586,7 @@ class DefaultController extends YBackController
             {
                 $transaction = Yii::app()->db->beginTransaction();
 
-                try
-                {
+                try {
                     Settings::model()->deleteAll();
 
                     $user = User::model()->admin()->findAll();
@@ -618,9 +622,7 @@ class DefaultController extends YBackController
                         @mkdir ($assetsPath);
 
                     $this->redirect(array('/install/default/finish/'));
-                }
-                catch (CDbException $e)
-                {
+                } catch (CDbException $e) {
                     $transaction->rollback();
 
                     Yii::app()->user->setFlash(
@@ -643,18 +645,16 @@ class DefaultController extends YBackController
     {
         $this->stepName = Yii::t('install', 'Шаг 8 из 8 : "Окончание установки"');
 
-        if (!Yii::app()->getModule('install')->activate)
-        {
-            Yii::app()->user->setFlash(
-                YFlashMessages::ERROR_MESSAGE,
-                Yii::t('install', "Модуль install не удалось отключить, обновите конфигурационный файл install!")
-            );
-        }
-        else
-        {
+        try {
+            Yii::app()->getModule('install')->activate;
             Yii::app()->user->setFlash(
                 YFlashMessages::NOTICE_MESSAGE,
                 Yii::t('install', "Модуль install отключен!")
+            );
+        } catch(Exception $e) {
+            Yii::app()->user->setFlash(
+                YFlashMessages::ERROR_MESSAGE,
+                $e->getMessage()
             );
         }
 
