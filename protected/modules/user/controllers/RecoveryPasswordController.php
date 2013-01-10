@@ -22,7 +22,7 @@ class RecoveryPasswordController extends YBackController
                 $this->redirect(isset($_POST['returnUrl']) ? $_POST['returnUrl'] : array('index'));
         }
         else
-            throw new CHttpException(400, Yii::t('user', 'Неверный запрос. Пожалуйста, больше не повторяйте такие запросы!'));
+            throw new CHttpException(400, Yii::t('UserModule.user', 'Неверный запрос. Пожалуйста, больше не повторяйте такие запросы!'));
     }
 
     /**
@@ -49,7 +49,7 @@ class RecoveryPasswordController extends YBackController
             if (isset($_GET['id']))
                 $this->_model = RecoveryPassword::model()->findbyPk($_GET['id']);
             if ($this->_model === null)
-                throw new CHttpException(404, Yii::t('user', 'Запрошенная страница не найдена!'));
+                throw new CHttpException(404, Yii::t('UserModule.user', 'Запрошенная страница не найдена!'));
         }
         return $this->_model;
     }

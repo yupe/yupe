@@ -70,11 +70,11 @@ class Login extends YModel
     public function attributeLabels()
     {
         return array(
-            'id'            => Yii::t('user', 'id'),
-            'user_id'       => Yii::t('user', 'Пользователь'),
-            'identity_id'   => Yii::t('user', 'Идентификатор'),
-            'type'          => Yii::t('user', 'Тип'),
-            'creation_date' => Yii::t('user', 'Дата создания'),
+            'id'            => Yii::t('Social.social', 'id'),
+            'user_id'       => Yii::t('Social.social', 'Пользователь'),
+            'identity_id'   => Yii::t('Social.social', 'Идентификатор'),
+            'type'          => Yii::t('Social.social', 'Тип'),
+            'creation_date' => Yii::t('Social.social', 'Дата создания'),
         );
     }
 

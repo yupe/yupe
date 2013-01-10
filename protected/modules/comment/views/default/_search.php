@@ -29,7 +29,7 @@ Yii::app()->clientScript->registerScript('fieldset', "
         'type'        => 'primary',
         'encodeLabel' => false,
         'buttonType'  => 'submit',
-        'label'       => '<i class="icon-search icon-white">&nbsp;</i> ' . Yii::t('comment', 'Искать комментарии'),
+        'label'       => '<i class="icon-search icon-white">&nbsp;</i> ' . Yii::t('CommentModule.comment', 'Искать комментарии'),
     )); ?>
 
 <?php $this->endWidget(); ?>

@@ -69,12 +69,12 @@ class Vote extends YModel
     public function attributeLabels()
     {
         return array(
-            'id'            => Yii::t('vote', 'ID'),
-            'model'         => Yii::t('vote', 'Тип модели'),
-            'model_id'      => Yii::t('vote', 'Модель'),
-            'user_id'       => Yii::t('vote', 'Добавил'),
-            'creation_date' => Yii::t('vote', 'Дата добавления'),
-            'value'         => Yii::t('vote', 'Значение'),
+            'id'            => Yii::t('VoteModule.vote', 'ID'),
+            'model'         => Yii::t('VoteModule.vote', 'Тип модели'),
+            'model_id'      => Yii::t('VoteModule.vote', 'Модель'),
+            'user_id'       => Yii::t('VoteModule.vote', 'Добавил'),
+            'creation_date' => Yii::t('VoteModule.vote', 'Дата добавления'),
+            'value'         => Yii::t('VoteModule.vote', 'Значение'),
         );
     }
 

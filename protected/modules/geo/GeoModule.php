@@ -13,23 +13,23 @@ class GeoModule extends YWebModule
     public function getParamsLabels()
     {
         return array(
-            'param' => Yii::t('geo', ''),
+            'param' => Yii::t('GeoModule.geo', ''),
         );
     }
 
 	public function getCategory()
     {
-        return Yii::t('geo', 'Сервисы');
+        return Yii::t('GeoModule.geo', 'Сервисы');
     }
 
     public function getName()
     {
-        return Yii::t('geo', 'ГЕО-Локация');
+        return Yii::t('GeoModule.geo', 'ГЕО-Локация');
     }
 
     public function getDescription()
     {
-        return Yii::t('geo', 'Модуль содержит компоненты и виджеты для работы с базой GeoIP. Добавляет поддержку стран и городов к профилю пользователя.');
+        return Yii::t('GeoModule.geo', 'Модуль содержит компоненты и виджеты для работы с базой GeoIP. Добавляет поддержку стран и городов к профилю пользователя.');
     }
 
     public function getAuthor()
@@ -39,17 +39,17 @@ class GeoModule extends YWebModule
 
     public function getAuthorEmail()
     {
-        return Yii::t('geo', 'tsm@glavset.ru');
+        return Yii::t('GeoModule.geo', 'tsm@glavset.ru');
     }
 
     public function getVersion()
     {
-        return Yii::t('geo', '0.1');
+        return Yii::t('GeoModule.geo', '0.1');
     }
 
     public function getUrl()
     {
-        return Yii::t('geo', 'http://yupe.ru/');
+        return Yii::t('GeoModule.geo', 'http://yupe.ru/');
     }
 
     public function getAdminPageLink()

@@ -90,7 +90,7 @@ class MenuitemController extends YBackController
                 $this->redirect(isset($_POST['returnUrl']) ? $_POST['returnUrl'] : array('index'));
         }
         else
-            throw new CHttpException(400, Yii::t('menu', 'Неверный запрос. Пожалуйста, больше не повторяйте такие запросы!'));
+            throw new CHttpException(400, Yii::t('MenuModule.menu', 'Неверный запрос. Пожалуйста, больше не повторяйте такие запросы!'));
     }
 
     /**
@@ -135,7 +135,7 @@ class MenuitemController extends YBackController
     {
         $model = MenuItem::model()->findByPk($id);
         if ($model === null)
-            throw new CHttpException(404, Yii::t('menu', 'Запрошенная страница не найдена!'));
+            throw new CHttpException(404, Yii::t('MenuModule.menu', 'Запрошенная страница не найдена!'));
         return $model;
     }
 

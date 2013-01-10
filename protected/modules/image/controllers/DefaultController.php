@@ -29,7 +29,7 @@ class DefaultController extends YBackController
 
                 Yii::app()->user->setFlash(
                     YFlashMessages::NOTICE_MESSAGE,
-                    Yii::t('image', 'Изображение добавлено!')
+                    Yii::t('ImageModule.image', 'Изображение добавлено!')
                 );
 
                 if (!isset($_POST['submit-type']))
@@ -94,7 +94,7 @@ class DefaultController extends YBackController
                 $this->redirect(isset($_POST['returnUrl']) ? $_POST['returnUrl'] : array('index'));
         }
         else
-            throw new CHttpException(400, Yii::t('image', 'Неверный запрос. Пожалуйста, больше не повторяйте такие запросы'));
+            throw new CHttpException(400, Yii::t('ImageModule.image', 'Неверный запрос. Пожалуйста, больше не повторяйте такие запросы'));
     }
 
     /**
@@ -118,7 +118,7 @@ class DefaultController extends YBackController
     {
         $model = Image::model()->findByPk($id);
         if ($model === null)
-            throw new CHttpException(404, Yii::t('image', 'Запрошенная страница не найдена!'));
+            throw new CHttpException(404, Yii::t('ImageModule.image', 'Запрошенная страница не найдена!'));
         return $model;
     }
 

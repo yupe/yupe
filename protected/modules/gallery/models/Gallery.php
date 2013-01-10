@@ -77,10 +77,10 @@ class Gallery extends YModel
     public function attributeLabels()
     {
         return array(
-            'id'          => Yii::t('gallery', 'Id'),
-            'name'        => Yii::t('gallery', 'Название'),
-            'description' => Yii::t('gallery', 'Описание'),
-            'status'      => Yii::t('gallery', 'Статус'),
+            'id'          => Yii::t('GalleryModule.gallery', 'Id'),
+            'name'        => Yii::t('GalleryModule.gallery', 'Название'),
+            'description' => Yii::t('GalleryModule.gallery', 'Описание'),
+            'status'      => Yii::t('GalleryModule.gallery', 'Статус'),
         );
     }
 
@@ -106,15 +106,15 @@ class Gallery extends YModel
     public function getStatusList()
     {
         return array(
-            self::STATUS_PUBLIC => Yii::t('gallery', 'опубликовано'),
-            self::STATUS_DRAFT  => Yii::t('gallery', 'скрыто'),
+            self::STATUS_PUBLIC => Yii::t('GalleryModule.gallery', 'опубликовано'),
+            self::STATUS_DRAFT  => Yii::t('GalleryModule.gallery', 'скрыто'),
         );
     }
 
     public function getStatus()
     {
         $data = $this->statusList;
-        return isset($data[$this->status]) ? $data[$this->status] : Yii::t('gallery', '*неизвестно*');
+        return isset($data[$this->status]) ? $data[$this->status] : Yii::t('GalleryModule.gallery', '*неизвестно*');
     }
 
     public function addImage(Image $image)

@@ -1,8 +1,8 @@
-<?php $this->pageTitle = Yii::t('user', 'Регистрация новго пользователя'); ?>
+<?php $this->pageTitle = Yii::t('UserModule.user', 'Регистрация новго пользователя'); ?>
 
-<h1><?php echo Yii::t('user', 'Регистрация нового пользователя'); ?></h1>
+<h1><?php echo Yii::t('UserModule.user', 'Регистрация нового пользователя'); ?></h1>
 
-<div class='hint'><?php echo Yii::t('user', 'Пожалуйста, имя пользователя и пароль заполняйте только латинскими буквами и цифрами.'); ?></div>
+<div class='hint'><?php echo Yii::t('UserModule.user', 'Пожалуйста, имя пользователя и пароль заполняйте только латинскими буквами и цифрами.'); ?></div>
 
 <br/><br/>
 
@@ -48,7 +48,7 @@
                     <?php echo $form->error($model, 'verifyCode'); ?>
                 </div>
                 <div class="hint">
-                    <?php echo Yii::t('user', 'Введите текст указанный на картинке'); ?>
+                    <?php echo Yii::t('UserModule.user', 'Введите текст указанный на картинке'); ?>
                 </div>
             </div>
         <?php endif; ?>

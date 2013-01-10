@@ -15,19 +15,19 @@ Yii::app()->clientScript->registerScript('fieldset', "
 ");
 ?>
     <div class="alert alert-info">
-        <?php echo Yii::t('page', 'Поля, отмеченные'); ?>
+        <?php echo Yii::t('PageModule.page', 'Поля, отмеченные'); ?>
         <span class="required">*</span>
-        <?php echo Yii::t('page', 'обязательны.'); ?>
+        <?php echo Yii::t('PageModule.page', 'обязательны.'); ?>
     </div>
 
     <?php echo $form->errorSummary($model); ?>
 
     <div class="wide row-fluid control-group <?php echo ($model->hasErrors('category_id') || $model->hasErrors('parent_id')) ? 'error' : ''; ?>">
         <div class="span4">
-            <?php echo $form->dropDownListRow($model, 'category_id', CHtml::listData($this->module->getCategoryList(), 'id', 'name'), array('empty' => Yii::t('page', '--выберите--'), 'class' => 'span7 popover-help', 'data-original-title' => $model->getAttributeLabel('category_id'), 'data-content' => $model->getAttributeDescription('category_id'))); ?>
+            <?php echo $form->dropDownListRow($model, 'category_id', CHtml::listData($this->module->getCategoryList(), 'id', 'name'), array('empty' => Yii::t('PageModule.page', '--выберите--'), 'class' => 'span7 popover-help', 'data-original-title' => $model->getAttributeLabel('category_id'), 'data-content' => $model->getAttributeDescription('category_id'))); ?>
         </div>
         <div class="span3">
-            <?php echo $form->dropDownListRow($model, 'parent_id', $pages, array('empty' => Yii::t('page', '--выберите--'), 'class' => 'span7 popover-help', 'data-original-title' => $model->getAttributeLabel('parent_id'), 'data-content' => $model->getAttributeDescription('parent_id'))); ?>
+            <?php echo $form->dropDownListRow($model, 'parent_id', $pages, array('empty' => Yii::t('PageModule.page', '--выберите--'), 'class' => 'span7 popover-help', 'data-original-title' => $model->getAttributeLabel('parent_id'), 'data-content' => $model->getAttributeDescription('parent_id'))); ?>
         </div>
     </div>
     <div class="wide row-fluid control-group <?php echo ($model->hasErrors('status') || $model->hasErrors('menu_order')) ? 'error' : ''; ?>">
@@ -45,7 +45,7 @@ Yii::app()->clientScript->registerScript('fieldset', "
         <?php echo $form->textFieldRow($model, 'title', array('size' => 60, 'maxlength' => 150, 'class' => 'span7 popover-help', 'data-original-title' => $model->getAttributeLabel('title'), 'data-content' => $model->getAttributeDescription('title'))); ?>
     </div>
     <div class="row-fluid control-group <?php echo $model->hasErrors('slug') ? 'error' : ''; ?>">
-        <?php echo $form->textFieldRow($model, 'slug', array('size' => 60, 'maxlength' => 150, 'placeholder' => Yii::t('page', 'Оставьте пустым для автоматической генерации'), 'class' => 'span7 popover-help', 'data-original-title' => $model->getAttributeLabel('slug'), 'data-content' => $model->getAttributeDescription('slug'))); ?>
+        <?php echo $form->textFieldRow($model, 'slug', array('size' => 60, 'maxlength' => 150, 'placeholder' => Yii::t('PageModule.page', 'Оставьте пустым для автоматической генерации'), 'class' => 'span7 popover-help', 'data-original-title' => $model->getAttributeLabel('slug'), 'data-content' => $model->getAttributeDescription('slug'))); ?>
     </div>
     <div class="row-fluid control-group <?php echo $model->hasErrors('is_protected') ? 'error' : ''; ?>">
         <?php echo $form->checkBoxRow($model, 'is_protected', array('class' => 'popover-help', 'data-original-title' => $model->getAttributeLabel('is_protected'), 'data-content' => $model->getAttributeDescription('is_protected'))); ?>

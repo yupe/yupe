@@ -51,8 +51,8 @@ class GeoCountry extends YModel
     public function attributeLabels()
     {
         return array(
-            'id'   => Yii::t('geo', 'Id'),
-            'name' => Yii::t('geo', 'Страна'),
+            'id'   => Yii::t('GeoModule.geo', 'Id'),
+            'name' => Yii::t('GeoModule.geo', 'Страна'),
         );
     }
 

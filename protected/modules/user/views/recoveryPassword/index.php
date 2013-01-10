@@ -1,33 +1,33 @@
 <?php
     $this->breadcrumbs = array(
         Yii::app()->getModule('user')->getCategory() => array(),
-        Yii::t('user', 'Пользователи') => array('/user/default/index'),
-        Yii::t('user', 'Восстановление пароля') => array('/user/recoveryPassword/index'),
-        Yii::t('user', 'Управление'),
+        Yii::t('UserModule.user', 'Пользователи') => array('/user/default/index'),
+        Yii::t('UserModule.user', 'Восстановление пароля') => array('/user/recoveryPassword/index'),
+        Yii::t('UserModule.user', 'Управление'),
     );
 
-    $this->pageTitle = Yii::t('user', 'Восстановление пароля - управление');
+    $this->pageTitle = Yii::t('UserModule.user', 'Восстановление пароля - управление');
 
     $this->menu = array(
-        array('label' => Yii::t('user', 'Пользователи'), 'items' => array(
-            array('icon' => 'list-alt', 'label' => Yii::t('user', 'Управление пользователями'), 'url' => array('/user/default/index')),
-            array('icon' => 'plus-sign', 'label' => Yii::t('user', 'Добавление пользователя'), 'url' => array('/user/default/create')),
+        array('label' => Yii::t('UserModule.user', 'Пользователи'), 'items' => array(
+            array('icon' => 'list-alt', 'label' => Yii::t('UserModule.user', 'Управление пользователями'), 'url' => array('/user/default/index')),
+            array('icon' => 'plus-sign', 'label' => Yii::t('UserModule.user', 'Добавление пользователя'), 'url' => array('/user/default/create')),
         )),
-        array('label' => Yii::t('user', 'Восстановления паролей'), 'items' => array(
-            array('icon' => 'list-alt', 'label' => Yii::t('user', 'Восстановления паролей'), 'url' => array('/user/recoveryPassword/index')),
+        array('label' => Yii::t('UserModule.user', 'Восстановления паролей'), 'items' => array(
+            array('icon' => 'list-alt', 'label' => Yii::t('UserModule.user', 'Восстановления паролей'), 'url' => array('/user/recoveryPassword/index')),
         )),
     );
 ?>
 <div class="page-header">
     <h1>
-        <?php echo Yii::t('user', 'Восстановления паролей'); ?>
-        <small><?php echo Yii::t('user', 'управление'); ?></small>
+        <?php echo Yii::t('UserModule.user', 'Восстановления паролей'); ?>
+        <small><?php echo Yii::t('UserModule.user', 'управление'); ?></small>
     </h1>
 </div>
 
 <button class="btn btn-small dropdown-toggle" data-toggle="collapse" data-target="#search-toggle">
     <i class="icon-search">&nbsp;</i>
-    <?php echo CHtml::link(Yii::t('user', 'Поиск паролей'), '#', array('class' => 'search-button')); ?>
+    <?php echo CHtml::link(Yii::t('UserModule.user', 'Поиск паролей'), '#', array('class' => 'search-button')); ?>
     <span class="caret">&nbsp;</span>
 </button>
 
@@ -47,7 +47,7 @@ $this->renderPartial('_search', array('model' => $model));
 
 <br/>
 
-<p><?php echo Yii::t('user', 'В данном разделе представлены средства управления восстановлениями паролей'); ?></p>
+<p><?php echo Yii::t('UserModule.user', 'В данном разделе представлены средства управления восстановлениями паролей'); ?></p>
 
 <?php $this->widget('YCustomGridView', array(
     'id' => 'recovery-password-grid',

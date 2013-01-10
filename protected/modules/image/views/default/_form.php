@@ -15,9 +15,9 @@ Yii::app()->clientScript->registerScript('fieldset', "
 ");
 ?>
     <div class="alert alert-info">
-        <?php echo Yii::t('image', 'Поля, отмеченные'); ?>
+        <?php echo Yii::t('ImageModule.image', 'Поля, отмеченные'); ?>
         <span class="required">*</span>
-        <?php echo Yii::t('image', 'обязательны.'); ?>
+        <?php echo Yii::t('ImageModule.image', 'обязательны.'); ?>
     </div>
 
     <?php echo $form->errorSummary($model); ?>
@@ -55,12 +55,12 @@ Yii::app()->clientScript->registerScript('fieldset', "
     <?php $this->widget('bootstrap.widgets.TbButton', array(
         'buttonType' => 'submit',
         'type'       => 'primary',
-        'label'      => $model->isNewRecord ? Yii::t('image', 'Добавить изображение и продолжить') : Yii::t('image', 'Сохранить изображение и продолжить'),
+        'label'      => $model->isNewRecord ? Yii::t('ImageModule.image', 'Добавить изображение и продолжить') : Yii::t('ImageModule.image', 'Сохранить изображение и продолжить'),
     )); ?>
     <?php $this->widget('bootstrap.widgets.TbButton', array(
         'buttonType'  => 'submit',
         'htmlOptions' => array('name' => 'submit-type', 'value' => 'index'),
-        'label'       => $model->isNewRecord ? Yii::t('image', 'Добавить изображение и закрыть') : Yii::t('image', 'Сохранить изображение и закрыть'),
+        'label'       => $model->isNewRecord ? Yii::t('ImageModule.image', 'Добавить изображение и закрыть') : Yii::t('ImageModule.image', 'Сохранить изображение и закрыть'),
     )); ?>
 
 <?php $this->endWidget(); ?>

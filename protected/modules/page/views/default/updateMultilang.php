@@ -1,34 +1,34 @@
 <?php
     $this->breadcrumbs = array(
         Yii::app()->getModule('page')->getCategory() => array(),
-        Yii::t('page', 'Страницы') => array('/page/default/index'),
+        Yii::t('PageModule.page', 'Страницы') => array('/page/default/index'),
         $model->title => array('/page/default/view', 'id' => $model->id),
-        Yii::t('page', 'Изменение'),
+        Yii::t('PageModule.page', 'Изменение'),
     );
 
-    $this->pageTitle = Yii::t('page', 'Редактирование страницы');
+    $this->pageTitle = Yii::t('PageModule.page', 'Редактирование страницы');
 
     $this->menu = array(
-        array('icon' => 'list-alt', 'label' => Yii::t('page', 'Управление страницами'), 'url' => array('/page/default/index')),
-        array('icon' => 'plus-sign', 'label' => Yii::t('page', 'Добавить страницу'), 'url' => array('/page/default/create')),
-        array('label' => Yii::t('page', 'Страница') . ' «' . mb_substr($model->title, 0, 32) . '»'),
-        array('icon' => 'pencil', 'label' => Yii::t('page', 'Редактирование страницы'), 'url' => array(
+        array('icon' => 'list-alt', 'label' => Yii::t('PageModule.page', 'Управление страницами'), 'url' => array('/page/default/index')),
+        array('icon' => 'plus-sign', 'label' => Yii::t('PageModule.page', 'Добавить страницу'), 'url' => array('/page/default/create')),
+        array('label' => Yii::t('PageModule.page', 'Страница') . ' «' . mb_substr($model->title, 0, 32) . '»'),
+        array('icon' => 'pencil', 'label' => Yii::t('PageModule.page', 'Редактирование страницы'), 'url' => array(
             '/page/default/update',
             'id'=> $model->id
         )),
-        array('icon' => 'eye-open', 'label' => Yii::t('page', 'Просмотр страницы'), 'url' => array(
+        array('icon' => 'eye-open', 'label' => Yii::t('PageModule.page', 'Просмотр страницы'), 'url' => array(
             '/page/default/view',
             'id' => $model->id
         )),
-        array('icon' => 'trash', 'label' => Yii::t('page', 'Удалить эту страницу'), 'url' => '#', 'linkOptions' => array(
+        array('icon' => 'trash', 'label' => Yii::t('PageModule.page', 'Удалить эту страницу'), 'url' => '#', 'linkOptions' => array(
             'submit' => array('/page/default/delete', 'id' => $model->id),
-            'confirm' => Yii::t('page', 'Вы уверены, что хотите удалить страницу?'),
+            'confirm' => Yii::t('PageModule.page', 'Вы уверены, что хотите удалить страницу?'),
         )),
     );
 ?>
 <div class="page-header">
     <h1>
-        <?php echo Yii::t('page', 'Редактирование записи'); ?><br />
+        <?php echo Yii::t('PageModule.page', 'Редактирование записи'); ?><br />
         <small>&laquo;<?php echo $model->title; ?>&raquo;</small>
     </h1>
 </div>
@@ -41,7 +41,7 @@ $form = $this->beginWidget('bootstrap.widgets.TbActiveForm', array(
 ));
 ?>
 <fieldset class="inline">
-    <div class="alert alert-info"><?php echo Yii::t('page', 'Поля, отмеченные * обязательны для заполнения')?></div>
+    <div class="alert alert-info"><?php echo Yii::t('PageModule.page', 'Поля, отмеченные * обязательны для заполнения')?></div>
     <div class="row-fluid control-group">
         <div class="span3">
             <?php echo $form->labelEx($model, 'category_id' ); ?>
@@ -53,11 +53,11 @@ $form = $this->beginWidget('bootstrap.widgets.TbActiveForm', array(
         </div>
     </div>
     <div class="row-fluid control-group">
-        <div class="span3 popover-help" data-content="<?php echo Yii::t('page', "<span class='label label-success'>Опубликовано</span> &ndash; Страницу видят все посетители сайта, режим по-умолчанию.<br /><br /><span class='label label-default'>Черновик</span> &ndash; Данная страница еще не окончена и не должна отображаться.<br /><br /><span class='label label-info'>На модерации</span> &ndash; Данная страница еще не проверена и не должна отображаться."); ?>" data-original-title="<?php echo $model->getAttributeLabel('status'); ?>" >
+        <div class="span3 popover-help" data-content="<?php echo Yii::t('PageModule.page', "<span class='label label-success'>Опубликовано</span> &ndash; Страницу видят все посетители сайта, режим по-умолчанию.<br /><br /><span class='label label-default'>Черновик</span> &ndash; Данная страница еще не окончена и не должна отображаться.<br /><br /><span class='label label-info'>На модерации</span> &ndash; Данная страница еще не проверена и не должна отображаться."); ?>" data-original-title="<?php echo $model->getAttributeLabel('status'); ?>" >
             <?php echo $form->labelEx($model, 'status' ); ?>
             <?php echo $form->dropDownList($model, 'status', $model->getStatusList()); ?>
         </div>
-        <div class="span3 popover-help" data-content="<?php echo Yii::t('page', "Чем большее числовое значение вы укажете в этом поле, тем выше будет позиция данной страницы в меню."); ?>" data-original-title="<?php echo $model->getAttributeLabel('menu_order'); ?>" >
+        <div class="span3 popover-help" data-content="<?php echo Yii::t('PageModule.page', "Чем большее числовое значение вы укажете в этом поле, тем выше будет позиция данной страницы в меню."); ?>" data-original-title="<?php echo $model->getAttributeLabel('menu_order'); ?>" >
             <?php echo $form->labelEx($model, 'menu_order' ); ?>
             <?php echo $form->textField($model, 'menu_order', array('size' => 10, 'maxlength' => 10)); ?>
         </div>
@@ -66,9 +66,9 @@ $form = $this->beginWidget('bootstrap.widgets.TbActiveForm', array(
         </div>
     </div>
     <div class="row-fluid control-group <?php echo $model-> hasErrors('slug') ? 'error' : '' ?>">
-        <div class="span7  popover-help" data-content="<?php echo Yii::t('page', "Краткое название страницы латинскими буквами, используется для формирования её адреса.<br /><br /> Например (выделено темным фоном): <pre>http://site.ru/page/<span class='label'>contacts</span>/</pre> Если вы не знаете, для чего вам нужно это поле &ndash; не заполняйте его, заголовка страницы будет достаточно."); ?>" data-original-title="<?php echo $model->getAttributeLabel('slug'); ?>" >
+        <div class="span7  popover-help" data-content="<?php echo Yii::t('PageModule.page', "Краткое название страницы латинскими буквами, используется для формирования её адреса.<br /><br /> Например (выделено темным фоном): <pre>http://site.ru/page/<span class='label'>contacts</span>/</pre> Если вы не знаете, для чего вам нужно это поле &ndash; не заполняйте его, заголовка страницы будет достаточно."); ?>" data-original-title="<?php echo $model->getAttributeLabel('slug'); ?>" >
             <?php echo $form->labelEx($model, 'slug'); ?>
-            <?php echo $form->textField($model, 'slug', array('size' => 60, 'maxlength' => 150, 'placeholder' => Yii::t('page', 'Оставьте пустым для автоматической генерации'))); ?>
+            <?php echo $form->textField($model, 'slug', array('size' => 60, 'maxlength' => 150, 'placeholder' => Yii::t('PageModule.page', 'Оставьте пустым для автоматической генерации'))); ?>
         </div>
         <div class="span5">
             <?php echo $form->error($model, 'slug'); ?>
@@ -76,7 +76,7 @@ $form = $this->beginWidget('bootstrap.widgets.TbActiveForm', array(
     </div>
 
     <div class="row-fluid control-group <?php echo $model-> hasErrors('is_protected') ? 'error' : '' ?>">
-        <div class="span7  popover-help" data-content="<?php echo Yii::t('page', "Страница будет видна только авторизованным пользователям"); ?>" data-original-title="<?php echo $model->getAttributeLabel('is_protected'); ?>" >
+        <div class="span7  popover-help" data-content="<?php echo Yii::t('PageModule.page', "Страница будет видна только авторизованным пользователям"); ?>" data-original-title="<?php echo $model->getAttributeLabel('is_protected'); ?>" >
             <?php echo $form->labelEx($model, 'is_protected'); ?>
             <?php echo $form->checkBox($model, 'is_protected'); ?>
         </div>
@@ -124,13 +124,13 @@ $form = $this->beginWidget('bootstrap.widgets.TbActiveForm', array(
 <?php
     echo "<br />";
     echo CHtml::submitButton($model->isNewRecord
-        ? Yii::t('page', 'Добавить страницу и продолжить редактирование')
-        : Yii::t('page', 'Сохранить и продолжить редактирование'), array('class' => 'btn btn-primary')
+        ? Yii::t('PageModule.page', 'Добавить страницу и продолжить редактирование')
+        : Yii::t('PageModule.page', 'Сохранить и продолжить редактирование'), array('class' => 'btn btn-primary')
     );
     echo "&nbsp;";
     echo CHtml::submitButton($model->isNewRecord
-        ? Yii::t('page', 'Добавить и закрыть')
-        : Yii::t('page', 'Сохранить и закрыть'), array('name' => 'saveAndClose', 'id' => 'saveAndClose', 'class' => 'btn btn-info')
+        ? Yii::t('PageModule.page', 'Добавить и закрыть')
+        : Yii::t('PageModule.page', 'Сохранить и закрыть'), array('name' => 'saveAndClose', 'id' => 'saveAndClose', 'class' => 'btn btn-info')
     );
 
     $this->endWidget();

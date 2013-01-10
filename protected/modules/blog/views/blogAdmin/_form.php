@@ -15,9 +15,9 @@ Yii::app()->clientScript->registerScript('fieldset', "
 ");
 ?>
     <div class="alert alert-info">
-        <?php echo Yii::t('blog', 'Поля, отмеченные'); ?>
+        <?php echo Yii::t('BlogModule.blog', 'Поля, отмеченные'); ?>
         <span class="required">*</span>
-        <?php echo Yii::t('blog', 'обязательны.'); ?>
+        <?php echo Yii::t('BlogModule.blog', 'обязательны.'); ?>
     </div>
 
     <?php echo $form->errorSummary($model); ?>
@@ -59,12 +59,12 @@ Yii::app()->clientScript->registerScript('fieldset', "
     <?php $this->widget('bootstrap.widgets.TbButton', array(
         'buttonType' => 'submit',
         'type'       => 'primary',
-        'label'      => $model->isNewRecord ? Yii::t('blog', 'Добавить блог и продолжить') : Yii::t('blog', 'Сохранить блог и продолжить'),
+        'label'      => $model->isNewRecord ? Yii::t('BlogModule.blog', 'Добавить блог и продолжить') : Yii::t('BlogModule.blog', 'Сохранить блог и продолжить'),
     )); ?>
     <?php $this->widget('bootstrap.widgets.TbButton', array(
         'buttonType'  => 'submit',
         'htmlOptions' => array('name' => 'submit-type', 'value' => 'index'),
-        'label'       => $model->isNewRecord ? Yii::t('blog', 'Добавить блог и закрыть') : Yii::t('blog', 'Сохранить блог и закрыть'),
+        'label'       => $model->isNewRecord ? Yii::t('BlogModule.blog', 'Добавить блог и закрыть') : Yii::t('BlogModule.blog', 'Сохранить блог и закрыть'),
     )); ?>
 
 <?php $this->endWidget(); ?>

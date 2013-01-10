@@ -15,15 +15,15 @@ Yii::app()->clientScript->registerScript('fieldset', "
 ");
 ?>
     <div class="alert alert-info">
-        <?php echo Yii::t('category', 'Поля, отмеченные'); ?>
+        <?php echo Yii::t('CategoryModule.category', 'Поля, отмеченные'); ?>
         <span class="required">*</span> 
-        <?php echo Yii::t('category', 'обязательны.'); ?>
+        <?php echo Yii::t('CategoryModule.category', 'обязательны.'); ?>
     </div>
 
     <?php echo  $form->errorSummary($model); ?>
 
     <div class='row-fluid control-group <?php echo $model->hasErrors("parent_id") ? "error" : ""; ?>'>
-        <?php echo  $form->dropDownList($model, 'parent_id', CHtml::listData(Category::model()->findAll(), 'id', 'name'), array('empty' => Yii::t('category', '--нет--'))); ?>
+        <?php echo  $form->dropDownList($model, 'parent_id', CHtml::listData(Category::model()->findAll(), 'id', 'name'), array('empty' => Yii::t('CategoryModule.category', '--нет--'))); ?>
     </div>
     <div class='control-group <?php echo $model->hasErrors("name") ? "error" : ""; ?>'>
         <?php echo $form->textFieldRow($model, 'name', array('class' => 'span7', 'maxlength' => 300)); ?>
@@ -62,12 +62,12 @@ Yii::app()->clientScript->registerScript('fieldset', "
     <?php $this->widget('bootstrap.widgets.TbButton', array(
         'buttonType' => 'submit',
         'type'       => 'primary',
-        'label'      => $model->isNewRecord ? Yii::t('category', 'Добавить категорию и продолжить') : Yii::t('category', 'Сохранить категорию и продолжить'),
+        'label'      => $model->isNewRecord ? Yii::t('CategoryModule.category', 'Добавить категорию и продолжить') : Yii::t('CategoryModule.category', 'Сохранить категорию и продолжить'),
     )); ?>
     <?php $this->widget('bootstrap.widgets.TbButton', array(
         'buttonType'  => 'submit',
         'htmlOptions' => array('name' => 'submit-type', 'value' => 'index'),
-        'label'       => $model->isNewRecord ? Yii::t('category', 'Добавить категорию и закрыть') : Yii::t('category', 'Сохранить категорию и закрыть'),
+        'label'       => $model->isNewRecord ? Yii::t('CategoryModule.category', 'Добавить категорию и закрыть') : Yii::t('CategoryModule.category', 'Сохранить категорию и закрыть'),
     )); ?>
 
 <?php $this->endWidget(); ?>

@@ -32,7 +32,7 @@ class DefaultController extends YBackController
 
                 Yii::app()->user->setFlash(
                     YFlashMessages::NOTICE_MESSAGE,
-                    Yii::t('catalog', 'Запись добавлена!')
+                    Yii::t('CatalogModule.catalog', 'Запись добавлена!')
                 );
 
                 if (!isset($_POST['submit-type']))
@@ -66,7 +66,7 @@ class DefaultController extends YBackController
 
                 Yii::app()->user->setFlash(
                     YFlashMessages::NOTICE_MESSAGE,
-                    Yii::t('catalog', 'Запись обновлена!')
+                    Yii::t('CatalogModule.catalog', 'Запись обновлена!')
                 );
 
                if (!isset($_POST['submit-type']))
@@ -92,7 +92,7 @@ class DefaultController extends YBackController
 
             Yii::app()->user->setFlash(
                 YFlashMessages::NOTICE_MESSAGE,
-                Yii::t('catalog', 'Запись удалена!')
+                Yii::t('CatalogModule.catalog', 'Запись удалена!')
             );
 
             // если это AJAX запрос ( кликнули удаление в админском grid view), мы не должны никуда редиректить
@@ -100,7 +100,7 @@ class DefaultController extends YBackController
                 $this->redirect(isset($_POST['returnUrl']) ? $_POST['returnUrl'] : array('index'));
         }
         else
-            throw new CHttpException(400, Yii::t('catalog', 'Неверный запрос. Пожалуйста, больше не повторяйте такие запросы!'));
+            throw new CHttpException(400, Yii::t('CatalogModule.catalog', 'Неверный запрос. Пожалуйста, больше не повторяйте такие запросы!'));
     }
 
     /**
@@ -124,7 +124,7 @@ class DefaultController extends YBackController
     {
         $model = Good::model()->findByPk($id);
         if ($model === null)
-            throw new CHttpException(404, Yii::t('catalog', 'Запрошенная страница не найдена!'));
+            throw new CHttpException(404, Yii::t('CatalogModule.catalog', 'Запрошенная страница не найдена!'));
         return $model;
     }
 

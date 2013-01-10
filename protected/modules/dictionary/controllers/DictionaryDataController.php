@@ -85,7 +85,7 @@ class DictionaryDataController extends YBackController
                 $this->redirect(isset($_POST['returnUrl']) ? $_POST['returnUrl'] : array('index'));
         }
         else
-            throw new CHttpException(400, Yii::t('dictionary', 'Неверный запрос. Пожалуйста, больше не повторяйте такие запросы'));
+            throw new CHttpException(400, Yii::t('DictionaryModule.dictionary', 'Неверный запрос. Пожалуйста, больше не повторяйте такие запросы'));
     }
 
     /**
@@ -114,7 +114,7 @@ class DictionaryDataController extends YBackController
     {
         $model = DictionaryData::model()->findByPk((int) $id);
         if ($model === null)
-            throw new CHttpException(404, Yii::t('dictionary', 'Запрошенная страница не найдена!'));
+            throw new CHttpException(404, Yii::t('DictionaryModule.dictionary', 'Запрошенная страница не найдена!'));
         return $model;
     }
 

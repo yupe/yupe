@@ -56,8 +56,8 @@ class GeoProfile extends YModel
     public function attributeLabels()
     {
         return array(
-            'user_id'     => Yii::t('geo', 'Пользователь'),
-            'geo_city_id' => Yii::t('geo', 'Город'),
+            'user_id'     => Yii::t('GeoModule.geo', 'Пользователь'),
+            'geo_city_id' => Yii::t('GeoModule.geo', 'Город'),
         );
     }
 

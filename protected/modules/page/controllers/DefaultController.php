@@ -31,7 +31,7 @@ class DefaultController extends YBackController
             {
                 Yii::app()->user->setFlash(
                     YFlashMessages::NOTICE_MESSAGE,
-                    Yii::t('page', 'Страница добавлена!')
+                    Yii::t('PageModule.page', 'Страница добавлена!')
                 );
 
                 if (!isset($_POST['submit-type']))
@@ -65,7 +65,7 @@ class DefaultController extends YBackController
                 {
                     Yii::app()->user->setFlash(
                         YFlashMessages::NOTICE_MESSAGE,
-                        Yii::t('page', 'Страница обновлена!')
+                        Yii::t('PageModule.page', 'Страница обновлена!')
                     );
 
                     if (!isset($_POST['submit-type']))
@@ -89,7 +89,7 @@ class DefaultController extends YBackController
 
             $models = Page::model()->findAllByAttributes(array('slug' => $slug));
             if (!$models)
-                throw new CHttpException(404, Yii::t('page', 'Указанная страница не найдена!'));
+                throw new CHttpException(404, Yii::t('PageModule.page', 'Указанная страница не найдена!'));
 
             $model = null;
             // Собираем модельки по языкам
@@ -167,7 +167,7 @@ class DefaultController extends YBackController
                 {
                     Yii::app()->user->setFlash(
                         YFlashMessages::NOTICE_MESSAGE,
-                        Yii::t('page', 'Страница обновлена!')
+                        Yii::t('PageModule.page', 'Страница обновлена!')
                     );
 
                     if (!isset($_POST['submit-type']))
@@ -178,7 +178,7 @@ class DefaultController extends YBackController
                 else
                     Yii::app()->user->setFlash(
                         YFlashMessages::NOTICE_MESSAGE,
-                        Yii::t('page', 'Ошибки при сохранении страницы!')
+                        Yii::t('PageModule.page', 'Ошибки при сохранении страницы!')
                     );
             }
             $this->render('updateMultilang', array(
@@ -201,7 +201,7 @@ class DefaultController extends YBackController
             if ($alias)
             {
                 if (!($model = Page::model()->findAllByAttributes(array('alias' => $alias))))
-                    throw new CHttpException(404, Yii::t('page', 'Страница не нейдена'));
+                    throw new CHttpException(404, Yii::t('PageModule.page', 'Страница не нейдена'));
                 $model->delete();
             }
             else
@@ -212,7 +212,7 @@ class DefaultController extends YBackController
                 $this->redirect(isset($_POST['returnUrl']) ? $_POST['returnUrl'] : array('index'));
         }
         else
-            throw new YPageNotFoundException(Yii::t('page', 'Неверный запрос. Пожалуйста, больше не повторяйте такие запросы!'));
+            throw new YPageNotFoundException(Yii::t('PageModule.page', 'Неверный запрос. Пожалуйста, больше не повторяйте такие запросы!'));
     }
 
     /**
@@ -240,7 +240,7 @@ class DefaultController extends YBackController
             if (isset($_GET['id']))
                 $this->_model = Page::model()->with('author', 'changeAuthor')->findbyPk($_GET['id']);
             if ($this->_model === null)
-                throw new YPageNotFoundException(Yii::t('page', 'Запрошенная страница не найдена!'));
+                throw new YPageNotFoundException(Yii::t('PageModule.page', 'Запрошенная страница не найдена!'));
         }
         return $this->_model;
     }

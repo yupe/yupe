@@ -15,8 +15,8 @@ Yii::app()->clientScript->registerScript('fieldset', "
 ?>
 
     <div class="alert alert-block alert-info">
-        <p><?php echo Yii::t('install', 'Укажите название Вашего сайта, его описание и ключевые слова, необходимые для SEO-оптимизации.'); ?></p>        
-        <p><?php echo Yii::t('install', 'Узнать больше о SEO-оптимизации можно {link}.',array('{link}' => CHtml::link(Yii::t('install','вот здесь'),'http://help.yandex.ru/webmaster/?id=1108938',array('target' => '_blank')))); ?></p>                
+        <p><?php echo Yii::t('InstallModule.install', 'Укажите название Вашего сайта, его описание и ключевые слова, необходимые для SEO-оптимизации.'); ?></p>
+        <p><?php echo Yii::t('InstallModule.install', 'Узнать больше о SEO-оптимизации можно {link}.',array('{link}' => CHtml::link(Yii::t('InstallModule.install','вот здесь'),'http://help.yandex.ru/webmaster/?id=1108938',array('target' => '_blank')))); ?></p>
     </div>
 
     <?php echo $form->errorSummary($model); ?>   
@@ -38,13 +38,13 @@ Yii::app()->clientScript->registerScript('fieldset', "
     </div>
 
     <?php $this->widget('bootstrap.widgets.TbButton', array(
-        'label' => Yii::t('install', '< Назад'),
+        'label' => Yii::t('InstallModule.install', '< Назад'),
         'url'   => array('/install/default/createuser'),
     )); ?>
     <?php $this->widget('bootstrap.widgets.TbButton', array(
         'buttonType' => 'submit',
         'type'       => 'primary',
-        'label'      => Yii::t('install', 'Продолжить >'),
+        'label'      => Yii::t('InstallModule.install', 'Продолжить >'),
     )); ?>
 
 <?php $this->endWidget(); ?>

@@ -70,17 +70,17 @@ class Comment extends YModel
     public function attributeLabels()
     {
         return array(
-            'id'            => Yii::t('comment', 'ID'),
-            'model'         => Yii::t('comment', 'Тип модели'),
-            'model_id'      => Yii::t('comment', 'Модель'),
-            'creation_date' => Yii::t('comment', 'Дата создания'),
-            'name'          => Yii::t('comment', 'Имя'),
-            'email'         => Yii::t('comment', 'Email'),
-            'url'           => Yii::t('comment', 'Сайт'),
-            'text'          => Yii::t('comment', 'Текст'),
-            'status'        => Yii::t('comment', 'Статус'),
-            'verifyCode'    => Yii::t('comment', 'Код проверки'),
-            'ip'            => Yii::t('comment', 'IP адрес'),
+            'id'            => Yii::t('CommentModule.comment', 'ID'),
+            'model'         => Yii::t('CommentModule.comment', 'Тип модели'),
+            'model_id'      => Yii::t('CommentModule.comment', 'Модель'),
+            'creation_date' => Yii::t('CommentModule.comment', 'Дата создания'),
+            'name'          => Yii::t('CommentModule.comment', 'Имя'),
+            'email'         => Yii::t('CommentModule.comment', 'Email'),
+            'url'           => Yii::t('CommentModule.comment', 'Сайт'),
+            'text'          => Yii::t('CommentModule.comment', 'Текст'),
+            'status'        => Yii::t('CommentModule.comment', 'Статус'),
+            'verifyCode'    => Yii::t('CommentModule.comment', 'Код проверки'),
+            'ip'            => Yii::t('CommentModule.comment', 'IP адрес'),
         );
     }
 
@@ -155,17 +155,17 @@ class Comment extends YModel
     public function getStatusList()
     {
         return array(
-            self::STATUS_APPROVED   => Yii::t('comment', 'Принят'),
-            self::STATUS_DELETED    => Yii::t('comment', 'Удален'),
-            self::STATUS_NEED_CHECK => Yii::t('comment', 'Проверка'),
-            self::STATUS_SPAM       => Yii::t('comment', 'Спам'),
+            self::STATUS_APPROVED   => Yii::t('CommentModule.comment', 'Принят'),
+            self::STATUS_DELETED    => Yii::t('CommentModule.comment', 'Удален'),
+            self::STATUS_NEED_CHECK => Yii::t('CommentModule.comment', 'Проверка'),
+            self::STATUS_SPAM       => Yii::t('CommentModule.comment', 'Спам'),
         );
     }
 
     public function getStatus()
     {
         $list = $this->statusList;
-        return isset($list[$this->status]) ? $list[$this->status] : Yii::t('comment', 'Статус неизвестен');
+        return isset($list[$this->status]) ? $list[$this->status] : Yii::t('CommentModule.comment', 'Статус неизвестен');
     }
 
     public function getAuthor()

@@ -17,8 +17,8 @@ class LoginForm extends CFormModel
     public function attributeLabels()
     {
         return array(
-            'email'    => Yii::t('user', 'Email'),
-            'password' => Yii::t('user', 'Пароль'),
+            'email'    => Yii::t('UserModule.user', 'Email'),
+            'password' => Yii::t('UserModule.user', 'Пароль'),
         );
     }
 
@@ -29,7 +29,7 @@ class LoginForm extends CFormModel
             $this->_identity = new UserIdentity($this->email, $this->password);
 
             if (!$this->_identity->authenticate())
-                $this->addError('password', Yii::t('user', 'Email или пароль введены неверно!'));
+                $this->addError('password', Yii::t('UserModule.user', 'Email или пароль введены неверно!'));
             else
                 Yii::app()->user->login($this->_identity);
         }

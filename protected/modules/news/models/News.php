@@ -66,7 +66,7 @@ class News extends YModel
             array('link', 'length', 'max' => 300),
             array('image', 'file', 'minSize' => $module->minSize, 'maxSize' => $module->maxSize, 'types' => $module->allowedExtensions, 'maxFiles' => $module->maxFiles, 'allowEmpty' => true),
             array('link', 'url'),
-            array('alias', 'YSLugValidator', 'message' => Yii::t('news', 'Запрещенные символы в поле {attribute}')),
+            array('alias', 'YSLugValidator', 'message' => Yii::t('NewsModule.news', 'Запрещенные символы в поле {attribute}')),
             array('category_id', 'default', 'setOnEmpty' => true, 'value' => null),
             array('id, keywords, description, creation_date, change_date, date, title, alias, short_text, full_text, user_id, status, is_protected', 'safe', 'on' => 'search'),
         );
@@ -138,23 +138,23 @@ class News extends YModel
     public function attributeLabels()
     {
         return array(
-            'id'            => Yii::t('news', 'Id'),
-            'category_id'   => Yii::t('news', 'Категория'),
-            'creation_date' => Yii::t('news', 'Дата создания'),
-            'change_date'   => Yii::t('news', 'Дата изменения'),
-            'date'          => Yii::t('news', 'Дата'),
-            'title'         => Yii::t('news', 'Заголовок'),
-            'alias'         => Yii::t('news', 'Алиас'),
-            'image'         => Yii::t('news', 'Изображение'),
-            'link'          => Yii::t('news', 'Ссылка'),
-            'lang'          => Yii::t('news', 'Язык'),
-            'short_text'    => Yii::t('news', 'Короткий текст'),
-            'full_text'     => Yii::t('news', 'Полный текст'),
-            'user_id'       => Yii::t('news', 'Автор'),
-            'status'        => Yii::t('news', 'Статус'),
-            'is_protected'  => Yii::t('news', 'Доступ: * только для авторизованных пользователей'),
-            'keywords'      => Yii::t('news', 'Ключевые слова (SEO)'),
-            'description'   => Yii::t('news', 'Описание (SEO)'),
+            'id'            => Yii::t('NewsModule.news', 'Id'),
+            'category_id'   => Yii::t('NewsModule.news', 'Категория'),
+            'creation_date' => Yii::t('NewsModule.news', 'Дата создания'),
+            'change_date'   => Yii::t('NewsModule.news', 'Дата изменения'),
+            'date'          => Yii::t('NewsModule.news', 'Дата'),
+            'title'         => Yii::t('NewsModule.news', 'Заголовок'),
+            'alias'         => Yii::t('NewsModule.news', 'Алиас'),
+            'image'         => Yii::t('NewsModule.news', 'Изображение'),
+            'link'          => Yii::t('NewsModule.news', 'Ссылка'),
+            'lang'          => Yii::t('NewsModule.news', 'Язык'),
+            'short_text'    => Yii::t('NewsModule.news', 'Короткий текст'),
+            'full_text'     => Yii::t('NewsModule.news', 'Полный текст'),
+            'user_id'       => Yii::t('NewsModule.news', 'Автор'),
+            'status'        => Yii::t('NewsModule.news', 'Статус'),
+            'is_protected'  => Yii::t('NewsModule.news', 'Доступ: * только для авторизованных пользователей'),
+            'keywords'      => Yii::t('NewsModule.news', 'Ключевые слова (SEO)'),
+            'description'   => Yii::t('NewsModule.news', 'Описание (SEO)'),
         );
     }
 
@@ -229,30 +229,30 @@ class News extends YModel
     public function getStatusList()
     {
         return array(
-            self::STATUS_DRAFT      => Yii::t('news', 'Черновик'),
-            self::STATUS_PUBLISHED  => Yii::t('news', 'Опубликовано'),
-            self::STATUS_MODERATION => Yii::t('news', 'На модерации'),
+            self::STATUS_DRAFT      => Yii::t('NewsModule.news', 'Черновик'),
+            self::STATUS_PUBLISHED  => Yii::t('NewsModule.news', 'Опубликовано'),
+            self::STATUS_MODERATION => Yii::t('NewsModule.news', 'На модерации'),
         );
     }
 
     public function getStatus()
     {
         $data = $this->statusList;
-        return isset($data[$this->status]) ? $data[$this->status] : Yii::t('news', '*неизвестно*');
+        return isset($data[$this->status]) ? $data[$this->status] : Yii::t('NewsModule.news', '*неизвестно*');
     }
 
     public function getProtectedStatusList()
     {
         return array(
-            self::PROTECTED_NO  => Yii::t('news', 'нет'),
-            self::PROTECTED_YES => Yii::t('news', 'да'),
+            self::PROTECTED_NO  => Yii::t('NewsModule.news', 'нет'),
+            self::PROTECTED_YES => Yii::t('NewsModule.news', 'да'),
         );
     }
 
     public function getProtectedStatus()
     {
         $data = $this->protectedStatusList;
-        return isset($data[$this->is_protected]) ? $data[$this->is_protected] : Yii::t('news', '*неизвестно*');
+        return isset($data[$this->is_protected]) ? $data[$this->is_protected] : Yii::t('NewsModule.news', '*неизвестно*');
     }
 
     public function getCategoryName()

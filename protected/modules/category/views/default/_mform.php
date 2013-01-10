@@ -37,7 +37,7 @@
         </div>
     </div>
     <div class="row-fluid control-group">
-        <div class="span2 popover-help" data-content="<?php echo Yii::t('category',"<span class='label label-success'>Опубликовано</span> &ndash; Страницу видят все посетители сайта, режим по-умолчанию.<br /><br /><span class='label label-default'>Черновик</span> &ndash; Данная страница еще не окончена и не должна отображаться.<br /><br /><span class='label label-info'>На модерации</span> &ndash; Данная страница еще не проверена и не должна отображаться.") ?>" data-original-title="<?php echo $model-> getAttributeLabel('status'); ?>" >
+        <div class="span2 popover-help" data-content="<?php echo Yii::t('CategoryModule.category',"<span class='label label-success'>Опубликовано</span> &ndash; Страницу видят все посетители сайта, режим по-умолчанию.<br /><br /><span class='label label-default'>Черновик</span> &ndash; Данная страница еще не окончена и не должна отображаться.<br /><br /><span class='label label-info'>На модерации</span> &ndash; Данная страница еще не проверена и не должна отображаться.") ?>" data-original-title="<?php echo $model-> getAttributeLabel('status'); ?>" >
             <?php echo $form->labelEx($model, 'status' ); ?>
             <?php echo CHtml::dropDownList('Category['.$model->lang.'][status]', $model->status, $model->getStatusList()); ?>
         </div>

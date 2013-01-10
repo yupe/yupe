@@ -17,7 +17,7 @@ $form = $this->beginWidget('bootstrap.widgets.TbActiveForm', array(
         'type'        => 'primary',
         'encodeLabel' => false,
         'buttonType'  => 'submit',
-        'label'       => '<i class="icon-search icon-white">&nbsp;</i> ' . Yii::t('contentblock', 'Найти блок'),
+        'label'       => '<i class="icon-search icon-white">&nbsp;</i> ' . Yii::t('ContentBlockModule.contentblock', 'Найти блок'),
     )); ?>
 
 <?php $this->endWidget(); ?>

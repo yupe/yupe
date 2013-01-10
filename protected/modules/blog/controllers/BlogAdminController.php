@@ -33,7 +33,7 @@ class BlogAdminController extends YBackController
             if ($model->save()) {
                 Yii::app()->user->setFlash(
                     YFlashMessages::NOTICE_MESSAGE,
-                    Yii::t('blog', 'Блог добавлен!')
+                    Yii::t('BlogModule.blog', 'Блог добавлен!')
                 );
 
                 if (!isset($_POST['submit-type']))
@@ -65,7 +65,7 @@ class BlogAdminController extends YBackController
             if ($model->save()) {
                 Yii::app()->user->setFlash(
                     YFlashMessages::NOTICE_MESSAGE,
-                    Yii::t('blog', 'Блог обновлен!')
+                    Yii::t('BlogModule.blog', 'Блог обновлен!')
                 );
 
                 if (!isset($_POST['submit-type']))
@@ -94,7 +94,7 @@ class BlogAdminController extends YBackController
 
             Yii::app()->user->setFlash(
                 YFlashMessages::NOTICE_MESSAGE,
-                Yii::t('blog', 'Блог удален!')
+                Yii::t('BlogModule.blog', 'Блог удален!')
             );
 
             // если это AJAX запрос ( кликнули удаление в админском grid view), мы не должны никуда редиректить
@@ -102,7 +102,7 @@ class BlogAdminController extends YBackController
                 $this->redirect(isset($_POST['returnUrl']) ? $_POST['returnUrl'] : array('index'));
         }
         else
-            throw new CHttpException(400, Yii::t('blog', 'Неверный запрос. Пожалуйста, больше не повторяйте такие запросы!'));
+            throw new CHttpException(400, Yii::t('BlogModule.blog', 'Неверный запрос. Пожалуйста, больше не повторяйте такие запросы!'));
     }
 
     /**
@@ -138,7 +138,7 @@ class BlogAdminController extends YBackController
                 break;
                 
             default:
-                throw new CHttpException(404, Yii::t('blog', 'Запрошенная страница не найдена!'));
+                throw new CHttpException(404, Yii::t('BlogModule.blog', 'Запрошенная страница не найдена!'));
                 break;
             }
         }
@@ -158,7 +158,7 @@ class BlogAdminController extends YBackController
     {
         $model = Blog::model()->with('postsCount', 'membersCount')->findByPk((int) $id);
         if ($model === null)
-            throw new CHttpException(404, Yii::t('blog', 'Запрошенная страница не найдена!'));
+            throw new CHttpException(404, Yii::t('BlogModule.blog', 'Запрошенная страница не найдена!'));
         return $model;
     }
 

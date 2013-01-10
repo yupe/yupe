@@ -15,9 +15,9 @@ Yii::app()->clientScript->registerScript('fieldset', "
 ");
 ?>
     <div class="alert alert-info">
-        <?php echo Yii::t('dictionary', 'Поля, отмеченные'); ?>
+        <?php echo Yii::t('DictionaryModule.dictionary', 'Поля, отмеченные'); ?>
         <span class="required">*</span>
-        <?php echo Yii::t('dictionary', 'обязательны.'); ?>
+        <?php echo Yii::t('DictionaryModule.dictionary', 'обязательны.'); ?>
     </div>
 
     <?php echo $form->errorSummary($model); ?>
@@ -43,12 +43,12 @@ Yii::app()->clientScript->registerScript('fieldset', "
     <?php $this->widget('bootstrap.widgets.TbButton', array(
         'buttonType' => 'submit',
         'type'       => 'primary',
-        'label'      => $model->isNewRecord ? Yii::t('dictionary', 'Добавить справочник и продолжить') : Yii::t('dictionary', 'Сохранить справочник и продолжить'),
+        'label'      => $model->isNewRecord ? Yii::t('DictionaryModule.dictionary', 'Добавить справочник и продолжить') : Yii::t('DictionaryModule.dictionary', 'Сохранить справочник и продолжить'),
     )); ?>
     <?php $this->widget('bootstrap.widgets.TbButton', array(
         'buttonType'  => 'submit',
         'htmlOptions' => array('name' => 'submit-type', 'value' => 'index'),
-        'label'       => $model->isNewRecord ? Yii::t('dictionary', 'Добавить справочник и закрыть') : Yii::t('dictionary', 'Сохранить справочник и закрыть'),
+        'label'       => $model->isNewRecord ? Yii::t('DictionaryModule.dictionary', 'Добавить справочник и закрыть') : Yii::t('DictionaryModule.dictionary', 'Сохранить справочник и закрыть'),
     )); ?>
 
 <?php $this->endWidget(); ?>

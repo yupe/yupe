@@ -15,15 +15,15 @@ class PageModule extends YWebModule
     public function getParamsLabels()
     {
         return array(
-            'adminMenuOrder' => Yii::t('page', 'Порядок следования в меню'),
-            'editor'         => Yii::t('page', 'Визуальный редактор'),
-            'mainCategory'   => Yii::t('news', 'Главная категория страниц'),
+            'adminMenuOrder' => Yii::t('PageModule.page', 'Порядок следования в меню'),
+            'editor'         => Yii::t('PageModule.page', 'Визуальный редактор'),
+            'mainCategory'   => Yii::t('PageModule.page', 'Главная категория страниц'),
         );
     }
 
     public function  getVersion()
     {
-        return Yii::t('page', '0.3');
+        return Yii::t('PageModule.page', '0.3');
     }
 
     public function getEditableParams()
@@ -31,38 +31,38 @@ class PageModule extends YWebModule
         return array(
             'adminMenuOrder',
             'editor'        => Yii::app()->getModule('yupe')->editors,
-            'mainCategory'  => Category::model()->allCategoryList,
+            'mainCategory' => CHtml::listData($this->getCategoryList(),'id','name'),
         );
     }
 
     public function getCategory()
     {
-        return Yii::t('page', 'Контент');
+        return Yii::t('PageModule.page', 'Контент');
     }
 
     public function getName()
     {
-        return Yii::t('page', 'Страницы');
+        return Yii::t('PageModule.page', 'Страницы');
     }
 
     public function getDescription()
     {
-        return Yii::t('page', 'Модуль для создания и редактирования страничек сайта');
+        return Yii::t('PageModule.page', 'Модуль для создания и редактирования страничек сайта');
     }
 
     public function getAuthor()
     {
-        return Yii::t('page', 'yupe team');
+        return Yii::t('PageModule.page', 'yupe team');
     }
 
     public function getAuthorEmail()
     {
-        return Yii::t('page', 'team@yupe.ru');
+        return Yii::t('PageModule.page', 'team@yupe.ru');
     }
 
     public function getUrl()
     {
-        return Yii::t('page', 'http://yupe.ru');
+        return Yii::t('PageModule.page', 'http://yupe.ru');
     }
 
     public function getIcon()
@@ -106,8 +106,8 @@ class PageModule extends YWebModule
     public function getNavigation()
     {
         return array(
-            array('icon' => 'list-alt', 'label' => Yii::t('page', 'Управление страницами'), 'url' => array('/page/default/index')),
-            array('icon' => 'plus-sign', 'label' => Yii::t('page', 'Добавить страницу'), 'url' => array('/page/default/create')),
+            array('icon' => 'list-alt', 'label' => Yii::t('PageModule.page', 'Управление страницами'), 'url' => array('/page/default/index')),
+            array('icon' => 'plus-sign', 'label' => Yii::t('PageModule.page', 'Добавить страницу'), 'url' => array('/page/default/create')),
         );
     }
 }

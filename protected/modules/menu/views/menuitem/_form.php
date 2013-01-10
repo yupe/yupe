@@ -15,9 +15,9 @@ Yii::app()->clientScript->registerScript('fieldset', "
 ");
 ?>
     <div class="alert alert-info">
-        <?php echo Yii::t('menu', 'Поля, отмеченные'); ?>
+        <?php echo Yii::t('MenuModule.menu', 'Поля, отмеченные'); ?>
         <span class="required">*</span>
-        <?php echo Yii::t('menu', 'обязательны.'); ?>
+        <?php echo Yii::t('MenuModule.menu', 'обязательны.'); ?>
     </div>
 
     <?php echo $form->errorSummary($model); ?>
@@ -46,7 +46,7 @@ Yii::app()->clientScript->registerScript('fieldset', "
         ?>
         <div class="span3">
             <?php echo $form->dropDownListRow($model, 'menu_id', CHtml::listData(Menu::model()->findAll(), 'id', 'name'), array(
-                'empty'               => Yii::t('menu', '--выберите меню--'),
+                'empty'               => Yii::t('MenuModule.menu', '--выберите меню--'),
                 'class'               => 'popover-help',
                 'data-original-title' => $model->getAttributeLabel('menu_id'),
                 'data-content'        => $model->getAttributeDescription('menu_id'),
@@ -99,12 +99,12 @@ Yii::app()->clientScript->registerScript('fieldset', "
     <?php $this->widget('bootstrap.widgets.TbButton', array(
         'buttonType' => 'submit',
         'type'       => 'primary',
-        'label'      => $model->isNewRecord ? Yii::t('menu', 'Добавить пункт меню и продолжить') : Yii::t('menu', 'Сохранить пункт меню и продолжить'),
+        'label'      => $model->isNewRecord ? Yii::t('MenuModule.menu', 'Добавить пункт меню и продолжить') : Yii::t('MenuModule.menu', 'Сохранить пункт меню и продолжить'),
     )); ?>
     <?php $this->widget('bootstrap.widgets.TbButton', array(
         'buttonType'  => 'submit',
         'htmlOptions' => array('name' => 'submit-type', 'value' => 'index'),
-        'label'       => $model->isNewRecord ? Yii::t('menu', 'Добавить пункт меню и закрыть') : Yii::t('menu', 'Сохранить пункт меню и закрыть'),
+        'label'       => $model->isNewRecord ? Yii::t('MenuModule.menu', 'Добавить пункт меню и закрыть') : Yii::t('MenuModule.menu', 'Сохранить пункт меню и закрыть'),
     )); ?>
 
 <?php $this->endWidget(); ?>

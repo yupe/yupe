@@ -16,7 +16,7 @@
 <body>
 <div id="overall-wrap">
     <?php
-    $brandTitle = Yii::t('install', 'Установка') . ' ' . CHtml::encode(Yii::app()->name);
+    $brandTitle = Yii::t('InstallModule.install', 'Установка') . ' ' . CHtml::encode(Yii::app()->name);
     $this->widget('bootstrap.widgets.TbNavbar', array(
         'htmlOptions' => array('class'=>'navbar navbar-inverse'),
         'fluid' => true,
@@ -34,7 +34,7 @@
                 'items' => array(
                     array(
                         'icon' => 'question-sign white',
-                        'label' => Yii::t('install', 'Необходима помощь?'),
+                        'label' => Yii::t('InstallModule.install', 'Необходима помощь?'),
                         'url' => 'http://yupe.ru/feedback/contact?from=install',
                         'target' => '_blank',
                     ),

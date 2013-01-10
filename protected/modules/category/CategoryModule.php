@@ -18,9 +18,9 @@ class CategoryModule extends YWebModule
         if (!is_writable($uploadPath))
             $messages[YWebModule::CHECK_ERROR][] = array(
                 'type'    => YWebModule::CHECK_ERROR,
-                'message' => Yii::t('category', 'Директория "{dir}" не доступна для записи! {link}', array(
+                'message' => Yii::t('CategoryModule.category', 'Директория "{dir}" не доступна для записи! {link}', array(
                     '{dir}'  => $uploadPath,
-                    '{link}' => CHtml::link(Yii::t('category', 'Изменить настройки'), array(
+                    '{link}' => CHtml::link(Yii::t('CategoryModule.category', 'Изменить настройки'), array(
                         '/yupe/backend/modulesettings/',
                         'module' => 'category',
                     )),
@@ -41,44 +41,44 @@ class CategoryModule extends YWebModule
     public function getParamsLabels()
     {
         return array(
-            'adminMenuOrder' => Yii::t('category', 'Порядок следования в меню'),
-            'uploadPath'     => Yii::t('category', 'Каталог для загрузки файлов (относительно Yii::app()->getModule("yupe")->uploadPath)'),
+            'adminMenuOrder' => Yii::t('CategoryModule.category', 'Порядок следования в меню'),
+            'uploadPath'     => Yii::t('CategoryModule.category', 'Каталог для загрузки файлов (относительно Yii::app()->getModule("yupe")->uploadPath)'),
         );
     }
 
     public function getVersion()
     {
-        return Yii::t('category', '0.3');
+        return Yii::t('CategoryModule.category', '0.3');
     }
 
     public function getCategory()
     {
-        return Yii::t('category', 'Структура');
+        return Yii::t('CategoryModule.category', 'Структура');
     }
 
     public function getName()
     {
-        return Yii::t('category', 'Категории/разделы');
+        return Yii::t('CategoryModule.category', 'Категории/разделы');
     }
 
     public function getDescription()
     {
-        return Yii::t('category', 'Модуль для управления категориями/разделами сайта');
+        return Yii::t('CategoryModule.category', 'Модуль для управления категориями/разделами сайта');
     }
 
     public function getAuthor()
     {
-        return Yii::t('category', 'yupe team');
+        return Yii::t('CategoryModule.category', 'yupe team');
     }
 
     public function getAuthorEmail()
     {
-        return Yii::t('category', 'team@yupe.ru');
+        return Yii::t('CategoryModule.category', 'team@yupe.ru');
     }
 
     public function getUrl()
     {
-        return Yii::t('category', 'http://yupe.ru');
+        return Yii::t('CategoryModule.category', 'http://yupe.ru');
     }
 
     public function getIcon()
@@ -104,8 +104,8 @@ class CategoryModule extends YWebModule
     public function getNavigation()
     {
         return array(
-            array('icon' => 'list-alt', 'label' => Yii::t('category', 'Список категорий'), 'url' => array('/category/default/index')),
-            array('icon' => 'plus-sign', 'label' => Yii::t('category', 'Добавить категорию'), 'url' => array('/category/default/create')),
+            array('icon' => 'list-alt', 'label' => Yii::t('CategoryModule.category', 'Список категорий'), 'url' => array('/category/default/index')),
+            array('icon' => 'plus-sign', 'label' => Yii::t('CategoryModule.category', 'Добавить категорию'), 'url' => array('/category/default/create')),
         );
     }
 }

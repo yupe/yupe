@@ -1,27 +1,27 @@
 <?php
     $this->breadcrumbs = array(
         Yii::app()->getModule('queue')->getCategory() => array(),
-        Yii::t('queue', 'Задания') => array('/queue/default/index'),
-        Yii::t('queue', 'Управление'),
+        Yii::t('QueueModule.queue', 'Задания') => array('/queue/default/index'),
+        Yii::t('QueueModule.queue', 'Управление'),
     );
 
-    $this->pageTitle = Yii::t('queue', 'Задания - управление');
+    $this->pageTitle = Yii::t('QueueModule.queue', 'Задания - управление');
 
     $this->menu = array(
-        array('icon' => 'list-alt', 'label' => Yii::t('queue', 'Список заданий'), 'url' => array('/queue/default/index')),
-        array('icon' => 'plus-sign', 'label' =>  Yii::t('queue', 'Добавление задания'), 'url' => array('/queue/default/create')),
+        array('icon' => 'list-alt', 'label' => Yii::t('QueueModule.queue', 'Список заданий'), 'url' => array('/queue/default/index')),
+        array('icon' => 'plus-sign', 'label' =>  Yii::t('QueueModule.queue', 'Добавление задания'), 'url' => array('/queue/default/create')),
     );
 ?>
 <div class="page-header">
     <h1>
-        <?php echo Yii::t('queue', 'Задания'); ?>
-        <small><?php echo Yii::t('queue', 'управление'); ?></small>
+        <?php echo Yii::t('QueueModule.queue', 'Задания'); ?>
+        <small><?php echo Yii::t('QueueModule.queue', 'управление'); ?></small>
     </h1>
 </div>
 
 <button class="btn btn-small dropdown-toggle" data-toggle="collapse" data-target="#search-toggle">
     <i class="icon-search">&nbsp;</i>
-    <?php echo CHtml::link(Yii::t('queue', 'Поиск заданий'), '#', array('class' => 'search-button')); ?>
+    <?php echo CHtml::link(Yii::t('QueueModule.queue', 'Поиск заданий'), '#', array('class' => 'search-button')); ?>
     <span class="caret">&nbsp;</span>
 </button>
 
@@ -41,7 +41,7 @@ $this->renderPartial('_search', array('model' => $model));
 
 <br/>
 
-<p><?php echo Yii::t('queue', 'В данном разделе представлены средства управления заданиями'); ?></p>
+<p><?php echo Yii::t('QueueModule.queue', 'В данном разделе представлены средства управления заданиями'); ?></p>
 
 <?php $this->widget('application.modules.yupe.components.YCustomGridView', array(
     'id'           => 'queue-grid',

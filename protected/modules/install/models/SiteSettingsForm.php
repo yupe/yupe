@@ -19,20 +19,20 @@ class SiteSettingsForm extends YFormModel
     public function attributeLabels()
     {
         return array(
-            'siteName'        => Yii::t('install', 'Название сайта'),
-            'siteDescription' => Yii::t('install', 'Описание сайта'),
-            'siteKeyWords'    => Yii::t('install', 'Ключевые слова сайта'),
-            'email'           => Yii::t('install', 'Email администратора'),
+            'siteName'        => Yii::t('InstallModule.install', 'Название сайта'),
+            'siteDescription' => Yii::t('InstallModule.install', 'Описание сайта'),
+            'siteKeyWords'    => Yii::t('InstallModule.install', 'Ключевые слова сайта'),
+            'email'           => Yii::t('InstallModule.install', 'Email администратора'),
         );
     }
     
     public function attributeDescriptions()
     {
         return array(
-            'siteName'        => Yii::t('install', 'Используется в заголовке сайта.'),
-            'siteDescription' => Yii::t('install', 'Используется в поле description meta-тега.'),
-            'siteKeyWords'    => Yii::t('install', 'Используется в поле keywords meta-тега.'),
-            'email'           => Yii::t('install', 'Используется для административной рассылки.'),
+            'siteName'        => Yii::t('InstallModule.install', 'Используется в заголовке сайта.'),
+            'siteDescription' => Yii::t('InstallModule.install', 'Используется в поле description meta-тега.'),
+            'siteKeyWords'    => Yii::t('InstallModule.install', 'Используется в поле keywords meta-тега.'),
+            'email'           => Yii::t('InstallModule.install', 'Используется для административной рассылки.'),
         );
     }
 

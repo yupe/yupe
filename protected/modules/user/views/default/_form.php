@@ -16,9 +16,9 @@ Yii::app()->clientScript->registerScript('fieldset', "
 ?>
  
     <div class="alert alert-info">
-        <?php echo Yii::t('user', 'Поля, отмеченные'); ?>
+        <?php echo Yii::t('UserModule.user', 'Поля, отмеченные'); ?>
         <span class="required">*</span>
-        <?php echo Yii::t('user', 'обязательны.'); ?>
+        <?php echo Yii::t('UserModule.user', 'обязательны.'); ?>
     </div>
 
     <?php echo $form->errorSummary($model); ?>
@@ -76,12 +76,12 @@ Yii::app()->clientScript->registerScript('fieldset', "
    <?php $this->widget('bootstrap.widgets.TbButton', array(
         'buttonType' => 'submit',
         'type'       => 'primary',
-        'label'      => $model->isNewRecord ? Yii::t('user', 'Добавить пользователя и продолжить') : Yii::t('user', 'Сохранить пользователя и продолжить'),
+        'label'      => $model->isNewRecord ? Yii::t('UserModule.user', 'Добавить пользователя и продолжить') : Yii::t('UserModule.user', 'Сохранить пользователя и продолжить'),
     )); ?>
     <?php $this->widget('bootstrap.widgets.TbButton', array(
         'buttonType'  => 'submit',
         'htmlOptions' => array('name' => 'submit-type', 'value' => 'index'),
-        'label'       => $model->isNewRecord ? Yii::t('user', 'Добавить пользователя и закрыть') : Yii::t('user', 'Сохранить пользователя и закрыть'),
+        'label'       => $model->isNewRecord ? Yii::t('UserModule.user', 'Добавить пользователя и закрыть') : Yii::t('UserModule.user', 'Сохранить пользователя и закрыть'),
     )); ?>
 
 <?php $this->endWidget(); ?>

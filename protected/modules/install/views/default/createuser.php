@@ -15,9 +15,9 @@ Yii::app()->clientScript->registerScript('fieldset', "
 ?>
 
     <div class="alert alert-block alert-info">
-        <p><?php echo Yii::t('install', 'Создайте учетную запись администратора сайта.'); ?></p>
-        <p><?php echo Yii::t('install', 'Пожалуйста, указывайте сложный пароль, содержащий как цифры и буквы, так и специальные символы.'); ?></p>
-        <p><?php echo Yii::t('install', 'Запомните, указанные на данном этапе данные, они Вам потребуются для доступа к панели управления.'); ?></p>
+        <p><?php echo Yii::t('InstallModule.install', 'Создайте учетную запись администратора сайта.'); ?></p>
+        <p><?php echo Yii::t('InstallModule.install', 'Пожалуйста, указывайте сложный пароль, содержащий как цифры и буквы, так и специальные символы.'); ?></p>
+        <p><?php echo Yii::t('InstallModule.install', 'Запомните, указанные на данном этапе данные, они Вам потребуются для доступа к панели управления.'); ?></p>
     </div>
 
     <?php echo $form->errorSummary($model); ?>
@@ -39,13 +39,13 @@ Yii::app()->clientScript->registerScript('fieldset', "
     </div>
 
     <?php $this->widget('bootstrap.widgets.TbButton', array(
-        'label' => Yii::t('install', '< Назад'),
+        'label' => Yii::t('InstallModule.install', '< Назад'),
         'url'   => array('/install/default/modulesinstall'),
     )); ?>
     <?php $this->widget('bootstrap.widgets.TbButton', array(
         'buttonType' => 'submit',
         'type'       => 'primary',
-        'label'      => Yii::t('install', 'Продолжить >'),
+        'label'      => Yii::t('InstallModule.install', 'Продолжить >'),
     )); ?>
 
 <?php $this->endWidget(); ?>
