@@ -39,7 +39,7 @@ Yii::app()->clientScript->registerScript('fieldset', "
 
     <?php $this->widget('bootstrap.widgets.TbButton', array(
         'label' => Yii::t('InstallModule.install', '< Назад'),
-        'url'   => array('/install/default/createuser'),
+        'url'   => array('/install/createuser'),
     )); ?>
     <?php $this->widget('bootstrap.widgets.TbButton', array(
         'buttonType' => 'submit',

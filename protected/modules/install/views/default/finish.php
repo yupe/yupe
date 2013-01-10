@@ -12,7 +12,7 @@
 
 <?php echo Yii::t('InstallModule.install','или');?>
 
-<?php echo CHtml::link(Yii::t('InstallModule.install', 'ПЕРЕЙТИ В ПАНЕЛЬ УПРАВЛЕНИЯ'), array('/yupe/backend/index')); ?>
+<?php echo CHtml::link(Yii::t('InstallModule.install', 'ПЕРЕЙТИ В ПАНЕЛЬ УПРАВЛЕНИЯ'), array('/admin')); ?>
 
 <br/><br/>
 

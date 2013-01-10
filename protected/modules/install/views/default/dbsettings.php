@@ -58,7 +58,7 @@ Yii::app()->clientScript->registerScript('fieldset', "
 
     <?php $this->widget('bootstrap.widgets.TbButton', array(
         'label' => Yii::t('InstallModule.install', '< Назад'),
-        'url'   => array('/install/default/requirements'),
+        'url'   => array('/install/requirements'),
     )); ?>
     <?php $this->widget('bootstrap.widgets.TbButton', array(
         'type'       => 'primary',
