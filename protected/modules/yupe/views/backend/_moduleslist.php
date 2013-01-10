@@ -19,7 +19,7 @@ if (count($modules))
     <div class="page-header">
     <h6>
         <?php echo Yii::t('YupeModule.yupe', 'Модули разработанные специально для "{app}"', array(
-            '{app}' => CHtml::encode(Yii::app()->name),
+            '{app}' => CHtml::encode(Yii::t('YupeModule.yupe', Yii::app()->name)),
         )); ?>
     </h6>
     </div>
@@ -71,7 +71,7 @@ function moduleRow($module, &$updates, &$modules, &$controller)
             <?php endif; ?>
         </td>
         <td>
-            <small style="font-size: 80%;"><?php echo $module->category; ?></small><br />
+            <small style="font-size: 80%;"><?php echo Yii::t('YupeModule.yupe', $module->category); ?></small><br />
             <?php if ($module->isActive || $module->isNoDisable): ?>
                 <?php echo CHtml::link($module->name . ' <small>(' . $module->id . ')</small>', $module->adminPageLinkNormalize); ?>
             <?php else: ?>
@@ -104,7 +104,7 @@ function moduleRow($module, &$updates, &$modules, &$controller)
                         $tabs[] = array(
                             'label'   => Yii::t('YupeModule.yupe', 'Зависимые'),
                             'content' => Yii::t('YupeModule.yupe', 'Все модули'),
-                            'count'   => 'Все',
+                            'count'   => Yii::t('YupeModule.yupe', 'Все'),
                         );
                     else
                         if(count($deps = $module->dependent))

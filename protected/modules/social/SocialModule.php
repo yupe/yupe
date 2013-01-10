@@ -34,44 +34,44 @@ class SocialModule extends YWebModule
     public function getParamsLabels()
     {
         return array(
-            'vkontakteClientId'     => Yii::t('social', 'Вконтакте. ID приложения'),
-            'vkontakteClientSecret' => Yii::t('social', 'Вконтакте. Защищенный ключ'),
+            'vkontakteClientId'     => Yii::t('SocialModule.social', 'Вконтакте. ID приложения'),
+            'vkontakteClientSecret' => Yii::t('SocialModule.social', 'Вконтакте. Защищенный ключ'),
         );
     }
 
     public function getCategory()
     {
-        return Yii::t('social', 'Сервисы');
+        return Yii::t('SocialModule.social', 'Сервисы');
     }
 
     public function getName()
     {
-        return Yii::t('social', 'Социализация');
+        return Yii::t('SocialModule.social', 'Социализация');
     }
 
     public function getDescription()
     {
-        return Yii::t('social', 'Модуль содержит компоненты и виджеты для взаимодействия с социальными сетями');
+        return Yii::t('SocialModule.social', 'Модуль содержит компоненты и виджеты для взаимодействия с социальными сетями');
     }
 
     public function getAuthor()
     {
-        return Yii::t('social', 'yupe team');
+        return Yii::t('SocialModule.social', 'yupe team');
     }
 
     public function getAuthorEmail()
     {
-        return Yii::t('social', 'team@yupe.ru');
+        return Yii::t('SocialModule.social', 'team@yupe.ru');
     }
 
     public function getVersion()
     {
-        return Yii::t('social', '0.1');
+        return Yii::t('SocialModule.social', '0.1');
     }
 
     public function getUrl()
     {
-        return Yii::t('social', 'http://yupe.ru');
+        return Yii::t('SocialModule.social', 'http://yupe.ru');
     }
 
     public function getAdminPageLink()

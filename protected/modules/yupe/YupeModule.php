@@ -112,12 +112,12 @@ class YupeModule extends YWebModule
             'coreCacheTime'          => Yii::t('YupeModule.yupe', 'Время кэширования (сек.)'),
             'editorsDir'             => Yii::t('YupeModule.yupe', 'Каталог для визивиг редакторов'),
             'uploadPath'             => Yii::t('YupeModule.yupe', 'Каталог для загрузки файлов (относительно корня сайта)'),
-            'editor'                 => Yii::t('page', 'Визуальный редактор'),
-            'email'                  => Yii::t('page', 'Email администратора'),
+            'editor'                 => Yii::t('YupeModule.yupe', 'Визуальный редактор'),
+            'email'                  => Yii::t('YupeModule.yupe', 'Email администратора'),
             'availableLanguages'     => Yii::t('YupeModule.yupe', 'Список доступных языков через запятую (напр. ru,en,de)'),
             'defaultLanguage'        => Yii::t('YupeModule.yupe', 'Язык по умолчанию для сайта'),
             'defaultBackendLanguage' => Yii::t('YupeModule.yupe', 'Язык по умолчанию для панели управления'),
-            'updateChannel'           => Yii::t('YupeModule.yupe', 'Обновление Yupe'),
+            'updateChannel'          => Yii::t('YupeModule.yupe', 'Обновление Yupe'),
         );
     }
 
@@ -175,7 +175,7 @@ class YupeModule extends YWebModule
             array('icon' => 'trash', 'label' => Yii::t('YupeModule.yupe', 'Очистить кеш'), 'url' => array('/yupe/backend/cacheflush')),
             array('icon' => 'picture', 'label' => Yii::t('YupeModule.yupe', 'Оформление'), 'url' => array('/yupe/backend/themesettings')),
             array('icon' => 'exclamation-sign', 'label' => Yii::t('YupeModule.yupe', 'Помощь'), 'url' => array('/yupe/backend/help')),
-            array('icon' => 'wrench', 'label' => Yii::t('YupeModule.yupe', 'Парметры сайта'), 'url' => array('/yupe/backend/modulesettings', 'module' => 'yupe')),
+            array('icon' => 'wrench', 'label' => Yii::t('YupeModule.yupe', 'Параметры сайта'), 'url' => array('/yupe/backend/modulesettings', 'module' => 'yupe')),
         );
     }
 
@@ -241,7 +241,7 @@ class YupeModule extends YWebModule
             Yii::t('YupeModule.yupe', 'Пользователи'),
             Yii::t('YupeModule.yupe', 'Сервисы'),
             Yii::t('YupeModule.yupe', 'Юпи!'),
-            Yii::t('YupeModule.yupe', $this->otherCategoryName),
+            $this->otherCategoryName,
         );
     }
 
@@ -265,7 +265,7 @@ class YupeModule extends YWebModule
                         $modules[$key]  = $module;
                         $order[(!$module->category)
                             ? $this->otherCategoryName
-                            : $module->category
+                            : Yii::t('YupeModule.yupe', $module->category)
                         ][$key] = $module->adminMenuOrder;
                     }
                     else

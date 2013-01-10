@@ -1,5 +1,5 @@
 <div class="page-header">
-    <h1><?php echo Yii::t('YupeModule.yupe', 'Панель управления "{app}"', array('{app}' => CHtml::encode(Yii::app()->name))); ?><br/>
+    <h1><?php echo Yii::t('YupeModule.yupe', 'Панель управления "{app}"', array('{app}' => CHtml::encode(Yii::t('YupeModule.yupe', Yii::app()->name)))); ?><br/>
     <small><?php echo Yii::t('YupeModule.yupe', '{nick_name}, добро пожаловать в панель управления Вашим сайтом!',array(
         '{nick_name}' => Yii::app()->user->getState('nick_name')
         )); ?></small></h1>
