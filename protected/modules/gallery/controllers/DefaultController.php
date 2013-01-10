@@ -30,7 +30,7 @@ class DefaultController extends YBackController
             {
                 Yii::app()->user->setFlash(
                     YFlashMessages::NOTICE_MESSAGE,
-                    Yii::t('gallery', 'Запись добавлена!')
+                    Yii::t('GalleryModule.gallery', 'Запись добавлена!')
                 );
 
                 if (!isset($_POST['submit-type']))
@@ -61,7 +61,7 @@ class DefaultController extends YBackController
             {
                 Yii::app()->user->setFlash(
                     YFlashMessages::NOTICE_MESSAGE,
-                    Yii::t('gallery', 'Запись обновлена!')
+                    Yii::t('GalleryModule.gallery', 'Запись обновлена!')
                 );
 
                 if (!isset($_POST['submit-type']))
@@ -87,7 +87,7 @@ class DefaultController extends YBackController
 
             Yii::app()->user->setFlash(
                 YFlashMessages::NOTICE_MESSAGE,
-                Yii::t('gallery', 'Запись удалена!')
+                Yii::t('GalleryModule.gallery', 'Запись удалена!')
             );
 
             // если это AJAX запрос ( кликнули удаление в админском grid view), мы не должны никуда редиректить
@@ -95,7 +95,7 @@ class DefaultController extends YBackController
                 $this->redirect(isset($_POST['returnUrl']) ? $_POST['returnUrl'] : array('index'));
         }
         else
-            throw new CHttpException(400, Yii::t('gallery', 'Неверный запрос. Пожалуйста, больше не повторяйте такие запросы'));
+            throw new CHttpException(400, Yii::t('GalleryModule.gallery', 'Неверный запрос. Пожалуйста, больше не повторяйте такие запросы'));
     }
 
     /**
@@ -119,7 +119,7 @@ class DefaultController extends YBackController
     {
         $model = Gallery::model()->findByPk($id);
         if ($model === null)
-            throw new CHttpException(404, Yii::t('gallery', 'Запрошенная страница не найдена.'));
+            throw new CHttpException(404, Yii::t('GalleryModule.gallery', 'Запрошенная страница не найдена.'));
         return $model;
     }
 

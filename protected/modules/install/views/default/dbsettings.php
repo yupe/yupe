@@ -15,13 +15,13 @@ Yii::app()->clientScript->registerScript('fieldset', "
 ?>
 
     <div class="alert alert-block alert-info">
-        <p><?php echo Yii::t('install', 'Укажите параметры соединения с существующей базой данных.'); ?></p>
-        <p><?php echo Yii::t('install', 'Базу данных можно создать при помощи phpmyadmin или любого другого инструмента.'); ?></p>
+        <p><?php echo Yii::t('InstallModule.install', 'Укажите параметры соединения с существующей базой данных.'); ?></p>
+        <p><?php echo Yii::t('InstallModule.install', 'Базу данных можно создать при помощи phpmyadmin или любого другого инструмента.'); ?></p>
     </div>
 
     <?php if (!$result): ?>
         <div class="alert alert-block alert-error">
-            <b><?php echo Yii::t('install', "Файл {file} не существует или не доступен для записи!", array('{file}' => $file)); ?></b>
+            <b><?php echo Yii::t('InstallModule.install', "Файл {file} не существует или не доступен для записи!", array('{file}' => $file)); ?></b>
         </div>
     <?php endif; ?>
 
@@ -57,12 +57,12 @@ Yii::app()->clientScript->registerScript('fieldset', "
 
 
     <?php $this->widget('bootstrap.widgets.TbButton', array(
-        'label' => Yii::t('install', '< Назад'),
+        'label' => Yii::t('InstallModule.install', '< Назад'),
         'url'   => array('/install/default/requirements'),
     )); ?>
     <?php $this->widget('bootstrap.widgets.TbButton', array(
         'type'       => 'primary',
-        'label'      => Yii::t('install', 'Продолжить >'),
+        'label'      => Yii::t('InstallModule.install', 'Продолжить >'),
         'disabled'   => ($result) ? false : true,
      ) + (($result) ? array('buttonType' => 'submit') : array())); ?>
 

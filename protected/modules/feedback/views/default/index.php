@@ -1,27 +1,27 @@
 <?php
     $this->breadcrumbs = array(
         Yii::app()->getModule('feedback')->getCategory() => array(),
-        Yii::t('feedback', 'Сообщения с сайта') => array('/feedback/default/index'),
-        Yii::t('feedback', 'Управление'),
+        Yii::t('FeedbackModule.feedback', 'Сообщения с сайта') => array('/feedback/default/index'),
+        Yii::t('FeedbackModule.feedback', 'Управление'),
     );
 
-    $this->pageTitle = Yii::t('feedback', 'Сообщения с сайта - управление');
+    $this->pageTitle = Yii::t('FeedbackModule.feedback', 'Сообщения с сайта - управление');
 
     $this->menu = array(
-        array('icon' => 'list-alt', 'label' => Yii::t('feedback', 'Управление сообщениями с сайта'), 'url' => array('/feedback/default/index')),
-        array('icon' => 'plus-sign', 'label' => Yii::t('feedback', 'Добавить сообщение с сайта'), 'url' => array('/feedback/default/create')),
+        array('icon' => 'list-alt', 'label' => Yii::t('FeedbackModule.feedback', 'Управление сообщениями с сайта'), 'url' => array('/feedback/default/index')),
+        array('icon' => 'plus-sign', 'label' => Yii::t('FeedbackModule.feedback', 'Добавить сообщение с сайта'), 'url' => array('/feedback/default/create')),
     );
 ?>
 <div class="page-header">
     <h1>
-        <?php echo Yii::t('feedback', 'Сообщения с сайта'); ?>
-        <small><?php echo Yii::t('feedback', 'управление'); ?></small>
+        <?php echo Yii::t('FeedbackModule.feedback', 'Сообщения с сайта'); ?>
+        <small><?php echo Yii::t('FeedbackModule.feedback', 'управление'); ?></small>
     </h1>
 </div>
 
 <button class="btn btn-small dropdown-toggle" data-toggle="collapse" data-target="#search-toggle">
     <i class="icon-search">&nbsp;</i>
-    <?php echo CHtml::link(Yii::t('feedback', 'Поиск сообщений с сайта'), '#', array('class' => 'search-button')); ?>
+    <?php echo CHtml::link(Yii::t('FeedbackModule.feedback', 'Поиск сообщений с сайта'), '#', array('class' => 'search-button')); ?>
     <span class="caret">&nbsp;</span>
 </button>
 
@@ -41,7 +41,7 @@ $this->renderPartial('_search', array('model' => $model));
 
 <br/>
 
-<p><?php echo Yii::t('feedback', 'В данном разделе представлены средства управления сообщениями с сайта'); ?></p>
+<p><?php echo Yii::t('FeedbackModule.feedback', 'В данном разделе представлены средства управления сообщениями с сайта'); ?></p>
 
 <?php $this->widget('application.modules.yupe.components.YCustomGridView', array(
     'id'           => 'feed-back-grid',
@@ -62,6 +62,11 @@ $this->renderPartial('_search', array('model' => $model));
             'name'  => 'type',
             'value' => '$data->getType()',
             'filter' => CHtml::activeDropDownList($model, 'type', $model->typeList),
+        ),
+        array(
+            'name'  => 'category_id',
+            'value' => '$data->getCategory()',
+            'filter' => CHtml::activeDropDownList($model, 'category_id', CHtml::listData($this->module->getCategoryList(),'id','name')),
         ),
         'email',
         'phone',

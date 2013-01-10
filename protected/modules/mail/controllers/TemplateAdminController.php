@@ -32,7 +32,7 @@ class TemplateAdminController extends YBackController
             {
                 Yii::app()->user->setFlash(
                     YFlashMessages::NOTICE_MESSAGE,
-                    Yii::t('mail', 'Запись добавлена!')
+                    Yii::t('MailModule.mail', 'Запись добавлена!')
                 );
 
                 $this->redirect(array('view', 'id' => $model->id));
@@ -60,7 +60,7 @@ class TemplateAdminController extends YBackController
             {
                 Yii::app()->user->setFlash(
                     YFlashMessages::NOTICE_MESSAGE,
-                    Yii::t('mail', 'Запись обновлена!')
+                    Yii::t('MailModule.mail', 'Запись обновлена!')
                 );
 
                 $this->redirect(array('update','id' => $model->id));
@@ -83,7 +83,7 @@ class TemplateAdminController extends YBackController
 
             Yii::app()->user->setFlash(
                 YFlashMessages::NOTICE_MESSAGE,
-                Yii::t('mail', 'Запись удалена!')
+                Yii::t('MailModule.mail', 'Запись удалена!')
             );
 
             // если это AJAX запрос ( кликнули удаление в админском grid view), мы не должны никуда редиректить
@@ -91,7 +91,7 @@ class TemplateAdminController extends YBackController
                 $this->redirect(isset($_POST['returnUrl']) ? $_POST['returnUrl'] : array( 'index' ));
         }
         else
-            throw new CHttpException(400, Yii::t('mail', 'Неверный запрос. Пожалуйста, больше не повторяйте такие запросы'));
+            throw new CHttpException(400, Yii::t('MailModule.mail', 'Неверный запрос. Пожалуйста, больше не повторяйте такие запросы'));
     }
 
     /**
@@ -117,7 +117,7 @@ class TemplateAdminController extends YBackController
     {
         $model = MailTemplate::model()->findByPk($id);
         if ($model === null)
-            throw new CHttpException(404, Yii::t('mail', 'Запрошенная страница не найдена'));
+            throw new CHttpException(404, Yii::t('MailModule.mail', 'Запрошенная страница не найдена'));
         return $model;
     }
 

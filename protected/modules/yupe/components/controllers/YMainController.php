@@ -28,7 +28,7 @@ class YMainController extends Controller
 
             if (Yii::app()->getModule($module) == NULL)
             {
-                echo Yii::t('yupe', 'Виджет "{widget}" не найден! Подключите модуль "{module}" !',array(
+                echo Yii::t('YupeModule.yupe', 'Виджет "{widget}" не найден! Подключите модуль "{module}" !',array(
                     '{widget}' => $className,
                     '{module}' => $module
                 ));

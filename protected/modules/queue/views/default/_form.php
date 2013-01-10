@@ -15,9 +15,9 @@ Yii::app()->clientScript->registerScript('fieldset', "
 ");
 ?>
     <div class="alert alert-info">
-        <?php echo Yii::t('queue', 'Поля, отмеченные'); ?>
+        <?php echo Yii::t('QueueModule.queue', 'Поля, отмеченные'); ?>
         <span class="required">*</span>
-        <?php echo Yii::t('queue', 'обязательны.'); ?>
+        <?php echo Yii::t('QueueModule.queue', 'обязательны.'); ?>
     </div>
 
     <?php echo $form->errorSummary($model); ?>
@@ -41,12 +41,12 @@ Yii::app()->clientScript->registerScript('fieldset', "
     <?php $this->widget('bootstrap.widgets.TbButton', array(
         'buttonType' => 'submit',
         'type'       => 'primary',
-        'label'      => $model->isNewRecord ? Yii::t('queue', 'Добавить задание и продолжить') : Yii::t('queue', 'Сохранить задание'),
+        'label'      => $model->isNewRecord ? Yii::t('QueueModule.queue', 'Добавить задание и продолжить') : Yii::t('QueueModule.queue', 'Сохранить задание'),
     )); ?>
     <?php $this->widget('bootstrap.widgets.TbButton', array(
         'buttonType'  => 'submit',
         'htmlOptions' => array('name' => 'submit-type', 'value' => 'index'),
-        'label'       => $model->isNewRecord ? Yii::t('queue', 'Добавить задание и закрыть') : Yii::t('queue', 'Сохранить блог и закрыть'),
+        'label'       => $model->isNewRecord ? Yii::t('QueueModule.queue', 'Добавить задание и закрыть') : Yii::t('QueueModule.queue', 'Сохранить блог и закрыть'),
     )); ?>
 
 <?php $this->endWidget(); ?>

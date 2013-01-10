@@ -1,34 +1,34 @@
 <?php
     $this->breadcrumbs = array(
         Yii::app()->getModule('dictionary')->getCategory() => array(),
-        Yii::t('dictionary', 'Справочники') => array('/dictionary/default/index'),
-        Yii::t('dictionary', 'Значения справочников') => array('/dictionary/dictionaryData/index'),
-        Yii::t('dictionary', 'Управление'),
+        Yii::t('DictionaryModule.dictionary', 'Справочники') => array('/dictionary/default/index'),
+        Yii::t('DictionaryModule.dictionary', 'Значения справочников') => array('/dictionary/dictionaryData/index'),
+        Yii::t('DictionaryModule.dictionary', 'Управление'),
     );
 
-    $this->pageTitle = Yii::t('dictionary', 'Значения справочников - управление');
+    $this->pageTitle = Yii::t('DictionaryModule.dictionary', 'Значения справочников - управление');
 
     $this->menu = array(
-        array('label' => Yii::t('dictionary', 'Справочники'), 'items' => array(
-            array('icon' => 'list-alt', 'label' => Yii::t('dictionary', 'Управление справочниками'), 'url' => array('/dictionary/default/index')),
-            array('icon' => 'plus-sign', 'label' => Yii::t('dictionary', 'Добавление справочника'), 'url' => array('/dictionary/default/create')),
+        array('label' => Yii::t('DictionaryModule.dictionary', 'Справочники'), 'items' => array(
+            array('icon' => 'list-alt', 'label' => Yii::t('DictionaryModule.dictionary', 'Управление справочниками'), 'url' => array('/dictionary/default/index')),
+            array('icon' => 'plus-sign', 'label' => Yii::t('DictionaryModule.dictionary', 'Добавление справочника'), 'url' => array('/dictionary/default/create')),
         )),
-        array('label' => Yii::t('dictionary', 'Значения'), 'items' => array(
-            array('icon' => 'list-alt', 'label' => Yii::t('dictionary', 'Список значений'), 'url' => array('/dictionary/dictionaryData/index')),
-            array('icon' => 'plus-sign', 'label' => Yii::t('dictionary', 'Добавить значение'), 'url' => array('/dictionary/dictionaryData/create')),
+        array('label' => Yii::t('DictionaryModule.dictionary', 'Значения'), 'items' => array(
+            array('icon' => 'list-alt', 'label' => Yii::t('DictionaryModule.dictionary', 'Список значений'), 'url' => array('/dictionary/dictionaryData/index')),
+            array('icon' => 'plus-sign', 'label' => Yii::t('DictionaryModule.dictionary', 'Добавить значение'), 'url' => array('/dictionary/dictionaryData/create')),
         )),
     );
 ?>
 <div class="page-header">
     <h1>
-        <?php echo Yii::t('dictionary', 'Значения справочников'); ?>
-        <small><?php echo Yii::t('dictionary', 'управление'); ?></small>
+        <?php echo Yii::t('DictionaryModule.dictionary', 'Значения справочников'); ?>
+        <small><?php echo Yii::t('DictionaryModule.dictionary', 'управление'); ?></small>
     </h1>
 </div>
 
 <button class="btn btn-small dropdown-toggle" data-toggle="collapse" data-target="#search-toggle">
     <i class="icon-search">&nbsp;</i>
-    <?php echo CHtml::link(Yii::t('dictionary', 'Поиск значений справочников'), '#', array('class' => 'search-button')); ?>
+    <?php echo CHtml::link(Yii::t('DictionaryModule.dictionary', 'Поиск значений справочников'), '#', array('class' => 'search-button')); ?>
     <span class="caret">&nbsp;</span>
 </button>
 
@@ -48,7 +48,7 @@ $this->renderPartial('_search', array('model' => $model));
 
 <br/>
 
-<p><?php echo Yii::t('dictionary', 'В данном разделе представлены средства управления значениями справочников'); ?></p>
+<p><?php echo Yii::t('DictionaryModule.dictionary', 'В данном разделе представлены средства управления значениями справочников'); ?></p>
 
 <?php $this->widget('application.modules.yupe.components.YCustomGridView', array(
     'id'          => 'dictionary-data-grid',

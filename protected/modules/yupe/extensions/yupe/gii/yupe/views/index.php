@@ -15,13 +15,13 @@ Yii::app()->clientScript->registerScript('gii.crud', "
     });
 ");
 ?>
-<h1><?php echo Yii::t('yupe', 'Юпи! Генератор!'); ?></h1>
+<h1><?php echo Yii::t('YupeModule.yupe', 'Юпи! Генератор!'); ?></h1>
 
-<p><?php echo Yii::t('yupe', 'Юпи! Генератор позволяет создать CRUD для любой модели.'); ?></p>
+<p><?php echo Yii::t('YupeModule.yupe', 'Юпи! Генератор позволяет создать CRUD для любой модели.'); ?></p>
 
-<p><?php echo Yii::t('yupe', ' Полученный интерфейс благополучно интегрируется в панель управления Юпи!.'); ?></p>
+<p><?php echo Yii::t('YupeModule.yupe', ' Полученный интерфейс благополучно интегрируется в панель управления Юпи!.'); ?></p>
 
-<p><?php echo Yii::t('yupe', 'Более подробную информацию и техническую поддержку Вы можете получить на сайте {site}.', array('{site}' => CHtml::link(Yii::t('yupe', 'Юпи!'), 'http://yupe.ru/?from=generator'))); ?></p>
+<p><?php echo Yii::t('YupeModule.yupe', 'Более подробную информацию и техническую поддержку Вы можете получить на сайте {site}.', array('{site}' => CHtml::link(Yii::t('YupeModule.yupe', 'Юпи!'), 'http://yupe.ru/?from=generator'))); ?></p>
 
 <?php $form = $this->beginWidget('CCodeForm', array('model' => $model)); ?>
 

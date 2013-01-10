@@ -18,7 +18,7 @@ class YRequiredValidator extends CValidator
             {
                 $message = ($this->message !== null)
                     ? $this->message
-                    : Yii::t('yupe', '{attribute} must be {value}.', array('{value}' => $this->requiredValue));
+                    : Yii::t('YupeModule.yupe', '{attribute} must be {value}.', array('{value}' => $this->requiredValue));
 
                 $this->addError($object, $attribute, $message);
             }
@@ -27,7 +27,7 @@ class YRequiredValidator extends CValidator
         {
             $message = ($this->message !== null)
                 ? $this->message
-                : Yii::t('yupe', '{attribute} cannot be blank.');
+                : Yii::t('YupeModule.yupe', '{attribute} cannot be blank.');
 
             $this->addError($object, $attribute, $message);
         }

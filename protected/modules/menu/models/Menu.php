@@ -71,11 +71,11 @@ class Menu extends YModel
     public function attributeLabels()
     {
         return array(
-            'id'          => Yii::t('menu', 'Id'),
-            'name'        => Yii::t('menu', 'Название'),
-            'code'        => Yii::t('menu', 'Уникальный код'),
-            'description' => Yii::t('menu', 'Описание'),
-            'status'      => Yii::t('menu', 'Статус'),
+            'id'          => Yii::t('MenuModule.menu', 'Id'),
+            'name'        => Yii::t('MenuModule.menu', 'Название'),
+            'code'        => Yii::t('MenuModule.menu', 'Уникальный код'),
+            'description' => Yii::t('MenuModule.menu', 'Описание'),
+            'status'      => Yii::t('MenuModule.menu', 'Статус'),
         );
     }
 
@@ -85,11 +85,11 @@ class Menu extends YModel
     public function attributeDescriptions()
     {
         return array(
-            'id'          => Yii::t('menu', 'Id меню'),
-            'name'        => Yii::t('menu', 'Название меню в системе.'),
-            'code'        => Yii::t('menu', 'Уникальный код используется в виджете, как идентификатор для вывода меню, заполняется латинскими символами.'),
-            'description' => Yii::t('menu', 'Краткое описание меню.'),
-            'status'      => Yii::t('menu', 'Установите статус меню: <br /><br /><span class="label label-success">активно</span> &ndash; меню будет отображаться на странице сайта.<br /><br /><span class="label label-warning">не активно</span> &ndash; меню отображаться не будет.'),
+            'id'          => Yii::t('MenuModule.menu', 'Id меню'),
+            'name'        => Yii::t('MenuModule.menu', 'Название меню в системе.'),
+            'code'        => Yii::t('MenuModule.menu', 'Уникальный код используется в виджете, как идентификатор для вывода меню, заполняется латинскими символами.'),
+            'description' => Yii::t('MenuModule.menu', 'Краткое описание меню.'),
+            'status'      => Yii::t('MenuModule.menu', 'Установите статус меню: <br /><br /><span class="label label-success">активно</span> &ndash; меню будет отображаться на странице сайта.<br /><br /><span class="label label-warning">не активно</span> &ndash; меню отображаться не будет.'),
         );
     }
 
@@ -133,15 +133,15 @@ class Menu extends YModel
     public function getStatusList()
     {
         return array(
-            self::STATUS_DISABLED => Yii::t('menu', 'не активно'),
-            self::STATUS_ACTIVE   => Yii::t('menu', 'активно'),
+            self::STATUS_DISABLED => Yii::t('MenuModule.menu', 'не активно'),
+            self::STATUS_ACTIVE   => Yii::t('MenuModule.menu', 'активно'),
         );
     }
 
     public function getStatus()
     {
         $data = $this->statusList;
-        return isset($data[$this->status]) ? $data[$this->status] : Yii::t('menu', '*неизвестно*');
+        return isset($data[$this->status]) ? $data[$this->status] : Yii::t('MenuModule.menu', '*неизвестно*');
     }
 
     // @todo добавить кэширование

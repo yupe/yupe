@@ -1,32 +1,32 @@
 <?php
     $this->breadcrumbs = array(
         Yii::app()->getModule('feedback')->getCategory() => array(),
-        Yii::t('feedback', 'Сообщения с сайта') => array('/feedback/default/index'),
+        Yii::t('FeedbackModule.feedback', 'Сообщения с сайта') => array('/feedback/default/index'),
         $model->theme => array('/feedback/default/view', 'id' => $model->id),
-        Yii::t('feedback', 'Ответ'),
+        Yii::t('FeedbackModule.feedback', 'Ответ'),
     );
 
-    $this->pageTitle = Yii::t('feedback', 'Сообщения с сайта - ответ');
+    $this->pageTitle = Yii::t('FeedbackModule.feedback', 'Сообщения с сайта - ответ');
 
     $this->menu = array(
-        array('icon' => 'list-alt', 'label' => Yii::t('feedback', 'Управление сообщениями с сайта'), 'url' => array('/feedback/default/index')),
-        array('icon' => 'plus-sign', 'label' => Yii::t('feedback', 'Добавить сообщение с сайта'), 'url' => array('/feedback/default/create')),
+        array('icon' => 'list-alt', 'label' => Yii::t('FeedbackModule.feedback', 'Управление сообщениями с сайта'), 'url' => array('/feedback/default/index')),
+        array('icon' => 'plus-sign', 'label' => Yii::t('FeedbackModule.feedback', 'Добавить сообщение с сайта'), 'url' => array('/feedback/default/create')),
         array('label' => Yii::t('dictionary', 'Значение справочника') . ' «' . mb_substr($model->theme, 0, 32) . '»'),
-        array('icon' => 'pencil', 'label' => Yii::t('feedback', 'Редактирование сообщения с сайта'), 'url' => array(
+        array('icon' => 'pencil', 'label' => Yii::t('FeedbackModule.feedback', 'Редактирование сообщения с сайта'), 'url' => array(
             '/feedback/default/update',
             'id' => $model->id
         )),
-        array('icon' => 'eye-open', 'label' => Yii::t('feedback', 'Просмотреть сообщение с сайта'), 'url' => array(
+        array('icon' => 'eye-open', 'label' => Yii::t('FeedbackModule.feedback', 'Просмотреть сообщение с сайта'), 'url' => array(
             '/feedback/default/view',
             'id' => $model->id
         )),
-        array('icon' => 'envelope', 'label' => Yii::t('feedback', 'Ответить на сообщение с сайта'), 'url' => array(
+        array('icon' => 'envelope', 'label' => Yii::t('FeedbackModule.feedback', 'Ответить на сообщение с сайта'), 'url' => array(
             '/feedback/default/answer',
             'id' => $model->id
         )),
-        array('icon' => 'trash', 'label' => Yii::t('feedback', 'Удалить сообщение с сайта'), 'url' => '#', 'linkOptions' => array(
+        array('icon' => 'trash', 'label' => Yii::t('FeedbackModule.feedback', 'Удалить сообщение с сайта'), 'url' => '#', 'linkOptions' => array(
             'submit'  => array('/feedback/default/delete', 'id' => $model->id),
-            'confirm' => Yii::t('feedback', 'Вы уверены, что хотите удалить сообщение с сайта?'),
+            'confirm' => Yii::t('FeedbackModule.feedback', 'Вы уверены, что хотите удалить сообщение с сайта?'),
         )),
     );
 ?>
@@ -35,7 +35,7 @@
         $(document).ready(function() {
             var email = '<?php echo $model->email; ?>';
             $('input:submit').click(function() {
-                if(window.confirm('<?php echo Yii::t('feedback', 'Ответ будет отправлен на '); ?>' + email + '<?php echo Yii::t('feedback', ' продолжить ?'); ?>'))
+                if(window.confirm('<?php echo Yii::t('FeedbackModule.feedback', 'Ответ будет отправлен на '); ?>' + email + '<?php echo Yii::t('FeedbackModule.feedback', ' продолжить ?'); ?>'))
                     return true;
                 return false;
             });
@@ -44,7 +44,7 @@
     
     <div class="page-header">
         <h1>
-            <?php echo Yii::t('feedback', 'Ответ на сообщение с сайта '); ?><br />
+            <?php echo Yii::t('FeedbackModule.feedback', 'Ответ на сообщение с сайта '); ?><br />
             <small>&laquo;<?php echo $model->theme; ?>&raquo;</small>
         </h1>
     </div>
@@ -92,9 +92,9 @@
     ");
     ?>
         <div class="alert alert-info">
-            <?php echo Yii::t('feedback', 'Поля, отмеченные'); ?>
+            <?php echo Yii::t('FeedbackModule.feedback', 'Поля, отмеченные'); ?>
             <span class="required">*</span>
-            <?php echo Yii::t('feedback', 'обязательны.'); ?>
+            <?php echo Yii::t('FeedbackModule.feedback', 'обязательны.'); ?>
         </div>
 
         <?php echo $form->errorSummary($answerForm); ?>
@@ -123,7 +123,7 @@
         <?php $this->widget('bootstrap.widgets.TbButton', array(
             'buttonType' => 'submit',
             'type'       => 'primary',
-            'label'      => Yii::t('feedback', 'Отправить ответ на сообщение с сайта'),
+            'label'      => Yii::t('FeedbackModule.feedback', 'Отправить ответ на сообщение с сайта'),
         )); ?>
 
 <?php $this->endWidget(); ?>

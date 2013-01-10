@@ -9,7 +9,7 @@ class m121220_001126_menu_test_data extends CDbMigration
                 'id'=>1,
                 'name'=>'Верхнее меню',
                 'code'=>'top-menu',
-                'description'=>Yii::t('menu','Основное меню сайта, расположенное сверху в блоке mainmenu.'),
+                'description'=>Yii::t('MenuModule.menu','Основное меню сайта, расположенное сверху в блоке mainmenu.'),
                 'status'=> 1
             )
         );

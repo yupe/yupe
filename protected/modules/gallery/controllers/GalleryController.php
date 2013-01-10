@@ -14,7 +14,7 @@ class GalleryController extends YFrontController
         $model = Gallery::model()->findByPk((int) $id);
 
         if (!$model)
-            throw new CHttpException(404, Yii::t('gallery', 'Страница не найдена!'));
+            throw new CHttpException(404, Yii::t('GalleryModule.gallery', 'Страница не найдена!'));
 
         $image = new Image;
 
@@ -29,7 +29,7 @@ class GalleryController extends YFrontController
                     if ($model->addImage($image))
                         Yii::app()->user->setFlash(
                             YFlashMessages::NOTICE_MESSAGE,
-                            Yii::t('gallery', 'Фотография добавлена!')
+                            Yii::t('GalleryModule.gallery', 'Фотография добавлена!')
                         );
 
                     $transaction->commit();
@@ -37,7 +37,7 @@ class GalleryController extends YFrontController
                     $this->redirect(array('/gallery/gallery/show', 'id' => $model->id));
                 }
 
-                throw new CDbException(Yii::t('gallery', Yii::t('gallery', 'При добавлении изображения произошла ошибка!')));
+                throw new CDbException(Yii::t('GalleryModule.gallery', Yii::t('GalleryModule.gallery', 'При добавлении изображения произошла ошибка!')));
             }
             catch (Exception $e)
             {
@@ -45,7 +45,7 @@ class GalleryController extends YFrontController
 
                 Yii::app()->user->setFlash(
                     YFlashMessages::ERROR_MESSAGE,
-                    Yii::t('gallery', 'При добавлении изображения произошла ошибка!')
+                    Yii::t('GalleryModule.gallery', 'При добавлении изображения произошла ошибка!')
                 );
             }
         }
@@ -72,7 +72,7 @@ class GalleryController extends YFrontController
     {
         $model = Image::model()->findByPk((int) $id);
         if (!$model)
-            throw new CHttpException(404, Yii::t('gallery', 'Страница не найдена!'));
+            throw new CHttpException(404, Yii::t('GalleryModule.gallery', 'Страница не найдена!'));
         $this->render('foto', array('model' => $model));
     }
 }

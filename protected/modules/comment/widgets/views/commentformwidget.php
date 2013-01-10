@@ -6,9 +6,9 @@
 )); ?>
 
     <p class="note">
-        <?php echo Yii::t('comment', 'Поля, отмеченные'); ?>
+        <?php echo Yii::t('CommentModule.comment', 'Поля, отмеченные'); ?>
         <span class="required">*</span> 
-        <?php echo Yii::t('comment', 'обязательны для заполнения'); ?>
+        <?php echo Yii::t('CommentModule.comment', 'обязательны для заполнения'); ?>
     </p>
 
     <?php echo $form->errorSummary($model); ?>
@@ -35,7 +35,7 @@
             <?php echo $form->error($model, 'url'); ?>
         </div>
     <?php else: ?>
-        <p><?php echo Yii::t('comment', 'От имени'); ?>: <?php echo Yii::app()->user->getState('nick_name'); ?></p>
+        <p><?php echo Yii::t('CommentModule.comment', 'От имени'); ?>: <?php echo Yii::app()->user->getState('nick_name'); ?></p>
     <?php endif; ?>
     <div class="row">
         <?php echo $form->labelEx($model, 'text'); ?>
@@ -54,12 +54,12 @@
                 <?php echo $form->textField($model, 'verifyCode'); ?>
             </div>
             <div class="hint">
-                <?php echo Yii::t('comment', 'Введите цифры указанные на картинке'); ?>
+                <?php echo Yii::t('CommentModule.comment', 'Введите цифры указанные на картинке'); ?>
             </div>
         </div> 
     <?php endif; ?>
     <div class="row buttons">
-        <?php echo CHtml::submitButton(Yii::t('comment', 'Добавить комментарий')); ?>
+        <?php echo CHtml::submitButton(Yii::t('CommentModule.comment', 'Добавить комментарий')); ?>
     </div>
 
 <?php $this->endWidget(); ?>

@@ -23,7 +23,7 @@ class PageController extends YFrontController
     public function actionShow($slug = null)
     {
         if (!$slug)
-            throw new CHttpException('404', Yii::t('page', 'Страница не найдена!'));
+            throw new CHttpException('404', Yii::t('PageModule.page', 'Страница не найдена!'));
 
         $page = null;
         // превью
@@ -38,14 +38,14 @@ class PageController extends YFrontController
                 ':deflang' => Yii::app()->getModule('yupe')->defaultLanguage,
             ));
         if (!$page)
-            throw new CHttpException('404', Yii::t('page', 'Страница не найдена!'));
+            throw new CHttpException('404', Yii::t('PageModule.page', 'Страница не найдена!'));
 
         // проверим что пользователь может просматривать эту страницу
         if ($page->is_protected == Page::PROTECTED_YES && !Yii::app()->user->isAuthenticated())
         {
             Yii::app()->user->setFlash(
                 YFlashMessages::NOTICE_MESSAGE,
-                Yii::t('page', 'Для просмотра этой страницы Вам необходимо авторизоваться!')
+                Yii::t('PageModule.page', 'Для просмотра этой страницы Вам необходимо авторизоваться!')
             );
             $this->redirect(array(Yii::app()->getModule('user')->accountActivationSuccess));
         }

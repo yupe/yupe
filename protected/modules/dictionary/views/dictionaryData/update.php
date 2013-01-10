@@ -1,41 +1,41 @@
 <?php
     $this->breadcrumbs = array(
         Yii::app()->getModule('dictionary')->getCategory() => array(''),
-        Yii::t('dictionary', 'Справочники') => array('/dictionary/default/index'),
-        Yii::t('dictionary', 'Значения справочников') => array('/dictionary/dictionaryData/index'),
+        Yii::t('DictionaryModule.dictionary', 'Справочники') => array('/dictionary/default/index'),
+        Yii::t('DictionaryModule.dictionary', 'Значения справочников') => array('/dictionary/dictionaryData/index'),
         $model->name => array('/dictionary/dictionaryData/view', 'id' => $model->id),
-        Yii::t('dictionary', 'Редактирование'),
+        Yii::t('DictionaryModule.dictionary', 'Редактирование'),
     );
 
-    $this->pageTitle = Yii::t('dictionary', 'Значения справочников - редактирование');
+    $this->pageTitle = Yii::t('DictionaryModule.dictionary', 'Значения справочников - редактирование');
 
     $this->menu = array(
-        array('label' => Yii::t('dictionary', 'Справочники'), 'items' => array(
-            array('icon' => 'list-alt', 'label' => Yii::t('dictionary', 'Управление справочниками'), 'url' => array('/dictionary/default/index')),
-            array('icon' => 'plus-sign', 'label' => Yii::t('dictionary', 'Добавление справочника'), 'url' => array('/dictionary/default/create')),
+        array('label' => Yii::t('DictionaryModule.dictionary', 'Справочники'), 'items' => array(
+            array('icon' => 'list-alt', 'label' => Yii::t('DictionaryModule.dictionary', 'Управление справочниками'), 'url' => array('/dictionary/default/index')),
+            array('icon' => 'plus-sign', 'label' => Yii::t('DictionaryModule.dictionary', 'Добавление справочника'), 'url' => array('/dictionary/default/create')),
         )),
-        array('label' => Yii::t('dictionary', 'Значения'), 'items' => array(
-            array('icon' => 'list-alt', 'label' => Yii::t('dictionary', 'Список значений'), 'url' => array('/dictionary/dictionaryData/index')),
-            array('icon' => 'plus-sign', 'label' => Yii::t('dictionary', 'Добавить значение'), 'url' => array('/dictionary/dictionaryData/create')),
-            array('label' => Yii::t('dictionary', 'Значение справочника') . ' «' . mb_substr($model->name, 0, 32) . '»'),
-            array('icon' => 'pencil', 'label' => Yii::t('dictionary', 'Редактирование значение справочника'), 'url' => array(
+        array('label' => Yii::t('DictionaryModule.dictionary', 'Значения'), 'items' => array(
+            array('icon' => 'list-alt', 'label' => Yii::t('DictionaryModule.dictionary', 'Список значений'), 'url' => array('/dictionary/dictionaryData/index')),
+            array('icon' => 'plus-sign', 'label' => Yii::t('DictionaryModule.dictionary', 'Добавить значение'), 'url' => array('/dictionary/dictionaryData/create')),
+            array('label' => Yii::t('DictionaryModule.dictionary', 'Значение справочника') . ' «' . mb_substr($model->name, 0, 32) . '»'),
+            array('icon' => 'pencil', 'label' => Yii::t('DictionaryModule.dictionary', 'Редактирование значение справочника'), 'url' => array(
                 '/dictionary/dictionaryData/update',
                 'id' => $model->id
             )),
-            array('icon' => 'eye-open', 'label' => Yii::t('dictionary', 'Просмотреть значение справочника'), 'url' => array(
+            array('icon' => 'eye-open', 'label' => Yii::t('DictionaryModule.dictionary', 'Просмотреть значение справочника'), 'url' => array(
                 '/dictionary/dictionaryData/view',
                 'id' => $model->id
             )),
-            array('icon' => 'trash', 'label' => Yii::t('dictionary', 'Удалить значение справочника'), 'url' => '#', 'linkOptions' => array(
+            array('icon' => 'trash', 'label' => Yii::t('DictionaryModule.dictionary', 'Удалить значение справочника'), 'url' => '#', 'linkOptions' => array(
                 'submit' => array('/dictionary/dictionaryData/delete', 'id' => $model->id),
-                'confirm' => Yii::t('dictionary', 'Вы уверены, что хотите удалить значение справочника?'),
+                'confirm' => Yii::t('DictionaryModule.dictionary', 'Вы уверены, что хотите удалить значение справочника?'),
             )),
         )),
     );
 ?>
 <div class="page-header">
     <h1>
-        <?php echo Yii::t('dictionary', 'Редактирование значения справочников'); ?><br />
+        <?php echo Yii::t('DictionaryModule.dictionary', 'Редактирование значения справочников'); ?><br />
         <small>&laquo;<?php echo $model->name; ?>&raquo;</small>
     </h1>
 </div>

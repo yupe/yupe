@@ -14,7 +14,7 @@
     <div id="overall-wrap">
         <!-- mainmenu -->
         <?php
-        $brandTitle = Yii::t('yupe', 'Перейти на главную панели управления');
+        $brandTitle = Yii::t('YupeModule.yupe', 'Перейти на главную панели управления');
 
         $this->widget('bootstrap.widgets.TbNavbar', array(
             'htmlOptions' => array('class'=>'navbar navbar-inverse'),
@@ -37,12 +37,12 @@
                     'items'       => array(
                         array(
                             'icon'  => 'question-sign white',
-                            'label' => Yii::t('yupe', 'Помощь'),
+                            'label' => Yii::t('YupeModule.yupe', 'Помощь'),
                             'url'   => array('/yupe/backend/help'),
                         ),
                         array(
                             'icon'        => 'home white',
-                            'label'       => Yii::t('yupe', 'На сайт'),
+                            'label'       => Yii::t('YupeModule.yupe', 'На сайт'),
                             'linkOptions' => array('target' => '_blank'),
                             'url'         => array('/' . Yii::app()->defaultController . '/index/'),
                         ),
@@ -54,19 +54,19 @@
                         array(
                             'label'       => '
                                 <div style="float: left; line-height: 16px; text-align: center; margin-top: -10px;">
-                                    <small style="font-size: 80%;">' . Yii::t('yupe', 'Администратор') . '</small><br />
+                                    <small style="font-size: 80%;">' . Yii::t('YupeModule.yupe', 'Администратор') . '</small><br />
                                     <span class="label">' . Yii::app()->user->nick_name . '</span>
                                 </div>',
                             'encodeLabel' => false,
                             'items'       => array(
                                 array(
                                     'icon'  => 'user',
-                                    'label' => Yii::t('yupe', 'Профиль'),
+                                    'label' => Yii::t('YupeModule.yupe', 'Профиль'),
                                     'url'   => array('/user/default/update', 'id' => Yii::app()->user->id),
                                 ),
                                 array(
                                     'icon'  => 'off',
-                                    'label' => Yii::t('yupe', 'Выйти'),
+                                    'label' => Yii::t('YupeModule.yupe', 'Выйти'),
                                     'url'   => array('/user/account/logout'),
                                 ),
                             ),
@@ -88,7 +88,7 @@
         <small class="label label-info"><?php echo $this->yupe->getVersion(); ?></small>
         <br/>
         <a href="http://yupe.ru/feedback/contact?from=engine">
-            <?php echo Yii::t('yupe','Разработка и поддержка'); ?></a> - <a href="mailto:team@yupe.ru">yupe team
+            <?php echo Yii::t('YupeModule.yupe','Разработка и поддержка'); ?></a> - <a href="mailto:team@yupe.ru">yupe team
         </a>
         <br/>
         <?php echo Yii::powered(); ?>

@@ -1,6 +1,6 @@
-<h1><?php echo Yii::t('install','Идет установка модулей...');?></h1>
+<h1><?php echo Yii::t('InstallModule.install','Идет установка модулей...');?></h1>
 <div class="alert alert-block alert-info">
-    <p><?php echo Yii::t('install','На данном этапе Юпи! постарается установить запрошенные вами модули. Установка может занять некоторое время...');?></p>
+    <p><?php echo Yii::t('InstallModule.install','На данном этапе Юпи! постарается установить запрошенные вами модули. Установка может занять некоторое время...');?></p>
 </div>
 <div id="msg"></div>
 <div class="progress progress-striped active">
@@ -9,7 +9,7 @@
 <small id="modstate"></small>
 <?php
     $this->widget('bootstrap.widgets.TbBox', array(
-        'title'       => Yii::t('install', 'Журнал установки'),
+        'title'       => Yii::t('InstallModule.install', 'Журнал установки'),
         'headerIcon'  => 'icon-list',
         'content'     => '',
         'id'          => 'log-content',
@@ -61,7 +61,7 @@
         $.each(modules, function(i,m) {
             ic++;
             if (!m.installed) {
-                setModuleProgress(ic, "<i class='icon-" + m.icon + "'>&nbsp;</i>&nbsp; <?php echo Yii::t('install', 'Устанавливаем модуль'); ?> <b>" + m.description + "</b>");
+                setModuleProgress(ic, "<i class='icon-" + m.icon + "'>&nbsp;</i>&nbsp; <?php echo Yii::t('InstallModule.install', 'Устанавливаем модуль'); ?> <b>" + m.description + "</b>");
                 $.ajax({
                     url:"<?php echo $this->createUrl('/install/default/moduleinstall') ?>",
                     data: { 'name':m.id},
@@ -72,12 +72,12 @@
                             modules[m.id].installed = true;
                             if (typeof (data.log) != undefined)
                                 log(data.log);
-                            setModuleProgress(ic, "<i class='icon-" + m.icon + "'>&nbsp;</i>&nbsp; <?php echo Yii::t('install', 'Установлен модуль'); ?> <b>" + m.description + "</b>");
+                            setModuleProgress(ic, "<i class='icon-" + m.icon + "'>&nbsp;</i>&nbsp; <?php echo Yii::t('InstallModule.install', 'Установлен модуль'); ?> <b>" + m.description + "</b>");
                             // проверить, остались ли еще не установленные
                             if (ic<total)
                                 installNext();
                             else {
-                                alert("<?php echo Yii::t('install', 'Установка модулей успешно завершена!'); ?>");
+                                alert("<?php echo Yii::t('InstallModule.install', 'Установка модулей успешно завершена!'); ?>");
                                 document.location = "<?php echo $this->createUrl('/install/default/createuser/'); ?>"
                             }
 

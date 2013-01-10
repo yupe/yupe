@@ -11,7 +11,7 @@ class CreateUserForm extends YFormModel
         return array(
             array('userName, password, cPassword, email', 'required'),
             array('password, cPassword', 'length', 'min' => 3),
-            array('password', 'compare', 'compareAttribute' => 'cPassword', 'message' => Yii::t('install', 'Пароли не совпадают!')),
+            array('password', 'compare', 'compareAttribute' => 'cPassword', 'message' => Yii::t('InstallModule.install', 'Пароли не совпадают!')),
             array('email', 'email'),
         );
     }
@@ -19,20 +19,20 @@ class CreateUserForm extends YFormModel
     public function attributeLabels()
     {
         return array(
-            'userName'  => Yii::t('install', 'Имя пользователя'),
-            'email'     => Yii::t('install', 'Email'),
-            'password'  => Yii::t('install', 'Пароль'),
-            'cPassword' => Yii::t('install', 'Подтверждение пароля'),
+            'userName'  => Yii::t('InstallModule.install', 'Имя пользователя'),
+            'email'     => Yii::t('InstallModule.install', 'Email'),
+            'password'  => Yii::t('InstallModule.install', 'Пароль'),
+            'cPassword' => Yii::t('InstallModule.install', 'Подтверждение пароля'),
         );
     }
 
     public function attributeDescriptions()
     {
         return array(
-            'userName'  => Yii::t('install', 'Логин администратора сайта.'),
-            'email'     => Yii::t('install', 'Email администратора сайта. Используется для авторизации в панели управления.'),
-            'password'  => Yii::t('install', 'Пароль администратора сайта.'),
-            'cPassword' => Yii::t('install', 'Подтверждение пароля администратора сайта.'),
+            'userName'  => Yii::t('InstallModule.install', 'Логин администратора сайта.'),
+            'email'     => Yii::t('InstallModule.install', 'Email администратора сайта. Используется для авторизации в панели управления.'),
+            'password'  => Yii::t('InstallModule.install', 'Пароль администратора сайта.'),
+            'cPassword' => Yii::t('InstallModule.install', 'Подтверждение пароля администратора сайта.'),
         );
     }
 }

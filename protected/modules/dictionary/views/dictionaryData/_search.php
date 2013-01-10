@@ -26,7 +26,7 @@ Yii::app()->clientScript->registerScript('fieldset', "
         'type'        => 'primary',
         'encodeLabel' => false,
         'buttonType'  => 'submit',
-        'label'       => '<i class="icon-search icon-white">&nbsp;</i> ' . Yii::t('dictionary', 'Искать значение справочника'),
+        'label'       => '<i class="icon-search icon-white">&nbsp;</i> ' . Yii::t('DictionaryModule.dictionary', 'Искать значение справочника'),
     )); ?>
 
 <?php $this->endWidget(); ?>

@@ -31,7 +31,7 @@ class PostAdminController extends YBackController
             {
                 Yii::app()->user->setFlash(
                     YFlashMessages::NOTICE_MESSAGE,
-                    Yii::t('blog', 'Запись добавлена!')
+                    Yii::t('BlogModule.blog', 'Запись добавлена!')
                 );
 
                 if (!isset($_POST['submit-type']))
@@ -63,7 +63,7 @@ class PostAdminController extends YBackController
             {
                 Yii::app()->user->setFlash(
                     YFlashMessages::NOTICE_MESSAGE,
-                    Yii::t('blog', 'Запись обновлена!')
+                    Yii::t('BlogModule.blog', 'Запись обновлена!')
                 );
 
                 if (!isset($_POST['submit-type']))
@@ -89,7 +89,7 @@ class PostAdminController extends YBackController
 
             Yii::app()->user->setFlash(
                 YFlashMessages::NOTICE_MESSAGE,
-                Yii::t('blog', 'Запись удалена!')
+                Yii::t('BlogModule.blog', 'Запись удалена!')
             );
 
             // если это AJAX запрос ( кликнули удаление в админском grid view), мы не должны никуда редиректить
@@ -97,7 +97,7 @@ class PostAdminController extends YBackController
                 $this->redirect(isset($_POST['returnUrl']) ? $_POST['returnUrl'] : array('index'));
         }
         else
-            throw new CHttpException(400, Yii::t('blog', 'Неверный запрос. Пожалуйста, больше не повторяйте такие запросы!'));
+            throw new CHttpException(400, Yii::t('BlogModule.blog', 'Неверный запрос. Пожалуйста, больше не повторяйте такие запросы!'));
     }
 
     /**
@@ -121,7 +121,7 @@ class PostAdminController extends YBackController
     {
         $model = Post::model()->findByPk($id);
         if ($model === null)
-            throw new CHttpException(404, Yii::t('blog', 'Запрошенная страница не найдена!'));
+            throw new CHttpException(404, Yii::t('BlogModule.blog', 'Запрошенная страница не найдена!'));
         return $model;
     }
 

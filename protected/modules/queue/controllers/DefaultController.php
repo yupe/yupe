@@ -30,7 +30,7 @@ class DefaultController extends YBackController
             {
                 Yii::app()->user->setFlash(
                     YFlashMessages::NOTICE_MESSAGE,
-                    Yii::t('queue', 'Запись добавлена!')
+                    Yii::t('QueueModule.queue', 'Запись добавлена!')
                 );
 
                 if (!isset($_POST['submit-type']))
@@ -61,7 +61,7 @@ class DefaultController extends YBackController
             {
                 Yii::app()->user->setFlash(
                     YFlashMessages::NOTICE_MESSAGE,
-                    Yii::t('queue', 'Запись обновлена!')
+                    Yii::t('QueueModule.queue', 'Запись обновлена!')
                 );
 
                 if (!isset($_POST['submit-type']))
@@ -91,7 +91,7 @@ class DefaultController extends YBackController
                 $this->redirect(isset($_POST['returnUrl']) ? $_POST['returnUrl'] : array('index'));
         }
         else
-            throw new CHttpException(400, Yii::t('queue', 'Неверный запрос. Пожалуйста, больше не повторяйте такие запросы'));
+            throw new CHttpException(400, Yii::t('QueueModule.queue', 'Неверный запрос. Пожалуйста, больше не повторяйте такие запросы'));
     }
 
     /**
@@ -109,7 +109,7 @@ class DefaultController extends YBackController
     public function actionClear()
     {
         Yii::app()->queue->flush();
-        Yii::app()->user->setFlash(YFlashMessages::NOTICE_MESSAGE, Yii::t('queue', 'Очередь очищена!'));
+        Yii::app()->user->setFlash(YFlashMessages::NOTICE_MESSAGE, Yii::t('QueueModule.queue', 'Очередь очищена!'));
         $this->redirect(($referrer = Yii::app()->getRequest()->getUrlReferrer()) !== null ? $referrer : array("/yupe/backend"));
     }
 
@@ -123,7 +123,7 @@ class DefaultController extends YBackController
     {
         $model = Queue::model()->findByPk($id);
         if ($model === null)
-            throw new CHttpException(404, Yii::t('queue', 'Запрошенная страница не найдена.'));
+            throw new CHttpException(404, Yii::t('QueueModule.queue', 'Запрошенная страница не найдена.'));
         return $model;
     }
 

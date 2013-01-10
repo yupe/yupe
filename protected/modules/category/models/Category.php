@@ -79,15 +79,15 @@ class Category extends YModel
     public function attributeLabels()
     {
         return array(
-            'id'                => Yii::t('category', 'Id'),
-            'lang'              => Yii::t('category', 'Язык'),
-            'parent_id'         => Yii::t('category', 'Родитель'),
-            'name'              => Yii::t('category', 'Название'),
-            'image'             => Yii::t('category', 'Изображение'),
-            'short_description' => Yii::t('category', 'Короткое описание'),
-            'description'       => Yii::t('category', 'Описание'),
-            'alias'             => Yii::t('category', 'Алиас'),
-            'status'            => Yii::t('category', 'Статус'),
+            'id'                => Yii::t('CategoryModule.category', 'Id'),
+            'lang'              => Yii::t('CategoryModule.category', 'Язык'),
+            'parent_id'         => Yii::t('CategoryModule.category', 'Родитель'),
+            'name'              => Yii::t('CategoryModule.category', 'Название'),
+            'image'             => Yii::t('CategoryModule.category', 'Изображение'),
+            'short_description' => Yii::t('CategoryModule.category', 'Короткое описание'),
+            'description'       => Yii::t('CategoryModule.category', 'Описание'),
+            'alias'             => Yii::t('CategoryModule.category', 'Алиас'),
+            'status'            => Yii::t('CategoryModule.category', 'Статус'),
         );
     }
 
@@ -97,15 +97,15 @@ class Category extends YModel
     public function attributeDescriptions()
     {
        return array(
-            'id'                => Yii::t('category', 'Id'),
-            'lang'              => Yii::t('category', 'Язык'),
-            'parent_id'         => Yii::t('category', 'Родитель'),
-            'name'              => Yii::t('category', 'Название'),
-            'image'             => Yii::t('category', 'Изображение'),
-            'short_description' => Yii::t('category', 'Короткое описание'),
-            'description'       => Yii::t('category', 'Описание'),
-            'alias'             => Yii::t('category', 'Алиас'),
-            'status'            => Yii::t('category', 'Статус'),
+            'id'                => Yii::t('CategoryModule.category', 'Id'),
+            'lang'              => Yii::t('CategoryModule.category', 'Язык'),
+            'parent_id'         => Yii::t('CategoryModule.category', 'Родитель'),
+            'name'              => Yii::t('CategoryModule.category', 'Название'),
+            'image'             => Yii::t('CategoryModule.category', 'Изображение'),
+            'short_description' => Yii::t('CategoryModule.category', 'Короткое описание'),
+            'description'       => Yii::t('CategoryModule.category', 'Описание'),
+            'alias'             => Yii::t('CategoryModule.category', 'Алиас'),
+            'status'            => Yii::t('CategoryModule.category', 'Статус'),
         );
     }
 
@@ -133,16 +133,16 @@ class Category extends YModel
     public function getStatusList()
     {
         return array(
-            self::STATUS_DRAFT      => Yii::t('category', 'Черновик'),
-            self::STATUS_PUBLISHED  => Yii::t('category', 'Опубликовано'),
-            self::STATUS_MODERATION => Yii::t('category', 'На модерации'),
+            self::STATUS_DRAFT      => Yii::t('CategoryModule.category', 'Черновик'),
+            self::STATUS_PUBLISHED  => Yii::t('CategoryModule.category', 'Опубликовано'),
+            self::STATUS_MODERATION => Yii::t('CategoryModule.category', 'На модерации'),
         );
     }
 
     public function getStatus()
     {
         $data = $this->statusList;
-        return isset($data[$this->status]) ? $data[$this->status] : Yii::t('category', '*неизвестно*');
+        return isset($data[$this->status]) ? $data[$this->status] : Yii::t('CategoryModule.category', '*неизвестно*');
     }
 
     public function getAllCategoryList($selfId = false)

@@ -63,7 +63,7 @@ class Blog extends YModel
             array('create_date, update_date', 'length', 'max' => 11),
             array('slug', 'unique'),
             array('name, slug, description', 'filter', 'filter' => array($obj = new CHtmlPurifier(), 'purify')),
-            array('slug', 'YSLugValidator', 'message' => Yii::t('blog', 'Запрещенные символы в поле {attribute}')),
+            array('slug', 'YSLugValidator', 'message' => Yii::t('BlogModule.blog', 'Запрещенные символы в поле {attribute}')),
             array('type', 'in', 'range' => array_keys($this->typeList)),
             array('status', 'in', 'range' => array_keys($this->statusList)),
             array('id, name, description, icon, slug, type, status, create_user_id, update_user_id, create_date, update_date', 'safe', 'on' => 'search'),
@@ -108,17 +108,17 @@ class Blog extends YModel
     public function attributeLabels()
     {
         return array(
-            'id'             => Yii::t('blog', 'id'),
-            'name'           => Yii::t('blog', 'Название'),
-            'description'    => Yii::t('blog', 'Описание'),
+            'id'             => Yii::t('BlogModule.blog', 'id'),
+            'name'           => Yii::t('BlogModule.blog', 'Название'),
+            'description'    => Yii::t('BlogModule.blog', 'Описание'),
             'icon'           => Yii::t('BlogModule.blog', 'Иконка'),
-            'slug'           => Yii::t('blog', 'Урл'),
-            'type'           => Yii::t('blog', 'Тип'),
-            'status'         => Yii::t('blog', 'Статус'),
-            'create_user_id' => Yii::t('blog', 'Создал'),
-            'update_user_id' => Yii::t('blog', 'Обновил'),
-            'create_date'    => Yii::t('blog', 'Создан'),
-            'update_date'    => Yii::t('blog', 'Обновлен'),
+            'slug'           => Yii::t('BlogModule.blog', 'Урл'),
+            'type'           => Yii::t('BlogModule.blog', 'Тип'),
+            'status'         => Yii::t('BlogModule.blog', 'Статус'),
+            'create_user_id' => Yii::t('BlogModule.blog', 'Создал'),
+            'update_user_id' => Yii::t('BlogModule.blog', 'Обновил'),
+            'create_date'    => Yii::t('BlogModule.blog', 'Создан'),
+            'update_date'    => Yii::t('BlogModule.blog', 'Обновлен'),
         );
     }
 
@@ -128,13 +128,13 @@ class Blog extends YModel
     public function attributeDescriptions()
     {
         return array(
-            'id'          => Yii::t('blog', 'Id записи.'),
-            'name'        => Yii::t('blog', 'Введите в это поле название блога, например <span class="label">Заметки путешественника</span>.'),
-            'description' => Yii::t('blog', 'Кратко опишите блог, о чем вы будете в нем писать? Например:<br /><br /> <pre>Заметки о путешествиях туда и обратно. Фотографии новых мест и описание приключений.</pre>'),
-            'icon'        => Yii::t('blog', 'Выберите файл с иконкой, которая будет отображаться рядом с названием блога.'),
-            'slug'        => Yii::t('blog', 'Краткое название блога латинскими буквами, используется для формирования адреса блога.<br /><br /> Например (выделено темным фоном): <pre>http://site.ru/blogs/<span class="label">zametky-putnika</span>/</pre> Если вы не знаете, для чего вам нужно это поле &ndash; не заполняйте его, названия блога будет достаточно.'),
-            'type'        => Yii::t('blog', 'Выберите тип блога:<br /><br /><span class="label label-success">публиничный</span> &ndash; любой пользователь может создавать посты в этом блоге.<br /><br /><span class="label label-info">личный</span> &ndash; только Вы, как создатель блога, можете создавать посты.'),
-            'status'      => Yii::t('blog', 'Установите статус блога:<br /><br /><span class="label label-success">активен</span> &ndash; блог будет отображаться в списке блогов и будет доступен для создания постов.<br /><br /><span class="label label-warning">заблокирован</span> &ndash; блог будет отображаться в списках, но создавать в нем посты будет запрещено.<br /><br /><span class="label label-important">удален</span> &ndash; блог пропадет из списков и будет недоступен.'),
+            'id'          => Yii::t('BlogModule.blog', 'Id записи.'),
+            'name'        => Yii::t('BlogModule.blog', 'Введите в это поле название блога, например <span class="label">Заметки путешественника</span>.'),
+            'description' => Yii::t('BlogModule.blog', 'Кратко опишите блог, о чем вы будете в нем писать? Например:<br /><br /> <pre>Заметки о путешествиях туда и обратно. Фотографии новых мест и описание приключений.</pre>'),
+            'icon'        => Yii::t('BlogModule.blog', 'Выберите файл с иконкой, которая будет отображаться рядом с названием блога.'),
+            'slug'        => Yii::t('BlogModule.blog', 'Краткое название блога латинскими буквами, используется для формирования адреса блога.<br /><br /> Например (выделено темным фоном): <pre>http://site.ru/blogs/<span class="label">zametky-putnika</span>/</pre> Если вы не знаете, для чего вам нужно это поле &ndash; не заполняйте его, названия блога будет достаточно.'),
+            'type'        => Yii::t('BlogModule.blog', 'Выберите тип блога:<br /><br /><span class="label label-success">публиничный</span> &ndash; любой пользователь может создавать посты в этом блоге.<br /><br /><span class="label label-info">личный</span> &ndash; только Вы, как создатель блога, можете создавать посты.'),
+            'status'      => Yii::t('BlogModule.blog', 'Установите статус блога:<br /><br /><span class="label label-success">активен</span> &ndash; блог будет отображаться в списке блогов и будет доступен для создания постов.<br /><br /><span class="label label-warning">заблокирован</span> &ndash; блог будет отображаться в списках, но создавать в нем посты будет запрещено.<br /><br /><span class="label label-important">удален</span> &ndash; блог пропадет из списков и будет недоступен.'),
         );
     }
 
@@ -194,30 +194,30 @@ class Blog extends YModel
     public function getStatusList()
     {
         return array(
-            self::STATUS_BLOCKED => Yii::t('blog', 'Заблокирован'),
-            self::STATUS_ACTIVE  => Yii::t('blog', 'Активен'),
-            self::STATUS_DELETED => Yii::t('blog', 'Удален'),
+            self::STATUS_BLOCKED => Yii::t('BlogModule.blog', 'Заблокирован'),
+            self::STATUS_ACTIVE  => Yii::t('BlogModule.blog', 'Активен'),
+            self::STATUS_DELETED => Yii::t('BlogModule.blog', 'Удален'),
         );
     }
 
     public function getStatus()
     {
         $data = $this->statusList;
-        return isset($data[$this->status]) ? $data[$this->status] : Yii::t('blog', '*неизвестно*');
+        return isset($data[$this->status]) ? $data[$this->status] : Yii::t('BlogModule.blog', '*неизвестно*');
     }
 
     public function getTypeList()
     {
         return array(
-            self::TYPE_PUBLIC  => Yii::t('blog', 'Публичный'),
-            self::TYPE_PRIVATE => Yii::t('blog', 'Личный'),
+            self::TYPE_PUBLIC  => Yii::t('BlogModule.blog', 'Публичный'),
+            self::TYPE_PRIVATE => Yii::t('BlogModule.blog', 'Личный'),
         );
     }
 
     public function getType()
     {
         $data = $this->typeList;
-        return isset($data[$this->type]) ? $data[$this->type] : Yii::t('blog', '*неизвестно*');
+        return isset($data[$this->type]) ? $data[$this->type] : Yii::t('BlogModule.blog', '*неизвестно*');
     }
 
     public function join($userId)

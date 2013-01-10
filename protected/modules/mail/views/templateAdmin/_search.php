@@ -33,7 +33,7 @@ $form = $this->beginWidget('bootstrap.widgets.TbActiveForm', array(
         'buttonType' => 'submit',
         'type' => 'primary',
         'encodeLabel' => false,
-        'label' => '<i class="icon-search icon-white"></i> ' . Yii::t('mail', 'Искать')
+        'label' => '<i class="icon-search icon-white"></i> ' . Yii::t('MailModule.mail', 'Искать')
     ));
     ?>
     </div>

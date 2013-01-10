@@ -8,7 +8,7 @@ class CommentsListWidget extends YWidget
     public function init()
     {
         if (!$this->model || !$this->modelId)
-            throw new CException(Yii::t('comment', 'Пожалуйста, укажите "model" и "modelId" для виджета "{widget}" !', array(
+            throw new CException(Yii::t('CommentModule.comment', 'Пожалуйста, укажите "model" и "modelId" для виджета "{widget}" !', array(
                 '{widget}' => get_class($this),
             )));
 
@@ -16,7 +16,7 @@ class CommentsListWidget extends YWidget
         $this->modelId = (int) $this->modelId;
 
         if (!$this->label)
-            $this->label = Yii::t('comment', 'Комментариев');
+            $this->label = Yii::t('CommentModule.comment', 'Комментариев');
     }
 
     public function run()

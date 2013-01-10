@@ -53,10 +53,10 @@ class GeoCity extends YModel
     public function attributeLabels()
     {
         return array(
-            'id'             => Yii::t('geo', 'Id'),
-            'geo_country_id' => Yii::t('geo', 'Страна'),
-            'name'           => Yii::t('geo', 'Город'),
-            'state'          => Yii::t('geo', 'Область'),
+            'id'             => Yii::t('GeoModule.geo', 'Id'),
+            'geo_country_id' => Yii::t('GeoModule.geo', 'Страна'),
+            'name'           => Yii::t('GeoModule.geo', 'Город'),
+            'state'          => Yii::t('GeoModule.geo', 'Область'),
         );
     }
 

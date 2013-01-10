@@ -1,14 +1,14 @@
 <?php
 $this->breadcrumbs = array(
-    Yii::t('yupe', 'Система') => array('settings'),
-    Yii::t('yupe', 'Настройки') => array('settings'),
+    Yii::t('YupeModule.yupe', 'Система') => array('settings'),
+    Yii::t('YupeModule.yupe', 'Настройки') => array('settings'),
     $module->name,
 );
 ?>
 
 <h1>
-    <?php echo Yii::t('yupe', 'Настройки модуля'); ?> "<?php echo $module->getName(); ?>"
-    <small><?php echo Yii::t('yupe','версии'); ?> <?php echo $module->getVersion(); ?></small>
+    <?php echo Yii::t('YupeModule.yupe', 'Настройки модуля'); ?> "<?php echo $module->getName(); ?>"
+    <small><?php echo Yii::t('YupeModule.yupe','версии'); ?> <?php echo $module->getVersion(); ?></small>
 </h1>
 
 <br/>
@@ -26,7 +26,7 @@ $this->breadcrumbs = array(
                 </div>
             <?php endforeach;?>
             <br />
-            <?php echo CHtml::submitButton(Yii::t('yupe', 'Сохранить настройки модуля "{{name}}"', array(
+            <?php echo CHtml::submitButton(Yii::t('YupeModule.yupe', 'Сохранить настройки модуля "{{name}}"', array(
                 '{{name}}' => $module->name
             )), array(
                 'class' => 'btn btn-primary',
@@ -36,5 +36,5 @@ $this->breadcrumbs = array(
         </fieldset>
     <?php echo CHtml::endForm(); ?>
 <?php else: ?>
-    <b><?php echo Yii::t('yupe', 'К сожалению для данного модуля нет доступных для редактирования параметров...'); ?></b>
+    <b><?php echo Yii::t('YupeModule.yupe', 'К сожалению для данного модуля нет доступных для редактирования параметров...'); ?></b>
 <?php endif; ?>

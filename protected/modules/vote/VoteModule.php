@@ -11,40 +11,40 @@ class VoteModule extends YWebModule
     }
     public function getName()
     {
-        return Yii::t('vote', 'Голосование');
+        return Yii::t('VoteModule.vote', 'Голосование');
     }
 
     public function getCategory()
     {
-        return Yii::t('vote', 'Сервисы');
+        return Yii::t('VoteModule.vote', 'Сервисы');
     }
 
     public function getDescription()
     {
-        return Yii::t('vote', 'Голосование за любой контент');
+        return Yii::t('VoteModule.vote', 'Голосование за любой контент');
     }
 
     public function getNavigation()
     {
         return array(
-            array('icon' => 'list-alt', 'label' => Yii::t('vote', 'Управление голосами'), 'url' => array('/vote/default/index')),
-            array('icon' => 'plus-sign', 'label' => Yii::t('vote', 'Добавить голос'), 'url' => array('/vote/default/create')),
+            array('icon' => 'list-alt', 'label' => Yii::t('VoteModule.vote', 'Управление голосами'), 'url' => array('/vote/default/index')),
+            array('icon' => 'plus-sign', 'label' => Yii::t('VoteModule.vote', 'Добавить голос'), 'url' => array('/vote/default/create')),
         );
     }
 
     public  function getVersion()
     {
-        return Yii::t('vote', '0.1');
+        return Yii::t('VoteModule.vote', '0.1');
     }
 
     public function getAuthor()
     {
-        return Yii::t('vote', 'yupe team');
+        return Yii::t('VoteModule.vote', 'yupe team');
     }
 
     public function getAuthorEmail()
     {
-        return Yii::t('vote', 'team@yupe.ru');
+        return Yii::t('VoteModule.vote', 'team@yupe.ru');
     }
 
     public function getUrl()
@@ -55,7 +55,7 @@ class VoteModule extends YWebModule
     public function getParamsLabels()
     {
         return array(
-            'adminMenuOrder' => Yii::t('vote', 'Порядок следования в меню'),
+            'adminMenuOrder' => Yii::t('VoteModule.vote', 'Порядок следования в меню'),
         );
     }
 

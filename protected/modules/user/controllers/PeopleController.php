@@ -21,12 +21,12 @@ class PeopleController extends YFrontController
             if ( Yii::app()->user->isAuthenticated())
                 $username = Yii::app()->user->getState('nick_name');
             else
-                throw new CHttpException(404, Yii::t('user', 'Пользователь не найден!'));
+                throw new CHttpException(404, Yii::t('UserModule.user', 'Пользователь не найден!'));
         }
 
         $user = User::model()->findByAttributes(array("nick_name" => $username));
         if (!$user)
-            throw new CHttpException(404, Yii::t('user', 'Пользователь не найден!'));
+            throw new CHttpException(404, Yii::t('UserModule.user', 'Пользователь не найден!'));
 
         $this->render('userInfo', array('user' => $user, 'mode' => $mode));
     }

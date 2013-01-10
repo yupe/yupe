@@ -9,6 +9,7 @@ class FeedbackModule extends YWebModule
     public $sendConfirmation = 0;
     public $successPage;
     public $cacheTime        = 60;
+    public $mainCategory;
 
     const BACKEND_EMAIL = 'email';
     const BACKEND_DB    = 'db';
@@ -25,13 +26,14 @@ class FeedbackModule extends YWebModule
     public function getParamsLabels()
     {
         return array(
-            'showCaptcha'      => Yii::t('feedback', 'Показывать капчу'),
-            'emails'           => Yii::t('feedback', 'Получатели сообщений с сайта (email через запятую)'),
-            'notifyEmailFrom'  => Yii::t('feedback', 'Email от имени которого отправлять сообщение'),
-            'adminMenuOrder'   => Yii::t('feedback', 'Порядок следования в меню'),
-            'sendConfirmation' => Yii::t('feedback', 'Отправлять подтверждение'),
-            'successPage'      => Yii::t('feedback', 'Страница после отправки формы'),
-            'cacheTime'        => Yii::t('feedback', 'Время кэширования счетчика (сек.)'),
+            'showCaptcha'      => Yii::t('FeedbackModule.feedback', 'Показывать капчу'),
+            'emails'           => Yii::t('FeedbackModule.feedback', 'Получатели сообщений с сайта (email через запятую)'),
+            'notifyEmailFrom'  => Yii::t('FeedbackModule.feedback', 'Email от имени которого отправлять сообщение'),
+            'adminMenuOrder'   => Yii::t('FeedbackModule.feedback', 'Порядок следования в меню'),
+            'sendConfirmation' => Yii::t('FeedbackModule.feedback', 'Отправлять подтверждение'),
+            'successPage'      => Yii::t('FeedbackModule.feedback', 'Страница после отправки формы'),
+            'cacheTime'        => Yii::t('FeedbackModule.feedback', 'Время кэширования счетчика (сек.)'),
+            'mainCategory'     => Yii::t('FeedbackModule.feedback', 'Главная категория сообщений'),
         );
     }
 
@@ -45,6 +47,7 @@ class FeedbackModule extends YWebModule
             'adminMenuOrder',
             'successPage',
             'cacheTime',
+            'mainCategory' => CHtml::listData($this->getCategoryList(),'id','name'),
         );
     }
 
@@ -55,14 +58,14 @@ class FeedbackModule extends YWebModule
         if (!is_array($this->backEnd) || !count($this->backEnd) || (!in_array(FeedbackModule::BACKEND_DB, $this->backEnd) && !in_array(FeedbackModule::BACKEND_EMAIL, $this->backEnd)))
             $messages[YWebModule::CHECK_ERROR][] = array(
                 'type'    => YWebModule::CHECK_ERROR,
-                'message' => Yii::t('feedback', 'Укажите куда отправлять сообщения обратной связи на email или сохранять в базу данных (Настройка backEnd в config/main.php)'),
+                'message' => Yii::t('FeedbackModule.feedback', 'Укажите куда отправлять сообщения обратной связи на email или сохранять в базу данных (Настройка backEnd в config/main.php)'),
             );
 
         if (in_array(FeedbackModule::BACKEND_EMAIL, $this->backEnd) && (!$this->emails || !count(explode(',', $this->emails))))
             $messages[YWebModule::CHECK_ERROR][] = array(
                 'type'    => YWebModule::CHECK_ERROR,
-                'message' => Yii::t('feedback', 'Укажите на какие email отправлять сообщения обратной связи (emails) {link}', array(
-                    '{link}' => CHtml::link(Yii::t('feedback', 'Изменить настройки модуля'), array(
+                'message' => Yii::t('FeedbackModule.feedback', 'Укажите на какие email отправлять сообщения обратной связи (emails) {link}', array(
+                    '{link}' => CHtml::link(Yii::t('FeedbackModule.feedback', 'Изменить настройки модуля'), array(
                         '/yupe/backend/modulesettings/',
                         'module' => $this->id,
                     )),
@@ -72,8 +75,8 @@ class FeedbackModule extends YWebModule
         if (!$this->notifyEmailFrom)
             $messages[YWebModule::CHECK_ERROR][] = array(
                 'type'    => YWebModule::CHECK_ERROR,
-                'message' => Yii::t('feedback', 'Укажите с какого email отправлять сообщения обратной связи {link}', array(
-                    '{link}' => CHtml::link(Yii::t('feedback', 'Изменить настройки модуля'), array(
+                'message' => Yii::t('FeedbackModule.feedback', 'Укажите с какого email отправлять сообщения обратной связи {link}', array(
+                    '{link}' => CHtml::link(Yii::t('FeedbackModule.feedback', 'Изменить настройки модуля'), array(
                         '/yupe/backend/modulesettings/',
                         'module' => $this->id,
                      )),
@@ -84,9 +87,9 @@ class FeedbackModule extends YWebModule
         if ($count)
             $messages[YWebModule::CHECK_NOTICE][] = array(
                 'type'    => YWebModule::CHECK_NOTICE,
-                'message' => Yii::t('feedback', 'У Вас {{count}} ', array(
+                'message' => Yii::t('FeedbackModule.feedback', 'У Вас {{count}} ', array(
                     '{{count}}' => $count
-                 )) . Yii::t('feedback', "новое сообщение с сайта|новых сообщения с сайта|новых сообщений с сайта", $count) . ' ' . CHtml::link(Yii::t('feedback', 'Посмотреть и ответить?'), array(
+                 )) . Yii::t('FeedbackModule.feedback', "новое сообщение с сайта|новых сообщения с сайта|новых сообщений с сайта", $count) . ' ' . CHtml::link(Yii::t('FeedbackModule.feedback', 'Посмотреть и ответить?'), array(
                     '/feedback/default/admin/order/status.asc/FeedbBack_sort/status/',
                  ))
             );
@@ -97,49 +100,62 @@ class FeedbackModule extends YWebModule
     public function getNavigation()
     {
         return array(
-            array('icon' => 'list-alt', 'label' => Yii::t('feedback', 'Список сообщений'), 'url' => array('/feedback/default/index')),
-            array('icon' => 'plus-sign', 'label' => Yii::t('feedback', 'Добавить сообщение'), 'url' => array('/feedback/default/create')),
+            array('icon' => 'list-alt', 'label' => Yii::t('FeedbackModule.feedback', 'Список сообщений'), 'url' => array('/feedback/default/index')),
+            array('icon' => 'plus-sign', 'label' => Yii::t('FeedbackModule.feedback', 'Добавить сообщение'), 'url' => array('/feedback/default/create')),
         );
     }
 
     public function getName()
     {
-        return Yii::t('feedback', 'Сообщения с сайта');
+        return Yii::t('FeedbackModule.feedback', 'Сообщения с сайта');
     }
 
     public function getCategory()
     {
-        return Yii::t('feedback', 'Сервисы');
+        return Yii::t('FeedbackModule.feedback', 'Сервисы');
     }
 
     public function getDescription()
     {
-        return Yii::t('feedback', 'Модуль для работы с сообщениями с сайта');
+        return Yii::t('FeedbackModule.feedback', 'Модуль для работы с сообщениями с сайта');
     }
 
     public function getVersion()
     {
-        return Yii::t('feedback', '0.5');
+        return Yii::t('FeedbackModule.feedback', '0.5');
     }
 
     public function getAuthor()
     {
-        return Yii::t('feedback', 'yupe team');
+        return Yii::t('FeedbackModule.feedback', 'yupe team');
     }
 
     public function getAuthorEmail()
     {
-        return Yii::t('feedback', 'team@yupe.ru');
+        return Yii::t('FeedbackModule.feedback', 'team@yupe.ru');
     }
 
     public function getUrl()
     {
-        return Yii::t('feedback', 'http://yupe.ru');
+        return Yii::t('FeedbackModule.feedback', 'http://yupe.ru');
     }
 
     public function getIcon()
     {
         return 'envelope';
+    }
+
+    public function getCategoryList()
+    {
+        $criteria = ($this->mainCategory)
+            ? array(
+                'condition' => 'id = :id OR parent_id = :id',
+                'params'    => array(':id' => $this->mainCategory),
+                'order'     => 'id ASC',
+            )
+            : array();
+
+        return Category::model()->findAll($criteria);
     }
 
     public function init()
@@ -148,9 +164,9 @@ class FeedbackModule extends YWebModule
 
         if (!$this->types)
             $this->types = array(
-                1 => Yii::t('feedback', 'Ошибка на сайте'),
-                2 => Yii::t('feedback', 'Предложение о сотрудничестве'),
-                3 => Yii::t('feedback', 'Прочее..'),
+                1 => Yii::t('FeedbackModule.feedback', 'Ошибка на сайте'),
+                2 => Yii::t('FeedbackModule.feedback', 'Предложение о сотрудничестве'),
+                3 => Yii::t('FeedbackModule.feedback', 'Прочее..'),
             );
 
         $this->setImport(array('feedback.models.*', 'feedback.components.*'));

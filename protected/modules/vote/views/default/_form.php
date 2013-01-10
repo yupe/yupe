@@ -5,7 +5,7 @@
          'enableAjaxValidation' => false,
     )); ?>
 
-    <p class="note"><?php echo Yii::t('vote', 'Поля, отмеченные * обязательны для заполнения')?></p>
+    <p class="note"><?php echo Yii::t('VoteModule.vote', 'Поля, отмеченные * обязательны для заполнения')?></p>
 
     <?php echo $form->errorSummary($model); ?>
 
@@ -25,7 +25,7 @@
         <?php echo $form->error($model, 'value'); ?>
     </div>
     <div class="row buttons">
-        <?php echo CHtml::submitButton($model->isNewRecord ? Yii::t('vote', 'Добавить голос') : Yii::t('vote', 'Сохранить голос')); ?>
+        <?php echo CHtml::submitButton($model->isNewRecord ? Yii::t('VoteModule.vote', 'Добавить голос') : Yii::t('VoteModule.vote', 'Сохранить голос')); ?>
     </div>
 
     <?php $this->endWidget(); ?>

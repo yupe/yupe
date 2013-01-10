@@ -3,37 +3,37 @@ class ContentBlockModule extends YWebModule
 {
     public function getCategory()
     {
-        return Yii::t('contentblock', 'Контент');
+        return Yii::t('ContentBlockModule.contentblock', 'Контент');
     }
 
     public function getName()
     {
-        return Yii::t('contentblock', 'Блоки контента');
+        return Yii::t('ContentBlockModule.contentblock', 'Блоки контента');
     }
 
     public function getDescription()
     {
-        return Yii::t('contentblock', 'Модуль для создания и редактирования произвольных блоков контента');
+        return Yii::t('ContentBlockModule.contentblock', 'Модуль для создания и редактирования произвольных блоков контента');
     }
 
     public function getVersion()
     {
-        return Yii::t('contentblock', '0.2');
+        return Yii::t('ContentBlockModule.contentblock', '0.2');
     }
 
     public function getAuthor()
     {
-        return Yii::t('contentblock', 'yupe team');
+        return Yii::t('ContentBlockModule.contentblock', 'yupe team');
     }
 
     public function getAuthorEmail()
     {
-        return Yii::t('contentblock', 'team@yupe.ru');
+        return Yii::t('ContentBlockModule.contentblock', 'team@yupe.ru');
     }
 
     public function getUrl()
     {
-        return Yii::t('contentblock', 'http://yupe.ru');
+        return Yii::t('ContentBlockModule.contentblock', 'http://yupe.ru');
     }
 
     public function getIcon()
@@ -54,8 +54,8 @@ class ContentBlockModule extends YWebModule
     public function getNavigation()
     {
         return array(
-            array('icon' => 'list-alt', 'label' => Yii::t('contentblock', 'Список блоков'), 'url' => array('/contentblock/default/index')),
-            array('icon' => 'plus-sign', 'label' => Yii::t('contentblock', 'Добавить блок'), 'url' => array('/contentblock/default/create')),
+            array('icon' => 'list-alt', 'label' => Yii::t('ContentBlockModule.contentblock', 'Список блоков'), 'url' => array('/contentblock/default/index')),
+            array('icon' => 'plus-sign', 'label' => Yii::t('ContentBlockModule.contentblock', 'Добавить блок'), 'url' => array('/contentblock/default/create')),
         );
     }
 }

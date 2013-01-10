@@ -80,7 +80,7 @@ class DefaultController extends YBackController
                 $this->redirect(isset($_POST['returnUrl']) ? $_POST['returnUrl'] : array('index'));
         }
         else
-            throw new CHttpException(400, Yii::t('comment', 'Неверный запрос. Пожалуйста, больше не повторяйте такие запросы'));
+            throw new CHttpException(400, Yii::t('CommentModule.comment', 'Неверный запрос. Пожалуйста, больше не повторяйте такие запросы'));
     }
 
     /**
@@ -104,7 +104,7 @@ class DefaultController extends YBackController
     {
         $model = Comment::model()->findByPk((int) $id);
         if ($model === null)
-            throw new CHttpException(404, Yii::t('comment', 'Запрошенная страница не найдена!'));
+            throw new CHttpException(404, Yii::t('CommentModule.comment', 'Запрошенная страница не найдена!'));
         return $model;
     }
 

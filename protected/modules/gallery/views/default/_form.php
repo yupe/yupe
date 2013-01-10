@@ -15,9 +15,9 @@ Yii::app()->clientScript->registerScript('fieldset', "
 ");
 ?>
     <div class="alert alert-info">
-        <?php echo Yii::t('gallery', 'Поля, отмеченные'); ?>
+        <?php echo Yii::t('GalleryModule.gallery', 'Поля, отмеченные'); ?>
         <span class="required">*</span>
-        <?php echo Yii::t('gallery', 'обязательны.'); ?>
+        <?php echo Yii::t('GalleryModule.gallery', 'обязательны.'); ?>
     </div>
 
     <?php echo $form->errorSummary($model); ?>
@@ -43,12 +43,12 @@ Yii::app()->clientScript->registerScript('fieldset', "
     <?php $this->widget('bootstrap.widgets.TbButton', array(
         'buttonType' => 'submit',
         'type'       => 'primary',
-        'label'      => $model->isNewRecord ? Yii::t('gallery', 'Добавить галерею и продолжить') : Yii::t('gallery', 'Сохранить галерею и продолжить'),
+        'label'      => $model->isNewRecord ? Yii::t('GalleryModule.gallery', 'Добавить галерею и продолжить') : Yii::t('GalleryModule.gallery', 'Сохранить галерею и продолжить'),
     )); ?>
     <?php $this->widget('bootstrap.widgets.TbButton', array(
         'buttonType'  => 'submit',
         'htmlOptions' => array('name' => 'submit-type', 'value' => 'index'),
-        'label'       => $model->isNewRecord ? Yii::t('gallery', 'Добавить галерею и закрыть') : Yii::t('gallery', 'Сохранить галерею и закрыть'),
+        'label'       => $model->isNewRecord ? Yii::t('GalleryModule.gallery', 'Добавить галерею и закрыть') : Yii::t('GalleryModule.gallery', 'Сохранить галерею и закрыть'),
     )); ?>
 
 <?php $this->endWidget(); ?>

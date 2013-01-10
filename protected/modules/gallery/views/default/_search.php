@@ -23,7 +23,7 @@ Yii::app()->clientScript->registerScript('fieldset', "
         'type'        => 'primary',
         'encodeLabel' => false,
         'buttonType'  => 'submit',
-        'label'       => '<i class="icon-search icon-white">&nbsp;</i> ' . Yii::t('gallery', 'Искать галерею'),
+        'label'       => '<i class="icon-search icon-white">&nbsp;</i> ' . Yii::t('GalleryModule.gallery', 'Искать галерею'),
     )); ?>
 
 <?php $this->endWidget(); ?>

@@ -41,7 +41,7 @@ class DefaultController extends YBackController
             {
                 Yii::app()->user->setFlash(
                     YFlashMessages::NOTICE_MESSAGE,
-                    Yii::t('contentblock', 'Новый контент блок добавлен!')
+                    Yii::t('ContentBlockModule.contentblock', 'Новый контент блок добавлен!')
                 );
 
                 if (!isset($_POST['submit-type']))
@@ -73,7 +73,7 @@ class DefaultController extends YBackController
             {
                 Yii::app()->user->setFlash(
                     YFlashMessages::NOTICE_MESSAGE,
-                    Yii::t('contentblock', 'Контент блок изменен!')
+                    Yii::t('ContentBlockModule.contentblock', 'Контент блок изменен!')
                 );
 
                 Yii::app()->cache->delete("ContentBlock{$model->code}");
@@ -104,7 +104,7 @@ class DefaultController extends YBackController
                 $this->redirect(isset($_POST['returnUrl']) ? $_POST['returnUrl'] : array('index'));
         }
         else
-            throw new CHttpException(400, Yii::t('contentblock', 'Неверный запрос. Пожалуйста, больше не повторяйте такие запросы!'));
+            throw new CHttpException(400, Yii::t('ContentBlockModule.contentblock', 'Неверный запрос. Пожалуйста, больше не повторяйте такие запросы!'));
     }
 
     /**
@@ -128,7 +128,7 @@ class DefaultController extends YBackController
     {
         $model = ContentBlock::model()->findByPk((int) $id);
         if ($model === null)
-            throw new CHttpException(404, Yii::t('contentblock', 'Запрошенная страница не найдена!'));
+            throw new CHttpException(404, Yii::t('ContentBlockModule.contentblock', 'Запрошенная страница не найдена!'));
         return $model;
     }
 

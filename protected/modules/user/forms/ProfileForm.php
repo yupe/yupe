@@ -28,9 +28,9 @@ class ProfileForm extends CFormModel
             array('nick_name, email, first_name, last_name, middle_name', 'length', 'max' => 50),
             array('about', 'length', 'max' => 300),
             array('password, cPassword', 'length', 'min' => $module->minPasswordLength),
-            array('nick_name', 'match', 'pattern' => '/^[A-Za-z0-9]{2,50}$/', 'message' => Yii::t('user','Неверный формат поля "{attribute}" допустимы только буквы и цифры, от 2 до 20 символов')),
+            array('nick_name', 'match', 'pattern' => '/^[A-Za-z0-9]{2,50}$/', 'message' => Yii::t('UserModule.user','Неверный формат поля "{attribute}" допустимы только буквы и цифры, от 2 до 20 символов')),
             array('nick_name', 'checkNickName'),
-            array('password', 'compare', 'compareAttribute' => 'cPassword', 'message' => Yii::t('user', 'Пароли не совпадают.')),
+            array('password', 'compare', 'compareAttribute' => 'cPassword', 'message' => Yii::t('UserModule.user', 'Пароли не совпадают.')),
             array('email', 'email'),
             array('email', 'checkEmail'),
         );
@@ -39,16 +39,16 @@ class ProfileForm extends CFormModel
     public function attributeLabels()
     {
         return array(
-            'first_name'  => Yii::t('user', 'Имя'),
-            'last_name'   => Yii::t('user', 'Фамилия'),
-            'middle_name' => Yii::t('user', 'Отчество'),
-            'nick_name'   => Yii::t('user', 'Имя пользователя'),
-            'email'       => Yii::t('user', 'Email'),
-            'password'    => Yii::t('user', 'Новый пароль'),
-            'cPassword'   => Yii::t('user', 'Подтверждение пароля'),
-            'gender'      => Yii::t('user', 'Пол'),
-            'birth_date'  => Yii::t('user', 'Дата рождения'),
-            'about'       => Yii::t('user', 'О себе'),
+            'first_name'  => Yii::t('UserModule.user', 'Имя'),
+            'last_name'   => Yii::t('UserModule.user', 'Фамилия'),
+            'middle_name' => Yii::t('UserModule.user', 'Отчество'),
+            'nick_name'   => Yii::t('UserModule.user', 'Имя пользователя'),
+            'email'       => Yii::t('UserModule.user', 'Email'),
+            'password'    => Yii::t('UserModule.user', 'Новый пароль'),
+            'cPassword'   => Yii::t('UserModule.user', 'Подтверждение пароля'),
+            'gender'      => Yii::t('UserModule.user', 'Пол'),
+            'birth_date'  => Yii::t('UserModule.user', 'Дата рождения'),
+            'about'       => Yii::t('UserModule.user', 'О себе'),
         );
     }
 
@@ -73,7 +73,7 @@ class ProfileForm extends CFormModel
         {
             $model = User::model()->find('nick_name = :nick_name', array(':nick_name' => $this->nick_name));
             if ($model)
-                 $this->addError('nick_name', Yii::t('user', 'Ник уже занят'));
+                 $this->addError('nick_name', Yii::t('UserModule.user', 'Ник уже занят'));
         }
     }
 
@@ -84,7 +84,7 @@ class ProfileForm extends CFormModel
         {
             $model = User::model()->find('email = :email', array(':email' => $this->email));
             if ($model)
-                $this->addError('email', Yii::t('user', 'Email уже занят'));
+                $this->addError('email', Yii::t('UserModule.user', 'Email уже занят'));
         }
     }
 }

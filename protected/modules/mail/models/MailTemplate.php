@@ -79,16 +79,16 @@ class MailTemplate extends YModel
     public function attributeLabels()
     {
         return array(
-            'id'          => Yii::t('mail', 'ID'),
-            'event_id'    => Yii::t('mail', 'Событие'),
-            'name'        => Yii::t('mail', 'Название'),
-            'description' => Yii::t('mail', 'Описание'),
-            'from'        => Yii::t('mail', 'От'),
-            'to'          => Yii::t('mail', 'Кому'),
-            'theme'       => Yii::t('mail', 'Тема'),
-            'body'        => Yii::t('mail', 'Сообщение'),
-            'code'        => Yii::t('mail', 'Символьный код'),
-            'status'      => Yii::t('mail', 'Статус'),
+            'id'          => Yii::t('MailModule.mail', 'ID'),
+            'event_id'    => Yii::t('MailModule.mail', 'Событие'),
+            'name'        => Yii::t('MailModule.mail', 'Название'),
+            'description' => Yii::t('MailModule.mail', 'Описание'),
+            'from'        => Yii::t('MailModule.mail', 'От'),
+            'to'          => Yii::t('MailModule.mail', 'Кому'),
+            'theme'       => Yii::t('MailModule.mail', 'Тема'),
+            'body'        => Yii::t('MailModule.mail', 'Сообщение'),
+            'code'        => Yii::t('MailModule.mail', 'Символьный код'),
+            'status'      => Yii::t('MailModule.mail', 'Статус'),
         );
     }
 
@@ -119,14 +119,14 @@ class MailTemplate extends YModel
     public function getStatusList()
     {
         return array(
-            self::STATUS_ACTIVE     => Yii::t('mail', 'активен'),
-            self::STATUS_NOT_ACTIVE => Yii::t('mail', 'не активен'),
+            self::STATUS_ACTIVE     => Yii::t('MailModule.mail', 'активен'),
+            self::STATUS_NOT_ACTIVE => Yii::t('MailModule.mail', 'не активен'),
         );
     }
 
     public function getStatus()
     {
         $data = $this->statusList;
-        return isset($data[$this->status]) ? $data[$this->status] : Yii::t('mail', '--неизвестно--');
+        return isset($data[$this->status]) ? $data[$this->status] : Yii::t('MailModule.mail', '--неизвестно--');
     }
 }

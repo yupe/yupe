@@ -1,27 +1,27 @@
 <?php
     $this->breadcrumbs = array(
         Yii::app()->getModule('comment')->getCategory() => array(),
-        Yii::t('comment', 'Комментарии') => array('/comment/default/index'),
-        Yii::t('comment', 'Управление'),
+        Yii::t('CommentModule.comment', 'Комментарии') => array('/comment/default/index'),
+        Yii::t('CommentModule.comment', 'Управление'),
     );
 
-    $this->pageTitle = Yii::t('comment', 'Комментарии - управление');
+    $this->pageTitle = Yii::t('CommentModule.comment', 'Комментарии - управление');
 
     $this->menu = array(
-        array('icon' => 'list-alt', 'label' => Yii::t('comment', 'Список комментариев'), 'url' => array('/comment/default/index')),
-        array('icon' => 'plus-sign', 'label' => Yii::t('comment', 'Добавить комментарий'), 'url' => array('/comment/default/create')),
+        array('icon' => 'list-alt', 'label' => Yii::t('CommentModule.comment', 'Список комментариев'), 'url' => array('/comment/default/index')),
+        array('icon' => 'plus-sign', 'label' => Yii::t('CommentModule.comment', 'Добавить комментарий'), 'url' => array('/comment/default/create')),
     );
 ?>
 <div class="page-header">
     <h1>
-        <?php echo Yii::t('comment', 'Комментарии'); ?>
-        <small><?php echo Yii::t('comment', 'управление'); ?></small>
+        <?php echo Yii::t('CommentModule.comment', 'Комментарии'); ?>
+        <small><?php echo Yii::t('CommentModule.comment', 'управление'); ?></small>
     </h1>
 </div>
 
 <button class="btn btn-small dropdown-toggle" data-toggle="collapse" data-target="#search-toggle">
     <i class="icon-search">&nbsp;</i>
-    <?php echo CHtml::link(Yii::t('comment', 'Поиск комментариев'), '#', array('class' => 'search-button')); ?>
+    <?php echo CHtml::link(Yii::t('CommentModule.comment', 'Поиск комментариев'), '#', array('class' => 'search-button')); ?>
     <span class="caret">&nbsp;</span>
 </button>
 
@@ -41,7 +41,7 @@ $this->renderPartial('_search', array('model' => $model));
 
 <br/>
 
-<p><?php echo Yii::t('comment', 'В данном разделе представлены средства управления комментариями'); ?></p>
+<p><?php echo Yii::t('CommentModule.comment', 'В данном разделе представлены средства управления комментариями'); ?></p>
 
 <?php $this->widget('application.modules.yupe.components.YCustomGridView', array(
     'id'           => 'comment-grid',
