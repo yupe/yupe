@@ -70,10 +70,10 @@ class MailEvent extends YModel
     public function attributeLabels()
     {
         return array(
-            'id'          => Yii::t('mail', 'ID'),
-            'code'        => Yii::t('mail', 'Символьный код'),
-            'name'        => Yii::t('mail', 'Название'),
-            'description' => Yii::t('mail', 'Описание'),
+            'id'          => Yii::t('MailModule.mail', 'ID'),
+            'code'        => Yii::t('MailModule.mail', 'Символьный код'),
+            'name'        => Yii::t('MailModule.mail', 'Название'),
+            'description' => Yii::t('MailModule.mail', 'Описание'),
         );
     }
 

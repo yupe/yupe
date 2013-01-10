@@ -15,9 +15,9 @@ Yii::app()->clientScript->registerScript('fieldset', "
 ");
 ?>
     <div class="alert alert-info">
-        <?php echo Yii::t('contentblock', 'Поля, отмеченные'); ?>
+        <?php echo Yii::t('ContentBlockModule.contentblock', 'Поля, отмеченные'); ?>
         <span class="required">*</span>
-        <?php echo Yii::t('contentblock', 'обязательны.'); ?>
+        <?php echo Yii::t('ContentBlockModule.contentblock', 'обязательны.'); ?>
     </div>
 
     <?php echo $form->errorSummary($model); ?>
@@ -62,12 +62,12 @@ Yii::app()->clientScript->registerScript('fieldset', "
     <?php $this->widget('bootstrap.widgets.TbButton', array(
         'buttonType' => 'submit',
         'type'       => 'primary',
-        'label'      => $model->isNewRecord ? Yii::t('contentblock', 'Добавить блок и продолжить') : Yii::t('contentblock', 'Сохранить блок и продолжить'),
+        'label'      => $model->isNewRecord ? Yii::t('ContentBlockModule.contentblock', 'Добавить блок и продолжить') : Yii::t('ContentBlockModule.contentblock', 'Сохранить блок и продолжить'),
     )); ?>
     <?php $this->widget('bootstrap.widgets.TbButton', array(
         'buttonType'  => 'submit',
         'htmlOptions' => array('name' => 'submit-type', 'value' => 'index'),
-        'label'       => $model->isNewRecord ? Yii::t('contentblock', 'Добавить блок и закрыть') : Yii::t('contentblock', 'Сохранить блок и закрыть'),
+        'label'       => $model->isNewRecord ? Yii::t('ContentBlockModule.contentblock', 'Добавить блок и закрыть') : Yii::t('ContentBlockModule.contentblock', 'Сохранить блок и закрыть'),
     )); ?>
 
 <?php $this->endWidget(); ?>

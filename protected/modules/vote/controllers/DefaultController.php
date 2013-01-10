@@ -69,7 +69,7 @@ class DefaultController extends YBackController
                 $this->redirect(isset($_POST['returnUrl']) ? $_POST['returnUrl'] : array('index'));
         }
         else
-            throw new CHttpException(400, Yii::t('vote', 'Неверный запрос. Пожалуйста, больше не повторяйте такие запросы!'));
+            throw new CHttpException(400, Yii::t('VoteModule.vote', 'Неверный запрос. Пожалуйста, больше не повторяйте такие запросы!'));
     }
 
     /**
@@ -93,7 +93,7 @@ class DefaultController extends YBackController
     {
         $model = Vote::model()->findByPk((int)$id);
         if ($model === null)
-            throw new CHttpException(404, Yii::t('vote', 'Запрошенная страница не найдена!'));
+            throw new CHttpException(404, Yii::t('VoteModule.vote', 'Запрошенная страница не найдена!'));
         return $model;
     }
 

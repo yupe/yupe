@@ -22,26 +22,26 @@ class DbSettingsForm extends YFormModel
     public function attributeLabels()
     {
         return array(
-            'host'        => Yii::t('install', 'Хост'),
-            'port'        => Yii::t('install', 'Порт'),
-            'socket'      => Yii::t('install', 'Сокет (если необходимо)'),
-            'dbName'      => Yii::t('install', 'Название базы данных'),
-            'user'        => Yii::t('install', 'Пользователь'),
-            'password'    => Yii::t('install', 'Пароль'),
-            'tablePrefix' => Yii::t('install', 'Префикс таблиц'),
+            'host'        => Yii::t('InstallModule.install', 'Хост'),
+            'port'        => Yii::t('InstallModule.install', 'Порт'),
+            'socket'      => Yii::t('InstallModule.install', 'Сокет (если необходимо)'),
+            'dbName'      => Yii::t('InstallModule.install', 'Название базы данных'),
+            'user'        => Yii::t('InstallModule.install', 'Пользователь'),
+            'password'    => Yii::t('InstallModule.install', 'Пароль'),
+            'tablePrefix' => Yii::t('InstallModule.install', 'Префикс таблиц'),
         );
     }
 
     public function attributeDescriptions()
     {
         return array(
-            'host'        => Yii::t('install', 'Домен и ip-адрес используемый для доступа к БД'),
-            'port'        => Yii::t('install', 'Порт mysql-сервер'),
-            'socket'      => Yii::t('install', 'Путь к mysql'),
-            'dbName'      => Yii::t('install', 'Имя БД на mysql-сервере'),
-            'user'        => Yii::t('install', 'Пользователь для доступа к указанной БД'),
-            'password'    => Yii::t('install', 'Пароль для доступа к указанной БД'),
-            'tablePrefix' => Yii::t('install', 'Префикс добавляется в начале имени каждой таблицы, по умолчанию "yupe_"'),
+            'host'        => Yii::t('InstallModule.install', 'Домен и ip-адрес используемый для доступа к БД'),
+            'port'        => Yii::t('InstallModule.install', 'Порт mysql-сервер'),
+            'socket'      => Yii::t('InstallModule.install', 'Путь к mysql'),
+            'dbName'      => Yii::t('InstallModule.install', 'Имя БД на mysql-сервере'),
+            'user'        => Yii::t('InstallModule.install', 'Пользователь для доступа к указанной БД'),
+            'password'    => Yii::t('InstallModule.install', 'Пароль для доступа к указанной БД'),
+            'tablePrefix' => Yii::t('InstallModule.install', 'Префикс добавляется в начале имени каждой таблицы, по умолчанию "yupe_"'),
         );
     }
 }

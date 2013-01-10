@@ -63,10 +63,10 @@ class ImageToGallery extends YModel
     public function attributeLabels()
     {
         return array(
-            'id'            => Yii::t('gallery', 'id'),
-            'image_id'      => Yii::t('gallery', 'Изображение'),
-            'galleryId'     => Yii::t('gallery', 'Галерея'),
-            'creation_date' => Yii::t('gallery', 'Дата добавления'),
+            'id'            => Yii::t('GalleryModule.gallery', 'id'),
+            'image_id'      => Yii::t('GalleryModule.gallery', 'Изображение'),
+            'galleryId'     => Yii::t('GalleryModule.gallery', 'Галерея'),
+            'creation_date' => Yii::t('GalleryModule.gallery', 'Дата добавления'),
         );
     }
 

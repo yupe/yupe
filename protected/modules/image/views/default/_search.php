@@ -30,7 +30,7 @@ Yii::app()->clientScript->registerScript('fieldset', "
             'type'        =>'primary',
             'encodeLabel' => false,
             'buttonType'  => 'submit',
-            'label'       => '<i class="icon-search icon-white">&nbsp;</i> '.Yii::t('image','Искать изображение'),
+            'label'       => '<i class="icon-search icon-white">&nbsp;</i> '.Yii::t('ImageModule.image','Искать изображение'),
     )); ?>
 
 <?php $this->endWidget(); ?>

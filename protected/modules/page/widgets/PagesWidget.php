@@ -36,11 +36,11 @@ class PagesWidget extends YWidget
 
             // На данный момент хардкод, переделаю
             $menu = array(
-                array('label' => Yii::t('page', 'О проекте'), 'url' => array('/site/page', 'view' => 'about')),
-                array('label' => Yii::t('page', 'Документация'), 'url' => array('/site/page', 'view' => 'documents')),
-                array('label' => Yii::t('page', 'Сообщество'), 'url' => array('/site/page', 'view' => 'community')),
-                array('label' => Yii::t('page', 'Модули'), 'url' => array('/site/page', 'view' => 'modules')),
-                array('label' => Yii::t('page', 'Разработка'), 'url' => array('/site/page', 'view' => 'developement')),
+                array('label' => Yii::t('PageModule.page', 'О проекте'), 'url' => array('/site/page', 'view' => 'about')),
+                array('label' => Yii::t('PageModule.page', 'Документация'), 'url' => array('/site/page', 'view' => 'documents')),
+                array('label' => Yii::t('PageModule.page', 'Сообщество'), 'url' => array('/site/page', 'view' => 'community')),
+                array('label' => Yii::t('PageModule.page', 'Модули'), 'url' => array('/site/page', 'view' => 'modules')),
+                array('label' => Yii::t('PageModule.page', 'Разработка'), 'url' => array('/site/page', 'view' => 'developement')),
             );
 
             $this->render($view, array(

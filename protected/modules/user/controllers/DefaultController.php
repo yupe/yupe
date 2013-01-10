@@ -30,7 +30,7 @@ class DefaultController extends YBackController
 
                 Yii::app()->user->setFlash(
                     YFlashMessages::NOTICE_MESSAGE,
-                    Yii::t('user', 'Пароль успешно изменен!')
+                    Yii::t('UserModule.user', 'Пароль успешно изменен!')
                 );
                 $this->redirect(array('/user/default/view', 'id' => $model->id));
             }
@@ -62,7 +62,7 @@ class DefaultController extends YBackController
             {
                 Yii::app()->user->setFlash(
                     YFlashMessages::NOTICE_MESSAGE,
-                    Yii::t('user', 'Новый пользователь добавлен!')
+                    Yii::t('UserModule.user', 'Новый пользователь добавлен!')
                 );
 
                 if (!isset($_POST['submit-type']))
@@ -90,7 +90,7 @@ class DefaultController extends YBackController
             {
                 Yii::app()->user->setFlash(
                     YFlashMessages::NOTICE_MESSAGE,
-                    Yii::t('user', 'Данные обновлены!')
+                    Yii::t('UserModule.user', 'Данные обновлены!')
                 );
 
                 if (!isset($_POST['submit-type']))
@@ -118,7 +118,7 @@ class DefaultController extends YBackController
                 $this->redirect(isset($_POST['returnUrl']) ? $_POST['returnUrl'] : array('index'));
         }
         else
-            throw new CHttpException(400, Yii::t('user', 'Неверный запрос. Пожалуйста, больше не повторяйте такие запросы!'));
+            throw new CHttpException(400, Yii::t('UserModule.user', 'Неверный запрос. Пожалуйста, больше не повторяйте такие запросы!'));
     }
 
     /**
@@ -145,7 +145,7 @@ class DefaultController extends YBackController
             if (isset($_GET['id']))
                 $this->_model = User::model()->findbyPk($_GET['id']);
             if ($this->_model === null)
-                throw new CHttpException(404, Yii::t('user', 'Запрошенная страница не найдена!'));
+                throw new CHttpException(404, Yii::t('UserModule.user', 'Запрошенная страница не найдена!'));
         }
         return $this->_model;
     }

@@ -82,14 +82,14 @@ class UserToBlog extends YModel
     public function attributeLabels()
     {
         return array(
-            'id'          => Yii::t('blog', 'id'),
-            'user_id'     => Yii::t('blog', 'Пользователь'),
-            'blog_id'     => Yii::t('blog', 'Блог'),
-            'create_date' => Yii::t('blog', 'Дата создания'),
-            'update_date' => Yii::t('blog', 'Дата обновления'),
-            'role'        => Yii::t('blog', 'Роль'),
-            'status'      => Yii::t('blog', 'Статус'),
-            'note'        => Yii::t('blog', 'Примечание'),
+            'id'          => Yii::t('BlogModule.blog', 'id'),
+            'user_id'     => Yii::t('BlogModule.blog', 'Пользователь'),
+            'blog_id'     => Yii::t('BlogModule.blog', 'Блог'),
+            'create_date' => Yii::t('BlogModule.blog', 'Дата создания'),
+            'update_date' => Yii::t('BlogModule.blog', 'Дата обновления'),
+            'role'        => Yii::t('BlogModule.blog', 'Роль'),
+            'status'      => Yii::t('BlogModule.blog', 'Статус'),
+            'note'        => Yii::t('BlogModule.blog', 'Примечание'),
         );
     }
 
@@ -99,12 +99,12 @@ class UserToBlog extends YModel
     public function attributeDescriptions()
     {
         return array(
-            'id'      => Yii::t('blog', 'Id участника.'),
-            'user_id' => Yii::t('blog', 'Выберите пользователя системы, который станет участником блога.'),
-            'blog_id' => Yii::t('blog', 'Выберите необходимый блог сайта.'),
-            'role'    => Yii::t('blog', 'Установите роль участника блога:<br /><br /><span class="label label-success">Пользователь</span> &ndash; имеет возможность писать записи в блоге и комментировать их.<br /><br /><span class="label label-warning">Модератор</span> &ndash; к правам пользователя добавляется возможность модерировать (удалять, править, блокировать) записи и комментарии, (блокировать, добавлять, удалять) пользователей.<br /><br /><span class="label label-important">Администратор</span> &ndash; к правам модератора добавляется возможность (блокировать, добавлять, удалять) блоги и пользоватилей.'),
-            'status'  => Yii::t('blog', 'Установите статус участника блога:<br /><br /><span class="label label-success">Активен</span> &ndash; данный пользователь будет активным участиком.<br /><br /><span class="label label-warning">заблокирован</span> &ndash; данный участнику не будут доступны функции блога.'),
-            'note'    => Yii::t('blog', 'Небольшая информация о участнике блога.'),
+            'id'      => Yii::t('BlogModule.blog', 'Id участника.'),
+            'user_id' => Yii::t('BlogModule.blog', 'Выберите пользователя системы, который станет участником блога.'),
+            'blog_id' => Yii::t('BlogModule.blog', 'Выберите необходимый блог сайта.'),
+            'role'    => Yii::t('BlogModule.blog', 'Установите роль участника блога:<br /><br /><span class="label label-success">Пользователь</span> &ndash; имеет возможность писать записи в блоге и комментировать их.<br /><br /><span class="label label-warning">Модератор</span> &ndash; к правам пользователя добавляется возможность модерировать (удалять, править, блокировать) записи и комментарии, (блокировать, добавлять, удалять) пользователей.<br /><br /><span class="label label-important">Администратор</span> &ndash; к правам модератора добавляется возможность (блокировать, добавлять, удалять) блоги и пользоватилей.'),
+            'status'  => Yii::t('BlogModule.blog', 'Установите статус участника блога:<br /><br /><span class="label label-success">Активен</span> &ndash; данный пользователь будет активным участиком.<br /><br /><span class="label label-warning">заблокирован</span> &ndash; данный участнику не будут доступны функции блога.'),
+            'note'    => Yii::t('BlogModule.blog', 'Небольшая информация о участнике блога.'),
         );
     }
 
@@ -148,29 +148,29 @@ class UserToBlog extends YModel
     public function getRoleList()
     {
         return array(
-            self::ROLE_USER      => Yii::t('blog', 'Пользователь'),
-            self::ROLE_MODERATOR => Yii::t('blog', 'Модератор'),
-            self::ROLE_ADMIN     => Yii::t('blog', 'Администратор'),
+            self::ROLE_USER      => Yii::t('BlogModule.blog', 'Пользователь'),
+            self::ROLE_MODERATOR => Yii::t('BlogModule.blog', 'Модератор'),
+            self::ROLE_ADMIN     => Yii::t('BlogModule.blog', 'Администратор'),
         );
     }
 
     public function getRole()
     {
         $data = $this->roleList;
-        return isset($data[$this->role]) ? $data[$this->role] : Yii::t('blog', '*неизвестно*');
+        return isset($data[$this->role]) ? $data[$this->role] : Yii::t('BlogModule.blog', '*неизвестно*');
     }
 
     public function getStatusList()
     {
         return array(
-            self::STATUS_ACTIVE => Yii::t('blog', 'Активен'),
-            self::STATUS_BLOCK  => Yii::t('blog', 'Заблокирован'),
+            self::STATUS_ACTIVE => Yii::t('BlogModule.blog', 'Активен'),
+            self::STATUS_BLOCK  => Yii::t('BlogModule.blog', 'Заблокирован'),
         );
     }
 
     public function getStatus()
     {
         $data = $this->statusList;
-        return isset($data[$this->status]) ? $data[$this->status] : Yii::t('blog', '*неизвестно*');
+        return isset($data[$this->status]) ? $data[$this->status] : Yii::t('BlogModule.blog', '*неизвестно*');
     }
 }

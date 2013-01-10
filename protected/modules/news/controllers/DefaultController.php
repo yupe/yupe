@@ -32,7 +32,7 @@ class DefaultController extends YBackController
 
                 Yii::app()->user->setFlash(
                     YFlashMessages::NOTICE_MESSAGE,
-                    Yii::t('news', 'Новость добавлена!')
+                    Yii::t('NewsModule.news', 'Новость добавлена!')
                 );
 
                 if (!isset($_POST['submit-type']))
@@ -72,7 +72,7 @@ class DefaultController extends YBackController
                 {
                     Yii::app()->user->setFlash(
                         YFlashMessages::NOTICE_MESSAGE,
-                        Yii::t('news', 'Новость изменена!')
+                        Yii::t('NewsModule.news', 'Новость изменена!')
                     );
 
                     if (!isset($_POST['submit-type']))
@@ -92,7 +92,7 @@ class DefaultController extends YBackController
 
             $models = News::model()->findAllByAttributes(array('alias' => $alias));
             if (!$models)
-                throw new CHttpException(404, Yii::t('news', 'Указанная новость не найдена'));
+                throw new CHttpException(404, Yii::t('NewsModule.news', 'Указанная новость не найдена'));
 
             $model = null;
             // Собираем модельки по языкам
@@ -182,7 +182,7 @@ class DefaultController extends YBackController
                 {
                     Yii::app()->user->setFlash(
                         YFlashMessages::NOTICE_MESSAGE,
-                        Yii::t('news', 'Новость обновлена!')
+                        Yii::t('NewsModule.news', 'Новость обновлена!')
                     );
 
                     if (!isset($_POST['submit-type']))
@@ -193,7 +193,7 @@ class DefaultController extends YBackController
                 else
                     Yii::app()->user->setFlash(
                         YFlashMessages::NOTICE_MESSAGE,
-                        Yii::t('news', 'Ошибки при сохранении новости!')
+                        Yii::t('NewsModule.news', 'Ошибки при сохранении новости!')
                     );
             }
             $this->render('updateMultilang', array(
@@ -216,7 +216,7 @@ class DefaultController extends YBackController
             if ($alias)
             {
                 if (!($model = News::model()->findAllByAttributes(array('alias' => $alias))))
-                    throw new CHttpException(404, Yii::t('news', 'Новость не нейдена'));
+                    throw new CHttpException(404, Yii::t('NewsModule.news', 'Новость не нейдена'));
                 $model->delete();
             }
             else
@@ -226,7 +226,7 @@ class DefaultController extends YBackController
                 $this->redirect(isset($_POST['returnUrl']) ? $_POST['returnUrl'] : array('index'));
         }
         else
-            throw new CHttpException(400, Yii::t('news', 'Неверный запрос. Пожалуйста, больше не повторяйте такие запросы!'));
+            throw new CHttpException(400, Yii::t('NewsModule.news', 'Неверный запрос. Пожалуйста, больше не повторяйте такие запросы!'));
     }
 
     /**

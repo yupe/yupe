@@ -84,17 +84,17 @@ class Image extends YModel
     public function attributeLabels()
     {
         return array(
-            'id'            => Yii::t('image', 'id'),
-            'category_id'   => Yii::t('image', 'Категория'),
-            'name'          => Yii::t('image', 'Название'),
-            'description'   => Yii::t('image', 'Описание'),
-            'file'          => Yii::t('image', 'Файл'),
-            'creation_date' => Yii::t('image', 'Дата создания'),
-            'user_id'       => Yii::t('image', 'Добавил'),
-            'alt'           => Yii::t('image', 'Альтернативный текст'),
-            'status'        => Yii::t('image', 'Статус'),
-            'parent_id'     => Yii::t('image','Родитель'),
-            'type'          => Yii::t('image','Тип картинки'),
+            'id'            => Yii::t('ImageModule.image', 'id'),
+            'category_id'   => Yii::t('ImageModule.image', 'Категория'),
+            'name'          => Yii::t('ImageModule.image', 'Название'),
+            'description'   => Yii::t('ImageModule.image', 'Описание'),
+            'file'          => Yii::t('ImageModule.image', 'Файл'),
+            'creation_date' => Yii::t('ImageModule.image', 'Дата создания'),
+            'user_id'       => Yii::t('ImageModule.image', 'Добавил'),
+            'alt'           => Yii::t('ImageModule.image', 'Альтернативный текст'),
+            'status'        => Yii::t('ImageModule.image', 'Статус'),
+            'parent_id'     => Yii::t('ImageModule.image','Родитель'),
+            'type'          => Yii::t('ImageModule.image','Тип картинки'),
         );
     }
 
@@ -135,8 +135,8 @@ class Image extends YModel
     public function getStatusList()
     {
         return array(
-            self::STATUS_CHECKED    => Yii::t('image', 'доступно'),
-            self::STATUS_NEED_CHECK => Yii::t('image', 'требуется проверка')
+            self::STATUS_CHECKED    => Yii::t('ImageModule.image', 'доступно'),
+            self::STATUS_NEED_CHECK => Yii::t('ImageModule.image', 'требуется проверка')
         );
     }
 
@@ -144,7 +144,7 @@ class Image extends YModel
     {
         $data = $this->getStatusList();
 
-        return isset($data[$this->status]) ? $data[$this->status] : Yii::t('image', '*неизвестно*');
+        return isset($data[$this->status]) ? $data[$this->status] : Yii::t('ImageModule.image', '*неизвестно*');
     }
 
     public function delete()
@@ -157,7 +157,7 @@ class Image extends YModel
             if (@unlink($file))
                 return parent::delete();
             else
-                throw new CException(Yii::t('image', 'При удалении файла произошла ошибка!'));
+                throw new CException(Yii::t('ImageModule.image', 'При удалении файла произошла ошибка!'));
         }
         else
             return parent::delete();
@@ -166,8 +166,8 @@ class Image extends YModel
     public function getTypeList()
     {
         $list = array(
-            self::TYPE_PREVIEW => Yii::t('image', 'Превью'),
-            self::TYPE_SIMPLE  => Yii::t('image', 'Картинка'),
+            self::TYPE_PREVIEW => Yii::t('ImageModule.image', 'Превью'),
+            self::TYPE_SIMPLE  => Yii::t('ImageModule.image', 'Картинка'),
         );
 
         $types = Yii::app()->getModule('image')->types;
@@ -179,7 +179,7 @@ class Image extends YModel
     {
         $data = $this->getTypeList();
 
-        return isset($data[$this->type]) ? $data[$this->type] : Yii::t('image', '*неизвестно*');
+        return isset($data[$this->type]) ? $data[$this->type] : Yii::t('ImageModule.image', '*неизвестно*');
     }
 
     public function getCategoryName()

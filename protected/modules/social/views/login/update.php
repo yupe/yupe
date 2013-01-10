@@ -13,7 +13,7 @@
         array('label' => Yii::t('social', 'Редактировать'), 'url' => array('/social/default/update', 'id' => $model->id)),
         array('label' => Yii::t('social', 'Удалить'), 'url' => '#', 'linkOptions' => array(
             'submit'  => array('/social/default/delete', 'id' => $model->id),
-            'confirm' => Yii::t('user', 'Подтверждаете удаление ?'),
+            'confirm' => Yii::t('Social.social', 'Подтверждаете удаление ?'),
         )),
     );
 ?>

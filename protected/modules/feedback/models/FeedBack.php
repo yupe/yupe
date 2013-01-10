@@ -73,21 +73,21 @@ class FeedBack extends YModel
     public function attributeLabels()
     {
         return array(
-            'id'            => Yii::t('feedback', 'Идентификатор'),
-            'creation_date' => Yii::t('feedback', 'Дата создания'),
-            'change_date'   => Yii::t('feedback', 'Дата изменения'),
-            'name'          => Yii::t('feedback', 'Имя'),
-            'email'         => Yii::t('feedback', 'Email'),
-            'phone'         => Yii::t('feedback', 'Телефон'),
-            'theme'         => Yii::t('feedback', 'Тема'),
-            'text'          => Yii::t('feedback', 'Текст'),
-            'type'          => Yii::t('feedback', 'Тип'),
-            'answer'        => Yii::t('feedback', 'Ответ'),
-            'answer_date'   => Yii::t('feedback', 'Дата ответа'),
-            'answer_user'   => Yii::t('feedback', 'Ответил'),
-            'is_faq'        => Yii::t('feedback', 'В разделе FAQ'),
-            'status'        => Yii::t('feedback', 'Статус'),
-            'ip'            => Yii::t('feedback', 'Ip-адрес'),
+            'id'            => Yii::t('FeedbackModule.feedback', 'Идентификатор'),
+            'creation_date' => Yii::t('FeedbackModule.feedback', 'Дата создания'),
+            'change_date'   => Yii::t('FeedbackModule.feedback', 'Дата изменения'),
+            'name'          => Yii::t('FeedbackModule.feedback', 'Имя'),
+            'email'         => Yii::t('FeedbackModule.feedback', 'Email'),
+            'phone'         => Yii::t('FeedbackModule.feedback', 'Телефон'),
+            'theme'         => Yii::t('FeedbackModule.feedback', 'Тема'),
+            'text'          => Yii::t('FeedbackModule.feedback', 'Текст'),
+            'type'          => Yii::t('FeedbackModule.feedback', 'Тип'),
+            'answer'        => Yii::t('FeedbackModule.feedback', 'Ответ'),
+            'answer_date'   => Yii::t('FeedbackModule.feedback', 'Дата ответа'),
+            'answer_user'   => Yii::t('FeedbackModule.feedback', 'Ответил'),
+            'is_faq'        => Yii::t('FeedbackModule.feedback', 'В разделе FAQ'),
+            'status'        => Yii::t('FeedbackModule.feedback', 'Статус'),
+            'ip'            => Yii::t('FeedbackModule.feedback', 'Ip-адрес'),
         );
     }
 
@@ -153,23 +153,23 @@ class FeedBack extends YModel
 
     public function getAnsweredUser()
     {
-        return $this->answer_user ? User::model()->findByPk($this->answer_user)->getFullName() : Yii::t('feedback', '—');
+        return $this->answer_user ? User::model()->findByPk($this->answer_user)->getFullName() : Yii::t('FeedbackModule.feedback', '—');
     }
 
     public function getStatusList()
     {
         return array(
-            self::STATUS_NEW           => Yii::t('feedback', 'Новое сообщение'),
-            self::STATUS_PROCESS       => Yii::t('feedback', 'Сообщение в обработке'),
-            self::STATUS_FINISHED      => Yii::t('feedback', 'Сообщение обработано'),
-            self::STATUS_ANSWER_SENDED => Yii::t('feedback', 'Ответ отправлен'),
+            self::STATUS_NEW           => Yii::t('FeedbackModule.feedback', 'Новое сообщение'),
+            self::STATUS_PROCESS       => Yii::t('FeedbackModule.feedback', 'Сообщение в обработке'),
+            self::STATUS_FINISHED      => Yii::t('FeedbackModule.feedback', 'Сообщение обработано'),
+            self::STATUS_ANSWER_SENDED => Yii::t('FeedbackModule.feedback', 'Ответ отправлен'),
         );
     }
 
     public function getStatus()
     {
         $data = $this->statusList;
-        return isset($data[$this->status]) ? $data[$this->status] : Yii::t('feedback', 'Статус сообщения неизвестен');
+        return isset($data[$this->status]) ? $data[$this->status] : Yii::t('FeedbackModule.feedback', 'Статус сообщения неизвестен');
     }
 
     public function getTypeList()
@@ -177,9 +177,9 @@ class FeedBack extends YModel
         $types = Yii::app()->getModule('feedback')->types;
 
         if ($types)
-            $types[self::TYPE_DEFAULT] = Yii::t('feedback', 'По умолчанию');
+            $types[self::TYPE_DEFAULT] = Yii::t('FeedbackModule.feedback', 'По умолчанию');
         else
-            $types = array(self::TYPE_DEFAULT => Yii::t('feedback', 'По умолчанию'));
+            $types = array(self::TYPE_DEFAULT => Yii::t('FeedbackModule.feedback', 'По умолчанию'));
 
         return $types;
     }
@@ -187,20 +187,20 @@ class FeedBack extends YModel
     public function getType()
     {
         $data = $this->typeList;
-        return isset($data[$this->type]) ? $data[$this->type] : Yii::t('feedback', 'Неизвестный тип сообщения!');
+        return isset($data[$this->type]) ? $data[$this->type] : Yii::t('FeedbackModule.feedback', 'Неизвестный тип сообщения!');
     }
 
     public function getIsFaqList()
     {
         return array(
-            self::IS_FAQ_NO => Yii::t('feedback', 'Нет'),
-            self::IS_FAQ    => Yii::t('feedback', 'Да'),
+            self::IS_FAQ_NO => Yii::t('FeedbackModule.feedback', 'Нет'),
+            self::IS_FAQ    => Yii::t('FeedbackModule.feedback', 'Да'),
         );
     }
 
     public function getIsFaq()
     {
         $data = $this->isFaqList;
-        return isset($data[$this->is_faq]) ? $data[$this->is_faq] : Yii::t('feedback', '*неизвестно*');
+        return isset($data[$this->is_faq]) ? $data[$this->is_faq] : Yii::t('FeedbackModule.feedback', '*неизвестно*');
     }
 }

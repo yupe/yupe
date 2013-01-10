@@ -15,9 +15,9 @@ Yii::app()->clientScript->registerScript('fieldset', "
 ");
 ?>
     <div class="alert alert-info">
-        <?php echo Yii::t('blog', 'Поля, отмеченные'); ?>
+        <?php echo Yii::t('BlogModule.blog', 'Поля, отмеченные'); ?>
         <span class="required">*</span>
-        <?php echo Yii::t('blog', 'обязательны.'); ?>
+        <?php echo Yii::t('BlogModule.blog', 'обязательны.'); ?>
     </div>
 
     <?php echo $form->errorSummary($model); ?>
@@ -60,7 +60,7 @@ Yii::app()->clientScript->registerScript('fieldset', "
         </div>
     </div>
     <div class="row-fluid control-group <?php echo $model->hasErrors('blog_id') ? 'error' : ''; ?>">
-        <?php echo $form->dropDownListRow($model, 'blog_id', CHtml::listData(Blog::model()->findAll(), 'id', 'name'), array('empty'=>Yii::t('blog', 'выберите блог'), 'class' => 'span7 popover-help', 'data-original-title' => $model->getAttributeLabel('blog_id'), 'data-content' => $model->getAttributeDescription('blog_id'))); ?>
+        <?php echo $form->dropDownListRow($model, 'blog_id', CHtml::listData(Blog::model()->findAll(), 'id', 'name'), array('empty'=>Yii::t('BlogModule.blog', 'выберите блог'), 'class' => 'span7 popover-help', 'data-original-title' => $model->getAttributeLabel('blog_id'), 'data-content' => $model->getAttributeDescription('blog_id'))); ?>
     </div>
     <div class="row-fluid control-group <?php echo $model->hasErrors('title') ? 'error' : ''; ?>">
         <?php echo $form->textFieldRow($model, 'title', array('class' => 'span7 popover-help', 'maxlength' => 150, 'size' => 60, 'data-original-title' => $model->getAttributeLabel('title'), 'data-content' => $model->getAttributeDescription('title'))); ?>
@@ -111,12 +111,12 @@ Yii::app()->clientScript->registerScript('fieldset', "
     <?php $this->widget('bootstrap.widgets.TbButton', array(
         'buttonType' => 'submit',
         'type'       => 'primary',
-        'label'      => $model->isNewRecord ? Yii::t('blog', 'Добавить запись и продолжить') : Yii::t('blog', 'Сохранить запись и продолжить'),
+        'label'      => $model->isNewRecord ? Yii::t('BlogModule.blog', 'Добавить запись и продолжить') : Yii::t('BlogModule.blog', 'Сохранить запись и продолжить'),
     )); ?>
     <?php $this->widget('bootstrap.widgets.TbButton', array(
         'buttonType' => 'submit',
         'htmlOptions'=> array('name' => 'submit-type', 'value' => 'index'),
-        'label'      => $model->isNewRecord ? Yii::t('blog', 'Добавить запись и закрыть') : Yii::t('blog', 'Сохранить запись и закрыть'),
+        'label'      => $model->isNewRecord ? Yii::t('BlogModule.blog', 'Добавить запись и закрыть') : Yii::t('BlogModule.blog', 'Сохранить запись и закрыть'),
     )); ?>
 
 <?php $this->endWidget(); ?>

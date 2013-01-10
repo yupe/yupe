@@ -12,12 +12,12 @@ class RecoveryPasswordAction extends CAction
         if (!$recovery)
         {
             Yii::log(
-                Yii::t('user', 'Код восстановления пароля {code} не найден!', array('{code}' => $code)),
+                Yii::t('UserModule.user', 'Код восстановления пароля {code} не найден!', array('{code}' => $code)),
                 CLogger::LEVEL_ERROR, UserModule::$logCategory
             );
             Yii::app()->user->setFlash(
                 YFlashMessages::ERROR_MESSAGE,
-                Yii::t('user', 'Код восстановления пароля не найден! Попробуйте еще раз!')
+                Yii::t('UserModule.user', 'Код восстановления пароля не найден! Попробуйте еще раз!')
             );
 
             $this->controller->redirect(array('/user/account/recovery'));
@@ -43,15 +43,15 @@ class RecoveryPasswordAction extends CAction
                         Yii::app()->mail->send(
                             $module->notifyEmailFrom,
                             $recovery->user->email,
-                            Yii::t('user', 'Успешное восстановление пароля!'),
+                            Yii::t('UserModule.user', 'Успешное восстановление пароля!'),
                             $emailBody
                         );
                         Yii::app()->user->setFlash(
                             YFlashMessages::NOTICE_MESSAGE,
-                            Yii::t('user', 'Новый пароль отправлен Вам на email!')
+                            Yii::t('UserModule.user', 'Новый пароль отправлен Вам на email!')
                         );
                         Yii::log(
-                            Yii::t('user', 'Успешное восстановление пароля!'),
+                            Yii::t('UserModule.user', 'Успешное восстановление пароля!'),
                             CLogger::LEVEL_ERROR, UserModule::$logCategory
                         );
 
@@ -65,10 +65,10 @@ class RecoveryPasswordAction extends CAction
 
                 Yii::app()->user->setFlash(
                     YFlashMessages::ERROR_MESSAGE,
-                    Yii::t('user', 'Ошибка при смене пароля!')
+                    Yii::t('UserModule.user', 'Ошибка при смене пароля!')
                 );
                 Yii::log(
-                    Yii::t('user', 'Ошибка при автоматической смене пароля {error}!', array('{error}' => $e->getMessage())),
+                    Yii::t('UserModule.user', 'Ошибка при автоматической смене пароля {error}!', array('{error}' => $e->getMessage())),
                     CLogger::LEVEL_ERROR, UserModule::$logCategory
                 );
                 $this->controller->redirect(array('/user/account/recovery'));
@@ -99,10 +99,10 @@ class RecoveryPasswordAction extends CAction
 
                             Yii::app()->user->setFlash(
                                 YFlashMessages::NOTICE_MESSAGE,
-                                Yii::t('user', 'Пароль изменен!')
+                                Yii::t('UserModule.user', 'Пароль изменен!')
                             );
                             Yii::log(
-                                Yii::t('user', 'Успешная смена пароля для пользоателя {user}!', array('{user}' => $recovery->user->id)),
+                                Yii::t('UserModule.user', 'Успешная смена пароля для пользоателя {user}!', array('{user}' => $recovery->user->id)),
                                 CLogger::LEVEL_INFO, UserModule::$logCategory
                             );
 
@@ -110,7 +110,7 @@ class RecoveryPasswordAction extends CAction
                             Yii::app()->mail->send(
                                 $module->notifyEmailFrom,
                                 $recovery->user->email,
-                                Yii::t('user', 'Успешное восстановление пароля!'),
+                                Yii::t('UserModule.user', 'Успешное восстановление пароля!'),
                                 $emailBody
                             );
                             $this->controller->redirect(array('/user/account/login'));
@@ -123,7 +123,7 @@ class RecoveryPasswordAction extends CAction
 
                     Yii::app()->user->setFlash(
                         YFlashMessages::ERROR_MESSAGE,
-                        Yii::t('user', 'Ошибка при смене пароля!')
+                        Yii::t('UserModule.user', 'Ошибка при смене пароля!')
                     );
                     Yii::log(
                         Yii::t('Ошибка при смене пароля {error}!', array('{error}' => $e->getMessage())),

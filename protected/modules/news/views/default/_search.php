@@ -21,10 +21,10 @@ Yii::app()->clientScript->registerScript('fieldset', "
                 <?php echo $form->textFieldRow($model, 'date'); ?>
             </div>
             <div class="span3">
-                <?php echo $form->dropDownListRow($model, 'status', $model->statusList, array('empty' => Yii::t('news', '- не важен -'))); ?>
+                <?php echo $form->dropDownListRow($model, 'status', $model->statusList, array('empty' => Yii::t('NewsModule.news', '- не важен -'))); ?>
             </div>
             <div class="span4">
-                <?php echo $form->dropDownListRow($model, 'category_id', CHtml::listData($this->module->categoryList, 'id', 'name'), array('empty' => Yii::t('news', '- не важно -'))); ?>
+                <?php echo $form->dropDownListRow($model, 'category_id', CHtml::listData($this->module->categoryList, 'id', 'name'), array('empty' => Yii::t('NewsModule.news', '- не важно -'))); ?>
             </div>
         </div>
         <div class="row-fluid control-group">

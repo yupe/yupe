@@ -26,12 +26,12 @@ class InstallModule extends YWebModule
 
     public function getCategory()
     {
-        return Yii::t('install', 'Юпи!');
+        return Yii::t('InstallModule.install', 'Юпи!');
     }
 
     public function getName()
     {
-        return Yii::t('install', 'Установщик');
+        return Yii::t('InstallModule.install', 'Установщик');
     }
 
     public function getIsShowInAdminMenu()
@@ -41,27 +41,27 @@ class InstallModule extends YWebModule
 
     public function getDescription()
     {
-        return Yii::t('install', 'Модуль для установки системы');
+        return Yii::t('InstallModule.install', 'Модуль для установки системы');
     }
 
     public function getVersion()
     {
-        return Yii::t('install', '0.2');
+        return Yii::t('InstallModule.install', '0.2');
     }
 
     public function getAuthor()
     {
-        return Yii::t('install', 'yupe team');
+        return Yii::t('InstallModule.install', 'yupe team');
     }
 
     public function getAuthorEmail()
     {
-        return Yii::t('install', 'team@yupe.ru');
+        return Yii::t('InstallModule.install', 'team@yupe.ru');
     }
 
     public function getUrl()
     {
-        return Yii::t('install', 'http://yupe.ru');
+        return Yii::t('InstallModule.install', 'http://yupe.ru');
     }
 
     public function getIcon()

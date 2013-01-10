@@ -32,7 +32,7 @@ Yii::app()->clientScript->registerScript('fieldset', "
         'buttonType'  => 'submit',
         'type'        => 'primary',
         'encodeLabel' => false,
-        'label'       => '<i class="icon-search icon-white">&nbsp;</i> '.Yii::t('user', 'Искать пользователя'),
+        'label'       => '<i class="icon-search icon-white">&nbsp;</i> '.Yii::t('UserModule.user', 'Искать пользователя'),
     )); ?>
 
 <?php $this->endWidget(); ?>

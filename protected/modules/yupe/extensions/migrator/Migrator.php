@@ -21,11 +21,11 @@ class Migrator extends CApplicationComponent
     {
         if (($newMigrations = $this->getNewMigrations($module))!==array())
         {
-            Yii::log(Yii::t('yupe','Обновляем до последней версии базы модуль {module}', array('{module}'=>$module)));
+            Yii::log(Yii::t('YupeModule.yupe','Обновляем до последней версии базы модуль {module}', array('{module}'=>$module)));
             foreach($newMigrations as $migration)
                 if($this->migrateUp($module, $migration)===false)
                     return false;
-        } else Yii::log(Yii::t('yupe','Для модуля {module} новых миграций не найдено', array('{module}'=>$module)));
+        } else Yii::log(Yii::t('YupeModule.yupe','Для модуля {module} новых миграций не найдено', array('{module}'=>$module)));
 
         return true;
     }
@@ -37,7 +37,7 @@ class Migrator extends CApplicationComponent
         ob_start();
         ob_implicit_flush(false);
 
-        echo Yii::t('yupe',"Применяем миграцию {class}", array('{class}'=> $class));
+        echo Yii::t('YupeModule.yupe',"Применяем миграцию {class}", array('{class}'=> $class));
 
         $start=microtime(true);
 		$migration=$this->instantiateMigration($module,$class);
@@ -59,12 +59,12 @@ class Migrator extends CApplicationComponent
 				'apply_time'=>time(),
 			), "`version`=:ver AND `module`=:mod", array(':ver'=> $class, 'mod'=>$module));
 			$time=microtime(true)-$start;
-            Yii::log(Yii::t('yupe',"Миграция {class} применена за {s} сек.", array('{class}'=> $class, '{s}'=> sprintf("%.3f",$time))));
+            Yii::log(Yii::t('YupeModule.yupe',"Миграция {class} применена за {s} сек.", array('{class}'=> $class, '{s}'=> sprintf("%.3f",$time))));
 		}
 		else
 		{
 			$time=microtime(true)-$start;
-            Yii::log(Yii::t('yupe',"Ошибка применения миграции {class} ({s} сек.)", array('{class}'=> $class, '{s}'=> sprintf("%.3f",$time))));
+            Yii::log(Yii::t('YupeModule.yupe',"Ошибка применения миграции {class} ({s} сек.)", array('{class}'=> $class, '{s}'=> sprintf("%.3f",$time))));
             Yii::app()->user->setFlash('warning',$msg);
 			return false;
 		}
@@ -72,7 +72,7 @@ class Migrator extends CApplicationComponent
 
 	protected function migrateDown($module, $class)
 	{
-		Yii::log(Yii::t('yupe',"Отменяем миграцию {class}", array('{class}'=> $class)));
+		Yii::log(Yii::t('YupeModule.yupe',"Отменяем миграцию {class}", array('{class}'=> $class)));
         $db = $this->getDbConnection();
 		$start=microtime(true);
 		$migration=$this->instantiateMigration($module, $class);
@@ -89,12 +89,12 @@ class Migrator extends CApplicationComponent
                 $db->quoteColumnName('module')."=".$db->quoteValue($module)
             ));
 			$time=microtime(true)-$start;
-            Yii::log(Yii::t('yupe',"Миграция {class} отменена за {s} сек.", array('{class}'=> $class, '{s}'=> sprintf("%.3f",$time))));
+            Yii::log(Yii::t('YupeModule.yupe',"Миграция {class} отменена за {s} сек.", array('{class}'=> $class, '{s}'=> sprintf("%.3f",$time))));
 		}
 		else
 		{
 			$time=microtime(true)-$start;
-            Yii::log(Yii::t('yupe',"Ошибка отмены миграции {class} ({s} сек.)", array('{class}'=> $class, '{s}'=> sprintf("%.3f",$time))));
+            Yii::log(Yii::t('YupeModule.yupe',"Ошибка отмены миграции {class} ({s} сек.)", array('{class}'=> $class, '{s}'=> sprintf("%.3f",$time))));
             Yii::app()->user->setFlash('warning',$msg);
 			return false;
 		}
@@ -119,7 +119,7 @@ class Migrator extends CApplicationComponent
 			return $this->_db;
 		else if(($this->_db=Yii::app()->getComponent($this->connectionID)) instanceof CDbConnection)
 			return $this->_db;
-        throw new CException(Yii::t('yupe','Неверно указан параметр connectionID'));
+        throw new CException(Yii::t('YupeModule.yupe','Неверно указан параметр connectionID'));
 	}
 
 	protected function getMigrationHistory($module,$limit=20)
@@ -143,7 +143,7 @@ class Migrator extends CApplicationComponent
 	protected function createMigrationHistoryTable()
 	{
 		$db=$this->getDbConnection();
-        Yii::log(Yii::t('yupe','Создаем таблицу для хранения версий миграций {table}', array('{table}'=>$this->migrationTable)));
+        Yii::log(Yii::t('YupeModule.yupe','Создаем таблицу для хранения версий миграций {table}', array('{table}'=>$this->migrationTable)));
 
 		$db->createCommand()->createTable($db->tablePrefix.$this->migrationTable,array(
             'id'=> 'pk',

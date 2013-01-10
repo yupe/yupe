@@ -4,7 +4,7 @@
         <?php
         if (count($this->breadcrumbs))
             $this->widget('bootstrap.widgets.TbBreadcrumbs', array(
-                 'homeLink' => CHtml::link(Yii::t('yupe', 'Главная'), array('/yupe/backend/index')),
+                 'homeLink' => CHtml::link(Yii::t('YupeModule.yupe', 'Главная'), array('/yupe/backend/index')),
                  'links'    => $this->breadcrumbs,
             ));
         ?><!-- breadcrumbs -->

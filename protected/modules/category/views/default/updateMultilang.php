@@ -1,26 +1,26 @@
 <?php
     $this->breadcrumbs = array(
         Yii::app()->getModule('category')->getCategory() => array(),
-        Yii::t('category', 'Категории') => array('/category/default/index'),
+        Yii::t('CategoryModule.category', 'Категории') => array('/category/default/index'),
         $model->name => array('/category/default/view', 'id' => $model->id),
-        Yii::t('category', 'Редактирование'),
+        Yii::t('CategoryModule.category', 'Редактирование'),
     );
 
-    $this->pageTitle = Yii::t('category', 'Категории - редактирование');
+    $this->pageTitle = Yii::t('CategoryModule.category', 'Категории - редактирование');
 
     $this->menu = array(
-        array('icon' => 'list-alt', 'label' => Yii::t('category', 'Управление категориями'), 'url' => array('/category/default/index')),
-        array('icon' => 'plus-sign', 'label' =>  Yii::t('category', 'Добавить категорию'), 'url' => array('/category/default/create')),
+        array('icon' => 'list-alt', 'label' => Yii::t('CategoryModule.category', 'Управление категориями'), 'url' => array('/category/default/index')),
+        array('icon' => 'plus-sign', 'label' =>  Yii::t('CategoryModule.category', 'Добавить категорию'), 'url' => array('/category/default/create')),
         array('label' => Yii::t('catalog', 'Категория') . ' «' . mb_substr($model->name, 0, 32) . '»'),
-        array('icon' => 'pencil', 'label' => Yii::t('category', 'Редактирование категории'), 'url' => array(
+        array('icon' => 'pencil', 'label' => Yii::t('CategoryModule.category', 'Редактирование категории'), 'url' => array(
             '/category/default/update',
             'id' => $model->id
         )),
-        array('icon' => 'eye-open', 'label' => Yii::t('category', 'Просмотреть категорию'), 'url' => array(
+        array('icon' => 'eye-open', 'label' => Yii::t('CategoryModule.category', 'Просмотреть категорию'), 'url' => array(
             '/category/default/view',
             'id' => $model->id
         )),
-        array('icon' => 'trash', 'label' => Yii::t('category', 'Удалить категорию'), 'url' => '#', 'linkOptions' => array(
+        array('icon' => 'trash', 'label' => Yii::t('CategoryModule.category', 'Удалить категорию'), 'url' => '#', 'linkOptions' => array(
             'submit' => array('/category/default/delete', 'id' => $model->id),
             'confirm' => Yii::t('catalog', 'Вы уверены, что хотите удалить категорию?'),
         )),
@@ -28,7 +28,7 @@
 ?>
 <div class="page-header">
     <h1>
-        <?php echo Yii::t('category', 'Редактирование категории'); ?><br />
+        <?php echo Yii::t('CategoryModule.category', 'Редактирование категории'); ?><br />
         <small>&laquo;<?php echo $model->name; ?>&raquo;</small>
     </h1>
 </div>
@@ -46,24 +46,24 @@ $form = $this->beginWidget('bootstrap.widgets.TbActiveForm', array(
 <fieldset class="inline">
 
     <div class="alert alert-info">
-        <?php echo Yii::t('category', 'Поля, отмеченные'); ?>
+        <?php echo Yii::t('CategoryModule.category', 'Поля, отмеченные'); ?>
         <span class="required">*</span> 
-        <?php echo Yii::t('category', 'обязательны.'); ?>
+        <?php echo Yii::t('CategoryModule.category', 'обязательны.'); ?>
     </div>
 
     <div class="row-fluid control-group <?php echo $model->hasErrors('parent_id') ? 'error' : '' ?>">
         <div class="span7  popover-help" data-original-title="<?php echo $model->getAttributeLabel('parent_id'); ?>" >
             <?php echo $form->labelEx($model, 'parent_id'); ?>
-            <?php echo $form->dropDownList($model, 'parent_id', CHtml::listData(Category::model()->findAll(), 'id', 'name'), array( 'empty' => Yii::t('category', '--выберите--') )); ?>
+            <?php echo $form->dropDownList($model, 'parent_id', CHtml::listData(Category::model()->findAll(), 'id', 'name'), array( 'empty' => Yii::t('CategoryModule.category', '--выберите--') )); ?>
         </div>
         <div class="span5">
             <?php echo $form->error($model, 'parent_id'); ?>
         </div>
     </div>
     <div class="row-fluid control-group <?php echo $model->hasErrors('alias') ? 'error' : '' ?>">
-        <div class="span7  popover-help" data-content="<?php echo Yii::t('category', "Краткое название категории латинскими буквами, используется для формирования её адреса.") ?>" data-original-title="<?php echo $model->getAttributeLabel('alias'); ?>" >
+        <div class="span7  popover-help" data-content="<?php echo Yii::t('CategoryModule.category', "Краткое название категории латинскими буквами, используется для формирования её адреса.") ?>" data-original-title="<?php echo $model->getAttributeLabel('alias'); ?>" >
             <?php echo $form->labelEx($model, 'alias'); ?>
-            <?php echo $form->textField($model, 'alias', array( 'size' => 60, 'maxlength'   => 150, 'placeholder' => Yii::t('category', 'Оставьте пустым для автоматической генерации') )); ?>
+            <?php echo $form->textField($model, 'alias', array( 'size' => 60, 'maxlength'   => 150, 'placeholder' => Yii::t('CategoryModule.category', 'Оставьте пустым для автоматической генерации') )); ?>
         </div>
         <div class="span5">
             <?php echo $form->error($model, 'alias'); ?>
@@ -122,6 +122,6 @@ $form = $this->beginWidget('bootstrap.widgets.TbActiveForm', array(
 
 <?php
 echo "<br />";
-echo CHtml::submitButton($model->isNewRecord ? Yii::t('category', 'Добавить категорию') : Yii::t('category', 'Сохранить категорию'), array('class' => 'btn btn-primary'));
+echo CHtml::submitButton($model->isNewRecord ? Yii::t('CategoryModule.category', 'Добавить категорию') : Yii::t('CategoryModule.category', 'Сохранить категорию'), array('class' => 'btn btn-primary'));
 $this->endWidget();
 ?>

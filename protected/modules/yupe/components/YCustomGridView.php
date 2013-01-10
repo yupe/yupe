@@ -187,14 +187,14 @@ class YCustomGridView extends TbExtendedGridView
     {
         $downUrlImage = CHtml::image(
             Yii::app()->assetManager->publish(Yii::getPathOfAlias('zii.widgets.assets.gridview') . '/down.gif'),
-            Yii::t('yupe', 'Опустить ниже'),
-            array('title' => Yii::t('yupe', 'Опустить ниже'))
+            Yii::t('YupeModule.yupe', 'Опустить ниже'),
+            array('title' => Yii::t('YupeModule.yupe', 'Опустить ниже'))
         );
 
         $upUrlImage = CHtml::image(
             Yii::app()->assetManager->publish(Yii::getPathOfAlias('zii.widgets.assets.gridview') . '/up.gif'),
-            Yii::t('yupe', 'Поднять выше'),
-            array('title' => Yii::t('yupe', 'Поднять выше'))
+            Yii::t('YupeModule.yupe', 'Поднять выше'),
+            array('title' => Yii::t('YupeModule.yupe', 'Поднять выше'))
         );
         $urlUp = Yii::app()->controller->createUrl(
             "sort", array(
@@ -294,7 +294,7 @@ class YCustomGridView extends TbExtendedGridView
             $headlinePosition = ' style="text-align: ' . $this->headlinePosition . ';" ';
         echo '<div class="headline" ' . $headlinePosition .' >';
         /* Текстовка: */
-        echo Yii::t('yupe', 'Количество отображаемых эллементов:') . '<br />';
+        echo Yii::t('YupeModule.yupe', 'Количество отображаемых эллементов:') . '<br />';
         
         /* Отрисовываем переключатели PageSize'a: */
         $this->widget(

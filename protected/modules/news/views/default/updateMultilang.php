@@ -1,34 +1,34 @@
 <?php
     $this->breadcrumbs = array(
         Yii::app()->getModule('news')->getCategory() => array(),
-        Yii::t('news', 'Новости') => array('/news/default/index'),
+        Yii::t('NewsModule.news', 'Новости') => array('/news/default/index'),
         $model->title => array('/news/default/view', 'id' => $model->id),
-        Yii::t('news', 'Редактирование'),
+        Yii::t('NewsModule.news', 'Редактирование'),
     );
 
-    $this->pageTitle = Yii::t('news', 'Новости - редактирование');
+    $this->pageTitle = Yii::t('NewsModule.news', 'Новости - редактирование');
 
     $this->menu = array(
-        array('icon' => 'list-alt', 'label' => Yii::t('news', 'Управление новостями'), 'url' => array('/news/default/index')),
-        array('icon' => 'plus-sign', 'label' => Yii::t('news', 'Добавить новость'), 'url' => array('/news/default/create')),
-        array('label' => Yii::t('news', 'Новость') . ' «' . mb_substr($model->title, 0, 32) . '»'),
-        array('icon' => 'pencil', 'label' => Yii::t('news', 'Редактирование новости'), 'url' => array(
+        array('icon' => 'list-alt', 'label' => Yii::t('NewsModule.news', 'Управление новостями'), 'url' => array('/news/default/index')),
+        array('icon' => 'plus-sign', 'label' => Yii::t('NewsModule.news', 'Добавить новость'), 'url' => array('/news/default/create')),
+        array('label' => Yii::t('NewsModule.news', 'Новость') . ' «' . mb_substr($model->title, 0, 32) . '»'),
+        array('icon' => 'pencil', 'label' => Yii::t('NewsModule.news', 'Редактирование новости'), 'url' => array(
             '/news/default/update',
             'id' => $model->id
         )),
-        array('icon' => 'eye-open', 'label' => Yii::t('news', 'Просмотреть новость'), 'url' => array(
+        array('icon' => 'eye-open', 'label' => Yii::t('NewsModule.news', 'Просмотреть новость'), 'url' => array(
             '/news/default/view',
             'id' => $model->id
         )),
-        array('icon' => 'trash', 'label' => Yii::t('news', 'Удалить новость'), 'url' => '#', 'linkOptions' => array(
+        array('icon' => 'trash', 'label' => Yii::t('NewsModule.news', 'Удалить новость'), 'url' => '#', 'linkOptions' => array(
             'submit' => array('/news/default/delete', 'id' => $model->id),
-            'confirm' => Yii::t('news', 'Вы уверены, что хотите удалить новость?'),
+            'confirm' => Yii::t('NewsModule.news', 'Вы уверены, что хотите удалить новость?'),
         )),
     );
 ?>
 <div class="page-header">
     <h1>
-        <?php echo Yii::t('news', 'Редактирование новости'); ?><br />
+        <?php echo Yii::t('NewsModule.news', 'Редактирование новости'); ?><br />
         <small>&laquo;<?php echo $model->title; ?>&raquo;</small>
     </h1>
 </div>
@@ -45,30 +45,30 @@ $form = $this->beginWidget('bootstrap.widgets.TbActiveForm', array(
 echo CHtml::openTag("fieldset", array( "class" => "inline" ));
 ?>
     <div class="alert alert-info">
-        <?php echo Yii::t('news', 'Поля, отмеченные'); ?>
+        <?php echo Yii::t('NewsModule.news', 'Поля, отмеченные'); ?>
         <span class="required">*</span>
-        <?php echo Yii::t('news', 'обязательны.'); ?>
+        <?php echo Yii::t('NewsModule.news', 'обязательны.'); ?>
     </div>
     <div class="row-fluid control-group <?php echo $model->hasErrors('category_id') ? 'error' : '' ?>">
         <div class="span7  popover-help" data-original-title="<?php echo $model->getAttributeLabel('category_id'); ?>" >
             <?php echo $form->labelEx($model, 'category_id'); ?>
-            <?php echo $form->dropDownList($model, 'category_id', CHtml::listData(Category::model()->findAll(), 'id', 'name'), array( 'empty' => Yii::t('news', '--выберите--') )); ?>
+            <?php echo $form->dropDownList($model, 'category_id', CHtml::listData(Category::model()->findAll(), 'id', 'name'), array( 'empty' => Yii::t('NewsModule.news', '--выберите--') )); ?>
         </div>
         <div class="span5">
             <?php echo $form->error($model, 'category_id'); ?>
         </div>
     </div>
     <div class="row-fluid control-group <?php echo $model->hasErrors('alias') ? 'error' : '' ?>">
-        <div class="span7  popover-help" data-content="<?php echo Yii::t('news', "Краткое название страницы латинскими буквами, используется для формирования её адреса.<br /><br /> Например (выделено темным фоном): <pre>http://site.ru/news/<span class='label'>contacts</span>/</pre> Если вы не знаете, для чего вам нужно это поле &ndash; не заполняйте его, заголовка страницы будет достаточно.") ?>" data-original-title="<?php echo $model->getAttributeLabel('alias'); ?>" >
+        <div class="span7  popover-help" data-content="<?php echo Yii::t('NewsModule.news', "Краткое название страницы латинскими буквами, используется для формирования её адреса.<br /><br /> Например (выделено темным фоном): <pre>http://site.ru/news/<span class='label'>contacts</span>/</pre> Если вы не знаете, для чего вам нужно это поле &ndash; не заполняйте его, заголовка страницы будет достаточно.") ?>" data-original-title="<?php echo $model->getAttributeLabel('alias'); ?>" >
             <?php echo $form->labelEx($model, 'alias'); ?>
-            <?php echo $form->textField($model, 'alias', array( 'size' => 60, 'maxlength'   => 150, 'placeholder' => Yii::t('news', 'Оставьте пустым для автоматической генерации') )); ?>
+            <?php echo $form->textField($model, 'alias', array( 'size' => 60, 'maxlength'   => 150, 'placeholder' => Yii::t('NewsModule.news', 'Оставьте пустым для автоматической генерации') )); ?>
         </div>
         <div class="span5">
             <?php echo $form->error($model, 'alias'); ?>
         </div>
     </div>
     <div class="row-fluid control-group <?php echo $model->hasErrors('date') ? 'error' : '' ?>">
-        <div class="span7 popover-help" data-content="<?php echo Yii::t('news', "Дата публикации новости, также используется для упорядочивания списка новостей.") ?>" data-original-title="<?php echo $model->getAttributeLabel('date');
+        <div class="span7 popover-help" data-content="<?php echo Yii::t('NewsModule.news', "Дата публикации новости, также используется для упорядочивания списка новостей.") ?>" data-original-title="<?php echo $model->getAttributeLabel('date');
             ; ?>" >
             <?php echo $form->labelEx($model, 'date'); ?>
             <?php
@@ -87,7 +87,7 @@ echo CHtml::openTag("fieldset", array( "class" => "inline" ));
         </div>
     </div>
     <div class="row-fluid control-group <?php echo $model->hasErrors('link') ? 'error' : '' ?>">
-        <div class="span7 popover-help" data-content="<?php echo Yii::t('news','Укажите источник новости (ссылка на произвольную страницу)') ?>" data-original-title="<?php echo $model->getAttributeLabel('link'); ?>" >
+        <div class="span7 popover-help" data-content="<?php echo Yii::t('NewsModule.news','Укажите источник новости (ссылка на произвольную страницу)') ?>" data-original-title="<?php echo $model->getAttributeLabel('link'); ?>" >
             <?php echo $form->labelEx($model, 'link'); ?>
             <?php echo $form->textField($model, 'link', array( 'size' => 60, 'maxlength' => 150 )); ?>
         </div>
@@ -109,7 +109,7 @@ echo CHtml::openTag("fieldset", array( "class" => "inline" ));
         </div>
     </div>
     <div class="row-fluid control-group <?php echo $model->hasErrors('is_protected') ? 'error' : '' ?>">
-        <div class="span7  popover-help" data-content="<?php echo Yii::t('news', "Страница будет видна только авторизованным пользователям") ?>" data-original-title="<?php echo $model->getAttributeLabel('is_protected'); ?>" >
+        <div class="span7  popover-help" data-content="<?php echo Yii::t('NewsModule.news', "Страница будет видна только авторизованным пользователям") ?>" data-original-title="<?php echo $model->getAttributeLabel('is_protected'); ?>" >
             <?php echo $form->labelEx($model, 'is_protected'); ?>
             <?php echo $form->checkBox($model, 'is_protected'); ?>
         </div>
@@ -145,9 +145,9 @@ foreach ($langs as $l)
 echo CHtml::closeTag("div");
 echo CHtml::closeTag("fieldset");
 echo "<br />";
-echo CHtml::submitButton($model->isNewRecord ? Yii::t('news', 'Добавить новость и продолжить редактирование') : Yii::t('news', 'Сохранить и продолжить редактирование'), array('class' => 'btn btn-primary'));
+echo CHtml::submitButton($model->isNewRecord ? Yii::t('NewsModule.news', 'Добавить новость и продолжить редактирование') : Yii::t('NewsModule.news', 'Сохранить и продолжить редактирование'), array('class' => 'btn btn-primary'));
 echo "&nbsp;";
-echo CHtml::submitButton($model->isNewRecord ? Yii::t('news', 'Добавить и закрыть') : Yii::t('news', 'Сохранить и закрыть'), array( 'name'  => 'saveAndClose', 'id'    => 'saveAndClose', 'class' => 'btn btn-info' ));
+echo CHtml::submitButton($model->isNewRecord ? Yii::t('NewsModule.news', 'Добавить и закрыть') : Yii::t('NewsModule.news', 'Сохранить и закрыть'), array( 'name'  => 'saveAndClose', 'id'    => 'saveAndClose', 'class' => 'btn btn-info' ));
 
 $this->endWidget();
 ?>

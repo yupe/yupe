@@ -1,13 +1,13 @@
 <?php
     $this->breadcrumbs = array(
         $this->getModule('vote')->getCategory() => array(),
-        Yii::t('vote', 'Голосование') => array('/vote/default/index'),
-        Yii::t('vote', 'Управление'),
+        Yii::t('VoteModule.vote', 'Голосование') => array('/vote/default/index'),
+        Yii::t('VoteModule.vote', 'Управление'),
     );
 
     $this->menu = array(
-        array('label' => Yii::t('vote', 'Управление голосами'), 'url' => array('/vote/default/index')),
-        array('label' => Yii::t('vote', 'Добавить голос'), 'url' => array('/vote/default/create')),
+        array('label' => Yii::t('VoteModule.vote', 'Управление голосами'), 'url' => array('/vote/default/index')),
+        array('label' => Yii::t('VoteModule.vote', 'Добавить голос'), 'url' => array('/vote/default/create')),
     );
 ?>
 
@@ -15,7 +15,7 @@
 
 <?php $this->widget('YModuleInfo'); ?>
 
-<?php echo CHtml::link(Yii::t('vote', 'Поиск'), '#', array('class' => 'search-button')); ?>
+<?php echo CHtml::link(Yii::t('VoteModule.vote', 'Поиск'), '#', array('class' => 'search-button')); ?>
 <div class="search-form" style="display:none">
     <?php $this->renderPartial('_search', array('model' => $model)); ?>
 </div><!-- search-form -->

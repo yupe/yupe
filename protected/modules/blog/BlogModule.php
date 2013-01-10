@@ -11,14 +11,14 @@ class BlogModule extends YWebModule
 
     public function getCategory()
     {
-        return Yii::t('blog', 'Контент');
+        return Yii::t('BlogModule.blog', 'Контент');
     }
 
     public function getParamsLabels()
     {
         return array(
-            'adminMenuOrder' => Yii::t('blog', 'Порядок следования в меню'),
-            'editor'         => Yii::t('blog', 'Визуальный редактор'),
+            'adminMenuOrder' => Yii::t('BlogModule.blog', 'Порядок следования в меню'),
+            'editor'         => Yii::t('BlogModule.blog', 'Визуальный редактор'),
         );
     }
 
@@ -33,46 +33,46 @@ class BlogModule extends YWebModule
     public function getNavigation()
     {
         return array(
-            array('label' => Yii::t('blog', 'Блоги')),
-            array('icon' => 'list-alt', 'label' => Yii::t('blog', 'Список блогов'), 'url' => array('/blog/BlogAdmin/index')),
-            array('icon' => 'plus-sign', 'label' => Yii::t('blog', 'Добавить блог'), 'url' => array('/blog/BlogAdmin/create')),
-            array('label' => Yii::t('blog', 'Записи')),
-            array('icon' => 'list-alt', 'label' => Yii::t('blog', 'Список записей'), 'url' => array('/blog/PostAdmin/index')),
-            array('icon' => 'plus-sign', 'label' => Yii::t('blog', 'Добавить запись'), 'url' => array('/blog/PostAdmin/create')),
-            array('label' => Yii::t('blog', 'Участники')),
-            array('icon' => 'list-alt', 'label' => Yii::t('blog', 'Список участников'), 'url' => array('/blog/UserToBlogAdmin/index')),
-            array('icon' => 'plus-sign', 'label' => Yii::t('blog', 'Добавить участника'), 'url' => array('/blog/UserToBlogAdmin/create')),
+            array('label' => Yii::t('BlogModule.blog', 'Блоги')),
+            array('icon' => 'list-alt', 'label' => Yii::t('BlogModule.blog', 'Список блогов'), 'url' => array('/blog/BlogAdmin/index')),
+            array('icon' => 'plus-sign', 'label' => Yii::t('BlogModule.blog', 'Добавить блог'), 'url' => array('/blog/BlogAdmin/create')),
+            array('label' => Yii::t('BlogModule.blog', 'Записи')),
+            array('icon' => 'list-alt', 'label' => Yii::t('BlogModule.blog', 'Список записей'), 'url' => array('/blog/PostAdmin/index')),
+            array('icon' => 'plus-sign', 'label' => Yii::t('BlogModule.blog', 'Добавить запись'), 'url' => array('/blog/PostAdmin/create')),
+            array('label' => Yii::t('BlogModule.blog', 'Участники')),
+            array('icon' => 'list-alt', 'label' => Yii::t('BlogModule.blog', 'Список участников'), 'url' => array('/blog/UserToBlogAdmin/index')),
+            array('icon' => 'plus-sign', 'label' => Yii::t('BlogModule.blog', 'Добавить участника'), 'url' => array('/blog/UserToBlogAdmin/create')),
         );
     }
 
     public  function getVersion()
     {
-        return Yii::t('blog', '0.3');
+        return Yii::t('BlogModule.blog', '0.3');
     }
 
     public function getName()
     {
-        return Yii::t('blog', 'Блоги');
+        return Yii::t('BlogModule.blog', 'Блоги');
     }
 
     public function getDescription()
     {
-        return Yii::t('blog', 'Модуль для построения личного блога или блогового сообщества');
+        return Yii::t('BlogModule.blog', 'Модуль для построения личного блога или блогового сообщества');
     }
 
     public function getAuthor()
     {
-        return Yii::t('blog', 'yupe team');
+        return Yii::t('BlogModule.blog', 'yupe team');
     }
 
     public function getAuthorEmail()
     {
-        return Yii::t('blog', 'team@yupe.ru');
+        return Yii::t('BlogModule.blog', 'team@yupe.ru');
     }
 
     public function getUrl()
     {
-        return Yii::t('blog', 'http://yupe.ru');
+        return Yii::t('BlogModule.blog', 'http://yupe.ru');
     }
 
     public function getAdminPageLink()

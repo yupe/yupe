@@ -28,7 +28,7 @@ Yii::app()->clientScript->registerScript('fieldset', "
         'type'        => 'primary',
         'encodeLabel' => false,
         'buttonType'  => 'submit',
-        'label'       => '<i class="icon-search icon-white">&nbsp;</i> ' . Yii::t('feedback', 'Искать сообщения с сайта'),
+        'label'       => '<i class="icon-search icon-white">&nbsp;</i> ' . Yii::t('FeedbackModule.feedback', 'Искать сообщения с сайта'),
     )); ?>
 
 <?php $this->endWidget(); ?>

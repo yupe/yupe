@@ -11,11 +11,11 @@ class LoginAction extends CAction
             if ($form->validate()) {
                 Yii::app()->user->setFlash(
                     YFlashMessages::NOTICE_MESSAGE,
-                    Yii::t('user', 'Вы успешно авторизовались!')
+                    Yii::t('UserModule.user', 'Вы успешно авторизовались!')
                 );
 
                 Yii::log(
-                    Yii::t('user', 'Пользователь {email} авторизовался!', array('{email}' => $form->email)),
+                    Yii::t('UserModule.user', 'Пользователь {email} авторизовался!', array('{email}' => $form->email)),
                     CLogger::LEVEL_INFO, UserModule::$logCategory
                 );
 

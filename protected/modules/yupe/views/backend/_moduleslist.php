@@ -18,7 +18,7 @@ if (count($modules))
 ?>
     <div class="page-header">
     <h6>
-        <?php echo Yii::t('yupe', 'Модули разработанные специально для "{app}"', array(
+        <?php echo Yii::t('YupeModule.yupe', 'Модули разработанные специально для "{app}"', array(
             '{app}' => CHtml::encode(Yii::app()->name),
         )); ?>
     </h6>
@@ -28,18 +28,18 @@ if (count($modules))
 
     if (count($on))
         $tabs[] = array(
-            'label'   => Yii::t('yupe', 'Активные') . "&nbsp;" . CHtml::tag('span', array('class' => 'label label-success flash'), CHtml::tag('small', array(), count($on))),
+            'label'   => Yii::t('YupeModule.yupe', 'Активные') . "&nbsp;" . CHtml::tag('span', array('class' => 'label label-success flash'), CHtml::tag('small', array(), count($on))),
             'content' => modulesTable($on, $updates, $modules, $this),
             'active'  => true
         );
     if (count($off))
         $tabs[] = array(
-            'label'   => Yii::t('yupe', 'Отключенные') . "&nbsp;" . CHtml::tag('span', array('class' => 'label'), CHtml::tag('small', array(), count($off))),
+            'label'   => Yii::t('YupeModule.yupe', 'Отключенные') . "&nbsp;" . CHtml::tag('span', array('class' => 'label'), CHtml::tag('small', array(), count($off))),
             'content' => modulesTable($off, $updates, $modules, $this)
         );
     if (count($has))
         $tabs[] = array(
-            'label'   => Yii::t('yupe', 'Есть обновления') . "&nbsp;" . CHtml::tag('span', array('class' => 'label label-waring'), CHtml::tag('small', array(), count($has))),
+            'label'   => Yii::t('YupeModule.yupe', 'Есть обновления') . "&nbsp;" . CHtml::tag('span', array('class' => 'label label-waring'), CHtml::tag('small', array(), count($has))),
             'content' => modulesTable($has, $updates, $modules, $this)
         );
 
@@ -61,13 +61,13 @@ function moduleRow($module, &$updates, &$modules, &$controller)
             <small class='label <?php
                 $v = $module->version;
                 echo (($n = strpos($v, "(dev)")) !== FALSE)
-                    ? "label-warning' title='" . Yii::t('yupe', 'Модуль в разработке') . "'>" . substr($v, 0, $n)
+                    ? "label-warning' title='" . Yii::t('YupeModule.yupe', 'Модуль в разработке') . "'>" . substr($v, 0, $n)
                     : "'>" . $v;
                 ?></small>
         </td>
         <td>
             <?php if ($module->isMultiLang()): ?>
-                <i class="icon-globe" title="<?php echo Yii::t('yupe', 'Модуль мультиязычный'); ?>"></i>
+                <i class="icon-globe" title="<?php echo Yii::t('YupeModule.yupe', 'Модуль мультиязычный'); ?>"></i>
             <?php endif; ?>
         </td>
         <td>
@@ -81,9 +81,9 @@ function moduleRow($module, &$updates, &$modules, &$controller)
         <td>
             <?php echo $module->description; ?>
             <br />
-            <small style="font-size: 80%;"> <?php echo "<b>" . Yii::t('yupe', "Автор:") . "</b> " . $module->author; ?>
+            <small style="font-size: 80%;"> <?php echo "<b>" . Yii::t('YupeModule.yupe', "Автор:") . "</b> " . $module->author; ?>
             (<a href="mailto:<?php echo $module->authorEmail; ?>"><?php echo $module->authorEmail; ?></a>) &nbsp;
-            <?php echo "<b>" . Yii::t('yupe', 'Сайт модуля:') . "</b> " . CHtml::link($module->url, $module->url); ?></small><br />
+            <?php echo "<b>" . Yii::t('YupeModule.yupe', 'Сайт модуля:') . "</b> " . CHtml::link($module->url, $module->url); ?></small><br />
         </td>
         <td style="font-size: 10px;">
                 <?php
@@ -95,15 +95,15 @@ function moduleRow($module, &$updates, &$modules, &$controller)
                         foreach($deps as &$dep)
                             $dep = $modules[$dep]->name;
                         $tabs[] = array(
-                            'label'   => Yii::t('yupe', 'Зависит от'),
+                            'label'   => Yii::t('YupeModule.yupe', 'Зависит от'),
                             'content' => implode(', ', $deps),
                             'count'   => count($deps),
                         );
                     }
                     if( $module->id == 'yupe')
                         $tabs[] = array(
-                            'label'   => Yii::t('yupe', 'Зависимые'),
-                            'content' => Yii::t('yupe', 'Все модули'),
+                            'label'   => Yii::t('YupeModule.yupe', 'Зависимые'),
+                            'content' => Yii::t('YupeModule.yupe', 'Все модули'),
                             'count'   => 'Все',
                         );
                     else
@@ -112,7 +112,7 @@ function moduleRow($module, &$updates, &$modules, &$controller)
                             foreach($deps as &$dep)
                                 $dep = $modules[$dep]->name;
                             $tabs[] = array(
-                                'label'   => Yii::t('yupe', 'Зависимые'),
+                                'label'   => Yii::t('YupeModule.yupe', 'Зависимые'),
                                 'content' => implode(', ', $deps),
                                 'count'   => count($deps),
                             );
@@ -128,7 +128,7 @@ function moduleRow($module, &$updates, &$modules, &$controller)
         </td>
         <td>
             <?php if ($module->isStatus && $module->editableParams): ?>
-                <?php echo CHtml::link('<i class="icon-wrench" rel="tooltip" title="' . Yii::t('yupe', 'Настройки') . '">&nbsp;</i>', array(
+                <?php echo CHtml::link('<i class="icon-wrench" rel="tooltip" title="' . Yii::t('YupeModule.yupe', 'Настройки') . '">&nbsp;</i>', array(
                     '/yupe/backend/modulesettings/',
                     'module' => $module->id,
                 )); ?>
@@ -137,13 +137,13 @@ function moduleRow($module, &$updates, &$modules, &$controller)
                 $url = array('/yupe/backend/modulechange/', 'name' => $module->id);
                 echo !$module->isNoDisable
                     ? ($module->isStatus
-                        ? CHtml::link('<i class="icon-remove-circle" rel="tooltip" title="' . Yii::t('yupe', 'Выключить') . '">&nbsp;</i>', $url + array('status' => '0'))
-                        : CHtml::link('<i class="icon-ok-sign" rel="tooltip" title="' . Yii::t('yupe', 'Включить') . '">&nbsp;</i>', $url + array('status' => '1'))
+                        ? CHtml::link('<i class="icon-remove-circle" rel="tooltip" title="' . Yii::t('YupeModule.yupe', 'Выключить') . '">&nbsp;</i>', $url + array('status' => '0'))
+                        : CHtml::link('<i class="icon-ok-sign" rel="tooltip" title="' . Yii::t('YupeModule.yupe', 'Включить') . '">&nbsp;</i>', $url + array('status' => '1'))
                     )
                     : '<br />';
 
                 if (isset($updates[$module->id]))
-                    echo CHtml::link('<i class="icon-refresh" rel="tooltip" title="' . Yii::t('yupe', 'Есть {n} обновление базы!|Есть {n} обновления базы!|Есть {n} обновлений базы!',count($updates[$module->id])) . '">&nbsp;</i>', array('/yupe/backend/modupdate','name' => $module->id));
+                    echo CHtml::link('<i class="icon-refresh" rel="tooltip" title="' . Yii::t('YupeModule.yupe', 'Есть {n} обновление базы!|Есть {n} обновления базы!|Есть {n} обновлений базы!',count($updates[$module->id])) . '">&nbsp;</i>', array('/yupe/backend/modupdate','name' => $module->id));
                 ?>
         </td>
     </tr>
@@ -159,11 +159,11 @@ function modulesTable($modules, &$updates, &$allmodules,&$controller)
         <thead>
         <tr>
             <th></th>
-            <th style="width: 32px;"><?php echo Yii::t('yupe', 'Версия'); ?></th>
+            <th style="width: 32px;"><?php echo Yii::t('YupeModule.yupe', 'Версия'); ?></th>
             <th style="width: 32px;"></th>
-            <th style="width: 150px;"><?php echo Yii::t('yupe', 'Название'); ?></th>
-            <th><?php echo Yii::t('yupe', 'Описание'); ?></th>
-            <th><?php echo Yii::t('yupe', 'Зависимости'); ?></th>
+            <th style="width: 150px;"><?php echo Yii::t('YupeModule.yupe', 'Название'); ?></th>
+            <th><?php echo Yii::t('YupeModule.yupe', 'Описание'); ?></th>
+            <th><?php echo Yii::t('YupeModule.yupe', 'Зависимости'); ?></th>
             <th></th>
         </tr>
         </thead>

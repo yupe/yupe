@@ -63,7 +63,7 @@ abstract class YWebModule extends CWebModule
      */
     public function getAuthor()
     {
-        return Yii::t('yupe', 'Сообщество Юпи!');
+        return Yii::t('YupeModule.yupe', 'Сообщество Юпи!');
     }
 
     /**
@@ -145,7 +145,7 @@ abstract class YWebModule extends CWebModule
      */
     public function getParamsLabels()
     {
-        return array('adminMenuOrder' => Yii::t('yupe', 'Порядок следования в меню'));
+        return array('adminMenuOrder' => Yii::t('YupeModule.yupe', 'Порядок следования в меню'));
     }
 
     /**
@@ -310,7 +310,7 @@ abstract class YWebModule extends CWebModule
 
         // @TODO Временный хак, дающий возможность переустановки, после появления обновлению, будет закрыт
         if (is_file($fileConfig) && $this->id != 'install')
-            throw new CException(Yii::t('yupe', 'Модуль уже включен!'));
+            throw new CException(Yii::t('YupeModule.yupe', 'Модуль уже включен!'));
         else
         {
             // Проверка модулей от которых зависит данный
@@ -323,7 +323,7 @@ abstract class YWebModule extends CWebModule
                     {
                         if (Yii::app()->getModule($dependency) == NULL)
                         {
-                            throw new CException(Yii::t('yupe', 'Произошла ошибка, модули от которых зависит этот модуль не включены, включите сначала их!'));
+                            throw new CException(Yii::t('YupeModule.yupe', 'Произошла ошибка, модули от которых зависит этот модуль не включены, включите сначала их!'));
                             return false;
                         }
                     }
@@ -333,7 +333,7 @@ abstract class YWebModule extends CWebModule
             if (@copy($fileModule, $fileConfig))
                 return true;
             else
-                throw new CException(Yii::t('yupe', 'Произошла ошибка при включении модуля, конфигурационный файл поврежден или отсутствует доступ к папке config!'));
+                throw new CException(Yii::t('YupeModule.yupe', 'Произошла ошибка при включении модуля, конфигурационный файл поврежден или отсутствует доступ к папке config!'));
         }
         return false;
     }
@@ -352,7 +352,7 @@ abstract class YWebModule extends CWebModule
 
         // @TODO Временный хак, дающий возможность переустановки, после появления обновлению, будет закрыт
         if (!is_file($fileConfig) && $this->id != 'install')
-            throw new CException(Yii::t('yupe', 'Модуль уже отключен!'));
+            throw new CException(Yii::t('YupeModule.yupe', 'Модуль уже отключен!'));
         else
         {
             // Проверка зависимых модулей
@@ -365,7 +365,7 @@ abstract class YWebModule extends CWebModule
                     {
                         if (Yii::app()->getModule($dependen) != null)
                         {
-                            throw new CException(Yii::t('yupe', 'Произошла ошибка, есть включенные зависимые модули, отключите сначало их!'));
+                            throw new CException(Yii::t('YupeModule.yupe', 'Произошла ошибка, есть включенные зависимые модули, отключите сначало их!'));
                             return false;
                         }
                     }
@@ -373,11 +373,11 @@ abstract class YWebModule extends CWebModule
             }
 
             if ($this->isNoDisable)
-                throw new CException(Yii::t('yupe', 'Этот модуль запрещено отключать!'));
+                throw new CException(Yii::t('YupeModule.yupe', 'Этот модуль запрещено отключать!'));
             else if (@md5_file($fileModule) != @md5_file($fileConfig) && !@copy($fileConfig, $fileConfigBack))
-                throw new CException(Yii::t('yupe', 'Произошла ошибка при копировании старого конфигурационного файла в папку modulesBack!'));
+                throw new CException(Yii::t('YupeModule.yupe', 'Произошла ошибка при копировании старого конфигурационного файла в папку modulesBack!'));
             else if (!@unlink($fileConfig))
-                throw new CException(Yii::t('yupe', 'Произошла ошибка при отключении модуля, нет доступа к конфигурационному файлу!'));
+                throw new CException(Yii::t('YupeModule.yupe', 'Произошла ошибка при отключении модуля, нет доступа к конфигурационному файлу!'));
             else
                 return true;
         }
@@ -424,19 +424,19 @@ abstract class YWebModule extends CWebModule
     {
         $log = array();
 
-        Yii::log(Yii::t('yupe', $this->id . "->installDB() : Запрошена установка БД модуля {m}", array('{m}' => $this->name)));
+        Yii::log(Yii::t('YupeModule.yupe', $this->id . "->installDB() : Запрошена установка БД модуля {m}", array('{m}' => $this->name)));
 
         if ($this->dependencies !== array())
         {
             foreach ($this->dependencies as $dep)
             {
-                Yii::log(Yii::t('yupe', 'Для модуля {module} сначала будет установлена база модуля {m2} как зависимость', array(
+                Yii::log(Yii::t('YupeModule.yupe', 'Для модуля {module} сначала будет установлена база модуля {m2} как зависимость', array(
                     '{module}' => $this->id,
                     '{m2}'     => $dep,
                 )));
 
                 if (($m = Yii::app()->getModule($dep)) == null)
-                    throw new CException(Yii::t('yupe', "Необходимый для установки модуль {dm} не найден", array('{dm}' => $dep)));
+                    throw new CException(Yii::t('YupeModule.yupe', "Необходимый для установки модуль {dm} не найден", array('{dm}' => $dep)));
                 else
                 {
                     if (!isset($installed[$dep]) && !($i = $m->installDB($installed)))
@@ -467,8 +467,8 @@ abstract class YWebModule extends CWebModule
     public function getChoice()
     {
         return array(
-            self::CHOICE_YES => Yii::t('yupe', 'да'),
-            self::CHOICE_NO  => Yii::t('yupe', 'нет'),
+            self::CHOICE_YES => Yii::t('YupeModule.yupe', 'да'),
+            self::CHOICE_NO  => Yii::t('YupeModule.yupe', 'нет'),
         );
     }
 

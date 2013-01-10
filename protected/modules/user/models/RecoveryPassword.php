@@ -42,10 +42,10 @@ class RecoveryPassword extends YModel
     public function attributeLabels()
     {
         return array(
-            'id'            => Yii::t('user', 'Id'),
-            'user_id'       => Yii::t('user', 'Пользователь'),
-            'creation_date' => Yii::t('user', 'Дата создания'),
-            'code'          => Yii::t('user', 'Код'),
+            'id'            => Yii::t('UserModule.user', 'Id'),
+            'user_id'       => Yii::t('UserModule.user', 'Пользователь'),
+            'creation_date' => Yii::t('UserModule.user', 'Дата создания'),
+            'code'          => Yii::t('UserModule.user', 'Код'),
         );
     }
 

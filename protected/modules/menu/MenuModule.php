@@ -6,37 +6,37 @@ class MenuModule extends YWebModule
 
     public function getCategory()
     {
-        return Yii::t('menu', 'Структура');
+        return Yii::t('MenuModule.menu', 'Структура');
     }
 
     public function getName()
     {
-        return Yii::t('menu', 'Меню');
+        return Yii::t('MenuModule.menu', 'Меню');
     }
 
     public function getDescription()
     {
-        return Yii::t('menu', 'Модуль для создания и редактирования меню');
+        return Yii::t('MenuModule.menu', 'Модуль для создания и редактирования меню');
     }
 
     public function getVersion()
     {
-        return Yii::t('menu', '0.3');
+        return Yii::t('MenuModule.menu', '0.3');
     }
 
     public function getAuthor()
     {
-        return Yii::t('menu', 'yupe team');
+        return Yii::t('MenuModule.menu', 'yupe team');
     }
 
     public function getAuthorEmail()
     {
-        return Yii::t('menu', 'team@yupe.ru');
+        return Yii::t('MenuModule.menu', 'team@yupe.ru');
     }
 
     public function getUrl()
     {
-        return Yii::t('menu', 'http://yupe.ru');
+        return Yii::t('MenuModule.menu', 'http://yupe.ru');
     }
 
     public function getIcon()
@@ -47,12 +47,12 @@ class MenuModule extends YWebModule
     public function getNavigation()
     {
         return array(
-            array('label' => Yii::t('menu', 'Меню')),
-            array('icon' => 'list-alt','label' => Yii::t('menu', 'Управление меню'), 'url' => array('/menu/menu/index')),
-            array('icon' => 'plus-sign','label' => Yii::t('menu', 'Добавить меню'), 'url' => array('/menu/menu/create')),
-            array('label' => Yii::t('menu', 'Пункты меню')),
-            array('icon' => 'list-alt','label' => Yii::t('menu', 'Управление пунктами меню'), 'url' => array('/menu/menuitem/index')),
-            array('icon' => 'plus-sign','label' => Yii::t('menu', 'Добавить пункт меню'), 'url' => array('/menu/menuitem/create')),
+            array('label' => Yii::t('MenuModule.menu', 'Меню')),
+            array('icon' => 'list-alt','label' => Yii::t('MenuModule.menu', 'Управление меню'), 'url' => array('/menu/menu/index')),
+            array('icon' => 'plus-sign','label' => Yii::t('MenuModule.menu', 'Добавить меню'), 'url' => array('/menu/menu/create')),
+            array('label' => Yii::t('MenuModule.menu', 'Пункты меню')),
+            array('icon' => 'list-alt','label' => Yii::t('MenuModule.menu', 'Управление пунктами меню'), 'url' => array('/menu/menuitem/index')),
+            array('icon' => 'plus-sign','label' => Yii::t('MenuModule.menu', 'Добавить пункт меню'), 'url' => array('/menu/menuitem/create')),
         );
     }
 

@@ -13,23 +13,23 @@ class SearchModule extends YWebModule
     public function getParamsLabels()
     {
         return array(
-            'param' => Yii::t('search', ''),
+            'param' => Yii::t('SearchModule.search', ''),
         );
     }
 
     public function getCategory()
     {
-        return Yii::t('search', 'Сервисы');
+        return Yii::t('SearchModule.search', 'Сервисы');
     }
 
     public function getName()
     {
-        return Yii::t('search', 'Поиск');
+        return Yii::t('SearchModule.search', 'Поиск');
     }
 
     public function getDescription()
     {
-        return Yii::t('search', 'Функции поиска по сайту.');
+        return Yii::t('SearchModule.search', 'Функции поиска по сайту.');
     }
 
     public function getAuthor()
@@ -39,17 +39,17 @@ class SearchModule extends YWebModule
 
     public function getAuthorEmail()
     {
-        return Yii::t('search', 'tsm@glavset.ru');
+        return Yii::t('SearchModule.search', 'tsm@glavset.ru');
     }
 
     public function getVersion()
     {
-        return Yii::t('search', '0.1');
+        return Yii::t('SearchModule.search', '0.1');
     }
 
     public function getUrl()
     {
-        return Yii::t('search', 'http://yupe.ru/');
+        return Yii::t('SearchModule.search', 'http://yupe.ru/');
     }
 
     public function getAdminPageLink()

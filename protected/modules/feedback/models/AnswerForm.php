@@ -16,8 +16,8 @@ class AnswerForm extends CFormModel
     public function attributeLabels()
     {
         return array(
-            'answer' => Yii::t('feedback', 'Ответ'),
-            'is_faq' => Yii::t('feedback', 'В разделе FAQ'),
+            'answer' => Yii::t('FeedbackModule.feedback', 'Ответ'),
+            'is_faq' => Yii::t('FeedbackModule.feedback', 'В разделе FAQ'),
         );
     }
 }

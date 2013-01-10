@@ -10,7 +10,7 @@ class EmailConfirmAction extends CAction
         {
             Yii::app()->user->setFlash(
                 YFlashMessages::ERROR_MESSAGE,
-                Yii::t('user', 'Ошибка активации! Возможно данный e-mail уже проверен или указан неверный ключ активации! Попробуйте другой e-mail.')
+                Yii::t('UserModule.user', 'Ошибка активации! Возможно данный e-mail уже проверен или указан неверный ключ активации! Попробуйте другой e-mail.')
             );
             $this->controller->redirect(array('/user/account/login'));
         }
@@ -29,7 +29,7 @@ class EmailConfirmAction extends CAction
         if ($user->confirmEmail())
         {
             Yii::log(
-                Yii::t('user', "Активирован e-mail с activate_key = {activate_key}, id = {id}!", array(
+                Yii::t('UserModule.user', "Активирован e-mail с activate_key = {activate_key}, id = {id}!", array(
                     '{activate_key}' => $key,
                     '{id}'           => $user->id,
                 )),
@@ -38,7 +38,7 @@ class EmailConfirmAction extends CAction
 
             Yii::app()->user->setFlash(
                 YFlashMessages::NOTICE_MESSAGE,
-                Yii::t('user', 'Вы успешно подтвердили новый e-mail!')
+                Yii::t('UserModule.user', 'Вы успешно подтвердили новый e-mail!')
             );
 
             $this->controller->redirect(array('/user/account/profile'));
@@ -47,11 +47,11 @@ class EmailConfirmAction extends CAction
         {
             Yii::app()->user->setFlash(
                 YFlashMessages::ERROR_MESSAGE,
-                Yii::t('user', 'При подтверждении e-mail произошла ошибка! Попробуйте позже!')
+                Yii::t('UserModule.user', 'При подтверждении e-mail произошла ошибка! Попробуйте позже!')
             );
 
             Yii::log(
-                Yii::t('user', "При подтверждении e-mail c activate_key => {activate_key} произошла ошибка {error}!", array(
+                Yii::t('UserModule.user', "При подтверждении e-mail c activate_key => {activate_key} произошла ошибка {error}!", array(
                     '{activate_key}' => $key,
                     '{error}'        => $e->getMessage(),
                 )),

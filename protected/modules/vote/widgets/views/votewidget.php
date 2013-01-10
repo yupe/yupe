@@ -14,7 +14,7 @@
                 '<?php echo Yii::app()->request->csrfTokenName; ?>' : '<?php echo Yii::app()->request->csrfToken; ?>'
             }, function(response) {
                 response.result
-                    ? $('#votes').html('<?php echo Yii::t('vote', 'Ваша оценка'); ?>: <b>' + value + '</b> <?php echo Yii::t('vote', 'спасибо за голос!'); ?>')
+                    ? $('#votes').html('<?php echo Yii::t('VoteModule.vote', 'Ваша оценка'); ?>: <b>' + value + '</b> <?php echo Yii::t('VoteModule.vote', 'спасибо за голос!'); ?>')
                     : alert(response.data);
             }, 'json');
         });
@@ -24,12 +24,12 @@
 <div id="votes">
     <?php if ($model !== NULL): ?>
         <p>
-            <?php echo Yii::t('vote', 'Ваша оценка'); ?>:
+            <?php echo Yii::t('VoteModule.vote', 'Ваша оценка'); ?>:
             <b><?php echo $model->value; ?></b>
         </p>
     <?php else: ?>
         <p>
-            <?php echo Yii::t('vote', 'Оцените изображение'); ?>:
+            <?php echo Yii::t('VoteModule.vote', 'Оцените изображение'); ?>:
             <?php foreach (range(1, 5) as $p): ?>
                 <?php echo CHtml::link($p, array(), array('class' => 'vote', 'id' => $p)); ?>
             <?php endforeach; ?>

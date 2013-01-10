@@ -10,7 +10,7 @@ class NewsController extends YFrontController
             ? $news->language(Yii::app()->language)->find('alias = :alias', array(':alias' => $title))
             : $news->find('alias = :alias', array(':alias' => $title));
         if (!$news)
-            throw new CHttpException(404, Yii::t('news', 'Новость не найдена!'));
+            throw new CHttpException(404, Yii::t('NewsModule.news', 'Новость не найдена!'));
         $this->render('news', array('news' => $news));
     }
 

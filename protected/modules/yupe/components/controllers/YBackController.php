@@ -15,7 +15,7 @@ class YBackController extends YMainController
 
         $this->layout = $this->yupe->backendLayoutAlias;
         $backendTheme = $this->yupe->backendTheme;
-        $this->setPageTitle(Yii::t('yupe', 'Панель управления'));
+        $this->setPageTitle(Yii::t('YupeModule.yupe', 'Панель управления'));
 
         if ($backendTheme && is_dir(Yii::getPathOfAlias("webroot.themes.backend_" . $backendTheme)))
         {
@@ -66,12 +66,12 @@ class YBackController extends YMainController
         $statusField =       Yii::app()->request->getQuery('statusField');
 
         if (!isset($modelClass, $id, $status, $statusField))
-            throw new CHttpException(404, Yii::t('yupe', 'Страница не найдена!'));
+            throw new CHttpException(404, Yii::t('YupeModule.yupe', 'Страница не найдена!'));
 
         $model = new $modelClass;
         $model = $model->resetScope()->findByPk($id);
         if (!$model)
-            throw new CHttpException(404, Yii::t('yupe', 'Страница не найдена!'));
+            throw new CHttpException(404, Yii::t('YupeModule.yupe', 'Страница не найдена!'));
 
         $model->$statusField = $status;
         $model->update(array($statusField));
@@ -88,13 +88,13 @@ class YBackController extends YMainController
         $sortField  =       Yii::app()->request->getQuery('sortField');
 
         if (!isset($direction, $id, $modelClass, $sortField))
-            throw new CHttpException(404, Yii::t('yupe', 'Страница не найдена!'));
+            throw new CHttpException(404, Yii::t('YupeModule.yupe', 'Страница не найдена!'));
 
         $model         = new $modelClass;
         $model_depends = new $modelClass;
         $model         = $model->resetScope()->findByPk($id);
         if (!$model)
-            throw new CHttpException(404, Yii::t('yupe', 'Страница не найдена!'));
+            throw new CHttpException(404, Yii::t('YupeModule.yupe', 'Страница не найдена!'));
 
         if ($direction === 'up')
         {
