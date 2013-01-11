@@ -1,6 +1,6 @@
 <?php
 
-class BlogAdminController extends YBackController
+class DefaultAdminController extends YBackController
 {
     /**
      * Отображает блог по указанному идентификатору

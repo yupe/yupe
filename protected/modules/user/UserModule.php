@@ -150,6 +150,11 @@ class UserModule extends YWebModule
     {
         return Yii::t('UserModule.user', '0.3');
     }
+    
+    public function getAdminPageLink()
+    {
+    	return '/admin/user';
+    }
 
     public function getIcon()
     {

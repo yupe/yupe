@@ -1,11 +1,10 @@
 <div class="view">
 
-    <h3><?php echo CHtml::link(CHtml::encode($data->name), array('/blog/blog/show/', 'slug' => $data->slug)); ?></h3>
+    <h3><?php echo CHtml::link(CHtml::encode($data->name), array('/blog/'.$data->slug)); ?></h3>
 
     <b><?php echo CHtml::encode($data->getAttributeLabel('create_date')); ?>:</b>
     <?php echo CHtml::link(CHtml::encode($data->createUser->getFullName()), array(
-        '/user/people/userInfo/',
-        'username' => $data->createUser->nick_name,
+        '/user/'.$data->createUser->nick_name,
     )); ?>
     <?php echo Yii::app()->getDateFormatter()->formatDateTime($data->create_date, "short", "short"); ?>
     <br />
@@ -21,5 +20,5 @@
 
     <br /><br />
 
-    <?php echo CHtml::link(Yii::t('blog', 'Вступить в блог'), array('/blog/blog/join/', 'blogId' => $data->id)); ?>
+    <?php echo CHtml::link(Yii::t('blog', 'Вступить в блог'), array('/blog/'.$data->slug.'?act=join&blogId='.$data->id)); ?>
 </div>

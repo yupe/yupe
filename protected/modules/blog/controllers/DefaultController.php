@@ -1,9 +1,10 @@
 <?php
-class BlogController extends YFrontController
+class DefaultController extends YFrontController
 {
     // Выводит список блогов
     public function actionIndex()
     {
+    	//die('index');
         $dataProvider = new CActiveDataProvider('Blog', array(
             'criteria' => array(
                 'condition' => 't.status = :status',
@@ -18,6 +19,11 @@ class BlogController extends YFrontController
     // Отобразить карточку блога
     public function actionShow($slug)
     {
+    	if ( isset($_GET['act']) AND $_GET['act'] == 'join' 
+    				AND isset($_GET['blogId']) AND is_numeric($_GET['blogId'])  )
+    		$this->join($_GET['blogId']);
+    	
+    	
         $blog = Blog::model()->with(
             'createUser',
             'postsCount',
@@ -61,7 +67,7 @@ class BlogController extends YFrontController
     }
 
     // "вступление" в блог
-    public function actionJoin($blogId)
+    public function join($blogId)
     {
         if (!Yii::app()->user->isAuthenticated())
         {
@@ -111,7 +117,7 @@ class BlogController extends YFrontController
                     YFlashMessages::NOTICE_MESSAGE,
                     Yii::t('BlogModule.blog', 'Вы присоединились к блогу!')
                );
-               $this->redirect(array('/blog/blog/index'));
+               $this->redirect(array('/blogs'));
             }
         }
         else
@@ -124,7 +130,7 @@ class BlogController extends YFrontController
                     YFlashMessages::NOTICE_MESSAGE,
                     Yii::t('BlogModule.blog', 'Вы уже присоеденены к этому блогу!')
                 );
-                $this->redirect(array('/blog/blog/index'));
+                $this->redirect(array('/blogs'));
             }
         }
     }

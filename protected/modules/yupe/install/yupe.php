@@ -6,8 +6,11 @@ return array(
         'db' => require(dirname(__FILE__) . '/../db.php'),
     ),
     'rules'        => array(
-        '/yupe/backend/modulesettings/<module:\w+>' => 'yupe/backend/modulesettings',
-    	'/admin'                                    => 'yupe/backend/index',
+        '/admin'                                    => 'yupe/backend/index',
+        '/admin/modulesettings' 					=> 'yupe/backend/modulesettings',
+    	'/admin/modupdate' 							=> 'yupe/backend/modupdate',
+    	'/admin/modulechange'			 			=> 'yupe/backend/modulechange',
+    	'/admin/help'								=> 'yupe/backend/help',
         // правила контроллера site
         '/'                                         => 'site/index',
         '/<view:\w+>'                               => 'site/page',

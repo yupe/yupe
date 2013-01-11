@@ -3,7 +3,7 @@
 
 <?php
 $this->breadcrumbs = array(
-    Yii::t('blog', 'Блоги') => array('/blog/blog/index/'),
+    Yii::t('blog', 'Блоги') => array('/blogs'),
     $blog->name,
 );
 ?>
@@ -25,7 +25,7 @@ $this->breadcrumbs = array(
 <?php
 if ($members)
     foreach ($members as $member)
-        echo CHtml::link($member->nick_name, array('/user/people/userInfo/', 'username' => $member->nick_name));
+        echo CHtml::link($member->nick_name, array('/user/'.$member->nick_name));
 ?>
 <br /><br />
 
