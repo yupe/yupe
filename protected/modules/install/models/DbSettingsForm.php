@@ -41,7 +41,7 @@ class DbSettingsForm extends YFormModel
             'dbName'      => Yii::t('InstallModule.install', 'Имя БД на mysql-сервере'),
             'user'        => Yii::t('InstallModule.install', 'Пользователь для доступа к указанной БД'),
             'password'    => Yii::t('InstallModule.install', 'Пароль для доступа к указанной БД'),
-            'tablePrefix' => Yii::t('InstallModule.install', 'Префикс добавляется в начале имени каждой таблицы, по умолчанию "yupe_"'),
+            'tablePrefix' => Yii::t('InstallModule.install', 'Префикс добавляется в начале имени каждой таблицы, по умолчанию "yupe"'),
         );
     }
 }
