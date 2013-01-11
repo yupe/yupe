@@ -10,7 +10,7 @@ class SiteSettingsForm extends YFormModel
     {
         return array(
             array('siteName, siteDescription, siteKeyWords, email', 'required'),
-            array('siteName', 'length', 'max' => 30),
+            array('siteName', 'length', 'max' => 64),
             array('siteDescription, siteKeyWords', 'length', 'max' => 180),
             array('email', 'email'),
         );
