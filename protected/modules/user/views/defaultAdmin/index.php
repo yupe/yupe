@@ -1,7 +1,7 @@
 <?php
     $this->breadcrumbs = array(
         Yii::app()->getModule('user')->getCategory() => array(),
-        Yii::t('UserModule.user', 'Пользователи') => array('/user/default/index'),
+        Yii::t('UserModule.user', 'Пользователи') => array('/admin/user'),
         Yii::t('UserModule.user', 'Управление'),
     );
 
@@ -9,11 +9,11 @@
 
     $this->menu = array(
         array('label' => Yii::t('UserModule.user', 'Пользователи'), 'items' => array(
-            array('icon' => 'list-alt', 'label' => Yii::t('UserModule.user', 'Управление пользователями'), 'url' => array('/user/default/index')),
-            array('icon' => 'plus-sign', 'label' => Yii::t('UserModule.user', 'Добавление пользователя'), 'url' => array('/user/default/create')),
+            array('icon' => 'list-alt', 'label' => Yii::t('UserModule.user', 'Управление пользователями'), 'url' => array('/admin/user')),
+            array('icon' => 'plus-sign', 'label' => Yii::t('UserModule.user', 'Добавление пользователя'), 'url' => array('/admin/user/create')),
         )),
         array('label' => Yii::t('UserModule.user', 'Восстановления паролей'), 'items' => array(
-            array('icon' => 'list-alt', 'label' => Yii::t('UserModule.user', 'Восстановления паролей'), 'url' => array('/user/recoveryPassword/index')),
+            array('icon' => 'list-alt', 'label' => Yii::t('UserModule.user', 'Восстановления паролей'), 'url' => array('/admin/user/recoveryPassword/index')),
         )),
     );
 ?>
@@ -58,7 +58,7 @@ $this->renderPartial('_search', array('model' => $model));
         array(
             'name'  => 'nick_name',
             'type'  => 'raw',
-            'value' => 'CHtml::link($data->nick_name, array("/user/default/update", "id" => $data->id))',
+            'value' => 'CHtml::link($data->nick_name, array("/admin/user/update", "id" => $data->id))',
         ),
         'email',
         array(
@@ -83,7 +83,7 @@ $this->renderPartial('_search', array('model' => $model));
                 'password' => array(
                     'icon'     => 'lock',
                     'label'    => Yii::t('UserModule.user', 'Изменить пароль'),
-                    'url'      => 'array("/user/default/changepassword", "id" => $data->id)',
+                    'url'      => 'array("/admin/user/changepassword", "id" => $data->id)',
                 ),
             ),
         ),

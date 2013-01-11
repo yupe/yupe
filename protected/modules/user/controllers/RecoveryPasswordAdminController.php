@@ -1,5 +1,5 @@
 <?php
-class RecoveryPasswordController extends YBackController
+class RecoveryPasswordAdminController extends YBackController
 {
     /**
      * @var CActiveRecord the currently loaded data model instance.
@@ -28,6 +28,7 @@ class RecoveryPasswordController extends YBackController
     /**
      * Manages all models.
      */
+    //@TODO убрать index из url
     public function actionIndex()
     {
         $model = new RecoveryPassword('search');

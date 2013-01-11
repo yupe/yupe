@@ -31,8 +31,8 @@ return array(
         '/logout'               => 'user/account/logout',
         '/registration'         => 'user/account/registration',
         '/recovery'             => 'user/account/recovery',
-        '/users'                => 'user/people/index',
-        '/profile'              => 'user/people/profile',
-        '/user/<username:\w+>/' => 'user/people/userInfo',
+        '/users'                => 'user/default/index',
+        '/profile'              => 'user/default/profile',
+        '/user/<username:\w+>/' => 'user/default/userInfo',
     ),
 );
