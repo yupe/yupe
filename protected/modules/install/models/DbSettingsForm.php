@@ -7,7 +7,7 @@ class DbSettingsForm extends YFormModel
     public $dbName;
     public $user;
     public $password;
-    public $tablePrefix = 'yupe';
+    public $tablePrefix = 'yupe_';
 
     public function rules()
     {
