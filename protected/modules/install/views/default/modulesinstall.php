@@ -64,31 +64,66 @@ Yii::app()->clientScript->registerScript('fieldset', "
                         <small style="font-size: 80%;"><?php echo $module->category; ?></small><br />
                         <span><?php echo $module->name; ?></span>
                     </td>
-                    <td>
+                    <td style="font-size: 80%;">
                         <?php echo $module->description; ?>
                         <br />
-                        <small style="font-size: 80%;"> <?php echo "<b>" . Yii::t('InstallModule.install', "Автор:") . "</b> " . $module->author; ?>
-                        (<a href="mailto:<?php echo $module->authorEmail; ?>"><?php echo $module->authorEmail; ?></a>) &nbsp;
-                        <?php echo " <b>" . Yii::t('InstallModule.install', 'Сайт модуля:') . "</b> " . CHtml::link($module->url, $module->url); ?></small><br />
-                    </td>
-                    <td class="check-label">
                         <small>
-                            <?php echo Yii::t('InstallModule.install', 'Зависит от:') . ' <b>' . (
-                                ($module->id != 'yupe' && count($module->dependencies))
-                                    ? implode(', ', $module->dependencies)
-                                    : '-'
-                            ) . '</b>'; ?><br />
-                            <?php echo Yii::t('InstallModule.install', 'Зависимые:') . ' <b>' . (
-                                ($module->id == 'yupe')
-                                    ? Yii::t('InstallModule.install', 'Все модули')
-                                    : (count($module->dependent) ? implode(', ', $module->dependent) : '-')
-                            ) . '</b>'; ?><br />
-                            <?php echo $module->isNoDisable
-                                ? '<span class="label label-warning">' . Yii::t('InstallModule.install', "Модуль не отключаемый") . '</span>'
-                                : ''
+                            <b><?php echo Yii::t('InstallModule.install', "Автор:"); ?></b> <?php echo $module->author; ?>
+                            (<a href="mailto:<?php echo $module->authorEmail; ?>">
+                                <?php echo $module->authorEmail; ?>
+                            </a>) 
+                            <b><?php echo Yii::t('InstallModule.install', 'Сайт модуля:'); ?></b> 
+                            <?php echo CHtml::link($module->url, $module->url); ?>
+                        </small><br />
+                    </td>
+                    <td class="check-label" style="font-size: 10px;">
+                        <?php
+                            $tabs = array();
+
+                            if ($module->id != 'yupe' && count($module->dependencies))
+                            {
+                                $deps = $module->dependencies;
+                                foreach($deps as &$dep)
+                                    $dep = $modules[$dep]->name;
+                                $tabs[] = array(
+                                    'label'   => Yii::t('InstallModule.install', 'Зависит от'),
+                                    'content' => implode(', ', $deps),
+                                    'count'   => count($deps),
+                                );
+                            }
+                            if( $module->id == 'yupe')
+                                $tabs[] = array(
+                                    'label'   => Yii::t('InstallModule.install', 'Зависимые'),
+                                    'content' => Yii::t('InstallModule.install', 'Все модули'),
+                                    'count'   => Yii::t('InstallModule.install', 'Все'),
+                                );
+                            else
+                                if(count($deps = $module->dependent))
+                                {
+                                    foreach($deps as &$dep)
+                                        $dep = $modules[$dep]->name;
+                                    $tabs[] = array(
+                                        'label'   => Yii::t('InstallModule.install', 'Зависимые'),
+                                        'content' => implode(', ', $deps),
+                                        'count'   => count($deps),
+                                    );
+                                }
+                            foreach ($tabs as $t)
+                                echo $t['label'] . " " . CHtml::tag('span', array(
+                                    'class' => 'label label-info',
+                                    'rel'   => 'tooltip',
+                                    'title' => $t['content'],
+                                ), CHtml::tag('small', array(), $t['count']));
                             ?>
-                            <?php echo '<span class="label label-warning dependents" style="display: none;">' . Yii::t('InstallModule.install', "Отключите зависимые, чтобы не устанавливать") . '</span>'; ?>
-                        </small>
+                        <br />
+
+                        <?php echo $module->isNoDisable
+                            ? '<span class="label label-warning" style="font-size: 10px;">' . Yii::t('InstallModule.install', 'Модуль не отключаемый') . '</span>'
+                            : ''
+                        ?>
+                        <span class="label label-warning dependents" style="display: none; font-size: 10px;">
+                            <?php echo Yii::t('InstallModule.install', 'Отключите зависимые,<br/>чтобы не устанавливать'); ?>
+                        </span>
                     </td>
                 </tr>
             <?php endforeach; ?>

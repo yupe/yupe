@@ -50,8 +50,7 @@
     ));
     ?>
     <div class="container" id="page">
-        <div class="row"> 
-            <div class="span10 offset1 well">
+            <div class="span11 well">
                 <?php
                 if (count($this->breadcrumbs))
                     $this->widget('bootstrap.widgets.TbBreadcrumbs', array('links' => $this->breadcrumbs));
@@ -62,7 +61,6 @@
                 </div>
                 <!-- content -->
             </div>
-        </div> 
     </div>
     <div id="footer-guard"><!-- --></div>
 </div>
