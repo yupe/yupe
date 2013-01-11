@@ -361,7 +361,7 @@ class DefaultController extends YBackController
                     $connection->emulatePrepare   = true;
                     $connection->charset          = 'utf8';
                     $connection->active           = true;
-                    $connection->tablePrefix      = $form->tablePrefix . '_';
+                    $connection->tablePrefix      = $form->tablePrefix;
 
                     Yii::app()->setComponent('db', $connection);
 
@@ -375,7 +375,7 @@ class DefaultController extends YBackController
                         'enableParamLogging'    => 0,
                         'enableProfiling'       => 0,
                         'schemaCachingDuration' => 108000,
-                        'tablePrefix'           => $form->tablePrefix . '_',
+                        'tablePrefix'           => $form->tablePrefix,
                     );
 
                     $dbConfString = "<?php\n return " . var_export($dbParams, true) . ";\n?>";
