@@ -35,6 +35,11 @@ class PageModule extends YWebModule
         );
     }
 
+    public function getIsInstallDefault()
+    {
+        return true;
+    }
+
     public function getCategory()
     {
         return Yii::t('PageModule.page', 'Контент');
