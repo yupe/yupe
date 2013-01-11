@@ -81,7 +81,7 @@ class CatalogModule extends YWebModule
 
     public function getAdminPageLink()
     {
-        return '/catalog/default/index';
+        return '/admin/catalog';
     }
     
     public function getVersion()

@@ -1,15 +1,15 @@
 <?php
     $this->breadcrumbs = array(
         Yii::app()->getModule('catalog')->getCategory() => array(),
-        Yii::t('CatalogModule.catalog', 'Товары') => array('/catalog/default/index'),
+        Yii::t('CatalogModule.catalog', 'Товары') => array('/admin/catalog'),
         Yii::t('CatalogModule.catalog', 'Управление'),
     );
 
     $this->pageTitle = Yii::t('CatalogModule.catalog', 'Товары - управление');
 
     $this->menu = array(
-        array('icon' => 'list-alt', 'label' => Yii::t('CatalogModule.catalog', 'Управление товарами'), 'url' => array('/catalog/default/index')),
-        array('icon' => 'plus-sign', 'label' => Yii::t('CatalogModule.catalog', 'Добавить товар'), 'url' => array('/catalog/default/create')),
+        array('icon' => 'list-alt', 'label' => Yii::t('CatalogModule.catalog', 'Управление товарами'), 'url' => array('/admin/catalog')),
+        array('icon' => 'plus-sign', 'label' => Yii::t('CatalogModule.catalog', 'Добавить товар'), 'url' => array('/admin/catalog/create')),
     );
 ?>
 <div class="page-header">
@@ -53,7 +53,7 @@ $this->renderPartial('_search', array('model' => $model));
         array(
             'name'  => 'name',
             'type'  => 'raw',
-            'value' => 'CHtml::link($data->name, array("/catalog/default/update", "id" => $data->id))',
+            'value' => 'CHtml::link($data->name, array("/admin/catalog/update", "id" => $data->id))',
         ),
         array(
             'name'  => 'alias',
@@ -63,7 +63,7 @@ $this->renderPartial('_search', array('model' => $model));
         array(
             'name'  => 'category_id',
             'type'  => 'raw',
-            'value' => 'CHtml::link($data->category->name, array("/category/default/view", "id" => $data->id))',
+            'value' => 'CHtml::link($data->category->name, array("/admin/category/view", "id" => $data->id))',
         ),
         'price',
         'article',
@@ -80,7 +80,7 @@ $this->renderPartial('_search', array('model' => $model));
         array(
             'name'  => 'user_id',
             'type'  => 'raw',
-            'value' => 'CHtml::link($data->user->getFullName(), array("/user/default/view", "id" => $data->user->id))',
+            'value' => 'CHtml::link($data->user->getFullName(), array("/admin/user/view", "id" => $data->user->id))',
         ),       
         array(
             'name'  => 'create_time',
