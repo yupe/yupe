@@ -572,6 +572,11 @@ class DefaultController extends YBackController
 
                 if ($user->save())
                 {
+                    $login = new LoginForm;
+                    $login->email    = $model->email;
+                    $login->password = $model->password;
+                    $login->authenticate();
+
                     Yii::app()->user->setFlash(
                         YFlashMessages::NOTICE_MESSAGE,
                         Yii::t('InstallModule.install', 'Администратор успешно создан!')
