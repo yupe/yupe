@@ -229,6 +229,7 @@ Yii::app()->clientScript->registerScript('fieldset', "
                     $("{$modulesSelection['basic']}").prop('checked', true);
                     break;
             }
+            checkedCount();
         });
         $(document).on('show', '#modulesModal', function() {
             $('#module-list').find("input:checked").each(function() {
