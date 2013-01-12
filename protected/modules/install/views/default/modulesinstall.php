@@ -231,7 +231,10 @@ Yii::app()->clientScript->registerScript('fieldset', "
             }
             checkedCount();
         });
-        $(document).on('show', '#modulesModal', function() {
+        $(document).on('show', '#modules-modal', function() {
+            $('#modules-modal-list').find("i").each(function() {
+                $(this).removeClass("icon-ok").addClass("icon-minus");
+            });
             $('#module-list').find("input:checked").each(function() {
                 var id = $(this).attr('id').replace('module_', 'modal_');
                 $('#' + id + ' i').removeClass("icon-minus").addClass("icon-ok");
@@ -244,13 +247,13 @@ EOF;
     Yii::app()->clientScript->registerScript(__CLASS__ . '#dependencies', $js, CClientScript::POS_END);
     ?>
 
-    <?php $this->beginWidget('bootstrap.widgets.TbModal', array('id' => 'modulesModal')); ?>
+    <?php $this->beginWidget('bootstrap.widgets.TbModal', array('id' => 'modules-modal')); ?>
         <div class="modal-header">
             <h4>
                 <?php echo Yii::t('InstallModule.install', 'Будет установлено <small class="label label-info checked-count">0</small> модулей. Продолжить?'); ?>
             </h4>
         </div>
-        <div class="modal-body row">
+        <div id="modules-modal-list" class="modal-body row">
             <div class="span3">
                 <?php
                     $moduleCountTr = ceil(count($modules) / 2);
@@ -291,7 +294,7 @@ EOF;
         'label'      => Yii::t('InstallModule.install', 'Продолжить >'),
         'htmlOptions' => array(
             'data-toggle' => 'modal',
-            'data-target' => '#modulesModal',
+            'data-target' => '#modules-modal',
         ),
     )); ?>
 
