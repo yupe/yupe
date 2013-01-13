@@ -312,9 +312,14 @@ class YCustomGridView extends TbExtendedGridView
             __CLASS__ . '#' . $this->id . 'ExHeadline',
             'jQuery(document).ready(function($) {
                 $(document).on("mousedown", ".pageSize", function() {
-                    $.fn.yiiGridView.update("' . $this->id . '", {
-                        data: "pageSize=" + $(this).attr("rel")
-                    });
+                    var colspan = parseInt($("#' . $this->id . ' table tbody tr td").attr("colspan"));
+                    if (colspan == 0) {
+                        $.fn.yiiGridView.update("' . $this->id . '", {
+                            data: "pageSize=" + $(this).attr("rel")
+                        });
+                    } else {
+                        alert("' . Yii::t('YupeModule.yupe', 'Таблица пуста') . '");
+                    }
                     return false;
                 });
             });', CClientScript::POS_BEGIN
