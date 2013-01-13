@@ -313,7 +313,7 @@ class YCustomGridView extends TbExtendedGridView
             'jQuery(document).ready(function($) {
                 $(document).on("mousedown", ".pageSize", function() {
                     var colspan = parseInt($("#' . $this->id . ' table tbody tr td").attr("colspan"));
-                    if (colspan == 0) {
+                    if (!(colspan > 0)) {
                         $.fn.yiiGridView.update("' . $this->id . '", {
                             data: "pageSize=" + $(this).attr("rel")
                         });
