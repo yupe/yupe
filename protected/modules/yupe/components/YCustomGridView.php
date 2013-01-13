@@ -317,8 +317,6 @@ class YCustomGridView extends TbExtendedGridView
                         $.fn.yiiGridView.update("' . $this->id . '", {
                             data: "pageSize=" + $(this).attr("rel")
                         });
-                    } else {
-                        alert("' . Yii::t('YupeModule.yupe', 'Таблица пуста') . '");
                     }
                     return false;
                 });
