@@ -288,7 +288,7 @@ abstract class YWebModule extends CWebModule
      */
     public function getIsInstallDefault()
     {
-        return true;
+        return false;
     }
 
     /**

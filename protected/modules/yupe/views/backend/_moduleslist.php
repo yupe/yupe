@@ -86,45 +86,45 @@ function moduleRow($module, &$updates, &$modules, &$controller)
             <?php echo "<b>" . Yii::t('YupeModule.yupe', 'Сайт модуля:') . "</b> " . CHtml::link($module->url, $module->url); ?></small><br />
         </td>
         <td style="font-size: 10px;">
-                <?php
-                    $tabs = array();
+            <?php
+                $tabs = array();
 
-                    if ($module->id != 'yupe' && count($module->dependencies))
+                if ($module->id != 'yupe' && count($module->dependencies))
+                {
+                    $deps = $module->dependencies;
+                    foreach($deps as &$dep)
+                        $dep = $modules[$dep]->name;
+                    $tabs[] = array(
+                        'label'   => Yii::t('YupeModule.yupe', 'Зависит от'),
+                        'content' => implode(', ', $deps),
+                        'count'   => count($deps),
+                    );
+                }
+                if( $module->id == 'yupe')
+                    $tabs[] = array(
+                        'label'   => Yii::t('YupeModule.yupe', 'Зависимые'),
+                        'content' => Yii::t('YupeModule.yupe', 'Все модули'),
+                        'count'   => Yii::t('YupeModule.yupe', 'Все'),
+                    );
+                else
+                    if(count($deps = $module->dependent))
                     {
-                        $deps = $module->dependencies;
                         foreach($deps as &$dep)
                             $dep = $modules[$dep]->name;
                         $tabs[] = array(
-                            'label'   => Yii::t('YupeModule.yupe', 'Зависит от'),
+                            'label'   => Yii::t('YupeModule.yupe', 'Зависимые'),
                             'content' => implode(', ', $deps),
                             'count'   => count($deps),
                         );
                     }
-                    if( $module->id == 'yupe')
-                        $tabs[] = array(
-                            'label'   => Yii::t('YupeModule.yupe', 'Зависимые'),
-                            'content' => Yii::t('YupeModule.yupe', 'Все модули'),
-                            'count'   => Yii::t('YupeModule.yupe', 'Все'),
-                        );
-                    else
-                        if(count($deps = $module->dependent))
-                        {
-                            foreach($deps as &$dep)
-                                $dep = $modules[$dep]->name;
-                            $tabs[] = array(
-                                'label'   => Yii::t('YupeModule.yupe', 'Зависимые'),
-                                'content' => implode(', ', $deps),
-                                'count'   => count($deps),
-                            );
-                        }
-                    foreach ($tabs as $t)
-                        echo $t['label'] . " " . CHtml::tag('span', array(
-                            'class' => 'label label-info',
-                            'rel'   => 'tooltip',
-                            'title' => $t['content'],
-                        ), CHtml::tag('small', array(), $t['count']));
+                foreach ($tabs as $t)
+                    echo $t['label'] . " " . CHtml::tag('span', array(
+                        'class' => 'label label-info',
+                        'rel'   => 'tooltip',
+                        'title' => $t['content'],
+                    ), CHtml::tag('small', array(), $t['count']));
 
-                  ?>
+              ?>
         </td>
         <td>
             <?php if ($module->isActive && $module->editableParams): ?>

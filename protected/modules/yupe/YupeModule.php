@@ -56,13 +56,13 @@ class YupeModule extends YWebModule
     {
         $messages = array();
 
-        if (Yii::app()->getModule('install'))
+        if (Yii::app()->hasModule('install'))
             $messages[YWebModule::CHECK_ERROR][] =  array(
                 'type'    => YWebModule::CHECK_ERROR,
                 'message' => Yii::t('YupeModule.yupe', 'У Вас активирован модуль "Установщик", после установки системы его необходимо отключить! <a href="http://www.yiiframework.ru/doc/guide/ru/basics.module">Подробнее про Yii модули</a>'),
             );
 
-        if (Yii::app()->getModule('gii'))
+        if (Yii::app()->hasModule('gii'))
             $messages[YWebModule::CHECK_ERROR][] =  array(
                 'type'    => YWebModule::CHECK_ERROR,
                 'message' => Yii::t('YupeModule.yupe', 'У Вас активирован модуль "gii" после установки системы его необходимо отключить! <a href="http://www.yiiframework.ru/doc/guide/ru/basics.module">Подробнее про Yii модули</a>'),
@@ -140,6 +140,11 @@ class YupeModule extends YWebModule
             'defaultBackendLanguage' => $this->languagesList,
             'updateChannel'           => $this->updateChannelList,
         );
+    }
+
+    public function getIsInstallDefault()
+    {
+        return true;
     }
 
     public function getIsNoDisable()

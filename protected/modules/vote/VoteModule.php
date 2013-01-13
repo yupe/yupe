@@ -64,11 +64,6 @@ class VoteModule extends YWebModule
         return "signal";
     }
 
-    public function getIsInstallDefault()
-    {
-        return false;
-    }
-
     public function init()
     {
         parent::init();
