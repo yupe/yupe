@@ -313,12 +313,11 @@ class YCustomGridView extends TbExtendedGridView
             'jQuery(document).ready(function($) {
                 $(document).on("mousedown", ".pageSize", function() {
                     var colspan = parseInt($("#' . $this->id . ' table tbody tr td").attr("colspan"));
-                    if (!(colspan > 0)) {
-                        $.fn.yiiGridView.update("' . $this->id . '", {
-                            data: "pageSize=" + $(this).attr("rel")
-                        });
-                    }
-                    return false;
+                    $("#' . $this->id . '").yiiGridView("update",{
+                        url: $(window)[0].location.href,
+                        data: "pageSize=" + $(this).attr("rel")
+                    });
+                    //return false;
                 });
             });', CClientScript::POS_BEGIN
         );
