@@ -4,7 +4,7 @@ class m000000_000000_catalog_base extends CDbMigration
     public function safeUp()
     {
         $db = $this->getDbConnection();
-        $tableName = $db->tablePrefix.'catalog';
+        $tableName = $db->tablePrefix.'good';
         $this->createTable($tableName, array(
             'id' => 'pk',
             'category_id' => 'integer NOT NULL',
@@ -24,22 +24,22 @@ class m000000_000000_catalog_base extends CDbMigration
             'change_user_id' => 'integer DEFAULT NULL',
         ),"ENGINE=InnoDB DEFAULT CHARSET=utf8");
 
-        $this->createIndex("catalog_alias_uniq",$tableName,"alias", true);
-        $this->createIndex("catalog_status",$tableName,"status", false);
-        $this->createIndex("catalog_category",$tableName,"category_id", false);
-        $this->createIndex("catalog_user",$tableName,"user_id", false);
-        $this->createIndex("catalog_change_user",$tableName,"change_user_id", false);
-        $this->createIndex("catalog_article",$tableName,"article", false);
-        $this->createIndex("catalog_price",$tableName,"price", false);
+        $this->createIndex("good_alias_uniq",$tableName,"alias", true);
+        $this->createIndex("good_status",$tableName,"status", false);
+        $this->createIndex("good_category",$tableName,"category_id", false);
+        $this->createIndex("good_user",$tableName,"user_id", false);
+        $this->createIndex("good_change_user",$tableName,"change_user_id", false);
+        $this->createIndex("good_article",$tableName,"article", false);
+        $this->createIndex("good_price",$tableName,"price", false);
 
-        $this->addForeignKey("catalog_user_fk",$tableName,'user_id',$db->tablePrefix.'user','id','SET NULL','CASCADE');
-        $this->addForeignKey("catalog_change_user_fk",$tableName,'change_user_id',$db->tablePrefix.'user','id','SET NULL','CASCADE');
-        $this->addForeignKey("catalog_category_fk",$tableName,'category_id',$db->tablePrefix.'category','id','CASCADE','CASCADE');
+        $this->addForeignKey("good_user_fk",$tableName,'user_id',$db->tablePrefix.'user','id','SET NULL','CASCADE');
+        $this->addForeignKey("good_change_user_fk",$tableName,'change_user_id',$db->tablePrefix.'user','id','SET NULL','CASCADE');
+        $this->addForeignKey("good_category_fk",$tableName,'category_id',$db->tablePrefix.'category','id','CASCADE','CASCADE');
     }
  
     public function safeDown()
     {
         $db = $this->getDbConnection();
-        $this->dropTable($db->tablePrefix.'catalog');
+        $this->dropTable($db->tablePrefix.'good');
     }
 }
