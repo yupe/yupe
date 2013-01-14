@@ -17,7 +17,7 @@ class m121220_001126_menu_test_data extends CDbMigration
         $items = array(
             array('id', 'parent_id', 'menu_id', 'title', 'href', 'class', 'title_attr', 'before_link', 'after_link', 'target', 'rel', 'condition_name', 'condition_denial', 'sort', 'status'),
             array(1, 0, 1, 'Главная', '/site/index', '', 'Главная страница сайта', '', '', '', '', '', 0, 1, 1),
-            array(2, 0, 1, 'Блоги', '/blog/blog/index', '', 'Блоги', '', '', '', '', '', 0, 2, 1),
+            array(2, 0, 1, 'Блоги', '/blog/default/index', '', 'Блоги', '', '', '', '', '', 0, 2, 1),
             array(4, 2, 1, 'Пользователи', '/users', '', 'Пользователи', '', '', '', '', '', 0, 3, 1),
             array(5, 0, 1, 'Социальные виджеты', '/site/social/index', '', 'Социальные виджеты', '', '', '', '', '', 0, 8, 0),
             array(6, 3, 1, 'Контакты', '/feedback/contact/index', '', 'Контакты', '', '', '', '', '', 0, 6, 1),
