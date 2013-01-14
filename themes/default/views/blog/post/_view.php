@@ -4,10 +4,10 @@
     </div>
     <div class="author">
         <?php echo Yii::t('blog', 'Опубликовал'); ?>: 
-        <b><?php echo CHtml::link($data->createUser->nick_name, array('/user/people/userInfo', 'username' => $data->createUser->nick_name)); ?></b>
+        <b><?php echo CHtml::link($data->createUser->nick_name, array('/user/default/userInfo', 'username' => $data->createUser->nick_name)); ?></b>
 
         <?php echo Yii::t('blog', 'в блоге'); ?>: 
-        "<?php echo CHtml::link($data->blog->name, array('/blog/blog/show/', 'slug' => $data->blog->slug)); ?>"
+        "<?php echo CHtml::link($data->blog->name, array('/blog/default/show/', 'slug' => $data->blog->slug)); ?>"
 
         <?php echo Yii::t('blog', 'дата'); ?>: 
         <?php echo Yii::app()->getDateFormatter()->formatDateTime($data->publish_date, "short", "short"); ?>
@@ -23,7 +23,7 @@
             foreach ($tags as &$tag)
             {
                 $tag = CHtml::encode($tag);
-                echo CHtml::link($tag, array('/posts/', 'tag' => $tag));
+                echo CHtml::link($tag, array('/blog/post/list', 'tag' => $tag));
             }
             unset($tag);
         }

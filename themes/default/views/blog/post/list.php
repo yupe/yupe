@@ -1,7 +1,7 @@
 <?php $this->pageTitle = Yii::t('blog', 'Список записей'); ?>
 
 <?php $this->breadcrumbs = array(
-    Yii::t('blog', 'Блоги') => array('/blog/blog/index/'),
+    Yii::t('blog', 'Блоги') => array('/blog/default/index'),
     Yii::t('blog', 'список записей'),
 ); ?>
 

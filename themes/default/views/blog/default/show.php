@@ -3,7 +3,7 @@
 
 <?php
 $this->breadcrumbs = array(
-    Yii::t('blog', 'Блоги') => array('/blogs'),
+    Yii::t('blog', 'Блоги') => array('/blog/default/index'),
     $blog->name,
 );
 ?>
@@ -25,7 +25,7 @@ $this->breadcrumbs = array(
 <?php
 if ($members)
     foreach ($members as $member)
-        echo CHtml::link($member->nick_name, array('/user/'.$member->nick_name));
+        echo CHtml::link($member->nick_name, array('/user/default/userInfo', 'username' => $member->nick_name));
 ?>
 <br /><br />
 
@@ -54,7 +54,7 @@ if ($members)
 
 <h3><?php echo Yii::t('blog', 'Оставить комментарий'); ?></h3>
 <?php $this->widget('application.modules.comment.widgets.CommentFormWidget', array(
-    'redirectTo' => Yii::app()->createUrl('/blog/blog/show/', array('slug' => $blog->slug)),
+    'redirectTo' => Yii::app()->createUrl('/blog/default/show/', array('slug' => $blog->slug)),
     'model' => $blog,
     'modelId' => $blog->id,
 )); ?>
