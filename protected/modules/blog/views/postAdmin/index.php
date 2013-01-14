@@ -1,7 +1,8 @@
 <?php
+    $blog = Yii::app()->getModule('blog');
     $this->breadcrumbs = array(
-        Yii::app()->getModule('blog')->getCategory() => array(),
-        Yii::t('BlogModule.blog', 'Блоги') => array('/admin/blog'),
+        $blog->getCategory() => array('/yupe/backend/index', 'category' => $blog->getCategoryType() ),
+        Yii::t('BlogModule.blog', 'Блоги') => array('/blog/defaultAdmin/index'),
         Yii::t('BlogModule.blog', 'Записи'),
     );
 
@@ -9,16 +10,16 @@
 
     $this->menu = array(
         array('label' => Yii::t('BlogModule.blog', 'Блоги'), 'items' => array(
-            array('icon' => 'list-alt', 'label' => Yii::t('BlogModule.blog', 'Управление блогами'), 'url' => array('/admin/blog')),
-            array('icon' => 'plus-sign', 'label' => Yii::t('BlogModule.blog', 'Добавить блог'), 'url' => array('/admin/blog/BlogAdmin/create')),
+            array('icon' => 'list-alt', 'label' => Yii::t('BlogModule.blog', 'Управление блогами'), 'url' => array('/blog/defaultAdmin/index')),
+            array('icon' => 'plus-sign', 'label' => Yii::t('BlogModule.blog', 'Добавить блог'), 'url' => array('/blog/defaultAdmin/create')),
         )),
         array('label' => Yii::t('BlogModule.blog', 'Записи'), 'items' => array(
-            array('icon' => 'list-alt', 'label' => Yii::t('BlogModule.blog', 'Управление записями'), 'url' => array('/admin/blog/post/index'), 'active' => true),
-            array('icon' => 'plus-sign', 'label' => Yii::t('BlogModule.blog', 'Добавить запись'), 'url' => array('/admin/blog/post/create')),
+            array('icon' => 'list-alt', 'label' => Yii::t('BlogModule.blog', 'Управление записями'), 'url' => array('/blog/postAdmin/index')),
+            array('icon' => 'plus-sign', 'label' => Yii::t('BlogModule.blog', 'Добавить запись'), 'url' => array('/blog/postAdmin/create')),
         )),
         array('label' => Yii::t('BlogModule.blog', 'Участники'), 'items' => array(
-            array('icon' => 'list-alt', 'label' => Yii::t('BlogModule.blog', 'Управление участниками'), 'url' => array('/admin/blog/userToBlog/index')),
-            array('icon' => 'plus-sign', 'label' => Yii::t('BlogModule.blog', 'Добавить участника'), 'url' => array('/admin/blog/userToBlog/create')),
+            array('icon' => 'list-alt', 'label' => Yii::t('BlogModule.blog', 'Управление участниками'), 'url' => array('/blog/userToBlogAdmin/index')),
+            array('icon' => 'plus-sign', 'label' => Yii::t('BlogModule.blog', 'Добавить участника'), 'url' => array('/blog/userToBlogAdmin/create')),
         )),
     );
 ?>
@@ -69,7 +70,7 @@ $this->renderPartial('_search', array('model' => $model));
         array(
             'name'  => 'blog_id',
             'type'  => 'raw',
-            'value' => 'CHtml::link($data->blog->name, array("/blog/blogAdmin/view", "id" => $data->blog->id))',
+            'value' => 'CHtml::link($data->blog->name, array("/blog/defaultAdmin/view", "id" => $data->blog->id))',
         ),
         array(
             'name'  => 'access_type',
@@ -79,7 +80,7 @@ $this->renderPartial('_search', array('model' => $model));
         array(
             'name'  => 'create_user_id',
             'type'  => 'raw',
-            'value' => 'CHtml::link($data->createUser->getFullName(), array("/user/default/view", "id" => $data->createUser->id))',
+            'value' => 'CHtml::link($data->createUser->getFullName(), array("/user/defaultAdmin/view", "id" => $data->createUser->id))',
         ),
         array(
             'name'  => 'publish_date',

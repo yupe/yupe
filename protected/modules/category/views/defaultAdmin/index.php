@@ -1,16 +1,17 @@
 <?php
+	$category = Yii::app()->getModule('category');
     $this->breadcrumbs = array(
-        Yii::app()->getModule('category')->getCategory() => array(),
-        Yii::t('CategoryModule.category', 'Категории') => array('/category/default/index'),
-        Yii::t('CategoryModule.category', 'Управление'),
+    	$category->getCategory() => array('/yupe/backend/index', 'category' => $category->getCategoryType() ),
+        Yii::t('CategoryModule.category', 'Категории'),
     );
 
     $this->pageTitle = Yii::t('CategoryModule.category', 'Категории - управление');
 
     $this->menu = array(
-        array('icon' => 'list-alt', 'label' => Yii::t('CategoryModule.category', 'Управление категориями'), 'url' => array('/category/default/index')),
-        array('icon' => 'plus-sign', 'label' => Yii::t('CategoryModule.category', 'Добавить категорию'), 'url' => array('/category/default/create')),
+        array('icon' => 'list-alt', 'label' => Yii::t('CategoryModule.category', 'Управление категориями'), 'url' => array('/category/defaultAdmin/index')),
+        array('icon' => 'plus-sign', 'label' => Yii::t('CategoryModule.category', 'Добавить категорию'), 'url' => array('/category/defaultAdmin/create'))
     );
+   
 ?>
 <div class="page-header">
     <h1>
@@ -53,7 +54,7 @@ $this->renderPartial('_search', array('model' => $model));
          array(
             'name'  => 'name',
             'type'  => 'raw',
-            'value' => 'CHtml::link($data->name, array("/category/default/update", "alias" => $data->alias))',
+            'value' => 'CHtml::link($data->name, array("/category/defaultAdmin/update", "alias" => $data->alias))',
         ),
         'alias',
         array(

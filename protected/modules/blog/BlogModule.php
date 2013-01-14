@@ -13,6 +13,11 @@ class BlogModule extends YWebModule
     {
         return Yii::t('BlogModule.blog', 'Контент');
     }
+    
+    public function getCategoryType()
+    {
+    	return Yii::t('BlogModule.blog', 'content');
+    }
 
     public function getParamsLabels()
     {
@@ -34,14 +39,14 @@ class BlogModule extends YWebModule
     {
         return array(
             array('label' => Yii::t('BlogModule.blog', 'Блоги')),
-            array('icon' => 'list-alt', 'label' => Yii::t('BlogModule.blog', 'Список блогов'), 'url' => array('/admin/blog')),
-            array('icon' => 'plus-sign', 'label' => Yii::t('BlogModule.blog', 'Добавить блог'), 'url' => array('/admin/blog/create')),
+            array('icon' => 'list-alt', 'label' => Yii::t('BlogModule.blog', 'Список блогов'), 'url' => array('/blog/defaultAdmin/index')),
+            array('icon' => 'plus-sign', 'label' => Yii::t('BlogModule.blog', 'Добавить блог'), 'url' => array('/blog/defaultAdmin/create')),
             array('label' => Yii::t('BlogModule.blog', 'Записи')),
-            array('icon' => 'list-alt', 'label' => Yii::t('BlogModule.blog', 'Список записей'), 'url' => array('/admin/blog/post/index')),
-            array('icon' => 'plus-sign', 'label' => Yii::t('BlogModule.blog', 'Добавить запись'), 'url' => array('/admin/blog/post/create')),
+            array('icon' => 'list-alt', 'label' => Yii::t('BlogModule.blog', 'Список записей'), 'url' => array('/blog/postAdmin/index')),
+            array('icon' => 'plus-sign', 'label' => Yii::t('BlogModule.blog', 'Добавить запись'), 'url' => array('/blog/postAdmin/create')),
             array('label' => Yii::t('BlogModule.blog', 'Участники')),
-            array('icon' => 'list-alt', 'label' => Yii::t('BlogModule.blog', 'Список участников'), 'url' => array('/admin/blog/userToBlog/index')),
-            array('icon' => 'plus-sign', 'label' => Yii::t('BlogModule.blog', 'Добавить участника'), 'url' => array('/admin/blog/userToBlog/create')),
+            array('icon' => 'list-alt', 'label' => Yii::t('BlogModule.blog', 'Список участников'), 'url' => array('/blog/userToBlogAdmin/index')),
+            array('icon' => 'plus-sign', 'label' => Yii::t('BlogModule.blog', 'Добавить участника'), 'url' => array('/blog/userToBlogAdmin/create')),
         );
     }
 
@@ -77,7 +82,7 @@ class BlogModule extends YWebModule
 
     public function getAdminPageLink()
     {
-        return '/admin/blog';
+        return '/blog/defaultAdmin/index';
     }
 
     public function getIcon()

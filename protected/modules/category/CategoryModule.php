@@ -55,6 +55,11 @@ class CategoryModule extends YWebModule
     {
         return Yii::t('CategoryModule.category', 'Структура');
     }
+    
+    public function getCategoryType()
+    {
+    	return Yii::t('BlogModule.blog', 'structure');
+    }
 
     public function getName()
     {
@@ -74,6 +79,11 @@ class CategoryModule extends YWebModule
     public function getAuthorEmail()
     {
         return Yii::t('CategoryModule.category', 'team@yupe.ru');
+    }
+    
+    public function getAdminPageLink() 
+    {
+    	return '	/category/defaultAdmin/index';
     }
 
     public function getUrl()
@@ -104,8 +114,8 @@ class CategoryModule extends YWebModule
     public function getNavigation()
     {
         return array(
-            array('icon' => 'list-alt', 'label' => Yii::t('CategoryModule.category', 'Список категорий'), 'url' => array('/category/default/index')),
-            array('icon' => 'plus-sign', 'label' => Yii::t('CategoryModule.category', 'Добавить категорию'), 'url' => array('/category/default/create')),
+            array('icon' => 'list-alt', 'label' => Yii::t('CategoryModule.category', 'Список категорий'), 'url' => array('/category/defaultAdmin/index')),
+            array('icon' => 'plus-sign', 'label' => Yii::t('CategoryModule.category', 'Добавить категорию'), 'url' => array('/category/defaultAdmin/create')),
         );
     }
 }

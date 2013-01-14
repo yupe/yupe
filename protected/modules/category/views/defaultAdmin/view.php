@@ -1,6 +1,7 @@
 <?php
+	$category = Yii::app()->getModule('category');
     $this->breadcrumbs = array(
-        Yii::app()->getModule('category')->getCategory() => array(),
+    	$category->getCategory() => array('/yupe/backend/index', 'category' => $category->getCategoryType() ),
         Yii::t('CategoryModule.category', 'Категории') => array('index'),
         $model->name,
     );
@@ -8,19 +9,19 @@
     $this->pageTitle = Yii::t('CategoryModule.category', 'Категории - просмотр');
 
     $this->menu = array(
-        array('icon' => 'list-alt', 'label' => Yii::t('CategoryModule.category', 'Управление категориями'), 'url' => array('/category/default/index')),
-        array('icon' => 'plus-sign', 'label' =>  Yii::t('CategoryModule.category', 'Добавить категорию'), 'url' => array('/category/default/create')),
+        array('icon' => 'list-alt', 'label' => Yii::t('CategoryModule.category', 'Управление категориями'), 'url' => array('/category/defaultAdmin/index')),
+        array('icon' => 'plus-sign', 'label' =>  Yii::t('CategoryModule.category', 'Добавить категорию'), 'url' => array('/category/defaultAdmin/create')),
         array('label' => Yii::t('catalog', 'Категория') . ' «' . mb_substr($model->name, 0, 32) . '»'),
         array('icon' => 'pencil', 'label' => Yii::t('CategoryModule.category', 'Редактирование категории'), 'url' => array(
-            '/category/default/update',
+            '/category/defaultAdmin/update',
             'id' => $model->id
         )),
         array('icon' => 'eye-open', 'label' => Yii::t('CategoryModule.category', 'Просмотреть категорию'), 'url' => array(
-            '/category/default/view',
+            '/category/defaultAdmin/view',
             'id' => $model->id
         )),
         array('icon' => 'trash', 'label' => Yii::t('CategoryModule.category', 'Удалить категорию'), 'url' => '#', 'linkOptions' => array(
-            'submit' => array('/category/default/delete', 'id' => $model->id),
+            'submit' => array('/category/defaultAdmin/delete', 'id' => $model->id),
             'confirm' => Yii::t('catalog', 'Вы уверены, что хотите удалить категорию?'),
         )),
     );
