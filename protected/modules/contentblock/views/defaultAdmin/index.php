@@ -1,15 +1,15 @@
 <?php
+    $contentblock = Yii::app()->getModule('contentblock');
     $this->breadcrumbs = array(
-        Yii::app()->getModule('contentblock')->getCategory() => array(''),
-        Yii::t('ContentBlockModule.contentblock', 'Блоки контента') => array('/contentblock/default/index'),
-        Yii::t('ContentBlockModule.contentblock', 'Управление'),
+        $contentblock->getCategory() => array('/yupe/backend/index', 'category' => $contentblock->getCategoryType() ),
+        Yii::t('ContentBlockModule.contentblock', 'Блоки контента')
     );
 
     $this->pageTitle = Yii::t('catalog', 'Блоки контента - управление');
 
     $this->menu = array(
-        array('icon' => 'list-alt','label' => Yii::t('ContentBlockModule.contentblock', 'Управление блоками контента'), 'url' => array('/contentblock/default/index')),
-        array('icon' => 'plus-sign','label' => Yii::t('ContentBlockModule.contentblock', 'Добавить блок контента'), 'url' => array('/contentblock/default/create')),
+        array('icon' => 'list-alt','label' => Yii::t('ContentBlockModule.contentblock', 'Управление блоками контента'), 'url' => array('/contentblock/defaultAdmin/index')),
+        array('icon' => 'plus-sign','label' => Yii::t('ContentBlockModule.contentblock', 'Добавить блок контента'), 'url' => array('/contentblock/defaultAdmin/create')),
     );
 ?>
 <div class="page-header">
@@ -53,7 +53,7 @@ $this->renderPartial('_search', array('model' => $model));
         array(
             'name'  => 'name',
             'type'  => 'raw',
-            'value' => 'CHtml::link($data->name, array("/contentblock/default/update", "id" => $data->id))',
+            'value' => 'CHtml::link($data->name, array("/contentblock/defaultAdmin/update", "id" => $data->id))',
         ),
         array(
             'name'  => 'type',

@@ -1,5 +1,5 @@
 <?php
-    $comment = Yii::app()->getModule('blog');
+    $comment = Yii::app()->getModule('comment');
     $this->breadcrumbs = array(
         $comment->getCategory() => array('/yupe/backend/index', 'category' => $comment->getCategoryType() ),
         Yii::t('CommentModule.comment', 'Комментарии'),

@@ -5,6 +5,11 @@ class ContentBlockModule extends YWebModule
     {
         return Yii::t('ContentBlockModule.contentblock', 'Контент');
     }
+    
+    public function getCategoryType()
+    {
+    	return Yii::t('ContentBlockModule.contentblock', 'content');
+    }
 
     public function getName()
     {
@@ -30,6 +35,11 @@ class ContentBlockModule extends YWebModule
     {
         return Yii::t('ContentBlockModule.contentblock', 'team@yupe.ru');
     }
+    
+    public function getAdminPageLink()
+    {
+    	return '/contentblock/defaultAdmin/index';
+    }
 
     public function getUrl()
     {
@@ -54,8 +64,8 @@ class ContentBlockModule extends YWebModule
     public function getNavigation()
     {
         return array(
-            array('icon' => 'list-alt', 'label' => Yii::t('ContentBlockModule.contentblock', 'Список блоков'), 'url' => array('/contentblock/default/index')),
-            array('icon' => 'plus-sign', 'label' => Yii::t('ContentBlockModule.contentblock', 'Добавить блок'), 'url' => array('/contentblock/default/create')),
+            array('icon' => 'list-alt', 'label' => Yii::t('ContentBlockModule.contentblock', 'Список блоков'), 'url' => array('/contentblock/defaultAdmin/index')),
+            array('icon' => 'plus-sign', 'label' => Yii::t('ContentBlockModule.contentblock', 'Добавить блок'), 'url' => array('/contentblock/defaultAdmin/create')),
         );
     }
 }

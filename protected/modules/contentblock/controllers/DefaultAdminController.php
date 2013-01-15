@@ -1,5 +1,5 @@
 <?php
-class DefaultController extends YBackController
+class DefaultAdminController extends YBackController
 {
     /**
      * Displays a particular model.

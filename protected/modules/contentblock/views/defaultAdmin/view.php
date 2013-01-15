@@ -1,26 +1,27 @@
 <?php
+    $contentblock = Yii::app()->getModule('contentblock');
     $this->breadcrumbs = array(
-        Yii::app()->getModule('contentblock')->getCategory() => array(),
-        Yii::t('ContentBlockModule.contentblock', 'Блоки контента') => array('/contentblock/default/index'),
+        $contentblock->getCategory() => array('/yupe/backend/index', 'category' => $contentblock->getCategoryType() ),
+        Yii::t('ContentBlockModule.contentblock', 'Блоки контента') => array('/contentblock/defaultAdmin/index'),
         $model->name,
     );
 
     $this->pageTitle = Yii::t('catalog', 'Блоки контента - просмотр');
 
     $this->menu = array(
-        array('icon' => 'list-alt','label' => Yii::t('ContentBlockModule.contentblock', 'Управление блоками контента'), 'url' => array('/contentblock/default/index')),
-        array('icon' => 'plus-sign','label' => Yii::t('ContentBlockModule.contentblock', 'Добавить блок контента'), 'url' => array('/contentblock/default/create')),
+        array('icon' => 'list-alt','label' => Yii::t('ContentBlockModule.contentblock', 'Управление блоками контента'), 'url' => array('/contentblock/defaultAdmin/index')),
+        array('icon' => 'plus-sign','label' => Yii::t('ContentBlockModule.contentblock', 'Добавить блок контента'), 'url' => array('/contentblock/defaultAdmin/create')),
         array('label' => Yii::t('ContentBlockModule.contentblock', 'Блок контента') . ' «' . mb_substr($model->name, 0, 32) . '»'),
         array('icon' => 'pencil', 'label' => Yii::t('ContentBlockModule.contentblock', 'Редактирование блока контента'), 'url' => array(
-            '/contentblock/default/update',
+            '/contentblock/defaultAdmin/update',
             'id' => $model->id
         )),
         array('icon' => 'eye-open', 'label' => Yii::t('ContentBlockModule.contentblock', 'Просмотреть блок контента'), 'url' => array(
-            '/contentblock/default/view',
+            '/contentblock/defaultAdmin/view',
             'id' => $model->id
         )),
         array('icon' => 'trash', 'label' => Yii::t('ContentBlockModule.contentblock', 'Удалить блок контента'), 'url' => '#', 'linkOptions' => array(
-            'submit' => array('/contentblock/default/delete', 'id' => $model->id),
+            'submit' => array('/contentblock/defaultAdmin	/delete', 'id' => $model->id),
             'confirm' => Yii::t('ContentBlockModule.contentblock', 'Вы уверены, что хотите удалить блок контента?'),
         )),
     );
