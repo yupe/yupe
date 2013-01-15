@@ -608,7 +608,7 @@ class DefaultController extends YBackController
 
                     $user = User::model()->admin()->findAll();
 
-                    foreach (array('siteDescription', 'siteName', 'siteKeyWords', 'email') as $param)
+                    foreach (array('siteDescription', 'siteName', 'siteKeyWords', 'email', 'theme','backendTheme') as $param)
                     {
                         $settings = new Settings;
 
@@ -655,7 +655,11 @@ class DefaultController extends YBackController
         }
         else
             $model->email = $model->emailName;
-        $this->render('sitesettings', array('model' => $model));
+        $this->render('sitesettings', array(
+            'model' => $model,
+            'themes' => $this->yupe->getThemes(),
+            'backendThemes' => $this->yupe->getThemes(true)
+        ));
     }
 
     public function actionFinish()
