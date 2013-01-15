@@ -64,9 +64,9 @@ $this->renderPartial('_search', array('model' => $model));
         ),
         'code',
         array(
-            'name'  => Yii::t('DictionaryModule.dictionary', 'Записей'),
-            'type'  => 'raw',
-            'value' => 'CHtml::link($data->dataCount, array("/dictionary/dictionaryData/index", "group_id" => $data->id"))',
+            'header' => Yii::t('DictionaryModule.dictionary', 'Записей'),
+            'type'   => 'raw',
+            'value'  => 'CHtml::link($data->dataCount, array("/dictionary/dictionaryData/index", "group_id" => $data->id"))',
         ),
         array(
             'name'  => 'creation_date',
