@@ -619,21 +619,19 @@ class YupeModule extends YWebModule
      */
     public function getSubMenu($menu)
     {
-        $items = array();
-        foreach ($menu as $item)
-        {
-            if (isset($item['items']) && is_array($item['items']))
-            {
+        $items   = array();
+        $endItem = count($menu) - 1;
+        foreach ($menu as $key => $item) {
+            if (isset($item['items']) && is_array($item['items'])) {
                 $subItems = $item['items'];
                 unset($item['items'], $item['icon'], $item['url']);
                 array_push($items, $item);
                 $items = array_merge($items, $subItems);
-                array_push($items, "---");
-            }
-            else
+                if ($key != $endItem)
+                    array_push($items, "---");
+            } else
                 $items[] = $item;
         }
-        array_pop($items);
         return $items;
     }
 
