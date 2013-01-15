@@ -39,6 +39,11 @@ class CommentModule extends YWebModule
     {
         return Yii::t('CommentModule.comment', 'Контент');
     }
+    
+    public function getCategoryType()
+    {
+    	return Yii::t('CommentModule.comment', 'content');
+    }
 
     public function getName()
     {
@@ -57,7 +62,7 @@ class CommentModule extends YWebModule
                 'message' => Yii::t('CommentModule.comment', 'У Вас {{count}} новых комментариев. {{link}}', array(
                     '{{count}}' => $count,
                     '{{link}}'  => CHtml::link(Yii::t('CommentModule.comment', 'Модерация комментариев'), array(
-                        '/comment/default/admin/order/status.asc/Comment_sort/status/',
+                        '/comment/defaultAdmin/admin/order/status.asc/Comment_sort/status/',
                     )),
                 )),
             );
@@ -95,11 +100,16 @@ class CommentModule extends YWebModule
         return "comment";
     }
     
+    public function getAdminPageLink()
+    {
+    	return '/comment/defaultAdmin/index';
+    }
+    
     public function getNavigation()
     {
         return array(
-            array('icon' => 'list-alt', 'label' => Yii::t('CommentModule.comment', 'Список комментариев'), 'url'=>array('/comment/default/index')),
-            array('icon' => 'plus-sign', 'label' => Yii::t('CommentModule.comment', 'Добавить комментарий'), 'url' => array('/comment/default/create')),
+            array('icon' => 'list-alt', 'label' => Yii::t('CommentModule.comment', 'Список комментариев'), 'url'=>array('/comment/defaultAdmin/index')),
+            array('icon' => 'plus-sign', 'label' => Yii::t('CommentModule.comment', 'Добавить комментарий'), 'url' => array('/comment/defaultAdmin/create')),
         );
     }
 

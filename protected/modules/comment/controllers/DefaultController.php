@@ -1,123 +1,86 @@
 <?php
-class DefaultController extends YBackController
+
+class DefaultController extends YFrontController
 {
-    /**
-     * Displays a particular model.
-     * @param integer $id the ID of the model to be displayed
-     */
-    public function actionView($id)
+    public function actions()
     {
-        $this->render('view', array('model' => $this->loadModel($id)));
+        return array(
+            'captcha' => array(
+                'class'     => 'CCaptchaAction',
+                'backColor' => 0xFFFFFF,
+            ),
+        );
     }
 
-    /**
-     * Creates a new model.
-     * If creation is successful, the browser will be redirected to the 'view' page.
-     */
-    public function actionCreate()
+    public function actionAdd()
     {
-        $model = new Comment;
-
-        // Uncomment the following line if AJAX validation is needed
-        // $this->performAjaxValidation($model);
-
-        if (isset($_POST['Comment']))
+        if (Yii::app()->request->isPostRequest && !empty($_POST['Comment']))
         {
-            $model->attributes = $_POST['Comment'];
+            $redirect = isset($_POST['redirectTo'])
+                ? $_POST['redirectTo']
+                : Yii::app()->user->returnUrl;
 
-            if ($model->save())
+            $comment = new Comment;
+            $comment->setAttributes($_POST['Comment']);
+
+            $module = Yii::app()->getModule('comment');
+            $comment->status = $module->defaultCommentStatus;
+
+            if (Yii::app()->user->isAuthenticated())
             {
-                if (!isset($_POST['submit-type']))
-                    $this->redirect(array('update', 'id' => $model->id));
-                else
-                    $this->redirect(array($_POST['submit-type']));
+                $comment->setAttributes(array(
+                    'user_id' => Yii::app()->user->id,
+                    'name'    => Yii::app()->user->getState('nick_name'),
+                    'email'   => Yii::app()->user->getState('email'),
+                ));
+
+                if ($module->autoApprove)
+                    $comment->status = Comment::STATUS_APPROVED;
+            }
+
+            if ($comment->save())
+            {
+                // сбросить кэш
+                Yii::app()->cache->delete("Comment{$comment->model}{$comment->model_id}");
+
+                // если нужно уведомить администратора - уведомляем =)
+                if ($module->notify && $module->email)
+                {
+                    $body = $this->renderPartial('commentnotifyemail', array('model' => $comment), true);
+
+                    Yii::app()->mail->send(
+                        Yii::app()->getModule('yupe')->email,
+                        $module->email,
+                        Yii::t('CommentModule.comment', 'Добавлена новая запись на сайте "{app}"!',
+                        array('{app}' => Yii::app()->name)
+                    ), $body);
+                }
+
+                if (Yii::app()->request->isAjaxRequest)
+                    Yii::app()->ajax->success(Yii::t('CommentModule.comment', 'Комментарий добавлен!'));
+
+                $message = $comment->status !== Comment::STATUS_APPROVED
+                    ? Yii::t('CommentModule.comment', 'Спасибо, Ваша запись добавлена и ожидает проверки!')
+                    : Yii::t('CommentModule.comment', 'Спасибо, Ваша запись добавлена!');
+
+                Yii::app()->user->setFlash(
+                    YFlashMessages::NOTICE_MESSAGE,
+                    $message
+                );
+                $this->redirect($redirect);
+            }
+            else
+            {
+                if (Yii::app()->request->isAjaxRequest)
+                    Yii::app()->ajax->failure(Yii::t('CommentModule.comment', 'Запись не добавлена!'));
+
+                Yii::app()->user->setFlash(
+                    YFlashMessages::ERROR_MESSAGE,
+                    Yii::t('CommentModule.comment', 'Запись не добавлена! Заполните форму корректно!')
+                );
+                $this->redirect($redirect);
             }
         }
-        $this->render('create', array('model' => $model));
-    }
-
-    /**
-     * Updates a particular model.
-     * If update is successful, the browser will be redirected to the 'view' page.
-     * @param integer $id the ID of the model to be updated
-     */
-    public function actionUpdate($id)
-    {
-        $model = $this->loadModel($id);
-
-        // Uncomment the following line if AJAX validation is needed
-        // $this->performAjaxValidation($model);
-
-        if (isset($_POST['Comment']))
-        {
-            $model->attributes = $_POST['Comment'];
-
-            if ($model->save())
-            {
-                if (!isset($_POST['submit-type']))
-                    $this->redirect(array('update', 'id' => $model->id));
-                else
-                    $this->redirect(array($_POST['submit-type']));
-            }
-        }
-        $this->render('update', array('model' => $model));
-    }
-
-    /**
-     * Deletes a particular model.
-     * If deletion is successful, the browser will be redirected to the 'admin' page.
-     * @param integer $id the ID of the model to be deleted
-     */
-    public function actionDelete($id)
-    {
-        if (Yii::app()->request->isPostRequest)
-        {
-            // we only allow deletion via POST request
-            $this->loadModel($id)->delete();
-
-            // if AJAX request (triggered by deletion via admin grid view), we should not redirect the browser
-            if (!isset($_GET['ajax']))
-                $this->redirect(isset($_POST['returnUrl']) ? $_POST['returnUrl'] : array('index'));
-        }
-        else
-            throw new CHttpException(400, Yii::t('CommentModule.comment', 'Неверный запрос. Пожалуйста, больше не повторяйте такие запросы'));
-    }
-
-    /**
-     * Manages all models.
-     */
-    public function actionIndex()
-    {
-        $model = new Comment('search');
-        $model->unsetAttributes(); // clear any default values
-        if (isset($_GET['Comment']))
-            $model->attributes = $_GET['Comment'];
-        $this->render('index', array('model' => $model));
-    }
-
-    /**
-     * Returns the data model based on the primary key given in the GET variable.
-     * If the data model is not found, an HTTP exception will be raised.
-     * @param integer the ID of the model to be loaded
-     */
-    public function loadModel($id)
-    {
-        $model = Comment::model()->findByPk((int) $id);
-        if ($model === null)
-            throw new CHttpException(404, Yii::t('CommentModule.comment', 'Запрошенная страница не найдена!'));
-        return $model;
-    }
-
-    /**
-     * Performs the AJAX validation.
-     * @param CModel the model to be validated
-     */
-    protected function performAjaxValidation($model)
-    {
-        if (isset($_POST['ajax']) && $_POST['ajax'] === 'comment-form')
-        {
-            echo CActiveForm::validate($model);
-            Yii::app()->end();
-        }
+        throw new CHttpException(404, Yii::t('CommentModule.comment', 'Страница не найдена!'));
     }
 }

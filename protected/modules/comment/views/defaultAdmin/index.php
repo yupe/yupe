@@ -1,15 +1,15 @@
 <?php
+    $comment = Yii::app()->getModule('blog');
     $this->breadcrumbs = array(
-        Yii::app()->getModule('comment')->getCategory() => array(),
-        Yii::t('CommentModule.comment', 'Комментарии') => array('/comment/default/index'),
-        Yii::t('CommentModule.comment', 'Управление'),
+        $comment->getCategory() => array('/yupe/backend/index', 'category' => $comment->getCategoryType() ),
+        Yii::t('CommentModule.comment', 'Комментарии'),
     );
 
     $this->pageTitle = Yii::t('CommentModule.comment', 'Комментарии - управление');
 
     $this->menu = array(
-        array('icon' => 'list-alt', 'label' => Yii::t('CommentModule.comment', 'Список комментариев'), 'url' => array('/comment/default/index')),
-        array('icon' => 'plus-sign', 'label' => Yii::t('CommentModule.comment', 'Добавить комментарий'), 'url' => array('/comment/default/create')),
+        array('icon' => 'list-alt', 'label' => Yii::t('CommentModule.comment', 'Список комментариев'), 'url' => array('/comment/defaultAdmin/index')),
+        array('icon' => 'plus-sign', 'label' => Yii::t('CommentModule.comment', 'Добавить комментарий'), 'url' => array('/comment/defaultAdmin/create')),
     );
 ?>
 <div class="page-header">
