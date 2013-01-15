@@ -1,6 +1,6 @@
 <?php
 
-class DefaultController extends YBackController
+class DataAdminController extends YBackController
 {
     /**
      * Displays a particular model.
@@ -17,22 +17,21 @@ class DefaultController extends YBackController
      */
     public function actionCreate()
     {
-        $model = new DictionaryGroup;
+        $model = new DictionaryData;
+
+        $gid = (int) Yii::app()->request->getQuery('gid');
+        if ($gid)
+            $model->group_id = $gid;
 
         // Uncomment the following line if AJAX validation is needed
         // $this->performAjaxValidation($model);
 
-        if (isset($_POST['DictionaryGroup']))
+        if (isset($_POST['DictionaryData']))
         {
-            $model->attributes = $_POST['DictionaryGroup'];
+            $model->attributes = $_POST['DictionaryData'];
 
             if ($model->save())
             {
-                Yii::app()->user->setFlash(
-                    YFlashMessages::NOTICE_MESSAGE,
-                    Yii::t('DictionaryModule.dictionary', 'Запись добавлена!')
-                );
-
                 if (!isset($_POST['submit-type']))
                     $this->redirect(array('update', 'id' => $model->id));
                 else
@@ -54,17 +53,12 @@ class DefaultController extends YBackController
         // Uncomment the following line if AJAX validation is needed
         // $this->performAjaxValidation($model);
 
-        if (isset($_POST['DictionaryGroup']))
+        if (isset($_POST['DictionaryData']))
         {
-            $model->attributes = $_POST['DictionaryGroup'];
+            $model->attributes = $_POST['DictionaryData'];
 
             if ($model->save())
             {
-                Yii::app()->user->setFlash(
-                    YFlashMessages::NOTICE_MESSAGE,
-                    Yii::t('DictionaryModule.dictionary', 'Запись добавлена!')
-                );
-
                 if (!isset($_POST['submit-type']))
                     $this->redirect(array('update', 'id' => $model->id));
                 else
@@ -99,10 +93,15 @@ class DefaultController extends YBackController
      */
     public function actionIndex()
     {
-        $model = new DictionaryGroup('search');
+        $model = new DictionaryData('search');
         $model->unsetAttributes();  // clear any default values
-        if (isset($_GET['DictionaryGroup']))
-            $model->attributes = $_GET['DictionaryGroup'];
+
+        $group_id = (int) Yii::app()->request->getQuery('group_id');
+        if ($group_id)
+            $model->group_id = $group_id;
+
+        if (isset($_GET['DictionaryData']))
+            $model->attributes = $_GET['DictionaryData'];
         $this->render('index', array('model' => $model));
     }
 
@@ -113,7 +112,7 @@ class DefaultController extends YBackController
      */
     public function loadModel($id)
     {
-        $model = DictionaryGroup::model()->findByPk((int) $id);
+        $model = DictionaryData::model()->findByPk((int) $id);
         if ($model === null)
             throw new CHttpException(404, Yii::t('DictionaryModule.dictionary', 'Запрошенная страница не найдена!'));
         return $model;
@@ -125,7 +124,7 @@ class DefaultController extends YBackController
      */
     protected function performAjaxValidation($model)
     {
-        if (isset($_POST['ajax']) && $_POST['ajax'] === 'dictionary-group-form')
+        if (isset($_POST['ajax']) && $_POST['ajax'] === 'dictionary-data-form')
         {
             echo CActiveForm::validate($model);
             Yii::app()->end();

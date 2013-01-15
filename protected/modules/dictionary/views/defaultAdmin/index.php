@@ -1,20 +1,20 @@
 <?php
+    $dictionary = Yii::app()->getModule('dictionary');
     $this->breadcrumbs = array(
-        Yii::app()->getModule('dictionary')->getCategory() => array(),
-        Yii::t('DictionaryModule.dictionary', 'Справочники') => array('/dictionary/default/index'),
-        Yii::t('DictionaryModule.dictionary', 'Управление'),
+        $dictionary->getCategory() => array('/yupe/backend/index', 'category' => $dictionary->getCategoryType() ),
+        Yii::t('DictionaryModule.dictionary', 'Справочники'),
     );
 
     $this->pageTitle = Yii::t('DictionaryModule.dictionary', 'Справочники - управление');
 
     $this->menu = array(
         array('label' => Yii::t('DictionaryModule.dictionary', 'Справочники'), 'items' => array(
-            array('icon' => 'list-alt', 'label' => Yii::t('DictionaryModule.dictionary', 'Управление справочниками'), 'url' => array('/dictionary/default/index')),
-            array('icon' => 'plus-sign', 'label' => Yii::t('DictionaryModule.dictionary', 'Добавление справочника'), 'url' => array('/dictionary/default/create')),
+            array('icon' => 'list-alt', 'label' => Yii::t('DictionaryModule.dictionary', 'Управление справочниками'), 'url' => array('/dictionary/defaultAdmin/index')),
+            array('icon' => 'plus-sign', 'label' => Yii::t('DictionaryModule.dictionary', 'Добавление справочника'), 'url' => array('/dictionary/defaultAdmin/create')),
         )),
         array('label' => Yii::t('DictionaryModule.dictionary', 'Значения'), 'items' => array(
-            array('icon' => 'list-alt', 'label' => Yii::t('DictionaryModule.dictionary', 'Список значений'), 'url' => array('/dictionary/dictionaryData/index')),
-            array('icon' => 'plus-sign', 'label' => Yii::t('DictionaryModule.dictionary', 'Добавить значение'), 'url' => array('/dictionary/dictionaryData/create')),
+            array('icon' => 'list-alt', 'label' => Yii::t('DictionaryModule.dictionary', 'Список значений'), 'url' => array('/dictionary/dataAdmin/index')),
+            array('icon' => 'plus-sign', 'label' => Yii::t('DictionaryModule.dictionary', 'Добавить значение'), 'url' => array('/dictionary/dataAdmin/create')),
         )),
     );
 ?>
@@ -60,13 +60,13 @@ $this->renderPartial('_search', array('model' => $model));
         array(
             'name'  => 'name',
             'type'  => 'raw',
-            'value' => 'CHtml::link($data->name, array("/dictionary/default/update", "id" => $data->id))',
+            'value' => 'CHtml::link($data->name, array("/dictionary/defaultAdmin/update", "id" => $data->id))',
         ),
         'code',
         array(
-            'name'  => Yii::t('DictionaryModule.dictionary', 'Записей'),
+            'name'  => 'description',
             'type'  => 'raw',
-            'value' => 'CHtml::link($data->dataCount, array("/dictionary/dictionaryData/index", "group_id" => $data->id"))',
+            'value' => 'CHtml::link($data->dataCount, array("/dictionary/dataAdmin/index", "group_id" => $data->id"))',
         ),
         array(
             'name'  => 'creation_date',
