@@ -1,15 +1,17 @@
 <?php
-    $this->breadcrumbs = array(
-        Yii::app()->getModule('feedback')->getCategory() => array(),
-        Yii::t('FeedbackModule.feedback', 'Сообщения с сайта') => array('/feedback/default/index'),
-        Yii::t('FeedbackModule.feedback', 'Управление'),
+	$feedback = Yii::app()->getModule('feedback');
+	$this->breadcrumbs = array(
+		$feedback->getCategory() => array('/yupe/backend/index', 'category' => $feedback->getCategoryType() ),
+        Yii::t('FeedbackModule.feedback', 'Сообщения с сайта'),
     );
 
     $this->pageTitle = Yii::t('FeedbackModule.feedback', 'Сообщения с сайта - управление');
 
     $this->menu = array(
-        array('icon' => 'list-alt', 'label' => Yii::t('FeedbackModule.feedback', 'Управление сообщениями с сайта'), 'url' => array('/feedback/default/index')),
-        array('icon' => 'plus-sign', 'label' => Yii::t('FeedbackModule.feedback', 'Добавить сообщение с сайта'), 'url' => array('/feedback/default/create')),
+    	array('label' => Yii::t('FeedbackModule.feedback', 'Сообщения с сайта'), 'items' => array(
+			array('icon' => 'list-alt', 'label' => Yii::t('FeedbackModule.feedback', 'Управление сообщениями с сайта'), 'url' => array('/feedback/defaultAdmin/index')),
+        	array('icon' => 'plus-sign', 'label' => Yii::t('FeedbackModule.feedback', 'Добавить сообщение с сайта'), 'url' => array('/feedback/defaultAdmin/create')),
+    	)),
     );
 ?>
 <div class="page-header">
@@ -56,7 +58,7 @@ $this->renderPartial('_search', array('model' => $model));
         array(
             'name'  => 'theme',
             'type'  => 'raw',
-            'value' => 'CHtml::link($data->theme, array("/feedback/default/update", "id" => $data->id))',
+            'value' => 'CHtml::link($data->theme, array("/feedback/defaultAdmin/update", "id" => $data->id))',
         ),
         array(
             'name'  => 'type',

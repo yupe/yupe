@@ -3,12 +3,12 @@
 
 <?php
 $this->breadcrumbs = array(
-    'Вопросы и ответы' => array('/feedback/contact/faq/'),
+    'Вопросы и ответы' => array('/feedback/default/faq'),
     $model->theme,
 );
 ?>
 
-<h1><?php echo Yii::t('feedback', 'Вопрос и ответ #{id}',array('{id}' => $model->id));?> <?php echo CHtml::link('ЗАДАЙТЕ ВОПРОС',array('/feedback/contact/'));?></h1>
+<h1><?php echo Yii::t('feedback', 'Вопрос и ответ #{id}',array('{id}' => $model->id));?> <?php echo CHtml::link('ЗАДАЙТЕ ВОПРОС',array('/feedback/default/index'));?></h1>
 
 <?php $this->widget('zii.widgets.CDetailView', array(
                                                     'data' => $model,
@@ -50,6 +50,6 @@ $this->breadcrumbs = array(
 
 <h3>У Вас есть свое мнение по этому вопросу !? Поделитесь им!</h3>
 
-<?php $this->widget('application.modules.comment.widgets.CommentFormWidget', array('redirectTo' => $this->createUrl('/feedback/contact/faqView/', array('id' => $model->id)), 'model' => $model, 'modelId' => $model->id)); ?>
+<?php $this->widget('application.modules.comment.widgets.CommentFormWidget', array('redirectTo' => $this->createUrl('/feedback/default/faqView/', array('id' => $model->id)), 'model' => $model, 'modelId' => $model->id)); ?>
 
 

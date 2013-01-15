@@ -10,6 +10,8 @@ return array(
     ),
     'component' => array(),
     'rules'     => array(
-        '/feedback/<action:\w+>' => 'feedback/contact/<action>',
+		'/faq' 						=> 'feedback/default/faq',
+    	'/feedback' 				=> 'feedback/default/index',
+        '/feedback/<action:\w+>' 	=> 'feedback/default/<action>',
     ),
 );

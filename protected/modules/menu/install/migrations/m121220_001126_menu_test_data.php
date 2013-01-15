@@ -26,7 +26,7 @@ class m121220_001126_menu_test_data extends CDbMigration
             array(9, 0, 1, 'Выйти', '/user/account/logout', 'login-text', 'Выйти', '', '', '', '', 'isAuthenticated', 0, 12, 1),
             array(10, 0, 1, 'Регистрация', '/user/account/registration', 'login-text', 'Регистрация на сайте', '', '', '', '', 'isAuthenticated', 1, 10, 1),
             array(11, 0, 1, 'Панель управления', '/yupe/backend/index', 'login-text', 'Панель управления сайтом', '', '', '', '', 'isSuperUser', 0, 13, 1),
-            array(12, 0, 1, 'FAQ', '/feedback/contact/faq', '', 'FAQ', '', '', '', '', '', 0, 7, 1),
+            array(12, 0, 1, 'FAQ', '/feedback/default/faq', '', 'FAQ', '', '', '', '', '', 0, 7, 1),
 
         ) ;
 

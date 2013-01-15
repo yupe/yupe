@@ -114,6 +114,11 @@ class FeedbackModule extends YWebModule
     {
         return Yii::t('FeedbackModule.feedback', 'Сервисы');
     }
+    
+    public function getCategoryType()
+    {
+    	return Yii::t('FeedbackModule.feedback', 'services');
+    }
 
     public function getDescription()
     {

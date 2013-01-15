@@ -1,31 +1,34 @@
 <?php
-    $this->breadcrumbs = array(
-        Yii::app()->getModule('feedback')->getCategory() => array(),
-        Yii::t('FeedbackModule.feedback', 'Сообщения с сайта') => array('/feedback/default/index'),
-        $model->theme => array('/feedback/default/view', 'id' => $model->id),
+	$feedback = Yii::app()->getModule('feedback');
+	$this->breadcrumbs = array(
+		$feedback->getCategory() => array('/yupe/backend/index', 'category' => $feedback->getCategoryType() ),
+        Yii::t('FeedbackModule.feedback', 'Сообщения с сайта') => array('/feedback/defaultAdmin/index'),
+        $model->theme => array('/feedback/defaultAdmin/view', 'id' => $model->id),
         Yii::t('FeedbackModule.feedback', 'Ответ'),
     );
 
     $this->pageTitle = Yii::t('FeedbackModule.feedback', 'Сообщения с сайта - ответ');
 
     $this->menu = array(
-        array('icon' => 'list-alt', 'label' => Yii::t('FeedbackModule.feedback', 'Управление сообщениями с сайта'), 'url' => array('/feedback/default/index')),
-        array('icon' => 'plus-sign', 'label' => Yii::t('FeedbackModule.feedback', 'Добавить сообщение с сайта'), 'url' => array('/feedback/default/create')),
+    	array('label' => Yii::t('FeedbackModule.feedback', 'Сообщения с сайта'), 'items' => array(
+        	array('icon' => 'list-alt', 'label' => Yii::t('FeedbackModule.feedback', 'Управление сообщениями с сайта'), 'url' => array('/feedback/defaultAdmin/index')),
+        	array('icon' => 'plus-sign', 'label' => Yii::t('FeedbackModule.feedback', 'Добавить сообщение с сайта'), 'url' => array('/feedback/defaultAdmin/create')),
+    	)),
         array('label' => Yii::t('dictionary', 'Значение справочника') . ' «' . mb_substr($model->theme, 0, 32) . '»'),
         array('icon' => 'pencil', 'label' => Yii::t('FeedbackModule.feedback', 'Редактирование сообщения с сайта'), 'url' => array(
-            '/feedback/default/update',
+            '/feedback/defaultAdmin/update',
             'id' => $model->id
         )),
         array('icon' => 'eye-open', 'label' => Yii::t('FeedbackModule.feedback', 'Просмотреть сообщение с сайта'), 'url' => array(
-            '/feedback/default/view',
+            '/feedback/defaultAdmin/view',
             'id' => $model->id
         )),
         array('icon' => 'envelope', 'label' => Yii::t('FeedbackModule.feedback', 'Ответить на сообщение с сайта'), 'url' => array(
-            '/feedback/default/answer',
+            '/feedback/defaultAdmin/answer',
             'id' => $model->id
         )),
         array('icon' => 'trash', 'label' => Yii::t('FeedbackModule.feedback', 'Удалить сообщение с сайта'), 'url' => '#', 'linkOptions' => array(
-            'submit'  => array('/feedback/default/delete', 'id' => $model->id),
+            'submit'  => array('/feedback/defaultAdmin/delete', 'id' => $model->id),
             'confirm' => Yii::t('FeedbackModule.feedback', 'Вы уверены, что хотите удалить сообщение с сайта?'),
         )),
     );
@@ -77,7 +80,7 @@
     <?php
     $form = $this->beginWidget('bootstrap.widgets.TbActiveForm', array(
         'id'                     => 'feed-back-form-answer',
-        'action'                 => array('/feedback/default/answer', 'id' => $model->id),
+        'action'                 => array('/feedback/defaultAdmin/answer', 'id' => $model->id),
         'enableAjaxValidation'   => false,
         'enableClientValidation' => true,
         'type'                   => 'vertical',
@@ -98,17 +101,13 @@
         </div>
 
         <?php echo $form->errorSummary($answerForm); ?>
-
         <div class="row-fluid control-group">
             <div class="span12">
                 <?php echo $form->labelEx($answerForm, 'answer'); ?>
                 <?php $this->widget(Yii::app()->getModule('yupe')->editor, array(
                       'model'       => $answerForm,
                       'attribute'   => 'answer',
-                      'options'     => array(
-                           'toolbar'     => 'main',
-                           'imageUpload' => Yii::app()->baseUrl.'/index.php/yupe/backend/AjaxFileUpload/',
-                       ),
+                      'options'     => $this->module->editorOptions,
                       'htmlOptions' => array('rows' => 20,'cols' => 6),
                  )); ?>
                 <?php echo $form->error($answerForm, 'answer'); ?>
