@@ -141,10 +141,14 @@ class DefaultController extends YBackController
             // Проверим пост
             if (isset($_POST['News']))
             {
-                $wasError = false;
+                $wasError = $savedFileName = false;
 
                 foreach ($langs as $l)
                 {
+                    $img = $modelsByLang[$l]->image;
+
+                    $modelsByLang[$l]->image = CUploadedFile::getInstance($modelsByLang[$l], 'image') !== null ? CUploadedFile::getInstance($modelsByLang[$l], 'image') : $img;
+
                     if (isset($_POST['News'][$l]))
                     {
                         $image = $modelsByLang[$l]->image;
@@ -170,11 +174,28 @@ class DefaultController extends YBackController
 
                         if (!$modelsByLang[$l]->save())
                             $wasError = true;
-                        else
+                            
+                        elseif(is_object($modelsByLang[$l]->image))
                         {
-                            $modelsByLang[$l]->saveWithImage('image', $this->module->getUploadPath(), $image);
-                            $alias = $modelsByLang[$l]->alias;
+                            $imageName = $this->module->getUploadPath() . $model->alias . '.' . $modelsByLang[$l]->image->extensionName;
+
+                            @unlink($this->module->getUploadPath() . $image);
+
+                            if (!$savedFileName && $modelsByLang[$l]->image->saveAs($imageName))
+                            {
+                                $modelsByLang[$l]->image = $savedFileName = basename($imageName);
+
+                                $modelsByLang[$l]->update(array( 'image' ));
+                            }
+                            elseif($savedFileName)
+                            {
+                                $modelsByLang[$l]->image = $savedFileName;
+
+                                $modelsByLang[$l]->update(array( 'image' ));
+                            }
                         }
+                        else
+                            $alias = $modelsByLang[$l]->alias;
                     }
                 }
 

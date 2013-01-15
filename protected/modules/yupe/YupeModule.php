@@ -432,7 +432,7 @@ class YupeModule extends YWebModule
      * @param array $modules список активных модулей, по умолчанию array()
      * @return array список отключенных модулей
      */
-    function getModulesDisabled($enableModule = array())
+    public function getModulesDisabled($enableModule = array())
     {
         $path         = $this->getModulesConfigDefault();
         $enableModule = array_keys($enableModule);
@@ -457,7 +457,7 @@ class YupeModule extends YWebModule
      * @param array $name имя модуля
      * @return array класс модуля
      */
-    function getCreateModule($name)
+    public function getCreateModule($name)
     {
         $path   = $this->getModulesConfigDefault();
         $module = NULL;
@@ -484,7 +484,7 @@ class YupeModule extends YWebModule
      * @param string $moduke Имя модуля
      * @return string путь к папке или файлу с конфигурацией модуля(-ей)
      */
-    function getModulesConfig($module = false)
+    public function getModulesConfig($module = false)
     {
         return Yii::app()->basePath . '/config/modules/' . ($module ? $module . '.php' : '');
     }
@@ -496,7 +496,7 @@ class YupeModule extends YWebModule
      * @param string $moduke Имя модуля
      * @return string путь к папке или файлу с резервной конфигурацией модуля(-ей)
      */
-    function getModulesConfigBack($module = false)
+    public function getModulesConfigBack($module = false)
     {
         return Yii::app()->basePath . '/config/modulesBack/' . ($module ? $module . '.php' : '');
     }
@@ -508,7 +508,7 @@ class YupeModule extends YWebModule
      * @param string $moduke Имя модуля
      * @return string путь к папке c дефолтной конфигурацией модуля или путь к модулям
      */
-    function getModulesConfigDefault($module = false)
+    public function getModulesConfigDefault($module = false)
     {
         return ($module
             ? Yii::getPathOfAlias('application.modules.' . $module) . '/install/' . $module . '.php'
@@ -522,7 +522,7 @@ class YupeModule extends YWebModule
      * @param string $layoutName Название лайаута, если не задан - берется по-умолчанию для бекенда
      * @return string Полный путь к лайауту
      */
-    function getBackendLayoutAlias($layoutName = '')
+    public function getBackendLayoutAlias($layoutName = '')
     {
         if ($this->backendTheme)
             return 'webroot.themes.backend_' . $this->backendTheme . '.views.yupe.layouts.' . ($layoutName ? $layoutName : $this->backendLayout);
@@ -619,24 +619,19 @@ class YupeModule extends YWebModule
      */
     public function getSubMenu($menu)
     {
-        $items = array();
-        // Преобразование пунктов, содержащих сабменю в заголовки групп
-        foreach ($menu as $key => $item)
-        {
-            if (isset($item['items']) && is_array($item['items']))
-            {
+        $items   = array();
+        $endItem = count($menu) - 1;
+        foreach ($menu as $key => $item) {
+            if (isset($item['items']) && is_array($item['items'])) {
                 $subItems = $item['items'];
-                unset($item['items']);
-                unset($item['icon']);
-                unset($item['url']);
+                unset($item['items'], $item['icon'], $item['url']);
                 array_push($items, $item);
                 $items = array_merge($items, $subItems);
-                array_push($items, "---");
-            }
-            else
+                if ($key != $endItem)
+                    array_push($items, "---");
+            } else
                 $items[] = $item;
         }
-        array_pop($items);
         return $items;
     }
 

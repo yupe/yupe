@@ -57,12 +57,12 @@ $form = $this->beginWidget('bootstrap.widgets.TbActiveForm', array(
             <?php echo $form->labelEx($model, 'status' ); ?>
             <?php echo $form->dropDownList($model, 'status', $model->getStatusList()); ?>
         </div>
-        <div class="span3 popover-help" data-content="<?php echo Yii::t('PageModule.page', "Чем большее числовое значение вы укажете в этом поле, тем выше будет позиция данной страницы в меню."); ?>" data-original-title="<?php echo $model->getAttributeLabel('menu_order'); ?>" >
-            <?php echo $form->labelEx($model, 'menu_order' ); ?>
-            <?php echo $form->textField($model, 'menu_order', array('size' => 10, 'maxlength' => 10)); ?>
+        <div class="span3 popover-help" data-content="<?php echo Yii::t('PageModule.page', "Чем большее числовое значение вы укажете в этом поле, тем выше будет позиция данной страницы в меню."); ?>" data-original-title="<?php echo $model->getAttributeLabel('order'); ?>" >
+            <?php echo $form->labelEx($model, 'order' ); ?>
+            <?php echo $form->textField($model, 'order', array('size' => 10, 'maxlength' => 10)); ?>
         </div>
         <div class="span5">
-            <?php echo $form->error($model, 'menu_order'); ?>
+            <?php echo $form->error($model, 'order'); ?>
         </div>
     </div>
     <div class="row-fluid control-group <?php echo $model-> hasErrors('slug') ? 'error' : '' ?>">
@@ -81,7 +81,7 @@ $form = $this->beginWidget('bootstrap.widgets.TbActiveForm', array(
             <?php echo $form->checkBox($model, 'is_protected'); ?>
         </div>
         <div class="span5">
-            <?php echo $form->error($model, 'slug'); ?>
+            <?php echo $form->error($model, 'is_protected'); ?>
         </div>
     </div>
 
@@ -97,7 +97,7 @@ $form = $this->beginWidget('bootstrap.widgets.TbActiveForm', array(
 
         $this->widget('bootstrap.widgets.TbMenu', array(
             'type'        => 'tabs', // '', 'tabs', 'pills' (or 'list')
-            'stacked'     => false, // whether this is a stacked menu
+            'stacked'     => false,  // whether this is a stacked menu
             'items'       => $items ,
             'htmlOptions' => array('style' => 'margin-bottom:0;'),
         ));

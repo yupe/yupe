@@ -48,15 +48,15 @@ $this->renderPartial('_search', array('model' => $model, 'pages' => $pages));
     'type'         => 'condensed',
     'dataProvider' => $model->search(),
     'filter'       => $model,
-    'sortField'    => 'menu_order',
+    'sortField'    => 'order',
     'columns'      => array(
         'id',
-        'title',
         array(
-            'name'  => 'name',
+            'name'  => 'title',
             'type'  => 'raw',
-            'value' => 'CHtml::link($data->name, array("/page/default/update", "slug" => $data->slug))',
+            'value' => 'CHtml::link($data->title, array("/page/default/update", "slug" => $data->slug))',
         ),
+        'title_short',
         array(
             'name'  => 'category_id',
             'value' => '$data->getCategoryName()',
@@ -74,7 +74,7 @@ $this->renderPartial('_search', array('model' => $model, 'pages' => $pages));
             'value'  => 'Yii::app()->createAbsoluteUrl("/page/page/show", array("slug" => $data->slug))',
         ),
         array(
-            'name'  => 'menu_order',
+            'name'  => 'order',
             'type'  => 'raw',
             'value' => '$this->grid->getUpDownButtons($data)',
         ),
