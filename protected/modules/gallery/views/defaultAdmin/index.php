@@ -1,15 +1,17 @@
 <?php
-    $this->breadcrumbs = array(
-        Yii::app()->getModule('gallery')->getCategory() => array(),
-        Yii::t('GalleryModule.gallery', 'Галереи') => array('/gallery/default/index'),
-        Yii::t('GalleryModule.gallery', 'Управление'),
+	$gallery = Yii::app()->getModule('gallery');
+	$this->breadcrumbs = array(
+		$gallery->getCategory() => array('/yupe/backend/index', 'category' => $gallery->getCategoryType() ),
+        Yii::t('GalleryModule.gallery', 'Галереи'),
     );
 
     $this->pageTitle = Yii::t('GalleryModule.gallery', 'Галереи - управление');
 
     $this->menu = array(
-        array('icon' => 'list-alt', 'label' => Yii::t('GalleryModule.gallery', 'Управление галереями'), 'url' => array('/gallery/default/index')),
-        array('icon' => 'plus-sign', 'label' => Yii::t('GalleryModule.gallery', 'Добавить галерею'), 'url' => array('/gallery/default/create')),
+    	array('label' => Yii::t('GalleryModule.gallery', 'Галереи'), 'items' => array(
+    		array('icon' => 'list-alt', 'label' => Yii::t('GalleryModule.gallery', 'Управление галереями'), 'url' => array('/gallery/defaultAdmin/index')),
+        	array('icon' => 'plus-sign', 'label' => Yii::t('GalleryModule.gallery', 'Добавить галерею'), 'url' => array('/gallery/defaultAdmin/create')),
+    	)),
     );
 ?>
 <div class="page-header">

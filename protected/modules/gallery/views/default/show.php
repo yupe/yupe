@@ -20,5 +20,5 @@
     </div>
 <?php else: ?>
     <?php echo Yii::t('GalleryModule.gallery', 'Для добавления фото Вам необходимо ') ?>
-    <?php echo CHtml::link(Yii::t('GalleryModule.gallery', 'авторизоваться'), array('/user/account/login/')); ?>!
+    <?php echo CHtml::link(Yii::t('GalleryModule.gallery', 'авторизоваться'), array('/user/account/login')); ?>!
 <?php endif; ?>

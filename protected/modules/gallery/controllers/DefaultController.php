@@ -1,138 +1,78 @@
 <?php
-
-class DefaultController extends YBackController
+class DefaultController extends YFrontController
 {
-    /**
-     * Отображает галерею по указанному идентификатору
-     * @param integer $id Идинтификатор галерею для отображения
-     */
-    public function actionView($id)
+    const GALLERY_PER_PAGE = 10;
+
+    public function actionList()
     {
-        $this->render('view', array('model' => $this->loadModel($id)));
+        $dataProvider = new CActiveDataProvider('Gallery');
+        $this->render('list', array('dataProvider' => $dataProvider));
     }
 
-    /**
-     * Создает новую модель галереи.
-     * Если создание прошло успешно - перенаправляет на просмотр.
-     */
-    public function actionCreate()
+    public function actionShow($id)
     {
-        $model = new Gallery;
+        $model = Gallery::model()->findByPk((int) $id);
 
-        // Uncomment the following line if AJAX validation is needed
-        // $this->performAjaxValidation($model);
+        if (!$model)
+            throw new CHttpException(404, Yii::t('GalleryModule.gallery', 'Страница не найдена!'));
 
-        if (isset($_POST['Gallery']))
+        $image = new Image;
+
+        if (Yii::app()->request->isPostRequest && !empty($_POST['Image']))
         {
-            $model->attributes = $_POST['Gallery'];
+            $transaction = Yii::app()->db->beginTransaction();
 
-            if ($model->save())
+            try
             {
-                Yii::app()->user->setFlash(
-                    YFlashMessages::NOTICE_MESSAGE,
-                    Yii::t('GalleryModule.gallery', 'Запись добавлена!')
-                );
+                if ($image->create($_POST['Image']))
+                {
+                    if ($model->addImage($image))
+                        Yii::app()->user->setFlash(
+                            YFlashMessages::NOTICE_MESSAGE,
+                            Yii::t('GalleryModule.gallery', 'Фотография добавлена!')
+                        );
 
-                if (!isset($_POST['submit-type']))
-                    $this->redirect(array('update', 'id' => $model->id));
-                else
-                    $this->redirect(array($_POST['submit-type']));
+                    $transaction->commit();
+
+                    $this->redirect(array('/gallery/default/show', 'id' => $model->id));
+                }
+
+                throw new CDbException(Yii::t('GalleryModule.gallery', Yii::t('GalleryModule.gallery', 'При добавлении изображения произошла ошибка!')));
+            }
+            catch (Exception $e)
+            {
+                $transaction->rollback();
+
+                Yii::app()->user->setFlash(
+                    YFlashMessages::ERROR_MESSAGE,
+                    Yii::t('GalleryModule.gallery', 'При добавлении изображения произошла ошибка!')
+                );
             }
         }
-        $this->render('create', array('model' => $model));
+
+        $dataProvider = new CActiveDataProvider('ImageToGallery', array(
+            'criteria'   => array(
+                'condition' => 'galleryId = :galleryId',
+                'params'    => array(':galleryId' => $model->id),
+                'limit'     => self::GALLERY_PER_PAGE,
+                'order'     => 't.creation_date DESC',
+                'with'      => 'image',
+            ),
+            'pagination' => array('pageSize' => self::GALLERY_PER_PAGE),
+        ));
+
+        $this->render('show', array(
+            'image'        => $image,
+            'model'        => $model,
+            'dataProvider' => $dataProvider,
+        ));
     }
 
-    /**
-     * Редактирование галереи.
-     * @param integer $id the ID of the model to be updated
-     */
-    public function actionUpdate($id)
+    public function actionFoto($id)
     {
-        $model = $this->loadModel($id);
-
-        // Uncomment the following line if AJAX validation is needed
-        // $this->performAjaxValidation($model);
-
-        if (isset($_POST['Gallery']))
-        {
-            $model->attributes = $_POST['Gallery'];
-
-            if ($model->save())
-            {
-                Yii::app()->user->setFlash(
-                    YFlashMessages::NOTICE_MESSAGE,
-                    Yii::t('GalleryModule.gallery', 'Запись обновлена!')
-                );
-
-                if (!isset($_POST['submit-type']))
-                    $this->redirect(array('update', 'id' => $model->id));
-                else
-                    $this->redirect(array($_POST['submit-type']));
-            }
-        }
-        $this->render('update', array('model' => $model));
-    }
-
-    /**
-     * Удаяет модель галереи из базы.
-     * Если удаление прошло успешно - возвращется в index
-     * @param integer $id идентификатор галереи, который нужно удалить
-     */
-    public function actionDelete($id)
-    {
-        if (Yii::app()->request->isPostRequest)
-        {
-            // поддерживаем удаление только из POST-запроса
-            $this->loadModel($id)->delete();
-
-            Yii::app()->user->setFlash(
-                YFlashMessages::NOTICE_MESSAGE,
-                Yii::t('GalleryModule.gallery', 'Запись удалена!')
-            );
-
-            // если это AJAX запрос ( кликнули удаление в админском grid view), мы не должны никуда редиректить
-            if (!isset($_GET['ajax']))
-                $this->redirect(isset($_POST['returnUrl']) ? $_POST['returnUrl'] : array('index'));
-        }
-        else
-            throw new CHttpException(400, Yii::t('GalleryModule.gallery', 'Неверный запрос. Пожалуйста, больше не повторяйте такие запросы'));
-    }
-
-    /**
-     * Управление галереями.
-     */
-    public function actionIndex()
-    {
-        $model = new Gallery('search');
-        $model->unsetAttributes(); // clear any default values
-        if (isset($_GET['Gallery']))
-            $model->attributes = $_GET['Gallery'];
-        $this->render('index', array('model' => $model));
-    }
-
-    /**
-     * Возвращает модель по указанному идентификатору
-     * Если модель не будет найдена - возникнет HTTP-исключение.
-     * @param integer идентификатор нужной модели
-     */
-    public function loadModel($id)
-    {
-        $model = Gallery::model()->findByPk($id);
-        if ($model === null)
-            throw new CHttpException(404, Yii::t('GalleryModule.gallery', 'Запрошенная страница не найдена.'));
-        return $model;
-    }
-
-    /**
-     * Производит AJAX-валидацию
-     * @param CModel модель, которую необходимо валидировать
-     */
-    protected function performAjaxValidation($model)
-    {
-        if (isset($_POST['ajax']) && $_POST['ajax'] === 'gallery-form')
-        {
-            echo CActiveForm::validate($model);
-            Yii::app()->end();
-        }
+        $model = Image::model()->findByPk((int) $id);
+        if (!$model)
+            throw new CHttpException(404, Yii::t('GalleryModule.gallery', 'Страница не найдена!'));
+        $this->render('foto', array('model' => $model));
     }
 }

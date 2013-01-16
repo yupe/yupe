@@ -25,6 +25,11 @@ class GalleryModule extends YWebModule
     {
         return Yii::t('GalleryModule.gallery', 'Сервисы');
     }   
+    
+    public function getCategoryType()
+    {
+    	return Yii::t('GalleryModule.gallery', 'services');
+    }
 
     public function getName()
     {
@@ -69,8 +74,8 @@ class GalleryModule extends YWebModule
      public function getNavigation()
     {
         return array(
-            array('icon' => 'list-alt', 'label' => Yii::t('GalleryModule.gallery', 'Список галерей'), 'url' => array('/gallery/default/index')),
-            array('icon' => 'plus-sign', 'label' => Yii::t('GalleryModule.gallery', 'Добавить галерею'), 'url' => array('/gallery/default/create')),
+            array('icon' => 'list-alt', 'label' => Yii::t('GalleryModule.gallery', 'Список галерей'), 'url' => array('/gallery/defaultAdmin/index')),
+            array('icon' => 'plus-sign', 'label' => Yii::t('GalleryModule.gallery', 'Добавить галерею'), 'url' => array('/gallery/defaultAdmin/create')),
         );
     }
 }

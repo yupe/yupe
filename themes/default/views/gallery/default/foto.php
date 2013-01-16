@@ -1,5 +1,5 @@
 <?php $this->pageTitle = 'Фото'; ?>
-<?php $this->breadcrumbs = array('Галереи' => array('/gallery/gallery/list'),$model->name); ?>
+<?php $this->breadcrumbs = array('Галереи' => array('/gallery/default/list'),$model->name); ?>
 
 <h1><?php echo CHtml::encode($model->name);?></h1>
 
