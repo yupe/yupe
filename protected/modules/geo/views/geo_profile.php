@@ -13,7 +13,7 @@
         $form->widget('zii.widgets.jui.CJuiAutoComplete', array(
             'name'        =>'GeoProfile[geo_city]',
             'value'       => $city,
-            'sourceUrl'   => $this->createUrl('/geo/geo/cityAjax'),
+            'sourceUrl'   => $this->createUrl('/geo/default/cityAjax'),
             'htmlOptions' => array('class' => 'span5'),
             'options'     => array(
                 'showAnim' => 'fold',

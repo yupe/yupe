@@ -1,8 +1,28 @@
 <?php
-class DefaultController extends YBackController
+class DefaultController extends YFrontController
 {
-    public function actionIndex()
+    public function actionCityAjax($term)
     {
-        $this->render('index');
+        $c = new CDbCriteria();
+
+        $c->addCondition("(t.name like :name)");
+        $c->params = array(':name' => $term."%");
+        $c->limit  = 10;
+
+        $x = array();
+
+        if ($city = GeoCity::model()->with(array('country'))->findAll($c))
+        {
+            foreach ($city as $u)
+            {
+                $label = $u->combinedName;
+                array_push($x, array(
+                    'label' => $label,
+                    'value' => $label,
+                    'id'    => $u->id,
+                ));
+            }
+        }
+        echo json_encode($x);
     }
 }

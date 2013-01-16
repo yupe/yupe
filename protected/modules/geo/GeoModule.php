@@ -21,6 +21,11 @@ class GeoModule extends YWebModule
     {
         return Yii::t('GeoModule.geo', 'Сервисы');
     }
+    
+    public function getCategoryType()
+    {
+    	return Yii::t('GeoModule.geo', 'services');
+    }
 
     public function getName()
     {
@@ -50,11 +55,6 @@ class GeoModule extends YWebModule
     public function getUrl()
     {
         return Yii::t('GeoModule.geo', 'http://yupe.ru/');
-    }
-
-    public function getAdminPageLink()
-    {
-        return '/geo/default/index';
     }
 
     public function getIcon()
