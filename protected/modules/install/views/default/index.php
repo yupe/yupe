@@ -7,5 +7,5 @@
 <?php $this->widget('bootstrap.widgets.TbButton', array(
     'type'  => 'primary',
     'label' => Yii::t('InstallModule.install', 'Начать установку >'),
-    'url'   => array('/install/environment'),
+    'url'   => array('/install/default/environment'),
 )); ?>

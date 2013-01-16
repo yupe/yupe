@@ -374,7 +374,7 @@ class DefaultController extends YBackController
                     else
                     {
                         if (fwrite($fh, $dbConfString) && fclose($fh))
-                            $this->redirect(array('/install/modulesinstall'));
+                            $this->redirect(array('/install/default/modulesinstall'));
                         else
                             $form->addError('', Yii::t('InstallModule.install', "Произошла ошибка записи в файл '{file}'!", array('{file}' => $dbConfFile)));
                     }

@@ -31,11 +31,11 @@
 
 <?php $this->widget('bootstrap.widgets.TbButton', array(
     'label' => Yii::t('InstallModule.install', '< Назад'),
-    'url'   => array('/install/index'),
+    'url'   => array('/install/default/index'),
 )); ?>
 
 <?php $this->widget('bootstrap.widgets.TbButton', array(
     'type'     => 'primary',
     'label'    => Yii::t('InstallModule.install', 'Продолжить >'),
     'disabled' => ($result) ? false : true,
-) + (($result) ? array('url' => array('/install/requirements')) : array())); ?>
+) + (($result) ? array('url' => array('/install/default/requirements')) : array())); ?>

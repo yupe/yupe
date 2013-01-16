@@ -145,7 +145,7 @@ EOF;
 
     <?php $this->widget('bootstrap.widgets.TbButton', array(
         'label' => Yii::t('InstallModule.install', '< Назад'),
-        'url'   => array('/install/dbsettings'),
+        'url'   => array('/install/default/dbsettings'),
     )); ?>
     <?php $this->widget('bootstrap.widgets.TbButton', array(
         'buttonType' => 'submit',

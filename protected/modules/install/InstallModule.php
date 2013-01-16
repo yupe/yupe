@@ -14,11 +14,6 @@ class InstallModule extends YWebModule
         return (isset($messages[YWebModule::CHECK_ERROR])) ? $messages : true;
     }
 
-    public function getAdminPageLink()
-    {
-        return '/install/default/index';
-    }
-
     public function getEditableParams()
     {
         return false;
