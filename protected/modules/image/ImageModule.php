@@ -111,6 +111,11 @@ class ImageModule extends YWebModule
     {
         return Yii::t('ImageModule.image', 'Контент');
     }
+    
+    public function getCategoryType()
+    {
+    	return Yii::t('ImageModule.image', 'content');
+    }
 
     public function getName()
     {
@@ -166,8 +171,8 @@ class ImageModule extends YWebModule
     public function getNavigation()
     {
         return array(
-            array('icon' => 'list-alt', 'label' => Yii::t('ImageModule.image', 'Список изображений'), 'url' => array('/image/default/index')),
-            array('icon' => 'plus-sign', 'label' => Yii::t('ImageModule.image', 'Добавить изображение'), 'url' => array('/image/default/create')),
+            array('icon' => 'list-alt', 'label' => Yii::t('ImageModule.image', 'Список изображений'), 'url' => array('/image/defaultAdmin/index')),
+            array('icon' => 'plus-sign', 'label' => Yii::t('ImageModule.image', 'Добавить изображение'), 'url' => array('/image/defaultAdmin/create')),
         );
     }
 }

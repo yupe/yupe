@@ -1,15 +1,17 @@
 <?php
+    $image = Yii::app()->getModule('image');
     $this->breadcrumbs = array(
-        Yii::app()->getModule('image')->getCategory() => array(),
-        Yii::t('ImageModule.image', 'Изображения') => array('/image/default/index'),
-        Yii::t('ImageModule.image', 'Управление'),
+    	$image->getCategory() => array('/yupe/backend/index', 'category' => $image->getCategoryType() ),
+        Yii::t('ImageModule.image', 'Изображения'),
     );
 
     $this->pageTitle = Yii::t('ImageModule.image', 'Изображения - управление');
 
     $this->menu = array(
-        array('icon' => 'list-alt', 'label' => Yii::t('ImageModule.image', 'Управление изображениями'), 'url' => array('/image/default/index')),
-        array('icon' => 'plus-sign', 'label' => Yii::t('ImageModule.image', 'Добавить изображение'), 'url' => array('/image/default/create')),
+    	array('label' => Yii::t('ImageModule.image', 'Изображения'), 'items' => array(
+        	array('icon' => 'list-alt', 'label' => Yii::t('ImageModule.image', 'Управление изображениями'), 'url' => array('/image/defaultAdmin/index')),
+        	array('icon' => 'plus-sign', 'label' => Yii::t('ImageModule.image', 'Добавить изображение'), 'url' => array('/image/defaultAdmin/create')),
+    	)),
     );
 ?>
 <div class="page-header">
