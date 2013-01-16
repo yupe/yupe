@@ -2,6 +2,7 @@ AddDefaultCharset utf-8
 Options +FollowSymLinks
 IndexIgnore */*
 
+#php_value display_errors 1
 ServerSignature Off
 php_flag expose_php Off
 
