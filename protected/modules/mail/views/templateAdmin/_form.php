@@ -1,9 +1,3 @@
-<?php $form=$this->beginWidget('bootstrap.widgets.TbActiveForm',array(
-    'id'=>'mail-template-form',
-    'enableAjaxValidation'=>false,
-        'enableClientValidation' => true,
-    'htmlOptions' => array('class' => 'well form-vertical'),
-)); ?>
 <?php
 $form = $this->beginWidget('bootstrap.widgets.TbActiveForm', array(
     'id'                     => 'mail-template-form',

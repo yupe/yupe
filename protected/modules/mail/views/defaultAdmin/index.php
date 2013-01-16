@@ -1,10 +1,10 @@
 <?php
+
 $this->breadcrumbs = array(
 	$this->module->getCategory() => array('/yupe/backend/index', 'category' => $this->module->getCategoryType() ),
-    Yii::t('MailModule.mail','Почтовые сообщения') => array('/mail/defaultAdmin/index'),
-	Yii::t('MailModule.mail','Почтовые события')=>array('/mail/eventAdmin/index'),
-	Yii::t('MailModule.mail','Добавление'),
+    Yii::t('MailModule.mail','Почтовые сообщения'),
 );
+$this->pageTitle = Yii::t('MailModule.mail','Почтовые сообщения');
 
 $this->menu = array(
 	array('label' => Yii::t('MailModule.mail', 'Почтовые сообщения'), 'items' => array(
@@ -19,10 +19,22 @@ $this->menu = array(
     	array('icon'=> 'plus-sign','label' => Yii::t('MailModule.mail','Добавить шаблон'), 'url' => array('/mail/templateAdmin/create')),
     )),
 );
+
+Yii::app()->clientScript->registerScript('search', "
+$('.search-button').click(function(){
+	$('.search-form').toggle();
+	return false;
+});
+$('.search-form').submit(function(){
+	$.fn.yiiGridView.update('mail-event-grid', {
+		data: $(this).serialize()
+	});
+	return false;
+});
+");
+
 ?>
 <div class="page-header">
-    <h1><?php echo Yii::t('MailModule.mail','Почтовые события');?>
-        <small><?php echo Yii::t('MailModule.mail','добавление');?></small>
-    </h1>
+    <h1>В разработке</h1>
 </div>
-<?php echo  $this->renderPartial('_form', array('model'=>$model)); ?>
+
