@@ -83,7 +83,7 @@ class CategoryModule extends YWebModule
     
     public function getAdminPageLink() 
     {
-    	return '	/category/defaultAdmin/index';
+    	return '/category/defaultAdmin/index';
     }
 
     public function getUrl()
