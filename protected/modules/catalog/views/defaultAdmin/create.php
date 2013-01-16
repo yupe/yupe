@@ -1,15 +1,15 @@
 <?php
     $this->breadcrumbs = array(
         Yii::app()->getModule('catalog')->getCategory() => array(),
-        Yii::t('CatalogModule.catalog', 'Товары') => array('/admin/catalog'),
+        Yii::t('CatalogModule.catalog', 'Товары') => array('/catalog/defaultAdmin/index'),
         Yii::t('CatalogModule.catalog', 'Добавление'),
     );
 
     $this->pageTitle = Yii::t('CatalogModule.catalog', 'Товары - добавление');
 
     $this->menu = array(
-        array('icon' => 'list-alt', 'label' => Yii::t('CatalogModule.catalog', 'Управление товарами'), 'url' => array('/admin/catalog')),
-        array('icon' => 'plus-sign', 'label' => Yii::t('CatalogModule.catalog', 'Добавить товар'), 'url' => array('/admin/catalog/create')),
+        array('icon' => 'list-alt', 'label' => Yii::t('CatalogModule.catalog', 'Управление товарами'), 'url' => array('/catalog/defaultAdmin/index')),
+        array('icon' => 'plus-sign', 'label' => Yii::t('CatalogModule.catalog', 'Добавить товар'), 'url' => array('/catalog/defaultAdmin/create')),
     );
 ?>
 <div class="page-header">

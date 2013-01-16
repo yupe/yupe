@@ -1,15 +1,14 @@
 <?php
     $this->breadcrumbs = array(
         Yii::app()->getModule('catalog')->getCategory() => array(),
-        Yii::t('CatalogModule.catalog', 'Товары') => array('/admin/catalog'),
-        Yii::t('CatalogModule.catalog', 'Управление'),
+        Yii::t('CatalogModule.catalog', 'Товары'),
     );
 
     $this->pageTitle = Yii::t('CatalogModule.catalog', 'Товары - управление');
 
     $this->menu = array(
-        array('icon' => 'list-alt', 'label' => Yii::t('CatalogModule.catalog', 'Управление товарами'), 'url' => array('/admin/catalog')),
-        array('icon' => 'plus-sign', 'label' => Yii::t('CatalogModule.catalog', 'Добавить товар'), 'url' => array('/admin/catalog/create')),
+        array('icon' => 'list-alt', 'label' => Yii::t('CatalogModule.catalog', 'Управление товарами'), 'url' => array('/catalog/defaultAdmin/index')),
+        array('icon' => 'plus-sign', 'label' => Yii::t('CatalogModule.catalog', 'Добавить товар'), 'url' => array('/catalog/defaultAdmin/create')),
     );
 ?>
 <div class="page-header">
@@ -53,7 +52,7 @@ $this->renderPartial('_search', array('model' => $model));
         array(
             'name'  => 'name',
             'type'  => 'raw',
-            'value' => 'CHtml::link($data->name, array("/admin/catalog/update", "id" => $data->id))',
+            'value' => 'CHtml::link($data->name, array("/catalog/defaultAdmin/update", "id" => $data->id))',
         ),
         array(
             'name'  => 'alias',
@@ -63,7 +62,7 @@ $this->renderPartial('_search', array('model' => $model));
         array(
             'name'  => 'category_id',
             'type'  => 'raw',
-            'value' => 'CHtml::link($data->category->name, array("/admin/category/view", "id" => $data->id))',
+            'value' => 'CHtml::link($data->category->name, array("/catalog/defaultAdmin/view", "id" => $data->id))',
         ),
         'price',
         'article',

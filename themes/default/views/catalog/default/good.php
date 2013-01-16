@@ -2,7 +2,7 @@
 
 <?php
 $this->breadcrumbs = array(
-    'Товар' => array('/catalog/catalog/index/'),
+    'Товар' => array('/catalog/default/index/'),
     CHtml::encode($good->name)
 );
 ?>
@@ -18,7 +18,7 @@ $this->breadcrumbs = array(
     <div class="nav">
         Цена: <?php echo $good->price; ?>
         <br/>
-        <?php echo CHtml::link('Постоянная ссылка', array('/news/news/show', 'name' => $good->alias));?>
+        <?php echo CHtml::link('Постоянная ссылка', array('/news/default/show', 'name' => $good->alias));?>
     </div>
 </div>
 

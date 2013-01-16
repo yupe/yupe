@@ -74,14 +74,14 @@ class CatalogModule extends YWebModule
     public function getNavigation()
     {
         return array(
-            array('icon' => 'list-alt', 'label' => Yii::t('CatalogModule.catalog', 'Список товаров'), 'url' => array('/catalog/default/index')),
-            array('icon' => 'plus-sign', 'label' => Yii::t('CatalogModule.catalog', 'Добавить товар'), 'url' => array('/catalog/default/create')),
+            array('icon' => 'list-alt', 'label' => Yii::t('CatalogModule.catalog', 'Список товаров'), 'url' => array('/catalog/defaultAdmin/index')),
+            array('icon' => 'plus-sign', 'label' => Yii::t('CatalogModule.catalog', 'Добавить товар'), 'url' => array('/catalog/defaultAdmin/create')),
         );
     }
 
     public function getAdminPageLink()
     {
-        return '/admin/catalog';
+        return '/catalog/defaultAdmin/index';
     }
     
     public function getVersion()

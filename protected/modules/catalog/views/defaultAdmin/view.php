@@ -1,24 +1,26 @@
 <?php
     $this->breadcrumbs = array(
         Yii::app()->getModule('catalog')->getCategory() => array(),
-        Yii::t('CatalogModule.catalog', 'Товары') => array('/admin/catalog'),
+        Yii::t('CatalogModule.catalog', 'Товары') => array('/catalog/defaultAdmin/index'),
         $model->name,
     );
 
     $this->pageTitle = Yii::t('CatalogModule.catalog', 'Товары - просмотр');
 
     $this->menu = array(
-        array('icon' => 'list-alt', 'label' => Yii::t('CatalogModule.catalog', 'Управление товарами'), 'url' => array('/admin/catalog')),
-        array('icon' => 'plus-sign', 'label' => Yii::t('CatalogModule.catalog', 'Добавить товар'), 'url' => array('/admin/catalog/create')),
+        array('icon' => 'list-alt', 'label' => Yii::t('CatalogModule.catalog', 'Управление товарами'), 'url' => array('/catalog/defaultAdmin/index')),
+        array('icon' => 'plus-sign', 'label' => Yii::t('CatalogModule.catalog', 'Добавить товар'), 'url' => array('/catalog/defaultAdmin/create')),
         array('label' => Yii::t('CatalogModule.catalog', 'Товар') . ' «' . mb_substr($model->name, 0, 32) . '»'),
         array('icon' => 'pencil', 'label' => Yii::t('CatalogModule.catalog', 'Редактирование товара'), 'url' => array(
-            '/admin/catalog/update?id='.$model->id
+            '/catalog/defaultAdmin/update',
+        	'id' => $model->id
         )),
         array('icon' => 'eye-open', 'label' => Yii::t('CatalogModule.catalog', 'Просмотреть товар'), 'url' => array(
-            '/admin/catalog/view?id='.$model->id
-        ), 'active' => true ),
+            '/catalog/defaultAdmin/view', 
+        	'id' => $model->id
+        )),
         array('icon' => 'trash', 'label' => Yii::t('CatalogModule.catalog', 'Удалить товар'), 'url' => '#', 'linkOptions' => array(
-            'submit' => array('/admin/catalog/delete?id='.$model->id),
+            'submit' => array('/catalog/defaultAdmin/delete', 'id' => $model->id),
             'confirm' => Yii::t('CatalogModule.catalog', 'Вы уверены, что хотите удалить товар?')
         )),
     );
