@@ -1,15 +1,16 @@
 <?php
     $this->breadcrumbs = array(
-        Yii::app()->getModule('news')->getCategory() => array(),
-        Yii::t('NewsModule.news', 'Новости') => array('/news/default/index'),
-        Yii::t('NewsModule.news', 'Управление'),
+        $this->module->getCategory() => array('/yupe/backend/index', 'category' => $this->module->getCategoryType() ),
+        Yii::t('NewsModule.news', 'Новости'),
     );
 
     $this->pageTitle = Yii::t('NewsModule.news', 'Новости - управление');
 
     $this->menu = array(
-        array('icon' => 'list-alt', 'label' => Yii::t('NewsModule.news', 'Управление новостями'), 'url' => array('/news/default/index')),
-        array('icon' => 'plus-sign', 'label' => Yii::t('NewsModule.news', 'Добавить новость'), 'url' => array('/news/default/create')),
+    	array( 'label' => Yii::t('NewsModule.news', 'Новости'), 'items' => array(
+        	array('icon' => 'list-alt', 'label' => Yii::t('NewsModule.news', 'Управление новостями'), 'url' => array('/news/defaultAdmin/index')),
+        	array('icon' => 'plus-sign', 'label' => Yii::t('NewsModule.news', 'Добавить новость'), 'url' => array('/news/defaultAdmin/create')),
+    	)),
     );
 ?>
 <div class="page-header">
@@ -56,7 +57,7 @@ $this->renderPartial('_search', array('model' => $model));
         array(
             'name'  => 'title',
             'type'  => 'raw',
-            'value' => 'CHtml::link($data->title, array("/news/default/update", "alias" => $data->alias))',
+            'value' => 'CHtml::link($data->title, array("/news/defaultAdmin/update", "alias" => $data->alias))',
         ),
         array(
             'name'        => 'date',
@@ -80,7 +81,7 @@ $this->renderPartial('_search', array('model' => $model));
         array(
             'class'   => 'bootstrap.widgets.TbButtonColumn',
             'buttons' => array(
-                'update' => array('url' => 'array("/news/default/update", "alias" => $data->alias)'),
+                'update' => array('url' => 'array("/news/defaultAdmin/update", "alias" => $data->alias)'),
             ),
         ),
     ),

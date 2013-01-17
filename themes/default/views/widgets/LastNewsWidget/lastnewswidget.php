@@ -6,7 +6,7 @@
         <?php if(isset($models) && $models != array()): ?>
             <ul>
                 <?php foreach ($models as $model): ?>
-                    <li><?php echo CHtml::link($model->title, array('/news/news/show/', 'title' => $model->alias)); ?></li>
+                    <li><?php echo CHtml::link($model->title, array('/news/default/show/', 'title' => $model->alias)); ?></li>
                 <?php endforeach;?>
             </ul>
         <?php endif; ?>

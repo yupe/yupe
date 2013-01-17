@@ -77,6 +77,11 @@ class NewsModule extends YWebModule
     {
         return Yii::t('NewsModule.news', 'Контент');
     }
+    
+    public function getCategoryType()
+    {
+    	return Yii::t('NewsModule.news', 'content');
+    }
 
     public function getName()
     {
@@ -111,8 +116,8 @@ class NewsModule extends YWebModule
     public function getNavigation()
     {
         return array(
-            array('icon' => 'list-alt', 'label' => Yii::t('NewsModule.news', 'Список новостей'), 'url' => array('/news/default/index')),
-            array('icon' => 'plus-sign', 'label' => Yii::t('NewsModule.news', 'Добавить новость'), 'url' => array('/news/default/create')),
+            array('icon' => 'list-alt', 'label' => Yii::t('NewsModule.news', 'Список новостей'), 'url' => array('/news/defaultAdmin/index')),
+            array('icon' => 'plus-sign', 'label' => Yii::t('NewsModule.news', 'Добавить новость'), 'url' => array('/news/defaultAdmin/create')),
         );
     }
 

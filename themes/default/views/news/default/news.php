@@ -2,7 +2,7 @@
 
 <?php
 $this->breadcrumbs = array(
-    'Новости' => array('/news/news/index/'),
+    'Новости' => array('/news/default/index/'),
     CHtml::encode($news->title)
 );
 ?>
@@ -21,7 +21,7 @@ $this->breadcrumbs = array(
         <p><?php echo $news->full_text; ?></p>
     </div>
     <div class="nav">
-        <?php echo CHtml::link('Постоянная ссылка', array('/news/news/show', 'title' => $news->alias));?>
+        <?php echo CHtml::link('Постоянная ссылка', array('/news/default/show', 'title' => $news->alias));?>
         | последнее обновление <?php echo $news->change_date;?>
     </div>
 </div>
