@@ -4,7 +4,6 @@ class DefaultController extends YFrontController
     // Выводит список блогов
     public function actionIndex()
     {
-    	//die('index');
         $dataProvider = new CActiveDataProvider('Blog', array(
             'criteria' => array(
                 'condition' => 't.status = :status',
@@ -117,7 +116,7 @@ class DefaultController extends YFrontController
                     YFlashMessages::NOTICE_MESSAGE,
                     Yii::t('BlogModule.blog', 'Вы присоединились к блогу!')
                );
-               $this->redirect(array('/blogs'));
+               $this->redirect(array('/blog/default/index'));
             }
         }
         else
@@ -130,7 +129,7 @@ class DefaultController extends YFrontController
                     YFlashMessages::NOTICE_MESSAGE,
                     Yii::t('BlogModule.blog', 'Вы уже присоеденены к этому блогу!')
                 );
-                $this->redirect(array('/blogs'));
+                $this->redirect(array('/blog/default/index'));
             }
         }
     }
