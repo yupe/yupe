@@ -223,7 +223,7 @@ class News extends YModel
 
     public function getPermaLink()
     {
-        return Yii::app()->createAbsoluteUrl('/news/news/show/', array('title' => $this->alias));
+        return Yii::app()->createAbsoluteUrl('/news/default/show/', array('title' => $this->alias));
     }
 
     public function getStatusList()

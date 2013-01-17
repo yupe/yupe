@@ -50,7 +50,7 @@
             <p>
                 <?php echo $model->short_text; ?>
             </p>
-            <i class="icon-globe"></i> <?php echo $this->createAbsoluteUrl('/news/default/show', array('title' => $model->alias)); //$model->getPermaLink(); CHtml:: ?>
+            <i class="icon-globe"></i> <?php echo $model->getPermaLink();?>
         </div>
     </div>
     <div id="full"  class="tab-pane fade">
@@ -58,7 +58,7 @@
             <h3><?php echo CHtml::link($model->title, array('/news/default/show', 'title' => $model->alias)); ?></h3>
             <p><?php echo $model->full_text; ?></p>
             <span class="label"><?php echo $model->date; ?></span>
-            <i class="icon-user"></i><?php echo CHtml::link($model->user->fullName, array('/user/people/' . $model->user->nick_name)); ?>
+            <i class="icon-user"></i><?php echo CHtml::link($model->user->fullName, array('/user/default/' . $model->user->nick_name)); ?>
             <i class="icon-globe"></i> <?php echo $model->getPermaLink(); ?>
         </div>
     </div>
