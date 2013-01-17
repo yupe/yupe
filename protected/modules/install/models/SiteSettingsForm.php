@@ -11,15 +11,9 @@ class SiteSettingsForm extends YFormModel
     public function rules()
     {
         return array(
-<<<<<<< HEAD
             array('siteName, siteDescription, siteKeyWords, email', 'required'),
             array('siteName', 'length', 'max' => 64),
             array('siteDescription, siteKeyWords', 'length', 'max' => 180),
-=======
-            array('siteName, siteDescription, siteKeyWords, email, theme', 'required'),
-            array('siteName', 'length', 'max' => 30),
-            array('siteDescription, siteKeyWords, theme, backendTheme', 'length', 'max' => 180),
->>>>>>> upstream/master
             array('email', 'email'),
         );
     }
