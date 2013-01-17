@@ -6,7 +6,7 @@
         <?php if(isset($models) && $models != array()): ?>
             <ul>
                 <?php foreach ($models as $model): ?>
-                    <li><?php echo CHtml::link($model->nick_name, array('/user/'.$model->nick_name)); ?></li>
+                    <li><?php echo CHtml::link($model->nick_name, array('/user/default/userInfo/', 'username' => $model->nick_name)); ?></li>
                 <?php endforeach;?>
             </ul>
         <?php endif; ?>

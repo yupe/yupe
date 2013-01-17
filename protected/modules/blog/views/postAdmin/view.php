@@ -1,7 +1,6 @@
 <?php
-    $blog = Yii::app()->getModule('blog');
     $this->breadcrumbs = array(
-        $blog->getCategory() => array('/yupe/backend/index', 'category' => $blog->getCategoryType() ),
+        $this->module->getCategory() => array('/yupe/backend/index', 'category' => $this->module->getCategoryType() ),
         Yii::t('BlogModule.blog', 'Блоги') => array('/blog/defaultAdmin/index'),
         Yii::t('BlogModule.blog', 'Записи') => array('/blog/postAdmin/index'),
         $model->title,
@@ -20,11 +19,11 @@
             array('label' => Yii::t('BlogModule.blog', 'Запись') . ' «' . mb_substr($model->title, 0, 32) . '»'),
             array('icon' => 'pencil', 'label' => Yii::t('BlogModule.blog', 'Редактирование записи'), 'url' => array(
                 '/blog/postAdmin/update',
-            	'id' => $model->id
+				'id' => $model->id
             )),
             array('icon' => 'eye-open', 'label' => Yii::t('BlogModule.blog', 'Просмотреть запись'), 'url' => array(
                 '/blog/postAdmin/view',
-            	'id' => $model->id
+				'id' => $model->id
             )),
             array('icon' => 'trash', 'label' => Yii::t('BlogModule.blog', 'Удалить запись'), 'url' => '#', 'linkOptions' => array(
                 'submit' => array('/blog/postAdmin/delete', 'id' => $model->id),

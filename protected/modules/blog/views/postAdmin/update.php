@@ -1,8 +1,7 @@
 <?php
-    $blog = Yii::app()->getModule('blog');
     $this->breadcrumbs = array(
-        $blog->getCategory() => array('/yupe/backend/index', 'category' => $blog->getCategoryType() ),
-        Yii::t('BlogModule.blog', 'Блоги') => array('/blog/defaultAdmin/index'),
+        $this->module->getCategory() => array('/yupe/backend/index', 'category' => $this->module->getCategoryType() ),
+		Yii::t('BlogModule.blog', 'Блоги') => array('/blog/defaultAdmin/index'),
         Yii::t('BlogModule.blog', 'Записи') => array('/blog/postAdmin/index'),
         $model->title => array('/blog/postAdmin/view', 'id' => $model->id),
         Yii::t('BlogModule.blog', 'Редактирование'),

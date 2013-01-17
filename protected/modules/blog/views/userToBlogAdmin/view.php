@@ -1,7 +1,6 @@
 <?php
-    $blog = Yii::app()->getModule('blog');
     $this->breadcrumbs = array(
-        $blog->getCategory() => array('/yupe/backend/index', 'category' => $blog->getCategoryType() ),
+        $this->module->getCategory() => array('/yupe/backend/index', 'category' => $this->module->getCategoryType() ),
     	Yii::t('BlogModule.blog', 'Блоги') => array('/blog/defaultAdmin/index'),
         Yii::t('BlogModule.blog', 'Участники') => array('/blog/userToBlogAdmin/index'),
         $model->user->nick_name,

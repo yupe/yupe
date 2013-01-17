@@ -1,6 +1,6 @@
 <div class="view">
-
-    <h3><?php echo CHtml::link(CHtml::encode($data->name), array('/blog/'.$data->slug)); ?></h3>
+																
+    <h3><?php echo CHtml::link(CHtml::encode($data->name), array('/blog/default/show/', 'slug' => $data->slug)); ?></h3>
 
     <b><?php echo CHtml::encode($data->getAttributeLabel('create_date')); ?>:</b>
     <?php echo CHtml::link(CHtml::encode($data->createUser->getFullName()), array(
@@ -20,6 +20,6 @@
      <?php endif; ?>
 
     <br /><br />
-
-    <?php echo CHtml::link(Yii::t('blog', 'Вступить в блог'), array('/blog/'.$data->slug.'?act=join&blogId='.$data->id)); ?>
+																	 
+    <?php echo CHtml::link(Yii::t('blog', 'Вступить в блог'), array('/blog/default/show/', 'slug' => $data->slug, 'act' => 'join', 'blogId' => $data->id)); ?>
 </div>

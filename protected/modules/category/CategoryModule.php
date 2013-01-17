@@ -58,7 +58,7 @@ class CategoryModule extends YWebModule
     
     public function getCategoryType()
     {
-    	return Yii::t('BlogModule.blog', 'structure');
+    	return Yii::t('CategoryModule.category', 'structure');
     }
 
     public function getName()

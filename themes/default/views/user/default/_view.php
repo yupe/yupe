@@ -2,8 +2,8 @@
     <dt style="float:left;margin-right:10px;height:32px">
         <?php echo $data->getAvatar(32); ?>
     </dt>
-    <dd>
-        <?php echo CHtml::link(CHtml::encode($data->nick_name), array('/user/'.$data->nick_name)); ?>
+    <dd>										
+        <?php echo CHtml::link(CHtml::encode($data->nick_name), array('/user/default/userInfo', 'username' => $data->nick_name)); ?>
         <br/>
         <?php
         echo Yii::t('user', 'На сайте с {create_date}', array(

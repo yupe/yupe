@@ -1,7 +1,7 @@
 <?php
     $this->pageTitle = CHtml::encode($user->nick_name);
     $this->breadcrumbs = array(
-        Yii::t('user', 'Пользователи') => array('/users'),
+        Yii::t('user', 'Пользователи') => array('/user/default/index'),
         CHtml::encode($user->nick_name),
     );
 ?>

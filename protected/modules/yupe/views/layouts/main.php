@@ -24,7 +24,7 @@
                 'height' => '38',
                 'title'  => $brandTitle,
             )),
-            'brandUrl'    => CHtml::normalizeUrl(array("/admin")),
+            'brandUrl'    => CHtml::normalizeUrl(array("/yupe/backend/index")),
             'items'       => array(
                 array(
                     'class' => 'bootstrap.widgets.TbMenu',
@@ -38,7 +38,7 @@
                         array(
                             'icon'  => 'question-sign white',
                             'label' => Yii::t('YupeModule.yupe', 'Помощь'),
-                            'url'   => array('/admin/help'),
+                            'url'   => array('/yupe/backend/help'),
                         ),
                         array(
                             'icon'        => 'home white',
@@ -49,7 +49,7 @@
                         array(
                             'label' => $this->yupe->getVersion(),
                             'icon'  => 'icon-thumbs-up icon-white',
-                            'url'   => '/admin'
+                            'url'   => array('/yupe/backend/index')
                         ),
                         array(
                             'label'       => '
@@ -62,12 +62,12 @@
                                 array(
                                     'icon'  => 'user',
                                     'label' => Yii::t('YupeModule.yupe', 'Профиль'),
-                                    'url'   => array('/admin/user/update', 'id' => Yii::app()->user->id),
+                                    'url'   => array('/user/defaultAdmin/update', 'id' => Yii::app()->user->id),
                                 ),
                                 array(
                                     'icon'  => 'off',
                                     'label' => Yii::t('YupeModule.yupe', 'Выйти'),
-                                    'url'   => array('/logout'),
+                                    'url'   => array('/user/account/logout'),
                                 ),
                             ),
                         ),

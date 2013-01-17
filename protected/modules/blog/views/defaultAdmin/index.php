@@ -8,9 +8,8 @@
  *   @license  https://github.com/yupe/yupe/blob/master/LICENSE BSD
  *   @link     http://yupe.ru
  **/
-    $blog = Yii::app()->getModule('blog');
     $this->breadcrumbs = array(
-        $blog->getCategory() => array('/yupe/backend/index', 'category' => $blog->getCategoryType() ),
+        $this->module->getCategory() => array('/yupe/backend/index', 'category' => $this->module->getCategoryType()),
         Yii::t('BlogModule.blog', 'Блоги'),
     );
 

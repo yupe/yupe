@@ -11,7 +11,7 @@ return array(
     'component' => array(),
     'rules'     => array(
 		'/faq' 						=> 'feedback/default/faq',
-    	'/feedback' 				=> 'feedback/default/index',
-        '/feedback/<action:\w+>' 	=> 'feedback/default/<action>',
+		'/feedback' 				=> 'feedback/default/index',
+		'/feedback/<action:\w+>' 	=> 'feedback/default/<action>',
     ),
 );
