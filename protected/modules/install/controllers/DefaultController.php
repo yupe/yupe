@@ -274,6 +274,13 @@ class DefaultController extends YBackController
                  <a href="http://www.yiiframework.com/doc/api/CHtmlPurifier">CHtmlPurifier</a>',
                 ''
             ),
+            array(
+                Yii::t('InstallModule.install', 'Конфигурационные опциия safe_mode'),
+                true,
+                !ini_get('safe_mode'),
+                '<a href="http://php.net/manual/ru/ini.sect.safe-mode.php">Безопасность и безопасный режим</a>',
+                Yii::t('InstallModule.install', 'Необходимо отключить директиву safe_mode.'),
+            ),
         );
 
         $result = true;
