@@ -11,7 +11,7 @@
     $this->menu = array(
         array('icon' => 'list-alt', 'label' => Yii::t('CategoryModule.category', 'Управление категориями'), 'url' => array('/category/default/index')),
         array('icon' => 'plus-sign', 'label' =>  Yii::t('CategoryModule.category', 'Добавить категорию'), 'url' => array('/category/default/create')),
-        array('label' => Yii::t('catalog', 'Категория') . ' «' . mb_substr($model->name, 0, 32) . '»'),
+        array('label' => Yii::t('CategoryModule.category', 'Категория') . ' «' . mb_substr($model->name, 0, 32) . '»'),
         array('icon' => 'pencil', 'label' => Yii::t('CategoryModule.category', 'Редактирование категории'), 'url' => array(
             '/category/default/update',
             'id' => $model->id
@@ -22,7 +22,7 @@
         )),
         array('icon' => 'trash', 'label' => Yii::t('CategoryModule.category', 'Удалить категорию'), 'url' => '#', 'linkOptions' => array(
             'submit' => array('/category/default/delete', 'id' => $model->id),
-            'confirm' => Yii::t('catalog', 'Вы уверены, что хотите удалить категорию?'),
+            'confirm' => Yii::t('CategoryModule.category', 'Вы уверены, что хотите удалить категорию?'),
         )),
     );
 ?>

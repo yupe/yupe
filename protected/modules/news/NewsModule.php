@@ -73,6 +73,11 @@ class NewsModule extends YWebModule
         return Yii::t('page', '0.3');
     }
 
+    public function getIsInstallDefault()
+    {
+        return true;
+    }
+
     public function getCategory()
     {
         return Yii::t('NewsModule.news', 'Контент');

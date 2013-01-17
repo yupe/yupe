@@ -32,6 +32,9 @@ Yii::app()->clientScript->registerScript('fieldset', "
                 <?php echo $form->textFieldRow($model, 'title', array('maxlength' => 150)); ?>
             </div>
             <div class="span3">
+                <?php echo $form->textFieldRow($model, 'title_short', array('maxlength' => 150)); ?>
+            </div>
+            <div class="span3">
                 <?php echo $form->textFieldRow($model, 'slug', array('maxlength' => 150)); ?>
             </div>
             <div class="span3">
@@ -57,7 +60,7 @@ Yii::app()->clientScript->registerScript('fieldset', "
        'buttonType'  => 'submit',
        'type'        => 'primary',
        'encodeLabel' => false,
-       'label'       => '<i class="icon-search icon-white">&nbsp;</i> '.Yii::t('PageModule.page', 'Искать страницы'),
+       'label'       => '<i class="icon-search icon-white">&nbsp;</i> ' . Yii::t('PageModule.page', 'Искать страницы'),
     )); ?>
 
 <?php $this->endWidget(); ?>

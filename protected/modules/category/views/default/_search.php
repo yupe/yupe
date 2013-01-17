@@ -27,7 +27,7 @@ Yii::app()->clientScript->registerScript('fieldset', "
         'type'        => 'primary',
         'encodeLabel' => false,
         'buttonType'  => 'submit',
-        'label'       => '<i class="icon-search icon-white">&nbsp;</i> ' . Yii::t('blog', 'Искать категорию'),
+        'label'       => '<i class="icon-search icon-white">&nbsp;</i> ' . Yii::t('CategoryModule.category', 'Искать категорию'),
     )); ?>
 
 <?php $this->endWidget(); ?>

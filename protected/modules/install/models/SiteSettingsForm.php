@@ -5,13 +5,21 @@ class SiteSettingsForm extends YFormModel
     public $siteDescription = 'Юпи! - самый быстрый способ создать сайт на Yii';
     public $siteKeyWords = 'Юпи!, yupe, yii, cms, цмс';
     public $email;
+    public $theme = 'default';
+    public $backendTheme = '';
 
     public function rules()
     {
         return array(
+<<<<<<< HEAD
             array('siteName, siteDescription, siteKeyWords, email', 'required'),
             array('siteName', 'length', 'max' => 64),
             array('siteDescription, siteKeyWords', 'length', 'max' => 180),
+=======
+            array('siteName, siteDescription, siteKeyWords, email, theme', 'required'),
+            array('siteName', 'length', 'max' => 30),
+            array('siteDescription, siteKeyWords, theme, backendTheme', 'length', 'max' => 180),
+>>>>>>> upstream/master
             array('email', 'email'),
         );
     }
@@ -23,6 +31,8 @@ class SiteSettingsForm extends YFormModel
             'siteDescription' => Yii::t('InstallModule.install', 'Описание сайта'),
             'siteKeyWords'    => Yii::t('InstallModule.install', 'Ключевые слова сайта'),
             'email'           => Yii::t('InstallModule.install', 'Email администратора'),
+            'theme'           => Yii::t('InstallModule.install', 'Тема оформления публичной части'),
+            'backendTheme'    => Yii::t('InstallModule.install', 'Тема оформления панели управления'),
         );
     }
     
@@ -33,6 +43,8 @@ class SiteSettingsForm extends YFormModel
             'siteDescription' => Yii::t('InstallModule.install', 'Используется в поле description meta-тега.'),
             'siteKeyWords'    => Yii::t('InstallModule.install', 'Используется в поле keywords meta-тега.'),
             'email'           => Yii::t('InstallModule.install', 'Используется для административной рассылки.'),
+            'theme'           => Yii::t('InstallModule.install', 'Определяет внешний вид Вашего сайта.'),
+            'backendTheme'    => Yii::t('InstallModule.install', 'Определяет внешний вид панели управления.'),
         );
     }
 

@@ -312,10 +312,10 @@ class YCustomGridView extends TbExtendedGridView
             __CLASS__ . '#' . $this->id . 'ExHeadline',
             'jQuery(document).ready(function($) {
                 $(document).on("mousedown", ".pageSize", function() {
-                    $.fn.yiiGridView.update("' . $this->id . '", {
+                    $("#' . $this->id . '").yiiGridView("update",{
+                        url: $(window)[0].location.href,
                         data: "pageSize=" + $(this).attr("rel")
                     });
-                    return false;
                 });
             });', CClientScript::POS_BEGIN
         );

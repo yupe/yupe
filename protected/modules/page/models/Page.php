@@ -6,17 +6,23 @@
  * The followings are the available columns in table 'Page':
  * @property integer $id
  * @property string $parent_id
+ * @property integer $category_id
  * @property string $creation_date
  * @property string $change_date
  * @property string $title
+ * @property string $title_short
  * @property string $slug
  * @property string $lang
  * @property string $body
  * @property string $keywords
  * @property string $description
  * @property integer $status
- * @property integer $category_id
+ * @property integer $is_protected
+ * @property integer $user_id
+ * @property integer $change_user_id
+ * @property integer $order
  */
+
 class Page extends YModel
 {
 
@@ -50,21 +56,21 @@ class Page extends YModel
     public function rules()
     {
         return array(
-            array('name, title, slug, body, lang', 'required', 'on' => array('update', 'insert')),
-            array('status, is_protected, parent_id, menu_order, category_id', 'numerical', 'integerOnly' => true, 'on' => array('update', 'insert')),
+            array('title, slug, body, lang', 'required', 'on' => array('update', 'insert')),
+            array('status, is_protected, parent_id, order, category_id', 'numerical', 'integerOnly' => true, 'on' => array('update', 'insert')),
             array('parent_id', 'length', 'max' => 45),
             array('lang', 'length', 'max' => 2),
             array('lang', 'default', 'value' => Yii::app()->sourceLanguage),
             array('category_id', 'default', 'setOnEmpty' => true, 'value' => null),
-            array('name, title, slug, keywords, description', 'length', 'max' => 150),
+            array('title, title_short, slug, keywords, description', 'length', 'max' => 150),
             array('slug', 'unique', 'criteria' => array('condition' => 'lang = :lang', 'params' => array(':lang' => $this->lang)), 'on' => array('insert')),
             array('status', 'in', 'range' => array_keys($this->statusList)),
             array('is_protected', 'in', 'range' => array_keys($this->protectedStatusList)),
-            array('title, slug, body, description, keywords, name', 'filter', 'filter' => 'trim'),
-            array('title, slug, description, keywords, name', 'filter', 'filter' => array($obj = new CHtmlPurifier(), 'purify')),
+            array('title, title_short, slug, body, description, keywords', 'filter', 'filter' => 'trim'),
+            array('title, title_short, slug, description, keywords', 'filter', 'filter' => array($obj = new CHtmlPurifier(), 'purify')),
             array('slug', 'YSLugValidator'),
             array('lang', 'match', 'pattern' => '/^[a-z]{2}$/', 'message' => Yii::t('PageModule.page', 'Запрещенные символы в поле {attribute}')),
-            array('lang, id, parent_id, creation_date, change_date, title, slug, body, keywords, description, status, menu_order', 'safe', 'on' => 'search'),
+            array('lang, id, parent_id, creation_date, change_date, title, title_short, slug, body, keywords, description, status, order', 'safe', 'on' => 'search'),
         );
     }
 
@@ -94,6 +100,7 @@ class Page extends YModel
             'creation_date'  => Yii::t('PageModule.page', 'Создано'),
             'change_date'    => Yii::t('PageModule.page', 'Изменено'),
             'title'          => Yii::t('PageModule.page', 'Заголовок'),
+            'title_short'    => Yii::t('PageModule.page', 'Короткий заголовок'),
             'slug'           => Yii::t('PageModule.page', 'Url'),
             'lang'           => Yii::t('PageModule.page', 'Язык'),
             'body'           => Yii::t('PageModule.page', 'Текст'),
@@ -101,10 +108,9 @@ class Page extends YModel
             'description'    => Yii::t('PageModule.page', 'Описание (SEO)'),
             'status'         => Yii::t('PageModule.page', 'Статус'),
             'is_protected'   => Yii::t('PageModule.page', 'Доступ: * только для авторизованных пользователей'),
-            'name'           => Yii::t('PageModule.page', 'В меню'),
             'user_id'        => Yii::t('PageModule.page', 'Создал'),
             'change_user_id' => Yii::t('PageModule.page', 'Изменил'),
-            'menu_order'     => Yii::t('PageModule.page', 'Сортировка'),
+            'order'          => Yii::t('PageModule.page', 'Сортировка'),
         );
     }
 
@@ -120,6 +126,7 @@ class Page extends YModel
             'creation_date'  => Yii::t('PageModule.page', 'Дата создания страницы.'),
             'change_date'    => Yii::t('PageModule.page', 'Дата изменения страницы.'),
             'title'          => Yii::t('PageModule.page', 'Укажите полное название данной страницы для отображения в заголовке при полном просмотре.<br/><br />Например:<pre>Контактная информация и карта проезда.</pre>'),
+            'title_short'    => Yii::t('PageModule.page', 'Укажите краткое название данной страницы для отображения её в виджетах и меню.<br/><br />Например:<pre>Контакты</pre>'),
             'slug'           => Yii::t('PageModule.page', "Краткое название страницы латинскими буквами, используется для формирования её адреса.<br /><br /> Например (выделено темным фоном): <pre>http://site.ru/page/<span class='label'>contacts</span>/</pre> Если вы не знаете, для чего вам нужно это поле &ndash; не заполняйте его, заголовка страницы будет достаточно."),
             'lang'           => Yii::t('PageModule.page', 'Язык страницы.'),
             'body'           => Yii::t('PageModule.page', 'Основной текст страницы.'),
@@ -127,10 +134,9 @@ class Page extends YModel
             'description'    => Yii::t('PageModule.page', 'Краткое описание данной страницы, одно или два предложений. Обычно это самая главная мысль, к примеру: <pre>Контактная информация, реквизиты и карта проезда компании ОАО &laquo;Рога-унд-Копыта индастриз&raquo;</pre>Данный текст очень часто попадает в <a href="http://help.yandex.ru/webmaster/?id=1111310">сниппет</a> поисковых систем.'),
             'status'         => Yii::t('PageModule.page', "<span class='label label-success'>Опубликовано</span> &ndash; Страницу видят все посетители сайта, режим по-умолчанию.<br /><br /><span class='label label-default'>Черновик</span> &ndash; Данная страница еще не окончена и не должна отображаться.<br /><br /><span class='label label-info'>На модерации</span> &ndash; Данная страница еще не проверена и не должна отображаться."),
             'is_protected'   => Yii::t('PageModule.page', 'Доступ: * только для авторизованных пользователей.'),
-            'name'           => Yii::t('PageModule.page', 'Укажите краткое название данной страницы для отображения её в меню.<br/><br />Например:<pre>Контакты</pre>'),
             'user_id'        => Yii::t('PageModule.page', 'Пользователь, который добавил страницу.'),
             'change_user_id' => Yii::t('PageModule.page', 'Пользователь, который последний изменил страницу.'),
-            'menu_order'     => Yii::t('PageModule.page', 'Чем большее числовое значение вы укажете в этом поле, тем выше будет позиция данной страницы в меню.'),
+            'order'          => Yii::t('PageModule.page', 'Чем большее числовое значение вы укажете в этом поле, тем выше будет позиция данной страницы в виджетах и меню.'),
         );
     }
 
@@ -211,7 +217,7 @@ class Page extends YModel
 
         return new CActiveDataProvider(get_class($this), array(
             'criteria' => $criteria,
-            'sort' => array('defaultOrder' => 'menu_order DESC'),
+            'sort' => array('defaultOrder' => 'order DESC, creation_date DESC'),
         ));
     }
 
@@ -246,30 +252,26 @@ class Page extends YModel
 
     public function getAllPagesList($selfId = false)
     {
-        $pages = $selfId
-            ? $this->findAll(array(
+        $params  = array('order' => 'order DESC, creation_date DESC');
+        if ($selfId)
+            $params += array(
                 'condition' => 'id != :id',
                 'params'    => array(':id' => $selfId),
-                'order'     => 'menu_order DESC',
                 'group'     => 'slug',
-            ))
-            : $this->findAll(array('order' => 'menu_order DESC'));
-
-        return CHtml::listData($pages, 'id', 'name');
+            );
+        return CHtml::listData($this->findAll($params), 'id', 'title');
     }
 
     public function getAllPagesListBySlug($slug = false)
     {
-        $pages = $slug
-            ? $this->findAll(array(
+        $params = array('order' => 'order DESC, creation_date DESC');
+        if ($slug)
+            $params += array(
                 'condition' => 'slug != :slug',
                 'params'    => array(':slug' => $slug),
-                'order'     => 'menu_order DESC',
                 'group'     => 'slug',
-            ))
-            : $this->findAll(array('order' => 'menu_order DESC'));
-
-        return CHtml::listData($pages, 'id', 'name');
+            );
+        return CHtml::listData($this->findAll($params), 'id', 'title');
     }
 
     public function getCategoryName()

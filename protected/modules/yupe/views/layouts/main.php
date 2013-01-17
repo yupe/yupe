@@ -34,7 +34,7 @@
                     'class'       => 'bootstrap.widgets.TbMenu',
                     'htmlOptions' => array('class' => 'pull-right'),
                     'encodeLabel' => false,
-                    'items'       => array(
+                    'items'       => array_merge(array(
                         array(
                             'icon'  => 'question-sign white',
                             'label' => Yii::t('YupeModule.yupe', 'Помощь'),
@@ -47,7 +47,7 @@
                             'url'         => array('/' . Yii::app()->defaultController . '/index/'),
                         ),
                         array(
-                            'label' => $this->yupe->getVersion(),
+                            'label' => $this->yupe->version,
                             'icon'  => 'icon-thumbs-up icon-white',
                             'url'   => '/yupe/backend/index'
                         ),
@@ -71,8 +71,7 @@
                                 ),
                             ),
                         ),
-                        $this->yupe->languageSelectorArray,
-                    ),
+                    ), $this->yupe->languageSelectorArray),
                 ),
             ),
         ));

@@ -62,11 +62,6 @@ class SearchModule extends YWebModule
         return "search";
     }
 
-    public function getIsInstallDefault()
-    {
-        return false;
-    }
-
     public function init()
     {
         parent::init();

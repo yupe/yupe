@@ -40,6 +40,7 @@ class DefaultController extends YBackController
                     $this->redirect(array($_POST['submit-type']));
             }
         }
+
         $this->render('create', array(
             'model' => $model,
             'pages' => Page::model()->getAllPagesList(),
@@ -142,15 +143,15 @@ class DefaultController extends YBackController
                         $p = $_POST['Page'][$l];
 
                         $modelsByLang[$l]->setAttributes(array(
-                            'name'         => $p['name'],
                             'title'        => $p['title'],
+                            'title_short'  => $p['title_short'],
                             'body'         => $p['body'],
                             'keywords'     => $p['keywords'],
                             'description'  => $p['description'],
                             'slug'         => $_POST['Page']['slug'],
                             'status'       => $_POST['Page']['status'],
                             'is_protected' => $_POST['Page']['is_protected'],
-                            'menu_order'   => $_POST['Page']['menu_order'],
+                            'order'        => $_POST['Page']['order'],
                         ));
 
                         if ($l != Yii::app()->sourceLanguage)

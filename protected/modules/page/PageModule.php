@@ -31,8 +31,13 @@ class PageModule extends YWebModule
         return array(
             'adminMenuOrder',
             'editor'        => Yii::app()->getModule('yupe')->editors,
-            'mainCategory' => CHtml::listData($this->getCategoryList(),'id','name'),
+            'mainCategory'  => CHtml::listData($this->getCategoryList(), 'id', 'name'),
         );
+    }
+
+    public function getIsInstallDefault()
+    {
+        return true;
     }
 
     public function getCategory()
@@ -92,14 +97,12 @@ class PageModule extends YWebModule
 
     public function getCategoryList()
     {
-        $criteria = ($this->mainCategory)
-            ? array(
+        $criteria = array('order' => 'id ASC');
+        if ($this->mainCategory)
+            $criteria += array(
                 'condition' => 'id = :id OR parent_id = :id',
                 'params'    => array(':id' => $this->mainCategory),
-                'order'     => 'id ASC',
-            )
-            : array();
-
+            );
         return Category::model()->findAll($criteria);
     }
 

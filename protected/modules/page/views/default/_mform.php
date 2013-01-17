@@ -1,12 +1,12 @@
 <?php if ($model->hasErrors()) echo $form->errorSummary($model); ?>
 
-    <div class="row-fluid control-group  <?php echo $model-> hasErrors('name') ? 'error' : '' ?>">
-        <div class="span7 popover-help" data-content="<?php echo Yii::t('PageModule.page',"Укажите краткое название данной страницы для отображения её в меню.<br/><br />Например:<pre>Контакты</pre>") ?>" data-original-title="<?php echo $model-> getAttributeLabel('name'); ?>" >
-            <?php echo $form->labelEx($model, 'name'); ?>
-            <?php echo CHtml::textField('Page['.$model->lang.'][name]', $model->name ,array('size' => 60, 'maxlength' => 150,)); ?>
+    <div class="row-fluid control-group  <?php echo $model-> hasErrors('title_short') ? 'error' : '' ?>">
+        <div class="span7 popover-help" data-content="<?php echo Yii::t('PageModule.page',"Укажите краткое название данной страницы для отображения её в меню.<br/><br />Например:<pre>Контакты</pre>") ?>" data-original-title="<?php echo $model->getAttributeLabel('title_short'); ?>" >
+            <?php echo $form->labelEx($model, 'title_short'); ?>
+            <?php echo CHtml::textField('Page['.$model->lang.'][title_short]', $model->title_short, array('size' => 60, 'maxlength' => 150,)); ?>
         </div>
         <div class="span5">
-            <?php echo $form->error($model, 'name'); ?>
+            <?php echo $form->error($model, 'title_short'); ?>
         </div>
     </div>
     <div class="row-fluid control-group <?php echo $model->hasErrors('title') ? 'error' : '' ?>">

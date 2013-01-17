@@ -39,7 +39,7 @@
                         'target' => '_blank',
                     ),
                     array(
-                        'label' => $this->yupe->getVersion(),
+                        'label' => $this->yupe->version,
                         'icon'  => 'icon-thumbs-up icon-white',
                         'url'   => 'http://yupe.ru/?from=navbar'
                     ),
@@ -50,17 +50,16 @@
     ));
     ?>
     <div class="container" id="page">
-            <div class="span11 well">
-                <?php
-                if (count($this->breadcrumbs))
-                    $this->widget('bootstrap.widgets.TbBreadcrumbs', array('links' => $this->breadcrumbs));
-                ?><!-- breadcrumbs -->
-                <?php $this->widget('YFlashMessages');?>
-                <div id="content">
-                    <?php echo $content; ?>
-                </div>
-                <!-- content -->
+        <div class="span11 well">
+            <?php if (count($this->breadcrumbs))
+                $this->widget('bootstrap.widgets.TbBreadcrumbs', array('links' => $this->breadcrumbs));
+            ?><!-- breadcrumbs -->
+            <?php $this->widget('YFlashMessages'); ?>
+            <div id="content">
+                <?php echo $content; ?>
             </div>
+            <!-- content -->
+        </div>
     </div>
     <div id="footer-guard"><!-- --></div>
 </div>

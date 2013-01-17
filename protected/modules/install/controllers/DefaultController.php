@@ -44,32 +44,44 @@ class DefaultController extends YBackController
             array(
                 Yii::t('InstallModule.install', 'Папка assets'),
                 $this->checkWritable($webRoot . '/assets/'),
-                Yii::t('InstallModule.install', 'Необходимо установить права записи на папку {folder} assets',array('{folder}' => $webRoot . $dp)),
+                Yii::t('InstallModule.install', 'Необходимо установить права записи на папку {folder} assets', array(
+                    '{folder}' => $webRoot . $dp,
+                )),
             ),
             array(
                 Yii::t('InstallModule.install', 'Папка runtime'),
                 $this->checkWritable($webRoot . '/protected/runtime/'),
-                Yii::t('InstallModule.install', 'Необходимо установить права записи на папку {folder}',array('{folder}' => $webRoot . $dp . 'protected' . $dp . 'runtime')),
+                Yii::t('InstallModule.install', 'Необходимо установить права записи на папку {folder}', array(
+                    '{folder}' => $webRoot . $dp . 'protected' . $dp . 'runtime',
+                )),
             ),
             array(
                 Yii::t('InstallModule.install', 'Папка uploads'),
                 $this->checkWritable($webRoot . '/uploads/'),
-                Yii::t('InstallModule.install', 'Необходимо установить права записи на папку {folder}',array('{folder}' => $webRoot . $dp . 'uploads')),
+                Yii::t('InstallModule.install', 'Необходимо установить права записи на папку {folder}', array(
+                    '{folder}' => $webRoot . $dp . 'uploads',
+                )),
             ),
             array(
                 Yii::t('InstallModule.install', 'Папка modules'),
                 $this->checkWritable($webRoot . '/protected/config/modules/'),
-                Yii::t('InstallModule.install', 'Необходимо установить права записи на папку {folder}',array('{folder}' => $webRoot . $dp . 'protected' . $dp . 'config' . $dp . 'modules')),
+                Yii::t('InstallModule.install', 'Необходимо установить права записи на папку {folder}', array(
+                    '{folder}' => $webRoot . $dp . 'protected' . $dp . 'config' . $dp . 'modules',
+                )),
             ),
             array(
                 Yii::t('InstallModule.install', 'Папка modulesBack'),
                 $this->checkWritable($webRoot . '/protected/config/modulesBack/'),
-                Yii::t('InstallModule.install', 'Необходимо установить права записи на папку {folder}',array('{folder}' => $webRoot . $dp . 'protected' . $dp . 'config' . $dp . 'modulesBack')),
+                Yii::t('InstallModule.install', 'Необходимо установить права записи на папку {folder}', array(
+                    '{folder}' => $webRoot . $dp . 'protected' . $dp . 'config' . $dp . 'modulesBack',
+                )),
             ),
             array(
                 Yii::t('InstallModule.install', 'Файл db.php'),
                 $this->checkConfigFileWritable($webRoot . '/protected/config/db.back.php', $webRoot . '/protected/config/db.php'),
-                Yii::t('InstallModule.install', 'Необходимо скопировать {file} и дать ему права на запись',array('{file}' =>  $webRoot . $dp . 'protected' . $dp . 'config' . $dp . 'db.back.php в ' . $webRoot . $dp . 'protected' . $dp . 'config' . $dp.'db.php')),
+                Yii::t('InstallModule.install', 'Необходимо скопировать {file} и дать ему права на запись', array(
+                    '{file}' => $webRoot . $dp . 'protected' . $dp . 'config' . $dp . 'db.back.php в ' . $webRoot . $dp . 'protected' . $dp . 'config' . $dp.'db.php',
+                )),
             ),
             array(
                 Yii::t('InstallModule.install', 'Активация ядра Юпи!'),
@@ -262,6 +274,13 @@ class DefaultController extends YBackController
                  <a href="http://www.yiiframework.com/doc/api/CHtmlPurifier">CHtmlPurifier</a>',
                 ''
             ),
+            array(
+                Yii::t('InstallModule.install', 'Конфигурационные опциия safe_mode'),
+                true,
+                !ini_get('safe_mode'),
+                '<a href="http://php.net/manual/ru/ini.sect.safe-mode.php">Безопасность и безопасный режим</a>',
+                Yii::t('InstallModule.install', 'Необходимо отключить директиву safe_mode.'),
+            ),
         );
 
         $result = true;
@@ -349,7 +368,7 @@ class DefaultController extends YBackController
                     $connection->emulatePrepare   = true;
                     $connection->charset          = 'utf8';
                     $connection->active           = true;
-                    $connection->tablePrefix      = $form->tablePrefix . '_';
+                    $connection->tablePrefix      = $form->tablePrefix;
 
                     Yii::app()->setComponent('db', $connection);
 
@@ -363,7 +382,7 @@ class DefaultController extends YBackController
                         'enableParamLogging'    => 0,
                         'enableProfiling'       => 0,
                         'schemaCachingDuration' => 108000,
-                        'tablePrefix'           => $form->tablePrefix . '_',
+                        'tablePrefix'           => $form->tablePrefix,
                     );
 
                     $dbConfString = "<?php\n return " . var_export($dbParams, true) . ";\n?>";
@@ -560,6 +579,11 @@ class DefaultController extends YBackController
 
                 if ($user->save())
                 {
+                    $login = new LoginForm;
+                    $login->email    = $model->email;
+                    $login->password = $model->password;
+                    $login->authenticate();
+
                     Yii::app()->user->setFlash(
                         YFlashMessages::NOTICE_MESSAGE,
                         Yii::t('InstallModule.install', 'Администратор успешно создан!')
@@ -591,7 +615,7 @@ class DefaultController extends YBackController
 
                     $user = User::model()->admin()->findAll();
 
-                    foreach (array('siteDescription', 'siteName', 'siteKeyWords', 'email') as $param)
+                    foreach (array('siteDescription', 'siteName', 'siteKeyWords', 'email', 'theme','backendTheme') as $param)
                     {
                         $settings = new Settings;
 
@@ -638,7 +662,11 @@ class DefaultController extends YBackController
         }
         else
             $model->email = $model->emailName;
-        $this->render('sitesettings', array('model' => $model));
+        $this->render('sitesettings', array(
+            'model' => $model,
+            'themes' => $this->yupe->getThemes(),
+            'backendThemes' => $this->yupe->getThemes(true)
+        ));
     }
 
     public function actionFinish()

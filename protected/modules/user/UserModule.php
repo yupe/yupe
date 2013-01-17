@@ -111,6 +111,11 @@ class UserModule extends YWebModule
         );
     }
 
+    public function getIsInstallDefault()
+    {
+        return true;
+    }
+
     public function getIsNoDisable()
     {
         return true;

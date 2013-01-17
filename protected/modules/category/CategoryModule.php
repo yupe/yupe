@@ -46,6 +46,11 @@ class CategoryModule extends YWebModule
         );
     }
 
+    public function getIsInstallDefault()
+    {
+        return true;
+    }
+
     public function getVersion()
     {
         return Yii::t('CategoryModule.category', '0.3');
