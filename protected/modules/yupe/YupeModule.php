@@ -657,6 +657,7 @@ class YupeModule extends YWebModule
     public function getLanguageSelectorArray()
     {
         $langs = explode(',', $this->availableLanguages);
+
         if (count($langs) <= 1)
             return array();
 
@@ -666,8 +667,7 @@ class YupeModule extends YWebModule
         $homeUrl = Yii::app()->homeUrl . (Yii::app()->homeUrl[strlen(Yii::app()->homeUrl) - 1] != "/" ? '/' : '');
         $cp      = Yii::app()->urlManager->getCleanUrl(Yii::app()->request->url);
 
-        foreach ($langs as $lang)
-        {
+        foreach ($langs as $lang) {
             if ($lang == $currentLanguage)
                 continue;
             else
@@ -678,11 +678,11 @@ class YupeModule extends YWebModule
                 );
         }
 
-        return array(
+        return array(array(
             'icon'           => 'iconflags iconflags-' . $currentLanguage,
             'label'          => Yii::t('YupeModule.yupe', $currentLanguage),
             'items'          => $items,
             'submenuOptions' => array('style' => 'min-width: 20px;'),
-        );
+        ));
     }
 }

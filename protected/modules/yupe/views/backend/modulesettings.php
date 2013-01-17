@@ -7,8 +7,8 @@ $this->breadcrumbs = array(
 ?>
 
 <h1>
-    <?php echo Yii::t('YupeModule.yupe', 'Настройки модуля'); ?> "<?php echo $module->getName(); ?>"
-    <small><?php echo Yii::t('YupeModule.yupe','версии'); ?> <?php echo $module->getVersion(); ?></small>
+    <?php echo Yii::t('YupeModule.yupe', 'Настройки модуля'); ?> "<?php echo $module->name; ?>"
+    <small><?php echo Yii::t('YupeModule.yupe','версии'); ?> <?php echo $module->version; ?></small>
 </h1>
 
 <br/>
