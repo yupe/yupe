@@ -39,7 +39,7 @@
                         'target' => '_blank',
                     ),
                     array(
-                        'label' => $this->yupe->getVersion(),
+                        'label' => $this->yupe->version,
                         'icon'  => 'icon-thumbs-up icon-white',
                         'url'   => 'http://yupe.ru/?from=navbar'
                     ),
