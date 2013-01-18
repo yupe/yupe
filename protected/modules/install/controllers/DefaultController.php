@@ -356,12 +356,10 @@ class DefaultController extends YBackController
             {
                 try
                 {
-                    $socket  = ($form->socket == '') ? '' : 'unix_socket=' . $form->socket . ';';
-                    $port    = ($form->port == '') ? '' : 'port=' . $form->port . ';';
-                    $dbTypes = $form->getDbTypes();
-                    $dbType  = (isset($dbTypes[$form->dbType]) ? $dbTypes[$form->dbType] : $dbType[DbSettingsForm::DB_MYSQL]);
+                    $socket = ($form->socket == '') ? '' : 'unix_socket=' . $form->socket . ';';
+                    $port   = ($form->port == '') ? '' : 'port=' . $form->port . ';';
 
-                    $connectionString = "{$dbType}:host={$form->host};{$port}{$socket}dbname={$form->dbName}";
+                    $connectionString = "mysql:host={$form->host};{$port}{$socket}dbname={$form->dbName}";
 
                     $connection = new CDbConnection($connectionString, $form->user, $form->password);
                     $connection->connectionString = $connectionString;
