@@ -27,6 +27,10 @@ Yii::app()->clientScript->registerScript('fieldset', "
 
     <?php echo $form->errorSummary($model); ?>
 
+    <div class="row-fluid control-group <?php echo $model->hasErrors('dbType') ? 'error' : ''; ?>">
+        <?php echo $form->dropDownListRow($model, 'dbType', $model->getDbTypes(), array('class' => 'popover-help span7', 'data-original-title' => $model->getAttributeLabel('dbType'), 'data-content' => $model->getAttributeDescription('host'))); ?>
+    </div>
+
     <div class="row-fluid control-group <?php echo $model->hasErrors('host') ? 'error' : ''; ?>">
         <?php echo $form->textFieldRow($model, 'host', array('class' => 'popover-help span7', 'maxlength' => 150, 'size' => 60, 'data-original-title' => $model->getAttributeLabel('host'), 'data-content' => $model->getAttributeDescription('host'))); ?>
     </div>
