@@ -43,8 +43,8 @@ Yii::app()->clientScript->registerScript('fieldset', "
         <?php echo $form->textAreaRow($data['model'], 'siteKeyWords', array('class' => 'span7 popover-help', 'rows' => 6, 'cols' => 50, 'data-original-title' => $data['model']->getAttributeLabel('siteKeyWords'), 'data-content' => $data['model']->getAttributeDescription('siteKeyWords'))); ?>
     </div>
 
-    <div class="row-fluid control-group <?php echo $data['model']->hasErrors('email') ? 'error' : ''; ?>">
-        <?php echo $form->textFieldRow($data['model'], 'email', array('class' => 'popover-help span7', 'maxlength' => 150, 'size' => 60, 'data-original-title' => $data['model']->getAttributeLabel('email'), 'data-content' => $data['model']->getAttributeDescription('email'))); ?>
+    <div class="row-fluid control-group <?php echo $data['model']->hasErrors('siteEmail') ? 'error' : ''; ?>">
+        <?php echo $form->textFieldRow($data['model'], 'siteEmail', array('class' => 'popover-help span7', 'maxlength' => 150, 'size' => 60, 'data-original-title' => $data['model']->getAttributeLabel('siteEmail'), 'data-content' => $data['model']->getAttributeDescription('siteEmail'))); ?>
     </div>
 
     <?php $this->widget('bootstrap.widgets.TbButton', array(

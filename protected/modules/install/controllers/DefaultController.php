@@ -73,6 +73,27 @@ class DefaultController extends YBackController
     }
 
     /**
+     * Установка выполнения шага:
+     *
+     * @param string $actionId - требуемый экшен:
+     *
+     * @return nothing
+     **/
+    private function _markFinished($actionId = false)
+    {
+        if (!$actionId)
+            return;
+
+        $this->session['InstallForm'] = array_merge(
+            $this->session['InstallForm'], array(
+                $actionId . 'Finished' => true,
+            )
+        );
+
+        $this->_setSession();
+    }
+
+    /**
      * Функция выполняющаяся до вызова экшена
      * (если $this->yupe->cache истина - очищаем кэш)
      *
@@ -104,7 +125,6 @@ class DefaultController extends YBackController
         
         $this->session['InstallForm'] = array();
         $this->_setSession();
-
         $this->render('_view');
     }
 
@@ -115,6 +135,8 @@ class DefaultController extends YBackController
      **/
     public function actionEnvironment()
     {
+        $this->_markFinished('index');
+
         //$this->stepName = Yii::t('InstallModule.install', 'Шаг 2 из 8 : "Проверка окружения!"');
 
         $webRoot  = Yii::getPathOfAlias('webroot');
@@ -249,6 +271,7 @@ class DefaultController extends YBackController
      **/
     public function actionRequirements()
     {
+        $this->_markFinished('environment');
         //$this->stepName = Yii::t('InstallModule.install', 'Шаг 3 из 8 : "Проверка системных требований"');
 
         $requirements = array(
@@ -483,7 +506,7 @@ class DefaultController extends YBackController
      **/
     public function actionDbsettings()
     {
-        //$this->stepName = Yii::t('InstallModule.install', 'Шаг 4 из 8 : "Соединение с базой данных"');
+        $this->_markFinished('requirements');
 
         $dbConfFile = Yii::app()->basePath . '/config/' . 'db.php';
 
@@ -500,6 +523,7 @@ class DefaultController extends YBackController
                     )
                 );
                 $this->_setSession();
+                $this->_markFinished('dbsettings');
                 $this->redirect(array('/install/default/modulesinstall'));
             }
         }
@@ -601,7 +625,6 @@ class DefaultController extends YBackController
      **/
     public function actionModulesinstall()
     {
-        //$this->stepName = Yii::t('InstallModule.install', 'Шаг 5 из 8 : "Установка модулей"');
         $error = false;
 
         $modules = $this->yupe->getModulesDisabled();
@@ -617,6 +640,7 @@ class DefaultController extends YBackController
             );
 
             $this->_setSession();
+            $this->_markFinished('modulesinstall');
             $this->redirect($this->createUrl('modulesinstall'));
         }
 
@@ -759,8 +783,6 @@ class DefaultController extends YBackController
      **/
     public function actionCreateuser()
     {
-        //$this->stepName = Yii::t('InstallModule.install', 'Шаг 6 из 8 : "Создание учетной записи администратора"');
-
         $model = new InstallForm('createUser');
 
         if (isset($this->session['InstallForm']['createUser'])) {
@@ -772,7 +794,7 @@ class DefaultController extends YBackController
                         'createUserStep' => false,
                     )
                 );
-
+                $this->_markFinished('createuser');
                 $this->_setSession();
                 $this->redirect(array('/install/default/sitesettings'));
             }
@@ -846,12 +868,25 @@ class DefaultController extends YBackController
      **/
     public function actionSitesettings()
     {
-        //$this->stepName = Yii::t('InstallModule.install', 'Шаг 7 из 8 : "Настройки проекта"');
+        $model = new InstallForm('siteSettings');
 
-        $model = new SiteSettingsForm;
+        if (isset($this->session['InstallForm']['siteSettings'])) {
+            $model->setAttributes($this->session['InstallForm']['siteSettings']);
+            if ($model->validate() && $this->session['InstallForm']['siteSettingsStep'] === true) {
+                $this->session['InstallForm'] = array_merge(
+                    $this->session['InstallForm'], array(
+                        'siteSettings'     => $model->attributes,
+                        'siteSettingsStep' => false,
+                    )
+                );
+                $this->_markFinished('sitesettings');
+                $this->_setSession();
+                $this->redirect(array('/install/default/finish'));
+            }
+        }
 
-        if (Yii::app()->request->isPostRequest) {
-            $model->setAttributes($_POST['SiteSettingsForm']);
+        if ((Yii::app()->request->isPostRequest) && (isset($_POST['InstallForm']))) {
+            $model->setAttributes($_POST['InstallForm']);
 
             if ($model->validate()) {
                 $transaction = Yii::app()->db->beginTransaction();
@@ -863,6 +898,7 @@ class DefaultController extends YBackController
 
                     foreach (array('siteDescription', 'siteName', 'siteKeyWords', 'email', 'theme','backendTheme') as $param) {
                         $settings = new Settings;
+                        $model->email = $model->siteEmail;
 
                         $settings->setAttributes(
                             array(
@@ -892,7 +928,14 @@ class DefaultController extends YBackController
                     if (!is_dir($assetsPath))
                         @mkdir($assetsPath);
 
-                    $this->redirect(array('/install/default/finish/'));
+                    $this->session['InstallForm'] = array_merge(
+                        $this->session['InstallForm'], array(
+                            'siteSettings'     => $model->attributes,
+                            'siteSettingsStep' => true,
+                        )
+                    );
+                    $this->_setSession();
+                    $this->redirect(array('/install/default/sitesettings'));
                 } catch (CDbException $e) {
                     $transaction->rollback();
 
@@ -908,7 +951,7 @@ class DefaultController extends YBackController
             }
         }
         else
-            $model->email = $model->emailName;
+            $model->siteEmail = $model->emailName;
         $this->render(
             '_view', array(
                 'data' => array(
@@ -927,8 +970,6 @@ class DefaultController extends YBackController
      **/
     public function actionFinish()
     {
-        $this->stepName = Yii::t('InstallModule.install', 'Шаг 8 из 8 : "Окончание установки"');
-
         try {
             Yii::app()->getModule('install')->activate;
             Yii::app()->user->setFlash(

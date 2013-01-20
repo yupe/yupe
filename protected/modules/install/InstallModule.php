@@ -44,11 +44,29 @@ class InstallModule extends YWebModule
             return $installSteps;
     }
 
-    public function isStepFinished()
+    /**
+     * Проверка завершённости шага:
+     *
+     * @param string $actionId - требуемый шаг для проверки
+     *
+     * @return bool завершён ли шаг
+     **/
+    public function isStepFinished($actionId = false)
     {
+        if (!isset(Yii::app()->session['InstallForm']))
+            Yii::app()->session['InstallForm'] = array();
+        $session = Yii::app()->session['InstallForm'];
+
+        if ((isset($session[$actionId . 'Finished'])) && ($session[$actionId . 'Finished'] === true))
+            return true;
         return false;
     }
 
+    /**
+     * Создание навигационного меню для инсталятора:
+     *
+     * @return mixed меню
+     **/
     public function getInstallMenu()
     {
         $installSteps = $this->getInstallSteps();
@@ -58,18 +76,21 @@ class InstallModule extends YWebModule
             $installMenu[] = array_merge(
                 array(
                     'label' => $value,
-                    'disabled' => $this->isStepFinished($key),
-                    'icon' => (Yii::app()->controller->action->id == $key)
-                                ? 'arrow-right'
-                                : (
-                                    $this->isStepFinished($key)
-                                    ? 'ok'
-                                    : 'remove'
-                                ),
+                    'icon' => (
+                        Yii::app()->controller->action->id == $key
+                            ? 'arrow-right'
+                            : (
+                                $this->isStepFinished($key)
+                                ? 'ok'
+                                : 'remove'
+                            )
+                    ),
                     'itemOptions' => array( 'class' => (Yii::app()->controller->action->id == $key) ? 'current' : '' )
                 ), (
-                    $this->isStepFinished($key) === true
-                    ? array()
+                    $this->isStepFinished($key) !== true
+                    ? array(
+                        'disabled' => true,
+                    )
                     : array(
                         'url'   => Yii::app()->createUrl($startUrl . $key),
                     )

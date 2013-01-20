@@ -1,5 +1,9 @@
-.row-fluid .installMenu { position: fixed; top: 50px; left: 0; }
-.row-fluid .installMenu .disabled > a { color: #000; }
-.row-fluid .installMenu .current > a { color: #fff; }
-.row-fluid .installMenu .current > a:hover { color: #000; text-shadow: 0 1px 0 #000; }
-.row-fluid .installMenu .current > a { background-color: #0088cc; }
+.installContentWrapper { margin-top: 50px; }
+#overall-wrap .installContentWrapper .installContent { margin: 0 auto; width: 75%; }
+.installContent::after { clear: both; }
+.installContent .installMenu .disabled > a { color: #000; }
+.installContent .installMenu .current { color: #fff; }
+.installContent .installMenu .current i { top: -1px; position: relative; }
+.installContent .installMenu .current { background-color: #0088cc; }
+.installContent .installMenu .disabled i { top: -1px; position: relative; }
+#modules-modal-list.row { margin-left: 0px; }

@@ -63,6 +63,8 @@ class InstallForm extends YFormModel
     public $theme           = 'default';
     public $backendTheme    = '';
 
+    public $email;
+
     /**
      * Правила валидации параметров формы:
      *
@@ -124,7 +126,7 @@ class InstallForm extends YFormModel
             'siteName'        => Yii::t('InstallModule.install', 'Название сайта'),
             'siteDescription' => Yii::t('InstallModule.install', 'Описание сайта'),
             'siteKeyWords'    => Yii::t('InstallModule.install', 'Ключевые слова сайта'),
-            'email'           => Yii::t('InstallModule.install', 'Email администратора'),
+            'siteEmail'           => Yii::t('InstallModule.install', 'Email администратора'),
             'theme'           => Yii::t('InstallModule.install', 'Тема оформления публичной части'),
             'backendTheme'    => Yii::t('InstallModule.install', 'Тема оформления панели управления'),
 
