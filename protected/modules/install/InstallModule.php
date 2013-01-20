@@ -1,6 +1,34 @@
 <?php
+/**
+ * Install Module Class
+ * Класс модуля инсталятора:
+ *
+ * @category YupeModules
+ * @package  YupeCMS
+ * @author   YupeTeam <team@yupe.ru>
+ * @license  BSD https://raw.github.com/yupe/yupe/master/LICENSE
+ * @version  0.0.1
+ * @link     http://yupe.ru
+ **/
+
+/**
+ * Install Module Class
+ * Класс модуля инсталятора:
+ *
+ * @category YupeModules
+ * @package  YupeCMS
+ * @author   YupeTeam <team@yupe.ru>
+ * @license  BSD https://raw.github.com/yupe/yupe/master/LICENSE
+ * @version  0.0.1
+ * @link     http://yupe.ru
+ **/
 class InstallModule extends YWebModule
 {
+    /**
+     * Проверка инсталятора:
+     *
+     * @return mixed/bool mixed - при найденных ошибках, иначе - true
+     **/
     public function checkSelf()
     {
         $messages = array();
@@ -14,6 +42,11 @@ class InstallModule extends YWebModule
         return (isset($messages[YWebModule::CHECK_ERROR])) ? $messages : true;
     }
 
+    /**
+     * Получение алиаса шаблона:
+     *
+     * @return string main layuout alias
+     **/
     public function getLayoutAlias()
     {
         return 'application.modules.install.views.layouts.main';
@@ -99,67 +132,129 @@ class InstallModule extends YWebModule
         return $installMenu;
     }
 
+    /**
+     * Получаем Admin Page Link
+     *
+     * @return string
+     **/
     public function getAdminPageLink()
     {
         return '/install/default/index';
     }
 
+    /**
+     * Получаем Editable Params
+     *
+     * @return bool
+     **/
     public function getEditableParams()
     {
         return false;
     }
 
+    /**
+     * Получаем категорию
+     *
+     * @return string
+     **/
     public function getCategory()
     {
         return Yii::t('InstallModule.install', 'Юпи!');
     }
 
+    /**
+     * Получаем название модуля
+     *
+     * @return string
+     **/
     public function getName()
     {
         return Yii::t('InstallModule.install', 'Установщик');
     }
 
+    /**
+     * Показывать в админ.меню
+     *
+     * @return bool
+     **/
     public function getIsShowInAdminMenu()
     {
         return false;
     }
 
+    /**
+     * Описание модуля
+     *
+     * @return string
+     **/
     public function getDescription()
     {
         return Yii::t('InstallModule.install', 'Модуль для установки системы');
     }
 
+    /**
+     * Версия модуля
+     *
+     * @return string
+     **/
     public function getVersion()
     {
         return Yii::t('InstallModule.install', '0.2');
     }
 
+    /**
+     * Автор модуля
+     *
+     * @return string
+     **/
     public function getAuthor()
     {
         return Yii::t('InstallModule.install', 'yupe team');
     }
 
+    /**
+     * Email автора модуля
+     *
+     * @return string
+     **/
     public function getAuthorEmail()
     {
         return Yii::t('InstallModule.install', 'team@yupe.ru');
     }
 
+    /**
+     * Адрес автора модуля
+     *
+     * @return string
+     **/
     public function getUrl()
     {
         return Yii::t('InstallModule.install', 'http://yupe.ru');
     }
 
+    /**
+     * Иконка модуля
+     *
+     * @return string
+     **/
     public function getIcon()
     {
         return "download-alt";
     }
 
+    /**
+     * Инициализация модуля
+     *
+     * @return nothing
+     **/
     public function init()
     {
-        $this->setImport(array(
-            'install.forms.*',
-            'install.models.*',
-            'install.components.*',
-        ));
+        $this->setImport(
+            array(
+                'install.forms.*',
+                'install.models.*',
+                'install.components.*',
+            )
+        );
     }
 }
