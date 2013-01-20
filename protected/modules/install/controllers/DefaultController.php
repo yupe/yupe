@@ -85,7 +85,7 @@ class DefaultController extends YBackController
             ),
             array(
                 Yii::t('InstallModule.install', 'Активация ядра Юпи!'),
-                $this->checkYupeActivate(),
+                $this->_checkYupeActivate(),
                 Yii::t('InstallModule.install', 'При запуске ядра произошли ошибки, пожалуйста, проверьте права доступа на все необходимые файлы и каталоги (см. ошибки выше)'),
             ),
         );
@@ -114,7 +114,13 @@ class DefaultController extends YBackController
         return is_writable($pathNew) || @copy($pathOld, $pathNew) && is_writable($pathNew);
     }
 
-    private function checkYupeActivate()
+    /**
+     * Проверка активации модуля Юпи!
+     * (приватные функции начинаются с подчёркивания)
+     *
+     * @return bool
+     **/
+    private function _checkYupeActivate()
     {
         try {
             return Yii::app()->getModule('yupe')->activate;
@@ -123,6 +129,11 @@ class DefaultController extends YBackController
         }
     }
 
+    /**
+     * Экшен "Проверки системных требований"
+     *
+     * @return nothing
+     **/
     public function actionRequirements()
     {
         $this->stepName = Yii::t('InstallModule.install', 'Шаг 3 из 8 : "Проверка системных требований"');
@@ -138,7 +149,7 @@ class DefaultController extends YBackController
             array(
                 Yii::t('InstallModule.install', 'Переменная $_SERVER'),
                 true,
-                '' === $message=$this->checkServerVar(),
+                '' === $message=$this->_checkServerVar(),
                 '<a href="http://www.yiiframework.com">Yii Framework</a>',
                 $message,
             ),
@@ -261,7 +272,7 @@ class DefaultController extends YBackController
             array(
                 Yii::t('InstallModule.install', 'Расширение GD<br />с поддержкой FreeType<br />или ImageMagick<br />с поддержкой PNG'),
                 false,
-                '' === $message=$this->checkCaptchaSupport(),
+                '' === $message=$this->_checkCaptchaSupport(),
                 '<a href="http://www.yiiframework.com/doc/api/CCaptchaAction">CCaptchaAction</a>',
                 $message),
             array(
@@ -285,24 +296,30 @@ class DefaultController extends YBackController
 
         $result = true;
 
-        foreach ($requirements as $i => $requirement)
-        {
+        foreach ($requirements as $i => $requirement) {
             if ($requirement[1] && !$requirement[2])
                 $result = false;
         }
 
-        $this->render('requirements', array(
-            'requirements' => $requirements,
-            'result'       => $result,
-        ));
+        $this->render(
+            'requirements', array(
+                'requirements' => $requirements,
+                'result'       => $result,
+            )
+        );
     }
 
-    private function checkServerVar()
+    /**
+     * Проверка переменных окружения сервера:
+     * (приватные методы функции, начинаются с подчёркивания)
+     *
+     * @return nothing
+     **/
+    private function _checkServerVar()
     {
         $vars = array('HTTP_HOST', 'SERVER_NAME', 'SERVER_PORT', 'SCRIPT_NAME', 'SCRIPT_FILENAME', 'PHP_SELF', 'HTTP_ACCEPT', 'HTTP_USER_AGENT');
         $missing = array();
-        foreach ($vars as $var)
-        {
+        foreach ($vars as $var) {
             if (!isset($_SERVER[$var]))
                 $missing[] = $var;
         }
@@ -320,10 +337,15 @@ class DefaultController extends YBackController
         return '';
     }
 
-    private function checkCaptchaSupport()
+    /**
+     * Проверяем возможность использования расширения PHP GD:
+     * (приватные методы функции, начинаются с подчёркивания)
+     *
+     * @return string
+     **/
+    private function _checkCaptchaSupport()
     {
-        if (extension_loaded('imagick'))
-        {
+        if (extension_loaded('imagick')) {
             $imagick = new Imagick();
             $imagickFormats = $imagick->queryFormats('PNG');
         }
@@ -331,8 +353,7 @@ class DefaultController extends YBackController
             $gdInfo = gd_info();
         if (isset($imagickFormats) && in_array('PNG', $imagickFormats))
             return '';
-        else if (isset($gdInfo))
-        {
+        else if (isset($gdInfo)) {
             if ($gdInfo['FreeType Support'])
                 return '';
             return Yii::t('InstallModule.install', 'Расширение GD установлено<br />без поддержки FreeType');
@@ -340,6 +361,11 @@ class DefaultController extends YBackController
         return Yii::t('InstallModule.install', 'Расширение GD или ImageMagick не установлены');
     }
 
+    /**
+     * Экшен для настройки БД:
+     *
+     * @return nothing
+     **/
     public function actionDbsettings()
     {
         $this->stepName = Yii::t('InstallModule.install', 'Шаг 4 из 8 : "Соединение с базой данных"');
@@ -348,18 +374,18 @@ class DefaultController extends YBackController
 
         $form = new DbSettingsForm;
 
-        if (Yii::app()->request->isPostRequest)
-        {
+        if (Yii::app()->request->isPostRequest) {
             $form->setAttributes($_POST['DbSettingsForm']);
 
-            if ($form->validate())
-            {
+            if ($form->validate()) {
                 try
                 {
                     $socket  = ($form->socket == '') ? '' : 'unix_socket=' . $form->socket . ';';
                     $port    = ($form->port == '') ? '' : 'port=' . $form->port . ';';
                     $dbTypes = $form->getDbTypes();
-                    $dbType  = (isset($dbTypes[$form->dbType]) ? $dbTypes[$form->dbType] : $dbType[DbSettingsForm::DB_MYSQL]);
+                    $dbType  = (isset($dbTypes[$form->dbType])
+                                ? $dbTypes[$form->dbType]
+                                : $dbType[DbSettingsForm::DB_MYSQL]);
 
                     $connectionString = "{$dbType}:host={$form->host};{$port}{$socket}dbname={$form->dbName}";
 
