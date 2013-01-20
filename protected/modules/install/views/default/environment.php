@@ -1,4 +1,4 @@
-<?php if (!$result): ?>
+<?php if (!$data['result']): ?>
     <div class="alert alert-block alert-error">
         <b><?php echo Yii::t('InstallModule.install', 'Дальнейшая установка невозможна, пожалуйста, исправьте ошибки!'); ?></b>
     </div>
@@ -15,7 +15,7 @@
         <th><?php echo Yii::t('InstallModule.install','Результат');?></th>
         <th><?php echo Yii::t('InstallModule.install','Комментарий');?></th>
     </tr>
-    <?php foreach ($requirements as $requirement): ?>
+    <?php foreach ($data['requirements'] as $requirement): ?>
     <tr>
         <td style="width:200px;"><?php echo $requirement[0]; ?></td>
         <td>
@@ -29,13 +29,30 @@
     <?php endforeach; ?>
 </table>
 
-<?php $this->widget('bootstrap.widgets.TbButton', array(
-    'label' => Yii::t('InstallModule.install', '< Назад'),
-    'url'   => array('/install/default/index'),
-)); ?>
+<?php $this->widget(
+    'bootstrap.widgets.TbButton', array(
+        'label' => Yii::t('InstallModule.install', '< Назад'),
+        'url'   => array('/install/default/index'),
+    )
+); ?>
 
-<?php $this->widget('bootstrap.widgets.TbButton', array(
-    'type'     => 'primary',
-    'label'    => Yii::t('InstallModule.install', 'Продолжить >'),
-    'disabled' => ($result) ? false : true,
-) + (($result) ? array('url' => array('/install/default/requirements')) : array())); ?>
+<?php
+if ($data['result'] !== false)
+
+    $this->widget(
+        'bootstrap.widgets.TbButton', array(
+            'type'  => 'primary',
+            'label' => Yii::t('InstallModule.install', 'Продолжить >'),
+            'url'   => array('/install/default/requirements'),
+        )
+    );
+
+else
+    $this->widget(
+        'bootstrap.widgets.TbButton', array(
+            'type'  => 'primary',
+            'label' => Yii::t('InstallModule.install', 'Обновить'),
+            'url'   => array('/install/default/environment')
+        )
+    );
+?>

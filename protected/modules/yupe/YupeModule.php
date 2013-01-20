@@ -1,21 +1,35 @@
 <?php
 /**
  * YupeModule файл класса.
- *
- * @author Andrey Opeykin <aopeykin@gmail.com>
- * @link http://yupe.ru
- * @copyright Copyright &copy; 2012-2013 Yupe!
- * @license BSD http://ru.wikipedia.org/wiki/%D0%9B%D0%B8%D1%86%D0%B5%D0%BD%D0%B7%D0%B8%D1%8F_BSD
- *
  * Модуль yupe - основной модуль системы.
  *
  * Модуль yupe содержит в себе все основные компоненты, которые используются другими модулями
  * Это наше ядрышко. Классы ядра рекомендуется именовать с буквы "Y", пример YWebUser.
  *
- * @package yupe.core
- * @since 0.0.1
+ * @category  YupeMudules
+ * @package   YupeCMS
+ * @author    Andrey Opeykin <aopeykin@gmail.com>
+ * @copyright 2012-2013 Yupe! Copyright &copy;
+ * @license   BSD http://ru.wikipedia.org/wiki/%D0%9B%D0%B8%D1%86%D0%B5%D0%BD%D0%B7%D0%B8%D1%8F_BSD
+ * @version   0.5 (dev)
+ * @link      http://yupe.ru
  */
 
+/**
+ * YupeModule файл класса.
+ * Модуль yupe - основной модуль системы.
+ *
+ * Модуль yupe содержит в себе все основные компоненты, которые используются другими модулями
+ * Это наше ядрышко. Классы ядра рекомендуется именовать с буквы "Y", пример YWebUser.
+ *
+ * @category  YupeMudules
+ * @package   YupeCMS
+ * @author    Andrey Opeykin <aopeykin@gmail.com>
+ * @copyright 2012-2013 Yupe! Copyright &copy;
+ * @license   BSD http://ru.wikipedia.org/wiki/%D0%9B%D0%B8%D1%86%D0%B5%D0%BD%D0%B7%D0%B8%D1%8F_BSD
+ * @version   0.5 (dev)
+ * @link      http://yupe.ru
+ */
 class YupeModule extends YWebModule
 {
     public $enableAssets;
@@ -47,11 +61,21 @@ class YupeModule extends YWebModule
     public $otherCategoryName;
     public $updateChannel           = 'release';
 
+    /**
+     * Возвращаем версию:
+     *
+     * @return string
+     **/
     public function getVersion()
     {
         return Yii::t('YupeModule.yupe', '0.5 (dev)');
     }
 
+    /**
+     * Проверка модуля на ошибки:
+     *
+     * @return bool/mixed - массив сообщений при ошибках или true если всё ок
+     **/
     public function checkSelf()
     {
         $messages = array();
@@ -73,10 +97,12 @@ class YupeModule extends YWebModule
         if (!is_writable($uploadPath))
             $messages[YWebModule::CHECK_ERROR][] =  array(
                 'type'    => YWebModule::CHECK_ERROR,
-                'message' => Yii::t('YupeModule.yupe', 'Директория "{dir}" не доступна для записи! {link}', array(
-                    '{dir}'  => $uploadPath,
-                    '{link}' => CHtml::link(Yii::t('YupeModule.yupe', 'Изменить настройки'), array('/yupe/backend/modulesettings/', 'module' => 'yupe')),
-                )),
+                'message' => Yii::t(
+                    'YupeModule.yupe', 'Директория "{dir}" не доступна для записи! {link}', array(
+                        '{dir}'  => $uploadPath,
+                        '{link}' => CHtml::link(Yii::t('YupeModule.yupe', 'Изменить настройки'), array('/yupe/backend/modulesettings/', 'module' => 'yupe')),
+                    )
+                ),
             );
 
         if (!is_writable(Yii::app()->runtimePath))
@@ -100,6 +126,11 @@ class YupeModule extends YWebModule
         return isset($messages[YWebModule::CHECK_ERROR]) ? $messages : true;
     }
 
+    /**
+     * Возвращаем названия параметров:
+     *
+     * @return mixed
+     **/
     public function getParamsLabels()
     {
         return array(
@@ -121,6 +152,11 @@ class YupeModule extends YWebModule
         );
     }
 
+    /**
+     * Возвращаем редактируемые параметры:
+     *
+     * @return mixed
+     **/
     public function getEditableParams()
     {
         return array(
@@ -142,16 +178,31 @@ class YupeModule extends YWebModule
         );
     }
 
+    /**
+     * Install Default:
+     *
+     * @return bool
+     **/
     public function getIsInstallDefault()
     {
         return true;
     }
 
+    /**
+     * Is no disable:
+     *
+     * @return bool
+     **/
     public function getIsNoDisable()
     {
         return true;
     }
 
+    /**
+     * Возвращаем массив языков:
+     *
+     * @return mixed
+     **/
     protected function getLanguagesList()
     {
         $langs = array();
@@ -160,6 +211,11 @@ class YupeModule extends YWebModule
         return $langs;
     }
 
+    /**
+     * Возвращаем массив возможных трекеров обновления:
+     *
+     * @return mixed
+     **/
     protected function getUpdateChannelList()
     {
         $channelsList = array(
@@ -169,11 +225,21 @@ class YupeModule extends YWebModule
         return $channelsList;
     }
 
+    /**
+     * Возвращаем линк на админ панель:
+     *
+     * @return mixed
+     **/
     public function getAdminPageLink()
     {
         return array('/yupe/backend/modulesettings', 'module' => 'yupe');
     }
 
+    /**
+     * Возвращаем массив меню:
+     *
+     * @return mixed
+     **/
     public function getNavigation()
     {
         return array(
@@ -184,41 +250,81 @@ class YupeModule extends YWebModule
         );
     }
 
+    /**
+     * Возвращаем название категории модуля:
+     *
+     * @return string
+     **/
     public function getCategory()
     {
         return Yii::t('YupeModule.yupe', 'Юпи!');
     }
 
+    /**
+     * Возвращаем название модуля:
+     *
+     * @return string
+     **/
     public function getName()
     {
         return Yii::t('YupeModule.yupe', 'Система');
     }
 
+    /**
+     * Возвращаем описание модуля:
+     *
+     * @return string
+     **/
     public function getDescription()
     {
         return Yii::t('YupeModule.yupe', 'Ядро CMS Yupe');
     }
 
+    /**
+     * Возвращаем автора модуля:
+     *
+     * @return string
+     **/
     public function getAuthor()
     {
         return Yii::t('YupeModule.yupe', 'yupe team');
     }
 
+    /**
+     * Возвращаем почту автора модуля:
+     *
+     * @return string
+     **/
     public function getAuthorEmail()
     {
         return Yii::t('YupeModule.yupe', 'team@yupe.ru');
     }
 
+    /**
+     * Возвращаем адрес на сайт автора модуля:
+     *
+     * @return string
+     **/
     public function getUrl()
     {
         return Yii::t('YupeModule.yupe', 'http://yupe.ru');
     }
 
+    /**
+     * Возвращаем иконка модуля:
+     *
+     * @return string
+     **/
     public function getIcon()
     {
         return "cog";
     }
 
+    /**
+     * Инициализация модуля:
+     *
+     * @return nothing
+     **/
     public function init()
     {
         parent::init();
@@ -230,10 +336,12 @@ class YupeModule extends YWebModule
         if (!$this->editor && is_array($editors))
             $this->editor = array_shift($editors);
 
-        $this->setImport(array(
-            'yupe.models.*',
-            'yupe.components.*',
-        ));
+        $this->setImport(
+            array(
+                'yupe.models.*',
+                'yupe.components.*',
+            )
+        );
 
         $this->categoryIcon  = array(
             Yii::t('YupeModule.yupe', 'Сервисы') => 'briefcase',
@@ -250,23 +358,29 @@ class YupeModule extends YWebModule
         );
     }
 
+    /**
+     * Возвращаем список модулей:
+     *
+     * @param bool $navigationOnly - только навигация
+     * @param bool $disableModule  - отключённые модули
+     *
+     * @return mixed
+     **/
     public function getModules($navigationOnly = false, $disableModule = false)
     {
         $modules = $yiiModules = $order = array();
 
-        if (count(Yii::app()->modules))
-        {
-            // @TODO внести получение модулей в кэш
-            // Получаем модули и заполняем основные массивы
-            foreach (Yii::app()->modules as $key => $value)
-            {
+        if (count(Yii::app()->modules)) {
+            /**
+             * @todo внести получение модулей в кэш
+             * Получаем модули и заполняем основные массивы
+             **/
+            foreach (Yii::app()->modules as $key => $value) {
                 $key    = strtolower($key);
                 $module = Yii::app()->getModule($key);
 
-                if (($module !== NULL))
-                {
-                    if (is_a($module, 'YWebModule'))
-                    {
+                if (($module !== null)) {
+                    if (is_a($module, 'YWebModule')) {
                         $modules[$key]  = $module;
                         $order[(!$module->category)
                             ? $this->otherCategoryName
@@ -279,8 +393,7 @@ class YupeModule extends YWebModule
             }
 
             $modulesNavigation = Yii::app()->cache->get('YupeModulesNavigation-' . Yii::app()->language);
-            if ($modulesNavigation === false)
-            {
+            if ($modulesNavigation === false) {
                 // Формируем навигационное меню
                 $modulesNavigation = array();
 
@@ -293,14 +406,11 @@ class YupeModule extends YWebModule
                 );
 
                 // Сортируем категории модулей
-                if (count($order) > 1)
-                {
+                if (count($order) > 1) {
                     $categorySort = array_reverse($this->categorySort);
 
-                    foreach ($categorySort as $iValue)
-                    {
-                        if (isset($order[$iValue]))
-                        {
+                    foreach ($categorySort as $iValue) {
+                        if (isset($order[$iValue])) {
                             $orderValue = $order[$iValue];
                             unset($order[$iValue]);
                             $order = array($iValue => $orderValue) + $order;
@@ -309,8 +419,7 @@ class YupeModule extends YWebModule
                 }
 
                 // Обходим категории модулей
-                foreach ($order as $keyCategory => $valueCategory)
-                {
+                foreach ($order as $keyCategory => $valueCategory) {
                     $settings['items'][] = array('label' => $keyCategory);
 
                     // Шаблон категорий
@@ -327,8 +436,7 @@ class YupeModule extends YWebModule
                     asort($valueCategory, SORT_NUMERIC);
 
                     // Обходим модули
-                    foreach ($valueCategory as $key => $value)
-                    {
+                    foreach ($valueCategory as $key => $value) {
                         // собраются подпункты категории "Настройки модулей", кроме пункта Юпи
                         if ($modules[$key]->editableParams && $key != $this->id)
                             $settings['items'][] = array(
@@ -372,10 +480,11 @@ class YupeModule extends YWebModule
             }
         }
 
-        if (CHtml::normalizeUrl("/" . Yii::app()->controller->route) != '/yupe/backend/index')
-        {
-            // @TODO возможно ...['icon'] .= ' white'; уже не требуется
-            // Устанавливаем активную категорию
+        if (CHtml::normalizeUrl("/" . Yii::app()->controller->route) != '/yupe/backend/index') {
+            /**
+             * @todo возможно ...['icon'] .= ' white'; уже не требуется
+             * Устанавливаем активную категорию
+             **/
             $thisCategory = Yii::app()->controller->module->category
                 ? Yii::app()->controller->module->category
                 : $this->otherCategoryName;
@@ -383,8 +492,7 @@ class YupeModule extends YWebModule
             $thisCategory['active'] = true;
 
             // Устанавливаем активный модуль
-            if (Yii::app()->controller->action->id == 'modulesettings' && isset($_GET['module']) && $_GET['module'] != 'yupe')
-            {
+            if (Yii::app()->controller->action->id == 'modulesettings' && isset($_GET['module']) && $_GET['module'] != 'yupe') {
                 $thisModule = 'settings';
                 $thisCategory['items']['yupe']['active'] = false;
             }
@@ -392,18 +500,15 @@ class YupeModule extends YWebModule
                 $thisModule = Yii::app()->controller->module->id;
 
             $thisModule = &$thisCategory['items'][$thisModule];
-            if (!empty($thisModule))
-            {
+            if (!empty($thisModule)) {
                 $thisModule['icon']  .= ' white';
                 $thisModule['active'] = true;
 
                 // Устанавливаем активный пункт подменю модуля
                 $moduleItems = &$thisModule['items'];
-                if (is_array($moduleItems))
-                {
+                if (is_array($moduleItems)) {
                     $thisRoute = CHtml::normalizeUrl(array_merge(array("/" . Yii::app()->controller->route), $_GET));
-                    foreach ($moduleItems as &$link)
-                    {
+                    foreach ($moduleItems as &$link) {
                         if (isset($link['url']) && CHtml::normalizeUrl($link['url']) == $thisRoute && isset($link['icon']))
                             $link['icon'] .= " white";
                     }
@@ -428,8 +533,10 @@ class YupeModule extends YWebModule
     /**
      * Подгружает и выдает список отключенных модулей
      *
+     * @param array $enableModule - список активных модулей, по умолчанию array()
+     *
      * @since 0.5
-     * @param array $modules список активных модулей, по умолчанию array()
+     *
      * @return array список отключенных модулей
      */
     public function getModulesDisabled($enableModule = array())
@@ -438,10 +545,8 @@ class YupeModule extends YWebModule
         $enableModule = array_keys($enableModule);
         $modules      = array();
 
-        if ($path && $handler = opendir($path))
-        {
-            while (($dir = readdir($handler)))
-            {
+        if ($path && $handler = opendir($path)) {
+            while (($dir = readdir($handler))) {
                 if ($dir != '.' && $dir != '..' && !is_file($dir) && empty($enableModule[$dir]))
                     $modules[$dir] = $this->getCreateModule($dir);
             }
@@ -453,22 +558,21 @@ class YupeModule extends YWebModule
     /**
      * Подгружает модуль
      *
-     * @since 0.5
-     * @param array $name имя модуля
+     * @param array $name - имя модуля
+     *
+     * @since  0.5
      * @return array класс модуля
      */
     public function getCreateModule($name)
     {
         $path   = $this->getModulesConfigDefault();
-        $module = NULL;
+        $module = null;
 
-        if ($path)
-        {
+        if ($path) {
             //посмотреть внутри файл с окончанием Module.php
             $files = glob($path . '/' . $name . '/' . '*Module.php');
             // @TODO А если файлов не 1, добавить прочтение install/module.php
-            if (count($files) == 1)
-            {
+            if (count($files) == 1) {
                 $className = preg_replace('#^.*/([^\.]*).php$#', '$1', $files[0]);
                 Yii::import('application.modules.' . $name . '.' . $className);
                 $module = Yii::createComponent($className, $name, null, false);
@@ -480,8 +584,9 @@ class YupeModule extends YWebModule
     /**
      * Получаем путь к папке или файлу с конфигурацией модуля(-ей)
      *
+     * @param string $module - Имя модуля
+     *
      * @since 0.5
-     * @param string $moduke Имя модуля
      * @return string путь к папке или файлу с конфигурацией модуля(-ей)
      */
     public function getModulesConfig($module = false)
@@ -492,8 +597,9 @@ class YupeModule extends YWebModule
     /**
      * Получаем путь к папке или файлу с резервной конфигурацией модуля(-ей)
      *
+     * @param string $module Имя модуля
+     *
      * @since 0.5
-     * @param string $moduke Имя модуля
      * @return string путь к папке или файлу с резервной конфигурацией модуля(-ей)
      */
     public function getModulesConfigBack($module = false)
@@ -504,8 +610,9 @@ class YupeModule extends YWebModule
     /**
      * Получаем путь к папке c дефолтной конфигурацией модуля
      *
+     * @param string $module Имя модуля
+     *
      * @since 0.5
-     * @param string $moduke Имя модуля
      * @return string путь к папке c дефолтной конфигурацией модуля или путь к модулям
      */
     public function getModulesConfigDefault($module = false)
@@ -518,8 +625,9 @@ class YupeModule extends YWebModule
     /**
      * Получает полный алиас нужного лайаута бэкенда с учетом темы
      *
-     * @since 0.4
      * @param string $layoutName Название лайаута, если не задан - берется по-умолчанию для бекенда
+     *
+     * @since 0.4
      * @return string Полный путь к лайауту
      */
     public function getBackendLayoutAlias($layoutName = '')
@@ -540,6 +648,7 @@ class YupeModule extends YWebModule
      * Скопировать каталог с виджетом редактора в application.modules.yupe.widgets.editors
      * php-файл с виджетом должен иметь имя *Widget.php, например "EImperaviRedactorWidget"
      *
+     * @return mixed
      */
     public function getEditors()
     {
@@ -547,17 +656,13 @@ class YupeModule extends YWebModule
 
         $widgets = array();
 
-        if ($path && $handler = opendir($path))
-        {
-            while (($dir = readdir($handler)))
-            {
-                if ($dir != '.' && $dir != '..' && !is_file($dir))
-                {
+        if ($path && $handler = opendir($path)) {
+            while (($dir = readdir($handler))) {
+                if ($dir != '.' && $dir != '..' && !is_file($dir)) {
                     //посмотреть внутри файл с окончанием Widget.php
                     $files = glob($path . '/' . $dir . '/' . '*Widget.php');
 
-                    if (count($files) == 1)
-                    {
+                    if (count($files) == 1) {
                         $editor = $this->editorsDir . '.' . $dir . '.' . basename(array_shift($files), '.php');
                         $widgets[$editor] = $editor;
                     }
@@ -571,31 +676,26 @@ class YupeModule extends YWebModule
     /**
      * Метод возвращает доступные темы оформления
      *
-     * @param bool $backend - если установлен в true - вернет темы оформления для панели управления, иначе - для публичной части сайта
-     * @return array список доступных тем
-     * @since 0.4
-     * @todo возможно, стоит добавить кэширование чтобы каждый раз не ходить по файловой системе
-     *
      * Для добавления новой темы необходимо:
      * Прочитать http://yiiframework.ru/doc/guide/ru/topics.theming
      * Скопировать тему в каталог  WebRoot/themes или аналогичный (настройки themeManager)
      * Название каталога с темой для панели управления должно начинаться с префикса "backend_", например "backend_bootstrap"
      *
+     * @param bool $backend - если установлен в true - вернет темы оформления для панели управления, иначе - для публичной части сайта
+     *
+     * @return array список доступных тем
+     * @since 0.4
+     * @todo возможно, стоит добавить кэширование чтобы каждый раз не ходить по файловой системе
      */
     public function getThemes($backend = false)
     {
         $themes = array();
 
-        if (isset(Yii::app()->themeManager->basePath) && $handler = opendir(Yii::app()->themeManager->basePath))
-        {
-            while (($file = readdir($handler)))
-            {
-                if ($file != '.' && $file != '..' && !is_file($file))
-                {
-                    if ("backend_" == substr($file, 0, 8))
-                    {
-                        if ($backend)
-                        {
+        if (isset(Yii::app()->themeManager->basePath) && $handler = opendir(Yii::app()->themeManager->basePath)) {
+            while (($file = readdir($handler))) {
+                if ($file != '.' && $file != '..' && !is_file($file)) {
+                    if ("backend_" == substr($file, 0, 8)) {
+                        if ($backend) {
                             $file = str_replace("backend_", "", $file);
                             $themes[$file] = $file;
                         }
@@ -613,9 +713,9 @@ class YupeModule extends YWebModule
      * Метод возвращает пункты, содержащие сабменю для заголовок групп
      *
      * @param array $menu - список пунктов
-     * @return array приобразованный список пунктов
-     * @since 0.5
      *
+     * @since 0.5
+     * @return array приобразованный список пунктов
      */
     public function getSubMenu($menu)
     {
@@ -638,9 +738,8 @@ class YupeModule extends YWebModule
     /**
      * Выдает путь к стилям, определяет вкелючена тема или нет
      *
-     * @return string путь к директории
      * @since 0.5
-     *
+     * @return string путь к директории
      */
     public function getThemeBaseUrl()
     {
@@ -650,9 +749,8 @@ class YupeModule extends YWebModule
     /**
      * Выдает массив для меню в административной панеле
      *
-     * @return array массив меню
      * @since 0.5
-     *
+     * @return array массив меню
      */
     public function getLanguageSelectorArray()
     {
