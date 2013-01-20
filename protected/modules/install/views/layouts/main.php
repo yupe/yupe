@@ -49,17 +49,15 @@
         ),
     ));
     ?>
-    <div class="container" id="page">
-        <div class="span11 well">
-            <?php if (count($this->breadcrumbs))
-                $this->widget('bootstrap.widgets.TbBreadcrumbs', array('links' => $this->breadcrumbs));
-            ?><!-- breadcrumbs -->
-            <?php $this->widget('YFlashMessages'); ?>
-            <div id="content">
-                <?php echo $content; ?>
-            </div>
-            <!-- content -->
+    <div class='row-fluid'>
+        <?php if (count($this->breadcrumbs))
+            $this->widget('bootstrap.widgets.TbBreadcrumbs', array('links' => $this->breadcrumbs));
+        ?><!-- breadcrumbs -->
+        <?php $this->widget('YFlashMessages'); ?>
+        <div id="content">
+            <?php echo $content; ?>
         </div>
+        <!-- content -->
     </div>
     <div id="footer-guard"><!-- --></div>
 </div>

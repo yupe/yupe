@@ -1,0 +1,5 @@
+.row-fluid .installMenu { position: fixed; top: 50px; left: 0; }
+.row-fluid .installMenu .disabled > a { color: #000; }
+.row-fluid .installMenu .current > a { color: #fff; }
+.row-fluid .installMenu .current > a:hover { color: #000; text-shadow: 0 1px 0 #000; }
+.row-fluid .installMenu .current > a { background-color: #0088cc; }
