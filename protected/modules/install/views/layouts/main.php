@@ -17,49 +17,51 @@
 <div id="overall-wrap">
     <?php
     $brandTitle = Yii::t('InstallModule.install', 'Установка') . ' ' . CHtml::encode(Yii::app()->name);
-    $this->widget('bootstrap.widgets.TbNavbar', array(
-        'htmlOptions' => array('class'=>'navbar navbar-inverse'),
-        'fluid' => true,
-        'brand' => CHtml::image($this->yupe->themeBaseUrl . "/images/logo.png", $brandTitle, array(
-            'width'  => '38',
-            'height' => '38',
-            'title'  => $brandTitle,
-        )),
-        'brandUrl' => CHtml::normalizeUrl(array("/install")),
-        'items' => array(
-            '<div style="float: left; font-size: 19px; margin-top: 12px;">' . CHtml::encode($this->stepName) . '</div>',
-            array(
-                'class' => 'bootstrap.widgets.TbMenu',
-                'htmlOptions' => array('class' => 'pull-right'),
-                'items' => array(
-                    array(
-                        'icon' => 'question-sign white',
-                        'label' => Yii::t('InstallModule.install', 'Необходима помощь?'),
-                        'url' => 'http://yupe.ru/feedback/contact?from=install',
-                        'target' => '_blank',
+    $this->widget(
+        'bootstrap.widgets.TbNavbar', array(
+            'htmlOptions' => array('class'=>'navbar navbar-inverse'),
+            'fluid' => true,
+            'brand' => CHtml::image(
+                $this->yupe->themeBaseUrl . "/images/logo.png", $brandTitle, array(
+                    'width'  => '38',
+                    'height' => '38',
+                    'title'  => $brandTitle,
+                )
+            ),
+            'brandUrl' => $this->createUrl('index'),
+            'items' => array(
+                '<div style="float: left; font-size: 19px; margin-top: 12px;">' . CHtml::encode($this->stepName) . '</div>',
+                array(
+                    'class' => 'bootstrap.widgets.TbMenu',
+                    'htmlOptions' => array('class' => 'pull-right'),
+                    'items' => array(
+                        array(
+                            'icon' => 'question-sign white',
+                            'label' => Yii::t('InstallModule.install', 'Необходима помощь?'),
+                            'url' => 'http://yupe.ru/feedback/contact?from=install',
+                            'target' => '_blank',
+                        ),
+                        array(
+                            'label' => $this->yupe->version,
+                            'icon'  => 'icon-thumbs-up icon-white',
+                            'url'   => 'http://yupe.ru/?from=navbar'
+                        ),
+                        $this->yupe->languageSelectorArray,
                     ),
-                    array(
-                        'label' => $this->yupe->version,
-                        'icon'  => 'icon-thumbs-up icon-white',
-                        'url'   => 'http://yupe.ru/?from=navbar'
-                    ),
-                    $this->yupe->languageSelectorArray,
                 ),
             ),
-        ),
-    ));
+        )
+    );
     ?>
-    <div class="container" id="page">
-        <div class="span11 well">
-            <?php if (count($this->breadcrumbs))
-                $this->widget('bootstrap.widgets.TbBreadcrumbs', array('links' => $this->breadcrumbs));
-            ?><!-- breadcrumbs -->
-            <?php $this->widget('YFlashMessages'); ?>
-            <div id="content">
-                <?php echo $content; ?>
-            </div>
-            <!-- content -->
+    <div class='row-fluid installContentWrapper'>
+        <?php if (count($this->breadcrumbs))
+            $this->widget('bootstrap.widgets.TbBreadcrumbs', array('links' => $this->breadcrumbs));
+        ?><!-- breadcrumbs -->
+        <?php $this->widget('YFlashMessages'); ?>
+        <div class="installContent">
+            <?php echo $content; ?>
         </div>
+        <!-- content -->
     </div>
     <div id="footer-guard"><!-- --></div>
 </div>
