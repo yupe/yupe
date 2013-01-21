@@ -14,11 +14,11 @@
         array('label' => Yii::t('CatalogModule.catalog', 'Товар') . ' «' . mb_substr($model->name, 0, 32) . '»'),
         array('icon' => 'pencil', 'label' => Yii::t('CatalogModule.catalog', 'Редактирование товара'), 'url' => array(
             '/catalog/defaultAdmin/update',
-        	'id' => $model->id
+            'id' => $model->id
         )),
         array('icon' => 'eye-open', 'label' => Yii::t('CatalogModule.catalog', 'Просмотреть товар'), 'url' => array(
             '/catalog/defaultAdmin/view',
-        	'id' => $model->id
+            'id' => $model->id
         )),
         array('icon' => 'trash', 'label' => Yii::t('CatalogModule.catalog', 'Удалить товар'), 'url' => '#', 'linkOptions' => array(
             'submit' => array('/catalog/defaultAdmin/delete', 'id' => $model->id),

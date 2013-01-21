@@ -110,17 +110,17 @@ return array(
                 '/'                                                   => 'install/default/index',
            ), $config['rules']), array(
                 // общие правила
-                '/admin/<module:\w+>'                                   	=> '<module>/defaultAdmin/index',
-            	'/admin/<module:\w+>/<action:\w+>'                      	=> '<module>/defaultAdmin/<action>',
-            	'/admin/<module:\w+>/<action:\w+>/<id:\d+>'   				=> '<module>/defaultAdmin/<action>',
-            	'/admin/<module:\w+>/<controller:\w+>/<action:\w+>'			=> '<module>/<controller>Admin/<action>',
-            	'/admin/<module:\w+>/<controller:\w+>/<action:\w+>/<id:\d+>'=> '<module>/<controller>Admin/<action>',
-            	
-            	'<module:\w+>'                                   		=> '<module>/default/index',
-            	'<module:\w+>/<action:\w+>'                      		=> '<module>/default/<action>',
-            	'<module:\w+>/<action:\w+>/<id:\d+>'   					=> '<module>/default/<action>',
-            	'<module:\w+>/<controller:\w+>/<action:\w+>'			=> '<module>/<controller>/<action>',
-            	'<module:\w+>/<controller:\w+>/<action:\w+>/<id:\d+>'	=> '<module>/<controller>/<action>',
+                '/admin/<module:\w+>'                                        => '<module>/defaultAdmin/index',
+                '/admin/<module:\w+>/<action:\w+>'                           => '<module>/defaultAdmin/<action>',
+                '/admin/<module:\w+>/<action:\w+>/<id:\d+>'                  => '<module>/defaultAdmin/<action>',
+                '/admin/<module:\w+>/<controller:\w+>/<action:\w+>'          => '<module>/<controller>Admin/<action>',
+                '/admin/<module:\w+>/<controller:\w+>/<action:\w+>/<id:\d+>' => '<module>/<controller>Admin/<action>',
+            
+                '<module:\w+>'                                        => '<module>/default/index',
+                '<module:\w+>/<action:\w+>'                           => '<module>/default/<action>',
+                '<module:\w+>/<action:\w+>/<id:\d+>'                  => '<module>/default/<action>',
+                '<module:\w+>/<controller:\w+>/<action:\w+>'          => '<module>/<controller>/<action>',
+                '<module:\w+>/<controller:\w+>/<action:\w+>/<id:\d+>' => '<module>/<controller>/<action>',
             )),
         ),
         // конфигурируем компонент CHttpRequest для защиты от CSRF атак, подробнее: http://www.yiiframework.ru/doc/guide/ru/topics.security

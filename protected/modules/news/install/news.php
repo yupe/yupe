@@ -8,7 +8,7 @@ return array(
     ),
     'component' => array(),
     'rules'     => array(
-        '/news' 			=> 'news/default/index',
-        '/story/<title>' 	=> 'news/default/show',
+        '/news'          => 'news/default/index',
+        '/story/<title>' => 'news/default/show',
     ),
 );

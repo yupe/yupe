@@ -1,16 +1,16 @@
 <?php
 	$feedback = Yii::app()->getModule('feedback');
 	$this->breadcrumbs = array(
-		$feedback->getCategory() => array('/yupe/backend/index', 'category' => $feedback->getCategoryType() ),
+	    $feedback->getCategory() => array('/yupe/backend/index', 'category' => $feedback->getCategoryType() ),
         Yii::t('FeedbackModule.feedback', 'Сообщения с сайта'),
     );
 
     $this->pageTitle = Yii::t('FeedbackModule.feedback', 'Сообщения с сайта - управление');
 
     $this->menu = array(
-    	array('label' => Yii::t('FeedbackModule.feedback', 'Сообщения с сайта'), 'items' => array(
-			array('icon' => 'list-alt', 'label' => Yii::t('FeedbackModule.feedback', 'Управление сообщениями с сайта'), 'url' => array('/feedback/defaultAdmin/index')),
-        	array('icon' => 'plus-sign', 'label' => Yii::t('FeedbackModule.feedback', 'Добавить сообщение с сайта'), 'url' => array('/feedback/defaultAdmin/create')),
+        array('label' => Yii::t('FeedbackModule.feedback', 'Сообщения с сайта'), 'items' => array(
+		    array('icon' => 'list-alt', 'label' => Yii::t('FeedbackModule.feedback', 'Управление сообщениями с сайта'), 'url' => array('/feedback/defaultAdmin/index')),
+            array('icon' => 'plus-sign', 'label' => Yii::t('FeedbackModule.feedback', 'Добавить сообщение с сайта'), 'url' => array('/feedback/defaultAdmin/create')),
     	)),
     );
 ?>

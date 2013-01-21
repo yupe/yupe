@@ -1,7 +1,7 @@
 <?php
 	$category = Yii::app()->getModule('category');
     $this->breadcrumbs = array(
-    	$category->getCategory() => array('/yupe/backend/index', 'category' => $category->getCategoryType() ),
+        $category->getCategory() => array('/yupe/backend/index', 'category' => $category->getCategoryType() ),
         Yii::t('CategoryModule.category', 'Категории') => array('category/defaultAdmin/index'),
         $model->name => array('category/defaultAdmin/view', 'id' => $model->id),
         Yii::t('CategoryModule.category', 'Редактирование'),

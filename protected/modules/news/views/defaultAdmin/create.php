@@ -9,9 +9,9 @@
 
     $this->menu = array(
         array( 'label' => Yii::t('NewsModule.news', 'Новости'), 'items' => array(
-        	array('icon' => 'list-alt', 'label' => Yii::t('NewsModule.news', 'Управление новостями'), 'url' => array('/news/defaultAdmin/index')),
-        	array('icon' => 'plus-sign', 'label' => Yii::t('NewsModule.news', 'Добавить новость'), 'url' => array('/news/defaultAdmin/create')),
-    	)),
+            array('icon' => 'list-alt', 'label' => Yii::t('NewsModule.news', 'Управление новостями'), 'url' => array('/news/defaultAdmin/index')),
+            array('icon' => 'plus-sign', 'label' => Yii::t('NewsModule.news', 'Добавить новость'), 'url' => array('/news/defaultAdmin/create')),
+        )),
     );
 ?>
 <div class="page-header">

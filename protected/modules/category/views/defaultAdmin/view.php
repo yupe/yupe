@@ -1,7 +1,7 @@
 <?php
 	$category = Yii::app()->getModule('category');
     $this->breadcrumbs = array(
-    	$category->getCategory() => array('/yupe/backend/index', 'category' => $category->getCategoryType() ),
+        $category->getCategory() => array('/yupe/backend/index', 'category' => $category->getCategoryType() ),
         Yii::t('CategoryModule.category', 'Категории') => array('index'),
         $model->name,
     );

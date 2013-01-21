@@ -1,7 +1,7 @@
 <?php
     $this->breadcrumbs = array(
         $this->module->getCategory() => array('/yupe/backend/index', 'category' => $this->module->getCategoryType() ),
-    	Yii::t('BlogModule.blog', 'Блоги') => array('/blog/defaultAdmin/index'),
+        Yii::t('BlogModule.blog', 'Блоги') => array('/blog/defaultAdmin/index'),
         Yii::t('BlogModule.blog', 'Участники'),
     );
 

@@ -1,7 +1,7 @@
 <?php
     $this->breadcrumbs = array(
         $this->module->getCategory() => array('/yupe/backend/index', 'category' => $this->module->getCategoryType() ),
-    	Yii::t('BlogModule.blog', 'Блоги') => array('/blog/defaultAdmin/index'),
+        Yii::t('BlogModule.blog', 'Блоги') => array('/blog/defaultAdmin/index'),
         Yii::t('BlogModule.blog', 'Участники') => array('/blog/userToBlogAdmin/index'),
         $model->user->nick_name,
     );
@@ -23,7 +23,7 @@
             array('label' => Yii::t('BlogModule.blog', 'Участник') . ' «' . mb_substr($model->id, 0, 32) . '»'),
             array('icon' => 'pencil', 'encodeLabel' => false, 'label' => Yii::t('BlogModule.blog', 'Редактирование участника'), 'url' => array(
                 '/blog/userToBlogAdmin/update',
-            	'id' => $model->id
+                'id' => $model->id
             )),
             array('icon' => 'eye-open', 'encodeLabel' => false, 'label' => Yii::t('BlogModule.blog', 'Просмотреть участника'), 'url' => array(
                 '/blog/userToBlogAdmin/view',
