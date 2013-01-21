@@ -440,17 +440,21 @@ abstract class YWebModule extends CWebModule
         return true;
     }
 
-    public function isInstalled()
+    public function getIsInstalled()
     {
         $modulesInstalled = Yii::app()->cache->get('YupeModulesInstalled');
         if ($modulesInstalled === false) {
             $modulesInstalled = Yii::app()->migrator->modulesWithDBInstalled;
             Yii::app()->cache->set('YupeModulesInstalled', $modulesInstalled, Yii::app()->getModule('yupe')->coreCacheTime);
         }
-        /*
-         * @TODO: Добавить тут же проверку на конфиг
-         */
-        return in_array($this->id, $modulesInstalled);
+
+        $upd= Yii::app()->cache->get('YupeModuleUpdates_'.$this->id);
+        if ($upd === false) {
+            $upd = Yii::app()->migrator->checkForUpdates(array($this->id => $this));
+            Yii::app()->cache->set('YupeModuleUpdates_'.$this->id, $upd, Yii::app()->getModule('yupe')->coreCacheTime);
+        }
+
+        return in_array($this->id, $modulesInstalled)|| !count($upd);
 
     }
 

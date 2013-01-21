@@ -191,6 +191,7 @@ class Migrator extends CApplicationComponent
      */
     public function checkForUpdates($modules)
     {
+
         $db=$this->getDbConnection();
 
         $updates = array();
