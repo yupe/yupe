@@ -1,5 +1,4 @@
 <?php $this->beginContent(Yii::app()->controller->module->getLayoutAlias()); ?>
-<?php Yii::app()->clientScript->registerCssFile('/css/install.css'); ?>
     <div class="span9 well">
         <?php if (count($this->breadcrumbs))
             $this->widget('bootstrap.widgets.TbBreadcrumbs', array('links' => $this->breadcrumbs));

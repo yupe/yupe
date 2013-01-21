@@ -5,13 +5,14 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title><?php echo CHtml::encode(Yii::app()->name); ?> <?php echo CHtml::encode($this->pageTitle); ?></title>
     <?php if (!$this->yupe->enableAssets): ?>
-        <link rel="stylesheet" type="text/css" href="<?php echo $this->yupe->themeBaseUrl; ?>/web/booster-install/assets/css/bootstrap.css"/>
+        <?php Yii::app()->clientScript->registerCssFile($this->yupe->themeBaseUrl . '/web/booster-install/assets/css/bootstrap.css'); ?>
         <link rel="stylesheet" type="text/css" href="<?php echo $this->yupe->themeBaseUrl; ?>/web/booster-install/assets/js/bootstrap.min.js"/>
     <?php endif; ?>
     <?php if (($langs = $this->yupe->languageSelectorArray) != array()): ?>
-        <link rel="stylesheet" type="text/css" href="<?php echo $this->yupe->themeBaseUrl; ?>/css/flags.css"/>
+        <?php Yii::app()->clientScript->registerCssFile($this->yupe->themeBaseUrl . '/css/flags.css'); ?>
     <?php endif; ?>
-    <link rel="stylesheet" type="text/css" href="<?php echo $this->yupe->themeBaseUrl; ?>/css/styles.css"/>
+    <?php Yii::app()->clientScript->registerCssFile($this->yupe->themeBaseUrl . '/css/styles.css'); ?>
+    <?php Yii::app()->clientScript->registerCssFile($this->yupe->themeBaseUrl . '/css/install.css'); ?>
 </head>
 <body>
 <div id="overall-wrap">
