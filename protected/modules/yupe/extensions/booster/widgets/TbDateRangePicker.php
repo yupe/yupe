@@ -94,11 +94,10 @@ class TbDateRangePicker extends CInputWidget
 
     private function setMonthNames()
     {
-        if (empty($this->options['locale']['monthNames'])) {$this->options['locale']['monthNames'] = array_values(
-            Yii::app()->locale->getMonthNames('wide', true)
-        )
-}
-	}
+        if (empty($this->options['locale']['monthNames'])) {
+            $this->options['locale']['monthNames'] = array_values(Yii::app()->locale->getMonthNames('wide', true));
+        }
+    }
 
     /**
      * Registers required css js files
