@@ -440,6 +440,20 @@ abstract class YWebModule extends CWebModule
         return true;
     }
 
+    public function isInstalled()
+    {
+        $modulesInstalled = Yii::app()->cache->get('YupeModulesInstalled');
+        if ($modulesInstalled === false) {
+            $modulesInstalled = Yii::app()->migrator->modulesWithDBInstalled;
+            Yii::app()->cache->set('YupeModulesInstalled', $modulesInstalled, Yii::app()->getModule('yupe')->coreCacheTime);
+        }
+        /*
+         * @TODO: Добавить тут же проверку на конфиг
+         */
+        return in_array($this->id, $modulesInstalled);
+
+    }
+
     /**
      *  @return array для многих параметров модуля необходимо вывести варианты выбора да или нет - метод-хелпер именно для этого
      */
