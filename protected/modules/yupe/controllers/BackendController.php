@@ -233,13 +233,13 @@ class BackendController extends YBackController
     {
         Yii::app()->cache->flush();
 
-	    $assetManager = Yii::app()->assetManager;
-	    $basePath = $assetManager->getBasePath() . DIRECTORY_SEPARATOR . '*';
-	    $dirsList = glob($basePath, GLOB_ONLYDIR);
-	    if (is_array($dirsList)) {
+        $assetManager = Yii::app()->assetManager;
+        $basePath = $assetManager->getBasePath() . DIRECTORY_SEPARATOR . '*';
+        $dirsList = glob($basePath, GLOB_ONLYDIR);
+        if (is_array($dirsList)) {
             foreach ($dirsList as $item) {
-		        YFile::rmDir($item);
-	        }
+                YFile::rmDir($item);
+            }
         }
 
         Yii::app()->user->setFlash(
