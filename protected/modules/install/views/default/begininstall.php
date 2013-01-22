@@ -54,20 +54,20 @@ foreach ($modules as $m)
 echo "\n};";
 ?>
 
-    public function log(msg)
+    function log(msg)
     {
         $("#log-content").append(msg.replace("\n", "<br/>"));
     }
 
     var ic = 1;
-    public function setModuleProgress(installed, message)
+    function setModuleProgress(installed, message)
     {
         $('div.bar').css('width', (total ? (installed * 100 / total) : 100) + "%");
         $('#msg').html(message);
         $('small#modstate').text(installed + " / " + total);
     }
 
-    public function installNext()
+    function installNext()
     {
         var ic = 0;
         $.each(modules, function(i,m) {
