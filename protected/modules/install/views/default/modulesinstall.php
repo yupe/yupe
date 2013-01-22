@@ -1,4 +1,13 @@
 <?php
+/**
+ * Отображение для modulesinstall:
+ * 
+ *   @category YupeView
+ *   @package  YupeCMS
+ *   @author   Yupe Team <team@yupe.ru>
+ *   @license  https://github.com/yupe/yupe/blob/master/LICENSE BSD
+ *   @link     http://yupe.ru
+ **/
 $form = $this->beginWidget(
     'bootstrap.widgets.TbActiveForm', array(
         'id'                     => 'modulesinstall-form',
@@ -116,8 +125,7 @@ Yii::app()->clientScript->registerScript(
                         <?php
                             $tabs = array();
 
-                            if ($module->id != 'yupe' && count($module->dependencies))
-                            {
+                            if ($module->id != 'yupe' && count($module->dependencies)) {
                                 $deps = $module->dependencies;
                                 foreach($deps as &$dep)
                                     $dep = $data['modules'][$dep]->name;
@@ -134,8 +142,7 @@ Yii::app()->clientScript->registerScript(
                                     'count'   => Yii::t('InstallModule.install', 'Все'),
                                 );
                             else
-                                if(count($deps = $module->dependent))
-                                {
+                                if(count($deps = $module->dependent)) {
                                     foreach($deps as &$dep)
                                         $dep = $data['modules'][$dep]->name;
                                     $tabs[] = array(
@@ -277,34 +284,46 @@ EOF;
             </div>
         </div>
         <div class="modal-footer">
-            <?php $this->widget('bootstrap.widgets.TbButton', array(
-                'label'       => Yii::t('InstallModule.install', 'Отмена'),
-                'url'         => '#',
-                'htmlOptions' => array('data-dismiss' => 'modal'),
-            )); ?>
-            <?php $this->widget('bootstrap.widgets.TbButton', array(
-                'buttonType'  => 'submit',
-                'type'        => 'primary',
-                'label'       => Yii::t('InstallModule.install', 'Продолжить >'),
-                'htmlOptions' => array(
-                    'data-dismiss' => 'modal',
-                    'id'           => 'modal-confirm'
-                ),
-            )); ?>
+            <?php
+            $this->widget(
+                'bootstrap.widgets.TbButton', array(
+                    'label'       => Yii::t('InstallModule.install', 'Отмена'),
+                    'url'         => '#',
+                    'htmlOptions' => array('data-dismiss' => 'modal'),
+                )
+            ); ?>
+            <?php
+            $this->widget(
+                'bootstrap.widgets.TbButton', array(
+                    'buttonType'  => 'submit',
+                    'type'        => 'primary',
+                    'label'       => Yii::t('InstallModule.install', 'Продолжить >'),
+                    'htmlOptions' => array(
+                        'data-dismiss' => 'modal',
+                        'id'           => 'modal-confirm'
+                    ),
+                )
+            ); ?>
         </div>
     <?php $this->endWidget(); ?>
 
-    <?php $this->widget('bootstrap.widgets.TbButton', array(
-        'label' => Yii::t('InstallModule.install', '< Назад'),
-        'url'   => array('/install/default/dbsettings'),
-    )); ?>
-    <?php $this->widget('bootstrap.widgets.TbButton', array(
-        'type'       => 'primary',
-        'label'      => Yii::t('InstallModule.install', 'Продолжить >'),
-        'htmlOptions' => array(
-            'data-toggle' => 'modal',
-            'data-target' => '#modules-modal',
-        ),
-    )); ?>
+    <?php
+    $this->widget(
+        'bootstrap.widgets.TbButton', array(
+            'label' => Yii::t('InstallModule.install', '< Назад'),
+            'url'   => array('/install/default/dbsettings'),
+        )
+    ); ?>
+    <?php
+    $this->widget(
+        'bootstrap.widgets.TbButton', array(
+            'type'       => 'primary',
+            'label'      => Yii::t('InstallModule.install', 'Продолжить >'),
+            'htmlOptions' => array(
+                'data-toggle' => 'modal',
+                'data-target' => '#modules-modal',
+            ),
+        )
+    ); ?>
 
 <?php $this->endWidget(); ?>

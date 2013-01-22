@@ -6,7 +6,7 @@
     <title><?php echo CHtml::encode(Yii::app()->name); ?> <?php echo CHtml::encode($this->pageTitle); ?></title>
     <?php if (!$this->yupe->enableAssets): ?>
         <?php Yii::app()->clientScript->registerCssFile($this->yupe->themeBaseUrl . '/web/booster-install/assets/css/bootstrap.css'); ?>
-        <link rel="stylesheet" type="text/css" href="<?php echo $this->yupe->themeBaseUrl; ?>/web/booster-install/assets/js/bootstrap.min.js"/>
+        <?php Yii::app()->clientScript->registerScriptFile($this->yupe->themeBaseUrl . '/web/booster-install/assets/js/bootstrap.min.js'); ?>
     <?php endif; ?>
     <?php if (($langs = $this->yupe->languageSelectorArray) != array()): ?>
         <?php Yii::app()->clientScript->registerCssFile($this->yupe->themeBaseUrl . '/css/flags.css'); ?>

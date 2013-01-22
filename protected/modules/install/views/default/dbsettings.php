@@ -1,4 +1,13 @@
 <?php
+/**
+ * Отображение для sbsettings:
+ * 
+ *   @category YupeView
+ *   @package  YupeCMS
+ *   @author   Yupe Team <team@yupe.ru>
+ *   @license  https://github.com/yupe/yupe/blob/master/LICENSE BSD
+ *   @link     http://yupe.ru
+ **/
 $form = $this->beginWidget(
     'bootstrap.widgets.TbActiveForm', array(
         'id'                     => 'dbsettings-form',

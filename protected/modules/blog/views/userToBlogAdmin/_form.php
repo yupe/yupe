@@ -1,18 +1,24 @@
 <?php
-$form = $this->beginWidget('bootstrap.widgets.TbActiveForm', array(
-    'id'                     => 'user-to-blog-form',
-    'enableAjaxValidation'   => false,
-    'enableClientValidation' => true,
-    'type'                   => 'vertical',
-    'htmlOptions'            => array('class' => 'well'),
-    'inlineErrors'           => true,
-));
+/**
+ * Отображение для postAdmin/_form:
+ * 
+ *   @category YupeView
+ *   @package  YupeCMS
+ *   @author   Yupe Team <team@yupe.ru>
+ *   @license  https://github.com/yupe/yupe/blob/master/LICENSE BSD
+ *   @link     http://yupe.ru
+ **/
+$form = $this->beginWidget(
+    'bootstrap.widgets.TbActiveForm', array(
+        'id'                     => 'user-to-blog-form',
+        'enableAjaxValidation'   => false,
+        'enableClientValidation' => true,
+        'type'                   => 'vertical',
+        'htmlOptions'            => array('class' => 'well'),
+        'inlineErrors'           => true,
+    )
+);
 
-Yii::app()->clientScript->registerScript('fieldset', "
-    $('document').ready(function () {
-        $('.popover-help').popover({ trigger : 'hover', delay : 500 });
-    });
-");
 ?>
 
     <div class="alert alert-info">
@@ -41,15 +47,21 @@ Yii::app()->clientScript->registerScript('fieldset', "
         <?php echo $form->textFieldRow($model, 'note', array('class' => 'span7 popover-help', 'maxlength' => 300, 'size' => 60, 'data-original-title' => $model->getAttributeLabel('note'), 'data-content' => $model->getAttributeDescription('note'))); ?>
     </div>
 
-    <?php $this->widget('bootstrap.widgets.TbButton', array(
-        'buttonType' => 'submit',
-        'type'       => 'primary',
-        'label'      => $model->isNewRecord ? Yii::t('BlogModule.blog', 'Добавить участника и продолжить') : Yii::t('BlogModule.blog', 'Сохранить участника и продолжить'),
-    )); ?>
-    <?php $this->widget('bootstrap.widgets.TbButton', array(
+    <?php
+    $this->widget(
+        'bootstrap.widgets.TbButton', array(
+            'buttonType' => 'submit',
+            'type'       => 'primary',
+            'label'      => $model->isNewRecord ? Yii::t('BlogModule.blog', 'Добавить участника и продолжить') : Yii::t('BlogModule.blog', 'Сохранить участника и продолжить'),
+        )
+    ); ?>
+    <?php
+    $this->widget(
+        'bootstrap.widgets.TbButton', array(
         'buttonType' => 'submit',
         'htmlOptions'=> array('name' => 'submit-type', 'value' => 'index'),
         'label'      => $model->isNewRecord ? Yii::t('BlogModule.blog', 'Добавить участника и закрыть') : Yii::t('BlogModule.blog', 'Сохранить участника и закрыть'),
-    )); ?>
+        )
+    ); ?>
 
 <?php $this->endWidget(); ?>
