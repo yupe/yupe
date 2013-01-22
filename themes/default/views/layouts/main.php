@@ -37,7 +37,7 @@
 <div class="container" id="page">
     <div id="header">
         <div id="logo">
-            <?php echo CHtml::link(CHtml::image(Yii::app()->baseUrl . '/web/images/yupe-logo-style.jpg'), '/')?>
+            <?php echo CHtml::link(CHtml::image(Yii::app()->baseUrl . '/web/images/yupe-logo-style.jpg'), Yii::app()->homeUrl);?>
             <span style="vertical-align: 40px; margin-left: 20px; font-size: 25px;">
                 <?php echo CHtml::encode($module->siteDescription);?>
             </span>

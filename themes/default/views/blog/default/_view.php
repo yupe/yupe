@@ -21,5 +21,5 @@
 
     <br /><br />
 																	 
-    <?php echo CHtml::link(Yii::t('blog', 'Вступить в блог'), array('/blog/default/show/', 'slug' => $data->slug, 'act' => 'join', 'blogId' => $data->id)); ?>
+    <?php echo CHtml::link(Yii::t('blog', 'Вступить в блог'), array('/blog/default/join/', 'blogId' => $data->id)); ?>
 </div>

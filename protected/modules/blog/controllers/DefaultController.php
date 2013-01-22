@@ -17,12 +17,7 @@ class DefaultController extends YFrontController
 
     // Отобразить карточку блога
     public function actionShow($slug)
-    {
-    	if ( isset($_GET['act']) AND $_GET['act'] == 'join' 
-    				AND isset($_GET['blogId']) AND is_numeric($_GET['blogId'])  )
-    		$this->join($_GET['blogId']);
-    	
-    	
+    {    	
         $blog = Blog::model()->with(
             'createUser',
             'postsCount',
@@ -66,7 +61,7 @@ class DefaultController extends YFrontController
     }
 
     // "вступление" в блог
-    public function join($blogId)
+    public function actionJoin($blogId)
     {
         if (!Yii::app()->user->isAuthenticated())
         {
@@ -89,6 +84,7 @@ class DefaultController extends YFrontController
             $errorMessage = Yii::t('BlogModule.blog', 'Не передан blogId!');
 
         $blog = Blog::model()->findByPk($blogId);
+        
         if (!$blog)
             $errorMessage = Yii::t('BlogModule.blog', 'Блог с id = {id} не найден!', array('{id}' => $blogId));
 
@@ -109,12 +105,12 @@ class DefaultController extends YFrontController
         if ($blog->join(Yii::app()->user->id))
         {
             if (Yii::app()->request->isAjaxRequest)
-                Yii::app()->ajax->success(Yii::t('BlogModule.blog', 'Вы присоединились к блогу!'));
+                Yii::app()->ajax->success(Yii::t('BlogModule.blog', 'Вы присоединились к блогу "{slug}"!', array('{slug}' => $blog->slug)));
             else
             {
                Yii::app()->user->setFlash(
                     YFlashMessages::NOTICE_MESSAGE,
-                    Yii::t('BlogModule.blog', 'Вы присоединились к блогу!')
+                    Yii::t('BlogModule.blog', 'Вы присоединились к блогу "{slug}"!', array('{slug}' => $blog->slug))
                );
                $this->redirect(array('/blog/default/index'));
             }
@@ -122,12 +118,12 @@ class DefaultController extends YFrontController
         else
         {
             if (Yii::app()->request->isAjaxRequest)
-                Yii::app()->ajax->success(Yii::t('BlogModule.blog', 'Вы уже присоеденены к этому блогу!'));
+                Yii::app()->ajax->success(Yii::t('BlogModule.blog', 'Вы уже присоеденены к этому блогу "{slug}"!', array('{slug}' => $blog->slug)));
             else
             {
                 Yii::app()->user->setFlash(
                     YFlashMessages::NOTICE_MESSAGE,
-                    Yii::t('BlogModule.blog', 'Вы уже присоеденены к этому блогу!')
+                    Yii::t('BlogModule.blog', 'Вы уже присоеденены к этому блогу "{slug}"!', array('{slug}' => $blog->slug))
                 );
                 $this->redirect(array('/blog/default/index'));
             }

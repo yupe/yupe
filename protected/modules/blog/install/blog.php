@@ -10,6 +10,7 @@ return array(
     'rules'     => array(
         '/post/<slug>.html'	=> 'blog/post/show',
         '/posts/tag/<tag>'  => 'blog/post/list',
+        '/blog/join'        => 'blog/default/join',
         '/blog/<slug>'      => 'blog/default/show',
         '/blogs'            => 'blog/default/index',
     ),
