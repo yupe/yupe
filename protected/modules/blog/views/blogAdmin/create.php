@@ -1,4 +1,13 @@
 <?php
+/**
+ * Отображение для BlogAdmin/create:
+ * 
+ *   @category YupeView
+ *   @package  YupeCMS
+ *   @author   Yupe Team <team@yupe.ru>
+ *   @license  https://github.com/yupe/yupe/blob/master/LICENSE BSD
+ *   @link     http://yupe.ru
+ **/
     $this->breadcrumbs = array(
         Yii::app()->getModule('blog')->getCategory() => array(),
         Yii::t('BlogModule.blog', 'Блоги') => array('/blog/BlogAdmin/index'),

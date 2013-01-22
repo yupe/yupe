@@ -1,3 +1,14 @@
+<?php
+/**
+ * Отображение для layouts/main:
+ * 
+ *   @category YupeLayout
+ *   @package  YupeCMS
+ *   @author   Yupe Team <team@yupe.ru>
+ *   @license  https://github.com/yupe/yupe/blob/master/LICENSE BSD
+ *   @link     http://yupe.ru
+ **/
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>

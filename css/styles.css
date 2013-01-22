@@ -50,7 +50,7 @@ footer {
 .wide select {
     width: 100% !important;
 }
-.wide input[type=text],
+.wide input[type=text].not([class*="span"]),
 .wide textarea {
     width: 99% !important;
 }
