@@ -4,14 +4,7 @@ $form = $this->beginWidget('bootstrap.widgets.TbActiveForm', array(
     'method'      => 'get',
     'type'        => 'vertical',
     'htmlOptions' => array('class' => 'well form-vertical'),
-));
-
-Yii::app()->clientScript->registerScript('fieldset', "
-    $('document').ready(function () {
-        $('.popover-help').popover({ trigger : 'hover', delay : 500 });
-    });
-");
-?>
+)); ?>
     <fieldset class="inline">
         <div class="row-fluid control-group">
             <div class="span1">

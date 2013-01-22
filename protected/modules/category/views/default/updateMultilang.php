@@ -97,11 +97,6 @@ $form = $this->beginWidget('bootstrap.widgets.TbActiveForm', array(
         'items'       => $items,
         'htmlOptions' => array('style' => 'margin-bottom:0;'),
     ));
-    Yii::app()->clientScript->registerScript('fieldset', "
-        $('document').ready(function () {
-            $('.popover-help').popover({ 'delay': 500, });
-        });
-    ");
 
     echo CHtml::openTag("div", array(
         "class" => "tab-content",
