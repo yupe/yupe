@@ -3,10 +3,24 @@
  * This is the template for generating a controller class file for CRUD feature.
  * The following variables are available in this template:
  * - $this: the BootCrudCode object
+ *
+ *   @category YupeGiiTemplate
+ *   @package  YupeCMS
+ *   @author   Yupe Team <team@yupe.ru>
+ *   @license  https://github.com/yupe/yupe/blob/master/LICENSE BSD
+ *   @link     http://yupe.ru
  */
 ?>
 <?php echo  "<?php\n"; ?>
-
+/**
+ * Класс <?php echo $this->controllerClass; ?>:
+ *
+ *   @category Yupe<?php echo $this->baseControllerClass; ?>
+ *   @package  YupeCMS
+ *   @author   Yupe Team <team@yupe.ru>
+ *   @license  https://github.com/yupe/yupe/blob/master/LICENSE BSD
+ *   @link     http://yupe.ru
+ **/
 class <?php echo $this->controllerClass; ?> extends <?php echo $this->baseControllerClass."\n"; ?>
 {
     /**

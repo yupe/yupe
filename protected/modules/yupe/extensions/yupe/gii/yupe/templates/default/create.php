@@ -2,6 +2,12 @@
 /**
  * The following variables are available in this template:
  * - $this: the BootCrudCode object
+ *
+ *   @category YupeGiiTemplate
+ *   @package  YupeCMS
+ *   @author   Yupe Team <team@yupe.ru>
+ *   @license  https://github.com/yupe/yupe/blob/master/LICENSE BSD
+ *   @link     http://yupe.ru
  */
 ?>
 <?php
@@ -10,6 +16,15 @@ $label = $this->mb_ucfirst($this->mim);
 
 echo <<<EOF
 <?php
+/**
+ * Отображение для create:
+ *
+ *   @category YupeView
+ *   @package  YupeCMS
+ *   @author   Yupe Team <team@yupe.ru>
+ *   @license  https://github.com/yupe/yupe/blob/master/LICENSE BSD
+ *   @link     http://yupe.ru
+ **/
     \$this->breadcrumbs = array(
         Yii::app()->getModule('{$this->mid}')->getCategory() => array(),
         Yii::t('{$this->mid}', '{$label}') => array('/{$this->controller}/index'),
