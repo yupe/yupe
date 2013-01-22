@@ -25,7 +25,10 @@ class <?php echo $this->controllerClass; ?> extends <?php echo $this->baseContro
 {
     /**
      * Отображает <?php echo $this->vin; ?> по указанному идентификатору
+     *
      * @param integer $id Идинтификатор <?php echo $this->vin; ?> для отображения
+     *
+     * @return nothing
      */
     public function actionView($id)
     {
@@ -35,6 +38,8 @@ class <?php echo $this->controllerClass; ?> extends <?php echo $this->baseContro
     /**
      * Создает новую модель <?php echo $this->rod; ?>.
      * Если создание прошло успешно - перенаправляет на просмотр.
+     *
+     * @return nothing
      */
     public function actionCreate()
     {
@@ -43,12 +48,10 @@ class <?php echo $this->controllerClass; ?> extends <?php echo $this->baseContro
         // Uncomment the following line if AJAX validation is needed
         // $this->performAjaxValidation($model);
 
-        if (isset($_POST['<?php echo $this->modelClass; ?>']))
-        {
+        if (isset($_POST['<?php echo $this->modelClass; ?>'])) {
             $model->attributes = $_POST['<?php echo $this->modelClass; ?>'];
 
-            if ($model->save())
-            {
+            if ($model->save()) {
                 Yii::app()->user->setFlash(
                     YFlashMessages::NOTICE_MESSAGE,
                     Yii::t('<?php echo $this->mid;?>', 'Запись добавлена!')
@@ -65,7 +68,10 @@ class <?php echo $this->controllerClass; ?> extends <?php echo $this->baseContro
 
     /**
      * Редактирование <?php echo $this->rod; ?>.
+     *
      * @param integer $id Идинтификатор <?php echo $this->vin; ?> для редактирования
+     *
+     * @return nothing
      */
     public function actionUpdate($id)
     {
@@ -74,12 +80,10 @@ class <?php echo $this->controllerClass; ?> extends <?php echo $this->baseContro
         // Uncomment the following line if AJAX validation is needed
         // $this->performAjaxValidation($model);
 
-        if (isset($_POST['<?php echo  $this->modelClass; ?>']))
-        {
+        if (isset($_POST['<?php echo  $this->modelClass; ?>'])) {
             $model->attributes = $_POST['<?php echo  $this->modelClass; ?>'];
 
-            if ($model->save())
-            {
+            if ($model->save()) {
                 Yii::app()->user->setFlash(
                     YFlashMessages::NOTICE_MESSAGE,
                     Yii::t('<?php echo $this->mid; ?>', 'Запись обновлена!')
@@ -97,7 +101,10 @@ class <?php echo $this->controllerClass; ?> extends <?php echo $this->baseContro
     /**
      * Удаляет модель <?php echo $this->rod; ?> из базы.
      * Если удаление прошло успешно - возвращется в index
+     *
      * @param integer $id идентификатор <?php echo $this->rod; ?>, который нужно удалить
+     *
+     * @return nothing
      */
     public function actionDelete($id)
     {
@@ -121,6 +128,8 @@ class <?php echo $this->controllerClass; ?> extends <?php echo $this->baseContro
 
     /**
      * Управление <?php echo $this->mtvor; ?>.
+     *
+     * @return nothing
      */
     public function actionIndex()
     {
@@ -134,7 +143,10 @@ class <?php echo $this->controllerClass; ?> extends <?php echo $this->baseContro
     /**
      * Возвращает модель по указанному идентификатору
      * Если модель не будет найдена - возникнет HTTP-исключение.
+     *
      * @param integer идентификатор нужной модели
+     *
+     * @return nothing
      */
     public function loadModel($id)
     {
@@ -146,12 +158,14 @@ class <?php echo $this->controllerClass; ?> extends <?php echo $this->baseContro
 
     /**
      * Производит AJAX-валидацию
+     *
      * @param CModel модель, которую необходимо валидировать
+     *
+     * @return nothing
      */
     protected function performAjaxValidation($model)
     {
-        if (isset($_POST['ajax']) && $_POST['ajax'] === '<?php echo $this->class2id($this->modelClass); ?>-form')
-        {
+        if (isset($_POST['ajax']) && $_POST['ajax'] === '<?php echo $this->class2id($this->modelClass); ?>-form') {
             echo CActiveForm::validate($model);
             Yii::app()->end();
         }
