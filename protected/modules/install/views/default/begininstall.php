@@ -1,7 +1,7 @@
 <?php
 /**
  * Отображение для begininstall:
- * 
+ *
  *   @category YupeView
  *   @package  YupeCMS
  *   @author   Yupe Team <team@yupe.ru>
@@ -29,49 +29,45 @@ $this->widget(
     )
 ); ?>
 <script type="text/javascript">
-    <?php
-        // Выясним, какие модули нам нужно постараться поставить первыми
-        $morder = array('yupe' => 99999, 'user' => 99998);
-        /**
-         * @todo нужно подумать, как это исправить, на него ругается PSR
-         **/
-        foreach ($modules as $mid => $m) {
-            if (!empty($m->dependencies)) {
-                foreach ($m->dependencies as $d)
-                    $morder[$d] = isset($morder[$d]) ? ($morder[$d] + 1) : 1;
-            }
-        }
+<?php
+// Выясним, какие модули нам нужно постараться поставить первыми
+$morder = array('yupe' => 99999, 'user' => 99998);
 
-        /**
-         * @todo нужно подумать, как это исправить, на него ругается PSR
-         **/
-        // Отсортируем модули, чтобы по очереди ставились
-        uksort($modules, function ($a, $b) use ($morder)
-            {
-                return ((isset($morder[$a]) ? $morder[$a] : 0) < (isset($morder[$b]) ? $morder[$b] : 0));
-            }
-        );
+foreach ($modules as $mid => $m) {
+    if (!empty($m->dependencies)) {
+        foreach ($m->dependencies as $d)
+            $morder[$d] = isset($morder[$d]) ? ($morder[$d] + 1) : 1;
+    }
+}
 
-        echo "var total=" . count($modules) . ";\n var modules = {\n";
-        foreach ($modules as $m)
-            echo "'" . $m->id . "':{ installed:false, id:\"" . $m->id . "\", description: " . CJSON::encode($m->name) . ", icon:'" . $m->icon . "'},\n";
-        echo "\n};";
-    ?>
+// Отсортируем модули, чтобы по очереди ставились
+uksort(
+    $modules,
+    function ($a, $b) use ($morder) {
+        return ((isset($morder[$a]) ? $morder[$a] : 0) < (isset($morder[$b]) ? $morder[$b] : 0));
+    }
+);
 
-    function log(msg)
+echo "var total=" . count($modules) . ";\n var modules = {\n";
+foreach ($modules as $m)
+    echo "'" . $m->id . "':{ installed:false, id:\"" . $m->id . "\", description: " . CJSON::encode($m->name) . ", icon:'" . $m->icon . "'},\n";
+echo "\n};";
+?>
+
+    public function log(msg)
     {
         $("#log-content").append(msg.replace("\n", "<br/>"));
     }
 
     var ic = 1;
-    function setModuleProgress(installed, message)
+    public function setModuleProgress(installed, message)
     {
         $('div.bar').css('width', (total ? (installed * 100 / total) : 100) + "%");
         $('#msg').html(message);
         $('small#modstate').text(installed + " / " + total);
     }
 
-    function installNext()
+    public function installNext()
     {
         var ic = 0;
         $.each(modules, function(i,m) {
@@ -106,6 +102,7 @@ $this->widget(
                         $('div.buttons').slideDown();
                     }
                 });
+
                 return false;
             }
         });
