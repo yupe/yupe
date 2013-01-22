@@ -129,11 +129,6 @@ $this->widget('bootstrap.widgets.TbMenu', array(
     'items'       => $items,
     'htmlOptions' => array( 'style' => 'margin-bottom:0;' ),
 ));
-Yii::app()->clientScript->registerScript('fieldset', "
-    $('document').ready(function () {
-        $('.popover-help').popover({trigger : hover,'delay' : 500 });
-    });
-");
 
 echo CHtml::openTag("div", array( "class" => "tab-content", 'style' => 'background-color: whiteSmoke; padding: 5px; border-bottom: 1px solid #DDD; border-left: 1px solid #DDD; border-right: 1px solid #DDD;' ));
 foreach ($langs as $l)
