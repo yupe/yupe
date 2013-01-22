@@ -120,6 +120,23 @@ $form = $this->beginWidget(
                     'options' => array('closeChar' => 'X'),
                 )
             ); ?>
+            <?php
+            /**
+             * @todo Вот на это заменить, сам пока не совсем разобрался
+             **/
+            /*
+            $this->widget(
+                'bootstrap.widgets.TbSelect2', array(
+                    'asDropDownList' => false,
+                    'name'           => 'tags',
+                    'options'        => array(
+                            'tags'            => $model->getTags(),
+                            'placeholder'     => 'disciplines',
+                            'width'           => '40%',
+                            'tokenSeparators' => array(',', ' ')
+                    )
+                )
+            ); */ ?>
         </div>
     </div>
     <div class="row-fluid control-group <?php echo $model->hasErrors('keywords') ? 'error' : ''; ?>">

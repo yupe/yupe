@@ -32,6 +32,9 @@ $this->widget(
     <?php
         // Выясним, какие модули нам нужно постараться поставить первыми
         $morder = array('yupe' => 99999, 'user' => 99998);
+        /**
+         * @todo нужно подумать, как это исправить, на него ругается PSR
+         **/
         foreach ($modules as $mid => $m) {
             if (!empty($m->dependencies)) {
                 foreach ($m->dependencies as $d)
@@ -39,6 +42,9 @@ $this->widget(
             }
         }
 
+        /**
+         * @todo нужно подумать, как это исправить, на него ругается PSR
+         **/
         // Отсортируем модули, чтобы по очереди ставились
         uksort($modules, function ($a, $b) use ($morder)
             {
