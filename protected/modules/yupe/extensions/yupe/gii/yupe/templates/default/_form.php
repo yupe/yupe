@@ -2,25 +2,36 @@
 /**
  * The following variables are available in this template:
  * - $this: the BootCrudCode object
+ *
+ *   @category YupeGiiTemplate
+ *   @package  YupeCMS
+ *   @author   Yupe Team <team@yupe.ru>
+ *   @license  https://github.com/yupe/yupe/blob/master/LICENSE BSD
+ *   @link     http://yupe.ru
  */
 ?>
 <?php
 echo <<<EOF
 <?php
-\$form = \$this->beginWidget('bootstrap.widgets.TbActiveForm', array(
-    'id'                     => '{$this->class2id($this->modelClass)}-form',
-    'enableAjaxValidation'   => false,
-    'enableClientValidation' => true,
-    'type'                   => 'vertical',
-    'htmlOptions'            => array('class' => 'well'),
-    'inlineErrors'           => true,
-));
-
-Yii::app()->clientScript->registerScript('fieldset', "
-    \$('document').ready(function () {
-        \$('.popover-help').popover({ trigger : 'hover', delay : 500 });
-    });
-");
+/**
+ * Отображение для _form:
+ *
+ *   @category YupeView
+ *   @package  YupeCMS
+ *   @author   Yupe Team <team@yupe.ru>
+ *   @license  https://github.com/yupe/yupe/blob/master/LICENSE BSD
+ *   @link     http://yupe.ru
+ **/
+\$form = \$this->beginWidget(
+    'bootstrap.widgets.TbActiveForm', array(
+        'id'                     => '{$this->class2id($this->modelClass)}-form',
+        'enableAjaxValidation'   => false,
+        'enableClientValidation' => true,
+        'type'                   => 'vertical',
+        'htmlOptions'            => array('class' => 'well'),
+        'inlineErrors'           => true,
+    )
+);
 ?>\n
 EOF;
 ?>
@@ -34,8 +45,7 @@ EOF;
     <?php echo "<?php echo \$form->errorSummary(\$model); ?>\n"; ?>
 
 <?php
-foreach ($this->tableSchema->columns as $column)
-{
+foreach ($this->tableSchema->columns as $column) {
     if ($column->autoIncrement)
         continue;
 
@@ -50,16 +60,22 @@ EOF;
 
 <?php
 echo <<<EOF
-    <?php \$this->widget('bootstrap.widgets.TbButton', array(
-        'buttonType' => 'submit',
-        'type'       => 'primary',
-        'label'      => Yii::t('{$this->mid}', 'Сохранить {$this->vin} и закрыть'),
-    )); ?>
-   <?php \$this->widget('bootstrap.widgets.TbButton', array(
-        'buttonType' => 'submit',
-        'htmlOptions'=> array('name' => 'submit-type', 'value' => 'index'),
-        'label'      => Yii::t('{$this->mid}', 'Сохранить {$this->vin} и продолжить'),
-    )); ?>\n
+    <?php
+    \$this->widget(
+        'bootstrap.widgets.TbButton', array(
+            'buttonType' => 'submit',
+            'type'       => 'primary',
+            'label'      => Yii::t('{$this->mid}', 'Сохранить {$this->vin} и закрыть'),
+        )
+    ); ?>
+    <?php
+    \$this->widget(
+        'bootstrap.widgets.TbButton', array(
+            'buttonType' => 'submit',
+            'htmlOptions'=> array('name' => 'submit-type', 'value' => 'index'),
+            'label'      => Yii::t('{$this->mid}', 'Сохранить {$this->vin} и продолжить'),
+        )
+    ); ?>\n
 EOF;
 ?>
 
