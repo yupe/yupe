@@ -1,3 +1,14 @@
+<?php
+/**
+ * Отображение для finish:
+ * 
+ *   @category YupeView
+ *   @package  YupeCMS
+ *   @author   Yupe Team <team@yupe.ru>
+ *   @license  https://github.com/yupe/yupe/blob/master/LICENSE BSD
+ *   @link     http://yupe.ru
+ **/
+?>
 <h1><?php echo Yii::t('InstallModule.install', 'Поздравляем, установка Юпи! завершена!'); ?></h1>
 
 <p><?php echo Yii::t('InstallModule.install', 'Ваш сайт готов к работе!'); ?></p>
@@ -10,7 +21,7 @@
 
 <?php echo CHtml::link(Yii::t('InstallModule.install', 'ПЕРЕЙТИ НА САЙТ'), array('/site/index')); ?>
 
-<?php echo Yii::t('InstallModule.install','или');?>
+<?php echo Yii::t('InstallModule.install', 'или');?>
 
 <?php echo CHtml::link(Yii::t('InstallModule.install', 'ПЕРЕЙТИ В ПАНЕЛЬ УПРАВЛЕНИЯ'), array('/yupe/backend/index')); ?>
 

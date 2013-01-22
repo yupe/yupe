@@ -1,9 +1,9 @@
 <?php
 /**
- * Отображение для BlogAdmin/index:
+ * Отображение для blogAdmin/index:
  * 
- *   @category View
- *   @package  Yupe
+ *   @category YupeView
+ *   @package  YupeCMS
  *   @author   Yupe Team <team@yupe.ru>
  *   @license  https://github.com/yupe/yupe/blob/master/LICENSE BSD
  *   @link     http://yupe.ru
