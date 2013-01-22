@@ -518,7 +518,7 @@ abstract class YWebModule extends CWebModule
 
         parent::init();
 
-        $uploadController    = '/yupe/backend/AjaxFileUpload';
+        $uploadController    = str_replace('/' . basename($_SERVER['SCRIPT_NAME']), '', $_SERVER['PATH_INFO']) . '/yupe/backend/AjaxFileUpload';
         $this->editorOptions =  array(
             'imageUpload' => $uploadController,
             'fileUpload'  => $uploadController,
