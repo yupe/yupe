@@ -5,6 +5,12 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title><?php echo CHtml::encode(Yii::app()->name); ?> <?php echo CHtml::encode($this->pageTitle); ?></title>
     <?php Yii::app()->clientScript->registerCssFile($this->yupe->themeBaseUrl . '/css/styles.css'); ?>
+    <?php
+    Yii::app()->clientScript->registerScriptFile(
+        Yii::app()->assetManager->publish(
+            Yii::getPathOfAlias('application.modules.yupe.views.assets.js') . '/main.js'
+        )
+    ); ?>
     <?php if (($langs = $this->yupe->languageSelectorArray) != array()) : ?>
         <?php Yii::app()->clientScript->registerCssFile($this->yupe->themeBaseUrl . '/css/flags.css'); ?>
     <?php endif; ?>
