@@ -50,14 +50,7 @@ $form = $this->beginWidget('bootstrap.widgets.TbActiveForm', array(
     'type'                   => 'vertical',
     'htmlOptions'            => array('class' => 'well'),
     'inlineErrors'           => true,
-));
-
-Yii::app()->clientScript->registerScript('fieldset', "
-    $('document').ready(function () {
-        $('.popover-help').popover({ trigger : 'hover', delay : 500 });
-    });
-");
-?>
+)); ?>
     <?php echo $form->errorSummary($changePasswordForm); ?>
 
     <div class="row-fluid control-group <?php echo $model->hasErrors('password') ? 'error' : ''; ?>"> 
