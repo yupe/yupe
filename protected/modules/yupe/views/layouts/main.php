@@ -4,9 +4,9 @@
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title><?php echo CHtml::encode(Yii::app()->name); ?> <?php echo CHtml::encode($this->pageTitle); ?></title>
-    <link rel="stylesheet" type="text/css"  href="<?php echo $this->yupe->themeBaseUrl; ?>/css/styles.css"/>
+    <?php Yii::app()->clientScript->registerCssFile($this->yupe->themeBaseUrl . '/css/styles.css'); ?>
     <?php if (($langs = $this->yupe->languageSelectorArray) != array()): ?>
-        <link rel="stylesheet" type="text/css"  href="<?php echo $this->yupe->themeBaseUrl; ?>/css/flags.css"/>
+        <?php Yii::app()->clientScript->registerCssFile($this->yupe->themeBaseUrl . '/css/flags.css'); ?>
     <?php endif; ?>
 </head>
 
