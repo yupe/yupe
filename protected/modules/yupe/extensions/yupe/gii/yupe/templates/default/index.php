@@ -2,6 +2,12 @@
 /**
  * The following variables are available in this template:
  * - $this: the BootCrudCode object
+ *
+ *   @category YupeGiiTemplate
+ *   @package  YupeCMS
+ *   @author   Yupe Team <team@yupe.ru>
+ *   @license  https://github.com/yupe/yupe/blob/master/LICENSE BSD
+ *   @link     http://yupe.ru
  */
 ?>
 <?php
@@ -9,6 +15,15 @@ $label = $this->mb_ucfirst($this->mim);
 
 echo <<<EOF
 <?php
+/**
+ * Отображение для index:
+ *
+ *   @category YupeView
+ *   @package  YupeCMS
+ *   @author   Yupe Team <team@yupe.ru>
+ *   @license  https://github.com/yupe/yupe/blob/master/LICENSE BSD
+ *   @link     http://yupe.ru
+ **/
     \$this->breadcrumbs = array(
         Yii::app()->getModule('{$this->mid}')->getCategory() => array(),
         Yii::t('{$this->mid}', '{$label}') => array('/{$this->controller}/index'),
@@ -67,8 +82,7 @@ EOF;
     'columns'      => array(
 <?php
 $count = 0;
-foreach ($this->tableSchema->columns as $column)
-{
+foreach ($this->tableSchema->columns as $column) {
     if(++$count == 7)
         echo "        /*\n";
     echo "        '" . $column->name . "',\n";
