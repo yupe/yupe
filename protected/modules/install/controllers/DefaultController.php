@@ -645,6 +645,13 @@ class DefaultController extends YBackController
         }
 
         if ((isset($this->session['InstallForm']['moduleToInstall'])) && ($this->session['InstallForm']['modulesInstallStep'] === true) && ($_POST = $this->session['InstallForm']['moduleToInstall'])) {
+            $this->session['InstallForm'] = array_merge(
+                $this->session['InstallForm'], array(
+                    'moduleToInstall'    => $_POST,
+                    'modulesInstallStep' => false,
+                )
+            );
+            $this->_setSession();
             $modulesByName = $toInstall = array();
 
             foreach ($modules as &$m) {
