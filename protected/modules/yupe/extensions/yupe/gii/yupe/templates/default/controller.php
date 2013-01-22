@@ -15,7 +15,7 @@
 /**
  * Класс <?php echo $this->controllerClass; ?>:
  *
- *   @category Yupe<?php echo $this->baseControllerClass; ?>
+ *   @category Yupe<?php echo $this->baseControllerClass . "\n"; ?>
  *   @package  YupeCMS
  *   @author   Yupe Team <team@yupe.ru>
  *   @license  https://github.com/yupe/yupe/blob/master/LICENSE BSD
