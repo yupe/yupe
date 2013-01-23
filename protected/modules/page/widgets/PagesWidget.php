@@ -3,7 +3,7 @@ class PagesWidget extends YWidget
 {
     public $pageStatus;
     public $topLevelOnly = false;
-    public $order        = 'order ASC, creation_date ASC';
+    public $order        = 't.order ASC, t.creation_date ASC';
     public $parent_id;
     public $view;
     public $visible = true;

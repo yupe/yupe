@@ -1,7 +1,6 @@
 *.log
 *.bin
 *.settings
-*.ai
 .project
 *db.php
 uploads/
@@ -12,5 +11,4 @@ uploads/
 *.properties
 nbproject/
 /.idea/
-.ai
 protected/config/db.php

@@ -2,7 +2,7 @@
 /**
  * Add category relations to feedback
  */
-class m130115_155600_page_base extends CDbMigration
+class m130115_155600_columns_rename extends CDbMigration
 {
     public function safeUp()
     {

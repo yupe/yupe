@@ -46,16 +46,6 @@ $form = $this->beginWidget('bootstrap.widgets.TbActiveForm', array(
         <?php endif; ?>
         <?php echo $form->fileFieldRow($model, 'image', array('class' => 'span4 popover-help', 'size' => 60, 'maxlength' => 300, 'data-original-title' => $model->getAttributeLabel('image'), 'data-content' => $model->getAttributeDescription('image'))); ?>
     </div>
-    <div class="row-fluid control-group <?php echo $model->hasErrors('short_description') ? 'error' : ''; ?>">
-        <div class="popover-help" data-original-title='<?php echo $model->getAttributeLabel('short_description'); ?>' data-content='<?php echo $model->getAttributeDescription('short_description'); ?>'>
-            <?php echo $form->labelEx($model, 'short_description'); ?>
-            <?php $this->widget($this->module->editor, array(
-                'model'       => $model,
-                'attribute'   => 'short_description',
-                'options'     => $this->module->editorOptions,
-            )); ?>
-         </div>
-    </div>
     <div class="row-fluid control-group <?php echo $model->hasErrors('description') ? 'error' : ''; ?>">
         <div class="popover-help" data-original-title='<?php echo $model->getAttributeLabel('description'); ?>' data-content='<?php echo $model->getAttributeDescription('description'); ?>'>
             <?php echo $form->labelEx($model, 'description'); ?>
@@ -65,6 +55,16 @@ $form = $this->beginWidget('bootstrap.widgets.TbActiveForm', array(
                 'options'     => $this->module->editorOptions,
             )); ?>
          </div>
+    </div>
+    <div class="row-fluid control-group <?php echo $model->hasErrors('short_description') ? 'error' : ''; ?>">
+        <div class="popover-help" data-original-title='<?php echo $model->getAttributeLabel('short_description'); ?>' data-content='<?php echo $model->getAttributeDescription('short_description'); ?>'>
+            <?php echo $form->labelEx($model, 'short_description'); ?>
+            <?php $this->widget($this->module->editor, array(
+            'model'       => $model,
+            'attribute'   => 'short_description',
+            'options'     => $this->module->editorOptions,
+        )); ?>
+        </div>
     </div>
     <div class="row-fluid control-group <?php echo $model->hasErrors('data') ? 'error' : ''; ?>">
         <div class="popover-help" data-original-title='<?php echo $model->getAttributeLabel('data'); ?>' data-content='<?php echo $model->getAttributeDescription('data'); ?>'>

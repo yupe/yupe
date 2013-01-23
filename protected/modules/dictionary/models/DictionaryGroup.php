@@ -45,7 +45,7 @@ class DictionaryGroup extends YModel
         // NOTE: you should only define rules for those attributes that
         // will receive user inputs.
         return array(
-            array('code', 'required'),
+            array('code, name', 'required'),
             array('code', 'length', 'max' => 50),
             array('name', 'length', 'max' => 150),
             array('description', 'length', 'max' => 300),

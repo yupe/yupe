@@ -440,6 +440,24 @@ abstract class YWebModule extends CWebModule
         return true;
     }
 
+    public function getIsInstalled()
+    {
+        $modulesInstalled = Yii::app()->cache->get('YupeModulesInstalled');
+        if ($modulesInstalled === false) {
+            $modulesInstalled = Yii::app()->migrator->modulesWithDBInstalled;
+            Yii::app()->cache->set('YupeModulesInstalled', $modulesInstalled, Yii::app()->getModule('yupe')->coreCacheTime);
+        }
+
+        $upd= Yii::app()->cache->get('YupeModuleUpdates_'.$this->id);
+        if ($upd === false) {
+            $upd = Yii::app()->migrator->checkForUpdates(array($this->id => $this));
+            Yii::app()->cache->set('YupeModuleUpdates_'.$this->id, $upd, Yii::app()->getModule('yupe')->coreCacheTime);
+        }
+
+        return in_array($this->id, $modulesInstalled)|| !count($upd);
+
+    }
+
     /**
      *  @return array для многих параметров модуля необходимо вывести варианты выбора да или нет - метод-хелпер именно для этого
      */
