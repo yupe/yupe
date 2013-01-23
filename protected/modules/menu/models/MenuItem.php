@@ -54,7 +54,7 @@ class MenuItem extends YModel
         // NOTE: you should only define rules for those attributes that
         // will receive user inputs.
         return array(
-            array('parent_id, menu_id, title', 'required', 'except' => 'search'),
+            array('parent_id, menu_id, title, href', 'required', 'except' => 'search'),
             array('sort, status, condition_denial', 'numerical', 'integerOnly' => true),
             array('parent_id, menu_id, rel, target', 'length', 'max' => 10),
             array('title, href, condition_name, title_attr, before_link, after_link', 'length', 'max' => 255),

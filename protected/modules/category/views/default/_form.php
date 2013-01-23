@@ -9,14 +9,14 @@ $form = $this->beginWidget('bootstrap.widgets.TbActiveForm', array(
 )); ?>
     <div class="alert alert-info">
         <?php echo Yii::t('CategoryModule.category', 'Поля, отмеченные'); ?>
-        <span class="required">*</span> 
+        <span class="required">*</span>
         <?php echo Yii::t('CategoryModule.category', 'обязательны.'); ?>
     </div>
 
     <?php echo  $form->errorSummary($model); ?>
 
     <div class='row-fluid control-group <?php echo $model->hasErrors("parent_id") ? "error" : ""; ?>'>
-        <?php echo  $form->dropDownList($model, 'parent_id', CHtml::listData(Category::model()->findAll(), 'id', 'name'), array('empty' => Yii::t('CategoryModule.category', '--нет--'))); ?>
+        <?php echo  $form->dropDownListRow($model, 'parent_id', CHtml::listData(Category::model()->findAll(), 'id', 'name'), array('empty' => Yii::t('CategoryModule.category', '--нет--'),'class' => 'span7')); ?>
     </div>
     <div class='control-group <?php echo $model->hasErrors("name") ? "error" : ""; ?>'>
         <?php echo $form->textFieldRow($model, 'name', array('class' => 'span7', 'maxlength' => 300)); ?>
@@ -49,7 +49,7 @@ $form = $this->beginWidget('bootstrap.widgets.TbActiveForm', array(
         <br /><?php echo $form->error($model, 'short_description'); ?>
     </div>
     <div class='row-fluid control-group <?php echo $model->hasErrors("status") ? "error" : ""; ?>'>
-        <?php echo  $form->dropDownList($model, 'status', $model->statusList); ?>
+        <?php echo  $form->dropDownListRow($model, 'status', $model->statusList,array('class' => 'span7')); ?>
     </div>
 
     <?php $this->widget('bootstrap.widgets.TbButton', array(

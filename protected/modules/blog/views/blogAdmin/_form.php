@@ -53,7 +53,7 @@ $form = $this->beginWidget(
             <?php echo $form->textFieldRow($model, 'slug', array('class' => 'popover-help span7', 'maxlength' => 150, 'size' => 60, 'data-original-title' => $model->getAttributeLabel('slug'), 'data-content' => $model->getAttributeDescription('slug'))); ?>
     </div>
     <div class="row-fluid control-group <?php echo $model->hasErrors('icon') ? 'error' : ''; ?>">
-            <?php echo $form->textFieldRow($model, 'icon', array('class' => 'popover-help span7', 'maxlength' => 300, 'size' => 60, 'data-original-title' => $model->getAttributeLabel('icon'), 'data-content' => $model->getAttributeDescription('icon'))); ?>
+            <?php echo $form->fileFieldRow($model, 'icon', array('class' => 'popover-help span7', 'maxlength' => 300, 'size' => 60, 'data-original-title' => $model->getAttributeLabel('icon'), 'data-content' => $model->getAttributeDescription('icon'))); ?>
     </div>
     <div class="row-fluid control-group <?php echo $model->hasErrors('description') ? 'error' : ''; ?>">
         <div class="popover-help" data-original-title='<?php echo $model->getAttributeLabel('description'); ?>' data-content='<?php echo $model->getAttributeDescription('description'); ?>'>

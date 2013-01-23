@@ -139,12 +139,28 @@ $form = $this->beginWidget(
             ); */ ?>
         </div>
     </div>
-    <div class="row-fluid control-group <?php echo $model->hasErrors('keywords') ? 'error' : ''; ?>">
-        <?php echo $form->textFieldRow($model, 'keywords', array('class' => 'span7 popover-help', 'maxlength' => 150, 'size' => 60, 'data-original-title' => $model->getAttributeLabel('keywords'), 'data-content' => $model->getAttributeDescription('keywords'))); ?>
+
+    <?php $collapse = $this->beginWidget('bootstrap.widgets.TbCollapse');?>
+    <div class="accordion-group">
+        <div class="accordion-heading">
+            <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion2" href="#collapseOne">
+                <?php echo Yii::t('BlogModule.blog','Данные для поисковой оптимизации');?>
+            </a>
+        </div>
+        <div id="collapseOne" class="accordion-body collapse">
+            <div class="accordion-inner">
+                <div class="row-fluid control-group <?php echo $model->hasErrors('keywords') ? 'error' : ''; ?>">
+                    <?php echo $form->textFieldRow($model, 'keywords', array('size' => 60, 'maxlength' => 150, 'class' => 'span7 popover-help', 'data-original-title' => $model->getAttributeLabel('keywords'), 'data-content' => $model->getAttributeDescription('keywords'))); ?>
+                </div>
+                <div class="row-fluid control-group <?php echo $model->hasErrors('description') ? 'error' : ''; ?>">
+                    <?php echo $form->textAreaRow($model, 'description', array('rows' => 3, 'cols' => 98, 'class' => 'span7 popover-help', 'data-original-title' => $model->getAttributeLabel('description'), 'data-content' => $model->getAttributeDescription('description'))); ?>
+                </div>
+            </div>
+        </div>
     </div>
-    <div class="row-fluid control-group <?php echo $model->hasErrors('description') ? 'error' : ''; ?>">
-        <?php echo $form->textAreaRow($model, 'description', array('class' => 'span7 popover-help', 'rows' => 6, 'cols' => 50, 'data-original-title' => $model->getAttributeLabel('description'), 'data-content' => $model->getAttributeDescription('description'))); ?>
-    </div>
+    <?php $this->endWidget();?>
+
+    <br/>
 
     <?php
     $this->widget(
