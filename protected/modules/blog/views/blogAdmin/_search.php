@@ -21,7 +21,7 @@ $form = $this->beginWidget(
 
     <fieldset class="inline">
         <div class="wide row-fluid control-group">
-            <div class="span1">
+            <div class="span3">
                 <?php echo $form->textFieldRow($model, 'id', array('class' => 'popover-help', 'maxlength' => 10, 'size' => 60, 'data-original-title' => $model->getAttributeLabel('id'), 'data-content' => $model->getAttributeDescription('id'))); ?>
             </div>
             <div class="span3">
@@ -32,7 +32,7 @@ $form = $this->beginWidget(
             </div>
         </div>
         <div class="wide row-fluid control-group">
-            <div class="span4">
+            <div class="span3">
                 <?php echo $form->dropDownListRow($model, 'type', $model->getTypeList(), array('class' => 'popover-help', 'data-original-title' => $model->getAttributeLabel('type'), 'data-content' => $model->getAttributeDescription('type'))); ?>
             </div>
             <div class="span3">
