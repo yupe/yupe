@@ -517,11 +517,19 @@ abstract class YWebModule extends CWebModule
         }
 
         parent::init();
+    }
 
-        $uploadController    = str_replace('/' . basename($_SERVER['SCRIPT_NAME']), '', $_SERVER['SCRIPT_NAME']) . '/yupe/backend/AjaxFileUpload';
-        $this->editorOptions =  array(
-            'imageUpload' => $uploadController,
-            'fileUpload'  => $uploadController,
-        );
+    public function beforeControllerAction($controller, $action)
+    {
+        if(parent::beforeControllerAction($controller, $action))
+        {
+            $uploadController    = Yii::app()->request->baseUrl . '/yupe/backend/AjaxFileUpload';
+            $this->editorOptions =  array(
+                'imageUpload' => $uploadController,
+                'fileUpload'  => $uploadController,
+            );
+            return true;
+        }
+        return false;
     }
 }
