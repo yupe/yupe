@@ -39,6 +39,11 @@ class PageModule extends YWebModule
     {
         return Yii::t('PageModule.page', 'Контент');
     }
+    
+    public function getCategoryType()
+    {
+    	return Yii::t('PageModule.page', 'content');
+    }
 
     public function getName()
     {
@@ -106,8 +111,8 @@ class PageModule extends YWebModule
     public function getNavigation()
     {
         return array(
-            array('icon' => 'list-alt', 'label' => Yii::t('PageModule.page', 'Управление страницами'), 'url' => array('/page/default/index')),
-            array('icon' => 'plus-sign', 'label' => Yii::t('PageModule.page', 'Добавить страницу'), 'url' => array('/page/default/create')),
+            array('icon' => 'list-alt', 'label' => Yii::t('PageModule.page', 'Управление страницами'), 'url' => array('/page/defaultAdmin/index')),
+            array('icon' => 'plus-sign', 'label' => Yii::t('PageModule.page', 'Добавить страницу'), 'url' => array('/page/defaultAdmin/create')),
         );
     }
 }

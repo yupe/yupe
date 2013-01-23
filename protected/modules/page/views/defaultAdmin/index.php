@@ -1,15 +1,16 @@
 <?php
     $this->breadcrumbs = array(
-        Yii::app()->getModule('page')->getCategory() => array(),
-        Yii::t('PageModule.page', 'Страницы') => array('/page/default/index'),
-        Yii::t('PageModule.page', 'Управление'),
+        $this->module->getCategory() => array('/yupe/backend/index', 'category' => $this->module->getCategoryType()),
+        Yii::t('PageModule.page', 'Страницы'),
     );
 
     $this->pageTitle = Yii::t('PageModule.page', 'Управление страницами');
 
     $this->menu = array(
-        array('icon' => 'list-alt', 'label' => Yii::t('PageModule.page', 'Управление страницами'), 'url' => array('/page/default/index')),
-        array('icon' => 'plus-sign', 'label' => Yii::t('PageModule.page', 'Добавить страницу'), 'url' => array('/page/default/create')),
+        array('label' => Yii::t('PageModule.page', 'Страницы'), 'items' => array(   
+            array('icon' => 'list-alt', 'label' => Yii::t('PageModule.page', 'Управление страницами'), 'url' => array('/page/defaultAdmin/index')),
+            array('icon' => 'plus-sign', 'label' => Yii::t('PageModule.page', 'Добавить страницу'), 'url' => array('/page/defaultAdmin/create')),
+        ))
     );
 ?>
 <div class="page-header">
@@ -55,7 +56,7 @@ $this->renderPartial('_search', array('model' => $model, 'pages' => $pages));
         array(
             'name'  => 'name',
             'type'  => 'raw',
-            'value' => 'CHtml::link($data->name, array("/page/default/update", "slug" => $data->slug))',
+            'value' => 'CHtml::link($data->name, array("/page/defaultAdmin/update", "slug" => $data->slug))',
         ),
         array(
             'name'  => 'category_id',
@@ -71,7 +72,7 @@ $this->renderPartial('_search', array('model' => $model, 'pages' => $pages));
         ),
         array(
             'header' => Yii::t('PageModule.page', 'Публичный урл'),
-            'value'  => 'Yii::app()->createAbsoluteUrl("/page/page/show", array("slug" => $data->slug))',
+            'value'  => 'Yii::app()->createAbsoluteUrl("/page/default/show", array("slug" => $data->slug))',
         ),
         array(
             'name'  => 'menu_order',

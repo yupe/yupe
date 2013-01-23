@@ -9,6 +9,6 @@ return array(
     ),
     'component' => array(),
     'rules'     => array(
-        '/pages/<slug>' => 'page/page/show',
+        '/pages/<slug>' => 'page/default/show',
     ),
 );
