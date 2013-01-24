@@ -1,7 +1,7 @@
 <div class="form">
 
     <?php $form = $this->beginWidget('CActiveForm', array(
-         'action' => $this->controller->createUrl('/comment/comment/add'),
+         'action' => $this->controller->createUrl('/comment/default/add'),
          'id' => 'comment-form',
          'enableClientValidation' => true,
     )); ?>
@@ -57,7 +57,7 @@
             <?php echo $form->labelEx($model, 'verifyCode'); ?>
             <div>
                 <?php $this->widget('CCaptcha', array(                    
-                    'captchaAction'  => '/comment/comment/captcha',           
+                    'captchaAction'  => '/comment/default/captcha',           
                     'showRefreshButton' => false,
                     'clickableImage'    => true,         
                 )); ?>

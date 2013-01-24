@@ -7,7 +7,7 @@
                 <?php if ($comment->url): ?>
                 <a href="<?php echo $comment->url;?>">
                     <?php if($author = $comment->getAuthor()):?>
-                        <?php echo CHtml::link($comment->name,array('/user/people/userinfo/','username' => $author->nick_name));?>
+                        <?php echo CHtml::link($comment->name,array('/user/default/userinfo/','username' => $author->nick_name));?>
                     <?php else:?>
                         <?php echo $comment->name;?>
                     <?php endif;?>
@@ -15,7 +15,7 @@
                 написал:
                 <?php else: ?>
                 <?php if($author = $comment->getAuthor()):?>
-                    <?php echo CHtml::link($comment->name,array('/user/people/userInfo/','username' => $author->nick_name));?>
+                    <?php echo CHtml::link($comment->name,array('/user/default/userInfo/','username' => $author->nick_name));?>
                     <?php else:?>
                     <?php echo $comment->name;?>
                     <?php endif;?> написал:
