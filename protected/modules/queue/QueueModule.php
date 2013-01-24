@@ -11,6 +11,11 @@ class QueueModule extends YWebModule
     {
         return Yii::t('QueueModule.queue', 'Сервисы');
     }
+    
+    public function getCategoryType()
+    {
+    	return Yii::t('QueueModule.queue', 'services');
+    }
 
     public function getName()
     {
@@ -42,11 +47,6 @@ class QueueModule extends YWebModule
         return 'tasks';
     }
 
-    public function getAdminPageLink()
-    {
-        return '/queue/default/index';
-    }
-
     public function init()
     {
         $this->setImport(array(
@@ -60,9 +60,9 @@ class QueueModule extends YWebModule
     public function getNavigation()
     {
         return array(
-            array('icon' => 'list-alt', 'label' => Yii::t('QueueModule.queue', 'Список заданий'), 'url' => array('/queue/default/index')),
-            array('icon' => 'plus-sign', 'label' => Yii::t('QueueModule.queue', 'Добавить задание'), 'url' => array('/queue/default/create')),
-            array('icon' => 'trash', 'label' => Yii::t('QueueModule.queue', 'Очистить очередь'), 'url' => array('/queue/default/clear')),
+            array('icon' => 'list-alt', 'label' => Yii::t('QueueModule.queue', 'Список заданий'), 'url' => array('/queue/defaultAdmin/index')),
+            array('icon' => 'plus-sign', 'label' => Yii::t('QueueModule.queue', 'Добавить задание'), 'url' => array('/queue/defaultAdmin/create')),
+            array('icon' => 'trash', 'label' => Yii::t('QueueModule.queue', 'Очистить очередь'), 'url' => array('/queue/defaultAdmin/clear')),
         );
     }
 }

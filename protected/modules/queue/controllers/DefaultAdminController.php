@@ -1,6 +1,6 @@
 <?php
 
-class DefaultController extends YBackController
+class DefaultAdminController extends YBackController
 {
     /**
      * Отображает задание по указанному идентификатору

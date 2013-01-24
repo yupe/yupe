@@ -1,15 +1,16 @@
 <?php
     $this->breadcrumbs = array(
-        Yii::app()->getModule('queue')->getCategory() => array(),
-        Yii::t('QueueModule.queue', 'Задания') => array('/queue/default/index'),
-        Yii::t('QueueModule.queue', 'Управление'),
+        $this->module->getCategory()           => array('/yupe/backend/index', 'category' => $this->module->getCategoryType()),
+        Yii::t('QueueModule.queue', 'Задания'),
     );
 
     $this->pageTitle = Yii::t('QueueModule.queue', 'Задания - управление');
 
     $this->menu = array(
-        array('icon' => 'list-alt', 'label' => Yii::t('QueueModule.queue', 'Список заданий'), 'url' => array('/queue/default/index')),
-        array('icon' => 'plus-sign', 'label' =>  Yii::t('QueueModule.queue', 'Добавление задания'), 'url' => array('/queue/default/create')),
+        array('label' => Yii::t('QueueModule.queue', 'Задания'), 'items' => array(
+            array('icon' => 'list-alt', 'label' => Yii::t('QueueModule.queue', 'Список заданий'), 'url' => array('/queue/defaultAdmin/index')),
+            array('icon' => 'plus-sign', 'label' =>  Yii::t('QueueModule.queue', 'Добавление задания'), 'url' => array('/queue/defaultAdmin/create')),
+        ))
     );
 ?>
 <div class="page-header">
