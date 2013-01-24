@@ -62,7 +62,7 @@ $form = $this->beginWidget(
                     'append'  =>'<i class="icon-time" style="cursor:pointer"></i>',
                     'options' => array(
                         'showMeridian' => false,
-                        'showSeconds'  => true,
+                        'showSeconds'  => false,
                         'defaultTime'  => 'current',
                         'showInputs'   => true,
                     ),
@@ -72,7 +72,7 @@ $form = $this->beginWidget(
         </div>
     </div>
     <div class="row-fluid control-group <?php echo $model->hasErrors('blog_id') ? 'error' : ''; ?>">
-        <?php echo $form->dropDownListRow($model, 'blog_id', CHtml::listData(Blog::model()->findAll(), 'id', 'name'), array('empty'=>Yii::t('BlogModule.blog', 'выберите блог'), 'class' => 'span7 popover-help', 'data-original-title' => $model->getAttributeLabel('blog_id'), 'data-content' => $model->getAttributeDescription('blog_id'))); ?>
+        <?php echo $form->dropDownListRow($model, 'blog_id', CHtml::listData(Blog::model()->findAll(), 'id', 'name'), array('empty'=>Yii::t('BlogModule.blog', '--выберите блог--'), 'class' => 'span7 popover-help', 'data-original-title' => $model->getAttributeLabel('blog_id'), 'data-content' => $model->getAttributeDescription('blog_id'))); ?>
     </div>
     <div class="row-fluid control-group <?php echo $model->hasErrors('title') ? 'error' : ''; ?>">
         <?php echo $form->textFieldRow($model, 'title', array('class' => 'span7 popover-help', 'maxlength' => 150, 'size' => 60, 'data-original-title' => $model->getAttributeLabel('title'), 'data-content' => $model->getAttributeDescription('title'))); ?>
@@ -109,34 +109,30 @@ $form = $this->beginWidget(
             ); ?>
         </div>
     </div>
+        <script type="text/javascript">
+            $(document).ready(function(){
+
+                $("#tags").select2({tags:["red", "green", "blue"]});
+            });
+        </script>
     <div class="row-fluid control-group <?php echo $model->hasErrors('link') ? 'error' : ''; ?>">
         <div class="popover-help" data-original-title='<?php echo $model->getAttributeLabel('tags'); ?>' data-content='<?php echo $model->getAttributeDescription('tags'); ?>'>
             <?php echo $form->labelEx($model, 'tags'); ?>
+
             <?php
-            $this->widget(
-                'application.modules.blog.extensions.ETagger.ETagger', array(
-                    'name' => 'tags',
-                    'keywords' => $model->getTags(),
-                    'options' => array('closeChar' => 'X'),
-                )
-            ); ?>
-            <?php
-            /**
-             * @todo Вот на это заменить, сам пока не совсем разобрался
-             **/
-            /*
+
             $this->widget(
                 'bootstrap.widgets.TbSelect2', array(
                     'asDropDownList' => false,
                     'name'           => 'tags',
                     'options'        => array(
-                            'tags'            => $model->getTags(),
-                            'placeholder'     => 'disciplines',
+                            'tags'            => $model->isNewRecord ? array_values(CHtml::listData(Tag::model()->findAll(),'id','name')) : $model->getTags(),
+                            'placeholder'     => Yii::t('BlogModule.blog','теги'),
                             'width'           => '40%',
                             'tokenSeparators' => array(',', ' ')
                     )
                 )
-            ); */ ?>
+            ); ?>
         </div>
     </div>
 
