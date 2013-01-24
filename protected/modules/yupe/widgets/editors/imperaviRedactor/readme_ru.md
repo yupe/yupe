@@ -22,17 +22,18 @@ Yii::import('ext.imperavi-redactor-widget.ImperaviRedactorWidget');
 ```php
 $this->widget('ImperaviRedactorWidget', array(
 	// можно использовать пару имя модели - имя свойства
-	'model'=>$my_model,
-	'attribute'=>'my_field',
+	'model' => $my_model,
+	'attribute' => 'my_field',
 
 	// или только имя поля ввода
-	'name'=>'my_input_name',
+	'name' => 'my_input_name',
 
 	// немного опций, см. http://imperavi.com/redactor/docs/
-	'options'=>array(
-		'lang'=>'en',
-		'toolbar'=>'mini',
-		'css'=>'wym.css',
+	'options' => array(
+		'lang' => 'ru',
+		'toolbar' => false,
+		'iframe' => true,
+		'css' => 'wym.css',
 	),
 ));
 ```
@@ -40,10 +41,36 @@ $this->widget('ImperaviRedactorWidget', array(
 Также можно подключить Redactor к уже существующим на странице элементам:
 
 ```php
-$this->widget('ImperaviRedactorWidget',array(
+$this->widget('ImperaviRedactorWidget', array(
 	// селектор для textarea
-	'selector'=>'.redactor',
+	'selector' => '.redactor',
 	// немного опций, см. http://imperavi.com/redactor/docs/
-	'options'=>array(),
+	'options' => array(),
+));
+```
+
+Плагины редактора подключаются при помощи пакетов с ресурсами.
+
+```php
+$this->widget('ImperaviRedactorWidget', array(
+	'selector' => '.redactor',
+	'options' => array(
+		'lang' => 'ru',
+	),
+	'plugins' => array(
+		'fullscreen' => array(
+			'js' => array('fullscreen.js',),
+		),
+		'clips' => array(
+			// Можно указать путь для публикации
+			'basePath' => 'application.components.imperavi.my_plugin',
+			// или ссылку на ресурсы плагина, в этом случае basePath игнорирутеся
+			'baseUrl' => '/js/my_plugin',
+			'css' => array('clips.css',),
+			'js' => array('clips.js',),
+			// можно также указывать зависимости
+			'depends' => array('imperavi-redactor',),
+		),
+	),
 ));
 ```

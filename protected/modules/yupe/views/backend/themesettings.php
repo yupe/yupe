@@ -8,12 +8,11 @@ $this->breadcrumbs = array(
 
 <h1><?php echo Yii::t('YupeModule.yupe', 'Выбор темы оформления');?></h1>
 
-<p>
-<?php echo Yii::t('YupeModule.yupe', 'Текущая тема'); ?>: <b><?php echo $theme; ?></b>,
-<?php echo Yii::t('YupeModule.yupe', 'Текущая тема административной части'); ?>: <b><?php echo $backendTheme; ?></b>
-</p>
-
-<p><?php echo CHtml::link(Yii::t('YupeModule.yupe', 'Подробнее про темы оформления'),'http://yiiframework.ru/doc/guide/ru/topics.theming');?></p>
+<div class="alert alert-block alert-info">
+    <?php echo Yii::t('YupeModule.yupe', 'Текущая тема'); ?>: <b><?php echo $theme; ?></b>,
+    <?php echo Yii::t('YupeModule.yupe', 'Текущая тема административной части'); ?>: <b><?php echo $backendTheme; ?></b>
+    <p><?php echo CHtml::link(Yii::t('YupeModule.yupe', 'Подробнее про темы оформления'),'http://yiiframework.ru/doc/guide/ru/topics.theming',array('target' => '_blank'));?></p>
+</div>
 
 <?php echo CHtml::beginForm(array('/yupe/backend/themesettings', 'post'), 'post', array('class' => 'well')); ?>
     <?php echo CHtml::label(Yii::t('YupeModule.yupe', 'Выберите тему сайта'), 'theme');?>

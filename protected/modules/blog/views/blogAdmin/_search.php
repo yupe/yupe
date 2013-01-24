@@ -1,21 +1,27 @@
 <?php
-$form = $this->beginWidget('bootstrap.widgets.TbActiveForm', array(
-    'action'      => Yii::app()->createUrl($this->route),
-    'method'      => 'get',
-    'type'        => 'vertical',
-    'htmlOptions' => array('class' => 'well'),
-));
+/**
+ * Отображение для blogAdmin/_search:
+ * 
+ *   @category YupeView
+ *   @package  YupeCMS
+ *   @author   Yupe Team <team@yupe.ru>
+ *   @license  https://github.com/yupe/yupe/blob/master/LICENSE BSD
+ *   @link     http://yupe.ru
+ **/
+$form = $this->beginWidget(
+    'bootstrap.widgets.TbActiveForm', array(
+        'action'      => Yii::app()->createUrl($this->route),
+        'method'      => 'get',
+        'type'        => 'vertical',
+        'htmlOptions' => array('class' => 'well'),
+    )
+);
 
-Yii::app()->clientScript->registerScript('fieldset', "
-    $('document').ready(function () {
-        $('.popover-help').popover({ trigger : 'hover', delay : 500 });
-    });
-");
 ?>
 
     <fieldset class="inline">
         <div class="wide row-fluid control-group">
-            <div class="span1">
+            <div class="span3">
                 <?php echo $form->textFieldRow($model, 'id', array('class' => 'popover-help', 'maxlength' => 10, 'size' => 60, 'data-original-title' => $model->getAttributeLabel('id'), 'data-content' => $model->getAttributeDescription('id'))); ?>
             </div>
             <div class="span3">
@@ -26,7 +32,7 @@ Yii::app()->clientScript->registerScript('fieldset', "
             </div>
         </div>
         <div class="wide row-fluid control-group">
-            <div class="span4">
+            <div class="span3">
                 <?php echo $form->dropDownListRow($model, 'type', $model->getTypeList(), array('class' => 'popover-help', 'data-original-title' => $model->getAttributeLabel('type'), 'data-content' => $model->getAttributeDescription('type'))); ?>
             </div>
             <div class="span3">
@@ -57,11 +63,14 @@ Yii::app()->clientScript->registerScript('fieldset', "
         </div>
     </fieldset>
 
-    <?php $this->widget('bootstrap.widgets.TbButton', array(
-        'type'        => 'primary',
-        'encodeLabel' => false,
-        'buttonType'  => 'submit',
-        'label'       => '<i class="icon-search icon-white">&nbsp;</i> ' . Yii::t('BlogModule.blog', 'Искать блог'),
-    )); ?>
+    <?php
+    $this->widget(
+        'bootstrap.widgets.TbButton', array(
+            'type'        => 'primary',
+            'encodeLabel' => false,
+            'buttonType'  => 'submit',
+            'label'       => '<i class="icon-search icon-white">&nbsp;</i> ' . Yii::t('BlogModule.blog', 'Искать блог'),
+        )
+    ); ?>
 
 <?php $this->endWidget(); ?>

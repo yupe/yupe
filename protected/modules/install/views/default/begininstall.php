@@ -1,6 +1,17 @@
-<h1><?php echo Yii::t('InstallModule.install','Идет установка модулей...');?></h1>
+<?php
+/**
+ * Отображение для begininstall:
+ *
+ *   @category YupeView
+ *   @package  YupeCMS
+ *   @author   Yupe Team <team@yupe.ru>
+ *   @license  https://github.com/yupe/yupe/blob/master/LICENSE BSD
+ *   @link     http://yupe.ru
+ **/
+?>
+<h1><?php echo Yii::t('InstallModule.install', 'Идет установка модулей...');?></h1>
 <div class="alert alert-block alert-info">
-    <p><?php echo Yii::t('InstallModule.install','На данном этапе Юпи! постарается установить запрошенные вами модули. Установка может занять некоторое время...');?></p>
+    <p><?php echo Yii::t('InstallModule.install', 'На данном этапе Юпи! постарается установить запрошенные вами модули. Установка может занять некоторое время...');?></p>
 </div>
 <div id="msg"></div>
 <div class="progress progress-striped active">
@@ -8,39 +19,40 @@
 </div>
 <small id="modstate"></small>
 <?php
-    $this->widget('bootstrap.widgets.TbBox', array(
+$this->widget(
+    'bootstrap.widgets.TbBox', array(
         'title'       => Yii::t('InstallModule.install', 'Журнал установки'),
         'headerIcon'  => 'icon-list',
         'content'     => '',
         'id'          => 'log-content',
         'htmlOptions' => array('style' => 'margin-top: 20px; font-size: 10px; line-height: 12px;'),
-    ));
-?>
+    )
+); ?>
 <script type="text/javascript">
-    <?php
-        // Выясним, какие модули нам нужно постараться поставить первыми
-        $morder = array('yupe' => 99999, 'user' => 99998);
-        foreach ($modules as $mid => $m)
-        {
-            if (!empty($m->dependencies))
-            {
-                foreach ($m->dependencies as $d)
-                    $morder[$d] = isset($morder[$d]) ? ($morder[$d] + 1) : 1;
-            }
-        }
+<?php
+// Выясним, какие модули нам нужно постараться поставить первыми
+$morder = array('yupe' => 99999, 'user' => 99998);
 
-        // Отсортируем модули, чтобы по очереди ставились
-        uksort($modules, function ($a, $b) use ($morder)
-            {
-                return ((isset($morder[$a]) ? $morder[$a] : 0) < (isset($morder[$b]) ? $morder[$b] : 0));
-            }
-        );
+foreach ($modules as $mid => $m) {
+    if (!empty($m->dependencies)) {
+        foreach ($m->dependencies as $d)
+            $morder[$d] = isset($morder[$d]) ? ($morder[$d] + 1) : 1;
+    }
+}
 
-        echo "var total=" . count($modules) . ";\n var modules = {\n";
-        foreach ($modules as $m)
-            echo "'" . $m->id . "':{ installed:false, id:\"" . $m->id . "\", description: " . CJSON::encode($m->name) . ", icon:'" . $m->icon . "'},\n";
-        echo "\n};";
-    ?>
+// Отсортируем модули, чтобы по очереди ставились
+uksort(
+    $modules,
+    function ($a, $b) use ($morder) {
+        return ((isset($morder[$a]) ? $morder[$a] : 0) < (isset($morder[$b]) ? $morder[$b] : 0));
+    }
+);
+
+echo "var total=" . count($modules) . ";\n var modules = {\n";
+foreach ($modules as $m)
+    echo "'" . $m->id . "':{ installed:false, id:\"" . $m->id . "\", description: " . CJSON::encode($m->name) . ", icon:'" . $m->icon . "'},\n";
+echo "\n};";
+?>
 
     function log(msg)
     {
@@ -77,17 +89,20 @@
                             if (ic<total)
                                 installNext();
                             else {
-                                alert("<?php echo Yii::t('InstallModule.install', 'Установка модулей успешно завершена!'); ?>");
-                                document.location = "<?php echo $this->createUrl('/install/default/createuser/'); ?>"
+                                $('#modules-modal').modal('show');
+                                $('div.buttons').slideDown();
                             }
 
                         }
                     },
                     error: function(e) {
                         log(e.responseText);
-                        alert("Ошибка установки модуля");
+                        $('#modules-fail').modal('show');
+                        $('nextButton').hide();
+                        $('div.buttons').slideDown();
                     }
                 });
+
                 return false;
             }
         });
@@ -98,3 +113,70 @@
         installNext();
     });
 </script>
+<?php $this->beginWidget('bootstrap.widgets.TbModal', array('id' => 'modules-modal')); ?>
+    <div class="modal-header">
+        <h4>
+            <?php echo Yii::t('InstallModule.install', 'Установка завершена.'); ?>
+        </h4>
+    </div>
+    <div id="modules-modal-list" class="modal-body row">
+        <?php echo Yii::t('InstallModule.install', 'Поздравляем, установка выбранных вами модулей завершена. Вы можете ознакомиться с журналом установки и перейти к следующему или предыдущему пункту.'); ?>
+    </div>
+    <div class="modal-footer">
+        <?php
+        $this->widget(
+            'bootstrap.widgets.TbButton', array(
+                'label'       => Yii::t('InstallModule.install', 'Ок'),
+                'url'         => '#',
+                'htmlOptions' => array('data-dismiss' => 'modal'),
+            )
+        ); ?>
+    </div>
+<?php $this->endWidget(); ?>
+
+<?php $this->beginWidget('bootstrap.widgets.TbModal', array('id' => 'modules-fail')); ?>
+    <div class="modal-header">
+        <h4>
+            <?php echo Yii::t('InstallModule.install', 'Ошибка!'); ?>
+        </h4>
+    </div>
+    <div id="modules-modal-list" class="modal-body row">
+        <div class="span3">
+            <?php echo Yii::t('InstallModule.install', 'Во время установки выбранных Вами модулей произошла ошибка. Вы можете ознакомиться с журналом установки и перейти к предыдущему шагу.'); ?>
+        </div>
+    </div>
+    <div class="modal-footer">
+        <?php
+        $this->widget(
+            'bootstrap.widgets.TbButton', array(
+                'label'       => Yii::t('InstallModule.install', 'Ок'),
+                'url'         => '#',
+                'htmlOptions' => array('data-dismiss' => 'fail'),
+            )
+        ); ?>
+    </div>
+<?php $this->endWidget(); ?>
+
+<div class='row-fluid buttons' style='display: none'>
+<?php $this->widget(
+    'bootstrap.widgets.TbButton', array(
+        'htmlOptions' => array(
+            'class'       => 'prevButton',
+        ),
+        'label'       => Yii::t('InstallModule.install', '< Назад'),
+        'url'         => array('/install/default/modulesinstall'),
+    )
+); ?>
+
+<?php
+$this->widget(
+    'bootstrap.widgets.TbButton', array(
+        'type'  => 'primary',
+        'htmlOptions' => array(
+            'class' => 'nextButton',
+        ),
+        'label' => Yii::t('InstallModule.install', 'Продолжить >'),
+        'url'   => array('/install/default/createuser')
+    )
+); ?>
+</div>

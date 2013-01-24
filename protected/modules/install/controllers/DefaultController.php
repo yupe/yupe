@@ -1,41 +1,143 @@
 <?php
+/**
+ * Default Install Controller
+ * Класс контроллера установки движка Юпи:
+ *
+ * @category YupeControllers
+ * @package  YupeCMS
+ * @author   YupeTeam <team@yupe.ru>
+ * @license  BSD https://raw.github.com/yupe/yupe/master/LICENSE
+ * @version  0.0.1
+ * @link     http://yupe.ru
+ **/
 
+/**
+ * Default Install Controller
+ * Класс контроллера установки движка Юпи:
+ *
+ * @category YupeControllers
+ * @package  YupeCMS
+ * @author   YupeTeam <team@yupe.ru>
+ * @license  BSD https://raw.github.com/yupe/yupe/master/LICENSE
+ * @version  0.0.1
+ * @link     http://yupe.ru
+ **/
 class DefaultController extends YBackController
 {
+    /**
+     * Переменная названия текущего шага:
+     **/
     public $stepName;
 
+    /**
+     * Параметры из сессии:
+     **/
+    public $session = array();
+
+    /**
+     * Функция фильтров:
+     *
+     * @return mixed filters
+     **/
     public function filters()
     {
         return array();
     }
 
+    /**
+     * Функция инициализации:
+     *
+     * @return nothing
+     **/
     public function init()
     {
         parent::init();
 
+        if (!isset(Yii::app()->session['InstallForm']))
+            Yii::app()->session['InstallForm'] = array();
+        $this->session['InstallForm'] = Yii::app()->session['InstallForm'];
+
         $this->setPageTitle(Yii::t('InstallModule.install', 'Установка Юпи!'));
 
-        $this->layout = 'application.modules.install.views.layouts.main';
+        $this->layout = 'application.modules.install.views.layouts.column2';
     }
 
+    /**
+     * Установка данных в сессию:
+     *
+     * @return nothing
+     **/
+    private function _setSession()
+    {
+        Yii::app()->session['InstallForm'] = $this->session['InstallForm'];
+    }
+
+    /**
+     * Установка выполнения шага:
+     *
+     * @param string $actionId - требуемый экшен:
+     *
+     * @return nothing
+     **/
+    private function _markFinished($actionId = false)
+    {
+        if (!$actionId)
+            return;
+
+        $this->session['InstallForm'] = array_merge(
+            $this->session['InstallForm'], array(
+                $actionId . 'Finished' => true,
+            )
+        );
+
+        $this->_setSession();
+    }
+
+    /**
+     * Функция выполняющаяся до вызова экшена
+     * (если $this->yupe->cache истина - очищаем кэш)
+     *
+     * @param class $action - вызванный нами экшен
+     *
+     * @return вызов родительского метода beforeAction
+     **/
     protected function beforeAction($action)
     {
         if ($this->yupe->cache)
             Yii::app()->cache->flush();
 
+        $this->stepName = Yii::app()->controller->module->getInstallSteps(
+            //Yii::app()->controller->action->id
+            $action->id
+        );
+
         return parent::beforeAction($action);
     }
 
+    /**
+     * Начальный экшен:
+     *
+     * @return nothing
+     **/
     public function actionIndex()
     {
-        $this->stepName = Yii::t('InstallModule.install', 'Шаг 1 из 8 : "Приветствие!"');
-
-        $this->render('index');
+        //$this->stepName = Yii::t('InstallModule.install', 'Шаг 1 из 8 : "Приветствие!"');
+        
+        $this->session['InstallForm'] = array();
+        $this->_setSession();
+        $this->render('_view');
     }
 
+    /**
+     * Экшен проверки окружения:
+     *
+     * @return nothing
+     **/
     public function actionEnvironment()
     {
-        $this->stepName = Yii::t('InstallModule.install', 'Шаг 2 из 8 : "Проверка окружения!"');
+        $this->_markFinished('index');
+
+        //$this->stepName = Yii::t('InstallModule.install', 'Шаг 2 из 8 : "Проверка окружения!"');
 
         $webRoot  = Yii::getPathOfAlias('webroot');
         $dp       = DIRECTORY_SEPARATOR;
@@ -43,49 +145,61 @@ class DefaultController extends YBackController
         $requirements = array(
             array(
                 Yii::t('InstallModule.install', 'Папка assets'),
-                $this->checkWritable($webRoot . '/assets/'),
-                Yii::t('InstallModule.install', 'Необходимо установить права записи на папку {folder} assets', array(
-                    '{folder}' => $webRoot . $dp,
-                )),
+                $this->_checkWritable($webRoot . '/assets/'),
+                Yii::t(
+                    'InstallModule.install', 'Необходимо установить права записи на папку {folder} assets', array(
+                        '{folder}' => $webRoot . $dp,
+                    )
+                ),
             ),
             array(
                 Yii::t('InstallModule.install', 'Папка runtime'),
-                $this->checkWritable($webRoot . '/protected/runtime/'),
-                Yii::t('InstallModule.install', 'Необходимо установить права записи на папку {folder}', array(
-                    '{folder}' => $webRoot . $dp . 'protected' . $dp . 'runtime',
-                )),
+                $this->_checkWritable($webRoot . '/protected/runtime/'),
+                Yii::t(
+                    'InstallModule.install', 'Необходимо установить права записи на папку {folder}', array(
+                        '{folder}' => $webRoot . $dp . 'protected' . $dp . 'runtime',
+                    )
+                ),
             ),
             array(
                 Yii::t('InstallModule.install', 'Папка uploads'),
-                $this->checkWritable($webRoot . '/uploads/'),
-                Yii::t('InstallModule.install', 'Необходимо установить права записи на папку {folder}', array(
-                    '{folder}' => $webRoot . $dp . 'uploads',
-                )),
+                $this->_checkWritable($webRoot . '/uploads/'),
+                Yii::t(
+                    'InstallModule.install', 'Необходимо установить права записи на папку {folder}', array(
+                        '{folder}' => $webRoot . $dp . 'uploads',
+                    )
+                ),
             ),
             array(
                 Yii::t('InstallModule.install', 'Папка modules'),
-                $this->checkWritable($webRoot . '/protected/config/modules/'),
-                Yii::t('InstallModule.install', 'Необходимо установить права записи на папку {folder}', array(
-                    '{folder}' => $webRoot . $dp . 'protected' . $dp . 'config' . $dp . 'modules',
-                )),
+                $this->_checkWritable($webRoot . '/protected/config/modules/'),
+                Yii::t(
+                    'InstallModule.install', 'Необходимо установить права записи на папку {folder}', array(
+                        '{folder}' => $webRoot . $dp . 'protected' . $dp . 'config' . $dp . 'modules',
+                    )
+                ),
             ),
             array(
                 Yii::t('InstallModule.install', 'Папка modulesBack'),
-                $this->checkWritable($webRoot . '/protected/config/modulesBack/'),
-                Yii::t('InstallModule.install', 'Необходимо установить права записи на папку {folder}', array(
-                    '{folder}' => $webRoot . $dp . 'protected' . $dp . 'config' . $dp . 'modulesBack',
-                )),
+                $this->_checkWritable($webRoot . '/protected/config/modulesBack/'),
+                Yii::t(
+                    'InstallModule.install', 'Необходимо установить права записи на папку {folder}', array(
+                        '{folder}' => $webRoot . $dp . 'protected' . $dp . 'config' . $dp . 'modulesBack',
+                    )
+                ),
             ),
             array(
                 Yii::t('InstallModule.install', 'Файл db.php'),
-                $this->checkConfigFileWritable($webRoot . '/protected/config/db.back.php', $webRoot . '/protected/config/db.php'),
-                Yii::t('InstallModule.install', 'Необходимо скопировать {file} и дать ему права на запись', array(
-                    '{file}' => $webRoot . $dp . 'protected' . $dp . 'config' . $dp . 'db.back.php в ' . $webRoot . $dp . 'protected' . $dp . 'config' . $dp.'db.php',
-                )),
+                $this->_checkConfigFileWritable($webRoot . '/protected/config/db.back.php', $webRoot . '/protected/config/db.php'),
+                Yii::t(
+                    'InstallModule.install', 'Необходимо скопировать {file} и дать ему права на запись', array(
+                        '{file}' => $webRoot . $dp . 'protected' . $dp . 'config' . $dp . 'db.back.php в ' . $webRoot . $dp . 'protected' . $dp . 'config' . $dp.'db.php',
+                    )
+                ),
             ),
             array(
                 Yii::t('InstallModule.install', 'Активация ядра Юпи!'),
-                $this->checkYupeActivate(),
+                $this->_checkYupeActivate(),
                 Yii::t('InstallModule.install', 'При запуске ядра произошли ошибки, пожалуйста, проверьте права доступа на все необходимые файлы и каталоги (см. ошибки выше)'),
             ),
         );
@@ -98,23 +212,50 @@ class DefaultController extends YBackController
                 : $requirements[$i][2] = Yii::t('InstallModule.install', 'Все хорошо!');
         }
 
-        $this->render('environment', array(
-            'requirements' => $requirements,
-            'result'       => $result,
-        ));
+        $this->render(
+            '_view', array(
+                'data' => array(
+                    'requirements' => $requirements,
+                    'result'       => $result,
+                )
+            )
+        );
     }
 
-    private function checkWritable($path)
+    /**
+     * Функция проверки возможности записи в каталог:
+     * (приватные функции начинаются с подчёркивания)
+     *
+     * @param string $path - путь каталога
+     *
+     * @return bool возможность записи в каталог
+     **/
+    private function _checkWritable($path)
     {
         return is_writable($path) || @chmod($path, 0777) && is_writable($path);
     }
 
-    private function checkConfigFileWritable($pathOld, $pathNew)
+    /**
+     * Функция проверки возможности записи и копирования в конфигурационный файл:
+     * (приватные функции начинаются с подчёркивания)
+     *
+     * @param string $pathOld - старый путь файла
+     * @param string $pathNew - новый путь файла
+     *
+     * @return bool проверка возможности скопировать и писать в конфигурационный файл
+     **/
+    private function _checkConfigFileWritable($pathOld, $pathNew)
     {
         return is_writable($pathNew) || @copy($pathOld, $pathNew) && is_writable($pathNew);
     }
 
-    private function checkYupeActivate()
+    /**
+     * Проверка активации модуля Юпи!
+     * (приватные функции начинаются с подчёркивания)
+     *
+     * @return bool
+     **/
+    private function _checkYupeActivate()
     {
         try {
             return Yii::app()->getModule('yupe')->activate;
@@ -123,9 +264,15 @@ class DefaultController extends YBackController
         }
     }
 
+    /**
+     * Экшен "Проверки системных требований"
+     *
+     * @return nothing
+     **/
     public function actionRequirements()
     {
-        $this->stepName = Yii::t('InstallModule.install', 'Шаг 3 из 8 : "Проверка системных требований"');
+        $this->_markFinished('environment');
+        //$this->stepName = Yii::t('InstallModule.install', 'Шаг 3 из 8 : "Проверка системных требований"');
 
         $requirements = array(
             array(
@@ -138,7 +285,7 @@ class DefaultController extends YBackController
             array(
                 Yii::t('InstallModule.install', 'Переменная $_SERVER'),
                 true,
-                '' === $message=$this->checkServerVar(),
+                '' === $message=$this->_checkServerVar(),
                 '<a href="http://www.yiiframework.com">Yii Framework</a>',
                 $message,
             ),
@@ -261,7 +408,7 @@ class DefaultController extends YBackController
             array(
                 Yii::t('InstallModule.install', 'Расширение GD<br />с поддержкой FreeType<br />или ImageMagick<br />с поддержкой PNG'),
                 false,
-                '' === $message=$this->checkCaptchaSupport(),
+                '' === $message=$this->_checkCaptchaSupport(),
                 '<a href="http://www.yiiframework.com/doc/api/CCaptchaAction">CCaptchaAction</a>',
                 $message),
             array(
@@ -285,24 +432,32 @@ class DefaultController extends YBackController
 
         $result = true;
 
-        foreach ($requirements as $i => $requirement)
-        {
+        foreach ($requirements as $i => $requirement) {
             if ($requirement[1] && !$requirement[2])
                 $result = false;
         }
 
-        $this->render('requirements', array(
-            'requirements' => $requirements,
-            'result'       => $result,
-        ));
+        $this->render(
+            '_view', array(
+                'data' => array(
+                    'requirements' => $requirements,
+                    'result'       => $result,
+                )
+            )
+        );
     }
 
-    private function checkServerVar()
+    /**
+     * Проверка переменных окружения сервера:
+     * (приватные методы функции, начинаются с подчёркивания)
+     *
+     * @return nothing
+     **/
+    private function _checkServerVar()
     {
         $vars = array('HTTP_HOST', 'SERVER_NAME', 'SERVER_PORT', 'SCRIPT_NAME', 'SCRIPT_FILENAME', 'PHP_SELF', 'HTTP_ACCEPT', 'HTTP_USER_AGENT');
         $missing = array();
-        foreach ($vars as $var)
-        {
+        foreach ($vars as $var) {
             if (!isset($_SERVER[$var]))
                 $missing[] = $var;
         }
@@ -320,10 +475,15 @@ class DefaultController extends YBackController
         return '';
     }
 
-    private function checkCaptchaSupport()
+    /**
+     * Проверяем возможность использования расширения PHP GD:
+     * (приватные методы функции, начинаются с подчёркивания)
+     *
+     * @return string
+     **/
+    private function _checkCaptchaSupport()
     {
-        if (extension_loaded('imagick'))
-        {
+        if (extension_loaded('imagick')) {
             $imagick = new Imagick();
             $imagickFormats = $imagick->queryFormats('PNG');
         }
@@ -331,8 +491,7 @@ class DefaultController extends YBackController
             $gdInfo = gd_info();
         if (isset($imagickFormats) && in_array('PNG', $imagickFormats))
             return '';
-        else if (isset($gdInfo))
-        {
+        else if (isset($gdInfo)) {
             if ($gdInfo['FreeType Support'])
                 return '';
             return Yii::t('InstallModule.install', 'Расширение GD установлено<br />без поддержки FreeType');
@@ -340,31 +499,57 @@ class DefaultController extends YBackController
         return Yii::t('InstallModule.install', 'Расширение GD или ImageMagick не установлены');
     }
 
+    /**
+     * Экшен для настройки БД:
+     *
+     * @return nothing
+     **/
     public function actionDbsettings()
     {
-        $this->stepName = Yii::t('InstallModule.install', 'Шаг 4 из 8 : "Соединение с базой данных"');
+        $this->_markFinished('requirements');
 
         $dbConfFile = Yii::app()->basePath . '/config/' . 'db.php';
 
-        $form = new DbSettingsForm;
+        $form = new InstallForm('dbSettings');
 
-        if (Yii::app()->request->isPostRequest)
-        {
-            $form->setAttributes($_POST['DbSettingsForm']);
+        if (isset($this->session['InstallForm']['dbSettings'])) {
+            $form->setAttributes($this->session['InstallForm']['dbSettings']);
+            if (($form->validate()) && ($this->session['InstallForm']['dbSettingsStep'] === true)) {
+                $this->session['InstallForm'] = array_merge(
+                    $this->session['InstallForm'], array(
+                        'dbSettings'     => $form->attributes,
+                        'dbSettingsStep' => false,
+                        'dbSettingsFile' => true,
+                    )
+                );
+                $this->_setSession();
+                $this->_markFinished('dbsettings');
+                $this->redirect(array('/install/default/modulesinstall'));
+            }
+        }
 
-            if ($form->validate())
-            {
+        if (Yii::app()->request->isPostRequest && isset($_POST['InstallForm'])) {
+            $form->setAttributes($_POST['InstallForm']);
+
+            if ($form->validate()) {
                 try
                 {
+                    $socket  = ($form->socket == '') ? '' : 'unix_socket=' . $form->socket . ';';
+                    $port    = ($form->port == '') ? '' : 'port=' . $form->port . ';';
+                    $dbTypes = $form->getDbTypes();
+                    $dbType  = (isset($dbTypes[$form->dbType])
+                                ? $dbTypes[$form->dbType]
+                                : $dbType[InstallForm::DB_MYSQL]);
+
                     $socket = ($form->socket == '') ? '' : 'unix_socket=' . $form->socket . ';';
                     $port   = ($form->port == '') ? '' : 'port=' . $form->port . ';';
 
-                    $connectionString = "mysql:host={$form->host};{$port}{$socket}dbname={$form->dbName}";
+                    $connectionString = "{$dbType}:host={$form->host};{$port}{$socket}dbname={$form->dbName}";
 
-                    $connection = new CDbConnection($connectionString, $form->user, $form->password);
+                    $connection = new CDbConnection($connectionString, $form->dbUser, $form->dbPassword);
                     $connection->connectionString = $connectionString;
-                    $connection->username         = $form->user;
-                    $connection->password         = $form->password;
+                    $connection->username         = $form->dbUser;
+                    $connection->password         = $form->dbPassword;
                     $connection->emulatePrepare   = true;
                     $connection->charset          = 'utf8';
                     $connection->active           = true;
@@ -375,8 +560,8 @@ class DefaultController extends YBackController
                     $dbParams = array(
                         'class'                 => 'CDbConnection',
                         'connectionString'      => $connectionString,
-                        'username'              => $form->user,
-                        'password'              => $form->password,
+                        'username'              => $form->dbUser,
+                        'password'              => $form->dbPassword,
                         'emulatePrepare'        => true,
                         'charset'               => 'utf8',
                         'enableParamLogging'    => 0,
@@ -392,15 +577,26 @@ class DefaultController extends YBackController
                         $form->addError('', Yii::t('InstallModule.install', "Не могу открыть файл '{file}' для записии!", array('{file}' => $dbConfFile)));
                     else
                     {
-                        if (fwrite($fh, $dbConfString) && fclose($fh))
-                            $this->redirect(array('/install/default/modulesinstall'));
-                        else
+                        if (fwrite($fh, $dbConfString) && fclose($fh)) {
+
+                            $this->session['InstallForm'] = array_merge(
+                                $this->session['InstallForm'], array(
+                                    'dbSettings'     => $form->attributes,
+                                    'dbSettingsStep' => true,
+                                    'dbSettingsFile' => true,
+                                )
+                            );
+
+                            $this->_setSession();
+
+                            $this->redirect(array('/install/default/dbsettings'));
+                        } else
                             $form->addError('', Yii::t('InstallModule.install', "Произошла ошибка записи в файл '{file}'!", array('{file}' => $dbConfFile)));
                     }
                 }
                 catch (Exception $e)
                 {
-                    $form->addError('', Yii::t('InstallModule.install', 'С указанными параметрами подключение к БД не удалось выполнить! ' . $e->__toString()));
+                    $form->addError('', Yii::t('InstallModule.install', 'С указанными параметрами подключение к БД не удалось выполнить!') . '<br />' . $connectionString . '<br />' . $e->__toString());
                     Yii::log($e->getTraceAsString(), CLogger::LEVEL_ERROR);
                 }
             }
@@ -411,28 +607,54 @@ class DefaultController extends YBackController
         if (file_exists($dbConfFile) && is_writable($dbConfFile))
             $result = true;
 
-        $this->render('dbsettings', array(
-            'model'     => $form,
-            'result'    => $result,
-            'file'      => $dbConfFile,
-        ));
+        $this->render(
+            '_view', array(
+                'data' => array(
+                    'model'     => $form,
+                    'result'    => $result,
+                    'file'      => $dbConfFile,
+                )
+            )
+        );
     }
 
+    /**
+     * Экшен "Установки модулей"
+     *
+     * @return nothing
+     **/
     public function actionModulesinstall()
     {
-        $this->stepName = Yii::t('InstallModule.install', 'Шаг 5 из 8 : "Установка модулей"');
         $error = false;
 
         $modules = $this->yupe->getModulesDisabled();
         // Не выводить модуль install
         unset($modules['install']);
 
-        if (Yii::app()->request->isPostRequest)
-        {
+        if (Yii::app()->request->isPostRequest) {
+            $this->session['InstallForm'] = array_merge(
+                $this->session['InstallForm'], array(
+                    'moduleToInstall'    => $_POST,
+                    'modulesInstallStep' => true,
+                )
+            );
+
+            $this->_setSession();
+            $this->_markFinished('modulesinstall');
+            $this->redirect($this->createUrl('modulesinstall'));
+        }
+
+        if ((isset($this->session['InstallForm']['moduleToInstall'])) && ($this->session['InstallForm']['modulesInstallStep'] === true) && ($_POST = $this->session['InstallForm']['moduleToInstall'])) {
+            $this->session['InstallForm'] = array_merge(
+                $this->session['InstallForm'], array(
+                    'moduleToInstall'    => $_POST,
+                    'modulesInstallStep' => false,
+                )
+            );
+            $this->_setSession();
             $modulesByName = $toInstall = array();
 
-            foreach ($modules as &$m)
-            {
+            foreach ($modules as &$m) {
                 $modulesByName[$m->id] = $m;
                 if ($m->isNoDisable || (isset($_POST['module_' . $m->id]) && $_POST['module_' . $m->id]))
                     $toInstall[$m->id] = $m;
@@ -441,20 +663,18 @@ class DefaultController extends YBackController
 
             // Проверим зависимости
             $deps = array();
-            foreach ($toInstall as $m)
-            {
-                if ($m->dependencies !== array())
-                {
-                    foreach ($m->dependencies as $dep)
-                    {
-                        if (!isset($toInstall[$dep]))
-                        {
+            foreach ($toInstall as $m) {
+                if ($m->dependencies !== array()) {
+                    foreach ($m->dependencies as $dep) {
+                        if (!isset($toInstall[$dep])) {
                             Yii::app()->user->setFlash(
                                 YFlashMessages::ERROR_MESSAGE,
-                                Yii::t('InstallModule.install', 'Модуль "{module}" зависит от модуля "{dep}", который не активирован.', array(
-                                    '{module}' => $m->name,
-                                    '{dep}'    => isset($modulesByName[$dep]) ? $modulesByName[$dep]->name : $dep
-                                ))
+                                Yii::t(
+                                    'InstallModule.install', 'Модуль "{module}" зависит от модуля "{dep}", который не активирован.', array(
+                                        '{module}' => $m->name,
+                                        '{dep}'    => isset($modulesByName[$dep]) ? $modulesByName[$dep]->name : $dep
+                                    )
+                                )
                             );
                             $error = true;
                             break;
@@ -462,12 +682,10 @@ class DefaultController extends YBackController
                     }
                 }
             }
-            if (!$error)
-            {
+            if (!$error) {
                 // Переносим конфигурационные файлы не устанавливаемых модулей в back-папку
                 $files = glob($this->yupe->getModulesConfig() . "*.php");
-                foreach ($files as $file)
-                {
+                foreach ($files as $file) {
                     $name = preg_replace('#^.*/([^\.]*)\.php$#', '$1', $file);
 
                     if ($name == 'yupe')
@@ -477,13 +695,13 @@ class DefaultController extends YBackController
                     $fileConfig     = $this->yupe->getModulesConfig($name);
                     $fileConfigBack = $this->yupe->getModulesConfigBack($name);
 
-                    if ($name != 'yupe' && ((
-                                !(@is_file($fileModule) && @md5_file($fileModule) == @md5_file($fileConfig)) &&
-                                !@copy($fileConfig, $fileConfigBack)
-                            ) || !@unlink($fileConfig)
-                        )
-                    )
-                    {
+                    /**
+                     * @todo Нужно придумать как записать это и красиво и по PSR,
+                     *       пробовал поправил под большее понимаение, но PSR
+                     *       ругается (мультистрочные условия можно переносить
+                     *       только по булевым операциям)
+                     **/
+                    if ($name != 'yupe' && ( ( !( @is_file($fileModule) && @md5_file($fileModule) == @md5_file($fileConfig) )  && !@copy($fileConfig, $fileConfigBack) ) || !@unlink($fileConfig) ) ) {
                         $error = true;
                         Yii::app()->user->setFlash(
                             YFlashMessages::ERROR_MESSAGE,
@@ -498,10 +716,26 @@ class DefaultController extends YBackController
             if (!$error)
                 return $this->render('begininstall', array('modules' => $toInstall));
         }
-        $this->render('modulesinstall', array('modules' => $modules));
+
+        $this->render(
+            '_view', array(
+                'data' => array(
+                    'modules' => $modules
+                )
+            )
+        );
     }
 
-    private function logMessage($module, $msg, $category = 'notice')
+    /**
+     * Запись в "веб-лог" на странице:
+     *
+     * @param class  $module   - клас модуля
+     * @param string $msg      - сообщение
+     * @param string $category - тип сообщения
+     *
+     * @return вывод html
+     **/
+    private function _logMessage($module, $msg, $category = 'notice')
     {
         $color = array(
             'warning' => 'FF9600',
@@ -514,12 +748,18 @@ class DefaultController extends YBackController
         echo $msg . "<br />";
     }
 
+    /**
+     * Экшен установки модуля:
+     *
+     * @param string $name - имя модуля
+     *
+     * @return html
+     **/
     public function actionModuleinstall($name = null)
     {
         $modules = $this->yupe->getModulesDisabled();
 
-        if (empty($name) || !isset($modules[$name]))
-        {
+        if (empty($name) || !isset($modules[$name])) {
             throw new CHttpException(404, Yii::t('InstallModule.install', 'Указанный модуль {name} не найден!', array('{name}' => $name)));
             Yii::app()->end();
         }
@@ -529,59 +769,76 @@ class DefaultController extends YBackController
 
         $module = $modules[$name];
 
-        $this->logMessage($module, Yii::t('InstallModule.install', 'Обновляем базу модуля до актуального состояния!'));
+        $this->_logMessage($module, Yii::t('InstallModule.install', 'Обновляем базу модуля до актуального состояния!'));
 
         try {
             $installed = $module->install;
 
-            $this->logMessage($module, Yii::t('InstallModule.install', 'Модуль установлен!'));
+            $this->_logMessage($module, Yii::t('InstallModule.install', 'Модуль установлен!'));
             echo CJSON::encode(array('installed' => array($module->id), 'log' => ob_get_clean()));
         } catch(Exception $e) {
-            $this->logMessage($module, $e->getMessage(), "error");
+            $this->_logMessage($module, $e->getMessage(), "error");
             echo ob_get_clean();
         }
         Yii::app()->end();
     }
 
+    /**
+     * Экшен создания учетной записи администратора:
+     *
+     * @return nothing
+     **/
     public function actionCreateuser()
     {
-        $this->stepName = Yii::t('InstallModule.install', 'Шаг 6 из 8 : "Создание учетной записи администратора"');
+        $model = new InstallForm('createUser');
 
-        $model = new CreateUserForm;
+        if (isset($this->session['InstallForm']['createUser'])) {
+            $model->setAttributes($this->session['InstallForm']['createUser']);
+            if ($model->validate() && $this->session['InstallForm']['createUserStep'] === true) {
+                $this->session['InstallForm'] = array_merge(
+                    $this->session['InstallForm'], array(
+                        'createUser'     => $model->attributes,
+                        'createUserStep' => false,
+                    )
+                );
+                $this->_markFinished('createuser');
+                $this->_setSession();
+                $this->redirect(array('/install/default/sitesettings'));
+            }
+        }
 
-        if (Yii::app()->request->isPostRequest && isset($_POST['CreateUserForm']))
-        {
+        if (Yii::app()->request->isPostRequest && isset($_POST['InstallForm'])) {
             // Сбрасываем сессию текущего пользователя, может поменяться id
             Yii::app()->user->clearStates();
 
-            $model->setAttributes($_POST['CreateUserForm']);
+            $model->setAttributes($_POST['InstallForm']);
 
-            if ($model->validate())
-            {
+            if ($model->validate()) {
                 $user = new User;
 
                 $user->deleteAll();
 
                 $salt = $user->generateSalt();
 
-                $user->setAttributes(array(
-                    'nick_name'         => $model->userName,
-                    'email'             => $model->email,
-                    'salt'              => $salt,
-                    'password'          => User::model()->hashPassword($model->password, $salt),
-                    'registration_date' => new CDbExpression('NOW()'),
-                    'registration_ip'   => Yii::app()->request->userHostAddress,
-                    'activation_ip'     => Yii::app()->request->userHostAddress,
-                    'access_level'      => User::ACCESS_LEVEL_ADMIN,
-                    'status'            => User::STATUS_ACTIVE,
-                    'email_confirm'     => User::EMAIL_CONFIRM_YES,
-                ));
+                $user->setAttributes(
+                    array(
+                        'nick_name'         => $model->userName,
+                        'email'             => $model->userEmail,
+                        'salt'              => $salt,
+                        'password'          => User::model()->hashPassword($model->userPassword, $salt),
+                        'registration_date' => new CDbExpression('NOW()'),
+                        'registration_ip'   => Yii::app()->request->userHostAddress,
+                        'activation_ip'     => Yii::app()->request->userHostAddress,
+                        'access_level'      => User::ACCESS_LEVEL_ADMIN,
+                        'status'            => User::STATUS_ACTIVE,
+                        'email_confirm'     => User::EMAIL_CONFIRM_YES,
+                    )
+                );
 
-                if ($user->save())
-                {
+                if ($user->save()) {
                     $login = new LoginForm;
-                    $login->email    = $model->email;
-                    $login->password = $model->password;
+                    $login->email    = $model->userEmail;
+                    $login->password = $model->userPassword;
                     $login->authenticate();
 
                     Yii::app()->user->setFlash(
@@ -589,25 +846,56 @@ class DefaultController extends YBackController
                         Yii::t('InstallModule.install', 'Администратор успешно создан!')
                     );
 
-                    $this->redirect(array('/install/default/sitesettings/'));
+                    $this->session['InstallForm'] = array_merge(
+                        $this->session['InstallForm'], array(
+                            'createUser'     => $model->attributes,
+                            'createUserStep' => true,
+                        )
+                    );
+
+                    $this->_setSession();
+
+                    $this->redirect(array('/install/default/createuser'));
                 }
             }
         }
-        $this->render('createuser', array('model' => $model));
+        $this->render(
+            '_view', array(
+                'data' => array(
+                    'model' => $model
+                )
+            )
+        );
     }
 
+    /**
+     * Экшен начальной настройки проекта:
+     *
+     * @return nothing
+     **/
     public function actionSitesettings()
     {
-        $this->stepName = Yii::t('InstallModule.install', 'Шаг 7 из 8 : "Настройки проекта"');
+        $model = new InstallForm('siteSettings');
 
-        $model = new SiteSettingsForm;
+        if (isset($this->session['InstallForm']['siteSettings'])) {
+            $model->setAttributes($this->session['InstallForm']['siteSettings']);
+            if ($model->validate() && $this->session['InstallForm']['siteSettingsStep'] === true) {
+                $this->session['InstallForm'] = array_merge(
+                    $this->session['InstallForm'], array(
+                        'siteSettings'     => $model->attributes,
+                        'siteSettingsStep' => false,
+                    )
+                );
+                $this->_markFinished('sitesettings');
+                $this->_setSession();
+                $this->redirect(array('/install/default/finish'));
+            }
+        }
 
-        if (Yii::app()->request->isPostRequest)
-        {
-            $model->setAttributes($_POST['SiteSettingsForm']);
+        if ((Yii::app()->request->isPostRequest) && (isset($_POST['InstallForm']))) {
+            $model->setAttributes($_POST['InstallForm']);
 
-            if ($model->validate())
-            {
+            if ($model->validate()) {
                 $transaction = Yii::app()->db->beginTransaction();
 
                 try {
@@ -615,16 +903,18 @@ class DefaultController extends YBackController
 
                     $user = User::model()->admin()->findAll();
 
-                    foreach (array('siteDescription', 'siteName', 'siteKeyWords', 'email', 'theme','backendTheme') as $param)
-                    {
+                    foreach (array('siteDescription', 'siteName', 'siteKeyWords', 'email', 'theme','backendTheme') as $param) {
                         $settings = new Settings;
+                        $model->email = $model->siteEmail;
 
-                        $settings->setAttributes(array(
-                            'module_id'   => 'yupe',
-                            'param_name'  => $param,
-                            'param_value' => $model->$param,
-                            'user_id'     => $user[0]->id,
-                        ));
+                        $settings->setAttributes(
+                            array(
+                                'module_id'   => 'yupe',
+                                'param_name'  => $param,
+                                'param_value' => $model->$param,
+                                'user_id'     => $user[0]->id,
+                            )
+                        );
 
                         if ($settings->save())
                             continue;
@@ -643,9 +933,16 @@ class DefaultController extends YBackController
                     $assetsPath = dirname(Yii::app()->request->getScriptFile()) . '/' . CAssetManager::DEFAULT_BASEPATH;
 
                     if (!is_dir($assetsPath))
-                        @mkdir ($assetsPath);
+                        @mkdir($assetsPath);
 
-                    $this->redirect(array('/install/default/finish/'));
+                    $this->session['InstallForm'] = array_merge(
+                        $this->session['InstallForm'], array(
+                            'siteSettings'     => $model->attributes,
+                            'siteSettingsStep' => true,
+                        )
+                    );
+                    $this->_setSession();
+                    $this->redirect(array('/install/default/sitesettings'));
                 } catch (CDbException $e) {
                     $transaction->rollback();
 
@@ -661,18 +958,25 @@ class DefaultController extends YBackController
             }
         }
         else
-            $model->email = $model->emailName;
-        $this->render('sitesettings', array(
-            'model' => $model,
-            'themes' => $this->yupe->getThemes(),
-            'backendThemes' => $this->yupe->getThemes(true)
-        ));
+            $model->siteEmail = $model->emailName;
+        $this->render(
+            '_view', array(
+                'data' => array(
+                    'model'         => $model,
+                    'themes'        => $this->yupe->getThemes(),
+                    'backendThemes' => $this->yupe->getThemes(true)
+                )
+            )
+        );
     }
 
+    /**
+     * Экшен окончание установки:
+     *
+     * @return nothing
+     **/
     public function actionFinish()
     {
-        $this->stepName = Yii::t('InstallModule.install', 'Шаг 8 из 8 : "Окончание установки"');
-
         try {
             Yii::app()->getModule('install')->activate;
             Yii::app()->user->setFlash(
@@ -686,6 +990,6 @@ class DefaultController extends YBackController
             );
         }
 
-        $this->render('finish');
+        $this->render('_view');
     }
 }

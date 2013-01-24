@@ -8,7 +8,7 @@ class m000000_000000_dictionary_base extends CDbMigration
         $this->createTable($tableName, array(
             'id' => 'pk',
             'code' => 'string NOT NULL',
-            'name' => "string NOT NULL DEFAULT ''",
+            'name' => "string NOT",
             'description' => "varchar(300) NOT NULL DEFAULT ''",
             'creation_date' => 'datetime NOT NULL',
             'update_date' => 'datetime NOT NULL',

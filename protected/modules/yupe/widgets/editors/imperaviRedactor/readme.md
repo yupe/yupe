@@ -21,17 +21,18 @@ Next, call the widget:
 ```php
 $this->widget('ImperaviRedactorWidget', array(
 	// you can either use it for model attribute
-	'model'=>$my_model,
-	'attribute'=>'my_field',
+	'model' => $my_model,
+	'attribute' => 'my_field',
 
 	// or just for input field
-	'name'=>'my_input_name',
+	'name' => 'my_input_name',
 
 	// some options, see http://imperavi.com/redactor/docs/
-	'options'=>array(
-		'lang'=>'en',
-		'toolbar'=>'mini',
-		'css'=>'wym.css',
+	'options' => array(
+		'lang' => 'ru',
+		'toolbar' => false,
+		'iframe' => true,
+		'css' => 'wym.css',
 	),
 ));
 ```
@@ -39,10 +40,36 @@ $this->widget('ImperaviRedactorWidget', array(
 Alternatively you can attach Redactor to already existing DOM element by calling:
 
 ```php
-$this->widget('ImperaviRedactorWidget',array(
+$this->widget('ImperaviRedactorWidget', array(
 	// the textarea selector
-	'selector'=>'.redactor',
+	'selector' => '.redactor',
 	// some options, see http://imperavi.com/redactor/docs/
-	'options'=>array(),
+	'options' => array(),
+));
+```
+
+The redactor plugins plugged in with packages of resources.
+
+```php
+$this->widget('ImperaviRedactorWidget', array(
+	'selector' => '.redactor',
+	'options' => array(
+		'lang' => 'ru',
+	),
+	'plugins' => array(
+		'fullscreen' => array(
+			'js' => array('fullscreen.js',),
+		),
+		'clips' => array(
+			// You can set base path to assets
+			'basePath' => 'application.components.imperavi.my_plugin',
+			// or url, basePath will be ignored
+			'baseUrl' => '/js/my_plugin',
+			'css' => array('clips.css',),
+			'js' => array('clips.js',),
+			// add depends packages
+			'depends' => array('imperavi-redactor',),
+		),
+	),
 ));
 ```

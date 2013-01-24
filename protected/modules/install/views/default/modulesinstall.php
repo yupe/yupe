@@ -1,17 +1,29 @@
 <?php
-$form = $this->beginWidget('bootstrap.widgets.TbActiveForm', array(
-    'id'                     => 'modulesinstall-form',
-    'enableAjaxValidation'   => false,
-    'enableClientValidation' => true,
-    'type'                   => 'vertical',
-    'inlineErrors'           => true,
-));
+/**
+ * Отображение для modulesinstall:
+ * 
+ *   @category YupeView
+ *   @package  YupeCMS
+ *   @author   Yupe Team <team@yupe.ru>
+ *   @license  https://github.com/yupe/yupe/blob/master/LICENSE BSD
+ *   @link     http://yupe.ru
+ **/
+$form = $this->beginWidget(
+    'bootstrap.widgets.TbActiveForm', array(
+        'id'                     => 'modulesinstall-form',
+        'enableAjaxValidation'   => false,
+        'enableClientValidation' => true,
+        'type'                   => 'vertical',
+        'inlineErrors'           => true,
+    )
+);
 
-Yii::app()->clientScript->registerScript('fieldset', "
+Yii::app()->clientScript->registerScript(
+    'fieldset', "
     $('document').ready(function () {
         $('.popover-help').popover({ trigger : 'hover', delay : 500 });
-    });
-");
+    });"
+);
 ?>
 
     <div class="alert alert-block alert-info">
@@ -20,20 +32,26 @@ Yii::app()->clientScript->registerScript('fieldset', "
     </div>
 
     <div class="alert alert-block alert-success">
-        <?php echo Yii::t('InstallModule.install', 'Доступно модулей: {all}, выбрано для установки: {checked}', array(
-            '{all}'     => '<small class="label label-info">' . count($modules) . '</small>',
-            '{checked}' => '<small class="label label-info checked-count">0</small>',
-        )); ?>
+        <?php
+        echo Yii::t(
+            'InstallModule.install', 'Доступно модулей: {all}, выбрано для установки: {checked}', array(
+                '{all}'     => '<small class="label label-info">' . count($data['modules']) . '</small>',
+                '{checked}' => '<small class="label label-info checked-count">0</small>',
+            )
+        ); ?>
     </div>
 
-    <?php $this->widget('bootstrap.widgets.TbButtonGroup', array(
-        'type'        => 'info',
-        'buttons'     => array(
-            array('label' => Yii::t('InstallModule.install', 'Рекомендованные'), 'url' => '#', 'htmlOptions' => array('id' => 'recom-check')),
-            array('label' => Yii::t('InstallModule.install', 'Только основные'), 'url' => '#', 'htmlOptions' => array('id' => 'basic-check')),
-            array('label' => Yii::t('InstallModule.install', 'Все'), 'url' => '#', 'htmlOptions' => array('id' => 'all-check')),
-        ),
-    )); ?>
+    <?php
+    $this->widget(
+        'bootstrap.widgets.TbButtonGroup', array(
+            'type'        => 'info',
+            'buttons'     => array(
+                array('label' => Yii::t('InstallModule.install', 'Рекомендованные'), 'url' => '#', 'htmlOptions' => array('id' => 'recom-check')),
+                array('label' => Yii::t('InstallModule.install', 'Только основные'), 'url' => '#', 'htmlOptions' => array('id' => 'basic-check')),
+                array('label' => Yii::t('InstallModule.install', 'Все'), 'url' => '#', 'htmlOptions' => array('id' => 'all-check')),
+            ),
+        )
+    ); ?>
 
     <table id="module-list" class="table table-striped table-vmiddle">
         <thead>
@@ -55,7 +73,7 @@ Yii::app()->clientScript->registerScript('fieldset', "
                 'recom' => array(),
                 'basic' => array(),
             );
-            foreach ($modules as $module):
+            foreach ($data['modules'] as $module) :
                 $modulesSelection['all'][] = '#module_' . $module->id;
                 if ($module->isInstallDefault)
                     $modulesSelection['recom'][] = '#module_' . $module->id;
@@ -77,13 +95,13 @@ Yii::app()->clientScript->registerScript('fieldset', "
                     <td>
                         <small class='label <?php
                             $v = $module->version;
-                            echo (($n = strpos($v, "(dev)")) !== FALSE)
+                            echo (($n = strpos($v, "(dev)")) !== false)
                                 ? "label-warning' title='" . Yii::t('InstallModule.install', 'Модуль в разработке') . "'>" . substr($v, 0, $n)
                                 : "'>" . $v;
                         ?></small>
                     </td>
                     <td>
-                        <?php if ($module->isMultiLang()): ?>
+                        <?php if ($module->isMultiLang()) : ?>
                             <i class="icon-globe" title="<?php echo Yii::t('InstallModule.install', 'Модуль мультиязычный'); ?>"></i>
                         <?php endif; ?>
                     </td>
@@ -107,11 +125,10 @@ Yii::app()->clientScript->registerScript('fieldset', "
                         <?php
                             $tabs = array();
 
-                            if ($module->id != 'yupe' && count($module->dependencies))
-                            {
+                            if ($module->id != 'yupe' && count($module->dependencies)) {
                                 $deps = $module->dependencies;
                                 foreach($deps as &$dep)
-                                    $dep = $modules[$dep]->name;
+                                    $dep = $data['modules'][$dep]->name;
                                 $tabs[] = array(
                                     'label'   => Yii::t('InstallModule.install', 'Зависит от'),
                                     'content' => implode(', ', $deps),
@@ -125,10 +142,9 @@ Yii::app()->clientScript->registerScript('fieldset', "
                                     'count'   => Yii::t('InstallModule.install', 'Все'),
                                 );
                             else
-                                if(count($deps = $module->dependent))
-                                {
+                                if(count($deps = $module->dependent)) {
                                     foreach($deps as &$dep)
-                                        $dep = $modules[$dep]->name;
+                                        $dep = $data['modules'][$dep]->name;
                                     $tabs[] = array(
                                         'label'   => Yii::t('InstallModule.install', 'Зависимые'),
                                         'content' => implode(', ', $deps),
@@ -256,9 +272,9 @@ EOF;
         <div id="modules-modal-list" class="modal-body row">
             <div class="span3">
                 <?php
-                    $moduleCountTr = ceil(count($modules) / 2);
+                    $moduleCountTr = ceil(count($data['modules']) / 2);
                     $i = 0;
-                    foreach ($modules as $module) {
+                    foreach ($data['modules'] as $module) {
                         if ($moduleCountTr == $i)
                             echo '</div><div class="span3">';
                         echo '<div id="modal_' . $module->id . '"><i class="icon-minus"> </i> ' . $module->name . '</div>';
@@ -268,34 +284,46 @@ EOF;
             </div>
         </div>
         <div class="modal-footer">
-            <?php $this->widget('bootstrap.widgets.TbButton', array(
-                'label'       => Yii::t('InstallModule.install', 'Отмена'),
-                'url'         => '#',
-                'htmlOptions' => array('data-dismiss' => 'modal'),
-            )); ?>
-            <?php $this->widget('bootstrap.widgets.TbButton', array(
-                'buttonType'  => 'submit',
-                'type'        => 'primary',
-                'label'       => Yii::t('InstallModule.install', 'Продолжить >'),
-                'htmlOptions' => array(
-                    'data-dismiss' => 'modal',
-                    'id'           => 'modal-confirm'
-                ),
-            )); ?>
+            <?php
+            $this->widget(
+                'bootstrap.widgets.TbButton', array(
+                    'label'       => Yii::t('InstallModule.install', 'Отмена'),
+                    'url'         => '#',
+                    'htmlOptions' => array('data-dismiss' => 'modal'),
+                )
+            ); ?>
+            <?php
+            $this->widget(
+                'bootstrap.widgets.TbButton', array(
+                    'buttonType'  => 'submit',
+                    'type'        => 'primary',
+                    'label'       => Yii::t('InstallModule.install', 'Продолжить >'),
+                    'htmlOptions' => array(
+                        'data-dismiss' => 'modal',
+                        'id'           => 'modal-confirm'
+                    ),
+                )
+            ); ?>
         </div>
     <?php $this->endWidget(); ?>
 
-    <?php $this->widget('bootstrap.widgets.TbButton', array(
-        'label' => Yii::t('InstallModule.install', '< Назад'),
-        'url'   => array('/install/default/dbsettings'),
-    )); ?>
-    <?php $this->widget('bootstrap.widgets.TbButton', array(
-        'type'       => 'primary',
-        'label'      => Yii::t('InstallModule.install', 'Продолжить >'),
-        'htmlOptions' => array(
-            'data-toggle' => 'modal',
-            'data-target' => '#modules-modal',
-        ),
-    )); ?>
+    <?php
+    $this->widget(
+        'bootstrap.widgets.TbButton', array(
+            'label' => Yii::t('InstallModule.install', '< Назад'),
+            'url'   => array('/install/default/dbsettings'),
+        )
+    ); ?>
+    <?php
+    $this->widget(
+        'bootstrap.widgets.TbButton', array(
+            'type'       => 'primary',
+            'label'      => Yii::t('InstallModule.install', 'Продолжить >'),
+            'htmlOptions' => array(
+                'data-toggle' => 'modal',
+                'data-target' => '#modules-modal',
+            ),
+        )
+    ); ?>
 
 <?php $this->endWidget(); ?>

@@ -4,14 +4,7 @@ $form = $this->beginWidget('bootstrap.widgets.TbActiveForm', array(
     'method'      => 'get',
     'type'        => 'vertical',
     'htmlOptions' => array('class' => 'well'),
-));
-
-Yii::app()->clientScript->registerScript('fieldset', "
-    $('document').ready(function () {
-        $('.popover-help').popover({ trigger : 'hover', delay : 500 });
-    });
-");
-?>
+)); ?>
     <fieldset class="inline">
         <?php echo $form->textFieldRow($model, 'id', array('class' => 'span5', 'maxlength' => 10, 'size' => 60)); ?>
         <?php echo $form->textFieldRow($model, 'parent_id', array('class' => 'span5', 'size' => 60, 'maxlength' => 60)); ?>

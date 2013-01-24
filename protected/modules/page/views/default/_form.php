@@ -6,14 +6,7 @@ $form = $this->beginWidget('bootstrap.widgets.TbActiveForm', array(
     'type'                   => 'vertical',
     'htmlOptions'            => array('class' => 'well'),
     'inlineErrors'           => true,
-));
-
-Yii::app()->clientScript->registerScript('fieldset', "
-    $('document').ready(function () {
-        $('.popover-help').popover({ trigger : 'hover', delay : 500 });
-    });
-");
-?>
+)); ?>
     <div class="alert alert-info">
         <?php echo Yii::t('PageModule.page', 'Поля, отмеченные'); ?>
         <span class="required">*</span>
@@ -60,12 +53,26 @@ Yii::app()->clientScript->registerScript('fieldset', "
             )); ?>
         </div>
     </div>
-    <div class="row-fluid control-group <?php echo $model->hasErrors('keywords') ? 'error' : ''; ?>">
-        <?php echo $form->textFieldRow($model, 'keywords', array('size' => 60, 'maxlength' => 150, 'class' => 'span7 popover-help', 'data-original-title' => $model->getAttributeLabel('keywords'), 'data-content' => $model->getAttributeDescription('keywords'))); ?>
+
+    <?php $collapse = $this->beginWidget('bootstrap.widgets.TbCollapse');?>
+    <div class="accordion-group">
+        <div class="accordion-heading">
+            <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion2" href="#collapseOne">
+                <?php echo Yii::t('PageModule.page','Данные для поисковой оптимизации');?>
+            </a>
+        </div>
+        <div id="collapseOne" class="accordion-body collapse">
+            <div class="accordion-inner">
+                <div class="row-fluid control-group <?php echo $model->hasErrors('keywords') ? 'error' : ''; ?>">
+                    <?php echo $form->textFieldRow($model, 'keywords', array('size' => 60, 'maxlength' => 150, 'class' => 'span7 popover-help', 'data-original-title' => $model->getAttributeLabel('keywords'), 'data-content' => $model->getAttributeDescription('keywords'))); ?>
+                </div>
+                <div class="row-fluid control-group <?php echo $model->hasErrors('description') ? 'error' : ''; ?>">
+                    <?php echo $form->textAreaRow($model, 'description', array('rows' => 3, 'cols' => 98, 'class' => 'span7 popover-help', 'data-original-title' => $model->getAttributeLabel('description'), 'data-content' => $model->getAttributeDescription('description'))); ?>
+                </div>
+            </div>
+        </div>
     </div>
-    <div class="row-fluid control-group <?php echo $model->hasErrors('description') ? 'error' : ''; ?>">
-        <?php echo $form->textAreaRow($model, 'description', array('rows' => 3, 'cols' => 98, 'class' => 'span7 popover-help', 'data-original-title' => $model->getAttributeLabel('description'), 'data-content' => $model->getAttributeDescription('description'))); ?>
-    </div>
+    <?php $this->endWidget();?>
 
     <?php $this->widget('bootstrap.widgets.TbButton', array(
         'buttonType' => 'submit',

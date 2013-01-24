@@ -12,8 +12,18 @@ class Migrator extends CApplicationComponent
 	public $connectionID='db';
     public $migrationTable='migrations';
 
+    /**
+     * @var CDbConnection
+     */
+    private $_db;
+
 	public function init()
 	{
+        // check for table
+        $db = $this->getDbConnection();
+        if($db->schema->getTable($db->tablePrefix.$this->migrationTable)===null)
+            $this->createMigrationHistoryTable();
+
 		return parent::init();
 	}
 
@@ -109,10 +119,6 @@ class Migrator extends CApplicationComponent
 		return $migration;
 	}
 
-	/**
-	 * @var CDbConnection
-	 */
-	private $_db;
 	protected function getDbConnection()
 	{
 		if($this->_db!==null)
@@ -125,8 +131,6 @@ class Migrator extends CApplicationComponent
 	protected function getMigrationHistory($module,$limit=20)
 	{
 		$db=$this->getDbConnection();
-		if($db->schema->getTable($db->tablePrefix.$this->migrationTable)===null)
-			$this->createMigrationHistoryTable();
 
         // @TODO: add cache here??
         $data = $db->createCommand()
@@ -187,10 +191,8 @@ class Migrator extends CApplicationComponent
      */
     public function checkForUpdates($modules)
     {
-        // check for table
+
         $db=$this->getDbConnection();
-        if($db->schema->getTable($db->tablePrefix.$this->migrationTable)===null)
-            $this->createMigrationHistoryTable();
 
         $updates = array();
 
@@ -199,6 +201,26 @@ class Migrator extends CApplicationComponent
                 $updates[$mid]=$a;
 
         return $updates;
+    }
+
+    /*
+     * Return db-installed modules list
+     */
+    public function getModulesWithDBInstalled()
+    {
+        $db=$this->getDbConnection();
+        $modules = array();
+        $m= $db->createCommand()
+            ->select('module')
+            ->from($db->tablePrefix.$this->migrationTable)
+            ->order('module DESC')
+            ->group('module')
+            ->queryAll();
+
+        foreach($m as $i)
+            $modules[]=$i['module'];
+
+        return $modules;
     }
 
 }
