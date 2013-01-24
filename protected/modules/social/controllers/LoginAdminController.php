@@ -1,5 +1,5 @@
 <?php
-class LoginController extends YBackController
+class LoginAdminController extends YBackController
 {
     /**
      * Displays a particular model.

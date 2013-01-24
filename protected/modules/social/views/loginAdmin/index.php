@@ -1,14 +1,13 @@
 <?php
     $this->breadcrumbs = array(
-        $this->getModule('social')->getCategory() => array(),
-        Yii::t('social', 'Социализация') => array('/social/default/index'),
-        Yii::t('social', 'Авторизационные данные') => array('/social/default/index'),
-        Yii::t('social', 'Управление'),
+        $this->module->getCategory() => array('/yupe/backend/index', 'category' => $this->module->getCategoryType()),
+        Yii::t('social', 'Социализация') => array('/social/defaultAdmin/index'),
+        Yii::t('social', 'Авторизационные данные'),
     );
 
     $this->menu = array(
-        array('label' => Yii::t('social', 'Управление'), 'url' => array('/social/default/index')),
-        array('label' => Yii::t('social', 'Просмотреть'), 'url' => array('/social/default/view', 'id' => $model->id)),
+        array('label' => Yii::t('social', 'Управление'), 'url' => array('/social/defaultAdmin/index')),
+        array('label' => Yii::t('social', 'Просмотреть'), 'url' => array('/social/defaultAdmin/view', 'id' => $model->id)),
     );
 ?>
 

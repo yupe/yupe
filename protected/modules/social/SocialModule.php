@@ -43,6 +43,11 @@ class SocialModule extends YWebModule
     {
         return Yii::t('social', 'Сервисы');
     }
+    
+    public function getCategoryType()
+    {
+        return Yii::t('social', 'services');
+    }
 
     public function getName()
     {
@@ -72,11 +77,6 @@ class SocialModule extends YWebModule
     public function getUrl()
     {
         return Yii::t('social', 'http://yupe.ru');
-    }
-
-    public function getAdminPageLink()
-    {
-        return '/social/default/index';
     }
 
     public function getIcon()
