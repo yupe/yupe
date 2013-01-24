@@ -7,7 +7,7 @@
         $('a.vote').click(function(event) {
             event.preventDefault();
             var value = $(this).attr('id');
-            $.post(baseUrl + '/index.php/vote/vote/addVote/', {
+            $.post(baseUrl + '/index.php/vote/default/addVote/', {
                 'modelType' : model,
                 'model_id'  : model_id,
                 'value'     : value,

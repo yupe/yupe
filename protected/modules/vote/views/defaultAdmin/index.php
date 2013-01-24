@@ -1,13 +1,14 @@
 <?php
     $this->breadcrumbs = array(
-        $this->getModule('vote')->getCategory() => array(),
-        Yii::t('VoteModule.vote', 'Голосование') => array('/vote/default/index'),
-        Yii::t('VoteModule.vote', 'Управление'),
+        $this->module->getCategory() => array('/yupe/backend/index', 'category' => $this->module->getCategoryType()),
+        Yii::t('VoteModule.vote', 'Голосование'),
     );
 
     $this->menu = array(
-        array('label' => Yii::t('VoteModule.vote', 'Управление голосами'), 'url' => array('/vote/default/index')),
-        array('label' => Yii::t('VoteModule.vote', 'Добавить голос'), 'url' => array('/vote/default/create')),
+        array('label' => Yii::t('VoteModule.vote', 'Голосование'), 'items' => array(
+            array('icon' => 'list-alt', 'label' => Yii::t('VoteModule.vote', 'Управление голосами'), 'url' => array('/vote/defaultAdmin/index')),
+            array('icon' => 'plus-sign', 'label' => Yii::t('VoteModule.vote', 'Добавить голос'), 'url' => array('/vote/defaultAdmin/create')),
+        ))
     );
 ?>
 
@@ -20,7 +21,7 @@
     <?php $this->renderPartial('_search', array('model' => $model)); ?>
 </div><!-- search-form -->
 
-<?php $this->widget('zii.widgets.grid.CGridView', array(
+<?php $this->widget('YCustomGridView', array(
     'id'           => 'vote-grid',
     'dataProvider' => $model->search(),
     'columns'      => array(
@@ -34,7 +35,7 @@
         'creation_date',
         'value',
         array(
-             'class' => 'CButtonColumn',
+             'class' => 'bootstrap.widgets.TbButtonColumn',
         ),
     ),
 )); ?>

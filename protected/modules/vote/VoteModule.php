@@ -18,6 +18,11 @@ class VoteModule extends YWebModule
     {
         return Yii::t('VoteModule.vote', 'Сервисы');
     }
+    
+    public function getCategoryType()
+    {
+    	return Yii::t('VoteModule.vote', 'services');
+    }
 
     public function getDescription()
     {
@@ -27,8 +32,8 @@ class VoteModule extends YWebModule
     public function getNavigation()
     {
         return array(
-            array('icon' => 'list-alt', 'label' => Yii::t('VoteModule.vote', 'Управление голосами'), 'url' => array('/vote/default/index')),
-            array('icon' => 'plus-sign', 'label' => Yii::t('VoteModule.vote', 'Добавить голос'), 'url' => array('/vote/default/create')),
+            array('icon' => 'list-alt', 'label' => Yii::t('VoteModule.vote', 'Управление голосами'), 'url' => array('/vote/defaultAdmin/index')),
+            array('icon' => 'plus-sign', 'label' => Yii::t('VoteModule.vote', 'Добавить голос'), 'url' => array('/vote/defaultAdmin/create')),
         );
     }
 
