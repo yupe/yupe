@@ -17,13 +17,26 @@
  * @package  YupeCMS
  * @author   aopeykin <aopeykin@yandex.ru>
  * @license  BSD https://raw.github.com/yupe/yupe/master/LICENSE
- * @version  0.0.1
+ * @version  0.1
  * @link     http://yupe.ru
  **/
 class YMainController extends Controller
 {
     public $yupe;
+
     public $headerTypeId = YContentType::TYPE_HTML;
+
+    /**
+     * Устанавливает заголовок страниц
+     * @param string $title заголовок
+     */
+    public function setPageTitle($title,$savePrev=false,$separator='|')
+    {
+        if($savePrev)
+            $this->pageTitle = $this->pageTitle . CHtml::encode($separator) . CHtml::encode($title);
+        else
+            $this->pageTitle = CHtml::encode($title);
+    }
 
     /**
      * Функци определяющая мультиязычность:

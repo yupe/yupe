@@ -23,15 +23,6 @@ class YFrontController extends YMainController
     public $keywords;
 
     /**
-     * Устанавливает заголовок страниц
-     * @param string $title заголовок
-     */
-    public function setPageTitle($title)
-    {
-        $this->pageTitle = $this->pageTitle . ' | ' . $title;
-    }
-
-    /**
      * Вызывается при инициализации YFrontController
      * Присваивает значения, необходимым переменным
      */
