@@ -11,6 +11,8 @@ return array(
         '/admin/modupdate'      => 'yupe/backend/modupdate',
         '/admin/modulechange'   => 'yupe/backend/modulechange',
         '/admin/help'           => 'yupe/backend/help',
+        '/admin/themesettings'  => 'yupe/backend/themesettings',
+        '/admin/cacheflush'     => 'yupe/backend/cacheflush',
         // правила контроллера site
         '/'                     => 'site/index',
         '/<view:\w+>'           => 'site/page',
