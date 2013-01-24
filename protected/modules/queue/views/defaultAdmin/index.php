@@ -1,6 +1,6 @@
 <?php
     $this->breadcrumbs = array(
-        $this->module->getCategory()           => array('/yupe/backend/index', 'category' => $this->module->getCategoryType()),
+        $this->module->getCategory() => array('/yupe/backend/index', 'category' => $this->module->getCategoryType()),
         Yii::t('QueueModule.queue', 'Задания'),
     );
 

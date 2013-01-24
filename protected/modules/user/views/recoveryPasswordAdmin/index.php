@@ -1,20 +1,19 @@
 <?php
     $this->breadcrumbs = array(
-        Yii::app()->getModule('user')->getCategory() => array(),
-        Yii::t('UserModule.user', 'Пользователи') => array('/user/default/index'),
-        Yii::t('UserModule.user', 'Восстановление пароля') => array('/user/recoveryPassword/index'),
-        Yii::t('UserModule.user', 'Управление'),
+        $this->module->getCategory() => array('/yupe/backend/index', 'category' => $this->module->getCategoryType()),
+        Yii::t('UserModule.user', 'Пользователи') => array('/user/defaultAdmin/index'),
+        Yii::t('UserModule.user', 'Восстановление пароля'),
     );
 
     $this->pageTitle = Yii::t('UserModule.user', 'Восстановление пароля - управление');
 
     $this->menu = array(
         array('label' => Yii::t('UserModule.user', 'Пользователи'), 'items' => array(
-            array('icon' => 'list-alt', 'label' => Yii::t('UserModule.user', 'Управление пользователями'), 'url' => array('/user/default/index')),
-            array('icon' => 'plus-sign', 'label' => Yii::t('UserModule.user', 'Добавление пользователя'), 'url' => array('/user/default/create')),
+            array('icon' => 'list-alt', 'label' => Yii::t('UserModule.user', 'Управление пользователями'), 'url' => array('/user/defaultAdmin/index')),
+            array('icon' => 'plus-sign', 'label' => Yii::t('UserModule.user', 'Добавление пользователя'), 'url' => array('/user/defaultAdmin/create')),
         )),
         array('label' => Yii::t('UserModule.user', 'Восстановления паролей'), 'items' => array(
-            array('icon' => 'list-alt', 'label' => Yii::t('UserModule.user', 'Восстановления паролей'), 'url' => array('/user/recoveryPassword/index')),
+            array('icon' => 'list-alt', 'label' => Yii::t('UserModule.user', 'Восстановления паролей'), 'url' => array('/user/recoveryPasswordAdmin/index')),
         )),
     );
 ?>

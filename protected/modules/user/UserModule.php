@@ -104,10 +104,10 @@ class UserModule extends YWebModule
     {
         return array(
             array('label' => Yii::t('UserModule.user', 'Пользователи')),
-            array('icon' => 'list-alt', 'label' => Yii::t('UserModule.user', 'Управление пользователями'), 'url' => array('/admin/user')),
-            array('icon' => 'plus-sign', 'label' => Yii::t('UserModule.user', 'Добавление пользователя'), 'url' => array('/admin/user/create')),
+            array('icon' => 'list-alt', 'label' => Yii::t('UserModule.user', 'Управление пользователями'), 'url' => array('/user/defaultAdmin/index')),
+            array('icon' => 'plus-sign', 'label' => Yii::t('UserModule.user', 'Добавление пользователя'), 'url' => array('/user/defaultAdmin/create')),
             array('label' => Yii::t('UserModule.user', 'Восстановления паролей')),
-            array('icon' => 'list-alt', 'label' => Yii::t('UserModule.user', 'Восстановления паролей'), 'url' => array('/admin/user/recoveryPassword/index')),
+            array('icon' => 'list-alt', 'label' => Yii::t('UserModule.user', 'Восстановления паролей'), 'url' => array('/user/recoveryPasswordAdmin/index')),
         );
     }
 
@@ -124,6 +124,11 @@ class UserModule extends YWebModule
     public function getCategory()
     {
         return Yii::t('UserModule.user', 'Пользователи');
+    }
+    
+    public function getCategoryType()
+    {
+        return Yii::t('UserModule.user', 'users');
     }
 
     public function getDescription()
@@ -149,11 +154,6 @@ class UserModule extends YWebModule
     public function getVersion()
     {
         return Yii::t('UserModule.user', '0.3');
-    }
-    
-    public function getAdminPageLink()
-    {
-    	return '/admin/user';
     }
 
     public function getIcon()

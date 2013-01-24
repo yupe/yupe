@@ -1,5 +1,5 @@
 <?php
-	$url= Yii::app()-> request-> hostInfo.$this-> createUrl('account/recoveryPassword',array('code'=> $model-> code));
+	$url= Yii::app()-> request-> hostInfo.$this-> createUrl('/user/account/recoveryPassword',array('code'=> $model-> code));
 ?>
 <html>
 <head>

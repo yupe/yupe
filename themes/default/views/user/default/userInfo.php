@@ -54,7 +54,7 @@ if ($user->location)
 
 <?php if(Yii::app()->user->isAuthenticated()): ?>
     <?php $this->widget('application.modules.comment.widgets.CommentFormWidget', array(
-        'redirectTo' => $this->createUrl('/user/people/userInfo/', array('username' => $user->nick_name)),
+        'redirectTo' => $this->createUrl('/user/default/userInfo/', array('username' => $user->nick_name)),
         'model' => $user,
         'modelId' => $user->id,
     )); ?>

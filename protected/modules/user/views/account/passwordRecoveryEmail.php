@@ -1,4 +1,4 @@
-<?php $url = Yii::app()->request->hostInfo.$this->createUrl('account/recoveryPassword', array('code' => $model->code)); ?>
+<?php $url = Yii::app()->request->hostInfo.$this->createUrl('/user/account/recoveryPassword', array('code' => $model->code)); ?>
 <html>
 <head>
     <title><?php echo Yii::t('UserModule.user', 'Восстановление пароля для сайта {site} !', array('{site}' => CHtml::encode(Yii::app()->name))); ?></title>

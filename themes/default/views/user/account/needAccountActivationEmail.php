@@ -10,12 +10,12 @@
 	<br/><br/>
 
 	<?php echo Yii::t('user', 'Для активации аккаунта, пожалуйста, перейдите по'); ?>
-	<a href='<?php echo Yii::app()-> request-> hostInfo.$this-> createUrl('account/activate',array( 'key'=>$model->activate_key)); ?>
+	<a href='<?php echo Yii::app()-> request-> hostInfo.$this-> createUrl('/user/account/activate',array( 'key'=>$model->activate_key)); ?>
 	?>'><?php echo Yii::t('user', 'ссылке'); ?></a>
 
 	<br/><br/>
 
-	<?php  echo Yii::app()-> request-> hostInfo.$this-> createUrl('account/activate',array( 'key'=>$model->activate_key)); ?>
+	<?php  echo Yii::app()-> request-> hostInfo.$this-> createUrl('/user/account/activate',array( 'key'=>$model->activate_key)); ?>
 
 	<br/><br/>
 

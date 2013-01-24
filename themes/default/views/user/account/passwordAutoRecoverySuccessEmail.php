@@ -8,7 +8,7 @@
 <?php echo Yii::t('user', 'Ваш новый пароль : {password}',array('{password}' => $password));?><br/>
 
 <?php echo Yii::t('user', 'Теперь вы можете');?> <a
-    href='<?php echo Yii::app()-> request-> hostInfo.$this-> createUrl('account/login'); ?>'><?php echo Yii::t('user', 'войти');?></a>
+    href='<?php echo Yii::app()-> request-> hostInfo.$this-> createUrl('/user/account/login'); ?>'><?php echo Yii::t('user', 'войти');?></a>
 !<br/><br/>
 
 <?php echo Yii::t('user', 'С уважением, администрация сайта "{site}" !',array('{site}' => CHtml::encode(Yii::app()->name)));?>
