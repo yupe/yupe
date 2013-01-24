@@ -116,19 +116,30 @@ echo "\n};";
 <?php $this->beginWidget('bootstrap.widgets.TbModal', array('id' => 'modules-modal')); ?>
     <div class="modal-header">
         <h4>
-            <?php echo Yii::t('InstallModule.install', 'Установка завершена.'); ?>
+            <?php echo Yii::t('InstallModule.install', 'Установка завершена'); ?>
         </h4>
     </div>
     <div id="modules-modal-list" class="modal-body row">
-        <?php echo Yii::t('InstallModule.install', 'Поздравляем, установка выбранных вами модулей завершена.<br/>Вы можете ознакомиться с журналом установки и перейти к следующему или предыдущему пункту.'); ?>
+        <?php echo Yii::t('InstallModule.install', 'Поздравляем, установка выбранных вами модулей завершена.<br/>Вы можете ознакомиться с журналом или продолжить установку.'); ?>
     </div>
     <div class="modal-footer">
         <?php
         $this->widget(
             'bootstrap.widgets.TbButton', array(
-                'label'       => Yii::t('InstallModule.install', 'Ок'),
+                'label'       => Yii::t('InstallModule.install', 'Смотреть журнал'),
                 'url'         => '#',
                 'htmlOptions' => array('data-dismiss' => 'modal'),
+            )
+        ); ?>
+        <?php
+        $this->widget(
+            'bootstrap.widgets.TbButton', array(
+                'type'  => 'primary',
+                'htmlOptions' => array(
+                    'class' => 'nextButton',
+                ),
+                'label' => Yii::t('InstallModule.install', 'Продолжить >'),
+                'url'   => array('/install/default/createuser')
             )
         ); ?>
     </div>
@@ -142,16 +153,27 @@ echo "\n};";
     </div>
     <div id="modules-modal-list" class="modal-body row">
         <div class="span3">
-            <?php echo Yii::t('InstallModule.install', 'Во время установки выбранных Вами модулей произошла ошибка. Вы можете ознакомиться с журналом установки и перейти к предыдущему шагу.'); ?>
+            <?php echo Yii::t('InstallModule.install', 'Во время установки выбранных Вами модулей произошла ошибка. Вы можете ознакомиться с журналом или продолжить установку.'); ?>
         </div>
     </div>
     <div class="modal-footer">
         <?php
         $this->widget(
             'bootstrap.widgets.TbButton', array(
-                'label'       => Yii::t('InstallModule.install', 'Ок'),
+                'label'       => Yii::t('InstallModule.install', 'Смотреть журнал'),
                 'url'         => '#',
                 'htmlOptions' => array('data-dismiss' => 'fail'),
+            )
+        ); ?>
+        <?php
+        $this->widget(
+            'bootstrap.widgets.TbButton', array(
+                'type'  => 'primary',
+                'htmlOptions' => array(
+                    'class' => 'nextButton',
+                ),
+                'label' => Yii::t('InstallModule.install', 'Продолжить >'),
+                'url'   => array('/install/default/createuser')
             )
         ); ?>
     </div>
