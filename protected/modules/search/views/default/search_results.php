@@ -10,7 +10,7 @@ if ($news)
         echo '<div class="post clearfix">';
             echo '<div class="title clearfix">';
                 echo '<time>' . $date . (($time != "0:00") ? " в " . $time : "") . "</time>";
-                echo CHTml::link(stripslashes($n->title), array("/news/news/show", "title" => $n->alias));
+                echo CHTml::link(stripslashes($n->title), array("/news/default/show", "title" => $n->alias));
             echo "</div>";
             echo "<div class=\"content\">" . CHtml::decode(stripslashes($n->short_text)) . "</div>";
         echo "</div>";

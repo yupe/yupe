@@ -21,6 +21,11 @@ class SearchModule extends YWebModule
     {
         return Yii::t('SearchModule.search', 'Сервисы');
     }
+    
+    public function getCategoryType()
+    {
+        return Yii::t('SearchModule.search', 'services');
+    }
 
     public function getName()
     {
@@ -50,11 +55,6 @@ class SearchModule extends YWebModule
     public function getUrl()
     {
         return Yii::t('SearchModule.search', 'http://yupe.ru/');
-    }
-
-    public function getAdminPageLink()
-    {
-        return '/';
     }
 
     public function getIcon()
