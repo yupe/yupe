@@ -35,7 +35,7 @@ class YFile extends CFileHelper
      * Рекрусивное удаление директорий.
      *
      * @param $path Если $path оканчивается на *, то удаляется только содержимое директории.
-     *
+     * @since 0.5
      * @return bool
      */
     public static function rmDir($path)
@@ -58,7 +58,7 @@ class YFile extends CFileHelper
             $dirHandle = opendir($path);
             while (false !== ($file = readdir($dirHandle))) {
                 if ($file != '.' && $file != '..') {
-                    $tmpPath = $path.'/'.$file;
+                    $tmpPath = $path . '/' . $file;
 
                     if (is_dir($tmpPath)) {
                         self::rmDir($tmpPath);
