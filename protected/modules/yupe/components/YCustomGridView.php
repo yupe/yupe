@@ -294,7 +294,7 @@ class YCustomGridView extends TbExtendedGridView
             $headlinePosition = ' style="text-align: ' . $this->headlinePosition . ';" ';
         echo '<div class="headline" ' . $headlinePosition .' >';
         /* Текстовка: */
-        echo Yii::t('YupeModule.yupe', 'Количество отображаемых эллементов:') . '<br />';
+        echo Yii::t('YupeModule.yupe', 'Отображать по:') . '<br />';
         
         /* Отрисовываем переключатели PageSize'a: */
         $this->widget(

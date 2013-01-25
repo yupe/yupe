@@ -277,7 +277,7 @@ class YupeModule extends YWebModule
      **/
     public function getDescription()
     {
-        return Yii::t('YupeModule.yupe', 'Ядро CMS Yupe');
+        return Yii::t('YupeModule.yupe', 'Ядро Юпи!');
     }
 
     /**
