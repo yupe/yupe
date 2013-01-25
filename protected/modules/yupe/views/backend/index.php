@@ -48,16 +48,17 @@
     <?php endif; ?>
 <?php endforeach; ?>
 
-<br/><br/>
+<br/>
 
-<p>
-    <?php echo Yii::t('YupeModule.yupe','Вы используете Yii версии'); ?>
-    <small class="label label-info" title="<?php echo Yii::getVersion(); ?>"><?php echo Yii::getVersion(); ?></small>,
-    <?php echo CHtml::encode(Yii::app()->name); ?>
-    <?php echo Yii::t('YupeModule.yupe', 'версии'); ?> <small class="label label-info" title="<?php echo Yii::app()->getModule('yupe')->version; ?>"><?php echo Yii::app()->getModule('yupe')->version; ?></small>,
-    <?php echo Yii::t('YupeModule.yupe', 'php версии'); ?>
-    <small class="label label-info" title="<?php echo phpversion(); ?>"><?php echo phpversion(); ?></small>
-</p>
+<div class="alert">
+    <p>
+        <?php echo Yii::t('YupeModule.yupe','Вы используете Yii версии'); ?>
+        <small class="label label-info" title="<?php echo Yii::getVersion(); ?>"><?php echo Yii::getVersion(); ?></small>,
+        <?php echo CHtml::encode(Yii::app()->name); ?>
+        <?php echo Yii::t('YupeModule.yupe', 'версии'); ?> <small class="label label-info" title="<?php echo Yii::app()->getModule('yupe')->version; ?>"><?php echo Yii::app()->getModule('yupe')->version; ?></small>,
+        <?php echo Yii::t('YupeModule.yupe', 'php версии'); ?>
+        <small class="label label-info" title="<?php echo phpversion(); ?>"><?php echo phpversion(); ?></small>
+    </p>
 
 </br>
 
@@ -89,6 +90,8 @@
         )); ?>
     </small>
 </p>
+
+</div>
 
 <?php echo $this->renderPartial('_moduleslist', array('modules' => $modules)); ?>
 
