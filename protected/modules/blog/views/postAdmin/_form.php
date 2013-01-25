@@ -109,16 +109,16 @@ $form = $this->beginWidget(
             ); ?>
         </div>
     </div>
+    <div class="row-fluid control-group <?php echo $model->hasErrors('link') ? 'error' : ''; ?>">
+
         <script type="text/javascript">
             $(document).ready(function(){
-
-                $("#tags").select2({tags:["red", "green", "blue"]});
+                $("#tags").val('<?php echo join(',',$model->getTags());?>');
             });
         </script>
-    <div class="row-fluid control-group <?php echo $model->hasErrors('link') ? 'error' : ''; ?>">
+
         <div class="popover-help" data-original-title='<?php echo $model->getAttributeLabel('tags'); ?>' data-content='<?php echo $model->getAttributeDescription('tags'); ?>'>
             <?php echo $form->labelEx($model, 'tags'); ?>
-
             <?php
 
             $this->widget(
@@ -126,7 +126,7 @@ $form = $this->beginWidget(
                     'asDropDownList' => false,
                     'name'           => 'tags',
                     'options'        => array(
-                            'tags'            => $model->isNewRecord ? array_values(CHtml::listData(Tag::model()->findAll(),'id','name')) : $model->getTags(),
+                            'tags'            => array_values(CHtml::listData(Tag::model()->findAll(),'id','name')),
                             'placeholder'     => Yii::t('BlogModule.blog','теги'),
                             'width'           => '40%',
                             'tokenSeparators' => array(',', ' ')
@@ -135,7 +135,6 @@ $form = $this->beginWidget(
             ); ?>
         </div>
     </div>
-
     <?php $collapse = $this->beginWidget('bootstrap.widgets.TbCollapse');?>
     <div class="accordion-group">
         <div class="accordion-heading">
