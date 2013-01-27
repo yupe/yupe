@@ -73,7 +73,7 @@ $form = $this->beginWidget('bootstrap.widgets.TbActiveForm', array(
         <div class="span7  popover-help"  data-original-title="<?php echo $model->getAttributeLabel('image'); ?>" >
     <?php echo $form->labelEx($model, 'image'); ?>
             <?php if(!$model->isNewRecord && $model->image):?>
-                <?php echo CHtml::image(Yii::app()->baseUrl.'/'.Yii::app()->getModule('yupe')->uploadPath . DIRECTORY_SEPARATOR . $this->module->uploadPath.DIRECTORY_SEPARATOR.$model->image, $model->title,array('width' => 300,'height' => 300));?>
+                <?php echo CHtml::image(Yii::app()->baseUrl.'/'.Yii::app()->getModule('yupe')->uploadPath . DIRECTORY_SEPARATOR . $this->module->uploadPath.DIRECTORY_SEPARATOR.$model->image, $model->name,array('width' => 300,'height' => 300));?>
                 <br/>
             <?php endif;?>
             <?php echo $form->fileField($model, 'image'); ?>
