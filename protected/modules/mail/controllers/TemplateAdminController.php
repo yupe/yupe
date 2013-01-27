@@ -1,10 +1,33 @@
 <?php
+/**
+ * Template admin controller
+ * Класс контроллера Template:
+ *
+ * @category YupeController
+ * @package  YupeCMS
+ * @author   YupeTeam <team@yupe.ru>
+ * @license  BSD https://raw.github.com/yupe/yupe/master/LICENSE
+ * @link     http://yupe.ru
+ **/
 
+/**
+ * Template admin controller
+ * Класс контроллера Template:
+ *
+ * @category YupeController
+ * @package  YupeCMS
+ * @author   YupeTeam <team@yupe.ru>
+ * @license  BSD https://raw.github.com/yupe/yupe/master/LICENSE
+ * @link     http://yupe.ru
+ **/
 class TemplateAdminController extends YBackController
 {
     /**
      * Отображает почтовый шаблон по указанному идентификатору
+     *
      * @param integer $id Идинтификатор почтовый шаблон для отображения
+     *
+     * @return nothing
      */
     public function actionView($id)
     {
@@ -14,6 +37,8 @@ class TemplateAdminController extends YBackController
     /**
      * Создает новую модель почтового шаблона.
      * Если создание прошло успешно - перенаправляет на просмотр.
+     *
+     * @return nothing
      */
     public function actionCreate()
     {
@@ -24,12 +49,10 @@ class TemplateAdminController extends YBackController
         if (Yii::app()->request->getParam('eid'))
             $model->event_id = (int) Yii::app()->request->getParam('eid');
 
-        if (isset($_POST['MailTemplate']))
-        {
+        if (isset($_POST['MailTemplate'])) {
             $model->attributes = $_POST['MailTemplate'];
 
-            if ($model->save())
-            {
+            if ($model->save()) {
                 Yii::app()->user->setFlash(
                     YFlashMessages::NOTICE_MESSAGE,
                     Yii::t('MailModule.mail', 'Запись добавлена!')
@@ -43,7 +66,10 @@ class TemplateAdminController extends YBackController
 
     /**
      * Редактирование почтового шаблона.
-     * @param integer $id the ID of the model to be updated
+     *
+     * @param integer $id - the ID of the model to be updated
+     *
+     * @return nothing
      */
     public function actionUpdate($id)
     {
@@ -52,12 +78,10 @@ class TemplateAdminController extends YBackController
         // Uncomment the following line if AJAX validation is needed
         // $this->performAjaxValidation($model);
 
-        if (isset($_POST['MailTemplate']))
-        {
+        if (isset($_POST['MailTemplate'])) {
             $model->attributes = $_POST['MailTemplate'];
 
-            if ($model->save())
-            {
+            if ($model->save()) {
                 Yii::app()->user->setFlash(
                     YFlashMessages::NOTICE_MESSAGE,
                     Yii::t('MailModule.mail', 'Запись обновлена!')
@@ -72,12 +96,14 @@ class TemplateAdminController extends YBackController
     /**
      * Удаяет модель почтового шаблона из базы.
      * Если удаление прошло успешно - возвращется в index
-     * @param integer $id идентификатор почтового шаблона, который нужно удалить
+     *
+     * @param integer $id - идентификатор почтового шаблона, который нужно удалить
+     *
+     * @return nothing
      */
     public function actionDelete($id)
     {
-        if (Yii::app()->request->isPostRequest)
-        {
+        if (Yii::app()->request->isPostRequest) {
             // поддерживаем удаление только из POST-запроса
             $this->loadModel($id)->delete();
 
@@ -96,6 +122,8 @@ class TemplateAdminController extends YBackController
 
     /**
      * Управление почтовыми шаблонами.
+     *
+     * @return nothing
      */
     public function actionIndex()
     {
@@ -111,7 +139,10 @@ class TemplateAdminController extends YBackController
     /**
      * Возвращает модель по указанному идентификатору
      * Если модель не будет найдена - возникнет HTTP-исключение.
-     * @param integer идентификатор нужной модели
+     *
+     * @param integer $id - идентификатор нужной модели
+     *
+     * @return class $model
      */
     public function loadModel($id)
     {
@@ -123,12 +154,14 @@ class TemplateAdminController extends YBackController
 
     /**
      * Производит AJAX-валидацию
-     * @param CModel модель, которую необходимо валидировать
+     *
+     * @param class $model - CModel модель, которую необходимо валидировать
+     *
+     * @return nothing
      */
     protected function performAjaxValidation($model)
     {
-        if (isset($_POST['ajax']) && $_POST['ajax'] === 'mail-template-form')
-        {
+        if (isset($_POST['ajax']) && $_POST['ajax'] === 'mail-template-form') {
             echo CActiveForm::validate($model);
             Yii::app()->end();
         }
