@@ -113,11 +113,10 @@ abstract class YWebModule extends CWebModule
 
     /**
      *   @return array или false
-     *   @todo проработать вывод сразу нескольких ошибок
      *   Работосопособность модуля может зависеть от разных факторов: версия php, версия Yii, наличие определенных модулей и т.д.
      *   В этом методе необходимо выполнить все проверки.
      *   @example
-     *   if (!$this->uploadDir)
+     *   if (!$this->uploadPath)
      *        return array(
      *            'type' => YWebModule::CHECK_ERROR,
      *            'message' => Yii::t('image', 'Пожалуйста, укажите каталог для хранения изображений! {link}', array(

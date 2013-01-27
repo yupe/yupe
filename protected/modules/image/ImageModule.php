@@ -2,15 +2,30 @@
 
 class ImageModule extends YWebModule
 {
-    public $uploadDir         = 'image';
+    public $uploadPath        = 'image';
     public $documentRoot;
     public $allowedExtensions = 'jpg,jpeg,png,gif';
     public $minSize           = 0;
-    public $maxSize;
+    public $maxSize           = 5000;
     public $maxFiles          = 1;
     public $types;
 
     public $mainCategory;
+
+    public function getInstall()
+    {
+        if(parent::getInstall())
+            @mkdir($this->getUploadPath(),755);
+
+        return false;
+    }
+
+    public function getUploadPath()
+    {
+        return  Yii::getPathOfAlias('webroot') . '/' .
+            Yii::app()->getModule('yupe')->uploadPath . '/' .
+            $this->uploadPath . '/';
+    }
 
     public function getDependencies()
     {
@@ -33,7 +48,7 @@ class ImageModule extends YWebModule
     {
         return array(
             'mainCategory'      => Yii::t('ImageModule.image','Главная категория изображений'),
-            'uploadDir'         => Yii::t('ImageModule.image', 'Каталог для загрузки изображений'),
+            'uploadPath'         => Yii::t('ImageModule.image', 'Каталог для загрузки изображений'),
             'allowedExtensions' => Yii::t('ImageModule.image', 'Разрешенные расширения (перечислите через запятую)'),
             'minSize'           => Yii::t('ImageModule.image', 'Минимальный размер (в байтах)'),
             'maxSize'           => Yii::t('ImageModule.image', 'Максимальный размер (в байтах)'),
@@ -43,17 +58,12 @@ class ImageModule extends YWebModule
     public function getEditableParams()
     {
         return array(
-            'uploadDir',
+            'uploadPath',
             'allowedExtensions',
             'minSize',
             'maxSize',
             'mainCategory' => CHtml::listData($this->getCategoryList(),'id','name'),
         );
-    }
-
-    public function getUploadPath()
-    {
-        return $this->documentRoot . Yii::app()->request->baseUrl . '/' . $this->uploadDir;
     }
 
     public function createUploadDir()
@@ -71,7 +81,7 @@ class ImageModule extends YWebModule
     {
         $messages = array();
 
-        if (!$this->uploadDir)
+        if (!$this->uploadPath)
              $messages[YWebModule::CHECK_ERROR][] = array(
                 'type'    => YWebModule::CHECK_ERROR,
                 'message' => Yii::t('ImageModule.image', 'Пожалуйста, укажите каталог для хранения изображений! {link}', array(
