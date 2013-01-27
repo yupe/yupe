@@ -1,3 +1,14 @@
+<?php
+/**
+ * Отображение для _view:
+ * 
+ *   @category YupeView
+ *   @package  YupeCMS
+ *   @author   Yupe Team <team@yupe.ru>
+ *   @license  https://github.com/yupe/yupe/blob/master/LICENSE BSD
+ *   @link     http://yupe.ru
+ **/
+?>
 <div class="view">
     <b><?php echo CHtml::encode($data->getAttributeLabel('id')); ?>:</b>
     <?php echo CHtml::link(CHtml::encode($data->id), array('view', 'id' => $data->id)); ?>

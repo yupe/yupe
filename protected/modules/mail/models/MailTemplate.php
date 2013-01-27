@@ -1,9 +1,20 @@
 <?php
+/**
+ * MailTemplate model class
+ * Класс модели MailTemplate
+ *
+ * @category YupeModel
+ * @package  YupeCMS
+ * @author   YupeTeam <team@yupe.ru>
+ * @license  BSD https://raw.github.com/yupe/yupe/master/LICENSE
+ * @link     http://yupe.ru
+ **/
 
 /**
  * This is the model class for table "mail_template".
  *
  * The followings are the available columns in table 'mail_template':
+ *
  * @property string $id
  * @property string $event_id
  * @property string $name
@@ -16,7 +27,16 @@
  *
  * The followings are the available model relations:
  * @property MailEvent $event
- */
+ *
+  * MailTemplate model class
+ * Класс модели MailTemplate
+ *
+ * @category YupeModel
+ * @package  YupeCMS
+ * @author   YupeTeam <team@yupe.ru>
+ * @license  BSD https://raw.github.com/yupe/yupe/master/LICENSE
+ * @link     http://yupe.ru
+ **/
 class MailTemplate extends YModel
 {
     const STATUS_ACTIVE     = 1;
@@ -24,7 +44,9 @@ class MailTemplate extends YModel
 
     /**
      * Returns the static model of the specified AR class.
+     *
      * @param string $className active record class name.
+     *
      * @return MailTemplate the static model class
      */
     public static function model($className = __CLASS__)
@@ -33,6 +55,8 @@ class MailTemplate extends YModel
     }
 
     /**
+     * Получаем имя таблицы:
+     *
      * @return string the associated database table name
      */
     public function tableName()
@@ -41,6 +65,8 @@ class MailTemplate extends YModel
     }
 
     /**
+     * Получаем правила валидации полей таблицы:
+     *
      * @return array validation rules for model attributes.
      */
     public function rules()
@@ -62,6 +88,8 @@ class MailTemplate extends YModel
     }
 
     /**
+     * Получаем связи данной таблицы:
+     *
      * @return array relational rules.
      */
     public function relations()
@@ -74,6 +102,8 @@ class MailTemplate extends YModel
     }
 
     /**
+     * Получаем атрибуты меток полей данной таблицы:
+     *
      * @return array customized attribute labels (name=>label)
      */
     public function attributeLabels()
@@ -94,6 +124,7 @@ class MailTemplate extends YModel
 
     /**
      * Retrieves a list of models based on the current search/filter conditions.
+     *
      * @return CActiveDataProvider the data provider that can return the models based on the search/filter conditions.
      */
     public function search()
@@ -116,6 +147,11 @@ class MailTemplate extends YModel
         return new CActiveDataProvider(get_class($this), array('criteria' => $criteria));
     }
 
+    /**
+     * Получаем массив статусов:
+     *
+     * @return miced status
+     **/
     public function getStatusList()
     {
         return array(
@@ -124,6 +160,11 @@ class MailTemplate extends YModel
         );
     }
 
+    /**
+     * Получаем статусов записи:
+     *
+     * @return string status
+     **/
     public function getStatus()
     {
         $data = $this->statusList;

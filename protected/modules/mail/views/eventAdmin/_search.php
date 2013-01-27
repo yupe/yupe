@@ -1,10 +1,20 @@
 <?php
-$form = $this->beginWidget('bootstrap.widgets.TbActiveForm', array(
-    'action' => Yii::app()->createUrl($this->route),
-    'method' => 'get',
-    'htmlOptions' => array('class' => 'well search-form'),
-        ));
-?>
+/**
+ * Отображение для _search:
+ * 
+ *   @category YupeView
+ *   @package  YupeCMS
+ *   @author   Yupe Team <team@yupe.ru>
+ *   @license  https://github.com/yupe/yupe/blob/master/LICENSE BSD
+ *   @link     http://yupe.ru
+ **/
+$form = $this->beginWidget(
+    'bootstrap.widgets.TbActiveForm', array(
+        'action' => Yii::app()->createUrl($this->route),
+        'method' => 'get',
+        'htmlOptions' => array('class' => 'well search-form'),
+    )
+); ?>
 
 <fieldset class="inline">
 
@@ -15,13 +25,14 @@ $form = $this->beginWidget('bootstrap.widgets.TbActiveForm', array(
 
     <div class="form-actions">
     <?php
-    $this->widget('bootstrap.widgets.TbButton', array(       
-        'buttonType' => 'submit',
-        'type' => 'primary',
-        'encodeLabel' => false,
-        'label' => '<i class="icon-search icon-white"></i> ' . Yii::t('MailModule.mail', 'Искать')
-    ));
-    ?>
+    $this->widget(
+        'bootstrap.widgets.TbButton', array(       
+            'buttonType' => 'submit',
+            'type' => 'primary',
+            'encodeLabel' => false,
+            'label' => '<i class="icon-search icon-white"></i> ' . Yii::t('MailModule.mail', 'Искать')
+        )
+    ); ?>
     </div>
 </fieldset>
 <?php $this->endWidget(); ?>
