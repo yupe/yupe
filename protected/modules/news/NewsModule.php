@@ -21,6 +21,14 @@ class NewsModule extends YWebModule
         return Yii::getPathOfAlias('webroot') . '/' . Yii::app()->getModule('yupe')->uploadPath . '/' . $this->uploadPath . '/';
     }
 
+    public function getInstall()
+    {
+        if(parent::getInstall())
+            @mkdir($this->getUploadPath(),755);
+
+        return false;
+    }
+
     public function checkSelf()
     {
         $messages = array();
