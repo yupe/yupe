@@ -43,7 +43,6 @@ $form = $this->beginWidget('bootstrap.widgets.TbActiveForm', array(
     'inlineErrors'           => true,
 ));
 ?>
-<fieldset class="inline">
 
     <div class="alert alert-info">
         <?php echo Yii::t('CategoryModule.category', 'Поля, отмеченные'); ?>
@@ -51,24 +50,15 @@ $form = $this->beginWidget('bootstrap.widgets.TbActiveForm', array(
         <?php echo Yii::t('CategoryModule.category', 'обязательны.'); ?>
     </div>
 
-    <div class="row-fluid control-group <?php echo $model->hasErrors('parent_id') ? 'error' : '' ?>">
-        <div class="span7  popover-help" data-original-title="<?php echo $model->getAttributeLabel('parent_id'); ?>" >
-            <?php echo $form->labelEx($model, 'parent_id'); ?>
-            <?php echo $form->dropDownList($model, 'parent_id', CHtml::listData(Category::model()->findAll(), 'id', 'name'), array( 'empty' => Yii::t('CategoryModule.category', '--выберите--') )); ?>
-        </div>
-        <div class="span5">
-            <?php echo $form->error($model, 'parent_id'); ?>
-        </div>
+
+    <div class='row-fluid control-group <?php echo $model->hasErrors("parent_id") ? "error" : ""; ?>'>
+        <?php echo  $form->dropDownListRow($model, 'parent_id', CHtml::listData(Category::model()->findAll(), 'id', 'name'), array('empty' => Yii::t('CategoryModule.category', '--нет--'),'class' => 'span7')); ?>
     </div>
-    <div class="row-fluid control-group <?php echo $model->hasErrors('alias') ? 'error' : '' ?>">
-        <div class="span7  popover-help" data-content="<?php echo Yii::t('CategoryModule.category', "Краткое название категории латинскими буквами, используется для формирования её адреса.") ?>" data-original-title="<?php echo $model->getAttributeLabel('alias'); ?>" >
-            <?php echo $form->labelEx($model, 'alias'); ?>
-            <?php echo $form->textField($model, 'alias', array( 'size' => 60, 'maxlength'   => 150, 'placeholder' => Yii::t('CategoryModule.category', 'Оставьте пустым для автоматической генерации') )); ?>
-        </div>
-        <div class="span5">
-            <?php echo $form->error($model, 'alias'); ?>
-        </div>
+
+    <div class='control-group <?php echo $model->hasErrors("alias") ? "error" : ""; ?>'>
+        <?php echo $form->textFieldRow($model, 'alias', array('class' => 'span7', 'maxlength' => 300)); ?>
     </div>
+
     <div class="row-fluid control-group <?php echo $model->hasErrors('image') ? 'error' : '' ?>">
         <div class="span7  popover-help"  data-original-title="<?php echo $model->getAttributeLabel('image'); ?>" >
     <?php echo $form->labelEx($model, 'image'); ?>
@@ -111,12 +101,11 @@ $form = $this->beginWidget('bootstrap.widgets.TbActiveForm', array(
         echo $this->renderPartial('_mform', array('model' => $models[$l], 'form' => $form));
         echo CHtml::closeTag("div");
     }
-    echo CHtml::closeTag("div");
     ?>
-<fieldset>
+    </div>
 
+<br/>
 <?php
-echo "<br />";
 echo CHtml::submitButton($model->isNewRecord ? Yii::t('CategoryModule.category', 'Добавить категорию') : Yii::t('CategoryModule.category', 'Сохранить категорию'), array('class' => 'btn btn-primary'));
 $this->endWidget();
 ?>

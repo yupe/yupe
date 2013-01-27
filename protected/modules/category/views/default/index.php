@@ -73,6 +73,9 @@ $this->renderPartial('_search', array('model' => $model));
         ),
         array(
             'class' => 'bootstrap.widgets.TbButtonColumn',
+            'buttons' => array(
+                'update' => array('url' => 'array("/category/default/update", "alias" => $data->alias)'),
+             ),
         ),
     ),
 )); ?>

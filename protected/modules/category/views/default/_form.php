@@ -30,24 +30,27 @@ $form = $this->beginWidget('bootstrap.widgets.TbActiveForm', array(
         <?php endif; ?>
         <?php echo  $form->fileFieldRow($model, 'image', array('class' => 'span5', 'maxlength' => 300, 'size' => 60)); ?>
     </div>
+
     <div class='row-fluid control-group <?php echo $model->hasErrors("description") ? "error" : ""; ?>'>
         <?php echo $form->labelEx($model, 'description'); ?>
         <?php $this->widget($this->module->editor, array(
-            'model'       => $model,
-            'attribute'   => 'description',
-            'options'     => $this->module->editorOptions,
-        )); ?>
+        'model'       => $model,
+        'attribute'   => 'description',
+        'options'     => $this->module->editorOptions,
+    )); ?>
         <br /><?php echo $form->error($model, 'description'); ?>
     </div>
+
     <div class='row-fluid control-group <?php echo $model->hasErrors("short_description") ? "error" : ""; ?>'>
         <?php echo $form->labelEx($model, 'short_description'); ?>
         <?php $this->widget($this->module->editor, array(
-            'model'       => $model,
-            'attribute'   => 'short_description',
-            'options'     => $this->module->editorOptions,
-        )); ?>
+        'model'       => $model,
+        'attribute'   => 'short_description',
+        'options'     => $this->module->editorOptions,
+    )); ?>
         <br /><?php echo $form->error($model, 'short_description'); ?>
     </div>
+
     <div class='row-fluid control-group <?php echo $model->hasErrors("status") ? "error" : ""; ?>'>
         <?php echo  $form->dropDownListRow($model, 'status', $model->statusList,array('class' => 'span7')); ?>
     </div>
