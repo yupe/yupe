@@ -1,6 +1,5 @@
 /* General Style */
-.error .redactor_box { border: 1px rgb(149, 59, 57) solid; }
-.error .redactor_editor { border: 1px rgb(149, 59, 57) solid; }
+.error .redactor_box { border: 1px rgb(149, 59, 57) solid; -webkit-box-shadow: 0 0 6px rgb(213, 147, 146); -moz-box-shadow: 0 0 6px #d59392; box-shadow: 0 0 6px rgb(213, 147, 146); }
 html,
 body {
     height: 100%;
