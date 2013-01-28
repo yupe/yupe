@@ -83,6 +83,7 @@
     <?php echo Yii::t('YupeModule.yupe', 'выключено'); ?>
     <small class="label label-info"><?php echo $yupeCount - $enableCount; ?></small>
     <?php echo Yii::t('YupeModule.yupe', 'модуль|модуля|модулей', $yupeCount - $enableCount); ?>)
+	<br>
     <small>
         <?php echo Yii::t('YupeModule.yupe', '( дополнительные модули всегда можно поискать на {link} или {order_link} )', array(
             '{link}'       => CHtml::link(Yii::t('YupeModule.yupe', 'официальном сайте'), 'http://yupe.ru/?from=mlist', array('target' => '_blank')),
