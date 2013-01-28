@@ -94,7 +94,7 @@ $this->renderPartial('_search', array('model' => $model));
                      *   обработка данных (указывая собственные действия - необходимо создавать их
                      *   обработчики в actionMultiaction):
                      **/
-                    'click'      => 'js:function(values){ multiaction("delete", values); }',
+                    'click'      => 'js:function(values){ if(!confirm("' . Yii::t('BlogModule.blog', 'Вы уверены, что хотите удалить выбранные элементы?') . '")) return false; multiaction("delete", values); }',
                 ),
             ),
             // if grid doesn't have a checkbox column type, it will attach
