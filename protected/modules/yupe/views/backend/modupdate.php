@@ -10,4 +10,4 @@
         }
 ?>
 </table>
-<form action="#" method="post"><input type="submit" value="<?php Yii::t('YupeModule.yupe','Обновить');?>"></form>
+<form action="#" method="post"><input type="submit" value="<?php echo Yii::t('YupeModule.yupe','Обновить');?>"></form>
