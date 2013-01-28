@@ -51,7 +51,7 @@ class BackendController extends YBackController
                 throw new CHttpException(404, Yii::t('YupeModule.yupe', 'Страница не найдена!'));
 
             if (!($module = Yii::app()->getModule($moduleId)))
-                throw new CHttpException(404, Yii::t('YupeModule.yupe', 'Модуль "{module}" не найден!', array('{module}' => $module_id)));
+                throw new CHttpException(404, Yii::t('YupeModule.yupe', 'Модуль "{module}" не найден!', array('{module}' => $moduleId)));
 
            if (!$this->saveParamsSetting($moduleId, $module->editableParamsKey))
            {
@@ -232,12 +232,17 @@ class BackendController extends YBackController
     public function actionCacheflush()
     {
         Yii::app()->cache->flush();
+        $dirsList = glob(Yii::app()->assetManager->getBasePath() . DIRECTORY_SEPARATOR . '*', GLOB_ONLYDIR);
+        if (is_array($dirsList)) {
+            foreach ($dirsList as $item) {
+                YFile::rmDir($item);
+            }
+        }
         Yii::app()->user->setFlash(
             YFlashMessages::NOTICE_MESSAGE,
             Yii::t('YupeModule.yupe', 'Кэш успешно сброшен!')
         );
-        $referrer = Yii::app()->request->urlReferrer;
-        $this->redirect($referrer !== null ? $referrer : array("/yupe/backend"));
+        $this->redirect(Yii::app()->request->urlReferrer !== null ? Yii::app()->request->urlReferrer : array("/yupe/backend"));
     }
 
     /**

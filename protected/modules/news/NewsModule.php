@@ -21,6 +21,14 @@ class NewsModule extends YWebModule
         return Yii::getPathOfAlias('webroot') . '/' . Yii::app()->getModule('yupe')->uploadPath . '/' . $this->uploadPath . '/';
     }
 
+    public function getInstall()
+    {
+        if(parent::getInstall())
+            @mkdir($this->getUploadPath(),755);
+
+        return false;
+    }
+
     public function checkSelf()
     {
         $messages = array();
@@ -70,7 +78,7 @@ class NewsModule extends YWebModule
 
     public function getVersion()
     {
-        return Yii::t('page', '0.3');
+        return Yii::t('NewsModule.news', '0.3');
     }
 
     public function getIsInstallDefault()

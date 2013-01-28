@@ -16,18 +16,19 @@ $form = $this->beginWidget('bootstrap.widgets.TbActiveForm', array(
     <?php echo $form->errorSummary($model); ?>
 
     <div class="row-fluid control-group <?php echo $model->hasErrors('date') ? 'error' : ''; ?>">
-        <div class="span7 popover-help" data-content="<?php echo Yii::t('NewsModule.news', "Дата публикации новости, также используется для упорядочивания списка новостей."); ?>" data-original-title="<?php echo $model->getAttributeLabel('date'); ?>">
-            <?php echo $form->labelEx($model, 'date'); ?>
-            <?php $this->widget('zii.widgets.jui.CJuiDatePicker', array(
-            'model'     => $model,
-            'attribute' => 'date',
-            'language'  => Yii::app()->language,
-            'options'   => array('dateFormat' => 'dd.mm.yy'),
-            'htmlOptions' => array('class' => 'span7 popover-help')
-        )); ?>
-        </div>
-        <div class="span5">
-            <?php echo $form->error($model, 'date'); ?>
+        <div class="span4 popover-help" data-original-title='<?php echo $model->getAttributeLabel('date'); ?>' data-content='<?php echo $model->getAttributeDescription('date'); ?>'>
+            <?php
+            echo $form->datepickerRow(
+                $model, 'date', array(
+                    'prepend' => '<i class="icon-calendar"></i>',
+                    'options' => array(
+                        'format'    => 'dd.mm.yyyy',
+                        'weekStart' => 1,
+                        'autoclose' => true,
+                    ),
+                    'class'   => 'span11'
+                )
+            ); ?>
         </div>
     </div>
 

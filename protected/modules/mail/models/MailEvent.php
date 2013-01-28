@@ -1,9 +1,20 @@
 <?php
+/**
+ * MailEvent model class
+ * Класс модели MailEvent
+ *
+ * @category YupeModel
+ * @package  YupeCMS
+ * @author   YupeTeam <team@yupe.ru>
+ * @license  BSD https://raw.github.com/yupe/yupe/master/LICENSE
+ * @link     http://yupe.ru
+ **/
 
 /**
  * This is the model class for table "mail_event".
  *
  * The followings are the available columns in table 'mail_event':
+ *
  * @property string $id
  * @property string $code
  * @property string $name
@@ -11,12 +22,23 @@
  *
  * The followings are the available model relations:
  * @property MailTemplate[] $mailTemplates
- */
+ *
+ * MailEvent model class
+ * Класс модели MailEvent
+ *
+ * @category YupeModel
+ * @package  YupeCMS
+ * @author   YupeTeam <team@yupe.ru>
+ * @license  BSD https://raw.github.com/yupe/yupe/master/LICENSE
+ * @link     http://yupe.ru
+ **/
 class MailEvent extends YModel
 {
     /**
      * Returns the static model of the specified AR class.
+     *
      * @param string $className active record class name.
+     *
      * @return MailEvent the static model class
      */
     public static function model($className = __CLASS__)
@@ -25,6 +47,8 @@ class MailEvent extends YModel
     }
 
     /**
+     * Получаем название таблицы:
+     *
      * @return string the associated database table name
      */
     public function tableName()
@@ -33,6 +57,8 @@ class MailEvent extends YModel
     }
 
     /**
+     * Получаем правила валидации:
+     *
      * @return array validation rules for model attributes.
      */
     public function rules()
@@ -53,6 +79,8 @@ class MailEvent extends YModel
     }
 
     /**
+     * Получаем свзи данной таблицы:
+     *
      * @return array relational rules.
      */
     public function relations()
@@ -65,6 +93,8 @@ class MailEvent extends YModel
     }
 
     /**
+     * Получаем атрибуты меток полей таблицы:
+     *
      * @return array customized attribute labels (name=>label)
      */
     public function attributeLabels()
@@ -79,6 +109,7 @@ class MailEvent extends YModel
 
     /**
      * Retrieves a list of models based on the current search/filter conditions.
+     *
      * @return CActiveDataProvider the data provider that can return the models based on the search/filter conditions.
      */
     public function search()

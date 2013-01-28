@@ -51,9 +51,6 @@ class PostAdminController extends YBackController
     {
         $model = $this->loadModel($id);
 
-        // Uncomment the following line if AJAX validation is needed
-        // $this->performAjaxValidation($model);
-
         if (isset($_POST['Post']))
         {
             $model->attributes = $_POST['Post'];

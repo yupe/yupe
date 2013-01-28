@@ -30,6 +30,14 @@ class CategoryModule extends YWebModule
         return isset($messages[YWebModule::CHECK_ERROR]) ? $messages : true;
     }
 
+    public function getInstall()
+    {
+        if(parent::getInstall())
+            @mkdir($this->getUploadPath(),755);
+
+        return false;
+    }
+
     public function getEditableParams()
     {
         return array(

@@ -19,7 +19,6 @@ class m121220_001126_menu_test_data extends CDbMigration
             array(1, 0, 1, 'Главная', '/site/index', '', 'Главная страница сайта', '', '', '', '', '', 0, 1, 1),
             array(2, 0, 1, 'Блоги', '/blog/blog/index', '', 'Блоги', '', '', '', '', '', 0, 2, 1),
             array(4, 2, 1, 'Пользователи', '/user/people/index', '', 'Пользователи', '', '', '', '', '', 0, 3, 1),
-            array(5, 0, 1, 'Социальные виджеты', '/site/social/index', '', 'Социальные виджеты', '', '', '', '', '', 0, 8, 0),
             array(6, 3, 1, 'Контакты', '/feedback/contact/index', '', 'Контакты', '', '', '', '', '', 0, 6, 1),
             array(7, 0, 1, 'Wiki', '/wiki/default/index', '', 'Wiki', '', '', '', '', '', 0, 9, 0),
             array(8, 0, 1, 'Войти', '/user/account/login', 'login-text', 'Войти на сайт', '', '', '', '', 'isAuthenticated', 1, 11, 1),
