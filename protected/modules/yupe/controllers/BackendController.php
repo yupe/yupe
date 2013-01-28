@@ -249,33 +249,42 @@ class BackendController extends YBackController
      * Страничка для отображения ссылок на ресурсы для получения помощи
      *
      * @since 0.4
-     *
+     * @return nothing
      */
     public function actionHelp()
     {
         $this->render('help');
     }
 
-    public function actionModupdate($name=null)
+    /**
+     * Обновленик миграций модуля
+     *
+     * @param string $name - id модуля
+     *
+     * @return nothing
+     */
+    public function actionModupdate($name = null)
     {
-        if($name && ($module=Yii::app()->getModule($name)))
-        {
-             $updates = Yii::app()->migrator->checkForUpdates(array($name=>$module));
-             if(Yii::app()->request->isPostRequest)
-             {
+        if ($name && ($module=Yii::app()->getModule($name))) {
+            $updates = Yii::app()->migrator->checkForUpdates(array($name=>$module));
+            if (Yii::app()->request->isPostRequest) {
                 Yii::app()->migrator->updateToLatest($name);
                 Yii::app()->user->setFlash(
-                     YFlashMessages::NOTICE_MESSAGE,
-                     Yii::t('YupeModule.yupe', 'Модуль обновил свои миграции!')
-                 );
-                $this->redirect(array("/yupe/backend"));
-             } else
+                    YFlashMessages::NOTICE_MESSAGE,
+                    Yii::t('YupeModule.yupe', 'Модуль обновил свои миграции!')
+                );
+                $this->redirect(
+                    array(
+                        "/yupe/backend"
+                    )
+                );
+            } else
                 $this->render('modupdate', array( 'updates'=> $updates, 'module' => $module));
-             return;
+            return;
         }
 
         //$this->render('modupdate_index', array());
-        throw new CHttpException(500,'not implemented yet');
+        throw new CHttpException(500, 'not implemented yet');
 
     }
 }
