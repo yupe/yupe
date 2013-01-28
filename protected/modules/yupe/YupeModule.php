@@ -174,7 +174,7 @@ class YupeModule extends YWebModule
             'availableLanguages',
             'defaultLanguage'        => $this->languagesList,
             'defaultBackendLanguage' => $this->languagesList,
-            'updateChannel'           => $this->updateChannelList,
+            'updateChannel'          => $this->updateChannelList,
         );
     }
 
