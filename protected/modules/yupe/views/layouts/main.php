@@ -16,20 +16,14 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title><?php echo CHtml::encode(Yii::app()->name); ?> <?php echo CHtml::encode($this->pageTitle); ?></title>
     <?php
-    Yii::app()->clientScript->registerCssFile(
-        Yii::app()->assetManager->publish(
-            Yii::getPathOfAlias('application.modules.yupe.views.assets.css') . '/styles.css'
-        )
-    ); ?>
-    <?php
-    Yii::app()->clientScript->registerScriptFile(
-        Yii::app()->assetManager->publish(
-            Yii::getPathOfAlias('application.modules.yupe.views.assets.js') . '/main.js'
-        )
-    ); ?>
-    <?php if (($langs = $this->yupe->languageSelectorArray) != array()) : ?>
-        <?php Yii::app()->clientScript->registerCssFile($this->yupe->themeBaseUrl . '/css/flags.css'); ?>
-    <?php endif; ?>
+    $mainAssets = $this->yupe->themeBaseUrl . Yii::app()->assetManager->publish(
+        Yii::getPathOfAlias('application.modules.yupe.views.assets')
+    );
+    Yii::app()->clientScript->registerCssFile($mainAssets . '/css/styles.css');
+    Yii::app()->clientScript->registerScriptFile($mainAssets . '/js/main.js');
+    if (($langs = $this->yupe->languageSelectorArray) != array())
+        Yii::app()->clientScript->registerCssFile($mainAssets. '/css/flags.css');
+    ?>
 </head>
 
 <body>
