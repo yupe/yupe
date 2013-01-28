@@ -15,7 +15,7 @@ $this->breadcrumbs = array(
     </div>
     <div class="author">
         <?php echo Yii::t('blog', 'Опубликовал'); ?>: 
-        <b><?php echo CHtml::link($post->createUser->nick_name, array('/user/pdefault/userInfo', 'username' => $post->createUser->nick_name)); ?></b>
+        <b><?php echo CHtml::link($post->createUser->nick_name, array('/user/default/userInfo', 'username' => $post->createUser->nick_name)); ?></b>
 
         <?php echo Yii::t('blog', 'в блоге'); ?>: 
         "<?php echo CHtml::link($post->blog->name, array('/blog/default/show', 'slug' => $post->blog->slug)); ?>"

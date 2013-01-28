@@ -63,7 +63,7 @@
             if (!m.installed) {
                 setModuleProgress(ic, "<i class='icon-" + m.icon + "'>&nbsp;</i>&nbsp; <?php echo Yii::t('InstallModule.install', 'Устанавливаем модуль'); ?> <b>" + m.description + "</b>");
                 $.ajax({
-                    url:"<?php echo $this->createUrl('/install/moduleinstall') ?>",
+                    url:"<?php echo $this->createUrl('/install/default/moduleinstall') ?>",
                     data: { 'name':m.id},
                     dataType: 'json',
                     success: function(data,status) {
@@ -78,7 +78,7 @@
                                 installNext();
                             else {
                                 alert("<?php echo Yii::t('InstallModule.install', 'Установка модулей успешно завершена!'); ?>");
-                                document.location = "<?php echo $this->createUrl('/install/createuser/'); ?>"
+                                document.location = "<?php echo $this->createUrl('/install/default/createuser/'); ?>"
                             }
 
                         }

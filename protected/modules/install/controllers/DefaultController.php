@@ -565,7 +565,7 @@ class DefaultController extends YBackController
                         Yii::t('InstallModule.install', 'Администратор успешно создан!')
                     );
 
-                    $this->redirect(array('/install/sitesettings/'));
+                    $this->redirect(array('/install/default/sitesettings/'));
                 }
             }
         }
@@ -621,7 +621,7 @@ class DefaultController extends YBackController
                     if (!is_dir($assetsPath))
                         @mkdir ($assetsPath);
 
-                    $this->redirect(array('/install/finish/'));
+                    $this->redirect(array('/install/default/finish/'));
                 } catch (CDbException $e) {
                     $transaction->rollback();
 
@@ -632,7 +632,7 @@ class DefaultController extends YBackController
 
                     Yii::log($e->__toString(),  CLogger::LEVEL_ERROR);
 
-                    $this->redirect(array('/install/sitesettings/'));
+                    $this->redirect(array('/install/default/sitesettings/'));
                 }
             }
         }
