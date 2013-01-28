@@ -7,16 +7,16 @@ $form = $this->beginWidget('bootstrap.widgets.TbActiveForm', array(
 )); ?>
     <fieldset class="inline">
         <div class="row-fluid control-group">
-            <div class="span1">
+            <div class="span3">
                 <?php echo $form->textFieldRow($model, 'id'); ?>
             </div>
-            <div class="span2">
+            <div class="span3">
                 <?php echo $form->textFieldRow($model, 'date'); ?>
             </div>
             <div class="span3">
                 <?php echo $form->dropDownListRow($model, 'status', $model->statusList, array('empty' => Yii::t('NewsModule.news', '- не важен -'))); ?>
             </div>
-            <div class="span4">
+            <div class="span3">
                 <?php echo $form->dropDownListRow($model, 'category_id', CHtml::listData($this->module->categoryList, 'id', 'name'), array('empty' => Yii::t('NewsModule.news', '- не важно -'))); ?>
             </div>
         </div>

@@ -17,13 +17,26 @@
  * @package  YupeCMS
  * @author   aopeykin <aopeykin@yandex.ru>
  * @license  BSD https://raw.github.com/yupe/yupe/master/LICENSE
- * @version  0.0.1
+ * @version  0.1
  * @link     http://yupe.ru
  **/
 class YMainController extends Controller
 {
     public $yupe;
+
     public $headerTypeId = YContentType::TYPE_HTML;
+
+    /**
+     * Устанавливает заголовок страниц
+     * @param string $title заголовок
+     */
+    public function setPageTitle($title,$savePrev=false,$separator='|')
+    {
+        if($savePrev)
+            $this->pageTitle = $this->pageTitle . CHtml::encode($separator) . CHtml::encode($title);
+        else
+            $this->pageTitle = CHtml::encode($title);
+    }
 
     /**
      * Функци определяющая мультиязычность:
@@ -86,5 +99,23 @@ class YMainController extends Controller
     {
         YContentType::setHeader($this->headerTypeId);
         return parent::processOutput($output);
+    }
+
+    /**
+     * Отключение всех профайлеров и логгеров, используется, например при загрузке файлов
+     *
+     * @since 0.5
+     * @see http://allframeworks.ru/blog/Yii/371.html
+     *
+     **/
+    public function disableProfilers()
+    {
+        if (Yii::app()->getComponent('log')) {
+            foreach (Yii::app()->getComponent('log')->routes as $route) {
+                if (in_array(get_class($route), array('CFileLogRoute','CProfileLogRoute', 'CWebLogRoute', 'YiiDebugToolbarRoute','DbProfileLogRoute'))) {
+                    $route->enabled = false;
+                }
+            }
+        }
     }
 }

@@ -59,4 +59,41 @@ $this->breadcrumbs = array(
 
 <br /><br />
 
-<b><?php echo Yii::t('YupeModule.yupe','Команда разработчиков Юпи!'); ?></b>
+<b><?php echo Yii::t('YupeModule.yupe','Команда разработчиков Юпи!'); ?>:</b>
+
+<br /><br />
+
+<table class="detail-view table table-striped table-condensed" id="yupe-core-team">
+    <tbody>
+         <tr class="odd">
+            <th><?php echo Yii::t('YupeModule.yupe','Опейкин Андрей');?></th>
+            <td><?php echo CHtml::link('andrey.opeykin.ru','http://andrey.opeykin.ru?from=yupe_help');?></td>
+        </tr>
+        <tr class="odd">
+            <th><?php echo Yii::t('YupeModule.yupe','Тищенко Александр');?></th>
+            <td><?php echo CHtml::link('twitter.com/archaron','https://twitter.com/archaron');?></td>
+        </tr>
+        <tr class="odd">
+            <th><?php echo Yii::t('YupeModule.yupe','Лыженков Александр');?></th>
+            <td><?php echo CHtml::link('lyzhenkov.ru','http://lyzhenkov.ru?from=yupe_help');?></td>
+        </tr>
+        <tr class="odd">
+            <th><?php echo Yii::t('YupeModule.yupe','Елизаров Алексей');?></th>
+            <td><?php echo CHtml::link('vk.com/valaraukar','http://vk.com/valaraukar');?></td>
+        </tr>
+        <tr class="odd">
+            <th><?php echo Yii::t('YupeModule.yupe','Куликов Евгений');?></th>
+            <td><?php echo CHtml::link('akulikov.org.ua','http://akulikov.org.ua?from=yupe_help');?></td>
+        </tr>
+        <tr class="odd">
+            <th><?php echo Yii::t('YupeModule.yupe','Тимашов Максим');?></th>
+            <td>apexwire@gmail.com</td>
+        </tr>
+        <tr class="odd">
+            <th><?php echo Yii::t('YupeModule.yupe','Черепанов Антон');?></th>
+            <td><?php echo CHtml::link('twitter.com/davetoxa','https://twitter.com/davetoxa');?></td>
+        </tr>
+    </tbody>
+</table>
+
+<b><?php echo CHtml::link(Yii::t('YupeModule.yupe','ЖДЕМ ТОЛЬКО ТЕБЯ!'),'http://yupe.ru/feedback/contact',array('target' => '_blank'));?></b>

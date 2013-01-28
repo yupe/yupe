@@ -113,11 +113,10 @@ abstract class YWebModule extends CWebModule
 
     /**
      *   @return array или false
-     *   @todo проработать вывод сразу нескольких ошибок
      *   Работосопособность модуля может зависеть от разных факторов: версия php, версия Yii, наличие определенных модулей и т.д.
      *   В этом методе необходимо выполнить все проверки.
      *   @example
-     *   if (!$this->uploadDir)
+     *   if (!$this->uploadPath)
      *        return array(
      *            'type' => YWebModule::CHECK_ERROR,
      *            'message' => Yii::t('image', 'Пожалуйста, укажите каталог для хранения изображений! {link}', array(
@@ -406,7 +405,7 @@ abstract class YWebModule extends CWebModule
     {
         $log = array();
 
-        Yii::log(Yii::t('YupeModule.yupe', $this->id . "->installDB() : Запрошена установка БД модуля {m}", array('{m}' => $this->name)));
+        Yii::log(Yii::t('YupeModule.yupe',"{id}->installDB() : Запрошена установка БД модуля {m}", array('{m}' => $this->name,'{id}' => $this->id)));
 
         if ($this->dependencies !== array()) {
             foreach ($this->dependencies as $dep) {
@@ -490,6 +489,8 @@ abstract class YWebModule extends CWebModule
      */
     public function init()
     {
+        parent::init();
+
         if (isset(Yii::app()->theme) && is_object(Yii::app()->theme))
             $this->layout = 'webroot.themes.' . Yii::app()->theme->name . '.views.layouts.main';
 
@@ -515,15 +516,14 @@ abstract class YWebModule extends CWebModule
                     $this->{$model->param_name} = $model->param_value;
             }
         }
-
-        parent::init();
     }
 
+    //@TODO временное решение, пока не придумали куда перенести инициализацию editorOptions
     public function beforeControllerAction($controller, $action)
     {
         if(parent::beforeControllerAction($controller, $action))
         {
-            $uploadController    = Yii::app()->request->baseUrl . '/yupe/backend/AjaxFileUpload';
+            $uploadController = Yii::app()->createUrl('/yupe/backend/AjaxFileUpload');
             $this->editorOptions =  array(
                 'imageUpload' => $uploadController,
                 'fileUpload'  => $uploadController,

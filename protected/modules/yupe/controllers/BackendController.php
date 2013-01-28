@@ -51,7 +51,7 @@ class BackendController extends YBackController
                 throw new CHttpException(404, Yii::t('YupeModule.yupe', 'Страница не найдена!'));
 
             if (!($module = Yii::app()->getModule($moduleId)))
-                throw new CHttpException(404, Yii::t('YupeModule.yupe', 'Модуль "{module}" не найден!', array('{module}' => $module_id)));
+                throw new CHttpException(404, Yii::t('YupeModule.yupe', 'Модуль "{module}" не найден!', array('{module}' => $moduleId)));
 
            if (!$this->saveParamsSetting($moduleId, $module->editableParamsKey))
            {
@@ -194,7 +194,7 @@ class BackendController extends YBackController
     {
         if (!empty($_FILES['file']['name']))
         {
-            $rename     = (int) Yii::app()->request->getQuery('rename', 1);
+            $rename     = (bool) Yii::app()->request->getQuery('rename', true);
             $webPath    = '/' . $this->yupe->uploadPath . '/' . date('dmY') . '/';
             $uploadPath = Yii::getPathOfAlias('webroot') . $webPath;
 
@@ -204,19 +204,19 @@ class BackendController extends YBackController
                     Yii::app()->ajax->rawText(Yii::t('YupeModule.yupe', 'Не удалось создать каталог "{dir}" для файлов!', array('{dir}' => $uploadPath)));
             }
 
-            $image = CUploadedFile::getInstanceByName('file');
+            $file = CUploadedFile::getInstanceByName('file');
 
-            if ($image)
+            if ($file)
             {
                 //сгенерировать имя файла и сохранить его
-                $newFileName = $rename ? md5(time() . uniqid() . $image->name) . '.' . $image->extensionName : $image->name;
+                $newFileName = $rename ? md5(time() . uniqid() . $file->name) . '.' . $file->extensionName : $file->name;
 
-                if (!$image->saveAs($uploadPath . $newFileName))
+                if (!$file->saveAs($uploadPath . $newFileName))
                     Yii::app()->ajax->rawText(Yii::t('YupeModule.yupe', 'При загрузке произошла ошибка!'));
 
                 Yii::app()->ajax->rawText(CJSON::encode(array(
                     'filelink' => Yii::app()->baseUrl . $webPath . $newFileName,
-                    'filename' => $image->name
+                    'filename' => $file->name
                 )));
             }
         }
@@ -232,12 +232,17 @@ class BackendController extends YBackController
     public function actionCacheflush()
     {
         Yii::app()->cache->flush();
+        $dirsList = glob(Yii::app()->assetManager->getBasePath() . DIRECTORY_SEPARATOR . '*', GLOB_ONLYDIR);
+        if (is_array($dirsList)) {
+            foreach ($dirsList as $item) {
+                YFile::rmDir($item);
+            }
+        }
         Yii::app()->user->setFlash(
             YFlashMessages::NOTICE_MESSAGE,
             Yii::t('YupeModule.yupe', 'Кэш успешно сброшен!')
         );
-        $referrer = Yii::app()->request->urlReferrer;
-        $this->redirect($referrer !== null ? $referrer : array("/yupe/backend"));
+        $this->redirect(Yii::app()->request->urlReferrer !== null ? Yii::app()->request->urlReferrer : array("/yupe/backend"));
     }
 
     /**
@@ -265,7 +270,7 @@ class BackendController extends YBackController
                  );
                 $this->redirect(array("/yupe/backend"));
              } else
-                $this->render('modupdate', array( 'updates'=> $updates, $module => $module));
+                $this->render('modupdate', array( 'updates'=> $updates, 'module' => $module));
              return;
         }
 

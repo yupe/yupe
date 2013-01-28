@@ -86,6 +86,18 @@ class YupeModule extends YWebModule
                 'message' => Yii::t('YupeModule.yupe', 'У Вас активирован модуль "Установщик", после установки системы его необходимо отключить! <a href="http://www.yiiframework.ru/doc/guide/ru/basics.module">Подробнее про Yii модули</a>'),
             );
 
+        if(Yii::app()->db->enableProfiling)
+            $messages[YWebModule::CHECK_ERROR][] =  array(
+                'type'    => YWebModule::CHECK_ERROR,
+                'message' => Yii::t('YupeModule.yupe', 'Пожалуйста, отключите профайлер запросов (файл /protected/config/db.php, параметр "enableProfiling")!'),
+            );
+
+        if(Yii::app()->db->enableParamLogging)
+            $messages[YWebModule::CHECK_ERROR][] =  array(
+                'type'    => YWebModule::CHECK_ERROR,
+                'message' => Yii::t('YupeModule.yupe', 'Пожалуйста, отключите логирование запросов (файл /protected/config/db.php, параметр "enableParamLogging")!'),
+            );
+
         if (Yii::app()->hasModule('gii'))
             $messages[YWebModule::CHECK_ERROR][] =  array(
                 'type'    => YWebModule::CHECK_ERROR,
@@ -277,7 +289,7 @@ class YupeModule extends YWebModule
      **/
     public function getDescription()
     {
-        return Yii::t('YupeModule.yupe', 'Ядро CMS Yupe');
+        return Yii::t('YupeModule.yupe', 'Ядро Юпи!');
     }
 
     /**
