@@ -9,8 +9,6 @@ class YWebUser extends CWebUser
         $this->authTimeout     = 24 * 2600;
         $this->autoRenewCookie = true;
 
-        $this->loginUrl = Yii::app()->createUrl($this->loginUrl);
-
         return parent::init();
     }
 
