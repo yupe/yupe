@@ -35,9 +35,9 @@ class m000000_000000_mail_base extends CDbMigration
         $tableName = $db->tablePrefix.'mail_event';
         $this->createTable(
             $tableName, array(
-                    'id' => 'pk',
-                    'code' => 'string NOT NULL',
-                    'name' => 'string NOT NULL',
+                    'id'          => 'pk',
+                    'code'        => 'string NOT NULL',
+                    'name'        => 'string NOT NULL',
                     'description' => 'text',
             ), "ENGINE=InnoDB DEFAULT CHARSET=utf8"
         );
@@ -47,16 +47,16 @@ class m000000_000000_mail_base extends CDbMigration
         $tableName = $db->tablePrefix.'mail_template';
         $this->createTable(
             $tableName, array(
-                'id' => 'pk',
-                'code' => 'string NOT NULL',
-                'event_id' => 'integer NOT NULL',
-                'name' => 'string NOT NULL',
+                'id'          => 'pk',
+                'code'        => 'string NOT NULL',
+                'event_id'    => 'integer NOT NULL',
+                'name'        => 'string NOT NULL',
                 'description' => 'text',
-                'from' => 'string NOT NULL',
-                'to' => 'string NOT NULL',
-                'theme' => 'tinytext NOT NULL',
-                'body' => 'text NOT NULL',
-                'status' => "tinyint(3) NOT NULL DEFAULT '1'",
+                'from'        => 'string NOT NULL',
+                'to'          => 'string NOT NULL',
+                'theme'       => 'tinytext NOT NULL',
+                'body'        => 'text NOT NULL',
+                'status'      => "tinyint(3) NOT NULL DEFAULT '1'",
             ), "ENGINE=InnoDB DEFAULT CHARSET=utf8"
         );
 
