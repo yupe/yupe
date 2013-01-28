@@ -15,9 +15,9 @@ class RegistrationForm extends CFormModel
         return array(
             array('nick_name, email', 'filter', 'filter' => 'trim'),
             array('nick_name, email', 'filter', 'filter' => array($obj = new CHtmlPurifier(), 'purify')),
-            array('nick_name, email, password', 'required'),
+            array('nick_name, email, password, cPassword', 'required'),
             array('nick_name, email', 'length', 'max' => 50),
-            array('password', 'length', 'min' => $module->minPasswordLength),
+            array('password, cPassword', 'length', 'min' => $module->minPasswordLength),
             array('nick_name', 'match','pattern' => '/^[A-Za-z0-9]{2,50}$/', 'message' => Yii::t('UserModule.user', 'Неверный формат поля "{attribute}" допустимы только буквы и цифры, от 2 до 20 символов')),
             array('nick_name', 'checkNickName'),
             array('cPassword', 'compare', 'compareAttribute' => 'password', 'message' => Yii::t('UserModule.user', 'Пароли не совпадают.')),

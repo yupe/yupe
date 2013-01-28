@@ -95,7 +95,7 @@ class InstallForm extends YFormModel
              **/
             array('userName, userPassword, cPassword, userEmail', 'required', 'on' => 'createUser'),
             array('userPassword, cPassword, userName', 'length', 'min' => 3),
-            array('userPassword', 'compare', 'compareAttribute' => 'cPassword', 'message' => Yii::t('InstallModule.install', 'Пароли не совпадают!')),
+            array('cPassword', 'compare', 'compareAttribute' => 'userPassword', 'message' => Yii::t('InstallModule.install', 'Пароли не совпадают!')),
             array('userEmail', 'email'),
         );
     }
