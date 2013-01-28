@@ -100,4 +100,22 @@ class YMainController extends Controller
         YContentType::setHeader($this->headerTypeId);
         return parent::processOutput($output);
     }
+
+    /**
+     * Отключение всех профайлеров и логгеров, используется, например при загрузке файлов
+     *
+     * @since 0.5
+     * @see http://allframeworks.ru/blog/Yii/371.html
+     *
+     **/
+    public function disableProfilers()
+    {
+        if (Yii::app()->getComponent('log')) {
+            foreach (Yii::app()->getComponent('log')->routes as $route) {
+                if (in_array(get_class($route), array('CFileLogRoute','CProfileLogRoute', 'CWebLogRoute', 'YiiDebugToolbarRoute','DbProfileLogRoute'))) {
+                    $route->enabled = false;
+                }
+            }
+        }
+    }
 }

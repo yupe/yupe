@@ -405,7 +405,7 @@ abstract class YWebModule extends CWebModule
     {
         $log = array();
 
-        Yii::log(Yii::t('YupeModule.yupe', $this->id . "->installDB() : Запрошена установка БД модуля {m}", array('{m}' => $this->name)));
+        Yii::log(Yii::t('YupeModule.yupe',"{id}->installDB() : Запрошена установка БД модуля {m}", array('{m}' => $this->name,'{id}' => $this->id)));
 
         if ($this->dependencies !== array()) {
             foreach ($this->dependencies as $dep) {

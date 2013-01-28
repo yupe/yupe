@@ -8,7 +8,7 @@ $this->breadcrumbs = array(
 
 <h1><?php echo Yii::t('feedback', 'Вопросы и ответы')?></h1>
 
-<?php echo CHtml::link('ЗАДАЙТЕ ВОПРОС',array('/feedback/contact/'));?>
+<?php echo CHtml::link('ЗАДАЙТЕ ВОПРОС',array('/feedback/contact/index/'));?>
 
 <?php $this->widget('zii.widgets.CListView', array(
                                                   'dataProvider' => $dataProvider,
