@@ -1,4 +1,6 @@
 /* General Style */
+.error .redactor_box { border: 1px rgb(149, 59, 57) solid; }
+.error .redactor_editor { border: 1px rgb(149, 59, 57) solid; }
 html,
 body {
     height: 100%;
