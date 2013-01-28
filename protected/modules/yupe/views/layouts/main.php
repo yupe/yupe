@@ -16,7 +16,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title><?php echo CHtml::encode(Yii::app()->name); ?> <?php echo CHtml::encode($this->pageTitle); ?></title>
     <?php
-    $mainAssets = $this->yupe->themeBaseUrl . Yii::app()->assetManager->publish(
+    $mainAssets = Yii::app()->assetManager->publish(
         Yii::getPathOfAlias('application.modules.yupe.views.assets')
     );
     Yii::app()->clientScript->registerCssFile($mainAssets . '/css/styles.css');
