@@ -270,7 +270,7 @@ class BackendController extends YBackController
                  );
                 $this->redirect(array("/yupe/backend"));
              } else
-                $this->render('modupdate', array( 'updates'=> $updates, $module => $module));
+                $this->render('modupdate', array( 'updates'=> $updates, 'module' => $module));
              return;
         }
 
