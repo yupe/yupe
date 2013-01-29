@@ -33,7 +33,7 @@ class CategoryModule extends YWebModule
     public function getInstall()
     {
         if(parent::getInstall())
-            @mkdir($this->getUploadPath(),755);
+            @mkdir($this->getUploadPath(),0755);
 
         return false;
     }
