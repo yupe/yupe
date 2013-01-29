@@ -6,6 +6,7 @@ body {
     line-height: 18px;
     color: #454545;
     font-size: 13px;
+    min-width: 960px !important;
 }
 #content .form {
     margin-left: 18px;
@@ -18,7 +19,7 @@ div#page {
 }
 .navbar-fixed-top {
     border-bottom: 5px solid #FF9600;
-    min-width: 975px;
+    min-width: 960px !important;
 }
 footer {
     clear: both;

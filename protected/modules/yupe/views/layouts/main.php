@@ -34,7 +34,7 @@
 
         $this->widget(
             'bootstrap.widgets.TbNavbar', array(
-                'htmlOptions' => array('class'=>'navbar navbar-inverse'),
+                'htmlOptions' => array('class' => 'navbar-inverse'),
                 'fluid'       => true,
                 'brand'       => CHtml::image(
                     $this->yupe->themeBaseUrl . "/images/logo.png", $brandTitle, array(
@@ -65,11 +65,6 @@
                                     'label'       => Yii::t('YupeModule.yupe', 'На сайт'),
                                     'linkOptions' => array('target' => '_blank'),
                                     'url'         => array('/' . Yii::app()->defaultController . '/index/'),
-                                ),
-                                array(
-                                    'label' => $this->yupe->version,
-                                    'icon'  => 'icon-thumbs-up icon-white',
-                                    'url'   => CHtml::normalizeUrl(array("/yupe/backend/index")),
                                 ),
                                 array(
                                     'label'       => '
