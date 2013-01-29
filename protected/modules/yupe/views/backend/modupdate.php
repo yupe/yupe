@@ -13,7 +13,7 @@ $newUpdates = array();
 if (isset($updates[$module->id]) && ($updates=$updates[$module->id])) {
     foreach ($updates as $u) {
         $newUpdates[] = array(
-            'id' => count($newUpdates) + 1,
+            'id'       => count($newUpdates) + 1,
             'fileName' => $u,
         );
     }

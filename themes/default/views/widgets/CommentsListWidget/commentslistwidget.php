@@ -1,34 +1,48 @@
-<div id="comments">
-    <?php if (count($comments)): ?>
-    <h3><?php echo $this->label;?>: <?php echo count($comments);?></h3>
-    <?php foreach ($comments as $comment): ?>
-        <div id="c2" class="comment">
-            <div class="author">
-                <?php if ($comment->url): ?>
-                <a href="<?php echo $comment->url;?>">
-                    <?php if($author = $comment->getAuthor()):?>
-                        <?php echo CHtml::link($comment->name,array('/user/people/userinfo/','username' => $author->nick_name));?>
-                    <?php else:?>
-                        <?php echo $comment->name;?>
-                    <?php endif;?>
-                </a>
-                написал:
-                <?php else: ?>
-                <?php if($author = $comment->getAuthor()):?>
-                    <?php echo CHtml::link($comment->name,array('/user/people/userInfo/','username' => $author->nick_name));?>
-                    <?php else:?>
-                    <?php echo $comment->name;?>
-                    <?php endif;?> написал:
-                <?php endif;?>
-            </div>
-
-            <div class="time"><?php echo $comment->creation_date;?></div>
-
-            <div class="content"><?php echo $comment->text;?></div>
-        </div><!-- comment -->
-        <?php endforeach; ?>
-    <?php else: ?>
-    <p><?php echo $this->label;?> пока нет, станьте первым!</p>
-    <?php endif;?>
-</div>
-  
+<?php
+/**
+ * Отображение для commentslistwidget:
+ * 
+ *   @category YupeView
+ *   @package  YupeCMS
+ *   @author   Yupe Team <team@yupe.ru>
+ *   @license  https://github.com/yupe/yupe/blob/master/LICENSE BSD
+ *   @link     http://yupe.ru
+ **/
+if (count($comments)) {
+    /**
+     * Отрисовка данной части лишь тогда, когда нулевой уровень:
+     **/
+    Yii::app()->clientScript->registerScript(
+        'commentParrentId', '
+        jQuery(document).ready(function($) {
+            $(document).on("click", ".del_comment_parrent", function() {
+                $(".comment_parrent").remove();
+                $("#Comment_parrent_id").val("").removeAttr("value");
+            });
+            $(document).on("click", ".commentParrent", function() {
+                $("#Comment_parrent_id").val($(this).attr("rel"));
+                $("#Comment_text").before("<div class=\'row-fluid comment_parrent\'><a style=\'margin-left: 20px;\' href=\'#comment_" + $(this).attr(\'data-id\') + "\'>" + "' . Yii::t('comment', 'комментируем') . ' - ID #' . '" + $(this).attr(\'rel\') + "</a> <a style=\'float:left;\' class=\'del_comment_parrent\' href=\'javascript:void(0);\'> &times; </a></div>").focus();
+            });
+        });'
+    );
+    echo '<div id="comments">';
+    echo '<h3>' . $this->label . ' : ' . count($comments) . '</h3>';
+    $this->renderPartial(
+        'webroot' . str_replace(
+            '/', '.', str_replace(
+                Yii::getPathOfAlias('webroot'),
+                '',
+                __DIR__
+            )
+        ) . '.drawcomments', array(
+            'comments'   => $comments,
+            'level'      => 0,
+            'parrent_id' => null,
+        )
+    );
+    echo '</div>';       
+} else {
+    echo '<div id="comments">';
+    echo '<p>' . $this->label . Yii::t('comment', 'пока нет, станьте первым!') . '</p>';
+    echo '</div>';
+}
