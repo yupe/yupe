@@ -155,7 +155,7 @@ class BackendController extends YBackController
      */
     public function actionModuleChange($name, $status)
     {
-        if (($module = Yii::app()->getModule($name)) == NULL)
+        if (($module = Yii::app()->getModule($name)) == null)
             $module = $this->yupe->getCreateModule($name);
 
         // @TODO Временный хак, дающий возможность переустановки, после появления обновлению, будет закрыт
@@ -163,11 +163,36 @@ class BackendController extends YBackController
             $status = ($status == 0) ? 1 : 0;
         try
         {
-            ($status == 0) ? $module->deactivate : $module->activate;
-            Yii::app()->user->setFlash(
-                YFlashMessages::NOTICE_MESSAGE,
-                Yii::t('YupeModule.yupe', 'Модуль успешно активирован/деактивирован!')
-            );
+            if ($status == 0) {
+                if ($module->isActive) {
+                    $module->deActivate;
+                    Yii::app()->user->setFlash(
+                        YFlashMessages::NOTICE_MESSAGE,
+                        Yii::t('YupeModule.yupe', 'Модуль успешно отключен!')
+                    );
+                } else {
+                    $module->unInstall;
+                    Yii::app()->user->setFlash(
+                        YFlashMessages::NOTICE_MESSAGE,
+                        Yii::t('YupeModule.yupe', 'Модуль успешно деинсталлирован!')
+                    );
+                }
+            }
+            else {
+                if ($module->isInstalled) {
+                    $module->activate;
+                    Yii::app()->user->setFlash(
+                        YFlashMessages::NOTICE_MESSAGE,
+                        Yii::t('YupeModule.yupe', 'Модуль успешно включен!')
+                    );
+                } else {
+                    $module->install;
+                    Yii::app()->user->setFlash(
+                        YFlashMessages::NOTICE_MESSAGE,
+                        Yii::t('YupeModule.yupe', 'Модуль успешно установлен!')
+                    );
+                }
+            }
         }
         catch(Exception $e)
         {
@@ -181,6 +206,45 @@ class BackendController extends YBackController
 
         $referrer = Yii::app()->getRequest()->getUrlReferrer();
         $this->redirect($referrer !== null ? $referrer : array("/yupe/backend"));
+    }
+
+    /**
+     * Обновленик миграций модуля
+     *
+     * @param string $name - id модуля
+     *
+     * @return nothing
+     */
+    public function actionModupdate($name = null)
+    {
+        if ($name) {
+            if (($module = Yii::app()->getModule($name)) == null)
+                $module = $this->yupe->getCreateModule($name);
+
+            if ($module->isInstalled) {
+                $updates = Yii::app()->migrator->checkForUpdates(array($name => $module));
+                if (Yii::app()->request->isPostRequest) {
+                    Yii::app()->migrator->updateToLatest($name);
+
+                    Yii::app()->user->setFlash(
+                        YFlashMessages::NOTICE_MESSAGE,
+                        Yii::t('YupeModule.yupe', 'Модуль обновил свои миграции!')
+                    );
+                    $this->redirect(array("/yupe/backend"));
+                } else
+                    $this->render('modupdate', array('updates' => $updates, 'module' => $module));
+            } else
+                Yii::app()->user->setFlash(
+                    YFlashMessages::ERROR_MESSAGE,
+                    Yii::t('YupeModule.yupe', 'Модуль еще не установлен!')
+                );
+        } else
+            Yii::app()->user->setFlash(
+                YFlashMessages::ERROR_MESSAGE,
+                Yii::t('YupeModule.yupe', 'Не указано имя модуля!')
+            );
+
+        $this->redirect(Yii::app()->request->urlReferrer !== null ? Yii::app()->request->urlReferrer : array("/yupe/backend"));
     }
 
     /**
@@ -254,37 +318,5 @@ class BackendController extends YBackController
     public function actionHelp()
     {
         $this->render('help');
-    }
-
-    /**
-     * Обновленик миграций модуля
-     *
-     * @param string $name - id модуля
-     *
-     * @return nothing
-     */
-    public function actionModupdate($name = null)
-    {
-        if ($name && ($module=Yii::app()->getModule($name))) {
-            $updates = Yii::app()->migrator->checkForUpdates(array($name=>$module));
-            if (Yii::app()->request->isPostRequest) {
-                Yii::app()->migrator->updateToLatest($name);
-                Yii::app()->user->setFlash(
-                    YFlashMessages::NOTICE_MESSAGE,
-                    Yii::t('YupeModule.yupe', 'Модуль обновил свои миграции!')
-                );
-                $this->redirect(
-                    array(
-                        "/yupe/backend"
-                    )
-                );
-            } else
-                $this->render('modupdate', array( 'updates'=> $updates, 'module' => $module));
-            return;
-        }
-
-        //$this->render('modupdate_index', array());
-        throw new CHttpException(500, 'not implemented yet');
-
     }
 }
