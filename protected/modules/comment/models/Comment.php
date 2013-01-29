@@ -51,7 +51,7 @@ class Comment extends YModel
             array('model, name, email, text, url', 'filter', 'filter' => 'trim'),
             array('model, name, email, text, url', 'filter', 'filter' => array($obj = new CHtmlPurifier(), 'purify')),
             array('model, model_id, name, email, text', 'required'),
-            array('status, user_id, model_id', 'numerical', 'integerOnly' => true),
+            array('status, user_id, model_id, parrent_id', 'numerical', 'integerOnly' => true),
             array('name, email, url', 'length', 'max' => 150),
             array('model', 'length', 'max' => 50),
             array('ip', 'length', 'max' => 20),
@@ -123,6 +123,7 @@ class Comment extends YModel
         $criteria->compare('id', $this->id, true);
         $criteria->compare('model', $this->model, true);
         $criteria->compare('model_id', $this->model_id, true);
+        $criteria->compare('parrent_id', $this->parrent_id, true);
         $criteria->compare('creation_date', $this->creation_date, true);
         $criteria->compare('name', $this->name, true);
         $criteria->compare('email', $this->email, true);

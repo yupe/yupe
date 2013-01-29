@@ -1,13 +1,62 @@
-<table>
-    <tr>
-        <th>Название</th>
-    </tr>
+<?php ?>
+<legend>
+    <?php
+    echo Yii::t(
+        'YupeModule.yupe', 'Найдены следующие миграции для модуля "{moduleID}"',
+        array(
+            '{moduleID}' => ucfirst($module->id),
+        )
+    );?> :
+</legend>
 <?php
-    if (isset($updates[$module->id]) && ($updates=$updates[$module->id]))
-        foreach($updates as $u)
-        {
-            echo "<tr><td>".$u."</td></tr>";
-        }
+$newUpdates = array();
+if (isset($updates[$module->id]) && ($updates=$updates[$module->id])) {
+    foreach ($updates as $u) {
+        $newUpdates[] = array(
+            'id'       => count($newUpdates) + 1,
+            'fileName' => $u,
+        );
+    }
+}
 ?>
-</table>
-<form action="#" method="post"><input type="submit" value="<?php Yii::t('YupeModule.yupe','Обновить');?>"></form>
+<div class='row-fluid'>
+    <div class='container'>
+        <div class='span5'>
+        <?php
+        $gridDataProvider = new CArrayDataProvider($newUpdates);
+        $this->widget(
+            'bootstrap.widgets.TbGridView', array(
+                'template'     => '{items}{pager}',
+                'dataProvider' => $gridDataProvider,
+                'columns'      =>array(
+                    array(
+                        'name'   => 'id',
+                        'header' => 'ID',
+                    ),
+                    array(
+                        'name'   => 'fileName',
+                        'header' => Yii::t('YupeModule.yupe', 'Файл'),
+                    ),
+                ),
+            )
+        );?>
+        <?php
+        $form = $this->beginWidget(
+            'bootstrap.widgets.TbActiveForm', array(
+                'id'                     => 'moduleUpdateForm',
+                'type'                   => 'vertical',
+                'action'                 => '#',
+            )
+        );
+            $this->widget(
+                'bootstrap.widgets.TbButton', array(
+                    'buttonType' => 'submit',
+                    'label'      => Yii::t('YupeModule.yupe', 'Обновить'),
+                )
+            );
+        $this->endWidget();
+        //<form action="#" method="post"><input type="submit" value="<?php echo Yii::t('YupeModule.yupe','Обновить');? >"></form>
+        ?>
+        </div>
+    </div>
+</div>
