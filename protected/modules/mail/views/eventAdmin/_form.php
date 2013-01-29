@@ -34,15 +34,7 @@ $form = $this->beginWidget(
         <?php echo $form->textFieldRow($model, 'name', array('class' => 'span7', 'maxlength' => 300)); ?>
     </div>
     <div class='control-group <?php echo $model->hasErrors("description") ? "error" : ""; ?>'>
-        <?php echo $form->labelEx($model, 'description'); ?>
-        <?php
-        $this->widget(
-            $this->module->editor, array(
-                'model'       => $model,
-                'attribute'   => 'description',
-                'options'     => $this->module->editorOptions,
-            )
-        ); ?>
+        <?php echo $form->textAreaRow($model, 'description', array('class' => 'span7')); ?>
     </div>
 
     <?php
