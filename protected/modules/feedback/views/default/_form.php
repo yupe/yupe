@@ -40,12 +40,7 @@ $form = $this->beginWidget('bootstrap.widgets.TbActiveForm', array(
     </div>
     <div class="row-fluid control-group <?php echo $model->hasErrors('text') ? 'error' : ''; ?>">
         <div class="popover-help" data-original-title='<?php echo $model->getAttributeLabel('text'); ?>' data-content='<?php echo $model->getAttributeDescription('text'); ?>'>
-            <?php echo $form->labelEx($model, 'text'); ?>
-            <?php $this->widget($this->module->editor, array(
-                'model'       => $model,
-                'attribute'   => 'text',
-                'options'     => $this->module->editorOptions,
-            )); ?>
+            <?php echo $form->textAreaRow($model, 'text', array('class' => 'span7')); ?>
         </div>
         <div class="span5">
             <?php echo $form->error($model, 'text'); ?>
