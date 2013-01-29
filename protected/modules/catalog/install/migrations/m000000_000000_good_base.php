@@ -1,5 +1,5 @@
 <?php
-class m000000_000000_catalog_base extends CDbMigration
+class m000000_000000_good_base extends CDbMigration
 {
     public function safeUp()
     {
