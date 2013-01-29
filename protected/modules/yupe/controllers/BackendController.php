@@ -153,56 +153,57 @@ class BackendController extends YBackController
      * @since 0.5
      *
      */
-    public function actionModuleChange($name, $status)
+    public function actionModuleChange($name = null, $status)
     {
-        if (($module = Yii::app()->getModule($name)) == null)
+        if (!empty($name) && $name != 'install' && ($module = Yii::app()->getModule($name)) == null)
             $module = $this->yupe->getCreateModule($name);
-
-        // @TODO Временный хак, дающий возможность переустановки, после появления обновлению, будет закрыт
-        if ($name == 'install')
-            $status = ($status == 0) ? 1 : 0;
-        try
-        {
-            if ($status == 0) {
-                if ($module->isActive) {
-                    $module->deActivate;
-                    Yii::app()->user->setFlash(
-                        YFlashMessages::NOTICE_MESSAGE,
-                        Yii::t('YupeModule.yupe', 'Модуль успешно отключен!')
-                    );
+        if (!empty($module)) {
+            try
+            {
+                if ($status == 0) {
+                    if ($module->isActive) {
+                        $module->deActivate;
+                        Yii::app()->user->setFlash(
+                            YFlashMessages::NOTICE_MESSAGE,
+                            Yii::t('YupeModule.yupe', 'Модуль успешно отключен!')
+                        );
+                    } else {
+                        $module->unInstall;
+                        Yii::app()->user->setFlash(
+                            YFlashMessages::NOTICE_MESSAGE,
+                            Yii::t('YupeModule.yupe', 'Модуль успешно деинсталлирован!')
+                        );
+                    }
                 } else {
-                    $module->unInstall;
-                    Yii::app()->user->setFlash(
-                        YFlashMessages::NOTICE_MESSAGE,
-                        Yii::t('YupeModule.yupe', 'Модуль успешно деинсталлирован!')
-                    );
+                    if ($module->isInstalled) {
+                        $module->activate;
+                        Yii::app()->user->setFlash(
+                            YFlashMessages::NOTICE_MESSAGE,
+                            Yii::t('YupeModule.yupe', 'Модуль успешно включен!')
+                        );
+                    } else {
+                        $module->install;
+                        Yii::app()->user->setFlash(
+                            YFlashMessages::NOTICE_MESSAGE,
+                            Yii::t('YupeModule.yupe', 'Модуль успешно установлен!')
+                        );
+                    }
                 }
+    
+                Yii::app()->cache->flush();
             }
-            else {
-                if ($module->isInstalled) {
-                    $module->activate;
-                    Yii::app()->user->setFlash(
-                        YFlashMessages::NOTICE_MESSAGE,
-                        Yii::t('YupeModule.yupe', 'Модуль успешно включен!')
-                    );
-                } else {
-                    $module->install;
-                    Yii::app()->user->setFlash(
-                        YFlashMessages::NOTICE_MESSAGE,
-                        Yii::t('YupeModule.yupe', 'Модуль успешно установлен!')
-                    );
-                }
+            catch(Exception $e)
+            {
+                Yii::app()->user->setFlash(
+                    YFlashMessages::ERROR_MESSAGE,
+                    $e->getMessage()
+                );
             }
-        }
-        catch(Exception $e)
-        {
+        } else
             Yii::app()->user->setFlash(
                 YFlashMessages::ERROR_MESSAGE,
-                $e->getMessage()
+                Yii::t('YupeModule.yupe', 'Модуль не найден или его включение запрещено!')
             );
-        }
-
-        Yii::app()->cache->flush();
 
         $referrer = Yii::app()->getRequest()->getUrlReferrer();
         $this->redirect($referrer !== null ? $referrer : array("/yupe/backend"));

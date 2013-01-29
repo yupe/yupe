@@ -52,7 +52,7 @@ class LanguageBehavior extends CBehavior
                     $app->request->redirect($home . $lm->getCleanUrl($app->request->url));
             }
         }
-        else
+        else if ($app->hasModule('user'))
         {
             $user = $app->user;
 

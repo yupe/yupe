@@ -284,7 +284,6 @@ abstract class YWebModule extends CWebModule
     public function getIsActive()
     {
         $status = is_file(Yii::app()->basePath . '/config/modules/' . $this->id . '.php');
-        // @TODO Временный хак, дающий возможность переустановки, после появления обновлению, будет закрыт
         if ($this->id == 'install')
             $status = ($status == false) ? true : false;
         return $status;
@@ -317,7 +316,6 @@ abstract class YWebModule extends CWebModule
         $fileModule = $yupe->getModulesConfigDefault($this->id);
         $fileConfig = $yupe->getModulesConfig($this->id);
 
-        // @TODO Временный хак, дающий возможность переустановки, после появления обновлению, будет закрыт
         if (is_file($fileConfig) && $this->id != 'install')
             throw new CException(Yii::t('YupeModule.yupe', 'Модуль уже включен!'), 304);
         else
@@ -355,7 +353,6 @@ abstract class YWebModule extends CWebModule
         $fileConfig     = $yupe->getModulesConfig($this->id);
         $fileConfigBack = $yupe->getModulesConfigBack($this->id);
 
-        // @TODO Временный хак, дающий возможность переустановки, после появления обновлению, будет закрыт
         if (!is_file($fileConfig) && $this->id != 'install')
             throw new CException(Yii::t('YupeModule.yupe', 'Модуль уже отключен!'));
         else {
@@ -391,7 +388,7 @@ abstract class YWebModule extends CWebModule
      */
     public function getInstall()
     {
-        return ($status = $this->activate) ? $this->installDB() : $status;
+        return ($this->id == 'yupe' || $status = $this->activate) ? $this->installDB() : $status;
     }
 
     /**
