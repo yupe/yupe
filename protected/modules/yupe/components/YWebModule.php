@@ -183,19 +183,6 @@ abstract class YWebModule extends CWebModule
     }
 
     /**
-     *  @return bool определяет, включен или выключен модуль
-     *  @since 0.5
-     */
-    public function getIsActive()
-    {
-        $status = is_file(Yii::app()->basePath . '/config/modules/' . $this->id . '.php');
-        // @TODO Временный хак, дающий возможность переустановки, после появления обновлению, будет закрыт
-        if ($this->id == 'install')
-            $status = ($status == false) ? true : false;
-        return $status;
-    }
-
-    /**
      *  @return bool разрешено ли выключение
      *  @since 0.5
      */
@@ -291,6 +278,34 @@ abstract class YWebModule extends CWebModule
     }
 
     /**
+     *  @return bool определяет, включен или выключен модуль
+     *  @since 0.5
+     */
+    public function getIsActive()
+    {
+        $status = is_file(Yii::app()->basePath . '/config/modules/' . $this->id . '.php');
+        if ($this->id == 'install')
+            $status = ($status == false) ? true : false;
+        return $status;
+    }
+
+    public function getIsInstalled()
+    {
+        $modulesInstalled = Yii::app()->cache->get('YupeModulesInstalled');
+        if ($modulesInstalled === false) {
+            $modulesInstalled = Yii::app()->migrator->modulesWithDBInstalled;
+            Yii::app()->cache->set('YupeModulesInstalled', $modulesInstalled, Yii::app()->getModule('yupe')->coreCacheTime);
+        }
+
+        $upd = Yii::app()->cache->get('YupeModuleUpdates_' . $this->id);
+        if ($upd === false) {
+            $upd = Yii::app()->migrator->checkForUpdates(array($this->id => $this));
+            Yii::app()->cache->set('YupeModuleUpdates_' . $this->id, $upd, Yii::app()->getModule('yupe')->coreCacheTime);
+        }
+        return in_array($this->id, $modulesInstalled) || !count($upd);
+    }
+
+    /**
      *  Метод выключает модуль
      *  @return bool статус выключения модуля
      *  @since 0.5
@@ -301,7 +316,6 @@ abstract class YWebModule extends CWebModule
         $fileModule = $yupe->getModulesConfigDefault($this->id);
         $fileConfig = $yupe->getModulesConfig($this->id);
 
-        // @TODO Временный хак, дающий возможность переустановки, после появления обновлению, будет закрыт
         if (is_file($fileConfig) && $this->id != 'install')
             throw new CException(Yii::t('YupeModule.yupe', 'Модуль уже включен!'), 304);
         else
@@ -339,7 +353,6 @@ abstract class YWebModule extends CWebModule
         $fileConfig     = $yupe->getModulesConfig($this->id);
         $fileConfigBack = $yupe->getModulesConfigBack($this->id);
 
-        // @TODO Временный хак, дающий возможность переустановки, после появления обновлению, будет закрыт
         if (!is_file($fileConfig) && $this->id != 'install')
             throw new CException(Yii::t('YupeModule.yupe', 'Модуль уже отключен!'));
         else {
@@ -375,7 +388,7 @@ abstract class YWebModule extends CWebModule
      */
     public function getInstall()
     {
-        return ($this->id != 'yupe' && !$this->activate) ? false : $this->installDB();
+        return ($this->id == 'yupe' || $status = $this->activate) ? $this->installDB() : $status;
     }
 
     /**
@@ -385,15 +398,11 @@ abstract class YWebModule extends CWebModule
      */
     public function getUnInstall()
     {
-        if ($this->deactivate) {
-            $history = Yii::app()->migrator->getMigrationHistory($this->id, -1);
-            if ($history !== array()) {
-                print_r($history);
-                return true;
-            }
-        } else
-            echo "deactivate:false";
-        return false;
+        if ($this->isActive) {
+            throw new CException(Yii::t('YupeModule.yupe', 'Сначало отключите модуль!'));
+            return false;
+        }
+        return $this->uninstallDB();
     }
 
     /**
@@ -404,8 +413,7 @@ abstract class YWebModule extends CWebModule
     public function installDB(&$installed = array())
     {
         $log = array();
-
-        Yii::log(Yii::t('YupeModule.yupe',"{id}->installDB() : Запрошена установка БД модуля {m}", array('{m}' => $this->name,'{id}' => $this->id)));
+        Yii::log(Yii::t('YupeModule.yupe', "{id}->installDB() : Запрошена установка БД модуля {m}", array('{m}' => $this->name,'{id}' => $this->id)));
 
         if ($this->dependencies !== array()) {
             foreach ($this->dependencies as $dep) {
@@ -433,28 +441,19 @@ abstract class YWebModule extends CWebModule
      *  @return bool статус удаления БД модуля
      *  @since 0.5
      */
-    public function uninstallDB($noDependencies = false)
+    public function uninstallDB()
     {
-        throw new CException("Проверка экзепшена");
-        return true;
-    }
+        $log = array();
+        Yii::log(Yii::t('YupeModule.yupe', "{id}->uninstallDB() : Запрошено удаление БД модуля {m}", array('{m}' => $this->name,'{id}' => $this->id)));
 
-    public function getIsInstalled()
-    {
-        $modulesInstalled = Yii::app()->cache->get('YupeModulesInstalled');
-        if ($modulesInstalled === false) {
-            $modulesInstalled = Yii::app()->migrator->modulesWithDBInstalled;
-            Yii::app()->cache->set('YupeModulesInstalled', $modulesInstalled, Yii::app()->getModule('yupe')->coreCacheTime);
+        $history = Yii::app()->migrator->getMigrationHistory($this->id, -1);
+        if (!empty($history)) {
+            // Зачем?
+            print_r($history);
+            return true;
         }
-
-        $upd= Yii::app()->cache->get('YupeModuleUpdates_'.$this->id);
-        if ($upd === false) {
-            $upd = Yii::app()->migrator->checkForUpdates(array($this->id => $this));
-            Yii::app()->cache->set('YupeModuleUpdates_'.$this->id, $upd, Yii::app()->getModule('yupe')->coreCacheTime);
-        }
-
-        return in_array($this->id, $modulesInstalled)|| !count($upd);
-
+        throw new CException(Yii::t('YupeModule.yupe', 'Произошла ошибка удаления БД модуля!'));
+        return false;
     }
 
     /**

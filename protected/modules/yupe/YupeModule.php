@@ -191,7 +191,7 @@ class YupeModule extends YWebModule
     }
 
     /**
-     * Install Default:
+     * Возвращаем статус, устанавливать ли галку для установки модуля в инсталяторе по умолчанию:
      *
      * @return bool
      **/
@@ -201,7 +201,7 @@ class YupeModule extends YWebModule
     }
 
     /**
-     * Is no disable:
+     * Возвращаем статус, возможно ли модуль отключать:
      *
      * @return bool
      **/
@@ -442,14 +442,14 @@ class YupeModule extends YWebModule
                     );
 
                     if (isset($this->categoryIcon[$keyCategory]))
-                        $modulesNavigation[$keyCategory]['icon'] = $this->categoryIcon[$keyCategory] . " white";
+                        $modulesNavigation[$keyCategory]['icon'] = $this->categoryIcon[$keyCategory] . ' white';
 
                     // Сортируем модули в категории
                     asort($valueCategory, SORT_NUMERIC);
 
                     // Обходим модули
                     foreach ($valueCategory as $key => $value) {
-                        // собраются подпункты категории "Настройки модулей", кроме пункта Юпи
+                        // Собраются подпункты категории "Настройки модулей", кроме пункта Юпи
                         if ($modules[$key]->editableParams && $key != $this->id)
                             $settings['items'][] = array(
                                 'icon'  => $modules[$key]->icon,
@@ -457,13 +457,13 @@ class YupeModule extends YWebModule
                                 'url'   => array('/yupe/backend/modulesettings', 'module' => $modules[$key]->id),
                             );
 
-                        // проверка на вывод модуля в категориях, потребуется при отключении модуля
+                        // Проверка на вывод модуля в категориях, потребуется при отключении модуля
                         if (!$modules[$key]->isShowInAdminMenu)
                             continue;
 
                         // Если нет иконка для данной категории, подставляется иконка первого модуля
                         if (!isset($modulesNavigation[$keyCategory]['icon']) && $modules[$key]->icon)
-                            $modulesNavigation[$keyCategory]['icon'] = $modules[$key]->icon . " white";
+                            $modulesNavigation[$keyCategory]['icon'] = $modules[$key]->icon . ' white';
 
                         // Шаблон модулей
                         $data = array(
@@ -493,10 +493,7 @@ class YupeModule extends YWebModule
         }
 
         if (CHtml::normalizeUrl("/" . Yii::app()->controller->route) != '/yupe/backend/index') {
-            /**
-             * @todo возможно ...['icon'] .= ' white'; уже не требуется
-             * Устанавливаем активную категорию
-             **/
+            // Устанавливаем активную категорию
             $thisCategory = Yii::app()->controller->module->category
                 ? Yii::app()->controller->module->category
                 : $this->otherCategoryName;
@@ -504,29 +501,14 @@ class YupeModule extends YWebModule
             $thisCategory['active'] = true;
 
             // Устанавливаем активный модуль
-            if (Yii::app()->controller->action->id == 'modulesettings' && isset($_GET['module']) && $_GET['module'] != 'yupe') {
-                $thisModule = 'settings';
-                $thisCategory['items']['yupe']['active'] = false;
-            }
-            else
-                $thisModule = Yii::app()->controller->module->id;
-
+            $thisModule = (
+               (Yii::app()->controller->action->id == 'modulesettings' && isset($_GET['module']) && $_GET['module'] != 'yupe') ||
+                Yii::app()->controller->action->id == 'settings'
+            ) ? 'settings' : Yii::app()->controller->module->id;
             $thisModule = &$thisCategory['items'][$thisModule];
-            if (!empty($thisModule)) {
-                $thisModule['icon']  .= ' white';
+            if (!empty($thisModule))
                 $thisModule['active'] = true;
 
-                // Устанавливаем активный пункт подменю модуля
-                $moduleItems = &$thisModule['items'];
-                if (is_array($moduleItems)) {
-                    $thisRoute = CHtml::normalizeUrl(array_merge(array("/" . Yii::app()->controller->route), $_GET));
-                    foreach ($moduleItems as &$link) {
-                        if (isset($link['url']) && CHtml::normalizeUrl($link['url']) == $thisRoute && isset($link['icon']))
-                            $link['icon'] .= " white";
-                    }
-                    unset($link);
-                }
-            }
             unset($thisModule);
             unset($thisCategory);
         }

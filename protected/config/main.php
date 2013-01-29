@@ -5,9 +5,10 @@ $config = array(
     'components'   => array(),
     'preload'      => array(),
     'modules'      => array('install' => array('class' => 'application.modules.install.InstallModule')),
-    'cache'        => false,
+    'cache'        => array('class' => 'CDummyCache'),
     'enableAssets' => false,
 );
+
 // Получаем настройки модулей
 $files = glob(dirname(__FILE__) . '/modules/*.php');
 if (!empty($files))
@@ -19,7 +20,8 @@ if (!empty($files))
 
         if ($name == 'yupe')
         {
-            $config['cache']        = 'cache';
+            if (!YII_DEBUG)
+                $config['cache'] = array();
             $config['enableAssets'] = true;
         }
         if ($name == 'install')
@@ -67,7 +69,7 @@ return array(
             'class'        => 'application.modules.yupe.YupeModule',
             'brandUrl'     => 'http://yupe.ru?from=engine',
             'enableAssets' => $config['enableAssets'],
-            'cache'        => $config['cache'],
+            'cache'        => true,
         ),
         // на продакшне gii рекомендуется отключить, подробнее: http://www.yiiframework.com/doc/guide/1.1/en/quickstart.first-app
         /*'gii'   => array(
@@ -104,7 +106,7 @@ return array(
             'langParam'      => 'language',
             'urlFormat'      => 'path',
             'showScriptName' => false, // чтобы убрать index.php из url, читаем: http://yiiframework.ru/doc/guide/ru/quickstart.apache-nginx-config
-            'cacheID'        => $config['cache'],
+            'cacheID'        => 'cache',
             'rules'          => CMap::mergeArray(CMap::mergeArray(array(
                 // правило переадресации инсталятора
                 '/'                                                   => 'install/default/index',
@@ -132,9 +134,9 @@ return array(
             'class' => 'application.modules.yupe.components.YAsyncResponse',
         ),
         // настройки кэширования, подробнее http://www.yiiframework.ru/doc/guide/ru/caching.overview
-        'cache' => array(
+        'cache' => CMap::mergeArray(array(
             'class' => 'CFileCache',
-        ),
+        ), $config['cache']),
         // параметры логирования, подробнее http://www.yiiframework.ru/doc/guide/ru/topics.logging
         'log' => array(
             'class'  => 'CLogRouter',

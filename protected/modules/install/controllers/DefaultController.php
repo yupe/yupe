@@ -106,10 +106,7 @@ class DefaultController extends YBackController
         if ($this->yupe->cache)
             Yii::app()->cache->flush();
 
-        $this->stepName = Yii::app()->controller->module->getInstallSteps(
-            //Yii::app()->controller->action->id
-            $action->id
-        );
+        $this->stepName = Yii::app()->controller->module->getInstallSteps($action->id);
 
         return parent::beforeAction($action);
     }
@@ -122,7 +119,7 @@ class DefaultController extends YBackController
     public function actionIndex()
     {
         //$this->stepName = Yii::t('InstallModule.install', 'Шаг 1 из 8 : "Приветствие!"');
-        
+
         $this->session['InstallForm'] = array();
         $this->_setSession();
         $this->render('_view');
@@ -136,8 +133,6 @@ class DefaultController extends YBackController
     public function actionEnvironment()
     {
         $this->_markFinished('index');
-
-        //$this->stepName = Yii::t('InstallModule.install', 'Шаг 2 из 8 : "Проверка окружения!"');
 
         $webRoot  = Yii::getPathOfAlias('webroot');
         $dp       = DIRECTORY_SEPARATOR;
@@ -197,20 +192,27 @@ class DefaultController extends YBackController
                     )
                 ),
             ),
-            array(
-                Yii::t('InstallModule.install', 'Активация ядра Юпи!'),
-                $this->_checkYupeActivate(),
-                Yii::t('InstallModule.install', 'При запуске ядра произошли ошибки, пожалуйста, проверьте права доступа на все необходимые файлы и каталоги (см. ошибки выше)'),
-            ),
         );
 
-        $result = true;
+        $result    = true;
+        $commentOk = Yii::t('InstallModule.install', 'Все хорошо!');
 
         foreach ($requirements as $i => $requirement) {
             (!$requirement[1])
                 ? $result = false
-                : $requirements[$i][2] = Yii::t('InstallModule.install', 'Все хорошо!');
+                : $requirements[$i][2] = $commentOk;
         }
+
+        if ($result)
+            $result = $this->_checkYupeActivate();
+
+        $requirements = array_merge($requirements, array(array(
+            Yii::t('InstallModule.install', 'Активация ядра Юпи!'),
+            $result,
+            (!$result)
+                ? Yii::t('InstallModule.install', 'При запуске ядра произошли ошибки, пожалуйста, проверьте права доступа на все необходимые файлы и каталоги (см. ошибки выше)')
+                : $commentOk,
+        )));
 
         $this->render(
             '_view', array(

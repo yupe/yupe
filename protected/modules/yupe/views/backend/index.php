@@ -59,39 +59,35 @@
         <?php echo Yii::t('YupeModule.yupe', 'php версии'); ?>
         <small class="label label-info" title="<?php echo phpversion(); ?>"><?php echo phpversion(); ?></small>
     </p>
-
-</br>
-
-<p>
-    <?php
-        $yiiCount  = count($yiiModules);
-        $yupeCount = count($modules);
-        $allCount  = $yupeCount + $yiiCount;
-        $enableCount = 0;
-        foreach ($modules as $module)
-        {
-            if ($module->isActive || $module->isNoDisable)
-                $enableCount++;
-        }
-    ?>
-    <?php echo Yii::t('YupeModule.yupe', 'Установлено'); ?>
-    <small class="label label-info"><?php echo $allCount; ?></small>
-    <?php echo Yii::t('YupeModule.yupe', 'модуль|модуля|модулей', $allCount); ?>
-    (<?php echo Yii::t('YupeModule.yupe', 'включено'); ?>
-    <small class="label label-info"><?php echo $enableCount + $yiiCount; ?></small>
-    <?php echo Yii::t('YupeModule.yupe', 'модуль|модуля|модулей', $enableCount + $yiiCount); ?>,
-    <?php echo Yii::t('YupeModule.yupe', 'выключено'); ?>
-    <small class="label label-info"><?php echo $yupeCount - $enableCount; ?></small>
-    <?php echo Yii::t('YupeModule.yupe', 'модуль|модуля|модулей', $yupeCount - $enableCount); ?>)
-	<br>
-    <small>
-        <?php echo Yii::t('YupeModule.yupe', '( дополнительные модули всегда можно поискать на {link} или {order_link} )', array(
-            '{link}'       => CHtml::link(Yii::t('YupeModule.yupe', 'официальном сайте'), 'http://yupe.ru/?from=mlist', array('target' => '_blank')),
-            '{order_link}' => CHtml::link(Yii::t('YupeModule.yupe', 'заказать их разработку'), 'http://yupe.ru/feedback/contact/?from=mlist', array('target' => '_blank')),
-        )); ?>
-    </small>
-</p>
-
+    </br>
+    <p>
+        <?php
+            $yiiCount    = count($yiiModules);
+            $yupeCount   = count($modules);
+            $allCount    = $yupeCount + $yiiCount;
+            $enableCount = 0;
+            foreach ($modules as $module) {
+                if ($module->isActive || $module->isNoDisable)
+                    $enableCount++;
+            }
+        ?>
+        <?php echo Yii::t('YupeModule.yupe', 'Установлено'); ?>
+        <small class="label label-info"><?php echo $allCount; ?></small>
+        <?php echo Yii::t('YupeModule.yupe', 'модуль|модуля|модулей', $allCount); ?>
+        (<?php echo Yii::t('YupeModule.yupe', 'включено'); ?>
+        <small class="label label-info"><?php echo $enableCount + $yiiCount; ?></small>
+        <?php echo Yii::t('YupeModule.yupe', 'модуль|модуля|модулей', $enableCount + $yiiCount); ?>,
+        <?php echo Yii::t('YupeModule.yupe', 'выключено'); ?>
+        <small class="label label-info"><?php echo $yupeCount - $enableCount; ?></small>
+        <?php echo Yii::t('YupeModule.yupe', 'модуль|модуля|модулей', $yupeCount - $enableCount); ?>)
+        <br>
+        <small>
+            <?php echo Yii::t('YupeModule.yupe', '( дополнительные модули всегда можно поискать на {link} или {order_link} )', array(
+                '{link}'       => CHtml::link(Yii::t('YupeModule.yupe', 'официальном сайте'), 'http://yupe.ru/?from=mlist', array('target' => '_blank')),
+                '{order_link}' => CHtml::link(Yii::t('YupeModule.yupe', 'заказать их разработку'), 'http://yupe.ru/feedback/contact/?from=mlist', array('target' => '_blank')),
+            )); ?>
+        </small>
+    </p>
 </div>
 
 <?php echo $this->renderPartial('_moduleslist', array('modules' => $modules)); ?>
