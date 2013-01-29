@@ -24,8 +24,8 @@ footer {
     clear: both;
     text-align: left;
 
-    height: 55px;
-    padding: 10px 20px;
+    height: 75px;
+    padding: 15px 20px 15px;
 
     position: relative;
     margin-top: -85px;
@@ -33,7 +33,7 @@ footer {
 
     line-height: 18px;
     color: #9D9D9D;
-    font-size: 13px;
+    font-size: 12px;
     background: #F3F8F8;
 }
 #footer-guard {

@@ -12,11 +12,11 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title><?php echo CHtml::encode(Yii::app()->name); ?> <?php echo CHtml::encode($this->pageTitle); ?></title>
     <?php
-    $mainAssets = $this->yupe->themeBaseUrl . Yii::app()->assetManager->publish(
+    $mainAssets = Yii::app()->assetManager->publish(
         Yii::getPathOfAlias('application.modules.yupe.views.assets')
     );
     Yii::app()->clientScript->registerCssFile($mainAssets . '/css/styles.css');
@@ -58,7 +58,7 @@
                                 array(
                                     'icon'  => 'question-sign white',
                                     'label' => Yii::t('YupeModule.yupe', 'Помощь'),
-                                    'url'   => array('/yupe/backend/help'),
+                                    'url'   => CHtml::normalizeUrl(array('/yupe/backend/help')),
                                 ),
                                 array(
                                     'icon'        => 'home white',
@@ -69,7 +69,7 @@
                                 array(
                                     'label' => $this->yupe->version,
                                     'icon'  => 'icon-thumbs-up icon-white',
-                                    'url'   => '/yupe/backend/index'
+                                    'url'   => CHtml::normalizeUrl(array("/yupe/backend/index")),
                                 ),
                                 array(
                                     'label'       => '
@@ -82,12 +82,12 @@
                                         array(
                                             'icon'  => 'user',
                                             'label' => Yii::t('YupeModule.yupe', 'Профиль'),
-                                            'url'   => array('/user/default/update', 'id' => Yii::app()->user->id),
+                                            'url'   => CHtml::normalizeUrl((array('/user/default/update', 'id' => Yii::app()->user->id))),
                                         ),
                                         array(
                                             'icon'  => 'off',
                                             'label' => Yii::t('YupeModule.yupe', 'Выйти'),
-                                            'url'   => array('/user/account/logout'),
+                                            'url'   => CHtml::normalizeUrl(array('/user/account/logout')),
                                         ),
                                     ),
                                 ),
