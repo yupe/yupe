@@ -539,7 +539,7 @@ class DefaultController extends YBackController
                     $dbTypes = $form->getDbTypes();
                     $dbType  = (isset($dbTypes[$form->dbType])
                                 ? $dbTypes[$form->dbType]
-                                : $dbType[InstallForm::DB_MYSQL]);
+                                : $dbTypes[InstallForm::DB_MYSQL]);
 
                     $socket = ($form->socket == '') ? '' : 'unix_socket=' . $form->socket . ';';
                     $port   = ($form->port == '') ? '' : 'port=' . $form->port . ';';
