@@ -13,10 +13,9 @@ $this->breadcrumbs = array(
 <div class="alert">
     <p>
         <?php
-            $yupeCount = count($modules);
+            $yupeCount   = count($modules);
             $enableCount = 0;
-            foreach ($modules as $module)
-            {
+            foreach ($modules as $module) {
                 if ($module->isActive || $module->isNoDisable)
                     $enableCount++;
             }
