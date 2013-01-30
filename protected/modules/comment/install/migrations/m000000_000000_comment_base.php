@@ -1,12 +1,39 @@
 <?php
+/**
+ * FileDocComment
+ * Comment install migration
+ * Класс миграций для модуля Comment:
+ *
+ * @category YupeMigration
+ * @package  YupeCMS
+ * @author   YupeTeam <team@yupe.ru>
+ * @license  BSD https://raw.github.com/yupe/yupe/master/LICENSE
+ * @link     http://yupe.ru
+ **/
+
+/**
+ * Comment install migration
+ * Класс миграций для модуля Comment:
+ *
+ * @category YupeMigration
+ * @package  YupeCMS
+ * @author   YupeTeam <team@yupe.ru>
+ * @license  BSD https://raw.github.com/yupe/yupe/master/LICENSE
+ * @link     http://yupe.ru
+ **/
 class m000000_000000_comment_base extends CDbMigration
 {
+    /**
+     * Накатываем миграцию:
+     *
+     * @return nothing
+     **/
     public function safeUp()
     {
         $db = $this->getDbConnection();
-        $tableName = $db->tablePrefix . 'comment';
+
         $this->createTable(
-            $tableName, array(
+            $db->tablePrefix . 'comment', array(
                 'id'            => 'pk',
                 'user_id'       => 'integer DEFAULT NULL',
                 'model'         => 'string NOT NULL',
@@ -22,19 +49,43 @@ class m000000_000000_comment_base extends CDbMigration
             ), "ENGINE=InnoDB DEFAULT CHARSET=utf8"
         );
 
-        $this->createIndex("comment_url", $tableName, "url", false);
-        $this->createIndex("comment_status", $tableName, "status", false);
-        $this->createIndex("comment_model", $tableName, "model", false);
-        $this->createIndex("comment_model_id", $tableName, "model_id", false);
-        $this->createIndex("comment_user_id", $tableName, "user_id", false);
+        $this->createIndex($db->tablePrefix . "comment_url", $db->tablePrefix . 'comment', "url", false);
+        $this->createIndex($db->tablePrefix . "comment_status", $db->tablePrefix . 'comment', "status", false);
+        $this->createIndex($db->tablePrefix . "comment_model", $db->tablePrefix . 'comment', "model", false);
+        $this->createIndex($db->tablePrefix . "comment_model_id", $db->tablePrefix . 'comment', "model_id", false);
+        $this->createIndex($db->tablePrefix . "comment_user_id", $db->tablePrefix . 'comment', "user_id", false);
 
 
-        $this->addForeignKey("comment_user_fk", $tableName, 'user_id', $db->tablePrefix . 'user', 'id', 'CASCADE', 'CASCADE');
+        $this->addForeignKey($db->tablePrefix . "comment_user_fk", $db->tablePrefix . 'comment', 'user_id', $db->tablePrefix . 'user', 'id', 'CASCADE', 'CASCADE');
     }
  
+    /**
+     * Откатываем миграцию:
+     *
+     * @return nothing
+     **/
     public function safeDown()
     {
         $db = $this->getDbConnection();
-        $this->dropTable($db->tablePrefix.'comment');
+
+        /**
+         * Убиваем внешние ключи, индексы и таблицу - comment
+         * @todo найти как проверять существование индексов, что бы их подчищать (на абстрактном уровне без привязки к типу БД):
+         **/
+        if ($db->schema->getTable($db->tablePrefix . 'comment') !== null) {
+            
+            if (in_array($db->tablePrefix . "comment_user_fk", $db->schema->getTable($db->tablePrefix . 'comment')->foreignKeys))
+                $this->dropForeignKey($db->tablePrefix . "comment_user_fk", $db->tablePrefix . 'comment');
+
+            /*
+            $this->dropIndex($db->tablePrefix . "comment_url", $db->tablePrefix . 'comment');
+            $this->dropIndex($db->tablePrefix . "comment_status", $db->tablePrefix . 'comment');
+            $this->dropIndex($db->tablePrefix . "comment_model", $db->tablePrefix . 'comment');
+            $this->dropIndex($db->tablePrefix . "comment_model_id", $db->tablePrefix . 'comment');
+            $this->dropIndex($db->tablePrefix . "comment_user_id", $db->tablePrefix . 'comment');
+            */
+
+            $this->dropTable($db->tablePrefix.'comment');
+        }
     }
 }
