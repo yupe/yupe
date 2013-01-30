@@ -96,6 +96,82 @@ class InstallModule extends YWebModule
     }
 
     /**
+     * Соответствия предыдущих шагов:
+     *
+     * @return mixed prev steps
+     **/
+    public function prevSteps()
+    {
+        return array(
+            'index'          => 'index',
+            'environment'    => 'index',
+            'requirements'   => 'environment',
+            'dbsettings'     => 'requirements',
+            'modulesinstall' => 'dbsettings',
+            'createuser'     => 'modulesinstall',
+            'sitesettings'   => 'createuser',
+            'finish'         => 'sitesettings',
+        );
+    }
+
+    /**
+     * Соответствия следующих шагов:
+     *
+     * @return mixed prev steps
+     **/
+    public function nextSteps()
+    {
+        return array(
+            'index'          => 'environment',
+            'environment'    => 'requirements',
+            'requirements'   => 'dbsettings',
+            'dbsettings'     => 'modulesinstall',
+            'modulesinstall' => 'createuser',
+            'createuser'     => 'sitesettings',
+            'sitesettings'   => 'finish',
+            'finish'         => 'finish',
+        );
+    }
+
+    /**
+     * Получаем предыдущий шаг:
+     *
+     * @param string $actionID - требуемый экшен
+     *
+     * @return mixed меню
+     **/
+    public function getPrevStep($actionID = false)
+    {
+        if (!$actionID)
+            $actionID = Yii::app()->controller->action->id;
+
+        $prevSteps = $this->prevSteps();
+        if (isset($prevSteps[$actionID]))
+            return $prevSteps[$actionID];
+        else
+            return false;
+    }
+
+    /**
+     * Получаем следующий шаг:
+     *
+     * @param string $actionID - требуемый экшен
+     *
+     * @return mixed меню
+     **/
+    public function getNextStep($actionID = false)
+    {
+        if (!$actionID)
+            $actionID = Yii::app()->controller->action->id;
+
+        $nextSteps = $this->prevSteps();
+        if (isset($nextSteps[$actionID]))
+            return $nextSteps[$actionID];
+        else
+            return false;
+    }
+
+    /**
      * Создание навигационного меню для инсталятора:
      *
      * @return mixed меню

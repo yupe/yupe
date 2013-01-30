@@ -106,6 +106,21 @@ class DefaultController extends YBackController
         if ($this->yupe->cache)
             Yii::app()->cache->flush();
 
+        /**
+         * Если шаг не выполнен - возвращаем на предыдущий:
+         **/
+        $this->_markFinished('index');
+        $isStepFinished = Yii::app()->controller->module->isStepFinished(
+            Yii::app()->controller->module->getPrevStep($action->id)
+        ) || Yii::app()->controller->module->isStepFinished(
+            $action->id
+        );
+        if (!$isStepFinished && !in_array($action->id, array('index', 'moduleinstall'))) {
+            $this->redirect(
+                $this->createUrl(Yii::app()->controller->module->getPrevStep())
+            );
+        }
+
         $this->stepName = Yii::app()->controller->module->getInstallSteps($action->id);
 
         return parent::beforeAction($action);
@@ -118,8 +133,7 @@ class DefaultController extends YBackController
      **/
     public function actionIndex()
     {
-        //$this->stepName = Yii::t('InstallModule.install', 'Шаг 1 из 8 : "Приветствие!"');
-
+        $this->_markFinished('index');
         $this->session['InstallForm'] = array();
         $this->_setSession();
         $this->render('_view');
@@ -132,8 +146,6 @@ class DefaultController extends YBackController
      **/
     public function actionEnvironment()
     {
-        $this->_markFinished('index');
-
         $webRoot  = Yii::getPathOfAlias('webroot');
         $dp       = DIRECTORY_SEPARATOR;
 
@@ -206,13 +218,20 @@ class DefaultController extends YBackController
         if ($result)
             $result = $this->_checkYupeActivate();
 
-        $requirements = array_merge($requirements, array(array(
-            Yii::t('InstallModule.install', 'Активация ядра Юпи!'),
-            $result,
-            (!$result)
-                ? Yii::t('InstallModule.install', 'При запуске ядра произошли ошибки, пожалуйста, проверьте права доступа на все необходимые файлы и каталоги (см. ошибки выше)')
-                : $commentOk,
-        )));
+        if ($result)
+            $this->_markFinished(Yii::app()->controller->action->id);
+
+        $requirements = array_merge(
+            $requirements, array(
+                array(
+                    Yii::t('InstallModule.install', 'Активация ядра Юпи!'),
+                    $result,
+                    (!$result)
+                        ? Yii::t('InstallModule.install', 'При запуске ядра произошли ошибки, пожалуйста, проверьте права доступа на все необходимые файлы и каталоги (см. ошибки выше)')
+                        : $commentOk,
+                )
+            )
+        );
 
         $this->render(
             '_view', array(
@@ -273,9 +292,6 @@ class DefaultController extends YBackController
      **/
     public function actionRequirements()
     {
-        $this->_markFinished('environment');
-        //$this->stepName = Yii::t('InstallModule.install', 'Шаг 3 из 8 : "Проверка системных требований"');
-
         $requirements = array(
             array(
                 Yii::t('InstallModule.install', 'Версия РНР'),
@@ -438,6 +454,9 @@ class DefaultController extends YBackController
             if ($requirement[1] && !$requirement[2])
                 $result = false;
         }
+
+        if ($result)
+            $this->_markFinished(Yii::app()->controller->action->id);
 
         $this->render(
             '_view', array(
