@@ -154,7 +154,7 @@ class DefaultController extends YBackController
                 Yii::t('InstallModule.install', 'Папка assets'),
                 $this->_checkWritable($webRoot . '/assets/'),
                 Yii::t(
-                    'InstallModule.install', 'Необходимо установить права записи на папку {folder} assets', array(
+                    'InstallModule.install', 'Необходимо установить права записи на папку {folder}assets', array(
                         '{folder}' => $webRoot . $dp,
                     )
                 ),
