@@ -1,16 +1,46 @@
 <?php
+/**
+ * File Doc Comment
+ * Menu install migration
+ * Класс миграций для модуля Menu:
+ *
+ * @category YupeMigration
+ * @package  YupeCMS
+ * @author   YupeTeam <team@yupe.ru>
+ * @license  BSD https://raw.github.com/yupe/yupe/master/LICENSE
+ * @link     http://yupe.ru
+ **/
+
+/**
+ * Menu install migration
+ * Класс миграций для модуля Menu:
+ *
+ * @category YupeMigration
+ * @package  YupeCMS
+ * @author   YupeTeam <team@yupe.ru>
+ * @license  BSD https://raw.github.com/yupe/yupe/master/LICENSE
+ * @link     http://yupe.ru
+ *
+ * add data
+ **/
 class m121220_001126_menu_test_data extends CDbMigration
 {
-
+    /**
+     * Накатываем миграцию:
+     *
+     * @return nothing
+     **/
     public function safeUp()
     {
         $db = $this->getDbConnection();
-        $this->insert($db->tablePrefix.'menu',array(
-                'id'=>1,
-                'name'=>'Верхнее меню',
-                'code'=>'top-menu',
-                'description'=>Yii::t('MenuModule.menu','Основное меню сайта, расположенное сверху в блоке mainmenu.'),
-                'status'=> 1
+
+        $this->insert(
+            $db->tablePrefix . 'menu', array(
+                'id'          => 1,
+                'name'        => 'Верхнее меню',
+                'code'        => 'top-menu',
+                'description' => Yii::t('MenuModule.menu', 'Основное меню сайта, расположенное сверху в блоке mainmenu.'),
+                'status'      => 1
             )
         );
 
@@ -29,22 +59,27 @@ class m121220_001126_menu_test_data extends CDbMigration
 
         ) ;
 
-
         $columns = array_shift($items);
-        foreach ($items as $i)
-        {
-            $item = array();
-            $n=0;
 
-            foreach($columns as $c)
-                $item[$c]=$i[$n++];
-            $this->insert($db->tablePrefix.'menu_item',$item);
+        foreach ($items as $i) {
+            $item = array();
+            $n    = 0;
+
+            foreach ($columns as $c)
+                $item[$c] = $i[$n++];
+            $this->insert($db->tablePrefix . 'menu_item', $item);
         }
     }
  
+    /**
+     * Откатываем миграцию:
+     *
+     * @return nothing
+     **/
     public function safeDown()
     {
         $db = $this->getDbConnection();
-	    return true;
+        
+        return true;
     }
 }
