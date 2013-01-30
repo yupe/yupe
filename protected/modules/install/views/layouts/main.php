@@ -16,11 +16,11 @@
 <?php
 echo '<title>' . CHtml::encode(Yii::app()->name). ' ' . CHtml::encode($this->pageTitle) . '</title>';
 if (!$this->yupe->enableAssets) {
-    Yii::app()->clientScript->registerCoreScript('jquery');
+    Yii::app()->clientScript->registerScriptFile($this->yupe->themeBaseUrl . '/web/jquery-install/jquery.min.js');
     Yii::app()->clientScript->registerCssFile($this->yupe->themeBaseUrl . '/web/booster-install/assets/css/bootstrap.css');
     Yii::app()->clientScript->registerScriptFile($this->yupe->themeBaseUrl . '/web/booster-install/assets/js/bootstrap.min.js');
 } else {
-    Yii::app()->clientScript->registerScriptFile($this->yupe->themeBaseUrl . '/web/jquery-install/jquery.min.js');
+    Yii::app()->clientScript->registerCoreScript('jquery');
 }
 if (($langs = $this->yupe->languageSelectorArray) != array())
     Yii::app()->clientScript->registerCssFile($this->yupe->themeBaseUrl . '/css/flags.css'); 
