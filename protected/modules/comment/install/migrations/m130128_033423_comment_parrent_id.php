@@ -33,11 +33,9 @@ class m130128_033423_comment_parrent_id extends CDbMigration
     {
         $db = $this->getDbConnection();
 
-        $tableName = $db->tablePrefix . 'comment';
+        $this->addColumn($db->tablePrefix . 'comment', 'parrent_id', 'integer DEFAULT NULL');
 
-        $this->addColumn($tableName, 'parrent_id', 'integer DEFAULT NULL');
-
-        $this->createIndex("comment_parrent_id", $tableName, "parrent_id", false);
+        $this->createIndex($db->tablePrefix . "comment_parrent_id", $db->tablePrefix . 'comment', "parrent_id", false);
     }
 
     /**
@@ -48,8 +46,19 @@ class m130128_033423_comment_parrent_id extends CDbMigration
     public function safeDown()
     {
         $db = $this->getDbConnection();
-        $tableName = $db->tablePrefix . 'comment';
-        $this->dropIndex("comment_parrent_id", $tableName);
-        $this->dropColumn($tableName, 'parrent_id');
+
+        /**
+         * Убиваем внешние ключи, индексы и таблицу - comment
+         * @todo найти как проверять существование индексов, что бы их подчищать (на абстрактном уровне без привязки к типу БД):
+         **/
+        if ($db->schema->getTable($db->tablePrefix . 'comment') !== null) {
+            
+            /*
+            $this->dropIndex($db->tablePrefix . "comment_parrent_id", $db->tablePrefix . 'comment');
+            */
+
+            if (in_array("parrent_id", $db->schema->getTable($db->tablePrefix . 'comment')->columns))
+                $this->dropColumn($db->tablePrefix . 'comment', 'parrent_id');
+        }
     }
 }

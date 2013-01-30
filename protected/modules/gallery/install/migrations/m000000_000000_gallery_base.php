@@ -1,21 +1,56 @@
 <?php
+/**
+ * Gallery install migration
+ * Класс миграций для модуля Gallery:
+ *
+ * @category YupeMigration
+ * @package  YupeCMS
+ * @author   YupeTeam <team@yupe.ru>
+ * @license  BSD https://raw.github.com/yupe/yupe/master/LICENSE
+ * @link     http://yupe.ru
+ **/
+
+/**
+ * Gallery install migration
+ * Класс миграций для модуля Gallery:
+ *
+ * @category YupeMigration
+ * @package  YupeCMS
+ * @author   YupeTeam <team@yupe.ru>
+ * @license  BSD https://raw.github.com/yupe/yupe/master/LICENSE
+ * @link     http://yupe.ru
+ */
 class m000000_000000_gallery_base extends CDbMigration
 {
+    /**
+     * Накатываем миграцию
+     *
+     * @return nothing
+     **/
     public function safeUp()
     {
         $db = $this->getDbConnection();
-        $tableName = $db->tablePrefix.'gallery';
-        $this->createTable($tableName, array(
-            'id' => 'pk',
-            'name' =>'varchar(300) NOT NULL',
-            'description' => 'text',
-            'status' => "tinyint(4) NOT NULL DEFAULT '1'",
-        ),"ENGINE=InnoDB DEFAULT CHARSET=utf8");
+        $tableName = $db->tablePrefix . 'gallery';
 
-        $this->createIndex("gallery_status",$tableName,"status", false);
+        /**
+         * gallery:
+         **/
+        $this->createTable(
+            $db->tablePrefix . 'gallery', array(
+                'id' => 'pk',
+                'name' =>'varchar(300) NOT NULL',
+                'description' => 'text',
+                'status' => "tinyint(4) NOT NULL DEFAULT '1'",
+            ), "ENGINE=InnoDB DEFAULT CHARSET=utf8"
+        );
 
-        $tableName = $db->tablePrefix.'image';
-        $this->createTable($tableName, array(
+        $this->createIndex($db->tablePrefix . "gallery_status", $db->tablePrefix . 'gallery', "status", false);
+
+        /**
+         * image:
+         **/
+        $this->createTable(
+            $db->tablePrefix . 'image', array(
                 'id' => 'pk',
                 'category_id' => 'integer DEFAULT NULL',
                 'parent_id' => 'integer DEFAULT NULL',
@@ -27,40 +62,100 @@ class m000000_000000_gallery_base extends CDbMigration
                 'alt' => 'string NOT NULL',
                 'type' => "tinyint(4) NOT NULL DEFAULT '0'",
                 'status' => "tinyint(3) unsigned NOT NULL DEFAULT '1'",
-            ),"ENGINE=InnoDB DEFAULT CHARSET=utf8");
+            ), "ENGINE=InnoDB DEFAULT CHARSET=utf8"
+        );
 
-        $this->createIndex("gallery_image_status",$tableName,"status", false);
-        $this->createIndex("gallery_image_user",$tableName,"user_id", false);
-        $this->createIndex("gallery_image_type",$tableName,"type", false);
-        $this->createIndex("gallery_image_category_id",$tableName,"category_id", false);
+        $this->createIndex($db->tablePrefix . "gallery_image_status", $db->tablePrefix . 'image', "status", false);
+        $this->createIndex($db->tablePrefix . "gallery_image_user", $db->tablePrefix . 'image', "user_id", false);
+        $this->createIndex($db->tablePrefix . "gallery_image_type", $db->tablePrefix . 'image', "type", false);
+        $this->createIndex($db->tablePrefix . "gallery_image_category_id", $db->tablePrefix . 'image', "category_id", false);
 
-        $this->addForeignKey("gallery_image_category_fk",$tableName,'category_id',$db->tablePrefix.'category','id','CASCADE','CASCADE');
-        $this->addForeignKey("gallery_image_user_fk",$tableName,'user_id',$db->tablePrefix.'user','id','SET NULL','CASCADE');
+        $this->addForeignKey($db->tablePrefix . "gallery_image_category_fk", $db->tablePrefix . 'image', 'category_id', $db->tablePrefix . 'category', 'id', 'CASCADE', 'CASCADE');
+        $this->addForeignKey($db->tablePrefix . "gallery_image_user_fk", $db->tablePrefix . 'image', 'user_id', $db->tablePrefix . 'user', 'id', 'SET NULL', 'CASCADE');
 
-        $tableName = $db->tablePrefix.'image_to_gallery';
-        $this->createTable($tableName, array(
+        /**
+         * image_to_gallery:
+         **/
+        $this->createTable(
+            $db->tablePrefix . 'image_to_gallery', array(
                 'id' => 'pk',
                 'image_id'  =>  'integer NOT NULL',
                 'galleryId' => 'integer NOT NULL',
                 'creation_date' => 'datetime NOT NULL',
-            ),"ENGINE=InnoDB DEFAULT CHARSET=utf8");
+            ), "ENGINE=InnoDB DEFAULT CHARSET=utf8"
+        );
 
-        $this->createIndex("gallery_to_image_unique",$tableName,"image_id,galleryId", true);
-        $this->createIndex("gallery_to_image_image",$tableName,"image_id", false);
-        $this->createIndex("gallery_to_image_gallery",$tableName,"galleryId", false);
+        $this->createIndex($db->tablePrefix . "gallery_to_image_unique", $db->tablePrefix . 'image_to_gallery', "image_id,galleryId", true);
+        $this->createIndex($db->tablePrefix . "gallery_to_image_image", $db->tablePrefix . 'image_to_gallery', "image_id", false);
+        $this->createIndex($db->tablePrefix . "gallery_to_image_gallery", $db->tablePrefix . 'image_to_gallery', "galleryId", false);
 
-        $this->addForeignKey("gallery_to_image_gallery_fk",$tableName,'galleryId',$db->tablePrefix.'gallery','id','CASCADE','CASCADE');
+        $this->addForeignKey($db->tablePrefix . "gallery_to_image_gallery_fk", $db->tablePrefix . 'image_to_gallery', 'galleryId', $db->tablePrefix . 'gallery', 'id', 'CASCADE', 'CASCADE');
 
 
 
     }
- 
+
+    /**
+     * Откатываем миграцию
+     *
+     * @return nothing
+     **/
     public function safeDown()
     {
         $db = $this->getDbConnection();
-        $this->dropTable($db->tablePrefix.'image_to_gallery');
-        $this->dropTable($db->tablePrefix.'image');
-        $this->dropTable($db->tablePrefix.'gallery');
+
+        /**
+         * Убиваем внешние ключи, индексы и таблицу - image_to_gallery
+         * @todo найти как проверять существование индексов, что бы их подчищать (на абстрактном уровне без привязки к типу БД):
+         **/
+        if ($db->schema->getTable($db->tablePrefix . 'image_to_gallery') !== null) {
+
+            /*
+            $this->createIndex("gallery_to_image_unique", $db->tablePrefix . 'image_to_gallery', "image_id,galleryId", true);
+            $this->createIndex("gallery_to_image_image", $db->tablePrefix . 'image_to_gallery', "image_id", false);
+            $this->createIndex("gallery_to_image_gallery", $db->tablePrefix . 'image_to_gallery', "galleryId", false);
+            */
+
+            if (in_array($db->tablePrefix . "gallery_to_image_gallery_fk", $db->schema->getTable($db->tablePrefix . 'image_to_gallery')->foreignKeys))
+                $this->dropForeignKey($db->tablePrefix . "gallery_to_image_gallery_fk", $db->tablePrefix . 'image_to_gallery');
+
+            $this->dropTable($db->tablePrefix . 'image_to_gallery');
+        }
+
+        /**
+         * Убиваем внешние ключи, индексы и таблицу - image
+         * @todo найти как проверять существование индексов, что бы их подчищать (на абстрактном уровне без привязки к типу БД):
+         **/
+        if ($db->schema->getTable($db->tablePrefix . 'image') !== null) {
+
+            /*
+            $this->dropIndex($db->tablePrefix . "gallery_image_status", $db->tablePrefix . 'image');
+            $this->dropIndex($db->tablePrefix . "gallery_image_user", $db->tablePrefix . 'image');
+            $this->dropIndex($db->tablePrefix . "gallery_image_type", $db->tablePrefix . 'image');
+            $this->dropIndex($db->tablePrefix . "gallery_image_category_id", $db->tablePrefix . 'image');
+            */
+
+            if (in_array($db->tablePrefix . "gallery_image_category_fk", $db->schema->getTable($db->tablePrefix . 'image')->foreignKeys))
+                $this->dropForeignKey($db->tablePrefix . "gallery_image_category_fk", $db->tablePrefix . 'image');
+
+            if (in_array($db->tablePrefix . "gallery_image_user_fk", $db->schema->getTable($db->tablePrefix . 'image')->foreignKeys))
+                $this->dropForeignKey($db->tablePrefix . "gallery_image_user_fk", $db->tablePrefix . 'image');
+
+            $this->dropTable($db->tablePrefix . 'image');
+        }
+        
+        /**
+         * Убиваем внешние ключи, индексы и таблицу - gallery
+         * @todo найти как проверять существование индексов, что бы их подчищать (на абстрактном уровне без привязки к типу БД):
+         **/
+        if ($db->schema->getTable($db->tablePrefix . 'gallery') !== null) {
+            
+            /*
+            $this->dropIndex($db->tablePrefix . "gallery_status", $db->tablePrefix . 'gallery');
+            */
+            
+            $this->dropTable($db->tablePrefix . 'gallery');
+        }
 
     }
 }
