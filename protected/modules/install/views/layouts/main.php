@@ -1,18 +1,32 @@
+<?php
+/**
+ * Шаблон инсталятора:
+ * 
+ *   @category YupeLayouts
+ *   @package  YupeCMS
+ *   @author   Yupe Team <team@yupe.ru>
+ *   @license  https://github.com/yupe/yupe/blob/master/LICENSE BSD
+ *   @link     http://yupe.ru
+ **/?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title><?php echo CHtml::encode(Yii::app()->name); ?> <?php echo CHtml::encode($this->pageTitle); ?></title>
-    <?php if (!$this->yupe->enableAssets): ?>
-        <?php Yii::app()->clientScript->registerCssFile($this->yupe->themeBaseUrl . '/web/booster-install/assets/css/bootstrap.css'); ?>
-        <?php Yii::app()->clientScript->registerScriptFile($this->yupe->themeBaseUrl . '/web/booster-install/assets/js/bootstrap.min.js'); ?>
-    <?php endif; ?>
-    <?php if (($langs = $this->yupe->languageSelectorArray) != array()): ?>
-        <?php Yii::app()->clientScript->registerCssFile($this->yupe->themeBaseUrl . '/css/flags.css'); ?>
-    <?php endif; ?>
-    <?php Yii::app()->clientScript->registerCssFile($this->yupe->themeBaseUrl . '/css/styles.css'); ?>
-    <?php Yii::app()->clientScript->registerCssFile($this->yupe->themeBaseUrl . '/css/install.css'); ?>
+<?php
+echo '<title>' . CHtml::encode(Yii::app()->name). ' ' . CHtml::encode($this->pageTitle) . '</title>';
+if (!$this->yupe->enableAssets) {
+    Yii::app()->clientScript->registerCoreScript('jquery');
+    Yii::app()->clientScript->registerCssFile($this->yupe->themeBaseUrl . '/web/booster-install/assets/css/bootstrap.css');
+    Yii::app()->clientScript->registerScriptFile($this->yupe->themeBaseUrl . '/web/booster-install/assets/js/bootstrap.min.js');
+} else {
+    Yii::app()->clientScript->registerCssFile($this->yupe->themeBaseUrl . '/web/jquery-install/jquery.min.js');
+}
+if (($langs = $this->yupe->languageSelectorArray) != array())
+    Yii::app()->clientScript->registerCssFile($this->yupe->themeBaseUrl . '/css/flags.css'); 
+Yii::app()->clientScript->registerCssFile($this->yupe->themeBaseUrl . '/css/styles.css');
+Yii::app()->clientScript->registerCssFile($this->yupe->themeBaseUrl . '/css/install.css');
+?>
 </head>
 <body>
 <div id="overall-wrap">
@@ -67,7 +81,7 @@
     <div id="footer-guard"><!-- --></div>
 </div>
 <footer>
-    Copyright &copy; 2009-<?php echo date('Y'); ?> <?php echo CHtml::link(Yii::t('yupe','Юпи!'), 'http://yupe.ru/?from=install'); ?><br/>
+    Copyright &copy; 2009-<?php echo date('Y'); ?> <?php echo CHtml::link(Yii::t('yupe', 'Юпи!'), 'http://yupe.ru/?from=install'); ?><br/>
     <?php echo Yii::powered(); ?>
 </footer><!-- footer -->
 </body>
