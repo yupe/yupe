@@ -79,16 +79,6 @@ class m000000_000000_page_base extends CDbMigration
          * Убиваем внешние ключи, индексы и таблицу - page
          * @todo найти как проверять существование индексов, что бы их подчищать (на абстрактном уровне, без привязки к БД):
          **/
-
-        if (in_array($db->tablePrefix . "user_recovery_uid_fk", $db->schema->getTable($db->tablePrefix . 'page')->foreignKeys))
-            $this->dropForeignKey($db->tablePrefix . "page_category_fk", $db->tablePrefix . 'page');
-        
-        if (in_array($db->tablePrefix . "page_user_fk", $db->schema->getTable($db->tablePrefix . 'page')->foreignKeys))
-            $this->dropForeignKey($db->tablePrefix . "page_user_fk", $db->tablePrefix . 'page');
-
-        if (in_array($db->tablePrefix . "page_user_change_fk", $db->schema->getTable($db->tablePrefix . 'page')->foreignKeys))
-            $this->dropForeignKey($db->tablePrefix . "page_user_change_fk", $db->tablePrefix . 'page');
-
         /*
         $this->dropIndex($db->tablePrefix . "page_slug_uniq", $db->tablePrefix . 'page');
         $this->dropIndex($db->tablePrefix . "page_status", $db->tablePrefix . 'page');
@@ -99,7 +89,17 @@ class m000000_000000_page_base extends CDbMigration
         $this->dropIndex($db->tablePrefix . "page_category_id", $db->tablePrefix . 'page');
         */
 
-        if ($db->schema->getTable($db->tablePrefix . 'page') !== null)
+        if ($db->schema->getTable($db->tablePrefix . 'page') !== null) {
+            if (in_array($db->tablePrefix . "user_recovery_uid_fk", $db->schema->getTable($db->tablePrefix . 'page')->foreignKeys))
+                $this->dropForeignKey($db->tablePrefix . "page_category_fk", $db->tablePrefix . 'page');
+            
+            if (in_array($db->tablePrefix . "page_user_fk", $db->schema->getTable($db->tablePrefix . 'page')->foreignKeys))
+                $this->dropForeignKey($db->tablePrefix . "page_user_fk", $db->tablePrefix . 'page');
+
+            if (in_array($db->tablePrefix . "page_user_change_fk", $db->schema->getTable($db->tablePrefix . 'page')->foreignKeys))
+                $this->dropForeignKey($db->tablePrefix . "page_user_change_fk", $db->tablePrefix . 'page');
+            
             $this->dropTable($db->tablePrefix.'page');
+        }
     }
 }

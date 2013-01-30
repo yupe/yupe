@@ -93,11 +93,6 @@ class m000000_000000_user_base extends CDbMigration
         $db = $this->getDbConnection();
         /**
          * Убиваем внешние ключи, индексы и таблицу - recovery_password
-         **/
-        if (in_array($db->tablePrefix . "user_recovery_uid_fk", $db->schema->getTable($db->tablePrefix . 'recovery_password')->foreignKeys))
-            $this->dropForeignKey($db->tablePrefix . "user_recovery_uid_fk", $db->tablePrefix . 'recovery_password');
-
-        /**
          * @todo найти как проверять существование индексов, что бы их подчищать (на абстрактном уровне, без привязки к БД):
          **/
         
@@ -106,8 +101,11 @@ class m000000_000000_user_base extends CDbMigration
         $this->dropIndex($db->tablePrefix . "user_recovery_userid", $db->tablePrefix . 'recovery_password');
         */
 
-        if ($db->schema->getTable($db->tablePrefix . 'recovery_password') !== null)
+        if ($db->schema->getTable($db->tablePrefix . 'recovery_password') !== null) {
+            if (in_array($db->tablePrefix . "user_recovery_uid_fk", $db->schema->getTable($db->tablePrefix . 'recovery_password')->foreignKeys))
+                $this->dropForeignKey($db->tablePrefix . "user_recovery_uid_fk", $db->tablePrefix . 'recovery_password');
             $this->dropTable($db->tablePrefix . 'recovery_password');
+        }
 
         /**
          * Убиваем внешние ключи, индексы и таблицу - user
