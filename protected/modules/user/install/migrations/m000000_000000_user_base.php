@@ -1,5 +1,6 @@
 <?php
 /**
+ * FileDocComment
  * User install migration
  * Класс миграций для модуля User:
  *
@@ -78,7 +79,7 @@ class m000000_000000_user_base extends CDbMigration
         $this->createIndex("user_recovery_code", $db->tablePrefix.'recovery_password', "code", true);
         $this->createIndex("user_recovery_userid", $db->tablePrefix.'recovery_password', "user_id", false);
 
-        $this->addForeignKey($db->tablePrefix . "user_recovery_uid_fk", $db->tablePrefix.'recovery_password', 'user_id', $db->tablePrefix . 'user', 'id', 'CASCADE', 'CASCADE');
+        $this->addForeignKey($db->tablePrefix . "user_recovery_uid_fk", $db->tablePrefix . 'recovery_password', 'user_id', $db->tablePrefix . 'user', 'id', 'CASCADE', 'CASCADE');
 
     }
  
@@ -90,8 +91,36 @@ class m000000_000000_user_base extends CDbMigration
     public function safeDown()
     {
         $db = $this->getDbConnection();
+        /**
+         * Убиваем внешние ключи, индексы и таблицу - recovery_password
+         **/
+        if (in_array($db->tablePrefix . "user_recovery_uid_fk", $db->schema->getTable($db->tablePrefix . 'recovery_password')->foreignKeys))
+            $this->dropForeignKey($db->tablePrefix . "user_recovery_uid_fk", $db->tablePrefix . 'recovery_password');
+
+        /**
+         * @todo найти как проверять существование индексов, что бы их подчищать:
+         **/
+        
+        /*
+        $this->dropIndex("user_recovery_code", $db->tablePrefix . 'recovery_password');
+        $this->dropIndex("user_recovery_userid", $db->tablePrefix . 'recovery_password');
+        */
+
         if ($db->schema->getTable($db->tablePrefix . 'recovery_password') !== null)
             $this->dropTable($db->tablePrefix . 'recovery_password');
+
+        /**
+         * Убиваем внешние ключи, индексы и таблицу - user
+         * @todo найти как проверять существование индексов, что бы их подчищать:
+         **/
+        
+        /*
+        $this->dropIndex("user_nickname_unique", $db->tablePrefix . 'user');
+        $this->dropIndex("user_email_unique", $db->tablePrefix . 'user');
+        $this->dropIndex("user_status_index", $db->tablePrefix . 'user');
+        $this->dropIndex("user_email_confirm", $db->tablePrefix . 'user');
+        */
+
         if ($db->schema->getTable($db->tablePrefix . 'user') !== null)
             $this->dropTable($db->tablePrefix.'user');
     }
