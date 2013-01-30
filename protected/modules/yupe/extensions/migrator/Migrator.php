@@ -65,6 +65,97 @@ class Migrator extends CApplicationComponent
     }
 
     /**
+     * Проверяем на незавершённые миграции:
+     *
+     * @param string $module - required module
+     * @param string $class  - migration class
+     *
+     * @return bool is updated to migration
+     **/
+    public function checkForBadMigration($module, $class = false)
+    {
+        echo Yii::t('YupeModule.yupe', "Проверяем на наличие незавершённых миграций.") . '<br />';
+
+        $db = $this->getDbConnection();
+
+        // @TODO: add cache here??
+        $data = $db->createCommand()
+            ->selectDistinct('version, apply_time')
+            ->from($db->tablePrefix . $this->migrationTable)
+            ->order('version DESC')
+            ->where(
+                'module = :module', array(
+                    ':module' => $module,
+                )
+            )
+            ->queryAll();
+
+        if ($data !== array() ) {
+            foreach ($data as $migration) {
+                if ($migration['apply_time'] == 0) {
+                    try {
+                        echo Yii::t(
+                            'YupeModule.yupe', 'Откат миграции {migration} для модуля {module}.', array(
+                                '{module}'    => $module,
+                                '{migration}' => $migration['version'],
+                            )
+                        ) . '<br />';
+                        Yii::log(
+                            Yii::t(
+                                'YupeModule.yupe', 'Откат миграции {migration} для модуля {module}.', array(
+                                    '{module}'    => $module,
+                                    '{migration}' => $migration['version'],
+                                )
+                            )
+                        );
+                        if ($this->migrateDown($module, $migration['version']) !== false) {
+                            $db->createCommand()->delete(
+                                $db->tablePrefix . $this->migrationTable, array(
+                                    $db->quoteColumnName('version') . "=" . $db->quoteValue($migration['version']),
+                                    $db->quoteColumnName('module') . "=" . $db->quoteValue($module),
+                                )
+                            );
+                        } else {
+                            Yii::log(
+                                Yii::t(
+                                    'YupeModule.yupe', 'Не удалось выполнить откат миграции {migration} для модуля {module}.', array(
+                                        '{module}'    => $module,
+                                        '{migration}' => $migration['version'],
+                                    )
+                                )
+                            );
+                            echo Yii::t(
+                                'YupeModule.yupe', 'Не удалось выполнить откат миграции {migration} для модуля {module}.', array(
+                                    '{module}'    => $module,
+                                    '{migration}' => $migration['version'],
+                                )
+                            ) . '<br />';
+                            return false;
+                        }
+                    } catch (ErrorException $e) {
+                        Yii::log(
+                            Yii::t(
+                                'YupeModule.yupe', 'Произошла ошибка: {error}', array(
+                                    '{error}' => $e
+                                )
+                            )
+                        );
+                        echo Yii::t(
+                            'YupeModule.yupe', 'Произошла ошибка: {error}', array(
+                                '{error}' => $e
+                            )
+                        );
+                    }
+                }
+            }
+        } else {
+            Yii::log(Yii::t('YupeModule.yupe', 'Для модуля {module} не требуется откат миграции.', array('{module}' => $module)));
+            echo Yii::t('YupeModule.yupe', 'Для модуля {module} не требуется откат миграции.', array('{module}' => $module)) . '<br />';
+        }
+        return true;
+    }
+
+    /**
      * Обновляем миграцию:
      *
      * @param string $module - required module
@@ -152,8 +243,6 @@ class Migrator extends CApplicationComponent
         } else {
             $time = microtime(true) - $start;
             Yii::log(Yii::t('YupeModule.yupe', "Ошибка отмены миграции {class} ({s} сек.)", array('{class}' => $class, '{s}' => sprintf("%.3f", $time))));
-
-            echo $msg . '<br />';
             throw new CException(
                 Yii::t(
                     'YupeModule.yupe', 'Во время установки возникла ошибка: {error}', array(

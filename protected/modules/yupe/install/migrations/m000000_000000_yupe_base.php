@@ -44,9 +44,9 @@ class m000000_000000_yupe_base extends CDbMigration
             ), "ENGINE=InnoDB DEFAULT CHARSET=utf8"
         );
 
-        $this->createIndex("settings_module_id", $db->tablePrefix . 'settings', "module_id", false);
-        $this->createIndex("settings_param_name", $db->tablePrefix . 'settings', "param_name", false);
-        $this->createIndex("settings_param_name_uniq", $db->tablePrefix . 'settings', "module_id,param_name", true);
+        $this->createIndex($db->tablePrefix . "settings_module_id", $db->tablePrefix . 'settings', "module_id", false);
+        $this->createIndex($db->tablePrefix . "settings_param_name", $db->tablePrefix . 'settings', "param_name", false);
+        $this->createIndex($db->tablePrefix . "settings_param_name_uniq", $db->tablePrefix . 'settings', "module_id,param_name", true);
     }
  
     /**
@@ -64,9 +64,9 @@ class m000000_000000_yupe_base extends CDbMigration
          **/
 
         /*
-        $this->dropIndex("settings_module_id", $db->tablePrefix . 'settings');
-        $this->dropIndex("settings_param_name", $db->tablePrefix . 'settings');
-        $this->dropIndex("settings_param_name_uniq", $db->tablePrefix . 'settings');
+        $this->dropIndex($db->tablePrefix . "settings_module_id", $db->tablePrefix . 'settings');
+        $this->dropIndex($db->tablePrefix . "settings_param_name", $db->tablePrefix . 'settings');
+        $this->dropIndex($db->tablePrefix . "settings_param_name_uniq", $db->tablePrefix . 'settings');
         */
         if ($db->schema->getTable($db->tablePrefix . 'settings') !== null)
             $this->dropTable($db->tablePrefix . 'settings');
