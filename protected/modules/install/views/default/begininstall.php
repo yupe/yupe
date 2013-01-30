@@ -128,7 +128,9 @@ echo "\n};";
             'bootstrap.widgets.TbButton', array(
                 'label'       => Yii::t('InstallModule.install', 'Смотреть журнал'),
                 'url'         => '#',
-                'htmlOptions' => array('data-dismiss' => 'modal'),
+                'htmlOptions' => array(
+                    'data-dismiss' => 'modal',
+                ),
             )
         ); ?>
         <?php
@@ -152,9 +154,7 @@ echo "\n};";
         </h4>
     </div>
     <div id="modules-modal-list" class="modal-body row">
-        <div class="span3">
-            <?php echo Yii::t('InstallModule.install', 'Во время установки выбранных Вами модулей произошла ошибка. Вы можете ознакомиться с журналом или продолжить установку.'); ?>
-        </div>
+            <?php echo Yii::t('InstallModule.install', 'Во время установки выбранных Вами модулей произошла ошибка. Вы можете ознакомиться с журналом.'); ?>
     </div>
     <div class="modal-footer">
         <?php
@@ -162,20 +162,16 @@ echo "\n};";
             'bootstrap.widgets.TbButton', array(
                 'label'       => Yii::t('InstallModule.install', 'Смотреть журнал'),
                 'url'         => '#',
-                'htmlOptions' => array('data-dismiss' => 'fail'),
-            )
-        ); ?>
-        <?php
-        $this->widget(
-            'bootstrap.widgets.TbButton', array(
-                'type'  => 'primary',
                 'htmlOptions' => array(
-                    'class' => 'nextButton',
+                    'data-dismiss' => 'modal',
                 ),
-                'label' => Yii::t('InstallModule.install', 'Продолжить >'),
-                'url'   => array('/install/default/createuser')
             )
-        ); ?>
+        );
+        /**
+         * @tutorial Здесь не должно быть кнопок продолжить и прочее.
+         *           Это модальное окно об ошибке при установке.
+         **/
+        ?>
     </div>
 <?php $this->endWidget(); ?>
 
