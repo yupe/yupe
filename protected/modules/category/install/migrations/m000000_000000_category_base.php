@@ -64,13 +64,13 @@ class m000000_000000_category_base extends CDbMigration
          * @todo найти как проверять существование индексов, что бы их подчищать (на абстрактном уровне без привязки к типу БД):
          **/
 
-        /*
-        $this->dropIndex($db->tablePrefix . "category_alias_uniq", $db->tablePrefix . 'category');
-        $this->dropIndex($db->tablePrefix . "category_parent_id", $db->tablePrefix . 'category');
-        $this->dropIndex($db->tablePrefix . "category_status", $db->tablePrefix . 'category');
-        */
-
-        if ($db->schema->getTable($db->tablePrefix . 'category') !== null)
+        if ($db->schema->getTable($db->tablePrefix . 'category') !== null) {
+            /*
+            $this->dropIndex($db->tablePrefix . "category_alias_uniq", $db->tablePrefix . 'category');
+            $this->dropIndex($db->tablePrefix . "category_parent_id", $db->tablePrefix . 'category');
+            $this->dropIndex($db->tablePrefix . "category_status", $db->tablePrefix . 'category');
+            */
             $this->dropTable($db->tablePrefix . 'category');
+        }
     }
 }
