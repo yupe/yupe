@@ -62,10 +62,10 @@ class m000000_000000_user_base extends CDbMigration
             ), "ENGINE=InnoDB DEFAULT CHARSET=utf8"
         );
 
-        $this->createIndex("user_nickname_unique", $db->tablePrefix . 'user', "nick_name", true);
-        $this->createIndex("user_email_unique", $db->tablePrefix . 'user', "email", true);
-        $this->createIndex("user_status_index", $db->tablePrefix . 'user', "status", false);
-        $this->createIndex("user_email_confirm", $db->tablePrefix . 'user', "email_confirm", false);
+        $this->createIndex($db->tablePrefix . "user_nickname_unique", $db->tablePrefix . 'user', "nick_name", true);
+        $this->createIndex($db->tablePrefix . "user_email_unique", $db->tablePrefix . 'user', "email", true);
+        $this->createIndex($db->tablePrefix . "user_status_index", $db->tablePrefix . 'user', "status", false);
+        $this->createIndex($db->tablePrefix . "user_email_confirm", $db->tablePrefix . 'user', "email_confirm", false);
 
         $this->createTable(
             $db->tablePrefix.'recovery_password', array(
@@ -76,8 +76,8 @@ class m000000_000000_user_base extends CDbMigration
             ), "ENGINE=InnoDB DEFAULT CHARSET=utf8"
         );
 
-        $this->createIndex("user_recovery_code", $db->tablePrefix.'recovery_password', "code", true);
-        $this->createIndex("user_recovery_userid", $db->tablePrefix.'recovery_password', "user_id", false);
+        $this->createIndex($db->tablePrefix . "user_recovery_code", $db->tablePrefix.'recovery_password', "code", true);
+        $this->createIndex($db->tablePrefix . "user_recovery_userid", $db->tablePrefix.'recovery_password', "user_id", false);
 
         $this->addForeignKey($db->tablePrefix . "user_recovery_uid_fk", $db->tablePrefix . 'recovery_password', 'user_id', $db->tablePrefix . 'user', 'id', 'CASCADE', 'CASCADE');
 
@@ -102,8 +102,8 @@ class m000000_000000_user_base extends CDbMigration
          **/
         
         /*
-        $this->dropIndex("user_recovery_code", $db->tablePrefix . 'recovery_password');
-        $this->dropIndex("user_recovery_userid", $db->tablePrefix . 'recovery_password');
+        $this->dropIndex($db->tablePrefix . "user_recovery_code", $db->tablePrefix . 'recovery_password');
+        $this->dropIndex($db->tablePrefix . "user_recovery_userid", $db->tablePrefix . 'recovery_password');
         */
 
         if ($db->schema->getTable($db->tablePrefix . 'recovery_password') !== null)
@@ -115,10 +115,10 @@ class m000000_000000_user_base extends CDbMigration
          **/
         
         /*
-        $this->dropIndex("user_nickname_unique", $db->tablePrefix . 'user');
-        $this->dropIndex("user_email_unique", $db->tablePrefix . 'user');
-        $this->dropIndex("user_status_index", $db->tablePrefix . 'user');
-        $this->dropIndex("user_email_confirm", $db->tablePrefix . 'user');
+        $this->dropIndex($db->tablePrefix . "user_nickname_unique", $db->tablePrefix . 'user');
+        $this->dropIndex($db->tablePrefix . "user_email_unique", $db->tablePrefix . 'user');
+        $this->dropIndex($db->tablePrefix . "user_status_index", $db->tablePrefix . 'user');
+        $this->dropIndex($db->tablePrefix . "user_email_confirm", $db->tablePrefix . 'user');
         */
 
         if ($db->schema->getTable($db->tablePrefix . 'user') !== null)

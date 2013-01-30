@@ -109,7 +109,13 @@ class Migrator extends CApplicationComponent
         } else {
             $time = microtime(true) - $start;
             Yii::log(Yii::t('YupeModule.yupe', "Ошибка применения миграции {class} ({s} сек.)", array('{class}' => $class, '{s}' => sprintf("%.3f", $time))));
-            Yii::app()->user->setFlash('warning', $msg);
+            throw new CException(
+                Yii::t(
+                    'YupeModule.yupe', 'Во время установки возникла ошибка: {error}', array(
+                        '{error}' => $msg
+                    )
+                )
+            );
             return false;
         }
     }
@@ -146,8 +152,15 @@ class Migrator extends CApplicationComponent
         } else {
             $time = microtime(true) - $start;
             Yii::log(Yii::t('YupeModule.yupe', "Ошибка отмены миграции {class} ({s} сек.)", array('{class}' => $class, '{s}' => sprintf("%.3f", $time))));
-            Yii::app()->user->setFlash('warning', $msg);
-            return false;
+
+            echo $msg . '<br />';
+            throw new CException(
+                Yii::t(
+                    'YupeModule.yupe', 'Во время установки возникла ошибка: {error}', array(
+                        '{error}' => $msg
+                    )
+                )
+            );
         }
     }
 
