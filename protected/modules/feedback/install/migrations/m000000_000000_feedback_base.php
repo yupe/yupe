@@ -1,7 +1,7 @@
 <?php
 /**
- * Dictionary install migration
- * Класс миграций для модуля Dictionary:
+ * Feedback install migration
+ * Класс миграций для модуля Feedback:
  *
  * @category YupeMigration
  * @package  YupeCMS
@@ -11,8 +11,8 @@
  **/
 
 /**
- * Dictionary install migration
- * Класс миграций для модуля Dictionary:
+ * Feedback install migration
+ * Класс миграций для модуля Feedback:
  *
  * @category YupeMigration
  * @package  YupeCMS
