@@ -1,5 +1,6 @@
 <?php
 /**
+ * File Doc Comment
  * Mail install migration
  * Класс миграций для модуля Mail:
  *
@@ -25,16 +26,19 @@
 class m000000_000000_mail_base extends CDbMigration
 {
     /**
-     * Функция настройки и создания таблицы:
+     * Накатываем миграцию:
      *
      * @return nothing
      **/
     public function safeUp()
     {
         $db = $this->getDbConnection();
-        $tableName = $db->tablePrefix.'mail_event';
+
+        /**
+         * mail_event:
+         **/
         $this->createTable(
-            $tableName, array(
+            $db->tablePrefix . 'mail_event', array(
                     'id'          => 'pk',
                     'code'        => 'string NOT NULL',
                     'name'        => 'string NOT NULL',
@@ -42,11 +46,13 @@ class m000000_000000_mail_base extends CDbMigration
             ), "ENGINE=InnoDB DEFAULT CHARSET=utf8"
         );
 
-        $this->createIndex("mail_event_code_unique", $tableName, "code", true);
+        $this->createIndex($db->tablePrefix . "mail_event_code_unique", $db->tablePrefix . 'mail_event', "code", true);
 
-        $tableName = $db->tablePrefix.'mail_template';
+        /**
+         * mail_template:
+         **/
         $this->createTable(
-            $tableName, array(
+            $db->tablePrefix . 'mail_template', array(
                 'id'          => 'pk',
                 'code'        => 'string NOT NULL',
                 'event_id'    => 'integer NOT NULL',
@@ -60,22 +66,50 @@ class m000000_000000_mail_base extends CDbMigration
             ), "ENGINE=InnoDB DEFAULT CHARSET=utf8"
         );
 
-        $this->createIndex("mail_template_unique", $tableName, "code", true);
-        $this->createIndex("mail_template_status", $tableName, "status", false);
-        $this->createIndex("mail_template_event", $tableName, "event_id", false);
-        $this->addForeignKey("mail_event_template_fk", $tableName, 'event_id', $db->tablePrefix . 'mail_event', 'id', 'CASCADE', 'CASCADE');
+        $this->createIndex($db->tablePrefix . "mail_template_unique", $db->tablePrefix . 'mail_template', "code", true);
+        $this->createIndex($db->tablePrefix . "mail_template_status", $db->tablePrefix . 'mail_template', "status", false);
+        $this->createIndex($db->tablePrefix . "mail_template_event", $db->tablePrefix . 'mail_template', "event_id", false);
+        $this->addForeignKey($db->tablePrefix . "mail_event_template_fk", $db->tablePrefix . 'mail_template', 'event_id', $db->tablePrefix . 'mail_event', 'id', 'CASCADE', 'CASCADE');
 
     }
  
     /**
-     * Функция удаления таблицы:
+     * Откатываем миграцию:
      *
      * @return nothing
      **/
     public function safeDown()
     {
         $db = $this->getDbConnection();
-        $this->dropTable($db->tablePrefix.'mail_template');
-        $this->dropTable($db->tablePrefix.'mail_event');
+        /**
+         * Убиваем внешние ключи, индексы и таблицу - mail_template
+         * @todo найти как проверять существование индексов, что бы их подчищать (на абстрактном уровне без привязки к типу БД):
+         **/
+        if ($db->schema->getTable($db->tablePrefix . 'mail_template') !== null) {
+
+            /*
+            $this->dropIndex($db->tablePrefix . "mail_event_code_unique", $db->tablePrefix . 'mail_event');
+            */
+
+            $this->dropTable($db->tablePrefix.'mail_template');
+        }
+        
+        /**
+         * Убиваем внешние ключи, индексы и таблицу - mail_event
+         * @todo найти как проверять существование индексов, что бы их подчищать (на абстрактном уровне без привязки к типу БД):
+         **/
+        if ($db->schema->getTable($db->tablePrefix . 'mail_event') !== null) {
+
+            /*
+            $this->dropIndex($db->tablePrefix . "mail_template_unique", $db->tablePrefix . 'mail_event');
+            $this->dropIndex($db->tablePrefix . "mail_template_status", $db->tablePrefix . 'mail_event');
+            $this->dropIndex($db->tablePrefix . "mail_template_event", $db->tablePrefix . 'mail_event');
+            */
+
+            if (in_array($db->tablePrefix . "mail_event_template_fk", $db->schema->getTable($db->tablePrefix . 'mail_event')->foreignKeys))
+                $this->dropForeignKey($db->tablePrefix . "mail_event_template_fk", $db->tablePrefix . 'mail_event');
+
+            $this->dropTable($db->tablePrefix . 'mail_event');
+        }
     }
 }
