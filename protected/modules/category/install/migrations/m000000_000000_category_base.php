@@ -45,9 +45,9 @@ class m000000_000000_category_base extends CDbMigration
             ), "ENGINE=InnoDB DEFAULT CHARSET=utf8"
         );
 
-        $this->createIndex("category_alias_uniq", $db->tablePrefix . 'category', "alias,lang", true);
-        $this->createIndex("category_parent_id", $db->tablePrefix . 'category', "parent_id", false);
-        $this->createIndex("category_status", $db->tablePrefix . 'category', "status", false);
+        $this->createIndex($db->tablePrefix . "category_alias_uniq", $db->tablePrefix . 'category', "alias,lang", true);
+        $this->createIndex($db->tablePrefix . "category_parent_id", $db->tablePrefix . 'category', "parent_id", false);
+        $this->createIndex($db->tablePrefix . "category_status", $db->tablePrefix . 'category', "status", false);
     }
  
     /**
@@ -65,9 +65,9 @@ class m000000_000000_category_base extends CDbMigration
          **/
 
         /*
-        $this->dropIndex("category_alias_uniq", $db->tablePrefix . 'category');
-        $this->dropIndex("category_parent_id", $db->tablePrefix . 'category');
-        $this->dropIndex("category_status", $db->tablePrefix . 'category');
+        $this->dropIndex($db->tablePrefix . "category_alias_uniq", $db->tablePrefix . 'category');
+        $this->dropIndex($db->tablePrefix . "category_parent_id", $db->tablePrefix . 'category');
+        $this->dropIndex($db->tablePrefix . "category_status", $db->tablePrefix . 'category');
         */
 
         if ($db->schema->getTable($db->tablePrefix . 'category') !== null)
