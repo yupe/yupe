@@ -90,7 +90,7 @@ class Migrator extends CApplicationComponent
             )
             ->queryAll();
 
-        if ($data !== array() ) {
+        if (($data !== array()) || ((strpos($class, '_base') !== false) && ($data[] = array('version' => $class, 'apply_time' => 0))) ) {
             foreach ($data as $migration) {
                 if ($migration['apply_time'] == 0) {
                     try {
