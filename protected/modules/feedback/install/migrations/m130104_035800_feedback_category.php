@@ -33,7 +33,7 @@ class m130104_035800_feedback_category extends CDbMigration
     {
         $db = $this->getDbConnection();
 
-        $this->addColumn('feedback', 'category_id', 'integer DEFAULT NULL');
+        $this->addColumn($db->tablePrefix . 'feedback', 'category_id', 'integer DEFAULT NULL');
 
         $this->createIndex($db->tablePrefix . "feedback_category_idx", $db->tablePrefix . 'feedback', "category_id", false);
         $this->addForeignKey($db->tablePrefix . "feedback_category_fk", $db->tablePrefix . 'feedback', 'category_id', $db->tablePrefix . 'category', 'id', 'SET NULL', 'CASCADE');
@@ -61,7 +61,7 @@ class m130104_035800_feedback_category extends CDbMigration
                 $this->dropForeignKey($db->tablePrefix . "feedback_category_fk", $db->tablePrefix . 'feedback');
             
             if (in_array("feedback", $db->schema->getTable($db->tablePrefix . 'feedback')->columns))
-                $this->dropColumn('feedback', 'category_id');
+                $this->dropColumn($db->tablePrefix . 'feedback', 'category_id');
 
         }
     }
