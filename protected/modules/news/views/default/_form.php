@@ -32,19 +32,22 @@ $form = $this->beginWidget('bootstrap.widgets.TbActiveForm', array(
         </div>
     </div>
 
-    <div class="row-fluid control-group <?php echo $model->hasErrors('link') ? 'category_id' : ''; ?>">
+    <div class="row-fluid control-group <?php echo $model->hasErrors('category_id') ? 'error' : ''; ?>">
         <?php echo $form->dropDownListRow($model, 'category_id', CHtml::listData($this->module->getCategoryList(), 'id', 'name'), array('class' => 'span7 popover-help','empty' => Yii::t('NewsModule.news', '--выберите--'))); ?>
     </div>
 
     <div class="row-fluid control-group <?php echo $model->hasErrors('title') ? 'error' : ''; ?>">
         <?php echo $form->textFieldRow($model, 'title', array('size' => 60, 'maxlength' => 150, 'class' => 'span7 popover-help', 'data-original-title' => $model->getAttributeLabel('title'), 'data-content' => $model->getAttributeDescription('title'))); ?>
     </div>
+
     <div class="row-fluid control-group <?php echo $model->hasErrors('alias') ? 'error' : ''; ?>">
         <?php echo $form->textFieldRow($model, 'alias', array('size' => 60, 'maxlength' => 150, 'class' => 'span7 popover-help', 'data-original-title' => $model->getAttributeLabel('alias'), 'data-content' => $model->getAttributeDescription('alias'))); ?>
     </div>
+
     <div class="row-fluid control-group <?php echo $model->hasErrors('link') ? 'error' : ''; ?>">
         <?php echo $form->textFieldRow($model, 'link', array('size' => 60, 'maxlength' => 150, 'class' => 'span7 popover-help', 'data-original-title' => $model->getAttributeLabel('link'), 'data-content' => $model->getAttributeDescription('link'))); ?>
     </div>
+
     <div class="row-fluid control-group <?php echo $model->hasErrors('image') ? 'error' : ''; ?>">
         <div class="span7  popover-help"  data-original-title="<?php echo $model->getAttributeLabel('image'); ?>">
             <?php if (!$model->isNewRecord && $model->image): ?>
