@@ -36,7 +36,7 @@ abstract class YWidget extends CWidget
         $themeView = null;
         if (Yii::app()->theme !== null) {
             $obj = new ReflectionClass(get_class($this));
-            if (preg_match("#modules\\\(.*?)\\\#", $obj->getFileName(), $module)) {
+	        if (preg_match("#modules[\\\/]+(.*?)[\\\/]+#", $obj->getFileName(), $module)) {
                 $themeView = Yii::app()->themeManager->basePath . '/' .
                              Yii::app()->theme->name . '/' . 'views' . '/' .
                              $module[1] . '/' . 'widgets' . '/' . get_class($this);
