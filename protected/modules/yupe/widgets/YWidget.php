@@ -27,19 +27,21 @@ abstract class YWidget extends CWidget
     {
         parent::init();
 
-     // if (!$this->cacheTime && $this->cacheTime !== 0)
-         // $this->cacheTime = Yii::app()->getModule('yupe')->coreCacheTime;
+        //if (!$this->cacheTime && $this->cacheTime !== 0)
+            //$this->cacheTime = Yii::app()->getModule('yupe')->coreCacheTime;
     }
 
     public function getViewPath($checkTheme = false)
     {
-        if (!is_object(Yii::app()->theme))
-            return parent::getViewPath();
-
-        $themeView = Yii::app()->themeManager->basePath . '/' .
-                     Yii::app()->theme->name . '/' .
-                     'views' . '/' . 'widgets' . '/' . get_class($this);
-
-        return file_exists($themeView) ? $themeView : parent::getViewPath($checkTheme = false);
+        $themeView = null;
+        if (Yii::app()->theme !== null) {
+            $obj = new ReflectionClass(get_class($this));
+            if (preg_match("#modules\\\(.*?)\\\#", $obj->getFileName(), $module)) {
+                $themeView = Yii::app()->themeManager->basePath . '/' .
+                             Yii::app()->theme->name . '/' . 'views' . '/' .
+                             $module[1] . '/' . 'widgets' . '/' . get_class($this);
+            }
+        }
+        return $themeView && file_exists($themeView) ? $themeView : parent::getViewPath($checkTheme);
     }
 }
