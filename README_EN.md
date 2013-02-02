@@ -10,20 +10,20 @@ Links
 ------
 
 * [Official site](http://yupe.ru/).
-* [twitter](https://twitter.com/#!/YupeCms).
+* [Twitter](https://twitter.com/#!/YupeCms).
 * [Forum](http://yupe.ru/talk/).
 * [Yupe blog](http://yupe.ru/index.php/blog/yupe-mini-cms-yii).
-* [wiki](https://github.com/yupe/yupe/wiki).
+* [Wiki](https://github.com/yupe/yupe/wiki).
 * [Contacts](http://yupe.ru/feedback/contact).
 * [Help](http://yupe.ru/site/page/view/help).
 
 Capabilities
 -----------
 
-Из коробки Вы получаете каркас приложения, со следующим уже готовым
-функционалом (всё разделено на модули - используйте только то, что необходимо):
+Out of the box you get a skeleton application with the following functionality is ready 
+(we've got different modules - use only what you need):
 
-* [Регистрация](http://yupe.ru/registration), [аутентификация](http://yupe.ru/login), [восстановление пароля](http://yupe.ru/recovery) ([модуль user](https://github.com/yupe/yupe/tree/master/protected/modules/user)).
+* [Registration](http://yupe.ru/registration), [Authentication](http://yupe.ru/login), [Password recovery](http://yupe.ru/recovery) ([User module](https://github.com/yupe/yupe/tree/master/protected/modules/user)).
 * Регистрация и авторизация через социальные сети ([модуль social](https://github.com/yupe/yupe/tree/master/protected/modules/social)).
 * Управление пользователями (блокировка, активация, редактирование и т.д.) через административный интерфейс ([модуль user](https://github.com/yupe/yupe/tree/master/protected/modules/user)).
 * [Создание и публикация новостей](http://yupe.ru/story/ocherednoy-sayt-na-yupi) ([модуль news](https://github.com/yupe/yupe/tree/master/protected/modules/news)).
@@ -43,11 +43,11 @@ Capabilities
 Install
 ---------
 
-Инструкции по установке можно [почитать здесь](https://github.com/yupe/yupe/wiki/Установка), либо в файле `install_ru.txt`.
+Installation instructions can be [found here](https://github.com/yupe/yupe/wiki/Установка), or in file `install_ru.txt`.
 
 License
 --------
 
-Исходный код, макеты дизайна и вёрстка распространяются по [лицензии BSD](http://ru.wikipedia.org/wiki/%D0%9B%D0%B8%D1%86%D0%B5%D0%BD%D0%B7%D0%B8%D1%8F_BSD).
+Source code, layout, design [BSD](http://ru.wikipedia.org/wiki/%D0%9B%D0%B8%D1%86%D0%B5%D0%BD%D0%B7%D0%B8%D1%8F_BSD).
 
-Сообщество будет благодарно если на сайте будет присутствовать ссылка на [http://yupe.ru/](http://yupe.ru/).
+Yupe community will be appreciate if your site will be referenced on the[yupe.ru/](http://yupe.ru/) site.
