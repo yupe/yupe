@@ -2,7 +2,7 @@
 return array(
     'module'   => array(
         'class'  => 'application.modules.page.PageModule',
-        'layout' => 'application.views.layouts.column2',
+        'layout' => '//layouts/column2',
     ),
     'import'    => array(
         'application.modules.page.models.*',
