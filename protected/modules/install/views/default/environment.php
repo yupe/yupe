@@ -46,7 +46,7 @@
 <?php $this->widget(
     'bootstrap.widgets.TbButton', array(
         'label' => Yii::t('InstallModule.install', '< Назад'),
-        'url'   => array('/install/default'),
+        'url'   => array('/install/default/index'),
     )
 ); ?>
 
