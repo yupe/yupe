@@ -29,7 +29,7 @@ class m120213_183419_init extends CDbMigration
 			'content' => 'text',
 		), 'ENGINE=InnoDB');
 
-		$this->addForeignKey('wiki_fk_page_revision_page', 'wiki_page_revision', 'page_id', 'wiki_page', 'id', 'CASCADE');
+		$this->addForeignKey('wiki_fk_page_revision_page_fk', 'wiki_page_revision', 'page_id', 'wiki_page', 'id', 'CASCADE');
 
 		$this->createTable('wiki_link', array(
 			'id' => 'pk',
@@ -39,8 +39,8 @@ class m120213_183419_init extends CDbMigration
 			'title' => 'string',
 		), 'ENGINE=InnoDB');
 
-		$this->addForeignKey('wiki_fk_link_page_from', 'wiki_link', 'page_from_id', 'wiki_page', 'id', 'CASCADE');
-		$this->addForeignKey('wiki_fk_link_page_to', 'wiki_link', 'page_to_id', 'wiki_page', 'id', 'SET NULL');
+		$this->addForeignKey('wiki_fk_link_page_from_fk', 'wiki_link', 'page_from_id', 'wiki_page', 'id', 'CASCADE');
+		$this->addForeignKey('wiki_fk_link_page_to_fk', 'wiki_link', 'page_to_id', 'wiki_page', 'id', 'SET NULL');
 	}
 
 	public function down()

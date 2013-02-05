@@ -6,6 +6,7 @@ class GalleryModule extends YWebModule
         return array(
             'user',
             'category',
+            'image'
         );
     }
 

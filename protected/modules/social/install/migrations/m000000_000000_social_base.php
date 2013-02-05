@@ -31,7 +31,6 @@ class m000000_000000_social_base extends CDbMigration
     public function safeUp()
     {
         $db = $this->getDbConnection();
-        $tableName = $db->tablePrefix . 'login';
         $this->createTable(
             $db->tablePrefix . 'login', array(
                 'id' => 'pk',

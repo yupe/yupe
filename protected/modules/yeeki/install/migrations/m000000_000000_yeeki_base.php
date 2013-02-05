@@ -72,15 +72,14 @@ class m000000_000000_yeeki_base extends CDbMigration
             ), "ENGINE=InnoDB DEFAULT CHARSET=utf8"
         );
         $this->createIndex($db->tablePrefix . "wiki_page_revision_pageid", $db->tablePrefix . 'wiki_page_revision', "page_id", false);
-        $this->addForeignKey($db->tablePrefix . "wiki_page_revision_pagefk", $db->tablePrefix . 'wiki_page_revision', 'page_id', $db->tablePrefix . 'wiki_page', 'id', 'CASCADE', 'CASCADE');
+        $this->addForeignKey($db->tablePrefix . "wiki_page_revision_page_fk", $db->tablePrefix . 'wiki_page_revision', 'page_id', $db->tablePrefix . 'wiki_page', 'id', 'CASCADE', 'CASCADE');
         $this->addForeignKey($db->tablePrefix . "wiki_page_revision_fk", $db->tablePrefix . "wiki_page", 'revision_id', $db->tablePrefix . 'wiki_page_revision', 'id', 'CASCADE', 'CASCADE');
 
         /**
          * wiki_link
          **/
-        $tableName = $db->tablePrefix . 'wiki_link';
         $this->createTable(
-            $tableName, array(
+            $db->tablePrefix . 'wiki_link', array(
                 'id' => 'pk',
                 'page_from_id' => 'integer NOT NULL',
                 'page_to_id' => 'integer DEFAULT NULL',
@@ -89,12 +88,12 @@ class m000000_000000_yeeki_base extends CDbMigration
             ), "ENGINE=InnoDB DEFAULT CHARSET=utf8"
         );
 
-        $this->createIndex($db->tablePrefix . "wiki_link_code_unique", $tableName, "page_from_id", false);
-        $this->createIndex($db->tablePrefix . "wiki_link_status", $tableName, "page_to_id", false);
-        $this->createIndex($db->tablePrefix . "wiki_link_uid", $tableName, "wiki_uid", false);
+        $this->createIndex($db->tablePrefix . "wiki_link_code_unique", $db->tablePrefix . 'wiki_link', "page_from_id", false);
+        $this->createIndex($db->tablePrefix . "wiki_link_status", $db->tablePrefix . 'wiki_link', "page_to_id", false);
+        $this->createIndex($db->tablePrefix . "wiki_link_uid", $db->tablePrefix . 'wiki_link', "wiki_uid", false);
 
-        $this->addForeignKey($db->tablePrefix . "wiki_link_page_from_fk", $tableName, 'page_from_id', $db->tablePrefix . 'wiki_page', 'id', 'CASCADE', 'CASCADE');
-        $this->addForeignKey($db->tablePrefix . "wiki_link_page_to_fk", $tableName, 'page_to_id', $db->tablePrefix . 'wiki_page', 'id', 'CASCADE', 'CASCADE');
+        $this->addForeignKey($db->tablePrefix . "wiki_link_page_from_fk", $db->tablePrefix . 'wiki_link', 'page_from_id', $db->tablePrefix . 'wiki_page', 'id', 'CASCADE', 'CASCADE');
+        $this->addForeignKey($db->tablePrefix . "wiki_link_page_to_fk", $db->tablePrefix . 'wiki_link', 'page_to_id', $db->tablePrefix . 'wiki_page', 'id', 'CASCADE', 'CASCADE');
     }
  
     /**

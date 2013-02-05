@@ -49,14 +49,14 @@ class m000000_000000_comment_base extends CDbMigration
             ), "ENGINE=InnoDB DEFAULT CHARSET=utf8"
         );
 
-        $this->createIndex($db->tablePrefix . "comment_url", $db->tablePrefix . 'comment', "url", false);
+        //$this->createIndex($db->tablePrefix . "comment_url", $db->tablePrefix . 'comment', "url", false);
         $this->createIndex($db->tablePrefix . "comment_status", $db->tablePrefix . 'comment', "status", false);
         $this->createIndex($db->tablePrefix . "comment_model", $db->tablePrefix . 'comment', "model", false);
         $this->createIndex($db->tablePrefix . "comment_model_id", $db->tablePrefix . 'comment', "model_id", false);
         $this->createIndex($db->tablePrefix . "comment_user_id", $db->tablePrefix . 'comment', "user_id", false);
 
 
-        $this->addForeignKey($db->tablePrefix . "comment_user_fk", $db->tablePrefix . 'comment', 'user_id', $db->tablePrefix . 'user', 'id', 'CASCADE', 'CASCADE');
+        $this->addForeignKey($db->tablePrefix . "comment_user_fk", $db->tablePrefix . 'comment', 'user_id', $db->tablePrefix . 'user', 'id', 'RESTRICT', 'NO ACTION');
     }
  
     /**

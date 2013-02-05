@@ -38,9 +38,9 @@ class ImageToGallery extends YModel
     public function rules()
     {
         return array(
-            array('image_id, galleryId', 'required'),
-            array('image_id, galleryId', 'numerical', 'integerOnly' => true),
-            array('id, image_id, galleryId, creation_date', 'safe', 'on' => 'search'),
+            array('image_id, gallery_id', 'required'),
+            array('image_id, gallery_id', 'numerical', 'integerOnly' => true),
+            array('id, image_id, gallery_id, creation_date', 'safe', 'on' => 'search'),
         );
     }
 
@@ -52,7 +52,7 @@ class ImageToGallery extends YModel
         // NOTE: you may need to adjust the relation name and the related
         // class name for the relations automatically generated below.
         return array(
-            'gallery' => array(self::BELONGS_TO, 'Gallery', 'galleryId'),
+            'gallery' => array(self::BELONGS_TO, 'Gallery', 'gallery_id'),
             'image'   => array(self::BELONGS_TO, 'Image', 'image_id'),
         );
     }
@@ -83,7 +83,7 @@ class ImageToGallery extends YModel
 
         $criteria->compare('id', $this->id, true);
         $criteria->compare('image_id', $this->image_id, true);
-        $criteria->compare('galleryId', $this->galleryId, true);
+        $criteria->compare('gallery_id', $this->gallery_id, true);
         $criteria->compare('creation_date', $this->creation_date, true);
 
         return new CActiveDataProvider(get_class($this), array('criteria' => $criteria));

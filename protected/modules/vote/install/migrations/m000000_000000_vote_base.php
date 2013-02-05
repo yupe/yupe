@@ -31,7 +31,6 @@ class m000000_000000_vote_base extends CDbMigration
     public function safeUp()
     {
         $db = $this->getDbConnection();
-        $tableName = $db->tablePrefix . 'vote';
         $this->createTable(
             $db->tablePrefix . 'vote', array(
                 'id' => 'pk',
