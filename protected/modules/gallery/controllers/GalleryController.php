@@ -52,8 +52,8 @@ class GalleryController extends YFrontController
 
         $dataProvider = new CActiveDataProvider('ImageToGallery', array(
             'criteria'   => array(
-                'condition' => 'galleryId = :galleryId',
-                'params'    => array(':galleryId' => $model->id),
+                'condition' => 'gallery_id = :gallery_id',
+                'params'    => array(':gallery_id' => $model->id),
                 'limit'     => self::GALLERY_PER_PAGE,
                 'order'     => 't.creation_date DESC',
                 'with'      => 'image',

@@ -69,8 +69,8 @@ class m000000_000000_mail_base extends CDbMigration
         $this->createIndex($db->tablePrefix . "mail_template_unique", $db->tablePrefix . 'mail_template', "code", true);
         $this->createIndex($db->tablePrefix . "mail_template_status", $db->tablePrefix . 'mail_template', "status", false);
         $this->createIndex($db->tablePrefix . "mail_template_event", $db->tablePrefix . 'mail_template', "event_id", false);
-        $this->addForeignKey($db->tablePrefix . "mail_event_template_fk", $db->tablePrefix . 'mail_template', 'event_id', $db->tablePrefix . 'mail_event', 'id', 'CASCADE', 'CASCADE');
 
+        $this->addForeignKey($db->tablePrefix . "mail_event_template_fk", $db->tablePrefix . 'mail_template', 'event_id', $db->tablePrefix . 'mail_event', 'id', 'CASCADE', 'CASCADE');
     }
  
     /**

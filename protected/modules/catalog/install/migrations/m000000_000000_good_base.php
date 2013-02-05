@@ -63,7 +63,7 @@ class m000000_000000_good_base extends CDbMigration
 
         $this->addForeignKey($db->tablePrefix . "good_user_fk", $db->tablePrefix . 'good', 'user_id', $db->tablePrefix . 'user', 'id', 'SET NULL', 'CASCADE');
         $this->addForeignKey($db->tablePrefix . "good_change_user_fk", $db->tablePrefix . 'good', 'change_user_id', $db->tablePrefix . 'user', 'id', 'SET NULL', 'CASCADE');
-        $this->addForeignKey($db->tablePrefix . "good_category_fk", $db->tablePrefix . 'good', 'category_id', $db->tablePrefix . 'category', 'id', 'CASCADE', 'CASCADE');
+        $this->addForeignKey($db->tablePrefix . "good_category_fk", $db->tablePrefix . 'good', 'category_id', $db->tablePrefix . 'category', 'id', 'RESTRICT', 'CASCADE');
     }
  
     /**

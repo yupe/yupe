@@ -196,20 +196,34 @@ class DefaultController extends YBackController
     {
         if (Yii::app()->request->isPostRequest)
         {
-            // поддерживаем удаление только из POST-запроса
-            $model = $this->loadModel($id);
+            $transaction = Yii::app()->db->beginTransaction();
 
-            if ($model->delete())
-                @unlink($this->module->getUploadPath() . $model->image);
+            try
+            {
+                // поддерживаем удаление только из POST-запроса
+                $model = $this->loadModel($id);
 
-            Yii::app()->user->setFlash(
-                YFlashMessages::NOTICE_MESSAGE,
-                Yii::t('CategoryModule.category', 'Запись удалена!')
-            );
+                if ($model->delete())
+                    @unlink($this->module->getUploadPath() . $model->image);
 
-            // если это AJAX запрос ( кликнули удаление в админском grid view), мы не должны никуда редиректить
-            if (!isset($_GET['ajax']))
-                $this->redirect(isset($_POST['returnUrl']) ? $_POST['returnUrl'] : array('index'));
+                Yii::app()->user->setFlash(
+                    YFlashMessages::NOTICE_MESSAGE,
+                    Yii::t('CategoryModule.category', 'Запись удалена!')
+                );
+
+                $transaction->commit();
+
+                // если это AJAX запрос ( кликнули удаление в админском grid view), мы не должны никуда редиректить
+                if (!isset($_GET['ajax']))
+                    $this->redirect(isset($_POST['returnUrl']) ? $_POST['returnUrl'] : array('index'));
+            }
+            catch(Exception $e)
+            {
+                $transaction->rollback();
+
+                Yii::log($e->__toString(),  CLogger::LEVEL_ERROR);
+            }
+
         }
         else
             throw new CHttpException(400, Yii::t('CategoryModule.category', 'Неверный запрос. Пожалуйста, больше не повторяйте такие запросы'));

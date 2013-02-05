@@ -48,6 +48,8 @@ class m000000_000000_category_base extends CDbMigration
         $this->createIndex($db->tablePrefix . "category_alias_uniq", $db->tablePrefix . 'category', "alias,lang", true);
         $this->createIndex($db->tablePrefix . "category_parent_id", $db->tablePrefix . 'category', "parent_id", false);
         $this->createIndex($db->tablePrefix . "category_status", $db->tablePrefix . 'category', "status", false);
+
+        $this->addForeignKey($db->tablePrefix . "category_parent_id_fk",$db->tablePrefix . 'category','parent_id',$db->tablePrefix . 'category','id','RESTRICT','NO ACTION');
     }
  
     /**

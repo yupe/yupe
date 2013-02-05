@@ -57,7 +57,7 @@ class m000000_000000_feedback_base extends CDbMigration
         $this->createIndex($db->tablePrefix . "feedback_answer_user", $db->tablePrefix . 'feedback', "answer_user", false);
         $this->createIndex($db->tablePrefix . "feedback_answer_date", $db->tablePrefix . 'feedback', "answer_date", false);
 
-        $this->addForeignKey($db->tablePrefix . "feedback_answer_user_fk", $db->tablePrefix . 'feedback', 'answer_user', $db->tablePrefix . 'user', 'id', 'SET NULL', 'CASCADE');
+        $this->addForeignKey($db->tablePrefix . "feedback_answer_user_fk", $db->tablePrefix . 'feedback', 'answer_user', $db->tablePrefix . 'user', 'id', 'RESTRICT', 'CASCADE');
 
     }
  
