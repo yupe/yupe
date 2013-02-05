@@ -7,8 +7,5 @@ return array(
     ),
     'rules'        => array(
         '/yupe/backend/modulesettings/<module:\w+>' => 'yupe/backend/modulesettings',
-        // правила контроллера site
-        '/'                                         => 'site/index',
-        '/<view:\w+>'                               => 'site/page',
     ),
 );
