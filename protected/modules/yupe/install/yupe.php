@@ -7,5 +7,6 @@ return array(
     ),
     'rules'        => array(
         '/yupe/backend/modulesettings/<module:\w+>' => 'yupe/backend/modulesettings',
+        '/<view:\w+>'   => 'site/page',
     ),
 );
