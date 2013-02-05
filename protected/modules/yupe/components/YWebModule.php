@@ -425,8 +425,10 @@ abstract class YWebModule extends CWebModule
                 if (($m = Yii::app()->getModule($dep)) == null)
                     throw new CException(Yii::t('YupeModule.yupe', "Необходимый для установки модуль {dm} не найден", array('{dm}' => $dep)));
                 else {
-                    if (!isset($installed[$dep]) && !($i = $m->installDB($installed)))
+                    $i = $m->installDB($installed);
+                    if (!isset($installed[$dep]) && !$i){
                         return false;
+                    }
                     $log = array_merge($log, $i);
                 }
             }
