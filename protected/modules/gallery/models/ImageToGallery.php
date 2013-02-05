@@ -6,7 +6,7 @@
  * The followings are the available columns in table 'ImageToGallery':
  * @property string $id
  * @property string $image_id
- * @property string $galleryId
+ * @property string $gallery_id
  * @property string $creation_date
  *
  * The followings are the available model relations:
@@ -65,7 +65,7 @@ class ImageToGallery extends YModel
         return array(
             'id'            => Yii::t('GalleryModule.gallery', 'id'),
             'image_id'      => Yii::t('GalleryModule.gallery', 'Изображение'),
-            'galleryId'     => Yii::t('GalleryModule.gallery', 'Галерея'),
+            'gallery_id'    => Yii::t('GalleryModule.gallery', 'Галерея'),
             'creation_date' => Yii::t('GalleryModule.gallery', 'Дата добавления'),
         );
     }

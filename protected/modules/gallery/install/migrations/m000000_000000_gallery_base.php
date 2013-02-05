@@ -57,7 +57,7 @@ class m000000_000000_gallery_base extends CDbMigration
             ), "ENGINE=InnoDB DEFAULT CHARSET=utf8"
         );
 
-        $this->createIndex($db->tablePrefix . "gallery_to_image_unique", $db->tablePrefix . 'image_to_gallery', "image_id,galleryId", true);
+        $this->createIndex($db->tablePrefix . "gallery_to_image_unique", $db->tablePrefix . 'image_to_gallery', "image_id, gallery_id", true);
         $this->createIndex($db->tablePrefix . "gallery_to_image_image", $db->tablePrefix . 'image_to_gallery', "image_id", false);
         $this->createIndex($db->tablePrefix . "gallery_to_image_gallery", $db->tablePrefix . 'image_to_gallery', "gallery_id", false);
 
