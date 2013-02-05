@@ -999,6 +999,7 @@ class DefaultController extends YBackController
     public function actionFinish()
     {
         try {
+            $this->_writeYupeUrlRules();
             Yii::app()->getModule('install')->activate;
             Yii::app()->user->setFlash(
                 YFlashMessages::NOTICE_MESSAGE,
@@ -1012,5 +1013,28 @@ class DefaultController extends YBackController
         }
 
         $this->render('_view');
+    }
+
+    /**
+     * Добавляем правила URL для модуля Yupe
+     *
+     * @return nothing
+     **/
+    private function _writeYupeUrlRules()
+    {
+        $yupe       = Yii::app()->getModule('yupe');
+        $fileConfig = $yupe->getModulesConfig($yupe->id);
+        $fileToArr  = file($fileConfig);
+        $lastLine   = count($fileToArr)-1;
+
+        $rules = array(
+            '/yupe/backend/modulesettings/<module:\w+>' => 'yupe/backend/modulesettings',
+            '/'                                         => 'site/index',
+            '/<view:\w+>'                               => 'site/page',
+        );
+        $fh = fopen($fileConfig, "w+");
+        $fileToArr[$lastLine] = stripslashes("'rules' => " . var_export($rules, true) . "\n);");
+        fwrite($fh, implode($fileToArr, ""));
+        fclose($fh);
     }
 }
