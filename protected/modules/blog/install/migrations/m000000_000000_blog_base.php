@@ -122,8 +122,8 @@ class m000000_000000_blog_base extends CDbMigration
         $this->createIndex($db->tablePrefix . "blog_user_to_blog_status", $db->tablePrefix . 'user_to_blog', "status", false);
         $this->createIndex($db->tablePrefix . "blog_user_to_blog_role", $db->tablePrefix . 'user_to_blog', "role", false);
 
-        $this->addForeignKey("blog_user_to_blog_user_id_fk", $db->tablePrefix . 'user_to_blog', 'user_id', $db->tablePrefix . 'user', 'id', 'CASCADE', 'CASCADE');
-        $this->addForeignKey("blog_user_to_blog_blog_id_fk", $db->tablePrefix . 'user_to_blog', 'blog_id', $db->tablePrefix . 'blog', 'id', 'CASCADE', 'CASCADE');
+        $this->addForeignKey($db->tablePrefix . "blog_user_to_blog_user_id_fk", $db->tablePrefix . 'user_to_blog', 'user_id', $db->tablePrefix . 'user', 'id', 'CASCADE', 'CASCADE');
+        $this->addForeignKey($db->tablePrefix . "blog_user_to_blog_blog_id_fk", $db->tablePrefix . 'user_to_blog', 'blog_id', $db->tablePrefix . 'blog', 'id', 'CASCADE', 'CASCADE');
 
         // tags
         $this->createTable(
