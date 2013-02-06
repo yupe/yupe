@@ -4,6 +4,5 @@ return array(
     'rules'   => array(
         // правила контроллера site
         '/'             =>'site/index',
-        '/<view:\w+>'   => 'site/page',
     ),
 );
