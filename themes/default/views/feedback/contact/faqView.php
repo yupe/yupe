@@ -8,7 +8,7 @@ $this->breadcrumbs = array(
 );
 ?>
 
-<h1><?php echo Yii::t('feedback', 'Вопрос и ответ #{id}',array('{id}' => $model->id));?> <?php echo CHtml::link('ЗАДАЙТЕ ВОПРОС',array('/feedback/contact/'));?></h1>
+<h1><?php echo Yii::t('feedback', 'Вопрос и ответ #{id}',array('{id}' => $model->id));?> <?php echo CHtml::link('ЗАДАЙТЕ ВОПРОС',array('/feedback/index/'));?></h1>
 
 <?php $this->widget('zii.widgets.CDetailView', array(
                                                     'data' => $model,
