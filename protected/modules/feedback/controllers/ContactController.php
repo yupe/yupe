@@ -68,11 +68,12 @@ class ContactController extends YFrontController
                                 Yii::t('FeedbackModule.feedback', 'Ваше сообщение отправлено! Спасибо!')
                             );
 
+
                             if (!count($backEnd))
                             {
                                 if (Yii::app()->request->isAjaxRequest)
                                     Yii::app()->ajax->success(Yii::t('FeedbackModule.feedback', 'Ваше сообщение отправлено! Спасибо!'));
-                                $this->redirect($module->successPage ? array($module->successPage) : array('/feedback/contact'));
+                                $this->redirect($module->successPage ? array($module->successPage) : array('/feedback/faq'));
                             }
                         }
                         else
@@ -115,7 +116,7 @@ class ContactController extends YFrontController
 
                         if (Yii::app()->request->isAjaxRequest)
                             Yii::app()->ajax->success(Yii::t('FeedbackModule.feedback', 'Ваше сообщение отправлено! Спасибо!'));
-                        $this->redirect($module->successPage ? array($module->successPage) : array('/feedback/contact'));
+                        $this->redirect($module->successPage ? array($module->successPage) : array('/feedback/faq'));
                     }
                 }
 
