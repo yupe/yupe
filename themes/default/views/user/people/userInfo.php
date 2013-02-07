@@ -6,7 +6,7 @@
     );
 ?>
 <div style="float:left; margin-right: 20px; height:100px;">
-    <?php echo $user->getAvatar(100); ?>
+    <?php echo CHtml::image($user->getAvatar(100),$user->nick_name,array('width' => 100, 'height' => 100)); ?>
 </div>
 <div style="float:left;">
 <?php
@@ -18,7 +18,7 @@ if (!$this->module->autoNick)
 if ($user->gender)
     echo (($user->gender == User::GENDER_MALE) ? Yii::t("user", "Мужчина") : Yii::t("user", "Женщина")) . ". ";
 if ($user->birth_date)
-    echo Yii::t('user', 'День рождения: {birth_date}', array("{birth_date}" => Yii::app()->dateFormatter->formatDateTime($user->birth_date, 'long', null)));
+    echo Yii::t('user', 'День рождения: {birth_date}', array("{birth_date}" => Yii::app()->dateFormatter->formatDateTime($user->birth_date, 'short', null)));
 ?>
 <br />
 <?php
@@ -32,7 +32,7 @@ if ($user->location)
 </div>
 <br clear="all"/><br />
 <?php if($user->about) echo "<small>О себе:</small><br /><cite>".CHtml::encode($user->about)."</cite>" ?>
-<br/>
+<br/><br/>
 <div style='float:left;padding-right:5px'>
 <?php $this->widget('application.modules.social.widgets.ysc.yandex.YandexShareApi', array(
     'type' => 'button',
