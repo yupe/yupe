@@ -36,6 +36,8 @@ class m130128_033423_comment_parrent_id extends CDbMigration
         $this->addColumn($db->tablePrefix . 'comment', 'parrent_id', 'integer DEFAULT NULL');
 
         $this->createIndex($db->tablePrefix . "comment_parrent_id", $db->tablePrefix . 'comment', "parrent_id", false);
+
+        $this->addForeignKey($db->tablePrefix . "comment_parrent_id_fk", $db->tablePrefix . 'comment', "parrent_id",$db->tablePrefix . 'comment', "id",'CASCADE','NO ACTION');
     }
 
     /**

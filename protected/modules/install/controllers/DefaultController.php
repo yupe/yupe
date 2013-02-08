@@ -585,8 +585,8 @@ class DefaultController extends YBackController
                         'password'              => $form->dbPassword,
                         'emulatePrepare'        => true,
                         'charset'               => 'utf8',
-                        'enableParamLogging'    => 1,
-                        'enableProfiling'       => 1,
+                        'enableParamLogging'    => 0,
+                        'enableProfiling'       => 0,
                         'schemaCachingDuration' => 108000,
                         'tablePrefix'           => $form->tablePrefix,
                     );

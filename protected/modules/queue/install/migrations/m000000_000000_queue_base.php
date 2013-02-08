@@ -49,8 +49,8 @@ class m000000_000000_queue_base extends CDbMigration
             ), "ENGINE=InnoDB DEFAULT CHARSET=utf8"
         );
 
-        $this->createIndex("queue_worker", $db->tablePrefix . 'queue', "worker", true);
-        $this->createIndex("queue_priority", $db->tablePrefix . 'queue', "priority", true);
+        $this->createIndex($db->tablePrefix . "queue_worker", $db->tablePrefix . 'queue', "worker", true);
+        $this->createIndex($db->tablePrefix . "queue_priority", $db->tablePrefix . 'queue', "priority", true);
 
     }
  

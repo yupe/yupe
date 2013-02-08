@@ -1,6 +1,6 @@
 <dl>
     <dt style="float:left;margin-right:10px;height:32px">
-        <?php echo $data->getAvatar(32); ?>
+        <?php echo CHtml::image($data->getAvatar(32),$data->nick_name,array('width' => 32, 'height' => 32)); ?>
     </dt>
     <dd>
         <?php echo CHtml::link(CHtml::encode($data->nick_name), array('/user/people/userInfo', 'username' => $data->nick_name)); ?>

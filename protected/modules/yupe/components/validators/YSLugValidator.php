@@ -8,7 +8,7 @@ class YSLugValidator extends CValidator
     {
         $value = $object->$attribute;
 
-        if (preg_match('/^[^a-zA-Z0-9_\-]+$/', $value))
+        if (preg_match('/[^a-zA-Z0-9_\-]/', $value))
         {
             $message = ($this->message !== null)
                 ? $this->message

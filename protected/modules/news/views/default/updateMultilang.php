@@ -49,52 +49,37 @@ echo CHtml::openTag("fieldset", array( "class" => "inline" ));
         <span class="required">*</span>
         <?php echo Yii::t('NewsModule.news', 'обязательны.'); ?>
     </div>
-    <div class="row-fluid control-group <?php echo $model->hasErrors('category_id') ? 'error' : '' ?>">
-        <div class="span7  popover-help" data-original-title="<?php echo $model->getAttributeLabel('category_id'); ?>" >
-            <?php echo $form->labelEx($model, 'category_id'); ?>
-            <?php echo $form->dropDownList($model, 'category_id', CHtml::listData(Category::model()->findAll(), 'id', 'name'), array( 'empty' => Yii::t('NewsModule.news', '--выберите--') )); ?>
-        </div>
-        <div class="span5">
-            <?php echo $form->error($model, 'category_id'); ?>
-        </div>
-    </div>
-    <div class="row-fluid control-group <?php echo $model->hasErrors('alias') ? 'error' : '' ?>">
-        <div class="span7  popover-help" data-content="<?php echo Yii::t('NewsModule.news', "Краткое название страницы латинскими буквами, используется для формирования её адреса.<br /><br /> Например (выделено темным фоном): <pre>http://site.ru/news/<span class='label'>contacts</span>/</pre> Если вы не знаете, для чего вам нужно это поле &ndash; не заполняйте его, заголовка страницы будет достаточно.") ?>" data-original-title="<?php echo $model->getAttributeLabel('alias'); ?>" >
-            <?php echo $form->labelEx($model, 'alias'); ?>
-            <?php echo $form->textField($model, 'alias', array( 'size' => 60, 'maxlength'   => 150, 'placeholder' => Yii::t('NewsModule.news', 'Оставьте пустым для автоматической генерации') )); ?>
-        </div>
-        <div class="span5">
-            <?php echo $form->error($model, 'alias'); ?>
-        </div>
-    </div>
-    <div class="row-fluid control-group <?php echo $model->hasErrors('date') ? 'error' : '' ?>">
-        <div class="span7 popover-help" data-content="<?php echo Yii::t('NewsModule.news', "Дата публикации новости, также используется для упорядочивания списка новостей.") ?>" data-original-title="<?php echo $model->getAttributeLabel('date');
-            ; ?>" >
-            <?php echo $form->labelEx($model, 'date'); ?>
+
+
+    <div class="row-fluid control-group <?php echo $model->hasErrors('date') ? 'error' : ''; ?>">
+        <div class="span4 popover-help" data-original-title='<?php echo $model->getAttributeLabel('date'); ?>' data-content='<?php echo $model->getAttributeDescription('date'); ?>'>
             <?php
-            $this->widget('zii.widgets.jui.CJuiDatePicker', array(
-                'model'     => $model,
-                'attribute' => 'date',
-                'language'  => Yii::app()->language,
-                'options'   => array(
-                    'dateFormat' => 'dd.mm.yy',
-                ),
-            ));
-            ?>
-        </div>
-        <div class="span5">
-            <?php echo $form->error($model, 'date'); ?>
-        </div>
-    </div>
-    <div class="row-fluid control-group <?php echo $model->hasErrors('link') ? 'error' : '' ?>">
-        <div class="span7 popover-help" data-content="<?php echo Yii::t('NewsModule.news','Укажите источник новости (ссылка на произвольную страницу)') ?>" data-original-title="<?php echo $model->getAttributeLabel('link'); ?>" >
-            <?php echo $form->labelEx($model, 'link'); ?>
-            <?php echo $form->textField($model, 'link', array( 'size' => 60, 'maxlength' => 150 )); ?>
-        </div>
-        <div class="span5">
-            <?php echo $form->error($model, 'link'); ?>
+            echo $form->datepickerRow(
+                $model, 'date', array(
+                    'prepend' => '<i class="icon-calendar"></i>',
+                    'options' => array(
+                        'format'    => 'dd.mm.yyyy',
+                        'weekStart' => 1,
+                        'autoclose' => true,
+                    ),
+                    'class'   => 'span11'
+                )
+            ); ?>
         </div>
     </div>
+
+    <div class="row-fluid control-group <?php echo $model->hasErrors('category_id') ? 'error' : ''; ?>">
+        <?php echo $form->dropDownListRow($model, 'category_id', CHtml::listData($this->module->getCategoryList(), 'id', 'name'), array('class' => 'span7 popover-help','empty' => Yii::t('NewsModule.news', '--выберите--'))); ?>
+    </div>
+
+    <div class="row-fluid control-group <?php echo $model->hasErrors('alias') ? 'error' : ''; ?>">
+        <?php echo $form->textFieldRow($model, 'alias', array('size' => 60, 'maxlength' => 150, 'class' => 'span7 popover-help', 'data-original-title' => $model->getAttributeLabel('alias'), 'data-content' => $model->getAttributeDescription('alias'))); ?>
+    </div>
+
+    <div class="row-fluid control-group <?php echo $model->hasErrors('link') ? 'error' : ''; ?>">
+        <?php echo $form->textFieldRow($model, 'link', array('size' => 60, 'maxlength' => 150, 'class' => 'span7 popover-help', 'data-original-title' => $model->getAttributeLabel('link'), 'data-content' => $model->getAttributeDescription('link'))); ?>
+    </div>
+
     <div class="row-fluid control-group <?php echo $model->hasErrors('image') ? 'error' : '' ?>">
         <div class="span7  popover-help"  data-original-title="<?php echo $model->getAttributeLabel('image'); ?>" >
             <?php echo $form->labelEx($model, 'image'); ?>

@@ -27,19 +27,23 @@ abstract class YWidget extends CWidget
     {
         parent::init();
 
-     // if (!$this->cacheTime && $this->cacheTime !== 0)
-         // $this->cacheTime = Yii::app()->getModule('yupe')->coreCacheTime;
+        //if (!$this->cacheTime && $this->cacheTime !== 0)
+            //$this->cacheTime = Yii::app()->getModule('yupe')->coreCacheTime;
     }
 
     public function getViewPath($checkTheme = false)
     {
-        if (!is_object(Yii::app()->theme))
-            return parent::getViewPath();
-
-        $themeView = Yii::app()->themeManager->basePath . '/' .
-                     Yii::app()->theme->name . '/' .
-                     'views' . '/' . 'widgets' . '/' . get_class($this);
-
-        return file_exists($themeView) ? $themeView : parent::getViewPath($checkTheme = false);
+        $themeView = null;
+        if (Yii::app()->theme !== null) {
+            $obj = new ReflectionClass(get_class($this));
+            $string = explode('modules' . DIRECTORY_SEPARATOR, $obj->getFileName(), 2);
+            if (isset($string[1])) {
+                $string = explode(DIRECTORY_SEPARATOR, $string[1], 2);
+                $themeView = Yii::app()->themeManager->basePath . '/' .
+                             Yii::app()->theme->name . '/' . 'views' . '/' .
+                             $string[0] . '/' . 'widgets' . '/' . get_class($this);
+            }
+        }
+        return $themeView && file_exists($themeView) ? $themeView : parent::getViewPath($checkTheme);
     }
 }

@@ -33,8 +33,6 @@ class m130115_155600_columns_rename extends CDbMigration
     public function safeUp()
     {
         $db = $this->getDbConnection();
-
-        $tableName = $db->tablePrefix . 'page';
         $this->renameColumn($db->tablePrefix . 'page', 'menu_order', 'order');
         $this->renameColumn($db->tablePrefix . 'page', 'name', 'title_short');
     }

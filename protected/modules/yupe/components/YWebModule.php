@@ -425,8 +425,10 @@ abstract class YWebModule extends CWebModule
                 if (($m = Yii::app()->getModule($dep)) == null)
                     throw new CException(Yii::t('YupeModule.yupe', "Необходимый для установки модуль {dm} не найден", array('{dm}' => $dep)));
                 else {
-                    if (!isset($installed[$dep]) && !($i = $m->installDB($installed)))
+                    $i = $m->installDB($installed);
+                    if (!isset($installed[$dep]) && !$i){
                         return false;
+                    }
                     $log = array_merge($log, $i);
                 }
             }
@@ -490,8 +492,8 @@ abstract class YWebModule extends CWebModule
     {
         parent::init();
 
-        if (isset(Yii::app()->theme) && is_object(Yii::app()->theme))
-            $this->layout = 'webroot.themes.' . Yii::app()->theme->name . '.views.layouts.main';
+        if ($this->layout === null)
+            $this->layout = '//layouts/main';
 
         $settings = null;
 

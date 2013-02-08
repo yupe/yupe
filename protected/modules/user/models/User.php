@@ -305,7 +305,7 @@ class User extends YModel
     public function getAvatar($size = 64, $htmlOptions = array())
     {
         $size = intval($size);
-        $size || ($size = 64);
+        $size || ($size = 32);
 
         if (!is_array($htmlOptions))
             throw new CException(Yii::t('UserModule.user', "htmlOptions must be array or not specified!"));
@@ -315,7 +315,7 @@ class User extends YModel
 
         // если это граватар
         if ($this->use_gravatar && $this->email)
-            return CHtml::image('http://gravatar.com/avatar/' . md5($this->email) . "?d=mm&s=" . $size, $this->nick_name, $htmlOptions);
+            return 'http://gravatar.com/avatar/' . md5($this->email) . "?d=mm&s=" . $size;
         else if ($this->avatar)
         {
             $avatarsDir = Yii::app()->getModule('user')->avatarsDir;
@@ -324,7 +324,7 @@ class User extends YModel
 
             // Посмотрим, есть ли у нас уже нужный размер? Если есть - используем его
             if (file_exists($basePath . "/" . $sizedFile))
-                return CHtml::image(Yii::app()->baseUrl . $avatarsDir . "/" . $sizedFile, $this->nick_name, $htmlOptions);
+                return Yii::app()->baseUrl . $avatarsDir . "/" . $sizedFile;
 
             if (file_exists($basePath . "/" . $this->avatar))
             {
@@ -339,7 +339,7 @@ class User extends YModel
                 else
                     @copy($basePath . "/" . $this->avatar, $basePath . "/" . $sizedFile);
 
-                return CHtml::image(Yii::app()->baseUrl . $avatarsDir . "/" . $sizedFile, $this->nick_name, $htmlOptions);
+                return Yii::app()->baseUrl . $avatarsDir . "/" . $sizedFile;
             }
         }
         // Нету аватарки, печалька :(
