@@ -302,6 +302,8 @@ class User extends YModel
      * @param int $size требуемый размер аватарки в пикселях
      * @return string код аватарки
      */
+
+    //@TODO подумать не лучше ли возвращать CHtml::image а не просто строку
     public function getAvatar($size = 64, $htmlOptions = array())
     {
         $size = intval($size);
