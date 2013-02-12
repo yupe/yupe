@@ -19,14 +19,13 @@ class DefaultController extends YBackController
     {
         $model = new Image;
 
-        if (isset($_POST['Good']))
+        if (isset($_POST['Image']))
         {
             $model->attributes = $_POST['Image'];
-
+            $model->file = CUploadedFile::getInstance($model, 'file');
             if ($model->save())
             {
                 $model->saveWithImage('file', $this->module->getUploadPath());
-
                 Yii::app()->user->setFlash(
                     YFlashMessages::NOTICE_MESSAGE,
                     Yii::t('ImageModule.image', 'Изображение добавлено!')

@@ -28,7 +28,7 @@ abstract class YModel extends Model
     public function saveWithImage($fileName, $uploadPath, $oldFile = false)
     {
         if (($this->$fileName = CUploadedFile::getInstance($this, $fileName))                              &&
-            ($newFile = YFile::pathIsWritable($this->alias, $this->$fileName->extensionName, $uploadPath)) &&
+            ($newFile = YFile::pathIsWritable($this->name, $this->$fileName->extensionName, $uploadPath)) &&
             $this->$fileName->saveAs($newFile)
         )
         {
