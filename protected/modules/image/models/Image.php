@@ -186,4 +186,13 @@ class Image extends YModel
     {
         return ($this->category === NULL) ? '---' : $this->category->name;
     }
+
+    public function getUrl()
+    {
+        return  Yii::app()->baseUrl . '/' .
+                Yii::app()->getModule('yupe')->uploadPath . '/' .
+                Yii::app()->getModule('image')->uploadPath . '/' .
+                $this->file;
+
+    }
 }
