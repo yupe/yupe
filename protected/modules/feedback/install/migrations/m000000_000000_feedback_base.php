@@ -45,7 +45,7 @@ class m000000_000000_feedback_base extends CDbMigration
                 'type' => "integer NOT NULL DEFAULT '0'",
                 'answer' => 'text NOT NULL',
                 'answer_date' => 'datetime DEFAULT NULL',
-                'is_faq' => "boolean NOT NULL DEFAULT '0'",
+                'is_faq' => "integer NOT NULL DEFAULT '0'",
                 'status' => "integer NOT NULL DEFAULT '0'",
                 'ip' => 'string NOT NULL',
             ), $options
