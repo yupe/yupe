@@ -234,7 +234,7 @@ class ETaggableBehavior extends CActiveRecordBehavior {
 
             if($this->tagTableCount !== null){
                 $findCriteria = new CDbCriteria(array(
-                    'select' => "t.{$this->tagTableName} as \"name\", t.{$this->tagTableCount} as \"count\" ",
+                    'select' => "t.{$this->tagTableName} as " .Yii::app()->db->getSchema()->quoteTableName('name') . ", t.{$this->tagTableCount} as " .Yii::app()->db->getSchema()->quoteTableName('count'),
                     'join' => "INNER JOIN {$this->getTagBindingTableName()} et on t.{$this->tagTablePk} = et.{$this->tagBindingTableTagId} ",
                     'condition' => "et.{$this->getModelTableFkName()} = :ownerid ",
                     'params' => array(
@@ -243,7 +243,7 @@ class ETaggableBehavior extends CActiveRecordBehavior {
                 ));
             } else{
                 $findCriteria = new CDbCriteria(array(
-                    'select' => "t.{$this->tagTableName} as \"name\", count(*) as \"count\" ",
+                    'select' => "t.{$this->tagTableName} as " .Yii::app()->db->getSchema()->quoteTableName('name') . ", count(*) as " .Yii::app()->db->getSchema()->quoteTableName('count'),
                     'join' => "INNER JOIN {$this->getTagBindingTableName()} et on t.{$this->tagTablePk} = et.{$this->tagBindingTableTagId} ",
                     'condition' => "et.{$this->getModelTableFkName()} = :ownerid ",
                     'group' => 't.'.$this->tagTablePk,
@@ -432,7 +432,7 @@ class ETaggableBehavior extends CActiveRecordBehavior {
         if(!($tags = $this->cache->get($this->getCacheKey()))){
 
             $findCriteria = new CDbCriteria(array(
-                'select' => "t.{$this->tagTableName} as \"name\"",
+                'select' => "t.{$this->tagTableName} as " .Yii::app()->db->getSchema()->quoteTableName('name'),
                 'join' => "INNER JOIN {$this->getTagBindingTableName()} et ON t.{$this->tagTablePk} = et.{$this->tagBindingTableTagId} ",
                 'condition' => "et.{$this->getModelTableFkName()} = :ownerid ",
                 'params' => array(
@@ -494,7 +494,7 @@ class ETaggableBehavior extends CActiveRecordBehavior {
                 $tag = $conn->quoteValue($tags[$i]);
                 $criteria->join .=
                     "JOIN {$this->getTagBindingTableName()} bt$i ON t.{$pk} = bt$i.{$this->getModelTableFkName()}
-                    JOIN {$this->tagTable} tag$i ON tag$i.{$this->tagTablePk} = bt$i.{$this->tagBindingTableTagId} AND tag$i.\"{$this->tagTableName}\" = $tag";
+                    JOIN {$this->tagTable} tag$i ON tag$i.{$this->tagTablePk} = bt$i.{$this->tagBindingTableTagId} AND tag$i." .Yii::app()->db->getSchema()->quoteTableName("{$this->tagTableName}") . " = $tag";
             }
         }
 
@@ -542,18 +542,18 @@ class ETaggableBehavior extends CActiveRecordBehavior {
 
             if($this->tagTableCount !== null){
                 $tagsCriteria->select = sprintf(
-                    "t.%s as \"name\", %s as \"count\"",
+                    "t.%s as " .Yii::app()->db->getSchema()->quoteTableName('name') . ", %s as " .Yii::app()->db->getSchema()->quoteTableName('count'),
                     $this->tagTableName,
                     $this->tagTableCount
                 );
             }
             else{
                 $tagsCriteria->select = sprintf(
-                    "t.%s as \"name\", count(*) as \"count\"",
+                    "t.%s as " .Yii::app()->db->getSchema()->quoteTableName('name') . ", count(*) as \"count\"",
                     $this->tagTableName
                 );
                 $tagsCriteria->join = sprintf(
-                    "JOIN \"%s\" et ON t.{$this->tagTablePk} = et.%s",
+                    "JOIN %s et ON t.{$this->tagTablePk} = et.%s",
                     $this->getTagBindingTableName(),
                     $this->tagBindingTableTagId
                 );
@@ -630,7 +630,7 @@ class ETaggableBehavior extends CActiveRecordBehavior {
         $conn->createCommand(
             sprintf(
                 "DELETE
-                 FROM \"%s\"
+                 FROM " .Yii::app()->db->getSchema()->quoteTableName('%s') . "
                  WHERE %s = %d",
                 $this->getTagBindingTableName(),
                 $this->getModelTableFkName(),
