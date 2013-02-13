@@ -8,7 +8,7 @@ class TagCloudWidget extends YWidget
         Post::model()->resetAllTagsCache();
 
         $criteria = new CDbCriteria;
-        $criteria->order = "count DESC";
+        $criteria->order = '"count" DESC';
         $criteria->limit = $this->count;
 
         $tags = Post::model()->getAllTagsWithModelsCount($criteria);
@@ -20,8 +20,7 @@ class TagCloudWidget extends YWidget
 
         $outtags = array();
 
-        if ($total > 0)
-        {
+        if ($total > 0) {
             foreach ($tags as $tag)
                 $outtags[$tag['name']] = 8 + (int) (16 * $tag['count'] / ($total + 10));
             ksort($outtags);
