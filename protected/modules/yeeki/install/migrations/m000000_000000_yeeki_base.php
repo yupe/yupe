@@ -49,7 +49,7 @@ class m000000_000000_yeeki_base extends CDbMigration
             ), $options
         );
 
-        $this->createIndex($db->tablePrefix . "wiki_page_revision", $db->tablePrefix . 'wiki_page', "revision_id", false);
+        $this->createIndex($db->tablePrefix . "wiki_page_revision_idx", $db->tablePrefix . 'wiki_page', "revision_id", false);
         $this->createIndex($db->tablePrefix . "wiki_page_uid", $db->tablePrefix . 'wiki_page', "user_id", false);
         $this->createIndex($db->tablePrefix . "wiki_page_namespace", $db->tablePrefix . 'wiki_page', "namespace", false);
         $this->createIndex($db->tablePrefix . "wiki_page_created", $db->tablePrefix . 'wiki_page', "created_at", false);
