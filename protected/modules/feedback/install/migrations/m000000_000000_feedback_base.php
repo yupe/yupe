@@ -30,7 +30,7 @@ class m000000_000000_feedback_base extends CDbMigration
     public function safeUp()
     {
         $db = $this->getDbConnection();
-
+        $options = Yii::app()->db->schema instanceof CMysqlSchema ? 'ENGINE=InnoDB DEFAULT CHARSET=utf8' : '';
         $this->createTable(
             $db->tablePrefix . 'feedback', array(
                 'id' => 'pk',
@@ -48,7 +48,7 @@ class m000000_000000_feedback_base extends CDbMigration
                 'is_faq' => "tinyint(1) NOT NULL DEFAULT '0'",
                 'status' => "tinyint(4) NOT NULL DEFAULT '0'",
                 'ip' => 'string NOT NULL',
-            ), "ENGINE=InnoDB DEFAULT CHARSET=utf8"
+            ), $options
         );
 
         $this->createIndex($db->tablePrefix . "feedback_type", $db->tablePrefix . 'feedback', "type", false);

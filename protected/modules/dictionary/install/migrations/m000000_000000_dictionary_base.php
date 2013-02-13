@@ -30,6 +30,7 @@ class m000000_000000_dictionary_base extends CDbMigration
     public function safeUp()
     {
         $db = $this->getDbConnection();
+        $options = Yii::app()->db->schema instanceof CMysqlSchema ? 'ENGINE=InnoDB DEFAULT CHARSET=utf8' : '';
         $this->createTable(
             $db->tablePrefix . 'dictionary_group', array(
                 'id' => 'pk',
@@ -40,7 +41,7 @@ class m000000_000000_dictionary_base extends CDbMigration
                 'update_date' => 'datetime NOT NULL',
                 'create_user_id' => 'integer DEFAULT NULL',
                 'update_user_id' => 'integer DEFAULT NULL',
-            ), "ENGINE=InnoDB DEFAULT CHARSET=utf8"
+            ), $options
         );
 
         $this->createIndex($db->tablePrefix . "dictionary_group_code_unique", $db->tablePrefix . 'dictionary_group', "code", true);
@@ -66,7 +67,7 @@ class m000000_000000_dictionary_base extends CDbMigration
                 'create_user_id' => 'integer DEFAULT NULL',
                 'update_user_id' => 'integer DEFAULT NULL',
                 'status' => "tinyint(3) unsigned NOT NULL DEFAULT '1'",
-            ), "ENGINE=InnoDB DEFAULT CHARSET=utf8"
+            ), $options
         );
 
         $this->createIndex($db->tablePrefix . "dictionary_data_code_unique", $db->tablePrefix . 'dictionary_data', "code", true);

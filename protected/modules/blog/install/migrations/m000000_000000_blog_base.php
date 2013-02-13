@@ -31,7 +31,7 @@ class m000000_000000_blog_base extends CDbMigration
     public function safeUp()
     {
         $db = $this->getDbConnection();
-
+        $options = Yii::app()->db->schema instanceof CMysqlSchema ? 'ENGINE=InnoDB DEFAULT CHARSET=utf8' : '';
         // blog
         $this->createTable(
             $db->tablePrefix . 'blog', array(
@@ -47,7 +47,7 @@ class m000000_000000_blog_base extends CDbMigration
                 'update_user_id' => 'integer NOT NULL',
                 'create_date' => 'integer unsigned NOT NULL',
                 'update_date' => 'integer unsigned NOT NULL',
-            ), "ENGINE=InnoDB DEFAULT CHARSET=utf8"
+            ), $options
         );
 
         $this->createIndex($db->tablePrefix . "blog_slug_uniq", $db->tablePrefix . 'blog', "slug,lang", true);
@@ -85,7 +85,7 @@ class m000000_000000_blog_base extends CDbMigration
                 'access_type' => "tinyint(4) unsigned NOT NULL DEFAULT '1'",
                 'keywords' => "string NOT NULL DEFAULT ''",
                 'description' => "varchar(300) NOT NULL DEFAULT ''",
-            ), "ENGINE=InnoDB DEFAULT CHARSET=utf8"
+            ), $options
         );
 
         $this->createIndex($db->tablePrefix . "blog_post_slug_uniq", $db->tablePrefix . 'post', "slug,lang", true);
@@ -113,7 +113,7 @@ class m000000_000000_blog_base extends CDbMigration
                 'role' => "tinyint(3) unsigned NOT NULL DEFAULT '1'",
                 'status' => "smallint(5) unsigned NOT NULL DEFAULT '1'",
                 'note' => "varchar(300) NOT NULL DEFAULT ''",
-            ), "ENGINE=InnoDB DEFAULT CHARSET=utf8"
+            ), $options
         );
 
         $this->createIndex($db->tablePrefix . "blog_user_to_blog_uniq", $db->tablePrefix . 'user_to_blog', "user_id,blog_id", true);
@@ -130,7 +130,7 @@ class m000000_000000_blog_base extends CDbMigration
             $db->tablePrefix . 'tag', array(
                 'id' => 'pk',
                 'name' => 'string NOT NULL',
-            ), "ENGINE=InnoDB DEFAULT CHARSET=utf8"
+            ), $options
         );
 
         $this->createIndex($db->tablePrefix . "blog_tag_name_uniq", $db->tablePrefix . 'tag', "name", true);
@@ -141,7 +141,7 @@ class m000000_000000_blog_base extends CDbMigration
                 'post_id' => 'integer NOT NULL',
                 'tag_id' => 'integer NOT NULL',
                 'PRIMARY KEY (post_id, tag_id)'
-            ), "ENGINE=InnoDB DEFAULT CHARSET=utf8"
+            ), $options
         );
 
         $this->createIndex($db->tablePrefix . "blog_post_to_tag_postid", $db->tablePrefix . 'post_to_tag', "post_id", false);

@@ -11,6 +11,7 @@ class m000000_000000_image_base extends  CDbMigration
     public function safeUp()
     {
         $db = $this->getDbConnection();
+        $options = Yii::app()->db->schema instanceof CMysqlSchema ? 'ENGINE=InnoDB DEFAULT CHARSET=utf8' : '';
         /**
          * image:
          **/
@@ -27,7 +28,7 @@ class m000000_000000_image_base extends  CDbMigration
                 'alt' => 'string NOT NULL',
                 'type' => "tinyint(4) NOT NULL DEFAULT '0'",
                 'status' => "tinyint(3) unsigned NOT NULL DEFAULT '1'",
-            ), "ENGINE=InnoDB DEFAULT CHARSET=utf8"
+            ), $options
         );
 
         $this->createIndex($db->tablePrefix . "image_status", $db->tablePrefix . 'image', "status", false);
