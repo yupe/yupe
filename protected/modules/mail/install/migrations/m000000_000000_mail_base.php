@@ -62,7 +62,7 @@ class m000000_000000_mail_base extends CDbMigration
                 'to'          => 'string NOT NULL',
                 'theme'       => 'tinytext NOT NULL',
                 'body'        => 'text NOT NULL',
-                'status'      => "tinyint(3) NOT NULL DEFAULT '1'",
+                'status'      => "integer NOT NULL DEFAULT '1'",
             ), $options
         );
 

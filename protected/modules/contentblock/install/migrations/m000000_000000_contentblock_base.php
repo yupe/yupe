@@ -36,7 +36,7 @@ class m000000_000000_contentblock_base extends CDbMigration
                 'id' => 'pk',
                 'name' => 'string NOT NULL',
                 'code' => 'string NOT NULL',
-                'type' => "tinyint(4) NOT NULL DEFAULT '1'",
+                'type' => "integer NOT NULL DEFAULT '1'",
                 'content' => "text NOT NULL",
                 'description' => "varchar(300) DEFAULT NULL"
             ), $options

@@ -39,7 +39,7 @@ class m000000_000000_gallery_base extends CDbMigration
                 'id' => 'pk',
                 'name' =>'varchar(300) NOT NULL',
                 'description' => 'text',
-                'status' => "tinyint(4) NOT NULL DEFAULT '1'",
+                'status' => "integer NOT NULL DEFAULT '1'",
             ), $options
         );
 

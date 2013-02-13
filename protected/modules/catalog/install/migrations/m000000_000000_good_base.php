@@ -45,7 +45,7 @@ class m000000_000000_good_base extends CDbMigration
                 'alias' => 'string NOT NULL',
                 'data' => 'text',
                 'is_special' => "boolean NOT NULL DEFAULT '0'",
-                'status' => "smallint(1) unsigned NOT NULL DEFAULT '1'",
+                'status' => "boolean unsigned NOT NULL DEFAULT '1'",
                 'create_time' => 'datetime NOT NULL',
                 'update_time' => 'datetime NOT NULL',
                 'user_id' => 'integer DEFAULT NULL',
