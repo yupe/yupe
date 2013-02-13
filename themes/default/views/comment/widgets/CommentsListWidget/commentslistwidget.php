@@ -31,7 +31,7 @@ if (count($comments)) {
     echo '</div>';
 } else {
     echo '<div id="comments">';
-    echo '<p>' . $this->label . Yii::t('comment', 'пока нет, станьте первым!') . '</p>';
+    echo '<p>' . $this->label . ' ' . Yii::t('comment', 'пока нет, станьте первым!') . '</p>';
     echo '</div>';
 }
 
