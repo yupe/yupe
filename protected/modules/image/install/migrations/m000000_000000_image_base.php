@@ -27,7 +27,7 @@ class m000000_000000_image_base extends  CDbMigration
                 'user_id' => 'integer DEFAULT NULL',
                 'alt' => 'string NOT NULL',
                 'type' => "integer NOT NULL DEFAULT '0'",
-                'status' => "integer unsigned NOT NULL DEFAULT '1'",
+                'status' => "integer NOT NULL DEFAULT '1'",
             ), $options
         );
 
