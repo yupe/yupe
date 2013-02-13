@@ -30,7 +30,7 @@ class m000000_000000_contentblock_base extends CDbMigration
     public function safeUp()
     {
         $db = $this->getDbConnection();
-
+        $options = Yii::app()->db->schema instanceof CMysqlSchema ? 'ENGINE=InnoDB DEFAULT CHARSET=utf8' : '';
         $this->createTable(
             $db->tablePrefix . 'content_block', array(
                 'id' => 'pk',
@@ -39,7 +39,7 @@ class m000000_000000_contentblock_base extends CDbMigration
                 'type' => "tinyint(4) NOT NULL DEFAULT '1'",
                 'content' => "text NOT NULL",
                 'description' => "varchar(300) DEFAULT NULL"
-            ), "ENGINE=InnoDB DEFAULT CHARSET=utf8"
+            ), $options
         );
 
         $this->createIndex($db->tablePrefix . "contentblock_code_unique", $db->tablePrefix . 'content_block', "code", true);

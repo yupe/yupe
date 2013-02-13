@@ -31,6 +31,7 @@ class m000000_000000_user_base extends CDbMigration
     public function safeUp()
     {
         $db = $this->getDbConnection();
+        $options = Yii::app()->db->schema instanceof CMysqlSchema ? 'ENGINE=InnoDB DEFAULT CHARSET=utf8' : '';
         $this->createTable(
             $db->tablePrefix . 'user', array(
                 'id' => 'pk',
@@ -59,7 +60,7 @@ class m000000_000000_user_base extends CDbMigration
                 'use_gravatar'    => "boolean NOT NULL DEFAULT '1'",
                 'activate_key'    => 'char(32) NOT NULL',
                 'email_confirm'   => "boolean NOT NULL DEFAULT '0'",
-            ), "ENGINE=InnoDB DEFAULT CHARSET=utf8"
+            ), $options
         );
 
         $this->createIndex($db->tablePrefix . "user_nickname_unique", $db->tablePrefix . 'user', "nick_name", true);
@@ -73,7 +74,7 @@ class m000000_000000_user_base extends CDbMigration
                 'user_id' => 'integer NOT NULL',
                 'creation_date' => 'datetime NOT NULL',
                 'code' =>  'char(32) NOT NULL',
-            ), "ENGINE=InnoDB DEFAULT CHARSET=utf8"
+            ), $options
         );
 
         $this->createIndex($db->tablePrefix . "user_recovery_code", $db->tablePrefix.'recovery_password', "code", true);

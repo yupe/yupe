@@ -319,14 +319,14 @@ class Migrator extends CApplicationComponent
     {
         $db=$this->getDbConnection();
         Yii::log(Yii::t('YupeModule.yupe', 'Создаем таблицу для хранения версий миграций {table}', array('{table}'=>$this->migrationTable)));
-
+        $options = Yii::app()->db->schema instanceof CMysqlSchema ? 'ENGINE=InnoDB DEFAULT CHARSET=utf8' : '';
         $db->createCommand()->createTable(
             $db->tablePrefix . $this->migrationTable, array(
                 'id'         => 'pk',
                 'module'     => 'string NOT NULL',
                 'version'    => 'string NOT NULL',
                 'apply_time' => 'integer',
-            ), "ENGINE=InnoDB DEFAULT CHARSET=utf8"
+            ), $options
         );
 
         $db->createCommand()->createIndex("idx_migrations_module", $db->tablePrefix . $this->migrationTable, "module", false);

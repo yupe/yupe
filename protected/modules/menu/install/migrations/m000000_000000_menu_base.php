@@ -31,7 +31,7 @@ class m000000_000000_menu_base extends CDbMigration
     public function safeUp()
     {
         $db = $this->getDbConnection();
-
+        $options = Yii::app()->db->schema instanceof CMysqlSchema ? 'ENGINE=InnoDB DEFAULT CHARSET=utf8' : '';
         /**
          * menu:
          **/
@@ -42,7 +42,7 @@ class m000000_000000_menu_base extends CDbMigration
                 'code' => 'string NOT NULL',
                 'description' => 'varchar(300) NOT NULL',
                 'status'=> "tinyint(3) unsigned NOT NULL DEFAULT '1'",
-            ), "ENGINE=InnoDB DEFAULT CHARSET=utf8"
+            ), $options
         );
 
         $this->createIndex($db->tablePrefix . "menu_code_unique", $db->tablePrefix . 'menu', "code", true);
@@ -68,7 +68,7 @@ class m000000_000000_menu_base extends CDbMigration
                 'condition_denial' => "tinyint(4) DEFAULT '0'",
                 'sort' => "tinyint(3) unsigned NOT NULL DEFAULT '1'",
                 'status' => "tinyint(3) unsigned NOT NULL DEFAULT '1'",
-            ), "ENGINE=InnoDB DEFAULT CHARSET=utf8"
+            ), $options
         );
 
         $this->createIndex($db->tablePrefix . "menu_item_menuid", $db->tablePrefix . 'menu_item', "menu_id", false);
