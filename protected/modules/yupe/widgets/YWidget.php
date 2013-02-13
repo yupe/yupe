@@ -35,6 +35,7 @@ abstract class YWidget extends CWidget
     {
         $themeView = null;
         if (Yii::app()->theme !== null) {
+            //@TODO можно обойтись без рефлексии и регулярки
             $obj = new ReflectionClass(get_class($this));
             $string = explode('modules' . DIRECTORY_SEPARATOR, $obj->getFileName(), 2);
             if (isset($string[1])) {
