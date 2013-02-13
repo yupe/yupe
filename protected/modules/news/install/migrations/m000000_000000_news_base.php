@@ -50,7 +50,7 @@ class m000000_000000_news_base extends CDbMigration
                 'image' => 'varchar(300) DEFAULT NULL',
                 'link' => 'varchar(300) DEFAULT NULL',
                 'user_id' => 'integer DEFAULT NULL',
-                'status' => "tinyint(4) NOT NULL DEFAULT '0'",
+                'status' => "integer NOT NULL DEFAULT '0'",
                 'is_protected' => "boolean NOT NULL DEFAULT '0'",
                 'keywords' => 'string NOT NULL',
                 'description' => 'string NOT NULL',
