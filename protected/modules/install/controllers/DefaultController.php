@@ -878,15 +878,11 @@ class DefaultController extends YBackController
                     $this->_setSession();
 
                     $this->redirect(array('/install/default/createuser'));
-                } else {
-                    ob_start();
-                    print_r($user->getErrors());
-                    $errors = ob_get_clean();
+                } else
                     Yii::app()->user->setFlash(
                         YFlashMessages::ERROR_MESSAGE,
-                        $errors
+                        print_r($user->getErrors(), true)
                     );
-                }
             }
         }
         $this->render(
