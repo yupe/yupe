@@ -41,7 +41,7 @@ class m000000_000000_menu_base extends CDbMigration
                 'name' => 'varchar(300) NOT NULL',
                 'code' => 'string NOT NULL',
                 'description' => 'varchar(300) NOT NULL',
-                'status'=> "integer unsigned NOT NULL DEFAULT '1'",
+                'status'=> "integer NOT NULL DEFAULT '1'",
             ), $options
         );
 
@@ -66,8 +66,8 @@ class m000000_000000_menu_base extends CDbMigration
                 'rel' => 'string NOT NULL',
                 'condition_name' => "string DEFAULT '0'",
                 'condition_denial' => "integer DEFAULT '0'",
-                'sort' => "integer unsigned NOT NULL DEFAULT '1'",
-                'status' => "integer unsigned NOT NULL DEFAULT '1'",
+                'sort' => "integer NOT NULL DEFAULT '1'",
+                'status' => "integer NOT NULL DEFAULT '1'",
             ), $options
         );
 

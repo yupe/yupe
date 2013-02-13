@@ -192,7 +192,7 @@ class Migrator extends CApplicationComponent
             $db->createCommand()->update(
                 $db->tablePrefix . $this->migrationTable,
                 array('apply_time' => time()),
-                "`version` = :ver AND `module` = :mod",
+                "version = :ver AND module = :mod",
                 array(':ver' => $class, 'mod' => $module)
             );
             $time = microtime(true) - $start;

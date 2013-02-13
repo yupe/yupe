@@ -38,13 +38,13 @@ class m000000_000000_queue_base extends CDbMigration
         $this->createTable(
             $db->tablePrefix . 'queue', array(
                 'id' => 'pk',
-                'worker' => 'integer unsigned NOT NULL',
+                'worker' => 'integer NOT NULL',
                 'create_time' => 'datetime NOT NULL',
                 'task' => 'text NOT NULL',
                 'start_time' => 'datetime DEFAULT NULL',
                 'complete_time' => 'datetime DEFAULT NULL',
-                'priority' => "integer unsigned NOT NULL DEFAULT '1'",
-                'status' => "integer unsigned NOT NULL DEFAULT '0'",
+                'priority' => "integer NOT NULL DEFAULT '1'",
+                'status' => "integer NOT NULL DEFAULT '0'",
                 'notice' => 'varchar(300) DEFAULT NULL',
             ), $options
         );

@@ -66,7 +66,7 @@ class m000000_000000_dictionary_base extends CDbMigration
                 'update_date' => 'datetime NOT NULL',
                 'create_user_id' => 'integer DEFAULT NULL',
                 'update_user_id' => 'integer DEFAULT NULL',
-                'status' => "tinyint(3) unsigned NOT NULL DEFAULT '1'",
+                'status' => "integer NOT NULL DEFAULT '1'",
             ), $options
         );
 
