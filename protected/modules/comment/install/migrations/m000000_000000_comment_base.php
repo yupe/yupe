@@ -44,7 +44,7 @@ class m000000_000000_comment_base extends CDbMigration
                 'name'          => 'string NOT NULL',
                 'email'         => 'string NOT NULL',
                 'text'          => 'text NOT NULL',
-                'status'        => "tinyint(4) NOT NULL DEFAULT '0'",
+                'status'        => "integer NOT NULL DEFAULT '0'",
                 'ip'            => 'string DEFAULT NULL'
             ), $options
         );
