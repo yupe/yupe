@@ -50,7 +50,7 @@ class m000000_000000_user_base extends CDbMigration
                 'online_status' => "string NOT NULL DEFAULT ''",
                 'password'      => "char(32) NOT NULL",
                 'salt'          => "char(32) NOT NULL",
-                'status'        => "boolean NOT NULL DEFAULT '2'",
+                'status'        => "integer NOT NULL DEFAULT '2'",
                 'access_level'  => "boolean NOT NULL DEFAULT '0'",
                 'last_visit'    => 'datetime DEFAULT NULL',
                 'registration_date' => 'datetime NOT NULL',
