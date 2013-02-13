@@ -31,7 +31,7 @@ class m000000_000000_yeeki_base extends CDbMigration
     public function safeUp()
     {
         $db = $this->getDbConnection();
-
+        $options = Yii::app()->db->schema instanceof CMysqlSchema ? 'ENGINE=InnoDB DEFAULT CHARSET=utf8' : '';
         /**
          * wiki_page:
          **/
@@ -46,7 +46,7 @@ class m000000_000000_yeeki_base extends CDbMigration
                 'user_id' => 'integer DEFAULT NULL',
                 'created_at' => 'integer DEFAULT NULL',
                 'updated_at' => 'integer DEFAULT NULL',
-            ), "ENGINE=InnoDB DEFAULT CHARSET=utf8"
+            ), $options
         );
 
         $this->createIndex($db->tablePrefix . "wiki_page_revision", $db->tablePrefix . 'wiki_page', "revision_id", false);
@@ -69,7 +69,7 @@ class m000000_000000_yeeki_base extends CDbMigration
                 'content' => 'text',
                 'user_id' => 'string DEFAULT NULL',
                 'created_at' => 'integer DEFAULT NULL',
-            ), "ENGINE=InnoDB DEFAULT CHARSET=utf8"
+            ), $options
         );
         $this->createIndex($db->tablePrefix . "wiki_page_revision_pageid", $db->tablePrefix . 'wiki_page_revision', "page_id", false);
         $this->addForeignKey($db->tablePrefix . "wiki_page_revision_page_fk", $db->tablePrefix . 'wiki_page_revision', 'page_id', $db->tablePrefix . 'wiki_page', 'id', 'CASCADE', 'CASCADE');
@@ -85,7 +85,7 @@ class m000000_000000_yeeki_base extends CDbMigration
                 'page_to_id' => 'integer DEFAULT NULL',
                 'wiki_uid' => 'string DEFAULT NULL',
                 'title' =>  'string DEFAULT NULL'
-            ), "ENGINE=InnoDB DEFAULT CHARSET=utf8"
+            ), $options
         );
 
         $this->createIndex($db->tablePrefix . "wiki_link_code_unique", $db->tablePrefix . 'wiki_link', "page_from_id", false);

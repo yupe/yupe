@@ -31,7 +31,7 @@ class m000000_000000_queue_base extends CDbMigration
     public function safeUp()
     {
         $db = $this->getDbConnection();
-
+        $options = Yii::app()->db->schema instanceof CMysqlSchema ? 'ENGINE=InnoDB DEFAULT CHARSET=utf8' : '';
         /**
          * queue:
          **/
@@ -46,7 +46,7 @@ class m000000_000000_queue_base extends CDbMigration
                 'priority' => "tinyint(3) unsigned NOT NULL DEFAULT '1'",
                 'status' => "tinyint(3) unsigned NOT NULL DEFAULT '0'",
                 'notice' => 'varchar(300) DEFAULT NULL',
-            ), "ENGINE=InnoDB DEFAULT CHARSET=utf8"
+            ), $options
         );
 
         $this->createIndex($db->tablePrefix . "queue_worker", $db->tablePrefix . 'queue', "worker", true);
