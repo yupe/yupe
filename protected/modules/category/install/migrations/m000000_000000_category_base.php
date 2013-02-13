@@ -42,7 +42,7 @@ class m000000_000000_category_base extends CDbMigration
                 'image' => 'varchar(300) DEFAULT NULL',
                 'short_description' => 'text',
                 'description' => 'text NOT NULL',
-                'status' => "smallint(1) NOT NULL DEFAULT '1'",
+                'status' => "boolean NOT NULL DEFAULT '1'",
             ), $options
         );
 
