@@ -234,7 +234,7 @@ class ETaggableBehavior extends CActiveRecordBehavior {
 
             if($this->tagTableCount !== null){
                 $findCriteria = new CDbCriteria(array(
-                    'select' => "t.{$this->tagTableName} as \"name\", t.{$this->tagTableCount} as \"count\"ё ",
+                    'select' => "t.{$this->tagTableName} as \"name\", t.{$this->tagTableCount} as \"count\" ",
                     'join' => "INNER JOIN {$this->getTagBindingTableName()} et on t.{$this->tagTablePk} = et.{$this->tagBindingTableTagId} ",
                     'condition' => "et.{$this->getModelTableFkName()} = :ownerid ",
                     'params' => array(
