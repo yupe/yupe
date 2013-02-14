@@ -13,7 +13,7 @@
             array('icon' => 'plus-sign', 'label' => Yii::t('MenuModule.menu', 'Добавить меню'), 'url' => array('/menu/menu/create')),
             array('icon' => 'list-alt', 'label' => Yii::t('MenuModule.menu', 'Управление меню'), 'url' => array('/menu/menu/index')),
             array('label' => Yii::t('blog', 'Меню') . ' «' . $model->name . '»'),
-            array('icon' => 'pencil', 'label' => Yii::t('MenuModule.menu', 'Изменить меню'), 'url' => array(
+            array('icon' => 'pencil', 'label' => Yii::t('MenuModule.menu', 'Редактировать меню'), 'url' => array(
                 '/menu/menu/update',
                 'id' => $model->id
             )),
