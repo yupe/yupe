@@ -451,7 +451,29 @@ abstract class YWebModule extends CWebModule
         $history = Yii::app()->migrator->getMigrationHistory($this->id, -1);
         if (!empty($history)) {
             // Зачем?
-            print_r($history);
+            $message = '';
+            foreach ($history as $migrationName => $migrationTimeUp) {
+                if ($migrationTimeUp > 0) {
+                    if (Yii::app()->migrator->migrateDown($this->id, $migrationName))
+                        $message .= Yii::t(
+                            'YupeModule.yupe', '{m}: Произошёл откат миграции - {migrationName}', array(
+                                '{m}' => $this->id,
+                                '{migrationName}' => $migrationName,
+                            )
+                        ) . '<br />';
+                    else
+                        $message .= Yii::t(
+                            'YupeModule.yupe', '{m}: Откат миграции {migrationName} неудалось провести.', array(
+                                '{m}' => $this->id,
+                                '{migrationName}' => $migrationName,
+                            )
+                        ) . '<br />';
+                }
+            }
+            Yii::app()->user->setFlash(
+                YFlashMessages::WARNING_MESSAGE,
+                $message
+            );
             return true;
         }
         throw new CException(Yii::t('YupeModule.yupe', 'Произошла ошибка удаления БД модуля!'));
