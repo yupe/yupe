@@ -18,7 +18,8 @@ class DefaultController extends YBackController
     public function actionCreate()
     {
         $model = new Image;
-
+//        CVarDumper::dump($model->validatorList['10']);
+//        die();
         if (isset($_POST['Image']))
         {
             $model->attributes = $_POST['Image'];

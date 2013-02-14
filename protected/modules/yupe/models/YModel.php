@@ -14,6 +14,7 @@
  
 abstract class YModel extends Model
 {
+    public $file;
     public function attributeDescriptions()
     {
         return array();
@@ -25,9 +26,20 @@ abstract class YModel extends Model
         return (isset($descriptions[$attribute])) ? $descriptions[$attribute] : '';
     }
 
+    public function behaviors()
+    {
+        return array(
+            'imageUpload' => array(
+                'class'      =>'ImageUploadBehavior',
+                'scenarios'  => array('insert', 'update'),
+                'allowEmpty' => true,
+            ),
+        );
+    }
+
     public function saveWithImage($fileName, $uploadPath, $oldFile = false)
     {
-        if (($this->$fileName = CUploadedFile::getInstance($this, $fileName))                              &&
+        if (($this->$fileName = CUploadedFile::getInstance($this, $fileName))                             &&
             ($newFile = YFile::pathIsWritable($this->name, $this->$fileName->extensionName, $uploadPath)) &&
             $this->$fileName->saveAs($newFile)
         )
