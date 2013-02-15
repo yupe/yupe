@@ -50,7 +50,7 @@ class News extends YModel
      */
     public function rules()
     {
-        $module = Yii::app()->getModule('news');
+        //$module = Yii::app()->getModule('news');
 
         return array(
             array('title, alias, short_text, full_text, keywords, description', 'filter', 'filter' => 'trim'),
@@ -64,11 +64,28 @@ class News extends YModel
             array('alias', 'unique', 'criteria' => array('condition' => 'lang = :lang', 'params' => array(':lang' => $this->lang)), 'on' => 'insert'),
             array('description', 'length', 'max' => 250),
             array('link', 'length', 'max' => 300),
-            array('image', 'file', 'minSize' => $module->minSize, 'maxSize' => $module->maxSize, 'types' => $module->allowedExtensions, 'maxFiles' => $module->maxFiles, 'allowEmpty' => true),
+            //array('image', 'file', 'minSize' => $module->minSize, 'maxSize' => $module->maxSize, 'types' => $module->allowedExtensions, 'maxFiles' => $module->maxFiles, 'allowEmpty' => true),
             array('link', 'url'),
             array('alias', 'YSLugValidator', 'message' => Yii::t('NewsModule.news', 'Запрещенные символы в поле {attribute}')),
             array('category_id', 'default', 'setOnEmpty' => true, 'value' => null),
             array('id, keywords, description, creation_date, change_date, date, title, alias, short_text, full_text, user_id, status, is_protected', 'safe', 'on' => 'search'),
+        );
+    }
+
+    public function behaviors()
+    {
+        $module = Yii::app()->getModule('news');
+        return array(
+            'imageUpload' => array(
+                'class'         =>'application.modules.yupe.models.ImageUploadBehavior',
+                'scenarios'     => array('insert','update', 'altlang'),
+                'attributeName' => 'image',
+                'minSize'       => $module->minSize,
+                'maxSize'       => $module->maxSize,
+                'types'         => $module->allowedExtensions,
+                'requiredOn'    => 'insert',
+                'uploadPath'    => $module->getUploadPath(),
+            ),
         );
     }
 

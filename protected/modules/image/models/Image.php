@@ -47,21 +47,34 @@ class Image extends YModel
      */
     public function rules()
     {
-        $module = Yii::app()->getModule('image');
-
         return array(
             array('name, alt, type', 'required'),
             array('name, description, alt', 'filter', 'filter' => 'trim'),
             array('name, description, alt', 'filter', 'filter' => array($obj = new CHtmlPurifier(), 'purify')),
-           // array('file', 'required', 'on' => 'insert'),
             array('status, parent_id, type, category_id', 'numerical', 'integerOnly' => true),
             array('name', 'length', 'max' => 300),
             array('user_id', 'length', 'max' => 10),
             array('alt', 'length', 'max' => 150),
-            //array('file', 'file', 'minSize' => $module->minSize, 'maxSize' => $module->maxSize, 'types' => $module->allowedExtensions, 'maxFiles' => $module->maxFiles, 'allowEmpty' => true),
             array('type', 'in', 'range' => array_keys($this->typeList)),
             array('category_id', 'default', 'setOnEmpty' => true, 'value' => null),
-            array('id, name, description, file, creation_date, user_id, alt, status', 'safe', 'on' => 'search'),
+            array('id, name, description, creation_date, user_id, alt, status', 'safe', 'on' => 'search'),
+        );
+    }
+
+    public function behaviors()
+    {
+        $module = Yii::app()->getModule('image');
+        return array(
+            'imageUpload' => array(
+                'class'         =>'application.modules.yupe.models.ImageUploadBehavior',
+                'scenarios'     => array('insert','update'),
+                'attributeName' => 'file',
+                'minSize'       => $module->minSize,
+                'maxSize'       => $module->maxSize,
+                'types'         => $module->allowedExtensions,
+                'requiredOn'    => 'insert',
+                'uploadPath'    => $module->getUploadPath(),
+            ),
         );
     }
 
@@ -147,21 +160,21 @@ class Image extends YModel
         return isset($data[$this->status]) ? $data[$this->status] : Yii::t('ImageModule.image', '*неизвестно*');
     }
 
-    public function delete()
-    {
-        $file = Yii::app()->getModule('image')->documentRoot . $this->file;
-
-        if (file_exists($file))
-        {
-            //удалить файл картинки
-            if (@unlink($file))
-                return parent::delete();
-            else
-                throw new CException(Yii::t('ImageModule.image', 'При удалении файла произошла ошибка!'));
-        }
-        else
-            return parent::delete();
-    }
+//    public function delete()
+//    {
+//        $file = Yii::app()->getModule('image')->documentRoot . $this->file;
+//
+//        if (file_exists($file))
+//        {
+//            //удалить файл картинки
+//            if (@unlink($file))
+//                return parent::delete();
+//            else
+//                throw new CException(Yii::t('ImageModule.image', 'При удалении файла произошла ошибка!'));
+//        }
+//        else
+//            return parent::delete();
+//    }
 
     public function getTypeList()
     {
@@ -193,6 +206,5 @@ class Image extends YModel
                 Yii::app()->getModule('yupe')->uploadPath . '/' .
                 Yii::app()->getModule('image')->uploadPath . '/' .
                 $this->file;
-
     }
 }

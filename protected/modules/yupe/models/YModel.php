@@ -14,7 +14,6 @@
  
 abstract class YModel extends Model
 {
-    public $file;
     public function attributeDescriptions()
     {
         return array();
@@ -24,17 +23,6 @@ abstract class YModel extends Model
     {
         $descriptions = $this->attributeDescriptions();
         return (isset($descriptions[$attribute])) ? $descriptions[$attribute] : '';
-    }
-
-    public function behaviors()
-    {
-        return array(
-            'imageUpload' => array(
-                'class'      =>'ImageUploadBehavior',
-                'scenarios'  => array('insert', 'update'),
-                'allowEmpty' => true,
-            ),
-        );
     }
 
     public function saveWithImage($fileName, $uploadPath, $oldFile = false)

@@ -27,8 +27,6 @@ class DefaultController extends YBackController
 
             if ($model->save())
             {
-                $model->saveWithImage('image', $this->module->getUploadPath());
-
                 Yii::app()->user->setFlash(
                     YFlashMessages::NOTICE_MESSAGE,
                     Yii::t('CategoryModule.category', 'Запись добавлена!')
@@ -135,9 +133,7 @@ class DefaultController extends YBackController
                 {
                     if (isset($_POST['Category'][$l]))
                     {
-                        $image = $modelsByLang[$l]->image;
-                        $p     = $_POST['Category'][$l];
-
+                        $p = $_POST['Category'][$l];
                         $modelsByLang[$l]->setAttributes(array(
                             'alias'             => $_POST['Category']['alias'],
                             'parent_id'         => $_POST['Category']['parent_id'],
@@ -153,11 +149,6 @@ class DefaultController extends YBackController
 
                         if (!$modelsByLang[$l]->save())
                             $wasError = true;
-                        else
-                        {
-                            $modelsByLang[$l]->saveWithImage('image', $this->module->getUploadPath(), $image);
-                            $alias = $modelsByLang[$l]->alias;
-                        }
                     }
                 }
 
@@ -201,11 +192,7 @@ class DefaultController extends YBackController
             try
             {
                 // поддерживаем удаление только из POST-запроса
-                $model = $this->loadModel($id);
-
-                if ($model->delete())
-                    @unlink($this->module->getUploadPath() . $model->image);
-
+                $this->loadModel($id)->delete();
                 Yii::app()->user->setFlash(
                     YFlashMessages::NOTICE_MESSAGE,
                     Yii::t('CategoryModule.category', 'Запись удалена!')
