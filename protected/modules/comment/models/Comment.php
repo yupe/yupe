@@ -26,6 +26,13 @@ class Comment extends YModel
     public $verifyCode;
 
     /**
+     * Модель-владелец комментария
+     *
+     * @var YModel
+     */
+    protected $ownerModel = null;
+
+    /**
      * Returns the static model of the specified AR class.
      * @return Comment the static model class
      */
@@ -172,5 +179,31 @@ class Comment extends YModel
     public function getAuthor()
     {
         return ($this->author) ? $this->author : false;
+    }
+
+    /**
+     * Загрузка модели к которой прикреплен комментарий
+     *
+     * return YModel
+     */
+    public function getOwnerModel()
+    {
+        if( empty($this->ownerModel) )
+        {
+            $this->loadExtraModels();
+
+            $className = $this->model;
+            $this->ownerModel = $className::model()->findByPk($this->model_id);
+        }
+
+        return $this->ownerModel;
+    }
+
+    /**
+     * Загрузка дополнительных моделей для получения владельца комментария
+     */
+    protected function loadExtraModels()
+    {
+        Yii::import('application.modules.blog.models.*');
     }
 }
