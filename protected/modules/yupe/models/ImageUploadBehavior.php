@@ -11,7 +11,6 @@ class ImageUploadBehavior extends CActiveRecordBehavior
 
     protected $_oldFile;
 
-
     public function attach($owner)
     {
         parent::attach($owner);

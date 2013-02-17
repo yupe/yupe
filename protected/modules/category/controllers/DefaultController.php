@@ -80,7 +80,7 @@ class DefaultController extends YBackController
         else
         {
             $modelsByLang = array();
-            // Указано ключевое слово новости, ищем все языки
+            // Указано ключевое слово категории, ищем все языки
             $yupe  = Yii::app()->getModule('yupe');
             $langs = explode(",", $yupe->availableLanguages);
 
@@ -109,8 +109,8 @@ class DefaultController extends YBackController
             {
                 if (!isset($modelsByLang[$l]))
                 {
-                    $news = new Category;
-                    $news->setAttributes( array(
+                    $category = new Category;
+                    $category->setAttributes( array(
                         'alias'     => $alias,
                         'lang'      => $l,
                         'parent_id' => $model->parent_id,
@@ -118,9 +118,9 @@ class DefaultController extends YBackController
                     ));
 
                     if ($l != Yii::app()->sourceLanguage)
-                        $news->scenario = 'altlang';
+                        $category->scenario = 'altlang';
 
-                    $modelsByLang[$l] = $news;
+                    $modelsByLang[$l] = $category;
                 }
             }
 
@@ -192,7 +192,10 @@ class DefaultController extends YBackController
             try
             {
                 // поддерживаем удаление только из POST-запроса
-                $this->loadModel($id)->delete();
+                $model = $this->loadModel($id);
+                if ($model->lang != Yii::app()->sourceLanguage)
+                    $model->scenario = 'altlang';
+                $model->delete();
                 Yii::app()->user->setFlash(
                     YFlashMessages::NOTICE_MESSAGE,
                     Yii::t('CategoryModule.category', 'Запись удалена!')
