@@ -74,8 +74,14 @@ class Image extends YModel
                 'types'         => $module->allowedExtensions,
                 'requiredOn'    => 'insert',
                 'uploadPath'    => $module->getUploadPath(),
+                'nameGenerator' => array($this, 'generateFileName'),
             ),
         );
+    }
+
+    public function generateFileName()
+    {
+        return md5($this->name . time());
     }
 
     /**
