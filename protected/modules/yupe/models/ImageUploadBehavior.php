@@ -7,6 +7,10 @@ class ImageUploadBehavior extends CActiveRecordBehavior
     public $attributeName = 'image';
 
     /*
+     * Загружаемое изображение
+     */
+    public $image;
+    /*
      * Минимальный размер загружаемого изображения
      */
     public $minSize = 0;
@@ -34,17 +38,21 @@ class ImageUploadBehavior extends CActiveRecordBehavior
     public $requiredOn;
 
     /*
-     * Callback для генерации имени загружаемого файла
+     * Callback функция для генерации имени загружаемого файла
      */
-    public $nameGenerator;
+    public $imageNameCallback;
+    /*
+     * Параметры для ресайза изображения
+     */
+    public $resize = array('quality' => 100, 'width' => null, 'height' => null);
 
-    protected $_oldFile;
+    protected $_oldImage;
 
     public function attach($owner)
     {
         parent::attach($owner);
 
-        if ($this->_checkScenario())
+        if ($this->checkScenario())
         {
             if ($this->requiredOn)
             {
@@ -66,50 +74,42 @@ class ImageUploadBehavior extends CActiveRecordBehavior
 
     public function afterFind($event)
     {
-        $this->_oldFile = $this->uploadPath . $this->owner{$this->attributeName};
+        $this->_oldImage = $this->uploadPath . $this->owner{$this->attributeName};
     }
 
     public function beforeValidate($event)
     {
-        if ($this->_checkScenario() && ($file = CUploadedFile::getInstance($this->owner, $this->attributeName)))
+        if ($this->checkScenario() && ($file = CUploadedFile::getInstance($this->owner, $this->attributeName)))
             $this->owner->{$this->attributeName} = $file;
-
         return true;
     }
 
     public function beforeSave($event)
     {
-        if ($this->_checkScenario() && $this->owner{$this->attributeName} instanceof CUploadedFile)
+        if ($this->checkScenario() && $this->owner->{$this->attributeName} instanceof CUploadedFile)
         {
-            $file = $this->owner{$this->attributeName};
-            $fileName = $this->_generateFileName();
-            if (($newFile = YFile::pathIsWritable($fileName, $file->extensionName, $this->uploadPath)) &&
-                $file->saveAs($newFile))
-            {
-                $this->deleteFile();
-                $this->owner->{$this->attributeName} = $fileName . '.' . $file->extensionName;
-                $this->_resizeImage($newFile);
-            }
+            if ($this->saveImage())
+                $this->deleteImage();
         }
         return true;
     }
 
     public function beforeDelete($event)
     {
-        $this->deleteFile();
+        $this->deleteImage();
     }
 
-    public function deleteFile()
+    public function deleteImage()
     {
         // не удаляем файл если сценарий altlang, используется модулями news, category
-        if ($this->owner->scenario !== 'altlang' && @is_file($this->_oldFile))
-            @unlink($this->_oldFile);
+        if ($this->owner->scenario !== 'altlang' && @is_file($this->_oldImage))
+            @unlink($this->_oldImage);
     }
 
     /*
      * Проверяет допустимо ли использовать поведение в текущем сценарии
      */
-    protected function _checkScenario()
+    public function checkScenario()
     {
         return in_array($this->owner->scenario, $this->scenarios);
     }
@@ -117,11 +117,36 @@ class ImageUploadBehavior extends CActiveRecordBehavior
     /*
      * Генерирует имя файла с использованием callback функции если возможно
      */
-    protected function _generateFileName()
+    protected  function _getImageName()
     {
-        return (is_callable($this->nameGenerator))
-            ? (call_user_func($this->nameGenerator))
+        return (is_callable($this->imageNameCallback))
+            ? (call_user_func($this->imageNameCallback))
             : md5(time());
+
+    }
+
+    public function saveImage()
+    {
+        $quality = isset($this->resize['quality']) ? $this->resize['quality'] : 100;
+        $width = isset($this->resize['width']) ? $this->resize['width'] : null;
+        $height = isset($this->resize['height']) ? $this->resize['height'] : null;
+
+        $tmpName = $this->owner->{$this->attributeName}->tempName;
+        $imageName = $this->_getImageName();
+        $image = Yii::app()->image->load($tmpName)->quality($quality);
+
+        if ($newFile = YFile::pathIsWritable($imageName, $image->ext, $this->uploadPath))
+        {
+            if (($width !== null && $image->width > $width) || ($height !== null && $image->height > $height))
+                $image->resize($width, $height);
+
+            if ($image->save($newFile))
+            {
+                $this->owner->{$this->attributeName} = $imageName . '.' . $image->ext;
+                return true;
+            }
+        }
+        return false;
     }
 
 }

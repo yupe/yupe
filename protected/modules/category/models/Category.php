@@ -73,8 +73,18 @@ class Category extends YModel
                 'scenarios'     => array('insert','update'),
                 'attributeName' => 'image',
                 'uploadPath'    => $module->getUploadPath(),
+                'imageNameCallback' => array($this, 'generateFileName'),
+                'resize' => array(
+                    'quality' => 70,
+                    'width' => 800,
+                )
             ),
         );
+    }
+
+    public function generateFileName()
+    {
+        return md5($this->name . time());
     }
 
     public function beforeValidate()
