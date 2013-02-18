@@ -17,6 +17,7 @@ class GalleryController extends YFrontController
             throw new CHttpException(404, Yii::t('GalleryModule.gallery', 'Страница не найдена!'));
 
         $image = new Image;
+        $gallery = new ImageToGallery;
 
         if (Yii::app()->request->isPostRequest && !empty($_POST['Image']))
         {
@@ -24,25 +25,26 @@ class GalleryController extends YFrontController
 
             try
             {
-                if ($image->create($_POST['Image']))
+                $image->attributes = $_POST['Image'];
+                if ($image->save())
                 {
-                    if ($model->addImage($image))
+                    $gallery->gallery_id = $model->id;
+                    $gallery->image_id = $image->id;
+                    if ($gallery->save())
+                    {
+                        $transaction->commit();
                         Yii::app()->user->setFlash(
                             YFlashMessages::NOTICE_MESSAGE,
                             Yii::t('GalleryModule.gallery', 'Фотография добавлена!')
                         );
-
-                    $transaction->commit();
-
-                    $this->redirect(array('/gallery/gallery/show', 'id' => $model->id));
+                        $this->redirect(array('/gallery/gallery/show', 'id' => $model->id));
+                    }
                 }
-
                 throw new CDbException(Yii::t('GalleryModule.gallery', Yii::t('GalleryModule.gallery', 'При добавлении изображения произошла ошибка!')));
             }
             catch (Exception $e)
             {
                 $transaction->rollback();
-
                 Yii::app()->user->setFlash(
                     YFlashMessages::ERROR_MESSAGE,
                     Yii::t('GalleryModule.gallery', 'При добавлении изображения произошла ошибка!')

@@ -170,22 +170,6 @@ class Image extends YModel
         return isset($data[$this->status]) ? $data[$this->status] : Yii::t('ImageModule.image', '*неизвестно*');
     }
 
-//    public function delete()
-//    {
-//        $file = Yii::app()->getModule('image')->documentRoot . $this->file;
-//
-//        if (file_exists($file))
-//        {
-//            //удалить файл картинки
-//            if (@unlink($file))
-//                return parent::delete();
-//            else
-//                throw new CException(Yii::t('ImageModule.image', 'При удалении файла произошла ошибка!'));
-//        }
-//        else
-//            return parent::delete();
-//    }
-
     public function getTypeList()
     {
         $list = array(

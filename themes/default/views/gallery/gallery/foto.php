@@ -3,7 +3,7 @@
 
 <h1><?php echo CHtml::encode($model->name);?></h1>
 
-<?php echo CHtml::image($model->file, $model->name, array('width' => 500, 'height' => 500)); ?>
+<?php echo CHtml::image($model->getUrl(), $model->name, array('width' => 500)); ?>
 
 <br/><br/>
 
