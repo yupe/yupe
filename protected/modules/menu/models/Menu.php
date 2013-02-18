@@ -149,17 +149,23 @@ class Menu extends YModel
     {
         $items = Yii::app()->cache->get(Yii::app()->getModule('menu')->menuCache . $this->id . Yii::app()->language);
 
-        if ($items === false)
-        {
-            $results = self::model()->with(array('menuItems' => array(
-                'on'     => 'menuItems.parent_id = :parent_id AND menuItems.status = 1',
-                'params' => array('parent_id' => (int) $parent_id),
-                'order'  => 'menuItems.sort ASC, menuItems.id ASC',
-            )))->findAll(array(
-                'select'    => array('id', 'code'),
-                'condition' => 't.code = :code AND t.status = 1',
-                'params'    => array(':code' => $code),
-            ));
+        if ($items === false) {
+            $alias = $this->getDbConnection()->getSchema()->quoteTableName('menuItems');
+            $results = self::model()->with(
+                array(
+                    'menuItems' => array(
+                        'on'     => $alias . '.parent_id = :parent_id AND ' . $alias .'.status = 1',
+                        'params' => array('parent_id' => (int) $parent_id),
+                        'order'  => $alias . '.sort ASC, ' . $alias . '.id ASC',
+                    )
+                )
+            )->findAll(
+                array(
+                    'select'    => array('id', 'code'),
+                    'condition' => 't.code = :code AND t.status = 1',
+                    'params'    => array(':code' => $code),
+                )
+            );
 
             $items = array();
 

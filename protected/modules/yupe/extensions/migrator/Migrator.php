@@ -192,7 +192,7 @@ class Migrator extends CApplicationComponent
             $db->createCommand()->update(
                 $db->tablePrefix . $this->migrationTable,
                 array('apply_time' => time()),
-                "`version` = :ver AND `module` = :mod",
+                "version = :ver AND module = :mod",
                 array(':ver' => $class, 'mod' => $module)
             );
             $time = microtime(true) - $start;
@@ -219,7 +219,7 @@ class Migrator extends CApplicationComponent
      *
      * @return bool is downgraded from migration
      **/
-    protected function migrateDown($module, $class)
+    public function migrateDown($module, $class)
     {
         Yii::log(Yii::t('YupeModule.yupe', "Отменяем миграцию {class}", array('{class}' => $class)));
         $db = $this->getDbConnection();
@@ -234,12 +234,14 @@ class Migrator extends CApplicationComponent
         if ($result !== false) {
             $db->createCommand()->delete(
                 $db->tablePrefix . $this->migrationTable, array(
-                    $db->quoteColumnName('version') . "=" . $db->quoteValue($class),
-                    $db->quoteColumnName('module') . "=" . $db->quoteValue($module),
+                    'AND', $db->quoteColumnName('version') . "=" . $db->quoteValue($class), array(
+                        'AND', $db->quoteColumnName('module') . "=" . $db->quoteValue($module),
+                    )
                 )
             );
             $time = microtime(true) - $start;
             Yii::log(Yii::t('YupeModule.yupe', "Миграция {class} отменена за {s} сек.", array('{class}' => $class, '{s}' => sprintf("%.3f", $time))));
+            return true;
         } else {
             $time = microtime(true) - $start;
             Yii::log(Yii::t('YupeModule.yupe', "Ошибка отмены миграции {class} ({s} сек.)", array('{class}' => $class, '{s}' => sprintf("%.3f", $time))));
@@ -319,14 +321,14 @@ class Migrator extends CApplicationComponent
     {
         $db=$this->getDbConnection();
         Yii::log(Yii::t('YupeModule.yupe', 'Создаем таблицу для хранения версий миграций {table}', array('{table}'=>$this->migrationTable)));
-
+        $options = Yii::app()->db->schema instanceof CMysqlSchema ? 'ENGINE=InnoDB DEFAULT CHARSET=utf8' : '';
         $db->createCommand()->createTable(
             $db->tablePrefix . $this->migrationTable, array(
                 'id'         => 'pk',
                 'module'     => 'string NOT NULL',
                 'version'    => 'string NOT NULL',
                 'apply_time' => 'integer',
-            ), "ENGINE=InnoDB DEFAULT CHARSET=utf8"
+            ), $options
         );
 
         $db->createCommand()->createIndex("idx_migrations_module", $db->tablePrefix . $this->migrationTable, "module", false);

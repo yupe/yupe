@@ -846,6 +846,7 @@ class DefaultController extends YBackController
                         'nick_name'         => $model->userName,
                         'email'             => $model->userEmail,
                         'salt'              => $salt,
+                        'gender'            => 0,
                         'password'          => User::model()->hashPassword($model->userPassword, $salt),
                         'registration_date' => new CDbExpression('NOW()'),
                         'registration_ip'   => Yii::app()->request->userHostAddress,
@@ -877,7 +878,11 @@ class DefaultController extends YBackController
                     $this->_setSession();
 
                     $this->redirect(array('/install/default/createuser'));
-                }
+                } else
+                    Yii::app()->user->setFlash(
+                        YFlashMessages::ERROR_MESSAGE,
+                        print_r($user->getErrors(), true)
+                    );
             }
         }
         $this->render(

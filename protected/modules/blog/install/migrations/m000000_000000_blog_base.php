@@ -31,7 +31,7 @@ class m000000_000000_blog_base extends CDbMigration
     public function safeUp()
     {
         $db = $this->getDbConnection();
-
+        $options = Yii::app()->db->schema instanceof CMysqlSchema ? 'ENGINE=InnoDB DEFAULT CHARSET=utf8' : '';
         // blog
         $this->createTable(
             $db->tablePrefix . 'blog', array(
@@ -41,13 +41,13 @@ class m000000_000000_blog_base extends CDbMigration
                 'icon' => "varchar(300) NOT NULL DEFAULT ''",
                 'slug' => 'varchar(150) NOT NULL',
                 'lang' => 'char(2) DEFAULT NULL',
-                'type' => "tinyint(4) unsigned NOT NULL DEFAULT '1'",
-                'status' => "tinyint(4) unsigned NOT NULL DEFAULT '1'",
+                'type' => "integer NOT NULL DEFAULT '1'",
+                'status' => "integer NOT NULL DEFAULT '1'",
                 'create_user_id' => 'integer NOT NULL',
                 'update_user_id' => 'integer NOT NULL',
-                'create_date' => 'integer unsigned NOT NULL',
-                'update_date' => 'integer unsigned NOT NULL',
-            ), "ENGINE=InnoDB DEFAULT CHARSET=utf8"
+                'create_date' => 'integer NOT NULL',
+                'update_date' => 'integer NOT NULL',
+            ), $options
         );
 
         $this->createIndex($db->tablePrefix . "blog_slug_uniq", $db->tablePrefix . 'blog', "slug,lang", true);
@@ -57,8 +57,8 @@ class m000000_000000_blog_base extends CDbMigration
         $this->createIndex($db->tablePrefix . "blog_type", $db->tablePrefix . 'blog', "type", false);
         $this->createIndex($db->tablePrefix . "blog_create_date", $db->tablePrefix . 'blog', "create_date", false);
         $this->createIndex($db->tablePrefix . "blog_update_date", $db->tablePrefix . 'blog', "update_date", false);
-        $this->createIndex($db->tablePrefix . "blog_lang", $db->tablePrefix . 'blog', "lang", false);
-        $this->createIndex($db->tablePrefix . "blog_slug", $db->tablePrefix . 'blog', "slug", false);
+        $this->createIndex($db->tablePrefix . "blog_lang_blog", $db->tablePrefix . 'blog', "lang", false);
+        $this->createIndex($db->tablePrefix . "blog_slug_blog", $db->tablePrefix . 'blog', "slug", false);
 
         $this->addForeignKey($db->tablePrefix . "blog_create_user_fk", $db->tablePrefix . 'blog', 'create_user_id', $db->tablePrefix . 'user', 'id', 'RESTRICT',  'NO ACTION');
         $this->addForeignKey($db->tablePrefix . "blog_update_user_fk", $db->tablePrefix . 'blog', 'update_user_id', $db->tablePrefix . 'user', 'id', 'RESTRICT', 'NO ACTION');
@@ -80,12 +80,12 @@ class m000000_000000_blog_base extends CDbMigration
                 'quote' => "varchar(300) NOT NULL DEFAULT ''",
                 'content' => 'text NOT NULL',
                 'link' => "string NOT NULL DEFAULT ''",
-                'status' => "tinyint(4) unsigned NOT NULL DEFAULT '0'",
-                'comment_status' => "tinyint(4) unsigned NOT NULL DEFAULT '1'",
-                'access_type' => "tinyint(4) unsigned NOT NULL DEFAULT '1'",
+                'status' => "integer NOT NULL DEFAULT '0'",
+                'comment_status' => "integer NOT NULL DEFAULT '1'",
+                'access_type' => "integer NOT NULL DEFAULT '1'",
                 'keywords' => "string NOT NULL DEFAULT ''",
                 'description' => "varchar(300) NOT NULL DEFAULT ''",
-            ), "ENGINE=InnoDB DEFAULT CHARSET=utf8"
+            ), $options
         );
 
         $this->createIndex($db->tablePrefix . "blog_post_slug_uniq", $db->tablePrefix . 'post', "slug,lang", true);
@@ -95,8 +95,8 @@ class m000000_000000_blog_base extends CDbMigration
         $this->createIndex($db->tablePrefix . "blog_post_status", $db->tablePrefix . 'post', "status", false);
         $this->createIndex($db->tablePrefix . "blog_post_access_type", $db->tablePrefix . 'post', "access_type", false);
         $this->createIndex($db->tablePrefix . "blog_post_comment_status", $db->tablePrefix . 'post', "comment_status", false);
-        $this->createIndex($db->tablePrefix . "blog_lang", $db->tablePrefix . 'post', "lang", false);
-        $this->createIndex($db->tablePrefix . "blog_slug", $db->tablePrefix . 'post', "slug", false);
+        $this->createIndex($db->tablePrefix . "blog_lang_post", $db->tablePrefix . 'post', "lang", false);
+        $this->createIndex($db->tablePrefix . "blog_slug_post", $db->tablePrefix . 'post', "slug", false);
 
         $this->addForeignKey($db->tablePrefix . "blog_post_blog_fk", $db->tablePrefix . 'post', 'blog_id', $db->tablePrefix . 'blog', 'id', 'CASCADE', 'CASCADE');
         $this->addForeignKey($db->tablePrefix . "blog_post_create_user_fk", $db->tablePrefix . 'post', 'create_user_id', $db->tablePrefix . 'user', 'id', 'CASCADE', 'CASCADE');
@@ -110,10 +110,10 @@ class m000000_000000_blog_base extends CDbMigration
                 'blog_id' => 'integer NOT NULL',
                 'create_date' => 'integer NOT NULL',
                 'update_date' => 'integer NOT NULL',
-                'role' => "tinyint(3) unsigned NOT NULL DEFAULT '1'",
-                'status' => "smallint(5) unsigned NOT NULL DEFAULT '1'",
+                'role' => "integer NOT NULL DEFAULT '1'",
+                'status' => "integer NOT NULL DEFAULT '1'",
                 'note' => "varchar(300) NOT NULL DEFAULT ''",
-            ), "ENGINE=InnoDB DEFAULT CHARSET=utf8"
+            ), $options
         );
 
         $this->createIndex($db->tablePrefix . "blog_user_to_blog_uniq", $db->tablePrefix . 'user_to_blog', "user_id,blog_id", true);
@@ -130,7 +130,7 @@ class m000000_000000_blog_base extends CDbMigration
             $db->tablePrefix . 'tag', array(
                 'id' => 'pk',
                 'name' => 'string NOT NULL',
-            ), "ENGINE=InnoDB DEFAULT CHARSET=utf8"
+            ), $options
         );
 
         $this->createIndex($db->tablePrefix . "blog_tag_name_uniq", $db->tablePrefix . 'tag', "name", true);
@@ -141,7 +141,7 @@ class m000000_000000_blog_base extends CDbMigration
                 'post_id' => 'integer NOT NULL',
                 'tag_id' => 'integer NOT NULL',
                 'PRIMARY KEY (post_id, tag_id)'
-            ), "ENGINE=InnoDB DEFAULT CHARSET=utf8"
+            ), $options
         );
 
         $this->createIndex($db->tablePrefix . "blog_post_to_tag_postid", $db->tablePrefix . 'post_to_tag', "post_id", false);

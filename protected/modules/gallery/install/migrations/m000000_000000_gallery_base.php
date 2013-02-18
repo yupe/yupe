@@ -30,7 +30,7 @@ class m000000_000000_gallery_base extends CDbMigration
     public function safeUp()
     {
         $db = $this->getDbConnection();
-
+        $options = Yii::app()->db->schema instanceof CMysqlSchema ? 'ENGINE=InnoDB DEFAULT CHARSET=utf8' : '';
         /**
          * gallery:
          **/
@@ -39,8 +39,8 @@ class m000000_000000_gallery_base extends CDbMigration
                 'id' => 'pk',
                 'name' =>'varchar(300) NOT NULL',
                 'description' => 'text',
-                'status' => "tinyint(4) NOT NULL DEFAULT '1'",
-            ), "ENGINE=InnoDB DEFAULT CHARSET=utf8"
+                'status' => "integer NOT NULL DEFAULT '1'",
+            ), $options
         );
 
         $this->createIndex($db->tablePrefix . "gallery_status", $db->tablePrefix . 'gallery', "status", false);
@@ -54,7 +54,7 @@ class m000000_000000_gallery_base extends CDbMigration
                 'image_id'  =>  'integer NOT NULL',
                 'gallery_id' => 'integer NOT NULL',
                 'creation_date' => 'datetime NOT NULL',
-            ), "ENGINE=InnoDB DEFAULT CHARSET=utf8"
+            ), $options
         );
 
         $this->createIndex($db->tablePrefix . "gallery_to_image_unique", $db->tablePrefix . 'image_to_gallery', "image_id, gallery_id", true);
