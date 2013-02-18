@@ -24,24 +24,4 @@ abstract class YModel extends Model
         $descriptions = $this->attributeDescriptions();
         return (isset($descriptions[$attribute])) ? $descriptions[$attribute] : '';
     }
-
-    public function saveWithImage($fileName, $uploadPath, $oldFile = false)
-    {
-        if (($this->$fileName = CUploadedFile::getInstance($this, $fileName))                             &&
-            ($newFile = YFile::pathIsWritable($this->name, $this->$fileName->extensionName, $uploadPath)) &&
-            $this->$fileName->saveAs($newFile)
-        )
-        {
-            if ($oldFile)
-                @unlink($uploadPath . $oldFile);
-            $this->$fileName = basename($newFile);
-            $this->update(array($fileName));
-        }
-        else if($oldFile)
-        {
-            $this->$fileName = $oldFile;
-            $this->update(array($fileName));
-        }
-        return $this;
-    }
 }
