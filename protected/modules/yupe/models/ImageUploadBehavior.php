@@ -86,11 +86,11 @@ class ImageUploadBehavior extends CActiveRecordBehavior
 
     public function beforeSave($event)
     {
-        if ($this->checkScenario() && $this->owner->{$this->attributeName} instanceof CUploadedFile)
-        {
-            if ($this->saveImage())
-                $this->deleteImage();
-        }
+        if ($this->checkScenario()                                        &&
+            $this->owner->{$this->attributeName} instanceof CUploadedFile &&
+            $this->saveImage()
+        )
+            $this->deleteImage();
         return true;
     }
 

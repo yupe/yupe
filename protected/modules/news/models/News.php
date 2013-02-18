@@ -75,7 +75,7 @@ class News extends YModel
         return array(
             'imageUpload' => array(
                 'class'         =>'application.modules.yupe.models.ImageUploadBehavior',
-                'scenarios'     => array('insert','update', 'altlang'),
+                'scenarios'     => array('insert','update'),
                 'attributeName' => 'image',
                 'minSize'       => $module->minSize,
                 'maxSize'       => $module->maxSize,
