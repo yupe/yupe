@@ -1,5 +1,25 @@
 <?php
 /**
+ * Comment model class:
+ *
+ * @category YupeModels
+ * @package  YupeCMS
+ * @author   YupeTeam <team@yupe.ru>
+ * @license  BSD http://ru.wikipedia.org/wiki/%D0%9B%D0%B8%D1%86%D0%B5%D0%BD%D0%B7%D0%B8%D1%8F_BSD
+ * @version  0.1 (dev)
+ * @link     http://yupe.ru
+ **/
+
+/**
+ * Comment model class:
+ *
+ * @category YupeModels
+ * @package  YupeCMS
+ * @author   YupeTeam <team@yupe.ru>
+ * @license  BSD http://ru.wikipedia.org/wiki/%D0%9B%D0%B8%D1%86%D0%B5%D0%BD%D0%B7%D0%B8%D1%8F_BSD
+ * @version  0.1 (dev)
+ * @link     http://yupe.ru
+ *
  * This is the model class for table "Comment".
  *
  * The followings are the available columns in table 'Comment':
@@ -27,14 +47,19 @@ class Comment extends YModel
 
     /**
      * Returns the static model of the specified AR class.
+     *
+     * @param YModel $className - инстанс модели
+     *
      * @return Comment the static model class
-     */
+     **/
     public static function model($className = __CLASS__)
     {
         return parent::model($className);
     }
 
     /**
+     * Имя таблицы в БД:
+     *
      * @return string the associated database table name
      */
     public function tableName()
@@ -43,6 +68,8 @@ class Comment extends YModel
     }
 
     /**
+     * Список правил для валидации полей модели:
+     *
      * @return array validation rules for model attributes.
      */
     public function rules()
@@ -65,6 +92,8 @@ class Comment extends YModel
     }
 
     /**
+     * Список атрибутов для меток формы:
+     *
      * @return array customized attribute labels (name=>label)
      */
     public function attributeLabels()
@@ -84,6 +113,11 @@ class Comment extends YModel
         );
     }
 
+    /**
+     * Список связей данной таблицы:
+     *
+     * @return mixed список связей
+     **/
     public function relations()
     {
         return array(
@@ -91,6 +125,11 @@ class Comment extends YModel
         );
     }
 
+    /**
+     * Получение группы условий:
+     *
+     * @return mixed список условий
+     **/
     public function scopes()
     {
         return array(
@@ -111,6 +150,7 @@ class Comment extends YModel
 
     /**
      * Retrieves a list of models based on the current search/filter conditions.
+     *
      * @return CActiveDataProvider the data provider that can return the models based on the search/filter conditions.
      */
     public function search()
@@ -135,16 +175,27 @@ class Comment extends YModel
         return new CActiveDataProvider(get_class($this), array('criteria' => $criteria));
     }
 
+    /**
+     * Событие выполняемое перед сохранением модели
+     *
+     * @return parent::beforeSave()
+     **/
     public function beforeSave()
     {
-        if ($this->isNewRecord)
-        {
+        if ($this->isNewRecord) {
             $this->creation_date = new CDbExpression('NOW()');
             $this->ip            = Yii::app()->request->userHostAddress;
         }
+
+        
         return parent::beforeSave();
     }
 
+    /**
+     * Событие, которое вызывается после сохранения модели:
+     *
+     * @return parent::afterSave()
+     **/
     public function afterSave()
     {
         if ($cache = Yii::app()->getCache())
@@ -153,6 +204,58 @@ class Comment extends YModel
         return parent::afterSave();
     }
 
+    /**
+     * Событие, которое вызывается после валидации модели:
+     *
+     * @return parent::afterValidate()
+     **/
+    public function afterValidate()
+    {
+        return parent::afterValidate();
+    }
+
+    /**
+     * Добавляем новый комментарий:
+     *
+     * @param Comment $comment - комментарий
+     *
+     * @return nothing
+     **/
+    public function newComment($comment)
+    {
+        if (($module = Yii::app()->getModule('comment')) && $module->email) {
+            /** 
+             * Объявляем новое событие
+             * и заполняем нужными данными:
+             **/
+            $event = new NewCommentEvent($this);
+            $event->module = $module;
+            $event->comment = $this;
+            $event->commentOwner = YModel::model($this->model)->findByPk($this->model_id);
+
+            $this->onNewComment($event);
+        }
+
+        return $event->isValid;
+    }
+
+    /**
+     * Определяем событие на создание нового комментария:
+     *
+     * @param CModelEvent $event - класс события
+     *
+     * @return nothing
+     **/
+    public function onNewComment($event)
+    {
+        $this->raiseEvent('onNewComment', $event);
+    }
+
+    /**
+     * Получение списка статусов:
+     *
+     * @return mixed список статусов
+     **/
     public function getStatusList()
     {
         return array(
@@ -163,12 +266,22 @@ class Comment extends YModel
         );
     }
 
+    /**
+     * Получение статуса по заданному:
+     *
+     * @return string текст статуса
+     **/
     public function getStatus()
     {
         $list = $this->statusList;
         return isset($list[$this->status]) ? $list[$this->status] : Yii::t('CommentModule.comment', 'Статус неизвестен');
     }
 
+    /**
+     * Получаем автора:
+     *
+     * @return Comment->author || bool false
+     **/
     public function getAuthor()
     {
         return ($this->author) ? $this->author : false;

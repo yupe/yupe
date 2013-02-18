@@ -107,9 +107,12 @@ class CommentModule extends YWebModule
     {
         parent::init();
 
-        $this->setImport(array(
-            'comment.models.*',
-        ));
+        $this->setImport(
+            array(
+                'comment.components.*',
+                'comment.models.*',
+            )
+        );
 
         if (!$this->email)
             $this->email = Yii::app()->getModule('yupe')->email;
