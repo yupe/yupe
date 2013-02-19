@@ -181,11 +181,17 @@ class Menu extends YModel
                 // @TODO Если не ставить url и присутствует items, пункт не выводится, возможно баг yii
                 if ($result->href)
                 {
-                    $url = $result->href;
-                    strstr($url, '?') ? list($url, $param) = explode("?", $url) : $param = array();
-                    if ($param)
-                        parse_str($param, $param);
-                    $url = array('url' => array($url) + $param, 'items' => $childItems);
+                    // если адрес надо параметризовать через роутер
+                    if ($result->regular_link == 0) {
+                        $url = $result->href;
+                        strstr($url, '?') ? list($url, $param) = explode("?", $url) : $param = array();
+                        if ($param)
+                            parse_str($param, $param);
+                        $url = array('url' => array($url) + $param, 'items' => $childItems);
+                    } else {
+                        // если обычная ссылка
+                        $url = array('url' => $result->href, 'items' => $childItems);
+                    }
                 }
                 else if ($childItems)
                     $url = array('url' => array('#'), 'items' => $childItems);

@@ -19,6 +19,7 @@
  * @property integer $condition_denial
  * @property integer $sort
  * @property integer $status
+ * @property integer $regular_link
  *
  * The followings are the available model relations:
  * @property Menu $menu
@@ -55,7 +56,7 @@ class MenuItem extends YModel
         // will receive user inputs.
         return array(
             array('parent_id, menu_id, title, href', 'required', 'except' => 'search'),
-            array('sort, status, condition_denial', 'numerical', 'integerOnly' => true),
+            array('sort, status, condition_denial, regular_link', 'numerical', 'integerOnly' => true),
             array('parent_id, menu_id, rel, target', 'length', 'max' => 10),
             array('title, href, condition_name, title_attr, before_link, after_link', 'length', 'max' => 255),
             array('class', 'length', 'max' => 50),
@@ -98,6 +99,7 @@ class MenuItem extends YModel
             'condition_denial' => Yii::t('MenuModule.menu', 'Отрицание условия'),
             'sort'             => Yii::t('MenuModule.menu', 'Сортировка'),
             'status'           => Yii::t('MenuModule.menu', 'Статус'),
+            'regular_link'     => Yii::t('MenuModule.menu', 'Обычная ссылка'),
         );
     }
 
@@ -122,6 +124,7 @@ class MenuItem extends YModel
             'condition_denial' => Yii::t('MenuModule.menu', 'Условие применяется при совпадении или отрацании.'),
             'sort'             => Yii::t('MenuModule.menu', 'Порядковый номер пункта в меню.'),
             'status'           => Yii::t('MenuModule.menu', 'Установите статус пункта меню: <br /><br /><span class="label label-success">активно</span> &ndash; пункт меню и все его потомки выводятся.<br /><br /><span class="label label-warning">не активно</span> &ndash; пункт меню и все его потомки выводиться не будут.'),
+            'regular_link'     => Yii::t('MenuModule.menu', 'Не обрабатывать адрес роутером'),
         );
     }
 

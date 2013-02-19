@@ -68,6 +68,7 @@ class m000000_000000_menu_base extends CDbMigration
                 'condition_denial' => "integer DEFAULT '0'",
                 'sort' => "integer NOT NULL DEFAULT '1'",
                 'status' => "integer NOT NULL DEFAULT '1'",
+                'regular_link' => "integer NOT NULL DEFAULT '0'",
             ), $options
         );
 
