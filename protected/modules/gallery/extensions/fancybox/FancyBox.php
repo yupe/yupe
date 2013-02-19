@@ -32,6 +32,7 @@ class FancyBox extends CWidget
         {
             Yii::app()->clientScript->registerCoreScript('jquery');
             Yii::app()->clientScript->registerScriptFile($baseUrl . '/source/jquery.fancybox.pack.js', CClientScript::POS_HEAD);
+            Yii::app()->clientScript->registerScriptFile($baseUrl . '/lib/jquery.isotope.min.js', CClientScript::POS_HEAD);
             Yii::app()->clientScript->registerCssFile($baseUrl . '/source/jquery.fancybox.css');
 
             if ($this->mouseEnabled)
