@@ -10,14 +10,18 @@ class MenuController extends YBackController
     {
         $model = $this->loadModel($id);
 
-        $code = "<?php \$this->widget('application.modules.menu.widgets.MenuWidget', array(
-            'name'         => '{$model->code}',
-            'params'       => array('hideEmptyItems' => true),
-            'layoutParams' => array('htmlOptions' => array(
+        $code = "<?php \$this->widget(
+    'application.modules.menu.widgets.MenuWidget', array(
+        'name'         => '{$model->code}',
+        'params'       => array('hideEmptyItems' => true),
+        'layoutParams' => array(
+            'htmlOptions' => array(
                 'class' => 'jqueryslidemenu',
                 'id'    => 'myslidemenu',
-            )),
-        )); ?>";
+            )
+        ),
+    )
+); ?>";
 
         $highlighter = new CTextHighlighter;
         $highlighter->language = 'PHP';
