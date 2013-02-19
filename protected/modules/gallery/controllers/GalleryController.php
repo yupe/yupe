@@ -11,34 +11,27 @@ class GalleryController extends YFrontController
 
     public function actionShow($id)
     {
-        $model = Gallery::model()->findByPk((int) $id);
+        $gallery = Gallery::model()->findByPk((int) $id);
 
-        if (!$model)
+        if (!$gallery)
             throw new CHttpException(404, Yii::t('GalleryModule.gallery', 'Страница не найдена!'));
 
         $image = new Image;
-        $gallery = new ImageToGallery;
 
         if (Yii::app()->request->isPostRequest && !empty($_POST['Image']))
         {
-            $transaction = Yii::app()->db->beginTransaction();
-
             try
             {
+                $transaction = Yii::app()->db->beginTransaction();
                 $image->attributes = $_POST['Image'];
-                if ($image->save())
+                if ($image->save() && $gallery->addImage($image))
                 {
-                    $gallery->gallery_id = $model->id;
-                    $gallery->image_id = $image->id;
-                    if ($gallery->save())
-                    {
-                        $transaction->commit();
-                        Yii::app()->user->setFlash(
-                            YFlashMessages::NOTICE_MESSAGE,
-                            Yii::t('GalleryModule.gallery', 'Фотография добавлена!')
-                        );
-                        $this->redirect(array('/gallery/gallery/show', 'id' => $model->id));
-                    }
+                    $transaction->commit();
+                    Yii::app()->user->setFlash(
+                        YFlashMessages::NOTICE_MESSAGE,
+                        Yii::t('GalleryModule.gallery', 'Фотография добавлена!')
+                    );
+                    $this->redirect(array('/gallery/gallery/show', 'id' => $gallery->id));
                 }
                 throw new CDbException(Yii::t('GalleryModule.gallery', Yii::t('GalleryModule.gallery', 'При добавлении изображения произошла ошибка!')));
             }
@@ -55,7 +48,7 @@ class GalleryController extends YFrontController
         $dataProvider = new CActiveDataProvider('ImageToGallery', array(
             'criteria'   => array(
                 'condition' => 'gallery_id = :gallery_id',
-                'params'    => array(':gallery_id' => $model->id),
+                'params'    => array(':gallery_id' => $gallery->id),
                 'limit'     => self::GALLERY_PER_PAGE,
                 'order'     => 't.creation_date DESC',
                 'with'      => 'image',
@@ -65,7 +58,7 @@ class GalleryController extends YFrontController
 
         $this->render('show', array(
             'image'        => $image,
-            'model'        => $model,
+            'model'        => $gallery,
             'dataProvider' => $dataProvider,
         ));
     }
