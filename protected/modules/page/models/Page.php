@@ -280,6 +280,6 @@ class Page extends YModel
 
     public function getParentName()
     {
-        return ($this->parentPage === NULL) ? '---' : $this->parentPage->name;
+        return ($this->parentPage === NULL) ? '---' : $this->parentPage->title;
     }
 }
