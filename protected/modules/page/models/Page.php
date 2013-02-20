@@ -211,7 +211,6 @@ class Page extends YModel
             $criteria->compare('category_id', $this->category_id);
 
         $criteria->compare('is_protected', $this->is_protected);
-        $criteria->compare('is_protected', $this->is_protected);
 
         $criteria->addCondition('"lang" = \'' . Yii::app()->language . '\' OR "lang" is null OR "lang" = \'' . Yii::app()->sourceLanguage . '\'');
 
