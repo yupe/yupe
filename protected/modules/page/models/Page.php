@@ -212,7 +212,8 @@ class Page extends YModel
 
         $criteria->compare('is_protected', $this->is_protected);
 
-        $criteria->addCondition('"lang" = \'' . Yii::app()->language . '\' OR "lang" is null OR "lang" = \'' . Yii::app()->sourceLanguage . '\'');
+        //@TODO ??? для чего
+        //$criteria->addCondition('"lang" = \'' . Yii::app()->language . '\' OR "lang" is null OR "lang" = \'' . Yii::app()->sourceLanguage . '\'');
 
         return new CActiveDataProvider(get_class($this), array(
             'criteria' => $criteria,
