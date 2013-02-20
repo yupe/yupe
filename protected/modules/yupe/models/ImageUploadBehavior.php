@@ -44,8 +44,10 @@ class ImageUploadBehavior extends CActiveRecordBehavior
     /*
      * Параметры для ресайза изображения
      */
-    public $resize = array('quality' => 100, 'width' => null, 'height' => null);
+    public $resize = array('quality' => 100);
 
+
+    protected $_newImage;
     protected $_oldImage;
 
     public function attach($owner)
@@ -79,19 +81,14 @@ class ImageUploadBehavior extends CActiveRecordBehavior
 
     public function beforeValidate($event)
     {
-        if ($this->checkScenario() && ($file = CUploadedFile::getInstance($this->owner, $this->attributeName)))
-            $this->owner->{$this->attributeName} = $file;
-        return true;
+        if ($this->checkScenario() && ($this->_newImage = CUploadedFile::getInstance($this->owner, $this->attributeName)))
+            $this->owner->{$this->attributeName} = $this->_newImage;
     }
 
     public function beforeSave($event)
     {
-        if ($this->checkScenario()                                        &&
-            $this->owner->{$this->attributeName} instanceof CUploadedFile &&
-            $this->saveImage()
-        )
+        if ($this->checkScenario() && $this->_newImage instanceof CUploadedFile && $this->saveImage())
             $this->deleteImage();
-        return true;
     }
 
     public function beforeDelete($event)
@@ -131,7 +128,7 @@ class ImageUploadBehavior extends CActiveRecordBehavior
         $width = isset($this->resize['width']) ? $this->resize['width'] : null;
         $height = isset($this->resize['height']) ? $this->resize['height'] : null;
 
-        $tmpName = $this->owner->{$this->attributeName}->tempName;
+        $tmpName = $this->_newImage->tempName;
         $imageName = $this->_getImageName();
         $image = Yii::app()->image->load($tmpName)->quality($quality);
 
