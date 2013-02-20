@@ -211,9 +211,9 @@ class Page extends YModel
             $criteria->compare('category_id', $this->category_id);
 
         $criteria->compare('is_protected', $this->is_protected);
-        $criteria->compare('is_protected', $this->is_protected);
 
-        $criteria->addCondition('lang = "' . Yii::app()->language . '" OR lang is null OR lang = "' . Yii::app()->sourceLanguage . '"');
+        //@TODO ??? для чего
+        //$criteria->addCondition('"lang" = \'' . Yii::app()->language . '\' OR "lang" is null OR "lang" = \'' . Yii::app()->sourceLanguage . '\'');
 
         return new CActiveDataProvider(get_class($this), array(
             'criteria' => $criteria,
@@ -281,6 +281,6 @@ class Page extends YModel
 
     public function getParentName()
     {
-        return ($this->parentPage === NULL) ? '---' : $this->parentPage->name;
+        return ($this->parentPage === NULL) ? '---' : $this->parentPage->title;
     }
 }

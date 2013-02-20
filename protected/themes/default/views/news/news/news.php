@@ -1,3 +1,14 @@
+<?php
+/**
+ * Отображение для ./themes/default/views/news/news/news.php:
+ * 
+ *   @category YupeView
+ *   @package  YupeCMS
+ *   @author   Yupe Team <team@yupe.ru>
+ *   @license  https://github.com/yupe/yupe/blob/master/LICENSE BSD
+ *   @link     http://yupe.ru
+ **/
+ ?>
 <?php $this->pageTitle = $news->title; ?>
 
 <?php
@@ -16,8 +27,9 @@ $this->breadcrumbs = array(
         дата: <?php echo $news->creation_date; ?>
     </div>
     <br/>
-
+ 
     <div class="content">
+        <?php echo (!empty($news->image) ? CHtml::image(Yii::app()->request->baseUrl . '/uploads/news/' . $news->image, $news->title, array('style' => 'width: 100%;')) : '');?>
         <p><?php echo $news->full_text; ?></p>
     </div>
     <div class="nav">
@@ -25,8 +37,6 @@ $this->breadcrumbs = array(
         | последнее обновление <?php echo $news->change_date;?>
     </div>
 </div>
-
-
 <br/><br/><br/>
 
 <?php $this->widget('application.modules.comment.widgets.CommentsListWidget', array('model' => $news, 'modelId' => $news->id)); ?>

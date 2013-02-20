@@ -33,7 +33,7 @@ class m000000_000000_mail_base extends CDbMigration
     public function safeUp()
     {
         $db = $this->getDbConnection();
-
+        $options = Yii::app()->db->schema instanceof CMysqlSchema ? 'ENGINE=InnoDB DEFAULT CHARSET=utf8' : '';
         /**
          * mail_event:
          **/
@@ -43,7 +43,7 @@ class m000000_000000_mail_base extends CDbMigration
                     'code'        => 'string NOT NULL',
                     'name'        => 'string NOT NULL',
                     'description' => 'text',
-            ), "ENGINE=InnoDB DEFAULT CHARSET=utf8"
+            ), $options
         );
 
         $this->createIndex($db->tablePrefix . "mail_event_code_unique", $db->tablePrefix . 'mail_event', "code", true);
@@ -60,10 +60,10 @@ class m000000_000000_mail_base extends CDbMigration
                 'description' => 'text',
                 'from'        => 'string NOT NULL',
                 'to'          => 'string NOT NULL',
-                'theme'       => 'tinytext NOT NULL',
+                'theme'       => 'text NOT NULL',
                 'body'        => 'text NOT NULL',
-                'status'      => "tinyint(3) NOT NULL DEFAULT '1'",
-            ), "ENGINE=InnoDB DEFAULT CHARSET=utf8"
+                'status'      => "integer NOT NULL DEFAULT '1'",
+            ), $options
         );
 
         $this->createIndex($db->tablePrefix . "mail_template_unique", $db->tablePrefix . 'mail_template', "code", true);

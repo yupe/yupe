@@ -31,6 +31,7 @@ class m000000_000000_category_base extends CDbMigration
     public function safeUp()
     {
         $db = $this->getDbConnection();
+        $options = Yii::app()->db->schema instanceof CMysqlSchema ? 'ENGINE=InnoDB DEFAULT CHARSET=utf8' : '';
         $this->createTable(
             $db->tablePrefix . 'category', array(
                 'id' => 'pk',
@@ -41,15 +42,15 @@ class m000000_000000_category_base extends CDbMigration
                 'image' => 'varchar(300) DEFAULT NULL',
                 'short_description' => 'text',
                 'description' => 'text NOT NULL',
-                'status' => "smallint(1) NOT NULL DEFAULT '1'",
-            ), "ENGINE=InnoDB DEFAULT CHARSET=utf8"
+                'status' => "boolean NOT NULL DEFAULT '1'",
+            ), $options
         );
 
         $this->createIndex($db->tablePrefix . "category_alias_uniq", $db->tablePrefix . 'category', "alias,lang", true);
         $this->createIndex($db->tablePrefix . "category_parent_id", $db->tablePrefix . 'category', "parent_id", false);
         $this->createIndex($db->tablePrefix . "category_status", $db->tablePrefix . 'category', "status", false);
 
-        $this->addForeignKey($db->tablePrefix . "category_parent_id_fk",$db->tablePrefix . 'category','parent_id',$db->tablePrefix . 'category','id','RESTRICT','NO ACTION');
+        $this->addForeignKey($db->tablePrefix . "category_parent_id_fk", $db->tablePrefix . 'category', 'parent_id', $db->tablePrefix . 'category', 'id', 'RESTRICT', 'NO ACTION');
     }
  
     /**

@@ -31,7 +31,7 @@ class m000000_000000_comment_base extends CDbMigration
     public function safeUp()
     {
         $db = $this->getDbConnection();
-
+        $options = Yii::app()->db->schema instanceof CMysqlSchema ? 'ENGINE=InnoDB DEFAULT CHARSET=utf8' : '';
         $this->createTable(
             $db->tablePrefix . 'comment', array(
                 'id'            => 'pk',
@@ -44,9 +44,9 @@ class m000000_000000_comment_base extends CDbMigration
                 'name'          => 'string NOT NULL',
                 'email'         => 'string NOT NULL',
                 'text'          => 'text NOT NULL',
-                'status'        => "tinyint(4) NOT NULL DEFAULT '0'",
+                'status'        => "integer NOT NULL DEFAULT '0'",
                 'ip'            => 'string DEFAULT NULL'
-            ), "ENGINE=InnoDB DEFAULT CHARSET=utf8"
+            ), $options
         );
 
         //$this->createIndex($db->tablePrefix . "comment_url", $db->tablePrefix . 'comment', "url", false);

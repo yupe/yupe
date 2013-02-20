@@ -31,6 +31,7 @@ class m000000_000000_yupe_base extends CDbMigration
     public function safeUp()
     {
         $db = $this->getDbConnection();
+        $options = Yii::app()->db->schema instanceof CMysqlSchema ? 'ENGINE=InnoDB DEFAULT CHARSET=utf8' : '';
         $this->createTable(
             $db->tablePrefix . 'settings', array(
                 'id' => 'pk',
@@ -41,7 +42,7 @@ class m000000_000000_yupe_base extends CDbMigration
                 'change_date' => 'datetime NOT NULL',
                 'user_id' => 'integer DEFAULT NULL',
                 'type' => "integer NOT NULL DEFAULT '1'",
-            ), "ENGINE=InnoDB DEFAULT CHARSET=utf8"
+            ), $options
         );
 
         $this->createIndex($db->tablePrefix . "settings_module_id", $db->tablePrefix . 'settings', "module_id", false);

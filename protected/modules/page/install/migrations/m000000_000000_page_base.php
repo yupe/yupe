@@ -31,6 +31,7 @@ class m000000_000000_page_base extends CDbMigration
     public function safeUp()
     {
         $db = $this->getDbConnection();
+        $options = Yii::app()->db->schema instanceof CMysqlSchema ? 'ENGINE=InnoDB DEFAULT CHARSET=utf8' : '';
         $this->createTable(
             $db->tablePrefix . 'page', array(
                 'id' => 'pk',
@@ -47,10 +48,10 @@ class m000000_000000_page_base extends CDbMigration
                 'body' => 'text NOT NULL',
                 'keywords' => 'string NOT NULL',
                 'description' => 'string NOT NULL',
-                'status' => 'tinyint(4) NOT NULL',
+                'status' => 'integer NOT NULL',
                 'is_protected' => "boolean NOT NULL DEFAULT '0'",
                 'menu_order' => "integer NOT NULL DEFAULT '0'",
-            ), "ENGINE=InnoDB DEFAULT CHARSET=utf8"
+            ), $options
         );
 
         $this->createIndex($db->tablePrefix . "page_slug_uniq", $db->tablePrefix . 'page', "slug,lang", true);
