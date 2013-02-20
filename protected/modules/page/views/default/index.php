@@ -63,7 +63,7 @@ $this->renderPartial('_search', array('model' => $model, 'pages' => $pages));
         ),
         array(
             'name'  => 'parent_id',
-            'value' => '$data->parentName',
+            'value' => '($data->parentPage) ? $data->parentPage->title : ""',
         ),
         array(
             'name'  => 'slug',
