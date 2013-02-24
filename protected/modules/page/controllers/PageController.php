@@ -66,9 +66,12 @@ class PageController extends YFrontController
         array_push($pages, $this->currentPage->title);
         return $pages;
     }
+
     /**
      * Рекурсивно возвращает пригодный для zii.widgets.CBreadcrumbs массив, начиная со страницы $page
-     * @param int $pageId 
+     * @param Page $page
+     * @return array
+     * @internal param int $pageId
      */
     private function getBreadCrumbsRecursively(Page $page)
     {

@@ -156,6 +156,7 @@ class DefaultController extends YBackController
                         else
                         {
                             $modelsByLang[$l]->saveWithImage('image', $this->module->getUploadPath(), $image);
+                            // @TODO Unused local variable $alias
                             $alias = $modelsByLang[$l]->alias;
                         }
                     }

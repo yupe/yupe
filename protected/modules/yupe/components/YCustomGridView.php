@@ -150,7 +150,7 @@ class YCustomGridView extends TbExtendedGridView
             reset($statusList);
             $status = key($statusList);
             while (list($key, $val) = each($statusList)) {
-                $val; // unused variable
+                $val; // @TODO unused variable
                 if ($key == $data->$statusField) {
                     $keyNext = key($statusList);
                     if (is_numeric($keyNext)) {

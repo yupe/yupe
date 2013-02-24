@@ -81,7 +81,7 @@ class DefaultController extends YBackController
     {
         if (Yii::app()->request->isPostRequest)
         {
-            // we only allow deletion via POST request
+            // we only allow deletion via POST request @TODO Unused local variable $model
             $model = $this->loadModel($id)->delete();
 
             Yii::app()->user->setFlash(

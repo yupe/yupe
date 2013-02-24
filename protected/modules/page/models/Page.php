@@ -35,6 +35,7 @@ class Page extends YModel
 
     /**
      * Returns the static model of the specified AR class.
+     * @param string $className
      * @return Page the static model class
      */
     public static function model($className = __CLASS__)
@@ -276,11 +277,11 @@ class Page extends YModel
 
     public function getCategoryName()
     {
-        return ($this->category === NULL) ? '---' : $this->category->name;
+        return ($this->category === null) ? '---' : $this->category->name;
     }
 
     public function getParentName()
     {
-        return ($this->parentPage === NULL) ? '---' : $this->parentPage->title;
+        return ($this->parentPage === null) ? '---' : $this->parentPage->title;
     }
 }

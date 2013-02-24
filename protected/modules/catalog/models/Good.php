@@ -199,6 +199,7 @@ class Good extends YModel
      */
     protected function afterDelete()
     {
+        // @TODO @ - фу фу
         if(parent::afterDelete())
             @unlink($this->module->getUploadPath() . $this->image);
     }

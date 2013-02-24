@@ -1,5 +1,7 @@
 <?php
-
+/**
+ * @TODO Документирование класса
+ */
 class YQueueMailSenderCommand extends CConsoleCommand
 {
     const MAIL_WORKER_ID = 1;

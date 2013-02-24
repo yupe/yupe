@@ -33,7 +33,7 @@ class Blog extends YModel
 
     /**
      * Returns the static model of the specified AR class.
-     *
+     * @param string $className
      * @return Blog the static model class
      */
     public static function model($className = __CLASS__)
@@ -220,6 +220,7 @@ class Blog extends YModel
         return isset($data[$this->type]) ? $data[$this->type] : Yii::t('BlogModule.blog', '*неизвестно*');
     }
 
+    // @TODO Unused parameter $userId
     public function join($userId)
     {
         $params = array(

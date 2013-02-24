@@ -75,10 +75,10 @@ class DefaultController extends YBackController
     /**
      * Установка выполнения шага:
      *
-     * @param string $actionId - требуемый экшен:
+     * @param bool|string $actionId - требуемый экшен:
      *
      * @return nothing
-     **/
+     */
     private function _markFinished($actionId = false)
     {
         if (!$actionId)
@@ -97,10 +97,10 @@ class DefaultController extends YBackController
      * Функция выполняющаяся до вызова экшена
      * (если $this->yupe->cache истина - очищаем кэш)
      *
-     * @param class $action - вызванный нами экшен
+     * @param $action - вызванный нами экшен
      *
-     * @return вызов родительского метода beforeAction
-     **/
+     * @return bool вызов родительского метода beforeAction
+     */
     protected function beforeAction($action)
     {
         if ($this->yupe->cache)
@@ -682,7 +682,7 @@ class DefaultController extends YBackController
             }
             unset($m);
 
-            // Проверим зависимости
+            // Проверим зависимости @TODO Unused local variable $deps
             $deps = array();
             foreach ($toInstall as $m) {
                 if ($m->dependencies !== array()) {
@@ -754,8 +754,8 @@ class DefaultController extends YBackController
      * @param string $msg      - сообщение
      * @param string $category - тип сообщения
      *
-     * @return вывод html
-     **/
+     * @return void вывод html
+     */
     private function _logMessage($module, $msg, $category = 'notice')
     {
         $color = array(
@@ -793,6 +793,7 @@ class DefaultController extends YBackController
         $this->_logMessage($module, Yii::t('InstallModule.install', 'Обновляем базу модуля до актуального состояния!'));
 
         try {
+            // @TODO Unused local variable $installed
             $installed = $module->install;
 
             $this->_logMessage($module, Yii::t('InstallModule.install', 'Модуль установлен!'));
