@@ -86,6 +86,9 @@ $this->renderPartial('_search', array('model' => $model, 'pages' => $pages));
         ),
         array(
             'class' => 'bootstrap.widgets.TbButtonColumn',
+            'buttons' => array(
+                'update' => array('url' => 'array("/page/default/update", "slug" => $data->slug)'),
+            ),
         ),
     ),
 )); ?>
