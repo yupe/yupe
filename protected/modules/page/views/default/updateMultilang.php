@@ -41,10 +41,19 @@ $form = $this->beginWidget('bootstrap.widgets.TbActiveForm', array(
 ));
 ?>
 <fieldset class="inline">
+
     <div class="alert alert-info">
         <?php echo Yii::t('PageModule.page', 'Поля, отмеченные'); ?>
         <span class="required">*</span>
         <?php echo Yii::t('PageModule.page', 'обязательны.'); ?>
+    </div>
+
+    <div class="row-fluid control-group <?php echo $model->hasErrors('slug') ? 'error' : ''; ?>">
+        <?php echo $form->textFieldRow($model, 'slug', array('size' => 60, 'maxlength' => 150, 'class' => 'span7 popover-help', 'data-original-title' => $model->getAttributeLabel('slug'), 'data-content' => $model->getAttributeDescription('slug'))); ?>
+    </div>
+
+    <div class="row-fluid control-group <?php echo $model->hasErrors('parent_id') ? 'error' : ''; ?>">
+        <?php echo $form->dropDownListRow($model, 'parent_id', $pages, array('class' => 'span7 popover-help','empty' => Yii::t('NewsModule.news', '--выберите--'))); ?>
     </div>
 
     <div class="row-fluid control-group <?php echo $model->hasErrors('category_id') ? 'error' : ''; ?>">
@@ -53,10 +62,6 @@ $form = $this->beginWidget('bootstrap.widgets.TbActiveForm', array(
 
     <div class="row-fluid control-group <?php echo $model->hasErrors('order') ? 'error' : ''; ?>">
         <?php echo $form->textFieldRow($model, 'order', array('size' => 60, 'maxlength' => 150, 'class' => 'span7 popover-help', 'data-original-title' => $model->getAttributeLabel('order'), 'data-content' => $model->getAttributeDescription('order'))); ?>
-    </div>
-
-    <div class="row-fluid control-group <?php echo $model->hasErrors('slug') ? 'error' : ''; ?>">
-        <?php echo $form->textFieldRow($model, 'slug', array('size' => 60, 'maxlength' => 150, 'class' => 'span7 popover-help', 'data-original-title' => $model->getAttributeLabel('slug'), 'data-content' => $model->getAttributeDescription('slug'))); ?>
     </div>
 
     <div class="row-fluid control-group <?php echo $model-> hasErrors('is_protected') ? 'error' : '' ?>">

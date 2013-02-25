@@ -148,8 +148,9 @@ class DefaultController extends YBackController
                             'body'         => $p['body'],
                             'keywords'     => $p['keywords'],
                             'description'  => $p['description'],
+                            'status'       => $p['status'],
+                            'category_id'  => $_POST['Page']['category_id'],
                             'slug'         => $_POST['Page']['slug'],
-                            'status'       => $_POST['Page']['status'],
                             'is_protected' => $_POST['Page']['is_protected'],
                             'order'        => $_POST['Page']['order'],
                         ));
