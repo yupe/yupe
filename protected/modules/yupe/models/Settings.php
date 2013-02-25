@@ -47,7 +47,7 @@ class Settings extends YModel
     {
         return array(
             array('module_id, param_name', 'required'),
-            array('module_id, param_name, param_value', 'length', 'max' => 150),
+            array('module_id, param_name, param_value', 'length', 'max' => 100),
             array('user_id', 'numerical', 'integerOnly' => true),
             //array('module_id','match','pattern' => '/^[a-zA-Z0-9_\-]+$/'),
             //array('param_name, param_value','match','pattern' => '/^[a-zA-Z0-9_\-]+$/'),
