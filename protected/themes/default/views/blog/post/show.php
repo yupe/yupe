@@ -14,13 +14,13 @@ $this->breadcrumbs = array(
         <?php echo CHtml::link(CHtml::encode($post->title), array('/blog/post/show/', 'slug' => $post->slug)); ?>
     </div>
     <div class="author">
-        <?php echo Yii::t('blog', 'Опубликовал'); ?>: 
+        <?php echo Yii::t('blog', 'Опубликовал'); ?>:
         <b><?php echo CHtml::link($post->createUser->nick_name, array('/user/people/userInfo', 'username' => $post->createUser->nick_name)); ?></b>
 
-        <?php echo Yii::t('blog', 'в блоге'); ?>: 
+        <?php echo Yii::t('blog', 'в блоге'); ?>:
         "<?php echo CHtml::link($post->blog->name, array('/blog/blog/show/', 'slug' => $post->blog->slug)); ?>"
 
-        <?php echo Yii::t('blog', 'дата'); ?>: 
+        <?php echo Yii::t('blog', 'дата'); ?>:
         <?php echo Yii::app()->getDateFormatter()->formatDateTime($post->publish_date, "short", "short"); ?>
     </div>
     <br />
@@ -30,10 +30,10 @@ $this->breadcrumbs = array(
     </div>
     <div class="nav">
         <?php
-        foreach ($post->getTags() as $tag)
-            echo CHtml::link(CHtml::encode($tag), array('/posts/', 'tag' => CHtml::encode($tag)));
+        foreach ($tags = $post->getTags() as $tag)
+            echo CHtml::link(CHtml::encode($tag), array('/posts/', 'tag' => CHtml::encode($tag))).' ';
         ?>
-        | <?php echo Yii::t('blog', 'Обновлено'); ?>: 
+        | <?php echo Yii::t('blog', 'Обновлено'); ?>:
         <?php echo Yii::app()->getDateFormatter()->formatDateTime($post->update_date, "short", "short"); ?>
     </div>
 </div>
