@@ -110,6 +110,7 @@ class DefaultController extends YBackController
                 if (!isset($modelsByLang[$l]))
                 {
                     $category = new Category;
+                    $category->image = $model->image;
                     $category->setAttributes( array(
                         'alias'     => $alias,
                         'lang'      => $l,
@@ -137,7 +138,6 @@ class DefaultController extends YBackController
                         $modelsByLang[$l]->setAttributes(array(
                             'alias'             => $_POST['Category']['alias'],
                             'parent_id'         => $_POST['Category']['parent_id'],
-                            'image'             => $modelsByLang[$l]->image,
                             'name'              => $p['name'],
                             'short_description' => $p['short_description'],
                             'description'       => $p['description'],

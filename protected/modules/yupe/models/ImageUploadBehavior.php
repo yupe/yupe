@@ -46,6 +46,7 @@ class ImageUploadBehavior extends CActiveRecordBehavior
      */
     public $resize = array('quality' => 100, 'width' => null, 'height' => null);
 
+    protected $_newImage;
     protected $_oldImage;
 
     public function attach($owner)
@@ -61,13 +62,14 @@ class ImageUploadBehavior extends CActiveRecordBehavior
                 ));
                 $owner->validatorList->add($requiredValidator);
             }
+
             $fileValidator = CValidator::createValidator('file', $owner, $this->attributeName, array(
                 'types'      => $this->types,
                 'minSize'    => $this->minSize,
                 'maxSize'    => $this->maxSize,
                 'allowEmpty' => true,
-                'safe' => true,
             ));
+
             $owner->validatorList->add($fileValidator);
         }
     }
@@ -79,19 +81,19 @@ class ImageUploadBehavior extends CActiveRecordBehavior
 
     public function beforeValidate($event)
     {
-        if ($this->checkScenario() && ($file = CUploadedFile::getInstance($this->owner, $this->attributeName)))
-            $this->owner->{$this->attributeName} = $file;
-        return true;
+        if ($this->checkScenario() && ($this->_newImage = CUploadedFile::getInstance($this->owner, $this->attributeName)))
+        {
+            $this->owner->{$this->attributeName} = $this->_newImage;
+        }
     }
 
     public function beforeSave($event)
     {
-        if ($this->checkScenario()                                        &&
-            $this->owner->{$this->attributeName} instanceof CUploadedFile &&
-            $this->saveImage()
-        )
+        if ($this->checkScenario() && $this->_newImage instanceof CUploadedFile)
+        {
+            $this->saveImage();
             $this->deleteImage();
-        return true;
+        }
     }
 
     public function beforeDelete($event)
@@ -117,7 +119,7 @@ class ImageUploadBehavior extends CActiveRecordBehavior
     /*
      * Генерирует имя файла с использованием callback функции если возможно
      */
-    protected  function _getImageName()
+    protected  function _getImageName() 
     {
         return (is_callable($this->imageNameCallback))
             ? (call_user_func($this->imageNameCallback))
@@ -131,22 +133,17 @@ class ImageUploadBehavior extends CActiveRecordBehavior
         $width = isset($this->resize['width']) ? $this->resize['width'] : null;
         $height = isset($this->resize['height']) ? $this->resize['height'] : null;
 
-        $tmpName = $this->owner->{$this->attributeName}->tempName;
+        $tmpName = $this->_newImage->tempName;
         $imageName = $this->_getImageName();
         $image = Yii::app()->image->load($tmpName)->quality($quality);
 
-        if ($newFile = YFile::pathIsWritable($imageName, $image->ext, $this->uploadPath))
-        {
-            if (($width !== null && $image->width > $width) || ($height !== null && $image->height > $height))
-                $image->resize($width, $height);
+        if ( ! $newFile = YFile::pathIsWritable($imageName, $image->ext, $this->uploadPath))
+            throw new CHttpException(500, Yii::t('YupeModule.yupe', 'Директория "{dir}" не доступна для записи!', array('{dir}' => $this->uploadPath)));
 
-            if ($image->save($newFile))
-            {
-                $this->owner->{$this->attributeName} = $imageName . '.' . $image->ext;
-                return true;
-            }
-        }
-        return false;
+        if (($width !== null && $image->width > $width) || ($height !== null && $image->height > $height))
+            $image->resize($width, $height);
+
+        if ($image->save($newFile))
+            $this->owner->{$this->attributeName} = $imageName . '.' . $image->ext;
     }
-
 }

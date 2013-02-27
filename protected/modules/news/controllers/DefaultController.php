@@ -118,6 +118,7 @@ class DefaultController extends YBackController
                 if (!isset($modelsByLang[$l]))
                 {
                     $news = new News;
+                    $news->image = $model->image;
                     $news->setAttributes(
                         array(
                             'alias'         => $alias,
@@ -125,7 +126,6 @@ class DefaultController extends YBackController
                             'link'          => $model->link,
                             'date'          => $model->date,
                             'category_id'   => $model->category_id,
-                            'image'         => $model->image,
                             'creation_date' => $model->creation_date,
                             'change_date'   => $model->change_date,
                             'user_id'       => Yii::app()->user->id,
@@ -158,7 +158,6 @@ class DefaultController extends YBackController
                             'date'         => $_POST['News']['date'],
                             'category_id'  => $_POST['News']['category_id'],
                             'link'         => $_POST['News']['link'],
-                            'image'        => $modelsByLang[$l]->image,
                             'title'        => $p['title'],
                             'short_text'   => $p['short_text'],
                             'full_text'    => $p['full_text'],
