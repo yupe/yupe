@@ -33,14 +33,14 @@ class GalleryController extends YFrontController
                     );
                     $this->redirect(array('/gallery/gallery/show', 'id' => $gallery->id));
                 }
-                throw new CDbException(Yii::t('GalleryModule.gallery', Yii::t('GalleryModule.gallery', 'При добавлении изображения произошла ошибка!')));
+                //throw new CDbException(Yii::t('GalleryModule.gallery', Yii::t('GalleryModule.gallery', 'При добавлении изображения произошла ошибка!')));
             }
             catch (Exception $e)
             {
                 $transaction->rollback();
                 Yii::app()->user->setFlash(
                     YFlashMessages::ERROR_MESSAGE,
-                    Yii::t('GalleryModule.gallery', 'При добавлении изображения произошла ошибка!')
+                    $e->getMessage()
                 );
             }
         }
