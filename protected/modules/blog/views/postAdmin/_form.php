@@ -75,13 +75,13 @@ $form = $this->beginWidget(
         <?php echo $form->dropDownListRow($model, 'blog_id', CHtml::listData(Blog::model()->findAll(), 'id', 'name'), array('empty'=>Yii::t('BlogModule.blog', '--выберите блог--'), 'class' => 'span7 popover-help', 'data-original-title' => $model->getAttributeLabel('blog_id'), 'data-content' => $model->getAttributeDescription('blog_id'))); ?>
     </div>
     <div class="row-fluid control-group <?php echo $model->hasErrors('title') ? 'error' : ''; ?>">
-        <?php echo $form->textFieldRow($model, 'title', array('class' => 'span7 popover-help', 'maxlength' => 150, 'size' => 60, 'data-original-title' => $model->getAttributeLabel('title'), 'data-content' => $model->getAttributeDescription('title'))); ?>
+        <?php echo $form->textFieldRow($model, 'title', array('class' => 'span7 popover-help', 'maxlength' => 250, 'size' => 60, 'data-original-title' => $model->getAttributeLabel('title'), 'data-content' => $model->getAttributeDescription('title'))); ?>
     </div>
     <div class="row-fluid control-group <?php echo $model->hasErrors('slug') ? 'error' : ''; ?>">
         <?php echo $form->textFieldRow($model, 'slug', array('class' => 'span7 popover-help', 'maxlength' => 150, 'size' => 60, 'data-original-title' => $model->getAttributeLabel('slug'), 'data-content' => $model->getAttributeDescription('slug'))); ?>
     </div>
     <div class="row-fluid control-group <?php echo $model->hasErrors('link') ? 'error' : ''; ?>">
-        <?php echo $form->textFieldRow($model, 'link', array('class' => 'span7 popover-help', 'maxlength' => 150, 'size' => 60, 'data-original-title' => $model->getAttributeLabel('link'), 'data-content' => $model->getAttributeDescription('link'))); ?>
+        <?php echo $form->textFieldRow($model, 'link', array('class' => 'span7 popover-help', 'maxlength' => 250, 'size' => 60, 'data-original-title' => $model->getAttributeLabel('link'), 'data-content' => $model->getAttributeDescription('link'))); ?>
     </div>
     <div class="row-fluid control-group <?php echo $model->hasErrors('content') ? 'error' : ''; ?>">
         <div class="popover-help" data-original-title='<?php echo $model->getAttributeLabel('content'); ?>' data-content='<?php echo $model->getAttributeDescription('content'); ?>'>
@@ -145,7 +145,7 @@ $form = $this->beginWidget(
         <div id="collapseOne" class="accordion-body collapse">
             <div class="accordion-inner">
                 <div class="row-fluid control-group <?php echo $model->hasErrors('keywords') ? 'error' : ''; ?>">
-                    <?php echo $form->textFieldRow($model, 'keywords', array('size' => 60, 'maxlength' => 150, 'class' => 'span7 popover-help', 'data-original-title' => $model->getAttributeLabel('keywords'), 'data-content' => $model->getAttributeDescription('keywords'))); ?>
+                    <?php echo $form->textFieldRow($model, 'keywords', array('size' => 60, 'maxlength' => 250, 'class' => 'span7 popover-help', 'data-original-title' => $model->getAttributeLabel('keywords'), 'data-content' => $model->getAttributeDescription('keywords'))); ?>
                 </div>
                 <div class="row-fluid control-group <?php echo $model->hasErrors('description') ? 'error' : ''; ?>">
                     <?php echo $form->textAreaRow($model, 'description', array('rows' => 3, 'cols' => 98, 'class' => 'span7 popover-help', 'data-original-title' => $model->getAttributeLabel('description'), 'data-content' => $model->getAttributeDescription('description'))); ?>
