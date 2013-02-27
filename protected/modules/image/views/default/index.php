@@ -53,7 +53,7 @@ $this->renderPartial('_search', array('model' => $model));
         array(
             'name'  => Yii::t('ImageModule.image', 'file'),
             'type'  => 'raw',
-            'value' => 'CHtml::image($data->file, $data->alt, array("width" => 75, "height" => 75))',
+            'value' => 'CHtml::image($data->getUrl(), $data->alt, array("width" => 75, "height" => 75))',
         ),
         array(
            'name'  => 'category_id',

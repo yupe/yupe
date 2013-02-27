@@ -23,6 +23,7 @@
         array('icon' => 'trash', 'label' => Yii::t('CategoryModule.category', 'Удалить категорию'), 'url' => '#', 'linkOptions' => array(
             'submit' => array('/category/default/delete', 'id' => $model->id),
             'confirm' => Yii::t('CategoryModule.category', 'Вы уверены, что хотите удалить категорию?'),
+            'csrf' => true,
         )),
     );
 ?>
