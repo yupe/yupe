@@ -27,6 +27,7 @@ class Image extends YModel
 
     /**
      * Returns the static model of the specified AR class.
+     * @param string $className
      * @return Image the static model class
      */
     public static function model($className = __CLASS__)
@@ -191,7 +192,7 @@ class Image extends YModel
 
     public function getCategoryName()
     {
-        return ($this->category === NULL) ? '---' : $this->category->name;
+        return ($this->category === null) ? '---' : $this->category->name;
     }
 
     public function getUrl()

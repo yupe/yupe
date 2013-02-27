@@ -13,7 +13,7 @@
         array('label' => Yii::t('PageModule.page', 'Страница') . ' «' . mb_substr($model->title, 0, 32) . '»'),
         array('icon' => 'pencil', 'label' => Yii::t('PageModule.page', 'Редактирование страницы'), 'url' => array(
             '/page/default/update',
-            'id'=> $model->id
+            'slug'=> $model->slug
         )),
         array('icon' => 'eye-open', 'label' => Yii::t('PageModule.page', 'Просмотр страницы'), 'url' => array(
             '/page/default/view',

@@ -38,6 +38,7 @@ class News extends YModel
 
     /**
      * Returns the static model of the specified AR class.
+     * @param string $className
      * @return News the static model class
      */
     public static function model($className = __CLASS__)
@@ -280,7 +281,7 @@ class News extends YModel
 
     public function getCategoryName()
     {
-        return ($this->category === NULL) ? '&mdash;' : $this->category->name;
+        return ($this->category === null) ? '&mdash;' : $this->category->name;
     }
 
     public function getImageUrl()

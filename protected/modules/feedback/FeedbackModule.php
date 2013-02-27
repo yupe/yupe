@@ -90,7 +90,7 @@ class FeedbackModule extends YWebModule
                 'message' => Yii::t('FeedbackModule.feedback', 'У Вас {{count}} ', array(
                     '{{count}}' => $count
                  )) . Yii::t('FeedbackModule.feedback', "новое сообщение с сайта|новых сообщения с сайта|новых сообщений с сайта", $count) . ' ' . CHtml::link(Yii::t('FeedbackModule.feedback', 'Посмотреть и ответить?'), array(
-                    '/feedback/default/admin/order/status.asc/FeedbBack_sort/status/',
+                    '/feedback/default/index/order/status.asc/FeedbBack_sort/status/',
                  ))
             );
 

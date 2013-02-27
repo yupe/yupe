@@ -1,6 +1,35 @@
-<?php 
+<?php
+/**
+ * File Doc Comment:
+ * Файл класса LoginAction, который расширяет возможности стандартного CAction
+ *
+ * @category YupeControllerActions
+ * @package  YupeCMS
+ * @author   YupeTeam <team@yupe.ru>
+ * @license  BSD http://ru.wikipedia.org/wiki/%D0%9B%D0%B8%D1%86%D0%B5%D0%BD%D0%B7%D0%B8%D1%8F_BSD
+ * @version  0.5 (dev)
+ * @link     http://yupe.ru
+ *
+ **/
+
+/**
+ * Файл класса LoginAction, который расширяет возможности стандартного CAction
+ *
+ * @category YupeControllerActions
+ * @package  YupeCMS
+ * @author   YupeTeam <team@yupe.ru>
+ * @license  BSD http://ru.wikipedia.org/wiki/%D0%9B%D0%B8%D1%86%D0%B5%D0%BD%D0%B7%D0%B8%D1%8F_BSD
+ * @version  0.5 (dev)
+ * @link     http://yupe.ru
+ *
+ **/
 class LoginAction extends CAction
 {
+    /**
+     * Запуск action'a:
+     *
+     * @return nothing
+     **/
     public function run()
     {
         $form = new LoginForm;

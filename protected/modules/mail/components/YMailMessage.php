@@ -115,11 +115,11 @@ class YMailMessage extends CApplicationComponent
     /**
      * sendTemplate:
      *
-     * @param class $template - класс темы
+     * @param \MailTemplate $template - класс темы
      * @param array $data     - данные
      *
      * @return string mail text body
-     **/
+     */
     public function parseTemplate(MailTemplate $template, array $data)
     {
         return str_replace(

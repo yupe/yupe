@@ -17,16 +17,17 @@
 
 При возникновении проблем с установкой обязательно
 [напишите нам](http://yupe.ru/talk/viewforum.php?id=10).
+[или сюда](http://https://github.com/yupe/yupe/issues).
 
 После установки
 ---------------
 
 - [Расскажите нам о новом сайте на Юпи!](http://yupe.ru/feedback/contact). 
   Нам будет очень приятно.
-- [Сообщайте об ошибках и замечаниях](https://github.com/yupe/yupe/issues).
+- [Сообщайте об ошибках, замечаниях или предложениях](https://github.com/yupe/yupe/issues).
 - Расскажите друзьям о Юпи!.
 - [Следите за обновлениями в twitter](https://twitter.com/YupeCms).
 - [Общайтесь на форуме](http://yupe.ru/talk/).
 - [Помогайте проекту](http://yupe.ru/site/page/view/help).
-- Присылайте pull requests (патчи).
+- [Присылайте pull requests](https://github.com/yupe/yupe/pulls) (патчи).
 - Отдыхайте и наслаждайтесь жизнью!

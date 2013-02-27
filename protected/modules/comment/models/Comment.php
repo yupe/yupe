@@ -48,10 +48,10 @@ class Comment extends YModel
     /**
      * Returns the static model of the specified AR class.
      *
-     * @param YModel $className - инстанс модели
+     * @param string $className - инстанс модели
      *
      * @return Comment the static model class
-     **/
+     */
     public static function model($className = __CLASS__)
     {
         return parent::model($className);
@@ -216,7 +216,7 @@ class Comment extends YModel
 
     /**
      * Добавляем новый комментарий:
-     *
+     * @TODO  Unused parameter $comment
      * @param Comment $comment - комментарий
      *
      * @return nothing

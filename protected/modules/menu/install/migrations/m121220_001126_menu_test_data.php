@@ -60,7 +60,9 @@ class m121220_001126_menu_test_data extends CDbMigration
         ) ;
 
         $columns = array_shift($items);
-
+        /**
+         * Как нибудь описать процесс надо, для большей понятности
+         */
         foreach ($items as $i) {
             $item = array();
             $n    = 0;
@@ -73,8 +75,8 @@ class m121220_001126_menu_test_data extends CDbMigration
  
     /**
      * Откатываем миграцию:
-     *
-     * @return nothing
+     * @TODO Unused local variable $db
+     * @return bool true
      **/
     public function safeDown()
     {

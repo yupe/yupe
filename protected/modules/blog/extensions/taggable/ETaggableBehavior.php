@@ -419,10 +419,12 @@ class ETaggableBehavior extends CActiveRecordBehavior {
 
         parent::afterDelete($event);
     }
+
     /**
      * Load tags into model.
      * @params array|CDbCriteria $criteria, defaults to null.
      * @access protected
+     * @param null $criteria
      * @return void
      */
     protected function loadTags($criteria = null) {

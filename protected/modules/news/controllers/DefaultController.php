@@ -51,7 +51,10 @@ class DefaultController extends YBackController
     /**
      * Updates a particular model.
      * If update is successful, the browser will be redirected to the 'view' page.
+     * @param null $alias
      * @param integer $id the ID of the model to be updated
+     * @throws CHttpException
+     * @return void
      */
     public function actionUpdate($alias = null, $id = null)
     {
@@ -201,7 +204,10 @@ class DefaultController extends YBackController
     /**
      * Deletes a particular model.
      * If deletion is successful, the browser will be redirected to the 'index' page.
+     * @param null $alias
      * @param integer $id the ID of the model to be deleted
+     * @throws CHttpException
+     * @return void
      */
     public function actionDelete($alias = null, $id = null)
     {

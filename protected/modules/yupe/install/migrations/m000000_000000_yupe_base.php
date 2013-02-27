@@ -35,9 +35,9 @@ class m000000_000000_yupe_base extends CDbMigration
         $this->createTable(
             $db->tablePrefix . 'settings', array(
                 'id' => 'pk',
-                'module_id'=> 'string NOT NULL',
-                'param_name'=> 'string NOT NULL',
-                'param_value' => 'string  NOT NULL',
+                'module_id'=> 'varchar(100) NOT NULL',
+                'param_name'=> 'varchar(100) NOT NULL',
+                'param_value' => 'varchar(100) NOT NULL',
                 'creation_date' => 'datetime NOT NULL',
                 'change_date' => 'datetime NOT NULL',
                 'user_id' => 'integer DEFAULT NULL',

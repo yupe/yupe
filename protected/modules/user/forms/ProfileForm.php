@@ -66,6 +66,7 @@ class ProfileForm extends CFormModel
         parent::afterValidate();
     }
 
+    // @TODO Unused parameter $attribute, $params
     public function checkNickName($attribute,$params)
     {
         // Если ник поменяли
@@ -76,7 +77,7 @@ class ProfileForm extends CFormModel
                  $this->addError('nick_name', Yii::t('UserModule.user', 'Ник уже занят'));
         }
     }
-
+    // @TODO Unused parameter $attribute, $params
     public function checkEmail($attribute,$params)
     {
         // Если мыло поменяли

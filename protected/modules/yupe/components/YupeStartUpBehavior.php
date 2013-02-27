@@ -6,6 +6,7 @@ class YupeStartUpBehavior extends CBehavior
         $owner->attachEventHandler('onbeginRequest', array($this, 'beginRequest'));
     }
 
+    // @TODO Unused parameter $event
     public function beginRequest(CEvent $event)
     {
         // Обрабатываем правила маршрутизации текущего модуля, если указаны

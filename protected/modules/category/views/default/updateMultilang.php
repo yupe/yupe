@@ -103,8 +103,6 @@ $form = $this->beginWidget('bootstrap.widgets.TbActiveForm', array(
         echo CHtml::closeTag("div");
     }
     ?>
-    </div>
-
 <br/>
 <?php
 echo CHtml::submitButton($model->isNewRecord ? Yii::t('CategoryModule.category', 'Добавить категорию') : Yii::t('CategoryModule.category', 'Сохранить категорию'), array('class' => 'btn btn-primary'));
