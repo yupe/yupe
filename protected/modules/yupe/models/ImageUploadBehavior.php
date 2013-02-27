@@ -44,7 +44,7 @@ class ImageUploadBehavior extends CActiveRecordBehavior
     /*
      * Параметры для ресайза изображения
      */
-    public $resize = array('quality' => 100, 'width' => null, 'height' => null);
+    public $resize = array('quality' => 100);
 
     protected $_newImage;
     protected $_oldImage;
@@ -82,9 +82,8 @@ class ImageUploadBehavior extends CActiveRecordBehavior
     public function beforeValidate($event)
     {
         if ($this->checkScenario() && ($this->_newImage = CUploadedFile::getInstance($this->owner, $this->attributeName)))
-        {
+
             $this->owner->{$this->attributeName} = $this->_newImage;
-        }
     }
 
     public function beforeSave($event)

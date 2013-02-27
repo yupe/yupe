@@ -28,8 +28,6 @@ class DefaultController extends YBackController
 
             if ($model->save())
             {
-                $model->saveWithImage('image', $this->module->getUploadPath());
-
                 Yii::app()->user->setFlash(
                     YFlashMessages::NOTICE_MESSAGE,
                     Yii::t('CatalogModule.catalog', 'Запись добавлена!')
@@ -57,13 +55,10 @@ class DefaultController extends YBackController
 
         if (isset($_POST['Good']))
         {
-            $image = $model->image;
             $model->attributes = $_POST['Good'];
 
             if ($model->save())
             {
-                $model->saveWithImage('image', $this->module->getUploadPath(), $image);
-
                 Yii::app()->user->setFlash(
                     YFlashMessages::NOTICE_MESSAGE,
                     Yii::t('CatalogModule.catalog', 'Запись обновлена!')
