@@ -21,7 +21,8 @@
         )),
         array('icon' => 'trash', 'label' => Yii::t('CatalogModule.catalog', 'Удалить товар'), 'url' => '#', 'linkOptions' => array(
             'submit' => array('/catalog/default/delete', 'id' => $model->id),
-            'confirm' => Yii::t('CatalogModule.catalog', 'Вы уверены, что хотите удалить товар?')
+            'confirm' => Yii::t('CatalogModule.catalog', 'Вы уверены, что хотите удалить товар?'),
+            'csrf' => true,
         )),
     );
 ?>

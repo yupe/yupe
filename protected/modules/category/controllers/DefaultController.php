@@ -27,8 +27,6 @@ class DefaultController extends YBackController
 
             if ($model->save())
             {
-                $model->saveWithImage('image', $this->module->getUploadPath());
-
                 Yii::app()->user->setFlash(
                     YFlashMessages::NOTICE_MESSAGE,
                     Yii::t('CategoryModule.category', 'Запись добавлена!')
@@ -82,7 +80,7 @@ class DefaultController extends YBackController
         else
         {
             $modelsByLang = array();
-            // Указано ключевое слово новости, ищем все языки
+            // Указано ключевое слово категории, ищем все языки
             $yupe  = Yii::app()->getModule('yupe');
             $langs = explode(",", $yupe->availableLanguages);
 
@@ -111,8 +109,9 @@ class DefaultController extends YBackController
             {
                 if (!isset($modelsByLang[$l]))
                 {
-                    $news = new Category;
-                    $news->setAttributes( array(
+                    $category = new Category;
+                    $category->image = $model->image;
+                    $category->setAttributes( array(
                         'alias'     => $alias,
                         'lang'      => $l,
                         'parent_id' => $model->parent_id,
@@ -120,9 +119,9 @@ class DefaultController extends YBackController
                     ));
 
                     if ($l != Yii::app()->sourceLanguage)
-                        $news->scenario = 'altlang';
+                        $category->scenario = 'altlang';
 
-                    $modelsByLang[$l] = $news;
+                    $modelsByLang[$l] = $category;
                 }
             }
 
@@ -135,13 +134,10 @@ class DefaultController extends YBackController
                 {
                     if (isset($_POST['Category'][$l]))
                     {
-                        $image = $modelsByLang[$l]->image;
-                        $p     = $_POST['Category'][$l];
-
+                        $p = $_POST['Category'][$l];
                         $modelsByLang[$l]->setAttributes(array(
                             'alias'             => $_POST['Category']['alias'],
                             'parent_id'         => $_POST['Category']['parent_id'],
-                            'image'             => $modelsByLang[$l]->image,
                             'name'              => $p['name'],
                             'short_description' => $p['short_description'],
                             'description'       => $p['description'],
@@ -153,12 +149,6 @@ class DefaultController extends YBackController
 
                         if (!$modelsByLang[$l]->save())
                             $wasError = true;
-                        else
-                        {
-                            $modelsByLang[$l]->saveWithImage('image', $this->module->getUploadPath(), $image);
-                            // @TODO Unused local variable $alias
-                            $alias = $modelsByLang[$l]->alias;
-                        }
                     }
                 }
 
@@ -203,10 +193,9 @@ class DefaultController extends YBackController
             {
                 // поддерживаем удаление только из POST-запроса
                 $model = $this->loadModel($id);
-
-                if ($model->delete())
-                    @unlink($this->module->getUploadPath() . $model->image);
-
+                if ($model->lang != Yii::app()->sourceLanguage)
+                    $model->scenario = 'altlang';
+                $model->delete();
                 Yii::app()->user->setFlash(
                     YFlashMessages::NOTICE_MESSAGE,
                     Yii::t('CategoryModule.category', 'Запись удалена!')

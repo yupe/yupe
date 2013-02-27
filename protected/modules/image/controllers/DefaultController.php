@@ -18,15 +18,11 @@ class DefaultController extends YBackController
     public function actionCreate()
     {
         $model = new Image;
-
-        if (isset($_POST['Good']))
+        if (isset($_POST['Image']))
         {
             $model->attributes = $_POST['Image'];
-
             if ($model->save())
             {
-                $model->saveWithImage('file', $this->module->getUploadPath());
-
                 Yii::app()->user->setFlash(
                     YFlashMessages::NOTICE_MESSAGE,
                     Yii::t('ImageModule.image', 'Изображение добавлено!')
@@ -48,16 +44,11 @@ class DefaultController extends YBackController
     public function actionUpdate($id)
     {
         $model = $this->loadModel($id);
-
         if (isset($_POST['Image']))
         {
-            $file = $model->file;
             $model->attributes = $_POST['Image'];
-
             if ($model->save())
             {
-                $model->saveWithImage('file', $this->module->getUploadPath(), $file);
-
                 Yii::app()->user->setFlash(
                     YFlashMessages::NOTICE_MESSAGE,
                     Yii::t('user', 'Изображение обновлено!')
@@ -81,8 +72,8 @@ class DefaultController extends YBackController
     {
         if (Yii::app()->request->isPostRequest)
         {
-            // we only allow deletion via POST request @TODO Unused local variable $model
-            $model = $this->loadModel($id)->delete();
+            // we only allow deletion via POST request
+            $this->loadModel($id)->delete();
 
             Yii::app()->user->setFlash(
                 YFlashMessages::NOTICE_MESSAGE,
