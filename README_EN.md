@@ -2,7 +2,7 @@ Yupe - cms, based on Yii framework
 =================
 
 Yupe - cms, written with a wonderful MVC-Yii framework(http://www.yiiframework.com/),
-which has been working for more than 40 projects.
+which has been working for more than 100 projects.
 
 More [can be found here](http://yupe.ru/site/page/view/about).
 
@@ -37,7 +37,7 @@ Out of the box you get a skeleton application with the following functionality i
 * "Feedback" Module + [FAQ](http://yupe.ru/faq) ([feedback module](https://github.com/yupe/yupe/tree/master/protected/modules/feedback)).
 * Module for working with content blocks ([contentblock module](https://github.com/yupe/yupe/tree/master/protected/modules/contentblock)).
 * Wiki - working through [module yeeki](http://rmcreative.ru/blog/post/yeeki).
-* Convenient admin panel based on Twitter Boostrap  ([It looks like this](http://yupe.ru/gallery/gallery/show/id/1)).
+* Convenient admin panel based on Twitter Boostrap  ([It looks like this](http://vk.com/album-39485060_169991814)).
 * [Possibility to generate CRUD-style Twitter Bootstrap](https://github.com/yupe/yupe/tree/master/protected/modules/yupe/extensions/yupe).
 
 Install
