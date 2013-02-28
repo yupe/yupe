@@ -48,13 +48,33 @@ $this->renderPartial('_search', array('model' => $model));
     'type'         => 'condensed',
     'dataProvider' => $model->search(),
     'filter'       => $model,
-    'columns'      => array(
-        array(
-            'class'          => 'CCheckBoxColumn',
-            'id'             => 'itemsSelected',
-            'selectableRows' => '2',
-            'htmlOptions'    => array('class' => 'center'),
+    'bulkActions'      => array(
+        /* Массив кнопок действий: */
+        'actionButtons' => array(
+            array(
+                'id'         => 'deleteAction',
+                'buttonType' => 'button',
+                'type'       => 'danger',
+                'size'       => 'small',
+                'label'      => Yii::t('CommentModule.comment', 'Удалить'),
+                /**
+                 *   Логика следующая - получаем массив выбранных эллементов в переменную values,
+                 *   далее передаём в функцию multiaction - необходимое действие и эллементы.
+                 *   Multiaction - делает ajax-запрос на actionMultiaction, где уже происходит
+                 *   обработка данных (указывая собственные действия - необходимо создавать их
+                 *   обработчики в actionMultiaction):
+                 **/
+                'click'      => 'js:function(values){ if(!confirm("' . Yii::t('CommentModule.comment', 'Вы уверены, что хотите удалить выбранные элементы?') . '")) return false; multiaction("delete", values); }',
+            ),
         ),
+
+        // if grid doesn't have a checkbox column type, it will attach
+        // one and this configuration will be part of it
+        'checkBoxColumnConfig' => array(
+            'name' => 'id'
+        ),
+    ),
+    'columns'      => array(
         'id',
         'model',
         'model_id',

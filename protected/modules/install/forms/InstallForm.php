@@ -159,7 +159,7 @@ class InstallForm extends YFormModel
             'dbUser'          => Yii::t('InstallModule.install', 'Пользователь для доступа к указанной БД'),
             'dbPassword'      => Yii::t('InstallModule.install', 'Пароль для доступа к указанной БД'),
             'tablePrefix'     => Yii::t('InstallModule.install', 'Префикс добавляется в начале имени каждой таблицы, по умолчанию "yupe_"'),
-            
+
             /**
              * Для начальной настройки сайта:
              **/
@@ -190,9 +190,9 @@ class InstallForm extends YFormModel
         return array(
             self::DB_MYSQL      => 'MySQL',
             self::DB_POSTGRESQL => 'PostgreSQL',
-            self::DB_MSSQL      => 'MSSQL',
-            self::DB_ORACLE     => 'Oracle',
-            self::DB_SQLITE     => 'SQLite',
+            //self::DB_MSSQL      => 'MSSQL',
+            //self::DB_ORACLE     => 'Oracle',
+            //self::DB_SQLITE     => 'SQLite',
         );
     }
 

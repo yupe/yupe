@@ -81,14 +81,13 @@ class BlogAdminController extends YBackController
      * Удаляет модель блога из базы.
      * Если удаление прошло успешно - возвращется в index
      *
-     * @param integer $id          идентификатор блога, который нужно удалить
-     * @param bool    $multiaction запрос из мультиекшена
+     * @param integer $id          идентификатор блога, который нужно удалить     
      *
      * @return nothing
      **/
-    public function actionDelete($id, $multiaction = false)
+    public function actionDelete($id)
     {
-        if (Yii::app()->request->isPostRequest || $multiaction === true) {
+        if (Yii::app()->request->isPostRequest) {
             // поддерживаем удаление только из POST-запроса
             $this->loadModel($id)->delete();
 
@@ -119,33 +118,7 @@ class BlogAdminController extends YBackController
         $this->render('index', array('model' => $model));
     }
 
-    /**
-     *  Мультиекшен:
-     *
-     *  в массиве $_GET передаются:
-     *      do    - действие над объектами
-     *      items - массив эллементов
-     *
-     * @return nothing
-     **/
-    public function actionMultiaction()
-    {
-        if ((isset($_GET['ajax'])) && ($_GET['ajax'] == 'Blog') && (isset($_GET['do'])) && (isset($_GET['items'])) && (is_array($_GET['items'])) && (!empty($_GET['items']))) {
-            switch ($_GET['do']) {
-            case 'delete':
-                foreach ($_GET['items'] as $itemId)
-                    $this->actionDelete($itemId, true);
-                break;
-                
-            default:
-                throw new CHttpException(404, Yii::t('BlogModule.blog', 'Запрошенная страница не найдена!'));
-                break;
-            }
-        }
-
-        return $this->actionIndex();
-    }
-
+    
     /**
      * Возвращает модель по указанному идентификатору
      * Если модель не будет найдена - возникнет HTTP-исключение.
