@@ -16,6 +16,7 @@ class Gallery extends YModel
 
     /**
      * Returns the static model of the specified AR class.
+     * @param string $className
      * @return Gallery the static model class
      */
     public static function model($className = __CLASS__)
@@ -57,9 +58,9 @@ class Gallery extends YModel
         // NOTE: you may need to adjust the relation name and the related
         // class name for the relations automatically generated below.
         return array(
-            'imagesRell'  => array(self::HAS_MANY, 'ImageToGallery', 'galleryId'),
+            'imagesRell'  => array(self::HAS_MANY, 'ImageToGallery', array('id' => 'gallery_id')),
             'images'      => array(self::HAS_MANY, 'Images', 'image_id', 'through' => 'imagesRell'),
-            'imagesCount' => array(self::STAT, 'ImageToGallery', 'galleryId'),
+            'imagesCount' => array(self::STAT, 'ImageToGallery', 'gallery_id'),
         );
     }
 
@@ -123,7 +124,7 @@ class Gallery extends YModel
 
         $im2g->setAttributes(array(
             'image_id'  => $image->id,
-            'galleryId' => $this->id,
+            'gallery_id' => $this->id,
         ));
 
         return $im2g->save() ? true : false;

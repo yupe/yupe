@@ -35,6 +35,7 @@ class Page extends YModel
 
     /**
      * Returns the static model of the specified AR class.
+     * @param string $className
      * @return Page the static model class
      */
     public static function model($className = __CLASS__)
@@ -211,9 +212,9 @@ class Page extends YModel
             $criteria->compare('category_id', $this->category_id);
 
         $criteria->compare('is_protected', $this->is_protected);
-        $criteria->compare('is_protected', $this->is_protected);
 
-        $criteria->addCondition('lang = "' . Yii::app()->language . '" OR lang is null OR lang = "' . Yii::app()->sourceLanguage . '"');
+        //@TODO ??? для чего
+        //$criteria->addCondition('"lang" = \'' . Yii::app()->language . '\' OR "lang" is null OR "lang" = \'' . Yii::app()->sourceLanguage . '\'');
 
         return new CActiveDataProvider(get_class($this), array(
             'criteria' => $criteria,
@@ -276,11 +277,11 @@ class Page extends YModel
 
     public function getCategoryName()
     {
-        return ($this->category === NULL) ? '---' : $this->category->name;
+        return ($this->category === null) ? '---' : $this->category->name;
     }
 
     public function getParentName()
     {
-        return ($this->parentPage === NULL) ? '---' : $this->parentPage->name;
+        return ($this->parentPage === null) ? '---' : $this->parentPage->title;
     }
 }

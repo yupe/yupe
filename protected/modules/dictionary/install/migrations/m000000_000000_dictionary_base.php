@@ -30,7 +30,7 @@ class m000000_000000_dictionary_base extends CDbMigration
     public function safeUp()
     {
         $db = $this->getDbConnection();
-        $tableName = $db->tablePrefix . 'dictionary_group';
+        $options = Yii::app()->db->schema instanceof CMysqlSchema ? 'ENGINE=InnoDB DEFAULT CHARSET=utf8' : '';
         $this->createTable(
             $db->tablePrefix . 'dictionary_group', array(
                 'id' => 'pk',
@@ -41,14 +41,15 @@ class m000000_000000_dictionary_base extends CDbMigration
                 'update_date' => 'datetime NOT NULL',
                 'create_user_id' => 'integer DEFAULT NULL',
                 'update_user_id' => 'integer DEFAULT NULL',
-            ), "ENGINE=InnoDB DEFAULT CHARSET=utf8"
+            ), $options
         );
 
         $this->createIndex($db->tablePrefix . "dictionary_group_code_unique", $db->tablePrefix . 'dictionary_group', "code", true);
         $this->createIndex($db->tablePrefix . "dictionary_group_create_user_id", $db->tablePrefix . 'dictionary_group', "create_user_id", false);
         $this->createIndex($db->tablePrefix . "dictionary_group_update_user_id", $db->tablePrefix . 'dictionary_group', "update_user_id", false);
-        $this->addForeignKey($db->tablePrefix . "dictionary_group_createuser_id", $db->tablePrefix . 'dictionary_group', 'create_user_id', $db->tablePrefix . 'user', 'id', 'SET NULL', 'CASCADE');
-        $this->addForeignKey($db->tablePrefix . "dictionary_group_updateuser_id", $db->tablePrefix . 'dictionary_group', 'update_user_id', $db->tablePrefix . 'user', 'id', 'SET NULL', 'CASCADE');
+
+        $this->addForeignKey($db->tablePrefix . "dictionary_group_createuser_id_fk", $db->tablePrefix . 'dictionary_group', 'create_user_id', $db->tablePrefix . 'user', 'id', 'SET NULL', 'CASCADE');
+        $this->addForeignKey($db->tablePrefix . "dictionary_group_updateuser_id_fk", $db->tablePrefix . 'dictionary_group', 'update_user_id', $db->tablePrefix . 'user', 'id', 'SET NULL', 'CASCADE');
 
         /**
          * Dictionary_data
@@ -65,8 +66,8 @@ class m000000_000000_dictionary_base extends CDbMigration
                 'update_date' => 'datetime NOT NULL',
                 'create_user_id' => 'integer DEFAULT NULL',
                 'update_user_id' => 'integer DEFAULT NULL',
-                'status' => "tinyint(3) unsigned NOT NULL DEFAULT '1'",
-            ), "ENGINE=InnoDB DEFAULT CHARSET=utf8"
+                'status' => "integer NOT NULL DEFAULT '1'",
+            ), $options
         );
 
         $this->createIndex($db->tablePrefix . "dictionary_data_code_unique", $db->tablePrefix . 'dictionary_data', "code", true);
@@ -75,9 +76,9 @@ class m000000_000000_dictionary_base extends CDbMigration
         $this->createIndex($db->tablePrefix . "dictionary_data_update_user_id", $db->tablePrefix . 'dictionary_data', "update_user_id", false);
         $this->createIndex($db->tablePrefix . "dictionary_data_status", $db->tablePrefix . 'dictionary_data', "status", false);
 
-        $this->addForeignKey($db->tablePrefix . "dictionary_data_createuser_id", $db->tablePrefix . 'dictionary_data', 'create_user_id', $db->tablePrefix . 'user', 'id', 'SET NULL', 'CASCADE');
-        $this->addForeignKey($db->tablePrefix . "dictionary_data_updateuser_id", $db->tablePrefix . 'dictionary_data', 'update_user_id', $db->tablePrefix . 'user', 'id', 'SET NULL', 'CASCADE');
-        $this->addForeignKey($db->tablePrefix . "dictionary_data_group_id", $db->tablePrefix . 'dictionary_data', 'group_id', $db->tablePrefix . 'dictionary_group', 'id', 'CASCADE', 'CASCADE');
+        $this->addForeignKey($db->tablePrefix . "dictionary_data_createuser_id_fk", $db->tablePrefix . 'dictionary_data', 'create_user_id', $db->tablePrefix . 'user', 'id', 'SET NULL', 'CASCADE');
+        $this->addForeignKey($db->tablePrefix . "dictionary_data_updateuser_id_fk", $db->tablePrefix . 'dictionary_data', 'update_user_id', $db->tablePrefix . 'user', 'id', 'SET NULL', 'CASCADE');
+        $this->addForeignKey($db->tablePrefix . "dictionary_data_group_id_fk", $db->tablePrefix . 'dictionary_data', 'group_id', $db->tablePrefix . 'dictionary_group', 'id', 'CASCADE', 'CASCADE');
 
     }
  

@@ -28,6 +28,7 @@ class UserToBlog extends YModel
 
     /**
      * Returns the static model of the specified AR class.
+     * @param string $className
      * @return UserToBlog the static model class
      */
     public static function model($className = __CLASS__)
@@ -53,9 +54,8 @@ class UserToBlog extends YModel
         return array(
             array('user_id, blog_id', 'required', 'except' => 'search'),
             array('role, status, user_id, blog_id, create_date, update_date', 'numerical', 'integerOnly' => true),
-            array('user_id, blog_id', 'length', 'max' => 10),
-            array('create_date, update_date', 'length', 'max' => 11),
-            array('note', 'length', 'max' => 300),
+            array('user_id, blog_id, create_date, update_date, role, status', 'length', 'max' => 11),
+            array('note', 'length', 'max' => 250),
             array('role', 'in', 'range' => array_keys($this->roleList)),
             array('status', 'in', 'range' => array_keys($this->statusList)),
             array('note', 'filter', 'filter' => array($obj = new CHtmlPurifier(), 'purify')),

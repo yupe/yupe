@@ -16,6 +16,7 @@
  * @property string $update_user_id
  * @property integer $create_date
  * @property integer $update_date
+ * @property string  $lang
  *
  * The followings are the available model relations:
  * @property User $createUser
@@ -33,7 +34,7 @@ class Blog extends YModel
 
     /**
      * Returns the static model of the specified AR class.
-     *
+     * @param string $className
      * @return Blog the static model class
      */
     public static function model($className = __CLASS__)
@@ -57,16 +58,16 @@ class Blog extends YModel
         return array(
             array('name, description, slug', 'required', 'except' => 'search'),
             array('type, status, create_user_id, update_user_id, create_date, update_date', 'numerical', 'integerOnly' => true),
-            array('name, icon', 'length', 'max' => 300),
+            array('name, icon', 'length', 'max' => 250),
             array('slug', 'length', 'max' => 150),
-            array('create_user_id, update_user_id', 'length', 'max' => 10),
-            array('create_date, update_date', 'length', 'max' => 11),
-            array('slug', 'unique'),
-            array('name, slug, description', 'filter', 'filter' => array($obj = new CHtmlPurifier(), 'purify')),
+            array('lang', 'length', 'max' => 2),
+            array('create_user_id, update_user_id, create_date, update_date, status', 'length', 'max' => 11),
             array('slug', 'YSLugValidator', 'message' => Yii::t('BlogModule.blog', 'Запрещенные символы в поле {attribute}')),
             array('type', 'in', 'range' => array_keys($this->typeList)),
             array('status', 'in', 'range' => array_keys($this->statusList)),
-            array('id, name, description, icon, slug, type, status, create_user_id, update_user_id, create_date, update_date', 'safe', 'on' => 'search'),
+            array('name, slug, description', 'filter', 'filter' => array($obj = new CHtmlPurifier(), 'purify')),
+            array('slug', 'unique'),
+            array('id, name, description, icon, slug, type, status, create_user_id, update_user_id, create_date, update_date, lang', 'safe', 'on' => 'search'),
         );
     }
 
@@ -223,21 +224,24 @@ class Blog extends YModel
     public function join($userId)
     {
         $params = array(
-            'user_id' => Yii::app()->user->id,
+            'user_id' => $userId ? $userId : Yii::app()->user->id,
             'blog_id' => $this->id,
         );
 
         $userToBlog = new UserToBlog;
-        if (!$userToBlog->find('user_id = :user_id AND blog_id = :blog_id', $params))
-        {
+
+        if (!$userToBlog->find('user_id = :user_id AND blog_id = :blog_id', $params)){
             $userToBlog->setAttributes($params);
             return $userToBlog->save();
         }
+
         return false;
     }
 
     public function getMembers()
     {
-        return UserToBlog::model()->with('user')->findAll('blog_id = :blog_id', array(':blog_id' => $this->id));
+        return UserToBlog::model()->with('user')->findAll('blog_id = :blog_id', array(
+            ':blog_id' => $this->id
+        ));
     }
 }

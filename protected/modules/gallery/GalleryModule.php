@@ -6,6 +6,7 @@ class GalleryModule extends YWebModule
         return array(
             'user',
             'category',
+            'image'
         );
     }
 
@@ -13,6 +14,7 @@ class GalleryModule extends YWebModule
     {
         return array(
             'adminMenuOrder' => Yii::t('GalleryModule.gallery', 'Порядок следования в меню'),
+            'editor'         => Yii::t('GalleryModule.gallery', 'Визуальный редактор'),
         );
     }
 
@@ -66,7 +68,15 @@ class GalleryModule extends YWebModule
         ));
     }
 
-     public function getNavigation()
+    public function getEditableParams()
+    {
+        return array(
+            'adminMenuOrder',
+            'editor'        => Yii::app()->getModule('yupe')->editors,
+        );
+    }
+
+    public function getNavigation()
     {
         return array(
             array('icon' => 'list-alt', 'label' => Yii::t('GalleryModule.gallery', 'Список галерей'), 'url' => array('/gallery/default/index')),

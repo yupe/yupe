@@ -21,6 +21,8 @@
  * @property integer $access_type
  * @property string $keywords
  * @property string $description
+ * @property string $lang
+ * @property string $create_user_ip
  *
  * The followings are the available model relations:
  * @property User $createUser
@@ -41,6 +43,7 @@ class Post extends YModel
 
     /**
      * Returns the static model of the specified AR class.
+     * @param string $className
      * @return Post the static model class
      */
     public static function model($className = __CLASS__)
@@ -66,20 +69,21 @@ class Post extends YModel
         return array(
             array('blog_id, slug, publish_date_tmp, publish_time_tmp, title, content', 'required', 'except' => 'search'),
             array('blog_id, create_user_id, update_user_id, status, comment_status, access_type, create_date, update_date', 'numerical', 'integerOnly' => true),
+            array('blog_id, create_user_id, update_user_id, create_date, update_date, publish_date, status, comment_status, access_type', 'length', 'max' => 11),
+            array('lang', 'length', 'max' => 2),
+            array('slug', 'length', 'max' => 150),
+            array('create_user_ip', 'length', 'max' => 20),
+            array('quote, description, title, link, keywords', 'length', 'max' => 250),
             array('publish_date_tmp', 'type', 'type' => 'date', 'dateFormat' => 'dd-mm-yyyy'),
             array('publish_time_tmp', 'type', 'type' => 'time', 'timeFormat' => 'hh:mm'),
-            array('blog_id, create_user_id, update_user_id', 'length', 'max' => 10),
-            array('create_date, update_date', 'length', 'max' => 11),
-            array('slug, title, link, keywords', 'length', 'max' => 150),
-            array('quote, description', 'length', 'max' => 300),
             array('link', 'url'),
             array('comment_status', 'in', 'range' => array(0, 1)),
-            array('access_type', 'in', 'range' => array_keys($this->accessTypeList)),
-            array('status', 'in', 'range' => array_keys($this->statusList)),
+            array('access_type', 'in', 'range' => array_keys($this->getAccessTypeList())),
+            array('status', 'in', 'range' => array_keys($this->getStatusList())),
             array('slug', 'YSLugValidator', 'message' => Yii::t('BlogModule.blog', 'Запрещенные символы в поле {attribute}')),
-            array('slug', 'unique'),
             array('title, slug, link, keywords, description, publish_date', 'filter', 'filter' => array($obj = new CHtmlPurifier(), 'purify')),
-            array('id, blog_id, create_user_id, update_user_id, create_date, update_date, slug, publish_date, title, quote, content, link, status, comment_status, access_type, keywords, description', 'safe', 'on' => 'search'),
+            array('slug', 'unique'),
+            array('id, blog_id, create_user_id, update_user_id, create_date, update_date, slug, publish_date, title, quote, content, link, status, comment_status, access_type, keywords, description, lang', 'safe', 'on' => 'search'),
         );
     }
 
@@ -222,8 +226,10 @@ class Post extends YModel
         $this->publish_date   = strtotime($this->publish_date_tmp . ' ' . $this->publish_time_tmp);
         $this->update_user_id = Yii::app()->user->id;
 
-        if ($this->isNewRecord)
+        if ($this->isNewRecord){
             $this->create_user_id = $this->update_user_id;
+            $this->create_user_ip = Yii::app()->request->userHostAddress;
+        }
 
         return parent::beforeSave();
     }

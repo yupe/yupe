@@ -51,7 +51,7 @@ class ETagListWidget extends CMenu {
 
     function init(){
         if(!isset($this->htmlOptions['class'])) $this->htmlOptions['class'] = 'tags';
-
+        // @TODO  Unused local variable $tags
         $tags = array();
 
         $criteria = new CDbCriteria();

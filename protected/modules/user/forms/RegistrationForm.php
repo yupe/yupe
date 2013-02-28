@@ -45,14 +45,14 @@ class RegistrationForm extends CFormModel
             $this->nick_name = substr(User::model()->generateSalt(), 10);
         return parent::beforeValidate();
     }
-
+    // @TODO Unused parameter $attribute, $params
     public function checkNickName($attribute,$params)
     {
         $model = User::model()->find('nick_name = :nick_name', array(':nick_name' => $this->nick_name));
         if ($model)
             $this->addError('nick_name', Yii::t('UserModule.user', 'Ник уже занят'));
     }
-
+    // @TODO Unused parameter $attribute, $params
     public function checkEmail($attribute,$params)
     {
         $model = User::model()->find('email = :email', array(':email' => $this->email));

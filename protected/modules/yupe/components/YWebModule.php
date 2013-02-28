@@ -425,8 +425,10 @@ abstract class YWebModule extends CWebModule
                 if (($m = Yii::app()->getModule($dep)) == null)
                     throw new CException(Yii::t('YupeModule.yupe', "Необходимый для установки модуль {dm} не найден", array('{dm}' => $dep)));
                 else {
-                    if (!isset($installed[$dep]) && !($i = $m->installDB($installed)))
+                    $i = $m->installDB($installed);
+                    if (!isset($installed[$dep]) && !$i){
                         return false;
+                    }
                     $log = array_merge($log, $i);
                 }
             }
@@ -443,13 +445,36 @@ abstract class YWebModule extends CWebModule
      */
     public function uninstallDB()
     {
+        // @TODO Unused local variable $log
         $log = array();
         Yii::log(Yii::t('YupeModule.yupe', "{id}->uninstallDB() : Запрошено удаление БД модуля {m}", array('{m}' => $this->name,'{id}' => $this->id)));
 
         $history = Yii::app()->migrator->getMigrationHistory($this->id, -1);
         if (!empty($history)) {
             // Зачем?
-            print_r($history);
+            $message = '';
+            foreach ($history as $migrationName => $migrationTimeUp) {
+                if ($migrationTimeUp > 0) {
+                    if (Yii::app()->migrator->migrateDown($this->id, $migrationName))
+                        $message .= Yii::t(
+                            'YupeModule.yupe', '{m}: Произошёл откат миграции - {migrationName}', array(
+                                '{m}' => $this->id,
+                                '{migrationName}' => $migrationName,
+                            )
+                        ) . '<br />';
+                    else
+                        $message .= Yii::t(
+                            'YupeModule.yupe', '{m}: Откат миграции {migrationName} неудалось провести.', array(
+                                '{m}' => $this->id,
+                                '{migrationName}' => $migrationName,
+                            )
+                        ) . '<br />';
+                }
+            }
+            Yii::app()->user->setFlash(
+                YFlashMessages::WARNING_MESSAGE,
+                $message
+            );
             return true;
         }
         throw new CException(Yii::t('YupeModule.yupe', 'Произошла ошибка удаления БД модуля!'));

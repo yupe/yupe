@@ -31,7 +31,7 @@ class m000000_000000_social_base extends CDbMigration
     public function safeUp()
     {
         $db = $this->getDbConnection();
-        $tableName = $db->tablePrefix . 'login';
+        $options = Yii::app()->db->schema instanceof CMysqlSchema ? 'ENGINE=InnoDB DEFAULT CHARSET=utf8' : '';
         $this->createTable(
             $db->tablePrefix . 'login', array(
                 'id' => 'pk',
@@ -39,7 +39,7 @@ class m000000_000000_social_base extends CDbMigration
                 'identity_id' => 'string NOT NULL',
                 'type' => 'string NOT NULL',
                 'creation_date' => 'datetime NOT NULL',
-            ), "ENGINE=InnoDB DEFAULT CHARSET=utf8"
+            ), $options
         );
 
         $this->createIndex($db->tablePrefix . "social_identity_uniq", $db->tablePrefix . 'login', "identity_id", true);

@@ -22,6 +22,7 @@
         array('icon' => 'trash', 'label' => Yii::t('ImageModule.image', 'Удалить изображение'),'url' => '#', 'linkOptions' => array(
             'submit'  => array('/image/default/delete', 'id' => $model->id),
             'confirm' => Yii::t('yupe', 'Вы уверены, что хотите удалить изображение?'),
+            'csrf' => true,
         )),
     );
 ?>
@@ -41,7 +42,7 @@
          array(
              'name'  => 'file',
              'type'  => 'raw',
-             'value' => CHtml::image($model->file, $model->alt),
+             'value' => CHtml::image($model->getUrl(), $model->alt),
          ),
         'creation_date',
         array(

@@ -37,9 +37,4 @@ class CommentsListWidget extends YWidget
         }
         $this->render('commentslistwidget', array('comments' => $comments));
     }
-
-    public function renderPartial($view, $data = null, $return = false, $processOutput = false)
-    {
-        $this->controller->renderPartial($view, $data, $return, $processOutput);
-    }
 }

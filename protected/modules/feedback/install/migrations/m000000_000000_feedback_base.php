@@ -30,7 +30,7 @@ class m000000_000000_feedback_base extends CDbMigration
     public function safeUp()
     {
         $db = $this->getDbConnection();
-
+        $options = Yii::app()->db->schema instanceof CMysqlSchema ? 'ENGINE=InnoDB DEFAULT CHARSET=utf8' : '';
         $this->createTable(
             $db->tablePrefix . 'feedback', array(
                 'id' => 'pk',
@@ -42,13 +42,13 @@ class m000000_000000_feedback_base extends CDbMigration
                 'phone' => 'string DEFAULT NULL',
                 'theme' => 'string NOT NULL',
                 'text' => 'text NOT NULL',
-                'type' => "tinyint(4) NOT NULL DEFAULT '0'",
+                'type' => "integer NOT NULL DEFAULT '0'",
                 'answer' => 'text NOT NULL',
                 'answer_date' => 'datetime DEFAULT NULL',
-                'is_faq' => "tinyint(1) NOT NULL DEFAULT '0'",
-                'status' => "tinyint(4) NOT NULL DEFAULT '0'",
+                'is_faq' => "integer NOT NULL DEFAULT '0'",
+                'status' => "integer NOT NULL DEFAULT '0'",
                 'ip' => 'string NOT NULL',
-            ), "ENGINE=InnoDB DEFAULT CHARSET=utf8"
+            ), $options
         );
 
         $this->createIndex($db->tablePrefix . "feedback_type", $db->tablePrefix . 'feedback', "type", false);
@@ -57,7 +57,7 @@ class m000000_000000_feedback_base extends CDbMigration
         $this->createIndex($db->tablePrefix . "feedback_answer_user", $db->tablePrefix . 'feedback', "answer_user", false);
         $this->createIndex($db->tablePrefix . "feedback_answer_date", $db->tablePrefix . 'feedback', "answer_date", false);
 
-        $this->addForeignKey($db->tablePrefix . "feedback_answer_user_fk", $db->tablePrefix . 'feedback', 'answer_user', $db->tablePrefix . 'user', 'id', 'SET NULL', 'CASCADE');
+        $this->addForeignKey($db->tablePrefix . "feedback_answer_user_fk", $db->tablePrefix . 'feedback', 'answer_user', $db->tablePrefix . 'user', 'id', 'RESTRICT', 'CASCADE');
 
     }
  

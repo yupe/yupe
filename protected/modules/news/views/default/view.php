@@ -13,7 +13,7 @@
         array('label' => Yii::t('NewsModule.news', 'Новость') . ' «' . mb_substr($model->title, 0, 32) . '»'),
         array('icon' => 'pencil', 'label' => Yii::t('NewsModule.news', 'Редактирование новости'), 'url' => array(
             '/news/default/update',
-            'id' => $model->id
+            'alias' => $model->alias
         )),
         array('icon' => 'eye-open', 'label' => Yii::t('NewsModule.news', 'Просмотреть новость'), 'url' => array(
             '/news/default/view',
@@ -22,6 +22,7 @@
         array('icon' => 'trash', 'label' => Yii::t('NewsModule.news', 'Удалить новость'), 'url' => '#', 'linkOptions' => array(
             'submit' => array('/news/default/delete', 'id' => $model->id),
             'confirm' => Yii::t('NewsModule.news', 'Вы уверены, что хотите удалить новость?'),
+            'csrf' => true,
         )),
     );
 ?>

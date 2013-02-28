@@ -1,8 +1,37 @@
 <?php
+/**
+ * File Doc Comment:
+ * Файл класса UserIdentity, который расширяет возможности стандартного CUserIdentity
+ *
+ * @category YupeComponents
+ * @package  YupeCMS
+ * @author   YupeTeam <team@yupe.ru>
+ * @license  BSD http://ru.wikipedia.org/wiki/%D0%9B%D0%B8%D1%86%D0%B5%D0%BD%D0%B7%D0%B8%D1%8F_BSD
+ * @version  0.5 (dev)
+ * @link     http://yupe.ru
+ *
+ **/
+
+/**
+ * Файл класса UserIdentity, который расширяет возможности стандартного CUserIdentity
+ *
+ * @category YupeComponents
+ * @package  YupeCMS
+ * @author   YupeTeam <team@yupe.ru>
+ * @license  BSD http://ru.wikipedia.org/wiki/%D0%9B%D0%B8%D1%86%D0%B5%D0%BD%D0%B7%D0%B8%D1%8F_BSD
+ * @version  0.5 (dev)
+ * @link     http://yupe.ru
+ *
+ **/
 class UserIdentity extends CUserIdentity
 {
     private $_id;
 
+    /**
+     * Метод аутентификации пользователя:
+     *
+     * @return bool is user authenticated
+     **/
     public function authenticate()
     {
         $user = User::model()->active()->findByAttributes(array('email' => $this->username));
@@ -56,6 +85,11 @@ class UserIdentity extends CUserIdentity
         return $this->errorCode == self::ERROR_NONE;
     }
 
+    /**
+     * Метод получния идентификатора пльзователя:
+     *
+     * @return int userID
+     **/
     public function getId()
     {
         return $this->_id;

@@ -74,6 +74,8 @@ $form = $this->beginWidget('bootstrap.widgets.TbActiveForm', array(
     </div>
     <?php $this->endWidget();?>
 
+    <br/><br/>
+
     <?php $this->widget('bootstrap.widgets.TbButton', array(
         'buttonType' => 'submit',
         'type'       => 'primary',

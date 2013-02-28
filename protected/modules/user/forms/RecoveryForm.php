@@ -12,7 +12,7 @@ class RecoveryForm extends CFormModel
             array('email', 'checkEmail'),
         );
     }
-
+    // @TODO Unused parameter $attribute, $params
     public function checkEmail($attribute, $params)
     {
         if (!$this->hasErrors())

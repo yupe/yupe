@@ -28,7 +28,6 @@ class DefaultController extends YBackController
 
             if ($model->save())
             {
-                $model->saveWithImage('image', $this->module->getUploadPath());
 
                 Yii::app()->user->setFlash(
                     YFlashMessages::NOTICE_MESSAGE,
@@ -52,7 +51,10 @@ class DefaultController extends YBackController
     /**
      * Updates a particular model.
      * If update is successful, the browser will be redirected to the 'view' page.
+     * @param null $alias
      * @param integer $id the ID of the model to be updated
+     * @throws CHttpException
+     * @return void
      */
     public function actionUpdate($alias = null, $id = null)
     {
@@ -103,19 +105,20 @@ class DefaultController extends YBackController
                 $modelsByLang[$m->lang] = $m;
             }
             // Выберем модельку для вывода тайтлов и прочего
+
             $model = isset($modelsByLang[Yii::app()->language])
                 ? $modelsByLang[Yii::app()->language]
                 : (isset($modelsByLang[Yii::app()->sourceLanguage])
                     ? $modelsByLang[Yii::app()->sourceLanguage]
                     : reset($models)
                 );
-
             // Теперь создадим недостоающие
             foreach ($langs as $l)
             {
                 if (!isset($modelsByLang[$l]))
                 {
                     $news = new News;
+                    $news->image = $model->image;
                     $news->setAttributes(
                         array(
                             'alias'         => $alias,
@@ -123,7 +126,6 @@ class DefaultController extends YBackController
                             'link'          => $model->link,
                             'date'          => $model->date,
                             'category_id'   => $model->category_id,
-                            'iamge'         => $model->image,
                             'creation_date' => $model->creation_date,
                             'change_date'   => $model->change_date,
                             'user_id'       => Yii::app()->user->id,
@@ -137,30 +139,25 @@ class DefaultController extends YBackController
 
                     $modelsByLang[$l] = $news;
                 }
+
             }
             // Проверим пост
             if (isset($_POST['News']))
             {
-                $wasError = $savedFileName = false;
+                $wasError = false;
 
                 foreach ($langs as $l)
                 {
-                    $img = $modelsByLang[$l]->image;
-
-                    $modelsByLang[$l]->image = CUploadedFile::getInstance($modelsByLang[$l], 'image') !== null ? CUploadedFile::getInstance($modelsByLang[$l], 'image') : $img;
 
                     if (isset($_POST['News'][$l]))
                     {
-                        $image = $modelsByLang[$l]->image;
-                        $p      = $_POST['News'][$l];
-
+                        $p = $_POST['News'][$l];
                         $modelsByLang[$l]->setAttributes(array(
                             'alias'        => $_POST['News']['alias'],
                             'is_protected' => $_POST['News']['is_protected'],
                             'date'         => $_POST['News']['date'],
                             'category_id'  => $_POST['News']['category_id'],
                             'link'         => $_POST['News']['link'],
-                            'image'        => $modelsByLang[$l]->image,
                             'title'        => $p['title'],
                             'short_text'   => $p['short_text'],
                             'full_text'    => $p['full_text'],
@@ -174,28 +171,6 @@ class DefaultController extends YBackController
 
                         if (!$modelsByLang[$l]->save())
                             $wasError = true;
-                            
-                        elseif(is_object($modelsByLang[$l]->image))
-                        {
-                            $imageName = $this->module->getUploadPath() . $model->alias . '.' . $modelsByLang[$l]->image->extensionName;
-
-                            @unlink($this->module->getUploadPath() . $image);
-
-                            if (!$savedFileName && $modelsByLang[$l]->image->saveAs($imageName))
-                            {
-                                $modelsByLang[$l]->image = $savedFileName = basename($imageName);
-
-                                $modelsByLang[$l]->update(array( 'image' ));
-                            }
-                            elseif($savedFileName)
-                            {
-                                $modelsByLang[$l]->image = $savedFileName;
-
-                                $modelsByLang[$l]->update(array( 'image' ));
-                            }
-                        }
-                        else
-                            $alias = $modelsByLang[$l]->alias;
                     }
                 }
 
@@ -228,7 +203,10 @@ class DefaultController extends YBackController
     /**
      * Deletes a particular model.
      * If deletion is successful, the browser will be redirected to the 'index' page.
+     * @param null $alias
      * @param integer $id the ID of the model to be deleted
+     * @throws CHttpException
+     * @return void
      */
     public function actionDelete($alias = null, $id = null)
     {
@@ -241,7 +219,13 @@ class DefaultController extends YBackController
                 $model->delete();
             }
             else
-                $this->loadModel($id)->delete(); // we only allow deletion via POST request
+            {
+                $model = $this->loadModel($id);
+                if ($model->lang != Yii::app()->sourceLanguage)
+                    $model->scenario = 'altlang';
+                $model->delete();
+            }
+
             // if AJAX request (triggered by deletion via admin grid view), we should not redirect the browser
             if (!isset($_GET['ajax']))
                 $this->redirect(isset($_POST['returnUrl']) ? $_POST['returnUrl'] : array('index'));

@@ -1,4 +1,13 @@
 <?php
+/**
+ * Отображение для Default/view:
+ * 
+ *   @category YupeView
+ *   @package  YupeCMS
+ *   @author   Yupe Team <team@yupe.ru>
+ *   @license  https://github.com/yupe/yupe/blob/master/LICENSE BSD
+ *   @link     http://yupe.ru
+ **/
     $this->breadcrumbs = array(
         Yii::app()->getModule('gallery')->getCategory() => array(),
         Yii::t('GalleryModule.gallery', 'Галереи') => array('/gallery/default/index'),
@@ -25,7 +34,6 @@
         )),
     );
 ?>
-?>
 <div class="page-header">
     <h1>
         <?php echo Yii::t('GalleryModule.gallery', 'Просмотр галереи'); ?><br />
@@ -33,15 +41,18 @@
     </h1>
 </div>
 
-<?php $this->widget('bootstrap.widgets.TbDetailView', array(
-    'data'       => $model,
-    'attributes' => array(
-        'id',
-        'name',
-        'description',
-        array(
-            'name'  => 'status',
-            'value' => $model->getStatus()
+<?php
+$this->widget(
+    'bootstrap.widgets.TbDetailView', array(
+        'data'       => $model,
+        'attributes' => array(
+            'id',
+            'name',
+            'description',
+            array(
+                'name'  => 'status',
+                'value' => $model->getStatus()
+            ),
         ),
-    ),
-)); ?>
+    )
+); ?>
