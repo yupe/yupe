@@ -2,6 +2,9 @@
 
 class YBackController extends YMainController
 {
+    const BULK_DELETE = 'delete';
+    
+    
     public function filters()
     {
         return array(
@@ -43,6 +46,56 @@ class YBackController extends YMainController
                 return;
 
             Yii::app()->preload[] = 'bootstrap';
+        }
+    }
+    
+    public function actionMultiaction()
+    {
+        if(!Yii::app()->request->isAjaxRequest || !Yii::app()->request->isPostRequest){
+            throw new CHttpException(404);
+        }
+        
+        $model  = Yii::app()->request->getPost('model');
+        $action = Yii::app()->request->getPost('do');
+        
+        if(!$model || !$action){
+            throw new CHttpException(404);
+        }
+        
+        $items = Yii::app()->request->getPost('items');
+        
+        if(!is_array($items) || empty($items)){
+            Yii::app()->ajax->success();
+        }
+            
+        $transaction = Yii::app()->db->beginTransaction();
+        
+        try
+        {
+            switch ($action) {
+                case self::BULK_DELETE:
+                    $class = CActiveRecord::model($model);
+                    $criteria = new CDbCriteria;
+                    $items = array_filter($items,'intval');
+                    $criteria->addInCondition('id',$items);
+                    $count = $class->deleteAll($criteria);            
+                    $transaction->commit();    
+                    Yii::app()->ajax->success(Yii::t('YupeModule.yupe','Удалено {count} записей!',array(
+                        '{count}' => $count
+                    )));
+                    break;
+                
+                default:
+                    throw new CHttpException(404);                    
+                    break;
+            }
+            
+        }
+        catch(Exception $e)
+        {
+            $transaction->rollback();
+            Yii::log($e->__toString(),CLogger::LEVEL_ERROR);
+            Yii::app()->ajax->failure($e->getMessage());
         }
     }
 
