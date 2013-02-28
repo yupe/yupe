@@ -64,7 +64,7 @@ class Page extends YModel
             array('lang', 'default', 'value' => Yii::app()->sourceLanguage),
             array('category_id', 'default', 'setOnEmpty' => true, 'value' => null),
             array('title, title_short, slug, keywords, description', 'length', 'max' => 150),
-            array('slug', 'unique', 'on' => array('insert')),
+            array('slug', 'YUniqueSlugValidator', 'on' => array('insert')),
             array('status', 'in', 'range' => array_keys($this->statusList)),
             array('is_protected', 'in', 'range' => array_keys($this->protectedStatusList)),
             array('title, title_short, slug, body, description, keywords', 'filter', 'filter' => 'trim'),
