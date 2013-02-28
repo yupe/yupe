@@ -2,8 +2,8 @@
 class CommentModule extends YWebModule
 {
     public $defaultCommentStatus;
-    public $autoApprove          = false;
-    public $notify               = false;
+    public $autoApprove          = true;
+    public $notify               = true;
     public $email;
 
     public function getDependencies()
@@ -57,12 +57,12 @@ class CommentModule extends YWebModule
                 'message' => Yii::t('CommentModule.comment', 'У Вас {{count}} новых комментариев. {{link}}', array(
                     '{{count}}' => $count,
                     '{{link}}'  => CHtml::link(Yii::t('CommentModule.comment', 'Модерация комментариев'), array(
-                        '/comment/default/admin/order/status.asc/Comment_sort/status/',
+                        '/comment/default/index/order/status.asc/Comment_sort/status/',
                     )),
                 )),
             );
 
-        return isset($messages[YWebModule::CHECK_ERROR]) ? $messages : true;
+        return isset($messages[YWebModule::CHECK_NOTICE]) ? $messages : true;
     }
 
     public function getDescription()
@@ -117,6 +117,6 @@ class CommentModule extends YWebModule
         if (!$this->email)
             $this->email = Yii::app()->getModule('yupe')->email;
 
-        $this->defaultCommentStatus = Comment::STATUS_APPROVED;
+        $this->defaultCommentStatus = Comment::STATUS_NEED_CHECK;
     }
 }
