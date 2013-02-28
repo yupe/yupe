@@ -37,7 +37,7 @@ Out of the box you get a skeleton application with the following functionality i
 * "Feedback" Module + [FAQ](http://yupe.ru/faq) ([feedback module](https://github.com/yupe/yupe/tree/master/protected/modules/feedback)).
 * Module for working with content blocks ([contentblock module](https://github.com/yupe/yupe/tree/master/protected/modules/contentblock)).
 * Wiki - working through [module yeeki](http://rmcreative.ru/blog/post/yeeki).
-* Convenient admin panel based on Twitter Boostrap  ([It looks like this](http://vk.com/album-39485060_169991814)).
+* Convenient admin panel based on Twitter Boostrap  ([It looks like this](http://yupe.ru/gallery/gallery/show/1)).
 * [Possibility to generate CRUD-style Twitter Bootstrap](https://github.com/yupe/yupe/tree/master/protected/modules/yupe/extensions/yupe).
 
 Install

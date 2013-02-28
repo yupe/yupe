@@ -37,7 +37,7 @@
 * Модуль для "Обратной связи" + [раздел FAQ](http://yupe.ru/faq) ([модуль feedback](https://github.com/yupe/yupe/tree/master/protected/modules/feedback)).
 * Модуль для работы с блоками контента ([модуль contentblock](https://github.com/yupe/yupe/tree/master/protected/modules/contentblock)).
 * Wiki - работает через [модуль yeeki](http://rmcreative.ru/blog/post/yeeki).
-* Удобная админка на Twitter Bootstrap  ([Выглядит вот так](http://vk.com/album-39485060_169991814)).
+* Удобная админка на Twitter Bootstrap  ([Выглядит вот так](http://yupe.ru/gallery/gallery/show/1)).
 * [Возможность генерировать CRUD в стиле Twitter Bootstrap](https://github.com/yupe/yupe/tree/master/protected/modules/yupe/extensions/yupe).
 
 Установка
