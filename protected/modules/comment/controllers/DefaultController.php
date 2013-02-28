@@ -68,9 +68,9 @@ class DefaultController extends YBackController
      * If deletion is successful, the browser will be redirected to the 'admin' page.
      * @param integer $id the ID of the model to be deleted
      */
-    public function actionDelete($id)
+    public function actionDelete($id, $multiaction = false)
     {
-        if (Yii::app()->request->isPostRequest)
+        if (Yii::app()->request->isPostRequest || $multiaction === true)
         {
             // we only allow deletion via POST request
             $this->loadModel($id)->delete();
@@ -119,5 +119,23 @@ class DefaultController extends YBackController
             echo CActiveForm::validate($model);
             Yii::app()->end();
         }
+    }
+
+    public function actionMultiaction()
+    {
+        if ((isset($_GET['ajax'])) && ($_GET['ajax'] == 'Comment') && (isset($_GET['do'])) && (isset($_GET['items'])) && (is_array($_GET['items'])) && (!empty($_GET['items']))) {
+            switch ($_GET['do']) {
+                case 'delete':
+                    foreach ($_GET['items'] as $itemId)
+                        $this->actionDelete($itemId, true);
+                    break;
+
+                default:
+                    throw new CHttpException(404, Yii::t('BlogModule.blog', 'Запрошенная страница не найдена!'));
+                    break;
+            }
+        }
+
+        return $this->actionIndex();
     }
 }
