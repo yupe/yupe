@@ -47,7 +47,7 @@ class CommentModule extends YWebModule
 
     public function checkSelf()
     {
-        $count = Comment::model()->cache(Yii::app()->getModule('yupe')->coreCacheTime)->new()->count();
+        $count = Comment::model()->new()->count();
 
         $messages = array();
 
