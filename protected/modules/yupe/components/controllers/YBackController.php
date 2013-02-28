@@ -58,7 +58,7 @@ class YBackController extends YMainController
         $model  = Yii::app()->request->getPost('model');
         $action = Yii::app()->request->getPost('do');
         
-        if(!$model || !$action){
+        if(!isset($model,$action)){
             throw new CHttpException(404);
         }
         
