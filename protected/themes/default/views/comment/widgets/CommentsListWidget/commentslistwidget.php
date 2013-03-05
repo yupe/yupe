@@ -1,7 +1,7 @@
 <?php
 /**
  * Отображение для commentslistwidget:
- * 
+ *
  *   @category YupeView
  *   @package  YupeCMS
  *   @author   Yupe Team <team@yupe.ru>
@@ -48,7 +48,7 @@ function nestedComment($comments, $level, $parrent_id) {
                 . "\n"
                 . '<div class="author">'
                 . "\n";
-            if (($author = $comment->getAuthor()) === false && $comment->url) {
+            if (($author = $comment->getAuthor()) === false) {
                 if (strlen($comment->url) > 0)
                     echo CHtml::link($comment->name, $comment->url);
                 else
