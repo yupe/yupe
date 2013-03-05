@@ -14,7 +14,7 @@
         array('label' => Yii::t('PageModule.page', 'Страница') . ' «' . mb_substr($model->title, 0, 32) . '»'),
         array('icon' => 'pencil', 'label' => Yii::t('PageModule.page', 'Редактирование страницы'), 'url' => array(
             '/page/default/update',
-            'id'=> $model->id
+            'slug'=> $model->slug
         )),
         array('icon' => 'eye-open', 'label' => Yii::t('PageModule.page', 'Просмотр страницы'), 'url' => array(
             '/page/default/view',
@@ -37,42 +37,31 @@
 $form = $this->beginWidget('bootstrap.widgets.TbActiveForm', array(
     'id' => 'page-form',
     'enableAjaxValidation' => false,
-    //'htmlOptions'=> array( 'class' => 'well' ),
+    'htmlOptions'=> array( 'class' => 'well' ),
 ));
 ?>
 <fieldset class="inline">
-    <div class="alert alert-info"><?php echo Yii::t('PageModule.page', 'Поля, отмеченные * обязательны для заполнения')?></div>
-    <div class="row-fluid control-group">
-        <div class="span3">
-            <?php echo $form->labelEx($model, 'category_id' ); ?>
-            <?php echo $form->dropDownList($model, 'category_id', CHtml::listData($this->module->getCategoryList(), 'id', 'name'), array( 'empty' => Yii::t('news', '--выберите--'))); ?>
-        </div>
-        <div class="span3">
-            <?php echo $form->labelEx($model, 'parent_id' ); ?>
-            <?php echo $form->dropDownList($model, 'parent_id', $pages); ?>
-        </div>
+
+    <div class="alert alert-info">
+        <?php echo Yii::t('PageModule.page', 'Поля, отмеченные'); ?>
+        <span class="required">*</span>
+        <?php echo Yii::t('PageModule.page', 'обязательны.'); ?>
     </div>
-    <div class="row-fluid control-group">
-        <div class="span3 popover-help" data-content="<?php echo Yii::t('PageModule.page', "<span class='label label-success'>Опубликовано</span> &ndash; Страницу видят все посетители сайта, режим по-умолчанию.<br /><br /><span class='label label-default'>Черновик</span> &ndash; Данная страница еще не окончена и не должна отображаться.<br /><br /><span class='label label-info'>На модерации</span> &ndash; Данная страница еще не проверена и не должна отображаться."); ?>" data-original-title="<?php echo $model->getAttributeLabel('status'); ?>" >
-            <?php echo $form->labelEx($model, 'status' ); ?>
-            <?php echo $form->dropDownList($model, 'status', $model->getStatusList()); ?>
-        </div>
-        <div class="span3 popover-help" data-content="<?php echo Yii::t('PageModule.page', "Чем большее числовое значение вы укажете в этом поле, тем выше будет позиция данной страницы в меню."); ?>" data-original-title="<?php echo $model->getAttributeLabel('order'); ?>" >
-            <?php echo $form->labelEx($model, 'order' ); ?>
-            <?php echo $form->textField($model, 'order', array('size' => 10, 'maxlength' => 10)); ?>
-        </div>
-        <div class="span5">
-            <?php echo $form->error($model, 'order'); ?>
-        </div>
+
+    <div class="row-fluid control-group <?php echo $model->hasErrors('slug') ? 'error' : ''; ?>">
+        <?php echo $form->textFieldRow($model, 'slug', array('size' => 60, 'maxlength' => 150, 'class' => 'span7 popover-help', 'data-original-title' => $model->getAttributeLabel('slug'), 'data-content' => $model->getAttributeDescription('slug'))); ?>
     </div>
-    <div class="row-fluid control-group <?php echo $model-> hasErrors('slug') ? 'error' : '' ?>">
-        <div class="span7  popover-help" data-content="<?php echo Yii::t('PageModule.page', "Краткое название страницы латинскими буквами, используется для формирования её адреса.<br /><br /> Например (выделено темным фоном): <pre>http://site.ru/page/<span class='label'>contacts</span>/</pre> Если вы не знаете, для чего вам нужно это поле &ndash; не заполняйте его, заголовка страницы будет достаточно."); ?>" data-original-title="<?php echo $model->getAttributeLabel('slug'); ?>" >
-            <?php echo $form->labelEx($model, 'slug'); ?>
-            <?php echo $form->textField($model, 'slug', array('size' => 60, 'maxlength' => 150, 'placeholder' => Yii::t('PageModule.page', 'Оставьте пустым для автоматической генерации'))); ?>
-        </div>
-        <div class="span5">
-            <?php echo $form->error($model, 'slug'); ?>
-        </div>
+
+    <div class="row-fluid control-group <?php echo $model->hasErrors('parent_id') ? 'error' : ''; ?>">
+        <?php echo $form->dropDownListRow($model, 'parent_id', $pages, array('class' => 'span7 popover-help','empty' => Yii::t('NewsModule.news', '--выберите--'))); ?>
+    </div>
+
+    <div class="row-fluid control-group <?php echo $model->hasErrors('category_id') ? 'error' : ''; ?>">
+        <?php echo $form->dropDownListRow($model, 'category_id', CHtml::listData($this->module->getCategoryList(), 'id', 'name'), array('class' => 'span7 popover-help','empty' => Yii::t('NewsModule.news', '--выберите--'))); ?>
+    </div>
+
+    <div class="row-fluid control-group <?php echo $model->hasErrors('order') ? 'error' : ''; ?>">
+        <?php echo $form->textFieldRow($model, 'order', array('size' => 60, 'maxlength' => 150, 'class' => 'span7 popover-help', 'data-original-title' => $model->getAttributeLabel('order'), 'data-content' => $model->getAttributeDescription('order'))); ?>
     </div>
 
     <div class="row-fluid control-group <?php echo $model-> hasErrors('is_protected') ? 'error' : '' ?>">

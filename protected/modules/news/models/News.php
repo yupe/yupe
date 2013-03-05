@@ -38,6 +38,7 @@ class News extends YModel
 
     /**
      * Returns the static model of the specified AR class.
+     * @param string $className
      * @return News the static model class
      */
     public static function model($className = __CLASS__)
@@ -50,8 +51,6 @@ class News extends YModel
      */
     public function rules()
     {
-        $module = Yii::app()->getModule('news');
-
         return array(
             array('title, alias, short_text, full_text, keywords, description', 'filter', 'filter' => 'trim'),
             array('title, alias, keywords, description', 'filter', 'filter' => 'strip_tags'),
@@ -64,7 +63,6 @@ class News extends YModel
             array('alias', 'unique', 'criteria' => array('condition' => 'lang = :lang', 'params' => array(':lang' => $this->lang)), 'on' => 'insert'),
             array('description', 'length', 'max' => 250),
             array('link', 'length', 'max' => 300),
-            array('image', 'file', 'minSize' => $module->minSize, 'maxSize' => $module->maxSize, 'types' => $module->allowedExtensions, 'maxFiles' => $module->maxFiles, 'allowEmpty' => true),
             array('link', 'url'),
             array('alias', 'YSLugValidator', 'message' => Yii::t('NewsModule.news', 'Запрещенные символы в поле {attribute}')),
             array('category_id', 'default', 'setOnEmpty' => true, 'value' => null),
@@ -72,6 +70,32 @@ class News extends YModel
         );
     }
 
+    public function behaviors()
+    {
+        $module = Yii::app()->getModule('news');
+        return array(
+            'imageUpload' => array(
+                'class'         =>'application.modules.yupe.models.ImageUploadBehavior',
+                'scenarios'     => array('insert','update'),
+                'attributeName' => 'image',
+                'minSize'       => $module->minSize,
+                'maxSize'       => $module->maxSize,
+                'types'         => $module->allowedExtensions,
+                'requiredOn'    => 'insert',
+                'uploadPath'    => $module->getUploadPath(),
+                'imageNameCallback' => array($this, 'generateFileName'),
+                'resize' => array(
+                    'quality' => 75,
+                    'width' => 800,
+                )
+            ),
+        );
+    }
+
+    public function generateFileName()
+    {
+        return md5($this->title . time());
+    }
     /**
      * @return array relational rules.
      */
@@ -257,7 +281,7 @@ class News extends YModel
 
     public function getCategoryName()
     {
-        return ($this->category === NULL) ? '&mdash;' : $this->category->name;
+        return ($this->category === null) ? '&mdash;' : $this->category->name;
     }
 
     public function getImageUrl()

@@ -55,10 +55,10 @@ class InstallModule extends YWebModule
     /**
      * Атрибуты для шагов:
      *
-     * @param string $stepName - название шага/экшена
+     * @param bool|string $stepName - название шага/экшена
      *
      * @return mixed/string
-     **/
+     */
     public function getInstallSteps($stepName = false)
     {
         $installSteps = array(
@@ -80,10 +80,10 @@ class InstallModule extends YWebModule
     /**
      * Проверка завершённости шага:
      *
-     * @param string $actionId - требуемый шаг для проверки
+     * @param bool|string $actionId - требуемый шаг для проверки
      *
      * @return bool завершён ли шаг
-     **/
+     */
     public function isStepFinished($actionId = false)
     {
         if (!isset(Yii::app()->session['InstallForm']))
@@ -136,10 +136,10 @@ class InstallModule extends YWebModule
     /**
      * Получаем предыдущий шаг:
      *
-     * @param string $actionID - требуемый экшен
+     * @param bool|string $actionID - требуемый экшен
      *
      * @return mixed меню
-     **/
+     */
     public function getPrevStep($actionID = false)
     {
         if (!$actionID)
@@ -155,10 +155,10 @@ class InstallModule extends YWebModule
     /**
      * Получаем следующий шаг:
      *
-     * @param string $actionID - требуемый экшен
+     * @param bool|string $actionID - требуемый экшен
      *
      * @return mixed меню
-     **/
+     */
     public function getNextStep($actionID = false)
     {
         if (!$actionID)

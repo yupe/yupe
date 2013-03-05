@@ -2,7 +2,7 @@
 =================
 
 Юпи! — мини CMS, написанная на замечательном MVC-фреймворке Yii (http://www.yiiframework.com/),
-на которой работает уже более 40 проектов.
+на которой работает уже более 100 проектов.
 
 Подробнее [о проекте можно прочитать здесь](http://yupe.ru/site/page/view/about).
 
@@ -37,8 +37,8 @@
 * Модуль для "Обратной связи" + [раздел FAQ](http://yupe.ru/faq) ([модуль feedback](https://github.com/yupe/yupe/tree/master/protected/modules/feedback)).
 * Модуль для работы с блоками контента ([модуль contentblock](https://github.com/yupe/yupe/tree/master/protected/modules/contentblock)).
 * Wiki - работает через [модуль yeeki](http://rmcreative.ru/blog/post/yeeki).
-* Удобная админка на Twitter Boostrap  ([Выглядит вот так](http://yupe.ru/gallery/gallery/show/id/1)).
-* [Возможность генерировать CRUD в стиле Twitter Boostrap](https://github.com/yupe/yupe/tree/master/protected/modules/yupe/extensions/yupe).
+* Удобная админка на Twitter Bootstrap  ([Выглядит вот так](http://yupe.ru/gallery/gallery/show/1)).
+* [Возможность генерировать CRUD в стиле Twitter Bootstrap](https://github.com/yupe/yupe/tree/master/protected/modules/yupe/extensions/yupe).
 
 Установка
 ---------

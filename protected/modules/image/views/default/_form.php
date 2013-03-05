@@ -22,11 +22,10 @@ $form = $this->beginWidget('bootstrap.widgets.TbActiveForm', array(
         <?php echo $form->textFieldRow($model, 'name', array('class' => 'span7', 'maxlength' => 300, 'size' => 60)); ?>
     </div>
     <div class='row-fluid control-group <?php echo $model->hasErrors("file") ? "error" : ""; ?>'>
-        <?php if ($model->isNewRecord): ?>
-            <?php echo  $form->fileFieldRow($model, 'file', array('class' => 'span7', 'maxlength' => 500, 'size' => 60)); ?>
-        <?php else: ?>
-            <?php echo CHtml::image($model->file, $model->alt);?>
+        <?php if ( ! $model->isNewRecord): ?>
+            <?php echo CHtml::image($model->getUrl(), $model->alt);?>
         <?php endif; ?>
+        <?php echo $form->fileFieldRow($model, 'file', array('class' => 'span7', 'maxlength' => 500, 'size' => 60)); ?>
     </div>
     <div class='row-fluid control-group <?php echo $model->hasErrors("alt") ? "error" : ""; ?>'>
         <?php echo $form->textFieldRow($model, 'alt', array('class' => 'span7', 'maxlength' => 150, 'size' => 60)); ?>

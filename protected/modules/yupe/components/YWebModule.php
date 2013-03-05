@@ -445,6 +445,7 @@ abstract class YWebModule extends CWebModule
      */
     public function uninstallDB()
     {
+        // @TODO Unused local variable $log
         $log = array();
         Yii::log(Yii::t('YupeModule.yupe', "{id}->uninstallDB() : Запрошено удаление БД модуля {m}", array('{m}' => $this->name,'{id}' => $this->id)));
 

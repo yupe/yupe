@@ -150,7 +150,7 @@ class YCustomGridView extends TbExtendedGridView
             reset($statusList);
             $status = key($statusList);
             while (list($key, $val) = each($statusList)) {
-                $val; // unused variable
+                $val; // @TODO unused variable
                 if ($key == $data->$statusField) {
                     $keyNext = key($statusList);
                     if (is_numeric($keyNext)) {
@@ -340,22 +340,25 @@ class YCustomGridView extends TbExtendedGridView
         /* Скрипт для мультиекшена: */
         $cscript->registerScript(
             __CLASS__ . '#' . $this->id . 'ExMultiaction',
-            'var multiaction = function(status, values) {
+            'var multiaction = function(action, values) {
                 var queryString = "";
+                var url = "'.$multiactionUrl.'";                
                 $.map(values, function(itemInput) {
                     queryString += ((queryString.length > 0) ? "&" : "") + "items[]=" + $(itemInput).val() ;
-                });
-                $("#' . $this->id . '").addClass("grid-view-loading");
+                });                
                 $.ajax({
-                    url: "' . $multiactionUrl . '",
-                    type: "GET",
-                    data: "ajax=' . $this->_modelName . '&do=" + status + "&" + queryString,
+                    url: url,
+                    type: "POST",
+                    dataType: "json",
+                    data: "'.Yii::app()->request->csrfTokenName.'='.Yii::app()->request->csrfToken.'&model=' . $this->_modelName . '&do=" + action + "&" + queryString,
                     success: function(data) {
-                        if (data) {
-                            var gridContent = $(data).find("#' . $this->id . '");
-                            $("#' . $this->id . '").html(gridContent.html()).removeClass("grid-view-loading");
+                        if (data.result) {                            
+                            $.fn.yiiGridView.update("'.$this->id.'");
+                        }else{
+                            alert(data.data);
                         }
-                    }
+                    },
+                    error: function(data){alert("'.Yii::t('YupeModule.yupe','Произошла ошибка!').'")}
                 });
             }', CClientScript::POS_BEGIN
         );

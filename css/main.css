@@ -525,3 +525,27 @@ div.form_reg_edit div.list div.accession
 	width: 90px;
     font-size: 10px;
 }
+
+#gallery .summary
+{
+    text-align: left;
+}
+
+#gallery .items img
+{
+    width: 100%;
+    padding-top: 20px;
+}
+
+#gallery .pager
+{
+    float: left;
+    margin: 30px 0 10px;
+}
+
+#add-image-form
+{
+    float: left;
+    margin-top: 15px;
+}
+

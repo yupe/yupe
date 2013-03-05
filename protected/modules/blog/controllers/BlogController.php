@@ -51,6 +51,7 @@ class BlogController extends YFrontController
         if (!$blog)
             throw new CHttpException(404, Yii::t('BlogModule.blog', 'Блог "{blog}" не найден!', array('{blog}' => $slug)));
 
+        // @TODO  Unused local variable $member
         $members = UserToBlog::model()->findAll('blog_id = :blog_id', array(':blog_id' => $blog->id));
     }
 

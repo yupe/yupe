@@ -65,7 +65,7 @@ function nestedComment($comments, $level, $parrent_id) {
             echo ''
                 . '<span style="float: right">'
                 . CHtml::link(
-                    Yii::t('comment', 'комментировать'), 'javascript:void(0);', array(
+                    Yii::t('comment', 'ответить'), 'javascript:void(0);', array(
                         'rel'     => $comment->id,
                         'data-id' => $comment->id . '_' . str_replace(' ', '_', $comment->creation_date),
                         'class'   => 'commentParrent',

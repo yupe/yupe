@@ -13,7 +13,12 @@
 
 <p><?php echo Yii::t('InstallModule.install', 'Теперь вы сможете очень легко и просто запустить Ваш сайт или блог на "<b>{app}</b>"', array('{app}' => Yii::app()->name)); ?></p>
 <p><?php echo Yii::t('InstallModule.install', 'Просто следуйте инструкциям установщика и все у Вас получиться!'); ?></p>
-<p><?php echo Yii::t('InstallModule.install', 'Мы всегда рады видеть Вас на нашем сайте {link}, а еще у нас есть {twitter} !', array('{twitter}' => CHtml::link('твиттер', 'http://twitter.com/yupecms', array('target' => '_blank')), '{link}' => CHtml::link('http://yupe.ru', 'http://yupe.ru?from=install', array('target' => '_blank')))); ?></p>
+<p><?php echo Yii::t('InstallModule.install', 'Мы всегда рады видеть Вас на нашем сайте {link}, а еще у нас есть {twitter} и {forum} !', array(
+    '{twitter}' => CHtml::link('твиттер', 'http://twitter.com/yupecms', array('target' => '_blank')),
+    '{link}' => CHtml::link('http://yupe.ru', 'http://yupe.ru?from=install', array('target' => '_blank')),
+    '{forum}' => CHtml::link('форум','http://yupe.ru/talk?from=install', array('target' => '_blank'))
+ )); ?>
+</p>
 
 <?php
 $this->widget(

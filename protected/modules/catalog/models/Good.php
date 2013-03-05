@@ -57,8 +57,6 @@ class Good extends YModel
      */
     public function rules()
     {
-        $module = Yii::app()->getModule('catalog');
-
         return array(
             array('category_id, name, description, alias', 'required', 'except' => 'search'),
             array('name, description, short_description, image, alias, price, article, data, status, is_special', 'filter', 'filter' => 'trim'),
@@ -69,7 +67,6 @@ class Good extends YModel
             array('alias', 'unique'),
             array('name', 'length', 'max' => 150),
             array('article, alias', 'length', 'max' => 100),
-            array('image', 'file', 'minSize' => $module->minSize, 'maxSize' => $module->maxSize, 'types' => $module->allowedExtensions, 'maxFiles' => $module->maxFiles, 'allowEmpty' => true),
             array('status','in','range' => array_keys($this->statusList)),
             array('is_special','in','range' => array(0, 1)),
             array('short_description, data', 'safe'),
@@ -186,21 +183,29 @@ class Good extends YModel
 
     public function behaviors()
     {
-        return array('CTimestampBehavior' => array(
-            'class'             => 'zii.behaviors.CTimestampBehavior',
-            'setUpdateOnCreate' => true,
-            'createAttribute'   => 'create_time',
-            'updateAttribute'   => 'update_time',
-        ));
-    }
 
-    /**
-     * This is invoked after the record is deleted.
-     */
-    protected function afterDelete()
-    {
-        if(parent::afterDelete())
-            @unlink($this->module->getUploadPath() . $this->image);
+        $module = Yii::app()->getModule('catalog');
+        return array(
+            'CTimestampBehavior' => array(
+                'class'             => 'zii.behaviors.CTimestampBehavior',
+                'setUpdateOnCreate' => true,
+                'createAttribute'   => 'create_time',
+                'updateAttribute'   => 'update_time',
+            ),
+            'imageUpload' => array(
+                'class'         =>'application.modules.yupe.models.ImageUploadBehavior',
+                'scenarios'     => array('insert','update'),
+                'attributeName' => 'image',
+                'minSize'       => $module->minSize,
+                'maxSize'       => $module->maxSize,
+                'types'         => $module->allowedExtensions,
+                'uploadPath'    => $module->getUploadPath(),
+                'resize' => array(
+                    'quality' => 70,
+                    'width' => 1024,
+                )
+            ),
+        );
     }
 
     public function beforeValidate()

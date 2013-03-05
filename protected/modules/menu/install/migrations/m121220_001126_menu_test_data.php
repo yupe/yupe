@@ -56,11 +56,14 @@ class m121220_001126_menu_test_data extends CDbMigration
             array(10, 0, 1, 'Регистрация', '/user/account/registration', 'login-text', 'Регистрация на сайте', '', '', '', '', 'isAuthenticated', 1, 10, 1),
             array(11, 0, 1, 'Панель управления', '/yupe/backend/index', 'login-text', 'Панель управления сайтом', '', '', '', '', 'isSuperUser', 0, 13, 1),
             array(12, 0, 1, 'FAQ', '/feedback/contact/faq', '', 'FAQ', '', '', '', '', '', 0, 7, 1),
+            array(13, 0, 1, 'Контакты', '/feedback/index/', '', 'Контакты', '', '', '', '', '', 0, 7, 1),
 
         ) ;
 
         $columns = array_shift($items);
-
+        /**
+         * Как нибудь описать процесс надо, для большей понятности
+         */
         foreach ($items as $i) {
             $item = array();
             $n    = 0;
@@ -69,17 +72,5 @@ class m121220_001126_menu_test_data extends CDbMigration
                 $item[$c] = $i[$n++];
             $this->insert($db->tablePrefix . 'menu_item', $item);
         }
-    }
- 
-    /**
-     * Откатываем миграцию:
-     *
-     * @return nothing
-     **/
-    public function safeDown()
-    {
-        $db = $this->getDbConnection();
-        
-        return true;
     }
 }

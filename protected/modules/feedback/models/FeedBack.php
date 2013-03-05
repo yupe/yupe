@@ -14,7 +14,7 @@
  * @property integer $type
  * @property integer $status
  * @property integer $ip
- * @property category_id $ip
+ * @property category_id
  * @property string  $phone
  */
 class FeedBack extends YModel
@@ -32,6 +32,7 @@ class FeedBack extends YModel
 
     /**
      * Returns the static model of the specified AR class.
+     * @param string $className
      * @return FeedBack the static model class
      */
     public static function model($className = __CLASS__)

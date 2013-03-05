@@ -35,6 +35,7 @@ class Page extends YModel
 
     /**
      * Returns the static model of the specified AR class.
+     * @param string $className
      * @return Page the static model class
      */
     public static function model($className = __CLASS__)
@@ -63,7 +64,7 @@ class Page extends YModel
             array('lang', 'default', 'value' => Yii::app()->sourceLanguage),
             array('category_id', 'default', 'setOnEmpty' => true, 'value' => null),
             array('title, title_short, slug, keywords, description', 'length', 'max' => 150),
-            array('slug', 'unique', 'criteria' => array('condition' => 'lang = :lang', 'params' => array(':lang' => $this->lang)), 'on' => array('insert')),
+            array('slug', 'YUniqueSlugValidator', 'on' => array('insert')),
             array('status', 'in', 'range' => array_keys($this->statusList)),
             array('is_protected', 'in', 'range' => array_keys($this->protectedStatusList)),
             array('title, title_short, slug, body, description, keywords', 'filter', 'filter' => 'trim'),
@@ -276,11 +277,11 @@ class Page extends YModel
 
     public function getCategoryName()
     {
-        return ($this->category === NULL) ? '---' : $this->category->name;
+        return ($this->category === null) ? '---' : $this->category->name;
     }
 
     public function getParentName()
     {
-        return ($this->parentPage === NULL) ? '---' : $this->parentPage->title;
+        return ($this->parentPage === null) ? '---' : $this->parentPage->title;
     }
 }

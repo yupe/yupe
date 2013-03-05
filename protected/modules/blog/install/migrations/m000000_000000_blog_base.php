@@ -36,9 +36,9 @@ class m000000_000000_blog_base extends CDbMigration
         $this->createTable(
             $db->tablePrefix . 'blog', array(
                 'id' => 'pk',
-                'name' => 'varchar(300) NOT NULL',
+                'name' => 'varchar(250) NOT NULL',
                 'description' => "text",
-                'icon' => "varchar(300) NOT NULL DEFAULT ''",
+                'icon' => "varchar(250) NOT NULL DEFAULT ''",
                 'slug' => 'varchar(150) NOT NULL',
                 'lang' => 'char(2) DEFAULT NULL',
                 'type' => "integer NOT NULL DEFAULT '1'",
@@ -50,7 +50,7 @@ class m000000_000000_blog_base extends CDbMigration
             ), $options
         );
 
-        $this->createIndex($db->tablePrefix . "blog_slug_uniq", $db->tablePrefix . 'blog', "slug,lang", true);
+        $this->createIndex($db->tablePrefix . "blog_slug_lang_uniq", $db->tablePrefix . 'blog', "slug,lang", true);
         $this->createIndex($db->tablePrefix . "blog_create_user_id", $db->tablePrefix . 'blog', "create_user_id", false);
         $this->createIndex($db->tablePrefix . "blog_update_user_id", $db->tablePrefix . 'blog', "update_user_id", false);
         $this->createIndex($db->tablePrefix . "blog_status", $db->tablePrefix . 'blog', "status", false);
@@ -74,29 +74,31 @@ class m000000_000000_blog_base extends CDbMigration
                 'create_date' => 'integer NOT NULL',
                 'update_date' => 'integer NOT NULL',
                 'publish_date' => 'integer NOT NULL',
-                'slug' => 'string NOT NULL',
+                'slug' => 'varchar(150) NOT NULL',
                 'lang' => 'char(2) DEFAULT NULL',
-                'title' => 'string NOT NULL',
-                'quote' => "varchar(300) NOT NULL DEFAULT ''",
+                'title' => 'varchar(250) NOT NULL',
+                'quote' => "varchar(250) NOT NULL DEFAULT ''",
                 'content' => 'text NOT NULL',
-                'link' => "string NOT NULL DEFAULT ''",
+                'link' => "varchar(250) NOT NULL DEFAULT ''",
                 'status' => "integer NOT NULL DEFAULT '0'",
                 'comment_status' => "integer NOT NULL DEFAULT '1'",
+                'create_user_ip' => "varchar(20) NOT NULL",
                 'access_type' => "integer NOT NULL DEFAULT '1'",
-                'keywords' => "string NOT NULL DEFAULT ''",
-                'description' => "varchar(300) NOT NULL DEFAULT ''",
+                'keywords' => "varchar(250) NOT NULL DEFAULT ''",
+                'description' => "varchar(250) NOT NULL DEFAULT ''",
             ), $options
         );
 
-        $this->createIndex($db->tablePrefix . "blog_post_slug_uniq", $db->tablePrefix . 'post', "slug,lang", true);
+        $this->createIndex($db->tablePrefix . "blog_post_lang_slug_uniq", $db->tablePrefix . 'post', "slug,lang", true);
         $this->createIndex($db->tablePrefix . "blog_post_blog_id", $db->tablePrefix . 'post', "blog_id", false);
         $this->createIndex($db->tablePrefix . "blog_post_create_user_id", $db->tablePrefix . 'post', "create_user_id", false);
         $this->createIndex($db->tablePrefix . "blog_post_update_user_id", $db->tablePrefix . 'post', "update_user_id", false);
         $this->createIndex($db->tablePrefix . "blog_post_status", $db->tablePrefix . 'post', "status", false);
         $this->createIndex($db->tablePrefix . "blog_post_access_type", $db->tablePrefix . 'post', "access_type", false);
         $this->createIndex($db->tablePrefix . "blog_post_comment_status", $db->tablePrefix . 'post', "comment_status", false);
-        $this->createIndex($db->tablePrefix . "blog_lang_post", $db->tablePrefix . 'post', "lang", false);
-        $this->createIndex($db->tablePrefix . "blog_slug_post", $db->tablePrefix . 'post', "slug", false);
+        $this->createIndex($db->tablePrefix . "blog_post_lang", $db->tablePrefix . 'post', "lang", false);
+        $this->createIndex($db->tablePrefix . "blog_post_slug", $db->tablePrefix . 'post', "slug", false);
+        $this->createIndex($db->tablePrefix . "blog_post_publish_date", $db->tablePrefix . 'post', "publish_date", false);
 
         $this->addForeignKey($db->tablePrefix . "blog_post_blog_fk", $db->tablePrefix . 'post', 'blog_id', $db->tablePrefix . 'blog', 'id', 'CASCADE', 'CASCADE');
         $this->addForeignKey($db->tablePrefix . "blog_post_create_user_fk", $db->tablePrefix . 'post', 'create_user_id', $db->tablePrefix . 'user', 'id', 'CASCADE', 'CASCADE');
@@ -112,13 +114,13 @@ class m000000_000000_blog_base extends CDbMigration
                 'update_date' => 'integer NOT NULL',
                 'role' => "integer NOT NULL DEFAULT '1'",
                 'status' => "integer NOT NULL DEFAULT '1'",
-                'note' => "varchar(300) NOT NULL DEFAULT ''",
+                'note' => "varchar(250) NOT NULL DEFAULT ''",
             ), $options
         );
 
-        $this->createIndex($db->tablePrefix . "blog_user_to_blog_uniq", $db->tablePrefix . 'user_to_blog', "user_id,blog_id", true);
-        $this->createIndex($db->tablePrefix . "blog_user_to_blog_uid", $db->tablePrefix . 'user_to_blog', "user_id", false);
-        $this->createIndex($db->tablePrefix . "blog_user_to_blog_blogid", $db->tablePrefix . 'user_to_blog', "blog_id", false);
+        $this->createIndex($db->tablePrefix . "blog_user_to_blog_u_b_uniq", $db->tablePrefix . 'user_to_blog', "user_id,blog_id", true);
+        $this->createIndex($db->tablePrefix . "blog_user_to_blog_user_id", $db->tablePrefix . 'user_to_blog', "user_id", false);
+        $this->createIndex($db->tablePrefix . "blog_user_to_blog_blog_id", $db->tablePrefix . 'user_to_blog', "blog_id", false);
         $this->createIndex($db->tablePrefix . "blog_user_to_blog_status", $db->tablePrefix . 'user_to_blog', "status", false);
         $this->createIndex($db->tablePrefix . "blog_user_to_blog_role", $db->tablePrefix . 'user_to_blog', "role", false);
 
@@ -129,7 +131,7 @@ class m000000_000000_blog_base extends CDbMigration
         $this->createTable(
             $db->tablePrefix . 'tag', array(
                 'id' => 'pk',
-                'name' => 'string NOT NULL',
+                'name' => 'varchar(255) NOT NULL',
             ), $options
         );
 

@@ -51,7 +51,7 @@ $form = $this->beginWidget('bootstrap.widgets.TbActiveForm', array(
     <div class="row-fluid control-group <?php echo $model->hasErrors('image') ? 'error' : ''; ?>">
         <div class="span7  popover-help"  data-original-title="<?php echo $model->getAttributeLabel('image'); ?>">
             <?php if (!$model->isNewRecord && $model->image): ?>
-                <?php echo CHtml::image($model->imageUrl, $model->name, array('width'  => 300, 'height' => 300)); ?>
+                <?php echo CHtml::image($model->imageUrl, $model->title, array('width'  => 300, 'height' => 300)); ?>
             <?php endif; ?>
             <?php echo $form->labelEx($model, 'image'); ?>
             <?php echo $form->fileField($model, 'image'); ?>

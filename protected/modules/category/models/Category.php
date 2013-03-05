@@ -43,8 +43,8 @@ class Category extends YModel
         // NOTE: you should only define rules for those attributes that
         // will receive user inputs.
         return array(
-            array('name, description, short_description, image, alias', 'filter', 'filter' => 'trim'),
-            array('name, alias, image', 'filter', 'filter' => array($obj = new CHtmlPurifier(), 'purify')),
+            array('name, description, short_description, alias', 'filter', 'filter' => 'trim'),
+            array('name, alias', 'filter', 'filter' => array($obj = new CHtmlPurifier(), 'purify')),
             array('name, description, alias', 'required'),
             array('parent_id, status', 'numerical', 'integerOnly' => true),
             array('parent_id', 'default', 'setOnEmpty' => true, 'value' => null),
@@ -60,9 +60,31 @@ class Category extends YModel
                 'on' => array('insert'),
             ),
             array('status', 'in', 'range' => array_keys($this->statusList)),
-            array('image', 'file', 'types' => 'jpg, gif, png', 'allowEmpty' => true),
             array('id, parent_id, name, description, short_description, alias, status', 'safe', 'on' => 'search'),
         );
+    }
+
+    public function behaviors()
+    {
+        $module = Yii::app()->getModule('category');
+        return array(
+            'imageUpload' => array(
+                'class'         =>'application.modules.yupe.models.ImageUploadBehavior',
+                'scenarios'     => array('insert','update'),
+                'attributeName' => 'image',
+                'uploadPath'    => $module->getUploadPath(),
+                'imageNameCallback' => array($this, 'generateFileName'),
+                'resize' => array(
+                    'quality' => 70,
+                    'width' => 800,
+                )
+            ),
+        );
+    }
+
+    public function generateFileName()
+    {
+        return md5($this->name . time());
     }
 
     public function beforeValidate()

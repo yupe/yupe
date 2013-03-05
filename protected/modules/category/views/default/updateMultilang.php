@@ -23,6 +23,7 @@
         array('icon' => 'trash', 'label' => Yii::t('CategoryModule.category', 'Удалить категорию'), 'url' => '#', 'linkOptions' => array(
             'submit' => array('/category/default/delete', 'id' => $model->id),
             'confirm' => Yii::t('CategoryModule.category', 'Вы уверены, что хотите удалить категорию?'),
+            'csrf' => true,
         )),
     );
 ?>
@@ -102,8 +103,6 @@ $form = $this->beginWidget('bootstrap.widgets.TbActiveForm', array(
         echo CHtml::closeTag("div");
     }
     ?>
-    </div>
-
 <br/>
 <?php
 echo CHtml::submitButton($model->isNewRecord ? Yii::t('CategoryModule.category', 'Добавить категорию') : Yii::t('CategoryModule.category', 'Сохранить категорию'), array('class' => 'btn btn-primary'));
