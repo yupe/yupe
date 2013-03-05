@@ -181,10 +181,10 @@ class DefaultController extends YBackController
                         Yii::t('NewsModule.news', 'Новость обновлена!')
                     );
 
-                    if (!isset($_POST['submit-type']))
+                    if (!isset($_POST['submit-type']) && !isset($_POST['saveAndClose']))
                         $this->redirect(array('update', 'alias' => $model->alias));
                     else
-                        $this->redirect(array($_POST['submit-type']));
+                        $this->redirect(array("index"));
                 }
                 else
                     Yii::app()->user->setFlash(
