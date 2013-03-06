@@ -1,21 +1,21 @@
 <script type='text/javascript'>
-    $(document).ready(function($) {            
-        $("a.commentParrent").click(function() {                                
+    $(document).ready(function($) {
+        $("a.commentParrent").click(function() {
             $this = $(this);
             $("div.comment-form").remove();
-            var htmlForm = $("#comment-form-wrap").clone();                
+            var htmlForm = $("#comment-form-wrap").clone();
             htmlForm.addClass("comment-form").show();
             $("#comment-form-wrap").hide();
             $this.parents("div.comment").parent("div").after(htmlForm);
-            $("#Comment_parrent_id").val($this.attr("rel"));                
+            $("#Comment_parrent_id").val($this.attr("rel"));
         });
     });
 </script>
 
 <div id="comments">
-<?php if(count($comments)):?>    
+<?php if(count($comments)):?>
     <h3><?php echo $this->label?> <?php echo count($comments);?></h3>
-    <?php echo nestedComment($comments, 0, null);?>    
+    <?php echo nestedComment($comments, 0, null);?>
 <?php else:?>
     <p><?php echo $this->label;?> <?php echo Yii::t('comment', 'пока нет, станьте первым!');?></p>';
 <?php endif;?>
@@ -35,8 +35,8 @@ function nestedComment($comments, $level, $parrent_id) {
                 . "\n"
                 . '<div class="author">'
                 . "\n";
-            if (($author = $comment->getAuthor()) === false && $comment->url) {
-                if (strlen($comment->url) > 0)
+            if (($author = $comment->getAuthor()) === false) {
+                if (!empty($comment->url))
                     echo CHtml::link($comment->name, $comment->url);
                 else
                     echo $comment->name;

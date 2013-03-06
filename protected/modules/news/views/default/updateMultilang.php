@@ -126,9 +126,18 @@ foreach ($langs as $l)
 echo CHtml::closeTag("div");
 echo CHtml::closeTag("fieldset");
 echo "<br />";
-echo CHtml::submitButton($model->isNewRecord ? Yii::t('NewsModule.news', 'Добавить новость и продолжить редактирование') : Yii::t('NewsModule.news', 'Сохранить и продолжить редактирование'), array('class' => 'btn btn-primary'));
-echo "&nbsp;";
-echo CHtml::submitButton($model->isNewRecord ? Yii::t('NewsModule.news', 'Добавить и закрыть') : Yii::t('NewsModule.news', 'Сохранить и закрыть'), array( 'name'  => 'saveAndClose', 'id'    => 'saveAndClose', 'class' => 'btn btn-info' ));
+
+$this->widget('bootstrap.widgets.TbButton', array(
+        'buttonType' => 'submit',
+        'type'       => 'primary',
+        'label'      => $model->isNewRecord ? Yii::t('NewsModule.news', 'Добавить новость и продолжить') : Yii::t('NewsModule.news', 'Сохранить новость и продолжить'),
+    ));
+
+$this->widget('bootstrap.widgets.TbButton', array(
+        'buttonType'  => 'submit',
+        'htmlOptions' => array('name' => 'submit-type', 'value' => 'index'),
+        'label'       => $model->isNewRecord ? Yii::t('NewsModule.news', 'Добавить новость и закрыть') : Yii::t('NewsModule.news', 'Сохранить новость и закрыть'),
+    )); 
 
 $this->endWidget();
 ?>
