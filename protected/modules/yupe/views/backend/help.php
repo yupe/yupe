@@ -93,7 +93,11 @@ $this->breadcrumbs = array(
             <th><?php echo Yii::t('YupeModule.yupe','Черепанов Антон');?></th>
             <td><?php echo CHtml::link('twitter.com/davetoxa','https://twitter.com/davetoxa');?></td>
         </tr>
+        <tr class="odd">
+            <th><?php echo Yii::t('YupeModule.yupe','Николай Седов');?></th>
+            <td><?php echo CHtml::link('http://vk.com/mikspark','http://vk.com/mikspark');?></td>
+        </tr>
     </tbody>
 </table>
 
-<b><?php echo CHtml::link(Yii::t('YupeModule.yupe','ЖДЕМ ТОЛЬКО ТЕБЯ!'),'http://yupe.ru/feedback/contact',array('target' => '_blank'));?></b>
+<b><?php echo CHtml::link(Yii::t('YupeModule.yupe','ЖДЕМ ТОЛЬКО ТЕБЯ!'),'http://yupe.ru/feedback/index',array('target' => '_blank'));?></b>

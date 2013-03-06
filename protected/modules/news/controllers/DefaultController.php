@@ -192,6 +192,7 @@ class DefaultController extends YBackController
                         Yii::t('NewsModule.news', 'Ошибки при сохранении новости!')
                     );
             }
+
             $this->render('updateMultilang', array(
                 'model'  => $model,
                 'models' => $modelsByLang,

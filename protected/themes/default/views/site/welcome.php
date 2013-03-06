@@ -6,6 +6,6 @@
 <p>Читайте нас в <a href='http://twitter.com/yupecms'>twitter</a> или <a href='http://vk.com/yupeko'>Вконтакте</a></p>
 <p><a href='http://yupe.ru/site/page/view/help/?from=mainpage'>Желаете помочь проекту ?</a></p>
 
-<p><b>По вопросам коммерческой поддержки - <a href='http://yupe.ru/feedback/contact/?from=mainpage'>напишите нам</a>!</b></p>
+<p><b>По вопросам коммерческой поддержки - <a href='http://yupe.ru/feedback/index/?from=mainpage'>напишите нам</a>!</b></p>
 
 <?php $this->widget('application.modules.social.widgets.ysc.yandex.YandexShareApi'); ?>
