@@ -50,6 +50,7 @@ class m000000_000000_category_base extends YDbMigration
         $this->createIndex("ux_{{category_category}}_alias_lang", '{{category_category}}', "alias,lang", true);
         $this->createIndex("ix_{{category_category}}_parent_id", '{{category_category}}', "parent_id", false);
         $this->createIndex("ix_{{category_category}}_status", '{{category_category}}', "status", false);
+
         //fk
         $this->addForeignKey(
             "fk_{{category_category}}_parent_id",

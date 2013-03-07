@@ -30,7 +30,7 @@
 
     <?php echo $form->hiddenField($model, 'model'); ?>
     <?php echo $form->hiddenField($model, 'model_id'); ?>
-    <?php echo $form->hiddenField($model, 'parrent_id'); ?>
+    <?php echo $form->hiddenField($model, 'parent_id'); ?>
     <?php echo CHtml::hiddenField('redirectTo', $redirectTo); ?>
     <?php if (!Yii::app()->user->isAuthenticated()): ?>
         <div class="row">
