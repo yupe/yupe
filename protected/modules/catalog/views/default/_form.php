@@ -29,10 +29,10 @@ $form = $this->beginWidget('bootstrap.widgets.TbActiveForm', array(
         <?php echo $form->dropDownListRow($model, 'category_id', CHtml::listData($this->module->getCategoryList(), 'id', 'name'), array('empty' => Yii::t('CatalogModule.catalog', '--выберите--'), 'class' => 'span7 popover-help', 'data-original-title' => $model->getAttributeLabel('category_id'), 'data-content' => $model->getAttributeDescription('category_id'))); ?>
     </div>
     <div class="row-fluid control-group <?php echo $model->hasErrors('name') ? 'error' : ''; ?>">
-        <?php echo $form->textFieldRow($model, 'name', array('class' => 'span7 popover-help', 'size' => 60, 'maxlength' => 150, 'data-original-title' => $model->getAttributeLabel('name'), 'data-content' => $model->getAttributeDescription('name'))); ?>
+        <?php echo $form->textFieldRow($model, 'name', array('class' => 'span7 popover-help', 'size' => 60, 'maxlength' => 250, 'data-original-title' => $model->getAttributeLabel('name'), 'data-content' => $model->getAttributeDescription('name'))); ?>
     </div>
     <div class="row-fluid control-group <?php echo $model->hasErrors('alias') ? 'error' : ''; ?>">
-        <?php echo $form->textFieldRow($model, 'alias', array('class' => 'span7 popover-help', 'size' => 60, 'maxlength' => 100, 'data-original-title' => $model->getAttributeLabel('alias'), 'data-content' => $model->getAttributeDescription('alias'))); ?>
+        <?php echo $form->textFieldRow($model, 'alias', array('class' => 'span7 popover-help', 'size' => 60, 'maxlength' => 150, 'data-original-title' => $model->getAttributeLabel('alias'), 'data-content' => $model->getAttributeDescription('alias'))); ?>
     </div>
     <div class="row-fluid control-group <?php echo $model->hasErrors('price') ? 'error' : ''; ?>">
         <?php echo $form->textFieldRow($model, 'price', array('class' => 'span7 popover-help', 'size' => 60, 'maxlength' => 60, 'data-original-title' => $model->getAttributeLabel('price'), 'data-content' => $model->getAttributeDescription('price'))); ?>
@@ -44,7 +44,7 @@ $form = $this->beginWidget('bootstrap.widgets.TbActiveForm', array(
         <?php if(!$model->isNewRecord && $model->image):?>
             <?php echo CHtml::image($model->imageUrl, $model->name, array('width' => 300, 'height' => 300)); ?>
         <?php endif; ?>
-        <?php echo $form->fileFieldRow($model, 'image', array('class' => 'span4 popover-help', 'size' => 60, 'maxlength' => 300, 'data-original-title' => $model->getAttributeLabel('image'), 'data-content' => $model->getAttributeDescription('image'))); ?>
+        <?php echo $form->fileFieldRow($model, 'image', array('class' => 'span4 popover-help', 'size' => 60, 'maxlength' => 250, 'data-original-title' => $model->getAttributeLabel('image'), 'data-content' => $model->getAttributeDescription('image'))); ?>
     </div>
     <div class="row-fluid control-group <?php echo $model->hasErrors('description') ? 'error' : ''; ?>">
         <div class="popover-help" data-original-title='<?php echo $model->getAttributeLabel('description'); ?>' data-content='<?php echo $model->getAttributeDescription('description'); ?>'>
