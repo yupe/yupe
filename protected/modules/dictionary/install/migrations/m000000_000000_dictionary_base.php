@@ -47,8 +47,8 @@ class m000000_000000_dictionary_base extends YDbMigration
         $this->createIndex("ix_{{dictionary_dictionary_group}}_update_user_id", '{{dictionary_dictionary_group}}', "update_user_id", false);
 
         //fk
-        $this->addForeignKey("fk_{{dictionary_dictionary_group}}_create_user_id",'{{dictionary_dictionary_group}}', 'create_user_id','{{user}}', 'id', 'SET NULL', 'CASCADE');
-        $this->addForeignKey("fk_{{dictionary_dictionary_group}}_updateuser_id",'{{dictionary_dictionary_group}}', 'update_user_id', '{{user}}', 'id', 'SET NULL', 'CASCADE');
+        $this->addForeignKey("fk_{{dictionary_dictionary_group}}_create_user_id",'{{dictionary_dictionary_group}}', 'create_user_id','{{user}}', 'id', 'SET NULL', 'NO ACTION');
+        $this->addForeignKey("fk_{{dictionary_dictionary_group}}_updateuser_id",'{{dictionary_dictionary_group}}', 'update_user_id', '{{user}}', 'id', 'SET NULL', 'NO ACTION');
 
         /**
          * Dictionary_data
@@ -76,9 +76,9 @@ class m000000_000000_dictionary_base extends YDbMigration
         $this->createIndex("ix_{{dictionary_dictionary_data}}_status",'{{dictionary_dictionary_data}}', "status", false);
 
         //fk
-        $this->addForeignKey("fk_{{dictionary_dictionary_data}}_create_user_id",'{{dictionary_dictionary_data}}', 'create_user_id', '{{user}}', 'id', 'SET NULL', 'CASCADE');
-        $this->addForeignKey("fk_{{dictionary_dictionary_data}}_update_user_id",'{{dictionary_dictionary_data}}', 'update_user_id', '{{user}}', 'id', 'SET NULL', 'CASCADE');
-        $this->addForeignKey("fk_{{dictionary_dictionary_data}}_data_group_id",'{{dictionary_dictionary_data}}', 'group_id','{{dictionary_dictionary_group}}', 'id', 'CASCADE', 'CASCADE');
+        $this->addForeignKey("fk_{{dictionary_dictionary_data}}_create_user_id",'{{dictionary_dictionary_data}}', 'create_user_id', '{{user}}', 'id', 'SET NULL', 'NO ACTION');
+        $this->addForeignKey("fk_{{dictionary_dictionary_data}}_update_user_id",'{{dictionary_dictionary_data}}', 'update_user_id', '{{user}}', 'id', 'SET NULL', 'NO ACTION');
+        $this->addForeignKey("fk_{{dictionary_dictionary_data}}_data_group_id",'{{dictionary_dictionary_data}}', 'group_id','{{dictionary_dictionary_group}}', 'id', 'CASCADE', 'NO ACTION');
     }
  
     /**
