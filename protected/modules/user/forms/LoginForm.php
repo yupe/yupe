@@ -1,5 +1,5 @@
 <?php
-class LoginForm extends CFormModel
+class LoginForm extends YFormModel
 {
     public $email;
     public $password;
@@ -15,6 +15,14 @@ class LoginForm extends CFormModel
     }
 
     public function attributeLabels()
+    {
+        return array(
+            'email'    => Yii::t('UserModule.user', 'Email'),
+            'password' => Yii::t('UserModule.user', 'Пароль'),
+        );
+    }
+
+    public function attributeDescriptions()
     {
         return array(
             'email'    => Yii::t('UserModule.user', 'Email'),
