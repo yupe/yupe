@@ -47,7 +47,7 @@ class Blog extends YModel
      */
     public function tableName()
     {
-        return '{{blog}}';
+        return '{{blog_blog}}';
     }
 
     /**
