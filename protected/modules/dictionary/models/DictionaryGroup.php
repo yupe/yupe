@@ -47,9 +47,8 @@ class DictionaryGroup extends YModel
         // will receive user inputs.
         return array(
             array('code, name', 'required'),
-            array('code', 'length', 'max' => 50),
-            array('name', 'length', 'max' => 150),
-            array('description', 'length', 'max' => 300),
+            array('code', 'length', 'max' => 100),
+            array('name, description', 'length', 'max' => 250),
             array('create_user_id, update_user_id', 'length', 'max' => 10),
             array('code', 'YSLugValidator'),
             array('code', 'unique'),

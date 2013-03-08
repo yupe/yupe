@@ -54,9 +54,8 @@ class DictionaryData extends YModel
             array('group_id, code, name, value', 'required'),
             array('status', 'numerical', 'integerOnly' => true),
             array('group_id, create_user_id, update_user_id', 'length', 'max' => 10),
-            array('code', 'length', 'max' => 50),
-            array('name', 'length', 'max' => 150),
-            array('description', 'length', 'max' => 300),
+            array('code', 'length', 'max' => 100),
+            array('name, value, description', 'length', 'max' => 250),
             array('code', 'YSLugValidator'),
             array('code', 'unique'),
             // The following rule is used by search().
