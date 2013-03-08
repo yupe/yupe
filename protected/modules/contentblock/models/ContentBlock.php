@@ -12,7 +12,6 @@
  */
 class ContentBlock extends YModel
 {
-
     const SIMPLE_TEXT = 1;
     const PHP_CODE    = 2;
     const HTML_TEXT   = 3;
@@ -32,7 +31,7 @@ class ContentBlock extends YModel
      */
     public function tableName()
     {
-        return '{{content_block}}';
+        return '{{contentblock_content_block}}';
     }
 
     /**
@@ -45,9 +44,11 @@ class ContentBlock extends YModel
             array('name, code', 'filter', 'filter' => array($obj = new CHtmlPurifier(), 'purify')),
             array('name, code, content, type', 'required'),
             array('type', 'numerical', 'integerOnly' => true),
+            array('type', 'length', 'max' => 11),
             array('type', 'in', 'range' => array_keys($this->types)),
-            array('name, code', 'length', 'max' => 50),
-            array('description', 'length', 'max' => 300),
+            array('name', 'length', 'max' => 250),
+            array('code', 'length', 'max' => 100),
+            array('description', 'length', 'max' => 255),
             array('code', 'YSLugValidator', 'message' => Yii::t('ContentBlockModule.contentblock', 'Неверный формат поля "{attribute}" допустимы только буквы, цифры и символ подчеркивания, от 2 до 50 символов')),
             array('code', 'unique'),
             array('id, name, code, type, content, description', 'safe', 'on' => 'search'),

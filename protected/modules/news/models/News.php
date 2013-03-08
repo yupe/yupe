@@ -80,8 +80,7 @@ class News extends YModel
                 'attributeName' => 'image',
                 'minSize'       => $module->minSize,
                 'maxSize'       => $module->maxSize,
-                'types'         => $module->allowedExtensions,
-                'requiredOn'    => 'insert',
+                'types'         => $module->allowedExtensions,              
                 'uploadPath'    => $module->getUploadPath(),
                 'imageNameCallback' => array($this, 'generateFileName'),
                 'resize' => array(

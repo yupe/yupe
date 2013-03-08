@@ -15,7 +15,7 @@ class SiteController extends YFrontController
     //удалите перед запуском сайта в работу
     public function actionIndex()
     {
-        $this->render('welcome');
+       $this->render('welcome');
     }
 
     // раскомментируйте перед запуском сайта в работу
@@ -32,5 +32,5 @@ class SiteController extends YFrontController
         ));
 
         $this->render('index', array('dataProvider' => $dataProvider));
-    }*/
+    }**/
 }

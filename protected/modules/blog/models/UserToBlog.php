@@ -41,7 +41,7 @@ class UserToBlog extends YModel
      */
     public function tableName()
     {
-        return '{{user_to_blog}}';
+        return '{{blog_user_to_blog}}';
     }
 
     /**

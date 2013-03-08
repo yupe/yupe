@@ -1,8 +1,23 @@
+<script type='text/javascript'>
+    $(document).ready(function(){
+        $('#wcml').click(function(event){
+            event.preventDefault();
+            $("div.comment-form").remove();
+            $("#comment-form-wrap").show();
+        });
+    });
+</script>
+
+
+<a href='#' id='wcml'>НАПИСАТЬ КОММЕНТАРИЙ</a>
+
+<br/><br/>
+<div id='comment-form-wrap' class='comment-form-wrap'>
 <div class="form">
 <?php $form = $this->beginWidget('CActiveForm', array(
      'action'                 => $this->controller->createUrl('/comment/comment/add'),
      'id'                     => 'comment-form',
-     'enableClientValidation' => true,
+     'enableClientValidation' => true     
 )); ?>
 
     <p class="note">
@@ -15,7 +30,7 @@
 
     <?php echo $form->hiddenField($model, 'model'); ?>
     <?php echo $form->hiddenField($model, 'model_id'); ?>
-    <?php echo $form->hiddenField($model, 'parrent_id'); ?>
+    <?php echo $form->hiddenField($model, 'parent_id'); ?>
     <?php echo CHtml::hiddenField('redirectTo', $redirectTo); ?>
     <?php if (!Yii::app()->user->isAuthenticated()): ?>
         <div class="row">
@@ -65,3 +80,4 @@
 
 <?php $this->endWidget(); ?>
 </div><!-- form -->
+</div>
