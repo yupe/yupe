@@ -20,7 +20,7 @@
  * @license  BSD https://raw.github.com/yupe/yupe/master/LICENSE
  * @link     http://yupe.ru
  */
-class m000000_000000_gallery_base extends CDbMigration
+class m000000_000000_gallery_base extends YDbMigration
 {
     /**
      * Накатываем миграцию
@@ -28,41 +28,39 @@ class m000000_000000_gallery_base extends CDbMigration
      * @return nothing
      **/
     public function safeUp()
-    {
-        $db = $this->getDbConnection();
-        $options = Yii::app()->db->schema instanceof CMysqlSchema ? 'ENGINE=InnoDB DEFAULT CHARSET=utf8' : '';
+    {        
         /**
          * gallery:
          **/
-        $this->createTable(
-            $db->tablePrefix . 'gallery', array(
+        $this->createTable('{{gallery_gallery}}', array(
                 'id' => 'pk',
-                'name' =>'varchar(300) NOT NULL',
+                'name' =>'varchar(250) NOT NULL',
                 'description' => 'text',
                 'status' => "integer NOT NULL DEFAULT '1'",
-            ), $options
+            ), $this->getOptions()
         );
 
-        $this->createIndex($db->tablePrefix . "gallery_status", $db->tablePrefix . 'gallery', "status", false);
+        $this->createIndex("ix_{{gallery_gallery}}_status", '{{gallery_gallery}}', "status", false);
 
         /**
          * image_to_gallery:
          **/
-        $this->createTable(
-            $db->tablePrefix . 'image_to_gallery', array(
+        $this->createTable('{{gallery_image_to_gallery}}', array(
                 'id' => 'pk',
                 'image_id'  =>  'integer NOT NULL',
                 'gallery_id' => 'integer NOT NULL',
                 'creation_date' => 'datetime NOT NULL',
-            ), $options
+            ), $this->getOptions()
         );
 
-        $this->createIndex($db->tablePrefix . "gallery_to_image_unique", $db->tablePrefix . 'image_to_gallery', "image_id, gallery_id", true);
-        $this->createIndex($db->tablePrefix . "gallery_to_image_image", $db->tablePrefix . 'image_to_gallery', "image_id", false);
-        $this->createIndex($db->tablePrefix . "gallery_to_image_gallery", $db->tablePrefix . 'image_to_gallery', "gallery_id", false);
+        //ix
+        $this->createIndex("ux_{{gallery_image_to_gallery}}_gallery_to_image", '{{gallery_image_to_gallery}}', "image_id, gallery_id", true);
+        $this->createIndex("ix_{{gallery_image_to_gallery}}_gallery_to_image_image",  '{{gallery_image_to_gallery}}', "image_id", false);
+        $this->createIndex("ix_{{gallery_image_to_gallery}}_gallery_to_image_gallery", '{{gallery_image_to_gallery}}', "gallery_id", false);
 
-        $this->addForeignKey($db->tablePrefix . "gallery_to_image_gallery_fk", $db->tablePrefix . 'image_to_gallery', 'gallery_id', $db->tablePrefix . 'gallery', 'id', 'CASCADE', 'CASCADE');
-        $this->addForeignKey($db->tablePrefix . "gallery_to_image_image_fk", $db->tablePrefix . 'image_to_gallery', 'image_id', $db->tablePrefix . 'image', 'id', 'CASCADE', 'CASCADE');
+        //fk  
+        $this->addForeignKey("fk_{{gallery_image_to_gallery}}_gallery_to_image_gallery",'{{gallery_image_to_gallery}}', 'gallery_id','{{gallery_gallery}}', 'id', 'CASCADE', 'NO ACTION');
+        $this->addForeignKey("fk_{{gallery_image_to_gallery}}_gallery_to_image_image",'{{gallery_image_to_gallery}}', 'image_id', '{{image_image}}', 'id', 'CASCADE', 'NO ACTION');
     }
 
     /**
@@ -72,42 +70,7 @@ class m000000_000000_gallery_base extends CDbMigration
      **/
     public function safeDown()
     {
-        $db = $this->getDbConnection();
-
-        /**
-         * Убиваем внешние ключи, индексы и таблицу - image_to_gallery
-         * @todo найти как проверять существование индексов, что бы их подчищать (на абстрактном уровне без привязки к типу БД):
-         **/
-        if ($db->schema->getTable($db->tablePrefix . 'image_to_gallery') !== null) {
-
-            /*
-            $this->createIndex("gallery_to_image_unique", $db->tablePrefix . 'image_to_gallery', "image_id,gallery_id", true);
-            $this->createIndex("gallery_to_image_image", $db->tablePrefix . 'image_to_gallery', "image_id", false);
-            $this->createIndex("gallery_to_image_gallery", $db->tablePrefix . 'image_to_gallery', "gallery_id", false);
-            */
-
-            if (in_array($db->tablePrefix . "gallery_to_image_gallery_fk", $db->schema->getTable($db->tablePrefix . 'image_to_gallery')->foreignKeys))
-                $this->dropForeignKey($db->tablePrefix . "gallery_to_image_gallery_fk", $db->tablePrefix . 'image_to_gallery');
-
-            if (in_array($db->tablePrefix . "gallery_to_image_image_fk", $db->schema->getTable($db->tablePrefix . 'image_to_gallery')->foreignKeys))
-                $this->dropForeignKey($db->tablePrefix . "gallery_to_image_gallery_fk", $db->tablePrefix . 'image_to_gallery');
-
-            $this->dropTable($db->tablePrefix . 'image_to_gallery');
-        }
-
-
-        
-        /**
-         * Убиваем внешние ключи, индексы и таблицу - gallery
-         * @todo найти как проверять существование индексов, что бы их подчищать (на абстрактном уровне без привязки к типу БД):
-         **/
-        if ($db->schema->getTable($db->tablePrefix . 'gallery') !== null) {
-            
-            /*
-            $this->dropIndex($db->tablePrefix . "gallery_status", $db->tablePrefix . 'gallery');
-            */
-            
-            $this->dropTable($db->tablePrefix . 'gallery');
-        }
+       $this->dropTable('{{gallery_image_to_gallery}}');       
+       $this->dropTable('{{gallery_gallery}}');
     }
 }

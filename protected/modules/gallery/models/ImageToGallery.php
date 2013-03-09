@@ -30,7 +30,7 @@ class ImageToGallery extends YModel
      */
     public function tableName()
     {
-        return '{{image_to_gallery}}';
+        return '{{gallery_image_to_gallery}}';
     }
 
     /**
