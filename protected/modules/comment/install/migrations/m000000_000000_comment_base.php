@@ -10,23 +10,12 @@
  * @license  BSD https://raw.github.com/yupe/yupe/master/LICENSE
  * @link     http://yupe.ru
  **/
-
-/**
- * Comment install migration
- * Класс миграций для модуля Comment:
- *
- * @category YupeMigration
- * @package  YupeCMS
- * @author   YupeTeam <team@yupe.ru>
- * @license  BSD https://raw.github.com/yupe/yupe/master/LICENSE
- * @link     http://yupe.ru
- **/
 class m000000_000000_comment_base extends YDbMigration
 {
     /**
      * Накатываем миграцию:
      *
-     * @return nothing
+     * @return null
      **/
     public function safeUp()
     {
@@ -53,17 +42,17 @@ class m000000_000000_comment_base extends YDbMigration
         $this->createIndex("ix_{{comment_comment}}_user_id", '{{comment_comment}}', "user_id", false);
         $this->createIndex("ix_{{comment_comment}}_parent_id", '{{comment_comment}}', "parent_id", false);
 
-        $this->addForeignKey("fk_{{comment_comment}}_user_id", '{{comment_comment}}', 'user_id', '{{user}}', 'id', 'CASCADE', 'NO ACTION');
+        $this->addForeignKey("fk_{{comment_comment}}_user_id", '{{comment_comment}}', 'user_id', '{{user_user}}', 'id', 'CASCADE', 'NO ACTION');
         $this->addForeignKey("fk_{{comment_comment}}_parent_id", '{{comment_comment}}', "parent_id",'{{comment_comment}}', "id",'CASCADE','NO ACTION');
     }
  
     /**
      * Откатываем миграцию:
      *
-     * @return nothing
+     * @return null
      **/
     public function safeDown()
     {
-        $this->dropTable('{{comment_comment}}');
+        $this->dropTableWithForeignKeys('{{comment_comment}}');
     }
 }

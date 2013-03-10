@@ -44,7 +44,7 @@ class MenuItem extends YModel
      */
     public function tableName()
     {
-        return '{{menu_item}}';
+        return '{{menu_menu_item}}';
     }
 
     /**

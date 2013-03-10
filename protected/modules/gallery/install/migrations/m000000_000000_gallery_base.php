@@ -9,23 +9,12 @@
  * @license  BSD https://raw.github.com/yupe/yupe/master/LICENSE
  * @link     http://yupe.ru
  **/
-
-/**
- * Gallery install migration
- * Класс миграций для модуля Gallery:
- *
- * @category YupeMigration
- * @package  YupeCMS
- * @author   YupeTeam <team@yupe.ru>
- * @license  BSD https://raw.github.com/yupe/yupe/master/LICENSE
- * @link     http://yupe.ru
- */
 class m000000_000000_gallery_base extends YDbMigration
 {
     /**
      * Накатываем миграцию
      *
-     * @return nothing
+     * @return null
      **/
     public function safeUp()
     {        
@@ -66,11 +55,11 @@ class m000000_000000_gallery_base extends YDbMigration
     /**
      * Откатываем миграцию
      *
-     * @return nothing
+     * @return null
      **/
     public function safeDown()
     {
-       $this->dropTable('{{gallery_image_to_gallery}}');       
-       $this->dropTable('{{gallery_gallery}}');
+       $this->dropTableWithForeignKeys('{{gallery_image_to_gallery}}');
+       $this->dropTableWithForeignKeys('{{gallery_gallery}}');
     }
 }

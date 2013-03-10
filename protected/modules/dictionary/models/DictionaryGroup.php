@@ -35,7 +35,7 @@ class DictionaryGroup extends YModel
      */
     public function tableName()
     {
-        return '{{dictionary_group}}';
+        return '{{dictionary_dictionary_group}}';
     }
 
     /**

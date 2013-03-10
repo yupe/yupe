@@ -14,7 +14,7 @@
  * @property integer $type
  * @property integer $status
  * @property integer $ip
- * @property category_id
+ * @property integer $category_id
  * @property string  $phone
  */
 class FeedBack extends YModel
@@ -45,7 +45,7 @@ class FeedBack extends YModel
      */
     public function tableName()
     {
-        return '{{feedback}}';
+        return '{{feedback_feedback}}';
     }
 
     /**

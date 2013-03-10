@@ -31,7 +31,7 @@ class WikiLink extends CActiveRecord
 	 */
 	public function tableName()
 	{
-		return '{{wiki_link}}';
+		return '{{wiki_wiki_link}}';
 	}
 
 	/**

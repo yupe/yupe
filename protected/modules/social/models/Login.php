@@ -28,7 +28,7 @@ class Login extends YModel
      */
     public function tableName()
     {
-        return '{{login}}';
+        return '{{login_login}}';
     }
 
     /**

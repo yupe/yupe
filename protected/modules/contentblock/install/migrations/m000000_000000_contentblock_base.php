@@ -9,23 +9,12 @@
  * @license  BSD https://raw.github.com/yupe/yupe/master/LICENSE
  * @link     http://yupe.ru
  **/
-
-/**
- * ContentBlock install migration
- * Класс миграций для модуля ContentBlock:
- *
- * @category YupeMigration
- * @package  YupeCMS
- * @author   YupeTeam <team@yupe.ru>
- * @license  BSD https://raw.github.com/yupe/yupe/master/LICENSE
- * @link     http://yupe.ru
- */
 class m000000_000000_contentblock_base extends YDbMigration
 {
     /**
      * Накатываем миграцию:
      *
-     * @return nothing
+     * @return null
      **/
     public function safeUp()
     {
@@ -46,10 +35,10 @@ class m000000_000000_contentblock_base extends YDbMigration
     /**
      * Откатываем миграцию:
      *
-     * @return nothing
+     * @return null
      **/
     public function safeDown()
     {
-        $this->dropTable('{{contentblock_content_block}}');
+        $this->dropTableWithForeignKeys('{{contentblock_content_block}}');
     }
 }
