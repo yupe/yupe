@@ -64,7 +64,7 @@ class Comment extends YModel
      */
     public function tableName()
     {
-        return '{{comment}}';
+        return '{{comment_comment}}';
     }
 
     /**
