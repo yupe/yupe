@@ -33,7 +33,7 @@ class m000000_000000_page_base extends CDbMigration
         $db = $this->getDbConnection();
         $options = Yii::app()->db->schema instanceof CMysqlSchema ? 'ENGINE=InnoDB DEFAULT CHARSET=utf8' : '';
         $this->createTable(
-            $db->tablePrefix . 'page_page', array(
+            '{page_page}', array(
                 'id' => 'pk',
                 'category_id' => 'integer DEFAULT NULL',
                 'lang' => 'char(2) DEFAULT NULL',
@@ -54,17 +54,17 @@ class m000000_000000_page_base extends CDbMigration
             ), $options
         );
 
-        $this->createIndex($db->tablePrefix . "page_page_slug_uniq", $db->tablePrefix . 'page_page', "slug,lang", true);
-        $this->createIndex($db->tablePrefix . "page_page_status", $db->tablePrefix . 'page_page', "status", false);
-        $this->createIndex($db->tablePrefix . "page_page_protected", $db->tablePrefix . 'page_page', "is_protected", false);
-        $this->createIndex($db->tablePrefix . "page_page_user_id", $db->tablePrefix . 'page_page', "user_id", false);
-        $this->createIndex($db->tablePrefix . "page_page_change_user_id", $db->tablePrefix . 'page_page', "change_user_id", false);
-        $this->createIndex($db->tablePrefix . "page_page_order", $db->tablePrefix . 'page_page', "menu_order", false);
-        $this->createIndex($db->tablePrefix . "page_page_category_id", $db->tablePrefix . 'page_page', "category_id", false);
+        $this->createIndex("{page_page_slug_uniq}", "{page_page}", "slug,lang", true);
+        $this->createIndex("{page_page_status}", "{page_page}", "status", false);
+        $this->createIndex("{page_page_protected}", "{page_page}", "is_protected", false);
+        $this->createIndex("{page_page_user_id"}, "{page_page}", "user_id", false);
+        $this->createIndex("{page_page_change_user_id}", "{page_page}", "change_user_id", false);
+        $this->createIndex("{page_page_order}", "{page_page}", "menu_order", false);
+        $this->createIndex("{page_page_category_id}", "{page_page}", "category_id", false);
 
-        $this->addForeignKey($db->tablePrefix . "page_page_category_fk", $db->tablePrefix . 'page_page', 'category_id', $db->tablePrefix . 'category_category', 'id', 'SET NULL', 'CASCADE');
-        $this->addForeignKey($db->tablePrefix . "page_page_user_fk", $db->tablePrefix . 'page_page', 'user_id', $db->tablePrefix . 'user', 'id', 'SET NULL', 'CASCADE');
-        $this->addForeignKey($db->tablePrefix . "page_page_user_change_fk", $db->tablePrefix . 'page_page', 'change_user_id', $db->tablePrefix . 'user', 'id', 'SET NULL', 'CASCADE');
+        $this->addForeignKey("{page_page_category_fk}", "{page_page}", "category_id", "{category_category}", "id", "SET NULL", "CASCADE");
+        $this->addForeignKey("{page_page_user_fk}", "{page_page}", "user_id", "{user}", "id", "SET NULL", "CASCADE");
+        $this->addForeignKey("{page_page_user_change_fk}", "{page_page}", "change_user_id", "{user}", "id", "SET NULL", "CASCADE");
     }
  
     /**
@@ -74,33 +74,6 @@ class m000000_000000_page_base extends CDbMigration
      **/
     public function safeDown()
     {
-        $db = $this->getDbConnection();
-
-        /**
-         * Убиваем внешние ключи, индексы и таблицу - page
-         * @todo найти как проверять существование индексов, что бы их подчищать (на абстрактном уровне, без привязки к БД):
-         **/
-        /*
-        $this->dropIndex($db->tablePrefix . "page_slug_uniq", $db->tablePrefix . 'page');
-        $this->dropIndex($db->tablePrefix . "page_status", $db->tablePrefix . 'page');
-        $this->dropIndex($db->tablePrefix . "page_protected", $db->tablePrefix . 'page');
-        $this->dropIndex($db->tablePrefix . "page_user_id", $db->tablePrefix . 'page');
-        $this->dropIndex($db->tablePrefix . "page_change_user_id", $db->tablePrefix . 'page');
-        $this->dropIndex($db->tablePrefix . "page_order", $db->tablePrefix . 'page');
-        $this->dropIndex($db->tablePrefix . "page_category_id", $db->tablePrefix . 'page');
-        */
-
-        if ($db->schema->getTable($db->tablePrefix . 'page_page') !== null) {
-            if (in_array($db->tablePrefix . "page_page_user_recovery_uid_fk", $db->schema->getTable($db->tablePrefix . 'page_page')->foreignKeys))
-                $this->dropForeignKey($db->tablePrefix . "page_page_category_fk", $db->tablePrefix . 'page_page');
-            
-            if (in_array($db->tablePrefix . "page_page_user_fk", $db->schema->getTable($db->tablePrefix . 'page_page')->foreignKeys))
-                $this->dropForeignKey($db->tablePrefix . "page_page_user_fk", $db->tablePrefix . 'page_page');
-
-            if (in_array($db->tablePrefix . "page_page_user_change_fk", $db->schema->getTable($db->tablePrefix . 'page_page')->foreignKeys))
-                $this->dropForeignKey($db->tablePrefix . "page_page_user_change_fk", $db->tablePrefix . 'page_page');
-            
-            $this->dropTable($db->tablePrefix.'page_page');
-        }
+        $this->dropTable("{page_page}");
     }
 }
