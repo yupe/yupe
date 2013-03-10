@@ -33,7 +33,7 @@ class WikiPageRevision extends CActiveRecord
 	 */
 	public function tableName()
 	{
-		return '{{wiki_page_revision}}';
+		return '{{wiki_wiki_page_revision}}';
 	}
 
 	public function behaviors()

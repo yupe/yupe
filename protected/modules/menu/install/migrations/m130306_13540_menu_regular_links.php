@@ -21,7 +21,7 @@
  * @license  BSD https://raw.github.com/yupe/yupe/master/LICENSE
  * @link     http://yupe.ru
  **/
-class m130306_123540_menu_regular_links extends CDbMigration
+class m130306_123540_menu_regular_links extends YDbMigration
 {
     /**
      * Накатываем миграцию:
@@ -32,7 +32,7 @@ class m130306_123540_menu_regular_links extends CDbMigration
     {
         $db = $this->getDbConnection();
         
-        $this->addColumn($db->tablePrefix . 'menu_item', 'regular_link', 'boolean');
+        $this->addColumn('{{menu_menu_item}}', 'regular_link', 'boolean');
     }
  
     /**
@@ -44,6 +44,6 @@ class m130306_123540_menu_regular_links extends CDbMigration
     {
         $db = $this->getDbConnection();
 
-        $this->dropColumn($db->tablePrefix . 'menu_item', 'regular_link');
+        $this->dropColumn('{{menu_menu_item}}', 'regular_link');
     }
 }

@@ -23,7 +23,7 @@
  *
  * rename columns
  */
-class m130115_155600_columns_rename extends CDbMigration
+class m130115_155600_columns_rename extends YDbMigration
 {
     /**
      * Накатываем миграцию:
@@ -32,9 +32,8 @@ class m130115_155600_columns_rename extends CDbMigration
      **/
     public function safeUp()
     {
-        $db = $this->getDbConnection();
-        $this->renameColumn($db->tablePrefix . 'page', 'menu_order', 'order');
-        $this->renameColumn($db->tablePrefix . 'page', 'name', 'title_short');
+        $this->renameColumn('{{page_page}}', 'menu_order', 'order');
+        $this->renameColumn('{{page_page}}', 'name', 'title_short');
     }
 
     /**
@@ -46,13 +45,13 @@ class m130115_155600_columns_rename extends CDbMigration
     {
         $db = $this->getDbConnection();
 
-        if ($db->schema->getTable($db->tablePrefix . 'page') !== null) {
+        if ($db->schema->getTable('{{page_page}}') !== null) {
 
-            if (in_array($db->tablePrefix . "order", $db->schema->getTable($db->tablePrefix . 'page')->columns))
-                $this->renameColumn($db->tablePrefix . 'page', 'order', 'menu_order');
+            if (in_array("menu_order", $db->schema->getTable('{{page_page}}')->columns))
+                $this->renameColumn('{{page_page}}', 'order', 'menu_order');
             
-            if (in_array($db->tablePrefix . "title_short", $db->schema->getTable($db->tablePrefix . 'page')->columns))
-                $this->renameColumn($db->tablePrefix . 'page', 'title_short', 'name');
+            if (in_array("title_short", $db->schema->getTable('{{page_page}}')->columns))
+                $this->renameColumn('{{page_page}}', 'title_short', 'name');
         }
     }
 }

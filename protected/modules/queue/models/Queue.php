@@ -49,7 +49,7 @@ class Queue extends YModel
      */
     public function tableName()
     {
-        return '{{queue}}';
+        return '{{queue_queue}}';
     }
 
     /**
