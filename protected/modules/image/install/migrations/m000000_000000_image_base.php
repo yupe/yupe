@@ -16,7 +16,7 @@ class m000000_000000_image_base extends  CDbMigration
          * image:
          **/
         $this->createTable(
-            $db->tablePrefix . 'image', array(
+            $db->tablePrefix . 'image_image', array(
                 'id' => 'pk',
                 'category_id' => 'integer DEFAULT NULL',
                 'parent_id' => 'integer DEFAULT NULL',
@@ -31,13 +31,13 @@ class m000000_000000_image_base extends  CDbMigration
             ), $options
         );
 
-        $this->createIndex($db->tablePrefix . "image_status", $db->tablePrefix . 'image', "status", false);
-        $this->createIndex($db->tablePrefix . "image_user", $db->tablePrefix . 'image', "user_id", false);
-        $this->createIndex($db->tablePrefix . "image_type", $db->tablePrefix . 'image', "type", false);
-        $this->createIndex($db->tablePrefix . "image_category_id", $db->tablePrefix . 'image', "category_id", false);
+        $this->createIndex($db->tablePrefix . "image_image_status", $db->tablePrefix . 'image_image', "status", false);
+        $this->createIndex($db->tablePrefix . "image_image_user", $db->tablePrefix . 'image_image', "user_id", false);
+        $this->createIndex($db->tablePrefix . "image_image_type", $db->tablePrefix . 'image_image', "type", false);
+        $this->createIndex($db->tablePrefix . "image_image_category_id", $db->tablePrefix . 'image_image', "category_id", false);
 
-        $this->addForeignKey($db->tablePrefix . "image_category_fk", $db->tablePrefix . 'image', 'category_id', $db->tablePrefix . 'category', 'id', 'RESTRICT', 'CASCADE');
-        $this->addForeignKey($db->tablePrefix . "image_user_fk", $db->tablePrefix . 'image', 'user_id', $db->tablePrefix . 'user', 'id', 'SET NULL', 'CASCADE');
+        $this->addForeignKey($db->tablePrefix . "image_image_category_fk", $db->tablePrefix . 'image_image', 'category_id', $db->tablePrefix . 'category_category', 'id', 'RESTRICT', 'CASCADE');
+        $this->addForeignKey($db->tablePrefix . "image_image_user_fk", $db->tablePrefix . 'image_image', 'user_id', $db->tablePrefix . 'user', 'id', 'SET NULL', 'CASCADE');
     }
 
     public function safeDown()
@@ -47,14 +47,14 @@ class m000000_000000_image_base extends  CDbMigration
          * Убиваем внешние ключи, индексы и таблицу - image
          * @todo найти как проверять существование индексов, что бы их подчищать (на абстрактном уровне без привязки к типу БД):
          **/
-        if ($db->schema->getTable($db->tablePrefix . 'image') !== null) {
-            if (in_array($db->tablePrefix . "image_category_fk", $db->schema->getTable($db->tablePrefix . 'image')->foreignKeys))
-                $this->dropForeignKey($db->tablePrefix . "gallery_image_category_fk", $db->tablePrefix . 'image');
+        if ($db->schema->getTable($db->tablePrefix . 'image_image') !== null) {
+            if (in_array($db->tablePrefix . "image_image_category_fk", $db->schema->getTable($db->tablePrefix . 'image_image')->foreignKeys))
+                $this->dropForeignKey($db->tablePrefix . "gallery_gallery_image_category_fk", $db->tablePrefix . 'image_image');
 
-            if (in_array($db->tablePrefix . "image_user_fk", $db->schema->getTable($db->tablePrefix . 'image')->foreignKeys))
-                $this->dropForeignKey($db->tablePrefix . "image_user_fk", $db->tablePrefix . 'image');
+            if (in_array($db->tablePrefix . "image_image_user_fk", $db->schema->getTable($db->tablePrefix . 'image_image')->foreignKeys))
+                $this->dropForeignKey($db->tablePrefix . "image_user_fk", $db->tablePrefix . 'image_image');
 
-            $this->dropTable($db->tablePrefix . 'image');
+            $this->dropTable($db->tablePrefix . 'image_image');
         }
     }
 }
