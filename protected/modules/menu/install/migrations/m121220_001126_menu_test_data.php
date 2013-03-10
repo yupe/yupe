@@ -35,7 +35,7 @@ class m121220_001126_menu_test_data extends CDbMigration
         $db = $this->getDbConnection();
 
         $this->insert(
-            $db->tablePrefix . 'menu_menu', array(
+            '{menu_menu}', array(
                 'id'          => 1,
                 'name'        => 'Верхнее меню',
                 'code'        => 'top-menu',
@@ -70,7 +70,7 @@ class m121220_001126_menu_test_data extends CDbMigration
 
             foreach ($columns as $c)
                 $item[$c] = $i[$n++];
-            $this->insert($db->tablePrefix . 'menu_menu_item', $item);
+            $this->insert('{menu_menu_item}', $item);
         }
     }
 }
