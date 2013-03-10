@@ -23,7 +23,7 @@
  *
  * add data
  **/
-class m121220_001126_menu_test_data extends CDbMigration
+class m121220_001126_menu_test_data extends YDbMigration
 {
     /**
      * Накатываем миграцию:
@@ -32,10 +32,8 @@ class m121220_001126_menu_test_data extends CDbMigration
      **/
     public function safeUp()
     {
-        $db = $this->getDbConnection();
-
         $this->insert(
-            "{menu_menu}", array(
+            '{{menu_menu}}', array(
                 'id'          => 1,
                 'name'        => 'Верхнее меню',
                 'code'        => 'top-menu',
@@ -70,7 +68,7 @@ class m121220_001126_menu_test_data extends CDbMigration
 
             foreach ($columns as $c)
                 $item[$c] = $i[$n++];
-            $this->insert('{menu_menu_item}', $item);
+            $this->insert('{{menu_menu_item}}', $item);
         }
     }
 }

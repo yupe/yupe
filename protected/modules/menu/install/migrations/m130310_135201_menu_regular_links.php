@@ -1,12 +1,10 @@
 <?php
 
-class m130310_135201_menu_regular_links extends CDbMigration
+class m130310_135201_menu_regular_links extends YDbMigration
 {
 	public function safeUp()
-    {
-        $db = $this->getDbConnection();
-        
-        $this->addColumn("{menu_menu_item}", "regular_link", "boolean");
+    {        
+        $this->addColumn("{{menu_menu_item}}", "regular_link", "boolean");
     }
  
     /**
@@ -16,8 +14,6 @@ class m130310_135201_menu_regular_links extends CDbMigration
      **/
     public function safeDown()
     {
-        $db = $this->getDbConnection();
-
-        $this->dropColumn("{menu_menu_item}", "regular_link");
+        $this->dropColumn("{{menu_menu_item}}", "regular_link");
     }
 }

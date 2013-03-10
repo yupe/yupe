@@ -21,7 +21,7 @@
  * @license  BSD https://raw.github.com/yupe/yupe/master/LICENSE
  * @link     http://yupe.ru
  **/
-class m000000_000000_menu_base extends CDbMigration
+class m000000_000000_menu_base extends YDbMigration
 {
     /**
      * Накатываем миграцию:
@@ -30,8 +30,6 @@ class m000000_000000_menu_base extends CDbMigration
      **/
     public function safeUp()
     {
-        $db = $this->getDbConnection();
-        $options = Yii::app()->db->schema instanceof CMysqlSchema ? 'ENGINE=InnoDB DEFAULT CHARSET=utf8' : '';
         /**
          * menu:
          **/
@@ -42,7 +40,7 @@ class m000000_000000_menu_base extends CDbMigration
                 'code' => 'string NOT NULL',
                 'description' => 'varchar(300) NOT NULL',
                 'status'=> "integer NOT NULL DEFAULT '1'",
-            ), $options
+            ), $this->getOptions()
         );
 
         $this->createIndex("{{menu_menu_code_unique}}", "{{menu_menu}}", "code", true);
@@ -68,14 +66,24 @@ class m000000_000000_menu_base extends CDbMigration
                 'condition_denial' => "integer DEFAULT '0'",
                 'sort' => "integer NOT NULL DEFAULT '1'",
                 'status' => "integer NOT NULL DEFAULT '1'",
-            ), $options
+            ), $this->getOptions()
         );
 
-        $this->createIndex("{{menu_menu_item_menuid}}", "{{menu_menu_item}}", "{{menu_id}}", false);
-        $this->createIndex("{{menu_menu_item_sort}}", "{{menu_menu_item}}", "sort", false);
-        $this->createIndex("{{menu_menu_item_status}}", "{{menu_menu_item}}", "status", false);
+        // ix
+        $this->createIndex("ix_{{menu_menu_item_menuid}}", "{{menu_menu_item}}", "menu_id", false);
+        $this->createIndex("ix_{{menu_menu_item_sort}}", "{{menu_menu_item}}", "sort", false);
+        $this->createIndex("ix_{{menu_menu_item_status}}", "{{menu_menu_item}}", "status", false);
 
-        $this->addForeignKey("{{menu_item_menu_fk}}", "{{menu_menu_item}}", 'menu_id', '{{menu_menu}}', 'id', 'CASCADE', 'CASCADE');
+        // fk
+        $this->addForeignKey(
+            "fk_{{menu_item_menu}}",
+            "{{menu_menu_item}}",
+            'menu_id',
+            '{{menu_menu}}',
+            'id',
+            'CASCADE',
+            'CASCADE'
+        );
     }
  
     /**
