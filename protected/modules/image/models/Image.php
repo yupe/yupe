@@ -118,8 +118,8 @@ class Image extends YModel
             'user_id'       => Yii::t('ImageModule.image', 'Добавил'),
             'alt'           => Yii::t('ImageModule.image', 'Альтернативный текст'),
             'status'        => Yii::t('ImageModule.image', 'Статус'),
-            'parent_id'     => Yii::t('ImageModule.image','Родитель'),
-            'type'          => Yii::t('ImageModule.image','Тип картинки'),
+            'parent_id'     => Yii::t('ImageModule.image', 'Родитель'),
+            'type'          => Yii::t('ImageModule.image', 'Тип картинки'),
         );
     }
 
@@ -205,7 +205,7 @@ class Image extends YModel
         $this->_url = Yii::app()->baseUrl . '/' .
                 Yii::app()->getModule('yupe')->uploadPath . '/' .
                 Yii::app()->getModule('image')->uploadPath . '/';
-                
+
         return $this->_url.'/'.$this->file;
     }
 }

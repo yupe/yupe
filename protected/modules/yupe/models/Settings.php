@@ -37,7 +37,7 @@ class Settings extends YModel
      */
     public function tableName()
     {
-        return '{{settings}}';
+        return '{{yupe_settings}}';
     }
 
     /**

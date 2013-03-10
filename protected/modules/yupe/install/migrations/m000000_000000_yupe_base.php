@@ -42,6 +42,7 @@ class m000000_000000_yupe_base extends YDbMigration
             ), $this->getOptions()
         );
 
+        //ix
         $this->createIndex("ix_{{yupe_settings}}_module_id",'{{yupe_settings}}', "module_id", false);
         $this->createIndex("ix_{{yupe_settings}}_param_name",'{{yupe_settings}}', "param_name", false);
         $this->createIndex("ux_{{yupe_settings}}_param_name",'{{yupe_settings}}', "module_id,param_name", true);
