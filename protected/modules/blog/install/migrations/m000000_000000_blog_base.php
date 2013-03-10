@@ -74,7 +74,7 @@ class m000000_000000_blog_base extends YDbMigration
             "fk_{{blog_blog}}_category_id",
             '{{blog_blog}}',
             'category_id',
-            '{{category}}',
+            '{{category_category}}',
             'id',
             'NO ACTION',
             'NO ACTION'
