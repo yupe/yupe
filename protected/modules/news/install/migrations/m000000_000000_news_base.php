@@ -64,7 +64,7 @@ class m000000_000000_news_base extends CDbMigration
         $this->createIndex($db->tablePrefix . "news_date", $db->tablePrefix . 'news', "date", false);
 
         $this->addForeignKey($db->tablePrefix . "news_user_fk", $db->tablePrefix . 'news', 'user_id', $db->tablePrefix . 'user', 'id', 'SET NULL', 'CASCADE');
-        $this->addForeignKey($db->tablePrefix . "news_category_fk", $db->tablePrefix . 'news', 'category_id', $db->tablePrefix . 'category', 'id', 'SET NULL', 'CASCADE');
+        $this->addForeignKey($db->tablePrefix . "news_category_fk", $db->tablePrefix . 'news', 'category_id', $db->tablePrefix . 'category_category', 'id', 'SET NULL', 'CASCADE');
 
     }
  
