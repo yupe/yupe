@@ -36,7 +36,7 @@ class m000000_000000_menu_base extends CDbMigration
          * menu:
          **/
         $this->createTable(
-            '{menu_menu}', array(
+            '{{menu_menu}}', array(
                 'id' => 'pk',
                 'name' => 'varchar(300) NOT NULL',
                 'code' => 'string NOT NULL',
@@ -45,14 +45,14 @@ class m000000_000000_menu_base extends CDbMigration
             ), $options
         );
 
-        $this->createIndex("{menu_menu_code_unique}", "{menu_menu}", "code", true);
-        $this->createIndex("{menu_menu_status}", "{menu_menu}", "status", false);
+        $this->createIndex("{{menu_menu_code_unique}}", "{{menu_menu}}", "code", true);
+        $this->createIndex("{{menu_menu_status}}", "{{menu_menu}}", "status", false);
 
         /**
          * menu_item:
          **/
         $this->createTable(
-            '{menu_menu_item}', array(
+            '{{menu_menu_item}}', array(
                 'id' => 'pk',
                 'parent_id' => 'integer NOT NULL',
                 'menu_id' => 'integer NOT NULL',
@@ -71,11 +71,11 @@ class m000000_000000_menu_base extends CDbMigration
             ), $options
         );
 
-        $this->createIndex("{menu_menu_item_menuid}", "{menu_menu_item}", "{menu_id}", false);
-        $this->createIndex("{menu_menu_item_sort}", "{menu_menu_item}", "sort", false);
-        $this->createIndex("{menu_menu_item_status}", "{menu_menu_item}", "status", false);
+        $this->createIndex("{{menu_menu_item_menuid}}", "{{menu_menu_item}}", "{{menu_id}}", false);
+        $this->createIndex("{{menu_menu_item_sort}}", "{{menu_menu_item}}", "sort", false);
+        $this->createIndex("{{menu_menu_item_status}}", "{{menu_menu_item}}", "status", false);
 
-        $this->addForeignKey("{menu_item_menu_fk}", "{menu_menu_item}", 'menu_id', '{menu_menu}', 'id', 'CASCADE', 'CASCADE');
+        $this->addForeignKey("{{menu_item_menu_fk}}", "{{menu_menu_item}}", 'menu_id', '{{menu_menu}}', 'id', 'CASCADE', 'CASCADE');
     }
  
     /**
@@ -85,7 +85,7 @@ class m000000_000000_menu_base extends CDbMigration
      **/
     public function safeDown()
     {
-        $this->dropTable('{menu_menu}');
-        $this->dropTable('{menu_menu_item}');
+        $this->dropTable('{{menu_menu}}');
+        $this->dropTable('{{menu_menu_item}}');
     }
 }

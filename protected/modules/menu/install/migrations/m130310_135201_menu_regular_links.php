@@ -6,7 +6,7 @@ class m130310_135201_menu_regular_links extends CDbMigration
     {
         $db = $this->getDbConnection();
         
-        $this->addColumn($db->tablePrefix . 'menu_menu_item', 'regular_link', 'boolean');
+        $this->addColumn("{menu_menu_item}", "regular_link", "boolean");
     }
  
     /**
@@ -18,6 +18,6 @@ class m130310_135201_menu_regular_links extends CDbMigration
     {
         $db = $this->getDbConnection();
 
-        $this->dropColumn($db->tablePrefix . 'menu_menu_item', 'regular_link');
+        $this->dropColumn("{menu_menu_item}", "regular_link");
     }
 }
