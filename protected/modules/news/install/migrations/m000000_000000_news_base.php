@@ -36,7 +36,7 @@ class m000000_000000_news_base extends CDbMigration
          * news:
          **/
         $this->createTable(
-            '{news_news}', array(
+            '{{news_news}}', array(
                 'id' => 'pk',
                 'category_id' => 'integer DEFAULT NULL',
                 'lang' => 'char(2) DEFAULT NULL',
@@ -57,14 +57,14 @@ class m000000_000000_news_base extends CDbMigration
             ), $options
         );
 
-        $this->createIndex("{news_news_alias_unique}", "{news_news}", "alias,lang", true);
-        $this->createIndex("{news_news_status", "{news_news}", "status", false);
-        $this->createIndex("{news_news_user}", "{news_news}", "user_id", false);
-        $this->createIndex("{news_news_category}", "{news_news}", "category_id", false);
-        $this->createIndex("{news_news_date}", "{news_news}", "date", false);
+        $this->createIndex("{{news_news_alias_unique}}", "{{news_news}}", "alias,lang", true);
+        $this->createIndex("{{news_news_status}", "{{news_news}}", "status", false);
+        $this->createIndex("{{news_news_user}}", "{{news_news}}", "user_id", false);
+        $this->createIndex("{{news_news_category}}", "{{news_news}}", "category_id", false);
+        $this->createIndex("{{news_news_date}}", "{{news_news}}", "date", false);
 
-        $this->addForeignKey("{news_news_user_fk}", "{news_news}", 'user_id', "{user}", 'id', 'SET NULL', 'CASCADE');
-        $this->addForeignKey("{news_news_category_fk}", "{news_news}", 'category_id', "{category_category}", 'id', 'SET NULL', 'CASCADE');
+        $this->addForeignKey("{{news_news_user_fk}}", "{{news_news}}", 'user_id', "{{user}}", 'id', 'SET NULL', 'CASCADE');
+        $this->addForeignKey("{{news_news_category_fk}}", "{{news_news}}", 'category_id', "{{category_category}}", 'id', 'SET NULL', 'CASCADE');
     }
  
     /**
@@ -74,6 +74,6 @@ class m000000_000000_news_base extends CDbMigration
      **/
     public function safeDown()
     {
-        $this->dropTable("{news_news}");    
+        $this->dropTable("{{news_news}}");    
     }
 }
