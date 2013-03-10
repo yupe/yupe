@@ -33,7 +33,7 @@ class m000000_000000_page_base extends CDbMigration
         $db = $this->getDbConnection();
         $options = Yii::app()->db->schema instanceof CMysqlSchema ? 'ENGINE=InnoDB DEFAULT CHARSET=utf8' : '';
         $this->createTable(
-            '{page_page}', array(
+            '{{page_page}}', array(
                 'id' => 'pk',
                 'category_id' => 'integer DEFAULT NULL',
                 'lang' => 'char(2) DEFAULT NULL',
@@ -54,17 +54,17 @@ class m000000_000000_page_base extends CDbMigration
             ), $options
         );
 
-        $this->createIndex("{page_page_slug_uniq}", "{page_page}", "slug,lang", true);
-        $this->createIndex("{page_page_status}", "{page_page}", "status", false);
-        $this->createIndex("{page_page_protected}", "{page_page}", "is_protected", false);
-        $this->createIndex("{page_page_user_id"}, "{page_page}", "user_id", false);
-        $this->createIndex("{page_page_change_user_id}", "{page_page}", "change_user_id", false);
-        $this->createIndex("{page_page_order}", "{page_page}", "menu_order", false);
-        $this->createIndex("{page_page_category_id}", "{page_page}", "category_id", false);
+        $this->createIndex("{{page_page_slug_uniq}}", "{{page_page}}", "slug,lang", true);
+        $this->createIndex("{{page_page_status}}", "{{page_page}}", "status", false);
+        $this->createIndex("{{page_page_protected}}", "{{page_page}}", "is_protected", false);
+        $this->createIndex("{{page_page_user_id}"}, "{{page_page}}", "user_id", false);
+        $this->createIndex("{{page_page_change_user_id}}", "{{page_page}}", "change_user_id", false);
+        $this->createIndex("{{page_page_order}}", "{{page_page}}", "menu_order", false);
+        $this->createIndex("{{page_page_category_id}}", "{{page_page}}", "category_id", false);
 
-        $this->addForeignKey("{page_page_category_fk}", "{page_page}", "category_id", "{category_category}", "id", "SET NULL", "CASCADE");
-        $this->addForeignKey("{page_page_user_fk}", "{page_page}", "user_id", "{user}", "id", "SET NULL", "CASCADE");
-        $this->addForeignKey("{page_page_user_change_fk}", "{page_page}", "change_user_id", "{user}", "id", "SET NULL", "CASCADE");
+        $this->addForeignKey("{{page_page_category_fk}}", "{{page_page}}", "category_id", "{{category_category}}", "id", "SET NULL", "CASCADE");
+        $this->addForeignKey("{{page_page_user_fk}}", "{{page_page}}", "user_id", "{{user}}", "id", "SET NULL", "CASCADE");
+        $this->addForeignKey("{{page_page_user_change_fk}}", "{{page_page}}", "change_user_id", "{{user}}", "id", "SET NULL", "CASCADE");
     }
  
     /**
@@ -74,6 +74,6 @@ class m000000_000000_page_base extends CDbMigration
      **/
     public function safeDown()
     {
-        $this->dropTable("{page_page}");
+        $this->dropTable("{{page_page}}");
     }
 }
