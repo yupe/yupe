@@ -21,7 +21,7 @@
  * @license  BSD https://raw.github.com/yupe/yupe/master/LICENSE
  * @link     http://yupe.ru
  **/
-class m000000_000000_page_base extends CDbMigration
+class m000000_000000_page_base extends YDbMigration
 {
     /**
      * Функция настройки и создания таблицы:
@@ -30,8 +30,6 @@ class m000000_000000_page_base extends CDbMigration
      **/
     public function safeUp()
     {
-        $db = $this->getDbConnection();
-        $options = Yii::app()->db->schema instanceof CMysqlSchema ? 'ENGINE=InnoDB DEFAULT CHARSET=utf8' : '';
         $this->createTable(
             '{{page_page}}', array(
                 'id' => 'pk',
@@ -51,20 +49,45 @@ class m000000_000000_page_base extends CDbMigration
                 'status' => 'integer NOT NULL',
                 'is_protected' => "boolean NOT NULL DEFAULT '0'",
                 'menu_order' => "integer NOT NULL DEFAULT '0'",
-            ), $options
+            ), $this->getOptions()
         );
 
-        $this->createIndex("{{page_page_slug_uniq}}", "{{page_page}}", "slug,lang", true);
-        $this->createIndex("{{page_page_status}}", "{{page_page}}", "status", false);
-        $this->createIndex("{{page_page_protected}}", "{{page_page}}", "is_protected", false);
-        $this->createIndex("{{page_page_user_id}"}, "{{page_page}}", "user_id", false);
-        $this->createIndex("{{page_page_change_user_id}}", "{{page_page}}", "change_user_id", false);
-        $this->createIndex("{{page_page_order}}", "{{page_page}}", "menu_order", false);
-        $this->createIndex("{{page_page_category_id}}", "{{page_page}}", "category_id", false);
+        // ix, ux
+        $this->createIndex("ux_{{page_page_slug_lang}}", "{{page_page}}", "slug,lang", true);
+        $this->createIndex("ix_{{page_page_status}}", "{{page_page}}", "status", false);
+        $this->createIndex("ix_{{page_page_protected}}", "{{page_page}}", "is_protected", false);
+        $this->createIndex("ix_{{page_page_user_id}}", "{{page_page}}", "user_id", false);
+        $this->createIndex("ix_{{page_page_change_user_id}}", "{{page_page}}", "change_user_id", false);
+        $this->createIndex("ix_{{page_page_order}}", "{{page_page}}", "menu_order", false);
+        $this->createIndex("ix_{{page_page_category_id}}", "{{page_page}}", "category_id", false);
 
-        $this->addForeignKey("{{page_page_category_fk}}", "{{page_page}}", "category_id", "{{category_category}}", "id", "SET NULL", "CASCADE");
-        $this->addForeignKey("{{page_page_user_fk}}", "{{page_page}}", "user_id", "{{user}}", "id", "SET NULL", "CASCADE");
-        $this->addForeignKey("{{page_page_user_change_fk}}", "{{page_page}}", "change_user_id", "{{user}}", "id", "SET NULL", "CASCADE");
+        // fk
+        $this->addForeignKey(
+            "fk_{{page_page_category}}",
+            "{{page_page}}",
+            "category_id",
+            "{{category_category}}",
+            "id",
+            "SET NULL",
+            "CASCADE"
+        );
+        $this->addForeignKey(
+            "fk_{{page_page_user}}",
+            "{{page_page}}", "user_id",
+            "{{user}}",
+            "id", 
+            "SET NULL", 
+            "CASCADE"
+        );
+        $this->addForeignKey(
+            "fk_{{page_page_user_change}}",
+            "{{page_page}}",
+            "change_user_id",
+            "{{user}}",
+            "id",
+            "SET NULL",
+            "CASCADE"
+        );
     }
  
     /**

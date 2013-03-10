@@ -23,7 +23,7 @@
  *
  * rename columns
  */
-class m130115_155600_columns_rename extends CDbMigration
+class m130115_155600_columns_rename extends YDbMigration
 {
     /**
      * Накатываем миграцию:
@@ -32,9 +32,8 @@ class m130115_155600_columns_rename extends CDbMigration
      **/
     public function safeUp()
     {
-        $db = $this->getDbConnection();
-        $this->renameColumn("{page_page}", "menu_order", "order");
-        $this->renameColumn("{page_page}", "name", "title_short");
+        $this->renameColumn("{{page_page}}", "menu_order", "order");
+        $this->renameColumn("{{page_page}}", "name", "title_short");
     }
 
     /**
@@ -44,15 +43,14 @@ class m130115_155600_columns_rename extends CDbMigration
      **/
     public function safeDown()
     {
-        $db = $this->getDbConnection();
+        if (Yii::app()->db->schema->getTable("{{page_page}}") !== null)
+        {
 
-        if ($db->schema->getTable("{page_page}") !== null) {
+            if (isset(Yii::app()->db->schema->getTable('{{page_page}}')->columns['order']))
+                $this->renameColumn("{{page_page}}", "order", "menu_order");
 
-            if (in_array("{page_order}", $db->schema->getTable("{page_page}")->columns))
-                $this->renameColumn("{page_page}", "order", "menu_order");
-            
-            if (in_array("{page_title_short}", $db->schema->getTable("{page_page}")->columns))
-                $this->renameColumn("{page_page}", "title_short", "name");
+            if (isset(Yii::app()->db->schema->getTable('{{page_page}}')->columns['title_short']))
+                $this->renameColumn("{{page_page}}", "title_short", "name");        
         }
     }
 }
