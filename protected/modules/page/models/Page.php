@@ -48,7 +48,7 @@ class Page extends YModel
      */
     public function tableName()
     {
-        return '{{page}}';
+        return '{{page_page}}';
     }
 
     /**
