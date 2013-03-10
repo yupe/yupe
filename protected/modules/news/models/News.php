@@ -33,7 +33,7 @@ class News extends YModel
      */
     public function tableName()
     {
-        return '{{news}}';
+        return '{{news_news}}';
     }
 
     /**

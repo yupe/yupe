@@ -36,7 +36,7 @@ class m000000_000000_news_base extends CDbMigration
          * news:
          **/
         $this->createTable(
-            $db->tablePrefix . 'news', array(
+            $db->tablePrefix . 'news_news', array(
                 'id' => 'pk',
                 'category_id' => 'integer DEFAULT NULL',
                 'lang' => 'char(2) DEFAULT NULL',
@@ -57,14 +57,14 @@ class m000000_000000_news_base extends CDbMigration
             ), $options
         );
 
-        $this->createIndex($db->tablePrefix . "news_alias_unique", $db->tablePrefix . 'news', "alias,lang", true);
-        $this->createIndex($db->tablePrefix . "news_status", $db->tablePrefix . 'news', "status", false);
-        $this->createIndex($db->tablePrefix . "news_user", $db->tablePrefix . 'news', "user_id", false);
-        $this->createIndex($db->tablePrefix . "news_category", $db->tablePrefix . 'news', "category_id", false);
-        $this->createIndex($db->tablePrefix . "news_date", $db->tablePrefix . 'news', "date", false);
+        $this->createIndex($db->tablePrefix . "news_news_alias_unique", $db->tablePrefix . 'news_news', "alias,lang", true);
+        $this->createIndex($db->tablePrefix . "news_news_status", $db->tablePrefix . 'news_news', "status", false);
+        $this->createIndex($db->tablePrefix . "news_news_user", $db->tablePrefix . 'news_news', "user_id", false);
+        $this->createIndex($db->tablePrefix . "news_news_category", $db->tablePrefix . 'news_news', "category_id", false);
+        $this->createIndex($db->tablePrefix . "news_news_date", $db->tablePrefix . 'news_news', "date", false);
 
-        $this->addForeignKey($db->tablePrefix . "news_user_fk", $db->tablePrefix . 'news', 'user_id', $db->tablePrefix . 'user', 'id', 'SET NULL', 'CASCADE');
-        $this->addForeignKey($db->tablePrefix . "news_category_fk", $db->tablePrefix . 'news', 'category_id', $db->tablePrefix . 'category_category', 'id', 'SET NULL', 'CASCADE');
+        $this->addForeignKey($db->tablePrefix . "news_news_user_fk", $db->tablePrefix . 'news_news', 'user_id', $db->tablePrefix . 'user', 'id', 'SET NULL', 'CASCADE');
+        $this->addForeignKey($db->tablePrefix . "news_news_category_fk", $db->tablePrefix . 'news_news', 'category_id', $db->tablePrefix . 'category_category', 'id', 'SET NULL', 'CASCADE');
 
     }
  
@@ -81,7 +81,7 @@ class m000000_000000_news_base extends CDbMigration
          * Убиваем внешние ключи, индексы и таблицу - news
          * @todo найти как проверять существование индексов, что бы их подчищать (на абстрактном уровне без привязки к типу БД):
          **/
-        if ($db->schema->getTable($db->tablePrefix . 'news') !== null) {
+        if ($db->schema->getTable($db->tablePrefix . 'news_news') !== null) {
 
             /*
             $this->dropIndex($db->tablePrefix . "news_alias_unique", $db->tablePrefix . 'news');
@@ -91,13 +91,13 @@ class m000000_000000_news_base extends CDbMigration
             $this->dropIndex($db->tablePrefix . "news_date", $db->tablePrefix . 'news');
             */
 
-            if (in_array($db->tablePrefix . "news_user_fk", $db->schema->getTable($db->tablePrefix . 'news')->foreignKeys))
-                $this->dropForeignKey($db->tablePrefix . "news_user_fk", $db->tablePrefix . 'news');
+            if (in_array($db->tablePrefix . "news_news_user_fk", $db->schema->getTable($db->tablePrefix . 'news_news')->foreignKeys))
+                $this->dropForeignKey($db->tablePrefix . "news_news_user_fk", $db->tablePrefix . 'news_news');
 
-            if (in_array($db->tablePrefix . "news_category_fk", $db->schema->getTable($db->tablePrefix . 'news')->foreignKeys))
-                $this->dropForeignKey($db->tablePrefix . "news_user_fk", $db->tablePrefix . 'news');
+            if (in_array($db->tablePrefix . "news_news_category_fk", $db->schema->getTable($db->tablePrefix . 'news_news')->foreignKeys))
+                $this->dropForeignKey($db->tablePrefix . "news_news_user_fk", $db->tablePrefix . 'news_news');
 
-            $this->dropTable($db->tablePrefix . 'news');
+            $this->dropTable($db->tablePrefix . 'news_news');
         }
     }
 }
