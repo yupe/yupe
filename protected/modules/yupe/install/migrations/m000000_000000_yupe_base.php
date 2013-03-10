@@ -25,7 +25,7 @@ class m000000_000000_yupe_base extends YDbMigration
                 'id' => 'pk',
                 'module_id'=> 'varchar(100) NOT NULL',
                 'param_name'=> 'varchar(100) NOT NULL',
-                'param_value' => 'varchar(100) NOT NULL',
+                'param_value' => 'varchar(255) NOT NULL',
                 'creation_date' => 'datetime NOT NULL',
                 'change_date' => 'datetime NOT NULL',
                 'user_id' => 'integer DEFAULT NULL',

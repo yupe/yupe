@@ -20,23 +20,21 @@ class m000000_000000_social_base extends YDbMigration
     public function safeUp()
     {
         $this->createTable(
-            '{{login_login}}',
+            '{{social_login}}', 
             array(
                 'id' => 'pk',
                 'user_id' => 'integer NOT NULL',
-                'identity_id' => 'string NOT NULL',
-                'type' => 'string NOT NULL',
+                'identity_id' => 'varchar(250) NOT NULL',
+                'type' => 'varchar(150) NOT NULL',
                 'creation_date' => 'datetime NOT NULL',
-            ),
-            $this->getOptions()
+            ), $this->getOptions()
         );
 
-        $this->createIndex("ux_{{login_login}}_identity_id", '{{login_login}}', "identity_id", true);
-        $this->createIndex("ix_{{login_login}}_user_id", '{{login_login}}', "user_id", false);
-        $this->createIndex("ix_{{login_login}}_type", '{{login_login}}', "type", false);
+        $this->createIndex("ux_{{social_login}}_identity", '{{social_login}}', "identity_id", true);
+        $this->createIndex("ix_{{social_login}}_user_id", '{{social_login}}', "user_id", false);
+        $this->createIndex("ix_{{social_login}}_type", '{{social_login}}', "type", false);
 
-        //fk
-        $this->addForeignKey("fk_{{login_login}}_user_id", '{{login_login}}', 'user_id', '{{user_user}}', 'id', 'CASCADE', 'CASCADE');
+        $this->addForeignKey("fk_{{social_login}}_user", '{{social_login}}', 'user_id', '{{user_user}}', 'id', 'CASCADE', 'CASCADE');
     }
  
     /**
@@ -46,6 +44,6 @@ class m000000_000000_social_base extends YDbMigration
      **/
     public function safeDown()
     {
-        $this->dropTableWithForeignKeys('{{login_login}}');
+        $this->dropTableWithForeignKeys('{{social_login}}');
     }
 }

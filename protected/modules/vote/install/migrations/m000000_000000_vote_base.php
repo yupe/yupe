@@ -23,7 +23,7 @@ class m000000_000000_vote_base extends YDbMigration
             '{{vote_vote}}',
             array(
                 'id' => 'pk',
-                'model' => 'string NOT NULL',
+                'model' => 'varchar(150) NOT NULL',
                 'model_id' => 'integer NOT NULL',
                 'user_id' => 'integer NOT NULL',
                 'creation_date' => 'datetime NOT NULL',

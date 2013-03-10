@@ -24,8 +24,8 @@ class m000000_000000_yeeki_base extends YDbMigration
             array(
                 'id' => 'pk',
                 'is_redirect' => "boolean DEFAULT '0'",
-                'page_uid' => 'string DEFAULT NULL',
-                'namespace' => 'string DEFAULT NULL',
+                'page_uid' => 'varchar(250) DEFAULT NULL',
+                'namespace' => 'varchar(250) DEFAULT NULL',
                 'content' => 'text',
                 'revision_id' => 'integer DEFAULT NULL',
                 'user_id' => 'integer DEFAULT NULL',
@@ -35,7 +35,6 @@ class m000000_000000_yeeki_base extends YDbMigration
             $this->getOptions()
         );
 
-        $this->createIndex("ux_{{wiki_wiki_page}}_id", '{{wiki_wiki_page}}', "id", true);
         $this->createIndex("ix_{{wiki_wiki_page}}_revision_id", '{{wiki_wiki_page}}', "revision_id", false);
         $this->createIndex("ix_{{wiki_wiki_page}}_user_id", '{{wiki_wiki_page}}', "user_id", false);
         $this->createIndex("ix_{{wiki_wiki_page}}_namespace", '{{wiki_wiki_page}}', "namespace", false);
@@ -53,20 +52,17 @@ class m000000_000000_yeeki_base extends YDbMigration
             array(
                 'id' => 'pk',
                 'page_id' => 'integer NOT NULL',
-                'comment' => 'string DEFAULT NULL',
+                'comment' => 'varchar(250) DEFAULT NULL',
                 'is_minor' => 'boolean DEFAULT NULL',
                 'content' => 'text',
-                'user_id' => 'string DEFAULT NULL',
+                'user_id' => 'varchar(250) DEFAULT NULL',
                 'created_at' => 'integer DEFAULT NULL',
             ),
             $this->getOptions()
         );
-
-        $this->createIndex("ix_{{wiki_wiki_page_revision}}_page_id", '{{wiki_wiki_page_revision}}', "page_id", false);
-
-        //fk
-        $this->addForeignKey("fk_{{wiki_wiki_page_revision}}_page_id", '{{wiki_wiki_page_revision}}', 'page_id', '{{wiki_wiki_page}}', 'id', 'CASCADE', 'CASCADE');
-        $this->addForeignKey("fk_{{wiki_wiki_page}}_revision_id", '{{wiki_wiki_page}}', 'revision_id', '{{wiki_wiki_page_revision}}', 'id', 'CASCADE', 'CASCADE');
+        $this->createIndex( "ix_{{wiki_wiki_page_revision}}_pageid",  '{{wiki_wiki_page_revision}}', "page_id", false);
+        $this->addForeignKey( "fk_{{wiki_wiki_page_revision}}_page",  '{{wiki_wiki_page_revision}}', 'page_id',  '{{wiki_wiki_page}}', 'id', 'CASCADE', 'CASCADE');
+        $this->addForeignKey( "fk_{{wiki_wiki_page}}_revision_id",  "{{wiki_wiki_page}}", 'revision_id',  '{{wiki_wiki_page_revision}}', 'id', 'CASCADE', 'CASCADE');
 
         /**
          * wiki_link
@@ -83,13 +79,12 @@ class m000000_000000_yeeki_base extends YDbMigration
             $this->getOptions()
         );
 
-        $this->createIndex("ix_{{wiki_wiki_link}}_page_from_id", '{{wiki_wiki_link}}', "page_from_id", false);
-        $this->createIndex("ix_{{wiki_wiki_link}}_page_to_id", '{{wiki_wiki_link}}', "page_to_id", false);
-        $this->createIndex("ix_{{wiki_wiki_link}}_wiki_uid", '{{wiki_wiki_link}}', "wiki_uid", false);
+        $this->createIndex( "ix_{{wiki_wiki_link}}_code_unique",  '{{wiki_wiki_link}}', "page_from_id", false);
+        $this->createIndex( "ix_{{wiki_wiki_link}}_status",  '{{wiki_wiki_link}}', "page_to_id", false);
+        $this->createIndex( "ix_{{wiki_wiki_link}}_uid",  '{{wiki_wiki_link}}', "wiki_uid", false);
 
-        //fk
-        $this->addForeignKey("fk_{{wiki_wiki_link}}_page_from_id", '{{wiki_wiki_link}}', 'page_from_id', '{{wiki_wiki_page}}', 'id', 'CASCADE', 'CASCADE');
-        $this->addForeignKey("fk_{{wiki_wiki_link}}_page_to_id", '{{wiki_wiki_link}}', 'page_to_id', '{{wiki_wiki_page}}', 'id', 'SET NULL', 'CASCADE');
+        $this->addForeignKey( "fk_{{wiki_wiki_link}}_page_from_fk",  '{{wiki_wiki_link}}', 'page_from_id',  '{{wiki_wiki_page}}', 'id', 'CASCADE', 'CASCADE');
+        $this->addForeignKey( "fk_{{wiki_wiki_link}}_page_to_fk",  '{{wiki_wiki_link}}', 'page_to_id',  '{{wiki_wiki_page}}', 'id', 'CASCADE', 'CASCADE');
     }
  
     /**

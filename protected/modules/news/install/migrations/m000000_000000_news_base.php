@@ -28,8 +28,8 @@ class m000000_000000_news_base extends YDbMigration
                 'creation_date' => 'datetime NOT NULL',
                 'change_date' => 'datetime NOT NULL',
                 'date' => 'date NOT NULL',
-                'title' => 'string NOT NULL',
-                'alias' => 'string NOT NULL',
+                'title' => 'varchar(250) NOT NULL',
+                'alias' => 'varchar(150) NOT NULL',
                 'short_text' => 'text',
                 'full_text' => 'text NOT NULL',
                 'image' => 'varchar(300) DEFAULT NULL',
@@ -37,10 +37,9 @@ class m000000_000000_news_base extends YDbMigration
                 'user_id' => 'integer DEFAULT NULL',
                 'status' => "integer NOT NULL DEFAULT '0'",
                 'is_protected' => "boolean NOT NULL DEFAULT '0'",
-                'keywords' => 'string NOT NULL',
-                'description' => 'string NOT NULL',
-            ),
-            $this->getOptions()
+                'keywords' => 'varchar(250) NOT NULL',
+                'description' => 'varchar(250) NOT NULL',
+            ), $this->getOptions()
         );
 
         $this->createIndex("ux_{{news_news}}_alias_lang", '{{news_news}}', "alias,lang", true);

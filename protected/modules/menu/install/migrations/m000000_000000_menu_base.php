@@ -35,22 +35,24 @@ class m000000_000000_menu_base extends YDbMigration
         $this->createIndex("ux_{{menu_menu}}_code", '{{menu_menu}}', "code", true);
         $this->createIndex("ix_{{menu_menu}}_status", '{{menu_menu}}', "status", false);
 
-
+        /**
+         * menu_item:
+         **/
         $this->createTable(
             '{{menu_menu_item}}',
             array(
                 'id' => 'pk',
                 'parent_id' => 'integer NOT NULL',
                 'menu_id' => 'integer NOT NULL',
-                'title' => 'string NOT NULL',
-                'href' => 'string NOT NULL',
-                'class' => 'string NOT NULL',
-                'title_attr' => 'string NOT NULL',
-                'before_link' => 'string NOT NULL',
-                'after_link' => 'string NOT NULL',
-                'target' => 'string NOT NULL',
-                'rel' => 'string NOT NULL',
-                'condition_name' => "string DEFAULT '0'",
+                'title' => 'varchar(150) NOT NULL',
+                'href' => 'varchar(150) NOT NULL',
+                'class' => 'varchar(150) NOT NULL',
+                'title_attr' => 'varchar(150) NOT NULL',
+                'before_link' => 'varchar(150) NOT NULL',
+                'after_link' => 'varchar(150) NOT NULL',
+                'target' => 'varchar(150) NOT NULL',
+                'rel' => 'varchar(150) NOT NULL',
+                'condition_name' => "varchar(150) DEFAULT '0'",
                 'condition_denial' => "integer DEFAULT '0'",
                 'sort' => "integer NOT NULL DEFAULT '1'",
                 'status' => "integer NOT NULL DEFAULT '1'",
@@ -65,7 +67,7 @@ class m000000_000000_menu_base extends YDbMigration
         //fk
         $this->addForeignKey("fk_{{menu_menu_item}}_menu_id", '{{menu_menu_item}}', 'menu_id', '{{menu_menu}}', 'id', 'CASCADE', 'CASCADE');
     }
-
+ 
     /**
      * Откатываем миграцию:
      *
