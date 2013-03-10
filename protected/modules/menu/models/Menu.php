@@ -32,7 +32,7 @@ class Menu extends YModel
      */
     public function tableName()
     {
-        return '{{menu}}';
+        return '{{menu_menu}}';
     }
 
     /**

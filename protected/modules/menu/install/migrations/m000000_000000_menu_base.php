@@ -36,7 +36,7 @@ class m000000_000000_menu_base extends CDbMigration
          * menu:
          **/
         $this->createTable(
-            $db->tablePrefix . 'menu', array(
+            $db->tablePrefix . 'menu_menu', array(
                 'id' => 'pk',
                 'name' => 'varchar(300) NOT NULL',
                 'code' => 'string NOT NULL',
@@ -45,14 +45,14 @@ class m000000_000000_menu_base extends CDbMigration
             ), $options
         );
 
-        $this->createIndex($db->tablePrefix . "menu_code_unique", $db->tablePrefix . 'menu', "code", true);
-        $this->createIndex($db->tablePrefix . "menu_status", $db->tablePrefix . 'menu', "status", false);
+        $this->createIndex($db->tablePrefix . "menu_menu_code_unique", $db->tablePrefix . 'menu_menu', "code", true);
+        $this->createIndex($db->tablePrefix . "menu_menu_status", $db->tablePrefix . 'menu_menu', "status", false);
 
         /**
          * menu_item:
          **/
         $this->createTable(
-            $db->tablePrefix . 'menu_item', array(
+            $db->tablePrefix . 'menu_menu_item', array(
                 'id' => 'pk',
                 'parent_id' => 'integer NOT NULL',
                 'menu_id' => 'integer NOT NULL',
@@ -71,11 +71,11 @@ class m000000_000000_menu_base extends CDbMigration
             ), $options
         );
 
-        $this->createIndex($db->tablePrefix . "menu_item_menuid", $db->tablePrefix . 'menu_item', "menu_id", false);
-        $this->createIndex($db->tablePrefix . "menu_item_sort", $db->tablePrefix . 'menu_item', "sort", false);
-        $this->createIndex($db->tablePrefix . "menu_item_status", $db->tablePrefix . 'menu_item', "status", false);
+        $this->createIndex($db->tablePrefix . "menu_menu_item_menuid", $db->tablePrefix . 'menu_menu_item', "menu_id", false);
+        $this->createIndex($db->tablePrefix . "menu_menu_item_sort", $db->tablePrefix . 'menu_menu_item', "sort", false);
+        $this->createIndex($db->tablePrefix . "menu_menu_item_status", $db->tablePrefix . 'menu_menu_item', "status", false);
 
-        $this->addForeignKey($db->tablePrefix . "menu_item_menu_fk", $db->tablePrefix . 'menu_item', 'menu_id', $db->tablePrefix . 'menu', 'id', 'CASCADE', 'CASCADE');
+        $this->addForeignKey($db->tablePrefix . "menu_item_menu_fk", $db->tablePrefix . 'menu_menu_item', 'menu_id', $db->tablePrefix . 'menu_menu', 'id', 'CASCADE', 'CASCADE');
     }
  
     /**
@@ -91,7 +91,7 @@ class m000000_000000_menu_base extends CDbMigration
          * Убиваем внешние ключи, индексы и таблицу - mail_event
          * @todo найти как проверять существование индексов, что бы их подчищать (на абстрактном уровне без привязки к типу БД):
          **/
-        if ($db->schema->getTable($db->tablePrefix . 'menu_item') !== null) {
+        if ($db->schema->getTable($db->tablePrefix . 'menu_menu_item') !== null) {
 
             /*
             $this->dropIndex($db->tablePrefix . "menu_item_status", $db->tablePrefix . 'menu_item');
@@ -99,24 +99,24 @@ class m000000_000000_menu_base extends CDbMigration
             $this->dropIndex($db->tablePrefix . "menu_item_menuid", $db->tablePrefix . 'menu_item');
             */
 
-            if (in_array($db->tablePrefix . "menu_item_menu_fk", $db->schema->getTable($db->tablePrefix . 'menu_item')->foreignKeys))
-                $this->dropForeignKey($db->tablePrefix . "menu_item_menu_fk", $db->tablePrefix . 'menu_item');
+            if (in_array($db->tablePrefix . "menu_menu_item_menu_fk", $db->schema->getTable($db->tablePrefix . 'menu_menu_item')->foreignKeys))
+                $this->dropForeignKey($db->tablePrefix . "menu_menu_item_menu_fk", $db->tablePrefix . 'menu_menu_item');
 
-            $this->dropTable($db->tablePrefix . 'menu_item');
+            $this->dropTable($db->tablePrefix . 'menu_menu_item');
         }
         
         /**
          * Убиваем внешние ключи, индексы и таблицу - mail_event
          * @todo найти как проверять существование индексов, что бы их подчищать (на абстрактном уровне без привязки к типу БД):
          **/
-        if ($db->schema->getTable($db->tablePrefix . 'menu') !== null) {
+        if ($db->schema->getTable($db->tablePrefix . 'menu_menu') !== null) {
 
             /*
             $this->dropIndex($db->tablePrefix . "menu_status", $db->tablePrefix . 'menu');
             $this->dropIndex($db->tablePrefix . "menu_code_unique", $db->tablePrefix . 'menu');
             */
 
-            $this->dropTable($db->tablePrefix . 'menu');
+            $this->dropTable($db->tablePrefix . 'menu_menu');
         }
     }
 }
