@@ -34,7 +34,7 @@ class WikiPage extends CActiveRecord
 	 */
 	public function tableName()
 	{
-		return '{{wiki_page}}';
+		return '{{wiki_wiki_page}}';
 	}
 
 	public function behaviors()

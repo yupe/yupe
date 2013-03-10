@@ -46,7 +46,7 @@ class User extends YModel
      */
     public function tableName()
     {
-        return '{{user}}';
+        return '{{user_user}}';
     }
 
     /**

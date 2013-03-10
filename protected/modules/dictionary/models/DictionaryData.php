@@ -40,7 +40,7 @@ class DictionaryData extends YModel
      */
     public function tableName()
     {
-        return '{{dictionary_data}}';
+        return '{{dictionary_dictionary_data}}';
     }
 
     /**

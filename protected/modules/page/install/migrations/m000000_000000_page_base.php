@@ -21,7 +21,7 @@
  * @license  BSD https://raw.github.com/yupe/yupe/master/LICENSE
  * @link     http://yupe.ru
  **/
-class m000000_000000_page_base extends CDbMigration
+class m000000_000000_page_base extends YDbMigration
 {
     /**
      * Функция настройки и создания таблицы:
@@ -31,9 +31,9 @@ class m000000_000000_page_base extends CDbMigration
     public function safeUp()
     {
         $db = $this->getDbConnection();
-        $options = Yii::app()->db->schema instanceof CMysqlSchema ? 'ENGINE=InnoDB DEFAULT CHARSET=utf8' : '';
+
         $this->createTable(
-            $db->tablePrefix . 'page', array(
+            '{{page_page}}', array(
                 'id' => 'pk',
                 'category_id' => 'integer DEFAULT NULL',
                 'lang' => 'char(2) DEFAULT NULL',
@@ -42,29 +42,29 @@ class m000000_000000_page_base extends CDbMigration
                 'change_date' => 'datetime NOT NULL',
                 'user_id' => 'integer  DEFAULT NULL',
                 'change_user_id' => 'integer DEFAULT NULL',
-                'name' => 'string NOT NULL',
-                'title' => 'string NOT NULL',
-                'slug' => 'string NOT NULL',
+                'name' => 'varchar(150) NOT NULL',
+                'title' => 'varchar(250) NOT NULL',
+                'slug' => 'varchar(150) NOT NULL',
                 'body' => 'text NOT NULL',
-                'keywords' => 'string NOT NULL',
-                'description' => 'string NOT NULL',
+                'keywords' => 'varchar(250) NOT NULL',
+                'description' => 'varchar(250) NOT NULL',
                 'status' => 'integer NOT NULL',
                 'is_protected' => "boolean NOT NULL DEFAULT '0'",
                 'menu_order' => "integer NOT NULL DEFAULT '0'",
-            ), $options
+            ),  $this->getOptions()
         );
 
-        $this->createIndex($db->tablePrefix . "page_slug_uniq", $db->tablePrefix . 'page', "slug,lang", true);
-        $this->createIndex($db->tablePrefix . "page_status", $db->tablePrefix . 'page', "status", false);
-        $this->createIndex($db->tablePrefix . "page_protected", $db->tablePrefix . 'page', "is_protected", false);
-        $this->createIndex($db->tablePrefix . "page_user_id", $db->tablePrefix . 'page', "user_id", false);
-        $this->createIndex($db->tablePrefix . "page_change_user_id", $db->tablePrefix . 'page', "change_user_id", false);
-        $this->createIndex($db->tablePrefix . "page_order", $db->tablePrefix . 'page', "menu_order", false);
-        $this->createIndex($db->tablePrefix . "page_category_id", $db->tablePrefix . 'page', "category_id", false);
+        $this->createIndex("ux_{{page_page}}_slug", '{{page_page}}', "slug,lang", true);
+        $this->createIndex("ix_{{page_page}}_status", '{{page_page}}', "status", false);
+        $this->createIndex("ix_{{page_page}}_protected", '{{page_page}}', "is_protected", false);
+        $this->createIndex("ix_{{page_page}}_user_id", '{{page_page}}', "user_id", false);
+        $this->createIndex("ix_{{page_page}}_change_user_id", '{{page_page}}', "change_user_id", false);
+        $this->createIndex("ix_{{page_page}}_order", '{{page_page}}', "menu_order", false);
+        $this->createIndex("ix_{{page_page}}_category_id", '{{page_page}}', "category_id", false);
 
-        $this->addForeignKey($db->tablePrefix . "page_category_fk", $db->tablePrefix . 'page', 'category_id', $db->tablePrefix . 'category', 'id', 'SET NULL', 'CASCADE');
-        $this->addForeignKey($db->tablePrefix . "page_user_fk", $db->tablePrefix . 'page', 'user_id', $db->tablePrefix . 'user', 'id', 'SET NULL', 'CASCADE');
-        $this->addForeignKey($db->tablePrefix . "page_user_change_fk", $db->tablePrefix . 'page', 'change_user_id', $db->tablePrefix . 'user', 'id', 'SET NULL', 'CASCADE');
+        $this->addForeignKey("fk_{{page_page}}_category", '{{page_page}}', 'category_id', '{{category_category}}', 'id', 'SET NULL', 'CASCADE');
+        $this->addForeignKey("fk_{{page_page}}_user", '{{page_page}}', 'user_id', '{{user_user}}', 'id', 'SET NULL', 'CASCADE');
+        $this->addForeignKey("fk_{{page_page}}_user_change", '{{page_page}}', 'change_user_id', '{{user_user}}', 'id', 'SET NULL', 'CASCADE');
     }
  
     /**
@@ -80,27 +80,18 @@ class m000000_000000_page_base extends CDbMigration
          * Убиваем внешние ключи, индексы и таблицу - page
          * @todo найти как проверять существование индексов, что бы их подчищать (на абстрактном уровне, без привязки к БД):
          **/
-        /*
-        $this->dropIndex($db->tablePrefix . "page_slug_uniq", $db->tablePrefix . 'page');
-        $this->dropIndex($db->tablePrefix . "page_status", $db->tablePrefix . 'page');
-        $this->dropIndex($db->tablePrefix . "page_protected", $db->tablePrefix . 'page');
-        $this->dropIndex($db->tablePrefix . "page_user_id", $db->tablePrefix . 'page');
-        $this->dropIndex($db->tablePrefix . "page_change_user_id", $db->tablePrefix . 'page');
-        $this->dropIndex($db->tablePrefix . "page_order", $db->tablePrefix . 'page');
-        $this->dropIndex($db->tablePrefix . "page_category_id", $db->tablePrefix . 'page');
-        */
 
-        if ($db->schema->getTable($db->tablePrefix . 'page') !== null) {
-            if (in_array($db->tablePrefix . "user_recovery_uid_fk", $db->schema->getTable($db->tablePrefix . 'page')->foreignKeys))
-                $this->dropForeignKey($db->tablePrefix . "page_category_fk", $db->tablePrefix . 'page');
+        if ($db->schema->getTable('{{page_page}}') !== null) {
+            if (in_array( "fk_{{page_page}}_category", $db->schema->getTable('{{page_page}}')->foreignKeys))
+                $this->dropForeignKey("fk_{{page_page}}_category", '{{page_page}}');
             
-            if (in_array($db->tablePrefix . "page_user_fk", $db->schema->getTable($db->tablePrefix . 'page')->foreignKeys))
-                $this->dropForeignKey($db->tablePrefix . "page_user_fk", $db->tablePrefix . 'page');
+            if (in_array("fk_{{page_page}}_user", $db->schema->getTable('{{page_page}}')->foreignKeys))
+                $this->dropForeignKey("fk_{{page_page}}_user", '{{page_page}}');
 
-            if (in_array($db->tablePrefix . "page_user_change_fk", $db->schema->getTable($db->tablePrefix . 'page')->foreignKeys))
-                $this->dropForeignKey($db->tablePrefix . "page_user_change_fk", $db->tablePrefix . 'page');
+            if (in_array("fk_{{page_page}}_user_change", $db->schema->getTable('{{page_page}}')->foreignKeys))
+                $this->dropForeignKey( "fk_{{page_page}}_user_change", '{{page_page}}');
             
-            $this->dropTable($db->tablePrefix.'page');
+            $this->dropTable('{{page_page}}');
         }
     }
 }

@@ -45,7 +45,7 @@ class FeedBack extends YModel
      */
     public function tableName()
     {
-        return '{{feedback}}';
+        return '{{feedback_feedback}}';
     }
 
     /**
