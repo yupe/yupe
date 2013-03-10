@@ -25,6 +25,8 @@ class Image extends YModel
     const TYPE_SIMPLE  = 0;
     const TYPE_PREVIEW = 1;
 
+    private $_url;
+
     /**
      * Returns the static model of the specified AR class.
      * @param string $className
@@ -52,10 +54,9 @@ class Image extends YModel
             array('name, alt, type', 'required'),
             array('name, description, alt', 'filter', 'filter' => 'trim'),
             array('name, description, alt', 'filter', 'filter' => array($obj = new CHtmlPurifier(), 'purify')),
-            array('status, parent_id, type, category_id', 'numerical', 'integerOnly' => true),
-            array('name', 'length', 'max' => 300),
-            array('user_id', 'length', 'max' => 10),
-            array('alt', 'length', 'max' => 150),
+            array('status, parent_id, type, category_id', 'numerical', 'integerOnly' => true),           
+            array('user_id, parent_id, category_id, type, status', 'length', 'max' => 11),
+            array('alt, name, file', 'length', 'max' => 250),
             array('type', 'in', 'range' => array_keys($this->typeList)),
             array('category_id', 'default', 'setOnEmpty' => true, 'value' => null),
             array('id, name, description, creation_date, user_id, alt, status', 'safe', 'on' => 'search'),
@@ -117,8 +118,8 @@ class Image extends YModel
             'user_id'       => Yii::t('ImageModule.image', 'Добавил'),
             'alt'           => Yii::t('ImageModule.image', 'Альтернативный текст'),
             'status'        => Yii::t('ImageModule.image', 'Статус'),
-            'parent_id'     => Yii::t('ImageModule.image','Родитель'),
-            'type'          => Yii::t('ImageModule.image','Тип картинки'),
+            'parent_id'     => Yii::t('ImageModule.image', 'Родитель'),
+            'type'          => Yii::t('ImageModule.image', 'Тип картинки'),
         );
     }
 
@@ -197,9 +198,14 @@ class Image extends YModel
 
     public function getUrl()
     {
-        return  Yii::app()->baseUrl . '/' .
+        if($this->_url){
+            return $this->_url.'/'.$this->file;
+        }
+
+        $this->_url = Yii::app()->baseUrl . '/' .
                 Yii::app()->getModule('yupe')->uploadPath . '/' .
-                Yii::app()->getModule('image')->uploadPath . '/' .
-                $this->file;
+                Yii::app()->getModule('image')->uploadPath . '/';
+
+        return $this->_url.'/'.$this->file;
     }
 }

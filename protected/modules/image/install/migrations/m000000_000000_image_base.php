@@ -6,55 +6,39 @@
  * Time: 10:38
  * To change this template use File | Settings | File Templates.
  */
-class m000000_000000_image_base extends  CDbMigration
+class m000000_000000_image_base extends  YDbMigration
 {
     public function safeUp()
-    {
-        $db = $this->getDbConnection();
-        $options = Yii::app()->db->schema instanceof CMysqlSchema ? 'ENGINE=InnoDB DEFAULT CHARSET=utf8' : '';
-        /**
-         * image:
-         **/
-        $this->createTable(
-            $db->tablePrefix . 'image', array(
+    {        
+        $this->createTable('{{image_image}}', array(
                 'id' => 'pk',
                 'category_id' => 'integer DEFAULT NULL',
                 'parent_id' => 'integer DEFAULT NULL',
-                'name' => 'varchar(300) NOT NULL',
+                'name' => 'varchar(250) NOT NULL',
                 'description' => 'text',
-                'file' => 'varchar(500) NOT NULL',
+                'file' => 'varchar(250) NOT NULL',
                 'creation_date' => 'datetime NOT NULL',
                 'user_id' => 'integer DEFAULT NULL',
-                'alt' => 'string NOT NULL',
+                'alt' => 'varchar(250) NOT NULL',
                 'type' => "integer NOT NULL DEFAULT '0'",
                 'status' => "integer NOT NULL DEFAULT '1'",
-            ), $options
+            ), $this->getOptions()
         );
 
-        $this->createIndex($db->tablePrefix . "image_status", $db->tablePrefix . 'image', "status", false);
-        $this->createIndex($db->tablePrefix . "image_user", $db->tablePrefix . 'image', "user_id", false);
-        $this->createIndex($db->tablePrefix . "image_type", $db->tablePrefix . 'image', "type", false);
-        $this->createIndex($db->tablePrefix . "image_category_id", $db->tablePrefix . 'image', "category_id", false);
+        //ix
+        $this->createIndex("ix_{{image_image}}_status", '{{image_image}}', "status", false);
+        $this->createIndex("ix_{{image_image}}_user_id", '{{image_image}}', "user_id", false);
+        $this->createIndex("ix_{{image_image}}_type", '{{image_image}}', "type", false);
+        $this->createIndex("ix_{{image_image}}_category_id", '{{image_image}}', "category_id", false);
 
-        $this->addForeignKey($db->tablePrefix . "image_category_fk", $db->tablePrefix . 'image', 'category_id', $db->tablePrefix . 'category', 'id', 'RESTRICT', 'CASCADE');
-        $this->addForeignKey($db->tablePrefix . "image_user_fk", $db->tablePrefix . 'image', 'user_id', $db->tablePrefix . 'user', 'id', 'SET NULL', 'CASCADE');
+        //fk
+        $this->addForeignKey("fk_{{image_image}}_category_id",'{{image_image}}', 'category_id','{{category_category}}', 'id', 'SET NULL', 'NO ACTION');
+        $this->addForeignKey("fk_{{image_image}}_user_id",'{{image_image}}', 'user_id','{{user_user}}', 'id', 'SET NULL', 'NO ACTION');
+        $this->addForeignKey("fk_{{image_image}}_parent_id",'{{image_image}}','parent_id','{{image_image}}','id','SET NULL','NO ACTION');
     }
 
     public function safeDown()
     {
-        $db = $this->getDbConnection();
-        /**
-         * Убиваем внешние ключи, индексы и таблицу - image
-         * @todo найти как проверять существование индексов, что бы их подчищать (на абстрактном уровне без привязки к типу БД):
-         **/
-        if ($db->schema->getTable($db->tablePrefix . 'image') !== null) {
-            if (in_array($db->tablePrefix . "image_category_fk", $db->schema->getTable($db->tablePrefix . 'image')->foreignKeys))
-                $this->dropForeignKey($db->tablePrefix . "gallery_image_category_fk", $db->tablePrefix . 'image');
-
-            if (in_array($db->tablePrefix . "image_user_fk", $db->schema->getTable($db->tablePrefix . 'image')->foreignKeys))
-                $this->dropForeignKey($db->tablePrefix . "image_user_fk", $db->tablePrefix . 'image');
-
-            $this->dropTable($db->tablePrefix . 'image');
-        }
+        $this->dropTable('{{image_image}}');
     }
 }
