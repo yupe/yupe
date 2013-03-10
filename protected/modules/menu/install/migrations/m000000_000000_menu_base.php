@@ -12,11 +12,7 @@
  **/
 class m000000_000000_menu_base extends YDbMigration
 {
-    /**
-     * Накатываем миграцию:
-     *
-     * @return null
-     **/
+
     public function safeUp()
     {
         $this->createTable(
@@ -68,11 +64,7 @@ class m000000_000000_menu_base extends YDbMigration
         $this->addForeignKey("fk_{{menu_menu_item}}_menu_id", '{{menu_menu_item}}', 'menu_id', '{{menu_menu}}', 'id', 'CASCADE', 'CASCADE');
     }
  
-    /**
-     * Откатываем миграцию:
-     *
-     * @return null
-     **/
+
     public function safeDown()
     {
         $this->dropTableWithForeignKeys('{{menu_menu_item}}');

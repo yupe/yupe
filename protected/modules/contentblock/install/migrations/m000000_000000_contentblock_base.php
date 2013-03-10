@@ -11,11 +11,7 @@
  **/
 class m000000_000000_contentblock_base extends YDbMigration
 {
-    /**
-     * Накатываем миграцию:
-     *
-     * @return null
-     **/
+
     public function safeUp()
     {
         $this->createTable('{{contentblock_content_block}}', array(
@@ -32,11 +28,7 @@ class m000000_000000_contentblock_base extends YDbMigration
         $this->createIndex("ix_{{contentblock_content_block}}_type", '{{contentblock_content_block}}', "type", false);
     }
  
-    /**
-     * Откатываем миграцию:
-     *
-     * @return null
-     **/
+
     public function safeDown()
     {
         $this->dropTableWithForeignKeys('{{contentblock_content_block}}');

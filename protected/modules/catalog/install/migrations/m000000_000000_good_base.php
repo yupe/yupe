@@ -11,11 +11,7 @@
  **/
 class m000000_000000_good_base extends YDbMigration
 {
-    /**
-     * Накатываем миграцию:
-     *
-     * @return null
-     **/
+
     public function safeUp()
     {
         $this->createTable('{{catalog_good}}', array(

@@ -12,21 +12,13 @@
  **/
 class m130306_123540_menu_regular_links extends YDbMigration
 {
-    /**
-     * Накатываем миграцию:
-     *
-     * @return null
-     **/
+
     public function safeUp()
     {
         $this->addColumn('{{menu_menu_item}}', 'regular_link', 'boolean');
     }
  
-    /**
-     * Откатываем миграцию:
-     *
-     * @return null
-     **/
+
     public function safeDown()
     {
         $this->dropColumn('{{menu_menu_item}}', 'regular_link');

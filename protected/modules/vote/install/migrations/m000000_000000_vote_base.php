@@ -12,11 +12,7 @@
  **/
 class m000000_000000_vote_base extends YDbMigration
 {
-    /**
-     * Накатываем миграцию:
-     *
-     * @return null
-     **/
+
     public function safeUp()
     {
         $this->createTable(
@@ -41,11 +37,7 @@ class m000000_000000_vote_base extends YDbMigration
         $this->addForeignKey("fk_{{vote_vote}}_user_id", '{{vote_vote}}', 'user_id', '{{user_user}}', 'id', 'CASCADE', 'CASCADE');
     }
  
-    /**
-     * Откатываем миграцию:
-     *
-     * @return null
-     **/
+
     public function safeDown()
     {
         $this->dropTableWithForeignKeys('{{vote_vote}}');

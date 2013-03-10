@@ -12,11 +12,7 @@
  **/
 class m000000_000000_queue_base extends YDbMigration
 {
-    /**
-     * Накатываем миграцию:
-     *
-     * @return null
-     **/
+
     public function safeUp()
     {
         $this->createTable(
@@ -39,11 +35,7 @@ class m000000_000000_queue_base extends YDbMigration
         $this->createIndex("ux_{{queue_queue}}_priority", '{{queue_queue}}', "priority", true);
     }
  
-    /**
-     * Откатываем миграцию:
-     *
-     * @return null
-     **/
+
     public function safeDown()
     {
         $this->dropTable('{{queue_queue}}');

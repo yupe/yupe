@@ -12,11 +12,7 @@
  **/
 class m000000_000000_comment_base extends YDbMigration
 {
-    /**
-     * Накатываем миграцию:
-     *
-     * @return null
-     **/
+
     public function safeUp()
     {
         $this->createTable('{{comment_comment}}', array(
@@ -46,11 +42,7 @@ class m000000_000000_comment_base extends YDbMigration
         $this->addForeignKey("fk_{{comment_comment}}_parent_id", '{{comment_comment}}', "parent_id",'{{comment_comment}}', "id",'CASCADE','NO ACTION');
     }
  
-    /**
-     * Откатываем миграцию:
-     *
-     * @return null
-     **/
+
     public function safeDown()
     {
         $this->dropTableWithForeignKeys('{{comment_comment}}');

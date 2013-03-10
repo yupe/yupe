@@ -12,11 +12,7 @@
  **/
 class m000000_000000_yeeki_base extends YDbMigration
 {
-    /**
-     * Накатываем миграцию:
-     *
-     * @return null
-     **/
+
     public function safeUp()
     {
         $this->createTable(
@@ -87,11 +83,6 @@ class m000000_000000_yeeki_base extends YDbMigration
         $this->addForeignKey( "fk_{{wiki_wiki_link}}_page_to_fk",  '{{wiki_wiki_link}}', 'page_to_id',  '{{wiki_wiki_page}}', 'id', 'CASCADE', 'CASCADE');
     }
  
-    /**
-     * Откатываем страницу:
-     *
-     * @return null
-     **/
     public function safeDown()
     {
         $this->dropTableWithForeignKeys('{{wiki_wiki_link}}');

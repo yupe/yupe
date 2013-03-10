@@ -12,11 +12,7 @@
  **/
 class m000000_000000_social_base extends YDbMigration
 {
-    /**
-     * Накатываем миграцию:
-     *
-     * @return null
-     **/
+
     public function safeUp()
     {
         $this->createTable(
@@ -37,11 +33,7 @@ class m000000_000000_social_base extends YDbMigration
         $this->addForeignKey("fk_{{social_login}}_user", '{{social_login}}', 'user_id', '{{user_user}}', 'id', 'CASCADE', 'CASCADE');
     }
  
-    /**
-     * Откатываем миграцию:
-     *
-     * @return null
-     **/
+
     public function safeDown()
     {
         $this->dropTableWithForeignKeys('{{social_login}}');

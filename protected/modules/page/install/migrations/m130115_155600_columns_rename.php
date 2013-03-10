@@ -12,22 +12,14 @@
  **/
 class m130115_155600_columns_rename extends YDbMigration
 {
-    /**
-     * Накатываем миграцию:
-     *
-     * @return null
-     **/
+
     public function safeUp()
     {
         $this->renameColumn('{{page_page}}', 'menu_order', 'order');
         $this->renameColumn('{{page_page}}', 'name', 'title_short');
     }
 
-    /**
-     * Откатываем миграцию:
-     *
-     * @return null
-     **/
+
     public function safeDown()
     {
         // не претендует на 100% failsafe вариант, но и авторский тоже не 100% failsafe

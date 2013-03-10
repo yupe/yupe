@@ -12,11 +12,7 @@
  **/
 class m000000_000000_mail_base extends YDbMigration
 {
-    /**
-     * Накатываем миграцию:
-     *
-     * @return null
-     **/
+
     public function safeUp()
     {
         /**
@@ -61,11 +57,7 @@ class m000000_000000_mail_base extends YDbMigration
         $this->addForeignKey("fk_{{mail_mail_template}}_event_id", '{{mail_mail_template}}', 'event_id', '{{mail_mail_event}}', 'id', 'CASCADE', 'CASCADE');
     }
  
-    /**
-     * Откатываем миграцию:
-     *
-     * @return null
-     **/
+
     public function safeDown()
     {
         $this->dropTableWithForeignKeys('{{mail_mail_template}}');

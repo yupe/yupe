@@ -12,11 +12,7 @@
  **/
 class m000000_000000_news_base extends YDbMigration
 {
-    /**
-     * Накатываем миграцию:
-     *
-     * @return null
-     **/
+
     public function safeUp()
     {
         $this->createTable(
@@ -53,11 +49,7 @@ class m000000_000000_news_base extends YDbMigration
         $this->addForeignKey("fk_{{news_news}}_category_id", '{{news_news}}', 'category_id', '{{category_category}}', 'id', 'SET NULL', 'CASCADE');
     }
  
-    /**
-     * Откатываем миграцию:
-     *
-     * @return null
-     **/
+
     public function safeDown()
     {
         $this->dropTableWithForeignKeys('{{news_news}}');

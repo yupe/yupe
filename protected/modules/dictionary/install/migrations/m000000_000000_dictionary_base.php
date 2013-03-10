@@ -11,11 +11,7 @@
  **/
 class m000000_000000_dictionary_base extends YDbMigration
 {
-    /**
-     * Накатываем миграцию:
-     *
-     * @return null
-     **/
+
     public function safeUp()
     {
         $this->createTable('{{dictionary_dictionary_group}}', array(
@@ -70,11 +66,7 @@ class m000000_000000_dictionary_base extends YDbMigration
         $this->addForeignKey("fk_{{dictionary_dictionary_data}}_data_group_id",'{{dictionary_dictionary_data}}', 'group_id','{{dictionary_dictionary_group}}', 'id', 'CASCADE', 'NO ACTION');
     }
  
-    /**
-     * Откатываем миграцию:
-     *
-     * @return null
-     **/
+
     public function safeDown()
     {
         $this->dropTableWithForeignKeys('{{dictionary_dictionary_data}}');

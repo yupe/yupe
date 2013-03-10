@@ -12,11 +12,7 @@
  **/
 class m121220_001126_menu_test_data extends YDbMigration
 {
-    /**
-     * Накатываем миграцию:
-     *
-     * @return null
-     **/
+
     public function safeUp()
     {
         $this->insert(
