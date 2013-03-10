@@ -10,23 +10,12 @@
  * @license  BSD https://raw.github.com/yupe/yupe/master/LICENSE
  * @link     http://yupe.ru
  **/
-
-/**
- * Category install migration
- * Класс миграций для модуля Category:
- *
- * @category YupeMigration
- * @package  YupeCMS
- * @author   YupeTeam <team@yupe.ru>
- * @license  BSD https://raw.github.com/yupe/yupe/master/LICENSE
- * @link     http://yupe.ru
- **/
 class m000000_000000_category_base extends YDbMigration
 {
     /**
      * Функция настройки и создания таблицы:
      *
-     * @return nothing
+     * @return null
      **/
     public function safeUp()
     {
@@ -66,7 +55,7 @@ class m000000_000000_category_base extends YDbMigration
     /**
      * Функция удаления таблицы:
      *
-     * @return nothing
+     * @return null
      **/
     public function safeDown()
     {

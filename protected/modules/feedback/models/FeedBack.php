@@ -14,7 +14,7 @@
  * @property integer $type
  * @property integer $status
  * @property integer $ip
- * @property category_id
+ * @property integer $category_id
  * @property string  $phone
  */
 class FeedBack extends YModel

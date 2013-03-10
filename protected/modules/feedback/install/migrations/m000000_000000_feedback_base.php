@@ -9,23 +9,12 @@
  * @license  BSD https://raw.github.com/yupe/yupe/master/LICENSE
  * @link     http://yupe.ru
  **/
-
-/**
- * Feedback install migration
- * Класс миграций для модуля Feedback:
- *
- * @category YupeMigration
- * @package  YupeCMS
- * @author   YupeTeam <team@yupe.ru>
- * @license  BSD https://raw.github.com/yupe/yupe/master/LICENSE
- * @link     http://yupe.ru
- */
 class m000000_000000_feedback_base extends YDbMigration
 {
     /**
      * Накатываем миграцию
      *
-     * @return nothing
+     * @return null
      **/
     public function safeUp()
     {
@@ -57,17 +46,17 @@ class m000000_000000_feedback_base extends YDbMigration
         $this->createIndex("ix_{{feedback_feedback}}_answer_user",'{{feedback_feedback}}', "answer_user", false);
 
         //fk
-        $this->addForeignKey("fk_{{feedback_feedback}}_answer_user", '{{feedback_feedback}}', 'answer_user','{{user}}', 'id', 'SET NULL', 'NO ACTION');
+        $this->addForeignKey("fk_{{feedback_feedback}}_answer_user", '{{feedback_feedback}}', 'answer_user','{{user_user}}', 'id', 'SET NULL', 'NO ACTION');
         $this->addForeignKey("fk_{{feedback_feedback}}_category",'{{feedback_feedback}}', 'category_id','{{category_category}}', 'id', 'SET NULL', 'NO ACTION');
     }
  
     /**
      * Откатываем миграцию
      *
-     * @return nothing
+     * @return null
      **/
     public function safeDown()
     {
-        $this->dropTable('{{feedback_feedback}}');
+        $this->dropTableWithForeignKeys('{{feedback_feedback}}');
     }
 }

@@ -42,7 +42,7 @@ class Image extends YModel
      */
     public function tableName()
     {
-        return '{{image}}';
+        return '{{image_image}}';
     }
 
     /**

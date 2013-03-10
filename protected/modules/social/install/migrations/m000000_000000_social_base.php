@@ -10,28 +10,14 @@
  * @license  BSD https://raw.github.com/yupe/yupe/master/LICENSE
  * @link     http://yupe.ru
  **/
-
-/**
- * Social install migration
- * Класс миграций для модуля Social:
- *
- * @category YupeMigration
- * @package  YupeCMS
- * @author   YupeTeam <team@yupe.ru>
- * @license  BSD https://raw.github.com/yupe/yupe/master/LICENSE
- * @link     http://yupe.ru
- **/
 class m000000_000000_social_base extends YDbMigration
 {
-    /**
-     * Накатываем миграцию:
-     *
-     * @return nothing
-     **/
+
     public function safeUp()
     {
         $this->createTable(
-            '{{social_login}}', array(
+            '{{social_login}}', 
+            array(
                 'id' => 'pk',
                 'user_id' => 'integer NOT NULL',
                 'identity_id' => 'varchar(250) NOT NULL',
@@ -47,24 +33,9 @@ class m000000_000000_social_base extends YDbMigration
         $this->addForeignKey("fk_{{social_login}}_user", '{{social_login}}', 'user_id', '{{user_user}}', 'id', 'CASCADE', 'CASCADE');
     }
  
-    /**
-     * Откатываем миграцию:
-     *
-     * @return nothing
-     **/
+
     public function safeDown()
     {
-        $db = $this->getDbConnection();
-
-        /**
-         * Убиваем внешние ключи, индексы и таблицу - login
-         * @todo найти как проверять существование индексов, что бы их подчищать (на абстрактном уровне без привязки к типу БД):
-         **/
-        if ($db->schema->getTable('{{social_login}}') !== null) {
-            if (in_array("fk_{{social_login}}_user", $db->schema->getTable('{{social_login}}')->foreignKeys))
-                $this->dropForeignKey("fk_{{social_login}}_user", '{{social_login}}');
-
-            $this->dropTable('{{social_login}}');
-        }
+        $this->dropTableWithForeignKeys('{{social_login}}');
     }
 }

@@ -64,7 +64,7 @@ class Comment extends YModel
      */
     public function tableName()
     {
-        return '{{comment}}';
+        return '{{comment_comment}}';
     }
 
     /**
@@ -219,7 +219,7 @@ class Comment extends YModel
      * @TODO  Unused parameter $comment
      * @param Comment $comment - комментарий
      *
-     * @return nothing
+     * @return null
      **/
     public function newComment($comment)
     {
@@ -244,7 +244,7 @@ class Comment extends YModel
      *
      * @param CModelEvent $event - класс события
      *
-     * @return nothing
+     * @return null
      **/
     public function onNewComment($event)
     {
