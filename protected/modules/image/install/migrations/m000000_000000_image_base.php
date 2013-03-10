@@ -1,10 +1,24 @@
 <?php
 /**
- * Created by JetBrains PhpStorm.
- * User: aopeykin
- * Date: 05.02.13
- * Time: 10:38
- * To change this template use File | Settings | File Templates.
+ * Image install migration
+ * Класс миграций для модуля Image:
+ *
+ * @category YupeMigration
+ * @package  YupeCMS
+ * @author   YupeTeam <team@yupe.ru>
+ * @license  BSD https://raw.github.com/yupe/yupe/master/LICENSE
+ * @link     http://yupe.ru
+ **/
+
+/**
+ * Image install migration
+ * Класс миграций для модуля Image:
+ *
+ * @category YupeMigration
+ * @package  YupeCMS
+ * @author   YupeTeam <team@yupe.ru>
+ * @license  BSD https://raw.github.com/yupe/yupe/master/LICENSE
+ * @link     http://yupe.ru
  */
 class m000000_000000_image_base extends  YDbMigration
 {

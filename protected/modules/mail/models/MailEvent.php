@@ -53,7 +53,7 @@ class MailEvent extends YModel
      */
     public function tableName()
     {
-        return '{{mail_event}}';
+        return '{{mail_mail_event}}';
     }
 
     /**

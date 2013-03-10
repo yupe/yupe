@@ -2,7 +2,7 @@
 /**
  * Initial application schema
  */
-class m120213_183419_init extends CDbMigration
+class m120213_183419_init extends YDbMigration
 {
     public function up()
     {

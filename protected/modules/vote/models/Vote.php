@@ -30,7 +30,7 @@ class Vote extends YModel
      */
     public function tableName()
     {
-        return '{{vote}}';
+        return '{{vote_vote}}';
     }
 
     /**

@@ -18,7 +18,7 @@ class RecoveryPassword extends YModel
 
     public function tableName()
     {
-        return '{{recovery_password}}';
+        return '{{user_recovery_password}}';
     }
 
     public function rules()
