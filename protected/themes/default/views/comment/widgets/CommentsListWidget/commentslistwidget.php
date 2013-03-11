@@ -17,7 +17,7 @@
     <h3><?php echo $this->label?> <?php echo count($comments);?></h3>
     <?php echo nestedComment($comments, 0, null);?>
 <?php else:?>
-    <p><?php echo $this->label;?> <?php echo Yii::t('comment', 'пока нет, станьте первым!');?></p>';
+    <p><?php echo $this->label;?> <?php echo Yii::t('comment', 'пока нет, станьте первым!');?></p>
 <?php endif;?>
 </div>
 
@@ -36,7 +36,7 @@ function nestedComment($comments, $level, $parent_id) {
                 . '<div class="author">'
                 . "\n";
             if (($author = $comment->getAuthor()) === false) {
-                if (!empty($comment->url))
+                if ($comment->url)
                     echo CHtml::link($comment->name, $comment->url);
                 else
                     echo $comment->name;
