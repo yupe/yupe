@@ -11,13 +11,14 @@ class YDbMigration extends CDbMigration
      * @param $table
      */
     public function dropTableWithForeignKeys($table) {
-        $schema = $this->getDbConnection()->schema;
+        /**$schema = $this->getDbConnection()->schema;
         if ($schema->getTable($table) !== null) {
             // drop foreign keys
             foreach ( $schema->getTable($table)->foreignKeys as $fk_name) {
                 $this->dropForeignKey($fk_name, $table);
             }
-            $this->dropTableWithForeignKeys($table);
-        }
+            $this->dropTable($table);
+        }*/
+        $this->dropTable($table);
     }
 }
