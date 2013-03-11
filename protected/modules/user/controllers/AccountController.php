@@ -7,6 +7,7 @@ class AccountController extends YFrontController
             'captcha'          => array(
                 'class'     => 'CCaptchaAction',
                 'backColor' => 0xFFFFFF,
+                'testLimit' => 1
             ),
             'registration'     => array(
                 'class' => 'application.modules.user.controllers.account.RegistrationAction',
