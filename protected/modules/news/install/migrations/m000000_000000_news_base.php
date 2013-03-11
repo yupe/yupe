@@ -45,8 +45,8 @@ class m000000_000000_news_base extends YDbMigration
         $this->createIndex("ix_{{news_news}}_date", '{{news_news}}', "date", false);
 
         //fk
-        $this->addForeignKey("fk_{{news_news}}_user_id", '{{news_news}}', 'user_id', '{{user_user}}', 'id', 'SET NULL', 'CASCADE');
-        $this->addForeignKey("fk_{{news_news}}_category_id", '{{news_news}}', 'category_id', '{{category_category}}', 'id', 'SET NULL', 'CASCADE');
+        $this->addForeignKey("fk_{{news_news}}_user_id", '{{news_news}}', 'user_id', '{{user_user}}', 'id', 'SET NULL', 'NO ACTION');
+        $this->addForeignKey("fk_{{news_news}}_category_id", '{{news_news}}', 'category_id', '{{category_category}}', 'id', 'SET NULL', 'NO ACTION');
     }
  
 

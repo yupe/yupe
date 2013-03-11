@@ -34,7 +34,7 @@ class m000000_000000_vote_base extends YDbMigration
         $this->createIndex("ix_{{vote_vote}}_model_id", '{{vote_vote}}', "model_id", false);
 
         //fk
-        $this->addForeignKey("fk_{{vote_vote}}_user_id", '{{vote_vote}}', 'user_id', '{{user_user}}', 'id', 'CASCADE', 'CASCADE');
+        $this->addForeignKey("fk_{{vote_vote}}_user_id", '{{vote_vote}}', 'user_id', '{{user_user}}', 'id', 'CASCADE', 'NO ACTION');
     }
  
 

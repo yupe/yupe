@@ -54,7 +54,7 @@ class m000000_000000_blog_base extends YDbMigration
         // fk
         $this->addForeignKey("fk_{{blog_blog}}_create_user", '{{blog_blog}}', 'create_user_id', '{{user_user}}', 'id', 'CASCADE', 'NO ACTION');
         $this->addForeignKey("fk_{{blog_blog}}_update_user", '{{blog_blog}}', 'update_user_id', '{{user_user}}', 'id', 'NO ACTION', 'NO ACTION');
-        $this->addForeignKey("fk_{{blog_blog}}_category_id", '{{blog_blog}}', 'category_id', '{{category_category}}', 'id', 'NO ACTION', 'NO ACTION');
+        $this->addForeignKey("fk_{{blog_blog}}_category_id", '{{blog_blog}}', 'category_id', '{{category_category}}', 'id', 'SET NULL', 'NO ACTION');
 
 
         // post

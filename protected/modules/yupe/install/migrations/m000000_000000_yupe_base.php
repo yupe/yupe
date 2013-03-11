@@ -34,9 +34,13 @@ class m000000_000000_yupe_base extends YDbMigration
             $this->getOptions()
         );
 
+        //ix
         $this->createIndex("ux_{{yupe_settings}}_module_id_param_name", '{{yupe_settings}}', "module_id,param_name", true);
         $this->createIndex("ix_{{yupe_settings}}_module_id", '{{yupe_settings}}', "module_id", false);
         $this->createIndex("ix_{{yupe_settings}}_param_name", '{{yupe_settings}}', "param_name", false);
+
+        //fk
+        $this->addForeignKey("fk_{{yupe_settings}}_user_id", '{{yupe_settings}}', 'user_id', '{{user_user}}', 'id', 'SET NULL', 'NO ACTION');
     }
  
     /**
@@ -46,6 +50,6 @@ class m000000_000000_yupe_base extends YDbMigration
      **/
     public function safeDown()
     {
-        $this->dropTable('{{yupe_settings}}');
+        $this->dropTableWithForeignKeys('{{yupe_settings}}');
     }
 }

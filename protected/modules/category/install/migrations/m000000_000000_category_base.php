@@ -37,6 +37,7 @@ class m000000_000000_category_base extends YDbMigration
 
         //ix
         $this->createIndex("ux_{{category_category}}_alias_lang", '{{category_category}}', "alias,lang", true);
+        $this->createIndex("ix_{{category_category}}_alias", '{{category_category}}', "alias", true);
         $this->createIndex("ix_{{category_category}}_parent_id", '{{category_category}}', "parent_id", false);
         $this->createIndex("ix_{{category_category}}_status", '{{category_category}}', "status", false);
 
@@ -59,6 +60,6 @@ class m000000_000000_category_base extends YDbMigration
      **/
     public function safeDown()
     {
-        $this->dropTable('{{category_category}}');
+        $this->dropTableWithForeignKeys('{{category_category}}');
     }
 }

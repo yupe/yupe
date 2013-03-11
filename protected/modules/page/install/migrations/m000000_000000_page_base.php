@@ -52,9 +52,9 @@ class m000000_000000_page_base extends YDbMigration
         $this->createIndex("ix_{{page_page}}_category_id", '{{page_page}}', "category_id", false);
 
         //fk
-        $this->addForeignKey("fk_{{page_page}}_category_id", '{{page_page}}', 'category_id', '{{category_category}}', 'id', 'SET NULL', 'CASCADE');
-        $this->addForeignKey("fk_{{page_page}}_user_id", '{{page_page}}', 'user_id', '{{user_user}}', 'id', 'SET NULL', 'CASCADE');
-        $this->addForeignKey("fk_{{page_page}}_change_user_id", '{{page_page}}', 'change_user_id', '{{user_user}}', 'id', 'SET NULL', 'CASCADE');
+        $this->addForeignKey("fk_{{page_page}}_category_id", '{{page_page}}', 'category_id', '{{category_category}}', 'id', 'SET NULL', 'NO ACTION');
+        $this->addForeignKey("fk_{{page_page}}_user_id", '{{page_page}}', 'user_id', '{{user_user}}', 'id', 'SET NULL', 'NO ACTION');
+        $this->addForeignKey("fk_{{page_page}}_change_user_id", '{{page_page}}', 'change_user_id', '{{user_user}}', 'id', 'SET NULL', 'NO ACTION');
     }
  
     /**
