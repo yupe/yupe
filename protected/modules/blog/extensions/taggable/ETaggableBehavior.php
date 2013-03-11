@@ -568,7 +568,6 @@ class ETaggableBehavior extends CActiveRecordBehavior {
             if($this->getScopeCriteria())
                 $tagsCriteria->mergeWith($this->getScopeCriteria());
 
-
             $tags = $builder->createFindCommand($this->tagTable, $tagsCriteria)->queryAll();
 
             $this->cache->set('Taggable'.$this->getOwner()->tableName().'AllWithCount', $tags);
