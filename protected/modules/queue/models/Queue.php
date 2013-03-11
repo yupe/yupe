@@ -49,7 +49,7 @@ class Queue extends YModel
      */
     public function tableName()
     {
-        return '{{queue}}';
+        return '{{queue_queue}}';
     }
 
     /**
@@ -64,7 +64,7 @@ class Queue extends YModel
             array('status, worker, priority', 'numerical', 'integerOnly' => true),
             array('status', 'in', 'range'  => array_keys($this->statusList)),
             array('priority', 'in', 'range' => array_keys($this->priorityList)),
-            array('notice', 'length', 'max' => 300),
+            array('notice', 'length', 'max' => 255),
             array('start_time, complete_time', 'safe'),
             // The following rule is used by search().
             // Please remove those attributes that should not be searched.

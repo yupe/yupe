@@ -2,7 +2,7 @@
 /**
  * Initial application schema
  */
-class m120213_183419_init extends CDbMigration
+class m120213_183419_init extends YDbMigration
 {
     public function up()
     {
@@ -56,8 +56,8 @@ class m120213_183419_init extends CDbMigration
         $this->dropForeignKey($db->tablePrefix . 'wiki_fk_link_page_to', 'wiki_link');
         $this->dropForeignKey($db->tablePrefix . 'wiki_fk_page_revision_page', 'wiki_page_revision');
 
-        $this->dropTable('wiki_page');
-        $this->dropTable('wiki_page_revision');
-        $this->dropTable('wiki_link');
+        $this->dropTableWithForeignKeys('wiki_page');
+        $this->dropTableWithForeignKeys('wiki_page_revision');
+        $this->dropTableWithForeignKeys('wiki_link');
     }
 }

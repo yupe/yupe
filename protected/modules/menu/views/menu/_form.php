@@ -29,10 +29,10 @@ $form = $this->beginWidget(
     <?php echo $form->errorSummary($model); ?>
 
     <div class="row-fluid control-group <?php echo $model->hasErrors("name") ? "error" : ""; ?>">
-        <?php echo $form->textFieldRow($model, 'name', array('class' => 'popover-help span7', 'maxlength' => 300, 'data-original-title' => $model->getAttributeLabel('name'), 'data-content' => $model->getAttributeDescription('name'))); ?>
+        <?php echo $form->textFieldRow($model, 'name', array('class' => 'popover-help span7', 'maxlength' => 255, 'data-original-title' => $model->getAttributeLabel('name'), 'data-content' => $model->getAttributeDescription('name'))); ?>
     </div>
     <div class="row-fluid control-group <?php echo $model->hasErrors("code") ? "error" : ""; ?>">
-        <?php echo $form->textFieldRow($model, 'code', array('class' => 'popover-help span7', 'maxlength' => 300, 'data-original-title' => $model->getAttributeLabel('code'), 'data-content' => $model->getAttributeDescription('code'))); ?>
+        <?php echo $form->textFieldRow($model, 'code', array('class' => 'popover-help span7', 'maxlength' => 255, 'data-original-title' => $model->getAttributeLabel('code'), 'data-content' => $model->getAttributeDescription('code'))); ?>
     </div>
     <div class="row-fluid control-group <?php echo $model->hasErrors("description") ? "error" : ""; ?>">
         <div class="popover-help" data-original-title='<?php echo $model->getAttributeLabel('description'); ?>' data-content='<?php echo $model->getAttributeDescription('description'); ?>'>

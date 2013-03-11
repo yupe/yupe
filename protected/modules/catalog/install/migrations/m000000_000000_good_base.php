@@ -11,16 +11,12 @@
  **/
 class m000000_000000_good_base extends YDbMigration
 {
-    /**
-     * Накатываем миграцию:
-     *
-     * @return nothing
-     **/
+
     public function safeUp()
     {
         $this->createTable('{{catalog_good}}', array(
                 'id' => 'pk',
-                'category_id' => 'integer NOT NULL',
+                'category_id' => 'integer DEFAULT NULL',
                 'name' => 'varchar(250) NOT NULL',
                 'price' => "decimal(19,3) NOT NULL DEFAULT '0'",
                 'article' => 'varchar(100) DEFAULT NULL',
@@ -46,18 +42,18 @@ class m000000_000000_good_base extends YDbMigration
         $this->createIndex("ix_{{catalog_good}}_article", '{{catalog_good}}', "article", false);
         $this->createIndex("ix_{{catalog_good}}_price", '{{catalog_good}}', "price", false);
 
-        $this->addForeignKey("fk_{{catalog_good}}_user",'{{catalog_good}}', 'user_id', '{{user}}', 'id', 'SET NULL', 'NO ACTION');
-        $this->addForeignKey("fk_{{catalog_good}}_change_user",'{{catalog_good}}', 'change_user_id','{{user}}', 'id', 'SET NULL', 'NO ACTION');
-        $this->addForeignKey("fk_{{catalog_good}}_category",'{{catalog_good}}', 'category_id', '{{category}}', 'id', 'SET NULL', 'NO ACTION');
+        $this->addForeignKey("fk_{{catalog_good}}_user",'{{catalog_good}}', 'user_id', '{{user_user}}', 'id', 'SET NULL', 'NO ACTION');
+        $this->addForeignKey("fk_{{catalog_good}}_change_user",'{{catalog_good}}', 'change_user_id','{{user_user}}', 'id', 'SET NULL', 'NO ACTION');
+        $this->addForeignKey("fk_{{catalog_good}}_category",'{{catalog_good}}', 'category_id', '{{category_category}}', 'id', 'SET NULL', 'NO ACTION');
     }
  
     /**
      * Откат миграции:
      *
-     * @return nothing
+     * @return null
      **/
     public function safeDown()
     {
-        $this->dropTable('{{catalog_good}}');
+        $this->dropTableWithForeignKeys('{{catalog_good}}');
     }
 }

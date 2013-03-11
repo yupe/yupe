@@ -1,9 +1,9 @@
 <?php
 
 /**
- * This is the model class for table "{{User}}".
+ * This is the model class for table "{{user_user}}".
  *
- * The followings are the available columns in table '{{User}}':
+ * The followings are the available columns in table '{{user_user}}':
  * @property integer $id
  * @property string $creation_date
  * @property string $change_date
@@ -46,7 +46,7 @@ class User extends YModel
      */
     public function tableName()
     {
-        return '{{user}}';
+        return '{{user_user}}';
     }
 
     /**

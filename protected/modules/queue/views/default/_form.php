@@ -16,13 +16,13 @@ $form = $this->beginWidget('bootstrap.widgets.TbActiveForm', array(
     <?php echo $form->errorSummary($model); ?>
 
     <div class='control-group <?php echo $model->hasErrors("worker") ? "error" : ""; ?>'>
-        <?php echo $form->textFieldRow($model, 'worker', array('class' => 'span7', 'maxlength'=> 300)); ?>
+        <?php echo $form->textFieldRow($model, 'worker', array('class' => 'span7', 'maxlength'=> 11)); ?>
     </div>
     <div class='control-group <?php echo $model->hasErrors("task") ? "error" : ""; ?>'>
         <?php echo $form->textAreaRow($model, 'task', array('rows' => 6, 'cols' => 50, 'class'=> 'span8')); ?>
     </div>
     <div class='control-group <?php echo $model->hasErrors("notice") ? "error" : ""; ?>'>
-        <?php echo $form->textFieldRow($model, 'notice', array('class' => 'span7', 'maxlength'=> 300)); ?>
+        <?php echo $form->textFieldRow($model, 'notice', array('class' => 'span7', 'maxlength'=> 255)); ?>
     </div>
     <div class='control-group <?php echo $model->hasErrors("priority") ? "error" : ""; ?>'>
         <?php echo $form->dropDownListRow($model, 'priority', $model->priorityList, array('class'=> 'span7')); ?>

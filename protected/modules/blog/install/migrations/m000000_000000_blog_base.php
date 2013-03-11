@@ -14,7 +14,7 @@ class m000000_000000_blog_base extends YDbMigration
     /**
      * Функция настройки и создания таблицы:
      *
-     * @return nothing
+     * @return null
      **/
     public function safeUp()
     {
@@ -52,33 +52,9 @@ class m000000_000000_blog_base extends YDbMigration
         $this->createIndex("ix_{{blog_blog}}_category_id", '{{blog_blog}}', "category_id", false);
 
         // fk
-        $this->addForeignKey(
-            "fk_{{blog_blog}}_create_user",
-            '{{blog_blog}}',
-            'create_user_id',
-            '{{user}}',
-            'id',
-            'CASCADE',
-            'NO ACTION'
-        );
-        $this->addForeignKey(
-            "fk_{{blog_blog}}_update_user",
-            '{{blog_blog}}',
-            'update_user_id',
-            '{{user}}',
-            'id',
-            'NO ACTION',
-            'NO ACTION'
-        );
-        $this->addForeignKey(
-            "fk_{{blog_blog}}_category_id",
-            '{{blog_blog}}',
-            'category_id',
-            '{{category}}',
-            'id',
-            'NO ACTION',
-            'NO ACTION'
-        );
+        $this->addForeignKey("fk_{{blog_blog}}_create_user", '{{blog_blog}}', 'create_user_id', '{{user_user}}', 'id', 'CASCADE', 'NO ACTION');
+        $this->addForeignKey("fk_{{blog_blog}}_update_user", '{{blog_blog}}', 'update_user_id', '{{user_user}}', 'id', 'NO ACTION', 'NO ACTION');
+        $this->addForeignKey("fk_{{blog_blog}}_category_id", '{{blog_blog}}', 'category_id', '{{category_category}}', 'id', 'SET NULL', 'NO ACTION');
 
 
         // post
@@ -121,33 +97,9 @@ class m000000_000000_blog_base extends YDbMigration
         $this->createIndex("ix_{{blog_post}}_publish_date", '{{blog_post}}', "publish_date", false);
 
         //fks 
-        $this->addForeignKey(
-            "fk_{{blog_post}}_blog",
-            '{{blog_post}}',
-            'blog_id',
-            '{{blog_blog}}',
-            'id',
-            'CASCADE',
-            'NO ACTION'
-        );
-        $this->addForeignKey(
-            "fk_{{blog_post}}_create_user",
-            '{{blog_post}}',
-            'create_user_id',
-            '{{user}}',
-            'id',
-            'CASCADE',
-            'NO ACTION'
-        );
-        $this->addForeignKey(
-            "fk_{{blog_post}}_update_user",
-            '{{blog_post}}',
-            'update_user_id',
-            '{{user}}',
-            'id',
-            'NO ACTION',
-            'NO ACTION'
-        );
+        $this->addForeignKey("fk_{{blog_post}}_blog", '{{blog_post}}', 'blog_id', '{{blog_blog}}', 'id', 'CASCADE', 'NO ACTION');
+        $this->addForeignKey("fk_{{blog_post}}_create_user", '{{blog_post}}', 'create_user_id', '{{user_user}}', 'id', 'CASCADE', 'NO ACTION');
+        $this->addForeignKey("fk_{{blog_post}}_update_user", '{{blog_post}}', 'update_user_id', '{{user_user}}', 'id', 'NO ACTION', 'NO ACTION');
 
         // user to blog
         $this->createTable(
@@ -193,24 +145,8 @@ class m000000_000000_blog_base extends YDbMigration
         $this->createIndex("ix_{{blog_user_to_blog}}_blog_user_to_blog_role", '{{blog_user_to_blog}}', "role", false);
 
         //fk
-        $this->addForeignKey(
-            "fk_{{blog_user_to_blog}}_blog_user_to_blog_user_id",
-            '{{blog_user_to_blog}}',
-            'user_id',
-            '{{user}}',
-            'id',
-            'CASCADE',
-            'NO ACTION'
-        );
-        $this->addForeignKey(
-            "fk_{{blog_user_to_blog}}_blog_user_to_blog_blog_id",
-            '{{blog_user_to_blog}}',
-            'blog_id',
-            '{{blog_blog}}',
-            'id',
-            'CASCADE',
-            'NO ACTION'
-        );
+        $this->addForeignKey("fk_{{blog_user_to_blog}}_blog_user_to_blog_user_id", '{{blog_user_to_blog}}', 'user_id', '{{user_user}}', 'id', 'CASCADE', 'NO ACTION');
+        $this->addForeignKey("fk_{{blog_user_to_blog}}_blog_user_to_blog_blog_id", '{{blog_user_to_blog}}', 'blog_id', '{{blog_blog}}', 'id', 'CASCADE', 'NO ACTION');
 
         // tags
         $this->createTable(
@@ -241,37 +177,21 @@ class m000000_000000_blog_base extends YDbMigration
         $this->createIndex("ix_{{blog_post_to_tag}}_tag_id", '{{blog_post_to_tag}}', "tag_id", false);
 
         //fk
-        $this->addForeignKey(
-            "fk_{{blog_post_to_tag}}_post_id",
-            '{{blog_post_to_tag}}',
-            'post_id',
-            '{{blog_post}}',
-            'id',
-            'CASCADE',
-            'NO ACTION'
-        );
-        $this->addForeignKey(
-            "fk_{{blog_post_to_tag}}_tag_id",
-            '{{blog_post_to_tag}}',
-            'tag_id',
-            '{{blog_tag}}',
-            'id',
-            'CASCADE',
-            'NO ACTION'
-        );
+        $this->addForeignKey("fk_{{blog_post_to_tag}}_post_id", '{{blog_post_to_tag}}', 'post_id', '{{blog_post}}', 'id', 'CASCADE', 'NO ACTION');
+        $this->addForeignKey("fk_{{blog_post_to_tag}}_tag_id", '{{blog_post_to_tag}}', 'tag_id', '{{blog_tag}}', 'id', 'CASCADE', 'NO ACTION');
     }
 
     /**
      * Удаляем талицы
      *
-     * @return nothing
+     * @return null
      **/
     public function safeDown()
     {
-        $this->dropTable('{{blog_post_to_tag}}');
-        $this->dropTable('{{blog_tag}}');
-        $this->dropTable('{{blog_post}}');
-        $this->dropTable('{{blog_user_to_blog}}');
-        $this->dropTable('{{blog_blog}}');
+        $this->dropTableWithForeignKeys('{{blog_post_to_tag}}');
+        $this->dropTableWithForeignKeys('{{blog_tag}}');
+        $this->dropTableWithForeignKeys('{{blog_post}}');
+        $this->dropTableWithForeignKeys('{{blog_user_to_blog}}');
+        $this->dropTableWithForeignKeys('{{blog_blog}}');
     }
 }

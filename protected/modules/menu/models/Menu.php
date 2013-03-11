@@ -32,7 +32,7 @@ class Menu extends YModel
      */
     public function tableName()
     {
-        return '{{menu}}';
+        return '{{menu_menu}}';
     }
 
     /**
@@ -44,7 +44,7 @@ class Menu extends YModel
             array('name, code, description', 'required', 'except' => 'search'),
             array('status', 'numerical', 'integerOnly' => true),
             array('name, code, description', 'filter', 'filter' => array($obj = new CHtmlPurifier(), 'purify')),
-            array('name, description', 'length', 'max' => 300),
+            array('name, description', 'length', 'max' => 255),
             array('code', 'length', 'max' => 100),
             array('code', 'YSLugValidator'),
             array('code', 'unique'),

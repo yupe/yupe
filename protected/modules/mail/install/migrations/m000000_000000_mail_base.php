@@ -10,106 +10,57 @@
  * @license  BSD https://raw.github.com/yupe/yupe/master/LICENSE
  * @link     http://yupe.ru
  **/
-
-/**
- * Mail install migration
- * Класс миграций для модуля Mail:
- *
- * @category YupeMigration
- * @package  YupeCMS
- * @author   YupeTeam <team@yupe.ru>
- * @license  BSD https://raw.github.com/yupe/yupe/master/LICENSE
- * @link     http://yupe.ru
- * @todo PSR message: Class name must begin with capital letter
- *                  : Class name is not valid; consider M000000_000000_Mail_Base instead
- **/
-class m000000_000000_mail_base extends CDbMigration
+class m000000_000000_mail_base extends YDbMigration
 {
-    /**
-     * Накатываем миграцию:
-     *
-     * @return nothing
-     **/
+
     public function safeUp()
     {
-        $db = $this->getDbConnection();
-        $options = Yii::app()->db->schema instanceof CMysqlSchema ? 'ENGINE=InnoDB DEFAULT CHARSET=utf8' : '';
         /**
          * mail_event:
          **/
         $this->createTable(
-            $db->tablePrefix . 'mail_event', array(
+            '{{mail_mail_event}}', array(
                     'id'          => 'pk',
-                    'code'        => 'string NOT NULL',
-                    'name'        => 'string NOT NULL',
+                    'code'        => 'varchar(150) NOT NULL',
+                    'name'        => 'varchar(150) NOT NULL',
                     'description' => 'text',
-            ), $options
+            ), $this->getOptions()
         );
 
-        $this->createIndex($db->tablePrefix . "mail_event_code_unique", $db->tablePrefix . 'mail_event', "code", true);
+        $this->createIndex("ux_{{mail_mail_event}}_code", '{{mail_mail_event}}', "code", true);
 
         /**
          * mail_template:
          **/
         $this->createTable(
-            $db->tablePrefix . 'mail_template', array(
+           '{{mail_mail_template}}', array(
                 'id'          => 'pk',
-                'code'        => 'string NOT NULL',
+                'code'        => 'varchar(150) NOT NULL',
                 'event_id'    => 'integer NOT NULL',
-                'name'        => 'string NOT NULL',
+                'name'        => 'varchar(150) NOT NULL',
                 'description' => 'text',
-                'from'        => 'string NOT NULL',
-                'to'          => 'string NOT NULL',
+                'from'        => 'varchar(150) NOT NULL',
+                'to'          => 'varchar(150) NOT NULL',
                 'theme'       => 'text NOT NULL',
                 'body'        => 'text NOT NULL',
                 'status'      => "integer NOT NULL DEFAULT '1'",
-            ), $options
+            ),
+            $this->getOptions()
         );
 
-        $this->createIndex($db->tablePrefix . "mail_template_unique", $db->tablePrefix . 'mail_template', "code", true);
-        $this->createIndex($db->tablePrefix . "mail_template_status", $db->tablePrefix . 'mail_template', "status", false);
-        $this->createIndex($db->tablePrefix . "mail_template_event", $db->tablePrefix . 'mail_template', "event_id", false);
+        //ix
+        $this->createIndex("ux_{{mail_mail_template}}_code", '{{mail_mail_template}}', "code", true);
+        $this->createIndex("ix_{{mail_mail_template}}_status", '{{mail_mail_template}}', "status", false);
+        $this->createIndex("ix_{{mail_mail_template}}_event_id", '{{mail_mail_template}}', "event_id", false);
 
-        $this->addForeignKey($db->tablePrefix . "mail_event_template_fk", $db->tablePrefix . 'mail_template', 'event_id', $db->tablePrefix . 'mail_event', 'id', 'CASCADE', 'CASCADE');
+        //fk
+        $this->addForeignKey("fk_{{mail_mail_template}}_event_id", '{{mail_mail_template}}', 'event_id', '{{mail_mail_event}}', 'id', 'CASCADE', 'NO ACTION');
     }
  
-    /**
-     * Откатываем миграцию:
-     *
-     * @return nothing
-     **/
+
     public function safeDown()
     {
-        $db = $this->getDbConnection();
-        /**
-         * Убиваем внешние ключи, индексы и таблицу - mail_template
-         * @todo найти как проверять существование индексов, что бы их подчищать (на абстрактном уровне без привязки к типу БД):
-         **/
-        if ($db->schema->getTable($db->tablePrefix . 'mail_template') !== null) {
-
-            /*
-            $this->dropIndex($db->tablePrefix . "mail_event_code_unique", $db->tablePrefix . 'mail_event');
-            */
-
-            $this->dropTable($db->tablePrefix.'mail_template');
-        }
-        
-        /**
-         * Убиваем внешние ключи, индексы и таблицу - mail_event
-         * @todo найти как проверять существование индексов, что бы их подчищать (на абстрактном уровне без привязки к типу БД):
-         **/
-        if ($db->schema->getTable($db->tablePrefix . 'mail_event') !== null) {
-
-            /*
-            $this->dropIndex($db->tablePrefix . "mail_template_unique", $db->tablePrefix . 'mail_event');
-            $this->dropIndex($db->tablePrefix . "mail_template_status", $db->tablePrefix . 'mail_event');
-            $this->dropIndex($db->tablePrefix . "mail_template_event", $db->tablePrefix . 'mail_event');
-            */
-
-            if (in_array($db->tablePrefix . "mail_event_template_fk", $db->schema->getTable($db->tablePrefix . 'mail_event')->foreignKeys))
-                $this->dropForeignKey($db->tablePrefix . "mail_event_template_fk", $db->tablePrefix . 'mail_event');
-
-            $this->dropTable($db->tablePrefix . 'mail_event');
-        }
+        $this->dropTableWithForeignKeys('{{mail_mail_template}}');
+        $this->dropTableWithForeignKeys('{{mail_mail_event}}');
     }
 }

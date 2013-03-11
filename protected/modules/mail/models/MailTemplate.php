@@ -61,7 +61,7 @@ class MailTemplate extends YModel
      */
     public function tableName()
     {
-        return '{{mail_template}}';
+        return '{{mail_mail_template}}';
     }
 
     /**
