@@ -61,16 +61,16 @@
     <?php if (!Yii::app()->user->isAuthenticated() && extension_loaded('gd')): ?>
         <div class="row">
             <?php echo $form->labelEx($model, 'verifyCode'); ?>
-            <div>
+            
                 <?php $this->widget('CCaptcha', array(
                     'showRefreshButton' => true,
                     'clickableImage' => true,
                     'buttonLabel' => 'обновить',
-                    'buttonOptions' => array('class' => 'captcha_refresh_btn'),
+                    'buttonOptions' => array('class' => 'captcha-refresh-link'),
                     'captchaAction' => '/comment/comment/captcha'
                 )); ?>
+                
                 <?php echo $form->textField($model, 'verifyCode'); ?>
-            </div>
             <div class="hint">
                 <?php echo Yii::t('CommentModule.comment', 'Введите цифры указанные на картинке'); ?>
             </div>
@@ -79,7 +79,6 @@
     <div class="row buttons">
         <?php echo CHtml::submitButton(Yii::t('CommentModule.comment', 'Добавить комментарий')); ?>
     </div>
-
 <?php $this->endWidget(); ?>
 </div><!-- form -->
 </div>

@@ -77,16 +77,17 @@ $this->breadcrumbs = array('Обратная связь');
     </div>
 
     <?php if ($module->showCaptcha && !Yii::app()->user->isAuthenticated()): ?>
-    <?php if (extension_loaded('gd')): ?>        
+    <?php if (extension_loaded('gd')): ?>
         <div class="row">
-
                 <?php echo $form->labelEx($model, 'verifyCode'); ?>
+
                 <?php $this->widget('CCaptcha', array(
                         'showRefreshButton' => true,
                         'clickableImage' => true,
                         'buttonLabel' => 'обновить',
-                        'buttonOptions' => array('class' => 'captcha_refresh_btn')
+                        'buttonOptions' => array('class' => 'captcha-refresh-link')
                 )); ?>
+
                 <?php echo $form->textField($model, 'verifyCode'); ?>
                 <?php echo $form->error($model, 'verifyCode'); ?>
                 <div class="hint">
@@ -95,12 +96,8 @@ $this->breadcrumbs = array('Обратная связь');
         </div>
         <?php endif; ?>
     <?php endif; ?>
-
     <div class="row submit">
         <?php echo CHtml::submitButton('Отправить сообщение'); ?>
     </div>
-
-
     <?php $this->endWidget(); ?>
-
 </div>
