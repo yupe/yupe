@@ -79,24 +79,25 @@ $this->breadcrumbs = array('Обратная связь');
     <?php if ($module->showCaptcha && !Yii::app()->user->isAuthenticated()): ?>
     <?php if (extension_loaded('gd')): ?>
         <div class="row">
-            <?php echo $form->labelEx($model, 'verifyCode'); ?>
-            <div>
-                <?php $this->widget('CCaptcha', array('showRefreshButton' => false)); ?>
+                <?php echo $form->labelEx($model, 'verifyCode'); ?>
+
+                <?php $this->widget('CCaptcha', array(
+                        'showRefreshButton' => true,
+                        'clickableImage' => true,
+                        'buttonLabel' => 'обновить',
+                        'buttonOptions' => array('class' => 'captcha-refresh-link')
+                )); ?>
+
                 <?php echo $form->textField($model, 'verifyCode'); ?>
                 <?php echo $form->error($model, 'verifyCode'); ?>
-            </div>
-            <div class="hint">
-                Введите цифры указанные на картинке
-            </div>
+                <div class="hint">
+                    Введите цифры указанные на картинке
+                </div>
         </div>
         <?php endif; ?>
     <?php endif; ?>
-
     <div class="row submit">
         <?php echo CHtml::submitButton('Отправить сообщение'); ?>
     </div>
-
-
     <?php $this->endWidget(); ?>
-
 </div>
