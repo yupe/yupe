@@ -46,7 +46,12 @@ $this->breadcrumbs = array('Регистрация новго пользоват
         <div class="row">
             <?php echo $form->labelEx($model, 'verifyCode'); ?>
             <div>
-                <?php $this->widget('CCaptcha', array('showRefreshButton' => false)); ?>
+                <?php $this->widget('CCaptcha', array(
+                    'showRefreshButton' => true,
+                    'clickableImage' => true,
+                    'buttonLabel' => 'обновить',
+                    'buttonOptions' => array('class' => 'captcha-refresh-link'),
+                )); ?>
                 <?php echo $form->textField($model, 'verifyCode'); ?>
                 <?php echo $form->error($model, 'verifyCode'); ?>
             </div>
