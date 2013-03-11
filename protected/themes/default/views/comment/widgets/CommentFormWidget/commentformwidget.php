@@ -63,9 +63,11 @@
             <?php echo $form->labelEx($model, 'verifyCode'); ?>
             <div>
                 <?php $this->widget('CCaptcha', array(
-                    'captchaAction'     => '/comment/comment/captcha',
-                    'showRefreshButton' => false,
-                    'clickableImage'    => true,
+                    'showRefreshButton' => true,
+                    'clickableImage' => true,
+                    'buttonLabel' => 'обновить',
+                    'buttonOptions' => array('class' => 'captcha_refresh_btn'),
+                    'captchaAction' => '/comment/comment/captcha'
                 )); ?>
                 <?php echo $form->textField($model, 'verifyCode'); ?>
             </div>

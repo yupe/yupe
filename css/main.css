@@ -549,3 +549,9 @@ div.form_reg_edit div.list div.accession
     margin-top: 15px;
 }
 
+.captcha_refresh_btn
+{
+    display: block;
+    padding-bottom: 10px;
+}
+
