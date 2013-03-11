@@ -10,33 +10,14 @@
  * @license  BSD https://raw.github.com/yupe/yupe/master/LICENSE
  * @link     http://yupe.ru
  **/
-
-/**
- * News install migration
- * Класс миграций для модуля News:
- *
- * @category YupeMigration
- * @package  YupeCMS
- * @author   YupeTeam <team@yupe.ru>
- * @license  BSD https://raw.github.com/yupe/yupe/master/LICENSE
- * @link     http://yupe.ru
- **/
 class m000000_000000_news_base extends YDbMigration
 {
-    /**
-     * Накатываем миграцию:
-     *
-     * @return nothing
-     **/
+
     public function safeUp()
     {
-        $db = $this->getDbConnection();
-
-        /**
-         * news:
-         **/
         $this->createTable(
-            '{{news_news}}', array(
+            '{{news_news}}',
+            array(
                 'id' => 'pk',
                 'category_id' => 'integer DEFAULT NULL',
                 'lang' => 'char(2) DEFAULT NULL',
@@ -57,39 +38,20 @@ class m000000_000000_news_base extends YDbMigration
             ), $this->getOptions()
         );
 
-        $this->createIndex("ux_{{news_news}}_alias", $db->tablePrefix . 'news', "alias,lang", true);
-        $this->createIndex("ix_{{news_news}}_status", $db->tablePrefix . 'news', "status", false);
-        $this->createIndex("ix_{{news_news}}_user", $db->tablePrefix . 'news', "user_id", false);
-        $this->createIndex("ix_{{news_news}}_category", $db->tablePrefix . 'news', "category_id", false);
-        $this->createIndex("ix_{{news_news}}_date", $db->tablePrefix . 'news', "date", false);
+        $this->createIndex("ux_{{news_news}}_alias_lang", '{{news_news}}', "alias,lang", true);
+        $this->createIndex("ix_{{news_news}}_status", '{{news_news}}', "status", false);
+        $this->createIndex("ix_{{news_news}}_user_id", '{{news_news}}', "user_id", false);
+        $this->createIndex("ix_{{news_news}}_category_id", '{{news_news}}', "category_id", false);
+        $this->createIndex("ix_{{news_news}}_date", '{{news_news}}', "date", false);
 
-        $this->addForeignKey("fk_{{news_news}}_user", '{{news_news}}', 'user_id', '{{user_user}}', 'id', 'SET NULL', 'CASCADE');
-        $this->addForeignKey("fk_{{news_news}}_category", '{{news_news}}', 'category_id', '{{category_category}}', 'id', 'SET NULL', 'CASCADE');
-
+        //fk
+        $this->addForeignKey("fk_{{news_news}}_user_id", '{{news_news}}', 'user_id', '{{user_user}}', 'id', 'SET NULL', 'CASCADE');
+        $this->addForeignKey("fk_{{news_news}}_category_id", '{{news_news}}', 'category_id', '{{category_category}}', 'id', 'SET NULL', 'CASCADE');
     }
  
-    /**
-     * Откатываем миграцию:
-     *
-     * @return nothing
-     **/
+
     public function safeDown()
     {
-        $db = $this->getDbConnection();
-
-        /**
-         * Убиваем внешние ключи, индексы и таблицу - news
-         * @todo найти как проверять существование индексов, что бы их подчищать (на абстрактном уровне без привязки к типу БД):
-         **/
-        if ($db->schema->getTable('{{news_news}}') !== null) {
-
-            if (in_array("fk_{{news_news}}_user", $db->schema->getTable('{{news_news}}')->foreignKeys))
-                $this->dropForeignKey("fk_{{news_news}}_user", '{{news_news}}');
-
-            if (in_array("fk_{{news_news}}_category", $db->schema->getTable('{{news_news}}')->foreignKeys))
-                $this->dropForeignKey( "fk_{{news_news}}_user", '{{news_news}}');
-
-            $this->dropTable( '{{news_news}}');
-        }
+        $this->dropTableWithForeignKeys('{{news_news}}');
     }
 }

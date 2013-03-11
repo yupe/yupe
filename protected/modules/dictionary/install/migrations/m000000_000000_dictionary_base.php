@@ -9,24 +9,9 @@
  * @license  BSD https://raw.github.com/yupe/yupe/master/LICENSE
  * @link     http://yupe.ru
  **/
-
-/**
- * Dictionary install migration
- * Класс миграций для модуля Dictionary:
- *
- * @category YupeMigration
- * @package  YupeCMS
- * @author   YupeTeam <team@yupe.ru>
- * @license  BSD https://raw.github.com/yupe/yupe/master/LICENSE
- * @link     http://yupe.ru
- */
 class m000000_000000_dictionary_base extends YDbMigration
 {
-    /**
-     * Накатываем миграцию:
-     *
-     * @return nothing
-     **/
+
     public function safeUp()
     {
         $this->createTable('{{dictionary_dictionary_group}}', array(
@@ -47,8 +32,8 @@ class m000000_000000_dictionary_base extends YDbMigration
         $this->createIndex("ix_{{dictionary_dictionary_group}}_update_user_id", '{{dictionary_dictionary_group}}', "update_user_id", false);
 
         //fk
-        $this->addForeignKey("fk_{{dictionary_dictionary_group}}_create_user_id",'{{dictionary_dictionary_group}}', 'create_user_id','{{user}}', 'id', 'SET NULL', 'NO ACTION');
-        $this->addForeignKey("fk_{{dictionary_dictionary_group}}_updateuser_id",'{{dictionary_dictionary_group}}', 'update_user_id', '{{user}}', 'id', 'SET NULL', 'NO ACTION');
+        $this->addForeignKey("fk_{{dictionary_dictionary_group}}_create_user_id",'{{dictionary_dictionary_group}}', 'create_user_id','{{user_user}}', 'id', 'SET NULL', 'NO ACTION');
+        $this->addForeignKey("fk_{{dictionary_dictionary_group}}_update_user_id",'{{dictionary_dictionary_group}}', 'update_user_id', '{{user_user}}', 'id', 'SET NULL', 'NO ACTION');
 
         /**
          * Dictionary_data
@@ -76,19 +61,15 @@ class m000000_000000_dictionary_base extends YDbMigration
         $this->createIndex("ix_{{dictionary_dictionary_data}}_status",'{{dictionary_dictionary_data}}', "status", false);
 
         //fk
-        $this->addForeignKey("fk_{{dictionary_dictionary_data}}_create_user_id",'{{dictionary_dictionary_data}}', 'create_user_id', '{{user}}', 'id', 'SET NULL', 'NO ACTION');
-        $this->addForeignKey("fk_{{dictionary_dictionary_data}}_update_user_id",'{{dictionary_dictionary_data}}', 'update_user_id', '{{user}}', 'id', 'SET NULL', 'NO ACTION');
+        $this->addForeignKey("fk_{{dictionary_dictionary_data}}_create_user_id",'{{dictionary_dictionary_data}}', 'create_user_id', '{{user_user}}', 'id', 'SET NULL', 'NO ACTION');
+        $this->addForeignKey("fk_{{dictionary_dictionary_data}}_update_user_id",'{{dictionary_dictionary_data}}', 'update_user_id', '{{user_user}}', 'id', 'SET NULL', 'NO ACTION');
         $this->addForeignKey("fk_{{dictionary_dictionary_data}}_data_group_id",'{{dictionary_dictionary_data}}', 'group_id','{{dictionary_dictionary_group}}', 'id', 'CASCADE', 'NO ACTION');
     }
  
-    /**
-     * Откатываем миграцию:
-     *
-     * @return nothing
-     **/
+
     public function safeDown()
     {
-        $this->dropTable('{{dictionary_dictionary_data}}');
-        $this->dropTable('{{dictionary_dictionary_group}}');
+        $this->dropTableWithForeignKeys('{{dictionary_dictionary_data}}');
+        $this->dropTableWithForeignKeys('{{dictionary_dictionary_group}}');
     }
 }
