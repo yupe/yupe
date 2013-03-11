@@ -54,7 +54,11 @@ class LoginAction extends CAction
                     ? array($module->loginAdminSuccess)
                     : array($module->loginSuccess);
 
-                $this->controller->redirect($redirect);
+                /**
+                 * #485 Редиректим запрошенный URL (если такой был задан)
+                 * {@link CWebUser getReturnUrl}
+                 */
+                $this->controller->redirect(Yii::app()->user->getReturnUrl($redirect));
             }
             else
                 Yii::log(
