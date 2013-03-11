@@ -26,16 +26,5 @@ class m130115_155600_columns_rename extends YDbMigration
         // я решил реализовать миграцию по принципу KISS, в случае ошибки down откатиться назад
         $this->renameColumn('{{page_page}}', 'order', 'menu_order');
         $this->renameColumn('{{page_page}}', 'title_short', 'name');
-
-//        $db = $this->getDbConnection();
-//
-//        if ($db->schema->getTable('{{page_page}}') !== null) {
-//
-//            if (in_array($db->tablePrefix . "order", $db->schema->getTable('{{page_page}}')->columns))
-//                $this->renameColumn('{{page_page}}', 'order', 'menu_order');
-//
-//            if (in_array($db->tablePrefix . "title_short", $db->schema->getTable('{{page_page}}')->columns))
-//                $this->renameColumn('{{page_page}}', 'title_short', 'name');
-//        }
     }
 }

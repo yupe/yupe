@@ -30,7 +30,7 @@ class m000000_000000_social_base extends YDbMigration
         $this->createIndex("ix_{{social_login}}_user_id", '{{social_login}}', "user_id", false);
         $this->createIndex("ix_{{social_login}}_type", '{{social_login}}', "type", false);
 
-        $this->addForeignKey("fk_{{social_login}}_user", '{{social_login}}', 'user_id', '{{user_user}}', 'id', 'CASCADE', 'CASCADE');
+        $this->addForeignKey("fk_{{social_login}}_user", '{{social_login}}', 'user_id', '{{user_user}}', 'id', 'CASCADE', 'NO ACTION');
     }
  
 

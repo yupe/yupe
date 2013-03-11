@@ -74,7 +74,7 @@ class m000000_000000_user_base extends YDbMigration
         $this->createIndex("ix_{{user_recovery_password}}_user_id", '{{user_recovery_password}}', "user_id", false);
         
         //fk
-        $this->addForeignKey("fk_{{user_recovery_password}}_user_id", '{{user_recovery_password}}', 'user_id', '{{user_user}}', 'id', 'CASCADE', 'CASCADE');
+        $this->addForeignKey("fk_{{user_recovery_password}}_user_id", '{{user_recovery_password}}', 'user_id', '{{user_user}}', 'id', 'CASCADE', 'NO ACTION');
     }
  
     /**

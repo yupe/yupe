@@ -17,7 +17,7 @@ class YDbMigration extends CDbMigration
             foreach ( $schema->getTable($table)->foreignKeys as $fk_name) {
                 $this->dropForeignKey($fk_name, $table);
             }
-            $this->dropTable($table);
+            $this->dropTableWithForeignKeys($table);
         }
     }
 }

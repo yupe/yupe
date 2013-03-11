@@ -26,7 +26,7 @@ class m000000_000000_queue_base extends YDbMigration
                 'complete_time' => 'datetime DEFAULT NULL',
                 'priority' => "integer NOT NULL DEFAULT '1'",
                 'status' => "integer NOT NULL DEFAULT '0'",
-                'notice' => 'varchar(300) DEFAULT NULL',
+                'notice' => 'varchar(255) DEFAULT NULL',
             ),
             $this->getOptions()
         );
@@ -38,6 +38,6 @@ class m000000_000000_queue_base extends YDbMigration
 
     public function safeDown()
     {
-        $this->dropTable('{{queue_queue}}');
+        $this->dropTableWithForeignKeys('{{queue_queue}}');
     }
 }

@@ -19,9 +19,9 @@ class m000000_000000_menu_base extends YDbMigration
             '{{menu_menu}}',
             array(
                 'id' => 'pk',
-                'name' => 'varchar(300) NOT NULL',
+                'name' => 'varchar(255) NOT NULL',
                 'code' => 'string NOT NULL',
-                'description' => 'varchar(300) NOT NULL',
+                'description' => 'varchar(255) NOT NULL',
                 'status'=> "integer NOT NULL DEFAULT '1'",
             ),
             $this->getOptions()
@@ -40,6 +40,7 @@ class m000000_000000_menu_base extends YDbMigration
                 'id' => 'pk',
                 'parent_id' => 'integer NOT NULL',
                 'menu_id' => 'integer NOT NULL',
+                'regular_link' => "boolean NOT NULL DEFAULT '0'",
                 'title' => 'varchar(150) NOT NULL',
                 'href' => 'varchar(150) NOT NULL',
                 'class' => 'varchar(150) NOT NULL',
