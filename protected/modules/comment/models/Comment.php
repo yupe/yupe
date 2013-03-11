@@ -64,7 +64,7 @@ class Comment extends YModel
      */
     public function tableName()
     {
-        return '{{comment}}';
+        return '{{comment_comment}}';
     }
 
     /**
@@ -78,9 +78,9 @@ class Comment extends YModel
             array('model, name, email, text, url', 'filter', 'filter' => 'trim'),
             array('model, name, email, text, url', 'filter', 'filter' => array($obj = new CHtmlPurifier(), 'purify')),
             array('model, model_id, name, email, text', 'required'),
-            array('status, user_id, model_id, parrent_id', 'numerical', 'integerOnly' => true),
+            array('status, user_id, model_id, parent_id', 'numerical', 'integerOnly' => true),
             array('name, email, url', 'length', 'max' => 150),
-            array('model', 'length', 'max' => 50),
+            array('model', 'length', 'max' => 100),
             array('ip', 'length', 'max' => 20),
             array('email', 'email'),
             array('url', 'url'),
@@ -163,7 +163,7 @@ class Comment extends YModel
         $criteria->compare('id', $this->id, true);
         $criteria->compare('model', $this->model, true);
         $criteria->compare('model_id', $this->model_id, true);
-        $criteria->compare('parrent_id', $this->parrent_id, true);
+        $criteria->compare('parent_id', $this->parent_id, true);
         $criteria->compare('creation_date', $this->creation_date, true);
         $criteria->compare('name', $this->name, true);
         $criteria->compare('email', $this->email, true);
@@ -219,7 +219,7 @@ class Comment extends YModel
      * @TODO  Unused parameter $comment
      * @param Comment $comment - комментарий
      *
-     * @return nothing
+     * @return null
      **/
     public function newComment($comment)
     {
@@ -244,7 +244,7 @@ class Comment extends YModel
      *
      * @param CModelEvent $event - класс события
      *
-     * @return nothing
+     * @return null
      **/
     public function onNewComment($event)
     {

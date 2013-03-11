@@ -9,83 +9,54 @@
  * @license  BSD https://raw.github.com/yupe/yupe/master/LICENSE
  * @link     http://yupe.ru
  **/
-
-/**
- * Feedback install migration
- * Класс миграций для модуля Feedback:
- *
- * @category YupeMigration
- * @package  YupeCMS
- * @author   YupeTeam <team@yupe.ru>
- * @license  BSD https://raw.github.com/yupe/yupe/master/LICENSE
- * @link     http://yupe.ru
- */
-class m000000_000000_feedback_base extends CDbMigration
+class m000000_000000_feedback_base extends YDbMigration
 {
     /**
      * Накатываем миграцию
      *
-     * @return nothing
+     * @return null
      **/
     public function safeUp()
     {
-        $db = $this->getDbConnection();
-        $options = Yii::app()->db->schema instanceof CMysqlSchema ? 'ENGINE=InnoDB DEFAULT CHARSET=utf8' : '';
-        $this->createTable(
-            $db->tablePrefix . 'feedback', array(
+        $this->createTable('{{feedback_feedback}}', array(
                 'id' => 'pk',
+                'category_id' => 'integer DEFAULT NULL',
                 'answer_user' => 'integer DEFAULT NULL',
                 'creation_date' => 'datetime NOT NULL',
                 'change_date' => 'datetime NOT NULL',
-                'name' => 'string NOT NULL',
-                'email' => 'string NOT NULL',
-                'phone' => 'string DEFAULT NULL',
-                'theme' => 'string NOT NULL',
+                'name' => 'varchar(150) NOT NULL',
+                'email' => 'varchar(150) NOT NULL',
+                'phone' => 'varchar(150) DEFAULT NULL',
+                'theme' => 'varchar(250) NOT NULL',
                 'text' => 'text NOT NULL',
                 'type' => "integer NOT NULL DEFAULT '0'",
                 'answer' => 'text NOT NULL',
                 'answer_date' => 'datetime DEFAULT NULL',
                 'is_faq' => "integer NOT NULL DEFAULT '0'",
                 'status' => "integer NOT NULL DEFAULT '0'",
-                'ip' => 'string NOT NULL',
-            ), $options
+                'ip' => 'varchar(20) NOT NULL',
+            ), $this->getOptions()
         );
 
-        $this->createIndex($db->tablePrefix . "feedback_type", $db->tablePrefix . 'feedback', "type", false);
-        $this->createIndex($db->tablePrefix . "feedback_status", $db->tablePrefix . 'feedback', "status", false);
-        $this->createIndex($db->tablePrefix . "feedback_isfaq", $db->tablePrefix . 'feedback', "is_faq", false);
-        $this->createIndex($db->tablePrefix . "feedback_answer_user", $db->tablePrefix . 'feedback', "answer_user", false);
-        $this->createIndex($db->tablePrefix . "feedback_answer_date", $db->tablePrefix . 'feedback', "answer_date", false);
+        //ix
+        $this->createIndex("ix_{{feedback_feedback}}_category",'{{feedback_feedback}}', "category_id", false);
+        $this->createIndex("ix_{{feedback_feedback}}_type", '{{feedback_feedback}}', "type", false);
+        $this->createIndex("ix_{{feedback_feedback}}_status", '{{feedback_feedback}}', "status", false);
+        $this->createIndex("ix_{{feedback_feedback}}_isfaq",'{{feedback_feedback}}', "is_faq", false);
+        $this->createIndex("ix_{{feedback_feedback}}_answer_user",'{{feedback_feedback}}', "answer_user", false);
 
-        $this->addForeignKey($db->tablePrefix . "feedback_answer_user_fk", $db->tablePrefix . 'feedback', 'answer_user', $db->tablePrefix . 'user', 'id', 'RESTRICT', 'CASCADE');
-
+        //fk
+        $this->addForeignKey("fk_{{feedback_feedback}}_answer_user", '{{feedback_feedback}}', 'answer_user','{{user_user}}', 'id', 'SET NULL', 'NO ACTION');
+        $this->addForeignKey("fk_{{feedback_feedback}}_category",'{{feedback_feedback}}', 'category_id','{{category_category}}', 'id', 'SET NULL', 'NO ACTION');
     }
  
     /**
      * Откатываем миграцию
      *
-     * @return nothing
+     * @return null
      **/
     public function safeDown()
     {
-        $db = $this->getDbConnection();
-        /**
-         * Убиваем внешние ключи, индексы и таблицу - feedback
-         * @todo найти как проверять существование индексов, что бы их подчищать (на абстрактном уровне без привязки к типу БД):
-         **/
-        if ($db->schema->getTable($db->tablePrefix . 'feedback') !== null) {
-            /*
-            $this->dropIndex($db->tablePrefix . "feedback_type", $db->tablePrefix . 'feedback');
-            $this->dropIndex($db->tablePrefix . "feedback_status", $db->tablePrefix . 'feedback');
-            $this->dropIndex($db->tablePrefix . "feedback_isfaq", $db->tablePrefix . 'feedback');
-            $this->dropIndex($db->tablePrefix . "feedback_answer_user", $db->tablePrefix . 'feedback');
-            $this->dropIndex($db->tablePrefix . "feedback_answer_date", $db->tablePrefix . 'feedback');
-            */
-            
-            if (in_array($db->tablePrefix . "feedback_answer_user_fk", $db->schema->getTable($db->tablePrefix . 'feedback')->foreignKeys))
-                $this->dropForeignKey($db->tablePrefix . "feedback_answer_user_fk", $db->tablePrefix . 'feedback');
-            
-            $this->dropTable($db->tablePrefix . 'feedback');
-        }
+        $this->dropTableWithForeignKeys('{{feedback_feedback}}');
     }
 }

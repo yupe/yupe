@@ -7,7 +7,7 @@
             htmlForm.addClass("comment-form").show();
             $("#comment-form-wrap").hide();
             $this.parents("div.comment").parent("div").after(htmlForm);
-            $("#Comment_parrent_id").val($this.attr("rel"));
+            $("#Comment_parent_id").val($this.attr("rel"));
         });
     });
 </script>
@@ -22,9 +22,9 @@
 </div>
 
 <?php
-function nestedComment($comments, $level, $parrent_id) {
+function nestedComment($comments, $level, $parent_id) {
     foreach ($comments as $comment) {
-        if ($parrent_id === $comment->parrent_id) {
+        if ($parent_id === $comment->parent_id) {
             echo '<div style="margin-left: ' . (20 * $level) . 'px; ">' . "\n";
             echo ''
                 . '<div class="comment" id="comment_'

@@ -10,70 +10,32 @@
  * @license  BSD https://raw.github.com/yupe/yupe/master/LICENSE
  * @link     http://yupe.ru
  **/
-
-/**
- * Social install migration
- * Класс миграций для модуля Social:
- *
- * @category YupeMigration
- * @package  YupeCMS
- * @author   YupeTeam <team@yupe.ru>
- * @license  BSD https://raw.github.com/yupe/yupe/master/LICENSE
- * @link     http://yupe.ru
- **/
-class m000000_000000_social_base extends CDbMigration
+class m000000_000000_social_base extends YDbMigration
 {
-    /**
-     * Накатываем миграцию:
-     *
-     * @return nothing
-     **/
+
     public function safeUp()
     {
-        $db = $this->getDbConnection();
-        $options = Yii::app()->db->schema instanceof CMysqlSchema ? 'ENGINE=InnoDB DEFAULT CHARSET=utf8' : '';
         $this->createTable(
-            $db->tablePrefix . 'login', array(
+            '{{social_login}}', 
+            array(
                 'id' => 'pk',
                 'user_id' => 'integer NOT NULL',
-                'identity_id' => 'string NOT NULL',
-                'type' => 'string NOT NULL',
+                'identity_id' => 'varchar(250) NOT NULL',
+                'type' => 'varchar(150) NOT NULL',
                 'creation_date' => 'datetime NOT NULL',
-            ), $options
+            ), $this->getOptions()
         );
 
-        $this->createIndex($db->tablePrefix . "social_identity_uniq", $db->tablePrefix . 'login', "identity_id", true);
-        $this->createIndex($db->tablePrefix . "social_user_id", $db->tablePrefix . 'login', "user_id", false);
-        $this->createIndex($db->tablePrefix . "social_type", $db->tablePrefix . 'login', "type", false);
+        $this->createIndex("ux_{{social_login}}_identity", '{{social_login}}', "identity_id", true);
+        $this->createIndex("ix_{{social_login}}_user_id", '{{social_login}}', "user_id", false);
+        $this->createIndex("ix_{{social_login}}_type", '{{social_login}}', "type", false);
 
-        $this->addForeignKey($db->tablePrefix . "social_user_fk", $db->tablePrefix . 'login', 'user_id', $db->tablePrefix . 'user', 'id', 'CASCADE', 'CASCADE');
+        $this->addForeignKey("fk_{{social_login}}_user", '{{social_login}}', 'user_id', '{{user_user}}', 'id', 'CASCADE', 'CASCADE');
     }
  
-    /**
-     * Откатываем миграцию:
-     *
-     * @return nothing
-     **/
+
     public function safeDown()
     {
-        $db = $this->getDbConnection();
-
-        /**
-         * Убиваем внешние ключи, индексы и таблицу - login
-         * @todo найти как проверять существование индексов, что бы их подчищать (на абстрактном уровне без привязки к типу БД):
-         **/
-        if ($db->schema->getTable($db->tablePrefix . 'login') !== null) {
-
-            /*
-            $this->dropIndex($db->tablePrefix . "social_type", $db->tablePrefix . 'login');
-            $this->dropIndex($db->tablePrefix . "social_user_id", $db->tablePrefix . 'login');
-            $this->dropIndex($db->tablePrefix . "social_identity_uniq", $db->tablePrefix . 'login');
-            */
-
-            if (in_array($db->tablePrefix . "social_user_fk", $db->schema->getTable($db->tablePrefix . 'login')->foreignKeys))
-                $this->dropForeignKey($db->tablePrefix . "social_user_fk", $db->tablePrefix . 'login');
-
-            $this->dropTable($db->tablePrefix.'login');
-        }
+        $this->dropTableWithForeignKeys('{{social_login}}');
     }
 }

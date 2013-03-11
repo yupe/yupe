@@ -29,7 +29,7 @@ class Gallery extends YModel
      */
     public function tableName()
     {
-        return '{{gallery}}';
+        return '{{gallery_gallery}}';
     }
 
     /**
@@ -42,8 +42,7 @@ class Gallery extends YModel
         return array(
             array('name', 'required'),
             array('status', 'numerical', 'integerOnly' => true),
-            array('name', 'length', 'max' => 300),
-            array('description', 'length', 'max' => 500),
+            array('name', 'length', 'max' => 250),            
             // The following rule is used by search().
             // Please remove those attributes that should not be searched.
             array('id, name, description, status', 'safe', 'on' => 'search'),

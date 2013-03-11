@@ -10,41 +10,22 @@
  * @license  BSD https://raw.github.com/yupe/yupe/master/LICENSE
  * @link     http://yupe.ru
  **/
-
-/**
- * News install migration
- * Класс миграций для модуля News:
- *
- * @category YupeMigration
- * @package  YupeCMS
- * @author   YupeTeam <team@yupe.ru>
- * @license  BSD https://raw.github.com/yupe/yupe/master/LICENSE
- * @link     http://yupe.ru
- **/
-class m000000_000000_news_base extends CDbMigration
+class m000000_000000_news_base extends YDbMigration
 {
-    /**
-     * Накатываем миграцию:
-     *
-     * @return nothing
-     **/
+
     public function safeUp()
     {
-        $db = $this->getDbConnection();
-        $options = Yii::app()->db->schema instanceof CMysqlSchema ? 'ENGINE=InnoDB DEFAULT CHARSET=utf8' : '';
-        /**
-         * news:
-         **/
         $this->createTable(
-            $db->tablePrefix . 'news', array(
+            '{{news_news}}',
+            array(
                 'id' => 'pk',
                 'category_id' => 'integer DEFAULT NULL',
                 'lang' => 'char(2) DEFAULT NULL',
                 'creation_date' => 'datetime NOT NULL',
                 'change_date' => 'datetime NOT NULL',
                 'date' => 'date NOT NULL',
-                'title' => 'string NOT NULL',
-                'alias' => 'string NOT NULL',
+                'title' => 'varchar(250) NOT NULL',
+                'alias' => 'varchar(150) NOT NULL',
                 'short_text' => 'text',
                 'full_text' => 'text NOT NULL',
                 'image' => 'varchar(300) DEFAULT NULL',
@@ -52,52 +33,25 @@ class m000000_000000_news_base extends CDbMigration
                 'user_id' => 'integer DEFAULT NULL',
                 'status' => "integer NOT NULL DEFAULT '0'",
                 'is_protected' => "boolean NOT NULL DEFAULT '0'",
-                'keywords' => 'string NOT NULL',
-                'description' => 'string NOT NULL',
-            ), $options
+                'keywords' => 'varchar(250) NOT NULL',
+                'description' => 'varchar(250) NOT NULL',
+            ), $this->getOptions()
         );
 
-        $this->createIndex($db->tablePrefix . "news_alias_unique", $db->tablePrefix . 'news', "alias,lang", true);
-        $this->createIndex($db->tablePrefix . "news_status", $db->tablePrefix . 'news', "status", false);
-        $this->createIndex($db->tablePrefix . "news_user", $db->tablePrefix . 'news', "user_id", false);
-        $this->createIndex($db->tablePrefix . "news_category", $db->tablePrefix . 'news', "category_id", false);
-        $this->createIndex($db->tablePrefix . "news_date", $db->tablePrefix . 'news', "date", false);
+        $this->createIndex("ux_{{news_news}}_alias_lang", '{{news_news}}', "alias,lang", true);
+        $this->createIndex("ix_{{news_news}}_status", '{{news_news}}', "status", false);
+        $this->createIndex("ix_{{news_news}}_user_id", '{{news_news}}', "user_id", false);
+        $this->createIndex("ix_{{news_news}}_category_id", '{{news_news}}', "category_id", false);
+        $this->createIndex("ix_{{news_news}}_date", '{{news_news}}', "date", false);
 
-        $this->addForeignKey($db->tablePrefix . "news_user_fk", $db->tablePrefix . 'news', 'user_id', $db->tablePrefix . 'user', 'id', 'SET NULL', 'CASCADE');
-        $this->addForeignKey($db->tablePrefix . "news_category_fk", $db->tablePrefix . 'news', 'category_id', $db->tablePrefix . 'category', 'id', 'SET NULL', 'CASCADE');
-
+        //fk
+        $this->addForeignKey("fk_{{news_news}}_user_id", '{{news_news}}', 'user_id', '{{user_user}}', 'id', 'SET NULL', 'CASCADE');
+        $this->addForeignKey("fk_{{news_news}}_category_id", '{{news_news}}', 'category_id', '{{category_category}}', 'id', 'SET NULL', 'CASCADE');
     }
  
-    /**
-     * Откатываем миграцию:
-     *
-     * @return nothing
-     **/
+
     public function safeDown()
     {
-        $db = $this->getDbConnection();
-
-        /**
-         * Убиваем внешние ключи, индексы и таблицу - news
-         * @todo найти как проверять существование индексов, что бы их подчищать (на абстрактном уровне без привязки к типу БД):
-         **/
-        if ($db->schema->getTable($db->tablePrefix . 'news') !== null) {
-
-            /*
-            $this->dropIndex($db->tablePrefix . "news_alias_unique", $db->tablePrefix . 'news');
-            $this->dropIndex($db->tablePrefix . "news_status", $db->tablePrefix . 'news');
-            $this->dropIndex($db->tablePrefix . "news_user", $db->tablePrefix . 'news');
-            $this->dropIndex($db->tablePrefix . "news_category", $db->tablePrefix . 'news');
-            $this->dropIndex($db->tablePrefix . "news_date", $db->tablePrefix . 'news');
-            */
-
-            if (in_array($db->tablePrefix . "news_user_fk", $db->schema->getTable($db->tablePrefix . 'news')->foreignKeys))
-                $this->dropForeignKey($db->tablePrefix . "news_user_fk", $db->tablePrefix . 'news');
-
-            if (in_array($db->tablePrefix . "news_category_fk", $db->schema->getTable($db->tablePrefix . 'news')->foreignKeys))
-                $this->dropForeignKey($db->tablePrefix . "news_user_fk", $db->tablePrefix . 'news');
-
-            $this->dropTable($db->tablePrefix . 'news');
-        }
+        $this->dropTableWithForeignKeys('{{news_news}}');
     }
 }

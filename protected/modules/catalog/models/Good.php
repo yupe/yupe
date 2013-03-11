@@ -49,7 +49,7 @@ class Good extends YModel
      */
     public function tableName()
     {
-        return '{{good}}';
+        return '{{catalog_good}}';
     }
 
     /**
@@ -61,17 +61,16 @@ class Good extends YModel
             array('category_id, name, description, alias', 'required', 'except' => 'search'),
             array('name, description, short_description, image, alias, price, article, data, status, is_special', 'filter', 'filter' => 'trim'),
             array('name, alias, price, article, data, status, is_special', 'filter', 'filter' => array($obj = new CHtmlPurifier(), 'purify')),
-            array('status, category_id, is_special', 'numerical', 'integerOnly' => true),
+            array('status, category_id, is_special, user_id', 'numerical', 'integerOnly' => true),
+            array('status, category_id, is_special, user_id', 'length', 'max' => 11),
             array('price', 'numerical'),
-            array('alias', 'YSLugValidator', 'message' => Yii::t('CatalogModule.catalog', 'Запрещенные символы в поле {attribute}')),
-            array('alias', 'unique'),
-            array('name', 'length', 'max' => 150),
-            array('article, alias', 'length', 'max' => 100),
+            array('name, image', 'length', 'max' => 250),
+            array('article', 'length', 'max' => 100),
+            array('alias', 'length', 'max' => 150),
             array('status','in','range' => array_keys($this->statusList)),
             array('is_special','in','range' => array(0, 1)),
-            array('short_description, data', 'safe'),
-            // The following rule is used by search().
-            // Please remove those attributes that should not be searched.
+            array('alias', 'YSLugValidator', 'message' => Yii::t('CatalogModule.catalog', 'Запрещенные символы в поле {attribute}')),
+            array('alias', 'unique'),
             array('id, category_id, name, price, article, short_description, description, alias, data, status, create_time, update_time, user_id, change_user_id, is_special', 'safe', 'on' => 'search'),
         );
     }

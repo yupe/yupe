@@ -10,32 +10,14 @@
  * @license  BSD https://raw.github.com/yupe/yupe/master/LICENSE
  * @link     http://yupe.ru
  **/
-
-/**
- * Menu install migration
- * Класс миграций для модуля Menu:
- *
- * @category YupeMigration
- * @package  YupeCMS
- * @author   YupeTeam <team@yupe.ru>
- * @license  BSD https://raw.github.com/yupe/yupe/master/LICENSE
- * @link     http://yupe.ru
- *
- * add data
- **/
-class m121220_001126_menu_test_data extends CDbMigration
+class m121220_001126_menu_test_data extends YDbMigration
 {
-    /**
-     * Накатываем миграцию:
-     *
-     * @return nothing
-     **/
+
     public function safeUp()
     {
-        $db = $this->getDbConnection();
-
         $this->insert(
-            $db->tablePrefix . 'menu', array(
+            '{{menu_menu}}',
+            array(
                 'id'          => 1,
                 'name'        => 'Верхнее меню',
                 'code'        => 'top-menu',
@@ -70,7 +52,10 @@ class m121220_001126_menu_test_data extends CDbMigration
 
             foreach ($columns as $c)
                 $item[$c] = $i[$n++];
-            $this->insert($db->tablePrefix . 'menu_item', $item);
+            $this->insert(
+                '{{menu_menu_item}}',
+                $item
+            );
         }
     }
 }

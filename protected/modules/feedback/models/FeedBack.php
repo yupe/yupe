@@ -14,7 +14,7 @@
  * @property integer $type
  * @property integer $status
  * @property integer $ip
- * @property category_id
+ * @property integer $category_id
  * @property string  $phone
  */
 class FeedBack extends YModel
@@ -45,7 +45,7 @@ class FeedBack extends YModel
      */
     public function tableName()
     {
-        return '{{feedback}}';
+        return '{{feedback_feedback}}';
     }
 
     /**
@@ -60,9 +60,10 @@ class FeedBack extends YModel
             array('is_faq', 'in', 'range' => array(0, 1)),
             array('status', 'in', 'range' => array_keys($this->statusList)),
             array('type', 'in', 'range' => array_keys($this->typeList)),
-            array('name, email, answer_date', 'length', 'max' => 100),
-            array('theme', 'length', 'max' => 150),
-            array('phone', 'length', 'max' => 100),
+            array('name, email, phone', 'length', 'max' => 150),
+            array('theme', 'length', 'max' => 250),
+            array('ip', 'length', 'max' => 20),
+            array('answer_date', 'length', 'max' => 100),
             array('email', 'email'),
             array('answer', 'filter', 'filter' => 'trim'),
             array('id, creation_date, change_date, name, email, theme, text, type, status, ip', 'safe', 'on' => 'search'),

@@ -23,7 +23,7 @@ class Category extends YModel
      */
     public function tableName()
     {
-        return '{{category}}';
+        return '{{category_category}}';
     }
 
     /**
@@ -47,9 +47,10 @@ class Category extends YModel
             array('name, alias', 'filter', 'filter' => array($obj = new CHtmlPurifier(), 'purify')),
             array('name, description, alias', 'required'),
             array('parent_id, status', 'numerical', 'integerOnly' => true),
+            array('parent_id, status', 'length', 'max' => 11),
             array('parent_id', 'default', 'setOnEmpty' => true, 'value' => null),
-            array('name', 'length', 'max' => 150),
-            array('alias', 'length', 'max' => 100),
+            array('name, image', 'length', 'max' => 250),
+            array('alias', 'length', 'max' => 150),
             array('alias', 'YSLugValidator', 'message' => Yii::t('catalog', 'Запрещенные символы в поле {attribute}')),
             array('lang', 'length', 'max' => 2 ),
             array('lang', 'default', 'value' => Yii::app()->sourceLanguage),

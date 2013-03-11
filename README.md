@@ -13,8 +13,8 @@
 * [twitter](https://twitter.com/#!/YupeCms).
 * [Форум](http://yupe.ru/talk/).
 * [Блог проекта](http://yupe.ru/index.php/blog/yupe-mini-cms-yii).
-* [wiki](https://github.com/yupe/yupe/wiki).
-* [Контакты](http://yupe.ru/feedback/contact).
+* [wiki](http://yupe.ru/wiki/default/pageIndex).
+* [Контакты](http://yupe.ru/feedback/index).
 * [Как помочь проекту](http://yupe.ru/site/page/view/help).
 
 Возможности
@@ -24,7 +24,6 @@
 функционалом (всё разделено на модули - используйте только то, что необходимо):
 
 * [Регистрация](http://yupe.ru/registration), [аутентификация](http://yupe.ru/login), [восстановление пароля](http://yupe.ru/recovery) ([модуль user](https://github.com/yupe/yupe/tree/master/protected/modules/user)).
-* Регистрация и авторизация через социальные сети ([модуль social](https://github.com/yupe/yupe/tree/master/protected/modules/social)).
 * Управление пользователями (блокировка, активация, редактирование и т.д.) через административный интерфейс ([модуль user](https://github.com/yupe/yupe/tree/master/protected/modules/user)).
 * [Создание и публикация новостей](http://yupe.ru/story/ocherednoy-sayt-na-yupi) ([модуль news](https://github.com/yupe/yupe/tree/master/protected/modules/news)).
 * Создание и управление страницами сайта ([модуль page](https://github.com/yupe/yupe/tree/master/protected/modules/page)).

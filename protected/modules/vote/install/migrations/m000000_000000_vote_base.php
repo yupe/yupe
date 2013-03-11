@@ -10,73 +10,36 @@
  * @license  BSD https://raw.github.com/yupe/yupe/master/LICENSE
  * @link     http://yupe.ru
  **/
-
-/**
- * Vote install migration
- * Класс миграций для модуля Vote:
- *
- * @category YupeMigration
- * @package  YupeCMS
- * @author   YupeTeam <team@yupe.ru>
- * @license  BSD https://raw.github.com/yupe/yupe/master/LICENSE
- * @link     http://yupe.ru
- **/
-class m000000_000000_vote_base extends CDbMigration
+class m000000_000000_vote_base extends YDbMigration
 {
-    /**
-     * Накатываем миграцию:
-     *
-     * @return nothing
-     **/
+
     public function safeUp()
     {
-        $db = $this->getDbConnection();
-        $options = Yii::app()->db->schema instanceof CMysqlSchema ? 'ENGINE=InnoDB DEFAULT CHARSET=utf8' : '';
         $this->createTable(
-            $db->tablePrefix . 'vote', array(
+            '{{vote_vote}}',
+            array(
                 'id' => 'pk',
-                'model' => 'string NOT NULL',
+                'model' => 'varchar(150) NOT NULL',
                 'model_id' => 'integer NOT NULL',
                 'user_id' => 'integer NOT NULL',
                 'creation_date' => 'datetime NOT NULL',
                 'value'  => 'integer NOT NULL',
-            ), $options
+            ),
+            $this->getOptions()
         );
 
-        $this->createIndex($db->tablePrefix . "vote_user", $db->tablePrefix . 'vote', "user_id", false);
-        $this->createIndex($db->tablePrefix . "vote_model_model_id", $db->tablePrefix . 'vote', "model,model_id", false);
-        $this->createIndex($db->tablePrefix . "vote_model", $db->tablePrefix . 'vote', "model", false);
-        $this->createIndex($db->tablePrefix . "vote_model_id", $db->tablePrefix . 'vote', "model_id", false);
+        $this->createIndex("ix_{{vote_vote}}_user_id", '{{vote_vote}}', "user_id", false);
+        $this->createIndex("ix_{{vote_vote}}_model_model_id", '{{vote_vote}}', "model,model_id", false);
+        $this->createIndex("ix_{{vote_vote}}_model", '{{vote_vote}}', "model", false);
+        $this->createIndex("ix_{{vote_vote}}_model_id", '{{vote_vote}}', "model_id", false);
 
-        $this->addForeignKey($db->tablePrefix . "vote_user_fk", $db->tablePrefix . 'vote', 'user_id', $db->tablePrefix . 'user', 'id', 'CASCADE', 'CASCADE');
+        //fk
+        $this->addForeignKey("fk_{{vote_vote}}_user_id", '{{vote_vote}}', 'user_id', '{{user_user}}', 'id', 'CASCADE', 'CASCADE');
     }
  
-    /**
-     * Откатываем миграцию:
-     *
-     * @return nothing
-     **/
+
     public function safeDown()
     {
-        $db = $this->getDbConnection();
-
-        /**
-         * Убиваем внешние ключи, индексы и таблицу - vote
-         * @todo найти как проверять существование индексов, что бы их подчищать (на абстрактном уровне без привязки к типу БД):
-         **/
-        if ($db->schema->getTable($db->tablePrefix . 'vote') !== null) {
-
-            /*
-            $this->dropIndex($db->tablePrefix . "vote_user", $db->tablePrefix . 'vote');
-            $this->dropIndex($db->tablePrefix . "vote_model_model_id", $db->tablePrefix . 'vote');
-            $this->dropIndex($db->tablePrefix . "vote_model", $db->tablePrefix . 'vote');
-            $this->dropIndex($db->tablePrefix . "vote_model_id", $db->tablePrefix . 'vote');
-            */
-
-            if (in_array($db->tablePrefix . "vote_user_fk", $db->schema->getTable($db->tablePrefix . 'vote')->foreignKeys))
-                $this->dropForeignKey($db->tablePrefix . "vote_user_fk", $db->tablePrefix . 'vote');
-            
-            $this->dropTable($db->tablePrefix.'vote');
-        }
+        $this->dropTableWithForeignKeys('{{vote_vote}}');
     }
 }

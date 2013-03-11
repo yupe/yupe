@@ -10,70 +10,55 @@
  * @license  BSD https://raw.github.com/yupe/yupe/master/LICENSE
  * @link     http://yupe.ru
  **/
-
-/**
- * Category install migration
- * Класс миграций для модуля Category:
- *
- * @category YupeMigration
- * @package  YupeCMS
- * @author   YupeTeam <team@yupe.ru>
- * @license  BSD https://raw.github.com/yupe/yupe/master/LICENSE
- * @link     http://yupe.ru
- **/
-class m000000_000000_category_base extends CDbMigration
+class m000000_000000_category_base extends YDbMigration
 {
     /**
      * Функция настройки и создания таблицы:
      *
-     * @return nothing
+     * @return null
      **/
     public function safeUp()
     {
-        $db = $this->getDbConnection();
-        $options = Yii::app()->db->schema instanceof CMysqlSchema ? 'ENGINE=InnoDB DEFAULT CHARSET=utf8' : '';
         $this->createTable(
-            $db->tablePrefix . 'category', array(
+            '{{category_category}}',
+            array(
                 'id' => 'pk',
                 'parent_id' => 'integer DEFAULT NULL',
-                'alias' => 'string NOT NULL',
+                'alias' => 'varchar(150) NOT NULL',
                 'lang' => 'char(2) DEFAULT NULL',
-                'name' => 'string NOT NULL',
-                'image' => 'varchar(300) DEFAULT NULL',
+                'name' => 'varchar(250) NOT NULL',
+                'image' => 'varchar(250) DEFAULT NULL',
                 'short_description' => 'text',
                 'description' => 'text NOT NULL',
                 'status' => "boolean NOT NULL DEFAULT '1'",
-            ), $options
+            ),
+            $this->getOptions()
         );
 
-        $this->createIndex($db->tablePrefix . "category_alias_uniq", $db->tablePrefix . 'category', "alias,lang", true);
-        $this->createIndex($db->tablePrefix . "category_parent_id", $db->tablePrefix . 'category', "parent_id", false);
-        $this->createIndex($db->tablePrefix . "category_status", $db->tablePrefix . 'category', "status", false);
+        //ix
+        $this->createIndex("ux_{{category_category}}_alias_lang", '{{category_category}}', "alias,lang", true);
+        $this->createIndex("ix_{{category_category}}_parent_id", '{{category_category}}', "parent_id", false);
+        $this->createIndex("ix_{{category_category}}_status", '{{category_category}}', "status", false);
 
-        $this->addForeignKey($db->tablePrefix . "category_parent_id_fk", $db->tablePrefix . 'category', 'parent_id', $db->tablePrefix . 'category', 'id', 'RESTRICT', 'NO ACTION');
+        //fk
+        $this->addForeignKey(
+            "fk_{{category_category}}_parent_id",
+            '{{category_category}}',
+            'parent_id',
+            '{{category_category}}',
+            'id',
+            'SET NULL',
+            'NO ACTION'
+        );
     }
- 
+
     /**
      * Функция удаления таблицы:
      *
-     * @return nothing
+     * @return null
      **/
     public function safeDown()
     {
-        $db = $this->getDbConnection();
-
-        /**
-         * Убиваем внешние ключи, индексы и таблицу - settings
-         * @todo найти как проверять существование индексов, что бы их подчищать (на абстрактном уровне без привязки к типу БД):
-         **/
-
-        if ($db->schema->getTable($db->tablePrefix . 'category') !== null) {
-            /*
-            $this->dropIndex($db->tablePrefix . "category_alias_uniq", $db->tablePrefix . 'category');
-            $this->dropIndex($db->tablePrefix . "category_parent_id", $db->tablePrefix . 'category');
-            $this->dropIndex($db->tablePrefix . "category_status", $db->tablePrefix . 'category');
-            */
-            $this->dropTable($db->tablePrefix . 'category');
-        }
+        $this->dropTable('{{category_category}}');
     }
 }
