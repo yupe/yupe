@@ -102,6 +102,7 @@ $form = $this->beginWidget('bootstrap.widgets.TbActiveForm', array(
         echo $this->renderPartial('_mform', array('model' => $models[$l], 'form' => $form));
         echo CHtml::closeTag("div");
     }
+    echo CHtml::closeTag("div");
     ?>
 <br/>
 <?php
