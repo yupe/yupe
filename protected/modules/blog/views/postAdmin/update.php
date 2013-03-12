@@ -10,8 +10,9 @@
  **/
 $this->breadcrumbs = array(
     Yii::app()->getModule('blog')->getCategory() => array(),
-    Yii::t('BlogModule.blog', 'Записи') => array('/blog/PostAdmin/index'),
-    $model->title => array('/blog/PostAdmin/view', 'id' => $model->id),
+    Yii::t('BlogModule.blog', 'Блоги') => array('/blog/defaultAdmin/index'),
+    Yii::t('BlogModule.blog', 'Записи') => array('/blog/postAdmin/index'),
+    $model->title => array('/blog/postAdmin/view', 'id' => $model->id),
     Yii::t('BlogModule.blog', 'Редактирование'),
 );
 
@@ -19,29 +20,29 @@ $this->pageTitle = Yii::t('BlogModule.blog', 'Записи - редактиро�
 
 $this->menu = array(
     array('label' => Yii::t('BlogModule.blog', 'Блоги'), 'items' => array(
-        array('icon' => 'list-alt', 'label' => Yii::t('BlogModule.blog', 'Управление блогами'), 'url' => array('/blog/BlogAdmin/index')),
-        array('icon' => 'plus-sign', 'label' => Yii::t('BlogModule.blog', 'Добавить блог'), 'url' => array('/blog/BlogAdmin/create')),
+        array('icon' => 'list-alt', 'label' => Yii::t('BlogModule.blog', 'Управление блогами'), 'url' => array('/blog/defaultAdmin/index')),
+        array('icon' => 'plus-sign', 'label' => Yii::t('BlogModule.blog', 'Добавить блог'), 'url' => array('/blog/defaultAdmin/create')),
     )),
     array('label' => Yii::t('BlogModule.blog', 'Записи'), 'items' => array(
-        array('icon' => 'list-alt', 'label' => Yii::t('BlogModule.blog', 'Управление записями'), 'url' => array('/blog/PostAdmin/index')),
-        array('icon' => 'plus-sign', 'label' => Yii::t('BlogModule.blog', 'Добавить запись'), 'url' => array('/blog/PostAdmin/create')),
+        array('icon' => 'list-alt', 'label' => Yii::t('BlogModule.blog', 'Управление записями'), 'url' => array('/blog/postAdmin/index')),
+        array('icon' => 'plus-sign', 'label' => Yii::t('BlogModule.blog', 'Добавить запись'), 'url' => array('/blog/postAdmin/create')),
         array('label' => Yii::t('BlogModule.blog', 'Запись') . ' «' . mb_substr($model->title, 0, 32) . '»'),
         array('icon' => 'pencil', 'label' => Yii::t('BlogModule.blog', 'Редактирование записи'), 'url' => array(
-            '/blog/PostAdmin/update',
+            '/blog/postAdmin/update',
             'id' => $model->id
         )),
         array('icon' => 'eye-open', 'label' => Yii::t('BlogModule.blog', 'Просмотреть запись'), 'url' => array(
-            '/blog/PostAdmin/view',
+            '/blog/postAdmin/view',
             'id' => $model->id
         )),
         array('icon' => 'trash', 'label' => Yii::t('BlogModule.blog', 'Удалить запись'), 'url' => '#', 'linkOptions' => array(
-            'submit' => array('/blog/PostAdmin/delete', 'id' => $model->id),
+            'submit' => array('/blog/postAdmin/delete', 'id' => $model->id),
             'confirm' => Yii::t('BlogModule.blog', 'Вы уверены, что хотите удалить запись?'),
         )),
     )),
     array('label' => Yii::t('BlogModule.blog', 'Участники'), 'items' => array(
-        array('icon' => 'list-alt', 'label' => Yii::t('BlogModule.blog', 'Управление участниками'), 'url' => array('/blog/UserToBlogAdmin/index')),
-        array('icon' => 'plus-sign', 'label' => Yii::t('BlogModule.blog', 'Добавить участника'), 'url' => array('/blog/UserToBlogAdmin/create')),
+        array('icon' => 'list-alt', 'label' => Yii::t('BlogModule.blog', 'Управление участниками'), 'url' => array('/blog/userToBlogAdmin/index')),
+        array('icon' => 'plus-sign', 'label' => Yii::t('BlogModule.blog', 'Добавить участника'), 'url' => array('/blog/userToBlogAdmin/create')),
     )),
 );
 ?>

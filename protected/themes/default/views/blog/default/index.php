@@ -10,7 +10,7 @@ $this->breadcrumbs = array(Yii::t('blog', 'Блоги'));
         $('a.join-blog').click(function (event) {
             event.preventDefault();
             var blogId = parseInt($(this).attr('href'));
-            $.post(baseUrl + '/blog/blog/join/', {'blogId' : blogId}, function (response) {
+            $.post(baseUrl + '/blog/default/join/', {'blogId' : blogId}, function (response) {
                 var type = response.result ? 'success' : 'error';
                 showNotification({
                     message : response.data,
