@@ -22,7 +22,7 @@
     Yii::app()->clientScript->registerCssFile($mainAssets . '/css/styles.css');
     Yii::app()->clientScript->registerScriptFile($mainAssets . '/js/main.js');
     if (($langs = $this->yupe->languageSelectorArray) != array())
-        Yii::app()->clientScript->registerCssFile($mainAssets. '/web/css/flags.css');
+        Yii::app()->clientScript->registerCssFile($mainAssets. '/css/flags.css');
     ?>
 </head>
 

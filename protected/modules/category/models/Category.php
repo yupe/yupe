@@ -54,12 +54,7 @@ class Category extends YModel
             array('alias', 'YSLugValidator', 'message' => Yii::t('catalog', 'Запрещенные символы в поле {attribute}')),
             array('lang', 'length', 'max' => 2 ),
             array('lang', 'default', 'value' => Yii::app()->sourceLanguage),
-            array('alias', 'unique', 'criteria' => array(
-                    'condition' => 'lang = :lang',
-                    'params' => array(':lang' => $this->lang),
-                ),
-                'on' => array('insert'),
-            ),
+            array('alias', 'YUniqueSlugValidator'),
             array('status', 'in', 'range' => array_keys($this->statusList)),
             array('id, parent_id, name, description, short_description, alias, status', 'safe', 'on' => 'search'),
         );

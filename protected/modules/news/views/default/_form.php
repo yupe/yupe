@@ -15,6 +15,15 @@ $form = $this->beginWidget('bootstrap.widgets.TbActiveForm', array(
 
     <?php echo $form->errorSummary($model); ?>
 
+    <?php if(count($languages) > 1):?>
+        <?php echo $form->dropDownListRow($model, 'lang', $languages, array('class' => 'popover-help','empty' => Yii::t('NewsModule.news', '--выберите--'))); ?>
+        <?php foreach($languages as $k => $v):?>
+            <i class="iconflags iconflags-<?php echo $k;?>"></i>
+        <?php endforeach;?>
+    <?php else:?>
+        <?php echo $form->hiddenField($model,'lang');?>
+    <?php endif;?>
+
     <div class="row-fluid control-group <?php echo $model->hasErrors('date') ? 'error' : ''; ?>">
         <div class="span4 popover-help" data-original-title='<?php echo $model->getAttributeLabel('date'); ?>' data-content='<?php echo $model->getAttributeDescription('date'); ?>'>
             <?php
@@ -120,6 +129,7 @@ $form = $this->beginWidget('bootstrap.widgets.TbActiveForm', array(
         'type'       => 'primary',
         'label'      => $model->isNewRecord ? Yii::t('NewsModule.news', 'Добавить новость и продолжить') : Yii::t('NewsModule.news', 'Сохранить новость и продолжить'),
     )); ?>
+
     <?php $this->widget('bootstrap.widgets.TbButton', array(
         'buttonType'  => 'submit',
         'htmlOptions' => array('name' => 'submit-type', 'value' => 'index'),
