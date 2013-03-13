@@ -31,3 +31,68 @@
 - [Помогайте проекту](http://yupe.ru/site/page/view/help).
 - [Присылайте pull requests](https://github.com/yupe/yupe/pulls) (патчи).
 - Отдыхайте и наслаждайтесь жизнью!
+
+Настройка nginx для работы с Юпи!
+---------------------------------
+
+пример файла конфигурации сервера
+```conf
+server {
+        # Порт который будем слушать:
+        listen 80;
+        # Домен, на который будем отвечать:
+        server_name domain_name.local;
+        # Расположение лог-файла обращений:
+        access_log /path/to/access/log;
+        # Расположение лог-файла ошибок:
+        error_log  /path/to/errors/log;
+        # Расположение каталога проэкта
+        root /path/to/webroot/dir;
+        # Описываем поочерёдно файлы индексов:
+        index index.php index.html index.htm;
+
+        # Запрещаем доступ к файлам, имя которых начинается с точки
+        location ~ /\. {
+                deny all;
+        }
+
+        # Устанавливаем правила для начального обращения:
+        location / {
+                # Описываем поочерёдно файлы индексов:
+                index index.php index.html index.htm;
+                # Если файл, который был запрошен не найден - отдаём управление файлу /index.php:
+                if (!-e $request_filename) {
+                        rewrite  ^(.*)$  /index.php last;
+                }
+        }
+
+        # Запрещаем доступ к файлам, путь к которым соответствует следующим критериям:
+        location ~ /(protected|themes/classic/views)/ {
+                deny all;
+        }
+
+        # Устанавливаем правила обработки для php-файлов
+        location ~ \.php {
+                # php-fpm в данном случае работает через сокет:
+                fastcgi_pass  unix:/var/run/php-fpm/php-fpm.sock;
+                # устанавливаем индексовый файл обработки:
+                fastcgi_index index.php;
+                # подгружаем настройки для fastcgi_php:
+                include fastcgi_php.conf;
+                # небольшая подстройка параметров для fastcgi_php
+                fastcgi_param SCRIPT_FILENAME $document_root$fastcgi_script_name;
+                fastcgi_param PATH_INFO $fastcgi_script_name;
+        }
+}
+```
+
+пример файла настроек fastcgi_php.conf
+```conf
+include fastcgi_params;
+fastcgi_split_path_info ^((?U).+\.php)(/?.+)$;
+fastcgi_param SCRIPT_FILENAME $document_root$fastcgi_script_name;
+fastcgi_param PATH_INFO $fastcgi_path_info;
+fastcgi_param PATH_TRANSLATED $document_root$fastcgi_path_info;
+fastcgi_param SCRIPT_NAME $fastcgi_script_name;
+try_files $fastcgi_script_name =404;
+```
