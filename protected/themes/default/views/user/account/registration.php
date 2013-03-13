@@ -42,7 +42,7 @@ $this->breadcrumbs = array('Регистрация новго пользоват
     </div>
 
 
-    <?php if ($module->showCaptcha && extension_loaded('gd')): ?>
+    <?php if ($module->showCaptcha && CCaptcha::checkRequirements()): ?>
         <div class="row">
             <?php echo $form->labelEx($model, 'verifyCode'); ?>
             <div>

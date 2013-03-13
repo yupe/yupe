@@ -77,7 +77,7 @@ $this->breadcrumbs = array('Обратная связь');
     </div>
 
     <?php if ($module->showCaptcha && !Yii::app()->user->isAuthenticated()): ?>
-    <?php if (extension_loaded('gd')): ?>
+    <?php if (CCaptcha::checkRequirements()): ?>
         <div class="row">
                 <?php echo $form->labelEx($model, 'verifyCode'); ?>
 

@@ -58,7 +58,7 @@
         <?php echo $form->textArea($model, 'text', array('rows' => 6, 'cols' => 50)); ?>
         <?php echo $form->error($model, 'text'); ?>
     </div>
-    <?php if (!Yii::app()->user->isAuthenticated() && extension_loaded('gd')): ?>
+    <?php if (!Yii::app()->user->isAuthenticated() && CCaptcha::checkRequirements()): ?>
         <div class="row">
             <?php echo $form->labelEx($model, 'verifyCode'); ?>
             
