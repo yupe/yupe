@@ -10,7 +10,7 @@ class YLanguageSelector extends YWidget
         if (count($langs) <= 1)
             return false;
         if ($this->enableFlag)
-            Yii::app()->clientScript->registerCssFile(Yii::app()->request->baseUrl . '/css/flags.css');
+            Yii::app()->clientScript->registerCssFile(Yii::app()->request->baseUrl . '/web/css/flags.css');
         $this->render('languageselector', array(
             'langs'           => $langs,
             'currentLanguage' => Yii::app()->language,

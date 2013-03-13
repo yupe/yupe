@@ -1,0 +1,12 @@
+.installContentWrapper { margin-top: 50px; }
+#overall-wrap .installContentWrapper .installContent { margin: 0 auto; width: 75%; }
+.installContent::after { clear: both; }
+.installContent .installMenu .disabled > a { color: #000; }
+.installContent .installMenu .current { color: #fff; }
+.installContent .installMenu .current a { color: #fff; }
+.installContent .installMenu .current:hover { background-color: #0088cc; }
+.installContent .installMenu .current a:hover { text-decoration: underline; background-color: #0088cc; }
+.installContent .installMenu .current i { top: -1px; position: relative; }
+.installContent .installMenu .current { background-color: #0088cc; margin-right: -15px; margin-left: -15px; padding: 3px 15px; }
+.installContent .installMenu .disabled i { top: -1px; position: relative; }
+#modules-modal-list.row { margin-left: 0px; }

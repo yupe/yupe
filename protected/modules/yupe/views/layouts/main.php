@@ -22,7 +22,7 @@
     Yii::app()->clientScript->registerCssFile($mainAssets . '/css/styles.css');
     Yii::app()->clientScript->registerScriptFile($mainAssets . '/js/main.js');
     if (($langs = $this->yupe->languageSelectorArray) != array())
-        Yii::app()->clientScript->registerCssFile($mainAssets. '/css/flags.css');
+        Yii::app()->clientScript->registerCssFile($mainAssets. '/web/css/flags.css');
     ?>
 </head>
 
@@ -37,7 +37,7 @@
                 'htmlOptions' => array('class' => 'navbar-inverse'),
                 'fluid'       => true,
                 'brand'       => CHtml::image(
-                    $this->yupe->themeBaseUrl . "/images/logo.png", $brandTitle, array(
+                    $this->yupe->themeBaseUrl . "/web/images/logo.png", $brandTitle, array(
                         'width'  => '38',
                         'height' => '38',
                         'title'  => $brandTitle,

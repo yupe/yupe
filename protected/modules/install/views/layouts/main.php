@@ -23,9 +23,9 @@ if (!$this->yupe->enableAssets) {
     Yii::app()->clientScript->registerCoreScript('jquery');
 }
 if (($langs = $this->yupe->languageSelectorArray) != array())
-    Yii::app()->clientScript->registerCssFile($this->yupe->themeBaseUrl . '/css/flags.css'); 
-Yii::app()->clientScript->registerCssFile($this->yupe->themeBaseUrl . '/css/styles.css');
-Yii::app()->clientScript->registerCssFile($this->yupe->themeBaseUrl . '/css/install.css');
+    Yii::app()->clientScript->registerCssFile($this->yupe->themeBaseUrl . '/web/css/flags.css');
+Yii::app()->clientScript->registerCssFile($this->yupe->themeBaseUrl . '/web/css/styles.css');
+Yii::app()->clientScript->registerCssFile($this->yupe->themeBaseUrl . '/web/css/install.css');
 ?>
 </head>
 <body>
@@ -37,7 +37,7 @@ Yii::app()->clientScript->registerCssFile($this->yupe->themeBaseUrl . '/css/inst
             'htmlOptions' => array('class'=>'navbar navbar-inverse'),
             'fluid' => true,
             'brand' => CHtml::image(
-                $this->yupe->themeBaseUrl . "/images/logo.png", $brandTitle, array(
+                $this->yupe->themeBaseUrl . "/web/images/logo.png", $brandTitle, array(
                     'width'  => '38',
                     'height' => '38',
                     'title'  => $brandTitle,
