@@ -37,7 +37,7 @@
                 'htmlOptions' => array('class' => 'navbar-inverse'),
                 'fluid'       => true,
                 'brand'       => CHtml::image(
-                    $this->yupe->themeBaseUrl . "/images/logo.png", $brandTitle, array(
+                    $this->yupe->themeBaseUrl . "/web/images/logo.png", $brandTitle, array(
                         'width'  => '38',
                         'height' => '38',
                         'title'  => $brandTitle,

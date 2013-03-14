@@ -21,7 +21,7 @@ $form = $this->beginWidget('bootstrap.widgets.TbActiveForm', array(
         'type'        => 'primary',
         'encodeLabel' => false,
         'buttonType'  => 'submit',
-        'label'       => '<i class="icon-search icon-white">&nbsp;</i> ' . Yii::t('FeedbackModule.feedback', 'Искать сообщения с сайта'),
+        'label'       => '<i class="icon-search icon-white">&nbsp;</i> ' . Yii::t('FeedbackModule.feedback', 'Искать сообщения  '),
     )); ?>
 
 <?php $this->endWidget(); ?>

@@ -74,12 +74,12 @@ $form = $this->beginWidget('bootstrap.widgets.TbActiveForm', array(
     <?php $this->widget('bootstrap.widgets.TbButton', array(
         'buttonType' => 'submit',
         'type'       => 'primary',
-        'label'      => $model->isNewRecord ? Yii::t('FeedbackModule.feedback', 'Добавить сообщение с сайта и продолжить') : Yii::t('FeedbackModule.feedback', 'Сохранить с сайта сообщение и продолжить'),
+        'label'      => $model->isNewRecord ? Yii::t('FeedbackModule.feedback', 'Добавить сообщение   и продолжить') : Yii::t('FeedbackModule.feedback', 'Сохранить   сообщение и продолжить'),
     )); ?>
     <?php $this->widget('bootstrap.widgets.TbButton', array(
         'buttonType' => 'submit',
         'htmlOptions'=> array('name' => 'submit-type', 'value' => 'index'),
-        'label'      => $model->isNewRecord ? Yii::t('FeedbackModule.feedback', 'Добавить сообщение с сайта и закрыть') : Yii::t('FeedbackModule.feedback', 'Сохранить с сайта сообщение и закрыть'),
+        'label'      => $model->isNewRecord ? Yii::t('FeedbackModule.feedback', 'Добавить сообщение   и закрыть') : Yii::t('FeedbackModule.feedback', 'Сохранить   сообщение и закрыть'),
     )); ?>
 
 <?php $this->endWidget(); ?>

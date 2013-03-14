@@ -59,14 +59,15 @@ class News extends YModel
             array('title, alias, keywords', 'length', 'max' => 150),
             array('lang', 'length', 'max' => 2),
             array('lang', 'default', 'value' => Yii::app()->sourceLanguage),
+            array('lang', 'in', 'range' => array_keys(Yii::app()->getModule('yupe')->getLanguagesList())),
             array('status', 'in', 'range' => array_keys($this->statusList)),
-            array('alias', 'unique', 'criteria' => array('condition' => 'lang = :lang', 'params' => array(':lang' => $this->lang)), 'on' => 'insert'),
+            array('alias', 'YUniqueSlugValidator','message' => Yii::t('NewsModule.news','{attribute} "{value}" с языком "{lang}" уже существует!',array('{lang}' => $this->lang))),
             array('description', 'length', 'max' => 250),
-            array('link', 'length', 'max' => 300),
+            array('link', 'length', 'max' => 250),
             array('link', 'url'),
             array('alias', 'YSLugValidator', 'message' => Yii::t('NewsModule.news', 'Запрещенные символы в поле {attribute}')),
             array('category_id', 'default', 'setOnEmpty' => true, 'value' => null),
-            array('id, keywords, description, creation_date, change_date, date, title, alias, short_text, full_text, user_id, status, is_protected', 'safe', 'on' => 'search'),
+            array('id, keywords, description, creation_date, change_date, date, title, alias, short_text, full_text, user_id, status, is_protected, lang', 'safe', 'on' => 'search'),
         );
     }
 
@@ -221,23 +222,22 @@ class News extends YModel
 
         $criteria = new CDbCriteria;
 
-        $criteria->compare('id', $this->id);
+        $criteria->compare('t.id', $this->id);
         $criteria->compare('creation_date', $this->creation_date, true);
         $criteria->compare('change_date', $this->change_date, true);
         $criteria->compare('date', $this->date, true);
         $criteria->compare('title', $this->title, true);
-        $criteria->compare('alias', $this->alias, true);
+        $criteria->compare('t.alias', $this->alias, true);
         $criteria->compare('short_text', $this->short_text, true);
         $criteria->compare('full_text', $this->full_text, true);
         $criteria->compare('user_id', $this->user_id);
         if ($this->status != '')
-            $criteria->compare('status', $this->status);
+            $criteria->compare('t.status', $this->status);
         if ($this->category_id != '')
             $criteria->compare('category_id', $this->category_id);
         $criteria->compare('is_protected', $this->is_protected);
-
+        $criteria->compare('t.lang', $this->lang);
         $criteria->with = array("category");
-
         return new CActiveDataProvider(get_class($this), array(
             'criteria' => $criteria,
             'sort'     => array('defaultOrder' => 'date DESC'),

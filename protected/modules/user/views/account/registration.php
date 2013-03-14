@@ -39,7 +39,7 @@
     </div>
 
     <?php if (Yii::app()->getModule('user')->showCaptcha): ?>
-        <?php if (extension_loaded('gd')): ?>
+        <?php if (CCaptcha::checkRequirements('gd')): ?>
             <div class="row">
                 <?php echo $form->labelEx($model, 'verifyCode'); ?>
                 <div>

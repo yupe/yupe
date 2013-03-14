@@ -170,7 +170,7 @@ class ContactController extends YFrontController
         return $result;
     }
 
-    // отобразить сообщения с сайта с признаком is_faq
+    // отобразить сообщения   с признаком is_faq
     // @TODO CActiveDataProvider перенести в модуль
     public function actionFaq()
     {

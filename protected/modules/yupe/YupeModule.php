@@ -215,7 +215,7 @@ class YupeModule extends YWebModule
      *
      * @return mixed
      **/
-    protected function getLanguagesList()
+    public function getLanguagesList()
     {
         $langs = array();
         foreach (explode(',', $this->availableLanguages) as $lang)

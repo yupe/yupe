@@ -77,8 +77,8 @@ class FeedBack extends YModel
     {
         return array(
             'id'            => Yii::t('FeedbackModule.feedback', 'Идентификатор'),
-            'creation_date' => Yii::t('FeedbackModule.feedback', 'Дата создания'),
-            'change_date'   => Yii::t('FeedbackModule.feedback', 'Дата изменения'),
+            'creation_date' => Yii::t('FeedbackModule.feedback', 'Добавлено'),
+            'change_date'   => Yii::t('FeedbackModule.feedback', 'Изменено'),
             'name'          => Yii::t('FeedbackModule.feedback', 'Имя'),
             'email'         => Yii::t('FeedbackModule.feedback', 'Email'),
             'phone'         => Yii::t('FeedbackModule.feedback', 'Телефон'),
@@ -86,7 +86,7 @@ class FeedBack extends YModel
             'text'          => Yii::t('FeedbackModule.feedback', 'Текст'),
             'type'          => Yii::t('FeedbackModule.feedback', 'Тип'),
             'answer'        => Yii::t('FeedbackModule.feedback', 'Ответ'),
-            'answer_date'   => Yii::t('FeedbackModule.feedback', 'Дата ответа'),
+            'answer_date'   => Yii::t('FeedbackModule.feedback', 'Время ответа'),
             'answer_user'   => Yii::t('FeedbackModule.feedback', 'Ответил'),
             'is_faq'        => Yii::t('FeedbackModule.feedback', 'В разделе FAQ'),
             'status'        => Yii::t('FeedbackModule.feedback', 'Статус'),

@@ -52,36 +52,47 @@ $this->renderPartial('_search', array('model' => $model));
         array(
             'name'        => 'id',
             'htmlOptions' => array('style' => 'width:20px'),
+            'type'  => 'raw',
+            'value' => 'CHtml::link($data->id, array("/news/default/update", "id" => $data->id))',
         ),
         array(
             'name'  => 'title',
             'type'  => 'raw',
-            'value' => 'CHtml::link($data->title, array("/news/default/update", "alias" => $data->alias))',
+            'value' => 'CHtml::link($data->title, array("/news/default/update", "id" => $data->id))',
+        ),
+        array(
+            'name'  => 'alias',
+            'type'  => 'raw',
+            'value' => 'CHtml::link($data->alias, array("/news/default/update", "id" => $data->id))',
         ),
         array(
             'name'        => 'date',
             'htmlOptions' => array('style' => 'width:80px'),
         ),
         array(
-           'name'  => 'category_id',
-           'value' => '$data->getCategoryName()',
+           'name'   => 'category_id',
+           'value'  => '$data->getCategoryName()',
+           'filter' => $this->module->getCategoryList()
         ),
-        'alias',
         array(
             'header' => Yii::t('NewsModule.news', 'Публичный урл'),
-            'value'  => '$data->getPermaLink()',
+            'type'   => 'raw',
+            'value'  => 'CHtml::link($data->getPermaLink(),$data->getPermaLink(),array("target" => "_blank"))',
         ),
-        'lang',
+        array(
+            'name'  => 'lang',
+            'type'  => 'raw',
+            'value'  => '$data->lang',
+            'filter' => Yii::app()->getModule('yupe')->getLanguagesList()
+        ),
         array(
             'name'   => 'status',
-            'type'  => 'raw',
-            'value' => '$this->grid->returnBootstrapStatusHtml($data, "status", "Status", array("pencil", "ok-sign", "time"))',
+            'type'   => 'raw',
+            'value'  => '$this->grid->returnBootstrapStatusHtml($data, "status", "Status", array("pencil", "ok-sign", "time"))',
+            'filter' => $model->getStatusList()
         ),
         array(
-            'class'   => 'bootstrap.widgets.TbButtonColumn',
-            'buttons' => array(
-                'update' => array('url' => 'array("/news/default/update", "alias" => $data->alias)'),
-            ),
+            'class'   => 'bootstrap.widgets.TbButtonColumn'
         ),
     ),
 )); ?>

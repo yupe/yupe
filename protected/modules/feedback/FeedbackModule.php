@@ -27,7 +27,7 @@ class FeedbackModule extends YWebModule
     {
         return array(
             'showCaptcha'      => Yii::t('FeedbackModule.feedback', 'Показывать капчу'),
-            'emails'           => Yii::t('FeedbackModule.feedback', 'Получатели сообщений с сайта (email через запятую)'),
+            'emails'           => Yii::t('FeedbackModule.feedback', 'Получатели сообщений (email через запятую)'),
             'notifyEmailFrom'  => Yii::t('FeedbackModule.feedback', 'Email от имени которого отправлять сообщение'),
             'adminMenuOrder'   => Yii::t('FeedbackModule.feedback', 'Порядок следования в меню'),
             'sendConfirmation' => Yii::t('FeedbackModule.feedback', 'Отправлять подтверждение'),
@@ -89,7 +89,7 @@ class FeedbackModule extends YWebModule
                 'type'    => YWebModule::CHECK_NOTICE,
                 'message' => Yii::t('FeedbackModule.feedback', 'У Вас {{count}} ', array(
                     '{{count}}' => $count
-                 )) . Yii::t('FeedbackModule.feedback', "новое сообщение с сайта|новых сообщения с сайта|новых сообщений с сайта", $count) . ' ' . CHtml::link(Yii::t('FeedbackModule.feedback', 'Посмотреть и ответить?'), array(
+                 )) . Yii::t('FeedbackModule.feedback', "новое сообщение  |новых сообщения  |новых сообщений  ", $count) . ' ' . CHtml::link(Yii::t('FeedbackModule.feedback', 'Посмотреть и ответить?'), array(
                     '/feedback/default/index/order/status.asc/FeedbBack_sort/status/',
                  ))
             );
@@ -117,7 +117,7 @@ class FeedbackModule extends YWebModule
 
     public function getDescription()
     {
-        return Yii::t('FeedbackModule.feedback', 'Модуль для работы с сообщениями с сайта');
+        return Yii::t('FeedbackModule.feedback', 'Модуль для работы с сообщениями');
     }
 
     public function getVersion()

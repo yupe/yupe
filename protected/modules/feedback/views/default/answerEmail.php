@@ -1,9 +1,9 @@
 <html>
 <head>
-    <title><?php echo Yii::t('FeedbackModule.feedback', 'Ответ на ваше сообщение с сайта {site}', array('{site}' => Yii::app()->name)); ?></title>
+    <title><?php echo Yii::t('FeedbackModule.feedback', 'Ответ на ваше сообщение   {site}', array('{site}' => Yii::app()->name)); ?></title>
 </head>
 <body>
-    <?php echo Yii::t('FeedbackModule.feedback', 'Ответ на ваше сообщение с сайта {site}', array('{site}' => Yii::app()->name)); ?>
+    <?php echo Yii::t('FeedbackModule.feedback', 'Ответ на ваше сообщение   {site}', array('{site}' => Yii::app()->name)); ?>
     <br/><br/>
 
     <?php echo Yii::t('FeedbackModule.feedback','Вы писали'); ?> : <?php echo CHtml::encode($model->theme); ?><br/><br/>
