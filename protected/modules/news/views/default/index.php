@@ -72,7 +72,7 @@ $this->renderPartial('_search', array('model' => $model));
         array(
            'name'   => 'category_id',
            'value'  => '$data->getCategoryName()',
-           'filter' => $this->module->getCategoryList()
+           'filter' => CHtml::listData($this->module->getCategoryList(),'id','name')
         ),
         array(
             'header' => Yii::t('NewsModule.news', 'Публичный урл'),

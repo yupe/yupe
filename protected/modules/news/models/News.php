@@ -280,7 +280,7 @@ class News extends YModel
 
     public function getCategoryName()
     {
-        return ($this->category === null) ? '&mdash;' : $this->category->name;
+        return ($this->category === null) ? '' : $this->category->name;
     }
 
     public function getImageUrl()
