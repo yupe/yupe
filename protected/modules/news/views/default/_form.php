@@ -17,9 +17,17 @@ $form = $this->beginWidget('bootstrap.widgets.TbActiveForm', array(
 
     <?php if(count($languages) > 1):?>
         <?php echo $form->dropDownListRow($model, 'lang', $languages, array('class' => 'popover-help','empty' => Yii::t('NewsModule.news', '--выберите--'))); ?>
-        <?php foreach($languages as $k => $v):?>
-            <i class="iconflags iconflags-<?php echo $k;?>"></i>
-        <?php endforeach;?>
+        <?php if(!$model->isNewRecord):?>
+            <?php foreach($languages as $k => $v):?>
+                <?php if($k !== $model->lang):?>
+                    <?php if(empty($langModels[$k])):?>
+                        <a href="<?php echo $this->createUrl('/news/default/create',array('id' => $model->id,'lang'  => $k));?>"><i class="iconflags iconflags-<?php echo $k;?>" title="<?php echo Yii::t('NewsModule.news','Добавить перевод на {lang} язык',array('{lang}' => $v))?>"></i></a>
+                    <?php else:?>
+                        <a href="<?php echo $this->createUrl('/news/default/update',array('id' => $langModels[$k]));?>"><i class="iconflags iconflags-<?php echo $k;?>" title="<?php echo Yii::t('NewsModule.news','Редактировать перевод на {lang} язык',array('{lang}' => $v))?>"></i></a>
+                    <?php endif;?>
+                <?php endif;?>
+            <?php endforeach;?>
+        <?php endif;?>
     <?php else:?>
         <?php echo $form->hiddenField($model,'lang');?>
     <?php endif;?>

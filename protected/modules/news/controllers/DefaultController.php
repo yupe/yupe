@@ -42,9 +42,36 @@ class DefaultController extends YBackController
             }
         }
 
-        $model->date = date('d.m.Y');
-        $model->lang = Yii::app()->language;
-        $this->render('create', array('model' => $model, 'languages' => $this->yupe->getLanguagesList()));
+        $languages = $this->yupe->getLanguagesList();
+
+        //если добавляем перевод
+        $id = (int)Yii::app()->request->getQuery('id');
+        $lang = Yii::app()->request->getQuery('lang');
+
+        if(!empty($id) && !empty($lang)){
+            $news = News::model()->findByPk($id);
+            if(null === $news){
+                Yii::app()->user->setFlash(YFlashMessages::ERROR_MESSAGE,Yii::t('NewsModule.news','Целевая страница не найдена!'));
+                $this->redirect(array('/news/default/create'));
+            }
+            if(!array_key_exists($lang,$languages)){
+                Yii::app()->user->setFlash(YFlashMessages::ERROR_MESSAGE,Yii::t('NewsModule.news','Язык не найден!'));
+                $this->redirect(array('/news/default/create'));
+            }
+            Yii::app()->user->setFlash(YFlashMessages::NOTICE_MESSAGE,Yii::t('NewsModule.news','Вы добавляете перевод на {lang} язык!',array(
+                        '{lang}' => $languages[$lang]
+                    )));
+            $model->lang = $lang;
+            $model->alias = $news->alias;
+            $model->date = $news->date;
+            $model->category_id = $news->category_id;
+            $model->title = $news->title;
+        }else{
+            $model->date = date('d.m.Y');
+            $model->lang = Yii::app()->language;
+        }
+
+        $this->render('create', array('model' => $model, 'languages' => $languages));
     }
 
     /**
@@ -83,7 +110,13 @@ class DefaultController extends YBackController
             }
         }
 
-        $this->render('update',array('model' => $model, 'languages' => $this->yupe->getLanguagesList()));
+        // найти по alias страницы на других языках
+        $langModels = News::model()->findAll('alias = :alias AND id != :id',array(
+            ':alias' => $model->alias,
+            ':id' => $model->id
+        ));
+
+        $this->render('update',array('langModels' => CHtml::listData($langModels,'lang','id'),'model' => $model, 'languages' => $this->yupe->getLanguagesList()));
     }
 
     /**
@@ -94,23 +127,11 @@ class DefaultController extends YBackController
      * @throws CHttpException
      * @return void
      */
-    public function actionDelete($alias = null, $id = null)
+    public function actionDelete($id = null)
     {
         if (Yii::app()->request->isPostRequest)
         {
-            if ($alias)
-            {
-                if (!($model = News::model()->findAllByAttributes(array('alias' => $alias))))
-                    throw new CHttpException(404, Yii::t('NewsModule.news', 'Новость не нейдена'));
-                $model->delete();
-            }
-            else
-            {
-                $model = $this->loadModel($id);
-                if ($model->lang != Yii::app()->sourceLanguage)
-                    $model->scenario = 'altlang';
-                $model->delete();
-            }
+            $this->loadModel($id)->delete();
 
             // if AJAX request (triggered by deletion via admin grid view), we should not redirect the browser
             if (!isset($_GET['ajax']))
