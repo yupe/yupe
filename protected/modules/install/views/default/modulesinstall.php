@@ -156,7 +156,7 @@ Yii::app()->clientScript->registerScript(
                                     'class' => 'label label-info',
                                     'rel'   => 'tooltip',
                                     'title' => $t['content'],
-                                ), CHtml::tag('small', array(), $t['count']));
+                                ), CHtml::tag('small', array(), $t['count'])).'</br>';
                             ?>
                         <br />
 
