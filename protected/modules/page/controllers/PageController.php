@@ -20,11 +20,8 @@ class PageController extends YFrontController
     /**
      * экшн для отображения конкретной страницы, отображает опубликованные страницы и превью
      */
-    public function actionShow($slug = null)
+    public function actionShow($slug)
     {
-        if (!$slug)
-            throw new CHttpException('404', Yii::t('PageModule.page', 'Страница не найдена!'));
-
         $page = null;
         // превью
         $page = ((int) Yii::app()->request->getQuery('preview') === 1 && Yii::app()->user->isSuperUser())
@@ -37,6 +34,7 @@ class PageController extends YFrontController
                 ':lang'    => Yii::app()->language,
                 ':deflang' => Yii::app()->getModule('yupe')->defaultLanguage,
             ));
+
         if (!$page)
             throw new CHttpException('404', Yii::t('PageModule.page', 'Страница не найдена!'));
 

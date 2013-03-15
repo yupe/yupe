@@ -34,10 +34,10 @@ class YFrontController extends YMainController
         $this->description = $this->yupe->siteDescription;
         $this->keywords    = $this->yupe->siteKeyWords;
 
-        Yii::app()->theme = 'default';
-
         if ($this->yupe->theme)
             Yii::app()->theme = $this->yupe->theme;
+        else
+            Yii::app()->theme = 'default';
 
         $fileUrl = Yii::app()->theme->basePath . "/" . ucwords(Yii::app()->theme->name) . "Theme.php";
 
