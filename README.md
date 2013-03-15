@@ -16,6 +16,7 @@
 * [wiki](http://yupe.ru/wiki/default/pageIndex).
 * [Контакты](http://yupe.ru/feedback/index).
 * [Как помочь проекту](http://yupe.ru/site/page/view/help).
+* [Репозиторий модулей] (https://github.com/yupe/yupe-ext)
 
 Возможности
 -----------
