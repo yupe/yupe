@@ -50,6 +50,7 @@ class PostAdminController extends YBackController
     public function actionUpdate($id)
     {
         $model = $this->loadModel($id);
+        $model->publish_date_tmp = date('d-m-Y', $model->publish_date);
 
         if (isset($_POST['Post']))
         {
