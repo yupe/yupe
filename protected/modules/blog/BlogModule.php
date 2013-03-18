@@ -34,8 +34,8 @@ class BlogModule extends YWebModule
     {
         return array(
             array('label' => Yii::t('BlogModule.blog', 'Блоги')),
-            array('icon' => 'list-alt', 'label' => Yii::t('BlogModule.blog', 'Список блогов'), 'url' => array('/blog/blogAdmin/index')),
-            array('icon' => 'plus-sign', 'label' => Yii::t('BlogModule.blog', 'Добавить блог'), 'url' => array('/blog/blogAdmin/create')),
+            array('icon' => 'list-alt', 'label' => Yii::t('BlogModule.blog', 'Список блогов'), 'url' => array('/blog/defaultAdmin/index')),
+            array('icon' => 'plus-sign', 'label' => Yii::t('BlogModule.blog', 'Добавить блог'), 'url' => array('/blog/defaultAdmin/create')),
             array('label' => Yii::t('BlogModule.blog', 'Записи')),
             array('icon' => 'list-alt', 'label' => Yii::t('BlogModule.blog', 'Список записей'), 'url' => array('/blog/postAdmin/index')),
             array('icon' => 'plus-sign', 'label' => Yii::t('BlogModule.blog', 'Добавить запись'), 'url' => array('/blog/postAdmin/create')),
@@ -73,11 +73,6 @@ class BlogModule extends YWebModule
     public function getUrl()
     {
         return Yii::t('BlogModule.blog', 'http://yupe.ru');
-    }
-
-    public function getAdminPageLink()
-    {
-        return '/blog/blogAdmin/index';
     }
 
     public function getIcon()

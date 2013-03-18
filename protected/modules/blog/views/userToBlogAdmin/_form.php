@@ -1,6 +1,6 @@
 <?php
 /**
- * Отображение для postAdmin/_form:
+ * Отображение для userToBlogAdmin/_form:
  * 
  *   @category YupeView
  *   @package  YupeCMS

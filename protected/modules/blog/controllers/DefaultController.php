@@ -1,5 +1,5 @@
 <?php
-class BlogController extends YFrontController
+class DefaultController extends YFrontController
 {
     // Выводит список блогов
     public function actionIndex()
@@ -112,7 +112,7 @@ class BlogController extends YFrontController
                     YFlashMessages::NOTICE_MESSAGE,
                     Yii::t('BlogModule.blog', 'Вы присоединились к блогу!')
                );
-               $this->redirect(array('/blog/blog/index'));
+               $this->redirect(array('/blog/default/index'));
             }
         }
         else
@@ -125,7 +125,7 @@ class BlogController extends YFrontController
                     YFlashMessages::NOTICE_MESSAGE,
                     Yii::t('BlogModule.blog', 'Вы уже присоеденены к этому блогу!')
                 );
-                $this->redirect(array('/blog/blog/index'));
+                $this->redirect(array('/blog/default/index'));
             }
         }
     }

@@ -22,6 +22,10 @@ abstract class YWebModule extends CWebModule
     const CHOICE_NO  = 0;
 
     /**
+     *  @var string контролеер модуля по умолчанию
+     */
+    public $defaultAdminController='defaultAdmin';
+    /**
      *  @var int порядок следования модуля в меню панели управления (сортировка)
      */
     public $adminMenuOrder = 0;
@@ -80,7 +84,7 @@ abstract class YWebModule extends CWebModule
      */
     public function getAdminPageLink()
     {
-        return '/' . strtolower($this->id) . '/' . strtolower($this->defaultController) . '/index';
+        return '/' . strtolower($this->id) . '/' . $this->defaultAdminController . '/index';
     }
 
     /**
