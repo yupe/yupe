@@ -33,14 +33,42 @@ class DefaultController extends YBackController
                 );
 
                 if (!isset($_POST['submit-type']))
-                    $this->redirect(array('update', 'alias' => $model->alias));
+                    $this->redirect(array('update', 'id' => $model->id));
                 else
                     $this->redirect(array($_POST['submit-type']));
 
                 $this->redirect(array('view', 'id' => $model->id));
             }
         }
-        $this->render('create', array('model' => $model));
+
+        $languages = $this->yupe->getLanguagesList();
+
+        //если добавляем перевод
+        $id = (int)Yii::app()->request->getQuery('id');
+        $lang = Yii::app()->request->getQuery('lang');
+
+        if(!empty($id) && !empty($lang)){
+            $category = Category::model()->findByPk($id);
+            if(null === $category){
+                Yii::app()->user->setFlash(YFlashMessages::ERROR_MESSAGE,Yii::t('CategoryModule.category','Целевая категория не найдена!'));
+                $this->redirect(array('/category/default/create'));
+            }
+            if(!array_key_exists($lang,$languages)){
+                Yii::app()->user->setFlash(YFlashMessages::ERROR_MESSAGE,Yii::t('CategoryModule.category','Язык не найден!'));
+                $this->redirect(array('/category/default/create'));
+            }
+            Yii::app()->user->setFlash(YFlashMessages::NOTICE_MESSAGE,Yii::t('CategoryModule.category','Вы добавляете перевод на {lang} язык!',array(
+                        '{lang}' => $languages[$lang]
+                    )));
+            $model->lang = $lang;
+            $model->alias = $category->alias;
+            $model->parent_id = $category->parent_id;
+            $model->name = $category->name;
+        }else{
+            $model->lang = Yii::app()->language;
+        }
+
+        $this->render('create', array('model' => $model, 'languages' => $languages));
     }
 
      /**
@@ -48,134 +76,43 @@ class DefaultController extends YBackController
      * If update is successful, the browser will be redirected to the 'view' page.
      * @param integer $id the ID of the model to be updated
      */
-    public function actionUpdate($alias = null, $id = null)
+    public function actionUpdate($id)
     {
-        if (!$alias)
+        // Указан ID новости страницы, редактируем только ее
+        $model = $this->loadModel($id);
+
+        // Uncomment the following line if AJAX validation is needed
+        // $this->performAjaxValidation($model);
+
+        if (Yii::app()->request->isPostRequest && isset($_POST['Category']))
         {
-            // Указан ID новости страницы, редактируем только ее
-            $model = $this->loadModel($id);
+            $model->setAttributes(Yii::app()->request->getPost('Category'));
 
-            // Uncomment the following line if AJAX validation is needed
-            // $this->performAjaxValidation($model);
-
-            if (isset($_POST['Category']))
+            if ($model->save())
             {
-                $model->attributes = $_POST['Category'];
-
-                if ($model->save())
-                {
-                    Yii::app()->user->setFlash(
-                        YFlashMessages::NOTICE_MESSAGE,
-                        Yii::t('CategoryModule.category', 'Категория изменена!')
-                    );
-
-                    if (!isset($_POST['submit-type']))
-                        $this->redirect(array('update', 'alias' => $model->alias));
-                    else
-                        $this->redirect(array($_POST['submit-type']));
-                }
-            }
-            $this->render('update', array('model' => $model));
-        }
-        else
-        {
-            $modelsByLang = array();
-            // Указано ключевое слово категории, ищем все языки
-            $yupe  = Yii::app()->getModule('yupe');
-            $langs = explode(",", $yupe->availableLanguages);
-
-            $models = Category::model()->findAllByAttributes(array('alias' => $alias));
-            if (!$models)
-                throw new CHttpException(404, Yii::t('CategoryModule.category', 'Указанная категория не найдена'));
-
-            $model = null;
-            // Собираем модельки по языкам
-            foreach ($models as $m)
-            {
-                if (!$m->lang)
-                    $m->lang = Yii::app()->sourceLanguage;
-                $modelsByLang[$m->lang] = $m;
-            }
-            // Выберем модельку для вывода тайтлов и прочего
-            $model = isset($modelsByLang[Yii::app()->language])
-                ? $modelsByLang[Yii::app()->language]
-                : (isset($modelsByLang[Yii::app()->sourceLanguage])
-                    ? $modelsByLang[Yii::app()->sourceLanguage]
-                    : reset($models)
+                Yii::app()->user->setFlash(
+                    YFlashMessages::NOTICE_MESSAGE,
+                    Yii::t('CategoryModule.category', 'Категория изменена!')
                 );
 
-            // Теперь создадим недостающие
-            foreach ($langs as $l)
-            {
-                if (!isset($modelsByLang[$l]))
-                {
-                    $category = new Category;
-                    $category->image = $model->image;
-                    $category->setAttributes( array(
-                        'alias'     => $alias,
-                        'lang'      => $l,
-                        'parent_id' => $model->parent_id,
-                        'image'     => $model->image,
-                    ));
-
-                    if ($l != Yii::app()->sourceLanguage)
-                        $category->scenario = 'altlang';
-
-                    $modelsByLang[$l] = $category;
-                }
-            }
-
-            // Проверим пост
-            if (isset($_POST['Category']))
-            {
-                $wasError = false;
-
-                foreach ($langs as $l)
-                {
-                    if (isset($_POST['Category'][$l]))
-                    {
-                        $p = $_POST['Category'][$l];
-                        $modelsByLang[$l]->setAttributes(array(
-                            'alias'             => $_POST['Category']['alias'],
-                            'parent_id'         => $_POST['Category']['parent_id'],
-                            'name'              => $p['name'],
-                            'short_description' => $p['short_description'],
-                            'description'       => $p['description'],
-                            'status'            => $p['status'],
-                        ));
-
-                        if ($l != Yii::app()->sourceLanguage)
-                            $modelsByLang[$l]->scenario = 'altlang';
-
-                        if (!$modelsByLang[$l]->save())
-                            $wasError = true;
-                    }
-                }
-
-                if (!$wasError)
-                {
-                    Yii::app()->user->setFlash(
-                        YFlashMessages::NOTICE_MESSAGE,
-                        Yii::t('CategoryModule.category', 'Категория обновлена!')
-                    );
-
-                    if (!isset($_POST['submit-type']))
-                        $this->redirect(array('update', 'alias' => $model->alias));
-                    else
-                        $this->redirect(array($_POST['submit-type']));
-                }
+                if (!isset($_POST['submit-type']))
+                    $this->redirect(array('update', 'id' => $model->id));
                 else
-                    Yii::app()->user->setFlash(
-                        YFlashMessages::NOTICE_MESSAGE,
-                        Yii::t('CategoryModule.category', 'Ошибки при сохранении Категории!')
-                    );
+                    $this->redirect(array($_POST['submit-type']));
             }
-            $this->render('updateMultilang', array(
-                'model'  => $model,
-                'models' => $modelsByLang,
-                'langs'  => $langs,
-            ));
         }
+
+        // найти по alias страницы на других языках
+        $langModels = Category::model()->findAll('alias = :alias AND id != :id',array(
+            ':alias' => $model->alias,
+            ':id' => $model->id
+        ));
+
+        $this->render('update', array(
+            'model' => $model,
+            'langModels' => CHtml::listData($langModels,'lang','id'),
+            'languages' => $this->yupe->getLanguagesList()
+        ));
     }
 
     /**
@@ -192,18 +129,11 @@ class DefaultController extends YBackController
             try
             {
                 // поддерживаем удаление только из POST-запроса
-                $model = $this->loadModel($id);
-                if ($model->lang != Yii::app()->sourceLanguage)
-                    $model->scenario = 'altlang';
-                $model->delete();
-                Yii::app()->user->setFlash(
-                    YFlashMessages::NOTICE_MESSAGE,
-                    Yii::t('CategoryModule.category', 'Запись удалена!')
-                );
+                $this->loadModel($id)->delete();
+                // if AJAX request (triggered by deletion via admin grid view), we should not redirect the browser
 
                 $transaction->commit();
 
-                // если это AJAX запрос ( кликнули удаление в админском grid view), мы не должны никуда редиректить
                 if (!isset($_GET['ajax']))
                     $this->redirect(isset($_POST['returnUrl']) ? $_POST['returnUrl'] : array('index'));
             }

@@ -50,8 +50,14 @@
                 ? CHtml::image($model->imageSrc, $model->name, array('width' => 300, 'height' => 300))
                 : '---',
         ),
-        'description',
-        'short_description',
+        array(
+            'name' => 'description',
+            'type' => 'raw'
+        ),
+        array(
+            'name' => 'short_description',
+            'type' => 'raw'
+        ),
         array(
             'name'  => 'status',
             'value' => $model->getStatus(),
