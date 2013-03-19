@@ -4,18 +4,18 @@
 Юпи! — мини CMS, написанная на замечательном MVC-фреймворке Yii (http://www.yiiframework.com/),
 на которой работает уже более 100 проектов.
 
-Подробнее [о проекте можно прочитать здесь](http://yupe.ru/site/page/view/about).
+[Подробнее о проекте](http://yupe.ru/site/page/view/about).
 
 Ссылки
 ------
 
-* [Официальный сайт](http://yupe.ru/).
-* [twitter](https://twitter.com/#!/YupeCms).
-* [Форум](http://yupe.ru/talk/).
-* [Блог проекта](http://yupe.ru/index.php/blog/yupe-mini-cms-yii).
-* [wiki](http://yupe.ru/wiki/default/pageIndex).
-* [Контакты](http://yupe.ru/feedback/index).
-* [Как помочь проекту](http://yupe.ru/site/page/view/help).
+* [Официальный сайт](http://yupe.ru/)
+* [twitter](https://twitter.com/#!/YupeCms)
+* [Форум](http://yupe.ru/talk/)
+* [Блог проекта](http://yupe.ru/index.php/blog/yupe-mini-cms-yii)
+* [wiki](http://yupe.ru/wiki/default/pageIndex)
+* [Контакты](http://yupe.ru/feedback/index)
+* [Как помочь проекту](http://yupe.ru/site/page/view/help)
 * [Репозиторий модулей] (https://github.com/yupe/yupe-ext)
 
 Возможности
@@ -31,7 +31,6 @@
 * Создание и управление категориями сайта (разделами) ([модуль category](https://github.com/yupe/yupe/tree/master/protected/modules/category)).
 * Создание и редактирование меню сайта ([модуль menu](https://github.com/yupe/yupe/tree/master/protected/modules/menu)).
 * Модуль простых комментариев (можно комментировать любую сущность, пример [http://yupe.ru/post/logotip-dlya-yupi.html](http://yupe.ru/post/logotip-dlya-yupi.html) или [http://yupe.ru/gallery/gallery/foto/id/5](http://yupe.ru/gallery/gallery/foto/id/5)) ([модуль comment](https://github.com/yupe/yupe/tree/master/protected/modules/comment)).
-* Модуль для простого голосования (можно голосовать за любую сущность) ([модуль vote](https://github.com/yupe/yupe/tree/master/protected/modules/vote)).
 * Модуль простых справочников (хранение и управление справочной информацией) ([модуль dictionary](https://github.com/yupe/yupe/tree/master/protected/modules/dictionary)).
 * Модуль для ведения блогов ([как индивидуальных, так и коллективных](http://yupe.ru/blog/yupe-mini-cms-yii)) ([модуль blog](https://github.com/yupe/yupe/tree/master/protected/modules/blog)).
 * Модуль для "Обратной связи" + [раздел FAQ](http://yupe.ru/faq) ([модуль feedback](https://github.com/yupe/yupe/tree/master/protected/modules/feedback)).
@@ -49,5 +48,4 @@
 --------
 
 Исходный код, макеты дизайна и вёрстка распространяются по [лицензии BSD](http://ru.wikipedia.org/wiki/%D0%9B%D0%B8%D1%86%D0%B5%D0%BD%D0%B7%D0%B8%D1%8F_BSD).
-
 Сообщество будет благодарно если на сайте будет присутствовать ссылка на [http://yupe.ru/](http://yupe.ru/).
