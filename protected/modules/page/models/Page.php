@@ -71,7 +71,7 @@ class Page extends YModel
             array('title, title_short, slug, description, keywords', 'filter', 'filter' => array($obj = new CHtmlPurifier(), 'purify')),
             array('slug', 'YSLugValidator'),
             array('lang', 'match', 'pattern' => '/^[a-z]{2}$/', 'message' => Yii::t('PageModule.page', 'Запрещенные символы в поле {attribute}')),
-            array('lang, id, parent_id, creation_date, change_date, title, title_short, slug, body, keywords, description, status, order', 'safe', 'on' => 'search'),
+            array('lang, id, parent_id, creation_date, change_date, title, title_short, slug, body, keywords, description, status, order, lang', 'safe', 'on' => 'search'),
         );
     }
 
@@ -202,6 +202,7 @@ class Page extends YModel
         $criteria->compare('change_date', $this->change_date);
         $criteria->compare('title', $this->title);
         $criteria->compare('slug', $this->slug);
+        $criteria->compare('lang', $this->lang);
         $criteria->compare('body', $this->body);
         $criteria->compare('keywords', $this->keywords);
         $criteria->compare('description', $this->description);
@@ -283,5 +284,10 @@ class Page extends YModel
     public function getParentName()
     {
         return ($this->parentPage === null) ? '---' : $this->parentPage->title;
+    }
+
+    public function getPermaLink()
+    {
+        return Yii::app()->createAbsoluteUrl('/page/page/show/', array('slug' => $this->slug));
     }
 }

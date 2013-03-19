@@ -2,13 +2,13 @@
     $this->breadcrumbs = array(
         Yii::app()->getModule('page')->getCategory() => array(),
         Yii::t('PageModule.page', 'Страницы') => array('/page/default/index'),
-        Yii::t('PageModule.page', 'Управление'),
+        Yii::t('PageModule.page', 'Список'),
     );
 
-    $this->pageTitle = Yii::t('PageModule.page', 'Управление страницами');
+    $this->pageTitle = Yii::t('PageModule.page', 'Список страниц');
 
     $this->menu = array(
-        array('icon' => 'list-alt', 'label' => Yii::t('PageModule.page', 'Управление страницами'), 'url' => array('/page/default/index')),
+        array('icon' => 'list-alt', 'label' => Yii::t('PageModule.page', 'Список страниц'), 'url' => array('/page/default/index')),
         array('icon' => 'plus-sign', 'label' => Yii::t('PageModule.page', 'Добавить страницу'), 'url' => array('/page/default/create')),
     );
 ?>
@@ -50,45 +50,54 @@ $this->renderPartial('_search', array('model' => $model, 'pages' => $pages));
     'filter'       => $model,
     'sortField'    => 'order',
     'columns'      => array(
-        'id',
+        array(
+            'name'  => 'id',
+            'type'  => 'raw',
+            'value' => 'CHtml::link($data->id, array("/page/default/update", "id" => $data->id))',
+        ),
         array(
             'name'  => 'title',
             'type'  => 'raw',
-            'value' => 'CHtml::link($data->title, array("/page/default/update", "slug" => $data->slug))',
+            'value' => 'CHtml::link($data->title, array("/page/default/update", "id" => $data->id))',
         ),
         'title_short',
         array(
+            'name'  => 'slug',
+            'type'  => 'raw',
+            'value' => 'CHtml::link($data->slug, array("/page/default/update", "id" => $data->id))',
+        ),
+        array(
             'name'  => 'category_id',
             'value' => '$data->getCategoryName()',
+            'filter' => CHtml::listData($this->module->getCategoryList(),'id','name')
         ),
         array(
             'name'  => 'parent_id',
             'value' => '$data->parentName',
         ),
         array(
-            'name'  => 'slug',
-            'value' => '$data->slug',
-        ),
-        array(
             'header' => Yii::t('PageModule.page', 'Публичный урл'),
-            'value'  => 'Yii::app()->createAbsoluteUrl("/page/page/show", array("slug" => $data->slug))',
+            'type'   => 'raw',
+            'value'  => 'CHtml::link($data->getPermaLink(),$data->getPermaLink(),array("target" => "_blank"))',
         ),
         array(
             'name'  => 'order',
             'type'  => 'raw',
             'value' => '$this->grid->getUpDownButtons($data)',
         ),
-        'lang',
+        array(
+            'name'  => 'lang',
+            'value'  => '$data->lang',
+            'filter' => Yii::app()->getModule('yupe')->getLanguagesList()
+        ),
         array(
             'name'  => 'status',
             'type'  => 'raw',
             'value' => '$this->grid->returnBootstrapStatusHtml($data, "status", "Status", array("pencil", "ok-sign", "time"))',
+            'filter' => $model->getStatusList()
         ),
         array(
             'class' => 'bootstrap.widgets.TbButtonColumn',
-            'buttons' => array(
-                'update' => array('url' => 'array("/page/default/update", "slug" => $data->slug)'),
-            ),
         ),
     ),
 )); ?>

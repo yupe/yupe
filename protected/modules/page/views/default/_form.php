@@ -15,6 +15,23 @@ $form = $this->beginWidget('bootstrap.widgets.TbActiveForm', array(
 
     <?php echo $form->errorSummary($model); ?>
 
+    <?php if(count($languages) > 1):?>
+        <?php echo $form->dropDownListRow($model, 'lang', $languages, array('class' => 'popover-help','empty' => Yii::t('NewsModule.news', '--выберите--'))); ?>
+        <?php if(!$model->isNewRecord):?>
+            <?php foreach($languages as $k => $v):?>
+                <?php if($k !== $model->lang):?>
+                    <?php if(empty($langModels[$k])):?>
+                        <a href="<?php echo $this->createUrl('/page/default/create',array('id' => $model->id,'lang'  => $k));?>"><i class="iconflags iconflags-<?php echo $k;?>" title="<?php echo Yii::t('NewsModule.news','Добавить перевод на {lang} язык',array('{lang}' => $v))?>"></i></a>
+                    <?php else:?>
+                        <a href="<?php echo $this->createUrl('/page/default/update',array('id' => $langModels[$k]));?>"><i class="iconflags iconflags-<?php echo $k;?>" title="<?php echo Yii::t('NewsModule.news','Редактировать перевод на {lang} язык',array('{lang}' => $v))?>"></i></a>
+                    <?php endif;?>
+                <?php endif;?>
+            <?php endforeach;?>
+        <?php endif;?>
+    <?php else:?>
+        <?php echo $form->hiddenField($model,'lang');?>
+    <?php endif;?>
+
     <div class="wide row-fluid control-group <?php echo ($model->hasErrors('category_id') || $model->hasErrors('parent_id')) ? 'error' : ''; ?>">
         <div class="span4">
             <?php echo $form->dropDownListRow($model, 'category_id', CHtml::listData($this->module->getCategoryList(), 'id', 'name'), array('empty' => Yii::t('PageModule.page', '--выберите--'), 'class' => 'span7 popover-help', 'data-original-title' => $model->getAttributeLabel('category_id'), 'data-content' => $model->getAttributeDescription('category_id'))); ?>

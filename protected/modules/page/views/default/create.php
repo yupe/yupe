@@ -8,7 +8,7 @@
     $this->pageTitle = Yii::t('PageModule.page', 'Добавление страницы');
 
     $this->menu = array(
-        array('icon' => 'list-alt', 'label' => Yii::t('PageModule.page', 'Управление страницами'), 'url' => array('/page/default/index')),
+        array('icon' => 'list-alt', 'label' => Yii::t('PageModule.page', 'Список страниц'), 'url' => array('/page/default/index')),
         array('icon' => 'plus-sign', 'label' => Yii::t('PageModule.page', 'Добавление страницы'), 'url' => array('/page/default/create')),
     );
 ?>
@@ -19,4 +19,4 @@
     </h1>
 </div>
 
-<?php echo $this->renderPartial('_form', array('model' => $model, 'pages' => $pages)); ?>
+<?php echo $this->renderPartial('_form', array('model' => $model, 'pages' => $pages, 'languages' => $languages )); ?>
