@@ -99,10 +99,6 @@ return array(
             'driver' => 'GD',                               // если ImageMagick, надо указать к нему путь ниже
             'params' => array( 'directory' => '/usr/bin' ), // в этой директории должен быть convert
         ),
-        'themeManager' => array(
-            'class'    => 'CThemeManager',
-            'basePath' => 'protected/themes'
-        ),
         // конфигурирование urlManager, подробнее: http://www.yiiframework.ru/doc/guide/ru/topics.url
         'urlManager' => array(
             'class'          => 'application.modules.yupe.extensions.urlManager.LangUrlManager',
