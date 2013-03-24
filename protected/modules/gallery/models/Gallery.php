@@ -40,7 +40,7 @@ class Gallery extends YModel
         // NOTE: you should only define rules for those attributes that
         // will receive user inputs.
         return array(
-            array('name', 'required'),
+            array('name, description', 'required'),
             array('status', 'numerical', 'integerOnly' => true),
             array('name', 'length', 'max' => 250),            
             // The following rule is used by search().
