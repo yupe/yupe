@@ -11,6 +11,17 @@ class NewsController extends YFrontController
             : $news->find('alias = :alias', array(':alias' => $title));
         if (!$news)
             throw new CHttpException(404, Yii::t('NewsModule.news', 'Новость не найдена!'));
+
+        // проверим что пользователь может просматривать эту новость
+        if ($news->is_protected ==News::PROTECTED_YES && !Yii::app()->user->isAuthenticated())
+        {
+            Yii::app()->user->setFlash(
+                YFlashMessages::NOTICE_MESSAGE,
+                Yii::t('NewsModule.news', 'Для просмотра этой страницы Вам необходимо авторизоваться!')
+            );
+            $this->redirect(array(Yii::app()->getModule('user')->accountActivationSuccess));
+        }
+
         $this->render('news', array('news' => $news));
     }
 
