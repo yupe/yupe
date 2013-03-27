@@ -30,7 +30,7 @@
 * Создание и управление страницами сайта ([модуль page](https://github.com/yupe/yupe/tree/master/protected/modules/page))
 * Создание и управление категориями сайта (разделами) ([модуль category](https://github.com/yupe/yupe/tree/master/protected/modules/category))
 * Создание и редактирование меню сайта ([модуль menu](https://github.com/yupe/yupe/tree/master/protected/modules/menu))
-* Модуль простых комментариев (можно комментировать любую сущность, пример [http://yupe.ru/post/logotip-dlya-yupi.html](http://yupe.ru/post/logotip-dlya-yupi.html) или [http://yupe.ru/gallery/gallery/foto/id/5](http://yupe.ru/gallery/gallery/foto/id/5)) ([модуль comment](https://github.com/yupe/yupe/tree/master/protected/modules/comment))
+* Модуль простых комментариев (можно комментировать любую сущность, пример [http://yupe.ru/post/logotip-dlya-yupi.html](http://yupe.ru/post/logotip-dlya-yupi.html) ([модуль comment](https://github.com/yupe/yupe/tree/master/protected/modules/comment))
 * Модуль простых справочников (хранение и управление справочной информацией) ([модуль dictionary](https://github.com/yupe/yupe/tree/master/protected/modules/dictionary))
 * Модуль для ведения блогов ([как индивидуальных, так и коллективных](http://yupe.ru/blog/yupe-mini-cms-yii)) ([модуль blog](https://github.com/yupe/yupe/tree/master/protected/modules/blog))
 * Модуль для "Обратной связи" + [раздел FAQ](http://yupe.ru/faq) ([модуль feedback](https://github.com/yupe/yupe/tree/master/protected/modules/feedback))
