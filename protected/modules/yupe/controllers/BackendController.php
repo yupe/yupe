@@ -27,11 +27,15 @@ class BackendController extends YBackController
         $mainParams = array();
         $elements = array();
         foreach( $paramGroups as $name => $group ){
+            //if( !isset($group["items"]) || !is_array($group["items"]) ) continue;
+            
             $layout = isset($group["items"]) ? array_fill_keys($group["items"], $name) : array();
             $label = isset($group['label']) ? $group['label'] : $name ;
 
             if( $name === 'main' ){
-                $mainParams["paramsgroup_".$name]= CHtml::tag("h4",array(), $label);
+                if( $label !== $name )
+                    $mainParams["paramsgroup_".$name]= CHtml::tag("h4",array(), $label);
+                    
                 $mainParams = array_merge($mainParams, $layout);
             } else {
                 $elements["paramsgroup_".$name]= CHtml::tag("h4",array(), $label);
