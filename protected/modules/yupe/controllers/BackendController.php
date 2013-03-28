@@ -31,7 +31,9 @@ class BackendController extends YBackController
             $label = isset($group['label']) ? $group['label'] : $name ;
 
             if( $name === 'main' ){
-                $mainParams["paramsgroup_".$name]= CHtml::tag("h4",array(), $label);
+                if( $label !== $name )
+                    $mainParams["paramsgroup_".$name]= CHtml::tag("h4",array(), $label);
+                    
                 $mainParams = array_merge($mainParams, $layout);
             } else {
                 $elements["paramsgroup_".$name]= CHtml::tag("h4",array(), $label);

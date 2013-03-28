@@ -161,7 +161,10 @@ abstract class YWebModule extends CWebModule
     public function getEditableParamsGroups(){
         return array(
             'main' => array(
-                'items' => $this->getEditableParams()
+                'label' => Yii::t('YupeModule.yupe', 'Основные настройки модуля'),
+                'items' => array(
+                    'adminMenuOrder'
+                )
             ),
         );
     }    
