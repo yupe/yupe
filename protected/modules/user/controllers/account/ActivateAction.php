@@ -18,10 +18,6 @@ class ActivateAction extends CAction
             $this->controller->redirect(array($module->accountActivationFailure));
         }
 
-        // проверить параметры пользователя по "черным спискам"
-        if (!$module->isAllowedIp(Yii::app()->request->userHostAddress))
-            // перенаправить на экшн для фиксации невалидных ip адресов
-            $this->controller->redirect(array($module->invalidIpAction));
         // проверить на email
         if (!$module->isAllowedEmail($user->email))
             // перенаправить на экшн для фиксации невалидных ip адресов

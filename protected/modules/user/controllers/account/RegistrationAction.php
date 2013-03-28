@@ -22,10 +22,6 @@ class RegistrationAction extends CAction
                 // перенаправить на экшн для фиксации невалидных email-адресов
                 $this->controller->redirect(array($module->invalidEmailAction));
 
-            if (!$module->isAllowedIp(Yii::app()->request->userHostAddress))
-                // перенаправить на экшн для фиксации невалидных ip-адресов
-                $this->controller->redirect(array($module->invalidIpAction));
-
             if ($form->validate())
             {
                 // если требуется активация по email

@@ -19,9 +19,7 @@ class UserModule extends YWebModule
     public $avatarMaxSize                  = 10000;
     public $defaultAvatar                  = '/web/images/avatar.png';
     public $avatarExtensions               = array('jpg', 'png', 'gif');
-    public $invalidIpAction                = '/user/account/notAllowedIp';
     public $invalidEmailAction             = '/user/account/notallowedemail';
-    public $ipBlackList;
     public $emailBlackList;
 
     public $registrationMailEventActivate  = 'USER_REGISTRATION_ACTIVATE';
@@ -60,7 +58,6 @@ class UserModule extends YWebModule
             'avatarsDir'                     => Yii::t('UserModule.user', 'Каталог для загрузки аватарок'),
             'avatarMaxSize'                  => Yii::t('UserModule.user', 'Максимальный размер аватарки'),
             'defaultAvatar'                  => Yii::t('UserModule.user', 'Пустой аватар'),
-            'invalidIpAction'                => Yii::t('UserModule.user', 'Страница для заблокированных IP'),
             'invalidEmailAction'             => Yii::t('UserModule.user', 'Страница для заблокированных Email'),
             'loginAdminSuccess'              => Yii::t('UserModule.user', 'Страница после авторизации админстратора'),
             'registrationSucess'             => Yii::t('UserModule.user', 'Страница после успешной регистрации'),
@@ -254,15 +251,6 @@ class UserModule extends YWebModule
         return true;
     }
 
-    public function isAllowedIp($ip)
-    {
-        if (is_array($this->ipBlackList) && count($this->ipBlackList))
-        {
-            if (in_array($ip, $this->ipBlackList))
-                return false;
-        }
-        return true;
-    }
 
     public function onBeginRegistration($event)
     {
