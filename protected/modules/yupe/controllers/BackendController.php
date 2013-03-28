@@ -27,8 +27,6 @@ class BackendController extends YBackController
         $mainParams = array();
         $elements = array();
         foreach( $paramGroups as $name => $group ){
-            //if( !isset($group["items"]) || !is_array($group["items"]) ) continue;
-            
             $layout = isset($group["items"]) ? array_fill_keys($group["items"], $name) : array();
             $label = isset($group['label']) ? $group['label'] : $name ;
 
