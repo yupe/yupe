@@ -20,8 +20,7 @@ class UserModule extends YWebModule
     public $defaultAvatar                  = '/web/images/avatar.png';
     public $avatarExtensions               = array('jpg', 'png', 'gif');
 
-    public $emailBlackList;
-
+    
     public $registrationMailEventActivate  = 'USER_REGISTRATION_ACTIVATE';
     public $registrationMailEvent          = 'USER_REGISTRATION';
     public $passwordAutoRecoveryMailEvent  = 'USER_PASSWORD_AUTO_RECOVERY';
