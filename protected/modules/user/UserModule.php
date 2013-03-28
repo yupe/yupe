@@ -19,7 +19,7 @@ class UserModule extends YWebModule
     public $avatarMaxSize                  = 10000;
     public $defaultAvatar                  = '/web/images/avatar.png';
     public $avatarExtensions               = array('jpg', 'png', 'gif');
-    public $invalidEmailAction             = '/user/account/notallowedemail';
+
     public $emailBlackList;
 
     public $registrationMailEventActivate  = 'USER_REGISTRATION_ACTIVATE';
@@ -58,7 +58,6 @@ class UserModule extends YWebModule
             'avatarsDir'                     => Yii::t('UserModule.user', 'Каталог для загрузки аватарок'),
             'avatarMaxSize'                  => Yii::t('UserModule.user', 'Максимальный размер аватарки'),
             'defaultAvatar'                  => Yii::t('UserModule.user', 'Пустой аватар'),
-            'invalidEmailAction'             => Yii::t('UserModule.user', 'Страница для заблокированных Email'),
             'loginAdminSuccess'              => Yii::t('UserModule.user', 'Страница после авторизации админстратора'),
             'registrationSucess'             => Yii::t('UserModule.user', 'Страница после успешной регистрации'),
             'autoNick'                       => Yii::t('UserModule.user', 'Автоматически генерировать уникальный ник и не требовать его указания'),
@@ -240,17 +239,6 @@ class UserModule extends YWebModule
             }
         }
     }
-
-    public function isAllowedEmail($email)
-    {
-        if (is_array($this->emailBlackList) && count($this->emailBlackList))
-        {
-            if (in_array(trim($email), $this->emailBlackList))
-                return false;
-        }
-        return true;
-    }
-
 
     public function onBeginRegistration($event)
     {

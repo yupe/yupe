@@ -16,10 +16,6 @@ class EmailConfirmAction extends CAction
         }
 
         // процедура активации
-        // проверить на email
-        if (!Yii::app()->getModule('user')->isAllowedEmail($user->email))
-            // перенаправить на экшн для фиксации невалидных ip адресов
-            $this->controller->redirect(array(Yii::app()->getModule('user')->invalidEmailAction));
 
         if ($user->confirmEmail())
         {
