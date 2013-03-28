@@ -191,6 +191,40 @@ class YupeModule extends YWebModule
     }
 
     /**
+     *  @return array массив групп параметров модуля, для группировки параметров на странице настроек
+     */
+    public function getEditableParamsGroups(){
+        return array(
+            'main' => array(
+                'label' => Yii::t('YupeModule.yupe', 'Основные настройки модуля'),
+            ),
+            'theme' => array(
+                'label' => Yii::t('YupeModule.yupe', 'Настройка внешнего вида'),
+                'items' => array(
+                    'backendLayout',
+                    'backendTheme',
+                )
+            ),
+            'language' => array(
+                'label' => Yii::t('YupeModule.yupe', 'Языковые настройки'),
+                'items' => array(
+                    'availableLanguages',
+                    'defaultLanguage',
+                    'defaultBackendLanguage',
+                )
+            ),
+            'editors' => array(
+                'label' => Yii::t('YupeModule.yupe', 'Настройки редакторов'),
+                'items' => array(
+                    'editorsDir',
+                    'uploadPath',
+                    'editor',
+                )
+            ),
+        );
+    } 
+        
+    /**
      * Возвращаем статус, устанавливать ли галку для установки модуля в инсталяторе по умолчанию:
      *
      * @return bool
