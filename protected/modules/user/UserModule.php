@@ -14,7 +14,6 @@ class UserModule extends YWebModule
     public $emailAccountVerification       = true;
     public $showCaptcha                    = true;
     public $minCaptchaLength               = 3;
-    public $maxCaptchaLength               = 6;
     public $documentRoot;
     public $avatarsDir;
     public $avatarMaxSize                  = 10000;
@@ -57,7 +56,6 @@ class UserModule extends YWebModule
             'emailAccountVerification'       => Yii::t('UserModule.user', 'Подтверждать аккаунт по Email'),
             'showCaptcha'                    => Yii::t('UserModule.user', 'Показывать капчу при регистрации'),
             'minCaptchaLength'               => Yii::t('UserModule.user', 'Минимальная длина капчи'),
-            'maxCaptchaLength'               => Yii::t('UserModule.user', 'Максимальная длина капчи'),
             'documentRoot'                   => Yii::t('UserModule.user', 'Корень сервера'),
             'avatarsDir'                     => Yii::t('UserModule.user', 'Каталог для загрузки аватарок'),
             'avatarMaxSize'                  => Yii::t('UserModule.user', 'Максимальный размер аватарки'),
@@ -83,7 +81,6 @@ class UserModule extends YWebModule
             'defaultAvatar',
             'avatarsDir',
             'minCaptchaLength',
-            'maxCaptchaLength',
             'showCaptcha'              => $this->getChoice(),
             'emailAccountVerification' => $this->getChoice(),
             'minPasswordLength',
@@ -114,7 +111,6 @@ class UserModule extends YWebModule
                 'items' => array(
                     'showCaptcha',
                     'minCaptchaLength',
-                    'maxCaptchaLength',
                     'emailAccountVerification',
                     'minPasswordLength',
                     'autoRecoveryPassword',
