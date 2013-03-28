@@ -10,10 +10,10 @@ class UserModule extends YWebModule
 
     public $notifyEmailFrom;
     public $autoRecoveryPassword           = true;
-    public $minPasswordLength              = 3;
+    public $minPasswordLength              = 5;
     public $emailAccountVerification       = true;
     public $showCaptcha                    = true;
-    public $minCaptchaLength               = 3;
+    public $minCaptchaLength               = 5;
     public $documentRoot;
     public $avatarsDir;
     public $avatarMaxSize                  = 10000;
