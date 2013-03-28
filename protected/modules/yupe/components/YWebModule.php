@@ -154,6 +154,17 @@ abstract class YWebModule extends CWebModule
     {
         return array('adminMenuOrder');
     }
+    
+    /**
+     *  @return array массив групп параметров модуля, для группировки параметров на странице настроек
+     */
+    public function getEditableParamsGroups(){
+        return array(
+            'main' => array(
+                'items' => $this->getEditableParams()
+            ),
+        );
+    }    
 
     /**
      *  @return array получение имена парамметров из getEditableParams()

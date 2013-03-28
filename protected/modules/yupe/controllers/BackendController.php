@@ -21,18 +21,48 @@ class BackendController extends YBackController
 
         $editableParams     = $module->editableParams;
         $moduleParamsLabels = $module->paramsLabels;
+        $paramGroups        = $module->getEditableParamsGroups();
+        
+        // разберем элементы по группам
+        $mainParams = array();
+        $elements = array();
+        foreach( $paramGroups as $name => $group ){
+            $layout = isset($group["items"]) ? array_fill_keys($group["items"], $name) : array();
+            $label = isset($group['label']) ? $group['label'] : $name ;
 
+            if( $name === 'main' ){
+                $mainParams["paramsgroup_".$name]= CHtml::tag("h4",array(), $label);
+                $mainParams = array_merge($mainParams, $layout);
+            } else {
+                $elements["paramsgroup_".$name]= CHtml::tag("h4",array(), $label);
+                $elements = array_merge($elements, $layout);
+            }
+        }
+                
         foreach ($module as $key => $value)
         {
             if (array_key_exists($key, $editableParams))
-                $elements[$key] = CHtml::label($moduleParamsLabels[$key], $key) .
+                $element = CHtml::label($moduleParamsLabels[$key], $key) .
                                   CHtml::dropDownList($key, $value, $editableParams[$key], array('empty' => Yii::t('YupeModule.yupe', '--выберите--'), 'class' => 'span10'));
 
             else if (in_array($key, $editableParams))
-                $elements[$key] = CHtml::label((isset($moduleParamsLabels[$key]) ? $moduleParamsLabels[$key] : $key), $key) .
+                $element = CHtml::label((isset($moduleParamsLabels[$key]) ? $moduleParamsLabels[$key] : $key), $key) .
                                   CHtml::textField($key, $value, array('maxlength' => 300, 'class' => 'span10'));
+            else
+                unset($element);
+            
+            if( isset($element) )                      
+                if( array_key_exists($key, $elements) ){
+                    $elements[$key] = $element;
+                } else 
+                {
+                    $mainParams[$key] = $element;
+                }
         }
 
+        // разместим в начале основные параметры 
+        $elements = array_merge($mainParams, $elements);
+        
         // сформировать боковое меню из ссылок на настройки модулей
         $this->menu = $this->yupe->modules['modulesNavigation'][$this->yupe->category]['items']['settings']['items'];
 
