@@ -11,14 +11,14 @@ class LanguageBehavior extends CBehavior
      */
     public function handleLanguageBehavior($event)
     {
+        $lm = Yii::app()->urlManager;
+        if (!is_array($lm->languages) || count($lm->languages) <= 1)
+            return;
+
         $app  = Yii::app();
         $home = $app->homeUrl . ($app->homeUrl[strlen($app->homeUrl) - 1] != "/" ? '/' : '');
         $path = $app->request->getPathInfo();
-        $lm   = $app->urlManager;
         $l = false;
-
-        if (!is_array($lm->languages))
-            return;
 
         // Если указан язык известный нам
         if ((

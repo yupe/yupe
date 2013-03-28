@@ -8,27 +8,23 @@
 
     <?php $module = Yii::app()->getModule('yupe'); ?>
 
-    <?php $jNotify = Yii::app()->assetManager->publish(Yii::app()->theme->basePath . '/web/jquery_notification/'); ?>
-    <?php Yii::app()->clientScript->registerCssFile($jNotify . '/css/jquery_notification.css'); ?>
-    <?php Yii::app()->clientScript->registerScriptFile($jNotify . '/js/jquery_notification_v.1.js'); ?>
-
     <!-- blueprint CSS framework -->
     <link rel="stylesheet" type="text/css"
-          href="<?php echo Yii::app()->request->baseUrl; ?>/web/css/screen.css"
+          href="<?php echo Yii::app()->theme->baseUrl; ?>/web/css/screen.css"
           media="screen, projection"/>
     <link rel="stylesheet" type="text/css"
-          href="<?php echo Yii::app()->request->baseUrl; ?>/web/print.css"
+          href="<?php echo Yii::app()->theme->baseUrl; ?>/web/css/print.css"
           media="print"/>
     <!--[if lt IE 8]>
     <link rel="stylesheet" type="text/css"
-          href="<?php echo Yii::app()->request->baseUrl; ?>/web/css/ie.css"
+          href="<?php echo Yii::app()->theme->baseUrl; ?>/web/css/ie.css"
           media="screen, projection"/>
     <![endif]-->
 
     <link rel="stylesheet" type="text/css"
-          href="<?php echo Yii::app()->request->baseUrl; ?>/web/css/main.css"/>
+          href="<?php echo Yii::app()->theme->baseUrl; ?>/web/css/main.css"/>
     <link rel="stylesheet" type="text/css"
-          href="<?php echo Yii::app()->request->baseUrl; ?>/web/css/form.css"/>
+          href="<?php echo Yii::app()->theme->baseUrl; ?>/web/css/form.css"/>
     <link rel="shortcut icon" href="/favicon.ico"/>
 
     <title><?php echo CHtml::encode($this->pageTitle); ?></title>
@@ -43,7 +39,9 @@
             </span>
             <div id="header-right">
                 <?php $this->widget('application.modules.yupe.widgets.YLanguageSelector'); ?>
-                <?php $this->widget('application.modules.yupe.widgets.YYupeDownloadWidget', array('cacheTime' =>0)); ?>
+                <div class='yupeDownload'>
+                    <?php echo CHtml::link('СКАЧАТЬ ЮПИ! <br/><b> '.Yii::app()->getModule('yupe')->getVersion().'</b>','https://github.com/yupe/yupe/archive/master.zip'); ?>
+                </div>
             </div>
         </div>
     </div>

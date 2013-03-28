@@ -54,7 +54,7 @@ class YupeModule extends YWebModule
     public $categoryIcon;
     public $categorySort;
 
-    public $availableLanguages     = 'ru,en';
+    public $availableLanguages     = 'ru';
     public $defaultLanguage        = 'ru';
     public $defaultBackendLanguage = 'ru';
 

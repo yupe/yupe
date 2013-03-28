@@ -83,7 +83,7 @@ return array(
     ), $config['modules']),
     'behaviors' => array(
         'onBeginRequest' => array('class' => 'application.modules.yupe.extensions.urlManager.LanguageBehavior'),
-        'YupeStartUpBehavior',
+        //'YupeStartUpBehavior',
     ),
     'params' => require(dirname(__FILE__) . '/params.php'),
     // конфигурирование основных компонентов (подробнее http://www.yiiframework.ru/doc/guide/ru/basics.component)
