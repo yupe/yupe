@@ -20,8 +20,7 @@ class UserModule extends YWebModule
     public $defaultAvatar                  = '/web/images/avatar.png';
     public $avatarExtensions               = array('jpg', 'png', 'gif');
 
-    
-    public $registrationMailEventActivate  = 'USER_REGISTRATION_ACTIVATE';
+    public $registrationActivateMailEvent  = 'USER_REGISTRATION_ACTIVATE';
     public $registrationMailEvent          = 'USER_REGISTRATION';
     public $passwordAutoRecoveryMailEvent  = 'USER_PASSWORD_AUTO_RECOVERY';
     public $passwordRecoveryMailEvent      = 'USER_PASSWORD_RECOVERY';
@@ -40,7 +39,7 @@ class UserModule extends YWebModule
             'passwordSuccessRecovery'        => Yii::t('UserModule.user', 'Почтовое событие при успешном восстановлении пароля'),
             'passwordAutoRecoveryMailEvent'  => Yii::t('UserModule.user', 'Почтовое событие при автоматическом восстановлении пароля'),
             'passwordRecoveryMailEvent'      => Yii::t('UserModule.user', 'Почтовое событие при восстановлении пароля'),
-            'registrationMailEventActivate'  => Yii::t('UserModule.user', 'Почтовое событие при регистрации нового пользователя с активацией'),
+            'registrationActivateMailEvent'  => Yii::t('UserModule.user', 'Почтовое событие при регистрации нового пользователя с активацией'),
             'registrationMailEvent'          => Yii::t('UserModule.user', 'Почтовое событие при регистрации нового пользователя без активации'),
             'adminMenuOrder'                 => Yii::t('UserModule.user', 'Порядок следования в меню'),
             'accountActivationSuccess'       => Yii::t('UserModule.user', 'Страница после активации аккаунта'),
@@ -70,7 +69,7 @@ class UserModule extends YWebModule
             'passwordRecoveryMailEvent',
             'passwordSuccessRecovery',
             'passwordAutoRecoveryMailEvent',
-            'registrationMailEventActivate',
+            'registrationActivateMailEvent',
             'registrationMailEvent',
             'avatarMaxSize',
             'defaultAvatar',
@@ -119,7 +118,7 @@ class UserModule extends YWebModule
                     'passwordRecoveryMailEvent',
                     'passwordSuccessRecovery',
                     'passwordAutoRecoveryMailEvent',
-                    'registrationMailEventActivate',
+                    'registrationActivateMailEvent',
                     'registrationMailEvent',
                 )
             ),
