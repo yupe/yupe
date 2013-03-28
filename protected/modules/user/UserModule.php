@@ -100,6 +100,52 @@ class UserModule extends YWebModule
         );
     }
 
+    public function getEditableParamsGroups()
+    {
+        return array(
+            'main' => array(
+                'label' => Yii::t('YupeModule.yupe', 'Основные настройки модуля'),
+                'items' => array(
+                    'adminMenuOrder',
+                )
+            ),
+            'security' => array(
+                'label' => Yii::t('UserModule.user', 'Настройки безопасности'),
+                'items' => array(
+                    'showCaptcha',
+                    'minCaptchaLength',
+                    'maxCaptchaLength',
+                    'emailAccountVerification',
+                    'minPasswordLength',
+                    'autoRecoveryPassword',
+                )
+            ),
+            'mail' => array(
+                'label' => Yii::t('UserModule.user','Почтовые уведомления'),
+                'items' => array(
+                    'notifyEmailFrom',
+                    'userAccountActivationMailEvent',
+                    'passwordRecoveryMailEvent',
+                    'passwordSuccessRecovery',
+                    'passwordAutoRecoveryMailEvent',
+                    'registrationMailEventActivate',
+                    'registrationMailEvent',
+                )
+            ),
+            'redirects' => array(
+                'label' => Yii::t('UserModule.user','Перенаправления'),
+                'items' => array(
+                    'logoutSuccess',
+                    'loginSuccess',
+                    'accountActivationSuccess',
+                    'accountActivationFailure',
+                    'loginAdminSuccess',
+                    'registrationSucess'
+                )
+            ),
+        );
+    }
+
     public function getNavigation()
     {
         return array(
