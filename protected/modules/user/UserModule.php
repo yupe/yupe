@@ -24,8 +24,8 @@ class UserModule extends YWebModule
     public $registrationMailEvent          = 'USER_REGISTRATION';
     public $passwordAutoRecoveryMailEvent  = 'USER_PASSWORD_AUTO_RECOVERY';
     public $passwordRecoveryMailEvent      = 'USER_PASSWORD_RECOVERY';
-    public $passwordSuccessRecovery        = 'USER_PASSWORD_SUCCESS_RECOVERY';
-    public $userAccountActivationMailEvent = 'USER_ACCOUNT_ACTIVATION';
+    public $passwordSuccessRecoveryMailEvent = 'USER_PASSWORD_SUCCESS_RECOVERY';
+    public $userAccountActivationMailEvent   = 'USER_ACCOUNT_ACTIVATION';
 
     public static $logCategory             = 'application.modules.user';
     public $autoNick                       = false;
@@ -35,8 +35,8 @@ class UserModule extends YWebModule
     public function getParamsLabels()
     {
         return array(
-            'userAccountActivationMailEvent' => Yii::t('UserModule.user', 'Почтовое событие при успешной активации пользователя'),
-            'passwordSuccessRecovery'        => Yii::t('UserModule.user', 'Почтовое событие при успешном восстановлении пароля'),
+            'userAccountActivationMailEvent'   => Yii::t('UserModule.user', 'Почтовое событие при успешной активации пользователя'),
+            'passwordSuccessRecoveryMailEvent' => Yii::t('UserModule.user', 'Почтовое событие при успешном восстановлении пароля'),
             'passwordAutoRecoveryMailEvent'  => Yii::t('UserModule.user', 'Почтовое событие при автоматическом восстановлении пароля'),
             'passwordRecoveryMailEvent'      => Yii::t('UserModule.user', 'Почтовое событие при восстановлении пароля'),
             'registrationActivateMailEvent'  => Yii::t('UserModule.user', 'Почтовое событие при регистрации нового пользователя с активацией'),
@@ -67,7 +67,7 @@ class UserModule extends YWebModule
         return array(
             'userAccountActivationMailEvent',
             'passwordRecoveryMailEvent',
-            'passwordSuccessRecovery',
+            'passwordSuccessRecoveryMailEvent',
             'passwordAutoRecoveryMailEvent',
             'registrationActivateMailEvent',
             'registrationMailEvent',
@@ -116,7 +116,7 @@ class UserModule extends YWebModule
                     'notifyEmailFrom',
                     'userAccountActivationMailEvent',
                     'passwordRecoveryMailEvent',
-                    'passwordSuccessRecovery',
+                    'passwordSuccessRecoveryMailEvent',
                     'passwordAutoRecoveryMailEvent',
                     'registrationActivateMailEvent',
                     'registrationMailEvent',
