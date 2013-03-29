@@ -413,7 +413,7 @@ abstract class YWebModule extends CWebModule
     public function getUnInstall()
     {
         if ($this->isActive) {
-            throw new CException(Yii::t('YupeModule.yupe', 'Сначало отключите модуль!'));
+            throw new CException(Yii::t('YupeModule.yupe', 'Сначала отключите модуль!'));
             return false;
         }
         return $this->uninstallDB();
