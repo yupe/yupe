@@ -150,7 +150,10 @@ class UserModule extends YWebModule
 
     public function getGroups()
     {
-        return CHtml::listData(UserAuthItem::model()->group()->cache(Yii::app()->getModule('yupe')->coreCacheTime)->findAll(),'id','name');
+        if (class_exists(UserAuthItem))
+            return CHtml::listData(UserAuthItem::model()->group()->cache(Yii::app()->getModule('yupe')->coreCacheTime)->findAll(),'id','name');
+        else
+            return array();
     }
 
     public function getNavigation()
