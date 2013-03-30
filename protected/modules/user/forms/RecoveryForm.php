@@ -1,5 +1,5 @@
 <?php
-class RecoveryForm extends CFormModel
+class RecoveryForm extends YFormModel
 {
     public $email;
     private $_user;

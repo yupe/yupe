@@ -25,7 +25,7 @@
  **/
 class YWebUser extends CWebUser
 {
-    private $_profile;
+    private $_profile=array();
 
     /**
      * Инициализация компонента:
@@ -35,7 +35,7 @@ class YWebUser extends CWebUser
     public function init()
     {
         $this->allowAutoLogin  = true;
-        $this->authTimeout     = 24 * 2600;
+        $this->authTimeout     = 24 * 3600;
         $this->autoRenewCookie = true;
 
         $this->loginUrl = Yii::app()->createUrl($this->loginUrl);
@@ -50,12 +50,12 @@ class YWebUser extends CWebUser
      **/
     public function isAuthenticated()
     {
-        if (Yii::app()->user->isGuest)
+        if (!$this->checkAccess('authenticated'))
             return false;
 
         $authData = $this->getAuthData();
 
-        if ($authData['nick_name'] && isset($authData['access_level']) && $authData['loginTime'] && $authData['id'])
+        if ($authData['nick_name'] && $authData['loginTime'] && $authData['id'])
             return true;
         return false;
     }
@@ -69,7 +69,6 @@ class YWebUser extends CWebUser
     {
         return array(
             'nick_name'    => Yii::app()->user->getState('nick_name'),
-            'access_level' => (int) Yii::app()->user->getState('access_level'),
             'loginTime'    => Yii::app()->user->getState('loginTime'),
             'id'           => (int) Yii::app()->user->getState('id'),
         );
@@ -82,7 +81,7 @@ class YWebUser extends CWebUser
      **/
     public function isSuperUser()
     {
-        if (!$this->isAuthenticated())
+/*        if (!$this->isAuthenticated())
             return false;
 
         $loginAdmTime = Yii::app()->user->getState('loginAdmTime');
@@ -91,6 +90,10 @@ class YWebUser extends CWebUser
         if ($isAdmin == User::ACCESS_LEVEL_ADMIN && $loginAdmTime)
             return true;
         return false;
+*/
+        return Yii::app()->user->checkAccess('admin');
+
+        throw new CException("Замени меня на задачу или действие!");
     }
 
     /**
@@ -98,17 +101,17 @@ class YWebUser extends CWebUser
      *
      * @param string $moduleName - идентификатор модуля
      *
-     * @todo: Реализовать выборку любого профиля
+     * @todo: Добавить кеширование
      *
      * @return null || user profile
      **/
-    public function getProfile($moduleName = null)
+    public function getProfile($moduleName = 'user')
     {
-        if (!$moduleName) {
-            if ($this->_profile === null)
-                $this->_profile = User::model()->findByPk($this->id);
-            return $this->_profile;
-        }
-        return null;
+        $className = ($moduleName=='user')?'User':(ucfirst($moduleName)."Profile");
+
+        if (!isset($this->_profile[$moduleName]))
+            $this->_profile[$moduleName] = YModel::model($className)->findByPk($this->id);
+
+        return $this->_profile[$moduleName];
     }
 }

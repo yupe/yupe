@@ -152,7 +152,7 @@ class DefaultController extends YBackController
 
     /**
      * Performs the AJAX validation.
-     * @param CModel the model to be validated
+     * @param $model CModel the model to be validated
      */
     protected function performAjaxValidation($model)
     {

@@ -74,13 +74,14 @@ class ProfileAction extends CAction
                         $user->email_confirm = User::EMAIL_CONFIRM_NO;
                         $user->activate_key  = $user->generateActivationKey();
 
-                        $emailBody = $this->controller->renderPartial('needEmailActivationEmail', array('model' => $user), true);
-                        Yii::app()->mail->send(
-                            $module->notifyEmailFrom,
-                            $user->email,
-                            Yii::t('UserModule.user', 'Подтверждение нового e-mail адреса на сайте {site} !', array('{site}' => Yii::app()->name)),
-                            $emailBody
-                        );
+                        // @TODO проверить работоспособность шаблона
+                        Yii::app()->mailMessage->raiseMailEvent($module->userAccountEmailChangeMailEvent, array(
+                                '{from_mail}' => $module->notifyEmailFrom,
+                                '{to_mail}' => $user->email,
+                                '{site}' => CHtml::encode(Yii::app()->name),
+                                '{url}'  => Yii::app()->createAbsoluteUrl('/user/account/recoveryPassword', array('code' => $user->activate_key)),
+                                '{code}' => $user->activate_key,
+                            ));
 
                         Yii::app()->user->setFlash(
                             YFlashMessages::NOTICE_MESSAGE,

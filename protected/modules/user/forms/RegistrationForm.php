@@ -2,6 +2,9 @@
 class RegistrationForm extends CFormModel
 {
     public $nick_name;
+    public $first_name;
+    public $last_name;
+    public $middle_name;
     public $email;
     public $password;
     public $cPassword;
@@ -13,8 +16,8 @@ class RegistrationForm extends CFormModel
         $module = Yii::app()->getModule('user');
 
         return array(
-            array('nick_name, email', 'filter', 'filter' => 'trim'),
-            array('nick_name, email', 'filter', 'filter' => array($obj = new CHtmlPurifier(), 'purify')),
+            array('first_name, last_name, middle_name, nick_name, email', 'filter', 'filter' => 'trim'),
+            array('first_name, last_name, middle_name, nick_name, email', 'filter', 'filter' => array($obj = new CHtmlPurifier(), 'purify')),
             array('nick_name, email, password, cPassword', 'required'),
             array('nick_name, email', 'length', 'max' => 50),
             array('password, cPassword', 'length', 'min' => $module->minPasswordLength),
@@ -31,10 +34,16 @@ class RegistrationForm extends CFormModel
     public function attributeLabels()
     {
         return array(
-            'nick_name'  => Yii::t('UserModule.user', 'Имя пользователя'),
-            'email'      => Yii::t('UserModule.user', 'Email'),
-            'password'   => Yii::t('UserModule.user', 'Пароль'),
-            'cPassword'  => Yii::t('UserModule.user', 'Подтверждение пароля'),
+            'first_name'  => Yii::t('UserModule.user', 'Имя'),
+            'last_name'   => Yii::t('UserModule.user', 'Фамилия'),
+            'middle_name' => Yii::t('UserModule.user', 'Отчество'),
+            'nick_name'   => Yii::t('UserModule.user', 'Имя пользователя'),
+            'email'       => Yii::t('UserModule.user', 'Email'),
+            'password'    => Yii::t('UserModule.user', 'Пароль'),
+            'cPassword'   => Yii::t('UserModule.user', 'Подтверждение пароля'),
+            'gender'      => Yii::t('UserModule.user', 'Пол'),
+            'birth_date'  => Yii::t('UserModule.user', 'Дата рождения'),
+            'about'       => Yii::t('UserModule.user', 'О себе'),
             'verifyCode' => Yii::t('UserModule.user', 'Код проверки'),
         );
     }

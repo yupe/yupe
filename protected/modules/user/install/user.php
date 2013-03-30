@@ -25,6 +25,13 @@ return array(
             'class'    => 'application.modules.user.components.YWebUser',
             'loginUrl' => '/user/account/login/',
         ),
+        'authManager'=>array(
+            'class'=>'CDbAuthManager',
+            'defaultRoles'=>array('authenticated', 'guest'),
+            'itemTable' => '{{user_user_auth_item}}',
+            'assignmentTable' => '{{user_user_auth_assignment}}',
+            'itemChildTable' => '{{user_user_auth_item_child}}',
+        ),
     ),
     'rules'     => array(
         '/login'                => 'user/account/login',

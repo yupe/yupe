@@ -47,15 +47,14 @@ class UserIdentity extends CUserIdentity
             $this->username = $user->nick_name;
 
             Yii::app()->user->setState('id', $user->id);
-            Yii::app()->user->setState('access_level', $user->access_level);
             Yii::app()->user->setState('nick_name', $user->nick_name);
             Yii::app()->user->setState('email', $user->email);
             Yii::app()->user->setState('loginTime', time());
 
             // для админа в сессию запишем еще несколько значений
-            if ($user->access_level == User::ACCESS_LEVEL_ADMIN) {
+            if (Yii::app()->user->checkAccess("admin")) {
                 Yii::app()->user->setState('loginAdmTime', time());
-                Yii::app()->user->setState('isAdmin', $user->access_level);
+                Yii::app()->user->setState('isAdmin', true);
 
                 /* Получаем настройки по всем модулям для данного пользователя: */
                 $settings = Settings::model()->fetchUserModuleSettings(Yii::app()->user->id);

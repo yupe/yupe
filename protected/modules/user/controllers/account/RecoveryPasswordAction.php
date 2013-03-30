@@ -38,14 +38,15 @@ class RecoveryPasswordAction extends CAction
                     if (RecoveryPassword::model()->deleteAll('user_id = :user_id', array(':user_id' => $recovery->user->id)))
                     {
                         $transaction->commit();
-                        $emailBody = $this->controller->renderPartial('passwordAutoRecoverySuccessEmail', array('model' => $recovery->user, 'password' => $newPassword), true);
 
-                        Yii::app()->mail->send(
-                            $module->notifyEmailFrom,
-                            $recovery->user->email,
-                            Yii::t('UserModule.user', 'Успешное восстановление пароля!'),
-                            $emailBody
-                        );
+                        Yii::app()->mailMessage->raiseMailEvent($module->passwordSuccessRecoveryMailEvent, array(
+                                '{from_mail}' => $module->notifyEmailFrom,
+                                '{to_mail}' => $recovery->user->email,
+                                '{site}' => CHtml::encode(Yii::app()->name),
+                                '{login_url}'  => Yii::app()->createAbsoluteUrl('/user/account/login'),
+                                '{password}' => $newPassword,
+                            ));
+
                         Yii::app()->user->setFlash(
                             YFlashMessages::NOTICE_MESSAGE,
                             Yii::t('UserModule.user', 'Новый пароль отправлен Вам на email!')
@@ -106,13 +107,13 @@ class RecoveryPasswordAction extends CAction
                                 CLogger::LEVEL_INFO, UserModule::$logCategory
                             );
 
-                            $emailBody = $this->controller->renderPartial('passwordRecoverySuccessEmail', array('model' => $recovery->user), true);
-                            Yii::app()->mail->send(
-                                $module->notifyEmailFrom,
-                                $recovery->user->email,
-                                Yii::t('UserModule.user', 'Успешное восстановление пароля!'),
-                                $emailBody
-                            );
+                            Yii::app()->mailMessage->raiseMailEvent($module->passwordSuccessRecovery, array(
+                                    '{from_mail}' => $module->notifyEmailFrom,
+                                    '{to_mail}' => $recovery->user->email,
+                                    '{site}' => CHtml::encode(Yii::app()->name),
+                                    '{login_url}'  => Yii::app()->createAbsoluteUrl('/user/account/login'),
+                                    '{password}' => $newPassword,
+                                ));
                             $this->controller->redirect(array('/user/account/login'));
                         }
                     }

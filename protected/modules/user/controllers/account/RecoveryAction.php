@@ -39,9 +39,14 @@ class RecoveryAction extends CAction
                             Yii::t('UserModule.user', 'На указанный email отправлено письмо с инструкцией по восстановлению пароля!')
                         );
 
-                        $emailBody = $this->controller->renderPartial('passwordAutoRecoveryEmail', array('model' => $recovery), true);
+                        Yii::app()->mailMessage->raiseMailEvent($module->passwordRecoveryMailEvent, array(
+                                '{from_mail}' => $module->notifyEmailFrom,
+                                '{to_mail}' => $user->email,
+                                '{site}' => CHtml::encode(Yii::app()->name),
+                                '{url}'  => Yii::app()->createAbsoluteUrl('/user/account/recoveryPassword', array('code' => $recovery->code)),
+                                '{link}' => CHtml::link(Yii::t('UserModule.user','ссылке'), array('/user/account/recoveryPassword', 'code' => $recovery->code)),
+                            ));
 
-                        Yii::app()->mail->send($module->notifyEmailFrom, $user->email, Yii::t('UserModule.user', 'Восстановление пароля!'), $emailBody);
                         $this->controller->redirect(array('/user/account/login'));
                     }
                     else
@@ -77,9 +82,14 @@ class RecoveryAction extends CAction
                         );
 
                         // отправить email уведомление
-                        $emailBody = $this->controller->renderPartial('passwordRecoveryEmail', array('model' => $recovery), true);
+                        Yii::app()->mailMessage->raiseMailEvent($module->passwordAutoRecoveryMailEvent, array(
+                                '{from_mail}' => $module->notifyEmailFrom,
+                                '{to_mail}' => $user->email,
+                                '{site}' => CHtml::encode(Yii::app()->name),
+                                '{url}'  => Yii::app()->createAbsoluteUrl('/user/account/recoveryPassword', array('code' => $recovery->code)),
+                                '{link}' => CHtml::link(Yii::t('UserModule.user','ссылке'), array('/user/account/recoveryPassword', 'code' => $recovery->code)),
+                            ));
 
-                        Yii::app()->mail->send($module->notifyEmailFrom, $user->email, Yii::t('UserModule.user', 'Восстановление пароля!'), $emailBody);
                         $this->controller->redirect(array('/user/account/recovery'));
                     }
                     else

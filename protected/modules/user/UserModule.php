@@ -25,17 +25,26 @@ class UserModule extends YWebModule
     public $passwordAutoRecoveryMailEvent  = 'USER_PASSWORD_AUTO_RECOVERY';
     public $passwordRecoveryMailEvent      = 'USER_PASSWORD_RECOVERY';
     public $passwordSuccessRecoveryMailEvent = 'USER_PASSWORD_SUCCESS_RECOVERY';
-    public $userAccountActivationMailEvent   = 'USER_ACCOUNT_ACTIVATION';
+    public $userAccountActivationMailEvent = 'USER_ACCOUNT_ACTIVATION';
+    public $userAccountEmailChangeMailEvent= 'USER_CHANGED_EMAIL_ACTIVATION';
 
     public static $logCategory             = 'application.modules.user';
     public $autoNick                       = false;
     public $profiles                       = array();
     public $attachedProfileEvents          = array();
 
+    public function getDependencies()
+    {
+        return array(
+            'mail',
+        );
+    }
+
     public function getParamsLabels()
     {
         return array(
-            'userAccountActivationMailEvent'   => Yii::t('UserModule.user', 'Почтовое событие при успешной активации пользователя'),
+            'userAccountActivationMailEvent' => Yii::t('UserModule.user', 'Почтовое событие при успешной активации пользователя'),
+            'userAccountEmailChangeMailEvent'  => Yii::t('UserModule.user', 'Почтовое событие при смене пользователем e-mail адреса с требованием его подтверждения'),
             'passwordSuccessRecoveryMailEvent' => Yii::t('UserModule.user', 'Почтовое событие при успешном восстановлении пароля'),
             'passwordAutoRecoveryMailEvent'  => Yii::t('UserModule.user', 'Почтовое событие при автоматическом восстановлении пароля'),
             'passwordRecoveryMailEvent'      => Yii::t('UserModule.user', 'Почтовое событие при восстановлении пароля'),
@@ -59,6 +68,7 @@ class UserModule extends YWebModule
             'loginAdminSuccess'              => Yii::t('UserModule.user', 'Страница после авторизации админстратора'),
             'registrationSucess'             => Yii::t('UserModule.user', 'Страница после успешной регистрации'),
             'autoNick'                       => Yii::t('UserModule.user', 'Автоматически генерировать уникальный ник и не требовать его указания'),
+            'newbieGroup'                    => Yii::t('UserModule.user', 'Группа по умолчанию для новых пользователей после регистрации'),
         );
     }
 
@@ -66,6 +76,7 @@ class UserModule extends YWebModule
     {
         return array(
             'userAccountActivationMailEvent',
+            'userAccountEmailChangeMailEvent',
             'passwordRecoveryMailEvent',
             'passwordSuccessRecoveryMailEvent',
             'passwordAutoRecoveryMailEvent',
@@ -88,6 +99,7 @@ class UserModule extends YWebModule
             'loginAdminSuccess',
             'registrationSucess',
             'autoNick'                 => $this->getChoice(),
+            'newbieGroup'              => $this->getGroups(),
         );
     }
 
@@ -134,6 +146,11 @@ class UserModule extends YWebModule
                 )
             ),
         );
+    }
+
+    public function getGroups()
+    {
+        return CHtml::listData(UserAuthItem::model()->group()->cache(Yii::app()->getModule('yupe')->coreCacheTime)->findAll(),'id','name');
     }
 
     public function getNavigation()
@@ -202,11 +219,11 @@ class UserModule extends YWebModule
         return array(
             'isAuthenticated' => array(
                 'name'      => 'Авторизован',
-                'condition' => Yii::app()->user->isAuthenticated(),
+                'condition' => Yii::app()->user->checkAccess('authorized'),
             ),
             'isSuperUser'     => array(
                 'name'      => 'Администратор',
-                'condition' => Yii::app()->user->isSuperUser(),
+                'condition' => Yii::app()->user->checkAccess('admin'),
             ),
         );
     }

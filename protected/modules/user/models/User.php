@@ -36,10 +36,7 @@ class User extends YModel
     const EMAIL_CONFIRM_NO  = 0;
     const EMAIL_CONFIRM_YES = 1;
 
-    const ACCESS_LEVEL_USER  = 0;
-    const ACCESS_LEVEL_ADMIN = 1;
-
-    private $_oldAccess_level;
+    //private $_oldAccess_level;
 
     /**
      * @return string the associated database table name
@@ -49,6 +46,11 @@ class User extends YModel
         return '{{user_user}}';
     }
 
+    public function getAccessCache()
+    {
+        return array();
+    }
+
     /**
      * Returns the static model of the specified AR class.
      * @return User the static model class
@@ -56,6 +58,12 @@ class User extends YModel
     public static function model($className = __CLASS__)
     {
         return parent::model($className);
+    }
+
+    public function relations()
+    {
+        return array(
+        );
     }
 
     /**
@@ -75,19 +83,18 @@ class User extends YModel
             array('about', 'length', 'max' => 300),
             array('location, online_status', 'length', 'max' => 150),
             array('registration_ip, activation_ip, registration_date', 'length', 'max' => 20),
-            array('gender, status, access_level, use_gravatar, email_confirm', 'numerical', 'integerOnly' => true),
+            array('gender, status, use_gravatar, email_confirm', 'numerical', 'integerOnly' => true),
             array('email_confirm', 'in', 'range' => array_keys($this->emailConfirmStatusList)),
             array('use_gravatar', 'in', 'range' => array(0, 1)),
             array('gender', 'in', 'range' => array_keys($this->gendersList)),
             array('status', 'in', 'range' => array_keys($this->statusList)),
-            array('access_level', 'in', 'range' => array_keys($this->accessLevelsList)),
             array('nick_name', 'match', 'pattern' => '/^[A-Za-z0-9]{2,50}$/', 'message' => Yii::t('UserModule.user', 'Неверный формат поля "{attribute}" допустимы только буквы и цифры, от 2 до 20 символов')),
             array('site', 'url', 'allowEmpty' => true),
             array('email', 'email'),
             array('email', 'unique', 'message' => Yii::t('UserModule.user', 'Данный email уже используется другим пользователем')),
             array('nick_name', 'unique', 'message' => Yii::t('UserModule.user', 'Данный ник уже используется другим пользователем')),
             array('avatar', 'file', 'types' => implode(',', $module->avatarExtensions), 'maxSize' => $module->avatarMaxSize, 'allowEmpty' => true),
-            array('id, creation_date, change_date, middle_name, first_name, last_name, nick_name, email, gender, avatar, password, salt, status, access_level, last_visit, registration_date, registration_ip, activation_ip', 'safe', 'on' => 'search'),
+            array('id, creation_date, change_date, middle_name, first_name, last_name, nick_name, email, gender, avatar, password, salt, status, last_visit, registration_date, registration_ip, activation_ip', 'safe', 'on' => 'search'),
         );
     }
 
@@ -109,7 +116,6 @@ class User extends YModel
             'password'          => Yii::t('UserModule.user', 'Пароль'),
             'salt'              => Yii::t('UserModule.user', 'Соль'),
             'status'            => Yii::t('UserModule.user', 'Статус'),
-            'access_level'      => Yii::t('UserModule.user', 'Доступ'),
             'last_visit'        => Yii::t('UserModule.user', 'Последний визит'),
             'registration_date' => Yii::t('UserModule.user', 'Дата регистрации'),
             'registration_ip'   => Yii::t('UserModule.user', 'Ip регистрации'),
@@ -141,7 +147,6 @@ class User extends YModel
         $criteria->compare('password', $this->password, true);
         $criteria->compare('salt', $this->salt, true);
         $criteria->compare('status', $this->status);
-        $criteria->compare('access_level', $this->access_level);
         $criteria->compare('last_visit', $this->last_visit, true);
         $criteria->compare('registration_date', $this->registration_date, true);
         $criteria->compare('registration_ip', $this->registration_ip, true);
@@ -152,19 +157,21 @@ class User extends YModel
 
     public function afterFind()
     {
-        $this->_oldAccess_level = $this->access_level;
+//        $this->_oldAccess_level = $this->access_level;
     }
 
     public function beforeSave()
     {
         $this->change_date = new CDbExpression('NOW()');
 
-        if (!$this->isNewRecord                                                                      &&
+    /*    if (!$this->isNewRecord                                                                      &&
             ($this->admin()->count() == 1 && $this->_oldAccess_level == self::ACCESS_LEVEL_ADMIN)    &&
             ($this->access_level == self::ACCESS_LEVEL_USER || $this->status != self::STATUS_ACTIVE)
         )
             return false;
         else
+    */
+        if ($this->isNewRecord)
         {
             $this->registration_date = $this->creation_date = $this->change_date;
             $this->registration_ip   = $this->activation_ip = Yii::app()->request->userHostAddress;
@@ -179,8 +186,8 @@ class User extends YModel
 
     public function beforeDelete()
     {
-        if (User::model()->admin()->count() == 1 && $this->_oldAccess_level == self::ACCESS_LEVEL_ADMIN)
-            return false;
+//        if (User::model()->admin()->count() == 1 && $this->_oldAccess_level == self::ACCESS_LEVEL_ADMIN)
+  //          return false;
 
         return parent::beforeDelete();
     }
@@ -200,6 +207,7 @@ class User extends YModel
                 'condition' => 'status = :status',
                 'params'    => array(':status' => self::STATUS_NOT_ACTIVE),
             ),
+/* @TODO: Заменить на join user_auth_assignment
             'admin'        => array(
                 'condition' => 'access_level = :access_level',
                 'params'    => array(':access_level' => self::ACCESS_LEVEL_ADMIN),
@@ -208,6 +216,7 @@ class User extends YModel
                 'condition' => 'access_level = :access_level',
                 'params'    => array(':access_level' => self::ACCESS_LEVEL_USER),
             ),
+*/
         );
     }
 
@@ -218,6 +227,7 @@ class User extends YModel
         return false;
     }
 
+    /*
     public function getAccessLevelsList()
     {
         return array(
@@ -231,6 +241,7 @@ class User extends YModel
         $data = $this->accessLevelsList;
         return isset($data[$this->access_level]) ? $data[$this->access_level] : Yii::t('UserModule.user', '*нет*');
     }
+    */
 
     public function getStatusList()
     {
