@@ -21,7 +21,7 @@
  * @license  BSD https://raw.github.com/yupe/yupe/master/LICENSE
  * @link     http://yupe.ru
  **/
-class m130224_182200_pre_rbac extends CDbMigration
+class m130224_182200_pre_rbac extends YDbMigration
 {
     /**
      * Функция настройки и создания таблицы:
