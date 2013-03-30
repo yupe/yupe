@@ -10,6 +10,7 @@
  * @property string $description
  * @property string $alias
  * @property integer $status
+ * @property string $lang
  */
 class Category extends YModel
 {
@@ -45,18 +46,17 @@ class Category extends YModel
         return array(
             array('name, description, short_description, alias', 'filter', 'filter' => 'trim'),
             array('name, alias', 'filter', 'filter' => array($obj = new CHtmlPurifier(), 'purify')),
-            array('name, description, alias', 'required'),
+            array('name, description, alias, lang', 'required'),
             array('parent_id, status', 'numerical', 'integerOnly' => true),
             array('parent_id, status', 'length', 'max' => 11),
             array('parent_id', 'default', 'setOnEmpty' => true, 'value' => null),
             array('name, image', 'length', 'max' => 250),
             array('alias', 'length', 'max' => 150),
-            array('alias', 'YSLugValidator', 'message' => Yii::t('catalog', 'Запрещенные символы в поле {attribute}')),
             array('lang', 'length', 'max' => 2 ),
-            array('lang', 'default', 'value' => Yii::app()->sourceLanguage),
+            array('alias', 'YSLugValidator', 'message' => Yii::t('catalog', 'Запрещенные символы в поле {attribute}')),
             array('alias', 'YUniqueSlugValidator'),
             array('status', 'in', 'range' => array_keys($this->statusList)),
-            array('id, parent_id, name, description, short_description, alias, status', 'safe', 'on' => 'search'),
+            array('id, parent_id, name, description, short_description, alias, status, lang', 'safe', 'on' => 'search'),
         );
     }
 
@@ -87,6 +87,9 @@ class Category extends YModel
     {
         if (!$this->alias)
             $this->alias = YText::translit($this->name);
+
+        if(!$this->lang)
+            $this->lang = Yii::app()->language;
 
         return parent::beforeValidate();
     }
@@ -139,10 +142,11 @@ class Category extends YModel
         $criteria = new CDbCriteria;
 
         $criteria->compare('id', $this->id, true);
-        $criteria->compare('parent_id', $this->parent_id);
-        $criteria->compare('name', $this->name, true);
-        $criteria->compare('description', $this->description, true);
-        $criteria->compare('alias', $this->alias, true);
+        $criteria->compare('parent_id', $this->parent_id,true);
+        $criteria->compare('name', $this->name);
+        $criteria->compare('description', $this->description);
+        $criteria->compare('alias', $this->alias);
+        $criteria->compare('lang', $this->lang);
         $criteria->compare('status', $this->status);
 
         return new CActiveDataProvider(get_class($this), array('criteria' => $criteria));

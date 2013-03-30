@@ -81,7 +81,6 @@ $this->renderPartial('_search', array('model' => $model));
         ),
         array(
             'name'  => 'lang',
-            'type'  => 'raw',
             'value'  => '$data->lang',
             'filter' => Yii::app()->getModule('yupe')->getLanguagesList()
         ),

@@ -51,7 +51,7 @@ class DefaultController extends YBackController
         if(!empty($id) && !empty($lang)){
             $news = News::model()->findByPk($id);
             if(null === $news){
-                Yii::app()->user->setFlash(YFlashMessages::ERROR_MESSAGE,Yii::t('NewsModule.news','Целевая страница не найдена!'));
+                Yii::app()->user->setFlash(YFlashMessages::ERROR_MESSAGE,Yii::t('NewsModule.news','Целевая новость не найдена!'));
                 $this->redirect(array('/news/default/create'));
             }
             if(!array_key_exists($lang,$languages)){
@@ -84,11 +84,7 @@ class DefaultController extends YBackController
      */
     public function actionUpdate($id)
     {
-        $model = $this->loadModel($id);
-
-        if(null === $model){
-            throw new CHttpException(404);
-        }
+        $model = $this->loadModel((int)$id);
 
         if (Yii::app()->request->isPostRequest && isset($_POST['News']))
         {
@@ -116,7 +112,11 @@ class DefaultController extends YBackController
             ':id' => $model->id
         ));
 
-        $this->render('update',array('langModels' => CHtml::listData($langModels,'lang','id'),'model' => $model, 'languages' => $this->yupe->getLanguagesList()));
+        $this->render('update',array(
+            'langModels' => CHtml::listData($langModels,'lang','id'),
+            'model' => $model,
+            'languages' => $this->yupe->getLanguagesList()
+        ));
     }
 
     /**
@@ -132,7 +132,6 @@ class DefaultController extends YBackController
         if (Yii::app()->request->isPostRequest)
         {
             $this->loadModel($id)->delete();
-
             // if AJAX request (triggered by deletion via admin grid view), we should not redirect the browser
             if (!isset($_GET['ajax']))
                 $this->redirect(isset($_POST['returnUrl']) ? $_POST['returnUrl'] : array('index'));

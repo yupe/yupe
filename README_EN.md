@@ -9,13 +9,13 @@ More [can be found here](http://yupe.ru/site/page/view/about).
 Links
 ------
 
-* [Official site](http://yupe.ru/).
-* [Twitter](https://twitter.com/#!/YupeCms).
-* [Forum](http://yupe.ru/talk/).
-* [Yupe blog](http://yupe.ru/index.php/blog/yupe-mini-cms-yii).
-* [Wiki](https://github.com/yupe/yupe/wiki).
-* [Contacts](http://yupe.ru/feedback/contact).
-* [Help](http://yupe.ru/site/page/view/help).
+* [Official site](http://yupe.ru/)
+* [Twitter](https://twitter.com/#!/YupeCms)
+* [Forum](http://yupe.ru/talk/)
+* [Yupe blog](http://yupe.ru/index.php/blog/yupe-mini-cms-yii)
+* [Wiki](https://github.com/yupe/yupe/wiki)
+* [Contacts](http://yupe.ru/feedback/contact)
+* [Help](http://yupe.ru/site/page/view/help)
 
 Capabilities
 -----------
@@ -31,7 +31,6 @@ Out of the box you get a skeleton application with the following functionality i
 * Creating and managing categories of sites (section) ([category module](https://github.com/yupe/yupe/tree/master/protected/modules/category)).
 * Creating and editing site navigation ([module menu](https://github.com/yupe/yupe/tree/master/protected/modules/menu)).
 * Module comments (example [http://yupe.ru/post/logotip-dlya-yupi.html](http://yupe.ru/post/logotip-dlya-yupi.html) or [http://yupe.ru/gallery/gallery/foto/id/5](http://yupe.ru/gallery/gallery/foto/id/5)) ([comment module](https://github.com/yupe/yupe/tree/master/protected/modules/comment)).
-* Module for voting ([vote module](https://github.com/yupe/yupe/tree/master/protected/modules/vote)).
 * Module handbooks (storage and management background information) ([dictionary module](https://github.com/yupe/yupe/tree/master/protected/modules/dictionary)).
 * Module for blogging ([both individual and collective](http://yupe.ru/blog/yupe-mini-cms-yii)) ([blog module](https://github.com/yupe/yupe/tree/master/protected/modules/blog)).
 * "Feedback" Module + [FAQ](http://yupe.ru/faq) ([feedback module](https://github.com/yupe/yupe/tree/master/protected/modules/feedback)).

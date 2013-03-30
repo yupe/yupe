@@ -95,7 +95,7 @@ $this->breadcrumbs = array(
         </tr>
         <tr class="odd">
             <th><?php echo Yii::t('YupeModule.yupe','Николай Седов');?></th>
-            <td><?php echo CHtml::link('http://vk.com/mikspark','http://vk.com/mikspark');?></td>
+            <td><?php echo CHtml::link('https://twitter.com/mik_spark','https://twitter.com/mik_spark');?></td>
         </tr>
     </tbody>
 </table>

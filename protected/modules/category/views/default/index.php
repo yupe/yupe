@@ -49,13 +49,21 @@ $this->renderPartial('_search', array('model' => $model));
     'dataProvider' => $model->search(),
     'filter'       => $model,
     'columns'      => array(
-        'id',
-         array(
+        array(
+            'name'  => 'id',
+            'type'  => 'raw',
+            'value' => 'CHtml::link($data->id, array("/category/default/update", "id" => $data->id))',
+        ),
+        array(
             'name'  => 'name',
             'type'  => 'raw',
-            'value' => 'CHtml::link($data->name, array("/category/default/update", "alias" => $data->alias))',
+            'value' => 'CHtml::link($data->name, array("/category/default/update", "id" => $data->id))',
         ),
-        'alias',
+        array(
+            'name'  => 'alias',
+            'type'  => 'raw',
+            'value' => 'CHtml::link($data->alias, array("/category/default/update", "id" => $data->id))',
+        ),
         array(
             'name'  => 'parent_id',
             'value' => '$data->getParentName()',
@@ -65,17 +73,19 @@ $this->renderPartial('_search', array('model' => $model));
             'type'  => 'raw',
             'value' => '$data->image ? CHtml::image($data->imageSrc, $data->name, array("width"  => 100, "height" => 100)) : "---"',
         ),
-        'lang',
+        array(
+            'name'  => 'lang',
+            'value'  => '$data->lang',
+            'filter' => Yii::app()->getModule('yupe')->getLanguagesList()
+        ),
         array(
             'name'  => 'status',
             'type'  => 'raw',
             'value' => '$this->grid->returnBootstrapStatusHtml($data, "status", "Status")',
+            'filter' => $model->getStatusList()
         ),
         array(
             'class' => 'bootstrap.widgets.TbButtonColumn',
-            'buttons' => array(
-                'update' => array('url' => 'array("/category/default/update", "alias" => $data->alias)'),
-             ),
         ),
     ),
 )); ?>

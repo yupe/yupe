@@ -23,7 +23,7 @@ class PageModule extends YWebModule
 
     public function  getVersion()
     {
-        return Yii::t('PageModule.page', '0.3');
+        return Yii::t('PageModule.page', '0.4');
     }
 
     public function getEditableParams()
@@ -109,7 +109,7 @@ class PageModule extends YWebModule
     public function getNavigation()
     {
         return array(
-            array('icon' => 'list-alt', 'label' => Yii::t('PageModule.page', 'Управление страницами'), 'url' => array('/page/default/index')),
+            array('icon' => 'list-alt', 'label' => Yii::t('PageModule.page', 'Список страниц'), 'url' => array('/page/default/index')),
             array('icon' => 'plus-sign', 'label' => Yii::t('PageModule.page', 'Добавить страницу'), 'url' => array('/page/default/create')),
         );
     }

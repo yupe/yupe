@@ -4,10 +4,11 @@ class AccountController extends YFrontController
     public function actions()
     {
         return array(
-            'captcha'          => array(
+            'captcha' => array(
                 'class'     => 'CCaptchaAction',
                 'backColor' => 0xFFFFFF,
-                'testLimit' => 1
+                'testLimit' => 1,
+                'minLength' => Yii::app()->getModule('user')->minCaptchaLength,
             ),
             'registration'     => array(
                 'class' => 'application.modules.user.controllers.account.RegistrationAction',

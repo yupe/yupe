@@ -23,8 +23,8 @@ class RegistrationForm extends CFormModel
             array('cPassword', 'compare', 'compareAttribute' => 'password', 'message' => Yii::t('UserModule.user', 'Пароли не совпадают.')),
             array('email', 'email'),
             array('email', 'checkEmail'),
-            array('verifyCode', 'YRequiredValidator', 'allowEmpty' => !$module->showCaptcha, 'message' => Yii::t('UserModule.user', 'Код проверки не корректен.')),
-            array('verifyCode', 'captcha', 'allowEmpty' => !$module->showCaptcha),
+            array('verifyCode', 'YRequiredValidator', 'allowEmpty' => !$module->showCaptcha || !CCaptcha::checkRequirements(), 'message' => Yii::t('UserModule.user', 'Код проверки не корректен.')),
+            array('verifyCode', 'captcha', 'allowEmpty' => !$module->showCaptcha || !CCaptcha::checkRequirements()),
         );
     }
 

@@ -11,7 +11,7 @@
  * @author    Andrey Opeykin <aopeykin@gmail.com>
  * @copyright 2012-2013 Yupe! Copyright &copy;
  * @license   BSD http://ru.wikipedia.org/wiki/%D0%9B%D0%B8%D1%86%D0%B5%D0%BD%D0%B7%D0%B8%D1%8F_BSD
- * @version   0.5 (dev)
+ * @version   0.6 (dev)
  * @link      http://yupe.ru
  */
 
@@ -27,7 +27,7 @@
  * @author    Andrey Opeykin <aopeykin@gmail.com>
  * @copyright 2012-2013 Yupe! Copyright &copy;
  * @license   BSD http://ru.wikipedia.org/wiki/%D0%9B%D0%B8%D1%86%D0%B5%D0%BD%D0%B7%D0%B8%D1%8F_BSD
- * @version   0.5 (dev)
+ * @version   0.6 (dev)
  * @link      http://yupe.ru
  */
 class YupeModule extends YWebModule
@@ -54,7 +54,7 @@ class YupeModule extends YWebModule
     public $categoryIcon;
     public $categorySort;
 
-    public $availableLanguages     = 'ru,en';
+    public $availableLanguages     = 'ru';
     public $defaultLanguage        = 'ru';
     public $defaultBackendLanguage = 'ru';
 
@@ -68,7 +68,7 @@ class YupeModule extends YWebModule
      **/
     public function getVersion()
     {
-        return Yii::t('YupeModule.yupe', '0.5 (dev)');
+        return Yii::t('YupeModule.yupe', '0.6 (dev)');
     }
 
     /**
@@ -190,6 +190,40 @@ class YupeModule extends YWebModule
         );
     }
 
+    /**
+     *  @return array массив групп параметров модуля, для группировки параметров на странице настроек
+     */
+    public function getEditableParamsGroups(){
+        return array(
+            'main' => array(
+                'label' => Yii::t('YupeModule.yupe', 'Основные настройки модуля'),
+            ),
+            'theme' => array(
+                'label' => Yii::t('YupeModule.yupe', 'Настройка внешнего вида'),
+                'items' => array(
+                    'backendLayout',
+                    'backendTheme',
+                )
+            ),
+            'language' => array(
+                'label' => Yii::t('YupeModule.yupe', 'Языковые настройки'),
+                'items' => array(
+                    'availableLanguages',
+                    'defaultLanguage',
+                    'defaultBackendLanguage',
+                )
+            ),
+            'editors' => array(
+                'label' => Yii::t('YupeModule.yupe', 'Настройки редакторов'),
+                'items' => array(
+                    'editorsDir',
+                    'uploadPath',
+                    'editor',
+                )
+            ),
+        );
+    } 
+        
     /**
      * Возвращаем статус, устанавливать ли галку для установки модуля в инсталяторе по умолчанию:
      *

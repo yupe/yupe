@@ -61,7 +61,7 @@ class News extends YModel
             array('lang', 'default', 'value' => Yii::app()->sourceLanguage),
             array('lang', 'in', 'range' => array_keys(Yii::app()->getModule('yupe')->getLanguagesList())),
             array('status', 'in', 'range' => array_keys($this->statusList)),
-            array('alias', 'YUniqueSlugValidator','message' => Yii::t('NewsModule.news','{attribute} "{value}" с языком "{lang}" уже существует!',array('{lang}' => $this->lang))),
+            array('alias', 'YUniqueSlugValidator'),
             array('description', 'length', 'max' => 250),
             array('link', 'length', 'max' => 250),
             array('link', 'url'),
@@ -186,6 +186,9 @@ class News extends YModel
     {
         if (!$this->alias)
             $this->alias = YText::translit($this->title);
+
+        if(!$this->lang)
+            $this->lang = Yii::app()->language;
 
         return parent::beforeValidate();
     }

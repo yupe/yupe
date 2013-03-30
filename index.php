@@ -3,7 +3,7 @@
 date_default_timezone_set('Europe/Moscow');
 
 // путь к фреймворку Yii, при необходиомсти можно изменить
-$yii = dirname(__FILE__) . '/framework/yii.php';
+$yii = dirname(__FILE__) . '/framework/yiilite.php';
 // путь к основному конфигурационному файлу Yii, при необходиомсти можно изменить
 $config = dirname(__FILE__) . '/protected/config/main.php';
 

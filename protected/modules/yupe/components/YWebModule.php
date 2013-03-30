@@ -154,6 +154,20 @@ abstract class YWebModule extends CWebModule
     {
         return array('adminMenuOrder');
     }
+    
+    /**
+     *  @return array массив групп параметров модуля, для группировки параметров на странице настроек
+     */
+    public function getEditableParamsGroups(){
+        return array(
+            'main' => array(
+                'label' => Yii::t('YupeModule.yupe', 'Основные настройки модуля'),
+                'items' => array(
+                    'adminMenuOrder'
+                )
+            ),
+        );
+    }    
 
     /**
      *  @return array получение имена парамметров из getEditableParams()
@@ -399,7 +413,7 @@ abstract class YWebModule extends CWebModule
     public function getUnInstall()
     {
         if ($this->isActive) {
-            throw new CException(Yii::t('YupeModule.yupe', 'Сначало отключите модуль!'));
+            throw new CException(Yii::t('YupeModule.yupe', 'Сначала отключите модуль!'));
             return false;
         }
         return $this->uninstallDB();

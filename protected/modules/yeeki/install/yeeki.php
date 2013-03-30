@@ -8,7 +8,7 @@ return array(
             ),
         ),
     ),
-    'import'    => array(),
+    'import' => array(),
     'component' => array(),
     'rules'     => array(
         '/wiki/<controller:\w+>/<action:\w+>' => 'yeeki/wiki/<controller>/<action>',

@@ -7,6 +7,6 @@
 - Куликов Евгений [http://akulikov.org.ua](http://akulikov.org.ua)
 - Тимашов Максим  apexwire@gmail.com
 - Черепанов Антон [https://twitter.com/davetoxa](https://twitter.com/davetoxa)
-- Николай Седов [http://vk.com/mikspark](http://vk.com/mikspark)
+- Николай Седов [https://twitter.com/mik_spark](https://twitter.com/mik_spark)
 
 [Ждем только тебя !](http://yupe.ru/feedback/index)

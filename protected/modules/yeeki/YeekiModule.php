@@ -18,8 +18,8 @@ class YeekiModule extends YWebModule
     public function getParamsLabels()
     {
         return array(
-            'adminMenuOrder' => Yii::t('Yeeki.yeeki', 'Порядок следования в меню'),
-            'editor'         => Yii::t('Yeeki.yeeki', 'Визуальный редактор'),
+            'adminMenuOrder' => Yii::t('YeekiModule.yeeki', 'Порядок следования в меню'),
+            'editor'         => Yii::t('YeekiModule.yeeki', 'Визуальный редактор'),
         );
     }
 
@@ -33,7 +33,7 @@ class YeekiModule extends YWebModule
 
     public function getCategory()
     {
-        return Yii::t('Yeeki.yeeki', 'Контент');
+        return Yii::t('YeekiModule.yeeki', 'Контент');
     }
 
     public function getAdminPageLink()
@@ -43,32 +43,32 @@ class YeekiModule extends YWebModule
 
     public function getName()
     {
-        return Yii::t('Yeeki.yeeki', 'Wiki');
+        return Yii::t('YeekiModule.yeeki', 'Wiki');
     }
 
     public function getDescription()
     {
-        return Yii::t('Yeeki.yeeki', 'Модуль для создания раздела wiki');
+        return Yii::t('YeekiModule.yeeki', 'Модуль для создания раздела wiki');
     }
 
     public function getVersion()
     {
-        return Yii::t('Yeeki.yeeki', '0.1');
+        return Yii::t('YeekiModule.yeeki', '0.1');
     }
 
     public function getAuthor()
     {
-        return Yii::t('Yeeki.yeeki', 'yupe team');
+        return Yii::t('YeekiModule.yeeki', 'yupe team');
     }
 
     public function getAuthorEmail()
     {
-        return Yii::t('Yeeki.yeeki', 'team@yupe.ru');
+        return Yii::t('YeekiModule.yeeki', 'team@yupe.ru');
     }
 
     public function getUrl()
     {
-        return Yii::t('Yeeki.yeeki', 'http://yupe.ru');
+        return Yii::t('YeekiModule.yeeki', 'http://yupe.ru');
     }
 
     public function getIcon()
