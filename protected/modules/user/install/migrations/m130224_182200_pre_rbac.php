@@ -31,7 +31,7 @@ class m130224_182200_pre_rbac extends YDbMigration
     public function safeUp()
     {
         $this->createTable(
-	'{{user_user_auth_item}}', array(
+            '{{user_user_auth_item}}', array(
                 'name'           => "char(64) NOT NULL",
                 'type'           => "integer NOT NULL",
                 'module'         => "varchar(100) NOT NULL DEFAULT 'yupe'",
@@ -47,43 +47,43 @@ class m130224_182200_pre_rbac extends YDbMigration
         $this->createIndex("ix_{{user_user_auth_item}}_module", '{{user_user_auth_item}}', "module", false);
 
         $this->insert(
-                '{{user_user_auth_item}}', array(
+            '{{user_user_auth_item}}', array(
                 'name'                  => 'guest',
                 'description'           => Yii::t('UserModule.user', 'Гости'),
                 'detailed_description'  => Yii::t('UserModule.user', 'Посетители сайта, которые НЕ проходили авторизацию.'),
                 'bizrule'               => 'return Yii::app()->user->isGuest;',
-                'type'                  => UserModule::USER_RBAC_ROLE,
+                'type'                  => UserAuthItem::USER_RBAC_ROLE,
                 'module'                => 'user',
             )
         );
 
         $this->insert(
-                '{{user_user_auth_item}}', array(
+            '{{user_user_auth_item}}', array(
                 'name'                  => 'authenticated',
                 'description'           => Yii::t('UserModule.user', 'Авторизованные'),
                 'detailed_description'  => Yii::t('UserModule.user', 'Пользователи, которые прошли авторизацию.'),
                 'bizrule'               => 'return !Yii::app()->user->isGuest;',
-                'type'                  => UserModule::USER_RBAC_ROLE,
+                'type'                  => UserAuthItem::USER_RBAC_ROLE,
                 'module'                => 'user',
             )
         );
 
         $this->insert(
-                '{{user_user_auth_item}}', array(
+            '{{user_user_auth_item}}', array(
                 'name'       => 'admin',
                 'description'        => Yii::t('UserModule.user', 'Администраторы'),
                 'detailed_description' => Yii::t('UserModule.user', 'Администраторы сайта, имеют полный доступ к сайту.'),
-                'type'                  => UserModule::USER_RBAC_ROLE,
+                'type'                  => UserAuthItem::USER_RBAC_ROLE,
                 'module'                => 'user',
             )
         );
 
         $this->insert(
-               '{{user_user_auth_item}}', array(
+            '{{user_user_auth_item}}', array(
                 'name'       => 'editors',
                 'description'        => Yii::t('UserModule.user', 'Редакторы'),
                 'detailed_description' => Yii::t('UserModule.user', 'Редакторы содержимого сайта, имеют доступ только к редактированию контента.'),
-                'type'                  => UserModule::USER_RBAC_ROLE,
+                'type'                  => UserAuthItem::USER_RBAC_ROLE,
                 'module'                => 'user',
             )
         );
@@ -114,15 +114,15 @@ class m130224_182200_pre_rbac extends YDbMigration
         $this->addForeignKey("fk_{{user_user_auth_assignment}}_user", '{{user_user_auth_assignment}}', 'userid', '{{user_user}}', 'id', 'CASCADE', 'CASCADE');
         $this->addForeignKey("fk_{{user_user_auth_assignment}}_item", '{{user_user_auth_assignment}}', 'itemname', '{{user_user_auth_item}}', 'name', 'CASCADE', 'CASCADE');
 
-        $db->createCommand("
+        $this->getDbConnection()->createCommand("
             INSERT INTO {{user_user_auth_assignment}} ( itemname,userid )
-            SELECT 'admin','id' FROM {{user_user}} WHERE access_level=1
+            SELECT 'admin',id FROM {{user_user}} WHERE access_level=1
         ")->execute();
 
         $this->dropColumn( '{{user_user}}','access_level' );
 
     }
- 
+
     /**
      * Функция удаления таблицы:
      *
@@ -131,11 +131,9 @@ class m130224_182200_pre_rbac extends YDbMigration
     // @TODO: ОБЯЗАТЕЛЬНО ПРОВЕРИТЬ!!!!!!!!!
     public function safeDown()
     {
-        $db = $this->getDbConnection();
-
         $this->addColumn('{{user_user}}', 'access_level','integer NOT NULL DEFAULT "0" ');
 
-        $db->createCommand("
+        $this->getDbConnection()->createCommand("
             UPDATE {{user_user}} SET access_level=1 WHERE id IN (
                 SELECT userid  FROM {{user_user_auth_assignment}}
                 WHERE itemname='admin'
