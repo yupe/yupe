@@ -12,7 +12,9 @@ return array(
     'module'    => array(
         'class' => 'application.modules.mail.MailModule',
     ),
-    'import'    => array(),
+    'import'    => array(
+        'application.modules.mail.models.*',
+    ),
     'component' => array(
         // компонент для отправки почты
         'mail' => array(
