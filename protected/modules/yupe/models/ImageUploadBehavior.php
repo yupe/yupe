@@ -142,7 +142,9 @@ class ImageUploadBehavior extends CActiveRecordBehavior
         if (($width !== null && $image->width > $width) || ($height !== null && $image->height > $height))
             $image->resize($width, $height);
 
-        if ($image->save($newFile))
-            $this->owner->{$this->attributeName} = $imageName . '.' . $image->ext;
+	    if ($image->save($newFile)){
+		    $pathInfo = pathinfo($newFile);
+		    $this->owner->{$this->attributeName} = $pathInfo['basename'];
+	    }
     }
 }
