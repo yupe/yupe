@@ -57,13 +57,6 @@ class YCustomGridView extends TbExtendedGridView
     public $showStatusText = false;
 
     /**
-     *  default page size:
-     *  @uses init
-     *  @var integer
-     **/
-    const DEFAULT_PAGE_SIZE = 10;
-
-    /**
      * @var array Page sizes available to set for web-user.
      */
     public $pageSizes = array(5, 10, 15, 20, 50, 100);
@@ -132,17 +125,12 @@ class YCustomGridView extends TbExtendedGridView
                 // Check whether given page size is valid or use default value
                 if (in_array($pageSizeFromRequest, $this->pageSizes)) {
                     $pagination->pageSize = $pageSizeFromRequest;
-                } else {
-                    $pagination->pageSize = self::DEFAULT_PAGE_SIZE;
                 }
                 $this->_updatePageSize();
-            } else {
-                // Check for value at session or use default value
-                $pagination->pageSize =
-                    (isset(Yii::app()->session['modSettings'][strtolower($this->_modelName)]['pageSize'])
-                        ? Yii::app()->session['modSettings'][strtolower($this->_modelName)]['pageSize']
-                        : self::DEFAULT_PAGE_SIZE
-                    );
+            }
+            // Check for value at session or use default value
+            elseif(isset(Yii::app()->session['modSettings'][strtolower($this->_modelName)]['pageSize'])) {
+                $pagination->pageSize = Yii::app()->session['modSettings'][strtolower($this->_modelName)]['pageSize'];
             }
         }
     }
@@ -350,7 +338,7 @@ class YCustomGridView extends TbExtendedGridView
     });
 })();
 JS
-            , CClientScript::POS_BEGIN
+            , CClientScript::POS_READY
         );
     }
 
