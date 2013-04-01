@@ -51,7 +51,7 @@ class YMainController extends Controller
     /**
      * Функция инициализации контроллера:
      *
-     * @return nothing
+     * @return void
      **/
     public function init()
     {
@@ -66,8 +66,8 @@ class YMainController extends Controller
      * @param mixed  $properties    - параметры
      * @param bool   $captureOutput - требуется ли "захват" вывода виджета
      *
-     * @return Инстанс виджета в случае, когда $captureOutput является ложным,
-     *         или вывод виджета, когда $captureOutput - истина
+     * @return mixed Инстанс виджета в случае, когда $captureOutput является ложным,
+     * или вывод виджета, когда $captureOutput - истина
      **/
     public function widget($className, $properties = array(), $captureOutput = false)
     {
@@ -82,10 +82,10 @@ class YMainController extends Controller
                         '{module}' => $module
                     )
                 );
-                return;
+                return null;
             }
         }
-        parent::widget($className, $properties, $captureOutput);
+        return parent::widget($className, $properties, $captureOutput);
     }
 
     /**
@@ -93,7 +93,7 @@ class YMainController extends Controller
      *
      * @param string $output - буфер для вывода
      *
-     * @return function родительский вызов processOutput
+     * @return string родительский вызов processOutput
      **/
     public function processOutput($output)
     {
@@ -106,7 +106,6 @@ class YMainController extends Controller
      *
      * @since 0.5
      * @see http://allframeworks.ru/blog/Yii/371.html
-     *
      **/
     public function disableProfilers()
     {
