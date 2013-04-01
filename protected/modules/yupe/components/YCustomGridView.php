@@ -340,14 +340,17 @@ class YCustomGridView extends TbExtendedGridView
         /* Скрипт передачи PageSize: */
         $cs->registerScript(
             __CLASS__ . '#' . $this->id . 'ExHeadline',
-            'jQuery(document).ready(function($) {
-                $(document).on("mousedown", ".pageSize", function() {
-                    $("#' . $this->id . '").yiiGridView("update",{
-                        url: $(window)[0].location.href,
-                        data: "'.$this->pageSizeVarName.'=" + $(this).attr("rel")
-                    });
-                });
-            });', CClientScript::POS_BEGIN
+<<<JS
+(function(){
+    $('body').on('click', '#{$this->getId()} .pageSize', function(event) {
+        event.preventDefault();
+        $('#{$this->getId()}').yiiGridView('update',{
+            data: {'{$this->pageSizeVarName}': $(this).attr('rel')}
+        });
+    });
+})();
+JS
+            , CClientScript::POS_BEGIN
         );
     }
 
