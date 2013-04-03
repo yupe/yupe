@@ -284,4 +284,19 @@ class Post extends YModel
             self::ACCESS_PUBLIC  => Yii::t('BlogModule.blog', 'Разрешены'),
         );
     }
+
+    /**
+     * after find event:
+     *
+     * @return parent::afterFind()
+     **/
+    public function afterFind()
+    {
+        parent::afterFind();
+
+        /**
+         * Fixing publish day for UI:
+         **/
+        $this->publish_date_tmp = date('d-m-Y', $this->publish_date);
+    }
 }
