@@ -852,13 +852,18 @@ class DefaultController extends YBackController
                         'registration_date' => new CDbExpression('NOW()'),
                         'registration_ip'   => Yii::app()->request->userHostAddress,
                         'activation_ip'     => Yii::app()->request->userHostAddress,
-                        'access_level'      => User::ACCESS_LEVEL_ADMIN,
                         'status'            => User::STATUS_ACTIVE,
                         'email_confirm'     => User::EMAIL_CONFIRM_YES,
                     )
                 );
 
                 if ($user->save()) {
+
+                    $assignment = new UserAuthAssignment();
+                    $assignment->userid = $user->id;
+                    $assignment->itemname = "admin";
+                    $assignment->save(false);
+
                     $login = new LoginForm;
                     $login->email    = $model->userEmail;
                     $login->password = $model->userPassword;
