@@ -5,5 +5,3 @@
     'itemView'     => '_view',
     'template'     => "{items}\n{pager}",
 )); ?>
-
-<?php $this->widget('application.modules.social.widgets.ysc.yandex.YandexShareApi'); ?>

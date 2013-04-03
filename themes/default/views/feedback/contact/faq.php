@@ -14,10 +14,3 @@ $this->breadcrumbs = array(
                                                   'dataProvider' => $dataProvider,
                                                   'itemView' => '_view',
                                              )); ?>
-
-<div style='float:left;padding-right:5px'>
-    <?php $this->widget('application.modules.social.widgets.ysc.yandex.YandexShareApi', array(
-    'type' => 'button',
-    'services' => 'all'
-));?>
-</div>
