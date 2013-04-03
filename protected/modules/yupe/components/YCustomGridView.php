@@ -332,6 +332,8 @@ class YCustomGridView extends TbExtendedGridView
 (function(){
     $('body').on('click', '#{$this->getId()} .pageSize', function(event) {
         event.preventDefault();
+        if ($('#{$this->getId()} .items tbody tr').length < 2)
+            return false;
         $('#{$this->getId()}').yiiGridView('update',{
             data: {'{$this->pageSizeVarName}': $(this).attr('rel')}
         });
