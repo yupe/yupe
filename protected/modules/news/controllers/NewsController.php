@@ -27,15 +27,24 @@ class NewsController extends YFrontController
 
     public function actionIndex()
     {
-        $dataProvider = new CActiveDataProvider('News', array(
-            'criteria' => new CDbCriteria(array(
+        $dbCriteria = new CDbCriteria(array(
                 'condition' => 't.status = :status',
-                'params'    => array(':status' => News::STATUS_PUBLISHED),
+                'params'    => array(
+                    ':status' => News::STATUS_PUBLISHED,
+                ),
                 'limit'     => self::NEWS_PER_PAGE,
                 'order'     => 't.creation_date DESC',
                 'with'      => 'user',
-            ))
         ));
+        
+        if($this->isMultilang()){
+            $dbCriteria->mergeWith(array(
+                'condition' => 't.lang = :lang',
+                'params'    => array(':lang' => Yii::app()->language),
+            ));            
+        }
+        
+        $dataProvider = new CActiveDataProvider('News', array( 'criteria' => $dbCriteria ));
         $this->render('index', array('dataProvider' => $dataProvider));
     }
 }
