@@ -38,12 +38,6 @@ $this->breadcrumbs = array(
     </div>
 </div>
 
-<div style='float:left;padding-right:5px'>
-    <?php $this->widget('application.modules.social.widgets.ysc.yandex.YandexShareApi', array(
-        'type' => 'button',
-        'services' => 'all',
-    )); ?>
-</div>
 <br /><br />
 
 <?php $this->widget('application.modules.comment.widgets.CommentsListWidget', array('model' => $post, 'modelId' => $post->id)); ?>

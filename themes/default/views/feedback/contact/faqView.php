@@ -33,16 +33,7 @@ $this->breadcrumbs = array(
                                                     ),
                                                )); ?>
 
-
-
-<div style='float:left;padding-right:5px'>
-    <?php $this->widget('application.modules.social.widgets.ysc.yandex.YandexShareApi', array(
-    'type' => 'button',
-    'services' => 'all'
-));?>
-</div>
-
-<br/><br/><br/>
+<br/><br/>
 
 <?php $this->widget('application.modules.comment.widgets.CommentsListWidget', array('label' => 'Мнений','model' => $model, 'modelId' => $model->id)); ?>
 
