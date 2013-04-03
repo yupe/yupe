@@ -75,10 +75,7 @@ class YMainController extends Controller
             //@TODO попробовать без регулярки
             $module = preg_replace('/^application\.modules\.([^\.]*).*$/', '$1', $className);
 
-            if (Yii::app()->getModule($module) == null
-                || !Yii::app()->getModule($module)->isActive
-                || !Yii::app()->getModule($module)->isInstalled
-            ) {
+            if (Yii::app()->getModule($module) == null) {
                 echo Yii::t(
                     'YupeModule.yupe', 'Виджет "{widget}" не найден! Подключите модуль "{module}" !', array(
                         '{widget}' => $className,
