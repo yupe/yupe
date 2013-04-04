@@ -87,7 +87,7 @@ abstract class YModel extends Model
      **/
     public function cache($duration, $dependency=null, $queryCount=1)
     {
-        $this->cacheKey='yii:dbschema'.$this->getDbConnection()->connectionString.':'.$this->getDbConnection()->username;
+        $this->cacheKey = 'yii:dbschema' . $this->getDbConnection()->connectionString . ':' . $this->getDbConnection()->username;
         return parent::cache($duration, $dependency, $queryCount);
     }
 
