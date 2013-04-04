@@ -5,7 +5,7 @@ $config = array(
     'components'   => array(),
     'preload'      => array(),
     'modules'      => array('install' => array('class' => 'application.modules.install.InstallModule')),
-    'cache'        => array('class' => 'CDummyCache'),
+    'cache'        => array('class' => 'CFileCache'),
     'enableAssets' => false,
 );
 
@@ -106,7 +106,7 @@ return array(
             'langParam'      => 'language',
             'urlFormat'      => 'path',
             'showScriptName' => false, // чтобы убрать index.php из url, читаем: http://yiiframework.ru/doc/guide/ru/quickstart.apache-nginx-config
-            'cacheID'        => 'cache',
+            'cacheID'        => 'cacheUrl',
             'rules'          => CMap::mergeArray(CMap::mergeArray(array(
                 // правило переадресации инсталятора
                 '/'                                                   => 'install/default/index',
