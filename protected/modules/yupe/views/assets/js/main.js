@@ -1,5 +1,9 @@
 jQuery(document).ready(function($) {
     $('.popover-help').popover({ trigger : 'hover', delay : 500, html: true });
+    $(document).on('click', '.changeStatus', function() {
+        sendModuleStatus($(this).attr('module'), $(this).attr('status'));
+        return false;
+    });
 });
 
 function ajaxSetStatus(elem, id) {
@@ -20,3 +24,42 @@ function ajaxSetSort(elem, id) {
     });
 }
 
+function sendModuleStatus(name, status) {
+    dataArray = [
+        actionToken.token,
+        'module=' + name,
+        'status=' + status
+    ];
+
+    myDialog = bootbox.alert(actionToken.message);
+    $(myDialog).find('div.modal-footer a.btn').hide();
+    $(myDialog).find('div.modal-footer').append(actionToken.loadingimg);
+    /**
+     * Запрет на закрытие бокса:
+     **/
+    $('.modal-backdrop').unbind('click');
+    /**
+     * Запрашиваем ответ сервера:
+     **/
+    $.ajax({
+        url: actionToken.url,
+        data: dataArray.join('&'),
+        type: 'POST',
+        dataType: 'json',
+        success: function(data) {
+            if (typeof data.result != 'undefined' && typeof data.message != 'undefined' && data.result == 1 ) {
+                $(myDialog).find('.modal-body').html(data.message);
+            } else if (typeof data.result == 'undefined' || typeof data.message == 'undefined') {
+                $(myDialog).find('.modal-body').html(
+                    typeof data.message == 'undefined' ? actionToken.error : data.message
+                );
+            }
+            $(myDialog).find('div.modal-footer a.btn').show();
+            $(myDialog).find('div.modal-footer img').hide();
+            // При клике на кнопку - перегружаем страницу:
+            $(myDialog).find('div.modal-footer a.btn').click(function() {
+                location.reload();
+            });
+        }
+    });
+}
