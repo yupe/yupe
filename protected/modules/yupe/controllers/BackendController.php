@@ -2,6 +2,35 @@
 
 class BackendController extends YBackController
 {
+
+    /**
+     * Метод который выполняется перед экшеном
+     *
+     * @param class $action - екземпляр экшена
+     *
+     * @return parent::beforeAction()
+     **/
+    public function beforeAction($action)
+    {
+        Yii::app()->clientScript->registerScript(
+            'yupeToken', 'var actionToken = ' . CJSON::encode(
+                array(
+                    'token'      => Yii::app()->request->csrfTokenName . '=' . Yii::app()->request->csrfToken,
+                    'url'        => $this->createAbsoluteUrl('backend/modulestatus'),
+                    'message'    => Yii::t('YupeModule.yupe', 'Подождите, идёт обработка вашего запроса'),
+                    'error'      => Yii::t('YupeModule.yupe', 'Во время обработки вашего запроса произошла неизвестная ошибка'),
+                    'loadingimg' => CHtml::image(
+                        '/web/booster-install/assets/img/progressbar.gif', '', array(
+                            'style' => 'width: 100%; height: 20px;',
+                        )
+                    ),
+                )
+            ), CClientScript::POS_BEGIN
+        );
+
+        return parent::beforeAction($action);
+    }
+
     public function actionIndex()
     {
         $this->render('index', $this->yupe->getModules(false, true));
@@ -351,5 +380,100 @@ class BackendController extends YBackController
     public function actionHelp()
     {
         $this->render('help');
+    }
+
+    /**
+     * Действие для управления модулями:
+     *
+     * @return string json-data
+     **/
+    public function actionModulestatus()
+    {
+        /**
+         * Если это не POST-запрос - посылаем лесом:
+         **/
+        if (!Yii::app()->request->isPostRequest || !Yii::app()->request->isAjaxRequest)
+            throw new CHttpException(404, Yii::t('YupeModule.yupe', 'Страница не найдена!'));
+
+        /**
+         * Получаем название модуля и проверяем,
+         * возможно модуль необходимо подгрузить
+         **/
+        if (($name = Yii::app()->request->getPost('module'))
+            && ($status = Yii::app()->request->getPost('status')) !== null
+            && ($module = Yii::app()->getModule($name)) === null
+            && $name != 'install'
+        )
+            $module = $this->yupe->getCreateModule($name);
+        /**
+         * Если статус неизвестен - ошибка:
+         **/
+        elseif (!isset($status) || !in_array($status, array(0, 1)))
+            die(
+                CJSON::encode(
+                    array(
+                        'result' => '0',
+                        'message' => Yii::t('YupeModule.yupe', 'Не указан статус для обработки!')
+                    )
+                )
+            );
+
+        /**
+         * Если всё в порядке - выполняем нужное действие:
+         **/
+        if (isset($module) && !empty($module)) {
+            try {
+                switch ($status) {
+                case 0:
+                    if ($module->isActive) {
+                        $module->deActivate;
+                        $message = Yii::t('YupeModule.yupe', 'Модуль успешно отключен!');
+                    } else {
+                        $module->unInstall;
+                        $message = Yii::t('YupeModule.yupe', 'Модуль успешно деинсталлирован!');
+                    }
+                    break;
+                
+                case 1:
+                    if ($module->isInstalled) {
+                        $module->activate;
+                        $message = Yii::t('YupeModule.yupe', 'Модуль успешно включен!');
+                    } else {
+                        $module->install;
+                        $message = Yii::t('YupeModule.yupe', 'Модуль успешно установлен!');
+                    }
+                    break;
+                }
+                $result = 1;
+                Yii::app()->cache->flush();
+            } catch(Exception $e) {
+                $result = 0;
+                $message = $e->getMessage();
+            }
+
+            /**
+             * Возвращаем ответ:
+             **/
+            die(
+                CJSON::encode(
+                    array(
+                        'result'  => $result,
+                        'message' => $message
+                    )
+                )
+            );
+
+        } else
+        /**
+         * Иначе возвращаем ошибку:
+         **/
+            die(
+                CJSON::encode(
+                    array(
+                        'result' => '0',
+                        'message' => Yii::t('YupeModule.yupe', 'Модуль не найден или его включение запрещено!')
+                    )
+                )
+            );
     }
 }

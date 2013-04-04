@@ -142,14 +142,19 @@ function moduleRow($module, &$updates, &$modules, &$controller)
             <?php endif; ?>
             <?php
                 $url = array('/yupe/backend/modulechange/', 'name' => $module->id);
+                $htmlOptions = array(
+                    'class'  => 'changeStatus',
+                    'module' => $module->id,
+                );
+
                 echo $module->isNoDisable ? '<br />' :
                     ($module->isInstalled
                         ? ($module->isActive
-                            ? CHtml::link('<i class="icon-minus-sign" rel="tooltip" title="' . Yii::t('YupeModule.yupe', 'Выключить') . '">&nbsp;</i>', $url + array('status' => '0'))
-                            : CHtml::link('<i class="icon-ok-sign" rel="tooltip" title="' . Yii::t('YupeModule.yupe', 'Включить') . '">&nbsp;</i>', $url + array('status' => '1')) .
-                              CHtml::link('<i class="icon-remove" rel="tooltip" title="' . Yii::t('YupeModule.yupe', 'Деинсталлировать') . '">&nbsp;</i>', $url + array('status' => '0'))
+                            ? CHtml::link('<i class="icon-minus-sign" rel="tooltip" title="' . Yii::t('YupeModule.yupe', 'Выключить') . '">&nbsp;</i>', $url + array('status' => '0'), array_merge($htmlOptions, array('status' => 0)))
+                            : CHtml::link('<i class="icon-ok-sign" rel="tooltip" title="' . Yii::t('YupeModule.yupe', 'Включить') . '">&nbsp;</i>', $url + array('status' => '1'), array_merge($htmlOptions, array('status' => 1))) .
+                              CHtml::link('<i class="icon-remove" rel="tooltip" title="' . Yii::t('YupeModule.yupe', 'Деинсталлировать') . '">&nbsp;</i>', $url + array('status' => '0'), array_merge($htmlOptions, array('status' => 0)))
                         )
-                        : CHtml::link('<i class="icon-download-alt" rel="tooltip" title="' . Yii::t('YupeModule.yupe', 'Установить') . '">&nbsp;</i>', $url + array('status' => '1'))
+                        : CHtml::link('<i class="icon-download-alt" rel="tooltip" title="' . Yii::t('YupeModule.yupe', 'Установить') . '">&nbsp;</i>', $url + array('status' => '1'), array_merge($htmlOptions, array('status' => 1)))
                     );
 
                 if (isset($updates[$module->id]) && $module->isInstalled)
