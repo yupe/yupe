@@ -7,5 +7,3 @@
 <p><a href='http://yupe.ru/site/page/view/help/?from=mainpage'>Желаете помочь проекту ?</a></p>
 
 <p><b>По вопросам коммерческой поддержки - <a href='http://yupe.ru/feedback/index/?from=mainpage'>напишите нам</a>!</b></p>
-
-<?php $this->widget('application.modules.social.widgets.ysc.yandex.YandexShareApi'); ?>

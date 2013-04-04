@@ -11,10 +11,3 @@
 foreach($posts as $post)
     $this->renderPartial('_view', array('data' => $post));
 ?>
-
-<div style="float:left;padding-right:5px">
-    <?php $this->widget('application.modules.social.widgets.ysc.yandex.YandexShareApi', array(
-        'type' => 'button',
-        'services' => 'all',
-    )); ?>
-</div>

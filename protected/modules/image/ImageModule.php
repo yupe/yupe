@@ -6,7 +6,7 @@ class ImageModule extends YWebModule
     public $documentRoot;
     public $allowedExtensions = 'jpg,jpeg,png,gif';
     public $minSize           = 0;
-    public $maxSize           = 5000;
+    public $maxSize           = 5242880 /* 5 MB */;
     public $maxFiles          = 1;
     public $types;
 
