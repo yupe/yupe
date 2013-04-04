@@ -392,7 +392,7 @@ class BackendController extends YBackController
         /**
          * Если это не POST-запрос - посылаем лесом:
          **/
-        if (!Yii::app()->request->isPostRequest)
+        if (!Yii::app()->request->isPostRequest || !Yii::app()->request->isAjaxRequest)
             throw new CHttpException(404, Yii::t('YupeModule.yupe', 'Страница не найдена!'));
 
         /**

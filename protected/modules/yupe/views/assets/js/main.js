@@ -46,10 +46,25 @@ function sendModuleStatus(name, status) {
         data: dataArray.join('&'),
         type: 'POST',
         dataType: 'json',
+        error: function(data) {
+            if (typeof data.result != 'undefined' && typeof data.message != 'undefined' && data.result == 1 ) {
+                $(myDialog).find('.modal-body').html(data.message);
+            } else {
+                $(myDialog).find('.modal-body').html(
+                    typeof data.message == 'undefined' ? actionToken.error : data.message
+                );
+            }
+            $(myDialog).find('div.modal-footer a.btn').show();
+            $(myDialog).find('div.modal-footer img').hide();
+            // При клике на кнопку - перегружаем страницу:
+            $(myDialog).find('div.modal-footer a.btn').click(function() {
+                location.reload();
+            });
+        },
         success: function(data) {
             if (typeof data.result != 'undefined' && typeof data.message != 'undefined' && data.result == 1 ) {
                 $(myDialog).find('.modal-body').html(data.message);
-            } else if (typeof data.result == 'undefined' || typeof data.message == 'undefined') {
+            } else {
                 $(myDialog).find('.modal-body').html(
                     typeof data.message == 'undefined' ? actionToken.error : data.message
                 );
