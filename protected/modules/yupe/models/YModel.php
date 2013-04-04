@@ -78,6 +78,7 @@ abstract class YModel extends Model
 
     /**
      * Переопределение фунеции кэширования
+     * 
      *
      * @param integer          $duration   - the number of seconds that query results may remain valid in cache. If this is 0, the caching will be disabled.
      * @param CCacheDependency $dependency - the dependency that will be used when saving the query results into cache
