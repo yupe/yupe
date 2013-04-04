@@ -47,11 +47,11 @@ function sendModuleStatus(name, status) {
         type: 'POST',
         dataType: 'json',
         error: function(data) {
-            if (typeof data.result != 'undefined' && typeof data.message != 'undefined' && data.result == 1 ) {
-                $(myDialog).find('.modal-body').html(data.message);
+            if (typeof data.result != 'undefined' && typeof data.data != 'undefined' && data.result === true ) {
+                $(myDialog).find('.modal-body').html(data.data);
             } else {
                 $(myDialog).find('.modal-body').html(
-                    typeof data.message == 'undefined' ? actionToken.error : data.message
+                    typeof data.data == 'undefined' ? actionToken.error : data.data
                 );
             }
             $(myDialog).find('div.modal-footer a.btn').show();
@@ -62,11 +62,11 @@ function sendModuleStatus(name, status) {
             });
         },
         success: function(data) {
-            if (typeof data.result != 'undefined' && typeof data.message != 'undefined' && data.result == 1 ) {
-                $(myDialog).find('.modal-body').html(data.message);
+            if (typeof data.result != 'undefined' && typeof data.data != 'undefined' && data.result === true ) {
+                $(myDialog).find('.modal-body').html(data.data);
             } else {
                 $(myDialog).find('.modal-body').html(
-                    typeof data.message == 'undefined' ? actionToken.error : data.message
+                    typeof data.data == 'undefined' ? actionToken.error : data.data
                 );
             }
             $(myDialog).find('div.modal-footer a.btn').show();
