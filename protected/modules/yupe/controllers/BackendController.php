@@ -29,11 +29,14 @@ class BackendController extends YBackController
                         'no'     => Yii::t('YupeModule.yupe', 'Отмена'),
                     ),
                     'messages'   => array(
-                        'confirm_deactivate' => Yii::t('YupeModule.yupe', 'Вы уверены, что хотите отключить модуль?'),
-                        'confirm_activate'   => Yii::t('YupeModule.yupe', 'Вы уверены, что хотите включить модуль?'),
-                        'confirm_uninstall'  => Yii::t('YupeModule.yupe', 'Вы уверены, что хотите удалить модуль?') . '<br />' . Yii::t('YupeModule.yupe', 'Все данные модуля буду удалены.'),
-                        'confirm_install'    => Yii::t('YupeModule.yupe', 'Вы уверены, что хотите установить модуль?') . '<br />' . Yii::t('YupeModule.yupe', 'Будут добавлены новые данные для работы модуля.'),
-                        'unknown'            => Yii::t('YupeModule.yupe', 'Выбрано неизвестное действие.'),
+                        'confirm_deactivate'       => Yii::t('YupeModule.yupe', 'Вы уверены, что хотите отключить модуль?'),
+                        'confirm_activate'         => Yii::t('YupeModule.yupe', 'Вы уверены, что хотите включить модуль?'),
+                        'confirm_uninstall'        => Yii::t('YupeModule.yupe', 'Вы уверены, что хотите удалить модуль?') . '<br />' . Yii::t('YupeModule.yupe', 'Все данные модуля буду удалены.'),
+                        'confirm_install'          => Yii::t('YupeModule.yupe', 'Вы уверены, что хотите установить модуль?') . '<br />' . Yii::t('YupeModule.yupe', 'Будут добавлены новые данные для работы модуля.'),
+                        'confirm_cacheFlush'       => Yii::t('YupeModule.yupe', 'Вы уверены, что хотите удалить весь кеш?'),
+                        'confirm_assetsFlush'      => Yii::t('YupeModule.yupe', 'Вы уверены, что хотите удалить все ресурсы (assets)?'),
+                        'confirm_cacheAssetsFlush' => Yii::t('YupeModule.yupe', 'Вы уверены, что хотите удалить весь кеш и все ресурсы (assets)?') . '<br />' . Yii::t('YupeModule.yupe', 'Стоит учесть, что это трудоёмкий процесс и может занять некоторое время!'),
+                        'unknown'                  => Yii::t('YupeModule.yupe', 'Выбрано неизвестное действие.'),
                     )
                 )
             ), CClientScript::POS_BEGIN
@@ -467,5 +470,95 @@ class BackendController extends YBackController
          * Иначе возвращаем ошибку:
          **/
             Yii::app()->ajax->failure(Yii::t('YupeModule.yupe', 'Модуль не найден или его включение запрещено!'));
+    }
+
+    /**
+     * Метод очистки ресурсов (assets)
+     *
+     * @return boolean
+     **/
+    private function _cleanAssets()
+    {
+        try {
+            $dirsList = glob(Yii::app()->assetManager->getBasePath() . DIRECTORY_SEPARATOR . '*', GLOB_ONLYDIR);
+            if (is_array($dirsList)) {
+                foreach ($dirsList as $item) {
+                    YFile::rmDir($item);
+                }
+            }
+            return true;
+        } catch(Exception $e) {
+            Yii::app()->ajax->failure(
+                $e->getMessage()
+            );
+        }
+    }
+
+    /**
+     * Ajax-метод для очистки кеша и ресурсов (assets)
+     *
+     * @return void
+     **/
+    public function actionAjaxflush()
+    {
+        /**
+         * Если это не POST-запрос - посылаем лесом:
+         **/
+        if (!Yii::app()->request->isPostRequest
+            || !Yii::app()->request->isAjaxRequest
+            || ($method = Yii::app()->request->getPost('method')) === null
+        )
+            throw new CHttpException(404, Yii::t('YupeModule.yupe', 'Страница не найдена!'));
+
+        switch ($method) {
+        /**
+         * Очистка только кеша:
+         **/
+        case 'cacheFlush':
+            try {
+                Yii::app()->cache->flush();
+                Yii::app()->ajax->success(
+                    Yii::t('YupeModule.yupe', 'Очистка кеша успешно завершена!')
+                );
+            } catch(Exception $e) {
+                Yii::app()->ajax->failure(
+                    $e->getMessage()
+                );
+            }
+            break;
+        /**
+         * Очистка только ресурсов:
+         **/
+        case 'assetsFlush':
+            if ($this->_cleanAssets()) {
+                Yii::app()->ajax->success(
+                    Yii::t('YupeModule.yupe', 'Очистка ресурсов успешно завершена!')
+                );
+            }
+            break;
+        /**
+         * Очистка ресурсов и кеша:
+         **/
+        case 'cacheAssetsFlush':
+            try {
+                Yii::app()->cache->flush();
+                if ($this->_cleanAssets()) {
+                    Yii::app()->ajax->success(
+                        Yii::t('YupeModule.yupe', 'Очистка ресурсов и кеша успешно завершена!')
+                    );
+                }
+            } catch(Exception $e) {
+                Yii::app()->ajax->failure(
+                    $e->getMessage()
+                );
+            }
+            break;
+        /**
+         * Использован неизвестный системе метод:
+         **/
+        default:
+            Yii::app()->ajax->failure(Yii::t('YupeModule.yupe', 'Использован неизвестный системе метод!'));
+            break;
+        }
     }
 }
