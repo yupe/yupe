@@ -409,14 +409,7 @@ class BackendController extends YBackController
          * Если статус неизвестен - ошибка:
          **/
         elseif (!isset($status) || !in_array($status, array(0, 1)))
-            die(
-                CJSON::encode(
-                    array(
-                        'result' => '0',
-                        'message' => Yii::t('YupeModule.yupe', 'Не указан статус для обработки!')
-                    )
-                )
-            );
+            Yii::app()->ajax->failure(Yii::t('YupeModule.yupe', 'Не указан статус для обработки!'));
 
         /**
          * Если всё в порядке - выполняем нужное действие:
@@ -454,26 +447,14 @@ class BackendController extends YBackController
             /**
              * Возвращаем ответ:
              **/
-            die(
-                CJSON::encode(
-                    array(
-                        'result'  => $result,
-                        'message' => $message
-                    )
-                )
-            );
+            $result == 1
+                ? Yii::app()->ajax->success($message)
+                : Yii::app()->ajax->failure($message);
 
         } else
         /**
          * Иначе возвращаем ошибку:
          **/
-            die(
-                CJSON::encode(
-                    array(
-                        'result' => '0',
-                        'message' => Yii::t('YupeModule.yupe', 'Модуль не найден или его включение запрещено!')
-                    )
-                )
-            );
+            Yii::app()->ajax->failure(Yii::t('YupeModule.yupe', 'Модуль не найден или его включение запрещено!'));
     }
 }
