@@ -13,7 +13,7 @@ class BackendController extends YBackController
     public function beforeAction($action)
     {
         Yii::app()->clientScript->registerScript(
-            'yupeToken', 'var actionToken = ' . CJSON::encode(
+            'yupeToken', 'var actionToken = ' . json_encode(
                 array(
                     'token'      => Yii::app()->request->csrfTokenName . '=' . Yii::app()->request->csrfToken,
                     'url'        => $this->createAbsoluteUrl('backend/modulestatus'),
@@ -24,6 +24,17 @@ class BackendController extends YBackController
                             'style' => 'width: 100%; height: 20px;',
                         )
                     ),
+                    'buttons'    => array(
+                        'yes'    => Yii::t('YupeModule.yupe', 'Да'),
+                        'no'     => Yii::t('YupeModule.yupe', 'Отмена'),
+                    ),
+                    'messages'   => array(
+                        'confirm_deactivate' => Yii::t('YupeModule.yupe', 'Вы уверены, что хотите отключить модуль?'),
+                        'confirm_activate'   => Yii::t('YupeModule.yupe', 'Вы уверены, что хотите включить модуль?'),
+                        'confirm_uninstall'  => Yii::t('YupeModule.yupe', 'Вы уверены, что хотите удалить модуль?') . '<br />' . Yii::t('YupeModule.yupe', 'Все данные модуля буду удалены.'),
+                        'confirm_install'    => Yii::t('YupeModule.yupe', 'Вы уверены, что хотите установить модуль?') . '<br />' . Yii::t('YupeModule.yupe', 'Будут добавлены новые данные для работы модуля.'),
+                        'unknown'            => Yii::t('YupeModule.yupe', 'Выбрано неизвестное действие.'),
+                    )
                 )
             ), CClientScript::POS_BEGIN
         );

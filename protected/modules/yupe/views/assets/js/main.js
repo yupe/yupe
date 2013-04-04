@@ -1,7 +1,15 @@
 jQuery(document).ready(function($) {
     $('.popover-help').popover({ trigger : 'hover', delay : 500, html: true });
     $(document).on('click', '.changeStatus', function() {
-        sendModuleStatus($(this).attr('module'), $(this).attr('status'));
+        if ((link = this) === undefined || (method = $(this).attr('method')) === undefined || (message = actionToken.messages['confirm_' + method]) === undefined)
+            bootbox.confirm(actionToken.messages['unknown']);
+        else {
+            bootbox.confirm(message, actionToken.buttons['no'], actionToken.buttons['yes'], function(result) {
+                if (result) {
+                    sendModuleStatus($(link).attr('module'), $(link).attr('status'));
+                }
+            });
+        }
         return false;
     });
 });
