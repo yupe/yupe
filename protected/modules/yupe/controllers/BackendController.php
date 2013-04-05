@@ -45,11 +45,21 @@ class BackendController extends YBackController
         return parent::beforeAction($action);
     }
 
+    /**
+     * Экшен главной страницы панели управления:
+     *
+     * @return void
+     **/
     public function actionIndex()
     {
         $this->render('index', $this->yupe->getModules(false, true));
     }
 
+    /**
+     * Экшен настройки модулей (список):
+     *
+     * @return void
+     **/
     public function actionSettings()
     {
         $this->render('settings', $this->yupe->getModules(false, true));
