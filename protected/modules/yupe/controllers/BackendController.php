@@ -329,35 +329,38 @@ class BackendController extends YBackController
      * @since 0.4
      *
      * Подробнее http://imperavi.com/redactor/docs/images/
+     *
+     * @return void
      */
     public function actionAjaxFileUpload()
     {
-        if (!empty($_FILES['file']['name']))
-        {
+        if (!empty($_FILES['file']['name'])) {
             $rename     = (bool) Yii::app()->request->getQuery('rename', true);
             $webPath    = '/' . $this->yupe->uploadPath . '/' . date('dmY') . '/';
             $uploadPath = Yii::getPathOfAlias('webroot') . $webPath;
 
-            if (!is_dir($uploadPath))
-            {
+            if (!is_dir($uploadPath)) {
                 if (!@mkdir($uploadPath))
                     Yii::app()->ajax->rawText(Yii::t('YupeModule.yupe', 'Не удалось создать каталог "{dir}" для файлов!', array('{dir}' => $uploadPath)));
             }
 
             $file = CUploadedFile::getInstanceByName('file');
 
-            if ($file)
-            {
+            if ($file) {
                 //сгенерировать имя файла и сохранить его
                 $newFileName = $rename ? md5(time() . uniqid() . $file->name) . '.' . $file->extensionName : $file->name;
 
                 if (!$file->saveAs($uploadPath . $newFileName))
                     Yii::app()->ajax->rawText(Yii::t('YupeModule.yupe', 'При загрузке произошла ошибка!'));
 
-                Yii::app()->ajax->rawText(CJSON::encode(array(
-                    'filelink' => Yii::app()->baseUrl . $webPath . $newFileName,
-                    'filename' => $file->name
-                )));
+                Yii::app()->ajax->rawText(
+                    json_encode(
+                        array(
+                            'filelink' => Yii::app()->baseUrl . $webPath . $newFileName,
+                            'filename' => $file->name
+                        )
+                    )
+                );
             }
         }
         Yii::app()->ajax->rawText(Yii::t('YupeModule.yupe', 'При загрузке произошла ошибка!'));
