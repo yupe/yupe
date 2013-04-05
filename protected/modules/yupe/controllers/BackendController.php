@@ -118,31 +118,38 @@ class BackendController extends YBackController
         ));
     }
 
+    /**
+     * Экшен сохранения настроек модуля:
+     *
+     * @return void
+     **/
     public function actionSaveModulesettings()
     {
-        if (Yii::app()->request->isPostRequest)
-        {
+        if (Yii::app()->request->isPostRequest) {
             if (!($moduleId = Yii::app()->request->getPost('module_id')))
                 throw new CHttpException(404, Yii::t('YupeModule.yupe', 'Страница не найдена!'));
 
             if (!($module = Yii::app()->getModule($moduleId)))
                 throw new CHttpException(404, Yii::t('YupeModule.yupe', 'Модуль "{module}" не найден!', array('{module}' => $moduleId)));
 
-           if (!$this->saveParamsSetting($moduleId, $module->editableParamsKey))
-           {
+            if (!$this->saveParamsSetting($moduleId, $module->editableParamsKey)) {
                 Yii::app()->user->setFlash(
                     YFlashMessages::NOTICE_MESSAGE,
-                    Yii::t('YupeModule.yupe', 'Настройки модуля "{module}" сохранены!', array('{module}' => $module->getName())
-                ));
+                    Yii::t(
+                        'YupeModule.yupe', 'Настройки модуля "{module}" сохранены!', array(
+                            '{module}' => $module->getName()
+                        )
+                    )
+                );
 
                 //@TODO исправить очистку кэша
                 Yii::app()->cache->flush();
-            }
-            else
+            } else {
                 Yii::app()->user->setFlash(
                     YFlashMessages::ERROR_MESSAGE,
                     Yii::t('YupeModule.yupe', 'При сохранении произошла ошибка!')
                 );
+            }
             $this->redirect(array('/yupe/backend/modulesettings', 'module' => $moduleId));
         }
         throw new CHttpException(404, Yii::t('YupeModule.yupe', 'Страница не найдена!'));
