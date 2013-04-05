@@ -187,33 +187,38 @@ class BackendController extends YBackController
          ));
     }
 
+    /**
+     * Метода сохранения настроек модуля:
+     *
+     * @param string $moduleId - идетификтор метода
+     * @param array  $params   - массив настроек
+     *
+     * @return bool
+     **/
     public function saveParamsSetting($moduleId, $params)
     {
         $settings = Settings::model()->fetchModuleSettings($moduleId, $params);
 
-        foreach ($params as $p)
-        {
+        foreach ($params as $p) {
             $pval = Yii::app()->request->getPost($p);
             // Если параметр уже был - обновим, иначе надо создать новый
-            if (isset($settings[$p]))
-            {
+            if (isset($settings[$p])) {
                 // Если действительно изменили настройку
-                if ($settings[$p]->param_value != $pval)
-                {
+                if ($settings[$p]->param_value != $pval) {
                     $settings[$p]->param_value = $pval;
                     if (!$settings[$p]->save())
                         return true;
                 }
-            }
-            else
-            {
+            } else {
                 $settings[$p] = new Settings;
 
-                $settings[$p]->setAttributes(array(
-                    'module_id'   => $moduleId,
-                    'param_name'  => $p,
-                    'param_value' => $pval,
-                ));
+                $settings[$p]->setAttributes(
+                    array(
+                        'module_id'   => $moduleId,
+                        'param_name'  => $p,
+                        'param_value' => $pval,
+                    )
+                );
 
                 if (!$settings[$p]->save())
                     return true;
