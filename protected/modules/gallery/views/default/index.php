@@ -1,16 +1,26 @@
 <?php
-    $this->breadcrumbs = array(
-        Yii::app()->getModule('gallery')->getCategory() => array(),
-        Yii::t('GalleryModule.gallery', 'Галереи') => array('/gallery/default/index'),
-        Yii::t('GalleryModule.gallery', 'Управление'),
-    );
+/**
+ * Отображение для default/index:
+ * 
+ *   @category YupeView
+ *   @package  YupeCMS
+ *   @author   Yupe Team <team@yupe.ru>
+ *   @license  https://github.com/yupe/yupe/blob/master/LICENSE BSD
+ *   @link     http://yupe.ru
+ **/
 
-    $this->pageTitle = Yii::t('GalleryModule.gallery', 'Галереи - управление');
+$this->breadcrumbs = array(
+    Yii::app()->getModule('gallery')->getCategory() => array(),
+    Yii::t('GalleryModule.gallery', 'Галереи') => array('/gallery/default/index'),
+    Yii::t('GalleryModule.gallery', 'Управление'),
+);
 
-    $this->menu = array(
-        array('icon' => 'list-alt', 'label' => Yii::t('GalleryModule.gallery', 'Управление галереями'), 'url' => array('/gallery/default/index')),
-        array('icon' => 'plus-sign', 'label' => Yii::t('GalleryModule.gallery', 'Добавить галерею'), 'url' => array('/gallery/default/create')),
-    );
+$this->pageTitle = Yii::t('GalleryModule.gallery', 'Галереи - управление');
+
+$this->menu = array(
+    array('icon' => 'list-alt', 'label' => Yii::t('GalleryModule.gallery', 'Управление галереями'), 'url' => array('/gallery/default/index')),
+    array('icon' => 'plus-sign', 'label' => Yii::t('GalleryModule.gallery', 'Добавить галерею'), 'url' => array('/gallery/default/create')),
+);
 ?>
 <div class="page-header">
     <h1>
@@ -27,14 +37,15 @@
 
 <div id="search-toggle" class="collapse out search-form">
 <?php
-Yii::app()->clientScript->registerScript('search', "
+Yii::app()->clientScript->registerScript(
+    'search', "
     $('.search-form form').submit(function() {
         $.fn.yiiGridView.update('gallery-grid', {
             data: $(this).serialize()
         });
         return false;
-    });
-");
+    });"
+);
 $this->renderPartial('_search', array('model' => $model));
 ?>
 </div>
@@ -43,21 +54,26 @@ $this->renderPartial('_search', array('model' => $model));
 
 <p><?php echo Yii::t('GalleryModule.gallery', 'В данном разделе представлены средства управления галереями'); ?></p>
 
-<?php $this->widget('application.modules.yupe.components.YCustomGridView', array(
-    'id'           => 'gallery-grid',
-    'type'         => 'condensed',
-    'dataProvider' => $model->search(),
-    'filter'       => $model,
-    'columns'      => array(
-        'id',
-        'name',
-        'description',
-        array(
-            'name'  => 'status',
-            'value' => '$data->getStatus()'
+<?php $this->widget(
+    'application.modules.yupe.components.YCustomGridView', array(
+        'id'           => 'gallery-grid',
+        'type'         => 'condensed',
+        'dataProvider' => $model->search(),
+        'filter'       => $model,
+        'columns'      => array(
+            'id',
+            'name',
+            array(
+                'type' => 'html',
+                'name'  => 'description',
+            ),
+            array(
+                'name'  => 'status',
+                'value' => '$data->getStatus()'
+            ),
+            array(
+                'class' => 'bootstrap.widgets.TbButtonColumn',
+            ),
         ),
-        array(
-            'class' => 'bootstrap.widgets.TbButtonColumn',
-        ),
-    ),
-)); ?>
+    )
+); ?>
