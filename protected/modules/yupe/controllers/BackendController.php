@@ -148,12 +148,15 @@ class BackendController extends YBackController
         throw new CHttpException(404, Yii::t('YupeModule.yupe', 'Страница не найдена!'));
     }
 
+    /**
+     * Экшен настроек темы:
+     *
+     * @return void
+     **/
     public function actionThemesettings()
     {
-        if (Yii::app()->request->isPostRequest)
-        {
-            if (!$this->saveParamsSetting($this->yupe->coreModuleId, array('theme', 'backendTheme')))
-            {
+        if (Yii::app()->request->isPostRequest) {
+            if (!$this->saveParamsSetting($this->yupe->coreModuleId, array('theme', 'backendTheme'))) {
                 Yii::app()->user->setFlash(
                     YFlashMessages::NOTICE_MESSAGE,
                     Yii::t('YupeModule.yupe', 'Настройки тем сохранены!')
@@ -179,12 +182,14 @@ class BackendController extends YBackController
             ? $settings['backendTheme']->param_value
             : $noThemeValue;
 
-        $this->render('themesettings', array(
-            'themes'        => $this->yupe->getThemes(),
-            'theme'         => $theme,
-            'backendThemes' => $this->yupe->getThemes(true),
-            'backendTheme'  => $backendTheme,
-         ));
+        $this->render(
+            'themesettings', array(
+                'themes'        => $this->yupe->getThemes(),
+                'theme'         => $theme,
+                'backendThemes' => $this->yupe->getThemes(true),
+                'backendTheme'  => $backendTheme,
+            )
+        );
     }
 
     /**
