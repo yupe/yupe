@@ -364,28 +364,6 @@ class BackendController extends YBackController
     }
 
     /**
-     * Очистка кэша сайта
-     *
-     * @since 0.4
-     *
-     */
-    public function actionCacheflush()
-    {
-        Yii::app()->cache->flush();
-        $dirsList = glob(Yii::app()->assetManager->getBasePath() . DIRECTORY_SEPARATOR . '*', GLOB_ONLYDIR);
-        if (is_array($dirsList)) {
-            foreach ($dirsList as $item) {
-                YFile::rmDir($item);
-            }
-        }
-        Yii::app()->user->setFlash(
-            YFlashMessages::NOTICE_MESSAGE,
-            Yii::t('YupeModule.yupe', 'Кэш успешно сброшен!')
-        );
-        $this->redirect(Yii::app()->request->urlReferrer !== null ? Yii::app()->request->urlReferrer : array("/yupe/backend"));
-    }
-
-    /**
      * Страничка для отображения ссылок на ресурсы для получения помощи
      *
      * @since 0.4
