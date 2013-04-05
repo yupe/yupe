@@ -289,7 +289,40 @@ class YupeModule extends YWebModule
     public function getNavigation()
     {
         return array(
-            array('icon' => 'trash', 'label' => Yii::t('YupeModule.yupe', 'Очистить кеш'), 'url' => array('/yupe/backend/cacheflush')),
+            array(
+                'label' => Yii::t('YupeModule.yupe', 'Очистить кеш'),
+                'url'   => 'javascript::void();',
+                'icon'  => 'th-large',
+                'items' => array(
+                    array(
+                        'icon'        => 'trash',
+                        'label'       => Yii::t('YupeModule.yupe', 'Очистить кеш'),
+                        'url'         => array('/yupe/backend/ajaxflush', 'method' => 1),
+                        'linkOptions' => array(
+                            'class'   => 'flushAction',
+                            'method'  => 'cacheFlush',
+                        )
+                    ),
+                    array(
+                        'icon'        => 'trash',
+                        'label'       => Yii::t('YupeModule.yupe', 'Очистить ресурсы (assets)'),
+                        'url'         => array('/yupe/backend/ajaxflush', 'method' => 2),
+                        'linkOptions' => array(
+                            'class'   => 'flushAction',
+                            'method'  => 'assetsFlush',
+                        )
+                    ),
+                    array(
+                        'icon'        => 'trash',
+                        'label'       => Yii::t('YupeModule.yupe', 'Очистить кеш и ресурсы (assets)'),
+                        'url'         => array('/yupe/backend/ajaxflush', 'method' => 3),
+                        'linkOptions' => array(
+                            'class'   => 'flushAction',
+                            'method'  => 'cacheAssetsFlush',
+                        )
+                    ),
+                )
+            ),
             array('icon' => 'picture', 'label' => Yii::t('YupeModule.yupe', 'Оформление'), 'url' => array('/yupe/backend/themesettings')),
             array('icon' => 'exclamation-sign', 'label' => Yii::t('YupeModule.yupe', 'Помощь'), 'url' => array('/yupe/backend/help')),
             array('icon' => 'wrench', 'label' => Yii::t('YupeModule.yupe', 'Параметры сайта'), 'url' => array('/yupe/backend/modulesettings', 'module' => 'yupe')),
