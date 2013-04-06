@@ -11,7 +11,7 @@ class YBackController extends YMainController
      *
      * @return parent::beforeAction()
      **/
-    public function beforeAction($action)
+    protected function beforeAction($action)
     {
         Yii::app()->clientScript->registerScript(
             'yupeToken', 'var actionToken = ' . json_encode(
