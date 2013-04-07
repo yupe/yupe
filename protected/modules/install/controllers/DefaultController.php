@@ -625,6 +625,7 @@ class DefaultController extends YBackController
                 catch (Exception $e)
                 {
                     $form->addError('', Yii::t('InstallModule.install', 'С указанными параметрами подключение к БД не удалось выполнить!') . '<br />' . $connectionString . '<br />' . $e->getMessage());
+                    Yii::log($e->__toString(), CLogger::LEVEL_ERROR);
                     Yii::log($e->getTraceAsString(), CLogger::LEVEL_ERROR);
                 }
             }
