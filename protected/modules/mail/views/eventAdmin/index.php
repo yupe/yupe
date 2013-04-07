@@ -86,7 +86,13 @@ $this->widget(
                 'type'   => 'raw',
                 'value'  => 'CHtml::link(count($data->templates), array("/mail/templateAdmin/index/", "event" => $data->id))',
             ),
-            'description',
+            array(
+                'header'      => $model->getAttributeLabel('description'),
+                'value'       => '$data->shortDescription;',
+                'htmlOptions' => array(
+                    'style'   => 'width: 20%;'
+                ),
+            ),
             array(
                 'class'    => 'bootstrap.widgets.TbButtonColumn',
                 'template' => '{view}{update}{delete}{add}',
