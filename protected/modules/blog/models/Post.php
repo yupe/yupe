@@ -292,11 +292,13 @@ class Post extends YModel
      **/
     public function afterFind()
     {
-        parent::afterFind();
 
         /**
-         * Fixing publish day for UI:
+         * Fixing publish date for UI:
          **/
         $this->publish_date_tmp = date('d-m-Y', $this->publish_date);
+        $this->publish_time_tmp = date('h:i', $this->publish_date);
+
+        return parent::afterFind();
     }
 }

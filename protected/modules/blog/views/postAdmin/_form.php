@@ -56,6 +56,7 @@ $form = $this->beginWidget(
             ); ?>
         </div>
         <div class="span3">
+
             <?php
             echo $form->timepickerRow(
                 $model, 'publish_time_tmp', array(
@@ -63,8 +64,6 @@ $form = $this->beginWidget(
                     'options' => array(
                         'showMeridian' => false,
                         'showSeconds'  => false,
-                        'defaultTime'  => 'current',
-                        'showInputs'   => true,
                     ),
                     'class'   => 'span11',
                 )
