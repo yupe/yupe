@@ -423,6 +423,13 @@ class DefaultController extends YBackController
                  <a href="http://www.yiiframework.com/doc/api/CWebServiceAction">CWebServiceAction</a>',
                 Yii::t('InstallModule.install', '<b>Необязательно</b>.'),
             ),
+             array(
+                Yii::t('InstallModule.install', 'Расширение mbstring'),
+                true,
+                extension_loaded("mbstring"),
+                '<a href="http://php.net/manual/ru/ref.mbstring.php">Многобайтные строки</a>',
+                Yii::t('InstallModule.install', 'Функции для работы с многобайтными строками')
+            ),
             array(
                 Yii::t('InstallModule.install', 'Расширение GD<br />с поддержкой FreeType<br />или ImageMagick<br />с поддержкой PNG'),
                 false,
@@ -617,7 +624,7 @@ class DefaultController extends YBackController
                 }
                 catch (Exception $e)
                 {
-                    $form->addError('', Yii::t('InstallModule.install', 'С указанными параметрами подключение к БД не удалось выполнить!') . '<br />' . $connectionString . '<br />' . $e->__toString());
+                    $form->addError('', Yii::t('InstallModule.install', 'С указанными параметрами подключение к БД не удалось выполнить!') . '<br />' . $connectionString . '<br />' . $e->getMessage());
                     Yii::log($e->getTraceAsString(), CLogger::LEVEL_ERROR);
                 }
             }
