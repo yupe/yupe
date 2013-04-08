@@ -7,6 +7,7 @@ class CommentFormWidget extends YWidget
 
     public function init()
     {
+        Yii::app()->clientScript->registerScriptFile(Yii::app()->theme->baseUrl . '/web/js/commentform.js');
         $this->model   = is_object($this->model) ? get_class($this->model) : $this->model;
         $this->modelId = (int) $this->modelId;
     }

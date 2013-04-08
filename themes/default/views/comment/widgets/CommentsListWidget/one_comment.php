@@ -51,5 +51,5 @@ echo '<div class="time">' . $comment->creation_date . '</div>';
 echo '<div class="content">' . $comment->text . '</div>';
 echo '</div>';
 if ($this->comments !== null)
-    echo $this->nestedComment($this->comments, $level + 1, $comment->id);
+    echo $this->nestedComment($level+1, $comment->id);
 echo '</div>';

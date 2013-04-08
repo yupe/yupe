@@ -39,6 +39,7 @@ class CommentsListWidget extends YWidget
      **/
     public function init()
     {
+        Yii::app()->clientScript->registerScriptFile(Yii::app()->theme->baseUrl . '/web/js/commentlist.js');
         if ($this->fromController !== false) {
             if (!$this->model || !$this->modelId)
                 throw new CException(
@@ -66,8 +67,8 @@ class CommentsListWidget extends YWidget
     public function run()
     {
         if ($this->fromController !== false) {
-            if (!$comments = Yii::app()->cache->get("Comment{$this->model}{$this->modelId}")) {
-                $comments = Comment::model()->findAll(
+            if (!$this->comments = Yii::app()->cache->get("Comment{$this->model}{$this->modelId}")) {
+                $this->comments = Comment::model()->findAll(
                     array(
                         'condition' => 't.model = :model AND t.model_id = :modelId AND t.status = :status',
                         'params'    => array(
@@ -79,9 +80,8 @@ class CommentsListWidget extends YWidget
                         'order'     => 't.id',
                     )
                 );
-                Yii::app()->cache->set("Comment{$this->model}{$this->modelId}", $comments);
+                Yii::app()->cache->set("Comment{$this->model}{$this->modelId}", $this->comments);
             }
-            $this->comments = $comments;
             $this->render('commentslistwidget');
         }
     }
@@ -107,15 +107,14 @@ class CommentsListWidget extends YWidget
     /**
      * Генерируем комментарии:
      *
-     * @param class $comments  - наши комментарии
-     * @param int   $level     - текущий уровень
-     * @param int   $parent_id - id-родителя
+     * @param int $level     - текущий уровень
+     * @param int $parent_id - id-родителя
      *
      * @return void
      **/
-    public function nestedComment($comments, $level = 0, $parent_id = null)
+    public function nestedComment($level = 0, $parent_id = null)
     {
-        foreach ($comments as $comment) {
+        foreach ($this->comments as $comment) {
             if ($parent_id === $comment->parent_id) {
                 $this->renderOneComment($comment, $level);
             }
