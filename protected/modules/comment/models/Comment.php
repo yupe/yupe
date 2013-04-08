@@ -44,6 +44,7 @@ class Comment extends YModel
     const STATUS_DELETED    = 3;
 
     public $verifyCode;
+    public $level = 0;
 
     /**
      * Returns the static model of the specified AR class.
@@ -75,7 +76,7 @@ class Comment extends YModel
     public function rules()
     {        
         return array(
-            array('model, name, email, text, url', 'filter', 'filter' => 'trim'),
+            array('model, name, email, text, url, level', 'filter', 'filter' => 'trim'),
             array('model, name, email, text, url', 'filter', 'filter' => array($obj = new CHtmlPurifier(), 'purify')),
             array('model, model_id, name, email, text', 'required'),
             array('status, user_id, model_id, parent_id', 'numerical', 'integerOnly' => true),
