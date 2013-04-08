@@ -35,13 +35,8 @@ class CommentController extends YFrontController
      **/
     public function actionAdd()
     {
-        //sleep(5);
         if (Yii::app()->request->isPostRequest && Yii::app()->request->isAjaxRequest)
             return $this->_ajaxRequest();
-
-        echo '<pre>';
-        print_r($_POST);
-        die('</pre>');
 
         if (Yii::app()->request->isPostRequest && Yii::app()->request->getPost('Comment')!== null) {
             $redirect = Yii::app()->request->getPost('redirectTo', Yii::app()->user->returnUrl);
