@@ -39,8 +39,8 @@ class CommentsListWidget extends YWidget
      **/
     public function init()
     {
-        Yii::app()->clientScript->registerScriptFile(Yii::app()->theme->baseUrl . '/web/js/commentlist.js');
         if ($this->fromController !== false) {
+            Yii::app()->clientScript->registerScriptFile(Yii::app()->theme->baseUrl . '/web/js/commentlist.js');
             if (!$this->model || !$this->modelId)
                 throw new CException(
                     Yii::t(
@@ -55,8 +55,37 @@ class CommentsListWidget extends YWidget
 
             if (!$this->label)
                 $this->label = Yii::t('CommentModule.comment', 'Комментариев');
-        } else 
-            return $this->renderOneComment($this->comment);
+        }
+    }
+
+    /**
+     * Функция для формирования иерархического дерева
+     *
+     * @param mixed &$data - данные
+     *
+     * @copyright  2013 YupeTeam =)
+     *
+     * @return array - дерево
+     */
+    private function _buildTree(&$data)
+    {
+        $tree = array();
+        foreach ($data as &$row) {
+            if (empty($row->parent_id)) {
+                $tree["{$row->id}_0"]['row'] = &$row;
+                $tree["{$row->id}_0"]['childOf'] = array();
+            } else {
+                $tree["{$row->id}_0"]['row'] = &$row;
+                $tree["{$row->id}_0"]['childOf'] = array_merge(
+                    $tree["{$row->parent_id}_0"]['childOf'],
+                    (array) $row->parent_id
+                );
+                $tree[join('_', array_merge($tree["{$row->id}_0"]['childOf'], (array) $row->id))] = &$tree["{$row->id}_0"];
+            }
+        }
+
+        //ksort($tree);
+        return array_unique($tree, SORT_REGULAR);
     }
 
     /**
@@ -67,57 +96,34 @@ class CommentsListWidget extends YWidget
     public function run()
     {
         if ($this->fromController !== false) {
-            if (!$this->comments = Yii::app()->cache->get("Comment{$this->model}{$this->modelId}")) {
-                $this->comments = Comment::model()->findAll(
+            if (!$comments = Yii::app()->cache->get("Comment{$this->model}{$this->modelId}")) {
+                $commentsAR = Comment::model()->with('author')->findAll(
                     array(
                         'condition' => 't.model = :model AND t.model_id = :modelId AND t.status = :status',
                         'params'    => array(
-                            ':model'   => $this->model,
-                            ':modelId' => $this->modelId,
+                            ':model'   => &$this->model,
+                            ':modelId' => &$this->modelId,
                             ':status'  => Comment::STATUS_APPROVED,
                         ),
                         'with'      => array('author'),
                         'order'     => 't.id',
                     )
                 );
-                Yii::app()->cache->set("Comment{$this->model}{$this->modelId}", $this->comments);
+                $comments = $this->_buildTree($commentsAR);
+                Yii::app()->cache->set("Comment{$this->model}{$this->modelId}", $comments);
             }
-            $this->render('commentslistwidget');
-        }
-    }
+            $this->render(
+                'commentslistwidget', array(
+                    'comments' => &$comments
+                )
+            );
+        } else {
 
-    /**
-     * Метод отрисовки одного комментария:
-     *
-     * @param class $comment - инстанс комментария
-     * @param int   $level   - уровень вложенности
-     *
-     * @return void
-     **/
-    public function renderOneComment($comment, $level = 0)
-    {
-        $this->render(
-            'one_comment', array(
-                'comment' => $comment,
-                'level'   => $level,
-            )
-        );
-    }
-
-    /**
-     * Генерируем комментарии:
-     *
-     * @param int $level     - текущий уровень
-     * @param int $parent_id - id-родителя
-     *
-     * @return void
-     **/
-    public function nestedComment($level = 0, $parent_id = null)
-    {
-        foreach ($this->comments as $comment) {
-            if ($parent_id === $comment->parent_id) {
-                $this->renderOneComment($comment, $level);
-            }
+            $this->render(
+                'commentslistwidget', array(
+                    'comments' => array(0)
+                )
+            );
         }
     }
 }
