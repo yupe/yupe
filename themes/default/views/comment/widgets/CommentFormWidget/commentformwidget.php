@@ -10,6 +10,7 @@
  **/
 ?>
 <script type='text/javascript'>
+    var errorMessage = '<?php echo Yii::t("CommentModule.comment", "При добавлении комментария возникла ошибка, повторите попытку позже.")?>';
     $(document).ready(function(){
         $(document).on("click", '#wcml', function(event){
             event.preventDefault();
@@ -66,10 +67,10 @@
                     $(curForm).removeClass('loading');
                     $(curForm).find('.backdrop').remove();
                     $(curForm).find('input[type=submit]').removeAttr('disabled');
-                    if (typeof data.data.message != 'undefined')
+                    if (typeof data.data != 'undefined' && typeof data.data.message != 'undefined')
                         message = data.data.message;
                     else
-                        message = '<?php Yii::t("CommentModule.comment", "При добавлении комментария возникла ошибка, повторите попытку позже.")?>';
+                        message = errorMessage;
                     var messageBox = '<div id="messageBox" class="flash"><div class="flash-error"><b>' + message + '</b></div></div>';
                     $(curForm).before(messageBox);
                     setTimeout(function() {
