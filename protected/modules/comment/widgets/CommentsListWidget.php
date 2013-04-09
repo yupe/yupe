@@ -15,6 +15,15 @@
 /**
  * Виджет для отрисовки списка комментариев:
  *
+ * @var      public  $model     - модель которую комментируют
+ * @var      public  $modelId   - ID-записи модели, которую комментируют
+ * @var      public  $label     - лейбл для заглавия, перед списком комментариев
+ * @var      public  $comment   - инстанс комментария, если используется для отрисовки 1го комментария
+ *
+ * @method   public  init       - Инициализация виджета
+ * @method   private _buildTree - Метод построения дерева комментариев
+ * @method   public  run        - Запуск виджета
+ *
  * @category YupeWidgets
  * @package  YupeCMS
  * @author   Yupe Team <team@yupe.ru>
@@ -29,8 +38,6 @@ class CommentsListWidget extends YWidget
     public $modelId;
     public $label;
     public $comment = null;
-    public $comments = null;
-    public $fromController = true;
 
     /**
      * Инициализация виджета:
@@ -39,7 +46,7 @@ class CommentsListWidget extends YWidget
      **/
     public function init()
     {
-        if ($this->fromController !== false) {
+        if ($this->comment === null) {
             Yii::app()->clientScript->registerScriptFile(Yii::app()->theme->baseUrl . '/web/js/commentlist.js');
             if (!$this->model || !$this->modelId)
                 throw new CException(
@@ -95,7 +102,7 @@ class CommentsListWidget extends YWidget
      **/
     public function run()
     {
-        if ($this->fromController !== false) {
+        if ($this->comment === null) {
             if (!$comments = Yii::app()->cache->get("Comment{$this->model}{$this->modelId}")) {
                 $commentsAR = Comment::model()->with('author')->findAll(
                     array(
