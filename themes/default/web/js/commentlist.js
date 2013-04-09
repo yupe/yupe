@@ -1,5 +1,5 @@
 jQuery(document).ready(function($) {
-    $(document).one("click", "a.commentParrent", function() {
+    $(document).on("click", "a.commentParrent", function() {
         $this = $(this);
         $("div.comment-form").remove();
         var htmlForm = $("#comment-form-wrap").clone();
