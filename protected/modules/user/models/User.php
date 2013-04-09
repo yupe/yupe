@@ -159,13 +159,15 @@ class User extends YModel
     {
         $this->change_date = new CDbExpression('NOW()');
 
-        if (!$this->isNewRecord                                                                      &&
-            ($this->admin()->count() == 1 && $this->_oldAccess_level == self::ACCESS_LEVEL_ADMIN)    &&
-            ($this->access_level == self::ACCESS_LEVEL_USER || $this->status != self::STATUS_ACTIVE)
-        )
+        if (!$this->isNewRecord
+            && $this->admin()->count() == 1
+            && $this->_oldAccess_level == self::ACCESS_LEVEL_ADMIN
+            && ($this->access_level == self::ACCESS_LEVEL_USER || $this->status != self::STATUS_ACTIVE)
+        ) {
             return false;
-        else
-        {
+        }
+
+        if ($this->isNewRecord) {
             $this->registration_date = $this->creation_date = $this->change_date;
             $this->registration_ip   = $this->activation_ip = Yii::app()->request->userHostAddress;
             $this->activate_key      = $this->generateActivationKey();
