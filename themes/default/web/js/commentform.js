@@ -55,7 +55,6 @@ jQuery(document).ready(function($) {
                 }
 
                 setTimeout(function() {
-                    alert('test');
                     $("#messageBox").fadeOut('slow').remove();
                 }, 3000);
             },
