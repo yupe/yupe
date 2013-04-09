@@ -81,7 +81,7 @@ class User extends YModel
             array('gender', 'in', 'range' => array_keys($this->gendersList)),
             array('status', 'in', 'range' => array_keys($this->statusList)),
             array('access_level', 'in', 'range' => array_keys($this->accessLevelsList)),
-            array('nick_name', 'match', 'pattern' => '/^[A-Za-z0-9]{2,50}$/', 'message' => Yii::t('UserModule.user', 'Неверный формат поля "{attribute}" допустимы только буквы и цифры, от 2 до 20 символов')),
+            array('nick_name', 'match', 'pattern' => '/^[A-Za-z0-9_-]{2,50}$/', 'message' => Yii::t('UserModule.user', 'Неверный формат поля "{attribute}" допустимы только буквы и цифры, от 2 до 20 символов')),
             array('site', 'url', 'allowEmpty' => true),
             array('email', 'email'),
             array('email', 'unique', 'message' => Yii::t('UserModule.user', 'Данный email уже используется другим пользователем')),
