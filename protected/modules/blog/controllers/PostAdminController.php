@@ -21,6 +21,9 @@ class PostAdminController extends YBackController
 
         // Uncomment the following line if AJAX validation is needed
         // $this->performAjaxValidation($model);
+        if(Yii::app()->request->getQuery('blog')){
+            $model->blog_id = (int)Yii::app()->request->getQuery('blog');
+        }
 
         if (isset($_POST['Post']))
         {
