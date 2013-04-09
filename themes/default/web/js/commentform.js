@@ -16,6 +16,7 @@ jQuery(document).ready(function($) {
         var submit = $(this).find('input[type=submit]');
         var curForm = this;
         var messageBox = false;
+        var appendData = null;
         $(this).addClass('loading');
         $(this).append(backdrop);
         submit.attr('disabled', 'disabled');
@@ -30,26 +31,32 @@ jQuery(document).ready(function($) {
                 if (typeof data.result != 'undefined' && data.result) {
                     if (typeof data.data.commentContent !== 'undefined' && data.data.commentContent.length > 0) {
                         if (data.data.comment.parent_id > 0) {
-                            container = $('div[id*="comment_' + data.data.comment.parent_id + '"]').parent('div');
+                            container = $('div[id*="comment_' + data.data.comment.parent_id + '"]');
                         } else {
                             container = $('#comments');
                         }
-
-                        container.append(data.data.commentContent);
+                        appendData = data.data.commentContent;
                     }
                     curForm.reset();
                     messageBox = '<div id="messageBox" class="flash"><div class="flash-success"><b>' + data.data.message + '</b></div></div>';
                 } else {
                     messageBox = '<div id="messageBox" class="flash"><div class="flash-error"><b>' + data.data.message + '</b></div></div>';
                 }
-                $(curForm).before(messageBox);
+                if (container.attr('id') != 'comments')
+                    container = $(container.parent('div')[0]);
+
+                container.append(messageBox).append(appendData);
+
                 if ($('.captcha-refresh-link').length > 0)
                     $('.captcha-refresh-link').click();
+
+                if (typeof data.result != 'undefined' && data.result) {
+                    $('#wcml').click();
+                }
+
                 setTimeout(function() {
+                    alert('test');
                     $("#messageBox").fadeOut('slow').remove();
-                    if (typeof data.result != 'undefined' && data.result) {
-                        $('#wcml').click();
-                    }
                 }, 3000);
             },
             error: function(data) {
