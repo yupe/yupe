@@ -112,7 +112,7 @@ class CommentController extends YFrontController
                 // если нужно уведомить администратора - уведомляем =)
                 if ($module->notify && ($notifier = new Notifier()) !== false) {
                     $comment->onNewComment = array($notifier, 'newComment');
-                    $comment->newComment($comment);
+                    $comment->newComment();
                 }
 
                 $message = $comment->status !== Comment::STATUS_APPROVED
