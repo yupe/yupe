@@ -6,7 +6,8 @@ date_default_timezone_set('Europe/Moscow');
 // или совпадение домена на котором запущен проект
 if (
 	getenv('php_env') == 'development' ||
-	strpos($_SERVER['SERVER_NAME'], 'yupe.local') !== false
+	strpos($_SERVER['SERVER_NAME'], 'localhost') !== false ||
+	$_SERVER['SERVER_ADDR'] == '127.0.0.1'
 ) {
 	// путь к фреймворку Yii
 	$yii = dirname(__FILE__) . '/framework/yiilite.php';
