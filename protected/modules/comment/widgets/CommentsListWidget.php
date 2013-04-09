@@ -77,20 +77,30 @@ class CommentsListWidget extends YWidget
     private function _buildTree(&$data)
     {
         $tree = array();
+        $assoc = array();
         foreach ($data as &$row) {
+            $id  = '_' . str_pad($row->id, 10, '0', STR_PAD_LEFT);
+            $pid = '_' . str_pad($row->parent_id, 10, '0', STR_PAD_LEFT);
             if (empty($row->parent_id)) {
-                $tree["{$row->id}_0"]['row'] = &$row;
-                $tree["{$row->id}_0"]['childOf'] = array();
+                $tree["{$id}_0"]['row'] = &$row;
+                $tree["{$id}_0"]['childOf'] = array();
             } else {
-                $tree["{$row->id}_0"]['row'] = &$row;
-                $tree["{$row->id}_0"]['childOf'] = array_merge(
-                    $tree["{$row->parent_id}_0"]['childOf'],
-                    (array) $row->parent_id
+                $tree["{$id}_0"]['row'] = &$row;
+                if (isset($assoc["{$pid}_0"]))
+                    $key = $assoc["{$pid}_0"];
+                else
+                    $key = "{$pid}_0";
+                $tree["{$id}_0"]['childOf'] = array_merge(
+                    $tree[$key]['childOf'],
+                    (array) $pid
                 );
-                $tree[join('_', array_merge($tree["{$row->id}_0"]['childOf'], (array) $row->id))] = &$tree["{$row->id}_0"];
+                $assoc["{$id}_0"] = join('_', array_merge($tree["{$id}_0"]['childOf'], (array) $id));
+                $tree[join('_', array_merge($tree["{$id}_0"]['childOf'], (array) $id))] = &$tree["{$id}_0"];
+                unset($tree["{$id}_0"]);
             }
         }
-        return array_unique($tree, SORT_REGULAR);
+        ksort($tree);
+        return $tree;
     }
 
     /**
