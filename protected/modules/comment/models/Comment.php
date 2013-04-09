@@ -1,6 +1,6 @@
 <?php
 /**
- * Comment model class:
+ * file of Comment model class:
  *
  * @category YupeModels
  * @package  YupeCMS
@@ -13,14 +13,31 @@
 /**
  * Comment model class:
  *
- * @category YupeModels
- * @package  YupeCMS
- * @author   YupeTeam <team@yupe.ru>
- * @license  BSD http://ru.wikipedia.org/wiki/%D0%9B%D0%B8%D1%86%D0%B5%D0%BD%D0%B7%D0%B8%D1%8F_BSD
- * @version  0.1 (dev)
- * @link     http://yupe.ru
- *
  * This is the model class for table "Comment".
+ *
+ * @const    int STATUS_APPROVED    - Принят
+ * @const    int STATUS_DELETED     - Удален
+ * @const    int STATUS_NEED_CHECK  - Проверка
+ * @const    int STATUS_SPAM        - Спам
+ *
+ * @var      public $verifyCode     - капча
+ * @var      public $level          - уровень вложенности комментария
+ *
+ * @method   public static model    - Returns the static model of the specified AR class.
+ * @method   public tableName       - Для получения имени таблицы
+ * @method   public rulesСписок     - Правила для валидации полей модели
+ * @method   public attributeLabels - Список атрибутов для меток формы
+ * @method   public relations       - Список связей данной таблицы
+ * @method   public scopes          - Получение группы условий
+ * @method   public search          - Retrieves a list of models based on the current search/filter conditions.
+ * @method   public beforeSave      - Событие выполняемое перед сохранением модели
+ * @method   public afterSave       - Событие, которое вызывается после сохранения модели
+ * @method   public afterValidate   - Событие, которое вызывается после валидации модели
+ * @method   public newComment      - Добавляем новый комментарий
+ * @method   public onNewComment    - Определяем событие на создание нового комментария
+ * @method   public getStatusList   - Получение списка статусов
+ * @method   public getStatus       - Получение статуса по заданному
+ * @method   public getAuthor       - Получаем автора
  *
  * The followings are the available columns in table 'Comment':
  * @property string $id
@@ -34,6 +51,13 @@
  * @property integer $status
  * @property string $ip
  * @property string $user_id
+ *
+ * @category YupeModels
+ * @package  YupeCMS
+ * @author   YupeTeam <team@yupe.ru>
+ * @license  BSD http://ru.wikipedia.org/wiki/%D0%9B%D0%B8%D1%86%D0%B5%D0%BD%D0%B7%D0%B8%D1%8F_BSD
+ * @version  0.1 (dev)
+ * @link     http://yupe.ru
  */
 class Comment extends YModel
 {
@@ -131,7 +155,7 @@ class Comment extends YModel
      *
      * @return mixed список условий
      **/
-    public function scopes()
+    public function scopes() 
     {
         return array(
             'new'      => array(
@@ -217,12 +241,10 @@ class Comment extends YModel
 
     /**
      * Добавляем новый комментарий:
-     * @TODO  Unused parameter $comment
-     * @param Comment $comment - комментарий
      *
      * @return null
      **/
-    public function newComment($comment)
+    public function newComment()
     {
         if (($module = Yii::app()->getModule('comment')) && $module->email) {
             /** 
