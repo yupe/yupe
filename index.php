@@ -16,7 +16,11 @@ define('YII_DEBUG', true);
 
 // Выбираем конфигурацию development-main.php, если переменная окружения php_env установлена в development
 // или совпадение домена на котором запущен проект
-if (defined('YII_DEBUG') || getenv('php_env') == 'development' || strpos($_SERVER['SERVER_NAME'], 'localhost') !== false || $_SERVER['SERVER_ADDR'] == '127.0.0.1') {
+if (defined('YII_DEBUG')
+    || getenv('php_env') == 'development'
+    || strpos($_SERVER['SERVER_NAME'], 'localhost') !== false
+    || $_SERVER['SERVER_ADDR'] == '127.0.0.1'
+) {
     // путь к фреймворку Yii
     $yii = dirname(__FILE__) . '/framework/yiilite.php';
     // путь к основному конфигурационному файлу Yii
