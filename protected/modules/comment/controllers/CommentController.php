@@ -179,7 +179,6 @@ class CommentController extends YFrontController
 
         $this->widget(
             'application.modules.comment.widgets.CommentsListWidget', array(
-                'fromController' => false,
                 'comment' => $comment
             )
         );
