@@ -3,7 +3,8 @@ class LanguageBehavior extends CBehavior
 {
     public function attach($owner)
     {
-        $owner->attachEventHandler('onBeginRequest', array($this, 'handleLanguageBehavior'));
+        if (count(Yii::app()->urlManager->languages) > 1)
+            $owner->attachEventHandler('onBeginRequest', array($this, 'handleLanguageBehavior'));
     }
 
     /**

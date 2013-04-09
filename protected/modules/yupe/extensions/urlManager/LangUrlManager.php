@@ -17,6 +17,8 @@ class LangUrlManager extends CUrlManager
     {
         // Получаем из настроек доступные языки
         $this->languages = explode(",",  $langs = Yii::app()->getModule('yupe')->availableLanguages);
+        if (count($this->languages) < 2)
+            return parent::init();
 
         if (isset($this->languages[0]) && !$this->languages[0])
             $this->languages = null;
@@ -45,6 +47,9 @@ class LangUrlManager extends CUrlManager
 
     public function createUrl($route, $params = array(), $ampersand = '&')
     {
+        if (count($this->languages) < 2)
+            return parent::createUrl($route, $params, $ampersand);
+
         // Если указаны языки, дописываем указанный язык
         if (is_array($this->languages))
         {
