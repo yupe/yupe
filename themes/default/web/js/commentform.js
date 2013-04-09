@@ -12,19 +12,21 @@ jQuery(document).ready(function($) {
     });
 
     $(document).on('submit', '#comment-form', function(){
-        $(this).addClass('loading');
-        $(this).find('.backdrop').remove();
-        $(this).append('<div class="backdrop"></div>')
-        $(this).find('input[type=submit]').attr('disabled', 'disabled');
+        var backdrop = '<div class="backdrop"></div>';
+        var submit = $(this).find('input[type=submit]');
         var curForm = this;
+        var messageBox = false;
+        $(this).addClass('loading');
+        $(this).append(backdrop);
+        submit.attr('disabled', 'disabled');
         $.ajax({
             type: 'post',
             url: $(curForm).attr('action'),
             data: $(curForm).serialize(),
             success: function(data) {
                 $(curForm).removeClass('loading');
-                $(curForm).find('.backdrop').remove();
-                $(curForm).find('input[type=submit]').removeAttr('disabled');
+                $(backdrop).remove();
+                submit.removeAttr('disabled');
                 if (typeof data.result != 'undefined' && data.result) {
                     if (typeof data.data.commentContent !== 'undefined' && data.data.commentContent.length > 0) {
                         if (data.data.comment.parent_id > 0) {
@@ -36,9 +38,9 @@ jQuery(document).ready(function($) {
                         container.append(data.data.commentContent);
                     }
                     curForm.reset();
-                    var messageBox = '<div id="messageBox" class="flash"><div class="flash-success"><b>' + data.data.message + '</b></div></div>';
+                    messageBox = '<div id="messageBox" class="flash"><div class="flash-success"><b>' + data.data.message + '</b></div></div>';
                 } else {
-                    var messageBox = '<div id="messageBox" class="flash"><div class="flash-error"><b>' + data.data.message + '</b></div></div>';
+                    messageBox = '<div id="messageBox" class="flash"><div class="flash-error"><b>' + data.data.message + '</b></div></div>';
                 }
                 $(curForm).before(messageBox);
                 if ($('.captcha-refresh-link').length > 0)
@@ -52,13 +54,13 @@ jQuery(document).ready(function($) {
             },
             error: function(data) {
                 $(curForm).removeClass('loading');
-                $(curForm).find('.backdrop').remove();
+                $(backdrop).remove();
                 $(curForm).find('input[type=submit]').removeAttr('disabled');
                 if (typeof data.data != 'undefined' && typeof data.data.message != 'undefined')
                     message = data.data.message;
                 else
                     message = errorMessage;
-                var messageBox = '<div id="messageBox" class="flash"><div class="flash-error"><b>' + message + '</b></div></div>';
+                messageBox = '<div id="messageBox" class="flash"><div class="flash-error"><b>' + message + '</b></div></div>';
                 $(curForm).before(messageBox);
                 setTimeout(function() {
                     $("#messageBox").fadeOut('slow').remove();
