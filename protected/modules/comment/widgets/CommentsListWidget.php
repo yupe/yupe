@@ -90,8 +90,6 @@ class CommentsListWidget extends YWidget
                 $tree[join('_', array_merge($tree["{$row->id}_0"]['childOf'], (array) $row->id))] = &$tree["{$row->id}_0"];
             }
         }
-
-        //ksort($tree);
         return array_unique($tree, SORT_REGULAR);
     }
 
