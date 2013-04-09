@@ -1,24 +1,31 @@
+<?php
+/**
+ * Отображение для CommentFormWidget/commentformwidget:
+ * 
+ *   @category YupeView
+ *   @package  YupeCMS
+ *   @author   Yupe Team <team@yupe.ru>
+ *   @license  https://github.com/yupe/yupe/blob/master/LICENSE BSD
+ *   @link     http://yupe.ru
+ **/
+?>
 <script type='text/javascript'>
-    $(document).ready(function(){
-        $('#wcml').click(function(event){
-            event.preventDefault();
-            $("div.comment-form").remove();
-            $("#comment-form-wrap").show();
-        });
-    });
+    var errorMessage = '<?php echo Yii::t("CommentModule.comment", "При добавлении комментария возникла ошибка, повторите попытку позже.")?>';
 </script>
-
 
 <a href='#' id='wcml'>НАПИСАТЬ КОММЕНТАРИЙ</a>
 
 <br/><br/>
 <div id='comment-form-wrap' class='comment-form-wrap'>
 <div class="form">
-<?php $form = $this->beginWidget('CActiveForm', array(
-     'action'                 => $this->controller->createUrl('/comment/comment/add'),
-     'id'                     => 'comment-form',
-     'enableClientValidation' => true     
-)); ?>
+<?php
+$form = $this->beginWidget(
+    'CActiveForm', array(
+         'action'                 => $this->controller->createUrl('/comment/comment/add'),
+         'id'                     => 'comment-form',
+         'enableClientValidation' => true     
+    )
+); ?>
 
     <p class="note">
         <?php echo Yii::t('CommentModule.comment', 'Поля, отмеченные'); ?>
@@ -31,8 +38,9 @@
     <?php echo $form->hiddenField($model, 'model'); ?>
     <?php echo $form->hiddenField($model, 'model_id'); ?>
     <?php echo $form->hiddenField($model, 'parent_id'); ?>
+    <?php echo $form->hiddenField($model, 'level'); ?>
     <?php echo CHtml::hiddenField('redirectTo', $redirectTo); ?>
-    <?php if (!Yii::app()->user->isAuthenticated()): ?>
+    <?php if (!Yii::app()->user->isAuthenticated()) : ?>
         <div class="row">
             <?php echo $form->labelEx($model, 'name'); ?>
             <?php echo $form->textField($model, 'name', array('size' => 60, 'maxlength' => 128)); ?>
@@ -58,17 +66,20 @@
         <?php echo $form->textArea($model, 'text', array('rows' => 6, 'cols' => 50)); ?>
         <?php echo $form->error($model, 'text'); ?>
     </div>
-    <?php if (!Yii::app()->user->isAuthenticated() && CCaptcha::checkRequirements()): ?>
+    <?php if (!Yii::app()->user->isAuthenticated() && CCaptcha::checkRequirements()) : ?>
         <div class="row">
             <?php echo $form->labelEx($model, 'verifyCode'); ?>
             
-                <?php $this->widget('CCaptcha', array(
-                    'showRefreshButton' => true,
-                    'clickableImage' => true,
-                    'buttonLabel' => 'обновить',
-                    'buttonOptions' => array('class' => 'captcha-refresh-link'),
-                    'captchaAction' => '/comment/comment/captcha'
-                )); ?>
+                <?php
+                $this->widget(
+                    'CCaptcha', array(
+                        'showRefreshButton' => true,
+                        'clickableImage' => true,
+                        'buttonLabel' => 'обновить',
+                        'buttonOptions' => array('class' => 'captcha-refresh-link'),
+                        'captchaAction' => '/comment/comment/captcha'
+                    )
+                ); ?>
                 
                 <?php echo $form->textField($model, 'verifyCode'); ?>
             <div class="hint">

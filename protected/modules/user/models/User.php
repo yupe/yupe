@@ -81,7 +81,7 @@ class User extends YModel
             array('gender', 'in', 'range' => array_keys($this->gendersList)),
             array('status', 'in', 'range' => array_keys($this->statusList)),
             array('access_level', 'in', 'range' => array_keys($this->accessLevelsList)),
-            array('nick_name', 'match', 'pattern' => '/^[A-Za-z0-9]{2,50}$/', 'message' => Yii::t('UserModule.user', 'Неверный формат поля "{attribute}" допустимы только буквы и цифры, от 2 до 20 символов')),
+            array('nick_name', 'match', 'pattern' => '/^[A-Za-z0-9_-]{2,50}$/', 'message' => Yii::t('UserModule.user', 'Неверный формат поля "{attribute}" допустимы только буквы и цифры, от 2 до 20 символов')),
             array('site', 'url', 'allowEmpty' => true),
             array('email', 'email'),
             array('email', 'unique', 'message' => Yii::t('UserModule.user', 'Данный email уже используется другим пользователем')),
@@ -159,13 +159,15 @@ class User extends YModel
     {
         $this->change_date = new CDbExpression('NOW()');
 
-        if (!$this->isNewRecord                                                                      &&
-            ($this->admin()->count() == 1 && $this->_oldAccess_level == self::ACCESS_LEVEL_ADMIN)    &&
-            ($this->access_level == self::ACCESS_LEVEL_USER || $this->status != self::STATUS_ACTIVE)
-        )
+        if (!$this->isNewRecord
+            && $this->admin()->count() == 1
+            && $this->_oldAccess_level == self::ACCESS_LEVEL_ADMIN
+            && ($this->access_level == self::ACCESS_LEVEL_USER || $this->status != self::STATUS_ACTIVE)
+        ) {
             return false;
-        else
-        {
+        }
+
+        if ($this->isNewRecord) {
             $this->registration_date = $this->creation_date = $this->change_date;
             $this->registration_ip   = $this->activation_ip = Yii::app()->request->userHostAddress;
             $this->activate_key      = $this->generateActivationKey();

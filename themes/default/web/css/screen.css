@@ -953,3 +953,35 @@ hr.space {
 .clear {
     clear: both;
 }
+
+#comment-form { position: relative; width: auto; }
+
+#comment-form.loading .row {
+    /* IE 8 */
+  -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=50)";
+
+  /* IE 5-7 */
+  filter: alpha(opacity=50);
+
+  /* Netscape */
+  -moz-opacity: 0.5;
+
+  /* Safari 1.x */
+  -khtml-opacity: 0.5;
+
+  /* Good browsers */
+  opacity: 0.5;
+}
+
+#comment-form.loading .backdrop {
+    position: absolute;
+    top: 0;
+    left: 0;
+    display: block;
+    background: url(../images/ajax-loader.gif);
+    background-position: 30% 60%;
+    background-repeat: no-repeat;
+    z-index: 9999;
+    width: 100%;
+    height: 100%;
+}
