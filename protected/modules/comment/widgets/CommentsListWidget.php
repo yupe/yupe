@@ -108,8 +108,8 @@ class CommentsListWidget extends YWidget
                     array(
                         'condition' => 't.model = :model AND t.model_id = :modelId AND t.status = :status',
                         'params'    => array(
-                            ':model'   => &$this->model,
-                            ':modelId' => &$this->modelId,
+                            ':model'   => $this->model,
+                            ':modelId' => $this->modelId,
                             ':status'  => Comment::STATUS_APPROVED,
                         ),
                         'with'      => array('author'),
