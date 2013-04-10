@@ -17,6 +17,7 @@ jQuery(document).ready(function($) {
         var curForm = this;
         var messageBox = false;
         var appendData = null;
+        var container = $('#comments');
         $(this).addClass('loading');
         $(this).append(backdrop);
         submit.attr('disabled', 'disabled');
@@ -30,11 +31,8 @@ jQuery(document).ready(function($) {
                 submit.removeAttr('disabled');
                 if (typeof data.result != 'undefined' && data.result) {
                     if (typeof data.data.commentContent !== 'undefined' && data.data.commentContent.length > 0) {
-                        if (data.data.comment.parent_id > 0) {
+                        if (data.data.comment.parent_id > 0)
                             container = $('div[id*="comment_' + data.data.comment.parent_id + '"]');
-                        } else {
-                            container = $('#comments');
-                        }
                         appendData = data.data.commentContent;
                     }
                     curForm.reset();
