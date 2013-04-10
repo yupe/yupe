@@ -61,7 +61,7 @@ class PageController extends YFrontController
             $pages = $this->getBreadCrumbsRecursively($this->currentPage->parentPage);
 
         $pages = array_reverse($pages);
-        array_push($pages, $this->currentPage->title);
+        $pages[] = $this->currentPage->title;
         return $pages;
     }
 

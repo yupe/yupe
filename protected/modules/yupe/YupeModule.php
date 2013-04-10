@@ -786,10 +786,10 @@ class YupeModule extends YWebModule
             if (isset($item['items']) && is_array($item['items'])) {
                 $subItems = $item['items'];
                 unset($item['items'], $item['icon'], $item['url']);
-                array_push($items, $item);
+                $items[] = $item;
                 $items = array_merge($items, $subItems);
                 if ($key != $endItem)
-                    array_push($items, "---");
+                    $items[] =  "---";
             } else
                 $items[] = $item;
         }
