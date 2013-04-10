@@ -71,15 +71,15 @@ class YMainController extends Controller
      **/
     public function widget($className, $properties = array(), $captureOutput = false)
     {
-        if (stripos($className, 'application.modules.', 0) !== false) {
-            //@TODO попробовать без регулярки
-            $module = preg_replace('/^application\.modules\.([^\.]*).*$/', '$1', $className);
+        if (stripos($className, 'application.modules') !== false) {
 
-            if (Yii::app()->getModule($module) == null) {
+            $modulePath = explode('.',$className);
+
+            if (!empty($modulePath[2]) && !Yii::app()->hasModule($modulePath[2])) {
                 echo Yii::t(
                     'YupeModule.yupe', 'Виджет "{widget}" не найден! Подключите модуль "{module}" !', array(
                         '{widget}' => $className,
-                        '{module}' => $module
+                        '{module}' => $modulePath[2]
                     )
                 );
                 return null;
