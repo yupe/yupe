@@ -13,7 +13,7 @@ class SiteController extends YFrontController
                 'params'    => array(':status' => Post::STATUS_PUBLISHED),
                 'limit'     => self::POST_PER_PAGE,
                 'order'     => 't.id DESC',
-                'with'      => array('createUser', 'blog'),
+                'with'      => array('createUser', 'blog','commentsCount'),
             )),
         ));
 
