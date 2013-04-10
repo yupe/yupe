@@ -36,7 +36,7 @@ $this->menu = array(
     )),
     array('label' => Yii::t('BlogModule.blog', 'Записи'), 'items' => array(
         array('icon' => 'list-alt', 'label' => Yii::t('BlogModule.blog', 'Управление записями'), 'url' => array('/blog/PostAdmin/index')),
-        array('icon' => 'plus-sign', 'label' => Yii::t('BlogModule.blog', 'Добавить запись'), 'url' => array('/blog/PostAdmin/create')),
+        array('icon' => 'plus-sign', 'label' => Yii::t('BlogModule.blog', 'Добавить запись'), 'url' => array('/blog/PostAdmin/create/','blog' => $model->id)),
     )),
     array('label' => Yii::t('BlogModule.blog', 'Участники'), 'items' => array(
         array('icon' => 'list-alt', 'label' => Yii::t('BlogModule.blog', 'Управление участниками'), 'url' => array('/blog/UserToBlogAdmin/index')),

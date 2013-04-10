@@ -11,7 +11,6 @@ class CommentModule extends YWebModule
     {
         return array(
             'user',
-            'mail'
         );
     }
 
