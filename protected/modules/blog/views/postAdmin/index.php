@@ -110,7 +110,7 @@ $this->renderPartial('_search', array('model' => $model));
             ),
             array(
                 'header' => "<i class=\"icon-comment\"></i>",
-                'value' => '$data->commentsCount',
+                'value' => 'CHtml::link($data->commentsCount,array("/comment/default/index/","Comment[model]" => "Post","Comment[model_id]" => $data->id))',
                 'type'  => 'raw',
             ),
             array(
