@@ -19,7 +19,7 @@ if (count($comments)) {
             $comment = &$commentArray['row'];
             $level = count($commentArray['childOf']);
         } else {
-            $comment = &$this->comment;
+            $comment = $this->comment;
             $level = 1;
         }
         echo '<div style="margin-left: ' . (20 * $level) . 'px; " level="' . $level . '">' . "\n";

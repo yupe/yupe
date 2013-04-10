@@ -30,6 +30,12 @@ $this->menu = array(
             '/blog/PostAdmin/update',
             'id' => $model->id
         )),
+        array('icon' => 'comment', 'label' => Yii::t('BlogModule.blog', 'Комментарии'), 'url' => array(
+            '/comment/default/index',
+            'Comment[model_id]' => $model->id,
+            'Comment[model]' => 'Post'
+
+        )),
         array('icon' => 'eye-open', 'label' => Yii::t('BlogModule.blog', 'Просмотреть запись'), 'url' => array(
             '/blog/PostAdmin/view',
             'id' => $model->id

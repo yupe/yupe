@@ -3,14 +3,9 @@ class SiteController extends YFrontController
 {
     const POST_PER_PAGE = 5;
 
-    //удалите перед запуском сайта в работу
-    public function actionIndex()
-    {
-        $this->render('welcome');
-    }
 
     // раскомментируйте перед запуском сайта в работу
-    /**public function actionIndex()
+    public function actionIndex()
     {
         $dataProvider = new CActiveDataProvider('Post', array(
             'criteria' => new CDbCriteria(array(
@@ -23,5 +18,5 @@ class SiteController extends YFrontController
         ));
 
         $this->render('index', array('dataProvider' => $dataProvider));
-    }*/
+    }
 }
