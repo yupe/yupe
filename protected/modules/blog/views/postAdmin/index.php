@@ -70,13 +70,11 @@ $this->renderPartial('_search', array('model' => $model));
         'dataProvider' => $model->search(),
         'filter'       => $model,
         'columns'      => array(
-            'id',
             array(
                 'name'  => 'title',
                 'type'  => 'raw',
                 'value' => 'CHtml::link($data->title, array("/blog/postAdmin/update", "id" => $data->id))',
             ),
-            'slug',
             array(
                 'name'  => 'blog_id',
                 'type'  => 'raw',
@@ -110,10 +108,11 @@ $this->renderPartial('_search', array('model' => $model));
                 'type'  => 'raw',
                 'value' => '$this->grid->returnBootstrapStatusHtml($data, "comment_status", "CommentStatus", array(1 => "ok-sign", 2 => "lock"))',
             ),
-            //'quote',
-            //'content',
-            //'keywords',
-            //'description',
+            array(
+                'header' => "<i class=\"icon-comment\"></i>",
+                'value' => '$data->commentsCount',
+                'type'  => 'raw',
+            ),
             array(
                 'class' => 'bootstrap.widgets.TbButtonColumn',
             ),
