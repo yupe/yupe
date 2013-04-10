@@ -32,7 +32,7 @@ if (count($comments)) {
             . "\n"
             . '<div class="author">'
             . "\n";
-        if (($author = $comment->author) === false) {
+        if (!is_object($comment->author)) {
             if ($comment->url)
                 echo CHtml::link($comment->name, $comment->url);
             else
@@ -42,7 +42,7 @@ if (count($comments)) {
                 $comment->name,
                 array(
                     '/user/people/userInfo/',
-                    'username' => $author->nick_name
+                    'username' => $comment->author->nick_name
                 )
             );
         echo ' ' . Yii::t('comment', 'написал') . ':';
