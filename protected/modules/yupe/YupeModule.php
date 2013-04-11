@@ -135,6 +135,12 @@ class YupeModule extends YWebModule
                 'message' => Yii::t('YupeModule.yupe', 'Yii работает в режиме отладки, пожалуйста, отключите его! <br/> <a href="http://www.yiiframework.ru/doc/guide/ru/topics.performance">Подробнее про улучшение производительности Yii приложений</a>'),
             );
 
+        if(!Yii::app()->db->schemaCachingDuration)
+            $messages[YWebModule::CHECK_ERROR][] =  array(
+                'type'    => YWebModule::CHECK_ERROR,
+                'message' => Yii::t('YupeModule.yupe', 'Включите кэширование схемы базы данных! <br/> <a href="http://www.yiiframework.ru/doc/guide/ru/topics.performance">Подробнее про улучшение производительности Yii приложений</a>'),
+            );
+
         return isset($messages[YWebModule::CHECK_ERROR]) ? $messages : true;
     }
 
