@@ -67,7 +67,7 @@ class AppearanceModule extends YWebModule
     public function getIsThemeEnabled(YTheme $theme, $refresh = false)
     {
         if ($refresh || self::$_themeSettings == null) {
-            self::$_themeSettings = Settings::model()->fetchModuleSettings('yupe', array('theme', 'backendTheme'));
+            self::$_themeSettings = Settings::model()->fetchModuleSettings('yupe', array('theme', 'backendTheme'), false);
         }
 
         if ($theme->getIsBackend()) {
@@ -109,7 +109,7 @@ class AppearanceModule extends YWebModule
      **/
     public function saveModuleSettings($moduleID, $params)
     {
-        $settings = Settings::model()->fetchModuleSettings($moduleID, array_keys($params));
+        $settings = Settings::model()->fetchModuleSettings($moduleID, array_keys($params), false);
 
         foreach ($params as $paramName => $paramValue) {
             // Если параметр уже был - обновим, иначе надо создать новый

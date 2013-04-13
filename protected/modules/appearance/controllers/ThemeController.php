@@ -29,7 +29,12 @@ class ThemeController extends YBackController
             $themes[] = $this->getThemeManager()->getTheme($themeName);
         }
         $themes = new CArrayDataProvider($themes, array('sort' => false, 'keyField' => 'name', 'pagination' => false));
-        $this->render('list', compact('themes'));
+
+        if (Yii::app()->getRequest()->isAjaxRequest) {
+            $this->renderPartial('list', compact('themes'));
+        } else {
+            $this->render('list', compact('themes'));
+        }
     }
 
     public function actionToggle()
