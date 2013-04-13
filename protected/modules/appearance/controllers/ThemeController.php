@@ -63,6 +63,9 @@ class ThemeController extends YBackController
     }
 
 
+    /**
+     * @TODO installation of themes, probably "files" module needed
+     */
     public function actionInstall()
     {
         $this->render('install');

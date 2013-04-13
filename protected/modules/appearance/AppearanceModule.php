@@ -28,6 +28,11 @@ class AppearanceModule extends YWebModule
         return Yii::t('AppearanceModule.messages', 'Внешний вид');
     }
 
+    public function getAdminPageLink()
+    {
+        return '/appearance/theme/list';
+    }
+
     public function getVersion()
     {
         return '0.1';
@@ -50,7 +55,7 @@ class AppearanceModule extends YWebModule
 
     public function getUrl()
     {
-        return '';
+        return 'https://github.com/alphard-code';
     }
 
     public function getNavigation()
@@ -62,15 +67,18 @@ class AppearanceModule extends YWebModule
                 'label' => Yii::t('AppearanceModule.messages', 'Сменить тему'),
                 'url'   => array('/appearance/theme/list')
             ),
-            array(
-                'icon'  => 'plus',
-                'label' => Yii::t('AppearanceModule.messages', 'Установить'),
-                'url'   => array('/appearance/theme/install')
-            ),
+            // @TODO installation
+//            array(
+//                'icon'  => 'plus',
+//                'label' => Yii::t('AppearanceModule.messages', 'Установить'),
+//                'url'   => array('/appearance/theme/install')
+//            ),
         );
     }
 
     /**
+     * Shortcut method.
+     *
      * @return AppearanceModule
      */
     public static function get()
@@ -121,7 +129,7 @@ class AppearanceModule extends YWebModule
     /**
      * Метода сохранения настроек модуля:
      *
-     * @param string $moduleID - идетификтор метода
+     * @param string $moduleID - идетификтор модуля
      * @param array  $params   - массив настроек, paramName => paramValue
      *
      * @return bool

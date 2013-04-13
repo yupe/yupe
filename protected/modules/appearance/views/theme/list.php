@@ -1,7 +1,11 @@
 <?php
 /** @var $themes YTheme[] */
 ?>
-    <div class="page-header"><h1>Темы оформления <small>выбор</small></h1></div>
+    <div class="page-header">
+        <h1>Темы оформления
+            <small>выбор</small>
+        </h1>
+    </div>
 
     <script>
         jQuery(function ($) {
@@ -25,6 +29,11 @@
 <?php
 $this->widget(
     'bootstrap.widgets.TbListView',
-    array('id' => 'themesListView', 'dataProvider' => $themes, 'itemView' => '_themeAtList')
+    array(
+        'id'           => 'themesListView',
+        'template'     => '{items}',
+        'dataProvider' => $themes,
+        'itemView'     => '_themeAtList'
+    )
 );
 ?>
