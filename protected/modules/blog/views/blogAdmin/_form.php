@@ -28,6 +28,10 @@ $form = $this->beginWidget(
 
     <?php echo $form->errorSummary($model); ?>
 
+    <div class="row-fluid control-group <?php echo $model->hasErrors('category_id') ? 'error' : ''; ?>">
+        <?php echo $form->dropDownListRow($model, 'category_id', CHtml::listData($this->module->getCategoryList(),'id','name') , array('empty' => Yii::t('BlogModule.blog','--выберите--'),'class' => 'popover-help span7', 'maxlength' => 11,'data-original-title' => $model->getAttributeLabel('category_id'), 'data-content' => $model->getAttributeDescription('category_id'))); ?>
+    </div>
+
     <div class="wide row-fluid control-group <?php echo ($model->hasErrors('type') || $model->hasErrors('status')) ? 'error' : ''; ?>">
         <div class="span3">
             <?php echo $form->dropDownListRow($model, 'type', $model->getTypeList(), array('class' => 'popover-help', 'data-original-title' => $model->getAttributeLabel('type'), 'data-content' => $model->getAttributeDescription('type'))); ?>

@@ -19,7 +19,7 @@ if (count($comments)) {
             $comment = &$commentArray['row'];
             $level = count($commentArray['childOf']);
         } else {
-            $comment = &$this->comment;
+            $comment = $this->comment;
             $level = 1;
         }
         echo '<div style="margin-left: ' . (20 * $level) . 'px; " level="' . $level . '">' . "\n";
@@ -32,7 +32,7 @@ if (count($comments)) {
             . "\n"
             . '<div class="author">'
             . "\n";
-        if (($author = $comment->author) === false) {
+        if (!is_object($comment->author)) {
             if ($comment->url)
                 echo CHtml::link($comment->name, $comment->url);
             else
@@ -42,7 +42,7 @@ if (count($comments)) {
                 $comment->name,
                 array(
                     '/user/people/userInfo/',
-                    'username' => $author->nick_name
+                    'username' => $comment->author->nick_name
                 )
             );
         echo ' ' . Yii::t('comment', 'написал') . ':';

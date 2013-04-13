@@ -98,6 +98,19 @@ class Post extends YModel
             'createUser' => array(self::BELONGS_TO, 'User', 'create_user_id'),
             'updateUser' => array(self::BELONGS_TO, 'User', 'update_user_id'),
             'blog'       => array(self::BELONGS_TO, 'Blog', 'blog_id'),
+            'comments'   => array(self::HAS_MANY,'Comment','model_id',
+                'on' => 'model = :model AND comments.status = :status','params' => array(
+                    ':model' => 'Post',
+                    ':status' => Comment::STATUS_APPROVED
+                ),
+                'order' => 'comments.id'
+            ),
+            'commentsCount' => array(self::STAT,'Comment','model_id',
+                'condition' => 'model = :model AND status = :status','params' => array(
+                    ':model' => 'Post',
+                    ':status' => Comment::STATUS_APPROVED
+                )
+            ),
         );
     }
 
@@ -232,6 +245,16 @@ class Post extends YModel
         }
 
         return parent::beforeSave();
+    }
+
+    public function afterDelete()
+    {
+        Comment::model()->deleteAll('model = :model AND model_id = :model_id',array(
+            ':model' => 'Post',
+            ':model_id' => $this->id
+        ));
+
+        return parent::afterDelete();
     }
 
     public function beforeValidate()

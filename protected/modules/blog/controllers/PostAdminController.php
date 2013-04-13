@@ -18,6 +18,8 @@ class PostAdminController extends YBackController
     public function actionCreate()
     {
         $model = new Post;
+        $model->publish_date_tmp = date('d-m-Y');
+        $model->publish_time_tmp = date('h:i');
 
         // Uncomment the following line if AJAX validation is needed
         // $this->performAjaxValidation($model);

@@ -16,6 +16,7 @@
  * @property string $update_user_id
  * @property integer $create_date
  * @property integer $update_date
+ * @property integer $category_id
  * @property string  $lang
  *
  * The followings are the available model relations:
@@ -57,7 +58,7 @@ class Blog extends YModel
     {
         return array(
             array('name, description, slug', 'required', 'except' => 'search'),
-            array('type, status, create_user_id, update_user_id, create_date, update_date', 'numerical', 'integerOnly' => true),
+            array('type, status, create_user_id, update_user_id, create_date, update_date, category_id', 'numerical', 'integerOnly' => true),
             array('name, icon', 'length', 'max' => 250),
             array('slug', 'length', 'max' => 150),
             array('lang', 'length', 'max' => 2),
@@ -67,7 +68,7 @@ class Blog extends YModel
             array('status', 'in', 'range' => array_keys($this->statusList)),
             array('name, slug, description', 'filter', 'filter' => array($obj = new CHtmlPurifier(), 'purify')),
             array('slug', 'unique'),
-            array('id, name, description, icon, slug, type, status, create_user_id, update_user_id, create_date, update_date, lang', 'safe', 'on' => 'search'),
+            array('id, name, description, icon, slug, type, status, create_user_id, update_user_id, create_date, update_date, lang, category_id', 'safe', 'on' => 'search'),
         );
     }
 
@@ -86,6 +87,7 @@ class Blog extends YModel
             'members'      => array(self::HAS_MANY, 'User', array('user_id' => 'id'), 'through' => 'userToBlog'),
             'postsCount'   => array(self::STAT, 'Post', 'blog_id', 'condition' => 'status = :status', 'params' => array(':status' => Post::STATUS_PUBLISHED)),
             'membersCount' => array(self::STAT, 'UserToBlog', 'blog_id', 'condition' => 'status = :status', 'params' => array(':status' => UserToBlog::STATUS_ACTIVE)),
+            'category'     => array(self::BELONGS_TO,'Category','category_id')
         );
     }
 
@@ -120,6 +122,7 @@ class Blog extends YModel
             'update_user_id' => Yii::t('BlogModule.blog', 'Обновил'),
             'create_date'    => Yii::t('BlogModule.blog', 'Создан'),
             'update_date'    => Yii::t('BlogModule.blog', 'Обновлен'),
+            'category_id'    => Yii::t('BlogModule.blog', 'Категория')
         );
     }
 
@@ -161,6 +164,7 @@ class Blog extends YModel
         $criteria->compare('t.status', $this->status);
         $criteria->compare('create_user_id', $this->create_user_id, true);
         $criteria->compare('update_user_id', $this->update_user_id, true);
+        $criteria->compare('category_id', $this->category_id, true);
         $criteria->compare('create_date', $this->create_date);
         $criteria->compare('update_date', $this->update_date);
 
@@ -190,6 +194,16 @@ class Blog extends YModel
             $this->create_user_id = $this->update_user_id;
 
         return parent::beforeSave();
+    }
+
+    public function afterDelete()
+    {
+        Comment::model()->deleteAll('model = :model AND model_id = :model_id',array(
+            ':model' => 'Blog',
+            ':model_id' => $this->id
+        ));
+
+        return parent::afterDelete();
     }
 
     public function getStatusList()

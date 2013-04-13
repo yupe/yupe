@@ -15,10 +15,10 @@
 /**
  * Виджет для отрисовки списка комментариев:
  *
- * @var      public  $model     - модель которую комментируют
- * @var      public  $modelId   - ID-записи модели, которую комментируют
- * @var      public  $label     - лейбл для заглавия, перед списком комментариев
- * @var      public  $comment   - инстанс комментария, если используется для отрисовки 1го комментария
+ * @var      public $model     - модель которую комментируют
+ * @var      public $modelId   - ID-записи модели, которую комментируют
+ * @var      public $label     - лейбл для заглавия, перед списком комментариев
+ * @var      public $comment   - инстанс комментария, если используется для отрисовки 1го комментария
  *
  * @method   public  init       - Инициализация виджета
  * @method   private _buildTree - Метод построения дерева комментариев
@@ -38,6 +38,8 @@ class CommentsListWidget extends YWidget
     public $modelId;
     public $label;
     public $comment = null;
+    public $comments;
+    public $status;
 
     /**
      * Инициализация виджета:
@@ -48,20 +50,28 @@ class CommentsListWidget extends YWidget
     {
         if ($this->comment === null) {
             Yii::app()->clientScript->registerScriptFile(Yii::app()->theme->baseUrl . '/web/js/commentlist.js');
-            if (!$this->model || !$this->modelId)
+            if ((empty($this->model) && empty($this->modelId)) && empty($this->comments)) {
                 throw new CException(
                     Yii::t(
-                        'CommentModule.comment', 'Пожалуйста, укажите "model" и "modelId" для виджета "{widget}" !', array(
+                        'CommentModule.comment',
+                        'Пожалуйста, укажите "model" и "modelId" для виджета "{widget}" !',
+                        array(
                             '{widget}' => get_class($this),
                         )
                     )
                 );
+            }
 
-            $this->model   = is_object($this->model) ? get_class($this->model) : $this->model;
-            $this->modelId = (int) $this->modelId;
+            $this->model = is_object($this->model) ? get_class($this->model) : $this->model;
+            $this->modelId = (int)$this->modelId;
+        }
 
-            if (!$this->label)
-                $this->label = Yii::t('CommentModule.comment', 'Комментариев');
+        if (empty($this->label)) {
+            $this->label = Yii::t('CommentModule.comment', 'Комментариев');
+        }
+
+        if(empty($this->status)){
+            $this->status = Comment::STATUS_APPROVED;
         }
     }
 
@@ -79,23 +89,24 @@ class CommentsListWidget extends YWidget
         $tree = array();
         $assoc = array();
         foreach ($data as &$row) {
-            $id  = '_' . str_pad($row->id, 10, '0', STR_PAD_LEFT);
+            $id = '_' . str_pad($row->id, 10, '0', STR_PAD_LEFT);
             $pid = '_' . str_pad($row->parent_id, 10, '0', STR_PAD_LEFT);
             if (empty($row->parent_id)) {
-                $tree["{$id}_0"]['row'] = &$row;
+                $tree["{$id}_0"]['row'] = & $row;
                 $tree["{$id}_0"]['childOf'] = array();
             } else {
-                $tree["{$id}_0"]['row'] = &$row;
-                if (isset($assoc["{$pid}_0"]))
+                $tree["{$id}_0"]['row'] = & $row;
+                if (isset($assoc["{$pid}_0"])) {
                     $key = $assoc["{$pid}_0"];
-                else
+                } else {
                     $key = "{$pid}_0";
+                }
                 $tree["{$id}_0"]['childOf'] = array_merge(
                     $tree[$key]['childOf'],
-                    (array) $pid
+                    (array)$pid
                 );
-                $assoc["{$id}_0"] = join('_', array_merge($tree["{$id}_0"]['childOf'], (array) $id));
-                $tree[join('_', array_merge($tree["{$id}_0"]['childOf'], (array) $id))] = &$tree["{$id}_0"];
+                $assoc["{$id}_0"] = join('_', array_merge($tree["{$id}_0"]['childOf'], (array)$id));
+                $tree[join('_', array_merge($tree["{$id}_0"]['childOf'], (array)$id))] = & $tree["{$id}_0"];
                 unset($tree["{$id}_0"]);
             }
         }
@@ -111,31 +122,36 @@ class CommentsListWidget extends YWidget
     public function run()
     {
         if ($this->comment === null) {
-            if (!$comments = Yii::app()->cache->get("Comment{$this->model}{$this->modelId}")) {
-                $commentsAR = Comment::model()->with('author')->findAll(
-                    array(
-                        'condition' => 't.model = :model AND t.model_id = :modelId AND t.status = :status',
-                        'params'    => array(
-                            ':model'   => $this->model,
-                            ':modelId' => $this->modelId,
-                            ':status'  => Comment::STATUS_APPROVED,
-                        ),
-                        'with'      => array('author'),
-                        'order'     => 't.id',
-                    )
-                );
-                $comments = $this->_buildTree($commentsAR);
+            $comments = Yii::app()->cache->get("Comment{$this->model}{$this->modelId}");
+            if (empty($comments)) {
+                if(empty($this->comments)){
+                    $this->comments = Comment::model()->with('author')->findAll(
+                        array(
+                            'condition' => 't.model = :model AND t.model_id = :modelId AND t.status = :status',
+                            'params' => array(
+                                ':model' => $this->model,
+                                ':modelId' => $this->modelId,
+                                ':status' => $this->status,
+                            ),
+                            'with' => array('author'),
+                            'order' => 't.id',
+                        )
+                    );
+                }
+                $comments = $this->_buildTree($this->comments);
                 Yii::app()->cache->set("Comment{$this->model}{$this->modelId}", $comments);
             }
             $this->render(
-                'commentslistwidget', array(
-                    'comments' => &$comments
+                'commentslistwidget',
+                array(
+                    'comments' => $comments
                 )
             );
         } else {
 
             $this->render(
-                'commentslistwidget', array(
+                'commentslistwidget',
+                array(
                     'comments' => array(0)
                 )
             );
