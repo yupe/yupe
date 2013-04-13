@@ -111,11 +111,17 @@ class YTheme extends CTheme
     }
 
 
+    /**
+     * @return bool Whether theme is enabled for it's environment - backend or frontend.
+     */
     public function getIsEnabled()
     {
         return AppearanceModule::get()->getIsThemeEnabled($this);
     }
 
+    /**
+     * @return bool Whether theme is designed for backend.
+     */
     public function getIsBackend()
     {
         if ($this->_isBackend == null) {
@@ -124,11 +130,21 @@ class YTheme extends CTheme
         return $this->_isBackend;
     }
 
+    /**
+     * @return bool Whether theme is designed for frontend.
+     */
     public function getIsFrontend()
     {
         return !$this->getIsBackend();
     }
 
+    /**
+     * Returns absolute URL for file that can be accessed from web. Checks for parent theme if file does not exist.
+     *
+     * @param string $path Path to file, relative from theme root directory.
+     *
+     * @return null|string URL of file or null if it does not exist.
+     */
     public function getPublicFile($path)
     {
         $fullPath = realpath($this->getBasePath() . $path);

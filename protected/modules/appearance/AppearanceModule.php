@@ -1,4 +1,9 @@
 <?php
+/**
+ * Class AppearanceModule
+ *
+ * @author Alexander Bolshakov <a.bolshakov.coder@gmail.com>
+ */
 class AppearanceModule extends YWebModule
 {
     protected static $_themeSettings;

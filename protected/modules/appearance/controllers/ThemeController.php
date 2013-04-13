@@ -1,8 +1,11 @@
 <?php
-
+/**
+ * Class ThemeController
+ *
+ * @author Alexander Bolshakov <a.bolshakov.coder@gmail.com>
+ */
 class ThemeController extends YBackController
 {
-
     public function filters()
     {
         return array_merge(
@@ -44,6 +47,9 @@ class ThemeController extends YBackController
         $saved   = AppearanceModule::get()->toggleTheme($theme);
         if (!$saved) {
             throw new CHttpException(500, 'Не удалось применить тему');
+        } else {
+            // @todo try to find better solution
+            Yii::app()->cache->flush();
         }
     }
 
