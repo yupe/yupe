@@ -122,22 +122,22 @@ class Settings extends YModel
     /**
      * Получает настройки модуля из базы данных (системные)
      *
-     * @param string $module_id Идентификатор модуля
-     * @param mixed  $params    Список параметров, которые требуется прочитать
+     * @param string $moduleID  Идентификатор модуля
+     * @param array  $params    Список параметров, которые требуется прочитать
      * @param bool   $cache     Кешировать ли запрос к БД
      *
-     * @return array Экземпляры класса Settings, соответствующие запрошенным параметрам
+     * @return array|Settings[] Экземпляры класса Settings, соответствующие запрошенным параметрам
      */
-    public function fetchModuleSettings($moduleId, array $params = null, $cache = true)
+    public function fetchModuleSettings($moduleID, array $params = array(), $cache = true)
     {
 
         $settings = array();
 
-        if ($moduleId)
+        if ($moduleID)
         {
             $criteria = new CDbCriteria();
 
-            $criteria->compare("module_id", $moduleId);
+            $criteria->compare("module_id", $moduleID);
             $criteria->compare("type", self::TYPE_CORE);
             if (!empty($params))
                 $criteria->addInCondition("param_name", $params);
