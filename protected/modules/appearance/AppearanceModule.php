@@ -13,6 +13,11 @@ class AppearanceModule extends YWebModule
         return true;
     }
 
+    public function getIsNoDisable()
+    {
+        return true;
+    }
+
     public function getName()
     {
         return Yii::t('AppearanceModule.messages', 'Внешний вид');
@@ -57,6 +62,11 @@ class AppearanceModule extends YWebModule
                 'label' => Yii::t('AppearanceModule.messages', 'Сменить тему'),
                 'url'   => array('/appearance/theme/list')
             ),
+            array(
+                'icon'  => 'plus',
+                'label' => Yii::t('AppearanceModule.messages', 'Установить'),
+                'url'   => array('/appearance/theme/install')
+            ),
         );
     }
 
@@ -72,7 +82,11 @@ class AppearanceModule extends YWebModule
     public function getIsThemeEnabled(YTheme $theme, $refresh = false)
     {
         if ($refresh || self::$_themeSettings == null) {
-            self::$_themeSettings = Settings::model()->fetchModuleSettings('yupe', array('theme', 'backendTheme'), false);
+            self::$_themeSettings = Settings::model()->fetchModuleSettings(
+                'yupe',
+                array('theme', 'backendTheme'),
+                false
+            );
         }
 
         if ($theme->getIsBackend()) {

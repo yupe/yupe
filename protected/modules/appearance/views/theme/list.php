@@ -1,7 +1,7 @@
 <?php
 /** @var $themes YTheme[] */
 ?>
-    <div class="page-header"><h1>Темы оформления</h1></div>
+    <div class="page-header"><h1>Темы оформления <small>выбор</small></h1></div>
 
     <script>
         jQuery(function ($) {

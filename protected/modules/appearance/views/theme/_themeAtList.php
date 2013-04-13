@@ -36,7 +36,7 @@
 
         <div class="theme-actions">
             <?php if (!$data->getIsEnabled()) : ?>
-                <a class="btn btn-small toggleTheme" data-theme-id="<?=$data->getName();?>">Включить</a>
+                <a class="btn btn-small btn-success toggleTheme" data-theme-id="<?=$data->getName();?>">Включить</a>
             <?php endif; ?>
         </div>
     </div>

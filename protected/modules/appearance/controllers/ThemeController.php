@@ -40,6 +40,15 @@ class ThemeController extends YBackController
         }
     }
 
+    /**
+     * Applying theme based on its name.
+     *
+     * @postParam $themeID Theme's name.
+     *
+     * @throws CHttpException If applying wasn't successful.
+     *
+     * @see AppearanceModule::toggleTheme()
+     */
     public function actionToggle()
     {
         $themeID = Yii::app()->getRequest()->getPost('themeID', null);
@@ -53,7 +62,15 @@ class ThemeController extends YBackController
         }
     }
 
+
+    public function actionInstall()
+    {
+        $this->render('install');
+    }
+
     /**
+     * Shortcut method
+     *
      * @return CThemeManager
      */
     public function getThemeManager()
@@ -63,7 +80,7 @@ class ThemeController extends YBackController
 
 
     /**
-     * @param $themeID
+     * @param string $themeID The name of theme
      *
      * @return YTheme
      * @throws CHttpException

@@ -31,19 +31,31 @@ abstract class YWidget extends CWidget
             //$this->cacheTime = Yii::app()->getModule('yupe')->coreCacheTime;
     }
 
-    public function getViewPath($checkTheme = false)
+    public function getViewFile($viewName)
     {
-        $themeView = null;
-        if (Yii::app()->theme !== null) {
-            //@TODO можно обойтись без рефлексии и регулярки
-            $obj    = new ReflectionClass(get_class($this));
-            $string = explode('modules' . DIRECTORY_SEPARATOR, $obj->getFileName(), 2);
-            if (isset($string[1])) {
-                $string    = explode(DIRECTORY_SEPARATOR, $string[1], 2);
-                $themeView = Yii::app()->theme->getViewPath() . DIRECTORY_SEPARATOR .
-                    $string[0] . DIRECTORY_SEPARATOR . 'widgets' . DIRECTORY_SEPARATOR . get_class($this);
-            }
+        if (
+            ($theme = Yii::app()->theme) instanceof YTheme
+            &&
+            ($viewFile = $theme->getWidgetViewFile($this, $viewName)) !== false
+        ) {
+            return $viewFile;
+        } else {
+            return parent::getViewFile($viewName);
         }
-        return $themeView !== null && file_exists($themeView) ? $themeView : parent::getViewPath($checkTheme);
+    }
+
+    /**
+     * @return string|null ID of module, that widget belongs to. Null if there is not such a module.
+     */
+    public function getModuleID()
+    {
+        $widgetReflection = new ReflectionClass(get_class($this));
+        // @todo нужно переписать, непонятно как этот код работает. Код пишется для людей.
+        $string           = explode('modules' . DIRECTORY_SEPARATOR, $widgetReflection->getFileName(), 2);
+        if (isset($string[1])) {
+            $string         = explode(DIRECTORY_SEPARATOR, $string[1], 2);
+            return $string[0];
+        }
+        return null;
     }
 }

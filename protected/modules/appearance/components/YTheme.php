@@ -83,6 +83,7 @@ class YTheme extends CTheme
         if (empty($this->_screenshots) && $this->_parentTheme instanceof YTheme) {
             return $this->_parentTheme->getScreenshots();
         }
+
         return $this->_screenshots;
     }
 
@@ -127,6 +128,7 @@ class YTheme extends CTheme
         if ($this->_isBackend == null) {
             $this->_isBackend = (strpos($this->getName(), 'backend_') === 0);
         }
+
         return $this->_isBackend;
     }
 
@@ -157,6 +159,7 @@ class YTheme extends CTheme
                 'Required by theme asset-file "' . $path . '" is found neither at theme directory, nor at parent theme directory.',
                 CLogger::LEVEL_ERROR
             );
+
             return null;
         }
     }
@@ -208,6 +211,7 @@ class YTheme extends CTheme
         } else {
             $metaData = array();
         }
+
         return $metaData;
     }
 
@@ -234,10 +238,43 @@ class YTheme extends CTheme
         }
     }
 
+    /**
+     * Tries to find widget's view file based on its name.
+     * If widget belongs to any module, widget view files will be searched under "themeRoot/themeViews/moduleID/widgets/WidgetClass"
+     * Otherwise, widget view files will be searched under "themeRoot/themeViews/WidgetClass".
+     *
+     * Also, this method searches under parent theme directories.
+     *
+     * @param YWidget    $widget   Instance of widget
+     * @param     string $viewName View name
+     *
+     * @return string|bool Path to view file or false if it wasn't found.
+     */
+    public function getWidgetViewFile(YWidget $widget, $viewName)
+    {
+        $widgetClass = get_class($widget);
+        if (($moduleID = $widget->getModuleID()) !== null) {
+            $viewPath =
+                $this->getViewPath()
+                    . DIRECTORY_SEPARATOR . $moduleID
+                    . DIRECTORY_SEPARATOR . 'widgets'
+                    . DIRECTORY_SEPARATOR . $widgetClass;
+        } else {
+            $viewPath = $this->getViewPath() . DIRECTORY_SEPARATOR . $widgetClass;
+        }
+        $viewFile = Yii::app()->getController()->resolveViewFile($viewName, $viewPath, $viewPath, $viewPath);
+
+        if ($viewFile === false && $this->_parentTheme instanceof YTheme) {
+            return $this->_parentTheme->getWidgetViewFile($widget, $viewName);
+        }
+
+        return $viewFile;
+    }
+
     public function getViewPath()
     {
         $viewPath = parent::getViewPath();
-        if (!file_exists($viewPath) && $this->_parentTheme instanceof YTheme) {
+        if (!is_dir($viewPath) && $this->_parentTheme instanceof YTheme) {
             return $this->_parentTheme->getViewPath();
         } else {
             return $viewPath;
