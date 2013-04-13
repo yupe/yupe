@@ -1,0 +1,69 @@
+<?php
+
+class ThemeController extends YBackController
+{
+
+    public function filters()
+    {
+        return array_merge(
+            parent::filters(),
+            array(
+                'ajaxOnly + toggle'
+            )
+        );
+    }
+
+    public function actionIndex()
+    {
+        $this->render('index');
+    }
+
+    /**
+     * List all available themes.
+     */
+    public function actionList()
+    {
+        $themes     = array();
+        $themeNames = $this->getThemeManager()->getThemeNames();
+        foreach ($themeNames as $themeName) {
+            $themes[] = $this->getThemeManager()->getTheme($themeName);
+        }
+        $themes = new CArrayDataProvider($themes, array('sort' => false, 'keyField' => 'name', 'pagination' => false));
+        $this->render('list', compact('themes'));
+    }
+
+    public function actionToggle()
+    {
+        $themeID = Yii::app()->getRequest()->getPost('themeID', null);
+        $theme   = $this->loadTheme($themeID);
+        $saved   = AppearanceModule::get()->toggleTheme($theme);
+        if (!$saved) {
+            throw new CHttpException(500, 'Не удалось применить тему');
+        }
+    }
+
+    /**
+     * @return CThemeManager
+     */
+    public function getThemeManager()
+    {
+        return Yii::app()->themeManager;
+    }
+
+
+    /**
+     * @param $themeID
+     *
+     * @return YTheme
+     * @throws CHttpException
+     */
+    protected function loadTheme($themeID)
+    {
+        $theme = $this->getThemeManager()->getTheme($themeID);
+        if ($theme instanceof YTheme) {
+            return $theme;
+        } else {
+            throw new CHttpException(404, 'Указанная тема оформления не существует.');
+        }
+    }
+}

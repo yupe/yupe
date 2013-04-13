@@ -1,0 +1,7 @@
+{
+    "title": "Test theme",
+    "description":"This is the testing theme for ko-ko-ko",
+    "version": 0.1,
+    "authors": "Me",
+    "parentTheme": "default"
+}

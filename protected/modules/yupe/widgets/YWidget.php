@@ -36,15 +36,14 @@ abstract class YWidget extends CWidget
         $themeView = null;
         if (Yii::app()->theme !== null) {
             //@TODO можно обойтись без рефлексии и регулярки
-            $obj = new ReflectionClass(get_class($this));
+            $obj    = new ReflectionClass(get_class($this));
             $string = explode('modules' . DIRECTORY_SEPARATOR, $obj->getFileName(), 2);
             if (isset($string[1])) {
-                $string = explode(DIRECTORY_SEPARATOR, $string[1], 2);
-                $themeView = Yii::app()->themeManager->basePath . '/' .
-                             Yii::app()->theme->name . '/' . 'views' . '/' .
-                             $string[0] . '/' . 'widgets' . '/' . get_class($this);
+                $string    = explode(DIRECTORY_SEPARATOR, $string[1], 2);
+                $themeView = Yii::app()->theme->getViewPath() . DIRECTORY_SEPARATOR .
+                    $string[0] . DIRECTORY_SEPARATOR . 'widgets' . DIRECTORY_SEPARATOR . get_class($this);
             }
         }
-        return $themeView && file_exists($themeView) ? $themeView : parent::getViewPath($checkTheme);
+        return $themeView !== null && file_exists($themeView) ? $themeView : parent::getViewPath($checkTheme);
     }
 }
