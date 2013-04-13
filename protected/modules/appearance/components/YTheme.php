@@ -153,9 +153,7 @@ class YTheme extends CTheme
 
     protected function init()
     {
-        Yii::beginProfile('Initializing theme ' . $this->getName());
         $this->loadMetadata();
-        Yii::endProfile('Initializing theme ' . $this->getName());
     }
 
     /**
