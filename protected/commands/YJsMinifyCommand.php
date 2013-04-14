@@ -3,7 +3,7 @@
  *    YJsMinifyCommand - console command for Yii framework to minify JavaScript files
  *
  *
- *    YJsMinifyCommand use JSMin.php (http://github.com/rgrove/jsmin-php/blob/master/jsmin.php) for minify
+ *    YJsMinifyCommand uses JSMin.php (http://github.com/rgrove/jsmin-php/blob/master/jsmin.php) for minify
  *
  * @author Opeykin A. <aopeykin@yandex.ru>
  * @version 0.1
@@ -11,7 +11,7 @@
  * @example php /path/to/commandRunner.php YJsMinify /path/to/web/script/foler js min all
  *       - minify all files in '/path/to/web/script/foler'
  *       - find all files with 'js' extension
- *       - add suffix 'min' to minifyed files
+ *       - add suffix 'min' to minified files
  *       - create combined file 'all.min.js' (name 'all' - as param)
  *
  * @license BSD License
@@ -31,21 +31,21 @@ class YJsMinifyCommand extends CConsoleCommand
     public function getHelp()
     {
         return <<< EOD
-	
+
 
 USAGE
    php /path/to/commandRunner.php YJsMinify <path-to-dir-with-js-files> <file-extension-for-minify> <minified-file-suffix> <combine-in-one-file>
 
 DESCRIPTION
    minify and/or combine JavaScript files in specified directory using JSMin.php (http://github.com/rgrove/jsmin-php/blob/master/jsmin.php)
-   
+
 PARAMETRS
    * <path-to-dir-with-js-files> - directory with js-files;
    * <file-extension-for-minify> - file extension for minify, default - 'js';
-   * <minified-file-suffix>      - suffix for minifyed files, default - 'min';
-   * <combine-in-one-file>       - if this param sended - all files will be combined into one (<combine-in-one-file>.<minified-file-suffix>.<file-extension-for-minify>);
-   
-   
+   * <minified-file-suffix>      - suffix for minified files, default - 'min';
+   * <combine-in-one-file>       - if this param is set - all files will be combined into one (<combine-in-one-file>.<minified-file-suffix>.<file-extension-for-minify>);
+
+
 EOD;
     }
 
@@ -80,7 +80,7 @@ EOD;
 
         if (count($rawFiles))
         {
-            echo "I will add '$jsMinSuffix' suffix to minifyed files!\n\n";
+            echo "I will add '$jsMinSuffix' suffix to minified files!\n\n";
 
             echo "Found " . count($rawFiles) . " files\n";
 
@@ -133,11 +133,11 @@ EOD;
 
             echo "===== Size of your scripts is reduced by " . $totalPercent . '% (' . $diffSize . " bytes) ======\n\n";
 
-            echo "\nThanks for minify js-files, your users will be happy!!!\n";
+            echo "\nThanks for minifying js-files, your users will be happy!!!\n";
 
-            echo "\np.s. don't forget minify css-files too!!!\n";
+            echo "\np.s. don't forget to minify css-files too!!!\n";
 
-            echo "\np.p.s. use NGINX for serve static files =) !!!\n";
+            echo "\np.p.s. use NGINX to serve static files =) !!!\n";
 
             echo "\np.p.s. Follow me on twitter http://twitter.com/xomaa !!!\n";
 
