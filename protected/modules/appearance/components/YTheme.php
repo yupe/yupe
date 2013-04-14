@@ -7,8 +7,6 @@
 class YTheme extends CTheme
 {
     const METADATA_FILENAME = 'metaData.json';
-    const FRONTEND          = 1;
-    const BACKEND           = 0;
 
     /**
      * @var string
@@ -46,12 +44,22 @@ class YTheme extends CTheme
     protected $_cssFiles = array();
 
     /**
+     * @var array
+     */
+    protected $_regions = array();
+
+    /**
      * @var bool
      */
     protected $_isBackend;
 
     /**
-     * @return string
+     * @var array region name => region content
+     */
+    protected $_regionsContent = array();
+
+    /**
+     * @return string Theme's title.
      */
     public function getTitle()
     {
@@ -59,7 +67,7 @@ class YTheme extends CTheme
     }
 
     /**
-     * @return string
+     * @return string Theme's authors.
      */
     public function getAuthors()
     {
@@ -67,7 +75,7 @@ class YTheme extends CTheme
     }
 
     /**
-     * @return YTheme|null
+     * @return YTheme|null Instance of parent theme if it exists. Null otherwise.
      */
     public function getParentTheme()
     {
@@ -88,7 +96,7 @@ class YTheme extends CTheme
     }
 
     /**
-     * @return string
+     * @return string Theme's version.
      */
     public function getVersion()
     {
@@ -96,7 +104,7 @@ class YTheme extends CTheme
     }
 
     /**
-     * @return string
+     * @return string Theme's description.
      */
     public function getDescription()
     {
@@ -111,9 +119,88 @@ class YTheme extends CTheme
         return $this->_cssFiles;
     }
 
+    /**
+     * @return array Theme regions in format: Region ID => Human-readable name
+     */
+    public function getRegions()
+    {
+        return $this->_regions;
+    }
+
 
     /**
-     * @return bool Whether theme is enabled for it's environment - backend or frontend.
+     * Adds any content to specified region.
+     *
+     * @param string $regionName
+     * @param string $content
+     */
+    public function addContentToRegion($regionName, $content)
+    {
+        $this->checkRegionExists($regionName, 'Невозможно добавить контент в несуществующий регион "{region}".');
+        if (isset($this->_regionsContent[$regionName])) {
+            $this->_regionsContent[$regionName] .= $content;
+        } else {
+            $this->_regionsContent[$regionName] = $content;
+        }
+    }
+
+    /**
+     * Returns contents of specified region.
+     * This method is intended for using at theme layouts.
+     *
+     * @param $regionName
+     *
+     * @return string|null
+     */
+    public function region($regionName)
+    {
+        $this->checkRegionExists($regionName);
+        if (isset($this->_regionsContent[$regionName])) {
+            return $this->_regionsContent[$regionName];
+        } else {
+            return null;
+        }
+    }
+
+    /**
+     * This method is intended for using at theme layouts.
+     *
+     * @param $regionName
+     *
+     * @return bool Whether specified region does not contain any content.
+     */
+    public function regionEmpty($regionName)
+    {
+        $this->checkRegionExists($regionName);
+        if (isset($this->_regionsContent[$regionName]) && !empty($this->_regionsContent[$regionName])) {
+            return false;
+        }
+
+        return true;
+    }
+
+    /**
+     * Checks whether specified region exists.
+     *
+     * @param             $regionName
+     * @param string|null $errorMessage Message shown on error. You may use "{region}" placeholder.
+     *
+     * @throws InvalidArgumentException If region does not exists.
+     */
+    public function checkRegionExists($regionName, $errorMessage = null)
+    {
+        $errorMessage = ($errorMessage == null) ? 'Регион "{region}" не существует.' : $errorMessage;
+        if (!isset($this->_regions[$regionName])) {
+            throw new InvalidArgumentException(Yii::t(
+                'AppearanceModule.messages',
+                $errorMessage,
+                array('{region}' => $regionName)
+            ));
+        }
+    }
+
+    /**
+     * @return bool Whether theme is enabled for its environment - backend or frontend.
      */
     public function getIsEnabled()
     {
@@ -141,11 +228,11 @@ class YTheme extends CTheme
     }
 
     /**
-     * Returns absolute URL for file that can be accessed from web. Checks for parent theme if file does not exist.
+     * Returns absolute URL for file that can be accessed from web. Checks for parent theme if file does not exists.
      *
      * @param string $path Path to file, relative from theme root directory.
      *
-     * @return null|string URL of file or null if it does not exist.
+     * @return null|string URL of file. Null if file exists neither at current theme dir, nor at parent theme dir.
      */
     public function getPublicFile($path)
     {
@@ -164,6 +251,9 @@ class YTheme extends CTheme
         }
     }
 
+    /** Internally used methods are under this line.  */
+
+
     public function __construct($name, $basePath, $baseUrl)
     {
         parent::__construct($name, $basePath, $baseUrl);
@@ -176,7 +266,7 @@ class YTheme extends CTheme
     }
 
     /**
-     * Loads theme metadata from it's file. If it does not exists, default values are used.
+     * Loads theme metadata from its file. If it does not exists, default values are used.
      * Moreover, if file does not contains some entries, their default values are used.
      * Also filters metadata entries, correct names of them are listed at {@link getDefaultMetadata()}
      *
@@ -195,6 +285,7 @@ class YTheme extends CTheme
         $this->_version     = (string)$metaData['version'];
         $this->_screenshots = (array)$metaData['screenshots'];
         $this->_cssFiles    = (array)$metaData['cssFiles'];
+        $this->_regions     = (array)$metaData['regions'];
         $this->setParentTheme($metaData['parentTheme']);
     }
 
@@ -215,6 +306,9 @@ class YTheme extends CTheme
         return $metaData;
     }
 
+    /**
+     * @return array Default values for theme metadata entries.
+     */
     protected function getDefaultMetadata()
     {
         return array(
@@ -224,10 +318,16 @@ class YTheme extends CTheme
             'authors'     => null,
             'screenshots' => array(),
             'cssFiles'    => array(),
+            'regions'     => array(),
             'parentTheme' => null,
         );
     }
 
+    /**
+     * Sets parent theme based on its name.
+     *
+     * @param string $themeName The name of estimated parent theme.
+     */
     protected function setParentTheme($themeName)
     {
         /** @var $tm CThemeManager */
@@ -241,12 +341,12 @@ class YTheme extends CTheme
     /**
      * Tries to find widget's view file based on its name.
      * If widget belongs to any module, widget view files will be searched under "themeRoot/themeViews/moduleID/widgets/WidgetClass"
-     * Otherwise, widget view files will be searched under "themeRoot/themeViews/WidgetClass".
+     * Otherwise, widget view files will be searched under "themeRoot/themeViews/WidgetClass" - this is default behavior for Yii.
      *
      * Also, this method searches under parent theme directories.
      *
-     * @param YWidget    $widget   Instance of widget
-     * @param     string $viewName View name
+     * @param YWidget $widget   Instance of widget
+     * @param string  $viewName View name
      *
      * @return string|bool Path to view file or false if it wasn't found.
      */

@@ -2,5 +2,9 @@
     "title": "Default Yupe! theme",
     "version": 0.1,
     "authors": "Yupe! team",
-    "screenshots": ["/web/screenshot.jpg"]
+    "screenshots": ["/web/screenshot.jpg"],
+    "regions": {
+        "header": "Шапка",
+        "footer": "Подвал"
+    }
 }
