@@ -10,6 +10,8 @@ class UserModule extends YWebModule
 
     public $notifyEmailFrom;
     public $autoRecoveryPassword           = true;
+    public $recoveryDisabled               = false;
+    public $registrationDisabled           = false;
     public $minPasswordLength              = 5;
     public $emailAccountVerification       = true;
     public $showCaptcha                    = true;
@@ -48,6 +50,8 @@ class UserModule extends YWebModule
             'logoutSuccess'                  => Yii::t('UserModule.user', 'Страница после выхода с сайта'),
             'notifyEmailFrom'                => Yii::t('UserModule.user', 'Email от имени которого отправлять сообщение'),
             'autoRecoveryPassword'           => Yii::t('UserModule.user', 'Автоматическое восстановление пароля'),
+            'recoveryDisabled'               => Yii::t('UserModule.user', 'Отключить восстановление пароля'),
+            'registrationDisabled'           => Yii::t('UserModule.user', 'Отключить регистрацию'),
             'minPasswordLength'              => Yii::t('UserModule.user', 'Минимальная длина пароля'),
             'emailAccountVerification'       => Yii::t('UserModule.user', 'Подтверждать аккаунт по Email'),
             'showCaptcha'                    => Yii::t('UserModule.user', 'Показывать капчу при регистрации'),
@@ -79,6 +83,8 @@ class UserModule extends YWebModule
             'emailAccountVerification' => $this->getChoice(),
             'minPasswordLength',
             'autoRecoveryPassword'     => $this->getChoice(),
+            'recoveryDisabled'         => $this->getChoice(),
+            'registrationDisabled'     => $this->getChoice(),
             'notifyEmailFrom',
             'logoutSuccess',
             'loginSuccess',
@@ -103,11 +109,13 @@ class UserModule extends YWebModule
             'security' => array(
                 'label' => Yii::t('UserModule.user', 'Настройки безопасности'),
                 'items' => array(
+                	'registrationDisabled',
                     'showCaptcha',
                     'minCaptchaLength',
                     'emailAccountVerification',
                     'minPasswordLength',
                     'autoRecoveryPassword',
+                    'recoveryDisabled',
                 )
             ),
             'mail' => array(
