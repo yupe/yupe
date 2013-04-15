@@ -1,7 +1,7 @@
 <?php
 /**
  * Отображение для sbsettings:
- * 
+ *
  *   @category YupeView
  *   @package  YupeCMS
  *   @author   Yupe Team <team@yupe.ru>
@@ -52,10 +52,14 @@ Yii::app()->clientScript->registerScript(
 
     <div class="row-fluid control-group <?php echo $data['model']->hasErrors('port') ? 'error' : ''; ?>">
         <?php echo $form->textFieldRow($data['model'], 'port', array('class' => 'popover-help span7', 'maxlength' => 150, 'size' => 60, 'data-original-title' => $data['model']->getAttributeLabel('port'), 'data-content' => $data['model']->getAttributeDescription('port'))); ?>
-    </div>    
+    </div>
 
     <div class="row-fluid control-group <?php echo $data['model']->hasErrors('dbName') ? 'error' : ''; ?>">
         <?php echo $form->textFieldRow($data['model'], 'dbName', array('class' => 'popover-help span7', 'maxlength' => 150, 'size' => 60, 'data-original-title' => $data['model']->getAttributeLabel('dbName'), 'data-content' => $data['model']->getAttributeDescription('dbName'), 'autocomplete' => 'off')); ?>
+    </div>
+
+    <div class="row-fluid control-group <?php echo $data['model']->hasErrors('createDb') ? 'error' : ''; ?>">
+        <?php echo $form->checkBoxRow($data['model'], 'createDb'); ?>
     </div>
 
     <div class="row-fluid control-group <?php echo $data['model']->hasErrors('tablePrefix') ? 'error' : ''; ?>">

@@ -40,6 +40,7 @@ class InstallForm extends YFormModel
     public $port        = '3306';
     public $socket      = '';
     public $dbName;
+    public $createDb;
     public $dbUser;
     public $dbPassword;
     public $tablePrefix = 'yupe_';
@@ -80,7 +81,7 @@ class InstallForm extends YFormModel
             array('dbPassword', 'length', 'min' => 0, 'max' => 32),
             array('port, dbType', 'numerical', 'integerOnly' => true),
             array('dbName, dbUser', 'length', 'min' => 0, 'max' => 256),
-            array('socket', 'safe'),
+            array('socket, createDb', 'safe'),
 
             /**
              * Для начальной настройки сайта:
@@ -115,6 +116,7 @@ class InstallForm extends YFormModel
             'port'            => Yii::t('InstallModule.install', 'Порт'),
             'socket'          => Yii::t('InstallModule.install', 'Сокет (если необходимо)'),
             'dbName'          => Yii::t('InstallModule.install', 'Название базы данных'),
+            'createDb'        => Yii::t('InstallModule.install', 'Создать базу данных'),
             'dbType'          => Yii::t('InstallModule.install', 'Тип сервера базы данных'),
             'dbUser'            => Yii::t('InstallModule.install', 'Пользователь'),
             'dbPassword'        => Yii::t('InstallModule.install', 'Пароль'),
@@ -155,6 +157,7 @@ class InstallForm extends YFormModel
             'port'            => Yii::t('InstallModule.install', 'Порт СУБД сервера'),
             'socket'          => Yii::t('InstallModule.install', 'Путь к mysql'),
             'dbName'          => Yii::t('InstallModule.install', 'Имя БД на сервере СУБД'),
+            'createDb'        => Yii::t('InstallModule.install', 'Создать БД на сервере СУБД'),
             'dbType'          => Yii::t('InstallModule.install', 'Тип сервера БД (эксперементальная возможность)'),
             'dbUser'          => Yii::t('InstallModule.install', 'Пользователь для доступа к указанной БД'),
             'dbPassword'      => Yii::t('InstallModule.install', 'Пароль для доступа к указанной БД'),
