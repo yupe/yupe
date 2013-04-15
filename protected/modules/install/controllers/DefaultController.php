@@ -564,6 +564,7 @@ class DefaultController extends YBackController
                 {
                     $socket  = ($form->socket == '') ? '' : 'unix_socket=' . $form->socket . ';';
                     $port    = ($form->port == '') ? '' : 'port=' . $form->port . ';';
+                    $dbName  = empty($form->createDb) ? 'dbname='.$form->dbName : '';
                     $dbTypes = $form->getDbTypes();
                     $dbType  = (isset($dbTypes[$form->dbType])
                                 ? $dbTypes[$form->dbType]
@@ -572,9 +573,14 @@ class DefaultController extends YBackController
                     $socket = ($form->socket == '') ? '' : 'unix_socket=' . $form->socket . ';';
                     $port   = ($form->port == '') ? '' : 'port=' . $form->port . ';';
 
-                    $connectionString = "{$dbType}:host={$form->host};{$port}{$socket}dbname={$form->dbName}";
+                    $connectionString = "{$dbType}:host={$form->host};{$port}{$socket}{$dbName}";
 
                     $connection = new CDbConnection($connectionString, $form->dbUser, $form->dbPassword);
+                    if ($form->createDb) {
+						$sql = 'CREATE DATABASE `'.$form->dbName.'`'.($connection->schema instanceof CMysqlSchema ? ' CHARACTER SET=utf8' : '');
+                    	$connection->createCommand($sql)->execute();
+                    	$connectionString .= 'dbname='.$form->dbName;
+                    }
                     $connection->connectionString = $connectionString;
                     $connection->username         = $form->dbUser;
                     $connection->password         = $form->dbPassword;
