@@ -3,5 +3,6 @@
     "description":"This is the testing theme",
     "version": 0.1,
     "authors": "Testers",
-    "parentTheme": "default"
+    "parentTheme": "default",
+    "resourcesDir":"resources"
 }

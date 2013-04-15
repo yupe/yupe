@@ -4,7 +4,10 @@
 <div class="media">
     <div class="pull-left">
         <div>
-            <img src="<?= $data->getPublicFile($data->getScreenshots()[0]); ?>" width="250" class="img-polaroid">
+            <?php if (null == $data->getScreenshot()): ?>
+            <?php else : ?>
+                <img src="<?= $data->resource($data->getScreenshot()); ?>" width="250" class="img-polaroid">
+            <?php endif; ?>
         </div>
     </div>
 
@@ -36,7 +39,7 @@
 
         <div class="theme-actions">
             <?php if (!$data->getIsEnabled()) : ?>
-                <a class="btn btn-small btn-success toggleTheme" data-theme-id="<?=$data->getName();?>">Включить</a>
+                <a class="btn btn-small btn-success toggleTheme" data-theme-id="<?= $data->getName(); ?>">Включить</a>
             <?php endif; ?>
         </div>
     </div>

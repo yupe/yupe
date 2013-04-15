@@ -41,7 +41,7 @@
  *          - Second default sub-theme
  *              - Third default sub-theme
  *
- *  -   Public files.
+ *  -   Public files also called resources
  *
  * @todo   write this part after assets publication realisation
  *
@@ -55,55 +55,27 @@ class YTheme extends CTheme
 {
     const METADATA_FILENAME = 'metaData.json';
 
-    /**
-     * @var string
-     */
+
     protected $_title;
-
-    /**
-     * @var string
-     */
     protected $_description;
-
-    /**
-     * @var string
-     */
     protected $_authors;
-
-    /**
-     * @var string
-     */
     protected $_version;
-
+    protected $_screenshot;
     /**
-     * @var array
-     */
-    protected $_screenshots = array();
-
-    /**
-     * @var YTheme
+     * @var YTheme|null
      */
     protected $_parentTheme;
-
-    /**
-     * @var array
-     */
     protected $_cssFiles = array();
-
-    /**
-     * @var array
-     */
     protected $_regions = array();
-
-    /**
-     * @var bool
-     */
+    protected $_resourcesDir;
     protected $_isBackend;
 
     /**
      * @var array Content of regions in a way: region name => region content
      */
     protected $_regionsContent = array();
+
+    protected $_resourcesUrl;
 
     /**
      * @return string Theme's title.
@@ -130,16 +102,16 @@ class YTheme extends CTheme
     }
 
     /**
-     * @return array List of screenshots' filepaths.
-     * Checks for parent theme screenshots if current theme doesn't have them.
+     * @return string|null Screenshot filepath relative to theme resources path.
+     * Checks for parent theme screenshot if current theme doesn't have it.
      */
-    public function getScreenshots()
+    public function getScreenshot()
     {
-        if (empty($this->_screenshots) && $this->_parentTheme instanceof YTheme) {
-            return $this->_parentTheme->getScreenshots();
+        if ($this->_screenshot == null && $this->_parentTheme instanceof YTheme) {
+            return $this->_parentTheme->getScreenshot();
         }
 
-        return $this->_screenshots;
+        return $this->_screenshot;
     }
 
     /**
@@ -173,7 +145,6 @@ class YTheme extends CTheme
     {
         return $this->_regions;
     }
-
 
     /**
      * Adds any content to specified region.
@@ -277,20 +248,43 @@ class YTheme extends CTheme
     /**
      * Returns absolute URL for file that can be accessed from web. Checks for parent theme if file does not exists.
      *
-     * @param string $path Path to file, relative from theme root directory.
+     * @param string $pathToResourceFile Path to file, relative from theme root directory.
      *
      * @return null|string URL of file. Null if file exists neither at current theme dir, nor at parent theme dir.
      */
-    public function getPublicFile($path)
+    public function resource($pathToResourceFile)
     {
-        $fullPath = realpath($this->getBasePath() . $path);
-        if (file_exists($fullPath)) {
-            return $this->baseUrl . $path;
+        $pathToResourceFile = str_replace(
+            array('..', '/', '\\'),
+            array('', DIRECTORY_SEPARATOR, DIRECTORY_SEPARATOR),
+            trim($pathToResourceFile, '/\\')
+        );
+        return $this->resolveResourceUrl($pathToResourceFile);
+    }
+
+    /**
+     * Internally used method. Resolves where from to take resource file - at current theme resource directory
+     * or at its parent theme resources dir. Mainly exists because there is no need to filter path to resource
+     * file at {@link resource()} again when calling parent theme method.
+     *
+     * @param $pathToResourceFile
+     *
+     * @return null|string
+     */
+    public function resolveResourceUrl($pathToResourceFile)
+    {
+        $fullPathToFile = $this->getBasePath()
+            . DIRECTORY_SEPARATOR . $this->_resourcesDir
+            . DIRECTORY_SEPARATOR . $pathToResourceFile;
+        if (file_exists($fullPathToFile)) {
+            $urlOfResourceFile = str_replace(array('/', '\\'), '/', $pathToResourceFile);
+            $fullUrlOfFile     = $this->_resourcesUrl . '/' . $urlOfResourceFile;
+            return $fullUrlOfFile;
         } elseif ($this->_parentTheme instanceof YTheme) {
-            return $this->_parentTheme->getPublicFile($path);
+            return $this->_parentTheme->resolveResourceUrl($pathToResourceFile);
         } else {
             Yii::log(
-                'Required by theme asset-file "' . $path . '" is found neither at theme directory, nor at parent theme directory.',
+                'Resource "' . $pathToResourceFile . '" required by theme is found neither at theme directory, nor at parent theme directory.',
                 CLogger::LEVEL_ERROR
             );
 
@@ -310,6 +304,16 @@ class YTheme extends CTheme
     protected function init()
     {
         $this->loadMetadata();
+        $this->registerResources();
+
+    }
+
+    protected function registerResources()
+    {
+        $resourcesDir = $this->getBasePath() . DIRECTORY_SEPARATOR . $this->_resourcesDir;
+        if (is_dir($resourcesDir)) {
+            $this->_resourcesUrl = Yii::app()->assetManager->publish($resourcesDir);
+        }
     }
 
     /**
@@ -330,9 +334,10 @@ class YTheme extends CTheme
         $this->_description = (string)$metaData['description'];
         $this->_authors     = (string)$metaData['authors'];
         $this->_version     = (string)$metaData['version'];
-        $this->_screenshots = (array)$metaData['screenshots'];
+        $this->_screenshot  = (string)$metaData['screenshot'];
         $this->_cssFiles    = (array)$metaData['cssFiles'];
         $this->_regions     = (array)$metaData['regions'];
+        $this->setResourcesDir((string)$metaData['resourcesDir']);
         $this->setParentTheme($metaData['parentTheme']);
     }
 
@@ -359,15 +364,25 @@ class YTheme extends CTheme
     protected function getDefaultMetadata()
     {
         return array(
-            'title'       => null,
-            'description' => null,
-            'version'     => null,
-            'authors'     => null,
-            'screenshots' => array(),
-            'cssFiles'    => array(),
-            'regions'     => array(),
-            'parentTheme' => null,
+            'title'        => null,
+            'description'  => null,
+            'version'      => null,
+            'authors'      => null,
+            'screenshot'   => null,
+            'cssFiles'     => array(),
+            'regions'      => array(),
+            'parentTheme'  => null,
+            'resourcesDir' => 'web',
         );
+    }
+
+    /**
+     * @param string $resourcesDir Name of directory under theme root that contain resources.
+     */
+    protected function setResourcesDir($resourcesDir)
+    {
+        $this->_resourcesDir = str_replace(array('..', '/', '\\'), '', $resourcesDir);
+        ;
     }
 
     /**

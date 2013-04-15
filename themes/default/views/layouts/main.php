@@ -11,21 +11,21 @@
 
     <!-- blueprint CSS framework -->
     <link rel="stylesheet" type="text/css"
-          href="<?= Yii::app()->theme->getPublicFile('/web/css/screen.css'); ?>"
+          href="<?= Yii::app()->theme->resource('css/screen.css'); ?>"
           media="screen, projection"/>
     <link rel="stylesheet" type="text/css"
-          href="<?= Yii::app()->theme->getPublicFile('/web/css/print.css'); ?>"
+          href="<?= Yii::app()->theme->resource('css/print.css'); ?>"
           media="print"/>
     <!--[if lt IE 8]>
     <link rel="stylesheet" type="text/css"
-          href="<?=Yii::app()->theme->getPublicFile('/web/css/ie.css');?>"
+          href="<?=Yii::app()->theme->resource('css/ie.css');?>"
           media="screen, projection"/>
     <![endif]-->
 
     <link rel="stylesheet" type="text/css"
-          href="<?= Yii::app()->theme->getPublicFile('/web/css/main.css'); ?>"/>
+          href="<?= Yii::app()->theme->resource('css/main.css'); ?>"/>
     <link rel="stylesheet" type="text/css"
-          href="<?= Yii::app()->theme->getPublicFile('/web/css/form.css'); ?>"/>
+          href="<?= Yii::app()->theme->resource('css/form.css'); ?>"/>
     <link rel="shortcut icon" href="/favicon.ico"/>
 
     <title><?php echo CHtml::encode($this->pageTitle); ?></title>
