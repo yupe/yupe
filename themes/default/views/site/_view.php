@@ -30,5 +30,6 @@
         else
             echo Yii::t('blog', 'тегов нет');
         ?>
+        комментарии: <?php echo $data->commentsCount;?>
     </div>
 </div>

@@ -247,4 +247,5 @@ class UserModule extends YWebModule
     {
         $this->raiseEvent('onBeginProfile', $event);
     }
+
 }

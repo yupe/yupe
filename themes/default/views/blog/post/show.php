@@ -40,7 +40,11 @@ $this->breadcrumbs = array(
 
 <br /><br />
 
-<?php $this->widget('application.modules.comment.widgets.CommentsListWidget', array('model' => $post, 'modelId' => $post->id)); ?>
+<?php $this->widget('application.modules.comment.widgets.CommentsListWidget', array(
+        'model' => $post,
+        'modelId'  => $post->id,
+        'comments' => $post->comments
+)); ?>
 <br/><br />
 
 <h3><?php echo Yii::t('blog', 'Оставить комментарий'); ?></h3>

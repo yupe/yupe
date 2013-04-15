@@ -77,74 +77,54 @@ class CommentController extends YFrontController
      **/
     public function actionAdd()
     {
+        if(!Yii::app()->request->isPostRequest || !Yii::app()->request->getPost('Comment')){
+            throw new CHttpException(404);
+        }
 
-        if (Yii::app()->request->isPostRequest && Yii::app()->request->getPost('Comment')!== null) {
-            $redirect = Yii::app()->request->getPost('redirectTo', Yii::app()->user->returnUrl);
+        $redirect = Yii::app()->request->getPost('redirectTo', Yii::app()->user->returnUrl);
 
-            $comment = new Comment;
+        $comment = new Comment;
+        $comment->setAttributes(
+            Yii::app()->request->getPost('Comment')
+        );
+
+        $module = Yii::app()->getModule('comment');
+        $comment->status = $module->defaultCommentStatus;
+
+        if (Yii::app()->user->isAuthenticated()) {
             $comment->setAttributes(
-                Yii::app()->request->getPost('Comment')
+                array(
+                    'user_id' => Yii::app()->user->id,
+                    'name'    => Yii::app()->user->getState('nick_name'),
+                    'email'   => Yii::app()->user->getState('email'),
+                )
             );
 
-            $module = Yii::app()->getModule('comment');
-            $comment->status = $module->defaultCommentStatus;
-
-            if (Yii::app()->user->isAuthenticated()) {
-                $comment->setAttributes(
-                    array(
-                        'user_id' => Yii::app()->user->id,
-                        'name'    => Yii::app()->user->getState('nick_name'),
-                        'email'   => Yii::app()->user->getState('email'),
-                    )
-                );
-
-                if ($module->autoApprove)
-                    $comment->status = Comment::STATUS_APPROVED;
-            }
-
-            if ($comment->save()) {
-                // result - результат выполнения для ajax
-                $result = true;
-
-                // сбросить кэш
-                Yii::app()->cache->delete("Comment{$comment->model}{$comment->model_id}");
-
-                // если нужно уведомить администратора - уведомляем =)
-                if ($module->notify && ($notifier = new Notifier()) !== false) {
-                    $comment->onNewComment = array($notifier, 'newComment');
-                    $comment->newComment();
-                }
-
-                $message = $comment->status !== Comment::STATUS_APPROVED
-                    ? Yii::t('CommentModule.comment', 'Спасибо, Ваша запись добавлена и ожидает проверки!')
-                    : Yii::t('CommentModule.comment', 'Спасибо, Ваша запись добавлена!');
-
-                if (!Yii::app()->request->isAjaxRequest) {
-                    Yii::app()->user->setFlash(
-                        YFlashMessages::NOTICE_MESSAGE,
-                        $message
-                    );
-                    $this->redirect($redirect);
-                }
-            } else {
-                $message = Yii::t('CommentModule.comment', 'Запись не добавлена! Заполните форму корректно!');
-                if (!Yii::app()->request->isAjaxRequest) {
-                    Yii::app()->user->setFlash(
-                        YFlashMessages::ERROR_MESSAGE, $message
-                    );
-                    $this->redirect($redirect);
-                }
-            }
+            if ($module->autoApprove)
+                $comment->status = Comment::STATUS_APPROVED;
         }
-        if (!Yii::app()->request->isAjaxRequest)
-            throw new CHttpException(404, Yii::t('CommentModule.comment', 'Страница не найдена!'));
-        else {
+
+        if ($comment->save()) {
+
+            // сбросить кэш
+            Yii::app()->cache->delete("Comment{$comment->model}{$comment->model_id}");
+
+            // если нужно уведомить администратора - уведомляем =)
+            if ($module->notify && ($notifier = new Notifier()) !== false) {
+                $comment->onNewComment = array($notifier, 'newComment');
+                $comment->newComment();
+            }
+
+            $message = $comment->status !== Comment::STATUS_APPROVED
+                ? Yii::t('CommentModule.comment', 'Спасибо, Ваша запись добавлена и ожидает проверки!')
+                : Yii::t('CommentModule.comment', 'Спасибо, Ваша запись добавлена!');
+
             $commentContent = $comment->status !== Comment::STATUS_APPROVED
                 ? ''
                 : $this->_renderComment($comment);
 
-            isset($result) && $result
-                ? Yii::app()->ajax->success(
+            if (Yii::app()->request->isAjaxRequest) {
+                Yii::app()->ajax->success(
                     array(
                         'message'        => $message,
                         'comment'        => array(
@@ -152,12 +132,31 @@ class CommentController extends YFrontController
                         ),
                         'commentContent' => $commentContent
                     )
-                )
-                : Yii::app()->ajax->failure(
+                );
+            }
+
+            Yii::app()->user->setFlash(
+                YFlashMessages::NOTICE_MESSAGE,
+                $message
+            );
+
+            $this->redirect($redirect);
+
+        } else {
+            $message = Yii::t('CommentModule.comment', 'Запись не добавлена! Заполните форму корректно!');
+
+            if (Yii::app()->request->isAjaxRequest) {
+                Yii::app()->ajax->failure(
                     array(
-                        'message'        => $message
+                        'message' => $message
                     )
                 );
+            }
+
+            Yii::app()->user->setFlash(
+                YFlashMessages::ERROR_MESSAGE, $message
+            );
+            $this->redirect($redirect);
         }
     }
 

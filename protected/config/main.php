@@ -24,8 +24,8 @@ $config = array(
 $files = glob(dirname(__FILE__) . '/modules/*.php');
 if (!empty($files)) {
     foreach ($files as $file) {
-        $moduleConfig = include_once $file;
-        $name         = preg_replace('#^.*/([^\.]*)\.php$#', '$1', $file);
+        $moduleConfig = require $file;
+        $name = pathinfo($file,PATHINFO_FILENAME);
 
         if ($name == 'yupe') {
             if (!YII_DEBUG)
@@ -62,7 +62,6 @@ return array(
             // подключение основых путей
             'application.components.*',
             // подключение путей из модулей
-            'application.modules.yupe.controllers.*',
             'application.modules.yupe.widgets.*',
             'application.modules.yupe.helpers.*',
             'application.modules.yupe.models.*',
@@ -95,9 +94,8 @@ return array(
     ),
     'behaviors' => array(
         'onBeginRequest' => array('class' => 'application.modules.yupe.extensions.urlManager.LanguageBehavior'),
-        //'YupeStartUpBehavior',
     ),
-    'params' => include_once dirname(__FILE__) . '/params.php',
+    'params' => require dirname(__FILE__) . '/params.php',
     // конфигурирование основных компонентов (подробнее http://www.yiiframework.ru/doc/guide/ru/basics.component)
     'components' => CMap::mergeArray(
         array(

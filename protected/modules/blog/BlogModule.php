@@ -1,11 +1,14 @@
 <?php
 class BlogModule extends YWebModule
 {
+    public $mainCategory;
+
     public function getDependencies()
     {
         return array(
             'user',
-            'category'
+            'category',
+            'comment'
         );
     }
 
@@ -17,6 +20,7 @@ class BlogModule extends YWebModule
     public function getParamsLabels()
     {
         return array(
+            'mainCategory'   => Yii::t('BlogModule.blog', 'Главная категория блогов'),
             'adminMenuOrder' => Yii::t('BlogModule.blog', 'Порядок следования в меню'),
             'editor'         => Yii::t('BlogModule.blog', 'Визуальный редактор'),
         );
@@ -27,7 +31,21 @@ class BlogModule extends YWebModule
         return array(
             'adminMenuOrder',
             'editor' => Yii::app()->getModule('yupe')->getEditors(),
+            'mainCategory' => CHtml::listData($this->getCategoryList(),'id','name'),
         );
+    }
+
+    public function getCategoryList()
+    {
+        $criteria = ($this->mainCategory)
+            ? array(
+                'condition' => 'id = :id OR parent_id = :id',
+                'params'    => array(':id' => $this->mainCategory),
+                'order'     => 'id ASC',
+            )
+            : array();
+
+        return Category::model()->findAll($criteria);
     }
 
     public function getNavigation()

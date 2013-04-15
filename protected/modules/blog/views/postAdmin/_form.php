@@ -58,13 +58,9 @@ $form = $this->beginWidget(
         <div class="span3">
 
             <?php
-            echo $form->timepickerRow(
+            echo $form->textFieldRow(
                 $model, 'publish_time_tmp', array(
                     'append'  =>'<i class="icon-time" style="cursor:pointer"></i>',
-                    'options' => array(
-                        'showMeridian' => false,
-                        'showSeconds'  => false,
-                    ),
                     'class'   => 'span11',
                 )
             );?>

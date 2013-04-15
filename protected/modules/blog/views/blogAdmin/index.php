@@ -105,30 +105,23 @@ $this->renderPartial('_search', array('model' => $model));
         ),
         'columns'      => array(
             'id',
+            'icon',
             array(
                 'name'  => 'name',
                 'type'  => 'raw',
                 'value' => 'CHtml::link($data->name, array("/blog/blogAdmin/update", "id" => $data->id))',
             ),
-            array(
-                'header' => Yii::t('BlogModule.blog', 'Записей'),
-                'value'  => '$data->postsCount',
-            ),
-            array(
-                'header' => Yii::t('BlogModule.blog', 'Участников'),
-                'value'  => '$data->membersCount',
-            ),
-            'icon',
             'slug',
             array(
                 'name'  => 'type',
                 'type'  => 'raw',
-                'value' => '$this->grid->returnBootstrapStatusHtml($data, "type", "Type", array(1 => "globe", 2 => "home"))',
+                'value'  => '$this->grid->returnBootstrapStatusHtml($data, "type", "Type", array(1 => "globe", 2 => "home"))',
+                'filter' => $model->getTypeList()
             ),
             array(
-                'name'  => 'status',
-                'type'  => 'raw',
-                'value' => '$this->grid->returnBootstrapStatusHtml($data, "status", "Status", array("lock", "ok-sign", "remove"))',
+                'name'  => 'category_id',
+                'value'  => 'empty($data->category) ? "---" : $data->category->name',
+                'filter' => CHtml::listData($this->module->getCategoryList(),'id','name')
             ),
             array(
                 'name'  => 'create_user_id',
@@ -138,6 +131,20 @@ $this->renderPartial('_search', array('model' => $model));
             array(
                 'name'  => 'create_date',
                 'value' => 'Yii::app()->getDateFormatter()->formatDateTime($data->create_date, "short", "short")',
+            ),
+            array(
+                'header' => Yii::t('BlogModule.blog', 'Записей'),
+                'value'  => '$data->postsCount',
+            ),
+            array(
+                'header' => Yii::t('BlogModule.blog', 'Участников'),
+                'value'  => '$data->membersCount',
+            ),
+            array(
+                'name'  => 'status',
+                'type'  => 'raw',
+                'value'  => '$this->grid->returnBootstrapStatusHtml($data, "status", "Status", array("lock", "ok-sign", "remove"))',
+                'filter' => $model->getStatusList()
             ),
             array(
                 'class' => 'bootstrap.widgets.TbButtonColumn',
