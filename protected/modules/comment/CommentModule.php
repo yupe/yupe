@@ -55,12 +55,16 @@ class CommentModule extends YWebModule
         if ($count)
             $messages[YWebModule::CHECK_NOTICE][] = array(
                 'type'    => YWebModule::CHECK_NOTICE,
-                'message' => Yii::t('CommentModule.comment', 'У Вас {{count}} новых комментариев. {{link}}', array(
-                    '{{count}}' => $count,
-                    '{{link}}'  => CHtml::link(Yii::t('CommentModule.comment', 'Модерация комментариев'), array(
-                        '/comment/default/index/order/status.asc/Comment_sort/status/',
-                    )),
-                )),
+                'message' => Yii::t(
+                    'CommentModule.comment', 'У Вас {{count}} новых комментариев. {{link}}', array(
+                        '{{count}}' => $count,
+                        '{{link}}'  => CHtml::link(
+                            Yii::t('CommentModule.comment', 'Модерация комментариев'), array(
+                                    '/comment/default/index/order/status.asc/Comment_sort/status/',
+                            )
+                        ),
+                    )
+                ),
             );
 
         return isset($messages[YWebModule::CHECK_NOTICE]) ? $messages : true;
