@@ -11,7 +11,7 @@ class YQueueMailSenderCommand extends CConsoleCommand
         $limit = (int) $limit;
 
         echo "Process " . $limit . " mail task...\n";
-        
+
         Yii::log("Process " . $limit . " mail task...\n");
 
         $models = Queue::model()->findAll(array(
@@ -25,15 +25,15 @@ class YQueueMailSenderCommand extends CConsoleCommand
         ));
 
         echo "Find " . count($models) . " new mail task...\n";
-        
+
         Yii::log("Find " . count($models) . " new mail task...\n");
 
         foreach ($models as $model)
         {
             echo "Process mail task id = {$model->id}...\n";
-            
+
             Yii::log("Process mail task id = {$model->id}...\n");
-            
+
             if (!$data = (array) json_decode($model->task))
             {
                 $model->status = Queue::STATUS_ERROR;
@@ -41,9 +41,9 @@ class YQueueMailSenderCommand extends CConsoleCommand
                 $model->notice = 'Error json_decode...';
 
                 $model->save();
-                
+
                 echo "Error json_decode...\n";
-                
+
                 Yii::log('Error json_decode...');
 
                 continue;
@@ -56,9 +56,9 @@ class YQueueMailSenderCommand extends CConsoleCommand
                 $model->notice = 'Wrong data...';
 
                 $model->save();
-                
+
                 echo "Wrong data...";
-                
+
                 Yii::log('Wrong data...');
 
                 continue;
@@ -71,10 +71,10 @@ class YQueueMailSenderCommand extends CConsoleCommand
                 $model->complete_time = new CDbExpression('NOW()');
 
                 $model->save();
-                
-                echo "Sucess send...";
-                
-                Yii::log("Sucess send...");
+
+                echo "Success send...";
+
+                Yii::log("Success send...");
 
                 continue;
             }

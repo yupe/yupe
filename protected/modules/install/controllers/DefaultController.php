@@ -560,73 +560,92 @@ class DefaultController extends YBackController
             $form->setAttributes($_POST['InstallForm']);
 
             if ($form->validate()) {
+                $socket  = ($form->socket == '') ? '' : 'unix_socket=' . $form->socket . ';';
+                $port    = ($form->port == '') ? '' : 'port=' . $form->port . ';';
+                $dbName  = empty($form->createDb) ? 'dbname='.$form->dbName : '';
+                $dbTypes = $form->getDbTypes();
+                $dbType  = (isset($dbTypes[$form->dbType])
+                            ? $dbTypes[$form->dbType]
+                            : $dbTypes[InstallForm::DB_MYSQL]);
+
+                $socket = ($form->socket == '') ? '' : 'unix_socket=' . $form->socket . ';';
+                $port   = ($form->port == '') ? '' : 'port=' . $form->port . ';';
+
+                $connectionString = "{$dbType}:host={$form->host};{$port}{$socket}{$dbName}";
+
                 try
                 {
-                    $socket  = ($form->socket == '') ? '' : 'unix_socket=' . $form->socket . ';';
-                    $port    = ($form->port == '') ? '' : 'port=' . $form->port . ';';
-                    $dbTypes = $form->getDbTypes();
-                    $dbType  = (isset($dbTypes[$form->dbType])
-                                ? $dbTypes[$form->dbType]
-                                : $dbTypes[InstallForm::DB_MYSQL]);
-
-                    $socket = ($form->socket == '') ? '' : 'unix_socket=' . $form->socket . ';';
-                    $port   = ($form->port == '') ? '' : 'port=' . $form->port . ';';
-
-                    $connectionString = "{$dbType}:host={$form->host};{$port}{$socket}dbname={$form->dbName}";
-
                     $connection = new CDbConnection($connectionString, $form->dbUser, $form->dbPassword);
-                    $connection->connectionString = $connectionString;
-                    $connection->username         = $form->dbUser;
-                    $connection->password         = $form->dbPassword;
-                    $connection->emulatePrepare   = true;
-                    $connection->charset          = 'utf8';
-                    $connection->active           = true;
-                    $connection->tablePrefix      = $form->tablePrefix;
-
-                    Yii::app()->setComponent('db', $connection);
-
-                    $dbParams = array(
-                        'class'                 => 'CDbConnection',
-                        'connectionString'      => $connectionString,
-                        'username'              => $form->dbUser,
-                        'password'              => $form->dbPassword,
-                        'emulatePrepare'        => true,
-                        'charset'               => 'utf8',
-                        'enableParamLogging'    => 0,
-                        'enableProfiling'       => 0,
-                        'schemaCachingDuration' => 108000,
-                        'tablePrefix'           => $form->tablePrefix,
-                    );
-
-                    $dbConfString = "<?php\n return " . var_export($dbParams, true) . ";\n?>";
-
-                    $fh = fopen($dbConfFile, 'w+');
-                    if (!$fh)
-                        $form->addError('', Yii::t('InstallModule.install', "Не могу открыть файл '{file}' для записии!", array('{file}' => $dbConfFile)));
-                    else
-                    {
-                        if (fwrite($fh, $dbConfString) && fclose($fh)) {
-
-                            $this->session['InstallForm'] = array_merge(
-                                $this->session['InstallForm'], array(
-                                    'dbSettings'     => $form->attributes,
-                                    'dbSettingsStep' => true,
-                                    'dbSettingsFile' => true,
-                                )
-                            );
-
-                            $this->_setSession();
-
-                            $this->redirect(array('/install/default/dbsettings'));
-                        } else
-                            $form->addError('', Yii::t('InstallModule.install', "Произошла ошибка записи в файл '{file}'!", array('{file}' => $dbConfFile)));
-                    }
                 }
                 catch (Exception $e)
                 {
                     $form->addError('', Yii::t('InstallModule.install', 'С указанными параметрами подключение к БД не удалось выполнить!') . '<br />' . $connectionString . '<br />' . $e->getMessage());
                     Yii::log($e->__toString(), CLogger::LEVEL_ERROR);
                     Yii::log($e->getTraceAsString(), CLogger::LEVEL_ERROR);
+                }
+
+                if ($form->createDb) {
+					try
+					{
+						$sql = 'CREATE DATABASE '.($connection->schema instanceof CMysqlSchema ?' `'.$form->dbName.'` CHARACTER SET=utf8' : $form->dbName);
+						$connection->createCommand($sql)->execute();
+						$connectionString .= 'dbname='.$form->dbName;
+					}
+					catch (Exception $e)
+					{
+						$form->addError('', Yii::t('InstallModule.install', 'Не удалось создать БД!') . '<br />' . $connectionString . '<br />' . $e->getMessage());
+						Yii::log($e->__toString(), CLogger::LEVEL_ERROR);
+						Yii::log($e->getTraceAsString(), CLogger::LEVEL_ERROR);
+					}
+                }
+
+				if (!$form->hasErrors()) {
+					$connection->connectionString = $connectionString;
+					$connection->username         = $form->dbUser;
+					$connection->password         = $form->dbPassword;
+					$connection->emulatePrepare   = true;
+					$connection->charset          = 'utf8';
+					$connection->active           = true;
+					$connection->tablePrefix      = $form->tablePrefix;
+
+					Yii::app()->setComponent('db', $connection);
+
+					$dbParams = array(
+						'class'                 => 'CDbConnection',
+						'connectionString'      => $connectionString,
+						'username'              => $form->dbUser,
+						'password'              => $form->dbPassword,
+						'emulatePrepare'        => true,
+						'charset'               => 'utf8',
+						'enableParamLogging'    => 0,
+						'enableProfiling'       => 0,
+						'schemaCachingDuration' => 108000,
+						'tablePrefix'           => $form->tablePrefix,
+					);
+
+	                $dbConfString = "<?php\n return " . var_export($dbParams, true) . ";\n?>";
+
+					$fh = fopen($dbConfFile, 'w+');
+					if (!$fh)
+						$form->addError('', Yii::t('InstallModule.install', "Не могу открыть файл '{file}' для записии!", array('{file}' => $dbConfFile)));
+					else
+					{
+						if (fwrite($fh, $dbConfString) && fclose($fh)) {
+
+							$this->session['InstallForm'] = array_merge(
+								$this->session['InstallForm'], array(
+									'dbSettings'     => $form->attributes,
+									'dbSettingsStep' => true,
+									'dbSettingsFile' => true,
+								)
+							);
+
+							$this->_setSession();
+
+							$this->redirect(array('/install/default/dbsettings'));
+						} else
+							$form->addError('', Yii::t('InstallModule.install', "Произошла ошибка записи в файл '{file}'!", array('{file}' => $dbConfFile)));
+					}
                 }
             }
         }
