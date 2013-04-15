@@ -587,7 +587,7 @@ class DefaultController extends YBackController
                 if ($form->createDb) {
 					try
 					{
-						$sql = 'CREATE DATABASE `'.$form->dbName.'`'.($connection->schema instanceof CMysqlSchema ? ' CHARACTER SET=utf8' : '');
+						$sql = 'CREATE DATABASE '.($connection->schema instanceof CMysqlSchema ?' `'.$form->dbName.'` CHARACTER SET=utf8' : $form->dbName);
 						$connection->createCommand($sql)->execute();
 						$connectionString .= 'dbname='.$form->dbName;
 					}
