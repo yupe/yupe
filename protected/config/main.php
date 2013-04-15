@@ -122,17 +122,17 @@ return array(
                     CMap::mergeArray(
                         array(
                             // правило переадресации инсталятора
-                            '/'                                                   => 'install/default/index',
+                            '/'                                                           => 'install/default/index',
                         ),
                         $config['rules']
                     ),
                     array(
                         // общие правила
-                        '<module:\w+>/<controller:\w+>/<action:\w+>/<id:\d+>' => '<module>/<controller>/<action>',
-                        '<module:\w+>/<controller:\w+>/<action:\w+>'          => '<module>/<controller>/<action>',
-                        '<module:\w+>/<controller:\w+>'                       => '<module>/<controller>/index',
-                        '<controller:\w+>/<action:\w+>'                       => '<controller>/<action>',
-                        '<controller:\w+>'                                    => '<controller>/index',
+                        '<module:\w+>/<controller:\w+>/<action:[0-9a-zA-Z_\-]+>/<id:\d+>' => '<module>/<controller>/<action>',
+                        '<module:\w+>/<controller:\w+>/<action:[0-9a-zA-Z_\-]+>'          => '<module>/<controller>/<action>',
+                        '<module:\w+>/<controller:\w+>'                                   => '<module>/<controller>/index',
+                        '<controller:\w+>/<action:[0-9a-zA-Z_\-]+>'                       => '<controller>/<action>',
+                        '<controller:\w+>'                                                => '<controller>/index',
                     )
                 ),
             ),
