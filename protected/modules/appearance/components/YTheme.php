@@ -2,6 +2,53 @@
 /**
  * Class YTheme
  *
+ * Adds to standard CTheme class:
+ *
+ *  -   Ability to retrieve additional information related to theme from JSON file that comes with theme.
+ *      This information internally called as "metadata", one can see the list of its available
+ *      entries and their default values at {@link getDefaultMetadata()}.
+ *      Metadata containing file is optional, if it doesn't exists default metadata values will be used. Every
+ *      available metadata option is also optional - defaults will be used instead of missing pairs of keys and values.
+ *
+ *  -   Support of theme regions for content to be rendered into.
+ *      One may add any content to region via {@link addContentToRegion()} method. Content will NOT be changed
+ *      in any way before rendering (i.e. it will not be html-encoded, etc.).
+ *      Regions shall be rendered at theme layout files using {@link region()} method, for example:
+ *      <pre>
+ *      <div class="sidebar">
+ *          <?php echo Yii::app()->theme->region("sidebar"); ?>
+ *      </div>
+ *      </pre>
+ *      Also you may want to check whether region does not contain any content - use {@link regionEmpty()} method.
+ *      List of available regions must be specified at metadata option called "regions":
+ *      <pre>
+ *      {
+ *      ...
+ *      "regions": {
+ *          "header": "Description of header region",
+ *          ...
+ *      },
+ *      ...
+ *      }
+ *      </pre>
+ *      List of all theme's regions can be fetched via {@link getRegions()} method.
+ *
+ *  -   Theme inheritance. If "parentTheme" parameter is specified at metadata, its value will be used as parent theme name.
+ *      Child theme inherits all of parent views, layouts and public files.
+ *      Moreover, nesting depth is not limited - parent theme can also have its parent, i.e. potential family tree can look like:
+ *      - Default theme
+ *          - First default sub-theme
+ *          - Second default sub-theme
+ *              - Third default sub-theme
+ *
+ *  -   Public files.
+ *
+ * @todo   write this part after assets publication realisation
+ *
+ *  -   Ability to determine whether theme is designed for applications's backend or frontend.
+ *      Theme directory name beginning from "backend_" means theme is designed for backend section of application.
+ *      You can check this out by using {@link getIsBackend()} and {@link getIsFrontend} methods.
+ *
  * @author Alexander Bolshakov <a.bolshakov.coder@gmail.com>
  */
 class YTheme extends CTheme
@@ -54,7 +101,7 @@ class YTheme extends CTheme
     protected $_isBackend;
 
     /**
-     * @var array region name => region content
+     * @var array Content of regions in a way: region name => region content
      */
     protected $_regionsContent = array();
 
