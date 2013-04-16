@@ -70,7 +70,7 @@ class CommentsListWidget extends YWidget
             $this->label = Yii::t('CommentModule.comment', 'Комментариев');
         }
 
-        if(empty($this->status)){
+        if (empty($this->status)) {
             $this->status = Comment::STATUS_APPROVED;
         }
     }
@@ -124,7 +124,7 @@ class CommentsListWidget extends YWidget
         if ($this->comment === null) {
             $comments = Yii::app()->cache->get("Comment{$this->model}{$this->modelId}");
             if (empty($comments)) {
-                if(empty($this->comments)){
+                if (empty($this->comments)) {
                     $this->comments = Comment::model()->with('author')->findAll(
                         array(
                             'condition' => 't.model = :model AND t.model_id = :modelId AND t.status = :status',
