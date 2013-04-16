@@ -7,7 +7,6 @@ class RegistrationAction extends CAction
 
         if ($module->registrationDisabled)
         {
-        	//$this->controller->render('registrationDisabled');
         	throw new CHttpException(404, Yii::t('UserModule.user', 'Запрошенная страница не найдена!'));
         }
         else
