@@ -8,7 +8,8 @@ class RecoveryPasswordAction extends CAction
 
         if ($module->recoveryDisabled)
         {
-        	$this->controller->render('recoveryDisabled');
+        	//$this->controller->render('recoveryDisabled');
+        	throw new CHttpException(404, Yii::t('UserModule.user', 'Запрошенная страница не найдена!'));
         }
         else
         {
