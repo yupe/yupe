@@ -24,47 +24,40 @@ $this->breadcrumbs=array(
     Yii::t('DocsModule.docs', 'Документация')
 );
 
-echo CHtml::tag(
-    'p', array('class' => 'alert alert-info'), 
-    Yii::t('DocsModule.docs', 'Данный модуль предназначен для документирования проекта.')
-);
-
-echo CHtml::openTag(
-    'div', array(
-        'class' => 'accordion',
-        'id'    => 'accordion2',
-    )
-);
-
-$collapse = $this->beginWidget('bootstrap.widgets.TbCollapse');
 $fileList = $this->module->fileList(Yii::getPathOfAlias($this->module->docFolder) . DIRECTORY_SEPARATOR . Yii::app()->language);
+Yii::app()->user->setFlash('info', Yii::t('DocsModule.docs', 'Данный модуль предназначен для документирования проекта.'));
+?>
 
-echo '
+<?php
+$this->widget(
+    'bootstrap.widgets.TbAlert', array(
+        'block'  =>true,
+        'alerts' =>array(
+            'info' => array('block' => true),
+        ),
+    )
+); ?>
+
+<div class="accordion" id="accordion2">
+<?php $collapse = $this->beginWidget('bootstrap.widgets.TbCollapse'); ?>
     <div class="accordion-group">
         <div class="accordion-heading">
-            <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion2" href="#collapseOne">'
-            . Yii::t('DocsModule.docs', 'Существующие файлы') . ' (' . count($fileList) . '):'
-            .'</a>
+            <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion2" href="#collapseOne">
+            <?php echo Yii::t('DocsModule.docs', 'Существующие файлы') . ' (' . count($fileList) . ')'; ?>
+            </a>
         </div>
         <div id="collapseOne" class="accordion-body collapse in">
-            <div class="accordion-inner">';
-
-
-echo CHtml::openTag('ol');
-
+            <div class="accordion-inner">
+                <ol>
+<?php
 array_walk(
     $fileList, function ($item, $key) {
         echo CHtml::tag('li', array(), $item);
     }
-);
-
-echo CHtml::closeTag('ol');
-
-echo '
+); ?>
+                </ol>
             </div>
         </div>
-    </div>';
-
-$this->endWidget();
-
-echo CHtml::closeTag('div');
+    </div>
+<?php $this->endWidget(); ?>
+</div>
