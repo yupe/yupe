@@ -260,7 +260,7 @@ class DocsModule extends YWebModule
         return array(
             array(
                 'label' => Yii::t('DocsModule.docs', 'Документация'),
-                'url'   => array('/docs/show/index', 'file' => 'index.md'),
+                'url'   => array('/docs/show/index', 'file' => 'index'),
                 'icon'  => 'home white',
             ),
             array(
@@ -294,7 +294,7 @@ class DocsModule extends YWebModule
         return array(
             array(
                 'label' => Yii::t('DocsModule.docs', 'Документация'),
-                'url'   => array('/docs/show/index', 'file' => 'index.md'),
+                'url'   => array('/docs/show/index', 'file' => 'index'),
                 'icon'  => 'home',
             ),
             array(
@@ -391,6 +391,26 @@ class DocsModule extends YWebModule
      **/
     public function absoluteFilePath($file = null)
     {
+        if ($file === null)
+            return null;
+
+        if (($matches = glob(Yii::getPathOfAlias($this->docFolder . '.' . Yii::app()->language) . DIRECTORY_SEPARATOR . $file . '*')) === false
+            || count($matches) < 1
+        )
+            return null;
+
+        usort(
+            $matches, function ($a, $b) {
+                return (strlen(pathinfo($a, PATHINFO_EXTENSION)) < strlen(pathinfo($b, PATHINFO_EXTENSION))
+                        ? -1
+                        : 1)
+                    + (strlen(pathinfo($a, PATHINFO_BASENAME)) < strlen(pathinfo($a, PATHINFO_BASENAME))
+                        ? -1
+                        : 1);
+            }
+        );
+
+        $file = pathinfo($matches[0], PATHINFO_BASENAME);
 
         return !file_exists(Yii::getPathOfAlias($this->docFolder . '.' . Yii::app()->language) . DIRECTORY_SEPARATOR . $file)
                   && $this->notFoundOn == 0
