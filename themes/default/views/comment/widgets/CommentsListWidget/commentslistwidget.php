@@ -30,6 +30,27 @@ if (count($comments)) {
             . str_replace(' ', '_', $comment->creation_date)
             . '">'
             . "\n"
+            . '<div class="avatar">'
+            . (!is_object($comment->author)
+                         ? CHtml::image(
+                            User::model()->getAvatar(32),
+                            $comment->name,
+                            array(
+                                'width' => 32,
+                                'height' => 32
+                            )
+                        )
+                         : CHtml::image(
+                            $comment->author->getAvatar(32),
+                            $comment->author->nick_name,
+                            array(
+                                'width' => 32,
+                                'height' => 32
+                            )
+                        )
+            )
+            . '</div>'
+            . '<div class="comment-body">'
             . '<div class="author">'
             . "\n";
         if (!is_object($comment->author)) {
@@ -59,6 +80,7 @@ if (count($comments)) {
         echo '</div>';
         echo '<div class="time">' . $comment->creation_date . '</div>';
         echo '<div class="content">' . $comment->text . '</div>';
+        echo '</div>';
         echo '</div>';
         echo '</div>';
     }

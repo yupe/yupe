@@ -243,6 +243,14 @@ div.search-form {
     margin: 5px 0;
 }
 
+.comment .comment-body {
+    margin-left: 36px;
+}
+
+.comment .avatar {
+    float: left;
+}
+
 .comment .content {
     margin: 10px 0;
 }
