@@ -25,7 +25,7 @@ class AppearanceModule extends YWebModule
 
     public function getDescription()
     {
-        return Yii::t('AppearanceModule.messages', 'Внешний вид');
+        return Yii::t('AppearanceModule.messages', 'Управляйте настройками тем оформления');
     }
 
     public function getAdminPageLink()
@@ -87,6 +87,12 @@ class AppearanceModule extends YWebModule
     }
 
 
+    /**
+     * @param YTheme $theme   Instance of theme to check
+     * @param bool   $refresh Whether to refresh cached result
+     *
+     * @return bool Whether theme is enabled for its environmnent - frontend or backend.
+     */
     public function getIsThemeEnabled(YTheme $theme, $refresh = false)
     {
         if ($refresh || self::$_themeSettings == null) {
@@ -111,9 +117,11 @@ class AppearanceModule extends YWebModule
     }
 
     /**
-     * @param YTheme $theme
+     * Enables theme for its environment - frontend or backend.
      *
-     * @return bool
+     * @param YTheme $theme Instance of theme to enable.
+     *
+     * @return bool Whether saving was successful.
      */
     public function toggleTheme(YTheme $theme)
     {

@@ -4,7 +4,7 @@
  *
  * Adds to standard CTheme class:
  *
- *  -   Ability to retrieve additional information related to theme from JSON file that comes with theme.
+ *  -   Ability to retrieve additional information related to theme from JSON file "metaData.json" that comes with theme.
  *      This information internally called as "metadata", one can see the list of its available
  *      entries and their default values at {@link getDefaultMetadata()}.
  *      Metadata containing file is optional, if it doesn't exists default metadata values will be used. Every
@@ -41,9 +41,17 @@
  *          - Second default sub-theme
  *              - Third default sub-theme
  *
- *  -   Public files also called resources
+ *  -   Resources are theme files, accessible via web. They are intended to be stored at relative to theme root
+ *      directory, which name is defined as value of "resourcesDir" metadata parameter, that defaults to "web".
+ *      When theme is being initialized, the contents of this directory are published via {@link CAssetManager},
+ *      so you can easily hide your themes to directory inaccessible from web. However, this approach requires the use
+ *      of a {@link resource()} method that returns the URL of requested file instead of appending file path to
+ *      result of {@link getBaseUrl()} method as you used to do. Here is an example of how to do in in a right way:
+ *      <pre>
+ *      <link rel="stylesheet" type="text/css" href="<?= Yii::app()->theme->resource('css/screen.css'); ?>"
+ *      </pre>
  *
- * @todo   write this part after assets publication realisation
+ *  -   An events. Now {@link onThemeInit()} and {@link onContentAddedToRegion()} are available.
  *
  *  -   Ability to determine whether theme is designed for applications's backend or frontend.
  *      Theme directory name beginning from "backend_" means theme is designed for backend section of application.
@@ -139,7 +147,7 @@ class YTheme extends CTheme
     }
 
     /**
-     * @return array Theme regions in format: Region ID => Human-readable name
+     * @return array Theme regions in format: Region ID => Region description
      */
     public function getRegions()
     {
@@ -160,6 +168,7 @@ class YTheme extends CTheme
         } else {
             $this->_regionsContent[$regionName] = $content;
         }
+        $this->onContentAddedToRegion(new CEvent($this, array('region' => $regionName)));
     }
 
     /**
@@ -248,7 +257,7 @@ class YTheme extends CTheme
     /**
      * Returns absolute URL for file that can be accessed from web. Checks for parent theme if file does not exists.
      *
-     * @param string $pathToResourceFile Path to file, relative from theme root directory.
+     * @param string $pathToResourceFile Path to file, relative from theme resource directory.
      *
      * @return null|string URL of file. Null if file exists neither at current theme dir, nor at parent theme dir.
      */
@@ -283,31 +292,66 @@ class YTheme extends CTheme
         } elseif ($this->_parentTheme instanceof YTheme) {
             return $this->_parentTheme->resolveResourceUrl($pathToResourceFile);
         } else {
-            Yii::log(
-                'Resource "' . $pathToResourceFile . '" required by theme is found neither at theme directory, nor at parent theme directory.',
-                CLogger::LEVEL_ERROR
-            );
-
             return null;
         }
     }
 
+    /**
+     * An event which is being risen right after theme initialization.
+     *
+     * @param CEvent $event
+     *
+     * @return void
+     */
+    public function onThemeInit(CEvent $event)
+    {
+        $this->raiseEvent('onThemeInit', $event);
+    }
+
+    /**
+     * An event which raises when content was added to region. Region name is available as event parameter "region".
+     *
+     * @param CEvent $event
+     *
+     * @return void
+     */
+    public function onContentAddedToRegion(CEvent $event)
+    {
+        $this->raiseEvent('onContentAddedToRegion', $event);
+    }
+
     /** Internally used methods are under this line.  */
 
-
+    /**
+     * Constructor.
+     *
+     * @param string $name     Name of the theme
+     * @param string $basePath Base theme path
+     * @param string $baseUrl  Base theme URL
+     */
     public function __construct($name, $basePath, $baseUrl)
     {
         parent::__construct($name, $basePath, $baseUrl);
         $this->init();
     }
 
+    /**
+     * Initializes theme and raises "onThemeInit" event. Called at the end of constructor.
+     *
+     * @return void
+     */
     protected function init()
     {
         $this->loadMetadata();
         $this->registerResources();
-
+        $this->onThemeInit(new CEvent($this));
     }
 
+    /**
+     * Publishes theme resource directory via asset manager.
+     *
+     * @return void
+     */
     protected function registerResources()
     {
         $resourcesDir = $this->getBasePath() . DIRECTORY_SEPARATOR . $this->_resourcesDir;
@@ -378,17 +422,20 @@ class YTheme extends CTheme
 
     /**
      * @param string $resourcesDir Name of directory under theme root that contain resources.
+     *
+     * @return void
      */
     protected function setResourcesDir($resourcesDir)
     {
         $this->_resourcesDir = str_replace(array('..', '/', '\\'), '', $resourcesDir);
-        ;
     }
 
     /**
      * Sets parent theme based on its name.
      *
      * @param string $themeName The name of estimated parent theme.
+     *
+     * @return void
      */
     protected function setParentTheme($themeName)
     {

@@ -26,7 +26,7 @@ class ThemeController extends YBackController
      */
     public function actionList()
     {
-        $themes     = array();
+        $themes = array();
         $themeNames = $this->getThemeManager()->getThemeNames();
         foreach ($themeNames as $themeName) {
             $themes[] = $this->getThemeManager()->getTheme($themeName);
@@ -55,7 +55,7 @@ class ThemeController extends YBackController
         $theme   = $this->loadTheme($themeID);
         $saved   = AppearanceModule::get()->toggleTheme($theme);
         if (!$saved) {
-            throw new CHttpException(500, 'Не удалось применить тему');
+            throw new CHttpException(500, Yii::t('AppearanceModule.messages', 'Не удалось применить тему'));
         } else {
             // @todo try to find better solution
             Yii::app()->cache->flush();
@@ -94,7 +94,10 @@ class ThemeController extends YBackController
         if ($theme instanceof YTheme) {
             return $theme;
         } else {
-            throw new CHttpException(404, 'Указанная тема оформления не существует.');
+            throw new CHttpException(404, Yii::t(
+                'AppearanceModule.messages',
+                'Указанная тема оформления не существует.'
+            ));
         }
     }
 }

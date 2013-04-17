@@ -2,8 +2,8 @@
 /** @var $themes YTheme[] */
 ?>
     <div class="page-header">
-        <h1>Темы оформления
-            <small>выбор</small>
+        <h1><?=Yii::t('AppearanceModule.messages', 'Темы оформления');?>
+            <small><?=Yii::t('AppearanceModule.messages', 'выбор');?></small>
         </h1>
     </div>
 

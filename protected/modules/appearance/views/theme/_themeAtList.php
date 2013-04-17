@@ -16,30 +16,34 @@
             <?=CHtml::encode($data->getTitle());?>
             <span class="label label-info"><?=CHtml::encode($data->getVersion());?></span>
             <?php if ($data->getParentTheme()) : ?>
-                <small title="Родительская тема">&larr; <?=CHtml::encode($data->getParentTheme()->getTitle());?></small>
+                <small title="<?= Yii::t('AppearanceModule.messages', 'Родительская тема'); ?>">&larr;
+                    <?=CHtml::encode($data->getParentTheme()->getTitle());?>
+                </small>
             <?php endif; ?>
         </h4>
 
         <div>
             <?php if ($data->getIsBackend()) : ?>
-                <span class="label label-info">Для панели управления</span>
+                <span class="label"><?=Yii::t('AppearanceModule.messages', 'Для панели управления');?></span>
             <?php else : ?>
-                <span class="label label-info">Для клиентской части</span>
+                <span class="label label-info"><?=Yii::t('AppearanceModule.messages', 'Для клиентской части');?></span>
             <?php endif; ?>
             <?php if ($data->getIsEnabled()) : ?>
-                <span class="label label-success">Включена</span>
+                <span class="label label-success"><?= Yii::t('AppearanceModule.messages', 'Включена'); ?></span>
             <?php else : ?>
-                <span class="label">Выключена</span>
+                <span class="label"><?=Yii::t('AppearanceModule.messages', 'Выключена');?></span>
             <?php endif; ?>
         </div>
         <div>
-            Автор: <?=CHtml::encode($data->getAuthors());?>
+            <?=Yii::t('AppearanceModule.messages', 'Автор');?>: <?=CHtml::encode($data->getAuthors());?>
         </div>
         <p><?=CHtml::encode($data->getDescription());?></p>
 
         <div class="theme-actions">
             <?php if (!$data->getIsEnabled()) : ?>
-                <a class="btn btn-small btn-success toggleTheme" data-theme-id="<?= $data->getName(); ?>">Включить</a>
+                <a class="btn btn-small btn-success toggleTheme" data-theme-id="<?= $data->getName(); ?>">
+                    <?=Yii::t('AppearanceModule.messages', 'Включить');?>
+                </a>
             <?php endif; ?>
         </div>
     </div>
