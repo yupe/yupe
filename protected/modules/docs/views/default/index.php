@@ -11,6 +11,15 @@
  *
  **/
 
+/**
+ * Добавляем нужный CSS:
+ */
+Yii::app()->clientScript->registerCssFile(
+    Yii::app()->assetManager->publish(
+        Yii::getPathOfAlias('application.modules.docs.views.assets') . '/css/docs.css'
+    )
+);
+
 $this->breadcrumbs=array(
     Yii::t('DocsModule.docs', 'Документация')
 );
