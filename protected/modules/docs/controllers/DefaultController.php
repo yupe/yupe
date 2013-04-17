@@ -19,11 +19,6 @@ class DefaultController extends YBackController
      **/
     public function actionIndex()
     {
-        Yii::app()->clientScript->registerCssFile(
-            Yii::app()->assetManager->publish(
-                Yii::getPathOfAlias('application.modules.docs.views.assets') . '/css/docs.css'
-            )
-        );
         $this->render('index');
     }
 }
