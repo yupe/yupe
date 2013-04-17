@@ -272,6 +272,22 @@ class DocsModule extends YWebModule
                 'icon'  => 'home white',
             ),
             array(
+                'label' => Yii::t('DocsModule.docs', 'О Юпи!'),
+                'icon'  => 'info-sign white',
+                'items' => array(
+                    array(
+                        'label' => Yii::t('DocsModule.docs', 'Возможности'),
+                        'url'   => array('/docs/show/index', 'file' => 'capability'),
+                        'icon'  => 'file',
+                    ),
+                    array(
+                        'label' => Yii::t('DocsModule.docs', 'Помощь проекту'),
+                        'url'   => array('/docs/show/index', 'file' => 'assistance.project'),
+                        'icon'  => 'file',
+                    ),
+                ),
+            ),
+            array(
                 'label' => Yii::t('DocsModule.docs', 'Категория 1'),
                 'icon'  => 'th-large white',
                 'items' => array(
