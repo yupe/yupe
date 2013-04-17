@@ -68,7 +68,7 @@ class Category extends YModel
                 'class'         =>'application.modules.yupe.models.ImageUploadBehavior',
                 'scenarios'     => array('insert','update'),
                 'attributeName' => 'image',
-                'uploadPath'    => $module->getUploadPath(),
+                'uploadPath'    => $module !== null ? $module->getUploadPath() : null,
                 'imageNameCallback' => array($this, 'generateFileName'),
                 'resize' => array(
                     'quality' => 70,
