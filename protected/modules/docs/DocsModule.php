@@ -28,7 +28,7 @@ class DocsModule extends YWebModule
      *  файла мы будем использовать преобразование
      *  как для обычного md-файла
      */
-    public $fileExtMD   = 'md,txt,';
+    public $fileExtMD   = 'md,txt';
     public $fileExtHTML = 'html,htm';
 
     /**
