@@ -1,0 +1,45 @@
+#content h1,
+#content h2,
+#content h3 {
+    line-height: 40px;
+}
+
+#content h1 {
+    font-size: 30.5px;
+}
+
+#content h2 {
+    font-size: 26.5px;
+}
+
+#content h3 {
+    font-size: 22.5px;
+}
+
+#content h4 {
+    font-size: 16.5px;
+}
+
+#content h5 {
+    font-size: 12px;
+}
+
+#content h6 {
+    font-size: 10px;
+}
+
+#content h1 small {
+    font-size: 22.5px;
+}
+
+#content h2 small {
+    font-size: 15.5px;
+}
+
+#content h3 small {
+    font-size: 12px;
+}
+
+#content h4 small {
+    font-size: 10px;
+}
