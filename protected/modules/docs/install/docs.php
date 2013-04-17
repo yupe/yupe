@@ -6,8 +6,8 @@ return array(
     'import'    => array(
     ),
     'rules'     => array(
-        '/backend/docs/<action:\w+>' => 'docs/default/<action>',
-        '/docs/<file:.*>'            => 'docs/show/index',
-        '/docs'                      => 'docs/show/index',
+        '/docs/<file:[a-zA-Z0-9\-_.]+>.html' => 'docs/show/index',
+        '/backend/docs/<action:\w+>'       => 'docs/default/<action>',
+        '/docs'                            => 'docs/show/index',
     ),
 );
