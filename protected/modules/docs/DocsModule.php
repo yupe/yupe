@@ -32,6 +32,11 @@ class DocsModule extends YWebModule
     public $fileExtHTML = 'html,htm';
 
     /**
+     * Статические файлы для рендеринга:
+     */
+    public $staticFiles = 'README.md,README_EN.md,LICENSE,UPGRADE,CHANGELOG,TEAM.md,install_ru.txt';
+
+    /**
      * Категория модуля:
      * 
      * @return string category
@@ -49,11 +54,12 @@ class DocsModule extends YWebModule
     public function getParamsLabels()
     {
         return array(
-            'docFolder'  => Yii::t('DocsModule.docs', 'Расположение файлов документации'),
-            'notFoundOn' => Yii::t('DocsModule.docs', 'Показывать страницу ошибки, если файл документации на данном языке не найден?'),
-            'fileExtMD' => Yii::t('DocsModule.docs', 'Расширения для файлов MarkDown'),
+            'docFolder'   => Yii::t('DocsModule.docs', 'Расположение файлов документации'),
+            'notFoundOn'  => Yii::t('DocsModule.docs', 'Показывать страницу ошибки, если файл документации на данном языке не найден?'),
+            'fileExtMD'   => Yii::t('DocsModule.docs', 'Расширения для файлов MarkDown'),
             'fileExtHTML' => Yii::t('DocsModule.docs', 'Расширения для файлов HMTML'),
             'cachePages'  => Yii::t('DocsModule.docs', 'Кеширование страниц на уровне фильтрации'),
+            'staticFiles' => Yii::t('DocsModule.docs', 'Файлы, которые необходимо показать в админ панели'),
         );
     }
 
@@ -72,7 +78,8 @@ class DocsModule extends YWebModule
             'cachePages' => array(
                 Yii::t('DocsModule.docs', 'Выключить'),
                 Yii::t('DocsModule.docs', 'Включить'),
-            )
+            ),
+            'staticFiles'
         );
     }
 
@@ -92,6 +99,7 @@ class DocsModule extends YWebModule
                 'items' => array(
                     'fileExtMD',
                     'fileExtHTML',
+                    'staticFiles',
                 )
             )
         );
@@ -432,5 +440,37 @@ class DocsModule extends YWebModule
                   && $this->notFoundOn == 0
                     ? Yii::getPathOfAlias($this->docFolder . '.' . Yii::app()->sourceLanguage) . DIRECTORY_SEPARATOR . $file
                     : Yii::getPathOfAlias($this->docFolder . '.' . Yii::app()->language) . DIRECTORY_SEPARATOR . $file; 
+    }
+
+    /**
+     * Сайдбар для админ-контроллера
+     *
+     * @return array отрисованые файлы проекта
+     **/
+    public function renderProjectDocs()
+    {
+        $items = array();
+
+        foreach (explode(',', $this->staticFiles) as $key) {
+
+            if (($file = Yii::getPathOfAlias('webroot') . DIRECTORY_SEPARATOR . $key) && !file_exists($file))
+                continue;
+
+            $content = $this->renderMarkdown($file);
+
+            $title   = $this->getDocTitle($content);
+
+            if ($title === null)
+                $title = $key;
+
+            array_push(
+                $items, array(
+                    'label' => $title,
+                    'url'   => array('/docs/default/show', 'file' => $key),
+                    'icon'  => 'file',
+                )
+            );
+        }
+        return $items;
     }
 }
