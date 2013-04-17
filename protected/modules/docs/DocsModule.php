@@ -404,7 +404,7 @@ class DocsModule extends YWebModule
                 return (strlen(pathinfo($a, PATHINFO_EXTENSION)) < strlen(pathinfo($b, PATHINFO_EXTENSION))
                         ? -1
                         : 1)
-                    + (strlen(pathinfo($a, PATHINFO_BASENAME)) < strlen(pathinfo($a, PATHINFO_BASENAME))
+                    + (strlen(pathinfo($a, PATHINFO_BASENAME)) < strlen(pathinfo($b, PATHINFO_BASENAME))
                         ? -1
                         : 1);
             }
