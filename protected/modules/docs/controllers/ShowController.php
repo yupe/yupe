@@ -69,7 +69,7 @@ class ShowController extends YFrontController
     public function actionIndex($file = null)
     {
         if ($file === null)
-            $this->redirect(array('/docs/show/index', 'file' => 'index.md'));
+            $this->redirect(array('/docs/show/index', 'file' => 'index'));
         /**
          * @var $lcFile - в данную переменную помещаем абсолютный путь к файлу
          *                добавляя к нему текущий язык, но если файл не найден
