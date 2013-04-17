@@ -103,7 +103,7 @@ class BlogAdminController extends YBackController
             );
 
             // если это AJAX запрос ( кликнули удаление в админском grid view), мы не должны никуда редиректить
-            if (Yii::app()->request->isAjaxRequest)
+            if (!Yii::app()->request->isAjaxRequest)
                 $this->redirect(Yii::app()->request->getPost('returnUrl', array('index')));
         }
         else
