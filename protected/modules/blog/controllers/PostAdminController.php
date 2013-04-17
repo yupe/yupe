@@ -23,26 +23,31 @@ class PostAdminController extends YBackController
 
         // Uncomment the following line if AJAX validation is needed
         // $this->performAjaxValidation($model);
-        if(Yii::app()->request->getQuery('blog')){
-            $model->blog_id = (int)Yii::app()->request->getQuery('blog');
+        if (Yii::app()->request->getQuery('blog')) {
+            $model->blog_id = (int) Yii::app()->request->getQuery('blog');
         }
 
-        if (isset($_POST['Post']))
-        {
-            $model->attributes = $_POST['Post'];
-            $model->setTags(Yii::app()->request->getPost('tags'));
+        if (Yii::app()->request->isPostRequest && Yii::app()->request->getPost('Post')) {
+            $model->setAttributes(
+                Yii::app()->request->getPost('Post')
+            );
+            $model->setTags(
+                Yii::app()->request->getPost('tags')
+            );
 
-            if ($model->save())
-            {
+            if ($model->save()) {
                 Yii::app()->user->setFlash(
                     YFlashMessages::NOTICE_MESSAGE,
                     Yii::t('BlogModule.blog', 'Запись добавлена!')
                 );
-
-                if (!isset($_POST['submit-type']))
-                    $this->redirect(array('update', 'id' => $model->id));
-                else
-                    $this->redirect(array($_POST['submit-type']));
+                $this->redirect(
+                    (array) Yii::app()->request->getPost(
+                        'submit-type', array(
+                            'update',
+                            'id' => $model->id
+                        )
+                    )
+                );
             }
         }
         $this->render('create', array('model' => $model));
@@ -56,22 +61,28 @@ class PostAdminController extends YBackController
     {
         $model = $this->loadModel($id);
 
-        if (isset($_POST['Post']))
-        {
-            $model->attributes = $_POST['Post'];
-            $model->setTags(Yii::app()->request->getPost('tags'));
+        if (Yii::app()->request->isPostRequest && Yii::app()->request->getPost('Post')) {
+            $model->setAttributes(
+                Yii::app()->request->getPost('Post')
+            );
+            $model->setTags(
+                Yii::app()->request->getPost('tags')
+            );
 
-            if ($model->save())
-            {
+            if ($model->save()) {
                 Yii::app()->user->setFlash(
                     YFlashMessages::NOTICE_MESSAGE,
                     Yii::t('BlogModule.blog', 'Запись обновлена!')
                 );
 
-                if (!isset($_POST['submit-type']))
-                    $this->redirect(array('update', 'id' => $model->id));
-                else
-                    $this->redirect(array($_POST['submit-type']));
+                $this->redirect(
+                    (array) Yii::app()->request->getPost(
+                        'submit-type', array(
+                            'update',
+                            'id' => $model->id,
+                        )
+                    )
+                );
             }
         }
         $this->render('update', array('model' => $model));
@@ -84,8 +95,7 @@ class PostAdminController extends YBackController
      */
     public function actionDelete($id)
     {
-        if (Yii::app()->request->isPostRequest)
-        {
+        if (Yii::app()->request->isPostRequest) {
             // поддерживаем удаление только из POST-запроса
             $this->loadModel($id)->delete();
 
@@ -95,10 +105,13 @@ class PostAdminController extends YBackController
             );
 
             // если это AJAX запрос ( кликнули удаление в админском grid view), мы не должны никуда редиректить
-            if (!isset($_GET['ajax']))
-                $this->redirect(isset($_POST['returnUrl']) ? $_POST['returnUrl'] : array('index'));
-        }
-        else
+            if (!Yii::app()->request->isAjaxRequest)
+                $this->redirect(
+                    (array) Yii::app()->request->getPost(
+                        'returnUrl', array('index')
+                    )
+                );
+        } else
             throw new CHttpException(400, Yii::t('BlogModule.blog', 'Неверный запрос. Пожалуйста, больше не повторяйте такие запросы!'));
     }
 
@@ -109,8 +122,10 @@ class PostAdminController extends YBackController
     {
         $model = new Post('search');
         $model->unsetAttributes(); // clear any default values
-        if (isset($_GET['Post']))
-            $model->attributes = $_GET['Post'];
+        if (Yii::app()->request->getParam('Post'))
+            $model->setAttributes(
+                Yii::app()->request->getPost('Post')
+            );
         $this->render('index', array('model' => $model));
     }
 
@@ -133,8 +148,7 @@ class PostAdminController extends YBackController
      */
     protected function performAjaxValidation($model)
     {
-        if (isset($_POST['ajax']) && $_POST['ajax'] === 'post-form')
-        {
+        if (Yii::app()->request->isAjaxRequest && Yii::app()->request->getPost('ajax') === 'post-form') {
             echo CActiveForm::validate($model);
             Yii::app()->end();
         }
