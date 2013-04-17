@@ -26,9 +26,7 @@ $this->breadcrumbs=array(
 
 $fileList = $this->module->fileList(Yii::getPathOfAlias($this->module->docFolder) . DIRECTORY_SEPARATOR . Yii::app()->language);
 Yii::app()->user->setFlash('info', Yii::t('DocsModule.docs', 'Данный модуль предназначен для документирования проекта.'));
-?>
 
-<?php
 $this->widget(
     'bootstrap.widgets.TbAlert', array(
         'block'  =>true,
@@ -49,12 +47,12 @@ $this->widget(
         <div id="collapseOne" class="accordion-body collapse in">
             <div class="accordion-inner">
                 <ol>
-<?php
-array_walk(
-    $fileList, function ($item, $key) {
-        echo CHtml::tag('li', array(), $item);
-    }
-); ?>
+                    <?php
+                    array_walk(
+                        $fileList, function ($item, $key) {
+                            echo CHtml::tag('li', array(), $item);
+                        }
+                    ); ?>
                 </ol>
             </div>
         </div>
