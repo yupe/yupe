@@ -208,7 +208,7 @@ class Comment extends YModel
     public function beforeSave()
     {
         if ($this->isNewRecord) {
-            $this->creation_date = new CDbExpression('NOW()');
+            $this->creation_date = new CDbExpression(Yii::app()->db->schema instanceof CSqliteSchema ? 'DATETIME("now")' :'NOW()');
             $this->ip            = Yii::app()->request->userHostAddress;
         }
 
