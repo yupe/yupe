@@ -129,7 +129,7 @@ class ContactController extends YFrontController
                 if (Yii::app()->request->isAjaxRequest)
                     Yii::app()->ajax->failure(Yii::t('FeedbackModule.feedback', 'Сообщение отправить невозможно!'));
 
-                $this->redirect(array('/feedback/contact'));
+                $this->redirect(array('/feedback/index/'));
             }
             else
             {

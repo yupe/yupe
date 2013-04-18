@@ -27,7 +27,7 @@ $this->breadcrumbs = array(
     </p>
     <?php echo CHtml::link(Yii::t('YupeModule.yupe', 'А вот здесь мы принимаем благодарности =)'), 'http://yupe.ru/site/page/view/help/?form=help', array('target' => '_blank')); ?>
     <p><p><b>
-        <?php echo Yii::t('YupeModule.yupe', 'По вопросам коммерческой поддержки и разработки Вы всегда можете <a href="http://yupe.ru/feedback/index/?form=help" target="_blank">написать нам</a> (<a href="http://yupe.ru/feedback/contact/?form=help" target="_blank">http://yupe.ru/feedback/index</a>)'); ?>
+        <?php echo Yii::t('YupeModule.yupe', 'По вопросам коммерческой поддержки и разработки Вы всегда можете <a href="http://yupe.ru/feedback/index/?form=help" target="_blank">написать нам</a> (<a href="http://yupe.ru/feedback/index/?form=help" target="_blank">http://yupe.ru/feedback/index</a>)'); ?>
     </b></p></p>
 </div>
 
