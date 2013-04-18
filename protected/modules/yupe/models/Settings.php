@@ -58,7 +58,7 @@ class Settings extends YModel
 
     public function beforeSave()
     {
-        $this->change_date = new CDbExpression(Yii::app()->db->schema instanceof CSqliteSchema ? 'DATETIME("now")' :'NOW()');
+        $this->change_date = YDbMigration::expression('NOW()');
 
         if ($this->isNewRecord)
             $this->creation_date = $this->change_date;
