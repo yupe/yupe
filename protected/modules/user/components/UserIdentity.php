@@ -77,7 +77,7 @@ class UserIdentity extends CUserIdentity
             }
 
             // зафиксируем время входа
-            $user->last_visit = new CDbExpression('NOW()');
+            $user->last_visit = new CDbExpression(Yii::app()->db->schema instanceof CSqliteSchema ? 'DATETIME("now")' :'NOW()');
             $user->update(array('last_visit'));
 
             $this->errorCode = self::ERROR_NONE;
