@@ -11,7 +11,7 @@ class YDbMigration extends CDbMigration
      *
      * @return bool true if instance of CSqliteSchema
      **/
-    public function isSQLite()
+    static public function isSQLite()
     {
         return Yii::app()->db->schema instanceof CSqliteSchema;
     }
@@ -146,6 +146,28 @@ class YDbMigration extends CDbMigration
         )->query();
 
         return true;
+    }
+
+    /**
+     * Обёртка для CDbExpression
+     *
+     * @param string $exp    - выполняемый запрос
+     * @param array  $params - параметры
+     *
+     * @return CDbExpression
+     **/
+    static public function expression($exp = null, $params=array())
+    {
+        $replacements = array(
+            'NOW()' => 'DATETIME("now")',
+        );
+
+        return new CDbExpression(
+            self::isSQLite() && isset($replacements[$exp])
+            ? $replacements[$exp]
+            : $exp,
+            $params
+        );
     }
 
     /**
