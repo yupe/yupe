@@ -192,13 +192,30 @@ class InstallForm extends YFormModel
      **/
     public function getDbTypeNames()
     {
-        return array(
-            self::DB_MYSQL      => 'MySQL',
-            self::DB_POSTGRESQL => 'PostgreSQL',
-            //self::DB_MSSQL      => 'MSSQL',
-            //self::DB_ORACLE     => 'Oracle',
-            self::DB_SQLITE     => 'SQLite',
-        );
+        /** Определяем доступные базы данных:
+         *
+         * Варианты СУБД:
+         *
+         * self::DB_MYSQL      => 'MySQL',
+         * self::DB_POSTGRESQL => 'PostgreSQL',
+         * self::DB_MSSQL      => 'MSSQL',
+         * self::DB_ORACLE     => 'Oracle',
+         * self::DB_SQLITE     => 'SQLite',
+         **/
+
+        $dbTypes = array();
+        /**
+         * Проверяем доступные СУБД:
+         */
+        
+        if (extension_loaded('pdo_mysql'))
+            $dbTypes[self::DB_MYSQL] = 'MySQL';
+        if (extension_loaded('pdo_pgsql'))
+            $dbTypes[self::DB_POSTGRESQL] = 'PostgreSQL';
+        if (extension_loaded('pdo_sqlite'))
+            $dbTypes[self::DB_SQLITE] = 'SQLite';
+        
+        return $dbTypes;
     }
 
     /**
