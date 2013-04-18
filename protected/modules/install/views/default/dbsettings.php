@@ -48,6 +48,15 @@ Yii::app()->clientScript->registerScript(
         <p><?php echo Yii::t('InstallModule.install', 'Базу данных можно создать при помощи phpmyadmin или любого другого инструмента.'); ?></p>
     </div>
 
+    <div class="alert alert-block alert-info sqlite-enable mysql-disable postgresql-disable">
+        <p><b><?php echo Yii::t('InstallModule.install', 'Касательно СУБД SQLite.'); ?></b></p>
+        <p><?php echo Yii::t('InstallModule.install', 'Для установки Юпи! на СУБД SQLite, вам потребуется сделать следующее:'); ?></p>
+        <p><?php echo Yii::t('InstallModule.install', 'Создаём файл базы данных:'); ?></p>
+        <pre>sqlite3 {webroot}/protected/data/yupe.db ""</pre>
+        <p><?php echo Yii::t('InstallModule.install', 'Назначить права на файл для пользователя, от имени которого выполняется web-сервер:'); ?></p>
+        <pre>sudo chown -hR {user} {webroot}/protected/data/yupe.db</pre>
+    </div>
+
     <?php if (!$data['result']) : ?>
         <div class="alert alert-block alert-error">
             <b><?php echo Yii::t('InstallModule.install', "Файл {file} не существует или не доступен для записи!", array('{file}' => $data['file'])); ?></b>
