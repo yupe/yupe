@@ -881,7 +881,7 @@ class DefaultController extends YBackController
                         'salt'              => $salt,
                         'gender'            => 0,
                         'password'          => User::model()->hashPassword($model->userPassword, $salt),
-                        'registration_date' => new CDbExpression(Yii::app()->db->schema instanceof CSqliteSchema ? 'DATETIME("now")' :'NOW()'),
+                        'registration_date' => YDbMigration::expression('NOW()'),
                         'registration_ip'   => Yii::app()->request->userHostAddress,
                         'activation_ip'     => Yii::app()->request->userHostAddress,
                         'access_level'      => User::ACCESS_LEVEL_ADMIN,
