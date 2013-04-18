@@ -285,6 +285,11 @@ class DocsModule extends YWebModule
                         'url'   => array('/docs/show/index', 'file' => 'assistance.project'),
                         'icon'  => 'file',
                     ),
+                    array(
+                        'label' => Yii::t('DocsModule.docs', 'Команда'),
+                        'url'   => array('/docs/show/index', 'file' => 'team'),
+                        'icon'  => 'file',
+                    ),
                 ),
             ),
             array(
