@@ -92,6 +92,63 @@ class YDbMigration extends CDbMigration
     }
 
     /**
+     * Создает SQL-выражение для удаления столбца таблицы (доработан для SQLite).
+     * 
+     * @param string $table  - таблица, столбец которой будет удален. Имя будет заключено в кавычки
+     * @param string $column - имя удаляемого столбца. Имя будет заключено в кавычки
+     * 
+     * @return string SQL-выражение для удаления столбца таблицы
+     * 
+     * @since 1.1.6
+     */
+    public function dropColumn($table, $column)
+    {
+        if (!$this->isSQLite())
+            return parent::dropColumn($table, $column);
+
+        /**
+         * Данный код выполняет следующее:
+         *
+         * - получаем список всех полей таблицы
+         * - проходим по списку и обрабатываем
+         *   квотим все поля, а то которое удаляем убираем
+         *   из массива
+         * - выполняем запрос
+         *   1. удаляем временную таблицу, если таковая есть
+         *   2. создаём новую таблицу из выборки
+         *   3. удаляем старую таблицу
+         *   4. переименовываем временную таблицу в старую
+         *
+         * это позволяет добиться эфекта переименования полей
+         */
+        $columns = Yii::app()->db->schema->tables[$this->normTable($table)]->columns;
+
+        $cNames = array_diff(
+            array_keys($columns), array($column)
+        );
+
+
+        $subQuery = implode(
+            ', ', array_map(
+                function ($a) {
+                    return Yii::app()->db->schema->quoteColumnName($a);
+                }, $cNames
+            )
+        );
+
+        $tempTable = $this->normTable($table) . '_temporary';
+        
+        Yii::app()->db->createCommand(
+            'drop table if exists ' . $tempTable . ';'
+            . 'create table ' . $tempTable . ' as select ' . $subQuery . ' from ' . $this->normTable($table) . ';'
+            . 'drop table ' . $this->normTable($table) . ';'
+            . 'alter table ' . $tempTable . ' rename to ' . $this->normTable($table) . ';'
+        )->query();
+
+        return true;
+    }
+
+    /**
      * render Table name
      *
      * @param string $table - name of table
