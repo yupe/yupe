@@ -28,7 +28,7 @@ class Queue extends YModel
     public function beforeSave()
     {
         if ($this->isNewRecord)
-            $this->create_time = new CDbExpression('NOW()');
+            $this->create_time = YDbMigration::expression('NOW()');
         return parent::beforeSave();
     }
 

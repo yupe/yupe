@@ -120,7 +120,7 @@ return array (
   'Панель управления "{app}"' => 'Control panel "{app}"',
   'Параметры сайта' => 'Site settings',
   'Перейти на главную панели управления' => 'Go to the main control panel',
-  'По вопросам коммерческой поддержки и разработки Вы всегда можете <a href="http://yupe.ru/feedback/index/?form=help" target="_blank">написать нам</a> (<a href="http://yupe.ru/feedback/index/?form=help" target="_blank">http://yupe.ru/feedback/contact</a>)' => '',
+  'По вопросам коммерческой поддержки и разработки Вы всегда можете <a href="http://yupe.ru/feedback/index/?form=help" target="_blank">написать нам</a> (<a href="http://yupe.ru/feedback/index/?form=help" target="_blank">http://yupe.ru/feedback/index</a>)' => '',
   'Поднять выше' => 'Lift up',
   'Подробнее про темы оформления' => 'More information about the theme',
   'Полезные ресурсы:' => '',

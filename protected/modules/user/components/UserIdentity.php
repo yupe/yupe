@@ -77,7 +77,7 @@ class UserIdentity extends CUserIdentity
             }
 
             // зафиксируем время входа
-            $user->last_visit = new CDbExpression('NOW()');
+            $user->last_visit = YDbMigration::expression('NOW()');
             $user->update(array('last_visit'));
 
             $this->errorCode = self::ERROR_NONE;

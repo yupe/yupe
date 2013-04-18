@@ -61,6 +61,11 @@
                                     'linkOptions' => array('target' => '_blank'),
                                     'url'         => array('/' . Yii::app()->defaultController . '/index/'),
                                 ),
+                                array(
+                                    'label' => Yii::app()->getModule('yupe')->getVersion(),
+                                    'icon'  => 'icon-thumbs-up icon-white',
+                                    'url'   => 'http://yupe.ru/?from=doc-navbar'
+                                ),
                             ), Yii::app()->getModule('yupe')->languageSelectorArray
                         ),
                     ),
@@ -82,7 +87,7 @@
         </a> 
         <small class="label label-info"><?php echo Yii::app()->getModule('yupe')->getVersion(); ?></small>
         <br/>
-        <a href="http://yupe.ru/feedback/contact?from=engine">
+        <a href="http://yupe.ru/feedback/index?from=docs">
             <?php echo Yii::t('YupeModule.yupe', 'Разработка и поддержка'); ?></a> - <a href="mailto:team@yupe.ru">yupe team
         </a>
         <br/>

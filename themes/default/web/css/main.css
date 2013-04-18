@@ -243,6 +243,14 @@ div.search-form {
     margin: 5px 0;
 }
 
+.comment .comment-body {
+    margin-left: 36px;
+}
+
+.comment .avatar {
+    float: left;
+}
+
 .comment .content {
     margin: 10px 0;
 }
@@ -553,4 +561,12 @@ div.form_reg_edit div.list div.accession
 {
     display: block;
     padding-bottom: 10px;
+}
+
+.blog-body {
+    margin-left: 80px;
+}
+
+.blog-icon {
+    float: left;
 }

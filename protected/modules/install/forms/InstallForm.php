@@ -43,6 +43,7 @@ class InstallForm extends YFormModel
     public $createDb;
     public $dbUser;
     public $dbPassword;
+    public $dbConString = 'sqlite:protected/data/yupe.db';
     public $tablePrefix = 'yupe_';
     public $dbType      = self::DB_MYSQL;
 
@@ -77,7 +78,7 @@ class InstallForm extends YFormModel
             /**
              * Для настройки БД:
              **/
-            array('host, port, dbName, dbUser, tablePrefix, dbType', 'required', 'on' => 'dbSettings'),
+            array('host, port, dbName, dbUser, tablePrefix, dbType, dbConString', 'required', 'on' => 'dbSettings'),
             array('dbPassword', 'length', 'min' => 0, 'max' => 32),
             array('port, dbType', 'numerical', 'integerOnly' => true),
             array('dbName, dbUser', 'length', 'min' => 0, 'max' => 256),
@@ -118,9 +119,10 @@ class InstallForm extends YFormModel
             'dbName'          => Yii::t('InstallModule.install', 'Название базы данных'),
             'createDb'        => Yii::t('InstallModule.install', 'Создать базу данных'),
             'dbType'          => Yii::t('InstallModule.install', 'Тип сервера базы данных'),
-            'dbUser'            => Yii::t('InstallModule.install', 'Пользователь'),
-            'dbPassword'        => Yii::t('InstallModule.install', 'Пароль'),
+            'dbUser'          => Yii::t('InstallModule.install', 'Пользователь'),
+            'dbPassword'      => Yii::t('InstallModule.install', 'Пароль'),
             'tablePrefix'     => Yii::t('InstallModule.install', 'Префикс таблиц'),
+            'dbConString'     => Yii::t('InstallModule.install', 'Строка подключения к SQLite'),
 
             /**
              * Для начальной настройки сайта:
@@ -128,7 +130,7 @@ class InstallForm extends YFormModel
             'siteName'        => Yii::t('InstallModule.install', 'Название сайта'),
             'siteDescription' => Yii::t('InstallModule.install', 'Описание сайта'),
             'siteKeyWords'    => Yii::t('InstallModule.install', 'Ключевые слова сайта'),
-            'siteEmail'           => Yii::t('InstallModule.install', 'Email администратора'),
+            'siteEmail'       => Yii::t('InstallModule.install', 'Email администратора'),
             'theme'           => Yii::t('InstallModule.install', 'Тема оформления публичной части'),
             'backendTheme'    => Yii::t('InstallModule.install', 'Тема оформления панели управления'),
 
@@ -190,13 +192,30 @@ class InstallForm extends YFormModel
      **/
     public function getDbTypeNames()
     {
-        return array(
-            self::DB_MYSQL      => 'MySQL',
-            self::DB_POSTGRESQL => 'PostgreSQL',
-            //self::DB_MSSQL      => 'MSSQL',
-            //self::DB_ORACLE     => 'Oracle',
-            //self::DB_SQLITE     => 'SQLite',
-        );
+        /** Определяем доступные базы данных:
+         *
+         * Варианты СУБД:
+         *
+         * self::DB_MYSQL      => 'MySQL',
+         * self::DB_POSTGRESQL => 'PostgreSQL',
+         * self::DB_MSSQL      => 'MSSQL',
+         * self::DB_ORACLE     => 'Oracle',
+         * self::DB_SQLITE     => 'SQLite',
+         **/
+
+        $dbTypes = array();
+        /**
+         * Проверяем доступные СУБД:
+         */
+        
+        if (extension_loaded('pdo_mysql'))
+            $dbTypes[self::DB_MYSQL] = 'MySQL';
+        if (extension_loaded('pdo_pgsql'))
+            $dbTypes[self::DB_POSTGRESQL] = 'PostgreSQL';
+        if (extension_loaded('pdo_sqlite'))
+            $dbTypes[self::DB_SQLITE] = 'SQLite';
+        
+        return $dbTypes;
     }
 
     /**
@@ -227,5 +246,35 @@ class InstallForm extends YFormModel
     public function getEmailName()
     {
         return User::model()->admin()->find()->getAttribute('email');
+    }
+
+    /**
+     * Дефолтные настройки для SQLite (забиваем ненужные поля рыбой)
+     *
+     * @return array default sqlite settings
+     **/
+    public function getSqliteDefaults()
+    {
+        return array(
+            'dbName' => 'None',
+            'dbType' => self::DB_SQLITE,
+            'dbUser' => 'None',
+        );
+    }
+
+    /**
+     * Дефолтные настройки для PostgreSQL
+     *
+     * @return array default postgresql settings
+     **/
+    public function getPostgresqlDefaults()
+    {
+        $settings = $this->attributes;
+        return array_merge(
+            $settings, array(
+                'dbType' => self::DB_POSTGRESQL,
+                'port' => '5432',
+            )
+        );
     }
 }

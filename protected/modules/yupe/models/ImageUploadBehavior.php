@@ -81,9 +81,9 @@ class ImageUploadBehavior extends CActiveRecordBehavior
 
     public function beforeValidate($event)
     {
-        if ($this->checkScenario() && ($this->_newImage = CUploadedFile::getInstance($this->owner, $this->attributeName)))
-
+        if ($this->checkScenario() && ($this->_newImage = CUploadedFile::getInstance($this->owner, $this->attributeName))) {
             $this->owner->{$this->attributeName} = $this->_newImage;
+        }
     }
 
     public function beforeSave($event)
