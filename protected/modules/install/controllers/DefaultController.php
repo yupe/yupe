@@ -358,13 +358,6 @@ class DefaultController extends YBackController
                 Yii::t('InstallModule.install', 'Требуется для работы с БД MySQL.'),
             ),
             array(
-                Yii::t('InstallModule.install', 'PDO PostgreSQL extension'),
-                false,
-                extension_loaded('pdo_pgsql'),
-                Yii::t('InstallModule.install', 'Все <a href="http://www.yiiframework.com/doc/api/#system.db">DB-классы</a>'),
-                Yii::t('InstallModule.install', 'Необходимо если вы используете PostgreSQL.'),
-            ),
-            array(
                 Yii::t('InstallModule.install', 'Расширение PDO PostgreSQL'),
                 false,
                 extension_loaded('pdo_pgsql'),
