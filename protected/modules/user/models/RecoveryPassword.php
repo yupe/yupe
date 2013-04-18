@@ -69,7 +69,7 @@ class RecoveryPassword extends YModel
     public function beforeSave()
     {
         if ($this->isNewRecord)
-            $this->creation_date = new CDbExpression(Yii::app()->db->schema instanceof CSqliteSchema ? 'DATETIME("now")' :'NOW()');
+            $this->creation_date = YDbMigration::expression('NOW()');
         return parent::beforeSave();
     }
 }
