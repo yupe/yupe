@@ -562,3 +562,11 @@ div.form_reg_edit div.list div.accession
     display: block;
     padding-bottom: 10px;
 }
+
+.blog-body {
+    margin-left: 80px;
+}
+
+.blog-icon {
+    float: left;
+}
