@@ -195,7 +195,7 @@ class News extends YModel
 
     public function beforeSave()
     {
-        $this->change_date = new CDbExpression(Yii::app()->db->schema instanceof CSqliteSchema ? 'DATETIME("now")' :'NOW()');
+        $this->change_date = YDbMigration::expression('NOW()');
         $this->date        = date('Y-m-d', strtotime($this->date));
 
         if ($this->isNewRecord)

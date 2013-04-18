@@ -381,7 +381,7 @@ class User extends YModel
             'last_name'         => $last_name,
             'salt'              => $salt,
             'password'          => $this->hashPassword($password, $salt),
-            'registration_date' => new CDbExpression(Yii::app()->db->schema instanceof CSqliteSchema ? 'DATETIME("now")' :'NOW()'),
+            'registration_date' => YDbMigration::expression('NOW()'),
             'registration_ip'   => Yii::app()->request->userHostAddress,
             'activation_ip'     => Yii::app()->request->userHostAddress,
             'status'            => $status,
