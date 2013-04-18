@@ -61,6 +61,11 @@
                                     'linkOptions' => array('target' => '_blank'),
                                     'url'         => array('/' . Yii::app()->defaultController . '/index/'),
                                 ),
+                                array(
+                                    'label' => Yii::app()->getModule('yupe')->getVersion(),
+                                    'icon'  => 'icon-thumbs-up icon-white',
+                                    'url'   => 'http://yupe.ru/?from=doc-navbar'
+                                ),
                             ), Yii::app()->getModule('yupe')->languageSelectorArray
                         ),
                     ),
@@ -82,12 +87,24 @@
         </a> 
         <small class="label label-info"><?php echo Yii::app()->getModule('yupe')->getVersion(); ?></small>
         <br/>
-        <a href="http://yupe.ru/feedback/contact?from=engine">
+        <a href="http://yupe.ru/feedback/index?from=docs">
             <?php echo Yii::t('YupeModule.yupe', 'Разработка и поддержка'); ?></a> - <a href="mailto:team@yupe.ru">yupe team
         </a>
         <br/>
         <?php echo Yii::powered(); ?>
         <?php $this->widget('YPerformanceStatistic'); ?>
     </footer>
+        <script type="text/javascript">
+    /* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
+    var disqus_shortname = 'yupecms'; // required: replace example with your forum shortname
+
+    /* * * DON'T EDIT BELOW THIS LINE * * */
+    (function () {
+        var s = document.createElement('script'); s.async = true;
+        s.type = 'text/javascript';
+        s.src = '//' + disqus_shortname + '.disqus.com/count.js';
+        (document.getElementsByTagName('HEAD')[0] || document.getElementsByTagName('BODY')[0]).appendChild(s);
+    }());
+    </script>
 </body>
 </html>

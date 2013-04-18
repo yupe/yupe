@@ -131,7 +131,7 @@ Yii::app()->clientScript->registerScript(
         </a> 
         <small class="label label-info"><?php echo $this->yupe->getVersion(); ?></small>
         <br/>
-        <a href="http://yupe.ru/feedback/contact?from=engine">
+        <a href="http://yupe.ru/feedback/index?from=engine">
             <?php echo Yii::t('YupeModule.yupe', 'Разработка и поддержка'); ?></a> - <a href="mailto:team@yupe.ru">yupe team
         </a>
         <br/>
