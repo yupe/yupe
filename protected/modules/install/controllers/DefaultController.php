@@ -606,11 +606,13 @@ class DefaultController extends YBackController
 
                 if (!$form->hasErrors()) {
                     $connection->connectionString = $connectionString;
-                    $connection->username         = $form->dbUser;
-                    $connection->password         = $form->dbPassword;
-                    $connection->emulatePrepare   = true;
-                    $connection->charset          = 'utf8';
-                    $connection->active           = true;
+                    if ($form->dbType != InstallForm::DB_SQLITE) {
+                        $connection->username         = $form->dbUser;
+                        $connection->password         = $form->dbPassword;
+                        $connection->emulatePrepare   = true;
+                        $connection->charset          = 'utf8';
+                        $connection->active           = true;
+                    }
                     $connection->tablePrefix      = $form->tablePrefix;
 
                     Yii::app()->setComponent('db', $connection);
