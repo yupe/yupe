@@ -1,8 +1,0 @@
-{
-    "title": "Test theme",
-    "description":"This is the testing theme",
-    "version": 0.1,
-    "authors": "Testers",
-    "parentTheme": "default",
-    "resourcesDir":"resources"
-}

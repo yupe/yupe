@@ -46,7 +46,7 @@ abstract class YWidget extends CWidget
     public function getViewFile($viewName)
     {
         if (
-            (class_exists('YTheme') && ($theme = Yii::app()->theme) instanceof YTheme)
+            (class_exists('YTheme', false) && ($theme = Yii::app()->theme) instanceof YTheme)
             &&
             ($viewFile = $theme->getWidgetViewFile($this, $viewName)) !== false
         ) {
