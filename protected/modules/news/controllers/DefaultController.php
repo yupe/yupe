@@ -86,12 +86,9 @@ class DefaultController extends YBackController
     {
         $model = $this->loadModel((int)$id);
 
-        if (Yii::app()->request->isPostRequest && isset($_POST['News']))
-        {
+        if (Yii::app()->request->isPostRequest && isset($_POST['News'])) {
             $model->setAttributes(Yii::app()->request->getPost('News'));
-
-            if ($model->save())
-            {
+            if ($model->save()) {
                 Yii::app()->user->setFlash(
                     YFlashMessages::NOTICE_MESSAGE,
                     Yii::t('NewsModule.news', 'Новость обновлена!')

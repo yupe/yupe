@@ -58,6 +58,7 @@ class Blog extends YModel
     {
         return array(
             array('name, description, slug', 'required', 'except' => 'search'),
+            array('name, description, slug', 'required', 'on' => array('update', 'insert')),
             array('type, status, create_user_id, update_user_id, create_date, update_date, category_id', 'numerical', 'integerOnly' => true),
             array('name, icon', 'length', 'max' => 250),
             array('slug', 'length', 'max' => 150),
@@ -68,7 +69,7 @@ class Blog extends YModel
             array('status', 'in', 'range' => array_keys($this->statusList)),
             array('name, slug, description', 'filter', 'filter' => array($obj = new CHtmlPurifier(), 'purify')),
             array('slug', 'unique'),
-            array('id, name, description, icon, slug, type, status, create_user_id, update_user_id, create_date, update_date, lang, category_id', 'safe', 'on' => 'search'),
+            array('id, name, description, slug, type, status, create_user_id, update_user_id, create_date, update_date, lang, category_id', 'safe', 'on' => 'search'),
         );
     }
 
@@ -158,7 +159,6 @@ class Blog extends YModel
         $criteria->compare('id', $this->id, true);
         $criteria->compare('name', $this->name, true);
         $criteria->compare('description', $this->description, true);
-        $criteria->compare('icon', $this->icon, true);
         $criteria->compare('slug', $this->slug, true);
         $criteria->compare('type', $this->type);
         $criteria->compare('t.status', $this->status);
@@ -178,12 +178,34 @@ class Blog extends YModel
 
     public function behaviors()
     {
-        return array('CTimestampBehavior' => array(
-            'class'             => 'zii.behaviors.CTimestampBehavior',
-            'setUpdateOnCreate' => true,
-            'createAttribute'   => 'create_date',
-            'updateAttribute'   => 'update_date',
-        ));
+        $module = Yii::app()->getModule('blog');
+        return array(
+            'imageUpload' => array(
+                'class'         =>'application.modules.yupe.models.ImageUploadBehavior',
+                'scenarios'     => array('insert','update'),
+                'attributeName' => 'icon',
+                'minSize'       => $module->minSize,
+                'maxSize'       => $module->maxSize,
+                'types'         => $module->allowedExtensions,              
+                'uploadPath'    => $module->getUploadPath(),
+                'imageNameCallback' => array($this, 'generateFileName'),
+                'resize' => array(
+                    'quality' => 75,
+                    'width' => 64,
+                )
+            ),
+            'CTimestampBehavior' => array(
+                'class'             => 'zii.behaviors.CTimestampBehavior',
+                'setUpdateOnCreate' => true,
+                'createAttribute'   => 'create_date',
+                'updateAttribute'   => 'update_date',
+            ),
+        );
+    }
+
+    public function generateFileName()
+    {
+        return md5($this->name . microtime(true));
     }
 
     public function beforeSave()
@@ -257,5 +279,13 @@ class Blog extends YModel
         return UserToBlog::model()->with('user')->findAll('blog_id = :blog_id', array(
             ':blog_id' => $this->id
         ));
+    }
+
+    public function getImageUrl()
+    {
+        if($this->icon)
+            return Yii::app()->baseUrl . '/' . Yii::app()->getModule('yupe')->uploadPath . '/' .
+                   Yii::app()->getModule('blog')->uploadPath . '/' . $this->icon;
+        return false;
     }
 }

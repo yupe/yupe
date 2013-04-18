@@ -14,7 +14,7 @@ $form = $this->beginWidget(
         'enableAjaxValidation'   => false,
         'enableClientValidation' => true,
         'type'                   => 'vertical',
-        'htmlOptions'            => array('class' => 'well'),
+        'htmlOptions'            => array('class' => 'well', 'enctype'=>'multipart/form-data'),
         'inlineErrors'           => true,
     )
 );
@@ -57,7 +57,16 @@ $form = $this->beginWidget(
             <?php echo $form->textFieldRow($model, 'slug', array('class' => 'popover-help span7', 'maxlength' => 150, 'size' => 60, 'data-original-title' => $model->getAttributeLabel('slug'), 'data-content' => $model->getAttributeDescription('slug'))); ?>
     </div>
     <div class="row-fluid control-group <?php echo $model->hasErrors('icon') ? 'error' : ''; ?>">
-            <?php echo $form->fileFieldRow($model, 'icon', array('class' => 'popover-help span7', 'maxlength' => 250, 'size' => 60, 'data-original-title' => $model->getAttributeLabel('icon'), 'data-content' => $model->getAttributeDescription('icon'))); ?>
+        <div class="span7  popover-help"  data-original-title="<?php echo $model->getAttributeLabel('icon'); ?>">
+            <?php if (!$model->isNewRecord && $model->icon): ?>
+                <?php echo CHtml::image($model->imageUrl, $model->name, array('width'  => 64, 'height' => 64)); ?>
+            <?php endif; ?>
+            <?php echo $form->labelEx($model, 'icon'); ?>
+            <?php echo $form->fileField($model, 'icon'); ?>
+        </div>
+        <div class="span5">
+            <?php echo $form->error($model, 'icon'); ?>
+        </div>
     </div>
     <div class="row-fluid control-group <?php echo $model->hasErrors('description') ? 'error' : ''; ?>">
         <div class="popover-help" data-original-title='<?php echo $model->getAttributeLabel('description'); ?>' data-content='<?php echo $model->getAttributeDescription('description'); ?>'>

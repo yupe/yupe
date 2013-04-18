@@ -2,6 +2,11 @@
 class BlogModule extends YWebModule
 {
     public $mainCategory;
+    public $minSize           = 0;
+    public $maxSize           = 5368709120;
+    public $maxFiles          = 1;
+    public $allowedExtensions = 'jpg,jpeg,png,gif';
+    public $uploadPath        = 'blogs';
 
     public function getDependencies()
     {
@@ -12,6 +17,11 @@ class BlogModule extends YWebModule
         );
     }
 
+    public function getUploadPath()
+    {
+        return Yii::getPathOfAlias('webroot') . '/' . Yii::app()->getModule('yupe')->uploadPath . '/' . $this->uploadPath . '/';
+    }
+
     public function getCategory()
     {
         return Yii::t('BlogModule.blog', 'Контент');
@@ -20,9 +30,13 @@ class BlogModule extends YWebModule
     public function getParamsLabels()
     {
         return array(
-            'mainCategory'   => Yii::t('BlogModule.blog', 'Главная категория блогов'),
-            'adminMenuOrder' => Yii::t('BlogModule.blog', 'Порядок следования в меню'),
-            'editor'         => Yii::t('BlogModule.blog', 'Визуальный редактор'),
+            'mainCategory'      => Yii::t('BlogModule.blog', 'Главная категория блогов'),
+            'adminMenuOrder'    => Yii::t('BlogModule.blog', 'Порядок следования в меню'),
+            'editor'            => Yii::t('BlogModule.blog', 'Визуальный редактор'),
+            'uploadPath'        => Yii::t('BlogModule.blog', 'Каталог для загрузки файлов (относительно {path})', array('{path}' => Yii::getPathOfAlias('webroot') . DIRECTORY_SEPARATOR . Yii::app()->getModule("yupe")->uploadPath)),
+            'allowedExtensions' => Yii::t('BlogModule.blog', 'Разрешенные расширения (перечислите через запятую)'),
+            'minSize'           => Yii::t('BlogModule.blog', 'Минимальный размер (в байтах)'),
+            'maxSize'           => Yii::t('BlogModule.blog', 'Максимальный размер (в байтах)'),
         );
     }
 
@@ -32,6 +46,10 @@ class BlogModule extends YWebModule
             'adminMenuOrder',
             'editor' => Yii::app()->getModule('yupe')->getEditors(),
             'mainCategory' => CHtml::listData($this->getCategoryList(),'id','name'),
+            'uploadPath',
+            'allowedExtensions',
+            'minSize',
+            'maxSize',
         );
     }
 
