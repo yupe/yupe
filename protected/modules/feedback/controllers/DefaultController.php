@@ -26,7 +26,7 @@ class DefaultController extends YBackController
             if ($model->status == FeedBack::STATUS_ANSWER_SENDED)
             {
                 $model->answer_user = Yii::app()->user->id;
-                $model->answer_date = new CDbExpression(Yii::app()->db->schema instanceof CSqliteSchema ? 'DATETIME("now")' :'NOW()');
+                $model->answer_date = YDbMigration::expression('NOW()');
             }
 
             if ($model->save())
@@ -62,7 +62,7 @@ class DefaultController extends YBackController
             if ($status != FeedBack::STATUS_ANSWER_SENDED && $model->status == FeedBack::STATUS_ANSWER_SENDED)
             {
                 $model->answer_user = Yii::app()->user->id;
-                $model->answer_date = new CDbExpression(Yii::app()->db->schema instanceof CSqliteSchema ? 'DATETIME("now")' :'NOW()');
+                $model->answer_date = YDbMigration::expression('NOW()');
             }
 
             if ($model->save())
@@ -110,7 +110,7 @@ class DefaultController extends YBackController
                     'answer'      => $form->answer,
                     'is_faq'      => $form->is_faq,
                     'answer_user' => Yii::app()->user->id,
-                    'answer_date' => new CDbExpression(Yii::app()->db->schema instanceof CSqliteSchema ? 'DATETIME("now")' :'NOW()'),
+                    'answer_date' => YDbMigration::expression('NOW()'),
                     'status'      => FeedBack::STATUS_ANSWER_SENDED,
                  ));
 
