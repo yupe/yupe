@@ -4,7 +4,7 @@ class NewsModule extends YWebModule
     public $uploadPath        = 'news';
     public $allowedExtensions = 'jpg,jpeg,png,gif';
     public $minSize           = 0;
-    public $maxSize;
+    public $maxSize           = 5368709120;
     public $maxFiles          = 1;
     public $mainCategory;
 

@@ -94,7 +94,7 @@ class News extends YModel
 
     public function generateFileName()
     {
-        return md5($this->title . time());
+        return md5($this->title . microtime(true));
     }
     /**
      * @return array relational rules.

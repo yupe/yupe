@@ -64,7 +64,6 @@ class BlogAdminController extends YBackController
 
         if (Yii::app()->request->isPostRequest && Yii::app()->request->getPost('Blog') !== null) {
             $model->setAttributes(Yii::app()->request->getPost('Blog'));
-
             if ($model->save()) {
                 Yii::app()->user->setFlash(
                     YFlashMessages::NOTICE_MESSAGE,
