@@ -91,7 +91,7 @@ class AppearanceModule extends YWebModule
      * @param YTheme $theme   Instance of theme to check
      * @param bool   $refresh Whether to refresh cached result
      *
-     * @return bool Whether theme is enabled for its environmnent - frontend or backend.
+     * @return bool Whether theme is enabled for its environment - frontend or backend.
      */
     public function getIsThemeEnabled(YTheme $theme, $refresh = false)
     {

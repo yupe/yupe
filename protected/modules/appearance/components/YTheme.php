@@ -448,11 +448,11 @@ class YTheme extends CTheme
     }
 
     /**
-     * Tries to find widget's view file based on its name.
-     * If widget belongs to any module, widget view files will be searched under "themeRoot/themeViews/moduleID/widgets/WidgetClass"
-     * Otherwise, widget view files will be searched under "themeRoot/themeViews/WidgetClass" - this is default behavior for Yii.
+     * Finds the view file for the specified widget's view. If widget belongs to any module, view file will be
+     * searched under "{themeRootPath}/{themeViewPath}/{moduleID}/widgets/{WidgetClassName}". Otherwise, view file
+     * will be searched under "{themeRootPath}/{themeViewPath}/{WidgetClassName}".
      *
-     * Also, this method searches under parent theme directories.
+     * Also, this method searches under parent theme directories if view file was not found for current theme.
      *
      * @param YWidget $widget   Instance of widget
      * @param string  $viewName View name

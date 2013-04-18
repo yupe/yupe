@@ -7,8 +7,8 @@
  *
  * @package yupe.core.widgets
  * @abstract
- * @author yupe team
- * @link http://yupe.ru
+ * @author  yupe team
+ * @link    http://yupe.ru
  *
  */
 
@@ -28,13 +28,25 @@ abstract class YWidget extends CWidget
         parent::init();
 
         //if (!$this->cacheTime && $this->cacheTime !== 0)
-            //$this->cacheTime = Yii::app()->getModule('yupe')->coreCacheTime;
+        //$this->cacheTime = Yii::app()->getModule('yupe')->coreCacheTime;
     }
 
+    /**
+     * Looks for the view script file according to the view name.
+     * If application uses theme, its method {@link YTheme::getWidgetViewFile()} will be used to search view file
+     * under theme view files path according to theme's rules. Otherwise, parent implementation of this method will be used.
+     *
+     * @see YTheme::getWidgetViewFile()
+     * @see CWidget::getViewFile()
+     *
+     * @param string $viewName Name of the view (without file extension).
+     *
+     * @return bool|string The view file path. False if the view file does not exist.
+     */
     public function getViewFile($viewName)
     {
         if (
-            ($theme = Yii::app()->theme) instanceof YTheme
+            (class_exists('YTheme') && ($theme = Yii::app()->theme) instanceof YTheme)
             &&
             ($viewFile = $theme->getWidgetViewFile($this, $viewName)) !== false
         ) {
@@ -45,15 +57,15 @@ abstract class YWidget extends CWidget
     }
 
     /**
-     * @return string|null ID of module, that widget belongs to. Null if there is not such a module.
+     * @return string|null ID of module, that widget belongs to. Null if no module was found.
      */
     public function getModuleID()
     {
         $widgetReflection = new ReflectionClass(get_class($this));
         // @todo нужно переписать, непонятно как этот код работает. Код пишется для людей.
-        $string           = explode('modules' . DIRECTORY_SEPARATOR, $widgetReflection->getFileName(), 2);
+        $string = explode('modules' . DIRECTORY_SEPARATOR, $widgetReflection->getFileName(), 2);
         if (isset($string[1])) {
-            $string         = explode(DIRECTORY_SEPARATOR, $string[1], 2);
+            $string = explode(DIRECTORY_SEPARATOR, $string[1], 2);
             return $string[0];
         }
         return null;
