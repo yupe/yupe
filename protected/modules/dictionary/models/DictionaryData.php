@@ -126,7 +126,7 @@ class DictionaryData extends YModel
     public function beforeSave()
     {
         $this->update_user_id = Yii::app()->user->getId();
-        $this->update_date    = new CDbExpression('NOW()');
+        $this->update_date    = new CDbExpression(Yii::app()->db->schema instanceof CSqliteSchema ? 'DATETIME("now")' :'NOW()');
 
         if ($this->isNewRecord)
         {

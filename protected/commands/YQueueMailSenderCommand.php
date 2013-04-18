@@ -68,7 +68,7 @@ class YQueueMailSenderCommand extends CConsoleCommand
             {
                 $model->status = Queue::STATUS_COMLETED;
 
-                $model->complete_time = new CDbExpression('NOW()');
+                $model->complete_time = new CDbExpression(Yii::app()->db->schema instanceof CSqliteSchema ? 'DATETIME("now")' :'NOW()');
 
                 $model->save();
 
