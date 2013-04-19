@@ -28,6 +28,7 @@ class FeedAction extends CAction
      *                 // Параметр description по умолчанию берётся из настроек приложения
      *                 //'description'  => Yii::t('YupeModule.yupe', 'Лента новостей сайта'),
      *                 // Параметр link по умолчанию берётся как Yii::app()->request->getBaseUrl(true)
+     *                 //'link' => Yii::app()->request->getBaseUrl(true),
      *                 'itemFields'   => array(
      *                     // author_object, если не задан - у
      *                     // item-елемента запросится author_nickname
@@ -65,19 +66,15 @@ class FeedAction extends CAction
     public $link;
     public $title;
 
-    
     /**
-     * Инициализация экшена:
+     * Запуск экшена
      *
-     * @param CController $controller - инстанс контроллера
-     * @param string      $id         - id-экшена
+     * здесь мы производим рендеринг нашей ленты:
      *
      * @return void
      **/
-    public function __construct(CController $controller, $id)
+    public function run()
     {
-        parent::__construct($controller, $id);
-
         // Сбрасываем CSS и JS - они нам не нужны:
         Yii::app()->clientScript->reset();
 
@@ -111,17 +108,7 @@ class FeedAction extends CAction
         $this->itemFields['author_nickname'] = !isset($this->itemFields['author_nickname'])
             ? 'nick_name'
             : $this->itemFields['author_nickname'];
-    }
-
-    /**
-     * Запуск экшена
-     *
-     * здесь мы производим рендеринг нашей ленты:
-     *
-     * @return void
-     **/
-    public function run()
-    {
+        
         $feed = new EFeed(EFeed::ATOM);
  
         $feed->title = $this->title;
