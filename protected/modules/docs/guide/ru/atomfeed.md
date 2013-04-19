@@ -1,6 +1,11 @@
 Генерация Atom-ленты
 ====================
 
+**Автор**: [Комманда разработчиков Юпи](http://yupe.ru/feedback/contact?from=docs)  
+**Версия**: 0.1 (dev)  
+**Авторское право**:  2012-2013 Yupe!  
+**Лицензия**: [BSD](https://github.com/yupe/yupe/blob/master/LICENSE)  
+
 Для того, чтобы встроить в свой сайт feed-ленту, вам потребуется
 добавить к нужному контроллеру следующий код:
 
@@ -11,7 +16,7 @@ public function actions()
 {
     return array(
         'rssfeed' => array(
-            'class'        => 'application.modules.yupe.components.actions.FeedAction',
+            'class'        => 'application.modules.yupe.components.actions.YFeedAction',
             'data'         => News::model()->published()->findAll(),
             // Параметр title по умолчанию берётся из настроек приложения
             //'title'        => Yii::t('YupeModule.yupe', 'Название моего сайта'),
@@ -68,4 +73,8 @@ public function actions()
 
 `'title' => 'title',` - заголовок для элемента ленты
 
-`'updated' => 'change_date',` - дата последнего изменения элемента ленты
+`'updated' => 'change_date',` - дата последнего изменения элемента ленты  
+
+## Об остальном: ##
+
+Вы также можете ознакомиться с [исходным кодом](https://github.com/yupe/yupe/blob/master/protected/modules/yupe/components/actions/FeedAction.php). 
