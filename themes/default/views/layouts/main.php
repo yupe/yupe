@@ -6,6 +6,8 @@
     <meta name="keywords" content="<?php echo $this->keywords; ?>"/>
     <meta name="description" content="<?php echo $this->description; ?>"/>
 
+    <link rel="icon" type="image/png" href="<?php echo Yii::app()->baseUrl;?>/web/images/favicon.png" />
+
     <?php $module = Yii::app()->getModule('yupe'); ?>
 
     <!-- blueprint CSS framework -->
@@ -33,7 +35,7 @@
 <div class="container" id="page">
     <div id="header">
         <div id="logo">
-            <a href="<?php echo CHtml::normalizeUrl(array("/site/index"))?>"><?php echo CHtml::image(Yii::app()->baseUrl . '/web/images/yupe-logo-style.jpg');?></a>
+            <a href="<?php echo CHtml::normalizeUrl(array("/site/index"))?>"><?php echo CHtml::image(Yii::app()->baseUrl . '/web/images/main-logo.png');?></a>
             <span style="vertical-align: 40px; margin-left: 20px; font-size: 25px;">
                 <?php echo CHtml::encode($module->siteDescription);?>
             </span>
