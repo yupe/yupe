@@ -10,7 +10,7 @@
  * @link     http://yupe.ru
  *
  **/
-class FeedAction extends CAction
+class YFeedAction extends CAction
 {
     /**
      * Для использования данного екшена,
@@ -21,7 +21,7 @@ class FeedAction extends CAction
      *     {
      *         return array(
      *             'atomfeed' => array(
-     *                 'class'        => 'application.modules.yupe.components.actions.FeedAction',
+     *                 'class'        => 'application.modules.yupe.components.actions.YFeedAction',
      *                 'data'         => News::model()->published()->findAll(),
      *                 // Параметр title по умолчанию берётся из настроек приложения
      *                 //'title'        => Yii::t('YupeModule.yupe', 'Название моего сайта'),
