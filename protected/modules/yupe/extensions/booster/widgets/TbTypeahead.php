@@ -26,6 +26,7 @@ class TbTypeahead extends CInputWidget
 	{
 		$this->htmlOptions['type'] = 'text';
 		$this->htmlOptions['data-provide'] = 'typeahead';
+		$this->htmlOptions['autocomplete'] = 'off';
 	}
 
 	/**

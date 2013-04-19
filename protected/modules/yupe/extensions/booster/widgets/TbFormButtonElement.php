@@ -14,76 +14,73 @@
 
 class TbFormButtonElement extends CFormElement
 {
-    /**
-     * @var string the button layout: set as TbButton->type in function render()
-     * Valid values are 'primary', 'info', 'success', 'warning', 'danger' and 'inverse'.
-     */
-    public $layoutType;
+	/**
+	 * @var string the button layout: set as TbButton->type in function render()
+	 * Valid values are 'primary', 'info', 'success', 'warning', 'danger' and 'inverse'.
+	 */
+	public $layoutType;
 
-    /**
+	/**
 	 * @var array Core button types (alias=>CHtml method name)
 	 */
-	public static $TbButtonTypes=array(
-		'htmlButton'=>'button',
-		'htmlSubmit'=>'submit',
-		'htmlReset'=>'reset',
-		'button'=>'button',
-		'submit'=>'submit',
-		'reset'=>'reset',
+	public static $TbButtonTypes = array(
+		'htmlButton' => 'button',
+		'htmlSubmit' => 'submit',
+		'htmlReset'  => 'reset',
+		'button'     => 'button',
+		'submit'     => 'submit',
+		'reset'      => 'reset',
 		//'image'=>'imageButton', not supported
-		'link'=>'link',
-
-        //new YiiBooster types
-        'ajaxLink'=>'ajaxLink',
-        'ajaxButton'=>'ajaxButton',
-        'ajaxSubmit'=>'ajaxSubmit',
+		'link'       => 'link',
+		//new YiiBooster types
+		'ajaxLink'   => 'ajaxLink',
+		'ajaxButton' => 'ajaxButton',
+		'ajaxSubmit' => 'ajaxSubmit',
 	);
 
-    /**
-     * Prepare the options before running the TbButton widget
-     *
-     * Map Yii formbuilder compatible:
-     * $this->type => TbButton->buttonType
-     * $this->layoutType => TbButton->type
-     *
-     * @param $options
-     * @return mixed
-     */
-    protected function prepareWidgetOptions($options)
-    {
-        //map $this->type to attribute buttonType of TbButton
-        $options['buttonType'] = self::$TbButtonTypes[$this->type];
-        unset($options['type']);
+	/**
+	 * Prepare the options before running the TbButton widget
+	 *
+	 * Map Yii formBuilder compatible:
+	 * $this->type => TbButton->buttonType
+	 * $this->layoutType => TbButton->type
+	 *
+	 * @param array $options
+	 * @return mixed
+	 */
+	protected function prepareWidgetOptions($options)
+	{
+		//map $this->type to attribute buttonType of TbButton
+		$options['buttonType'] = self::$TbButtonTypes[$this->type];
+		unset($options['type']);
 
-        //map layoutType to attribute type of TbButton
-        if(isset($this->layoutType))
-           $options['type'] = $this->layoutType;
+		//map layoutType to attribute type of TbButton
+		if (isset($this->layoutType))
+		   $options['type'] = $this->layoutType;
 
-        //move $options['name'] to htmlOptions
-        $options['htmlOptions']['name'] = $this->name;
-        unset($options['name']);
+		//move $options['name'] to htmlOptions
+		$options['htmlOptions']['name'] = $this->name;
+		unset($options['name']);
 
-        return $options;
-    }
+		return $options;
+	}
 
 	/**
 	 * Run TbButton widget
-     *
+	 *
 	 * @return string the rendering result
 	 */
 	public function render()
 	{
-        if(!empty(self::$TbButtonTypes[$this->type]))
-        {
-            $attributes = $this->prepareWidgetOptions($this->attributes);
+		if (!empty(self::$TbButtonTypes[$this->type]))
+		{
+			$attributes = $this->prepareWidgetOptions($this->attributes);
 
-            ob_start();
-            Yii::app()->controller->widget('TbButton',$attributes);
-            return ob_get_clean();
-        }
+			ob_start();
+			Yii::app()->controller->widget('TbButton',$attributes);
+			return ob_get_clean();
+		}
 
-        return parent::render();
+		return parent::render();
 	}
-
-
 }

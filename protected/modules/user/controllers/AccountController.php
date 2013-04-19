@@ -22,6 +22,9 @@ class AccountController extends YFrontController
             'login'            => array(
                 'class' => 'application.modules.user.controllers.account.LoginAction',
             ),
+            'backendlogin'            => array(
+                'class' => 'application.modules.user.controllers.account.LoginAction',
+            ),
             'fblogin'          => array(
                 'class' => 'application.modules.user.controllers.account.FbloginAction',
             ),

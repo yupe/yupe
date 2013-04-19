@@ -26,6 +26,7 @@ class JSONStorage extends CComponent
 	 * const string the key to keep value information
 	 */
 	const META = 'meta';
+
 	/**
 	 * const string the key of the registry
 	 */
@@ -75,9 +76,7 @@ class JSONStorage extends CComponent
 	public function __construct($registry = null)
 	{
 		if (null === $this->path)
-		{
 			$this->setPath(Yii::app()->getRuntimePath()); // JSON storage will be at the app runtime path
-		}
 		$this->setFile($this->filename);
 
 		$this->load();
@@ -85,23 +84,23 @@ class JSONStorage extends CComponent
 		// setup domain
 		if ($registry)
 		{
-			if ($this->registryExists($registry) == false) $this->addRegistry($registry);
+			if ($this->registryExists($registry) == false)
+				$this->addRegistry($registry);
 			$this->default = $registry;
 		}
 	}
 
 	/**
-	 * class destructor
+	 * class destructor - flush data
 	 */
 	public function __destruct()
 	{
-		// flush data
 		$this->flush();
 	}
 
 	/**
 	 * Fires before registry has been saved
-	 * @param $event
+	 * @param CEvent $event
 	 */
 	public function onBeforeSave($event)
 	{
@@ -110,7 +109,7 @@ class JSONStorage extends CComponent
 
 	/**
 	 * Fires after the registry has been saved
-	 * @param $event
+	 * @param CEvent $event
 	 */
 	public function onAfterSave($event)
 	{
@@ -119,7 +118,7 @@ class JSONStorage extends CComponent
 
 	/**
 	 * Property set path
-	 * @param $path the full path of the directory with read/write access to save the registry file to
+	 * @param string $path the full path of the directory with read/write access to save the registry file to
 	 * @return bool
 	 * @throws Exception
 	 */
@@ -144,7 +143,7 @@ class JSONStorage extends CComponent
 
 	/**
 	 * Property set file
-	 * @param $file the filename to save the registry to
+	 * @param string $file the filename to save the registry to
 	 */
 	public function setFile($file)
 	{
@@ -153,7 +152,7 @@ class JSONStorage extends CComponent
 
 	/**
 	 * Property get file
-	 * @return string
+	 * @return string filename
 	 */
 	public function getFile()
 	{
@@ -181,22 +180,16 @@ class JSONStorage extends CComponent
 		{
 			$json = file_get_contents($this->getFile());
 			if (strlen($json) == 0)
-			{
 				return;
-			}
+
 			$this->data = $this->decode($json);
 
 			if ($this->data === null)
-			{
-				throw new Exception("Error while trying to decode \"$this->file\".");
-			}
+				throw new Exception('Error while trying to decode ' . $this->getFile() . '.');
 
 			if (!$this->verify())
-			{
 				throw new Exception($this->getFile() . ' failed checksum validation.');
-			}
 		}
-
 	}
 
 	/**
@@ -213,14 +206,15 @@ class JSONStorage extends CComponent
 
 	/**
 	 * Saves data to the registry
-	 * @param $key the name of the key that will hold the data
-	 * @param $data the data to save
+	 * @param string $key the name of the key that will hold the data
+	 * @param array $data the data to save
 	 * @param null $registry the name of the registry
 	 * @return bool
 	 */
 	public function setData($key, $data, $registry = null)
 	{
-		if ($registry == null) $registry = $this->default;
+		if ($registry == null)
+			$registry = $this->default;
 		if (is_string($key . $registry) && $this->registryExists($registry))
 		{
 			$this->data[self::REGISTRY][$registry][$key] = $data;
@@ -232,38 +226,33 @@ class JSONStorage extends CComponent
 
 	/**
 	 * Retrieves a data value from the registry
-	 * @param $key the name of the key that holds the data
+	 * @param string $key the name of the key that holds the data
 	 * @param null $registry the registry name
 	 * @return mixed the data in the key value, null otherwise
 	 */
 	public function getData($key, $registry = null)
 	{
 		if ($registry == null)
-		{
 			$registry = $this->default;
-		}
 		if (is_string($key . $registry) && $this->registryExists($registry))
 		{
 			if (array_key_exists($key, $this->data[self::REGISTRY][$registry]))
-			{
 				return $this->data[self::REGISTRY][$registry][$key];
-			}
 		}
 		return null;
 	}
 
 	/**
 	 * Removes data from a key in the registry
-	 * @param $key the key name that holds the data to remove
+	 * @param string $key the key name that holds the data to remove
 	 * @param null $registry the registry name
 	 * @return bool true if successful, false otherwise
 	 */
 	public function removeData($key, $registry = null)
 	{
 		if ($registry == null)
-		{
 			$registry = $this->default;
-		}
+
 		if (is_string($key . $registry) && $this->registryExists($registry))
 		{
 			if (array_key_exists($key, $this->data[self::REGISTRY][$registry]))
@@ -283,20 +272,16 @@ class JSONStorage extends CComponent
 	 */
 	public function getLength($registry = null)
 	{
-		if($registry == null)
-		{
+		if ($registry == null)
 			$registry = $this->default;
-		}
-		if(is_string($registry) && $this->registryExists($registry))
-		{
+		if (is_string($registry) && $this->registryExists($registry))
 			return count($this->data[self::REGISTRY][$registry]);
-		}
 		return 0;
 	}
 
 	/**
 	 * Retrieves a registry collection based on its name
-	 * @param $registry the name of the registry to retrieve
+	 * @param string $registry the name of the registry to retrieve
 	 * @return mixed|null the registry, null if none found
 	 */
 	public function getRegistry($registry)
@@ -306,7 +291,7 @@ class JSONStorage extends CComponent
 
 	/**
 	 * Checkes whether a collection exists (registry)
-	 * @param $registry the name of the registry to check existence
+	 * @param string $registry the name of the registry to check existence
 	 * @return bool
 	 */
 	public function registryExists($registry)
@@ -316,19 +301,22 @@ class JSONStorage extends CComponent
 
 	/**
 	 * Add new collection name
-	 * @param $registry the name of the registry (collection) to create
+	 * @param string $registry the name of the registry (collection) to create
 	 * @return bool
 	 */
 	public function addRegistry($registry)
 	{
-		if ($this->registryExists($registry)) return false;
+		if ($this->registryExists($registry))
+			return false;
 		$this->data[self::REGISTRY][$registry] = array();
 		$this->dirty = true;
+		return true;
 	}
 
 	/**
 	 * Remove an existing collection and all associated data
-	 * @param $registry the name of the registry to remove
+	 * @param string $registry the name of the registry to remove
+	 * @return bool
 	 */
 	public function removeRegistry($registry)
 	{
@@ -349,7 +337,8 @@ class JSONStorage extends CComponent
 	private function flush()
 	{
 		// check if writeback is needed
-		if ($this->dirty == false) return true;
+		if ($this->dirty == false)
+			return true;
 		// prepare to writeback to file
 		$data = $this->data;
 		$registry = $this->encode($this->data[self::REGISTRY]);
@@ -358,14 +347,14 @@ class JSONStorage extends CComponent
 
 		// overwrite existing data
 		if (file_put_contents($this->getFile(), $this->encode($data)))
-		{
 			return true;
-		} else throw new Exception(strtr('Unable to write back to {FILE}. Data will be lost!', array('{FILE}' => $this->getFile())));
+		else
+			throw new Exception(strtr('Unable to write back to {FILE}. Data will be lost!', array('{FILE}' => $this->getFile())));
 	}
 
 	/**
 	 * JSON encodes the data
-	 * @param $data
+	 * @param string $data
 	 * @return string
 	 */
 	private function encode($data)
@@ -375,12 +364,11 @@ class JSONStorage extends CComponent
 
 	/**
 	 * JSON decodes the data
-	 * @param $data
+	 * @param string $data
 	 * @return mixed
 	 */
 	private function decode($data)
 	{
 		return function_exists('json_decode') ? json_decode($data, true) : CJSON::decode($data, true);
 	}
-
 }

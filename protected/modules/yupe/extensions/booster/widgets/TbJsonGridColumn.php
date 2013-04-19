@@ -12,6 +12,9 @@
 
 Yii::import('bootstrap.widgets.TbDataColumn');
 
+/**
+ * @property TbJsonGridView $grid
+ */
 class TbJsonGridColumn extends TbDataColumn {
 
 	/**
@@ -19,11 +22,11 @@ class TbJsonGridColumn extends TbDataColumn {
 	 */
 	public function renderHeaderCell()
 	{
-		if($this->grid->json)
+		if ($this->grid->json)
 		{
 			$header = array('id'=>$this->id);
 			$content = array();
-			if($this->grid->enableSorting && $this->sortable && $this->name !== null)
+			if ($this->grid->enableSorting && $this->sortable && $this->name !== null)
 			{
 				$sort = $this->grid->dataProvider->getSort();
 				$label = isset($this->header) ? $this->header : $sort->resolveLabel($this->name);

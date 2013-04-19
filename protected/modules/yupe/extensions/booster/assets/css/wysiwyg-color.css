@@ -1,3 +1,7 @@
+/**
+ * Default stylesheet for the bootstrap-wysihtml5 editor.
+ * See the TbHtml5Editor widget for details.
+ */
 .wysiwyg-color-black {
   color: black;
 }

@@ -27,6 +27,10 @@ body {
     line-height: 1.5;
 }
 
+body.admin-panel {
+    margin-top: 50px;
+}
+
 table {
     border-collapse: separate;
     border-spacing: 0;
@@ -123,11 +127,11 @@ p img.right {
     margin: 1.5em 0 1.5em 1.5em;
 }
 
-a:focus, a:hover {
+.container .container a:focus, .container .container a:hover {
     color: #000;
 }
 
-a {
+.container .container a {
     color: #009;
     text-decoration: underline;
 }
@@ -290,7 +294,7 @@ caption {
 }
 
 /* grid.css */
-.container {
+body .container {
     width: 950px;
     margin: 0 auto;
 }
@@ -984,4 +988,17 @@ hr.space {
     z-index: 9999;
     width: 100%;
     height: 100%;
+}
+
+.listItem {
+    line-height: 1.5;
+}
+
+.container .span-5 {
+    margin-left: 0;
+    margin-right: 0;
+}
+
+.container .span-19 {
+    margin-left: 0;
 }

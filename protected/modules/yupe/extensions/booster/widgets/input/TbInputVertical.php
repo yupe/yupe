@@ -213,6 +213,19 @@ class TbInputVertical extends TbInput
 	}
 
 	/**
+	 * Renders a masked text field.
+	 * @return string the rendered content
+	 */
+	protected function maskedTextField()
+	{
+		echo $this->getLabel();
+		echo $this->getPrepend();
+		echo $this->form->maskedTextField($this->model, $this->attribute, $this->data, $this->htmlOptions);
+		echo $this->getAppend();
+		echo $this->getError() . $this->getHint();
+	}
+
+	/**
 	 * Renders a CAPTCHA.
 	 * @return string the rendered content
 	 */
@@ -473,6 +486,7 @@ class TbInputVertical extends TbInput
 		}
 
 		echo $this->getLabel();
+		echo '<div class="bootstrap-timepicker">';
 		echo $this->getPrepend();
 		$this->widget('bootstrap.widgets.TbTimePicker', array(
 			'model' => $this->model,
@@ -484,6 +498,7 @@ class TbInputVertical extends TbInput
 		));
 		echo $this->getAppend();
 		echo $this->getError() . $this->getHint();
+		echo '</div>';
 	}
 
 	/**
@@ -532,4 +547,29 @@ class TbInputVertical extends TbInput
 		echo $this->getError() . $this->getHint();
 	}
 
+	/**
+	 * Renders a typeahead field
+	 * @return string the rendered content
+	 */
+	protected function typeAheadField()
+	{
+		echo $this->getLabel();
+		echo $this->getPrepend();
+		echo $this->form->typeAheadField($this->model, $this->attribute, $this->data, $this->htmlOptions);
+		echo $this->getAppend();
+		echo $this->getError() . $this->getHint();
+	}
+
+	/**
+	 * Renders a number field.
+	 * @return string the rendered content
+	 */
+	protected function numberField()
+	{
+		echo $this->getLabel();
+		echo $this->getPrepend();
+		echo $this->form->numberField($this->model, $this->attribute, $this->htmlOptions);
+		echo $this->getAppend();
+		echo $this->getError() . $this->getHint();
+	}
 }

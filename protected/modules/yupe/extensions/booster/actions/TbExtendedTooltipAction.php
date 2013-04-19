@@ -8,8 +8,6 @@
  */
 class TbExtendedTooltipAction extends CAction
 {
-
-
 	/**
 	 * @var string the name of the table for keeping applied migration information.
 	 * This table will be automatically created if not exists. Defaults to 'tbl_tooltip'.
@@ -54,6 +52,7 @@ class TbExtendedTooltipAction extends CAction
 	 * You can call {@link setDbConnection} to switch to a different database connection.
 	 * Methods such as {@link insert}, {@link createTable} will use this database connection
 	 * to perform DB queries.
+	 * @throws CException
 	 * @return CDbConnection the currently active database connection
 	 */
 	protected function getDbConnection()

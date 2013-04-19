@@ -13,6 +13,9 @@
 Yii::import('bootstrap.widgets.TbGridView');
 Yii::import('bootstrap.widgets.TbJsonDataColumn');
 
+/**
+ * @property TbJsonGridColumn[] $columns
+ */
 class TbJsonGridView extends TbGridView
 {
 	/**
@@ -57,9 +60,8 @@ class TbJsonGridView extends TbGridView
 		// parse request to find out whether is an ajax request or not, if so, then return $dataProvider JSON formatted
 		$this->json = Yii::app()->getRequest()->getIsAjaxRequest();
 		if ($this->json)
-		{
 			$this->template = '{items}'; // going to render only items!
-		}
+
 		parent::init();
 	}
 
@@ -87,7 +89,7 @@ class TbJsonGridView extends TbGridView
 		if (!$this->json)
 		{
 			parent::renderPager();
-			return;
+			return true;
 		}
 
 		$pager = array();
@@ -137,7 +139,8 @@ class TbJsonGridView extends TbGridView
 		{
 			echo function_exists('json_encode') ? json_encode($this->renderTableBody()) : CJSON::encode($this->renderTableBody());
 
-		} elseif ($this->dataProvider->getItemCount() > 0 || $this->showTableOnEmpty)
+		}
+		elseif ($this->dataProvider->getItemCount() > 0 || $this->showTableOnEmpty)
 		{
 			echo "<table class=\"{$this->itemsCssClass}\">\n";
 			$this->renderTableHeader();
@@ -149,7 +152,8 @@ class TbJsonGridView extends TbGridView
 			echo "</table>";
 			$this->renderTemplates();
 
-		} else
+		}
+		else
 			$this->renderEmptyText();
 	}
 
@@ -162,13 +166,12 @@ class TbJsonGridView extends TbGridView
 		echo $this->renderTemplate($this->id . '-row-template', '<tr class="<%=this.class%>"><% var t = "#' . $this->id . '-col-template"; out += $.jqote(t, this.cols);%></tr>');
 		echo $this->renderTemplate($this->id . '-keys-template', '<span><%=this%></span>');
 		if ($this->enablePagination)
-		{
 			echo $this->renderTemplate($this->id . '-pager-template', '<li class="<%=this.class%>"><a href="<%=this.url%>"><%=this.text%></a></li>');
-		}
 	}
 
 	/**
 	 * Encloses the given JavaScript within a script tag.
+	 * @param string $id
 	 * @param string $text the JavaScript to be enclosed
 	 * @return string the enclosed JavaScript
 	 */
@@ -186,16 +189,16 @@ class TbJsonGridView extends TbGridView
 		$n = count($data);
 
 		if ($this->json)
-		{
 			return $this->renderTableBodyJSON($n);
-		}
+
 		echo "<tbody>\n";
 
 		if ($n > 0)
 		{
 			for ($row = 0; $row < $n; ++$row)
 				$this->renderTableRow($row);
-		} else
+		}
+		else
 		{
 			echo '<tr><td colspan="' . count($this->columns) . '" class="empty">';
 			$this->renderEmptyText();
@@ -207,7 +210,7 @@ class TbJsonGridView extends TbGridView
 
 	/**
 	 * Renders the body table for JSON requests - assumed ajax is for JSON
-	 * @param $rows
+	 * @param integer $rows
 	 * @return array
 	 */
 	protected function renderTableBodyJSON($rows)
@@ -234,7 +237,8 @@ class TbJsonGridView extends TbGridView
 			foreach ($this->dataProvider->getKeys() as $key)
 				$tbody['keys'][] = CHtml::encode($key);
 
-		} else
+		}
+		else
 		{
 			ob_start();
 			$this->renderEmptyText();
@@ -245,6 +249,7 @@ class TbJsonGridView extends TbGridView
 			$tbody['rows'][0]['class'] = " ";
 		}
 		$tbody['pager'] = $this->renderPager();
+		$tbody['url'] = Yii::app()->getRequest()->getUrl();
 
 		return $tbody;
 	}
@@ -270,7 +275,7 @@ class TbJsonGridView extends TbGridView
 
 	/**
 	 * Renders a table body row for JSON requests  - assumed ajax is for JSON
-	 * @param $row
+	 * @param integer $row
 	 * @return array
 	 */
 	protected function renderTableRowJSON($row)
@@ -328,18 +333,18 @@ class TbJsonGridView extends TbGridView
 		else
 			$ajaxUpdate = array_unique(preg_split('/\s*,\s*/', $this->ajaxUpdate . ',' . $id, -1, PREG_SPLIT_NO_EMPTY));
 		$options = array(
-			'ajaxUpdate' => $ajaxUpdate,
-			'ajaxVar' => $this->ajaxVar,
-			'pagerClass' => $this->pagerCssClass,
-			'loadingClass' => $this->loadingCssClass,
-			'filterClass' => $this->filterCssClass,
-			'tableClass' => $this->itemsCssClass,
+			'ajaxUpdate'     => $ajaxUpdate,
+			'ajaxVar'        => $this->ajaxVar,
+			'pagerClass'     => $this->pagerCssClass,
+			'loadingClass'   => $this->loadingCssClass,
+			'filterClass'    => $this->filterCssClass,
+			'tableClass'     => $this->itemsCssClass,
 			'selectableRows' => $this->selectableRows,
-			'enableHistory' => $this->enableHistory,
+			'enableHistory'  => $this->enableHistory,
 			'updateSelector' => $this->updateSelector,
-			'cacheTTL' => $this->cacheTTL,
-			'cacheTTLType' => $this->cacheTTLType,
-			'localCache' => $this->localCache
+			'cacheTTL'       => $this->cacheTTL,
+			'cacheTTLType'   => $this->cacheTTLType,
+			'localCache'     => $this->localCache
 		);
 		if ($this->ajaxUrl !== null)
 			$options['url'] = CHtml::normalizeUrl($this->ajaxUrl);
@@ -351,28 +356,24 @@ class TbJsonGridView extends TbGridView
 			if ($this->{$prop} !== null)
 			{
 				if ((!$this->{$prop} instanceof CJavaScriptExpression) && strpos($this->{$prop}, 'js:') !== 0)
-				{
 					$options[$prop] = new CJavaScriptExpression($this->{$prop});
-				} else
-				{
+				else
 					$options[$prop] = $this->{$prop};
-				}
 			}
 		}
 
 		$options = CJavaScript::encode($options);
+		/** @var $cs CClientScript */
 		$cs = Yii::app()->getClientScript();
 		$cs->registerCoreScript('jquery');
 		$cs->registerCoreScript('bbq');
 		if ($this->enableHistory)
 			$cs->registerCoreScript('history');
 		$assetsUrl = Yii::app()->bootstrap->getAssetsUrl();
-		// jqote2 template engine
-		$cs->registerScriptFile($assetsUrl . '/js/jquery.jqote2.min.js', CClientScript::POS_END);
-		// ajax cache
-		$cs->registerScriptFile($assetsUrl . '/js/jquery.ajax.cache.js', CClientScript::POS_END);
-		// custom yiiGridView
-		$cs->registerScriptFile($assetsUrl . '/js/jquery.json.yiigridview.js', CClientScript::POS_END);
+
+		$cs->registerScriptFile($assetsUrl . '/js/jquery.jqote2.min.js', CClientScript::POS_END);// jqote2 template engine
+		$cs->registerScriptFile($assetsUrl . '/js/jquery.ajax.cache.js', CClientScript::POS_END);// ajax cache
+		$cs->registerScriptFile($assetsUrl . '/js/jquery.json.yiigridview.js', CClientScript::POS_END);// custom yiiGridView
 		$cs->registerScript(__CLASS__ . '#' . $id, "jQuery('#$id').yiiJsonGridView($options);");
 	}
 }

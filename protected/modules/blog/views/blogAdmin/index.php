@@ -82,7 +82,7 @@ $this->renderPartial('_search', array('model' => $model));
             /* Массив кнопок действий: */
             'actionButtons' => array(
                 array(
-                    'id'         => 'deleteAction',
+                    'id'         => 'delete-post',
                     'buttonType' => 'button',
                     'type'       => 'danger',
                     'size'       => 'small',

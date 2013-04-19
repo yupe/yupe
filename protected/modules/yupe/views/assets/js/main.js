@@ -1,4 +1,7 @@
 jQuery(document).ready(function($){
+
+    $('body').addClass('admin-panel');
+
     $('.popover-help').popover({ trigger : 'hover', delay : 500, html: true });
     /**
      * Ajax-управление статусами модулей:

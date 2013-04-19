@@ -44,7 +44,7 @@ class TbFileUpload extends CJuiInputWidget
 	public $previewImages = true;
 
 	/**
-	 * Wheter or not to add the image processing pluing
+	 * Whether or not to add the image processing pluing
 	 */
 	public $imageProcessing = true;
 
@@ -74,19 +74,14 @@ class TbFileUpload extends CJuiInputWidget
 	public function init()
 	{
 		if ($this->uploadTemplate === null)
-		{
 			$this->uploadTemplate = "#template-upload";
-		}
 
 		if ($this->downloadTemplate === null)
-		{
 			$this->downloadTemplate = "#template-download";
-		}
 
 		if (!isset($this->htmlOptions['enctype']))
-		{
 			$this->htmlOptions['enctype'] = 'multipart/form-data';
-		}
+
 		parent::init();
 	}
 
@@ -103,11 +98,10 @@ class TbFileUpload extends CJuiInputWidget
 		$this->options['url'] = $this->url;
 
 		// if acceptFileTypes is not set as option, try getting it from models rules
-		if(!isset($this->options['acceptFileTypes']))
+		if (!isset($this->options['acceptFileTypes']))
 		{
 			$fileTypes = $this->getFileValidatorProperty($this->model, $this->attribute, 'types');
-
-			if(isset($fileTypes))
+			if (isset($fileTypes))
 			{
 				$fileTypes = (preg_match(':jpg:', $fileTypes) && !preg_match(':jpe:', $fileTypes) ? preg_replace(':jpg:','jpe?g',$fileTypes) : $fileTypes);
 				$this->options['acceptFileTypes'] = 'js:/(\.)('.preg_replace(':,:', '|', $fileTypes).')$/i';
@@ -115,38 +109,31 @@ class TbFileUpload extends CJuiInputWidget
 		}
 
 		// if maxFileSize is not set as option, try getting it from models rules
-		if(!isset($this->options['maxFileSize']))
+		if (!isset($this->options['maxFileSize']))
 		{
 			$fileSize = $this->getFileValidatorProperty($this->model, $this->attribute, 'maxSize');
-
-			if(isset($fileSize))
-			{
+			if (isset($fileSize))
 				$this->options['maxFileSize'] = $fileSize;
-			}
 		}
 
 		$htmlOptions = array();
 
 		if ($this->multiple)
-		{
 			$htmlOptions["multiple"] = true;
-		}
 
 		$this->render($this->uploadView);
 		$this->render($this->downloadView);
-    		$this->render($this->formView, array('name'=>$name, 'htmlOptions'=>$this->htmlOptions)); 
+			$this->render($this->formView, array('name'=>$name, 'htmlOptions'=>$this->htmlOptions));
 
 		if ($this->previewImages || $this->imageProcessing)
-		{
 			$this->render($this->previewImagesView);
-		}
 
 		$this->registerClientScript($this->htmlOptions['id']);
 	}
 
 	/**
 	 * Registers and publishes required scripts
-	 * @param $id
+	 * @param string $id
 	 */
 	public function registerClientScript($id)
 	{
@@ -176,7 +163,7 @@ class TbFileUpload extends CJuiInputWidget
 			Yii::app()->bootstrap->registerAssetJs('fileupload/jquery.fileupload-ip.js');
 		}
 		// The File Upload file processing plugin
-		if($this->previewImages)
+		if ($this->previewImages)
 		{
 			Yii::app()->bootstrap->registerAssetJs('fileupload/jquery.fileupload-fp.js');
 		}
@@ -191,20 +178,20 @@ class TbFileUpload extends CJuiInputWidget
 
 	/**
 	 * Check for a property of CFileValidator
-	 * @param $model
-	 * @param $attribute
+	 * @param CModel $model
+	 * @param string $attribute
+	 * @param null $property
 	 * @return string property's value or null
 	 */
 	private function getFileValidatorProperty($model=null, $attribute=null, $property=null)
 	{
-		if(!isset($model,$attribute,$property)) return null;
+		if (!isset($model,$attribute,$property))
+			return null;
 
 		foreach($model->getValidators($attribute) as $validator)
 		{
-			if($validator instanceof CFileValidator)
-			{
-		        	$ret = $validator->$property;
-			}
+			if ($validator instanceof CFileValidator)
+				$ret = $validator->$property;
 		}
 		return isset($ret) ? $ret : null;
 	}

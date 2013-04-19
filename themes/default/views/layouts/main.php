@@ -1,71 +1,62 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN""http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="<?php echo Yii::app()->language; ?>"
-      lang="<?php echo Yii::app()->language; ?>">
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="<?php echo Yii::app()->language; ?>" lang="<?php echo Yii::app()->language; ?>">
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
     <meta name="language" content="<?php echo Yii::app()->language; ?>"/>
     <meta name="keywords" content="<?php echo $this->keywords; ?>"/>
     <meta name="description" content="<?php echo $this->description; ?>"/>
 
+    <link rel="icon" type="image/png" href="<?php echo Yii::app()->baseUrl;?>/web/images/favicon.png" />
+
     <?php $module = Yii::app()->getModule('yupe'); ?>
 
     <!-- blueprint CSS framework -->
     <link rel="stylesheet" type="text/css"
-          href="<?= Yii::app()->theme->resource('css/screen.css'); ?>"
+          href="<?php echo Yii::app()->theme->baseUrl; ?>/web/css/screen.css"
           media="screen, projection"/>
     <link rel="stylesheet" type="text/css"
-          href="<?= Yii::app()->theme->resource('css/print.css'); ?>"
+          href="<?php echo Yii::app()->theme->baseUrl; ?>/web/css/print.css"
           media="print"/>
     <!--[if lt IE 8]>
     <link rel="stylesheet" type="text/css"
-          href="<?=Yii::app()->theme->resource('css/ie.css');?>"
+          href="<?php echo Yii::app()->theme->baseUrl; ?>/web/css/ie.css"
           media="screen, projection"/>
     <![endif]-->
 
     <link rel="stylesheet" type="text/css"
-          href="<?= Yii::app()->theme->resource('css/main.css'); ?>"/>
+          href="<?php echo Yii::app()->theme->baseUrl; ?>/web/css/main.css"/>
     <link rel="stylesheet" type="text/css"
-          href="<?= Yii::app()->theme->resource('css/form.css'); ?>"/>
+          href="<?php echo Yii::app()->theme->baseUrl; ?>/web/css/form.css"/>
     <link rel="shortcut icon" href="/favicon.ico"/>
 
     <title><?php echo CHtml::encode($this->pageTitle); ?></title>
 </head>
 <body>
 <div class="container" id="page">
+    <?php $this->widget('YAdminPanel');?>
     <div id="header">
         <div id="logo">
-            <a href="<?php echo CHtml::normalizeUrl(array("/site/index")) ?>"><?php echo CHtml::image(
-                    Yii::app()->baseUrl . '/web/images/yupe-logo-style.jpg'
-                );?></a>
+            <a href="<?php echo CHtml::normalizeUrl(array("/site/index"))?>"><?php echo CHtml::image(Yii::app()->baseUrl . '/web/images/main-logo.png');?></a>
             <span style="vertical-align: 40px; margin-left: 20px; font-size: 25px;">
                 <?php echo CHtml::encode($module->siteDescription);?>
             </span>
-
             <div id="header-right">
                 <?php $this->widget('application.modules.yupe.widgets.YLanguageSelector'); ?>
                 <div class='yupeDownload'>
-                    <?php echo CHtml::link(
-                        'СКАЧАТЬ ЮПИ! <br/><b> ' . Yii::app()->getModule('yupe')->getVersion() . '</b>',
-                        'https://github.com/yupe/yupe/archive/master.zip'
-                    ); ?>
+                    <?php echo CHtml::link('СКАЧАТЬ ЮПИ! <br/><b> '.Yii::app()->getModule('yupe')->getVersion().'</b>','https://github.com/yupe/yupe/archive/master.zip'); ?>
                 </div>
             </div>
         </div>
     </div>
     <!-- header -->
-    <?php $this->widget(
-        'application.modules.menu.widgets.MenuWidget',
-        array(
-            'name'         => 'top-menu',
-            'params'       => array('hideEmptyItems' => true),
-            'layoutParams' => array(
-                'htmlOptions' => array(
-                    'class' => 'jqueryslidemenu',
-                    'id'    => 'myslidemenu',
-                )
-            ),
-        )
-    ); ?>
+    <?php $this->widget('application.modules.menu.widgets.MenuWidget', array(
+        'name' => 'top-menu',
+        'params' => array('hideEmptyItems' => true),
+        'layoutParams' => array('htmlOptions' => array(
+            'class' => 'jqueryslidemenu',
+            'id' => 'myslidemenu',
+        )),
+    )); ?>
     <?php $this->widget('application.modules.yupe.extensions.jquerySlideMenu.JquerySlideMenuWidget'); ?>
     <!-- mainmenu -->
     <?php $this->widget('zii.widgets.CBreadcrumbs', array('links' => $this->breadcrumbs)); ?>
@@ -86,10 +77,7 @@
                 <?php $this->widget('application.modules.feedback.widgets.FaqWidget', array('cacheTime' => 0)); ?>
                 <?php //$this->widget('application.modules.news.widgets.LastNewsWidget', array('cacheTime' => 0)); ?>
                 <?php $this->widget('application.modules.blog.widgets.BlogsWidget', array('cacheTime' => 0));?>
-                <?php $this->widget(
-                    'application.modules.user.widgets.LastLoginUsersWidget',
-                    array('cacheTime' => 0)
-                ); ?>
+                <?php $this->widget('application.modules.user.widgets.LastLoginUsersWidget', array('cacheTime' => 0)); ?>
             </div>
             <!-- sidebar -->
         </div>
@@ -104,5 +92,6 @@
     <!-- footer -->
 </div>
 <!-- page -->
+<?php $this->widget("application.modules.contentblock.widgets.ContentBlockWidget", array("code" => "STAT","silent" => true)); ?>
 </body>
 </html>

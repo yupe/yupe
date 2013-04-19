@@ -85,7 +85,7 @@ class FormbuilderTestModel extends CFormModel
 	{
 	        $model = new FormbuilderTestModel;
 
-	        if(isset($_POST['FormbuilderTestModel']))
+	        if (isset($_POST['FormbuilderTestModel']))
 	        $model->attributes = $_POST['FormbuilderTestModel'];
 
 	        $model->validate();
@@ -128,7 +128,7 @@ class TbForm extends CForm
     /**
      * Create the TbForm and assign the TbActiveForm with options as activeForm
      *
-     * @param $config
+     * @param array $config
      * @param $parent
      * @param array $options
      * @return mixed
@@ -173,9 +173,7 @@ class TbForm extends CForm
     {
         $output = '';
         foreach ($this->getButtons() as $button)
-        {
             $output .= $this->renderElement($button) . '&nbsp;';
-        }
 
         //form-actions div wrapper only if not is inline form
         if ($output !== '' && $this->getActiveFormWidget()->type !== 'inline')
@@ -183,5 +181,4 @@ class TbForm extends CForm
 
         return $output;
     }
-
 }

@@ -15,6 +15,10 @@ Yii::import('bootstrap.widgets.TbGridView');
  * @author         antonio ramirez <antonio@clevertech.biz>
  * @package        yiibooster
  */
+
+/**
+ * @property TbDataColumn[] $columns
+ */
 class TbGroupGridView extends TbGridView
 {
 
@@ -26,10 +30,12 @@ class TbGroupGridView extends TbGridView
 	 * @var array $mergeColumns the columns to merge on the grid
 	 */
 	public $mergeColumns = array();
+
 	/**
 	 * @var string $mergeType the merge type. Defaults to MERGE_SIMPLE
 	 */
 	public $mergeType = self::MERGE_SIMPLE;
+
 	/**
 	 * @var string $mergeCellsCss the styles to apply to merged cells
 	 */
@@ -70,12 +76,11 @@ class TbGroupGridView extends TbGridView
 		/**
 		 * check whether we have extraRowColumns set, forbid filters
 		 */
-		if(!empty($this->extraRowColumns))
+		if (!empty($this->extraRowColumns))
 		{
 			foreach($this->columns as $column)
 			{
-
-				if($column instanceof CDataColumn && in_array($column->name, $this->extraRowColumns))
+				if ($column instanceof CDataColumn && in_array($column->name, $this->extraRowColumns))
 				{
 					$column->filterHtmlOptions = array('style'=>'display:none');
 					$column->filter = false;
@@ -85,7 +90,7 @@ class TbGroupGridView extends TbGridView
 		/**
 		 * setup extra row options
 		 */
-		if(isset($this->extraRowHtmlOptions['class']) && !empty($this->extraRowCssClass))
+		if (isset($this->extraRowHtmlOptions['class']) && !empty($this->extraRowCssClass))
 			$this->extraRowHtmlOptions['class'] .= ' ' . $this->extraRowCssClass;
 		else
 			$this->extraRowHtmlOptions['class'] = $this->extraRowCssClass;
@@ -96,16 +101,13 @@ class TbGroupGridView extends TbGridView
 	public function renderTableBody()
 	{
 		if (!empty($this->mergeColumns) || !empty($this->extraRowColumns))
-		{
 			$this->groupByColumns();
-		}
+
 		parent::renderTableBody();
 	}
 
 	/**
 	 * find and store changing of group columns
-	 *
-	 * @param mixed $data
 	 */
 	public function groupByColumns()
 	{
@@ -152,9 +154,7 @@ class TbGroupGridView extends TbGridView
 			foreach ($current as $colName => $curValue)
 			{
 				if ($curValue != $lastStored[$colName]['value'])
-				{
 					$changedColumns[] = $colName;
-				}
 			}
 
 			/**
@@ -183,9 +183,7 @@ class TbGroupGridView extends TbGridView
 					$prevIndex = $lastStored[$colName]['index'];
 					$this->_changes[$prevIndex]['columns'][$colName] = $lastStored[$colName];
 					if (!isset($this->_changes[$prevIndex]['count']))
-					{
 						$this->_changes[$prevIndex]['count'] = $lastStored[$colName]['count'];
-					}
 
 					//update lastStored for particular column
 					$lastStored[$colName] = array(
@@ -194,7 +192,8 @@ class TbGroupGridView extends TbGridView
 						'index' => $i,
 					);
 
-				} else
+				}
+				else
 				{
 					$lastStored[$colName]['count']++;
 				}
@@ -205,13 +204,10 @@ class TbGroupGridView extends TbGridView
 		foreach ($lastStored as $colName => $v)
 		{
 			$prevIndex = $v['index'];
-
 			$this->_changes[$prevIndex]['columns'][$colName] = $v;
 
 			if (!isset($this->_changes[$prevIndex]['count']))
-			{
 				$this->_changes[$prevIndex]['count'] = $v['count'];
-			}
 		}
 	}
 
@@ -228,9 +224,7 @@ class TbGroupGridView extends TbGridView
 			//if change in extracolumns --> put extra row
 			$columnsInExtra = array_intersect(array_keys($change['columns']), $this->extraRowColumns);
 			if (count($columnsInExtra) > 0)
-			{
 				$this->renderExtraRow($row, $change, $columnsInExtra);
-			}
 		}
 
 		// original CGridView code
@@ -247,17 +241,13 @@ class TbGroupGridView extends TbGridView
 		if (!$this->_changes)
 		{ //standart CGridview's render
 			foreach ($this->columns as $column)
-			{
 				$column->renderDataCell($row);
-			}
-		} else
+		}
+		else
 		{ //for grouping
-
 			foreach ($this->columns as $column)
 			{
-
 				$isGroupColumn = property_exists($column, 'name') && in_array($column->name, $this->mergeColumns);
-
 				if (!$isGroupColumn)
 				{
 					$column->renderDataCell($row);
@@ -285,12 +275,9 @@ class TbGroupGridView extends TbGridView
 
 					case self::MERGE_FIRSTROW:
 						if ($isChangedColumn)
-						{
 							$column->renderDataCell($row);
-						} else
-						{
+						else
 							echo '<td></td>';
-						}
 						break;
 				}
 
@@ -303,32 +290,29 @@ class TbGroupGridView extends TbGridView
 	/**
 	 * returns array of rendered column values (TD)
 	 *
-	 * @param mixed $columns
+	 * @param string[]|TbDataColumn[] $columns
+	 * @param CActiveRecord $data
 	 * @param mixed $rowIndex
+	 * @throws CException
+	 * @return mixed
 	 */
 	private function getRowValues($columns, $data, $rowIndex)
 	{
 		foreach ($columns as $column)
 		{
-			if ($column instanceOf CGridColumn)
-			{
+			if ($column instanceOf TbDataColumn)
 				$result[$column->name] = $this->getDataCellContent($column, $data, $rowIndex);
-			} elseif (is_string($column))
+			elseif (is_string($column))
 			{
 				if (is_array($data) && array_key_exists($column, $data))
-				{
 					$result[$column] = $data[$column];
-				} elseif ($data instanceOf CModel && $data->hasAttribute($column))
-				{
+				elseif ($data instanceOf CActiveRecord && $data->hasAttribute($column))
 					$result[$column] = $data->getAttribute($column);
-				} else
-				{
+				else
 					throw new CException('Column or attribute "' . $column . '" not found!');
-				}
 			}
 		}
-
-		return $result;
+		return isset($result) ? $result : false;
 	}
 
 	/**
@@ -336,6 +320,7 @@ class TbGroupGridView extends TbGridView
 	 *
 	 * @param mixed $beforeRow
 	 * @param mixed $change
+	 * @param array $columnsInExtra
 	 */
 	private function renderExtraRow($beforeRow, $change, $columnsInExtra)
 	{
@@ -343,13 +328,13 @@ class TbGroupGridView extends TbGridView
 		if ($this->extraRowExpression)
 		{ //user defined expression, use it!
 			$content = $this->evaluateExpression($this->extraRowExpression, array('data' => $data, 'row' => $beforeRow, 'values' => $change['columns']));
-		} else
+		}
+		else
 		{ //generate value
 			$values = array();
 			foreach ($columnsInExtra as $c)
-			{
 				$values[] = $change['columns'][$c]['value'];
-			}
+
 			$content = '<strong>' . implode(' :: ', $values) . '</strong>';
 		}
 
@@ -366,9 +351,10 @@ class TbGroupGridView extends TbGridView
 	/**
 	 * need to rewrite this function as it is protected in CDataColumn: it is strange as all methods inside are public
 	 *
-	 * @param mixed $column
+	 * @param TbDataColumn $column
 	 * @param mixed $row
 	 * @param mixed $data
+	 * @return string
 	 */
 	private function getDataCellContent($column, $data, $row)
 	{
@@ -377,7 +363,6 @@ class TbGroupGridView extends TbGridView
 		else if ($column->name !== null)
 			$value = CHtml::value($data, $column->name);
 
-		return $value === null ? $column->grid->nullDisplay : $column->grid->getFormatter()->format($value, $column->type);
+		return !isset($value) ? $column->grid->nullDisplay : $column->grid->getFormatter()->format($value, $column->type);
 	}
-
 }
