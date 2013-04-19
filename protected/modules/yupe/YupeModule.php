@@ -565,7 +565,9 @@ class YupeModule extends YWebModule
             }
         }
 
-        if (CHtml::normalizeUrl("/" . Yii::app()->controller->route) != '/yupe/backend/index') {
+        if (CHtml::normalizeUrl("/" . Yii::app()->controller->route) != '/yupe/backend/index'
+            && Yii::app()->controller instanceof YBackendController
+        ) {
             // Устанавливаем активную категорию
             $thisCategory = Yii::app()->controller->module->category
                 ? Yii::app()->controller->module->category
