@@ -24,7 +24,7 @@ $this->breadcrumbs=array(
     Yii::t('DocsModule.docs', 'Документация')
 );
 
-$fileList = $this->module->fileList(Yii::getPathOfAlias($this->module->docFolder) . DIRECTORY_SEPARATOR . Yii::app()->language);
+$fileList = $this->module->fileList(str_replace('{module}', '*', Yii::getPathOfAlias($this->module->moduleDocFolder)) . DIRECTORY_SEPARATOR . Yii::app()->language);
 Yii::app()->user->setFlash('info', Yii::t('DocsModule.docs', 'Данный модуль предназначен для документирования проекта.'));
 
 $this->widget(

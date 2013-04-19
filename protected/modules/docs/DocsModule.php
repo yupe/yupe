@@ -13,9 +13,10 @@
 class DocsModule extends YWebModule
 {
 
-    public $categorySort = 9999;
-    public $docFolder    = 'application.modules.docs.guide';
-    public $notFoundOn   = 1;
+    public $categorySort    = 9999;
+    public $docFolder       = 'application.modules.docs.guide';
+    public $moduleDocFolder = 'application.modules.{module}.guide';
+    public $notFoundOn      = 1;
 
     /**
      * Кеширование страниц на уровне фильтрации:
@@ -54,12 +55,13 @@ class DocsModule extends YWebModule
     public function getParamsLabels()
     {
         return array(
-            'docFolder'   => Yii::t('DocsModule.docs', 'Расположение файлов документации'),
-            'notFoundOn'  => Yii::t('DocsModule.docs', 'Показывать страницу ошибки, если файл документации на данном языке не найден?'),
-            'fileExtMD'   => Yii::t('DocsModule.docs', 'Расширения для файлов MarkDown'),
-            'fileExtHTML' => Yii::t('DocsModule.docs', 'Расширения для файлов HMTML'),
-            'cachePages'  => Yii::t('DocsModule.docs', 'Кеширование страниц на уровне фильтрации'),
-            'staticFiles' => Yii::t('DocsModule.docs', 'Файлы, которые необходимо показать в админ панели'),
+            'docFolder'       => Yii::t('DocsModule.docs', 'Расположение файлов документации'),
+            'moduleDocFolder' => Yii::t('DocsModule.docs', 'Расположение файлов документации модулей ({module} вместо него подставляется название модуля)'),
+            'notFoundOn'      => Yii::t('DocsModule.docs', 'Показывать страницу ошибки, если файл документации на данном языке не найден?'),
+            'fileExtMD'       => Yii::t('DocsModule.docs', 'Расширения для файлов MarkDown'),
+            'fileExtHTML'     => Yii::t('DocsModule.docs', 'Расширения для файлов HMTML'),
+            'cachePages'      => Yii::t('DocsModule.docs', 'Кеширование страниц на уровне фильтрации'),
+            'staticFiles'     => Yii::t('DocsModule.docs', 'Файлы, которые необходимо показать в админ панели'),
         );
     }
 
@@ -72,6 +74,7 @@ class DocsModule extends YWebModule
     {
         return array(
             'docFolder',
+            'moduleDocFolder',
             'notFoundOn' => $this->notFoundTypes,
             'fileExtMD',
             'fileExtHTML',
@@ -221,38 +224,15 @@ class DocsModule extends YWebModule
             );
 
             /**
-             * выполняем базовую сортировку, чтобы поставить
-             * зависимые страницы под родителями (выстраиваем
-             * в удобном для нас виде):
-             */
-            usort(
-                $files, function ($a, $b) {
-                    $aCnt = count(explode('.', pathinfo($a, PATHINFO_FILENAME)));
-                    $bCnt = count(explode('.', pathinfo($b, PATHINFO_FILENAME)));
-                    
-                    return ($aCnt > $bCnt)
-                        && ((strlen($a) > strlen($b))
-                         || (strtolower($a) > strtolower($b)));
-                }
-            );
-
-            /**
-             * Нам необходимо выдвинуть дефолтную страницу
-             * в самое начало. Для этого удаляем её из массива
-             * и мерджим его с массивом, содержащим данную страницу.
-             * В таком случае мы передвигаем её вверх массива:
-             */
-            $files = array_merge(
-                array($curDocFolder . DIRECTORY_SEPARATOR . 'index.md'), array_diff(
-                    $files, array($curDocFolder . DIRECTORY_SEPARATOR . 'index.md')
-                )
-            );
-
-            /**
              * Пишем в кеш и установаливаем зависимость для него
              * на любые изменения в каталоге:
              */
-            Yii::app()->cache->set('files_' . $curDocFolder, $files, 0, new CDirectoryCacheDependency($curDocFolder));
+            $chain = new CChainedCacheDependency();
+            
+            foreach (glob($curDocFolder, GLOB_ONLYDIR) as $item)
+                $chain->dependencies->add(new CDirectoryCacheDependency($item));
+
+            Yii::app()->cache->set('files_' . $curDocFolder, $files, 0, $chain);
         }
 
         return $files;
@@ -277,17 +257,17 @@ class DocsModule extends YWebModule
                 'items' => array(
                     array(
                         'label' => Yii::t('DocsModule.docs', 'Возможности'),
-                        'url'   => array('/docs/show/index', 'file' => 'capability'),
+                        'url'   => array('/docs/show/index', 'file' => 'capability', 'moduleID' => 'yupe'),
                         'icon'  => 'file',
                     ),
                     array(
                         'label' => Yii::t('DocsModule.docs', 'Помощь проекту'),
-                        'url'   => array('/docs/show/index', 'file' => 'assistance.project'),
+                        'url'   => array('/docs/show/index', 'file' => 'assistance.project', 'moduleID' => 'yupe'),
                         'icon'  => 'file',
                     ),
                     array(
                         'label' => Yii::t('DocsModule.docs', 'Команда'),
-                        'url'   => array('/docs/show/index', 'file' => 'team'),
+                        'url'   => array('/docs/show/index', 'file' => 'team', 'moduleID' => 'yupe'),
                         'icon'  => 'file',
                     ),
                 ),
@@ -297,8 +277,13 @@ class DocsModule extends YWebModule
                 'icon'  => 'th-large white',
                 'items' => array(
                     array(
+                        'label' => Yii::t('DocsModule.docs', 'Написание документации'),
+                        'url'   => array('/docs/show/index', 'file' => 'doc.files'),
+                        'icon'  => 'file',
+                    ),
+                    array(
                         'label' => Yii::t('DocsModule.docs', 'Генерация Feed-ленты'),
-                        'url'   => array('/docs/show/index', 'file' => 'atomfeed'),
+                        'url'   => array('/docs/show/index', 'file' => 'atomfeed', 'moduleID' => 'yupe'),
                         'icon'  => 'file',
                     ),
                 )
@@ -325,8 +310,13 @@ class DocsModule extends YWebModule
                 'itemOptions'=>array('class'=>'nav-header')
             ),
             array(
+                'label' => Yii::t('DocsModule.docs', 'Написание документации'),
+                'url'   => array('/docs/show/index', 'file' => 'doc.files'),
+                'icon'  => 'file',
+            ),
+            array(
                 'label' => Yii::t('DocsModule.docs', 'Генерация Feed-ленты'),
-                'url'   => array('/docs/show/index', 'file' => 'atomfeed'),
+                'url'   => array('/docs/show/index', 'file' => 'atomfeed', 'moduleID' => 'yupe'),
                 'icon'  => 'file',
             ),
             '',
@@ -423,7 +413,21 @@ class DocsModule extends YWebModule
          * в случае если их массив пуст - возвращаем
          * null
          */
-        if (($matches = glob(Yii::getPathOfAlias($this->docFolder . '.' . Yii::app()->language) . DIRECTORY_SEPARATOR . $file . '*')) === false
+        
+        $module = Yii::app()->request->getParam('moduleID');
+
+        $moduleDocFolder = str_replace('{module}', $module, $this->moduleDocFolder);
+
+        if ($module !== null
+            && (($matches = glob(Yii::getPathOfAlias($moduleDocFolder . '.' . Yii::app()->language) . DIRECTORY_SEPARATOR . $file . '*')) === false
+            || count($matches) < 1)
+        ) {
+            unset($matches);
+            unset($moduleID);
+            unset($moduleDocFolder);
+        }
+
+        if (!isset($matches) && ($matches = glob(Yii::getPathOfAlias($this->docFolder . '.' . Yii::app()->language) . DIRECTORY_SEPARATOR . $file . '*')) === false
             || count($matches) < 1
         )
             return null;
@@ -448,11 +452,16 @@ class DocsModule extends YWebModule
          * Получаем имя файла с расширением:
          */
         $file = pathinfo($matches[0], PATHINFO_BASENAME);
-        
-        return !file_exists(Yii::getPathOfAlias($this->docFolder . '.' . Yii::app()->language) . DIRECTORY_SEPARATOR . $file)
+
+        if (isset($module))
+            $docFolder = $moduleDocFolder;
+        else
+            $docFolder = $this->docFolder;
+
+        return !file_exists(Yii::getPathOfAlias($docFolder . '.' . Yii::app()->language) . DIRECTORY_SEPARATOR . $file)
                   && $this->notFoundOn == 0
-                    ? Yii::getPathOfAlias($this->docFolder . '.' . Yii::app()->sourceLanguage) . DIRECTORY_SEPARATOR . $file
-                    : Yii::getPathOfAlias($this->docFolder . '.' . Yii::app()->language) . DIRECTORY_SEPARATOR . $file; 
+                    ? Yii::getPathOfAlias($docFolder . '.' . Yii::app()->sourceLanguage) . DIRECTORY_SEPARATOR . $file
+                    : Yii::getPathOfAlias($docFolder . '.' . Yii::app()->language) . DIRECTORY_SEPARATOR . $file; 
     }
 
     /**
