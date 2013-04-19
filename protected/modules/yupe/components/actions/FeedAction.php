@@ -1,6 +1,6 @@
 <?php
 /**
- * Класс экшена для генерации Rss-ленты:
+ * Класс экшена для генерации Feed-ленты:
  *
  * @category YupeAction
  * @package  YupeCMS
@@ -20,7 +20,7 @@ class FeedAction extends CAction
      *     public function actions()
      *     {
      *         return array(
-     *             'rssfeed' => array(
+     *             'atomfeed' => array(
      *                 'class'        => 'application.modules.yupe.components.actions.FeedAction',
      *                 'data'         => News::model()->published()->findAll(),
      *                 // Параметр title по умолчанию берётся из настроек приложения
