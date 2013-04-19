@@ -129,58 +129,76 @@ class FeedAction extends CAction
         $feed->description = $this->description;
          
         $feed->addChannelTag('updated', date(DATE_ATOM, time()));
-         
-        foreach ($this->data as $feedItem) {
+        if (count($this->data) > 0) {
+            foreach ($this->data as $feedItem) {
+                /**
+                 * Создаём объект item'а
+                 */
+                $item = $feed->createNewItem();
+                /**
+                 * Устанавливаем заголовок для $item
+                 */
+                if (!empty($this->itemFields['title']))
+                    $item->title = $feedItem{$this->itemFields['title']};
+                /**
+                 * Устанавливаем автора для $item
+                 */
+                if (!empty($this->itemFields['author_object']))
+                    $item->addTag('author', $feedItem->{$this->itemFields['author_object']}->{$this->itemFields['author_nickname']});
+                elseif (empty($this->itemFields['author_object'])
+                    && !empty($this->itemFields['author_nickname'])
+                    && property_exists($feedItem, $this->itemFields['author_nickname']))
+                    $item->addTag('author', $feedItem->{$this->itemFields['author_nickname']});
+
+                /**
+                 * Устанавливаем дату для $item
+                 */
+                if (!empty($this->itemFields['datetime']))
+                    $item->addTag('published', (new DateTime($feedItem->{$this->itemFields['datetime']}))->format(DateTime::ATOM));
+
+                /**
+                 * Устанавливаем дату изменения для $item
+                 */
+                if (!empty($this->itemFields['updated']))
+                    $item->date = $feedItem->{$this->itemFields['updated']};
+
+                /**
+                 * Устанавливаем контент для $item
+                 */
+                if (!empty($this->itemFields['content']))
+                    $item->description = $feedItem->{$this->itemFields['content']};
+
+                /**
+                 * Устанавливаем ссылку для $item
+                 */
+                if (!empty($this->itemFields['link'])) {
+                    $link = array();
+                    foreach ($this->itemFields['linkParams'] as $key => $param)
+                        $link[$key] = $feedItem->$param;
+                    $item->link = Yii::app()->createAbsoluteUrl($this->itemFields['link'], $link);
+                }
+
+                if (!empty($this->itemFields['updated']))
+                    $item->date = (new DateTime($feedItem->{$this->itemFields['datetime']}))->format(DateTime::ATOM);
+                 
+                $feed->addItem($item);
+            }
+        } else {
             /**
              * Создаём объект item'а
              */
             $item = $feed->createNewItem();
-            /**
-             * Устанавливаем заголовок для $item
-             */
-            if (!empty($this->itemFields['title']))
-                $item->title = $feedItem{$this->itemFields['title']};
-            /**
-             * Устанавливаем автора для $item
-             */
-            if (!empty($this->itemFields['author_object']))
-                $item->addTag('author', $feedItem->{$this->itemFields['author_object']}->{$this->itemFields['author_nickname']});
-            elseif (empty($this->itemFields['author_object'])
-                && !empty($this->itemFields['author_nickname'])
-                && property_exists($feedItem, $this->itemFields['author_nickname']))
-                $item->addTag('author', $feedItem->{$this->itemFields['author_nickname']});
-
-            /**
-             * Устанавливаем дату для $item
-             */
-            if (!empty($this->itemFields['datetime']))
-                $item->addTag('published', (new DateTime($feedItem->{$this->itemFields['datetime']}))->format(DateTime::ATOM));
-
-            /**
-             * Устанавливаем дату изменения для $item
-             */
-            if (!empty($this->itemFields['updated']))
-                $item->date = $feedItem->{$this->itemFields['updated']};
 
             /**
              * Устанавливаем контент для $item
              */
             if (!empty($this->itemFields['content']))
-                $item->description = $feedItem->{$this->itemFields['content']};
+                $item->description = Yii::t('YupeModule.yupe', 'Записей нет.');
 
-            /**
-             * Устанавливаем ссылку для $item
-             */
-            if (!empty($this->itemFields['link'])) {
-                $link = array();
-                foreach ($this->itemFields['linkParams'] as $key => $param)
-                    $link[$key] = $feedItem->$param;
-                $item->link = Yii::app()->createAbsoluteUrl($this->itemFields['link'], $link);
-            }
+            $item->date = (new DateTime('NOW'))->format(DateTime::ATOM);
              
-            $feed->addItem($item);            
+            $feed->addItem($item);
         }
-
          
         $feed->generateFeed();
         Yii::app()->end();
