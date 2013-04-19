@@ -89,5 +89,6 @@
     <!-- footer -->
 </div>
 <!-- page -->
+<?php $this->widget("application.modules.contentblock.widgets.ContentBlockWidget", array("code" => "STAT","silent" => true)); ?>
 </body>
 </html>
