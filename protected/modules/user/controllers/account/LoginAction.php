@@ -71,7 +71,6 @@ class LoginAction extends CAction
                     CLogger::LEVEL_ERROR, UserModule::$logCategory
                 );
         }
-        
         $this->controller->render($this->id, array('model' => $form));
     }
 }
