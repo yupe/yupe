@@ -1,29 +1,32 @@
 <?php
-/**
- * TbCKEditor.php
+/*## TbCKEditor class file.
  *
  * Supports new CKEditor 4
  *
- * @author: antonio ramirez <antonio@clevertech.biz>
- * Date: 10/29/12
- * Time: 6:23 PM
+ * @author Antonio Ramirez <antonio@clevertech.biz>
+ * @copyright Copyright &copy; Clevertech 2012-
+ * @license [New BSD License](http://www.opensource.org/licenses/bsd-license.php) 
+ * @package bootstrap.widgets.input
  */
 class TbCKEditor extends CInputWidget
 {
 	/**
-	 * @var TbActiveForm when created via TbActiveForm, this attribute is set to the form that renders the widget
+	 * @var TbActiveForm when created via TbActiveForm
+	 * This attribute is set to the form that renders the widget
 	 * @see TbActionForm->inputRow
 	 */
 	public $form;
 
 	/**
 	 * @var array the CKEditor options
-	 * @see http://docs.cksource.com/
+	 * @see <http://docs.cksource.com/>
 	 * @since 10/30/12 10:40 AM the Editor used is CKEditor 4 Beta will be updated as final version is done
 	 */
 	public $editorOptions = array();
 
 	/**
+	 *### .run()
+	 *
 	 * Display editor
 	 */
 	public function run()
@@ -38,20 +41,21 @@ class TbCKEditor extends CInputWidget
 		// Do we have a model?
 		if ($this->hasModel())
 		{
-			if($this->form)
+			if ($this->form)
 				$html = $this->form->textArea($this->model, $this->attribute, $this->htmlOptions);
 			else
 				$html = CHtml::activeTextArea($this->model, $this->attribute, $this->htmlOptions);
-		} else
-		{
-			$html = CHtml::textArea($name, $this->value, $this->htmlOptions);
 		}
+		else
+			$html = CHtml::textArea($name, $this->value, $this->htmlOptions);
 		echo $html;
 	}
 
 	/**
+	 *### .registerClientScript()
+	 *
 	 * Registers required javascript
-	 * @param $id
+	 * @param string $id
 	 */
 	public function registerClientScript($id)
 	{

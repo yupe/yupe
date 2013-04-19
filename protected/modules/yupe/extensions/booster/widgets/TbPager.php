@@ -1,42 +1,48 @@
 <?php
-/**
- * TbPager class file.
+/*## TbPager class file.
+*
  * @author Christoffer Niska <ChristofferNiska@gmail.com>
  * @copyright Copyright &copy; Christoffer Niska 2011-
- * @license http://www.opensource.org/licenses/bsd-license.php New BSD License
+ * @license [New BSD License](http://www.opensource.org/licenses/bsd-license.php)
  * @package bootstrap.widgets
  */
 
 /**
  * Bootstrap pager.
- * @see http://twitter.github.com/bootstrap/components.html#pagination
+ * @see <http://twitter.github.com/bootstrap/components.html#pagination>
  */
 class TbPager extends CLinkPager
 {
 	// Pager alignments.
 	const ALIGNMENT_CENTER = 'centered';
-	const ALIGNMENT_RIGHT = 'right';
+	const ALIGNMENT_RIGHT  = 'right';
 
 	/**
-	 * @var string the pager alignment. Valid values are 'centered' and 'right'.
+	 * @var string the pager alignment. 
+	 * Valid values are 'centered' and 'right'.
 	 */
 	public $alignment;
+
 	/**
 	 * @var string the text shown before page buttons.
 	 * Defaults to an empty string, meaning that no header will be displayed.
 	 */
 	public $header = '';
+
 	/**
 	 * @var string the URL of the CSS file used by this pager.
 	 * Defaults to false, meaning that no CSS will be included.
 	 */
 	public $cssFile = false;
+
 	/**
 	 * @var boolean whether to display the first and last items.
 	 */
 	public $displayFirstAndLast = false;
 
 	/**
+	 *### .init()
+	 *
 	 * Initializes the pager by setting some default property values.
 	 */
 	public function init()
@@ -67,6 +73,8 @@ class TbPager extends CLinkPager
 	}
 
 	/**
+	 *### .createPageButtons()
+	 *
 	 * Creates the page buttons.
 	 * @return array a list of page buttons (in HTML code).
 	 */
@@ -109,8 +117,11 @@ class TbPager extends CLinkPager
 	}
 
 	/**
+	 *### .createPageButton()
+	 *
 	 * Creates a page button.
 	 * You may override this method to customize the page buttons.
+	 *
 	 * @param string $label the text label for the button
 	 * @param integer $page the page number
 	 * @param string $class the CSS class for the page button. This could be 'page', 'first', 'last', 'next' or 'previous'.

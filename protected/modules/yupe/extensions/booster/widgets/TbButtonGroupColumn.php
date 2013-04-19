@@ -1,9 +1,9 @@
 <?php
-/**
- * TbButtonGroupColumn class file.
+/*##  TbButtonGroupColumn class file.
+ *
  * @author Topher Kanyuga <kanjoti@gmail.com>
  * @copyright  
- * @license http://www.opensource.org/licenses/bsd-license.php New BSD License
+ * @license [New BSD License](http://www.opensource.org/licenses/bsd-license.php) 
  * @package bootstrap.widgets
  * 
  */
@@ -22,29 +22,26 @@ class TbButtonGroupColumn extends TbButtonColumn
 	 *	@var string the button size ('mini','small','normal','large')
 	 */
 
-	 public $buttonSize='mini';
+	public $buttonSize='mini';
 	
 	/**
 	 * @var string the view button type ('info','primary','warning','danger','success' defaults to 'info').
-	 */
-	
+	 */	
 	public $viewButtonType='info';
 
 	/**
 	 * @var string the update button type ('info','primary','warning','danger','success' defaults to 'warning').
 	 */
-
 	public $updateButtonType='warning';
 
 	/**
 	 * @var string the delete button type ('info','primary','warning','danger','success' defaults to 'danger')
 	 */
-
 	public $deleteButtonType='danger';
-
-
 	
 	/**
+	 *### .initDefaultButtons()
+	 *
 	 * Initializes the default buttons (view, update and delete).
 	 */
 	protected function initDefaultButtons()
@@ -61,7 +58,10 @@ class TbButtonGroupColumn extends TbButtonColumn
 
 
 	/**
+	 *### .renderButton()
+	 *
 	 * Renders a link button.
+	 *
 	 * @param string $id the ID of the button
 	 * @param array $button the button configuration which may contain 'label', 'url', 'imageUrl' and 'options' elements.
 	 * @param integer $row the row number (zero-based)
@@ -85,7 +85,7 @@ class TbButtonGroupColumn extends TbButtonColumn
 		if (!isset($options['class']))
 			$options['class'] = '';
 		$options['class'].=' btn btn-'.$this->buttonSize;
-		if(isset($button['type']))
+		if (isset($button['type']))
 			$options['class'].=' btn-'.$button['type'];
 
 		if (isset($button['icon']))
@@ -102,8 +102,11 @@ class TbButtonGroupColumn extends TbButtonColumn
 	}
 
 	/**
+	 *### .renderDataCellContent()
+	 *
 	 * Renders the data cell content.
 	 * This method renders the view, update and delete buttons in the data cell.
+	 *
 	 * @param integer $row the row number (zero-based)
 	 * @param mixed $data the data associated with the row
 	 */

@@ -54,8 +54,8 @@ class TbToggleAction extends CAction
 
 	/**
 	 * Widgets run function
-	 * @param $id
-	 * @param $attribute
+	 * @param integer $id
+	 * @param string $attribute
 	 * @throws CHttpException
 	 */
 	public function run($id, $attribute)
@@ -64,7 +64,7 @@ class TbToggleAction extends CAction
 		{
 			$model = $this->loadModel($id);
 			$model->$attribute = ($model->$attribute == $this->noValue) ? $this->yesValue : $this->noValue;
-			$success = $model->save(false);
+			$success = $model->save(false, array($attribute));
 
 			if (Yii::app()->getRequest()->isAjaxRequest)
 			{
@@ -79,10 +79,7 @@ class TbToggleAction extends CAction
 
 	/**
 	 * Loads the requested data model.
-	 * @param string the model class name
-	 * @param integer the model ID
-	 * @param array additional search criteria
-	 * @param boolean whether to throw exception if the model is not found. Defaults to true.
+	 * @param integer $id the model ID
 	 * @return CActiveRecord the model instance.
 	 * @throws CHttpException if the model cannot be found
 	 */
@@ -102,7 +99,7 @@ class TbToggleAction extends CAction
 		}
 		if (isset($model))
 			return $model;
-		else if ($this->additionalCriteriaOnLoadModel)
+		if ($this->additionalCriteriaOnLoadModel)
 			throw new CHttpException(404, 'Unable to find the requested object.');
 	}
 }

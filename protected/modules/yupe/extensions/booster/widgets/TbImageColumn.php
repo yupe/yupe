@@ -67,13 +67,11 @@ class TbImageColumn extends CGridColumn
 		{
 			$this->imageOptions['src'] = $imagePath;
 			$content = CHtml::tag('img', $this->imageOptions);
-		} elseif ($this->usePlaceHoldIt && !empty($this->placeHoldItSize))
-		{
-			$content = CHtml::tag('img', array('src'=>'http://placehold.it/' . $this->placeHoldItSize));
-		}  elseif ($this->usePlaceKitten && !empty($this->placeKittenSize))
-		{
-			$content = CHtml::tag('img', array('src'=>'http://placekitten.com/' . $this->placeKittenSize));
 		}
+		elseif ($this->usePlaceHoldIt && !empty($this->placeHoldItSize))
+			$content = CHtml::tag('img', array('src'=>'http://placehold.it/' . $this->placeHoldItSize));
+		elseif ($this->usePlaceKitten && !empty($this->placeKittenSize))
+			$content = CHtml::tag('img', array('src'=>'http://placekitten.com/' . $this->placeKittenSize));
 		echo $content;
 	}
 }

@@ -1,57 +1,67 @@
 <?php
-/**
- * TbAlert class file.
+/*## TbAlert class file.
+ *
  * @author Christoffer Niska <ChristofferNiska@gmail.com>
  * @copyright  Copyright &copy; Christoffer Niska 2011-
- * @license http://www.opensource.org/licenses/bsd-license.php New BSD License
+ * @license [New BSD License](http://www.opensource.org/licenses/bsd-license.php)
  * @package bootstrap.widgets
  */
 
 /**
  * Bootstrap alert widget.
+ *
  * @see http://twitter.github.com/bootstrap/javascript.html#alerts
  */
 class TbAlert extends CWidget
 {
 	// Alert types.
 	const TYPE_SUCCESS = 'success';
-	const TYPE_INFO = 'info';
+	const TYPE_INFO    = 'info';
 	const TYPE_WARNING = 'warning';
-	const TYPE_ERROR = 'error';
-	const TYPE_DANGER = 'danger'; // same as error
+	const TYPE_ERROR   = 'error';
+	const TYPE_DANGER  = 'danger'; // same as error
 
 	/**
 	 * @var array the alerts configurations.
 	 */
 	public $alerts;
+
 	/**
-	 * @var string|boolean the close link text. If this is set false, no close link will be displayed.
+	 * @var string|boolean the close link text.
+	 * If this is set false, no close link will be displayed.
 	 */
 	public $closeText = '&times;';
+
 	/**
 	 * @var boolean indicates whether the alert should be an alert block. Defaults to 'true'.
 	 */
 	public $block = true;
+
 	/**
 	 * @var boolean indicates whether alerts should use transitions. Defaults to 'true'.
 	 */
 	public $fade = true;
+
 	/**
 	 * @var string[] the Javascript event handlers.
 	 */
 	public $events = array();
+
 	/**
 	 * @var array the HTML attributes for the widget container.
 	 */
 	public $htmlOptions = array();
-    /**
-     * @var string User-component for getting flash messages.
-     */
-    public $userComponentId = 'user';
+
+	/**
+	 * @var string User-component for getting flash messages.
+	 */
+	public $userComponentId = 'user';
 
 	private static $_containerId = 0;
 
 	/**
+	 *### .init()
+	 *
 	 * Initializes the widget.
 	 */
 	public function init()
@@ -68,6 +78,8 @@ class TbAlert extends CWidget
 	}
 
 	/**
+	 *### .run()
+	 *
 	 * Runs the widget.
 	 */
 	public function run()
@@ -119,16 +131,20 @@ class TbAlert extends CWidget
 
 				echo CHtml::openTag('div', $alert['htmlOptions']);
 
-				if ($this->closeText !== false && !isset($alert['closeText']))
-					$alert['closeText'] = $this->closeText;
-				else
-					$alert['closeText'] = false;
+				// Logic is this: if no type-specific `closeText` was defined, let's show `$this->closeText`.
+				// Else, show type-specific `closeText`. Treat 'false' differently.
+				if (!isset($alert['closeText']))
+				{
+					$alert['closeText'] = (isset($this->closeText) && $this->closeText !== false)
+						? $this->closeText
+						: false;
+				}
 
-				if (isset($alert['closeText']) && $alert['closeText'] !== false)
-					echo '<a class="close" data-dismiss="alert">'.$alert['closeText'].'</a>';
+				// If `closeText` which is in effect now is `false` then do not show button.
+				if ($alert['closeText'] !== false)
+					echo '<a href="#" class="close" data-dismiss="alert">'.$alert['closeText'].'</a>';
 
 				echo Yii::app()->getComponent($this->userComponentId)->getFlash($type);
-
 				echo '</div>';
 			}
 		}

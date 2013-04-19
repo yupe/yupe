@@ -18,18 +18,22 @@ class TbModalManager extends CWidget
 	 * @var boolean indicates whether to automatically open the modal when initialized. Defaults to 'false'.
 	 */
 	public $autoOpen = false;
+
 	/**
 	 * @var boolean indicates whether the modal should use transitions. Defaults to 'true'.
 	 */
 	public $fade = true;
+
 	/**
 	 * @var array the options for the Bootstrap Javascript plugin.
 	 */
 	public $options = array();
+
 	/**
 	 * @var string[] the Javascript event handlers.
 	 */
 	public $events = array();
+
 	/**
 	 * @var array the HTML attributes for the widget container.
 	 */
@@ -59,7 +63,6 @@ class TbModalManager extends CWidget
 			else
 				$this->htmlOptions['class'] = $classes;
 		}
-
 		echo CHtml::openTag('div', $this->htmlOptions);
 	}
 
@@ -68,17 +71,13 @@ class TbModalManager extends CWidget
 	 */
 	public function run()
 	{
-		$id = $this->htmlOptions['id'];
-
 		echo CHtml::closeTag('div');
-
-		$this->registerClientScript($id);
-
+		$this->registerClientScript($this->htmlOptions['id']);
 	}
 
 	/**
 	 * Registers required
-	 * @param $id
+	 * @param integer $id
 	 */
 	public function registerClientScript($id)
 	{

@@ -1,16 +1,16 @@
 <?php
-/**
- * TbModal class file.
+/*## TbModal class file.
+ *
  * @author Christoffer Niska <ChristofferNiska@gmail.com>
  * @copyright Copyright &copy; Christoffer Niska 2011-
- * @license http://www.opensource.org/licenses/bsd-license.php New BSD License
+ * @license [New BSD License](http://www.opensource.org/licenses/bsd-license.php)
  * @package bootstrap.widgets
  * @since 0.9.3
  */
 
 /**
  * Bootstrap modal widget.
- * @see http://twitter.github.com/bootstrap/javascript.html#modals
+ * @see <http://twitter.github.com/bootstrap/javascript.html#modals>
  */
 class TbModal extends CWidget
 {
@@ -18,24 +18,30 @@ class TbModal extends CWidget
 	 * @var boolean indicates whether to automatically open the modal when initialized. Defaults to 'false'.
 	 */
 	public $autoOpen = false;
+
 	/**
 	 * @var boolean indicates whether the modal should use transitions. Defaults to 'true'.
 	 */
 	public $fade = true;
+
 	/**
 	 * @var array the options for the Bootstrap Javascript plugin.
 	 */
 	public $options = array();
+
 	/**
 	 * @var string[] the Javascript event handlers.
 	 */
 	public $events = array();
+
 	/**
 	 * @var array the HTML attributes for the widget container.
 	 */
 	public $htmlOptions = array();
 
 	/**
+	 *### .init()
+	 *
 	 * Initializes the widget.
 	 */
 	public function init()
@@ -46,7 +52,7 @@ class TbModal extends CWidget
 		if ($this->autoOpen === false && !isset($this->options['show']))
 			$this->options['show'] = false;
 
-		$classes = array('modal');
+		$classes = array('modal hide');
 
 		if ($this->fade === true)
 			$classes[] = 'fade';
@@ -59,11 +65,12 @@ class TbModal extends CWidget
 			else
 				$this->htmlOptions['class'] = $classes;
 		}
-
 		echo CHtml::openTag('div', $this->htmlOptions);
 	}
 
 	/**
+	 *### .run()
+	 *
 	 * Runs the widget.
 	 */
 	public function run()

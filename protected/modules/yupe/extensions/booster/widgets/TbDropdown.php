@@ -1,9 +1,9 @@
 <?php
-/**
- * TbDropdown class file.
+/*## TbDropdown class file.
+ *
  * @author Christoffer Niska <ChristofferNiska@gmail.com>
  * @copyright Copyright &copy; Christoffer Niska 2012-
- * @license http://www.opensource.org/licenses/bsd-license.php New BSD License
+ * @license [New BSD License](http://www.opensource.org/licenses/bsd-license.php) 
  * @package bootstrap.widgets
  */
 
@@ -16,6 +16,8 @@ Yii::import('bootstrap.widgets.TbBaseMenu');
 class TbDropdown extends TbBaseMenu
 {
 	/**
+	 *### .init()
+	 *
 	 * Initializes the widget.
 	 */
 	public function init()
@@ -29,8 +31,11 @@ class TbDropdown extends TbBaseMenu
 	}
 
 	/**
+	 *### .renderMenuItem()
+	 *
 	 * Renders the content of a menu item.
 	 * Note that the container and the sub-menus are not rendered here.
+	 *
 	 * @param array $item the menu item to be rendered. Please see {@link items} on what data might be in the item.
 	 * @return string the rendered item
 	 */
@@ -62,6 +67,8 @@ class TbDropdown extends TbBaseMenu
 	}
 
 	/**
+	 *### .getDividerCssClass()
+	 *
 	 * Returns the divider CSS class.
 	 * @return string the class name
 	 */
@@ -71,6 +78,8 @@ class TbDropdown extends TbBaseMenu
 	}
 
 	/**
+	 *### .getDropdownCssClass()
+	 *
 	 * Returns the dropdown css class.
 	 * @return string the class name
 	 */
@@ -80,6 +89,8 @@ class TbDropdown extends TbBaseMenu
 	}
 
 	/**
+	 *### .isVertical()
+	 *
 	 * Returns whether this is a vertical menu.
 	 * @return boolean the result
 	 */

@@ -1,9 +1,9 @@
 <?php
-/**
- * TbNavbar class file.
+/*## TbNavbar class file.
+ *
  * @author Christoffer Niska <ChristofferNiska@gmail.com>
  * @copyright Copyright &copy; Christoffer Niska 2011-
- * @license http://www.opensource.org/licenses/bsd-license.php New BSD License
+ * @license [New BSD License](http://www.opensource.org/licenses/bsd-license.php)
  * @package bootstrap.widgets
  * @since 0.9.7
  */
@@ -27,23 +27,28 @@ class TbNavbar extends CWidget
 	 * @since 1.0.0
 	 */
 	public $type;
+
 	/**
 	 * @var string the text for the brand.
 	 */
 	public $brand;
+
 	/**
 	 * @var string the URL for the brand link.
 	 */
 	public $brandUrl;
+
 	/**
 	 * @var array the HTML attributes for the brand link.
 	 */
 	public $brandOptions = array();
+
 	/**
 	 * @var array navigation items.
 	 * @since 0.9.8
 	 */
 	public $items = array();
+
 	/**
 	 * @var mixed fix location of the navbar if applicable.
 	 * Valid values are 'top' and 'bottom'. Defaults to 'top'.
@@ -51,21 +56,26 @@ class TbNavbar extends CWidget
 	 * @since 0.9.8
 	 */
 	public $fixed = self::FIXED_TOP;
+
 	/**
 	* @var boolean whether the nav span over the full width. Defaults to false.
 	* @since 0.9.8
 	*/
 	public $fluid = false;
+
 	/**
 	 * @var boolean whether to enable collapsing on narrow screens. Default to false.
 	 */
 	public $collapse = false;
+
 	/**
 	 * @var array the HTML attributes for the widget container.
 	 */
 	public $htmlOptions = array();
 
 	/**
+	 *### .init()
+	 *
 	 * Initializes the widget.
 	 */
 	public function init()
@@ -105,6 +115,8 @@ class TbNavbar extends CWidget
 	}
 
 	/**
+	 *### .run()
+	 *
 	 * Runs the widget.
 	 */
 	public function run()
@@ -122,7 +134,15 @@ class TbNavbar extends CWidget
 		}
 
 		if ($this->brand !== false)
-			echo CHtml::openTag('a', $this->brandOptions).$this->brand.'</a>';
+		{
+			if ($this->brandUrl !== false)
+				echo CHtml::openTag('a', $this->brandOptions).$this->brand.'</a>';
+			else
+			{
+				unset($this->brandOptions['href']); // spans cannot have a href attribute
+				echo CHtml::openTag('span', $this->brandOptions).$this->brand.'</span>';
+			}
+		}
 
 		if ($this->collapse !== false)
 		{
@@ -156,6 +176,8 @@ class TbNavbar extends CWidget
 	}
 
 	/**
+	 *### .getContainerCssClass()
+	 *
 	 * Returns the navbar container CSS class.
 	 * @return string the class
 	 */

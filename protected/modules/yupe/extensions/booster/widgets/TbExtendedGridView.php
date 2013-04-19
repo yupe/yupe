@@ -1,12 +1,10 @@
 <?php
-/**
- * TbExtendedGridView class file
+/*## TbExtendedGridView class file
  *
- *
- * @author: antonio ramirez <antonio@clevertech.biz>
+ * @author Antonio Ramirez <antonio@clevertech.biz>
  * @copyright Copyright &copy; Clevertech 2012-
- * @license http://www.opensource.org/licenses/bsd-license.php New BSD License
- * @package YiiBooster bootstrap.widgets
+ * @license [New BSD License](http://www.opensource.org/licenses/bsd-license.php) 
+ * @package bootstrap.widgets
  */
 Yii::import('bootstrap.widgets.TbGridView');
 
@@ -19,6 +17,9 @@ Yii::import('bootstrap.widgets.TbGridView');
  *  - Automatic chart display (using TbHighCharts widget), where user can 'switch' between views.
  *  - Selectable cells
  *  - Sortable rows
+ *
+ * @property CActiveDataProvider $dataProvider the data provider for the view.
+ * @property TbDataColumn[] $columns
  */
 class TbExtendedGridView extends TbGridView
 {
@@ -33,6 +34,7 @@ class TbExtendedGridView extends TbGridView
 	 * to use $headerOffset=40;
 	 */
 	public $headerOffset = 0;
+
 	/**
 	 * @var string the template to be used to control the layout of various sections in the view.
 	 * These tokens are recognized: {extendedSummary}, {summary}, {items} and {pager}. They will be replaced with the
@@ -41,7 +43,8 @@ class TbExtendedGridView extends TbGridView
 	public $template = "{summary}\n{items}\n{pager}\n{extendedSummary}";
 
 	/**
-	 * @var array $extendedSummary displays an extended summary version. There are different types of summary types,
+	 * @var array $extendedSummary displays an extended summary version. 
+	 * There are different types of summary types,
 	 * please, see {@link TbSumOperation}, {@link TbSumOfTypeOperation},{@link TbPercentOfTypeGooglePieOperation}
 	 * {@link TbPercentOfTypeOperation} and {@link TbPercentOfTypeEasyPieOperation}.
 	 *
@@ -52,7 +55,7 @@ class TbExtendedGridView extends TbGridView
 	 *  'extendedSummary' => array(
 	 *      'title' => '',      // the extended summary title
 	 *      'columns' => array( // the 'columns' that will be displayed at the extended summary
-	 *          'id' => array(  // colum name "id"
+	 *          'id' => array(  // column name "id"
 	 *              'class' => 'TbSumOperation', // what is the type of TbOperation we are going to display
 	 *              'label' => 'Sum of Ids'     // label is name of label of the resulted value (ie Sum of Ids:)
 	 *          ),
@@ -120,7 +123,7 @@ class TbExtendedGridView extends TbGridView
 	 * @see bootstrap.action.TbSortableAction for an easy way to use with your controller
 	 *
 	 * <pre>
-	 *  'sortableAction'=>'module/controller/sortable' | 'controller/sortable'
+	 *  'sortableAction' => 'module/controller/sortable' | 'controller/sortable'
 	 * </pre>
 	 *
 	 * The widget will make use of the string to create the URL and then append $sortableAttribute
@@ -179,7 +182,7 @@ class TbExtendedGridView extends TbGridView
 	protected $displayChart;
 
 	/**
-	 * @var array $extendedSummaryTypes hold the current configured TbOperation that will process column values.
+	 * @var TbOperation[] $extendedSummaryTypes hold the current configured TbOperation that will process column values.
 	 */
 	protected $extendedSummaryTypes = array();
 
@@ -195,6 +198,8 @@ class TbExtendedGridView extends TbGridView
 	);
 
 	/**
+	 *### .init()
+	 *
 	 * Widget initialization
 	 */
 	public function init()
@@ -206,12 +211,10 @@ class TbExtendedGridView extends TbGridView
 			$this->displayExtendedSummary = true;
 		}
 		if (!empty($this->chartOptions) && @$this->chartOptions['data'] && $this->dataProvider->getItemCount())
-		{
 			$this->displayChart = true;
-		}
 		if ($this->bulkActions !== array() && isset($this->bulkActions['actionButtons']))
 		{
-			if(!isset($this->bulkActions['class']))
+			if (!isset($this->bulkActions['class']))
 				$this->bulkActions['class'] = 'bootstrap.widgets.TbBulkActions';
 
 			$this->bulk = Yii::createComponent($this->bulkActions, $this);
@@ -221,6 +224,8 @@ class TbExtendedGridView extends TbGridView
 	}
 
 	/**
+	 *### .renderContent()
+	 *
 	 * Renders grid content
 	 */
 	public function renderContent()
@@ -230,80 +235,78 @@ class TbExtendedGridView extends TbGridView
 	}
 
 	/**
+	 *### .renderKeys()
+	 *
 	 * Renders the key values of the data in a hidden tag.
 	 */
 	public function renderKeys()
 	{
 		$data = $this->dataProvider->getData();
+		if (empty($data))
+			return false;
 
-		if (empty($data)) 
-		{
-			 return false;
-		}		
-
-		if(!$this->sortableRows || !$this->getAttribute($data[0], $this->sortableAttribute))
-		{
-			return parent::renderKeys();
-		}
+		if (!$this->sortableRows || !$this->getAttribute($data[0], (string)$this->sortableAttribute))
+			parent::renderKeys();
 
 		echo CHtml::openTag('div',array(
-			'class'=>'keys',
-			'style'=>'display:none',
+			'class' => 'keys',
+			'style' => 'display:none',
 			'title'=>Yii::app()->getRequest()->getUrl(),
 		));
 		foreach($data as $d)
-   			echo CHtml::tag('span',array('data-order' => $this->getAttribute($d, $this->sortableAttribute), ), CHtml::encode($this->getPrimaryKey($d)));
+			echo CHtml::tag('span',array('data-order' => $this->getAttribute($d, $this->sortableAttribute)), CHtml::encode($this->getPrimaryKey($d)));
 		echo "</div>\n";
+		return true;
 	}
 
 	/**
+	 *### .getAttribute()
+	 *
 	 * Helper function to get an attribute from the data
 	 *
-	 * @param $data
-	 * @param $attribute the attribute to get
+	 * @param CActiveRecord $data
+	 * @param string $attribute the attribute to get
 	 * @return mixed the attribute value null if none found
 	 */
 	protected function getAttribute($data, $attribute)
 	{
-		if($this->dataProvider instanceof CActiveDataProvider && $data->hasAttribute($attribute))
-		{
+		if ($this->dataProvider instanceof CActiveDataProvider && $data->hasAttribute($attribute))
 			return $data->{$attribute};
-		}
-		if($this->dataProvider instanceof CArrayDataProvider)
+
+		if ($this->dataProvider instanceof CArrayDataProvider || $this->dataProvider instanceof CSqlDataProvider)
 		{
 			if (is_object($data) && isset($data->{$attribute}))
-			{
 				return $data->{$attribute};
-			}
 			if (isset($data[$attribute]))
-			{
 				return $data[$attribute];
-			}
 		}
 		return null;
 	}
 	/**
+	 *### .getPrimaryKey()
+	 *
 	 * Helper function to return the primary key of the $data
 	 * IMPORTANT: composite keys on CActiveDataProviders will return the keys joined by comma
 	 *
-	 * @param $data
+	 * @param CActiveRecord $data
 	 * @return null|string
 	 */
 	protected function getPrimaryKey($data)
 	{
-		if($this->dataProvider instanceof CActiveDataProvider)
+		if ($this->dataProvider instanceof CActiveDataProvider)
 		{
 			$key=$this->dataProvider->keyAttribute===null ? $data->getPrimaryKey() : $data->{$this->keyAttribute};
 			return is_array($key) ? implode(',',$key) : $key;
 		}
-		if($this->dataProvider instanceof CArrayDataProvider)
-		{
+		if ($this->dataProvider instanceof CArrayDataProvider || $this->dataProvider instanceof CSqlDataProvider)
 			return is_object($data) ? $data->{$this->dataProvider->keyField} : $data[$this->dataProvider->keyField];
-		}
+
 		return null;
 	}
 
 	/**
+	 *### .renderTableHeader()
+	 *
 	 * Renders grid header
 	 */
 	public function renderTableHeader()
@@ -313,6 +316,8 @@ class TbExtendedGridView extends TbGridView
 	}
 
 	/**
+	 *### .renderTableFooter()
+	 *
 	 * Renders the table footer.
 	 */
 	public function renderTableFooter()
@@ -326,6 +331,7 @@ class TbExtendedGridView extends TbGridView
 			if ($hasFooter)
 			{
 				echo "<tr>\n";
+				/** @var $column CDataColumn */
 				foreach ($this->columns as $column)
 					$column->renderFooterCell();
 				echo "</tr>\n";
@@ -339,6 +345,9 @@ class TbExtendedGridView extends TbGridView
 		}
 	}
 
+	/**
+	 *### .renderBulkActions()
+	 */
 	public function renderBulkActions()
 	{
 		echo '<tr><td colspan="' . count($this->columns) . '">';
@@ -348,6 +357,8 @@ class TbExtendedGridView extends TbGridView
 
 
 	/**
+	 *### .renderChart()
+	 *
 	 * Renders chart
 	 * @throws CException
 	 */
@@ -378,18 +389,18 @@ class TbExtendedGridView extends TbGridView
 			),
 			'htmlOptions' => array('style' => 'margin-bottom:5px')
 		));
-		echo '<div span="row">';
+		echo '<div class="row">';
 		$buttons->init();
 		$buttons->run();
 		echo '</div>';
 
 		$this->componentsReadyScripts[] = '$(document).on("click",".' . $this->getId() . '-grid-control", function(){
-			if($(this).hasClass("grid") && $("#' . $this->getId() . ' #' . $chartId . '").is(":visible"))
+			if ($(this).hasClass("grid") && $("#' . $this->getId() . ' #' . $chartId . '").is(":visible"))
 			{
 				$("#' . $this->getId() . ' #' . $chartId . '").hide();
 				$("#' . $this->getId() . ' table.items").show();
 			}
-			if($(this).hasClass("chart") && $("#' . $this->getId() . ' table.items").is(":visible"))
+			if ($(this).hasClass("chart") && $("#' . $this->getId() . ' table.items").is(":visible"))
 			{
 				$("#' . $this->getId() . ' table.items").hide();
 				$("#' . $this->getId() . ' #' . $chartId . '").show();
@@ -413,9 +424,8 @@ class TbExtendedGridView extends TbGridView
 			{
 				$column = $this->getColumnByName($set['attribute']);
 				if (!is_null($column) && $column->value !== null)
-				{
 					$seriesData[$cnt]['data'][] = $this->evaluateExpression($column->value, array('data' => $data[$row], 'row' => $row));
-				} else
+				else
 				{
 					$value = CHtml::value($data[$row], $set['attribute']);
 					$seriesData[$cnt]['data'][] = is_numeric($value) ? (float)$value : $value;
@@ -435,16 +445,13 @@ class TbExtendedGridView extends TbGridView
 		$this->chartOptions['htmlOptions']['style'] = 'display:none'; // sorry but use a class to provide styles, we need this
 		// build unique ID
 		// important!
-		echo '<div span="row">';
+		echo '<div class="row">';
 		if ($this->ajaxUpdate !== false)
 		{
 			if (isset($options['chart']) && is_array($options['chart']))
-			{
 				$options['chart']['renderTo'] = $chartId;
-			} else
-			{
+			else
 				$options['chart'] = array('renderTo' => $chartId);
-			}
 			$jsOptions = CJSON::encode($options);
 
 			if (isset($this->chartOptions['htmlOptions']['data-config']))
@@ -466,33 +473,54 @@ class TbExtendedGridView extends TbGridView
 		echo '</div>';
 		// end chart display
 		// ****************************************
-
-
 	}
 
-
 	/**
+	 *### .renderTableRow()
+	 *
 	 * Renders a table body row.
+	 *
 	 * @param integer $row the row number (zero-based).
 	 */
 	public function renderTableRow($row)
 	{
-		if ($this->rowCssClassExpression !== null)
+		$htmlOptions=array();
+		if($this->rowHtmlOptionsExpression!==null)
 		{
-			$data = $this->dataProvider->data[$row];
-			echo '<tr class="' . $this->evaluateExpression($this->rowCssClassExpression, array('row' => $row, 'data' => $data)) . '">';
-		} else if (is_array($this->rowCssClass) && ($n = count($this->rowCssClass)) > 0)
-			echo '<tr class="' . $this->rowCssClass[$row % $n] . '">';
-		else
-			echo '<tr>';
+			$data=$this->dataProvider->data[$row];
+			$options=$this->evaluateExpression($this->rowHtmlOptionsExpression,array('row'=>$row,'data'=>$data));
+			if(is_array($options))
+				$htmlOptions = $options;
+		}
+
+		if($this->rowCssClassExpression!==null)
+		{
+			$data=$this->dataProvider->data[$row];
+			$class=$this->evaluateExpression($this->rowCssClassExpression,array('row'=>$row,'data'=>$data));
+		}
+		elseif(is_array($this->rowCssClass) && ($n=count($this->rowCssClass))>0)
+			$class=$this->rowCssClass[$row%$n];
+
+		if(!empty($class))
+		{
+			if(isset($htmlOptions['class']))
+				$htmlOptions['class'].=' '.$class;
+			else
+				$htmlOptions['class']=$class;
+		}
+
+		echo CHtml::openTag('tr', $htmlOptions)."\n";
 		foreach ($this->columns as $column)
-		{
+		{ 
 			echo $this->displayExtendedSummary && !empty($this->extendedSummary['columns']) ? $this->parseColumnValue($column, $row) : $column->renderDataCell($row);
 		}
+
 		echo "</tr>\n";
 	}
 
 	/**
+	 *### .renderExtendedSummary()
+	 *
 	 * Renders summary
 	 */
 	public function renderExtendedSummary()
@@ -506,6 +534,8 @@ class TbExtendedGridView extends TbGridView
 	}
 
 	/**
+	 *### .renderExtendedSummaryContent()
+	 *
 	 * Renders summary content. Will be appended to
 	 */
 	public function renderExtendedSummaryContent()
@@ -517,11 +547,10 @@ class TbExtendedGridView extends TbGridView
 		{
 			echo '<div id="' . $this->id . '-extended-summary" style="display:none">';
 			if (isset($this->extendedSummary['title']))
-			{
 				echo '<h3>' . $this->extendedSummary['title'] . '</h3>';
-			}
 			foreach ($this->extendedSummaryTypes as $summaryType)
 			{
+				/** @var $summaryType TbOperation */
 				$summaryType->run();
 				echo '<br/>';
 			}
@@ -530,42 +559,40 @@ class TbExtendedGridView extends TbGridView
 	}
 
 	/**
+	 *### .registerCustomClientScript()
+	 *
 	 * This script must be run at the end of content rendering not at the beginning as it is common with normal CGridViews
 	 */
 	public function registerCustomClientScript()
 	{
-
+		/** @var $cs CClientScript */
 		$cs = Yii::app()->getClientScript();
 
 		$fixedHeaderJs = '';
 		if ($this->fixedHeader)
 		{
-			Yii::app()->bootstrap->registerAssetJs('jquery.stickytableheaders.js');
+			Yii::app()->bootstrap->registerAssetJs('jquery.stickytableheaders' . (!YII_DEBUG ? '.min' : '') . '.js');
 			$fixedHeaderJs = "$('#{$this->id} table.items').stickyTableHeaders({fixedOffset:{$this->headerOffset}});";
 			$this->componentsAfterAjaxUpdate[] = $fixedHeaderJs;
 		}
 
 		if ($this->sortableRows)
 		{
+			$afterSortableUpdate = '';
 			if ($this->afterSortableUpdate !== null)
 			{
 				if (!($this->afterSortableUpdate instanceof CJavaScriptExpression) && strpos($this->afterSortableUpdate, 'js:') !== 0)
-				{
 					$afterSortableUpdate = new CJavaScriptExpression($this->afterSortableUpdate);
-				} else
-				{
+				else
 					$afterSortableUpdate = $this->afterSortableUpdate;
-				}
 			}
 
 			$this->selectableRows = 1;
 			$cs->registerCoreScript('jquery.ui');
 			Yii::app()->bootstrap->registerAssetJs('jquery.sortable.gridview.js');
 
-			if($this->sortableAjaxSave && $this->sortableAction !== null)
-			{
+			if ($this->sortableAjaxSave && $this->sortableAction !== null)
 				$sortableAction = Yii::app()->createUrl($this->sortableAction, array('sortableAttribute' => $this->sortableAttribute));
-			}
 			else
 				$sortableAction = '';
 
@@ -574,18 +601,16 @@ class TbExtendedGridView extends TbGridView
 			$this->componentsAfterAjaxUpdate[] = "$.fn.yiiGridView.sortable('{$this->id}', '{$sortableAction}', {$afterSortableUpdate});";
 		}
 
-		if($this->selectableCells)
+		if ($this->selectableCells)
 		{
-			if($this->afterSelectableCells !== null)
+			$afterSelectableCells = '';
+			if ($this->afterSelectableCells !== null)
 			{
 				echo strpos($this->afterSelectableCells, 'js:');
 				if (!($this->afterSelectableCells instanceof CJavaScriptExpression) && strpos($this->afterSelectableCells, 'js:') !== 0)
-				{
 					$afterSelectableCells = new CJavaScriptExpression($this->afterSelectableCells);
-				} else
-				{
+				else
 					$afterSelectableCells = $this->afterSelectableCells;
-				}
 			}
 			$cs->registerCoreScript('jquery.ui');
 			Yii::app()->bootstrap->registerAssetJs('jquery.selectable.gridview.js');
@@ -597,23 +622,23 @@ class TbExtendedGridView extends TbGridView
 		$cs->registerScript(__CLASS__ . '#' . $this->id . 'Ex', '
 			$grid = $("#' . $this->id . '");
 			' . $fixedHeaderJs . '
-			if($(".' . $this->extendedSummaryCssClass . '", $grid).length)
+			if ($(".' . $this->extendedSummaryCssClass . '", $grid).length)
 			{
 				$(".' . $this->extendedSummaryCssClass . '", $grid).html($("#' . $this->id . '-extended-summary", $grid).html());
 			}
 			' . (count($this->componentsReadyScripts) ? implode(PHP_EOL, $this->componentsReadyScripts) : '') . '
 			$.ajaxPrefilter(function (options, originalOptions, jqXHR) {
 				var qs = $.deparam.querystring(options.url);
-				if(qs.hasOwnProperty("ajax") && qs.ajax == "' . $this->id . '")
+				if (qs.hasOwnProperty("ajax") && qs.ajax == "' . $this->id . '")
 				{
 					options.realsuccess = options.success;
 					options.success = function(data)
 					{
-						if(options.realsuccess) {
+						if (options.realsuccess) {
 							options.realsuccess(data);
 							var $data = $("<div>" + data + "</div>");
 							// we need to get the grid again... as it has been updated
-							if($(".' . $this->extendedSummaryCssClass . '", $("#' . $this->id . '")))
+							if ($(".' . $this->extendedSummaryCssClass . '", $("#' . $this->id . '")))
 							{
 								$(".' . $this->extendedSummaryCssClass . '", $("#' . $this->id . '")).html($("#' . $this->id . '-extended-summary", $data).html());
 							}
@@ -625,8 +650,11 @@ class TbExtendedGridView extends TbGridView
 	}
 
 	/**
+	 *### .parseColumnValue()
+	 *
 	 * @param CDataColumn $column
-	 * @param $row the current row  numbeer
+	 * @param integer $row the current row number
+	 * @return string
 	 */
 	protected function parseColumnValue($column, $row)
 	{
@@ -649,9 +677,12 @@ class TbExtendedGridView extends TbGridView
 	}
 
 	/**
+	 *### .getSummaryOperationInstance()
+	 *
 	 * Each type of 'extended' summary
-	 * @param $name the name of the column
-	 * @param $config the configuration of the column at the extendedSummary
+	 *
+	 * @param string $name the name of the column
+	 * @param array $config the configuration of the column at the extendedSummary
 	 * @return mixed
 	 * @throws CException
 	 */
@@ -673,9 +704,11 @@ class TbExtendedGridView extends TbGridView
 	}
 
 	/**
+	 *### .getColumnByName()
+	 *
 	 * Helper function to get a column by its name
-	 * @param $name
-	 * @return null
+	 * @param string $name
+	 * @return CDataColumn|null
 	 */
 	protected function getColumnByName($name)
 	{
@@ -784,7 +817,7 @@ class TbSumOperation extends TbOperation
 
 	/**
 	 * Extracts the digital part of the calculated value.
-	 * @param $value
+	 * @param int $value
 	 * @return bool
 	 */
 	protected function extractNumber($value)
@@ -800,7 +833,6 @@ class TbSumOperation extends TbOperation
 	 */
 	public function processValue($value)
 	{
-
 		// remove html tags as we cannot access renderDataCellContent from the column
 		$clean = strip_tags($value);
 		$this->total += ((float)$this->extractNumber($clean));
@@ -893,11 +925,9 @@ class TbCountOfTypeOperation extends TbOperation
 		foreach ($this->types as $type)
 		{
 			if (!isset($type['value']))
-			{
 				$type['value'] = 0;
-			}
-			$typesResults[] = strtr($this->typeTemplate, array('{label}' => $type['label'], '{value}' => $type['value']));
 
+			$typesResults[] = strtr($this->typeTemplate, array('{label}' => $type['label'], '{value}' => $type['value']));
 		}
 		echo strtr($this->template, array('{label}' => $this->label, '{types}' => implode(' ', $typesResults)));
 	}
@@ -917,7 +947,7 @@ class TbPercentOfTypeOperation extends TbCountOfTypeOperation
 	public $typeTemplate = '{label}({value}%)';
 
 	/**
-	 * @var $_total holds the total sum of the values. Required to get the percentage.
+	 * @var integer $_total holds the total sum of the values. Required to get the percentage.
 	 */
 	protected $_total;
 
@@ -932,9 +962,8 @@ class TbPercentOfTypeOperation extends TbCountOfTypeOperation
 		foreach ($this->types as $type)
 		{
 			if (!isset($type['value']))
-			{
 				$type['value'] = 0;
-			}
+
 			$type['value'] = $this->getTotal() ? number_format((float)($type['value'] / $this->getTotal()) * 100, 1) : 0;
 			$typesResults[] = strtr($this->typeTemplate, array('{label}' => $type['label'], '{value}' => $type['value']));
 		}
@@ -944,7 +973,7 @@ class TbPercentOfTypeOperation extends TbCountOfTypeOperation
 
 	/**
 	 * Returns the total of types
-	 * @return holds|int
+	 * @return int holds
 	 */
 	protected function getTotal()
 	{
@@ -954,9 +983,7 @@ class TbPercentOfTypeOperation extends TbCountOfTypeOperation
 			foreach ($this->types as $type)
 			{
 				if (isset($type['value']))
-				{
 					$this->_total += $type['value'];
-				}
 			}
 		}
 		return $this->_total;
@@ -1000,9 +1027,8 @@ class TbPercentOfTypeGooglePieOperation extends TbPercentOfTypeOperation
 		foreach ($this->types as $type)
 		{
 			if (!isset($type['value']))
-			{
 				$type['value'] = 0;
-			}
+
 			$this->data[] = $this->getTotal() ? array($type['label'], (float)number_format(($type['value'] / $this->getTotal()) * 100, 1)) : 0;
 		}
 		$data = CJavaScript::jsonEncode($this->data);
@@ -1098,7 +1124,6 @@ class TbPercentOfTypeEasyPieOperation extends TbPercentOfTypeOperation
 	{
 		Yii::app()->bootstrap->registerAssetCss('easy-pie-chart.css');
 		Yii::app()->bootstrap->registerAssetJs('jquery.easy.pie.chart.js');
-
 
 		$options = CJavaScript::encode($this->chartOptions);
 		Yii::app()->getClientScript()->registerScript(__CLASS__ . '#percent-of-type-operation-simple-pie', '

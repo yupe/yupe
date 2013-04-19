@@ -100,7 +100,7 @@
                                 params = $.deparam.querystring(url);
 
                             delete params[settings.ajaxVar];
-                            window.History.pushState(null, null, $.param.querystring(url.substr(0, url.indexOf('?')), params));
+                            window.History.pushState(null, document.title, $.param.querystring(url.substr(0, url.indexOf('?')), params));
                         } else {
                             $('#' + id).yiiJsonGridView('update', {url: $that.attr('href')});
                         }
@@ -260,8 +260,19 @@
                         $grid.removeClass(settings.loadingClass);
                         $grid.find('tbody').jqotesub(settings.rowTemplate, data.rows);
                         $grid.find('.keys').jqotesub(settings.keysTemplate, data.keys);
-                        data.pager.length ? $grid.find('.'+settings.pagerClass+' ul').jqotesub(settings.pagerTemplate, data.pager).show() : $grid.find('.' + settings.pagerClass).hide();
 
+                        if (data.pager.length ) {
+                            $( '.' + settings.pagerClass + ' ul', $grid ).jqotesub(settings.pagerTemplate, data.pager);
+                            $( '.' + settings.pagerClass, $grid ).show();
+                        } else {
+                            $( '.' + settings.pagerClass, $grid ).hide();
+                        }
+
+                        var url_params = $.deparam.querystring(data.url);
+                        delete url_params[settings.ajaxVar];
+                        $grid.find('.keys').attr('title', $.param.querystring(data.url.substr(0, data.url.indexOf('?')), url_params));
+
+                        data.pager.length ? $grid.find('.'+settings.pagerClass+' ul').jqotesub(settings.pagerTemplate, data.pager).show() : $grid.find('.' + settings.pagerClass).hide();
 
                         $.each(data.headers, function(){
                             var $header = $('#' + this.id );

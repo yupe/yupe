@@ -1,9 +1,9 @@
 <?php
-/**
- * TbButtonGroup class file.
+/*##  TbButtonGroup class file.
+ *
  * @author Christoffer Niska <ChristofferNiska@gmail.com>
  * @copyright Copyright &copy; Christoffer Niska 2011-
- * @license http://www.opensource.org/licenses/bsd-license.php New BSD License
+ * @license [New BSD License](http://www.opensource.org/licenses/bsd-license.php) 
  * @package bootstrap.widgets
  * @since 0.9.10
  */
@@ -12,55 +12,69 @@ Yii::import('bootstrap.widgets.TbButton');
 
 /**
  * Bootstrap button group widget.
- * @see http://twitter.github.com/bootstrap/components.html#buttonGroups
+ * @see <http://twitter.github.com/bootstrap/components.html#buttonGroups>
  */
 class TbButtonGroup extends CWidget
 {
 	// Toggle options.
 	const TOGGLE_CHECKBOX = 'checkbox';
-	const TOGGLE_RADIO = 'radio';
+	const TOGGLE_RADIO    = 'radio';
 
 	/**
 	 * @var string the button callback type.
 	 * @see BootButton::buttonType
 	 */
 	public $buttonType = TbButton::BUTTON_LINK;
-	/**
+	
+    /**
 	 * @var string the button type.
 	 * @see BootButton::type
 	 */
 	public $type;
-	/**
+	
+    /**
 	 * @var string the button size.
 	 * @see BootButton::size
 	 */
 	public $size;
-	/**
+	
+    /**
 	 * @var boolean indicates whether to encode the button labels.
 	 */
 	public $encodeLabel = true;
-	/**
+	
+    /**
 	 * @var array the HTML attributes for the widget container.
 	 */
 	public $htmlOptions = array();
-	/**
+	
+    /**
 	 * @var array the button configuration.
 	 */
 	public $buttons = array();
-	/**
+	
+    /**
 	 * @var boolean indicates whether to enable button toggling.
 	 */
 	public $toggle;
-	/**
+	
+    /**
 	 * @var boolean indicates whether the button group appears vertically stacked. Defaults to 'false'.
 	 */
 	public $stacked = false;
-	/**
+	
+    /**
 	 * @var boolean indicates whether dropdowns should be dropups instead. Defaults to 'false'.
 	 */
 	public $dropup = false;
+	/**
+	 * @var boolean indicates whether button is disabled or not. Defaults to 'false'.
+	 */
+	public $disabled = false;
 
 	/**
+	 *### .init()
+	 *
 	 * Initializes the widget.
 	 */
 	public function init()
@@ -89,6 +103,8 @@ class TbButtonGroup extends CWidget
 	}
 
 	/**
+	 *### .run()
+	 *
 	 * Runs the widget.
 	 */
 	public function run()
@@ -108,13 +124,14 @@ class TbButtonGroup extends CWidget
 				'label'=>isset($button['label']) ? $button['label'] : null,
 				'url'=>isset($button['url']) ? $button['url'] : null,
 				'active'=>isset($button['active']) ? $button['active'] : false,
+				'disabled'=>isset($button['disabled']) ? $button['disabled'] : false,
 				'items'=>isset($button['items']) ? $button['items'] : array(),
 				'ajaxOptions'=>isset($button['ajaxOptions']) ? $button['ajaxOptions'] : array(),
 				'htmlOptions'=>isset($button['htmlOptions']) ? $button['htmlOptions'] : array(),
+                'dropdownOptions'=>isset($button['dropdownOptions']) ? $button['dropdownOptions'] : array(),
 				'encodeLabel'=>isset($button['encodeLabel']) ? $button['encodeLabel'] : $this->encodeLabel,
 			));
 		}
-
 		echo '</div>';
 	}
 }

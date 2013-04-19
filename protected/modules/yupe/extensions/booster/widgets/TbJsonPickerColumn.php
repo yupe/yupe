@@ -41,6 +41,7 @@ class TbJsonPickerColumn extends TbJsonDataColumn
 	 * Renders a data cell content, wrapping the value with the link that will activate the picker
 	 * @param int $row
 	 * @param mixed $data
+	 * @return string|void
 	 */
 	public function renderDataCellContent($row, $data)
 	{
@@ -51,7 +52,7 @@ class TbJsonPickerColumn extends TbJsonDataColumn
 			$value = CHtml::value($data, $this->name);
 
 		$class = preg_replace('/\s+/', '.', $this->class);
-		$value = $value === null ? $this->grid->nullDisplay : $this->grid->getFormatter()->format($value, $this->type);
+		$value = !isset($value) ? $this->grid->nullDisplay : $this->grid->getFormatter()->format($value, $this->type);
 		$value = CHtml::link($value, '#', array('class' => $class));
 
 		if ($this->grid->json)
@@ -66,16 +67,15 @@ class TbJsonPickerColumn extends TbJsonDataColumn
 	 */
 	public function registerClientScript()
 	{
-
 		$class = preg_replace('/\s+/', '.', $this->class);
-
+		/** @var $cs CClientScript */
 		$cs = Yii::app()->getClientScript();
 		$assetsUrl = Yii::app()->bootstrap->getAssetsUrl();
 
 		$cs->registerCssFile($assetsUrl . '/css/bootstrap-picker.css');
 		$cs->registerScriptFile($assetsUrl . '/js/bootstrap.picker.js');
 		$cs->registerScript(__CLASS__ . '#' . $this->id, "$(document).on('click','#{$this->grid->id} a.{$class}', function(){
-			if($(this).hasClass('pickeron'))
+			if ($(this).hasClass('pickeron'))
 			{
 				$(this).removeClass('pickeron').picker('toggle');
 				return;
@@ -84,5 +84,4 @@ class TbJsonPickerColumn extends TbJsonDataColumn
 			$(this).picker(" . CJavaScript::encode($this->pickerOptions) . ").picker('toggle').addClass('pickeron'); return false;
 		})");
 	}
-
 }

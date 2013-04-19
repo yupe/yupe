@@ -1,9 +1,9 @@
-<?php
-/**
- * TbCrumb class file.
+﻿<?php
+/*##  TbCrumb class file.
+ *
  * @author Christoffer Niska <ChristofferNiska@gmail.com>
  * @copyright Copyright &copy; Christoffer Niska 2011-
- * @license http://www.opensource.org/licenses/bsd-license.php New BSD License
+ * @license [New BSD License](http://www.opensource.org/licenses/bsd-license.php) 
  * @package bootstrap.widgets
  */
 
@@ -11,7 +11,7 @@ Yii::import('zii.widgets.CBreadcrumbs');
 
 /**
  * Bootstrap breadcrumb widget.
- * @see http://twitter.github.com/bootstrap/components.html#breadcrumbs
+ * @see <http://twitter.github.com/bootstrap/components.html#breadcrumbs>
  */
 class TbBreadcrumbs extends CBreadcrumbs
 {
@@ -21,6 +21,8 @@ class TbBreadcrumbs extends CBreadcrumbs
 	public $separator = '/';
 
 	/**
+	 *### .init()
+	 *
 	 * Initializes the widget.
 	 */
 	public function init()
@@ -35,7 +37,10 @@ class TbBreadcrumbs extends CBreadcrumbs
 	}
 
 	/**
+	 *### .run()
+	 *
 	 * Renders the content of the widget.
+	 *
 	 * @throws CException
 	 */
 	public function run()
@@ -44,14 +49,14 @@ class TbBreadcrumbs extends CBreadcrumbs
 		if (empty($this->links))
 			return;
 
-		$links = array();
+		$links = '';
 
 		if (!isset($this->homeLink))
 		{
 			$content = CHtml::link(Yii::t('zii', 'Home'), Yii::app()->homeUrl);
-			$links[] = $this->renderItem($content);
+			$links .= $this->renderItem($content);
 		} else if ($this->homeLink !== false)
-			$links[] = $this->renderItem($this->homeLink);
+			$links .= $this->renderItem($this->homeLink);
 
 		$count = count($this->links);
 		$counter = 0;
@@ -61,16 +66,19 @@ class TbBreadcrumbs extends CBreadcrumbs
 			if (is_string($label) || is_array($url))
 			{
 				$content = CHtml::link($this->encodeLabel ? CHtml::encode($label) : $label, $url);
-				$links[] = $this->renderItem($content);
+				$links .= $this->renderItem($content);
 			} else
-				$links[] = $this->renderItem($this->encodeLabel ? CHtml::encode($url) : $url, ($counter === $count));
+				$links .= $this->renderItem($this->encodeLabel ? CHtml::encode($url) : $url, ($counter === $count));
 		}
 
-		echo CHtml::tag('ul', $this->htmlOptions, implode("\n", $links));
+		echo CHtml::tag('ul', $this->htmlOptions, $links);
 	}
 
 	/**
+	 *### .renderItem()
+	 *
 	 * Renders a single breadcrumb item.
+	 *
 	 * @param string $content the content.
 	 * @param boolean $active whether the item is active.
 	 * @return string the markup.
