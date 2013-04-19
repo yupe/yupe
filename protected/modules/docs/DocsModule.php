@@ -293,19 +293,12 @@ class DocsModule extends YWebModule
                 ),
             ),
             array(
-                'label' => Yii::t('DocsModule.docs', 'Категория 1'),
+                'label' => Yii::t('DocsModule.docs', 'В помощь разработчикам'),
                 'icon'  => 'th-large white',
                 'items' => array(
                     array(
-                        'label' => Yii::t('DocsModule.docs', 'Страница 1'),
-                        'icon'  => 'file',
-                    ),
-                    array(
-                        'label' => Yii::t('DocsModule.docs', 'Страница 1'),
-                        'icon'  => 'file',
-                    ),
-                    array(
-                        'label' => Yii::t('DocsModule.docs', 'Страница 1'),
+                        'label' => Yii::t('DocsModule.docs', 'Генерация Feed-ленты'),
+                        'url'   => array('/docs/show/index', 'file' => 'atomfeed'),
                         'icon'  => 'file',
                     ),
                 )
