@@ -150,7 +150,7 @@ class Image extends YModel
     {
         if ($this->isNewRecord)
         {
-            $this->creation_date = new CDbExpression('NOW()');
+            $this->creation_date = YDbMigration::expression('NOW()');
             $this->user_id       = Yii::app()->user->getId();
         }
 

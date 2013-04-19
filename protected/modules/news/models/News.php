@@ -94,7 +94,7 @@ class News extends YModel
 
     public function generateFileName()
     {
-        return md5($this->title . time());
+        return md5($this->title . microtime(true));
     }
     /**
      * @return array relational rules.
@@ -195,7 +195,7 @@ class News extends YModel
 
     public function beforeSave()
     {
-        $this->change_date = new CDbExpression('NOW()');
+        $this->change_date = YDbMigration::expression('NOW()');
         $this->date        = date('Y-m-d', strtotime($this->date));
 
         if ($this->isNewRecord)
