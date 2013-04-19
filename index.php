@@ -25,7 +25,6 @@ if (defined('YII_DEBUG')
     $yii = dirname(__FILE__) . '/framework/yii.php';
     // путь к основному конфигурационному файлу Yii
     $config = dirname(__FILE__) . '/protected/config/main-development.php';
-
     defined('YII_DEBUG') or define('YII_DEBUG', true);
     defined('YII_TRACE_LEVEL') or define('YII_TRACE_LEVEL', 3);
 } else { //production считается во всех случаях, когда не выполнены условия
@@ -35,5 +34,5 @@ if (defined('YII_DEBUG')
     $config = dirname(__FILE__) . '/protected/config/main.php';
 }
 
-require_once $yii;
+require $yii;
 Yii::createWebApplication($config)->run();

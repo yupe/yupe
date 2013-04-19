@@ -1,9 +1,9 @@
 <?php
-/**
- * TbButtonColumn class file.
+/*##  TbButtonColumn class file.
+ *
  * @author Christoffer Niska <ChristofferNiska@gmail.com>
  * @copyright  Copyright &copy; Christoffer Niska 2011-
- * @license http://www.opensource.org/licenses/bsd-license.php New BSD License
+ * @license [New BSD License](http://www.opensource.org/licenses/bsd-license.php) 
  * @package bootstrap.widgets
  * @since 0.9.8
  */
@@ -20,16 +20,20 @@ class TbButtonColumn extends CButtonColumn
 	 * @var string the view button icon (defaults to 'eye-open').
 	 */
 	public $viewButtonIcon = 'eye-open';
+
 	/**
 	 * @var string the update button icon (defaults to 'pencil').
 	 */
 	public $updateButtonIcon = 'pencil';
+
 	/**
 	 * @var string the delete button icon (defaults to 'trash').
 	 */
 	public $deleteButtonIcon = 'trash';
 
 	/**
+	 *### .initDefaultButtons()
+	 *
 	 * Initializes the default buttons (view, update and delete).
 	 */
 	protected function initDefaultButtons()
@@ -45,7 +49,10 @@ class TbButtonColumn extends CButtonColumn
 	}
 
 	/**
+	 *### .renderButton()
+	 *
 	 * Renders a link button.
+	 *
 	 * @param string $id the ID of the button
 	 * @param array $button the button configuration which may contain 'label', 'url', 'imageUrl' and 'options' elements.
 	 * @param integer $row the row number (zero-based)

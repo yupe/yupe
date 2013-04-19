@@ -36,6 +36,9 @@ class TbInputHorizontal extends TbInput
 		else
 			$this->labelOptions['class'] = 'control-label';
 
+		if(isset($this->htmlOptions['id']))
+			$this->labelOptions['for'] = $this->htmlOptions['id'];
+
 		return parent::getLabel();
 	}
 
@@ -256,6 +259,21 @@ class TbInputHorizontal extends TbInput
 		echo '<div class="controls">';
 		echo $this->getPrepend();
 		echo $this->form->textField($this->model, $this->attribute, $this->htmlOptions);
+		echo $this->getAppend();
+		echo $this->getError() . $this->getHint();
+		echo '</div>';
+	}
+
+	/**
+	 * Renders a masked text field.
+	 * @return string the rendered content
+	 */
+	protected function maskedTextField()
+	{
+		echo $this->getLabel();
+		echo '<div class="controls">';
+		echo $this->getPrepend();
+		echo $this->form->maskedTextField($this->model, $this->attribute, $this->data, $this->htmlOptions);
 		echo $this->getAppend();
 		echo $this->getError() . $this->getHint();
 		echo '</div>';
@@ -515,6 +533,7 @@ class TbInputHorizontal extends TbInput
 			'callback' => isset($callback) ? $callback : array(),
 			'htmlOptions' => $this->htmlOptions,
 		));
+		echo $this->getAppend();
 		echo $this->getError() . $this->getHint();
 		echo '</div>';
 	}
@@ -539,7 +558,7 @@ class TbInputHorizontal extends TbInput
 		}
 
 		echo $this->getLabel();
-		echo '<div class="controls">';
+		echo '<div class="controls bootstrap-timepicker">';
 		echo $this->getPrepend();
 		$this->widget('bootstrap.widgets.TbTimePicker', array(
 			'model' => $this->model,
@@ -601,4 +620,35 @@ class TbInputHorizontal extends TbInput
 		echo $this->getError() . $this->getHint();
 		echo '</div>';
 	}
+
+	/**
+	 * Renders a typeAhead field.
+	 * @return string the rendered content
+	 */
+	protected function typeAheadField()
+	{
+		echo $this->getLabel();
+		echo '<div class="controls">';
+		echo $this->getPrepend();
+		echo $this->form->typeAheadField($this->model, $this->attribute, $this->data, $this->htmlOptions);
+		echo $this->getAppend();
+		echo $this->getError() . $this->getHint();
+		echo '</div>';
+	}
+
+	/**
+	 * Renders a number field.
+	 * @return string the rendered content
+	 */
+	protected function numberField()
+	{
+		echo $this->getLabel();
+		echo '<div class="controls">';
+		echo $this->getPrepend();
+		echo $this->form->numberField($this->model, $this->attribute, $this->htmlOptions);
+		echo $this->getAppend();
+		echo $this->getError() . $this->getHint();
+		echo '</div>';
+	}
+
 }

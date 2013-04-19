@@ -13,6 +13,7 @@ class TbToggleButton extends CInputWidget
 	 * @see TbActionForm->inputRow
 	 */
 	public $form;
+
 	/**
 	 * @var string the javascript function
 	 *
@@ -62,6 +63,7 @@ class TbToggleButton extends CInputWidget
 	 * @var string the label to display on the disabled side
 	 */
 	public $disabledLabel = 'OFF';
+
 	/**
 	 * @var string the style of the toggle button enable style
 	 * Accepted values ["primary", "danger", "info", "success", "warning"] or nothing
@@ -113,11 +115,10 @@ class TbToggleButton extends CInputWidget
 
 		if ($this->hasModel())
 		{
-			if($this->form)
+			if ($this->form)
 				echo $this->form->checkBox($this->model, $this->attribute, $this->htmlOptions);
 			else
 				echo CHtml::activeCheckBox($this->model, $this->attribute, $this->htmlOptions);
-
 		} else
 			echo CHtml::checkBox($name, $this->value, $this->htmlOptions);
 
@@ -128,7 +129,7 @@ class TbToggleButton extends CInputWidget
 
 	/**
 	 * Registers required css and js files
-	 * @param $id the id of the toggle button
+	 * @param integer $id the id of the toggle button
 	 */
 	protected function registerClientScript($id)
 	{
@@ -140,7 +141,6 @@ class TbToggleButton extends CInputWidget
 		$config = CJavaScript::encode($this->getConfiguration());
 
 		$cs->registerScript(__CLASS__.'#'.$this->getId(), "$('#wrapper-{$id}').toggleButtons({$config});");
-
 	}
 
 	/**
@@ -148,21 +148,15 @@ class TbToggleButton extends CInputWidget
 	 */
 	protected function getConfiguration()
 	{
-		if($this->onChange!==null)
+		if ($this->onChange!==null)
 		{
-			if((!$this->onChange instanceof CJavaScriptExpression) && strpos($this->onChange,'js:')!==0)
-			{
+			if ((!$this->onChange instanceof CJavaScriptExpression) && strpos($this->onChange,'js:')!==0)
 				$onChange=new CJavaScriptExpression($this->onChange);
-			}
 			else
-			{
 				$onChange=$this->onChange;
-			}
 		}
 		else
-		{
 			$onChange = 'js:$.noop';
-		}
 
 		$config = array(
 		   'onChange' => $onChange,
@@ -176,28 +170,22 @@ class TbToggleButton extends CInputWidget
 			),
 			'style' => array()
 		);
-		if(!empty($this->enabledStyle))
-		{
+		if (!empty($this->enabledStyle))
 			$config['style']['enabled'] = $this->enabledStyle;
-		}
-		if(!empty($this->disabledStyle))
-		{
+		if (!empty($this->disabledStyle))
 			$config['style']['disabled'] = $this->disabledStyle;
-		}
-		if(!empty($this->customEnabledStyle))
-		{
+		if (!empty($this->customEnabledStyle))
 			$config['style']['custom']= array('enabled'=>$this->customEnabledStyle);
-		}
-		if(!empty($this->customDisabledStyle))
+		if (!empty($this->customDisabledStyle))
 		{
-			if(isset($config['style']['custom']))
+			if (isset($config['style']['custom']))
 				$config['style']['custom']['disabled'] = $this->customDisabledStyle;
 			else
 				$config['style']['custom'] = array('disabled'=>$this->customDisabledStyle);
 		}
 		foreach($config as $key=>$element)
 		{
-			if(empty($element))
+			if (empty($element))
 				unset($config[$key]);
 		}
 		return $config;

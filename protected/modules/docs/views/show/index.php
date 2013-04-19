@@ -33,3 +33,4 @@ echo $content;
 </div>
 
 <br/><br/>
+<?php $this->widget("application.modules.contentblock.widgets.ContentBlockWidget", array("code" => "DISQUS_COMMENTS","silent" => true)); ?>

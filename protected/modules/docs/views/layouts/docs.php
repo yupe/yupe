@@ -94,5 +94,6 @@
         <?php echo Yii::powered(); ?>
         <?php $this->widget('YPerformanceStatistic'); ?>
     </footer>
+    <?php $this->widget("application.modules.contentblock.widgets.ContentBlockWidget", array("code" => "DISQUS_JS","silent" => true)); ?>
 </body>
 </html>

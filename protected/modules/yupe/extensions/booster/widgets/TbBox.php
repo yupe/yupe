@@ -1,51 +1,50 @@
 <?php
-/**
- * TbBox widget class
+/*## TbBox widget class
  *
- * @author: antonio ramirez <antonio@clevertech.biz>
+ * @author Antonio Ramirez <antonio@clevertech.biz>
  * @copyright Copyright &copy; Clevertech 2012-
- * @license http://www.opensource.org/licenses/bsd-license.php New BSD License
- * @package YiiBooster bootstrap.widgets
+ * @license [New BSD License](http://www.opensource.org/licenses/bsd-license.php) 
+ * @package bootstrap.widgets
  */
 class TbBox extends CWidget
 {
 	/**
+	 * @var mixed
 	 * Box title
 	 * If set to false, a box with no title is rendered
-	 * @var mixed
 	 */
 	public $title = '';
 
 	/**
-	 * The class icon to display in the header title of the box.
-	 * @see http://twitter.github.com/bootstrap/base-css.html#icon
 	 * @var string
+	 * The class icon to display in the header title of the box.
+	 * @see <http://twitter.github.com/bootstrap/base-css.html#icon>
 	 */
 	public $headerIcon;
 
 
 	/**
+	 * @var string
 	 * Box Content
 	 * optional, the content of this attribute is echoed as the box content
-	 * @var string
 	 */
 	public $content = '';
 
 	/**
-	 * box HTML additional attributes
 	 * @var array
+	 * box HTML additional attributes
 	 */
 	public $htmlOptions = array();
 
 	/**
-	 * box header HTML additional attributes
 	 * @var array
+	 * box header HTML additional attributes
 	 */
 	public $htmlHeaderOptions = array();
 
 	/**
-	 * box content HTML additional attributes
 	 * @var array
+	 * box content HTML additional attributes
 	 */
 	public $htmlContentOptions = array();
 
@@ -72,6 +71,8 @@ class TbBox extends CWidget
 	public $headerButtons = array();
 
 	/**
+	 *### .init()
+	 *
 	 * Widget initialization
 	 */
 	public function init()
@@ -102,6 +103,8 @@ class TbBox extends CWidget
 	}
 
 	/**
+	 *### .run()
+	 *
 	 * Widget run - used for closing procedures
 	 */
 	public function run()
@@ -111,6 +114,8 @@ class TbBox extends CWidget
 	}
 
 	/**
+	 *### .renderHeader()
+	 *
 	 * Renders the header of the box with the header control (button to show/hide the box)
 	 */
 	public function renderHeader()
@@ -123,19 +128,18 @@ class TbBox extends CWidget
 				$this->title = '<h3>' . $this->title . '</h3>';
 
 				if ($this->headerIcon)
-				{
 					$this->title = '<i class="' . $this->headerIcon . '"></i>' . $this->title;
-				}
 
 				echo $this->title;
 				$this->renderButtons();
 			}
-
 			echo CHtml::closeTag('div');
 		}
 	}
 
 	/**
+	 *### .renderButtons()
+	 *
 	 * Renders a header buttons to display the configured actions
 	 */
 	public function renderButtons()
@@ -145,7 +149,7 @@ class TbBox extends CWidget
 
 		echo '<div class="bootstrap-toolbar pull-right">';
 
-		if(!empty($this->headerButtons) && is_array($this->headerButtons))
+		if (!empty($this->headerButtons) && is_array($this->headerButtons))
 		{
 			foreach($this->headerButtons as $button)
 			{
@@ -153,10 +157,10 @@ class TbBox extends CWidget
 				$button = $options['class'];
 				unset($options['class']);
 
-				if(strpos($button, 'TbButton') === false)
+				if (strpos($button, 'TbButton') === false)
 					throw new CException('message');
 
-				if(!isset($options['htmlOptions']))
+				if (!isset($options['htmlOptions']))
 					$options['htmlOptions'] = array();
 
 				$class = isset($options['htmlOptions']['class']) ? $options['htmlOptions']['class'] : '';
@@ -170,8 +174,10 @@ class TbBox extends CWidget
 	}
 
 	/*
-	  * Renders the opening of the content element and the optional content
-	  */
+	 *### .renderContentBegin()
+	 *
+	 * Renders the opening of the content element and the optional content
+	 */
 	public function renderContentBegin()
 	{
 		echo CHtml::openTag('div', $this->htmlContentOptions);
@@ -180,6 +186,8 @@ class TbBox extends CWidget
 	}
 
 	/*
+	 *### .renderContentEnd()
+	 *
 	 * Closes the content element
 	 */
 	public function renderContentEnd()
@@ -188,11 +196,12 @@ class TbBox extends CWidget
 	}
 
 	/**
+	 *### .registerClientScript()
+	 *
 	 * Registers required script files (CSS in this case)
 	 */
 	public function registerClientScript()
 	{
 		Yii::app()->bootstrap->registerAssetCss('bootstrap-box.css');
-
 	}
 }

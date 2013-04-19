@@ -2,6 +2,7 @@
 // Scaffolding
 // --------------------------------------------------
 
+
 // Body reset
 // -------------------------
 
@@ -14,6 +15,7 @@ body {
   background-color: @bodyBackground;
 }
 
+
 // Links
 // -------------------------
 
@@ -21,11 +23,12 @@ a {
   color: @linkColor;
   text-decoration: none;
 }
-
-a:hover {
+a:hover,
+a:focus {
   color: @linkColorHover;
   text-decoration: underline;
 }
+
 
 // Images
 // -------------------------
@@ -40,7 +43,7 @@ a:hover {
   padding: 4px;
   background-color: #fff;
   border: 1px solid #ccc;
-  border: 1px solid rgba(0, 0, 0, .2);
+  border: 1px solid rgba(0,0,0,.2);
   .box-shadow(0 1px 3px rgba(0,0,0,.1));
 }
 

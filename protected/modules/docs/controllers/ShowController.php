@@ -24,8 +24,8 @@ class ShowController extends YFrontController
         Yii::app()->setComponent(
             'bootstrap', Yii::createComponent(
                 array(
-                    'class'                    => 'application.modules.yupe.extensions.booster.components.Bootstrap',
-                    'republishAssetsOnRequest' => false,
+                    'class' => 'application.modules.yupe.extensions.booster.components.Bootstrap',
+                    'forceCopyAssets' => false
                 )
             )
         );

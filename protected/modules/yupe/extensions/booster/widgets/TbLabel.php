@@ -1,44 +1,50 @@
 <?php
-/**
- * TbLabel class file.
+/*## TbLabel class file.
+ *
  * @author Christoffer Niska <ChristofferNiska@gmail.com>
  * @copyright  Copyright &copy; Christoffer Niska 2011-
- * @license http://www.opensource.org/licenses/bsd-license.php New BSD License
+ * @license [New BSD License](http://www.opensource.org/licenses/bsd-license.php)
  * @package bootstrap.widgets
  */
 
 /**
  * Bootstrap label widget.
- * @see http://twitter.github.com/bootstrap/components.html#labels
+ * @see <http://twitter.github.com/bootstrap/components.html#labels>
  */
 class TbLabel extends CWidget
 {
 	// Label types.
-	const TYPE_SUCCESS = 'success';
-	const TYPE_WARNING = 'warning';
+	const TYPE_SUCCESS   = 'success';
+	const TYPE_WARNING   = 'warning';
 	const TYPE_IMPORTANT = 'important';
-	const TYPE_INFO = 'info';
-	const TYPE_INVERSE = 'inverse';
+	const TYPE_INFO      = 'info';
+	const TYPE_INVERSE   = 'inverse';
 
 	/**
 	 * @var string the label type.
+	 *
 	 * Valid types are 'success', 'warning', 'important', 'info' and 'inverse'.
 	 */
 	public $type;
+
 	/**
 	 * @var string the label text.
 	 */
 	public $label;
+
 	/**
 	 * @var boolean whether to encode the label.
 	 */
 	public $encodeLabel = true;
+
 	/**
 	 * @var array the HTML attributes for the widget container.
 	 */
 	public $htmlOptions = array();
 
 	/**
+	 *### .init()
+	 *
 	 * Initializes the widget.
 	 */
 	public function init()
@@ -64,6 +70,8 @@ class TbLabel extends CWidget
 	}
 
 	/**
+	 *### .run()
+	 *
 	 * Runs the widget.
 	 */
 	public function run()

@@ -1,17 +1,15 @@
 <?php
-
-/**
- * TbColorPicker widget class
+/*## TbColorPicker widget class
  *
  * @author: yiqing95 <yiqing_95@qq.com>
- * @license http://www.opensource.org/licenses/bsd-license.php New BSD License
+ * @license [New BSD License](http://www.opensource.org/licenses/bsd-license.php) 
  * @package YiiBooster bootstrap.widgets
  * ------------------------------------------------------------------------
  *   in yii  use this to register the necessary js and css files :
  *   <?php  $this->widget('bootstrap.widgets.TbColorPicker', array( )); ?>
  *   and the rest usage you'd better refer the original plugin
  *
- * @see http://www.eyecon.ro/bootstrap-colorpicker/
+ * @see <http://www.eyecon.ro/bootstrap-colorpicker/>
  * ------------------------------------------------------------------------
  *
  * - Changelog
@@ -24,7 +22,8 @@ class TbColorPicker extends CInputWidget
 {
 
 	/**
-	 * @var TbActiveForm when created via TbActiveForm, this attribute is set to the form that renders the widget
+	 * @var TbActiveForm when created via TbActiveForm.
+	 * this attribute is set to the form that renders the widget
 	 * @see TbActionForm->inputRow
 	 */
 	public $form;
@@ -33,9 +32,10 @@ class TbColorPicker extends CInputWidget
 	 * @var string the color format - hex | rgb | rgba. Defaults to 'hex'
 	 */
 	public $format = 'hex';
+
 	/**
 	 * @var string[] the JavaScript event handlers.
-	 * @see http://www.eyecon.ro/bootstrap-colorpicker/ events section
+	 * @see <http://www.eyecon.ro/bootstrap-colorpicker/> events section
 	 *  show    This event fires immediately when the color picker is displayed.
 	 *  hide    This event is fired immediately when the color picker is hidden.
 	 *  changeColor    This event is fired when the color is changed.
@@ -53,6 +53,8 @@ class TbColorPicker extends CInputWidget
 	public $events = array();
 
 	/**
+	 *### .run()
+	 *
 	 * Widget's run function
 	 */
 	public function run()
@@ -70,15 +72,17 @@ class TbColorPicker extends CInputWidget
 				echo $this->form->textField($this->model, $this->attribute, $this->htmlOptions);
 			else
 				echo CHtml::activeTextField($this->model, $this->attribute, $this->htmlOptions);
-		} else
-		{
-			echo  CHtml::textField($name, $this->value, $this->htmlOptions);
 		}
+		else
+			echo CHtml::textField($name, $this->value, $this->htmlOptions);
 	}
 
 	/**
+	 *### .registerClientScript()
+	 *
 	 * Registers required
-	 * @param $id
+	 *
+	 * @param string $id
 	 */
 	public function registerClientScript($id)
 	{

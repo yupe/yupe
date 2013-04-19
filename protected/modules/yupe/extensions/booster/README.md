@@ -69,7 +69,7 @@ The YiiBooster library includes:
 
 
 ###Contributing
-Please submit all pull requests against *-wip branches. Thanks!
+Please submit all pull requests against `*-wip` branches. All details in the [Wiki page describing how to properly contribute to this repository](https://github.com/clevertech/YiiBooster/wiki/How-to-contribute-to-this-repository)
 
 ###Bug tracker
 If you find any bugs, please create an issue at [https://github.com/clevertech/YiiBooster/issues](https://github.com/clevertech/YiiBooster/issues)
