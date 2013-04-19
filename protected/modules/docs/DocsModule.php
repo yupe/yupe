@@ -286,6 +286,11 @@ class DocsModule extends YWebModule
                         'url'   => array('/docs/show/index', 'file' => 'atomfeed', 'moduleID' => 'yupe'),
                         'icon'  => 'file',
                     ),
+                    array(
+                        'label' => Yii::t('DocsModule.docs', 'Curl "обёртка" для Yii framework'),
+                        'url'   => array('/docs/show/index', 'file' => 'curl.wrapper', 'moduleID' => 'yupe'),
+                        'icon'  => 'file',
+                    ),
                 )
             ),
             array(
@@ -328,6 +333,11 @@ class DocsModule extends YWebModule
             array(
                 'label' => Yii::t('DocsModule.docs', 'Генерация Feed-ленты'),
                 'url'   => array('/docs/show/index', 'file' => 'atomfeed', 'moduleID' => 'yupe'),
+                'icon'  => 'file',
+            ),
+            array(
+                'label' => Yii::t('DocsModule.docs', 'Curl "обёртка" для Yii framework'),
+                'url'   => array('/docs/show/index', 'file' => 'curl.wrapper', 'moduleID' => 'yupe'),
                 'icon'  => 'file',
             ),
             '',
