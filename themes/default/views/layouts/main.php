@@ -33,6 +33,7 @@
 </head>
 <body>
 <div class="container" id="page">
+    <?php $this->widget('YAdminPanel');?>
     <div id="header">
         <div id="logo">
             <a href="<?php echo CHtml::normalizeUrl(array("/site/index"))?>"><?php echo CHtml::image(Yii::app()->baseUrl . '/web/images/main-logo.png');?></a>
