@@ -85,9 +85,8 @@ abstract class YModel extends Model
      **/
     public function loadModel($id = null)
     {
-        if (($model = self::model(get_class($this))->findByPk($id)) !== null)
-            return $model;
-        else
-            return null;
+        return ($model = self::model(get_class($this))->findByPk($id)) !== null
+            ? $model
+            : null;
     }
 }
