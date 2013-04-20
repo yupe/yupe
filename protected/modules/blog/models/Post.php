@@ -129,6 +129,40 @@ class Post extends YModel
     }
 
     /**
+     * Условие для получения определённого количества записей:
+     * 
+     * @param integer $count - количество записей
+     * 
+     * @return self
+     */
+    public function limit($count = null)
+    {
+        $this->getDbCriteria()->mergeWith(
+            array(
+                'limit' => $count,
+            )
+        );
+        return $this;
+    }
+
+    /**
+     * Условие для сортировки по дате
+     *
+     * @param string $typeSort - типо сортировки
+     *
+     * @return self
+     **/
+    public function sortByPubDate($typeSort = 'ASC')
+    {
+        $this->getDbCriteria()->mergeWith(
+            array(
+                'order' => $this->getTableAlias() . '.publish_date ' . $typeSort,
+            )
+        );
+        return $this;
+    }
+
+    /**
      * @return array customized attribute labels (name=>label)
      */
     public function attributeLabels()
