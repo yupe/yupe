@@ -18,29 +18,31 @@ class BlogController extends YFrontController
     // Отобразить карточку блога
     public function actionShow($slug)
     {
-        $blog = Blog::model()->with(
-            'createUser',
-            'postsCount',
-            'membersCount',
-            'members'
-        )->find('slug = :slug', array(':slug' => $slug));
+        $blog = Blog::model()->showByUrl($slug)->with(
+            array(
+                'createUser',
+                'postsCount',
+                'membersCount',
+                'members',
+                'posts' => array(
+                    'scopes' => array(
+                        'limit' => 5,
+                        'sortByPubDate' => 'DESC'
+                    )
+                )
+            )
+        )->find();
 
-        if (!$blog)
+        if ($blog === null)
             throw new CHttpException(404, Yii::t('BlogModule.blog', 'Блог "{blog}" не найден!', array('{blog}' => $slug)));
 
-        // Получить первые 5 записей для блога
-        $posts = Post::model()->published()->public()->findAll(array(
-            'condition' => 'blog_id = :blog_id',
-            'limit'     => 5,
-            'order'     => 'publish_date DESC',
-            'params'    => array(':blog_id' => $blog->id),
-        ));
-
-        $this->render('show', array(
-            'blog'    => $blog,
-            'posts'   => $posts,
-            'members' => $blog->members,
-        ));
+        $this->render(
+            'show', array(
+                'blog'    => $blog,
+                'posts'   => $blog->posts,
+                'members' => $blog->members,
+            )
+        );
     }
 
     // Показать участников блога 
