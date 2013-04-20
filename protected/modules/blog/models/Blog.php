@@ -277,6 +277,23 @@ class Blog extends YModel
         return isset($data[$this->type]) ? $data[$this->type] : Yii::t('BlogModule.blog', '*неизвестно*');
     }
 
+    public function userInBlog($userId = null)
+    {
+        if (!Yii::app()->user->isAuthenticated())
+            return false;
+
+        $params = array(
+            'user_id' => $userId !== null
+                ? $userId
+                : Yii::app()->user->id,
+            'blog_id' => $this->id,
+        );
+
+        return ($userToBlog = UserToBlog::model()->find('user_id = :user_id AND blog_id = :blog_id', $params)) !== null
+            ? $userToBlog
+            : false;
+    }
+
     public function join($userId)
     {
         $params = array(
@@ -286,7 +303,7 @@ class Blog extends YModel
 
         $userToBlog = new UserToBlog;
 
-        if (!$userToBlog->find('user_id = :user_id AND blog_id = :blog_id', $params)){
+        if (!$userToBlog->find('user_id = :user_id AND blog_id = :blog_id', $params)) {
             $userToBlog->setAttributes($params);
             return $userToBlog->save();
         }
