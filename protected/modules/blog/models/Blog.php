@@ -107,6 +107,26 @@ class Blog extends YModel
     }
 
     /**
+     * Условие для получения блога по url
+     * 
+     * @param string $url - url данного блога
+     * 
+     * @return self
+     */
+    public function showByUrl($url = null)
+    {
+        $this->getDbCriteria()->mergeWith(
+            array(
+                'condition' => $this->getTableAlias() . '.slug = :slug',
+                'params' => array(
+                    ':slug' => $url,
+                ),
+            )
+        );
+        return $this;
+    }
+
+    /**
      * @return array customized attribute labels (name=>label)
      */
     public function attributeLabels()
