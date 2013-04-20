@@ -57,12 +57,6 @@ class BlogController extends YFrontController
         $members = UserToBlog::model()->findAll('blog_id = :blog_id', array(':blog_id' => $blog->id));
     }
 
-    // Отобразить записи конкретного блога
-    public function actionPosts($slug)
-    {
-        // @TODO реализовать в 0.5
-    }
-
     // "вступление" в блог
     public function actionJoin($blogId)
     {
