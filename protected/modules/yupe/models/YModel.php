@@ -81,7 +81,7 @@ abstract class YModel extends Model
      *
      * @param mixed $id - primary key
      *
-     * @return mixed bool or instance of model
+     * @return mixed null or instance of model
      **/
     public function loadModel($id = null)
     {
