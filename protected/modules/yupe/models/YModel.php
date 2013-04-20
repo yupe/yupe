@@ -75,4 +75,19 @@ abstract class YModel extends Model
         $descriptions = $this->attributeDescriptions();
         return (isset($descriptions[$attribute])) ? $descriptions[$attribute] : '';
     }
+
+    /**
+     * Загружаем можель по её PK
+     *
+     * @param mixed $id - primary key
+     *
+     * @return return bool or record
+     **/
+    public function loadModel($id = null)
+    {
+        if (($model = self::model(get_class($this))->findByPk($id)) !== null)
+            return $model;
+        else
+            return null;
+    }
 }
