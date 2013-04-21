@@ -42,13 +42,20 @@
         <b><?php echo CHtml::encode($data->getAttributeLabel('description')); ?>:</b>
         <?php echo $data->description; ?>
 
-        <b><?php echo Yii::t('blog', 'Записей'); ?>:</b> <?php echo $data->postsCount; ?> | 
+        <span class='blog-stats'>
+            <b><?php echo Yii::t('blog', 'Записей'); ?>:</b>
+            <?php
+            echo $data->postsCount < 1
+                ? $data->postsCount
+                : CHtml::link($data->postsCount, array('/blog/blog/show', 'slug' => $data->slug), array('class' => 'get-posts-list', 'rel' => $data->id))
+            ?> | 
 
-        <?php
-        echo $data->membersCount > 0
-            ? '<b>' . Yii::t('blog', 'Участников') . ':</b> <a href="javascript:void(0);" class="get-members" rel="' . $data->id . '">' . $data->membersCount . '</a>'
-            : '';
-        ?>
+            <?php
+            echo $data->membersCount > 0
+                ? '<b>' . Yii::t('blog', 'Участников') . ':</b> <a href="javascript:void(0);" class="get-members" rel="' . $data->id . '">' . $data->membersCount . '</a>'
+                : '';
+            ?>
+        </span>
 
         <br /><br />
 

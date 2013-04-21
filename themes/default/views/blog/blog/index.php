@@ -46,6 +46,32 @@ $this->breadcrumbs = array(Yii::t('blog', 'Блоги'));
                 }
             });
         });
+        $(document).on("click", '.get-posts-list', function (event) {
+            event.preventDefault();
+            var link = $(this);
+            var blogID = link.attr('rel');
+            if ((posts = $('.posts-' + blogID)).length > 0) {
+                posts.remove();
+                return false;
+            } else {
+                link.addClass('ajax-loading');
+            }
+
+            $.ajax({
+                url: link.attr('href'),
+                data: ajaxToken + '&blogID=' + blogID,
+                dataType: 'json',
+                type: 'post',
+                success: function(data) {
+                    link.removeClass('ajax-loading');
+                    link.parents('.blog-stats').after('<div class="posts-' + blogID + ' ' + (data.result ? '' : 'error') + '">' + data.data + "</div>");
+                },
+                error: function(data) {
+                    link.removeClass('ajax-loading');
+                    link.parents('.blog-stats').after('<div class="posts-' + blogID + ' ' + (data.result ? '' : 'error') + '">' + data.data + "</div>");
+                }
+            });
+        });
         $(document).on("click", 'a.action-blog', function (event) {
             event.preventDefault();
             var blogId = parseInt($(this).attr('rel'));

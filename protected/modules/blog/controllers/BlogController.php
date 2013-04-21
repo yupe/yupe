@@ -28,25 +28,50 @@ class BlogController extends YFrontController
      *
      * @return void
      */
-    public function actionShow($slug)
+    public function actionShow($slug = null)
     {
-        $blog = Blog::model()->showByUrl($slug)->with(
-            array(
-                'createUser',
-                'postsCount',
-                'membersCount',
-                'members',
-                'posts' => array(
-                    'scopes' => array(
-                        'limit' => 5,
-                        'sortByPubDate' => 'DESC'
+        if ($slug !== null && ($blogID = Yii::app()->request->getPost('blogID')) == null) {
+            $blog = Blog::model()->showByUrl($slug)->with(
+                array(
+                    'createUser',
+                    'postsCount',
+                    'membersCount',
+                    'members',
+                    'posts' => array(
+                        'scopes' => array(
+                            'limit' => 5,
+                            'sortByPubDate' => 'DESC'
+                        )
                     )
                 )
-            )
-        )->find();
+            )->find();
 
-        if ($blog === null)
-            throw new CHttpException(404, Yii::t('BlogModule.blog', 'Блог "{blog}" не найден!', array('{blog}' => $slug)));
+            if ($blog === null)
+                throw new CHttpException(404, Yii::t('BlogModule.blog', 'Блог "{blog}" не найден!', array('{blog}' => $slug)));
+        } else {
+            if (!Yii::app()->request->isPostRequest
+                || !Yii::app()->request->isAjaxRequest
+                || ($blog = Blog::model()->with(
+                    array(
+                        'createUser',
+                        'postsCount',
+                        'membersCount',
+                        'members',
+                        'posts' => array(
+                            'scopes' => array(
+                                'limit' => 5,
+                                'sortByPubDate' => 'DESC'
+                            )
+                        )
+                    )
+                )->findByPk($blogID)) == null
+            )
+                throw new CHttpException(404, Yii::t('BlogModule.blog', 'Страница не найдена!'));
+
+            Yii::app()->ajax->success(
+                $this->renderPartial('_post_list', array('posts' => $blog->posts), true)
+            );
+        }
 
         $this->render(
             'show', array(
