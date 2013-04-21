@@ -8,13 +8,11 @@
  *   @license  https://github.com/yupe/yupe/blob/master/LICENSE BSD
  *   @link     http://yupe.ru
  **/
-Yii::app()->user->isAuthenticated()
-    ? Yii::app()->clientScript->registerScript(
-        "ajaxBlogToken", "var ajaxToken = " . json_encode(
-            Yii::app()->request->csrfTokenName . '=' . Yii::app()->request->csrfToken
-        ) . ";", CClientScript::POS_BEGIN
-    )
-    : '';
+Yii::app()->clientScript->registerScript(
+    "ajaxToken", "var ajaxToken = " . json_encode(
+        Yii::app()->request->csrfTokenName . '=' . Yii::app()->request->csrfToken
+    ) . ";", CClientScript::POS_BEGIN
+);
 $this->pageTitle = Yii::t('blog', 'Блоги');
 $this->breadcrumbs = array(Yii::t('blog', 'Блоги'));
 ?>
