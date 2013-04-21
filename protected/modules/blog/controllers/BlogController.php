@@ -161,7 +161,7 @@ class BlogController extends YFrontController
                     YFlashMessages::ERROR_MESSAGE,
                     $errorMessage
                 );
-                $this->redirect(array('/'));
+                $this->redirect(array('/blog/blog/index'));
             }
         }
 
@@ -256,7 +256,7 @@ class BlogController extends YFrontController
                     YFlashMessages::ERROR_MESSAGE,
                     $errorMessage
                 );
-                $this->redirect(array('/'));
+                $this->redirect(array('/blog/blog/index'));
             }
         }
 
