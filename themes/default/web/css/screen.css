@@ -1002,3 +1002,25 @@ hr.space {
 .container .span-19 {
     margin-left: 0;
 }
+
+.container .container [class*="members-"] a {
+    font-style: italic;
+    color: green;
+}
+
+[class*="members-"].error {
+    color: red;
+}
+
+.ajax-loading:after {
+    content: "";
+    background-image: url("../images/ajax-loader.gif");
+    background-repeat: no-repeat;
+    display: block;
+    width: 10px;
+    height: 20px;
+    position: relative;
+    top: 5px;
+    padding-left: 10px;
+    float: left;
+}
