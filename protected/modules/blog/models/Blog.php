@@ -252,10 +252,12 @@ class Blog extends YModel
 
     public function afterDelete()
     {
-        Comment::model()->deleteAll('model = :model AND model_id = :model_id',array(
-            ':model' => 'Blog',
-            ':model_id' => $this->id
-        ));
+        Comment::model()->deleteAll(
+            'model = :model AND model_id = :model_id', array(
+                ':model' => 'Blog',
+                ':model_id' => $this->id
+            )
+        );
 
         return parent::afterDelete();
     }
