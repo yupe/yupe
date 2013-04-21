@@ -47,7 +47,7 @@
             <?php
             echo $data->postsCount < 1
                 ? $data->postsCount
-                : CHtml::link($data->postsCount, array('/blog/blog/show', 'slug' => $data->slug), array('class' => 'get-posts-list', 'rel' => $data->id))
+                : CHtml::link($data->postsCount, array('/blog/blog/lastpostsofblog'), array('class' => 'get-posts-list', 'rel' => $data->id))
             ?> | 
 
             <?php
