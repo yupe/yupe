@@ -82,8 +82,11 @@ class BlogController extends YFrontController
      *
      * @return void
      */
-    public function actionJoin($blogId)
+    public function actionJoin($blogId = null)
     {
+        if ($blogId === null && Yii::app()->request->isPostRequest && Yii::app()->request->isAjaxRequest)
+            $blogId = Yii::app()->request->getPost('blogId');
+
         if (!Yii::app()->user->isAuthenticated()) {
             if (Yii::app()->request->isAjaxRequest) {
                 Yii::app()->ajax->failure(Yii::t('BlogModule.blog', 'Пожалуйста, авторизуйтесь!'));
@@ -122,7 +125,12 @@ class BlogController extends YFrontController
             $blog->join(Yii::app()->user->id);
             
             if (Yii::app()->request->isAjaxRequest) {
-                Yii::app()->ajax->success(Yii::t('BlogModule.blog', 'Вы присоединились к блогу!'));
+                Yii::app()->ajax->success(
+                    array(
+                        'message' => Yii::t('BlogModule.blog', 'Вы присоединились к блогу!'),
+                        'content' => $this->renderPartial('_view', array('data' => $blog), true),
+                    )
+                );
             } else {
                 Yii::app()->user->setFlash(
                     YFlashMessages::NOTICE_MESSAGE,
@@ -132,7 +140,11 @@ class BlogController extends YFrontController
             }
         } else {
             if (Yii::app()->request->isAjaxRequest)
-                Yii::app()->ajax->success(Yii::t('BlogModule.blog', 'Вы уже присоеденены к этому блогу!'));
+                Yii::app()->ajax->failure(
+                    array(
+                        'message' => Yii::t('BlogModule.blog', 'Вы уже присоединились к блогу!'),
+                    )
+                );
             else
             {
                 Yii::app()->user->setFlash(
@@ -151,8 +163,11 @@ class BlogController extends YFrontController
      *
      * @return void
      */
-    public function actionUnjoin($blogId)
+    public function actionUnjoin($blogId = null)
     {
+        if ($blogId === null && Yii::app()->request->isPostRequest && Yii::app()->request->isAjaxRequest)
+            $blogId = Yii::app()->request->getPost('blogId');
+
         if (!Yii::app()->user->isAuthenticated()) {
             if (Yii::app()->request->isAjaxRequest) {
                 Yii::app()->ajax->failure(Yii::t('BlogModule.blog', 'Пожалуйста, авторизуйтесь!'));
@@ -204,7 +219,12 @@ class BlogController extends YFrontController
             
             if ($userToBlog->delete()) {
                 if (Yii::app()->request->isAjaxRequest) {
-                    Yii::app()->ajax->success(Yii::t('BlogModule.blog', 'Вы покинули блог!'));
+                    Yii::app()->ajax->success(
+                        array(
+                            'message' => Yii::t('BlogModule.blog', 'Вы присоединились к блогу!'),
+                            'content' => $this->renderPartial('_view', array('data' => $blog), true),
+                        )
+                    );
                 } else {
                     Yii::app()->user->setFlash(
                         YFlashMessages::NOTICE_MESSAGE,
@@ -214,7 +234,7 @@ class BlogController extends YFrontController
                 }
             } else {
                 if (Yii::app()->request->isAjaxRequest) {
-                    Yii::app()->ajax->success(Yii::t('BlogModule.blog', 'Произошла ошибка при исключении из блога!'));
+                    Yii::app()->ajax->failure(Yii::t('BlogModule.blog', 'Произошла ошибка при исключении из блога!'));
                 } else {
                     Yii::app()->user->setFlash(
                         YFlashMessages::NOTICE_MESSAGE,
@@ -225,7 +245,7 @@ class BlogController extends YFrontController
             }
         } else {
             if (Yii::app()->request->isAjaxRequest)
-                Yii::app()->ajax->success(Yii::t('BlogModule.blog', 'Вы не присоеденены к этому блогу!'));
+                Yii::app()->ajax->failure(Yii::t('BlogModule.blog', 'Вы не присоеденены к этому блогу!'));
             else
             {
                 Yii::app()->user->setFlash(
