@@ -327,9 +327,11 @@ class Blog extends YModel
 
     public function getMembers()
     {
-        return UserToBlog::model()->with('user')->findAll('blog_id = :blog_id', array(
-            ':blog_id' => $this->id
-        ));
+        return UserToBlog::model()->with('user')->findAll(
+            'blog_id = :blog_id', array(
+                ':blog_id' => $this->id
+            )
+        );
     }
 
     public function getImageUrl()
