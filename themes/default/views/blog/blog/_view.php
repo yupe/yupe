@@ -1,3 +1,15 @@
+<?php
+/**
+ * Отображение для blog/_view:
+ * 
+ *   @category YupeView
+ *   @package  YupeCMS
+ *   @author   Yupe Team <team@yupe.ru>
+ *   @license  https://github.com/yupe/yupe/blob/master/LICENSE BSD
+ *   @link     http://yupe.ru
+ **/
+ ?>
+
 <div class="view">
     <div class='blog-icon'>
         <?php
@@ -32,9 +44,11 @@
 
         <b><?php echo Yii::t('blog', 'Записей'); ?>:</b> <?php echo $data->postsCount; ?> | 
 
-        <?php if ($data->membersCount > 0) : ?>
-            <b><?php echo Yii::t('blog', 'Участников'); ?>:</b> <?php echo $data->membersCount; ?>
-         <?php endif; ?>
+        <?php
+        echo $data->membersCount > 0
+            ? '<b>' . Yii::t('blog', 'Участников') . ':</b> ' . $data->membersCount
+            : '';
+        ?>
 
         <br /><br />
 
