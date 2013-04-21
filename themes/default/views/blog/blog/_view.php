@@ -39,7 +39,7 @@
         <br /><br />
 
         <?php
-        echo Yii::app()->user->isAuthenticated()
+        echo Yii::app()->user->isAuthenticated() && $data->createUser->id != Yii::app()->user->id
             ? ($data->userInBlog() === false
                 ? CHtml::link(Yii::t('blog', 'Вступить в блог'), array('/blog/blog/join/', 'blogId' => $data->id))
                 : CHtml::link(Yii::t('blog', 'Покинуть в блог'), array('/blog/blog/unjoin/', 'blogId' => $data->id))

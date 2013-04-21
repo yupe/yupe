@@ -238,6 +238,14 @@ class Blog extends YModel
         return parent::beforeSave();
     }
 
+    public function afterSave()
+    {
+        if ($this->isNewRecord)
+            $this->join();
+
+        return parent::afterSave();
+    }
+
     public function afterDelete()
     {
         Comment::model()->deleteAll('model = :model AND model_id = :model_id',array(
@@ -294,7 +302,7 @@ class Blog extends YModel
             : false;
     }
 
-    public function join($userId)
+    public function join($userId = null)
     {
         $params = array(
             'user_id' => $userId ? $userId : Yii::app()->user->id,

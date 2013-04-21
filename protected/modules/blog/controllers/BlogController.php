@@ -92,7 +92,7 @@ class BlogController extends YFrontController
                     YFlashMessages::NOTICE_MESSAGE,
                     Yii::t('BlogModule.blog', 'Пожалуйста, авторизуйтесь!')
                 );
-                $this->redirect(array('/'));
+                $this->redirect(array('/blog/blog/index'));
             }
         }
 
@@ -161,7 +161,7 @@ class BlogController extends YFrontController
                     YFlashMessages::NOTICE_MESSAGE,
                     Yii::t('BlogModule.blog', 'Пожалуйста, авторизуйтесь!')
                 );
-                $this->redirect(array('/'));
+                $this->redirect(array('/blog/blog/index'));
             }
         }
 
@@ -173,6 +173,20 @@ class BlogController extends YFrontController
 
         if (($blog = Blog::model()->loadModel($blogId)) === null)
             $errorMessage = Yii::t('BlogModule.blog', 'Блог с id = {id} не найден!', array('{id}' => $blogId));
+        elseif ($blog->createUser->id == Yii::app()->user->id) {
+            if (Yii::app()->request->isAjaxRequest) {
+                Yii::app()->ajax->failure(
+                    Yii::t('BlogModule.blog', 'Вы являетесь создателем данного блога и не можете его покинуть.')
+                );
+            } else {
+                Yii::app()->user->setFlash(
+                    YFlashMessages::ERROR_MESSAGE,
+                    Yii::t('BlogModule.blog', 'Вы являетесь создателем данного блога и не можете его покинуть.')
+                );
+                $this->redirect(array('/blog/blog/index'));
+            }
+        }
+
 
         if ($errorMessage !== false) {
             if (Yii::app()->request->isAjaxRequest) {
