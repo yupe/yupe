@@ -273,7 +273,7 @@ class Post extends YModel
         $this->publish_date   = strtotime($this->publish_date_tmp . ' ' . $this->publish_time_tmp);
         $this->update_user_id = Yii::app()->user->id;
 
-        if ($this->isNewRecord){
+        if ($this->isNewRecord) {
             $this->create_user_id = $this->update_user_id;
             $this->create_user_ip = Yii::app()->request->userHostAddress;
         }
