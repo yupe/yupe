@@ -228,7 +228,7 @@ class BlogController extends YFrontController
                 if (Yii::app()->request->isAjaxRequest) {
                     Yii::app()->ajax->success(
                         array(
-                            'message' => Yii::t('BlogModule.blog', 'Вы присоединились к блогу!'),
+                            'message' => Yii::t('BlogModule.blog', 'Вы покинули блог!'),
                             'content' => $this->renderPartial('_view', array('data' => $blog), true),
                         )
                     );

@@ -29,16 +29,19 @@ $this->breadcrumbs = array(Yii::t('blog', 'Блоги'));
             if ((members = $('.members-' + blogId)).length > 0) {
                 members.remove();
                 return false;
-            }
+            } else
+                $(link).addClass('ajax-loading');
             $.ajax({
                 url: baseUrl + "/blog/blog/people",
                 data: ajaxToken + '&blogId=' +blogId,
                 dataType: 'json',
                 type: 'post',
                 success: function(data) {
+                    $(link).removeClass('ajax-loading');
                     $(link).after('<div class="members-' + blogId + ' ' + (data.result ? '' : 'error') + '">' + data.data + "</div>");
                 },
                 error: function(data) {
+                    $(link).removeClass('ajax-loading');
                     $(link).after('<div class="members-' + blogId + ' ' + (data.result ? '' : 'error') + '">' + data.data + "</div>");
                 }
             });
@@ -48,6 +51,7 @@ $this->breadcrumbs = array(Yii::t('blog', 'Блоги'));
             var blogId = parseInt($(this).attr('rel'));
             var url = $(this).attr('type');
             var link = this;
+            $(link).addClass('ajax-loading');
             $.ajax({
                 url: baseUrl + '/blog/blog/' + url + '/',
                 data: ajaxToken + '&blogId=' +blogId,
