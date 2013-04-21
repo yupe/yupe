@@ -66,10 +66,9 @@ $this->breadcrumbs = array(
                 type: 'post',
                 success: function(data){
                     if (data.result && data.data.content) {
-                        $('#comments').replaceWith(
-                            data.data.content
-                        ).before(
-                            "<div class='flash'><div class='flash-error'><b>" + data.data.message + "</b></div></div>"
+                        $('#comments').replaceWith(data.data.content);
+                        $('#comments').before(
+                            "<div class='flash'><div class='flash-success'><b>" + data.data.message + "</b></div></div>"
                         );
                     } else {
                         $('.comments').before("<div class='flash'><div class='flash-error'><b>" + data.data.message + "</b></div></div>");
@@ -77,6 +76,9 @@ $this->breadcrumbs = array(
                     link.removeClass('ajax-loading');
                 }
             });
+            setTimeout(function(){
+                $('.flash').remove();
+            }, 3000);
             return false;
         });
     });
