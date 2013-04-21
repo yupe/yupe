@@ -240,6 +240,10 @@ class Blog extends YModel
 
     public function afterSave()
     {
+        /**
+         * Если это новая запись - добавляем пользователя
+         * который создал блог в его участники
+         */
         if ($this->isNewRecord)
             $this->join();
 
