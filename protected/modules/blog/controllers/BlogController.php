@@ -59,20 +59,27 @@ class BlogController extends YFrontController
 
     /**
      * Показать участников блога
-     *
-     * @param string $slug - url блога
-     *
+     * 
      * @return void
      */
-    public function actionPeople($slug)
+    public function actionPeople()
     {
-        $blog = Blog::model()->published()->public()->find('slug = :slug', array(':slug' => $slug));
+        if (!Yii::app()->request->isPostRequest || !Yii::app()->request->isAjaxRequest)
+            throw new CHttpException(404, Yii::t('BlogModule.blog', 'Страница не найдена!'));
 
-        if (!$blog)
-            throw new CHttpException(404, Yii::t('BlogModule.blog', 'Блог "{blog}" не найден!', array('{blog}' => $slug)));
+        if (($blog = Blog::model()->loadModel(($blogId = Yii::app()->request->getPost('blogId')))) === null)
+            Yii::app()->ajax->failure(
+                Yii::t('BlogModule.blog', 'Блог #{blog} не найден!', array('{blog}' => $blogId))
+            );
 
-        // @TODO  Unused local variable $member
-        $members = UserToBlog::model()->findAll('blog_id = :blog_id', array(':blog_id' => $blog->id));
+        if (count($members = $blog->members) < 1)
+            Yii::app()->ajax->failure(
+                Yii::t('BlogModule.blog', 'В данном блоге ещё нет участников!')
+            );
+        else
+            Yii::app()->ajax->success(
+                $this->renderPartial('_people', array('members' => $members), true)
+            );
     }
 
     /**

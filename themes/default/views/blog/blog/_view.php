@@ -46,7 +46,7 @@
 
         <?php
         echo $data->membersCount > 0
-            ? '<b>' . Yii::t('blog', 'Участников') . ':</b> ' . $data->membersCount
+            ? '<b>' . Yii::t('blog', 'Участников') . ':</b> <a href="javascript:void(0);" class="get-members" rel="' . $data->id . '">' . $data->membersCount . '</a>'
             : '';
         ?>
 

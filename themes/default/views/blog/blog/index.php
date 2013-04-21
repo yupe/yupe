@@ -1,4 +1,13 @@
 <?php
+/**
+ * Отображение для blog/index:
+ * 
+ *   @category YupeView
+ *   @package  YupeCMS
+ *   @author   Yupe Team <team@yupe.ru>
+ *   @license  https://github.com/yupe/yupe/blob/master/LICENSE BSD
+ *   @link     http://yupe.ru
+ **/
 Yii::app()->user->isAuthenticated()
     ? Yii::app()->clientScript->registerScript(
         "ajaxBlogToken", "var ajaxToken = " . json_encode(
@@ -14,6 +23,26 @@ $this->breadcrumbs = array(Yii::t('blog', 'Блоги'));
 
 <script type="text/javascript">
     jQuery(document).ready(function($) {
+        $(document).on("click", 'a.get-members', function (event) {
+            var blogId = $(this).attr('rel');
+            var link = this;
+            if ((members = $('.members-' + blogId)).length > 0) {
+                members.remove();
+                return false;
+            }
+            $.ajax({
+                url: baseUrl + "/blog/blog/people",
+                data: ajaxToken + '&blogId=' +blogId,
+                dataType: 'json',
+                type: 'post',
+                success: function(data) {
+                    $(link).after('<div class="members-' + blogId + ' ' + (data.result ? '' : 'error') + '">' + data.data + "</div>");
+                },
+                error: function(data) {
+                    $(link).after('<div class="members-' + blogId + ' ' + (data.result ? '' : 'error') + '">' + data.data + "</div>");
+                }
+            });
+        });
         $(document).on("click", 'a.action-blog', function (event) {
             event.preventDefault();
             var blogId = parseInt($(this).attr('rel'));
@@ -25,7 +54,6 @@ $this->breadcrumbs = array(Yii::t('blog', 'Блоги'));
                 dataType: 'json',
                 type: 'post',
                 success: function(data) {
-                    console.log(data);
                     if (typeof data.data != 'undefined') {
                         var type = data.result ? 'success' : 'error';
                         var message = data.result ? data.data.message : data.data;

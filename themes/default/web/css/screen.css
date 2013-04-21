@@ -1002,3 +1002,12 @@ hr.space {
 .container .span-19 {
     margin-left: 0;
 }
+
+.container .container [class*="members-"] a {
+    font-style: italic;
+    color: green;
+}
+
+[class*="members-"].error {
+    color: red;
+}
