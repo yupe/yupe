@@ -3,9 +3,13 @@ class PostController extends YFrontController
 {
     public function actionShow($slug)
     {
-        $post = Post::model()->with('blog','createUser','comments.author')->find('t.slug = :slug', array(
-            ':slug' => $slug
-        ));
+        $post = Post::model()->with(
+            'blog', 'createUser', 'comments.author'
+        )->find(
+            't.slug = :slug', array(
+                ':slug' => $slug
+            )
+        );
 
         if (null === $post)
             throw new CHttpException(404, Yii::t('BlogModule.blog', 'Запись не найдена!'));
@@ -22,9 +26,11 @@ class PostController extends YFrontController
             'createUser'
         )->published()->public()->taggedWith($tag)->findAll();
 
-        $this->render('list', array(
+        $this->render(
+            'list', array(
                 'posts' => $posts,
                 'tag'   => $tag,
-            ));
+            )
+        );
     }
 }
