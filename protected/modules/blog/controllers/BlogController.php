@@ -30,48 +30,23 @@ class BlogController extends YFrontController
      */
     public function actionShow($slug = null)
     {
-        if ($slug !== null && ($blogID = Yii::app()->request->getPost('blogID')) == null) {
-            $blog = Blog::model()->showByUrl($slug)->with(
-                array(
-                    'createUser',
-                    'postsCount',
-                    'membersCount',
-                    'members',
-                    'posts' => array(
-                        'scopes' => array(
-                            'limit' => 5,
-                            'sortByPubDate' => 'DESC'
-                        )
+        $blog = Blog::model()->showByUrl($slug)->with(
+            array(
+                'createUser',
+                'postsCount',
+                'membersCount',
+                'members',
+                'posts' => array(
+                    'scopes' => array(
+                        'limit' => 5,
+                        'sortByPubDate' => 'DESC'
                     )
                 )
-            )->find();
-
-            if ($blog === null)
-                throw new CHttpException(404, Yii::t('BlogModule.blog', 'Блог "{blog}" не найден!', array('{blog}' => $slug)));
-        } else {
-            if (!Yii::app()->request->isPostRequest
-                || !Yii::app()->request->isAjaxRequest
-                || ($blog = Blog::model()->with(
-                    array(
-                        'createUser',
-                        'postsCount',
-                        'membersCount',
-                        'members',
-                        'posts' => array(
-                            'scopes' => array(
-                                'limit' => 5,
-                                'sortByPubDate' => 'DESC'
-                            )
-                        )
-                    )
-                )->findByPk($blogID)) == null
             )
-                throw new CHttpException(404, Yii::t('BlogModule.blog', 'Страница не найдена!'));
+        )->find();
 
-            Yii::app()->ajax->success(
-                $this->renderPartial('_post_list', array('posts' => $blog->posts), true)
-            );
-        }
+        if ($blog === null)
+           throw new CHttpException(404, Yii::t('BlogModule.blog', 'Блог "{blog}" не найден!', array('{blog}' => $slug)));
 
         $this->render(
             'show', array(
@@ -79,6 +54,44 @@ class BlogController extends YFrontController
                 'posts'   => $blog->posts,
                 'members' => $blog->members,
             )
+        );
+    }
+
+    /**
+     * метод для ajax-запроса на получение последних
+     * постов блога:
+     *
+     * @return void
+     **/
+    public function actionLastpostsofblog()
+    {
+        /**
+         * Проверяем следующее:
+         * - является ли запрос POST-запросом
+         * - является ли запрос AJAX-запросом
+         * - передан ли параметр blogID
+         * - существует ли такой блог (выбираем нужуное)
+         *
+         * При любом из несоответствий - ошибка:
+         */
+        if (!Yii::app()->request->isPostRequest
+            || !Yii::app()->request->isAjaxRequest
+            || ($blogID = Yii::app()->request->getPost('blogID')) == null
+            || ($blog = Blog::model()->with(
+                array(
+                    'posts' => array(
+                        'scopes' => array(
+                            'limit'         => 5,
+                            'sortByPubDate' => 'DESC'
+                        )
+                    )
+                )
+            )->findByPk($blogID)) == null
+        )
+            throw new CHttpException(404, Yii::t('BlogModule.blog', 'Страница не найдена!'));
+
+        Yii::app()->ajax->success(
+            $this->renderPartial('_post_list', array('posts' => $blog->posts), true)
         );
     }
 
