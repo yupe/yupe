@@ -107,6 +107,26 @@ class Blog extends YModel
     }
 
     /**
+     * Условие для получения блога по url
+     * 
+     * @param string $url - url данного блога
+     * 
+     * @return self
+     */
+    public function showByUrl($url = null)
+    {
+        $this->getDbCriteria()->mergeWith(
+            array(
+                'condition' => $this->getTableAlias() . '.slug = :slug',
+                'params' => array(
+                    ':slug' => $url,
+                ),
+            )
+        );
+        return $this;
+    }
+
+    /**
      * @return array customized attribute labels (name=>label)
      */
     public function attributeLabels()
@@ -218,12 +238,26 @@ class Blog extends YModel
         return parent::beforeSave();
     }
 
+    public function afterSave()
+    {
+        /**
+         * Если это новая запись - добавляем пользователя
+         * который создал блог в его участники
+         */
+        if ($this->isNewRecord)
+            $this->join();
+
+        return parent::afterSave();
+    }
+
     public function afterDelete()
     {
-        Comment::model()->deleteAll('model = :model AND model_id = :model_id',array(
-            ':model' => 'Blog',
-            ':model_id' => $this->id
-        ));
+        Comment::model()->deleteAll(
+            'model = :model AND model_id = :model_id', array(
+                ':model' => 'Blog',
+                ':model_id' => $this->id
+            )
+        );
 
         return parent::afterDelete();
     }
@@ -257,7 +291,24 @@ class Blog extends YModel
         return isset($data[$this->type]) ? $data[$this->type] : Yii::t('BlogModule.blog', '*неизвестно*');
     }
 
-    public function join($userId)
+    public function userInBlog($userId = null)
+    {
+        if (!Yii::app()->user->isAuthenticated())
+            return false;
+
+        $params = array(
+            'user_id' => $userId !== null
+                ? $userId
+                : Yii::app()->user->id,
+            'blog_id' => $this->id,
+        );
+
+        return ($userToBlog = UserToBlog::model()->find('user_id = :user_id AND blog_id = :blog_id', $params)) !== null
+            ? $userToBlog
+            : false;
+    }
+
+    public function join($userId = null)
     {
         $params = array(
             'user_id' => $userId ? $userId : Yii::app()->user->id,
@@ -266,7 +317,7 @@ class Blog extends YModel
 
         $userToBlog = new UserToBlog;
 
-        if (!$userToBlog->find('user_id = :user_id AND blog_id = :blog_id', $params)){
+        if (!$userToBlog->find('user_id = :user_id AND blog_id = :blog_id', $params)) {
             $userToBlog->setAttributes($params);
             return $userToBlog->save();
         }
@@ -276,9 +327,11 @@ class Blog extends YModel
 
     public function getMembers()
     {
-        return UserToBlog::model()->with('user')->findAll('blog_id = :blog_id', array(
-            ':blog_id' => $this->id
-        ));
+        return UserToBlog::model()->with('user')->findAll(
+            'blog_id = :blog_id', array(
+                ':blog_id' => $this->id
+            )
+        );
     }
 
     public function getImageUrl()

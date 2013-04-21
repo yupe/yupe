@@ -4,16 +4,24 @@ class PostAdminController extends YBackController
 {
     /**
      * Отображает запись по указанному идентификатору
+     * 
      * @param integer $id Идинтификатор запись для отображения
+     *
+     * @return void
      */
     public function actionView($id)
     {
-        $this->render('view', array('model' => $this->loadModel($id)));
+        if (($post = Post::model()->loadModel($id)) === null)
+            throw new CHttpException(404, Yii::t('BlogModule.blog', 'Запрошенная страница не найдена!'));
+
+        $this->render('view', array('model' => $post));
     }
 
     /**
      * Создает новую модель записи.
      * Если создание прошло успешно - перенаправляет на просмотр.
+     *
+     * @return void
      */
     public function actionCreate()
     {
@@ -55,11 +63,15 @@ class PostAdminController extends YBackController
 
     /**
      * Редактирование записи.
+     * 
      * @param integer $id the ID of the model to be updated
+     *
+     * @return void
      */
     public function actionUpdate($id)
     {
-        $model = $this->loadModel($id);
+        if (($model = Post::model()->loadModel($id)) === null)
+            throw new CHttpException(404, Yii::t('BlogModule.blog', 'Запрошенная страница не найдена!'));
 
         if (Yii::app()->request->isPostRequest && Yii::app()->request->getPost('Post')) {
             $model->setAttributes(
@@ -91,13 +103,20 @@ class PostAdminController extends YBackController
     /**
      * Удаляет модель записи из базы.
      * Если удаление прошло успешно - возвращется в index
+     * 
      * @param integer $id идентификатор записи, который нужно удалить
+     *
+     * @return void
      */
     public function actionDelete($id)
     {
         if (Yii::app()->request->isPostRequest) {
             // поддерживаем удаление только из POST-запроса
-            $this->loadModel($id)->delete();
+            
+            if (($post = Post::model()->loadModel($id)) === null)
+                throw new CHttpException(404, Yii::t('BlogModule.blog', 'Запрошенная страница не найдена!'));
+            else
+                $post->delete();
 
             Yii::app()->user->setFlash(
                 YFlashMessages::NOTICE_MESSAGE,
@@ -117,6 +136,8 @@ class PostAdminController extends YBackController
 
     /**
      * Управление записями.
+     *
+     * @return void
      */
     public function actionIndex()
     {
@@ -130,21 +151,11 @@ class PostAdminController extends YBackController
     }
 
     /**
-     * Возвращает модель по указанному идентификатору
-     * Если модель не будет найдена - возникнет HTTP-исключение.
-     * @param integer идентификатор нужной модели
-     */
-    public function loadModel($id)
-    {
-        $model = Post::model()->findByPk($id);
-        if ($model === null)
-            throw new CHttpException(404, Yii::t('BlogModule.blog', 'Запрошенная страница не найдена!'));
-        return $model;
-    }
-
-    /**
      * Производит AJAX-валидацию
-     * @param CModel модель, которую необходимо валидировать
+     * 
+     * @param CModel $model - модель, которую необходимо валидировать
+     *
+     * @return void
      */
     protected function performAjaxValidation($model)
     {
