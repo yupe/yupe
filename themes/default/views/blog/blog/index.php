@@ -3,13 +3,6 @@ Yii::app()->user->isAuthenticated()
     ? Yii::app()->clientScript->registerScript(
         "ajaxBlogToken", "var ajaxToken = " . json_encode(
             Yii::app()->request->csrfTokenName . '=' . Yii::app()->request->csrfToken
-        ) . ";
-        var blogLinks = "
-        . json_encode(
-            array(
-                'unjoin' => Yii::t('blog', 'Вступить в блог'),
-                'join' => Yii::t('blog', 'Покинуть в блог'),
-            )
         ) . ";", CClientScript::POS_BEGIN
     )
     : '';
@@ -57,7 +50,7 @@ $this->breadcrumbs = array(Yii::t('blog', 'Блоги'));
                 }
             });
             setTimeout(function(){
-                $('.flash').slideUp().remove();
+                $('.flash').remove();
             }, 3000);
         });
     });
