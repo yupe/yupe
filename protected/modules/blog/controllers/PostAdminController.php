@@ -11,7 +11,10 @@ class PostAdminController extends YBackController
      */
     public function actionView($id)
     {
-        $this->render('view', array('model' => $this->loadModel($id)));
+        if (($post = Post::model()->loadModel($id)) === null)
+            throw new CHttpException(404, Yii::t('BlogModule.blog', 'Запрошенная страница не найдена!'));
+
+        $this->render('view', array('model' => $post));
     }
 
     /**
@@ -67,7 +70,8 @@ class PostAdminController extends YBackController
      */
     public function actionUpdate($id)
     {
-        $model = $this->loadModel($id);
+        if (($model = Post::model()->loadModel($id)) === null)
+            throw new CHttpException(404, Yii::t('BlogModule.blog', 'Запрошенная страница не найдена!'));
 
         if (Yii::app()->request->isPostRequest && Yii::app()->request->getPost('Post')) {
             $model->setAttributes(
@@ -108,7 +112,11 @@ class PostAdminController extends YBackController
     {
         if (Yii::app()->request->isPostRequest) {
             // поддерживаем удаление только из POST-запроса
-            $this->loadModel($id)->delete();
+            
+            if (($post = Post::model()->loadModel($id)) === null)
+                throw new CHttpException(404, Yii::t('BlogModule.blog', 'Запрошенная страница не найдена!'));
+            else
+                $post->delete();
 
             Yii::app()->user->setFlash(
                 YFlashMessages::NOTICE_MESSAGE,
@@ -140,22 +148,6 @@ class PostAdminController extends YBackController
                 Yii::app()->request->getPost('Post')
             );
         $this->render('index', array('model' => $model));
-    }
-
-    /**
-     * Возвращает модель по указанному идентификатору
-     * Если модель не будет найдена - возникнет HTTP-исключение.
-     * 
-     * @param integer $id - идентификатор нужной модели
-     *
-     * @return void
-     */
-    public function loadModel($id)
-    {
-        $model = Post::model()->findByPk($id);
-        if ($model === null)
-            throw new CHttpException(404, Yii::t('BlogModule.blog', 'Запрошенная страница не найдена!'));
-        return $model;
     }
 
     /**
