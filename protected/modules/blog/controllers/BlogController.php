@@ -129,9 +129,6 @@ class BlogController extends YFrontController
      */
     public function actionJoin($blogId = null)
     {
-        if ($blogId === null && Yii::app()->request->isPostRequest && Yii::app()->request->isAjaxRequest)
-            $blogId = Yii::app()->request->getPost('blogId');
-
         if (!Yii::app()->user->isAuthenticated()) {
             if (Yii::app()->request->isAjaxRequest) {
                 Yii::app()->ajax->failure(Yii::t('BlogModule.blog', 'Пожалуйста, авторизуйтесь!'));
@@ -143,6 +140,9 @@ class BlogController extends YFrontController
                 $this->redirect(array('/blog/blog/index'));
             }
         }
+
+        if ($blogId === null && Yii::app()->request->isPostRequest && Yii::app()->request->isAjaxRequest)
+            $blogId = Yii::app()->request->getPost('blogId');
 
         $errorMessage = false;
 
@@ -210,9 +210,6 @@ class BlogController extends YFrontController
      */
     public function actionUnjoin($blogId = null)
     {
-        if ($blogId === null && Yii::app()->request->isPostRequest && Yii::app()->request->isAjaxRequest)
-            $blogId = Yii::app()->request->getPost('blogId');
-
         if (!Yii::app()->user->isAuthenticated()) {
             if (Yii::app()->request->isAjaxRequest) {
                 Yii::app()->ajax->failure(Yii::t('BlogModule.blog', 'Пожалуйста, авторизуйтесь!'));
@@ -224,6 +221,9 @@ class BlogController extends YFrontController
                 $this->redirect(array('/blog/blog/index'));
             }
         }
+
+        if ($blogId === null && Yii::app()->request->isPostRequest && Yii::app()->request->isAjaxRequest)
+            $blogId = Yii::app()->request->getPost('blogId');
 
         $errorMessage = false;
 
