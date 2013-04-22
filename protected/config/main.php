@@ -45,6 +45,8 @@ if (!empty($files)) {
             $config['preload']    = CMap::mergeArray($config['preload'], $moduleConfig['preload']);
         if (!empty($moduleConfig['module']))
             $config['modules']    = CMap::mergeArray($config['modules'], array($name => $moduleConfig['module']));
+        if (!empty($moduleConfig['cache']))
+            $config['cache']      = CMap::mergeArray($config['cache'], $moduleConfig['cache']);
     }
 }
 
