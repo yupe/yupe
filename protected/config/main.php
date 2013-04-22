@@ -16,7 +16,7 @@ $config = array(
     'components'   => array(),
     'preload'      => array(),
     'modules'      => array('install' => array('class' => 'application.modules.install.InstallModule')),
-    'cache'        => array('class' => 'CFileCache'),
+    'cache'        => array(),
     'enableAssets' => false,
 );
 
