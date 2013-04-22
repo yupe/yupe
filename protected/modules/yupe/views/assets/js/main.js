@@ -33,6 +33,32 @@ jQuery(document).ready(function($){
         }
         return false;
     });
+
+    /**
+     * Ajax-перехватчик для повторной отправки письма активации:
+     */
+    $(document).on('click', '.user.sendactivation', function(){
+        var link = $(this);
+        $.ajax({
+            url: link.attr('href'),
+            data: actionToken.token,
+            dataType: 'json',
+            type: 'post',
+            success: function(data) {
+                if (typeof data.data != 'undefined' && typeof data.result != 'undefined')
+                    bootbox.alert(data.data);
+                else
+                    bootbox.alert(actionToken.error);
+            },
+            error: function(data) {
+                if (typeof data.data != 'undefined' && typeof data.result != 'undefined')
+                    bootbox.alert(data.data);
+                else
+                    bootbox.alert(actionToken.error);
+            }
+        });
+        return false;
+    });
 });
 
 function ajaxSetStatus(elem, id) {
