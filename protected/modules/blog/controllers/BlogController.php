@@ -50,15 +50,6 @@ class BlogController extends YFrontController
      **/
     public function actionLastpostsofblog()
     {
-        /**
-         * Проверяем следующее:
-         * - является ли запрос POST-запросом
-         * - является ли запрос AJAX-запросом
-         * - передан ли параметр blogID
-         * - существует ли такой блог (выбираем нужуное)
-         *
-         * При любом из несоответствий - ошибка:
-         */
         if (!Yii::app()->request->isPostRequest
             || !Yii::app()->request->isAjaxRequest
             || ($blogID = Yii::app()->request->getPost('blogID')) == null
