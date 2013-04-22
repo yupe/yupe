@@ -54,7 +54,13 @@ $this->renderPartial('_search', array('model' => $model));
     'dataProvider' => $model->search(),
     'filter'       => $model,
     'columns'      => array(
-        'id',
+        array(
+            'name'        => 'id',
+            'value'       => '$data->id',
+            'htmlOptions' => array(
+                'style'   => 'width: 40px; text-align: center'
+            )
+        ),
         array(
             'name'  => 'nick_name',
             'type'  => 'raw',
@@ -78,14 +84,26 @@ $this->renderPartial('_search', array('model' => $model));
         ),
         array(
             'class'    => 'bootstrap.widgets.TbButtonColumn',
-            'template' => '{view}{update}{password}{delete}',
+            'template' => '{view}{update}{password}{sendactivation}{delete}',
             'buttons'  => array(
                 'password' => array(
                     'icon'     => 'lock',
                     'label'    => Yii::t('UserModule.user', 'Изменить пароль'),
                     'url'      => 'array("/user/default/changepassword", "id" => $data->id)',
                 ),
+                'sendactivation' => array(
+                    'label'   => Yii::t('UserModule.user', 'Отправить подтверждение активации'),
+                    'url'     => 'array("/user/default/sendactivation", "id" => $data->id)',
+                    'icon'    => 'repeat',
+                    'visible' => '$data->needActivation()',
+                    'options'  => array(
+                        'class' => 'user sendactivation'
+                    )
+                ),
             ),
+            'htmlOptions' => array(
+                'style'   => 'width: 80px; text-align: right;'
+            )
         ),
     ),
 )); ?>

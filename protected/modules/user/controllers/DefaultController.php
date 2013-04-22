@@ -134,6 +134,48 @@ class DefaultController extends YBackController
     }
 
     /**
+     * Для отправки письма с активацией:
+     *
+     * @return void
+     */
+    public function actionSendactivation($id)
+    {
+        if (($user = User::model()->findbyPk($id)) === null) {
+            if (!Yii::app()->request->isPostRequest || !Yii::app()->request->isAjaxRequest) {
+                Yii::app()->user->setFlash(
+                    YFlashMessages::ERROR_MESSAGE,
+                    Yii::t('UserModule.user', 'Пользователь #{id} не найден!', array('{id}' => $id))
+                );
+                $this->redirect(array('index'));
+            } else
+                Yii::app()->ajax->failure(
+                    Yii::t('UserModule.user', 'Пользователь #{id} не найден!', array('{id}' => $id))
+                );
+        }
+
+        // отправка email с просьбой активировать аккаунт
+        $mailBody = $this->renderPartial('needAccountActivationEmail', array('model' => $user), true);
+        
+        Yii::app()->mail->send(
+            $this->module->notifyEmailFrom,
+            $user->email,
+            Yii::t('UserModule.user', 'Регистрация на сайте {site} !', array('{site}' => Yii::app()->name)),
+            $mailBody
+        );
+
+        if (!Yii::app()->request->isPostRequest || !Yii::app()->request->isAjaxRequest) {
+            Yii::app()->user->setFlash(
+                YFlashMessages::NOTICE_MESSAGE,
+                Yii::t('UserModule.user', 'Письмо с активацией отправлено пользователю #{id}!', array('{id}' => $id))
+            );
+            $this->redirect(array('index'));
+        } else
+            Yii::app()->ajax->failure(
+                Yii::t('UserModule.user', 'Письмо с активацией отправлено пользователю #{id}!', array('{id}' => $id))
+            );
+    }
+
+    /**
      * Returns the data model based on the primary key given in the GET variable.
      * If the data model is not found, an HTTP exception will be raised.
      * @return User

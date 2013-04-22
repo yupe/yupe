@@ -415,4 +415,11 @@ class User extends YModel
         $this->email_confirm    = self::EMAIL_CONFIRM_YES;
         return $this->save();
     }
+
+    public function needActivation()
+    {
+        return $this->status == User::STATUS_NOT_ACTIVE
+            ? true
+            : false;
+    }
 }
