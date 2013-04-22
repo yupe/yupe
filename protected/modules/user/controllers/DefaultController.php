@@ -170,7 +170,7 @@ class DefaultController extends YBackController
             );
             $this->redirect(array('index'));
         } else
-            Yii::app()->ajax->failure(
+            Yii::app()->ajax->success(
                 Yii::t('UserModule.user', 'Письмо с активацией отправлено пользователю #{id}!', array('{id}' => $id))
             );
     }
