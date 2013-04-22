@@ -286,6 +286,22 @@ class DocsModule extends YWebModule
                         'url'   => array('/docs/show/index', 'file' => 'atomfeed', 'moduleID' => 'yupe'),
                         'icon'  => 'file',
                     ),
+                    array(
+                        'label' => Yii::t('DocsModule.docs', 'Curl "обёртка" для Yii framework'),
+                        'url'   => array('/docs/show/index', 'file' => 'curl.wrapper', 'moduleID' => 'yupe'),
+                        'icon'  => 'file',
+                    ),
+                )
+            ),
+            array(
+                'label' => Yii::t('DocsModule.docs', 'IDE/Редакторы'),
+                'icon'  => 'th-large white',
+                'items' => array(
+                    array(
+                        'label' => Yii::t('DocsModule.docs', 'Работа с eclipse'),
+                        'url'   => array('/docs/show/index', 'file' => 'editors.eclipse'),
+                        'icon'  => 'file',
+                    ),
                 )
             ),
         );
@@ -317,6 +333,11 @@ class DocsModule extends YWebModule
             array(
                 'label' => Yii::t('DocsModule.docs', 'Генерация Feed-ленты'),
                 'url'   => array('/docs/show/index', 'file' => 'atomfeed', 'moduleID' => 'yupe'),
+                'icon'  => 'file',
+            ),
+            array(
+                'label' => Yii::t('DocsModule.docs', 'Curl "обёртка" для Yii framework'),
+                'url'   => array('/docs/show/index', 'file' => 'curl.wrapper', 'moduleID' => 'yupe'),
                 'icon'  => 'file',
             ),
             '',

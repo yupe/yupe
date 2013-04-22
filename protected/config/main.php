@@ -16,7 +16,7 @@ $config = array(
     'components'   => array(),
     'preload'      => array(),
     'modules'      => array('install' => array('class' => 'application.modules.install.InstallModule')),
-    'cache'        => array('class' => 'CFileCache'),
+    'cache'        => array(),
     'enableAssets' => false,
 );
 
@@ -45,6 +45,8 @@ if (!empty($files)) {
             $config['preload']    = CMap::mergeArray($config['preload'], $moduleConfig['preload']);
         if (!empty($moduleConfig['module']))
             $config['modules']    = CMap::mergeArray($config['modules'], array($name => $moduleConfig['module']));
+        if (!empty($moduleConfig['cache']))
+            $config['cache']      = CMap::mergeArray($config['cache'], $moduleConfig['cache']);
     }
 }
 
@@ -153,7 +155,7 @@ return array(
             // настройки кэширования, подробнее http://www.yiiframework.ru/doc/guide/ru/caching.overview
             'cache' => CMap::mergeArray(
                 array(
-                    'class' => 'CFileCache',
+                    'class' => 'CDummyCache',
                 ), $config['cache']
             ),
             // параметры логирования, подробнее http://www.yiiframework.ru/doc/guide/ru/topics.logging

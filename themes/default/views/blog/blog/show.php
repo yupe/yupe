@@ -38,25 +38,8 @@ $this->breadcrumbs = array(
     </div>
 </div>
 
-<?php if(!empty($member)):?>
-    <p><?php echo Yii::t('blog', 'Участники'); ?>:</p>
-    <?php  foreach ($members as $member): ?>
-       <?php CHtml::link($member->nick_name, array('/user/people/userInfo/', 'username' => $member->nick_name));?>
-    <?php endforeach;?>
-    <br /><br />
-<?php endif;?>
-
-<?php if (count($posts)): ?>
-    <p><?php echo Yii::t('blog', 'Последние записи'); ?>:</p>
-    <ul>
-        <?php foreach ($posts as $post): ?>
-            <li>
-                <?php echo CHtml::link($post->title, array('/blog/post/show/', 'slug' => $post->slug)); ?> 
-                - <?php echo Yii::app()->getDateFormatter()->formatDateTime($post->publish_date, "short", null); ?>
-            </li>
-        <?php endforeach;?>
-    </ul>
-<?php endif; ?>
+<?php $this->widget('blog.widgets.MembersOfBlogWidget', array('blogID' => $blog->id)); ?>
+<?php $this->widget('blog.widgets.LastPostsOfBlogWidget', array('blogID' => $blog->id)); ?>
 
 <script type="text/javascript">(function() {
         if(window.pluso) if(typeof window.pluso.start == "function") return;

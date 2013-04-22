@@ -11,7 +11,10 @@ class BlogAdminController extends YBackController
      **/
     public function actionView($id)
     {
-        $this->render('view', array('model' => $this->loadModel($id)));
+        if (($model = Blog::model()->loadModel($id)) !== null)
+            $this->render('view', array('model' => $model));
+        else
+            throw new CHttpException(404, Yii::t('BlogModule.blog', 'Запрошенная страница не найдена!'));
     }
 
     /**
@@ -57,7 +60,8 @@ class BlogAdminController extends YBackController
      **/
     public function actionUpdate($id)
     {
-        $model = $this->loadModel($id);
+        if (($model = Blog::model()->loadModel($id)) === null)
+            throw new CHttpException(404, Yii::t('BlogModule.blog', 'Запрошенная страница не найдена!'));
 
         // Uncomment the following line if AJAX validation is needed
         // $this->performAjaxValidation($model);
@@ -86,15 +90,19 @@ class BlogAdminController extends YBackController
      * Удаляет модель блога из базы.
      * Если удаление прошло успешно - возвращется в index
      *
-     * @param integer $id          идентификатор блога, который нужно удалить     
+     * @param integer $id - идентификатор блога, который нужно удалить     
      *
      * @return nothing
      **/
     public function actionDelete($id)
     {
         if (Yii::app()->request->isPostRequest) {
+            
             // поддерживаем удаление только из POST-запроса
-            $this->loadModel($id)->delete();
+            if (($model = Blog::model()->loadModel($id)) === null)
+                throw new CHttpException(404, Yii::t('BlogModule.blog', 'Запрошенная страница не найдена!'));
+            
+            $model->delete();
 
             Yii::app()->user->setFlash(
                 YFlashMessages::NOTICE_MESSAGE,
@@ -120,23 +128,6 @@ class BlogAdminController extends YBackController
         if (Yii::app()->request->getParam('Blog') !== null)
             $model->setAttributes(Yii::app()->request->getParam('Blog'));
         $this->render('index', array('model' => $model));
-    }
-
-    
-    /**
-     * Возвращает модель по указанному идентификатору
-     * Если модель не будет найдена - возникнет HTTP-исключение.
-     *
-     * @param integer $id - идентификатор нужной модели
-     *
-     * @return BlogModel
-     **/
-    public function loadModel($id)
-    {
-        $model = Blog::model()->with('postsCount', 'membersCount')->findByPk((int) $id);
-        if ($model === null)
-            throw new CHttpException(404, Yii::t('BlogModule.blog', 'Запрошенная страница не найдена!'));
-        return $model;
     }
 
     /**

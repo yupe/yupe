@@ -129,6 +129,40 @@ class Post extends YModel
     }
 
     /**
+     * Условие для получения определённого количества записей:
+     * 
+     * @param integer $count - количество записей
+     * 
+     * @return self
+     */
+    public function limit($count = null)
+    {
+        $this->getDbCriteria()->mergeWith(
+            array(
+                'limit' => $count,
+            )
+        );
+        return $this;
+    }
+
+    /**
+     * Условие для сортировки по дате
+     *
+     * @param string $typeSort - типо сортировки
+     *
+     * @return self
+     **/
+    public function sortByPubDate($typeSort = 'ASC')
+    {
+        $this->getDbCriteria()->mergeWith(
+            array(
+                'order' => $this->getTableAlias() . '.publish_date ' . $typeSort,
+            )
+        );
+        return $this;
+    }
+
+    /**
      * @return array customized attribute labels (name=>label)
      */
     public function attributeLabels()
@@ -239,7 +273,7 @@ class Post extends YModel
         $this->publish_date   = strtotime($this->publish_date_tmp . ' ' . $this->publish_time_tmp);
         $this->update_user_id = Yii::app()->user->id;
 
-        if ($this->isNewRecord){
+        if ($this->isNewRecord) {
             $this->create_user_id = $this->update_user_id;
             $this->create_user_ip = Yii::app()->request->userHostAddress;
         }
@@ -249,10 +283,12 @@ class Post extends YModel
 
     public function afterDelete()
     {
-        Comment::model()->deleteAll('model = :model AND model_id = :model_id',array(
-            ':model' => 'Post',
-            ':model_id' => $this->id
-        ));
+        Comment::model()->deleteAll(
+            'model = :model AND model_id = :model_id', array(
+                ':model' => 'Post',
+                ':model_id' => $this->id
+            )
+        );
 
         return parent::afterDelete();
     }
