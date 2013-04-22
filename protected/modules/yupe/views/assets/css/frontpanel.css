@@ -3,8 +3,16 @@
     font-size: 13px;
 }
 
+.navbar li {
+    line-height: 20px;
+}
+
 .navbar .nav > li > a {
     padding: 10px 8px;
+}
+
+.navbar .brand img {
+    margin-top: 1px;
 }
 
 .navbar-fixed-top {
