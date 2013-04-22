@@ -153,7 +153,7 @@ return array(
             // настройки кэширования, подробнее http://www.yiiframework.ru/doc/guide/ru/caching.overview
             'cache' => CMap::mergeArray(
                 array(
-                    'class' => 'CFileCache',
+                    'class' => 'CDummyCache',
                 ), $config['cache']
             ),
             // параметры логирования, подробнее http://www.yiiframework.ru/doc/guide/ru/topics.logging
