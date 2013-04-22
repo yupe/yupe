@@ -46,15 +46,15 @@ jQuery(document).ready(function($){
             type: 'post',
             success: function(data) {
                 if (typeof data.data != 'undefined' && typeof data.result != 'undefined')
-                    bootbox.alert(data.data);
+                    bootbox.alert('<i class=" icon-' + (data.result ? 'ok' : 'remove') + '-sign"></i> ' + data.data);
                 else
-                    bootbox.alert(actionToken.error);
+                    bootbox.alert('<i class="icon-remove-sign"></i> ' + actionToken.error);
             },
             error: function(data) {
                 if (typeof data.data != 'undefined' && typeof data.result != 'undefined')
-                    bootbox.alert(data.data);
+                    bootbox.alert('<i class=" icon-' + (data.result ? 'ok' : 'remove') + '-sign"></i> ' + data.data);
                 else
-                    bootbox.alert(actionToken.error);
+                    bootbox.alert('<i class="icon-remove-sign"></i> ' + actionToken.error);
             }
         });
         return false;
