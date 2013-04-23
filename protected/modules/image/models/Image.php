@@ -196,16 +196,36 @@ class Image extends YModel
         return ($this->category === null) ? '---' : $this->category->name;
     }
 
-    public function getUrl()
+    /**
+     * Получаем URL к файлу:
+     * 
+     * @param int $width  - параметр ширины для изображения
+     * @param int $height - параметр высоты для изображения
+     * 
+     * @return string URL к файлу
+     */
+    public function getUrl($width = 0, $height = 0)
     {
-        if($this->_url){
+        if ($this->_url)
             return $this->_url.'/'.$this->file;
-        }
+        $yupe = Yii::app()->getModule('yupe');
+        $image = Yii::app()->getModule('image');
 
-        $this->_url = Yii::app()->baseUrl . '/' .
-                Yii::app()->getModule('yupe')->uploadPath . '/' .
-                Yii::app()->getModule('image')->uploadPath . '/';
+        $this->_url = Yii::app()->baseUrl . '/' . $yupe->uploadPath . '/' . Yii::app()->getModule('image')->uploadPath . '/';
 
-        return $this->_url.'/'.$this->file;
+        if ($width > 0 || $height > 0) {
+            $ext = pathinfo($this->file, PATHINFO_EXTENSION);
+            $hash = md5($this->file . $width . 'x' . $height) . '.' . $ext;
+            if (($file = Yii::app()->cache->get($hash)) === false) {
+                $thumb = Yii::app()->thumbs->create($image->getUploadPath() . $this->file);
+                $thumb->resize($width, $height);
+                $file = md5($hash . microtime(true)) . '.' . $ext;
+                $thumb->save($image->getUploadPath() . $file);
+                Yii::app()->cache->set($hash, $file, 0, new CFileCacheDependency($image->getUploadPath() . $file));
+            }
+        } else
+            $file = $this->file;
+
+        return $this->_url . $file;
     }
 }
