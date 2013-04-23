@@ -27,6 +27,16 @@
         <?php echo $form->error($model, 'alt'); ?>
     </div>
 
+    <?php if ($model->file !== null) : ?>
+    
+    <div class="row">
+        <?php
+        echo CHtml::image(
+            $model->getUrl(190), $model->alt
+        ); ?>
+    </div>
+    <?php endif; ?>
+
     <div class="row">
         <?php echo $form->labelEx($model, 'file'); ?>
         <?php echo $form->fileField($model, 'file', array('size' => 40, 'maxlength' => 500)); ?>
@@ -34,7 +44,12 @@
     </div>
 
     <div class="row buttons">
-        <?php echo CHtml::submitButton(Yii::t('image', 'Добавить изображение')); ?>
+        <?php
+        echo CHtml::submitButton(
+            $model->file !== null
+            ? Yii::t('image', 'Сохранить изображение')
+            : Yii::t('image', 'Добавить изображение')
+        ); ?>
     </div>
 
     <?php $this->endWidget(); ?>

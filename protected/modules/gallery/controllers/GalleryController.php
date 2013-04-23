@@ -69,4 +69,97 @@ class GalleryController extends YFrontController
             throw new CHttpException(404, Yii::t('GalleryModule.gallery', 'Страница не найдена!'));
         $this->render('foto', array('model' => $model));
     }
+
+    /**
+     * Ajax/Get-обёртка для удаления изображения:
+     *
+     * @param int $id - id-изображения
+     *
+     * @return void
+     **/
+    public function actionDeleteImage($id = null)
+    {
+        if (($image = Image::model()->findByPk($id)) === null || $image->canChange() === false)
+            throw new CHttpException(404, Yii::t('GalleryModule.gallery', 'Страница не найдена!'));
+
+        $message = Yii::t(
+            'GalleryModule.gallery', 'Изображение #{id} {result} удалено!', array(
+                '{id}' => $id,
+                '{result}' => ($result = $image->delete())
+                    ? Yii::t('GalleryModule.gallery', 'успешно')
+                    : Yii::t('GalleryModule.gallery', 'не')
+            )
+        );
+
+        if (Yii::app()->request->isPostRequest && Yii::app()->request->isAjaxRequest) {
+            $result === true
+                ? Yii::app()->ajax->success($message)
+                : Yii::app()->ajax->failure($message);
+        }
+
+        Yii::app()->user->setFlash(
+            $result ? YFlashMessages::NOTICE_MESSAGE : YFlashMessages::ERROR_MESSAGE,
+            $message
+        );
+
+        $this->redirect(
+            Yii::app()->request->urlReferer(
+                $this->createAbsoluteUrl('gallery/gallery/list')
+            )
+        );
+    }
+
+    /**
+     * Ajax/Get-обёртка для редактирования изображения:
+     *
+     * @param int $id - id-изображения
+     *
+     * @return void
+     **/
+    public function actionEditImage($id = null)
+    {
+        if (($image = Image::model()->findByPk($id)) === null || $image->canChange() === false)
+            throw new CHttpException(404, Yii::t('GalleryModule.gallery', 'Страница не найдена!'));
+
+        if ((Yii::app()->request->isPostRequest || Yii::app()->request->isAjaxRequest)
+            && Yii::app()->request->getPost('Image') !== null
+        ) {
+            
+            $image->setAttributes(Yii::app()->request->getPost('Image'));
+
+            if ($image->validate() && $image->save()) {
+
+                $message = Yii::t(
+                    'GalleryModule.gallery', 'Изображение #{id} отредактировано!', array(
+                        '{id}' => $id,
+                    )
+                );
+
+                if (Yii::app()->request->isPostRequest && Yii::app()->request->isAjaxRequest)
+                    Yii::app()->ajax->success(
+                        array(
+                            'message' => $message,
+                            'type'    => 'saved',
+                        )
+                    );
+
+                Yii::app()->user->setFlash(
+                    YFlashMessages::NOTICE_MESSAGE,
+                    $message
+                );
+
+                $this->redirect(
+                    array('/gallery/gallery/show', 'id' => $image->gallery[0]->id)
+                );
+            }
+        }
+
+        if (Yii::app()->request->isPostRequest && Yii::app()->request->isAjaxRequest)
+            Yii::app()->ajax->success(
+                array(
+                    'form'    => $this->renderPartial('_add_foto_form', array('model' => $image), true)
+                )
+            );
+        $this->render('editimage', array('model' => $image));
+    }
 }
