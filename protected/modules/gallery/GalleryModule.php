@@ -25,7 +25,7 @@ class GalleryModule extends YWebModule
 
     public function getCategory()
     {
-        return Yii::t('GalleryModule.gallery', 'Сервисы');
+        return Yii::t('GalleryModule.gallery', 'Контент');
     }   
 
     public function getName()
