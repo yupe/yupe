@@ -12,12 +12,8 @@
 date_default_timezone_set('Europe/Moscow');
 
 // Выбираем конфигурацию development-main.php, если переменная окружения php_env установлена в development
-// или совпадение домена на котором запущен проект
-if (defined('YII_DEBUG')
-    || getenv('php_env') == 'development'
-    || strpos($_SERVER['SERVER_NAME'], 'localhost') !== false
-    || strpos($_SERVER['SERVER_ADDR'], '127.0.0')  !== false
-) {
+// или мы работаем на локалхосте:
+if (defined('YII_DEBUG') || getenv('php_env') == 'development' || strpos($_SERVER['SERVER_ADDR'], '127') === 0) {
     // Комментируем перед выпуском в продакшен:
     define('YII_DEBUG', true);
 
