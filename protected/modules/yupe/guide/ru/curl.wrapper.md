@@ -1,4 +1,4 @@
-# Curl "обёртка" для Yii framework #
+# Curl обёртка для Yii framework #
 
 ## Требования ##
 * PHP 5.3+

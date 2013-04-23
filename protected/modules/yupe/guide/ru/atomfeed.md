@@ -1,10 +1,14 @@
 Генерация Atom-ленты
 ====================
 
-**Автор**: [Комманда разработчиков Юпи](http://yupe.ru/feedback/contact?from=docs)  
-**Версия**: 0.1 (dev)  
-**Авторское право**:  2012-2013 Yupe!  
-**Лицензия**: [BSD](https://github.com/yupe/yupe/blob/master/LICENSE)  
+**Автор**: [Комманда разработчиков Юпи!](http://yupe.ru/feedback/contact?from=docs)
+
+**Версия**: 0.1 (dev)
+
+**Авторское право**:  2009-2013 Yupe!
+
+**Лицензия**: [BSD](https://github.com/yupe/yupe/blob/master/LICENSE)
+
 
 Для того, чтобы встроить в свой сайт feed-ленту, вам потребуется
 добавить к нужному контроллеру следующий код:
@@ -47,33 +51,33 @@ public function actions()
 
 `'rssfeed' => array(` - id-екшена, который будет подключён к нашему контроллеру 
 
-`'class' => 'application.modules.yupe.components.actions.FeedAction',` - класс-екшена, который мы подключаем  
+`'class' => 'application.modules.yupe.components.actions.FeedAction',` - класс-екшена, который мы подключаем
 
-`'data' => News::model()->published()->findAll(),` - данные, которые мы будем отображать в ленте  
+`'data' => News::model()->published()->findAll(),` - данные, которые мы будем отображать в ленте
 
-`'title' => Yii::t('YupeModule.yupe', 'Название моего сайта'),` - заголовок для нашей ленты  
+`'title' => Yii::t('YupeModule.yupe', 'Название моего сайта'),` - заголовок для нашей ленты
 
-`'description' => Yii::t('YupeModule.yupe', 'Лента новостей сайта'),` - описание ленты  
+`'description' => Yii::t('YupeModule.yupe', 'Лента новостей сайта'),` - описание ленты
 
-`'link' => Yii::app()->request->getBaseUrl(true),` - анкор, например на сайт  
+`'link' => Yii::app()->request->getBaseUrl(true),` - анкор, например на сайт
 
-`'itemFields' => array(` - здесь мы описываем стандартные поля, для создания ленты  
+`'itemFields' => array(` - здесь мы описываем стандартные поля, для создания ленты
 
-`'author_object' => 'user'` - объект автора, если не задан - у item-елемента запросится author_nickname  
+`'author_object' => 'user'` - объект автора, если не задан - у item-елемента запросится author_nickname
 
-`'author_nickname' => 'nick_name',` - параметр для получения автора  
+`'author_nickname' => 'nick_name',` - параметр для получения автора
 
-`'content' => 'full_text',` - контент для элемента ленты  
+`'content' => 'full_text',` - контент для элемента ленты
 
-`'datetime' => 'creation_date',` - время создания ленты  
+`'datetime' => 'creation_date',` - время создания ленты
 
-`'link' => '/news/news/show',` - линк на отображение  
+`'link' => '/news/news/show',` - линк на отображение
 
-`'linkParams' => array('title' => 'alias'),` - парметры для формирования абсолютной ссылки  
+`'linkParams' => array('title' => 'alias'),` - парметры для формирования абсолютной ссылки
 
 `'title' => 'title',` - заголовок для элемента ленты
 
-`'updated' => 'change_date',` - дата последнего изменения элемента ленты  
+`'updated' => 'change_date',` - дата последнего изменения элемента ленты
 
 ## Об остальном: ##
 
