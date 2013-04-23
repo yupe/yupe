@@ -32,7 +32,7 @@ Yii::app()->clientScript->registerScript(
     'yupeToken', 'var actionToken = ' . json_encode(
         array(
             'token'      => Yii::app()->request->csrfTokenName . '=' . Yii::app()->request->csrfToken,
-            'url'        => Yii::app()->createAbsoluteUrl('backend/modulestatus'),
+            'url'        => Yii::app()->createAbsoluteUrl('yupe/backend/modulestatus'),
             'message'    => Yii::t('YupeModule.yupe', 'Подождите, идёт обработка вашего запроса'),
             'error'      => Yii::t('YupeModule.yupe', 'Во время обработки вашего запроса произошла неизвестная ошибка'),
             'loadingimg' => CHtml::image(
@@ -85,6 +85,13 @@ $this->widget(
                             'icon'  => 'question-sign white',
                             'label' => Yii::t('YupeModule.yupe', 'Помощь'),
                             'url'   => CHtml::normalizeUrl(array('/yupe/backend/help')),
+                        ),
+                        array(
+                            'icon'        => 'home white',
+                            'label'       => Yii::t('YupeModule.yupe', 'На сайт'),
+                            'linkOptions' => array('target' => '_blank'),
+                            'visible'     => Yii::app()->controller instanceof YBackController === true,
+                            'url'         => array('/' . Yii::app()->defaultController . '/index/'),
                         ),
                         array(
                             'label'       => '
