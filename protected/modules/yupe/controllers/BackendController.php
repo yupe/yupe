@@ -360,7 +360,7 @@ class BackendController extends YBackController
          * Если это не POST-запрос - посылаем лесом:
          **/
         if (!Yii::app()->request->isPostRequest || !Yii::app()->request->isAjaxRequest)
-            die('fuck');
+            throw new CHttpException(404, Yii::t('YupeModule.yupe', 'Страница не найдена!'));
 
         /**
          * Получаем название модуля и проверяем,
