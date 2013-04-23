@@ -12,6 +12,7 @@
  **/
 $this->breadcrumbs=array(
     $this->module->name => array('index'),
+    empty($module) ? Yii::t('DocsModule.docs','Документация') : $module->getName() => empty($module) ? null : array('/docs/show/index/','moduleID' => $module->getId(),'file' => 'index'),
     $title
 );
 ?>
@@ -31,7 +32,7 @@ $this->breadcrumbs=array(
             var h=d[g]('head')[0] || d[g]('body')[0];
             h.appendChild(s);
         })();</script>
-    <div class="pluso" data-options="medium,round,line,horizontal,counter,theme=01" data-services="vkontakte,odnoklassniki,facebook,twitter,google,moimir,email,print,evernote,livejournal,yandex" data-background="#ebebeb"></div>
+    <div class="pluso" data-options="medium,round,line,horizontal,counter,theme=04" data-services="vkontakte,odnoklassniki,facebook,twitter,google,moimir,email,print" data-background="transparent"></div>
 </div>
 
 <br/><br/>

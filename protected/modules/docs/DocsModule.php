@@ -432,7 +432,7 @@ class DocsModule extends YWebModule
      *
      * @return string абсолютный путь к файлу
      **/
-    public function absoluteFilePath($file = null)
+    public function absoluteFilePath($file = null, $moduleDocFolder = null)
     {
         /**
          * Незачем работать, если вместо файла передан null:
@@ -445,23 +445,11 @@ class DocsModule extends YWebModule
          * в случае если их массив пуст - возвращаем
          * null
          */
-        
-        $moduleId = Yii::app()->request->getParam('moduleID');
-        $module = $moduleDocFolder = null;
-        if(!empty($moduleId)){
-            $module = Yii::app()->getModule(mb_strtolower($moduleId));
-            if(!empty($module)){
-                $moduleDocFolder = "application.modules.{$moduleId}.{$module->docPath}";
-            }
-        }
-
-        $docPath = Yii::getPathOfAlias($moduleDocFolder . '.' . Yii::app()->language);
-        if ($module !== null
-            && (($matches = glob($docPath . DIRECTORY_SEPARATOR . $file . '*')) === false
+        if ($moduleDocFolder !== null
+            && (($matches = glob(Yii::getPathOfAlias($moduleDocFolder . '.' . Yii::app()->language) . DIRECTORY_SEPARATOR . $file . '*')) === false
             || count($matches) < 1)
         ) {
             unset($matches);
-            unset($moduleID);
             unset($moduleDocFolder);
         }
 
@@ -492,15 +480,16 @@ class DocsModule extends YWebModule
          */
         $file = pathinfo($matches[0], PATHINFO_BASENAME);
 
-        if (isset($module))
+        if (!empty($moduleDocFolder))
             $docFolder = $moduleDocFolder;
         else
             $docFolder = $this->docFolder;
 
-        return !file_exists(Yii::getPathOfAlias($docFolder . '.' . Yii::app()->language) . DIRECTORY_SEPARATOR . $file)
+        $path = Yii::getPathOfAlias($docFolder . '.' . Yii::app()->language) . DIRECTORY_SEPARATOR . $file;
+        return !file_exists($path)
                   && $this->notFoundOn == 0
                     ? Yii::getPathOfAlias($docFolder . '.' . Yii::app()->sourceLanguage) . DIRECTORY_SEPARATOR . $file
-                    : Yii::getPathOfAlias($docFolder . '.' . Yii::app()->language) . DIRECTORY_SEPARATOR . $file; 
+                    : $path;
     }
 
     /**

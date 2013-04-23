@@ -70,13 +70,23 @@ class ShowController extends YFrontController
     {
         if ($file === null)
             $this->redirect(array('/docs/show/index', 'file' => 'index'));
+
+        $moduleId = Yii::app()->request->getParam('moduleID');
+        $moduleDocFolder = $module = null;
+        if(!empty($moduleId)){
+            $module = Yii::app()->getModule(mb_strtolower($moduleId));
+            if(!empty($module)){
+                $moduleDocFolder = "application.modules.{$moduleId}.{$module->docPath}";
+            }
+        }
+
         /**
          * @var $lcFile - в данную переменную помещаем абсолютный путь к файлу
          *                добавляя к нему текущий язык, но если файл не найден
          *                будет запрошен файл из языка поумолчанию
          * @var $type   - получаем расширение файла 
          */
-        $lcFile = $this->module->absoluteFilePath($file);
+        $lcFile = $this->module->absoluteFilePath($file, $moduleDocFolder);
 
         $type = pathinfo($lcFile, PATHINFO_EXTENSION);
 
@@ -130,8 +140,9 @@ class ShowController extends YFrontController
         $this->render(
             'index', array(
                 'content' => $content,
-                'title' => $title,
-                'mtime' => date("d-m-Y H:i", filemtime($lcFile))
+                'title'  => $title,
+                'module' => $module,
+                'mtime'  => date("d-m-Y H:i", filemtime($lcFile))
             )
         );
     }
