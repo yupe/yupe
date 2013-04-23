@@ -1,9 +1,13 @@
 # Файлы документации #
 
-**Автор**: [Комманда разработчиков Юпи](http://yupe.ru/feedback/contact?from=docs)  
-**Версия**: 0.1 (dev)  
-**Авторское право**:  2012-2013 Yupe!  
-**Лицензия**: [BSD](https://github.com/yupe/yupe/blob/master/LICENSE)  
+**Автор**: [Комманда разработчиков Юпи!](http://yupe.ru/feedback/index?from=docs)
+
+**Версия**: 0.1 (dev)
+
+**Авторское право**:  2009-2013 Yupe!
+
+**Лицензия**: [BSD](https://github.com/yupe/yupe/blob/master/LICENSE)
+
 
 ## Механизм работы ##
 

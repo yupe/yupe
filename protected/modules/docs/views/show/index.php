@@ -10,16 +10,18 @@
  * @link     http://yupe.ru
  *
  **/
-
 $this->breadcrumbs=array(
     $this->module->name => array('index'),
-    !empty($title)
-        ? $title
-        : Yii::t('DocsModule.docs', 'Не определён заголовок')
+    $title
 );
-echo $content;
 ?>
+
+<?php echo $content;?>
+
+<i><?php echo Yii::t('DocsModule.docs', 'изменено {mtime}',array('{mtime}' => $mtime));?></i>
+
 <br/><br/>
+
 <div>
     <script type="text/javascript">(function() {
             if(window.pluso) if(typeof window.pluso.start == "function") return;

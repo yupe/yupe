@@ -130,7 +130,8 @@ class ShowController extends YFrontController
         $this->render(
             'index', array(
                 'content' => $content,
-                'title'  => $title,
+                'title' => $title,
+                'mtime' => date("d-m-Y H:i", filemtime($lcFile))
             )
         );
     }

@@ -287,7 +287,7 @@ class DocsModule extends YWebModule
                         'icon'  => 'file',
                     ),
                     array(
-                        'label' => Yii::t('DocsModule.docs', 'Curl "обёртка" для Yii framework'),
+                        'label' => Yii::t('DocsModule.docs', 'Curl обёртка для Yii framework'),
                         'url'   => array('/docs/show/index', 'file' => 'curl.wrapper', 'moduleID' => 'yupe'),
                         'icon'  => 'file',
                     ),
@@ -300,6 +300,17 @@ class DocsModule extends YWebModule
                     array(
                         'label' => Yii::t('DocsModule.docs', 'Работа с eclipse'),
                         'url'   => array('/docs/show/index', 'file' => 'editors.eclipse'),
+                        'icon'  => 'file',
+                    ),
+                )
+            ),
+            array(
+                'label' => Yii::t('DocsModule.docs', 'Модули'),
+                'icon'  => 'th-large white',
+                'items' => array(
+                    array(
+                        'label' => Yii::t('DocsModule.docs', 'Блоги'),
+                        'url'   => array('/docs/show/index', 'file' => 'index','moduleID' => 'blog' ),
                         'icon'  => 'file',
                     ),
                 )
@@ -336,7 +347,7 @@ class DocsModule extends YWebModule
                 'icon'  => 'file',
             ),
             array(
-                'label' => Yii::t('DocsModule.docs', 'Curl "обёртка" для Yii framework'),
+                'label' => Yii::t('DocsModule.docs', 'Curl обёртка для Yii framework'),
                 'url'   => array('/docs/show/index', 'file' => 'curl.wrapper', 'moduleID' => 'yupe'),
                 'icon'  => 'file',
             ),
@@ -435,12 +446,18 @@ class DocsModule extends YWebModule
          * null
          */
         
-        $module = Yii::app()->request->getParam('moduleID');
+        $moduleId = Yii::app()->request->getParam('moduleID');
+        $module = $moduleDocFolder = null;
+        if(!empty($moduleId)){
+            $module = Yii::app()->getModule(mb_strtolower($moduleId));
+            if(!empty($module)){
+                $moduleDocFolder = "application.modules.{$moduleId}.{$module->docPath}";
+            }
+        }
 
-        $moduleDocFolder = str_replace('{module}', $module, $this->moduleDocFolder);
-
+        $docPath = Yii::getPathOfAlias($moduleDocFolder . '.' . Yii::app()->language);
         if ($module !== null
-            && (($matches = glob(Yii::getPathOfAlias($moduleDocFolder . '.' . Yii::app()->language) . DIRECTORY_SEPARATOR . $file . '*')) === false
+            && (($matches = glob($docPath . DIRECTORY_SEPARATOR . $file . '*')) === false
             || count($matches) < 1)
         ) {
             unset($matches);
@@ -450,8 +467,9 @@ class DocsModule extends YWebModule
 
         if (!isset($matches) && ($matches = glob(Yii::getPathOfAlias($this->docFolder . '.' . Yii::app()->language) . DIRECTORY_SEPARATOR . $file . '*')) === false
             || count($matches) < 1
-        )
+        ){
             return null;
+        }
 
         /**
          * Сортируем полученный массив так,
