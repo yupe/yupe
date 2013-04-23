@@ -98,8 +98,10 @@ class Image extends YModel
         // NOTE: you may need to adjust the relation name and the related
         // class name for the relations automatically generated below.
         return array(
-            'category' => array(self::BELONGS_TO, 'Category', 'category_id'),
-            'user'     => array(self::BELONGS_TO, 'User', 'user_id'),
+            'category'    => array(self::BELONGS_TO, 'Category', 'category_id'),
+            'user'        => array(self::BELONGS_TO, 'User', 'user_id'),
+            'galleryRell' => array(self::HAS_MANY, 'ImageToGallery', array('image_id' => 'id')),
+            'gallery'     => array(self::HAS_MANY, 'Gallery', 'gallery_id', 'through' => 'galleryRell'),
         );
     }
 
@@ -227,5 +229,15 @@ class Image extends YModel
             $file = $this->file;
 
         return $this->_url . $file;
+    }
+
+    /**
+     * Проверка на возможность редактировать/удалять изображения
+     *
+     * @return boolean can change
+     **/
+    public function canChange()
+    {
+        return Yii::app()->user->isSuperUser() || Yii::app()->user->id == $this->user_id;
     }
 }

@@ -24,4 +24,11 @@ class YHttpRequest extends CHttpRequest
             }
         }
     }
+
+    public function urlReferer($urlIfNull = null)
+    {
+        return isset($_SERVER['HTTP_REFERER'])
+            ? $_SERVER['HTTP_REFERER']
+            : $urlIfNull;
+    }
 }
