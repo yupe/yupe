@@ -19,13 +19,14 @@
  *          <?php echo Yii::app()->theme->region("sidebar"); ?>
  *      </div>
  *      </pre>
+ *      There are three default regions, which can not be removed or redefined, these are: "header", "footer" and "sidebar".
  *      Also you may want to check whether region does not contain any content - use {@link regionEmpty()} method.
  *      List of available regions must be specified at metadata option called "regions":
  *      <pre>
  *      {
  *      ...
  *      "regions": {
- *          "header": "Description of header region",
+ *          "featured": "Description of 'featured' region",
  *          ...
  *      },
  *      ...
@@ -34,7 +35,7 @@
  *      List of all theme's regions can be fetched via {@link getRegions()} method.
  *
  *  -   Theme inheritance. If "parentTheme" parameter is specified at metadata, its value will be used as parent theme name.
- *      Child theme inherits all of parent views, layouts and public files.
+ *      Child theme inherits all of parent views, regions, layouts and public files.
  *      Moreover, nesting depth is not limited - parent theme can also have its parent, i.e. potential family tree can look like:
  *      - Default theme
  *          - First default sub-theme
@@ -162,7 +163,7 @@ class YTheme extends CTheme
      */
     public function addContentToRegion($regionName, $content)
     {
-        $this->checkRegionExists($regionName, 'Невозможно добавить контент в несуществующий регион "{region}".');
+        $this->checkRegionExists($regionName);
         if (isset($this->_regionsContent[$regionName])) {
             $this->_regionsContent[$regionName] .= $content;
         } else {
@@ -209,19 +210,17 @@ class YTheme extends CTheme
     /**
      * Checks whether specified region exists.
      *
-     * @param             $regionName
-     * @param string|null $errorMessage Message shown on error. You may use "{region}" placeholder.
+     * @param $regionName
      *
      * @throws InvalidArgumentException If region does not exists.
      */
-    public function checkRegionExists($regionName, $errorMessage = null)
+    public function checkRegionExists($regionName)
     {
-        $errorMessage = ($errorMessage == null) ? 'Регион "{region}" не существует.' : $errorMessage;
         if (!isset($this->_regions[$regionName])) {
             throw new InvalidArgumentException(Yii::t(
                 'AppearanceModule.messages',
-                $errorMessage,
-                array('{region}' => $regionName)
+                'Регион "{region}" не существует для темы "{theme}".',
+                array('{region}' => $regionName, '{theme}' => $this->getName())
             ));
         }
     }
@@ -374,15 +373,15 @@ class YTheme extends CTheme
         $metaData = array_merge($this->getDefaultMetadata(), $metaData);
         $metaData = array_intersect_key($metaData, array_flip(array_keys($this->getDefaultMetadata())));
 
+        $this->setParentTheme($metaData['parentTheme']);
         $this->_title       = (string)$metaData['title'];
         $this->_description = (string)$metaData['description'];
         $this->_authors     = (string)$metaData['authors'];
         $this->_version     = (string)$metaData['version'];
         $this->_screenshot  = (string)$metaData['screenshot'];
         $this->_cssFiles    = (array)$metaData['cssFiles'];
-        $this->_regions     = (array)$metaData['regions'];
+        $this->setRegions((array)$metaData['regions']);
         $this->setResourcesDir((string)$metaData['resourcesDir']);
-        $this->setParentTheme($metaData['parentTheme']);
     }
 
     /**
@@ -408,16 +407,39 @@ class YTheme extends CTheme
     protected function getDefaultMetadata()
     {
         return array(
-            'title'        => null,
-            'description'  => null,
-            'version'      => null,
-            'authors'      => null,
+            'title'        => Yii::t('AppearanceModule.messages', 'Тема без названия'),
+            'description'  => Yii::t(
+                'AppearanceModule.messages',
+                'Узнай, как создавать темы оформления {a}здесь{/a}.',
+                array(
+                    '{a}'  => '<a href="http://goo.gl/BF06V" target="_blank">',
+                    '{/a}' => '</a>'
+                )
+            ),
+            'version'      => '0.0',
+            'authors'      => Yii::t('AppearanceModule.messages', 'Не указан'),
             'screenshot'   => null,
             'cssFiles'     => array(),
-            'regions'      => array(),
+            'regions'      => array(
+                'header'  => Yii::t('AppearanceModule.messages', 'Верхняя область - "шапка"'),
+                'footer'  => Yii::t('AppearanceModule.messages', 'Нижняя область - "подвал"'),
+                'sidebar' => Yii::t('AppearanceModule.messages', 'Боковая область'),
+            ),
             'parentTheme'  => null,
             'resourcesDir' => 'web',
         );
+    }
+
+    /**
+     * @param array $regions Regions described at theme metadata.
+     */
+    protected function setRegions(array $regions)
+    {
+        $defaultMetadata = $this->getDefaultMetadata();
+        $this->_regions  = array_merge($regions, $defaultMetadata['regions']);
+        if ($this->_parentTheme instanceof YTheme) {
+            $this->_regions = array_merge($this->getParentTheme()->getRegions(), $this->_regions);
+        }
     }
 
     /**
