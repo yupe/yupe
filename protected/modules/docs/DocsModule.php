@@ -287,7 +287,7 @@ class DocsModule extends YWebModule
                         'icon'  => 'file',
                     ),
                     array(
-                        'label' => Yii::t('DocsModule.docs', 'Curl "обёртка" для Yii framework'),
+                        'label' => Yii::t('DocsModule.docs', 'Curl обёртка для Yii framework'),
                         'url'   => array('/docs/show/index', 'file' => 'curl.wrapper', 'moduleID' => 'yupe'),
                         'icon'  => 'file',
                     ),
@@ -300,6 +300,17 @@ class DocsModule extends YWebModule
                     array(
                         'label' => Yii::t('DocsModule.docs', 'Работа с eclipse'),
                         'url'   => array('/docs/show/index', 'file' => 'editors.eclipse'),
+                        'icon'  => 'file',
+                    ),
+                )
+            ),
+            array(
+                'label' => Yii::t('DocsModule.docs', 'Модули'),
+                'icon'  => 'th-large white',
+                'items' => array(
+                    array(
+                        'label' => Yii::t('DocsModule.docs', 'Блоги'),
+                        'url'   => array('/docs/show/index', 'file' => 'index','moduleID' => 'blog' ),
                         'icon'  => 'file',
                     ),
                 )
@@ -336,7 +347,7 @@ class DocsModule extends YWebModule
                 'icon'  => 'file',
             ),
             array(
-                'label' => Yii::t('DocsModule.docs', 'Curl "обёртка" для Yii framework'),
+                'label' => Yii::t('DocsModule.docs', 'Curl обёртка для Yii framework'),
                 'url'   => array('/docs/show/index', 'file' => 'curl.wrapper', 'moduleID' => 'yupe'),
                 'icon'  => 'file',
             ),
@@ -421,7 +432,7 @@ class DocsModule extends YWebModule
      *
      * @return string абсолютный путь к файлу
      **/
-    public function absoluteFilePath($file = null)
+    public function absoluteFilePath($file = null, $moduleDocFolder = null)
     {
         /**
          * Незачем работать, если вместо файла передан null:
@@ -434,24 +445,19 @@ class DocsModule extends YWebModule
          * в случае если их массив пуст - возвращаем
          * null
          */
-        
-        $module = Yii::app()->request->getParam('moduleID');
-
-        $moduleDocFolder = str_replace('{module}', $module, $this->moduleDocFolder);
-
-        if ($module !== null
+        if ($moduleDocFolder !== null
             && (($matches = glob(Yii::getPathOfAlias($moduleDocFolder . '.' . Yii::app()->language) . DIRECTORY_SEPARATOR . $file . '*')) === false
             || count($matches) < 1)
         ) {
             unset($matches);
-            unset($moduleID);
             unset($moduleDocFolder);
         }
 
         if (!isset($matches) && ($matches = glob(Yii::getPathOfAlias($this->docFolder . '.' . Yii::app()->language) . DIRECTORY_SEPARATOR . $file . '*')) === false
             || count($matches) < 1
-        )
+        ){
             return null;
+        }
 
         /**
          * Сортируем полученный массив так,
@@ -474,15 +480,16 @@ class DocsModule extends YWebModule
          */
         $file = pathinfo($matches[0], PATHINFO_BASENAME);
 
-        if (isset($module))
+        if (!empty($moduleDocFolder))
             $docFolder = $moduleDocFolder;
         else
             $docFolder = $this->docFolder;
 
-        return !file_exists(Yii::getPathOfAlias($docFolder . '.' . Yii::app()->language) . DIRECTORY_SEPARATOR . $file)
+        $path = Yii::getPathOfAlias($docFolder . '.' . Yii::app()->language) . DIRECTORY_SEPARATOR . $file;
+        return !file_exists($path)
                   && $this->notFoundOn == 0
                     ? Yii::getPathOfAlias($docFolder . '.' . Yii::app()->sourceLanguage) . DIRECTORY_SEPARATOR . $file
-                    : Yii::getPathOfAlias($docFolder . '.' . Yii::app()->language) . DIRECTORY_SEPARATOR . $file; 
+                    : $path;
     }
 
     /**

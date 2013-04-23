@@ -22,6 +22,12 @@ abstract class YWebModule extends CWebModule
     const CHOICE_NO  = 0;
 
     /**
+     *  @var str каталог с документацией внутри модуля
+     *  @since 0.5.1
+     */
+    public $docPath = 'guide';
+
+    /**
      *  @var int порядок следования модуля в меню панели управления (сортировка)
      */
     public $adminMenuOrder = 0;

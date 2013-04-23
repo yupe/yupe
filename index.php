@@ -11,18 +11,15 @@
 // подробнее про index.php http://www.yiiframework.ru/doc/guide/ru/basics.entry
 date_default_timezone_set('Europe/Moscow');
 
-// Комментируем перед выпуском в продакшен:
-define('YII_DEBUG', true);
-
 // Выбираем конфигурацию development-main.php, если переменная окружения php_env установлена в development
-// или совпадение домена на котором запущен проект
-if (defined('YII_DEBUG')
-    || getenv('php_env') == 'development'
-    || strpos($_SERVER['SERVER_NAME'], 'localhost') !== false
-    || $_SERVER['SERVER_ADDR'] == '127.0.0.1'
-) {
+// или мы работаем на локалхосте:
+if (defined('YII_DEBUG') || getenv('php_env') == 'development' || strpos($_SERVER['SERVER_ADDR'], '127') === 0) {
+    // Комментируем перед выпуском в продакшен:
+    define('YII_DEBUG', true);
+
     // путь к фреймворку Yii
     $yii = dirname(__FILE__) . '/framework/yii.php';
+
     // путь к основному конфигурационному файлу Yii
     $config = dirname(__FILE__) . '/protected/config/main-development.php';
     defined('YII_DEBUG') or define('YII_DEBUG', true);

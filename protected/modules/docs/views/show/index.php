@@ -10,16 +10,19 @@
  * @link     http://yupe.ru
  *
  **/
-
 $this->breadcrumbs=array(
     $this->module->name => array('index'),
-    !empty($title)
-        ? $title
-        : Yii::t('DocsModule.docs', 'Не определён заголовок')
+    empty($module) ? Yii::t('DocsModule.docs','Документация') : $module->getName() => empty($module) ? null : array('/docs/show/index/','moduleID' => $module->getId(),'file' => 'index'),
+    $title
 );
-echo $content;
 ?>
+
+<?php echo $content;?>
+
+<i><?php echo Yii::t('DocsModule.docs', 'изменено {mtime}',array('{mtime}' => $mtime));?></i>
+
 <br/><br/>
+
 <div>
     <script type="text/javascript">(function() {
             if(window.pluso) if(typeof window.pluso.start == "function") return;
@@ -29,7 +32,7 @@ echo $content;
             var h=d[g]('head')[0] || d[g]('body')[0];
             h.appendChild(s);
         })();</script>
-    <div class="pluso" data-options="medium,round,line,horizontal,counter,theme=01" data-services="vkontakte,odnoklassniki,facebook,twitter,google,moimir,email,print,evernote,livejournal,yandex" data-background="#ebebeb"></div>
+    <div class="pluso" data-options="medium,round,line,horizontal,counter,theme=04" data-services="vkontakte,odnoklassniki,facebook,twitter,google,moimir,email,print" data-background="transparent"></div>
 </div>
 
 <br/><br/>
