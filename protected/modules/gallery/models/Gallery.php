@@ -57,8 +57,8 @@ class Gallery extends YModel
         // NOTE: you may need to adjust the relation name and the related
         // class name for the relations automatically generated below.
         return array(
-            'imagesRell'  => array(self::HAS_MANY, 'ImageToGallery', array('id' => 'gallery_id')),
-            'images'      => array(self::HAS_MANY, 'Images', 'image_id', 'through' => 'imagesRell'),
+            'imagesRell'  => array(self::HAS_MANY, 'ImageToGallery', array('gallery_id' => 'id')),
+            'images'      => array(self::HAS_MANY, 'Image', 'image_id', 'through' => 'imagesRell'),
             'imagesCount' => array(self::STAT, 'ImageToGallery', 'gallery_id'),
         );
     }
@@ -127,5 +127,17 @@ class Gallery extends YModel
         ));
 
         return $im2g->save() ? true : false;
+    }
+
+    /**
+     * Получаем картинку для галереи:
+     * 
+     * @return string image Url
+     **/
+    public function previewImage()
+    {
+        return $this->imagesCount > 0
+            ? $this->images[0]->getUrl(190, 190)
+            : Yii::app()->theme->baseUrl . '/web/images/thumbnail.png';
     }
 }

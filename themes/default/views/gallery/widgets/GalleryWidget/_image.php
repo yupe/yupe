@@ -23,7 +23,7 @@
 <?php endif; ?>
 <?php echo CHtml::link(
     CHtml::image(
-        $data->image->getUrl(190), $data->image->alt
+        $data->image->getUrl(190, 190), $data->image->alt
     ), $data->image->getUrl(), array(
         'class' => 'fancybox',
         'title' => $data->image->description,

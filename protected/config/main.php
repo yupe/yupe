@@ -113,7 +113,8 @@ return array(
                 'params' => array( 'directory' => '/usr/bin' ), // в этой директории должен быть convert
             ),
             'thumbs' => array(
-                'class'  => 'application.modules.yupe.extensions.EPhpThumb.EPhpThumb',
+                'class'   => 'application.modules.yupe.extensions.EPhpThumb.EPhpThumb',
+                'options' => array('jpegQuality' => 80),
             ),
             // конфигурирование urlManager, подробнее: http://www.yiiframework.ru/doc/guide/ru/topics.url
             'urlManager' => array(
