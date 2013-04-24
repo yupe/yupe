@@ -1,14 +1,14 @@
 <?php
 return array(
     'cache'     => array(
-        'class' => 'CFileCache'
+        'class' => 'application.modules.yupe.components.YFileCache'
     ),
     'preload'   => array('log'),
     'component' => array(
         // параметры подключения к базе данных, подробнее http://www.yiiframework.ru/doc/guide/ru/database.overview
-        'db' => include_once dirname(__FILE__) . '/../db.php',
+        'db' => require(dirname(__FILE__) . '/../db.php'),
     ),
-    'rules'     => array(
+    'rules' => array(
         '/yupe/backend/modulesettings/<module:\w+>' => 'yupe/backend/modulesettings',
     ),
 );
