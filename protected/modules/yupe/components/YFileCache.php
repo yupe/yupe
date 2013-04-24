@@ -26,8 +26,6 @@ class YFileCache extends CFileCache
         foreach (glob(Yii::app()->getModule('image')->getUploadPath() . 'thumbs_cache_yupe_*') as $file)
             @unlink($file);
         
-        $this->gc(false);
-        
-        return true;
+        return parent::flushValues();
     }
 }
