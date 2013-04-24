@@ -1,7 +1,7 @@
 <?php
 return array(
     'cache'     => array(
-        'class' => 'application.modules.yupe.components.YFileCache'
+        'class' => 'CFileCache'
     ),
     'preload'   => array('log'),
     'component' => array(
