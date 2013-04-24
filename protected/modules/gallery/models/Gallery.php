@@ -1,7 +1,5 @@
 <?php
 
-//Yii::import('application.modules.image.models.');
-
 /**
  * This is the model class for table "Gallery".
  *
