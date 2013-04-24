@@ -199,6 +199,31 @@ class Image extends YModel
     }
 
     /**
+     * make thumbnail of image
+     *
+     * @param int $width  - ширина
+     * @param int $height - высота
+     *
+     * @return string filename
+     **/
+    public function makeThumbnail($width = 0, $height = 0)
+    {
+        $ext = pathinfo($this->file, PATHINFO_EXTENSION);
+        $hash = md5($this->file . $width . 'x' . $height) . '.' . $ext;
+        $image = Yii::app()->getModule('image');
+        
+        if (($file = Yii::app()->cache->get($hash)) === false) {
+            $thumb = Yii::app()->thumbs->create($image->getUploadPath() . $this->file);
+            $thumb->adaptiveResize($width, $height);
+            $file = 'thumbs_cache_yupe_' . md5($hash . microtime(true)) . '.' . $ext;
+            $thumb->save($image->getUploadPath() . $file);
+            Yii::app()->cache->set($hash, $file, 0, new CFileCacheDependency($image->getUploadPath() . $file));
+        }
+
+        return $file;
+    }
+
+    /**
      * Получаем URL к файлу:
      * 
      * @param int $width  - параметр ширины для изображения
@@ -213,22 +238,11 @@ class Image extends YModel
         $yupe = Yii::app()->getModule('yupe');
         $image = Yii::app()->getModule('image');
 
-        $this->_url = Yii::app()->baseUrl . '/' . $yupe->uploadPath . '/' . Yii::app()->getModule('image')->uploadPath . '/';
-
-        if ($width > 0 || $height > 0) {
-            $ext = pathinfo($this->file, PATHINFO_EXTENSION);
-            $hash = md5($this->file . $width . 'x' . $height) . '.' . $ext;
-            if (($file = Yii::app()->cache->get($hash)) === false) {
-                $thumb = Yii::app()->thumbs->create($image->getUploadPath() . $this->file);
-                $thumb->resize($width, $height);
-                $file = md5($hash . microtime(true)) . '.' . $ext;
-                $thumb->save($image->getUploadPath() . $file);
-                Yii::app()->cache->set($hash, $file, 0, new CFileCacheDependency($image->getUploadPath() . $file));
-            }
-        } else
-            $file = $this->file;
-
-        return $this->_url . $file;
+        return Yii::app()->baseUrl . '/' . $yupe->uploadPath . '/' . $image->uploadPath . '/' . (
+            $width > 0 || $height > 0
+                ? $this->makeThumbnail($width, $height)
+                : $this->file            
+        );
     }
 
     /**
