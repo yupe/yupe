@@ -23,8 +23,9 @@ class YFileCache extends CFileCache
         /**
          * Очистка превьюшек (так как кеш мёртв, а превьюшки остались)
          */
-        foreach (glob(Yii::app()->getModule('image')->getUploadPath() . 'thumbs_cache_yupe_*') as $file)
-            @unlink($file);
+        if (Yii::app()->hasModule('image'))
+            foreach (glob(Yii::app()->getModule('image')->getUploadPath() . 'thumbs_cache_yupe_*') as $file)
+                @unlink($file);
         
         return parent::flushValues();
     }
