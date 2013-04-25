@@ -65,8 +65,16 @@ class Gallery extends YModel
 
     public function defaultScope()
     {
+        // Иначе наша галерея, чудесным образом исчезает:
+        if (Yii::app()->controller instanceof YBackController)
+            return array();
+
+        /**
+         * Используется tableAlias, чтобы в использующих эту
+         * модель релейшенах не возникало проблем:
+         */
         return array(
-            'condition' => 'status = :status',
+            'condition' => (isset($this->tableAlias) ? $this->tableAlias : 't') . '.status = :status',
             'params'    => array(':status' => self::STATUS_PUBLIC),
         );
     }

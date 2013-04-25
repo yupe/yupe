@@ -53,11 +53,18 @@ $this->renderPartial('_search', array('model' => $model));
         array(
             'name'  => Yii::t('ImageModule.image', 'file'),
             'type'  => 'raw',
-            'value' => 'CHtml::image($data->getUrl(), $data->alt, array("width" => 75, "height" => 75))',
+            'value' => 'CHtml::image($data->getUrl(75), $data->alt, array("width" => 75, "height" => 75))',
         ),
         array(
-           'name'  => 'category_id',
-           'value' => '$data->getCategoryName()'
+            'name'  => 'category_id',
+            'value' => '$data->getCategoryName()'
+        ),
+        array(
+            'name'   => 'gallery_id',
+            'header' => Yii::t('ImageModule.image', 'Галерея'),
+            'type'   => 'raw',
+            'filter' => $model->galleryList(),
+            'value'  => '$data->galleryName(true)',
         ),
         'name',
         'alt',
