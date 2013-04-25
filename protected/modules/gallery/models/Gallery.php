@@ -131,13 +131,16 @@ class Gallery extends YModel
 
     /**
      * Получаем картинку для галереи:
+     *
+     * @param int $width  - ширина
+     * @param int $height - высота
      * 
      * @return string image Url
      **/
-    public function previewImage()
+    public function previewImage($width = 190, $height = 190)
     {
         return $this->imagesCount > 0
-            ? $this->images[0]->getUrl(190, 190)
+            ? $this->images[0]->getUrl($width, $height)
             : Yii::app()->theme->baseUrl . '/web/images/thumbnail.png';
     }
 }

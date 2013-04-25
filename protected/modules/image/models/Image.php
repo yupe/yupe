@@ -208,16 +208,22 @@ class Image extends YModel
      **/
     public function makeThumbnail($width = 0, $height = 0)
     {
+        $width = $width === 0
+            ? $height
+            : $width;
+
+        $height = $height === 0
+            ? $width
+            : $height;
+
         $ext = pathinfo($this->file, PATHINFO_EXTENSION);
-        $hash = md5($this->file . $width . 'x' . $height) . '.' . $ext;
+        $file = 'thumb_cache_' . $width . 'x' . $height . '_' . pathinfo($this->file, PATHINFO_FILENAME) . '.' . $ext;
         $image = Yii::app()->getModule('image');
         
-        if (($file = Yii::app()->cache->get($hash)) === false) {
+        if (file_exists($image->getUploadPath() . $file) === false) {
             $thumb = Yii::app()->thumbs->create($image->getUploadPath() . $this->file);
             $thumb->adaptiveResize($width, $height);
-            $file = 'thumbs_cache_yupe_' . md5($hash . microtime(true)) . '.' . $ext;
             $thumb->save($image->getUploadPath() . $file);
-            Yii::app()->cache->set($hash, $file, 0, new CFileCacheDependency($image->getUploadPath() . $file));
         }
 
         return $file;
@@ -235,6 +241,7 @@ class Image extends YModel
     {
         if ($this->_url)
             return $this->_url.'/'.$this->file;
+
         $yupe = Yii::app()->getModule('yupe');
         $image = Yii::app()->getModule('image');
 
