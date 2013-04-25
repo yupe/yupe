@@ -154,6 +154,7 @@ class ImageModule extends YWebModule
         $this->documentRoot = $_SERVER['DOCUMENT_ROOT'];
 
         $this->setImport(array(
+            'gallery.models.*',
             'image.models.*',
             'image.components.*',
         ));

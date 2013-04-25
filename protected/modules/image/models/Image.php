@@ -1,10 +1,6 @@
 <?php
 
 /**
- * Подключаем необходимую модель:
- */
-Yii::import('gallery.models.Gallery');
-/**
  * This is the model class for table "Image".
  *
  * The followings are the available columns in table 'Image':
