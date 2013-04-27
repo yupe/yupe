@@ -263,4 +263,16 @@ class Good extends YModel
               $this->image
             : false;
     }
+
+    /**
+     * category link
+     *
+     * @return string html caregory link
+     **/
+    public function getCategoryLink()
+    {
+        return $this->category instanceof Category
+            ? CHtml::link($this->category->name, array("/category/default/view", "id" => $this->id))
+            : '---';
+    }
 }
