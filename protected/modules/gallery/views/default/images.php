@@ -94,15 +94,14 @@ jQuery(document).ready(function($) {
         else
             loadedCount = $('.template-download').length;
         $.ajax({
-            url: '<?php echo $this->createUrl("/gallery/default/reloadContent", array("id" => $model->id, "view" => "_images_show"))?>',
-            type: 'get',
+            url      : '<?php echo $this->createUrl("/gallery/default/reloadContent", array("id" => $model->id, "view" => "_images_show"))?>',
+            type     : 'get',
             dataType : 'html',
             cache    : false,
-            success  : function(html)
-            {
+            success  : function(html) {
                 $(tabId).html(html);
             },
-            error:function(){
+            error    : function() {
                     alert('Request failed');
             }
         });
