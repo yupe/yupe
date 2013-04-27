@@ -227,6 +227,9 @@ class Image extends YModel
         $file = 'thumb_cache_' . $width . 'x' . $height . '_' . pathinfo($this->file, PATHINFO_FILENAME) . '.' . $ext;
         $image = Yii::app()->getModule('image');
         
+        if (!file_exists($image->getUploadPath() . $this->file))
+            return null;
+
         if (file_exists($image->getUploadPath() . $file) === false) {
             $thumb = Yii::app()->thumbs->create($image->getUploadPath() . $this->file);
             $thumb->adaptiveResize($width, $height);
@@ -253,9 +256,11 @@ class Image extends YModel
         $image = Yii::app()->getModule('image');
 
         return Yii::app()->baseUrl . '/' . $yupe->uploadPath . '/' . $image->uploadPath . '/' . (
-            $width > 0 || $height > 0
-                ? $this->makeThumbnail($width, $height)
-                : $this->file            
+            ($width > 0 || $height > 0) && (
+                $thumbnail = $this->makeThumbnail($width, $height)
+            ) !== null
+                ? $thumbnail
+                : $this->file
         );
     }
 

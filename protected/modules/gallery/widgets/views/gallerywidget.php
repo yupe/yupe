@@ -21,9 +21,10 @@ $this->widget(
 <?php
 $this->widget(
     'zii.widgets.CListView', array(
-        'id' => 'gallery',
-        'dataProvider' => $dataProvider,
-        'itemView'     => '_image',
+        'id'              => 'gallery',
+        'template'        => '{items}{summary}{pager}',
+        'dataProvider'    => $dataProvider,
+        'itemView'        => '_image',
         'afterAjaxUpdate' => "function(id, data) { masonry('#gallery .items'); }",
     )
 ); ?>

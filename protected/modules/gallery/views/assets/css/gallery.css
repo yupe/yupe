@@ -1,0 +1,10 @@
+.image-changes {
+    right: 0;
+    top: 2px;
+    text-align: right;
+
+}
+
+.image:not(.img-polaroid) .image-changes {
+    position: absolute;
+}

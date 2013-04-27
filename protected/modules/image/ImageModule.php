@@ -181,4 +181,14 @@ class ImageModule extends YWebModule
             array('icon' => 'plus-sign', 'label' => Yii::t('ImageModule.image', 'Добавить изображение'), 'url' => array('/image/default/create')),
         );
     }
+
+    /**
+     * Получаем разрешённые форматы:
+     *
+     * @return array of allowed extensions
+     **/
+    public function allowedExtensions()
+    {
+        return explode(',', $this->allowedExtensions);
+    }
 }
