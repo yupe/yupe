@@ -160,7 +160,7 @@ class BackendController extends YBackController
                 );
 
                 //@TODO исправить очистку кэша
-                Yii::app()->cache->flush();
+                Yii::app()->cache->clear($moduleId);
             } else {
                 Yii::app()->user->setFlash(
                     YFlashMessages::ERROR_MESSAGE,
