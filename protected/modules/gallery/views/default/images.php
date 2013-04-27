@@ -28,7 +28,7 @@ $this->menu = array(
         '/gallery/default/view',
         'id' => $model->id
     )),
-    array('icon' => 'upload', 'label' => Yii::t('GalleryModule.gallery', 'Изображения галереи'), 'url' => array('/gallery/default/images', 'id' => $model->id)),
+    array('icon' => 'picture', 'label' => Yii::t('GalleryModule.gallery', 'Изображения галереи'), 'url' => array('/gallery/default/images', 'id' => $model->id)),
     array('icon' => 'trash', 'label' => Yii::t('GalleryModule.gallery', 'Удалить галерею'), 'url' => '#', 'linkOptions' => array(
         'submit' => array('/gallery/default/delete', 'id' => $model->id),
         'confirm' => Yii::t('GalleryModule.gallery', 'Вы уверены, что хотите удалить галерею?'),
