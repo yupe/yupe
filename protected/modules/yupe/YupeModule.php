@@ -329,9 +329,29 @@ class YupeModule extends YWebModule
                     ),
                 )
             ),
-            array('icon' => 'picture', 'label' => Yii::t('YupeModule.yupe', 'Оформление'), 'url' => array('/yupe/backend/themesettings')),
-            array('icon' => 'exclamation-sign', 'label' => Yii::t('YupeModule.yupe', 'Помощь'), 'url' => array('/yupe/backend/help')),
-            array('icon' => 'wrench', 'label' => Yii::t('YupeModule.yupe', 'Параметры сайта'), 'url' => array('/yupe/backend/modulesettings', 'module' => 'yupe')),
+            array(
+                'icon'  => 'picture',
+                'label' => Yii::t('YupeModule.yupe', 'Оформление'),
+                'url'   => array('/yupe/backend/themesettings'),
+            ),
+            array(
+                'icon'  => 'question-sign',
+                'label' => Yii::t('YupeModule.yupe', 'Сообщить об ошибке'),
+                'url'   => array('/yupe/backend/reportBug'),
+            ),
+            array(
+                'icon'  => 'exclamation-sign',
+                'label' => Yii::t('YupeModule.yupe', 'Помощь'),
+                'url'   => array('/yupe/backend/help'),
+            ),
+            array(
+                'icon'  => 'wrench',
+                'label' => Yii::t('YupeModule.yupe', 'Параметры сайта'),
+                'url'   => array(
+                    '/yupe/backend/modulesettings',
+                    'module' => 'yupe',
+                ),
+            ),
         );
     }
 

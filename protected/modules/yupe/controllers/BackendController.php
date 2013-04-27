@@ -514,4 +514,39 @@ class BackendController extends YBackController
             break;
         }
     }
+
+    /**
+     * Сообщить об ошибке
+     *
+     * @return void
+     **/
+    public function actionReportBug()
+    {
+        $form = new BugForm;
+
+        if (Yii::app()->request->isPostRequest && ($bugData = Yii::app()->request->getPost('BugForm'))) {
+            $form->setAttributes($bugData);
+            if ($form->validate()) {
+                if ($form->module == 0)
+                    $form->module = 'другой модуль';
+                Yii::app()->mail->send(
+                    Yii::app()->user->email,
+                    $form->sendTo,
+                    "[Bug in {$form->module}]" . $form->subject,
+                    $form->message
+                );
+                Yii::app()->user->setFlash(
+                    YFlashMessages::NOTICE_MESSAGE,
+                    Yii::t('YupeModule.yupe', 'Сообщение отправлено!')
+                );
+                $form->unsetAttributes();
+            }
+        }
+
+        $this->render(
+            'reportBug', array(
+                'model' => $form
+            )
+        );
+    }
 }
