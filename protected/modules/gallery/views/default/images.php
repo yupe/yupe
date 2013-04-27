@@ -63,7 +63,6 @@ $this->widget(
                 'content' => $this->renderPartial(
                     '_image_add', array(
                         'model'   => $image,
-                        'gallery' => $model,
                     ), true
                 ),
                 'active'  => $tab == '_image_add',
@@ -87,7 +86,6 @@ $this->widget(
 var loadContent;
 var loadedCount = 0;
 jQuery(document).ready(function($) {
-    $('.nav-tabs a[href="#<?php echo $tab; ?>"]').tab('show');
     loadContent = function(e) {
         var tabId = e.target.getAttribute("href");
         if (tabId != '#_images_show' || loadedCount >= $('.template-download').length)
@@ -95,15 +93,14 @@ jQuery(document).ready(function($) {
         else
             loadedCount = $('.template-download').length;
         $.ajax({
-            url: '<?php echo $this->createUrl("/gallery/default/reloadContent", array("id" => $model->id, "view" => "_images_show"))?>',
-            type: 'get',
+            url      : '<?php echo $this->createUrl("/gallery/default/reloadContent", array("id" => $model->id, "view" => "_images_show"))?>',
+            type     : 'get',
             dataType : 'html',
             cache    : false,
-            success  : function(html)
-            {
+            success  : function(html) {
                 $(tabId).html(html);
             },
-            error:function(){
+            error    : function() {
                     alert('Request failed');
             }
         });
