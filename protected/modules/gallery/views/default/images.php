@@ -86,7 +86,6 @@ $this->widget(
 var loadContent;
 var loadedCount = 0;
 jQuery(document).ready(function($) {
-    $('.nav-tabs a[href="#<?php echo $tab; ?>"]').tab('show');
     loadContent = function(e) {
         var tabId = e.target.getAttribute("href");
         if (tabId != '#_images_show' || loadedCount >= $('.template-download').length)
