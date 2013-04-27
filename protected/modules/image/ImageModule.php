@@ -154,6 +154,7 @@ class ImageModule extends YWebModule
         $this->documentRoot = $_SERVER['DOCUMENT_ROOT'];
 
         $this->setImport(array(
+            'gallery.models.*',
             'image.models.*',
             'image.components.*',
         ));
@@ -179,5 +180,15 @@ class ImageModule extends YWebModule
             array('icon' => 'list-alt', 'label' => Yii::t('ImageModule.image', 'Список изображений'), 'url' => array('/image/default/index')),
             array('icon' => 'plus-sign', 'label' => Yii::t('ImageModule.image', 'Добавить изображение'), 'url' => array('/image/default/create')),
         );
+    }
+
+    /**
+     * Получаем разрешённые форматы:
+     *
+     * @return array of allowed extensions
+     **/
+    public function allowedExtensions()
+    {
+        return explode(',', $this->allowedExtensions);
     }
 }

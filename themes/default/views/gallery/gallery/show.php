@@ -9,7 +9,7 @@
 
     <p><?php echo $model->description; ?></p>
 
-    <?php $this->widget('gallery.widgets.GalleryWidget', array('id' => $model->id, 'limit' => 30)); ?>
+    <?php $this->widget('gallery.widgets.GalleryWidget', array('gallery_id' => $model->id, 'limit' => 30)); ?>
 
     <?php if (Yii::app()->user->isAuthenticated()): ?>
     <div id="add-image-form">

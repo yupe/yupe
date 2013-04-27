@@ -103,8 +103,13 @@ class ImageUploadBehavior extends CActiveRecordBehavior
     public function deleteImage()
     {
         // не удаляем файл если сценарий altlang, используется модулями news, category
-        if ($this->owner->scenario !== 'altlang' && @is_file($this->_oldImage))
+        if ($this->owner->scenario !== 'altlang' && @is_file($this->_oldImage)) {
+            // Удаляем связанные с данным изображением превьюшки:
+            $fileName = pathinfo($this->_oldImage, PATHINFO_BASENAME);
+            foreach (glob($this->uploadPath . 'thumb_cache_*_' . $fileName) as $file)
+                @unlink($file);
             @unlink($this->_oldImage);
+        }
     }
 
     /*
