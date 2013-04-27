@@ -18,6 +18,9 @@ class GalleryWidget extends YWidget
     // ID-галереи
     public $gallery_id;
 
+    // Галерея
+    public $gallery;
+
     /**
      * Запускаем отрисовку виджета
      * 
@@ -47,6 +50,7 @@ class GalleryWidget extends YWidget
             'gallerywidget',
             array(
                 'dataProvider' => $dataProvider,
+                'gallery'      => $this->gallery,
             )
         );
     }

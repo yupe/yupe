@@ -11,8 +11,10 @@
  */
 class Gallery extends YModel
 {
-    const STATUS_PUBLIC = 1;
-    const STATUS_DRAFT  = 0;
+    const STATUS_DRAFT    = 0;
+    const STATUS_PUBLIC   = 1;
+    const STATUS_PERSONAL = 2;
+    const STATUS_PRIVAT   = 3;
 
     /**
      * Returns the static model of the specified AR class.
@@ -40,12 +42,12 @@ class Gallery extends YModel
         // NOTE: you should only define rules for those attributes that
         // will receive user inputs.
         return array(
-            array('name, description', 'required'),
-            array('status', 'numerical', 'integerOnly' => true),
+            array('name, description, owner', 'required'),
+            array('status, owner', 'numerical', 'integerOnly' => true),
             array('name', 'length', 'max' => 250),            
             // The following rule is used by search().
             // Please remove those attributes that should not be searched.
-            array('id, name, description, status', 'safe', 'on' => 'search'),
+            array('id, name, description, status, owner', 'safe', 'on' => 'search'),
         );
     }
 
@@ -60,6 +62,7 @@ class Gallery extends YModel
             'imagesRell'  => array(self::HAS_MANY, 'ImageToGallery', array('gallery_id' => 'id')),
             'images'      => array(self::HAS_MANY, 'Image', 'image_id', 'through' => 'imagesRell'),
             'imagesCount' => array(self::STAT, 'ImageToGallery', 'gallery_id'),
+            'user'        => array(self::BELONGS_TO, 'User', 'owner'),
         );
     }
 
@@ -73,10 +76,31 @@ class Gallery extends YModel
          * Используется tableAlias, чтобы в использующих эту
          * модель релейшенах не возникало проблем:
          */
+        $tableAlias = isset($this->tableAlias)
+                    ? $this->tableAlias
+                    : 't';
         return array(
-            'condition' => (isset($this->tableAlias) ? $this->tableAlias : 't') . '.status = :status',
-            'params'    => array(':status' => self::STATUS_PUBLIC),
+            'condition' => "{$tableAlias}.status = :status_public OR {$tableAlias}.status = :status_personal OR {$tableAlias}.status = :status_privat",
+            'params'    => array(
+                ':status_public'   => self::STATUS_PUBLIC,
+                ':status_personal' => self::STATUS_PERSONAL,
+                ':status_privat'   => self::STATUS_PRIVAT
+            ),
         );
+    }
+
+    /**
+     * beforeValidate
+     *
+     * @return parent::beforeValidate()
+     **/
+    public function beforeValidate()
+    {
+        // Проверяем наличие установленного хозяина галереи
+        if (isset($this->owner) && empty($this->owner))
+            $this->owner = Yii::app()->user->id;
+
+        return parent::beforeValidate();
     }
 
     /**
@@ -87,6 +111,7 @@ class Gallery extends YModel
         return array(
             'id'          => Yii::t('GalleryModule.gallery', 'Id'),
             'name'        => Yii::t('GalleryModule.gallery', 'Название'),
+            'owner'       => Yii::t('GalleryModule.gallery', 'Владелец'),
             'description' => Yii::t('GalleryModule.gallery', 'Описание'),
             'status'      => Yii::t('GalleryModule.gallery', 'Статус'),
         );
@@ -106,6 +131,7 @@ class Gallery extends YModel
         $criteria->compare('id', $this->id, true);
         $criteria->compare('name', $this->name, true);
         $criteria->compare('description', $this->description, true);
+        $criteria->compare('owner', $this->owner);
         $criteria->compare('status', $this->status);
 
         return new CActiveDataProvider(get_class($this), array('criteria' => $criteria));
@@ -114,8 +140,10 @@ class Gallery extends YModel
     public function getStatusList()
     {
         return array(
-            self::STATUS_PUBLIC => Yii::t('GalleryModule.gallery', 'опубликовано'),
-            self::STATUS_DRAFT  => Yii::t('GalleryModule.gallery', 'скрыто'),
+            self::STATUS_DRAFT    => Yii::t('GalleryModule.gallery', 'скрытая'),
+            self::STATUS_PUBLIC   => Yii::t('GalleryModule.gallery', 'публичная'),
+            self::STATUS_PERSONAL => Yii::t('GalleryModule.gallery', 'личная'),
+            self::STATUS_PRIVAT   => Yii::t('GalleryModule.gallery', 'приватная'),
         );
     }
 
@@ -150,5 +178,41 @@ class Gallery extends YModel
         return $this->imagesCount > 0
             ? $this->images[0]->getUrl($width, $height)
             : Yii::app()->theme->baseUrl . '/web/images/thumbnail.png';
+    }
+
+    /**
+     * get user list
+     *
+     * @return array of user list
+     **/
+    public function getUsersList()
+    {
+        return CHtml::listData(
+            ($users = User::model()->cache(0, new CDbCacheDependency('SELECT MAX(id) FROM {{user_user}}'))->findAll()), 'id', function ($user) {
+                return CHtml::encode($user->fullName);
+            }
+        );
+    }
+
+    /**
+     * get owner name
+     *
+     * @return string owner name
+     **/
+    public function getOwnerName()
+    {
+        return $this->user instanceof User
+            ? $this->user->fullName
+            : '---';
+    }
+
+    /**
+     *  can add photo
+     *
+     * @return boolean can add photo
+     **/
+    public function getCanAddPhoto()
+    {
+        return ($this->status == Gallery::STATUS_PRIVAT || $this->status == Gallery::STATUS_PERSONAL)  && Yii::app()->user->id == $this->owner;
     }
 }
