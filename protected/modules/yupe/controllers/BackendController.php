@@ -527,7 +527,7 @@ class BackendController extends YBackController
         if (Yii::app()->request->isPostRequest && ($bugData = Yii::app()->request->getPost('BugForm'))) {
             $form->setAttributes($bugData);
             if ($form->validate()) {
-                if ($form->module == 0)
+                if ($form->module === '0')
                     $form->module = 'другой модуль';
                 Yii::app()->mail->send(
                     Yii::app()->user->email,
@@ -539,7 +539,7 @@ class BackendController extends YBackController
                     YFlashMessages::NOTICE_MESSAGE,
                     Yii::t('YupeModule.yupe', 'Сообщение отправлено!')
                 );
-                $form->unsetAttributes();
+                $this->redirect('/yupe/backend/reportBug');
             }
         }
 
