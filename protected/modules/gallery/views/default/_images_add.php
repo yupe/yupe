@@ -16,7 +16,6 @@ $this->widget(
         'attribute'    => 'file', // see the attribute?
         'multiple'     => true,
         'uploadView'   => 'gallery.views.default._upload', //bootstrap.views.fileupload.upload
-        'downloadView' => 'gallery.views.default._download', //bootstrap.views.fileupload.download
         'options'      => array(
             'maxFileSize' => Yii::app()->getModule('image')->maxSize,
             'acceptFileTypes' => 'js:/(\.|\/)(' . implode('|', Yii::app()->getModule('image')->allowedExtensions()) . ')$/i',

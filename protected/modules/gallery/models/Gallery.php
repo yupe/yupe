@@ -145,7 +145,7 @@ class Gallery extends YModel
      * 
      * @return string image Url
      **/
-    public function previewImage($width = 190, $height = 190)
+    public function previewImage($width = 190, $height = 0)
     {
         return $this->imagesCount > 0
             ? $this->images[0]->getUrl($width, $height)
