@@ -106,7 +106,9 @@ abstract class YModel extends Model
          * Получаем "теги" для кеша
          */
         $model  = strtolower(get_class($this));
-        $module = strtolower($this->moduleID);
+        $module = $model === 'settings' && !empty($this->module_id)
+            ? $this->module_id
+            : strtolower($this->moduleID);
 
         /**
          * Если не указана зависимость,
