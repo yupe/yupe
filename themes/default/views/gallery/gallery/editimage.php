@@ -11,7 +11,7 @@
 $this->pageTitle   = 'Галерея';
 $this->breadcrumbs = array(
     'Галереи'                => array('/gallery/gallery/list'),
-    $model->gallery[0]->name => array('/gallery/gallery/show', 'id' => $model->gallery[0]->id),
+    $model->gallery->name => array('/gallery/gallery/show', 'id' => $model->gallery->id),
     Yii::t(
         'GalleryModule.gallery', 'Редактирование изображения #{id}', array(
             '{id}' => $model->id

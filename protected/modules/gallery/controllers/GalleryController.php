@@ -11,21 +11,17 @@ class GalleryController extends YFrontController
 
     public function actionShow($id)
     {
-        $gallery = Gallery::model()->findByPk((int) $id);
-
-        if (!$gallery)
+        if (($gallery = Gallery::model()->findByPk($id)) === null)
             throw new CHttpException(404, Yii::t('GalleryModule.gallery', 'Страница не найдена!'));
 
         $image = new Image;
 
-        if (Yii::app()->request->isPostRequest && !empty($_POST['Image']))
-        {
+        if (Yii::app()->request->isPostRequest && !empty($_POST['Image'])) {
             try
             {
                 $transaction = Yii::app()->db->beginTransaction();
                 $image->attributes = $_POST['Image'];
-                if ($image->save() && $gallery->addImage($image))
-                {
+                if ($image->save() && $gallery->addImage($image)) {
                     $transaction->commit();
                     Yii::app()->user->setFlash(
                         YFlashMessages::NOTICE_MESSAGE,
@@ -44,22 +40,12 @@ class GalleryController extends YFrontController
             }
         }
 
-        $dataProvider = new CActiveDataProvider('ImageToGallery', array(
-            'criteria'   => array(
-                'condition' => 'gallery_id = :gallery_id',
-                'params'    => array(':gallery_id' => $gallery->id),
-                'limit'     => self::GALLERY_PER_PAGE,
-                'order'     => 't.creation_date DESC',
-                'with'      => 'image',
-            ),
-            'pagination' => array('pageSize' => self::GALLERY_PER_PAGE),
-        ));
-
-        $this->render('show', array(
-            'image'        => $image,
-            'model'        => $gallery,
-            'dataProvider' => $dataProvider,
-        ));
+        $this->render(
+            'show', array(
+                'image'        => $image,
+                'model'        => $gallery,
+            )
+        );
     }
 
     public function actionFoto($id)

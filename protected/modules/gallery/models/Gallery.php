@@ -65,8 +65,16 @@ class Gallery extends YModel
 
     public function defaultScope()
     {
+        // Иначе наша галерея, чудесным образом исчезает:
+        if (Yii::app()->controller instanceof YBackController)
+            return array();
+
+        /**
+         * Используется tableAlias, чтобы в использующих эту
+         * модель релейшенах не возникало проблем:
+         */
         return array(
-            'condition' => 'status = :status',
+            'condition' => (isset($this->tableAlias) ? $this->tableAlias : 't') . '.status = :status',
             'params'    => array(':status' => self::STATUS_PUBLIC),
         );
     }
@@ -131,13 +139,16 @@ class Gallery extends YModel
 
     /**
      * Получаем картинку для галереи:
+     *
+     * @param int $width  - ширина
+     * @param int $height - высота
      * 
      * @return string image Url
      **/
-    public function previewImage()
+    public function previewImage($width = 190, $height = 190)
     {
         return $this->imagesCount > 0
-            ? $this->images[0]->getUrl(190, 190)
+            ? $this->images[0]->getUrl($width, $height)
             : Yii::app()->theme->baseUrl . '/web/images/thumbnail.png';
     }
 }

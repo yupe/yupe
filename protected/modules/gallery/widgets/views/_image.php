@@ -1,11 +1,11 @@
-<div class="span-5 image">
+<div class="image img-polaroid">
 <?php if ($data->image->canChange()) : ?>
     <div class="image-changes">
         <?php
         // Редактирование:
         echo CHtml::link(
             '<i class="icon-pencil"></i>', Yii::app()->createAbsoluteUrl(
-                'gallery/gallery/editImage', array(
+                'image/default/update', array(
                     'id' => $data->image->id
                 )
             )
@@ -14,7 +14,7 @@
         // Удаление:
         echo CHtml::link(
             '<i class="icon-remove"></i>', Yii::app()->createAbsoluteUrl(
-                'gallery/gallery/deleteImage', array(
+                'gallery/default/deleteImage', array(
                     'id' => $data->image->id
                 )
             )

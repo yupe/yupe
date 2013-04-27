@@ -26,6 +26,7 @@ class Image extends YModel
     const TYPE_PREVIEW = 1;
 
     private $_url;
+    public $gallery_id;
 
     /**
      * Returns the static model of the specified AR class.
@@ -59,7 +60,7 @@ class Image extends YModel
             array('alt, name, file', 'length', 'max' => 250),
             array('type', 'in', 'range' => array_keys($this->typeList)),
             array('category_id', 'default', 'setOnEmpty' => true, 'value' => null),
-            array('id, name, description, creation_date, user_id, alt, status', 'safe', 'on' => 'search'),
+            array('id, name, description, creation_date, user_id, alt, status, gallery_id', 'safe', 'on' => 'search'),
         );
     }
 
@@ -98,10 +99,11 @@ class Image extends YModel
         // NOTE: you may need to adjust the relation name and the related
         // class name for the relations automatically generated below.
         return array(
+            'image'       => array(self::BELONGS_TO, 'Image', 'id'),
             'category'    => array(self::BELONGS_TO, 'Category', 'category_id'),
             'user'        => array(self::BELONGS_TO, 'User', 'user_id'),
-            'galleryRell' => array(self::HAS_MANY, 'ImageToGallery', array('image_id' => 'id')),
-            'gallery'     => array(self::HAS_MANY, 'Gallery', 'gallery_id', 'through' => 'galleryRell'),
+            'galleryRell' => array(self::HAS_ONE, 'ImageToGallery', array('image_id' => 'id')),
+            'gallery'     => array(self::HAS_ONE, 'Gallery', 'gallery_id', 'through' => 'galleryRell'),
         );
     }
 
@@ -136,14 +138,19 @@ class Image extends YModel
 
         $criteria = new CDbCriteria;
 
-        $criteria->compare('id', $this->id, true);
-        $criteria->compare('name', $this->name, true);
-        $criteria->compare('description', $this->description, true);
-        $criteria->compare('file', $this->file, true);
-        $criteria->compare('creation_date', $this->creation_date, true);
-        $criteria->compare('user_id', $this->user_id, true);
-        $criteria->compare('alt', $this->alt, true);
-        $criteria->compare('status', $this->status);
+        $criteria->compare($this->tableAlias . '.id', $this->id, true);
+        $criteria->compare($this->tableAlias . '.name', $this->name, true);
+        $criteria->compare($this->tableAlias . '.description', $this->description, true);
+        $criteria->compare($this->tableAlias . '.file', $this->file, true);
+        $criteria->compare($this->tableAlias . '.creation_date', $this->creation_date, true);
+        $criteria->compare($this->tableAlias . '.user_id', $this->user_id, true);
+        $criteria->compare($this->tableAlias . '.alt', $this->alt, true);
+        $criteria->compare($this->tableAlias . '.status', $this->status);
+        
+        $criteria->with = array('gallery', 'image');
+        $criteria->compare('gallery_id', $this->gallery_id);
+
+        $criteria->together = true;
 
         return new CActiveDataProvider(get_class($this), array('criteria' => $criteria));
     }
@@ -208,16 +215,25 @@ class Image extends YModel
      **/
     public function makeThumbnail($width = 0, $height = 0)
     {
+        $width = $width === 0
+            ? $height
+            : $width;
+
+        $height = $height === 0
+            ? $width
+            : $height;
+
         $ext = pathinfo($this->file, PATHINFO_EXTENSION);
-        $hash = md5($this->file . $width . 'x' . $height) . '.' . $ext;
+        $file = 'thumb_cache_' . $width . 'x' . $height . '_' . pathinfo($this->file, PATHINFO_FILENAME) . '.' . $ext;
         $image = Yii::app()->getModule('image');
         
-        if (($file = Yii::app()->cache->get($hash)) === false) {
+        if (!file_exists($image->getUploadPath() . $this->file))
+            return null;
+
+        if (file_exists($image->getUploadPath() . $file) === false) {
             $thumb = Yii::app()->thumbs->create($image->getUploadPath() . $this->file);
             $thumb->adaptiveResize($width, $height);
-            $file = 'thumbs_cache_yupe_' . md5($hash . microtime(true)) . '.' . $ext;
             $thumb->save($image->getUploadPath() . $file);
-            Yii::app()->cache->set($hash, $file, 0, new CFileCacheDependency($image->getUploadPath() . $file));
         }
 
         return $file;
@@ -235,13 +251,16 @@ class Image extends YModel
     {
         if ($this->_url)
             return $this->_url.'/'.$this->file;
+
         $yupe = Yii::app()->getModule('yupe');
         $image = Yii::app()->getModule('image');
 
         return Yii::app()->baseUrl . '/' . $yupe->uploadPath . '/' . $image->uploadPath . '/' . (
-            $width > 0 || $height > 0
-                ? $this->makeThumbnail($width, $height)
-                : $this->file            
+            ($width > 0 || $height > 0) && (
+                $thumbnail = $this->makeThumbnail($width, $height)
+            ) !== null
+                ? $thumbnail
+                : $this->file
         );
     }
 
@@ -253,5 +272,38 @@ class Image extends YModel
     public function canChange()
     {
         return Yii::app()->user->isSuperUser() || Yii::app()->user->id == $this->user_id;
+    }
+
+    /**
+     * Определяем галерею:
+     *
+     * @param boolean $withlink - для возврата линка на галерею:
+     *
+     * @return string gallery name
+     **/
+    public function galleryName()
+    {
+        return $this->gallery instanceof Gallery
+            ? CHtml::link(
+                $this->gallery->name,
+                Yii::app()->controller instanceof YBackController
+                ? array('/gallery/default/update', 'id' => $this->gallery->id)
+                : array('/gallery/gallery/update', 'id' => $this->gallery->id)
+            )
+            : '---';
+    }
+
+    /**
+     * Список галерей:
+     * 
+     * @return array list of galleries
+     **/
+    public function galleryList()
+    {
+        return CHtml::listData(
+            Gallery::model()->cache(
+                100, new CDbCacheDependency('SELECT MAX(id) FROM ' . Gallery::model()->tableName())
+            )->findAll(), 'id', 'name'
+        );
     }
 }
