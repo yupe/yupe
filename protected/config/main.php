@@ -24,8 +24,13 @@ $config = array(
 $files = glob(dirname(__FILE__) . '/modules/*.php');
 if (!empty($files)) {
     foreach ($files as $file) {
-        $moduleConfig = require $file;
-        $name = pathinfo($file,PATHINFO_FILENAME);
+        
+        $name = pathinfo($file, PATHINFO_FILENAME);
+        
+        if (!is_dir(dirname(dirname(__FILE__)) . DIRECTORY_SEPARATOR . 'modules' . DIRECTORY_SEPARATOR . $name))
+            continue;
+        
+        $moduleConfig = include_once $file;
 
         if ($name == 'yupe') {
             if (!YII_DEBUG)
