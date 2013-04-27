@@ -425,6 +425,7 @@ class YupeModule extends YWebModule
             array(
                 'yupe.models.*',
                 'yupe.components.*',
+                'yupe.extensions.tagcache.*',
             )
         );
 
@@ -561,7 +562,7 @@ class YupeModule extends YWebModule
                 // Заполняем категорию Юпи!
                 $modulesNavigation[$this->category]['items']['settings'] = $settings;
 
-                Yii::app()->cache->set('YupeModulesNavigation-' . Yii::app()->language, $modulesNavigation, Yii::app()->getModule('yupe')->coreCacheTime);
+                Yii::app()->cache->set('YupeModulesNavigation-' . Yii::app()->language, $modulesNavigation, Yii::app()->getModule('yupe')->coreCacheTime, new TagsCache('yupe', 'navigation'));
             }
         }
 
