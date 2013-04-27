@@ -73,6 +73,17 @@ $this->renderPartial('_search', array('model' => $model));
             ),
             array(
                 'class' => 'bootstrap.widgets.TbButtonColumn',
+                'template' => '{images}{view}{update}{delete}',
+                'buttons'  => array(
+                    'images' => array(
+                        'icon'     => 'picture',
+                        'label'    => Yii::t('GalleryModule.gallery', 'Изображения галереи'),
+                        'url'      => 'array("/gallery/default/images", "id" => $data->id)',
+                    ),
+                ),
+                'htmlOptions' => array(
+                    'style'   => 'width: 60px; text-align: right;'
+                )
             ),
         ),
     )
