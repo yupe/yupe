@@ -529,10 +529,14 @@ class BackendController extends YBackController
             if ($form->validate()) {
                 if ($form->module === '0')
                     $form->module = 'другой модуль';
+                if (($applicationlog = Yii::getPathOfAlias('application.runtime') . DIRECTORY_SEPARATOR . 'application.log')
+                    && file_exists($applicationlog)
+                )
+                    $form->message .= "<br /> --------------- <br /> <pre>" . file_get_contents($applicationlog) . '</pre>';
                 Yii::app()->mail->send(
                     Yii::app()->user->email,
                     $form->sendTo,
-                    "[Bug in {$form->module}]" . $form->subject,
+                    "[Bug in {$form->module}] " . $form->subject,
                     $form->message
                 );
                 Yii::app()->user->setFlash(
