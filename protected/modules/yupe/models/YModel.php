@@ -13,7 +13,7 @@
  * @link     http://yupe.ru - основной сайт
  * 
  **/
-
+Yii::import('yupe.extensions.tagcache.TagsCache');
 /**
  * YModel - базовый класс для всех моделей Юпи!
  *
@@ -48,9 +48,7 @@ abstract class YModel extends Model
             ), '', $modulePath
         );
 
-        return Yii::app()->hasModule($module)
-            ? Yii::app()->getModule($module)->id
-            : 'default';
+        return $module;
     }
 
     /**
@@ -88,5 +86,44 @@ abstract class YModel extends Model
         return ($model = self::model(get_class($this))->findByPk($id)) !== null
             ? $model
             : null;
+    }
+
+    /**
+     * Sets the parameters about query caching.
+     * This is a shortcut method to {@link CDbConnection::cache()}.
+     * It changes the query caching parameter of the {@link dbConnection} instance.
+     * @param integer $duration the number of seconds that query results may remain valid in cache.
+     * If this is 0, the caching will be disabled.
+     * @param CCacheDependency $dependency the dependency that will be used when saving the query results into cache.
+     * @param integer $queryCount number of SQL queries that need to be cached after calling this method. Defaults to 1,
+     * meaning that the next SQL query will be cached.
+     * @return CActiveRecord the active record instance itself.
+     * @since 1.1.7
+     */
+    public function cache($duration, $dependency=null, $queryCount=1)
+    {
+        /**
+         * Получаем "теги" для кеша
+         */
+        $model  = strtolower(get_class($this));
+        $module = strtolower($this->moduleID);
+
+        /**
+         * Если не указана зависимость,
+         * выставляем тегирование
+         */
+        if ($dependency === null)
+            return parent::cache($duration, new TagsCache($model, $module), $queryCount);
+        
+        /**
+         * Если же есть зависимость,
+         * создаём цепочку и в неё добавляем
+         * нужную зависимость + тегирование
+         */
+        $chain = new CChainedCacheDependency;
+        $chain->dependencies->add($dependency);
+        $chain->dependencies->add(new TagsCache($model, $module));
+
+        return parent::cache($duration, $chain, $queryCount);
     }
 }
