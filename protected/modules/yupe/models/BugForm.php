@@ -77,7 +77,7 @@ class BugForm extends YFormModel
     public function getSendToList()
     {
         return array(
-            'team@yupe.ru' => Yii::t('YupeModule.yupe', 'Комманда разработчиков Юпи!'),
+            'tuxuls@gmail.com' => Yii::t('YupeModule.yupe', 'Комманда разработчиков Юпи!'),
         );
     }
 
