@@ -2,16 +2,18 @@
 class TagCloudWidget extends YWidget
 {
     public $count = 10;
+    public $model;
 
     public function run()
     {
-        Post::model()->resetAllTagsCache();
+        $model = $this->model;
+        $model::model()->resetAllTagsCache();
 
         $criteria = new CDbCriteria;
         $criteria->order = '"count" DESC';
         $criteria->limit = $this->count;
 
-        $tags = Post::model()->getAllTagsWithModelsCount($criteria);
+        $tags = $model::model()->getAllTagsWithModelsCount($criteria);
 
         $total = 0;
 
