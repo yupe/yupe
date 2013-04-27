@@ -1,7 +1,12 @@
 <?php
 return array(
     'cache'     => array(
-        'class' => 'CFileCache'
+        'class' => 'CFileCache',
+        'behaviors' => array(
+            'clear' => array(
+                'class' => 'yupe.extensions.tagcache.TaggingCacheBehavior',
+            ),
+        ),
     ),
     'preload'   => array('log'),
     'component' => array(
