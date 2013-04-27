@@ -63,7 +63,6 @@ $this->widget(
                 'content' => $this->renderPartial(
                     '_image_add', array(
                         'model'   => $image,
-                        'gallery' => $model,
                     ), true
                 ),
                 'active'  => $tab == '_image_add',

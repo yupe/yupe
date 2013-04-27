@@ -51,10 +51,6 @@ $form = $this->beginWidget(
     <div class='row-fluid control-group <?php echo $model->hasErrors("status") ? "error" : ""; ?>'>
         <?php echo $form->dropDownListRow($model, 'status', $model->statusList); ?>
     </div>
-    <div class='row-fluid control-group <?php echo $model->hasErrors("status") ? "error" : ""; ?>'>
-        <?php $model->gallery_id = $gallery->id; ?>
-        <?php echo $form->hiddenField($model, 'gallery_id', array('name' => 'Image[gallery_id]')); ?>
-    </div>
 
     <?php
     $this->widget(
