@@ -19,14 +19,19 @@ $this->widget(
 
 
 <?php
-$this->widget(
-    'zii.widgets.CListView', array(
-        'id' => 'gallery',
-        'dataProvider' => $dataProvider,
-        'itemView'     => '_image',
-        'afterAjaxUpdate' => "function(id, data) { masonry('#gallery .items'); }",
-    )
-); ?>
+if ($gallery->status == Gallery::STATUS_PRIVAT && $gallery->owner != Yii::app()->user->id)
+    echo CHtml::tag(
+        'h3', array(), Yii::t('GalleryModule.gallery', 'Это приватная галерея!')
+    );
+else
+    $this->widget(
+        'zii.widgets.CListView', array(
+            'id' => 'gallery',
+            'dataProvider' => $dataProvider,
+            'itemView'     => '_image',
+            'afterAjaxUpdate' => "function(id, data) { masonry('#gallery .items'); }",
+        )
+    ); ?>
 
 
 <script type="text/javascript">

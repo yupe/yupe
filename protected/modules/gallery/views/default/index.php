@@ -64,6 +64,11 @@ $this->renderPartial('_search', array('model' => $model));
             'id',
             'name',
             array(
+                'name'   => 'owner',
+                'filter' => $model->usersList,
+                'value'  => '$data->ownerName',
+            ),
+            array(
                 'type' => 'html',
                 'name'  => 'description',
             ),
