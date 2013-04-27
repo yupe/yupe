@@ -53,6 +53,8 @@ $this->breadcrumbs = array(
     </div>
 </div>
 
+<?php $this->widget('blog.widgets.SimilarPostsWidget', array('post' => $post)); ?>
+
 <script type="text/javascript">
     jQuery(document).ready(function($) {
         $(document).on('click', '.post-updatecomments', function(){
