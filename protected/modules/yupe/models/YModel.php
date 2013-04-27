@@ -116,6 +116,8 @@ abstract class YModel extends Model
          */
         if ($dependency === null)
             return parent::cache($duration, new TagsCache($model, $module), $queryCount);
+        elseif ($dependency instanceof TagsCache)
+            return parent::cache($duration, $dependency, $queryCount);
         
         /**
          * Если же есть зависимость,

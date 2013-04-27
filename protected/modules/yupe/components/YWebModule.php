@@ -542,7 +542,7 @@ abstract class YWebModule extends CWebModule
 
         try {
             // инициализация модуля, понимаю, что @ - это зло, но пока это самое простое решение
-            $settings = @Settings::model()->cache($this->coreCacheTime)->findAll('module_id = :module_id AND type = :type', array(
+            $settings = @Settings::model()->cache($this->coreCacheTime, new TagsCache($this->id, 'settings'))->findAll('module_id = :module_id AND type = :type', array(
                 ':module_id' => $this->getId(),
                 ':type'      => Settings::TYPE_CORE,
             ));
