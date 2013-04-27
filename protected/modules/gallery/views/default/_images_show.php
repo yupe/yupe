@@ -10,5 +10,5 @@
  **/
 ?>
 <div id="gallery-wrapper">
-    <?php $this->widget('gallery.widgets.GalleryWidget', array('gallery_id' => $model->id, 'limit' => 30)); ?>    
+    <?php $this->widget('gallery.widgets.GalleryWidget', array('gallery_id' => $model->id, 'gallery' => $model, 'limit' => 30)); ?>
 </div>
