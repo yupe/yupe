@@ -63,7 +63,7 @@ $this->renderPartial('_search', array('model' => $model));
         array(
             'name'  => 'category_id',
             'type'  => 'raw',
-            'value' => 'CHtml::link($data->category->name, array("/category/default/view", "id" => $data->id))',
+            'value' => '$data->categoryLink'
         ),
         'price',
         'article',
