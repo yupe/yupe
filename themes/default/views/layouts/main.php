@@ -73,7 +73,7 @@
         <div class="span-5 last">
             <div id="sidebar">
                 <?php $this->widget('application.modules.blog.widgets.LastPostsWidget', array('cacheTime' => 0)); ?>
-                <?php $this->widget('application.modules.blog.widgets.TagCloudWidget', array('cacheTime' => 0)); ?>
+                <?php $this->widget('application.modules.yupe.extensions.taggable.widgets.TagCloudWidget.TagCloudWidget', array('cacheTime' => 0, 'model' => 'Post')); ?>
                 <?php $this->widget('application.modules.feedback.widgets.FaqWidget', array('cacheTime' => 0)); ?>
                 <?php //$this->widget('application.modules.news.widgets.LastNewsWidget', array('cacheTime' => 0)); ?>
                 <?php $this->widget('application.modules.blog.widgets.BlogsWidget', array('cacheTime' => 0));?>
