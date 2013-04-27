@@ -51,12 +51,9 @@ class TagsCache implements ICacheDependency
         );
         $values = Yii::app()->cache->mget($tags);
 
-        foreach ($values as $value) {
-            if ((float) $value > $this->timestamp) {
-                Yii::log(Yii::t('YupeModule.yupe', 'Инвалидированы теги {tags}', array('{tags}' => implode(',', $tags))));
+        foreach ($values as $value)
+            if ((float) $value > $this->timestamp)
                 return true;
-            }
-        }
 
         return false;
     }
