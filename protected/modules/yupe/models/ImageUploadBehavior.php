@@ -127,7 +127,7 @@ class ImageUploadBehavior extends CActiveRecordBehavior
     {
         return (is_callable($this->imageNameCallback))
             ? (call_user_func($this->imageNameCallback))
-            : md5(time());
+            : md5(microtime(true) . rand() . rand());
 
     }
 
