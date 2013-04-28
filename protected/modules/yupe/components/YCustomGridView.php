@@ -332,9 +332,11 @@ class YCustomGridView extends TbExtendedGridView
 (function(){
     $('body').on('click', '#{$this->getId()} .pageSize', function(event) {
         event.preventDefault();
-        if ($('#{$this->getId()} .items tbody tr').length < 2)
-            return false;
         $('#{$this->getId()}').yiiGridView('update',{
+            // Если в гриде нет записей
+            // будет вылетать с ошибкой - Uncaught TypeError: Cannot call method 'match' of undefined 
+            // В данном случае необходимо указывать URL.
+            url: window.location.href,
             data: {'{$this->pageSizeVarName}': $(this).attr('rel')}
         });
     });
