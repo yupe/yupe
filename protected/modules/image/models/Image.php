@@ -88,7 +88,7 @@ class Image extends YModel
 
     public function generateFileName()
     {
-        return md5($this->name . time());
+        return md5($this->name . microtime(true) . rand());
     }
 
     /**
