@@ -230,6 +230,7 @@ class DefaultController extends YBackController
         $image = new Image;
 
         if (Yii::app()->request->isPostRequest && ($imageData = Yii::app()->request->getPost('Image')) !== null) {
+            $imageData = $imageData[$_FILES['Image']['name']['file']];
             $this->_addImage($image, $imageData, $gallery);
             if ($image->hasErrors())
                 $data[] = array('error' => $image->getErrors());
