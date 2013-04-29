@@ -102,8 +102,12 @@ class Image extends YModel
             'image'       => array(self::BELONGS_TO, 'Image', 'id'),
             'category'    => array(self::BELONGS_TO, 'Category', 'category_id'),
             'user'        => array(self::BELONGS_TO, 'User', 'user_id'),
-            'galleryRell' => array(self::HAS_ONE, 'ImageToGallery', array('image_id' => 'id')),
-            'gallery'     => array(self::HAS_ONE, 'Gallery', 'gallery_id', 'through' => 'galleryRell'),
+            'galleryRell' => Yii::app()->hasModule('gallery')
+                ? array(self::HAS_ONE, 'ImageToGallery', array('image_id' => 'id'))
+                : array(),
+            'gallery'     => Yii::app()->hasModule('gallery')
+                ? array(self::HAS_ONE, 'Gallery', 'gallery_id', 'through' => 'galleryRell')
+                : array(),
         );
     }
 
@@ -147,8 +151,10 @@ class Image extends YModel
         $criteria->compare($this->tableAlias . '.alt', $this->alt, true);
         $criteria->compare($this->tableAlias . '.status', $this->status);
         
-        $criteria->with = array('gallery', 'image');
-        $criteria->compare('gallery_id', $this->gallery_id);
+        if (Yii::app()->hasModule('gallery')) {
+            $criteria->with = array('gallery', 'image');
+            $criteria->compare('gallery_id', $this->gallery_id);
+        }
 
         $criteria->together = true;
 
@@ -283,7 +289,7 @@ class Image extends YModel
      **/
     public function galleryName()
     {
-        return $this->gallery instanceof Gallery
+        return Yii::app()->hasModule('gallery') && $this->gallery instanceof Gallery
             ? CHtml::link(
                 $this->gallery->name,
                 Yii::app()->controller instanceof YBackController
@@ -300,10 +306,26 @@ class Image extends YModel
      **/
     public function galleryList()
     {
-        return CHtml::listData(
-            Gallery::model()->cache(
-                100, new CDbCacheDependency('SELECT MAX(id) FROM ' . Gallery::model()->tableName())
-            )->findAll(), 'id', 'name'
-        );
+        return Yii::app()->hasModule('gallery')
+            ? CHtml::listData(
+                Gallery::model()->cache(
+                    100, new CDbCacheDependency('SELECT MAX(id) FROM ' . Gallery::model()->tableName())
+                )->findAll(), 'id', 'name'
+            )
+            : array(
+                Yii::t('ImageModule.image', 'Модуль галерей не установлен'),
+            );
+    }
+
+    /**
+     * Получаем имя того, кто загрузил картинку:
+     *
+     * @return string user full name
+     **/
+    public function getUserName()
+    {
+        return $this->user instanceof User
+            ? $this->user->getFullName()
+            : '---';
     }
 }

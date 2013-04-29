@@ -153,11 +153,19 @@ class ImageModule extends YWebModule
 
         $this->documentRoot = $_SERVER['DOCUMENT_ROOT'];
 
-        $this->setImport(array(
-            'gallery.models.*',
-            'image.models.*',
-            'image.components.*',
-        ));
+        $forImport = array();
+
+        if (Yii::app()->hasModule('gallery'))
+            $forImport[] = 'gallery.models.*';
+
+        $this->setImport(
+            array_merge(
+                array(
+                    'image.models.*',
+                    'image.components.*',
+                ), $forImport
+            )
+        );
     }
 
     public function getCategoryList()
