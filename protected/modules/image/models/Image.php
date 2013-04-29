@@ -287,16 +287,11 @@ class Image extends YModel
      *
      * @return string gallery name
      **/
-    public function galleryName()
+    public function getGalleryName()
     {
         return Yii::app()->hasModule('gallery') && $this->gallery instanceof Gallery
-            ? CHtml::link(
-                $this->gallery->name,
-                Yii::app()->controller instanceof YBackController
-                ? array('/gallery/default/update', 'id' => $this->gallery->id)
-                : array('/gallery/gallery/update', 'id' => $this->gallery->id)
-            )
-            : '---';
+            ? $this->gallery->name
+            : null;
     }
 
     /**
