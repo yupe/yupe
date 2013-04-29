@@ -47,7 +47,7 @@
         'creation_date',
         array(
             'name'  => 'user_id',
-            'value' => $model->user->getFullName(),
+            'value' => $model->userName,
         ),
         'alt',
         array(
