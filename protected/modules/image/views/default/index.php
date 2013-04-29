@@ -64,7 +64,14 @@ $this->renderPartial('_search', array('model' => $model));
             'header' => Yii::t('ImageModule.image', 'Галерея'),
             'type'   => 'raw',
             'filter' => $model->galleryList(),
-            'value'  => '$data->galleryName(true)',
+            'value'  => '$data->galleryName === null
+                        ? "---"
+                        : CHtml::link(
+                            $data->gallery->name,
+                            Yii::app()->controller instanceof YBackController
+                            ? array("/gallery/default/update", "id" => $this->gallery->id)
+                            : array("/gallery/gallery/update", "id" => $this->gallery->id)
+                        )',
         ),
         'name',
         'alt',
