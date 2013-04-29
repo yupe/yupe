@@ -309,7 +309,7 @@ class Image extends YModel
         return Yii::app()->hasModule('gallery')
             ? CHtml::listData(
                 Gallery::model()->cache(
-                    100, new CDbCacheDependency('SELECT MAX(id) FROM ' . Gallery::model()->tableName())
+                    100, new CDbCacheDependency('SELECT MAX(id) FROM {{gallery_gallery}}')
                 )->findAll(), 'id', 'name'
             )
             : array(
