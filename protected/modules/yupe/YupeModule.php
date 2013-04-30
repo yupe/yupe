@@ -342,16 +342,6 @@ class YupeModule extends YWebModule
                     'module' => 'yupe',
                 ),
             ),
-            array(
-                'icon'  => 'question-sign',
-                'label' => Yii::t('YupeModule.yupe', 'Сообщить об ошибке'),
-                'url'   => array('/yupe/backend/reportBug'),
-            ),
-            array(
-                'icon'  => 'exclamation-sign',
-                'label' => Yii::t('YupeModule.yupe', 'Помощь'),
-                'url'   => array('/yupe/backend/help'),
-            ),
         );
     }
 
@@ -871,5 +861,15 @@ class YupeModule extends YWebModule
             'items'          => $items,
             'submenuOptions' => array('style' => 'min-width: 20px;'),
         ));
+    }
+
+    public function poweredBy($color = 'yellow',$text = '')
+    {
+        if(empty($text)){
+            $text = Yii::t('YupeModule.yupe','Работает на Юпи!');
+        }
+        return CHtml::link(
+            CHtml::image(Yii::app()->baseUrl."/web/images/yupe_{$color}.png",$text),'http://yupe.ru?from=pb',array('title' => $text,'alt' => $text)
+        );
     }
 }

@@ -18,8 +18,22 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title><?php echo CHtml::encode(Yii::app()->name); ?> <?php echo CHtml::encode($this->pageTitle); ?></title>
         <link rel="icon" type="image/png" href="<?php echo Yii::app()->baseUrl;?>/web/images/favicon.png" />
+        <?php
+            $mainAssets = Yii::app()->assetManager->publish(
+                Yii::getPathOfAlias('application.modules.yupe.views.assets')
+            );
+            Yii::app()->clientScript->registerCssFile($mainAssets . '/css/styles.css');
+        ?>
     </head>
     <body>
-        <?php echo $content; ?>
+        <div id="overall-wrap">
+            <?php echo $content; ?>
+        </div>
+        <footer>
+            Copyright &copy; 2009-<?php echo date('Y'); ?>
+            <a href='http://yupe.ru?from=blogin'>
+                <?php echo Yii::app()->getModule('yupe')->poweredBy();?>
+            </a>
+        </footer>
     </body>
 </html>

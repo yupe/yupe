@@ -138,7 +138,7 @@ class DefaultController extends YBackController
                 $this->redirect(isset($_POST['returnUrl']) ? $_POST['returnUrl'] : array('index'));
         }
         else
-            throw new YPageNotFoundException(Yii::t('PageModule.page', 'Неверный запрос. Пожалуйста, больше не повторяйте такие запросы!'));
+            throw new CHttpException(404,Yii::t('PageModule.page', 'Неверный запрос. Пожалуйста, больше не повторяйте такие запросы!'));
     }
 
     /**
@@ -166,7 +166,7 @@ class DefaultController extends YBackController
             if (isset($_GET['id']))
                 $this->_model = Page::model()->with('author', 'changeAuthor')->findbyPk($_GET['id']);
             if ($this->_model === null)
-                throw new YPageNotFoundException(Yii::t('PageModule.page', 'Запрошенная страница не найдена!'));
+                throw new CHttpException(404,Yii::t('PageModule.page', 'Запрошенная страница не найдена!'));
         }
         return $this->_model;
     }

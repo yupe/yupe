@@ -69,8 +69,8 @@ $this->renderPartial('_search', array('model' => $model));
                         : CHtml::link(
                             $data->gallery->name,
                             Yii::app()->controller instanceof YBackController
-                            ? array("/gallery/default/update", "id" => $this->gallery->id)
-                            : array("/gallery/gallery/update", "id" => $this->gallery->id)
+                            ? array("/gallery/default/update", "id" => $data->gallery->id)
+                            : array("/gallery/gallery/update", "id" => $data->gallery->id)
                         )',
         ),
         'name',
