@@ -79,7 +79,7 @@ $this->widget(
                 'active'  => $tab == '_images_add',
             ),
         ),
-        'events'=>array('shown'=>'js:loadContent')
+        'events'=>array('click'=>'js:loadContent')
     )
 ); ?>
 <script>
@@ -87,24 +87,7 @@ var loadContent;
 var loadedCount = 0;
 jQuery(document).ready(function($) {
     loadContent = function(e) {
-        var tabId = e.target.getAttribute("href");
-        if (tabId != '#_images_show' || loadedCount >= $('.template-download').length)
-            return false;
-        else
-            loadedCount = $('.template-download').length;
-        $.ajax({
-            url      : '<?php echo $this->createUrl("/gallery/default/reloadContent", array("id" => $model->id, "view" => "_images_show"))?>',
-            type     : 'get',
-            dataType : 'html',
-            cache    : false,
-            success  : function(html) {
-                $(tabId).html(html);
-            },
-            error    : function() {
-                    alert('Request failed');
-            }
-        });
-        return false;
+        $.fn.yiiListView.update('gallery');
     }
 });
 </script>
