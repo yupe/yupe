@@ -8,6 +8,10 @@
  *   @license  https://github.com/yupe/yupe/blob/master/LICENSE BSD
  *   @link     http://yupe.ru
  **/
+$mainAssets = Yii::app()->assetManager->publish(
+    Yii::getPathOfAlias('gallery.views.assets')
+);
+Yii::app()->clientScript->registerScriptFile($mainAssets . '/js/fileupload.locale.js', CClientScript::POS_END);
 $this->widget(
     'bootstrap.widgets.TbFileUpload', array(
         'id'           => 'fileUploader',
