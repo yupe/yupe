@@ -1,0 +1,9 @@
+.drugndrop:after {
+    display: block;
+    text-align: center;
+    position: relative;
+    line-height: 55pt;
+    font-size: 18pt;
+    color: #E2E2E2;
+    border: 2px dashed;
+}
