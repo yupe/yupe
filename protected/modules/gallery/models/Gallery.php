@@ -14,7 +14,7 @@ class Gallery extends YModel
     const STATUS_DRAFT    = 0;
     const STATUS_PUBLIC   = 1;
     const STATUS_PERSONAL = 2;
-    const STATUS_PRIVAT   = 3;
+    const STATUS_PRIVATE   = 3;
 
     /**
      * Returns the static model of the specified AR class.
@@ -63,29 +63,6 @@ class Gallery extends YModel
             'images'      => array(self::HAS_MANY, 'Image', 'image_id', 'through' => 'imagesRell'),
             'imagesCount' => array(self::STAT, 'ImageToGallery', 'gallery_id'),
             'user'        => array(self::BELONGS_TO, 'User', 'owner'),
-        );
-    }
-
-    public function defaultScope()
-    {
-        // Иначе наша галерея, чудесным образом исчезает:
-        if (Yii::app()->controller instanceof YBackController)
-            return array();
-
-        /**
-         * Используется tableAlias, чтобы в использующих эту
-         * модель релейшенах не возникало проблем:
-         */
-        $tableAlias = isset($this->tableAlias)
-                    ? $this->tableAlias
-                    : 't';
-        return array(
-            'condition' => "{$tableAlias}.status = :status_public OR {$tableAlias}.status = :status_personal OR {$tableAlias}.status = :status_privat",
-            'params'    => array(
-                ':status_public'   => self::STATUS_PUBLIC,
-                ':status_personal' => self::STATUS_PERSONAL,
-                ':status_privat'   => self::STATUS_PRIVAT
-            ),
         );
     }
 
@@ -143,7 +120,7 @@ class Gallery extends YModel
             self::STATUS_DRAFT    => Yii::t('GalleryModule.gallery', 'скрытая'),
             self::STATUS_PUBLIC   => Yii::t('GalleryModule.gallery', 'публичная'),
             self::STATUS_PERSONAL => Yii::t('GalleryModule.gallery', 'личная'),
-            self::STATUS_PRIVAT   => Yii::t('GalleryModule.gallery', 'приватная'),
+            self::STATUS_PRIVATE   => Yii::t('GalleryModule.gallery', 'приватная'),
         );
     }
 
@@ -213,6 +190,34 @@ class Gallery extends YModel
      **/
     public function getCanAddPhoto()
     {
-        return ($this->status == Gallery::STATUS_PRIVAT || $this->status == Gallery::STATUS_PERSONAL)  && Yii::app()->user->id == $this->owner;
+        return ($this->status == Gallery::STATUS_PRIVATE || $this->status == Gallery::STATUS_PERSONAL)  && Yii::app()->user->id == $this->owner;
+    }
+
+    /**
+     * Список статусов опубликованых галерей
+     *
+     * @return array of published status
+     **/
+    public function getPublishedStatus()
+    {
+        return array(
+            Gallery::STATUS_PERSONAL,
+            Gallery::STATUS_PRIVATE,
+            Gallery::STATUS_PUBLIC,
+        );
+    }
+
+    /**
+     * Именованные условия
+     *
+     * @return array of scopes
+     **/
+    public function scopes()
+    {
+        return array(
+            'published' => array(
+                'condition'=>'status IN (' . implode(', ', $this->publishedStatus) . ')',
+            ),
+        );
     }
 }
