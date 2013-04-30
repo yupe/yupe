@@ -38,7 +38,6 @@
                 <span>{%=locale.fileupload.cancel%}</span>
             </button>
         {% } %}</td>
-        
     </tr>
 {% } %}
 </script>
