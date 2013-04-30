@@ -5,13 +5,19 @@ class GalleryController extends YFrontController
 
     public function actionList()
     {
-        $dataProvider = new CActiveDataProvider('Gallery');
+        $dataProvider = new CActiveDataProvider(
+            'Gallery', array(
+                'criteria' => array(
+                    'scopes' => 'published'
+                )
+            )
+        );
         $this->render('list', array('dataProvider' => $dataProvider));
     }
 
     public function actionShow($id)
     {
-        if (($gallery = Gallery::model()->findByPk($id)) === null)
+        if (($gallery = Gallery::model()->published()->findByPk($id)) === null)
             throw new CHttpException(404, Yii::t('GalleryModule.gallery', 'Страница не найдена!'));
 
         $image = new Image;

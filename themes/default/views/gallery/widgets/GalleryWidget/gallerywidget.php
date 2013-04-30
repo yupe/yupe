@@ -19,7 +19,7 @@ $this->widget(
 
 
 <?php
-if ($gallery->status == Gallery::STATUS_PRIVAT && $gallery->owner != Yii::app()->user->id)
+if ($gallery->status == Gallery::STATUS_PRIVATE && $gallery->owner != Yii::app()->user->id)
     echo CHtml::tag(
         'h3', array(), Yii::t('GalleryModule.gallery', 'Это приватная галерея!')
     );
