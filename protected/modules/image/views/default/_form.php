@@ -23,7 +23,7 @@ $form = $this->beginWidget('bootstrap.widgets.TbActiveForm', array(
     </div>
     <div class='row-fluid control-group <?php echo $model->hasErrors("file") ? "error" : ""; ?>'>
         <?php if ( ! $model->isNewRecord): ?>
-            <?php echo CHtml::image($model->getUrl(), $model->alt);?>
+            <?php echo CHtml::image($model->getUrl(300), $model->alt, array("width" => 300, "height" => 300));?>
         <?php endif; ?>
         <?php echo $form->fileFieldRow($model, 'file', array('class' => 'span7', 'maxlength' => 500, 'size' => 60)); ?>
     </div>

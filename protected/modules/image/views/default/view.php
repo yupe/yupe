@@ -42,7 +42,7 @@
          array(
              'name'  => 'file',
              'type'  => 'raw',
-             'value' => CHtml::image($model->getUrl(), $model->alt),
+             'value' => CHtml::image($model->getUrl(100), $model->alt, array("width" => 100, "height" => 100)),
          ),
         'creation_date',
         array(
