@@ -123,7 +123,7 @@ class TbFileUpload extends CJuiInputWidget
 
 		$this->render($this->uploadView);
 		$this->render($this->downloadView);
-			$this->render($this->formView, array('name'=>$name, 'htmlOptions'=>$this->htmlOptions));
+			$this->render($this->formView, array('name'=>$name, 'htmlOptions'=>$htmlOptions));
 
 		if ($this->previewImages || $this->imageProcessing)
 			$this->render($this->previewImagesView);
