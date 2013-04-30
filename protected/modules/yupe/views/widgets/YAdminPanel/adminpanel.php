@@ -111,6 +111,12 @@ $this->widget(
                                     'linkOptions' => array('target' => '_blank'),
                                 ),
                                 array(
+                                    'icon'  => 'icon-thumbs-up',
+                                    'label' => Yii::t('YupeModule.yupe', 'Заказать разработку'),
+                                    'url'   => 'http://yupe.ru/feedback/index?from=help',
+                                    'linkOptions' => array('target' => '_blank'),
+                                ),
+                                array(
                                     'icon'  => 'icon-warning-sign',
                                     'label' => Yii::t('YupeModule.yupe', 'Сообщить об ошибке'),
                                     'url'   => CHtml::normalizeUrl(array('/yupe/backend/reportBug/')),
