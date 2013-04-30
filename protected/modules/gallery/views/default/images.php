@@ -79,7 +79,7 @@ $this->widget(
                 'active'  => $tab == '_images_add',
             ),
         ),
-        'events'=>array('click'=>'js:loadContent')
+        'events'=>array('shown'=>'js:loadContent')
     )
 ); ?>
 <script>
