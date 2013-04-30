@@ -6,9 +6,11 @@ $this->breadcrumbs = array(
 );
 ?>
 
-<h1><?php echo Yii::t('YupeModule.yupe', 'Помощь'); ?></h1>
+<h1><?php echo Yii::t('YupeModule.yupe', 'О Юпи!'); ?></h1>
 
-<br />
+<p> <?php echo Yii::t('YupeModule.yupe','У каждого большого проекта должна быть страничка "О проекте", у нас она именно здесь =)'); ?></p>
+
+<br/>
 
 <p>
     <?php echo Yii::t('YupeModule.yupe','Вы используете Yii версии'); ?>
@@ -25,7 +27,7 @@ $this->breadcrumbs = array(
     <p>
         <?php echo Yii::t('YupeModule.yupe', ' Юпи! разрабатывается и поддерживается командой энтузиастов, Вы можете использовать Юпи! и любую его часть <b>совершенно бесплатно</b>'); ?>
     </p>
-    <?php echo CHtml::link(Yii::t('YupeModule.yupe', 'А вот здесь мы принимаем благодарности =)'), 'http://yupe.ru/site/page/view/help/?form=help', array('target' => '_blank')); ?>
+    <?php echo CHtml::link(Yii::t('YupeModule.yupe', 'А вот здесь мы принимаем благодарности =)'), 'http://yupe.ru/pages/help?form=help', array('target' => '_blank')); ?>
     <p><p><b>
         <?php echo Yii::t('YupeModule.yupe', 'По вопросам коммерческой поддержки и разработки Вы всегда можете <a href="http://yupe.ru/feedback/index/?form=help" target="_blank">написать нам</a> (<a href="http://yupe.ru/feedback/index/?form=help" target="_blank">http://yupe.ru/feedback/index</a>)'); ?>
     </b></p></p>
@@ -33,13 +35,17 @@ $this->breadcrumbs = array(
 
 <br />
 
-<p><?php echo Yii::t('YupeModule.yupe', 'Полезные ресурсы:');?></p>
+<p><b><?php echo Yii::t('YupeModule.yupe', 'Полезные ресурсы:');?></b></p>
 
 <?php echo CHtml::link(Yii::t('YupeModule.yupe','Обязательно прочтите документацию Yii'),'http://yiiframework.ru/doc/guide/ru/index');?>
 <br /><br />
 
 
 <?php echo CHtml::link(Yii::t('YupeModule.yupe', 'Официальный сайт Юпи!'), 'http://yupe.ru/?form=help'); ?> - <?php echo Yii::t('YupeModule.yupe', 'заходите чаще!'); ?>
+
+<br /><br />
+
+<?php echo CHtml::link(Yii::t('YupeModule.yupe', 'Официальная документация Юпи!'), 'http://yupe.ru/docs/index.html?form=help'); ?> - <?php echo Yii::t('YupeModule.yupe', 'активно ее пишем =)'); ?>
 
 <br /><br />
 
@@ -100,4 +106,4 @@ $this->breadcrumbs = array(
     </tbody>
 </table>
 
-<b><?php echo CHtml::link(Yii::t('YupeModule.yupe','ЖДЕМ ТОЛЬКО ТЕБЯ!'),'http://yupe.ru/feedback/index',array('target' => '_blank'));?></b>
+<b><?php echo CHtml::link(Yii::t('YupeModule.yupe','ЖДЕМ ТОЛЬКО ТЕБЯ!'),'http://yupe.ru/feedback/index?from=help',array('target' => '_blank'));?></b>

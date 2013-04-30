@@ -342,16 +342,6 @@ class YupeModule extends YWebModule
                     'module' => 'yupe',
                 ),
             ),
-            array(
-                'icon'  => 'question-sign',
-                'label' => Yii::t('YupeModule.yupe', 'Сообщить об ошибке'),
-                'url'   => array('/yupe/backend/reportBug'),
-            ),
-            array(
-                'icon'  => 'exclamation-sign',
-                'label' => Yii::t('YupeModule.yupe', 'Помощь'),
-                'url'   => array('/yupe/backend/help'),
-            ),
         );
     }
 
