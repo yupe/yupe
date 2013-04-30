@@ -37,6 +37,10 @@
 
 <p><?php echo Yii::t('InstallModule.install', 'Полезные ссылки:'); ?></p>
 
+<?php echo CHtml::link(Yii::t('InstallModule.install', 'Официальная документация Юпи!'), 'http://yupe.ru/docs/index.html?from=finish'); ?> - <?php echo Yii::t('InstallModule.install', 'Мы активно ее пишем =)'); ?>
+
+<br/><br/>
+
 <?php echo CHtml::link(Yii::t('InstallModule.install', 'Официальный сайт Юпи!'), 'http://yupe.ru/?from=finish'); ?> - <?php echo Yii::t('InstallModule.install', 'заходите чаще =)'); ?>
 
 <br/><br/>

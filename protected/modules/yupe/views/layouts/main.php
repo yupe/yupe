@@ -32,8 +32,7 @@
         <!-- mainmenu -->
         <?php
         $brandTitle = Yii::t('YupeModule.yupe', 'Перейти на главную панели управления');
-
-        $this->widget('YAdminPanel'); ?>
+        $this->widget('application.modules.yupe.widgets.YAdminPanel'); ?>
         <div class="container-fluid" id="page"><?php echo $content; ?></div>
         <div id="footer-guard"><!-- --></div>
     </div>
@@ -45,7 +44,7 @@
         <small class="label label-info"><?php echo $this->yupe->getVersion(); ?></small>
         <br/>
         <a href="http://yupe.ru/feedback/index?from=engine">
-            <?php echo Yii::t('YupeModule.yupe', 'Разработка и поддержка'); ?></a> - <a href="mailto:team@yupe.ru">yupe team
+            <?php echo Yii::t('YupeModule.yupe', 'Разработка и поддержка'); ?></a> - <a href="http://yupe.ru/?from=panel_footer" target="_blank">yupe team
         </a>
         <br/>
         <?php echo Yii::powered(); ?>

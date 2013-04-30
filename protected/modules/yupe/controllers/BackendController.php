@@ -527,12 +527,9 @@ class BackendController extends YBackController
         if (Yii::app()->request->isPostRequest && ($bugData = Yii::app()->request->getPost('BugForm'))) {
             $form->setAttributes($bugData);
             if ($form->validate()) {
-                if ($form->module === '0')
-                    $form->module = 'другой модуль';
-                if (($applicationlog = Yii::getPathOfAlias('application.runtime') . DIRECTORY_SEPARATOR . 'application.log')
-                    && file_exists($applicationlog)
-                )
-                    $form->message .= "<br /> --------------- <br /> <pre>" . file_get_contents($applicationlog) . '</pre>';
+                if ($form->module === BugForm::OTHER_MODULE){
+                    $form->module = Yii::t('YupeModule.yupe', 'Другой модуль');
+                }
                 Yii::app()->mail->send(
                     Yii::app()->user->email,
                     $form->sendTo,

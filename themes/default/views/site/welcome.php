@@ -14,14 +14,14 @@ echo $highlighter->highlight(
     )
     "
 ); ?>
-<p> Начните доработку Вашего сайта с правки SiteController (/protected/controller/SiteController).</p>
+<p> Начните доработку Вашего сайта с правки <code>SiteController</code> (/protected/controller/SiteController).</p>
 <p> И не забывайте выключать DEBUG-режим (<code>YII_DEBUG</code>).</p>
 
 <p> После данных процедур ваш сайт на <a href='http://yupe.ru/?from=mainpage'>Юпи!</a> будет готов к работе!</p>
 <p> Для управления сайтом, пожалуйста, перейдите в <?php echo CHtml::link('панель управления', array('/yupe/backend/')); ?>.</p>
 <p> При возникновении вопросов или проблем - обращайтесь на наш <a href='http://yupe.ru/talk/?from=mainpage'>форум</a> или сообщите об ошибках на <a href='https://github.com/yupe/yupe/issues'>Github</a>.</p>
-<p> Читайте нас в <a href='http://twitter.com/yupecms'>twitter</a> или <a href='http://vk.com/amylabs'>Вконтакте</a></p>
-<p> Посетите раздел с <a href='http://yupe.ru/docs/index.html'> официальной документацией </a></p>
+<p> Читайте нас в <a href='http://twitter.com/yupecms'>twitter</a> или <a href='http://vk.com/amylabs'>Вконтакте</a> или в <a href="https://www.facebook.com/amylabs.ru">Facebook</a></p>
+<p> Посетите раздел с <a href='http://yupe.ru/docs/index.html?from=mainpage'> официальной документацией </a></p>
 <p><a href='http://yupe.ru/pages/help?from=mainpage'>Желаете помочь проекту ?</a></p>
 
-<p><b>По вопросам коммерческой поддержки - <a href='http://yupe.ru/feedback/index/?from=mainpage'>напишите нам</a> !</b></p>
+<p><b>По вопросам коммерческой поддержки или разработке - <a href='http://yupe.ru/feedback/index/?from=mainpage'>напишите нам</a> !</b></p>

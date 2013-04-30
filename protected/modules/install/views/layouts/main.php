@@ -53,6 +53,12 @@ Yii::app()->clientScript->registerCssFile($this->yupe->themeBaseUrl . '/web/css/
                     'items' => array(
                         array(
                             'icon' => 'question-sign white',
+                            'label' => Yii::t('InstallModule.install', 'Документация'),
+                            'url' => 'http://yupe.ru/docs/index.html?from=install',
+                            'linkOptions' => array('target' => '_blank'),
+                        ),
+                        array(
+                            'icon' => 'question-sign white',
                             'label' => Yii::t('InstallModule.install', 'Необходима помощь?'),
                             'url' => 'http://yupe.ru/feedback/index?from=install',
                             'linkOptions' => array('target' => '_blank'),

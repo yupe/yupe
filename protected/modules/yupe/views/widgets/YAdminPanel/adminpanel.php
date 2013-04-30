@@ -85,6 +85,26 @@ $this->widget(
                             'icon'  => 'question-sign white',
                             'label' => Yii::t('YupeModule.yupe', 'Помощь'),
                             'url'   => CHtml::normalizeUrl(array('/yupe/backend/help')),
+                            'items' => array(
+                                array(
+                                    'icon'  => 'question-sign',
+                                    'label' => Yii::t('YupeModule.yupe', 'Официальная документация'),
+                                    'url'   => 'http://yupe.ru/docs/index.html?from=help',
+                                    'linkOptions' => array('target' => '_blank'),
+                                ),
+                                array(
+                                    'icon'  => 'question-sign',
+                                    'label' => Yii::t('YupeModule.yupe', 'Форум'),
+                                    'url'   => 'http://yupe.ru/talk/?from=help',
+                                    'linkOptions' => array('target' => '_blank'),
+                                ),
+                                array(
+                                    'icon'  => 'question-sign',
+                                    'label' => Yii::t('YupeModule.yupe', 'Сообщить об ошибке'),
+                                    'url'   => CHtml::normalizeUrl(array('/yupe/backend/reportBug/')),
+                                    'linkOptions' => array('target' => '_blank'),
+                                ),
+                            )
                         ),
                         array(
                             'icon'        => 'home white',

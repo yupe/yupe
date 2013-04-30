@@ -12,6 +12,8 @@
  **/ 
 class BugForm extends YFormModel
 {
+    const OTHER_MODULE = 0;
+
     public $module;
     public $subject;
     public $message;
@@ -26,7 +28,8 @@ class BugForm extends YFormModel
     {
         return array(
             array('module, subject, message, sendTo', 'required'),
-            array('subject', 'length', 'min' => 6, 'max' => '128'),
+            array('sendTo','email'),
+            array('subject', 'length', 'min' => 6, 'max' => 256),
             array('message', 'length', 'min' => 20),
         );
     }
@@ -54,7 +57,7 @@ class BugForm extends YFormModel
     public function getModuleList()
     {
         $modulesList = array(
-            0 => 'Другой',
+            self::OTHER_MODULE => Yii::t('YupeModule.yupe','Другое'),
         );
 
         foreach (Yii::app()->modules as $key => $value) {

@@ -44,7 +44,7 @@ class DocsModule extends YWebModule
      */
     public function getCategory()
     {
-        return Yii::t('DocsModule.docs', 'Структура');
+        return Yii::t('DocsModule.docs', 'Система');
     }
 
     /**
