@@ -15,6 +15,7 @@ $this->widget(
         'model'        => $model,
         'attribute'    => 'file', // see the attribute?
         'multiple'     => true,
+        'formView'     => 'gallery.views.default._tform',
         'uploadView'   => 'gallery.views.default._upload', //bootstrap.views.fileupload.upload
         'options'      => array(
             'maxFileSize' => Yii::app()->getModule('image')->maxSize,
