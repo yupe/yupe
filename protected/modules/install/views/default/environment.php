@@ -16,8 +16,14 @@
 <?php endif; ?>
 
 <div class="alert alert-block alert-info">
-        <p><?php echo Yii::t('InstallModule.install', 'На данном этапе Юпи! проверяет права доступа для всех необходимых каталогов.'); ?></p>
-        <p><?php echo Yii::t('InstallModule.install', 'Для продолжения установки все возникшие проблемы Вам необходимо исправить.'); ?></p>
+    <p><b><?php echo Yii::t('InstallModule.install','При возникновении проблем с установкой, пожалуйста, посетите вот эту {link} ветку форума!',array(
+                    '{link}' => CHtml::link('http://yupe.ru/talk/viewforum.php?id=10','http://yupe.ru/talk/viewforum.php?id=10',array('target' => '_blank'))
+                ));?></b></p>
+</div>
+
+<div class="alert alert-block alert-info">
+    <p><?php echo Yii::t('InstallModule.install', 'На данном этапе Юпи! проверяет права доступа для всех необходимых каталогов.'); ?></p>
+    <p><?php echo Yii::t('InstallModule.install', 'Для продолжения установки все возникшие проблемы Вам необходимо исправить.'); ?></p>
 </div>
 
 <table class="table table-striped">

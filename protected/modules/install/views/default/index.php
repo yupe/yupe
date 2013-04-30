@@ -19,6 +19,9 @@
     '{forum}' => CHtml::link('форум','http://yupe.ru/talk?from=install', array('target' => '_blank'))
  )); ?>
 </p>
+<p><b><?php echo Yii::t('InstallModule.install','При возникновении проблем с установкой, пожалуйста, посетите вот эту {link} ветку форума!',array(
+            '{link}' => CHtml::link('http://yupe.ru/talk/viewforum.php?id=10','http://yupe.ru/talk/viewforum.php?id=10',array('target' => '_blank'))
+        ));?></b></p>
 
 <?php
 $this->widget(

@@ -44,7 +44,7 @@ class DocsModule extends YWebModule
      */
     public function getCategory()
     {
-        return Yii::t('DocsModule.docs', 'Структура');
+        return Yii::t('DocsModule.docs', 'Юпи!');
     }
 
     /**
@@ -129,6 +129,14 @@ class DocsModule extends YWebModule
     public function getName()
     {
         return Yii::t('DocsModule.docs', 'Документация');
+    }
+
+    public function getNavigation()
+    {
+        return array(
+            array('icon' => 'list-alt', 'label' => Yii::t('ContentBlockModule.contentblock', 'Просмотр локальных файлов'), 'url' => array('/backend/docs')),
+            array('icon' => 'icon-book', 'label' => Yii::t('ContentBlockModule.contentblock', 'Официальная документация'), 'url' => 'http://yupe.ru/docs/index.html?from=help','linkOptions' => array('target' => '_blank')),
+        );
     }
 
     /**

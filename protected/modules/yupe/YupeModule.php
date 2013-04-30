@@ -202,7 +202,7 @@ class YupeModule extends YWebModule
     public function getEditableParamsGroups(){
         return array(
             'main' => array(
-                'label' => Yii::t('YupeModule.yupe', 'Основные настройки модуля'),
+                'label' => Yii::t('YupeModule.yupe', 'Основные настройки'),
             ),
             'theme' => array(
                 'label' => Yii::t('YupeModule.yupe', 'Настройка внешнего вида'),
@@ -298,7 +298,7 @@ class YupeModule extends YWebModule
             array(
                 'label' => Yii::t('YupeModule.yupe', 'Очистить кеш'),
                 'url'   => 'javascript::void();',
-                'icon'  => 'th-large',
+                'icon'  => 'trash',
                 'items' => array(
                     array(
                         'icon'        => 'trash',
@@ -335,6 +335,14 @@ class YupeModule extends YWebModule
                 'url'   => array('/yupe/backend/themesettings'),
             ),
             array(
+                'icon'  => 'wrench',
+                'label' => Yii::t('YupeModule.yupe', 'Параметры сайта'),
+                'url'   => array(
+                    '/yupe/backend/modulesettings',
+                    'module' => 'yupe',
+                ),
+            ),
+            array(
                 'icon'  => 'question-sign',
                 'label' => Yii::t('YupeModule.yupe', 'Сообщить об ошибке'),
                 'url'   => array('/yupe/backend/reportBug'),
@@ -343,14 +351,6 @@ class YupeModule extends YWebModule
                 'icon'  => 'exclamation-sign',
                 'label' => Yii::t('YupeModule.yupe', 'Помощь'),
                 'url'   => array('/yupe/backend/help'),
-            ),
-            array(
-                'icon'  => 'wrench',
-                'label' => Yii::t('YupeModule.yupe', 'Параметры сайта'),
-                'url'   => array(
-                    '/yupe/backend/modulesettings',
-                    'module' => 'yupe',
-                ),
             ),
         );
     }
@@ -372,7 +372,7 @@ class YupeModule extends YWebModule
      **/
     public function getName()
     {
-        return Yii::t('YupeModule.yupe', 'Система');
+        return Yii::t('YupeModule.yupe', 'Юпи!');
     }
 
     /**
@@ -503,10 +503,10 @@ class YupeModule extends YWebModule
                 // Формируем навигационное меню
                 $modulesNavigation = array();
 
-                // Шаблон модуля настройка модулей
+                // Шаблон настройка модулей
                 $settings = array(
                     'icon'  => "wrench",
-                    'label' => Yii::t('YupeModule.yupe', 'Настройки модулей'),
+                    'label' => Yii::t('YupeModule.yupe', 'Модули'),
                     'url'   => array('/yupe/backend/settings'),
                     'items' => array(),
                 );
@@ -567,7 +567,7 @@ class YupeModule extends YWebModule
                         );
 
                         // Добавляем подменю у модулей
-                        $links = $modules[$key]->navigation;
+                        $links = $modules[$key]->getNavigation();
                         if (is_array($links))
                             $data['items'] = $links;
 
@@ -576,12 +576,11 @@ class YupeModule extends YWebModule
                 }
 
                 // Удаляем последию категория, если она пуста
-                if (!isset($settings['items'][sizeof($settings['items']) - 1]['icon']))
-                    unset($settings['items'][sizeof($settings['items']) - 1]);
+                if (!isset($settings['items'][count($settings['items']) - 1]['icon']))
+                    unset($settings['items'][count($settings['items']) - 1]);
 
                 // Заполняем категорию Юпи!
                 $modulesNavigation[$this->category]['items']['settings'] = $settings;
-
                 Yii::app()->cache->set('YupeModulesNavigation-' . Yii::app()->language, $modulesNavigation, Yii::app()->getModule('yupe')->coreCacheTime, new TagsCache('yupe', 'navigation'));
             }
         }

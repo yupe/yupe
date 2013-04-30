@@ -18,15 +18,19 @@ $this->breadcrumbs = array('Обратная связь');
 
 <p><?php echo Yii::t('install', 'Полезные ссылки:');?></p>
 
+<?php echo CHtml::link(Yii::t('install', 'Официальная документация Юпи!'), 'http://yupe.ru/docs/index.html?from=contact'); ?>  - <?php echo Yii::t('install', 'Очень активно ее пишем, помоги нам =)'); ?>
+
+<br/><br/>
+
 <?php echo CHtml::link(Yii::t('install', 'Форум поддержки Юпи!'), 'http://yupe.ru/talk/'); ?>  - <?php echo Yii::t('install', 'Можно просто поболтать =)'); ?>
 
 <br/><br/>
 
-<?php echo CHtml::link(Yii::t('install', 'Официальный твиттер Юпи!'), 'https://twitter.com/#!/YupeCms'); ?>  - <?php echo Yii::t('install', 'обязательно заффоловьте нас, мы не спамим =)'); ?>
+<?php echo CHtml::link(Yii::t('install', 'Официальный твиттер Юпи!'), 'https://twitter.com/#!/YupeCms'); ?>  - <?php echo Yii::t('install', 'Обязательно заффоловьте нас, мы не спамим =)'); ?>
 
 <br/><br/>
 
-<?php echo CHtml::link(Yii::t('install', 'Исходный код на Github'), 'http://github.com/yupe/yupe/'); ?> - <?php echo Yii::t('install', 'пришлите нам парочку пулл-реквестов, все только выиграют =)'); ?>
+<?php echo CHtml::link(Yii::t('install', 'Исходный код на Github'), 'http://github.com/yupe/yupe/'); ?> - <?php echo Yii::t('install', 'Пришлите нам парочку пулл-реквестов, все только выиграют =)'); ?>
 
 <br/><br/>
 

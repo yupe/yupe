@@ -9,7 +9,7 @@
  *   @link     http://yupe.ru
  **/
 $this->breadcrumbs = array(
-    Yii::t('YupeModule.yupe', 'Юпи!') => array('settings'),
+    Yii::t('YupeModule.yupe', 'Система') => array('settings'),
     Yii::t('YupeModule.yupe', 'Сообщить об ошибке'),
 ); ?>
 
@@ -20,10 +20,16 @@ $this->breadcrumbs = array(
                 'id'                     => 'reportBug-form',
                 'enableAjaxValidation'   => false,
                 'enableClientValidation' => true,
-                'htmlOptions'            => array('class' => 'well span8', 'enctype'=>'multipart/form-data'),
+                'htmlOptions'            => array('class' => 'well span8'),
                 'inlineErrors'           => true,
             )
         ); ?>
+            <div class="alert alert-block alert-info">
+                <p><?php echo Yii::t('YupeModule.yupe','Прежде чем писать нам, пожалуйста, проверьте следующие источники:');?></p>
+                <p><?php echo CHtml::link(Yii::t('YupeModule.yupe','Официальный форум'),'http://yupe.ru/talk?from=bug_report',array('target' => '_blank'));?></p>
+                <p><?php echo CHtml::link(Yii::t('YupeModule.yupe','Официальная документация'),'http://yupe.ru/docs/index.html?from=bug_report',array('target' => '_blank'));?></p>
+                <p><?php echo CHtml::link(Yii::t('YupeModule.yupe','Тикеты на Github'),'https://github.com/yupe/yupe/issues?labels=&milestone=&page=1&state=open',array('target' => '_blank'));?></p>
+            </div>
             <legend><?php echo Yii::t('YupeModule.yupe', 'Сообщить об ошибке'); ?></legend>
             
             <?php echo $form->errorSummary($model); ?>
@@ -77,7 +83,7 @@ $this->breadcrumbs = array(
                     'htmlOptions' => array(
                         'class'   => 'btn-block',
                     ),
-                    'label'       => Yii::t('YupeModule.yupe', 'Отправить'),
+                    'label'       => Yii::t('YupeModule.yupe', 'Отправить сообщение разработчикам'),
                 )
             ); ?>
 
