@@ -8,6 +8,7 @@
 Ссылки
 ------
 * [Официальный сайт](http://yupe.ru/)
+* [Официальная документация](http://yupe.ru/docs/index.html)
 * [Подробнее о проекте](http://yupe.ru/pages/help)
 * [Команда](http://yupe.ru/pages/team)
 * [twitter](https://twitter.com/#!/YupeCms)
@@ -16,7 +17,7 @@
 * [wiki](http://yupe.ru/wiki/default/pageIndex)
 * [Контакты](http://yupe.ru/feedback/index)
 * [Как помочь проекту](http://yupe.ru/pages/help)
-* [Репозиторий модулей] (https://github.com/yupe/yupe-ext)
+* [Репозиторий модулей](https://github.com/yupe/yupe-ext)
 
 Возможности
 -----------
@@ -55,4 +56,4 @@
 --------
 
 Исходный код, макеты дизайна и вёрстка распространяются по [лицензии BSD](http://ru.wikipedia.org/wiki/%D0%9B%D0%B8%D1%86%D0%B5%D0%BD%D0%B7%D0%B8%D1%8F_BSD).
-Сообщество будет благодарно если на сайте будет присутствовать ссылка на [http://yupe.ru/](http://yupe.ru/).
+Сообщество будет благодарно если на сайте будет присутствовать ссылка на [http://yupe.ru/](http://yupe.ru/)

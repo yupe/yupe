@@ -372,7 +372,7 @@ class YupeModule extends YWebModule
      **/
     public function getName()
     {
-        return Yii::t('YupeModule.yupe', 'Система');
+        return Yii::t('YupeModule.yupe', 'Юпи!');
     }
 
     /**
@@ -503,7 +503,7 @@ class YupeModule extends YWebModule
                 // Формируем навигационное меню
                 $modulesNavigation = array();
 
-                // Шаблон модуля настройка модулей
+                // Шаблон настройка модулей
                 $settings = array(
                     'icon'  => "wrench",
                     'label' => Yii::t('YupeModule.yupe', 'Модули'),
@@ -567,7 +567,7 @@ class YupeModule extends YWebModule
                         );
 
                         // Добавляем подменю у модулей
-                        $links = $modules[$key]->navigation;
+                        $links = $modules[$key]->getNavigation();
                         if (is_array($links))
                             $data['items'] = $links;
 
@@ -576,12 +576,11 @@ class YupeModule extends YWebModule
                 }
 
                 // Удаляем последию категория, если она пуста
-                if (!isset($settings['items'][sizeof($settings['items']) - 1]['icon']))
-                    unset($settings['items'][sizeof($settings['items']) - 1]);
+                if (!isset($settings['items'][count($settings['items']) - 1]['icon']))
+                    unset($settings['items'][count($settings['items']) - 1]);
 
                 // Заполняем категорию Юпи!
                 $modulesNavigation[$this->category]['items']['settings'] = $settings;
-
                 Yii::app()->cache->set('YupeModulesNavigation-' . Yii::app()->language, $modulesNavigation, Yii::app()->getModule('yupe')->coreCacheTime, new TagsCache('yupe', 'navigation'));
             }
         }
