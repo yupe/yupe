@@ -862,4 +862,14 @@ class YupeModule extends YWebModule
             'submenuOptions' => array('style' => 'min-width: 20px;'),
         ));
     }
+
+    public function poweredBy($color = 'yellow',$text = '')
+    {
+        if(empty($text)){
+            $text = Yii::t('YupeModule.yupe','Работает на Юпи!');
+        }
+        return CHtml::link(
+            CHtml::image(Yii::app()->baseUrl."/web/images/yupe_{$color}.png",$text),'http://yupe.ru?from=pb',array('title' => $text,'alt' => $text)
+        );
+    }
 }

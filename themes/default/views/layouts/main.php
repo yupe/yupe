@@ -84,7 +84,8 @@
     </div>
 
     <div id="footer">
-        Copyright &copy; 2009-<?php echo date('Y'); ?> <a href='http://yupe.ru?from=engine'>Юпи!</a>
+        Copyright &copy; 2009-<?php echo date('Y'); ?>
+        <?php echo Yii::app()->getModule('yupe')->poweredBy();?>
         v<?php echo $module->getVersion();?><br/> <?php echo Yii::powered(); ?>
 
         <?php $this->widget('YPerformanceStatistic');?>
