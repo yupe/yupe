@@ -14,7 +14,7 @@ class Gallery extends YModel
     const STATUS_DRAFT    = 0;
     const STATUS_PUBLIC   = 1;
     const STATUS_PERSONAL = 2;
-    const STATUS_PRIVATE   = 3;
+    const STATUS_PRIVATE  = 3;
 
     /**
      * Returns the static model of the specified AR class.
@@ -120,7 +120,7 @@ class Gallery extends YModel
             self::STATUS_DRAFT    => Yii::t('GalleryModule.gallery', 'скрытая'),
             self::STATUS_PUBLIC   => Yii::t('GalleryModule.gallery', 'публичная'),
             self::STATUS_PERSONAL => Yii::t('GalleryModule.gallery', 'личная'),
-            self::STATUS_PRIVATE   => Yii::t('GalleryModule.gallery', 'приватная'),
+            self::STATUS_PRIVATE  => Yii::t('GalleryModule.gallery', 'приватная'),
         );
     }
 
