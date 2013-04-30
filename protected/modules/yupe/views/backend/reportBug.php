@@ -35,16 +35,45 @@ $this->breadcrumbs = array(
             <?php echo $form->errorSummary($model); ?>
 
             <div class='row-fluid controll-group <?php echo $model->hasErrors('module') ? 'error' : ''; ?>'>
-                <?php echo $form->dropDownListRow($model, 'module', $model->moduleList, array('class' => 'span12'))?>
+                <?php
+                echo $form->dropDownListRow(
+                    $model, 'module', $model->moduleList, array(
+                        'class'               => 'span12 popover-help',
+                        'data-original-title' => $model->getAttributeLabel('module'),
+                        'data-content'        => $model->getAttributeDescription('module'),
+                    )
+                )?>
             </div>
             <div class='row-fluid controll-group <?php echo $model->hasErrors('sendTo') ? 'error' : ''; ?>'>
-                <?php echo $form->dropDownListRow($model, 'sendTo', $model->sendToList, array('class' => 'span12'))?>
+                <?php
+                echo $form->dropDownListRow(
+                    $model, 'sendTo', $model->sendToList, array(
+                        'class'               => 'span12 popover-help',
+                        'data-original-title' => $model->getAttributeLabel('sendTo'),
+                        'data-content'        => $model->getAttributeDescription('sendTo'),
+                    )
+                )?>
             </div>
             <div class='row-fluid control-group <?php echo $model->hasErrors('subject') ? 'error' : ''; ?>'>
-                <?php echo $form->textFieldRow($model, 'subject', array('class' => 'span12'))?>
+                <?php
+                echo $form->textFieldRow(
+                    $model, 'subject', array(
+                        'class'               => 'span12 popover-help',
+                        'data-original-title' => $model->getAttributeLabel('subject'),
+                        'data-content'        => $model->getAttributeDescription('subject'),
+                    )
+                )?>
             </div>
             <div class='row-fluid control-group <?php echo $model->hasErrors('message') ? 'error' : ''; ?>'>
-                <?php echo $form->textAreaRow($model, 'message', array('class' => 'span12', 'rows' => '12'))?>
+                <?php
+                echo $form->textAreaRow(
+                    $model, 'message', array(
+                        'class'               => 'span12 popover-help',
+                        'data-original-title' => $model->getAttributeLabel('message'),
+                        'data-content'        => $model->getAttributeDescription('message'),
+                        'rows'                => '12',
+                    )
+                )?>
             </div>
             <?php
             $this->widget(
