@@ -135,7 +135,7 @@ class DocsModule extends YWebModule
     {
         return array(
             array('icon' => 'list-alt', 'label' => Yii::t('ContentBlockModule.contentblock', 'Просмотр локальных файлов'), 'url' => array('/backend/docs')),
-            array('icon' => 'icon-book', 'label' => Yii::t('ContentBlockModule.contentblock', 'Официальная документация'), 'url' => 'http://yupe.ru/docs/index.html?from=help','linkOptions' => array('target' => '_blank')),
+            array('icon' => 'icon-globe', 'label' => Yii::t('ContentBlockModule.contentblock', 'Официальная документация'), 'url' => 'http://yupe.ru/docs/index.html?from=help','linkOptions' => array('target' => '_blank')),
         );
     }
 

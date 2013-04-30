@@ -104,14 +104,26 @@ $this->renderPartial('_search', array('model' => $model));
             ),
         ),
         'columns'      => array(
-            'id',
-            'icon',
+            array(
+                'name'  => 'id',
+                'type'  => 'raw',
+                'value' => 'CHtml::link($data->id, array("/blog/blogAdmin/update", "id" => $data->id))',
+            ),
+            array(
+                'name'  => 'icon',
+                'type'  => 'raw',
+                'value' => 'CHtml::image($data->getImageUrl(), $data->name, array("width"  => 64, "height" => 64))'
+            ),
             array(
                 'name'  => 'name',
                 'type'  => 'raw',
                 'value' => 'CHtml::link($data->name, array("/blog/blogAdmin/update", "id" => $data->id))',
             ),
-            'slug',
+            array(
+                'name'  => 'slug',
+                'type'  => 'raw',
+                'value' => 'CHtml::link($data->slug, array("/blog/blogAdmin/update", "id" => $data->id))',
+            ),
             array(
                 'name'  => 'type',
                 'type'  => 'raw',
