@@ -270,13 +270,13 @@ class Post extends YModel
                 'cacheID'              => 'cache',
             ),
             'imageUpload' => array(
-                'class'         =>'application.modules.yupe.models.ImageUploadBehavior',
-                'scenarios'     => array('insert','update'),
-                'attributeName' => 'image',
-                'minSize'       => $module->minSize,
-                'maxSize'       => $module->maxSize,
-                'types'         => $module->allowedExtensions,
-                'uploadPath'    => $module->getUploadPath(),
+                'class'             =>'application.modules.yupe.models.ImageUploadBehavior',
+                'scenarios'         => array('insert','update'),
+                'attributeName'     => 'image',
+                'minSize'           => $module->minSize,
+                'maxSize'           => $module->maxSize,
+                'types'             => $module->allowedExtensions,
+                'uploadPath'        => $module->getUploadPath(),
                 'imageNameCallback' => array($this, 'generateFileName'),
             ),
         );
@@ -284,7 +284,7 @@ class Post extends YModel
 
     public function generateFileName()
     {
-        return $this->slug;
+        return md5($this->slug . microtime(true) . rand());
     }
 
     public function getImageUrl()
