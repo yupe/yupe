@@ -73,7 +73,7 @@ class Post extends YModel
             array('blog_id, create_user_id, update_user_id, create_date, update_date, publish_date, status, comment_status, access_type', 'length', 'max' => 11),
             array('lang', 'length', 'max' => 2),
             array('slug', 'length', 'max' => 150),
-            array('image', 'length', 'max' => 300),
+            //array('image', 'length', 'max' => 300),
             array('create_user_ip', 'length', 'max' => 20),
             array('quote, description, title, link, keywords', 'length', 'max' => 250),
             array('publish_date_tmp', 'type', 'type' => 'date', 'dateFormat' => 'dd-mm-yyyy'),
@@ -270,13 +270,13 @@ class Post extends YModel
                 'cacheID'              => 'cache',
             ),
             'imageUpload' => array(
-                'class'         =>'application.modules.yupe.models.ImageUploadBehavior',
-                'scenarios'     => array('insert','update'),
-                'attributeName' => 'image',
-                'minSize'       => $module->minSize,
-                'maxSize'       => $module->maxSize,
-                'types'         => $module->allowedExtensions,
-                'uploadPath'    => $module->getUploadPath(),
+                'class'             =>'application.modules.yupe.models.ImageUploadBehavior',
+                'scenarios'         => array('insert','update'),
+                'attributeName'     => 'image',
+                'minSize'           => $module->minSize,
+                'maxSize'           => $module->maxSize,
+                'types'             => $module->allowedExtensions,
+                'uploadPath'        => $module->getUploadPath(),
                 'imageNameCallback' => array($this, 'generateFileName'),
             ),
         );
@@ -284,7 +284,7 @@ class Post extends YModel
 
     public function generateFileName()
     {
-        return $this->slug;
+        return md5($this->slug . microtime(true) . rand());
     }
 
     public function getImageUrl()
