@@ -565,8 +565,21 @@ abstract class YWebModule extends CWebModule
     //@TODO временное решение, пока не придумали куда перенести инициализацию editorOptions
     public function beforeControllerAction($controller, $action)
     {
-        if(parent::beforeControllerAction($controller, $action))
-        {
+
+        if ($controller instanceof YBackController
+            && $this->id !== 'yupe'
+            && ($updates = Yii::app()->migrator->checkForUpdates(array($this->id => $this))) !== null
+            && count($updates) > 0
+        ) {
+            Yii::app()->user->setFlash(
+                YFlashMessages::WARNING_MESSAGE,
+                Yii::t('YupeModule.yupe', 'Перед тем как начать работать с модулем, необходимо установить все необходимые миграции.')
+            );
+            $controller->redirect(array('/yupe/backend/modupdate', 'name' => $this->id));
+            Yii::app()->end();
+        }
+
+        if (parent::beforeControllerAction($controller, $action)) {
             $uploadController = Yii::app()->createUrl('/yupe/backend/AjaxFileUpload');
             $this->editorOptions =  array(
                 'imageUpload' => $uploadController,
