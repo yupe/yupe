@@ -63,6 +63,7 @@ return array(
     'language'          => 'ru',               // язык по умолчанию
     'sourceLanguage'    => 'ru',
     'theme'             => 'default',          // тема оформления по умолчанию
+    'charset'           => 'UTF-8',
     'preload'           => $config['preload'], // preloading components
     'import'            => CMap::mergeArray(
         array(
