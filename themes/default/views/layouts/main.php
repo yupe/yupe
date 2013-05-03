@@ -1,3 +1,13 @@
+<?php
+/**
+ * Шаблон для layout/main:
+ * 
+ *   @category YupeLayout
+ *   @package  YupeCMS
+ *   @author   Yupe Team <team@yupe.ru>
+ *   @license  https://github.com/yupe/yupe/blob/master/LICENSE BSD
+ *   @link     http://yupe.ru
+ **/ ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="<?php echo Yii::app()->language; ?>" lang="<?php echo Yii::app()->language; ?>">
 <head>
@@ -43,20 +53,33 @@
             <div id="header-right">
                 <?php $this->widget('application.modules.yupe.widgets.YLanguageSelector'); ?>
                 <div class='yupeDownload'>
-                    <?php echo CHtml::link('СКАЧАТЬ ЮПИ! <br/><b> '.Yii::app()->getModule('yupe')->getVersion().'</b>','https://github.com/yupe/yupe/archive/master.zip'); ?>
+                    <?php
+                    echo CHtml::link(
+                        'СКАЧАТЬ ЮПИ! <br/><b> '
+                        . Yii::app()->getModule('yupe')->getVersion()
+                        . '</b>',
+                        'https://github.com/yupe/yupe/archive/master.zip'
+                    ); ?>
                 </div>
             </div>
         </div>
     </div>
     <!-- header -->
-    <?php $this->widget('application.modules.menu.widgets.MenuWidget', array(
-        'name' => 'top-menu',
-        'params' => array('hideEmptyItems' => true),
-        'layoutParams' => array('htmlOptions' => array(
-            'class' => 'jqueryslidemenu',
-            'id' => 'myslidemenu',
-        )),
-    )); ?>
+    <?php
+    $this->widget(
+        'application.modules.menu.widgets.MenuWidget', array(
+            'name' => 'top-menu',
+            'params' => array(
+                'hideEmptyItems' => true
+            ),
+            'layoutParams' => array(
+                'htmlOptions' => array(
+                    'class' => 'jqueryslidemenu',
+                    'id' => 'myslidemenu',
+                )
+            ),
+        )
+    ); ?>
     <?php $this->widget('application.modules.yupe.extensions.jquerySlideMenu.JquerySlideMenuWidget'); ?>
     <!-- mainmenu -->
     <?php $this->widget('zii.widgets.CBreadcrumbs', array('links' => $this->breadcrumbs)); ?>
@@ -72,15 +95,24 @@
         </div>
         <div class="span-5 last">
             <div id="sidebar">
+                <div class="portlet">
+                    <?php
+                    echo CHtml::link(
+                        CHtml::image(
+                            Yii::app()->baseUrl . '/web/images/cooll.png',
+                            'Юпи! - классная CMS на Yiiframework!'
+                        ), 'http://yupe.ru?from=o-b', array(
+                            'target' => '_blank'
+                        )
+                    ); ?>
+                </div>
+                <br />
                 <?php $this->widget('application.modules.blog.widgets.LastPostsWidget', array('cacheTime' => 0)); ?>
                 <?php $this->widget('application.modules.yupe.extensions.taggable.widgets.TagCloudWidget.TagCloudWidget', array('cacheTime' => 0, 'model' => 'Post')); ?>
                 <?php $this->widget('application.modules.feedback.widgets.FaqWidget', array('cacheTime' => 0)); ?>
                 <?php //$this->widget('application.modules.news.widgets.LastNewsWidget', array('cacheTime' => 0)); ?>
                 <?php $this->widget('application.modules.blog.widgets.BlogsWidget', array('cacheTime' => 0));?>
                 <?php $this->widget('application.modules.user.widgets.LastLoginUsersWidget', array('cacheTime' => 0)); ?>
-                <div class="portlet">
-                    <?php echo CHtml::link(CHtml::image(Yii::app()->baseUrl.'/web/images/cooll.png','Юпи! - классная CMS на Yiiframework!'),'http://yupe.ru?from=o-b',array('target' => '_blank'));?>
-                </div>
             </div>
             <!-- sidebar -->
         </div>
