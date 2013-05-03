@@ -286,13 +286,14 @@ class BackendController extends YBackController
                     YFlashMessages::ERROR_MESSAGE,
                     Yii::t('YupeModule.yupe', 'Модуль еще не установлен!')
                 );
-        } else
+        } else {
             Yii::app()->user->setFlash(
                 YFlashMessages::ERROR_MESSAGE,
                 Yii::t('YupeModule.yupe', 'Не указано имя модуля!')
             );
 
-        $this->redirect(Yii::app()->request->urlReferrer !== null ? Yii::app()->request->urlReferrer : array("/yupe/backend"));
+            $this->redirect(Yii::app()->request->urlReferrer !== null ? Yii::app()->request->urlReferrer : array("/yupe/backend"));
+        }
     }
 
     /**
