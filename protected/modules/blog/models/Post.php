@@ -23,6 +23,7 @@
  * @property string $description
  * @property string $lang
  * @property string $create_user_ip
+ * @property string $image
  *
  * The followings are the available model relations:
  * @property User $createUser
@@ -72,6 +73,7 @@ class Post extends YModel
             array('blog_id, create_user_id, update_user_id, create_date, update_date, publish_date, status, comment_status, access_type', 'length', 'max' => 11),
             array('lang', 'length', 'max' => 2),
             array('slug', 'length', 'max' => 150),
+            array('image', 'length', 'max' => 300),
             array('create_user_ip', 'length', 'max' => 20),
             array('quote, description, title, link, keywords', 'length', 'max' => 250),
             array('publish_date_tmp', 'type', 'type' => 'date', 'dateFormat' => 'dd-mm-yyyy'),
@@ -188,6 +190,7 @@ class Post extends YModel
             'keywords'         => Yii::t('BlogModule.blog', 'Ключевые слова'),
             'description'      => Yii::t('BlogModule.blog', 'Описание'),
             'tags'             => Yii::t('BlogModule.blog', 'Теги'),
+            'image'            => Yii::t('BlogModule.blog', 'Изображение')
         );
     }
 
@@ -250,6 +253,7 @@ class Post extends YModel
 
     public function behaviors()
     {
+        $module = Yii::app()->getModule('blog');
         return array(
             'CTimestampBehavior' => array(
                 'class'             => 'zii.behaviors.CTimestampBehavior',
@@ -265,7 +269,30 @@ class Post extends YModel
                 'tagBindingTableTagId' => 'tag_id',
                 'cacheID'              => 'cache',
             ),
+            'imageUpload' => array(
+                'class'         =>'application.modules.yupe.models.ImageUploadBehavior',
+                'scenarios'     => array('insert','update'),
+                'attributeName' => 'image',
+                'minSize'       => $module->minSize,
+                'maxSize'       => $module->maxSize,
+                'types'         => $module->allowedExtensions,
+                'uploadPath'    => $module->getUploadPath(),
+                'imageNameCallback' => array($this, 'generateFileName'),
+            ),
         );
+    }
+
+    public function generateFileName()
+    {
+        return $this->slug;
+    }
+
+    public function getImageUrl()
+    {
+        if($this->image)
+            return Yii::app()->baseUrl . '/' . Yii::app()->getModule('yupe')->uploadPath . '/' .
+                Yii::app()->getModule('blog')->uploadPath . '/' . $this->image;
+        return false;
     }
 
     public function beforeSave()

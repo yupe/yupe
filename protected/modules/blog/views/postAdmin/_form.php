@@ -14,7 +14,7 @@ $form = $this->beginWidget(
         'enableAjaxValidation'   => false,
         'enableClientValidation' => true,
         'type'                   => 'vertical',
-        'htmlOptions'            => array('class' => 'well'),
+        'htmlOptions'            => array('class' => 'well', 'enctype'=>'multipart/form-data'),
         'inlineErrors'           => true,
     )
 );
@@ -77,6 +77,18 @@ $form = $this->beginWidget(
     </div>
     <div class="row-fluid control-group <?php echo $model->hasErrors('link') ? 'error' : ''; ?>">
         <?php echo $form->textFieldRow($model, 'link', array('class' => 'span7 popover-help', 'maxlength' => 250, 'size' => 60, 'data-original-title' => $model->getAttributeLabel('link'), 'data-content' => $model->getAttributeDescription('link'))); ?>
+    </div>
+    <div class="row-fluid control-group <?php echo $model->hasErrors('image') ? 'error' : ''; ?>">
+        <div class="span7  popover-help"  data-original-title="<?php echo $model->getAttributeLabel('image'); ?>">
+            <?php if (!$model->isNewRecord && $model->image): ?>
+                <?php echo CHtml::image($model->getImageUrl(), $model->title); ?>
+            <?php endif; ?>
+            <?php echo $form->labelEx($model, 'image'); ?>
+            <?php echo $form->fileField($model, 'image'); ?>
+        </div>
+        <div class="span5">
+            <?php echo $form->error($model, 'image'); ?>
+        </div>
     </div>
     <div class="row-fluid control-group <?php echo $model->hasErrors('content') ? 'error' : ''; ?>">
         <div class="popover-help" data-original-title='<?php echo $model->getAttributeLabel('content'); ?>' data-content='<?php echo $model->getAttributeDescription('content'); ?>'>
