@@ -78,6 +78,9 @@
                 <?php //$this->widget('application.modules.news.widgets.LastNewsWidget', array('cacheTime' => 0)); ?>
                 <?php $this->widget('application.modules.blog.widgets.BlogsWidget', array('cacheTime' => 0));?>
                 <?php $this->widget('application.modules.user.widgets.LastLoginUsersWidget', array('cacheTime' => 0)); ?>
+                <div class="portlet">
+                    <?php echo CHtml::link(CHtml::image(Yii::app()->baseUrl.'/web/images/cooll.png','Юпи! - классная CMS на Yiiframework!'),'http://yupe.ru?from=o-b',array('target' => '_blank'));?>
+                </div>
             </div>
             <!-- sidebar -->
         </div>
