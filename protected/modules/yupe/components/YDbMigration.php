@@ -81,12 +81,19 @@ class YDbMigration extends CDbMigration
             )
         );
         $tempTable = $this->normTable($table) . '_temporary';
-        Yii::app()->db->createCommand(
-            'drop table if exists ' . $tempTable . ';'
-            . 'create table ' . $tempTable . ' as select ' . $subQuery . ' from ' . $this->normTable($table) . ';'
-            . 'drop table ' . $this->normTable($table) . ';'
-            . 'alter table ' . $tempTable . ' rename to ' . $this->normTable($table) . ';'
-        )->query();
+
+        // Данная конструкция позволяет корректно делать alter table, т.к. множественные запросы не очень хорошо работают
+        Yii::app()->db->createCommand('drop table if exists ' . $tempTable)->execute();
+        Yii::app()->db->createCommand('create table ' . $tempTable . ' as select ' . $subQuery . ' from ' . $this->normTable($table))->execute();
+        Yii::app()->db->createCommand('drop table ' . $this->normTable($table))->execute();
+        Yii::app()->db->createCommand('alter table ' . $tempTable . ' rename to ' . $this->normTable($table))->execute();
+
+//        Yii::app()->db->createCommand(
+//            'drop table if exists ' . $tempTable . ';'
+//            . 'create table ' . $tempTable . ' as select ' . $subQuery . ' from ' . $this->normTable($table) . ';'
+//            . 'drop table ' . $this->normTable($table) . ';'
+//            . 'alter table ' . $tempTable . ' rename to ' . $this->normTable($table) . ';'
+//        )->query();
 
         return true;
     }
