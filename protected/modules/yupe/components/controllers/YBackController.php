@@ -36,10 +36,15 @@ class YBackController extends YMainController
             );
 
             Yii::app()->theme = null;
-            Yii::app()->setComponent('bootstrap', Yii::createComponent(array(
-                'class' => 'application.modules.yupe.extensions.booster.components.Bootstrap',
-                'forceCopyAssets' => false
-            ) + $assets));
+            Yii::app()->setComponent(
+                'bootstrap', Yii::createComponent(
+                    array(
+                        'class' => 'application.modules.yupe.extensions.booster.components.Bootstrap',
+                        'forceCopyAssets' => false,
+                        'fontAwesomeCss'  => true,
+                    ) + $assets
+                )
+            );
 
             if (!$this->yupe->enableAssets)
                 return;
