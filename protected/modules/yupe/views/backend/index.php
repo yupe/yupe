@@ -28,13 +28,13 @@
         ?>
         <?php echo Yii::t('YupeModule.yupe', 'Установлено'); ?>
         <small class="label label-info"><?php echo $allCount; ?></small>
-        <?php echo Yii::t('YupeModule.yupe', 'модуль|модуля|модулей', $allCount); ?>
-        (<?php echo Yii::t('YupeModule.yupe', 'включено'); ?>
+        <?php echo Yii::t('YupeModule.yupe', 'модуль|модуля|модулей', $allCount); ?>,
+        <?php echo Yii::t('YupeModule.yupe', 'включено'); ?>
         <small class="label label-info"><?php echo $enableCount + $yiiCount; ?></small>
         <?php echo Yii::t('YupeModule.yupe', 'модуль|модуля|модулей', $enableCount + $yiiCount); ?>,
-        <?php echo Yii::t('YupeModule.yupe', 'выключено'); ?>
+        <?php echo Yii::t('YupeModule.yupe', 'выключен|выключено',$yupeCount - $enableCount); ?>
         <small class="label label-info"><?php echo $yupeCount - $enableCount; ?></small>
-        <?php echo Yii::t('YupeModule.yupe', 'модуль|модуля|модулей', $yupeCount - $enableCount); ?>)
+        <?php echo Yii::t('YupeModule.yupe', 'модуль|модуля|модулей', $yupeCount - $enableCount); ?>
         <br>
         <small>
             <?php echo Yii::t('YupeModule.yupe', '( дополнительные модули всегда можно поискать на {link} или {order_link} )', array(

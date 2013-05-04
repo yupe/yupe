@@ -2,8 +2,8 @@
 
 class YBackController extends YMainController
 {
-    const BULK_DELETE = 'delete'; 
-    
+    const BULK_DELETE = 'delete';
+
     public function filters()
     {
         return array(
@@ -20,19 +20,19 @@ class YBackController extends YMainController
         $this->setPageTitle(Yii::t('YupeModule.yupe', 'Панель управления Юпи!'));
 
         if ($backendTheme && is_dir(Yii::getPathOfAlias("webroot.themes.backend_" . $backendTheme))) {
-          //$themeBase        = "webroot.themes.backend_" . $backendTheme;
+            //$themeBase        = "webroot.themes.backend_" . $backendTheme;
             Yii::app()->theme = "backend_" . $backendTheme;
-            $themeFile        = Yii::app()->theme->basePath . "/" . ucwords($backendTheme) . "Theme.php";
+            $themeFile = Yii::app()->theme->basePath . "/" . ucwords($backendTheme) . "Theme.php";
 
             if (is_file($themeFile))
                 require($themeFile);
         } else {
             $assets = ($this->yupe->enableAssets) ? array() : array(
-                'coreCss'       => false,
+                'coreCss' => false,
                 'responsiveCss' => false,
-                'yiiCss'        => false,
-                'jqueryCss'     => false,
-                'enableJS'      => false,
+                'yiiCss' => false,
+                'jqueryCss' => false,
+                'enableJS' => false,
             );
 
             Yii::app()->theme = null;
@@ -41,7 +41,7 @@ class YBackController extends YMainController
                     array(
                         'class' => 'application.modules.yupe.extensions.booster.components.Bootstrap',
                         'forceCopyAssets' => false,
-                        'fontAwesomeCss'  => true,
+                        'fontAwesomeCss' => true,
                     ) + $assets
                 )
             );
@@ -52,63 +52,75 @@ class YBackController extends YMainController
             Yii::app()->preload[] = 'bootstrap';
         }
     }
-    
+
+    public function beforeAction($action)
+    {
+        if (($updates = Yii::app()->migrator->checkForUpdates(array($this->id => $this))) !== null
+            && count($updates) > 0
+        ) {
+            Yii::app()->user->setFlash(
+                YFlashMessages::WARNING_MESSAGE,
+                Yii::t('YupeModule.yupe', 'Перед тем как начать работать с модулем, необходимо установить все необходимые миграции.')
+            );
+            $this->redirect(array('/yupe/backend/modupdate', 'name' => $this->id));
+        }
+
+        return parent::beforeAction($action);
+    }
+
     public function actionMultiaction()
     {
-        if(!Yii::app()->request->isAjaxRequest || !Yii::app()->request->isPostRequest){
+        if (!Yii::app()->request->isAjaxRequest || !Yii::app()->request->isPostRequest) {
             throw new CHttpException(404);
         }
-        
-        $model  = Yii::app()->request->getPost('model');
+
+        $model = Yii::app()->request->getPost('model');
         $action = Yii::app()->request->getPost('do');
-        
-        if(!isset($model,$action)){
+
+        if (!isset($model, $action)) {
             throw new CHttpException(404);
         }
-        
+
         $items = Yii::app()->request->getPost('items');
-        
-        if(!is_array($items) || empty($items)){
+
+        if (!is_array($items) || empty($items)) {
             Yii::app()->ajax->success();
         }
-            
+
         $transaction = Yii::app()->db->beginTransaction();
-        
-        try
-        {
+
+        try {
             switch ($action) {
                 case self::BULK_DELETE:
                     $class = CActiveRecord::model($model);
                     $criteria = new CDbCriteria;
-                    $items = array_filter($items,'intval');
-                    $criteria->addInCondition('id',$items);
-                    $count = $class->deleteAll($criteria);            
-                    $transaction->commit();    
-                    Yii::app()->ajax->success(Yii::t('YupeModule.yupe','Удалено {count} записей!',array(
+                    $items = array_filter($items, 'intval');
+                    $criteria->addInCondition('id', $items);
+                    $count = $class->deleteAll($criteria);
+                    $transaction->commit();
+                    Yii::app()->ajax->success(Yii::t('YupeModule.yupe', 'Удалено {count} записей!', array(
                         '{count}' => $count
                     )));
                     break;
-                
+
                 default:
-                    throw new CHttpException(404);                    
+                    throw new CHttpException(404);
                     break;
             }
-            
-        }
-        catch(Exception $e)
-        {
+
+        } catch (Exception $e) {
             $transaction->rollback();
-            Yii::log($e->__toString(),CLogger::LEVEL_ERROR);
+            Yii::log($e->__toString(), CLogger::LEVEL_ERROR);
             Yii::app()->ajax->failure($e->getMessage());
         }
     }
 
     public function actionActivate()
     {
-        $status      = (int) Yii::app()->request->getQuery('status');
-        $id          = (int) Yii::app()->request->getQuery('id');
-        $modelClass  =       Yii::app()->request->getQuery('model');
-        $statusField =       Yii::app()->request->getQuery('statusField');
+        $status = (int)Yii::app()->request->getQuery('status');
+        $id = (int)Yii::app()->request->getQuery('id');
+        $modelClass = Yii::app()->request->getQuery('model');
+        $statusField = Yii::app()->request->getQuery('statusField');
 
         if (!isset($modelClass, $id, $status, $statusField))
             throw new CHttpException(404, Yii::t('YupeModule.yupe', 'Страница не найдена!'));
@@ -122,22 +134,22 @@ class YBackController extends YMainController
         $model->update(array($statusField));
 
         if (!Yii::app()->request->isAjaxRequest)
-            $this->redirect(isset($_POST['returnUrl']) ? $_POST['returnUrl'] : array( 'admin' ));
+            $this->redirect(isset($_POST['returnUrl']) ? $_POST['returnUrl'] : array('admin'));
     }
 
     public function actionSort()
     {
-        $id         = (int) Yii::app()->request->getQuery('id');
-        $direction  =       Yii::app()->request->getQuery('direction');
-        $modelClass =       Yii::app()->request->getQuery('model');
-        $sortField  =       Yii::app()->request->getQuery('sortField');
+        $id = (int)Yii::app()->request->getQuery('id');
+        $direction = Yii::app()->request->getQuery('direction');
+        $modelClass = Yii::app()->request->getQuery('model');
+        $sortField = Yii::app()->request->getQuery('sortField');
 
         if (!isset($direction, $id, $modelClass, $sortField))
             throw new CHttpException(404, Yii::t('YupeModule.yupe', 'Страница не найдена!'));
 
-        $model         = new $modelClass;
+        $model = new $modelClass;
         $model_depends = new $modelClass;
-        $model         = $model->resetScope()->findByPk($id);
+        $model = $model->resetScope()->findByPk($id);
         if (!$model)
             throw new CHttpException(404, Yii::t('YupeModule.yupe', 'Страница не найдена!'));
 
