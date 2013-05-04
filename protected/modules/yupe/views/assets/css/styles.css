@@ -14,6 +14,20 @@ body {
 div#page {
     padding-top: 50px;
 }
+
+#page [class*='icon-'] {
+    color: #333;
+}
+
+#page a:hover [class*='icon-'] {
+    color: inherit;
+}
+
+.grid-view [class*='icon-'] {
+    padding-left: 3px;
+    //text-decoration: none;
+}
+
 #overall-wrap {
     min-height: 100%;
 }
