@@ -5,51 +5,6 @@
         )); ?></small></h1>
 </div>
 
-<?php foreach ($modules as $module): ?>
-    <?php if ($module->isActive): ?>
-        <?php $messages = $module->checkSelf(); ?>
-        <?php if (is_array($messages)): ?>
-            <?php foreach ($messages as $key => $value): ?>
-                <?php if (!is_array($value)) continue; ?>
-                <div class="accordion" id="accordion<?php echo $module->id; ?>">
-                    <div class="accordion-group">
-                        <div class="accordion-heading">
-                            <a  class="accordion-toggle"
-                                data-toggle="collapse"
-                                data-parent="#accordion<?php echo $module->id; ?>"
-                                href="#collapse<?php echo $module->id; ?>"
-                            >
-                                <?php echo Yii::t('YupeModule.yupe', 'Модуль {icon} "{module}", сообщений: {count}', array(
-                                    '{icon}'   => $module->icon ? "<i class='icon-" . $module->icon . "'>&nbsp;</i> " : "",
-                                    '{module}' => $module->getName(),
-                                    '{count}'  => '<small class="label label-warning">' . count($value) . '</small>',
-                                )); ?>
-                            </a>
-                        </div>
-                        <div id="collapse<?php echo $module->id; ?>" class="accordion-body collapse">
-                        <?php foreach ($value as $error): ?>
-                            <div class="accordion-inner">
-                                <div class="alert alert-<?php echo $error['type']; ?>">
-                                    <h4 class="alert-heading">
-                                        <?php echo Yii::t('YupeModule.yupe', 'Модуль "{module} ({id})"', array(
-                                            '{module}' => $module->name,
-                                            '{id}'     => $module->id,
-                                        )); ?>
-                                    </h4>
-                                    <?php echo $error['message']; ?>
-                                </div>
-                            </div>
-                        <?php endforeach; ?>
-                        </div>
-                    </div>
-                </div>
-            <?php endforeach; ?>
-        <?php endif; ?>
-    <?php endif; ?>
-<?php endforeach; ?>
-
-<br/>
-
 <div class="alert">
     <p>
         <?php echo Yii::t('YupeModule.yupe','Вы используете Yii версии'); ?>
@@ -90,33 +45,13 @@
     </p>
 </div>
 
-<?php echo $this->renderPartial('_moduleslist', array('modules' => $modules)); ?>
+<legend><?php echo Yii::t('YupeModule.yupe', 'Быстрый доступ к модулям'); ?></legend>
 
-<?php if (count($yiiModules)): ?>
-    <br />
-    <div class="page-header">
-        <h6><?php echo Yii::t('YupeModule.yupe', 'Yii модули'); ?></h6>
-    </div>
-    <table  class="table table-striped">
-        <thead>
-            <tr>
-                <th><?php echo Yii::t('YupeModule.yupe', 'id'); ?></th>
-                <th><?php echo Yii::t('YupeModule.yupe', 'Название'); ?></th>
-                <th><?php echo Yii::t('YupeModule.yupe', 'Описание'); ?></th>
-                <th><?php echo Yii::t('YupeModule.yupe', 'Версия'); ?></th>
-            </tr>
-        </thead>
-        <tbody>
-            <?php foreach ($yiiModules as $module): ?>
-                <tr>
-                    <td><?php echo $module->id; ?></td>
-                    <td><?php echo $module->name; ?></td>
-                    <td><?php echo $module->description; ?></td>
-                    <td><?php echo $module->version; ?></td>
-                </tr>
-            <?php endforeach; ?>
-        </tbody>
-    </table>
-<?php endif; ?>
+<?php
+$this->widget(
+    'yupe.widgets.YShortCuts', array(
+        'shortcuts' => $modulesNavigation
+    )
+); ?>
 
 <?php $this->menu = $modulesNavigation; ?>
