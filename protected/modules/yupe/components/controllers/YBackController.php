@@ -25,24 +25,27 @@ class YBackController extends YMainController
             $themeFile = Yii::app()->theme->basePath . "/" . ucwords($backendTheme) . "Theme.php";
 
             if (is_file($themeFile))
-                require($themeFile);
+                include_once $themeFile;
         } else {
             $assets = ($this->yupe->enableAssets) ? array() : array(
-                'coreCss' => false,
-                'responsiveCss' => false,
-                'yiiCss' => false,
-                'jqueryCss' => false,
-                'enableJS' => false,
+                'coreCss'        => false,
+                'responsiveCss'  => false,
+                'yiiCss'         => false,
+                'jqueryCss'      => false,
+                'enableJS'       => false,
+                'fontAwesomeCss' => false,
             );
 
             Yii::app()->theme = null;
             Yii::app()->setComponent(
                 'bootstrap', Yii::createComponent(
-                    array(
-                        'class' => 'application.modules.yupe.extensions.booster.components.Bootstrap',
-                        'forceCopyAssets' => false,
-                        'fontAwesomeCss' => true,
-                    ) + $assets
+                    array_merge(
+                        array(
+                            'class'           => 'application.modules.yupe.extensions.booster.components.Bootstrap',
+                            'forceCopyAssets' => defined('YII_DEBUG'),
+                            'fontAwesomeCss'  => true,
+                        ), $assets
+                    )
                 )
             );
 
@@ -53,16 +56,22 @@ class YBackController extends YMainController
         }
     }
 
-    public function beforeAction($action)
+    protected function beforeAction($action)
     {
-        if (($updates = Yii::app()->migrator->checkForUpdates(array($this->id => $this))) !== null
+        /**
+         * $this->module->id !== 'install' избавляет от ошибок на этапе установки
+         * $this->id !== 'backend' || ($this->id == 'backend' && $action->id != 'modupdate') устраняем проблемы с зацикливанием
+         */
+        if ($this->module->id !== 'install'
+            && ($this->id !== 'backend' || ($this->id == 'backend' && $action->id != 'modupdate'))
+            && ($updates = Yii::app()->migrator->checkForUpdates(array($this->module->id => $this->module))) !== null
             && count($updates) > 0
         ) {
             Yii::app()->user->setFlash(
                 YFlashMessages::WARNING_MESSAGE,
                 Yii::t('YupeModule.yupe', 'Перед тем как начать работать с модулем, необходимо установить все необходимые миграции.')
             );
-            $this->redirect(array('/yupe/backend/modupdate', 'name' => $this->id));
+            $this->redirect(array('/yupe/backend/modupdate', 'name' => $this->module->id));
         }
 
         return parent::beforeAction($action);
@@ -91,21 +100,25 @@ class YBackController extends YMainController
 
         try {
             switch ($action) {
-                case self::BULK_DELETE:
-                    $class = CActiveRecord::model($model);
-                    $criteria = new CDbCriteria;
-                    $items = array_filter($items, 'intval');
-                    $criteria->addInCondition('id', $items);
-                    $count = $class->deleteAll($criteria);
-                    $transaction->commit();
-                    Yii::app()->ajax->success(Yii::t('YupeModule.yupe', 'Удалено {count} записей!', array(
-                        '{count}' => $count
-                    )));
-                    break;
+            case self::BULK_DELETE:
+                $class = CActiveRecord::model($model);
+                $criteria = new CDbCriteria;
+                $items = array_filter($items, 'intval');
+                $criteria->addInCondition('id', $items);
+                $count = $class->deleteAll($criteria);
+                $transaction->commit();
+                Yii::app()->ajax->success(
+                    Yii::t(
+                        'YupeModule.yupe', 'Удалено {count} записей!', array(
+                            '{count}' => $count
+                        )
+                    )
+                );
+                break;
 
-                default:
-                    throw new CHttpException(404);
-                    break;
+            default:
+                throw new CHttpException(404);
+                break;
             }
 
         } catch (Exception $e) {
@@ -156,7 +169,7 @@ class YBackController extends YMainController
         if ($direction === 'up') {
             $model_depends = $model_depends->findByAttributes(array($sortField => ($model->$sortField - 1)));
             $model_depends->$sortField++;
-            $model->$sortField--; #example menu_order column in sql
+            $model->$sortField--; // example menu_order column in sql
         } else {
             $model_depends = $model_depends->findByAttributes(array($sortField => ($model->$sortField + 1)));
             $model_depends->$sortField--;
