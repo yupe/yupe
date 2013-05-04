@@ -219,7 +219,7 @@ class Page extends YModel
 
         return new CActiveDataProvider(get_class($this), array(
             'criteria' => $criteria,
-            'sort' => array('defaultOrder' => '"t"."order" DESC, "t"."creation_date" DESC'),
+            'sort' => array('defaultOrder' => '`t`.`order` DESC, `t`.`creation_date` DESC'),
         ));
     }
 
@@ -254,7 +254,7 @@ class Page extends YModel
 
     public function getAllPagesList($selfId = false)
     {
-        $params  = array('order' => '"t"."order" DESC, "t"."creation_date" DESC');
+        $params  = array('order' => '`t`.`order` DESC, `t`.`creation_date` DESC');
         if ($selfId)
             $params += array(
                 'condition' => 'id != :id',
@@ -266,7 +266,7 @@ class Page extends YModel
 
     public function getAllPagesListBySlug($slug = false)
     {
-        $params = array('order' => '"t"."order" DESC, "t"."creation_date" DESC');
+        $params = array('order' => '`t`.`order` DESC, `t`.`creation_date` DESC');
         if ($slug)
             $params += array(
                 'condition' => 'slug != :slug',
