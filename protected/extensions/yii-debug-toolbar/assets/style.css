@@ -1,0 +1,490 @@
+#yii-debug-toolbar {color:#000;background:#FFF;}
+#yii-debug-toolbar, #yii-debug-toolbar div, #yii-debug-toolbar span, #yii-debug-toolbar applet, #yii-debug-toolbar object, #yii-debug-toolbar iframe,
+#yii-debug-toolbar h1, #yii-debug-toolbar h2, #yii-debug-toolbar h3, #yii-debug-toolbar h4, #yii-debug-toolbar h5, #yii-debug-toolbar h6, #yii-debug-toolbar p, #yii-debug-toolbar blockquote, #yii-debug-toolbar pre,
+#yii-debug-toolbar a, #yii-debug-toolbar abbr, #yii-debug-toolbar acronym, #yii-debug-toolbar address, #yii-debug-toolbar big, #yii-debug-toolbar cite, #yii-debug-toolbar code,
+#yii-debug-toolbar del, #yii-debug-toolbar dfn, #yii-debug-toolbar em, #yii-debug-toolbar font, #yii-debug-toolbar img, #yii-debug-toolbar ins, #yii-debug-toolbar kbd, #yii-debug-toolbar q, #yii-debug-toolbar s, #yii-debug-toolbar samp,
+#yii-debug-toolbar small, #yii-debug-toolbar strike, #yii-debug-toolbar strong, #yii-debug-toolbar sub, #yii-debug-toolbar sup, #yii-debug-toolbar tt, #yii-debug-toolbar var,
+#yii-debug-toolbar b, #yii-debug-toolbar u, #yii-debug-toolbar i, #yii-debug-toolbar center,
+#yii-debug-toolbar dl, #yii-debug-toolbar dt, #yii-debug-toolbar dd, #yii-debug-toolbar ol, #yii-debug-toolbar ul, #yii-debug-toolbar li,
+#yii-debug-toolbar fieldset, #yii-debug-toolbar form, #yii-debug-toolbar label, #yii-debug-toolbar legend,
+#yii-debug-toolbar table, #yii-debug-toolbar caption, #yii-debug-toolbar tbody, #yii-debug-toolbar tfoot, #yii-debug-toolbar thead, #yii-debug-toolbar tr, #yii-debug-toolbar th, #yii-debug-toolbar td {
+    margin:0;
+    padding:0;
+    border:0;
+    outline:0;
+    font-size:12px;
+    line-height:1.5em;
+    color:#000;
+    vertical-align:baseline;
+    background:transparent;
+    font-family:sans-serif;
+    text-align:left;
+    list-style: none;
+    list-style-type: none;
+}
+
+#yii-debug-toolbar{
+    display: block;
+    position:fixed;
+    z-index:10000;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    width: 190px;
+    line-height: 24px;
+    background: #192839;
+    
+}
+
+#yii-debug-toolbar-swither{
+    display: block;
+    position:fixed;
+    z-index:1000000;
+    top: 5px;
+    right: 5px;
+    bottom: 0;
+    height: 28px;
+    width: 28px;
+    line-height: 28px;
+
+}
+
+#yii-debug-toolbar-swither a{
+    background: transparent url(panel.png) no-repeat scroll center center;
+    text-indent:-999999px;
+    z-index:100000000;
+    display: block;
+    height: 24px;
+    width: 24px;
+    line-height: 24px;
+    padding: 4px 0 0 4px;
+}
+#yii-debug-toolbar-swither a.close{
+    background: transparent url(panel-close.png) no-repeat scroll center center;
+}
+
+#yii-debug-toolbar p{
+    padding: 5px 0;
+}
+
+
+#yii-debug-toolbar h3 {
+font-size:24px;
+font-weight:normal;
+line-height:50px;
+}
+
+#yii-debug-toolbar h4 {
+font-size:20px;
+font-weight:bold;
+margin-top:0.8em;
+}
+
+#yii-debug-toolbar #yii-debug-toolbar-buttons{
+    opacity:0.9;
+}
+
+#yii-debug-toolbar #yii-debug-toolbar-buttons ul{
+    margin:0;
+    padding:0;
+    list-style:none;
+}
+
+#yii-debug-toolbar #yii-debug-toolbar-buttons ul li{
+    border-bottom:1px solid #222;
+    color:#fff;
+    display:block;
+    font-weight:bold;
+    float:none;
+    margin:0;
+    padding:0;
+    position:relative;
+    width:auto;
+}
+
+#yii-debug-toolbar #yii-debug-toolbar-buttons li>a,
+#yii-debug-toolbar #yii-debug-toolbar-buttons li>div.contentless{
+    font-weight:normal;
+    font-style:normal;
+    text-decoration:none;
+    display:block;
+    font-size:14px;
+    color:#fff;
+    padding:10px 10px 5px 25px;
+}
+
+#yii-debug-toolbar #yii-debug-toolbar-buttons li a:hover {
+    background-color: #FFFFCC;
+    color: #000;
+}
+
+#yii-debug-toolbar #yii-debug-toolbar-buttons small {
+    color:#999;
+}
+
+#yii-debug-toolbar #yii-debug-toolbar-buttons li small {
+    font-size:12px;
+    color:#999;
+    font-style:normal;
+    text-decoration:none;
+    font-variant:small-caps;
+}
+
+#yii-debug-toolbar #yii-debug-toolbar-buttons .yii-debug-toolbar-button.active,
+#yii-debug-toolbar #yii-debug-toolbar-buttons .yii-debug-toolbar-button.active a:hover{
+    background: #474747 url(indicator.png) no-repeat 0 50%;
+    color: #fff;
+
+}
+
+#yii-debug-toolbar .yii-debug-toolbar-panel{
+    display: block;
+    position:fixed;
+    z-index:10000000;
+    top: 0px;
+    right: 190px;
+    left: 0;
+    bottom: 0;
+    background: #EEEEEE;
+}
+
+
+#yii-debug-toolbar .yii-debug-toolbar-panel-title {
+    position:absolute;
+    background-color:#ffc;
+    color:#666;
+    padding-left:20px;
+    top:0;
+    right:0;
+    left:0;
+    height:50px;
+}
+
+#yii-debug-toolbar .yii-debug-toolbar-panel-title .yii-debug-toolbar-panel-close {
+    text-indent:-9999999px;
+    display:block;
+    position:absolute;
+    top:4px;
+    right:15px;
+    height:40px;
+    width:40px;
+    background:url(close.png) no-repeat center center;
+}
+
+#yii-debug-toolbar .yii-debug-toolbar-panel-title .yii-debug-toolbar-panel-close:hover {
+    background-image:url(close_hover.png);
+}
+
+#yii-debug-toolbar .yii-debug-toolbar-panel{
+    display: none;
+}
+#yii-debug-toolbar .yii-debug-toolbar-panel-content
+{
+    display:block;
+    position:fixed;
+    margin:0;
+    top:50px;
+    right:210px;
+    bottom:0;
+    left:0px;
+    background-color:#eee;
+    color:#666;
+    z-index:100000000;
+}
+
+#yii-debug-toolbar .yii-debug-toolbar-panel-content  .details{
+	padding-left: 1em;
+}
+
+/* tabs */
+#yii-debug-toolbar .yii-debug-toolbar-panel-content ul.yii-debug-toolbar-tabs{
+    list-style: none;
+    list-style-type: none;
+    padding: 0 20px;
+    margin: 10px 0 0 0;
+    border-bottom: 1px solid #ccc;
+}
+
+#yii-debug-toolbar .yii-debug-toolbar-panel-content ul.yii-debug-toolbar-tabs li{
+    display: inline-block;
+}
+
+#yii-debug-toolbar .yii-debug-toolbar-panel-content ul.yii-debug-toolbar-tabs li.active{
+    border: 1px solid #ccc;
+    margin-bottom: -1px;
+    border-bottom: 1px solid #eee;
+}
+
+#yii-debug-toolbar .yii-debug-toolbar-panel-content ul.yii-debug-toolbar-tabs li a{
+    display: block;
+    height: 25px;
+    line-height: 25px;
+    padding: 0 10px;
+}
+
+#yii-debug-toolbar .yii-debug-toolbar-panel-content ul.yii-debug-toolbar-tabs li a:hover,
+#yii-debug-toolbar .yii-debug-toolbar-panel-content ul.yii-debug-toolbar-tabs li.active a{
+    text-decoration: none;
+}
+
+
+
+/* tabs */
+
+#yii-debug-toolbar .yii-debug-toolbar-panel-content .scroll
+{
+    width:100%;height:100%;
+    overflow: auto;
+    display:block;
+    padding:0 10px;
+}
+
+#yii-debug-toolbar .yii-debug-toolbar-panel-content table {
+    border:1px solid #ccc;
+    border-collapse:collapse;
+    width:100%;
+    background-color:#fff;
+    margin-top:0.8em;
+    overflow: auto;
+}
+
+#yii-debug-toolbar .yii-debug-toolbar-panel-content table thead tr
+{
+    background: #F5F5F5;
+    border-bottom: 1px solid #ccc;
+}
+
+#yii-debug-toolbar .yii-debug-toolbar-panel-content table thead tr th {
+    padding:1px 6px 1px 3px;
+    text-align:center;
+    font-weight:bold;
+    font-size:14px;
+
+}
+
+
+#yii-debug-toolbar .yii-debug-toolbar-panel-content tbody td,
+#yii-debug-toolbar .yii-debug-toolbar-panel-content tbody th {
+    vertical-align:top;
+    padding:2px 3px;
+}
+
+#yii-debug-toolbar .yii-debug-toolbar-panel-content tbody th {
+    width:14em;
+    text-align:right;
+    color:#666;
+    padding-right:.5em;
+}
+
+#yii-debug-toolbar .yii-debug-toolbar-panel-content tbody tr:hover{
+    background-color: #DFFFE0;
+}
+
+#yii-debug-toolbar .yii-debug-toolbar-panel-content  td.al-l,
+#yii-debug-toolbar .yii-debug-toolbar-panel-content  th.al-l{
+    text-align: left;
+}
+#yii-debug-toolbar .yii-debug-toolbar-panel-content  td.al-c,
+#yii-debug-toolbar .yii-debug-toolbar-panel-content  th.al-c{
+    text-align: center;
+}
+#yii-debug-toolbar .yii-debug-toolbar-panel-content  td.al-r,
+#yii-debug-toolbar .yii-debug-toolbar-panel-content  th.al-r{
+    text-align: right;
+    text-align: right;
+}
+
+#yii-debug-toolbar .yii-debug-toolbar-panel-content table.phpinfo{}
+#yii-debug-toolbar .yii-debug-toolbar-panel-content table.phpinfo th{
+	text-align: left; color: black; font-size: 14px; border-bottom: 1px solid #CCCCCC; background: #F5F5F5;
+}
+
+#yii-debug-toolbar .yii-debug-toolbar-panel-content .odd{
+    background-color:#f5f5f5;
+}
+
+#yii-debug-toolbar .yii-debug-toolbar-panel-content .warning{
+    background-color:#FFEEEE;
+}
+
+#yii-debug-toolbar .hidden{
+    display: none;
+}
+
+#yii-debug-toolbar .collapsible{
+    border-bottom: 1px dashed #ccc;
+    cursor: pointer;
+    background: transparent url('bullet_toggle_minus.png') no-repeat scroll 100% 50%;
+}
+
+#yii-debug-toolbar p.collapsible{
+    border-bottom: 1px dashed #ccc;
+    cursor: pointer;
+    background: none;
+    background: transparent url('arrow_expand.gif') no-repeat scroll 0% 50%;
+    padding: 0 0 0 20px;
+
+}
+
+#yii-debug-toolbar .collapsible.collapsed
+{
+    background: transparent url('bullet_toggle_plus.png') no-repeat scroll 100% 50%;
+}
+
+#yii-debug-toolbar p.collapsible.collapsed
+{
+    background: transparent url('arrow_collapse.gif') no-repeat scroll 0% 50%;
+}
+
+#yii-debug-toolbar .text-right {
+	text-align:right;
+}
+
+#yii-debug-toolbar pre, #yii-debug-toolbar pre code{
+    padding: 0;
+}
+
+#yii-debug-toolbar-sql-callstack tbody td, 
+#yii-debug-toolbar-sql-summary tbody td {
+	font-family: monospace;
+}
+
+#yii-debug-toolbar div.col{ width: 49%; }
+#yii-debug-toolbar div.left{ float: left; }
+#yii-debug-toolbar div.right{ float: right; }
+
+
+
+/*highlight*/
+.sql-hl-default {
+    color: Black !important;
+}
+.sql-hl-code {
+    color: Gray !important;
+}
+.sql-hl-brackets {
+    color: Olive !important;
+}
+.sql-hl-comment {
+    color: #808080 !important;
+	font-style: italic !important;
+}
+.sql-hl-quotes {
+    color: red !important;
+}
+.sql-hl-string {
+    color: Red !important;
+}
+.sql-hl-identifier {
+    color: Blue !important;
+}
+.sql-hl-builtin {
+    color: Teal !important;
+}
+.sql-hl-reserved {
+    color: Green !important;
+}
+.sql-hl-inlinedoc {
+    color: Blue !important;
+}
+.sql-hl-var {
+    color: #000020 !important;
+}
+.sql-hl-url {
+    color: Blue !important;
+}
+.sql-hl-special {
+    color: Navy !important;
+}
+.sql-hl-number {
+    color: Maroon !important;
+}
+.sql-hl-inlinetags {
+    color: Blue !important;
+}
+.sql-hl-main {
+	font-family: 'Courier New', Courier, monospace !important;
+	font-weight: normal !important;
+}
+.sql-hl-gutter {
+    background-color: #cccccc !important;
+    color: White;
+    width: 10px
+}
+.sql-hl-table {
+    font-family: courier !important;
+    font-size: 12px !important;
+    border: solid 1px #cccccc !important;
+    margin: 3px !important;
+}
+
+.source .copycode
+{
+	text-align: right !important;
+	float: right !important;
+}
+
+.source .copycode a
+{
+	cursor: pointer !important;
+	color: blue !important;
+}
+
+.source .copycode_hover a
+{
+	color: red !important;
+}
+
+
+#yii-debug-toolbar #resource-usage{
+    border-top: 1px double #EEEEEE;
+    
+    position: absolute;
+    right: 0px;
+    bottom: 0px;
+    width: 190px;
+   
+}
+
+#yii-debug-toolbar #resource-usage h1{
+    padding: 0;
+    margin: 0;
+    color: #EEEEEE;
+    font-weight: bold;
+    background: transparent url(chronometer.png) no-repeat center right;
+    margin: 5px 0;
+}
+
+#yii-debug-toolbar #resource-usage .panel{
+    padding: 0 10px 10px;
+}
+
+#yii-debug-toolbar #resource-usage .panel ul{
+    display: block;
+    margin: 5px 0;
+    padding-top: 10px;
+}
+
+#yii-debug-toolbar #resource-usage .panel li{
+    display: block;
+    line-height: 18px;
+    height: 16px;
+    clear: both;
+}
+
+#yii-debug-toolbar #resource-usage .panel ul,
+#yii-debug-toolbar #resource-usage .panel li,
+#yii-debug-toolbar #resource-usage .panel li label,
+#yii-debug-toolbar #resource-usage .panel li span{
+    font-size: 9px;
+    color: #fff;
+}
+
+#yii-debug-toolbar #resource-usage .panel li label{
+    float: left;
+}
+
+#yii-debug-toolbar #resource-usage .panel li span{
+    float: right;
+    color: #CE4E4E;
+}

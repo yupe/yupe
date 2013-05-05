@@ -1,6 +1,15 @@
 .navbar {
     font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
     font-size: 13px;
+    z-index: 10001;
+}
+
+#yii-debug-toolbar {
+    top: 46px;
+}
+
+#yii-debug-toolbar-swither {
+    top: 46px;
 }
 
 .navbar li {
