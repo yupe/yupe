@@ -58,7 +58,7 @@ class Page extends YModel
     {
         return array(
             array('title, slug, body, lang', 'required', 'on' => array('update', 'insert')),
-            array('status, is_protected, parent_id, order, category_id', 'numerical', 'integerOnly' => true, 'on' => array('update', 'insert')),
+            array('status, is_protected, parent_id, menu_order, category_id', 'numerical', 'integerOnly' => true, 'on' => array('update', 'insert')),
             array('parent_id', 'length', 'max' => 45),
             array('lang', 'length', 'max' => 2),
             array('lang', 'default', 'value' => Yii::app()->sourceLanguage),
@@ -71,7 +71,7 @@ class Page extends YModel
             array('title, title_short, slug, description, keywords', 'filter', 'filter' => array($obj = new CHtmlPurifier(), 'purify')),
             array('slug', 'YSLugValidator'),
             array('lang', 'match', 'pattern' => '/^[a-z]{2}$/', 'message' => Yii::t('PageModule.page', 'Запрещенные символы в поле {attribute}')),
-            array('lang, id, parent_id, creation_date, change_date, title, title_short, slug, body, keywords, description, status, order, lang', 'safe', 'on' => 'search'),
+            array('lang, id, parent_id, creation_date, change_date, title, title_short, slug, body, keywords, description, status, menu_order, lang', 'safe', 'on' => 'search'),
         );
     }
 
@@ -111,7 +111,7 @@ class Page extends YModel
             'is_protected'   => Yii::t('PageModule.page', 'Доступ: * только для авторизованных пользователей'),
             'user_id'        => Yii::t('PageModule.page', 'Создал'),
             'change_user_id' => Yii::t('PageModule.page', 'Изменил'),
-            'order'          => Yii::t('PageModule.page', 'Сортировка'),
+            'menu_order'          => Yii::t('PageModule.page', 'Сортировка'),
         );
     }
 
@@ -137,9 +137,15 @@ class Page extends YModel
             'is_protected'   => Yii::t('PageModule.page', 'Доступ: * только для авторизованных пользователей.'),
             'user_id'        => Yii::t('PageModule.page', 'Пользователь, который добавил страницу.'),
             'change_user_id' => Yii::t('PageModule.page', 'Пользователь, который последний изменил страницу.'),
-            'order'          => Yii::t('PageModule.page', 'Чем большее числовое значение вы укажете в этом поле, тем выше будет позиция данной страницы в виджетах и меню.'),
+            'menu_order'          => Yii::t('PageModule.page', 'Чем большее числовое значение вы укажете в этом поле, тем выше будет позиция данной страницы в виджетах и меню.'),
         );
     }
+
+    public function primaryKey()
+    {
+        return 'id';
+    }
+
 
     public function beforeValidate()
     {
@@ -152,7 +158,7 @@ class Page extends YModel
 
     public function beforeSave()
     {
-        $this->change_date = new CDbExpression('now()');
+        $this->change_date = new CDbExpression('CURRENT_TIMESTAMP');
         $this->user_id     = Yii::app()->user->getId();
 
         if ($this->isNewRecord)
@@ -219,7 +225,7 @@ class Page extends YModel
 
         return new CActiveDataProvider(get_class($this), array(
             'criteria' => $criteria,
-            'sort' => array('defaultOrder' => 't.order DESC, t.creation_date DESC'),
+            'sort' => array('defaultOrder' => 't.menu_order DESC, t.creation_date DESC'),
         ));
     }
 
@@ -254,7 +260,7 @@ class Page extends YModel
 
     public function getAllPagesList($selfId = false)
     {
-        $params  = array('order' => 't.order DESC, t.creation_date DESC');
+        $params  = array('order' => 't.menu_order DESC, t.creation_date DESC');
         if ($selfId)
             $params += array(
                 'condition' => 'id != :id',
@@ -266,7 +272,7 @@ class Page extends YModel
 
     public function getAllPagesListBySlug($slug = false)
     {
-        $params = array('order' => 't.order DESC, t.creation_date DESC');
+        $params = array('order' => 't.menu_order DESC, t.creation_date DESC');
         if ($slug)
             $params += array(
                 'condition' => 'slug != :slug',

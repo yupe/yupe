@@ -156,28 +156,21 @@ class YBackController extends YMainController
         $direction = Yii::app()->request->getQuery('direction');
         $modelClass = Yii::app()->request->getQuery('model');
         $sortField = Yii::app()->request->getQuery('sortField');
+        $order = $direction == 'up' ? -1 : +1;
 
         if (!isset($direction, $id, $modelClass, $sortField))
             throw new CHttpException(404, Yii::t('YupeModule.yupe', 'Страница не найдена!'));
 
-        $model = new $modelClass;
-        $model_depends = new $modelClass;
-        $model = $model->resetScope()->findByPk($id);
-        if (!$model)
-            throw new CHttpException(404, Yii::t('YupeModule.yupe', 'Страница не найдена!'));
+        $model = YModel::model($modelClass)->resetScope()->findByPk($id);
+        $related_model = YModel::model($modelClass)->resetScope()->findByAttributes(array($sortField => $model->getAttribute($sortField) + $order));
 
-        if ($direction === 'up') {
-            $model_depends = $model_depends->findByAttributes(array($sortField => ($model->$sortField - 1)));
-            $model_depends->$sortField++;
-            $model->$sortField--; // example menu_order column in sql
-        } else {
-            $model_depends = $model_depends->findByAttributes(array($sortField => ($model->$sortField + 1)));
-            $model_depends->$sortField--;
-            $model->$sortField++;
+        if ($related_model) {
+            $related_model->setAttribute($sortField, $related_model->getAttribute($sortField) - $order);
+            $related_model->update(array($sortField));
         }
 
+        $model->setAttribute($sortField, $model->getAttribute($sortField) + $order);
         $model->update(array($sortField));
-        $model_depends->update(array($sortField));
 
         if (!Yii::app()->request->isAjaxRequest)
             $this->redirect(isset($_POST['returnUrl']) ? $_POST['returnUrl'] : array('admin'));

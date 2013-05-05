@@ -206,7 +206,7 @@ class Migrator extends CApplicationComponent
      *
      * @return bool is updated to migration
      **/
-    protected function migrateUp($module, $class)
+    public function migrateUp($module, $class)
     {
         $db = $this->getDbConnection();
 

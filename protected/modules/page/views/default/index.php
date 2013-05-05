@@ -48,7 +48,7 @@ $this->renderPartial('_search', array('model' => $model, 'pages' => $pages));
     'type'         => 'condensed',
     'dataProvider' => $model->search(),
     'filter'       => $model,
-    'sortField'    => 'order',
+    'sortField'    => 'menu_order',
     'columns'      => array(
         array(
             'name'  => 'id',
@@ -81,7 +81,7 @@ $this->renderPartial('_search', array('model' => $model, 'pages' => $pages));
             'value'  => 'CHtml::link($data->getPermaLink(),$data->getPermaLink(),array("target" => "_blank"))',
         ),
         array(
-            'name'  => 'order',
+            'name'  => 'menu_order',
             'type'  => 'raw',
             'value' => '$this->grid->getUpDownButtons($data)',
         ),

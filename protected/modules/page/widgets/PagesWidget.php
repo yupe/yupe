@@ -3,7 +3,7 @@ class PagesWidget extends YWidget
 {
     public $pageStatus;
     public $topLevelOnly = false;
-    public $order        = 't.order ASC, t.creation_date ASC';
+    public $order        = 't.menu_order ASC, t.creation_date ASC';
     public $parent_id;
     public $view;
     public $visible = true;
@@ -22,7 +22,7 @@ class PagesWidget extends YWidget
         if ($this->visible)
         {
             $criteria = new CDbCriteria;
-            $criteria->order = $this->order;
+            $criteria->menu_order = $this->menu_order;
             $criteria->addCondition("status = {$this->pageStatus}");
 
             if (!Yii::app()->user->isAuthenticated())
