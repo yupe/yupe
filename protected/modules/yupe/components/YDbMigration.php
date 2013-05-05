@@ -67,7 +67,9 @@ class YDbMigration extends CDbMigration
          *
          * это позволяет добиться эфекта переименования полей
          */
-        $columns = Yii::app()->db->schema->tables[$this->normTable($table)]->columns;
+        $normTable = $this->normTable($table);
+
+        $columns = Yii::app()->db->schema->tables[$normTable]->columns;
 
         $cNames = array_keys($columns);
 
@@ -81,12 +83,58 @@ class YDbMigration extends CDbMigration
             )
         );
         $tempTable = $this->normTable($table) . '_temporary';
-        Yii::app()->db->createCommand(
-            'drop table if exists ' . $tempTable . ';'
-            . 'create table ' . $tempTable . ' as select ' . $subQuery . ' from ' . $this->normTable($table) . ';'
-            . 'drop table ' . $this->normTable($table) . ';'
-            . 'alter table ' . $tempTable . ' rename to ' . $this->normTable($table) . ';'
-        )->query();
+
+
+        // Подготовка завершена, осуществляем alter-table через временную таблицу, комментарии ниже
+
+
+        // для удобства, можно глобально заменить на полную строчку
+        $db = Yii::app()->db;
+        // отключаем все проверки на внешние ключи
+        $db->createCommand('PRAGMA foreign_keys = off');
+        $db->createCommand('PRAGMA ignore_check_constraints = on');
+        // получаем все STATEMENT'ы для нужной таблицы
+        $statements = $db->createCommand('SELECT * FROM sqlite_master where tbl_name = :table AND sql is not NULL')->queryAll(true, array(':table'=>$normTable));
+
+        $db->createCommand('DROP TABLE IF EXISTS ' . $tempTable)->execute();
+        // делаем move таблицы с данными во временную таблицу
+        $db->createCommand('ALTER TABLE '.$normTable.' RENAME TO '.$tempTable)->execute();
+        // создаем новую таблицу со всеми нужными стейтментами
+        foreach ($statements as $statement) {
+            // пересоздаём связанные элементы, кто хочет, может оптимизировать и не пересоздавать все, а интеллектуально матчить по названию
+            switch ($statement['type']) {
+                case 'index':
+                    $db->createCommand('DROP INDEX IF EXISTS '.$statement['name'])->execute();
+                    break;
+                case 'trigger':
+                    $db->createCommand('DROP TRIGGER IF EXISTS '.$statement['name'])->execute();
+                    break;
+                case 'view':
+                    $db->createCommand('DROP VIEW IF EXISTS '.$statement['name'])->execute();
+                    break;
+            }
+
+            $sql = $statement['sql'];
+            $sql = preg_replace('/\b'.$name.'\b/ui', $newName, $sql); // \b - это разделитель слова, может быть '"-, пробелом и т.д.
+            $db->createCommand($sql)->execute();
+        }
+        // переносим данные
+        $db->createCommand('INSERT INTO '.$normTable.' SELECT ' . $subQuery . ' FROM ' . $tempTable)->execute();
+        // удаляем временную таблицу
+        $db->createCommand('DROP TABLE IF EXISTS ' . $tempTable)->execute();
+        // включаем проверки на внешние ключи
+        $db->createCommand('PRAGMA foreign_keys = on');
+        $db->createCommand('PRAGMA ignore_check_constraints = off');
+        // обновляем схему базы данных, т.к. мы внесли изменения и они должны отразиться в кэше
+        $db->schema->refresh();
+//
+//
+//        Yii::app()->db->createCommand(
+//            'drop table if exists ' . $tempTable . ';'
+//            . 'create table ' . $tempTable . ' as select ' . $subQuery . ' from ' . $this->normTable($table) . ';'
+//            . 'drop table ' . $this->normTable($table) . ';'
+//            . 'alter table ' . $tempTable . ' rename to ' . $this->normTable($table) . ';'
+//        )->query();
 
         return true;
     }
