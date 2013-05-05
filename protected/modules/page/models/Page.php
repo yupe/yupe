@@ -141,12 +141,6 @@ class Page extends YModel
         );
     }
 
-    public function primaryKey()
-    {
-        return 'id';
-    }
-
-
     public function beforeValidate()
     {
         if (!$this->slug)
