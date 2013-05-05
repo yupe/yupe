@@ -162,6 +162,9 @@ class YBackController extends YMainController
             throw new CHttpException(404, Yii::t('YupeModule.yupe', 'Страница не найдена!'));
 
         $model = YModel::model($modelClass)->resetScope()->findByPk($id);
+        if (!$model) {
+            throw new CHttpException(404, Yii::t('YupeModule.yupe', 'Страница не найдена!'));
+        }
         $related_model = YModel::model($modelClass)->resetScope()->findByAttributes(array($sortField => $model->getAttribute($sortField) + $order));
 
         if ($related_model) {
