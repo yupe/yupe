@@ -90,11 +90,15 @@ class YDbMigration extends CDbMigration
 
         // для удобства, можно глобально заменить на полную строчку
         $db = Yii::app()->db;
+        // получаем все STATEMENT'ы для нужной таблицы
+        $statements = $db->createCommand('SELECT * FROM sqlite_master where tbl_name = :table AND sql is not NULL')->queryAll(true, array(':table'=>$normTable));
+        if(empty($statements)) {
+            return false; // нечего делать, не обрабатываем. достаточно?, можно заменить EXCEPTION'ом но я не знаю какой лучше подойдет
+        }
+
         // отключаем все проверки на внешние ключи
         $db->createCommand('PRAGMA foreign_keys = off');
         $db->createCommand('PRAGMA ignore_check_constraints = on');
-        // получаем все STATEMENT'ы для нужной таблицы
-        $statements = $db->createCommand('SELECT * FROM sqlite_master where tbl_name = :table AND sql is not NULL')->queryAll(true, array(':table'=>$normTable));
 
         $db->createCommand('DROP TABLE IF EXISTS ' . $tempTable)->execute();
         // делаем move таблицы с данными во временную таблицу
@@ -127,14 +131,6 @@ class YDbMigration extends CDbMigration
         $db->createCommand('PRAGMA ignore_check_constraints = off');
         // обновляем схему базы данных, т.к. мы внесли изменения и они должны отразиться в кэше
         $db->schema->refresh();
-//
-//
-//        Yii::app()->db->createCommand(
-//            'drop table if exists ' . $tempTable . ';'
-//            . 'create table ' . $tempTable . ' as select ' . $subQuery . ' from ' . $this->normTable($table) . ';'
-//            . 'drop table ' . $this->normTable($table) . ';'
-//            . 'alter table ' . $tempTable . ' rename to ' . $this->normTable($table) . ';'
-//        )->query();
 
         return true;
     }
@@ -185,7 +181,7 @@ class YDbMigration extends CDbMigration
         );
 
         $tempTable = $this->normTable($table) . '_temporary';
-        
+
         Yii::app()->db->createCommand(
             'drop table if exists ' . $tempTable . ';'
             . 'create table ' . $tempTable . ' as select ' . $subQuery . ' from ' . $this->normTable($table) . ';'
