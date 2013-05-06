@@ -1,10 +1,15 @@
 <div class="page-header">
-    <h1><?php echo Yii::t('YupeModule.yupe', 'Панель управления "{app}"', array('{app}' => CHtml::encode(Yii::t('YupeModule.yupe', Yii::app()->name)))); ?><br/>
-    <small><?php echo Yii::t('YupeModule.yupe', '{nick_name}, добро пожаловать в панель управления Вашим сайтом!',array(
-        '{nick_name}' => Yii::app()->user->getState('nick_name')
-        )); ?></small></h1>
+    <h1><?php echo Yii::t('YupeModule.yupe', 'Панель управления "{app}"', array('{app}' => CHtml::encode(Yii::t('YupeModule.yupe', Yii::app()->name)))); ?><br/></h1>
 </div>
-
+<legend><?php echo Yii::t('YupeModule.yupe', 'Быстрый доступ к модулям'); ?></legend>
+<?php
+$this->widget(
+    'yupe.widgets.YShortCuts', array(
+        'shortcuts' => $modulesNavigation
+    )
+); ?>
+<?php $this->menu = $modulesNavigation; ?>
+<hr>
 <div class="alert">
     <p>
         <?php echo Yii::t('YupeModule.yupe','Вы используете Yii версии'); ?>
@@ -17,14 +22,14 @@
     </br>
     <p>
         <?php
-            $yiiCount    = count($yiiModules);
-            $yupeCount   = count($modules);
-            $allCount    = $yupeCount + $yiiCount;
-            $enableCount = 0;
-            foreach ($modules as $module) {
-                if ($module->isActive || $module->isNoDisable)
-                    $enableCount++;
-            }
+        $yiiCount    = count($yiiModules);
+        $yupeCount   = count($modules);
+        $allCount    = $yupeCount + $yiiCount;
+        $enableCount = 0;
+        foreach ($modules as $module) {
+            if ($module->isActive || $module->isNoDisable)
+                $enableCount++;
+        }
         ?>
         <?php echo Yii::t('YupeModule.yupe', 'Установлено'); ?>
         <small class="label label-info"><?php echo $allCount; ?></small>
@@ -44,14 +49,3 @@
         </small>
     </p>
 </div>
-
-<legend><?php echo Yii::t('YupeModule.yupe', 'Быстрый доступ к модулям'); ?></legend>
-
-<?php
-$this->widget(
-    'yupe.widgets.YShortCuts', array(
-        'shortcuts' => $modulesNavigation
-    )
-); ?>
-
-<?php $this->menu = $modulesNavigation; ?>

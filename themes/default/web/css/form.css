@@ -66,6 +66,13 @@ div.form label {
 
 div.form .row {
     margin: 5px 0;
+    font-size: 14px;
+}
+
+div.form .row input{
+    font-size: 14px;
+    width: 200px;
+    height: 24px;
 }
 
 div.form .hint {
