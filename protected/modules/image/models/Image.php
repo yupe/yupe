@@ -154,9 +154,8 @@ class Image extends YModel
         if (Yii::app()->hasModule('gallery')) {
             $criteria->with = array('gallery', 'image');
             $criteria->compare('gallery_id', $this->gallery_id);
+            $criteria->together = true;
         }
-
-        $criteria->together = true;
 
         return new CActiveDataProvider(get_class($this), array('criteria' => $criteria));
     }
