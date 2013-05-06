@@ -254,14 +254,15 @@ class Page extends YModel
 
     public function getAllPagesList($selfId = false)
     {
-        $params  = array('order' => 't.order DESC, t.creation_date DESC');
-        if ($selfId)
-            $params += array(
-                'condition' => 'id != :id',
-                'params'    => array(':id' => $selfId),
-                'group'     => 'slug',
-            );
-        return CHtml::listData($this->findAll($params), 'id', 'title');
+        $criteria = new CDbCriteria;
+        $criteria->order = "{$this->tableAlias}.order DESC, {$this->tableAlias}.creation_date DESC";
+        if ($selfId) {
+            $otherCriteria = new CDbCriteria;
+            $otherCriteria->addNotInCondition('id', (array)$selfId);
+            $otherCriteria->group = "{$this->tableAlias}.slug, {$this->tableAlias}.id";
+            $criteria->mergeWith($otherCriteria);
+        }
+        return CHtml::listData($this->findAll($criteria), 'id', 'title');
     }
 
     public function getAllPagesListBySlug($slug = false)
