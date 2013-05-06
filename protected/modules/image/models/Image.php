@@ -98,16 +98,17 @@ class Image extends YModel
     {
         // NOTE: you may need to adjust the relation name and the related
         // class name for the relations automatically generated below.
-        return array(
-            'image'       => array(self::BELONGS_TO, 'Image', 'id'),
-            'category'    => array(self::BELONGS_TO, 'Category', 'category_id'),
-            'user'        => array(self::BELONGS_TO, 'User', 'user_id'),
-            'galleryRell' => Yii::app()->hasModule('gallery')
-                ? array(self::HAS_ONE, 'ImageToGallery', array('image_id' => 'id'))
-                : array(),
-            'gallery'     => Yii::app()->hasModule('gallery')
-                ? array(self::HAS_ONE, 'Gallery', 'gallery_id', 'through' => 'galleryRell')
-                : array(),
+        return array_merge(
+            array(
+                'image'       => array(self::BELONGS_TO, 'Image', 'id'),
+                'category'    => array(self::BELONGS_TO, 'Category', 'category_id'),
+                'user'        => array(self::BELONGS_TO, 'User', 'user_id'),
+            ), Yii::app()->hasModule('gallery')
+            ? array(
+                'galleryRell' => array(self::HAS_ONE, 'ImageToGallery', array('image_id' => 'id')),
+                'gallery'     => array(self::HAS_ONE, 'Gallery', 'gallery_id', 'through' => 'galleryRell'),
+            )
+            : array()
         );
     }
 
