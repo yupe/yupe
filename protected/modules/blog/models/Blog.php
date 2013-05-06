@@ -336,9 +336,14 @@ class Blog extends YModel
 
     public function getImageUrl()
     {
-        if($this->icon)
-            return Yii::app()->baseUrl . '/' . Yii::app()->getModule('yupe')->uploadPath . '/' .
-                   Yii::app()->getModule('blog')->uploadPath . '/' . $this->icon;
-        return false;
+        // fix for get default image
+        Yii::app()->theme = empty(Yii::app()->theme)
+            ? 'default'
+            : Yii::app()->theme;
+
+        return $this->icon
+            ? Yii::app()->baseUrl . '/' . Yii::app()->getModule('yupe')->uploadPath . '/' .
+                   Yii::app()->getModule('blog')->uploadPath . '/' . $this->icon
+            : Yii::app()->theme->baseUrl . '/web/images/blog-icon.png';
     }
 }
