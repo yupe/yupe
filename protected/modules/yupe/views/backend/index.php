@@ -1,15 +1,7 @@
 <div class="page-header">
     <h1><?php echo Yii::t('YupeModule.yupe', 'Панель управления "{app}"', array('{app}' => CHtml::encode(Yii::t('YupeModule.yupe', Yii::app()->name)))); ?><br/></h1>
 </div>
-<legend><?php echo Yii::t('YupeModule.yupe', 'Быстрый доступ к модулям'); ?></legend>
-<?php
-$this->widget(
-    'yupe.widgets.YShortCuts', array(
-        'shortcuts' => $modulesNavigation
-    )
-); ?>
-<?php $this->menu = $modulesNavigation; ?>
-<hr>
+
 <div class="alert">
     <p>
         <?php echo Yii::t('YupeModule.yupe','Вы используете Yii версии'); ?>
@@ -49,3 +41,12 @@ $this->widget(
         </small>
     </p>
 </div>
+
+<legend><?php echo Yii::t('YupeModule.yupe', 'Быстрый доступ к модулям'); ?></legend>
+<?php
+$this->widget(
+    'yupe.widgets.YShortCuts', array(
+        'shortcuts' => $modulesNavigation
+    )
+); ?>
+<?php $this->menu = $modulesNavigation; ?>

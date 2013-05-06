@@ -299,6 +299,11 @@ class DocsModule extends YWebModule
                         'url'   => array('/docs/show/index', 'file' => 'curl.wrapper', 'moduleID' => 'yupe'),
                         'icon'  => 'file',
                     ),
+                    array(
+                        'label' => Yii::t('DocsModule.docs', 'Оптимальные настройки APC'),
+                        'url'   => array('/docs/show/index', 'file' => 'apc.options', 'moduleID' => 'yupe'),
+                        'icon'  => 'file',
+                    ),
                 )
             ),
             array(
@@ -357,6 +362,11 @@ class DocsModule extends YWebModule
             array(
                 'label' => Yii::t('DocsModule.docs', 'Curl обёртка для Yii framework'),
                 'url'   => array('/docs/show/index', 'file' => 'curl.wrapper', 'moduleID' => 'yupe'),
+                'icon'  => 'file',
+            ),
+            array(
+                'label' => Yii::t('DocsModule.docs', 'Оптимальные настройки APC'),
+                'url'   => array('/docs/show/index', 'file' => 'apc.options', 'moduleID' => 'yupe'),
                 'icon'  => 'file',
             ),
             '',

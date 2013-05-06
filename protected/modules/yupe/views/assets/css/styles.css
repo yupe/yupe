@@ -37,10 +37,10 @@ div#page {
 }
 footer {
     clear: both;
-    text-align: center;
+    text-align: right;
 
     height: 75px;
-    padding: 20px 0px 45px;
+    padding: 15px 20px 15px;
 
     position: relative;
     margin-top: -85px;
