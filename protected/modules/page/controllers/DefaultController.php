@@ -43,8 +43,6 @@ class DefaultController extends YBackController
 
         $languages = $this->yupe->getLanguagesList();
 
-        $languages = $this->yupe->getLanguagesList();
-
         //если добавляем перевод
         $id = (int)Yii::app()->request->getQuery('id');
         $lang = Yii::app()->request->getQuery('lang');
@@ -68,7 +66,7 @@ class DefaultController extends YBackController
             $model->title = $page->title;
             $model->title_short = $page->title_short;
             $model->parent_id = $page->parent_id;
-            $model->order = $page->order;
+            $model->menu_order = $page->menu_order;
         }else{
             $model->lang = Yii::app()->language;
         }
