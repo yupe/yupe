@@ -26,11 +26,13 @@ class Image extends YModel
     const TYPE_PREVIEW = 1;
 
     private $_url;
-    public $gallery_id;
+    private $_galleryId = null;
 
     /**
      * Returns the static model of the specified AR class.
-     * @param string $className
+     * 
+     * @param string $className - class name
+     * 
      * @return Image the static model class
      */
     public static function model($className = __CLASS__)
@@ -39,6 +41,8 @@ class Image extends YModel
     }
 
     /**
+     * table name
+     * 
      * @return string the associated database table name
      */
     public function tableName()
@@ -47,12 +51,15 @@ class Image extends YModel
     }
 
     /**
+     * validation rules
+     * 
      * @return array validation rules for model attributes.
      */
     public function rules()
     {
         return array(
             array('name, alt, type', 'required'),
+            array('galleryId', 'numerical'),
             array('name, description, alt', 'filter', 'filter' => 'trim'),
             array('name, description, alt', 'filter', 'filter' => array($obj = new CHtmlPurifier(), 'purify')),
             array('status, parent_id, type, category_id', 'numerical', 'integerOnly' => true),           
@@ -60,7 +67,7 @@ class Image extends YModel
             array('alt, name, file', 'length', 'max' => 250),
             array('type', 'in', 'range' => array_keys($this->typeList)),
             array('category_id', 'default', 'setOnEmpty' => true, 'value' => null),
-            array('id, name, description, creation_date, user_id, alt, status, gallery_id', 'safe', 'on' => 'search'),
+            array('id, name, description, creation_date, user_id, alt, status, galleryId', 'safe', 'on' => 'search'),
         );
     }
 
@@ -129,6 +136,7 @@ class Image extends YModel
             'status'        => Yii::t('ImageModule.image', 'Статус'),
             'parent_id'     => Yii::t('ImageModule.image', 'Родитель'),
             'type'          => Yii::t('ImageModule.image', 'Тип картинки'),
+            'galleryId'     => Yii::t('ImageModule.image', 'Галерея'),
         );
     }
 
@@ -143,7 +151,7 @@ class Image extends YModel
 
         $criteria = new CDbCriteria;
 
-        $criteria->compare($this->tableAlias . '.id', $this->id, true);
+        $criteria->compare($this->tableAlias . '.id', $this->id);
         $criteria->compare($this->tableAlias . '.name', $this->name, true);
         $criteria->compare($this->tableAlias . '.description', $this->description, true);
         $criteria->compare($this->tableAlias . '.file', $this->file, true);
@@ -154,7 +162,7 @@ class Image extends YModel
         
         if (Yii::app()->hasModule('gallery')) {
             $criteria->with = array('gallery', 'image');
-            $criteria->compare('gallery_id', $this->gallery_id);
+            $criteria->compare('gallery_id', $this->galleryId);
             $criteria->together = true;
         }
 
@@ -322,5 +330,39 @@ class Image extends YModel
         return $this->user instanceof User
             ? $this->user->getFullName()
             : '---';
+    }
+
+    /**
+     * get gallery id
+     *
+     * @return gallery id of image
+     **/
+    public function getGalleryId()
+    {
+        return Yii::app()->hasModule('gallery') && $this->gallery instanceof Gallery && empty($this->_galleryId)
+            ? $this->gallery->id
+            : $this->_galleryId;
+    }
+
+    /**
+     * set gallery id
+     *
+     * @param mixed $value - value for setter
+     *
+     * @return bool
+     **/
+    public function setGalleryId($value = null)
+    {
+        if ($this->scenario === 'search' || !Yii::app()->hasModule('gallery'))
+            return ($this->_galleryId = $value);
+
+        if ($this->gallery instanceof Gallery) {
+            $this->galleryRell->delete();
+        }
+
+        if (($gallery = Gallery::model()->loadModel($value)) === null)
+            return $value;
+
+        $gallery->addImage($this);
     }
 }

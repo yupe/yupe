@@ -43,40 +43,46 @@ $this->renderPartial('_search', array('model' => $model));
 
 <p><?php echo Yii::t('ImageModule.image', 'В данном разделе представлены средства управления изображениями'); ?></p>
 
-<?php $this->widget('application.modules.yupe.components.YCustomGridView', array(
-    'id'           => 'image-grid',
-    'type'         => 'condensed',
-    'dataProvider' => $model->search(),
-    'filter'       => $model,
-    'columns'      => array(
-        'id',
-        array(
-            'name'  => Yii::t('ImageModule.image', 'file'),
-            'type'  => 'raw',
-            'value' => 'CHtml::image($data->getUrl(75), $data->alt, array("width" => 75, "height" => 75))',
+<?php
+$this->widget(
+    'application.modules.yupe.components.YCustomGridView', array(
+        'id'           => 'image-grid',
+        'type'         => 'condensed',
+        'dataProvider' => $model->search(),
+        'filter'       => $model,
+        'columns'      => array(
+            'id',
+            array(
+                'name'  => Yii::t('ImageModule.image', 'file'),
+                'type'  => 'raw',
+                'value' => 'CHtml::image($data->getUrl(75), $data->alt, array("width" => 75, "height" => 75))',
+            ),
+            array(
+                'name'  => 'category_id',
+                'value' => '$data->getCategoryName()'
+            ),
+            array(
+                'name'   => 'galleryId',
+                'header' => Yii::t('ImageModule.image', 'Галерея'),
+                'type'   => 'raw',
+                'filter' => $model->galleryList(),
+                'value'  => '$data->galleryName === null
+                            ? "---"
+                            : CHtml::link(
+                                $data->gallery->name,
+                                Yii::app()->controller instanceof YBackController
+                                ? array("/gallery/default/update", "id" => $data->galleryId)
+                                : array("/gallery/gallery/update", "id" => $data->galleryId)
+                            )',
+            ),
+            'name',
+            'alt',
+            array(
+                'class'       => 'bootstrap.widgets.TbButtonColumn',
+                'htmlOptions' => array(
+                    'style'   => 'width: 60px;'
+                ),
+            ),
         ),
-        array(
-            'name'  => 'category_id',
-            'value' => '$data->getCategoryName()'
-        ),
-        array(
-            'name'   => 'gallery_id',
-            'header' => Yii::t('ImageModule.image', 'Галерея'),
-            'type'   => 'raw',
-            'filter' => $model->galleryList(),
-            'value'  => '$data->galleryName === null
-                        ? "---"
-                        : CHtml::link(
-                            $data->gallery->name,
-                            Yii::app()->controller instanceof YBackController
-                            ? array("/gallery/default/update", "id" => $data->gallery->id)
-                            : array("/gallery/gallery/update", "id" => $data->gallery->id)
-                        )',
-        ),
-        'name',
-        'alt',
-        array(
-            'class' => 'bootstrap.widgets.TbButtonColumn',
-        ),
-    ),
-)); ?>
+    )
+); ?>
