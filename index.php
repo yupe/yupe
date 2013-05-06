@@ -11,10 +11,24 @@
 // подробнее про index.php http://www.yiiframework.ru/doc/guide/ru/basics.entry
 date_default_timezone_set('Europe/Moscow');
 
-// путь к фреймворку Yii
-$yii = dirname(__FILE__) . '/framework/yii.php';
-// путь к основному конфигурационному файлу Yii
-$config = dirname(__FILE__) . '/protected/config/main.php';
+// Выбираем конфигурацию development-main.php, если переменная окружения php_env установлена в development
+// или мы работаем на локалхосте:
+if (strpos($_SERVER['SERVER_ADDR'], '127') === 0) {
+    // Комментируем перед выпуском в продакшен:
+    define('YII_DEBUG', true);
+
+    // путь к фреймворку Yii
+    $yii = dirname(__FILE__) . '/framework/yii.php';
+
+    // путь к основному конфигурационному файлу Yii
+    $config = dirname(__FILE__) . '/protected/config/main-development.php';
+    defined('YII_TRACE_LEVEL') or define('YII_TRACE_LEVEL', 3);
+} else { //production считается во всех случаях, когда не выполнены условия
+    // путь к фреймворку Yii
+    $yii = dirname(__FILE__) . '/framework/yiilite.php';
+    // путь к основному конфигурационному файлу Yii
+    $config = dirname(__FILE__) . '/protected/config/main.php';
+}
 
 require $yii;
 Yii::createWebApplication($config)->run();

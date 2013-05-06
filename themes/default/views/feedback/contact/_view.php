@@ -14,8 +14,8 @@
     <br/>
 
     <b><?php echo CHtml::encode($data->getAttributeLabel('text')); ?>:</b>
-    <?php echo CHtml::encode($data->text); ?>
-    <br/><br/>
+    <?php echo $data->text; ?>
+    <br/>
 
     <b><?php echo CHtml::encode($data->getAttributeLabel('answer')); ?>:</b>
     <?php echo $data->answer; ?>

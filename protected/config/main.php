@@ -107,6 +107,11 @@ return array(
     // конфигурирование основных компонентов (подробнее http://www.yiiframework.ru/doc/guide/ru/basics.component)
     'components' => CMap::mergeArray(
         array(
+            // assetsManager:
+            'assetsManager' => array(
+                // Don't use on windows:
+                'forceCopy' => defined('YII_DEBUG') && !isset($_SERVER['WINDIR']),
+            ),
             // Работа с миграциями, обновление БД модулей
             'migrator'=>array(
                 'class'=>'application.modules.yupe.extensions.migrator.Migrator',

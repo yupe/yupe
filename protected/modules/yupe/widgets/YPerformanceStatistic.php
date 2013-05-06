@@ -12,12 +12,12 @@ class YPerformanceStatistic extends YWidget
 		
 	echo '<div class="stat" id="stat">';
 	if(Yii::app()->db->enableParamLogging == true || Yii::app()->db->enableProfiling == true){
-		echo '<div style="float:left;padding-right:5px">запросов: ' . $dbStat[0] . '</div>';
-		echo '<div style="float:left;padding-right:5px">время: ' . $dbStat[1] . '</div>';
+		echo 'запросов: ' . $dbStat[0];
+		echo 'время: ' . $dbStat[1] . '</div>';
 	}
     echo <<<EOF
-        <div style="float:left;padding-right:5px">память: {$memory}</div>
-        <div style="float:left;padding-right:5px">выполнение: {$time}</div>
+        <div>память: {$memory}
+        выполнение: {$time}
     </div>
 EOF;
     }
