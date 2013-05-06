@@ -9,7 +9,7 @@
  * @author Veaceslav Medvedev <slavcopost@gmail.com>
  * @author Alexander Makarov <sam@rmcreative.ru>
  *
- * @version 1.1
+ * @version 1.2.3
  *
  * @link https://github.com/yiiext/imperavi-redactor-widget
  * @link http://imperavi.com/redactor
@@ -54,12 +54,12 @@ class ImperaviRedactorWidget extends CInputWidget
 
 		if ($this->selector === null) {
 			list($this->name, $this->id) = $this->resolveNameID();
+			$this->htmlOptions['id'] = $this->id;
 			$this->selector = '#' . $this->id;
 
 			if ($this->hasModel()) {
 				echo CHtml::activeTextArea($this->model, $this->attribute, $this->htmlOptions);
 			} else {
-				$this->htmlOptions['id'] = $this->id;
 				echo CHtml::textArea($this->name, $this->value, $this->htmlOptions);
 			}
 		}
