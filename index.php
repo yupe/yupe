@@ -18,7 +18,7 @@ if (strpos($_SERVER['SERVER_ADDR'], '127') === 0) {
     define('YII_DEBUG', true);
 
     // путь к фреймворку Yii
-    $yii = dirname(__FILE__) . '/framework/yii.php';
+    $yii = dirname(__FILE__) . '/framework/yiilite.php';
 
     // путь к основному конфигурационному файлу Yii
     $config = dirname(__FILE__) . '/protected/config/main-development.php';
