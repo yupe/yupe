@@ -4,7 +4,10 @@ class DefaultController extends YBackController
 {
     /**
      * Отображает изображение по указанному идентификатору
+     * 
      * @param integer $id Идинтификатор изображение для отображения
+     *
+     * @return void
      */
     public function actionView($id)
     {
@@ -14,15 +17,15 @@ class DefaultController extends YBackController
     /**
      * Создает новую модель изображения.
      * Если создание прошло успешно - перенаправляет на просмотр.
+     *
+     * @return void
      */
     public function actionCreate()
     {
         $model = new Image;
-        if (isset($_POST['Image']))
-        {
+        if (isset($_POST['Image'])) {
             $model->attributes = $_POST['Image'];
-            if ($model->save())
-            {
+            if ($model->save()) {
                 Yii::app()->user->setFlash(
                     YFlashMessages::NOTICE_MESSAGE,
                     Yii::t('ImageModule.image', 'Изображение добавлено!')
@@ -39,16 +42,17 @@ class DefaultController extends YBackController
 
     /**
      * Редактирование изображения.
+     * 
      * @param integer $id the ID of the model to be updated
+     *
+     * @return void
      */
     public function actionUpdate($id)
     {
         $model = $this->loadModel($id);
-        if (isset($_POST['Image']))
-        {
+        if (isset($_POST['Image'])) {
             $model->attributes = $_POST['Image'];
-            if ($model->save())
-            {
+            if ($model->save()) {
                 Yii::app()->user->setFlash(
                     YFlashMessages::NOTICE_MESSAGE,
                     Yii::t('user', 'Изображение обновлено!')
@@ -66,12 +70,14 @@ class DefaultController extends YBackController
     /**
      * Удаяет модель изображения из базы.
      * Если удаление прошло успешно - возвращется в index
-     * @param integer $id идентификатор изображения, который нужно удалить
+     *
+     *  @param integer $id - идентификатор изображения, который нужно удалить
+     *
+     * @return void
      */
     public function actionDelete($id)
     {
-        if (Yii::app()->request->isPostRequest)
-        {
+        if (Yii::app()->request->isPostRequest) {
             // we only allow deletion via POST request
             $this->loadModel($id)->delete();
 
@@ -90,6 +96,8 @@ class DefaultController extends YBackController
 
     /**
      * Управление изображениями.
+     *
+     * @return void
      */
     public function actionIndex()
     {
@@ -103,7 +111,10 @@ class DefaultController extends YBackController
     /**
      * Возвращает модель по указанному идентификатору
      * Если модель не будет найдена - возникнет HTTP-исключение.
-     * @param integer идентификатор нужной модели
+     * 
+     * @param integer $id идентификатор нужной модели
+     *
+     * @return void
      */
     public function loadModel($id)
     {
@@ -115,12 +126,14 @@ class DefaultController extends YBackController
 
     /**
      * Производит AJAX-валидацию
-     * @param CModel модель, которую необходимо валидировать
+     *
+     *  @param CModel $model - модель, которую необходимо валидировать
+     *
+     * @return void
      */
     protected function performAjaxValidation($model)
     {
-        if (isset($_POST['ajax']) && $_POST['ajax'] === 'image-form')
-        {
+        if (isset($_POST['ajax']) && $_POST['ajax'] === 'image-form') {
             echo CActiveForm::validate($model);
             Yii::app()->end();
         }
