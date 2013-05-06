@@ -172,7 +172,7 @@ class UserModule extends YWebModule
 
     public function getCategory()
     {
-        return Yii::t('UserModule.user', 'Пользователи');
+        return Yii::t('UserModule.user', 'Юпи!');
     }
 
     public function getDescription()

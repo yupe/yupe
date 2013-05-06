@@ -35,7 +35,6 @@
 * Модуль простых справочников (хранение и управление справочной информацией) ([модуль dictionary](https://github.com/yupe/yupe/tree/master/protected/modules/dictionary))
 * Модуль для ведения блогов ([как индивидуальных, так и коллективных](http://yupe.ru/blog/yupe-mini-cms-yii)) ([модуль blog](https://github.com/yupe/yupe/tree/master/protected/modules/blog))
 * Модуль для "Обратной связи" + [раздел FAQ](http://yupe.ru/faq) ([модуль feedback](https://github.com/yupe/yupe/tree/master/protected/modules/feedback))
-* Модуль для работы с блоками контента ([модуль contentblock](https://github.com/yupe/yupe/tree/master/protected/modules/contentblock))
 * Модуль для работы с Wiki - работает через [модуль yeeki](http://rmcreative.ru/blog/post/yeeki)
 * Модуль документации, который позволяет создавать документацию для вашего сайта ([модуль docs](https://github.com/yupe/yupe/tree/master/protected/modules/docs))
 * Модуль изображений ([модуль image](https://github.com/yupe/yupe/tree/master/protected/modules/image))
