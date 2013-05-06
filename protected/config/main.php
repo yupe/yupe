@@ -109,7 +109,8 @@ return array(
         array(
             // assetsManager:
             'assetsManager' => array(
-                'forceCopy' => defined('YII_DEBUG'),
+                // Don't use on windows:
+                'forceCopy' => defined('YII_DEBUG') && !isset($_SERVER['WINDIR']),
             ),
             // Работа с миграциями, обновление БД модулей
             'migrator'=>array(
