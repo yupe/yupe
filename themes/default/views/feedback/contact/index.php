@@ -75,9 +75,11 @@ $this->breadcrumbs = array('Обратная связь');
     </div>
 
     <div class="row">
-        <?php echo $form->labelEx($model, 'text'); ?>
-        <?php echo $form->textArea($model, 'text', array('cols' => 60, 'rows' => 5)); ?>
-        <?php echo $form->error($model, 'text'); ?>
+        <?php $this->widget($this->module->editor, array(
+            'model'       => $model,
+            'attribute'   => 'text',
+            'options'     => $this->module->editorOptions,
+        )); ?>
     </div>
 
     <?php if ($module->showCaptcha && !Yii::app()->user->isAuthenticated()): ?>
