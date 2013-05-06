@@ -309,6 +309,11 @@ class DocsModule extends YWebModule
                         'url'   => array('/docs/show/index', 'file' => 'migrator.index', 'moduleID' => 'yupe'),
                         'icon'  => 'file',
                     ),
+                    array(
+                        'label' => Yii::t('DocsModule.docs', 'Методы компонента "Мигратор"'),
+                        'url'   => array('/docs/show/index', 'file' => 'migrator.methods', 'moduleID' => 'yupe'),
+                        'icon'  => 'file',
+                    ),
                 )
             ),
             array(
@@ -377,6 +382,11 @@ class DocsModule extends YWebModule
             array(
                 'label' => Yii::t('DocsModule.docs', 'Компонент "Мигратор"'),
                 'url'   => array('/docs/show/index', 'file' => 'migrator.index', 'moduleID' => 'yupe'),
+                'icon'  => 'file',
+            ),
+            array(
+                'label' => Yii::t('DocsModule.docs', 'Методы компонента "Мигратор"'),
+                'url'   => array('/docs/show/index', 'file' => 'migrator.methods', 'moduleID' => 'yupe'),
                 'icon'  => 'file',
             ),
             '',
