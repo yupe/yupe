@@ -63,8 +63,8 @@ RELANG['ua'] = {
 	horizontalrule: 'Горизонтальная лінійка',
 	fullscreen: 'На весь екран',
 	deleted: 'Закреслений',
-    anchor: 'Anchor',
-	link_new_tab: 'Open link in new tab',
-	underline: 'Underline',
-	alignment: 'Alignment'				
+        anchor: 'Якір',
+	link_new_tab: 'Відкривати в новому вікні',
+	underline: 'Підкреслений',
+	alignment: 'Вирівнювання'				
 };

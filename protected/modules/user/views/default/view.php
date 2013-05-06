@@ -59,8 +59,6 @@
             'name'  => 'gender',
             'value' => $model->getGender(),
         ),
-        'password',
-        'salt',
         'activate_key',
         array(
             'name'  => 'status',
