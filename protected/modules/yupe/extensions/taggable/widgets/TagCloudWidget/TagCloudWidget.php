@@ -6,6 +6,8 @@ class TagCloudWidget extends YWidget
 
     public function run()
     {
+        if (!@class_exists($this->model))
+            return false;
         $model = $this->model;
         $model::model()->resetAllTagsCache();
 
