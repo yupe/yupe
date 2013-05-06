@@ -6,8 +6,18 @@ class TagCloudWidget extends YWidget
 
     public function run()
     {
-        if (!@class_exists($this->model))
+        if (!@class_exists($this->model)) {
+            echo CHtml::tag(
+                'p', array(
+                    'class' => 'alert alert-error'
+                ), Yii::t(
+                    'YupeModule.yupe', 'Модель "{model}" не найдена!', array(
+                        '{model}' => $this->model
+                    )
+                )
+            );
             return false;
+        }
         $model = $this->model;
         $model::model()->resetAllTagsCache();
 
