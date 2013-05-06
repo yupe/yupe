@@ -73,13 +73,17 @@ class YMainController extends Controller
     {
         if (stripos($className, 'application.modules') !== false) {
 
-            $modulePath = explode('.',$className);
+            $modulePath = explode('.', $className);
 
             if (!empty($modulePath[2]) && !Yii::app()->hasModule($modulePath[2])) {
-                echo Yii::t(
-                    'YupeModule.yupe', 'Виджет "{widget}" не найден! Подключите модуль "{module}" !', array(
-                        '{widget}' => $className,
-                        '{module}' => $modulePath[2]
+                echo CHtml::tag(
+                    'p', array(
+                        'class' => 'alert alert-error'
+                    ), Yii::t(
+                        'YupeModule.yupe', 'Виджет "{widget}" не найден! Подключите модуль "{module}" !', array(
+                            '{widget}' => $className,
+                            '{module}' => $modulePath[2]
+                        )
                     )
                 );
                 return null;

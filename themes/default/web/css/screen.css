@@ -1640,6 +1640,7 @@ pre {
 }
 
 .alert {
+    word-break: break-word;
     padding: 8px 35px 8px 14px;
     margin-bottom: 20px;
     text-shadow: 0 1px 0 rgba(255, 255, 255, 0.5);
@@ -1654,4 +1655,10 @@ pre {
     color: #3A87AD;
     background-color: #D9EDF7;
     border-color: #BCE8F1;
+}
+
+.alert-error {
+    color: #B94A48;
+    background-color: #F2DEDE;
+    border-color: #EED3D7;
 }
