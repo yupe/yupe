@@ -37,12 +37,13 @@ class YBackController extends YMainController
             );
 
             Yii::app()->theme = null;
+            
             Yii::app()->setComponent(
                 'bootstrap', Yii::createComponent(
                     array_merge(
                         array(
                             'class'           => 'application.modules.yupe.extensions.booster.components.Bootstrap',
-                            'fontAwesomeCss'  => Yii::app()->hasModule('install') === null,
+                            'fontAwesomeCss'  => $this->module->id !== 'install',
                         ), $assets
                     )
                 )
