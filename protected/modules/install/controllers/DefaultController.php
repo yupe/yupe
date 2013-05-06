@@ -597,15 +597,24 @@ class DefaultController extends YBackController
                     }
                 }
 
-                if (!$form->hasErrors()) {
-                    $connection->connectionString = $connectionString;
+                $connection->connectionString = $connectionString;
+                    
+                try {
                     if ($form->dbType != InstallForm::DB_SQLITE) {
                         $connection->username         = $form->dbUser;
                         $connection->password         = $form->dbPassword;
                         $connection->emulatePrepare   = true;
                         $connection->charset          = 'utf8';
-                        $connection->active           = true;
                     }
+                    $connection->active = true;
+                } catch (Exception $e) {
+                    $form->addError('', Yii::t('InstallModule.install', 'Не удалось подключиться к БД!') . '<br />' . $connectionString . '<br />' . $e->getMessage());
+                    Yii::log($e->__toString(), CLogger::LEVEL_ERROR);
+                    Yii::log($e->getTraceAsString(), CLogger::LEVEL_ERROR);
+                }
+
+                if (!$form->hasErrors()) {
+
                     $connection->tablePrefix      = $form->tablePrefix;
 
                     Yii::app()->setComponent('db', $connection);
