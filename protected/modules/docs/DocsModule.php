@@ -304,6 +304,11 @@ class DocsModule extends YWebModule
                         'url'   => array('/docs/show/index', 'file' => 'apc.options', 'moduleID' => 'yupe'),
                         'icon'  => 'file',
                     ),
+                    array(
+                        'label' => Yii::t('DocsModule.docs', 'Компонент "Мигратор"'),
+                        'url'   => array('/docs/show/index', 'file' => 'migrator.index', 'moduleID' => 'yupe'),
+                        'icon'  => 'file',
+                    ),
                 )
             ),
             array(
@@ -367,6 +372,11 @@ class DocsModule extends YWebModule
             array(
                 'label' => Yii::t('DocsModule.docs', 'Оптимальные настройки APC'),
                 'url'   => array('/docs/show/index', 'file' => 'apc.options', 'moduleID' => 'yupe'),
+                'icon'  => 'file',
+            ),
+            array(
+                'label' => Yii::t('DocsModule.docs', 'Компонент "Мигратор"'),
+                'url'   => array('/docs/show/index', 'file' => 'migrator.index', 'moduleID' => 'yupe'),
                 'icon'  => 'file',
             ),
             '',
