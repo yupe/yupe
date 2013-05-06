@@ -70,7 +70,7 @@ $this->renderPartial('_search', array('model' => $model));
         array(
             'name'   => 'access_level',
             'value'  => '$data->getAccessLevel()',
-            'filter' => CHtml::activeDropDownList($model, 'status', $model->accessLevelsList),
+            'filter' => CHtml::activeDropDownList($model, 'access_level', $model->accessLevelsList),
         ),
         array(
             'name'  => 'creation_date',

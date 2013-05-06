@@ -13,8 +13,8 @@ class DefaultController extends YBackController
     {
         $this->render('view', array('model' => $this->loadModel()));
     }
-    // @TODO Unused parameter $id
-    public function actionChangepassword($id)
+
+    public function actionChangepassword()
     {
         $model = $this->loadModel();
 

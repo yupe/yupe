@@ -80,7 +80,7 @@ class User extends YModel
             array('use_gravatar', 'in', 'range' => array(0, 1)),
             array('gender', 'in', 'range' => array_keys($this->gendersList)),
             array('status', 'in', 'range' => array_keys($this->statusList)),
-            array('access_level', 'in', 'range' => array_keys($this->accessLevelsList)),
+            array('access_level', 'in', 'range' => array_keys($this->getAccessLevelsList())),
             array('nick_name', 'match', 'pattern' => '/^[A-Za-z0-9_-]{2,50}$/', 'message' => Yii::t('UserModule.user', 'Неверный формат поля "{attribute}" допустимы только буквы и цифры, от 2 до 20 символов')),
             array('site', 'url', 'allowEmpty' => true),
             array('email', 'email'),
@@ -234,7 +234,7 @@ class User extends YModel
 
     public function getAccessLevel()
     {
-        $data = $this->accessLevelsList;
+        $data = $this->getAccessLevelsList();
         return isset($data[$this->access_level]) ? $data[$this->access_level] : Yii::t('UserModule.user', '*нет*');
     }
 
