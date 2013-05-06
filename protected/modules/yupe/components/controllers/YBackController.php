@@ -42,7 +42,7 @@ class YBackController extends YMainController
                     array_merge(
                         array(
                             'class'           => 'application.modules.yupe.extensions.booster.components.Bootstrap',
-                            'fontAwesomeCss'  => true,
+                            'fontAwesomeCss'  => Yii::app()->hasModule('install') === null,
                         ), $assets
                     )
                 )

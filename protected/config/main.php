@@ -103,7 +103,7 @@ return array(
     'behaviors' => array(
         'onBeginRequest' => array('class' => 'application.modules.yupe.extensions.urlManager.LanguageBehavior'),
     ),
-    'params' => require dirname(__FILE__) . '/params.php',
+    'params' => include_once dirname(__FILE__) . '/params.php',
     // конфигурирование основных компонентов (подробнее http://www.yiiframework.ru/doc/guide/ru/basics.component)
     'components' => CMap::mergeArray(
         array(
@@ -114,7 +114,7 @@ return array(
             ),
             // Работа с миграциями, обновление БД модулей
             'migrator'=>array(
-                'class'=>'application.modules.yupe.extensions.migrator.Migrator',
+                'class'=>'application.modules.yupe.components.migrator.Migrator',
             ),
             // библиотека для работы с картинками через GD/ImageMagick
             // лучше установите ImageMagick, т.к. он ресайзит анимированные гифы
