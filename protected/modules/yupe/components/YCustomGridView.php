@@ -88,6 +88,8 @@ class YCustomGridView extends TbExtendedGridView
 
     public $template = "{headline}\n{summary}\n{items}\n{pager}\n{extendedSummary}\n{multiaction}";
 
+    public $ajaxUrl;
+
     /**
      * Widget initialization
      *
@@ -98,6 +100,9 @@ class YCustomGridView extends TbExtendedGridView
         $this->_modelName = $this->dataProvider->modelClass;
         $this->headlinePosition = empty($this->headlinePosition) ? self::HP_RIGHT : $this->headlinePosition;
         $this->initPageSizes();
+        $this->ajaxUrl = empty($this->ajaxUrl)
+            ? (array) Yii::app()->controller->action->id
+            : $this->ajaxUrl;
         parent::init();
     }
 
