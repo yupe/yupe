@@ -1,9 +1,16 @@
 <?php
 class YDbMigration extends CDbMigration
 {
+    /**
+     * get options for schema
+     * 
+     * @return string options
+     */
     public function getOptions()
     {
-    	return Yii::app()->db->schema instanceof CMysqlSchema ? 'ENGINE=InnoDB DEFAULT CHARSET=utf8' : '';
+        return Yii::app()->db->schema instanceof CMysqlSchema
+            ? 'ENGINE=InnoDB DEFAULT CHARSET=utf8'
+            : '';
     }
 
     /**
@@ -11,7 +18,7 @@ class YDbMigration extends CDbMigration
      *
      * @return bool true if instance of CSqliteSchema
      **/
-    static public function isSQLite()
+    static function isSQLite()
     {
         return Yii::app()->db->schema instanceof CSqliteSchema;
     }
@@ -33,7 +40,7 @@ class YDbMigration extends CDbMigration
      **/
     public function addForeignKey($name, $table, $columns, $refTable, $refColumns, $delete=null, $update=null)
     {
-        return $this->isSQLite()
+        return self::isSQLite()
             ? false
             : parent::addForeignKey($name, $table, $columns, $refTable, $refColumns, $delete, $update);
     }
@@ -49,7 +56,7 @@ class YDbMigration extends CDbMigration
      **/
     public function renameColumn($table, $name, $newName)
     {
-        if (!$this->isSQLite())
+        if (!self::isSQLite())
             return parent::renameColumn($table, $name, $newName);
 
         /**
@@ -103,7 +110,7 @@ class YDbMigration extends CDbMigration
      */
     public function dropColumn($table, $column)
     {
-        if (!$this->isSQLite())
+        if (!self::isSQLite())
             return parent::dropColumn($table, $column);
 
         /**
@@ -184,9 +191,13 @@ class YDbMigration extends CDbMigration
 
     /**
      * Safely drops table having foreign keys dropped first
-     * @param $table
+     * 
+     * @param string $table - tableName
+     *
+     * @return void
      */
-    public function dropTableWithForeignKeys($table) {
+    public function dropTableWithForeignKeys($table)
+    {
         /**$schema = $this->getDbConnection()->schema;
         if ($schema->getTable($table) !== null) {
             // drop foreign keys
