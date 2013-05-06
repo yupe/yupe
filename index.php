@@ -13,7 +13,7 @@ date_default_timezone_set('Europe/Moscow');
 
 // Выбираем конфигурацию development-main.php, если переменная окружения php_env установлена в development
 // или мы работаем на локалхосте:
-if (defined('YII_DEBUG') || strpos($_SERVER['SERVER_ADDR'], '127') === 0) {
+if (strpos($_SERVER['SERVER_ADDR'], '127') === 0) {
     // Комментируем перед выпуском в продакшен:
     define('YII_DEBUG', true);
 

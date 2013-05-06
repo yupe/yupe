@@ -42,7 +42,6 @@ class YBackController extends YMainController
                     array_merge(
                         array(
                             'class'           => 'application.modules.yupe.extensions.booster.components.Bootstrap',
-                            'forceCopyAssets' => defined('YII_DEBUG') && !isset($_SERVER['WINDIR']),
                             'fontAwesomeCss'  => true,
                         ), $assets
                     )
