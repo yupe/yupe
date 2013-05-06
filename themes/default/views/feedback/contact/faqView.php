@@ -16,7 +16,12 @@ $this->breadcrumbs = array(
                                                         'creation_date',
                                                         'name',
                                                         'theme',
-                                                        'text',
+                                                        array(
+                                                            'name' => 'text',
+                                                            'type' => 'raw',
+                                                            'value' => $model->text,
+                                                        ),
+
                                                         array(
                                                             'name' => 'type',
                                                             'value' => $model->getType()
