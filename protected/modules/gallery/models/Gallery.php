@@ -190,7 +190,12 @@ class Gallery extends YModel
      **/
     public function getCanAddPhoto()
     {
-        return ($this->status == Gallery::STATUS_PRIVATE || $this->status == Gallery::STATUS_PERSONAL)  && Yii::app()->user->id == $this->owner;
+        return $this->status == Gallery::STATUS_PUBLIC
+            || (
+                ($this->status == Gallery::STATUS_PRIVATE
+                    || $this->status == Gallery::STATUS_PERSONAL
+                ) && Yii::app()->user->id == $this->owner
+            );
     }
 
     /**
