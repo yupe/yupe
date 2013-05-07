@@ -38,7 +38,7 @@ class m130427_120500_gallery_creation_user extends YDbMigration
         $this->dropForeignKey('fk_{{gallery_gallery}}_owner','{{gallery_gallery}}');
 
         $this->dropIndex('ix_{{gallery_gallery}}_owner','{{gallery_gallery}}');
-        
+
         $this->dropColumn('{{gallery_gallery}}', 'owner');
     }
 }
