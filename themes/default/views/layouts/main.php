@@ -18,7 +18,6 @@
 
     <link rel="icon" type="image/png" href="<?php echo Yii::app()->baseUrl;?>/web/images/favicon.png" />
 
-    <?php $module = Yii::app()->getModule('yupe'); ?>
 
     <!-- blueprint CSS framework -->
     <link rel="stylesheet" type="text/css"
@@ -48,7 +47,7 @@
         <div id="logo">
             <a href="<?php echo CHtml::normalizeUrl(array("/site/index"))?>"><?php echo CHtml::image(Yii::app()->baseUrl . '/web/images/main-logo.png');?></a>
             <span style="vertical-align: 40px; margin-left: 20px; font-size: 25px;">
-                <?php echo CHtml::encode($module->siteDescription);?>
+                <?php echo CHtml::encode($this->yupe->siteDescription);?>
             </span>
             <div id="header-right">
                 <?php $this->widget('application.modules.yupe.widgets.YLanguageSelector'); ?>
@@ -56,7 +55,7 @@
                     <?php
                     echo CHtml::link(
                         'СКАЧАТЬ ЮПИ! <br/><b> '
-                        . Yii::app()->getModule('yupe')->getVersion()
+                        . $this->yupe->getVersion()
                         . '</b>',
                         'https://github.com/yupe/yupe/archive/master.zip'
                     ); ?>
@@ -120,8 +119,8 @@
 
     <div id="footer">
         Copyright &copy; 2009-<?php echo date('Y'); ?>
-        <?php echo Yii::app()->getModule('yupe')->poweredBy();?>
-        v<?php echo $module->getVersion();?><br/> <?php echo Yii::powered(); ?>
+        <?php echo $this->yupe->poweredBy();?>
+        v<?php echo $this->yupe->getVersion();?><br/> <?php echo Yii::powered(); ?>
 
         <?php $this->widget('YPerformanceStatistic');?>
     </div>

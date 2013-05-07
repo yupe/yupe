@@ -73,7 +73,7 @@ $this->widget(
         'items'       => array(
             array(
                 'class' => 'bootstrap.widgets.TbMenu',
-                'items' => Yii::app()->getModule('yupe')->getModules(true),
+                'items' => $this->controller->yupe->getModules(true),
             ),
             array(
                 'class'       => 'bootstrap.widgets.TbMenu',
@@ -156,7 +156,7 @@ $this->widget(
                                 ),
                             ),
                         ),
-                    ), Yii::app()->getModule('yupe')->languageSelectorArray
+                    ), $this->controller->yupe->languageSelectorArray
                 ),
             ),
         ),

@@ -551,7 +551,6 @@ abstract class YWebModule extends CWebModule
 
         if ($settings) {
             $editableParams = $this->getEditableParams();
-
             //@TODO обход не settings а editableParams как вариант =)
             foreach ($settings as $model) {
                 if (property_exists($this, $model->param_name) && (in_array($model->param_name, $editableParams) || array_key_exists($model->param_name, $editableParams)))

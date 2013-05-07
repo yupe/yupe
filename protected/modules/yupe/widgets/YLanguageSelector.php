@@ -6,7 +6,7 @@ class YLanguageSelector extends YWidget
 
     public function run()
     {
-        $langs = array_keys(Yii::app()->getModule('yupe')->getLanguagesList());
+        $langs = array_keys($this->controller->yupe->getLanguagesList());
         if (count($langs) <= 1) {
             return false;
         }

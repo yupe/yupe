@@ -192,7 +192,7 @@ class YupeModule extends YWebModule
             'availableLanguages',
             'defaultLanguage'        => $this->languagesList,
             'defaultBackendLanguage' => $this->languagesList,
-            'updateChannel'          => $this->updateChannelList,
+            //'updateChannel'          => $this->updateChannelList,
         );
     }
 
@@ -430,14 +430,6 @@ class YupeModule extends YWebModule
         // если не выбран редактор, но редакторы есть - возмем первый попавшийся
         if (!$this->editor && is_array($editors))
             $this->editor = array_shift($editors);
-
-        $this->setImport(
-            array(
-                'yupe.models.*',
-                'yupe.components.*',
-                'yupe.extensions.tagcache.*',
-            )
-        );
 
         $this->categoryIcon  = array(
             Yii::t('YupeModule.yupe', 'Сервисы') => 'briefcase',

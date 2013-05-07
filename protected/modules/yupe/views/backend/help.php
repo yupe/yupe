@@ -15,7 +15,7 @@ $this->breadcrumbs = array(
     <?php echo Yii::t('YupeModule.yupe','Вы используете Yii версии'); ?>
     <small class="label label-info" title="<?php echo Yii::getVersion(); ?>"><?php echo Yii::getVersion(); ?></small>,
     <?php echo CHtml::encode(Yii::app()->name); ?>
-    <?php echo Yii::t('YupeModule.yupe', 'версии'); ?> <small class="label label-info" title="<?php echo Yii::app()->getModule('yupe')->version; ?>"><?php echo Yii::app()->getModule('yupe')->version; ?></small>,
+    <?php echo Yii::t('YupeModule.yupe', 'версии'); ?> <small class="label label-info" title="<?php echo $this->yupe->version; ?>"><?php echo $this->yupe->version; ?></small>,
     <?php echo Yii::t('YupeModule.yupe', 'php версии'); ?>
     <small class="label label-info" title="<?php echo phpversion(); ?>"><?php echo phpversion(); ?></small>
 </p>
