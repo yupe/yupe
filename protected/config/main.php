@@ -185,16 +185,6 @@ return array(
                         'class'  => 'CFileLogRoute',
                         'levels' => 'error, warning, info, trace', // на продакшн лучше оставить error, warning
                     ),
-                    // Debug Tool for developers:
-                    defined('YII_DEBUG')
-                        ? array(
-                            'class'     => 'application.extensions.yii-debug-toolbar.YiiDebugToolbarRoute',
-                            'ipFilters' => array(
-                                '127.0.0.1',
-                                // add your ip-address
-                            ),
-                        )
-                        : array(),
                     // профайлер запросов к базе данных, на продакшн рекомендуется отключить
                     array(
                         'class'        => 'application.modules.yupe.extensions.db_profiler.DbProfileLogRoute',

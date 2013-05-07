@@ -690,7 +690,7 @@ class DefaultController extends YBackController
         $error = false;
 
         $modules = $this->yupe->getModulesDisabled();
-        // Не выводить модуль install
+        // Не выводить модуль install и yupe
         unset($modules['install']);
 
         if (Yii::app()->request->isPostRequest) {

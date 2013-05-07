@@ -80,6 +80,9 @@ Yii::app()->clientScript->registerScript(
                 'basic' => array(),
             );
             foreach ($data['modules'] as $module) :
+                if(!is_object($module)){
+                    continue;
+                }
                 $modulesSelection['all'][] = '#module_' . $module->id;
                 if ($module->isInstallDefault)
                     $modulesSelection['recom'][] = '#module_' . $module->id;

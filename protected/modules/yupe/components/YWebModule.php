@@ -182,8 +182,9 @@ abstract class YWebModule extends CWebModule
     public function getEditableParamsKey()
     {
         $keyParams = array();
-        foreach ($this->editableParams as $key => $value)
+        foreach ($this->editableParams as $key => $value) {
             $keyParams[] = is_int($key) ? $value : $key;
+        }
         return $keyParams;
     }
 
@@ -224,10 +225,15 @@ abstract class YWebModule extends CWebModule
             $modulesNoDisable = array();
 
             foreach ($modules['modules'] as $module) {
-                if ($module->isNoDisable)
+                if ($module->isNoDisable) {
                     $modulesNoDisable[] = $module->id;
+                }
             }
-            Yii::app()->cache->set('YupeModulesNoDisable', $modulesNoDisable, Yii::app()->getModule('yupe')->coreCacheTime);
+            Yii::app()->cache->set(
+                'YupeModulesNoDisable',
+                $modulesNoDisable,
+                Yii::app()->getModule('yupe')->coreCacheTime
+            );
         }
         return $modulesNoDisable;
     }
@@ -244,10 +250,15 @@ abstract class YWebModule extends CWebModule
             $modulesDependent = array();
 
             foreach ($modules['modules'] as $module) {
-                if (!empty($module->dependencies) && is_array($module->dependencies))
+                if (!empty($module->dependencies) && is_array($module->dependencies)) {
                     $modulesDependent[$module->id] = $module->dependencies;
+                }
             }
-            Yii::app()->cache->set('YupeModulesDependenciesAll', $modulesDependent, Yii::app()->getModule('yupe')->coreCacheTime);
+            Yii::app()->cache->set(
+                'YupeModulesDependenciesAll',
+                $modulesDependent,
+                Yii::app()->getModule('yupe')->coreCacheTime
+            );
         }
         return $modulesDependent;
     }
@@ -271,10 +282,15 @@ abstract class YWebModule extends CWebModule
         if ($modulesDependent === false) {
             $modules = $this->dependenciesAll;
             foreach ($modules as $id => $dependencies) {
-                foreach ($dependencies as $dependency)
+                foreach ($dependencies as $dependency) {
                     $modulesDependent[$dependency][] = $id;
+                }
             }
-            Yii::app()->cache->set('YupeModulesDependent', $modulesDependent, Yii::app()->getModule('yupe')->coreCacheTime);
+            Yii::app()->cache->set(
+                'YupeModulesDependent',
+                $modulesDependent,
+                Yii::app()->getModule('yupe')->coreCacheTime
+            );
         }
         return $modulesDependent;
     }
@@ -305,8 +321,9 @@ abstract class YWebModule extends CWebModule
     public function getIsActive()
     {
         $status = is_file(Yii::app()->basePath . '/config/modules/' . $this->id . '.php');
-        if ($this->id == 'install')
+        if ($this->id == 'install') {
             $status = ($status == false) ? true : false;
+        }
         return $status;
     }
 
@@ -315,13 +332,21 @@ abstract class YWebModule extends CWebModule
         $modulesInstalled = Yii::app()->cache->get('YupeModulesInstalled');
         if ($modulesInstalled === false) {
             $modulesInstalled = Yii::app()->migrator->modulesWithDBInstalled;
-            Yii::app()->cache->set('YupeModulesInstalled', $modulesInstalled, Yii::app()->getModule('yupe')->coreCacheTime);
+            Yii::app()->cache->set(
+                'YupeModulesInstalled',
+                $modulesInstalled,
+                Yii::app()->getModule('yupe')->coreCacheTime
+            );
         }
 
         $upd = Yii::app()->cache->get('YupeModuleUpdates_' . $this->id);
         if ($upd === false) {
             $upd = Yii::app()->migrator->checkForUpdates(array($this->id => $this));
-            Yii::app()->cache->set('YupeModuleUpdates_' . $this->id, $upd, Yii::app()->getModule('yupe')->coreCacheTime);
+            Yii::app()->cache->set(
+                'YupeModuleUpdates_' . $this->id,
+                $upd,
+                Yii::app()->getModule('yupe')->coreCacheTime
+            );
         }
         return in_array($this->id, $modulesInstalled) || !count($upd);
     }
@@ -337,26 +362,33 @@ abstract class YWebModule extends CWebModule
         $fileModule = $yupe->getModulesConfigDefault($this->id);
         $fileConfig = $yupe->getModulesConfig($this->id);
 
-        if (is_file($fileConfig) && $this->id != 'install')
+        if (is_file($fileConfig) && $this->id != 'install') {
             throw new CException(Yii::t('YupeModule.yupe', 'Модуль уже включен!'), 304);
-        else {
+        } else {
             // Проверка модулей от которых зависит данный
             if (!$noDependen) {
                 $dependencies = $this->dependencies;
                 if (!empty($dependencies) && is_array($dependencies)) {
                     foreach ($dependencies as $dependency) {
-                        if (Yii::app()->getModule($dependency) == NULL) {
-                            throw new CException(Yii::t('YupeModule.yupe', 'Произошла ошибка, модули от которых зависит этот модуль не включены, включите сначала их!'));
+                        if (Yii::app()->getModule($dependency) == null) {
+                            throw new CException(Yii::t(
+                                'YupeModule.yupe',
+                                'Произошла ошибка, модули от которых зависит этот модуль не включены, включите сначала их!'
+                            ));
                             return false;
                         }
                     }
                 }
             }
 
-            if (@copy($fileModule, $fileConfig))
+            if (@copy($fileModule, $fileConfig)) {
                 return true;
-            else
-                throw new CException(Yii::t('YupeModule.yupe', 'Произошла ошибка при включении модуля, конфигурационный файл поврежден или отсутствует доступ к папке config!'));
+            } else {
+                throw new CException(Yii::t(
+                    'YupeModule.yupe',
+                    'Произошла ошибка при включении модуля, конфигурационный файл поврежден или отсутствует доступ к папке config!'
+                ));
+            }
         }
         return false;
     }
@@ -373,28 +405,40 @@ abstract class YWebModule extends CWebModule
         $fileConfig = $yupe->getModulesConfig($this->id);
         $fileConfigBack = $yupe->getModulesConfigBack($this->id);
 
-        if (!is_file($fileConfig) && $this->id != 'install')
+        if (!is_file($fileConfig) && $this->id != 'install') {
             throw new CException(Yii::t('YupeModule.yupe', 'Модуль уже отключен!'));
-        else {
+        } else {
             // Проверка зависимых модулей
             if (!$noDependen) {
                 $dependent = $this->dependent;
                 if (!empty($dependent) && is_array($dependent)) {
                     foreach ($dependent as $dependen) {
                         if (Yii::app()->getModule($dependen) != null) {
-                            throw new CException(Yii::t('YupeModule.yupe', 'Произошла ошибка, есть включенные зависимые модули, отключите сначало их!'));
+                            throw new CException(Yii::t(
+                                'YupeModule.yupe',
+                                'Произошла ошибка, есть включенные зависимые модули, отключите сначало их!'
+                            ));
                             return false;
                         }
                     }
                 }
             }
 
-            if ($this->isNoDisable)
+            if ($this->isNoDisable) {
                 throw new CException(Yii::t('YupeModule.yupe', 'Этот модуль запрещено отключать!'));
-            elseif (@md5_file($fileModule) != @md5_file($fileConfig) && !@copy($fileConfig, $fileConfigBack))
-                throw new CException(Yii::t('YupeModule.yupe', 'Произошла ошибка при копировании старого конфигурационного файла в папку modulesBack!')); elseif (!@unlink($fileConfig))
-                throw new CException(Yii::t('YupeModule.yupe', 'Произошла ошибка при отключении модуля, нет доступа к конфигурационному файлу!')); else
+            } elseif (@md5_file($fileModule) != @md5_file($fileConfig) && !@copy($fileConfig, $fileConfigBack)) {
+                throw new CException(Yii::t(
+                    'YupeModule.yupe',
+                    'Произошла ошибка при копировании старого конфигурационного файла в папку modulesBack!'
+                ));
+            } elseif (!@unlink($fileConfig)) {
+                throw new CException(Yii::t(
+                    'YupeModule.yupe',
+                    'Произошла ошибка при отключении модуля, нет доступа к конфигурационному файлу!'
+                ));
+            } else {
                 return true;
+            }
         }
         return false;
     }
@@ -431,18 +475,34 @@ abstract class YWebModule extends CWebModule
     public function installDB(&$installed = array())
     {
         $log = array();
-        Yii::log(Yii::t('YupeModule.yupe', "{id}->installDB() : Запрошена установка БД модуля {m}", array('{m}' => $this->name, '{id}' => $this->id)));
+        Yii::log(
+            Yii::t(
+                'YupeModule.yupe',
+                "{id}->installDB() : Запрошена установка БД модуля {m}",
+                array('{m}' => $this->name, '{id}' => $this->id)
+            )
+        );
 
         if ($this->dependencies !== array()) {
             foreach ($this->dependencies as $dep) {
-                Yii::log(Yii::t('YupeModule.yupe', 'Для модуля {module} сначала будет установлена база модуля {m2} как зависимость', array(
-                    '{module}' => $this->id,
-                    '{m2}' => $dep,
-                )));
+                Yii::log(
+                    Yii::t(
+                        'YupeModule.yupe',
+                        'Для модуля {module} сначала будет установлена база модуля {m2} как зависимость',
+                        array(
+                            '{module}' => $this->id,
+                            '{m2}' => $dep,
+                        )
+                    )
+                );
 
-                if (($m = Yii::app()->getModule($dep)) == null)
-                    throw new CException(Yii::t('YupeModule.yupe', "Необходимый для установки модуль {dm} не найден", array('{dm}' => $dep)));
-                else {
+                if (($m = Yii::app()->getModule($dep)) == null) {
+                    throw new CException(Yii::t(
+                        'YupeModule.yupe',
+                        "Необходимый для установки модуль {dm} не найден",
+                        array('{dm}' => $dep)
+                    ));
+                } else {
                     $i = $m->installDB($installed);
                     if (!isset($installed[$dep]) && !$i) {
                         return false;
@@ -465,7 +525,13 @@ abstract class YWebModule extends CWebModule
     {
         // @TODO Unused local variable $log
         $log = array();
-        Yii::log(Yii::t('YupeModule.yupe', "{id}->uninstallDB() : Запрошено удаление БД модуля {m}", array('{m}' => $this->name, '{id}' => $this->id)));
+        Yii::log(
+            Yii::t(
+                'YupeModule.yupe',
+                "{id}->uninstallDB() : Запрошено удаление БД модуля {m}",
+                array('{m}' => $this->name, '{id}' => $this->id)
+            )
+        );
 
         $history = Yii::app()->migrator->getMigrationHistory($this->id, -1);
         if (!empty($history)) {
@@ -473,20 +539,25 @@ abstract class YWebModule extends CWebModule
             $message = '';
             foreach ($history as $migrationName => $migrationTimeUp) {
                 if ($migrationTimeUp > 0) {
-                    if (Yii::app()->migrator->migrateDown($this->id, $migrationName))
+                    if (Yii::app()->migrator->migrateDown($this->id, $migrationName)) {
                         $message .= Yii::t(
-                            'YupeModule.yupe', '{m}: Произошёл откат миграции - {migrationName}', array(
+                            'YupeModule.yupe',
+                            '{m}: Произошёл откат миграции - {migrationName}',
+                            array(
                                 '{m}' => $this->id,
                                 '{migrationName}' => $migrationName,
                             )
                         ) . '<br />';
-                    else
+                    } else {
                         $message .= Yii::t(
-                            'YupeModule.yupe', '{m}: Откат миграции {migrationName} неудалось провести.', array(
+                            'YupeModule.yupe',
+                            '{m}: Откат миграции {migrationName} неудалось провести.',
+                            array(
                                 '{m}' => $this->id,
                                 '{migrationName}' => $migrationName,
                             )
                         ) . '<br />';
+                    }
                 }
             }
             Yii::app()->user->setFlash(
@@ -529,21 +600,29 @@ abstract class YWebModule extends CWebModule
     /**
      *  инициализация модуля, считывание настроек из базы данных и их кэширование
      */
-    public function init(){
+    public function init()
+    {
 
         parent::init();
 
-        if ($this->layout === null)
+        if ($this->layout === null) {
             $this->layout = '//layouts/main';
+        }
 
         $settings = null;
 
         try {
             // инициализация модуля, понимаю, что @ - это зло, но пока это самое простое решение
-            $settings = @Settings::model()->cache($this->coreCacheTime, new TagsCache($this->getId(), 'settings'))->findAll('module_id = :module_id AND type = :type', array(
-                ':module_id' => $this->getId(),
-                ':type' => Settings::TYPE_CORE,
-            ));
+            $settings = @Settings::model()->cache(
+                $this->coreCacheTime,
+                new TagsCache($this->getId(), 'settings')
+            )->findAll(
+                'module_id = :module_id AND type = :type',
+                array(
+                    ':module_id' => $this->getId(),
+                    ':type' => Settings::TYPE_CORE,
+                )
+            );
 
         } catch (CDbException $e) {
             // Если базы нет, берем по-умолчанию, а не падаем в инсталлере - тут все равно падаем так как нотис не ловится кетчем
@@ -554,8 +633,13 @@ abstract class YWebModule extends CWebModule
             $editableParams = $this->getEditableParams();
             //@TODO обход не settings а editableParams как вариант =)
             foreach ($settings as $model) {
-                if (property_exists($this, $model->param_name) && (in_array($model->param_name, $editableParams) || array_key_exists($model->param_name, $editableParams)))
+                if (property_exists($this, $model->param_name) && (in_array(
+                    $model->param_name,
+                    $editableParams
+                ) || array_key_exists($model->param_name, $editableParams))
+                ) {
                     $this->{$model->param_name} = $model->param_value;
+                }
             }
         }
     }
