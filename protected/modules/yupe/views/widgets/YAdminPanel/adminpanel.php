@@ -27,7 +27,7 @@ Yii::app()->clientScript->registerScript(
             'message'    => Yii::t('YupeModule.yupe', 'Подождите, идёт обработка вашего запроса'),
             'error'      => Yii::t('YupeModule.yupe', 'Во время обработки вашего запроса произошла неизвестная ошибка'),
             'loadingimg' => CHtml::image(
-                '/web/booster-install/assets/img/progressbar.gif', '', array(
+                Yii::app()->getBaseUrl() . '/web/booster-install/assets/img/progressbar.gif', '', array(
                     'style' => 'width: 100%; height: 20px;',
                 )
             ),
