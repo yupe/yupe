@@ -61,7 +61,7 @@ $this->renderPartial('_search', array('model' => $model));
                 'style'   => 'width: 40px; text-align: center'
             )
         ),
-        array(
+         array(
             'name'  => 'nick_name',
             'type'  => 'raw',
             'value' => 'CHtml::link($data->nick_name, array("/user/default/update", "id" => $data->id))',

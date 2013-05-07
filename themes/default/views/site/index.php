@@ -1,4 +1,4 @@
-<?php $this->pageTitle = Yii::app()->getModule('yupe')->siteDescription; ?>
+<?php $this->pageTitle = $this->yupe->siteName; ?>
 
 <?php $this->widget('zii.widgets.CListView', array(
     'dataProvider' => $dataProvider,

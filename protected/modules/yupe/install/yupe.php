@@ -1,5 +1,9 @@
 <?php
 return array(
+    'import' =>array(
+        'application.modules.yupe.models.*',
+        'application.modules.yupe.components.*',
+    ),
     'cache'     => array(
         'class' => 'CFileCache',
         'behaviors' => array(
@@ -11,7 +15,7 @@ return array(
     'preload'   => array('log'),
     'component' => array(
         // параметры подключения к базе данных, подробнее http://www.yiiframework.ru/doc/guide/ru/database.overview
-        'db' => include_once dirname(__FILE__) . '/../db.php',
+        'db' => require(dirname(__FILE__) . '/../db.php'),
     ),
     'rules' => array(
         '/yupe/backend/modulesettings/<module:\w+>' => 'yupe/backend/modulesettings',

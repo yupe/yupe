@@ -38,7 +38,7 @@
     </div>
     <footer>
         Copyright &copy; 2009-<?php echo date('Y'); ?>
-        <?php echo Yii::app()->getModule('yupe')->poweredBy();?>
+        <?php echo $this->yupe->poweredBy();?>
         <small class="label label-info"><?php echo $this->yupe->getVersion(); ?></small>
         <br/>
         <a href="http://yupe.ru/feedback/index?from=engine">

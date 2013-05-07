@@ -317,6 +317,8 @@ class BackendController extends YBackController
                     Yii::app()->ajax->rawText(Yii::t('YupeModule.yupe', 'Не удалось создать каталог "{dir}" для файлов!', array('{dir}' => $uploadPath)));
             }
 
+            $this->disableProfilers();
+
             $file = CUploadedFile::getInstanceByName('file');
 
             if ($file) {

@@ -64,6 +64,6 @@ class m000000_000000_page_base extends YDbMigration
      **/
     public function safeDown()
     {
-        $this->dropTableWithForeignKeys("{{user_user}}");
+        $this->dropTableWithForeignKeys("{{page_page}}");
     }
 }

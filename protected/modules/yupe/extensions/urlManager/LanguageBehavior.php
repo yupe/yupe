@@ -3,8 +3,7 @@ class LanguageBehavior extends CBehavior
 {
     public function attach($owner)
     {
-        if (count(Yii::app()->urlManager->languages) > 1)
-            $owner->attachEventHandler('onBeginRequest', array($this, 'handleLanguageBehavior'));
+        $owner->attachEventHandler('onBeginRequest', array($this, 'handleLanguageBehavior'));
     }
 
     /**
@@ -49,8 +48,9 @@ class LanguageBehavior extends CBehavior
             )
             {
                 // Редирект на URL без указания языка
-                if (!$app->request->isAjaxRequest)
+                if (!$app->request->isAjaxRequest){
                     $app->request->redirect($home . $lm->getCleanUrl($app->request->url));
+                }
             }
         }
         else if ($app->hasModule('user'))
@@ -78,8 +78,9 @@ class LanguageBehavior extends CBehavior
             {
                 $this->setLanguage($l);
 
-                if (!$app->request->isAjaxRequest)
+                if (!$app->request->isAjaxRequest){
                     $app->request->redirect($home . $lm->replaceLangUrl($lm->getCleanUrl($app->request->url), $l));
+                }
             }
             else
                 $app->language = $l;
@@ -88,13 +89,10 @@ class LanguageBehavior extends CBehavior
 
     protected function setLanguage($language)
     {
-        $app = Yii::app();
-        $lp  = $app->urlManager->langParam;
-
-        $app->user->setState($lp, $language);
+        Yii::app()->user->setState(Yii::app()->urlManager->langParam, $language);
         // @TODO если не доступна папка runtime в установщие не создавать куку
-        if ($app->getModule('yupe')->cache)
-            $app->request->cookies[$lp] = new CHttpCookie($lp, $language, array('expire' => time() + (60 * 60 * 24 * 365)));
-        $app->language = $language;
+        if (Yii::app()->getModule('yupe')->cache)
+            Yii::app()->request->cookies[Yii::app()->urlManager->langParam] = new CHttpCookie(Yii::app()->urlManager->langParam, $language, array('expire' => time() + (60 * 60 * 24 * 365)));
+        Yii::app()->language = $language;
     }
 }

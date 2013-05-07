@@ -179,7 +179,7 @@ class YupeModule extends YWebModule
     {
         return array(
             'coreCacheTime',
-            'theme'                  => $this->themes,
+            'theme'                  => $this->getThemes(),
             'backendLayout',
             'backendTheme'           => $this->getThemes(true),
             'siteName',
@@ -187,12 +187,12 @@ class YupeModule extends YWebModule
             'siteKeyWords',
             'editorsDir',
             'uploadPath',
-            'editor'                 => $this->editors,
+            'editor'                 => $this->getEditors(),
             'email',
             'availableLanguages',
-            'defaultLanguage'        => $this->languagesList,
-            'defaultBackendLanguage' => $this->languagesList,
-            'updateChannel'          => $this->updateChannelList,
+            'defaultLanguage'        => $this->getLanguagesList(),
+            'defaultBackendLanguage' => $this->getLanguagesList(),
+            //'updateChannel'          => $this->updateChannelList,
         );
     }
 
@@ -431,14 +431,6 @@ class YupeModule extends YWebModule
         if (!$this->editor && is_array($editors))
             $this->editor = array_shift($editors);
 
-        $this->setImport(
-            array(
-                'yupe.models.*',
-                'yupe.components.*',
-                'yupe.extensions.tagcache.*',
-            )
-        );
-
         $this->categoryIcon  = array(
             Yii::t('YupeModule.yupe', 'Сервисы') => 'briefcase',
             $this->otherCategoryName  => 'cog',
@@ -623,7 +615,6 @@ class YupeModule extends YWebModule
         $path         = $this->getModulesConfigDefault();
         $enableModule = array_keys($enableModule);
         $modules      = array();
-
         if ($path && $handler = opendir($path)) {
             while (($dir = readdir($handler))) {
                 if ($dir != '.' && $dir != '..' && !is_file($dir) && empty($enableModule[$dir]))
@@ -644,20 +635,11 @@ class YupeModule extends YWebModule
      */
     public function getCreateModule($name)
     {
-        $path   = $this->getModulesConfigDefault();
-        $module = null;
-
-        if ($path) {
-            //посмотреть внутри файл с окончанием Module.php
-            $files = glob($path . '/' . $name . '/' . '*Module.php');
-            // @TODO А если файлов не 1, добавить прочтение install/module.php
-            if (count($files) == 1) {
-                $className = preg_replace('#^.*/([^\.]*).php$#', '$1', $files[0]);
-                Yii::import('application.modules.' . $name . '.' . $className);
-                $module = Yii::createComponent($className, $name, null, false);
-            }
+        if(!Yii::app()->hasModule($name)){
+            Yii::import('application.modules.' . $name . '.' . "{$name}Module");
+            return Yii::createComponent("{$name}Module", $name, null, false);
         }
-        return $module;
+        return null;
     }
 
     /**
