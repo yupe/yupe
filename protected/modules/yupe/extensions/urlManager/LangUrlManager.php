@@ -16,7 +16,8 @@ class LangUrlManager extends CUrlManager
     public function init()
     {
         // Получаем из настроек доступные языки
-        $this->languages = explode(",",  $langs = Yii::app()->getModule('yupe')->availableLanguages);
+        $langs = Yii::app()->getModule('yupe')->availableLanguages;
+        $this->languages = explode(",", $langs);
         if (count($this->languages) < 2)
             return parent::init();
 
@@ -24,10 +25,9 @@ class LangUrlManager extends CUrlManager
             $this->languages = null;
 
         // Если указаны - добавляем правила для обработки, иначе ничего не трогаем вообще
-        if ($this->languageInPath && is_array($this->languages))
+        if ($this->languageInPath && !empty($this->languages))
         {
-            $lstr=str_replace(',','|',$langs);
-
+            $lstr = str_replace(',','|',$langs);
             // Добавляем правила для обработки языков
             $r = array();
             foreach ($this->rules as $rule => $p)
@@ -36,7 +36,6 @@ class LangUrlManager extends CUrlManager
                     : '<' . $this->langParam . ':(' . $lstr . ')>/'
                 ) . $rule] = $p;
             $this->rules = array_merge($r, $this->rules);
-
             $p = parent::init();
             $this->processRules();
             return $p;

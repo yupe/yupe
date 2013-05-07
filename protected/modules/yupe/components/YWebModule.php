@@ -529,8 +529,8 @@ abstract class YWebModule extends CWebModule
     /**
      *  инициализация модуля, считывание настроек из базы данных и их кэширование
      */
-    public function init()
-    {
+    public function init(){
+
         parent::init();
 
         if ($this->layout === null)
@@ -540,10 +540,11 @@ abstract class YWebModule extends CWebModule
 
         try {
             // инициализация модуля, понимаю, что @ - это зло, но пока это самое простое решение
-            $settings = @Settings::model()->cache($this->coreCacheTime, new TagsCache($this->id, 'settings'))->findAll('module_id = :module_id AND type = :type', array(
+            $settings = @Settings::model()->cache($this->coreCacheTime, new TagsCache($this->getId(), 'settings'))->findAll('module_id = :module_id AND type = :type', array(
                 ':module_id' => $this->getId(),
                 ':type' => Settings::TYPE_CORE,
             ));
+
         } catch (CDbException $e) {
             // Если базы нет, берем по-умолчанию, а не падаем в инсталлере - тут все равно падаем так как нотис не ловится кетчем
             $settings = null;

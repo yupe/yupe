@@ -15,7 +15,7 @@ class YBackController extends YMainController
     {
         parent::init();
 
-        $this->layout = $this->yupe->backendLayoutAlias;
+        $this->layout = $this->yupe->getBackendLayoutAlias();
         $backendTheme = $this->yupe->backendTheme;
         $this->setPageTitle(Yii::t('YupeModule.yupe', 'Панель управления Юпи!'));
 

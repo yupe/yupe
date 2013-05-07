@@ -18,7 +18,6 @@
 
     <link rel="icon" type="image/png" href="<?php echo Yii::app()->baseUrl;?>/web/images/favicon.png" />
 
-
     <!-- blueprint CSS framework -->
     <link rel="stylesheet" type="text/css"
           href="<?php echo Yii::app()->theme->baseUrl; ?>/web/css/screen.css"
