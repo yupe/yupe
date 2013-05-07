@@ -14,7 +14,7 @@ $config = array(
     'import'       => array(),
     'rules'        => array(),
     'components'   => array(),
-    'preload'      => array(),
+    'preload'      => array('bootstrap'),
     'modules'      => array('install' => array('class' => 'application.modules.install.InstallModule')),
     'cache'        => array(),
     'enableAssets' => false,
@@ -107,10 +107,14 @@ return array(
     // конфигурирование основных компонентов (подробнее http://www.yiiframework.ru/doc/guide/ru/basics.component)
     'components' => CMap::mergeArray(
         array(
+            'bootstrap' => array(
+                'class' => 'application.modules.yupe.extensions.booster.components.Bootstrap',
+                'fontAwesomeCss' => true
+            ),
             // assetsManager:
             'assetsManager' => array(
                 // Don't use on windows:
-                'forceCopy' => defined('YII_DEBUG') && !isset($_SERVER['WINDIR']),
+                'forceCopy' => false,
             ),
             // Работа с миграциями, обновление БД модулей
             'migrator'=>array(
