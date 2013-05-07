@@ -20,39 +20,11 @@ class YBackController extends YMainController
         $this->setPageTitle(Yii::t('YupeModule.yupe', 'Панель управления Юпи!'));
 
         if ($backendTheme && is_dir(Yii::getPathOfAlias("webroot.themes.backend_" . $backendTheme))) {
-            //$themeBase        = "webroot.themes.backend_" . $backendTheme;
             Yii::app()->theme = "backend_" . $backendTheme;
-            $themeFile = Yii::app()->theme->basePath . "/" . ucwords($backendTheme) . "Theme.php";
-
-            if (is_file($themeFile))
-                include_once $themeFile;
         } else {
-            $assets = ($this->yupe->enableAssets) ? array() : array(
-                'coreCss'        => false,
-                'responsiveCss'  => false,
-                'yiiCss'         => false,
-                'jqueryCss'      => false,
-                'enableJS'       => false,
-                'fontAwesomeCss' => false,
-            );
-
             Yii::app()->theme = null;
-            
-            Yii::app()->setComponent(
-                'bootstrap', Yii::createComponent(
-                    array_merge(
-                        array(
-                            'class'           => 'application.modules.yupe.extensions.booster.components.Bootstrap',
-                            'fontAwesomeCss'  => $this->module->id !== 'install',
-                        ), $assets
-                    )
-                )
-            );
-
             if (!$this->yupe->enableAssets)
                 return;
-
-            Yii::app()->preload[] = 'bootstrap';
         }
     }
 
@@ -71,6 +43,7 @@ class YBackController extends YMainController
                 YFlashMessages::WARNING_MESSAGE,
                 Yii::t('YupeModule.yupe', 'Перед тем как начать работать с модулем, необходимо установить все необходимые миграции.')
             );
+
             $this->redirect(array('/yupe/backend/modupdate', 'name' => $this->module->id));
         }
 

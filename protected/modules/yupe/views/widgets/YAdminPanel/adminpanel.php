@@ -11,15 +11,6 @@
  *
  **/
 
-Yii::app()->setComponent(
-    'bootstrap', Yii::createComponent(
-        array(
-            'class' => 'application.modules.yupe.extensions.booster.components.Bootstrap',
-            'forceCopyAssets' => false
-        )
-    )
-);
-
 /**
  * Добавляем нужные CSS и JS:
  */

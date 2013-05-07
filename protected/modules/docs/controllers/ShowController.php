@@ -20,16 +20,8 @@ class ShowController extends YFrontController
     public function init()
     {
         Yii::app()->theme = null;
-        $this->layout = 'withsidebar';
-        Yii::app()->setComponent(
-            'bootstrap', Yii::createComponent(
-                array(
-                    'class' => 'application.modules.yupe.extensions.booster.components.Bootstrap',
-                    'forceCopyAssets' => false
-                )
-            )
-        );
 
+        $this->layout = 'withsidebar';
     }
 
     /**

@@ -14,16 +14,6 @@
 $this->layout = 'login';
 
 $this->pageTitle = Yii::t('UserModule.user', 'Авторизация');
-
-Yii::app()->setComponent(
-    'bootstrap', Yii::createComponent(
-        array(
-            'class' => 'application.modules.yupe.extensions.booster.components.Bootstrap',
-            'forceCopyAssets' => false
-        )
-    )
-);
-
 /**
  * Добавляем нужный CSS:
  */
