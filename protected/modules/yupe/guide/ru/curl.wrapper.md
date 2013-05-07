@@ -1,5 +1,13 @@
 # Curl обёртка для Yii framework #
 
+**Автор**: [Комманда разработчиков Юпи!](http://yupe.ru/feedback/contact?from=docs)
+
+**Версия**: 0.1 (dev)
+
+**Авторское право**:  2009-2013 Yupe!
+
+**Лицензия**: [BSD](https://github.com/yupe/yupe/blob/master/LICENSE)
+
 ## Требования ##
 * PHP 5.3+
 * Yii 1.1.7 (также работает на версиях выше)
