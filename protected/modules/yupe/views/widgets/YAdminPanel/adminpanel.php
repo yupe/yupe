@@ -90,6 +90,12 @@ $this->widget(
                                     'linkOptions' => array('target' => '_blank'),
                                 ),
                                 array(
+                                    'icon'  => 'icon-th-large',
+                                    'label' => Yii::t('YupeModule.yupe', 'Дополнительные модули'),
+                                    'url'   => 'https://github.com/yupe/yupe-ext',
+                                    'linkOptions' => array('target' => '_blank'),
+                                ),
+                                array(
                                     'icon'  => 'icon-comment',
                                     'label' => Yii::t('YupeModule.yupe', 'Форум'),
                                     'url'   => 'http://yupe.ru/talk/?from=help',
@@ -103,7 +109,7 @@ $this->widget(
                                 ),
                                 array(
                                     'icon'  => 'icon-thumbs-up',
-                                    'label' => Yii::t('YupeModule.yupe', 'Заказать разработку'),
+                                    'label' => Yii::t('YupeModule.yupe', 'Заказать разработку или поддержку'),
                                     'url'   => 'http://yupe.ru/feedback/index?from=help',
                                     'linkOptions' => array('target' => '_blank'),
                                 ),

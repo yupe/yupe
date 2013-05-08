@@ -32,6 +32,12 @@ $this->breadcrumbs = array(
     </b></p></p>
 </div>
 
+<div class="alert">
+    <p><?php echo Yii::t('YupeModule.yupe','Помоги команде!');?></p>
+    <p><?php echo Yii::t('YupeModule.yupe','Я.Деньгами на');?> <b>41001846363811</b></p>
+    <p><?php echo Yii::t('YupeModule.yupe','Webmoney на')?> <b>R239262659267</b></p>
+</div>
+
 <br />
 
 <p><b><?php echo Yii::t('YupeModule.yupe', 'Полезные ресурсы:');?></b></p>
@@ -48,6 +54,10 @@ $this->breadcrumbs = array(
 
 <br /><br />
 
+<?php echo CHtml::link(Yii::t('YupeModule.yupe', 'Дополнительные модули и компоненты'), 'https://github.com/yupe/yupe-ext'); ?> - <?php echo Yii::t('YupeModule.yupe', 'присылайте свои наработки !'); ?>
+
+<br /><br />
+
 <?php echo CHtml::link(Yii::t('YupeModule.yupe', 'Форум поддержки Юпи!'), 'http://yupe.ru/talk/?form=help'); ?> - <?php echo Yii::t('YupeModule.yupe', 'заходите поболтать!'); ?>
 
 <br /><br />
@@ -60,9 +70,11 @@ $this->breadcrumbs = array(
 
 <br /><br />
 
-<?php echo Yii::t('YupeModule.yupe', 'Напишите нам на <a href="mailto:team@yupe.ru">team@yupe.ru</a>'); ?>  - <?php echo Yii::t('YupeModule.yupe', 'принимаем всякого рода коммерческие и любые предложения =)'); ?>
+<div class="alert">
+    <?php echo Yii::t('YupeModule.yupe', 'Напишите нам на <a href="mailto:team@yupe.ru">team@yupe.ru</a> или через форму {link}',array('{link}' => CHtml::link('обратной связи','http://yupe.ru/feedback/index?from=help',array('target' => '_blank')))); ?>  - <?php echo Yii::t('YupeModule.yupe', 'принимаем всякого рода коммерческие и любые предложения =)'); ?>
+</div>
 
-<br /><br />
+<br />
 
 <b><?php echo Yii::t('YupeModule.yupe','Команда разработчиков Юпи!'); ?>:</b>
 
@@ -106,3 +118,7 @@ $this->breadcrumbs = array(
 </table>
 
 <b><?php echo CHtml::link(Yii::t('YupeModule.yupe','ЖДЕМ ТОЛЬКО ТЕБЯ!'),'http://yupe.ru/feedback/index?from=help',array('target' => '_blank'));?></b>
+
+<br/><br/>
+
+
