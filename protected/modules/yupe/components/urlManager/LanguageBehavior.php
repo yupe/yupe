@@ -111,7 +111,10 @@ class LanguageBehavior extends CBehavior
                 $this->lang = Yii::app()->language = Yii::app()->sourceLanguage;
             }
 
-            if ($oldLang != $this->lang && !empty($oldLang)) {
+            if ($oldLang != $this->lang
+                && !empty($oldLang)
+                && ($path == $this->lang || substr($path, 2, 1) == '/')
+            ) {
                 Yii::app()->urlManager->languages[] = $oldLang;
                 Yii::app()->user->setFlash(
                     YFlashMessages::NOTICE_MESSAGE,
