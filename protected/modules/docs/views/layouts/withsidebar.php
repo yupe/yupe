@@ -28,7 +28,7 @@ $this->beginContent("docs.views.layouts.docs");
             $this->widget(
                 'bootstrap.widgets.TbMenu', array(
                     'type'=>'list',
-                    'items' => Yii::app()->getModule('docs')->getArticles(false)
+                    'items' => $this->module->getArticles(false)
                 )
             ); ?>
         </div>
