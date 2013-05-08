@@ -14,7 +14,7 @@
         </div>
         <!-- content -->
     </div>
-    <div class="span3">
+    <div class="span3" style="margin-top: 18px;">
         <?php if (count($this->menu)): ?>
             <div class="well" style="padding: 8px 0;">
                 <?php $this->widget('bootstrap.widgets.TbMenu', array(
