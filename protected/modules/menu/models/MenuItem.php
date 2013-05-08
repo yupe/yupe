@@ -166,16 +166,12 @@ class MenuItem extends YModel
 
     protected function afterSave()
     {
-        $availableLanguages = explode(',', Yii::app()->getModule('yupe')->availableLanguages);
-        foreach ($availableLanguages as &$lang)
-            Yii::app()->cache->delete(Yii::app()->getModule('menu')->menuCache . $this->menu->id . trim($lang));
+        Yii::app()->cache->clear($this->menu->code);
     }
 
     protected function afterDelete()
     {
-        $availableLanguages = explode(',', Yii::app()->getModule('yupe')->availableLanguages);
-        foreach ($availableLanguages as &$lang)
-            Yii::app()->cache->delete(Yii::app()->getModule('menu')->menuCache . $this->menu->id . trim($lang));
+        Yii::app()->cache->clear($this->menu->code);
     }
 
     public function getMenuList()
