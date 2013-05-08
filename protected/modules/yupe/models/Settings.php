@@ -89,8 +89,8 @@ class Settings extends YModel
         return array(
             'id'            => Yii::t('YupeModule.yupe', 'ID'),
             'module_id'     => Yii::t('YupeModule.yupe', 'Модуль'),
-            'param_name'    => Yii::t('YupeModule.yupe', 'Имя парамметра'),
-            'param_value'   => Yii::t('YupeModule.yupe', 'Значение парамметра'),
+            'param_name'    => Yii::t('YupeModule.yupe', 'Имя параметра'),
+            'param_value'   => Yii::t('YupeModule.yupe', 'Значение параметра'),
             'creation_date' => Yii::t('YupeModule.yupe', 'Дата создания'),
             'change_date'   => Yii::t('YupeModule.yupe', 'Дата изменения'),
             'user_id'       => Yii::t('YupeModule.yupe', 'Пользователь'),

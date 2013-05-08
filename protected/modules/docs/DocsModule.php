@@ -59,7 +59,7 @@ class DocsModule extends YWebModule
             'moduleDocFolder' => Yii::t('DocsModule.docs', 'Расположение файлов документации модулей ({module} вместо него подставляется название модуля)'),
             'notFoundOn'      => Yii::t('DocsModule.docs', 'Показывать страницу ошибки, если файл документации на данном языке не найден?'),
             'fileExtMD'       => Yii::t('DocsModule.docs', 'Расширения для файлов MarkDown'),
-            'fileExtHTML'     => Yii::t('DocsModule.docs', 'Расширения для файлов HMTML'),
+            'fileExtHTML'     => Yii::t('DocsModule.docs', 'Расширения для файлов HTML'),
             'cachePages'      => Yii::t('DocsModule.docs', 'Кеширование страниц на уровне фильтрации'),
             'staticFiles'     => Yii::t('DocsModule.docs', 'Файлы, которые необходимо показать в админ панели'),
         );
