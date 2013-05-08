@@ -95,7 +95,7 @@ class LanguageBehavior extends CBehavior
                     ? Yii::app()->request->cookies[$lm->langParam]->value
                     : (
                         $lm->preferredLanguage && Yii::app()->request->getPreferredLanguage()
-                        ? Yii::app()->locale->getLanguageID($l)
+                        ? Yii::app()->locale->getLanguageID($this->lang)
                         : false
                     );
             
