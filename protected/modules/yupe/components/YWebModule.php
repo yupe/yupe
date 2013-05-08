@@ -602,43 +602,33 @@ abstract class YWebModule extends CWebModule
      */
     public function init()
     {
-
         parent::init();
-
-        if ($this->layout === null) {
-            $this->layout = '//layouts/main';
-        }
 
         $settings = null;
 
         try {
-            // инициализация модуля, понимаю, что @ - это зло, но пока это самое простое решение
-            $settings = @Settings::model()->cache(
-                $this->coreCacheTime,
-                new TagsCache($this->getId(), 'settings')
-            )->findAll(
-                'module_id = :module_id AND type = :type',
-                array(
-                    ':module_id' => $this->getId(),
-                    ':type' => Settings::TYPE_CORE,
-                )
-            );
+            $settingsRows = Yii::app()->db
+                ->cache($this->coreCacheTime, new TagsCache($this->getId(), 'settings'))
+                ->createCommand('SELECT param_name, param_value
+                                   FROM {{yupe_settings}}
+                                   WHERE module_id = :module_id AND type = :type')
+                ->bindValue(':module_id',$this->getId())
+                ->bindValue(':type',Settings::TYPE_CORE)
+                ->queryAll();
+
+            foreach($settingsRows as $sRow){
+                $settings[$sRow['param_name']] = $sRow['param_value'];
+            }
 
         } catch (CDbException $e) {
             // Если базы нет, берем по-умолчанию, а не падаем в инсталлере - тут все равно падаем так как нотис не ловится кетчем
             $settings = null;
         }
 
-        if ($settings) {
-            $editableParams = $this->getEditableParams();
-            //@TODO обход не settings а editableParams как вариант =)
-            foreach ($settings as $model) {
-                if (property_exists($this, $model->param_name) && (in_array(
-                    $model->param_name,
-                    $editableParams
-                ) || array_key_exists($model->param_name, $editableParams))
-                ) {
-                    $this->{$model->param_name} = $model->param_value;
+        if (!empty($settings)) {
+            foreach ($settings as $key => $value) {
+                if(property_exists($this,$key)){
+                    $this->{$key} = $value;
                 }
             }
         }
