@@ -94,7 +94,7 @@ return array(
         ), $config['modules']
     ),
     'behaviors' => array(
-        'onBeginRequest' => array('class' => 'application.modules.yupe.extensions.urlManager.LanguageBehavior'),
+        'onBeginRequest' => array('class' => 'application.modules.yupe.components.urlManager.LanguageBehavior'),
     ),
     'params' => require dirname(__FILE__) . '/params.php',
     // конфигурирование основных компонентов (подробнее http://www.yiiframework.ru/doc/guide/ru/basics.component)
@@ -122,7 +122,7 @@ return array(
             ),
             // конфигурирование urlManager, подробнее: http://www.yiiframework.ru/doc/guide/ru/topics.url
             'urlManager' => array(
-                'class'          => 'application.modules.yupe.extensions.urlManager.LangUrlManager',
+                'class'          => 'application.modules.yupe.components.urlManager.LangUrlManager',
                 'languageInPath' => true,
                 'langParam'      => 'language',
                 'urlFormat'      => 'path',
