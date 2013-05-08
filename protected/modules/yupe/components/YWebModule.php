@@ -678,9 +678,9 @@ abstract class YWebModule extends CWebModule
         // ли обновление:
         return !(
             md5_file(
-                Yii::getPathOfAlias($this->getId() . '.install.' . $this->getId())
+                Yii::getPathOfAlias($this->getId() . '.install.' . $this->getId()) . '.php'
             ) === md5_file(
-                Yii::getPathOfAlias('application.config.modules.' . $this->getId())
+                Yii::getPathOfAlias('application.config.modules.' . $this->getId()) . '.php'
             )
         );
     }
