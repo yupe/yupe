@@ -14,7 +14,7 @@ $config = array(
     'import'       => array(),
     'rules'        => array(),
     'components'   => array(),
-    'preload'      => array('bootstrap'),
+    'preload'      => array(),
     'modules'      => array('install' => array('class' => 'application.modules.install.InstallModule')),
     'cache'        => array(),
     'enableAssets' => false,
@@ -24,19 +24,19 @@ $config = array(
 $files = glob(dirname(__FILE__) . '/modules/*.php');
 if (!empty($files)) {
     foreach ($files as $file) {
-        
         $name = pathinfo($file, PATHINFO_FILENAME);
-        
+
         if (!is_dir(dirname(dirname(__FILE__)) . DIRECTORY_SEPARATOR . 'modules' . DIRECTORY_SEPARATOR . $name))
             continue;
         
-        $moduleConfig = include_once $file;
+        $moduleConfig = require $file;
 
         if ($name == 'yupe') {
             if (!YII_DEBUG)
                 $config['cache'] = array();
             $config['enableAssets'] = true;
         }
+
         if ($name == 'install')
             unset($config['modules']['install']);
 
@@ -70,13 +70,6 @@ return array(
             // подключение основых путей
             'application.components.*',
             // подключение путей из модулей
-            'application.modules.yupe.widgets.*',
-            'application.modules.yupe.helpers.*',
-            'application.modules.yupe.models.*',
-            'application.modules.yupe.components.*',
-            'application.modules.yupe.components.controllers.*',
-            'application.modules.yupe.components.validators.*',
-            'application.modules.yupe.components.exceptions.*',
         ), $config['import']
     ),
     // подключение и конфигурирование модулей,
@@ -103,14 +96,10 @@ return array(
     'behaviors' => array(
         'onBeginRequest' => array('class' => 'application.modules.yupe.extensions.urlManager.LanguageBehavior'),
     ),
-    'params' => include_once dirname(__FILE__) . '/params.php',
+    'params' => require dirname(__FILE__) . '/params.php',
     // конфигурирование основных компонентов (подробнее http://www.yiiframework.ru/doc/guide/ru/basics.component)
     'components' => CMap::mergeArray(
         array(
-            'bootstrap' => array(
-                'class' => 'application.modules.yupe.extensions.booster.components.Bootstrap',
-                'fontAwesomeCss' => true
-            ),
             // assetsManager:
             'assetsManager' => array(
                 // Don't use on windows:
