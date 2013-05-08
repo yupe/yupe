@@ -64,11 +64,18 @@ return array(
     'sourceLanguage'    => 'ru',
     'theme'             => 'default',          // тема оформления по умолчанию
     'charset'           => 'UTF-8',
-    'preload'           => $config['preload'], // preloading components
+    'preload'           => CMap::mergeArray(
+        array('bootstrap'),
+        // preloading components
+        $config['preload']
+    ),
     'import'            => CMap::mergeArray(
         array(
             // подключение основых путей
             'application.components.*',
+            'application.modules.yupe.components.*',
+            'application.modules.yupe.components.controllers.*',
+            'application.modules.yupe.widgets.*',
             // подключение путей из модулей
         ), $config['import']
     ),
@@ -104,6 +111,15 @@ return array(
             'assetsManager' => array(
                 // Don't use on windows:
                 'forceCopy' => false,
+            ),
+            'bootstrap' => array(
+                'class'         => 'application.modules.yupe.extensions.booster.components.Bootstrap',
+                'coreCss'        => false,
+                'responsiveCss'  => false,
+                'yiiCss'         => false,
+                'jqueryCss'      => false,
+                'enableJS'       => false,
+                'fontAwesomeCss' => false,
             ),
             // Работа с миграциями, обновление БД модулей
             'migrator'=>array(
