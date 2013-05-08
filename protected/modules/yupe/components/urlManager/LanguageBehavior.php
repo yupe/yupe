@@ -85,7 +85,7 @@ class LanguageBehavior extends CBehavior
                 Yii::app()->request->redirect($home . $lm->getCleanUrl(Yii::app()->request->url));
             }
         } elseif (Yii::app()->hasModule('user')) {
-                
+
             $user = Yii::app()->user;
 
             // Пробуем получить код языка из кук
@@ -99,6 +99,8 @@ class LanguageBehavior extends CBehavior
                         : false
                     );
             
+            $oldLang = $this->lang;
+
             // Устанавливаем из сессии или заданный в кукисах:
             $this->lang = Yii::app()->user->getState(
                 $lm->langParam, $cookiesLang
@@ -107,6 +109,18 @@ class LanguageBehavior extends CBehavior
             // Если язык не получен, и не найден в списке возможных
             if (!$this->lang || !in_array($this->lang, $lm->languages)) {
                 $this->lang = Yii::app()->language = Yii::app()->sourceLanguage;
+            }
+
+            if ($oldLang != $this->lang) {
+                Yii::app()->urlManager->languages[] = $oldLang;
+                Yii::app()->user->setFlash(
+                    YFlashMessages::NOTICE_MESSAGE,
+                    Yii::t(
+                        'YupeModule.yupe', 'Язык "{lang}" не известен системе!', array(
+                            '{lang}' => $oldLang
+                        )
+                    )
+                );
             }
 
             // Сделаем редирект на нужный url с указанием языка, если он не нативен
