@@ -333,4 +333,14 @@ class InstallModule extends YWebModule
             )
         );
     }
+
+    /**
+     * Можно ли включить модуль:
+     *
+     * @return can activate module
+     **/
+    public function canActivate()
+    {
+        return false;
+    }
 }
