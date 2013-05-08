@@ -382,6 +382,7 @@ class BackendController extends YBackController
          * Если всё в порядке - выполняем нужное действие:
          **/
         if (isset($module) && !empty($module)) {
+            $result  = false;
             try {
                 switch ($status) {
                 case 0:
@@ -392,6 +393,7 @@ class BackendController extends YBackController
                         $module->unInstall;
                         $message = Yii::t('YupeModule.yupe', 'Модуль успешно деинсталлирован!');
                     }
+                    $result = true;
                     break;
                 
                 case 1:
@@ -402,19 +404,27 @@ class BackendController extends YBackController
                         $module->install;
                         $message = Yii::t('YupeModule.yupe', 'Модуль успешно установлен!');
                     }
+                    $result = true;
+                    break;
+                case 2:
+                    $message = ($result = $module->getActivate(false, true)) === true
+                        ? Yii::t('YupeModule.yupe', 'Файл настроек модуля успешно обновлён!')
+                        : Yii::t('YupeModule.yupe', 'При обновлении файла настроек произошла ошибка!');
+                    break;
+                default:
+                    $message = Yii::t('YupeModule.yupe', 'Выбрано неизвестное действие!');
                     break;
                 }
-                $result = 1;
-                Yii::app()->cache->flush();
+                if (in_array($status, array(0, 1)))
+                Yii::app()->cache->clear($name);
             } catch(Exception $e) {
-                $result = 0;
                 $message = $e->getMessage();
             }
 
             /**
              * Возвращаем ответ:
              **/
-            $result == 1
+            $result === true
                 ? Yii::app()->ajax->success($message)
                 : Yii::app()->ajax->failure($message);
 

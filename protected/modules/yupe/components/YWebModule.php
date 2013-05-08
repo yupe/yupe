@@ -355,13 +355,13 @@ abstract class YWebModule extends CWebModule
      * @return bool статус выключения модуля
      * @since 0.5
      */
-    public function getActivate($noDependen = false)
+    public function getActivate($noDependen = false, $updateConfig = false)
     {
         $yupe = Yii::app()->getModule('yupe');
         $fileModule = $yupe->getModulesConfigDefault($this->id);
         $fileConfig = $yupe->getModulesConfig($this->id);
 
-        if (is_file($fileConfig) && $this->id != 'install') {
+        if (is_file($fileConfig) && $this->id != 'install' && $updateConfig === false) {
             throw new CException(Yii::t('YupeModule.yupe', 'Модуль уже включен!'), 304);
         } else {
             // Проверка модулей от которых зависит данный
@@ -380,7 +380,9 @@ abstract class YWebModule extends CWebModule
                 }
             }
 
-            if (@copy($fileModule, $fileConfig)) {
+            // Если требуется обновление файла, выполняем unlink и копирование
+            // иначе только через copy:
+            if (($updateConfig && @unlink($fileConfig) && @copy($fileModule, $fileConfig)) || @copy($fileModule, $fileConfig)) {
                 return true;
             } else {
                 throw new CException(Yii::t(
