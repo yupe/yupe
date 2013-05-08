@@ -644,4 +644,25 @@ abstract class YWebModule extends CWebModule
         );
         return true;
     }
+
+    /**
+     * Можно ли включить модуль:
+     *
+     * @return can activate module
+     **/
+    public function canActivate()
+    {
+        return true;
+    }
+
+    /**
+     * Необходимо ли удаление
+     *
+     * @return is needed uninstalDb
+     **/
+    public function isNeedUninstall()
+    {
+        return !(Yii::app()->migrator->checkForUpdates((array) $this->getId()))
+                && count(Yii::app()->migrator->getMigrationHistory($this->getId(), -1)) < 1;
+    }
 }
