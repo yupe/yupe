@@ -1,13 +1,22 @@
 <?php
-if (count($modules))
-{
+/**
+ * Отображение для backend/_moduleslist:
+ * 
+ *   @category YupeView
+ *   @package  YupeCMS
+ *   @author   Yupe Team <team@yupe.ru>
+ *   @license  https://github.com/yupe/yupe/blob/master/LICENSE BSD
+ *   @link     http://yupe.ru
+ **/
+if (count($modules)) :
     $on = $off = $has = $dis = array();
     $updates = Yii::app()->migrator->checkForUpdates($modules);
 
-    foreach($modules as &$m)
-    {
-        if ($m->isActive || $m->isNoDisable)
-        {
+    foreach ($modules as &$m) {
+        if ($m->canActivate() === false)
+            continue;
+
+        if ($m->isActive || $m->isNoDisable) {
             $on[$m->id] = $m;
             if (isset($updates[$m->id]))
                 $has[$m->id] = $m;
@@ -16,16 +25,18 @@ if (count($modules))
             $off[$m->id] = $m;
         else
             $dis[$m->id] = $m;
-    }
-?>
+    } ?>
     <div class="page-header">
     <h6>
-        <?php echo Yii::t('YupeModule.yupe', 'Модули разработанные специально для "{app}"', array(
-            '{app}' => CHtml::encode(Yii::t('YupeModule.yupe', Yii::app()->name)),
-        )); ?>
+        <?php
+        echo Yii::t(
+            'YupeModule.yupe', 'Модули разработанные специально для "{app}"', array(
+                '{app}' => CHtml::encode(Yii::t('YupeModule.yupe', Yii::app()->name)),
+            )
+        ); ?>
     </h6>
     </div>
-<?php
+    <?php
     $tabs = array();
 
     if (count($on))
@@ -52,30 +63,31 @@ if (count($modules))
 
     $tabs[0]['active'] = true;
 
-    $this->widget('bootstrap.widgets.TbTabs', array(
-        'type'        => 'tabs', // 'tabs' or 'pills'
-        'tabs'        => $tabs,
-        'encodeLabel' => false,
-    ));
-}
+    $this->widget(
+        'bootstrap.widgets.TbTabs', array(
+            'type'        => 'tabs', // 'tabs' or 'pills'
+            'tabs'        => $tabs,
+            'encodeLabel' => false,
+        )
+    );
+endif;
+
 
 function moduleRow($module, &$updates, &$modules, &$controller)
 {
-    if ($module->canActivate() === false)
-        return '';
 ?>
     <tr class="<?php echo ($module->isActive) ? (is_array($module->checkSelf()) ? 'error' : '') : 'muted';?>">
         <td><?php echo $module->icon ? "<i class='icon-" . $module->icon . "'>&nbsp;</i> " : ""; ?></td>
         <td>
             <small class='label <?php
                 $v = $module->version;
-                echo (($n = strpos($v, "(dev)")) !== FALSE)
+                echo (($n = strpos($v, "(dev)")) !== false)
                     ? "label-warning' title='" . Yii::t('YupeModule.yupe', 'Модуль в разработке') . "'>" . substr($v, 0, $n)
                     : "'>" . $v;
                 ?></small>
         </td>
         <td>
-            <?php if ($module->isMultiLang()): ?>
+            <?php if ($module->isMultiLang()) : ?>
                 <i class="icon-globe" title="<?php echo Yii::t('YupeModule.yupe', 'Модуль мультиязычный'); ?>"></i>
             <?php endif; ?>
         </td>
