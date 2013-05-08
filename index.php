@@ -14,7 +14,7 @@ date_default_timezone_set('Europe/Moscow');
 // Выбираем конфигурацию development-main.php, если сайт работает на localhost
 if (strpos($_SERVER['SERVER_ADDR'], '127') === 0) {
     // Комментируем перед выпуском в продакшен:
-    define('YII_DEBUG', true);
+    //define('YII_DEBUG', true);
     defined('YII_TRACE_LEVEL') or define('YII_TRACE_LEVEL', 3);
 
     // путь к фреймворку Yii
