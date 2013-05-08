@@ -1,7 +1,7 @@
 <?php
 /**
  * Отображение для layouts/main:
- * 
+ *
  *   @category YupeLayout
  *   @package  YupeCMS
  *   @author   Yupe Team <team@yupe.ru>
@@ -14,7 +14,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="icon" type="image/png" href="<?php echo Yii::app()->baseUrl;?>/web/images/favicon.png" />
+    <link rel="shortcut icon" href="/favicon.ico"/>
     <title><?php echo CHtml::encode(Yii::app()->name); ?> <?php echo CHtml::encode($this->pageTitle); ?></title>
     <?php
     $mainAssets = Yii::app()->assetManager->publish(

@@ -25,7 +25,7 @@
     );
     Yii::app()->clientScript->registerCssFile($mainAssets . '/css/styles.css');
     Yii::app()->clientScript->registerCssFile($docsAssets . '/css/main.css');
-    if (($langs = Yii::app()->getModule('yupe')->languageSelectorArray) != array())
+    if (($langs = $this->yupe->languageSelectorArray) != array())
         Yii::app()->clientScript->registerCssFile($mainAssets. '/css/flags.css');
     ?>
 </head>
@@ -38,7 +38,7 @@
                 'htmlOptions' => array('class' => 'navbar-inverse'),
                 'fluid'       => true,
                 'brand'       => CHtml::image(
-                    Yii::app()->getModule('yupe')->themeBaseUrl . "/web/images/logo.png", Yii::t('DocsModule.docs', 'Юпи! Документация'), array(
+                    $this->yupe->themeBaseUrl . "/web/images/logo.png", Yii::t('DocsModule.docs', 'Юпи! Документация'), array(
                         'width'  => '38',
                         'height' => '38',
                         'title'  => Yii::t('DocsModule.docs', 'Юпи! Документация'),
@@ -48,7 +48,7 @@
                 'items'       => array(
                     array(
                         'class' => 'bootstrap.widgets.TbMenu',
-                        'items' => Yii::app()->getModule('docs')->articles,
+                        'items' => $this->module->articles,
                     ),
                     array(
                         'class'       => 'bootstrap.widgets.TbMenu',
@@ -63,7 +63,7 @@
                                     'url'         => array('/' . Yii::app()->defaultController . '/index/'),
                                 ),
                                 array(
-                                    'label' => Yii::app()->getModule('yupe')->getVersion(),
+                                    'label' => $this->yupe->getVersion(),
                                     'icon'  => 'icon-thumbs-up icon-white',
                                     'url'   => 'http://yupe.ru/?from=doc-navbar'
                                 ),
@@ -83,8 +83,8 @@
     </div>
     <footer>
         Copyright &copy; 2009-<?php echo date('Y'); ?>
-        <?php echo Yii::app()->getModule('yupe')->poweredBy();?>
-        <small class="label label-info"><?php echo Yii::app()->getModule('yupe')->getVersion(); ?></small>
+        <?php echo $this->yupe->poweredBy();?>
+        <small class="label label-info"><?php echo $this->yupe->getVersion(); ?></small>
         <br/>
         <a href="http://yupe.ru/feedback/index?from=docs">
             <?php echo Yii::t('YupeModule.yupe', 'Разработка и поддержка'); ?></a> - <a href="mailto:team@yupe.ru">yupe team

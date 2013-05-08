@@ -19,6 +19,8 @@ class ShowController extends YFrontController
      **/
     public function init()
     {
+        parent::init();
+
         Yii::app()->theme = null;
 
         $this->layout = 'withsidebar';
