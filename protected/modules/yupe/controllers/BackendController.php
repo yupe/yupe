@@ -408,8 +408,12 @@ class BackendController extends YBackController
                     break;
                 case 2:
                     $message = ($result = $module->getActivate(false, true)) === true
-                        ? Yii::t('YupeModule.yupe', 'Файл настроек модуля успешно обновлён!')
-                        : Yii::t('YupeModule.yupe', 'При обновлении файла настроек произошла ошибка!');
+                        ? Yii::t('YupeModule.yupe', 'Файл настроек модуля "{n}" успешно обновлён!', $name)
+                        : Yii::t('YupeModule.yupe', 'При обновлении файла настроек модуля "{n}" произошла ошибка!', $name);
+                    Yii::app()->user->setFlash(
+                        $result ? YFlashMessages::NOTICE_MESSAGE : YFlashMessages::ERROR_MESSAGE,
+                        $message
+                    );
                     break;
                 default:
                     $message = Yii::t('YupeModule.yupe', 'Выбрано неизвестное действие!');
