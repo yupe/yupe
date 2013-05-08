@@ -371,8 +371,7 @@ class BackendController extends YBackController
          **/
         if (($name = Yii::app()->request->getPost('module'))
             && ($status = Yii::app()->request->getPost('status')) !== null
-            && ($module = Yii::app()->getModule($name)) === null
-            && $module->canActivate()
+            && (($module = Yii::app()->getModule($name)) === null || $module->canActivate())
         )
             $module = $this->yupe->getCreateModule($name);
         /**
