@@ -1,32 +1,36 @@
 <h1>Поздравляем!</h1>
-<p>Вы только что установили <a href="http://yupe.ru?from=mainpage">Юпи! CMS</a>!</p>
-<p> Читайте нас в <a href='http://twitter.com/yupecms'>twitter</a> или <a href='http://vk.com/amylabs'>Вконтакте</a> или в <a href="https://www.facebook.com/amylabs.ru">Facebook</a> или в <a href="https://plus.google.com/u/0/b/111468098477631231532/111468098477631231532/posts">Google+</a></p>
+<p>Вы только что установили <a href="http://yupe.ru?from=mainpage" target='_blank'>Юпи! CMS</a>!</p>
+<p> Читайте нас в <a href='http://twitter.com/yupecms' target='_blank'>twitter</a> или <a href='http://vk.com/amylabs' target='_blank'>Вконтакте</a> или в <a href="https://www.facebook.com/amylabs.ru" target='_blank'>Facebook</a> или в <a href="https://plus.google.com/u/0/b/111468098477631231532/111468098477631231532/posts" target='_blank'>Google+</a></p>
+<?php if (YII_DEBUG === true) : ?>
 <p class='alert alert-info'>
-    Если вы замечаете "проседания" в работе, не волнуйтесь, в большинстве случаев это связано с тем, что включён YII_DEBUG режим, при его отключении скорость будет на порядок выше. Но не стоит волноваться, ведь при переносе на реальный сервер YII_DEBUG отключается автоматически.
+    Если вы замечаете "замедление" в загрузке сайта, не волнуйтесь, в большинстве случаев это связано с тем, что включён YII_DEBUG режим, при его отключении скорость будет на порядок выше. Но не стоит волноваться, ведь при переносе на реальный сервер YII_DEBUG отключается автоматически.
 </p>
+<?php endif; ?>
 
-<p>Обязательно измените параметр <code>"csrfTokenName"</code>. Это можно сделать в файле - <code>./protected/config/main.php</code>.</p>
+<p>Обязательно измените параметр <code>"csrfTokenName"</code>. </p>
+<p>Это можно сделать в файле - <code>./protected/config/main.php</code>.</p>
 Строка имеет вид:
 <?php
 $highlighter = new CTextHighlighter;
 $highlighter->language = 'PHP';
 echo $highlighter->highlight(
-    "
-    'request' => array(
+    "'request' => array(
         'class'                  => 'YHttpRequest',
         'enableCsrfValidation'   => true,
         'csrfTokenName'          => 'YUPE_TOKEN',
-    )
-    "
+    )"
 ); ?>
 <p> Начните доработку Вашего сайта с правки <code>SiteController</code> (/protected/controller/SiteController)</p>
-<p> И не забывайте выключать DEBUG-режим (<code>YII_DEBUG</code>)</p>
 
-<p> После данных процедур ваш сайт на <a href='http://yupe.ru/?from=mainpage'>Юпи!</a> будет готов к работе!</p>
 <p> Для управления сайтом, пожалуйста, перейдите в <?php echo CHtml::link('панель управления', array('/yupe/backend/')); ?></p>
-<p> При возникновении вопросов или проблем - обращайтесь на наш <a href='http://yupe.ru/talk/?from=mainpage'>форум</a> или сообщите об ошибках на <a href='https://github.com/yupe/yupe/issues'>Github</a></p>
-<p> Посетите раздел с <a href='http://yupe.ru/docs/index.html?from=mainpage'> официальной документацией </a></p>
-<p> Репозиторий дополнительных модулей, виджетов и компонентов для Юпи! <a href="https://github.com/yupe/yupe-ext" target="_blank">https://github.com/yupe/yupe-ext</a></p>
-<p><a href='http://yupe.ru/pages/help?from=mainpage'>Желаете помочь проекту ?</a></p>
+<p> При возникновении вопросов или проблем - обращайтесь:
+	<ul>
+		<li>на наш <a href='http://yupe.ru/talk/?from=mainpage'>форум</a></li>
+		<li>на <a href='https://github.com/yupe/yupe/issues'>Github</a></li>
+		<li>к документации <a href='http://yupe.ru/docs/index.html?from=mainpage'> которая начинает наполняться </a></li>
+	</ul>
 
-<p><b>По вопросам коммерческой поддержки или разработке - <a href='http://yupe.ru/feedback/index/?from=mainpage'>напишите нам</a> !</b></p>
+<p> Репозиторий дополнительных модулей и виджетов для Юпи! <a href="https://github.com/yupe/yupe-ext" target="_blank">https://github.com/yupe/yupe-ext</a></p>
+<p><a href='http://yupe.ru/pages/help?from=mainpage' target='_blank'> Возможно, Вы хотите присоединиться к разработке?</a></p>
+
+<p><b>По вопросам коммерческой поддержки или разработке - <a href='http://yupe.ru/feedback/index/?from=mainpage' target='_blank'>напишите нам</a> !</b></p>
