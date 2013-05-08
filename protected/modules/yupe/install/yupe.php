@@ -21,10 +21,11 @@ return array(
     'preload'   => array('log','bootstrap'),
     'component' => array(
         'bootstrap' => array(
-            'class' => 'application.modules.yupe.extensions.booster.components.Bootstrap',
+            'class'          => 'application.modules.yupe.extensions.booster.components.Bootstrap',
+            'fontAwesomeCss' => true,
         ),
         // параметры подключения к базе данных, подробнее http://www.yiiframework.ru/doc/guide/ru/database.overview
-        'db' => require(dirname(__FILE__) . '/../db.php'),
+        'db' => require dirname(__FILE__) . '/../db.php',
     ),
     'rules' => array(
         '/yupe/backend/modulesettings/<module:\w+>' => 'yupe/backend/modulesettings',
