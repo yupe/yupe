@@ -9,31 +9,28 @@
  * @link     http://yupe.ru
  **/
 ?>
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
-    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="<?php echo Yii::app()->language; ?>"
-      lang="<?php echo Yii::app()->language; ?>">
+<!DOCTYPE html>
+<html lang="<?php echo Yii::app()->language; ?>">
 <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
-    <meta name="language" content="<?php echo Yii::app()->language; ?>"/>
+    <meta charset="UTF-8"/>
     <meta name="keywords" content="<?php echo $this->keywords; ?>"/>
     <meta name="description" content="<?php echo $this->description; ?>"/>
-    <link rel="shortcut icon" href="/favicon.ico"/>
+    <link rel="shortcut icon" href="<?php echo Yii::app()->theme->baseUrl; ?>/favicon.ico"/>
 
     <!-- blueprint CSS framework -->
-    <link rel="stylesheet" type="text/css" href="<?php echo Yii::app()->theme->baseUrl; ?>/web/css/screen.css"
+    <link rel="stylesheet" href="<?php echo Yii::app()->theme->baseUrl; ?>/web/css/screen.css"
           media="screen, projection"/>
     <!--[if lt IE 8]>
-    <link rel="stylesheet" type="text/css" href="<?php echo Yii::app()->theme->baseUrl; ?>/web/css/ie.css"
+    <link rel="stylesheet" href="<?php echo Yii::app()->theme->baseUrl; ?>/web/css/ie.css"
           media="screen, projection"/>
     <![endif]-->
 
-    <link rel="stylesheet" type="text/css" href="<?php echo Yii::app()->theme->baseUrl; ?>/web/css/main.css"/>
+    <link rel="stylesheet" href="<?php echo Yii::app()->theme->baseUrl; ?>/web/css/main.css"/>
 
     <title><?php echo CHtml::encode($this->pageTitle); ?></title>
 </head>
 <body>
-<?php $this->widget('application.modules.yupe.widgets.YAdminPanel'); ?>
+<?php //$this->widget('application.modules.yupe.widgets.YAdminPanel'); ?>
 <div class="container" id="page">
     <div id="header">
         <div id="logo">
