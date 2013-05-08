@@ -70,7 +70,6 @@ class LanguageBehavior extends CBehavior
 
         // Если указан язык, который известен нам:
         if (in_array($this->lang, $lm->languages) && $langIsset) {
-
             // Если текущий язык у нас не тот же, что указан - поставим куку и все дела
             if (Yii::app()->language != $this->lang || $this->lang == Yii::app()->sourceLanguage)
                 $this->setLanguage($this->lang);
@@ -124,12 +123,12 @@ class LanguageBehavior extends CBehavior
                         )
                     )
                 );
+                $undefinedLang = $oldLang;
             }
 
             // Сделаем редирект на нужный url с указанием языка, если он не нативен
-            if ($this->lang != Yii::app()->sourceLanguage) {
+            if ($this->lang != Yii::app()->sourceLanguage || isset($undefinedLang)) {
                 $this->setLanguage($this->lang);
-
                 if (!Yii::app()->request->isAjaxRequest)
                     Yii::app()->request->redirect(
                         $home . $lm->replaceLangUrl(
@@ -137,7 +136,6 @@ class LanguageBehavior extends CBehavior
                         )
                     );
             } else {
-
                 // Иначе просто установим язык:
                 Yii::app()->language = $this->lang;
             }
