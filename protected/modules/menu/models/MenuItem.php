@@ -75,7 +75,8 @@ class MenuItem extends YModel
         // NOTE: you may need to adjust the relation name and the related
         // class name for the relations automatically generated below.
         return array(
-            'menu' => array(self::BELONGS_TO, 'Menu', 'menu_id'),
+            'menu'   => array(self::BELONGS_TO, 'Menu', 'menu_id'),
+            'parent' => array(self::BELONGS_TO, 'MenuItem', 'parent_id')
         );
     }
 
@@ -157,25 +158,22 @@ class MenuItem extends YModel
 
         $criteria->compare('sort', $this->sort);
         $criteria->compare('status', $this->status);
+        $criteria->with = array('menu','parent');
 
         return new CActiveDataProvider(get_class($this), array(
             'criteria' => $criteria,
-            'sort'     => array('defaultOrder' => 'sort'),
+            'sort'     => array('defaultOrder' => 't.sort')
         ));
     }
 
     protected function afterSave()
     {
-        $availableLanguages = explode(',', Yii::app()->getModule('yupe')->availableLanguages);
-        foreach ($availableLanguages as &$lang)
-            Yii::app()->cache->delete(Yii::app()->getModule('menu')->menuCache . $this->menu->id . trim($lang));
+        Yii::app()->cache->clear($this->menu->code);
     }
 
     protected function afterDelete()
     {
-        $availableLanguages = explode(',', Yii::app()->getModule('yupe')->availableLanguages);
-        foreach ($availableLanguages as &$lang)
-            Yii::app()->cache->delete(Yii::app()->getModule('menu')->menuCache . $this->menu->id . trim($lang));
+        Yii::app()->cache->clear($this->menu->code);
     }
 
     public function getMenuList()
@@ -233,8 +231,7 @@ class MenuItem extends YModel
 
     public function getParent()
     {
-        $data = $this->parentList;
-        return isset($data[$this->parent_id]) ? $data[$this->parent_id] : Yii::t('MenuModule.menu', '*неизвестно*');
+        return empty($this->parent) ? '---' : $this->parent->title;
     }
 
     public function getConditionList($condition = false)
@@ -259,7 +256,7 @@ class MenuItem extends YModel
 
     public function getConditionName()
     {
-        $data = array('' => Yii::t('MenuModule.menu', 'Нет условия')) + $this->conditionList;
+        $data = array('' => Yii::t('MenuModule.menu', 'Нет условия')) + $this->getConditionList();
         return (isset($data[$this->condition_name])) ? $data[$this->condition_name] . (($this->condition_name == '') ? '' : ' (' . $this->conditionDenial . ')') : Yii::t('MenuModule.menu', '*неизвестно*');
     }
 
@@ -283,7 +280,7 @@ class MenuItem extends YModel
 
     public function getConditionDenial()
     {
-        $data = $this->conditionDenialList;
+        $data = $this->getConditionDenialList();
         return isset($data[$this->condition_denial]) ? Yii::t('MenuModule.menu', 'отрицание') . ': ' . $data[$this->condition_denial] : Yii::t('MenuModule.menu', '*неизвестно*');
     }
 }

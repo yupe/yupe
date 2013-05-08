@@ -509,9 +509,8 @@ class YupeModule extends YWebModule
             foreach (Yii::app()->modules as $key => $value) {
                 $key = strtolower($key);
                 $module = Yii::app()->getModule($key);
-
                 if (($module !== null)) {
-                    if (is_a($module, 'YWebModule')) {
+                    if ($module instanceof YWebModule) {
                         $modules[$key] = $module;
                         $order[(!$module->category)
                             ? $this->otherCategoryName
@@ -692,15 +691,17 @@ class YupeModule extends YWebModule
      */
     public function getCreateModule($name)
     {
+        if(Yii::app()->hasModule($name)){
+            return Yii::app()->getModule($name);
+        }
         $path = $this->getModulesConfigDefault();
         $module = null;
-
         if ($path) {
             //посмотреть внутри файл с окончанием Module.php
             $files = glob($path . '/' . $name . '/' . '*Module.php');
             // @TODO А если файлов не 1, добавить прочтение install/module.php
             if (count($files) == 1) {
-                $className = preg_replace('#^.*/([^\.]*).php$#', '$1', $files[0]);
+                $className = pathinfo($files[0],PATHINFO_FILENAME);
                 Yii::import('application.modules.' . $name . '.' . $className);
                 $module = Yii::createComponent($className, $name, null, false);
             }
@@ -729,6 +730,7 @@ class YupeModule extends YWebModule
      * @since 0.5
      * @return string путь к папке или файлу с резервной конфигурацией модуля(-ей)
      */
+
     public function getModulesConfigBack($module = false)
     {
         return Yii::app()->basePath . '/config/modulesBack/' . ($module ? $module . '.php' : '');

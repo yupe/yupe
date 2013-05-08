@@ -32,7 +32,7 @@ $form = $this->beginWidget('bootstrap.widgets.TbActiveForm', array(
     <div class="row-fluid control-group <?php echo $model->hasErrors('content') ? 'error' : ''; ?>">
         <div class="span12">
             <?php echo $form->labelEx($model, 'content'); ?>
-            <?php $this->widget($this->module->editor, array(
+            <?php $this->widget($this->yupe->editor, array(
                 'model'       => $model,
                 'attribute'   => 'content',
                 'options'     => $this->module->editorOptions,
@@ -43,7 +43,7 @@ $form = $this->beginWidget('bootstrap.widgets.TbActiveForm', array(
     <div class="row-fluid control-group <?php echo $model->hasErrors('description') ? 'error' : ''; ?>">
         <div class="span12">
             <?php echo $form->labelEx($model, 'description'); ?>
-            <?php $this->widget($this->module->editor, array(
+            <?php $this->widget($this->yupe->editor, array(
                 'model'       => $model,
                 'attribute'   => 'description',
                 'options'     => $this->module->editorOptions,

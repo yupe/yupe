@@ -118,16 +118,12 @@ class Menu extends YModel
 
     protected function afterSave()
     {
-        $availableLanguages = explode(',', Yii::app()->getModule('yupe')->availableLanguages);
-        foreach ($availableLanguages as &$lang)
-            Yii::app()->cache->delete(Yii::app()->getModule('menu')->menuCache . $this->id . trim($lang));
+        Yii::app()->cache->clear($this->code);
     }
 
     protected function afterDelete()
     {
-        $availableLanguages = explode(',', Yii::app()->getModule('yupe')->availableLanguages);
-        foreach ($availableLanguages as &$lang)
-            Yii::app()->cache->delete(Yii::app()->getModule('menu')->menuCache . $this->id . trim($lang));
+        Yii::app()->cache->clear($this->code);
     }
 
     public function getStatusList()
@@ -147,7 +143,7 @@ class Menu extends YModel
     // @todo добавить кэширование
     public function getItems($code, $parent_id = 0)
     {
-        $items = Yii::app()->cache->get(Yii::app()->getModule('menu')->menuCache . $this->id . Yii::app()->language);
+        $items = Yii::app()->cache->get("Menu::{$code}::".Yii::app()->language);
 
         if ($items === false) {
             $alias = $this->getDbConnection()->getSchema()->quoteTableName('menuItems');
@@ -215,6 +211,8 @@ class Menu extends YModel
                     'visible'        => MenuItem::model()->getConditionVisible($result->condition_name, $result->condition_denial),
                 ) + $url;
             }
+
+            Yii::app()->cache->set("Menu::{$code}::".Yii::app()->language, $items, 0 , new TagsCache('menu',$code));
         }
         return $items;
     }

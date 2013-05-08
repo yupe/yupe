@@ -3,6 +3,7 @@ return array(
     'import' =>array(
         'application.modules.yupe.models.*',
         'application.modules.yupe.components.*',
+        'application.modules.yupe.extensions.tagcache.*',
     ),
     'cache'     => array(
         'class' => 'CFileCache',

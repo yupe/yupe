@@ -240,7 +240,7 @@ class News extends YModel
             $criteria->compare('category_id', $this->category_id);
         $criteria->compare('is_protected', $this->is_protected);
         $criteria->compare('t.lang', $this->lang);
-        $criteria->with = array("category");
+        $criteria->with = array('category');
         return new CActiveDataProvider(get_class($this), array(
             'criteria' => $criteria,
             'sort'     => array('defaultOrder' => 'date DESC'),
@@ -263,7 +263,7 @@ class News extends YModel
 
     public function getStatus()
     {
-        $data = $this->statusList;
+        $data = $this->getStatusList();
         return isset($data[$this->status]) ? $data[$this->status] : Yii::t('NewsModule.news', '*неизвестно*');
     }
 
@@ -277,13 +277,13 @@ class News extends YModel
 
     public function getProtectedStatus()
     {
-        $data = $this->protectedStatusList;
+        $data = $this->getProtectedStatusList();
         return isset($data[$this->is_protected]) ? $data[$this->is_protected] : Yii::t('NewsModule.news', '*неизвестно*');
     }
 
     public function getCategoryName()
     {
-        return ($this->category === null) ? '' : $this->category->name;
+        return ($this->category === null) ? '---' : $this->category->name;
     }
 
     public function getImageUrl()
