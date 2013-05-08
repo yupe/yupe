@@ -5,14 +5,13 @@
  * Все модули, разработанные для Юпи! должны наследовать этот класс.
  * Панель управления Юпи!, собираемая из модулей, использует определенные методы этого базового класса.
  *
- * @package yupe.core.components
- * @abstract
- * @author yupe team
- * @version 0.0.3
- * @link http://yupe.ru - основной сайт
+ * @category YupeModule
+ * @package  YupeCms
+ * @author   YupeTeam <team@yupe.ru>
+ * @license  BSD http://ru.wikipedia.org/wiki/%D0%9B%D0%B8%D1%86%D0%B5%D0%BD%D0%B7%D0%B8%D1%8F_BSD
+ * @link     http://yupe.ru
  *
  */
-
 abstract class YWebModule extends CWebModule
 {
     const CHECK_ERROR = 'error';
@@ -356,13 +355,13 @@ abstract class YWebModule extends CWebModule
      * @return bool статус выключения модуля
      * @since 0.5
      */
-    public function getActivate($noDependen = false)
+    public function getActivate($noDependen = false, $updateConfig = false)
     {
         $yupe = Yii::app()->getModule('yupe');
         $fileModule = $yupe->getModulesConfigDefault($this->id);
         $fileConfig = $yupe->getModulesConfig($this->id);
 
-        if (is_file($fileConfig) && $this->id != 'install') {
+        if (is_file($fileConfig) && $this->id != 'install' && $updateConfig === false) {
             throw new CException(Yii::t('YupeModule.yupe', 'Модуль уже включен!'), 304);
         } else {
             // Проверка модулей от которых зависит данный
@@ -381,7 +380,9 @@ abstract class YWebModule extends CWebModule
                 }
             }
 
-            if (@copy($fileModule, $fileConfig)) {
+            // Если требуется обновление файла, выполняем unlink и копирование
+            // иначе только через copy:
+            if (($updateConfig && @unlink($fileConfig) && @copy($fileModule, $fileConfig)) || @copy($fileModule, $fileConfig)) {
                 return true;
             } else {
                 throw new CException(Yii::t(
@@ -664,5 +665,25 @@ abstract class YWebModule extends CWebModule
     {
         return !(Yii::app()->migrator->checkForUpdates((array) $this->getId()))
                 && count(Yii::app()->migrator->getMigrationHistory($this->getId(), -1)) < 1;
+    }
+
+    /**
+     * Проверяем настройки модуля, на необходимость обновления:
+     *
+     * @return is module config need update
+     **/
+    public function isConfigNeedUpdate()
+    {
+        // Сверяем хеш суммы двух файлов
+        // и возвращаем обратный результат
+        // от полученного, то есть - требуется
+        // ли обновление:
+        return !(
+            md5_file(
+                Yii::getPathOfAlias($this->getId() . '.install.' . $this->getId()) . '.php'
+            ) === md5_file(
+                Yii::getPathOfAlias('application.config.modules.' . $this->getId()) . '.php'
+            )
+        );
     }
 }

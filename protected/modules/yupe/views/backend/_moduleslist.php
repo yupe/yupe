@@ -161,7 +161,7 @@ function moduleRow($module, &$updates, &$modules, &$controller)
                     'module' => $module->id,
                 );
 
-                echo $module->isNoDisable ? '<br />' :
+                echo $module->isNoDisable ? '' :
                     ($module->isInstalled
                         ? ($module->isActive
                             ? CHtml::link('<i class="icon-minus-sign" rel="tooltip" title="' . Yii::t('YupeModule.yupe', 'Выключить') . '">&nbsp;</i>', $url + array('status' => '0'), array_merge($htmlOptions, array('status' => 0, 'method' => 'deactivate')))
@@ -175,7 +175,9 @@ function moduleRow($module, &$updates, &$modules, &$controller)
                     );
 
                 if (isset($updates[$module->id]) && $module->isInstalled)
-                    echo CHtml::link('<i class="icon-refresh" rel="tooltip" title="' . Yii::t('YupeModule.yupe', 'Есть {n} обновление базы!|Есть {n} обновления базы!|Есть {n} обновлений базы!',count($updates[$module->id])) . '">&nbsp;</i>', array('/yupe/backend/modupdate','name' => $module->id));
+                    echo CHtml::link('<i class="icon-refresh" rel="tooltip" title="' . Yii::t('YupeModule.yupe', 'Есть {n} обновление базы!|Есть {n} обновления базы!|Есть {n} обновлений базы!', count($updates[$module->id])) . '">&nbsp;</i>', array('/yupe/backend/modupdate', 'name' => $module->id));
+                if ($module->isActive && $module->isConfigNeedUpdate())
+                    echo CHtml::link('<i class="icon-repeat" rel="tooltip" title="' . Yii::t('YupeModule.yupe', 'Есть обновление файла конфигурации!') . '">&nbsp;</i>', $url + array('status' => '2'), array_merge($htmlOptions, array('status' => 2, 'method' => 'update')));
                 ?>
         </td>
     </tr>
