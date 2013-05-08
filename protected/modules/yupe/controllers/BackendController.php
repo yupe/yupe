@@ -5,10 +5,9 @@
  * а также их настройками.
  *
  * @category YupeController
- * @package  Yupe
+ * @package  YupeCms
  * @author   YupeTeam <team@yupe.ru>
  * @license  BSD http://ru.wikipedia.org/wiki/%D0%9B%D0%B8%D1%86%D0%B5%D0%BD%D0%B7%D0%B8%D1%8F_BSD
- * @version  0.5 (dev)
  * @link     http://yupe.ru
  *
  **/
@@ -17,10 +16,9 @@
  * Главный контроллер админ-панели:
  *
  * @category YupeController
- * @package  Yupe
+ * @package  YupeCms
  * @author   YupeTeam <team@yupe.ru>
  * @license  BSD http://ru.wikipedia.org/wiki/%D0%9B%D0%B8%D1%86%D0%B5%D0%BD%D0%B7%D0%B8%D1%8F_BSD
- * @version  0.5 (dev)
  * @link     http://yupe.ru
  *
  **/
@@ -384,6 +382,7 @@ class BackendController extends YBackController
          * Если всё в порядке - выполняем нужное действие:
          **/
         if (isset($module) && !empty($module)) {
+            $result  = false;
             try {
                 switch ($status) {
                 case 0:
@@ -394,6 +393,7 @@ class BackendController extends YBackController
                         $module->unInstall;
                         $message = Yii::t('YupeModule.yupe', 'Модуль успешно деинсталлирован!');
                     }
+                    $result = true;
                     break;
                 
                 case 1:
@@ -404,19 +404,31 @@ class BackendController extends YBackController
                         $module->install;
                         $message = Yii::t('YupeModule.yupe', 'Модуль успешно установлен!');
                     }
+                    $result = true;
+                    break;
+                case 2:
+                    $message = ($result = $module->getActivate(false, true)) === true
+                        ? Yii::t('YupeModule.yupe', 'Файл настроек модуля "{n}" успешно обновлён!', $name)
+                        : Yii::t('YupeModule.yupe', 'При обновлении файла настроек модуля "{n}" произошла ошибка!', $name);
+                    Yii::app()->user->setFlash(
+                        $result ? YFlashMessages::NOTICE_MESSAGE : YFlashMessages::ERROR_MESSAGE,
+                        $message
+                    );
+                    break;
+                default:
+                    $message = Yii::t('YupeModule.yupe', 'Выбрано неизвестное действие!');
                     break;
                 }
-                $result = 1;
-                Yii::app()->cache->flush();
+                if (in_array($status, array(0, 1)))
+                Yii::app()->cache->clear($name);
             } catch(Exception $e) {
-                $result = 0;
                 $message = $e->getMessage();
             }
 
             /**
              * Возвращаем ответ:
              **/
-            $result == 1
+            $result === true
                 ? Yii::app()->ajax->success($message)
                 : Yii::app()->ajax->failure($message);
 

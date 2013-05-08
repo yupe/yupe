@@ -36,6 +36,7 @@ Yii::app()->clientScript->registerScript(
                 'no'     => Yii::t('YupeModule.yupe', 'Отмена'),
             ),
             'messages'   => array(
+                'confirm_update'           => Yii::t('YupeModule.yupe', 'Вы уверены, что хотите обновить файл конфигурации?'),
                 'confirm_deactivate'       => Yii::t('YupeModule.yupe', 'Вы уверены, что хотите отключить модуль?'),
                 'confirm_activate'         => Yii::t('YupeModule.yupe', 'Вы уверены, что хотите включить модуль?'),
                 'confirm_uninstall'        => Yii::t('YupeModule.yupe', 'Вы уверены, что хотите удалить модуль?') . '<br />' . Yii::t('YupeModule.yupe', 'Все данные модуля буду удалены.'),

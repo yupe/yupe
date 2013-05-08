@@ -31,6 +31,13 @@ if (!empty($files)) {
         
         $moduleConfig = require $file;
 
+        // Если существует файл с пользовательскими настройками модуля
+        // мерджим с текущими настройками:
+        if (file_exists($userspace = dirname(__FILE__) . DIRECTORY_SEPARATOR . 'userspace' . DIRECTORY_SEPARATOR . $name . '.php'))
+            $moduleConfig = CMap::mergeArray(
+                $moduleConfig, require $userspace
+            );
+
         if ($name == 'yupe') {
             if (!YII_DEBUG)
                 $config['cache'] = array();
