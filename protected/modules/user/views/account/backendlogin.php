@@ -12,7 +12,7 @@
  **/
 
 $this->layout = 'login';
-
+$this->yupe->getComponent('bootstrap');
 $this->pageTitle = Yii::t('UserModule.user', 'Авторизация');
 /**
  * Добавляем нужный CSS:
