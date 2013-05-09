@@ -147,23 +147,23 @@ class MenuItem extends YModel
         $criteria->compare('title', $this->title, true);
         $criteria->compare('href', $this->href, true);
 
-        if ($this->condition_name != '0')
-        {
-            $criteria->compare('condition_name', $this->condition_name, true);
+        if ($this->condition_name != '0') {
+            $criteria->compare('t.condition_name', $this->condition_name, true);
             if ($this->condition_name != '')
-                $criteria->compare('condition_denial', $this->condition_denial);
-        }
-        else
-            $criteria->addCondition('condition_name = ""');
+                $criteria->compare('t.condition_denial', $this->condition_denial);
+        } else
+            $criteria->condition('t.condition_name', '');
 
         $criteria->compare('sort', $this->sort);
         $criteria->compare('status', $this->status);
         $criteria->with = array('menu','parent');
 
-        return new CActiveDataProvider(get_class($this), array(
-            'criteria' => $criteria,
-            'sort'     => array('defaultOrder' => 't.sort')
-        ));
+        return new CActiveDataProvider(
+            get_class($this), array(
+                'criteria' => $criteria,
+                'sort'     => array('defaultOrder' => 't.sort')
+            )
+        );
     }
 
     protected function afterSave()
