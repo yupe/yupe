@@ -136,6 +136,15 @@ return array(
                 // Don't use on windows:
                 'forceCopy' => false,
             ),
+            'bootstrap' => array(
+                'class'          => 'application.modules.yupe.extensions.booster.components.Bootstrap',
+                'coreCss'        => false,
+                'responsiveCss'  => false,
+                'yiiCss'         => false,
+                'jqueryCss'      => false,
+                'enableJS'       => false,
+                'fontAwesomeCss' => false,
+            ),
             // Работа с миграциями, обновление БД модулей
             'migrator'=>array(
                 'class'=>'application.modules.yupe.components.migrator.Migrator',
