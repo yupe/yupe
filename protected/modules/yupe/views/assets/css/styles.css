@@ -13,7 +13,7 @@ body {
 }
 div#page {
     padding-top: 50px;
-    padding-bottom: 20px;
+    padding-bottom: 50px;
 }
 
 #page [class*='icon-'] {
