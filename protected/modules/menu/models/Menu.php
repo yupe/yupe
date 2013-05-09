@@ -143,7 +143,8 @@ class Menu extends YModel
     // @todo добавить кэширование
     public function getItems($code, $parent_id = 0)
     {
-        $items = Yii::app()->cache->get("Menu::{$code}::".Yii::app()->language);
+        $userId = Yii::app()->user->getId();
+        $items = Yii::app()->cache->get("Menu::{$code}::user_{$userId}" . Yii::app()->language);
 
         if ($items === false) {
             $alias = $this->getDbConnection()->getSchema()->quoteTableName('menuItems');
@@ -170,13 +171,11 @@ class Menu extends YModel
 
             $resultItems = $results[0]->menuItems;
 
-            foreach ($resultItems as $result)
-            {
+            foreach ($resultItems as $result) {
                 $childItems = $this->getItems($code, $result->id);
 
                 // @TODO Если не ставить url и присутствует items, пункт не выводится, возможно баг yii
-                if ($result->href)
-                {
+                if ($result->href) {
                     // если адрес надо параметризовать через роутер
                     if (!$result->regular_link) {
                         $url = $result->href;
@@ -212,7 +211,7 @@ class Menu extends YModel
                 ) + $url;
             }
 
-            Yii::app()->cache->set("Menu::{$code}::".Yii::app()->language, $items, 0 , new TagsCache('menu',$code));
+            Yii::app()->cache->set("Menu::{$code}::user_{$userId}" . Yii::app()->language, $items, 0, new TagsCache('menu', $code, 'loggedIn' . $userId));
         }
         return $items;
     }

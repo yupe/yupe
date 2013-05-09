@@ -111,4 +111,30 @@ class YWebUser extends CWebUser
         }
         return null;
     }
+
+    /**
+     * Метод для действий после выхода из системы:
+     *
+     * @return parent::afterLogout()
+     */
+    protected function afterLogout()
+    {
+        Yii::app()->cache->clear('loggedIn' . Yii::app()->user->getId());
+
+        return parent::afterLogout();
+    }
+
+    /**
+     * Метод для действий после входа в систему:
+     *
+     * @param boolean $fromCookie - is authorize from cookie
+     * 
+     * @return parent::afterLogin()
+     */
+    protected function afterLogin($fromCookie)
+    {
+        Yii::app()->cache->clear('loggedIn' . Yii::app()->user->getId());
+
+        return parent::afterLogin($fromCookie);
+    }
 }
