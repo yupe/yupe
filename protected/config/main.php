@@ -80,6 +80,7 @@ return array(
         array(
             // подключение основых путей
             'application.components.*',
+            'application.models.*',
             'application.modules.yupe.components.*',
             'application.modules.yupe.components.controllers.*',
             'application.modules.yupe.widgets.*',
