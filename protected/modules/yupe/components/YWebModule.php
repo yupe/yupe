@@ -326,6 +326,11 @@ abstract class YWebModule extends CWebModule
         return $status;
     }
 
+    /**
+     * Getting is module installed
+     * 
+     * @return is installed
+     */
     public function getIsInstalled()
     {
         $modulesInstalled = Yii::app()->cache->get('YupeModulesInstalled');
@@ -341,10 +346,27 @@ abstract class YWebModule extends CWebModule
         $upd = Yii::app()->cache->get('YupeModuleUpdates_' . $this->id);
         if ($upd === false) {
             $upd = Yii::app()->migrator->checkForUpdates(array($this->id => $this));
+            
+            // Цепочка зависимостей:
+            $chain = new CChainedCacheDependency();
+
+            // Зависимость на каталог 'application.config.modules':
+            $chain->dependencies->add(
+                new CDirectoryCacheDependency(
+                    Yii::getPathOfAlias('application.config.modules')
+                )
+            );
+
+            // Зависимость на тег:
+            $chain->dependencies->add(
+                new TagsCache('installedModules')
+            );
+
             Yii::app()->cache->set(
                 'YupeModuleUpdates_' . $this->id,
                 $upd,
-                Yii::app()->getModule('yupe')->coreCacheTime
+                Yii::app()->getModule('yupe')->coreCacheTime,
+                $chain
             );
         }
         return in_array($this->id, $modulesInstalled) || !count($upd);
@@ -352,7 +374,12 @@ abstract class YWebModule extends CWebModule
 
     /**
      *  Метод выключает модуль
+     *
+     * @param boolean $noDependen   - has dependents
+     * @param boolean $updateConfig - is need to update config file
+     *  
      * @return bool статус выключения модуля
+     * 
      * @since 0.5
      */
     public function getActivate($noDependen = false, $updateConfig = false)
@@ -370,10 +397,12 @@ abstract class YWebModule extends CWebModule
                 if (!empty($dependencies) && is_array($dependencies)) {
                     foreach ($dependencies as $dependency) {
                         if (Yii::app()->getModule($dependency) == null) {
-                            throw new CException(Yii::t(
-                                'YupeModule.yupe',
-                                'Произошла ошибка, модули от которых зависит этот модуль не включены, включите сначала их!'
-                            ));
+                            throw new CException(
+                                Yii::t(
+                                    'YupeModule.yupe',
+                                    'Произошла ошибка, модули от которых зависит этот модуль не включены, включите сначала их!'
+                                )
+                            );
                             return false;
                         }
                     }
@@ -385,10 +414,12 @@ abstract class YWebModule extends CWebModule
             if (($updateConfig && @unlink($fileConfig) && @copy($fileModule, $fileConfig)) || @copy($fileModule, $fileConfig)) {
                 return true;
             } else {
-                throw new CException(Yii::t(
-                    'YupeModule.yupe',
-                    'Произошла ошибка при включении модуля, конфигурационный файл поврежден или отсутствует доступ к папке config!'
-                ));
+                throw new CException(
+                    Yii::t(
+                        'YupeModule.yupe',
+                        'Произошла ошибка при включении модуля, конфигурационный файл поврежден или отсутствует доступ к папке config!'
+                    )
+                );
             }
         }
         return false;
@@ -396,7 +427,11 @@ abstract class YWebModule extends CWebModule
 
     /**
      *  Метод включает модуль
+     *
+     * @param boolean $noDependen - has dependen
+     *  
      * @return bool статус включения модуля
+     * 
      * @since 0.5
      */
     public function getDeActivate($noDependen = false)
@@ -415,10 +450,12 @@ abstract class YWebModule extends CWebModule
                 if (!empty($dependent) && is_array($dependent)) {
                     foreach ($dependent as $dependen) {
                         if (Yii::app()->getModule($dependen) != null) {
-                            throw new CException(Yii::t(
-                                'YupeModule.yupe',
-                                'Произошла ошибка, есть включенные зависимые модули, отключите сначало их!'
-                            ));
+                            throw new CException(
+                                Yii::t(
+                                    'YupeModule.yupe',
+                                    'Произошла ошибка, есть включенные зависимые модули, отключите сначало их!'
+                                )
+                            );
                             return false;
                         }
                     }
@@ -428,15 +465,19 @@ abstract class YWebModule extends CWebModule
             if ($this->isNoDisable) {
                 throw new CException(Yii::t('YupeModule.yupe', 'Этот модуль запрещено отключать!'));
             } elseif (@md5_file($fileModule) != @md5_file($fileConfig) && !@copy($fileConfig, $fileConfigBack)) {
-                throw new CException(Yii::t(
-                    'YupeModule.yupe',
-                    'Произошла ошибка при копировании старого конфигурационного файла в папку modulesBack!'
-                ));
+                throw new CException(
+                    Yii::t(
+                        'YupeModule.yupe',
+                        'Произошла ошибка при копировании старого конфигурационного файла в папку modulesBack!'
+                    )
+                );
             } elseif (!@unlink($fileConfig)) {
-                throw new CException(Yii::t(
-                    'YupeModule.yupe',
-                    'Произошла ошибка при отключении модуля, нет доступа к конфигурационному файлу!'
-                ));
+                throw new CException(
+                    Yii::t(
+                        'YupeModule.yupe',
+                        'Произошла ошибка при отключении модуля, нет доступа к конфигурационному файлу!'
+                    )
+                );
             } else {
                 return true;
             }
@@ -470,7 +511,11 @@ abstract class YWebModule extends CWebModule
 
     /**
      * Метод установки БД модуля
+     *
+     * @param array &$installed - массив модулея
+     * 
      * @return bool статус установки БД модуля
+     * 
      * @since 0.5
      */
     public function installDB(&$installed = array())
@@ -498,11 +543,13 @@ abstract class YWebModule extends CWebModule
                 );
 
                 if (($m = Yii::app()->getModule($dep)) == null) {
-                    throw new CException(Yii::t(
-                        'YupeModule.yupe',
-                        "Необходимый для установки модуль {dm} не найден",
-                        array('{dm}' => $dep)
-                    ));
+                    throw new CException(
+                        Yii::t(
+                            'YupeModule.yupe',
+                            "Необходимый для установки модуль {dm} не найден",
+                            array('{dm}' => $dep)
+                        )
+                    );
                 } else {
                     $i = $m->installDB($installed);
                     if (!isset($installed[$dep]) && !$i) {
@@ -514,12 +561,16 @@ abstract class YWebModule extends CWebModule
         }
         $log[] = $this->id;
 
+        Yii::app()->cache->clear('installedModules');
+
         return (Yii::app()->migrator->updateToLatest($this->id) && ($installed[$this->id] = true)) ? $log : false;
     }
 
     /**
      * Метод удаляющий БД модуля
+     * 
      * @return bool статус удаления БД модуля
+     * 
      * @since 0.5
      */
     public function uninstallDB()
@@ -565,6 +616,9 @@ abstract class YWebModule extends CWebModule
                 YFlashMessages::WARNING_MESSAGE,
                 $message
             );
+            
+            Yii::app()->cache->clear('installedModules');
+
             return true;
         }
         throw new CException(Yii::t('YupeModule.yupe', 'Произошла ошибка удаления БД модуля!'));
