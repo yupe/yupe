@@ -25,6 +25,7 @@ class RegistrationForm extends CFormModel
             array('email', 'checkEmail'),
             array('verifyCode', 'YRequiredValidator', 'allowEmpty' => !$module->showCaptcha || !CCaptcha::checkRequirements(), 'message' => Yii::t('UserModule.user', 'Код проверки не корректен.')),
             array('verifyCode', 'captcha', 'allowEmpty' => !$module->showCaptcha || !CCaptcha::checkRequirements()),
+            array('verifyCode', 'emptyOnInvalid'),
         );
     }
 
@@ -58,5 +59,19 @@ class RegistrationForm extends CFormModel
         $model = User::model()->find('email = :email', array(':email' => $this->email));
         if ($model)
             $this->addError('email', Yii::t('UserModule.user', 'Email уже занят'));
+    }
+
+    /**
+     * Обнуляем введённое значение капчи, если оно введено неверно:
+     *
+     * @param string $attribute - имя атрибута
+     * @param mixed  $params    - параметры
+     *
+     * @return void
+     **/
+    public function emptyOnInvalid($attribute, $params)
+    {
+        if ($this->hasErrors())
+            $this->verifyCode = null;
     }
 }
