@@ -15,7 +15,23 @@ $config = array(
     'rules'        => array(),
     'components'   => array(),
     'preload'      => array(),
-    'modules'      => array('install' => array('class' => 'application.modules.install.InstallModule')),
+    'modules'      => array(
+        'install' => array(
+            'class' => 'application.modules.install.InstallModule',
+            'preload'    => array('bootstrap'),
+            'components' => array(
+                'bootstrap' => array(
+                    'class'          => 'application.modules.yupe.extensions.booster.components.Bootstrap',
+                    'coreCss'        => false,
+                    'responsiveCss'  => false,
+                    'yiiCss'         => false,
+                    'jqueryCss'      => false,
+                    'enableJS'       => false,
+                    'fontAwesomeCss' => false,
+                ),
+            ),
+        ),
+    ),
     'cache'        => array(),
     'enableAssets' => false,
 );
@@ -72,7 +88,7 @@ return array(
     'theme'             => 'default',          // тема оформления по умолчанию
     'charset'           => 'UTF-8',
     'preload'           => CMap::mergeArray(
-        array('bootstrap'),
+        array(),
         // preloading components
         $config['preload']
     ),
@@ -119,15 +135,6 @@ return array(
             'assetsManager' => array(
                 // Don't use on windows:
                 'forceCopy' => false,
-            ),
-            'bootstrap' => array(
-                'class'         => 'application.modules.yupe.extensions.booster.components.Bootstrap',
-                'coreCss'        => false,
-                'responsiveCss'  => false,
-                'yiiCss'         => false,
-                'jqueryCss'      => false,
-                'enableJS'       => false,
-                'fontAwesomeCss' => false,
             ),
             // Работа с миграциями, обновление БД модулей
             'migrator'=>array(

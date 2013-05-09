@@ -19,16 +19,21 @@ return array(
     'component' => array(
         // параметры подключения к базе данных, подробнее http://www.yiiframework.ru/doc/guide/ru/database.overview
         'db' => require dirname(__FILE__) . '/../db.php',
-        'bootstrap' => array(
-            'coreCss'        => true,
-            'responsiveCss'  => true,
-            'yiiCss'         => true,
-            'jqueryCss'      => true,
-            'enableJS'       => true,
-            'fontAwesomeCss' => true,
-        ),
     ),
     'rules' => array(
         '/yupe/backend/modulesettings/<module:\w+>' => 'yupe/backend/modulesettings',
     ),
+    'module' => array(
+        'components' => array(
+            'bootstrap' => array(
+                'class'          => 'application.modules.yupe.extensions.booster.components.Bootstrap',
+                'coreCss'        => true,
+                'responsiveCss'  => true,
+                'yiiCss'         => true,
+                'jqueryCss'      => true,
+                'enableJS'       => true,
+                'fontAwesomeCss' => true,
+            ),
+        ),
+    )
 );
