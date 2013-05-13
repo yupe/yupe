@@ -17,33 +17,36 @@ class ContentBlockWidget extends YWidget
 
         $output = Yii::app()->cache->get($cacheName);
 
-        if ($output === false)
-        {
+        if ($output === false) {
             $block = ContentBlock::model()->find('code = :code', array(':code' => $this->code));
-            if (null === $block){
-                if($this->silent === false){
-                    throw new CException(Yii::t('ContentBlockModule.contentblock', 'Контент блок "{code}" не найден !', array(
-                            '{code}' => $this->code
-                    )));
+            if (null === $block) {
+                if ($this->silent === false) {
+                    throw new CException(
+                        Yii::t(
+                            'ContentBlockModule.contentblock', 'Контент блок "{code}" не найден !', array(
+                                '{code}' => $this->code
+                            )
+                        )
+                    );
                 }
-            }else{
-                switch ($block->type)
-                {
-                    case ContentBlock::PHP_CODE:
-                        $output = eval($block->content);
-                        break;
-                    case ContentBlock::SIMPLE_TEXT:
-                        $output = CHtml::encode($block->content);
-                        break;
-                    case ContentBlock::HTML_TEXT:
-                        $output = $block->content;
-                        break;
+            } else {
+                switch ($block->type) {
+                    
+                case ContentBlock::PHP_CODE:
+                    $output = eval($block->content);
+                    break;
+                case ContentBlock::SIMPLE_TEXT:
+                    $output = CHtml::encode($block->content);
+                    break;
+                case ContentBlock::HTML_TEXT:
+                    $output = $block->content;
+                    break;
                 }
 
                 Yii::app()->cache->set($cacheName, $output);
-
-                $this->render('contentblock', array('output' => $output));
             }
         }
+
+        $this->render('contentblock', array('output' => $output));
     }
 }
