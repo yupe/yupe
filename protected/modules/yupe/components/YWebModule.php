@@ -638,6 +638,7 @@ abstract class YWebModule extends CWebModule
 
     /**
      * @return string название иконки для меню админки, например 'user'
+     * @see http://twitter.github.io/bootstrap/base-css.html#icons
      */
     public function getIcon()
     {

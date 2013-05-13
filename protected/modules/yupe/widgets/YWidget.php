@@ -7,8 +7,8 @@
  *
  * @package yupe.core.widgets
  * @abstract
- * @author yupe team
- * @link http://yupe.ru
+ * @author  yupe team
+ * @link    http://yupe.ru
  *
  */
 
@@ -28,23 +28,46 @@ abstract class YWidget extends CWidget
         parent::init();
 
         //if (!$this->cacheTime && $this->cacheTime !== 0)
-            //$this->cacheTime = Yii::app()->getModule('yupe')->coreCacheTime;
+        //$this->cacheTime = Yii::app()->getModule('yupe')->coreCacheTime;
     }
 
-    public function getViewPath($checkTheme = false)
+    /**
+     * Looks for the view script file according to the view name.
+     * If application uses theme, its method {@link YTheme::getWidgetViewFile()} will be used to search view file
+     * under theme view files path according to theme's rules. Otherwise, parent implementation of this method will be used.
+     *
+     * @see YTheme::getWidgetViewFile()
+     * @see CWidget::getViewFile()
+     *
+     * @param string $viewName Name of the view (without file extension).
+     *
+     * @return bool|string The view file path. False if the view file does not exist.
+     */
+    public function getViewFile($viewName)
     {
-        $themeView = null;
-        if (Yii::app()->theme !== null) {
-            //@TODO можно обойтись без рефлексии и регулярки
-            $obj = new ReflectionClass(get_class($this));
-            $string = explode('modules' . DIRECTORY_SEPARATOR, $obj->getFileName(), 2);
-            if (isset($string[1])) {
-                $string = explode(DIRECTORY_SEPARATOR, $string[1], 2);
-                $themeView = Yii::app()->themeManager->basePath . '/' .
-                             Yii::app()->theme->name . '/' . 'views' . '/' .
-                             $string[0] . '/' . 'widgets' . '/' . get_class($this);
-            }
+        if (
+            (class_exists('YTheme', false) && ($theme = Yii::app()->theme) instanceof YTheme)
+            &&
+            ($viewFile = $theme->getWidgetViewFile($this, $viewName)) !== false
+        ) {
+            return $viewFile;
+        } else {
+            return parent::getViewFile($viewName);
         }
-        return $themeView && file_exists($themeView) ? $themeView : parent::getViewPath($checkTheme);
+    }
+
+    /**
+     * @return string|null ID of module, that widget belongs to. Null if no module was found.
+     */
+    public function getModuleID()
+    {
+        $widgetReflection = new ReflectionClass(get_class($this));
+        // @todo нужно переписать, непонятно как этот код работает. Код пишется для людей.
+        $string = explode('modules' . DIRECTORY_SEPARATOR, $widgetReflection->getFileName(), 2);
+        if (isset($string[1])) {
+            $string = explode(DIRECTORY_SEPARATOR, $string[1], 2);
+            return $string[0];
+        }
+        return null;
     }
 }
