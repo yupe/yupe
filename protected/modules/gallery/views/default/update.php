@@ -23,6 +23,7 @@
         array('icon' => 'picture', 'label' => Yii::t('GalleryModule.gallery', 'Изображения галереи'), 'url' => array('/gallery/default/images', 'id' => $model->id)),
         array('icon' => 'trash', 'label' => Yii::t('GalleryModule.gallery', 'Удалить галерею'), 'url' => '#', 'linkOptions' => array(
             'submit' => array('/gallery/default/delete', 'id' => $model->id),
+            'params' => array(Yii::app()->request->csrfTokenName => Yii::app()->request->csrfToken),
             'confirm' => Yii::t('GalleryModule.gallery', 'Вы уверены, что хотите удалить галерею?'),
         )),
     );

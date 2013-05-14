@@ -22,6 +22,7 @@
         )),
         array('icon' => 'trash', 'label' => Yii::t('PageModule.page', 'Удалить страницу'), 'url' => '#', 'linkOptions' => array(
             'submit' => array('/page/default/delete', 'id' => $model->id),
+            'params' => array(Yii::app()->request->csrfTokenName => Yii::app()->request->csrfToken),
             'confirm' => Yii::t('PageModule.page', 'Вы уверены, что хотите удалить страницу?'),
             'csrf' => true,
         )),
