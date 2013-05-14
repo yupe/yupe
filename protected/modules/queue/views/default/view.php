@@ -21,6 +21,7 @@
         )),
         array('icon' => 'trash', 'label' => Yii::t('QueueModule.queue','Удалить задание'), 'url' => '#', 'linkOptions'=> array(
             'submit' => array('/queue/default/delete', 'id' => $model->id),
+            'params' => array(Yii::app()->request->csrfTokenName => Yii::app()->request->csrfToken),
             'confirm'=> Yii::t('QueueModule.queue', 'Вы уверены, что хотите удалить?'),
         )),
     );
