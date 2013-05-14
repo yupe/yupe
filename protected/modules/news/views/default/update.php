@@ -22,6 +22,7 @@
         )),
         array('icon' => 'trash', 'label' => Yii::t('NewsModule.news', 'Удалить новость'), 'url' => '#', 'linkOptions' => array(
             'submit' => array('/news/default/delete', 'id' => $model->id),
+            'params' => array(Yii::app()->request->csrfTokenName => Yii::app()->request->csrfToken),
             'confirm' => Yii::t('NewsModule.news', 'Вы уверены, что хотите удалить новость?'),
             'csrf' => true,
         )),

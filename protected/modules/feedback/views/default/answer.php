@@ -26,6 +26,7 @@
         )),
         array('icon' => 'trash', 'label' => Yii::t('FeedbackModule.feedback', 'Удалить сообщение  '), 'url' => '#', 'linkOptions' => array(
             'submit'  => array('/feedback/default/delete', 'id' => $model->id),
+            'params' => array(Yii::app()->request->csrfTokenName => Yii::app()->request->csrfToken),
             'confirm' => Yii::t('FeedbackModule.feedback', 'Вы уверены, что хотите удалить сообщение  ?'),
         )),
     );
