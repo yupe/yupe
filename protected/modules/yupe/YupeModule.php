@@ -610,11 +610,27 @@ class YupeModule extends YWebModule
 
                 // Заполняем категорию Юпи!
                 $modulesNavigation[$this->category]['items']['settings'] = $settings;
+
+                // Цепочка зависимостей:
+                $chain = new CChainedCacheDependency();
+
+                // Зависимость на каталог 'application.config.modules':
+                $chain->dependencies->add(
+                    new CDirectoryCacheDependency(
+                        Yii::getPathOfAlias('application.config.modules')
+                    )
+                );
+
+                // Зависимость на тег:
+                $chain->dependencies->add(
+                    new TagsCache('yupe', 'navigation', 'installedModules')
+                );
+
                 Yii::app()->cache->set(
                     'YupeModulesNavigation-' . Yii::app()->language,
                     $modulesNavigation,
                     Yii::app()->getModule('yupe')->coreCacheTime,
-                    new TagsCache('yupe', 'navigation')
+                    $chain
                 );
             }
         }
