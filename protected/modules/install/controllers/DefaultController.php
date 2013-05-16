@@ -218,8 +218,10 @@ class DefaultController extends YBackController
         if ($result)
             $result = $this->_checkYupeActivate();
 
+
         if ($result)
             $this->_markFinished(Yii::app()->controller->action->id);
+
 
         $requirements = array_merge(
             $requirements, array(
@@ -277,8 +279,8 @@ class DefaultController extends YBackController
      * @return bool
      **/
     private function _checkYupeActivate()
-    {
-        try {
+    {        
+        try {            
             return Yii::app()->getModule('yupe')->activate;
         } catch(Exception $e) {
             return ($e->getCode() == 304) ? true : false;
