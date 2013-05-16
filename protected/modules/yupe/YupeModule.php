@@ -707,7 +707,7 @@ class YupeModule extends YWebModule
      */
     public function getCreateModule($name)
     {
-        if(Yii::app()->hasModule($name)){
+        if (Yii::app()->hasModule($name)) {
             return Yii::app()->getModule($name);
         }
         $path = $this->getModulesConfigDefault();
@@ -717,7 +717,7 @@ class YupeModule extends YWebModule
             $files = glob($path . '/' . $name . '/' . '*Module.php');
             // @TODO А если файлов не 1, добавить прочтение install/module.php
             if (count($files) == 1) {
-                $className = pathinfo($files[0],PATHINFO_FILENAME);
+                $className = pathinfo($files[0], PATHINFO_FILENAME);
                 Yii::import('application.modules.' . $name . '.' . $className);
                 $module = Yii::createComponent($className, $name, null, false);
             }
@@ -950,5 +950,15 @@ class YupeModule extends YWebModule
         );
     }
 
-   
+    /**
+     * Получаем массив с именами модулей, от которых зависит работа данного модуля
+     * 
+     * @return array Массив с именами модулей, от которых зависит работа данного модуля
+     * 
+     * @since 0.5
+     */
+    public function getDependencies()
+    {
+        return array('user');
+    }
 }
