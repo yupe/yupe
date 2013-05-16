@@ -950,15 +950,5 @@ class YupeModule extends YWebModule
         );
     }
 
-    /**
-     * Получаем массив с именами модулей, от которых зависит работа данного модуля
-     * 
-     * @return array Массив с именами модулей, от которых зависит работа данного модуля
-     * 
-     * @since 0.5
-     */
-    public function getDependencies()
-    {
-        return array('user');
-    }
+   
 }
