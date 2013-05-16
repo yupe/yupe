@@ -48,7 +48,9 @@ abstract class YWebModule extends CWebModule
     public $editorOptions = array();
 
     /**
-     * @return string текущая версия модуля
+     * текущая версия модуля
+     * 
+     * @return string
      */
     public function getVersion()
     {
@@ -56,7 +58,9 @@ abstract class YWebModule extends CWebModule
     }
 
     /**
-     * @return string веб-сайт разработчика модуля или страничка самого модуля
+     * веб-сайт разработчика модуля или страничка самого модуля
+     * 
+     * @return string
      */
     public function getUrl()
     {
@@ -64,7 +68,9 @@ abstract class YWebModule extends CWebModule
     }
 
     /**
-     * @return string имя автора модуля
+     * имя автора модуля
+     * 
+     * @return string
      */
     public function getAuthor()
     {
@@ -72,7 +78,9 @@ abstract class YWebModule extends CWebModule
     }
 
     /**
-     * @return string контактный email автора модуля
+     * контактный email автора модуля
+     * 
+     * @return string
      */
     public function getAuthorEmail()
     {
@@ -80,8 +88,10 @@ abstract class YWebModule extends CWebModule
     }
 
     /**
-     * @return string ссылка которая будет отображена в панели управления
-     *  как правило, ведет на страничку для администрирования модуля
+     * ссылка которая будет отображена в панели управления
+     * как правило, ведет на страничку для администрирования модуля
+     * 
+     * @return string
      */
     public function getAdminPageLink()
     {
@@ -89,8 +99,10 @@ abstract class YWebModule extends CWebModule
     }
 
     /**
-     * @return string ссылка которая будет отображена в панели управления
-     *  как правило, ведет на страничку для администрирования модуля
+     * ссылка которая будет отображена в панели управления
+     * как правило, ведет на страничку для администрирования модуля
+     * 
+     * @return string 
      */
     public function getAdminPageLinkNormalize()
     {
@@ -98,7 +110,10 @@ abstract class YWebModule extends CWebModule
     }
 
     /**
-     * @return array если модуль должен добавить несколько ссылок в панель управления - укажите массив
+     * если модуль должен добавить несколько ссылок в панель управления - укажите массив
+     * 
+     * @return array
+     * 
      * @example
      *
      * public function getNavigation()
@@ -117,9 +132,11 @@ abstract class YWebModule extends CWebModule
     }
 
     /**
+     * Работосопособность модуля может зависеть от разных факторов: версия php, версия Yii, наличие определенных модулей и т.д.
+     * В этом методе необходимо выполнить все проверки.
+     * 
      * @return array или false
-     *   Работосопособность модуля может зависеть от разных факторов: версия php, версия Yii, наличие определенных модулей и т.д.
-     *   В этом методе необходимо выполнить все проверки.
+     *   
      * @example
      *   if (!$this->uploadPath)
      *        return array(
@@ -137,7 +154,9 @@ abstract class YWebModule extends CWebModule
     }
 
     /**
-     * @return string каждый модуль должен принадлежать одной категории, именно по категорям делятся модули в панели управления
+     * каждый модуль должен принадлежать одной категории, именно по категорям делятся модули в панели управления
+     * 
+     * @return string
      */
     public function getCategory()
     {
@@ -145,7 +164,9 @@ abstract class YWebModule extends CWebModule
     }
 
     /**
-     * @return array массив лейблов для параметров (свойств) модуля. Используется на странице настроек модуля в панели управления.
+     * массив лейблов для параметров (свойств) модуля. Используется на странице настроек модуля в панели управления.
+     * 
+     * @return array
      */
     public function getParamsLabels()
     {
@@ -153,7 +174,9 @@ abstract class YWebModule extends CWebModule
     }
 
     /**
-     * @return array массив параметров модуля, которые можно редактировать через панель управления (GUI)
+     * массив параметров модуля, которые можно редактировать через панель управления (GUI)
+     * 
+     * @return array
      */
     public function getEditableParams()
     {
@@ -161,7 +184,9 @@ abstract class YWebModule extends CWebModule
     }
 
     /**
-     * @return array массив групп параметров модуля, для группировки параметров на странице настроек
+     * массив групп параметров модуля, для группировки параметров на странице настроек
+     * 
+     * @return array
      */
     public function getEditableParamsGroups()
     {
@@ -176,7 +201,9 @@ abstract class YWebModule extends CWebModule
     }
 
     /**
-     * @return array получение имена парамметров из getEditableParams()
+     * получение имена парамметров из getEditableParams()
+     * 
+     * @return array
      */
     public function getEditableParamsKey()
     {
@@ -188,7 +215,9 @@ abstract class YWebModule extends CWebModule
     }
 
     /**
-     * @return int порядок следования модуля в меню панели управления (сортировка)
+     * порядок следования модуля в меню панели управления (сортировка)
+     * 
+     * @return int
      */
     public function getAdminMenuOrder()
     {
@@ -196,7 +225,9 @@ abstract class YWebModule extends CWebModule
     }
 
     /**
-     * @return bool показать или нет модуль в панели управления
+     * показать или нет модуль в панели управления
+     * 
+     * @return bool
      */
     public function getIsShowInAdminMenu()
     {
@@ -204,7 +235,10 @@ abstract class YWebModule extends CWebModule
     }
 
     /**
-     * @return bool разрешено ли выключение
+     * разрешено ли выключение
+     * 
+     * @return bool
+     * 
      * @since 0.5
      */
     public function getIsNoDisable()
@@ -213,7 +247,10 @@ abstract class YWebModule extends CWebModule
     }
 
     /**
-     * @return array Массив с именами модулей и их зависимостями
+     * Массив с именами модулей и их зависимостями
+     * 
+     * @return array
+     * 
      * @since 0.5
      */
     public function getModulesNoDisable()
@@ -238,7 +275,10 @@ abstract class YWebModule extends CWebModule
     }
 
     /**
-     * @return array Массив с именами модулей и их зависимостями
+     * Массив с именами модулей и их зависимостями
+     * 
+     * @return array
+     * 
      * @since 0.5
      */
     public function getDependenciesAll()
@@ -263,7 +303,10 @@ abstract class YWebModule extends CWebModule
     }
 
     /**
-     * @return array Массив с именами модулей, от которых зависит работа данного модуля
+     * Массив с именами модулей, от которых зависит работа данного модуля
+     * 
+     * @return array
+     * 
      * @since 0.5
      */
     public function getDependencies()
@@ -272,7 +315,10 @@ abstract class YWebModule extends CWebModule
     }
 
     /**
-     * @return array Массив с зависимостями модулей
+     * Массив с зависимостями модулей
+     * 
+     * @return array
+     * 
      * @since 0.5
      */
     public function getDependents()
@@ -295,7 +341,10 @@ abstract class YWebModule extends CWebModule
     }
 
     /**
-     * @return array Массив с именами модулей которые зависят от текущего модуля
+     * Массив с именами модулей которые зависят от текущего модуля
+     * 
+     * @return array
+     * 
      * @since 0.5
      */
     public function getDependent()
@@ -305,7 +354,10 @@ abstract class YWebModule extends CWebModule
     }
 
     /**
-     * @return bool устанавливает checkbox включенным по умолчанию при установке Yupe
+     * устанавливает checkbox включенным по умолчанию при установке Yupe
+     * 
+     * @return bool
+     * 
      * @since 0.5
      */
     public function getIsInstallDefault()
@@ -314,7 +366,10 @@ abstract class YWebModule extends CWebModule
     }
 
     /**
-     * @return bool определяет, включен или выключен модуль
+     * определяет, включен или выключен модуль
+     * 
+     * @return bool
+     * 
      * @since 0.5
      */
     public function getIsActive()
@@ -487,7 +542,9 @@ abstract class YWebModule extends CWebModule
 
     /**
      *  Метод устанавливающий модуль
+     * 
      * @return bool статус установки модуля
+     * 
      * @since 0.5
      */
     public function getInstall()
@@ -497,7 +554,9 @@ abstract class YWebModule extends CWebModule
 
     /**
      * Метод удаляющий модуль
+     * 
      * @return bool статус удаления модуля
+     * 
      * @since 0.5
      */
     public function getUnInstall()
@@ -626,18 +685,23 @@ abstract class YWebModule extends CWebModule
     }
 
     /**
+     *  метод-хелпер именно для многих параметров модуля, где
+     *  необходимо вывести варианты выбора да или нет
+     * 
      * @return array для многих параметров модуля необходимо вывести варианты выбора да или нет - метод-хелпер именно для этого
      */
     public function getChoice()
     {
         return array(
             self::CHOICE_YES => Yii::t('YupeModule.yupe', 'да'),
-            self::CHOICE_NO => Yii::t('YupeModule.yupe', 'нет'),
+            self::CHOICE_NO  => Yii::t('YupeModule.yupe', 'нет'),
         );
     }
 
     /**
-     * @return string название иконки для меню админки, например 'user'
+     * название иконки для меню админки, например 'user'
+     * 
+     * @return string
      */
     public function getIcon()
     {
@@ -645,7 +709,9 @@ abstract class YWebModule extends CWebModule
     }
 
     /**
-     * @return bool стутус работы мультиязычности в модуле
+     * стутус работы мультиязычности в модуле
+     * 
+     * @return bool
      */
     public function isMultiLang()
     {
@@ -653,7 +719,9 @@ abstract class YWebModule extends CWebModule
     }
 
     /**
-     *  инициализация модуля, считывание настроек из базы данных и их кэширование
+     * Инициализация модуля, считывание настроек из базы данных и их кэширование
+     *
+     * @return void
      */
     public function init()
     {
@@ -664,14 +732,18 @@ abstract class YWebModule extends CWebModule
         try {
             $settingsRows = Yii::app()->db
                 ->cache($this->coreCacheTime, new TagsCache($this->getId(), 'settings'))
-                ->createCommand('SELECT param_name, param_value
-                                   FROM {{yupe_settings}}
-                                   WHERE module_id = :module_id AND type = :type')
-                ->bindValue(':module_id',$this->getId())
-                ->bindValue(':type',Settings::TYPE_CORE)
+                ->createCommand(
+                    '
+                    SELECT param_name, param_value
+                        FROM {{yupe_settings}}
+                        WHERE module_id = :module_id AND type = :type
+                    '
+                )
+                ->bindValue(':module_id', $this->getId())
+                ->bindValue(':type', Settings::TYPE_CORE)
                 ->queryAll();
 
-            foreach($settingsRows as $sRow){
+            foreach ($settingsRows as $sRow) {
                 $settings[$sRow['param_name']] = $sRow['param_value'];
             }
 
@@ -682,14 +754,23 @@ abstract class YWebModule extends CWebModule
 
         if (!empty($settings)) {
             foreach ($settings as $key => $value) {
-                if(property_exists($this,$key)){
+                if (property_exists($this, $key)) {
                     $this->{$key} = $value;
                 }
             }
         }
     }
 
-    //@TODO временное решение, пока не придумали куда перенести инициализацию editorOptions
+    /**
+     * Временное решение
+     *
+     * @param Controller $controller - инстанс контроллера
+     * @param Action     $action     - инстанс экшена
+     * 
+     * @todo пока не придумали куда перенести инициализацию editorOptions
+     *
+     * @return bool
+     **/
     public function beforeControllerAction($controller, $action)
     {
         $uploadController = Yii::app()->createUrl('/yupe/backend/AjaxFileUpload');
