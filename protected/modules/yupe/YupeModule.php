@@ -237,7 +237,9 @@ class YupeModule extends YWebModule
     }
 
     /**
-     * @return array массив групп параметров модуля, для группировки параметров на странице настроек
+     * массив групп параметров модуля, для группировки параметров на странице настроек
+     * 
+     * @return array
      */
     public function getEditableParamsGroups()
     {
@@ -511,10 +513,11 @@ class YupeModule extends YWebModule
                 $module = Yii::app()->getModule($key);
                 if (($module !== null)) {
                     if ($module instanceof YWebModule) {
-                        $modules[$key] = $module;
-                        $order[(!$module->category)
+                        $category = (!$module->category)
                             ? $this->otherCategoryName
-                            : Yii::t('YupeModule.yupe', $module->category)][$key] = $module->adminMenuOrder;
+                            : $module->category;
+                        $modules[$key] = $module;
+                        $order[$category][$key] = $module->adminMenuOrder;
                     } else {
                         $yiiModules[$key] = $module;
                     }
@@ -523,6 +526,7 @@ class YupeModule extends YWebModule
 
             $modulesNavigation = Yii::app()->cache->get('YupeModulesNavigation-' . Yii::app()->language);
             if ($modulesNavigation === false) {
+                
                 // Формируем навигационное меню
                 $modulesNavigation = array();
 
@@ -629,7 +633,7 @@ class YupeModule extends YWebModule
                 Yii::app()->cache->set(
                     'YupeModulesNavigation-' . Yii::app()->language,
                     $modulesNavigation,
-                    Yii::app()->getModule('yupe')->coreCacheTime,
+                    0,
                     $chain
                 );
             }
@@ -683,17 +687,30 @@ class YupeModule extends YWebModule
      */
     public function getModulesDisabled($enableModule = array())
     {
-        $path = $this->getModulesConfigDefault();
-        $enableModule = array_keys($enableModule);
-        $modules = array();
-        if ($path && $handler = opendir($path)) {
-            while (($dir = readdir($handler))) {
-                if ($dir != '.' && $dir != '..' && !is_file($dir) && empty($enableModule[$dir])) {
-                    $modules[$dir] = $this->getCreateModule($dir);
+        if (($imports = Yii::app()->cache->get('pathForImports')) !== false)
+            $this->setImport($imports);
+        
+        if ($imports === false || ($modules = Yii::app()->cache->get('getModulesDisabled')) === false) {
+            $path = $this->getModulesConfigDefault();
+            $enableModule = array_keys($enableModule);
+
+            $modules = array();
+            $imports = array();
+            
+            if ($path && $handler = opendir($path)) {
+                while (($dir = readdir($handler))) {
+                    if ($dir != '.' && $dir != '..' && !is_file($dir) && !isset($enableModule[$dir])) {
+                        $modules[$dir] = $this->getCreateModule($dir);
+                        $imports[] = Yii::app()->cache->get('tmpImports');
+                    }
                 }
+                closedir($handler);
             }
-            closedir($handler);
+
+            Yii::app()->cache->set('getModulesDisabled', $modules, 0, new TagsCache('yupe', 'getModulesDisabled', 'installedModules'));
+            Yii::app()->cache->set('pathForImports', $imports, 0, new TagsCache('yupe', 'installedModules', 'pathForImports'));
         }
+
         return $modules;
     }
 
@@ -718,6 +735,7 @@ class YupeModule extends YWebModule
             // @TODO А если файлов не 1, добавить прочтение install/module.php
             if (count($files) == 1) {
                 $className = pathinfo($files[0], PATHINFO_FILENAME);
+                Yii::app()->cache->set('tmpImports', 'application.modules.' . $name . '.' . $className);
                 Yii::import('application.modules.' . $name . '.' . $className);
                 $module = Yii::createComponent($className, $name, null, false);
             }
@@ -816,6 +834,7 @@ class YupeModule extends YWebModule
             }
             closedir($handler);
         }
+
         return $widgets;
     }
 
@@ -938,6 +957,14 @@ class YupeModule extends YWebModule
         );
     }
 
+    /**
+     * Генерация анкора PoweredBy
+     * 
+     * @param string $color - цвет
+     * @param string $text  - текс
+     * 
+     * @return анкор poweredBy
+     */
     public function poweredBy($color = 'yellow', $text = '')
     {
         if (empty($text)) {
