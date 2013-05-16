@@ -513,10 +513,11 @@ class YupeModule extends YWebModule
                 $module = Yii::app()->getModule($key);
                 if (($module !== null)) {
                     if ($module instanceof YWebModule) {
-                        $modules[$key] = $module;
-                        $order[(!$module->category)
+                        $category = (!$module->category)
                             ? $this->otherCategoryName
-                            : Yii::t('YupeModule.yupe', $module->category)][$key] = $module->adminMenuOrder;
+                            : $module->category;
+                        $modules[$key] = $module;
+                        $order[$category][$key] = $module->adminMenuOrder;
                     } else {
                         $yiiModules[$key] = $module;
                     }
@@ -525,6 +526,7 @@ class YupeModule extends YWebModule
 
             $modulesNavigation = Yii::app()->cache->get('YupeModulesNavigation-' . Yii::app()->language);
             if ($modulesNavigation === false) {
+                
                 // Формируем навигационное меню
                 $modulesNavigation = array();
 
