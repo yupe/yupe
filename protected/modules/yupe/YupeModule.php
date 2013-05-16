@@ -704,23 +704,9 @@ class YupeModule extends YWebModule
                 }
                 closedir($handler);
             }
-            // Цепочка зависимостей:
-            $chain = new CChainedCacheDependency();
 
-            // Зависимость на каталог 'application.config.modules':
-            $chain->dependencies->add(
-                new CDirectoryCacheDependency(
-                    Yii::getPathOfAlias('application.config.modules')
-                )
-            );
-
-            // Зависимость на тег:
-            $chain->dependencies->add(
-                new TagsCache('yupe', 'getModulesDisabled', 'installedModules', 'pathForImports')
-            );
-
-            Yii::app()->cache->set('getModulesDisabled', $modules, 0, $chain);
-            Yii::app()->cache->set('pathForImports', $imports, 0, $chain);
+            Yii::app()->cache->set('getModulesDisabled', $modules, 0, new TagsCache('yupe', 'getModulesDisabled', 'installedModules'));
+            Yii::app()->cache->set('pathForImports', $imports, 0, new TagsCache('yupe', 'installedModules', 'pathForImports'));
         }
 
         return $modules;
@@ -846,6 +832,7 @@ class YupeModule extends YWebModule
             }
             closedir($handler);
         }
+
         return $widgets;
     }
 
