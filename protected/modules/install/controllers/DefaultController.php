@@ -281,7 +281,7 @@ class DefaultController extends YBackController
     private function _checkYupeActivate()
     {        
         try {            
-            return Yii::app()->getModule('yupe')->activate;
+            return Yii::app()->getModule('yupe')->getActivate(true);
         } catch(Exception $e) {
             return ($e->getCode() == 304) ? true : false;
         }
