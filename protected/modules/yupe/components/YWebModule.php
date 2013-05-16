@@ -375,7 +375,7 @@ abstract class YWebModule extends CWebModule
     /**
      *  Метод выключает модуль
      *
-     * @param boolean $noDependen   - has dependents
+     * @param boolean $noDependen   - given the dependence
      * @param boolean $updateConfig - is need to update config file
      *  
      * @return bool статус выключения модуля
@@ -428,7 +428,7 @@ abstract class YWebModule extends CWebModule
     /**
      *  Метод включает модуль
      *
-     * @param boolean $noDependen - has dependen
+     * @param boolean $noDependen - given the dependence
      *  
      * @return bool статус включения модуля
      * 
