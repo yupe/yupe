@@ -37,7 +37,7 @@ class DefaultController extends YBackController
                 );
 
                 if (!isset($_POST['submit-type']))
-                    $this->redirect(array('update', 'id' => $model->id));
+                    $this->redirect(array('create'));
                 else
                     $this->redirect(array($_POST['submit-type']));
             }
