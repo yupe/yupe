@@ -32,10 +32,11 @@ class DictionaryDataController extends YBackController
 
             if ($model->save())
             {
-                if (!isset($_POST['submit-type']))
-                    $this->redirect(array('create'));
-                else
-                    $this->redirect(array($_POST['submit-type']));
+                $this->redirect(
+                    (array) Yii::app()->request->getPost(
+                        'submit-type', array('create')
+                    )
+                );
             }
         }
         $this->render('create', array('model' => $model));
