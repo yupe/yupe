@@ -58,7 +58,7 @@ class Image extends YModel
     public function rules()
     {
         return array(
-            array('name, alt, type', 'required'),
+            array('alt, type', 'required'),
             array('galleryId', 'numerical'),
             array('name, description, alt', 'filter', 'filter' => 'trim'),
             array('name, description, alt', 'filter', 'filter' => array($obj = new CHtmlPurifier(), 'purify')),
