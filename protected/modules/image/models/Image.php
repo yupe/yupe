@@ -25,6 +25,8 @@ class Image extends YModel
     const TYPE_SIMPLE  = 0;
     const TYPE_PREVIEW = 1;
 
+    public $galleryId;
+
     private $_url;
     private $_galleryId = null;
 
@@ -58,7 +60,7 @@ class Image extends YModel
     public function rules()
     {
         return array(
-            array('alt, type', 'required'),
+            array('name , alt, type', 'required'),
             array('galleryId', 'numerical'),
             array('name, description, alt', 'filter', 'filter' => 'trim'),
             array('name, description, alt', 'filter', 'filter' => array($obj = new CHtmlPurifier(), 'purify')),
@@ -363,6 +365,6 @@ class Image extends YModel
         if (($gallery = Gallery::model()->loadModel($value)) === null)
             return $value;
 
-        $gallery->addImage($this);
+        return $gallery->addImage($this);
     }
 }

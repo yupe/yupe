@@ -50,7 +50,10 @@ $this->widget(
         'attributes' => array(
             'id',
             'name',
-            'description',
+            array(
+                'name' => 'description',
+                'type' => 'html'
+            ),
             array(
                 'name'  => 'status',
                 'value' => $model->getStatus()
