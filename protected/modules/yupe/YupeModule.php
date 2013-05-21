@@ -61,6 +61,8 @@ class YupeModule extends YWebModule
     public $otherCategoryName;
     public $updateChannel = 'release';
 
+    private $_components;
+
     /**
      * Возвращаем версию:
      *
@@ -702,8 +704,13 @@ class YupeModule extends YWebModule
             // @TODO А если файлов не 1, добавить прочтение install/module.php
             if (count($files) == 1) {
                 $className = pathinfo($files[0],PATHINFO_FILENAME);
-                Yii::import('application.modules.' . $name . '.' . $className);
-                $module = Yii::createComponent($className, $name, null, false);
+                if(isset($this->_components[$className])){
+                    return $this->_components[$className];
+                }else{
+                    Yii::import('application.modules.' . $name . '.' . $className);
+                    $this->_components[$className] = Yii::createComponent($className, $name, null, false);
+                    $module = $this->_components[$className];
+                }
             }
         }
         return $module;
