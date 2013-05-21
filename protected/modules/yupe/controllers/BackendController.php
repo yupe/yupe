@@ -56,8 +56,6 @@ class BackendController extends YBackController
         if (!($module = Yii::app()->getModule($module)))
             throw new CHttpException(404, Yii::t('YupeModule.yupe', 'Страница настроек данного модуля недоступна!'));
 
-        $elements           = array();
-        
         $editableParams     = $module->editableParams;
         $moduleParamsLabels = $module->paramsLabels;
         $paramGroups        = $module->getEditableParamsGroups();
