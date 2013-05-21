@@ -23,6 +23,7 @@
             )),
             array('icon' => 'trash', 'label' => Yii::t('DictionaryModule.dictionary', 'Удалить справочник'), 'url' => '#', 'linkOptions' => array(
                 'submit' => array('/dictionary/default/delete', 'id' => $model->id),
+                'params' => array(Yii::app()->request->csrfTokenName => Yii::app()->request->csrfToken),
                 'confirm' => Yii::t('DictionaryModule.dictionary', 'Вы уверены, что хотите удалить справочник?'),
             )),
         )),

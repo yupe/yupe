@@ -1,5 +1,5 @@
 # О документации #    
-**Автор**: [Комманда разработчиков Юпи!](http://yupe.ru/feedback/index?from=docs)
+**Автор**: [Команда разработчиков Юпи!](http://yupe.ru/feedback/index?from=docs)
 
 **Версия**: 0.1 (dev)
 

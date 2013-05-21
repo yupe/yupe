@@ -21,6 +21,7 @@
         )),
         array('icon' => 'trash', 'label' => Yii::t('CommentModule.comment', 'Удалить комментарий'), 'url' => '#', 'linkOptions' => array(
             'submit' => array('/comment/default/delete', 'id' => $model->id),
+            'params' => array(Yii::app()->request->csrfTokenName => Yii::app()->request->csrfToken),
             'confirm' => Yii::t('CommentModule.comment', 'Вы уверены, что хотите удалить комментарий?'),
         )),
     );

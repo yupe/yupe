@@ -58,7 +58,11 @@ class TemplateAdminController extends YBackController
                     Yii::t('MailModule.mail', 'Запись добавлена!')
                 );
 
-                $this->redirect(array('view', 'id' => $model->id));
+                $this->redirect(
+                    (array) Yii::app()->request->getPost(
+                        'submit-type', array('create')
+                    )
+                );
             }
         }
         $this->render('create', array('model' => $model));

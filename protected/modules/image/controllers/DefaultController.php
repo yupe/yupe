@@ -23,18 +23,45 @@ class DefaultController extends YBackController
     public function actionCreate()
     {
         $model = new Image;
-        if (isset($_POST['Image'])) {
-            $model->attributes = $_POST['Image'];
-            if ($model->save()) {
-                Yii::app()->user->setFlash(
-                    YFlashMessages::NOTICE_MESSAGE,
-                    Yii::t('ImageModule.image', 'Изображение добавлено!')
-                );
 
-                if (!isset($_POST['submit-type']))
-                    $this->redirect(array('update', 'id' => $model->id));
-                else
-                    $this->redirect(array($_POST['submit-type']));
+        if (isset($_POST['Image'])) {
+
+            $transaction = Yii::app()->db->beginTransaction();
+
+            try
+            {
+                $model->attributes = $_POST['Image'];
+
+                if ($model->save()) {
+
+                    if(Yii::app()->hasModule('gallery') && $model->galleryId){
+                        if(!$model->setGalleryId($model->galleryId)){
+                            throw new CDbException(Yii::t('ImageModule.image','При добавлении картинки в галерею произошла ошибка =('));
+                        }
+                    }
+
+                    $transaction->commit();
+
+                    Yii::app()->user->setFlash(
+                        YFlashMessages::NOTICE_MESSAGE,
+                        Yii::t('ImageModule.image', 'Изображение добавлено!')
+                    );
+
+                    $this->redirect(
+                        (array) Yii::app()->request->getPost(
+                            'submit-type', array('create')
+                        )
+                    );
+                }
+            }
+            catch(Exception $e)
+            {
+                $transaction->rollback();
+
+                Yii::app()->user->setFlash(
+                    YFlashMessages::ERROR_MESSAGE,
+                    $e->getMessage()
+                );
             }
         }
         $this->render('create', array('model' => $model));

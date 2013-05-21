@@ -33,12 +33,11 @@ class DefaultController extends YBackController
                     Yii::t('NewsModule.news', 'Новость добавлена!')
                 );
 
-                if (!isset($_POST['submit-type']))
-                    $this->redirect(array('update', 'id' => $model->id));
-                else
-                    $this->redirect(array($_POST['submit-type']));
-
-                $this->redirect(array('view', 'id' => $model->id));
+                $this->redirect(
+                    (array) Yii::app()->request->getPost(
+                        'submit-type', array('create')
+                    )
+                );
             }
         }
 

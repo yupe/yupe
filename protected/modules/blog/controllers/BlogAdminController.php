@@ -40,10 +40,7 @@ class BlogAdminController extends YBackController
                 );
                 $this->redirect(
                     (array) Yii::app()->request->getPost(
-                        'submit-type', array(
-                            'update',
-                            'id' => $model->id
-                        )
+                        'submit-type', array('create')
                     )
                 );
             }
