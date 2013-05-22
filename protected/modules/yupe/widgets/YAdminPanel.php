@@ -14,7 +14,7 @@ class YAdminPanel extends YWidget
 {
     public function init()
     {
-        $this->yupe->getComponent('bootstrap');
+        $this->controller->yupe->getComponent('bootstrap');
 
         parent::init();
     }
