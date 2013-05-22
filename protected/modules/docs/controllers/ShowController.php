@@ -21,7 +21,7 @@ class ShowController extends YFrontController
     {
         parent::init();
 
-        Yii::app()->theme = null;
+        $this->yupe->getComponent('bootstrap');
 
         $this->layout = 'withsidebar';
     }

@@ -42,8 +42,9 @@ if (!empty($files)) {
     foreach ($files as $file) {
         $name = pathinfo($file, PATHINFO_FILENAME);
 
-        if (!is_dir(dirname(dirname(__FILE__)) . DIRECTORY_SEPARATOR . 'modules' . DIRECTORY_SEPARATOR . $name))
+        if (!is_dir(dirname(dirname(__FILE__)) . DIRECTORY_SEPARATOR . 'modules' . DIRECTORY_SEPARATOR . $name)){
             continue;
+        }
         
         $moduleConfig = require $file;
 
