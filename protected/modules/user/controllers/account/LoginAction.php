@@ -44,7 +44,12 @@ class LoginAction extends CAction
                 );
 
                 Yii::log(
-                    Yii::t('UserModule.user', 'Пользователь {email} авторизовался!', array('{email}' => $form->email)),
+                    Yii::t(
+                        'UserModule.user', 'Пользователь {email} авторизовался с IP-адресом {ip}!', array(
+                            '{email}' => $form->email,
+                            '{ip}'    => Yii::app()->request->getUserHostAddress(),
+                        )
+                    ),
                     CLogger::LEVEL_INFO, UserModule::$logCategory
                 );
 
