@@ -32,7 +32,16 @@ class LoginAction extends CAction
      **/
     public function run()
     {
-        $form = new LoginForm;
+
+        /**
+         * Если было совершено больше 3х попыток входа
+         * в систему, используем сценарий с капчей:
+         **/
+        $form = new LoginForm(
+            Yii::app()->user->getState('badLoginCount', 0) >= 3
+                ? 'loginLimit'
+                : ''
+        );
 
         if (Yii::app()->request->isPostRequest && !empty($_POST['LoginForm'])) {
             $form->setAttributes($_POST['LoginForm']);
@@ -59,12 +68,18 @@ class LoginAction extends CAction
                     ? array($module->loginAdminSuccess)
                     : array($module->loginSuccess);
 
+                #die('<pre>' . print_r(Yii::app()->user->getReturnUrl(), true) . ' ' . print_r($redirect, true));
+
                 /**
                  * #485 Редиректим запрошенный URL (если такой был задан)
                  * {@link CWebUser getReturnUrl}
                  */
+                Yii::app()->user->setState('badLoginCount', null);
+
                 $this->controller->redirect(Yii::app()->user->getReturnUrl($redirect));
             } else {
+                Yii::app()->user->setState('badLoginCount', Yii::app()->user->getState('badLoginCount', 0) + 1);
+
                 Yii::log(
                     Yii::t(
                         'user', 'Ошибка авторизации с IP-адресом {ip}! email => {email}, Password => {password}!', array(

@@ -38,6 +38,21 @@ Yii::app()->clientScript->registerCssFile(
                     <?php echo $form->textFieldRow($model, 'email', array('class' => 'span12')); ?>
                     <?php echo $form->passwordFieldRow($model, 'password', array('class' => 'span12')); ?>
                 </div>
+                <?php if (Yii::app()->user->getState('badLoginCount', 0) >= 3): ?>
+                    <div class='row-fluid'>
+                        <?php if (CCaptcha::checkRequirements('gd')): ?>
+                            <?php echo $form->labelEx($model, 'verifyCode'); ?>
+                            <div>
+                                <?php $this->widget('CCaptcha', array('showRefreshButton' => true)); ?>
+                                <?php echo $form->textField($model, 'verifyCode'); ?>
+                                <?php echo $form->error($model, 'verifyCode'); ?>
+                            </div>
+                            <div class="hint">
+                                <?php echo Yii::t('UserModule.user', 'Введите текст указанный на картинке'); ?>
+                            </div>
+                        <?php endif; ?>
+                    </div>
+                <?php endif; ?>
             </fieldset>
             <div class="form-actions">
                 <?php
