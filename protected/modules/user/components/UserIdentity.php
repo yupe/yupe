@@ -73,7 +73,7 @@ class UserIdentity extends CUserIdentity
                         }
                     }
                 }
-                Yii::app()->session['modSettings'] = $sessionSettings;
+                Yii::app()->user->setState('modSettings', $sessionSettings);
             }
 
             // зафиксируем время входа
