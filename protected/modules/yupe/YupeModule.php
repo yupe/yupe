@@ -68,7 +68,7 @@ class YupeModule extends YWebModule
      **/
     public function getVersion()
     {
-        return Yii::t('YupeModule.yupe', '0.5.1');
+        return Yii::t('YupeModule.yupe', '0.5.2');
     }
 
     /**
