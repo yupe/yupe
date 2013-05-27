@@ -30,7 +30,7 @@
     <title><?php echo CHtml::encode($this->pageTitle); ?></title>
 </head>
 <body>
-<?php //$this->widget('application.modules.yupe.widgets.YAdminPanel'); ?>
+<?php $this->widget('application.modules.yupe.widgets.YAdminPanel'); ?>
 <div class="container" id="page">
     <div id="header">
         <div id="logo">
