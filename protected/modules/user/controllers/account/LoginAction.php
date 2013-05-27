@@ -68,9 +68,10 @@ class LoginAction extends CAction
             else
                 Yii::log(
                     Yii::t(
-                        'user', 'Ошибка авторизации! email => {email}, Password => {password}!', array(
-                            '{email}' => $form->email,
-                            '{password}' => $form->password
+                        'user', 'Ошибка авторизации с IP-адресом {ip}! email => {email}, Password => {password}!', array(
+                            '{email}'    => $form->email,
+                            '{password}' => $form->password,
+                            '{ip}'       => Yii::app()->request->getUserHostAddress(),
                         )
                     ),
                     CLogger::LEVEL_ERROR, UserModule::$logCategory
