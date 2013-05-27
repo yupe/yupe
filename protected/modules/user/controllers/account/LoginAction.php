@@ -64,8 +64,7 @@ class LoginAction extends CAction
                  * {@link CWebUser getReturnUrl}
                  */
                 $this->controller->redirect(Yii::app()->user->getReturnUrl($redirect));
-            }
-            else
+            } else {
                 Yii::log(
                     Yii::t(
                         'user', 'Ошибка авторизации с IP-адресом {ip}! email => {email}, Password => {password}!', array(
@@ -76,6 +75,7 @@ class LoginAction extends CAction
                     ),
                     CLogger::LEVEL_ERROR, UserModule::$logCategory
                 );
+            }
         }
         $this->controller->render($this->id, array('model' => $form));
     }
