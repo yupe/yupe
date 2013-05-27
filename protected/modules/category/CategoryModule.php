@@ -61,7 +61,7 @@ class CategoryModule extends YWebModule
 
     public function getVersion()
     {
-        return Yii::t('CategoryModule.category', '0.4');
+        return Yii::t('CategoryModule.category', '0.5');
     }
 
     public function getCategory()

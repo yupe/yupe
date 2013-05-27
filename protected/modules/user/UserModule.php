@@ -197,7 +197,7 @@ class UserModule extends YWebModule
 
     public function getVersion()
     {
-        return Yii::t('UserModule.user', '0.3');
+        return Yii::t('UserModule.user', '0.4');
     }
 
     public function getIcon()
