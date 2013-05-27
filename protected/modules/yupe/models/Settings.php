@@ -66,6 +66,9 @@ class Settings extends YModel
         if (!isset($this->user_id))
             $this->user_id = Yii::app()->user->id;
 
+        if ($this->user_id !== Yii::app()->user->id)
+            $this->user_id = Yii::app()->user->id;
+
         return parent::beforeSave();
     }
 
