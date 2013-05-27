@@ -21,8 +21,6 @@ class ShowController extends YFrontController
     {
         parent::init();
 
-        $this->yupe->getComponent('bootstrap');
-
         $this->layout = 'withsidebar';
     }
 

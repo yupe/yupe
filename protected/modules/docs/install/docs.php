@@ -13,4 +13,18 @@ return array(
         '/backend/docs/<action:\w+>'                                     => 'docs/default/<action>',
         '/docs'                                                          => 'docs/show/index',
     ),
+    'module' => array(
+        'preload' => array('bootstrap'),
+        'components' => array(
+            'bootstrap' => array(
+                'class'          => 'application.modules.yupe.extensions.booster.components.Bootstrap',
+                'coreCss'        => true,
+                'responsiveCss'  => true,
+                'yiiCss'         => true,
+                'jqueryCss'      => true,
+                'enableJS'       => true,
+                'fontAwesomeCss' => true,
+            ),
+        ),
+    ),
 );
