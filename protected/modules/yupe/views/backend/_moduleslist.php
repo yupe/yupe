@@ -81,7 +81,7 @@ function moduleRow($module, &$updates, &$modules, &$controller)
         <td>
             <small class='label <?php
                 $v = $module->version;
-                echo (($n = strpos($v, "(dev)")) !== false)
+                echo (($n = strpos($v, "")) !== false)
                     ? "label-warning' title='" . Yii::t('YupeModule.yupe', 'Модуль в разработке') . "'>" . substr($v, 0, $n)
                     : "'>" . $v;
                 ?></small>

@@ -22,7 +22,7 @@ return array(
     ' выполнение: {time}' => 'execution {time}',
     '( дополнительные модули всегда можно поискать на {link} или {order_link} )' => '( You can always search additional modules on the {link} or {order_link} )',
     '--выберите--' => '--select--',
-    '0.5.1 (dev)' => '0.5.1 (dev)',
+    '0.5.1 ' => '0.5.1 ',
     'Email администратора' => 'Admin\'s e-mail',
     'ID' => 'ID',
     'Layout административной части' => 'Layout  administrative part',

@@ -6,7 +6,7 @@
  * @package  YupeCMS
  * @author   Alexander Tischenko <tsm@glavset.ru>
  * @license  BSD https://raw.github.com/yupe/yupe/master/LICENSE
- * @version  0.5 (dev)
+ * @version  0.5
  * @link     http://www.yupe.ru
  */
 
@@ -17,7 +17,7 @@
  * @package  YupeCMS
  * @author   Alexander Tischenko <tsm@glavset.ru>
  * @license  BSD https://raw.github.com/yupe/yupe/master/LICENSE
- * @version  0.5 (dev)
+ * @version  0.5
  * @link     http://www.yupe.ru
  */
 class Migrator extends CApplicationComponent

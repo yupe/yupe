@@ -134,8 +134,8 @@ class YCustomGridView extends TbExtendedGridView
                 $this->_updatePageSize();
             }
             // Check for value at session or use default value
-            elseif(isset(Yii::app()->session['modSettings'][strtolower($this->_modelName)]['pageSize'])) {
-                $pagination->pageSize = Yii::app()->session['modSettings'][strtolower($this->_modelName)]['pageSize'];
+            elseif(isset(Yii::app()->user->getState('modSettings', null)[strtolower($this->_modelName)]['pageSize'])) {
+                $pagination->pageSize = Yii::app()->user->getState('modSettings', null)[strtolower($this->_modelName)]['pageSize'];
             }
         }
     }
@@ -253,7 +253,7 @@ class YCustomGridView extends TbExtendedGridView
         // ID текущей модели
         $modelID = strtolower($this->_modelName);
         // Делаем так, ибо при попытке править Yii::app()->session['modSettings'] - получаем ошибку
-        $sessionSettings = Yii::app()->session['modSettings'];
+        $sessionSettings = Yii::app()->user->getState('modSettings', null);
         $currentPageSize = $this->dataProvider->getPagination()->pageSize;
 
         if (!isset($sessionSettings[$modelID])) {
@@ -282,7 +282,7 @@ class YCustomGridView extends TbExtendedGridView
         }
         $sessionSettings[$modelID]['pageSize'] = $currentPageSize;
         // Перезаписываем сессию
-        Yii::app()->session['modSettings'] = $sessionSettings;
+        Yii::app()->user->setState('modSettings', $sessionSettings);
     }
 
     /**

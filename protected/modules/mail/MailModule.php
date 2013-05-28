@@ -147,4 +147,36 @@ class MailModule extends YWebModule
 
         parent::init();
     }
+
+    /**
+     * Указываем, что модуль не отключаемый
+     *
+     * @return boolean
+     **/
+    public function getIsNoDisable()
+    {
+        return true;
+    }
+
+    /**
+     * Указываем, что модуль будет установлен поумолчанию:
+     *
+     * @return boolean
+     **/
+    public function getIsInstallDefault()
+    {
+        return true;
+    }
+
+    /**
+     * Получаем массив с именами модулей, от которых зависит работа данного модуля
+     * 
+     * @return array Массив с именами модулей, от которых зависит работа данного модуля
+     * 
+     * @since 0.5
+     */
+    public function getDependencies()
+    {
+        return array('user');
+    }
 }
