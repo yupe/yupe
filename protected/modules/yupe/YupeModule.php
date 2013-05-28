@@ -618,16 +618,16 @@ class YupeModule extends YWebModule
                 // Цепочка зависимостей:
                 $chain = new CChainedCacheDependency();
 
+                // Зависимость на тег:
+                $chain->dependencies->add(
+                    new TagsCache('yupe', 'navigation', 'installedModules')
+                );
+
                 // Зависимость на каталог 'application.config.modules':
                 $chain->dependencies->add(
                     new CDirectoryCacheDependency(
                         Yii::getPathOfAlias('application.config.modules')
                     )
-                );
-
-                // Зависимость на тег:
-                $chain->dependencies->add(
-                    new TagsCache('yupe', 'navigation', 'installedModules')
                 );
 
                 Yii::app()->cache->set(
