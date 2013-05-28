@@ -104,7 +104,7 @@ Yii::app()->clientScript->registerScript(
                     <td>
                         <small class='label <?php
                             $v = $module->version;
-                            echo (($n = strpos($v, "(dev)")) !== false)
+                            echo (($n = strpos($v, "")) !== false)
                                 ? "label-warning' title='" . Yii::t('InstallModule.install', 'Модуль в разработке') . "'>" . substr($v, 0, $n)
                                 : "'>" . $v;
                         ?></small>
