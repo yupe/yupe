@@ -79,12 +79,7 @@ function moduleRow($module, &$updates, &$modules, &$controller)
     <tr class="<?php echo ($module->isActive) ? (is_array($module->checkSelf()) ? 'error' : '') : 'muted';?>">
         <td><?php echo $module->icon ? "<i class='icon-" . $module->icon . "'>&nbsp;</i> " : ""; ?></td>
         <td>
-            <small class='label <?php
-                $v = $module->version;
-                echo (($n = strpos($v, "")) !== false)
-                    ? "label-warning' title='" . Yii::t('YupeModule.yupe', 'Модуль в разработке') . "'>" . substr($v, 0, $n)
-                    : "'>" . $v;
-                ?></small>
+            <small class='label'> <?php echo $module->version; ?></small>
         </td>
         <td>
             <?php if ($module->isMultiLang()) : ?>
