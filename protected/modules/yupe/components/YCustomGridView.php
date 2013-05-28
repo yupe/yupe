@@ -114,6 +114,7 @@ class YCustomGridView extends TbExtendedGridView
      */
     protected function initPageSizes()
     {
+        $modSettings = Yii::app()->user->getState('modSettings', null);
         $pagination = $this->dataProvider->getPagination();
         if (
             !$this->enablePagination
@@ -134,8 +135,8 @@ class YCustomGridView extends TbExtendedGridView
                 $this->_updatePageSize();
             }
             // Check for value at session or use default value
-            elseif(isset(Yii::app()->user->getState('modSettings', null)[strtolower($this->_modelName)]['pageSize'])) {
-                $pagination->pageSize = Yii::app()->user->getState('modSettings', null)[strtolower($this->_modelName)]['pageSize'];
+            elseif(isset($modSettings[strtolower($this->_modelName)]['pageSize'])) {
+                $pagination->pageSize = $modSettings[strtolower($this->_modelName)]['pageSize'];
             }
         }
     }
