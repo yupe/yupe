@@ -16,12 +16,12 @@ if (count($modules)) :
         if ($m->canActivate() === false)
             continue;
 
-        if ($m->isActive || $m->isNoDisable) {
+        if ($m->getIsActive() || $m->getIsNoDisable()) {
             $on[$m->id] = $m;
             if (isset($updates[$m->id]))
                 $has[$m->id] = $m;
         }
-        else if ($m->isInstalled)
+        else if ($m->getIsInstalled())
             $off[$m->id] = $m;
         else
             $dis[$m->id] = $m;
@@ -73,18 +73,13 @@ if (count($modules)) :
 endif;
 
 
-function moduleRow($module, &$updates, &$modules, &$controller)
+function moduleRow($module, &$updates, &$modules)
 {
 ?>
-    <tr class="<?php echo ($module->isActive) ? (is_array($module->checkSelf()) ? 'error' : '') : 'muted';?>">
-        <td><?php echo $module->icon ? "<i class='icon-" . $module->icon . "'>&nbsp;</i> " : ""; ?></td>
+    <tr class="<?php echo ($module->getIsActive()) ? (is_array($module->checkSelf()) ? 'error' : '') : 'muted';?>">
+        <td><?php echo $module->icon ? "<i class='icon-" . $module->getIcon() . "'>&nbsp;</i> " : ""; ?></td>
         <td>
-            <small class='label <?php
-                $v = $module->version;
-                echo (($n = strpos($v, "")) !== false)
-                    ? "label-warning' title='" . Yii::t('YupeModule.yupe', 'Модуль в разработке') . "'>" . substr($v, 0, $n)
-                    : "'>" . $v;
-                ?></small>
+            <small class='label'><?php echo $module->getVersion();?></small>
         </td>
         <td>
             <?php if ($module->isMultiLang()) : ?>
@@ -92,29 +87,29 @@ function moduleRow($module, &$updates, &$modules, &$controller)
             <?php endif; ?>
         </td>
         <td>
-            <small style="font-size: 80%;"><?php echo Yii::t('YupeModule.yupe', $module->category); ?></small><br />
-            <?php if ($module->isActive || $module->isNoDisable): ?>
-                <?php echo CHtml::link($module->name . ' <small>(' . $module->id . ')</small>', $module->adminPageLinkNormalize); ?>
+            <small style="font-size: 80%;"><?php echo Yii::t('YupeModule.yupe', $module->getCategory()); ?></small><br />
+            <?php if ($module->getIsActive() || $module->getIsNoDisable()): ?>
+                <?php echo CHtml::link($module->getName() . ' <small>(' . $module->id . ')</small>', $module->getAdminPageLinkNormalize()); ?>
             <?php else: ?>
-                <span><?php echo $module->name . ' <small>(' . $module->id . ')</small>'; ?></span>
+                <span><?php echo $module->getName() . ' <small>(' . $module->id . ')</small>'; ?></span>
             <?php endif; ?>
         </td>
         <td>
             <?php echo $module->description; ?>
             <br />
-            <small style="font-size: 80%;"> <?php echo "<b>" . Yii::t('YupeModule.yupe', "Автор:") . "</b> " . $module->author; ?>
-            (<a href="mailto:<?php echo $module->authorEmail; ?>"><?php echo $module->authorEmail; ?></a>) &nbsp;
-            <?php echo "<b>" . Yii::t('YupeModule.yupe', 'Сайт модуля:') . "</b> " . CHtml::link($module->url, $module->url); ?></small><br />
+            <small style="font-size: 80%;"> <?php echo "<b>" . Yii::t('YupeModule.yupe', "Автор:") . "</b> " . $module->getAuthor(); ?>
+            (<a href="mailto:<?php echo $module->getAuthorEmail(); ?>"><?php echo $module->getAuthorEmail(); ?></a>) &nbsp;
+            <?php echo "<b>" . Yii::t('YupeModule.yupe', 'Сайт модуля:') . "</b> " . CHtml::link($module->getUrl(), $module->getUrl()); ?></small><br />
         </td>
         <td style="font-size: 10px;">
             <?php
                 $tabs = array();
 
-                if ($module->id != 'yupe' && count($module->dependencies))
+                if ($module->id != 'yupe' && count($module->getDependencies()))
                 {
-                    $deps = $module->dependencies;
+                    $deps = $module->getDependencies();
                     foreach($deps as &$dep)
-                        $dep = $modules[$dep]->name;
+                        $dep = $modules[$dep]->getName();
                     $tabs[] = array(
                         'label'   => Yii::t('YupeModule.yupe', 'Зависит от'),
                         'content' => implode(', ', $deps),
@@ -128,10 +123,10 @@ function moduleRow($module, &$updates, &$modules, &$controller)
                         'count'   => Yii::t('YupeModule.yupe', 'Все'),
                     );
                 else
-                    if(count($deps = $module->dependent))
+                    if(count($deps = $module->getDependent()))
                     {
                         foreach($deps as &$dep)
-                            $dep = $modules[$dep]->name;
+                            $dep = $modules[$dep]->getName();
                         $tabs[] = array(
                             'label'   => Yii::t('YupeModule.yupe', 'Зависимые'),
                             'content' => implode(', ', $deps),
@@ -148,7 +143,7 @@ function moduleRow($module, &$updates, &$modules, &$controller)
               ?>
         </td>
         <td>
-            <?php if ($module->isActive && $module->editableParams): ?>
+            <?php if ($module->getIsActive() && $module->getEditableParams()): ?>
                 <?php echo CHtml::link('<i class="icon-wrench" rel="tooltip" title="' . Yii::t('YupeModule.yupe', 'Настройки') . '">&nbsp;</i>', array(
                     '/yupe/backend/modulesettings/',
                     'module' => $module->id,
@@ -161,9 +156,9 @@ function moduleRow($module, &$updates, &$modules, &$controller)
                     'module' => $module->id,
                 );
 
-                echo $module->isNoDisable ? '' :
-                    ($module->isInstalled
-                        ? ($module->isActive
+                echo $module->getIsNoDisable() ? '' :
+                    ($module->getIsInstalled()
+                        ? ($module->getIsActive()
                             ? CHtml::link('<i class="icon-minus-sign" rel="tooltip" title="' . Yii::t('YupeModule.yupe', 'Выключить') . '">&nbsp;</i>', $url + array('status' => '0'), array_merge($htmlOptions, array('status' => 0, 'method' => 'deactivate')))
                             : CHtml::link('<i class="icon-ok-sign" rel="tooltip" title="' . Yii::t('YupeModule.yupe', 'Включить') . '">&nbsp;</i>', $url + array('status' => '1'), array_merge($htmlOptions, array('status' => 1, 'method' => 'activate'))) .
                                 ($module->isNeedUninstall()
@@ -174,9 +169,9 @@ function moduleRow($module, &$updates, &$modules, &$controller)
                         : CHtml::link('<i class="icon-download-alt" rel="tooltip" title="' . Yii::t('YupeModule.yupe', 'Установить') . '">&nbsp;</i>', $url + array('status' => '1'), array_merge($htmlOptions, array('status' => 1, 'method' => 'install')))
                     );
 
-                if (isset($updates[$module->id]) && $module->isInstalled)
+                if (isset($updates[$module->id]) && $module->getIsInstalled())
                     echo CHtml::link('<i class="icon-refresh" rel="tooltip" title="' . Yii::t('YupeModule.yupe', 'Есть {n} обновление базы!|Есть {n} обновления базы!|Есть {n} обновлений базы!', count($updates[$module->id])) . '">&nbsp;</i>', array('/yupe/backend/modupdate', 'name' => $module->id));
-                if ($module->isActive && $module->isConfigNeedUpdate())
+                if ($module->getIsActive() && $module->isConfigNeedUpdate())
                     echo CHtml::link('<i class="icon-repeat" rel="tooltip" title="' . Yii::t('YupeModule.yupe', 'Есть обновление файла конфигурации!') . '">&nbsp;</i>', $url + array('status' => '2'), array_merge($htmlOptions, array('status' => 2, 'method' => 'update')));
                 ?>
         </td>

@@ -103,8 +103,9 @@ class DefaultController extends YBackController
      */
     protected function beforeAction($action)
     {
-        if ($this->yupe->cache)
+        if ($this->yupe->cache){
             Yii::app()->cache->flush();
+        }
 
         /**
          * Если шаг не выполнен - возвращаем на предыдущий:
@@ -120,10 +121,8 @@ class DefaultController extends YBackController
                 $this->createUrl(Yii::app()->controller->module->getPrevStep())
             );
         }
-
         $this->stepName = Yii::app()->controller->module->getInstallSteps($action->id);
-
-        return parent::beforeAction($action);
+        return true;
     }
 
     /**
@@ -720,16 +719,15 @@ class DefaultController extends YBackController
 
             foreach ($modules as &$m) {
                 $modulesByName[$m->id] = $m;
-                if ($m->isNoDisable || (isset($_POST['module_' . $m->id]) && $_POST['module_' . $m->id]))
+                if ($m->getIsNoDisable() || (isset($_POST['module_' . $m->id]) && $_POST['module_' . $m->id]))
                     $toInstall[$m->id] = $m;
             }
             unset($m);
 
-            // Проверим зависимости @TODO Unused local variable $deps
-            $deps = array();
             foreach ($toInstall as $m) {
-                if ($m->dependencies !== array()) {
-                    foreach ($m->dependencies as $dep) {
+                $deps = $m->getDependencies();
+                if (!empty($deps)) {
+                    foreach ($deps as $dep) {
                         if (!isset($toInstall[$dep])) {
                             Yii::app()->user->setFlash(
                                 YFlashMessages::ERROR_MESSAGE,
@@ -750,10 +748,10 @@ class DefaultController extends YBackController
                 // Переносим конфигурационные файлы не устанавливаемых модулей в back-папку
                 $files = glob($this->yupe->getModulesConfig() . "*.php");
                 foreach ($files as $file) {
-                    $name = preg_replace('#^.*/([^\.]*)\.php$#', '$1', $file);
-
-                    if ($name == 'yupe')
+                    $name = pathinfo($file,PATHINFO_BASENAME);
+                    if ($name == 'yupe'){
                         continue;
+                    }
 
                     $fileModule     = $this->yupe->getModulesConfigDefault($name);
                     $fileConfig     = $this->yupe->getModulesConfig($name);
@@ -825,7 +823,6 @@ class DefaultController extends YBackController
 
         if (empty($name) || !isset($modules[$name])) {
             throw new CHttpException(404, Yii::t('InstallModule.install', 'Указанный модуль {name} не найден!', array('{name}' => $name)));
-            Yii::app()->end();
         }
 
         ob_start();
@@ -836,9 +833,7 @@ class DefaultController extends YBackController
         $this->_logMessage($module, Yii::t('InstallModule.install', 'Обновляем базу модуля до актуального состояния!'));
 
         try {
-            // @TODO Unused local variable $installed
-            $installed = $module->install;
-
+            $module->getInstall();
             $this->_logMessage($module, Yii::t('InstallModule.install', 'Модуль установлен!'));
             echo CJSON::encode(array('installed' => array($module->id), 'log' => ob_get_clean()));
         } catch(Exception $e) {
@@ -1048,7 +1043,7 @@ class DefaultController extends YBackController
     public function actionFinish()
     {
         try {
-            Yii::app()->getModule('install')->activate;
+            Yii::app()->getModule('install')->getActivate();
             Yii::app()->user->setFlash(
                 YFlashMessages::NOTICE_MESSAGE,
                 Yii::t('InstallModule.install', "Модуль install отключен!")

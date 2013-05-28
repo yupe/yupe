@@ -34,8 +34,9 @@ $this->widget(
 $morder = array('yupe' => 99999, 'user' => 99998);
 
 foreach ($modules as $mid => $m) {
-    if (!empty($m->dependencies)) {
-        foreach ($m->dependencies as $d)
+    $dep = $m->getDependencies();
+    if (!empty($dep)) {
+        foreach ($dep as $d)
             $morder[$d] = isset($morder[$d]) ? ($morder[$d] + 1) : 1;
     }
 }

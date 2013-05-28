@@ -265,7 +265,7 @@ class BackendController extends YBackController
             if (($module = Yii::app()->getModule($name)) == null)
                 $module = $this->yupe->getCreateModule($name);
 
-            if ($module->isInstalled) {
+            if ($module->getIsInstalled()) {
                 $updates = Yii::app()->migrator->checkForUpdates(array($name => $module));
                 if (Yii::app()->request->isPostRequest) {
                     Yii::app()->migrator->updateToLatest($name);
@@ -384,22 +384,22 @@ class BackendController extends YBackController
             try {
                 switch ($status) {
                 case 0:
-                    if ($module->isActive) {
-                        $module->deActivate;
+                    if ($module->getIsActive()) {
+                        $module->getDeActivate();
                         $message = Yii::t('YupeModule.yupe', 'Модуль успешно отключен!');
                     } else {
-                        $module->unInstall;
+                        $module->getUnInstall();
                         $message = Yii::t('YupeModule.yupe', 'Модуль успешно деинсталлирован!');
                     }
                     $result = true;
                     break;
                 
                 case 1:
-                    if ($module->isInstalled) {
-                        $module->activate;
+                    if ($module->getIsInstalled()) {
+                        $module->getActivate();
                         $message = Yii::t('YupeModule.yupe', 'Модуль успешно включен!');
                     } else {
-                        $module->install;
+                        $module->getInstall();
                         $message = Yii::t('YupeModule.yupe', 'Модуль успешно установлен!');
                     }
                     $result = true;

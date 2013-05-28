@@ -1,7 +1,7 @@
 <?php
 $this->breadcrumbs = array(
     Yii::t('YupeModule.yupe', 'Система') => array('settings'),
-    Yii::t('YupeModule.yupe', 'Настройки модулей'),
+    Yii::t('YupeModule.yupe', 'Модули'),
 );
 ?>
 
@@ -13,10 +13,10 @@ $this->breadcrumbs = array(
 <div class="alert">
     <p>
         <?php
-            $yupeCount   = count($modules);
+            $yupeCount = count($modules);
             $enableCount = 0;
             foreach ($modules as $module) {
-                if ($module->isActive || $module->isNoDisable)
+                if ($module->getIsActive() || $module->getIsNoDisable())
                     $enableCount++;
             }
         ?>
