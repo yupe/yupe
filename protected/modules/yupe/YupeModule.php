@@ -581,7 +581,7 @@ class YupeModule extends YWebModule
                         }
 
                         // Проверка на вывод модуля в категориях, потребуется при отключении модуля
-                        if (!$modules[$key]->isShowInAdminMenu) {
+                        if (!$modules[$key]->getIsShowInAdminMenu()) {
                             continue;
                         }
 
@@ -687,10 +687,11 @@ class YupeModule extends YWebModule
      */
     public function getModulesDisabled($enableModule = array())
     {
-        if (($imports = Yii::app()->cache->get('pathForImports')) !== false)
+        if (($imports = Yii::app()->cache->get('pathForImports')) !== false){
             $this->setImport($imports);
+        }
         
-        if ($imports === false || ($modules = Yii::app()->cache->get('getModulesDisabled')) === false) {
+        if ($imports === false || ($modules = Yii::app()->cache->get('modulesDisabled')) === false) {
             $path = $this->getModulesConfigDefault();
             $enableModule = array_keys($enableModule);
 
@@ -707,7 +708,7 @@ class YupeModule extends YWebModule
                 closedir($handler);
             }
 
-            Yii::app()->cache->set('getModulesDisabled', $modules, 0, new TagsCache('yupe', 'getModulesDisabled', 'installedModules'));
+            Yii::app()->cache->set('modulesDisabled', $modules, 0, new TagsCache('yupe', 'modulesDisabled', 'installedModules'));
             Yii::app()->cache->set('pathForImports', $imports, 0, new TagsCache('yupe', 'installedModules', 'pathForImports'));
         }
 
@@ -725,8 +726,12 @@ class YupeModule extends YWebModule
     public function getCreateModule($name)
     {
         if (Yii::app()->hasModule($name)) {
+            Yii::log("Get cached module $name",CLogger::LEVEL_ERROR,'modinit');
             return Yii::app()->getModule($name);
         }
+
+        Yii::log("Stat create module $name",CLogger::LEVEL_ERROR,'modinit');
+
         $path = $this->getModulesConfigDefault();
         $module = null;
         if ($path) {
@@ -825,7 +830,6 @@ class YupeModule extends YWebModule
                 if ($dir != '.' && $dir != '..' && !is_file($dir)) {
                     //посмотреть внутри файл с окончанием Widget.php
                     $files = glob($path . '/' . $dir . '/' . '*Widget.php');
-
                     if (count($files) == 1) {
                         $editor = $this->editorsDir . '.' . $dir . '.' . basename(array_shift($files), '.php');
                         $widgets[$editor] = $editor;

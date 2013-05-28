@@ -125,8 +125,7 @@ class DefaultController extends YBackController
 
     /**
      * Deletes a particular model.
-     * If deletion is successful, the browser will be redirected to the 'index' page.
-     * @TODO Unused parameter $id
+     * If deletion is successful, the browser will be redirected to the 'index' page
      */
     public function actionDelete($id = null)
     {

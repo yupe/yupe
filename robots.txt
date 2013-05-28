@@ -1,8 +1,1 @@
-User-agent: *
-Disallow: /user/account/login
-Disallow: /user/account/logout
-Disallow: /user/account/recovery
-Disallow: /yupe/backend/
-Disallow: /login
-Disallow: /logout
-Disallow: /recovery
+1223456e

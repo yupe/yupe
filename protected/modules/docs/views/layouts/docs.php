@@ -69,7 +69,7 @@
                                     'icon'  => 'icon-thumbs-up icon-white',
                                     'url'   => 'http://yupe.ru/?from=doc-navbar'
                                 ),
-                            ), Yii::app()->getModule('yupe')->languageSelectorArray
+                            ), $this->yupe->languageSelectorArray
                         ),
                     ),
                 ),

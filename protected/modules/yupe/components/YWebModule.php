@@ -261,7 +261,7 @@ abstract class YWebModule extends CWebModule
             $modulesNoDisable = array();
 
             foreach ($modules['modules'] as $module) {
-                if ($module->isNoDisable) {
+                if ($module->getIsNoDisable()) {
                     $modulesNoDisable[] = $module->id;
                 }
             }
@@ -291,8 +291,9 @@ abstract class YWebModule extends CWebModule
             $modulesDependent = array();
 
             foreach ($modules['modules'] as $module) {
-                if (!empty($module->dependencies) && is_array($module->dependencies)) {
-                    $modulesDependent[$module->id] = $module->dependencies;
+                $dep = $module->getDependencies();
+                if (!empty($dep) && is_array($dep)) {
+                    $modulesDependent[$module->id] = $dep;
                 }
             }
             Yii::app()->cache->set(
@@ -327,7 +328,7 @@ abstract class YWebModule extends CWebModule
     {
         $modulesDependent = Yii::app()->cache->get('YupeModulesDependent');
         if ($modulesDependent === false) {
-            $modules = $this->dependenciesAll;
+            $modules = $this->getDependenciesAll();
             foreach ($modules as $id => $dependencies) {
                 foreach ($dependencies as $dependency) {
                     $modulesDependent[$dependency][] = $id;
@@ -351,7 +352,7 @@ abstract class YWebModule extends CWebModule
      */
     public function getDependent()
     {
-        $modulesDependent = $this->dependents;
+        $modulesDependent = $this->getDependents();
         return isset($modulesDependent[$this->id]) ? $modulesDependent[$this->id] : array();
     }
 
@@ -450,7 +451,7 @@ abstract class YWebModule extends CWebModule
         } else {
             // Проверка модулей от которых зависит данный
             if (!$noDependen) {
-                $dependencies = $this->dependencies;
+                $dependencies = $this->getDependencies();
                 if (!empty($dependencies) && is_array($dependencies)) {
                     foreach ($dependencies as $dependency) {
                         if (Yii::app()->getModule($dependency) == null) {
@@ -503,7 +504,7 @@ abstract class YWebModule extends CWebModule
         } else {
             // Проверка зависимых модулей
             if (!$noDependen) {
-                $dependent = $this->dependent;
+                $dependent = $this->getDependent();
                 if (!empty($dependent) && is_array($dependent)) {
                     foreach ($dependent as $dependen) {
                         if (Yii::app()->getModule($dependen) != null) {
@@ -519,7 +520,7 @@ abstract class YWebModule extends CWebModule
                 }
             }
 
-            if ($this->isNoDisable) {
+            if ($this->getIsNoDisable()) {
                 throw new CException(Yii::t('YupeModule.yupe', 'Этот модуль запрещено отключать!'));
             } elseif (@md5_file($fileModule) != @md5_file($fileConfig) && !@copy($fileConfig, $fileConfigBack)) {
                 throw new CException(
@@ -551,7 +552,7 @@ abstract class YWebModule extends CWebModule
      */
     public function getInstall()
     {
-        return ($this->id == 'yupe' || $status = $this->activate) ? $this->installDB() : $status;
+        return ($this->id == 'yupe' || $status = $this->getActivate()) ? $this->installDB() : $status;
     }
 
     /**
@@ -563,9 +564,8 @@ abstract class YWebModule extends CWebModule
      */
     public function getUnInstall()
     {
-        if ($this->isActive) {
+        if ($this->getIsActive()) {
             throw new CException(Yii::t('YupeModule.yupe', 'Сначала отключите модуль!'));
-            return false;
         }
         return $this->uninstallDB();
     }
@@ -590,8 +590,8 @@ abstract class YWebModule extends CWebModule
             )
         );
 
-        if ($this->dependencies !== array()) {
-            foreach ($this->dependencies as $dep) {
+        if ($this->getDependencies() !== array()) {
+            foreach ($this->getDependencies() as $dep) {
                 Yii::log(
                     Yii::t(
                         'YupeModule.yupe',
@@ -636,8 +636,6 @@ abstract class YWebModule extends CWebModule
      */
     public function uninstallDB()
     {
-        // @TODO Unused local variable $log
-        $log = array();
         Yii::log(
             Yii::t(
                 'YupeModule.yupe',
@@ -683,8 +681,8 @@ abstract class YWebModule extends CWebModule
 
             return true;
         }
+
         throw new CException(Yii::t('YupeModule.yupe', 'Произошла ошибка удаления БД модуля!'));
-        return false;
     }
 
     /**
@@ -729,6 +727,8 @@ abstract class YWebModule extends CWebModule
     public function init()
     {
         parent::init();
+
+        Yii::log("Init yupe module {$this->id} !",CLogger::LEVEL_ERROR,'modinit');
 
         $settings = null;
 

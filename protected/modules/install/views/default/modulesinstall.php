@@ -84,18 +84,18 @@ Yii::app()->clientScript->registerScript(
                     continue;
                 }
                 $modulesSelection['all'][] = '#module_' . $module->id;
-                if ($module->isInstallDefault)
+                if ($module->getIsInstallDefault())
                     $modulesSelection['recom'][] = '#module_' . $module->id;
-                if ($module->isNoDisable)
+                if ($module->getIsNoDisable())
                     $modulesSelection['basic'][] = '#module_' . $module->id;
             ?>
                 <tr>
                     <td>
                         <?php echo CHtml::checkBox('module_' . $module->id,
-                            ($post && !$module->isNoDisable )
+                            ($post && !$module->getIsNoDisable() )
                                 ? (isset($_POST['module_' . $module->id]) && $_POST['module_' . $module->id])
-                                : ($module->isInstallDefault ? true : false),
-                            $module->isNoDisable
+                                : ($module->getIsInstallDefault() ? true : false),
+                            $module->getIsNoDisable()
                                 ? array('onclick' => 'this.checked=true')
                                 : array()
                         ); ?>
@@ -129,8 +129,8 @@ Yii::app()->clientScript->registerScript(
                         <?php
                             $tabs = array();
 
-                            if ($module->id != 'yupe' && count($module->dependencies)) {
-                                $deps = $module->dependencies;
+                            if ($module->id != 'yupe' && count($module->getDependencies())) {
+                                $deps = $module->getDependencies();
                                 foreach($deps as &$dep)
                                     $dep = $data['modules'][$dep]->name;
                                 $tabs[] = array(
@@ -146,7 +146,7 @@ Yii::app()->clientScript->registerScript(
                                     'count'   => Yii::t('InstallModule.install', 'Все'),
                                 );
                             else
-                                if(count($deps = $module->dependent)) {
+                                if(count($deps = $module->getDependent())) {
                                     foreach($deps as &$dep)
                                         $dep = $data['modules'][$dep]->name;
                                     $tabs[] = array(
@@ -164,7 +164,7 @@ Yii::app()->clientScript->registerScript(
                             ?>
                         <br />
 
-                        <?php echo $module->isNoDisable
+                        <?php echo $module->getIsNoDisable()
                             ? '<span class="label label-warning" style="font-size: 10px;">' . Yii::t('InstallModule.install', 'Модуль не отключаемый') . '</span>'
                             : ''
                         ?>
@@ -178,12 +178,12 @@ Yii::app()->clientScript->registerScript(
     </table>
 
     <?php
-    $dependencies              = $module->dependenciesAll;
+    $dependencies              = $module->getDependenciesAll();
     $keyDependencies           = implode(', #module_', array_keys($dependencies));
 
     $jsArray                   = CJavaScript::encode($dependencies);
-    $jsArrayRevert             = CJavaScript::encode($module->dependents);
-    $jsArrayNoDisable          = CJavaScript::encode($module->modulesNoDisable);
+    $jsArrayRevert             = CJavaScript::encode($module->getDependents());
+    $jsArrayNoDisable          = CJavaScript::encode($module->getModulesNoDisable());
 
     $modulesSelection['recom'] = implode(', ', $modulesSelection['recom']);
     $modulesSelection['all']   = implode(', ', $modulesSelection['all']);
