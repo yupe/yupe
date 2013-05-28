@@ -364,7 +364,7 @@ class DefaultController extends YBackController
             ),
             array(
                 Yii::t('InstallModule.install', 'Расширение PDO'),
-                false,
+                true,
                 extension_loaded('pdo'),
                 Yii::t(
                     'InstallModule.install',

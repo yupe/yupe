@@ -102,12 +102,7 @@ Yii::app()->clientScript->registerScript(
                     </td>
                     <td><?php echo ($module->icon ? ("<i class='icon-" . $module->icon . "'>&nbsp;</i> ") : ""); ?></td>
                     <td>
-                        <small class='label <?php
-                            $v = $module->version;
-                            echo (($n = strpos($v, "")) !== false)
-                                ? "label-warning' title='" . Yii::t('InstallModule.install', 'Модуль в разработке') . "'>" . substr($v, 0, $n)
-                                : "'>" . $v;
-                        ?></small>
+                        <small class='label'> <?php echo $module->version; ?></small>
                     </td>
                     <td>
                         <?php if ($module->isMultiLang()) : ?>
