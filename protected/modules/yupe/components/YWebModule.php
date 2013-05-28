@@ -265,10 +265,12 @@ abstract class YWebModule extends CWebModule
                     $modulesNoDisable[] = $module->id;
                 }
             }
+
             Yii::app()->cache->set(
                 'YupeModulesNoDisable',
                 $modulesNoDisable,
-                Yii::app()->getModule('yupe')->coreCacheTime
+                Yii::app()->getModule('yupe')->coreCacheTime,
+                new TagsCache('yupe', 'installedModules')
             );
         }
         return $modulesNoDisable;
@@ -297,7 +299,8 @@ abstract class YWebModule extends CWebModule
             Yii::app()->cache->set(
                 'YupeModulesDependenciesAll',
                 $modulesDependent,
-                Yii::app()->getModule('yupe')->coreCacheTime
+                0,
+                new TagsCache('installedModules', 'yupe')
             );
         }
         return $modulesDependent;
@@ -335,7 +338,8 @@ abstract class YWebModule extends CWebModule
             Yii::app()->cache->set(
                 'YupeModulesDependent',
                 $modulesDependent,
-                Yii::app()->getModule('yupe')->coreCacheTime
+                0,
+                new TagsCache('yupe', 'installedModules')
             );
         }
         return $modulesDependent;
@@ -405,17 +409,17 @@ abstract class YWebModule extends CWebModule
             
             // Цепочка зависимостей:
             $chain = new CChainedCacheDependency();
+            
+            // Зависимость на тег:
+            $chain->dependencies->add(
+                new TagsCache('installedModules', 'yupe', $this->getId())
+            );
 
             // Зависимость на каталог 'application.config.modules':
             $chain->dependencies->add(
                 new CDirectoryCacheDependency(
                     Yii::getPathOfAlias('application.config.modules')
                 )
-            );
-
-            // Зависимость на тег:
-            $chain->dependencies->add(
-                new TagsCache('installedModules')
             );
 
             Yii::app()->cache->set(
@@ -588,6 +592,8 @@ abstract class YWebModule extends CWebModule
             )
         );
 
+        Yii::app()->cache->clear('installedModules', 'getModulesDisabled');
+
         if ($this->getDependencies() !== array()) {
             foreach ($this->getDependencies() as $dep) {
                 Yii::log(
@@ -619,8 +625,6 @@ abstract class YWebModule extends CWebModule
             }
         }
         $log[] = $this->id;
-
-        Yii::app()->cache->clear('installedModules');
 
         return (Yii::app()->migrator->updateToLatest($this->id) && ($installed[$this->id] = true)) ? $log : false;
     }
@@ -669,12 +673,13 @@ abstract class YWebModule extends CWebModule
                     }
                 }
             }
+
             Yii::app()->user->setFlash(
                 YFlashMessages::WARNING_MESSAGE,
                 $message
             );
             
-            Yii::app()->cache->clear('installedModules');
+            Yii::app()->cache->clear('installedModules', $this->getId(), 'yupe', 'getModulesDisabled');
 
             return true;
         }
