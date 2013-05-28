@@ -85,8 +85,6 @@ class LanguageBehavior extends CBehavior
             }
         } elseif (Yii::app()->hasModule('user')) {
 
-            $user = Yii::app()->user;
-
             // Пробуем получить код языка из кук
             $cookiesLang = Yii::app()->getModule('yupe')->cache
                         && isset(Yii::app()->request->cookies[$lm->langParam])

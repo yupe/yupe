@@ -33,7 +33,7 @@ class InstallModule extends YWebModule
     {
         $messages = array();
 
-        if ($this->isActive)
+        if ($this->getIsActive())
             $messages[YWebModule::CHECK_ERROR][] = array(
                 'type'    => YWebModule::CHECK_ERROR,
                 'message' => Yii::t('yupe', 'У Вас активирован модуль "Установщик", после установки системы его необходимо отключить!')

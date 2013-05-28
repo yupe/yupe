@@ -87,13 +87,6 @@ class YMainController extends Controller
                     )
                 );
                 return null;
-            } elseif (Yii::app()->hasModule($modulePath[2]) && ($this->module === null || $this->module->getId() !== $modulePath[2])) {
-                /**
-                 * Решаем проблему с доступом к переводам другого модуля:
-                 * @todo пока лучшее решение, если есть возможность решить
-                 *       как-то иначе и быстрее - стоит переделать
-                 */
-                Yii::app()->getModule($modulePath[2]);
             }
         }
         return parent::widget($className, $properties, $captureOutput);

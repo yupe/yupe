@@ -3,7 +3,7 @@
 </div>
 
 <?php foreach ($modules as $module): ?>
-    <?php if ($module->isActive): ?>
+    <?php if ($module->getIsActive()): ?>
         <?php $messages = $module->checkSelf(); ?>
         <?php if (is_array($messages)): ?>
             <?php foreach ($messages as $key => $value): ?>
@@ -54,7 +54,7 @@
         $allCount    = $yupeCount + $yiiCount;
         $enableCount = 0;
         foreach ($modules as $module) {
-            if ($module->isActive || $module->isNoDisable)
+            if ($module->getIsActive() || $module->getIsNoDisable())
                 $enableCount++;
         }
         ?>
