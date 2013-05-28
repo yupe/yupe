@@ -25,7 +25,7 @@ class TaggingCacheBehavior extends CBehavior
     public function clear($tags)
     {
         foreach ((array) $tags as $tag)
-            $this->owner->set(self::PREFIX.$tag, microtime(true));
+            $this->owner->set(self::PREFIX . $tag, microtime(true) + microtime(true));
 
         Yii::log(
             Yii::t(
