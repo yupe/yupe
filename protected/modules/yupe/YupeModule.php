@@ -726,8 +726,12 @@ class YupeModule extends YWebModule
     public function getCreateModule($name)
     {
         if (Yii::app()->hasModule($name)) {
+            Yii::log("Get cached module $name",CLogger::LEVEL_ERROR,'modinit');
             return Yii::app()->getModule($name);
         }
+
+        Yii::log("Stat create module $name",CLogger::LEVEL_ERROR,'modinit');
+
         $path = $this->getModulesConfigDefault();
         $module = null;
         if ($path) {
@@ -826,7 +830,6 @@ class YupeModule extends YWebModule
                 if ($dir != '.' && $dir != '..' && !is_file($dir)) {
                     //посмотреть внутри файл с окончанием Widget.php
                     $files = glob($path . '/' . $dir . '/' . '*Widget.php');
-
                     if (count($files) == 1) {
                         $editor = $this->editorsDir . '.' . $dir . '.' . basename(array_shift($files), '.php');
                         $widgets[$editor] = $editor;

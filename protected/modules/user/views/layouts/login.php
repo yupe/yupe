@@ -32,7 +32,7 @@
         <footer>
             Copyright &copy; 2009-<?php echo date('Y'); ?>
             <a href='http://yupe.ru?from=blogin'>
-                <?php echo Yii::app()->getModule('yupe')->poweredBy();?>
+                <?php echo $this->yupe->poweredBy();?>
             </a>
         </footer>
     </body>

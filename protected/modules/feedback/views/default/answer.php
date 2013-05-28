@@ -96,7 +96,7 @@
         <div class="row-fluid control-group">
             <div class="span12">
                 <?php echo $form->labelEx($answerForm, 'answer'); ?>
-                <?php $this->widget(Yii::app()->getModule('yupe')->editor, array(
+                <?php $this->widget($this->yupe->editor, array(
                       'model'       => $answerForm,
                       'attribute'   => 'answer',
                       'options'     => array(

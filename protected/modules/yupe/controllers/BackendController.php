@@ -154,8 +154,6 @@ class BackendController extends YBackController
                         )
                     )
                 );
-
-                //@TODO исправить очистку кэша
                 Yii::app()->cache->clear($moduleId);
             } else {
                 Yii::app()->user->setFlash(
@@ -181,8 +179,7 @@ class BackendController extends YBackController
                     YFlashMessages::NOTICE_MESSAGE,
                     Yii::t('YupeModule.yupe', 'Настройки тем сохранены!')
                 );
-                //@TODO сброс полностью - плохо =(
-                Yii::app()->cache->flush();
+                Yii::app()->cache->clear('yupe');
             }
             else
                 Yii::app()->user->setFlash(

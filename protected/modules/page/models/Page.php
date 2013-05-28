@@ -214,9 +214,6 @@ class Page extends YModel
 
         $criteria->compare('is_protected', $this->is_protected);
 
-        //@TODO ??? для чего
-        //$criteria->addCondition('"lang" = \'' . Yii::app()->language . '\' OR "lang" is null OR "lang" = \'' . Yii::app()->sourceLanguage . '\'');
-
         return new CActiveDataProvider(get_class($this), array(
             'criteria' => $criteria,
             'sort' => array('defaultOrder' => 't.order DESC, t.creation_date DESC'),

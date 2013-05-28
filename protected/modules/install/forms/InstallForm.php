@@ -225,15 +225,9 @@ class InstallForm extends YFormModel
      **/
     public function getDbTypes()
     {
-        /**
-         * @todo sqlite и oracle имееют специфические настройки подключения
-         *       стоит придумать как это лучше реализовать
-         **/
         return array(
             self::DB_MYSQL      => 'mysql',
             self::DB_POSTGRESQL => 'pgsql',
-            self::DB_MSSQL      => 'mssql',
-            self::DB_ORACLE     => 'oci',
             self::DB_SQLITE     => 'sqlite',
         );
     }

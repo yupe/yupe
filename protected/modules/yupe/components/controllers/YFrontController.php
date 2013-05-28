@@ -5,11 +5,6 @@
 class YFrontController extends YMainController
 {
     /**
-     * Меню сайта, меняется в админке
-     * @TODO скорее всего можно эту переменную убрать, необходима проверка
-     */
-    public $menu        = array();
-    /**
      * Хлебные крошки сайта, меняется в админке
      */
     public $breadcrumbs = array();
