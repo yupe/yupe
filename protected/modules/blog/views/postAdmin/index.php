@@ -81,6 +81,11 @@ $this->renderPartial('_search', array('model' => $model));
                 'value' => 'CHtml::link($data->blog->name, array("/blog/blogAdmin/view", "id" => $data->blog->id))',
             ),
             array(
+                'name'  => 'category_id',
+                'value'  => 'empty($data->category) ? "---" : $data->category->name',
+                'filter' => CHtml::listData($this->module->getCategoryListForPost(),'id','name')
+            ),
+            array(
                 'name'  => 'access_type',
                 'type'  => 'raw',
                 'value' => '$this->grid->returnBootstrapStatusHtml($data, "access_type", "AccessType", array(1 => "globe", 2 => "home"))',

@@ -24,6 +24,7 @@
  * @property string $lang
  * @property string $create_user_ip
  * @property string $image
+ * @property integer $category_id
  *
  * The followings are the available model relations:
  * @property User $createUser
@@ -69,7 +70,7 @@ class Post extends YModel
         // will receive user inputs.
         return array(
             array('blog_id, slug, publish_date_tmp, publish_time_tmp, title, content', 'required', 'except' => 'search'),
-            array('blog_id, create_user_id, update_user_id, status, comment_status, access_type, create_date, update_date', 'numerical', 'integerOnly' => true),
+            array('blog_id, create_user_id, update_user_id, status, comment_status, access_type, create_date, update_date, category_id', 'numerical', 'integerOnly' => true),
             array('blog_id, create_user_id, update_user_id, create_date, update_date, publish_date, status, comment_status, access_type', 'length', 'max' => 11),
             array('lang', 'length', 'max' => 2),
             array('slug', 'length', 'max' => 150),
@@ -113,6 +114,7 @@ class Post extends YModel
                     ':status' => Comment::STATUS_APPROVED
                 )
             ),
+            'category' => array(self::BELONGS_TO,'Category','category_id')
         );
     }
 
@@ -190,7 +192,8 @@ class Post extends YModel
             'keywords'         => Yii::t('BlogModule.blog', 'Ключевые слова'),
             'description'      => Yii::t('BlogModule.blog', 'Описание'),
             'tags'             => Yii::t('BlogModule.blog', 'Теги'),
-            'image'            => Yii::t('BlogModule.blog', 'Изображение')
+            'image'            => Yii::t('BlogModule.blog', 'Изображение'),
+            'category_id'      => Yii::t('BlogModule.blog', 'Категория')
         );
     }
 
@@ -245,6 +248,7 @@ class Post extends YModel
         $criteria->compare('t.status', $this->status);
         $criteria->compare('comment_status', $this->comment_status);
         $criteria->compare('access_type', $this->access_type);
+        $criteria->compare('category_id', $this->category_id, true);
 
         $criteria->with = array('createUser', 'updateUser', 'blog');
 
