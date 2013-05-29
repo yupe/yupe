@@ -883,7 +883,7 @@ class DefaultController extends YBackController
                 // Переносим конфигурационные файлы не устанавливаемых модулей в back-папку
                 $files = glob($this->yupe->getModulesConfig() . "*.php");
                 foreach ($files as $file) {
-                    $name = pathinfo($file, PATHINFO_BASENAME);
+                    $name = pathinfo($file, PATHINFO_FILENAME);
                     if ($name == 'yupe') {
                         continue;
                     }
