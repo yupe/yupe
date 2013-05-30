@@ -15,7 +15,7 @@
     <meta charset="UTF-8"/>
     <meta name="keywords" content="<?php echo $this->keywords; ?>"/>
     <meta name="description" content="<?php echo $this->description; ?>"/>
-    <link rel="shortcut icon" href="<?php echo Yii::app()->theme->baseUrl; ?>/favicon.ico"/>
+    <link rel="shortcut icon" href="<?php echo Yii::app()->baseUrl; ?>/favicon.ico"/>
 
     <!-- blueprint CSS framework -->
     <link rel="stylesheet" href="<?php echo Yii::app()->theme->baseUrl; ?>/web/css/screen.css"
@@ -38,7 +38,7 @@
                 <?php echo CHtml::image(Yii::app()->baseUrl . '/web/images/main-logo.png'); ?>
             </a>
             <span style="vertical-align: 10px; margin-left: 20px; font-size: 27px;">
-                <?php echo CHtml::encode($this->yupe->siteDescription); ?>
+                <?php echo CHtml::encode($this->description); ?>
             </span>
 
             <div id="header-right">

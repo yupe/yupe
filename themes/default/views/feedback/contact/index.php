@@ -99,6 +99,7 @@ $this->breadcrumbs = array('Обратная связь');
             </div>
         <?php endif; ?>
     <?php endif; ?>
+    
     <div class="row submit">
         <?php echo CHtml::submitButton('Отправить сообщение'); ?>
     </div>
