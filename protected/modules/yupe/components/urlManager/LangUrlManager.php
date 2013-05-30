@@ -32,8 +32,6 @@ class LangUrlManager extends CUrlManager
      */
     public function init()
     {
-        Yii::log("Init urlManager...",CLogger::LEVEL_ERROR,'modinit');
-
         // Получаем из настроек доступные языки:
         $langs = Yii::app()->getModule('yupe')->availableLanguages;
 
