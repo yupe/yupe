@@ -162,9 +162,6 @@ class Menu extends YModel
                 )
             );
 
-            if ($results === null)
-                throw new CHttpException(400, Yii::t('MenuModule.menu', 'Неверный запрос.'));
-
             $items = array();
 
             if (empty($results))
