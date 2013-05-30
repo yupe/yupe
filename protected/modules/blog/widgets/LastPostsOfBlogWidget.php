@@ -2,7 +2,7 @@
 class LastPostsOfBlogWidget extends YWidget
 {
     public $limit = 10;
-    public $blogID;
+    public $blogId;
 
     public function run()
     {
@@ -15,7 +15,7 @@ class LastPostsOfBlogWidget extends YWidget
                     )
                 )
             )
-        )->findByPk($this->blogID);
+        )->findByPk($this->blogId);
 
         $this->render('lastpostsofblog', array('model' => $blog));
     }
