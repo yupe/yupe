@@ -20,13 +20,20 @@
         <?php echo $form->textField($model, 'email'); ?>
         <?php echo $form->error($model, 'email'); ?>
     </div>
-
+s
     <div class="row">
         <?php echo $form->labelEx($model, 'password'); ?>
         <?php echo $form->passwordField($model, 'password'); ?>
         <?php echo $form->error($model, 'password'); ?>
     </div>
 
+    <?php if($this->getModule()->sessionLifeTime > 0):  ?>
+    <div class="row">
+        <?php echo $form->labelEx($model, 'remember_me'); ?>
+        <?php echo CHtml::activeCheckBox($model, 'remember_me'); ?>
+        <?php echo $form->error($model, 'remember_me'); ?>
+    </div>
+    <?php endif; ?>
     <?php if (Yii::app()->user->getState('badLoginCount', 0) >= 3): ?>
         <div class='row'>
             <?php if (CCaptcha::checkRequirements('gd')): ?>
