@@ -224,6 +224,12 @@ return array(
                         'countLimit'   => 1,    // How many times the same query should be executed to be considered inefficient
                         'slowQueryMin' => 0.01, // Minimum time for the query to be slow
                     ),
+                    /*
+                    array(
+                        'class'=>'application.extensions.yii-debug-toolbar.YiiDebugToolbarRoute',
+                        'ipFilters'=>array('127.0.0.1', '46.172.254.123'),
+                    ),
+                    //*/
                 ),
             ),
             // подключение CURL-обертки, подробнее https://github.com/hackerone/curl

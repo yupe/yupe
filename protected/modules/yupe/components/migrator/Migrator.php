@@ -215,6 +215,7 @@ class Migrator extends CApplicationComponent
         ob_implicit_flush(false);
 
         echo Yii::t('YupeModule.yupe', "Применяем миграцию {class}", array('{class}' => $class));
+        Yii::app()->cache->clear('getMigrationHistory');
 
         $start = microtime(true);
         $migration = $this->instantiateMigration($module, $class);
@@ -289,6 +290,7 @@ class Migrator extends CApplicationComponent
         ob_implicit_flush(false);
         $result = $migration->down();
         Yii::log($msg = ob_get_clean());
+        Yii::app()->cache->clear('getMigrationHistory');
 
         if ($result !== false) {
             $db->createCommand()->delete(
@@ -380,6 +382,8 @@ class Migrator extends CApplicationComponent
     {
         $db = $this->getDbConnection();
 
+        #Yii::app()->cache->clear('getMigrationHistory');
+
         $allData = Yii::app()->cache->get('getMigrationHistory');
 
         if ($allData === false || !isset($allData[$module])) {
@@ -398,7 +402,7 @@ class Migrator extends CApplicationComponent
 
             $allData[$module] = $data;
 
-            Yii::app()->cache->set('getMigrationHistory', $allData, 3600, new TagsCache('yupe', 'installedModules', 'getMigrationHistory'));
+            Yii::app()->cache->set('getMigrationHistory', $allData, 3600, new TagsCache('yupe', 'installedModules', 'getModulesDisabled', 'getMigrationHistory', $module));
 
         } else
             $data = $allData[$module];
