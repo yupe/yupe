@@ -730,11 +730,10 @@ abstract class YWebModule extends CWebModule
     {
         parent::init();
 
-        Yii::log("Init yupe module {$this->id} !",CLogger::LEVEL_ERROR,'modinit');
-
         $settings = null;
 
-        try {
+        try
+        {
             $settingsRows = Yii::app()->db
                 ->cache($this->coreCacheTime, new TagsCache($this->getId(), 'settings'))
                 ->createCommand(

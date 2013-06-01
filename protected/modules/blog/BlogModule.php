@@ -2,6 +2,7 @@
 class BlogModule extends YWebModule
 {
     public $mainCategory;
+    public $mainPostCategory;
     public $minSize           = 0;
     public $maxSize           = 5368709120;
     public $maxFiles          = 1;
@@ -30,7 +31,8 @@ class BlogModule extends YWebModule
     public function getParamsLabels()
     {
         return array(
-            'mainCategory'      => Yii::t('BlogModule.blog', 'Главная категория блогов'),
+            'mainCategory'      => Yii::t('BlogModule.blog', 'Главная категория для блогов'),
+            'mainPostCategory'  => Yii::t('BlogModule.blog', 'Главная категория для постов'),
             'adminMenuOrder'    => Yii::t('BlogModule.blog', 'Порядок следования в меню'),
             'editor'            => Yii::t('BlogModule.blog', 'Визуальный редактор'),
             'uploadPath'        => Yii::t('BlogModule.blog', 'Каталог для загрузки файлов (относительно {path})', array('{path}' => Yii::getPathOfAlias('webroot') . DIRECTORY_SEPARATOR . Yii::app()->getModule("yupe")->uploadPath)),
@@ -46,6 +48,7 @@ class BlogModule extends YWebModule
             'adminMenuOrder',
             'editor' => Yii::app()->getModule('yupe')->getEditors(),
             'mainCategory' => CHtml::listData($this->getCategoryList(),'id','name'),
+            'mainPostCategory' => CHtml::listData($this->getCategoryList(),'id','name'),
             'uploadPath',
             'allowedExtensions',
             'minSize',
@@ -59,6 +62,19 @@ class BlogModule extends YWebModule
             ? array(
                 'condition' => 'id = :id OR parent_id = :id',
                 'params'    => array(':id' => $this->mainCategory),
+                'order'     => 'id ASC',
+            )
+            : array();
+
+        return Category::model()->findAll($criteria);
+    }
+
+    public function getCategoryListForPost()
+    {
+        $criteria = ($this->mainPostCategory)
+            ? array(
+                'condition' => 'id = :id OR parent_id = :id',
+                'params'    => array(':id' => $this->mainPostCategory),
                 'order'     => 'id ASC',
             )
             : array();
