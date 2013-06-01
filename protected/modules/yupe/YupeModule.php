@@ -525,6 +525,7 @@ class YupeModule extends YWebModule
             }
 
             $modulesNavigation = Yii::app()->cache->get('YupeModulesNavigation-' . Yii::app()->language);
+
             if ($modulesNavigation === false) {
                 
                 // Формируем навигационное меню

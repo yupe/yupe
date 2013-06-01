@@ -56,8 +56,8 @@ class BackendController extends YBackController
         if (!($module = Yii::app()->getModule($module)))
             throw new CHttpException(404, Yii::t('YupeModule.yupe', 'Страница настроек данного модуля недоступна!'));
 
-        $editableParams     = $module->editableParams;
-        $moduleParamsLabels = $module->paramsLabels;
+        $editableParams     = $module->getEditableParams();
+        $moduleParamsLabels = $module->getParamsLabels();
         $paramGroups        = $module->getEditableParamsGroups();
         
         // разберем элементы по группам
@@ -72,8 +72,9 @@ class BackendController extends YBackController
                     : $name ;
 
             if ($name === 'main') {
-                if ($label !== $name)
+                if ($label !== $name){
                     $mainParams["paramsgroup_".$name] = CHtml::tag("h4", array(), $label);
+                }
                 $mainParams = array_merge($mainParams, $layout);
             } else {
                 $elements["paramsgroup_" . $name] = CHtml::tag("h4", array(), $label);
