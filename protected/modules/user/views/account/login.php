@@ -20,7 +20,7 @@
         <?php echo $form->textField($model, 'email'); ?>
         <?php echo $form->error($model, 'email'); ?>
     </div>
-s
+
     <div class="row">
         <?php echo $form->labelEx($model, 'password'); ?>
         <?php echo $form->passwordField($model, 'password'); ?>
