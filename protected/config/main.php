@@ -208,6 +208,11 @@ return array(
             'cache' => CMap::mergeArray(
                 array(
                     'class' => 'CDummyCache',
+                    'behaviors' => array(
+                        'clear' => array(
+                            'class' => 'application.modules.yupe.extensions.tagcache.TaggingCacheBehavior',
+                        ),
+                    ),
                 ), $config['cache']
             ),
             // параметры логирования, подробнее http://www.yiiframework.ru/doc/guide/ru/topics.logging
