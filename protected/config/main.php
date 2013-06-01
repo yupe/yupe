@@ -93,6 +93,9 @@ return array(
         // preloading components
         $config['preload']
     ),
+    'aliases' => array(
+        'bootstrap' => realpath(__DIR__ . '/../modules/yupe/extensions/booster'),
+    ),
     'import'            => CMap::mergeArray(
         array(
             // подключение основых путей
@@ -138,7 +141,7 @@ return array(
                 'forceCopy' => false,
             ),
             'bootstrap' => array(
-                'class'          => 'application.modules.yupe.extensions.booster.components.Bootstrap',
+                'class'          => 'bootstrap.components.Bootstrap',
                 'coreCss'        => false,
                 'responsiveCss'  => false,
                 'yiiCss'         => false,
