@@ -144,7 +144,7 @@ class Menu extends YModel
     public function getItems($code, $parent_id = 0)
     {
         $userId = Yii::app()->user->getId();
-        $items = Yii::app()->cache->get("Menu::{$code}::user_{$userId}" . Yii::app()->language);
+        $items = Yii::app()->cache->get("Menu::{$code}{$parent_id}::user_{$userId}" . Yii::app()->language);
 
         if ($items === false) {
             $alias = $this->getDbConnection()->getSchema()->quoteTableName('menuItems');
@@ -156,11 +156,9 @@ class Menu extends YModel
                         'order'  => $alias . '.sort ASC, ' . $alias . '.id ASC',
                     )
                 )
-            )->findAll(
+            )->findByAttributes(
                 array(
-                    'select'    => array('id', 'code'),
-                    'condition' => 't.code = :code AND t.status = 1',
-                    'params'    => array(':code' => $code),
+                    'code' => $code
                 )
             );
 
@@ -169,7 +167,7 @@ class Menu extends YModel
             if (empty($results))
                 return $items;
 
-            $resultItems = $results[0]->menuItems;
+            $resultItems = $results->menuItems;
 
             foreach ($resultItems as $result) {
                 $childItems = $this->getItems($code, $result->id);
@@ -211,7 +209,7 @@ class Menu extends YModel
                 ) + $url;
             }
 
-            Yii::app()->cache->set("Menu::{$code}::user_{$userId}" . Yii::app()->language, $items, 0, new TagsCache('menu', $code, 'loggedIn' . $userId));
+            Yii::app()->cache->set("Menu::{$code}{$parent_id}::user_{$userId}" . Yii::app()->language, $items, 0, new TagsCache('menu', $code, 'loggedIn' . $userId));
         }
         return $items;
     }
