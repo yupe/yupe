@@ -7,6 +7,7 @@ class UserModule extends YWebModule
     public $registrationSucess             = '/user/account/login';
     public $loginAdminSuccess              = '';
     public $logoutSuccess;
+    public $sessionLifeTime                = 7;
 
     public $notifyEmailFrom;
     public $autoRecoveryPassword           = true;
@@ -63,6 +64,7 @@ class UserModule extends YWebModule
             'loginAdminSuccess'              => Yii::t('UserModule.user', 'Страница после авторизации админстратора'),
             'registrationSucess'             => Yii::t('UserModule.user', 'Страница после успешной регистрации'),
             'autoNick'                       => Yii::t('UserModule.user', 'Автоматически генерировать уникальный ник и не требовать его указания'),
+            'sessionLifeTime'                => Yii::t('UserModule.user', 'Время жизни сессии (в днях) при включенной опции "Запомнить меня"'),
         );
     }
 
@@ -94,6 +96,7 @@ class UserModule extends YWebModule
             'loginAdminSuccess',
             'registrationSucess',
             'autoNick'                 => $this->getChoice(),
+            'sessionLifeTime'
         );
     }
 
@@ -104,6 +107,7 @@ class UserModule extends YWebModule
                 'label' => Yii::t('YupeModule.yupe', 'Основные настройки модуля'),
                 'items' => array(
                     'adminMenuOrder',
+                    'sessionLifeTime'
                 )
             ),
             'security' => array(
