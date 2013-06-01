@@ -1666,3 +1666,14 @@ pre {
 #feedback-form .row, #login-form .row, #registration-form .row, #recovery-password-form .row {
     margin-left: inherit;
 } 
+
+div.form .rememberMe {
+    margin-bottom: 10px;
+}
+
+div.form .rememberMe label
+{
+    display: inline;
+    position: relative;
+    top: 3px;
+}
