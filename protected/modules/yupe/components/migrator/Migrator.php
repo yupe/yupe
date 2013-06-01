@@ -93,8 +93,9 @@ class Migrator extends CApplicationComponent
 
         $db = $this->getDbConnection();
 
-        // @TODO: add cache here??
-        $data = $db->createCommand()
+        $data = $db->cache(
+                3600, new CDbCacheDependency('select count(id) from ' . $db->tablePrefix . $this->migrationTable)
+            )->createCommand()
             ->selectDistinct('version, apply_time')
             ->from($db->tablePrefix . $this->migrationTable)
             ->order('version DESC')
@@ -379,14 +380,28 @@ class Migrator extends CApplicationComponent
     {
         $db = $this->getDbConnection();
 
-        // @TODO: add cache here??
-        $data = $db->createCommand()
-            ->select('version, apply_time')
-            ->from($db->tablePrefix . $this->migrationTable)
-            ->order('version DESC')
-            ->where('module = :module', array(':module' => $module))
-            ->limit($limit)
-            ->queryAll();
+        $allData = Yii::app()->cache->get('getMigrationHistory');
+
+        if ($allData === false || !isset($allData[$module])) {
+
+            Yii::app()->cache->clear('getMigrationHistory');
+
+            $data = $db->cache(
+                    3600, new CDbCacheDependency('select count(id) from ' . $db->tablePrefix . $this->migrationTable)
+                )->createCommand()
+                ->select('version, apply_time')
+                ->from($db->tablePrefix . $this->migrationTable)
+                ->order('version DESC')
+                ->where('module = :module', array(':module' => $module))
+                ->limit($limit)
+                ->queryAll();
+
+            $allData[$module] = $data;
+
+            Yii::app()->cache->set('getMigrationHistory', $allData, 3600, new TagsCache('yupe', 'installedModules', 'getMigrationHistory'));
+
+        } else
+            $data = $allData[$module];
 
         return CHtml::listData($data, 'version', 'apply_time');
     }
@@ -498,7 +513,9 @@ class Migrator extends CApplicationComponent
     {
         $db = $this->getDbConnection();
         $modules = array();
-        $m = $db->createCommand()
+        $m = $db->cache(
+                3600, new CDbCacheDependency('select count(id) from ' . $db->tablePrefix . $this->migrationTable)
+            )->createCommand()
             ->select('module')
             ->from($db->tablePrefix . $this->migrationTable)
             ->order('module DESC')
