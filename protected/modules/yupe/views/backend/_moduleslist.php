@@ -13,6 +13,7 @@ if (count($modules)) :
     $updates = Yii::app()->migrator->checkForUpdates($modules);
 
     foreach ($modules as &$m) {
+
         if ($m->canActivate() === false)
             continue;
 
@@ -20,11 +21,11 @@ if (count($modules)) :
             $on[$m->id] = $m;
             if (isset($updates[$m->id]))
                 $has[$m->id] = $m;
-        }
-        else if ($m->getIsInstalled())
+        } else if ($m->getIsInstalled()) {
             $off[$m->id] = $m;
-        else
+        } else {
             $dis[$m->id] = $m;
+        }
     } ?>
     <div class="page-header">
     <h6>
@@ -157,7 +158,7 @@ function moduleRow($module, &$updates, &$modules)
                 );
 
                 echo $module->getIsNoDisable() ? '' :
-                    ($module->getIsInstalled()
+                    ($module->getIsInstalled() || $module->getIsActive()
                         ? ($module->getIsActive()
                             ? CHtml::link('<i class="icon-minus-sign" rel="tooltip" title="' . Yii::t('YupeModule.yupe', 'Выключить') . '">&nbsp;</i>', $url + array('status' => '0'), array_merge($htmlOptions, array('status' => 0, 'method' => 'deactivate')))
                             : CHtml::link('<i class="icon-ok-sign" rel="tooltip" title="' . Yii::t('YupeModule.yupe', 'Включить') . '">&nbsp;</i>', $url + array('status' => '1'), array_merge($htmlOptions, array('status' => 1, 'method' => 'activate'))) .

@@ -10,10 +10,10 @@ $allPanelID = array();
         <ul>
             <li><br />&nbsp;<br /></li>
             <?php foreach ($panels as $panel) :
-                array_push($allPanelID, $panel->id);
+                array_push($allPanelID, 'dd-' . $panel->id);
             ?>
-            <li class="yii-debug-toolbar-button <?php echo $panel->id ?>">
-                <a class="yii-debug-toolbar-link" href="#<?php echo $panel->id ?>" id="yii-debug-toolbar-tab-<?php echo $panel->id ?>">
+            <li class="yii-debug-toolbar-button <?php echo 'dd-' . $panel->id ?>">
+                <a class="yii-debug-toolbar-link" href="#<?php echo 'dd-' . $panel->id ?>" id="yii-debug-toolbar-tab-<?php echo 'dd-' . $panel->id ?>">
                     <?php echo CHtml::encode($panel->menuTitle); ?>
                     <?php if (!empty($panel->menuSubTitle)): ?>
                     <br />
@@ -34,7 +34,7 @@ $allPanelID = array();
     </div>
 
     <?php foreach ($panels as $panel) : ?>
-    <div id="<?php echo $panel->id ?>" class="yii-debug-toolbar-panel">
+    <div id="<?php echo 'dd-' . $panel->id ?>" class="yii-debug-toolbar-panel">
         <div class="yii-debug-toolbar-panel-title">
         <a href="#close" class="yii-debug-toolbar-panel-close"><?php echo YiiDebug::t('Close')?></a>
         <h3>

@@ -709,8 +709,22 @@ class YupeModule extends YWebModule
                 closedir($handler);
             }
 
-            Yii::app()->cache->set('modulesDisabled', $modules, 0, new TagsCache('yupe', 'modulesDisabled', 'installedModules'));
-            Yii::app()->cache->set('pathForImports', $imports, 0, new TagsCache('yupe', 'installedModules', 'pathForImports'));
+            $chain = new CChainedCacheDependency();
+
+            // Зависимость на тег:
+            $chain->dependencies->add(
+                new TagsCache('yupe', 'modulesDisabled', 'getModulesDisabled', 'installedModules', 'pathForImports')
+            );
+
+            // Зависимость на каталог 'application.config.modules':
+            $chain->dependencies->add(
+                new CDirectoryCacheDependency(
+                    Yii::getPathOfAlias('application.config.modules')
+                )
+            );
+
+            Yii::app()->cache->set('modulesDisabled', $modules, 0, $chain);
+            Yii::app()->cache->set('pathForImports', $imports, 0, $chain);
         }
 
         return $modules;

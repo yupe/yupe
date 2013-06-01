@@ -394,25 +394,46 @@ abstract class YWebModule extends CWebModule
     public function getIsInstalled()
     {
         $modulesInstalled = Yii::app()->cache->get('YupeModulesInstalled');
+
         if ($modulesInstalled === false) {
             $modulesInstalled = Yii::app()->migrator->modulesWithDBInstalled;
+
+            // Цепочка зависимостей:
+            $chain = new CChainedCacheDependency();
+            
+            // Зависимость на каталог 'application.config.modules':
+            $chain->dependencies->add(
+                new CDirectoryCacheDependency(
+                    Yii::getPathOfAlias('application.config.modules')
+                )
+            );
+            
+            // Зависимость на тег:
+            $chain->dependencies->add(
+                new TagsCache('installedModules', 'disabledModules', 'yupe', $this->getId())
+            );
+
             Yii::app()->cache->set(
                 'YupeModulesInstalled',
                 $modulesInstalled,
-                Yii::app()->getModule('yupe')->coreCacheTime
+                Yii::app()->getModule('yupe')->coreCacheTime,
+                $chain
             );
         }
 
-        $upd = Yii::app()->cache->get('YupeModuleUpdates_' . $this->id);
+        if (!in_array($this->getId(), $modulesInstalled))
+            return false;
+
+        $upd = Yii::app()->cache->get('YupeModuleUpdates_' . $this->getId());
         if ($upd === false) {
-            $upd = Yii::app()->migrator->checkForUpdates(array($this->id => $this));
+            $upd = Yii::app()->migrator->checkForUpdates(array($this->getId() => $this));
             
             // Цепочка зависимостей:
             $chain = new CChainedCacheDependency();
             
             // Зависимость на тег:
             $chain->dependencies->add(
-                new TagsCache('installedModules', 'yupe', $this->getId())
+                new TagsCache('installedModules', 'disabledModules', 'yupe', $this->getId())
             );
 
             // Зависимость на каталог 'application.config.modules':
@@ -423,13 +444,13 @@ abstract class YWebModule extends CWebModule
             );
 
             Yii::app()->cache->set(
-                'YupeModuleUpdates_' . $this->id,
+                'YupeModuleUpdates_' . $this->getId(),
                 $upd,
                 Yii::app()->getModule('yupe')->coreCacheTime,
                 $chain
             );
         }
-        return in_array($this->id, $modulesInstalled) || !count($upd);
+        return in_array($this->getId(), $modulesInstalled) || count($upd);
     }
 
     /**
@@ -447,6 +468,8 @@ abstract class YWebModule extends CWebModule
         $yupe = Yii::app()->getModule('yupe');
         $fileModule = $yupe->getModulesConfigDefault($this->id);
         $fileConfig = $yupe->getModulesConfig($this->id);
+
+        Yii::app()->cache->clear('installedModules', 'getModulesDisabled', 'modulesDisabled', $this->getId());
 
         if (is_file($fileConfig) && $this->id != 'install' && $updateConfig === false) {
             throw new CException(Yii::t('YupeModule.yupe', 'Модуль уже включен!'), 304);
@@ -500,6 +523,8 @@ abstract class YWebModule extends CWebModule
         $fileModule = $yupe->getModulesConfigDefault($this->id);
         $fileConfig = $yupe->getModulesConfig($this->id);
         $fileConfigBack = $yupe->getModulesConfigBack($this->id);
+
+        Yii::app()->cache->clear('installedModules', 'getModulesDisabled', 'modulesDisabled', $this->getId());
 
         if (!is_file($fileConfig) && $this->id != 'install') {
             throw new CException(Yii::t('YupeModule.yupe', 'Модуль уже отключен!'));
@@ -588,11 +613,11 @@ abstract class YWebModule extends CWebModule
             Yii::t(
                 'YupeModule.yupe',
                 "{id}->installDB() : Запрошена установка БД модуля {m}",
-                array('{m}' => $this->name, '{id}' => $this->id)
+                array('{m}' => $this->name, '{id}' => $this->getId())
             )
         );
 
-        Yii::app()->cache->clear('installedModules', 'getModulesDisabled');
+        Yii::app()->cache->clear('installedModules', 'getModulesDisabled', 'modulesDisabled', $this->getId());
 
         if ($this->getDependencies() !== array()) {
             foreach ($this->getDependencies() as $dep) {
@@ -601,7 +626,7 @@ abstract class YWebModule extends CWebModule
                         'YupeModule.yupe',
                         'Для модуля {module} сначала будет установлена база модуля {m2} как зависимость',
                         array(
-                            '{module}' => $this->id,
+                            '{module}' => $this->getId(),
                             '{m2}' => $dep,
                         )
                     )
@@ -642,22 +667,25 @@ abstract class YWebModule extends CWebModule
             Yii::t(
                 'YupeModule.yupe',
                 "{id}->uninstallDB() : Запрошено удаление БД модуля {m}",
-                array('{m}' => $this->name, '{id}' => $this->id)
+                array('{m}' => $this->name, '{id}' => $this->getId())
             )
         );
 
-        $history = Yii::app()->migrator->getMigrationHistory($this->id, -1);
+        $history = Yii::app()->migrator->getMigrationHistory($this->getId(), -1);
         if (!empty($history)) {
-            // Зачем?
+            
+            Yii::app()->cache->clear('installedModules', $this->getId(), 'yupe', 'getModulesDisabled', 'modulesDisabled', $this->getId());
+            
             $message = '';
+            
             foreach ($history as $migrationName => $migrationTimeUp) {
                 if ($migrationTimeUp > 0) {
-                    if (Yii::app()->migrator->migrateDown($this->id, $migrationName)) {
+                    if (Yii::app()->migrator->migrateDown($this->getId(), $migrationName)) {
                         $message .= Yii::t(
                             'YupeModule.yupe',
                             '{m}: Произошёл откат миграции - {migrationName}',
                             array(
-                                '{m}' => $this->id,
+                                '{m}' => $this->getId(),
                                 '{migrationName}' => $migrationName,
                             )
                         ) . '<br />';
@@ -666,7 +694,7 @@ abstract class YWebModule extends CWebModule
                             'YupeModule.yupe',
                             '{m}: Откат миграции {migrationName} неудалось провести.',
                             array(
-                                '{m}' => $this->id,
+                                '{m}' => $this->getId(),
                                 '{migrationName}' => $migrationName,
                             )
                         ) . '<br />';
@@ -678,8 +706,6 @@ abstract class YWebModule extends CWebModule
                 YFlashMessages::WARNING_MESSAGE,
                 $message
             );
-            
-            Yii::app()->cache->clear('installedModules', $this->getId(), 'yupe', 'getModulesDisabled');
 
             return true;
         }
