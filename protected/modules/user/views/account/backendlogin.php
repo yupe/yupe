@@ -37,6 +37,9 @@ Yii::app()->clientScript->registerCssFile(
                 <div class='row-fluid'>
                     <?php echo $form->textFieldRow($model, 'email', array('class' => 'span12')); ?>
                     <?php echo $form->passwordFieldRow($model, 'password', array('class' => 'span12')); ?>
+                    <?php if($this->getModule()->sessionLifeTime > 0):  ?>
+                        <?php echo $form->checkBoxRow($model, 'remember_me'); ?>
+                    <?php endif; ?>
                 </div>
                 <?php if (Yii::app()->user->getState('badLoginCount', 0) >= 3): ?>
                     <div class='row-fluid'>

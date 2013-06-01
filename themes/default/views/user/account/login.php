@@ -31,9 +31,9 @@ $this->breadcrumbs = array('Авторизация');
     </div>
 
     <?php if($this->getModule()->sessionLifeTime > 0):  ?>
-    <div class="row">
+    <div class="row rememberMe">
+        <?php echo $form->checkBox($model, 'remember_me'); ?>
         <?php echo $form->labelEx($model, 'remember_me'); ?>
-        <?php echo CHtml::activeCheckBox($model, 'remember_me'); ?>
         <?php echo $form->error($model, 'remember_me'); ?>
     </div>
     <?php endif; ?>
