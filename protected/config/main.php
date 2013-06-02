@@ -18,18 +18,6 @@ $config = array(
     'modules'      => array(
         'install' => array(
             'class' => 'application.modules.install.InstallModule',
-            'preload'    => array('bootstrap'),
-            'components' => array(
-                'bootstrap' => array(
-                    'class'          => 'application.modules.yupe.extensions.booster.components.Bootstrap',
-                    'coreCss'        => false,
-                    'responsiveCss'  => false,
-                    'yiiCss'         => false,
-                    'jqueryCss'      => false,
-                    'enableJS'       => false,
-                    'fontAwesomeCss' => false,
-                ),
-            ),
         ),
     ),
     'cache'        => array(),
