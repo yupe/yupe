@@ -19,11 +19,11 @@ $form = $this->beginWidget(
 );
 
 Yii::app()->clientScript->registerScript(
-    'fieldset', "
-    $('document').ready(function () {
-        $('.popover-help').popover({ trigger : 'hover', delay : 500 });
-    });"
+    'tooltip', "jQuery('body').tooltip({'selector':'[rel=tooltip]'});",
+    CClientScript::POS_READY
 );
+
+
 ?>
 
     <div class="alert alert-block alert-info">
