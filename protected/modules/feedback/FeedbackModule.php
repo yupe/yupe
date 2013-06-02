@@ -10,6 +10,8 @@ class FeedbackModule extends YWebModule
     public $successPage;
     public $cacheTime        = 60;
     public $mainCategory;
+    public $minCaptchaLength = 3;
+    public $maxCaptchaLength = 20;
 
     const BACKEND_EMAIL = 'email';
     const BACKEND_DB    = 'db';
@@ -34,6 +36,8 @@ class FeedbackModule extends YWebModule
             'successPage'      => Yii::t('FeedbackModule.feedback', 'Страница после отправки формы'),
             'cacheTime'        => Yii::t('FeedbackModule.feedback', 'Время кэширования счетчика (сек.)'),
             'mainCategory'     => Yii::t('FeedbackModule.feedback', 'Главная категория сообщений'),
+            'minCaptchaLength' => Yii::t('FeedbackModule.feedback', 'Минимальная длинна капчи'),
+            'maxCaptchaLength' => Yii::t('FeedbackModule.feedback', 'Максимальная длинна капчи'),
         );
     }
 
@@ -48,6 +52,34 @@ class FeedbackModule extends YWebModule
             'successPage',
             'cacheTime',
             'mainCategory' => CHtml::listData($this->getCategoryList(),'id','name'),
+            'minCaptchaLength',
+            'maxCaptchaLength'
+        );
+    }
+
+    public function getEditableParamsGroups()
+    {
+        return array(
+            'main' => array(
+                'label' => Yii::t('YupeModule.yupe', 'Основные настройки модуля'),
+                'items' => array(
+                    'sendConfirmation',
+                    'notifyEmailFrom',
+                    'emails',
+                    'adminMenuOrder',
+                    'successPage',
+                    'cacheTime',
+                    'mainCategory'
+                )
+            ),
+            'captcha' => array(
+                'label' => Yii::t('YupeModule.yupe', 'Настройки капчи'),
+                'items' => array(
+                    'showCaptcha',
+                    'minCaptchaLength',
+                    'maxCaptchaLength'
+                )
+            ),
         );
     }
 
