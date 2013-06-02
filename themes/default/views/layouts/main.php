@@ -110,7 +110,7 @@
     <div id="footer">
         Copyright &copy; 2009-<?php echo date('Y'); ?>
         <?php echo $this->yupe->poweredBy(); ?>
-        З<?php echo $this->yupe->getVersion(); ?><br/> <?php echo Yii::powered(); ?>
+        <?php echo $this->yupe->getVersion(); ?><br/> <?php echo Yii::powered(); ?>
 
         <?php $this->widget('YPerformanceStatistic'); ?>
     </div>
