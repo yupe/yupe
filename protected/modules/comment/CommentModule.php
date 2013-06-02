@@ -6,6 +6,9 @@ class CommentModule extends YWebModule
     public $notify               = true;
     public $email;
     public $import               = array();
+    public $showCaptcha = 1;
+    public $minCaptchaLength = 3;
+    public $maxCaptchaLength = 20;
 
     public function getDependencies()
     {
@@ -22,6 +25,9 @@ class CommentModule extends YWebModule
             'notify'               => Yii::t('CommentModule.comment', 'Уведомить о новом комментарии?'),
             'email'                => Yii::t('CommentModule.comment', 'Email для уведомлений?'),
             'adminMenuOrder'       => Yii::t('CommentModule.comment', 'Порядок следования в меню'),
+            'showCaptcha'          => Yii::t('CommentModule.comment', 'Показывать капчу для гостей'),
+            'minCaptchaLength'     => Yii::t('CommentModule.comment', 'Минимальная длинна капчи'),
+            'maxCaptchaLength'     => Yii::t('CommentModule.comment', 'Максимальная длинна капчи'),
         );
     }
 
@@ -33,6 +39,33 @@ class CommentModule extends YWebModule
             'notify'               => $this->getChoice(),
             'email',
             'adminMenuOrder',
+            'showCaptcha'          => $this->getChoice(),
+            'minCaptchaLength',
+            'maxCaptchaLength',
+        );
+    }
+
+    public function getEditableParamsGroups()
+    {
+        return array(
+            'main' => array(
+                'label' => Yii::t('YupeModule.yupe', 'Основные настройки модуля'),
+                'items' => array(
+                    'defaultCommentStatus',
+                    'autoApprove',
+                    'notify',
+                    'email',
+                    'adminMenuOrder',
+                )
+            ),
+            'captcha' => array(
+                'label' => Yii::t('YupeModule.yupe', 'Настройки капчи'),
+                'items' => array(
+                    'showCaptcha',
+                    'minCaptchaLength',
+                    'maxCaptchaLength'
+                )
+            ),
         );
     }
 

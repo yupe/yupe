@@ -17,6 +17,7 @@ class UserModule extends YWebModule
     public $emailAccountVerification       = true;
     public $showCaptcha                    = true;
     public $minCaptchaLength               = 5;
+    public $maxCaptchaLength               = 20;
     public $documentRoot;
     public $avatarsDir;
     public $avatarMaxSize                  = 10000;
@@ -56,7 +57,8 @@ class UserModule extends YWebModule
             'minPasswordLength'              => Yii::t('UserModule.user', 'Минимальная длина пароля'),
             'emailAccountVerification'       => Yii::t('UserModule.user', 'Подтверждать аккаунт по Email'),
             'showCaptcha'                    => Yii::t('UserModule.user', 'Показывать капчу при регистрации'),
-            'minCaptchaLength'               => Yii::t('UserModule.user', 'Минимальная длина капчи'),
+            'minCaptchaLength'               => Yii::t('UserModule.user', 'Минимальная длинна капчи'),
+            'maxCaptchaLength'               => Yii::t('UserModule.user', 'Максимальная длинна капчи'),
             'documentRoot'                   => Yii::t('UserModule.user', 'Корень сервера'),
             'avatarsDir'                     => Yii::t('UserModule.user', 'Каталог для загрузки аватарок'),
             'avatarMaxSize'                  => Yii::t('UserModule.user', 'Максимальный размер аватарки'),
@@ -80,8 +82,9 @@ class UserModule extends YWebModule
             'avatarMaxSize',
             'defaultAvatar',
             'avatarsDir',
-            'minCaptchaLength',
             'showCaptcha'              => $this->getChoice(),
+            'minCaptchaLength',
+            'maxCaptchaLength',
             'emailAccountVerification' => $this->getChoice(),
             'minPasswordLength',
             'autoRecoveryPassword'     => $this->getChoice(),
@@ -114,12 +117,18 @@ class UserModule extends YWebModule
                 'label' => Yii::t('UserModule.user', 'Настройки безопасности'),
                 'items' => array(
                 	'registrationDisabled',
-                    'showCaptcha',
-                    'minCaptchaLength',
                     'emailAccountVerification',
                     'minPasswordLength',
                     'autoRecoveryPassword',
                     'recoveryDisabled',
+                )
+            ),
+            'captcha' => array(
+                'label' => Yii::t('UserModule.user', 'Настройки капчи'),
+                'items' => array(
+                    'showCaptcha',
+                    'minCaptchaLength',
+                    'maxCaptchaLength'
                 )
             ),
             'mail' => array(
