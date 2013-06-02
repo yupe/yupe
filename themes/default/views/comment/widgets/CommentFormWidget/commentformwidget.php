@@ -66,10 +66,11 @@ $form = $this->beginWidget(
         <?php echo $form->textArea($model, 'text', array('rows' => 6, 'cols' => 50)); ?>
         <?php echo $form->error($model, 'text'); ?>
     </div>
-    <?php if (!Yii::app()->user->isAuthenticated() && CCaptcha::checkRequirements()) : ?>
-        <div class="row">
-            <?php echo $form->labelEx($model, 'verifyCode'); ?>
-            
+    <?php if ($module->showCaptcha && !Yii::app()->user->isAuthenticated()): ?>
+        <?php if(CCaptcha::checkRequirements()) : ?>
+            <div class="row">
+                <?php echo $form->labelEx($model, 'verifyCode'); ?>
+
                 <?php
                 $this->widget(
                     'CCaptcha', array(
@@ -80,12 +81,13 @@ $form = $this->beginWidget(
                         'captchaAction' => '/comment/comment/captcha'
                     )
                 ); ?>
-                
+
                 <?php echo $form->textField($model, 'verifyCode'); ?>
-            <div class="hint">
-                <?php echo Yii::t('CommentModule.comment', 'Введите цифры указанные на картинке'); ?>
+                <div class="hint">
+                    <?php echo Yii::t('CommentModule.comment', 'Введите цифры указанные на картинке'); ?>
+                </div>
             </div>
-        </div> 
+        <?php endif; ?>
     <?php endif; ?>
     <div class="row buttons">
         <?php echo CHtml::submitButton(Yii::t('CommentModule.comment', 'Добавить комментарий')); ?>
