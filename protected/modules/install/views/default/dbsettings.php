@@ -1,6 +1,6 @@
 <?php
 /**
- * Отображение для sbsettings:
+ * Отображение для dbsettings:
  *
  *   @category YupeView
  *   @package  YupeCMS
@@ -21,7 +21,7 @@ $form = $this->beginWidget(
 Yii::app()->clientScript->registerScriptFile(
     Yii::app()->assetManager->publish(
         Yii::getPathOfAlias('application.modules.install.views.assets') . '/js/dbinstall.js'
-    )
+    ), CClientScript::POS_END
 );
 
 Yii::app()->clientScript->registerScript(
@@ -39,7 +39,7 @@ Yii::app()->clientScript->registerScript(
     'fieldset', "
     $('document').ready(function () {
         $('.popover-help').popover({ trigger : 'hover', delay : 500 });
-    });"
+    });", CClientScript::POS_READY
 );
 ?>
 

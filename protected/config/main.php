@@ -18,18 +18,6 @@ $config = array(
     'modules'      => array(
         'install' => array(
             'class' => 'application.modules.install.InstallModule',
-            'preload'    => array('bootstrap'),
-            'components' => array(
-                'bootstrap' => array(
-                    'class'          => 'application.modules.yupe.extensions.booster.components.Bootstrap',
-                    'coreCss'        => false,
-                    'responsiveCss'  => false,
-                    'yiiCss'         => false,
-                    'jqueryCss'      => false,
-                    'enableJS'       => false,
-                    'fontAwesomeCss' => false,
-                ),
-            ),
         ),
     ),
     'cache'        => array(),
@@ -208,6 +196,11 @@ return array(
             'cache' => CMap::mergeArray(
                 array(
                     'class' => 'CDummyCache',
+                    'behaviors' => array(
+                        'clear' => array(
+                            'class' => 'application.modules.yupe.extensions.tagcache.TaggingCacheBehavior',
+                        ),
+                    ),
                 ), $config['cache']
             ),
             // параметры логирования, подробнее http://www.yiiframework.ru/doc/guide/ru/topics.logging

@@ -16,6 +16,8 @@ class CommentFormWidget extends YWidget
     {
         $model = new Comment;
 
+        $module = Yii::app()->getModule('comment');
+
         $model->setAttributes(array(
             'model'    => $this->model,
             'model_id' => $this->modelId,
@@ -24,6 +26,7 @@ class CommentFormWidget extends YWidget
         $this->render('commentformwidget', array(
             'redirectTo' => $this->redirectTo,
             'model'      => $model,
+            'module'      => $module,
         ));
     }
 }

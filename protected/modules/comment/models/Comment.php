@@ -98,7 +98,8 @@ class Comment extends YModel
      * @return array validation rules for model attributes.
      */
     public function rules()
-    {        
+    {
+        $module = Yii::app()->getModule('comment');
         return array(
             array('model, name, email, text, url', 'filter', 'filter' => 'trim'),
             array('model, name, email, text, url', 'filter', 'filter' => array($obj = new CHtmlPurifier(), 'purify')),
@@ -110,8 +111,8 @@ class Comment extends YModel
             array('email', 'email'),
             array('url', 'url'),
             array('status', 'in', 'range' => array_keys($this->statusList)),
-            array('verifyCode', 'YRequiredValidator', 'allowEmpty' => Yii::app()->user->isAuthenticated()),
-            array('verifyCode', 'captcha', 'allowEmpty' => Yii::app()->user->isAuthenticated()),
+            array('verifyCode', 'YRequiredValidator', 'allowEmpty' => !$module->showCaptcha || Yii::app()->user->isAuthenticated()),
+            array('verifyCode', 'captcha', 'allowEmpty' => !$module->showCaptcha || Yii::app()->user->isAuthenticated()),
             array('id, model, model_id, creation_date, name, email, url, text, status, ip', 'safe', 'on' => 'search'),
         );
     }

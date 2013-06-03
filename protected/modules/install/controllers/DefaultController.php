@@ -304,11 +304,7 @@ class DefaultController extends YBackController
      **/
     private function _checkYupeActivate()
     {
-        try {
-            return $this->yupe->getActivate(true);
-        } catch (Exception $e) {
-            return ($e->getCode() == 304) ? true : false;
-        }
+        return $this->yupe->getActivate(true, true);
     }
 
     /**

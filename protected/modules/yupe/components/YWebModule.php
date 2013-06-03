@@ -371,7 +371,7 @@ abstract class YWebModule extends CWebModule
     }
 
     /**
-     * определяет, включен или выключен модуль
+     * Метод определяет включен ли модуль
      * 
      * @return bool
      * 
@@ -379,17 +379,17 @@ abstract class YWebModule extends CWebModule
      */
     public function getIsActive()
     {
-        $status = is_file(Yii::app()->basePath . '/config/modules/' . $this->id . '.php');
-        if ($this->id == 'install') {
+        $status = is_file(Yii::app()->basePath . '/config/modules/' . $this->getId() . '.php');
+        if ($this->getId() == 'install') {
             $status = ($status == false) ? true : false;
         }
         return $status;
     }
 
     /**
-     * Getting is module installed
+     * Метод проверяет установлен ли модуль
      * 
-     * @return is installed
+     * @return bool состояние модуля
      */
     public function getIsInstalled()
     {
@@ -454,20 +454,21 @@ abstract class YWebModule extends CWebModule
     }
 
     /**
-     *  Метод выключает модуль
+     * Метод включает модуль - копирует файл с конфигурацией
      *
-     * @param boolean $noDependen   - given the dependence
-     * @param boolean $updateConfig - is need to update config file
-     *  
+     * @param boolean $noDependen - не проверять на зависимости от других модулей
+     * @param boolean $updateConfig - обновить ли файл конфигурации
+     *
+     * @throws CException
      * @return bool статус выключения модуля
-     * 
+     *
      * @since 0.5
      */
     public function getActivate($noDependen = false, $updateConfig = false)
     {
         $yupe = Yii::app()->getModule('yupe');
-        $fileModule = $yupe->getModulesConfigDefault($this->id);
-        $fileConfig = $yupe->getModulesConfig($this->id);
+        $fileModule = $yupe->getModulesConfigDefault($this->getId());
+        $fileConfig = $yupe->getModulesConfig($this->getId());
 
         Yii::app()->cache->clear('installedModules', 'getModulesDisabled', 'modulesDisabled', $this->getId());
 
@@ -509,12 +510,13 @@ abstract class YWebModule extends CWebModule
     }
 
     /**
-     *  Метод включает модуль
+     * Метод выключает модуль - удаляет файл конфигурации модуля
      *
-     * @param boolean $noDependen - given the dependence
-     *  
+     * @param boolean $noDependen - не проверять на зависимости от других модулей
+     *
+     * @throws CException
      * @return bool статус включения модуля
-     * 
+     *
      * @since 0.5
      */
     public function getDeActivate($noDependen = false)
@@ -571,10 +573,10 @@ abstract class YWebModule extends CWebModule
     }
 
     /**
-     *  Метод устанавливающий модуль
-     * 
+     * Метод устанавливающий модуль
+     *
      * @return bool статус установки модуля
-     * 
+     *
      * @since 0.5
      */
     public function getInstall()
@@ -584,9 +586,8 @@ abstract class YWebModule extends CWebModule
 
     /**
      * Метод удаляющий модуль
-     * 
+     * @throws CException
      * @return bool статус удаления модуля
-     * 
      * @since 0.5
      */
     public function getUnInstall()
@@ -601,9 +602,10 @@ abstract class YWebModule extends CWebModule
      * Метод установки БД модуля
      *
      * @param array &$installed - массив модулея
-     * 
+     *
+     * @throws CException
      * @return bool статус установки БД модуля
-     * 
+     *
      * @since 0.5
      */
     public function installDB(&$installed = array())
@@ -613,7 +615,7 @@ abstract class YWebModule extends CWebModule
             Yii::t(
                 'YupeModule.yupe',
                 "{id}->installDB() : Запрошена установка БД модуля {m}",
-                array('{m}' => $this->name, '{id}' => $this->getId())
+                array('{m}' => $this->getName(), '{id}' => $this->getId())
             )
         );
 
@@ -649,16 +651,17 @@ abstract class YWebModule extends CWebModule
                 }
             }
         }
-        $log[] = $this->id;
+        $log[] = $this->getId();
 
         return (Yii::app()->migrator->updateToLatest($this->id) && ($installed[$this->id] = true)) ? $log : false;
     }
 
     /**
      * Метод удаляющий БД модуля
-     * 
+     *
+     * @throws CException
      * @return bool статус удаления БД модуля
-     * 
+     *
      * @since 0.5
      */
     public function uninstallDB()
@@ -754,6 +757,9 @@ abstract class YWebModule extends CWebModule
      */
     public function init()
     {
+         
+        Yii::log("init {$this->id} ...",CLogger::LEVEL_ERROR,'modinit'); 
+
         parent::init();
 
         $settings = null;

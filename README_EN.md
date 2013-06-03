@@ -2,14 +2,15 @@ Yupe - cms, based on Yii framework
 =================
 
 Yupe - cms, written with a wonderful MVC-Yii framework(http://www.yiiframework.com/),
-which has been working for more than 100 projects.
+which has been working for more than 150 projects.
 
-More [can be found here](http://yupe.ru/site/page/view/about).
+More [can be found here](http://yupe.ru/pages/about).
 
 Links
 ------
 
 * [Official site](http://yupe.ru/)
+* [Docs](http://yupe.ru/docs/index.html)
 * [Twitter](https://twitter.com/#!/YupeCms)
 * [Forum](http://yupe.ru/talk/)
 * [Yupe blog](http://yupe.ru/index.php/blog/yupe-mini-cms-yii)
