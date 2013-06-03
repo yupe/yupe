@@ -1663,7 +1663,7 @@ pre {
     border-color: #EED3D7;
 }
 
-#feedback-form .row, #login-form .row, #registration-form .row, #recovery-password-form .row {
+#feedback-form .row, #login-form .row, #registration-form .row, #recovery-password-form .row, #comment-form .row {
     margin-left: inherit;
 } 
 
