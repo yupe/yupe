@@ -18,7 +18,7 @@ class YiiAuth implements IWikiAuth
 	 */
 	public function getUserId()
 	{
-		return Yii::app()->user->id;
+		return Yii::app()->user->getId();
 	}
 
 	/**

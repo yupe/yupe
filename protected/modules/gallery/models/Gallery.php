@@ -75,7 +75,7 @@ class Gallery extends YModel
     {
         // Проверяем наличие установленного хозяина галереи
         if (isset($this->owner) && empty($this->owner))
-            $this->owner = Yii::app()->user->id;
+            $this->owner = Yii::app()->user->getId();
 
         return parent::beforeValidate();
     }
@@ -194,7 +194,7 @@ class Gallery extends YModel
             || (
                 ($this->status == Gallery::STATUS_PRIVATE
                     || $this->status == Gallery::STATUS_PERSONAL
-                ) && Yii::app()->user->id == $this->owner
+                ) && Yii::app()->user->getId() == $this->owner
             );
     }
 

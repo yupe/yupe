@@ -272,7 +272,7 @@ class YCustomGridView extends TbExtendedGridView
         } else {
             $oldSets = Settings::model()->findByAttributes(
                 array(
-                    'user_id' => Yii::app()->user->id,
+                    'user_id' => Yii::app()->user->getId(),
                     'module_id' => $modelID,
                     'param_name' => 'pageSize',
                     'type' => Settings::TYPE_USER,
