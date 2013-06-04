@@ -124,9 +124,9 @@ class BlogController extends YFrontController
             }
         }
 
-        if ($blog->userInBlog(Yii::app()->user->id) === false) {
+        if ($blog->userInBlog(Yii::app()->user->getId()) === false) {
             
-            $blog->join(Yii::app()->user->id);
+            $blog->join(Yii::app()->user->getId());
             
             if (Yii::app()->request->isAjaxRequest) {
                 Yii::app()->ajax->success(
@@ -192,7 +192,7 @@ class BlogController extends YFrontController
 
         if (($blog = Blog::model()->loadModel($blogId)) === null)
             $errorMessage = Yii::t('BlogModule.blog', 'Блог с id = {id} не найден!', array('{id}' => $blogId));
-        elseif ($blog->createUser->id == Yii::app()->user->id) {
+        elseif ($blog->createUser->id == Yii::app()->user->getId()) {
             if (Yii::app()->request->isAjaxRequest) {
                 Yii::app()->ajax->failure(
                     Yii::t('BlogModule.blog', 'Вы являетесь создателем данного блога и не можете его покинуть.')
@@ -219,7 +219,7 @@ class BlogController extends YFrontController
             }
         }
 
-        if (($userToBlog = $blog->userInBlog(Yii::app()->user->id)) !== false) {
+        if (($userToBlog = $blog->userInBlog(Yii::app()->user->getId())) !== false) {
             
             if ($userToBlog->delete()) {
                 if (Yii::app()->request->isAjaxRequest) {

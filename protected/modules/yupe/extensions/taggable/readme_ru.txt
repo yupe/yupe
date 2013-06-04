@@ -44,12 +44,12 @@ function behaviors() {
 			// Критерий по умолчанию для выборки тегов
             'scope' => array(
 				'condition' => ' t.user_id = :user_id ',
-				'params' => array( ':user_id' => Yii::app()->user->id ),
+				'params' => array( ':user_id' => Yii::app()->user->getId() ),
 			),
 
 			// Значения, которые необходимо вставлять при записи тега
 			'insertValues' => array(
-				'user_id' => Yii::app()->user->id,
+				'user_id' => Yii::app()->user->getId(),
 			),
         )
     );

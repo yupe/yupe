@@ -22,7 +22,7 @@ class EmailConfirmAction extends CAction
             Yii::log(
                 Yii::t('UserModule.user', "Активирован e-mail с activate_key = {activate_key}, id = {id}!", array(
                     '{activate_key}' => $key,
-                    '{id}'           => $user->id,
+                    '{id}'           => $user->getId(),
                 )),
                 CLogger::LEVEL_INFO, UserModule::$logCategory
             );

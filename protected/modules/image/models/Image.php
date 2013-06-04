@@ -287,7 +287,7 @@ class Image extends YModel
      **/
     public function canChange()
     {
-        return Yii::app()->user->isSuperUser() || Yii::app()->user->id == $this->user_id;
+        return Yii::app()->user->isSuperUser() || Yii::app()->user->getId() == $this->user_id;
     }
 
     /**
