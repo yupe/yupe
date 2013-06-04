@@ -31,12 +31,12 @@ class YBackController extends YMainController
     protected function beforeAction($action)
     {
         /**
-         * $this->module->id !== 'install' избавляет от ошибок на этапе установки
+         * $this->module->getId() !== 'install' избавляет от ошибок на этапе установки
          * $this->id !== 'backend' || ($this->id == 'backend' && $action->id != 'modupdate') устраняем проблемы с зацикливанием
          */
-        if ($this->module->id !== 'install'
+        if ($this->module->getId() !== 'install'
             && ($this->id !== 'backend' || ($this->id == 'backend' && $action->id != 'modupdate'))
-            && ($updates = Yii::app()->migrator->checkForUpdates(array($this->module->id => $this->module))) !== null
+            && ($updates = Yii::app()->migrator->checkForUpdates(array($this->module->getId() => $this->module))) !== null
             && count($updates) > 0
         ) {
             Yii::app()->user->setFlash(
@@ -44,7 +44,7 @@ class YBackController extends YMainController
                 Yii::t('YupeModule.yupe', 'Перед тем как начать работать с модулем, необходимо установить все необходимые миграции.')
             );
 
-            $this->redirect(array('/yupe/backend/modupdate', 'name' => $this->module->id));
+            $this->redirect(array('/yupe/backend/modupdate', 'name' => $this->module->getId()));
         }
 
         return parent::beforeAction($action);

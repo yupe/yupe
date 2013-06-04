@@ -655,7 +655,7 @@ class YupeModule extends YWebModule
                 (Yii::app(
                 )->controller->action->id == 'modulesettings' && isset($_GET['module']) && $_GET['module'] != 'yupe') ||
                     Yii::app()->controller->action->id == 'settings'
-            ) ? 'settings' : Yii::app()->controller->module->id;
+            ) ? 'settings' : Yii::app()->controller->module->getId();
             $thisModule = & $thisCategory['items'][$thisModule];
             if (!empty($thisModule)) {
                 $thisModule['active'] = true;

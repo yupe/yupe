@@ -8,13 +8,13 @@
         <?php if (is_array($messages)): ?>
             <?php foreach ($messages as $key => $value): ?>
                 <?php if (!is_array($value)) continue; ?>
-                <div class="accordion" id="accordion<?php echo $module->id; ?>">
+                <div class="accordion" id="accordion<?php echo $module->getId(); ?>">
                     <div class="accordion-group">
                         <div class="accordion-heading">
                             <a  class="accordion-toggle"
                                 data-toggle="collapse"
-                                data-parent="#accordion<?php echo $module->id; ?>"
-                                href="#collapse<?php echo $module->id; ?>"
+                                data-parent="#accordion<?php echo $module->getId(); ?>"
+                                href="#collapse<?php echo $module->getId(); ?>"
                                 >
                                 <?php echo Yii::t('YupeModule.yupe', 'Модуль {icon} "{module}", сообщений: {count}', array(
                                         '{icon}'   => $module->icon ? "<i class='icon-" . $module->icon . "'>&nbsp;</i> " : "",
@@ -23,14 +23,14 @@
                                     )); ?>
                             </a>
                         </div>
-                        <div id="collapse<?php echo $module->id; ?>" class="accordion-body collapse">
+                        <div id="collapse<?php echo $module->getId(); ?>" class="accordion-body collapse">
                             <?php foreach ($value as $error): ?>
                                 <div class="accordion-inner">
                                     <div class="alert alert-<?php echo $error['type']; ?>">
                                         <h4 class="alert-heading">
                                             <?php echo Yii::t('YupeModule.yupe', 'Модуль "{module} ({id})"', array(
                                                     '{module}' => $module->name,
-                                                    '{id}'     => $module->id,
+                                                    '{id}'     => $module->getId(),
                                                 )); ?>
                                         </h4>
                                         <?php echo $error['message']; ?>
