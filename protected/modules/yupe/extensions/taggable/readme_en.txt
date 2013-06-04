@@ -44,12 +44,12 @@ function behaviors() {
             // Default tag selection criteria
             'scope' => array(
 				'condition' => ' t.user_id = :user_id ',
-				'params' => array( ':user_id' => Yii::app()->user->id ),
+				'params' => array( ':user_id' => Yii::app()->user->getId() ),
 			),
 
 			// Values to insert to tag table on adding tag
 			'insertValues' => array(
-				'user_id' => Yii::app()->user->id,
+				'user_id' => Yii::app()->user->getId(),
 			),
         )
     );

@@ -64,10 +64,10 @@ class Settings extends YModel
             $this->creation_date = $this->change_date;
 
         if (!isset($this->user_id))
-            $this->user_id = Yii::app()->user->id;
+            $this->user_id = Yii::app()->user->getId();
 
-        if ($this->user_id !== Yii::app()->user->id)
-            $this->user_id = Yii::app()->user->id;
+        if ($this->user_id !== Yii::app()->user->getId())
+            $this->user_id = Yii::app()->user->getId();
 
         return parent::beforeSave();
     }
