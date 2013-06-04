@@ -18,7 +18,7 @@ $this->breadcrumbs = array(
         'class' => 'well',
     )); ?>
         <fieldset class="inline">
-            <?php echo CHtml::hiddenField('module_id', $module->id); ?>
+            <?php echo CHtml::hiddenField('module_id', $module->getId()); ?>
 
             <?php foreach ($elements as $element): ?>
                 <div class="row-fluid control-group">

@@ -975,7 +975,7 @@ class DefaultController extends YBackController
         try {
             $module->getInstall();
             $this->_logMessage($module, Yii::t('InstallModule.install', 'Модуль установлен!'));
-            echo CJSON::encode(array('installed' => array($module->id), 'log' => ob_get_clean()));
+            echo CJSON::encode(array('installed' => array($module->getId()), 'log' => ob_get_clean()));
         } catch (Exception $e) {
             $this->_logMessage($module, $e->getMessage(), "error");
             echo ob_get_clean();

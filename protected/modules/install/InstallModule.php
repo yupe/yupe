@@ -180,7 +180,7 @@ class InstallModule extends YWebModule
     {
         $installSteps = $this->getInstallSteps();
         $installMenu = array();
-        $startUrl = '/' . Yii::app()->controller->module->id . '/' . Yii::app()->controller->id . '/';
+        $startUrl = '/' . Yii::app()->controller->module->getId() . '/' . Yii::app()->controller->id . '/';
         foreach ($installSteps as $key => $value)
             $installMenu[] = array_merge(
                 array(
