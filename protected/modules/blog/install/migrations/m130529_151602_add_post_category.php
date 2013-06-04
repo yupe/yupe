@@ -14,8 +14,8 @@ class m130529_151602_add_post_category extends YDbMigration
 
     public function safeDown()
     {
+    	$this->dropIndex('ix_{{blog_post}}_category_id','{{blog_post}}');
+    	$this->dropForeignKey('fk_{{blog_post}}_category_id','{{blog_post}}');
         $this->dropColumn('{{blog_post}}','category_id');
-        $this->dropIndex('ix_{{blog_post}}_category_id','{{blog_post}}');
-        $this->dropForeignKey('fk_{{blog_post}}_category_id','{{blog_post}}');
     }
 }
