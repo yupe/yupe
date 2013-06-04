@@ -4,13 +4,13 @@
     echo Yii::t(
         'YupeModule.yupe', 'Найдены следующие миграции для модуля "{moduleID}"',
         array(
-            '{moduleID}' => ucfirst($module->id),
+            '{moduleID}' => ucfirst($module->getId()),
         )
     );?> :
 </legend>
 <?php
 $newUpdates = array();
-if (isset($updates[$module->id]) && ($updates=$updates[$module->id])) {
+if (isset($updates[$module->getId()]) && ($updates=$updates[$module->getId()])) {
     foreach ($updates as $u) {
         $newUpdates[] = array(
             'id'       => count($newUpdates) + 1,

@@ -83,17 +83,17 @@ Yii::app()->clientScript->registerScript(
                 if(!is_object($module)){
                     continue;
                 }
-                $modulesSelection['all'][] = '#module_' . $module->id;
+                $modulesSelection['all'][] = '#module_' . $module->getId();
                 if ($module->getIsInstallDefault())
-                    $modulesSelection['recom'][] = '#module_' . $module->id;
+                    $modulesSelection['recom'][] = '#module_' . $module->getId();
                 if ($module->getIsNoDisable())
-                    $modulesSelection['basic'][] = '#module_' . $module->id;
+                    $modulesSelection['basic'][] = '#module_' . $module->getId();
             ?>
                 <tr>
                     <td>
-                        <?php echo CHtml::checkBox('module_' . $module->id,
+                        <?php echo CHtml::checkBox('module_' . $module->getId(),
                             ($post && !$module->getIsNoDisable() )
-                                ? (isset($_POST['module_' . $module->id]) && $_POST['module_' . $module->id])
+                                ? (isset($_POST['module_' . $module->getId()]) && $_POST['module_' . $module->getId()])
                                 : ($module->getIsInstallDefault() ? true : false),
                             $module->getIsNoDisable()
                                 ? array('onclick' => 'this.checked=true')
@@ -129,7 +129,7 @@ Yii::app()->clientScript->registerScript(
                         <?php
                             $tabs = array();
 
-                            if ($module->id != 'yupe' && count($module->getDependencies())) {
+                            if ($module->getId() != 'yupe' && count($module->getDependencies())) {
                                 $deps = $module->getDependencies();
                                 foreach($deps as &$dep)
                                     $dep = $data['modules'][$dep]->name;
@@ -139,7 +139,7 @@ Yii::app()->clientScript->registerScript(
                                     'count'   => count($deps),
                                 );
                             }
-                            if( $module->id == 'yupe')
+                            if( $module->getId() == 'yupe')
                                 $tabs[] = array(
                                     'label'   => Yii::t('InstallModule.install', 'Зависимые'),
                                     'content' => Yii::t('InstallModule.install', 'Все модули'),
@@ -281,7 +281,7 @@ EOF;
                     foreach ($data['modules'] as $module) {
                         if ($moduleCountTr == $i)
                             echo '</div><div class="span3">';
-                        echo '<div id="modal_' . $module->id . '"><i class="icon-minus"> </i> ' . $module->name . '</div>';
+                        echo '<div id="modal_' . $module->getId() . '"><i class="icon-minus"> </i> ' . $module->name . '</div>';
                         $i++;
                     }
                 ?>
