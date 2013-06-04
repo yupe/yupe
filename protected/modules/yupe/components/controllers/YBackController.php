@@ -120,7 +120,7 @@ class YBackController extends YMainController
         $model->update(array($statusField));
 
         if (!Yii::app()->request->isAjaxRequest)
-            $this->redirect(isset($_POST['returnUrl']) ? $_POST['returnUrl'] : array('admin'));
+            $this->redirect(isset($_POST['returnUrl']) ? $_POST['returnUrl'] : array('index'));
     }
 
     public function actionSort()
@@ -153,6 +153,6 @@ class YBackController extends YMainController
         $model_depends->update(array($sortField));
 
         if (!Yii::app()->request->isAjaxRequest)
-            $this->redirect(isset($_POST['returnUrl']) ? $_POST['returnUrl'] : array('admin'));
+            $this->redirect(isset($_POST['returnUrl']) ? $_POST['returnUrl'] : array('index'));
     }
 }
