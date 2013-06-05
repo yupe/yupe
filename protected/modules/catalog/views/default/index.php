@@ -80,7 +80,7 @@ $this->renderPartial('_search', array('model' => $model));
         array(
             'name'  => 'user_id',
             'type'  => 'raw',
-            'value' => 'CHtml::link($data->user->getFullName(), array("/user/default/view", "id" => $data->user->getId()))',
+            'value' => 'CHtml::link($data->user->getFullName(), array("/user/default/view", "id" => $data->user->id))',
         ),       
         array(
             'name'  => 'create_time',
