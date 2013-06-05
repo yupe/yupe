@@ -43,10 +43,10 @@ class UserIdentity extends CUserIdentity
         else
         {
             // запись данных в сессию пользователя
-            $this->_id      = $user->getId();
+            $this->_id      = $user->id;
             $this->username = $user->nick_name;
 
-            $this->setState('id', $user->getId());
+            $this->setState('id', $user->id);
             $this->setState('access_level', $user->access_level);
             $this->setState('nick_name', $user->nick_name);
             $this->setState('email', $user->email);
