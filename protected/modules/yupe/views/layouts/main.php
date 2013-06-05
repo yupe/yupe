@@ -14,17 +14,19 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="shortcut icon" href="/favicon.ico"/>
     <title><?php echo CHtml::encode(Yii::app()->name); ?> <?php echo CHtml::encode($this->pageTitle); ?></title>
     <?php
     $mainAssets = Yii::app()->assetManager->publish(
         Yii::getPathOfAlias('application.modules.yupe.views.assets')
-    );
+    );?>
+    <link rel="shortcut icon" href="<?php echo $mainAssets; ?>/img/favicon.ico"/>
+    <?php
     Yii::app()->clientScript->registerCssFile($mainAssets . '/css/styles.css');
     Yii::app()->clientScript->registerScriptFile($mainAssets . '/js/main.js');
     if (($langs = $this->yupe->languageSelectorArray) != array())
         Yii::app()->clientScript->registerCssFile($mainAssets. '/css/flags.css');
     ?>
+
 </head>
 
 <body>
