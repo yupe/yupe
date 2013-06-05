@@ -25,7 +25,7 @@ class DefaultController extends YBackController
 
             if ($model->status == FeedBack::STATUS_ANSWER_SENDED)
             {
-                $model->answer_user = Yii::app()->user->id;
+                $model->answer_user = Yii::app()->user->getId();
                 $model->answer_date = YDbMigration::expression('NOW()');
             }
 
@@ -62,7 +62,7 @@ class DefaultController extends YBackController
 
             if ($status != FeedBack::STATUS_ANSWER_SENDED && $model->status == FeedBack::STATUS_ANSWER_SENDED)
             {
-                $model->answer_user = Yii::app()->user->id;
+                $model->answer_user = Yii::app()->user->getId();
                 $model->answer_date = YDbMigration::expression('NOW()');
             }
 
@@ -110,7 +110,7 @@ class DefaultController extends YBackController
                 $model->setAttributes(array(
                     'answer'      => $form->answer,
                     'is_faq'      => $form->is_faq,
-                    'answer_user' => Yii::app()->user->id,
+                    'answer_user' => Yii::app()->user->getId(),
                     'answer_date' => YDbMigration::expression('NOW()'),
                     'status'      => FeedBack::STATUS_ANSWER_SENDED,
                  ));

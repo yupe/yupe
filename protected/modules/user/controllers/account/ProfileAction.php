@@ -57,7 +57,7 @@ class ProfileAction extends CAction
 
                     Yii::log(
                         Yii::t('UserModule.user', "Изменен профиль учетной запись #{id}-{nick_name}!", array(
-                            '{id}'        => $user->id,
+                            '{id}'        => $user->getId(),
                             '{nick_name}' => $user->nick_name,
                         )),
                         CLogger::LEVEL_INFO, UserModule::$logCategory
@@ -101,7 +101,7 @@ class ProfileAction extends CAction
                 }
                 else
                     Yii::log(
-                        Yii::t('UserModule.user', "Ошибка при сохранении профиля! #{id}", array('{id}' => $user->id)),
+                        Yii::t('UserModule.user', "Ошибка при сохранении профиля! #{id}", array('{id}' => $user->getId())),
                         CLogger::LEVEL_ERROR, UserModule::$logCategory
                      );
             }

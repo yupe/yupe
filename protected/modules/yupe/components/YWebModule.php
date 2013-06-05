@@ -262,7 +262,7 @@ abstract class YWebModule extends CWebModule
 
             foreach ($modules['modules'] as $module) {
                 if ($module->getIsNoDisable()) {
-                    $modulesNoDisable[] = $module->id;
+                    $modulesNoDisable[] = $module->getId();
                 }
             }
 
@@ -293,7 +293,7 @@ abstract class YWebModule extends CWebModule
             foreach ($modules['modules'] as $module) {
                 $dep = $module->getDependencies();
                 if (!empty($dep) && is_array($dep)) {
-                    $modulesDependent[$module->id] = $dep;
+                    $modulesDependent[$module->getId()] = $dep;
                 }
             }
             Yii::app()->cache->set(

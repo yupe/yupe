@@ -90,9 +90,9 @@ function moduleRow($module, &$updates, &$modules)
         <td>
             <small style="font-size: 80%;"><?php echo Yii::t('YupeModule.yupe', $module->getCategory()); ?></small><br />
             <?php if ($module->getIsActive() || $module->getIsNoDisable()): ?>
-                <?php echo CHtml::link($module->getName() . ' <small>(' . $module->id . ')</small>', $module->getAdminPageLinkNormalize()); ?>
+                <?php echo CHtml::link($module->getName() . ' <small>(' . $module->getId() . ')</small>', $module->getAdminPageLinkNormalize()); ?>
             <?php else: ?>
-                <span><?php echo $module->getName() . ' <small>(' . $module->id . ')</small>'; ?></span>
+                <span><?php echo $module->getName() . ' <small>(' . $module->getId() . ')</small>'; ?></span>
             <?php endif; ?>
         </td>
         <td>
@@ -106,7 +106,7 @@ function moduleRow($module, &$updates, &$modules)
             <?php
                 $tabs = array();
 
-                if ($module->id != 'yupe' && count($module->getDependencies()))
+                if ($module->getId() != 'yupe' && count($module->getDependencies()))
                 {
                     $deps = $module->getDependencies();
                     foreach($deps as &$dep)
@@ -117,7 +117,7 @@ function moduleRow($module, &$updates, &$modules)
                         'count'   => count($deps),
                     );
                 }
-                if( $module->id == 'yupe')
+                if( $module->getId() == 'yupe')
                     $tabs[] = array(
                         'label'   => Yii::t('YupeModule.yupe', 'Зависимые'),
                         'content' => Yii::t('YupeModule.yupe', 'Все модули'),
@@ -147,14 +147,14 @@ function moduleRow($module, &$updates, &$modules)
             <?php if ($module->getIsActive() && $module->getEditableParams()): ?>
                 <?php echo CHtml::link('<i class="icon-wrench" rel="tooltip" title="' . Yii::t('YupeModule.yupe', 'Настройки') . '">&nbsp;</i>', array(
                     '/yupe/backend/modulesettings/',
-                    'module' => $module->id,
+                    'module' => $module->getId(),
                 )); ?>
             <?php endif; ?>
             <?php
-                $url = array('/yupe/backend/modulechange/', 'name' => $module->id);
+                $url = array('/yupe/backend/modulechange/', 'name' => $module->getId());
                 $htmlOptions = array(
                     'class'  => 'changeStatus',
-                    'module' => $module->id,
+                    'module' => $module->getId(),
                 );
 
                 echo $module->getIsNoDisable() ? '' :
@@ -170,8 +170,8 @@ function moduleRow($module, &$updates, &$modules)
                         : CHtml::link('<i class="icon-download-alt" rel="tooltip" title="' . Yii::t('YupeModule.yupe', 'Установить') . '">&nbsp;</i>', $url + array('status' => '1'), array_merge($htmlOptions, array('status' => 1, 'method' => 'install')))
                     );
 
-                if (isset($updates[$module->id]) && $module->getIsInstalled())
-                    echo CHtml::link('<i class="icon-refresh" rel="tooltip" title="' . Yii::t('YupeModule.yupe', 'Есть {n} обновление базы!|Есть {n} обновления базы!|Есть {n} обновлений базы!', count($updates[$module->id])) . '">&nbsp;</i>', array('/yupe/backend/modupdate', 'name' => $module->id));
+                if (isset($updates[$module->getId()]) && $module->getIsInstalled())
+                    echo CHtml::link('<i class="icon-refresh" rel="tooltip" title="' . Yii::t('YupeModule.yupe', 'Есть {n} обновление базы!|Есть {n} обновления базы!|Есть {n} обновлений базы!', count($updates[$module->getId()])) . '">&nbsp;</i>', array('/yupe/backend/modupdate', 'name' => $module->getId()));
                 if ($module->getIsActive() && $module->isConfigNeedUpdate())
                     echo CHtml::link('<i class="icon-repeat" rel="tooltip" title="' . Yii::t('YupeModule.yupe', 'Есть обновление файла конфигурации!') . '">&nbsp;</i>', $url + array('status' => '2'), array_merge($htmlOptions, array('status' => 2, 'method' => 'update')));
                 ?>

@@ -1,5 +1,5 @@
 <button class="btn btn-small dropdown-toggle" title="<?php echo Yii::t('YupeModule.yupe', 'Информация о модуле'); ?>"
-        data-toggle="collapse" data-target="#module-info-collapse-<?php echo $module->id; ?>">
+        data-toggle="collapse" data-target="#module-info-collapse-<?php echo $module->getId(); ?>">
     <?php
     // @TODO: В случае, если это не бутстраповская иконка - выводить бекграундом
     if ($module->icon)
@@ -9,7 +9,7 @@
     <?php echo $module->name; ?>
     <span class="caret"></span>
 </button>
-<div id="module-info-collapse-<?php echo $module->id; ?>" class="collapse out">
+<div id="module-info-collapse-<?php echo $module->getId(); ?>" class="collapse out">
     <br />
     <?php echo $module->description; ?><br/><br/>
     <table class="table">

@@ -28,8 +28,8 @@ class RecoveryAction extends CAction
                 {
                     $recovery = new RecoveryPassword;
                     $recovery->setAttributes(array(
-                        'user_id' => $user->id,
-                        'code'    => $recovery->generateRecoveryCode($user->id),
+                        'user_id' => $user->getId(),
+                        'code'    => $recovery->generateRecoveryCode($user->getId()),
                     ));
 
                     if ($recovery->save())
@@ -66,8 +66,8 @@ class RecoveryAction extends CAction
                 {
                     $recovery = new RecoveryPassword;
                     $recovery->setAttributes(array(
-                        'user_id' => $user->id,
-                        'code'    => $recovery->generateRecoveryCode($user->id),
+                        'user_id' => $user->getId(),
+                        'code'    => $recovery->generateRecoveryCode($user->getId()),
                     ));
 
                     if ($recovery->save())

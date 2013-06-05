@@ -43,10 +43,10 @@ class UserIdentity extends CUserIdentity
         else
         {
             // запись данных в сессию пользователя
-            $this->_id      = $user->id;
+            $this->_id      = $user->getId();
             $this->username = $user->nick_name;
 
-            $this->setState('id', $user->id);
+            $this->setState('id', $user->getId());
             $this->setState('access_level', $user->access_level);
             $this->setState('nick_name', $user->nick_name);
             $this->setState('email', $user->email);
@@ -58,7 +58,7 @@ class UserIdentity extends CUserIdentity
                 $this->setState('isAdmin', $user->access_level);
 
                 /* Получаем настройки по всем модулям для данного пользователя: */
-                $settings = Settings::model()->fetchUserModuleSettings(Yii::app()->user->id);
+                $settings = Settings::model()->fetchUserModuleSettings(Yii::app()->user->getId());
                 $sessionSettings = array();
                 
                 /* Если передан не пустой массив, проходим по нему: */
