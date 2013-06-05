@@ -13,7 +13,7 @@ if (!$this->comment)
 
 if (count($comments)) {
     if (!$this->comment)
-        echo '<h3> ' . $this->label . ' ' . count($comments) . '</h3>';
+        echo '<b> ' . $this->label . ' ' . count($comments) . '</b>';
     foreach ($comments as &$commentArray) {
         if (!$this->comment && isset($commentArray['childOf'])) {
             $comment = &$commentArray['row'];

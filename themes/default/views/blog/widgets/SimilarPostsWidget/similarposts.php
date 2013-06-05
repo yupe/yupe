@@ -9,7 +9,7 @@
  *   @link     http://yupe.ru
  **/
 if (count($posts) > 0) {
-    echo CHtml::tag('h3', array(), Yii::t('BlogModule.blog', 'Похожие записи:'));
+    echo CHtml::tag('b', array(), Yii::t('BlogModule.blog', 'Похожие записи:'));
     echo CHtml::openTag('ul');
     foreach ($posts as $post)
         echo CHtml::tag(
@@ -24,5 +24,5 @@ if (count($posts) > 0) {
         );
     echo CHtml::closeTag('ul');
 } else {
-    echo CHtml::tag('h3', array(), Yii::t('BlogModule.blog', 'Похожие записи не найдены'));
+    echo CHtml::tag('b', array(), Yii::t('BlogModule.blog', 'Похожие записи не найдены'));
 }

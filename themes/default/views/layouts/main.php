@@ -96,7 +96,25 @@
                     ); ?>
                 </div>
                 <br/>
+
+                <div class="portlet">
+                    <?php
+                    echo CHtml::link(
+                        CHtml::image(
+                            Yii::app()->baseUrl . '/web/images/github.jpg',
+                            'Юпи! - классная CMS на Yiiframework!'
+                        ), 'http://github.com/yupe/yupe', array(
+                            'target' => '_blank'
+                        )
+                    ); ?>
+                </div>
                 <?php $this->widget('application.modules.blog.widgets.LastPostsWidget', array('cacheTime' => 0)); ?>
+
+                <div class="portlet">
+                <a class="twitter-timeline"  href="https://twitter.com/YupeCms"  data-widget-id="342373817932451841">Твиты пользователя @YupeCms</a>
+                   <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+"://platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</script>
+                </div>
+
                 <?php $this->widget('application.modules.yupe.extensions.taggable.widgets.TagCloudWidget.TagCloudWidget', array('cacheTime' => 0, 'model' => 'Post')); ?>
                 <?php $this->widget('application.modules.feedback.widgets.FaqWidget', array('cacheTime' => 0)); ?>
                 <?php //$this->widget('application.modules.news.widgets.LastNewsWidget', array('cacheTime' => 0)); ?>

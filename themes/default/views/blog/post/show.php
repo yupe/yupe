@@ -9,7 +9,7 @@
  *   @link     http://yupe.ru
  **/
 $this->pageTitle = $post->title;
-$this->description = $post->description;
+//$this->description = $post->description;
 $this->keywords = $post->keywords;
 
 Yii::app()->clientScript->registerScript(
@@ -114,9 +114,10 @@ $this->widget(
     )
 ); ?>
 
-<br/><br />
+<br/><br/>
+<b><?php echo Yii::t('BlogModule.blog', 'Оставить комментарий'); ?></b>
+<br/><br/>
 
-<h3><?php echo Yii::t('BlogModule.blog', 'Оставить комментарий'); ?></h3>
 <?php
 $this->widget(
     'application.modules.comment.widgets.CommentFormWidget', array(
