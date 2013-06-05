@@ -143,7 +143,7 @@ class MenuItem extends YModel
 
         $criteria->compare('id', $this->id, true);
         $criteria->compare('parent_id', $this->parent_id, true);
-        $criteria->compare('menu_id', $this->menu_id, true);
+        $criteria->compare('t.menu_id', $this->menu_id, true);
         $criteria->compare('title', $this->title, true);
         $criteria->compare('href', $this->href, true);
 
