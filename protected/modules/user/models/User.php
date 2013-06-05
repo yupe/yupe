@@ -422,4 +422,9 @@ class User extends YModel
             ? true
             : false;
     }
+
+    public function getId()
+    {
+        return $this->id;
+    }
 }
