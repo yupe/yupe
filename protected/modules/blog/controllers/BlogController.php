@@ -52,12 +52,12 @@ class BlogController extends YFrontController
     {
         if (!Yii::app()->request->isPostRequest
             || !Yii::app()->request->isAjaxRequest
-            || ($blogID = Yii::app()->request->getPost('blogID')) == null
+            || ($blogID = Yii::app()->request->getPost('blogId')) == null
         )
             throw new CHttpException(404, Yii::t('BlogModule.blog', 'Страница не найдена!'));
 
         Yii::app()->ajax->success(
-            $this->widget('blog.widgets.LastPostsOfBlogWidget', array('blogID' => $blogID), true)
+            $this->widget('blog.widgets.LastPostsOfBlogWidget', array('blogId' => $blogID), true)
         );
     }
 
@@ -75,7 +75,7 @@ class BlogController extends YFrontController
             throw new CHttpException(404, Yii::t('BlogModule.blog', 'Страница не найдена!'));
 
         Yii::app()->ajax->success(
-            $this->widget('blog.widgets.MembersOfBlogWidget', array('blogID' => $blogID), true)
+            $this->widget('blog.widgets.MembersOfBlogWidget', array('blogId' => $blogID), true)
         );
     }
 

@@ -1,11 +1,11 @@
 <?php
 class MembersOfBlogWidget extends YWidget
 {
-    public $blogID;
+    public $blogId;
 
     public function run()
     {
-        $blog = Blog::model()->with('members')->findByPk($this->blogID);
+        $blog = Blog::model()->with('members')->findByPk($this->blogId);
 
         $this->render('membersofblog', array('model' => $blog));
     }

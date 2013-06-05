@@ -47,8 +47,8 @@ $this->breadcrumbs = array(Yii::t('blog', 'Блоги'));
         $(document).on("click", '.get-posts-list', function (event) {
             event.preventDefault();
             var link = $(this);
-            var blogID = link.attr('rel');
-            if ((posts = $('.posts-' + blogID)).length > 0) {
+            var blogId = link.attr('rel');
+            if ((posts = $('.posts-' + blogId)).length > 0) {
                 posts.remove();
                 return false;
             } else {
@@ -57,16 +57,16 @@ $this->breadcrumbs = array(Yii::t('blog', 'Блоги'));
 
             $.ajax({
                 url: link.attr('href'),
-                data: ajaxToken + '&blogID=' + blogID,
+                data: ajaxToken + '&blogId=' + blogId,
                 dataType: 'json',
                 type: 'post',
                 success: function(data) {
                     link.removeClass('ajax-loading');
-                    link.parents('.blog-stats').after('<div class="posts-' + blogID + ' ' + (data.result ? '' : 'error') + '">' + data.data + "</div>");
+                    link.parents('.blog-stats').after('<div class="posts-' + blogId + ' ' + (data.result ? '' : 'error') + '">' + data.data + "</div>");
                 },
                 error: function(data) {
                     link.removeClass('ajax-loading');
-                    link.parents('.blog-stats').after('<div class="posts-' + blogID + ' ' + (data.result ? '' : 'error') + '">' + data.data + "</div>");
+                    link.parents('.blog-stats').after('<div class="posts-' + blogId + ' ' + (data.result ? '' : 'error') + '">' + data.data + "</div>");
                 }
             });
         });

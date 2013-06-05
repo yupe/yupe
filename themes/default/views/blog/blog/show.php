@@ -38,8 +38,8 @@ $this->breadcrumbs = array(
     </div>
 </div>
 
-<?php $this->widget('blog.widgets.MembersOfBlogWidget', array('blogID' => $blog->id)); ?>
-<?php $this->widget('blog.widgets.LastPostsOfBlogWidget', array('blogID' => $blog->id)); ?>
+<?php $this->widget('blog.widgets.MembersOfBlogWidget', array('blogId' => $blog->id)); ?>
+<?php $this->widget('blog.widgets.LastPostsOfBlogWidget', array('blogId' => $blog->id)); ?>
 
 <script type="text/javascript">(function() {
         if(window.pluso) if(typeof window.pluso.start == "function") return;
