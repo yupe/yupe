@@ -8,7 +8,7 @@ class CommentModule extends YWebModule
     public $import               = array();
     public $showCaptcha = 1;
     public $minCaptchaLength = 3;
-    public $maxCaptchaLength = 20;
+    public $maxCaptchaLength = 6;
 
     public function getDependencies()
     {
