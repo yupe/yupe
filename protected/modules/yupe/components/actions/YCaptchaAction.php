@@ -15,6 +15,9 @@
 class YCaptchaAction extends CCaptchaAction
 {
 
+    public $minLength = 3;
+    public $maxLength = 6;
+
     public function __construct($controller,$id)
     {
         parent::__construct($controller,$id);

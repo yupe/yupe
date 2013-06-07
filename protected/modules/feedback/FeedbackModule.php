@@ -11,7 +11,7 @@ class FeedbackModule extends YWebModule
     public $cacheTime        = 60;
     public $mainCategory;
     public $minCaptchaLength = 3;
-    public $maxCaptchaLength = 20;
+    public $maxCaptchaLength = 6;
 
     const BACKEND_EMAIL = 'email';
     const BACKEND_DB    = 'db';

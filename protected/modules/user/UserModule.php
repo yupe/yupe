@@ -16,8 +16,8 @@ class UserModule extends YWebModule
     public $minPasswordLength              = 5;
     public $emailAccountVerification       = true;
     public $showCaptcha                    = true;
-    public $minCaptchaLength               = 5;
-    public $maxCaptchaLength               = 20;
+    public $minCaptchaLength               = 3;
+    public $maxCaptchaLength               = 6;
     public $documentRoot;
     public $avatarsDir;
     public $avatarMaxSize                  = 10000;
