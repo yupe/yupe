@@ -1,3 +1,12 @@
+<script type='text/javascript'>
+    $(document).ready(function(){
+        $('#post-form').liTranslit({
+            elName: '#Post_title',
+            elAlias: '#Post_slug'
+        });
+    })
+</script>
+
 <?php
 /**
  * Отображение для postAdmin/_form:

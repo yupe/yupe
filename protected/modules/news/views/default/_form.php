@@ -1,3 +1,12 @@
+<script type='text/javascript'>
+    $(document).ready(function(){
+        $('#news-form').liTranslit({
+            elName: '#News_title',
+            elAlias: '#News_alias'
+        });
+    })
+</script>
+
 <?php
 $form = $this->beginWidget('bootstrap.widgets.TbActiveForm', array(
     'id'                     => 'news-form',

@@ -1,3 +1,12 @@
+<script type='text/javascript'>
+    $(document).ready(function(){
+        $('#content-block-form').liTranslit({
+            elName: '#ContentBlock_name',
+            elAlias: '#ContentBlock_code'
+        });
+    })
+</script>
+
 <?php
 $form = $this->beginWidget('bootstrap.widgets.TbActiveForm', array(
     'id'                     => 'content-block-form',

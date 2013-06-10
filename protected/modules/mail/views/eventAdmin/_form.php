@@ -1,3 +1,13 @@
+<script type='text/javascript'>
+    $(document).ready(function(){
+        $('#mail-event-form').liTranslit({
+            elName: '#MailEvent_name',
+            elAlias: '#MailEvent_code'
+        });
+    })
+</script>
+
+
 <?php
 /**
  * Отображение для _form:
@@ -27,12 +37,14 @@ $form = $this->beginWidget(
 
     <?php echo  $form->errorSummary($model); ?>
 
-    <div class='control-group <?php echo $model->hasErrors("code") ? "error" : ""; ?>'>
-        <?php echo $form->textFieldRow($model, 'code', array('class' => 'span7', 'maxlength' => 100)); ?>
-    </div>
     <div class='control-group <?php echo $model->hasErrors("name") ? "error" : ""; ?>'>
         <?php echo $form->textFieldRow($model, 'name', array('class' => 'span7', 'maxlength' => 300)); ?>
     </div>
+
+    <div class='control-group <?php echo $model->hasErrors("code") ? "error" : ""; ?>'>
+        <?php echo $form->textFieldRow($model, 'code', array('class' => 'span7', 'maxlength' => 100)); ?>
+    </div>
+
     <div class='control-group <?php echo $model->hasErrors("description") ? "error" : ""; ?>'>
         <?php echo $form->textAreaRow($model, 'description', array('class' => 'span7')); ?>
     </div>

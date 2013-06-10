@@ -1,3 +1,12 @@
+<script type='text/javascript'>
+    $(document).ready(function(){
+        $('#mail-template-form').liTranslit({
+            elName: '#MailTemplate_name',
+            elAlias: '#MailTemplate_code'
+        });
+    })
+</script>
+
 <?php
 $form = $this->beginWidget('bootstrap.widgets.TbActiveForm', array(
     'id'                     => 'mail-template-form',
@@ -19,11 +28,11 @@ $form = $this->beginWidget('bootstrap.widgets.TbActiveForm', array(
     <div class='control-group <?php echo $model->hasErrors("event_id") ? "error" : ""; ?>'>
         <?php echo $form->dropDownListRow($model, 'event_id', CHtml::listData(MailEvent::model()->findAll(), 'id', 'name'), array('class' => 'span7', 'maxlength' => 10, 'empty' => Yii::t('MailModule.mail', '--выберите--'))); ?>
     </div>
-    <div class='control-group <?php echo $model->hasErrors("code") ? "error" : ""; ?>'>
-        <?php echo $form->textFieldRow($model, 'code', array('class' => 'span7', 'maxlength' => 100)); ?>
-    </div>
     <div class='control-group <?php echo $model->hasErrors("name") ? "error" : ""; ?>'>
         <?php echo $form->textFieldRow($model, 'name', array('class' => 'span7', 'maxlength' => 300)); ?>
+    </div>
+    <div class='control-group <?php echo $model->hasErrors("code") ? "error" : ""; ?>'>
+        <?php echo $form->textFieldRow($model, 'code', array('class' => 'span7', 'maxlength' => 100)); ?>
     </div>
     <div class='control-group <?php echo $model->hasErrors("from") ? "error" : ""; ?>'>
         <?php echo $form->textFieldRow($model, 'from', array('class' => 'span7', 'maxlength' => 300)); ?>

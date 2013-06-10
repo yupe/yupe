@@ -1,3 +1,13 @@
+<script type='text/javascript'>
+    $(document).ready(function(){
+        $('#good-form').liTranslit({
+            elName: '#Good_name',
+            elAlias: '#Good_alias'
+        });
+    })
+</script>
+
+
 <?php
 $form = $this->beginWidget('bootstrap.widgets.TbActiveForm', array(
     'id'                     => 'good-form',

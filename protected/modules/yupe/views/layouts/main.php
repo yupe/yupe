@@ -21,6 +21,7 @@
     );
     Yii::app()->clientScript->registerCssFile($mainAssets . '/css/styles.css');
     Yii::app()->clientScript->registerScriptFile($mainAssets . '/js/main.js');
+    Yii::app()->clientScript->registerScriptFile($mainAssets . '/js/jquery.li-translit.js');
     if (($langs = $this->yupe->languageSelectorArray) != array())
         Yii::app()->clientScript->registerCssFile($mainAssets. '/css/flags.css');
     ?>

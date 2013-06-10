@@ -1,3 +1,12 @@
+<script type='text/javascript'>
+    $(document).ready(function(){
+        $('#menu-form').liTranslit({
+            elName: '#Menu_name',
+            elAlias: '#Menu_code'
+        });
+    })
+</script>
+
 <?php
 /**
  * Файл представления menu/_form:

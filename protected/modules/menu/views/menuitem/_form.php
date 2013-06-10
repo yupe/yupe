@@ -15,21 +15,13 @@ $form = $this->beginWidget('bootstrap.widgets.TbActiveForm', array(
 
     <?php echo $form->errorSummary($model); ?>
 
-    <div class="row-fluid control-group <?php echo $model->hasErrors("title") ? "error" : ""; ?>">
-        <?php echo $form->textFieldRow($model, 'title', array('class' => 'popover-help span7', 'maxlength' => 255, 'data-original-title' => $model->getAttributeLabel('title'), 'data-content' => $model->getAttributeDescription('title'))); ?>
-    </div>
-
-    <div class="row-fluid control-group <?php echo $model->hasErrors("href") ? "error" : ""; ?>">
-        <?php echo $form->textFieldRow($model, 'href', array('class' => 'popover-help span7', 'maxlength' => 255, 'data-original-title' => $model->getAttributeLabel('href'), 'data-content' => $model->getAttributeDescription('href'))); ?>
-    </div>
-
-    <div class="wide row-fluid control-group <?php echo ($model->hasErrors('menu_id') || $model->hasErrors('parent_id')) ? 'error' : ''; ?>">
-        <?php
-        $menu_id   = '#' . CHtml::activeId($model, 'menu_id');
-        $parent_id = '#' . CHtml::activeId($model, 'parent_id');
-        ?>
-        <div class="span3">
-            <?php echo $form->dropDownListRow($model, 'menu_id', CHtml::listData(Menu::model()->findAll(), 'id', 'name'), array(
+<div class="wide row-fluid control-group <?php echo ($model->hasErrors('menu_id') || $model->hasErrors('parent_id')) ? 'error' : ''; ?>">
+    <?php
+    $menu_id   = '#' . CHtml::activeId($model, 'menu_id');
+    $parent_id = '#' . CHtml::activeId($model, 'parent_id');
+    ?>
+    <div class="span3">
+        <?php echo $form->dropDownListRow($model, 'menu_id', CHtml::listData(Menu::model()->findAll(), 'id', 'name'), array(
             'empty'               => Yii::t('MenuModule.menu', '--выберите меню--'),
             'class'               => 'popover-help',
             'data-original-title' => $model->getAttributeLabel('menu_id'),
@@ -48,10 +40,18 @@ $form = $this->beginWidget('bootstrap.widgets.TbActiveForm', array(
                         }",
             ),
         )); ?>
-        </div>
-        <div class="span4">
-            <?php echo $form->dropDownListRow($model, 'parent_id', $model->parentTree, array('disabled' => ($model->menu_id) ? false : true) + array('encode' => false, 'class' => 'popover-help', 'data-original-title' => $model->getAttributeLabel('parent_id'), 'data-content' => $model->getAttributeDescription('parent_id'))); ?>
-        </div>
+    </div>
+    <div class="span4">
+        <?php echo $form->dropDownListRow($model, 'parent_id', $model->parentTree, array('disabled' => ($model->menu_id) ? false : true) + array('encode' => false, 'class' => 'popover-help', 'data-original-title' => $model->getAttributeLabel('parent_id'), 'data-content' => $model->getAttributeDescription('parent_id'))); ?>
+    </div>
+</div>
+
+    <div class="row-fluid control-group <?php echo $model->hasErrors("title") ? "error" : ""; ?>">
+        <?php echo $form->textFieldRow($model, 'title', array('class' => 'popover-help span7', 'maxlength' => 255, 'data-original-title' => $model->getAttributeLabel('title'), 'data-content' => $model->getAttributeDescription('title'))); ?>
+    </div>
+
+    <div class="row-fluid control-group <?php echo $model->hasErrors("href") ? "error" : ""; ?>">
+        <?php echo $form->textFieldRow($model, 'href', array('class' => 'popover-help span7', 'maxlength' => 255, 'data-original-title' => $model->getAttributeLabel('href'), 'data-content' => $model->getAttributeDescription('href'))); ?>
     </div>
 
     <div class="row-fluid control-group <?php echo $model->hasErrors("sort") ? "error" : ""; ?>">

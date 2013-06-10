@@ -1,3 +1,13 @@
+<script type='text/javascript'>
+    $(document).ready(function(){
+        $('#category-form').liTranslit({
+            elName: '#Category_name',
+            elAlias: '#Category_alias'
+        });
+    })
+</script>
+
+
 <?php
 $form = $this->beginWidget('bootstrap.widgets.TbActiveForm', array(
     'id'                     => 'category-form',

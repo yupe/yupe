@@ -1,3 +1,12 @@
+<script type='text/javascript'>
+    $(document).ready(function(){
+        $('#page-form').liTranslit({
+            elName: '#Page_title',
+            elAlias: '#Page_slug'
+        });
+    })
+</script>
+
 <?php
 /**
  * Отображение для default/_form:
