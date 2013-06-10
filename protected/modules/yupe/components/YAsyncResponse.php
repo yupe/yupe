@@ -11,8 +11,15 @@ class YAsyncResponse extends CApplicationComponent
         return true;
     }
 
+    private function setHeader()
+    {
+        header('Content-type: application/json');
+    }
+
     public function success($data = null)
     {
+        $this->setHeader();
+
         echo json_encode(array(
             $this->resultParamName => $this->success,
             $this->dataParamName   => $data,
@@ -23,6 +30,8 @@ class YAsyncResponse extends CApplicationComponent
 
     public function failure($data = null)
     {
+        $this->setHeader();
+
         echo json_encode(array(
             $this->resultParamName => $this->failure,
             $this->dataParamName   => $data,
@@ -33,6 +42,8 @@ class YAsyncResponse extends CApplicationComponent
 
     public function raw($data)
     {
+        $this->setHeader();
+
         echo json_encode($data);
         Yii::app()->end();
     }
