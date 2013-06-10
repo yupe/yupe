@@ -675,6 +675,7 @@ abstract class YWebModule extends CWebModule
         );
 
         $history = Yii::app()->migrator->getMigrationHistory($this->getId(), -1);
+
         if (!empty($history)) {
             
             Yii::app()->cache->clear('installedModules', $this->getId(), 'yupe', 'getModulesDisabled', 'modulesDisabled', $this->getId());
@@ -682,6 +683,12 @@ abstract class YWebModule extends CWebModule
             $message = '';
             
             foreach ($history as $migrationName => $migrationTimeUp) {
+
+                // удалить настройки модуля из таблички Settings
+                Settings::model()->deleteAll('module_id = :module_id',array(
+                    ':module_id' => $this->getId()
+                ));
+
                 if ($migrationTimeUp > 0) {
                     if (Yii::app()->migrator->migrateDown($this->getId(), $migrationName)) {
                         $message .= Yii::t(

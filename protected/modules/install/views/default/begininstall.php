@@ -11,7 +11,7 @@
 ?>
 <h1><?php echo Yii::t('InstallModule.install', 'Идет установка модулей...');?></h1>
 <div class="alert alert-block alert-info">
-    <p><?php echo Yii::t('InstallModule.install', 'На данном этапе Юпи! постарается установить запрошенные вами модули. Установка может занять некоторое время...');?></p>
+    <p><?php echo Yii::t('InstallModule.install', 'На данном этапе Юпи! постарается установить выбранные вами модули. Установка может занять некоторое время...');?></p>
 </div>
 <div id="msg"></div>
 <div class="progress progress-striped active">
