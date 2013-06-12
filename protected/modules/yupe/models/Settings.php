@@ -23,6 +23,12 @@ class Settings extends YModel
     */
     const TYPE_CORE = 1;
     const TYPE_USER = 2;
+
+    /**
+     * @var array Массив хранящий список валидаторов для определенного параметра модуля
+     */
+    public $rulesFromModule = array();
+
     /**
      * Returns the static model of the specified AR class.
      * @return Settings the static model class
@@ -45,7 +51,7 @@ class Settings extends YModel
      */
     public function rules()
     {
-        return array(
+        return CMap::mergeArray(array(
             array('module_id, param_name', 'required'),
             array('module_id, param_name', 'length', 'max' => 100),
             array('param_value', 'length', 'max' => 255),
@@ -53,7 +59,7 @@ class Settings extends YModel
             //array('module_id','match','pattern' => '/^[a-zA-Z0-9_\-]+$/'),
             //array('param_name, param_value','match','pattern' => '/^[a-zA-Z0-9_\-]+$/'),
             array('id, module_id, param_name, param_value, creation_date, change_date, user_id', 'safe', 'on' => 'search'),
-        );
+        ),$this->rulesFromModule);
     }
 
     public function beforeSave()

@@ -184,6 +184,47 @@ abstract class YWebModule extends CWebModule
     }
 
     /**
+     * Массив правил валидации для модуля
+     *
+     * Пример использования возвращаемого массива:
+     * <pre>
+     * array(
+     *     array('adminMenuOrder', 'required'),
+     *     array('someEditableParam1, someEditableParam2', 'length', 'min'=>3, 'max'=>12),
+     *     array('anotherEditableParam', 'compare', 'compareAttribute'=>'password2', 'on'=>'register'),
+     * );
+     * </pre>
+     *
+     * @return array
+     */
+    public function rules()
+    {
+        return array();
+    }
+
+    /**
+     * Метод формирующий из массива "правил валидации для модуля" правила для указаного параметра
+     *
+     * @param $param Параметр для которого необходимо сформировать правила валидации
+     * @return array Массив с правилами валидации для $param
+     */
+    public function getRulesForParam($param)
+    {
+
+        $rulesFromParam = new CList;
+        foreach($this->rules() as $rule)
+        {
+            $params=preg_split('/[\s,]+/',$rule[0],-1,PREG_SPLIT_NO_EMPTY);
+            if(in_array($param,$params))
+            {
+                $rule[0] = 'param_value';
+                $rulesFromParam->add($rule);
+            }
+        }
+        return $rulesFromParam->toArray();
+    }
+
+    /**
      * массив групп параметров модуля, для группировки параметров на странице настроек
      * 
      * @return array
