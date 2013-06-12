@@ -124,7 +124,7 @@ return array(
     'components' => CMap::mergeArray(
         array(
             // assetsManager:
-            'assetsManager' => array(
+            'assetManager' => array(
                 // Don't use on windows:
                 'forceCopy' => false,
             ),
