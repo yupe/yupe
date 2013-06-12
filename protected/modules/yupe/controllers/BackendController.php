@@ -229,6 +229,8 @@ class BackendController extends YBackController
                 // Если действительно изменили настройку
                 if ($settings[$p]->param_value != $pval) {
                     $settings[$p]->param_value = $pval;
+                    // Добавляем для параметра его правила валидации
+                    $settings[$p]->rulesFromModule = Yii::app()->getModule($moduleId)->getRulesForParam($p);
                     if (!$settings[$p]->save())
                         return true;
                 }
