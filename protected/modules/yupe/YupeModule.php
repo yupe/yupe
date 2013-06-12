@@ -237,6 +237,18 @@ class YupeModule extends YWebModule
     }
 
     /**
+     * Возвращаем правила валидации для параметров модуля
+     *
+     * @return array Правила валидации для параметров модуля
+     */
+    public function rules()
+    {
+        return array(
+            array('availableLanguages','filter','filter'=>function($str){ return preg_replace('/\s+/','',$str); }),
+        );
+    }
+
+    /**
      * массив групп параметров модуля, для группировки параметров на странице настроек
      * 
      * @return array
