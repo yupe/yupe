@@ -230,7 +230,7 @@ class Blog extends YModel
 
     public function beforeSave()
     {
-        $this->update_user_id = Yii::app()->user->id;
+        $this->update_user_id = Yii::app()->user->getId();
 
         if ($this->isNewRecord)
             $this->create_user_id = $this->update_user_id;
@@ -299,7 +299,7 @@ class Blog extends YModel
         $params = array(
             'user_id' => $userId !== null
                 ? $userId
-                : Yii::app()->user->id,
+                : Yii::app()->user->getId(),
             'blog_id' => $this->id,
         );
 
@@ -311,7 +311,7 @@ class Blog extends YModel
     public function join($userId = null)
     {
         $params = array(
-            'user_id' => $userId ? $userId : Yii::app()->user->id,
+            'user_id' => $userId ? $userId : Yii::app()->user->getId(),
             'blog_id' => $this->id,
         );
 

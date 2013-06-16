@@ -62,7 +62,7 @@ $this->breadcrumbs = array(
             var postID = link.attr('rel');
             link.addClass('ajax-loading');
             $.ajax({
-                url: '/blog/post/updatecomments',
+                url: '<?php echo Yii::app()->baseUrl;?>/blog/post/updatecomments',
                 data: ajaxToken + '&postID=' + postID,
                 dataType: 'json',
                 type: 'post',
