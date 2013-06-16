@@ -24,7 +24,7 @@
         ); ?>
     </div>
     <div class='blog-body'>
-        <h3><?php echo CHtml::link(CHtml::encode($data->name), array('/blog/blog/show/', 'slug' => $data->slug)); ?></h3>
+        <h3><?php echo CHtml::link(CHtml::encode($data->name), array('/blog/blog/show/', 'slug' => $data->slug)); ?> <a href="<?php echo Yii::app()->createUrl('/blog/rss/feed/',array('blog' => $data->id));?>"><img src="<?php echo Yii::app()->theme->baseUrl?>/web/images/rss.png" alt="Подпишитесь на обновление блога '<?php echo $data->name?>'" title="Подпишитесь на обновление блога '<?php echo $data->name?>'"></a></h3>
 
         <b><?php echo CHtml::encode($data->getAttributeLabel('create_date')); ?>:</b>
         <?php

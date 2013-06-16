@@ -248,7 +248,7 @@ class Post extends YModel
         $criteria->compare('t.status', $this->status);
         $criteria->compare('comment_status', $this->comment_status);
         $criteria->compare('access_type', $this->access_type);
-        $criteria->compare('category_id', $this->category_id, true);
+        $criteria->compare('t.category_id', $this->category_id, true);
 
         $criteria->with = array('createUser', 'updateUser', 'blog');
 
@@ -302,7 +302,7 @@ class Post extends YModel
     public function beforeSave()
     {
         $this->publish_date   = strtotime($this->publish_date_tmp . ' ' . $this->publish_time_tmp);
-        $this->update_user_id = Yii::app()->user->getId();
+        $this->update_user_id = Yii::app()->user->id;
 
         if ($this->isNewRecord) {
             $this->create_user_id = $this->update_user_id;

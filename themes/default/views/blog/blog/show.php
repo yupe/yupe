@@ -12,6 +12,7 @@ $this->breadcrumbs = array(
 
     <div class="title">
         <?php echo $blog->name; ?>
+        <a href="<?php echo Yii::app()->createUrl('/blog/rss/feed/',array('blog' => $blog->id));?>"><img src="<?php echo Yii::app()->theme->baseUrl?>/web/images/rss.png" alt="Подпишитесь на обновление блога '<?php echo $blog->name?>'" title="Подпишитесь на обновление блога '<?php echo $blog->name?>'"></a>
     </div>
 
     <div>

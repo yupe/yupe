@@ -113,7 +113,7 @@ class Blog extends YModel
      * 
      * @return self
      */
-    public function showByUrl($url = null)
+    public function getByUrl($url = null)
     {
         $this->getDbCriteria()->mergeWith(
             array(
@@ -230,7 +230,7 @@ class Blog extends YModel
 
     public function beforeSave()
     {
-        $this->update_user_id = Yii::app()->user->getId();
+        $this->update_user_id = Yii::app()->user->id;
 
         if ($this->isNewRecord)
             $this->create_user_id = $this->update_user_id;
@@ -299,7 +299,7 @@ class Blog extends YModel
         $params = array(
             'user_id' => $userId !== null
                 ? $userId
-                : Yii::app()->user->getId(),
+                : Yii::app()->user->id,
             'blog_id' => $this->id,
         );
 
@@ -311,7 +311,7 @@ class Blog extends YModel
     public function join($userId = null)
     {
         $params = array(
-            'user_id' => $userId ? $userId : Yii::app()->user->getId(),
+            'user_id' => $userId ? $userId : Yii::app()->user->id,
             'blog_id' => $this->id,
         );
 

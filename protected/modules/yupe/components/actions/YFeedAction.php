@@ -140,8 +140,12 @@ class YFeedAction extends CAction
                 /**
                  * Устанавливаем дату для $item
                  */
-                if (!empty($this->itemFields['datetime']))
+                if (!empty($this->itemFields['datetime'])){
+                    if(is_numeric($feedItem->{$this->itemFields['datetime']})){
+                        $feedItem->{$this->itemFields['datetime']} = date('d-m-Y',$feedItem->{$this->itemFields['datetime']});
+                    }
                     $item->addTag('published', (new DateTime($feedItem->{$this->itemFields['datetime']}))->format(DateTime::ATOM));
+                }
 
                 /**
                  * Устанавливаем дату изменения для $item

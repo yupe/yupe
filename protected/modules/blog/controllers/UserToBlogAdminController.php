@@ -49,7 +49,7 @@ class UserToBlogAdminController extends YBackController
                 YFlashMessages::WARNING_MESSAGE,
                 Yii::t('BlogModule.blog', 'Ошибка! Возможно пользователь уже участник блога!')
             );
-            $this->redirect(array('index'));
+            $this->redirect(array('admin'));
         }
         $this->render('create', array('model' => $model));
     }

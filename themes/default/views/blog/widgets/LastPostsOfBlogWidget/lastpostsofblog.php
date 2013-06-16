@@ -11,7 +11,7 @@
 if ($model === null) :
     echo Yii::t('BlogModule.blog', 'Блог не существует');
 elseif (count($model->posts) > 0) : ?>
-    <p><?php echo Yii::t('BlogModule.blog', 'Последние записи'); ?>:</p>
+    <p><?php echo Yii::t('BlogModule.blog', 'Последние записи'); ?> <a href="<?php echo Yii::app()->createUrl('/blog/rss/feed/',array('blog' => $model->id));?>"><img src="<?php echo Yii::app()->theme->baseUrl?>/web/images/rss.png" alt="Подпишитесь на обновление блога '<?php echo $model->name?>'" title="Подпишитесь на обновление блога '<?php echo $model->name?>'"></a>:</p>
     <ul>
         <?php foreach ($model->posts as $post) : ?>
             <li>

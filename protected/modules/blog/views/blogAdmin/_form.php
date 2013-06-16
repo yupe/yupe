@@ -1,12 +1,3 @@
-<script type='text/javascript'>
-    $(document).ready(function(){
-        $('#blog-form').liTranslit({
-            elName: '#Blog_name',
-            elAlias: '#Blog_slug'
-        });
-    })
-</script>
-
 <?php
 /**
  * Отображение для BlogAdmin/_form:

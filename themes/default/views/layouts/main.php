@@ -126,8 +126,8 @@
     </div>
 
     <div id="footer">
-        Copyright &copy; 2009-<?php echo date('Y'); ?>
-        <?php echo $this->yupe->poweredBy(); ?>
+        Copyright &copy; 2009-<?php echo date('Y'); ?> <a href="<?php echo Yii::app()->createUrl('/blog/rss/feed/');?>"><img src="<?php echo Yii::app()->theme->baseUrl?>/web/images/rss.png" alt="Подпишитесь на обновления" title="Подпишитесь на обновления"></a>
+        <br/><?php echo $this->yupe->poweredBy(); ?>
         <?php echo $this->yupe->getVersion(); ?><br/> <?php echo Yii::powered(); ?>
 
         <?php $this->widget('YPerformanceStatistic'); ?>
