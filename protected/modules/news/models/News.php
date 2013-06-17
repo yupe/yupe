@@ -64,7 +64,7 @@ class News extends YModel
             array('alias', 'YUniqueSlugValidator'),
             array('description', 'length', 'max' => 250),
             array('link', 'length', 'max' => 250),
-            array('link', 'url'),
+            array('link', 'YUrlValidator'),
             array('alias', 'YSLugValidator', 'message' => Yii::t('NewsModule.news', 'Запрещенные символы в поле {attribute}')),
             array('category_id', 'default', 'setOnEmpty' => true, 'value' => null),
             array('id, keywords, description, creation_date, change_date, date, title, alias, short_text, full_text, user_id, status, is_protected, lang', 'safe', 'on' => 'search'),

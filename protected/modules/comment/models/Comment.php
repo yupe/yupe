@@ -109,7 +109,7 @@ class Comment extends YModel
             array('model', 'length', 'max' => 100),
             array('ip', 'length', 'max' => 20),
             array('email', 'email'),
-            array('url', 'url'),
+            array('url', 'YUrlValidator'),
             array('status', 'in', 'range' => array_keys($this->statusList)),
             array('verifyCode', 'YRequiredValidator', 'allowEmpty' => !$module->showCaptcha || Yii::app()->user->isAuthenticated()),
             array('verifyCode', 'captcha', 'allowEmpty' => !$module->showCaptcha || Yii::app()->user->isAuthenticated()),
