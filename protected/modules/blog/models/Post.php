@@ -79,7 +79,7 @@ class Post extends YModel
             array('quote, description, title, link, keywords', 'length', 'max' => 250),
             array('publish_date_tmp', 'type', 'type' => 'date', 'dateFormat' => 'dd-mm-yyyy'),
             array('publish_time_tmp', 'type', 'type' => 'time', 'timeFormat' => 'hh:mm'),
-            array('link', 'url'),
+            array('link', 'YUrlValidator'),
             array('comment_status', 'in', 'range' => array(0, 1)),
             array('access_type', 'in', 'range' => array_keys($this->getAccessTypeList())),
             array('status', 'in', 'range' => array_keys($this->getStatusList())),
