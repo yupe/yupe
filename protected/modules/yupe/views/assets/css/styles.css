@@ -109,10 +109,14 @@ footer {
     top: 11px;
     left: -6px;
 }
-.dropdown-menu li:hover {
+.dropdown-menu li:hover > [class^="nav-header"] {
     color: white;
     text-decoration: none;
     background-color: #08C;
+}
+.dropdown .dropdown-menu .nav-header {
+    margin-left: 0px;
+    margin-right: 0px;
 }
 pre .label{
     white-space: normal !important;
