@@ -15,10 +15,10 @@ class TbPager extends CLinkPager
 {
 	// Pager alignments.
 	const ALIGNMENT_CENTER = 'centered';
-	const ALIGNMENT_RIGHT  = 'right';
+	const ALIGNMENT_RIGHT = 'right';
 
 	/**
-	 * @var string the pager alignment. 
+	 * @var string the pager alignment.
 	 * Valid values are 'centered' and 'right'.
 	 */
 	public $alignment;
@@ -47,26 +47,29 @@ class TbPager extends CLinkPager
 	 */
 	public function init()
 	{
-		if ($this->nextPageLabel === null)
+		if ($this->nextPageLabel === null) {
 			$this->nextPageLabel = '&rarr;';
+		}
 
-		if ($this->prevPageLabel === null)
+		if ($this->prevPageLabel === null) {
 			$this->prevPageLabel = '&larr;';
+		}
 
 		$classes = array();
 
 		$validAlignments = array(self::ALIGNMENT_CENTER, self::ALIGNMENT_RIGHT);
 
-		if (in_array($this->alignment, $validAlignments))
-			$classes[] = 'pagination-'.$this->alignment;
+		if (in_array($this->alignment, $validAlignments)) {
+			$classes[] = 'pagination-' . $this->alignment;
+		}
 
-		if (!empty($classes))
-		{
+		if (!empty($classes)) {
 			$classes = implode(' ', $classes);
-			if (isset($this->htmlOptions['class']))
-				$this->htmlOptions['class'] = ' '.$classes;
-			else
+			if (isset($this->htmlOptions['class'])) {
+				$this->htmlOptions['class'] = ' ' . $classes;
+			} else {
 				$this->htmlOptions['class'] = $classes;
+			}
 		}
 
 		parent::init();
@@ -80,8 +83,9 @@ class TbPager extends CLinkPager
 	 */
 	protected function createPageButtons()
 	{
-		if (($pageCount = $this->getPageCount()) <= 1)
+		if (($pageCount = $this->getPageCount()) <= 1) {
 			return array();
+		}
 
 		list ($beginPage, $endPage) = $this->getPageRange();
 
@@ -90,28 +94,45 @@ class TbPager extends CLinkPager
 		$buttons = array();
 
 		// first page
-		if ($this->displayFirstAndLast)
+		if ($this->displayFirstAndLast) {
 			$buttons[] = $this->createPageButton($this->firstPageLabel, 0, 'first', $currentPage <= 0, false);
+		}
 
 		// prev page
-		if (($page = $currentPage - 1) < 0)
+		if (($page = $currentPage - 1) < 0) {
 			$page = 0;
+		}
 
 		$buttons[] = $this->createPageButton($this->prevPageLabel, $page, 'previous', $currentPage <= 0, false);
 
 		// internal pages
-		for ($i = $beginPage; $i <= $endPage; ++$i)
+		for ($i = $beginPage; $i <= $endPage; ++$i) {
 			$buttons[] = $this->createPageButton($i + 1, $i, '', false, $i == $currentPage);
+		}
 
 		// next page
-		if (($page = $currentPage+1) >= $pageCount-1)
-			$page = $pageCount-1;
+		if (($page = $currentPage + 1) >= $pageCount - 1) {
+			$page = $pageCount - 1;
+		}
 
-		$buttons[] = $this->createPageButton($this->nextPageLabel, $page, 'next', $currentPage >= ($pageCount - 1), false);
+		$buttons[] = $this->createPageButton(
+			$this->nextPageLabel,
+			$page,
+			'next',
+			$currentPage >= ($pageCount - 1),
+			false
+		);
 
 		// last page
-		if ($this->displayFirstAndLast)
-			$buttons[] = $this->createPageButton($this->lastPageLabel, $pageCount - 1, 'last', $currentPage >= ($pageCount - 1), false);
+		if ($this->displayFirstAndLast) {
+			$buttons[] = $this->createPageButton(
+				$this->lastPageLabel,
+				$pageCount - 1,
+				'last',
+				$currentPage >= ($pageCount - 1),
+				false
+			);
+		}
 
 		return $buttons;
 	}
@@ -127,13 +148,15 @@ class TbPager extends CLinkPager
 	 * @param string $class the CSS class for the page button. This could be 'page', 'first', 'last', 'next' or 'previous'.
 	 * @param boolean $hidden whether this page button is visible
 	 * @param boolean $selected whether this page button is selected
+	 *
 	 * @return string the generated button
 	 */
 	protected function createPageButton($label, $page, $class, $hidden, $selected)
 	{
-		if ($hidden || $selected)
-			$class .= ' '.($hidden ? 'disabled' : 'active');
+		if ($hidden || $selected) {
+			$class .= ' ' . ($hidden ? 'disabled' : 'active');
+		}
 
-		return CHtml::tag('li', array('class'=>$class), CHtml::link($label, $this->createPageUrl($page)));
+		return CHtml::tag('li', array('class' => $class), CHtml::link($label, $this->createPageUrl($page)));
 	}
 }

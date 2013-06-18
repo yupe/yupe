@@ -1,4 +1,4 @@
-﻿<?php
+<?php
 /*##  TbCrumb class file.
  *
  * @author Christoffer Niska <ChristofferNiska@gmail.com>
@@ -27,10 +27,11 @@ class TbBreadcrumbs extends CBreadcrumbs
 	 */
 	public function init()
 	{
-		if (isset($this->htmlOptions['class']))
+		if (isset($this->htmlOptions['class'])) {
 			$this->htmlOptions['class'] .= ' breadcrumb';
-		else
+		} else {
 			$this->htmlOptions['class'] = 'breadcrumb';
+		}
 
 		// apply bootstrap style
 		$this->separator = '<span class="divider">' . $this->separator . '</span>';
@@ -46,29 +47,32 @@ class TbBreadcrumbs extends CBreadcrumbs
 	public function run()
 	{
 		// Hide empty breadcrumbs.
-		if (empty($this->links))
+		if (empty($this->links)) {
 			return;
+		}
 
 		$links = '';
 
-		if (!isset($this->homeLink))
-		{
+		if (!isset($this->homeLink)) {
 			$content = CHtml::link(Yii::t('zii', 'Home'), Yii::app()->homeUrl);
 			$links .= $this->renderItem($content);
-		} else if ($this->homeLink !== false)
+		} else if ($this->homeLink !== false) {
 			$links .= $this->renderItem($this->homeLink);
+		}
 
 		$count = count($this->links);
 		$counter = 0;
-		foreach ($this->links as $label => $url)
-		{
+		foreach ($this->links as $label => $url) {
 			++$counter; // latest is the active one
-			if (is_string($label) || is_array($url))
-			{
+			if (is_string($label) || is_array($url)) {
 				$content = CHtml::link($this->encodeLabel ? CHtml::encode($label) : $label, $url);
 				$links .= $this->renderItem($content);
-			} else
-				$links .= $this->renderItem($this->encodeLabel ? CHtml::encode($url) : $url, ($counter === $count));
+			} else {
+				$links .= $this->renderItem(
+					$this->encodeLabel ? CHtml::encode($url) : $url,
+					($counter === $count)
+				);
+			}
 		}
 
 		echo CHtml::tag('ul', $this->htmlOptions, $links);
@@ -81,6 +85,7 @@ class TbBreadcrumbs extends CBreadcrumbs
 	 *
 	 * @param string $content the content.
 	 * @param boolean $active whether the item is active.
+	 *
 	 * @return string the markup.
 	 */
 	protected function renderItem($content, $active = false)
@@ -88,7 +93,9 @@ class TbBreadcrumbs extends CBreadcrumbs
 		ob_start();
 		echo CHtml::openTag('li', $active ? array('class' => 'active') : array());
 		echo $content;
-		if (!$active) echo $this->separator; 
+		if (!$active) {
+			echo $this->separator;
+		}
 		echo '</li>';
 		return ob_get_clean();
 	}

@@ -58,9 +58,9 @@ class TbNavbar extends CWidget
 	public $fixed = self::FIXED_TOP;
 
 	/**
-	* @var boolean whether the nav span over the full width. Defaults to false.
-	* @since 0.9.8
-	*/
+	 * @var boolean whether the nav span over the full width. Defaults to false.
+	 * @since 0.9.8
+	 */
 	public $fluid = false;
 
 	/**
@@ -80,37 +80,41 @@ class TbNavbar extends CWidget
 	 */
 	public function init()
 	{
-		if ($this->brand !== false)
-		{
-			if (!isset($this->brand))
+		if ($this->brand !== false) {
+			if (!isset($this->brand)) {
 				$this->brand = CHtml::encode(Yii::app()->name);
+			}
 
-			if (!isset($this->brandUrl))
+			if (!isset($this->brandUrl)) {
 				$this->brandUrl = Yii::app()->homeUrl;
+			}
 
 			$this->brandOptions['href'] = CHtml::normalizeUrl($this->brandUrl);
 
-			if (isset($this->brandOptions['class']))
+			if (isset($this->brandOptions['class'])) {
 				$this->brandOptions['class'] .= ' brand';
-			else
+			} else {
 				$this->brandOptions['class'] = 'brand';
+			}
 		}
 
 		$classes = array('navbar');
 
-		if (isset($this->type) && in_array($this->type, array(self::TYPE_INVERSE)))
-			$classes[] = 'navbar-'.$this->type;
+		if (isset($this->type) && in_array($this->type, array(self::TYPE_INVERSE))) {
+			$classes[] = 'navbar-' . $this->type;
+		}
 
-		if ($this->fixed !== false && in_array($this->fixed, array(self::FIXED_TOP, self::FIXED_BOTTOM)))
-			$classes[] = 'navbar-fixed-'.$this->fixed;
+		if ($this->fixed !== false && in_array($this->fixed, array(self::FIXED_TOP, self::FIXED_BOTTOM))) {
+			$classes[] = 'navbar-fixed-' . $this->fixed;
+		}
 
-		if (!empty($classes))
-		{
+		if (!empty($classes)) {
 			$classes = implode(' ', $classes);
-			if (isset($this->htmlOptions['class']))
-				$this->htmlOptions['class'] .= ' '.$classes;
-			else
+			if (isset($this->htmlOptions['class'])) {
+				$this->htmlOptions['class'] .= ' ' . $classes;
+			} else {
 				$this->htmlOptions['class'] = $classes;
+			}
 		}
 	}
 
@@ -122,45 +126,41 @@ class TbNavbar extends CWidget
 	public function run()
 	{
 		echo CHtml::openTag('div', $this->htmlOptions);
-		echo '<div class="navbar-inner"><div class="'.$this->getContainerCssClass().'">';
+		echo '<div class="navbar-inner"><div class="' . $this->getContainerCssClass() . '">';
 
 		$collapseId = TbCollapse::getNextContainerId();
 
-		if ($this->collapse !== false)
-		{
-			echo '<a class="btn btn-navbar" data-toggle="collapse" data-target="#'.$collapseId.'">';
+		if ($this->collapse !== false) {
+			echo '<a class="btn btn-navbar" data-toggle="collapse" data-target="#' . $collapseId . '">';
 			echo '<span class="icon-bar"></span><span class="icon-bar"></span><span class="icon-bar"></span>';
 			echo '</a>';
 		}
 
-		if ($this->brand !== false)
-		{
-			if ($this->brandUrl !== false)
-				echo CHtml::openTag('a', $this->brandOptions).$this->brand.'</a>';
-			else
-			{
+		if ($this->brand !== false) {
+			if ($this->brandUrl !== false) {
+				echo CHtml::openTag('a', $this->brandOptions) . $this->brand . '</a>';
+			} else {
 				unset($this->brandOptions['href']); // spans cannot have a href attribute
-				echo CHtml::openTag('span', $this->brandOptions).$this->brand.'</span>';
+				echo CHtml::openTag('span', $this->brandOptions) . $this->brand . '</span>';
 			}
 		}
 
-		if ($this->collapse !== false)
-		{
-			$this->controller->beginWidget('bootstrap.widgets.TbCollapse', array(
-				'id'=>$collapseId,
-				'toggle'=>false, // navbars should be collapsed by default
-				'htmlOptions'=>array('class'=>'nav-collapse'),
-			));
+		if ($this->collapse !== false) {
+			$this->controller->beginWidget(
+				'bootstrap.widgets.TbCollapse',
+				array(
+					'id' => $collapseId,
+					'toggle' => false, // navbars should be collapsed by default
+					'htmlOptions' => array('class' => 'nav-collapse'),
+				)
+			);
 		}
 
-		foreach ($this->items as $item)
-		{
-			if (is_string($item))
+		foreach ($this->items as $item) {
+			if (is_string($item)) {
 				echo $item;
-			else
-			{
-				if (isset($item['class']))
-				{
+			} else {
+				if (isset($item['class'])) {
 					$className = $item['class'];
 					unset($item['class']);
 
@@ -169,8 +169,9 @@ class TbNavbar extends CWidget
 			}
 		}
 
-		if ($this->collapse !== false)
+		if ($this->collapse !== false) {
 			$this->controller->endWidget();
+		}
 
 		echo '</div></div></div>';
 	}

@@ -21,15 +21,16 @@ class TbInputSearch extends TbInputInline
 	 */
 	protected function searchField()
 	{
-		if (isset($this->htmlOptions['class']))
+		if (isset($this->htmlOptions['class'])) {
 			$this->htmlOptions['class'] .= ' search-query';
-		else
+		} else {
 			$this->htmlOptions['class'] = 'search-query';
+		}
 
 		$this->setPlaceholder();
 		echo $this->getPrepend();
 		echo $this->form->textField($this->model, $this->attribute, $this->htmlOptions);
 		echo $this->getAppend();
-		echo $this->getError().$this->getHint();
+		echo $this->getError() . $this->getHint();
 	}
 }

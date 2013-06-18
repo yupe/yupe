@@ -20,29 +20,33 @@ class TbSortableAction extends CAction
 	 * Widgets run function
 	 * @throws CHttpException
 	 */
-    public function run()
-    {
-        if (Yii::app()->request->isPostRequest && Yii::app()->request->isAjaxRequest && isset($_POST['sortOrder'])) {
-            $sortableAttribute = Yii::app()->request->getQuery('sortableAttribute');
+	public function run()
+	{
+		if (Yii::app()->request->isPostRequest && Yii::app()->request->isAjaxRequest && isset($_POST['sortOrder'])) {
+			$sortableAttribute = Yii::app()->request->getQuery('sortableAttribute');
 
-            /** @var $model CActiveRecord */
-            $model = new $this->modelName;
-            if (!$model->hasAttribute($sortableAttribute)) {
-                throw new CHttpException(500, Yii::t('yii', '{attribute} "{value}" is invalid.', array('{attribute}' => 'sortableAttribute', '{value}' => $sortableAttribute)));
-            }
+			/** @var $model CActiveRecord */
+			$model = new $this->modelName;
+			if (!$model->hasAttribute($sortableAttribute)) {
+				throw new CHttpException(500, Yii::t(
+					'yii',
+					'{attribute} "{value}" is invalid.',
+					array('{attribute}' => 'sortableAttribute', '{value}' => $sortableAttribute)
+				));
+			}
 
-            $query = "UPDATE {$model->tableName()} SET {$sortableAttribute} = CASE ";
-            $ids = array();
-            foreach ($_POST['sortOrder'] as $id => $sort_order) {
-                $id = intval($id);
-                $sort_order = intval($sort_order);
-                $query .= "WHEN {$model->tableSchema->primaryKey}={$id} THEN {$sort_order} ";
-                $ids[] = $id;
-            }
-            $query .= "END WHERE {$model->tableSchema->primaryKey} IN (" . implode(',', $ids) . ');';
-            Yii::app()->db->createCommand($query)->execute();
-        } else {
-            throw new CHttpException(500, Yii::t('yii', 'Your request is invalid.'));
-        }
-    }
+			$query = "UPDATE {$model->tableName()} SET {$sortableAttribute} = CASE ";
+			$ids = array();
+			foreach ($_POST['sortOrder'] as $id => $sort_order) {
+				$id = intval($id);
+				$sort_order = intval($sort_order);
+				$query .= "WHEN {$model->tableSchema->primaryKey}={$id} THEN {$sort_order} ";
+				$ids[] = $id;
+			}
+			$query .= "END WHERE {$model->tableSchema->primaryKey} IN (" . implode(',', $ids) . ');';
+			Yii::app()->db->createCommand($query)->execute();
+		} else {
+			throw new CHttpException(500, Yii::t('yii', 'Your request is invalid.'));
+		}
+	}
 }

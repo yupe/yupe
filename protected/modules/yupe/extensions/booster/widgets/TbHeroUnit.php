@@ -19,17 +19,17 @@ class TbHeroUnit extends CWidget
 	 * @var string the heading text.
 	 */
 	public $heading;
-    
+
 	/**
 	 * @var boolean indicates whether to encode the heading.
 	 */
 	public $encodeHeading = true;
-    
+
 	/**
 	 * @var array the HTML attributes for the widget container.
 	 */
 	public $htmlOptions = array();
-    
+
 	/**
 	 * @var array the HTML attributes for the heading element.
 	 * @since 1.0.0
@@ -43,18 +43,21 @@ class TbHeroUnit extends CWidget
 	 */
 	public function init()
 	{
-		if (isset($this->htmlOptions['class']))
+		if (isset($this->htmlOptions['class'])) {
 			$this->htmlOptions['class'] .= ' hero-unit';
-		else
+		} else {
 			$this->htmlOptions['class'] = 'hero-unit';
+		}
 
-		if ($this->encodeHeading)
+		if ($this->encodeHeading) {
 			$this->heading = CHtml::encode($this->heading);
+		}
 
 		echo CHtml::openTag('div', $this->htmlOptions);
 
-		if (isset($this->heading))
+		if (isset($this->heading)) {
 			echo CHtml::tag('h1', $this->headingOptions, $this->heading);
+		}
 	}
 
 	/**

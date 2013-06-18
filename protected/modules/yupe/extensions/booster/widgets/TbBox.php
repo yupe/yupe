@@ -77,23 +77,27 @@ class TbBox extends CWidget
 	 */
 	public function init()
 	{
-		if (isset($this->htmlOptions['class']))
+		if (isset($this->htmlOptions['class'])) {
 			$this->htmlOptions['class'] = 'bootstrap-widget ' . $this->htmlOptions['class'];
-		else
+		} else {
 			$this->htmlOptions['class'] = 'bootstrap-widget';
+		}
 
-		if (isset($this->htmlContentOptions['class']))
+		if (isset($this->htmlContentOptions['class'])) {
 			$this->htmlContentOptions['class'] = 'bootstrap-widget-content ' . $this->htmlContentOptions['class'];
-		else
+		} else {
 			$this->htmlContentOptions['class'] = 'bootstrap-widget-content';
+		}
 
-		if (!isset($this->htmlContentOptions['id']))
+		if (!isset($this->htmlContentOptions['id'])) {
 			$this->htmlContentOptions['id'] = $this->getId();
+		}
 
-		if (isset($this->htmlHeaderOptions['class']))
+		if (isset($this->htmlHeaderOptions['class'])) {
 			$this->htmlHeaderOptions['class'] = 'bootstrap-widget-header ' . $this->htmlHeaderOptions['class'];
-		else
+		} else {
 			$this->htmlHeaderOptions['class'] = 'bootstrap-widget-header';
+		}
 
 		echo CHtml::openTag('div', $this->htmlOptions);
 
@@ -120,15 +124,14 @@ class TbBox extends CWidget
 	 */
 	public function renderHeader()
 	{
-		if ($this->title !== false )
-		{
+		if ($this->title !== false) {
 			echo CHtml::openTag('div', $this->htmlHeaderOptions);
-			if ($this->title)
-			{
+			if ($this->title) {
 				$this->title = '<h3>' . $this->title . '</h3>';
 
-				if ($this->headerIcon)
+				if ($this->headerIcon) {
 					$this->title = '<i class="' . $this->headerIcon . '"></i>' . $this->title;
+				}
 
 				echo $this->title;
 				$this->renderButtons();
@@ -144,27 +147,28 @@ class TbBox extends CWidget
 	 */
 	public function renderButtons()
 	{
-		if (empty($this->headerButtons))
+		if (empty($this->headerButtons)) {
 			return;
+		}
 
 		echo '<div class="bootstrap-toolbar pull-right">';
 
-		if (!empty($this->headerButtons) && is_array($this->headerButtons))
-		{
-			foreach($this->headerButtons as $button)
-			{
+		if (!empty($this->headerButtons) && is_array($this->headerButtons)) {
+			foreach ($this->headerButtons as $button) {
 				$options = $button;
 				$button = $options['class'];
 				unset($options['class']);
 
-				if (strpos($button, 'TbButton') === false)
+				if (strpos($button, 'TbButton') === false) {
 					throw new CException('message');
+				}
 
-				if (!isset($options['htmlOptions']))
+				if (!isset($options['htmlOptions'])) {
 					$options['htmlOptions'] = array();
+				}
 
 				$class = isset($options['htmlOptions']['class']) ? $options['htmlOptions']['class'] : '';
-				$options['htmlOptions']['class'] = $class .' pull-right';
+				$options['htmlOptions']['class'] = $class . ' pull-right';
 
 				$this->controller->widget($button, $options);
 			}
@@ -181,8 +185,9 @@ class TbBox extends CWidget
 	public function renderContentBegin()
 	{
 		echo CHtml::openTag('div', $this->htmlContentOptions);
-		if (!empty($this->content))
+		if (!empty($this->content)) {
 			echo $this->content;
+		}
 	}
 
 	/*

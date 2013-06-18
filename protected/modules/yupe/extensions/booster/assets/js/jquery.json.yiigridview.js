@@ -109,8 +109,18 @@
                 }
 
                 $(document).on('change.yiiJsonGridView keydown.yiiJsonGridView', inputSelector, function (event) {
-                    if (event.type == 'keydown' && event.keyCode != 13) {
-                        return; // only react to enter key, not to other keys
+                    if (event.type === 'keydown') {
+                        if( event.keyCode !== 13) {
+                            return; // only react to enter key
+                        } else {
+                            eventType = 'keydown'; 
+                        }
+                    } else {
+                        // prevent processing for both keydown and change events
+                        if (eventType === 'keydown') {
+                            eventType = '';
+                            return;
+                        }
                     }
                     var data = $(inputSelector).serialize();
                     if (settings.pageVar !== undefined) {

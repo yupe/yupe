@@ -42,8 +42,8 @@ class TbCollapse extends CWidget
 	public $events = array();
 
 	/**
-	* @var array the HTML attributes for the widget container.
-	*/
+	 * @var array the HTML attributes for the widget container.
+	 */
 	public $htmlOptions = array();
 
 	private static $_containerId = 0;
@@ -55,20 +55,24 @@ class TbCollapse extends CWidget
 	 */
 	public function init()
 	{
-		if (!isset($this->htmlOptions['id']))
+		if (!isset($this->htmlOptions['id'])) {
 			$this->htmlOptions['id'] = $this->getId();
+		}
 
-		if (isset($this->parent) && !isset($this->options['parent']))
+		if (isset($this->parent) && !isset($this->options['parent'])) {
 			$this->options['parent'] = $this->parent;
+		}
 
-		if (isset($this->toggle) && !isset($this->options['toggle']))
+		if (isset($this->toggle) && !isset($this->options['toggle'])) {
 			$this->options['toggle'] = $this->toggle;
+		}
 
 		// NOTE: we depend on the htmlOptions being initialized to empty array already.
-		if (empty($this->htmlOptions['class']))
+		if (empty($this->htmlOptions['class'])) {
 			$this->htmlOptions['class'] = 'collapse';
-		else
+		} else {
 			$this->htmlOptions['class'] .= ' collapse';
+		}
 		echo CHtml::openTag($this->tagName, $this->htmlOptions);
 	}
 
@@ -86,12 +90,11 @@ class TbCollapse extends CWidget
 		/** @var CClientScript $cs */
 		$cs = Yii::app()->getClientScript();
 		$options = !empty($this->options) ? CJavaScript::encode($this->options) : '';
-		$cs->registerScript(__CLASS__.'#'.$id, "jQuery('#{$id}').collapse({$options});");
+		$cs->registerScript(__CLASS__ . '#' . $id, "jQuery('#{$id}').collapse({$options});");
 
-		foreach ($this->events as $name => $handler)
-		{
+		foreach ($this->events as $name => $handler) {
 			$handler = CJavaScript::encode($handler);
-			$cs->registerScript(__CLASS__.'#'.$id.'_'.$name, "jQuery('#{$id}').on('{$name}', {$handler});");
+			$cs->registerScript(__CLASS__ . '#' . $id . '_' . $name, "jQuery('#{$id}').on('{$name}', {$handler});");
 		}
 	}
 
@@ -104,6 +107,6 @@ class TbCollapse extends CWidget
 	 */
 	public static function getNextContainerId()
 	{
-		return self::CONTAINER_PREFIX.self::$_containerId++;
+		return self::CONTAINER_PREFIX . self::$_containerId++;
 	}
 }

@@ -26,39 +26,39 @@ class TbFormInputElement extends CFormInputElement
 	 * @var array this->type => TbActiveForm::method
 	 */
 	public static $tbActiveFormMethods = array(
-		'text'               => 'textFieldRow',
-		'password'           => 'passwordFieldRow',
-		'textarea'           => 'textAreaRow',
-		'file'               => 'fileFieldRow',
-		'radio'              => 'radioButtonRow',
-		'checkbox'           => 'checkBoxRow',
-		'listbox'            => 'dropDownListRow',
-		'dropdownlist'       => 'dropDownListRow',
-		'checkboxlist'       => 'checkBoxListRow',
-		'radiolist'          => 'radioButtonListRow',
+		'text' => 'textFieldRow',
+		'password' => 'passwordFieldRow',
+		'textarea' => 'textAreaRow',
+		'file' => 'fileFieldRow',
+		'radio' => 'radioButtonRow',
+		'checkbox' => 'checkBoxRow',
+		'listbox' => 'dropDownListRow',
+		'dropdownlist' => 'dropDownListRow',
+		'checkboxlist' => 'checkBoxListRow',
+		'radiolist' => 'radioButtonListRow',
 		//HTML5 types not supported in YiiBooster yet: render as textField
-		'url'                => 'textFieldRow',
-		'email'              => 'textFieldRow',
-		'number'             => 'textFieldRow',
+		'url' => 'textFieldRow',
+		'email' => 'textFieldRow',
+		'number' => 'textFieldRow',
 		//'range'=>'activeRangeField', not supported yet
-		'date'               => 'datepickerRow',
+		'date' => 'datepickerRow',
 		//new YiiBooster types
-		'captcha'            => 'captchaRow',
-		'daterange'          => 'dateRangeRow',
-		'redactor'           => 'redactorRow',
-		'markdowneditor'     => 'markdownEditorRow',
-		'uneditable'         => 'uneditableRow',
-		'radiolistinline'    => 'radioButtonListInlineRow',
+		'captcha' => 'captchaRow',
+		'daterange' => 'dateRangeRow',
+		'redactor' => 'redactorRow',
+		'markdowneditor' => 'markdownEditorRow',
+		'uneditable' => 'uneditableRow',
+		'radiolistinline' => 'radioButtonListInlineRow',
 		'checkboxlistinline' => 'checkBoxListInlineRow',
-		'select2'            => 'select2Row'
+		'select2' => 'select2Row'
 	);
 
 	/**
 	 * @var array map the htmlOptions input type: not supported by YiiBooster yet
 	 */
 	public static $htmlOptionTypes = array(
-		'url'    => 'url',
-		'email'  => 'email',
+		'url' => 'url',
+		'email' => 'email',
 		'number' => 'number',
 	);
 
@@ -75,17 +75,21 @@ class TbFormInputElement extends CFormInputElement
 	 * Prepare the htmlOptions before calling the TbActiveForm method
 	 *
 	 * @param array $options
+	 *
 	 * @return mixed
 	 */
 	protected function prepareHtmlOptions($options)
 	{
 		if (!empty($this->hint)) //restore hint from config as attribute
+		{
 			$options['hint'] = $this->hint;
+		}
 
 		//HTML5 types not supported in YiiBooster yet
 		//should be possible to set type="email", ... in the htmlOptions
-		if (array_key_exists($this->type, self::$htmlOptionTypes))
+		if (array_key_exists($this->type, self::$htmlOptionTypes)) {
 			$options['type'] = self::$htmlOptionTypes[$this->type];
+		}
 
 		return $options;
 	}
@@ -95,15 +99,13 @@ class TbFormInputElement extends CFormInputElement
 	 */
 	public function render()
 	{
-		if (!empty(self::$tbActiveFormMethods[$this->type]))
-		{
+		if (!empty(self::$tbActiveFormMethods[$this->type])) {
 			$method = self::$tbActiveFormMethods[$this->type];
 			$model = $this->getParent()->getModel();
 			$attribute = $this->name;
 			$htmlOptions = $this->prepareHtmlOptions($this->attributes);
 
-			switch ($method)
-			{
+			switch ($method) {
 				case 'checkBoxListRow':
 				case 'radioButtonListRow':
 				case 'dropDownListRow':
@@ -114,13 +116,13 @@ class TbFormInputElement extends CFormInputElement
 				default:
 					return $this->getActiveFormWidget()->$method($model, $attribute, $htmlOptions);
 			}
-		}
-		elseif ($this->wrapBootstrapTags) //wrap tags controls/control-group
+		} elseif ($this->wrapBootstrapTags) //wrap tags controls/control-group
 		{
 			$error = $this->getParent()->showErrorSummary ? '' : $this->renderError();
 			$output = array(
 				'{label}' => $this->renderControlLabel(),
-				'{input}' => "<div class=\"controls\">\n" . $this->renderInput() . $error . $this->renderHint() . '</div>',
+				'{input}' => "<div class=\"controls\">\n" . $this->renderInput() . $error . $this->renderHint(
+				) . '</div>',
 				'{hint}' => '',
 				'{error}' => '',
 			);
@@ -141,8 +143,9 @@ class TbFormInputElement extends CFormInputElement
 			'class' => 'control-label'
 		);
 
-		if (!empty($this->attributes['id']))
+		if (!empty($this->attributes['id'])) {
 			$options['for'] = $this->attributes['id'];
+		}
 
 		return CHtml::activeLabel($this->getParent()->getModel(), $this->name, $options);
 	}
