@@ -61,21 +61,29 @@ class TbExtendedFilter extends CWidget
 	 */
 	public function init()
 	{
-		if (!$this->model instanceof CActiveRecord)
+		if (!$this->model instanceof CActiveRecord) {
 			throw new CException(Yii::t('zii', '"model" attribute must be an CActiveRecord type of component'));
+		}
 
-		if (!$this->grid instanceof CGridView)
+		if (!$this->grid instanceof CGridView) {
 			throw new CException(Yii::t('zii', '"grid" attribute must be an CGridView type of component'));
+		}
 
-		if (!$this->redirectRoute === null)
+		if (!$this->redirectRoute === null) {
 			throw new CException(Yii::t('zii', '"redirectRoute" cannot be empty'));
+		}
 
-		$this->registry .= '-'.$this->grid->id;
+		$this->registry .= '-' . $this->grid->id;
 
 		$this->jsonStorage = new JSONStorage();
 		$this->jsonStorage->addRegistry($this->registry);
 
-		$this->filteredBy = array_filter($this->model->getAttributes(), function($i){ return $i != null;});
+		$this->filteredBy = array_filter(
+			$this->model->getAttributes(),
+			function ($i) {
+				return $i != null;
+			}
+		);
 
 		$this->checkRequestRemovalFilter();
 		$this->checkRequestFilters();
@@ -91,10 +99,10 @@ class TbExtendedFilter extends CWidget
 	 */
 	protected function checkRequestRemovalFilter()
 	{
-		if ($key = Yii::app()->getRequest()->getParam($this->removeFilterVar))
-		{
-			if ($this->jsonStorage->removeData($key, $this->registry))
+		if ($key = Yii::app()->getRequest()->getParam($this->removeFilterVar)) {
+			if ($this->jsonStorage->removeData($key, $this->registry)) {
 				Yii::app()->getController()->redirect($this->redirectRoute);
+			}
 		}
 	}
 
@@ -108,14 +116,15 @@ class TbExtendedFilter extends CWidget
 	 */
 	protected function checkRequestFilters()
 	{
-		if ($filterName = Yii::app()->getRequest()->getParam($this->saveFilterVar))
-		{
-			if (!count($this->filteredBy))
+		if ($filterName = Yii::app()->getRequest()->getParam($this->saveFilterVar)) {
+			if (!count($this->filteredBy)) {
 				return false;
+			}
 			$key = $this->generateRegistryItemKey();
 
-			if ($this->jsonStorage->getData($key, $this->registry))
+			if ($this->jsonStorage->getData($key, $this->registry)) {
 				return false;
+			}
 
 			$data = array('name' => $filterName);
 			$data['options'] = array(get_class($this->model) => $this->filteredBy);
@@ -135,15 +144,19 @@ class TbExtendedFilter extends CWidget
 
 		$registryKey = $this->generateRegistryItemKey($this->filteredBy);
 
-		if (!count($this->filteredBy) && !$this->jsonStorage->getLength($this->registry))
+		if (!count($this->filteredBy) && !$this->jsonStorage->getLength($this->registry)) {
 			return;
+		}
 
 		echo "<tr>\n";
 		$cols = count($this->grid->columns);
 		echo "<td colspan='{$cols}'>\n";
 		echo "<div id='{$this->getId()}'>\n";
-		if (count($this->filteredBy))
-			echo '<p><span class="label label-success">Filtered by</span> ' . $this->displayExtendedFilterValues($this->filteredBy) . '</p>';
+		if (count($this->filteredBy)) {
+			echo '<p><span class="label label-success">Filtered by</span> ' . $this->displayExtendedFilterValues(
+				$this->filteredBy
+			) . '</p>';
+		}
 
 		$this->displaySaveButton($registryKey);
 		$this->displaySavedFilters($registryKey);
@@ -162,8 +175,10 @@ class TbExtendedFilter extends CWidget
 	{
 		$url = CHtml::normalizeUrl($this->redirectRoute);
 
-		Yii::app()->clientScript->registerScript(__CLASS__ . '#extended-filter' . $this->grid->id, <<<EOD
-		$(document).on('click', '#{$this->grid->id} .btn-extended-filter-save', function(e){
+		Yii::app()->clientScript->registerScript(
+			__CLASS__ . '#extended-filter' . $this->grid->id,
+			<<<EOD
+           		$(document).on('click', '#{$this->grid->id} .btn-extended-filter-save', function(e){
 			e.preventDefault();
 			bootbox.prompt("How do you wish to save this filter?", "Cancel", "Ok", function(result){
 				if ($.trim(result).length > 0)
@@ -211,14 +226,20 @@ EOD
 	 * Displays the save filter button
 	 *
 	 * @param string $registryKey
+	 *
 	 * @return bool
 	 */
 	protected function displaySaveButton($registryKey)
 	{
-		if (null == $registryKey || $this->jsonStorage->getData($registryKey, $this->registry))
+		if (null == $registryKey || $this->jsonStorage->getData($registryKey, $this->registry)) {
 			return false;
+		}
 
-		echo '<p>' . CHtml::link('save filter', '#', array('class' => 'btn btn-success btn-extended-filter-save')) . '</p>';
+		echo '<p>' . CHtml::link(
+			'save filter',
+			'#',
+			array('class' => 'btn btn-success btn-extended-filter-save')
+		) . '</p>';
 	}
 
 	/**
@@ -230,25 +251,38 @@ EOD
 	 */
 	protected function displaySavedFilters($registryKey)
 	{
-		if ($this->jsonStorage->getLength($this->registry))
-		{
+		if ($this->jsonStorage->getLength($this->registry)) {
 			$registry = $this->jsonStorage->getRegistry($this->registry);
 
 			echo '<p><span class="span6" >';
 			echo '<label class="label label-info">Saved Filters [select and click ok sign button]</label><br/>';
 			echo '<select class="select-extended-filter">';
-			echo '<option value="-1" data-filter="{}" '.(!$registryKey?'selected':'').'>No Filters</option>';
-			foreach ($registry as $key=>$filter)
-			{
-				echo CHtml::openTag('option', array('data-filter'=>CJSON::encode($filter['options']), 'data-key'=>$key, 'selected'=>($key==$registryKey?'selected':null)));
+			echo '<option value="-1" data-filter="{}" ' . (!$registryKey ? 'selected' : '') . '>No Filters</option>';
+			foreach ($registry as $key => $filter) {
+				echo CHtml::openTag(
+					'option',
+					array(
+						'data-filter' => CJSON::encode($filter['options']),
+						'data-key' => $key,
+						'selected' => ($key == $registryKey ? 'selected' : null)
+					)
+				);
 				echo $filter['name'];
 				echo '</option>';
 			}
 			echo '</select>&nbsp;';
 
-			echo CHtml::link('<i class="icon-ok icon-white"></i>', '#', array('class'=>'btn btn-primary btn-extended-filter-apply', 'style'=>'margin-bottom:9px'));
+			echo CHtml::link(
+				'<i class="icon-ok icon-white"></i>',
+				'#',
+				array('class' => 'btn btn-primary btn-extended-filter-apply', 'style' => 'margin-bottom:9px')
+			);
 			echo '&nbsp;';
-			echo CHtml::link('<i class="icon-trash"></i>', '#', array('class'=>'btn btn-warning btn-extended-filter-delete', 'style'=>'margin-bottom:9px'));
+			echo CHtml::link(
+				'<i class="icon-trash"></i>',
+				'#',
+				array('class' => 'btn btn-warning btn-extended-filter-delete', 'style' => 'margin-bottom:9px')
+			);
 			echo '</span></p>';
 		}
 	}
@@ -262,8 +296,9 @@ EOD
 	 */
 	protected function generateRegistryItemKey()
 	{
-		if (!count($this->filteredBy))
+		if (!count($this->filteredBy)) {
 			return null;
+		}
 		return md5($this->grid->id . CJSON::encode($this->filteredBy));
 	}
 
@@ -273,13 +308,15 @@ EOD
 	 * Displays the filtered options
 	 *
 	 * @param array $filteredBy
+	 *
 	 * @return string
 	 */
 	protected function displayExtendedFilterValues($filteredBy)
 	{
 		$values = array();
-		foreach ($filteredBy as $key => $value)
+		foreach ($filteredBy as $key => $value) {
 			$values[] = '<span class="label label-info">' . $key . '</span> ' . $value;
+		}
 		return implode(', ', $values);
 	}
 }

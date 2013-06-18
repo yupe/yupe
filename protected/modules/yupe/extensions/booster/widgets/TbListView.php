@@ -23,7 +23,7 @@ class TbListView extends CListView
 	 * @var array the configuration for the pager.
 	 * Defaults to <code>array('class'=>'ext.bootstrap.widgets.TbPager')</code>.
 	 */
-	public $pager = array('class'=>'bootstrap.widgets.TbPager');
+	public $pager = array('class' => 'bootstrap.widgets.TbPager');
 
 	/**
 	 * @var string the URL of the CSS file used by this detail view.
@@ -50,7 +50,8 @@ class TbListView extends CListView
 			jQuery('{$tooltip}').tooltip();
 		}";
 
-		if (!isset($this->afterAjaxUpdate))
+		if (!isset($this->afterAjaxUpdate)) {
 			$this->afterAjaxUpdate = $afterAjaxUpdate;
+		}
 	}
 }

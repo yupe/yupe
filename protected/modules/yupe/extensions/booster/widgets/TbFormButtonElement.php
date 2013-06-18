@@ -26,14 +26,14 @@ class TbFormButtonElement extends CFormElement
 	public static $TbButtonTypes = array(
 		'htmlButton' => 'button',
 		'htmlSubmit' => 'submit',
-		'htmlReset'  => 'reset',
-		'button'     => 'button',
-		'submit'     => 'submit',
-		'reset'      => 'reset',
+		'htmlReset' => 'reset',
+		'button' => 'button',
+		'submit' => 'submit',
+		'reset' => 'reset',
 		//'image'=>'imageButton', not supported
-		'link'       => 'link',
+		'link' => 'link',
 		//new YiiBooster types
-		'ajaxLink'   => 'ajaxLink',
+		'ajaxLink' => 'ajaxLink',
 		'ajaxButton' => 'ajaxButton',
 		'ajaxSubmit' => 'ajaxSubmit',
 	);
@@ -46,6 +46,7 @@ class TbFormButtonElement extends CFormElement
 	 * $this->layoutType => TbButton->type
 	 *
 	 * @param array $options
+	 *
 	 * @return mixed
 	 */
 	protected function prepareWidgetOptions($options)
@@ -55,8 +56,9 @@ class TbFormButtonElement extends CFormElement
 		unset($options['type']);
 
 		//map layoutType to attribute type of TbButton
-		if (isset($this->layoutType))
-		   $options['type'] = $this->layoutType;
+		if (isset($this->layoutType)) {
+			$options['type'] = $this->layoutType;
+		}
 
 		//move $options['name'] to htmlOptions
 		$options['htmlOptions']['name'] = $this->name;
@@ -72,12 +74,11 @@ class TbFormButtonElement extends CFormElement
 	 */
 	public function render()
 	{
-		if (!empty(self::$TbButtonTypes[$this->type]))
-		{
+		if (!empty(self::$TbButtonTypes[$this->type])) {
 			$attributes = $this->prepareWidgetOptions($this->attributes);
 
 			ob_start();
-			Yii::app()->controller->widget('TbButton',$attributes);
+			Yii::app()->controller->widget('TbButton', $attributes);
 			return ob_get_clean();
 		}
 

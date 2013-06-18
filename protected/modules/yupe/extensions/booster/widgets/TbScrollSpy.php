@@ -43,20 +43,24 @@ class TbScrollSpy extends CWidget
 	{
 		$script = "jQuery('{$this->selector}').attr('data-spy', 'scroll');";
 
-		if (isset($this->target))
+		if (isset($this->target)) {
 			$script .= "jQuery('{$this->selector}').attr('data-target', '{$this->target}');";
+		}
 
-		if (isset($this->offset))
+		if (isset($this->offset)) {
 			$script .= "jQuery('{$this->selector}').attr('data-offset', '{$this->offset}');";
+		}
 
 		/** @var CClientScript $cs */
 		$cs = Yii::app()->getClientScript();
-		$cs->registerScript(__CLASS__.'#'.$this->selector, $script, CClientScript::POS_BEGIN);
+		$cs->registerScript(__CLASS__ . '#' . $this->selector, $script, CClientScript::POS_BEGIN);
 
-		foreach ($this->events as $name => $handler)
-		{
+		foreach ($this->events as $name => $handler) {
 			$handler = CJavaScript::encode($handler);
-			$cs->registerScript(__CLASS__.'#'.$this->selector.'_'.$name, "jQuery('{$this->selector}').on('{$name}', {$handler});");
+			$cs->registerScript(
+				__CLASS__ . '#' . $this->selector . '_' . $name,
+				"jQuery('{$this->selector}').on('{$name}', {$handler});"
+			);
 		}
 	}
 }

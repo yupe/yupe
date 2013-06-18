@@ -22,29 +22,27 @@ class TbThumbnails extends TbListView
 	 */
 	public function renderItems()
 	{
-		echo CHtml::openTag($this->itemsTagName,array('class'=>$this->itemsCssClass))."\n";
-		
+		echo CHtml::openTag($this->itemsTagName, array('class' => $this->itemsCssClass)) . "\n";
+
 		$data = $this->dataProvider->getData();
-		
-		if (!empty($data))
-		{
-			echo CHtml::openTag('ul', array('class'=>'thumbnails'));
+
+		if (!empty($data)) {
+			echo CHtml::openTag('ul', array('class' => 'thumbnails'));
 			$owner = $this->getOwner();
 			$render = $owner instanceof CController ? 'renderPartial' : 'render';
-			foreach($data as $i=>$item)
-			{
+			foreach ($data as $i => $item) {
 				$data = $this->viewData;
 				$data['index'] = $i;
 				$data['data'] = $item;
 				$data['widget'] = $this;
-				$owner->$render($this->itemView,$data);
+				$owner->$render($this->itemView, $data);
 			}
 
 			echo '</ul>';
-		}
-		else
+		} else {
 			$this->renderEmptyText();
-		
+		}
+
 		echo CHtml::closeTag($this->itemsTagName);
 	}
 }

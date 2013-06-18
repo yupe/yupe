@@ -35,14 +35,17 @@ class TbDatePicker extends CInputWidget
 		$this->htmlOptions['type'] = 'text';
 		$this->htmlOptions['autocomplete'] = 'off';
 
-		if (!isset($this->options['language']))
+		if (!isset($this->options['language'])) {
 			$this->options['language'] = substr(Yii::app()->getLanguage(), 0, 2);
+		}
 
-		if (!isset($this->options['format']))
+		if (!isset($this->options['format'])) {
 			$this->options['format'] = 'mm/dd/yyyy';
+		}
 
-		if (!isset($this->options['weekStart']))
-			$this->options['weekStart'] = 0; // Sunday
+		if (!isset($this->options['weekStart'])) {
+			$this->options['weekStart'] = 0;
+		} // Sunday
 	}
 
 	/**
@@ -54,15 +57,16 @@ class TbDatePicker extends CInputWidget
 	{
 		list($name, $id) = $this->resolveNameID();
 
-		if ($this->hasModel())
-		{
-			if ($this->form)
+		if ($this->hasModel()) {
+			if ($this->form) {
 				echo $this->form->textField($this->model, $this->attribute, $this->htmlOptions);
-			else
+			} else {
 				echo CHtml::activeTextField($this->model, $this->attribute, $this->htmlOptions);
+			}
 
-		} else
+		} else {
 			echo CHtml::textField($name, $this->value, $this->htmlOptions);
+		}
 
 		$this->registerClientScript();
 		$this->registerLanguageScript();
@@ -70,8 +74,9 @@ class TbDatePicker extends CInputWidget
 
 		ob_start();
 		echo "jQuery('#{$id}').datepicker({$options})";
-		foreach ($this->events as $event => $handler)
+		foreach ($this->events as $event => $handler) {
 			echo ".on('{$event}', " . CJavaScript::encode($handler) . ")";
+		}
 
 		Yii::app()->getClientScript()->registerScript(__CLASS__ . '#' . $this->getId(), ob_get_clean() . ';');
 
@@ -85,17 +90,20 @@ class TbDatePicker extends CInputWidget
 	 */
 	public function registerClientScript()
 	{
-		Yii::app()->bootstrap->registerAssetCss('bootstrap-datepicker.css');
-		Yii::app()->bootstrap->registerAssetJs('bootstrap.datepicker.js');
+		Yii::app()->bootstrap->registerPackage('datepicker');
 	}
 
 	public function registerLanguageScript()
 	{
-		if (isset($this->options['language']) && $this->options['language'] != 'en')
-		{
-			$file = 'locales/bootstrap-datepicker.'.$this->options['language'].'.js';
-			if (@file_exists(Yii::getPathOfAlias('bootstrap.assets').'/js/'.$file))
-				Yii::app()->bootstrap->registerAssetJs('locales/bootstrap-datepicker.'.$this->options['language'].'.js', CClientScript::POS_END);
+		if (isset($this->options['language']) && $this->options['language'] != 'en') {
+			$file = 'locales/bootstrap-datepicker.' . $this->options['language'] . '.js';
+			if (@file_exists(Yii::getPathOfAlias('bootstrap.assets') . '/js/' . $file)) {
+				if (Yii::app()->bootstrap->enableCdn) {
+					Yii::app()->clientScript->registerScriptFile('//cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.0.2/js/locales/bootstrap-datepicker.' . $this->options['language'] . '.js', CClientScript::POS_END);
+				} else {
+					Yii::app()->bootstrap->registerAssetJs('locales/bootstrap-datepicker.' . $this->options['language'] . '.js');
+				}
+			}
 		}
 	}
 }

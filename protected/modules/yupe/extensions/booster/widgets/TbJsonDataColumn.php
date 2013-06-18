@@ -18,22 +18,23 @@ class TbJsonDataColumn extends TbJsonGridColumn
 {
 	/**
 	 * Renders a data cell.
+	 *
 	 * @param integer $row the row number (zero-based)
+	 *
 	 * @return array|void
 	 */
 	public function renderDataCell($row)
 	{
-		if ($this->grid->json)
-		{
+		if ($this->grid->json) {
 			$data = $this->grid->dataProvider->data[$row];
 			$options = $this->htmlOptions;
-			if ($this->cssClassExpression !== null)
-			{
+			if ($this->cssClassExpression !== null) {
 				$class = $this->evaluateExpression($this->cssClassExpression, array('row' => $row, 'data' => $data));
-				if (isset($options['class']))
+				if (isset($options['class'])) {
 					$options['class'] .= ' ' . $class;
-				else
+				} else {
 					$options['class'] = $class;
+				}
 			}
 			$col = array();
 			$col['attrs'] = CHtml::renderAttributes($options);
@@ -46,19 +47,26 @@ class TbJsonDataColumn extends TbJsonGridColumn
 	/**
 	 * Renders the data cell content.
 	 * This method evaluates {@link value} or {@link name} and renders the result.
+	 *
 	 * @param integer $row the row number (zero-based)
 	 * @param mixed $data the data associated with the row
+	 *
 	 * @return string|void
 	 */
 	public function renderDataCellContent($row, $data)
 	{
-		if ($this->grid->json)
-		{
-			if ($this->value !== null)
+		if ($this->grid->json) {
+			if ($this->value !== null) {
 				$value = $this->evaluateExpression($this->value, array('data' => $data, 'row' => $row));
-			elseif ($this->name !== null)
+			} elseif ($this->name !== null) {
 				$value = CHtml::value($data, $this->name);
-			$value = !isset($value) ? $this->grid->nullDisplay : $this->grid->getFormatter()->format($value, $this->type);
+			}
+			$value = !isset($value)
+				? $this->grid->nullDisplay
+				: $this->grid->getFormatter()->format(
+					$value,
+					$this->type
+				);
 
 			return $value;
 		}

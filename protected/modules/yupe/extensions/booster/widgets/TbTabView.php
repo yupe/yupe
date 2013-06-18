@@ -13,133 +13,138 @@ Yii::import('bootstrap.widgets.TbTabs');
 class TbTabView extends TbTabs
 {
 
-  /**
-   * @var array
-   *
-   * Additional data submitted to the views
-   */
-  public $viewData;
+	/**
+	 * @var array
+	 *
+	 * Additional data submitted to the views
+	 */
+	public $viewData;
 
-  /**
-   *### .normalizeTabs()
-   *
-   * Override from TbTabs
-   *
-   * @param array $tabs the tab configuration
-   * @param array $panes a reference to the panes array
-   * @param integer $i the current index
-   * @return array the items
-   */
-  protected function normalizeTabs($tabs, &$panes, &$i = 0)
-  {
-    $id = $this->getId();
-    $items = array();
+	/**
+	 *### .normalizeTabs()
+	 *
+	 * Override from TbTabs
+	 *
+	 * @param array $tabs the tab configuration
+	 * @param array $panes a reference to the panes array
+	 * @param integer $i the current index
+	 *
+	 * @return array the items
+	 */
+	protected function normalizeTabs($tabs, &$panes, &$i = 0)
+	{
+		$id = $this->getId();
+		$items = array();
 
-    //---------------- new -------------------
-    //Check if has an active item
-    $hasActiveItem = false;
-    foreach ($tabs as $tab)
-    {
-      $hasActiveItem = isset($tab['active']) ? $tab['active'] : false;
-      if ($hasActiveItem)
-        break;
-    }
-    //---------------- end new -------------------
+		//---------------- new -------------------
+		//Check if has an active item
+		$hasActiveItem = false;
+		foreach ($tabs as $tab) {
+			$hasActiveItem = isset($tab['active']) ? $tab['active'] : false;
+			if ($hasActiveItem) {
+				break;
+			}
+		}
+		//---------------- end new -------------------
 
-    foreach ($tabs as $tab)
-    {
-      $item = $tab;
+		foreach ($tabs as $tab) {
+			$item = $tab;
 
-      if (isset($item['visible']) && $item['visible'] === false)
-        continue;
+			if (isset($item['visible']) && $item['visible'] === false) {
+				continue;
+			}
 
-      //---------------- new -------------------
-      //check first active
-      if (!$hasActiveItem && $i == 0)
-        $item['active'] = true;
+			//---------------- new -------------------
+			//check first active
+			if (!$hasActiveItem && $i == 0) {
+				$item['active'] = true;
+			}
 
-      //title -> label
-      if (isset($item['title']))
-      {
-        if (!isset($item['label']))
-          $item['label'] = $item['title'];
-        unset($item['title']);
-      }
-      //------   end new ----------------
+			//title -> label
+			if (isset($item['title'])) {
+				if (!isset($item['label'])) {
+					$item['label'] = $item['title'];
+				}
+				unset($item['title']);
+			}
+			//------   end new ----------------
 
-      if (!isset($item['itemOptions']))
-        $item['itemOptions'] = array();
+			if (!isset($item['itemOptions'])) {
+				$item['itemOptions'] = array();
+			}
 
-      $item['linkOptions']['data-toggle'] = 'tab';
+			$item['linkOptions']['data-toggle'] = 'tab';
 
-      if (isset($tab['items']))
-        $item['items'] = $this->normalizeTabs($item['items'], $panes, $i);
-      else
-      {
-        if (!isset($item['id']))
-          $item['id'] = $id.'_tab_'.($i + 1);
+			if (isset($tab['items'])) {
+				$item['items'] = $this->normalizeTabs($item['items'], $panes, $i);
+			} else {
+				if (!isset($item['id'])) {
+					$item['id'] = $id . '_tab_' . ($i + 1);
+				}
 
-        $item['url'] = '#'.$item['id'];
+				$item['url'] = '#' . $item['id'];
 
-        //if (!isset($item['content'])) removed
-        //	$item['content'] = '';
+				//if (!isset($item['content'])) removed
+				//	$item['content'] = '';
 
-        //--------------- new ---------------
-        if (!isset($item['content']))
-        {
-          if (isset($item['view']))
-          {
-            if (isset($item['data']))
-            {
-              if (is_array($this->viewData))
-                $data = array_merge($this->viewData, $item['data']);
-              else
-                $data = $item['data'];
+				//--------------- new ---------------
+				if (!isset($item['content'])) {
+					if (isset($item['view'])) {
+						if (isset($item['data'])) {
+							if (is_array($this->viewData)) {
+								$data = array_merge($this->viewData, $item['data']);
+							} else {
+								$data = $item['data'];
+							}
 
-              unset($item['data']);
-            } else
-              $data = $this->viewData;
+							unset($item['data']);
+						} else {
+							$data = $this->viewData;
+						}
 
-            $item['content'] = $this->getController()->renderPartial($item['view'], $data, true);
+						$item['content'] = $this->getController()->renderPartial($item['view'], $data, true);
 
-            unset($item['view']);
-          }
-          else
-            $item['content'] = '';
-        }
-        //--------------- end new ---------------
+						unset($item['view']);
+					} else {
+						$item['content'] = '';
+					}
+				}
+				//--------------- end new ---------------
 
-        $content = $item['content'];
-        unset($item['content']);
+				$content = $item['content'];
+				unset($item['content']);
 
-        if (!isset($item['paneOptions']))
-          $item['paneOptions'] = array();
+				if (!isset($item['paneOptions'])) {
+					$item['paneOptions'] = array();
+				}
 
-        $paneOptions = $item['paneOptions'];
-        unset($item['paneOptions']);
+				$paneOptions = $item['paneOptions'];
+				unset($item['paneOptions']);
 
-        $paneOptions['id'] = $item['id'];
+				$paneOptions['id'] = $item['id'];
 
-        $classes = array('tab-pane fade');
+				$classes = array('tab-pane fade');
 
-        if (isset($item['active']) && $item['active'])
-          $classes[] = 'active in';
+				if (isset($item['active']) && $item['active']) {
+					$classes[] = 'active in';
+				}
 
-        $classes = implode(' ', $classes);
-        if (isset($paneOptions['class']))
-          $paneOptions['class'] .= ' '.$classes;
-        else
-          $paneOptions['class'] = $classes;
+				$classes = implode(' ', $classes);
+				if (isset($paneOptions['class'])) {
+					$paneOptions['class'] .= ' ' . $classes;
+				} else {
+					$paneOptions['class'] = $classes;
+				}
 
-        $panes[] = CHtml::tag('div', $paneOptions, $content);
+				$panes[] = CHtml::tag('div', $paneOptions, $content);
 
-        $i++; // increment the tab-index
-      }
+				$i++; // increment the tab-index
+			}
 
-      $items[] = $item;
-    }
+			$items[] = $item;
+		}
 
-    return $items;
-  }
+		return $items;
+	}
 
 }

@@ -24,10 +24,11 @@ class TbDropdown extends TbBaseMenu
 	{
 		parent::init();
 
-		if (isset($this->htmlOptions['class']))
+		if (isset($this->htmlOptions['class'])) {
 			$this->htmlOptions['class'] .= ' dropdown-menu';
-		else
+		} else {
 			$this->htmlOptions['class'] = 'dropdown-menu';
+		}
 	}
 
 	/**
@@ -37,33 +38,35 @@ class TbDropdown extends TbBaseMenu
 	 * Note that the container and the sub-menus are not rendered here.
 	 *
 	 * @param array $item the menu item to be rendered. Please see {@link items} on what data might be in the item.
+	 *
 	 * @return string the rendered item
 	 */
 	protected function renderMenuItem($item)
 	{
-		if (isset($item['icon']))
-		{
-			if (strpos($item['icon'], 'icon') === false)
-			{
+		if (isset($item['icon'])) {
+			if (strpos($item['icon'], 'icon') === false) {
 				$pieces = explode(' ', $item['icon']);
-				$item['icon'] = 'icon-'.implode(' icon-', $pieces);
+				$item['icon'] = 'icon-' . implode(' icon-', $pieces);
 			}
 
-			$item['label'] = '<i class="'.$item['icon'].'"></i> '.$item['label'];
+			$item['label'] = '<i class="' . $item['icon'] . '"></i> ' . $item['label'];
 		}
 
-		if (!isset($item['linkOptions']))
+		if (!isset($item['linkOptions'])) {
 			$item['linkOptions'] = array();
+		}
 
-		if (isset($item['items']) && !empty($item['items']) && empty($item['url']))
+		if (isset($item['items']) && !empty($item['items']) && empty($item['url'])) {
 			$item['url'] = '#';
+		}
 
 		$item['linkOptions']['tabindex'] = -1;
 
-		if (isset($item['url']))
+		if (isset($item['url'])) {
 			return CHtml::link($item['label'], $item['url'], $item['linkOptions']);
-		else
+		} else {
 			return $item['label'];
+		}
 	}
 
 	/**

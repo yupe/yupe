@@ -44,24 +44,27 @@ class TbModalManager extends CWidget
 	 */
 	public function init()
 	{
-		if (!isset($this->htmlOptions['id']))
+		if (!isset($this->htmlOptions['id'])) {
 			$this->htmlOptions['id'] = $this->getId();
+		}
 
-		if ($this->autoOpen === false && !isset($this->options['show']))
+		if ($this->autoOpen === false && !isset($this->options['show'])) {
 			$this->options['show'] = false;
+		}
 
 		$classes = array('modal');
 
-		if ($this->fade === true)
+		if ($this->fade === true) {
 			$classes[] = 'fade';
+		}
 
-		if (!empty($classes))
-		{
+		if (!empty($classes)) {
 			$classes = implode(' ', $classes);
-			if (isset($this->htmlOptions['class']))
-				$this->htmlOptions['class'] .= ' '.$classes;
-			else
+			if (isset($this->htmlOptions['class'])) {
+				$this->htmlOptions['class'] .= ' ' . $classes;
+			} else {
 				$this->htmlOptions['class'] = $classes;
+			}
 		}
 		echo CHtml::openTag('div', $this->htmlOptions);
 	}
@@ -77,6 +80,7 @@ class TbModalManager extends CWidget
 
 	/**
 	 * Registers required
+	 *
 	 * @param integer $id
 	 */
 	public function registerClientScript($id)
@@ -88,15 +92,18 @@ class TbModalManager extends CWidget
 
 		ob_start();
 		echo "jQuery('#{$id}').modalmanager({$options})";
-		foreach ($this->events as $event => $handler)
+		foreach ($this->events as $event => $handler) {
 			echo ".on('{$event}', " . CJavaScript::encode($handler) . ")";
+		}
 
 		Yii::app()->getClientScript()->registerScript(__CLASS__ . '#' . $this->getId(), ob_get_clean() . ';');
 
-		foreach ($this->events as $name => $handler)
-		{
+		foreach ($this->events as $name => $handler) {
 			$handler = CJavaScript::encode($handler);
-			Yii::app()->getClientScript()->registerScript(__CLASS__.'#'.$id.'_'.$name, "jQuery('#{$id}').on('{$name}', {$handler});");
-		}		
+			Yii::app()->getClientScript()->registerScript(
+				__CLASS__ . '#' . $id . '_' . $name,
+				"jQuery('#{$id}').on('{$name}', {$handler});"
+			);
+		}
 	}
 }

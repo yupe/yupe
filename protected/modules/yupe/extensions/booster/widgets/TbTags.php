@@ -18,7 +18,7 @@ class TbTags extends CInputWidget
 	public $form;
 
 	/**
-	 * @var array 
+	 * @var array
 	 *
 	 * Suggestions for generating the list options:  array('A','B','C')
 	 *
@@ -43,19 +43,19 @@ class TbTags extends CInputWidget
 		// whenAddingTag (tag:string) : anything external you'd like to do with the tag
 		'whenAddingTag' => null,
 		// tagRemoved (tag:string) : find out which tag was removed by either presseing delete key or clicking the (x)
-		'tagRemoved'    => null,
+		'tagRemoved' => null,
 		// definePopover (tag:string) : must return the popover content for the tag that is being added. (eg "Content for [tag]")
 		'definePopover' => null,
 		// excludes (tag:string) : returns true if you want the tag to be excluded, false if allowed
-		'exclude'       => null,
+		'exclude' => null,
 		// pressedReturn (e:triggering event)
 		'pressedReturn' => null,
 		// pressedDelete (e:triggering event)
 		'pressedDelete' => null,
 		// pressedDown (e:triggering event)
-		'pressedDown'   => null,
+		'pressedDown' => null,
 		// pressedUp (e:triggering event)
-		'pressedUp'     => null,
+		'pressedUp' => null,
 	);
 
 	/**
@@ -108,15 +108,18 @@ class TbTags extends CInputWidget
 	 */
 	public function init()
 	{
-		$this->options = CMap::mergeArray(array(
-			'suggestions'     => $this->suggestions,
-			'restrictTo'      => $this->restrictTo,
-			'exclude'         => $this->exclude,
-			'displayPopovers' => $this->displayPopovers,
-			'tagClass'        => $this->tagClass,
-			'tagData'         => $this->tagData,
-			'popoverData'     => $this->popoverData
-		), $this->options);
+		$this->options = CMap::mergeArray(
+			array(
+				'suggestions' => $this->suggestions,
+				'restrictTo' => $this->restrictTo,
+				'exclude' => $this->exclude,
+				'displayPopovers' => $this->displayPopovers,
+				'tagClass' => $this->tagClass,
+				'tagData' => $this->tagData,
+				'popoverData' => $this->popoverData
+			),
+			$this->options
+		);
 	}
 
 	/**
@@ -139,20 +142,22 @@ class TbTags extends CInputWidget
 	 *
 	 * @param integer $id
 	 * @param string $name
+	 *
 	 * @return string with HTML tags
 	 */
 	public function renderContent($id, $name)
 	{
 
-		if ($this->hasModel())
-		{
-			if ($this->form)
+		if ($this->hasModel()) {
+			if ($this->form) {
 				echo $this->form->hiddenField($this->model, $this->attribute);
-			else
+			} else {
 				echo CHtml::activeHiddenField($this->model, $this->attribute);
+			}
 
-		} else
+		} else {
 			echo CHtml::hiddenField($name, $this->value);
+		}
 
 		echo "<div id='tags_{$id}' class='tag-list'><div class='tags'></div></div>";
 	}
@@ -173,6 +178,9 @@ class TbTags extends CInputWidget
 
 		$options = !empty($this->options) ? CJavaScript::encode($this->options) : '';
 
-		Yii::app()->getClientScript()->registerScript(__CLASS__ . '#' . $this->getId(), "jQuery('#tags_{$id}').tags({$options});");
+		Yii::app()->getClientScript()->registerScript(
+			__CLASS__ . '#' . $this->getId(),
+			"jQuery('#tags_{$id}').tags({$options});"
+		);
 	}
 }

@@ -54,52 +54,59 @@ class TbToggleAction extends CAction
 
 	/**
 	 * Widgets run function
+	 *
 	 * @param integer $id
 	 * @param string $attribute
+	 *
 	 * @throws CHttpException
 	 */
 	public function run($id, $attribute)
 	{
-		if (Yii::app()->getRequest()->isPostRequest)
-		{
+		if (Yii::app()->getRequest()->isPostRequest) {
 			$model = $this->loadModel($id);
 			$model->$attribute = ($model->$attribute == $this->noValue) ? $this->yesValue : $this->noValue;
 			$success = $model->save(false, array($attribute));
 
-			if (Yii::app()->getRequest()->isAjaxRequest)
-			{
+			if (Yii::app()->getRequest()->isAjaxRequest) {
 				echo $success ? $this->ajaxResponseOnSuccess : $this->ajaxResponseOnFailed;
 				exit(0);
 			}
-			if ($this->redirectRoute !== null)
+			if ($this->redirectRoute !== null) {
 				$this->getController()->redirect($this->redirectRoute);
-		} else
+			}
+		} else {
 			throw new CHttpException(Yii::t('zii', 'Invalid request'));
+		}
 	}
 
 	/**
 	 * Loads the requested data model.
+	 *
 	 * @param integer $id the model ID
+	 *
 	 * @return CActiveRecord the model instance.
 	 * @throws CHttpException if the model cannot be found
 	 */
 	protected function loadModel($id)
 	{
-		if (empty($this->additionalCriteriaOnLoadModel))
+		if (empty($this->additionalCriteriaOnLoadModel)) {
 			$model = CActiveRecord::model($this->modelName)->findByPk($id);
-		else
-		{
+		} else {
 			$finder = CActiveRecord::model($this->modelName);
 			$c = new CDbCriteria($this->additionalCriteriaOnLoadModel);
-			$c->mergeWith(array(
-				'condition' => $finder->tableSchema->primaryKey . '=:id',
-				'params' => array(':id' => $id),
-			));
+			$c->mergeWith(
+				array(
+					'condition' => $finder->tableSchema->primaryKey . '=:id',
+					'params' => array(':id' => $id),
+				)
+			);
 			$model = $finder->find($c);
 		}
-		if (isset($model))
+		if (isset($model)) {
 			return $model;
-		if ($this->additionalCriteriaOnLoadModel)
+		}
+		if ($this->additionalCriteriaOnLoadModel) {
 			throw new CHttpException(404, 'Unable to find the requested object.');
+		}
 	}
 }
