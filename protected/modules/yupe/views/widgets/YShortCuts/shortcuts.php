@@ -15,16 +15,20 @@ Yii::app()->clientScript->registerCssFile($mainAssets . '/css/shortcuts.css'); ?
 <div class="shortcuts">
 <?php
 if (count($this->shortcuts) > 0) {
-    foreach ($this->shortcuts as $shortcut) {
+    foreach ($this->shortcuts as $name => $shortcut) {
         if (isset($shortcut['items'])) {
-            foreach ($shortcut['items'] as $item) {
+            foreach ($shortcut['items'] as $module => $item) {
                 echo CHtml::link(
-                    $this->getLabel($item), $item['url'], $this->getHtmlOptions($item)
+                    $this->getLabel($item) . $this->getUpdates($item, $module),
+                    $item['url'],
+                    $this->getHtmlOptions($item)
                 );
             }
         } else {
             echo CHtml::link(
-                $this->getLabel($shortcut), $shortcut['url'], $this->getHtmlOptions($shortcut)
+                $this->getLabel($item) . $this->getUpdates($item, $module),
+                $item['url'],
+                $this->getHtmlOptions($item)
             );
         }
     }
