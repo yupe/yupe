@@ -13,6 +13,8 @@
 class YShortCuts extends YWidget
 {
     public $shortcuts;
+    public $modules;
+    public $updates;
     private $_baseShortCutClass = 'shortcut';
     
     /**
@@ -74,5 +76,25 @@ class YShortCuts extends YWidget
     {
         return CHtml::tag('i', array('class' => "shortcut-icon " . $this->getIcons($shortcut['icon'])), '')
              . CHtml::tag('span', array('class' => 'shortcut-label'), $shortcut['label']);
+    }
+
+    /**
+     * Получаем обновления:
+     */
+    public function getUpdates($shortcut, $name)
+    {
+        $module = !isset($this->modules[$name])
+            ? null
+            : $this->modules[$name];
+
+        return $module === null
+            || !(
+                    isset($this->updates[$name])
+                    && count($this->updates[$name]) > 0
+                )
+            ? ''
+            : "<span class='label label-info'><i class='icon-spin icon-repeat'></i>&nbsp;"
+             . count($this->updates[$name])
+             . "</span>";
     }
 }
