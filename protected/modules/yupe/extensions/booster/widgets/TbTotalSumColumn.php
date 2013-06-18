@@ -15,14 +15,19 @@ class TbTotalSumColumn extends TbDataColumn
 
 	public $totalValue;
 
-	protected $total=0;
+	protected $total = 0;
 
 	public function init()
 	{
 		parent::init();
 
-		if (!is_null($this->totalExpression))
-			$this->total = is_numeric($this->totalExpression) ? $this->totalExpression : $this->evaluateExpression($this->totalExpression);
+		if (!is_null($this->totalExpression)) {
+			$this->total = is_numeric($this->totalExpression)
+				? $this->totalExpression
+				: $this->evaluateExpression(
+					$this->totalExpression
+				);
+		}
 		$this->footer = true;
 	}
 
@@ -32,16 +37,19 @@ class TbTotalSumColumn extends TbDataColumn
 		parent::renderDataCellContent($row, $data);
 		$value = ob_get_clean();
 
-		if (is_numeric($value))
+		if (is_numeric($value)) {
 			$this->total += $value;
+		}
 		echo $value;
 	}
 
 	protected function renderFooterCellContent()
 	{
-		if (is_null($this->total))
+		if (is_null($this->total)) {
 			return parent::renderFooterCellContent();
+		}
 
-		echo $this->totalValue? $this->evaluateExpression($this->totalValue, array('total'=>$this->total)) : $this->grid->getFormatter()->format($this->total, $this->type);
+		echo $this->totalValue ? $this->evaluateExpression($this->totalValue, array('total' => $this->total))
+			: $this->grid->getFormatter()->format($this->total, $this->type);
 	}
 }

@@ -46,7 +46,7 @@ class TbColorPicker extends CInputWidget
 	 *          console.log(ev.color.toHex());
 	 *      }',
 	 *      'hide'=>'js:function(ev){
-	 *    	console.log("I am hidden!");
+	 *        console.log("I am hidden!");
 	 *   }')
 	 * </pre>
 	 */
@@ -66,15 +66,15 @@ class TbColorPicker extends CInputWidget
 		$this->htmlOptions['id'] = $id;
 
 		// Do we have a model?
-		if ($this->hasModel())
-		{
-			if ($this->form)
+		if ($this->hasModel()) {
+			if ($this->form) {
 				echo $this->form->textField($this->model, $this->attribute, $this->htmlOptions);
-			else
+			} else {
 				echo CHtml::activeTextField($this->model, $this->attribute, $this->htmlOptions);
-		}
-		else
+			}
+		} else {
 			echo CHtml::textField($name, $this->value, $this->htmlOptions);
+		}
 	}
 
 	/**
@@ -93,8 +93,9 @@ class TbColorPicker extends CInputWidget
 
 		ob_start();
 		echo "jQuery('#{$id}').colorpicker({$options})";
-		foreach ($this->events as $event => $handler)
+		foreach ($this->events as $event => $handler) {
 			echo ".on('{$event}', " . CJavaScript::encode($handler) . ")";
+		}
 
 		Yii::app()->getClientScript()->registerScript(__CLASS__ . '#' . $this->getId(), ob_get_clean() . ';');
 	}

@@ -19,7 +19,7 @@ class TbTabs extends CWidget
 	// Tab placements.
 	const PLACEMENT_ABOVE = 'above';
 	const PLACEMENT_BELOW = 'below';
-	const PLACEMENT_LEFT  = 'left';
+	const PLACEMENT_LEFT = 'left';
 	const PLACEMENT_RIGHT = 'right';
 
 	/**
@@ -64,29 +64,52 @@ class TbTabs extends CWidget
 	public $htmlOptions = array();
 
 	/**
+	 * @var array the HTML attributes for the widget tab content container.
+	 */
+	public $tabContentHtmlOptions = array();
+
+	/**
+	 * @var array the HTML attributes for the widget tab content container.
+	 */
+	public $tabMenuHtmlOptions = array();
+
+	/**
 	 *### .init()
 	 *
 	 * Initializes the widget.
 	 */
 	public function init()
 	{
-		if (!isset($this->htmlOptions['id']))
+		if (!isset($this->htmlOptions['id'])) {
 			$this->htmlOptions['id'] = $this->getId();
+		}
 
 		$classes = array();
 
-		$validPlacements = array(self::PLACEMENT_ABOVE, self::PLACEMENT_BELOW, self::PLACEMENT_LEFT, self::PLACEMENT_RIGHT);
+		$validPlacements = array(
+			self::PLACEMENT_ABOVE,
+			self::PLACEMENT_BELOW,
+			self::PLACEMENT_LEFT,
+			self::PLACEMENT_RIGHT
+		);
 
-		if (isset($this->placement) && in_array($this->placement, $validPlacements))
-			$classes[] = 'tabs-'.$this->placement;
+		if (isset($this->placement) && in_array($this->placement, $validPlacements)) {
+			$classes[] = 'tabs-' . $this->placement;
+		}
 
-		if (!empty($classes))
-		{
+		if (!empty($classes)) {
 			$classes = implode(' ', $classes);
-			if (isset($this->htmlOptions['class']))
-				$this->htmlOptions['class'] .= ' '.$classes;
-			else
+			if (isset($this->htmlOptions['class'])) {
+				$this->htmlOptions['class'] .= ' ' . $classes;
+			} else {
 				$this->htmlOptions['class'] = $classes;
+			}
+		}
+
+		if (isset($this->tabContentHtmlOptions['class'])) {
+			$this->tabContentHtmlOptions['class'] .= ' tab-content';
+		} else {
+			$this->tabContentHtmlOptions['class'] = 'tab-content';
 		}
 	}
 
@@ -102,32 +125,35 @@ class TbTabs extends CWidget
 		$items = $this->normalizeTabs($this->tabs, $content);
 
 		ob_start();
-		$this->controller->widget('bootstrap.widgets.TbMenu', array(
-			'stacked'=>$this->stacked,
-			'type'=>$this->type,
-			'encodeLabel'=>$this->encodeLabel,
-			'items'=>$items,
-		));
+		$this->controller->widget(
+			'bootstrap.widgets.TbMenu',
+			array(
+				'stacked' => $this->stacked,
+				'type' => $this->type,
+				'encodeLabel' => $this->encodeLabel,
+				'htmlOptions' => $this->tabMenuHtmlOptions,
+				'items' => $items,
+			)
+		);
 		$tabs = ob_get_clean();
 
 		ob_start();
-		echo '<div class="tab-content">';
+		echo CHtml::openTag('div', $this->tabContentHtmlOptions);
 		echo implode('', $content);
-		echo '</div>';
+		echo CHtml::closeTag('div');
 		$content = ob_get_clean();
 
 		echo CHtml::openTag('div', $this->htmlOptions);
-		echo $this->placement === self::PLACEMENT_BELOW ? $content.$tabs : $tabs.$content;
-		echo '</div>';
+		echo $this->placement === self::PLACEMENT_BELOW ? $content . $tabs : $tabs . $content;
+		echo CHtml::closeTag('div');
 
 		/** @var CClientScript $cs */
 		$cs = Yii::app()->getClientScript();
-		$cs->registerScript(__CLASS__.'#'.$id, "jQuery('#{$id}').tab('show');");
+		$cs->registerScript(__CLASS__ . '#' . $id, "jQuery('#{$id}').tab('show');");
 
-		foreach ($this->events as $name => $handler)
-		{
+		foreach ($this->events as $name => $handler) {
 			$handler = CJavaScript::encode($handler);
-			$cs->registerScript(__CLASS__.'#'.$id.'_'.$name, "jQuery('#{$id}').on('{$name}', {$handler});");
+			$cs->registerScript(__CLASS__ . '#' . $id . '_' . $name, "jQuery('#{$id}').on('{$name}', {$handler});");
 		}
 	}
 
@@ -139,6 +165,7 @@ class TbTabs extends CWidget
 	 * @param array $tabs the tab configuration
 	 * @param array $panes a reference to the panes array
 	 * @param integer $i the current index
+	 *
 	 * @return array the items
 	 */
 	protected function normalizeTabs($tabs, &$panes, &$i = 0)
@@ -146,37 +173,42 @@ class TbTabs extends CWidget
 		$id = $this->getId();
 		$items = array();
 
-		foreach ($tabs as $tab)
-		{
+		foreach ($tabs as $tab) {
 			$item = $tab;
 
-			if (isset($item['visible']) && $item['visible'] === false)
+			if (isset($item['visible']) && $item['visible'] === false) {
 				continue;
+			}
 
-			if (!isset($item['itemOptions']))
+			if (!isset($item['itemOptions'])) {
 				$item['itemOptions'] = array();
+			}
 
-			if (!isset($item['url']))
+			if (!isset($item['url'])) {
 				$item['linkOptions']['data-toggle'] = 'tab';
+			}
 
-			if (isset($tab['items']))
+			if (isset($tab['items'])) {
 				$item['items'] = $this->normalizeTabs($item['items'], $panes, $i);
-			else
-			{
-				if (!isset($item['id']))
-					$item['id'] = $id.'_tab_'.($i + 1);
+			} else {
+				if (!isset($item['id'])) {
+					$item['id'] = $id . '_tab_' . ($i + 1);
+				}
 
-				if (!isset($item['url']))
-					$item['url'] = '#'.$item['id'];
+				if (!isset($item['url'])) {
+					$item['url'] = '#' . $item['id'];
+				}
 
-				if (!isset($item['content']))
+				if (!isset($item['content'])) {
 					$item['content'] = '';
+				}
 
 				$content = $item['content'];
 				unset($item['content']);
 
-				if (!isset($item['paneOptions']))
+				if (!isset($item['paneOptions'])) {
 					$item['paneOptions'] = array();
+				}
 
 				$paneOptions = $item['paneOptions'];
 				unset($item['paneOptions']);
@@ -185,14 +217,16 @@ class TbTabs extends CWidget
 
 				$classes = array('tab-pane fade');
 
-				if (isset($item['active']) && $item['active'])
+				if (isset($item['active']) && $item['active']) {
 					$classes[] = 'active in';
+				}
 
 				$classes = implode(' ', $classes);
-				if (isset($paneOptions['class']))
-					$paneOptions['class'] .= ' '.$classes;
-				else
+				if (isset($paneOptions['class'])) {
+					$paneOptions['class'] .= ' ' . $classes;
+				} else {
 					$paneOptions['class'] = $classes;
+				}
 
 				$panes[] = CHtml::tag('div', $paneOptions, $content);
 

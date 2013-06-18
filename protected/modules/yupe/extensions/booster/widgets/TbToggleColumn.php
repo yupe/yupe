@@ -12,6 +12,9 @@
  */
 class TbToggleColumn extends TbDataColumn
 {
+
+	public $value;
+
 	/**
 	 * @var string the attribute name of the data model. Used for column sorting, filtering and to render the corresponding
 	 * attribute value in each data cell. If {@link value} is specified it will be used to rendered the data cell instead of the attribute value.
@@ -137,8 +140,13 @@ class TbToggleColumn extends TbDataColumn
 	 */
 	public function init()
 	{
-		if ($this->name === null)
-			throw new CException(Yii::t('zii', '"{attribute}" attribute cannot be empty.', array('{attribute}'=>"name")));
+		if ($this->name === null) {
+			throw new CException(Yii::t(
+				'zii',
+				'"{attribute}" attribute cannot be empty.',
+				array('{attribute}' => "name")
+			));
+		}
 
 		$this->initButton();
 		$this->registerClientScript();
@@ -149,28 +157,32 @@ class TbToggleColumn extends TbDataColumn
 	 */
 	protected function initButton()
 	{
-		if ($this->checkedButtonLabel === null)
+		if ($this->checkedButtonLabel === null) {
 			$this->checkedButtonLabel = Yii::t('zii', 'Uncheck');
-		if ($this->uncheckedButtonLabel === null)
+		}
+		if ($this->uncheckedButtonLabel === null) {
 			$this->uncheckedButtonLabel = Yii::t('zii', 'Check');
-		if ($this->emptyButtonLabel === null)
+		}
+		if ($this->emptyButtonLabel === null) {
 			$this->emptyButtonLabel = Yii::t('zii', 'Not set');
+		}
 
 		$this->button = array(
 			'url' => 'Yii::app()->controller->createUrl("' . $this->toggleAction . '",array("id"=>$data->primaryKey,"attribute"=>"' . $this->name . '"))',
-			'htmlOptions' => array('class' => $this->name . '_toggle'.$this->uniqueClassSuffix),
+			'htmlOptions' => array('class' => $this->name . '_toggle' . $this->uniqueClassSuffix),
 		);
 
-		if (Yii::app()->request->enableCsrfValidation)
-		{
+		if (Yii::app()->request->enableCsrfValidation) {
 			$csrfTokenName = Yii::app()->request->csrfTokenName;
 			$csrfToken = Yii::app()->request->csrfToken;
 			$csrf = "\n\t\tdata:{ '$csrfTokenName':'$csrfToken' },";
-		} else
+		} else {
 			$csrf = '';
+		}
 
-		if ($this->afterToggle===null)
-			$this->afterToggle='function(){}';
+		if ($this->afterToggle === null) {
+			$this->afterToggle = 'function(){}';
+		}
 
 		$this->button['click'] = "js:
 function() {
@@ -203,31 +215,36 @@ function() {
 		$class = preg_replace('/\s+/', '.', $this->button['htmlOptions']['class']);
 		$js[] = "$(document).on('click','#{$this->grid->id} a.{$class}',$function);";
 
-		if ($js !== array())
+		if ($js !== array()) {
 			Yii::app()->getClientScript()->registerScript(__CLASS__ . '#' . $this->id, implode("\n", $js));
+		}
 	}
 
 	/**
 	 * Renders the data cell content.
 	 * This method renders the view, update and toggle buttons in the data cell.
+	 *
 	 * @param integer $row the row number (zero-based)
 	 * @param mixed $data the data associated with the row
 	 */
 	protected function renderDataCellContent($row, $data)
 	{
-		$checked = CHtml::value($data, $this->name);
+		$checked = ($this->value === null)
+			? CHtml::value($data, $this->name)
+			: $this->evaluateExpression($this->value, array('data' => $data, 'row' => $row));
+
 		$button = $this->button;
 		$button['icon'] = $checked === null ? $this->emptyIcon : ($checked ? $this->checkedIcon : $this->uncheckedIcon);
-		$button['url'] = isset($button['url']) ? $this->evaluateExpression($button['url'], array('data' => $data, 'row' => $row)) : '#';
+		$button['url'] = isset($button['url']) ? $this->evaluateExpression(
+			$button['url'],
+			array('data' => $data, 'row' => $row)
+		) : '#';
 
-		if (!$this->displayText)
-		{
+		if (!$this->displayText) {
 			$button['htmlOptions']['title'] = $this->getButtonLabel($checked);
 			$button['htmlOptions']['rel'] = 'tooltip';
-			echo CHtml::link('<i class="'.$button['icon'].'"></i>', $button['url'], $button['htmlOptions']);
-		}
-		else
-		{
+			echo CHtml::link('<i class="' . $button['icon'] . '"></i>', $button['url'], $button['htmlOptions']);
+		} else {
 			$button['label'] = $this->getButtonLabel($checked);
 			$button['class'] = 'bootstrap.widgets.TbButton';
 			$widget = Yii::createComponent($button);
@@ -238,6 +255,7 @@ function() {
 
 	private function getButtonLabel($value)
 	{
-		return $value === null ? $this->emptyButtonLabel : ($value ? $this->checkedButtonLabel : $this->uncheckedButtonLabel);
+		return $value === null ? $this->emptyButtonLabel
+			: ($value ? $this->checkedButtonLabel : $this->uncheckedButtonLabel);
 	}
 }

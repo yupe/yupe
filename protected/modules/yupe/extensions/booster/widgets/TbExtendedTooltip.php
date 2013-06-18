@@ -64,10 +64,12 @@ class TbExtendedTooltip extends CWidget
 	 */
 	public function init()
 	{
-		if ($this->key === null)
+		if ($this->key === null) {
 			throw new CException(Yii::t('zii', '"{attribute}" cannnot be null', array('{attribute}' => 'key')));
-		if ($this->url === null && $this->editable)
+		}
+		if ($this->url === null && $this->editable) {
 			throw new CException(Yii::t('zii', '"url" cannot be null if tooltip is required to be edited'));
+		}
 	}
 
 	/**
@@ -88,10 +90,21 @@ class TbExtendedTooltip extends CWidget
 	 */
 	protected function renderContent()
 	{
-		echo CHtml::openTag('span', array('rel' => 'editable-tooltip', 'title' => $this->getTooltip($this->key), 'name' => $this->key));
-		if (!$this->editable)
-			echo '<i class="icon-info-sign"></i>';// the bootstrap-editable-tooltip plugin, renders the icon automatically
-		echo '</span>';
+		echo CHtml::tag(
+			'span',
+			array(
+				'rel' => 'editable-tooltip',
+				'title' => $this->getTooltip($this->key),
+				'name' => $this->key
+			),
+			CHtml::tag(
+				'i',
+				array(
+					'class' => 'icon-info-sign'
+				),
+				''
+			)
+		);
 	}
 
 	/**
@@ -106,22 +119,24 @@ class TbExtendedTooltip extends CWidget
 		// coding a call
 
 		// if not editable, just render the tooltip
-		if (!$this->editable)
-			$js = "$('span[name=\"{$this->key}\"]').tooltip();";// not editable, just make the tooltip
-		else
-		{
+		if (!$this->editable) {
+			$js = "$('span[name=\"{$this->key}\"]').tooltip();";
+		} // not editable, just make the tooltip
+		else {
 			// editable, make use of bootstrap-editable-tooltip plugin
-			Yii::app()->bootstrap->registerAssetCss('bootstrap-editable-tooltip.css');
-			Yii::app()->bootstrap->registerAssetJs('bootstrap-editable-tooltip.js');
-			$options = CJavaScript::encode(array(
-				'send' => 'always',
-				'url' => $this->url,
-				'placement' => $this->editablePopupPlacement
-			));
+			Yii::app()->bootstrap->registerAssetCss('bootstrap-editable.css');
+			Yii::app()->bootstrap->registerAssetJs('bootstrap-editable.js');
+			$options = CJavaScript::encode(
+				array(
+					'send' => 'always',
+					'url' => $this->url,
+					'placement' => $this->editablePopupPlacement
+				)
+			);
 
-			$js = "$('span[name=\"{$this->key}\"]').editableTooltip($options);";
+			$js = "$('span[name=\"{$this->key}\"]').editable($options);";
 		}
-		Yii::app()->clientScript->registerScript(__CLASS__.'#'.$this->getId(), $js);
+		Yii::app()->clientScript->registerScript(__CLASS__ . '#' . $this->getId(), $js);
 	}
 
 	/**
@@ -130,13 +145,13 @@ class TbExtendedTooltip extends CWidget
 	 * Returns the tooltip stored at the database.
 	 *
 	 * @param string $key
+	 *
 	 * @return mixed|string emptyTool
 	 */
 	protected function getTooltip($key)
 	{
 		$db = $this->getDbConnection();
-		if ($db->schema->getTable($this->tooltipTable) === null)
-		{
+		if ($db->schema->getTable($this->tooltipTable) === null) {
 			$this->createTooltipsTable();
 			return $this->emptyTooltipText;
 		}
@@ -163,11 +178,14 @@ class TbExtendedTooltip extends CWidget
 	 */
 	protected function getDbConnection()
 	{
-		if ($this->_db === null)
-		{
+		if ($this->_db === null) {
 			$this->_db = Yii::app()->getComponent($this->connectionID);
-			if (!$this->_db instanceof CDbConnection)
-				throw new CException(Yii::t('zii', 'The "db" application component must be configured to be a CDbConnection object.'));
+			if (!$this->_db instanceof CDbConnection) {
+				throw new CException(Yii::t(
+					'zii',
+					'The "db" application component must be configured to be a CDbConnection object.'
+				));
+			}
 		}
 		return $this->_db;
 	}
@@ -181,9 +199,12 @@ class TbExtendedTooltip extends CWidget
 	{
 		$db = $this->getDbConnection();
 
-		$db->createCommand()->createTable($this->tooltipTable, array(
-			'tooltip_key' => 'string NOT NULL PRIMARY KEY',
-			'tooltip' => 'string',
-		));
+		$db->createCommand()->createTable(
+			$this->tooltipTable,
+			array(
+				'tooltip_key' => 'string NOT NULL PRIMARY KEY',
+				'tooltip' => 'string',
+			)
+		);
 	}
 }

@@ -15,12 +15,12 @@
 class TbButton extends CWidget
 {
 	// Button callback types.
-	const BUTTON_LINK       = 'link';
-	const BUTTON_BUTTON     = 'button';
-	const BUTTON_SUBMIT     = 'submit';
+	const BUTTON_LINK = 'link';
+	const BUTTON_BUTTON = 'button';
+	const BUTTON_SUBMIT = 'submit';
 	const BUTTON_SUBMITLINK = 'submitLink';
-	const BUTTON_RESET      = 'reset';
-	const BUTTON_AJAXLINK   = 'ajaxLink';
+	const BUTTON_RESET = 'reset';
+	const BUTTON_AJAXLINK = 'ajaxLink';
 	const BUTTON_AJAXBUTTON = 'ajaxButton';
 	const BUTTON_AJAXSUBMIT = 'ajaxSubmit';
 	const BUTTON_INPUTBUTTON = 'inputButton';
@@ -28,15 +28,15 @@ class TbButton extends CWidget
 
 	// Button types.
 	const TYPE_PRIMARY = 'primary';
-	const TYPE_INFO    = 'info';
+	const TYPE_INFO = 'info';
 	const TYPE_SUCCESS = 'success';
 	const TYPE_WARNING = 'warning';
-	const TYPE_DANGER  = 'danger';
+	const TYPE_DANGER = 'danger';
 	const TYPE_INVERSE = 'inverse';
-	const TYPE_LINK    = 'link';
+	const TYPE_LINK = 'link';
 
 	// Button sizes.
-	const SIZE_MINI  = 'mini';
+	const SIZE_MINI = 'mini';
 	const SIZE_SMALL = 'small';
 	const SIZE_LARGE = 'large';
 
@@ -109,8 +109,8 @@ class TbButton extends CWidget
 	public $completeText;
 
 	/**
-	* @var array the dropdown button items.
-	*/
+	 * @var array the dropdown button items.
+	 */
 	public $items;
 
 	/**
@@ -142,86 +142,109 @@ class TbButton extends CWidget
 	 */
 	public function init()
 	{
-		if (false === $this->visible)
+		if (false === $this->visible) {
 			return;
+		}
 
 		$classes = array('btn');
 
-		$validTypes = array(self::TYPE_LINK, self::TYPE_PRIMARY, self::TYPE_INFO, self::TYPE_SUCCESS,
-				self::TYPE_WARNING, self::TYPE_DANGER, self::TYPE_INVERSE);
+		$validTypes = array(
+			self::TYPE_LINK,
+			self::TYPE_PRIMARY,
+			self::TYPE_INFO,
+			self::TYPE_SUCCESS,
+			self::TYPE_WARNING,
+			self::TYPE_DANGER,
+			self::TYPE_INVERSE
+		);
 
-		if (isset($this->type) && in_array($this->type, $validTypes))
-			$classes[] = 'btn-'.$this->type;
+		if (isset($this->type) && in_array($this->type, $validTypes)) {
+			$classes[] = 'btn-' . $this->type;
+		}
 
 		$validSizes = array(self::SIZE_LARGE, self::SIZE_SMALL, self::SIZE_MINI);
 
-		if (isset($this->size) && in_array($this->size, $validSizes))
-			$classes[] = 'btn-'.$this->size;
+		if (isset($this->size) && in_array($this->size, $validSizes)) {
+			$classes[] = 'btn-' . $this->size;
+		}
 
-		if ($this->block)
+		if ($this->block) {
 			$classes[] = 'btn-block';
+		}
 
-		if ($this->active)
+		if ($this->active) {
 			$classes[] = 'active';
+		}
 
-		if ($this->disabled)
-		{
-			$disableTypes = array(self::BUTTON_BUTTON, self::BUTTON_SUBMIT, self::BUTTON_RESET,
-				self::BUTTON_AJAXBUTTON, self::BUTTON_AJAXSUBMIT, self::BUTTON_INPUTBUTTON, self::BUTTON_INPUTSUBMIT);
+		if ($this->disabled) {
+			$disableTypes = array(
+				self::BUTTON_BUTTON,
+				self::BUTTON_SUBMIT,
+				self::BUTTON_RESET,
+				self::BUTTON_AJAXBUTTON,
+				self::BUTTON_AJAXSUBMIT,
+				self::BUTTON_INPUTBUTTON,
+				self::BUTTON_INPUTSUBMIT
+			);
 
-			if (in_array($this->buttonType, $disableTypes))
+			if (in_array($this->buttonType, $disableTypes)) {
 				$this->htmlOptions['disabled'] = 'disabled';
+			}
 
 			$classes[] = 'disabled';
 		}
 
-		if (!isset($this->url) && isset($this->htmlOptions['href']))
-		{
+		if (!isset($this->url) && isset($this->htmlOptions['href'])) {
 			$this->url = $this->htmlOptions['href'];
 			unset($this->htmlOptions['href']);
 		}
 
-		if ($this->encodeLabel)
+		if ($this->encodeLabel) {
 			$this->label = CHtml::encode($this->label);
+		}
 
-		if ($this->hasDropdown())
-		{
-			if (!isset($this->url))
+		if ($this->hasDropdown()) {
+			if (!isset($this->url)) {
 				$this->url = '#';
+			}
 
 			$classes[] = 'dropdown-toggle';
 			$this->label .= ' <span class="caret"></span>';
 			$this->htmlOptions['data-toggle'] = 'dropdown';
 		}
 
-		if (!empty($classes))
-		{
+		if (!empty($classes)) {
 			$classes = implode(' ', $classes);
-			if (isset($this->htmlOptions['class']))
-				$this->htmlOptions['class'] .= ' '.$classes;
-			else
+			if (isset($this->htmlOptions['class'])) {
+				$this->htmlOptions['class'] .= ' ' . $classes;
+			} else {
 				$this->htmlOptions['class'] = $classes;
+			}
 		}
 
-		if (isset($this->icon))
-		{
-			if (strpos($this->icon, 'icon') === false)
-				$this->icon = 'icon-'.implode(' icon-', explode(' ', $this->icon));
+		if (isset($this->icon)) {
+			if (strpos($this->icon, 'icon') === false) {
+				$this->icon = 'icon-' . implode(' icon-', explode(' ', $this->icon));
+			}
 
-			$this->label = '<i class="'.$this->icon.'"></i> '.$this->label;
+			$this->label = '<i class="' . $this->icon . '"></i> ' . $this->label;
 		}
 
-		if (!isset($this->htmlOptions['id']))
+		if (!isset($this->htmlOptions['id'])) {
 			$this->htmlOptions['id'] = $this->getId();
+		}
 
-		if (isset($this->toggle))
+		if (isset($this->toggle)) {
 			$this->htmlOptions['data-toggle'] = 'button';
+		}
 
-		if (isset($this->loadingText))
+		if (isset($this->loadingText)) {
 			$this->htmlOptions['data-loading-text'] = $this->loadingText;
+		}
 
-		if (isset($this->completeText))
+		if (isset($this->completeText)) {
 			$this->htmlOptions['data-complete-text'] = $this->completeText;
+		}
 	}
 
 	/**
@@ -231,18 +254,22 @@ class TbButton extends CWidget
 	 */
 	public function run()
 	{
-		if (false === $this->visible)
+		if (false === $this->visible) {
 			return;
+		}
 
 		echo $this->createButton();
 
-		if ($this->hasDropdown())
-		{
-			$this->controller->widget('bootstrap.widgets.TbDropdown', array(
-				'encodeLabel'=>$this->encodeLabel,
-				'items'=>$this->items,
-				'htmlOptions'=>$this->dropdownOptions,
-			));
+		if ($this->hasDropdown()) {
+			$this->controller->widget(
+				'bootstrap.widgets.TbDropdown',
+				array(
+					'encodeLabel' => $this->encodeLabel,
+					'items' => $this->items,
+					'htmlOptions' => $this->dropdownOptions,
+					'id' => isset($this->dropdownOptions['id']) ? $this->dropdownOptions['id'] : null,
+				)
+			);
 		}
 	}
 
@@ -255,8 +282,7 @@ class TbButton extends CWidget
 	 */
 	protected function createButton()
 	{
-		switch ($this->buttonType)
-		{
+		switch ($this->buttonType) {
 			case self::BUTTON_BUTTON:
 				return CHtml::htmlButton($this->label, $this->htmlOptions);
 

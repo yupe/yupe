@@ -15,8 +15,8 @@ Yii::import('zii.widgets.CDetailView');
 class TbDetailView extends CDetailView
 {
 	// Table types.
-	const TYPE_STRIPED   = 'striped';
-	const TYPE_BORDERED  = 'bordered';
+	const TYPE_STRIPED = 'striped';
+	const TYPE_BORDERED = 'bordered';
 	const TYPE_CONDENSED = 'condensed';
 
 	/**
@@ -24,7 +24,7 @@ class TbDetailView extends CDetailView
 	 * Valid values are 'striped', 'bordered' and/or 'condensed'.
 	 */
 	public $type = array(self::TYPE_STRIPED, self::TYPE_CONDENSED);
-    
+
 	/**
 	 * @var string the URL of the CSS file used by this detail view.
 	 * Defaults to false, meaning that no CSS will be included.
@@ -42,30 +42,29 @@ class TbDetailView extends CDetailView
 
 		$classes = array('table');
 
-		if (isset($this->type))
-		{
-			if (is_string($this->type))
+		if (isset($this->type)) {
+			if (is_string($this->type)) {
 				$this->type = explode(' ', $this->type);
+			}
 
 			$validTypes = array(self::TYPE_STRIPED, self::TYPE_BORDERED, self::TYPE_CONDENSED);
 
-			if (!empty($this->type))
-			{
-				foreach ($this->type as $type)
-				{
-					if (in_array($type, $validTypes))
-						$classes[] = 'table-'.$type;
+			if (!empty($this->type)) {
+				foreach ($this->type as $type) {
+					if (in_array($type, $validTypes)) {
+						$classes[] = 'table-' . $type;
+					}
 				}
 			}
 		}
 
-		if (!empty($classes))
-		{
+		if (!empty($classes)) {
 			$classes = implode(' ', $classes);
-			if (isset($this->htmlOptions['class']))
-				$this->htmlOptions['class'] .= ' '.$classes;
-			else
+			if (isset($this->htmlOptions['class'])) {
+				$this->htmlOptions['class'] .= ' ' . $classes;
+			} else {
 				$this->htmlOptions['class'] = $classes;
+			}
 		}
 	}
 }
