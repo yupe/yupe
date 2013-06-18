@@ -26,7 +26,7 @@ if (count($this->shortcuts) > 0) {
             }
         } else {
             echo CHtml::link(
-                $this->getLabel($item) . $this->getUpdates($item, $module),
+                $this->getLabel($item) . $this->getUpdates($item, $name),
                 $item['url'],
                 $this->getHtmlOptions($item)
             );
