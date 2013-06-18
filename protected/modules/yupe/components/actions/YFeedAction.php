@@ -81,18 +81,20 @@ class YFeedAction extends CAction
         // Подключаем необходимые библиотеки:
         Yii::import('application.modules.yupe.extensions.feed.*');
 
+        $yupe = Yii::app()->getModule('yupe');
+
         /**
          * Определяем заголовок для ленты:
          */
         $this->title = empty($this->title)
-            ? Yii::app()->name
+            ? $yupe->siteName
             : $this->title;
 
         /**
          * Опеределяем описание для ленты:
          */
         $this->description = empty($this->description)
-            ? Yii::app()->getModule('yupe')->siteDescription
+            ? $yupe->siteDescription
             : $this->description;
 
         /**
@@ -144,7 +146,8 @@ class YFeedAction extends CAction
                     if(is_numeric($feedItem->{$this->itemFields['datetime']})){
                         $feedItem->{$this->itemFields['datetime']} = date('d-m-Y',$feedItem->{$this->itemFields['datetime']});
                     }
-                    $item->addTag('published', (new DateTime($feedItem->{$this->itemFields['datetime']}))->format(DateTime::ATOM));
+                    $tag = new DateTime($feedItem->{$this->itemFields['datetime']});
+                    $item->addTag('published',$tag->format(DateTime::ATOM));
                 }
 
                 /**
@@ -169,8 +172,10 @@ class YFeedAction extends CAction
                     $item->link = Yii::app()->createAbsoluteUrl($this->itemFields['link'], $link);
                 }
 
-                if (!empty($this->itemFields['updated']))
-                    $item->date = (new DateTime($feedItem->{$this->itemFields['datetime']}))->format(DateTime::ATOM);
+                if (!empty($this->itemFields['updated'])){
+                    $date = new DateTime($feedItem->{$this->itemFields['datetime']});
+                    $item->date = $date->format(DateTime::ATOM);
+                }
                  
                 $feed->addItem($item);
             }
@@ -184,9 +189,10 @@ class YFeedAction extends CAction
              * Устанавливаем контент для $item
              */
             if (!empty($this->itemFields['content']))
-                $item->description = Yii::t('YupeModule.yupe', 'Записей нет.');
+                $item->description = Yii::t('YupeModule.yupe', 'Записей нет');
 
-            $item->date = (new DateTime('NOW'))->format(DateTime::ATOM);
+            $date = new DateTime('NOW');
+            $item->date = $date->format(DateTime::ATOM);
              
             $feed->addItem($item);
         }

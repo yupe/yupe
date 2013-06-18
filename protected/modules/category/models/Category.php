@@ -197,4 +197,14 @@ class Category extends YModel
                Yii::app()->getModule("category")->uploadPath . "/" .
                $this->image;
     }
+
+    public function scopes()
+    {
+        return array(
+            'published' => array(
+                'condition' => 'status = :status',
+                'params'    => array(':status' => self::STATUS_PUBLISHED),
+            ),
+        );
+    }
 }

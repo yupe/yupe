@@ -11,19 +11,39 @@ class RssController extends YFrontController
 {
     public function actions()
     {
+        if(!($limit = (int)$this->module->rssCount)){
+            throw new CHttpException(404);
+        }
+
         $blogId = (int)Yii::app()->request->getQuery('blog');
         $categoryId = (int)Yii::app()->request->getQuery('category');
 
         $criteria = new CDbCriteria;
         $criteria->order = 'publish_date DESC';
         $criteria->params = array();
+        $criteria->limit = $limit;
+
+        $title = $this->yupe->siteName;
+        $description = $this->yupe->siteDescription;
 
         if(!empty($blogId)){
+            $blog = Blog::model()->cache($this->yupe->coreCacheTime)->published()->findByPk($blogId);
+            if(null === $blog){
+                throw new CHttpException(404);
+            }
+            $title = $blog->name;
+            $description = $blog->description;
             $criteria->addCondition('blog_id = :blog_id');
             $criteria->params[':blog_id'] = $blogId;
         }
 
         if(!empty($categoryId)){
+            $category = Category::model()->cache($this->yupe->coreCacheTime)->published()->findByPk($categoryId);
+            if(null === $category){
+                throw new CHttpException(404);
+            }
+            $title = $category->name;
+            $description = $category->description;
             $criteria->addCondition('category_id = :category_id');
             $criteria->params[':category_id'] = $categoryId;
         }
@@ -34,7 +54,8 @@ class RssController extends YFrontController
             'feed' => array(
                 'class'=> 'application.modules.yupe.components.actions.YFeedAction',
                 'data' => $data,
-                'link' => 'http://yupe.ru/',
+                'title' => $title,
+                'description'  => $description,
                 'itemFields'   => array(
                     // author_object, если не задан - у
                     // item-елемента запросится author_nickname

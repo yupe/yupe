@@ -8,6 +8,7 @@ class BlogModule extends YWebModule
     public $maxFiles          = 1;
     public $allowedExtensions = 'jpg,jpeg,png,gif';
     public $uploadPath        = 'blogs';
+    public $rssCount = 10;
 
     public function getDependencies()
     {
@@ -39,6 +40,7 @@ class BlogModule extends YWebModule
             'allowedExtensions' => Yii::t('BlogModule.blog', 'Разрешенные расширения (перечислите через запятую)'),
             'minSize'           => Yii::t('BlogModule.blog', 'Минимальный размер (в байтах)'),
             'maxSize'           => Yii::t('BlogModule.blog', 'Максимальный размер (в байтах)'),
+            'rssCount'          => Yii::t('BlogModule.blog', 'Количество записей в RSS'),
         );
     }
 
@@ -53,6 +55,7 @@ class BlogModule extends YWebModule
             'allowedExtensions',
             'minSize',
             'maxSize',
+            'rssCount'
         );
     }
 
