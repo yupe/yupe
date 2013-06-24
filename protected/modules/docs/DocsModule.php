@@ -281,7 +281,7 @@ class DocsModule extends YWebModule
                 ),
             ),
             array(
-                'label' => Yii::t('DocsModule.docs', 'В помощь разработчикам'),
+                'label' => Yii::t('DocsModule.docs', 'Разработчику'),
                 'icon'  => 'th-large white',
                 'items' => array(
                     array(
@@ -290,42 +290,50 @@ class DocsModule extends YWebModule
                         'icon'  => 'file',
                     ),
                     array(
-                        'label' => Yii::t('DocsModule.docs', 'Генерация Feed-ленты'),
-                        'url'   => array('/docs/show/index', 'file' => 'atomfeed', 'moduleID' => 'yupe'),
-                        'icon'  => 'file',
-                    ),
-                    array(
-                        'label' => Yii::t('DocsModule.docs', 'Curl обёртка для Yii framework'),
-                        'url'   => array('/docs/show/index', 'file' => 'curl.wrapper', 'moduleID' => 'yupe'),
-                        'icon'  => 'file',
-                    ),
-                    array(
                         'label' => Yii::t('DocsModule.docs', 'Оптимальные настройки APC'),
                         'url'   => array('/docs/show/index', 'file' => 'apc.options', 'moduleID' => 'yupe'),
                         'icon'  => 'file',
                     ),
                     array(
-                        'label' => Yii::t('DocsModule.docs', 'Компонент "Мигратор"'),
-                        'url'   => array('/docs/show/index', 'file' => 'migrator.index', 'moduleID' => 'yupe'),
-                        'icon'  => 'file',
-                    ),
-                    array(
-                        'label' => Yii::t('DocsModule.docs', 'Методы компонента "Мигратор"'),
-                        'url'   => array('/docs/show/index', 'file' => 'migrator.methods', 'moduleID' => 'yupe'),
-                        'icon'  => 'file',
-                    ),
+                        'label' => Yii::t('DocsModule.docs', 'IDE/Редакторы'),
+                        'icon'  => 'th-large white',
+                        'items' => array(
+                            array(
+                                'label' => Yii::t('DocsModule.docs', 'Работа с eclipse'),
+                                'url'   => array('/docs/show/index', 'file' => 'editors.eclipse'),
+                                'icon'  => 'file',
+                            ),
+                        )
+                    )
                 )
             ),
             array(
-                'label' => Yii::t('DocsModule.docs', 'IDE/Редакторы'),
+                'label' => Yii::t('DocsModule.docs', 'Компоненты'),
                 'icon'  => 'th-large white',
                 'items' => array(
                     array(
-                        'label' => Yii::t('DocsModule.docs', 'Работа с eclipse'),
-                        'url'   => array('/docs/show/index', 'file' => 'editors.eclipse'),
+                        'label' => Yii::t('DocsModule.docs', 'Генерация Feed-ленты'),
+                        'url'   => array('/docs/show/index', 'file' => 'atomfeed', 'moduleID' => 'yupe'),
                         'icon'  => 'file',
                     ),
-                )
+                    array(
+                        'label' => Yii::t('DocsModule.docs', 'Обертка над Curl'),
+                        'url'   => array('/docs/show/index', 'file' => 'curl.wrapper', 'moduleID' => 'yupe'),
+                        'icon'  => 'file',
+                    ),
+                    array(
+                        'label' => Yii::t('DocsModule.docs', 'Мигратор'),
+                        'url'   => array('/docs/show/index', 'file' => 'migrator.index', 'moduleID' => 'yupe'),
+                        'icon'  => 'file',
+                        'items' =>array(
+                             array(
+                                'label' => Yii::t('DocsModule.docs', 'Описание методов'),
+                                'url'   => array('/docs/show/index', 'file' => 'migrator.methods', 'moduleID' => 'yupe'),
+                                'icon'  => 'file'
+                             ),
+                        ),
+                    ),
+                ),
             ),
             array(
                 'label' => Yii::t('DocsModule.docs', 'Модули'),
@@ -348,49 +356,7 @@ class DocsModule extends YWebModule
      **/
     public function getLeftMenu()
     {
-        return array(
-            array(
-                'label' => Yii::t('DocsModule.docs', 'Документация'),
-                'url'   => array('/docs/show/index', 'file' => 'index'),
-                'icon'  => 'home',
-            ),
-            '',
-            array(
-                'label' => Yii::t('DocsModule.docs', 'В помощь разработчикам'),
-                'itemOptions'=>array('class'=>'nav-header')
-            ),
-            array(
-                'label' => Yii::t('DocsModule.docs', 'Написание документации'),
-                'url'   => array('/docs/show/index', 'file' => 'doc.files'),
-                'icon'  => 'file',
-            ),
-            array(
-                'label' => Yii::t('DocsModule.docs', 'Генерация Feed-ленты'),
-                'url'   => array('/docs/show/index', 'file' => 'atomfeed', 'moduleID' => 'yupe'),
-                'icon'  => 'file',
-            ),
-            array(
-                'label' => Yii::t('DocsModule.docs', 'Curl обёртка для Yii framework'),
-                'url'   => array('/docs/show/index', 'file' => 'curl.wrapper', 'moduleID' => 'yupe'),
-                'icon'  => 'file',
-            ),
-            array(
-                'label' => Yii::t('DocsModule.docs', 'Оптимальные настройки APC'),
-                'url'   => array('/docs/show/index', 'file' => 'apc.options', 'moduleID' => 'yupe'),
-                'icon'  => 'file',
-            ),
-            array(
-                'label' => Yii::t('DocsModule.docs', 'Компонент "Мигратор"'),
-                'url'   => array('/docs/show/index', 'file' => 'migrator.index', 'moduleID' => 'yupe'),
-                'icon'  => 'file',
-            ),
-            array(
-                'label' => Yii::t('DocsModule.docs', 'Методы компонента "Мигратор"'),
-                'url'   => array('/docs/show/index', 'file' => 'migrator.methods', 'moduleID' => 'yupe'),
-                'icon'  => 'file',
-            ),
-            '',
-        );
+        return $this->getTopMenu();
     }
 
 
