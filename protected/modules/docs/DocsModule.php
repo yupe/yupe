@@ -295,6 +295,11 @@ class DocsModule extends YWebModule
                         'icon'  => 'file',
                     ),
                     array(
+                        'label' => Yii::t('DocsModule.docs', 'Конфигурация Memcached'),
+                        'url'   => array('/docs/show/index', 'file' => 'memcached'),
+                        'icon'  => 'file',
+                    ),
+                    array(
                         'label' => Yii::t('DocsModule.docs', 'IDE/Редакторы'),
                         'icon'  => 'th-large white',
                         'items' => array(

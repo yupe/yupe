@@ -1,4 +1,4 @@
-# Файлы документации #
+# Конфигурация Memcahed #
 
 **Автор**: [Комманда разработчиков Юпи!](http://yupe.ru/feedback/index?from=docs)
 
@@ -8,10 +8,10 @@
 
 **Лицензия**: [BSD](https://github.com/yupe/yupe/blob/master/LICENSE)
 
-## Настройка Memcached конфигурации ##
+## Настройка "userspace" файла конфигурации ##
 
 Для работы с memcached вам потребуется настроить конфигурацию, для этого достаточно добавить файл
-yupe.php в каталог ./protected/config/userspace/
+`yupe.php` в каталог `./protected/config/userspace/`
 
 
 Пример реализации конфиграции:
