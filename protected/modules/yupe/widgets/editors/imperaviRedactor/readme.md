@@ -20,14 +20,14 @@ Next, call the widget:
 
 ```php
 $this->widget('ImperaviRedactorWidget', array(
-	// you can either use it for model attribute
+	// You can either use it for model attribute
 	'model' => $my_model,
 	'attribute' => 'my_field',
 
 	// or just for input field
 	'name' => 'my_input_name',
 
-	// some options, see http://imperavi.com/redactor/docs/
+	// Some options, see http://imperavi.com/redactor/docs/
 	'options' => array(
 		'lang' => 'ru',
 		'toolbar' => false,
@@ -41,9 +41,9 @@ Alternatively you can attach Redactor to already existing DOM element by calling
 
 ```php
 $this->widget('ImperaviRedactorWidget', array(
-	// the textarea selector
+	// The textarea selector
 	'selector' => '.redactor',
-	// some options, see http://imperavi.com/redactor/docs/
+	// Some options, see http://imperavi.com/redactor/docs/
 	'options' => array(),
 ));
 ```
@@ -63,7 +63,8 @@ $this->widget('ImperaviRedactorWidget', array(
 		'clips' => array(
 			// You can set base path to assets
 			'basePath' => 'application.components.imperavi.my_plugin',
-			// or url, basePath will be ignored
+			// or url, basePath will be ignored.
+			// Defaults is url to plugis dir from assets
 			'baseUrl' => '/js/my_plugin',
 			'css' => array('clips.css',),
 			'js' => array('clips.js',),

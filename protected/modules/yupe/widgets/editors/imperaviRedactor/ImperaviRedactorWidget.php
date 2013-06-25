@@ -9,7 +9,7 @@
  * @author Veaceslav Medvedev <slavcopost@gmail.com>
  * @author Alexander Makarov <sam@rmcreative.ru>
  *
- * @version 1.2.3
+ * @version 1.2.4
  *
  * @link https://github.com/yiiext/imperavi-redactor-widget
  * @link http://imperavi.com/redactor
@@ -36,7 +36,6 @@ class ImperaviRedactorWidget extends CInputWidget
 
 	/**
 	 * @var array
-	 * @deprecated 1.1 From version 1.1 package can't be change.
 	 */
 	public $package = array();
 
@@ -54,33 +53,14 @@ class ImperaviRedactorWidget extends CInputWidget
 
 		if ($this->selector === null) {
 			list($this->name, $this->id) = $this->resolveNameID();
-			$this->htmlOptions['id'] = $this->id;
-			$this->selector = '#' . $this->id;
+			$this->htmlOptions['id'] = $this->getId();
+			$this->selector = '#' . $this->getId();
 
 			if ($this->hasModel()) {
 				echo CHtml::activeTextArea($this->model, $this->attribute, $this->htmlOptions);
 			} else {
 				echo CHtml::textArea($this->name, $this->value, $this->htmlOptions);
 			}
-		}
-
-		// Default scripts package.
-		$this->package = array(
-			'baseUrl' => $this->assetsUrl,
-			'js' => array(
-				YII_DEBUG ? 'redactor.js' : 'redactor.min.js',
-			),
-			'css' => array(
-				'redactor.css',
-			),
-			'depends' => array(
-				'jquery',
-			),
-		);
-
-		// Prepend language file to scripts package.
-		if (isset($this->options['lang']) && 'en' !== $this->options['lang']) {
-			array_unshift($this->package['js'], 'langs/' . $this->options['lang'] . '.js');
 		}
 
 		$this->registerClientScript();
@@ -91,17 +71,57 @@ class ImperaviRedactorWidget extends CInputWidget
 	 */
 	protected function registerClientScript()
 	{
-		Yii::app()->clientScript
+		// Prepare script package.
+		$this->package = array_merge(array(
+				'baseUrl' => $this->getAssetsUrl(),
+				'js' => array(
+					YII_DEBUG ? 'redactor.js' : 'redactor.min.js',
+				),
+				'css' => array(
+					'redactor.css',
+				),
+				'depends' => array(
+					'jquery',
+				),
+			), $this->package);
+
+		// Append language file to script package.
+		if (isset($this->options['lang']) && $this->options['lang'] !== 'en') {
+			$this->package['js'][] = 'lang/' . $this->options['lang'] . '.js';
+		}
+
+		// Add assets url to relative css.
+		if (isset($this->options['css'])) {
+			if (!is_array($this->options['css'])) {
+				$this->options['css'] = array($this->options['css']);
+			}
+			foreach ($this->options['css'] as $i => $css) {
+				if (strpos($css, '/') === false) {
+					$this->options['css'][$i] = $this->getAssetsUrl() . '/' . $css;
+				}
+			}
+		}
+
+		// Insert plugins in options
+		if (!empty($this->_plugins)) {
+			$this->options['plugins'] = array_keys($this->_plugins);
+		}
+
+		$clientScript = Yii::app()->getClientScript();
+		$selector = CJavaScript::encode($this->selector);
+		$options = CJavaScript::encode($this->options);
+
+		$clientScript
 			->addPackage(self::PACKAGE_ID, $this->package)
 			->registerPackage(self::PACKAGE_ID)
 			->registerScript(
 				$this->id,
-				'jQuery(' . CJavaScript::encode($this->selector) . ').redactor(' . CJavaScript::encode($this->options) . ');',
+				'jQuery(' . $selector . ').redactor(' . $options . ');',
 				CClientScript::POS_READY
 			);
 
-		foreach ($this->plugins as $id => $plugin) {
-			Yii::app()->clientScript
+		foreach ($this->getPlugins() as $id => $plugin) {
+			$clientScript
 				->addPackage(self::PACKAGE_ID . '-' . $id, $plugin)
 				->registerPackage(self::PACKAGE_ID . '-' . $id);
 		}
@@ -122,7 +142,7 @@ class ImperaviRedactorWidget extends CInputWidget
 	 */
 	public function getAssetsUrl()
 	{
-		return Yii::app()->assetManager->publish($this->assetsPath);
+		return Yii::app()->getAssetManager()->publish($this->getAssetsPath());
 	}
 
 	/**
@@ -130,16 +150,12 @@ class ImperaviRedactorWidget extends CInputWidget
 	 */
 	public function setPlugins(array $plugins)
 	{
-		if (count($plugins) > 0 && !isset($this->options['plugins'])) {
-			$this->options['plugins'] = array();
-		}
-
 		foreach ($plugins as $id => $plugin) {
-			if (!isset($plugin['baseUrl']) && !isset($plugin['basePath'])) {
-				$plugin['baseUrl'] = $this->assetsUrl . '/plugins/' . $id;
+			if (!isset($plugin['baseUrl'], $plugin['basePath'])) {
+				$plugin['baseUrl'] = $this->getAssetsUrl() . '/plugins/' . $id;
 			}
+
 			$this->_plugins[$id] = $plugin;
-			$this->options['plugins'][] = $id;
 		}
 	}
 
