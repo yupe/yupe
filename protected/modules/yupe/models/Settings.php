@@ -149,7 +149,9 @@ class Settings extends YModel
             if (!empty($params))
                 $criteria->addInCondition("param_name", $params);
 
-            $q = $this->cache(Yii::app()->getModule('yupe')->coreCacheTime)->findAll($criteria);
+            $dependency = new TagsCache($moduleId, 'yupe');
+
+            $q = $this->cache(Yii::app()->getModule('yupe')->coreCacheTime, $dependency)->findAll($criteria);
 
             if(count($q))
             {
