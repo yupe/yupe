@@ -21,14 +21,14 @@ Yii::import('ext.imperavi-redactor-widget.ImperaviRedactorWidget');
 
 ```php
 $this->widget('ImperaviRedactorWidget', array(
-	// можно использовать пару имя модели - имя свойства
+	// Можно использовать пару имя модели - имя свойства
 	'model' => $my_model,
 	'attribute' => 'my_field',
 
 	// или только имя поля ввода
 	'name' => 'my_input_name',
 
-	// немного опций, см. http://imperavi.com/redactor/docs/
+	// Немного опций, см. http://imperavi.com/redactor/docs/
 	'options' => array(
 		'lang' => 'ru',
 		'toolbar' => false,
@@ -42,9 +42,9 @@ $this->widget('ImperaviRedactorWidget', array(
 
 ```php
 $this->widget('ImperaviRedactorWidget', array(
-	// селектор для textarea
+	// Селектор для textarea
 	'selector' => '.redactor',
-	// немного опций, см. http://imperavi.com/redactor/docs/
+	// Немного опций, см. http://imperavi.com/redactor/docs/
 	'options' => array(),
 ));
 ```
@@ -64,11 +64,12 @@ $this->widget('ImperaviRedactorWidget', array(
 		'clips' => array(
 			// Можно указать путь для публикации
 			'basePath' => 'application.components.imperavi.my_plugin',
-			// или ссылку на ресурсы плагина, в этом случае basePath игнорирутеся
+			// Можно указать ссылку на ресурсы плагина, в этом случае basePath игнорирутеся.
+			// По умолчанию, путь до папки plugins из ресурсов расширения
 			'baseUrl' => '/js/my_plugin',
 			'css' => array('clips.css',),
 			'js' => array('clips.js',),
-			// можно также указывать зависимости
+			// Можно также указывать зависимости
 			'depends' => array('imperavi-redactor',),
 		),
 	),
