@@ -58,7 +58,7 @@ class UserIdentity extends CUserIdentity
                 $this->setState('isAdmin', $user->access_level);
 
                 /* Получаем настройки по всем модулям для данного пользователя: */
-                $settings = Settings::model()->fetchUserModuleSettings(Yii::app()->user->getId());
+                $settings = Settings::model()->fetchUserModuleSettings($user->id);
                 $sessionSettings = array();
                 
                 /* Если передан не пустой массив, проходим по нему: */
