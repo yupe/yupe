@@ -352,8 +352,8 @@ class DefaultController extends YBackController
             ),
             array(
                 Yii::t('InstallModule.install', 'Расширение DOM'),
-                false,
-                class_exists("DOMDocument", false),
+                true,
+                extension_loaded('dom'),
                 '<a href="http://www.yiiframework.com/doc/api/CHtmlPurifier">CHtmlPurifier</a>,
                  <a href="http://www.yiiframework.com/doc/api/CWsdlGenerator">CWsdlGenerator</a>',
                 '',
