@@ -24,6 +24,33 @@ class SiteController extends YFrontController
         $this->render('welcome');
     }
 
+    /**
+     * Отображение для ошибок:
+     *
+     * @return void
+     */
+    public function actionError()
+    {
+        $error = Yii::app()->errorHandler->error;
+
+        if (empty($error) || !isset($error['code']) || !(isset($error['message']) || isset($error['msg']))) {
+            $this->redirect(array('index'));
+        }
+
+        if (Yii::app()->request->isAjaxRequest) {
+            echo json_encode(
+                $error
+            );
+        } else {
+            $this->render(
+                'error',
+                array(
+                    'error' => $error
+                )
+            );
+        }
+    }
+
     // раскомментируйте перед запуском сайта в работу
     /*
     public function actionIndex()

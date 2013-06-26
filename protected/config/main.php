@@ -229,6 +229,11 @@ return array(
             'curl' => array(
                 'class' => 'application.modules.yupe.extensions.curl.Curl'
             ),
+
+            'errorHandler'=>array(
+                // use 'site/error' action to display errors
+                'errorAction'=>'site/error',
+            ),
         ), $config['components']
     ),
 );
