@@ -44,8 +44,6 @@ class DefaultController extends YBackController
 
         $languages = $this->yupe->getLanguagesList();
 
-        $languages = $this->yupe->getLanguagesList();
-
         //если добавляем перевод
         $id = (int)Yii::app()->request->getQuery('id');
         $lang = Yii::app()->request->getQuery('lang');
