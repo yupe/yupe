@@ -290,6 +290,11 @@ class DocsModule extends YWebModule
                         'icon'  => 'file',
                     ),
                     array(
+                        'label' => Yii::t('DocsModule.docs', 'Проблемы CWebUser и модуля Gii'),
+                        'url'   => array('/docs/show/index', 'file' => 'cwebuser.issues'),
+                        'icon'  => 'file',
+                    ),
+                    array(
                         'label' => Yii::t('DocsModule.docs', 'Оптимальные настройки APC'),
                         'url'   => array('/docs/show/index', 'file' => 'apc.options', 'moduleID' => 'yupe'),
                         'icon'  => 'file',
