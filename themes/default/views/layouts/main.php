@@ -37,9 +37,9 @@
             <a href="<?php echo CHtml::normalizeUrl(array("/site/index")) ?>">
                 <?php echo CHtml::image(Yii::app()->baseUrl . '/web/images/main-logo.png'); ?>
             </a>
-            <span style="vertical-align: 10px; margin-left: 20px; font-size: 27px;">
-                <?php echo CHtml::encode($this->description); ?>
-            </span>
+            <div style="display: inline-block; vertical-align: 10px; margin-left: 20px; font-size: 27px;">
+                <?php echo $this->description; ?>
+            </div>
 
             <div id="header-right">
                 <?php $this->widget('application.modules.yupe.widgets.YLanguageSelector'); ?>
