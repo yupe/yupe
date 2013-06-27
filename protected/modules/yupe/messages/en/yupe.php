@@ -199,7 +199,7 @@ return array(
     'Перейти на главную панели управления' => '',
     'По вопросам коммерческой поддержки и разработки Вы всегда можете <a href="http://yupe.ru/feedback/index/?form=help" target="_blank">написать нам</a> (<a href="http://yupe.ru/feedback/index/?form=help" target="_blank">http://yupe.ru/feedback/index</a>)' => '',
     'Поднять выше' => 'Upper',
-    'Подождите, идёт обработка вашего запроса' => 'Please wait, your request is being processed',
+    'Подождите, идёт обработка вашего запроса...' => 'Please wait, your request is being processed...',
     'Подробнее про темы оформления' => 'More information about themes',
     'Пожалуйста, отключите логирование запросов (файл /protected/config/db.php, параметр "enableParamLogging")!' => '',
     'Пожалуйста, отключите профайлер запросов (файл /protected/config/db.php, параметр "enableProfiling")!' => '',

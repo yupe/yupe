@@ -12,8 +12,8 @@ $this->breadcrumbs = array('Обратная связь');
 <p> Если вы заинтересованы в создании качественного продукта, легкого в
     поддержке и сопровождении</p>
 
-<p><b>Срочно напишите нам об этом!</b></p>
-<p> Мы стараемся отвечать очень быстро :) !</p>
+<p><b>Срочно <a href="http://yupe.ru/feedback/index?from=contact" target="_blank">напишите нам</a> об этом!</b></p>
+<p> Мы стараемся отвечать очень быстро :)</p>
 
 <p><?php echo Yii::t('install', 'Полезные ссылки:'); ?></p>
 
@@ -30,6 +30,10 @@ $this->breadcrumbs = array('Обратная связь');
 <br/><br/>
 
 <?php echo CHtml::link(Yii::t('install', 'Исходный код на Github'), 'http://github.com/yupe/yupe/'); ?> - <?php echo Yii::t('install', 'Пришлите нам парочку пулл-реквестов, все только выиграют =)'); ?>
+
+<br/><br/>
+
+<?php echo CHtml::link(Yii::t('install', 'Генеральный спонсор'), 'http://amylabs.ru?from=yupe-contact'); ?> - <?php echo Yii::t('install', 'Просто отличные парни =)'); ?>
 
 <br/><br/>
 
@@ -99,6 +103,7 @@ $this->breadcrumbs = array('Обратная связь');
             </div>
         <?php endif; ?>
     <?php endif; ?>
+
 
     <div class="row submit">
         <?php echo CHtml::submitButton('Отправить сообщение'); ?>

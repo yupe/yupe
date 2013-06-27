@@ -98,10 +98,13 @@
     </div>
 </div>
 <footer>
-    Copyright &copy; 2009-<?php echo date('Y'); ?> <?php echo CHtml::link(
-        Yii::t('install', 'Юпи!'),
-        'http://yupe.ru/?from=install'
-    ); ?><br/>
+    Copyright &copy; 2009-<?php echo date('Y'); ?>
+    <?php echo $this->yupe->poweredBy();?>
+    <small class="label label-info"><?php echo $this->yupe->getVersion(); ?></small>
+    <br/>
+    <a href="http://amylabs.ru/?from=yupe-install" target="_blank">
+        <?php echo Yii::t('YupeModule.yupe', 'Разработка и поддержка'); ?></a> - <a href="http://amylabs.ru/?from=yupe-install" target="_blank">amyLabs</a>
+    <br/>
     <?php echo Yii::powered(); ?>
 </footer>
 <!-- footer -->

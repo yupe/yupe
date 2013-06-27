@@ -38,8 +38,8 @@ class YAdminPanel extends YWidget
                     array(
                         'token'      => Yii::app()->request->csrfTokenName . '=' . Yii::app()->request->csrfToken,
                         'url'        => Yii::app()->createAbsoluteUrl('yupe/backend/modulestatus'),
-                        'message'    => Yii::t('YupeModule.yupe', 'Подождите, идёт обработка вашего запроса'),
-                        'error'      => Yii::t('YupeModule.yupe', 'Во время обработки вашего запроса произошла неизвестная ошибка'),
+                        'message'    => Yii::t('YupeModule.yupe', 'Подождите, идёт обработка вашего запроса...'),
+                        'error'      => Yii::t('YupeModule.yupe', 'Во время обработки вашего запроса произошла неизвестная ошибка =('),
                         'loadingimg' => CHtml::image(
                             Yii::app()->getBaseUrl() . '/web/booster-install/assets/img/progressbar.gif', '', array(
                                 'style' => 'width: 100%; height: 20px;',
@@ -58,7 +58,7 @@ class YAdminPanel extends YWidget
                             'confirm_cacheFlush'       => Yii::t('YupeModule.yupe', 'Вы уверены, что хотите удалить весь кеш?'),
                             'confirm_assetsFlush'      => Yii::t('YupeModule.yupe', 'Вы уверены, что хотите удалить все ресурсы (assets)?'),
                             'confirm_cacheAssetsFlush' => Yii::t('YupeModule.yupe', 'Вы уверены, что хотите удалить весь кеш и все ресурсы (assets)?') . '<br />' . Yii::t('YupeModule.yupe', 'Стоит учесть, что это трудоёмкий процесс и может занять некоторое время!'),
-                            'unknown'                  => Yii::t('YupeModule.yupe', 'Выбрано неизвестное действие.'),
+                            'unknown'                  => Yii::t('YupeModule.yupe', 'Выбрано неизвестное действие!'),
                         )
                     )
                 ), CClientScript::POS_BEGIN

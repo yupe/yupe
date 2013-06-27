@@ -10,6 +10,14 @@
  **/
 ?>
 <h1><?php echo Yii::t('InstallModule.install', 'Идет установка модулей...');?></h1>
+
+<div class="alert alert-block alert-notice">
+    <p><b><?php echo Yii::t('InstallModule.install','При возникновении проблем с установкой, пожалуйста, посетите {link} или {feedback} !',array(
+                    '{link}' => CHtml::link('наш форум','http://yupe.ru/talk/viewforum.php?id=10',array('target' => '_blank')),
+                    '{feedback}' => CHtml::link('напишите нам','http://yupe.ru/feedback/index?from=install',array('target' => '_blank')),
+                ));?></b></p>
+</div>
+
 <div class="alert alert-block alert-info">
     <p><?php echo Yii::t('InstallModule.install', 'На данном этапе Юпи! постарается установить выбранные вами модули. Установка может занять некоторое время...');?></p>
 </div>

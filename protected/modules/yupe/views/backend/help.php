@@ -42,31 +42,35 @@ $this->breadcrumbs = array(
 
 <p><b><?php echo Yii::t('YupeModule.yupe', 'Полезные ресурсы:');?></b></p>
 
-<?php echo CHtml::link(Yii::t('YupeModule.yupe','Обязательно прочтите документацию Yii'),'http://yiiframework.ru/doc/guide/ru/index');?>
+<?php echo CHtml::link(Yii::t('YupeModule.yupe','Обязательно прочтите документацию Yii', array('target' => '_blank')),'http://yiiframework.ru/doc/guide/ru/index');?>
 <br /><br />
 
 
-<?php echo CHtml::link(Yii::t('YupeModule.yupe', 'Официальный сайт Юпи!'), 'http://yupe.ru/?form=help'); ?> - <?php echo Yii::t('YupeModule.yupe', 'заходите чаще!'); ?>
+<?php echo CHtml::link(Yii::t('YupeModule.yupe', 'Официальный сайт Юпи!', array('target' => '_blank')), 'http://yupe.ru/?form=help'); ?> - <?php echo Yii::t('YupeModule.yupe', 'заходите чаще!'); ?>
 
 <br /><br />
 
-<?php echo CHtml::link(Yii::t('YupeModule.yupe', 'Официальная документация Юпи!'), 'http://yupe.ru/docs/index.html?form=help'); ?> - <?php echo Yii::t('YupeModule.yupe', 'активно ее пишем =)'); ?>
+<?php echo CHtml::link(Yii::t('YupeModule.yupe', 'Официальная документация Юпи!', array('target' => '_blank')), 'http://yupe.ru/docs/index.html?form=help'); ?> - <?php echo Yii::t('YupeModule.yupe', 'активно ее пишем =)'); ?>
 
 <br /><br />
 
-<?php echo CHtml::link(Yii::t('YupeModule.yupe', 'Дополнительные модули и компоненты'), 'https://github.com/yupe/yupe-ext'); ?> - <?php echo Yii::t('YupeModule.yupe', 'присылайте свои наработки !'); ?>
+<?php echo CHtml::link(Yii::t('YupeModule.yupe', 'Дополнительные модули и компоненты'), 'https://github.com/yupe/yupe-ext', array('target' => '_blank')); ?> - <?php echo Yii::t('YupeModule.yupe', 'присылайте свои наработки !'); ?>
 
 <br /><br />
 
-<?php echo CHtml::link(Yii::t('YupeModule.yupe', 'Форум поддержки Юпи!'), 'http://yupe.ru/talk/?form=help'); ?> - <?php echo Yii::t('YupeModule.yupe', 'заходите поболтать!'); ?>
+<?php echo CHtml::link(Yii::t('YupeModule.yupe', 'Форум поддержки Юпи!'), 'http://yupe.ru/talk/?form=help', array('target' => '_blank')); ?> - <?php echo Yii::t('YupeModule.yupe', 'заходите поболтать!'); ?>
 
 <br /><br />
 
-<?php echo CHtml::link(Yii::t('YupeModule.yupe', 'Исходный код на Github'), 'http://github.com/yupe/yupe/'); ?> - <?php echo Yii::t('YupeModule.yupe', 'пришлите нам парочку пулл-реквестов, все только выиграют =)'); ?>
+<?php echo CHtml::link(Yii::t('YupeModule.yupe', 'Исходный код на Github'), 'http://github.com/yupe/yupe/', array('target' => '_blank')); ?> - <?php echo Yii::t('YupeModule.yupe', 'пришлите нам парочку пулл-реквестов, все только выиграют =)'); ?>
 
 <br /><br />
 
-<?php echo CHtml::link(Yii::t('YupeModule.yupe', 'Официальный твиттер Юпи!'), 'https://twitter.com/#!/YupeCms'); ?>  - <?php echo Yii::t('YupeModule.yupe', 'обязательно заффоловьте нас, мы не спамим =)'); ?>
+<?php echo CHtml::link(Yii::t('YupeModule.yupe', 'Официальный твиттер Юпи!'), 'https://twitter.com/#!/YupeCms', array('target' => '_blank')); ?>  - <?php echo Yii::t('YupeModule.yupe', 'обязательно заффоловьте нас, мы не спамим =)'); ?>
+
+<br /><br />
+
+<?php echo CHtml::link(Yii::t('install', 'Генеральный спонсор'), 'http://amylabs.ru?from=yupe-help', array('target' => '_blank')); ?> - <?php echo Yii::t('install', 'Просто отличные парни =)'); ?>
 
 <br /><br />
 
@@ -76,7 +80,7 @@ $this->breadcrumbs = array(
 
 <br />
 
-<b><?php echo Yii::t('YupeModule.yupe','Команда разработчиков Юпи!'); ?>:</b>
+<b><?php echo Yii::t('YupeModule.yupe','Команда разработчиков Юпи!'); ?></b>
 
 <br /><br />
 
@@ -111,9 +115,13 @@ $this->breadcrumbs = array(
             <td><?php echo CHtml::link('twitter.com/davetoxa','https://twitter.com/davetoxa');?></td>
         </tr>
         <tr class="odd">
-            <th><?php echo Yii::t('YupeModule.yupe','Николай Седов');?></th>
+            <th><?php echo Yii::t('YupeModule.yupe','Седов Николай');?></th>
             <td><?php echo CHtml::link('https://twitter.com/mik_spark','https://twitter.com/mik_spark');?></td>
         </tr>
+         <tr class="odd">
+             <th><?php echo Yii::t('YupeModule.yupe','Кучеров Антон');?></th>
+             <td><?php echo CHtml::link('http://idexter.ru/','http://idexter.ru/');?></td>
+         </tr>
     </tbody>
 </table>
 

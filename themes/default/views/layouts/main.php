@@ -128,7 +128,11 @@
     <div id="footer">
         Copyright &copy; 2009-<?php echo date('Y'); ?> <a href="<?php echo Yii::app()->createUrl('/blog/rss/feed/');?>"><img src="<?php echo Yii::app()->theme->baseUrl?>/web/images/rss.png" alt="Подпишитесь на обновления" title="Подпишитесь на обновления"></a>
         <br/><?php echo $this->yupe->poweredBy(); ?>
-        <?php echo $this->yupe->getVersion(); ?><br/> <?php echo Yii::powered(); ?>
+        <small class="label label-info"><?php echo $this->yupe->getVersion(); ?></small>
+        <br/>
+        <a href="http://amylabs.ru/?from=yupe-main-page" target="_blank"><?php echo Yii::t('YupeModule.yupe', 'Разработка и поддержка'); ?></a> - <a href="http://amylabs.ru/?from=yupe-main-page" target="_blank">amyLabs</a>
+        <br/>
+        <?php echo Yii::powered(); ?>
 
         <?php $this->widget('YPerformanceStatistic'); ?>
     </div>

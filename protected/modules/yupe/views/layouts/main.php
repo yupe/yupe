@@ -43,8 +43,8 @@
         <?php echo $this->yupe->poweredBy();?>
         <small class="label label-info"><?php echo $this->yupe->getVersion(); ?></small>
         <br/>
-        <a href="http://yupe.ru/feedback/index?from=engine">
-            <?php echo Yii::t('YupeModule.yupe', 'Разработка и поддержка'); ?></a> - <a href="http://yupe.ru/?from=panel_footer" target="_blank">yupe team
+        <a href="http://amylabs.ru/?from=yupe-panel">
+            <?php echo Yii::t('YupeModule.yupe', 'Разработка и поддержка'); ?></a> - <a href="http://amylabs.ru/?from=yupe-panel" target="_blank">amyLabs
         </a>
         <br/>
         <?php echo Yii::powered(); ?>
