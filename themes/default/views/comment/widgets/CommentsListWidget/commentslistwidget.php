@@ -13,7 +13,7 @@ if (!$this->comment)
 
 if (count($comments)) {
     if (!$this->comment)
-        echo '<b> ' . $this->label . ' ' . count($comments) . '</b>';
+        echo '<b> ' . $this->label . ' ' . count($comments) . '</b> '.CHtml::link(CHtml::image(Yii::app()->theme->baseUrl.'/web/images/rss.png'),array('/comment/rss/feed','model' => $this->model, 'modelId' => $this->modelId));
     foreach ($comments as &$commentArray) {
         if (!$this->comment && isset($commentArray['childOf'])) {
             $comment = &$commentArray['row'];

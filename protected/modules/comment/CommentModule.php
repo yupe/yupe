@@ -9,6 +9,7 @@ class CommentModule extends YWebModule
     public $showCaptcha = 1;
     public $minCaptchaLength = 3;
     public $maxCaptchaLength = 6;
+    public $rssCount         = 10;
 
     public function getDependencies()
     {
@@ -28,6 +29,7 @@ class CommentModule extends YWebModule
             'showCaptcha'          => Yii::t('CommentModule.comment', 'Показывать капчу для гостей'),
             'minCaptchaLength'     => Yii::t('CommentModule.comment', 'Минимальная длинна капчи'),
             'maxCaptchaLength'     => Yii::t('CommentModule.comment', 'Максимальная длинна капчи'),
+            'rssCount'             => Yii::t('CommentModule.comment', 'Количество записей в RSS'),
         );
     }
 
@@ -42,6 +44,7 @@ class CommentModule extends YWebModule
             'showCaptcha'          => $this->getChoice(),
             'minCaptchaLength',
             'maxCaptchaLength',
+            'rssCount'
         );
     }
 

@@ -30,8 +30,14 @@ $form = $this->beginWidget('bootstrap.widgets.TbActiveForm', array(
     <div class='control-group <?php echo $model->hasErrors("url") ? "error" : ""; ?>'>
         <?php echo $form->textFieldRow($model, 'url', array('class' => 'span7', 'maxlength' => 300)); ?>
     </div>
-    <div class='control-group <?php echo $model->hasErrors("text") ? "error" : "" ?>'>
-        <?php echo $form->textAreaRow($model, 'text', array('class' => 'span7')); ?>
+    <div class='row-fluid control-group <?php echo $model->hasErrors("text") ? "error" : ""; ?>'>
+        <?php echo $form->labelEx($model, 'text'); ?>
+        <?php $this->widget($this->module->editor, array(
+                'model'       => $model,
+                'attribute'   => 'text',
+                'options'     => $this->module->editorOptions,
+            )); ?>
+        <br /><?php echo $form->error($model, 'text'); ?>
     </div>
     <div class='control-group <?php echo $model->hasErrors("status") ? "error" : ""; ?>'>
         <?php echo $form->dropDownListRow($model, 'status', $model->statusList); ?>

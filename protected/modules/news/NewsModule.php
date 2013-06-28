@@ -7,6 +7,7 @@ class NewsModule extends YWebModule
     public $maxSize           = 5368709120;
     public $maxFiles          = 1;
     public $mainCategory;
+    public $rssCount          = 10;
 
     public function getDependencies()
     {
@@ -60,6 +61,7 @@ class NewsModule extends YWebModule
             'allowedExtensions' => Yii::t('NewsModule.news', 'Разрешенные расширения (перечислите через запятую)'),
             'minSize'           => Yii::t('NewsModule.news', 'Минимальный размер (в байтах)'),
             'maxSize'           => Yii::t('NewsModule.news', 'Максимальный размер (в байтах)'),
+            'rssCount'          => Yii::t('NewsModule.news', 'Количество записей в RSS'),
         );
     }
 
@@ -73,6 +75,7 @@ class NewsModule extends YWebModule
             'allowedExtensions',
             'minSize',
             'maxSize',
+            'rssCount'
         );
     }
 

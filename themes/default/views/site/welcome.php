@@ -10,22 +10,10 @@
 </p>
 <?php endif; ?>
 
-<p>Обязательно измените параметр <code>"csrfTokenName"</code>. </p>
-<p>Это можно сделать в файле - <code>./protected/config/main.php</code>.</p>
-Строка имеет вид:
-<?php
-$highlighter = new CTextHighlighter;
-$highlighter->language = 'PHP';
-echo $highlighter->highlight(
-    "'request' => array(
-        'class'                  => 'YHttpRequest',
-        'enableCsrfValidation'   => true,
-        'csrfTokenName'          => 'YUPE_TOKEN',
-    )"
-); ?>
 <p> Начните доработку Вашего сайта с правки <code>SiteController</code> (/protected/controller/SiteController)</p>
-
+<P> Мы подготовили для Вас некоторые заготовки, например, список постов (модуль "блог") можно посмотреть вот <?php echo CHtml::link('здесь',array('/site/main'))?> (SiteController/actionMain)</P>
 <p> Для управления сайтом, пожалуйста, перейдите в <?php echo CHtml::link('панель управления', array('/yupe/backend/')); ?></p>
+
 <p> При возникновении вопросов или проблем - обращайтесь:
 	<ul>
 		<li>на наш <a href='http://yupe.ru/talk/?from=mainpage'>форум</a></li>
@@ -34,6 +22,7 @@ echo $highlighter->highlight(
 	</ul>
 
 <p> Репозиторий дополнительных модулей и виджетов для Юпи! <a href="https://github.com/yupe/yupe-ext" target="_blank">https://github.com/yupe/yupe-ext</a></p>
+
 <p><a href='http://yupe.ru/pages/help?from=mainpage' target='_blank'> Возможно, Вы хотите присоединиться к разработке или помочь проекту ?</a></p>
 
 <div class="alert">

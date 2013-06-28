@@ -27,6 +27,8 @@ class DefaultController extends YBackController
 
             if ($model->save())
             {
+                Yii::app()->user->setFlash(YFlashMessages::NOTICE_MESSAGE,Yii::t('CommentModule.comment','Комментарий добавлен!'));
+
                 $this->redirect(
                     (array) Yii::app()->request->getPost(
                         'submit-type', array('create')
@@ -55,6 +57,8 @@ class DefaultController extends YBackController
 
             if ($model->save())
             {
+                Yii::app()->user->setFlash(YFlashMessages::NOTICE_MESSAGE,Yii::t('CommentModule.comment','Комментарий обновлен!'));
+
                 if (!isset($_POST['submit-type']))
                     $this->redirect(array('update', 'id' => $model->id));
                 else

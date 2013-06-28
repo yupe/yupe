@@ -82,6 +82,7 @@ $this->renderPartial('_search', array('model' => $model));
             'name'  => 'status',
             'type'  => 'raw',
             'value' => '$this->grid->returnBootstrapStatusHtml($data, "status", "Status", array("pencil", "ok-sign", "fire", "remove"))',
+            'filter' => $model->getStatusList()
         ),
         'text',
         array(

@@ -111,15 +111,15 @@ class News extends YModel
     {
         return array(
             'published' => array(
-                'condition' => 'status = :status',
+                'condition' => 't.status = :status',
                 'params'    => array(':status'   => self::STATUS_PUBLISHED),
             ),
             'protected' => array(
-                'condition' => 'is_protected = :is_protected',
+                'condition' => 't.is_protected = :is_protected',
                 'params'    => array(':is_prtected' => self::PROTECTED_YES),
             ),
             'public'    => array(
-                'condition' => 'is_protected = :is_protected',
+                'condition' => 't.is_protected = :is_protected',
                 'params'    => array(':is_protected' => self::PROTECTED_NO),
             ),
             'recent'    => array(

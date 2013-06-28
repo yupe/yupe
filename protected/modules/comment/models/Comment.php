@@ -160,16 +160,16 @@ class Comment extends YModel
     {
         return array(
             'new'      => array(
-                'condition' => 'status = :status',
+                'condition' => 't.status = :status',
                 'params'    => array(':status' => self::STATUS_NEED_CHECK),
             ),
             'approved' => array(
-                'condition' => 'status = :status',
+                'condition' => 't.status = :status',
                 'params'    => array(':status' => self::STATUS_APPROVED),
-                'order'     => 'creation_date DESC',
+                'order'     => 't.creation_date DESC',
             ),
             'authored' => array(
-                'condition' => 'user_id is not null',
+                'condition' => 't.user_id is not null',
             ),
         );
     }
