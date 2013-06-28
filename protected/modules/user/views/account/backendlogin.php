@@ -40,6 +40,10 @@ Yii::app()->clientScript->registerCssFile(
                     <?php if($this->getModule()->sessionLifeTime > 0):  ?>
                         <?php echo $form->checkBoxRow($model, 'remember_me'); ?>
                     <?php endif; ?>
+
+                    <?php if(!$this->getModule()->recoveryDisabled):?>
+                       <?php echo CHtml::link(Yii::t('UserModule.user', "Забыли пароль?"), array('/user/account/recovery')); ?>
+                    <?php endif;?>
                 </div>
                 <?php if (Yii::app()->user->getState('badLoginCount', 0) >= 3): ?>
                     <div class='row-fluid'>
@@ -69,15 +73,7 @@ Yii::app()->clientScript->registerCssFile(
                         ),
                     )
                 );
-                $this->widget(
-                    'bootstrap.widgets.TbButton', array(
-                        'buttonType'  => 'reset',
-                        'label'       => Yii::t('UserModule.user', 'Очистить'),
-                        'htmlOptions' => array(
-                            'class' => 'btn-block'
-                        ),
-                    )
-                ); ?>
+                ?>
             </div>
             <?php $this->endWidget(); ?>
         </div>

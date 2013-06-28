@@ -51,9 +51,8 @@ class SiteController extends YFrontController
         }
     }
 
-    // раскомментируйте перед запуском сайта в работу
-    /*
-    public function actionIndex()
+
+    public function actionMain()
     {
         $dataProvider = new CActiveDataProvider('Post', array(
             'criteria' => new CDbCriteria(array(
@@ -65,7 +64,6 @@ class SiteController extends YFrontController
             )),
         ));
 
-        $this->render('index', array('dataProvider' => $dataProvider));
+        $this->render('main', array('dataProvider' => $dataProvider));
     }
-    */
 }

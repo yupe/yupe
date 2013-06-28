@@ -54,8 +54,12 @@
 
     <div class="row">
         <p class="hint">
-            <?php echo CHtml::link(Yii::t('UserModule.user', "Регистрация"), array('/user/account/registration')); ?>
-            | <?php echo CHtml::link(Yii::t('UserModule.user', "Восстановление пароля"), array('/user/account/recovery')); ?>
+            <?php if(!$this->getModule()->registrationDisabled):?>
+                <?php echo CHtml::link(Yii::t('UserModule.user', "Регистрация"), array('/user/account/registration')); ?>
+            <?php endif;?>
+            <?php if(!$this->getModule()->recoveryDisabled):?>
+               | <?php echo CHtml::link(Yii::t('UserModule.user', "Восстановление пароля"), array('/user/account/recovery')); ?>
+            <?php endif;?>
         </p>
     </div>
 

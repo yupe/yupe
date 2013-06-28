@@ -24,15 +24,3 @@ form .help-block {
     display: none;
 }
 
-body #overall-wrap {
-    min-height: 100%;
-    margin: 0 auto -75px;
-}
-
-body > footer {
-    height: 34px;
-    padding: inherit;
-    padding-top: 10px;
-    padding-bottom: 10px;
-    opacity: 0.5;
-}
