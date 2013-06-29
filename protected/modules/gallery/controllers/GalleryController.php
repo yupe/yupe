@@ -141,7 +141,7 @@ class GalleryController extends YFrontController
                 );
 
                 $this->redirect(
-                    array('/gallery/gallery/show', 'id' => $image->gallery[0]->id)
+                    array('/gallery/gallery/show', 'id' => $image->gallery->id)
                 );
             }
         }
