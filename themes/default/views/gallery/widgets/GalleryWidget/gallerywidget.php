@@ -12,7 +12,7 @@ $this->widget(
     'gallery.extensions.colorbox.ColorBox',
     array(
         'target' => '.gallery-image',
-        'lange' => 'ru',
+        'lang' => 'ru', // если не установить, то будет изспользован Yii::app()->language
         'config' => array( // тут конфиги плагина, подробнее http://www.jacklmoore.com/colorbox
         ),
     )
