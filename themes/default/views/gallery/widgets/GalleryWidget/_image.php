@@ -25,7 +25,7 @@
     CHtml::image(
         $data->image->getUrl(190), $data->image->alt
     ), $data->image->getUrl(), array(
-        'class' => 'fancybox',
+        'class' => 'gallery-image',
         'title' => $data->image->description,
         'rel' => $data->gallery->id
     )

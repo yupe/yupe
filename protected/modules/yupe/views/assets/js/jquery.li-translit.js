@@ -16,10 +16,23 @@ jQuery.fn.liTranslit = function(options){
 	return this.each(function(){
 		var elName = $(this).find(o.elName),
 			elAlias = $(this).find(o.elAlias),
-			nameVal;
+			nameVal ,
+            disableLiveEdit = false;
+
+        if(elAlias.val().length > 0)
+            disableLiveEdit = true;
+
+        elAlias.focusout(function(){
+            if(elAlias.val().length > 0)
+                disableLiveEdit = true;
+            else
+                disableLiveEdit = false;
+            tr(elName);
+        });
+
 		function tr(el){
 			nameVal = el.val();
-			inser_trans(get_trans(nameVal));
+			if(!disableLiveEdit) inser_trans(get_trans(nameVal));
 		};
 		elName.keyup(function () {
 			tr($(this));
