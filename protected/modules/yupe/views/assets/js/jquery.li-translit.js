@@ -82,7 +82,7 @@ jQuery.fn.liTranslit = function(options){
 			return trans;
 		}
 		function inser_trans(result) {
-			elAlias.val(result);
+    	    elAlias.val(result);
 		}
 		function trim(string) {
 			string = string.replace(/'|"|<|>|\!|\||@|#|$|%|^|&|\*|\(\)|-|\|\/|;|\+|№|,|\?|_|:|{|}|\[|\]/g, "");
