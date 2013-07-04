@@ -1,4 +1,26 @@
 /* main.css */
+
+body.admin-panel {
+    margin-top: 60px;
+}
+#rss-feed {
+    margin-bottom: 5px;
+}
+#footer p {
+    margin-bottom: 0;
+}
+.page-header {
+    margin: 0 0 30px !important;
+}
+
+#slogan {
+    display: inline-block;
+    vertical-align: 10px;
+    margin-left: 20px;
+    font-size: 27px;
+}
+
+
 body {
     margin: 0;
     padding: 0;
@@ -32,17 +54,17 @@ body {
 }
 
 #content {
-    padding: 20px;
+    padding: 10px 20px;
 }
 
 #sidebar {
-    padding: 20px 20px 20px 0;
+    padding-top: 20px;
+    padding-right: 10px;
 }
 
 #footer {
     padding: 10px;
     margin: 10px 20px;
-    font-size: 0.8em;
     text-align: center;
     border-top: 1px solid #C9E0ED;
 }
@@ -143,7 +165,7 @@ div.search-form {
 }
 
 .portlet {
-
+    margin-bottom: 15px;
 }
 
 .sub-menu {

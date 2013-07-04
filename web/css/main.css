@@ -1,4 +1,7 @@
 /* main.css */
+.admin-panel .container {
+    margin-top: 100px;
+}
 body {
     margin: 0;
     padding: 0;
