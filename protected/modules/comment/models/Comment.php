@@ -82,6 +82,16 @@ class Comment extends YModel
         return parent::model($className);
     }
 
+    public function behaviors()
+    {
+
+        return array(
+            'NestedSetBehavior'=>array(
+                'class'=>'ext.nested-set-behavior.NestedSetBehavior',
+                'hasManyRoots'=>true,
+            ));
+    }
+
     /**
      * Имя таблицы в БД:
      *
