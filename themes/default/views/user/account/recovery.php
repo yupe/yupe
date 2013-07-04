@@ -2,31 +2,37 @@
 $this->pageTitle = Yii::t('user', 'Восстановление пароля');
 $this->breadcrumbs = array('Восстановление пароля');
 ?>
-
-<h1>Восстановление пароля</h1>
-
 <?php $this->widget('application.modules.yupe.widgets.YFlashMessages'); ?>
 
+<?php $form = $this->beginWidget(
+    'bootstrap.widgets.TbActiveForm',
+    array(
+        'id' => 'registration-form',
+        'type' => 'vertical',
+        'inlineErrors' => true,
+    )
+); ?>
 
-<p>Для восстановления пароля - введите email, указанный при регистрации.</p>
+<?php echo $form->errorSummary($model); ?>
 
-<div class="form">
-    <?php $form = $this->beginWidget('CActiveForm', array(
-                                                         'id' => 'recovery-password-form',
-                                                         'enableClientValidation' => true
-                                                    )); ?>
+<div class='row-fluid control-group <?php echo $model->hasErrors('email') ? 'error' : ''; ?>'>
+    <?php echo $form->textFieldRow($model, 'email', array('class' => 'span6', 'required' => true)); ?>
+    <span class="help-block">
+        <?php echo Yii::t('UserModule.user', 'Введите email, указанный при регистрации'); ?>
+    </span>
+</div>
 
-    <?php echo $form->errorSummary($model); ?>
+<div class="row-fluid  control-group">
+    <?php
+    $this->widget(
+        'bootstrap.widgets.TbButton',
+        array(
+            'buttonType' => 'submit',
+            'type' => 'primary',
+            'label' => Yii::t('UserModule.user', 'Восстановить пароль'),
+        )
+    ); ?>
+</div>
 
-    <div class="row">
-        <?php echo $form->labelEx($model, 'email'); ?>
-        <?php echo $form->textField($model, 'email') ?>
-        <?php echo $form->error($model, 'email'); ?>
-    </div>
-
-    <div class="row submit">
-        <?php echo CHtml::submitButton('Восстановить пароль'); ?>
-    </div>
-
-    <?php $this->endWidget(); ?>
-</div><!-- form -->
+<?php $this->endWidget(); ?>
+<!-- form -->
