@@ -104,7 +104,17 @@ class CommentController extends YFrontController
                 $comment->status = Comment::STATUS_APPROVED;
         }
 
-        if ($comment->save()) {
+        $saveStatus = false;
+        $parentId = $comment->getAttribute('parent_id');
+        if($parentId > 0)
+        {
+            $rootForComment = Comment::model()->findByPk($parentId);
+            $saveStatus = $comment->appendTo($rootForComment);
+        }else{
+            $saveStatus = $comment->saveNode();
+        }
+
+        if ($saveStatus) {
 
             // сбросить кэш
             Yii::app()->cache->delete("Comment{$comment->model}{$comment->model_id}");

@@ -87,7 +87,7 @@ class Comment extends YModel
 
         return array(
             'NestedSetBehavior'=>array(
-                'class'=>'ext.nested-set-behavior.NestedSetBehavior',
+                'class'=>'application.modules.yupe.extensions.nested-set-behavior.NestedSetBehavior',
                 'hasManyRoots'=>true,
             ));
     }

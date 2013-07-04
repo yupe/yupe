@@ -25,7 +25,7 @@ class DefaultController extends YBackController
         {
             $model->attributes = $_POST['Comment'];
 
-            if ($model->save())
+            if ($model->saveNode())
             {
                 Yii::app()->user->setFlash(YFlashMessages::NOTICE_MESSAGE,Yii::t('CommentModule.comment','Комментарий добавлен!'));
 
