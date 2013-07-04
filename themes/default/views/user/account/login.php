@@ -1,71 +1,83 @@
 <?php
-$this->pageTitle = Yii::t('user', 'Авторизация');
-$this->breadcrumbs = array('Авторизация');
+$this->pageTitle = Yii::t('user', 'Войти');
+$this->breadcrumbs = array('Войти');
 ?>
-
-<?php Yii::app()->clientScript->registerScriptFile('http://connect.facebook.net/ru_RU/all.js'); ?>
-
-<h1>Авторизация</h1>
 
 <?php $this->widget('application.modules.yupe.widgets.YFlashMessages'); ?>
 
-<div class="form">
+<?php $form = $this->beginWidget(
+    'bootstrap.widgets.TbActiveForm',
+    array(
+        'id' => 'login-form',
+        'type' => 'vertical',
+        'inlineErrors' => true,
+    )
+); ?>
 
-    <?php $form = $this->beginWidget('CActiveForm', array(
-                                                         'id' => 'login-form',
-                                                         'enableClientValidation' => true
-                                                    ));?>
+<?php echo $form->errorSummary($model); ?>
 
-    <?php echo $form->errorSummary($model); ?>
+<div class='row-fluid control-group <?php echo $model->hasErrors('email') ? 'error' : ''; ?>'>
+    <?php echo $form->textFieldRow($model, 'email', array('class' => 'span6', 'required' => true)); ?>
+</div>
 
-    <div class="row">
-        <?php echo $form->labelEx($model, 'email'); ?>
-        <?php echo $form->textField($model, 'email') ?>
-        <?php echo $form->error($model, 'email'); ?>
+<div class='row-fluid control-group <?php echo $model->hasErrors('password') ? 'error' : ''; ?>'>
+    <?php echo $form->passwordFieldRow($model, 'password', array('class' => 'span6', 'required' => true)); ?>
+</div>
+
+<?php if ($this->getModule()->sessionLifeTime > 0): ?>
+    <div class='row-fluid control-group <?php echo $model->hasErrors('remember_me') ? 'error' : ''; ?>'>
+        <?php echo $form->checkBoxRow($model, 'remember_me'); ?>
     </div>
+<?php endif; ?>
 
-    <div class="row">
-        <?php echo $form->labelEx($model, 'password'); ?>
-        <?php echo $form->passwordField($model, 'password') ?>
-        <?php echo $form->error($model, 'password'); ?>
+<?php if (Yii::app()->user->getState('badLoginCount', 0) >= 3 && CCaptcha::checkRequirements('gd')): ?>
+    <?php $this->widget(
+        'CCaptcha',
+        array(
+            'showRefreshButton' => true,
+            'imageOptions' => array(
+                'width' => '150',
+            ),
+            'buttonOptions' => array(
+                'class' => 'btn',
+            ),
+            'buttonLabel' => '<i class="icon-repeat"></i>',
+        )
+    ); ?>
+
+    <div class='row-fluid control-group <?php echo $model->hasErrors('verifyCode') ? 'error' : ''; ?>'>
+        <?php echo $form->textFieldRow($model, 'verifyCode', array('class' => 'span3', 'required' => true)); ?>
+        <span class="help-block">
+            <?php echo Yii::t('UserModule.user', 'Введите текст указанный на картинке'); ?>
+        </span>
     </div>
+<?php endif; ?>
 
-    <?php if($this->getModule()->sessionLifeTime > 0):  ?>
-    <div class="row rememberMe">
-        <?php echo $form->checkBox($model, 'remember_me'); ?>
-        <?php echo $form->labelEx($model, 'remember_me'); ?>
-        <?php echo $form->error($model, 'remember_me'); ?>
-    </div>
-    <?php endif; ?>
 
-    <?php if (Yii::app()->user->getState('badLoginCount', 0) >= 3): ?>
-        <div class='row'>
-            <?php if (CCaptcha::checkRequirements('gd')): ?>
-                <?php echo $form->labelEx($model, 'verifyCode'); ?>
-                <div class='row-fluid'>
-                    <?php $this->widget('CCaptcha', array('showRefreshButton' => true)); ?>
-                </div>
-                <div class='row-fluid'>
-                    <?php echo $form->textField($model, 'verifyCode'); ?>
-                    <?php echo $form->error($model, 'verifyCode'); ?>
-                </div>
-                <div class="hint">
-                    <?php echo Yii::t('UserModule.user', 'Введите текст указанный на картинке'); ?>
-                </div>
-            <?php endif; ?>
-        </div>
-    <?php endif; ?>
+<div class="row-fluid  control-group">
+    <?php
+    $this->widget(
+        'bootstrap.widgets.TbButton',
+        array(
+            'buttonType' => 'submit',
+            'type' => 'primary',
+            'icon' => 'signin',
+            'label' => Yii::t('UserModule.user', 'Войти'),
+        )
+    ); ?>
 
-    <div class="row">
-        <p class="hint">
-            <?php echo CHtml::link(Yii::t('user', "Регистрация"), array('/user/account/registration')); ?>
-            | <?php echo CHtml::link(Yii::t('user', "Восстановление пароля"), array('/user/account/recovery')) ?>
-        </p>
-    </div>
+    <?php
+    $this->widget(
+        'bootstrap.widgets.TbButton',
+        array(
+            'buttonType' => 'link',
+            'label' => Yii::t('UserModule.user', 'Регистрация'),
+            'url' => Yii::app()->createUrl('/user/account/registration'),
+        )
+    ); ?>
+</div>
 
-    <div class="row submit">
-        <?php echo CHtml::submitButton('Войти'); ?>
-    </div>
+<?php echo CHtml::link(Yii::t('UserModule.user', 'Забыли пароль?'), array('/user/account/recovery')) ?>
 
-    <?php $this->endWidget(); ?>
-</div><!-- form -->
+<?php $this->endWidget(); ?>
+<!-- form -->
