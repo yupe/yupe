@@ -20,6 +20,9 @@ body.admin-panel {
     font-size: 27px;
 }
 
+#sidebar li {
+    line-height: 22px;
+}
 
 body {
     margin: 0;

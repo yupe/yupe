@@ -213,7 +213,17 @@ class FeedBack extends YModel
     public function relations()
     {
         return array(
-            'category' => array(self::BELONGS_TO,'Category','category_id')
+            'category' => array(self::BELONGS_TO,'Category','category_id'),
+            'commentsCount' => array(
+                self::STAT,
+                'Comment',
+                'model_id',
+                'condition' => 'model = :model AND status = :status',
+                'params' => array(
+                    ':model' => 'FeedBack',
+                    ':status' => Comment::STATUS_APPROVED
+                )
+    ),
         );
     }
 
