@@ -391,4 +391,9 @@ class Post extends YModel
 
         return parent::afterFind();
     }
+
+    public function getQuote($limit=500)
+    {
+        return $this->quote ? $this->quote : YText::characterLimiter($this->quote,(int)$limit);
+    }
 }

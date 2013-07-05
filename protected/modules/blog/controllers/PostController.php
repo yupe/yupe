@@ -12,6 +12,16 @@
  **/
 class PostController extends YFrontController
 {
+
+    public function actionIndex()
+    {
+        $posts = Post::model()->with('blog','createUser')->published()->public()->findAll(array(
+                'order' => 'publish_date DESC'
+            ));
+
+        $this->render('index', array('posts' => $posts));
+    }
+
     /**
      * Показываем пост по урлу
      * 
