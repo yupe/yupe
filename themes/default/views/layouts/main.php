@@ -103,8 +103,6 @@
                         )
                     ); ?>
                 </div>
-                <?php $this->widget('application.modules.blog.widgets.LastPostsWidget', array('cacheTime' => 0)); ?>
-
                 <div class="portlet">
                     <a class="twitter-timeline" href="https://twitter.com/YupeCms" data-widget-id="342373817932451841">Твиты
                         пользователя @YupeCms</a>
@@ -118,14 +116,19 @@
                             }
                         }(document, "script", "twitter-wjs");</script>
                 </div>
-
+                <?php $this->widget('application.modules.blog.widgets.BlogsWidget', array('cacheTime' => 0)); ?>
+                <?php $this->widget('application.modules.blog.widgets.LastPostsWidget', array('cacheTime' => 0)); ?>
                 <?php $this->widget(
                     'application.modules.yupe.extensions.taggable.widgets.TagCloudWidget.TagCloudWidget',
                     array('cacheTime' => 0, 'model' => 'Post')
                 ); ?>
+
+
+
+
                 <?php $this->widget('application.modules.feedback.widgets.FaqWidget', array('cacheTime' => 0)); ?>
                 <?php //$this->widget('application.modules.news.widgets.LastNewsWidget', array('cacheTime' => 0)); ?>
-                <?php $this->widget('application.modules.blog.widgets.BlogsWidget', array('cacheTime' => 0)); ?>
+
                 <?php $this->widget(
                     'application.modules.user.widgets.LastLoginUsersWidget',
                     array('cacheTime' => 0)
