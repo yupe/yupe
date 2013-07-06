@@ -114,7 +114,7 @@ $this->breadcrumbs = array(Yii::t('blog', 'Блоги'));
 
 <?php
 $this->widget(
-    'zii.widgets.CListView', array(
+    'bootstrap.widgets.TbListView', array(
         'dataProvider' => $dataProvider,
         'itemView' => '_view',
     )

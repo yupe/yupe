@@ -8,9 +8,8 @@
 <h1><?php echo Yii::t('user', 'Пользователи'); ?></h1>
 
 <?php
-    $this->widget('zii.widgets.CListView', array(
+    $this->widget('bootstrap.widgets.TbListView', array(
         'dataProvider' => $dataProvider,
         'itemView'     => '_view',
-        'template'     => '{pager}{items}{pager}',
     ));
 ?>

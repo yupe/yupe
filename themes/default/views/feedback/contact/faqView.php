@@ -8,9 +8,23 @@ $this->breadcrumbs = array(
 );
 ?>
 
-<h1><?php echo Yii::t('feedback', 'Вопрос и ответ #{id}',array('{id}' => $model->id));?> <?php echo CHtml::link('ЗАДАЙТЕ ВОПРОС',array('/feedback/index/'));?></h1>
+<h1>
+    <?php echo Yii::t('feedback', 'Вопрос и ответ #{id}',array('{id}' => $model->id));?>
+    <?php
+    $this->widget(
+        'bootstrap.widgets.TbButton',
+        array(
+            'htmlOptions' => array(
+                'class' => 'btn btn-info'
+            ),
+            'buttonType' => 'link',
+            'label' => Yii::t('UserModule.user', 'Задайте вопрос ?!'),
+            'url' => Yii::app()->createUrl('/feedback/contact/index/'),
+        )
+    ); ?>
+</h1>
 
-<?php $this->widget('zii.widgets.CDetailView', array(
+<?php $this->widget('bootstrap.widgets.TbDetailView', array(
                                                     'data' => $model,
                                                     'attributes' => array(
                                                         'creation_date',
