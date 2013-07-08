@@ -12,8 +12,8 @@
                 <?php echo CHtml::link($model->title, array('/blog/post/show/', 'slug' => $model->slug)); ?>
                 <?php if ($model->comment_status == 1 && $model->commentsCount): ?>
                     <nobr>
-                    <i class="icon-comment-alt"></i>
-                    <?php echo $model->commentsCount; ?>
+                        <i class="icon-comment-alt"></i>
+                        <?php echo $model->commentsCount; ?>
                     </nobr>
                 <?php endif; ?>
             </li>

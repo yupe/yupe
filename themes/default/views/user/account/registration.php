@@ -11,6 +11,9 @@ $this->breadcrumbs = array('Регистрация');
         'id' => 'registration-form',
         'type' => 'vertical',
         'inlineErrors' => true,
+        'htmlOptions' => array(
+            'class' => 'well',
+        )
     )
 ); ?>
 

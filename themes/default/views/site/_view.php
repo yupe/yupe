@@ -17,19 +17,14 @@
     </div>
     <div class="nav">
         <?php echo Yii::t('blog', 'Теги'); ?>:
-        <?php
-        if (($tags = $data->getTags()) != array())
-        {
-            foreach ($tags as &$tag)
-            {
-                $tag = CHtml::encode($tag);
-                echo CHtml::link($tag, array('/posts/', 'tag' => $tag)).' ';
-            }
-            unset($tag);
-        }
-        else
-            echo Yii::t('blog', 'тегов нет');
-        ?>
-        комментарии: <?php echo $data->commentsCount;?>
+        <?php if (($tags = $data->getTags()) != array()):?>
+            <?php foreach ($tags as $tag):?>
+                <?php $tag = CHtml::encode($tag);?>
+                <span class="label label-info">
+                    <?php echo CHtml::link($tag, array('/posts/', 'tag' => $tag)).' '?>
+                </span>
+            <?php endforeach?>
+        <?php endif;?>
+        <i class="icon-comment-alt"><?php echo $data->commentsCount;?></i>
     </div>
 </div>

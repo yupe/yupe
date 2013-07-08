@@ -8,8 +8,7 @@ $this->breadcrumbs = array(
 
 <h1>
     <?php echo Yii::t('feedback', 'Вопросы и ответы')?>
-    <?php
-    $this->widget(
+    <?php $this->widget(
         'bootstrap.widgets.TbButton',
         array(
             'htmlOptions' => array(

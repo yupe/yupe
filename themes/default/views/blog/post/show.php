@@ -1,7 +1,7 @@
 <?php
 /**
  * Отображение для post/show:
- * 
+ *
  *   @category YupeView
  *   @package  YupeCMS
  *   @author   Yupe Team <team@yupe.ru>
@@ -44,10 +44,11 @@ $this->breadcrumbs = array(
         <p><?php echo $post->content; ?></p>
     </div>
     <div class="nav">
-        <?php
-        foreach ($tags = $post->getTags() as $tag)
-            echo CHtml::link(CHtml::encode($tag), array('/posts/', 'tag' => CHtml::encode($tag))).' ';
-        ?>
+        <?php foreach ($tags = $post->getTags() as $tag): ?>
+            <span class="label label-info">
+                <?php echo CHtml::link(CHtml::encode($tag), array('/posts/', 'tag' => CHtml::encode($tag))).' '; ?>
+            </span>
+        <?php endforeach;?>
         | <?php echo Yii::t('blog', 'Обновлено'); ?>:
         <?php echo Yii::app()->getDateFormatter()->formatDateTime($post->update_date, "short", "short"); ?>
     </div>
@@ -56,34 +57,6 @@ $this->breadcrumbs = array(
 <?php $this->widget('blog.widgets.SimilarPostsWidget', array('post' => $post)); ?>
 
 <script type="text/javascript">
-    jQuery(document).ready(function($) {
-        $(document).on('click', '.post-updatecomments', function(){
-            var link = $(this);
-            var postID = link.attr('rel');
-            link.addClass('ajax-loading');
-            $.ajax({
-                url: '<?php echo Yii::app()->baseUrl;?>/blog/post/updatecomments',
-                data: ajaxToken + '&postID=' + postID,
-                dataType: 'json',
-                type: 'post',
-                success: function(data){
-                    if (data.result && data.data.content) {
-                        $('#comments').replaceWith(data.data.content);
-                        $('#comments').before(
-                            "<div class='flash'><div class='flash-success'><b>" + data.data.message + "</b></div></div>"
-                        );
-                    } else {
-                        $('.comments').before("<div class='flash'><div class='flash-error'><b>" + data.data.message + "</b></div></div>");
-                    }
-                    link.removeClass('ajax-loading');
-                }
-            });
-            setTimeout(function(){
-                $('.flash').remove();
-            }, 3000);
-            return false;
-        });
-    });
     (function() {
         if(window.pluso) if(typeof window.pluso.start == "function") return;
         var d = document, s = d.createElement('script'), g = 'getElementsByTagName';
@@ -95,15 +68,7 @@ $this->breadcrumbs = array(
 </script>
 <div class="pluso" data-options="small,round,line,horizontal,counter,theme=04" data-services="vkontakte,odnoklassniki,facebook,twitter,google,moimir,email,print" data-background="transparent"></div>
 
-<br/><br />
-
-<?php
-echo CHtml::link(
-    Yii::t('BlogModule.blog', 'Обновить комментарии'), 'javascript:void(0);', array(
-        'class' => 'post-updatecomments',
-        'rel'   => $post->id
-    )
-); ?>
+<br /><br />
 
 <?php
 $this->widget(

@@ -102,41 +102,4 @@ class PostController extends YFrontController
 
         $this->render('blog-post',array('target' => $category,'posts' => $posts));
     }
-
-    /**
-     * Обновляем список постов:
-     * 
-     * @return void
-     */
-    public function actionUpdatecomments()
-    {
-        if (!Yii::app()->request->isPostRequest || !Yii::app()->request->isAjaxRequest)
-            throw new CHttpException(404, Yii::t('BlogModule.blog', 'Страница не найдена!'));
-        
-        if (($postId = Yii::app()->request->getPost('postID')) === null || ($post = Post::model()->loadModel($postId)) === null)
-            Yii::app()->ajax->failure(
-                Yii::t(
-                    'BlogModule.blog', 'Запись #{postID} не найдена!', array(
-                        '{postID}' => $postId
-                    )
-                )
-            );
-
-        Yii::app()->ajax->success(
-            array(
-                'message' => Yii::t(
-                    'BlogModule.blog', 'Комментарии записи #{postID} успешно обновлены!', array(
-                        '{postID}' => $postId
-                    )
-                ),
-                'content' => $this->widget(
-                    'application.modules.comment.widgets.CommentsListWidget', array(
-                            'model' => $post,
-                            'modelId'  => $post->id,
-                            'comments' => $post->comments
-                    ), true
-                )
-            )
-        );
-    }
 }

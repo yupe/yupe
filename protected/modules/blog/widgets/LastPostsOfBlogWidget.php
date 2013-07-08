@@ -1,22 +1,21 @@
 <?php
 class LastPostsOfBlogWidget extends YWidget
 {
-    public $limit = 10;
+    public $limit = 5;
+
     public $blogId;
 
     public function run()
     {
-        $blog = Blog::model()->with(
-            array(
-                'posts' => array(
-                    'scopes' => array(
-                        'limit'         => $this->limit,
-                        'sortByPubDate' => 'DESC'
-                    )
+        $posts = Post::model()->public()->published()->findAll(array(
+                'condition' => 'blog_id = :blog_id',
+                'limit'  => (int)$this->limit,
+                'order'  => 'publish_date DESC',
+                'params' => array(
+                    ':blog_id' => (int)$this->blogId
                 )
-            )
-        )->findByPk($this->blogId);
+        ));
 
-        $this->render('lastpostsofblog', array('model' => $blog));
+        $this->render('lastpostsofblog', array('posts' => $posts));
     }
 }

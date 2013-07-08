@@ -1,8 +1,9 @@
-jQuery(document).ready(function($) {
+$(document).ready(function() {
     $(document).on("click", '#wcml', function(event){
         event.preventDefault();
         $("div.comment-form").remove();
         $("#comment-form-wrap").show();
+        $(this).hide();
     });
 
     $(document).on('keyup', '#comment-form textarea, #comment-form input[type=text]', function(event){

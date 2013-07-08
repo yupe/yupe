@@ -10,6 +10,9 @@ $this->breadcrumbs = array('Восстановление пароля');
         'id' => 'registration-form',
         'type' => 'vertical',
         'inlineErrors' => true,
+        'htmlOptions' => array(
+            'class' => 'well',
+        )
     )
 ); ?>
 

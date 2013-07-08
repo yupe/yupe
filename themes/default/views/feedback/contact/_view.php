@@ -1,24 +1,15 @@
-<div class="view">
-
-    <b><?php echo CHtml::encode($data->getAttributeLabel('creation_date')); ?>
-        :</b>
-    <?php echo CHtml::encode($data->creation_date); ?>
-    <br/>
-
-    <b><?php echo CHtml::encode($data->getAttributeLabel('name')); ?>:</b>
-    <?php echo CHtml::encode($data->name); ?>
-    <br/>
-
-    <b><?php echo CHtml::encode($data->getAttributeLabel('theme')); ?>:</b>
-    <?php echo CHtml::link(CHtml::encode($data->theme),array('/feedback/contact/faqView/','id' => $data->id)); ?>
-    <br/>
-
-    <b><?php echo CHtml::encode($data->getAttributeLabel('text')); ?>:</b>
-    <?php echo $data->text; ?>
-    <br/>
-
-    <b><?php echo CHtml::encode($data->getAttributeLabel('answer')); ?>:</b>
-    <?php echo $data->answer; ?>
-    <br/>
-
+<div class="accordion-group">
+    <div class="accordion-heading">
+        <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion<?php echo $data->id?>" href="#collapseOne<?php echo $data->id?>">
+            <?php echo YText::characterLimiter(strip_tags($data->text),250);?>
+        </a>
+    </div>
+    <div id="collapseOne<?php echo $data->id?>" class="accordion-body collapse">
+        <div class="accordion-inner">
+            <?php echo strip_tags($data->answer);?>
+            <div class="label label-info">
+                <?php echo CHtml::link('Подробнее...',array('/feedback/contact/faqView','id' => $data->id));?>
+            </div>
+        </div>
+    </div>
 </div>

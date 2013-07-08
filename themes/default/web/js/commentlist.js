@@ -1,6 +1,7 @@
-jQuery(document).ready(function($) {
+$(document).ready(function() {
     $(document).on("click", "a.commentParrent", function() {
         $this = $(this);
+        $('#wcml').show();
         $("div.comment-form").remove();
         var htmlForm = $("#comment-form-wrap").clone();
         htmlForm.addClass("comment-form").show();

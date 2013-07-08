@@ -1,5 +1,9 @@
 /* main.css */
 
+span a {
+    color: white;
+}
+
 body.admin-panel {
     margin-top: 60px;
 }
