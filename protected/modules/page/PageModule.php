@@ -23,7 +23,7 @@ class PageModule extends YWebModule
 
     public function  getVersion()
     {
-        return Yii::t('PageModule.page', '0.4');
+        return Yii::t('PageModule.page', '0.4.1');
     }
 
     public function getEditableParams()

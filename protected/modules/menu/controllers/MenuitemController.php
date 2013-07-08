@@ -2,6 +2,32 @@
 
 class MenuitemController extends YBackController
 {
+
+
+    public function actionGetjsonitems()
+    {
+
+        if(!Yii::app()->request->isPostRequest || !Yii::app()->request->isAjaxRequest){
+            throw new CHttpException(404);
+        }
+
+        $menuId = (int)Yii::app()->request->getPost('menuId');
+
+        if(!$menuId){
+            throw new CHttpException(404);
+        }
+
+        $items = MenuItem::model()->public()->findAll(array(
+            'condition' => 'menu_id = :menu_id',
+            'order'  => 'title DESC',
+            'params' => array(
+                ':menu_id' => $menuId
+            )
+        ));
+
+        Yii::app()->ajax->success(CHtml::listData($items,'id','title'));
+    }
+
     /**
      * Отображает пункт меню по указанному идентификатору
      * @param integer $id Идинтификатор меню для отображения

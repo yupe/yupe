@@ -116,14 +116,32 @@ class Menu extends YModel
         ));
     }
 
+
+    public function scopes()
+    {
+        return array(
+            'active' => array(
+                'condition' => 'status = :status',
+                'params' => array(
+                    ':status' => self::STATUS_ACTIVE
+                )
+            )
+        );
+    }
+
+
     protected function afterSave()
     {
         Yii::app()->cache->clear($this->code);
+
+        return parent::afterSave();
     }
 
     protected function afterDelete()
     {
         Yii::app()->cache->clear($this->code);
+
+        return parent::afterDelete();
     }
 
     public function getStatusList()
@@ -212,5 +230,21 @@ class Menu extends YModel
             Yii::app()->cache->set("Menu::{$code}{$parent_id}::user_{$userId}" . Yii::app()->language, $items, 0, new TagsCache('menu', $code, 'loggedIn' . $userId));
         }
         return $items;
+    }
+
+    public function addItem($title,$href,$parentId)
+    {
+        $menuItem = new MenuItem;
+        $menuItem->parent_id = (int)$parentId;
+        $menuItem->menu_id = $this->id;
+        $menuItem->title  = $title;
+        $menuItem->href   = $href;
+        $menuItem->condition_name = '';
+        if($menuItem->save()){
+            Yii::app()->cache->clear(array('menu', $this->code));
+            return true;
+        }
+
+        return false;
     }
 }

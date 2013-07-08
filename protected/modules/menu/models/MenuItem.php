@@ -166,14 +166,31 @@ class MenuItem extends YModel
         );
     }
 
+
+    public function scopes()
+    {
+        return array(
+            'public' => array(
+                'condition' => 'status = :status',
+                'params' => array(
+                    ':status' => self::STATUS_ACTIVE
+                )
+            )
+        );
+    }
+
     protected function afterSave()
     {
         Yii::app()->cache->clear($this->menu->code);
+
+        return parent::afterSave();
     }
 
     protected function afterDelete()
     {
         Yii::app()->cache->clear($this->menu->code);
+
+        return parent::afterDelete();
     }
 
     public function getMenuList()
