@@ -355,6 +355,11 @@ class DocsModule extends YWebModule
                         'url'   => array('/docs/show/index', 'file' => 'index','moduleID' => 'blog' ),
                         'icon'  => 'file',
                     ),
+                    array(
+                        'label' => Yii::t('DocsModule.docs', 'ZendSearch'),
+                        'url'   => array('/docs/show/index', 'file' => 'index','moduleID' => 'zendsearch' ),
+                        'icon'  => 'search',
+                    ),
                 )
             ),
         );
