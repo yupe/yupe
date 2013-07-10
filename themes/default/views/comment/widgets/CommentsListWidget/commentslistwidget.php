@@ -55,7 +55,7 @@ if (count($comments)) {
         }
         echo '<div style="margin-left: ' . (20 * $level) . 'px; " level="' . $level . '">' . "\n";
         echo ''
-            . '<div class="comment" id="comment_'
+            . '<div class="well well-small" id="comment_'
             . $comment->id
             . '_'
             . str_replace(' ', '_', $comment->creation_date)

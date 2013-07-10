@@ -3,7 +3,7 @@
         <?php $cnt = count($models); $i = 0; ?>
         <?php foreach ($models as $model): ?>
             <li>
-                <?php echo CHtml::link($model->theme, array('/feedback/contact/faqView/', 'id' => $model->id)); ?>
+                <?php echo CHtml::link(YText::characterLimiter($model->text,50), array('/feedback/contact/faqView/', 'id' => $model->id)); ?>
                 <?php if ($model->commentsCount): ?>
                     <nobr>
                         <i class="icon-comment-alt"></i>

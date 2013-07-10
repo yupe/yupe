@@ -1,3 +1,6 @@
+<?php $this->breadcrumbs = array('Главная'); ?>
+
+
 <h1>Поздравляем!</h1>
 <p>Вы установили <a href="http://yupe.ru?from=mainpage" target='_blank'>Юпи! CMS</a>! Надеемся у Вас не возникло сложностей !?</p>
 <div class='alert alert-warning'>

@@ -250,9 +250,10 @@ class Post extends YModel
         $criteria->compare('access_type', $this->access_type);
         $criteria->compare('t.category_id', $this->category_id, true);
 
-        $criteria->with = array('createUser', 'updateUser', 'blog');
+        $criteria->order = 'publish_date DESC';
+        $criteria->with  = array('createUser', 'updateUser', 'blog');
 
-        return new CActiveDataProvider(get_class($this), array('criteria' => $criteria));
+        return new CActiveDataProvider('Post', array('criteria' => $criteria));
     }
 
     public function behaviors()

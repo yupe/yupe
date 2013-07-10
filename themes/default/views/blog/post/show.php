@@ -1,15 +1,6 @@
 <?php
-/**
- * Отображение для post/show:
- *
- *   @category YupeView
- *   @package  YupeCMS
- *   @author   Yupe Team <team@yupe.ru>
- *   @license  https://github.com/yupe/yupe/blob/master/LICENSE BSD
- *   @link     http://yupe.ru
- **/
 $this->pageTitle = $post->title;
-//$this->description = $post->description;
+$this->description = $post->description;
 $this->keywords = $post->keywords;
 
 Yii::app()->clientScript->registerScript(
@@ -25,10 +16,8 @@ $this->breadcrumbs = array(
 ); ?>
 
 <div class="post">
-    <div class="title">
-        <?php echo CHtml::link(CHtml::encode($post->title), array('/blog/post/show/', 'slug' => $post->slug)); ?>
-    </div>
-    <div class="author">
+    <h3> <?php echo CHtml::encode($post->title)?> </h3>
+    <div class="alert alert-info">
         <?php echo Yii::t('blog', 'Опубликовал'); ?>:
         <b><?php echo CHtml::link($post->createUser->nick_name, array('/user/people/userInfo', 'username' => $post->createUser->nick_name)); ?></b>
 
@@ -38,11 +27,11 @@ $this->breadcrumbs = array(
         <?php echo Yii::t('blog', 'дата'); ?>:
         <?php echo Yii::app()->getDateFormatter()->formatDateTime($post->publish_date, "short", "short"); ?>
     </div>
-    <br />
 
     <div class="content">
         <p><?php echo $post->content; ?></p>
     </div>
+
     <div class="nav">
         <?php foreach ($tags = $post->getTags() as $tag): ?>
             <span class="label label-info">
@@ -79,9 +68,9 @@ $this->widget(
     )
 ); ?>
 
-<br/><br/>
+<br/>
+
 <b><?php echo Yii::t('BlogModule.blog', 'Оставить комментарий'); ?></b>
-<br/><br/>
 
 <?php
 $this->widget(

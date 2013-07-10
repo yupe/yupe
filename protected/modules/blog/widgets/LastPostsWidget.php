@@ -1,7 +1,7 @@
 <?php
 class LastPostsWidget extends YWidget
 {
-    public $limit = 10;
+    public $limit = 5;
 
     public function run()
     {

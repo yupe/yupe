@@ -1,6 +1,6 @@
 <?php
 $this->pageTitle = 'Юпи! | Контакты';
-$this->breadcrumbs = array('Контакты связь');
+$this->breadcrumbs = array('Контакты');
 ?>
 
 <h1>Контакты</h1>

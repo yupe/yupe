@@ -36,48 +36,7 @@ class BlogController extends YFrontController
            throw new CHttpException(404, Yii::t('BlogModule.blog', 'Блог "{blog}" не найден!', array('{blog}' => $slug)));
         }
 
-        $this->render(
-            'show', array(
-                'blog'    => $blog,
-            )
-        );
-    }
-
-    /**
-     * метод для ajax-запроса на получение последних
-     * постов блога:
-     *
-     * @return void
-     **/
-    public function actionLastpostsofblog()
-    {
-        if (!Yii::app()->request->isPostRequest
-            || !Yii::app()->request->isAjaxRequest
-            || ($blogID = Yii::app()->request->getPost('blogID')) == null
-        )
-            throw new CHttpException(404, Yii::t('BlogModule.blog', 'Страница не найдена!'));
-
-        Yii::app()->ajax->success(
-            $this->widget('blog.widgets.LastPostsOfBlogWidget', array('blogID' => $blogID), true)
-        );
-    }
-
-    /**
-     * Показать участников блога
-     * 
-     * @return void
-     */
-    public function actionPeople()
-    {
-        if (!Yii::app()->request->isPostRequest
-            || !Yii::app()->request->isAjaxRequest
-            || ($blogID = Yii::app()->request->getPost('blogId')) === null
-        )
-            throw new CHttpException(404, Yii::t('BlogModule.blog', 'Страница не найдена!'));
-
-        Yii::app()->ajax->success(
-            $this->widget('blog.widgets.MembersOfBlogWidget', array('blogID' => $blogID), true)
-        );
+        $this->render('show', array('blog' => $blog));
     }
 
     /**

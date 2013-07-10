@@ -21,49 +21,8 @@
 </head>
 <body>
 <?php $this->widget('application.modules.yupe.widgets.YAdminPanel'); ?>
-<div class="container" id="page">
-    <div id="header">
-        <div id="logo">
-            <a href="<?php echo CHtml::normalizeUrl(array("/site/index")) ?>">
-                <?php echo CHtml::image(Yii::app()->theme->baseUrl . '/web/images/main-logo.png'); ?>
-            </a>
-
-            <div id="slogan">
-                <?php echo $this->description; ?>
-            </div>
-
-            <div id="header-right">
-                <?php $this->widget('application.modules.yupe.widgets.YLanguageSelector'); ?>
-                <div class='yupeDownload'>
-                    <?php
-                    echo CHtml::link(
-                        'СКАЧАТЬ ЮПИ! <br/>' . $this->yupe->getVersion(),
-                        'https://github.com/yupe/yupe/archive/master.zip'
-                    ); ?>
-                </div>
-            </div>
-        </div>
-    </div>
-    <!-- header -->
-    <?php
-    $this->widget(
-        'application.modules.menu.widgets.MenuWidget',
-        array(
-            'name' => 'top-menu',
-            'params' => array(
-                'hideEmptyItems' => true
-            ),
-            'layoutParams' => array(
-                'htmlOptions' => array(
-                    'class' => 'jqueryslidemenu',
-                    'id' => 'myslidemenu',
-                )
-            ),
-        )
-    ); ?>
-
-    <?php $this->widget('application.modules.yupe.extensions.jquerySlideMenu.JquerySlideMenuWidget'); ?>
-    <!-- mainmenu -->
+<div class='container'>
+    <?php  $this->widget('application.modules.menu.widgets.MenuWidget',array('name' => 'top-menu'));?>
 
     <?php $this->widget('bootstrap.widgets.TbBreadcrumbs', array('links'    => $this->breadcrumbs));?>
     <!-- breadcrumbs -->
@@ -73,36 +32,18 @@
 
     <div class="row-fluid">
         <div class="span9">
-            <div id="content">
+            <div class="container-fluid" id="page">
+                <?php
+                $this->widget('bootstrap.widgets.TbBreadcrumbs', array(
+                        'links'=>$this->breadcrumbs,
+                    ));
+                ?>
                 <?php echo $content; ?>
             </div>
             <!-- content -->
         </div>
         <div class="span3">
             <div id="sidebar">
-                <div class="portlet text-center">
-                    <?php
-                    echo CHtml::link(
-                        CHtml::image(
-                            Yii::app()->theme->baseUrl . '/web/images/yupe-fork-me.jpg',
-                            'Юпи! - классная CMS на Yiiframework!'
-                        ),
-                        'http://yupe.ru?from=o-b',
-                        array(
-                            'target' => '_blank'
-                        )
-                    );
-                    echo CHtml::link(
-                        CHtml::image(
-                            Yii::app()->baseUrl . '/web/images/github.jpg',
-                            'Юпи! - классная CMS на Yiiframework!'
-                        ),
-                        'http://github.com/yupe/yupe',
-                        array(
-                            'target' => '_blank',
-                        )
-                    ); ?>
-                </div>
                 <div class="portlet">
                     <a class="twitter-timeline" href="https://twitter.com/YupeCms" data-widget-id="342373817932451841">Твиты
                         пользователя @YupeCms</a>
@@ -116,52 +57,24 @@
                             }
                         }(document, "script", "twitter-wjs");</script>
                 </div>
+
                 <?php $this->widget('application.modules.blog.widgets.BlogsWidget', array('cacheTime' => 0)); ?>
                 <?php $this->widget('application.modules.blog.widgets.LastPostsWidget', array('cacheTime' => 0)); ?>
-                <?php $this->widget(
-                    'application.modules.yupe.extensions.taggable.widgets.TagCloudWidget.TagCloudWidget',
-                    array('cacheTime' => 0, 'model' => 'Post')
-                ); ?>
-
-
-
-
+                <?php $this->widget('application.modules.yupe.extensions.taggable.widgets.TagCloudWidget.TagCloudWidget', array('cacheTime' => 0, 'model' => 'Post')); ?>
                 <?php $this->widget('application.modules.feedback.widgets.FaqWidget', array('cacheTime' => 0)); ?>
-                <?php //$this->widget('application.modules.news.widgets.LastNewsWidget', array('cacheTime' => 0)); ?>
-
-                <?php $this->widget(
-                    'application.modules.user.widgets.LastLoginUsersWidget',
-                    array('cacheTime' => 0)
-                ); ?>
+                <?php $this->widget('application.modules.user.widgets.LastLoginUsersWidget', array('cacheTime' => 0));?>
             </div>
             <!-- sidebar -->
         </div>
 
     </div>
 
-    <div id="footer">
+    <footer>
         <p>
-            Copyright &copy; 2009-<?php echo date('Y'); ?>
-            <a href="<?php echo Yii::app()->createUrl('/blog/rss/feed/'); ?>">
-                <img id="rss-feed" src="<?php echo Yii::app()->theme->baseUrl ?>/web/images/rss.png" alt="Подпишитесь на обновления" title="Подпишитесь на обновления">
-            </a>
+            &copy; <?php echo CHtml::link('amyLabs','http://amylabs.ru/')?> && Юпи! team 2009 - <?php echo date('Y');?>
+            <?php echo $this->yupe->poweredBy(); ?>
         </p>
-
-
-        <?php echo $this->yupe->poweredBy(); ?>
-        <small class="label label-info"><?php echo $this->yupe->getVersion(); ?></small>
-        <br/>
-        <a href="http://amylabs.ru/?from=yupe-main-page" target="_blank"><?php echo Yii::t(
-                'YupeModule.yupe',
-                'Разработка и поддержка'
-            ); ?></a> - <a href="http://amylabs.ru/?from=yupe-main-page" target="_blank">amyLabs</a>
-        <br/>
-        <?php echo Yii::powered(); ?>
-
-        <?php $this->widget('YPerformanceStatistic'); ?>
-    </div>
-    <!-- footer -->
-</div>
+    </footer>
 <!-- page -->
 <?php $this->widget(
     "application.modules.contentblock.widgets.ContentBlockWidget",

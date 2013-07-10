@@ -7,9 +7,9 @@
     <div id="collapseOne<?php echo $data->id?>" class="accordion-body collapse">
         <div class="accordion-inner">
             <?php echo strip_tags($data->answer);?>
-            <div class="label label-info">
+            <span class="label label-info">
                 <?php echo CHtml::link('Подробнее...',array('/feedback/contact/faqView','id' => $data->id));?>
-            </div>
+            </span>
         </div>
     </div>
 </div>

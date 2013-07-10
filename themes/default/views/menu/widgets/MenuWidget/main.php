@@ -1,4 +1,11 @@
-<?php echo CHtml::openTag('div', $layoutParams['htmlOptions']); ?>
-    <?php echo $this->widget('zii.widgets.CMenu', $params, true); ?>
-    <br style="clear: left"/>
-<?php echo CHtml::closeTag('div'); ?>
+<?php
+$this->widget('bootstrap.widgets.TbNavbar', array(
+        'brand' => Yii::app()->name,
+        'items' => array(
+            array(
+                'class' => 'bootstrap.widgets.TbMenu',
+                'items' => $this->params['items']
+            )
+        )
+    ))
+;?>
