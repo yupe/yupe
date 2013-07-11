@@ -23,22 +23,49 @@ class DefaultController extends YBackController
     {
         $model = new Page;
 
-        if (isset($_POST['Page']))
+        $menuId = null;
+
+        if (!empty($_POST['Page']))
         {
-            $model->attributes = $_POST['Page'];
+            $model->setAttributes(Yii::app()->request->getPost('Page'));
 
-            if ($model->save())
+            $transaction = Yii::app()->db->beginTransaction();
+
+            try
             {
-                Yii::app()->user->setFlash(
-                    YFlashMessages::NOTICE_MESSAGE,
-                    Yii::t('PageModule.page', 'Страница добавлена!')
-                );
+                if ($model->save())
+                {
+                    // если активен модуль "Меню" - сохраним в меню
+                    if(Yii::app()->hasModule('menu')){
 
-                $this->redirect(
-                    (array) Yii::app()->request->getPost(
-                        'submit-type', array('create')
-                    )
-                );
+                        $menuId   = (int)Yii::app()->request->getPost('menu_id');
+                        $parentId = (int)Yii::app()->request->getPost('parent_id');
+                        $menu = Menu::model()->active()->findByPk($menuId);
+                        if($menu){
+                            if(!$menu->addItem($model->title, $this->createUrl('/page/page/show',array('slug' => $model->slug)),$parentId)){
+                                throw new CDbException(Yii::t('PageModule.page','Произошла ошибка при привязке к меню...'));
+                            }
+                        }
+                    }
+
+                    Yii::app()->user->setFlash(
+                        YFlashMessages::NOTICE_MESSAGE,
+                        Yii::t('PageModule.page', 'Страница добавлена!')
+                    );
+
+                    $transaction->commit();
+
+                    $this->redirect(
+                        (array) Yii::app()->request->getPost(
+                            'submit-type', array('create')
+                        )
+                    );
+                }
+            }
+            catch(Exception $e)
+            {
+                $transaction->rollback();
+                $model->addError(false,$e->getMessage());
             }
         }
 
@@ -76,7 +103,8 @@ class DefaultController extends YBackController
         $this->render('create', array(
             'model' => $model,
             'pages' => Page::model()->getAllPagesList(),
-            'languages' => $languages
+            'languages' => $languages,
+            'menuId' => $menuId
         ));
     }
 

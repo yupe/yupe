@@ -8,6 +8,7 @@ class SimilarPostsWidget extends YWidget
     {
         $criteria = new CDbCriteria;
         $criteria->limit = $this->limit;
+        $criteria->order = 'publish_date DESC';
 
         $criteria->addNotInCondition('t.id', array($this->post->id));
 

@@ -761,7 +761,6 @@ class DefaultController extends YBackController
                         );
                     } else {
                         if (fwrite($fh, $dbConfString) && fclose($fh)) {
-
                             $this->session['InstallForm'] = array_merge(
                                 $this->session['InstallForm'],
                                 array(

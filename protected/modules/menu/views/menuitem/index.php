@@ -61,12 +61,6 @@ $this->renderPartial('_search', array('model' => $model));
         ),
         'title',
         'href',
-        'class',
-        'title_attr',
-        //'before_link',
-        //'after_link',
-        //'target',
-        //'rel',
         array(
             'name'        => 'menu_id',
             'type'        => 'raw',

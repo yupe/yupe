@@ -14,6 +14,12 @@ class SiteController extends YFrontController
 {
     const POST_PER_PAGE = 5;
 
+    public function actionModern()
+    {
+        $this->render('modern');
+    }
+
+
     /**
      * Отображение главной страницы
      * 

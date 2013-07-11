@@ -4,6 +4,24 @@
             elName: '#Page_title',
             elAlias: '#Page_slug'
         });
+
+        $('#menu_id').change(function(){
+            var menuId = parseInt($(this).val());
+            if(menuId){
+                $.post('<?php echo Yii::app()->baseUrl;?>/menu/menuitem/getjsonitems/',{
+                    '<?php echo Yii::app()->request->csrfTokenName;?>':'<?php echo Yii::app()->request->csrfToken;?>',
+                    'menuId' : menuId
+                },function(response){
+                    if(response.result){
+                        $.each(response.data,function(index,element){
+                            $('#parent_id').append(new Option(element,index));
+                        })
+                        $('#parent_id').removeAttr('disabled');
+                        $('#pareData').show();
+                    }
+                });
+            }
+        });
     })
 </script>
 
@@ -68,6 +86,17 @@ $form = $this->beginWidget(
             <?php echo $form->textFieldRow($model, 'order', array('size' => 10, 'maxlength' => 10, 'class' => 'span7 popover-help', 'data-original-title' => $model->getAttributeLabel('order'), 'data-content' => $model->getAttributeDescription('order'))); ?>
         </div>
     </div>
+
+    <?php if(Yii::app()->hasModule('menu')):?>
+        <?php echo CHtml::label(Yii::t('PageModule.page','Меню'),'menu_id');?>
+        <?php echo CHtml::dropDownList('menu_id',$menuId,CHtml::listData(Menu::model()->active()->findAll(array('order' => 'name DESC')),'id','name'),array('empty' => Yii::t('PageModule.page','-выберите-')));?>
+
+        <div id="pareData" style='display:none;'>
+            <?php echo CHtml::label(Yii::t('PageModule.page','Родительский пункт меню'),'parent_id');?>
+            <?php echo CHtml::dropDownList('parent_id',0,array('0' => Yii::t('PageModule.page','Корень')),array('disabled' => true,'empty' => Yii::t('PageModule.page','-выберите-')));?>
+        </div>
+    <?php endif?>
+
     <div class="row-fluid control-group <?php echo $model->hasErrors('title_short') ? 'error' : ''; ?>">
         <?php echo $form->textFieldRow($model, 'title_short', array('size' => 60, 'maxlength' => 150, 'class' => 'span7 popover-help', 'data-original-title' => $model->getAttributeLabel('title_short'), 'data-content' => $model->getAttributeDescription('title_short'))); ?>
     </div>

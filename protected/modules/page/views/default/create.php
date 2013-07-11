@@ -19,4 +19,4 @@
     </h1>
 </div>
 
-<?php echo $this->renderPartial('_form', array('model' => $model, 'pages' => $pages, 'languages' => $languages )); ?>
+<?php echo $this->renderPartial('_form', array('menuId' => $menuId,'model' => $model, 'pages' => $pages, 'languages' => $languages )); ?>

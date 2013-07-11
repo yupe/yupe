@@ -11,6 +11,9 @@ $this->breadcrumbs = array('Войти');
         'id' => 'login-form',
         'type' => 'vertical',
         'inlineErrors' => true,
+        'htmlOptions' => array(
+            'class' => 'well',
+        )
     )
 ); ?>
 

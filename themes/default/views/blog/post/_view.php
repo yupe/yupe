@@ -1,9 +1,7 @@
 <div class="post">
-    <div class="title">
-        <?php echo CHtml::link(CHtml::encode($data->title), array('/blog/post/show/', 'slug' => $data->slug)); ?>
-    </div>
-    <div class="author">
-        <?php echo Yii::t('blog', 'Опубликовал'); ?>:
+    <h4><?php echo CHtml::link(CHtml::encode($data->title), array('/blog/post/show/', 'slug' => $data->slug)); ?></h4>
+    <div class="alert alert-info">
+        <?php echo Yii::t('blog', 'опубликовал'); ?>:
         <b><?php echo CHtml::link($data->createUser->nick_name, array('/user/people/userInfo', 'username' => $data->createUser->nick_name)); ?></b>
 
         <?php echo Yii::t('blog', 'в блоге'); ?>:
@@ -16,19 +14,14 @@
         <p><?php echo $data->quote; ?></p>
     </div>
     <div class="nav">
-        <?php echo Yii::t('blog', 'Теги'); ?>:
-        <?php
-        if (($tags = $data->getTags()) != array())
-        {
-            foreach ($tags as &$tag)
-            {
-                $tag = CHtml::encode($tag);
-                echo CHtml::link($tag, array('/posts/', 'tag' => $tag)).' ';
-            }
-            unset($tag);
-        }
-        else
-            echo Yii::t('blog', 'тегов нет');
-        ?>
+        <?php echo Yii::t('blog', 'теги'); ?>:
+        <?php if (($tags = $data->getTags()) != array()):?>
+            <?php foreach ($tags as $tag):?>
+                <?php $tag = CHtml::encode($tag);?>
+                <span class="label label-info">
+                    <?php echo CHtml::link($tag, array('/posts/', 'tag' => $tag)).' '?>
+                </span>
+            <?php endforeach?>
+        <?php endif;?>
     </div>
 </div>
