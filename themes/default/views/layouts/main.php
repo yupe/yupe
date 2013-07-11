@@ -30,9 +30,9 @@
     <?php $this->widget('YFlashMessages'); ?>
     <!-- flashMessages -->
 
-    <div class="row-fluid">
+    <div class="row">
         <div class="span9">
-            <div class="container-fluid" id="page">
+            <div class="">
                 <?php
                 $this->widget('bootstrap.widgets.TbBreadcrumbs', array(
                         'links'=>$this->breadcrumbs,
@@ -66,15 +66,71 @@
             </div>
             <!-- sidebar -->
         </div>
-
     </div>
 
-    <footer>
-        <p>
-            &copy; <?php echo CHtml::link('amyLabs','http://amylabs.ru/')?> && Юпи! team 2009 - <?php echo date('Y');?>
-            <?php echo $this->yupe->poweredBy(); ?>
-        </p>
-    </footer>
+    <div class="row-fluid">
+        <div class="span12">
+            <div class="span2" style="width: 15%;">
+                <ul class="unstyled">
+                    <li>GitHub<li>
+                    <li><a href="#">About us</a></li>
+                    <li><a href="#">Blog</a></li>
+                    <li><a href="#">Contact & support</a></li>
+                    <li><a href="#">Enterprise</a></li>
+                    <li><a href="#">Site status</a></li>
+                </ul>
+            </div>
+            <div class="span2" style="width: 15%;">
+                <ul class="unstyled">
+                    <li>Applications<li>
+                    <li><a href="#">Product for Mac</a></li>
+                    <li><a href="#">Product for Windows</a></li>
+                    <li><a href="#">Product for Eclipse</a></li>
+                    <li><a href="#">Product mobile apps</a></li>
+                </ul>
+            </div>
+            <div class="span2" style="width: 15%;">
+                <ul class="unstyled">
+                    <li>Services<li>
+                    <li><a href="#">Web analytics</a></li>
+                    <li><a href="#">Presentations</a></li>
+                    <li><a href="#">Code snippets</a></li>
+                    <li><a href="#">Job board</a></li>
+                </ul>
+            </div>
+            <div class="span2" style="width: 15%;">
+                <ul class="unstyled">
+                    <li>Documentation<li>
+                    <li><a href="#">Product Help</a></li>
+                    <li><a href="#">Developer API</a></li>
+                    <li><a href="#">Product Markdown</a></li>
+                    <li><a href="#">Product Pages</a></li>
+                </ul>
+            </div>
+            <div class="span2" style="width: 15%;">
+                <ul class="unstyled">
+                    <li>More<li>
+                    <li><a href="#">Training</a></li>
+                    <li><a href="#">Students & teachers</a></li>
+                    <li><a href="#">The Shop</a></li>
+                    <li><a href="#">Plans & pricing</a></li>
+                    <li><a href="#">Contact us</a></li>
+                </ul>
+            </div>            
+        </div>
+    </div>
+    <hr>
+    <div class="row-fluid">
+        <div class="span12">
+            <div class="span8">
+                <?php echo CHtml::link('Разработка и поддержка интернет-проектов', 'http://amylabs.ru?from=yupe');?>
+            </div>
+            <div class="span4">
+                <p class="muted pull-right">© 2009 - <?php echo date('Y');?> <?php echo CHtml::link('amyLabs','http://amylabs.ru?from=yupe');?> && Юпи! team <?php echo Yii::app()->getModule('yupe')->poweredBy();?></p>
+            </div>
+        </div>
+    </div>
+</div>
 <!-- page -->
 <?php $this->widget(
     "application.modules.contentblock.widgets.ContentBlockWidget",
