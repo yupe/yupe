@@ -1,14 +1,3 @@
-<?php
-/**
- * Шаблон для layout/main:
- *
- * @category YupeLayout
- * @package  YupeCMS
- * @author   Yupe Team <team@yupe.ru>
- * @license  https://github.com/yupe/yupe/blob/master/LICENSE BSD
- * @link     http://yupe.ru
- **/
-?>
 <!DOCTYPE html>
 <html lang="<?php echo Yii::app()->language; ?>">
 <head>
@@ -20,7 +9,6 @@
     <title><?php echo CHtml::encode($this->pageTitle); ?></title>
 </head>
 <body>
-<?php $this->widget('application.modules.yupe.widgets.YAdminPanel'); ?>
 <div class='container'>
     <?php  $this->widget('application.modules.menu.widgets.MenuWidget',array('name' => 'top-menu'));?>
 
