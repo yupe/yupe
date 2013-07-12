@@ -92,14 +92,13 @@ class CommentController extends YFrontController
         $comment->status = $module->defaultCommentStatus;
 
         if (Yii::app()->user->isAuthenticated()) {
-            $comment->setAttributes(
-                array(
-                    'user_id' => Yii::app()->user->getId(),
-                    'name'    => Yii::app()->user->getState('nick_name'),
-                    'email'   => Yii::app()->user->getState('email'),
-                )
+            $userAttributes = array(
+                'user_id' => Yii::app()->user->getId(),
+                'name'    => Yii::app()->user->getState('nick_name'),
+                'email'   => Yii::app()->user->getState('email'),
             );
 
+            $comment->setAttributes($userAttributes);
             if ($module->autoApprove)
                 $comment->status = Comment::STATUS_APPROVED;
         }
@@ -111,7 +110,34 @@ class CommentController extends YFrontController
             $rootForComment = Comment::model()->findByPk($parentId);
             $saveStatus = $comment->appendTo($rootForComment);
         }else{
-            $saveStatus = $comment->saveNode();
+            $rootNode = Comment::model()->findByAttributes(
+                array(
+                    "model" => $comment->getAttribute("model"),
+                    "model_id" => $comment->getAttribute("model_id"),
+                ),
+                "id=root"
+            );
+
+            if ($rootNode === null) {
+                $rootAttributes = array(
+                    "user_id" => Yii::app()->user->getId(),
+                    "model" => $comment->getAttribute("model"),
+                    "model_id" => $comment->getAttribute("model_id"),
+                    "url" => "",
+                    "name" => "",
+                    "email" => "",
+                    "text" => "",
+                    "status" => Comment::STATUS_APPROVED,
+                    "ip" => ""
+                );
+
+                $rootNode = new Comment();
+                $rootNode->setAttributes($rootAttributes);
+                $rootNode->saveNode(false);
+            }
+            if ($rootNode->id > 0) {
+                $saveStatus = $comment->appendTo($rootNode);
+            }
         }
 
         if ($saveStatus) {
