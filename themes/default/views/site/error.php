@@ -1,3 +1,4 @@
+
 <?php $this->pageTitle = Yii::t('site','Ошибка') . ' ' . $error['code'] . ' - ' . $this->yupe->siteName; ?>
 
 <h2><?php echo Yii::t('site','Ошибка') . ' ' . $error['code']; ?>!</h2>
@@ -26,6 +27,15 @@
             break;
     }
 ?>
+
+<?php $this->widget(
+    'bootstrap.widgets.TbBox',
+    array(
+        'title' => $error['code'],
+        'headerIcon' => 'icon-error',
+        'content' => $msg,
+    )
+);?>
 <p class="alert alert-error">
-    <?php echo $msg; ?>
+    <?php echo $msg;?>
 </p>
