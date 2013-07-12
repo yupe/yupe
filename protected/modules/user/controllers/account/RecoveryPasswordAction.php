@@ -41,7 +41,7 @@ class RecoveryPasswordAction extends CAction
 				{
 					if ($recovery->user->save())
 					{
-						if (RecoveryPassword::model()->deleteAll('user_id = :user_id', array(':user_id' => $recovery->user->getId())))
+						if (RecoveryPassword::model()->deleteAll('user_id = :user_id', array(':user_id' => $recovery->user->id)))
 						{
 							$transaction->commit();
 							$emailBody = $this->controller->renderPartial('passwordAutoRecoverySuccessEmail', array('model' => $recovery->user, 'password' => $newPassword), true);
@@ -99,7 +99,7 @@ class RecoveryPasswordAction extends CAction
 						// удалить все запросы на восстановление для данного пользователя
 						if ($recovery->user->save())
 						{
-							if (RecoveryPassword::model()->deleteAll('user_id = :user_id', array(':user_id' => $recovery->user->getId())))
+							if (RecoveryPassword::model()->deleteAll('user_id = :user_id', array(':user_id' => $recovery->user->id)))
 							{
 								$transaction->commit();
 
@@ -108,7 +108,7 @@ class RecoveryPasswordAction extends CAction
 									Yii::t('UserModule.user', 'Пароль изменен!')
 								);
 								Yii::log(
-									Yii::t('UserModule.user', 'Успешная смена пароля для пользоателя {user}!', array('{user}' => $recovery->user->getId())),
+									Yii::t('UserModule.user', 'Успешная смена пароля для пользоателя {user}!', array('{user}' => $recovery->user->id)),
 									CLogger::LEVEL_INFO, UserModule::$logCategory
 								);
 
