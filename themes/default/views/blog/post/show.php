@@ -16,31 +16,38 @@ $this->breadcrumbs = array(
 ); ?>
 
 <div class="post">
-    <h3> <?php echo CHtml::encode($post->title)?> </h3>
-    <div class="alert alert-info">
-        <?php echo Yii::t('blog', 'Опубликовал'); ?>:
-        <b><?php echo CHtml::link($post->createUser->nick_name, array('/user/people/userInfo', 'username' => $post->createUser->nick_name)); ?></b>
-
-        <?php echo Yii::t('blog', 'в блоге'); ?>:
-        "<?php echo CHtml::link($post->blog->name, array('/blog/blog/show/', 'slug' => $post->blog->slug)); ?>"
-
-        <?php echo Yii::t('blog', 'дата'); ?>:
-        <?php echo Yii::app()->getDateFormatter()->formatDateTime($post->publish_date, "short", "short"); ?>
+    <div class="row">
+        <div class="span8">
+            <h4><strong><?php echo $post->title;?></strong></h4>
+        </div>
+    </div>
+    <div class="row">
+        <div class="span8">
+            <p> <?php echo $post->content; ?></p>
+        </div>
     </div>
 
-    <div class="content">
-        <p><?php echo $post->content; ?></p>
+    <div class="row">
+        <div class="span8">
+            <p></p>
+            <p>
+                <i class="icon-user"></i> <?php echo CHtml::link($post->createUser->nick_name, array('/user/people/userInfo', 'username' => $post->createUser->nick_name)); ?>
+                | <i class="icon-pencil"></i> <?php echo CHtml::link($post->blog->name, array('/blog/blog/show/', 'slug' => $post->blog->slug)); ?>
+                | <i class="icon-calendar"></i> <?php echo Yii::app()->getDateFormatter()->formatDateTime($post->publish_date, "short", "short"); ?>
+                | <i class="icon-comment"></i>  <?php echo CHtml::link($post->commentsCount, array('/blog/post/show/', 'slug' => $post->slug, '#' => 'comments'));?>
+                | <i class="icon-tags"></i>
+                <?php if (($tags = $post->getTags()) != array()):?>
+                    <?php foreach ($tags as $tag):?>
+                        <?php $tag = CHtml::encode($tag);?>
+                        <span class="label label-info">
+                            <?php echo CHtml::link($tag, array('/posts/', 'tag' => $tag)).' '?>
+                        </span>
+                    <?php endforeach?>
+                <?php endif;?>
+            </p>
+        </div>
     </div>
 
-    <div class="nav">
-        <?php foreach ($tags = $post->getTags() as $tag): ?>
-            <span class="label label-info">
-                <?php echo CHtml::link(CHtml::encode($tag), array('/posts/', 'tag' => CHtml::encode($tag))).' '; ?>
-            </span>
-        <?php endforeach;?>
-        | <?php echo Yii::t('blog', 'Обновлено'); ?>:
-        <?php echo Yii::app()->getDateFormatter()->formatDateTime($post->update_date, "short", "short"); ?>
-    </div>
 </div>
 
 <?php $this->widget('blog.widgets.SimilarPostsWidget', array('post' => $post)); ?>

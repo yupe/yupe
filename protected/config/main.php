@@ -130,12 +130,12 @@ return array(
             ),
             'bootstrap' => array(
                 'class'          => 'bootstrap.components.Bootstrap',
-                'coreCss'        => false,
-                'responsiveCss'  => false,
-                'yiiCss'         => false,
-                'jqueryCss'      => false,
-                'enableJS'       => false,
-                'fontAwesomeCss' => false,
+                'coreCss'        => true,
+                'responsiveCss'  => true,
+                'yiiCss'         => true,
+                'jqueryCss'      => true,
+                'enableJS'       => true,
+                'fontAwesomeCss' => true,
             ),
             // Работа с миграциями, обновление БД модулей
             'migrator'=>array(
@@ -164,7 +164,7 @@ return array(
                     CMap::mergeArray(
                         array(
                             // правило переадресации инсталятора
-                            '/'                                                           => 'install/default/index',
+                            '/' => 'install/default/index',
                         ),
                         $config['rules']
                     ),

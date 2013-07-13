@@ -47,7 +47,7 @@ class SiteController extends YFrontController
             echo json_encode(
                 $error
             );
-        } else {
+        } else {            
             $this->render(
                 'error',
                 array(
