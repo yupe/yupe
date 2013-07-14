@@ -1,4 +1,28 @@
-/* main.css */
+/* general styles */
+body {
+    padding-top: 60px;
+    padding-bottom: 40px;
+}
 span.label a {
     color: white;
+}
+
+/* all widgets styles */
+.widget {
+    margin-bottom: 2em;
+}
+
+/* tagsCloud widget */
+.tags-cloud-widget ul.inline>li {
+    padding-left: 0;
+    line-height: 30px;
+}
+.tags-cloud-widget span.label {
+    padding: 4px 6px;
+}
+.tags-cloud-widget span.label a:hover {
+    text-decoration: none;
+}
+.tags-cloud-widget span.label:hover {
+    background: #F90;
 }
