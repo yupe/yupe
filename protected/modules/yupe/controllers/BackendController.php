@@ -148,7 +148,7 @@ class BackendController extends YBackController
 
             if (!$this->saveParamsSetting($moduleId, $module->editableParamsKey)) {
                 Yii::app()->user->setFlash(
-                    YFlashMessages::NOTICE_MESSAGE,
+                    YFlashMessages::SUCCESS_MESSAGE,
                     Yii::t(
                         'YupeModule.yupe', 'Настройки модуля "{module}" сохранены!', array(
                             '{module}' => $module->getName()
@@ -177,7 +177,7 @@ class BackendController extends YBackController
         if (Yii::app()->request->isPostRequest) {
             if (!$this->saveParamsSetting($this->yupe->coreModuleId, array('theme', 'backendTheme'))) {
                 Yii::app()->user->setFlash(
-                    YFlashMessages::NOTICE_MESSAGE,
+                    YFlashMessages::SUCCESS_MESSAGE,
                     Yii::t('YupeModule.yupe', 'Настройки тем сохранены!')
                 );
                 Yii::app()->cache->clear('yupe');
@@ -271,7 +271,7 @@ class BackendController extends YBackController
                     Yii::app()->migrator->updateToLatest($name);
 
                     Yii::app()->user->setFlash(
-                        YFlashMessages::NOTICE_MESSAGE,
+                        YFlashMessages::SUCCESS_MESSAGE,
                         Yii::t('YupeModule.yupe', 'Модуль обновил свои миграции!')
                     );
                     $this->redirect(array("/yupe/backend"));
@@ -409,7 +409,7 @@ class BackendController extends YBackController
                         ? Yii::t('YupeModule.yupe', 'Файл настроек модуля "{n}" успешно обновлён!', $name)
                         : Yii::t('YupeModule.yupe', 'При обновлении файла настроек модуля "{n}" произошла ошибка!', $name);
                     Yii::app()->user->setFlash(
-                        $result ? YFlashMessages::NOTICE_MESSAGE : YFlashMessages::ERROR_MESSAGE,
+                        $result ? YFlashMessages::SUCCESS_MESSAGE : YFlashMessages::ERROR_MESSAGE,
                         $message
                     );
                     break;
@@ -549,7 +549,7 @@ class BackendController extends YBackController
                     $form->message
                 );
                 Yii::app()->user->setFlash(
-                    YFlashMessages::NOTICE_MESSAGE,
+                    YFlashMessages::SUCCESS_MESSAGE,
                     Yii::t('YupeModule.yupe', 'Сообщение отправлено!')
                 );
                 $this->redirect('/yupe/backend/reportBug');

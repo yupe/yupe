@@ -31,7 +31,7 @@ class UserToBlogAdminController extends YBackController
                 if ($model->save())
                 {
                     Yii::app()->user->setFlash(
-                        YFlashMessages::NOTICE_MESSAGE,
+                        YFlashMessages::SUCCESS_MESSAGE,
                         Yii::t('BlogModule.blog', 'Участник добавлен!')
                     );
 
@@ -72,7 +72,7 @@ class UserToBlogAdminController extends YBackController
             if ($model->save())
             {
                 Yii::app()->user->setFlash(
-                    YFlashMessages::NOTICE_MESSAGE,
+                    YFlashMessages::SUCCESS_MESSAGE,
                     Yii::t('BlogModule.blog', 'Участник обновлен!')
                 );
 
@@ -98,7 +98,7 @@ class UserToBlogAdminController extends YBackController
             $this->loadModel($id)->delete();
 
             Yii::app()->user->setFlash(
-                YFlashMessages::NOTICE_MESSAGE,
+                YFlashMessages::SUCCESS_MESSAGE,
                 Yii::t('BlogModule.blog', 'Участник удален!')
             );
 

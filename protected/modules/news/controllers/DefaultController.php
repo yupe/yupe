@@ -29,7 +29,7 @@ class DefaultController extends YBackController
             if ($model->save())
             {
                 Yii::app()->user->setFlash(
-                    YFlashMessages::NOTICE_MESSAGE,
+                    YFlashMessages::SUCCESS_MESSAGE,
                     Yii::t('NewsModule.news', 'Новость добавлена!')
                 );
 
@@ -57,7 +57,7 @@ class DefaultController extends YBackController
                 Yii::app()->user->setFlash(YFlashMessages::ERROR_MESSAGE,Yii::t('NewsModule.news','Язык не найден!'));
                 $this->redirect(array('/news/default/create'));
             }
-            Yii::app()->user->setFlash(YFlashMessages::NOTICE_MESSAGE,Yii::t('NewsModule.news','Вы добавляете перевод на {lang} язык!',array(
+            Yii::app()->user->setFlash(YFlashMessages::SUCCESS_MESSAGE,Yii::t('NewsModule.news','Вы добавляете перевод на {lang} язык!',array(
                         '{lang}' => $languages[$lang]
                     )));
             $model->lang = $lang;
@@ -89,7 +89,7 @@ class DefaultController extends YBackController
             $model->setAttributes(Yii::app()->request->getPost('News'));
             if ($model->save()) {
                 Yii::app()->user->setFlash(
-                    YFlashMessages::NOTICE_MESSAGE,
+                    YFlashMessages::SUCCESS_MESSAGE,
                     Yii::t('NewsModule.news', 'Новость обновлена!')
                 );
 

@@ -136,7 +136,7 @@ class CommentController extends YFrontController
             }
 
             Yii::app()->user->setFlash(
-                YFlashMessages::NOTICE_MESSAGE,
+                YFlashMessages::SUCCESS_MESSAGE,
                 $message
             );
 

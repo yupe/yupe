@@ -53,7 +53,7 @@ class BlogController extends YFrontController
                 Yii::app()->ajax->failure(Yii::t('BlogModule.blog', 'Пожалуйста, авторизуйтесь!'));
             } else {
                 Yii::app()->user->setFlash(
-                    YFlashMessages::NOTICE_MESSAGE,
+                    YFlashMessages::SUCCESS_MESSAGE,
                     Yii::t('BlogModule.blog', 'Пожалуйста, авторизуйтесь!')
                 );
                 $this->redirect(array('/blog/blog/index'));
@@ -97,7 +97,7 @@ class BlogController extends YFrontController
                 );
             } else {
                 Yii::app()->user->setFlash(
-                    YFlashMessages::NOTICE_MESSAGE,
+                    YFlashMessages::SUCCESS_MESSAGE,
                     Yii::t('BlogModule.blog', 'Вы присоединились к блогу!')
                 );
                 $this->redirect(array('/blog/blog/index'));
@@ -112,7 +112,7 @@ class BlogController extends YFrontController
             else
             {
                 Yii::app()->user->setFlash(
-                    YFlashMessages::NOTICE_MESSAGE,
+                    YFlashMessages::SUCCESS_MESSAGE,
                     Yii::t('BlogModule.blog', 'Вы уже присоеденены к этому блогу!')
                 );
                 $this->redirect(array('/blog/blog/index'));
@@ -134,7 +134,7 @@ class BlogController extends YFrontController
                 Yii::app()->ajax->failure(Yii::t('BlogModule.blog', 'Пожалуйста, авторизуйтесь!'));
             } else {
                 Yii::app()->user->setFlash(
-                    YFlashMessages::NOTICE_MESSAGE,
+                    YFlashMessages::SUCCESS_MESSAGE,
                     Yii::t('BlogModule.blog', 'Пожалуйста, авторизуйтесь!')
                 );
                 $this->redirect(array('/blog/blog/index'));
@@ -191,7 +191,7 @@ class BlogController extends YFrontController
                     );
                 } else {
                     Yii::app()->user->setFlash(
-                        YFlashMessages::NOTICE_MESSAGE,
+                        YFlashMessages::SUCCESS_MESSAGE,
                         Yii::t('BlogModule.blog', 'Вы покинули блог!')
                     );
                     $this->redirect(array('/blog/blog/index'));
@@ -201,7 +201,7 @@ class BlogController extends YFrontController
                     Yii::app()->ajax->failure(Yii::t('BlogModule.blog', 'Произошла ошибка при исключении из блога!'));
                 } else {
                     Yii::app()->user->setFlash(
-                        YFlashMessages::NOTICE_MESSAGE,
+                        YFlashMessages::SUCCESS_MESSAGE,
                         Yii::t('BlogModule.blog', 'Произошла ошибка при исключении из блога!')
                     );
                     $this->redirect(array('/blog/blog/index'));
@@ -213,7 +213,7 @@ class BlogController extends YFrontController
             else
             {
                 Yii::app()->user->setFlash(
-                    YFlashMessages::NOTICE_MESSAGE,
+                    YFlashMessages::SUCCESS_MESSAGE,
                     Yii::t('BlogModule.blog', 'Вы не присоеденены к этому блогу!')
                 );
                 $this->redirect(array('/blog/blog/index'));

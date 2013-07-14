@@ -28,7 +28,7 @@ class EmailConfirmAction extends CAction
             );
 
             Yii::app()->user->setFlash(
-                YFlashMessages::NOTICE_MESSAGE,
+                YFlashMessages::SUCCESS_MESSAGE,
                 Yii::t('UserModule.user', 'Вы успешно подтвердили новый e-mail!')
             );
 

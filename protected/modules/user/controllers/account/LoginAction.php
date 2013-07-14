@@ -48,7 +48,7 @@ class LoginAction extends CAction
 
             if ($form->validate()) {
                 Yii::app()->user->setFlash(
-                    YFlashMessages::NOTICE_MESSAGE,
+                    YFlashMessages::SUCCESS_MESSAGE,
                     Yii::t('UserModule.user', 'Вы успешно авторизовались!')
                 );
 
