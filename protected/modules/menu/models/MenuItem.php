@@ -141,11 +141,11 @@ class MenuItem extends YModel
 
         $criteria = new CDbCriteria;
 
-        $criteria->compare('id', $this->id, true);
-        $criteria->compare('parent_id', $this->parent_id, true);
+        $criteria->compare('t.id', $this->id, true);
+        $criteria->compare('t.parent_id', $this->parent_id, true);
         $criteria->compare('t.menu_id', $this->menu_id, true);
-        $criteria->compare('title', $this->title, true);
-        $criteria->compare('href', $this->href, true);
+        $criteria->compare('t.title', $this->title, true);
+        $criteria->compare('t.href', $this->href, true);
 
         if ($this->condition_name != '0') {
             $criteria->compare('t.condition_name', $this->condition_name, true);
@@ -154,8 +154,8 @@ class MenuItem extends YModel
         } else
             $criteria->condition('t.condition_name', '');
 
-        $criteria->compare('sort', $this->sort);
-        $criteria->compare('status', $this->status);
+        $criteria->compare('t.sort', $this->sort);
+        $criteria->compare('t.status', $this->status);
         $criteria->with = array('menu','parent');
 
         return new CActiveDataProvider(
