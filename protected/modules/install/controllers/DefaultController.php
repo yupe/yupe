@@ -1043,7 +1043,7 @@ class DefaultController extends YBackController
                     $login->authenticate();
 
                     Yii::app()->user->setFlash(
-                        YFlashMessages::NOTICE_MESSAGE,
+                        YFlashMessages::SUCCESS_MESSAGE,
                         Yii::t('InstallModule.install', 'Администратор успешно создан!')
                     );
 
@@ -1142,7 +1142,7 @@ class DefaultController extends YBackController
                     $transaction->commit();
 
                     Yii::app()->user->setFlash(
-                        YFlashMessages::NOTICE_MESSAGE,
+                        YFlashMessages::SUCCESS_MESSAGE,
                         Yii::t('InstallModule.install', 'Настройки сайта успешно сохранены!')
                     );
 
@@ -1200,7 +1200,7 @@ class DefaultController extends YBackController
         try {
             Yii::app()->getModule('install')->getActivate();
             Yii::app()->user->setFlash(
-                YFlashMessages::NOTICE_MESSAGE,
+                YFlashMessages::SUCCESS_MESSAGE,
                 Yii::t('InstallModule.install', "Модуль install отключен!")
             );
         } catch (Exception $e) {

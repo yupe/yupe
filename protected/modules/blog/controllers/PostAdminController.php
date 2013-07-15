@@ -45,7 +45,7 @@ class PostAdminController extends YBackController
 
             if ($model->save()) {
                 Yii::app()->user->setFlash(
-                    YFlashMessages::NOTICE_MESSAGE,
+                    YFlashMessages::SUCCESS_MESSAGE,
                     Yii::t('BlogModule.blog', 'Запись добавлена!')
                 );
                 $this->redirect(
@@ -80,7 +80,7 @@ class PostAdminController extends YBackController
 
             if ($model->save()) {
                 Yii::app()->user->setFlash(
-                    YFlashMessages::NOTICE_MESSAGE,
+                    YFlashMessages::SUCCESS_MESSAGE,
                     Yii::t('BlogModule.blog', 'Запись обновлена!')
                 );
 
@@ -116,7 +116,7 @@ class PostAdminController extends YBackController
                 $post->delete();
 
             Yii::app()->user->setFlash(
-                YFlashMessages::NOTICE_MESSAGE,
+                YFlashMessages::SUCCESS_MESSAGE,
                 Yii::t('BlogModule.blog', 'Запись удалена!')
             );
 

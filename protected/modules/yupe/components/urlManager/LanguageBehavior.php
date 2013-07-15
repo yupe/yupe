@@ -114,7 +114,7 @@ class LanguageBehavior extends CBehavior
             ) {
                 Yii::app()->urlManager->languages[] = $oldLang;
                 Yii::app()->user->setFlash(
-                    YFlashMessages::NOTICE_MESSAGE,
+                    YFlashMessages::SUCCESS_MESSAGE,
                     Yii::t(
                         'YupeModule.yupe', 'Язык "{lang}" не известен системе!', array(
                             '{lang}' => $oldLang

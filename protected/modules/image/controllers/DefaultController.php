@@ -43,7 +43,7 @@ class DefaultController extends YBackController
                     $transaction->commit();
 
                     Yii::app()->user->setFlash(
-                        YFlashMessages::NOTICE_MESSAGE,
+                        YFlashMessages::SUCCESS_MESSAGE,
                         Yii::t('ImageModule.image', 'Изображение добавлено!')
                     );
 
@@ -81,7 +81,7 @@ class DefaultController extends YBackController
             $model->attributes = $_POST['Image'];
             if ($model->save()) {
                 Yii::app()->user->setFlash(
-                    YFlashMessages::NOTICE_MESSAGE,
+                    YFlashMessages::SUCCESS_MESSAGE,
                     Yii::t('user', 'Изображение обновлено!')
                 );
 
@@ -109,7 +109,7 @@ class DefaultController extends YBackController
             $this->loadModel($id)->delete();
 
             Yii::app()->user->setFlash(
-                YFlashMessages::NOTICE_MESSAGE,
+                YFlashMessages::SUCCESS_MESSAGE,
                 Yii::t('user', 'Изображение удалено!')
             );
 

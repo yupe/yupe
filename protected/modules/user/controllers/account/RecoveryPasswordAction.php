@@ -53,7 +53,7 @@ class RecoveryPasswordAction extends CAction
 								$emailBody
 							);
 							Yii::app()->user->setFlash(
-								YFlashMessages::NOTICE_MESSAGE,
+								YFlashMessages::SUCCESS_MESSAGE,
 								Yii::t('UserModule.user', 'Новый пароль отправлен Вам на email!')
 							);
 							Yii::log(
@@ -104,7 +104,7 @@ class RecoveryPasswordAction extends CAction
 								$transaction->commit();
 
 								Yii::app()->user->setFlash(
-									YFlashMessages::NOTICE_MESSAGE,
+									YFlashMessages::SUCCESS_MESSAGE,
 									Yii::t('UserModule.user', 'Пароль изменен!')
 								);
 								Yii::log(

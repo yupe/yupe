@@ -52,7 +52,7 @@ class EventAdminController extends YBackController
 
             if ($model->save()) {
                 Yii::app()->user->setFlash(
-                    YFlashMessages::NOTICE_MESSAGE,
+                    YFlashMessages::SUCCESS_MESSAGE,
                     Yii::t('MailModule.mail', 'Запись добавлена!')
                 );
 
@@ -85,7 +85,7 @@ class EventAdminController extends YBackController
 
             if ($model->save()) {
                 Yii::app()->user->setFlash(
-                    YFlashMessages::NOTICE_MESSAGE,
+                    YFlashMessages::SUCCESS_MESSAGE,
                     Yii::t('MailModule.mail', 'Запись добавлена!')
                 );
 
@@ -113,7 +113,7 @@ class EventAdminController extends YBackController
             $this->loadModel($id)->delete();
 
             Yii::app()->user->setFlash(
-                YFlashMessages::NOTICE_MESSAGE,
+                YFlashMessages::SUCCESS_MESSAGE,
                 Yii::t('MailModule.mail', 'Запись удалена!')
             );
 

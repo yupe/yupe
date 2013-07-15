@@ -28,7 +28,7 @@ class DefaultController extends YBackController
             if ($model->save())
             {
                 Yii::app()->user->setFlash(
-                    YFlashMessages::NOTICE_MESSAGE,
+                    YFlashMessages::SUCCESS_MESSAGE,
                     Yii::t('CategoryModule.category', 'Запись добавлена!')
                 );
 
@@ -56,7 +56,7 @@ class DefaultController extends YBackController
                 Yii::app()->user->setFlash(YFlashMessages::ERROR_MESSAGE,Yii::t('CategoryModule.category','Язык не найден!'));
                 $this->redirect(array('/category/default/create'));
             }
-            Yii::app()->user->setFlash(YFlashMessages::NOTICE_MESSAGE,Yii::t('CategoryModule.category','Вы добавляете перевод на {lang} язык!',array(
+            Yii::app()->user->setFlash(YFlashMessages::SUCCESS_MESSAGE,Yii::t('CategoryModule.category','Вы добавляете перевод на {lang} язык!',array(
                         '{lang}' => $languages[$lang]
                     )));
             $model->lang = $lang;
@@ -90,7 +90,7 @@ class DefaultController extends YBackController
             if ($model->save())
             {
                 Yii::app()->user->setFlash(
-                    YFlashMessages::NOTICE_MESSAGE,
+                    YFlashMessages::SUCCESS_MESSAGE,
                     Yii::t('CategoryModule.category', 'Категория изменена!')
                 );
 

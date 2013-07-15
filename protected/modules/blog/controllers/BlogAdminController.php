@@ -35,7 +35,7 @@ class BlogAdminController extends YBackController
 
             if ($model->save()) {
                 Yii::app()->user->setFlash(
-                    YFlashMessages::NOTICE_MESSAGE,
+                    YFlashMessages::SUCCESS_MESSAGE,
                     Yii::t('BlogModule.blog', 'Блог добавлен!')
                 );
                 $this->redirect(
@@ -67,7 +67,7 @@ class BlogAdminController extends YBackController
             $model->setAttributes(Yii::app()->request->getPost('Blog'));
             if ($model->save()) {
                 Yii::app()->user->setFlash(
-                    YFlashMessages::NOTICE_MESSAGE,
+                    YFlashMessages::SUCCESS_MESSAGE,
                     Yii::t('BlogModule.blog', 'Блог обновлен!')
                 );
                 $this->redirect(
@@ -102,7 +102,7 @@ class BlogAdminController extends YBackController
             $model->delete();
 
             Yii::app()->user->setFlash(
-                YFlashMessages::NOTICE_MESSAGE,
+                YFlashMessages::SUCCESS_MESSAGE,
                 Yii::t('BlogModule.blog', 'Блог удален!')
             );
 

@@ -16,7 +16,7 @@ class NewsController extends YFrontController
         if ($news->is_protected ==News::PROTECTED_YES && !Yii::app()->user->isAuthenticated())
         {
             Yii::app()->user->setFlash(
-                YFlashMessages::NOTICE_MESSAGE,
+                YFlashMessages::SUCCESS_MESSAGE,
                 Yii::t('NewsModule.news', 'Для просмотра этой страницы Вам необходимо авторизоваться!')
             );
             $this->redirect(array(Yii::app()->getModule('user')->accountActivationSuccess));

@@ -29,7 +29,7 @@ class DefaultController extends YBackController
             if ($model->save())
             {
                 Yii::app()->user->setFlash(
-                    YFlashMessages::NOTICE_MESSAGE,
+                    YFlashMessages::SUCCESS_MESSAGE,
                     Yii::t('GalleryModule.gallery', 'Запись добавлена!')
                 );
 
@@ -61,7 +61,7 @@ class DefaultController extends YBackController
             if ($model->save())
             {
                 Yii::app()->user->setFlash(
-                    YFlashMessages::NOTICE_MESSAGE,
+                    YFlashMessages::SUCCESS_MESSAGE,
                     Yii::t('GalleryModule.gallery', 'Запись обновлена!')
                 );
 
@@ -87,7 +87,7 @@ class DefaultController extends YBackController
             $this->loadModel($id)->delete();
 
             Yii::app()->user->setFlash(
-                YFlashMessages::NOTICE_MESSAGE,
+                YFlashMessages::SUCCESS_MESSAGE,
                 Yii::t('GalleryModule.gallery', 'Запись удалена!')
             );
 
@@ -159,7 +159,7 @@ class DefaultController extends YBackController
 
                 if (Yii::app()->request->getPost('ajax') === null) {
                     Yii::app()->user->setFlash(
-                        YFlashMessages::NOTICE_MESSAGE,
+                        YFlashMessages::SUCCESS_MESSAGE,
                         Yii::t('GalleryModule.gallery', 'Фотография добавлена!')
                     );
                     $this->redirect(array('/gallery/default/images', 'id' => $gallery->id));
@@ -205,7 +205,7 @@ class DefaultController extends YBackController
         }
 
         Yii::app()->user->setFlash(
-            $result ? YFlashMessages::NOTICE_MESSAGE : YFlashMessages::ERROR_MESSAGE,
+            $result ? YFlashMessages::SUCCESS_MESSAGE : YFlashMessages::ERROR_MESSAGE,
             $message
         );
 

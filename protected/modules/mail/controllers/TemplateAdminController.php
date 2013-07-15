@@ -54,7 +54,7 @@ class TemplateAdminController extends YBackController
 
             if ($model->save()) {
                 Yii::app()->user->setFlash(
-                    YFlashMessages::NOTICE_MESSAGE,
+                    YFlashMessages::SUCCESS_MESSAGE,
                     Yii::t('MailModule.mail', 'Запись добавлена!')
                 );
 
@@ -87,7 +87,7 @@ class TemplateAdminController extends YBackController
 
             if ($model->save()) {
                 Yii::app()->user->setFlash(
-                    YFlashMessages::NOTICE_MESSAGE,
+                    YFlashMessages::SUCCESS_MESSAGE,
                     Yii::t('MailModule.mail', 'Запись обновлена!')
                 );
 
@@ -112,7 +112,7 @@ class TemplateAdminController extends YBackController
             $this->loadModel($id)->delete();
 
             Yii::app()->user->setFlash(
-                YFlashMessages::NOTICE_MESSAGE,
+                YFlashMessages::SUCCESS_MESSAGE,
                 Yii::t('MailModule.mail', 'Запись удалена!')
             );
 

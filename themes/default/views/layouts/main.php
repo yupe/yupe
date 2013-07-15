@@ -13,18 +13,16 @@
     <?php  $this->widget('application.modules.menu.widgets.MenuWidget',array('name' => 'top-menu'));?>
 
     <div class='container'>
-
         <?php $this->widget('YFlashMessages'); ?>
         <!-- flashMessages -->
-
+        <?php $this->widget(
+            'bootstrap.widgets.TbBreadcrumbs',
+            array(
+                'links' => $this->breadcrumbs,
+            )
+        ); ?>
         <div class="row">
             <div class="span9">
-                <?php $this->widget(
-                    'bootstrap.widgets.TbBreadcrumbs',
-                    array(
-                        'links' => $this->breadcrumbs,
-                    )
-                ); ?>
                 <!-- content start-->
                 <div class="content">
                     <?php echo $content; ?>
@@ -103,8 +101,7 @@
                     </div>
                     <div class="span2" style="width: 15%;">
                         <ul class="unstyled">
-                            <li>Documentation
-                            <li>
+                            <li>Documentation<li>
                             <li><a href="#">Product Help</a></li>
                             <li><a href="#">Developer API</a></li>
                             <li><a href="#">Product Markdown</a></li>
