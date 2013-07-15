@@ -1,3 +1,8 @@
+<?php $this->breadcrumbs = array(
+     Yii::t('default', 'Wiki') => array('/wiki/default/pageIndex'),
+     Yii::t('default', 'Редактирование')
+);?>
+
 <h1><?php echo CHtml::encode($page->getWikiUid())?></h1>
 
 <?php echo CHtml::beginForm('', 'post', array('id' => 'edit-page-form'))?>

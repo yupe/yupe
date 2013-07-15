@@ -86,7 +86,7 @@ if (count($comments)) {
             . "\n";
         if (!is_object($comment->author)) {
             if ($comment->url)
-                echo CHtml::link($comment->name, $comment->url);
+                echo CHtml::link($comment->name, $comment->url, array('rel' => 'nofollow'));
             else
                 echo $comment->name;
         } else

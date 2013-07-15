@@ -3,8 +3,7 @@
 <div id="gallery-wrapper">
     
     <h1>
-        <?php echo Yii::t('GalleryModule.gallery', 'Галерея'); ?>
-        "<?php echo CHtml::encode($model->name); ?>"
+        <?php echo Yii::t('GalleryModule.gallery', 'Галерея'); ?> "<?php echo CHtml::encode($model->name); ?>"
     </h1>
 
     <p><?php echo $model->description; ?></p>
@@ -25,7 +24,9 @@
         <?php endif ?>
     <?php else: ?>
         <br />
-        <?php echo Yii::t('GalleryModule.gallery', 'Для добавления и редактирования фотографий Вам необходимо ') ?>
-        <?php echo CHtml::link(Yii::t('GalleryModule.gallery', 'авторизоваться'), array('/user/account/login/')); ?>!
+        <div class="alert alert-notice">
+            <?php echo Yii::t('GalleryModule.gallery', 'Для добавления и редактирования фотографий Вам необходимо ') ?>
+            <?php echo CHtml::link(Yii::t('GalleryModule.gallery', 'авторизоваться'), array('/user/account/login/')); ?>!
+        </div>
     <?php endif; ?>
 </div>

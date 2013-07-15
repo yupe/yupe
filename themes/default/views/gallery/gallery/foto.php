@@ -1,5 +1,9 @@
 <?php $this->pageTitle = 'Фото'; ?>
-<?php $this->breadcrumbs = array('Галереи' => array('/gallery/gallery/list'),$model->name); ?>
+<?php $this->breadcrumbs = array(
+       'Галереи' => array('/gallery/gallery/list'),
+       $model->name
+ ); 
+ ?>
 
 <h1><?php echo CHtml::encode($model->name);?></h1>
 
@@ -9,7 +13,7 @@
 
 <p><?php echo CHtml::encode($model->description);?></p>
 
-<br/><br/><br/>
+<br/>
 
 <?php $this->widget('application.modules.comment.widgets.CommentsListWidget', array('model' => $model, 'modelId' => $model->id)); ?>
 
@@ -23,6 +27,8 @@
 
 <?php else: ?>
 
-Для комментирования, пожалуйста, <?php echo CHtml::link('авторизуйтесь', array('/user/account/login/')); ?>...
+<div class="alert alert-notice"> 
+    Для комментирования, пожалуйста, <?php echo CHtml::link('авторизуйтесь', array('/user/account/login/')); ?>...
+</div>
 
 <?php endif; ?>

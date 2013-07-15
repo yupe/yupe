@@ -26,15 +26,14 @@ if ($gallery->status == Gallery::STATUS_PRIVATE && $gallery->owner != Yii::app()
         Yii::t('GalleryModule.gallery', 'Это приватная галерея!')
     );
 } else {
-    $this->widget(
-        'zii.widgets.CListView',
-        array(
-            'id' => 'gallery',
-            'dataProvider' => $dataProvider,
-            'itemView' => '_image',
-            'afterAjaxUpdate' => "function(id, data) { masonry('#gallery .items'); }",
-        )
-    );
+        $this->widget(
+            'zii.widgets.CListView', array(
+                'dataProvider' => $dataProvider,
+                'itemView' => '_image',
+                'itemsTagName' => 'ul',
+                'itemsCssClass' => 'thumbnails unstyled',
+            )
+        );
 } ?>
 
 <script type="text/javascript">

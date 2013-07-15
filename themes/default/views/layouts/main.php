@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="<?php echo Yii::app()->language; ?>">
 <head>
-    <meta charset="UTF-8"/>
+    <meta charset="<?php echo Yii::app()->charset; ?>"/>
     <meta name="keywords" content="<?php echo $this->keywords; ?>"/>
     <meta name="description" content="<?php echo $this->description; ?>"/>
     <link rel="shortcut icon" href="<?php echo Yii::app()->theme->baseUrl; ?>/web/images/favicon.ico"/>
@@ -10,9 +10,11 @@
 </head>
 
 <body>
+
     <?php  $this->widget('application.modules.menu.widgets.MenuWidget',array('name' => 'top-menu'));?>
 
     <div class='container'>
+
         <?php $this->widget('YFlashMessages'); ?>
         <!-- flashMessages -->
         <?php $this->widget(
