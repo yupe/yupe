@@ -32,7 +32,7 @@ class DefaultController extends YBackController
             if ($model->save())
             {
                 Yii::app()->user->setFlash(
-                    YFlashMessages::NOTICE_MESSAGE,
+                    YFlashMessages::SUCCESS_MESSAGE,
                     Yii::t('FeedbackModule.feedback', 'Сообщение сохранено!')
                 );
 
@@ -69,7 +69,7 @@ class DefaultController extends YBackController
             if ($model->save())
             {
                 Yii::app()->user->setFlash(
-                    YFlashMessages::NOTICE_MESSAGE,
+                    YFlashMessages::SUCCESS_MESSAGE,
                     Yii::t('FeedbackModule.feedback', 'Сообщение обновлено!')
                 );
 
@@ -97,7 +97,7 @@ class DefaultController extends YBackController
 
         if ($model->status == FeedBack::STATUS_ANSWER_SENDED)
             Yii::app()->user->setFlash(
-                YFlashMessages::NOTICE_MESSAGE,
+                YFlashMessages::SUCCESS_MESSAGE,
                 Yii::t('FeedbackModule.feedback', 'Внимание! Ответ на это сообщение уже был отправлен!')
             );
 
@@ -127,7 +127,7 @@ class DefaultController extends YBackController
                         $body
                     );
                     Yii::app()->user->setFlash(
-                        YFlashMessages::NOTICE_MESSAGE,
+                        YFlashMessages::SUCCESS_MESSAGE,
                         Yii::t('FeedbackModule.feedback', 'Ответ на сообщение отправлен!')
                     );
 

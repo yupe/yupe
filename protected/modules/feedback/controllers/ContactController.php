@@ -65,7 +65,7 @@ class ContactController extends YFrontController
                                $this->feedbackConfirmationEmail($feedback);
 
                             Yii::app()->user->setFlash(
-                                YFlashMessages::NOTICE_MESSAGE,
+                                YFlashMessages::SUCCESS_MESSAGE,
                                 Yii::t('FeedbackModule.feedback', 'Ваше сообщение отправлено! Спасибо!')
                             );
 
@@ -111,7 +111,7 @@ class ContactController extends YFrontController
                             FeedbackModule::$logCategory
                         );
                         Yii::app()->user->setFlash(
-                            YFlashMessages::NOTICE_MESSAGE,
+                            YFlashMessages::SUCCESS_MESSAGE,
                             Yii::t('FeedbackModule.feedback', 'Ваше сообщение отправлено! Спасибо!')
                         );
 

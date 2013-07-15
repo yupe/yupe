@@ -29,7 +29,7 @@ class DefaultController extends YBackController
             if ($model->save())
             {
                 Yii::app()->user->setFlash(
-                    YFlashMessages::NOTICE_MESSAGE,
+                    YFlashMessages::SUCCESS_MESSAGE,
                     Yii::t('QueueModule.queue', 'Запись добавлена!')
                 );
 
@@ -61,7 +61,7 @@ class DefaultController extends YBackController
             if ($model->save())
             {
                 Yii::app()->user->setFlash(
-                    YFlashMessages::NOTICE_MESSAGE,
+                    YFlashMessages::SUCCESS_MESSAGE,
                     Yii::t('QueueModule.queue', 'Запись обновлена!')
                 );
 
@@ -110,7 +110,7 @@ class DefaultController extends YBackController
     public function actionClear()
     {
         Yii::app()->queue->flush();
-        Yii::app()->user->setFlash(YFlashMessages::NOTICE_MESSAGE, Yii::t('QueueModule.queue', 'Очередь очищена!'));
+        Yii::app()->user->setFlash(YFlashMessages::SUCCESS_MESSAGE, Yii::t('QueueModule.queue', 'Очередь очищена!'));
         $this->redirect(($referrer = Yii::app()->getRequest()->getUrlReferrer()) !== null ? $referrer : array("/yupe/backend"));
     }
 

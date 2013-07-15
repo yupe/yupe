@@ -29,7 +29,7 @@ class DefaultController extends YBackController
             if ($model->save())
             {
                 Yii::app()->user->setFlash(
-                    YFlashMessages::NOTICE_MESSAGE,
+                    YFlashMessages::SUCCESS_MESSAGE,
                     Yii::t('DictionaryModule.dictionary', 'Запись добавлена!')
                 );
 
@@ -62,7 +62,7 @@ class DefaultController extends YBackController
             if ($model->save())
             {
                 Yii::app()->user->setFlash(
-                    YFlashMessages::NOTICE_MESSAGE,
+                    YFlashMessages::SUCCESS_MESSAGE,
                     Yii::t('DictionaryModule.dictionary', 'Запись добавлена!')
                 );
 

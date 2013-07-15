@@ -63,7 +63,7 @@ class ProfileAction extends CAction
                         CLogger::LEVEL_INFO, UserModule::$logCategory
                     );
                     Yii::app()->user->setFlash(
-                        YFlashMessages::NOTICE_MESSAGE,
+                        YFlashMessages::SUCCESS_MESSAGE,
                         Yii::t('UserModule.user', 'Ваш профиль успешно изменен!')
                     );
 
@@ -83,7 +83,7 @@ class ProfileAction extends CAction
                         );
 
                         Yii::app()->user->setFlash(
-                            YFlashMessages::NOTICE_MESSAGE,
+                            YFlashMessages::SUCCESS_MESSAGE,
                             Yii::t('UserModule.user', 'Вам необходимо продтвердить новый e-mail, проверьте почту!')
                         );
                     }
