@@ -1,3 +1,9 @@
+<?php $this->breadcrumbs = array(
+     Yii::t('default', 'Wiki') => array('/wiki/default/pageIndex'),
+     Yii::t('default', $page->getWikiUid())
+);?>
+
+
 <div>
 	<div class="wiki-controls">
 		<?php echo CHtml::link(Yii::t('wiki', 'Edit'), array('edit', 'uid' => $page->getWikiUid()))?>

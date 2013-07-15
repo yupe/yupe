@@ -4,7 +4,7 @@
  *
  * @author Qiang Xue <qiang.xue@gmail.com>
  * @link http://www.yiiframework.com/
- * @copyright Copyright &copy; 2008-2011 Yii Software LLC
+ * @copyright 2008-2013 Yii Software LLC
  * @license http://www.yiiframework.com/license/
  * @package system
  * @since 1.0
@@ -80,7 +80,7 @@ class YiiBase
 	 */
 	public static function getVersion()
 	{
-		return '1.1.13';
+		return '1.1.14-rc';
 	}
 
 	/**
@@ -656,6 +656,7 @@ class YiiBase
 		'CEAcceleratorCache' => '/caching/CEAcceleratorCache.php',
 		'CFileCache' => '/caching/CFileCache.php',
 		'CMemCache' => '/caching/CMemCache.php',
+		'CRedisCache' => '/caching/CRedisCache.php',
 		'CWinCache' => '/caching/CWinCache.php',
 		'CXCache' => '/caching/CXCache.php',
 		'CZendDataCache' => '/caching/CZendDataCache.php',
@@ -714,6 +715,7 @@ class YiiBase
 		'COciSchema' => '/db/schema/oci/COciSchema.php',
 		'COciTableSchema' => '/db/schema/oci/COciTableSchema.php',
 		'CPgsqlColumnSchema' => '/db/schema/pgsql/CPgsqlColumnSchema.php',
+		'CPgsqlCommandBuilder' => '/db/schema/pgsql/CPgsqlCommandBuilder.php',
 		'CPgsqlSchema' => '/db/schema/pgsql/CPgsqlSchema.php',
 		'CPgsqlTableSchema' => '/db/schema/pgsql/CPgsqlTableSchema.php',
 		'CSqliteColumnSchema' => '/db/schema/sqlite/CSqliteColumnSchema.php',
@@ -743,7 +745,9 @@ class YiiBase
 		'CDateTimeParser' => '/utils/CDateTimeParser.php',
 		'CFileHelper' => '/utils/CFileHelper.php',
 		'CFormatter' => '/utils/CFormatter.php',
+		'CLocalizedFormatter' => '/utils/CLocalizedFormatter.php',
 		'CMarkdownParser' => '/utils/CMarkdownParser.php',
+		'CPasswordHelper' => '/utils/CPasswordHelper.php',
 		'CPropertyValue' => '/utils/CPropertyValue.php',
 		'CTimestamp' => '/utils/CTimestamp.php',
 		'CVarDumper' => '/utils/CVarDumper.php',

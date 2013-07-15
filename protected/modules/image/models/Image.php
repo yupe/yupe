@@ -367,4 +367,9 @@ class Image extends YModel
 
         return $gallery->addImage($this);
     }
+
+    public function getName()
+    {
+        return $this->name ? $this->name : $this->alt;
+    }
 }

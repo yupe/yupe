@@ -65,7 +65,7 @@ class RegistrationAction extends CAction
                             $transaction->commit();
 
                             Yii::app()->user->setFlash(
-                                YFlashMessages::NOTICE_MESSAGE,
+                                YFlashMessages::SUCCESS_MESSAGE,
                                 Yii::t('UserModule.user', 'Учетная запись создана! Проверьте Вашу почту!')
                             );
                             $this->controller->redirect(array($module->registrationSucess));
@@ -111,7 +111,7 @@ class RegistrationAction extends CAction
                          );
 
                         Yii::app()->user->setFlash(
-                            YFlashMessages::NOTICE_MESSAGE,
+                            YFlashMessages::SUCCESS_MESSAGE,
                             Yii::t('UserModule.user', 'Учетная запись создана! Пожалуйста, авторизуйтесь!')
                         );
                         $this->controller->redirect(array($module->registrationSucess));

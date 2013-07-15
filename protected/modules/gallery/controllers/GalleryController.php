@@ -30,7 +30,7 @@ class GalleryController extends YFrontController
                 if ($image->save() && $gallery->addImage($image)) {
                     $transaction->commit();
                     Yii::app()->user->setFlash(
-                        YFlashMessages::NOTICE_MESSAGE,
+                        YFlashMessages::SUCCESS_MESSAGE,
                         Yii::t('GalleryModule.gallery', 'Фотография добавлена!')
                     );
                     $this->redirect(array('/gallery/gallery/show', 'id' => $gallery->id));
@@ -90,7 +90,7 @@ class GalleryController extends YFrontController
         }
 
         Yii::app()->user->setFlash(
-            $result ? YFlashMessages::NOTICE_MESSAGE : YFlashMessages::ERROR_MESSAGE,
+            $result ? YFlashMessages::SUCCESS_MESSAGE : YFlashMessages::ERROR_MESSAGE,
             $message
         );
 
@@ -136,7 +136,7 @@ class GalleryController extends YFrontController
                     );
 
                 Yii::app()->user->setFlash(
-                    YFlashMessages::NOTICE_MESSAGE,
+                    YFlashMessages::SUCCESS_MESSAGE,
                     $message
                 );
 

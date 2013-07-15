@@ -25,42 +25,15 @@ class DefaultController extends YBackController
         {
             $model->attributes = $_POST['Comment'];
 
-            $rootNode = Comment::model()->findByAttributes(
-                array(
-                    "model" => $model->getAttribute("model"),
-                    "model_id" => $model->getAttribute("model_id"),
-                ),
-                "id=root"
-            );
+            if ($model->save())
+            {
+                Yii::app()->user->setFlash(YFlashMessages::SUCCESS_MESSAGE,Yii::t('CommentModule.comment','Комментарий добавлен!'));
 
-            if ($rootNode === null) {
-                $rootAttributes = array(
-                    "user_id" => Yii::app()->user->getId(),
-                    "model" => $model->getAttribute("model"),
-                    "model_id" => $model->getAttribute("model_id"),
-                    "url" => "",
-                    "name" => "",
-                    "email" => "",
-                    "text" => "",
-                    "status" => Comment::STATUS_APPROVED,
-                    "ip" => ""
+                $this->redirect(
+                    (array) Yii::app()->request->getPost(
+                        'submit-type', array('create')
+                    )
                 );
-
-                $rootNode = new Comment();
-                $rootNode->setAttributes($rootAttributes);
-                $rootNode->saveNode(false);
-            }
-            if ($rootNode->id > 0) {
-                if ($model->appendTo($rootNode))
-                {
-                    Yii::app()->user->setFlash(YFlashMessages::NOTICE_MESSAGE,Yii::t('CommentModule.comment','Комментарий добавлен!'));
-
-                    $this->redirect(
-                        (array) Yii::app()->request->getPost(
-                            'submit-type', array('create')
-                        )
-                    );
-                }
             }
         }
         $this->render('create', array('model' => $model));
@@ -84,7 +57,7 @@ class DefaultController extends YBackController
 
             if ($model->save())
             {
-                Yii::app()->user->setFlash(YFlashMessages::NOTICE_MESSAGE,Yii::t('CommentModule.comment','Комментарий обновлен!'));
+                Yii::app()->user->setFlash(YFlashMessages::SUCCESS_MESSAGE,Yii::t('CommentModule.comment','Комментарий обновлен!'));
 
                 if (!isset($_POST['submit-type']))
                     $this->redirect(array('update', 'id' => $model->id));

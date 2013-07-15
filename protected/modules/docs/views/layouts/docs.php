@@ -88,8 +88,8 @@
         <?php echo $this->yupe->poweredBy();?>
         <small class="label label-info"><?php echo $this->yupe->getVersion(); ?></small>
         <br/>
-        <a href="http://yupe.ru/feedback/index?from=docs">
-            <?php echo Yii::t('YupeModule.yupe', 'Разработка и поддержка'); ?></a> - <a href="mailto:team@yupe.ru">yupe team
+        <a href="http://amylabs.ru?from=yupe-docs">
+            <?php echo Yii::t('YupeModule.yupe', 'Разработка и поддержка'); ?></a> - <a href="http://amylabs.ru?from=yupe-docs">amyLabs
         </a>
         <br/>
         <?php echo Yii::powered(); ?>

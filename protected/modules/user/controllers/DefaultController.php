@@ -29,7 +29,7 @@ class DefaultController extends YBackController
                 $model->changePassword($form->password);
 
                 Yii::app()->user->setFlash(
-                    YFlashMessages::NOTICE_MESSAGE,
+                    YFlashMessages::SUCCESS_MESSAGE,
                     Yii::t('UserModule.user', 'Пароль успешно изменен!')
                 );
                 $this->redirect(array('/user/default/view', 'id' => $model->id));
@@ -61,7 +61,7 @@ class DefaultController extends YBackController
             if ($model->save())
             {
                 Yii::app()->user->setFlash(
-                    YFlashMessages::NOTICE_MESSAGE,
+                    YFlashMessages::SUCCESS_MESSAGE,
                     Yii::t('UserModule.user', 'Новый пользователь добавлен!')
                 );
 
@@ -90,7 +90,7 @@ class DefaultController extends YBackController
             if ($model->save())
             {
                 Yii::app()->user->setFlash(
-                    YFlashMessages::NOTICE_MESSAGE,
+                    YFlashMessages::SUCCESS_MESSAGE,
                     Yii::t('UserModule.user', 'Данные обновлены!')
                 );
 
@@ -166,7 +166,7 @@ class DefaultController extends YBackController
 
         if (!Yii::app()->request->isPostRequest || !Yii::app()->request->isAjaxRequest) {
             Yii::app()->user->setFlash(
-                YFlashMessages::NOTICE_MESSAGE,
+                YFlashMessages::SUCCESS_MESSAGE,
                 Yii::t('UserModule.user', 'Письмо с активацией отправлено пользователю #{id}!', array('{id}' => $id))
             );
             $this->redirect(array('index'));
