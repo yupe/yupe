@@ -14,14 +14,13 @@ $config = array(
     'import'       => array(),
     'rules'        => array(),
     'components'   => array(),
-    'preload'      => array('bootstrap'),
+    'preload'      => array(),
     'modules'      => array(
         'install' => array(
             'class' => 'application.modules.install.InstallModule',
         ),
     ),
     'cache'        => array(),
-    'enableAssets' => false,
 );
 
 // Получаем настройки модулей
@@ -102,7 +101,6 @@ return array(
             'yupe'  => array(
                 'class'        => 'application.modules.yupe.YupeModule',
                 'brandUrl'     => 'http://yupe.ru?from=engine',
-                'enableAssets' => $config['enableAssets'],
                 'cache'        => true,
             ),
             // на продакшне gii рекомендуется отключить, подробнее: http://www.yiiframework.com/doc/guide/1.1/en/quickstart.first-app
@@ -123,18 +121,9 @@ return array(
     // конфигурирование основных компонентов (подробнее http://www.yiiframework.ru/doc/guide/ru/basics.component)
     'components' => CMap::mergeArray(
         array(
-            // assetsManager:
-            'assetManager' => array(
-                // Don't use on windows:
-                'forceCopy' => false,
-            ),
             'bootstrap' => array(
-                'class'          => 'bootstrap.components.Bootstrap',
-                'coreCss'        => true,
+                'class' => 'bootstrap.components.Bootstrap',
                 'responsiveCss'  => true,
-                'yiiCss'         => true,
-                'jqueryCss'      => true,
-                'enableJS'       => true,
                 'fontAwesomeCss' => true,
             ),
             // Работа с миграциями, обновление БД модулей

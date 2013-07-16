@@ -87,7 +87,7 @@ $form = $this->beginWidget(
         </div>
     </div>
 
-    <?php if(Yii::app()->hasModule('menu')):?>
+    <?php if(Yii::app()->hasModule('menu') && $model->isNewRecord):?>
         <?php echo CHtml::label(Yii::t('PageModule.page','Меню'),'menu_id');?>
         <?php echo CHtml::dropDownList('menu_id',$menuId,CHtml::listData(Menu::model()->active()->findAll(array('order' => 'name DESC')),'id','name'),array('empty' => Yii::t('PageModule.page','-выберите-')));?>
 
