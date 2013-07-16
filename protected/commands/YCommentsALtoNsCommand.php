@@ -54,6 +54,8 @@ class YCommentsALtoNsCommand extends CConsoleCommand
 
         // Создаем по одному корню для каждой сущности у которой есть комментарии
         if(!empty($oldRoots))
+        {
+            echo "Selecting models which contains comments -> [OK]\n";
             foreach($oldRoots as &$root)
             {
                 $insert = array(
@@ -70,6 +72,10 @@ class YCommentsALtoNsCommand extends CConsoleCommand
                 );
                 $db->createCommand()->insert("{{comment_comment}}",$insert);
             }
+        }else{
+            echo "Selecting models which contains comments -> [NO COMMENTS]\n";
+            Yii::app()->end();
+        }
 
         // Получаем только что созданные корни
         $newRoots = $db->createCommand()
