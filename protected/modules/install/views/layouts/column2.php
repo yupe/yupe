@@ -3,7 +3,7 @@
         <?php if (count($this->breadcrumbs))
             $this->widget('bootstrap.widgets.TbBreadcrumbs', array('links' => $this->breadcrumbs));
         ?><!-- breadcrumbs -->
-        <?php $this->widget('YFlashMessages'); ?>
+        <?php //$this->widget('YFlashMessages'); ?>
         <div id="content">
             <?php echo $content; ?>
         </div>
