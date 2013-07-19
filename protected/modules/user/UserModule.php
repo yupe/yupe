@@ -19,7 +19,7 @@ class UserModule extends YWebModule
     public $minCaptchaLength               = 3;
     public $maxCaptchaLength               = 6;
     public $documentRoot;
-    public $avatarsDir;
+    public $avatarsDir                     = 'avatars';
     public $avatarMaxSize                  = 10000;
     public $defaultAvatar                  = '/web/images/avatar.png';
     public $avatarExtensions               = array('jpg', 'png', 'gif');

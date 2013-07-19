@@ -24,7 +24,7 @@ $(document).ready(function() {
         submit.attr('disabled', 'disabled');
         $.ajax({
             type: 'post',
-            url: $(curForm).attr('action'),
+            url: baseUrl + $(curForm).attr('action'),
             data: $(curForm).serialize(),
             success: function(data) {
                 $(curForm).removeClass('loading');
@@ -37,9 +37,9 @@ $(document).ready(function() {
                         appendData = data.data.commentContent;
                     }
                     curForm.reset();
-                    messageBox = '<div id="messageBox" class="flash"><div class="flash-success"><b>' + data.data.message + '</b></div></div>';
+                    messageBox = '<div id="messageBox" class="alert alert-success">' + data.data.message + '</div>';
                 } else {
-                    messageBox = '<div id="messageBox" class="flash"><div class="flash-error"><b>' + data.data.message + '</b></div></div>';
+                    messageBox = '<div id="messageBox" class="alert alert-error">' + data.data.message + '</div>';
                 }
                 if (container.attr('id') != 'comments')
                     container = $(container.parent('div')[0]);
@@ -65,7 +65,8 @@ $(document).ready(function() {
                     message = data.data.message;
                 else
                     message = errorMessage;
-                messageBox = '<div id="messageBox" class="flash"><div class="flash-error"><b>' + message + '</b></div></div>';
+                alert(33);
+                messageBox = '<div id="messageBox" class="alert alert-error">' + message + '</div>';
                 $(curForm).before(messageBox);
                 setTimeout(function() {
                     $("#messageBox").fadeOut('slow').remove();
