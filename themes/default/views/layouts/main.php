@@ -9,6 +9,10 @@
     <title><?php echo CHtml::encode($this->pageTitle); ?></title>
 </head>
 
+<script type="text/javascript">
+    var baseUrl = '<?php echo Yii::app()->baseUrl?>';
+</script>
+
 <body>
 
     <?php  $this->widget('application.modules.menu.widgets.MenuWidget',array('name' => 'top-menu'));?>

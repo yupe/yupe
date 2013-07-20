@@ -49,7 +49,9 @@ class CommentsListWidget extends YWidget
     public function init()
     {
         if ($this->comment === null) {
-            Yii::app()->clientScript->registerScriptFile(Yii::app()->theme->baseUrl . '/web/js/commentlist.js');
+            Yii::app()->clientScript->registerScriptFile(
+                Yii::app()->assetManager->publish(Yii::app()->theme->basePath . '/web/js/commentlist.js')
+            );
             if ((empty($this->model) && empty($this->modelId)) && empty($this->comments)) {
                 throw new CException(
                     Yii::t(

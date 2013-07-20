@@ -73,6 +73,7 @@
             'name'  => 'email_confirm',
             'value' => $model->getEmailConfirmStatus(),
         ),
+        'use_gravatar',
         'last_visit',
         'registration_date',
         'registration_ip',

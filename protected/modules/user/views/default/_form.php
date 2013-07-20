@@ -45,9 +45,21 @@ $form = $this->beginWidget('bootstrap.widgets.TbActiveForm', array(
     </div>
     <div class="row-fluid control-group <?php echo $model->hasErrors('about') ? 'error' : ''; ?>">
         <div class="popover-help" data-original-title='<?php echo $model->getAttributeLabel('about'); ?>' data-content='<?php echo $model->getAttributeDescription('about'); ?>'>
-            <?php echo $form->textAreaRow($model, 'about', array('class' => 'span7')); ?>
+            <?php
+            $this->widget(
+                $this->module->editor, array(
+                    'model' => $model,
+                    'attribute' => 'about',
+                    'options' => $this->module->editorOptions,
+                )
+            ); ?>
         </div>
     </div>
+
+    <div class="row-fluid control-group <?php echo $model->hasErrors('use_gravatar') ? 'error' : ''; ?>">
+        <?php echo $form->checkBoxRow($model, 'use_gravatar', $model->gendersList,array('class' => 'popover-help span7','data-original-title' => $model->getAttributeLabel('use_gravatar'), 'data-content' => $model->getAttributeDescription('use_gravatar'))); ?>
+    </div>
+
     <div class="row-fluid control-group <?php echo $model->hasErrors('gender') ? 'error' : ''; ?>"> 
         <?php echo $form->dropDownListRow($model, 'gender', $model->gendersList,array('class' => 'popover-help span7','data-original-title' => $model->getAttributeLabel('gender'), 'data-content' => $model->getAttributeDescription('gender'))); ?>
     </div>

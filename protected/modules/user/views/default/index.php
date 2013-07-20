@@ -61,7 +61,12 @@ $this->renderPartial('_search', array('model' => $model));
                 'style'   => 'width: 40px; text-align: center'
             )
         ),
-         array(
+        array(
+            'name'  => 'use_gravatar',
+            'type'  => 'html',
+            'value' => 'CHtml::image($data->getAvatar(32),$data->getFullName())'
+        ),
+        array(
             'name'  => 'nick_name',
             'type'  => 'raw',
             'value' => 'CHtml::link($data->nick_name, array("/user/default/update", "id" => $data->id))',
@@ -70,7 +75,7 @@ $this->renderPartial('_search', array('model' => $model));
         array(
             'name'   => 'access_level',
             'value'  => '$data->getAccessLevel()',
-            'filter' => CHtml::activeDropDownList($model, 'access_level', $model->accessLevelsList),
+            'filter' => $model->getAccessLevelsList(),
         ),
         array(
             'name'  => 'creation_date',
@@ -78,9 +83,10 @@ $this->renderPartial('_search', array('model' => $model));
         ),
         'last_visit',
         array(
-            'name'  => 'status',
-            'type'  => 'raw',
-            'value' => '$this->grid->returnBootstrapStatusHtml($data, "status", "Status")',
+            'name'   => 'status',
+            'type'   => 'raw',
+            'value'  => '$this->grid->returnBootstrapStatusHtml($data, "status", "Status")',
+            'filter' => $model->getStatusList(),
         ),
         array(
             'class'    => 'bootstrap.widgets.TbButtonColumn',
