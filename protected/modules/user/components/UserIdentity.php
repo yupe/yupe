@@ -36,7 +36,7 @@ class UserIdentity extends CUserIdentity
     {
         $user = User::model()->active()->findByAttributes(array('email' => $this->username));
 
-        if ($user === null)
+        if (empty($user))
             $this->errorCode = self::ERROR_USERNAME_INVALID;
         else if (!$user->validatePassword($this->password))
             $this->errorCode = self::ERROR_PASSWORD_INVALID;
