@@ -27,7 +27,7 @@ class ProfileAction extends CAction
                 // скопируем данные формы
                 $data = $form->getAttributes();
                 $newPass = isset($data['password']) ? $data['password'] : null;
-                unset($data['password']);
+                unset($data['password'], $data['avatar']);
 
                 $orgMail = $user->email;
                 $user->setAttributes($data);
@@ -87,6 +87,37 @@ class ProfileAction extends CAction
                             Yii::t('UserModule.user', 'Вам необходимо продтвердить новый e-mail, проверьте почту!')
                         );
                     }
+                    
+                    //Обновляем аватарку
+                    $uploadedFile = CUploadedFile::getInstance($form, 'avatar');
+
+                    $avatarsDir = Yii::app()->getModule('user')->avatarsDir;
+                    
+                    $basePath   = Yii::app()->basePath . "/../" . $avatarsDir ;
+                    
+                    //создаем каталог, если не существует
+                    if(!file_exists($basePath)) {
+                        mkdir($basePath);
+                    }
+
+                    $basePath .= '/';
+                    
+                    $filename = $user->id . '.' . $uploadedFile->extensionName;
+
+                    if($user->avatar) {
+                        //remove old resized avatars
+                        if(file_exists($basePath . $filename))
+                            unlink($basePath . $filename);
+                        
+                        foreach (glob($basePath . $user->id . '_*.*') as $oldThumbnail) {
+                            unlink($oldThumbnail);
+                        }
+                    }
+
+                    $uploadedFile->saveAs($basePath . $filename);
+
+                    $user->avatar = $filename;
+                    
                     // Сохраняем профиль
                     $user->save(false);
 
@@ -106,6 +137,6 @@ class ProfileAction extends CAction
                      );
             }
         }
-        $this->controller->render('profile', array('model' => $form, 'module' => $module));
+        $this->controller->render('profile', array('model' => $form, 'module' => $module, 'user' => $user));
     }
 }

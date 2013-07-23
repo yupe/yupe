@@ -4,8 +4,9 @@ $this->breadcrumbs = array(Yii::t('user', 'Профиль пользовател
 
 Yii::app()->clientScript->registerCss('profile', "
     input.confirmed { border: 1px solid #88d395; }
-    div.email-change-msg { display: none; } "
-);
+    div.email-change-msg { display: none; } 
+    .img-centered-100 { display: table-cell; vertical-align: middle; margin-left: auto; margin-right: auto; width: 100px; height: 100px; }
+");
 
 Yii::app()->clientScript->registerScript('regs', "
             $(function() {
@@ -47,6 +48,7 @@ $form = $this->beginWidget(
         'inlineErrors' => true,
         'htmlOptions' => array(
             'class' => 'well',
+            'enctype' => 'multipart/form-data',
         )
     ));
 ?>
@@ -54,6 +56,19 @@ $form = $this->beginWidget(
     <?php 
         echo  $form->errorSummary($model);
     ?>
+
+    <div class="row-fluid">
+        <div class="span2">
+            <i class="img-polaroid img-centered-100"><?php echo CHtml::image($user->getAvatar(100),$user->nick_name,array('width' => 100, 'height' => 100)); ?></i>
+        </div>
+        <div class="span4">
+            <?php echo $form->checkBoxRow($model, 'use_gravatar', array(
+                'hint'=> Yii::t('user','Если вы не пользуетесь Gravatar выберите аватарку из файла.')
+            )); ?>
+            
+            <?php echo $form->fileFieldRow($model, 'avatar'); ?>
+        </div>
+    </div>
 
     <div class="row-fluid">
         <?php echo $form->textFieldRow($model, 'last_name', array('class' => 'span6')) ?>
