@@ -341,8 +341,8 @@ class User extends YModel
                 if ($image->ext != 'gif' || $image->config['driver'] == "ImageMagick")
                     $image->resize($size, $size, CImage::AUTO)
                           ->crop($size, $size)
-                          ->quality(75)
-                          ->sharpen(20)
+                          ->quality(85)
+                          ->sharpen(15)
                           ->save($basePath . "/" . $sizedFile);
                 else
                     @copy($basePath . "/" . $this->avatar, $basePath . "/" . $sizedFile);

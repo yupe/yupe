@@ -5,10 +5,10 @@
         CHtml::encode($user->nick_name),
     );
 ?>
-<div style="float:left; margin-right: 20px; height:100px;">
-    <?php echo CHtml::image($user->getAvatar(100),$user->nick_name,array('width' => 100, 'height' => 100)); ?>
+<div style="float:left; margin-right: 20px; height: 100px;">
+    <?php $this->widget('Avatar', array('user' => $user)); ?>
 </div>
-<div style="float:left;">
+<div>
 <?php
 if (!$this->module->autoNick)
     echo CHtml::openTag("b") . CHtml::encode($user->nick_name) . CHtml::closeTag("b") . "<br />"; ?>

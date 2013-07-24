@@ -5,7 +5,6 @@ $this->breadcrumbs = array(Yii::t('user', 'Профиль пользовател
 Yii::app()->clientScript->registerCss('profile', "
     input.confirmed { border: 1px solid #88d395; }
     div.email-change-msg { display: none; } 
-    .img-centered-100 { display: table-cell; vertical-align: middle; margin-left: auto; margin-right: auto; width: 100px; height: 100px; }
 ");
 
 Yii::app()->clientScript->registerScript('regs', "
@@ -58,8 +57,8 @@ $form = $this->beginWidget(
     ?>
 
     <div class="row-fluid">
-        <div class="span2">
-            <i class="img-polaroid img-centered-100"><?php echo CHtml::image($user->getAvatar(100),$user->nick_name,array('width' => 100, 'height' => 100)); ?></i>
+        <div class="span3">
+            <?php $this->widget('Avatar', array('user' => $user)); ?>
         </div>
         <div class="span4">
             <?php echo $form->checkBoxRow($model, 'use_gravatar', array(
