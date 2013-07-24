@@ -339,7 +339,7 @@ class User extends YModel
                 // Есть! Можем сделать нужный размер
                 $image = Yii::app()->image->load($basePath . "/" . $this->avatar);
                 if ($image->ext != 'gif' || $image->config['driver'] == "ImageMagick")
-                    $image->resize($size, $size, CImage::AUTO)
+                    $image->resize($size, $size, CImage::WIDTH)
                           ->crop($size, $size)
                           ->quality(85)
                           ->sharpen(15)
