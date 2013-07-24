@@ -51,9 +51,7 @@ $form = $this->beginWidget(
     ));
 ?>
 
-    <?php 
-        echo  $form->errorSummary($model);
-    ?>
+    <?php echo  $form->errorSummary($model); ?>
 
     <div class="row-fluid">
         <?php echo $form->textFieldRow($model, 'last_name', array('class' => 'span6')) ?>
@@ -65,51 +63,79 @@ $form = $this->beginWidget(
 
     <div class="row-fluid">
         <?php echo $form->textFieldRow($model, 'middle_name', array('class' => 'span6')) ?>
-    </div>   
-        
+    </div>
+
     <div class="row-fluid">
         <?php echo $form->textFieldRow($model, 'email', array(
+            'autocomplete' => 'off',
             'class'=>'span6' . ( (Yii::app()->user->profile->email_confirm && !$model->hasErrors()) ? ' confirmed' : '' )
         )); ?>
         
-        <?php if (Yii::app()->user->profile->email_confirm && !$model->hasErrors())
-            echo '<p class="email-status-confirmed text-success">' . Yii::t('user',"E-Mail проверен") . '</p>';
-        elseif( !$model->hasErrors() )
-            echo '<p class="email-status-not-confirmed text-error">' . Yii::t('user','e-mail не подтвержден, проверьте почту!') . '</p>';
-        ?>
+        <?php if (Yii::app()->user->profile->email_confirm && !$model->hasErrors()):?>
+            <p class="email-status-confirmed text-success">
+                <?php echo Yii::t('user',"E-Mail проверен");?>
+            </p>
+        <?php elseif( !$model->hasErrors() ):?>
+            <p class="email-status-not-confirmed text-error">
+                <?php echo Yii::t('user','e-mail не подтвержден, проверьте почту!');?>
+            </p>
+        <?php endif?>
         
         <div class="row-fluid email-change-msg">
-            <?php
-            if (Yii::app()->user->profile->email_confirm)
-                echo '<p class="text-warning span6">' . Yii::t('user','Внимание! После смены e-mail адреса, вам будет выслано письмо для его подтверждения.') . '</p>';
-            ?>   
+            <?php if (Yii::app()->user->profile->email_confirm):?>
+                 <p class="text-warning span6">
+                    <?php echo Yii::t('user','Внимание! После смены e-mail адреса, вам будет выслано письмо для его подтверждения.');?>
+                 </p>
+            <?php endif;?>
         </div>
-        
+    </div>
+
+    <div class="row-fluid">
+        <?php
+        $this->widget('zii.widgets.jui.CJuiDatePicker', array(
+                'model' => $model,
+                'attribute' => 'birth_date',
+                // additional javascript options for the date picker plugin
+                'options'=>array(
+                    'showAnim'=>'fold',
+                    'dateFormat' => 'yy-mm-dd'
+                ),
+                'htmlOptions'=>array(
+                    'style'=>'height:20px;'
+                ),
+            ));
+        ?>
+    </div>
+
+    <div class="row-fluid">
+        <?php echo $form->textAreaRow($model, 'about', array('class' => 'span6','rows' => 7));?>
     </div>
 
     <hr>
     
     <div class="row-fluid">
-        <?php echo '<p class="password-change-msg muted span6">' . Yii::t('user','Если вы не желаете менять пароль &ndash; не заполняйте это и следующее поле') . '</p>'; ?>
+        <p class="password-change-msg muted span6">
+            <?php echo Yii::t('user','Оставьте поля пустыми если не меняете пароль');?>
+        </p>
     </div>
     
     <div class="row-fluid">
-        <?php echo $form->passwordFieldRow($model, 'password', array('class'=>'span6'));?>
-        
-        <label class="checkbox">
-            <input type="checkbox" value="1" id="show_pass"> <?php echo Yii::t('user','не прятать') ?>
-        </label>
+        <?php echo $form->passwordFieldRow($model, 'password', array('class'=>'span6','autocomplete' => 'off'));?>
     </div>
         
     <div class="row-fluid">
-        <?php echo $form->passwordFieldRow($model, 'cPassword', array('class'=>'span6'));?>
+        <?php echo $form->passwordFieldRow($model, 'cPassword', array('class'=>'span6','autocomplete' => 'off'));?>
+        <label class="checkbox">
+            <input type="checkbox" value="1" id="show_pass"> <?php echo Yii::t('user','показать пароль') ?>
+        </label>
     </div>
         
-    <?php
-    if (is_array($this->module->profiles)&&count($this->module->profiles))
-        foreach($this->module->profiles as $k=>$p)
-            $this->renderPartial("//".$k."/".$k."_profile", array("model"=>$p, "form"=>$form));
-    ?>
+    <?php if (is_array($this->module->profiles)&&count($this->module->profiles)):?>
+        <?php foreach($this->module->profiles as $k=>$p):?>
+            <?php $this->renderPartial("//".$k."/".$k."_profile", array("model"=>$p, "form"=>$form));?>
+        <?php endforeach;?>
+    <?php endif;?>
+
     <div class="row-fluid  control-group">
         
     <?php $this->widget(
