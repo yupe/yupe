@@ -33,29 +33,11 @@ class ImageWrapper extends CWidget
             $this->height = $this->width;
         }
         
-        Yii::app()->clientScript->registerCss('ImageWrapper', "
-            .img-wrapper-tocenter {
-                display: table-cell;
-                text-align: center;
-                vertical-align: middle;
-                /*width: 100px;
-                height: 100px;
-                background-color: black;*/
-            }
-            .img-wrapper-tocenter * {
-                vertical-align: middle;
-            }
-            /*\*//*/
-            .img-wrapper-tocenter {
-                display: block;
-            }
-            .img-wrapper-tocenter span {
-                display: inline-block;
-                height: 100%;
-                width: 1px;
-            }
-            /**/
-        ");
+        Yii::app()->clientScript->registerCssFile(
+            Yii::app()->assetManager->publish(
+                Yii::getPathOfAlias('image.widgets.assets').'/image-wrapper.css'
+            )
+        );
         
         $htmlOptions = array(
             'class' => 'img-wrapper-tocenter',
