@@ -12,7 +12,7 @@
 
                 <i class="icon-file-alt"></i>
                 Записей:
-                <?php echo $model->postsCount; ?>
+                <?php echo CHtml::link($model->postsCount,array('/blog/post/blog/','slug' => $model->slug)); ?>
             </p>
         </li>
         <?php $i++; if ($i != $cnt) echo '<hr>'; ?>

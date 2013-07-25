@@ -13,7 +13,7 @@
     <div class="span8">
         <p></p>
         <p>
-            <i class="icon-user"></i> <?php echo CHtml::link($data->createUser->nick_name, array('/user/people/userInfo', 'username' => $data->createUser->nick_name)); ?>
+            <?php echo CHtml::image($data->createUser->getAvatar(16),$data->createUser->nick_name);?> <?php echo CHtml::link($data->createUser->nick_name, array('/user/people/userInfo', 'username' => $data->createUser->nick_name)); ?>
             | <i class="icon-pencil"></i> <?php echo CHtml::link($data->blog->name, array('/blog/blog/show/', 'slug' => $data->blog->slug)); ?>
             | <i class="icon-calendar"></i> <?php echo Yii::app()->getDateFormatter()->formatDateTime($data->publish_date, "short", "short"); ?>
             | <i class="icon-comment"></i>  <?php echo CHtml::link($data->commentsCount, array('/blog/post/show/', 'slug' => $data->slug, '#' => 'comments'));?>

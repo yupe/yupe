@@ -2,7 +2,7 @@
     <?php $cnt = count($models); $i = 0; ?>
     <?php foreach ($models as $model): ?>
         <li>
-            <i class="icon-user"></i>
+            <?php echo CHtml::image($model->createUser->getAvatar(24),$model->createUser->nick_name);?>
             <?php echo CHtml::link(
                 CHtml::encode($model->createUser->nick_name),
                 array('/user/people/userInfo', 'username' => $model->createUser->nick_name)

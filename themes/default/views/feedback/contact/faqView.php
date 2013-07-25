@@ -9,7 +9,7 @@ $this->breadcrumbs = array(
 ?>
 
 <h1>
-    <?php echo Yii::t('feedback', 'Вопрос и ответ #{id}',array('{id}' => $model->id));?>
+    <?php echo $model->theme;?> #<?php echo $model->id;?>
     <?php
     $this->widget(
         'bootstrap.widgets.TbButton',

@@ -1,6 +1,6 @@
 <li class="span4">
     <div class="thumbnail">
-        <?php echo CHtml::image($data->image->getUrl(320), $data->image->alt);?>
+        <?php echo CHtml::image($data->image->getUrl(320), $data->image->alt, array('class' => '.gallery-image'));?>
         <div class="caption">
             <h3><?php echo $data->image->getName();?></h3>
             <p align="center">

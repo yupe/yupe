@@ -17,7 +17,7 @@
     <div class="span8">
         <p></p>
         <p>
-            <i class="icon-user"></i> <?php echo CHtml::link($data->createUser->nick_name, array('/user/people/userInfo', 'username' => $data->createUser->nick_name)); ?>
+            <?php echo CHtml::image($data->createUser->getAvatar(16),$data->createUser->nick_name);?>  <?php echo CHtml::link($data->createUser->nick_name, array('/user/people/userInfo', 'username' => $data->createUser->nick_name)); ?>
             | <i class="icon-calendar"></i> <?php echo Yii::app()->getDateFormatter()->formatDateTime($data->create_date, "short", "short"); ?>
             | <i class="icon-pencil"></i> <?php echo CHtml::link($data->postsCount, array('/blog/post/blog/', 'slug' => $data->slug));?>
         </p>

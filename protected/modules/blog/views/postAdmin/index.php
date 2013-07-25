@@ -76,9 +76,10 @@ $this->renderPartial('_search', array('model' => $model));
                 'value' => 'CHtml::link($data->title, array("/blog/postAdmin/update", "id" => $data->id))',
             ),
             array(
-                'name'  => 'blog_id',
-                'type'  => 'raw',
-                'value' => 'CHtml::link($data->blog->name, array("/blog/blogAdmin/view", "id" => $data->blog->id))',
+                'name'   => 'blog_id',
+                'type'   => 'raw',
+                'value'  => 'CHtml::link($data->blog->name, array("/blog/blogAdmin/view", "id" => $data->blog->id))',
+                'filter' => CHtml::listData(Blog::model()->findAll(),'id','name')
             ),
             array(
                 'name'  => 'category_id',
@@ -86,9 +87,15 @@ $this->renderPartial('_search', array('model' => $model));
                 'filter' => CHtml::listData($this->module->getCategoryListForPost(),'id','name')
             ),
             array(
+              'header' => Yii::t('BlogModule.blog','Теги'),
+              'value'  => 'implode(", ", $data->getTags())'
+
+            ),
+            array(
                 'name'  => 'access_type',
                 'type'  => 'raw',
                 'value' => '$this->grid->returnBootstrapStatusHtml($data, "access_type", "AccessType", array(1 => "globe", 2 => "home"))',
+                'filter' => Post::model()->getAccessTypeList()
             ),
             array(
                 'name'  => 'create_user_id',
@@ -100,18 +107,16 @@ $this->renderPartial('_search', array('model' => $model));
                 'value' => 'Yii::app()->getDateFormatter()->formatDateTime($data->publish_date, "short", "short")',
             ),
             array(
-                'name'  => 'create_date',
-                'value' => 'Yii::app()->getDateFormatter()->formatDateTime($data->create_date, "short", "short")',
-            ),
-            array(
                 'name'  => 'status',
                 'type'  => 'raw',
-                'value' => '$this->grid->returnBootstrapStatusHtml($data, "status", "Status", array("pencil", "ok-sign", "time"))',
+                'value'  => '$this->grid->returnBootstrapStatusHtml($data, "status", "Status", array("pencil", "ok-sign", "time"))',
+                'filter' => Post::model()->getStatusList()
             ),
             array(
                 'name'  => 'comment_status',
                 'type'  => 'raw',
                 'value' => '$this->grid->returnBootstrapStatusHtml($data, "comment_status", "CommentStatus", array(1 => "ok-sign", 2 => "lock"))',
+                'filter' => Post::model()->getCommentStatusList()
             ),
             array(
                 'header' => "<i class=\"icon-comment\"></i>",
