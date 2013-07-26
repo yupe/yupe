@@ -806,7 +806,7 @@ abstract class YWebModule extends CWebModule
     public function init()
     {
          
-        Yii::log("init {$this->id} ...",CLogger::LEVEL_ERROR,'modinit'); 
+        Yii::log("init {$this->id} ...",CLogger::LEVEL_INFO,'modinit'); 
 
         parent::init();
 
