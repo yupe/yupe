@@ -1,8 +1,10 @@
 <?php
+Yii::import('image.widgets.ImageWrapper');
+
 /*
  * Виджет для вывода аватарки
  */
-class Avatar extends CWidget
+class Avatar extends ImageWrapper
 {
     /**
      * Модель пользователя
@@ -16,11 +18,11 @@ class Avatar extends CWidget
     public $size = 100;
     
     public function run() {
-        $this->widget('image.widgets.ImageWrapper', array(
-                'imageSrc' => $this->user->getAvatar($this->size), 
-                'imageAlt' => $this->user->nick_name, 
-                'width' => $this->size . 'px',
-                'htmlOptions' => array('class' => 'avatar', 'id' => 'avatar-' . $this->user->id)
-        ));
+        $this->imageSrc = $this->user->getAvatar($this->size); 
+        $this->imageAlt = $this->user->nick_name;
+        $this->width = $this->size . 'px';
+        $this->htmlOptions = array('class' => 'avatar avatar-' . $this->user->id);
+        
+        parent::run();
     }
 }

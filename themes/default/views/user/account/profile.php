@@ -58,7 +58,7 @@ $form = $this->beginWidget(
 
     <div class="row-fluid">
         <div class="span3">
-            <?php $this->widget('Avatar', array('user' => $user)); ?>
+            <?php $this->widget('Avatar', array('user' => $user, 'noCache' => true)); ?>
         </div>
         <div class="span4">
             <?php echo $form->checkBoxRow($model, 'use_gravatar', array(
