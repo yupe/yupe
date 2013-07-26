@@ -422,4 +422,40 @@ class User extends YModel
             ? true
             : false;
     }
+    
+    /**
+     * Устанавливает новый аватар
+     * @param CUploadedFile $uploadedFile
+     */
+    public function changeAvatar(CUploadedFile $uploadedFile) {
+        $avatarsDir = Yii::app()->getModule('user')->avatarsDir;
+
+        $basePath   = Yii::app()->basePath . "/../" . $avatarsDir ;
+
+        //создаем каталог, если не существует
+        if(!file_exists($basePath)) {
+            mkdir($basePath);
+        }
+
+        $basePath .= '/';
+
+        // @TODO: возможно, лучше будет устанавливать уникальное имя для каждого
+        // обновленного аватара. Тогда, не будет проблем с закешированным изображением
+        // аватара на разных страницах. Сейчас это может проявляться.
+        $filename = $this->id . '.' . $uploadedFile->extensionName;
+
+        if($this->avatar) {
+            //remove old resized avatars
+            if(file_exists($basePath . $filename))
+                unlink($basePath . $filename);
+
+            foreach (glob($basePath . $this->id . '_*.*') as $oldThumbnail) {
+                unlink($oldThumbnail);
+            }
+        }
+
+        $uploadedFile->saveAs($basePath . $filename);
+
+        $this->avatar = $filename;
+    }
 }

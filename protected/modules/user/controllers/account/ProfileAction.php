@@ -91,34 +91,7 @@ class ProfileAction extends CAction
                     //Обновляем аватарку
                     $uploadedFile = CUploadedFile::getInstance($form, 'avatar');
                     if($uploadedFile) {
-                        
-                        $avatarsDir = Yii::app()->getModule('user')->avatarsDir;
-
-                        $basePath   = Yii::app()->basePath . "/../" . $avatarsDir ;
-
-                        //создаем каталог, если не существует
-                        if(!file_exists($basePath)) {
-                            mkdir($basePath);
-                        }
-
-                        $basePath .= '/';
-
-                        $filename = $user->id . '.' . $uploadedFile->extensionName;
-
-                        if($user->avatar) {
-                            //remove old resized avatars
-                            if(file_exists($basePath . $filename))
-                                unlink($basePath . $filename);
-
-                            foreach (glob($basePath . $user->id . '_*.*') as $oldThumbnail) {
-                                unlink($oldThumbnail);
-                            }
-                        }
-
-                        $uploadedFile->saveAs($basePath . $filename);
-
-                        $user->avatar = $filename;
-                    
+                        $user->changeAvatar($uploadedFile);
                     }
                     
                     // Сохраняем профиль
