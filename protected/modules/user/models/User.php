@@ -157,11 +157,7 @@ class User extends YModel
 
     public function beforeSave()
     {
-        $this->change_date = new CDbExpression(
-            Yii::app()->db->schema instanceof CSqliteSchema
-            ? 'DATETIME("now")'
-            :'NOW()'
-        );
+        $this->change_date = new CDbExpression('NOW()');
 
         if (!$this->isNewRecord
             && $this->admin()->count() == 1
@@ -177,8 +173,9 @@ class User extends YModel
             $this->activate_key      = $this->generateActivationKey();
         }
 
-        if ($this->birth_date === '')
+        if ($this->birth_date === '') {
             unset($this->birth_date);
+        }
 
         return parent::beforeSave();
     }

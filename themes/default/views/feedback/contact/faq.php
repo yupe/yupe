@@ -1,9 +1,10 @@
 <?php $this->pageTitle = Yii::t('feedback', 'Вопросы и ответы'); ?>
 
 <?php
-$this->breadcrumbs = array(
-    Yii::t('feedback', 'Вопросы и ответы'),
-);
+    $this->breadcrumbs = array(
+        Yii::t('feedback', 'Контакты') => array('/feedback/index/'),
+        Yii::t('feedback', 'Вопросы и ответы'),
+    );
 ?>
 
 <h1>

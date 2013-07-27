@@ -7,6 +7,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="">
     <meta name="author" content="">
+    <link rel="stylesheet" href="<?php echo Yii::app()->theme->baseUrl; ?>/web/css/main.css"/>
     <style type="text/css">
         body {
             padding-top: 60px;
@@ -72,64 +73,84 @@
 
     <!-- Example row of columns -->
     <div class="row">
-        <div class="span4">
-            <h2><i class="icon icon-user"></i> Пользователи</h2>
-            <p>Регистрация, авторизация, восстановление пароля, управление и блокировка пользователей</p>
+        <div class="span4 module-info">
+            <h3><i class="icon icon-user"></i> Пользователи</h3>
+            <p class="muted">
+                Регистрация, восстановление пароля через эл.почту, профили пользователей.
+            </p>
+            <p>
+                Модуль является инструментом контроля аудитории вашего сайта и предоставляет удобный интерфейс для управления пользователями.
+            </p>
         </div>
-        <div class="span4">
-            <h2><i class="icon icon-file"></i> Страницы</h2>
-            <p>Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus. Etiam porta sem malesuada magna mollis euismod. Donec sed odio dui. </p>
+
+        <div class="span4 module-info">
+            <h3><i class="icon icon-file-text"></i> Страницы</h3>
+            <p class="muted">
+                Модуль предназначен для создания на сайте неограниченного числа статических станиц.
+            </p>
+            <p>
+                Настройки модуля позволят подобрать удобный для вас WYSIWYG редактор или добавить свой если его нет в наборе.
+            </p>
         </div>
-        <div class="span4">
-            <h2><i class="icon icon-leaf"></i> Новости</h2>
-            <p>Donec sed odio dui. Cras justo odio, dapibus ac facilisis in, egestas eget quam. Vestibulum id ligula porta felis euismod semper. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus.</p>
+
+        <div class="span4 module-info">
+            <h3><i class="icon icon-bullhorn"></i> Новости</h3>
+            <p class="muted">
+                Используя этот модуль, вы можете поделиться на сайте любой информацией.
+            </p>
+            <p>
+                Возможно указывать срок публикации и отображать публикуемый материал в хронологической последовательности на нескольких языках.
+            </p>
         </div>
     </div>
 
     <div class="row">
-        <div class="span4">
-            <h2><i class="icon icon-pencil"></i> Блоги</h2>
-            <p>Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus. Etiam porta sem malesuada magna mollis euismod. Donec sed odio dui. </p>
+        <div class="span4 module-info">
+            <h3><i class="icon icon-pencil"></i> Блоги</h3>
+            <p class="muted">Модуль даст возможность вести как индивидуальные, так и коллективные блоги.</p>
+            <p>Данный модуль позволяет каждому зарегистрированному пользователю сайта вести свой собственный блог, что в свою очередь способствует повышению интерактивности вашего ресурса.</p>
+
+
         </div>
-        <div class="span4">
-            <h2><i class="icon icon-comment"></i> Комментариии</h2>
-            <p>Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus. Etiam porta sem malesuada magna mollis euismod. Donec sed odio dui. </p>
+        <div class="span4 module-info">
+            <h3><i class="icon icon-comment"></i> Комментариии</h3>
+            <p class="muted">
+                Можно комментировать любую сущность с выстраиванием древовидных комментариев.
+            </p>
+            <p>
+                С помощью этого модуля пользователи смогут активно участвовать в обсуждении материалов вашего сайта: анализировать статьи, оценивать фото- и видеоматериалы.
+            </p>
         </div>
-        <div class="span4">            
-            <h2><i class="icon icon-shopping-cart"></i> Каталог</h2>
-            <p>Donec sed odio dui. Cras justo odio, dapibus ac facilisis in, egestas eget quam. Vestibulum id ligula porta felis euismod semper. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus.</p>
+        <div class="span4 module-info">
+            <h3><i class="icon icon-shopping-cart"></i> Каталог</h3>
+            <p class="muted">Модуль для создания каталога позволит составлять на сайте неограниченный список продукции.</p>
+            <p>Для более удобной навигации по каталогу продукции возможно разбивать его на категории и подкатегории, использовать сортировку и постраничную разбивку(пагинацию). </p>
         </div>
     </div>
 
-    <div class="row">
-        <div class="span6">
-            <div class='alert alert-warning'>
-                <p><b>По вопросам разработки и поддержки - <a href='http://yupe.ru/feedback/index/?from=mainpage-support' target='_blank'>напишите нам</a> !</b></p>
-                <p>Читайте нас в <a href='http://twitter.com/yupecms' target='_blank'>twitter</a>, <a href='http://vk.com/amylabs' target='_blank'>Вконтакте</a>, <a href="https://www.facebook.com/amylabs.ru" target='_blank'>Facebook</a> или в <a href="https://plus.google.com/u/0/b/111468098477631231532/111468098477631231532/posts" target='_blank'>Google+</a></p>
-                <p>&nbsp;</p>
-            </div>
-        </div>
-
-        <div class="span6">
-            <div class="alert alert-warning">
-                <p>Помоги команде!</p>
-                <p>Я.Деньгами на <b>41001846363811</b></p>
-                <p>Webmoney на <b>R239262659267</b></p>
-            </div>
-         </div>
-    </div>
 
     <hr>
-
   <div class="row-fluid">
         <div class="span12">
             <div class="span3">
                 <ul class="unstyled">
                     <li>Ресурсы<li>
-                    <li><a href="https://twitter.com/yupecms" target="_blank">Twitter</a></li>
-                    <li><a href="http://vk.com/amylabs" target="_blank">Вконтакте</a></li>
-                    <li><a href="https://www.facebook.com/amylabs.ru" target="_blank">Facebook</a></li>
-                    <li><a href="https://plus.google.com/u/0/b/111468098477631231532/111468098477631231532/posts" target="_blank">Google+</a></li>
+                    <li>
+<!--                        <i class="icon-twitter">-->
+                        <a href="https://twitter.com/yupecms" target="_blank"></i> Twitter</a>
+                    </li>
+                    <li>
+<!--                        <i class="icon-vk"></i>-->
+                        <a href="http://vk.com/amylabs" target="_blank"> Вконтакте</a>
+                    </li>
+                    <li>
+<!--                        <i class="icon-facebook"></i>-->
+                        <a href="https://www.facebook.com/amylabs.ru" target="_blank"> Facebook</a>
+                    </li>
+                    <li>
+<!--                        <i class="icon-google-plus"></i>-->
+                        <a href="https://plus.google.com/u/0/b/111468098477631231532/111468098477631231532/posts" target="_blank">Google+</a>
+                    </li>
                     <li><a href="http://yupe.ru/blog/yupe-mini-cms-yii" target="_blank">Блог</a></li>
                     <li><a href="http://yupe.ru/" target="_blank">Сайт</a></li>
                 </ul>
@@ -161,7 +182,7 @@
                     <li>Наши друзья<li>
                     <li><a href="http://allframeworks.ru" target="_blank">allframeworks</a></li>
                     <li><a href="http://amylabs.ru" target="_blank">amylabs</a></li>
-                    <li><a href="http://yupe.ru/feedback/index/" target="_blank">Хочешь в друзья ?</a></li>
+                    <li><a href="http://yupe.ru/feedback/index/" target="_blank">Хочешь в друзья?</a></li>
                 </ul>
             </div>
         </div>

@@ -26,3 +26,9 @@ span.label a {
 .tags-cloud-widget span.label:hover {
     background: #F90;
 }
+
+/* modern layout */
+.module-info h3 {
+    margin-bottom: 0;
+}
+
