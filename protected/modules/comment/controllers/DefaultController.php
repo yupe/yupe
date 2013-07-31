@@ -25,15 +25,44 @@ class DefaultController extends YBackController
         {
             $model->attributes = $_POST['Comment'];
 
-            if ($model->save())
-            {
-                Yii::app()->user->setFlash(YFlashMessages::SUCCESS_MESSAGE,Yii::t('CommentModule.comment','Комментарий добавлен!'));
+            $rootNode = Comment::model()->findByAttributes(
+                array(
+                    "model" => $model->getAttribute("model"),
+                    "model_id" => $model->getAttribute("model_id"),
+                ),
+                "id=root"
+            );
 
-                $this->redirect(
-                    (array) Yii::app()->request->getPost(
-                        'submit-type', array('create')
-                    )
+            if ($rootNode === null) {
+                $rootAttributes = array(
+                    "user_id" => Yii::app()->user->getId(),
+                    "model" => $model->getAttribute("model"),
+                    "model_id" => $model->getAttribute("model_id"),
+                    "url" => "",
+                    "name" => "",
+                    "email" => "",
+                    "text" => "",
+                    "status" => Comment::STATUS_APPROVED,
+                    "ip" => ""
                 );
+
+                $rootNode = new Comment();
+                $rootNode->setAttributes($rootAttributes);
+                $rootNode->saveNode(false);
+            }
+
+            if ($rootNode->id > 0)
+            {
+                if ($model->appendTo($rootNode))
+                {
+                    Yii::app()->user->setFlash(YFlashMessages::SUCCESS_MESSAGE,Yii::t('CommentModule.comment','Комментарий добавлен!'));
+
+                    $this->redirect(
+                        (array) Yii::app()->request->getPost(
+                            'submit-type', array('create')
+                        )
+                    );
+                }
             }
         }
         $this->render('create', array('model' => $model));

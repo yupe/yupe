@@ -92,19 +92,55 @@ class CommentController extends YFrontController
         $comment->status = $module->defaultCommentStatus;
 
         if (Yii::app()->user->isAuthenticated()) {
-            $comment->setAttributes(
-                array(
-                    'user_id' => Yii::app()->user->getId(),
-                    'name'    => Yii::app()->user->getState('nick_name'),
-                    'email'   => Yii::app()->user->getState('email'),
-                )
+            $userAttributes = array(
+                'user_id' => Yii::app()->user->getId(),
+                'name'    => Yii::app()->user->getState('nick_name'),
+                'email'   => Yii::app()->user->getState('email'),
             );
 
+            $comment->setAttributes($userAttributes);
             if ($module->autoApprove)
                 $comment->status = Comment::STATUS_APPROVED;
         }
 
-        if ($comment->save()) {
+        $saveStatus = false;
+        $parentId = $comment->getAttribute('parent_id');
+        if($parentId > 0)
+        {
+            $rootForComment = Comment::model()->findByPk($parentId);
+            $saveStatus = $comment->appendTo($rootForComment);
+        }else{
+            $rootNode = Comment::model()->findByAttributes(
+                array(
+                    "model" => $comment->getAttribute("model"),
+                    "model_id" => $comment->getAttribute("model_id"),
+                ),
+                "id=root"
+            );
+
+            if ($rootNode === null) {
+                $rootAttributes = array(
+                    "user_id" => Yii::app()->user->getId(),
+                    "model" => $comment->getAttribute("model"),
+                    "model_id" => $comment->getAttribute("model_id"),
+                    "url" => "",
+                    "name" => "",
+                    "email" => "",
+                    "text" => "",
+                    "status" => Comment::STATUS_APPROVED,
+                    "ip" => ""
+                );
+
+                $rootNode = new Comment();
+                $rootNode->setAttributes($rootAttributes);
+                $rootNode->saveNode(false);
+            }
+            if ($rootNode->id > 0) {
+                $saveStatus = $comment->appendTo($rootNode);
+            }
+        }
+
+        if ($saveStatus) {
 
             // сбросить кэш
             Yii::app()->cache->delete("Comment{$comment->model}{$comment->model_id}");

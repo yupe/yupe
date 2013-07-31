@@ -45,14 +45,15 @@ if (!$this->comment)
 if (count($comments)) {
     if (!$this->comment)
         echo '<b> ' . $this->label . ' ' . count($comments) . '</b> <a href="#" id="post-updatecomments" title="Обновить комментарии"><i class="icon-repeat"></i></a> '.CHtml::link(CHtml::image(Yii::app()->theme->baseUrl.'/web/images/rss.png'),array('/comment/rss/feed','model' => $this->model, 'modelId' => $this->modelId));
-    foreach ($comments as &$commentArray) {
-        if (!$this->comment && isset($commentArray['childOf'])) {
-            $comment = &$commentArray['row'];
-            $level = count($commentArray['childOf']);
-        } else {
+    foreach ($comments as &$comment) {
+        if (!$this->comment && is_object($comment))
+        {
+            $level = $comment->level-2;
+        }else{
             $comment = $this->comment;
             $level = 1;
         }
+
         echo '<div style="margin-left: ' . (20 * $level) . 'px; " level="' . $level . '">' . "\n";
         echo ''
             . '<div class="well well-small" id="comment_'

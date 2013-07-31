@@ -9,7 +9,9 @@
     'import' => array(
         'application.components.*',
         'application.models.*',
-        'application.modules.queue.models.*'
+        'application.modules.queue.models.*',
+        'application.modules.yupe.extensions.tagcache.*',
+        'application.modules.yupe.components.migrator.*'
     ),
     // Перенаправляем журнал для cron-а в отдельные файлы
     'components' => array(
@@ -31,7 +33,17 @@
                     'levels' => 'trace',
                 ),
             ),
-        ),      
+        ),
+
+        'cache' => array(
+            'class' => 'CDummyCache',
+            'behaviors' => array(
+                'clear' => array(
+                    'class' => 'TaggingCacheBehavior',
+                ),
+            ),
+        ),
+
            // параметры подключения к базе данных, подробнее http://www.yiiframework.ru/doc/guide/ru/database.overview
         'db' => require(dirname(__FILE__) . '/db.php'),
     ),
