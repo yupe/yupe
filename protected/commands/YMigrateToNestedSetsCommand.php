@@ -1,6 +1,6 @@
 <?php
 /**
-* Converter to migrating existing comments
+* Converter for migrating existing comments
 * from Adjacency List to Nested Sets.
 *
 * @category YupeConsoleCommand
@@ -9,7 +9,7 @@
 * @author   Anton Kucherov <idexter.ru@gmail.com>
 * @link     http://yupe.ru
 */
-class YCommentsALtoNsCommand extends CConsoleCommand
+class YMigrateToNestedSetsCommand extends CConsoleCommand
 {
     const NS_MIGRATION_NAME = 'm130704_095200_comment_nestedsets';
 
