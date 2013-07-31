@@ -35,8 +35,11 @@ class YMigrateToNestedSetsCommand extends CConsoleCommand
         if(array_key_exists(self::NS_MIGRATION_NAME,$history)){
             echo "Checking for '".self::NS_MIGRATION_NAME."' migration -> [OK]\n";
         }else{
-            echo "Checking for '".self::NS_MIGRATION_NAME."' migration -> [FAILED]\n";
-            Yii::app()->end();
+            echo "Prepare for migrating to '".self::NS_MIGRATION_NAME."'...\n";
+            if($migrator->updateToLatest('comment'))
+            {
+                echo "Migrating to '".self::NS_MIGRATION_NAME."' migration -> [OK]\n";
+            }
         }
     }
 
@@ -74,6 +77,7 @@ class YMigrateToNestedSetsCommand extends CConsoleCommand
             }
         }else{
             echo "Selecting models which contains comments -> [NO COMMENTS]\n";
+            echo "Converted succesfully.\n";
             Yii::app()->end();
         }
 
@@ -146,5 +150,6 @@ class YMigrateToNestedSetsCommand extends CConsoleCommand
             $comment->setAttributes($other,false);
             $comment->appendTo($rootNode,false);
         }
+        echo "Converted succesfully.\n";
     }
 }
