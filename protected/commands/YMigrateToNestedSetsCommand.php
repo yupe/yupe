@@ -39,6 +39,9 @@ class YMigrateToNestedSetsCommand extends CConsoleCommand
             if($migrator->updateToLatest('comment'))
             {
                 echo "Migrating to '".self::NS_MIGRATION_NAME."' migration -> [OK]\n";
+            }else{
+                echo "Migrating to '".self::NS_MIGRATION_NAME."' migration -> [FAILED]\n";
+                Yii::app()->end();
             }
         }
     }
