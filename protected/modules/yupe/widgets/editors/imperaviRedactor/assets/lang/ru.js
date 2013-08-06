@@ -16,6 +16,7 @@ $.Redactor.opts.langs['ru'] = {
 	header2: 'Заголовок 2',
 	header3: 'Заголовок 3',
 	header4: 'Заголовок 4',
+	header5: 'Заголовок 5',
 	bold:  'Полужирный',
 	italic: 'Наклонный',
 	fontcolor: 'Цвет текста',
@@ -67,6 +68,7 @@ $.Redactor.opts.langs['ru'] = {
 	link_new_tab: 'Открывать в новой вкладке',
 	underline: 'Подчеркнутый',
 	alignment: 'Выравнивание',
-	filename: 'Название (необязательно)'
+	filename: 'Название (необязательно)',
+	edit: 'Ред.'
 };
 })( jQuery );

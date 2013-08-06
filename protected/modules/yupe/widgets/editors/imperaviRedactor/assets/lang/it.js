@@ -16,6 +16,7 @@ $.Redactor.opts.langs['it'] = {
 	header2: 'H2',
 	header3: 'H3',
 	header4: 'H4',
+	header5: 'H5',
 	bold:  'Grassetto',
 	italic: 'Corsivo',
 	superscript: 'Superscript',
@@ -69,6 +70,7 @@ $.Redactor.opts.langs['it'] = {
 	link_new_tab: 'Open link in new tab',
 	underline: 'Underline',
 	alignment: 'Alignment',
-	filename: 'Name (optional)'
+	filename: 'Name (optional)',
+	edit: 'Edit'
 };
 })( jQuery );

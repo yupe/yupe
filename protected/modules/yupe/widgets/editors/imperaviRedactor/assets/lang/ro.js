@@ -16,6 +16,7 @@ $.Redactor.opts.langs['ro'] = {
 	header2: 'Titlu 2',
 	header3: 'Titlu 3',
 	header4: 'Titlu 4',
+	header5: 'Titlu 5',
 	bold:  'Aldin (Bold)',
 	italic: 'Cursiv (Italic)',
 	fontcolor: 'Culoare font',
@@ -67,6 +68,7 @@ $.Redactor.opts.langs['ro'] = {
 	link_new_tab: 'Open link in new tab',
 	underline: 'Underline',
 	alignment: 'Alignment',
-	filename: 'Name (optional)'
+	filename: 'Name (optional)',
+	edit: 'Edit'
 };
 })( jQuery );

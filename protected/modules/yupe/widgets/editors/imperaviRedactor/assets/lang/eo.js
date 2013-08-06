@@ -16,6 +16,7 @@ $.Redactor.opts.langs['eo'] = {
 	header2: 'Kapo 2', // substantive
 	header3: 'Kapo 3', // substantive
 	header4: 'Kapo 4', // substantive
+	header5: 'Kapo 5', // substantive
 	bold:  'Grasa', // adjective
 	italic: 'Kursiva', // adjective
 	fontcolor: 'Tipara koloro', // substantive
@@ -67,6 +68,7 @@ $.Redactor.opts.langs['eo'] = {
 	link_new_tab: 'Malfermu hiperligilon en novan langeton', // imperative
 	underline: 'Substrekita', // adjective
 	alignment: 'Ĝisrandigo', // substantive
-	filename: 'Name (optional)'
+	filename: 'Name (optional)',
+	edit: 'Edit'
 };
 })( jQuery );

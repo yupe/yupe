@@ -14,6 +14,9 @@ $.Redactor.opts.langs['by'] = {
     code: 'Код',
     header1: 'Загаловак 1',
     header2: 'Загаловак 2',
+    header3: 'Загаловак 3',
+    header4: 'Загаловак 4',
+    header5: 'Загаловак 5',
     bold: 'Паўтлусты',
     italic: 'Нахільны',
     fontcolor: 'Колер тэксту',
@@ -66,6 +69,7 @@ $.Redactor.opts.langs['by'] = {
 	link_new_tab: 'Open link in new tab',
 	underline: 'Underline',
 	alignment: 'Alignment',
-	filename: 'Name (optional)'
+	filename: 'Name (optional)',
+	edit: 'Edit'
 };
 })( jQuery );

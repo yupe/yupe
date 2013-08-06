@@ -16,6 +16,7 @@ $.Redactor.opts.langs['sr-cir'] = {
 	header2: 'Заглавље 2',
 	header3: 'Заглавље 3',
 	header4: 'Заглавље 4',
+	header5: 'Заглавље 5',
 	bold: 'Подебљај',
 	italic: 'Накоси',
 	fontcolor: 'Боја слова',
@@ -70,6 +71,7 @@ $.Redactor.opts.langs['sr-cir'] = {
 	link_new_tab: 'Open link in new tab',
 	underline: 'Underline',
 	alignment: 'Alignment',
-	filename: 'Name (optional)'
+	filename: 'Name (optional)',
+	edit: 'Edit'
 };
 })( jQuery );

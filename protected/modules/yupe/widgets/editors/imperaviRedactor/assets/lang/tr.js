@@ -16,6 +16,7 @@ $.Redactor.opts.langs['tr'] = {
 	header2: 'Başlık 2',
 	header3: 'Başlık 3',
 	header4: 'Başlık 4',
+	header5: 'Başlık 5',
 	bold:  'Kalın',
 	italic: 'Eğik',
 	fontcolor: 'Yazı rengi',
@@ -67,6 +68,7 @@ $.Redactor.opts.langs['tr'] = {
 	link_new_tab: 'Bağlantıyı yeni pencerede aç',
 	underline: 'Altı çizgili',
 	alignment: 'Hizalama',
-	filename: 'Name (optional)'
+	filename: 'Name (optional)',
+	edit: 'Edit'
 };
 })( jQuery );
