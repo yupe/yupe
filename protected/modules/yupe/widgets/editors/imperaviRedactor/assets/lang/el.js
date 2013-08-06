@@ -16,6 +16,7 @@ $.Redactor.opts.langs['el'] = {
 	header2: 'Κεφαλίδα 2',
 	header3: 'Κεφαλίδα 3',
 	header4: 'Κεφαλίδα 4',
+	header5: 'Κεφαλίδα 5',
 	bold:  'Έντονα',
 	italic: 'Πλάγια',
 	fontcolor: 'Χρώμα γραμματοσειράς',
@@ -66,6 +67,7 @@ $.Redactor.opts.langs['el'] = {
 	link_new_tab: 'Open link in new tab',
 	underline: 'Underline',
 	alignment: 'Alignment',
-	filename: 'Name (optional)'
+	filename: 'Name (optional)',
+	edit: 'Edit'
 };
 })( jQuery );

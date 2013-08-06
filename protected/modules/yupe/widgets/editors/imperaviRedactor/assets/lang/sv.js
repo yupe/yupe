@@ -16,6 +16,7 @@ $.Redactor.opts.langs['sv'] = {
 	header2: 'Rubrik 2',
 	header3: 'Rubrik 3',
 	header4: 'Rubrik 4',
+	header5: 'Rubrik 5',
 	bold:  'Fet',
 	italic: 'Kursiv',
 	fontcolor: 'Typsnittsfärg',
@@ -67,6 +68,7 @@ $.Redactor.opts.langs['sv'] = {
 	link_new_tab: 'Öppna länk i ny flik',
 	underline: 'Underline',
 	alignment: 'Alignment',
-	filename: 'Name (optional)'
+	filename: 'Name (optional)',
+	edit: 'Edit'
 };
 })( jQuery );

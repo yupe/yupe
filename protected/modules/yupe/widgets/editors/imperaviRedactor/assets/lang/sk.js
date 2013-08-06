@@ -16,6 +16,7 @@ $.Redactor.opts.langs['sk'] = {
 	header2: 'Nadpis 2',
 	header3: 'Nadpis 3',
 	header4: 'Nadpis 4',
+	header5: 'Nadpis 5',
 	bold:  'Tučné',
 	italic: 'Kurzíva',
 	fontcolor: 'Farba písma',
@@ -67,6 +68,7 @@ $.Redactor.opts.langs['sk'] = {
 	link_new_tab: 'Open link in new tab',
 	underline: 'Underline',
 	alignment: 'Alignment',
-	filename: 'Name (optional)'
+	filename: 'Name (optional)',
+	edit: 'Edit'
 };
 })( jQuery );

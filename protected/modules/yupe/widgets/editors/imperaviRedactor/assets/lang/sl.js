@@ -16,6 +16,7 @@ $.Redactor.opts.langs['sl'] = {
 	header2: 'Naslov 2',
 	header3: 'Naslov 3',
 	header4: 'Naslov 4',
+	header5: 'Naslov 5',
 	bold: 'Odebeljeno',
 	italic: 'Poševno',
 	fontcolor: 'Barva pisave',
@@ -70,6 +71,7 @@ $.Redactor.opts.langs['sl'] = {
 	link_new_tab: 'Odpri povezavo v novem oknu/tabu',
 	underline: 'Podčrtano',
 	alignment: 'Poravnava',
-	filename: 'Name (optional)'
+	filename: 'Name (optional)',
+	edit: 'Edit'
 };
 })( jQuery );

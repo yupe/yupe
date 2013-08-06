@@ -16,6 +16,7 @@ $.Redactor.opts.langs['th'] = {
 	header2: 'หัวข้อ 2',
 	header3: 'หัวข้อ 3',
 	header4: 'หัวข้อ 4',
+	header5: 'หัวข้อ 5',
 	bold:  'ตัวหน้า',
 	italic: 'ตัวเอียง',
 	fontcolor: 'สีตัวอักษร',
@@ -66,6 +67,7 @@ $.Redactor.opts.langs['th'] = {
 	link_new_tab: 'เปิดลิงค์ในแทปใหม่',
 	underline: 'เส้นใต้',
 	alignment: 'การจัดวาง',
-	filename: 'Name (optional)'
+	filename: 'Name (optional)',
+	edit: 'Edit'
 };
 })( jQuery );
