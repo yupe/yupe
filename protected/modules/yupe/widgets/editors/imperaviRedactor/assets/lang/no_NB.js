@@ -16,6 +16,7 @@
 		header2: 'Overskrift 2',
 		header3: 'Overskrift 3',
 		header4: 'Overskrift 4',
+		header5: 'Overskrift 5',
 		bold: 'Fet',
 		italic: 'Kursiv',
 		fontcolor: 'Tekstfarge',
@@ -66,6 +67,7 @@
 		link_new_tab: '&Aring;pne link i ny fane',
 		underline: 'Understreking',
 		alignment: 'Justering',
-		filename: 'Filnavn (valgfritt)'
+		filename: 'Filnavn (valgfritt)',
+		edit: 'Edit'
 	};
 })(jQuery);

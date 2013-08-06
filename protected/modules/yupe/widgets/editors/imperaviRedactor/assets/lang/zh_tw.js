@@ -16,6 +16,7 @@ $.Redactor.opts.langs['zh_tw'] = {
 	header2: '標題 2',
 	header3: '標題 3',
 	header4: '標題 4',
+	header5: '標題 5',
 	bold:  '將文字變成粗體',
 	italic: '將文字變成斜體',
 	fontcolor: '選擇文字顏色',
@@ -67,6 +68,7 @@ $.Redactor.opts.langs['zh_tw'] = {
 	link_new_tab: 'Open link in new tab',
 	underline: 'Underline',
 	alignment: 'Alignment',
-	filename: 'Name (optional)'
+	filename: 'Name (optional)',
+	edit: 'Edit'
 };
 })( jQuery );

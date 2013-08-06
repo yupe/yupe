@@ -16,6 +16,7 @@ $.Redactor.opts.langs['pt_br'] = {
 	header2: 'T&iacute;tulo 2',
 	header3: 'T&iacute;tulo 3',
 	header4: 'T&iacute;tulo 4',
+	header5: 'T&iacute;tulo 5',
 	bold:  'Negrito',
 	italic: 'It&aacute;lico',
 	fontcolor: 'Cor da fonte',
@@ -73,6 +74,7 @@ $.Redactor.opts.langs['pt_br'] = {
 	link_new_tab: 'Open link in new tab',
 	underline: 'Underline',
 	alignment: 'Alignment',
-	filename: 'Name (optional)'
+	filename: 'Name (optional)',
+	edit: 'Edit'
 };
 })( jQuery );

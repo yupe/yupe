@@ -16,6 +16,7 @@ $.Redactor.opts.langs['ar'] = {
 	header2: 'ترويسة 2',
 	header3: 'ترويسة 3',
 	header4: 'ترويسة 4',
+	header5: '5 ترويسة',
 	bold:  'غليظ',
 	italic: 'مائل',
 	fontcolor: 'لون الخط',
@@ -67,6 +68,7 @@ $.Redactor.opts.langs['ar'] = {
 	link_new_tab: 'Open link in new tab',
 	underline: 'Underline',
 	alignment: 'Alignment',
-	filename: 'Name (optional)'
+	filename: 'Name (optional)',
+	edit: 'Edit'
 };
 })( jQuery );

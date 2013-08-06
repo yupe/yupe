@@ -16,6 +16,7 @@ $.Redactor.opts.langs['lv'] = {
 	header2: 'Virsraksts 2',
 	header3: 'Virsraksts 3',
 	header4: 'Virsraksts 4',
+	header5: 'Virsraksts 5',
 	bold:  'Pustrekns',
 	italic: 'Slīps',
 	fontcolor: 'Teksta krāsa',
@@ -66,6 +67,7 @@ $.Redactor.opts.langs['lv'] = {
 	link_new_tab: 'Open link in new tab',
 	underline: 'Underline',
 	alignment: 'Alignment',
-	filename: 'Name (optional)'
+	filename: 'Name (optional)',
+	edit: 'Edit'
 };
 })( jQuery );

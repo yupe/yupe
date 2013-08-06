@@ -16,6 +16,7 @@ $.Redactor.opts.langs['lt'] = {
 	header2: 'Antraštė 2',
 	header3: 'Antraštė 3',
 	header4: 'Antraštė 4',
+	header5: 'Antraštė 5',
 	bold:  'Ryškus',
 	italic: 'Pasviras',
 	fontcolor: 'Teksto spalva',
@@ -66,6 +67,7 @@ $.Redactor.opts.langs['lt'] = {
 	link_new_tab: 'Atidaryti nuorodą naujame lange',
 	underline: 'Underline',
 	alignment: 'Alignment',
-	filename: 'Name (optional)'
+	filename: 'Name (optional)',
+	edit: 'Edit'
 };
 })( jQuery );
