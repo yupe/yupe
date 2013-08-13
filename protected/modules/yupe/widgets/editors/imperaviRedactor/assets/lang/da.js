@@ -16,6 +16,7 @@ $.Redactor.opts.langs['da'] = {
     header2: 'Overskrift 2',
     header3: 'Overskrift 3',
     header4: 'Overskrift 4',
+    header5: 'Overskrift 5',
     bold:  'Fed',
     italic: 'Kursiv',
     fontcolor: 'Skriftfarve',
@@ -67,6 +68,7 @@ $.Redactor.opts.langs['da'] = {
 	link_new_tab: 'Open link in new tab',
 	underline: 'Underline',
 	alignment: 'Alignment',
-	filename: 'Name (optional)'
+	filename: 'Name (optional)',
+	edit: 'Edit'
 };
 })( jQuery );

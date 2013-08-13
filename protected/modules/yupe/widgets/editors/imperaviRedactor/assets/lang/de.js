@@ -16,6 +16,7 @@ $.Redactor.opts.langs['de'] = {
 	header2: 'Überschrift 2',
 	header3: 'Überschrift 3',
     header4: 'Überschrift 4',
+    header5: 'Überschrift 5',
 	bold:  'Fett',
 	italic: 'Kursiv',
 	fontcolor: 'Schriftfarbe',
@@ -71,6 +72,7 @@ $.Redactor.opts.langs['de'] = {
 	link_new_tab: 'Link in neuem Tab öffnen',
 	underline: 'Unterstrichen',
 	alignment: 'Ausrichtung',
-	filename: 'Name (optional)'
+	filename: 'Name (optional)',
+	edit: 'Edit'
 };
 })( jQuery );

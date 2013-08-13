@@ -16,6 +16,7 @@ $.Redactor.opts.langs['sq'] = {
 	header2: 'Header 2',
 	header3: 'Header 3',
 	header4: 'Header 4',
+	header5: 'Header 5',
 	bold:  'Te trasha / Bold',
 	italic: 'Kursive / Italic',
 	fontcolor: 'Ngjyra e shkronjave',
@@ -70,6 +71,7 @@ $.Redactor.opts.langs['sq'] = {
 	link_new_tab: 'Open link in new tab',
 	underline: 'Underline',
 	alignment: 'Alignment',
-	filename: 'Name (optional)'
+	filename: 'Name (optional)',
+	edit: 'Edit'
 };
 })( jQuery );

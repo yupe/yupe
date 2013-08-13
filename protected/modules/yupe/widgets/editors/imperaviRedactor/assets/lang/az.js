@@ -16,6 +16,7 @@ $.Redactor.opts.langs['az'] = {
 	header2: 'Başlıq 2',
 	header3: 'Başlıq 3',
 	header4: 'Başlıq 4',
+	header5: 'Başlıq 5',
 	bold:  'Qalın',
 	italic: 'Kursiv',
 	fontcolor: 'Yazı Rəngi',
@@ -66,6 +67,7 @@ $.Redactor.opts.langs['az'] = {
 	link_new_tab: 'Linki yeni tabda aç',
 	underline: 'Altıxətli',
 	alignment: 'Düzləndirmə',
-	filename: 'Name (optional)'
+	filename: 'Name (optional)',
+	edit: 'Edit'
 };
 })( jQuery );

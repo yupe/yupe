@@ -16,6 +16,7 @@ $.Redactor.opts.langs['ja'] = {
 	header2: 'ヘッダー 2',
 	header3: 'ヘッダー 3',
 	header4: 'ヘッダー 4',
+	header5: 'ヘッダー 5',
 	bold:  '太字',
 	italic: 'イタリック',
 	fontcolor: 'フォント色',
@@ -67,6 +68,7 @@ $.Redactor.opts.langs['ja'] = {
 	link_new_tab: 'Open link in new tab',
 	underline: 'Underline',
 	alignment: 'Alignment',
-	filename: 'Name (optional)'
+	filename: 'Name (optional)',
+	edit: 'Edit'
 };
 })( jQuery );

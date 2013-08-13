@@ -16,6 +16,7 @@ $.Redactor.opts.langs['es'] = {
 	header2: 'Cabecera 2',
 	header3: 'Cabecera 3',
 	header4: 'Cabecera 4',
+	header5: 'Cabecera 5',
 	bold:  'Negrita',
 	italic: 'Itálica',
 	fontcolor: 'Color fuente',
@@ -67,6 +68,7 @@ $.Redactor.opts.langs['es'] = {
 	link_new_tab: 'Open link in new tab',
 	underline: 'Underline',
 	alignment: 'Alignment',
-	filename: 'Name (optional)'
+	filename: 'Name (optional)',
+	edit: 'Edit'
 };
 })( jQuery );

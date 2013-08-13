@@ -16,6 +16,7 @@ $.Redactor.opts.langs['ba'] = {
 	header2: 'Zaglavlje 2',
 	header3: 'Zaglavlje 3',
 	header4: 'Zaglavlje 4',
+	header5: 'Zaglavlje 5',
 	bold: 'Podebljaj',
 	italic: 'Nakosi',
 	fontcolor: 'Boja slova',
@@ -70,6 +71,7 @@ $.Redactor.opts.langs['ba'] = {
 	link_new_tab: 'Open link in new tab',
 	underline: 'Underline',
 	alignment: 'Alignment',
-	filename: 'Name (optional)'
+	filename: 'Name (optional)',
+	edit: 'Edit'
 };
 })( jQuery );

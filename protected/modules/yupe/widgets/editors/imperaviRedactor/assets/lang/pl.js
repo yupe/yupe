@@ -16,6 +16,7 @@ $.Redactor.opts.langs['pl'] = {
 	header2: 'Nagłówek 2',
 	header3: 'Nagłówek 3',
 	header4: 'Nagłówek 4',
+	header5: 'Nagłówek 5',
 	bold:  'Pogrubiony',
 	italic: 'Pochylony',
 	fontcolor: 'Kolor tekstu',
@@ -67,6 +68,7 @@ $.Redactor.opts.langs['pl'] = {
 	link_new_tab: 'Otwórz link w nowym oknie',
 	underline: 'Pokdreślony',
 	alignment: 'Wyrównanie',
-	filename: 'Name (optional)'
+	filename: 'Name (optional)',
+	edit: 'Edit'
 };
 })( jQuery );

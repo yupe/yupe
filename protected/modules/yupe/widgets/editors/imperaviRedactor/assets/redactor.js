@@ -1,6 +1,6 @@
 /*
-	Redactor v9.0.1
-	Updated: Jun 10, 2013
+	Redactor v9.1.0
+	Updated: Aug 5, 2013
 
 	http://imperavi.com/redactor/
 
@@ -13,6 +13,7 @@
 (function($)
 {
 	var uuid = 0;
+	var rtePaste = false;
 
 	"use strict";
 
@@ -71,25 +72,8 @@
 	}
 
 	$.Redactor = Redactor;
-	$.Redactor.VERSION = '9.0.1';
+	$.Redactor.VERSION = '9.1.0';
 	$.Redactor.opts = {
-
-			// callbacks
-			initCallback: false,
-			changeCallback: false,
-			focusCallback: false,
-			blurCallback: false,
-			keydownCallback: false,
-			keyupCallback: false,
-			execCommandCallback: false,
-			pasteBeforeCallback: false,
-			pasteAfterCallback: false,
-			autosaveCallback: false,
-			imageUploadCallback: false,
-			imageUploadErrorCallback: false,
-			imageDeleteCallback: false,
-			fileUploadCallback: false,
-			fileUploadErrorCallback: false,
 
 			// settings
 			rangy: false,
@@ -106,6 +90,9 @@
 			wym: false,
 			mobile: true,
 			cleanup: true,
+			pastePlainText: false,
+			removeEmptyTags: true,
+			templateVars: false,
 
 			visual: true,
 			focus: false,
@@ -122,11 +109,17 @@
 			linkAnchor: false,
 			linkEmail: false,
 			linkProtocol: 'http://',
+			linkNofollow: false,
 
 			imageGetJson: false, // url (ex. /folder/images.json ) or false
 
 			imageUpload: false, // url
 			fileUpload: false, // url
+			clipboardUpload: true, // or false
+			clipboardUploadUrl: false, // url
+			dragUpload: true, // false
+
+			dnbImageTypes: ['image/png', 'image/jpeg', 'image/gif'], // or false
 
 			s3: false,
 			uploadFields: false,
@@ -142,6 +135,7 @@
 
 			toolbar: true,
 			toolbarFixed: false,
+			toolbarFixedTarget: document,
 			toolbarFixedTopOffset: 0, // pixels
 			toolbarFixedBox: false,
 			toolbarExternal: false, // ID selector
@@ -171,12 +165,14 @@
 			},
 			activeButtonsAdd: false, // object, ex.: { tag: 'buttonName' }
 
-			formattingTags: ['p', 'blockquote', 'pre', 'h1', 'h2', 'h3', 'h4'],
+			formattingTags: ['p', 'blockquote', 'pre', 'h1', 'h2', 'h3', 'h4', 'h5', 'h6'],
 
 			linebreaks: false,
 			paragraphy: true,
 			convertDivs: true,
 			convertLinks: true,
+			convertImageLinks: false,
+			convertVideoLinks: false,
 			formattingPre: false,
 			phpTags: false,
 
@@ -187,12 +183,16 @@
 			italicTag: 'em',
 
 			// private
+			indentValue: 20,
 			buffer: [],
 			rebuffer: [],
 			textareamode: false,
 			emptyHtml: '<p>&#x200b;</p>',
 			invisibleSpace: '&#x200b;',
-			alignmentTags: ['H1', 'H2', 'H3', 'H4', 'H5', 'H6', 'P', 'TD', 'DIV', 'BLOCKQUOTE'],
+			rBlockTest: /^(P|H[1-6]|LI|ADDRESS|SECTION|HEADER|FOOTER|ASIDE|ARTICLE)$/i,
+			alignmentTags: ['P', 'H1', 'H2', 'H3', 'H4', 'H5', 'H6', 'DD', 'DL', 'DT', 'DIV', 'TD',
+								'BLOCKQUOTE', 'OUTPUT', 'FIGCAPTION', 'ADDRESS', 'SECTION',
+								'HEADER', 'FOOTER', 'ASIDE', 'ARTICLE'],
 			ownLine: ['area', 'body', 'head', 'hr', 'i?frame', 'link', 'meta', 'noscript', 'style', 'script', 'table', 'tbody', 'thead', 'tfoot'],
 			contOwnLine: ['li', 'dt', 'dt', 'h[1-6]', 'option', 'script'],
 			newLevel: ['blockquote', 'div', 'dl', 'fieldset', 'form', 'frameset', 'map', 'ol', 'p', 'pre', 'select', 'td', 'th', 'tr', 'ul'],
@@ -218,6 +218,7 @@
 					header2: 'Header 2',
 					header3: 'Header 3',
 					header4: 'Header 4',
+					header5: 'Header 5',
 					bold: 'Bold',
 					italic: 'Italic',
 					fontcolor: 'Font Color',
@@ -268,7 +269,8 @@
 					link_new_tab: 'Open link in new tab',
 					underline: 'Underline',
 					alignment: 'Alignment',
-					filename: 'Name (optional)'
+					filename: 'Name (optional)',
+					edit: 'Edit'
 				}
 			}
 	};
@@ -305,6 +307,7 @@
 				options
 			);
 
+			this.start = true;
 			this.dropdowns = [];
 
 			// get sizes
@@ -354,7 +357,7 @@
 			this.opts.curLang = this.opts.langs[this.opts.lang];
 
 			// Build
-			setTimeout($.proxy(this.buildStart, this), 1);
+			this.buildStart();
 
 		},
 		initToolbar: function(lang)
@@ -411,6 +414,12 @@
 							title: lang.header4,
 							func: 'formatBlocks',
 							className: 'redactor_format_h4'
+						},
+						h5:
+						{
+							title: lang.header5,
+							func: 'formatBlocks',
+							className: 'redactor_format_h5'
 						}
 					}
 				},
@@ -662,7 +671,35 @@
 
 				$elem.removeClass('redactor_editor').removeClass('redactor_editor_wym').removeAttr('contenteditable').html(html).show();
 			}
+
+			if (this.opts.air)
+			{
+				$('.redactor_air').remove();
+			}
 		},
+
+		// API GET
+		getObject: function()
+		{
+			return $.extend({}, this);
+		},
+		getEditor: function()
+		{
+			return this.$editor;
+		},
+		getBox: function()
+		{
+			return this.$box;
+		},
+		getIframe: function()
+		{
+			return (this.opts.iframe) ? this.$frame : false;
+		},
+		getToolbar: function()
+		{
+			return this.$toolbar;
+		},
+
 
 		// CODE GET & SET
 		get: function()
@@ -677,12 +714,14 @@
 
 			return html;
 		},
-		set: function(html, strip)
+		set: function(html, strip, placeholderRemove)
 		{
 			html = html.toString();
 
 			if (this.opts.fullpage) this.setCodeIframe(html);
 			else this.setEditor(html, strip);
+
+			if (placeholderRemove !== false) this.placeholderRemove();
 		},
 		setEditor: function(html, strip)
 		{
@@ -761,15 +800,13 @@
 
 			this.$source.val(html);
 
-			// TMP:
-			if (typeof htmlEncode != 'undefined')
-			{
-				$('#' + this.$element[0].id + '_code').html(htmlEncode(html));
-			}
-
 			// onchange & after callback
 			this.callback('syncAfter', false, html);
-			this.callback('change', false, html);
+
+			if (this.start === false)
+			{
+				this.callback('change', false, html);
+			}
 
 		},
 		syncClean: function(html)
@@ -786,21 +823,33 @@
 			html = html.replace(/&#8203;/gi, '');
 			html = html.replace(/&nbsp;/gi, ' ');
 
+			// link nofollow
+			if (this.opts.linkNofollow)
+			{
+				html = html.replace(/<a(.*?)rel="nofollow"(.*?)>/gi, '<a$1$2>');
+				html = html.replace(/<a(.*?)>/gi, '<a$1 rel="nofollow">');
+			}
+
 			// php code fix
 			html = html.replace('<!--?php', '<?php');
 			html = html.replace('?-->', '?>');
 
+			html = html.replace(/ data-tagblock=""/gi, '');
+			html = html.replace(/<br\s?\/?>\n?<\/(P|H[1-6]|LI|ADDRESS|SECTION|HEADER|FOOTER|ASIDE|ARTICLE)>/gi, '</$1>');
 
-			// Remove verified attr
-			html = html.replace(/<span(.*?)data-redactor="verified"(.*?)>([\w\W]*?)<\/span>/gi, '<font$1data-redactor="verified"$2>$3</font>');
-			html = html.replace(/<span(.*?)>([\w\W]*?)<\/span>/gi, '$2');
-			html = html.replace(/<font(.*?)data-redactor="verified"(.*?)>([\w\W]*?)<\/font>/gi, '<span$1$2>$3</span>');
+			// remove image resize
+			html = html.replace(/<span(.*?)id="redactor-image-box"(.*?)>([\w\W]*?)<img(.*?)><\/span>/i, '$3<img$4>');
+			html = html.replace(/<span(.*?)id="redactor-image-resizer"(.*?)>(.*?)<\/span>/i, '');
+			html = html.replace(/<span(.*?)id="redactor-image-editter"(.*?)>(.*?)<\/span>/i, '');
 
-			html = html.replace(/<br\s?\/?>\n?<\/(.*?)>/gi, '</$1>');
-
+			// remove spans
+			html = html.replace(/<span\s*?>([\w\W]*?)<\/span>/gi, '$1');
+			html = html.replace(/<span(.*?)data-redactor="verified"(.*?)>([\w\W]*?)<\/span>/gi, '<span$1$2>$3</span>');
 			html = html.replace(/<span(.*?)data-redactor-inlineMethods=""(.*?)>([\w\W]*?)<\/span>/gi, '<span$1$2>$3</span>' );
 			html = html.replace(/<span\s*?>([\w\W]*?)<\/span>/gi, '$1');
 			html = html.replace(/<span\s*?id="selection-marker(.*?)"(.*?)>([\w\W]*?)<\/span>/gi, '');
+			html = html.replace(/<span\s*?>([\w\W]*?)<\/span>/gi, '$1');
+			html = html.replace(/<span>([\w\W]*?)<\/span>/gi, '$1');
 
 			html = this.cleanReConvertProtected(html);
 
@@ -900,7 +949,7 @@
 			this.$source.attr('dir', this.opts.direction).hide();
 
 			// set code
-			this.set(this.content);
+			this.set(this.content, true, false);
 		},
 		buildOptions: function()
 		{
@@ -915,6 +964,8 @@
 		},
 		buildAfter: function()
 		{
+			this.start = false;
+
 			// load toolbar
 			if (this.opts.toolbar)
 			{
@@ -927,9 +978,6 @@
 
 			// plugins
 			this.buildPlugins();
-
-			// paste except opera
-			if (!this.browser('opera')) this.pasteInit();
 
 			// enter, tab, etc.
 			this.buildBindKeyboard();
@@ -968,230 +1016,14 @@
 		},
 		buildBindKeyboard: function()
 		{
-			this.$editor.on('keydown.redactor', $.proxy(function(e)
+			if (this.opts.dragUpload)
 			{
-				var key = e.which;
-				var ctrl = e.ctrlKey || e.metaKey;
-				var parent = this.getParent();
-				var current = this.getCurrent();
-				var block = this.getBlock();
-				var pre = false;
+				this.$editor.on('drop.redactor', $.proxy(this.buildEventDrop, this));
+			}
 
-				this.callback('keydown', e);
-
-				// pre & down
-				if ((parent && $(parent).get(0).tagName === 'PRE') || (current && $(current).get(0).tagName === 'PRE'))
-				{
-					pre = true;
-					if (key === this.keyCode.DOWN) this.insertAfterLastElement(block);
-				}
-
-				// down
-				if (key === this.keyCode.DOWN)
-				{
-					if (parent && $(parent).get(0).tagName === 'BLOCKQUOTE') this.insertAfterLastElement(parent);
-					if (current && $(current).get(0).tagName === 'BLOCKQUOTE') this.insertAfterLastElement(current);
-				}
-
-				// shortcuts setup
-				if (ctrl && !e.shiftKey) this.shortcuts(e, key);
-
-				// buffer setup
-				if (ctrl && key === 90 && !e.shiftKey && !e.altKey) // z key
-				{
-					e.preventDefault();
-					if (this.opts.buffer.length) this.bufferUndo();
-					else this.document.execCommand('undo', false, false);
-					return;
-				}
-				// undo
-				else if (ctrl && key === 90 && e.shiftKey && !e.altKey)
-				{
-					e.preventDefault();
-					if (this.opts.rebuffer.length != 0) this.bufferRedo();
-					else this.document.execCommand('redo', false, false);
-					return;
-				}
-
-				// select all
-				if (ctrl)
-				{
-					if (key === 65) this.selectall = true;
-					else if (key != this.keyCode.LEFT_WIN && !ctrl) this.selectall = false;
-				}
-
-				// enter
-				if (key == this.keyCode.ENTER && !e.shiftKey && !e.ctrlKey && !e.metaKey )
-				{
-					// In ie, opera in the tables are created paragraphs, fix it.
-					if (parent.nodeType == 1 && (parent.tagName == 'TD' || parent.tagName == 'TH'))
-					{
-						this.insertNode(document.createElement('br'));
-						e.preventDefault();
-						return false;
-					}
-
-					// pre
-					if (pre === true)
-					{
-						this.bufferSet();
-						e.preventDefault();
-
-						var html = $(current).parent().text();
-						this.insertNode(document.createTextNode('\n'));
-						if (html.search(/\s$/) == -1)
-						{
-							this.insertNode(document.createTextNode('\n'));
-						}
-
-						this.sync();
-
-						return false;
-					}
-					else
-					{
-						if (!this.opts.linebreaks)
-						{
-							// replace div to p
-							if (block && /^(P|H[1-6]|LI|ADDRESS|SECTION|HEADER|FOOTER|ASIDE|ARTICLE)$/i.test(block.tagName))
-							{
-								setTimeout($.proxy(function()
-								{
-									var blockElem = this.getBlock();
-									if (blockElem.tagName === 'DIV' && !$(blockElem).hasClass('redactor_editor'))
-									{
-										var node = $('<p>' + this.opts.invisibleSpace + '</p>');
-										$(blockElem).replaceWith(node);
-										this.selectionStart(node);
-									}
-
-
-								}, this), 1);
-							}
-							else if (block === false)
-							{
-								var node = $('<p>' + this.opts.invisibleSpace + '</p>');
-								this.insertNode(node[0]);
-								this.selectionStart(node);
-								return false;
-							}
-
-						}
-
-						if (this.opts.linebreaks)
-						{
-							// replace div to br
-							if (block && /^(P|H[1-6]|LI|ADDRESS|SECTION|HEADER|FOOTER|ASIDE|ARTICLE)$/i.test(block.tagName))
-							{
-								setTimeout($.proxy(function()
-								{
-									var blockElem = this.getBlock();
-									if ((blockElem.tagName === 'DIV' || blockElem.tagName === 'P') && !$(blockElem).hasClass('redactor_editor'))
-									{
-										this.replaceLineBreak(blockElem);
-									}
-
-								}, this), 1);
-							}
-							else
-							{
-								this.insertLineBreak();
-								e.preventDefault();
-								return;
-							}
-						}
-
-						// blockquote, figcaption
-						if (block.tagName == 'BLOCKQUOTE'
-							|| block.tagName == 'FIGCAPTION')
-						{
-							this.insertLineBreak();
-							e.preventDefault();
-							return;
-						}
-
-					}
-				}
-				else if (key === this.keyCode.ENTER && (e.ctrlKey || e.shiftKey)) // Shift+Enter or Ctrl+Enter
-				{
-					this.bufferSet();
-
-					e.preventDefault();
-					this.insertLineBreak();
-				}
-
-				// tab
-				if (key === this.keyCode.TAB && this.opts.shortcuts )
-				{
-					if (!this.opts.tabFocus) return true;
-					if (this.isEmpty(this.get())) return true;
-
-					e.preventDefault();
-
-					if (pre === true && !e.shiftKey)
-					{
-						this.bufferSet();
-						this.insertNode(document.createTextNode('\t'));
-						this.sync();
-						return false;
-					}
-					else
-					{
-						if (!e.shiftKey) this.indentingIndent();
-						else this.indentingOutdent();
-					}
-
-					return false;
-				}
-
-				// delete zero-width space before the removing
-				if (key === this.keyCode.BACKSPACE)
-				{
-					if (typeof current.nodeValue !== 'undefined' && current.nodeValue !== null)
-					{
-						var value = $.trim(current.nodeValue.replace(/[^\u0000-~]/g, ''));
-						if (current.remove && current.nodeType === 3 && current.nodeValue.charCodeAt(0) == 8203 && value == '')
-						{
-							current.remove();
-						}
-					}
-				}
-
-			}, this));
-
-			this.$editor.on('keyup.redactor', $.proxy(function(e)
-			{
-				var key = e.which;
-				var parent = this.getParent();
-				var current = this.getCurrent();
-
-				// replace to p before / after the table or body
-				if (!this.opts.linebreaks && current.nodeType == 3 && (parent == false || parent.tagName == 'BODY'))
-				{
-					var node = $('<p>').append($(current).clone());
-					$(current).replaceWith(node);
-					var next = $(node).next();
-					if (next[0].tagName == 'BR') next.remove();
-					this.selectionEnd(node);
-				}
-
-				// convert links
-				if (this.opts.convertLinks && key === this.keyCode.ENTER)
-				{
-					this.formatLinkify(this.opts.linkProtocol);
-				}
-
-				// if empty
-				if (this.opts.linebreaks === false && (key === this.keyCode.DELETE || key === this.keyCode.BACKSPACE))
-				{
-					return this.formatEmpty(e);
-				}
-
-				this.callback('keyup', e);
-				this.sync();
-
-			}, this));
-
+			this.$editor.on('paste.redactor', $.proxy(this.buildEventPaste, this));
+			this.$editor.on('keydown.redactor', $.proxy(this.buildEventKeydown, this));
+			this.$editor.on('keyup.redactor', $.proxy(this.buildEventKeyup, this));
 
 			// focus callback
 			if ($.isFunction(this.opts.focusCallback))
@@ -1205,6 +1037,415 @@
 				this.$editor.on('blur.redactor', $.proxy(this.opts.blurCallback, this));
 			}
 
+		},
+		buildEventDrop: function(e)
+		{
+			e = e.originalEvent || e;
+
+			if (window.FormData === undefined)
+			{
+				return true;
+			}
+
+		    var length = e.dataTransfer.files.length;
+		    if (length == 0)
+		    {
+		        return true;
+		    }
+
+		    e.preventDefault();
+
+	        var file = e.dataTransfer.files[0];
+
+	        if (this.opts.dnbImageTypes !== false && this.opts.dnbImageTypes.indexOf(file.type) == -1)
+	        {
+		        return true;
+	        }
+
+			this.bufferSet();
+		    var $img = $('<img>');
+
+			var progress = $('<div id="redactor-progress-drag" class="redactor-progress redactor-progress-striped"><div id="redactor-progress-bar" class="redactor-progress-bar" style="width: 100%;"></div></div>');
+			$(document.body).append(progress);
+
+			var fd = new FormData();
+			fd.append('file', file);
+
+			$.ajax({
+				url: this.opts.imageUpload,
+				dataType: 'html',
+				data: fd,
+				cache: false,
+				contentType: false,
+				processData: false,
+				type: 'POST',
+				success: $.proxy(function(data)
+				{
+					progress.fadeOut('slow', function()
+					{
+						$(this).remove();
+					});
+
+					var json = $.parseJSON(data);
+
+					$img.attr('src', json.filelink).attr('id', 'drag-image-marker');
+
+					this.insertNodeToCaretPositionFromPoint(e, $img[0]);
+
+					var image = $(this.$editor.find('img#drag-image-marker'));
+
+					if (image.length) image.removeAttr('id');
+					else image = false;
+
+					this.sync();
+					this.observeImages();
+
+					// upload callback
+					if (image)
+					{
+						this.callback('imageUpload', image, json);
+					}
+
+				}, this),
+				error: $.proxy(function(json)
+				{
+					this.callback('imageUploadError', json);
+
+				}, this)
+			});
+
+		},
+		buildEventPaste: function(e)
+		{
+			var oldsafari = false;
+			if (this.browser('webkit') && navigator.userAgent.indexOf('Chrome') === -1)
+			{
+				var arr = this.browser('version').split('.');
+				if (arr[0] < 536) oldsafari = true;
+			}
+
+			if (oldsafari) return true;
+
+			// paste except opera (not webkit)
+			if (this.browser('opera')) return true;
+
+			// clipboard upload
+			if (this.opts.clipboardUpload && this.buildEventClipboardUpload(e)) return true;
+
+			if (this.opts.cleanup)
+			{
+				rtePaste = true;
+
+				this.selectionSave();
+
+				if (!this.selectall)
+				{
+					if (this.opts.autoresize === true )
+					{
+						this.$editor.height(this.$editor.height());
+						this.saveScroll = this.document.body.scrollTop;
+					}
+					else
+					{
+						this.saveScroll = this.$editor.scrollTop();
+					}
+				}
+
+				var frag = this.extractContent();
+
+				setTimeout($.proxy(function()
+				{
+					var pastedFrag = this.extractContent();
+					this.$editor.append(frag);
+
+					this.selectionRestore();
+
+					var html = this.getFragmentHtml(pastedFrag);
+					this.pasteClean(html);
+
+					if (this.opts.autoresize === true) this.$editor.css('height', 'auto');
+
+				}, this), 1);
+			}
+		},
+		buildEventClipboardUpload: function(e)
+		{
+			var event = e.originalEvent || e;
+			this.clipboardFilePaste = false;
+			if (event.clipboardData.items)
+			{
+				var file = event.clipboardData.items[0].getAsFile();
+				if (file !== null)
+				{
+					this.bufferSet();
+					this.clipboardFilePaste = true;
+
+					var reader = new FileReader();
+					reader.onload = $.proxy(this.pasteClipboardUpload, this);
+			        reader.readAsDataURL(file);
+
+			        return true;
+				}
+			}
+
+			return false;
+
+		},
+		buildEventKeydown: function(e)
+		{
+			if (rtePaste) return false;
+
+			var key = e.which;
+			var ctrl = e.ctrlKey || e.metaKey;
+			var parent = this.getParent();
+			var current = this.getCurrent();
+			var block = this.getBlock();
+			var pre = false;
+
+			this.callback('keydown', e);
+
+			this.imageResizeHide(false);
+
+			// pre & down
+			if ((parent && $(parent).get(0).tagName === 'PRE') || (current && $(current).get(0).tagName === 'PRE'))
+			{
+				pre = true;
+				if (key === this.keyCode.DOWN) this.insertAfterLastElement(block);
+			}
+
+			// down
+			if (key === this.keyCode.DOWN)
+			{
+				if (parent && $(parent).get(0).tagName === 'BLOCKQUOTE') this.insertAfterLastElement(parent);
+				if (current && $(current).get(0).tagName === 'BLOCKQUOTE') this.insertAfterLastElement(current);
+			}
+
+			// shortcuts setup
+			if (ctrl && !e.shiftKey) this.shortcuts(e, key);
+
+			// buffer setup
+			if (ctrl && key === 90 && !e.shiftKey && !e.altKey) // z key
+			{
+				e.preventDefault();
+				if (this.opts.buffer.length) this.bufferUndo();
+				else this.document.execCommand('undo', false, false);
+				return;
+			}
+			// undo
+			else if (ctrl && key === 90 && e.shiftKey && !e.altKey)
+			{
+				e.preventDefault();
+				if (this.opts.rebuffer.length != 0) this.bufferRedo();
+				else this.document.execCommand('redo', false, false);
+				return;
+			}
+
+			// select all
+			if (ctrl && key === 65) this.selectall = true;
+			else if (key != this.keyCode.LEFT_WIN && !ctrl) this.selectall = false;
+
+			// enter
+			if (key == this.keyCode.ENTER && !e.shiftKey && !e.ctrlKey && !e.metaKey )
+			{
+				// In ie, opera in the tables are created paragraphs, fix it.
+				if (parent.nodeType == 1 && (parent.tagName == 'TD' || parent.tagName == 'TH'))
+				{
+					e.preventDefault();
+					this.bufferSet();
+					this.insertNode(document.createElement('br'));
+					this.callback('enter', e);
+					return false;
+				}
+
+				// pre
+				if (pre === true)
+				{
+					e.preventDefault();
+					this.bufferSet();
+					var html = $(current).parent().text();
+					this.insertNode(document.createTextNode('\n'));
+					if (html.search(/\s$/) == -1)
+					{
+						this.insertNode(document.createTextNode('\n'));
+					}
+
+					this.sync();
+					this.callback('enter', e);
+					return false;
+				}
+				else
+				{
+					if (!this.opts.linebreaks)
+					{
+						// replace div to p
+						if (block && this.opts.rBlockTest.test(block.tagName))
+						{
+							// hit enter
+							this.bufferSet();
+
+							setTimeout($.proxy(function()
+							{
+								var blockElem = this.getBlock();
+								if (blockElem.tagName === 'DIV' && !$(blockElem).hasClass('redactor_editor'))
+								{
+									var node = $('<p>' + this.opts.invisibleSpace + '</p>');
+									$(blockElem).replaceWith(node);
+									this.selectionStart(node);
+								}
+
+							}, this), 1);
+						}
+						else if (block === false)
+						{
+							// hit enter
+							this.bufferSet();
+
+							var node = $('<p>' + this.opts.invisibleSpace + '</p>');
+							this.insertNode(node[0]);
+							this.selectionStart(node);
+							this.callback('enter', e);
+							return false;
+						}
+
+					}
+
+					if (this.opts.linebreaks)
+					{
+						// replace div to br
+						if (block && this.opts.rBlockTest.test(block.tagName))
+						{
+							// hit enter
+							this.bufferSet();
+
+							setTimeout($.proxy(function()
+							{
+								var blockElem = this.getBlock();
+								if ((blockElem.tagName === 'DIV' || blockElem.tagName === 'P') && !$(blockElem).hasClass('redactor_editor'))
+								{
+									this.replaceLineBreak(blockElem);
+								}
+
+							}, this), 1);
+						}
+						else
+						{
+							return this.buildEventKeydownInsertLineBreak(e);
+						}
+					}
+
+					// blockquote, figcaption
+					if (block.tagName == 'BLOCKQUOTE' || block.tagName == 'FIGCAPTION')
+					{
+						return this.buildEventKeydownInsertLineBreak(e);
+					}
+
+				}
+
+				this.callback('enter', e);
+			}
+			else if (key === this.keyCode.ENTER && (e.ctrlKey || e.shiftKey)) // Shift+Enter or Ctrl+Enter
+			{
+				this.bufferSet();
+
+				e.preventDefault();
+				this.insertLineBreak();
+			}
+
+			// tab
+			if (key === this.keyCode.TAB && this.opts.shortcuts )
+			{
+				if (!this.opts.tabFocus) return true;
+				if (this.isEmpty(this.get())) return true;
+
+				e.preventDefault();
+
+				if (pre === true && !e.shiftKey)
+				{
+					this.bufferSet();
+					this.insertNode(document.createTextNode('\t'));
+					this.sync();
+					return false;
+				}
+				else
+				{
+					if (!e.shiftKey) this.indentingIndent();
+					else this.indentingOutdent();
+				}
+
+				return false;
+			}
+
+			// delete zero-width space before the removing
+			if (key === this.keyCode.BACKSPACE)
+			{
+				if (typeof current.tagName !== 'undefined' && /^(H[1-6])$/i.test(current.tagName))
+				{
+					var node;
+					if (this.opts.linebreaks === false) node = $('<p>' + this.opts.invisibleSpace + '</p>');
+					else node = $('<br>' + this.opts.invisibleSpace);
+
+					$(current).replaceWith(node);
+					this.selectionStart(node);
+				}
+
+				if (typeof current.nodeValue !== 'undefined' && current.nodeValue !== null)
+				{
+					var value = $.trim(current.nodeValue.replace(/[^\u0000-~]/g, ''));
+					if (current.remove && current.nodeType === 3 && current.nodeValue.charCodeAt(0) == 8203 && value == '')
+					{
+						current.remove();
+					}
+				}
+			}
+		},
+		buildEventKeydownInsertLineBreak: function(e)
+		{
+			this.bufferSet();
+			e.preventDefault();
+			this.insertLineBreak();
+			this.callback('enter', e);
+			return;
+		},
+		buildEventKeyup: function(e)
+		{
+			if (rtePaste) return false;
+
+			var key = e.which;
+			var parent = this.getParent();
+			var current = this.getCurrent();
+
+			// replace to p before / after the table or body
+			if (!this.opts.linebreaks && current.nodeType == 3 && (parent == false || parent.tagName == 'BODY'))
+			{
+				var node = $('<p>').append($(current).clone());
+				$(current).replaceWith(node);
+				var next = $(node).next();
+				if (typeof(next[0]) !== 'undefined' && next[0].tagName == 'BR')
+				{
+					next.remove();
+				}
+				this.selectionEnd(node);
+			}
+
+			// convert links
+			if ((this.opts.convertLinks || this.opts.convertImageLinks || this.opts.convertVideoLinks) && key === this.keyCode.ENTER)
+			{
+				this.formatLinkify(this.opts.linkProtocol, this.opts.convertLinks, this.opts.convertImageLinks, this.opts.convertVideoLinks);
+
+				if (this.opts.convertImageLinks)
+				{
+					this.observeImages();
+				}
+			}
+
+			// if empty
+			if (this.opts.linebreaks === false && (key === this.keyCode.DELETE || key === this.keyCode.BACKSPACE))
+			{
+				return this.formatEmpty(e);
+			}
+
+			this.callback('keyup', e);
+			this.sync();
 		},
 		buildPlugins: function()
 		{
@@ -1310,7 +1551,7 @@
 			this.iframeAddCss();
 
 			if (this.opts.fullpage) this.setFullpageOnInit(this.$editor.html());
-			else this.set(this.content);
+			else this.set(this.content, true, false);
 
 			this.buildOptions();
 			this.buildAfter();
@@ -1379,8 +1620,8 @@
 				else if (key === 74) this.shortcutsLoad(e, 'insertunorderedlist'); // Ctrl + j
 				else if (key === 75) this.shortcutsLoad(e, 'insertorderedlist'); // Ctrl + k
 
-				else if (key === 76) this.shortcutsLoad(e, 'superscript'); // Ctrl + l
-				else if (key === 72) this.shortcutsLoad(e, 'subscript'); // Ctrl + h
+				else if (key === 72) this.shortcutsLoad(e, 'superscript'); // Ctrl + h
+				else if (key === 76) this.shortcutsLoad(e, 'subscript'); // Ctrl + l
 			}
 			else
 			{
@@ -1616,7 +1857,7 @@
 			if (this.opts.toolbarFixed)
 			{
 				this.toolbarObserveScroll();
-				$( document ).on('scroll.redactor', $.proxy(this.toolbarObserveScroll, this));
+				$(this.opts.toolbarFixedTarget).on('scroll.redactor', $.proxy(this.toolbarObserveScroll, this));
 			}
 
 			// buttons response
@@ -1628,7 +1869,7 @@
 		},
 		toolbarObserveScroll: function()
 		{
-			var scrollTop = $(this.document).scrollTop();
+			var scrollTop = $(this.opts.toolbarFixedTarget).scrollTop();
 			var boxTop = this.$box.offset().top;
 			var left = 0;
 
@@ -1849,7 +2090,7 @@
 						if (e.preventDefault) e.preventDefault();
 						if (this.browser('msie')) e.returnValue = false;
 
-						if (btnObject.callback) btnObject.callback.call(this, btnName, $item, btnObject);
+						if (btnObject.callback) btnObject.callback.call(this, btnName, $item, btnObject, e);
 						if (btnObject.exec) this.execCommand(btnObject.exec, btnName);
 						if (btnObject.func) this[btnObject.func](btnName);
 
@@ -1879,7 +2120,14 @@
 				this.buttonActive(key);
 				this.buttonGet(key).addClass('dropact');
 
-				var keyPosition = this.buttonGet(key).position(), left = keyPosition.left + 'px', btnHeight = 29;
+				var keyPosition = this.buttonGet(key).position();
+				if (this.toolbarFixed)
+				{
+					keyPosition = this.buttonGet(key).offset();
+				}
+
+				var left = keyPosition.left + 'px';
+				var btnHeight = 29;
 
 				if (this.opts.air)
 				{
@@ -1931,10 +2179,16 @@
 				if (e.preventDefault) e.preventDefault();
 				if (this.browser('msie')) e.returnValue = false;
 
-				if (!this.opts.visual && btnName !== 'html') return false;
+				if ($button.hasClass('redactor_button_disabled')) return false;
+
+				if (this.isFocused() === false && !btnObject.exec)
+				{
+					this.$editor.focus();
+				}
 
 				if (btnObject.exec)
 				{
+					this.$editor.focus();
 					this.execCommand(btnObject.exec, btnName);
 					this.airBindMousemoveHide();
 
@@ -1947,16 +2201,16 @@
 				}
 				else if (btnObject.callback)
 				{
-					btnObject.callback.call(this, btnName, $button, btnObject);
+					btnObject.callback.call(this, btnName, $button, btnObject, e);
 					this.airBindMousemoveHide();
 
 				}
 				else if (btnName === 'backcolor' || btnName === 'fontcolor' || btnObject.dropdown)
 				{
-					this.dropdownShow( e, $dropdown, btnName );
+					this.dropdownShow(e, $dropdown, btnName);
 				}
 
-				this.buttonActiveObserver();
+				this.buttonActiveObserver(false, btnName);
 
 			}, this));
 
@@ -1976,6 +2230,13 @@
 			if (!this.opts.toolbar) return false;
 			return $(this.$toolbar.find('a.redactor_btn_' + key));
 		},
+		buttonActiveToggle: function(key)
+		{
+			var btn = this.buttonGet(key);
+
+			if (btn.hasClass('redactor_act')) btn.removeClass('redactor_act');
+			else btn.addClass('redactor_act');
+		},
 		buttonActive: function(key)
 		{
 			this.buttonGet(key).addClass('redactor_act');
@@ -1984,11 +2245,11 @@
 		{
 			this.buttonGet(key).removeClass('redactor_act');
 		},
-		buttonInactiveAll: function()
+		buttonInactiveAll: function(btnName)
 		{
-			$.each(this.opts.activeButtons, $.proxy(function(i, s)
+			$.each(this.opts.toolbar, $.proxy(function(k)
 			{
-				this.buttonInactive(s);
+				if (k != btnName) this.buttonInactive(k);
 
 			}, this));
 		},
@@ -2071,14 +2332,22 @@
 			$btn.parent().removeClass('redactor_btn_right');
 			$btn.remove();
 		},
-		buttonActiveObserver: function()
+		buttonActiveObserver: function(e, btnName)
 		{
 			var parent = this.getParent();
-			this.buttonInactiveAll();
+			this.buttonInactiveAll(btnName);
+
+			if (e === false && btnName !== 'html')
+			{
+				if ($.inArray(btnName, this.opts.activeButtons) != -1)
+				{
+					this.buttonActiveToggle(btnName);
+				}
+				return;
+			}
 
 			if (parent && parent.tagName === 'A') this.$toolbar.find('a.redactor_dropdown_link').text(this.opts.curLang.link_edit);
 			else this.$toolbar.find('a.redactor_dropdown_link').text(this.opts.curLang.link_insert);
-
 
 			if (this.opts.activeButtonsAdd)
 			{
@@ -2089,7 +2358,6 @@
 				}, this));
 
 				$.extend(this.opts.activeButtonsStates, this.opts.activeButtonsAdd);
-
 			}
 
 			$.each(this.opts.activeButtonsStates, $.proxy(function(key, value)
@@ -2158,10 +2426,15 @@
 			}
 
 			// stop formatting pre
-			if (this.currentOrParentIs('PRE') && !this.opts.formattingPre) return false;
+			if (this.currentOrParentIs('PRE') && !this.opts.formattingPre)
+			{
+				return false;
+			}
 
 			if (cmd === 'insertunorderedlist' || cmd === 'insertorderedlist')
 			{
+				this.bufferSet();
+
 				var parent = this.getParent();
 				var $list = $(parent).closest('ol, ul');
 				var remove = false;
@@ -2177,11 +2450,11 @@
 					}
 				}
 
+				this.selectionSave();
+
 				// remove lists
 				if (remove)
 				{
-					this.selectionSave();
-
 					var nodes = this.getNodes();
 					var elems = this.getBlocks(nodes);
 
@@ -2218,14 +2491,11 @@
 					this.$editor.html(html);
 					this.$editor.find(listTag + ':empty').remove();
 
-					this.selectionRestore();
 				}
 
 				// insert lists
 				else
 				{
-					this.selectionSave();
-
 					this.document.execCommand(cmd);
 
 					var parent = this.getParent();
@@ -2247,8 +2517,9 @@
 
 					if (this.browser('mozilla')) this.$editor.focus();
 
-					this.selectionRestore();
 				}
+
+				this.selectionRestore();
 
 				this.sync();
 				this.callback('execCommand', cmd, param);
@@ -2257,8 +2528,10 @@
 
 			if (cmd === 'unlink' )
 			{
+				this.bufferSet();
+
 				var parent = this.getParent();
-				if ($(parent)[0].tagName === 'A')
+				if (parent && $(parent)[0].tagName === 'A')
 				{
 					$(parent).replaceWith($(parent).text());
 
@@ -2287,14 +2560,18 @@
 		},
 		indentingStart: function(cmd)
 		{
+			this.bufferSet();
+
 			if (cmd === 'indent')
 			{
 				var block = this.getBlock();
 
+				this.selectionSave();
+
+
 				if (block && block.tagName == 'LI')
 				{
-					this.selectionSave();
-
+					// li
 					var parent = this.getParent();
 
 					var $list = $(parent).closest('ol, ul');
@@ -2318,9 +2595,43 @@
 							}
 						}
 					});
-
-					this.selectionRestore();
 				}
+				// linebreaks
+				else if (block === false && this.opts.linebreaks === true)
+				{
+					this.exec('formatBlock', 'blockquote');
+					var newblock = this.getBlock();
+					var block = $('<div data-tagblock="">').html($(newblock).html());
+					$(newblock).replaceWith(block);
+
+					var left = this.normalize($(block).css('margin-left')) + this.opts.indentValue;
+					$(block).css('margin-left', left + 'px');
+				}
+				else
+				{
+					// all block tags
+					var elements = this.getBlocks();
+					$.each(elements, $.proxy(function(i, elem)
+					{
+						var $el = false;
+
+						if ($.inArray(elem.tagName, this.opts.alignmentTags) !== -1)
+						{
+							$el = $(elem);
+						}
+						else
+						{
+							$el = $(elem).closest(this.opts.alignmentTags.toString().toLowerCase(), this.$editor[0]);
+						}
+
+						var left = this.normalize($el.css('margin-left')) + this.opts.indentValue;
+						$el.css('margin-left', left + 'px');
+
+					}, this));
+				}
+
+				this.selectionRestore();
+
 			}
 			// outdent
 			else
@@ -2330,11 +2641,52 @@
 				var block = this.getBlock();
 				if (block && block.tagName == 'LI')
 				{
+					// li
 					var elems = this.getBlocks();
 					var index = 0;
 
 					this.insideOutdent(block, index, elems);
 				}
+				else
+				{
+					// all block tags
+					var elements = this.getBlocks();
+					$.each(elements, $.proxy(function(i, elem)
+					{
+						var $el = false;
+
+						if ($.inArray(elem.tagName, this.opts.alignmentTags) !== -1)
+						{
+							$el = $(elem);
+						}
+						else
+						{
+							$el = $(elem).closest(this.opts.alignmentTags.toString().toLowerCase(), this.$editor[0]);
+						}
+
+						var left = this.normalize($el.css('margin-left')) - this.opts.indentValue;
+						if (left <= 0)
+						{
+							// linebreaks
+							if (this.opts.linebreaks === true && typeof($el.data('tagblock')) !== 'undefined')
+							{
+								$el.replaceWith($el.html());
+							}
+							// all block tags
+							else
+							{
+								$el.css('margin-left', '');
+								this.removeEmptyAttr($el, 'style');
+							}
+						}
+						else
+						{
+							$el.css('margin-left', left + 'px');
+						}
+
+					}, this));
+				}
+
 
 				this.selectionRestore();
 			}
@@ -2390,6 +2742,12 @@
 		},
 		cleanConvertProtected: function(html)
 		{
+			if (this.opts.templateVars)
+			{
+				html = html.replace(/\{\{(.*?)\}\}/gi, '<!-- template double $1 -->');
+				html = html.replace(/\{(.*?)\}/gi, '<!-- template $1 -->');
+			}
+
 			html = html.replace(/<script(.*?)>([\w\W]*?)<\/script>/gi, '<title type="text/javascript" style="display: none;" class="redactor-script-tag"$1>$2</title>');
 			html = html.replace(/<style(.*?)>([\w\W]*?)<\/style>/gi, '<section$1 style="display: none;" rel="redactor-style-tag">$2</section>');
 			html = html.replace(/<form(.*?)>([\w\W]*?)<\/form>/gi, '<section$1 rel="redactor-form-tag">$2</section>');
@@ -2402,6 +2760,12 @@
 		},
 		cleanReConvertProtected: function(html)
 		{
+			if (this.opts.templateVars)
+			{
+				html = html.replace(/<!-- template double (.*?) -->/gi, '{{$1}}');
+				html = html.replace(/<!-- template (.*?) -->/gi, '{$1}');
+			}
+
 			html = html.replace(/<title type="text\/javascript" style="display: none;" class="redactor-script-tag"(.*?)>([\w\W]*?)<\/title>/gi, '<script$1 type="text/javascript">$2</script>');
 			html = html.replace(/<section(.*?) style="display: none;" rel="redactor-style-tag">([\w\W]*?)<\/section>/gi, '<style$1>$2</style>');
 			html = html.replace(/<section(.*?)rel="redactor-form-tag"(.*?)>([\w\W]*?)<\/section>/gi, '<form$1$2>$3</form>');
@@ -2415,31 +2779,22 @@
 		{
 			if (buffer !== false)
 			{
-				// save code
-				var buffer = [], z = 0, code;
-				code = html.match(/<(pre|style|script|title)(.*?)>([\w\W]*?)<\/(pre|style|script|title)>/gi);
-				if (code !== null)
-				{
-					$.each(code, function(i,s)
-					{
-						z = i;
-						html = html.replace(s, 'buffer_' + z);
-						buffer.push(s);
-					});
-				}
+				var buffer = []
+				var matches = html.match(/<(pre|style|script|title)(.*?)>([\w\W]*?)<\/(pre|style|script|title)>/gi);
 
 				if (this.opts.phpTags)
 				{
-					code = html.match(/<\?php([\w\W]*?)\?>/gi);
-					if (code !== null)
+					var phpMatches = html.match(/<\?php([\w\W]*?)\?>/gi);
+					if (phpMatches) matches = $.merge(matches, phpMatches);
+				}
+
+				if (matches)
+				{
+					$.each(matches, function(i, s)
 					{
-						$.each(code, function(i,s)
-						{
-							z = z + i;
-							html = html.replace(s, 'buffer_' + i);
-							buffer.push(s);
-						});
-					}
+						html = html.replace(s, 'buffer_' + i);
+						buffer.push(s);
+					});
 				}
 			}
 
@@ -2450,24 +2805,20 @@
 			html = html.replace(/[\s\n]*$/g, ' ');
 			html = html.replace( />\s{2,}</g, '><' ); // between inline tags can be only one space
 
-			if (buffer !== false)
-			{
-				html = this.cleanReplacer(buffer, html);
-			}
+			html = this.cleanReplacer(html, buffer);
 
 			html = html.replace(/\n\n/g, "\n");
 
 			return html;
 		},
-		cleanReplacer: function(arr, html)
+		cleanReplacer: function(html, buffer)
 		{
-			if (arr)
+			if (buffer === false) return html;
+
+			$.each(buffer, function(i,s)
 			{
-				$.each(arr, function(i,s)
-				{
-					html = html.replace('buffer_' + i, s);
-				});
-			}
+				html = html.replace('buffer_' + i, s);
+			});
 
 			return html;
 		},
@@ -2478,7 +2829,15 @@
 			// remove zero width-space
 			html = html.replace(/[\u200B-\u200D\uFEFF]/g, '');
 
-			var etags = ["<pre></pre>", "<blockquote>\\s*</blockquote>", "<dd></dd>", "<dt></dt>", "<em>\\s*</em>", "<ul></ul>", "<ol></ol>", "<li></li>", "<table></table>", "<tr></tr>", "<span>\\s*<span>", "<span>&nbsp;<span>", "<b>\\s*</b>", "<b>&nbsp;</b>", "<p>\\s*</p>", "<p></p>", "<p>&nbsp;</p>",  "<p>\\s*<br>\\s*</p>", "<div>\\s*</div>", "<div>\\s*<br>\\s*</div>"];
+			var etagsInline = ["<b>\\s*</b>", "<b>&nbsp;</b>", "<em>\\s*</em>"]
+			var etags = ["<pre></pre>", "<blockquote>\\s*</blockquote>", "<dd></dd>", "<dt></dt>", "<ul></ul>", "<ol></ol>", "<li></li>", "<table></table>", "<tr></tr>", "<span>\\s*<span>", "<span>&nbsp;<span>", "<p>\\s*</p>", "<p></p>", "<p>&nbsp;</p>",  "<p>\\s*<br>\\s*</p>", "<div>\\s*</div>", "<div>\\s*<br>\\s*</div>"];
+
+			if (this.opts.removeEmptyTags)
+			{
+				etags = etags.concat(etagsInline);
+			}
+			else etags = etagsInline;
+
 			var len = etags.length;
 			for (var i = 0; i < len; ++i)
 			{
@@ -2497,33 +2856,25 @@
 			html = html + "\n";
 
 			var safes = [];
-			var z = 0;
+			var matches = html.match(/<(table|div|pre|object)(.*?)>([\w\W]*?)<\/(table|div|pre|object)>/gi);
 
-			if (html.search(/<(table|div|pre|object)/gi) !== -1)
-			{
-				$.each(html.match(/<(table|div|pre|object)(.*?)>([\w\W]*?)<\/(table|div|pre|object)>/gi), function(i,s)
-				{
-					z++;
-					safes[z] = s;
-					html = html.replace(s, '{replace' + z + '}\n');
-				});
-			}
+			var commentsMatches = html.match(/<!--([\w\W]*?)-->/gi);
+			if (commentsMatches) matches = $.merge(matches, commentsMatches);
 
 			if (this.opts.phpTags)
 			{
-				if (html.search(/<section(.*?)rel="redactor-php-tag">/gi) !== -1)
-				{
-					$.each(html.match(/<section(.*?)rel="redactor-php-tag">([\w\W]*?)<\/section>/gi), function(i,s)
-					{
-						z++;
-						safes[z] = s;
-						html = html.replace(s, '{replace' + z + '}\n');
-					});
-				}
+				var phpMatches = html.match(/<section(.*?)rel="redactor-php-tag">([\w\W]*?)<\/section>/gi);
+				if (phpMatches) matches = $.merge(matches, phpMatches);
 			}
 
-			// comments safe
-			html = html.replace(/<\!\-\-([\w\W]*?)\-\->/gi, "<comment>$1</comment>");
+			if (matches)
+			{
+				$.each(matches, function(i,s)
+				{
+					safes[i] = s;
+					html = html.replace(s, '{replace' + i + '}\n');
+				});
+			}
 
 			html = html.replace(/<br \/>\s*<br \/>/gi, "\n\n");
 
@@ -2579,20 +2930,19 @@
 			html = R("\n</p>", 'gi', '</p>');
 
 			html = R('</li><p>', 'gi', '</li>');
-			html = R('</ul><p>(.*?)</li>', 'gi', '</ul></li>');
-			html = R('</ol><p>', 'gi', '</ol>');
+			//html = R('</ul><p>(.*?)</li>', 'gi', '</ul></li>');
+			/* html = R('</ol><p>', 'gi', '</ol>'); */
 			html = R('<p>\t?\n?<p>', 'gi', '<p>');
 			html = R('</dt><p>', 'gi', '</dt>');
 			html = R('</dd><p>', 'gi', '</dd>');
 			html = R('<br></p></blockquote>', 'gi', '</blockquote>');
+			html = R('<p>    </p>', 'gi', '');
 
+			// restore safes
 			$.each(safes, function(i,s)
 			{
 				html = html.replace('{replace' + i + '}', s);
 			});
-
-			// comments safe
-			html = html.replace(/<comment>([\w\W]*?)<\/comment>/gi, '<!--$1-->');
 
 			return $.trim(html);
 		},
@@ -2670,21 +3020,22 @@
 		},
 		cleanUnverified: function()
 		{
-			/* this.$editor.find('span[data-redactor!="verified"]').filter(':not([id*="selection-marker"])').contents().unwrap(); */
 			// label, abbr, mark, meter, code, q, dfn, ins, time, kbd, var
 
-			var $elem = this.$editor.find('img, a, b, strong, sub, sup, i, em, u, small, strike, del, span, cite');
+			var $elem = this.$editor.find('li, img, a, b, strong, sub, sup, i, em, u, small, strike, del, span, cite');
 
-				$elem.filter('[style*="font-size"][style*="line-height"]')
-				.css('font-size', '')
-				.css('line-height', '');
+			$elem.not('[data-redactor="verified"]').filter('[style*="font-size"][style*="line-height"]')
+			.css('font-size', '')
+			.css('line-height', '');
 
-				$elem.filter('[style*="background-color: transparent;"][style*="line-height"]')
-				.css('background-color', '')
-				.css('line-height', '');
+			$elem.not('[data-redactor="verified"]').filter('[style*="background-color: transparent;"][style*="line-height"]')
+			.css('background-color', '')
+			.css('line-height', '');
 
-				$elem.filter('[style*="background-color: transparent;"]')
-				.css('background-color', '');
+			$elem.not('[data-redactor="verified"]').filter('[style*="background-color: transparent;"]')
+			.css('background-color', '');
+
+			$elem.not('[data-redactor="verified"]').css('line-height', '');
 
 			$.each($elem, $.proxy(function(i,s)
 			{
@@ -2899,34 +3250,53 @@
 
 			if (this.oldIE())
 			{
-				this.document.execCommand( cmd, false, false );
+				this.document.execCommand(cmd, false, false);
 				return true;
 			}
 
 			this.selectionSave();
 
-			var elements = this.getBlocks();
-
-			$.each(elements, $.proxy(function(i, elem)
+			var block = this.getBlock();
+			if (!block && this.opts.linebreaks)
 			{
-				var $el = false;
+				// one element
+				this.exec('formatBlock', 'blockquote');
+				var newblock = this.getBlock();
+				var block = $('<div data-tagblock="">').html($(newblock).html());
+				$(newblock).replaceWith(block);
 
-				if ($.inArray( elem.tagName, this.opts.alignmentTags) !== -1)
-				{
-					$el = $(elem);
-				}
-				else
-				{
-					$el = $(elem).closest(this.opts.alignmentTags.toString().toLowerCase(), this.$editor[0]);
-				}
+				$(block).css('text-align', type);
+				this.removeEmptyAttr(block, 'style');
 
-				if ($el)
+				if (type == '' && typeof($(block).data('tagblock')) !== 'undefined')
 				{
-					$el.css('text-align', type);
-					this.removeEmptyAttr($el, 'style');
+					$(block).replaceWith($(block).html());
 				}
+			}
+			else
+			{
+				var elements = this.getBlocks();
+				$.each(elements, $.proxy(function(i, elem)
+				{
+					var $el = false;
 
-			}, this));
+					if ($.inArray(elem.tagName, this.opts.alignmentTags) !== -1)
+					{
+						$el = $(elem);
+					}
+					else
+					{
+						$el = $(elem).closest(this.opts.alignmentTags.toString().toLowerCase(), this.$editor[0]);
+					}
+
+					if ($el)
+					{
+						$el.css('text-align', type);
+						this.removeEmptyAttr($el, 'style');
+					}
+
+				}, this));
+			}
 
 			this.selectionRestore();
 
@@ -3082,8 +3452,10 @@
 					$(wrapper).html(html);
 					this.selectionElement(wrapper);
 					var next = $(wrapper).next();
-					if (next[0].tagName === 'BR') next.remove();
-
+					if (next.size() != 0 && next[0].tagName === 'BR')
+					{
+						next.remove();
+					}
 				}
 			}
 
@@ -3198,9 +3570,11 @@
 		},
 		inlineMethods: function(type, attr, value)
 		{
+			this.bufferSet();
 			this.selectionSave();
 
-			var range = this.getRange(), el = this.getElement();
+			var range = this.getRange()
+			var el = this.getElement();
 
 			if (range.collapsed || range.startContainer === range.endContainer && el)
 			{
@@ -3211,11 +3585,11 @@
 				this.document.execCommand('fontSize', false, 4 );
 
 				var fonts = this.$editor.find('font');
-				$.each( fonts, $.proxy(function(i, s)
+				$.each(fonts, $.proxy(function(i, s)
 				{
 					this.inlineSetMethods(type, s, attr, value);
 
-				}, this ) );
+				}, this));
 			}
 
 			this.selectionRestore();
@@ -3226,11 +3600,10 @@
 		{
 			var parent = $(s).parent(), el;
 
-			if (parent && parent[0].tagName === 'SPAN')
+			if (parent && parent[0].tagName === 'SPAN' && parent[0].attributes.length != 0)
 			{
 				el = parent;
 				$(s).replaceWith($(s).html());
-
 			}
 			else
 			{
@@ -3360,14 +3733,17 @@
 			}
 
 			// in the quote, we can insert text or links only
+/*
 			if (currBlock.tagName == 'BLOCKQUOTE' && html.indexOf('<a') === -1)
 			{
 				this.insertText(html);
 			}
-			else if ($html.contents().length > 1 && currBlock
+			else
+*/
+			if ($html.contents().length > 1 && currBlock
 					|| $html.contents().is('p, :header, ul, ol, div, table, blockquote, pre, address, section, header, footer, aside, article'))
 			{
-				if(this.browser('msie')) this.document.selection.createRange().pasteHTML(html);
+				if (this.browser('msie')) this.document.selection.createRange().pasteHTML(html);
 				else this.document.execCommand('inserthtml', false, html);
 			}
 			else this.insertHtmlAdvanced(html);
@@ -3444,29 +3820,69 @@
 				sel.addRange(range);
 			}
 		},
+		insertNodeToCaretPositionFromPoint: function(e, node)
+		{
+			var range;
+			var x = e.clientX, y = e.clientY;
+			if (this.document.caretPositionFromPoint)
+			{
+			    var pos = this.document.caretPositionFromPoint(x, y);
+			    range = this.getRange();
+			    range.setStart(pos.offsetNode, pos.offset);
+			    range.collapse(true);
+			    range.insertNode(node);
+			}
+			else if (this.document.caretRangeFromPoint)
+			{
+			    range = this.document.caretRangeFromPoint(x, y);
+			    range.insertNode(node);
+			}
+			else if (typeof document.body.createTextRange != "undefined")
+			{
+		        range = this.document.body.createTextRange();
+		        range.moveToPoint(x, y);
+		        var endRange = range.duplicate();
+		        endRange.moveToPoint(x, y);
+		        range.setEndPoint("EndToEnd", endRange);
+		        range.select();
+			}
+
+		},
 		insertAfterLastElement: function(element)
 		{
-			if (this.isEndOfElement() && this.opts.linebreaks === false)
+			if (this.isEndOfElement())
 			{
-				if (this.$editor.contents().last()[0] !== element) return false;
+
+				if ($($.trim(this.$editor.html())).get(0) != $.trim(element)
+				&& this.$editor.contents().last()[0] !== element) return false;
 
 				this.bufferSet();
 
-				var node = $(this.opts.emptyHtml);
-				$(element).after(node);
-				this.selectionStart(node);
+				if (this.opts.linebreaks === false)
+				{
+					var node = $(this.opts.emptyHtml);
+					$(element).after(node);
+					this.selectionStart(node);
+				}
+				else
+				{
+					var node = $('<span id="selection-marker-1">' + this.opts.invisibleSpace + '</span>', this.document)[0];
+					$(element).after(node);
+					$(node).after(this.opts.invisibleSpace);
+					this.selectionRestore();
+				}
 			}
 		},
 		insertLineBreak: function()
 		{
 			this.selectionSave();
-			this.$editor.find('#selection-marker-1').before('<br>' + ( this.browser('webkit') ? this.opts.invisibleSpace : '') );
+			this.$editor.find('#selection-marker-1').before('<br>' + (this.browser('webkit') ? this.opts.invisibleSpace : ''));
 			this.selectionRestore();
 		},
 		insertDoubleLineBreak: function()
 		{
 			this.selectionSave();
-			this.$editor.find('#selection-marker-1').before('<br><br>' + ( this.browser('webkit') ? this.opts.invisibleSpace : '') );
+			this.$editor.find('#selection-marker-1').before('<br><br>' + (this.browser('webkit') ? this.opts.invisibleSpace : ''));
 			this.selectionRestore();
 		},
 		replaceLineBreak: function(element)
@@ -3478,50 +3894,25 @@
 		},
 
 		// PASTE
-		pasteInit: function ()
-		{
-			if (this.isMobile()) return false;
-
-			this.$editor.on('paste.redactor', $.proxy(function(e)
-			{
-				if (!this.opts.cleanup) return true;
-
-				this.selectionSave();
-
-				if (!this.selectall)
-				{
-					if (this.opts.autoresize === true )
-					{
-						this.$editor.height(this.$editor.height());
-						this.saveScroll = this.document.body.scrollTop;
-					}
-					else
-					{
-						this.saveScroll = this.$editor.scrollTop();
-					}
-				}
-
-				var frag = this.extractContent();
-
-				setTimeout($.proxy(function()
-				{
-					var pastedFrag = this.extractContent();
-					this.$editor.append(frag);
-
-					this.selectionRestore();
-
-					var html = this.getFragmentHtml(pastedFrag);
-					this.pasteClean(html);
-
-					if (this.opts.autoresize === true) this.$editor.css('height', 'auto');
-
-				}, this), 1);
-
-			}, this));
-		},
 		pasteClean: function(html)
 		{
 			html = this.callback('pasteBefore', false, html);
+
+
+			if (this.opts.pastePlainText)
+			{
+				var tmp = this.document.createElement('div');
+
+				html = html.replace(/<br>|<\/H[1-6]>|<\/p>|<\/div>/gi, '\n');
+
+				tmp.innerHTML = html;
+				html = tmp.textContent || tmp.innerText;
+
+				html = html.replace('\n', '<br>');
+				html = this.cleanParagraphy(html);
+
+				this.pasteInsert(html);
+			}
 
 			// clean up pre
 			if (this.currentOrParentIs('PRE'))
@@ -3530,6 +3921,10 @@
 				this.pasteInsert(html);
 				return true;
 			}
+
+			// ms word list
+			html = html.replace(/<p(.*?)class="MsoListParagraphCxSpFirst"([\w\W]*?)<\/p>/gi, '<ul><p$2</p>');
+			html = html.replace(/<p(.*?)class="MsoListParagraphCxSpLast"([\w\W]*?)<\/p>/gi, '<p$2</p></ul>');
 
 			// remove comments and php tags
 			html = html.replace(/<!--[\s\S]*?-->|<\?(?:php)?[\s\S]*?\?>/gi, '');
@@ -3540,6 +3935,7 @@
 
 			// remove google docs marker
 			html = html.replace(/<b\sid="internal-source-marker(.*?)">([\w\W]*?)<\/b>/gi, "$2");
+			html = html.replace(/<b(.*?)id="docs-internal-guid(.*?)">([\w\W]*?)<\/b>/gi, "$3");
 
 			// strip tags
 			html = this.cleanStripTags(html);
@@ -3556,8 +3952,12 @@
 			html = html.replace(/<object(.*?)>([\w\W]*?)<\/object>/gi, '[object$1]$2[/object]');
 			html = html.replace(/<param(.*?)>/gi, '[param$1]');
 			html = html.replace(/<img(.*?)style="(.*?)"(.*?)>/gi, '[img$1$3]');
+			html = html.replace(/<img(.*?)>/gi, '[img$1]');
 
-			// remove attributes
+			// remove classes
+			html = html.replace(/ class="(.*?)"/gi, '');
+
+			// remove all attributes
 			html = html.replace(/<(\w+)([\w\W]*?)>/gi, '<$1>');
 
 			// remove empty
@@ -3599,6 +3999,9 @@
 			html = html.replace(/<p><p>/gi, '<p>');
 			html = html.replace(/<\/p><\/p>/gi, '</p>');
 
+			html = html.replace(/<li>(\s*|\t*|\n*)<p>/gi, '<li>');
+			html = html.replace(/<\/p>(\s*|\t*|\n*)<\/li>/gi, '</li>');
+
 			if (this.opts.linebreaks === true)
 			{
 				html = html.replace(/<p(.*?)>([\w\W]*?)<\/p>/gi, '$2<br>');
@@ -3607,20 +4010,43 @@
 			// remove empty finally
 			html = html.replace(/<[^\/>][^>][^img|param|source]*>(\s*|\t*|\n*|&nbsp;|<br>)<\/[^>]+>/gi, '');
 
-			// FF fix
+			// remove safari local images
+			html = html.replace(/<img src="webkit-fake-url\:\/\/(.*?)"(.*?)>/gi, '');
+
+			// FF specific
+			this.pasteClipboardMozilla = false;
 			if (this.browser('mozilla'))
 			{
+				if (this.opts.clipboardUpload)
+				{
+					var matches = html.match(/<img src="data:image(.*?)"(.*?)>/gi);
+					if (matches !== null)
+					{
+						this.pasteClipboardMozilla = matches;
+						for (k in matches)
+						{
+							var img = matches[k].replace('<img', '<img data-mozilla-paste-image="' + k + '" ');
+							html = html.replace(matches[k], img);
+						}
+					}
+				}
+
+				// FF fix
 				while (/<br>$/gi.test(html))
 				{
 					html = html.replace(/<br>$/gi, '');
 				}
 			}
 
+			// bullets
+			html = html.replace(/<p>•([\w\W]*?)<\/p>/gi, '<li>$1</li>');
+
 			// ie inserts a blank font tags when pasting
 			while (/<font>([\w\W]*?)<\/font>/gi.test(html))
 			{
 				html = html.replace(/<font>([\w\W]*?)<\/font>/gi, '$1');
 			}
+
 
 			this.pasteInsert(html);
 
@@ -3647,10 +4073,93 @@
 
 			this.insertHtml(html);
 
+
 			this.selectall = false;
+			setTimeout($.proxy(function()
+			{
+				rtePaste = false;
+
+				// FF specific
+				if (this.pasteClipboardMozilla !== false)
+				{
+					this.pasteClipboardUploadMozilla();
+				}
+
+			}, this), 100);
 
 			if (this.opts.autoresize) $(this.document.body).scrollTop(this.saveScroll);
 			else this.$editor.scrollTop(this.saveScroll);
+		},
+
+		pasteClipboardUploadMozilla: function()
+		{
+			var imgs = this.$editor.find('img[data-mozilla-paste-image]');
+			$.each(imgs, $.proxy(function(i,s)
+			{
+				var $s = $(s);
+				var arr = s.src.split(",");
+				var data = arr[1]; // raw base64
+				var contentType = arr[0].split(";")[0].split(":")[1];
+
+				$.post(this.opts.clipboardUploadUrl, {
+				    contentType: contentType,
+				    data: data
+				},
+				$.proxy(function(data)
+				{
+					var json = $.parseJSON(data);
+		        	$s.attr('src', json.filelink);
+		        	$s.removeAttr('data-mozilla-paste-image');
+
+		        	this.sync();
+
+					// upload callback
+					this.callback('imageUpload', $s, json);
+
+				}, this));
+
+			}, this));
+		},
+		pasteClipboardUpload: function(e)
+		{
+	        var result = e.target.result;
+			var arr = result.split(",");
+			var data = arr[1]; // raw base64
+			var contentType = arr[0].split(";")[0].split(":")[1];
+
+			if (this.opts.clipboardUpload)
+			{
+				$.post(this.opts.clipboardUploadUrl, {
+				    contentType: contentType,
+				    data: data
+				},
+				$.proxy(function(data)
+				{
+					var json = $.parseJSON(data);
+
+					var html = '<img src="' + json.filelink + '" id="clipboard-image-marker" />';
+					this.execCommand('inserthtml', html, false);
+
+					var image = $(this.$editor.find('img#clipboard-image-marker'));
+
+					if (image.length) image.removeAttr('id');
+					else image = false;
+
+					this.sync();
+
+					// upload callback
+					if (image)
+					{
+						this.callback('imageUpload', image, json);
+					}
+
+
+				}, this));
+			}
+			else
+			{
+	        	this.insertHtml('<img src="' + result + '" />');
+        	}
 		},
 
 		// BUFFER
@@ -3661,7 +4170,7 @@
 			{
 				this.selectionSave();
 				this.opts.buffer.push(this.$editor.html());
-				this.selectionRemoveMarkers(true);
+				this.selectionRemoveMarkers('buffer');
 			}
 		},
 		bufferUndo: function()
@@ -3821,7 +4330,7 @@
 		{
 			var caretOffset = 0;
 
-			var range = this.getSelection().getRangeAt(0);
+			var range = this.getRange();
 			var preCaretRange = range.cloneRange();
 			preCaretRange.selectNodeContents(element);
 			preCaretRange.setEnd(range.endContainer, range.endOffset);
@@ -3911,8 +4420,8 @@
 		{
 			if (!range) return;
 
-			var node1 = $('<span id="selection-marker-1">' + this.opts.invisibleSpace + '</span>', this.document)[0];
-			var node2 = $('<span id="selection-marker-2">' + this.opts.invisibleSpace + '</span>', this.document)[0];
+			var node1 = $('<span id="selection-marker-1" class="redactor-selection-marker">' + this.opts.invisibleSpace + '</span>', this.document)[0];
+			var node2 = $('<span id="selection-marker-2" class="redactor-selection-marker">' + this.opts.invisibleSpace + '</span>', this.document)[0];
 
 			if (range.collapsed === true)
 			{
@@ -3949,7 +4458,14 @@
 				var node1 = this.$editor.find('span#selection-marker-1');
 				var node2 = this.$editor.find('span#selection-marker-2');
 
-				if (!this.isFocused()) this.$editor.focus();
+				if (this.browser('mozilla'))
+				{
+					this.$editor.focus();
+				}
+				else if (!this.isFocused())
+				{
+					this.$editor.focus();
+				}
 
 				if (node1.length != 0 && node2.length != 0)
 				{
@@ -3972,12 +4488,22 @@
 				rangy.restoreSelection(this.savedSel);
 			}
 		},
-		selectionRemoveMarkers: function()
+		selectionRemoveMarkers: function(type)
 		{
 			if (!this.opts.rangy)
 			{
-				this.$editor.find('span#selection-marker-1').remove();
-				this.$editor.find('span#selection-marker-2').remove();
+				$.each(this.$editor.find('span.redactor-selection-marker'), function()
+				{
+					var html = $.trim($(this).html().replace(/[^\u0000-~]/g, ''));
+					if (html == '')
+					{
+						$(this).remove();
+					}
+					else
+					{
+						$(this).removeAttr('class').removeAttr('id');
+					}
+				});
 			}
 			// rangy
 			else
@@ -4459,13 +4985,11 @@
 			this.selectionRestore();
 
 			var current = this.getBlock() || this.getCurrent();
-			if (current)
-			{
-				$(current).after(data)
-				this.sync();
-			}
+
+			if (current) $(current).after(data)
 			else this.insertHtmlAdvanced(data);
 
+			this.sync();
 			this.modalClose();
 		},
 
@@ -4498,11 +5022,17 @@
 				}
 				else text = sel.toString();
 
-
 				$('.redactor_link_text').val(text);
 
 				var thref = self.location.href.replace(/\/$/i, '');
 				var turl = url.replace(thref, '');
+
+				// remove host from href
+				if (this.opts.linkProtocol === false)
+				{
+					var re = new RegExp('^(http|ftp|https)://' + self.location.host, 'i');
+					turl = turl.replace(re, '');
+				}
 
 				var tabs = $('#redactor_tabs').find('a');
 
@@ -4848,10 +5378,10 @@
 			this.modalInit(this.opts.curLang.image, this.opts.modal_image, 610, callback);
 
 		},
-		imageEdit: function(e)
+		imageEdit: function(image)
 		{
-			var $el = $(e.target);
-			var parent = $el.parent();
+			var $el = image;
+			var parent = $el.parent().parent();
 
 			var callback = $.proxy(function()
 			{
@@ -4861,7 +5391,12 @@
 
 				if ($(parent).get(0).tagName === 'A')
 				{
-					$('#redactor_file_link').val($( parent ).attr('href'));
+					$('#redactor_file_link').val($(parent).attr('href'));
+
+					if ($(parent).attr('target') == '_blank')
+					{
+						$('#redactor_link_blank').prop('checked', true);
+					}
 				}
 
 				$('#redactor_image_delete_btn').click($.proxy(function()
@@ -4900,43 +5435,67 @@
 		},
 		imageSave: function(el)
 		{
-			var parent = $(el).parent();
+			var $el = $(el);
+			var parent = $el.parent();
 
-			$(el).attr('alt', $('#redactor_file_alt').val());
+			$el.attr('alt', $('#redactor_file_alt').val());
 
 			var floating = $('#redactor_form_image_align').val();
 
 			if (floating === 'left')
 			{
-				$(el).css({ 'float': 'left', 'margin': '0 10px 10px 0' });
+				$el.css({ 'float': 'left', 'margin': '0 10px 10px 0' });
 			}
 			else if (floating === 'right')
 			{
-				$(el).css({ 'float': 'right', 'margin': '0 0 10px 10px' });
+				$el.css({ 'float': 'right', 'margin': '0 0 10px 10px' });
 			}
 			else
 			{
-				$(el).css({ 'float': 'none', 'margin': '0' });
+				var imageBox = $el.closest('#redactor-image-box');
+				if (imageBox.size() != 0) imageBox.css({ 'float': '', 'margin': '' });
+				$el.css({ 'float': '', 'margin': '' });
 			}
 
 			// as link
 			var link = $.trim($('#redactor_file_link').val());
 			if (link !== '')
 			{
-				if ($(parent).get(0).tagName !== 'A')
+				var target = false;
+				if ($('#redactor_link_blank').prop('checked'))
 				{
-					$(el).replaceWith('<a href="' + link + '">' + this.outerHtml(el) + '</a>');
+					target = true;
+				}
+
+				if (parent.get(0).tagName !== 'A')
+				{
+					var a = $('<a href="' + link + '">' + this.outerHtml(el) + '</a>');
+
+					if (target)
+					{
+						a.attr('target', '_blank');
+					}
+
+					$el.replaceWith(a);
 				}
 				else
 				{
-					$(parent).attr('href', link);
+					parent.attr('href', link);
+					if (target)
+					{
+						parent.attr('target', '_blank');
+					}
+					else
+					{
+						parent.removeAttr('target');
+					}
 				}
 			}
 			else
 			{
-				if ($(parent).get(0).tagName === 'A')
+				if (parent.get(0).tagName === 'A')
 				{
-					$(parent).replaceWith(this.outerHtml(el));
+					parent.replaceWith(this.outerHtml(el));
 				}
 			}
 
@@ -4945,76 +5504,222 @@
 			this.sync();
 
 		},
+		imageResizeHide: function(e)
+		{
+			if (e !== false && $(e.target).parent().size() != 0 && $(e.target).parent()[0].id === 'redactor-image-box')
+			{
+				return false;
+			}
+
+			var imageBox = this.$editor.find('#redactor-image-box');
+			if (imageBox.size() == 0)
+			{
+				return false;
+			}
+
+			this.$editor.find('#redactor-image-editter, #redactor-image-resizer').remove();
+
+			var margin = imageBox.css('margin');
+			if (margin != '0px')
+			{
+				imageBox.find('img').css('margin', margin);
+				imageBox.css('margin', '');
+			}
+
+			imageBox.find('img').css('opacity', 1);
+			imageBox.replaceWith(function()
+			{
+				return $(this).contents();
+			});
+
+			$(document).off('click.redactor-image-resize-hide');
+			this.$editor.off('click.redactor-image-resize-hide');
+			this.$editor.off('keydown.redactor-image-delete');
+
+		},
 		imageResize: function(image)
 		{
-			var $image = $(image),
-				clicked = false,
-				clicker = false,
+			var $image = $(image);
+
+			$image.on('mousedown', $.proxy(function()
+			{
+				this.imageResizeHide(false);
+			}, this));
+
+			$image.on('dragstart', $.proxy(function()
+			{
+				this.$editor.on('drop.redactor-image-inside-drop', $.proxy(function()
+				{
+					setTimeout($.proxy(function()
+					{
+						this.observeImages();
+						this.$editor.off('drop.redactor-image-inside-drop');
+						this.sync();
+
+					}, this), 1);
+
+				},this));
+			}, this));
+
+			$image.on('click', $.proxy(function(e)
+			{
+				if (this.$editor.find('#redactor-image-box').size() != 0)
+				{
+					return false;
+				}
+
+				var clicked = false,
 				start_x,
 				start_y,
 				ratio = $image.width() / $image.height(),
-				min_w = 10,
+				min_w = 20,
 				min_h = 10;
 
-			$image.off('hover mousedown mouseup click mousemove');
+				var imageResizer = this.imageResizeControls($image);
 
-			$image.hover(function()
-			{
-				$image.css('cursor', 'nw-resize');
-			},
-			function()
-			{
-				$image.css('cursor', '');
-				clicked = false;
-			});
-
-			$image.mousedown(function(e)
-			{
-				e.preventDefault();
-
-				ratio = $image.width() / $image.height();
-
-				clicked = true;
-				clicker = true;
-
-				start_x = Math.round(e.pageX - $image.eq( 0 ).offset().left);
-				start_y = Math.round(e.pageY - $image.eq( 0 ).offset().top);
-			});
-
-			$image.mouseup( $.proxy(function(e)
-			{
-				clicked = false;
-				$image.css('cursor', '');
-				this.sync();
-
-			}, this));
-
-			$image.click( $.proxy(function(e)
-			{
-				if (clicker) this.imageEdit(e);
-
-			}, this));
-
-			$image.mousemove(function(e)
-			{
-				if (clicked)
+				// resize
+				var isResizing = false;
+				imageResizer.on('mousedown', function(e)
 				{
-					clicker = false;
+					isResizing = true;
+					e.preventDefault();
 
-					var mouse_x = Math.round(e.pageX - $(this).eq(0).offset().left) - start_x;
-					var mouse_y = Math.round(e.pageY - $(this).eq(0).offset().top) - start_y;
+					ratio = $image.width() / $image.height();
 
-					var div_h = $image.height();
+					start_x = Math.round(e.pageX - $image.eq(0).offset().left);
+					start_y = Math.round(e.pageY - $image.eq(0).offset().top);
 
-					var new_h = parseInt(div_h, 10) + mouse_y;
-					var new_w = Math.round(new_h * ratio);
+				});
 
-					if (new_w > min_w) $image.width(new_w);
+				$(this.document.body).on('mousemove', $.proxy(function(e)
+				{
+					if (isResizing)
+					{
+						var mouse_x = Math.round(e.pageX - $image.eq(0).offset().left) - start_x;
+						var mouse_y = Math.round(e.pageY - $image.eq(0).offset().top) - start_y;
 
-					start_x = Math.round(e.pageX - $(this).eq(0).offset().left);
-					start_y = Math.round(e.pageY - $(this).eq(0).offset().top);
-				}
+						var div_h = $image.height();
+
+						var new_h = parseInt(div_h, 10) + mouse_y;
+						var new_w = Math.round(new_h * ratio);
+
+						if (new_w > min_w)
+						{
+							$image.width(new_w);
+
+							if (new_w < 100)
+							{
+								this.imageEditter.css({
+									marginTop: '-7px',
+									marginLeft: '-13px',
+									fontSize: '9px',
+									padding: '3px 5px'
+								});
+							}
+							else
+							{
+								this.imageEditter.css({
+									marginTop: '-11px',
+									marginLeft: '-18px',
+									fontSize: '11px',
+									padding: '7px 10px'
+								});
+							}
+						}
+
+						start_x = Math.round(e.pageX - $image.eq(0).offset().left);
+						start_y = Math.round(e.pageY - $image.eq(0).offset().top);
+
+						this.sync()
+					}
+				}, this)).on('mouseup', function()
+				{
+					isResizing = false;
+				});
+
+
+				this.$editor.on('keydown.redactor-image-delete', $.proxy(function(e)
+				{
+					var key = e.which;
+
+					if (this.keyCode.BACKSPACE == key || this.keyCode.DELETE == key)
+					{
+						this.imageResizeHide(false);
+						this.imageRemove($image);
+					}
+
+				}, this));
+
+				$(document).on('click.redactor-image-resize-hide', $.proxy(this.imageResizeHide, this));
+				this.$editor.on('click.redactor-image-resize-hide', $.proxy(this.imageResizeHide, this));
+
+
+			}, this));
+		},
+		imageResizeControls: function($image)
+		{
+			var imageBox = $('<span id="redactor-image-box" data-redactor="verified">');
+			imageBox.css({
+				position: 'relative',
+				display: 'inline-block',
+				lineHeight: 0,
+				outline: '1px dashed rgba(0, 0, 0, .6)',
+				'float': $image.css('float')
 			});
+			imageBox.attr('contenteditable', false);
+
+			var margin = $image.css('margin');
+			if (margin != '0px')
+			{
+				imageBox.css('margin', margin);
+				$image.css('margin', '');
+			}
+
+			$image.css('opacity', .5).after(imageBox);
+
+			// editter
+			this.imageEditter = $('<span id="redactor-image-editter" data-redactor="verified">' + this.opts.curLang.edit + '</span>');
+			this.imageEditter.css({
+				position: 'absolute',
+				zIndex: 2,
+				top: '50%',
+				left: '50%',
+				marginTop: '-11px',
+				marginLeft: '-18px',
+				lineHeight: 1,
+				backgroundColor: '#000',
+				color: '#fff',
+				fontSize: '11px',
+				padding: '7px 10px',
+				cursor: 'pointer'
+			});
+			this.imageEditter.attr('contenteditable', false);
+			this.imageEditter.on('click', $.proxy(function()
+			{
+				this.imageEdit($image);
+			}, this));
+			imageBox.append(this.imageEditter);
+
+			// resizer
+			var imageResizer = $('<span id="redactor-image-resizer" data-redactor="verified"></span>');
+			imageResizer.css({
+				position: 'absolute',
+				zIndex: 2,
+				lineHeight: 1,
+				cursor: 'nw-resize',
+				bottom: '-4px',
+				right: '-5px',
+				border: '1px solid #fff',
+				backgroundColor: '#000',
+				width: '8px',
+				height: '8px'
+			});
+			imageResizer.attr('contenteditable', false);
+			imageBox.append(imageResizer);
+
+			imageBox.append($image);
+
+			return imageResizer;
 		},
 		imageThumbClick: function(e)
 		{
@@ -5101,6 +5806,7 @@
 					+ '<input id="redactor_file_alt" class="redactor_input" />'
 					+ '<label>' + this.opts.curLang.link + '</label>'
 					+ '<input id="redactor_file_link" class="redactor_input" />'
+					+ '<label><input type="checkbox" id="redactor_link_blank"> ' + this.opts.curLang.link_new_tab + '</label>'
 					+ '<label>' + this.opts.curLang.image_position + '</label>'
 					+ '<select id="redactor_form_image_align">'
 						+ '<option value="none">' + this.opts.curLang.none + '</option>'
@@ -5109,8 +5815,8 @@
 					+ '</select>'
 				+ '</section>'
 				+ '<footer>'
-					+ '<a href="#" id="redactor_image_delete_btn" class="redactor_modal_btn">' + this.opts.curLang._delete + '</a>&nbsp;&nbsp;&nbsp;'
-					+ '<a href="#" class="redactor_modal_btn redactor_btn_modal_close">' + this.opts.curLang.cancel + '</a>'
+					+ '<button id="redactor_image_delete_btn" class="redactor_modal_btn">' + this.opts.curLang._delete + '</button>&nbsp;&nbsp;&nbsp;'
+					+ '<button class="redactor_modal_btn redactor_btn_modal_close">' + this.opts.curLang.cancel + '</button>'
 					+ '<input type="button" name="save" class="redactor_modal_btn" id="redactorSaveBtn" value="' + this.opts.curLang.save + '" />'
 				+ '</footer>',
 
@@ -5138,7 +5844,7 @@
 					+ '</div>'
 				+ '</section>'
 				+ '<footer>'
-					+ '<a href="#" class="redactor_modal_btn redactor_btn_modal_close">' + this.opts.curLang.cancel + '</a>'
+					+ '<button class="redactor_modal_btn redactor_btn_modal_close">' + this.opts.curLang.cancel + '</button>'
 					+ '<input type="button" name="upload" class="redactor_modal_btn" id="redactor_upload_btn" value="' + this.opts.curLang.insert + '" />'
 				+ '</footer>',
 
@@ -5173,7 +5879,7 @@
 					+ '</form>'
 				+ '</section>'
 				+ '<footer>'
-					+ '<a href="#" class="redactor_modal_btn redactor_btn_modal_close">' + this.opts.curLang.cancel + '</a>'
+					+ '<button class="redactor_modal_btn redactor_btn_modal_close">' + this.opts.curLang.cancel + '</button>'
 					+ '<input type="button" class="redactor_modal_btn" id="redactor_insert_link_btn" value="' + this.opts.curLang.insert + '" />'
 				+ '</footer>',
 
@@ -5185,7 +5891,7 @@
 					+ '<input type="text" size="5" value="3" id="redactor_table_columns" />'
 				+ '</section>'
 				+ '<footer>'
-					+ '<a href="#" class="redactor_modal_btn redactor_btn_modal_close">' + this.opts.curLang.cancel + '</a>'
+					+ '<button class="redactor_modal_btn redactor_btn_modal_close">' + this.opts.curLang.cancel + '</button>'
 					+ '<input type="button" name="upload" class="redactor_modal_btn" id="redactor_insert_table_btn" value="' + this.opts.curLang.insert + '" />'
 				+ '</footer>',
 
@@ -5197,7 +5903,7 @@
 					+ '</form>'
 				+ '</section>'
 				+ '<footer>'
-					+ '<a href="javascript:void(null);" class="redactor_modal_btn redactor_btn_modal_close">' + this.opts.curLang.cancel + '</a>'
+					+ '<button class="redactor_modal_btn redactor_btn_modal_close">' + this.opts.curLang.cancel + '</button>'
 					+ '<input type="button" class="redactor_modal_btn" id="redactor_insert_video_btn" value="' + this.opts.curLang.insert + '" />'
 				+ '</footer>'
 
@@ -5295,6 +6001,9 @@
 
 			$redactorModal.find('.redactor_btn_modal_close').on('click', $.proxy(this.modalClose, this));
 
+			// save scroll
+			if (this.opts.autoresize === true) this.saveModalScroll = this.document.body.scrollTop;
+
 			if (this.isMobile() === false)
 			{
 				$redactorModal.css({
@@ -5307,6 +6016,7 @@
 
 				this.modalSaveBodyOveflow = $(document.body).css('overflow');
 				$(document.body).css('overflow', 'hidden');
+
 			}
 			else
 			{
@@ -5335,7 +6045,7 @@
 						minHeight: 'auto',
 						marginTop: '-' + (height + 10) / 2 + 'px'
 					});
-				}, 20 );
+				}, 10);
 			}
 
 		},
@@ -5354,13 +6064,18 @@
 
 				redactorModalInner.html('');
 
-				if ( this.opts.modalOverlay)
+				if (this.opts.modalOverlay)
 				{
 					$('#redactor_modal_overlay').hide().off('click', this.modalClose);
 				}
 
 				$(document).unbind('keyup', this.hdlModalClose);
 				this.$editor.unbind('keyup', this.hdlModalClose);
+
+				this.selectionRestore();
+
+				// restore scroll
+				if (this.opts.autoresize && this.saveModalScroll) $(this.document.body).scrollTop(this.saveModalScroll);
 
 			}, this));
 
@@ -5599,7 +6314,7 @@
 				{
 					$.each(this.opts.uploadFields, $.proxy(function(k, v)
 					{
-						if (v.toString().indexOf('#') === 0) v = $(v).val();
+						if (v != null && v.toString().indexOf('#') === 0) v = $(v).val();
 
 						var hidden = $('<input/>', {
 							'type': "hidden",
@@ -5613,7 +6328,7 @@
 				}
 
 				var oldElement = this.uploadOptions.input;
-				var newElement = $( oldElement ).clone();
+				var newElement = $(oldElement).clone();
 
 				$(oldElement).attr('id', fileId).before(newElement).appendTo(this.form);
 
@@ -5745,7 +6460,7 @@
 			{
 				$.each(this.draguploadOptions.uploadFields, $.proxy(function(k, v)
 				{
-					if (v.toString().indexOf('#') === 0) v = $(v).val();
+					if (v != null && v.toString().indexOf('#') === 0) v = $(v).val();
 					fd.append(k, v);
 
 				}, this));
@@ -5806,6 +6521,11 @@
 		{
 			return /(iPhone|iPod|BlackBerry|Android)/.test(navigator.userAgent);
 		},
+		normalize: function(str)
+		{
+			if (typeof(str) === 'undefined') return 0;
+			return parseInt(str.replace('px',''), 10);
+		},
 		outerHtml: function(el)
 		{
 			return $('<div>').append($(el).eq(0).clone()).html();
@@ -5818,7 +6538,8 @@
 		{
 			html = html.replace(/&#x200b;|<br>|<br\/>|&nbsp;/gi, '');
 			html = html.replace(/\s/g, '');
-			html = html.replace(/^<p>[^\w\d]*?<\/p>$/i, '');
+			html = html.replace(/^<p>[^\W\w\D\d]*?<\/p>$/i, '');
+
 
 			return html == '';
 		},
@@ -5884,6 +6605,7 @@
 			var text = $.trim($(current).text()).replace(/\n\r\n/g, '');
 
 			var len = text.length;
+
 			if (offset == len) return true;
 			else return false;
 		},
@@ -5891,7 +6613,7 @@
 		{
 			var el, sel = this.getSelection();
 
-			if (sel.rangeCount && sel.rangeCount > 0) el = sel.getRangeAt(0).startContainer;
+			if (sel && sel.rangeCount && sel.rangeCount > 0) el = sel.getRangeAt(0).startContainer;
 			if (!el) return false;
 			if (this.opts.iframe)
 			{
@@ -5922,10 +6644,12 @@
 	Redactor.prototype.init.prototype = Redactor.prototype;
 
 	// LINKIFY
-	$.Redactor.fn.formatLinkify = function(protocol)
+	$.Redactor.fn.formatLinkify = function(protocol, convertLinks, convertImageLinks, convertVideoLinks)
 	{
 		var url1 = /(^|&lt;|\s)(www\..+?\..+?)(\s|&gt;|$)/g,
-			url2 = /(^|&lt;|\s)(((https?|ftp):\/\/|mailto:).+?)(\s|&gt;|$)/g;
+			url2 = /(^|&lt;|\s)(((https?|ftp):\/\/|mailto:).+?)(\s|&gt;|$)/g,
+			urlImage = /(https?:\/\/.*\.(?:png|jpg|jpeg|gif))/gi,
+			urlYoutube = /^.*(youtu.be\/|v\/|u\/\w\/|embed\/|watch\?v=|\&v=)([^#\&\?]*).*/;
 
 		var childNodes = (this.$editor ? this.$editor.get(0) : this).childNodes, i = childNodes.length;
 		while (i--)
@@ -5934,7 +6658,23 @@
 			if (n.nodeType === 3)
 			{
 				var html = n.nodeValue;
-				if (html && (html.match(url1) || html.match(url2)))
+
+				// youtube
+				if (convertVideoLinks && html && html.match(urlYoutube))
+				{
+					html = html.replace(urlYoutube, '<iframe width="560" height="315" src="//www.youtube.com/embed/$2" frameborder="0" allowfullscreen></iframe>');
+					$(n).after(html).remove();
+				}
+
+				// image
+				else if (convertImageLinks && html && html.match(urlImage))
+				{
+					html = html.replace(urlImage, '<img src="$1">');
+					$(n).after(html).remove();
+				}
+
+				// link
+				else if (convertLinks && html && (html.match(url1) || html.match(url2)))
 				{
 					html = html.replace(/&/g, '&amp;')
 					.replace(/</g, '&lt;')
@@ -5947,7 +6687,7 @@
 			}
 			else if (n.nodeType === 1 && !/^(a|button|textarea)$/i.test(n.tagName))
 			{
-				$.Redactor.fn.formatLinkify.call(n, protocol);
+				$.Redactor.fn.formatLinkify.call(n, protocol, convertLinks, convertImageLinks, convertVideoLinks);
 			}
 		}
 	};
