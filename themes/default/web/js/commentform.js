@@ -65,7 +65,6 @@ $(document).ready(function() {
                     message = data.data.message;
                 else
                     message = errorMessage;
-                alert(33);
                 messageBox = '<div id="messageBox" class="alert alert-error">' + message + '</div>';
                 $(curForm).before(messageBox);
                 setTimeout(function() {
