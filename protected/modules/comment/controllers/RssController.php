@@ -31,8 +31,7 @@ class RssController extends YFrontController
         }
 
         $criteria->addCondition('model = :model')
-            ->addCondition('model_id = :modelId')
-            ->addCondition('t.id<>t.root');
+            ->addCondition('model_id = :modelId');
 
         $criteria->params = array(
             ':model'    => $model,

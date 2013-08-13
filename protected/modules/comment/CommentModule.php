@@ -113,7 +113,7 @@ class CommentModule extends YWebModule
 
     public function getVersion()
     {
-        return Yii::t('CommentModule.comment', '0.5.4');
+        return Yii::t('CommentModule.comment', '0.5');
     }
 
     public function getAuthor()

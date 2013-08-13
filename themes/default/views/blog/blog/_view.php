@@ -10,7 +10,7 @@
         </a>
     </div>
     <div class="span6">
-        <p> <?php echo CHtml::encode($data->description); ?></p>
+        <p> <?php echo strip_tags($data->description); ?></p>
     </div>
 </div>
 <div class="row">

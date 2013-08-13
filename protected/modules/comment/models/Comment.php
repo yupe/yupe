@@ -82,16 +82,6 @@ class Comment extends YModel
         return parent::model($className);
     }
 
-    public function behaviors()
-    {
-
-        return array(
-            'NestedSetBehavior'=>array(
-                'class'=>'application.modules.yupe.extensions.nested-set-behavior.NestedSetBehavior',
-                'hasManyRoots'=>true,
-            ));
-    }
-
     /**
      * Имя таблицы в БД:
      *
@@ -114,7 +104,7 @@ class Comment extends YModel
             array('model, name, email, text, url', 'filter', 'filter' => 'trim'),
             array('model, name, email, text, url', 'filter', 'filter' => array($obj = new CHtmlPurifier(), 'purify')),
             array('model, model_id, name, email, text', 'required'),
-            array('status, user_id, model_id, parent_id, lft, rgt, level, root', 'numerical', 'integerOnly' => true),
+            array('status, user_id, model_id, parent_id', 'numerical', 'integerOnly' => true),
             array('name, email, url', 'length', 'max' => 150),
             array('model', 'length', 'max' => 100),
             array('ip', 'length', 'max' => 20),
@@ -146,10 +136,6 @@ class Comment extends YModel
             'status'        => Yii::t('CommentModule.comment', 'Статус'),
             'verifyCode'    => Yii::t('CommentModule.comment', 'Код проверки'),
             'ip'            => Yii::t('CommentModule.comment', 'IP адрес'),
-            'level'         => Yii::t('CommentModule.comment', 'Уровень'),
-            'root'          => Yii::t('CommentModule.comment', 'Корень'),
-            'lft'           => Yii::t('CommentModule.comment', 'Левый ключ'),
-            'rgt'           => Yii::t('CommentModule.comment', 'Правый ключ'),
         );
     }
 

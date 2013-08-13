@@ -1,20 +1,29 @@
+<?php
+/**
+ * Отображение для CommentFormWidget/commentformwidget:
+ * 
+ *   @category YupeView
+ *   @package  YupeCMS
+ *   @author   Yupe Team <team@yupe.ru>
+ *   @license  https://github.com/yupe/yupe/blob/master/LICENSE BSD
+ *   @link     http://yupe.ru
+ **/
+?>
 <script type='text/javascript'>
     var errorMessage = '<?php echo Yii::t("CommentModule.comment", "При добавлении комментария возникла ошибка, повторите попытку позже.")?>';
 </script>
-<a href='#' id='wcml' style="display: none;">НАПИСАТЬ КОММЕНТАРИЙ</a>
-<br/>
+
+<a href='#' id='wcml'>НАПИСАТЬ КОММЕНТАРИЙ</a>
+
+<br/><br/>
 <div id='comment-form-wrap' class='comment-form-wrap'>
 <div class="form">
-<?php $form = $this->beginWidget(
-    'bootstrap.widgets.TbActiveForm',
-    array(
-        'action' => '/comment/comment/add/',
-        'id' => 'comment-form',
-        'type' => 'vertical',
-        'inlineErrors' => true,
-        'htmlOptions' => array(
-            'class' => 'well',
-        )
+<?php
+$form = $this->beginWidget(
+    'CActiveForm', array(
+         'action'                 => $this->controller->createUrl('/comment/comment/add'),
+         'id'                     => 'comment-form',
+         'enableClientValidation' => true     
     )
 ); ?>
 
@@ -31,30 +40,35 @@
     <?php echo $form->hiddenField($model, 'parent_id'); ?>
     <?php echo $form->hiddenField($model, 'level'); ?>
     <?php echo CHtml::hiddenField('redirectTo', $redirectTo); ?>
-
     <?php if (!Yii::app()->user->isAuthenticated()) : ?>
-        <div class='row-fluid control-group <?php echo $model->hasErrors('name') ? 'error' : ''; ?>'>
-            <?php echo $form->textFieldRow($model, 'name', array('class' => 'span6', 'required' => true)); ?>
+        <div class="row">
+            <?php echo $form->labelEx($model, 'name'); ?>
+            <?php echo $form->textField($model, 'name', array('size' => 60, 'maxlength' => 128)); ?>
+            <?php echo $form->error($model, 'name'); ?>
         </div>
 
-        <div class='row-fluid control-group <?php echo $model->hasErrors('email') ? 'error' : ''; ?>'>
-            <?php echo $form->textFieldRow($model, 'email', array('class' => 'span6', 'required' => true)); ?>
+        <div class="row">
+            <?php echo $form->labelEx($model, 'email'); ?>
+            <?php echo $form->textField($model, 'email', array('size' => 60, 'maxlength' => 128)); ?>
+            <?php echo $form->error($model, 'email'); ?>
         </div>
 
-        <div class='row-fluid control-group <?php echo $model->hasErrors('url') ? 'error' : ''; ?>'>
-            <?php echo $form->textFieldRow($model, 'url', array('class' => 'span6')); ?>
+        <div class="row">
+            <?php echo $form->labelEx($model, 'url'); ?>
+            <?php echo $form->textField($model, 'url', array('size' => 60, 'maxlength' => 128)); ?>
+            <?php echo $form->error($model, 'url'); ?>
         </div>
-
     <?php else: ?>
         <p><?php echo Yii::t('CommentModule.comment', 'От имени'); ?>: <?php echo Yii::app()->user->getState('nick_name'); ?></p>
     <?php endif; ?>
-
-    <div class='row-fluid control-group <?php echo $model->hasErrors('text') ? 'error' : ''; ?>'>
-        <?php echo $form->textAreaRow($model, 'text', array('class' => 'span12', 'required' => true,'rows' => 7, 'cols' => 50)); ?>
+    <div class="row">
+        <?php echo $form->labelEx($model, 'text'); ?>
+        <?php echo $form->textArea($model, 'text', array('rows' => 6, 'cols' => 50)); ?>
+        <?php echo $form->error($model, 'text'); ?>
     </div>
-
     <?php if ($module->showCaptcha && !Yii::app()->user->isAuthenticated()): ?>
         <?php if(CCaptcha::checkRequirements()) : ?>
+            <div class="row">
                 <?php echo $form->labelEx($model, 'verifyCode'); ?>
 
                 <?php
@@ -68,22 +82,15 @@
                     )
                 ); ?>
 
-                <div class='row-fluid control-group <?php echo $model->hasErrors('verifyCode') ? 'error' : ''; ?>'>
-                    <?php echo $form->textFieldRow($model, 'verifyCode', array('placeholder' => 'Введите цифры указанные на картинке','class' => 'span6', 'required' => true)); ?>
+                <?php echo $form->textField($model, 'verifyCode'); ?>
+                <div class="hint">
+                    <?php echo Yii::t('CommentModule.comment', 'Введите цифры указанные на картинке'); ?>
                 </div>
+            </div>
         <?php endif; ?>
     <?php endif; ?>
-    <div class="row-fluid  control-group">
-        <?php
-        $this->widget(
-            'bootstrap.widgets.TbButton',
-            array(
-                'buttonType' => 'submit',
-                'type' => 'primary',
-                'icon' => 'comment',
-                'label' => Yii::t('comment', 'Добавить комментарий'),
-            )
-        ); ?>
+    <div class="row buttons">
+        <?php echo CHtml::submitButton(Yii::t('CommentModule.comment', 'Добавить комментарий')); ?>
     </div>
 <?php $this->endWidget(); ?>
 </div><!-- form -->

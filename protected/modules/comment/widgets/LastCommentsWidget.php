@@ -17,7 +17,7 @@ class LastCommentsWidget extends YWidget
     public function run()
     {
         $criteria = new CDbCriteria(array(
-            'condition' => 'status = :status AND id<>root',
+            'condition' => 'status = :status',
             'params'    => array(':status' => $this->commentStatus),
             'limit'     => $this->limit,
             'order'     => 'id DESC',
