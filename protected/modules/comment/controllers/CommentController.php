@@ -81,6 +81,7 @@ class CommentController extends YFrontController
             throw new CHttpException(404);
         }
 
+
         $redirect = Yii::app()->request->getPost('redirectTo', Yii::app()->user->returnUrl);
 
         $comment = new Comment;
@@ -100,8 +101,9 @@ class CommentController extends YFrontController
                 )
             );
 
-            if ($module->autoApprove)
+            if ($module->autoApprove) {
                 $comment->status = Comment::STATUS_APPROVED;
+            }
         }
 
         if ($comment->save()) {
@@ -143,6 +145,7 @@ class CommentController extends YFrontController
             $this->redirect($redirect);
 
         } else {
+
             $message = Yii::t('CommentModule.comment', 'Запись не добавлена! Заполните форму корректно!');
 
             if (Yii::app()->request->isAjaxRequest) {
@@ -163,14 +166,15 @@ class CommentController extends YFrontController
     /**
      * Отрисовка комментария:
      *
-     * @param class $comment - комментарий
+     * @param Comment $comment - комментарий
      *
      * @return string html отрисованного комментария
      **/
-    private function _renderComment($comment = null)
+    private function _renderComment(Comment $comment = null)
     {
-        if ($comment === null)
-            return '';
+        if ($comment === null) {
+            return null;
+        }
 
         ob_start();
 

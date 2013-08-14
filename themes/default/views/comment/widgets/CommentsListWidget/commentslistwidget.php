@@ -28,96 +28,58 @@
     });
 </script>
 
+<?php if(!$this->comment):?>
+    <div id="comments">
+<?php endif;?>
 
-<?php
-/**
- * Отображение для CommentsListWidget/commentslistwidget:
- * 
- *   @category YupeView
- *   @package  YupeCMS
- *   @author   Yupe Team <team@yupe.ru>
- *   @license  https://github.com/yupe/yupe/blob/master/LICENSE BSD
- *   @link     http://yupe.ru
- **/
-if (!$this->comment)
-    echo '<div id="comments">';
+<?php if(count($comments)):?>
+    <?php if (!$this->comment):?>
+        <strong><?php echo $this->label; ?> <?php echo count($comments); ?></strong>
+        <?php echo CHtml::link(CHtml::image(Yii::app()->theme->baseUrl.'/web/images/rss.png'),array('/comment/rss/feed','model' => $this->model, 'modelId' => $this->modelId));?>
+    <?php endif;?>
 
-if (count($comments)) {
-    if (!$this->comment)
-        echo '<b> ' . $this->label . ' ' . count($comments) . '</b> <a href="#" id="post-updatecomments" title="Обновить комментарии"><i class="icon-repeat"></i></a> '.CHtml::link(CHtml::image(Yii::app()->theme->baseUrl.'/web/images/rss.png'),array('/comment/rss/feed','model' => $this->model, 'modelId' => $this->modelId));
-    foreach ($comments as &$commentArray) {
-        if (!$this->comment && isset($commentArray['childOf'])) {
-            $comment = &$commentArray['row'];
-            $level = count($commentArray['childOf']);
-        } else {
-            $comment = $this->comment;
-            $level = 1;
-        }
-        echo '<div style="margin-left: ' . (20 * $level) . 'px; " level="' . $level . '">' . "\n";
-        echo ''
-            . '<div class="well well-small" id="comment_'
-            . $comment->id
-            . '_'
-            . str_replace(' ', '_', $comment->creation_date)
-            . '">'
-            . "\n"
-            . '<div class="avatar">'
-            . (!is_object($comment->author)
-                         ? CHtml::image(
-                            User::model()->getAvatar(32),
-                            $comment->name,
-                            array(
-                                'width' => 32,
-                                'height' => 32
-                            )
-                        )
-                         : CHtml::image(
-                            $comment->author->getAvatar(32),
-                            $comment->author->nick_name,
-                            array(
-                                'width' => 32,
-                                'height' => 32
-                            )
-                        )
-            )
-            . '</div>'
-            . '<div class="comment-body">'
-            . '<div class="author">'
-            . "\n";
-        if (!is_object($comment->author)) {
-            if ($comment->url)
-                echo CHtml::link($comment->name, $comment->url, array('rel' => 'nofollow'));
-            else
-                echo $comment->name;
-        } else
-            echo CHtml::link(
-                $comment->name,
-                array(
-                    '/user/people/userInfo/',
-                    'username' => $comment->author->nick_name
-                )
-            );
-        echo ' ' . Yii::t('comment', 'написал') . ':';
-        echo ''
-            . '<span style="float: right">'
-            . CHtml::link(
-                Yii::t('comment', '<i class="icon-bullhorn"></i>'), 'javascript:void(0);', array(
-                    'rel'     => $comment->id,
-                    'data-id' => $comment->id . '_' . str_replace(' ', '_', $comment->creation_date),
-                    'class'   => 'commentParrent',
-                    'title'   => Yii::t('comment','Ответить')
-                )
-            )
-            . '</span>';
-        echo '</div>';
-        echo '<div class="time">' . $comment->creation_date . '</div>';
-        echo '<div class="content">' . $comment->text . '</div>';
-        echo '</div>';
-        echo '</div>';
-        echo '</div>';
-    }
-} else {
-    echo '<p>' . $this->label . ' ' . Yii::t('comment', 'пока нет, станьте первым!') . '</p>';
-}
-if (!$this->comment)
-    echo '</div>';
+    <?php foreach ($comments as $commentArray):?>
+
+        <?php if(!$this->comment && isset($commentArray['childOf'])):?>
+            <?php $comment = $commentArray['row'];?>
+            <?php $level = count($commentArray['childOf']);?>
+        <?php else:?>
+            <?php $comment = $this->comment;?>
+            <?php $level = 1;?>
+        <?php endif;?>
+
+        <div style="margin-left: <?php echo (20 * $level); ?>px; " level="<?php echo $level; ?>">
+            <div class="well well-small" id="comment_<?php echo $comment->id;?>_<?php echo str_replace(' ', '_', $comment->creation_date); ?>">
+                <div class="avatar">
+                    <?php echo $comment->getAuthorAvatar();?>
+                </div>
+                <div class="comment-body">
+                    <div class="author">
+                        <?php echo $comment->getAuthorLink();?> <?php echo Yii::t('comment', 'написал');?>
+                        <span style="float: right">
+                            <?php echo CHtml::link(
+                                '<i class="icon-bullhorn"></i>', 'javascript:void(0);', array(
+                                    'rel'     => $comment->id,
+                                    'data-id' => $comment->id . '_' . str_replace(' ', '_', $comment->creation_date),
+                                    'class'   => 'commentParrent',
+                                    'title'   => Yii::t('comment','Ответить')
+                            ));?>
+                        </span>
+                    </div>
+                    <div class="time"> <?php echo $comment->creation_date; ?> </div>
+                    <div class="content"> <?php echo $comment->getText() ;?> </div>
+                </div>
+            </div>
+        </div>
+
+    <?php endforeach;?>
+
+
+<?php else:?>
+    <p><?php echo $this->label; ?> <?php echo Yii::t('comment', 'пока нет, станьте первым!');?>;
+<?php endif;?>
+
+
+<?php if(!$this->comment):?>
+    </div>
+<?php endif;?>

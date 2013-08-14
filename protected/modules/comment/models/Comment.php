@@ -51,6 +51,7 @@
  * @property integer $status
  * @property string $ip
  * @property string $user_id
+ * @property integer $parent_id
  *
  * @category YupeModels
  * @package  YupeCMS
@@ -63,12 +64,11 @@ class Comment extends YModel
 {
 
     const STATUS_NEED_CHECK = 0;
-    const STATUS_APPROVED   = 1;
-    const STATUS_SPAM       = 2;
-    const STATUS_DELETED    = 3;
+    const STATUS_APPROVED = 1;
+    const STATUS_SPAM = 2;
+    const STATUS_DELETED = 3;
 
     public $verifyCode;
-    public $level = 0;
 
     /**
      * Returns the static model of the specified AR class.
@@ -113,7 +113,7 @@ class Comment extends YModel
             array('status', 'in', 'range' => array_keys($this->statusList)),
             array('verifyCode', 'YRequiredValidator', 'allowEmpty' => !$module->showCaptcha || Yii::app()->user->isAuthenticated()),
             array('verifyCode', 'captcha', 'allowEmpty' => !$module->showCaptcha || Yii::app()->user->isAuthenticated()),
-            array('id, model, model_id, creation_date, name, email, url, text, status, ip', 'safe', 'on' => 'search'),
+            array('id, model, model_id, creation_date, name, email, url, text, status, ip, parent_id', 'safe', 'on' => 'search'),
         );
     }
 
@@ -125,17 +125,18 @@ class Comment extends YModel
     public function attributeLabels()
     {
         return array(
-            'id'            => Yii::t('CommentModule.comment', 'ID'),
-            'model'         => Yii::t('CommentModule.comment', 'Тип модели'),
-            'model_id'      => Yii::t('CommentModule.comment', 'Модель'),
+            'id' => Yii::t('CommentModule.comment', 'ID'),
+            'model' => Yii::t('CommentModule.comment', 'Тип модели'),
+            'model_id' => Yii::t('CommentModule.comment', 'Модель'),
             'creation_date' => Yii::t('CommentModule.comment', 'Дата создания'),
-            'name'          => Yii::t('CommentModule.comment', 'Имя'),
-            'email'         => Yii::t('CommentModule.comment', 'Email'),
-            'url'           => Yii::t('CommentModule.comment', 'Сайт'),
-            'text'          => Yii::t('CommentModule.comment', 'Текст'),
-            'status'        => Yii::t('CommentModule.comment', 'Статус'),
-            'verifyCode'    => Yii::t('CommentModule.comment', 'Код проверки'),
-            'ip'            => Yii::t('CommentModule.comment', 'IP адрес'),
+            'name' => Yii::t('CommentModule.comment', 'Имя'),
+            'email' => Yii::t('CommentModule.comment', 'Email'),
+            'url' => Yii::t('CommentModule.comment', 'Сайт'),
+            'text' => Yii::t('CommentModule.comment', 'Текст'),
+            'status' => Yii::t('CommentModule.comment', 'Статус'),
+            'verifyCode' => Yii::t('CommentModule.comment', 'Код проверки'),
+            'ip' => Yii::t('CommentModule.comment', 'IP адрес'),
+            'parent_id' => Yii::t('CommentModule.comment', 'Родитель'),
         );
     }
 
@@ -156,17 +157,17 @@ class Comment extends YModel
      *
      * @return mixed список условий
      **/
-    public function scopes() 
+    public function scopes()
     {
         return array(
-            'new'      => array(
+            'new' => array(
                 'condition' => 't.status = :status',
-                'params'    => array(':status' => self::STATUS_NEED_CHECK),
+                'params' => array(':status' => self::STATUS_NEED_CHECK),
             ),
             'approved' => array(
                 'condition' => 't.status = :status',
-                'params'    => array(':status' => self::STATUS_APPROVED),
-                'order'     => 't.creation_date DESC',
+                'params' => array(':status' => self::STATUS_APPROVED),
+                'order' => 't.creation_date DESC',
             ),
             'authored' => array(
                 'condition' => 't.user_id is not null',
@@ -209,11 +210,11 @@ class Comment extends YModel
     public function beforeSave()
     {
         if ($this->isNewRecord) {
-            $this->creation_date = YDbMigration::expression('NOW()');
-            $this->ip            = Yii::app()->request->userHostAddress;
+            $this->creation_date = new CDbExpression('NOW()');
+            $this->ip = Yii::app()->request->userHostAddress;
         }
 
-        
+
         return parent::beforeSave();
     }
 
@@ -224,8 +225,9 @@ class Comment extends YModel
      **/
     public function afterSave()
     {
-        if ($cache = Yii::app()->getCache())
+        if ($cache = Yii::app()->getCache()) {
             $cache->delete("Comment{$this->model}{$this->model_id}");
+        }
 
         return parent::afterSave();
     }
@@ -248,7 +250,7 @@ class Comment extends YModel
     public function newComment()
     {
         if (($module = Yii::app()->getModule('comment')) && $module->email) {
-            /** 
+            /**
              * Объявляем новое событие
              * и заполняем нужными данными:
              **/
@@ -283,10 +285,10 @@ class Comment extends YModel
     public function getStatusList()
     {
         return array(
-            self::STATUS_APPROVED   => Yii::t('CommentModule.comment', 'Принят'),
-            self::STATUS_DELETED    => Yii::t('CommentModule.comment', 'Удален'),
+            self::STATUS_APPROVED => Yii::t('CommentModule.comment', 'Принят'),
+            self::STATUS_DELETED => Yii::t('CommentModule.comment', 'Удален'),
             self::STATUS_NEED_CHECK => Yii::t('CommentModule.comment', 'Проверка'),
-            self::STATUS_SPAM       => Yii::t('CommentModule.comment', 'Спам'),
+            self::STATUS_SPAM => Yii::t('CommentModule.comment', 'Спам'),
         );
     }
 
@@ -306,8 +308,36 @@ class Comment extends YModel
      *
      * @return Comment->author || bool false
      **/
-    public function getAuthor()
+    public function getAuthorName()
     {
         return ($this->author) ? $this->author : $this->name;
+    }
+
+
+    public function getAuthorAvatar($size = 32, array $params = array('width' => 32, 'height' => 32))
+    {
+        if ($this->author) {
+            return CHtml::image($this->author->getAvatar((int)$size), $this->author->nick_name, $params);
+        }
+
+        return CHtml::image(User::model()->getAvatar((int)$size), $this->name, $params);
+    }
+
+    public function getAuthorLink(array $params = array('rel' => 'nofollow'))
+    {
+        if ($this->author) {
+            return CHtml::link($this->name, array('/user/people/userInfo/', 'username' => $this->author->nick_name), $params);
+        }
+
+        if ($this->url) {
+            return CHtml::link($this->name, $this->url, $params);
+        }
+
+        return $this->name;
+    }
+
+    public function getText()
+    {
+        return strip_tags($this->text, Yii::app()->getModule('comment')->allowedTags);
     }
 }

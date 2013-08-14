@@ -10,6 +10,7 @@ class CommentModule extends YWebModule
     public $minCaptchaLength = 3;
     public $maxCaptchaLength = 6;
     public $rssCount         = 10;
+    public $allowedTags;
 
     public function getDependencies()
     {
@@ -30,6 +31,7 @@ class CommentModule extends YWebModule
             'minCaptchaLength'     => Yii::t('CommentModule.comment', 'Минимальная длинна капчи'),
             'maxCaptchaLength'     => Yii::t('CommentModule.comment', 'Максимальная длинна капчи'),
             'rssCount'             => Yii::t('CommentModule.comment', 'Количество записей в RSS'),
+            'allowedTags'          => Yii::t('CommentModule.comment', 'Разрешенные теги')
         );
     }
 
@@ -44,7 +46,8 @@ class CommentModule extends YWebModule
             'showCaptcha'          => $this->getChoice(),
             'minCaptchaLength',
             'maxCaptchaLength',
-            'rssCount'
+            'rssCount',
+            'allowedTags'
         );
     }
 
@@ -152,8 +155,9 @@ class CommentModule extends YWebModule
 
         $this->setImport($import);
 
-        if (!$this->email)
+        if (!$this->email) {
             $this->email = Yii::app()->getModule('yupe')->email;
+        }
 
         $this->defaultCommentStatus = Comment::STATUS_NEED_CHECK;
     }
