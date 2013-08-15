@@ -43,7 +43,7 @@
 
 
 <?php else:?>
-    <p><?php echo $this->label; ?> <?php echo Yii::t('comment', 'пока нет, станьте первым!');?>;
+    <p><?php echo $this->label; ?> <?php echo Yii::t('comment', 'пока нет, станьте первым!');?>
 <?php endif;?>
 
 </div>

@@ -13,7 +13,8 @@ $this->widget(
     array(
         'target' => '.gallery-image',
         'lang' => 'ru', // если не установить, то будет изспользован Yii::app()->language
-        'config' => array( // тут конфиги плагина, подробнее http://www.jacklmoore.com/colorbox
+        'config' => array(
+             'rel' => '.gallery-image'// тут конфиги плагина, подробнее http://www.jacklmoore.com/colorbox
         ),
     )
 ); ?>
@@ -27,23 +28,9 @@ if ($gallery->status == Gallery::STATUS_PRIVATE && $gallery->owner != Yii::app()
     );
 } else {
         $this->widget(
-            'zii.widgets.CListView', array(
+            'bootstrap.widgets.TbListView', array(
                 'dataProvider' => $dataProvider,
                 'itemView' => '_image',
-                'itemsTagName' => 'ul',
-                'itemsCssClass' => 'thumbnails unstyled',
             )
         );
 } ?>
-
-<script type="text/javascript">
-    function masonry(selector) {
-        var $container = $(selector);
-        $container.imagesLoaded(function () {
-            this.isotope({
-                masonry: { itemSelector: '.image', columnWidth: $container.width() / 19 }
-            });
-        });
-    }
-    masonry('#gallery .items');
-</script>

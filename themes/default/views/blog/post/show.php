@@ -18,7 +18,7 @@ $this->breadcrumbs = array(
 <div class="post">
     <div class="row">
         <div class="span8">
-            <h4><strong><?php echo $post->title;?></strong></h4>
+            <h4><strong><?php echo CHtml::encode($post->title);?></strong></h4>
         </div>
     </div>
     <div class="row">
