@@ -5,9 +5,8 @@
     Yii::t('blog', 'список записей'),
 ); ?>
 
-<p><?php echo Yii::t('blog', 'Записи с меткой'); ?> <b><?php echo $tag; ?></b>...</p>
+<p><?php echo Yii::t('blog', 'Записи с меткой'); ?> <strong><?php echo $tag; ?></strong>...</p>
 
-<?php
-foreach($posts as $post)
-    $this->renderPartial('_view', array('data' => $post));
-?>
+<?php foreach($posts as $post):?>
+    <?php $this->renderPartial('_view', array('data' => $post)); ?>
+<?php endforeach;?>
