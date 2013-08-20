@@ -30,7 +30,7 @@ class m000000_000000_user_base extends YDbMigration
                 'last_name'     => 'varchar(250) DEFAULT NULL',
                 'nick_name'     => 'varchar(250) NOT NULL',
                 'email'         => 'varchar(250) NOT NULL',
-                'gender'        => "boolean NOT NULL DEFAULT '0'",
+                'gender'        => "integer NOT NULL DEFAULT '0'",
                 'birth_date'    => 'date DEFAULT NULL',
                 'site'          => "varchar(250) NOT NULL DEFAULT ''",
                 'about'         => "varchar(250) NOT NULL DEFAULT ''",
@@ -45,9 +45,9 @@ class m000000_000000_user_base extends YDbMigration
                 'registration_ip' => 'varchar(50) NOT NULL',
                 'activation_ip'   => 'varchar(50) NOT NULL',
                 'avatar'          => 'varchar(150) DEFAULT NULL',
-                'use_gravatar'    => "boolean NOT NULL DEFAULT '1'",
+                'use_gravatar'    => "integer NOT NULL DEFAULT '1'",
                 'activate_key'    => 'char(32) NOT NULL',
-                'email_confirm'   => "boolean NOT NULL DEFAULT '0'",
+                'email_confirm'   => "integer NOT NULL DEFAULT '0'",
             ),
             $this->getOptions()
         );
