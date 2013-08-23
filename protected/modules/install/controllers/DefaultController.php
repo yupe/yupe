@@ -1022,24 +1022,27 @@ class DefaultController extends YBackController
 
                 $user->setAttributes(
                     array(
-                        'nick_name' => $model->userName,
-                        'email' => $model->userEmail,
-                        'salt' => $salt,
-                        'gender' => 0,
-                        'password' => User::model()->hashPassword($model->userPassword, $salt),
+                        'nick_name'         => $model->userName,
+                        'email'             => $model->userEmail,
+                        'salt'              => $salt,
+                        'gender'            => 0,
+                        'use_gravatar'      => 1,
+                        'password'          => User::model()->hashPassword($model->userPassword, $salt),
                         'registration_date' => YDbMigration::expression('NOW()'),
-                        'registration_ip' => Yii::app()->request->userHostAddress,
-                        'activation_ip' => Yii::app()->request->userHostAddress,
-                        'access_level' => User::ACCESS_LEVEL_ADMIN,
-                        'status' => User::STATUS_ACTIVE,
-                        'email_confirm' => User::EMAIL_CONFIRM_YES,
+                        'registration_ip'   => Yii::app()->request->userHostAddress,
+                        'activation_ip'     => Yii::app()->request->userHostAddress,
+                        'access_level'      => User::ACCESS_LEVEL_ADMIN,
+                        'status'            => User::STATUS_ACTIVE,
+                        'email_confirm'     => User::EMAIL_CONFIRM_YES,
                     )
                 );
 
                 if ($user->save()) {
-                    $login = new LoginForm;
-                    $login->email = $model->userEmail;
+
+                    $login           = new LoginForm;
+                    $login->email    = $model->userEmail;
                     $login->password = $model->userPassword;
+
                     $login->authenticate();
 
                     Yii::app()->user->setFlash(
@@ -1050,7 +1053,7 @@ class DefaultController extends YBackController
                     $this->session['InstallForm'] = array_merge(
                         $this->session['InstallForm'],
                         array(
-                            'createUser' => $model->attributes,
+                            'createUser'     => $model->attributes,
                             'createUserStep' => true,
                         )
                     );
