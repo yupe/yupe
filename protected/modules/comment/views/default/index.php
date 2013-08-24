@@ -84,7 +84,10 @@ $this->renderPartial('_search', array('model' => $model));
             'value' => '$this->grid->returnBootstrapStatusHtml($data, "status", "Status", array("pencil", "ok-sign", "fire", "remove"))',
             'filter' => $model->getStatusList()
         ),
-        'text',
+        array(
+            'name'  => 'text',
+            'value' => '(strlen($data->text) == 0 && strlen($data->name) == 0) ? "'.Yii::t("CommentModule.comment","КОРЕННОЙ УЗЕЛ ДЛЯ:").' $data->model -> $data->model_id" : $data->text',
+        ),
         array(
             'name'  => 'creation_date',
             'value' => 'Yii::app()->getDateFormatter()->formatDateTime($data->creation_date, "short", "short")',

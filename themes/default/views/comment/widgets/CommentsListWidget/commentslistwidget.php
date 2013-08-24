@@ -5,11 +5,10 @@
         <?php echo CHtml::link(CHtml::image(Yii::app()->theme->baseUrl.'/web/images/rss.png'),array('/comment/rss/feed','model' => $this->model, 'modelId' => $this->modelId));?>
     <?php endif;?>
 
-    <?php foreach ($comments as $commentArray):?>
+    <?php foreach ($comments as $comment):?>
 
-        <?php if(!$this->comment && isset($commentArray['childOf'])):?>
-            <?php $comment = $commentArray['row'];?>
-            <?php $level = count($commentArray['childOf']);?>
+        <?php if(!$this->comment && is_object($comment)):?>
+            <?php $level = $comment->level-2; ?>
         <?php else:?>
             <?php $comment = $this->comment;?>
             <?php $level = 1;?>

@@ -24,23 +24,55 @@ class YMigrateToNestedSetsCommand extends CConsoleCommand
     public function actionIndex()
     {
         $this->_checkForNestedSetsMigration();
+        $this->_checkForNestedSetsBehaviorExists();
         $this->_createRootElementsForOldComments();
         $this->_buildNestedSetsTree();
+    }
+
+    private function _checkForNestedSetsBehaviorExists()
+    {
+        $commentsConfigFile = Yii::getPathOfAlias("application.config.modules").'/comment.php';
+        if(!file_exists($commentsConfigFile))
+        {
+            echo "ERROR: Comments config file '{$commentsConfigFile}' not found. Try to install Comments module first.\n";
+            Yii::app()->end();
+        }
+        $commentsConfigArray = include_once($commentsConfigFile);
+
+        $comment = new Comment;
+        $behaviors = $comment->behaviors();
+        if(!array_key_exists("NestedSetBehavior",$behaviors))
+        {
+            echo "ERROR: Behavior 'NestedSetBehavior' doesn't exist in Comments model\n";
+            Yii::app()->end();
+        }
+
+        if(!is_array($commentsConfigArray) ||
+           !array_key_exists("import",$commentsConfigArray) ||
+           !is_array($commentsConfigArray["import"]) ||
+           !in_array($behaviors["NestedSetBehavior"]["class"],$commentsConfigArray["import"]))
+        {
+            echo "ERROR: Path to 'NestedSetBehavior' ({$behaviors["NestedSetBehavior"]["class"]}) doesn't set in 'import' section in comments config file ({$commentsConfigFile}).\n";
+            Yii::app()->end();
+        }
+
+        echo "SUCCESS: Checking that the NestingSetBehavior is exists and configs is valid.\n";
     }
 
     private function _checkForNestedSetsMigration()
     {
         $migrator = new Migrator();
         $history = $migrator->getMigrationHistory('comment');
-        if(array_key_exists(self::NS_MIGRATION_NAME,$history)){
-            echo "Checking for '".self::NS_MIGRATION_NAME."' migration -> [OK]\n";
+        if(array_key_exists(self::NS_MIGRATION_NAME,$history))
+        {
+            echo "SUCCESS: Checking for '".self::NS_MIGRATION_NAME."' migration.\n";
         }else{
-            echo "Prepare for migrating to '".self::NS_MIGRATION_NAME."'...\n";
+            echo "Preparing for migrating to '".self::NS_MIGRATION_NAME."'...\n";
             if($migrator->updateToLatest('comment'))
             {
-                echo "Migrating to '".self::NS_MIGRATION_NAME."' migration -> [OK]\n";
+                echo "SUCCESS: Migrating to '".self::NS_MIGRATION_NAME."' migration.\n";
             }else{
-                echo "Migrating to '".self::NS_MIGRATION_NAME."' migration -> [FAILED]\n";
+                echo "FAILED: Migrating to '".self::NS_MIGRATION_NAME."' migration.\n";
                 Yii::app()->end();
             }
         }
@@ -61,7 +93,7 @@ class YMigrateToNestedSetsCommand extends CConsoleCommand
         // Создаем по одному корню для каждой сущности у которой есть комментарии
         if(!empty($oldRoots))
         {
-            echo "Selecting models which contains comments -> [OK]\n";
+            echo "SUCCESS: Selecting models which contains comments.\n";
             foreach($oldRoots as &$root)
             {
                 $insert = array(
@@ -73,13 +105,13 @@ class YMigrateToNestedSetsCommand extends CConsoleCommand
                     "url"=>"",
                     "email"=>"",
                     "text"=>"root",
-                    "ip"=>"",
-                    "creation_date"=>"1970-01-01 00:00:00"
+                    "ip"=>'127.0.0.1',
+                    "creation_date"=>date('Y-m-d H:i:s')
                 );
                 $db->createCommand()->insert("{{comment_comment}}",$insert);
             }
         }else{
-            echo "Selecting models which contains comments -> [NO COMMENTS]\n";
+            echo "SUCCESS: There is on comments in comments table.\n";
             echo "Converted succesfully.\n";
             Yii::app()->end();
         }

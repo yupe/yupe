@@ -25,7 +25,26 @@ class DefaultController extends YBackController
         {
             $model->attributes = $_POST['Comment'];
 
-            if ($model->save())
+            $saveStatus = false;
+            $parentId = $model->getAttribute('parent_id');
+            // Если указан parent_id просто добавляем новый комментарий.
+            if($parentId > 0)
+            {
+                $rootForComment = Comment::model()->findByPk($parentId);
+                $saveStatus = $model->appendTo($rootForComment);
+            }else{ // Иначе если parent_id не указан...
+
+                $rootNode = Comment::createRootOfCommentsIfNotExists($model->getAttribute("model"),
+                    $model->getAttribute("model_id"));
+
+                // Добавляем комментарий к корню.
+                if ($rootNode!==false && $rootNode->id > 0)
+                {
+                    $saveStatus = $model->appendTo($rootNode);
+                }
+            }
+
+            if ($saveStatus)
             {
                 Yii::app()->user->setFlash(YFlashMessages::SUCCESS_MESSAGE,Yii::t('CommentModule.comment','Комментарий добавлен!'));
 
@@ -35,6 +54,7 @@ class DefaultController extends YBackController
                     )
                 );
             }
+
         }
         $this->render('create', array('model' => $model));
     }
@@ -55,7 +75,7 @@ class DefaultController extends YBackController
         {
             $model->attributes = $_POST['Comment'];
 
-            if ($model->save())
+            if ($model->saveNode())
             {
                 Yii::app()->user->setFlash(YFlashMessages::SUCCESS_MESSAGE,Yii::t('CommentModule.comment','Комментарий обновлен!'));
 
@@ -78,7 +98,7 @@ class DefaultController extends YBackController
         if (Yii::app()->request->isPostRequest)
         {
             // we only allow deletion via POST request
-            $this->loadModel($id)->delete();
+            $this->loadModel($id)->deleteNode();
 
             // if AJAX request (triggered by deletion via admin grid view), we should not redirect the browser
             if (!isset($_GET['ajax']))

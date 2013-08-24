@@ -140,11 +140,12 @@ class CommentsListWidget extends YWidget
                                 ':status' => $this->status,
                             ),
                             'with' => array('author'),
-                            'order' => 't.id',
+                            'order' => 't.lft',
                         )
                     );
                 }
-                $comments = $this->_buildTree($this->comments);
+                unset($this->comments[0]); // remove "root" node
+                $comments = $this->comments;
                 Yii::app()->cache->set("Comment{$this->model}{$this->modelId}", $comments);
             }
             $this->render(

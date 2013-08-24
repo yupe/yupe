@@ -175,6 +175,16 @@ class Comment extends YModel
         );
     }
 
+    public function behaviors()
+    {
+        return array(
+            'NestedSetBehavior'=>array(
+                'class'=>'application.modules.yupe.extensions.nested-set-behavior.NestedSetBehavior',
+                'hasManyRoots'=>true,
+            ));
+    }
+
+
     /**
      * Retrieves a list of models based on the current search/filter conditions.
      *
@@ -339,5 +349,53 @@ class Comment extends YModel
     public function getText()
     {
         return strip_tags($this->text, Yii::app()->getModule('comment')->allowedTags);
+    }
+
+    /**
+     * Метод проверяет есть ли у данного поста "корень" для комментариев.
+     * @param $model
+     * @param $model_id
+     * @return CActiveRecord Комментарий являющийся корнем дерева комментариев.
+     */
+    public static function getRootOfCommentsTree($model, $model_id)
+    {
+        return self::model()->findByAttributes(
+                    array(
+                        "model" => $model,
+                        "model_id" => $model_id,
+                    ),
+                    "id=root"
+                );
+    }
+
+    public static function createRootOfCommentsIfNotExists($model, $model_id)
+    {
+        $rootNode = self::getRootOfCommentsTree($model, $model_id);
+
+        if ($rootNode === null)
+        {
+            $rootAttributes = array(
+                "user_id" => Yii::app()->user->getId(),
+                "model" => $model,
+                "model_id" => $model_id,
+                "url" => "",
+                "name" => "",
+                "email" => "",
+                "text" => "",
+                "status" => self::STATUS_APPROVED,
+                "ip" => "127.0.0.1"
+            );
+
+            $rootNode = new Comment();
+            $rootNode->setAttributes($rootAttributes);
+            if($rootNode->saveNode(false))
+            {
+                return $rootNode;
+            }
+        }else{
+            return $rootNode;
+        }
+
+        return false;
     }
 }

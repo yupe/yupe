@@ -106,7 +106,26 @@ class CommentController extends YFrontController
             }
         }
 
-        if ($comment->save()) {
+        $saveStatus = false;
+        $parentId = $comment->getAttribute('parent_id');
+        // Если указан parent_id просто добавляем новый комментарий.
+        if($parentId > 0)
+        {
+            $rootForComment = Comment::model()->findByPk($parentId);
+            $saveStatus = $comment->appendTo($rootForComment);
+        }else{ // Иначе если parent_id не указан...
+
+            $rootNode = Comment::createRootOfCommentsIfNotExists($comment->getAttribute("model"),
+                $comment->getAttribute("model_id"));
+
+            // Добавляем комментарий к корню.
+            if ($rootNode!==false && $rootNode->id > 0)
+            {
+                $saveStatus = $comment->appendTo($rootNode);
+            }
+        }
+
+        if ($saveStatus) {
 
             // сбросить кэш
             Yii::app()->cache->delete("Comment{$comment->model}{$comment->model_id}");
