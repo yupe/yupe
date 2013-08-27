@@ -27,6 +27,9 @@
     Yii::app()->clientScript->registerCssFile($docsAssets . '/css/main.css');
     if (($langs = $this->yupe->languageSelectorArray) != array())
         Yii::app()->clientScript->registerCssFile($mainAssets. '/css/flags.css');
+
+    if(Yii::app()->hasComponent('highlightjs'))
+        Yii::app()->highlightjs->loadClientScripts();
     ?>
 </head>
 <body>

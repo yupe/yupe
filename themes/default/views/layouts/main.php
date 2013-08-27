@@ -7,6 +7,10 @@
     <link rel="shortcut icon" href="<?php echo Yii::app()->theme->baseUrl; ?>/web/images/favicon.ico"/>
     <link rel="stylesheet" href="<?php echo Yii::app()->theme->baseUrl; ?>/web/css/main.css"/>
     <title><?php echo CHtml::encode($this->pageTitle); ?></title>
+    <?php
+    if(Yii::app()->hasComponent('highlightjs'))
+        Yii::app()->highlightjs->loadClientScripts();
+    ?>
 </head>
 
 <script type="text/javascript">
