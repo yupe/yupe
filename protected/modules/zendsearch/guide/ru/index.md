@@ -8,9 +8,7 @@
 - Открыть файл /protected/config/modules/zendsearch.php
 - В нем есть описание переменной searchModels:
 
-~~~
-[php]
-<?php
+<pre><code class="php">
 'searchModels' => array(
     // индексируем страницы
     'Page' => array(
@@ -37,8 +35,7 @@
          'textColumns' => 'slug,title,quote,content',
    ),
 ),
-?>
-~~~
+</code></pre>
 
 
 Это описание моделей, которые нужно включить в индекс:
@@ -56,7 +53,7 @@
 
 
 После этого можно добавлять виджет формы поиска на страницы сайта:
-~~~
-[php]
-<?php $this->widget('application.modules.zendsearch.widgets.SearchBlockWidget'); ?>
-~~~
+<pre><code class="php">
+    $this->widget('application.modules.zendsearch.widgets.SearchBlockWidget');
+
+</code></pre>

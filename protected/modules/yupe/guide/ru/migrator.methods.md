@@ -15,8 +15,7 @@
 
 ### Метод init - Инициализируем класс
 
-~~~
-[php]
+<pre><code class="php">
 public function init()
 {
     // check for table
@@ -26,14 +25,13 @@ public function init()
     }
     return parent::init();
 }
-~~~
+</code></pre>
 
 В данном методе перед инициализацией компонента проверяется наличие таблицы истории миграций, если же её нет - вызывается метод `createMigrationHistoryTable()`
 
 ### Метод updateToLatest - Обновление модуля до актуальной миграции
 
-~~~
-[php]
+<pre><code class="php">
 public function updateToLatest($module)
 {
     if (($newMigrations = $this->getNewMigrations($module)) !== array()) {
@@ -60,7 +58,7 @@ public function updateToLatest($module)
     }
     return true;
 }
-~~~
+</code></pre>
 
 В данном методе мы получаем список ещё не установленных миграций и постепенно "накатываем" их вызывая метод `migrateUp`. Если же список новых миграций пуст - сообщаем об этом в лог.
 
@@ -69,8 +67,7 @@ public function updateToLatest($module)
 
 ### Метод checkForBadMigration - Проверяем на незавершённые миграции:
 
-~~~
-[php]
+<pre><code class="php">
 public function checkForBadMigration($module, $class = false)
 {
     echo Yii::t('YupeModule.yupe', "Проверяем на наличие незавершённых миграций.") . '<br />';
@@ -181,7 +178,7 @@ public function checkForBadMigration($module, $class = false)
     }
     return true;
 }
-~~~
+</code></pre>
 
 @param string $module - id-модуля
 @param string $class  - класс-миграции

@@ -16,9 +16,7 @@
 
 Пример реализации конфиграции:
 
-~~~
-[php]
-<?php
+<pre><code class="php">
 return array(
     'cache'              => array(
         'class'          => 'system.caching.CMemCache',
@@ -34,4 +32,4 @@ return array(
         ),
     ),
 );
-~~~
+</code></pre>

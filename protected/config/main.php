@@ -223,7 +223,7 @@ return array(
             'highlightjs' => array(
                 'class'   => 'application.modules.yupe.extensions.highlightjs.Highlightjs',
                 'remote' => false,
-                'style'=>'default'
+                'style'=>'github'
             ),
 
             'errorHandler'=>array(
