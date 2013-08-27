@@ -186,8 +186,17 @@ class DefaultController extends YBackController
     {
         if (Yii::app()->request->isPostRequest)
         {
+            $model = $this->loadModel($id);
+
+            if(Yii::app()->hasModule('menu')){
+                $menuItem = MenuItem::model()->findByAttributes(array("title"=>$model->title));
+                if($menuItem!==null)
+                {
+                    $menuItem->delete();
+                }
+            }
             // we only allow deletion via POST request
-            $this->loadModel($id)->delete();
+            $model->delete();
             // if AJAX request (triggered by deletion via index grid view), we should not redirect the browser
             if (!isset($_GET['ajax']))
                 $this->redirect(isset($_POST['returnUrl']) ? $_POST['returnUrl'] : array('index'));
