@@ -35,4 +35,4 @@
     </h1>
 </div>
 
-<?php echo $this->renderPartial('_form', array('pages' => $pages,'model' => $model, 'languages' => $languages, 'langModels' => $langModels)); ?>
+<?php echo $this->renderPartial('_form', array('menuId' => $menuId, 'menuParentId' => $menuParentId,'pages' => $pages,'model' => $model, 'languages' => $languages, 'langModels' => $langModels)); ?>

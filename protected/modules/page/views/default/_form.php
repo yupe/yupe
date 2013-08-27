@@ -13,8 +13,15 @@
                     'menuId' : menuId
                 },function(response){
                     if(response.result){
+                        var option = false;
+                        var current = <?php echo (int)$menuParentId; ?>;
                         $.each(response.data,function(index,element){
-                            $('#parent_id').append(new Option(element,index));
+                            if(index == current){
+                                option = true;
+                            }  else {
+                                option = false;
+                            }
+                            $('#parent_id').append(new Option(element,index,option));
                         })
                         $('#parent_id').removeAttr('disabled');
                         $('#pareData').show();
@@ -22,6 +29,10 @@
                 });
             }
         });
+
+        if($('#menu_id').val() > 0){
+            $('#menu_id').trigger('change');
+        }
     })
 </script>
 
@@ -87,13 +98,13 @@ $form = $this->beginWidget(
         </div>
     </div>
 
-    <?php if(Yii::app()->hasModule('menu') && $model->isNewRecord):?>
+    <?php if(Yii::app()->hasModule('menu')):?>
         <?php echo CHtml::label(Yii::t('PageModule.page','Меню'),'menu_id');?>
         <?php echo CHtml::dropDownList('menu_id',$menuId,CHtml::listData(Menu::model()->active()->findAll(array('order' => 'name DESC')),'id','name'),array('empty' => Yii::t('PageModule.page','-выберите-')));?>
 
         <div id="pareData" style='display:none;'>
             <?php echo CHtml::label(Yii::t('PageModule.page','Родительский пункт меню'),'parent_id');?>
-            <?php echo CHtml::dropDownList('parent_id',0,array('0' => Yii::t('PageModule.page','Корень')),array('disabled' => true,'empty' => Yii::t('PageModule.page','-выберите-')));?>
+            <?php echo CHtml::dropDownList('parent_id',$menuParentId,array('0' => Yii::t('PageModule.page','Корень')),array('disabled' => true,'empty' => Yii::t('PageModule.page','-выберите-')));?>
         </div>
     <?php endif?>
 

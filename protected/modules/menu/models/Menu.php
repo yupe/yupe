@@ -253,4 +253,34 @@ class Menu extends YModel
 
         return false;
     }
+
+    /**
+     * Метод изменения пункта меню.
+     * @param $oldTitle Старое название элемента (по нему осуществяется поиск)
+     * @param $newTitle Новое название
+     * @param $href Новая ссылка
+     * @param $parentId id меню
+     * @return bool статус выполнения
+     */
+    public function changeItem($oldTitle, $newTitle, $href, $parentId)
+    {
+        $menuItem = MenuItem::model()->findByAttributes(array("title"=>$oldTitle));
+
+        if($menuItem === null)
+        {
+            return $this->addItem($newTitle,$href,$parentId);
+        }
+
+        $menuItem->parent_id = (int)$parentId;
+        $menuItem->menu_id = $this->id;
+        $menuItem->title  = $newTitle;
+        $menuItem->href   = $href;
+
+        if($menuItem->save()){
+            Yii::app()->cache->clear(array('menu', $this->code));
+            return true;
+        }
+
+        return false;
+    }
 }

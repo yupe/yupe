@@ -24,6 +24,7 @@ class DefaultController extends YBackController
         $model = new Page;
 
         $menuId = null;
+        $menuParentId = 0;
 
         if (!empty($_POST['Page']))
         {
@@ -104,7 +105,8 @@ class DefaultController extends YBackController
             'model' => $model,
             'pages' => Page::model()->getAllPagesList(),
             'languages' => $languages,
-            'menuId' => $menuId
+            'menuId' => $menuId,
+            'menuParentId' => $menuParentId
         ));
     }
 
@@ -117,12 +119,28 @@ class DefaultController extends YBackController
         // Указан ID страницы, редактируем только ее
         $model = $this->loadModel((int)$id);
 
+        $oldTitle = $model->title;
+        $menuId = null;
+        $menuParentId = 0;
+
         if (isset($_POST['Page']))
         {
             $model->setAttributes(Yii::app()->request->getPost('Page'));
 
             if ($model->save())
             {
+                if(Yii::app()->hasModule('menu')){
+
+                    $menuId   = (int)Yii::app()->request->getPost('menu_id');
+                    $parentId = (int)Yii::app()->request->getPost('parent_id');
+                    $menu = Menu::model()->active()->findByPk($menuId);
+                    if($menu){
+                        if(!$menu->changeItem($oldTitle, $model->title, $this->createUrl('/page/page/show',array('slug' => $model->slug)),$parentId)){
+                            throw new CDbException(Yii::t('PageModule.page','Произошла ошибка при привязке к меню...'));
+                        }
+                    }
+                }
+
                 Yii::app()->user->setFlash(
                     YFlashMessages::SUCCESS_MESSAGE,
                     Yii::t('PageModule.page', 'Страница обновлена!')
@@ -132,6 +150,15 @@ class DefaultController extends YBackController
                     $this->redirect(array('update', 'id' => $model->id));
                 else
                     $this->redirect(array($_POST['submit-type']));
+            }
+        }
+
+        if(Yii::app()->hasModule('menu')){
+            $menuItem = MenuItem::model()->findByAttributes(array("title"=>$oldTitle));
+            if($menuItem!==null)
+            {
+                $menuId = (int)$menuItem->menu_id;
+                $menuParentId = (int)$menuItem->parent_id;
             }
         }
 
@@ -145,7 +172,9 @@ class DefaultController extends YBackController
             'langModels' => CHtml::listData($langModels,'lang','id'),
             'model' => $model,
             'pages' => Page::model()->getAllPagesList($model->id),
-            'languages' => $this->yupe->getLanguagesList()
+            'languages' => $this->yupe->getLanguagesList(),
+            'menuId'=>$menuId,
+            'menuParentId'=>$menuParentId
         ));
     }
 
