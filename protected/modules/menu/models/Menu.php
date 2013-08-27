@@ -240,6 +240,12 @@ class Menu extends YModel
         $menuItem->title  = $title;
         $menuItem->href   = $href;
         $menuItem->condition_name = '';
+        $menuItem->class = '';
+        $menuItem->title_attr = '';
+        $menuItem->before_link = '';
+        $menuItem->after_link = '';
+        $menuItem->target = '';
+        $menuItem->rel = '';
         if($menuItem->save()){
             Yii::app()->cache->clear(array('menu', $this->code));
             return true;
