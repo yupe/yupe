@@ -98,8 +98,9 @@ jQuery.fn.liTranslit = function(options){
     	    elAlias.val(result);
 		}
 		function trim(string) {
-			string = string.replace(/'|"|<|>|\!|\||@|#|$|%|^|&|\*|\(\)|-|\|\/|;|\+|№|,|\?|_|:|{|}|\[|\]/g, "");
-			string = string.replace(/(^\s+)|(\s+$)/g, "");
+			string = string.replace(/'|"|<|>|\!|\||@|#|$|%|^|&|\*|\(\)|-|\|\/|;|\+|№|,|\?|:|{|}|\[|\]/g, "");
+            string = string.replace(/\./g, "_");
+            string = string.replace(/(^\s+)|(\s+$)/g, "");
 			return string;
 		};
 	});

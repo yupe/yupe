@@ -39,9 +39,7 @@
 
 Ниже представлен листинг миграции для "Юпи" на примере модуля "Блог":
 
-~~~
-[php]
-<?php
+<pre><code class="php">
 /**
  * Blog install migration
  * Класс миграций для модуля Blog:
@@ -238,4 +236,4 @@ class m000000_000000_blog_base extends YDbMigration
         $this->dropTableWithForeignKeys('{{blog_blog}}');
     }
 }
-~~~
+</code></pre>

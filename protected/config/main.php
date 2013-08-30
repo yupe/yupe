@@ -219,6 +219,13 @@ return array(
                 'class' => 'application.modules.yupe.extensions.curl.Curl'
             ),
 
+            // Подключение компоненты подсветки кода Highlight.js (Подробнее: http://softwaremaniacs.org/soft/highlight/)
+            'highlightjs' => array(
+                'class'   => 'application.modules.yupe.extensions.highlightjs.Highlightjs',
+                'remote' => false,
+                'style'=>'github'
+            ),
+
             'errorHandler'=>array(
                 // use 'site/error' action to display errors
                 'errorAction'=>'site/error',
