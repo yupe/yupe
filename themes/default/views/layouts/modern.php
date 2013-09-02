@@ -26,7 +26,8 @@
         <div class="hero-unit">
             <h1>Юпи!</h1>
 
-            <p>Простая, легкая и удобная CMS на Yiiframework</p>
+            <p>Простая, легкая и удобная CMS</p>
+            <p>Работаем на Yiiframework, Twitter Bootstrap и jQuery!</p>
 
             <p>
                 <?php
@@ -72,9 +73,14 @@
                 <iframe src="http://ghbtns.com/github-btn.html?user=yupe&repo=yupe&type=follow&count=true&size=large"
                         allowtransparency="true" frameborder="0" scrolling="0" width="170" height="30"></iframe>
 
+                <a href="https://twitter.com/share" class="twitter-share-button" data-via="YupeCms" data-lang="ru" data-size="large" data-hashtags="yupe">Твитнуть</a>
+                <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');</script>
+
                 <iframe frameborder="0" allowtransparency="true" scrolling="no"
                         src="https://money.yandex.ru/embed/small.xml?uid=41001846363811&amp;button-text=05&amp;button-size=m&amp;button-color=orange&amp;targets=%D0%9D%D0%B0+%D1%80%D0%B0%D0%B7%D0%B2%D0%B8%D1%82%D0%B8%D0%B5+%D0%AE%D0%BF%D0%B8!&amp;default-sum=100&amp;mail=on"
                         width="auto" height="42"></iframe>
+
+
             </p>
         </div>
     </div>

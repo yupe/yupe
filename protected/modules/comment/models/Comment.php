@@ -336,6 +336,19 @@ class Comment extends YModel
         return $this->name;
     }
 
+    public function getAuthorUrl(array $params = array('rel' => 'nofollow'))
+    {
+        if ($this->author) {
+            return Yii::app()->createUrl('/user/people/userInfo/', array('username' => $this->author->nick_name), $params);
+        }
+
+        if ($this->url) {
+            return Yii::app()->createUrl($this->url, $params);
+        }
+
+        return $this->name;
+    }
+
     public function getText()
     {
         return strip_tags($this->text, Yii::app()->getModule('comment')->allowedTags);
