@@ -23,22 +23,6 @@
  * @var      public $verifyCode     - капча
  * @var      public $level          - уровень вложенности комментария
  *
- * @method   public static model    - Returns the static model of the specified AR class.
- * @method   public tableName       - Для получения имени таблицы
- * @method   public rulesСписок     - Правила для валидации полей модели
- * @method   public attributeLabels - Список атрибутов для меток формы
- * @method   public relations       - Список связей данной таблицы
- * @method   public scopes          - Получение группы условий
- * @method   public search          - Retrieves a list of models based on the current search/filter conditions.
- * @method   public beforeSave      - Событие выполняемое перед сохранением модели
- * @method   public afterSave       - Событие, которое вызывается после сохранения модели
- * @method   public afterValidate   - Событие, которое вызывается после валидации модели
- * @method   public newComment      - Добавляем новый комментарий
- * @method   public onNewComment    - Определяем событие на создание нового комментария
- * @method   public getStatusList   - Получение списка статусов
- * @method   public getStatus       - Получение статуса по заданному
- * @method   public getAuthor       - Получаем автора
- *
  * The followings are the available columns in table 'Comment':
  * @property string $id
  * @property string $model

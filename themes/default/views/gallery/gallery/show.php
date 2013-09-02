@@ -11,7 +11,7 @@
 
         <?php if (Yii::app()->user->isAuthenticated()) : ?>
             <?php if ($model->canAddPhoto) : ?>
-                <div id="add-image-form">
+                <div id="add-image-form" class="row">
                     <h1><?php echo Yii::t('GalleryModule.gallery', 'Добавление фото'); ?></h1>
                     <?php $this->renderPartial('_add-foto-form', array('model' => $image, 'gallery' => $model)); ?>
                 </div>
