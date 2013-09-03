@@ -8,7 +8,7 @@ class ProfileAction extends CAction
         }
 
         $form = new ProfileForm;
-        $user = Yii::app()->user->profile;
+        $user = Yii::app()->user->getProfile();
         $form->setAttributes($user->attributes);
         $form->password = $form->cPassword = null;
 
@@ -110,6 +110,7 @@ class ProfileAction extends CAction
                         }
                     }
 
+                    Yii::app()->user->setFlash(YFlashMessages::SUCCESS_MESSAGE, Yii::t('UserModule.user','Профиль обновлен!'));
                     $this->controller->redirect(array('/user/account/profile'));
                 } else {
                     Yii::log(
