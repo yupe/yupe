@@ -56,7 +56,7 @@ $form = $this->beginWidget(
 
     <div class="row-fluid">
         <div class="span3">
-            <?php $this->widget('Avatar', array('user' => $user, 'noCache' => true)); ?>
+            <?php $this->widget('AvatarWidget', array('user' => $user, 'noCache' => true)); ?>
         </div>
         <div class="span4">
             <?php echo $form->checkBoxRow($model, 'use_gravatar', array(
@@ -66,6 +66,33 @@ $form = $this->beginWidget(
             <?php echo $form->fileFieldRow($model, 'avatar'); ?>
         </div>
     </div>
+
+    <div class="row-fluid">
+        <?php echo $form->textFieldRow($model, 'email', array(
+            'autocomplete' => 'off',
+            'class'=>'span6' . ( (Yii::app()->user->profile->email_confirm && !$model->hasErrors()) ? ' confirmed' : '' )
+        )); ?>
+
+        <?php if (Yii::app()->user->profile->email_confirm && !$model->hasErrors()):?>
+            <p class="email-status-confirmed text-success">
+                <?php echo Yii::t('user',"E-Mail проверен");?>
+            </p>
+        <?php elseif( !$model->hasErrors() ):?>
+            <p class="email-status-not-confirmed text-error">
+                <?php echo Yii::t('user','e-mail не подтвержден, проверьте почту!');?>
+            </p>
+        <?php endif?>
+
+
+        <div class="row-fluid email-change-msg">
+            <?php if (Yii::app()->user->profile->email_confirm):?>
+                <p class="text-warning span6">
+                    <?php echo Yii::t('user','Внимание! После смены e-mail адреса, вам будет выслано письмо для его подтверждения.');?>
+                </p>
+            <?php endif;?>
+        </div>
+    </div>
+
 
     <div class="row-fluid">
         <?php echo $form->textFieldRow($model, 'last_name', array('class' => 'span6')) ?>
@@ -84,32 +111,7 @@ $form = $this->beginWidget(
     </div>
 
     <div class="row-fluid">
-        <?php echo $form->textFieldRow($model, 'email', array(
-            'autocomplete' => 'off',
-            'class'=>'span6' . ( (Yii::app()->user->profile->email_confirm && !$model->hasErrors()) ? ' confirmed' : '' )
-        )); ?>
-        
-        <?php if (Yii::app()->user->profile->email_confirm && !$model->hasErrors()):?>
-            <p class="email-status-confirmed text-success">
-                <?php echo Yii::t('user',"E-Mail проверен");?>
-            </p>
-        <?php elseif( !$model->hasErrors() ):?>
-            <p class="email-status-not-confirmed text-error">
-                <?php echo Yii::t('user','e-mail не подтвержден, проверьте почту!');?>
-            </p>
-        <?php endif?>
-
-
-        <div class="row-fluid email-change-msg">
-            <?php if (Yii::app()->user->profile->email_confirm):?>
-                 <p class="text-warning span6">
-                    <?php echo Yii::t('user','Внимание! После смены e-mail адреса, вам будет выслано письмо для его подтверждения.');?>
-                 </p>
-            <?php endif;?>
-        </div>
-    </div>
-
-    <div class="row-fluid">
+        <?php echo $form->label($model,'birth_date');?>
         <?php
         $this->widget('zii.widgets.jui.CJuiDatePicker', array(
                 'model' => $model,
@@ -124,6 +126,10 @@ $form = $this->beginWidget(
                 ),
             ));
         ?>
+    </div>
+
+    <div class="row-fluid">
+        <?php echo $form->textFieldRow($model, 'site', array('class' => 'span6')) ?>
     </div>
 
     <div class="row-fluid">

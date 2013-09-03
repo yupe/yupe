@@ -309,42 +309,44 @@ class User extends YModel
     //@TODO подумать не лучше ли возвращать CHtml::image а не просто строку
     public function getAvatar($size = 64, $htmlOptions = array())
     {
-        $size = intval($size);
+        $size = (int)$size;
         $size || ($size = 32);
 
-        if (!is_array($htmlOptions))
+        if (!is_array($htmlOptions)) {
             throw new CException(Yii::t('UserModule.user', "htmlOptions must be array or not specified!"));
+        }
 
         isset($htmlOptions['width']) || ($htmlOptions['width'] = $size);
         isset($htmlOptions['height']) || ($htmlOptions['height'] = $size);
 
         // если это граватар
-        if ($this->use_gravatar && $this->email)
+        if ($this->use_gravatar && $this->email) {
             return 'http://gravatar.com/avatar/' . md5($this->email) . "?d=mm&s=" . $size;
-        else if ($this->avatar)
-        {
+        } else if ($this->avatar){
             $avatarsDir = Yii::app()->getModule('user')->avatarsDir;
-            $basePath   = Yii::app()->basePath . "/../" . $avatarsDir;
+            $uploadPath = Yii::app()->getModule('yupe')->uploadPath;
+            $basePath   = Yii::app()->basePath . "/../". $uploadPath . $avatarsDir ;
             $sizedFile  = str_replace(".", "_" . $size . ".", $this->avatar);
 
             // Посмотрим, есть ли у нас уже нужный размер? Если есть - используем его
-            if (file_exists($basePath . "/" . $sizedFile))
-                return Yii::app()->createAbsoluteUrl('/') . '/' . $avatarsDir . "/" . $sizedFile;
+            if (file_exists($basePath . "/" . $sizedFile)) {
+                return Yii::app()->createAbsoluteUrl('/') . '/' . $uploadPath . '/'. $avatarsDir . "/" . $sizedFile;
+            }
 
-            if (file_exists($basePath . "/" . $this->avatar))
-            {
+            if (file_exists($basePath . "/" . $this->avatar)){
                 // Есть! Можем сделать нужный размер
                 $image = Yii::app()->image->load($basePath . "/" . $this->avatar);
-                if ($image->ext != 'gif' || $image->config['driver'] == "ImageMagick")
+                if ($image->ext != 'gif' || $image->config['driver'] == "ImageMagick") {
                     $image->resize($size, $size, CImage::WIDTH)
                           ->crop($size, $size)
                           ->quality(85)
                           ->sharpen(15)
                           ->save($basePath . "/" . $sizedFile);
-                else
+                }else {
                     @copy($basePath . "/" . $this->avatar, $basePath . "/" . $sizedFile);
+                }
 
-                return Yii::app()->createAbsoluteUrl('/') . '/' . $avatarsDir . "/" . $sizedFile;
+                return Yii::app()->createAbsoluteUrl('/') . '/'. $uploadPath . '/' . $avatarsDir . "/" . $sizedFile;
             }
         }
         // Нету аватарки, печалька :(
@@ -427,11 +429,11 @@ class User extends YModel
     public function changeAvatar(CUploadedFile $uploadedFile) {
         $avatarsDir = Yii::app()->getModule('user')->avatarsDir;
 
-        $basePath   = Yii::app()->basePath . "/.." . $avatarsDir ;
+        $basePath   = Yii::app()->basePath . "/../".Yii::app()->getModule('yupe')->uploadPath . $avatarsDir ;
 
         //создаем каталог, если не существует
-        if(!file_exists($basePath)) {
-            mkdir($basePath,0777,true);
+        if(!file_exists($basePath) && !@mkdir($basePath,0777,true)) {
+            throw new CException(Yii::t('UserModule.user','Не удалось создать каталог для аватарок!'));
         }
 
         $basePath .= '/';
@@ -439,19 +441,22 @@ class User extends YModel
         // @TODO: возможно, лучше будет устанавливать уникальное имя для каждого
         // обновленного аватара. Тогда, не будет проблем с закешированным изображением
         // аватара на разных страницах. Сейчас это может проявляться.
-        $filename = $this->id . '.' . $uploadedFile->extensionName;
+        $filename = $this->id.'_'.time() . '.' . $uploadedFile->extensionName;
 
         if($this->avatar) {
             //remove old resized avatars
-            if(file_exists($basePath . $filename))
-                unlink($basePath . $filename);
+            if(file_exists($basePath . $filename)){
+                @unlink($basePath . $filename);
+            }
 
             foreach (glob($basePath . $this->id . '_*.*') as $oldThumbnail) {
-                unlink($oldThumbnail);
+                @unlink($oldThumbnail);
             }
         }
 
-        $uploadedFile->saveAs($basePath . $filename);
+        if(!$uploadedFile->saveAs($basePath . $filename)) {
+            throw new CException(Yii::t('UserModule.user','Не удалось сохранить аватар!'));
+        }
 
         $this->avatar = $filename;
     }
