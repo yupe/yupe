@@ -12,6 +12,8 @@
 if (!ini_get('date.timezone'))
     date_default_timezone_set('UTC');
 
+defined('APP_START') or define('APP_START', microtime(true));
+
 // Выбираем конфигурацию development-main.php, если сайт работает на localhost
 if (strpos($_SERVER['SERVER_ADDR'], '127') === 0) {
     // Комментируем перед выпуском в продакшен:
@@ -32,4 +34,8 @@ if (strpos($_SERVER['SERVER_ADDR'], '127') === 0) {
 }
 
 require $yii;
+
+Yii::setPathOfAlias('application', dirname(__FILE__) . '/protected/');
+Yii::setPathOfAlias('yii', dirname(__FILE__) . '/framework/');
+
 Yii::createWebApplication($config)->run();
