@@ -8,7 +8,7 @@
         <div class="bootstrap-widget-content">
             <div class="pull-left">
                 <a href="<?php echo Yii::app()->createUrl('/user/account/profile/');?>" title="Редактировать профиль">
-                    <?php $this->widget('AvatarWidget', array('user' => $user, 'noCache' => true)); ?>
+                    <?php $this->widget('application.modules.user.widgets.AvatarWidget', array('user' => $user, 'noCache' => true)); ?>
                 </a>
             </div>
             <?php echo CHtml::link($user->nick_name,array('/user/account/profile/'));?>
