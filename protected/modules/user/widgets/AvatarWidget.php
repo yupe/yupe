@@ -4,7 +4,7 @@ Yii::import('image.widgets.ImageWrapper');
 /*
  * Виджет для вывода аватарки
  */
-class Avatar extends ImageWrapper
+class AvatarWidget extends ImageWrapper
 {
     /**
      * Модель пользователя

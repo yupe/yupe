@@ -14,6 +14,7 @@ class ProfileForm extends CFormModel
     public $birth_date;
     public $use_gravatar;
     public $avatar;
+    public $site;
 
     public function rules()
     {
@@ -35,6 +36,9 @@ class ProfileForm extends CFormModel
             array('cPassword', 'compare', 'compareAttribute' => 'password', 'message' => Yii::t('UserModule.user', 'Пароли не совпадают.')),
             array('email', 'email'),
             array('email', 'checkEmail'),
+
+            array('site', 'url', 'allowEmpty' => true),
+            array('site', 'length', 'max' => 100),
             
             array('use_gravatar', 'in', 'range' => array(0, 1)),
             array('avatar', 'file', 'types' => implode(',', $module->avatarExtensions), 'maxSize' => $module->avatarMaxSize, 'allowEmpty' => true),
@@ -56,6 +60,7 @@ class ProfileForm extends CFormModel
             'about'       => Yii::t('UserModule.user', 'О себе'),
             'avatar'      => Yii::t('UserModule.user', 'Аватар'),
             'use_gravatar'=> Yii::t('UserModule.user', 'Граватар'),
+            'site' => Yii::t('UserModule.user', 'Сайт'),
         );
     }
 

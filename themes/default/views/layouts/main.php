@@ -53,6 +53,12 @@
                     </a>
                 </div>
 
+                <?php if(Yii::app()->user->isAuthenticated()):?>
+                    <div class="widget last-login-users-widget">
+                        <?php $this->widget('application.modules.user.widgets.ProfileWidget');?>
+                    </div>
+                <?php endif;?>
+
 
                 <div class="widget blogs-widget">
                     <?php $this->widget('application.modules.blog.widgets.BlogsWidget', array('cacheTime' => 0)); ?>

@@ -247,7 +247,7 @@ class UserModule extends YWebModule
         $this->setImport(array(
             'user.models.*',
             'user.components.*',
-            'user.widgets.Avatar'
+            'user.widgets.AvatarWidget'
         ));
 
         if (is_array($this->attachedProfileEvents))
