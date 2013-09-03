@@ -18,6 +18,7 @@ class BlogController extends YFrontController
                 ),
             )
         );
+
         $this->render('index', array('dataProvider' => $dataProvider));
     }
 

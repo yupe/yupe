@@ -20,17 +20,10 @@ $this->widget(
 ); ?>
 
 <?php
-if ($gallery->status == Gallery::STATUS_PRIVATE && $gallery->owner != Yii::app()->user->id) {
-    echo CHtml::tag(
-        'h3',
-        array(),
-        Yii::t('GalleryModule.gallery', 'Это приватная галерея!')
+    $this->widget(
+        'bootstrap.widgets.TbListView', array(
+            'dataProvider' => $dataProvider,
+            'itemView' => '_image',
+        )
     );
-} else {
-        $this->widget(
-            'bootstrap.widgets.TbListView', array(
-                'dataProvider' => $dataProvider,
-                'itemView' => '_image',
-            )
-        );
-} ?>
+?>

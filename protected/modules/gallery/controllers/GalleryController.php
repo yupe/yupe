@@ -46,6 +46,10 @@ class GalleryController extends YFrontController
             }
         }
 
+        if($gallery->status == Gallery::STATUS_PRIVATE && $gallery->owner != Yii::app()->user->id){
+            throw new CHttpException(404);
+        }
+
         $this->render(
             'show', array(
                 'image'        => $image,

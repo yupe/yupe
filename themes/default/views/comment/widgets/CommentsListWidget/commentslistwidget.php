@@ -16,12 +16,15 @@
 
         <div style="margin-left: <?php echo (20 * $level); ?>px; " level="<?php echo $level; ?>">
             <div class="well well-small" id="comment_<?php echo $comment->id;?>_<?php echo str_replace(' ', '_', $comment->creation_date); ?>">
-                <div class="avatar">
-                    <?php echo $comment->getAuthorAvatar();?>
-                </div>
+
                 <div class="comment-body">
                     <div class="author">
-                        <?php echo $comment->getAuthorLink();?> <?php echo Yii::t('comment', 'написал');?>
+                        <div class="pull-left">
+                            <a href="<?php echo $comment->getAuthorUrl()?>"><?php echo $comment->getAuthorAvatar();?></a>
+                            <br/>
+                            <?php echo $comment->getAuthorLink();?>
+                        </div>
+
                         <span style="float: right">
                             <?php echo CHtml::link(
                                 '<i class="icon-bullhorn"></i>', 'javascript:void(0);', array(
@@ -32,8 +35,8 @@
                             ));?>
                         </span>
                     </div>
-                    <div class="time"> <?php echo $comment->creation_date; ?> </div>
-                    <div class="content"> <?php echo $comment->getText() ;?> </div>
+                    <div class="time"> <?php echo Yii::app()->getDateFormatter()->formatDateTime($comment->creation_date, "long", "short"); ?> </div>
+                    <div class="media-body"> <?php echo $comment->getText() ;?> </div>
                 </div>
             </div>
         </div>
