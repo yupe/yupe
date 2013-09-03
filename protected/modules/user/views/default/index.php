@@ -64,7 +64,7 @@ $this->renderPartial('_search', array('model' => $model));
         array(
             'name'  => 'use_gravatar',
             'type'  => 'html',
-            'value' => '$this->grid->owner->widget("Avatar", array("user" => $data, "size" => 32), true);'
+            'value' => '$this->grid->owner->widget("application.modules.user.widgets.AvatarWidget", array("user" => $data, "size" => 32), true);'
         ),
         array(
             'name'  => 'nick_name',
