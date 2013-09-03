@@ -80,6 +80,10 @@ $form = $this->beginWidget(
     </div>
 
     <div class="row-fluid">
+        <?php echo $form->dropDownListRow($model, 'gender', User::model()->getGendersList(),array('class' => 'span6','data-original-title' => $model->getAttributeLabel('gender'), 'data-content' => User::model()->getAttributeDescription('gender'))); ?>
+    </div>
+
+    <div class="row-fluid">
         <?php echo $form->textFieldRow($model, 'email', array(
             'autocomplete' => 'off',
             'class'=>'span6' . ( (Yii::app()->user->profile->email_confirm && !$model->hasErrors()) ? ' confirmed' : '' )
@@ -94,7 +98,8 @@ $form = $this->beginWidget(
                 <?php echo Yii::t('user','e-mail не подтвержден, проверьте почту!');?>
             </p>
         <?php endif?>
-        
+
+
         <div class="row-fluid email-change-msg">
             <?php if (Yii::app()->user->profile->email_confirm):?>
                  <p class="text-warning span6">

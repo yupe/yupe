@@ -427,11 +427,11 @@ class User extends YModel
     public function changeAvatar(CUploadedFile $uploadedFile) {
         $avatarsDir = Yii::app()->getModule('user')->avatarsDir;
 
-        $basePath   = Yii::app()->basePath . "/../" . $avatarsDir ;
+        $basePath   = Yii::app()->basePath . "/.." . $avatarsDir ;
 
         //создаем каталог, если не существует
         if(!file_exists($basePath)) {
-            mkdir($basePath);
+            mkdir($basePath,0777,true);
         }
 
         $basePath .= '/';
