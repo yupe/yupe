@@ -1,0 +1,20 @@
+.img-wrapper-tocenter {
+    display: table-cell;
+    text-align: center;
+    vertical-align: middle;
+}
+
+.img-wrapper-tocenter * {
+    vertical-align: middle;
+}
+
+/*\*//*/
+.img-wrapper-tocenter {
+    display: block;
+}
+.img-wrapper-tocenter span {
+    display: inline-block;
+    height: 100%;
+    width: 1px;
+}
+/**/

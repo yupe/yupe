@@ -3,7 +3,7 @@ return array(
     'module'    => array(
         'class'            => 'application.modules.user.UserModule',
         'documentRoot'     => $_SERVER['DOCUMENT_ROOT'],
-        'avatarsDir'       => '/yupe/avatars',
+        'avatarsDir'       => 'uploads/avatars',
         'avatarExtensions' => array( 'jpg', 'png', 'gif' ),
         'notifyEmailFrom'  => 'test@test.ru',
         'urlRules'         => array(
