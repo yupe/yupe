@@ -24,7 +24,7 @@ class ProfileAction extends CAction
                 // скопируем данные формы
                 $data = $form->getAttributes();
                 $newPass = isset($data['password']) ? $data['password'] : null;
-                unset($data['password']);
+                unset($data['password'], $data['avatar']);
 
                 $orgMail = $user->email;
                 $user->setAttributes($data);
@@ -93,6 +93,13 @@ class ProfileAction extends CAction
                         );
                     }
 
+                    
+                    //Обновляем аватарку
+                    $uploadedFile = CUploadedFile::getInstance($form, 'avatar');
+                    if($uploadedFile) {
+                        $user->changeAvatar($uploadedFile);
+                    }
+                    
                     // Сохраняем профиль
                     $user->save(false);
 
@@ -113,6 +120,6 @@ class ProfileAction extends CAction
                 }
             }
         }
-        $this->controller->render('profile', array('model' => $form, 'module' => $module));
+        $this->controller->render('profile', array('model' => $form, 'module' => $module, 'user' => $user));
     }
 }

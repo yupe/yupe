@@ -329,22 +329,22 @@ class User extends YModel
 
             // Посмотрим, есть ли у нас уже нужный размер? Если есть - используем его
             if (file_exists($basePath . "/" . $sizedFile))
-                return Yii::app()->baseUrl . $avatarsDir . "/" . $sizedFile;
+                return Yii::app()->createAbsoluteUrl('/') . '/' . $avatarsDir . "/" . $sizedFile;
 
             if (file_exists($basePath . "/" . $this->avatar))
             {
                 // Есть! Можем сделать нужный размер
                 $image = Yii::app()->image->load($basePath . "/" . $this->avatar);
                 if ($image->ext != 'gif' || $image->config['driver'] == "ImageMagick")
-                    $image->resize($size, $size, CImage::AUTO)
+                    $image->resize($size, $size, CImage::WIDTH)
                           ->crop($size, $size)
-                          ->quality(75)
-                          ->sharpen(20)
+                          ->quality(85)
+                          ->sharpen(15)
                           ->save($basePath . "/" . $sizedFile);
                 else
                     @copy($basePath . "/" . $this->avatar, $basePath . "/" . $sizedFile);
 
-                return Yii::app()->baseUrl . $avatarsDir . "/" . $sizedFile;
+                return Yii::app()->createAbsoluteUrl('/') . '/' . $avatarsDir . "/" . $sizedFile;
             }
         }
         // Нету аватарки, печалька :(
@@ -418,5 +418,41 @@ class User extends YModel
         return $this->status == User::STATUS_NOT_ACTIVE
             ? true
             : false;
+    }
+    
+    /**
+     * Устанавливает новый аватар
+     * @param CUploadedFile $uploadedFile
+     */
+    public function changeAvatar(CUploadedFile $uploadedFile) {
+        $avatarsDir = Yii::app()->getModule('user')->avatarsDir;
+
+        $basePath   = Yii::app()->basePath . "/../" . $avatarsDir ;
+
+        //создаем каталог, если не существует
+        if(!file_exists($basePath)) {
+            mkdir($basePath);
+        }
+
+        $basePath .= '/';
+
+        // @TODO: возможно, лучше будет устанавливать уникальное имя для каждого
+        // обновленного аватара. Тогда, не будет проблем с закешированным изображением
+        // аватара на разных страницах. Сейчас это может проявляться.
+        $filename = $this->id . '.' . $uploadedFile->extensionName;
+
+        if($this->avatar) {
+            //remove old resized avatars
+            if(file_exists($basePath . $filename))
+                unlink($basePath . $filename);
+
+            foreach (glob($basePath . $this->id . '_*.*') as $oldThumbnail) {
+                unlink($oldThumbnail);
+            }
+        }
+
+        $uploadedFile->saveAs($basePath . $filename);
+
+        $this->avatar = $filename;
     }
 }

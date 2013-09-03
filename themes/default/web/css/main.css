@@ -39,3 +39,16 @@ body .navbar .brand {
     padding-top: 5px;
     padding-bottom: 0px;
 }
+
+/* avatar styles */
+.avatar {
+    background-color: #F5F5F5 !important;
+    border: 1px solid #F5F5F5;
+    border-radius: 2px;
+    box-shadow: 1px 1px 10px 0px rgb(201, 201, 201);
+}
+
+.avatar img {
+    display: inline-block;
+    border-radius: 2px;
+}

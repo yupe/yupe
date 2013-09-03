@@ -5,8 +5,8 @@
         CHtml::encode($user->nick_name),
     );
 ?>
-<div style="float:left; margin-right: 20px; height:100px;">
-    <?php echo CHtml::image($user->getAvatar(100),$user->nick_name,array('width' => 100, 'height' => 100)); ?>
+<div style="float:left; margin-right: 20px; height: 100px;">
+    <?php $this->widget('Avatar', array('user' => $user)); ?>
 </div>
 <div style="float:left;">
     <h1><?php echo $user->getFullName(); ?></h1>
