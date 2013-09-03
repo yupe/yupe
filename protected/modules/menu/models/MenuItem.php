@@ -149,10 +149,13 @@ class MenuItem extends YModel
 
         if ($this->condition_name != '0') {
             $criteria->compare('t.condition_name', $this->condition_name, true);
-            if ($this->condition_name != '')
+            
+            if ($this->condition_name != '') {
                 $criteria->compare('t.condition_denial', $this->condition_denial);
-        } else
+            }
+        } else {
             $criteria->condition('t.condition_name', '');
+        }
 
         $criteria->compare('t.sort', $this->sort);
         $criteria->compare('t.status', $this->status);

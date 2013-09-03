@@ -126,9 +126,13 @@ class MenuitemController extends YBackController
     public function actionIndex()
     {
         $model = new MenuItem('search');
+        
         $model->unsetAttributes();  // clear any default values
-        if (isset($_GET['MenuItem']))
-            $model->attributes = $_GET['MenuItem'];
+        
+        if (($data = Yii::app()->request->getParam('MenuItem')) !== null) {
+            $model->setAttributes($data);
+        }
+        
         $this->render('index', array('model' => $model));
     }
 
