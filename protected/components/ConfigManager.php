@@ -91,6 +91,7 @@ class ConfigManager extends CComponent
             // с настройками из файла кеша - $this->cachedSettings
             // ---------------------------------------------------
             // и наконец, с пользовательскими настройками - $this->_userspace
+            unset($this->_base['components']['urlManager']['rules']);
             $settings = CMap::mergeArray( // второй мердж (полученные настройки и пользовательские)
                 CMap::mergeArray(    // первый мердж (базовые настройки и кеш)
                     $this->_base,
@@ -101,12 +102,6 @@ class ConfigManager extends CComponent
         } else {
             $settings = $this->prepareSettings();
         }
-
-        // Для проведения тестов на затраченное
-        // время:
-        //die(microtime(true) - \APP_START);
-
-        ksort($settings['components']['urlManager']['rules']);
 
         return $settings;
     }
