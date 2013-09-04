@@ -66,6 +66,8 @@ php_flag expose_php Off
     # RewriteCond %{HTTP_HOST} ^www\.(.+)$ [NC]
     # RewriteRule ^(.*)$ http://%1/$1 [R=301,L]
 
+    # prevent httpd from serving dotfiles (.htaccess, .svn, .git, etc.)
+    RedirectMatch 403 /\..*$
 
     # if a directory or a file exists, use it directly
     RewriteCond %{REQUEST_FILENAME} !-f
