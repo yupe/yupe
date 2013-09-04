@@ -29,7 +29,7 @@ $this->menu = array(
     array('label' => Yii::t('BlogModule.blog', 'Участники'), 'items' => array(
         array('icon' => 'list-alt', 'label' => Yii::t('BlogModule.blog', 'Управление участниками'), 'url' => array('/blog/UserToBlogAdmin/index')),
         array('icon' => 'plus-sign', 'label' => Yii::t('BlogModule.blog', 'Добавить участника'), 'url' => array('/blog/UserToBlogAdmin/create')),
-        array('label' => Yii::t('BlogModule.blog', 'Участник') . ' «' . mb_substr($model->id, 0, 32) . '»'),
+        array('label' => Yii::t('BlogModule.blog', 'Участник') . ' «' . mb_substr($model->id, 0, 32) . '»', 'utf-8'),
         array('icon' => 'pencil', 'label' => Yii::t('BlogModule.blog', 'Редактирование участника'), 'url' => array(
             '/blog/UserToBlogAdmin/update',
             'id' => $model->id

@@ -91,6 +91,7 @@ class ConfigManager extends CComponent
             // с настройками из файла кеша - $this->cachedSettings
             // ---------------------------------------------------
             // и наконец, с пользовательскими настройками - $this->_userspace
+            unset($this->_base['components']['urlManager']['rules']);
             $settings = CMap::mergeArray( // второй мердж (полученные настройки и пользовательские)
                 CMap::mergeArray(    // первый мердж (базовые настройки и кеш)
                     $this->_base,
@@ -101,10 +102,6 @@ class ConfigManager extends CComponent
         } else {
             $settings = $this->prepareSettings();
         }
-
-        // Для проведения тестов на затраченное
-        // время:
-        //die(microtime(true) - \APP_START);
 
         return $settings;
     }
@@ -118,9 +115,11 @@ class ConfigManager extends CComponent
     {
         try {
             
-            $cacheFile      = file_get_contents($this->_cachefile);
-            
-            $cachedSettings = unserialize($cacheFile);
+            $cachedSettings = require_once $this->_cachefile;
+
+            if (is_array($cachedSettings) == false) {
+                $cachedSettings = array();
+            }
         
         } catch (Exception $e) {
         
@@ -135,7 +134,8 @@ class ConfigManager extends CComponent
     {
         try {
 
-            $cachedSettings = serialize($this->_config);
+            $cachedSettings = '<?php return ' . var_export($this->_config, true) . ';';
+
             file_put_contents($this->_cachefile, $cachedSettings);
         
         } catch (Exception $e) {

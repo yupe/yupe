@@ -15,6 +15,7 @@ class ProfileForm extends CFormModel
     public $use_gravatar;
     public $avatar;
     public $site;
+    public $location;
 
     public function rules()
     {
@@ -30,6 +31,7 @@ class ProfileForm extends CFormModel
             array('birth_date', 'default', 'value' => null),
             array('nick_name, email, first_name, last_name, middle_name', 'length', 'max' => 50),
             array('about', 'length', 'max' => 300),
+            array('location', 'length', 'max' => 150),            
             array('password, cPassword', 'length', 'min' => $module->minPasswordLength),
             array('nick_name', 'match', 'pattern' => '/^[A-Za-z0-9]{2,50}$/', 'message' => Yii::t('UserModule.user','Неверный формат поля "{attribute}" допустимы только буквы и цифры, от 2 до 20 символов')),
             array('nick_name', 'checkNickName'),
@@ -60,7 +62,8 @@ class ProfileForm extends CFormModel
             'about'       => Yii::t('UserModule.user', 'О себе'),
             'avatar'      => Yii::t('UserModule.user', 'Аватар'),
             'use_gravatar'=> Yii::t('UserModule.user', 'Граватар'),
-            'site' => Yii::t('UserModule.user', 'Сайт'),
+            'site'        => Yii::t('UserModule.user', 'Сайт'),
+            'location'    => Yii::t('UserModule.user', 'Расположение'),
         );
     }
 

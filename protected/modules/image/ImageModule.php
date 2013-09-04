@@ -14,8 +14,9 @@ class ImageModule extends YWebModule
 
     public function getInstall()
     {
-        if(parent::getInstall())
+        if(parent::getInstall()) {
             @mkdir($this->getUploadPath(),0755);
+        }
 
         return false;
     }
@@ -48,7 +49,7 @@ class ImageModule extends YWebModule
     {
         return array(
             'mainCategory'      => Yii::t('ImageModule.image','Главная категория изображений'),
-            'uploadPath'         => Yii::t('ImageModule.image', 'Каталог для загрузки изображений'),
+            'uploadPath'        => Yii::t('ImageModule.image', 'Каталог для загрузки изображений'),
             'allowedExtensions' => Yii::t('ImageModule.image', 'Разрешенные расширения (перечислите через запятую)'),
             'minSize'           => Yii::t('ImageModule.image', 'Минимальный размер (в байтах)'),
             'maxSize'           => Yii::t('ImageModule.image', 'Максимальный размер (в байтах)'),
