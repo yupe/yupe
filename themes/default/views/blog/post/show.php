@@ -31,17 +31,16 @@ $this->breadcrumbs = array(
         <div class="span8">
             <p></p>
             <p>
-                <i class="icon-user"></i> <?php echo CHtml::link($post->createUser->nick_name, array('/user/people/userInfo', 'username' => $post->createUser->nick_name)); ?>
+                <?php echo CHtml::image($post->createUser->getAvatar(32));?> <?php echo CHtml::link($post->createUser->nick_name, array('/user/people/userInfo', 'username' => $post->createUser->nick_name)); ?>
                 | <i class="icon-pencil"></i> <?php echo CHtml::link($post->blog->name, array('/blog/blog/show/', 'slug' => $post->blog->slug)); ?>
                 | <i class="icon-calendar"></i> <?php echo Yii::app()->getDateFormatter()->formatDateTime($post->publish_date, "long", "short"); ?>
                 | <i class="icon-comment"></i>  <?php echo CHtml::link($post->commentsCount, array('/blog/post/show/', 'slug' => $post->slug, '#' => 'comments'));?>
                 | <i class="icon-tags"></i>
-                <?php if (($tags = $post->getTags()) != array()):?>
-                    <?php foreach ($tags as $tag):?>
-                        <?php $tag = CHtml::encode($tag);?>
+                <?php if (($tags = $post->getTags()) != array()):?>                    
+                    <?php foreach ($tags as $tag):?>                        
                         <span class="label label-info">
-                            <?php echo CHtml::link($tag, array('/posts/', 'tag' => $tag)).' '?>
-                        </span>
+                            <?php echo CHtml::link(CHtml::encode($tag), array('/posts/', 'tag' => CHtml::encode($tag)));?>
+                        </span>                         
                     <?php endforeach?>
                 <?php endif;?>
             </p>

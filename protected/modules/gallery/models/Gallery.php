@@ -139,7 +139,7 @@ class Gallery extends YModel
             'gallery_id' => $this->id,
         ));
 
-        return $im2g->save() ? true : false;
+        return $im2g->save();
     }
 
     /**
@@ -179,7 +179,7 @@ class Gallery extends YModel
     public function getOwnerName()
     {
         return $this->user instanceof User
-            ? $this->user->fullName
+            ? $this->user->getFullName()
             : '---';
     }
 
