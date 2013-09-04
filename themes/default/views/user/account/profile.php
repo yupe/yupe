@@ -129,6 +129,10 @@ $form = $this->beginWidget(
     </div>
 
     <div class="row-fluid">
+        <?php echo $form->textFieldRow($model, 'location', array('class' => 'span6')) ?>
+    </div>
+
+    <div class="row-fluid">
         <?php echo $form->textFieldRow($model, 'site', array('class' => 'span6')) ?>
     </div>
 

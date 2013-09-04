@@ -5,28 +5,44 @@
         CHtml::encode($user->nick_name),
     );
 ?>
-<div style="float:left; margin-right: 20px; height: 100px;">
-    <?php $this->widget('Avatar', array('user' => $user)); ?>
-</div>
-<div style="float:left;">
-    <h1><?php echo $user->getFullName(); ?></h1>
-    <br />
-    <?php
-    if ($user->last_visit)
-        echo Yii::t('user', 'Был на сайте {last_visit}', array(
-            "{last_visit}" => Yii::app()->dateFormatter->formatDateTime($user->last_visit, 'long', null)
-        ));
-    if ($user->location)
-        echo "<br />" . Yii::t('user', 'Откуда: {location}', array("{location}" => $user->location));
-    ?>
-</div>
-<br clear="all"/><br />
 
-<?php if($user->about):?>
-    <?php echo CHtml::encode($user->about);?>
-<?php endif;?>
+ <div class="row-fluid">
+     <div class='span3'>
+         <?php $this->widget('AvatarWidget', array('user' => $user)); ?>
+     </div>
+     <div class='span6'>
 
-<br/><br/><br/>
+         <i class="icon-user"></i> <?php echo $user->getFullName();?><br/>         
+
+         <?php if($user->last_visit):?>
+            <i class="icon-time"></i> <?php echo Yii::t('user', 'Был на сайте {last_visit}', array(
+               "{last_visit}" => Yii::app()->dateFormatter->formatDateTime($user->last_visit, 'long', null)
+            ));?><br/>
+         <?php endif;?>   
+
+         <?php if($user->location):?>
+            <i class="icon-map-marker"></i> <?php echo $user->location;?><br/>
+         <?php endif;?>   
+
+         <?php if($user->site):?>
+            <i class="icon-globe"></i> <?php echo CHtml::link($user->site,$user->site, array('rel' => 'nofollow'));?><br/>
+         <?php endif;?>   
+     </div>     
+ </div>       
+
+ <br/> 
+
+<?php if($user->about):?>            
+     <div class="row-fluid">
+         <div class="well">         
+            <?php if($user->about):?>            
+                <p><?php echo CHtml::encode($user->about);?></p>
+            <?php endif;?>     
+         </div>
+     </div>
+<?php endif;?>     
+
+<hr/>
 
 <?php $this->widget('application.modules.comment.widgets.CommentsListWidget', array(
     'label' => 'Мнений',

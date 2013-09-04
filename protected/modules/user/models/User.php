@@ -325,7 +325,7 @@ class User extends YModel
         } else if ($this->avatar){
             $avatarsDir = Yii::app()->getModule('user')->avatarsDir;
             $uploadPath = Yii::app()->getModule('yupe')->uploadPath;
-            $basePath   = Yii::app()->basePath . "/../". $uploadPath . $avatarsDir ;
+            $basePath   = Yii::app()->getModule('user')->getUploadPath();
             $sizedFile  = str_replace(".", "_" . $size . ".", $this->avatar);
 
             // Посмотрим, есть ли у нас уже нужный размер? Если есть - используем его
@@ -426,21 +426,14 @@ class User extends YModel
      * Устанавливает новый аватар
      * @param CUploadedFile $uploadedFile
      */
-    public function changeAvatar(CUploadedFile $uploadedFile) {
-        $avatarsDir = Yii::app()->getModule('user')->avatarsDir;
+    public function changeAvatar(CUploadedFile $uploadedFile) {        
+        $basePath = Yii::app()->getModule('user')->getUploadPath();
 
-        $basePath   = Yii::app()->basePath . "/../".Yii::app()->getModule('yupe')->uploadPath . $avatarsDir ;
-
-        //создаем каталог, если не существует
-        if(!file_exists($basePath) && !@mkdir($basePath,0777,true)) {
+        //создаем каталог для аватарок, если не существует
+        if(!is_dir($basePath) && !@mkdir($basePath,0755,true)) {
             throw new CException(Yii::t('UserModule.user','Не удалось создать каталог для аватарок!'));
         }
 
-        $basePath .= '/';
-
-        // @TODO: возможно, лучше будет устанавливать уникальное имя для каждого
-        // обновленного аватара. Тогда, не будет проблем с закешированным изображением
-        // аватара на разных страницах. Сейчас это может проявляться.
         $filename = $this->id.'_'.time() . '.' . $uploadedFile->extensionName;
 
         if($this->avatar) {

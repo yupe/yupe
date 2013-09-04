@@ -1,6 +1,6 @@
 <dl>
     <dt style="float:left;margin-right:10px;height:32px">
-        <?php $this->widget('Avatar', array('user' => $data, 'size' => 32)); ?>
+        <?php $this->widget('AvatarWidget', array('user' => $data, 'size' => 32)); ?>
     </dt>
     <dd>
         <?php echo CHtml::link(CHtml::encode($data->nick_name), array('/user/people/userInfo', 'username' => $data->nick_name)); ?>
