@@ -18,5 +18,6 @@ use application\components\ConfigManager;
 
 $base        = require_once dirname(__FILE__) . '/base.php';
 $userspace   = require_once dirname(__FILE__) . '/userspace.php';
+$conf = new ConfigManager();
 
-return (new ConfigManager)->init($base, $userspace);
+return $conf->init($base, $userspace);
