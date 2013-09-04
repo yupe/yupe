@@ -36,6 +36,54 @@ class UserModule extends YWebModule
     public $profiles                       = array();
     public $attachedProfileEvents          = array();
 
+    public function getUploadPath()
+    {
+        return  Yii::getPathOfAlias('webroot') . '/' .
+            Yii::app()->getModule('yupe')->uploadPath . '/' .
+            $this->avatarsDir . '/';
+    }
+
+    public function getInstall()
+    {
+        if(parent::getInstall()) {
+            @mkdir($this->getUploadPath(),0755);
+        }
+
+        return false;
+    }
+
+    public function checkSelf()
+    {
+       $messages = array();
+
+       if (!$this->avatarsDir) {
+             $messages[YWebModule::CHECK_ERROR][] = array(
+                'type'    => YWebModule::CHECK_ERROR,
+                'message' => Yii::t('UserModule.user', 'Пожалуйста, укажите каталог для хранения аватарок! {link}', array(
+                    '{link}' => CHtml::link(Yii::t('UserModule.user', 'Изменить настройки модуля'), array(
+                        '/yupe/backend/modulesettings/',
+                        'module' => $this->id,
+                     )),
+                )),            
+            );
+        }
+
+        if (!is_dir($this->getUploadPath()) || !is_writable($this->getUploadPath())) {
+            $messages[YWebModule::CHECK_ERROR][] = array(
+                'type'    => YWebModule::CHECK_ERROR,
+                'message' => Yii::t('UserModule.user', 'Директория "{dir}" не доступна для записи или не существует! {link}', array(
+                    '{dir}' => $this->getUploadPath(),
+                    '{link}' => CHtml::link(Yii::t('UserModule.user', 'Изменить настройки модуля'), array(
+                        '/yupe/backend/modulesettings/',
+                        'module' => $this->id,
+                    )),
+                )),
+            );
+        }
+
+        return (isset($messages[YWebModule::CHECK_ERROR])) ? $messages : true;
+    }
+
     public function getParamsLabels()
     {
         return array(
@@ -210,7 +258,7 @@ class UserModule extends YWebModule
 
     public function getVersion()
     {
-        return Yii::t('UserModule.user', '0.4');
+        return Yii::t('UserModule.user', '0.5');
     }
 
     public function getIcon()
