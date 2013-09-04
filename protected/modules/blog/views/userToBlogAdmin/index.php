@@ -72,15 +72,30 @@ $this->renderPartial('_search', array('model' => $model));
         'columns'      => array(
             'id',
             array(
-                'name'  => 'user_id',
-                'type'  => 'raw',
-                'value' => 'CHtml::link($data->user->getFullName(), array("/user/default/view", "id" => $data->user->id))',
+                'name'   => 'user_id',
+                'type'   => 'raw',
+                'value'  => 'CHtml::link($data->user->getFullName(), array("/user/default/view", "id" => $data->user->id))',
+                'filter' => CHtml::listData(User::model()->cache($this->yupe->coreCacheTime)->findAll(),'id','nick_name')
             ),
             array(
-                'name'  => 'blog_id',
-                'type'  => 'raw',
-                'value' => 'CHtml::link($data->blog->name, array("/blog/blogAdmin/view", "id" => $data->blog->id))',
+                'name'   => 'blog_id',
+                'type'   => 'raw',
+                'value'  => 'CHtml::link($data->blog->name, array("/blog/blogAdmin/view", "id" => $data->blog->id))',
+                'filter' => CHtml::listData(Blog::model()->cache($this->yupe->coreCacheTime)->findAll(),'id','name')
             ),
+            array(
+                'name'   => 'role',
+                'type'   => 'raw',
+                'value'  => '$this->grid->returnBootstrapStatusHtml($data, "role", "Role", array(1 => "user", 2 => "eye-open", 3 => "asterisk"))',
+                'filter' => $model->getRoleList()
+            ),
+            array(
+                'name'  => 'status',
+                'type'  => 'raw',
+                'value' => '$this->grid->returnBootstrapStatusHtml($data, "status", "Status", array(1 => "ok-sign", 2 => "lock"))',
+                'filter' => $model->getStatusList()
+            ),
+            'note',
             array(
                 'name'  => 'create_date',
                 'value' => 'Yii::app()->getDateFormatter()->formatDateTime($data->create_date, "short", "short")',
@@ -89,17 +104,6 @@ $this->renderPartial('_search', array('model' => $model));
                 'name'  => 'update_date',
                 'value' => 'Yii::app()->getDateFormatter()->formatDateTime($data->update_date, "short", "short")',
             ),
-            array(
-                'name'  => 'role',
-                'type'  => 'raw',
-                'value' => '$this->grid->returnBootstrapStatusHtml($data, "role", "Role", array(1 => "user", 2 => "eye-open", 3 => "asterisk"))',
-            ),
-            array(
-                'name'  => 'status',
-                'type'  => 'raw',
-                'value' => '$this->grid->returnBootstrapStatusHtml($data, "status", "Status", array(1 => "ok-sign", 2 => "lock"))',
-            ),
-            'note',
             array(
                 'class' => 'bootstrap.widgets.TbButtonColumn',
             ),

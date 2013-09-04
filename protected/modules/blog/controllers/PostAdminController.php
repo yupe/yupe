@@ -11,8 +11,9 @@ class PostAdminController extends YBackController
      */
     public function actionView($id)
     {
-        if (($post = Post::model()->loadModel($id)) === null)
+        if (($post = Post::model()->loadModel($id)) === null) {
             throw new CHttpException(404, Yii::t('BlogModule.blog', 'Запрошенная страница не найдена!'));
+        }
 
         $this->render('view', array('model' => $post));
     }
@@ -67,8 +68,9 @@ class PostAdminController extends YBackController
      */
     public function actionUpdate($id)
     {
-        if (($model = Post::model()->loadModel($id)) === null)
+        if (($model = Post::model()->loadModel($id)) === null) {
             throw new CHttpException(404, Yii::t('BlogModule.blog', 'Запрошенная страница не найдена!'));
+        }
 
         if (Yii::app()->request->isPostRequest && Yii::app()->request->getPost('Post')) {
             $model->setAttributes(
@@ -94,6 +96,7 @@ class PostAdminController extends YBackController
                 );
             }
         }
+
         $this->render('update', array('model' => $model));
     }
 
@@ -142,7 +145,7 @@ class PostAdminController extends YBackController
         $model->unsetAttributes(); // clear any default values
         if (Yii::app()->request->getParam('Post'))
             $model->setAttributes(
-                Yii::app()->request->getPost('Post')
+                Yii::app()->request->getParam('Post')
             );
         $this->render('index', array('model' => $model));
     }

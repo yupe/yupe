@@ -53,13 +53,15 @@ $this->widget(
         'columns'      => array(
             'id',
             array(
-                'name'  => Yii::t('ImageModule.image', 'file'),
-                'type'  => 'raw',
-                'value' => 'CHtml::image($data->getUrl(75), $data->alt, array("width" => 75, "height" => 75))',
+                'name'   => Yii::t('ImageModule.image', 'file'),
+                'type'   => 'raw',
+                'value'  => 'CHtml::image($data->getUrl(75), $data->alt, array("width" => 75, "height" => 75))',
+                'filter' => false
             ),
             array(
-                'name'  => 'category_id',
-                'value' => '$data->getCategoryName()'
+                'name'   => 'category_id',
+                'value'  => '$data->getCategoryName()',
+                'filter' => CHtml::listData(Yii::app()->getModule('image')->getCategoryList(),'id','name')
             ),
             array(
                 'name'   => 'galleryId',

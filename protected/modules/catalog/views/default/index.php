@@ -61,26 +61,30 @@ $this->renderPartial('_search', array('model' => $model));
             'value' => 'CHtml::link($data->alias, $data->permaLink)',
         ),
         array(
-            'name'  => 'category_id',
-            'type'  => 'raw',
-            'value' => '$data->categoryLink'
+            'name'   => 'category_id',
+            'type'   => 'raw',
+            'value'  => '$data->categoryLink',
+            'filter' => CHtml::listData(Yii::app()->getModule('catalog')->getCategoryList(),'id','name')
         ),
         'price',
         'article',
         array(
             'name'  => 'is_special',
             'type'  => 'raw',
-            'value' => '$this->grid->returnBootstrapStatusHtml($data, "is_special", "Special", array("minus", "star"))',
+            'value'  => '$this->grid->returnBootstrapStatusHtml($data, "is_special", "Special", array("minus", "star"))',
+            'filter' => Yii::app()->getModule('catalog')->getChoice()
         ),
         array(
-            'name'  => 'status',
-            'type'  => 'raw',
-            'value' => '$this->grid->returnBootstrapStatusHtml($data, "status", "Status", array("time", "ok-sign", "minus-sign"))',
+            'name'   => 'status',
+            'type'   => 'raw',
+            'value'  => '$this->grid->returnBootstrapStatusHtml($data, "status", "Status", array("time", "ok-sign", "minus-sign"))',
+            'filter' => $model->getStatusList()
         ),
         array(
-            'name'  => 'user_id',
-            'type'  => 'raw',
-            'value' => 'CHtml::link($data->user->getFullName(), array("/user/default/view", "id" => $data->user->id))',
+            'name'   => 'user_id',
+            'type'   => 'raw',
+            'value'  => 'CHtml::link($data->user->getFullName(), array("/user/default/view", "id" => $data->user->id))',
+            'filter' => CHtml::listData(User::model()->cache(Yii::app()->getModule('yupe')->coreCacheTime)->findAll(),'id','nick_name')
         ),       
         array(
             'name'  => 'create_time',

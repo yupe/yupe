@@ -110,9 +110,10 @@ $this->renderPartial('_search', array('model' => $model));
                 'value' => 'CHtml::link($data->id, array("/blog/blogAdmin/update", "id" => $data->id))',
             ),
             array(
-                'name'  => 'icon',
-                'type'  => 'raw',
-                'value' => 'CHtml::image($data->getImageUrl(), $data->name, array("width"  => 64, "height" => 64))'
+                'name'   => 'icon',
+                'type'   => 'raw',
+                'value'  => 'CHtml::image($data->getImageUrl(), $data->name, array("width"  => 64, "height" => 64))',
+                'filter' => false
             ),
             array(
                 'name'  => 'name',
@@ -136,13 +137,21 @@ $this->renderPartial('_search', array('model' => $model));
                 'filter' => CHtml::listData($this->module->getCategoryList(),'id','name')
             ),
             array(
-                'name'  => 'create_user_id',
-                'type'  => 'raw',
-                'value' => 'CHtml::link($data->createUser->getFullName(), array("/user/default/view", "id" => $data->createUser->id))',
+                'name'   => 'create_user_id',
+                'type'   => 'raw',
+                'value'  => 'CHtml::link($data->createUser->getFullName(), array("/user/default/view", "id" => $data->createUser->id))',
+                'filter' => CHtml::listData(User::model()->findAll(),'id','nick_name')
             ),
             array(
-                'name'  => 'create_date',
-                'value' => 'Yii::app()->getDateFormatter()->formatDateTime($data->create_date, "short", "short")',
+                'name'  => 'status',
+                'type'  => 'raw',
+                'value'  => '$this->grid->returnBootstrapStatusHtml($data, "status", "Status", array("lock", "ok-sign", "remove"))',
+                'filter' => $model->getStatusList()
+            ),
+            array(
+                'name'   => 'create_date',
+                'value'  => 'Yii::app()->getDateFormatter()->formatDateTime($data->create_date, "short", "short")',
+                'filter' => false
             ),
             array(
                 'header' => Yii::t('BlogModule.blog', 'Записей'),
@@ -152,12 +161,7 @@ $this->renderPartial('_search', array('model' => $model));
                 'header' => Yii::t('BlogModule.blog', 'Участников'),
                 'value'  => '$data->membersCount',
             ),
-            array(
-                'name'  => 'status',
-                'type'  => 'raw',
-                'value'  => '$this->grid->returnBootstrapStatusHtml($data, "status", "Status", array("lock", "ok-sign", "remove"))',
-                'filter' => $model->getStatusList()
-            ),
+
             array(
                 'class' => 'bootstrap.widgets.TbButtonColumn',
             ),

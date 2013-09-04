@@ -196,12 +196,13 @@ class Page extends YModel
 
         $criteria->with = array( 'author', 'changeAuthor' );
 
-        $criteria->compare('id', $this->id);
+        $criteria->compare('t.id', $this->id);
         $criteria->compare('parent_id', $this->parent_id);
         $criteria->compare('creation_date', $this->creation_date);
         $criteria->compare('change_date', $this->change_date);
-        $criteria->compare('title', $this->title);
-        $criteria->compare('slug', $this->slug);
+        $criteria->compare('title', $this->title, true);
+        $criteria->compare('title_short', $this->title_short, true);
+        $criteria->compare('slug', $this->slug, true);
         $criteria->compare('lang', $this->lang);
         $criteria->compare('body', $this->body);
         $criteria->compare('keywords', $this->keywords);
