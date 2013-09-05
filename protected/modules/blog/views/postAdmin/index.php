@@ -69,7 +69,27 @@ $this->renderPartial('_search', array('model' => $model));
         'type'         => 'condensed',
         'dataProvider' => $model->search(),
         'filter'       => $model,
-        'columns'      => array(
+        'bulkActions'      => array(
+            'actionButtons' => array(
+                array(
+                    'id'         => 'delete-comment',
+                    'buttonType' => 'button',
+                    'type'       => 'danger',
+                    'size'       => 'small',
+                    'label'      => Yii::t('BlogModule.blog', 'Удалить'),
+                    'click'      => 'js:function(values){ if(!confirm("' . Yii::t('BlogModule.blog', 'Вы уверены, что хотите удалить выбранные элементы?') . '")) return false; multiaction("delete", values); }',
+                ),
+            ),
+            'checkBoxColumnConfig' => array(
+                'name' => 'id'
+            ),
+        ),
+        'columns' => array(
+            array(
+                'name'  => 'id',
+                'type'  => 'raw',
+                'value' => 'CHtml::link($data->id, array("/blog/postAdmin/update", "id" => $data->id))',
+            ),
             array(
                 'name'  => 'title',
                 'type'  => 'raw',
@@ -87,24 +107,20 @@ $this->renderPartial('_search', array('model' => $model));
                 'filter' => CHtml::listData($this->module->getCategoryListForPost(),'id','name')
             ),
             array(
-              'header' => Yii::t('BlogModule.blog','Теги'),
-              'value'  => 'implode(", ", $data->getTags())'
-
+                'name'   => 'create_user_id',
+                'type'   => 'raw',
+                'value'  => 'CHtml::link($data->createUser->getFullName(), array("/user/default/view", "id" => $data->createUser->id))',
+                'filter' => CHtml::listData(User::model()->cache($this->yupe->coreCacheTime)->findAll(),'id','nick_name')
+            ),
+            array(
+                'name'  => 'publish_date',
+                'value' => 'Yii::app()->getDateFormatter()->formatDateTime($data->publish_date, "short", "short")',
             ),
             array(
                 'name'  => 'access_type',
                 'type'  => 'raw',
                 'value' => '$this->grid->returnBootstrapStatusHtml($data, "access_type", "AccessType", array(1 => "globe", 2 => "home"))',
                 'filter' => Post::model()->getAccessTypeList()
-            ),
-            array(
-                'name'  => 'create_user_id',
-                'type'  => 'raw',
-                'value' => 'CHtml::link($data->createUser->getFullName(), array("/user/default/view", "id" => $data->createUser->id))',
-            ),
-            array(
-                'name'  => 'publish_date',
-                'value' => 'Yii::app()->getDateFormatter()->formatDateTime($data->publish_date, "short", "short")',
             ),
             array(
                 'name'  => 'status',
@@ -117,6 +133,10 @@ $this->renderPartial('_search', array('model' => $model));
                 'type'  => 'raw',
                 'value' => '$this->grid->returnBootstrapStatusHtml($data, "comment_status", "CommentStatus", array(1 => "ok-sign", 2 => "lock"))',
                 'filter' => Post::model()->getCommentStatusList()
+            ),
+            array(
+                'header' => Yii::t('BlogModule.blog','Теги'),
+                'value'  => 'implode(", ", $data->getTags())'
             ),
             array(
                 'header' => "<i class=\"icon-comment\"></i>",

@@ -72,14 +72,11 @@ $this->renderPartial('_search', array('model' => $model, 'pages' => $pages));
             'filter' => CHtml::listData($this->module->getCategoryList(),'id','name')
         ),
         array(
-            'name'  => 'parent_id',
-            'value' => '$data->parentName',
+            'name'   => 'parent_id',
+            'value'  => '$data->parentName',
+            'filter' => CHtml::listData(Page::model()->findAll(),'id','title')
         ),
-        array(
-            'header' => Yii::t('PageModule.page', 'Публичный урл'),
-            'type'   => 'raw',
-            'value'  => 'CHtml::link($data->getPermaLink(),$data->getPermaLink(),array("target" => "_blank"))',
-        ),
+
         array(
             'name'  => 'order',
             'type'  => 'raw',
@@ -95,6 +92,11 @@ $this->renderPartial('_search', array('model' => $model, 'pages' => $pages));
             'type'  => 'raw',
             'value' => '$this->grid->returnBootstrapStatusHtml($data, "status", "Status", array("pencil", "ok-sign", "time"))',
             'filter' => $model->getStatusList()
+        ),
+        array(
+            'header' => Yii::t('PageModule.page', 'Публичный урл'),
+            'type'   => 'raw',
+            'value'  => 'CHtml::link($data->getPermaLink(),$data->getPermaLink(),array("target" => "_blank"))',
         ),
         array(
             'class' => 'bootstrap.widgets.TbButtonColumn',

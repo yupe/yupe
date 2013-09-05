@@ -228,7 +228,7 @@ class News extends YModel
         $criteria->compare('t.id', $this->id);
         $criteria->compare('creation_date', $this->creation_date, true);
         $criteria->compare('change_date', $this->change_date, true);
-        $criteria->compare('date', $this->date, true);
+        $criteria->compare('date', $this->date);
         $criteria->compare('title', $this->title, true);
         $criteria->compare('t.alias', $this->alias, true);
         $criteria->compare('short_text', $this->short_text, true);

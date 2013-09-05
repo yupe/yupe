@@ -56,8 +56,9 @@ $this->renderPartial('_search', array('model' => $model));
             'value' => 'CHtml::link($data->name, array("/contentblock/default/update", "id" => $data->id))',
         ),
         array(
-            'name'  => 'type',
-            'value' => '$data->getType()',
+            'name'   => 'type',
+            'value'  => '$data->getType()',
+            'filter' => $model->getTypes()
         ),
         'code',
         'description',

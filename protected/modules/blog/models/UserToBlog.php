@@ -119,7 +119,7 @@ class UserToBlog extends YModel
 
         $criteria = new CDbCriteria;
 
-        $criteria->compare('id', $this->id, true);
+        $criteria->compare('t.id', $this->id, true);
         $criteria->compare('user_id', $this->user_id, true);
         $criteria->compare('blog_id', $this->blog_id, true);
         $criteria->compare('create_date', $this->create_date, true);

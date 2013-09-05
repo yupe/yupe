@@ -80,8 +80,8 @@ class ContentBlock extends YModel
         // should not be searched.
 
         $criteria = new CDbCriteria();
-        $criteria->compare('name', $this->name);
-        $criteria->compare('code', $this->code);
+        $criteria->compare('name', $this->name, true);
+        $criteria->compare('code', $this->code, true);
         $criteria->compare('type', $this->type);
         $criteria->compare('content', $this->content);
         $criteria->compare('description', $this->description);
