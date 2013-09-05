@@ -183,7 +183,7 @@ class ConfigManager extends CComponent
             // этапе установки системы):
             if ($item->getBaseName('.php') == 'yupe') {
                 if (!YII_DEBUG)
-                    $this->_base['cache'] = array();
+                    $this->_base['components']['cache'] = array();
                 $settings['enableAssets'] = true;
             }
 
