@@ -281,6 +281,12 @@ class ConfigManager extends CComponent
             )
         );
 
+        if(!array_key_exists('rules',$settings))
+            $settings['rules'] = array();
+
+        if(!array_key_exists('cache',$settings))
+            $settings['cache'] = array();
+
         // Фикс для настроек маршрутизации:
         $this->_config['components']['urlManager']['rules'] = CMap::mergeArray(
             $settings['rules'],
