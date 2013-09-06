@@ -74,7 +74,7 @@ class User extends YModel
             array('site', 'length', 'max' => 100),
             array('about', 'length', 'max' => 300),
             array('location, online_status', 'length', 'max' => 150),
-            array('registration_ip, activation_ip, registration_date', 'length', 'max' => 40),
+            array('registration_ip, activation_ip, registration_date', 'length', 'max' => 50),
             array('gender, status, access_level, use_gravatar, email_confirm', 'numerical', 'integerOnly' => true),
             array('email_confirm', 'in', 'range' => array_keys($this->emailConfirmStatusList)),
             array('use_gravatar', 'in', 'range' => array(0, 1)),
