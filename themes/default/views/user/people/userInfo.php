@@ -34,10 +34,8 @@
 
 <?php if($user->about):?>            
      <div class="row-fluid">
-         <div class="well">         
-            <?php if($user->about):?>            
-                <p><?php echo CHtml::encode($user->about);?></p>
-            <?php endif;?>     
+         <div class="well">
+            <p><?php echo CHtml::encode($user->about);?></p>
          </div>
      </div>
 <?php endif;?>     

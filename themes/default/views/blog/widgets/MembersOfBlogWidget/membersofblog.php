@@ -2,9 +2,11 @@
 <p>
     <?php echo Yii::t('BlogModule.blog', 'Участники'); ?>:
     <?php foreach ($model->members as $member) : ?>
-        <?php echo CHtml::link($member->nick_name, array('/user/people/userInfo/', 'username' => $member->nick_name));?>
+        <span class="label label-info">
+            <?php echo CHtml::link($member->nick_name, array('/user/people/userInfo/', 'username' => $member->nick_name));?>
+        </span>
     <?php endforeach;?>
 </p>
 <?php else : ?>
-    <p><?php echo Yii::t('BlogModule.blog', 'Участников нет'); ?></p>
+    <p><?php echo Yii::t('BlogModule.blog', 'Участников нет =('); ?></p>
 <?php endif; ?>

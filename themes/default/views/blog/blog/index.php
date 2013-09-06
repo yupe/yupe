@@ -3,7 +3,7 @@
     $this->breadcrumbs = array(Yii::t('blog', 'Блоги'));
 ?>
 
-<h1>Блоги <a href="<?php echo Yii::app()->createUrl('/blog/rss/feed/');?>"><img src="<?php echo Yii::app()->theme->baseUrl?>/web/images/rss.png" alt="Подпишитесь на обновления" title="Подпишитесь на обновления"></a></h1>
+<h1><small>Блоги <a href="<?php echo Yii::app()->createUrl('/blog/rss/feed/');?>"><img src="<?php echo Yii::app()->theme->baseUrl?>/web/images/rss.png" alt="Подпишитесь на обновления" title="Подпишитесь на обновления"></a></small></h1>
 
 <?php
 $this->widget(
