@@ -336,11 +336,6 @@ class Blog extends YModel
 
     public function getImageUrl()
     {
-        // fix for get default image
-        Yii::app()->theme = empty(Yii::app()->theme)
-            ? 'default'
-            : Yii::app()->theme;
-
         return $this->icon
             ? Yii::app()->baseUrl . '/' . Yii::app()->getModule('yupe')->uploadPath . '/' .
                    Yii::app()->getModule('blog')->uploadPath . '/' . $this->icon

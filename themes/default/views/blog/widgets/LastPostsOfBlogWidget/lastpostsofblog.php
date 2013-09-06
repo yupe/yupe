@@ -1,13 +1,19 @@
-<?php if(!empty($posts)):?>
-    <p><?php echo Yii::t('BlogModule.blog', 'Последние записи'); ?> <a href="<?php echo Yii::app()->createUrl('/blog/rss/feed/',array('blog' => $this->blogId));?>"><img src="<?php echo Yii::app()->theme->baseUrl?>/web/images/rss.png" alt="Подпишитесь на обновление блога" title="Подпишитесь на обновление блога"></a></p>
-    <ul>
-        <?php foreach ($posts as $post) : ?>
-            <li>
-                <?php echo CHtml::link($post->title, array('/blog/post/show/', 'slug' => $post->slug)); ?>
-                - <?php echo Yii::app()->getDateFormatter()->formatDateTime($post->publish_date, "short", null); ?>
-            </li>
-        <?php endforeach;?>
-    </ul>
-<?php else : ?>
-    <?php echo Yii::t('BlogModule.blog', 'Записей пока нет =('); ?>
-<?php endif; ?>
+<h3><small>Последние записи блога</small></h3>
+
+<?php foreach($posts as $data):?>
+    <div class="row">
+        <div class="span6">
+            <h4><strong><?php echo CHtml::link(CHtml::encode($data->title), array('/blog/post/show/', 'slug' => $data->slug)); ?></strong></h4>
+        </div>
+    </div>
+    <div class="row">
+        <div class="span6">
+            <p> <?php echo $data->getQuote(); ?></p>
+            <!--<p><?php echo CHtml::link(Yii::t('default','читать...'), array('/blog/post/show/', 'slug' => $data->slug),array('class' => 'btn'));?></p>-->
+        </div>
+    </div>
+
+    <?php $this->widget('blog.widgets.PostMetaWidget', array('post' => $data));?>
+
+    <hr>
+<?php endforeach?>
