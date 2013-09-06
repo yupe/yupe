@@ -1062,10 +1062,7 @@ class DefaultController extends YBackController
 
                     $this->redirect(array('/install/default/createuser'));
                 } else {
-                    Yii::app()->user->setFlash(
-                        YFlashMessages::ERROR_MESSAGE,
-                        print_r($user->getErrors(), true)
-                    );
+                    $model->addErrors($user->getErrors());
                 }
             }
         }
