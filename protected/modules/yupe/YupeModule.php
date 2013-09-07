@@ -711,8 +711,11 @@ class YupeModule extends YWebModule
             $modules = array();
             $imports = array();
             
-            if ($path && $handler = opendir($path)) {
+            if ($handler = opendir($path)) {
                 while (($dir = readdir($handler))) {
+                    if(!is_dir($path.'/'.$dir)) {
+                        continue;
+                    }
                     if ($dir != '.' && $dir != '..' && !is_file($dir) && !isset($enableModule[$dir])) {
                         $modules[$dir] = $this->getCreateModule($dir);
                         $imports[] = Yii::app()->cache->get('tmpImports');
@@ -753,11 +756,9 @@ class YupeModule extends YWebModule
     public function getCreateModule($name)
     {
         if (Yii::app()->hasModule($name)) {
-            Yii::log("Get cached module $name",CLogger::LEVEL_ERROR,'modinit');
             return Yii::app()->getModule($name);
         }
 
-        Yii::log("Stat create module $name",CLogger::LEVEL_ERROR,'modinit');
 
         $path = $this->getModulesConfigDefault();
         $module = null;
@@ -848,24 +849,24 @@ class YupeModule extends YWebModule
      */
     public function getEditors()
     {
-        $path = Yii::getPathOfAlias($this->editorsDir);
-
-        $widgets = array();
-
-        if ($path && $handler = opendir($path)) {
-            while (($dir = readdir($handler))) {
-                if ($dir != '.' && $dir != '..' && !is_file($dir)) {
-                    //посмотреть внутри файл с окончанием Widget.php
-                    $files = glob($path . '/' . $dir . '/' . '*Widget.php');
-                    if (count($files) == 1) {
-                        $editor = $this->editorsDir . '.' . $dir . '.' . basename(array_shift($files), '.php');
-                        $widgets[$editor] = $editor;
+        if(($widgets = Yii::app()->cache->get('Yupe::editors')) === false) {
+            $path = Yii::getPathOfAlias($this->editorsDir);
+            $widgets = array();
+            if ($path && $handler = opendir($path)) {
+                while (($dir = readdir($handler))) {
+                    if ($dir != '.' && $dir != '..' && !is_file($dir)) {
+                        //посмотреть внутри файл с окончанием Widget.php
+                        $files = glob($path . '/' . $dir . '/' . '*Widget.php');
+                        if (count($files) == 1) {
+                            $editor = $this->editorsDir . '.' . $dir . '.' . basename(array_shift($files), '.php');
+                            $widgets[$editor] = $editor;
+                        }
                     }
                 }
+                closedir($handler);
             }
-            closedir($handler);
+            Yii::app()->cache->set('Yupe::editors',$widgets);
         }
-
         return $widgets;
     }
 
