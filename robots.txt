@@ -1,1 +1,6 @@
-1223456e
+# For all robots...
+User-agent: *
+
+# Disallow backend and default controllers
+Disallow: /yupe/backend*
+Disallow: /*/default*
