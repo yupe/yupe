@@ -92,6 +92,7 @@ class ConfigManager extends CComponent
             // ---------------------------------------------------
             // и наконец, с пользовательскими настройками - $this->_userspace
             unset($this->_base['components']['urlManager']['rules']);
+            unset($this->_base['modules']['install']);
             $settings = CMap::mergeArray( // второй мердж (полученные настройки и пользовательские)
                 CMap::mergeArray(    // первый мердж (базовые настройки и кеш)
                     $this->_base,
