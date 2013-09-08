@@ -9,6 +9,6 @@
     </div>
 <?php else:?>
     <div class="alert alert-notice">
-        <?php $this->controller->widget('blog.widgets.LastPostsOfBlogWidget', array('blogId' => $this->post->blog_id)); ?>
+        <?php $this->controller->widget('blog.widgets.LastPostsOfBlogWidget', array('blogId' => $this->post->blog_id, 'view' => 'in-post')); ?>
     </div>
 <?php endif;?>

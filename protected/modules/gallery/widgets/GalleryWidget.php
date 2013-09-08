@@ -10,16 +10,20 @@
  * @link     http://yupe.ru
  *
  **/
+Yii::import('application.modules.gallery.models.ImageToGallery');
+
 class GalleryWidget extends YWidget
 {
     // сколько изображений выводить на одной странице
     public $limit = 10;
     
     // ID-галереи
-    public $gallery_id;
+    public $galleryId;
 
     // Галерея
     public $gallery;
+
+    public $view = 'gallerywidget';
 
     /**
      * Запускаем отрисовку виджета
@@ -37,7 +41,7 @@ class GalleryWidget extends YWidget
             'ImageToGallery', array(
                 'criteria' => array(
                     'condition' => 't.gallery_id = :gallery_id',
-                    'params' => array(':gallery_id' => $this->gallery_id),
+                    'params' => array(':gallery_id' => $this->galleryId),
                     'limit' => $this->limit,
                     'order' => 't.creation_date DESC',
                     'with' => 'image',
@@ -47,7 +51,7 @@ class GalleryWidget extends YWidget
         );
 
         $this->render(
-            'gallerywidget',
+            $this->view,
             array(
                 'dataProvider' => $dataProvider,
                 'gallery'      => $this->gallery,

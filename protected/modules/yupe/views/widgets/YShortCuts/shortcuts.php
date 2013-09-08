@@ -19,14 +19,14 @@ if (count($this->shortcuts) > 0) {
         if (isset($shortcut['items'])) {
             foreach ($shortcut['items'] as $module => $item) {
                 echo CHtml::link(
-                    $this->getLabel($item) . $this->getUpdates($item, $module),
+                    '<div class="cn">' . $this->getLabel($item) . $this->getUpdates($item, $module) . "</div>",
                     $item['url'],
                     $this->getHtmlOptions($item)
                 );
             }
         } else {
             echo CHtml::link(
-                $this->getLabel($item) . $this->getUpdates($item, $name),
+                '<div class="cn">' . $this->getLabel($item) . $this->getUpdates($item, $name) . "</div>",
                 $item['url'],
                 $this->getHtmlOptions($item)
             );

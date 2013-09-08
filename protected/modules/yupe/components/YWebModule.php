@@ -512,7 +512,7 @@ abstract class YWebModule extends CWebModule
         $fileConfig = $yupe->getModulesConfig($this->getId());
 
         Yii::app()->cache->clear('installedModules', 'getModulesDisabled', 'modulesDisabled', $this->getId());
-        application\components\ConfigManager::flushDump();
+        application\modules\yupe\components\ConfigManager::flushDump();
 
         if (is_file($fileConfig) && $this->id != 'install' && $updateConfig === false) {
             throw new CException(Yii::t('YupeModule.yupe', 'Модуль уже включен!'), 304);
@@ -569,7 +569,7 @@ abstract class YWebModule extends CWebModule
         $fileConfigBack = $yupe->getModulesConfigBack($this->id);
 
         Yii::app()->cache->clear('installedModules', 'getModulesDisabled', 'modulesDisabled', $this->getId());
-        application\components\ConfigManager::flushDump();
+        application\modules\yupe\components\ConfigManager::flushDump();
 
         if (!is_file($fileConfig) && $this->id != 'install') {
             throw new CException(Yii::t('YupeModule.yupe', 'Модуль уже отключен!'));
@@ -663,7 +663,7 @@ abstract class YWebModule extends CWebModule
         );
 
         Yii::app()->cache->clear('installedModules', 'getModulesDisabled', 'modulesDisabled', $this->getId());
-        application\components\ConfigManager::flushDump();
+        application\modules\yupe\components\ConfigManager::flushDump();
 
         if ($this->getDependencies() !== array()) {
             foreach ($this->getDependencies() as $dep) {
@@ -723,7 +723,7 @@ abstract class YWebModule extends CWebModule
         if (!empty($history)) {
             
             Yii::app()->cache->clear('installedModules', $this->getId(), 'yupe', 'getModulesDisabled', 'modulesDisabled', $this->getId());
-            application\components\ConfigManager::flushDump();
+            application\modules\yupe\components\ConfigManager::flushDump();
             
             $message = '';
             

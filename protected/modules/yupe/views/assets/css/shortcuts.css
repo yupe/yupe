@@ -51,6 +51,7 @@
     display: block;
     font-weight: 400;
     color: #666;
+    margin-top: 5px;
 }
 
 .action-nav-button {
@@ -81,4 +82,12 @@ a.shortcut {
     -webkit-box-shadow: none;
     -moz-box-shadow: none;
     box-shadow: none;
+}
+
+.shortcut .cn {
+    display: table-cell;
+    vertical-align: middle;
+    text-align: center;
+    width: 114px;
+    height: 88px;
 }

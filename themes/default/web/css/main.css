@@ -52,3 +52,17 @@ body .navbar .brand {
     display: inline-block;
     border-radius: 2px;
 }
+
+.thumbnails .items > li {
+    padding-bottom: 10px;
+}
+
+.thumbnails .items > li .thumbnail .caption h3 {
+    font-size: 16px;
+}
+
+.thumbnails .items > li .thumbnail .caption h3, .thumbnails .items > li .thumbnail .caption p {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
