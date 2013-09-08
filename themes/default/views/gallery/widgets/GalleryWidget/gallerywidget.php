@@ -19,11 +19,13 @@ $this->widget(
     )
 ); ?>
 
-<?php
-    $this->widget(
-        'bootstrap.widgets.TbListView', array(
-            'dataProvider' => $dataProvider,
-            'itemView' => '_image',
-        )
-    );
-?>
+<ul class="thumbnails">
+    <?php
+        $this->widget(
+            'bootstrap.widgets.TbListView', array(
+                'dataProvider' => $dataProvider,
+                'itemView' => '_image',
+            )
+        );
+    ?>
+</ul>

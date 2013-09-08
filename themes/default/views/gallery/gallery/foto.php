@@ -1,33 +1,40 @@
-<?php $this->pageTitle = 'Фото'; ?>
+<?php $this->pageTitle = $model->name; ?>
 <?php $this->breadcrumbs = array(
     'Галереи' => array('/gallery/gallery/list'),
     $model->name
 );
 ?>
 
-<div class="row">
-    <div class="span8">
-        <h4><?php echo CHtml::encode($model->name); ?></h4>
+<h4>
+    <small>
+        <?php echo CHtml::encode($model->name); ?>
+    </small>
+</h4>
+
+<div class="thumbnail">
+    <div class="row">
+        <div class="span8">
+            <?php echo CHtml::image($model->getUrl(), $model->name); ?>
+        </div>
     </div>
 </div>
 
-<div class="row">
-    <div class="span8">
-        <?php echo CHtml::image($model->getUrl(), $model->name, array('width' => 500)); ?>
-    </div>
-</div>
+<br/>
 
 <div class="row">
     <div class="span8">
-        <p></p>
         <p>
-            <i class="icon-user"></i> <?php echo CHtml::link($model->user->nick_name, array('/user/people/userInfo', 'username' => $model->user->nick_name)); ?>
-            | <i class="icon-calendar"></i> <?php echo Yii::app()->getDateFormatter()->formatDateTime($model->creation_date, "short", "short"); ?>
+            <?php echo CHtml::image($model->user->getAvatar(16), $model->user->nick_name);?> <?php echo CHtml::link($model->user->nick_name, array('/user/people/userInfo', 'username' => $model->user->nick_name)); ?>
+            <i class="icon-calendar"></i> <?php echo Yii::app()->getDateFormatter()->formatDateTime($model->creation_date, "short", "short"); ?>
         </p>
-        <p><?php echo CHtml::encode($model->description); ?></p>
     </div>
 </div>
 
+<br/>
+
+<blockquote>
+    <p><?php echo CHtml::encode($model->description); ?></p>
+</blockquote>
 
 <br/>
 

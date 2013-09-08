@@ -1,10 +1,12 @@
-<div class="form">
+<div class="form well">
 
     <?php $form = $this->beginWidget('bootstrap.widgets.TbActiveForm', array(
         'id' => 'add-image-form',
         'enableClientValidation' => true,
-        'htmlOptions' => array('enctype' => 'multipart/form-data','class' => 'well')
+        'htmlOptions' => array('enctype' => 'multipart/form-data')
     )); ?>
+
+    <h1><?php echo Yii::t('GalleryModule.gallery', 'Добавление фото'); ?></h1>
 
 
     <?php echo $form->errorSummary($model); ?>

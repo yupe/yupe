@@ -10,7 +10,6 @@
             <!--<p><?php echo CHtml::link(Yii::t('default','читать...'), array('/blog/post/show/', 'slug' => $data->slug),array('class' => 'btn'));?></p>-->
         </div>
     </div>
-
-    <?php $this->widget('blog.widgets.PostMetaWidget', array('post' => $post));?>
+    <?php $this->widget('blog.widgets.PostMetaWidget', array('post' => $data));?>
     <hr>
 <?php endforeach?>

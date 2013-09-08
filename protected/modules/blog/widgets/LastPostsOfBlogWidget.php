@@ -5,6 +5,8 @@ class LastPostsOfBlogWidget extends YWidget
 
     public $blogId;
 
+    public $view = 'lastpostsofblog';
+
     public function run()
     {
         $posts = Post::model()->public()->published()->findAll(array(
@@ -16,6 +18,6 @@ class LastPostsOfBlogWidget extends YWidget
                 )
         ));
 
-        $this->render('lastpostsofblog', array('posts' => $posts));
+        $this->render($this->view, array('posts' => $posts));
     }
 }
