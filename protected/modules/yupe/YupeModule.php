@@ -358,6 +358,15 @@ class YupeModule extends YWebModule
                 'items' => array(
                     array(
                         'icon' => 'trash',
+                        'label' => Yii::t('YupeModule.yupe', 'Сбросить кеш настроек'),
+                        'url' => array('/yupe/backend/flushDumpSettings'),
+                        'linkOptions' => array(
+                            'class' => 'flushAction',
+                            'method' => 'cacheFlush',
+                        )
+                    ),
+                    array(
+                        'icon' => 'trash',
                         'label' => Yii::t('YupeModule.yupe', 'Очистить кеш'),
                         'url' => array('/yupe/backend/ajaxflush', 'method' => 1),
                         'linkOptions' => array(

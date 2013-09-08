@@ -12,7 +12,7 @@
  *
  **/
 
-namespace application\components;
+namespace application\modules\yupe\components;
 
 use Yii;
 use CMap;
@@ -54,7 +54,7 @@ class ConfigManager extends CComponent
      * 
      * @return array - получаем настройки приложения
      */
-    public function init($base = array(), $userspace = array())
+    public function merge($base = array(), $userspace = array())
     {
         // Мне кажется, нет необходимости
         // изначально сливать настройки:
@@ -62,7 +62,8 @@ class ConfigManager extends CComponent
         $this->_base         = $base;
         $this->_userspace    = $userspace;
         
-        $this->basePath      = realpath(dirname(__FILE__) . '/../');
+        // Выходим на несколько каталогов выше:
+        $this->basePath      = realpath(dirname(__FILE__) . '/../../../');
         $this->modulePath    = $this->basePath . '/config/modules';
         $this->userspacePath = $this->basePath . '/config/userspace';
         $this->appModules    = $this->basePath . '/modules';
@@ -131,6 +132,12 @@ class ConfigManager extends CComponent
         return $cachedSettings;
     }
 
+    /**
+     * Сброс дампа настроек в файл:
+     * 
+     * @return mixed - bool(true) при успешно завершении
+     *                 или (string) с описанием ошибки
+     */
     public function dumpSettings()
     {
         try {
@@ -141,7 +148,7 @@ class ConfigManager extends CComponent
         
         } catch (Exception $e) {
 
-            return $e;
+            return implode('<br />', (array) $e->getMessage());
         }
 
         return true;
@@ -315,10 +322,15 @@ class ConfigManager extends CComponent
         return $this->_config;
     }
 
+    /**
+     * Сброс кеш-файла настроек:
+     * 
+     * @return bool - говорящий о результате сброса
+     */
     public static function flushDump()
     {
-        $cachedSettingsFile = realpath(dirname(__FILE__) . '/../config/modules') . '/cached_settings.php';
+        $cachedSettingsFile = realpath(dirname(__FILE__) . '/../../../config/modules') . '/cached_settings.php';
 
-        @unlink($cachedSettingsFile);
+        return @unlink($cachedSettingsFile);
     }
 }

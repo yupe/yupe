@@ -45,6 +45,42 @@ class BackendController extends YBackController
     }
 
     /**
+     * Экшен сброса кеш-файла настроек:
+     *
+     * @return void
+     **/
+    public function actionFlushDumpSettings()
+    {
+        if (Yii::app()->request->isAjaxRequest == false) {
+            throw new CHttpException(404, Yii::t('YupeModule.yupe', 'Страница не существует!'));
+        }
+
+        $json = array();
+        $message = array(
+            'success' => Yii::t('YupeModule.yupe', 'Сброс кеш-файла настроек успешно завершён'),
+            'failure' => Yii::t('YupeModule.yupe', 'Во время обработки запроса произошла ошибка'),
+        );
+ 
+        try {
+            $result = application\modules\yupe\components\ConfigManager::flushDump();
+        } catch (Exception $e) {
+            Yii::app()->ajax->failure(
+                Yii::t(
+                    'YupeModule.yupe', 'Произошла ошибка: {error}', array(
+                        '{error}' => implode('<br />', (array)$e->getMessage())
+                    )
+                )
+            );
+        }
+        
+        $action = $result == false
+            ? 'failure'
+            : 'success';
+
+        Yii::app()->ajax->$action($message[$action]);
+    }
+
+    /**
      * Экшен отображения настроек модуля:
      *
      * @param string $module - id-модуля

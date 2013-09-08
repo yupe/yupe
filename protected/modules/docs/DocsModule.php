@@ -306,6 +306,16 @@ class DocsModule extends YWebModule
                         'icon'  => 'file',
                     ),
                     array(
+                        'label' => Yii::t('DocsModule.docs', 'Использование настроек Userspace'),
+                        'url'   => array('/docs/show/index', 'file' => 'userspace.config', 'moduleID' => 'yupe'),
+                        'icon'  => 'file',
+                    ),
+                    array(
+                        'label' => Yii::t('DocsModule.docs', 'Компонент ConfigManager'),
+                        'url'   => array('/docs/show/index', 'file' => 'config.manager', 'moduleID' => 'yupe'),
+                        'icon'  => 'file',
+                    ),
+                    array(
                         'label' => Yii::t('DocsModule.docs', 'IDE/Редакторы'),
                         'icon'  => 'th-large white',
                         'items' => array(

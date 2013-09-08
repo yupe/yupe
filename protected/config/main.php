@@ -14,10 +14,10 @@
 namespace application\config;
 
 use CMap;
-use application\components\ConfigManager;
+use application\modules\yupe\components\ConfigManager;
 
 $base        = require_once dirname(__FILE__) . '/base.php';
 $userspace   = require_once dirname(__FILE__) . '/userspace.php';
 $conf = new ConfigManager();
 
-return $conf->init($base, $userspace);
+return $conf->merge($base, $userspace);
