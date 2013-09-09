@@ -11,17 +11,7 @@
  * @link     http://yupe.ru
  **/
 
-/**
- * ContentType of file
- * Класс определяющий тип контента:
- *
- * @category YupeComponents
- * @package  YupeCMS
- * @author   AKulikov <tuxuls@gmail.com>
- * @license  BSD https://raw.github.com/yupe/yupe/master/LICENSE
- * @version  0.0.1
- * @link     http://yupe.ru
- **/
+namespace yupe\modules\yupe\components;
 
 class YContentType
 {
