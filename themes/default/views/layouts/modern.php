@@ -177,7 +177,8 @@
     <div class="span12">
         <div class="span3">
             <ul class="unstyled">
-                <li>Ресурсы</li>
+                <li>Ресурсы
+                <li>
                 <li>
                     <!--                        <i class="icon-twitter">-->
                     <a href="https://twitter.com/yupecms" target="_blank"></i> Twitter</a>
@@ -201,18 +202,20 @@
         </div>
         <div class="span3">
             <ul class="unstyled">
-                <li>Поддержка</li>
-                <li><a href="http://yupe.ru/docs/index.html" target="_blank">Документация</a></li>
-                <li><a href="http://api.yupe.ru/" target="_blank">API</a></li>
+                <li>Поддержка
+                <li>
+                <li><a href="http://yupe.ru/feedback/index/" target="_blank">Контакты</a></li>
                 <li><a href="http://yupe.ru/talk/" target="_blank">Форум</a></li>
                 <li><a href="http://yupe.ru/wiki/default/pageIndex" target="_blank">Wiki</a></li>
+                <li><a href="http://yupe.ru/docs/index.html" target="_blank">Документация</a></li>
                 <li><a href="http://yupe.ru/feedback/faq/" target="_blank">FAQ</a></li>
-                <li><a href="http://yupe.ru/feedback/index/" target="_blank">Контакты</a></li>
+                <li><a href="http://amylabs.ru/contact?from=yupe" target="_blank">Коммерческая поддержка</a></li>
             </ul>
         </div>
         <div class="span3">
             <ul class="unstyled">
-                <li>Юпи!</li>
+                <li>Юпи!
+                <li>
                 <li><a href="http://yupe.ru/pages/about/" target="_blank">О проекте</a></li>
                 <li><a href="http://yupe.ru/docs/yupe/team.html" target="_blank">Команда</a></li>
                 <li><a href="https://github.com/yupe/yupe/" target="_blank">Github</a></li>
@@ -224,11 +227,11 @@
         </div>
         <div class="span3">
             <ul class="unstyled">
-                <li>Друзья</li>
+                <li>Наши друзья
+                <li>
                 <li><a href="http://allframeworks.ru" target="_blank">allframeworks</a></li>
                 <li><a href="http://amylabs.ru" target="_blank">amylabs</a></li>
                 <li><a href="http://yupe.ru/feedback/index/" target="_blank">Хочешь в друзья?</a></li>
-                <li><a href="http://amylabs.ru/contact?from=yupe" target="_blank">Коммерческая поддержка</a></li>
             </ul>
         </div>
     </div>

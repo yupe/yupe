@@ -1,25 +1,28 @@
 <?php
-
 /**
- *   Widget YCustomGridView
- *
- *   @category Widget
- *   @package  Yupe
- *   @author   Yupe Team <team@yupe.ru>
- *   @license  https://github.com/yupe/yupe/blob/master/LICENSE BSD
- *   @link     http://yupe.ru
- *   @todo     можно реализовать мультиекшен на основе вызова
- *             метода из YCustomGridView и обращаться непосредственно
- *             к модели.
- **/
-
-namespace yupe\modules\yupe\components;
-
-use Yii;
-use CHtml;
+*   Class of widget YCustomGridView
+*
+*   @category Widget
+*   @package  Yupe
+*   @author   Yupe Team <team@yupe.ru>
+*   @license  https://github.com/yupe/yupe/blob/master/LICENSE BSD
+*   @link     http://yupe.ru
+*/
 
 Yii::import('bootstrap.widgets.TbExtendedGridView');
 
+/**
+*   Widget YCustomGridView
+*
+*   @category Widget
+*   @package  Yupe
+*   @author   Yupe Team <team@yupe.ru>
+*   @license  https://github.com/yupe/yupe/blob/master/LICENSE BSD
+*   @link     http://yupe.ru
+*   @todo     можно реализовать мультиекшен на основе вызова
+*             метода из YCustomGridView и обращаться непосредственно
+*             к модели.
+**/
 class YCustomGridView extends TbExtendedGridView
 {
     /**

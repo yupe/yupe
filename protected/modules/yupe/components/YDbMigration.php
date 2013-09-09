@@ -1,12 +1,4 @@
 <?php
-
-namespace yupe\modules\yupe\components;
-
-use Yii;
-use CMysqlSchema;
-use CSqliteSchema;
-use CPgsqlSchema;
-
 class YDbMigration extends CDbMigration
 {
     /**

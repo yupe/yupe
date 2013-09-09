@@ -4,8 +4,8 @@
  *
  * ВНИМАНИЕ! ДАННЫЙ ФАЙЛ ИСПОЛЬЗУЕТСЯ ЯДРОМ YUPE!
  * ИЗМЕНЕНИЯ В ДАННОМ ФАЙЛЕ МОГУТ ПРИВЕСТИ К ПОТЕРЕ РАБОТОСПОСОБНОСТИ
- * Для собственных настроек используйте "userspace.php" и "userspace-development.php"
- * Подробную информацию по использованию "userspace" можно узнать из оффициальной
+ * Для собственных настроек создайте и используйте "/protected/config/userspace.php"
+ * Подробную информацию по использованию "userspace" можно узнать из официальной
  * документации.
  *
  * @category YupeConfig
@@ -33,7 +33,7 @@ return array(
         // подключение основых путей
         'application.components.*',
         'application.models.*',
-        //'application.modules.yupe.components.*',
+        'application.modules.yupe.components.*',
         'application.modules.yupe.components.controllers.*',
         'application.modules.yupe.widgets.*',
     ),
@@ -59,7 +59,7 @@ return array(
         ),*/
     ),
     'behaviors' => array(
-        'onBeginRequest' => array('class' => 'yupe\modules\yupe\components\urlManager\LanguageBehavior'),
+        'onBeginRequest' => array('class' => 'application.modules.yupe.components.urlManager.LanguageBehavior'),
     ),
     'params' => require dirname(__FILE__) . '/params.php',
     // конфигурирование основных компонентов (подробнее http://www.yiiframework.ru/doc/guide/ru/basics.component)
@@ -86,7 +86,7 @@ return array(
         ),
         // конфигурирование urlManager, подробнее: http://www.yiiframework.ru/doc/guide/ru/topics.url
         'urlManager' => array(
-            'class'          => 'yupe\modules\yupe\components\urlManager\LangUrlManager',
+            'class'          => 'application.modules.yupe.components.urlManager.LangUrlManager',
             'languageInPath' => true,
             'langParam'      => 'language',
             'urlFormat'      => 'path',
@@ -106,7 +106,7 @@ return array(
         // РЕКОМЕНДУЕМ УКАЗАТЬ СВОЕ ЗНАЧЕНИЕ ДЛЯ ПАРАМЕТРА "csrfTokenName"
         // базовый класс CHttpRequest переопределен для загрузки файлов через ajax, подробнее: http://www.yiiframework.com/forum/index.php/topic/8689-disable-csrf-verification-per-controller-action/
         'request' => array(
-            'class'                  => 'yupe\modules\yupe\components\YHttpRequest',
+            'class'                  => 'YHttpRequest',
             'enableCsrfValidation'   => true,
             'csrfTokenName'          => 'YUPE_TOKEN',
             'noCsrfValidationRoutes' => array('yupe/backend/AjaxFileUpload'),
