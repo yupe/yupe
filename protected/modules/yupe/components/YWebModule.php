@@ -12,15 +12,6 @@
  * @link     http://yupe.ru
  *
  */
-
-namespace yupe\modules\yupe\components;
-
-use Yii;
-use CWebModule;
-use CLogger;
-use TagsCache;
-use Settings;
-
 abstract class YWebModule extends CWebModule
 {
     const CHECK_ERROR = 'error';
@@ -819,7 +810,7 @@ abstract class YWebModule extends CWebModule
     public function init()
     {
          
-        Yii::log("init {$this->id} ...", CLogger::LEVEL_INFO, 'modinit'); 
+        Yii::log("init {$this->id} ...",CLogger::LEVEL_INFO,'modinit'); 
 
         parent::init();
 
