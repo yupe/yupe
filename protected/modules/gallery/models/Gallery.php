@@ -154,7 +154,9 @@ class Gallery extends YModel
     {
         return $this->imagesCount > 0
             ? $this->images[0]->getUrl($width, $height)
-            : Yii::app()->theme->baseUrl . '/web/images/thumbnail.png';
+            : Yii::app()->assetManager->publish(
+                Yii::app()->theme->basePath . '/web/images/thumbnail.png'
+            );
     }
 
     /**
