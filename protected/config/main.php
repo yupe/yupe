@@ -33,7 +33,7 @@ return array(
         // подключение основых путей
         'application.components.*',
         'application.models.*',
-        'application.modules.yupe.components.*',
+        //'application.modules.yupe.components.*',
         'application.modules.yupe.components.controllers.*',
         'application.modules.yupe.widgets.*',
     ),
@@ -59,7 +59,7 @@ return array(
         ),*/
     ),
     'behaviors' => array(
-        'onBeginRequest' => array('class' => 'application.modules.yupe.components.urlManager.LanguageBehavior'),
+        'onBeginRequest' => array('class' => 'yupe\modules\yupe\components\urlManager\LanguageBehavior'),
     ),
     'params' => require dirname(__FILE__) . '/params.php',
     // конфигурирование основных компонентов (подробнее http://www.yiiframework.ru/doc/guide/ru/basics.component)
@@ -86,7 +86,7 @@ return array(
         ),
         // конфигурирование urlManager, подробнее: http://www.yiiframework.ru/doc/guide/ru/topics.url
         'urlManager' => array(
-            'class'          => 'application.modules.yupe.components.urlManager.LangUrlManager',
+            'class'          => 'yupe\modules\yupe\components\urlManager\LangUrlManager',
             'languageInPath' => true,
             'langParam'      => 'language',
             'urlFormat'      => 'path',
@@ -106,7 +106,7 @@ return array(
         // РЕКОМЕНДУЕМ УКАЗАТЬ СВОЕ ЗНАЧЕНИЕ ДЛЯ ПАРАМЕТРА "csrfTokenName"
         // базовый класс CHttpRequest переопределен для загрузки файлов через ajax, подробнее: http://www.yiiframework.com/forum/index.php/topic/8689-disable-csrf-verification-per-controller-action/
         'request' => array(
-            'class'                  => 'YHttpRequest',
+            'class'                  => 'yupe\modules\yupe\components\YHttpRequest',
             'enableCsrfValidation'   => true,
             'csrfTokenName'          => 'YUPE_TOKEN',
             'noCsrfValidationRoutes' => array('yupe/backend/AjaxFileUpload'),

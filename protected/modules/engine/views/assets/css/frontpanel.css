@@ -1,0 +1,37 @@
+.navbar {
+    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+    font-size: 13px;
+    z-index: 10001;
+}
+
+#yii-debug-toolbar {
+    top: 46px;
+}
+
+#yii-debug-toolbar-swither {
+    top: 46px;
+}
+
+.navbar li {
+    line-height: 20px;
+}
+
+.navbar .nav > li > a {
+    padding: 10px 8px;
+}
+
+.navbar .brand img {
+    margin-top: 1px;
+}
+
+.navbar-fixed-top {
+    border-bottom: 5px solid #FF9600;
+    min-width: 960px !important;
+}
+
+.navbar .brand {
+    padding: 0 5px 0 15px;
+    height: 40px;
+    width: 40px;
+}
+

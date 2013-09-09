@@ -1,0 +1,93 @@
+/*------------------------------------------------------------------
+[ Shortcuts / .shortcuts ]
+*/
+.shortcuts {
+    text-align: left;
+}
+.shortcuts .shortcut {
+    min-height: 114px;
+    text-align: center;
+    width: 114px;
+    display: inline-block;
+    padding: 12px 0;
+    margin: 0 5px 1em;
+    vertical-align: middle;
+    text-decoration: none;
+    background: #F3F3F3;
+    background-color: #f8f8f8;
+    background-image: -moz-linear-gradient(top, #ffffff, #eeeeee);
+    background-image: -webkit-gradient(linear, 0 0, 0 100%, from(#ffffff), to(#eeeeee));
+    background-image: -webkit-linear-gradient(top, #ffffff, #eeeeee);
+    background-image: -o-linear-gradient(top, #ffffff, #eeeeee);
+    background-image: linear-gradient(to bottom, #ffffff, #eeeeee);
+    background-repeat: repeat-x;
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#ffffffff', endColorstr='#ffeeeeee', GradientType=0);
+    border: 1px solid #ddd;
+    box-sizing: border-box;
+    border-radius: 5px;
+}
+.shortcuts .shortcut .shortcut-icon {
+    width: 100%;
+    margin-top: .25em;
+    margin-bottom: .35em;
+    font-size: 32px;
+    color: #555;
+}
+.shortcuts .shortcut:hover {
+    background: #E8E8E8;
+    background-color: #f0f0f0;
+    background-image: -moz-linear-gradient(top, #fafafa, #e1e1e1);
+    background-image: -webkit-gradient(linear, 0 0, 0 100%, from(#fafafa), to(#e1e1e1));
+    background-image: -webkit-linear-gradient(top, #fafafa, #e1e1e1);
+    background-image: -o-linear-gradient(top, #fafafa, #e1e1e1);
+    background-image: linear-gradient(to bottom, #fafafa, #e1e1e1);
+    background-repeat: repeat-x;
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#fffafafa', endColorstr='#ffe1e1e1', GradientType=0);
+}
+.shortcuts .shortcut:hover .shortcut-icon {
+    color: #666;
+}
+.shortcuts .shortcut-label {
+    display: block;
+    font-weight: 400;
+    color: #666;
+    margin-top: 5px;
+}
+
+.action-nav-button {
+    margin-bottom: 15px;
+    position: relative;
+    display: inline-block;
+    text-align: center;
+    min-height: 114px;
+    width: 114px;
+    display: inline-block;
+}
+
+a.shortcut {
+    position: relative;
+}
+
+#page .shortcut .label i {
+    margin-right: 2px;
+    color: #fff;
+}
+
+.shortcut .label {
+    position: absolute;
+    top: 3px;
+    right: 3px;
+    padding: 3px 5px;
+    display: block;
+    -webkit-box-shadow: none;
+    -moz-box-shadow: none;
+    box-shadow: none;
+}
+
+.shortcut .cn {
+    display: table-cell;
+    vertical-align: middle;
+    text-align: center;
+    width: 114px;
+    height: 88px;
+}
