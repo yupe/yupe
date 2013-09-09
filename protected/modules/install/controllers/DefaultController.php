@@ -877,6 +877,9 @@ class DefaultController extends YBackController
             }
             if (!$error) {
                 // Переносим конфигурационные файлы не устанавливаемых модулей в back-папку
+                
+                application\modules\yupe\components\ConfigManager::flushDump();
+                
                 $files = glob($this->yupe->getModulesConfig() . "*.php");
                 foreach ($files as $file) {
                     $name = pathinfo($file, PATHINFO_FILENAME);
@@ -887,6 +890,7 @@ class DefaultController extends YBackController
                     $fileModule = $this->yupe->getModulesConfigDefault($name);
                     $fileConfig = $this->yupe->getModulesConfig($name);
                     $fileConfigBack = $this->yupe->getModulesConfigBack($name);
+
 
                     if ($name != 'yupe' && ((!(@is_file($fileModule) && @md5_file($fileModule) == @md5_file(
                                             $fileConfig
