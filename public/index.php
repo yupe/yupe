@@ -15,8 +15,12 @@ if (!ini_get('date.timezone'))
 
 defined('APP_START') or define('APP_START', microtime(true));
 
+$development = isset($_SERVER['SERVER_ADDR'])
+        ? strpos($_SERVER['SERVER_ADDR'], '127') === 0
+        : $_SERVER['SERVER_NAME'] == 'localhost';
+
 // Выбираем конфигурацию development-main.php, если сайт работает на localhost
-if (strpos(@$_SERVER['SERVER_ADDR'], '127') === 0) {
+if ($development) {
     // Комментируем перед выпуском в продакшен:
     define('YII_DEBUG', true);
     defined('YII_TRACE_LEVEL') or define('YII_TRACE_LEVEL', 3);
