@@ -5,7 +5,11 @@
  * 
  */
 
-class YHttpRequest extends CHttpRequest
+namespace yupe\modules\yupe\components;
+
+use Yii;
+
+class YHttpRequest extends \CHttpRequest
 {
     public $noCsrfValidationRoutes = array();
 

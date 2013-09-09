@@ -36,6 +36,7 @@ if (strpos($_SERVER['SERVER_ADDR'], '127') === 0) {
 require $yii;
 
 Yii::setPathOfAlias('application', dirname(__FILE__) . '/protected/');
+Yii::setPathOfAlias('yupe', dirname(__FILE__) . '/protected/');
 Yii::setPathOfAlias('yii', dirname(__FILE__) . '/framework/');
 
 Yii::createWebApplication($config)->run();
