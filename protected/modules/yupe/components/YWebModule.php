@@ -18,7 +18,7 @@ namespace yupe\modules\yupe\components;
 use Yii;
 use CWebModule;
 
-class YWebModule extends CWebModule
+abstract class YWebModule extends CWebModule
 {
     const CHECK_ERROR = 'error';
     const CHECK_NOTICE = 'notice';
