@@ -31,7 +31,7 @@
                 'links' => $this->breadcrumbs,
             )
         ); ?>
-        <div class="row">
+        <div class="row-fluid">
             <div class="span9">
                 <!-- content start-->
                 <div class="content">
