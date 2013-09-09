@@ -17,6 +17,8 @@
 
 namespace yupe\modules\yupe;
 
+use Yii;
+
 class YupeModule extends components\YWebModule
 {
     public $enableAssets;
