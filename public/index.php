@@ -22,27 +22,25 @@ if (strpos($_SERVER['SERVER_ADDR'], '127') === 0) {
     defined('YII_TRACE_LEVEL') or define('YII_TRACE_LEVEL', 3);
 
     // путь к фреймворку Yii
-    $yii = dirname(__FILE__) . '/framework/yii.php';
+    $yii = dirname(__FILE__) . '/../vendor/framework/yii.php';
 
 } else { //production считается во всех случаях, когда не выполнены условия
     // путь к фреймворку Yii, при необходимости заменить на yii.php
-    $yii = dirname(__FILE__) . '/framework/yiilite.php';
+    $yii = dirname(__FILE__) . '/../vendor/framework/yiilite.php';
     // путь к основному конфигурационному файлу Yii
 }
 
-$base = require_once dirname(__FILE__) . '/protected/config/main.php';
+$base = require_once dirname(__FILE__) . '/../protected/config/main.php';
 
-$userspace = dirname(__FILE__) . '/protected/config/userspace.php';
+$userspace = dirname(__FILE__) . '/../protected/config/userspace.php';
 $userspace = file_exists($userspace) ? (require_once $userspace) : array();
 
 require $yii;
 
-Yii::setPathOfAlias('application', dirname(__FILE__) . '/protected/');
-Yii::setPathOfAlias('yii', dirname(__FILE__) . '/framework/');
+Yii::setPathOfAlias('application', dirname(__FILE__) . '/../protected/');
+Yii::setPathOfAlias('yii', dirname(__FILE__) . '/../framework/');
 
-use application\modules\yupe\components\ConfigManager;
-
-$confManager = new ConfigManager();
+$confManager = new application\modules\yupe\components\ConfigManager();
 $config = $confManager->merge($base, $userspace);
 
 Yii::createWebApplication($config)->run();
