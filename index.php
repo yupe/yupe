@@ -38,11 +38,10 @@ $userspace = file_exists($userspace) ? (require_once $userspace) : array();
 require $yii;
 
 Yii::setPathOfAlias('application', dirname(__FILE__) . '/protected/');
+Yii::setPathOfAlias('yupe', dirname(__FILE__) . '/protected/');
 Yii::setPathOfAlias('yii', dirname(__FILE__) . '/framework/');
 
-use application\modules\yupe\components\ConfigManager;
-
-$confManager = new ConfigManager();
+$confManager = new yupe\modules\yupe\components\ConfigManager();
 $config = $confManager->merge($base, $userspace);
 
 Yii::createWebApplication($config)->run();

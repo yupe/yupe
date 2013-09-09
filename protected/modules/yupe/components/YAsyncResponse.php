@@ -1,5 +1,10 @@
 <?php
-class YAsyncResponse extends CApplicationComponent
+
+namespace yupe\modules\yupe\components;
+
+use Yii;
+
+class YAsyncResponse extends \CApplicationComponent
 {
     public $success         = true;
     public $failure         = false;

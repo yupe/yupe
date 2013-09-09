@@ -12,7 +12,7 @@
  *
  **/
 
-namespace application\modules\yupe\components;
+namespace yupe\modules\yupe\components;
 
 use Yii;
 use CMap;
