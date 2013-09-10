@@ -11,9 +11,9 @@ $I->see('Добро пожаловать!','h1');
 $I->see('Шаг 1 из 8 : "Приветствие!','span');
 
 // check external link
-$I->seeLink('amyLabs','http://amylabs.ru/?from=yupe-install');
-$I->seeLink('Форум','http://yupe.ru/talk/?from=login');
-$I->seeLink('http://yupe.ru','http://yupe.ru?from=install');
+//$I->seeLink('amyLabs','http://amylabs.ru/?from=yupe-install');
+//$I->seeLink('Форум','http://yupe.ru/talk/?from=login');
+//$I->seeLink('http://yupe.ru','http://yupe.ru?from=install');
 
 $I->seeLink('Начать установку >');
 
@@ -79,7 +79,7 @@ foreach($links as $link) {
 }
 
 $I->seeLink('< Назад');
-$I->seeLink('Продолжить >');
+$I->see('Продолжить >');
 
 $I->click('Продолжить >');
 $I->see('Будет установлено','h4');
