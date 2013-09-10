@@ -13,6 +13,7 @@ modules:
     enabled:
         - PhpBrowser
         - WebHelper
+        - WebDebug
     config:
         PhpBrowser:
-            url: 'http://yupe.local/'
+            url: 'http://yupe.local/index-test.php'
