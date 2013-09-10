@@ -63,6 +63,7 @@ class Gallery extends YModel
             'images'      => array(self::HAS_MANY, 'Image', 'image_id', 'through' => 'imagesRell'),
             'imagesCount' => array(self::STAT, 'ImageToGallery', 'gallery_id'),
             'user'        => array(self::BELONGS_TO, 'User', 'owner'),
+            'lastUpdated' => array(self::STAT, 'ImageToGallery', 'gallery_id', 'select' => 'max(creation_date)')
         );
     }
 
@@ -154,7 +155,9 @@ class Gallery extends YModel
     {
         return $this->imagesCount > 0
             ? $this->images[0]->getUrl($width, $height)
-            : Yii::app()->theme->baseUrl . '/web/images/thumbnail.png';
+            : Yii::app()->assetManager->publish(
+                Yii::app()->theme->basePath . '/web/images/thumbnail.png'
+            );
     }
 
     /**

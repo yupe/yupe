@@ -149,7 +149,8 @@ class DefaultController extends YBackController
     public function actionEnvironment()
     {
         $webRoot = Yii::getPathOfAlias('webroot');
-        $dp = DIRECTORY_SEPARATOR;
+        $app     = Yii::getPathOfAlias('application');
+        $dp      = DIRECTORY_SEPARATOR;
 
         $requirements = array(
             array(
@@ -165,12 +166,12 @@ class DefaultController extends YBackController
             ),
             array(
                 Yii::t('InstallModule.install', 'Папка runtime'),
-                $this->_checkWritable($webRoot . '/protected/runtime/'),
+                $this->_checkWritable($app . '/runtime/'),
                 Yii::t(
                     'InstallModule.install',
                     'Необходимо установить права записи на папку {folder}',
                     array(
-                        '{folder}' => $webRoot . $dp . 'protected' . $dp . 'runtime',
+                        '{folder}' => $app . $dp . 'runtime',
                     )
                 ),
             ),
@@ -187,37 +188,37 @@ class DefaultController extends YBackController
             ),
             array(
                 Yii::t('InstallModule.install', 'Папка modules'),
-                $this->_checkWritable($webRoot . '/protected/config/modules/'),
+                $this->_checkWritable($app . '/config/modules/'),
                 Yii::t(
                     'InstallModule.install',
                     'Необходимо установить права записи на папку {folder}',
                     array(
-                        '{folder}' => $webRoot . $dp . 'protected' . $dp . 'config' . $dp . 'modules',
+                        '{folder}' => $app . $dp . 'config' . $dp . 'modules',
                     )
                 ),
             ),
             array(
                 Yii::t('InstallModule.install', 'Папка modulesBack'),
-                $this->_checkWritable($webRoot . '/protected/config/modulesBack/'),
+                $this->_checkWritable($app . '/config/modulesBack/'),
                 Yii::t(
                     'InstallModule.install',
                     'Необходимо установить права записи на папку {folder}',
                     array(
-                        '{folder}' => $webRoot . $dp . 'protected' . $dp . 'config' . $dp . 'modulesBack',
+                        '{folder}' => $app . $dp . 'config' . $dp . 'modulesBack',
                     )
                 ),
             ),
             array(
                 Yii::t('InstallModule.install', 'Файл db.php'),
                 $this->_checkConfigFileWritable(
-                    $webRoot . '/protected/config/db.back.php',
-                    $webRoot . '/protected/config/db.php'
+                    $app . $dp . 'config/db.back.php',
+                    $app . $dp . 'config/db.php'
                 ),
                 Yii::t(
                     'InstallModule.install',
                     'Необходимо скопировать {file} и дать ему права на запись',
                     array(
-                        '{file}' => $webRoot . $dp . 'protected' . $dp . 'config' . $dp . 'db.back.php в ' . $webRoot . $dp . 'protected' . $dp . 'config' . $dp . 'db.php',
+                        '{file}' => $app . $dp . 'config' . $dp . 'db.back.php в ' . $app . $dp . 'config' . $dp . 'db.php',
                     )
                 ),
             ),
@@ -876,6 +877,9 @@ class DefaultController extends YBackController
             }
             if (!$error) {
                 // Переносим конфигурационные файлы не устанавливаемых модулей в back-папку
+                
+                application\modules\yupe\components\ConfigManager::flushDump();
+                
                 $files = glob($this->yupe->getModulesConfig() . "*.php");
                 foreach ($files as $file) {
                     $name = pathinfo($file, PATHINFO_FILENAME);
@@ -886,6 +890,7 @@ class DefaultController extends YBackController
                     $fileModule = $this->yupe->getModulesConfigDefault($name);
                     $fileConfig = $this->yupe->getModulesConfig($name);
                     $fileConfigBack = $this->yupe->getModulesConfigBack($name);
+
 
                     if ($name != 'yupe' && ((!(@is_file($fileModule) && @md5_file($fileModule) == @md5_file(
                                             $fileConfig

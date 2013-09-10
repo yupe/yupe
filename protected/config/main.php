@@ -44,7 +44,7 @@ return array(
             'class' => 'application.modules.install.InstallModule',
         ),
         'yupe'  => array(
-            'class'        => 'application.modules.yupe.YupeModule',
+            //'class'        => 'application.modules.yupe.YupeModule',
             'brandUrl'     => 'http://yupe.ru?from=engine',
             'cache'        => true,
         ),
@@ -83,6 +83,9 @@ return array(
         'thumbs' => array(
             'class'   => 'application.modules.yupe.extensions.EPhpThumb.EPhpThumb',
             'options' => array('jpegQuality' => 80),
+        ),
+        'themeManager'       => array(
+            'basePath'       => dirname(__DIR__) . '/../themes',
         ),
         // конфигурирование urlManager, подробнее: http://www.yiiframework.ru/doc/guide/ru/topics.url
         'urlManager' => array(
