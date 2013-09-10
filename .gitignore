@@ -12,3 +12,5 @@ uploads/
 nbproject/
 /.idea/
 protected/config/db.php
+*/_log
+/tests/tests/_log/
