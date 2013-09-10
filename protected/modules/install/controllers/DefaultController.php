@@ -148,6 +148,7 @@ class DefaultController extends YBackController
      **/
     public function actionEnvironment()
     {
+
         $webRoot = Yii::getPathOfAlias('webroot');
         $dp = DIRECTORY_SEPARATOR;
 

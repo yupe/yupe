@@ -5,8 +5,12 @@
  */
 
 // change the following paths if necessary
-$yii = dirname(__FILE__) . '/../YiiSvn/framework/yii.php';
+$yii = dirname(__FILE__) . '/framework/yii.php';
 $config = dirname(__FILE__) . '/protected/config/test.php';
+
+if(!isset($_SERVER['HTTP_ACCEPT'])) {
+    $_SERVER['HTTP_ACCEPT'] = true;
+}
 
 // remove the following line when in production mode
 defined('YII_DEBUG') or define('YII_DEBUG', true);
