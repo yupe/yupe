@@ -533,7 +533,7 @@ class DocsModule extends YWebModule
 
         foreach (explode(',', $this->staticFiles) as $key) {
 
-            if (($file = Yii::getPathOfAlias('webroot') . DIRECTORY_SEPARATOR . $key) && !file_exists($file))
+            if (($file = Yii::getPathOfAlias('webroot') . DIRECTORY_SEPARATOR . '..' . DIRECTORY_SEPARATOR . $key) && !file_exists($file))
                 continue;
 
             $content = $this->renderMarkdown($file);

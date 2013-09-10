@@ -49,7 +49,7 @@ class DefaultController extends YBackController
     public function actionShow($file = null)
     {
 
-        if (($fileName = Yii::getPathOfAlias('webroot') . DIRECTORY_SEPARATOR . $file) && !file_exists($file))
+        if (($fileName = Yii::getPathOfAlias('webroot') . DIRECTORY_SEPARATOR . '..' . DIRECTORY_SEPARATOR . $file) && !file_exists($fileName))
             throw new CHttpException(404, Yii::t('DocsModule.Docs', 'Страница документации не найдена'));
 
         $content = $this->module->renderMarkdown($fileName);
