@@ -1,11 +1,12 @@
 <?php
     return array(
     // У вас этот путь может отличаться. Можно подсмотреть в config/main.php.
-    'basePath' => dirname(__FILE__) . DIRECTORY_SEPARATOR . '..',
-    'name' => 'Cron',
+    'basePath'          => dirname(__FILE__) . DIRECTORY_SEPARATOR . '..',
+    'name'              => 'Cron',
+    'preload'           => array('log'),
+    'commandMap'        => array(
 
-    'preload' => array('log'),
-
+    ),
     'import' => array(
         'application.components.*',
         'application.models.*',
