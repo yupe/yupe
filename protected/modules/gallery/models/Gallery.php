@@ -63,6 +63,7 @@ class Gallery extends YModel
             'images'      => array(self::HAS_MANY, 'Image', 'image_id', 'through' => 'imagesRell'),
             'imagesCount' => array(self::STAT, 'ImageToGallery', 'gallery_id'),
             'user'        => array(self::BELONGS_TO, 'User', 'owner'),
+            'lastUpdated' => array(self::STAT, 'ImageToGallery', 'gallery_id', 'select' => 'max(creation_date)')
         );
     }
 
