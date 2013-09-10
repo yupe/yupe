@@ -27,6 +27,11 @@ span.label a {
     background: #F90;
 }
 
+.ya-money iframe {
+    max-width: 100%;
+    min-width: 220px;
+}
+
 /* modern layout */
 .module-info h3 {
     margin-bottom: 0;
@@ -65,4 +70,9 @@ body .navbar .brand {
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
+}
+
+/* gallery/list.php */
+.gallery-list {
+    margin-bottom: 30px;
 }

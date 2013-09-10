@@ -20,7 +20,6 @@ if (strpos($_SERVER['SERVER_ADDR'], '127') === 0) {
     // Комментируем перед выпуском в продакшен:
     define('YII_DEBUG', true);
     defined('YII_TRACE_LEVEL') or define('YII_TRACE_LEVEL', 3);
-
     // путь к фреймворку Yii
     $yii = dirname(__FILE__) . '/framework/yii.php';
 
