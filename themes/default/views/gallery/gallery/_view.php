@@ -1,23 +1,28 @@
-<div class="row">
-    <div class="span8">
-        <h4><strong><?php echo CHtml::link(CHtml::encode($data->name), array('/gallery/gallery/show/', 'id' => $data->id)); ?></strong></h4>
+<div class="media">
+    <?php echo CHtml::link(
+        CHtml::image($data->previewImage(), $data->name, array('class' => 'thumbnail media-object')),
+        array('/gallery/gallery/show/', 'id' => $data->id),
+        array('class' => 'pull-left')
+    ); ?>
+    <div class="media-body">
+        <h3 class="media-heading">
+            <?php echo CHtml::link(CHtml::encode($data->name), array('/gallery/gallery/show/', 'id' => $data->id)); ?>
+        </h3>
+        <?php echo $data->description; ?>
+        <div class="well well-small">
+            <?php if ($data->imagesCount): ?>
+                <ul class="unstyled">
+                    <li>
+                        Всего изображений: <span class="badge badge-info"><?php echo $data->imagesCount; ?></span>
+                    </li>
+                    <li>
+                        Дата обновления: <?php echo Yii::app()->dateFormatter->format(
+                            'dd MMMM yyyy г., hh:mm',
+                            $data->lastUpdated
+                        ); ?>
+                    </li>
+                </ul>
+            <?php endif; ?>
+        </div>
     </div>
 </div>
-<div class="row">
-    <div class="span2">
-        <a href="<?php echo Yii::app()->createUrl('/gallery/gallery/show/', array('id' => $data->id));?>">
-            <?php echo CHtml::link(CHtml::image($data->previewImage(), $data->name), array('/gallery/gallery/show/', 'id' => $data->id)); ?>
-        </a>
-    </div>
-    <div class="span6">
-        <p> <?php echo $data->description; ?></p>
-    </div>
-</div>
-<div class="row">
-    <div class="span8">
-        <p>            
-            <i class="icon-picture"></i> <?php echo CHtml::link($data->imagesCount, array('/gallery/gallery/show/', 'id' => $data->id)); ?>
-        </p>
-    </div>
-</div>
-<hr>
