@@ -11,9 +11,11 @@
 class_name: WebGuy
 modules:
     enabled:
-        - PhpBrowser
+        - Selenium2
         - WebHelper
         - WebDebug
     config:
-        PhpBrowser:
-            url: 'http://yupe.local/index-test.php'
+        Selenium2:
+            url: 'http://localhost/yupe/public/index-test.php'
+            browser: firefox
+            delay: 100
