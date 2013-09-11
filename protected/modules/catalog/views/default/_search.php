@@ -21,7 +21,7 @@ $form = $this->beginWidget('bootstrap.widgets.TbActiveForm', array(
         </div>
         <div class="wide row-fluid control-group">
             <div class="span7">
-                <?php echo $form->dropDownListRow($model, 'category_id', CHtml::listData(Category::model()->findAll(), 'id', 'name'), array('empty' => Yii::t('CatalogModule.catalog', '--выберите--'), 'class' => 'span3 popover-help', 'data-original-title' => $model->getAttributeLabel('category_id'), 'data-content' => $model->getAttributeDescription('category_id'))); ?>
+                <?php echo $form->dropDownListRow($model, 'category_id', CHtml::listData(Category::model()->findAll(), 'id', 'name'), array('empty' => Yii::t('CatalogModule.catalog', '--choose--'), 'class' => 'span3 popover-help', 'data-original-title' => $model->getAttributeLabel('category_id'), 'data-content' => $model->getAttributeDescription('category_id'))); ?>
             </div>
         </div>
         <div class="wide row-fluid control-group">
@@ -76,7 +76,7 @@ $form = $this->beginWidget('bootstrap.widgets.TbActiveForm', array(
         'type'        => 'primary',
         'encodeLabel' => false,
         'buttonType'  => 'submit',
-        'label'       => '<i class="icon-search icon-white">&nbsp;</i> ' . Yii::t('CatalogModule.catalog', 'Искать товар'),
+        'label'       => '<i class="icon-search icon-white">&nbsp;</i> ' . Yii::t('CatalogModule.catalog', 'Find product'),
     )); ?>
 
 <?php $this->endWidget(); ?>

@@ -19,9 +19,9 @@ $form = $this->beginWidget('bootstrap.widgets.TbActiveForm', array(
 )); ?>
 
     <div class="alert alert-info">
-        <?php echo Yii::t('CatalogModule.catalog', 'Поля, отмеченные'); ?>
+        <?php echo Yii::t('CatalogModule.catalog', 'Fields with'); ?>
         <span class="required">*</span>
-        <?php echo Yii::t('CatalogModule.catalog', 'обязательны.'); ?>
+        <?php echo Yii::t('CatalogModule.catalog', 'is required.'); ?>
     </div>
 
     <?php echo $form->errorSummary($model); ?>
@@ -36,7 +36,7 @@ $form = $this->beginWidget('bootstrap.widgets.TbActiveForm', array(
         </div>
     </div>
     <div class="row-fluid control-group <?php echo $model->hasErrors('category_id') ? 'error' : ''; ?>">
-        <?php echo $form->dropDownListRow($model, 'category_id', CHtml::listData($this->module->getCategoryList(), 'id', 'name'), array('empty' => Yii::t('CatalogModule.catalog', '--выберите--'), 'class' => 'span7 popover-help', 'data-original-title' => $model->getAttributeLabel('category_id'), 'data-content' => $model->getAttributeDescription('category_id'))); ?>
+        <?php echo $form->dropDownListRow($model, 'category_id', CHtml::listData($this->module->getCategoryList(), 'id', 'name'), array('empty' => Yii::t('CatalogModule.catalog', '--choose--'), 'class' => 'span7 popover-help', 'data-original-title' => $model->getAttributeLabel('category_id'), 'data-content' => $model->getAttributeDescription('category_id'))); ?>
     </div>
     <div class="row-fluid control-group <?php echo $model->hasErrors('name') ? 'error' : ''; ?>">
         <?php echo $form->textFieldRow($model, 'name', array('class' => 'span7 popover-help', 'size' => 60, 'maxlength' => 250, 'data-original-title' => $model->getAttributeLabel('name'), 'data-content' => $model->getAttributeDescription('name'))); ?>
@@ -89,12 +89,12 @@ $form = $this->beginWidget('bootstrap.widgets.TbActiveForm', array(
     <?php $this->widget('bootstrap.widgets.TbButton', array(
         'buttonType' => 'submit',
         'type'       => 'primary',
-        'label'      => $model->isNewRecord ? Yii::t('CatalogModule.catalog', 'Добавить товар и продолжить') : Yii::t('CatalogModule.catalog', 'Сохранить товар и продолжить'),
+        'label'      => $model->isNewRecord ? Yii::t('CatalogModule.catalog', 'Add product and continue') : Yii::t('CatalogModule.catalog', 'Save product and continue'),
     )); ?>
     <?php $this->widget('bootstrap.widgets.TbButton', array(
         'buttonType' => 'submit',
         'htmlOptions'=> array('name' => 'submit-type', 'value' => 'index'),
-        'label'      => $model->isNewRecord ? Yii::t('CatalogModule.catalog', 'Добавить товар и закрыть') : Yii::t('CatalogModule.catalog', 'Сохранить товар и закрыть'),
+        'label'      => $model->isNewRecord ? Yii::t('CatalogModule.catalog', 'Add product and close') : Yii::t('CatalogModule.catalog', 'Save product and close'),
     )); ?>
 
 <?php $this->endWidget(); ?>

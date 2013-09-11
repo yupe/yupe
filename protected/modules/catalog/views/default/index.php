@@ -1,27 +1,27 @@
 <?php
     $this->breadcrumbs = array(
         Yii::app()->getModule('catalog')->getCategory() => array(),
-        Yii::t('CatalogModule.catalog', 'Товары') => array('/catalog/default/index'),
-        Yii::t('CatalogModule.catalog', 'Управление'),
+        Yii::t('CatalogModule.catalog', 'Products') => array('/catalog/default/index'),
+        Yii::t('CatalogModule.catalog', 'Administration'),
     );
 
-    $this->pageTitle = Yii::t('CatalogModule.catalog', 'Товары - управление');
+    $this->pageTitle = Yii::t('CatalogModule.catalog', 'Products - administration');
 
     $this->menu = array(
-        array('icon' => 'list-alt', 'label' => Yii::t('CatalogModule.catalog', 'Управление товарами'), 'url' => array('/catalog/default/index')),
-        array('icon' => 'plus-sign', 'label' => Yii::t('CatalogModule.catalog', 'Добавить товар'), 'url' => array('/catalog/default/create')),
+        array('icon' => 'list-alt', 'label' => Yii::t('CatalogModule.catalog', 'Products administration'), 'url' => array('/catalog/default/index')),
+        array('icon' => 'plus-sign', 'label' => Yii::t('CatalogModule.catalog', 'Add product'), 'url' => array('/catalog/default/create')),
     );
 ?>
 <div class="page-header">
     <h1>
-        <?php echo Yii::t('CatalogModule.catalog', 'Товары'); ?>
-        <small><?php echo Yii::t('CatalogModule.catalog', 'управление'); ?></small>
+        <?php echo Yii::t('CatalogModule.catalog', 'Products'); ?>
+        <small><?php echo Yii::t('CatalogModule.catalog', 'administration'); ?></small>
     </h1>
 </div>
 
 <button class="btn btn-small dropdown-toggle" data-toggle="collapse" data-target="#search-toggle">
     <i class="icon-search">&nbsp;</i>
-    <?php echo CHtml::link(Yii::t('CatalogModule.catalog', 'Поиск товаров'), '#', array('class' => 'search-button')); ?>
+    <?php echo CHtml::link(Yii::t('CatalogModule.catalog', 'Find products'), '#', array('class' => 'search-button')); ?>
     <span class="caret">&nbsp;</span>
 </button>
 
@@ -41,7 +41,7 @@ $this->renderPartial('_search', array('model' => $model));
 
 <br/>
 
-<p><?php echo Yii::t('CatalogModule.catalog', 'В данном разделе представлены средства управления товарами'); ?></p>
+<p><?php echo Yii::t('CatalogModule.catalog', 'This section describes the controls of products'); ?></p>
 
 <?php $this->widget('application.modules.yupe.components.YCustomGridView', array(
     'id'           => 'good-grid',
