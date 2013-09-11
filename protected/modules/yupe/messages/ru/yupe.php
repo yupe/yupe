@@ -282,7 +282,7 @@ return array (
   'accept any kind of business and any proposals =)' => 'принимаем всякого рода коммерческие и любые предложения =)',
   'dependent' => 'зависит',
   'enabled' => 'включен',
-  'enabled|disabled' => 'включен|отключен',
+  'disabled|disabled' => 'выключен|выключено',
   'feedback form' => 'Форма обратной свази',
   'http://yupe.ru' => 'http://yupe.ru',
   'memory: {memory}' => 'память: {memory}',

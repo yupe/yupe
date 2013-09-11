@@ -282,7 +282,7 @@ return array (
   'accept any kind of business and any proposals =)' => '',
   'dependent' => '',
   'enabled' => '',
-  'enabled|disabled' => '',
+  'disabled|disabled' => '',
   'feedback form' => '',
   'http://yupe.ru' => '',
   'memory: {memory}' => '',
