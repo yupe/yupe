@@ -10,43 +10,43 @@
  **/
 $this->breadcrumbs = array(
     Yii::app()->getModule('blog')->getCategory() => array(),
-    Yii::t('BlogModule.blog', 'Записи') => array('/blog/PostAdmin/index'),
+    Yii::t('BlogModule.blog', 'Posts') => array('/blog/PostAdmin/index'),
     $model->title,
 );
 
-$this->pageTitle = Yii::t('BlogModule.blog', 'Записи - просмотр');
+$this->pageTitle = Yii::t('BlogModule.blog', 'Posts - view');
 
 $this->menu = array(
-    array('label' => Yii::t('BlogModule.blog', 'Блоги'), 'items' => array(
-        array('icon' => 'list-alt', 'label' => Yii::t('BlogModule.blog', 'Управление блогами'), 'url' => array('/blog/BlogAdmin/index')),
-        array('icon' => 'plus-sign', 'label' => Yii::t('BlogModule.blog', 'Добавить блог'), 'url' => array('/blog/BlogAdmin/create')),
+    array('label' => Yii::t('BlogModule.blog', 'Blogs'), 'items' => array(
+        array('icon' => 'list-alt', 'label' => Yii::t('BlogModule.blog', 'Blogs admin'), 'url' => array('/blog/BlogAdmin/index')),
+        array('icon' => 'plus-sign', 'label' => Yii::t('BlogModule.blog', 'Add blog'), 'url' => array('/blog/BlogAdmin/create')),
     )),
-    array('label' => Yii::t('BlogModule.blog', 'Записи'), 'items' => array(
-        array('icon' => 'list-alt', 'label' => Yii::t('BlogModule.blog', 'Управление записями'), 'url' => array('/blog/PostAdmin/index')),
-        array('icon' => 'plus-sign', 'label' => Yii::t('BlogModule.blog', 'Добавить запись'), 'url' => array('/blog/PostAdmin/create')),
-        array('label' => Yii::t('BlogModule.blog', 'Запись') . ' «' . mb_substr($model->title, 0, 32) . '»', 'utf-8'),
-        array('icon' => 'pencil', 'label' => Yii::t('BlogModule.blog', 'Редактирование записи'), 'url' => array(
+    array('label' => Yii::t('BlogModule.blog', 'Posts'), 'items' => array(
+        array('icon' => 'list-alt', 'label' => Yii::t('BlogModule.blog', 'Posts admin'), 'url' => array('/blog/PostAdmin/index')),
+        array('icon' => 'plus-sign', 'label' => Yii::t('BlogModule.blog', 'Add post'), 'url' => array('/blog/PostAdmin/create')),
+        array('label' => Yii::t('BlogModule.blog', 'Post') . ' «' . mb_substr($model->title, 0, 32) . '»', 'utf-8'),
+        array('icon' => 'pencil', 'label' => Yii::t('BlogModule.blog', 'Edit posts'), 'url' => array(
             '/blog/PostAdmin/update',
             'id' => $model->id
         )),
-        array('icon' => 'eye-open', 'label' => Yii::t('BlogModule.blog', 'Просмотреть запись'), 'url' => array(
+        array('icon' => 'eye-open', 'label' => Yii::t('BlogModule.blog', 'View post'), 'url' => array(
             '/blog/PostAdmin/view',
             'id' => $model->id
         )),
-        array('icon' => 'trash', 'label' => Yii::t('BlogModule.blog', 'Удалить запись'), 'url' => '#', 'linkOptions' => array(
+        array('icon' => 'trash', 'label' => Yii::t('BlogModule.blog', 'Remove post'), 'url' => '#', 'linkOptions' => array(
             'submit' => array('/blog/PostAdmin/delete', 'id' => $model->id),
-            'confirm' => Yii::t('BlogModule.blog', 'Вы уверены, что хотите удалить запись?'),
+            'confirm' => Yii::t('BlogModule.blog', 'Are you sure you want to remove post?'),
         )),
     )),
-    array('label' => Yii::t('BlogModule.blog', 'Участники'), 'items' => array(
-        array('icon' => 'list-alt', 'label' => Yii::t('BlogModule.blog', 'Управление участниками'), 'url' => array('/blog/UserToBlogAdmin/index')),
-        array('icon' => 'plus-sign', 'label' => Yii::t('BlogModule.blog', 'Добавить участника'), 'url' => array('/blog/UserToBlogAdmin/create')),
+    array('label' => Yii::t('BlogModule.blog', 'Members'), 'items' => array(
+        array('icon' => 'list-alt', 'label' => Yii::t('BlogModule.blog', 'Members admin'), 'url' => array('/blog/UserToBlogAdmin/index')),
+        array('icon' => 'plus-sign', 'label' => Yii::t('BlogModule.blog', 'Add member'), 'url' => array('/blog/UserToBlogAdmin/create')),
     )),
 );
 ?>
 <div class="page-header">
     <h1>
-        <?php echo Yii::t('BlogModule.blog', 'Просмотр записи'); ?><br />
+        <?php echo Yii::t('BlogModule.blog', 'View posts'); ?><br />
         <small>&laquo;<?php echo $model->title; ?>&raquo;</small>
     </h1>
 </div>

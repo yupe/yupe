@@ -10,37 +10,37 @@
  **/
 $this->breadcrumbs = array(
     Yii::app()->getModule('blog')->getCategory() => array(),
-    Yii::t('BlogModule.blog', 'Записи') => array('/blog/PostAdmin/index'),
-    Yii::t('BlogModule.blog', 'Управление'),
+    Yii::t('BlogModule.blog', 'Posts') => array('/blog/PostAdmin/index'),
+    Yii::t('BlogModule.blog', 'Administration'),
 );
 
-$this->pageTitle = Yii::t('BlogModule.blog', 'Записи - управление');
+$this->pageTitle = Yii::t('BlogModule.blog', 'Posts - administration');
 
 $this->menu = array(
-    array('label' => Yii::t('BlogModule.blog', 'Блоги'), 'items' => array(
-        array('icon' => 'list-alt', 'label' => Yii::t('BlogModule.blog', 'Управление блогами'), 'url' => array('/blog/BlogAdmin/index')),
-        array('icon' => 'plus-sign', 'label' => Yii::t('BlogModule.blog', 'Добавить блог'), 'url' => array('/blog/BlogAdmin/create')),
+    array('label' => Yii::t('BlogModule.blog', 'Blogs'), 'items' => array(
+        array('icon' => 'list-alt', 'label' => Yii::t('BlogModule.blog', 'Blogs admin'), 'url' => array('/blog/BlogAdmin/index')),
+        array('icon' => 'plus-sign', 'label' => Yii::t('BlogModule.blog', 'Add blog'), 'url' => array('/blog/BlogAdmin/create')),
     )),
-    array('label' => Yii::t('BlogModule.blog', 'Записи'), 'items' => array(
-        array('icon' => 'list-alt', 'label' => Yii::t('BlogModule.blog', 'Управление записями'), 'url' => array('/blog/PostAdmin/index')),
-        array('icon' => 'plus-sign', 'label' => Yii::t('BlogModule.blog', 'Добавить запись'), 'url' => array('/blog/PostAdmin/create')),
+    array('label' => Yii::t('BlogModule.blog', 'Posts'), 'items' => array(
+        array('icon' => 'list-alt', 'label' => Yii::t('BlogModule.blog', 'Posts admin'), 'url' => array('/blog/PostAdmin/index')),
+        array('icon' => 'plus-sign', 'label' => Yii::t('BlogModule.blog', 'Add post'), 'url' => array('/blog/PostAdmin/create')),
     )),
-    array('label' => Yii::t('BlogModule.blog', 'Участники'), 'items' => array(
-        array('icon' => 'list-alt', 'label' => Yii::t('BlogModule.blog', 'Управление участниками'), 'url' => array('/blog/UserToBlogAdmin/index')),
-        array('icon' => 'plus-sign', 'label' => Yii::t('BlogModule.blog', 'Добавить участника'), 'url' => array('/blog/UserToBlogAdmin/create')),
+    array('label' => Yii::t('BlogModule.blog', 'Members'), 'items' => array(
+        array('icon' => 'list-alt', 'label' => Yii::t('BlogModule.blog', 'Members admin'), 'url' => array('/blog/UserToBlogAdmin/index')),
+        array('icon' => 'plus-sign', 'label' => Yii::t('BlogModule.blog', 'Add member'), 'url' => array('/blog/UserToBlogAdmin/create')),
     )),
 );
 ?>
 <div class="page-header">
     <h1>
-        <?php echo Yii::t('BlogModule.blog', 'Записи'); ?>
-        <small><?php echo Yii::t('BlogModule.blog', 'управление'); ?></small>
+        <?php echo Yii::t('BlogModule.blog', 'Posts'); ?>
+        <small><?php echo Yii::t('BlogModule.blog', 'administration'); ?></small>
     </h1>
 </div>
 
 <button class="btn btn-small dropdown-toggle" data-toggle="collapse" data-target="#search-toggle">
     <i class="icon-search">&nbsp;</i>
-    <?php echo CHtml::link(Yii::t('BlogModule.blog', 'Поиск записей'), '#', array('class' => 'search-button')); ?>
+    <?php echo CHtml::link(Yii::t('BlogModule.blog', 'Find posts'), '#', array('class' => 'search-button')); ?>
     <span class="caret">&nbsp;</span>
 </button>
 
@@ -61,7 +61,7 @@ $this->renderPartial('_search', array('model' => $model));
 
 <br/>
 
-<p><?php echo Yii::t('BlogModule.blog', 'В данном разделе представлены средства управления записями'); ?></p>
+<p><?php echo Yii::t('BlogModule.blog', 'In this category located posts administration functions'); ?></p>
 
 <?php $this->widget(
     'application.modules.yupe.components.YCustomGridView', array(
@@ -76,8 +76,8 @@ $this->renderPartial('_search', array('model' => $model));
                     'buttonType' => 'button',
                     'type'       => 'danger',
                     'size'       => 'small',
-                    'label'      => Yii::t('BlogModule.blog', 'Удалить'),
-                    'click'      => 'js:function(values){ if(!confirm("' . Yii::t('BlogModule.blog', 'Вы уверены, что хотите удалить выбранные элементы?') . '")) return false; multiaction("delete", values); }',
+                    'label'      => Yii::t('BlogModule.blog', 'Remove'),
+                    'click'      => 'js:function(values){ if(!confirm("' . Yii::t('BlogModule.blog', 'Are you sure you want to delete selected items?') . '")) return false; multiaction("delete", values); }',
                 ),
             ),
             'checkBoxColumnConfig' => array(
@@ -135,7 +135,7 @@ $this->renderPartial('_search', array('model' => $model));
                 'filter' => Post::model()->getCommentStatusList()
             ),
             array(
-                'header' => Yii::t('BlogModule.blog','Теги'),
+                'header' => Yii::t('BlogModule.blog','Tags'),
                 'value'  => 'implode(", ", $data->getTags())'
             ),
             array(
