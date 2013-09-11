@@ -16,6 +16,6 @@ modules:
         - WebDebug
     config:
         Selenium2:
-            url: 'http://yupe.local/index-test.php'
+            url: 'http://localhost/yupe/public/index-test.php'
             browser: firefox
             delay: 100

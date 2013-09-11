@@ -1,7 +1,7 @@
 <?php
 $I = new WebGuy($scenario);
 $I->wantTo('Test Yupe! installation process!');
-$I->amOnPage('/');
+$I->amOnPage('/install');
 
 
 $I->wantTo('Test begin install!');
@@ -81,14 +81,59 @@ foreach($links as $link) {
 $I->seeLink('< Назад');
 $I->see('Продолжить >');
 
+$I->click('Все');
+
 $I->click('Продолжить >');
 $I->see('Будет установлено','h4');
+$I->see('Отмена');
 $I->click('Продолжить >','.modal-footer');
+
 
 $I->seeInCurrentUrl('modulesinstall');
 $I->see('Шаг 5 из 8 : "Установка модулей','span');
 $I->see('Идет установка модулей...','h1');
 $I->see('Журнал установки','h3');
+
+
+$I->wait(80000);
+$I->see('20 / 20');
+$I->see('Установка завершена','h4');
+$I->see('Поздравляем, установка выбранных вами модулей завершена.');
+$I->see('Смотреть журнал');
+
+//check admin create
+$I->click('Продолжить >','.modal-footer');
+$I->seeInCurrentUrl('createuser');
+$I->see('Шаг 6 из 8 : "Создание учетной записи администратора','span');
+$I->seeInField('InstallForm[userName]','');
+$I->seeInField('InstallForm[userEmail]','');
+$I->seeInField('InstallForm[userPassword]','');
+$I->seeInField('InstallForm[cPassword]','');
+$I->seeLink('< Назад');
+$I->see('Продолжить >');
+
+
+//check form validation
+$I->fillField('InstallForm[userName]','yupe');
+$I->fillField('InstallForm[userEmail]','yupe');
+$I->fillField('InstallForm[userPassword]','111111');
+$I->fillField('InstallForm[cPassword]','111');
+$I->click('Продолжить >');
+$I->see('Необходимо исправить следующие ошибки','.alert-error');
+$I->see('Пароли не совпадают!','.alert-error');
+$I->see('Email не является правильным E-Mail адресом.','.alert-error');
+
+$I->fillField('InstallForm[userEmail]','yupe@mail.ru');
+$I->fillField('InstallForm[cPassword]','111111');
+$I->click('Продолжить >');
+$I->dontSee('Необходимо исправить следующие ошибки','.alert-error');
+
+$I->seeInCurrentUrl('sitesettings');
+$I->see('Шаг 7 из 8 : "Настройки проекта"','span');
+$I->checkOption('InstallForm[theme]','default');
+
+
+
 
 
 
