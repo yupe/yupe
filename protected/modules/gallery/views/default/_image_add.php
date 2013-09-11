@@ -19,15 +19,15 @@ $form = $this->beginWidget(
     )
 ); ?>
     <div class="alert alert-info">
-        <?php echo Yii::t('ImageModule.image', 'Поля, отмеченные'); ?>
+        <?php echo Yii::t('GalleryModule.gallery', 'Поля, отмеченные'); ?>
         <span class="required">*</span>
-        <?php echo Yii::t('ImageModule.image', 'обязательны.'); ?>
+        <?php echo Yii::t('GalleryModule.gallery', 'обязательны.'); ?>
     </div>
 
     <?php echo $form->errorSummary($model); ?>
 
     <div class='row-fluid control-group <?php echo $model->hasErrors("category_id") ? "error" : ""; ?>'>
-        <?php echo $form->dropDownListRow($model, 'category_id', CHtml::listData(Yii::app()->getModule('image')->getCategoryList(), 'id', 'name'), array('empty' => Yii::t('news', '--выберите--'))); ?>
+        <?php echo $form->dropDownListRow($model, 'category_id', CHtml::listData(Yii::app()->getModule('image')->getCategoryList(), 'id', 'name'), array('empty' => Yii::t('GalleryModule.gallery', '--выберите--'))); ?>
     </div>
     <div class='row-fluid control-group <?php echo $model->hasErrors("name") ? "error" : ""; ?>'>
         <?php echo $form->textFieldRow($model, 'name', array('class' => 'span7', 'maxlength' => 300, 'size' => 60)); ?>
@@ -57,7 +57,7 @@ $form = $this->beginWidget(
         'bootstrap.widgets.TbButton', array(
             'buttonType' => 'submit',
             'type'       => 'primary',
-            'label'      => $model->isNewRecord ? Yii::t('ImageModule.image', 'Добавить изображение') : Yii::t('ImageModule.image', 'Сохранить изображение'),
+            'label'      => $model->isNewRecord ? Yii::t('GalleryModule.gallery', 'Добавить изображение') : Yii::t('GalleryModule.gallery', 'Сохранить изображение'),
         )
     ); ?>
 

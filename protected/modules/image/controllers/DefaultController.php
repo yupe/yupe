@@ -82,7 +82,7 @@ class DefaultController extends YBackController
             if ($model->save()) {
                 Yii::app()->user->setFlash(
                     YFlashMessages::SUCCESS_MESSAGE,
-                    Yii::t('user', 'Изображение обновлено!')
+                    Yii::t('ImageModule.image', 'Изображение обновлено!')
                 );
 
                 if (!isset($_POST['submit-type']))
@@ -110,7 +110,7 @@ class DefaultController extends YBackController
 
             Yii::app()->user->setFlash(
                 YFlashMessages::SUCCESS_MESSAGE,
-                Yii::t('user', 'Изображение удалено!')
+                Yii::t('ImageModule.image', 'Изображение удалено!')
             );
 
             // if AJAX request (triggered by deletion via admin grid view), we should not redirect the browser

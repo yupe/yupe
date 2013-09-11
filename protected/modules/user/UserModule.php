@@ -155,7 +155,7 @@ class UserModule extends YWebModule
     {
         return array(
             'main' => array(
-                'label' => Yii::t('YupeModule.yupe', 'Основные настройки модуля'),
+                'label' => Yii::t('UserModule.user', 'Основные настройки модуля'),
                 'items' => array(
                     'adminMenuOrder',
                     'sessionLifeTime'

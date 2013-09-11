@@ -33,7 +33,7 @@
     </div>
 
     <div class="row buttons">
-        <?php echo CHtml::submitButton(Yii::t('image', 'Добавить изображение')); ?>
+        <?php echo CHtml::submitButton(Yii::t('GalleryModule.gallery', 'Добавить изображение')); ?>
     </div>
 
     <?php $this->endWidget(); ?>

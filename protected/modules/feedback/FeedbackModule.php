@@ -61,7 +61,7 @@ class FeedbackModule extends YWebModule
     {
         return array(
             'main' => array(
-                'label' => Yii::t('YupeModule.yupe', 'Основные настройки модуля'),
+                'label' => Yii::t('FeedbackModule.feedback', 'Основные настройки модуля'),
                 'items' => array(
                     'sendConfirmation',
                     'notifyEmailFrom',
@@ -73,7 +73,7 @@ class FeedbackModule extends YWebModule
                 )
             ),
             'captcha' => array(
-                'label' => Yii::t('YupeModule.yupe', 'Настройки капчи'),
+                'label' => Yii::t('FeedbackModule.feedback', 'Настройки капчи'),
                 'items' => array(
                     'showCaptcha',
                     'minCaptchaLength',

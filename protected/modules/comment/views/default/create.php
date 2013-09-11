@@ -5,7 +5,7 @@
         Yii::t('CommentModule.comment', 'Добавление'),
     );
 
-    $this->pageTitle = Yii::t('category', 'Комментарий - добавление');
+    $this->pageTitle = Yii::t('CommentModule.comment', 'Комментарий - добавление');
 
     $this->menu = array(
         array('icon' => 'list-alt', 'label' => Yii::t('CommentModule.comment', 'Список комментариев'), 'url' => array('/comment/default/index')),

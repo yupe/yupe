@@ -39,7 +39,7 @@ $form = $this->beginWidget('bootstrap.widgets.TbActiveForm', array(
         </div>
         <div class="row-fluid control-group">
             <div class="span3">
-                <?php echo $form->dropDownListRow($model, 'category_id', CHtml::listData($this->module->getCategoryList(), 'id', 'name'), array('empty' => Yii::t('news', '- не важно -')), array('empty' => Yii::t('PageModule.page', '- не выбрана -'))); ?>
+                <?php echo $form->dropDownListRow($model, 'category_id', CHtml::listData($this->module->getCategoryList(), 'id', 'name'), array('empty' => Yii::t('PageModule.page', '- не важно -')), array('empty' => Yii::t('PageModule.page', '- не выбрана -'))); ?>
             </div>
         </div>
         <div class="row-fluid control-group">

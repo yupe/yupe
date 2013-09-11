@@ -33,7 +33,7 @@ $form = $this->beginWidget(
             'type'        => 'primary',
             'encodeLabel' => false,
             'buttonType'  => 'submit',
-            'label'       => '<i class="icon-search icon-white">&nbsp;</i> ' . Yii::t('blog', 'Искать меню'),
+            'label'       => '<i class="icon-search icon-white">&nbsp;</i> ' . Yii::t('MenuModule.menu', 'Искать меню'),
         )
     ); ?>
 
