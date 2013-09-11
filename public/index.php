@@ -46,4 +46,4 @@ Yii::setPathOfAlias('yii', dirname(__FILE__) . '/../framework/');
 $confManager = new application\modules\yupe\components\ConfigManager();
 $config = $confManager->merge($base, $userspace);
 
-Yii::createWebApplication($config)->run();
+Yii::createWebApplication($base)->run();

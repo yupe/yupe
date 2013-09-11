@@ -8,4 +8,7 @@
 
 class_name: TestGuy
 modules:
-    enabled: [Filesystem, TestHelper]
+    enabled: [Filesystem, TestHelper, PhpBrowser]
+    config:
+          PhpBrowser:
+             url: 'http://localhost/yupe/public/index.php'

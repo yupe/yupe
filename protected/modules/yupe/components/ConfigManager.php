@@ -289,23 +289,29 @@ class ConfigManager extends CComponent
             )
         );
 
-        if(!array_key_exists('rules',$settings))
+        if(!array_key_exists('rules',$settings)) {
             $settings['rules'] = array();
+        }
 
-        if(!array_key_exists('cache',$settings))
+        if(!array_key_exists('cache',$settings)) {
             $settings['cache'] = array();
+        }
 
-        // Фикс для настроек маршрутизации:
-        $this->_config['components']['urlManager']['rules'] = CMap::mergeArray(
-            $settings['rules'],
-            $this->_config['components']['urlManager']['rules']
-        );
+        if(isset($this->_config['components']['urlManager']['rules'])) {
+            // Фикс для настроек маршрутизации:
+            $this->_config['components']['urlManager']['rules'] = CMap::mergeArray(
+                $settings['rules'],
+                $this->_config['components']['urlManager']['rules']
+            );
+        }
 
-        // Слитие настроек для компонента кеширования:
-        $this->_config['components']['cache'] = CMap::mergeArray(
-            $this->_config['components']['cache'],
-            $settings['cache']
-        );
+        if(isset($this->_config['components']['cache'])) {
+            // Слитие настроек для компонента кеширования:
+            $this->_config['components']['cache'] = CMap::mergeArray(
+                $this->_config['components']['cache'],
+                $settings['cache']
+            );
+        }
 
         // Сливаем напоследок с пользовательскими
         // настройками:
@@ -316,7 +322,6 @@ class ConfigManager extends CComponent
         // Создание кеша настроек:
         if (($error = $this->dumpSettings()) !== true) {
             throw new Exception($error->getMessage());
-            
         }
 
         return $this->_config;
