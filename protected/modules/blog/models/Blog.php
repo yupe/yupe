@@ -141,8 +141,8 @@ class Blog extends YModel
             'status'         => Yii::t('BlogModule.blog', 'Status'),
             'create_user_id' => Yii::t('BlogModule.blog', 'Created'),
             'update_user_id' => Yii::t('BlogModule.blog', 'Updated'),
-            'create_date'    => Yii::t('BlogModule.blog', 'Creating date'),
-            'update_date'    => Yii::t('BlogModule.blog', 'Updating date'),
+            'create_date'    => Yii::t('BlogModule.blog', 'Created at'),
+            'update_date'    => Yii::t('BlogModule.blog', 'Updated at'),
             'category_id'    => Yii::t('BlogModule.blog', 'Category')
         );
     }

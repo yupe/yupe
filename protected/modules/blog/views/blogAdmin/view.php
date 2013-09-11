@@ -18,7 +18,7 @@ $this->pageTitle = Yii::t('BlogModule.blog', 'Blogs - view');
 
 $this->menu = array(
     array('label' => Yii::t('BlogModule.blog', 'Blogs'), 'items' => array(
-        array('icon' => 'list-alt', 'label' => Yii::t('BlogModule.blog', 'Blogs admin'), 'url' => array('/blog/BlogAdmin/index')),
+        array('icon' => 'list-alt', 'label' => Yii::t('BlogModule.blog', 'Manage Blogs'), 'url' => array('/blog/BlogAdmin/index')),
         array('icon' => 'plus-sign', 'label' => Yii::t('BlogModule.blog', 'Add blog'), 'url' => array('/blog/BlogAdmin/create')),
         array('label' => Yii::t('BlogModule.blog', 'Blog') . ' «' . mb_substr($model->name, 0, 32) . '»', 'utf-8'),
         array('icon' => 'pencil', 'encodeLabel' => false, 'label' => Yii::t('BlogModule.blog', 'Edit blog'), 'url' => array(
@@ -35,11 +35,11 @@ $this->menu = array(
         )),
     )),
     array('label' => Yii::t('BlogModule.blog', 'Posts'), 'items' => array(
-        array('icon' => 'list-alt', 'label' => Yii::t('BlogModule.blog', 'Posts admin'), 'url' => array('/blog/PostAdmin/index')),
+        array('icon' => 'list-alt', 'label' => Yii::t('BlogModule.blog', 'Manage Posts'), 'url' => array('/blog/PostAdmin/index')),
         array('icon' => 'plus-sign', 'label' => Yii::t('BlogModule.blog', 'Add post'), 'url' => array('/blog/PostAdmin/create/','blog' => $model->id)),
     )),
     array('label' => Yii::t('BlogModule.blog', 'Members'), 'items' => array(
-        array('icon' => 'list-alt', 'label' => Yii::t('BlogModule.blog', 'Members admin'), 'url' => array('/blog/UserToBlogAdmin/index')),
+        array('icon' => 'list-alt', 'label' => Yii::t('BlogModule.blog', 'Manage Members'), 'url' => array('/blog/UserToBlogAdmin/index')),
         array('icon' => 'plus-sign', 'label' => Yii::t('BlogModule.blog', 'Add member'), 'url' => array('/blog/UserToBlogAdmin/create')),
     )),
 );
