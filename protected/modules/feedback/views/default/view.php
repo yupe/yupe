@@ -10,7 +10,7 @@
     $this->menu = array(
         array('icon' => 'list-alt', 'label' => Yii::t('FeedbackModule.feedback', 'Управление сообщениями  '), 'url' => array('/feedback/default/index')),
         array('icon' => 'plus-sign', 'label' => Yii::t('FeedbackModule.feedback', 'Добавить сообщение  '), 'url' => array('/feedback/default/create')),
-        array('label' => Yii::t('dictionary', 'Значение справочника') . ' «' . mb_substr($model->theme, 0, 32) . '»'),
+        array('label' => Yii::t('FeedbackModule.feedback', 'Значение справочника') . ' «' . mb_substr($model->theme, 0, 32) . '»'),
         array('icon' => 'pencil', 'label' => Yii::t('FeedbackModule.feedback', 'Редактирование сообщения  '), 'url' => array(
             '/feedback/default/update',
             'id' => $model->id

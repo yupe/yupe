@@ -28,7 +28,7 @@
 ?>
 <div class="page-header">
     <h1>
-        <?php echo Yii::t('catalog', 'Просмотр комментария'); ?><br />
+        <?php echo Yii::t('CommentModule.comment', 'Просмотр комментария'); ?><br />
         <small>&laquo;<?php echo $model->id; ?>&raquo;</small>
     </h1>
 </div>

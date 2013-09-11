@@ -70,7 +70,7 @@ $this->breadcrumbs = array(
 
 <br /><br />
 
-<?php echo CHtml::link(Yii::t('install', 'General sponsor'), 'http://amylabs.ru?from=yupe-help', array('target' => '_blank')); ?> - <?php echo Yii::t('install', 'Just great guys =)'); ?>
+<?php echo CHtml::link(Yii::t('YupeModule.yupe', 'General sponsor'), 'http://amylabs.ru?from=yupe-help', array('target' => '_blank')); ?> - <?php echo Yii::t('YupeModule.yupe', 'Just great guys =)'); ?>
 
 <br /><br />
 

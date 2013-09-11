@@ -55,7 +55,7 @@ class CommentModule extends YWebModule
     {
         return array(
             'main' => array(
-                'label' => Yii::t('YupeModule.yupe', 'Основные настройки модуля'),
+                'label' => Yii::t('CommentModule.comment', 'Основные настройки модуля'),
                 'items' => array(
                     'defaultCommentStatus',
                     'autoApprove',
@@ -65,7 +65,7 @@ class CommentModule extends YWebModule
                 )
             ),
             'captcha' => array(
-                'label' => Yii::t('YupeModule.yupe', 'Настройки капчи'),
+                'label' => Yii::t('CommentModule.comment', 'Настройки капчи'),
                 'items' => array(
                     'showCaptcha',
                     'minCaptchaLength',

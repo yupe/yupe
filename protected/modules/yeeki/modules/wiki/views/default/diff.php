@@ -1,6 +1,6 @@
 <?php $this->breadcrumbs = array(
-     Yii::t('default', 'Wiki') => array('/wiki/default/pageIndex'),
-     Yii::t('default', 'Diff')
+     Yii::t('WikiModule.wiki', 'Wiki') => array('/wiki/default/pageIndex'),
+     Yii::t('WikiModule.wiki', 'Diff')
 );?>
 
 <h1>

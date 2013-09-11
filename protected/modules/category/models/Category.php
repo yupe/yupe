@@ -53,7 +53,7 @@ class Category extends YModel
             array('name, image', 'length', 'max' => 250),
             array('alias', 'length', 'max' => 150),
             array('lang', 'length', 'max' => 2 ),
-            array('alias', 'YSLugValidator', 'message' => Yii::t('catalog', 'Запрещенные символы в поле {attribute}')),
+            array('alias', 'YSLugValidator', 'message' => Yii::t('CategoryModule.category', 'Запрещенные символы в поле {attribute}')),
             array('alias', 'YUniqueSlugValidator'),
             array('status', 'in', 'range' => array_keys($this->statusList)),
             array('id, parent_id, name, description, short_description, alias, status, lang', 'safe', 'on' => 'search'),

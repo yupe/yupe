@@ -45,7 +45,7 @@ $form = $this->beginWidget('bootstrap.widgets.TbActiveForm', array(
         'type'        => 'primary',
         'encodeLabel' => false,
         'buttonType'  => 'submit',
-        'label'       => '<i class="icon-search icon-white">&nbsp;</i> ' . Yii::t('blog', 'Искать новость'),
+        'label'       => '<i class="icon-search icon-white">&nbsp;</i> ' . Yii::t('NewsModule.news', 'Искать новость'),
     )); ?>
 
 <?php $this->endWidget(); ?>

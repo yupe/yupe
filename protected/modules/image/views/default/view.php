@@ -22,7 +22,7 @@
         array('icon' => 'trash', 'label' => Yii::t('ImageModule.image', 'Удалить изображение'),'url' => '#', 'linkOptions' => array(
             'submit'  => array('/image/default/delete', 'id' => $model->id),
             'params' => array(Yii::app()->request->csrfTokenName => Yii::app()->request->csrfToken),
-            'confirm' => Yii::t('yupe', 'Вы уверены, что хотите удалить изображение?'),
+            'confirm' => Yii::t('ImageModule.image', 'Вы уверены, что хотите удалить изображение?'),
             'csrf' => true,
         )),
     );
