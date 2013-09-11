@@ -36,6 +36,7 @@ return array(
         'application.modules.yupe.components.*',
         'application.modules.yupe.components.controllers.*',
         'application.modules.yupe.widgets.*',
+        'application.modules.yupe.models.*',
     ),
     // подключение и конфигурирование модулей,
     // подробнее: http://www.yiiframework.ru/doc/guide/ru/basics.module
