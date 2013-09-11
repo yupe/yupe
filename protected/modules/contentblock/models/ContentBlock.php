@@ -49,7 +49,7 @@ class ContentBlock extends YModel
             array('name', 'length', 'max' => 250),
             array('code', 'length', 'max' => 100),
             array('description', 'length', 'max' => 255),
-            array('code', 'YSLugValidator', 'message' => Yii::t('ContentBlockModule.contentblock', 'Неверный формат поля "{attribute}" допустимы только буквы, цифры и символ подчеркивания, от 2 до 50 символов')),
+            array('code', 'YSLugValidator', 'message' => Yii::t('ContentBlockModule.contentblock', 'Unknown field format "{attribute}" only alphas, digits and _, from 2 to 50 characters')),
             array('code', 'unique'),
             array('id, name, code, type, content, description', 'safe', 'on' => 'search'),
         );
@@ -62,11 +62,11 @@ class ContentBlock extends YModel
     {
         return array(
             'id'          => Yii::t('ContentBlockModule.contentblock', 'id'),
-            'name'        => Yii::t('ContentBlockModule.contentblock', 'Название'),
-            'code'        => Yii::t('ContentBlockModule.contentblock', 'Символьный код'),
-            'type'        => Yii::t('ContentBlockModule.contentblock', 'Тип'),
-            'content'     => Yii::t('ContentBlockModule.contentblock', 'Контент'),
-            'description' => Yii::t('ContentBlockModule.contentblock', 'Описание'),
+            'name'        => Yii::t('ContentBlockModule.contentblock', 'Title'),
+            'code'        => Yii::t('ContentBlockModule.contentblock', 'Code'),
+            'type'        => Yii::t('ContentBlockModule.contentblock', 'Type'),
+            'content'     => Yii::t('ContentBlockModule.contentblock', 'Content'),
+            'description' => Yii::t('ContentBlockModule.contentblock', 'Description'),
         );
     }
 
@@ -92,15 +92,15 @@ class ContentBlock extends YModel
     public function getTypes()
     {
         return array(
-            self::SIMPLE_TEXT => Yii::t('ContentBlockModule.contentblock', 'Простой текст'),
-            self::PHP_CODE    => Yii::t('ContentBlockModule.contentblock', 'Исполняемый PHP код'),
-            self::HTML_TEXT   => Yii::t('ContentBlockModule.contentblock', 'HTML код'),
+            self::SIMPLE_TEXT => Yii::t('ContentBlockModule.contentblock', 'Full text'),
+            self::PHP_CODE    => Yii::t('ContentBlockModule.contentblock', 'Executed PHP code'),
+            self::HTML_TEXT   => Yii::t('ContentBlockModule.contentblock', 'HTML code'),
         );
     }
 
     public function getType()
     {
         $data = $this->types;
-        return isset($data[$this->type]) ? $data[$this->type] : Yii::t('ContentBlockModule.contentblock', '*неизвестный тип*');
+        return isset($data[$this->type]) ? $data[$this->type] : Yii::t('ContentBlockModule.contentblock', '*unknown type*');
     }
 }

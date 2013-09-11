@@ -33,9 +33,9 @@ class CatalogModule extends YWebModule
         if (!is_writable($uploadPath))
             $messages[YWebModule::CHECK_ERROR][] =  array(
                 'type'    => YWebModule::CHECK_ERROR,
-                'message' => Yii::t('CatalogModule.catalog', 'Директория "{dir}" не доступна для записи! {link}', array(
+                'message' => Yii::t('CatalogModule.catalog', 'Directory "{dir}" is not accessible for write! {link}', array(
                     '{dir}'  => $uploadPath,
-                    '{link}' => CHtml::link(Yii::t('CatalogModule.catalog', 'Изменить настройки'), array(
+                    '{link}' => CHtml::link(Yii::t('CatalogModule.catalog', 'Change settings'), array(
                         '/yupe/backend/modulesettings/',
                         'module' => 'catalog',
                     )),
@@ -69,21 +69,21 @@ class CatalogModule extends YWebModule
     public function getParamsLabels()
     {
         return array(
-            'mainCategory'      => Yii::t('CatalogModule.catalog', 'Главная категория каталога товаров'),
-            'adminMenuOrder'    => Yii::t('CatalogModule.catalog', 'Порядок следования в меню'),
-            'uploadPath'        => Yii::t('CatalogModule.catalog', 'Каталог для загрузки файлов (относительно Yii::app()->getModule("yupe")->uploadPath)'),
-            'editor'            => Yii::t('CatalogModule.catalog', 'Визуальный редактор'),
-            'allowedExtensions' => Yii::t('CatalogModule.catalog', 'Разрешенные расширения (перечислите через запятую)'),
-            'minSize'           => Yii::t('CatalogModule.catalog', 'Минимальный размер (в байтах)'),
-            'maxSize'           => Yii::t('CatalogModule.catalog', 'Максимальный размер (в байтах)'),
+            'mainCategory'      => Yii::t('CatalogModule.catalog', 'Main category of products'),
+            'adminMenuOrder'    => Yii::t('CatalogModule.catalog', 'Menu items order'),
+            'uploadPath'        => Yii::t('CatalogModule.catalog', 'Catalog for file uploads (relatively Yii::app()->getModule("yupe")->uploadPath)'),
+            'editor'            => Yii::t('CatalogModule.catalog', 'Visual editor'),
+            'allowedExtensions' => Yii::t('CatalogModule.catalog', 'Accepted extensions (separated by comma)'),
+            'minSize'           => Yii::t('CatalogModule.catalog', 'Minimum size (in bytes)'),
+            'maxSize'           => Yii::t('CatalogModule.catalog', 'Maximum size (in bytes)'),
         );
     }
 
     public function getNavigation()
     {
         return array(
-            array('icon' => 'list-alt', 'label' => Yii::t('CatalogModule.catalog', 'Список товаров'), 'url' => array('/catalog/default/index')),
-            array('icon' => 'plus-sign', 'label' => Yii::t('CatalogModule.catalog', 'Добавить товар'), 'url' => array('/catalog/default/create')),
+            array('icon' => 'list-alt', 'label' => Yii::t('CatalogModule.catalog', 'Products list'), 'url' => array('/catalog/default/index')),
+            array('icon' => 'plus-sign', 'label' => Yii::t('CatalogModule.catalog', 'Add product'), 'url' => array('/catalog/default/create')),
         );
     }
 
@@ -99,17 +99,17 @@ class CatalogModule extends YWebModule
 
     public function getCategory()
     {
-        return Yii::t('CatalogModule.catalog', 'Контент');
+        return Yii::t('CatalogModule.catalog', 'Content');
     }
 
     public function getName()
     {
-        return Yii::t('CatalogModule.catalog', 'Каталог товаров');
+        return Yii::t('CatalogModule.catalog', 'Products catalog');
     }
 
     public function getDescription()
     {
-        return Yii::t('CatalogModule.catalog', 'Модуль для создания простого каталога товаров');
+        return Yii::t('CatalogModule.catalog', 'Module for creating simple products catalog');
     }
 
     public function getAuthor()

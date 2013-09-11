@@ -3,17 +3,17 @@ class ContentBlockModule extends YWebModule
 {
     public function getCategory()
     {
-        return Yii::t('ContentBlockModule.contentblock', 'Контент');
+        return Yii::t('ContentBlockModule.contentblock', 'Content');
     }
 
     public function getName()
     {
-        return Yii::t('ContentBlockModule.contentblock', 'Блоки контента');
+        return Yii::t('ContentBlockModule.contentblock', 'Content blocks');
     }
 
     public function getDescription()
     {
-        return Yii::t('ContentBlockModule.contentblock', 'Модуль для создания и редактирования произвольных блоков контента');
+        return Yii::t('ContentBlockModule.contentblock', 'Module for create simple content blocks');
     }
 
     public function getVersion()
@@ -54,8 +54,8 @@ class ContentBlockModule extends YWebModule
     public function getNavigation()
     {
         return array(
-            array('icon' => 'list-alt', 'label' => Yii::t('ContentBlockModule.contentblock', 'Список блоков'), 'url' => array('/contentblock/default/index')),
-            array('icon' => 'plus-sign', 'label' => Yii::t('ContentBlockModule.contentblock', 'Добавить блок'), 'url' => array('/contentblock/default/create')),
+            array('icon' => 'list-alt', 'label' => Yii::t('ContentBlockModule.contentblock', 'Blocks list'), 'url' => array('/contentblock/default/index')),
+            array('icon' => 'plus-sign', 'label' => Yii::t('ContentBlockModule.contentblock', 'Add block'), 'url' => array('/contentblock/default/create')),
         );
     }
 }
