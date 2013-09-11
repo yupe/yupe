@@ -29,14 +29,13 @@ return array(
     'aliases' => array(
         'bootstrap' => realpath(__DIR__ . '/../modules/yupe/extensions/booster'),
     ),
-    'import'            => array(
+    'import' => array(
         // подключение основых путей
         'application.components.*',
         'application.models.*',
         'application.modules.yupe.components.*',
+        'application.modules.yupe.controllers.*',
         'application.modules.yupe.components.controllers.*',
-        'application.modules.yupe.widgets.*',
-        'application.modules.yupe.models.*',
     ),
     // подключение и конфигурирование модулей,
     // подробнее: http://www.yiiframework.ru/doc/guide/ru/basics.module
@@ -45,7 +44,7 @@ return array(
             'class' => 'application.modules.install.InstallModule',
         ),
         'yupe'  => array(
-            //'class'        => 'application.modules.yupe.YupeModule',
+            'class'        => 'application.modules.yupe.YupeModule',
             'brandUrl'     => 'http://yupe.ru?from=engine',
             'cache'        => true,
         ),
@@ -110,7 +109,7 @@ return array(
         // РЕКОМЕНДУЕМ УКАЗАТЬ СВОЕ ЗНАЧЕНИЕ ДЛЯ ПАРАМЕТРА "csrfTokenName"
         // базовый класс CHttpRequest переопределен для загрузки файлов через ajax, подробнее: http://www.yiiframework.com/forum/index.php/topic/8689-disable-csrf-verification-per-controller-action/
         'request' => array(
-            'class'                  => 'YHttpRequest',
+            'class'                  => 'application.modules.yupe.components.YHttpRequest',
             'enableCsrfValidation'   => true,
             'csrfTokenName'          => 'YUPE_TOKEN',
             'noCsrfValidationRoutes' => array('yupe/backend/AjaxFileUpload'),

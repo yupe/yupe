@@ -1,14 +1,15 @@
 <?php
-//die('<pre>' . print_r($_SERVER, true));
-return CMap::mergeArray(
+return array_merge(
     require(dirname(__FILE__) . '/main.php'),
     array(
-        'import'         => array(
+        'import' => array(
+            'application.components.*',
+            'application.models.*',
             'application.modules.yupe.models.*',
             'application.modules.yupe.extensions.tagcache.*',
         ),
-        'components'     => array(
-            'db'         => require dirname(__FILE__) . '/db-test.php',
+        'components'    => array(
+            'db'        => require dirname(__FILE__) . '/db-test.php',
             'cache'     => array(   
                 'behaviors' => array(
                     'clear' => array(
