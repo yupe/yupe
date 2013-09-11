@@ -371,16 +371,6 @@ class DefaultController extends YBackController
                 '',
             ),
             array(
-                Yii::t('InstallModule.install', 'Расширение PDO SQLite'),
-                false,
-                extension_loaded('pdo_sqlite'),
-                Yii::t(
-                    'InstallModule.install',
-                    'Все <a href="http://www.yiiframework.com/doc/api/#system.db">DB-классы</a>'
-                ),
-                Yii::t('InstallModule.install', 'Требуется для работы с БД SQLite.'),
-            ),
-            array(
                 Yii::t('InstallModule.install', 'Расширение PDO MySQL'),
                 false,
                 extension_loaded('pdo_mysql'),
@@ -661,18 +651,11 @@ class DefaultController extends YBackController
 
                 $socket = ($form->socket == '') ? '' : 'unix_socket=' . $form->socket . ';';
                 $port = ($form->port == '') ? '' : 'port=' . $form->port . ';';
-                if ($form->dbType != InstallForm::DB_SQLITE) {
-                    $connectionString = "{$dbType}:host={$form->host};{$port}{$socket}{$dbName}";
-                } else {
-                    $connectionString = $form->dbConString;
-                }
+                $connectionString = "{$dbType}:host={$form->host};{$port}{$socket}{$dbName}";
 
                 try {
-                    if ($form->dbType != InstallForm::DB_SQLITE) {
-                        $connection = new CDbConnection($connectionString, $form->dbUser, $form->dbPassword);
-                    } else {
-                        $connection = new CDbConnection($connectionString);
-                    }
+                      $connection = new CDbConnection($connectionString, $form->dbUser, $form->dbPassword);
+
                 } catch (Exception $e) {
                     $form->addError(
                         '',
@@ -685,34 +668,31 @@ class DefaultController extends YBackController
                     Yii::log($e->getTraceAsString(), CLogger::LEVEL_ERROR);
                 }
 
-                if ($form->createDb && $form->dbType != InstallForm::DB_SQLITE) {
-                    try {
-                        $sql = 'CREATE DATABASE ' . ($connection->schema instanceof CMysqlSchema ? ' `' . $form->dbName . '` CHARACTER SET=utf8' : $form->dbName);
-                        $connection->createCommand($sql)->execute();
-                        $connectionString .= 'dbname=' . $form->dbName;
-                    } catch (Exception $e) {
-                        $form->addError(
-                            '',
-                            Yii::t(
-                                'InstallModule.install',
-                                'Не удалось создать БД!'
-                            ) . '<br />' . $connectionString . '<br />' . $e->getMessage()
-                        );
-                        Yii::log($e->__toString(), CLogger::LEVEL_ERROR);
-                        Yii::log($e->getTraceAsString(), CLogger::LEVEL_ERROR);
-                    }
+
+                try {
+                    $sql = 'CREATE DATABASE ' . ($connection->schema instanceof CMysqlSchema ? ' `' . $form->dbName . '` CHARACTER SET=utf8' : $form->dbName);
+                    $connection->createCommand($sql)->execute();
+                    $connectionString .= 'dbname=' . $form->dbName;
+                } catch (Exception $e) {
+                    $form->addError(
+                        '',
+                        Yii::t(
+                            'InstallModule.install',
+                            'Не удалось создать БД!'
+                        ) . '<br />' . $connectionString . '<br />' . $e->getMessage()
+                    );
+                    Yii::log($e->__toString(), CLogger::LEVEL_ERROR);
+                    Yii::log($e->getTraceAsString(), CLogger::LEVEL_ERROR);
                 }
+
 
                 $connection->connectionString = $connectionString;
 
                 try {
-                    if ($form->dbType != InstallForm::DB_SQLITE) {
-                        $connection->username = $form->dbUser;
-                        $connection->password = $form->dbPassword;
-                        $connection->emulatePrepare = true;
-                        $connection->charset = 'utf8';
-                    }
-                    $connection->active = true;
+                    $connection->username = $form->dbUser;
+                    $connection->password = $form->dbPassword;
+                    $connection->emulatePrepare = true;
+                    $connection->charset = 'utf8';
                 } catch (Exception $e) {
                     $form->addError(
                         '',
@@ -730,8 +710,7 @@ class DefaultController extends YBackController
                     $connection->tablePrefix = $form->tablePrefix;
 
                     Yii::app()->setComponent('db', $connection);
-                    $dbParams = ($form->dbType != InstallForm::DB_SQLITE)
-                        ? array(
+                    $dbParams = array(
                             'class' => 'CDbConnection',
                             'connectionString' => $connectionString,
                             'username' => $form->dbUser,
@@ -741,11 +720,6 @@ class DefaultController extends YBackController
                             'enableParamLogging' => 0,
                             'enableProfiling' => 0,
                             'schemaCachingDuration' => 108000,
-                            'tablePrefix' => $form->tablePrefix,
-                        )
-                        : array(
-                            'class' => 'CDbConnection',
-                            'connectionString' => $connectionString,
                             'tablePrefix' => $form->tablePrefix,
                         );
 
@@ -1034,7 +1008,7 @@ class DefaultController extends YBackController
                         'gender'            => 0,
                         'use_gravatar'      => 1,
                         'password'          => User::model()->hashPassword($model->userPassword, $salt),
-                        'registration_date' => YDbMigration::expression('NOW()'),
+                        'registration_date' => CDbExpression('NOW()'),
                         'registration_ip'   => Yii::app()->request->userHostAddress,
                         'activation_ip'     => Yii::app()->request->userHostAddress,
                         'access_level'      => User::ACCESS_LEVEL_ADMIN,

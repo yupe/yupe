@@ -31,7 +31,7 @@ class InstallForm extends YFormModel
     const DB_POSTGRESQL = 2;
     const DB_MSSQL      = 3;
     const DB_ORACLE     = 4;
-    const DB_SQLITE     = 5;
+
 
     /**
      * Параметры для настройки БД:
@@ -43,7 +43,7 @@ class InstallForm extends YFormModel
     public $createDb;
     public $dbUser;
     public $dbPassword;
-    public $dbConString = 'sqlite:protected/data/yupe.db';
+    public $dbConString = '';
     public $tablePrefix = 'yupe_';
     public $dbType      = self::DB_MYSQL;
 
@@ -200,7 +200,6 @@ class InstallForm extends YFormModel
          * self::DB_POSTGRESQL => 'PostgreSQL',
          * self::DB_MSSQL      => 'MSSQL',
          * self::DB_ORACLE     => 'Oracle',
-         * self::DB_SQLITE     => 'SQLite',
          **/
 
         $dbTypes = array();
@@ -212,8 +211,6 @@ class InstallForm extends YFormModel
             $dbTypes[self::DB_MYSQL] = 'MySQL';
         if (extension_loaded('pdo_pgsql'))
             $dbTypes[self::DB_POSTGRESQL] = 'PostgreSQL';
-        if (extension_loaded('pdo_sqlite'))
-            $dbTypes[self::DB_SQLITE] = 'SQLite';
         
         return $dbTypes;
     }
@@ -228,7 +225,6 @@ class InstallForm extends YFormModel
         return array(
             self::DB_MYSQL      => 'mysql',
             self::DB_POSTGRESQL => 'pgsql',
-            self::DB_SQLITE     => 'sqlite',
         );
     }
 
@@ -240,20 +236,6 @@ class InstallForm extends YFormModel
     public function getEmailName()
     {
         return User::model()->admin()->find()->getAttribute('email');
-    }
-
-    /**
-     * Дефолтные настройки для SQLite (забиваем ненужные поля рыбой)
-     *
-     * @return array default sqlite settings
-     **/
-    public function getSqliteDefaults()
-    {
-        return array(
-            'dbName' => 'None',
-            'dbType' => self::DB_SQLITE,
-            'dbUser' => 'None',
-        );
     }
 
     /**

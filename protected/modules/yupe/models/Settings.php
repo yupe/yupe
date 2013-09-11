@@ -64,7 +64,7 @@ class Settings extends YModel
 
     public function beforeSave()
     {
-        $this->change_date = YDbMigration::expression('NOW()');
+        $this->change_date = CDbExpression('NOW()');
 
         if ($this->isNewRecord)
             $this->creation_date = $this->change_date;

@@ -380,7 +380,7 @@ class User extends YModel
             'last_name'         => $last_name,
             'salt'              => $salt,
             'password'          => $this->hashPassword($password, $salt),
-            'registration_date' => YDbMigration::expression('NOW()'),
+            'registration_date' => CDbExpression('NOW()'),
             'registration_ip'   => Yii::app()->request->userHostAddress,
             'activation_ip'     => Yii::app()->request->userHostAddress,
             'status'            => $status,
