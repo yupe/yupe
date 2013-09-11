@@ -12,7 +12,7 @@ class YSLugValidator extends CValidator
         {
             $message = ($this->message !== null)
                 ? $this->message
-                : Yii::t('YupeModule.yupe', '{attribute} содержит запрещенные символы');
+                : Yii::t('YupeModule.yupe', '{attribute} have illegal characters');
             $this->addError($object, $attribute, $message);
         }
     }

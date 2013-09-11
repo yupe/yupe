@@ -42,10 +42,10 @@ class BugForm extends YFormModel
     public function attributeLabels()
     {
         return array(
-            'module'  => Yii::t('YupeModule.yupe', 'Модуль'),
-            'subject' => Yii::t('YupeModule.yupe', 'Тема'),
-            'message' => Yii::t('YupeModule.yupe', 'Описание ошибки'),
-            'sendTo'  => Yii::t('YupeModule.yupe', 'Получатель'),
+            'module'  => Yii::t('YupeModule.yupe', 'Module'),
+            'subject' => Yii::t('YupeModule.yupe', 'Theme'),
+            'message' => Yii::t('YupeModule.yupe', 'Error description'),
+            'sendTo'  => Yii::t('YupeModule.yupe', 'Send to'),
         );
     }
 
@@ -57,10 +57,10 @@ class BugForm extends YFormModel
     public function attributeDescriptions()
     {
         return array(
-            'module'  => Yii::t('YupeModule.yupe', 'Необходимо выбрать модуль, в котором замечена ошибка. Если ошибка касается не модуля, а какого-то компонента, необходимо выбрать "другой" и в теме/описании написать касательно какого компонента данный отчёт об ошибке.'),
-            'subject' => Yii::t('YupeModule.yupe', 'Укажите в краткой форме касательно чего этот отчёт об ошибке. Возможно указание какого именно компонента/модуля/виджета касается данный отчёт.'),
-            'message' => Yii::t('YupeModule.yupe', 'Опишите в полной форме, что за ошибка возникает, как её воспроизвести (желательно подробная инструкция, так как некоторые ошибки специфичны для платформ/настроек окружения), также, возможно у вас есть решение данной проблемы, будем рады получить любую информацию, которая поможет в решении или воспроизведении данной ошибки.'),
-            'sendTo'  => Yii::t('YupeModule.yupe', 'Укажите получателья данного отчёта об ошибке.'),
+            'module'  => Yii::t('YupeModule.yupe', 'You must select module in which error was found. If error located not in module you must choose "other" and specify component name in topic/description'),
+            'subject' => Yii::t('YupeModule.yupe', 'Please type in short form information about error. In which module/component/widget/etc. it was found.'),
+            'message' => Yii::t('YupeModule.yupe', 'Please type detailed information about error. How we can reproduce it? In which platform or software version you found it? Other information what can help us. Also you can propose decision of this problem.'),
+            'sendTo'  => Yii::t('YupeModule.yupe', 'Please select receiver for this error report'),
         );
     }
 
@@ -72,7 +72,7 @@ class BugForm extends YFormModel
     public function getModuleList()
     {
         $modulesList = array(
-            self::OTHER_MODULE => Yii::t('YupeModule.yupe','Другое'),
+            self::OTHER_MODULE => Yii::t('YupeModule.yupe','Other'),
         );
 
         foreach (Yii::app()->modules as $key => $value) {
@@ -95,7 +95,7 @@ class BugForm extends YFormModel
     public function getSendToList()
     {
         return array(
-            'team@yupe.ru' => Yii::t('YupeModule.yupe', 'Команда разработчиков Юпи!'),
+            'team@yupe.ru' => Yii::t('YupeModule.yupe', 'Yupe development team!'),
         );
     }
 

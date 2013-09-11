@@ -1,22 +1,22 @@
 <?php
 $this->breadcrumbs = array(
-    Yii::t('YupeModule.yupe', 'Юпи!') => array('settings'),
-    Yii::t('YupeModule.yupe','Помощь')
+    Yii::t('YupeModule.yupe', 'Yupe!') => array('settings'),
+    Yii::t('YupeModule.yupe','Help')
 );
 ?>
 
-<h1><?php echo Yii::t('YupeModule.yupe', 'О Юпи!'); ?></h1>
+<h1><?php echo Yii::t('YupeModule.yupe', 'About Yupe!'); ?></h1>
 
-<p> <?php echo Yii::t('YupeModule.yupe','У каждого большого проекта должна быть страничка "О проекте", у нас она именно здесь =)'); ?></p>
+<p> <?php echo Yii::t('YupeModule.yupe','Any project must have About page. So it is here =)'); ?></p>
 
 <br/>
 
 <p>
-    <?php echo Yii::t('YupeModule.yupe','Вы используете Yii версии'); ?>
+    <?php echo Yii::t('YupeModule.yupe','You use Yii version'); ?>
     <small class="label label-info" title="<?php echo Yii::getVersion(); ?>"><?php echo Yii::getVersion(); ?></small>,
     <?php echo CHtml::encode(Yii::app()->name); ?>
-    <?php echo Yii::t('YupeModule.yupe', 'версии'); ?> <small class="label label-info" title="<?php echo $this->yupe->version; ?>"><?php echo $this->yupe->version; ?></small>,
-    <?php echo Yii::t('YupeModule.yupe', 'php версии'); ?>
+    <?php echo Yii::t('YupeModule.yupe', 'version'); ?> <small class="label label-info" title="<?php echo $this->yupe->version; ?>"><?php echo $this->yupe->version; ?></small>,
+    <?php echo Yii::t('YupeModule.yupe', 'php version'); ?>
     <small class="label label-info" title="<?php echo phpversion(); ?>"><?php echo phpversion(); ?></small>
 </p>
 
@@ -24,108 +24,108 @@ $this->breadcrumbs = array(
 
 <div class="alert">
     <p>
-        <?php echo Yii::t('YupeModule.yupe', ' Юпи! разрабатывается и поддерживается командой энтузиастов, Вы можете использовать Юпи! и любую его часть <b>совершенно бесплатно</b>'); ?>
+        <?php echo Yii::t('YupeModule.yupe', ' Yupe! developed and maintained by a team of enthusiasts, you can use Yupe! and any part of it <b>absolutely for free</b>'); ?>
     </p>
-    <?php echo CHtml::link(Yii::t('YupeModule.yupe', 'А вот здесь мы принимаем благодарности =)'), 'http://yupe.ru/pages/help?form=help', array('target' => '_blank')); ?>
+    <?php echo CHtml::link(Yii::t('YupeModule.yupe', 'There is a page for tahnks =)'), 'http://yupe.ru/pages/help?form=help', array('target' => '_blank')); ?>
     <p><p><b>
-        <?php echo Yii::t('YupeModule.yupe', 'По вопросам коммерческой поддержки и разработки Вы всегда можете <a href="http://yupe.ru/feedback/index/?form=help" target="_blank">написать нам</a> (<a href="http://yupe.ru/feedback/index/?form=help" target="_blank">http://yupe.ru/feedback/index</a>)'); ?>
+        <?php echo Yii::t('YupeModule.yupe', 'On business support and development you can always <a href="http://yupe.ru/feedback/index/?form=help" target="_blank">feedback us</a> (<a href="http://yupe.ru/feedback/index/?form=help" target="_blank">http://yupe.ru/feedback/index</a>)'); ?>
     </b></p></p>
 </div>
 
 <div class="alert">
-    <p><?php echo Yii::t('YupeModule.yupe','Помоги команде!');?></p>
-    <p><?php echo Yii::t('YupeModule.yupe','Я.Деньгами на');?> <b>41001846363811</b></p>
-    <p><?php echo Yii::t('YupeModule.yupe','Webmoney на')?> <b>R239262659267</b></p>
+    <p><?php echo Yii::t('YupeModule.yupe','Donate us!');?></p>
+    <p><?php echo Yii::t('YupeModule.yupe','Я.Money on');?> <b>41001846363811</b></p>
+    <p><?php echo Yii::t('YupeModule.yupe','Webmoney on')?> <b>R239262659267</b></p>
 </div>
 
 <br />
 
-<p><b><?php echo Yii::t('YupeModule.yupe', 'Полезные ресурсы:');?></b></p>
+<p><b><?php echo Yii::t('YupeModule.yupe', 'Interesting resources:');?></b></p>
 
-<?php echo CHtml::link(Yii::t('YupeModule.yupe','Обязательно прочтите документацию Yii', array('target' => '_blank')),'http://yiiframework.ru/doc/guide/ru/index');?>
+<?php echo CHtml::link(Yii::t('YupeModule.yupe','Read Yii documentation', array('target' => '_blank')),'http://yiiframework.com/doc/guide/index');?>
 <br /><br />
 
 
-<?php echo CHtml::link(Yii::t('YupeModule.yupe', 'Официальный сайт Юпи!', array('target' => '_blank')), 'http://yupe.ru/?form=help'); ?> - <?php echo Yii::t('YupeModule.yupe', 'заходите чаще!'); ?>
+<?php echo CHtml::link(Yii::t('YupeModule.yupe', 'Official Yupe! site', array('target' => '_blank')), 'http://yupe.ru/?form=help'); ?> - <?php echo Yii::t('YupeModule.yupe', 'use most!'); ?>
 
 <br /><br />
 
-<?php echo CHtml::link(Yii::t('YupeModule.yupe', 'Официальная документация Юпи!', array('target' => '_blank')), 'http://yupe.ru/docs/index.html?form=help'); ?> - <?php echo Yii::t('YupeModule.yupe', 'активно ее пишем =)'); ?>
+<?php echo CHtml::link(Yii::t('YupeModule.yupe', 'Official Yupe! docs', array('target' => '_blank')), 'http://yupe.ru/docs/index.html?form=help'); ?> - <?php echo Yii::t('YupeModule.yupe', ' We are working with it =)'); ?>
 
 <br /><br />
 
-<?php echo CHtml::link(Yii::t('YupeModule.yupe', 'Дополнительные модули и компоненты'), 'https://github.com/yupe/yupe-ext', array('target' => '_blank')); ?> - <?php echo Yii::t('YupeModule.yupe', 'присылайте свои наработки !'); ?>
+<?php echo CHtml::link(Yii::t('YupeModule.yupe', 'Additional modules and components'), 'https://github.com/yupe/yupe-ext', array('target' => '_blank')); ?> - <?php echo Yii::t('YupeModule.yupe', 'Submit an extension!'); ?>
 
 <br /><br />
 
-<?php echo CHtml::link(Yii::t('YupeModule.yupe', 'Форум поддержки Юпи!'), 'http://yupe.ru/talk/?form=help', array('target' => '_blank')); ?> - <?php echo Yii::t('YupeModule.yupe', 'заходите поболтать!'); ?>
+<?php echo CHtml::link(Yii::t('YupeModule.yupe', 'Support Yupe! forum'), 'http://yupe.ru/talk/?form=help', array('target' => '_blank')); ?> - <?php echo Yii::t('YupeModule.yupe', 'Lest\'s talk!'); ?>
 
 <br /><br />
 
-<?php echo CHtml::link(Yii::t('YupeModule.yupe', 'Исходный код на Github'), 'http://github.com/yupe/yupe/', array('target' => '_blank')); ?> - <?php echo Yii::t('YupeModule.yupe', 'пришлите нам парочку пулл-реквестов, все только выиграют =)'); ?>
+<?php echo CHtml::link(Yii::t('YupeModule.yupe', 'Sources on Github'), 'http://github.com/yupe/yupe/', array('target' => '_blank')); ?> - <?php echo Yii::t('YupeModule.yupe', 'Send pull request for us =)'); ?>
 
 <br /><br />
 
-<?php echo CHtml::link(Yii::t('YupeModule.yupe', 'Официальный твиттер Юпи!'), 'https://twitter.com/#!/YupeCms', array('target' => '_blank')); ?>  - <?php echo Yii::t('YupeModule.yupe', 'обязательно заффоловьте нас, мы не спамим =)'); ?>
+<?php echo CHtml::link(Yii::t('YupeModule.yupe', 'Official Yupe! twitter'), 'https://twitter.com/#!/YupeCms', array('target' => '_blank')); ?>  - <?php echo Yii::t('YupeModule.yupe', 'Follow us =)'); ?>
 
 <br /><br />
 
-<?php echo CHtml::link(Yii::t('install', 'Генеральный спонсор'), 'http://amylabs.ru?from=yupe-help', array('target' => '_blank')); ?> - <?php echo Yii::t('install', 'Просто отличные парни =)'); ?>
+<?php echo CHtml::link(Yii::t('install', 'General sponsor'), 'http://amylabs.ru?from=yupe-help', array('target' => '_blank')); ?> - <?php echo Yii::t('install', 'Just great guys =)'); ?>
 
 <br /><br />
 
 <div class="alert">
-    <?php echo Yii::t('YupeModule.yupe', 'Напишите нам на <a href="mailto:team@yupe.ru">team@yupe.ru</a> или через форму {link}',array('{link}' => CHtml::link('обратной связи','http://yupe.ru/feedback/index?from=help',array('target' => '_blank')))); ?>  - <?php echo Yii::t('YupeModule.yupe', 'принимаем всякого рода коммерческие и любые предложения =)'); ?>
+    <?php echo Yii::t('YupeModule.yupe', 'Feedback at <a href="mailto:team@yupe.ru">team@yupe.ru</a> or {link}',array('{link}' => CHtml::link(Yii::t('YupeModule.yupe','feedback form'),'http://yupe.ru/feedback/index?from=help',array('target' => '_blank')))); ?>  - <?php echo Yii::t('YupeModule.yupe', 'accept any kind of business and any proposals =)'); ?>
 </div>
 
 <br />
 
-<b><?php echo Yii::t('YupeModule.yupe','Команда разработчиков Юпи!'); ?></b>
+<b><?php echo Yii::t('YupeModule.yupe','Yupe! developers team'); ?></b>
 
 <br /><br />
 
 <table class="detail-view table table-striped table-condensed" id="yupe-core-team">
     <tbody>
          <tr class="odd">
-            <th><?php echo Yii::t('YupeModule.yupe','Опейкин Андрей');?></th>
+            <th><?php echo Yii::t('YupeModule.yupe','Opeykin Andrey');?></th>
             <td><?php echo CHtml::link('andrey.opeykin.ru','http://andrey.opeykin.ru?from=yupe_help');?></td>
         </tr>
         <tr class="odd">
-            <th><?php echo Yii::t('YupeModule.yupe','Тищенко Александр');?></th>
+            <th><?php echo Yii::t('YupeModule.yupe','Tischenko Alexander');?></th>
             <td><?php echo CHtml::link('twitter.com/archaron','https://twitter.com/archaron');?></td>
         </tr>
         <tr class="odd">
-            <th><?php echo Yii::t('YupeModule.yupe','Лыженков Александр');?></th>
+            <th><?php echo Yii::t('YupeModule.yupe','Lyzhenkov Alexander');?></th>
             <td><?php echo CHtml::link('lyzhenkov.ru','http://lyzhenkov.ru?from=yupe_help');?></td>
         </tr>
         <tr class="odd">
-            <th><?php echo Yii::t('YupeModule.yupe','Елизаров Алексей');?></th>
+            <th><?php echo Yii::t('YupeModule.yupe','Elizarov Alexander');?></th>
             <td><?php echo CHtml::link('vk.com/valaraukar','http://vk.com/valaraukar');?></td>
         </tr>
         <tr class="odd">
-            <th><?php echo Yii::t('YupeModule.yupe','Куликов Евгений');?></th>
+            <th><?php echo Yii::t('YupeModule.yupe','Kulikov Engeniy');?></th>
             <td><?php echo CHtml::link('akulikov.org.ua','http://akulikov.org.ua?from=yupe_help');?></td>
         </tr>
         <tr class="odd">
-            <th><?php echo Yii::t('YupeModule.yupe','Тимашов Максим');?></th>
+            <th><?php echo Yii::t('YupeModule.yupe','Timashov Maxim');?></th>
             <td>apexwire@gmail.com</td>
         </tr>
         <tr class="odd">
-            <th><?php echo Yii::t('YupeModule.yupe','Черепанов Антон');?></th>
+            <th><?php echo Yii::t('YupeModule.yupe','Cherepanov Anton');?></th>
             <td><?php echo CHtml::link('twitter.com/davetoxa','https://twitter.com/davetoxa');?></td>
         </tr>
         <tr class="odd">
-            <th><?php echo Yii::t('YupeModule.yupe','Седов Николай');?></th>
+            <th><?php echo Yii::t('YupeModule.yupe','Sedov Nikolay');?></th>
             <td><?php echo CHtml::link('https://twitter.com/mik_spark','https://twitter.com/mik_spark');?></td>
         </tr>
          <tr class="odd">
-             <th><?php echo Yii::t('YupeModule.yupe','Кучеров Антон');?></th>
+             <th><?php echo Yii::t('YupeModule.yupe','Kucherov Anton');?></th>
              <td><?php echo CHtml::link('http://idexter.ru/','http://idexter.ru/');?></td>
          </tr>
     </tbody>
 </table>
 
-<b><?php echo CHtml::link(Yii::t('YupeModule.yupe','ЖДЕМ ТОЛЬКО ТЕБЯ!'),'http://yupe.ru/feedback/index?from=help',array('target' => '_blank'));?></b>
+<b><?php echo CHtml::link(Yii::t('YupeModule.yupe','WE ARE WAITING FOR YOU!'),'http://yupe.ru/feedback/index?from=help',array('target' => '_blank'));?></b>
 
 <br/><br/>
 

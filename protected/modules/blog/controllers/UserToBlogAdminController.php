@@ -32,7 +32,7 @@ class UserToBlogAdminController extends YBackController
                 {
                     Yii::app()->user->setFlash(
                         YFlashMessages::SUCCESS_MESSAGE,
-                        Yii::t('BlogModule.blog', 'Участник добавлен!')
+                        Yii::t('BlogModule.blog', 'Member was added!')
                     );
 
                     $this->redirect(
@@ -47,7 +47,7 @@ class UserToBlogAdminController extends YBackController
         {
             Yii::app()->user->setFlash(
                 YFlashMessages::WARNING_MESSAGE,
-                Yii::t('BlogModule.blog', 'Ошибка! Возможно пользователь уже участник блога!')
+                Yii::t('BlogModule.blog', 'Error! Maybe user is member of this blog already!')
             );
             $this->redirect(array('admin'));
         }
@@ -73,7 +73,7 @@ class UserToBlogAdminController extends YBackController
             {
                 Yii::app()->user->setFlash(
                     YFlashMessages::SUCCESS_MESSAGE,
-                    Yii::t('BlogModule.blog', 'Участник обновлен!')
+                    Yii::t('BlogModule.blog', 'Member was updated!')
                 );
 
                 if (!isset($_POST['submit-type']))
@@ -99,7 +99,7 @@ class UserToBlogAdminController extends YBackController
 
             Yii::app()->user->setFlash(
                 YFlashMessages::SUCCESS_MESSAGE,
-                Yii::t('BlogModule.blog', 'Участник удален!')
+                Yii::t('BlogModule.blog', 'Member was deleted!')
             );
 
             // если это AJAX запрос ( кликнули удаление в админском grid view), мы не должны никуда редиректить
@@ -107,7 +107,7 @@ class UserToBlogAdminController extends YBackController
                 $this->redirect(isset($_POST['returnUrl']) ? $_POST['returnUrl'] : array('index'));
         }
         else
-            throw new CHttpException(400, Yii::t('BlogModule.blog', 'Неверный запрос. Пожалуйста, больше не повторяйте такие запросы!'));
+            throw new CHttpException(400, Yii::t('BlogModule.blog', 'Wrong request. Please don\'t repeate requests like this anymore!'));
     }
 
     /**
@@ -131,7 +131,7 @@ class UserToBlogAdminController extends YBackController
     {
         $model = UserToBlog::model()->findByPk($id);
         if ($model === null)
-            throw new CHttpException(404, Yii::t('BlogModule.blog', 'Запрошенная страница не найдена!'));
+            throw new CHttpException(404, Yii::t('BlogModule.blog', 'Requested page was not found!'));
         return $model;
     }
 

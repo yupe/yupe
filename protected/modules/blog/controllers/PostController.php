@@ -40,7 +40,7 @@ class PostController extends YFrontController
         );
 
         if (null === $post){
-            throw new CHttpException(404, Yii::t('BlogModule.blog', 'Запись не найдена!'));
+            throw new CHttpException(404, Yii::t('BlogModule.blog', 'Post was not found!'));
         }
 
         $this->render('show', array('post' => $post));
@@ -93,7 +93,7 @@ class PostController extends YFrontController
             ));
 
         if(null === $category){
-            throw new CHttpException(404, Yii::t('BlogModule.blog', 'Страница не найдена!'));
+            throw new CHttpException(404, Yii::t('BlogModule.blog', 'Page was not found!'));
         }
 
         $posts = new Post('search');

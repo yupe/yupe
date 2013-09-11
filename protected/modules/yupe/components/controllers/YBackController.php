@@ -17,7 +17,7 @@ class YBackController extends YMainController
         //$this->yupe->getComponent('bootstrap');
         $this->layout = $this->yupe->getBackendLayoutAlias();
         $backendTheme = $this->yupe->backendTheme;
-        $this->setPageTitle(Yii::t('YupeModule.yupe', 'Панель управления Юпи!'));
+        $this->setPageTitle(Yii::t('YupeModule.yupe', 'Yupe control panel!'));
 
         if ($backendTheme && is_dir(Yii::getPathOfAlias("webroot.themes.backend_" . $backendTheme))) {
             Yii::app()->theme = "backend_" . $backendTheme;
@@ -41,7 +41,7 @@ class YBackController extends YMainController
         ) {
             Yii::app()->user->setFlash(
                 YFlashMessages::WARNING_MESSAGE,
-                Yii::t('YupeModule.yupe', 'Перед тем как начать работать с модулем, необходимо установить все необходимые миграции.')
+                Yii::t('YupeModule.yupe', 'You must install all migration before start working with module.')
             );
 
             $this->redirect(array('/yupe/backend/modupdate', 'name' => $this->module->getId()));
@@ -82,7 +82,7 @@ class YBackController extends YMainController
                 $transaction->commit();
                 Yii::app()->ajax->success(
                     Yii::t(
-                        'YupeModule.yupe', 'Удалено {count} записей!', array(
+                        'YupeModule.yupe', 'Removed {count} records!', array(
                             '{count}' => $count
                         )
                     )
@@ -109,12 +109,12 @@ class YBackController extends YMainController
         $statusField = Yii::app()->request->getQuery('statusField');
 
         if (!isset($modelClass, $id, $status, $statusField))
-            throw new CHttpException(404, Yii::t('YupeModule.yupe', 'Страница не найдена!'));
+            throw new CHttpException(404, Yii::t('YupeModule.yupe', 'Page was not found!'));
 
         $model = new $modelClass;
         $model = $model->resetScope()->findByPk($id);
         if (!$model)
-            throw new CHttpException(404, Yii::t('YupeModule.yupe', 'Страница не найдена!'));
+            throw new CHttpException(404, Yii::t('YupeModule.yupe', 'Page was not found!'));
 
         $model->$statusField = $status;
         $model->update(array($statusField));
@@ -131,13 +131,13 @@ class YBackController extends YMainController
         $sortField = Yii::app()->request->getQuery('sortField');
 
         if (!isset($direction, $id, $modelClass, $sortField))
-            throw new CHttpException(404, Yii::t('YupeModule.yupe', 'Страница не найдена!'));
+            throw new CHttpException(404, Yii::t('YupeModule.yupe', 'Page was not found!'));
 
         $model = new $modelClass;
         $model_depends = new $modelClass;
         $model = $model->resetScope()->findByPk($id);
         if (!$model)
-            throw new CHttpException(404, Yii::t('YupeModule.yupe', 'Страница не найдена!'));
+            throw new CHttpException(404, Yii::t('YupeModule.yupe', 'Page was not found!'));
 
         if ($direction === 'up') {
             $model_depends = $model_depends->findByAttributes(array($sortField => ($model->$sortField - 1)));

@@ -83,7 +83,7 @@ class Post extends YModel
             array('comment_status', 'in', 'range' => array(0, 1)),
             array('access_type', 'in', 'range' => array_keys($this->getAccessTypeList())),
             array('status', 'in', 'range' => array_keys($this->getStatusList())),
-            array('slug', 'YSLugValidator', 'message' => Yii::t('BlogModule.blog', 'Запрещенные символы в поле {attribute}')),
+            array('slug', 'YSLugValidator', 'message' => Yii::t('BlogModule.blog', 'Forbidden symbols in {attribute}')),
             array('title, slug, link, keywords, description, publish_date', 'filter', 'filter' => array($obj = new CHtmlPurifier(), 'purify')),
             array('slug', 'unique'),
             array('id, blog_id, create_user_id, update_user_id, create_date, update_date, slug, publish_date, title, quote, content, link, status, comment_status, access_type, keywords, description, lang', 'safe', 'on' => 'search'),
@@ -173,27 +173,27 @@ class Post extends YModel
     {
         return array(
             'id'               => Yii::t('BlogModule.blog', 'id'),
-            'blog_id'          => Yii::t('BlogModule.blog', 'Блог'),
-            'create_user_id'   => Yii::t('BlogModule.blog', 'Создал'),
-            'update_user_id'   => Yii::t('BlogModule.blog', 'Изменил'),
-            'create_date'      => Yii::t('BlogModule.blog', 'Создано'),
-            'update_date'      => Yii::t('BlogModule.blog', 'Изменено'),
-            'publish_date'     => Yii::t('BlogModule.blog', 'Дата'),
-            'publish_date_tmp' => Yii::t('BlogModule.blog', 'Дата публикации'),
-            'publish_time_tmp' => Yii::t('BlogModule.blog', 'Время публикации'),
-            'slug'             => Yii::t('BlogModule.blog', 'Урл'),
-            'title'            => Yii::t('BlogModule.blog', 'Заголовок'),
-            'quote'            => Yii::t('BlogModule.blog', 'Цитата'),
-            'content'          => Yii::t('BlogModule.blog', 'Содержание'),
-            'link'             => Yii::t('BlogModule.blog', 'Ссылка'),
-            'status'           => Yii::t('BlogModule.blog', 'Статус'),
-            'comment_status'   => Yii::t('BlogModule.blog', 'Комментарии'),
-            'access_type'      => Yii::t('BlogModule.blog', 'Доступ'),
-            'keywords'         => Yii::t('BlogModule.blog', 'Ключевые слова'),
-            'description'      => Yii::t('BlogModule.blog', 'Описание'),
-            'tags'             => Yii::t('BlogModule.blog', 'Теги'),
-            'image'            => Yii::t('BlogModule.blog', 'Изображение'),
-            'category_id'      => Yii::t('BlogModule.blog', 'Категория')
+            'blog_id'          => Yii::t('BlogModule.blog', 'Blog'),
+            'create_user_id'   => Yii::t('BlogModule.blog', 'Create user'),
+            'update_user_id'   => Yii::t('BlogModule.blog', 'Update user'),
+            'create_date'      => Yii::t('BlogModule.blog', 'Create date'),
+            'update_date'      => Yii::t('BlogModule.blog', 'Update date'),
+            'publish_date'     => Yii::t('BlogModule.blog', 'Date'),
+            'publish_date_tmp' => Yii::t('BlogModule.blog', 'Publish date'),
+            'publish_time_tmp' => Yii::t('BlogModule.blog', 'Publish time'),
+            'slug'             => Yii::t('BlogModule.blog', 'Url'),
+            'title'            => Yii::t('BlogModule.blog', 'Title'),
+            'quote'            => Yii::t('BlogModule.blog', 'Quote'),
+            'content'          => Yii::t('BlogModule.blog', 'Content'),
+            'link'             => Yii::t('BlogModule.blog', 'Link'),
+            'status'           => Yii::t('BlogModule.blog', 'Status'),
+            'comment_status'   => Yii::t('BlogModule.blog', 'Comments'),
+            'access_type'      => Yii::t('BlogModule.blog', 'Access'),
+            'keywords'         => Yii::t('BlogModule.blog', 'Keywords'),
+            'description'      => Yii::t('BlogModule.blog', 'description'),
+            'tags'             => Yii::t('BlogModule.blog', 'Tags'),
+            'image'            => Yii::t('BlogModule.blog', 'Image'),
+            'category_id'      => Yii::t('BlogModule.blog', 'Category')
         );
     }
 
@@ -203,22 +203,22 @@ class Post extends YModel
     public function attributeDescriptions()
     {
         return array(
-            'id'               => Yii::t('BlogModule.blog', 'Id записи.'),
-            'blog_id'          => Yii::t('BlogModule.blog', 'Выберите блог, в который вы желаете поместить данную запись'),
-            'slug'             => Yii::t('BlogModule.blog', 'Краткое название записи латинскими буквами, используется для формирования адреса записи.<br /><br /> Например (выделено темным фоном): <br /><br /><pre>http://site.ru/blogs/my/<br /><span class="label">my-na-more</span>/</pre> Если вы не знаете, для чего вам нужно это поле &ndash; не заполняйте его, названия записи будет достаточно.'),
-            'publish_date'     => Yii::t('BlogModule.blog', 'Дата публикации поста'),
-            'publish_date_tmp' => Yii::t('BlogModule.blog', 'Дата публикации, формат:<br /><span class="label">05-09-2012</span>'),
-            'publish_time_tmp' => Yii::t('BlogModule.blog', 'Время публикации, формат:<br /><span class="label">12:00</span>'),
-            'title'            => Yii::t('BlogModule.blog', 'Выберите заголовок для записи, например:<br /><span class="label">Как мы на море были!</span>'),
-            'quote'            => Yii::t('BlogModule.blog', 'Опишите основную мысль записи или напишие некий вводный текст (анонс), пары предложений обычно достаточно. Данный текст используется при выводе списка записей, например, на главной странице.'),
-            'content'          => Yii::t('BlogModule.blog', 'Полный текст записи отображается при переходе по ссылке &laquo;Подробнее&raquo; или иногда при клике на заголовке записи.'),
-            'link'             => Yii::t('BlogModule.blog', 'Ссылка на текст, который использовалсь для написания данной записи.'),
-            'status'           => Yii::t('BlogModule.blog', 'Установите статус записи:<br /><br /><span class="label label-success">опубликовано</span> &ndash; данная запись в блоге будет отображаться всем посетителям.<br /><br /><span class="label label-warning">черновик</span> &ndash; данная запись не публикуется на сайте, а видна только в административном интерфейсе.<br /><br /><span class="label label-info">по расписанию</span> &ndash; откладывает публикацию данной записи до момента наступления указанной даты.'),
-            'comment_status'   => Yii::t('BlogModule.blog', 'Если галочка установлена &ndash; пользователи получат возможность комментировать данную запись в блоге'),
-            'access_type'      => Yii::t('BlogModule.blog', 'Доступ к записи<br /><br /><span class="label label-success">публичный</span> &ndash; запись видят все посетители сайта<br /><br /><span class="label label-warning">личный</span> &ndash; запись видит только автор'),
-            'keywords'         => Yii::t('BlogModule.blog', 'Ключевые слова необходимы для SEO-оптимизации страниц сайта. Выделите несколько основных смысловых слов из записи и напишите их здесь через запятую. К примеру, если запись &ndash; об отдыхе на море, логично использовать такие ключевые слова: <pre>море, приключения, солнце, акулы, челюсти</pre>'),
-            'description'      => Yii::t('BlogModule.blog', 'Краткое описание данной записи, одно или два предложения. Обычно это самая главная мысль записи, к примеру: <pre>Рассказ о том, как нас на море чуть не сожрали акулы. Как наши отдыхают &ndash; так не отдыхает никто!</pre>Данный текст очень часто попадает в <a href="http://help.yandex.ru/webmaster/?id=111131">сниппет</a> поисковых систем.'),
-            'tags'             => Yii::t('BlogModule.blog', 'Ключевые слова к которым требуется отнести данную запись, служат для категоризии записей, например:<br /><span class="label">море</span>'),
+            'id'               => Yii::t('BlogModule.blog', 'Post id.'),
+            'blog_id'          => Yii::t('BlogModule.blog', 'Blog id, in which you wish to add record'),
+            'slug'             => Yii::t('BlogModule.blog', 'Blog slug for URL generation.<br /><br /> For example: <br /><br /><pre>http://site.ru/blogs/my/<br /><span class="label">my-na-more</span>/</pre> It you don\'t know what is it you can leave this field empty.'),
+            'publish_date'     => Yii::t('BlogModule.blog', 'Publish date'),
+            'publish_date_tmp' => Yii::t('BlogModule.blog', 'Publish date, formatted as:<br /><span class="label">05-09-2012</span>'),
+            'publish_time_tmp' => Yii::t('BlogModule.blog', 'Publish time, formatted as:<br /><span class="label">12:00</span>'),
+            'title'            => Yii::t('BlogModule.blog', 'Post title, for example:<br /><span class="label">As we were on the sea!</span>'),
+            'quote'            => Yii::t('BlogModule.blog', 'Please insert announce text, a couple of sentences will be enough. This text will be used for example in main page or in posts list.'),
+            'content'          => Yii::t('BlogModule.blog', 'Full text of post which displayed when you click on &laquo;More&raquo; link'),
+            'link'             => Yii::t('BlogModule.blog', 'Source link of this post. Source site or article which you used to write this post.'),
+            'status'           => Yii::t('BlogModule.blog', 'Post status:<br /><br /><span class="label label-success">published</span> &ndash;Visible for all users.<br /><br /><span class="label label-warning">draft</span> &ndash; Visible for admins.<br /><br /><span class="label label-info">scheduled</span> &ndash; Will be published in publish date.'),
+            'comment_status'   => Yii::t('BlogModule.blog', 'If checked &ndash; Users will can add comments to post'),
+            'access_type'      => Yii::t('BlogModule.blog', 'Post access<br /><br /><span class="label label-success">public</span> &ndash; All users can read this post<br /><br /><span class="label label-warning">private</span> &ndash; only you as author can read this post'),
+            'keywords'         => Yii::t('BlogModule.blog', 'SEO keywords  separated by comma. For example if your post about rest on the sea &ndash; you can choose words like: <pre>sea, travel, sun, etc.</pre>'),
+            'description'      => Yii::t('BlogModule.blog', 'Short post description. About one or two sentences. It is main thought of your post. For example: <pre>The story of how we almost was eaten by sharks.</pre>This text very frequently falls in <a href="http://help.yandex.ru/webmaster/?id=111131">snippet</a>of search engines.'),
+            'tags'             => Yii::t('BlogModule.blog', 'Keywords for post categorization, for example:<br /><span class="label">sea</span>'),
         );
     }
 
@@ -336,43 +336,43 @@ class Post extends YModel
     public function getStatusList()
     {
         return array(
-            self::STATUS_DRAFT     => Yii::t('BlogModule.blog', 'Черновик'),
-            self::STATUS_PUBLISHED => Yii::t('BlogModule.blog', 'Опубликовано'),
-            self::STATUS_SHEDULED  => Yii::t('BlogModule.blog', 'По расписанию'),
+            self::STATUS_DRAFT     => Yii::t('BlogModule.blog', 'Draft'),
+            self::STATUS_PUBLISHED => Yii::t('BlogModule.blog', 'Published'),
+            self::STATUS_SHEDULED  => Yii::t('BlogModule.blog', 'Scheduled'),
         );
     }
 
     public function getStatus()
     {
         $data = $this->statusList;
-        return isset($data[$this->status]) ? $data[$this->status] : Yii::t('BlogModule.blog', '*неизвестно*');
+        return isset($data[$this->status]) ? $data[$this->status] : Yii::t('BlogModule.blog', '*unknown*');
     }
 
     public function getAccessTypeList()
     {
         return array(
-            self::ACCESS_PRIVATE => Yii::t('BlogModule.blog', 'Личный'),
-            self::ACCESS_PUBLIC  => Yii::t('BlogModule.blog', 'Публичный'),
+            self::ACCESS_PRIVATE => Yii::t('BlogModule.blog', 'Private'),
+            self::ACCESS_PUBLIC  => Yii::t('BlogModule.blog', 'Public'),
         );
     }
 
     public function getAccessType()
     {
         $data = $this->accessTypeList;
-        return isset($data[$this->access_type]) ? $data[$this->access_type] : Yii::t('BlogModule.blog', '*неизвестно*');
+        return isset($data[$this->access_type]) ? $data[$this->access_type] : Yii::t('BlogModule.blog', '*unknown*');
     }
 
     public function getCommentStatus()
     {
         $data = $this->commentStatusList;
-        return isset($data[$this->comment_status]) ? $data[$this->comment_status] : Yii::t('BlogModule.blog', '*неизвестно*');
+        return isset($data[$this->comment_status]) ? $data[$this->comment_status] : Yii::t('BlogModule.blog', '*unknown*');
     }
 
     public function getCommentStatusList()
     {
         return array(
-            self::ACCESS_PRIVATE => Yii::t('BlogModule.blog', 'Запрещены'),
-            self::ACCESS_PUBLIC  => Yii::t('BlogModule.blog', 'Разрешены'),
+            self::ACCESS_PRIVATE => Yii::t('BlogModule.blog', 'Forbidden'),
+            self::ACCESS_PUBLIC  => Yii::t('BlogModule.blog', 'Allowed'),
         );
     }
 

@@ -2,7 +2,7 @@
 <legend>
     <?php
     echo Yii::t(
-        'YupeModule.yupe', 'Найдены следующие миграции для модуля "{moduleID}"',
+        'YupeModule.yupe', 'Migrations was founded for module "{moduleID}"',
         array(
             '{moduleID}' => ucfirst($module->getId()),
         )
@@ -35,7 +35,7 @@ if (isset($updates[$module->getId()]) && ($updates=$updates[$module->getId()])) 
                     ),
                     array(
                         'name'   => 'fileName',
-                        'header' => Yii::t('YupeModule.yupe', 'Файл'),
+                        'header' => Yii::t('YupeModule.yupe', 'File'),
                     ),
                 ),
             )
@@ -51,11 +51,11 @@ if (isset($updates[$module->getId()]) && ($updates=$updates[$module->getId()])) 
             $this->widget(
                 'bootstrap.widgets.TbButton', array(
                     'buttonType' => 'submit',
-                    'label'      => Yii::t('YupeModule.yupe', 'Обновить'),
+                    'label'      => Yii::t('YupeModule.yupe', 'Refresh'),
                 )
             );
         $this->endWidget();
-        //<form action="#" method="post"><input type="submit" value="<?php echo Yii::t('YupeModule.yupe','Обновить');? >"></form>
+        //<form action="#" method="post"><input type="submit" value="<?php echo Yii::t('YupeModule.yupe','Refresh');? >"></form>
         ?>
         </div>
     </div>
