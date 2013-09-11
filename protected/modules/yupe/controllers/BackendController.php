@@ -52,13 +52,13 @@ class BackendController extends YBackController
     public function actionFlushDumpSettings()
     {
         if (Yii::app()->request->isAjaxRequest == false) {
-            throw new CHttpException(404, Yii::t('YupeModule.yupe', 'Страница не существует!'));
+            throw new CHttpException(404, Yii::t('YupeModule.yupe', 'Page was not found!'));
         }
 
         $json = array();
         $message = array(
-            'success' => Yii::t('YupeModule.yupe', 'Сброс кеш-файла настроек успешно завершён'),
-            'failure' => Yii::t('YupeModule.yupe', 'Во время обработки запроса произошла ошибка'),
+            'success' => Yii::t('YupeModule.yupe', 'Settings cache was reset successfully'),
+            'failure' => Yii::t('YupeModule.yupe', 'There was an error when processing the request'),
         );
  
         try {
@@ -66,7 +66,7 @@ class BackendController extends YBackController
         } catch (Exception $e) {
             Yii::app()->ajax->failure(
                 Yii::t(
-                    'YupeModule.yupe', 'Произошла ошибка: {error}', array(
+                    'YupeModule.yupe', 'There is an error: {error}', array(
                         '{error}' => implode('<br />', (array)$e->getMessage())
                     )
                 )
@@ -90,7 +90,7 @@ class BackendController extends YBackController
     public function actionModulesettings($module)
     {
         if (!($module = Yii::app()->getModule($module)))
-            throw new CHttpException(404, Yii::t('YupeModule.yupe', 'Страница настроек данного модуля недоступна!'));
+            throw new CHttpException(404, Yii::t('YupeModule.yupe', 'Setting page for this module is not available!'));
 
         $editableParams     = $module->getEditableParams();
         $moduleParamsLabels = $module->getParamsLabels();
@@ -123,7 +123,7 @@ class BackendController extends YBackController
                 $element = CHtml::label($moduleParamsLabels[$key], $key)
                         . CHtml::dropDownList(
                             $key, $value, $editableParams[$key], array(
-                                'empty' => Yii::t('YupeModule.yupe', '--выберите--') ,
+                                'empty' => Yii::t('YupeModule.yupe', '--choose--') ,
                                 'class' => 'span10'
                             )
                         );
@@ -177,16 +177,16 @@ class BackendController extends YBackController
     {
         if (Yii::app()->request->isPostRequest) {
             if (!($moduleId = Yii::app()->request->getPost('module_id')))
-                throw new CHttpException(404, Yii::t('YupeModule.yupe', 'Страница не найдена!'));
+                throw new CHttpException(404, Yii::t('YupeModule.yupe', 'Page was not found!'));
 
             if (!($module = Yii::app()->getModule($moduleId)))
-                throw new CHttpException(404, Yii::t('YupeModule.yupe', 'Модуль "{module}" не найден!', array('{module}' => $moduleId)));
+                throw new CHttpException(404, Yii::t('YupeModule.yupe', 'Module "{module}" was not found!', array('{module}' => $moduleId)));
 
             if (!$this->saveParamsSetting($moduleId, $module->editableParamsKey)) {
                 Yii::app()->user->setFlash(
                     YFlashMessages::SUCCESS_MESSAGE,
                     Yii::t(
-                        'YupeModule.yupe', 'Настройки модуля "{module}" сохранены!', array(
+                        'YupeModule.yupe', 'Settings for "{module}" saved successfully!', array(
                             '{module}' => $module->getName()
                         )
                     )
@@ -195,12 +195,12 @@ class BackendController extends YBackController
             } else {
                 Yii::app()->user->setFlash(
                     YFlashMessages::ERROR_MESSAGE,
-                    Yii::t('YupeModule.yupe', 'При сохранении произошла ошибка!')
+                    Yii::t('YupeModule.yupe', 'There is an error when saving settings!')
                 );
             }
             $this->redirect(array('/yupe/backend/modulesettings', 'module' => $moduleId));
         }
-        throw new CHttpException(404, Yii::t('YupeModule.yupe', 'Страница не найдена!'));
+        throw new CHttpException(404, Yii::t('YupeModule.yupe', 'Page was not found!'));
     }
 
     /**
@@ -214,20 +214,20 @@ class BackendController extends YBackController
             if (!$this->saveParamsSetting($this->yupe->coreModuleId, array('theme', 'backendTheme'))) {
                 Yii::app()->user->setFlash(
                     YFlashMessages::SUCCESS_MESSAGE,
-                    Yii::t('YupeModule.yupe', 'Настройки тем сохранены!')
+                    Yii::t('YupeModule.yupe', 'Themes settings saved successfully!')
                 );
                 Yii::app()->cache->clear('yupe');
             }
             else
                 Yii::app()->user->setFlash(
                     YFlashMessages::ERROR_MESSAGE,
-                    Yii::t('YupeModule.yupe', 'При сохранении настроек произошла ошибка!')
+                    Yii::t('YupeModule.yupe', 'There is an error when saving settings!')
                 );
             $this->redirect(array('/yupe/backend/themesettings/'));
         }
 
         $settings = Settings::model()->fetchModuleSettings('yupe', array('theme', 'backendTheme'));
-        $noThemeValue = Yii::t('YupeModule.yupe', 'Тема не используется');
+        $noThemeValue = Yii::t('YupeModule.yupe', 'Theme is don\'t use');
 
         $theme = isset($settings['theme']) && $settings['theme']->param_value != ''
             ? $settings['theme']->param_value
@@ -308,7 +308,7 @@ class BackendController extends YBackController
 
                     Yii::app()->user->setFlash(
                         YFlashMessages::SUCCESS_MESSAGE,
-                        Yii::t('YupeModule.yupe', 'Модуль обновил свои миграции!')
+                        Yii::t('YupeModule.yupe', 'Module was updated their migrations!')
                     );
                     $this->redirect(array("/yupe/backend"));
                 } else
@@ -316,12 +316,12 @@ class BackendController extends YBackController
             } else
                 Yii::app()->user->setFlash(
                     YFlashMessages::ERROR_MESSAGE,
-                    Yii::t('YupeModule.yupe', 'Модуль еще не установлен!')
+                    Yii::t('YupeModule.yupe', 'Module doesn\'t installed!')
                 );
         } else {
             Yii::app()->user->setFlash(
                 YFlashMessages::ERROR_MESSAGE,
-                Yii::t('YupeModule.yupe', 'Не указано имя модуля!')
+                Yii::t('YupeModule.yupe', 'Module name is not set!')
             );
 
             $this->redirect(Yii::app()->request->urlReferrer !== null ? Yii::app()->request->urlReferrer : array("/yupe/backend"));
@@ -346,7 +346,7 @@ class BackendController extends YBackController
 
             if (!is_dir($uploadPath)) {
                 if (!@mkdir($uploadPath))
-                    Yii::app()->ajax->rawText(Yii::t('YupeModule.yupe', 'Не удалось создать каталог "{dir}" для файлов!', array('{dir}' => $uploadPath)));
+                    Yii::app()->ajax->rawText(Yii::t('YupeModule.yupe', 'Can\'t create catalog "{dir}" for files!', array('{dir}' => $uploadPath)));
             }
 
             $this->disableProfilers();
@@ -358,7 +358,7 @@ class BackendController extends YBackController
                 $newFileName = $rename ? md5(time() . uniqid() . $file->name) . '.' . $file->extensionName : $file->name;
 
                 if (!$file->saveAs($uploadPath . $newFileName))
-                    Yii::app()->ajax->rawText(Yii::t('YupeModule.yupe', 'При загрузке произошла ошибка!'));
+                    Yii::app()->ajax->rawText(Yii::t('YupeModule.yupe', 'There is an error when downloading!'));
 
                 Yii::app()->ajax->rawText(
                     json_encode(
@@ -370,7 +370,7 @@ class BackendController extends YBackController
                 );
             }
         }
-        Yii::app()->ajax->rawText(Yii::t('YupeModule.yupe', 'При загрузке произошла ошибка!'));
+        Yii::app()->ajax->rawText(Yii::t('YupeModule.yupe', 'There is an error when downloading!'));
     }
 
     /**
@@ -395,7 +395,7 @@ class BackendController extends YBackController
          * Если это не POST-запрос - посылаем лесом:
          **/
         if (!Yii::app()->request->isPostRequest || !Yii::app()->request->isAjaxRequest)
-            throw new CHttpException(404, Yii::t('YupeModule.yupe', 'Страница не найдена!'));
+            throw new CHttpException(404, Yii::t('YupeModule.yupe', 'Page was not found!'));
 
         /**
          * Получаем название модуля и проверяем,
@@ -410,7 +410,7 @@ class BackendController extends YBackController
          * Если статус неизвестен - ошибка:
          **/
         elseif (!isset($status) || !in_array($status, array(0, 1)))
-            Yii::app()->ajax->failure(Yii::t('YupeModule.yupe', 'Не указан статус для обработки!'));
+            Yii::app()->ajax->failure(Yii::t('YupeModule.yupe', 'Status for handler is no set!'));
 
         /**
          * Если всё в порядке - выполняем нужное действие:
@@ -422,10 +422,10 @@ class BackendController extends YBackController
                 case 0:
                     if ($module->getIsActive()) {
                         $module->getDeActivate();
-                        $message = Yii::t('YupeModule.yupe', 'Модуль успешно отключен!');
+                        $message = Yii::t('YupeModule.yupe', 'Module disabled successfully!');
                     } else {
                         $module->getUnInstall();
-                        $message = Yii::t('YupeModule.yupe', 'Модуль успешно деинсталлирован!');
+                        $message = Yii::t('YupeModule.yupe', 'Module uninstalled successfully!');
                     }
                     $result = true;
                     break;
@@ -433,24 +433,24 @@ class BackendController extends YBackController
                 case 1:
                     if ($module->getIsInstalled()) {
                         $module->getActivate();
-                        $message = Yii::t('YupeModule.yupe', 'Модуль успешно включен!');
+                        $message = Yii::t('YupeModule.yupe', 'Module enabled successfully!');
                     } else {
                         $module->getInstall();
-                        $message = Yii::t('YupeModule.yupe', 'Модуль успешно установлен!');
+                        $message = Yii::t('YupeModule.yupe', 'Module installed successfully!');
                     }
                     $result = true;
                     break;
                 case 2:
                     $message = ($result = $module->getActivate(false, true)) === true
-                        ? Yii::t('YupeModule.yupe', 'Файл настроек модуля "{n}" успешно обновлён!', $name)
-                        : Yii::t('YupeModule.yupe', 'При обновлении файла настроек модуля "{n}" произошла ошибка!', $name);
+                        ? Yii::t('YupeModule.yupe', 'Settings file "{n}" updated successfully!', $name)
+                        : Yii::t('YupeModule.yupe', 'There is en error when trying to update "{n}" file module!', $name);
                     Yii::app()->user->setFlash(
                         $result ? YFlashMessages::SUCCESS_MESSAGE : YFlashMessages::ERROR_MESSAGE,
                         $message
                     );
                     break;
                 default:
-                    $message = Yii::t('YupeModule.yupe', 'Выбрано неизвестное действие!');
+                    $message = Yii::t('YupeModule.yupe', 'Unknown action was checked!');
                     break;
                 }
                 if (in_array($status, array(0, 1)))
@@ -470,7 +470,7 @@ class BackendController extends YBackController
         /**
          * Иначе возвращаем ошибку:
          **/
-            Yii::app()->ajax->failure(Yii::t('YupeModule.yupe', 'Модуль не найден или его включение запрещено!'));
+            Yii::app()->ajax->failure(Yii::t('YupeModule.yupe', 'Module was not found or it\'s enabling finished'));
     }
 
     /**
@@ -509,7 +509,7 @@ class BackendController extends YBackController
             || !Yii::app()->request->isAjaxRequest
             || ($method = Yii::app()->request->getPost('method')) === null
         )
-            throw new CHttpException(404, Yii::t('YupeModule.yupe', 'Страница не найдена!'));
+            throw new CHttpException(404, Yii::t('YupeModule.yupe', 'Page was not found!'));
 
         switch ($method) {
         /**
@@ -519,7 +519,7 @@ class BackendController extends YBackController
             try {
                 Yii::app()->cache->flush();
                 Yii::app()->ajax->success(
-                    Yii::t('YupeModule.yupe', 'Очистка кеша успешно завершена!')
+                    Yii::t('YupeModule.yupe', 'Cache cleaned successfully!')
                 );
             } catch(Exception $e) {
                 Yii::app()->ajax->failure(
@@ -533,7 +533,7 @@ class BackendController extends YBackController
         case 'assetsFlush':
             if ($this->_cleanAssets()) {
                 Yii::app()->ajax->success(
-                    Yii::t('YupeModule.yupe', 'Очистка ресурсов успешно завершена!')
+                    Yii::t('YupeModule.yupe', 'Assets cleaned successfully!')
                 );
             }
             break;
@@ -545,7 +545,7 @@ class BackendController extends YBackController
                 Yii::app()->cache->flush();
                 if ($this->_cleanAssets()) {
                     Yii::app()->ajax->success(
-                        Yii::t('YupeModule.yupe', 'Очистка ресурсов и кеша успешно завершена!')
+                        Yii::t('YupeModule.yupe', 'Assets and cache cleaned successfully!')
                     );
                 }
             } catch(Exception $e) {
@@ -558,7 +558,7 @@ class BackendController extends YBackController
          * Использован неизвестный системе метод:
          **/
         default:
-            Yii::app()->ajax->failure(Yii::t('YupeModule.yupe', 'Использован неизвестный системе метод!'));
+            Yii::app()->ajax->failure(Yii::t('YupeModule.yupe', 'Unknown method use in system!'));
             break;
         }
     }
@@ -576,7 +576,7 @@ class BackendController extends YBackController
             $form->setAttributes($bugData);
             if ($form->validate()) {
                 if ($form->module === BugForm::OTHER_MODULE){
-                    $form->module = Yii::t('YupeModule.yupe', 'Другой модуль');
+                    $form->module = Yii::t('YupeModule.yupe', 'Other moudle');
                 }
                 Yii::app()->mail->send(
                     Yii::app()->user->email,
@@ -586,7 +586,7 @@ class BackendController extends YBackController
                 );
                 Yii::app()->user->setFlash(
                     YFlashMessages::SUCCESS_MESSAGE,
-                    Yii::t('YupeModule.yupe', 'Сообщение отправлено!')
+                    Yii::t('YupeModule.yupe', 'Message sent!')
                 );
                 $this->redirect('/yupe/backend/reportBug');
             }

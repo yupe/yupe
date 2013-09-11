@@ -21,7 +21,7 @@ public function actions()
             'class'        => 'application.modules.yupe.components.actions.YFeedAction',
             'data'         => News::model()->published()->findAll(),
             // Параметр title по умолчанию берётся из настроек приложения
-            //'title'        => Yii::t('YupeModule.yupe', 'Название моего сайта'),
+            //'title'        => Yii::t('YupeModule.yupe', 'Site title'),
             // Параметр description по умолчанию берётся из настроек приложения
             //'description'  => Yii::t('YupeModule.yupe', 'Лента новостей сайта'),
             // Параметр link по умолчанию берётся как Yii::app()->request->getBaseUrl(true)
@@ -54,7 +54,7 @@ public function actions()
 
 `'data' => News::model()->published()->findAll(),` - данные, которые мы будем отображать в ленте
 
-`'title' => Yii::t('YupeModule.yupe', 'Название моего сайта'),` - заголовок для нашей ленты
+`'title' => Yii::t('YupeModule.yupe', 'Site title'),` - заголовок для нашей ленты
 
 `'description' => Yii::t('YupeModule.yupe', 'Лента новостей сайта'),` - описание ленты
 

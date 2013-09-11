@@ -11,7 +11,7 @@ class TagCloudWidget extends YWidget
                 'p', array(
                     'class' => 'alert alert-error'
                 ), Yii::t(
-                    'YupeModule.yupe', 'Виджет {widget}: Модель "{model}" не найдена!', array(
+                    'YupeModule.yupe', 'Widget {widget}: Model "{model}" was not found!', array(
                         '{model}'  => $this->model,
                         '{widget}' => get_class($this),
                     )

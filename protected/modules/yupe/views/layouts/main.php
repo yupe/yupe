@@ -33,7 +33,7 @@
     <div id="overall-wrap">
         <!-- mainmenu -->
         <?php
-        $brandTitle = Yii::t('YupeModule.yupe', 'Перейти на главную панели управления');
+        $brandTitle = Yii::t('YupeModule.yupe', 'Go to main page of control panel');
         $this->widget('application.modules.yupe.widgets.YAdminPanel'); ?>
         <div class="container-fluid" id="page"><?php echo $content; ?></div>
         <div id="footer-guard"><!-- --></div>
@@ -45,7 +45,7 @@
         <small class="label label-info"><?php echo $this->yupe->getVersion(); ?></small>
         <br/>
         <a href="http://amylabs.ru/?from=yupe-panel">
-            <?php echo Yii::t('YupeModule.yupe', 'Разработка и поддержка'); ?></a> - <a href="http://amylabs.ru/?from=yupe-panel" target="_blank">amyLabs
+            <?php echo Yii::t('YupeModule.yupe', 'Development and support'); ?></a> - <a href="http://amylabs.ru/?from=yupe-panel" target="_blank">amyLabs
         </a>
         <br/>
         <?php echo Yii::powered(); ?>

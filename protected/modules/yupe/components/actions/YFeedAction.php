@@ -24,9 +24,9 @@ class YFeedAction extends CAction
      *                 'class'        => 'application.modules.yupe.components.actions.YFeedAction',
      *                 'data'         => News::model()->published()->findAll(),
      *                 // Параметр title по умолчанию берётся из настроек приложения
-     *                 //'title'        => Yii::t('YupeModule.yupe', 'Название моего сайта'),
+     *                 //'title'        => Yii::t('YupeModule.yupe', 'Site title'),
      *                 // Параметр description по умолчанию берётся из настроек приложения
-     *                 //'description'  => Yii::t('YupeModule.yupe', 'Лента новостей сайта'),
+     *                 //'description'  => Yii::t('YupeModule.yupe', 'News list'),
      *                 // Параметр link по умолчанию берётся как Yii::app()->request->getBaseUrl(true)
      *                 //'link' => Yii::app()->request->getBaseUrl(true),
      *                 'itemFields'   => array(
@@ -189,7 +189,7 @@ class YFeedAction extends CAction
              * Устанавливаем контент для $item
              */
             if (!empty($this->itemFields['content']))
-                $item->description = Yii::t('YupeModule.yupe', 'Записей нет');
+                $item->description = Yii::t('YupeModule.yupe', 'There is no records');
 
             $date = new DateTime('NOW');
             $item->date = $date->format(DateTime::ATOM);
