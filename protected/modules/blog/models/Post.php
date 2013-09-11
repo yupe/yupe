@@ -176,8 +176,8 @@ class Post extends YModel
             'blog_id'          => Yii::t('BlogModule.blog', 'Blog'),
             'create_user_id'   => Yii::t('BlogModule.blog', 'Create user'),
             'update_user_id'   => Yii::t('BlogModule.blog', 'Update user'),
-            'create_date'      => Yii::t('BlogModule.blog', 'Create date'),
-            'update_date'      => Yii::t('BlogModule.blog', 'Update date'),
+            'create_date'      => Yii::t('BlogModule.blog', 'Created at'),
+            'update_date'      => Yii::t('BlogModule.blog', 'Updated at'),
             'publish_date'     => Yii::t('BlogModule.blog', 'Date'),
             'publish_date_tmp' => Yii::t('BlogModule.blog', 'Publish date'),
             'publish_time_tmp' => Yii::t('BlogModule.blog', 'Publish time'),
@@ -204,7 +204,7 @@ class Post extends YModel
     {
         return array(
             'id'               => Yii::t('BlogModule.blog', 'Post id.'),
-            'blog_id'          => Yii::t('BlogModule.blog', 'Blog id, in which you wish to add record'),
+            'blog_id'          => Yii::t('BlogModule.blog', 'Choose the blog you want to put the record'),
             'slug'             => Yii::t('BlogModule.blog', 'Blog slug for URL generation.<br /><br /> For example: <br /><br /><pre>http://site.ru/blogs/my/<br /><span class="label">my-na-more</span>/</pre> It you don\'t know what is it you can leave this field empty.'),
             'publish_date'     => Yii::t('BlogModule.blog', 'Publish date'),
             'publish_date_tmp' => Yii::t('BlogModule.blog', 'Publish date, formatted as:<br /><span class="label">05-09-2012</span>'),
@@ -217,7 +217,7 @@ class Post extends YModel
             'comment_status'   => Yii::t('BlogModule.blog', 'If checked &ndash; Users will can add comments to post'),
             'access_type'      => Yii::t('BlogModule.blog', 'Post access<br /><br /><span class="label label-success">public</span> &ndash; All users can read this post<br /><br /><span class="label label-warning">private</span> &ndash; only you as author can read this post'),
             'keywords'         => Yii::t('BlogModule.blog', 'SEO keywords  separated by comma. For example if your post about rest on the sea &ndash; you can choose words like: <pre>sea, travel, sun, etc.</pre>'),
-            'description'      => Yii::t('BlogModule.blog', 'Short post description. About one or two sentences. It is main thought of your post. For example: <pre>The story of how we almost was eaten by sharks.</pre>This text very frequently falls in <a href="http://help.yandex.ru/webmaster/?id=111131">snippet</a>of search engines.'),
+            'description'      => Yii::t('BlogModule.blog', 'Short post description. About one or two sentences. Usually this is the main idea. For example: <pre>The story of how we almost was eaten by sharks.</pre>This text very frequently falls in <a href="http://help.yandex.ru/webmaster/?id=111131">snippet</a>of search engines.'),
             'tags'             => Yii::t('BlogModule.blog', 'Keywords for post categorization, for example:<br /><span class="label">sea</span>'),
         );
     }

@@ -92,14 +92,14 @@ class BlogController extends YFrontController
             if (Yii::app()->request->isAjaxRequest) {
                 Yii::app()->ajax->success(
                     array(
-                        'message' => Yii::t('BlogModule.blog', 'You have joined to blog!'),
+                        'message' => Yii::t('BlogModule.blog', 'You have joined the blog!'),
                         'content' => $this->renderPartial('_view', array('data' => $blog), true),
                     )
                 );
             } else {
                 Yii::app()->user->setFlash(
                     YFlashMessages::SUCCESS_MESSAGE,
-                    Yii::t('BlogModule.blog', 'You have joined to blog!')
+                    Yii::t('BlogModule.blog', 'You have joined the blog!')
                 );
                 $this->redirect(array('/blog/blog/index'));
             }
@@ -107,14 +107,14 @@ class BlogController extends YFrontController
             if (Yii::app()->request->isAjaxRequest)
                 Yii::app()->ajax->failure(
                     array(
-                        'message' => Yii::t('BlogModule.blog', 'You already have joined to blog!'),
+                        'message' => Yii::t('BlogModule.blog', 'You already joined the blog!'),
                     )
                 );
             else
             {
                 Yii::app()->user->setFlash(
                     YFlashMessages::SUCCESS_MESSAGE,
-                    Yii::t('BlogModule.blog', 'You already have joined to blog!')
+                    Yii::t('BlogModule.blog', 'You already joined the blog!')
                 );
                 $this->redirect(array('/blog/blog/index'));
             }
@@ -156,12 +156,12 @@ class BlogController extends YFrontController
         elseif ($blog->createUser->id == Yii::app()->user->getId()) {
             if (Yii::app()->request->isAjaxRequest) {
                 Yii::app()->ajax->failure(
-                    Yii::t('BlogModule.blog', 'You can\'t disconnect from this blog, because you are it author')
+                    Yii::t('BlogModule.blog', 'You are creator of this blog and you can\'t leave.')
                 );
             } else {
                 Yii::app()->user->setFlash(
                     YFlashMessages::ERROR_MESSAGE,
-                    Yii::t('BlogModule.blog', 'You can\'t disconnect from this blog, because you are it author')
+                    Yii::t('BlogModule.blog', 'You are creator of this blog and you can\'t leave.')
                 );
                 $this->redirect(array('/blog/blog/index'));
             }
@@ -199,23 +199,23 @@ class BlogController extends YFrontController
                 }
             } else {
                 if (Yii::app()->request->isAjaxRequest) {
-                    Yii::app()->ajax->failure(Yii::t('BlogModule.blog', 'An error occured when leaving the blog!'));
+                    Yii::app()->ajax->failure(Yii::t('BlogModule.blog', 'An error occured when you were leaving the blog!'));
                 } else {
                     Yii::app()->user->setFlash(
                         YFlashMessages::SUCCESS_MESSAGE,
-                        Yii::t('BlogModule.blog', 'An error occured when leaving the blog!')
+                        Yii::t('BlogModule.blog', 'An error occured when you were leaving the blog!')
                     );
                     $this->redirect(array('/blog/blog/index'));
                 }
             }
         } else {
             if (Yii::app()->request->isAjaxRequest)
-                Yii::app()->ajax->failure(Yii::t('BlogModule.blog', 'You are not member of this blog!'));
+                Yii::app()->ajax->failure(Yii::t('BlogModule.blog', 'You are not the member of this blog!'));
             else
             {
                 Yii::app()->user->setFlash(
                     YFlashMessages::SUCCESS_MESSAGE,
-                    Yii::t('BlogModule.blog', 'You are not member of this blog!')
+                    Yii::t('BlogModule.blog', 'You are not the member of this blog!')
                 );
                 $this->redirect(array('/blog/blog/index'));
             }
