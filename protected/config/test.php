@@ -8,7 +8,7 @@ return CMap::mergeArray(
             'application.modules.yupe.extensions.tagcache.*',
         ),
         'components'     => array(
-            'db'         => require dirname(__FILE__) . '/db.php',
+            'db'         => require dirname(__FILE__) . '/db-test.php',
             'cache'     => array(   
                 'behaviors' => array(
                     'clear' => array(
