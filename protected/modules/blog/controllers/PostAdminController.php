@@ -12,7 +12,7 @@ class PostAdminController extends YBackController
     public function actionView($id)
     {
         if (($post = Post::model()->loadModel($id)) === null) {
-            throw new CHttpException(404, Yii::t('BlogModule.blog', 'Запрошенная страница не найдена!'));
+            throw new CHttpException(404, Yii::t('BlogModule.blog', 'Requested page was not found'));
         }
 
         $this->render('view', array('model' => $post));
@@ -47,7 +47,7 @@ class PostAdminController extends YBackController
             if ($model->save()) {
                 Yii::app()->user->setFlash(
                     YFlashMessages::SUCCESS_MESSAGE,
-                    Yii::t('BlogModule.blog', 'Запись добавлена!')
+                    Yii::t('BlogModule.blog', 'Post was created!')
                 );
                 $this->redirect(
                     (array) Yii::app()->request->getPost(
@@ -69,7 +69,7 @@ class PostAdminController extends YBackController
     public function actionUpdate($id)
     {
         if (($model = Post::model()->loadModel($id)) === null) {
-            throw new CHttpException(404, Yii::t('BlogModule.blog', 'Запрошенная страница не найдена!'));
+            throw new CHttpException(404, Yii::t('BlogModule.blog', 'Requested page was not found!'));
         }
 
         if (Yii::app()->request->isPostRequest && Yii::app()->request->getPost('Post')) {
@@ -83,7 +83,7 @@ class PostAdminController extends YBackController
             if ($model->save()) {
                 Yii::app()->user->setFlash(
                     YFlashMessages::SUCCESS_MESSAGE,
-                    Yii::t('BlogModule.blog', 'Запись обновлена!')
+                    Yii::t('BlogModule.blog', 'Post was updated!')
                 );
 
                 $this->redirect(
@@ -114,13 +114,13 @@ class PostAdminController extends YBackController
             // поддерживаем удаление только из POST-запроса
             
             if (($post = Post::model()->loadModel($id)) === null)
-                throw new CHttpException(404, Yii::t('BlogModule.blog', 'Запрошенная страница не найдена!'));
+                throw new CHttpException(404, Yii::t('BlogModule.blog', 'Requested page was not found'));
             else
                 $post->delete();
 
             Yii::app()->user->setFlash(
                 YFlashMessages::SUCCESS_MESSAGE,
-                Yii::t('BlogModule.blog', 'Запись удалена!')
+                Yii::t('BlogModule.blog', 'Post was removed!')
             );
 
             // если это AJAX запрос ( кликнули удаление в админском grid view), мы не должны никуда редиректить
@@ -131,7 +131,7 @@ class PostAdminController extends YBackController
                     )
                 );
         } else
-            throw new CHttpException(400, Yii::t('BlogModule.blog', 'Неверный запрос. Пожалуйста, больше не повторяйте такие запросы!'));
+            throw new CHttpException(400, Yii::t('BlogModule.blog', 'Wrong request. Please don\'t repeate requests like this anymore!'));
     }
 
     /**
