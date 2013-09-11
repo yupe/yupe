@@ -43,7 +43,6 @@ class InstallForm extends YFormModel
     public $createDb;
     public $dbUser;
     public $dbPassword;
-    public $dbConString = '';
     public $tablePrefix = 'yupe_';
     public $dbType      = self::DB_MYSQL;
 
@@ -78,7 +77,7 @@ class InstallForm extends YFormModel
             /**
              * Для настройки БД:
              **/
-            array('host, port, dbName, dbUser, tablePrefix, dbType, dbConString', 'required', 'on' => 'dbSettings'),
+            array('host, port, dbName, dbUser, tablePrefix, dbType', 'required', 'on' => 'dbSettings'),
             array('dbPassword', 'length', 'min' => 0, 'max' => 32),
             array('port, dbType', 'numerical', 'integerOnly' => true),
             array('dbName, dbUser', 'length', 'min' => 0, 'max' => 256),
@@ -122,7 +121,7 @@ class InstallForm extends YFormModel
             'dbUser'          => Yii::t('InstallModule.install', 'Пользователь'),
             'dbPassword'      => Yii::t('InstallModule.install', 'Пароль'),
             'tablePrefix'     => Yii::t('InstallModule.install', 'Префикс таблиц'),
-            'dbConString'     => Yii::t('InstallModule.install', 'Строка подключения к SQLite'),
+
 
             /**
              * Для начальной настройки сайта:

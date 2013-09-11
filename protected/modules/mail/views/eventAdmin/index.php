@@ -102,7 +102,7 @@ $this->widget(
                         'url'     => 'Yii::app()->createUrl("/mail/templateAdmin/create/", array("eid" => $data->id))',
                         'options' => array(
                             'class' => 'icon-plus-sign',
-                            'title' => Yii::t('menu', 'Добавить почтвый шаблон'),
+                            'title' => Yii::t('MailModule.mail', 'Добавить почтвый шаблон'),
                         )
                     )
                 )

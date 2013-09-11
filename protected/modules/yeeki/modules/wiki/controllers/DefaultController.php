@@ -98,7 +98,7 @@ class DefaultController extends YFrontController
 		if(!$page)
 		{
 			$page = new WikiPage();
-			$comment = Yii::t('wiki', 'Created new page');
+			$comment = Yii::t('WikiModule.wiki', 'Created new page');
 		}
 
 		$page->setWikiUid($uid);

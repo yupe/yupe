@@ -1,21 +1,21 @@
 <?php $this->breadcrumbs = array(
-     Yii::t('default', 'Wiki') => array('/wiki/default/pageIndex'),
-     Yii::t('default', $page->getWikiUid())
+     Yii::t('WikiModule.wiki', 'Wiki') => array('/wiki/default/pageIndex'),
+     Yii::t('WikiModule.wiki', $page->getWikiUid())
 );?>
 
 
 <div>
 	<div class="wiki-controls">
-		<?php echo CHtml::link(Yii::t('wiki', 'Edit'), array('edit', 'uid' => $page->getWikiUid()))?>
-		<?php echo CHtml::link(Yii::t('wiki', 'History'), array('history', 'uid' => $page->getWikiUid()))?>
+		<?php echo CHtml::link(Yii::t('WikiModule.wiki', 'Edit'), array('edit', 'uid' => $page->getWikiUid()))?>
+		<?php echo CHtml::link(Yii::t('WikiModule.wiki', 'History'), array('history', 'uid' => $page->getWikiUid()))?>
 	</div>
 	<div class="wiki-text">
 		<?php echo $text?>
 	</div>	
 	<div class="wiki-controls">
-		<?php echo CHtml::link(Yii::t('wiki', 'Edit'), array('edit', 'uid' => $page->getWikiUid()))?>
-		<?php echo CHtml::link(Yii::t('wiki', 'History'), array('history', 'uid' => $page->getWikiUid()))?>
-		<?php echo CHtml::link(Yii::t('wiki', 'Page Index'), array('pageIndex'))?>
+		<?php echo CHtml::link(Yii::t('WikiModule.wiki', 'Edit'), array('edit', 'uid' => $page->getWikiUid()))?>
+		<?php echo CHtml::link(Yii::t('WikiModule.wiki', 'History'), array('history', 'uid' => $page->getWikiUid()))?>
+		<?php echo CHtml::link(Yii::t('WikiModule.wiki', 'Page Index'), array('pageIndex'))?>
 	</div>	
 </div>
 <br/><br/>

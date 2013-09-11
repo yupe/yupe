@@ -17,9 +17,9 @@ $form = $this->beginWidget('bootstrap.widgets.TbActiveForm', array(
     'inlineErrors'           => true,
 )); ?>
     <div class="alert alert-info">
-        <?php echo Yii::t('ContentBlockModule.contentblock', 'Поля, отмеченные'); ?>
+        <?php echo Yii::t('ContentBlockModule.contentblock', 'Fields with'); ?>
         <span class="required">*</span>
-        <?php echo Yii::t('ContentBlockModule.contentblock', 'обязательны.'); ?>
+        <?php echo Yii::t('ContentBlockModule.contentblock', 'are required.'); ?>
     </div>
 
     <?php echo $form->errorSummary($model); ?>
@@ -64,12 +64,12 @@ $form = $this->beginWidget('bootstrap.widgets.TbActiveForm', array(
     <?php $this->widget('bootstrap.widgets.TbButton', array(
         'buttonType' => 'submit',
         'type'       => 'primary',
-        'label'      => $model->isNewRecord ? Yii::t('ContentBlockModule.contentblock', 'Добавить блок и продолжить') : Yii::t('ContentBlockModule.contentblock', 'Сохранить блок и продолжить'),
+        'label'      => $model->isNewRecord ? Yii::t('ContentBlockModule.contentblock', 'Add block and continue') : Yii::t('ContentBlockModule.contentblock', 'Save block and continue'),
     )); ?>
     <?php $this->widget('bootstrap.widgets.TbButton', array(
         'buttonType'  => 'submit',
         'htmlOptions' => array('name' => 'submit-type', 'value' => 'index'),
-        'label'       => $model->isNewRecord ? Yii::t('ContentBlockModule.contentblock', 'Добавить блок и закрыть') : Yii::t('ContentBlockModule.contentblock', 'Сохранить блок и закрыть'),
+        'label'       => $model->isNewRecord ? Yii::t('ContentBlockModule.contentblock', 'Add block and close') : Yii::t('ContentBlockModule.contentblock', 'Save block and close'),
     )); ?>
 
 <?php $this->endWidget(); ?>

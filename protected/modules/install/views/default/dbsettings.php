@@ -102,9 +102,6 @@ Yii::app()->clientScript->registerScript(
         <?php echo $form->textFieldRow($data['model'], 'socket', array('class' => 'popover-help span7', 'maxlength' => 150, 'size' => 60, 'data-original-title' => $data['model']->getAttributeLabel('socket'), 'data-content' => $data['model']->getAttributeDescription('socket') . ' (обязательно только при подключении через сокет)')); ?>
     </div>
 
-    <div class="row-fluid sqlite-enable mysql-disable postgresql-disable control-group <?php echo $data['model']->hasErrors('dbConString') ? 'error' : ''; ?>">
-        <?php echo $form->textFieldRow($data['model'], 'dbConString', array('class' => 'popover-help span7', 'maxlength' => 150, 'size' => 60, 'data-original-title' => $data['model']->getAttributeLabel('socket'), 'data-content' => $data['model']->getAttributeDescription('socket') . ' (обязательно только при подключении через сокет)')); ?>
-    </div>
 
 
 <?php $this->widget(

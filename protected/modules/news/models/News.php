@@ -195,7 +195,7 @@ class News extends YModel
 
     public function beforeSave()
     {
-        $this->change_date = CDbExpression('NOW()');
+        $this->change_date = new CDbExpression('NOW()');
         $this->date        = date('Y-m-d', strtotime($this->date));
 
         if ($this->isNewRecord)

@@ -24,7 +24,7 @@ $this->menu = array(
         'label' => Yii::t('MenuModule.menu', 'Меню'), 'items' => array(
             array('icon' => 'plus-sign', 'label' => Yii::t('MenuModule.menu', 'Добавить меню'), 'url' => array('/menu/menu/create')),
             array('icon' => 'list-alt', 'label' => Yii::t('MenuModule.menu', 'Управление меню'), 'url' => array('/menu/menu/index')),
-            array('label' => Yii::t('blog', 'Меню') . ' «' . $model->name . '»'),
+            array('label' => Yii::t('MenuModule.menu', 'Меню') . ' «' . $model->name . '»'),
             array(
                 'icon' => 'pencil', 'label' => Yii::t('MenuModule.menu', 'Редактировать меню'), 'url' => array(
                     '/menu/menu/update',
@@ -32,7 +32,7 @@ $this->menu = array(
                 )
             ),
             array(
-                'icon' => 'eye-open', 'label' => Yii::t('blog', 'Просмотреть меню'), 'url' => array(
+                'icon' => 'eye-open', 'label' => Yii::t('MenuModule.menu', 'Просмотреть меню'), 'url' => array(
                     '/menu/menu/view',
                     'id' => $model->id
                 )

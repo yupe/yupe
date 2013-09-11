@@ -93,7 +93,7 @@ class ImageToGallery extends YModel
     public function beforeSave()
     {
         if ($this->isNewRecord) {
-            $this->creation_date = CDbExpression('NOW()');
+            $this->creation_date = new CDbExpression('NOW()');
         }
         return parent::beforeSave();
     }

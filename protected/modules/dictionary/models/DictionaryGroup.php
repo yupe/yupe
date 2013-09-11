@@ -116,7 +116,7 @@ class DictionaryGroup extends YModel
     public function beforeSave()
     {
         $this->update_user_id = Yii::app()->user->getId();
-        $this->update_date    = CDbExpression('NOW()');
+        $this->update_date    = new CDbExpression('NOW()');
 
         if ($this->isNewRecord)
         {

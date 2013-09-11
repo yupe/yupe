@@ -157,7 +157,7 @@ class DefaultController extends YBackController
     {
         $model = News::model()->findByPk((int)$id);
         if ($model === null)
-            throw new CHttpException(404, Yii::t('catalog', 'Запрошенная страница не найдена!'));
+            throw new CHttpException(404, Yii::t('NewsModule.news', 'Запрошенная страница не найдена!'));
         return $model;
     }
 

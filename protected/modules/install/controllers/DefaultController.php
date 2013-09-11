@@ -1008,7 +1008,7 @@ class DefaultController extends YBackController
                         'gender'            => 0,
                         'use_gravatar'      => 1,
                         'password'          => User::model()->hashPassword($model->userPassword, $salt),
-                        'registration_date' => CDbExpression('NOW()'),
+                        'registration_date' => new CDbExpression('NOW()'),
                         'registration_ip'   => Yii::app()->request->userHostAddress,
                         'activation_ip'     => Yii::app()->request->userHostAddress,
                         'access_level'      => User::ACCESS_LEVEL_ADMIN,

@@ -30,7 +30,7 @@ class DefaultController extends YBackController
             {
                 Yii::app()->user->setFlash(
                     YFlashMessages::SUCCESS_MESSAGE,
-                    Yii::t('CatalogModule.catalog', 'Запись добавлена!')
+                    Yii::t('CatalogModule.catalog', 'Record was added!')
                 );
 
                 $this->redirect(
@@ -62,7 +62,7 @@ class DefaultController extends YBackController
             {
                 Yii::app()->user->setFlash(
                     YFlashMessages::SUCCESS_MESSAGE,
-                    Yii::t('CatalogModule.catalog', 'Запись обновлена!')
+                    Yii::t('CatalogModule.catalog', 'Record was updated!')
                 );
 
                if (!isset($_POST['submit-type']))
@@ -88,7 +88,7 @@ class DefaultController extends YBackController
 
             Yii::app()->user->setFlash(
                 YFlashMessages::SUCCESS_MESSAGE,
-                Yii::t('CatalogModule.catalog', 'Запись удалена!')
+                Yii::t('CatalogModule.catalog', 'Record was removed!')
             );
 
             // если это AJAX запрос ( кликнули удаление в админском grid view), мы не должны никуда редиректить
@@ -96,7 +96,7 @@ class DefaultController extends YBackController
                 $this->redirect(isset($_POST['returnUrl']) ? $_POST['returnUrl'] : array('index'));
         }
         else
-            throw new CHttpException(400, Yii::t('CatalogModule.catalog', 'Неверный запрос. Пожалуйста, больше не повторяйте такие запросы!'));
+            throw new CHttpException(400, Yii::t('CatalogModule.catalog', 'Unknown request. Don\'t use this request aymore!'));
     }
 
     /**
@@ -120,7 +120,7 @@ class DefaultController extends YBackController
     {
         $model = Good::model()->findByPk($id);
         if ($model === null)
-            throw new CHttpException(404, Yii::t('CatalogModule.catalog', 'Запрошенная страница не найдена!'));
+            throw new CHttpException(404, Yii::t('CatalogModule.catalog', 'Page was not found!'));
         return $model;
     }
 

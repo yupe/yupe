@@ -63,7 +63,7 @@
                             array(
                                 array(
                                     'icon'        => 'home white',
-                                    'label'       => Yii::t('YupeModule.yupe', 'На сайт'),
+                                    'label'       => Yii::t('DocsModule.docs', 'На сайт'),
                                     'linkOptions' => array('target' => '_blank'),
                                     'url'         => array('/' . Yii::app()->defaultController . '/index/'),
                                 ),
@@ -92,7 +92,7 @@
         <small class="label label-info"><?php echo $this->yupe->getVersion(); ?></small>
         <br/>
         <a href="http://amylabs.ru?from=yupe-docs">
-            <?php echo Yii::t('YupeModule.yupe', 'Разработка и поддержка'); ?></a> - <a href="http://amylabs.ru?from=yupe-docs">amyLabs
+            <?php echo Yii::t('DocsModule.docs', 'Разработка и поддержка'); ?></a> - <a href="http://amylabs.ru?from=yupe-docs">amyLabs
         </a>
         <br/>
         <?php echo Yii::powered(); ?>

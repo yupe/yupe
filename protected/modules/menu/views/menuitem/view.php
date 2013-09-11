@@ -16,9 +16,9 @@
         array('label' => Yii::t('MenuModule.menu', 'Пункты меню'), 'items' => array(
             array('icon' => 'plus-sign', 'label' => Yii::t('MenuModule.menu', 'Добавить пункт меню'), 'url' => array('/menu/menuitem/create')),
             array('icon' => 'list-alt', 'label' => Yii::t('MenuModule.menu', 'Управление пунктами меню'), 'url' => array('/menu/menuitem/index')),
-            array('label' => Yii::t('blog', 'Пункт меню') . ' «' . $model->title . '»'),
+            array('label' => Yii::t('MenuModule.menu', 'Пункт меню') . ' «' . $model->title . '»'),
             array('icon' => 'pencil', 'label' => Yii::t('MenuModule.menu', 'Изменить пункт меню'), 'url' => array('/menu/menuitem/update', 'id' => $model->id)),
-            array('icon' => 'eye-open', 'encodeLabel' => false, 'label' => Yii::t('blog', 'Просмотреть пункт меню'), 'url' => array(
+            array('icon' => 'eye-open', 'encodeLabel' => false, 'label' => Yii::t('MenuModule.menu', 'Просмотреть пункт меню'), 'url' => array(
                 '/menu/menuitem/view',
                 'id' => $model->id
             )),
