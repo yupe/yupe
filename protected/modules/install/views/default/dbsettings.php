@@ -29,8 +29,7 @@ Yii::app()->clientScript->registerScript(
     var dbTypes = ' . json_encode($data['model']->dbTypeNames) . ';
     var defaultAttr = {
         "mysql": ' . json_encode($data['model']->attributes) . ',
-        "postgresql": ' . json_encode($data['model']->postgresqlDefaults) . ',
-        "sqlite": ' . json_encode($data['model']->sqliteDefaults) . '
+        "postgresql": ' . json_encode($data['model']->postgresqlDefaults) . '
     };
     ', CClientScript::POS_BEGIN
 );
@@ -54,15 +53,6 @@ Yii::app()->clientScript->registerScript(
         <p><?php echo Yii::t('InstallModule.install', 'Укажите параметры соединения с базой данных.'); ?></p>
         <p><?php echo Yii::t('InstallModule.install', 'Базу данных можно создать при помощи phpmyadmin или любого другого инструмента.'); ?></p>
         <p><b><?php echo Yii::t('InstallModule.install', 'Юпи! попытается сам саздать базу данных если Вы поставите галочку "Создать базу данных"');?></p></b>
-    </div>
-
-    <div class="alert alert-block alert-info sqlite-enable mysql-disable postgresql-disable">
-        <p><b><?php echo Yii::t('InstallModule.install', 'Касательно СУБД SQLite.'); ?></b></p>
-        <p><?php echo Yii::t('InstallModule.install', 'Для установки Юпи! на СУБД SQLite, вам потребуется сделать следующее:'); ?></p>
-        <p><?php echo Yii::t('InstallModule.install', 'Создаём файл базы данных:'); ?></p>
-        <pre>sqlite3 {webroot}/protected/data/yupe.db ""</pre>
-        <p><?php echo Yii::t('InstallModule.install', 'Назначить права на файл для пользователя, от имени которого выполняется web-сервер:'); ?></p>
-        <pre>sudo chown -hR {user} {webroot}/protected/data/yupe.db</pre>
     </div>
 
     <?php if (!$data['result']) : ?>
@@ -112,9 +102,6 @@ Yii::app()->clientScript->registerScript(
         <?php echo $form->textFieldRow($data['model'], 'socket', array('class' => 'popover-help span7', 'maxlength' => 150, 'size' => 60, 'data-original-title' => $data['model']->getAttributeLabel('socket'), 'data-content' => $data['model']->getAttributeDescription('socket') . ' (обязательно только при подключении через сокет)')); ?>
     </div>
 
-    <div class="row-fluid sqlite-enable mysql-disable postgresql-disable control-group <?php echo $data['model']->hasErrors('dbConString') ? 'error' : ''; ?>">
-        <?php echo $form->textFieldRow($data['model'], 'dbConString', array('class' => 'popover-help span7', 'maxlength' => 150, 'size' => 60, 'data-original-title' => $data['model']->getAttributeLabel('socket'), 'data-content' => $data['model']->getAttributeDescription('socket') . ' (обязательно только при подключении через сокет)')); ?>
-    </div>
 
 
 <?php $this->widget(

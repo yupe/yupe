@@ -123,7 +123,7 @@ $I->see('Необходимо исправить следующие ошибки
 $I->see('Пароли не совпадают!','.alert-error');
 $I->see('Email не является правильным E-Mail адресом.','.alert-error');
 
-$I->fillField('InstallForm[userEmail]','yupe@mail.ru');
+$I->fillField('InstallForm[userEmail]','yupe@yupetest.ru');
 $I->fillField('InstallForm[cPassword]','111111');
 $I->click('Продолжить >');
 $I->dontSee('Необходимо исправить следующие ошибки','.alert-error');
@@ -131,6 +131,31 @@ $I->dontSee('Необходимо исправить следующие ошиб
 $I->seeInCurrentUrl('sitesettings');
 $I->see('Шаг 7 из 8 : "Настройки проекта"','span');
 $I->checkOption('InstallForm[theme]','default');
+$I->seeInField('InstallForm[siteName]','Юпи!');
+$I->seeInField('InstallForm[siteDescription]','Юпи! - самый быстрый способ создать сайт на Yii');
+$I->seeInField('InstallForm[siteDescription]','Юпи! - самый быстрый способ создать сайт на Yii');
+$I->seeInField('InstallForm[siteKeyWords]','Юпи!, yupe, yii, cms, цмс');
+$I->seeInField('InstallForm[siteEmail]','yupe@yupetest.ru');
+$I->seeLink('< Назад');
+$I->see('Продолжить >');
+
+
+// check finish
+$I->click('Продолжить >');
+$I->seeInCurrentUrl('finish');
+$I->see('Шаг 8 из 8 : "Окончание установки','span');
+$I->see('Поздравляем, установка Юпи! завершена!','h1');
+$I->seeLink('ПЕРЕЙТИ НА САЙТ');
+$I->seeLink('ПЕРЕЙТИ В ПАНЕЛЬ УПРАВЛЕНИЯ');
+
+
+// check site
+$I->amOnPage('/');
+$I->see('Поздравляем!','h1');
+$I->seeLink('Разработка и поддержка интернет-проектов');
+
+
+
 
 
 

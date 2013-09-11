@@ -124,7 +124,7 @@ class FeedBack extends YModel
 
     public function beforeValidate()
     {
-        $this->change_date = YDbMigration::expression('NOW()');
+        $this->change_date = new CDbExpression('NOW()');
 
         if ($this->isNewRecord)
         {
