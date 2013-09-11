@@ -64,18 +64,18 @@
                         array(
                             'icon'  => 'question-sign white',
                             'label' => Yii::t('YupeModule.yupe', 'Помощь'),
-                            'url'   => 'http://yupe.ru/docs/index.html?from=login',
+                            'url'   => 'http://yupe.ru/docs/index.html?from=install',
                             'items' => array(
                                 array(
                                     'icon'  => 'icon-globe',
                                     'label' => Yii::t('YupeModule.yupe', 'Официальный сайт'),
-                                    'url'   => 'http://yupe.ru?from=help',
+                                    'url'   => 'http://yupe.ru?from=install',
                                     'linkOptions' => array('target' => '_blank'),
                                 ),
                                 array(
                                     'icon'  => 'icon-book',
                                     'label' => Yii::t('YupeModule.yupe', 'Официальная документация'),
-                                    'url'   => 'http://yupe.ru/docs/index.html?from=login',
+                                    'url'   => 'http://yupe.ru/docs/index.html?from=install',
                                     'linkOptions' => array('target' => '_blank'),
                                 ),
                                 array(
@@ -87,7 +87,7 @@
                                 array(
                                     'icon'  => 'icon-comment',
                                     'label' => Yii::t('YupeModule.yupe', 'Форум'),
-                                    'url'   => 'http://yupe.ru/talk/?from=login',
+                                    'url'   => 'http://yupe.ru/talk/?from=install',
                                     'linkOptions' => array('target' => '_blank'),
                                 ),
                                 array(
@@ -98,20 +98,20 @@
                                 ),
                                 array(
                                     'icon'  => 'icon-thumbs-up',
-                                    'label' => Yii::t('YupeModule.yupe', 'Заказать разработку или поддержку'),
-                                    'url'   => 'http://yupe.ru/feedback/index?from=login',
+                                    'label' => Yii::t('YupeModule.yupe', 'Заказать разработку/поддержку'),
+                                    'url'   => 'http://amylabs.ru/contact?from=install',
                                     'linkOptions' => array('target' => '_blank'),
                                 ),
                                 array(
                                     'icon'  => 'icon-warning-sign',
                                     'label' => Yii::t('YupeModule.yupe', 'Сообщить об ошибке'),
-                                    'url'   => 'http://yupe.ru/feedback/index?from=login',
+                                    'url'   => 'http://yupe.ru/feedback/index?from=install',
                                     'linkOptions' => array('target' => '_blank'),
                                 ),
                                 array(
                                     'icon'  => 'exclamation-sign',
                                     'label' => Yii::t('YupeModule.yupe', 'О Юпи!'),
-                                    'url'   => 'http://yupe.ru/pages/about?from=login',
+                                    'url'   => 'http://yupe.ru/pages/about?from=install',
                                     'linkOptions' => array('target' => '_blank'),
                                 ),
                             ),
@@ -119,7 +119,7 @@
                         array(
                             'label' => $this->yupe->version,
                             'icon' => 'icon-thumbs-up icon-white',
-                            'url' => 'http://yupe.ru/?from=navbar'
+                            'url' => 'http://yupe.ru/?from=install'
                         ),
                         $this->yupe->languageSelectorArray,
                     ),
@@ -145,7 +145,7 @@
     <?php echo $this->yupe->poweredBy();?>
     <small class="label label-info"><?php echo $this->yupe->getVersion(); ?></small>
     <br/>
-    <a href="http://amylabs.ru/?from=yupe-install" target="_blank">
+    <a href="http://amylabs.ru/?from=install" target="_blank">
         <?php echo Yii::t('YupeModule.yupe', 'Разработка и поддержка'); ?></a> - <a href="http://amylabs.ru/?from=yupe-install" target="_blank">amyLabs</a>
     <br/>
     <?php echo Yii::powered(); ?>
