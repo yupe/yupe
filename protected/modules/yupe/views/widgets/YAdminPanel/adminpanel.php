@@ -40,61 +40,61 @@ $this->widget(
                     array(
                         array(
                             'icon'  => 'question-sign white',
-                            'label' => Yii::t('YupeModule.yupe', 'Помощь'),
+                            'label' => Yii::t('YupeModule.yupe', 'Help'),
                             'url'   => CHtml::normalizeUrl(array('/yupe/backend/help')),
                             'items' => array(
                                 array(
                                     'icon'  => 'icon-globe',
-                                    'label' => Yii::t('YupeModule.yupe', 'Официальный сайт'),
+                                    'label' => Yii::t('YupeModule.yupe', 'Official site'),
                                     'url'   => 'http://yupe.ru?from=help',
                                     'linkOptions' => array('target' => '_blank'),
                                 ),
                                 array(
                                     'icon'  => 'icon-book',
-                                    'label' => Yii::t('YupeModule.yupe', 'Официальная документация'),
+                                    'label' => Yii::t('YupeModule.yupe', 'Official docs'),
                                     'url'   => 'http://yupe.ru/docs/index.html?from=help',
                                     'linkOptions' => array('target' => '_blank'),
                                 ),
                                 array(
                                     'icon'  => 'icon-th-large',
-                                    'label' => Yii::t('YupeModule.yupe', 'Дополнительные модули'),
+                                    'label' => Yii::t('YupeModule.yupe', 'Additional modules'),
                                     'url'   => 'https://github.com/yupe/yupe-ext',
                                     'linkOptions' => array('target' => '_blank'),
                                 ),
                                 array(
                                     'icon'  => 'icon-comment',
-                                    'label' => Yii::t('YupeModule.yupe', 'Форум'),
+                                    'label' => Yii::t('YupeModule.yupe', 'Forum'),
                                     'url'   => 'http://yupe.ru/talk/?from=help',
                                     'linkOptions' => array('target' => '_blank'),
                                 ),
                                 array(
                                     'icon'  => 'icon-globe',
-                                    'label' => Yii::t('YupeModule.yupe', 'Сообщество на github'),
+                                    'label' => Yii::t('YupeModule.yupe', 'Community on github'),
                                     'url'   => 'https://github.com/yupe/yupe',
                                     'linkOptions' => array('target' => '_blank'),
                                 ),
                                 array(
                                     'icon'  => 'icon-thumbs-up',
-                                    'label' => Yii::t('YupeModule.yupe', 'Заказать разработку или поддержку'),
+                                    'label' => Yii::t('YupeModule.yupe', 'Order development and support'),
                                     'url'   => 'http://yupe.ru/feedback/index?from=help-support',
                                     'linkOptions' => array('target' => '_blank'),
                                 ),
                                 array(
                                     'icon'  => 'icon-warning-sign',
-                                    'label' => Yii::t('YupeModule.yupe', 'Сообщить об ошибке'),
+                                    'label' => Yii::t('YupeModule.yupe', 'Report a bug'),
                                     'url'   => CHtml::normalizeUrl(array('/yupe/backend/reportBug/')),
                                     'linkOptions' => array('target' => '_blank'),
                                 ),
                                 array(
                                     'icon'  => 'exclamation-sign',
-                                    'label' => Yii::t('YupeModule.yupe', 'О Юпи!'),
+                                    'label' => Yii::t('YupeModule.yupe', 'About Yupe!'),
                                     'url'   => array('/yupe/backend/help'),
                                 ),
                             )
                         ),
                         array(
                             'icon'        => 'home white',
-                            'label'       => Yii::t('YupeModule.yupe', 'На сайт'),
+                            'label'       => Yii::t('YupeModule.yupe', 'Go home'),
                             'linkOptions' => array('target' => '_blank'),
                             'visible'     => Yii::app()->controller instanceof YBackController === true,
                             'url'         => array('/' . Yii::app()->defaultController . '/index/'),
@@ -102,19 +102,19 @@ $this->widget(
                         array(
                             'label'       => '
                                 <div style="float: left; line-height: 16px; text-align: center; margin-top: -10px;">
-                                    <small style="font-size: 80%;">' . Yii::t('YupeModule.yupe', 'Администратор') . '</small><br />
+                                    <small style="font-size: 80%;">' . Yii::t('YupeModule.yupe', 'Administrator') . '</small><br />
                                     <span class="label">' . Yii::app()->user->nick_name . '</span>
                                 </div>',
                             'encodeLabel' => false,
                             'items'       => array(
                                 array(
                                     'icon'  => 'user',
-                                    'label' => Yii::t('YupeModule.yupe', 'Профиль'),
+                                    'label' => Yii::t('YupeModule.yupe', 'Profile'),
                                     'url'   => CHtml::normalizeUrl((array('/user/default/update', 'id' => Yii::app()->user->getId()))),
                                 ),
                                 array(
                                     'icon'  => 'off',
-                                    'label' => Yii::t('YupeModule.yupe', 'Выйти'),
+                                    'label' => Yii::t('YupeModule.yupe', 'Exit'),
                                     'url'   => CHtml::normalizeUrl(array('/user/account/logout')),
                                 ),
                             ),

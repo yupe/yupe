@@ -9,8 +9,8 @@
  *   @link     http://yupe.ru
  **/
 $this->breadcrumbs = array(
-    Yii::t('YupeModule.yupe', 'Система') => array('settings'),
-    Yii::t('YupeModule.yupe', 'Сообщить об ошибке'),
+    Yii::t('YupeModule.yupe', 'System') => array('settings'),
+    Yii::t('YupeModule.yupe', 'Report bug'),
 ); ?>
 
 <div class='row-fluid'>
@@ -25,12 +25,12 @@ $this->breadcrumbs = array(
             )
         ); ?>
             <div class="alert alert-block alert-info">
-                <p><?php echo Yii::t('YupeModule.yupe','Прежде чем писать нам, пожалуйста, проверьте следующие источники:');?></p>
-                <p><?php echo CHtml::link(Yii::t('YupeModule.yupe','Официальный форум'),'http://yupe.ru/talk?from=bug_report',array('target' => '_blank'));?></p>
-                <p><?php echo CHtml::link(Yii::t('YupeModule.yupe','Официальная документация'),'http://yupe.ru/docs/index.html?from=bug_report',array('target' => '_blank'));?></p>
-                <p><?php echo CHtml::link(Yii::t('YupeModule.yupe','Тикеты на Github'),'https://github.com/yupe/yupe/issues?labels=&milestone=&page=1&state=open',array('target' => '_blank'));?></p>
+                <p><?php echo Yii::t('YupeModule.yupe','If you found a bug, first please look next sources:');?></p>
+                <p><?php echo CHtml::link(Yii::t('YupeModule.yupe','Official forum'),'http://yupe.ru/talk?from=bug_report',array('target' => '_blank'));?></p>
+                <p><?php echo CHtml::link(Yii::t('YupeModule.yupe','Official documentation'),'http://yupe.ru/docs/index.html?from=bug_report',array('target' => '_blank'));?></p>
+                <p><?php echo CHtml::link(Yii::t('YupeModule.yupe','Issues on Github'),'https://github.com/yupe/yupe/issues?labels=&milestone=&page=1&state=open',array('target' => '_blank'));?></p>
             </div>
-            <legend><?php echo Yii::t('YupeModule.yupe', 'Сообщить об ошибке'); ?></legend>
+            <legend><?php echo Yii::t('YupeModule.yupe', 'Send error report'); ?></legend>
             
             <?php echo $form->errorSummary($model); ?>
 
@@ -83,7 +83,7 @@ $this->breadcrumbs = array(
                     'htmlOptions' => array(
                         'class'   => 'btn-block',
                     ),
-                    'label'       => Yii::t('YupeModule.yupe', 'Отправить сообщение разработчикам'),
+                    'label'       => Yii::t('YupeModule.yupe', 'Send message for developers'),
                 )
             ); ?>
 

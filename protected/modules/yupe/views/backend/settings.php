@@ -1,13 +1,13 @@
 <?php
 $this->breadcrumbs = array(
-    Yii::t('YupeModule.yupe', 'Система') => array('settings'),
-    Yii::t('YupeModule.yupe', 'Модули'),
+    Yii::t('YupeModule.yupe', 'System') => array('settings'),
+    Yii::t('YupeModule.yupe', 'Modules'),
 );
 ?>
 
-<h1><?php echo Yii::t('YupeModule.yupe', 'Настройки модулей'); ?></h1>
+<h1><?php echo Yii::t('YupeModule.yupe', 'Module Settings'); ?></h1>
 
-<?php echo Yii::t('YupeModule.yupe', 'Настройте модули "{app}" под Ваши потребности', array('{app}' => Yii::app()->name)); ?>
+<?php echo Yii::t('YupeModule.yupe', 'Setup modules "{app}" for your needs', array('{app}' => Yii::app()->name)); ?>
 
 <br/><br/>
 <div class="alert">
@@ -20,20 +20,20 @@ $this->breadcrumbs = array(
                     $enableCount++;
             }
         ?>
-        <?php echo Yii::t('YupeModule.yupe', 'Установлено'); ?>
+        <?php echo Yii::t('YupeModule.yupe', 'Installed'); ?>
         <small class="label label-info"><?php echo $yupeCount; ?></small>
-        <?php echo Yii::t('YupeModule.yupe', 'модуль|модуля|модулей', $yupeCount); ?>,
-        <?php echo Yii::t('YupeModule.yupe', 'включено'); ?>
+        <?php echo Yii::t('YupeModule.yupe', 'module|module|modules', $yupeCount); ?>,
+        <?php echo Yii::t('YupeModule.yupe', 'enabled'); ?>
         <small class="label label-info"><?php echo $enableCount; ?></small>
-        <?php echo Yii::t('YupeModule.yupe', 'модуль|модуля|модулей', $enableCount); ?>,
-        <?php echo Yii::t('YupeModule.yupe', 'выключен|выключено',$yupeCount - $enableCount); ?>
+        <?php echo Yii::t('YupeModule.yupe', 'module|module|modules', $enableCount); ?>,
+        <?php echo Yii::t('YupeModule.yupe', 'enabled|disabled',$yupeCount - $enableCount); ?>
         <small class="label label-info"><?php echo $yupeCount - $enableCount; ?></small>
-        <?php echo Yii::t('YupeModule.yupe', 'модуль|модуля|модулей', $yupeCount - $enableCount); ?>
+        <?php echo Yii::t('YupeModule.yupe', 'module|module|modules', $yupeCount - $enableCount); ?>
         <br/>
         <small>
-            <?php echo Yii::t('YupeModule.yupe', '( дополнительные модули всегда можно поискать на {link} или {order_link} )', array(
-                '{link}'       => CHtml::link(Yii::t('YupeModule.yupe', 'официальном сайте'), 'http://yupe.ru/?from=mlist', array('target' => '_blank')),
-                '{order_link}' => CHtml::link(Yii::t('YupeModule.yupe', 'заказать их разработку'), 'http://yupe.ru/feedback/index/?from=mlist', array('target' => '_blank')),
+            <?php echo Yii::t('YupeModule.yupe', '( You always can find another modules on {link} or {order_link} )', array(
+                '{link}'       => CHtml::link(Yii::t('YupeModule.yupe', 'official site'), 'http://yupe.ru/?from=mlist', array('target' => '_blank')),
+                '{order_link}' => CHtml::link(Yii::t('YupeModule.yupe', 'order to develop them'), 'http://yupe.ru/feedback/index/?from=mlist', array('target' => '_blank')),
             )); ?>
         </small>
     </p>

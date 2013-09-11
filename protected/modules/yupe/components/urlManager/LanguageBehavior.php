@@ -116,7 +116,7 @@ class LanguageBehavior extends CBehavior
                 Yii::app()->user->setFlash(
                     YFlashMessages::SUCCESS_MESSAGE,
                     Yii::t(
-                        'YupeModule.yupe', 'Язык "{lang}" не известен системе!', array(
+                        'YupeModule.yupe', 'Language "{lang}" is not found!', array(
                             '{lang}' => $oldLang
                         )
                     )

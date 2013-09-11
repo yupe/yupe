@@ -38,27 +38,27 @@ class YAdminPanel extends YWidget
                     array(
                         'token'      => Yii::app()->request->csrfTokenName . '=' . Yii::app()->request->csrfToken,
                         'url'        => Yii::app()->createAbsoluteUrl('yupe/backend/modulestatus'),
-                        'message'    => Yii::t('YupeModule.yupe', 'Подождите, идёт обработка вашего запроса...'),
-                        'error'      => Yii::t('YupeModule.yupe', 'Во время обработки вашего запроса произошла неизвестная ошибка =('),
+                        'message'    => Yii::t('YupeModule.yupe', 'Wait please, your request in process...'),
+                        'error'      => Yii::t('YupeModule.yupe', 'During the processing of your request an unknown error occurred =('),
                         'loadingimg' => CHtml::image(
                             $mainAssets . '/img/progressbar.gif', '', array(
                                 'style' => 'width: 100%; height: 20px;',
                             )
                         ),
                         'buttons'    => array(
-                            'yes'    => Yii::t('YupeModule.yupe', 'Да'),
-                            'no'     => Yii::t('YupeModule.yupe', 'Отмена'),
+                            'yes'    => Yii::t('YupeModule.yupe', 'Ok'),
+                            'no'     => Yii::t('YupeModule.yupe', 'Cancel'),
                         ),
                         'messages'   => array(
-                            'confirm_update'           => Yii::t('YupeModule.yupe', 'Вы уверены, что хотите обновить файл конфигурации?'),
-                            'confirm_deactivate'       => Yii::t('YupeModule.yupe', 'Вы уверены, что хотите отключить модуль?'),
-                            'confirm_activate'         => Yii::t('YupeModule.yupe', 'Вы уверены, что хотите включить модуль?'),
-                            'confirm_uninstall'        => Yii::t('YupeModule.yupe', 'Вы уверены, что хотите удалить модуль?') . '<br />' . Yii::t('YupeModule.yupe', 'Все данные модуля буду удалены.'),
-                            'confirm_install'          => Yii::t('YupeModule.yupe', 'Вы уверены, что хотите установить модуль?') . '<br />' . Yii::t('YupeModule.yupe', 'Будут добавлены новые данные для работы модуля.'),
-                            'confirm_cacheFlush'       => Yii::t('YupeModule.yupe', 'Вы уверены, что хотите удалить весь кеш?'),
-                            'confirm_assetsFlush'      => Yii::t('YupeModule.yupe', 'Вы уверены, что хотите удалить все ресурсы (assets)?'),
-                            'confirm_cacheAssetsFlush' => Yii::t('YupeModule.yupe', 'Вы уверены, что хотите удалить весь кеш и все ресурсы (assets)?') . '<br />' . Yii::t('YupeModule.yupe', 'Стоит учесть, что это трудоёмкий процесс и может занять некоторое время!'),
-                            'unknown'                  => Yii::t('YupeModule.yupe', 'Выбрано неизвестное действие!'),
+                            'confirm_update'           => Yii::t('YupeModule.yupe', 'Are you sure you want to update configuration file?'),
+                            'confirm_deactivate'       => Yii::t('YupeModule.yupe', 'Are you sure you want to disable module?'),
+                            'confirm_activate'         => Yii::t('YupeModule.yupe', 'Are you sure you want to enable module?'),
+                            'confirm_uninstall'        => Yii::t('YupeModule.yupe', 'Are you sure you want to delete module?') . '<br />' . Yii::t('YupeModule.yupe', 'All module parameters will be deleted'),
+                            'confirm_install'          => Yii::t('YupeModule.yupe', 'Are you sure you want to install module?') . '<br />' . Yii::t('YupeModule.yupe', 'New module parameters will be added'),
+                            'confirm_cacheFlush'       => Yii::t('YupeModule.yupe', 'Are you sure you want to clean cache?'),
+                            'confirm_assetsFlush'      => Yii::t('YupeModule.yupe', 'Are you sure you want to clean assets?'),
+                            'confirm_cacheAssetsFlush' => Yii::t('YupeModule.yupe', 'Are you sure you want to clean cache and assets?') . '<br />' . Yii::t('YupeModule.yupe', 'This process can take much time!'),
+                            'unknown'                  => Yii::t('YupeModule.yupe', 'Unknown action was selected!'),
                         )
                     )
                 ), CClientScript::POS_BEGIN

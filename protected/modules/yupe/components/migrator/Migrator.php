@@ -58,7 +58,7 @@ class Migrator extends CApplicationComponent
             Yii::log(
                 Yii::t(
                     'YupeModule.yupe',
-                    'Обновляем до последней версии базы модуль {module}',
+                    'Updating DB of {module}  to latest version',
                     array('{module}' => $module)
                 )
             );
@@ -71,7 +71,7 @@ class Migrator extends CApplicationComponent
             Yii::log(
                 Yii::t(
                     'YupeModule.yupe',
-                    'Для модуля {module} новых миграций не найдено',
+                    'There is no new migrations for {module}',
                     array('{module}' => $module)
                 )
             );
@@ -89,7 +89,7 @@ class Migrator extends CApplicationComponent
      **/
     public function checkForBadMigration($module, $class = false)
     {
-        echo Yii::t('YupeModule.yupe', "Проверяем на наличие незавершённых миграций.") . '<br />';
+        echo Yii::t('YupeModule.yupe', "Checking for pending migrations") . '<br />';
 
         $db = $this->getDbConnection();
 
@@ -117,7 +117,7 @@ class Migrator extends CApplicationComponent
                     try {
                         echo Yii::t(
                             'YupeModule.yupe',
-                            'Откат миграции {migration} для модуля {module}.',
+                            'Downgrade {migration} for {module}.',
                             array(
                                 '{module}' => $module,
                                 '{migration}' => $migration['version'],
@@ -126,7 +126,7 @@ class Migrator extends CApplicationComponent
                         Yii::log(
                             Yii::t(
                                 'YupeModule.yupe',
-                                'Откат миграции {migration} для модуля {module}.',
+                                'Downgrade {migration} for {module}.',
                                 array(
                                     '{module}' => $module,
                                     '{migration}' => $migration['version'],
@@ -145,7 +145,7 @@ class Migrator extends CApplicationComponent
                             Yii::log(
                                 Yii::t(
                                     'YupeModule.yupe',
-                                    'Не удалось выполнить откат миграции {migration} для модуля {module}.',
+                                    'Can\'t downgrade migrations {migration} for {module}.',
                                     array(
                                         '{module}' => $module,
                                         '{migration}' => $migration['version'],
@@ -154,7 +154,7 @@ class Migrator extends CApplicationComponent
                             );
                             echo Yii::t(
                                 'YupeModule.yupe',
-                                'Не удалось выполнить откат миграции {migration} для модуля {module}.',
+                                'Can\'t downgrade migrations {migration} for {module}.',
                                 array(
                                     '{module}' => $module,
                                     '{migration}' => $migration['version'],
@@ -166,7 +166,7 @@ class Migrator extends CApplicationComponent
                         Yii::log(
                             Yii::t(
                                 'YupeModule.yupe',
-                                'Произошла ошибка: {error}',
+                                'There is an error: {error}',
                                 array(
                                     '{error}' => $e
                                 )
@@ -174,7 +174,7 @@ class Migrator extends CApplicationComponent
                         );
                         echo Yii::t(
                             'YupeModule.yupe',
-                            'Произошла ошибка: {error}',
+                            'There is an error: {error}',
                             array(
                                 '{error}' => $e
                             )
@@ -186,13 +186,13 @@ class Migrator extends CApplicationComponent
             Yii::log(
                 Yii::t(
                     'YupeModule.yupe',
-                    'Для модуля {module} не требуется откат миграции.',
+                    'No need to downgrade migrations for {module}',
                     array('{module}' => $module)
                 )
             );
             echo Yii::t(
                 'YupeModule.yupe',
-                'Для модуля {module} не требуется откат миграции.',
+                'No need to downgrade migrations for {module}',
                 array('{module}' => $module)
             ) . '<br />';
         }
@@ -214,7 +214,7 @@ class Migrator extends CApplicationComponent
         ob_start();
         ob_implicit_flush(false);
 
-        echo Yii::t('YupeModule.yupe', "Применяем миграцию {class}", array('{class}' => $class));
+        echo Yii::t('YupeModule.yupe', "Checking migration {class}", array('{class}' => $class));
         Yii::app()->cache->clear('getMigrationHistory');
 
         $start = microtime(true);
@@ -245,7 +245,7 @@ class Migrator extends CApplicationComponent
             Yii::log(
                 Yii::t(
                     'YupeModule.yupe',
-                    "Миграция {class} применена за {s} сек.",
+                    "Migration {class} applied for {s} seconds.",
                     array('{class}' => $class, '{s}' => sprintf("%.3f", $time))
                 )
             );
@@ -254,14 +254,14 @@ class Migrator extends CApplicationComponent
             Yii::log(
                 Yii::t(
                     'YupeModule.yupe',
-                    "Ошибка применения миграции {class} ({s} сек.)",
+                    "Error when running {class} ({s} seconds.)",
                     array('{class}' => $class, '{s}' => sprintf("%.3f", $time))
                 )
             );
             throw new CException(
                 Yii::t(
                     'YupeModule.yupe',
-                    'Во время установки возникла ошибка: {error}',
+                    'Error was found when installing: {error}',
                     array(
                         '{error}' => $msg
                     )
@@ -281,7 +281,7 @@ class Migrator extends CApplicationComponent
      **/
     public function migrateDown($module, $class)
     {
-        Yii::log(Yii::t('YupeModule.yupe', "Отменяем миграцию {class}", array('{class}' => $class)));
+        Yii::log(Yii::t('YupeModule.yupe', "Downgrade migration {class}", array('{class}' => $class)));
         $db = $this->getDbConnection();
         $start = microtime(true);
         $migration = $this->instantiateMigration($module, $class);
@@ -308,7 +308,7 @@ class Migrator extends CApplicationComponent
             Yii::log(
                 Yii::t(
                     'YupeModule.yupe',
-                    "Миграция {class} отменена за {s} сек.",
+                    "Migration {class} downgrated for {s} seconds.",
                     array('{class}' => $class, '{s}' => sprintf("%.3f", $time))
                 )
             );
@@ -318,14 +318,14 @@ class Migrator extends CApplicationComponent
             Yii::log(
                 Yii::t(
                     'YupeModule.yupe',
-                    "Ошибка отмены миграции {class} ({s} сек.)",
+                    "Error when downgrading {class} ({s} сек.)",
                     array('{class}' => $class, '{s}' => sprintf("%.3f", $time))
                 )
             );
             throw new CException(
                 Yii::t(
                     'YupeModule.yupe',
-                    'Во время установки возникла ошибка: {error}',
+                    'Error was found when installing: {error}',
                     array(
                         '{error}' => $msg
                     )
@@ -366,7 +366,7 @@ class Migrator extends CApplicationComponent
             }
         }
         throw new CException(
-            Yii::t('YupeModule.yupe', 'Неверно указан параметр connectionID')
+            Yii::t('YupeModule.yupe', 'Parameter connectionID is wrong')
         );
     }
 
@@ -421,7 +421,7 @@ class Migrator extends CApplicationComponent
         Yii::log(
             Yii::t(
                 'YupeModule.yupe',
-                'Создаем таблицу для хранения версий миграций {table}',
+                'Creating table for store migration versions {table}',
                 array('{table}' => $this->migrationTable)
             )
         );

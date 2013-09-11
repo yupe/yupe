@@ -80,7 +80,7 @@ class YMainController extends Controller
                     'p', array(
                         'class' => 'alert alert-error'
                     ), Yii::t(
-                        'YupeModule.yupe', 'Виджет "{widget}" не найден! Подключите модуль "{module}" !', array(
+                        'YupeModule.yupe', 'Widget "{widget}" was not found! Please enable "{module}" module!', array(
                             '{widget}' => $className,
                             '{module}' => $modulePath[2]
                         )

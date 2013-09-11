@@ -210,14 +210,14 @@ class YCustomGridView extends TbExtendedGridView
     {
         $downUrlImage = CHtml::image(
             Yii::app()->assetManager->publish(Yii::getPathOfAlias('zii.widgets.assets.gridview') . '/down.gif'),
-            Yii::t('YupeModule.yupe', 'Опустить ниже'),
-            array('title' => Yii::t('YupeModule.yupe', 'Опустить ниже'))
+            Yii::t('YupeModule.yupe', 'Turn down'),
+            array('title' => Yii::t('YupeModule.yupe', 'Turn down'))
         );
 
         $upUrlImage = CHtml::image(
             Yii::app()->assetManager->publish(Yii::getPathOfAlias('zii.widgets.assets.gridview') . '/up.gif'),
-            Yii::t('YupeModule.yupe', 'Поднять выше'),
-            array('title' => Yii::t('YupeModule.yupe', 'Поднять выше'))
+            Yii::t('YupeModule.yupe', 'Turn up'),
+            array('title' => Yii::t('YupeModule.yupe', 'Turn up'))
         );
         $urlUp = Yii::app()->controller->createUrl(
             "sort", array(
@@ -318,7 +318,7 @@ class YCustomGridView extends TbExtendedGridView
             $headlinePosition = ' style="text-align: ' . $this->headlinePosition . ';" ';
         echo '<div class="headline" ' . $headlinePosition .' >';
         /* Текстовка: */
-        echo Yii::t('YupeModule.yupe', 'Отображать по:') . '<br />';
+        echo Yii::t('YupeModule.yupe', 'Sort by:') . '<br />';
 
         /* Отрисовываем переключатели PageSize'a: */
         $this->widget(
@@ -389,7 +389,7 @@ JS
                             alert(data.data);
                         }
                     },
-                    error: function(data){alert("'.Yii::t('YupeModule.yupe','Произошла ошибка!').'")}
+                    error: function(data){alert("'.Yii::t('YupeModule.yupe','Error!').'")}
                 });
             }', CClientScript::POS_BEGIN
         );
