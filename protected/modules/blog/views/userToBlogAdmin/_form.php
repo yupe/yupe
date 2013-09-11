@@ -22,9 +22,9 @@ $form = $this->beginWidget(
 ?>
 
     <div class="alert alert-info">
-        <?php echo Yii::t('BlogModule.blog', 'Поля, отмеченные'); ?>
+        <?php echo Yii::t('BlogModule.blog', 'Fields, with'); ?>
         <span class="required">*</span> 
-        <?php echo Yii::t('BlogModule.blog', 'обязательны.'); ?>
+        <?php echo Yii::t('BlogModule.blog', 'are required.'); ?>
     </div>
 
     <?php echo $form->errorSummary($model); ?>
@@ -51,7 +51,7 @@ $form = $this->beginWidget(
         'bootstrap.widgets.TbButton', array(
             'buttonType' => 'submit',
             'type'       => 'primary',
-            'label'      => $model->isNewRecord ? Yii::t('BlogModule.blog', 'Добавить участника и продолжить') : Yii::t('BlogModule.blog', 'Сохранить участника и продолжить'),
+            'label'      => $model->isNewRecord ? Yii::t('BlogModule.blog', 'Add member and continue') : Yii::t('BlogModule.blog', 'Save member and continue'),
         )
     ); ?>
     <?php
@@ -59,7 +59,7 @@ $form = $this->beginWidget(
         'bootstrap.widgets.TbButton', array(
         'buttonType' => 'submit',
         'htmlOptions'=> array('name' => 'submit-type', 'value' => 'index'),
-        'label'      => $model->isNewRecord ? Yii::t('BlogModule.blog', 'Добавить участника и закрыть') : Yii::t('BlogModule.blog', 'Сохранить участника и закрыть'),
+        'label'      => $model->isNewRecord ? Yii::t('BlogModule.blog', 'Add member and close') : Yii::t('BlogModule.blog', 'Save member and close'),
         )
     ); ?>
 
