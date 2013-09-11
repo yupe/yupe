@@ -26,7 +26,7 @@ $this->breadcrumbs = array(
         <?php echo Yii::t('YupeModule.yupe', 'enabled'); ?>
         <small class="label label-info"><?php echo $enableCount; ?></small>
         <?php echo Yii::t('YupeModule.yupe', 'module|module|modules', $enableCount); ?>,
-        <?php echo Yii::t('YupeModule.yupe', 'enabled|disabled',$yupeCount - $enableCount); ?>
+        <?php echo Yii::t('YupeModule.yupe', 'disabled|disabled',$yupeCount - $enableCount); ?>
         <small class="label label-info"><?php echo $yupeCount - $enableCount; ?></small>
         <?php echo Yii::t('YupeModule.yupe', 'module|module|modules', $yupeCount - $enableCount); ?>
         <br/>
