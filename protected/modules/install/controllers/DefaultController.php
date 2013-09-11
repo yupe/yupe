@@ -147,7 +147,7 @@ class DefaultController extends YBackController
                 $this->_checkWritable($webRoot . '/assets/'),
                 Yii::t(
                     'InstallModule.install',
-                    'You need to set the write permissions for the directory {folder}assets',
+                    'You need to set write permissions for the directory {folder}assets',
                     array(
                         '{folder}' => $webRoot . $dp,
                     )
@@ -158,7 +158,7 @@ class DefaultController extends YBackController
                 $this->_checkWritable($app . '/runtime/'),
                 Yii::t(
                     'InstallModule.install',
-                    'You need to set the write permissions for the directory {folder}',
+                    'You need to set write permissions for the directory {folder}',
                     array(
                         '{folder}' => $app . $dp . 'runtime',
                     )
@@ -169,7 +169,7 @@ class DefaultController extends YBackController
                 $this->_checkWritable($webRoot . '/uploads/'),
                 Yii::t(
                     'InstallModule.install',
-                    'You need to set the write permissions for the directory {folder}',
+                    'You need to set write permissions for the directory {folder}',
                     array(
                         '{folder}' => $webRoot . $dp . 'uploads',
                     )
@@ -180,7 +180,7 @@ class DefaultController extends YBackController
                 $this->_checkWritable($app . '/config/modules/'),
                 Yii::t(
                     'InstallModule.install',
-                    'You need to set the write permissions for the directory {folder}',
+                    'You need to set write permissions for the directory {folder}',
                     array(
                         '{folder}' => $app . $dp . 'config' . $dp . 'modules',
                     )
@@ -191,7 +191,7 @@ class DefaultController extends YBackController
                 $this->_checkWritable($app . '/config/modulesBack/'),
                 Yii::t(
                     'InstallModule.install',
-                    'You need to set the write permissions for the directory {folder}',
+                    'You need to set write permissions for the directory {folder}',
                     array(
                         '{folder}' => $app . $dp . 'config' . $dp . 'modulesBack',
                     )
@@ -205,7 +205,7 @@ class DefaultController extends YBackController
                 ),
                 Yii::t(
                     'InstallModule.install',
-                    'You must copy {from file} to {to file} and give him permission to write',
+                    'You should copy {from file} to {to file} and give it permission to write',
                     array(
                         '{from file}' => $app . $dp . 'config' . $dp . 'db.back.php',
                         '{to file}'   => $app . $dp . 'config' . $dp . 'db.php'
@@ -215,7 +215,7 @@ class DefaultController extends YBackController
         );
 
         $result = true;
-        $commentOk = Yii::t('InstallModule.install', 'All is well!');
+        $commentOk = Yii::t('InstallModule.install', 'Everything is fine!');
 
         foreach ($requirements as $i => $requirement) {
             (!$requirement[1])
@@ -321,28 +321,28 @@ class DefaultController extends YBackController
                 $message,
             ),
             array(
-                Yii::t('InstallModule.install', 'Extension Reflection'),
+                Yii::t('InstallModule.install', 'Reflection extension'),
                 true,
                 class_exists('Reflection', false),
                 '<a href="http://www.yiiframework.com">Yii Framework</a>',
                 '',
             ),
             array(
-                Yii::t('InstallModule.install', 'Extension PCRE'),
+                Yii::t('InstallModule.install', 'PCRE extension'),
                 true,
                 extension_loaded("pcre"),
                 '<a href="http://www.yiiframework.com">Yii Framework</a>',
                 '',
             ),
             array(
-                Yii::t('InstallModule.install', 'Extension SPL'),
+                Yii::t('InstallModule.install', 'SPL extension'),
                 true,
                 extension_loaded("SPL"),
                 '<a href="http://www.yiiframework.com">Yii Framework</a>',
                 '',
             ),
             array(
-                Yii::t('InstallModule.install', 'Extension DOM'),
+                Yii::t('InstallModule.install', 'DOM extension'),
                 true,
                 extension_loaded("dom"),
                 '<a href="http://www.yiiframework.com/doc/api/CHtmlPurifier">CHtmlPurifier</a>,
@@ -350,7 +350,7 @@ class DefaultController extends YBackController
                 '',
             ),
             array(
-                Yii::t('InstallModule.install', 'Extension PDO'),
+                Yii::t('InstallModule.install', 'PDO extension'),
                 true,
                 extension_loaded('pdo'),
                 Yii::t(
@@ -360,7 +360,7 @@ class DefaultController extends YBackController
                 '',
             ),
             array(
-                Yii::t('InstallModule.install', 'Extension PDO MySQL'),
+                Yii::t('InstallModule.install', 'PDO MySQL extension'),
                 false,
                 extension_loaded('pdo_mysql'),
                 Yii::t(
@@ -370,7 +370,7 @@ class DefaultController extends YBackController
                 Yii::t('InstallModule.install', 'Required for MySQL DB.'),
             ),
             array(
-                Yii::t('InstallModule.install', 'Extension PDO PostgreSQL'),
+                Yii::t('InstallModule.install', 'PDO PostgreSQL extension'),
                 false,
                 extension_loaded('pdo_pgsql'),
                 Yii::t(
@@ -380,7 +380,7 @@ class DefaultController extends YBackController
                 Yii::t('InstallModule.install', 'Required for PostgreSQL DB.')
             ),
             array(
-                Yii::t('InstallModule.install', 'Extension PDO Oracle'),
+                Yii::t('InstallModule.install', 'PDO Oracle extension'),
                 false,
                 extension_loaded('pdo_oci'),
                 Yii::t(
@@ -390,17 +390,17 @@ class DefaultController extends YBackController
                 Yii::t('InstallModule.install', 'Required for Oracle DB.')
             ),
             array(
-                Yii::t('InstallModule.install', 'Extension PDO MSSQL (pdo_mssql)'),
+                Yii::t('InstallModule.install', 'PDO MSSQL extension (pdo_mssql)'),
                 false,
                 extension_loaded('pdo_mssql'),
                 Yii::t(
                     'InstallModule.install',
                     'Все <a href="http://www.yiiframework.com/doc/api/#system.db">DB-классы</a>'
                 ),
-                Yii::t('InstallModule.install', 'Required to work with MSSQL database when work on MS Windows.')
+                Yii::t('InstallModule.install', 'Required to work with MSSQL database on MS Windows.')
             ),
             array(
-                Yii::t('InstallModule.install', 'Extension PDO MSSQL (pdo_dblib)'),
+                Yii::t('InstallModule.install', 'PDO MSSQL extension (pdo_dblib)'),
                 false,
                 extension_loaded('pdo_dblib'),
                 Yii::t(
@@ -415,7 +415,7 @@ class DefaultController extends YBackController
             array(
                 Yii::t(
                     'InstallModule.install',
-                    'Extension PDO MSSQL (<a href="http://sqlsrvphp.codeplex.com/">pdo_sqlsrv</a>)'
+                    'PDO MSSQL extension (<a href="http://sqlsrvphp.codeplex.com/">pdo_sqlsrv</a>)'
                 ),
                 false,
                 extension_loaded('pdo_sqlsrv'),
@@ -429,7 +429,7 @@ class DefaultController extends YBackController
                 )
             ),
             array(
-                Yii::t('InstallModule.install', 'Extension Memcache'),
+                Yii::t('InstallModule.install', 'Memcache extension'),
                 false,
                 extension_loaded("memcache") || extension_loaded("memcached"),
                 '<a href="http://www.yiiframework.com/doc/api/CMemCache">CMemCache</a>',
@@ -443,7 +443,7 @@ class DefaultController extends YBackController
                 ) : '',
             ),
             array(
-                Yii::t('InstallModule.install', 'Extension APC'),
+                Yii::t('InstallModule.install', 'APC extension'),
                 false,
                 extension_loaded("apc"),
                 '<a href="http://www.yiiframework.com/doc/api/CApcCache">CApcCache</a>',
@@ -457,14 +457,14 @@ class DefaultController extends YBackController
                 ),
             ),
             array(
-                Yii::t('InstallModule.install', 'Extension Mcrypt'),
+                Yii::t('InstallModule.install', 'Mcrypt extension'),
                 false,
                 extension_loaded("mcrypt"),
                 '<a href="http://www.yiiframework.com/doc/api/CSecurityManager">CSecurityManager</a>',
                 Yii::t('InstallModule.install', 'Required for encryption and decryption methods.'),
             ),
             array(
-                Yii::t('InstallModule.install', 'Extension SOAP'),
+                Yii::t('InstallModule.install', 'SOAP extension'),
                 false,
                 extension_loaded("soap"),
                 '<a href="http://www.yiiframework.com/doc/api/CWebService">CWebService</a>,
@@ -472,7 +472,7 @@ class DefaultController extends YBackController
                 Yii::t('InstallModule.install', '<b>Optional</b>.'),
             ),
             array(
-                Yii::t('InstallModule.install', 'Extension mbstring'),
+                Yii::t('InstallModule.install', 'mbstring extension'),
                 true,
                 extension_loaded("mbstring"),
                 '<a href="http://php.net/manual/ru/ref.mbstring.php">' . Yii::t('InstallModule.install', 'Многобайтные строки') . '</a>',
@@ -481,7 +481,7 @@ class DefaultController extends YBackController
             array(
                 Yii::t(
                     'InstallModule.install',
-                    'Extension GD {br} with support for FreeType {br} or ImageMagick {br} supporting PNG',
+                    'GD extension {br} with support for FreeType {br} or ImageMagick {br} supporting PNG',
                     array(
                         '{br}' => '<br />',
                     )
@@ -492,7 +492,7 @@ class DefaultController extends YBackController
                 $message
             ),
             array(
-                Yii::t('InstallModule.install', 'Extension Ctype'),
+                Yii::t('InstallModule.install', 'Ctype extension'),
                 true,
                 extension_loaded("ctype"),
                 '<a href="http://www.yiiframework.com/doc/api/CDateFormatter">CDateFormatter</a>,
@@ -508,7 +508,7 @@ class DefaultController extends YBackController
                 '<a href="http://php.net/manual/ru/ini.sect.safe-mode.php">' .
                 Yii::t('InstallModule.install', 'Security and Safe Mode') .
                 '</a>',
-                Yii::t('InstallModule.install', 'You must disable the directive safe_mode.'),
+                Yii::t('InstallModule.install', 'You should disable the directive safe_mode.'),
             ),
         );
 
@@ -562,7 +562,7 @@ class DefaultController extends YBackController
         if (!empty($missing)) {
             return Yii::t(
                 'InstallModule.install',
-                'The variable $_SERVER not contain {vars}.',
+                'The variable $_SERVER does not contain {vars}.',
                 array('{vars}' => implode(', ', $missing))
             );
         }
@@ -889,7 +889,7 @@ class DefaultController extends YBackController
                             YFlashMessages::ERROR_MESSAGE,
                             Yii::t(
                                 'InstallModule.install',
-                                'An error occurred installing the modules - an error copying the file to a folder modulesBack!'
+                                'An error occurred during the installation of modules - copying the file to a folder modulesBack with error!'
                             )
                         );
                         break;
@@ -952,7 +952,7 @@ class DefaultController extends YBackController
         if (empty($name) || !isset($modules[$name])) {
             throw new CHttpException(404, Yii::t(
                 'InstallModule.install',
-                'The module {name} can not be found!',
+                'The module {name} not found!',
                 array('{name}' => $name)
             ));
         }
