@@ -30,9 +30,9 @@ $form = $this->beginWidget(
 
 ?>
 <div class="alert alert-info">
-    <?php echo Yii::t('BlogModule.blog', 'Поля, отмеченные'); ?>
+    <?php echo Yii::t('BlogModule.blog', 'Fields, with'); ?>
     <span class="required">*</span>
-    <?php echo Yii::t('BlogModule.blog', 'обязательны.'); ?>
+    <?php echo Yii::t('BlogModule.blog', 'are required.'); ?>
 </div>
 
 <?php echo $form->errorSummary($model); ?>
@@ -80,11 +80,11 @@ $form = $this->beginWidget(
 </div>
 
 <div class="row-fluid control-group <?php echo $model->hasErrors('blog_id') ? 'error' : ''; ?>">
-    <?php echo $form->dropDownListRow($model, 'blog_id', CHtml::listData(Blog::model()->findAll(), 'id', 'name'), array('empty' => Yii::t('BlogModule.blog', '--выберите блог--'), 'class' => 'span7 popover-help', 'data-original-title' => $model->getAttributeLabel('blog_id'), 'data-content' => $model->getAttributeDescription('blog_id'))); ?>
+    <?php echo $form->dropDownListRow($model, 'blog_id', CHtml::listData(Blog::model()->findAll(), 'id', 'name'), array('empty' => Yii::t('BlogModule.blog', '--choose blog--'), 'class' => 'span7 popover-help', 'data-original-title' => $model->getAttributeLabel('blog_id'), 'data-content' => $model->getAttributeDescription('blog_id'))); ?>
 </div>
 
 <div class="row-fluid control-group <?php echo $model->hasErrors('category_id') ? 'error' : ''; ?>">
-    <?php echo $form->dropDownListRow($model, 'category_id', CHtml::listData($this->module->getCategoryListForPost(), 'id', 'name'), array('empty' => Yii::t('BlogModule.blog', '--выберите--'), 'class' => 'popover-help span7', 'maxlength' => 11, 'data-original-title' => $model->getAttributeLabel('category_id'), 'data-content' => $model->getAttributeDescription('category_id'))); ?>
+    <?php echo $form->dropDownListRow($model, 'category_id', CHtml::listData($this->module->getCategoryListForPost(), 'id', 'name'), array('empty' => Yii::t('BlogModule.blog', '--choose--'), 'class' => 'popover-help span7', 'maxlength' => 11, 'data-original-title' => $model->getAttributeLabel('category_id'), 'data-content' => $model->getAttributeDescription('category_id'))); ?>
 </div>
 
 <div class="row-fluid control-group <?php echo $model->hasErrors('title') ? 'error' : ''; ?>">
@@ -164,7 +164,7 @@ $form = $this->beginWidget(
                 'name' => 'tags',
                 'options' => array(
                     'tags' => array_values(CHtml::listData(Tag::model()->findAll(), 'id', 'name')),
-                    'placeholder' => Yii::t('BlogModule.blog', 'теги'),
+                    'placeholder' => Yii::t('BlogModule.blog', 'tags'),
                     'width' => '40%',
                     'tokenSeparators' => array(',', ' ')
                 )
@@ -176,7 +176,7 @@ $form = $this->beginWidget(
 <div class="accordion-group">
     <div class="accordion-heading">
         <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion2" href="#collapseOne">
-            <?php echo Yii::t('BlogModule.blog', 'Данные для поисковой оптимизации'); ?>
+            <?php echo Yii::t('BlogModule.blog', 'Data for SEO'); ?>
         </a>
     </div>
     <div id="collapseOne" class="accordion-body collapse">
@@ -199,7 +199,7 @@ $this->widget(
     'bootstrap.widgets.TbButton', array(
         'buttonType' => 'submit',
         'type' => 'primary',
-        'label' => $model->isNewRecord ? Yii::t('BlogModule.blog', 'Добавить запись и продолжить') : Yii::t('BlogModule.blog', 'Сохранить запись и продолжить'),
+        'label' => $model->isNewRecord ? Yii::t('BlogModule.blog', 'Create post and continue') : Yii::t('BlogModule.blog', 'Save post and continue'),
     )
 ); ?>
 <?php
@@ -207,7 +207,7 @@ $this->widget(
     'bootstrap.widgets.TbButton', array(
         'buttonType' => 'submit',
         'htmlOptions' => array('name' => 'submit-type', 'value' => 'index'),
-        'label' => $model->isNewRecord ? Yii::t('BlogModule.blog', 'Добавить запись и закрыть') : Yii::t('BlogModule.blog', 'Сохранить запись и закрыть'),
+        'label' => $model->isNewRecord ? Yii::t('BlogModule.blog', 'Create post and close') : Yii::t('BlogModule.blog', 'Save post and close'),
     )
 ); ?>
 

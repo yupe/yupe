@@ -58,7 +58,7 @@ $form = $this->beginWidget(
             'type'        => 'primary',
             'encodeLabel' => false,
             'buttonType'  => 'submit',
-            'label'       => '<i class="icon-search icon-white">&nbsp;</i> ' . Yii::t('BlogModule.blog', 'Искать участника'),
+            'label'       => '<i class="icon-search icon-white">&nbsp;</i> ' . Yii::t('BlogModule.blog', 'Find member'),
         )
     ); ?>
 
