@@ -135,7 +135,7 @@ $this->renderPartial('_search', array('model' => $model));
                 'filter' => Post::model()->getCommentStatusList()
             ),
             array(
-                'header' => Yii::t('BlogModule.blog','Теги'),
+                'header' => Yii::t('BlogModule.blog','Tags'),
                 'value'  => 'implode(", ", $data->getTags())'
             ),
             array(

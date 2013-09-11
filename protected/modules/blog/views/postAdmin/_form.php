@@ -164,7 +164,7 @@ $form = $this->beginWidget(
                 'name' => 'tags',
                 'options' => array(
                     'tags' => array_values(CHtml::listData(Tag::model()->findAll(), 'id', 'name')),
-                    'placeholder' => Yii::t('BlogModule.blog', 'теги'),
+                    'placeholder' => Yii::t('BlogModule.blog', 'tags'),
                     'width' => '40%',
                     'tokenSeparators' => array(',', ' ')
                 )

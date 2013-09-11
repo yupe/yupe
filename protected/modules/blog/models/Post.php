@@ -218,7 +218,7 @@ class Post extends YModel
             'access_type'      => Yii::t('BlogModule.blog', 'Post access<br /><br /><span class="label label-success">public</span> &ndash; All users can read this post<br /><br /><span class="label label-warning">private</span> &ndash; only you as author can read this post'),
             'keywords'         => Yii::t('BlogModule.blog', 'SEO keywords  separated by comma. For example if your post about rest on the sea &ndash; you can choose words like: <pre>sea, travel, sun, etc.</pre>'),
             'description'      => Yii::t('BlogModule.blog', 'Short post description. About one or two sentences. It is main thought of your post. For example: <pre>The story of how we almost was eaten by sharks.</pre>This text very frequently falls in <a href="http://help.yandex.ru/webmaster/?id=111131">snippet</a>of search engines.'),
-            'tags'             => Yii::t('BlogModule.blog', 'Ключевые слова к которым требуется отнести данную запись, служат для категоризии записей, например:<br /><span class="label">море</span>'),
+            'tags'             => Yii::t('BlogModule.blog', 'Keywords for post categorization, for example:<br /><span class="label">sea</span>'),
         );
     }
 

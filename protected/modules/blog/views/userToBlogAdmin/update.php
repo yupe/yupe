@@ -47,7 +47,7 @@ $this->menu = array(
 ?>
 <div class="page-header">
     <h1>
-        <?php echo Yii::t('menu', 'Edit member');?><br />
+        <?php echo Yii::t('BlogModule.blog', 'Edit member');?><br />
         <small>&laquo;<?php echo $model->user->nick_name; ?>&raquo;</small>
     </h1>
 </div>

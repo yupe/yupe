@@ -91,10 +91,10 @@ class BlogModule extends YWebModule
             array('label' => Yii::t('BlogModule.blog', 'Blogs')),
             array('icon' => 'list-alt', 'label' => Yii::t('BlogModule.blog', 'Blogs list'), 'url' => array('/blog/blogAdmin/index')),
             array('icon' => 'plus-sign', 'label' => Yii::t('BlogModule.blog', 'New blog'), 'url' => array('/blog/blogAdmin/create')),
-            array('label' => Yii::t('BlogModule.blog', 'Записи')),
+            array('label' => Yii::t('BlogModule.blog', 'Posts')),
             array('icon' => 'list-alt', 'label' => Yii::t('BlogModule.blog', 'Posts list'), 'url' => array('/blog/postAdmin/index')),
             array('icon' => 'plus-sign', 'label' => Yii::t('BlogModule.blog', 'New post'), 'url' => array('/blog/postAdmin/create')),
-            array('label' => Yii::t('BlogModule.blog', 'Участники')),
+            array('label' => Yii::t('BlogModule.blog', 'Members')),
             array('icon' => 'list-alt', 'label' => Yii::t('BlogModule.blog', 'Members list'), 'url' => array('/blog/userToBlogAdmin/index')),
             array('icon' => 'plus-sign', 'label' => Yii::t('BlogModule.blog', 'New member'), 'url' => array('/blog/userToBlogAdmin/create')),
         );

@@ -14,7 +14,7 @@
         Yii::t('BlogModule.blog', 'Administration'),
     );
 
-    $this->pageTitle = Yii::t('BlogModule.blog', 'BLogs - administration');
+    $this->pageTitle = Yii::t('BlogModule.blog', 'Blogs - administration');
 
     $this->menu = array(
         array('label' => Yii::t('BlogModule.blog', 'Blogs'), 'items' => array(

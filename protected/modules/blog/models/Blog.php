@@ -64,7 +64,7 @@ class Blog extends YModel
             array('slug', 'length', 'max' => 150),
             array('lang', 'length', 'max' => 2),
             array('create_user_id, update_user_id, create_date, update_date, status', 'length', 'max' => 11),
-            array('slug', 'YSLugValidator', 'message' => Yii::t('BlogModule.blog', 'Запрещенные символы в поле {attribute}')),
+            array('slug', 'YSLugValidator', 'message' => Yii::t('BlogModule.blog', 'Illegal characters in {attribute}')),
             array('type', 'in', 'range' => array_keys($this->typeList)),
             array('status', 'in', 'range' => array_keys($this->statusList)),
             array('name, slug, description', 'filter', 'filter' => array($obj = new CHtmlPurifier(), 'purify')),
