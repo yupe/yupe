@@ -668,21 +668,22 @@ class DefaultController extends YBackController
                     Yii::log($e->getTraceAsString(), CLogger::LEVEL_ERROR);
                 }
 
-
-                try {
-                    $sql = 'CREATE DATABASE ' . ($connection->schema instanceof CMysqlSchema ? ' `' . $form->dbName . '` CHARACTER SET=utf8' : $form->dbName);
-                    $connection->createCommand($sql)->execute();
-                    $connectionString .= 'dbname=' . $form->dbName;
-                } catch (Exception $e) {
-                    $form->addError(
-                        '',
-                        Yii::t(
-                            'InstallModule.install',
-                            'Не удалось создать БД!'
-                        ) . '<br />' . $connectionString . '<br />' . $e->getMessage()
-                    );
-                    Yii::log($e->__toString(), CLogger::LEVEL_ERROR);
-                    Yii::log($e->getTraceAsString(), CLogger::LEVEL_ERROR);
+                if ($form->createDb) {
+                    try {
+                        $sql = 'CREATE DATABASE ' . ($connection->schema instanceof CMysqlSchema ? ' `' . $form->dbName . '` CHARACTER SET=utf8' : $form->dbName);
+                        $connection->createCommand($sql)->execute();
+                        $connectionString .= 'dbname=' . $form->dbName;
+                    } catch (Exception $e) {
+                        $form->addError(
+                            '',
+                            Yii::t(
+                                'InstallModule.install',
+                                'Не удалось создать БД!'
+                            ) . '<br />' . $connectionString . '<br />' . $e->getMessage()
+                        );
+                        Yii::log($e->__toString(), CLogger::LEVEL_ERROR);
+                        Yii::log($e->getTraceAsString(), CLogger::LEVEL_ERROR);
+                    }
                 }
 
 
