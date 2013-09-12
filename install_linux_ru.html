@@ -1,0 +1,233 @@
+<style>
+*,
+*:before,
+*:after {
+  -moz-box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box; }
+
+html,
+body {
+  font-size: 100%; }
+
+body {
+  background: white;
+  color: #222222;
+  padding: 0;
+  margin: 0;
+  font-family: "Helvetica Neue", "Helvetica", Helvetica, Arial, sans-serif;
+  font-weight: normal;
+  font-style: normal;
+  line-height: 1;
+  position: relative;
+  cursor: default; }
+
+    /* Typography resets */
+div,
+dl,
+dt,
+dd,
+ul,
+ol,
+li,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+pre,
+form,
+p,
+blockquote,
+th,
+td {
+  margin: 0;
+  padding: 0;
+  direction: ltr; }
+
+/* Default Link Styles */
+a {
+  color: #2ba6cb;
+  text-decoration: none;
+  line-height: inherit; }
+  a:hover, a:focus {
+    color: #2795b6; }
+  a img {
+    border: none; }
+
+/* Default paragraph styles */
+p {
+  font-family: inherit;
+  font-weight: normal;
+  font-size: 1em;
+  line-height: 1.6;
+  margin-bottom: 1.25em;
+  text-rendering: optimizeLegibility; }
+  p aside {
+    font-size: 0.875em;
+    line-height: 1.35;
+    font-style: italic; }
+
+/* Default header styles */
+h1, h2, h3, h4, h5, h6, dt {
+  font-family: "Helvetica Neue", "Helvetica", Helvetica, Arial, sans-serif;
+  font-weight: bold;
+  font-style: normal;
+  color: #222222;
+  text-rendering: optimizeLegibility;
+  margin-top: 0.2em;
+  margin-bottom: 0.5em;
+  line-height: 1.2125em; }
+  h1 small, h2 small, h3 small, h4 small, h5 small, h6 small {
+    font-size: 60%;
+    color: #6f6f6f;
+    line-height: 0; }
+
+h1 {
+  font-size: 2.125em; }
+
+h2 {
+  font-size: 1.6875em; }
+
+h3 {
+  font-size: 1.375em; }
+
+h4 {
+  font-size: 1.125em; }
+
+h5 {
+  font-size: 1.125em; }
+
+h6 , dt {
+  font-size: 1em; }
+dd{
+    font-size: 95%;
+}
+dt{
+    margin-top: 2em;
+}
+/* Helpful Typography Defaults */
+em,
+i {
+  font-style: italic;
+  line-height: inherit; }
+
+strong,
+b {
+  font-weight: bold;
+  line-height: inherit; }
+
+small {
+  font-size: 60%;
+  line-height: inherit; }
+
+code {
+  font-family: Consolas, "Liberation Mono", Courier, monospace;
+  text-rendering: optimizeLegibility;
+  font-weight: bold;
+  color: #7f0a0c; }
+
+/* Lists */
+ul,
+ol,
+dl {
+  font-size: 1em;
+  line-height: 1.6;
+  margin-bottom: 1.25em;
+  list-style-position: outside;
+  font-family: inherit; }
+
+ul, ol {
+  margin-left: 0; }
+
+/* Unordered Lists */
+ul li ul,
+ul li ol {
+  margin-left: 1.25em;
+  margin-bottom: 0;
+  font-size: 1em;
+  /* Override nested font-size change */ }
+ul.square li ul, ul.circle li ul, ul.disc li ul {
+  list-style: inherit; }
+ul.square {
+  list-style-type: square; }
+ul.circle {
+  list-style-type: circle; }
+ul.disc {
+  list-style-type: disc; }
+header , section {
+    margin: 5% 20% ;
+    width: 50%;
+}
+</style>
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Установка Yupe! на Linux</title>        
+    <meta charset="UTF-8">
+    <meta http-equiv = "X-UA-Compatible" content="IE=edge;chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    </head>
+    <body>
+        <header>
+            <h1>Установка Yupe! на Linux</h1>
+            
+            <p>За пример взят дистрибутив <strong>Ubuntu 12.04</strong></p>
+            <p>P.S. Данный пример установки вебсервера "В слепую" большинство операций и настроек система делает за вас автоматически, пример не расчитан на "тонкую настройку" apache2 сервера, а приведен как пример быстрого начала работы с CMS Yupe!
+            </p>
+        </header>
+        <section>
+           <h2>Установка без веб сервера ("С нуля")</h2> 
+           <dl>
+               <dt>Устанавливаем пакет tasksel. Открываем терминал пишем:</dt>
+                <dd><code>sudo apt-get install tasksel</code></dd>
+               <dt>После чего ставим сборку apache2+mysql+php</dt>
+                <dd><code>sudo tasksel install lamp-server</code> либо <code>sudo apt-get install lamp-server^</code> <br>В процессе установки указываем пароль и пользователя для базы данных.</dd>
+               <dt>Проверяем работу apache2</dt>
+                <dd><code><a href="http://localhost/"> http://localhost/ </a></code>Должна открыться страница с заголовком "It works!"</dd>
+               <dt>Ставим phpmyadmin</dt>
+               <dd><code>sudo apt-get install phpmyadmin</code>Переходим по ссылке:<br><a href="http://localhost/phpmyadmin"> http://localhost/phpmyadmin</a>. Для входа используем указанный выше логин и пароль.</dd>
+               <dt>Создаем базу анных для Yupe</dt>
+                <dd>К примеру с помошью ранее установленного phpmyadmin.</dd>
+               <dt>Подключаем mod_rewrite к Apache2</dt>
+                <dd><code>sudo a2enmod rewrite</code></dd>
+                <dd>
+                    Редактируем конфигурацию хостов:
+                   <code>sudo nano /etc/apache2/sites-available/default</code> 
+                    А именно, изменяем параметр <strong>AllowOverride None</strong> на <strong>AllowOverride All</strong>
+                </dd>
+                <dd>Перезагружаем Apache2 <code>sudo service apache2 restart</code></dd>
+               <dt>Приступаем к установке Yupe!</dt>
+                <dd>Из корневого каталога переходим в /var/www/ , создаем папку для Yupe! к примеру "myblog". Копируем в нее все файлы cms. При открытиии ссылки <a href="http://localhost/myblog"> http://localhost/myblog </a>  у Вас должно открываться дерево файлов.</dd>
+               <dt>Раздаем права на папку с Yupe!</dt>
+                <dd><code>chmod -R 755 /var/www/myblog/</code></dd>
+               <dt>Начинаем установку Yupe!</dt>
+                <dd>Переходим по ссылке <a href="http://localhost/myblog/public"> http://localhost/myblog/public </a> , должна открыться начальная страница установки.</dd>
+                <dd>Следуем по пунктам установщика и вносим необходимые данные.</dd>
+           </dl>
+           <h3>Решение проблем с mod_rewrite</h3>
+           <dl>
+               <dt>Если при переходе по ссылке <a href="http://localhost/myblog/public"> http://localhost/myblog/public </a> возникает ошибка 500, делаем следующее:</dt>
+               <dd>Переходим в файл дирректив который мы уже правили <code>sudo nano /etc/apache2/sites-available/default</code></dd>
+               <dd>меняем правила в <strong>Directory /var/www/</strong> на следующие:<br>
+                <code>Options Indexes FollowSymLinks<br></code>
+                <code>AllowOverride None<br></code>
+                <code>Allow from all<br></code>
+               </dd>
+               <dd>Под <strong>Directory /var/www/</strong> пишем диррективу для нашего сайта: <br>
+                <code> 
+                &lt;Directory /var/www/myblog/&gt;<br>
+                Options FollowSymLinks<br>
+                AllowOverride All<br>
+                &lt;/Directory&gt;<br>
+                </code>
+               </dd>
+               <dd>Переходим по ссылке <a href="http://localhost/myblog/public"> http://localhost/myblog/public </a>.
+               </dd>
+           </dl>
+        </section>
+        
+    </body>
+</html>
