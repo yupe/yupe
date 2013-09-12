@@ -5,10 +5,15 @@
 ?>
 <!DOCTYPE html>
 <html lang="<?php echo Yii::app()->language; ?>">
-<head>
+<head prefix="og: http://ogp.me/ns#
+              fb: http://ogp.me/ns/fb#
+              article: http://ogp.me/ns/article#">
+    <meta http-equiv = "X-UA-Compatible" content="IE=edge;chrome=1">
     <meta charset="<?php echo Yii::app()->charset; ?>"/>
     <meta name="keywords" content="<?php echo $this->keywords; ?>"/>
     <meta name="description" content="<?php echo $this->description; ?>"/>
+    <meta property="og:title" content="<?php echo CHtml::encode($this->pageTitle); ?>"/>
+    <meta property="og:description" content="<?php echo $this->description; ?>"/>
     <link rel="shortcut icon" href="<?php echo $static; ?>/images/favicon.ico"/>
     <link rel="stylesheet" href="<?php echo $static; ?>/css/main.css"/>
     <title><?php echo CHtml::encode($this->pageTitle); ?></title>
@@ -17,17 +22,13 @@
         Yii::app()->highlightjs->loadClientScripts();
     ?>
 </head>
-
-<script type="text/javascript">
+<script>
     var baseUrl = '<?php echo Yii::app()->baseUrl?>';
 </script>
 
 <body>
-
     <?php  $this->widget('application.modules.menu.widgets.MenuWidget',array('name' => 'top-menu'));?>
-
     <div class='container'>
-
         <?php $this->widget('YFlashMessages'); ?>
         <!-- flashMessages -->
         <?php $this->widget(
@@ -36,17 +37,15 @@
                 'links' => $this->breadcrumbs,
             )
         ); ?>
-        <div class="row-fluid">
-            <div class="span9">
+        <div class="row">
                 <!-- content start-->
-                <div class="content">
-                    <?php echo $content; ?>
-                </div>
+            <section class="span9 content">
+                <?php echo $content; ?>
+            </section>
                 <!-- content end-->
-            </div>
-
+        
             <!-- sidebar start -->
-            <div class="span3 sidebar">
+            <aside class="span3 sidebar">
 
                 <div class="widget ya-money">
                         <iframe frameborder="0" allowtransparency="true" scrolling="no" src="https://money.yandex.ru/embed/small.xml?uid=41001846363811&amp;button-text=05&amp;button-size=l&amp;button-color=orange&amp;targets=%D0%9D%D0%B0+%D1%80%D0%B0%D0%B7%D0%B2%D0%B8%D1%82%D0%B8%D0%B5+%D0%AE%D0%BF%D0%B8!&amp;default-sum=100&amp;fio=on&amp;mail=on" width="auto" height="54"></iframe>
@@ -63,7 +62,6 @@
                         <?php $this->widget('application.modules.user.widgets.ProfileWidget');?>
                     </div>
                 <?php endif;?>
-
 
                 <div class="widget blogs-widget">
                     <?php $this->widget('application.modules.blog.widgets.BlogsWidget', array('cacheTime' => 0)); ?>
@@ -90,85 +88,67 @@
                         array('cacheTime' => 0)
                     ); ?>
                 </div>
-            </div>
+            </aside>
             <!-- sidebar end -->
-
-            <div class="row-fluid">
-                <div class="span12">
-                    <div class="span3">
-                        <ul class="unstyled">
-                            <li>Ресурсы</li>
-                            <li>
-                                <!--                        <i class="icon-twitter">-->
-                                <a href="https://twitter.com/yupecms" target="_blank"></i> Twitter</a>
-                            </li>
-                            <li>
-                                <!--                        <i class="icon-vk"></i>-->
-                                <a href="http://vk.com/amylabs" target="_blank"> Вконтакте</a>
-                            </li>
-                            <li>
-                                <!--                        <i class="icon-facebook"></i>-->
-                                <a href="https://www.facebook.com/amylabs.ru" target="_blank"> Facebook</a>
-                            </li>
-                            <li>
-                                <!--                        <i class="icon-google-plus"></i>-->
-                                <a href="https://plus.google.com/u/0/b/111468098477631231532/111468098477631231532/posts"
-                                   target="_blank">Google+</a>
-                            </li>
-                            <li><a href="http://yupe.ru/blog/yupe-mini-cms-yii" target="_blank">Блог</a></li>
-                            <li><a href="http://yupe.ru/" target="_blank">Сайт</a></li>
-                        </ul>
-                    </div>
-                    <div class="span3">
-                        <ul class="unstyled">
-                            <li>Поддержка</li>
-                            <li><a href="http://yupe.ru/docs/index.html" target="_blank">Документация</a></li>
-                            <li><a href="http://api.yupe.ru/" target="_blank">API</a></li>
-                            <li><a href="http://yupe.ru/talk/" target="_blank">Форум</a></li>
-                            <li><a href="http://yupe.ru/wiki/default/pageIndex" target="_blank">Wiki</a></li>
-                            <li><a href="http://yupe.ru/feedback/faq/" target="_blank">FAQ</a></li>
-                            <li><a href="http://yupe.ru/feedback/index/" target="_blank">Контакты</a></li>
-                        </ul>
-                    </div>
-                    <div class="span3">
-                        <ul class="unstyled">
-                            <li>Юпи!</li>
-                            <li><a href="http://yupe.ru/pages/about/" target="_blank">О проекте</a></li>
-                            <li><a href="http://yupe.ru/docs/yupe/team.html" target="_blank">Команда</a></li>
-                            <li><a href="https://github.com/yupe/yupe/" target="_blank">Github</a></li>
-                            <li><a href="https://github.com/yupe/yupe-ext/" target="_blank">Доп. модули</a></li>
-                            <li><a href="http://yupe.ru/docs/yupe/capability.html" target="_blank">Возможности</a></li>
-                            <li><a href="http://yupe.ru/docs/yupe/assistance.project.html" target="_blank">Помощь проекту</a>
-                            </li>
-                        </ul>
-                    </div>
-                    <div class="span3">
-                        <ul class="unstyled">
-                            <li>Друзья</li>
-                            <li><a href="http://allframeworks.ru" target="_blank">allframeworks</a></li>
-                            <li><a href="http://amylabs.ru" target="_blank">amylabs</a></li>
-                            <li><a href="http://yupe.ru/feedback/index/" target="_blank">Хочешь в друзья?</a></li>
-                            <li><a href="http://amylabs.ru/contact?from=yupe" target="_blank">Коммерческая поддержка</a></li>
-                        </ul>
-                    </div>
-                </div>
+        </div>
+        <div class="row">
+            <div class="span3">
+                <ul class="unstyled">
+                    <li>Ресурсы</li>
+                    <li><a href="https://twitter.com/yupecms" target="_blank"></i> Twitter</a></li> <!--<i class="icon-twitter">-->
+                    <li><a href="http://vk.com/amylabs" target="_blank"> Вконтакте</a></li> <!--<i class="icon-vk"></i>-->
+                    <li><a href="https://www.facebook.com/amylabs.ru" target="_blank"> Facebook</a></li> <!--<i class="icon-facebook"></i>-->
+                    <li><a href="https://plus.google.com/u/0/b/111468098477631231532/111468098477631231532/posts" target="_blank">Google+</a></li> <!--<i class="icon-google-plus"></i>-->
+                    <li><a href="http://yupe.ru/blog/yupe-mini-cms-yii" target="_blank">Блог</a></li>
+                    <li><a href="http://yupe.ru/" target="_blank">Сайт</a></li>         
+                </ul>
             </div>
-            <hr>
-            <div class="row-fluid">
-                <div class="span12">
-                    <div class="span8">
+            <div class="span3">
+                <ul class="unstyled">
+                    <li>Поддержка</li>
+                    <li><a href="http://yupe.ru/docs/index.html" target="_blank">Документация</a></li>
+                    <li><a href="http://api.yupe.ru/" target="_blank">API</a></li>
+                    <li><a href="http://yupe.ru/talk/" target="_blank">Форум</a></li>
+                    <li><a href="http://yupe.ru/wiki/default/pageIndex" target="_blank">Wiki</a></li>
+                    <li><a href="http://yupe.ru/feedback/faq/" target="_blank">FAQ</a></li>
+                    <li><a href="http://yupe.ru/feedback/index/" target="_blank">Контакты</a></li>
+                </ul>
+            </div>
+            <div class="span3">
+                <ul class="unstyled">
+                    <li>Юпи!</li>
+                    <li><a href="http://yupe.ru/pages/about/" target="_blank">О проекте</a></li>
+                    <li><a href="http://yupe.ru/docs/yupe/team.html" target="_blank">Команда</a></li>
+                    <li><a href="https://github.com/yupe/yupe/" target="_blank">Github</a></li>
+                    <li><a href="https://github.com/yupe/yupe-ext/" target="_blank">Доп. модули</a></li>
+                    <li><a href="http://yupe.ru/docs/yupe/capability.html" target="_blank">Возможности</a></li>
+                    <li><a href="http://yupe.ru/docs/yupe/assistance.project.html" target="_blank">Помощь проекту</a></li>
+                </ul>
+            </div>
+            <div class="span3">
+                <ul class="unstyled">
+                    <li>Друзья</li>
+                    <li><a href="http://allframeworks.ru" target="_blank">allframeworks</a></li>
+                    <li><a href="http://amylabs.ru" target="_blank">amylabs</a></li>
+                    <li><a href="http://yupe.ru/feedback/index/" target="_blank">Хочешь в друзья?</a></li>
+                    <li><a href="http://amylabs.ru/contact?from=yupe" target="_blank">Коммерческая поддержка</a></li>
+                </ul>
+            </div>
+        </div>
+        <hr>
+        <div class="row">
+            <div class="span8">
                         <?php echo CHtml::link(
                             'Разработка и поддержка интернет-проектов',
                             'http://amylabs.ru?from=yupe'
                         ); ?>
-                    </div>
-                    <div class="span4">
-                        <p class="muted pull-right">© 2009 - <?php echo date('Y'); ?> <?php echo CHtml::link(
+            </div>
+            <div class="span4">
+                <p class="muted pull-right">© 2009 - <?php echo date('Y'); ?> <?php echo CHtml::link(
                                 'amyLabs',
                                 'http://amylabs.ru?from=yupe'
-                            ); ?> && Юпи! team <?php echo Yii::app()->getModule('yupe')->poweredBy(); ?></p>
-                    </div>
-                </div>
+                            ); ?> && Юпи! team <?php echo Yii::app()->getModule('yupe')->poweredBy(); ?>
+                </p>
             </div>
         </div>
     </div>
