@@ -26,7 +26,7 @@ $this->menu = array(
         )
     ),
     array(
-        'label' => Yii::t('MenuModule.menu', 'Пункты меню'), 'items' => array(
+        'label' => Yii::t('MenuModule.menu', 'Menu items'), 'items' => array(
             array('icon' => 'plus-sign', 'label' => Yii::t('MenuModule.menu', 'Create menu item'), 'url' => array('/menu/menuitem/create')),
             array('icon' => 'list-alt', 'label' => Yii::t('MenuModule.menu', 'Manage menu items'), 'url' => array('/menu/menuitem/index')),
         )

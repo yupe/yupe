@@ -55,7 +55,7 @@ class MenuModule extends YWebModule
             array('label' => Yii::t('MenuModule.menu', 'Menu')),
             array('icon' => 'list-alt','label' => Yii::t('MenuModule.menu', 'Manage menu'), 'url' => array('/menu/menu/index')),
             array('icon' => 'plus-sign','label' => Yii::t('MenuModule.menu', 'Create menu'), 'url' => array('/menu/menu/create')),
-            array('label' => Yii::t('MenuModule.menu', 'Пункты меню')),
+            array('label' => Yii::t('MenuModule.menu', 'Menu items')),
             array('icon' => 'list-alt','label' => Yii::t('MenuModule.menu', 'Manage menu items'), 'url' => array('/menu/menuitem/index')),
             array('icon' => 'plus-sign','label' => Yii::t('MenuModule.menu', 'Create menu item'), 'url' => array('/menu/menuitem/create')),
         );
