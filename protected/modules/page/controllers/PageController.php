@@ -36,14 +36,14 @@ class PageController extends YFrontController
             ));
 
         if (!$page)
-            throw new CHttpException('404', Yii::t('PageModule.page', 'Страница не найдена!'));
+            throw new CHttpException('404', Yii::t('PageModule.page', 'Page was not found'));
 
         // проверим что пользователь может просматривать эту страницу
         if ($page->is_protected == Page::PROTECTED_YES && !Yii::app()->user->isAuthenticated())
         {
             Yii::app()->user->setFlash(
                 YFlashMessages::SUCCESS_MESSAGE,
-                Yii::t('PageModule.page', 'Для просмотра этой страницы Вам необходимо авторизоваться!')
+                Yii::t('PageModule.page', 'You must be authorized user for view this page!')
             );
             $this->redirect(array(Yii::app()->getModule('user')->accountActivationSuccess));
         }

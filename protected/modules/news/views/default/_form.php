@@ -17,22 +17,22 @@ $form = $this->beginWidget('bootstrap.widgets.TbActiveForm', array(
     'inlineErrors'           => true,
 )); ?>
     <div class="alert alert-info">
-        <?php echo Yii::t('NewsModule.news', 'Поля, отмеченные'); ?>
+        <?php echo Yii::t('NewsModule.news', 'Fields with'); ?>
         <span class="required">*</span>
-        <?php echo Yii::t('NewsModule.news', 'обязательны.'); ?>
+        <?php echo Yii::t('NewsModule.news', 'are required'); ?>
     </div>
 
     <?php echo $form->errorSummary($model); ?>
 
     <?php if(count($languages) > 1):?>
-        <?php echo $form->dropDownListRow($model, 'lang', $languages, array('class' => 'popover-help','empty' => Yii::t('NewsModule.news', '--выберите--'))); ?>
+        <?php echo $form->dropDownListRow($model, 'lang', $languages, array('class' => 'popover-help','empty' => Yii::t('NewsModule.news', '--choose--'))); ?>
         <?php if(!$model->isNewRecord):?>
             <?php foreach($languages as $k => $v):?>
                 <?php if($k !== $model->lang):?>
                     <?php if(empty($langModels[$k])):?>
-                        <a href="<?php echo $this->createUrl('/news/default/create',array('id' => $model->id,'lang'  => $k));?>"><i class="iconflags iconflags-<?php echo $k;?>" title="<?php echo Yii::t('NewsModule.news','Добавить перевод на {lang} язык',array('{lang}' => $v))?>"></i></a>
+                        <a href="<?php echo $this->createUrl('/news/default/create',array('id' => $model->id,'lang'  => $k));?>"><i class="iconflags iconflags-<?php echo $k;?>" title="<?php echo Yii::t('NewsModule.news','Add translation for {lang} language',array('{lang}' => $v))?>"></i></a>
                     <?php else:?>
-                        <a href="<?php echo $this->createUrl('/news/default/update',array('id' => $langModels[$k]));?>"><i class="iconflags iconflags-<?php echo $k;?>" title="<?php echo Yii::t('NewsModule.news','Редактировать перевод на {lang} язык',array('{lang}' => $v))?>"></i></a>
+                        <a href="<?php echo $this->createUrl('/news/default/update',array('id' => $langModels[$k]));?>"><i class="iconflags iconflags-<?php echo $k;?>" title="<?php echo Yii::t('NewsModule.news','Edit translation in to {lang} language',array('{lang}' => $v))?>"></i></a>
                     <?php endif;?>
                 <?php endif;?>
             <?php endforeach;?>
@@ -59,7 +59,7 @@ $form = $this->beginWidget('bootstrap.widgets.TbActiveForm', array(
     </div>
 
     <div class="row-fluid control-group <?php echo $model->hasErrors('category_id') ? 'error' : ''; ?>">
-        <?php echo $form->dropDownListRow($model, 'category_id', CHtml::listData($this->module->getCategoryList(), 'id', 'name'), array('class' => 'span7 popover-help','empty' => Yii::t('NewsModule.news', '--выберите--'))); ?>
+        <?php echo $form->dropDownListRow($model, 'category_id', CHtml::listData($this->module->getCategoryList(), 'id', 'name'), array('class' => 'span7 popover-help','empty' => Yii::t('NewsModule.news', '--choose--'))); ?>
     </div>
 
     <div class="row-fluid control-group <?php echo $model->hasErrors('title') ? 'error' : ''; ?>">
@@ -94,7 +94,7 @@ $form = $this->beginWidget('bootstrap.widgets.TbActiveForm', array(
                 'attribute'   => 'full_text',
                 'options'     => $this->module->editorOptions,
             )); ?>
-            <span class="help-block"><?php echo Yii::t('NewsModule.news', "Полный текст новости отображается при переходе по ссылке &laquo;Подробнее&raquo; или иногда при клике на заголовке новости."); ?></span>
+            <span class="help-block"><?php echo Yii::t('NewsModule.news', 'Full text news which will be shown on news article page'); ?></span>
             <?php echo $form->error($model, 'full_text'); ?>
         </div>
     </div>
@@ -106,7 +106,7 @@ $form = $this->beginWidget('bootstrap.widgets.TbActiveForm', array(
                 'attribute'   => 'short_text',
                 'options'     => $this->module->editorOptions,
             )); ?>
-            <span class="help-block"><?php echo Yii::t('NewsModule.news', "Опишите основную мысль новости или напишие некий вводный текст (анонс), пары предложений обычно достаточно. Данный текст используется при выводе списка новостей, например, на главной странице."); ?></span>
+            <span class="help-block"><?php echo Yii::t('NewsModule.news', 'News anounce text. Usually this is the main idea of the article.'); ?></span>
             <?php echo $form->error($model, 'short_text'); ?>
         </div>
     </div>
@@ -123,7 +123,7 @@ $form = $this->beginWidget('bootstrap.widgets.TbActiveForm', array(
     <div class="accordion-group">
         <div class="accordion-heading">
             <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion2" href="#collapseOne">
-                <?php echo Yii::t('NewsModule.news','Данные для поисковой оптимизации');?>
+                <?php echo Yii::t('NewsModule.news','Data for SEO');?>
             </a>
         </div>
         <div id="collapseOne" class="accordion-body collapse">
@@ -144,13 +144,13 @@ $form = $this->beginWidget('bootstrap.widgets.TbActiveForm', array(
     <?php $this->widget('bootstrap.widgets.TbButton', array(
         'buttonType' => 'submit',
         'type'       => 'primary',
-        'label'      => $model->isNewRecord ? Yii::t('NewsModule.news', 'Добавить новость и продолжить') : Yii::t('NewsModule.news', 'Сохранить новость и продолжить'),
+        'label'      => $model->isNewRecord ? Yii::t('NewsModule.news', 'Create article and continue') : Yii::t('NewsModule.news', 'Save news article and continue'),
     )); ?>
 
     <?php $this->widget('bootstrap.widgets.TbButton', array(
         'buttonType'  => 'submit',
         'htmlOptions' => array('name' => 'submit-type', 'value' => 'index'),
-        'label'       => $model->isNewRecord ? Yii::t('NewsModule.news', 'Добавить новость и закрыть') : Yii::t('NewsModule.news', 'Сохранить новость и закрыть'),
+        'label'       => $model->isNewRecord ? Yii::t('NewsModule.news', 'Create article and close') : Yii::t('NewsModule.news', 'Save news article and close'),
     )); ?>
 
 <?php $this->endWidget(); ?>

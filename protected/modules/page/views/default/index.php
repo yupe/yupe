@@ -1,27 +1,27 @@
 <?php
     $this->breadcrumbs = array(
         Yii::app()->getModule('page')->getCategory() => array(),
-        Yii::t('PageModule.page', 'Страницы') => array('/page/default/index'),
-        Yii::t('PageModule.page', 'Список'),
+        Yii::t('PageModule.page', 'Pages') => array('/page/default/index'),
+        Yii::t('PageModule.page', 'List'),
     );
 
-    $this->pageTitle = Yii::t('PageModule.page', 'Список страниц');
+    $this->pageTitle = Yii::t('PageModule.page', 'Pages list');
 
     $this->menu = array(
-        array('icon' => 'list-alt', 'label' => Yii::t('PageModule.page', 'Список страниц'), 'url' => array('/page/default/index')),
-        array('icon' => 'plus-sign', 'label' => Yii::t('PageModule.page', 'Добавить страницу'), 'url' => array('/page/default/create')),
+        array('icon' => 'list-alt', 'label' => Yii::t('PageModule.page', 'Pages list'), 'url' => array('/page/default/index')),
+        array('icon' => 'plus-sign', 'label' => Yii::t('PageModule.page', 'Create page'), 'url' => array('/page/default/create')),
     );
 ?>
 <div class="page-header">
     <h1>
-        <?php echo Yii::t('PageModule.page', 'Страницы'); ?>
-        <small><?php echo Yii::t('PageModule.page', 'управление'); ?></small>
+        <?php echo Yii::t('PageModule.page', 'Pages'); ?>
+        <small><?php echo Yii::t('PageModule.page', 'manage'); ?></small>
     </h1>
 </div>
 
 <button class="btn btn-small dropdown-toggle" data-toggle="collapse" data-target="#search-toggle">
     <i class="icon-search">&nbsp;</i>
-    <?php echo CHtml::link(Yii::t('PageModule.page', 'Поиск страниц'), '#', array('class' => 'search-button')); ?>
+    <?php echo CHtml::link(Yii::t('PageModule.page', 'Find pages'), '#', array('class' => 'search-button')); ?>
     <span class="caret">&nbsp;</span>
 </button>
 
@@ -41,7 +41,7 @@ $this->renderPartial('_search', array('model' => $model, 'pages' => $pages));
 
 <br/>
 
-<p><?php echo Yii::t('PageModule.page', 'В данном разделе представлены средства управления страницами'); ?></p>
+<p><?php echo Yii::t('PageModule.page', 'This section describes page management'); ?></p>
 
 <?php $this->widget('application.modules.yupe.components.YCustomGridView', array(
     'id'           => 'page-grid',
@@ -94,7 +94,7 @@ $this->renderPartial('_search', array('model' => $model, 'pages' => $pages));
             'filter' => $model->getStatusList()
         ),
         array(
-            'header' => Yii::t('PageModule.page', 'Публичный урл'),
+            'header' => Yii::t('PageModule.page', 'Public URL'),
             'type'   => 'raw',
             'value'  => 'CHtml::link($data->getPermaLink(),$data->getPermaLink(),array("target" => "_blank"))',
         ),
