@@ -1,7 +1,6 @@
 <?php
 /**
  * Default Install Controller
- * Класс контроллера установки движка Юпи:
  *
  * @category YupeControllers
  * @package  YupeCMS
@@ -11,17 +10,6 @@
  * @link     http://yupe.ru
  **/
 
-/**
- * Default Install Controller
- * Класс контроллера установки движка Юпи:
- *
- * @category YupeControllers
- * @package  YupeCMS
- * @author   YupeTeam <team@yupe.ru>
- * @license  BSD https://raw.github.com/yupe/yupe/master/LICENSE
- * @version  0.0.1
- * @link     http://yupe.ru
- **/
 class DefaultController extends YBackController
 {
     /**
@@ -58,7 +46,7 @@ class DefaultController extends YBackController
         }
         $this->session['InstallForm'] = Yii::app()->session['InstallForm'];
 
-        $this->setPageTitle(Yii::t('InstallModule.install', 'Установка Юпи!'));
+        $this->setPageTitle(Yii::t('InstallModule.install', 'installation of Yupe!'));
 
         $this->layout = 'application.modules.install.views.layouts.column2';
     }
@@ -155,78 +143,79 @@ class DefaultController extends YBackController
 
         $requirements = array(
             array(
-                Yii::t('InstallModule.install', 'Папка assets'),
+                Yii::t('InstallModule.install', 'Assets folder'),
                 $this->_checkWritable($webRoot . '/assets/'),
                 Yii::t(
                     'InstallModule.install',
-                    'Необходимо установить права записи на папку {folder}assets',
+                    'You need to set write permissions for the directory {folder}assets',
                     array(
                         '{folder}' => $webRoot . $dp,
                     )
                 ),
             ),
             array(
-                Yii::t('InstallModule.install', 'Папка runtime'),
+                Yii::t('InstallModule.install', 'Runtime folder'),
                 $this->_checkWritable($app . '/runtime/'),
                 Yii::t(
                     'InstallModule.install',
-                    'Необходимо установить права записи на папку {folder}',
+                    'You need to set write permissions for the directory {folder}',
                     array(
                         '{folder}' => $app . $dp . 'runtime',
                     )
                 ),
             ),
             array(
-                Yii::t('InstallModule.install', 'Папка uploads'),
+                Yii::t('InstallModule.install', 'Uploads folder'),
                 $this->_checkWritable($webRoot . '/uploads/'),
                 Yii::t(
                     'InstallModule.install',
-                    'Необходимо установить права записи на папку {folder}',
+                    'You need to set write permissions for the directory {folder}',
                     array(
                         '{folder}' => $webRoot . $dp . 'uploads',
                     )
                 ),
             ),
             array(
-                Yii::t('InstallModule.install', 'Папка modules'),
+                Yii::t('InstallModule.install', 'Modules folder'),
                 $this->_checkWritable($app . '/config/modules/'),
                 Yii::t(
                     'InstallModule.install',
-                    'Необходимо установить права записи на папку {folder}',
+                    'You need to set write permissions for the directory {folder}',
                     array(
                         '{folder}' => $app . $dp . 'config' . $dp . 'modules',
                     )
                 ),
             ),
             array(
-                Yii::t('InstallModule.install', 'Папка modulesBack'),
+                Yii::t('InstallModule.install', 'ModulesBack folder'),
                 $this->_checkWritable($app . '/config/modulesBack/'),
                 Yii::t(
                     'InstallModule.install',
-                    'Необходимо установить права записи на папку {folder}',
+                    'You need to set write permissions for the directory {folder}',
                     array(
                         '{folder}' => $app . $dp . 'config' . $dp . 'modulesBack',
                     )
                 ),
             ),
             array(
-                Yii::t('InstallModule.install', 'Файл db.php'),
+                Yii::t('InstallModule.install', 'File db.php'),
                 $this->_checkConfigFileWritable(
                     $app . $dp . 'config/db.back.php',
                     $app . $dp . 'config/db.php'
                 ),
                 Yii::t(
                     'InstallModule.install',
-                    'Необходимо скопировать {file} и дать ему права на запись',
+                    'You should copy {from file} to {to file} and give it permission to write',
                     array(
-                        '{file}' => $app . $dp . 'config' . $dp . 'db.back.php в ' . $app . $dp . 'config' . $dp . 'db.php',
+                        '{from file}' => $app . $dp . 'config' . $dp . 'db.back.php',
+                        '{to file}'   => $app . $dp . 'config' . $dp . 'db.php'
                     )
                 ),
             ),
         );
 
         $result = true;
-        $commentOk = Yii::t('InstallModule.install', 'Все хорошо!');
+        $commentOk = Yii::t('InstallModule.install', 'Everything is fine!');
 
         foreach ($requirements as $i => $requirement) {
             (!$requirement[1])
@@ -248,12 +237,12 @@ class DefaultController extends YBackController
             $requirements,
             array(
                 array(
-                    Yii::t('InstallModule.install', 'Активация ядра Юпи!'),
+                    Yii::t('InstallModule.install', 'Activation of Yupe core!'),
                     $result,
                     (!$result)
                         ? Yii::t(
                         'InstallModule.install',
-                        'При запуске ядра произошли ошибки, пожалуйста, проверьте права доступа на все необходимые файлы и каталоги (см. ошибки выше)'
+                        'At startup errors occured, please check the permissions for the all the files and directories (see the above errors)'
                     )
                         : $commentOk,
                 )
@@ -318,42 +307,42 @@ class DefaultController extends YBackController
     {
         $requirements = array(
             array(
-                Yii::t('InstallModule.install', 'Версия РНР'),
+                Yii::t('InstallModule.install', 'РНР version'),
                 true,
                 version_compare(PHP_VERSION, "5.3.0", ">="),
                 '<a href="http://www.yiiframework.com">Yii Framework</a>',
-                Yii::t('InstallModule.install', 'Необходима версия PHP 5.3 и выше.'),
+                Yii::t('InstallModule.install', 'Need PHP version 5.3 and above.'),
             ),
             array(
-                Yii::t('InstallModule.install', 'Переменная $_SERVER'),
+                Yii::t('InstallModule.install', 'The variable $_SERVER'),
                 true,
                 '' === $message = $this->_checkServerVar(),
                 '<a href="http://www.yiiframework.com">Yii Framework</a>',
                 $message,
             ),
             array(
-                Yii::t('InstallModule.install', 'Расширение Reflection'),
+                Yii::t('InstallModule.install', 'Reflection extension'),
                 true,
                 class_exists('Reflection', false),
                 '<a href="http://www.yiiframework.com">Yii Framework</a>',
                 '',
             ),
             array(
-                Yii::t('InstallModule.install', 'Расширение PCRE'),
+                Yii::t('InstallModule.install', 'PCRE extension'),
                 true,
                 extension_loaded("pcre"),
                 '<a href="http://www.yiiframework.com">Yii Framework</a>',
                 '',
             ),
             array(
-                Yii::t('InstallModule.install', 'Расширение SPL'),
+                Yii::t('InstallModule.install', 'SPL extension'),
                 true,
                 extension_loaded("SPL"),
                 '<a href="http://www.yiiframework.com">Yii Framework</a>',
                 '',
             ),
             array(
-                Yii::t('InstallModule.install', 'Расширение DOM'),
+                Yii::t('InstallModule.install', 'DOM extension'),
                 true,
                 extension_loaded("dom"),
                 '<a href="http://www.yiiframework.com/doc/api/CHtmlPurifier">CHtmlPurifier</a>,
@@ -361,7 +350,7 @@ class DefaultController extends YBackController
                 '',
             ),
             array(
-                Yii::t('InstallModule.install', 'Расширение PDO'),
+                Yii::t('InstallModule.install', 'PDO extension'),
                 true,
                 extension_loaded('pdo'),
                 Yii::t(
@@ -371,47 +360,47 @@ class DefaultController extends YBackController
                 '',
             ),
             array(
-                Yii::t('InstallModule.install', 'Расширение PDO MySQL'),
+                Yii::t('InstallModule.install', 'PDO MySQL extension'),
                 false,
                 extension_loaded('pdo_mysql'),
                 Yii::t(
                     'InstallModule.install',
                     'Все <a href="http://www.yiiframework.com/doc/api/#system.db">DB-классы</a>'
                 ),
-                Yii::t('InstallModule.install', 'Требуется для работы с БД MySQL.'),
+                Yii::t('InstallModule.install', 'Required for MySQL DB.'),
             ),
             array(
-                Yii::t('InstallModule.install', 'Расширение PDO PostgreSQL'),
+                Yii::t('InstallModule.install', 'PDO PostgreSQL extension'),
                 false,
                 extension_loaded('pdo_pgsql'),
                 Yii::t(
                     'InstallModule.install',
                     'Все <a href="http://www.yiiframework.com/doc/api/#system.db">DB-классы</a>'
                 ),
-                Yii::t('InstallModule.install', 'Требуется для работы с БД PostgreSQL.')
+                Yii::t('InstallModule.install', 'Required for PostgreSQL DB.')
             ),
             array(
-                Yii::t('InstallModule.install', 'Расширение PDO Oracle'),
+                Yii::t('InstallModule.install', 'PDO Oracle extension'),
                 false,
                 extension_loaded('pdo_oci'),
                 Yii::t(
                     'InstallModule.install',
                     'Все <a href="http://www.yiiframework.com/doc/api/#system.db">DB-классы</a>'
                 ),
-                Yii::t('InstallModule.install', 'Требуется для работы с БД Oracle.')
+                Yii::t('InstallModule.install', 'Required for Oracle DB.')
             ),
             array(
-                Yii::t('InstallModule.install', 'Расширение PDO MSSQL (pdo_mssql)'),
+                Yii::t('InstallModule.install', 'PDO MSSQL extension (pdo_mssql)'),
                 false,
                 extension_loaded('pdo_mssql'),
                 Yii::t(
                     'InstallModule.install',
                     'Все <a href="http://www.yiiframework.com/doc/api/#system.db">DB-классы</a>'
                 ),
-                Yii::t('InstallModule.install', 'Требуется для работы с БД MSSQL при использовании из MS Windows.')
+                Yii::t('InstallModule.install', 'Required to work with MSSQL database on MS Windows.')
             ),
             array(
-                Yii::t('InstallModule.install', 'Расширение PDO MSSQL (pdo_dblib)'),
+                Yii::t('InstallModule.install', 'PDO MSSQL extension (pdo_dblib)'),
                 false,
                 extension_loaded('pdo_dblib'),
                 Yii::t(
@@ -420,71 +409,82 @@ class DefaultController extends YBackController
                 ),
                 Yii::t(
                     'InstallModule.install',
-                    'Требуется для работы с БД MSSQL при использовании из GNU/Linux или UNIX.'
+                    'Required to work with MSSQL database when work from GNU/Linux or Unix'
                 )
             ),
             array(
                 Yii::t(
                     'InstallModule.install',
-                    'Расширение PDO MSSQL (<a href="http://sqlsrvphp.codeplex.com/">pdo_sqlsrv</a>)'
+                    'PDO MSSQL extension (<a href="http://sqlsrvphp.codeplex.com/">pdo_sqlsrv</a>)'
                 ),
                 false,
                 extension_loaded('pdo_sqlsrv'),
                 Yii::t(
                     'InstallModule.install',
-                    'Все <a href="http://www.yiiframework.com/doc/api/#system.db">DB-классы</a>'
+                    'All <a href="http://www.yiiframework.com/doc/api/#system.db">DB-classes</a>'
                 ),
                 Yii::t(
                     'InstallModule.install',
-                    'Требуется для работы с БД MSSQL при использовании драйвера от Microsoft'
+                    'Required to work with MSSQL database using Microsoft\'s driver'
                 )
             ),
             array(
-                Yii::t('InstallModule.install', 'Расширение Memcache'),
+                Yii::t('InstallModule.install', 'Memcache extension'),
                 false,
                 extension_loaded("memcache") || extension_loaded("memcached"),
                 '<a href="http://www.yiiframework.com/doc/api/CMemCache">CMemCache</a>',
                 extension_loaded("memcached") ? Yii::t(
                     'InstallModule.install',
-                    'Чтобы использовать memcached установите значение свойства <a href="http://www.yiiframework.com/doc/api/CMemCache#useMemcached-detail">CMemCache::useMemcached</a> равным <code>true</code>.'
+                    'To use memcached, set the value of the property {useMemcachedLink} equal {code_true}.',
+                    array(
+                        '{useMemcachedLink}' => '<a href="http://www.yiiframework.com/doc/api/CMemCache#useMemcached-detail">CMemCache::useMemcached</a>',
+                        '{code_true}'        => '<code>true</code>',
+                    )
                 ) : '',
             ),
             array(
-                Yii::t('InstallModule.install', 'Расширение APC'),
+                Yii::t('InstallModule.install', 'APC extension'),
                 false,
                 extension_loaded("apc"),
                 '<a href="http://www.yiiframework.com/doc/api/CApcCache">CApcCache</a>',
                 Yii::t(
                     'InstallModule.install',
-                    'Акселератор PHP — программа, ускоряющая исполнение сценариев PHP интерпретатором путём кэширования их байткода. <b>Необязательно</b>.'
+                    'The Alternative PHP Cache (APC) is a free and open opcode cache for PHP. Its goal is to provide a free, open, and robust framework for caching and optimizing PHP intermediate code. {b}Optional{/b}.',
+                    array(
+                        '{b}'  => '<b>',
+                        '{/b}' => '</b>',
+                    )
                 ),
             ),
             array(
-                Yii::t('InstallModule.install', 'Расширение Mcrypt'),
+                Yii::t('InstallModule.install', 'Mcrypt extension'),
                 false,
                 extension_loaded("mcrypt"),
                 '<a href="http://www.yiiframework.com/doc/api/CSecurityManager">CSecurityManager</a>',
-                Yii::t('InstallModule.install', 'Требуется для работы методов шифрования и дешифрации.'),
+                Yii::t('InstallModule.install', 'Required for encryption and decryption methods.'),
             ),
             array(
-                Yii::t('InstallModule.install', 'Расширение SOAP'),
+                Yii::t('InstallModule.install', 'SOAP extension'),
                 false,
                 extension_loaded("soap"),
                 '<a href="http://www.yiiframework.com/doc/api/CWebService">CWebService</a>,
                  <a href="http://www.yiiframework.com/doc/api/CWebServiceAction">CWebServiceAction</a>',
-                Yii::t('InstallModule.install', '<b>Необязательно</b>.'),
+                Yii::t('InstallModule.install', '<b>Optional</b>.'),
             ),
             array(
-                Yii::t('InstallModule.install', 'Расширение mbstring'),
+                Yii::t('InstallModule.install', 'mbstring extension'),
                 true,
                 extension_loaded("mbstring"),
-                '<a href="http://php.net/manual/ru/ref.mbstring.php">Многобайтные строки</a>',
-                Yii::t('InstallModule.install', 'Функции для работы с многобайтными строками')
+                '<a href="http://php.net/manual/ru/ref.mbstring.php">' . Yii::t('InstallModule.install', 'Многобайтные строки') . '</a>',
+                Yii::t('InstallModule.install', 'Multibyte String Functions')
             ),
             array(
                 Yii::t(
                     'InstallModule.install',
-                    'Расширение GD<br />с поддержкой FreeType<br />или ImageMagick<br />с поддержкой PNG'
+                    'GD extension {br} with support for FreeType {br} or ImageMagick {br} supporting PNG',
+                    array(
+                        '{br}' => '<br />',
+                    )
                 ),
                 false,
                 '' === $message = $this->_checkCaptchaSupport(),
@@ -492,7 +492,7 @@ class DefaultController extends YBackController
                 $message
             ),
             array(
-                Yii::t('InstallModule.install', 'Расширение Ctype'),
+                Yii::t('InstallModule.install', 'Ctype extension'),
                 true,
                 extension_loaded("ctype"),
                 '<a href="http://www.yiiframework.com/doc/api/CDateFormatter">CDateFormatter</a>,
@@ -502,11 +502,13 @@ class DefaultController extends YBackController
                 ''
             ),
             array(
-                Yii::t('InstallModule.install', 'Конфигурационные опциия safe_mode'),
+                Yii::t('InstallModule.install', 'Configuration option safe_mode'),
                 true,
                 !ini_get('safe_mode'),
-                '<a href="http://php.net/manual/ru/ini.sect.safe-mode.php">Безопасность и безопасный режим</a>',
-                Yii::t('InstallModule.install', 'Необходимо отключить директиву safe_mode.'),
+                '<a href="http://php.net/manual/ru/ini.sect.safe-mode.php">' .
+                Yii::t('InstallModule.install', 'Security and Safe Mode') .
+                '</a>',
+                Yii::t('InstallModule.install', 'You should disable the directive safe_mode.'),
             ),
         );
 
@@ -560,20 +562,26 @@ class DefaultController extends YBackController
         if (!empty($missing)) {
             return Yii::t(
                 'InstallModule.install',
-                'Переменная $_SERVER не содержит {vars}.',
+                'The variable $_SERVER does not contain {vars}.',
                 array('{vars}' => implode(', ', $missing))
             );
         }
         if (!isset($_SERVER["REQUEST_URI"]) && isset($_SERVER["QUERY_STRING"])) {
             return Yii::t(
                 'InstallModule.install',
-                'Должна существовать хотя бы одна из серверных переменных: $_SERVER["REQUEST_URI"] или $_SERVER["QUERY_STRING"].'
+                'There should be at least one server variables: {vars}.', array(
+                    '{vars}' => '$_SERVER["REQUEST_URI"] или $_SERVER["QUERY_STRING"]',
+                )
             );
         }
         if (!isset($_SERVER["PATH_INFO"]) && strpos($_SERVER["PHP_SELF"], $_SERVER["SCRIPT_NAME"]) !== 0) {
             return Yii::t(
                 'InstallModule.install',
-                'Не удалось получить информацию о пути. Пожалуйста, проверьте, содержится ли корректное значение в переменной $_SERVER["PATH_INFO"] (или $_SERVER["PHP_SELF"] и $_SERVER["SCRIPT_NAME"]).'
+                'Could not obtain information about the location. Please check whether the correct value in the variable {path_info} (or {php_self} and {script_name}).', array(
+                    '{path_info}'   => '$_SERVER["PATH_INFO"]',
+                    '{php_self}'    => '$_SERVER["PHP_SELF"]',
+                    '{script_name}' => '$_SERVER["SCRIPT_NAME"]',
+                )
             );
         }
         return '';
@@ -601,10 +609,14 @@ class DefaultController extends YBackController
                 if ($gdInfo['FreeType Support']) {
                     return '';
                 }
-                return Yii::t('InstallModule.install', 'Расширение GD установлено<br />без поддержки FreeType');
+                return Yii::t(
+                    'InstallModule.install', 'GD extension installed {br} without the support of FreeType', array(
+                        '{br}' => '<br />'
+                    )
+                );
             }
         }
-        return Yii::t('InstallModule.install', 'Расширение GD или ImageMagick не установлены');
+        return Yii::t('InstallModule.install', 'ImageMagick or GD extension is not installed');
     }
 
     /**
@@ -661,28 +673,29 @@ class DefaultController extends YBackController
                         '',
                         Yii::t(
                             'InstallModule.install',
-                            'С указанными параметрами подключение к БД не удалось выполнить!'
+                            'Couldn\'t connect to DB with these params!'
                         ) . '<br />' . $connectionString . '<br />' . $e->getMessage()
                     );
                     Yii::log($e->__toString(), CLogger::LEVEL_ERROR);
                     Yii::log($e->getTraceAsString(), CLogger::LEVEL_ERROR);
                 }
 
-
-                try {
-                    $sql = 'CREATE DATABASE ' . ($connection->schema instanceof CMysqlSchema ? ' `' . $form->dbName . '` CHARACTER SET=utf8' : $form->dbName);
-                    $connection->createCommand($sql)->execute();
-                    $connectionString .= 'dbname=' . $form->dbName;
-                } catch (Exception $e) {
-                    $form->addError(
-                        '',
-                        Yii::t(
-                            'InstallModule.install',
-                            'Не удалось создать БД!'
-                        ) . '<br />' . $connectionString . '<br />' . $e->getMessage()
-                    );
-                    Yii::log($e->__toString(), CLogger::LEVEL_ERROR);
-                    Yii::log($e->getTraceAsString(), CLogger::LEVEL_ERROR);
+                if ($form->createDb) {
+                    try {
+                        $sql = 'CREATE DATABASE ' . ($connection->schema instanceof CMysqlSchema ? ' `' . $form->dbName . '` CHARACTER SET=utf8' : $form->dbName);
+                        $connection->createCommand($sql)->execute();
+                        $connectionString .= 'dbname=' . $form->dbName;
+                    } catch (Exception $e) {
+                        $form->addError(
+                            '',
+                            Yii::t(
+                                'InstallModule.install',
+                                'Failed to create the database!'
+                            ) . '<br />' . $connectionString . '<br />' . $e->getMessage()
+                        );
+                        Yii::log($e->__toString(), CLogger::LEVEL_ERROR);
+                        Yii::log($e->getTraceAsString(), CLogger::LEVEL_ERROR);
+                    }
                 }
 
 
@@ -698,7 +711,7 @@ class DefaultController extends YBackController
                         '',
                         Yii::t(
                             'InstallModule.install',
-                            'Не удалось подключиться к БД!'
+                            'Couldn\'t connect to DB!'
                         ) . '<br />' . $connectionString . '<br />' . $e->getMessage()
                     );
                     Yii::log($e->__toString(), CLogger::LEVEL_ERROR);
@@ -731,7 +744,7 @@ class DefaultController extends YBackController
                             '',
                             Yii::t(
                                 'InstallModule.install',
-                                "Не могу открыть файл '{file}' для записии!",
+                                "Can not open file '{file}' in write mode!",
                                 array('{file}' => $dbConfFile)
                             )
                         );
@@ -754,7 +767,7 @@ class DefaultController extends YBackController
                                 '',
                                 Yii::t(
                                     'InstallModule.install',
-                                    "Произошла ошибка записи в файл '{file}'!",
+                                    "There was an error writing to file '{file}'!",
                                     array('{file}' => $dbConfFile)
                                 )
                             );
@@ -837,7 +850,7 @@ class DefaultController extends YBackController
                                 YFlashMessages::ERROR_MESSAGE,
                                 Yii::t(
                                     'InstallModule.install',
-                                    'Модуль "{module}" зависит от модуля "{dep}", который не активирован.',
+                                    'Module "{module}" depends on the module "{dep}", which is not activated.',
                                     array(
                                         '{module}' => $m->name,
                                         '{dep}' => isset($modulesByName[$dep]) ? $modulesByName[$dep]->name : $dep
@@ -876,7 +889,7 @@ class DefaultController extends YBackController
                             YFlashMessages::ERROR_MESSAGE,
                             Yii::t(
                                 'InstallModule.install',
-                                'Произошла ошибка установки модулей - ошибка копирования файла в папку modulesBack!'
+                                'An error occurred during the installation of modules - copying the file to a folder modulesBack with error!'
                             )
                         );
                         break;
@@ -939,7 +952,7 @@ class DefaultController extends YBackController
         if (empty($name) || !isset($modules[$name])) {
             throw new CHttpException(404, Yii::t(
                 'InstallModule.install',
-                'Указанный модуль {name} не найден!',
+                'The module {name} not found!',
                 array('{name}' => $name)
             ));
         }
@@ -949,11 +962,11 @@ class DefaultController extends YBackController
 
         $module = $modules[$name];
 
-        $this->_logMessage($module, Yii::t('InstallModule.install', 'Обновляем базу модуля до актуального состояния!'));
+        $this->_logMessage($module, Yii::t('InstallModule.install', 'Updating module\'s tables to current state!'));
 
         try {
             $module->getInstall();
-            $this->_logMessage($module, Yii::t('InstallModule.install', 'Модуль установлен!'));
+            $this->_logMessage($module, Yii::t('InstallModule.install', 'Installed!'));
             echo CJSON::encode(array('installed' => array($module->getId()), 'log' => ob_get_clean()));
         } catch (Exception $e) {
             $this->_logMessage($module, $e->getMessage(), "error");
@@ -1027,7 +1040,7 @@ class DefaultController extends YBackController
 
                     Yii::app()->user->setFlash(
                         YFlashMessages::SUCCESS_MESSAGE,
-                        Yii::t('InstallModule.install', 'Администратор успешно создан!')
+                        Yii::t('InstallModule.install', 'The administrator has successfully created!')
                     );
 
                     $this->session['InstallForm'] = array_merge(
@@ -1123,7 +1136,7 @@ class DefaultController extends YBackController
 
                     Yii::app()->user->setFlash(
                         YFlashMessages::SUCCESS_MESSAGE,
-                        Yii::t('InstallModule.install', 'Настройки сайта успешно сохранены!')
+                        Yii::t('InstallModule.install', 'Site settings saved successfully!')
                     );
 
                     // попробуем создать каталог assets
@@ -1181,7 +1194,11 @@ class DefaultController extends YBackController
             Yii::app()->getModule('install')->getActivate();
             Yii::app()->user->setFlash(
                 YFlashMessages::SUCCESS_MESSAGE,
-                Yii::t('InstallModule.install', "Модуль install отключен!")
+                Yii::t(
+                    'InstallModule.install', "The module {name} is disabled!", array(
+                        '{name}' => 'install',
+                    )
+                )
             );
         } catch (Exception $e) {
             Yii::app()->user->setFlash(
