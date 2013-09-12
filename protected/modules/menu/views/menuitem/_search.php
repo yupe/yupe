@@ -10,7 +10,7 @@ $form = $this->beginWidget('bootstrap.widgets.TbActiveForm', array(
         <?php echo $form->textFieldRow($model, 'id') ?>
         <?php echo $form->textFieldRow($model, 'title'); ?>
         <?php echo $form->textFieldRow($model, 'href'); ?>
-        <?php echo $form->dropDownListRow($model, 'menu_id', CHtml::listData(Menu::model()->findAll(), 'id', 'name'), array('empty' => Yii::t('MenuModule.menu', 'выберите меню'))); ?>
+        <?php echo $form->dropDownListRow($model, 'menu_id', CHtml::listData(Menu::model()->findAll(), 'id', 'name'), array('empty' => Yii::t('MenuModule.menu', 'choose menu'))); ?>
         <?php echo $form->dropDownListRow($model, 'parent_id', $model->parentList); ?>
         <?php echo $form->dropDownListRow($model, 'condition_name', $model->conditionList); ?>
         <?php echo $form->dropDownListRow($model, 'condition_denial', $model->conditionDenialList); ?>
@@ -22,7 +22,7 @@ $form = $this->beginWidget('bootstrap.widgets.TbActiveForm', array(
         'type'        => 'primary',
         'encodeLabel' => false,
         'buttonType'  => 'submit',
-        'label'       => '<i class="icon-search icon-white">&nbsp;</i> ' . Yii::t('MenuModule.menu', 'Искать пункт меню'),
+        'label'       => '<i class="icon-search icon-white">&nbsp;</i> ' . Yii::t('MenuModule.menu', 'Find menu item'),
     )); ?>
 
 <?php $this->endWidget(); ?>

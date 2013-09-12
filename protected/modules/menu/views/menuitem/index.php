@@ -1,33 +1,33 @@
 <?php
     $this->breadcrumbs = array(
         Yii::app()->getModule('menu')->getCategory() => array(),
-        Yii::t('MenuModule.menu', 'Меню') => array('/menu/menu/index'),
-        Yii::t('MenuModule.menu', 'Пункты меню'),
+        Yii::t('MenuModule.menu', 'Menu') => array('/menu/menu/index'),
+        Yii::t('MenuModule.menu', 'Menu items'),
     );
 
-    $this->pageTitle = Yii::t('MenuModule.menu', 'Пункты меню - управление');
+    $this->pageTitle = Yii::t('MenuModule.menu', 'Menu items - remove');
 
     $this->menu = array(
-        array('label' => Yii::t('MenuModule.menu', 'Меню'), 'items' => array(
-            array('icon' => 'plus-sign', 'label' => Yii::t('MenuModule.menu', 'Добавить меню'), 'url' => array('/menu/menu/create')),
-            array('icon' => 'list-alt', 'label' => Yii::t('MenuModule.menu', 'Управление меню'), 'url' => array('/menu/menu/index')),
+        array('label' => Yii::t('MenuModule.menu', 'Menu'), 'items' => array(
+            array('icon' => 'plus-sign', 'label' => Yii::t('MenuModule.menu', 'Create menu'), 'url' => array('/menu/menu/create')),
+            array('icon' => 'list-alt', 'label' => Yii::t('MenuModule.menu', 'Manage menu'), 'url' => array('/menu/menu/index')),
         )),
-        array('label' => Yii::t('MenuModule.menu', 'Пункты меню'), 'items' => array(
-            array('icon' => 'plus-sign', 'label' => Yii::t('MenuModule.menu', 'Добавить пункт меню'), 'url' => array('/menu/menuitem/create')),
-            array('icon' => 'list-alt', 'label' => Yii::t('MenuModule.menu', 'Управление пунктами меню'), 'url' => array('/menu/menuitem/index')),
+        array('label' => Yii::t('MenuModule.menu', 'Menu items'), 'items' => array(
+            array('icon' => 'plus-sign', 'label' => Yii::t('MenuModule.menu', 'Create menu item'), 'url' => array('/menu/menuitem/create')),
+            array('icon' => 'list-alt', 'label' => Yii::t('MenuModule.menu', 'Manage menu items'), 'url' => array('/menu/menuitem/index')),
         )),
     );
 ?>
 <div class="page-header">
     <h1>
-        <?php echo Yii::t('MenuModule.menu', 'Пункты меню'); ?>
-        <small><?php echo Yii::t('MenuModule.menu', 'управление'); ?></small>
+        <?php echo Yii::t('MenuModule.menu', 'Menu items'); ?>
+        <small><?php echo Yii::t('MenuModule.menu', 'manage'); ?></small>
     </h1>
 </div>
 
 <button class="btn btn-small dropdown-toggle" data-toggle="collapse" data-target="#search-toggle">
     <i class="icon-search">&nbsp;</i>
-    <?php echo CHtml::link(Yii::t('MenuModule.menu', 'Поиск пунктов меню'), '#', array('class' => 'search-button')); ?>
+    <?php echo CHtml::link(Yii::t('MenuModule.menu', 'Find menu items'), '#', array('class' => 'search-button')); ?>
     <span class="caret">&nbsp;</span>
 </button>
 
@@ -47,7 +47,7 @@ $this->renderPartial('_search', array('model' => $model));
 
 </br>
 
-<p><?php echo Yii::t('MenuModule.menu', 'В данном разделе представлены средства управления пунктами меню'); ?></p>
+<p><?php echo Yii::t('MenuModule.menu', 'This section describes Menu Items Management'); ?></p>
 
 <?php $this->widget('application.modules.yupe.components.YCustomGridView', array(
     'id'           => 'menu-items-grid',
