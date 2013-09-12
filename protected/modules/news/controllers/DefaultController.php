@@ -30,7 +30,7 @@ class DefaultController extends YBackController
             {
                 Yii::app()->user->setFlash(
                     YFlashMessages::SUCCESS_MESSAGE,
-                    Yii::t('NewsModule.news', 'Новость добавлена!')
+                    Yii::t('NewsModule.news', 'News article was created!')
                 );
 
                 $this->redirect(
@@ -50,14 +50,14 @@ class DefaultController extends YBackController
         if(!empty($id) && !empty($lang)){
             $news = News::model()->findByPk($id);
             if(null === $news){
-                Yii::app()->user->setFlash(YFlashMessages::ERROR_MESSAGE,Yii::t('NewsModule.news','Целевая новость не найдена!'));
+                Yii::app()->user->setFlash(YFlashMessages::ERROR_MESSAGE,Yii::t('NewsModule.news','Targeting news was not found!'));
                 $this->redirect(array('/news/default/create'));
             }
             if(!array_key_exists($lang,$languages)){
-                Yii::app()->user->setFlash(YFlashMessages::ERROR_MESSAGE,Yii::t('NewsModule.news','Язык не найден!'));
+                Yii::app()->user->setFlash(YFlashMessages::ERROR_MESSAGE,Yii::t('NewsModule.news','Language was not found!'));
                 $this->redirect(array('/news/default/create'));
             }
-            Yii::app()->user->setFlash(YFlashMessages::SUCCESS_MESSAGE,Yii::t('NewsModule.news','Вы добавляете перевод на {lang} язык!',array(
+            Yii::app()->user->setFlash(YFlashMessages::SUCCESS_MESSAGE,Yii::t('NewsModule.news','You inserting translation for {lang} language',array(
                         '{lang}' => $languages[$lang]
                     )));
             $model->lang = $lang;
@@ -90,7 +90,7 @@ class DefaultController extends YBackController
             if ($model->save()) {
                 Yii::app()->user->setFlash(
                     YFlashMessages::SUCCESS_MESSAGE,
-                    Yii::t('NewsModule.news', 'Новость обновлена!')
+                    Yii::t('NewsModule.news', 'News article was updated!')
                 );
 
                 if (!isset($_POST['submit-type']))
@@ -133,7 +133,7 @@ class DefaultController extends YBackController
                 $this->redirect(isset($_POST['returnUrl']) ? $_POST['returnUrl'] : array('index'));
         }
         else
-            throw new CHttpException(400, Yii::t('NewsModule.news', 'Неверный запрос. Пожалуйста, больше не повторяйте такие запросы!'));
+            throw new CHttpException(400, Yii::t('NewsModule.news', 'Bad raquest. Please don\'t use similar requests anymore!'));
     }
 
     /**
@@ -157,7 +157,7 @@ class DefaultController extends YBackController
     {
         $model = News::model()->findByPk((int)$id);
         if ($model === null)
-            throw new CHttpException(404, Yii::t('NewsModule.news', 'Запрошенная страница не найдена!'));
+            throw new CHttpException(404, Yii::t('NewsModule.news', 'Requested page was not found!'));
         return $model;
     }
 

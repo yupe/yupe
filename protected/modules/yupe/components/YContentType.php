@@ -52,8 +52,9 @@ class YContentType
         if (!is_null(self::getHeader($contentTypeId))) {
             header(self::getHeader($contentTypeId));
             return true;
-        } else
+        } else {
             return false;
+        }
     }
 
     /**
@@ -66,10 +67,12 @@ class YContentType
     static public function getHeader($contentTypeId)
     {
         $contentTypes = self::getTypes();
-        if (isset($contentTypes[$contentTypeId]))
+        if (isset($contentTypes[$contentTypeId])) {
             return $contentTypes[$contentTypeId];
-        else
+        }
+        else {
             return null;
+        }
     }
 
     /**

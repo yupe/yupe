@@ -15,9 +15,9 @@ class PageModule extends YWebModule
     public function getParamsLabels()
     {
         return array(
-            'adminMenuOrder' => Yii::t('PageModule.page', 'Порядок следования в меню'),
-            'editor'         => Yii::t('PageModule.page', 'Визуальный редактор'),
-            'mainCategory'   => Yii::t('PageModule.page', 'Главная категория страниц'),
+            'adminMenuOrder' => Yii::t('PageModule.page', 'Menu items order'),
+            'editor'         => Yii::t('PageModule.page', 'Visual editor'),
+            'mainCategory'   => Yii::t('PageModule.page', 'Main pages category'),
         );
     }
 
@@ -42,17 +42,17 @@ class PageModule extends YWebModule
 
     public function getCategory()
     {
-        return Yii::t('PageModule.page', 'Контент');
+        return Yii::t('PageModule.page', 'Content');
     }
 
     public function getName()
     {
-        return Yii::t('PageModule.page', 'Страницы');
+        return Yii::t('PageModule.page', 'Pages');
     }
 
     public function getDescription()
     {
-        return Yii::t('PageModule.page', 'Модуль для создания и редактирования страничек сайта');
+        return Yii::t('PageModule.page', 'Module for creating and manage static pages');
     }
 
     public function getAuthor()
@@ -109,8 +109,8 @@ class PageModule extends YWebModule
     public function getNavigation()
     {
         return array(
-            array('icon' => 'list-alt', 'label' => Yii::t('PageModule.page', 'Список страниц'), 'url' => array('/page/default/index')),
-            array('icon' => 'plus-sign', 'label' => Yii::t('PageModule.page', 'Добавить страницу'), 'url' => array('/page/default/create')),
+            array('icon' => 'list-alt', 'label' => Yii::t('PageModule.page', 'Pages list'), 'url' => array('/page/default/index')),
+            array('icon' => 'plus-sign', 'label' => Yii::t('PageModule.page', 'Create page'), 'url' => array('/page/default/create')),
         );
     }
 }

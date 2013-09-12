@@ -23,8 +23,9 @@ class YBackController extends YMainController
             Yii::app()->theme = "backend_" . $backendTheme;
         } else {
             Yii::app()->theme = null;
-            if (!$this->yupe->enableAssets)
+            if (!$this->yupe->enableAssets) {
                 return;
+            }
         }
     }
 
@@ -108,19 +109,22 @@ class YBackController extends YMainController
         $modelClass = Yii::app()->request->getQuery('model');
         $statusField = Yii::app()->request->getQuery('statusField');
 
-        if (!isset($modelClass, $id, $status, $statusField))
+        if (!isset($modelClass, $id, $status, $statusField)) {
             throw new CHttpException(404, Yii::t('YupeModule.yupe', 'Page was not found!'));
+        }
 
         $model = new $modelClass;
         $model = $model->resetScope()->findByPk($id);
-        if (!$model)
+        if (!$model) {
             throw new CHttpException(404, Yii::t('YupeModule.yupe', 'Page was not found!'));
+        }
 
         $model->$statusField = $status;
         $model->update(array($statusField));
 
-        if (!Yii::app()->request->isAjaxRequest)
+        if (!Yii::app()->request->isAjaxRequest) {
             $this->redirect(isset($_POST['returnUrl']) ? $_POST['returnUrl'] : array('index'));
+        }
     }
 
     public function actionSort()
@@ -130,14 +134,16 @@ class YBackController extends YMainController
         $modelClass = Yii::app()->request->getQuery('model');
         $sortField = Yii::app()->request->getQuery('sortField');
 
-        if (!isset($direction, $id, $modelClass, $sortField))
+        if (!isset($direction, $id, $modelClass, $sortField)) {
             throw new CHttpException(404, Yii::t('YupeModule.yupe', 'Page was not found!'));
+        }
 
         $model = new $modelClass;
         $model_depends = new $modelClass;
         $model = $model->resetScope()->findByPk($id);
-        if (!$model)
+        if (!$model) {
             throw new CHttpException(404, Yii::t('YupeModule.yupe', 'Page was not found!'));
+        }
 
         if ($direction === 'up') {
             $model_depends = $model_depends->findByAttributes(array($sortField => ($model->$sortField - 1)));
@@ -152,7 +158,8 @@ class YBackController extends YMainController
         $model->update(array($sortField));
         $model_depends->update(array($sortField));
 
-        if (!Yii::app()->request->isAjaxRequest)
+        if (!Yii::app()->request->isAjaxRequest) {
             $this->redirect(isset($_POST['returnUrl']) ? $_POST['returnUrl'] : array('index'));
+        }
     }
 }

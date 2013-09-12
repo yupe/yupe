@@ -14,10 +14,10 @@ $form = $this->beginWidget('bootstrap.widgets.TbActiveForm', array(
                 <?php echo $form->textFieldRow($model, 'date'); ?>
             </div>
             <div class="span3">
-                <?php echo $form->dropDownListRow($model, 'status', $model->statusList, array('empty' => Yii::t('NewsModule.news', '- не важен -'))); ?>
+                <?php echo $form->dropDownListRow($model, 'status', $model->statusList, array('empty' => Yii::t('NewsModule.news', '- no matter -'))); ?>
             </div>
             <div class="span3">
-                <?php echo $form->dropDownListRow($model, 'category_id', CHtml::listData($this->module->categoryList, 'id', 'name'), array('empty' => Yii::t('NewsModule.news', '- не важно -'))); ?>
+                <?php echo $form->dropDownListRow($model, 'category_id', CHtml::listData($this->module->categoryList, 'id', 'name'), array('empty' => Yii::t('NewsModule.news', '-no matter-'))); ?>
             </div>
         </div>
         <div class="row-fluid control-group">
@@ -45,7 +45,7 @@ $form = $this->beginWidget('bootstrap.widgets.TbActiveForm', array(
         'type'        => 'primary',
         'encodeLabel' => false,
         'buttonType'  => 'submit',
-        'label'       => '<i class="icon-search icon-white">&nbsp;</i> ' . Yii::t('NewsModule.news', 'Искать новость'),
+        'label'       => '<i class="icon-search icon-white">&nbsp;</i> ' . Yii::t('NewsModule.news', 'Find article'),
     )); ?>
 
 <?php $this->endWidget(); ?>

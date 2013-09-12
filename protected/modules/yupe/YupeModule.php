@@ -68,7 +68,7 @@ class YupeModule extends YWebModule
      **/
     public function getVersion()
     {
-        return Yii::t('YupeModule.yupe', '0.5.4');
+        return Yii::t('YupeModule.yupe', '0.6(dev)');
     }
 
     /**
@@ -699,6 +699,33 @@ class YupeModule extends YWebModule
     }
 
     /**
+     * Метод проверяет является ли каталог валидным модулем Yii/Yupe
+     *
+     * @param string $module - ID модуля
+     *
+     * @since 0.6
+     *
+     * @return boolean true - модуль валиде false - нет
+     */
+
+    public function isValidModule($module)
+    {
+        if(!$module) {
+            return false;
+        }
+
+        $modulePath = $this->getModulesConfigDefault().DIRECTORY_SEPARATOR.$module;
+
+        if(!is_dir($modulePath)) {
+            return false;
+        }
+
+        $files = glob($modulePath . DIRECTORY_SEPARATOR . '*Module.php');
+
+        return empty($files) ? false : true;
+    }
+
+    /**
      * Подгружает и выдает список отключенных модулей
      *
      * @param array $enableModule - список активных модулей, по умолчанию array()
@@ -722,7 +749,7 @@ class YupeModule extends YWebModule
             
             if ($handler = opendir($path)) {
                 while (($dir = readdir($handler))) {
-                    if(!is_dir($path.'/'.$dir)) {
+                    if(!$this->isValidModule($dir)) {
                         continue;
                     }
                     if ($dir != '.' && $dir != '..' && !is_file($dir) && !isset($enableModule[$dir])) {
@@ -767,7 +794,6 @@ class YupeModule extends YWebModule
         if (Yii::app()->hasModule($name)) {
             return Yii::app()->getModule($name);
         }
-
 
         $path = $this->getModulesConfigDefault();
         $module = null;

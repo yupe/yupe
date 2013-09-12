@@ -31,8 +31,6 @@ class ConfigManager extends CComponent
     private $_base             = array();
     // Файл кеша:
     private $_cachefile       = null;
-    // Настройки модулей:
-    private $_modulesSettings = array();
     
     // Основной путь, к приложению:
     public $basePath          = null;
@@ -126,7 +124,6 @@ class ConfigManager extends CComponent
         } catch (Exception $e) {
         
             $cachedSettings = array();
-        
         }
 
         return $cachedSettings;

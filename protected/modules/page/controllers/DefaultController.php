@@ -44,14 +44,14 @@ class DefaultController extends YBackController
                         $menu = Menu::model()->active()->findByPk($menuId);
                         if($menu){
                             if(!$menu->addItem($model->title, $this->createUrl('/page/page/show',array('slug' => $model->slug)),$parentId)){
-                                throw new CDbException(Yii::t('PageModule.page','Произошла ошибка при привязке к меню...'));
+                                throw new CDbException(Yii::t('PageModule.page','There is an error when connecting page to menu...'));
                             }
                         }
                     }
 
                     Yii::app()->user->setFlash(
                         YFlashMessages::SUCCESS_MESSAGE,
-                        Yii::t('PageModule.page', 'Страница добавлена!')
+                        Yii::t('PageModule.page', 'Page was created')
                     );
 
                     $transaction->commit();
@@ -79,14 +79,14 @@ class DefaultController extends YBackController
         if(!empty($id) && !empty($lang)){
             $page = Page::model()->findByPk($id);
             if(null === $page){
-                Yii::app()->user->setFlash(YFlashMessages::ERROR_MESSAGE,Yii::t('PageModule.page','Целевая страница не найдена!'));
+                Yii::app()->user->setFlash(YFlashMessages::ERROR_MESSAGE,Yii::t('PageModule.page','Targeting page was not found!'));
                 $this->redirect(array('/news/default/create'));
             }
             if(!array_key_exists($lang,$languages)){
-                Yii::app()->user->setFlash(YFlashMessages::ERROR_MESSAGE,Yii::t('PageModule.page','Язык не найден!'));
+                Yii::app()->user->setFlash(YFlashMessages::ERROR_MESSAGE,Yii::t('PageModule.page','Language was not found!'));
                 $this->redirect(array('/news/default/create'));
             }
-            Yii::app()->user->setFlash(YFlashMessages::SUCCESS_MESSAGE,Yii::t('PageModule.page','Вы добавляете перевод на {lang} язык!',array(
+            Yii::app()->user->setFlash(YFlashMessages::SUCCESS_MESSAGE,Yii::t('PageModule.page','You add translation for {lang}',array(
                         '{lang}' => $languages[$lang]
                     )));
             $model->lang = $lang;
@@ -136,14 +136,14 @@ class DefaultController extends YBackController
                     $menu = Menu::model()->active()->findByPk($menuId);
                     if($menu){
                         if(!$menu->changeItem($oldTitle, $model->title, $this->createUrl('/page/page/show',array('slug' => $model->slug)),$parentId)){
-                            throw new CDbException(Yii::t('PageModule.page','Произошла ошибка при привязке к меню...'));
+                            throw new CDbException(Yii::t('PageModule.page','There is an error when connecting page to menu...'));
                         }
                     }
                 }
 
                 Yii::app()->user->setFlash(
                     YFlashMessages::SUCCESS_MESSAGE,
-                    Yii::t('PageModule.page', 'Страница обновлена!')
+                    Yii::t('PageModule.page', 'Page was updated!')
                 );
 
                 if (!isset($_POST['submit-type']))
@@ -202,7 +202,7 @@ class DefaultController extends YBackController
                 $this->redirect(isset($_POST['returnUrl']) ? $_POST['returnUrl'] : array('index'));
         }
         else
-            throw new CHttpException(404,Yii::t('PageModule.page', 'Неверный запрос. Пожалуйста, больше не повторяйте такие запросы!'));
+            throw new CHttpException(404,Yii::t('PageModule.page', 'Bad request. Please don\'t repeat similar requests anymore!'));
     }
 
     /**
@@ -230,7 +230,7 @@ class DefaultController extends YBackController
             if (isset($_GET['id']))
                 $this->_model = Page::model()->with('author', 'changeAuthor')->findbyPk($_GET['id']);
             if ($this->_model === null)
-                throw new CHttpException(404,Yii::t('PageModule.page', 'Запрошенная страница не найдена!'));
+                throw new CHttpException(404,Yii::t('PageModule.page', 'Page was not found'));
         }
         return $this->_model;
     }

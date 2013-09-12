@@ -127,17 +127,20 @@ class YFeedAction extends CAction
                 /**
                  * Устанавливаем заголовок для $item
                  */
-                if (!empty($this->itemFields['title']))
+                if (!empty($this->itemFields['title'])) {
                     $item->title = $feedItem{$this->itemFields['title']};
+                }
                 /**
                  * Устанавливаем автора для $item
                  */
-                if (!empty($this->itemFields['author_object']))
+                if (!empty($this->itemFields['author_object'])) {
                     $item->addTag('author', $feedItem->{$this->itemFields['author_object']}->{$this->itemFields['author_nickname']});
+                }
                 elseif (empty($this->itemFields['author_object'])
                     && !empty($this->itemFields['author_nickname'])
-                    && property_exists($feedItem, $this->itemFields['author_nickname']))
+                    && property_exists($feedItem, $this->itemFields['author_nickname'])) {
                     $item->addTag('author', $feedItem->{$this->itemFields['author_nickname']});
+                }
 
                 /**
                  * Устанавливаем дату для $item
@@ -153,22 +156,25 @@ class YFeedAction extends CAction
                 /**
                  * Устанавливаем дату изменения для $item
                  */
-                if (!empty($this->itemFields['updated']))
+                if (!empty($this->itemFields['updated'])) {
                     $item->date = $feedItem->{$this->itemFields['updated']};
+                }
 
                 /**
                  * Устанавливаем контент для $item
                  */
-                if (!empty($this->itemFields['content']))
+                if (!empty($this->itemFields['content'])) {
                     $item->description = $feedItem->{$this->itemFields['content']};
+                }
 
                 /**
                  * Устанавливаем ссылку для $item
                  */
                 if (!empty($this->itemFields['link'])) {
                     $link = array();
-                    foreach ($this->itemFields['linkParams'] as $key => $param)
+                    foreach ($this->itemFields['linkParams'] as $key => $param) {
                         $link[$key] = $feedItem->$param;
+                    }
                     $item->link = Yii::app()->createAbsoluteUrl($this->itemFields['link'], $link);
                 }
 
@@ -188,8 +194,9 @@ class YFeedAction extends CAction
             /**
              * Устанавливаем контент для $item
              */
-            if (!empty($this->itemFields['content']))
+            if (!empty($this->itemFields['content'])) {
                 $item->description = Yii::t('YupeModule.yupe', 'There is no records');
+            }
 
             $date = new DateTime('NOW');
             $item->date = $date->format(DateTime::ATOM);

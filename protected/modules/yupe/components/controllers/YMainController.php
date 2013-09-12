@@ -32,10 +32,12 @@ class YMainController extends Controller
      */
     public function setPageTitle($title,$savePrev=false,$separator='|')
     {
-        if($savePrev)
+        if($savePrev) {
             $this->pageTitle = $this->pageTitle . CHtml::encode($separator) . CHtml::encode($title);
-        else
+        }
+        else {
             $this->pageTitle = CHtml::encode($title);
+        }
     }
 
     /**

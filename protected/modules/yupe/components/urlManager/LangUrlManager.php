@@ -98,18 +98,18 @@ class LangUrlManager extends CUrlManager
         // Если используемых языков менее двух или параметр
         // $this->languages не массив языков, обработка не 
         // требуется
-        if (count($this->languages) < 2 || !is_array($this->languages))
+        if (count($this->languages) < 2 || !is_array($this->languages)) {
             return parent::createUrl($route, $params, $ampersand);
+        }
 
         // Если язык не указан - берем текущий
         isset($params[$this->langParam]) or ($params[$this->langParam] = Yii::app()->language);
 
         // Если указан "нативный" язык и к тому же он текущий,
         // то делаем URL без него, т.к. он соответсвует пустому пути:
-        if ((Yii::app()->sourceLanguage == $params[$this->langParam])
-            && ($params[$this->langParam] == Yii::app()->language)
-        )
+        if ((Yii::app()->sourceLanguage == $params[$this->langParam]) && ($params[$this->langParam] == Yii::app()->language)) {
             unset($params[$this->langParam]);
+        }
 
         return parent::createUrl($route, $params, $ampersand);
     }
@@ -125,8 +125,9 @@ class LangUrlManager extends CUrlManager
     public function getCleanUrl($url, $param = false)
     {
         // Если в URL имеются параметры, получаем их:
-        if (strstr($url, '?') !== false)
+        if (strstr($url, '?') !== false) {
             list($url, $param) = explode("?", $url);
+        }
 
         // Убираем homeUrl из адреса:
         $url = preg_replace(
@@ -142,18 +143,19 @@ class LangUrlManager extends CUrlManager
             $url = preg_replace("#^(" . implode("|", $this->languages) . ")/#", '', $url);
         }
         // Убираем косую черту в конце пути для единоообразия
-        if ($url != '' && $url[strlen($url) - 1] == '/')
+        if ($url != '' && $url[strlen($url) - 1] == '/') {
             $url = substr($url, 0, strlen($url) - 1);
+        }
         
         // Убираем из GET-парамметров адреса языковой парамметр
         if ($param != false) {
-            
-            // 
             parse_str($param, $param);
-            if (isset($param[$this->langParam]))
+            if (isset($param[$this->langParam])) {
                 unset($param[$this->langParam]);
-            if ($param != array())
+            }
+            if ($param != array()) {
                 $url .= '?' . http_build_query($param);
+            }
         }
         return $url;
     }

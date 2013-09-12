@@ -13,10 +13,19 @@ $url = Yii::app()->getAssetManager()->getPublishedUrl(
 );
 
 Yii::app()->getClientScript()->registerScriptFile($url . '/js/masonry.min.js', CClientScript::POS_END);
+Yii::app()->getClientScript()->registerScriptFile($url . '/js/imagesloaded.min.js', CClientScript::POS_END);
+
+
 
 Yii::app()->clientScript->registerScript(
     $this->getId(),
-    "jQuery('.gallery-thumbnails').masonry({itemSelector: '.gallery-thumbnail'});"
+    'var $container = jQuery(".gallery-thumbnails");
+    $container.imagesLoaded(function() {
+        $container.masonry({
+            itemSelector: ".gallery-thumbnail",
+            gutter: 10
+        });
+    });'
 );
 
 $this->widget(
