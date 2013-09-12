@@ -1,18 +1,24 @@
 <div class="form well">
-
     <?php $form = $this->beginWidget('bootstrap.widgets.TbActiveForm', array(
         'id' => 'add-image-form',
         'enableClientValidation' => true,
         'htmlOptions' => array('enctype' => 'multipart/form-data')
     )); ?>
 
-    <h1><?php echo Yii::t('GalleryModule.gallery', 'Добавление фото'); ?></h1>
-
-
+    <legend><?php echo $model->isNewRecord
+            ? Yii::t('GalleryModule.gallery', 'Добавление изображения')
+            : Yii::t('GalleryModule.gallery', 'Редактирование изображения'); ?>
+    </legend>
     <?php echo $form->errorSummary($model); ?>
 
+    <?php if ($model->file !== null) : ?>
+        <div class="row-fluid">
+            <?php  echo CHtml::image($model->getUrl(190), $model->alt); ?>
+        </div>
+    <?php endif; ?>
+
     <div class='row-fluid control-group <?php echo $model->hasErrors('file') ? 'error' : ''; ?>'>
-        <?php echo $form->fileFieldRow($model, 'file', array('class' => 'span6', 'required' => true)); ?>
+        <?php echo $form->fileFieldRow($model, 'file', array('class' => 'span6', 'required' => false)); ?>
     </div>
 
     <div class='row-fluid control-group <?php echo $model->hasErrors('name') ? 'error' : ''; ?>'>
@@ -27,11 +33,6 @@
         <?php echo $form->textFieldRow($model, 'alt', array('class' => 'span6', 'required' => true)); ?>
     </div>
 
-    <?php if ($model->file !== null) : ?>
-        <div class="row-fluid">
-            <?php  echo CHtml::image($model->getUrl(190), $model->alt); ?>
-        </div>
-    <?php endif; ?>
 
     <div class="row-fluid  control-group">
         <?php
