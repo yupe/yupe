@@ -78,10 +78,13 @@ body .navbar .brand {
     margin-bottom: 30px;
 }
 
-/* gallery/show*/
+/* gallery/show.php */
 .gallery-thumbnail {
     float: left;
     margin-left: 0 !important;
+}
+.gallery-thumbnail img {
+    cursor: pointer;
 }
 
 
