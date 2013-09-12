@@ -2,7 +2,6 @@
 
 class ColorBox extends YWidget
 {
-
     public $id;
     public $target;
     public $lang;
@@ -38,10 +37,6 @@ class ColorBox extends YWidget
         if (is_dir($assets)) {
             Yii::app()->clientScript->registerCoreScript('jquery');
             Yii::app()->clientScript->registerCssFile($baseUrl . '/css/colorbox.css');
-            Yii::app()->clientScript->registerScriptFile(
-                $baseUrl . '/js/jquery.isotope.min.js',
-                CClientScript::POS_HEAD
-            );
             Yii::app()->clientScript->registerScriptFile(
                 $baseUrl . '/js/jquery.colorbox-min.js',
                 CClientScript::POS_END

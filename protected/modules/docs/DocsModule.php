@@ -35,7 +35,7 @@ class DocsModule extends YWebModule
     /**
      * Статические файлы для рендеринга:
      */
-    public $staticFiles = 'README.md,README_EN.md,LICENSE,UPGRADE,CHANGELOG,TEAM.md,install_ru.txt';
+    public $staticFiles = 'README.md,README_EN.md,LICENSE,UPGRADE.md,CHANGELOG.md,TEAM.md,install_ru.txt';
 
     /**
      * Категория модуля:
@@ -203,15 +203,15 @@ class DocsModule extends YWebModule
     /**
      * Получаем список файлов из каталога документации:
      *
-     * @param string $curDocFolder - путь к каталогу
-     *                               документации текущего языка
+     * @param string $curDocFolder - путь к каталогу документации текущего языка
      *
-     * @return desctription of returned
+     * @return array список файлов каталога
      **/
     public function fileList($curDocFolder = null)
     {
-        if ($curDocFolder === null)
+        if ($curDocFolder === null) {
             return null;
+        }
 
         /**
          * Берём из кеша список файлов, иначе получаем его снова:
@@ -238,8 +238,9 @@ class DocsModule extends YWebModule
              */
             $chain = new CChainedCacheDependency();
             
-            foreach (glob($curDocFolder, GLOB_ONLYDIR) as $item)
+            foreach (glob($curDocFolder, GLOB_ONLYDIR) as $item) {
                 $chain->dependencies->add(new CDirectoryCacheDependency($item));
+            }
 
             Yii::app()->cache->set('files_' . $curDocFolder, $files, 0, $chain);
         }
@@ -396,8 +397,8 @@ class DocsModule extends YWebModule
     public function getArticles($topMenu = true)
     {
         return $topMenu === true
-                ? $this->topMenu
-                : $this->leftMenu;
+                ? $this->getTopMenu()
+                : $this->getLeftMenu();
     }
 
     /**
@@ -412,8 +413,9 @@ class DocsModule extends YWebModule
         /**
          * нет смысла обрабатывать несушествующий файл:
          */
-        if ($fileName == null || !file_exists($fileName))
+        if ($fileName == null || !file_exists($fileName)) {
             return null;
+        }
 
         /**
          * Получаем контент из кеша, если файл не изменился и не пуст
@@ -422,7 +424,6 @@ class DocsModule extends YWebModule
         if (($content = Yii::app()->cache->get('docs_content_' . $fileName)) === false || empty($content)) {
             $md = new CMarkdown;
             $content = $md->transform(file_get_contents($fileName));
-
             Yii::app()->cache->set('docs_content_' . $fileName, $content, 0, new CFileCacheDependency($fileName));
         }
 
@@ -441,18 +442,21 @@ class DocsModule extends YWebModule
         /**
          * незачем обрабатывать пустой контент:
          */
-        if ($content === null)
+        if ($content === null) {
             return null;
+        }
 
         /**
          * Если в контенте будет найден тег <h1>
          * мы из него получим заголовок для страницы
          * или же попросту вернём пустой:
          */
-        if (preg_match("/<h1[^>]*>(.*?)<\\/h1>/si", $content, $match))
+        if (preg_match("/<h1[^>]*>(.*?)<\\/h1>/si", $content, $match)) {
             return $match[1];
-        else
+        }
+        else {
             return null;
+        }
     }
 
     /**
@@ -467,8 +471,9 @@ class DocsModule extends YWebModule
         /**
          * Незачем работать, если вместо файла передан null:
          */
-        if ($file === null)
+        if ($file === null) {
             return null;
+        }
 
         /**
          * Получаем список подходящих файлов,
@@ -510,10 +515,12 @@ class DocsModule extends YWebModule
          */
         $file = pathinfo($matches[0], PATHINFO_BASENAME);
 
-        if (!empty($moduleDocFolder))
+        if (!empty($moduleDocFolder)) {
             $docFolder = $moduleDocFolder;
-        else
+        }
+        else {
             $docFolder = $this->docFolder;
+        }
 
         $path = Yii::getPathOfAlias($docFolder . '.' . Yii::app()->language) . DIRECTORY_SEPARATOR . $file;
         return !file_exists($path)
@@ -540,8 +547,9 @@ class DocsModule extends YWebModule
 
             $title   = $this->getDocTitle($content);
 
-            if ($title === null)
+            if ($title === null) {
                 $title = $key;
+            }
 
             array_push(
                 $items, array(

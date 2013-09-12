@@ -18,22 +18,22 @@ $form = $this->beginWidget('bootstrap.widgets.TbActiveForm', array(
     'inlineErrors'           => true,
 )); ?>
     <div class="alert alert-info">
-        <?php echo Yii::t('CategoryModule.category', 'Поля, отмеченные'); ?>
+        <?php echo Yii::t('CategoryModule.category', 'Fields with'); ?>
         <span class="required">*</span>
-        <?php echo Yii::t('CategoryModule.category', 'обязательны.'); ?>
+        <?php echo Yii::t('CategoryModule.category', 'are required'); ?>
     </div>
 
     <?php echo  $form->errorSummary($model); ?>
 
     <?php if(count($languages) > 1):?>
-        <?php echo $form->dropDownListRow($model, 'lang', $languages, array('class' => 'popover-help','empty' => Yii::t('CategoryModule.category', '--выберите--'))); ?>
+        <?php echo $form->dropDownListRow($model, 'lang', $languages, array('class' => 'popover-help','empty' => Yii::t('CategoryModule.category', '--choose--'))); ?>
         <?php if(!$model->isNewRecord):?>
             <?php foreach($languages as $k => $v):?>
                 <?php if($k !== $model->lang):?>
                     <?php if(empty($langModels[$k])):?>
-                        <a href="<?php echo $this->createUrl('/category/default/create',array('id' => $model->id,'lang'  => $k));?>"><i class="iconflags iconflags-<?php echo $k;?>" title="<?php echo Yii::t('CategoryModule.category','Добавить перевод на {lang} язык',array('{lang}' => $v))?>"></i></a>
+                        <a href="<?php echo $this->createUrl('/category/default/create',array('id' => $model->id,'lang'  => $k));?>"><i class="iconflags iconflags-<?php echo $k;?>" title="<?php echo Yii::t('CategoryModule.category','Add translate in to {lang}',array('{lang}' => $v))?>"></i></a>
                     <?php else:?>
-                        <a href="<?php echo $this->createUrl('/category/default/update',array('id' => $langModels[$k]));?>"><i class="iconflags iconflags-<?php echo $k;?>" title="<?php echo Yii::t('CategoryModule.category','Редактировать перевод на {lang} язык',array('{lang}' => $v))?>"></i></a>
+                        <a href="<?php echo $this->createUrl('/category/default/update',array('id' => $langModels[$k]));?>"><i class="iconflags iconflags-<?php echo $k;?>" title="<?php echo Yii::t('CategoryModule.category','Change translation in to {lang}',array('{lang}' => $v))?>"></i></a>
                     <?php endif;?>
                 <?php endif;?>
             <?php endforeach;?>
@@ -43,7 +43,7 @@ $form = $this->beginWidget('bootstrap.widgets.TbActiveForm', array(
     <?php endif;?>
 
     <div class='row-fluid control-group <?php echo $model->hasErrors("parent_id") ? "error" : ""; ?>'>
-        <?php echo  $form->dropDownListRow($model, 'parent_id', CHtml::listData(Category::model()->findAll(), 'id', 'name'), array('empty' => Yii::t('CategoryModule.category', '--нет--'),'class' => 'span7')); ?>
+        <?php echo  $form->dropDownListRow($model, 'parent_id', CHtml::listData(Category::model()->findAll(), 'id', 'name'), array('empty' => Yii::t('CategoryModule.category', '--no--'),'class' => 'span7')); ?>
     </div>
     <div class='control-group <?php echo $model->hasErrors("name") ? "error" : ""; ?>'>
         <?php echo $form->textFieldRow($model, 'name', array('class' => 'span7', 'maxlength' => 250)); ?>
@@ -85,12 +85,12 @@ $form = $this->beginWidget('bootstrap.widgets.TbActiveForm', array(
     <?php $this->widget('bootstrap.widgets.TbButton', array(
         'buttonType' => 'submit',
         'type'       => 'primary',
-        'label'      => $model->isNewRecord ? Yii::t('CategoryModule.category', 'Добавить категорию и продолжить') : Yii::t('CategoryModule.category', 'Сохранить категорию и продолжить'),
+        'label'      => $model->isNewRecord ? Yii::t('CategoryModule.category', 'Create category and continue') : Yii::t('CategoryModule.category', 'Save category and continue'),
     )); ?>
     <?php $this->widget('bootstrap.widgets.TbButton', array(
         'buttonType'  => 'submit',
         'htmlOptions' => array('name' => 'submit-type', 'value' => 'index'),
-        'label'       => $model->isNewRecord ? Yii::t('CategoryModule.category', 'Добавить категорию и закрыть') : Yii::t('CategoryModule.category', 'Сохранить категорию и закрыть'),
+        'label'       => $model->isNewRecord ? Yii::t('CategoryModule.category', 'Create category and close') : Yii::t('CategoryModule.category', 'Save category and close'),
     )); ?>
 
 <?php $this->endWidget(); ?>

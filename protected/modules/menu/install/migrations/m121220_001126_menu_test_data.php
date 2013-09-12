@@ -21,7 +21,7 @@ class m121220_001126_menu_test_data extends YDbMigration
                 'id'          => 1,
                 'name'        => 'Верхнее меню',
                 'code'        => 'top-menu',
-                'description' => Yii::t('MenuModule.menu', 'Основное меню сайта, расположенное сверху в блоке mainmenu.'),
+                'description' => Yii::t('MenuModule.menu', 'Main site menu. Located at top in "main menu" block.'),
                 'status'      => 1
             )
         );

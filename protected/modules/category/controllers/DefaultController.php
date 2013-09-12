@@ -29,7 +29,7 @@ class DefaultController extends YBackController
             {
                 Yii::app()->user->setFlash(
                     YFlashMessages::SUCCESS_MESSAGE,
-                    Yii::t('CategoryModule.category', 'Запись добавлена!')
+                    Yii::t('CategoryModule.category', 'Record was created!')
                 );
 
                 $this->redirect(
@@ -49,14 +49,14 @@ class DefaultController extends YBackController
         if(!empty($id) && !empty($lang)){
             $category = Category::model()->findByPk($id);
             if(null === $category){
-                Yii::app()->user->setFlash(YFlashMessages::ERROR_MESSAGE,Yii::t('CategoryModule.category','Целевая категория не найдена!'));
+                Yii::app()->user->setFlash(YFlashMessages::ERROR_MESSAGE,Yii::t('CategoryModule.category','Targeting category was not found!'));
                 $this->redirect(array('/category/default/create'));
             }
             if(!array_key_exists($lang,$languages)){
-                Yii::app()->user->setFlash(YFlashMessages::ERROR_MESSAGE,Yii::t('CategoryModule.category','Язык не найден!'));
+                Yii::app()->user->setFlash(YFlashMessages::ERROR_MESSAGE,Yii::t('CategoryModule.category','Language was not found!'));
                 $this->redirect(array('/category/default/create'));
             }
-            Yii::app()->user->setFlash(YFlashMessages::SUCCESS_MESSAGE,Yii::t('CategoryModule.category','Вы добавляете перевод на {lang} язык!',array(
+            Yii::app()->user->setFlash(YFlashMessages::SUCCESS_MESSAGE,Yii::t('CategoryModule.category','You are adding translate in to {lang}!',array(
                         '{lang}' => $languages[$lang]
                     )));
             $model->lang = $lang;
@@ -91,7 +91,7 @@ class DefaultController extends YBackController
             {
                 Yii::app()->user->setFlash(
                     YFlashMessages::SUCCESS_MESSAGE,
-                    Yii::t('CategoryModule.category', 'Категория изменена!')
+                    Yii::t('CategoryModule.category', 'Category was changed!')
                 );
 
                 if (!isset($_POST['submit-type']))
@@ -145,7 +145,7 @@ class DefaultController extends YBackController
 
         }
         else
-            throw new CHttpException(400, Yii::t('CategoryModule.category', 'Неверный запрос. Пожалуйста, больше не повторяйте такие запросы'));
+            throw new CHttpException(400, Yii::t('CategoryModule.category', 'Bad request. Please don\'t use similar requests anymore'));
     }
 
     /**
@@ -169,7 +169,7 @@ class DefaultController extends YBackController
     {
         $model = Category::model()->findByPk($id);
         if ($model === null)
-            throw new CHttpException(404, Yii::t('CategoryModule.category', 'Запрошенная страница не найдена!'));
+            throw new CHttpException(404, Yii::t('CategoryModule.category', 'Page was not found!'));
         return $model;
     }
 

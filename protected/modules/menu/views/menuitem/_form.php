@@ -8,9 +8,9 @@ $form = $this->beginWidget('bootstrap.widgets.TbActiveForm', array(
     'inlineErrors'           => true,
 )); ?>
     <div class="alert alert-info">
-        <?php echo Yii::t('MenuModule.menu', 'Поля, отмеченные'); ?>
+        <?php echo Yii::t('MenuModule.menu', 'Fields with'); ?>
         <span class="required">*</span>
-        <?php echo Yii::t('MenuModule.menu', 'обязательны.'); ?>
+        <?php echo Yii::t('MenuModule.menu', 'are required.'); ?>
     </div>
 
     <?php echo $form->errorSummary($model); ?>
@@ -22,7 +22,7 @@ $form = $this->beginWidget('bootstrap.widgets.TbActiveForm', array(
     ?>
     <div class="span3">
         <?php echo $form->dropDownListRow($model, 'menu_id', CHtml::listData(Menu::model()->findAll(), 'id', 'name'), array(
-            'empty'               => Yii::t('MenuModule.menu', '--выберите меню--'),
+            'empty'               => Yii::t('MenuModule.menu', '--choose menu--'),
             'class'               => 'popover-help',
             'data-original-title' => $model->getAttributeLabel('menu_id'),
             'data-content'        => $model->getAttributeDescription('menu_id'),
@@ -70,7 +70,7 @@ $form = $this->beginWidget('bootstrap.widgets.TbActiveForm', array(
     <div class="accordion-group">
         <div class="accordion-heading">
             <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion2" href="#collapseOne">
-                <?php echo Yii::t('MenuModule.menu','Расширенные параметры');?>
+                <?php echo Yii::t('MenuModule.menu','Extended settings');?>
             </a>
         </div>
         <div id="collapseOne" class="accordion-body collapse">
@@ -116,12 +116,12 @@ $form = $this->beginWidget('bootstrap.widgets.TbActiveForm', array(
     <?php $this->widget('bootstrap.widgets.TbButton', array(
         'buttonType' => 'submit',
         'type'       => 'primary',
-        'label'      => $model->isNewRecord ? Yii::t('MenuModule.menu', 'Добавить пункт меню и продолжить') : Yii::t('MenuModule.menu', 'Сохранить пункт меню и продолжить'),
+        'label'      => $model->isNewRecord ? Yii::t('MenuModule.menu', 'Create menu item and continue') : Yii::t('MenuModule.menu', 'Save menu item and continue'),
     )); ?>
     <?php $this->widget('bootstrap.widgets.TbButton', array(
         'buttonType'  => 'submit',
         'htmlOptions' => array('name' => 'submit-type', 'value' => 'index'),
-        'label'       => $model->isNewRecord ? Yii::t('MenuModule.menu', 'Добавить пункт меню и закрыть') : Yii::t('MenuModule.menu', 'Сохранить пункт меню и закрыть'),
+        'label'       => $model->isNewRecord ? Yii::t('MenuModule.menu', 'Create menu item and close') : Yii::t('MenuModule.menu', 'Save menu item and close'),
     )); ?>
 
 <?php $this->endWidget(); ?>

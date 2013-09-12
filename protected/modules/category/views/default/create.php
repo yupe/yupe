@@ -1,21 +1,21 @@
 <?php
     $this->breadcrumbs = array(
         Yii::app()->getModule('category')->getCategory() => array(),
-        Yii::t('CategoryModule.category', 'Категории') => array('/category/default/index'),
-        Yii::t('CategoryModule.category', 'Добавление'),
+        Yii::t('CategoryModule.category', 'Categories') => array('/category/default/index'),
+        Yii::t('CategoryModule.category', 'Create'),
     );
 
-    $this->pageTitle = Yii::t('CategoryModule.category', 'Категория - добавление');
+    $this->pageTitle = Yii::t('CategoryModule.category', 'Categories - create');
 
     $this->menu = array(
-        array('icon' => 'list-alt', 'label' => Yii::t('CategoryModule.category', 'Управление категориями'), 'url' => array('/category/default/index')),
-        array('icon' => 'plus-sign', 'label' => Yii::t('CategoryModule.category', 'Добавить категорию'), 'url' => array('/category/default/create')),
+        array('icon' => 'list-alt', 'label' => Yii::t('CategoryModule.category', 'Category manage'), 'url' => array('/category/default/index')),
+        array('icon' => 'plus-sign', 'label' => Yii::t('CategoryModule.category', 'Create category'), 'url' => array('/category/default/create')),
     );
 ?>
 <div class="page-header">
     <h1>
-        <?php echo Yii::t('CategoryModule.category', 'Категория'); ?>
-        <small><?php echo Yii::t('CategoryModule.category', 'добавление'); ?></small>
+        <?php echo Yii::t('CategoryModule.category', 'Category'); ?>
+        <small><?php echo Yii::t('CategoryModule.category', 'create'); ?></small>
     </h1>
 </div>
 

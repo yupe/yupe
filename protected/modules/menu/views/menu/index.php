@@ -12,37 +12,37 @@
  **/
 $this->breadcrumbs = array(
     Yii::app()->getModule('menu')->getCategory() => array(),
-    Yii::t('MenuModule.menu', 'Меню') => array('/menu/menu/index'),
-    Yii::t('MenuModule.menu', 'Управление')
+    Yii::t('MenuModule.menu', 'Menu') => array('/menu/menu/index'),
+    Yii::t('MenuModule.menu', 'Manage')
 );
 
-$this->pageTitle = Yii::t('MenuModule.menu', 'Меню - управление');
+$this->pageTitle = Yii::t('MenuModule.menu', 'Menu - manage');
 
 $this->menu = array(
     array(
-        'label' => Yii::t('MenuModule.menu', 'Меню'), 'items' => array(
-            array('icon' => 'plus-sign', 'label' => Yii::t('MenuModule.menu', 'Добавить меню'), 'url' => array('/menu/menu/create')),
-            array('icon' => 'list-alt', 'label' => Yii::t('MenuModule.menu', 'Управление меню'), 'url' => array('/menu/menu/index')),
+        'label' => Yii::t('MenuModule.menu', 'Menu'), 'items' => array(
+            array('icon' => 'plus-sign', 'label' => Yii::t('MenuModule.menu', 'Create menu'), 'url' => array('/menu/menu/create')),
+            array('icon' => 'list-alt', 'label' => Yii::t('MenuModule.menu', 'Manage menu'), 'url' => array('/menu/menu/index')),
         )
     ),
     array(
-        'label' => Yii::t('MenuModule.menu', 'Пункты меню'), 'items' => array(
-            array('icon' => 'plus-sign', 'label' => Yii::t('MenuModule.menu', 'Добавить пункт меню'), 'url' => array('/menu/menuitem/create')),
-            array('icon' => 'list-alt', 'label' => Yii::t('MenuModule.menu', 'Управление пунктами меню'), 'url' => array('/menu/menuitem/index')),
+        'label' => Yii::t('MenuModule.menu', 'Menu items'), 'items' => array(
+            array('icon' => 'plus-sign', 'label' => Yii::t('MenuModule.menu', 'Create menu item'), 'url' => array('/menu/menuitem/create')),
+            array('icon' => 'list-alt', 'label' => Yii::t('MenuModule.menu', 'Manage menu items'), 'url' => array('/menu/menuitem/index')),
         )
     ),
 );
 ?>
 <div class="page-header">
     <h1>
-        <?php echo Yii::t('MenuModule.menu', 'Меню'); ?>
-        <small><?php echo Yii::t('MenuModule.menu', 'управление'); ?></small>
+        <?php echo Yii::t('MenuModule.menu', 'Menu'); ?>
+        <small><?php echo Yii::t('MenuModule.menu', 'manage'); ?></small>
     </h1>
 </div>
 
 <button class="btn btn-small dropdown-toggle" data-toggle="collapse" data-target="#search-toggle">
     <i class="icon-search">&nbsp;</i>
-    <?php echo CHtml::link(Yii::t('MenuModule.menu', 'Поиск меню'), '#', array('class' => 'search-button')); ?>
+    <?php echo CHtml::link(Yii::t('MenuModule.menu', 'Find menu'), '#', array('class' => 'search-button')); ?>
     <span class="caret">&nbsp;</span>
 </button>
 
@@ -63,7 +63,7 @@ $this->renderPartial('_search', array('model' => $model));
 
 </br>
 
-<p><?php echo Yii::t('MenuModule.menu', 'В данном разделе представлены средства управления меню'); ?></p>
+<p><?php echo Yii::t('MenuModule.menu', 'This section describes Menu Management'); ?></p>
 
 <?php $this->widget(
     'application.modules.yupe.components.YCustomGridView', array(
@@ -80,7 +80,7 @@ $this->renderPartial('_search', array('model' => $model));
             'code',
             'description',
             array(
-                'header' => Yii::t('MenuModule.menu', 'Пунктов'),
+                'header' => Yii::t('MenuModule.menu', 'Items'),
                 'type'   => 'raw',
                 'value'  => 'CHtml::link(count($data->menuItems), Yii::app()->createUrl("/menu/menuitem/index", array("MenuItem[menu_id]" => $data->id)))',
             ),
@@ -101,7 +101,7 @@ $this->renderPartial('_search', array('model' => $model));
                         'url'     => 'Yii::app()->createUrl("/menu/menuitem/create", array("mid" => $data->id))',
                         'options' => array(
                             'class' => 'icon-plus-sign',
-                            'title' => Yii::t('MenuModule.menu', 'Добавить пункт меню'),
+                            'title' => Yii::t('MenuModule.menu', 'Create menu item'),
                         ),
                     ),
                 ),
