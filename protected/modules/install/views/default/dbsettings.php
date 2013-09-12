@@ -52,7 +52,7 @@ Yii::app()->clientScript->registerScript(
     <div class="alert alert-block alert-info">
         <p><?php echo Yii::t('InstallModule.install', 'Укажите параметры соединения с базой данных.'); ?></p>
         <p><?php echo Yii::t('InstallModule.install', 'Базу данных можно создать при помощи phpmyadmin или любого другого инструмента.'); ?></p>
-        <p><b><?php echo Yii::t('InstallModule.install', 'Юпи! попытается сам саздать базу данных если Вы поставите галочку "Создать базу данных"');?></p></b>
+        <p><b><?php echo Yii::t('InstallModule.install', 'Юпи! попытается сам создать базу данных если Вы поставите галочку "Создать базу данных"');?></p></b>
     </div>
 
     <?php if (!$data['result']) : ?>
