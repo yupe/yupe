@@ -8,24 +8,35 @@
  * @license  https://github.com/yupe/yupe/blob/master/LICENSE BSD
  * @link     http://yupe.ru
  **/
+$url = Yii::app()->getAssetManager()->getPublishedUrl(
+    Yii::app()->theme->basePath . '/web/'
+);
+
+Yii::app()->getClientScript()->registerScriptFile($url . '/js/masonry.min.js', CClientScript::POS_END);
+
+Yii::app()->clientScript->registerScript(
+    $this->getId(),
+    "jQuery('.gallery-thumbnails').masonry({itemSelector: '.gallery-thumbnail'});"
+);
+
 $this->widget(
     'gallery.extensions.colorbox.ColorBox',
     array(
         'target' => '.gallery-image',
-        'lang' => 'ru', // если не установить, то будет изспользован Yii::app()->language
+        'lang' => 'ru',
         'config' => array(
-             'rel' => '.gallery-image'// тут конфиги плагина, подробнее http://www.jacklmoore.com/colorbox
+            'rel' => '.gallery-image',
         ),
     )
 ); ?>
 
-<ul class="thumbnails">
-    <?php
-        $this->widget(
-            'bootstrap.widgets.TbListView', array(
-                'dataProvider' => $dataProvider,
-                'itemView' => '_image',
-            )
-        );
-    ?>
-</ul>
+<?php $this->widget(
+    'bootstrap.widgets.TbListView',
+    array(
+        'dataProvider' => $dataProvider,
+        'itemView' => '_image',
+        'template' => "{items}\n{pager}",
+        'itemsCssClass' => 'gallery-thumbnails thumbnails',
+        'itemsTagName' => 'ul'
+    )
+); ?>
