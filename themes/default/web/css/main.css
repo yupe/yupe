@@ -81,7 +81,6 @@ body .navbar .brand {
 /* gallery/show*/
 .gallery-thumbnail {
     float: left;
-    /*width: 23%;*/
     margin-left: 0 !important;
 }
 
