@@ -53,7 +53,7 @@ class Category extends YModel
             array('name, image', 'length', 'max' => 250),
             array('alias', 'length', 'max' => 150),
             array('lang', 'length', 'max' => 2 ),
-            array('alias', 'YSLugValidator', 'message' => Yii::t('CategoryModule.category', 'Запрещенные символы в поле {attribute}')),
+            array('alias', 'YSLugValidator', 'message' => Yii::t('CategoryModule.category', 'Bad characters in {attribute} field')),
             array('alias', 'YUniqueSlugValidator'),
             array('status', 'in', 'range' => array_keys($this->statusList)),
             array('id, parent_id, name, description, short_description, alias, status, lang', 'safe', 'on' => 'search'),
@@ -101,14 +101,14 @@ class Category extends YModel
     {
         return array(
             'id'                => Yii::t('CategoryModule.category', 'Id'),
-            'lang'              => Yii::t('CategoryModule.category', 'Язык'),
-            'parent_id'         => Yii::t('CategoryModule.category', 'Родитель'),
-            'name'              => Yii::t('CategoryModule.category', 'Название'),
-            'image'             => Yii::t('CategoryModule.category', 'Изображение'),
-            'short_description' => Yii::t('CategoryModule.category', 'Короткое описание'),
-            'description'       => Yii::t('CategoryModule.category', 'Описание'),
-            'alias'             => Yii::t('CategoryModule.category', 'Алиас'),
-            'status'            => Yii::t('CategoryModule.category', 'Статус'),
+            'lang'              => Yii::t('CategoryModule.category', 'Language'),
+            'parent_id'         => Yii::t('CategoryModule.category', 'Parent'),
+            'name'              => Yii::t('CategoryModule.category', 'Title'),
+            'image'             => Yii::t('CategoryModule.category', 'Image'),
+            'short_description' => Yii::t('CategoryModule.category', 'Short description'),
+            'description'       => Yii::t('CategoryModule.category', 'Description'),
+            'alias'             => Yii::t('CategoryModule.category', 'Alias'),
+            'status'            => Yii::t('CategoryModule.category', 'Status'),
         );
     }
 
@@ -119,14 +119,14 @@ class Category extends YModel
     {
        return array(
             'id'                => Yii::t('CategoryModule.category', 'Id'),
-            'lang'              => Yii::t('CategoryModule.category', 'Язык'),
-            'parent_id'         => Yii::t('CategoryModule.category', 'Родитель'),
-            'name'              => Yii::t('CategoryModule.category', 'Название'),
-            'image'             => Yii::t('CategoryModule.category', 'Изображение'),
-            'short_description' => Yii::t('CategoryModule.category', 'Короткое описание'),
-            'description'       => Yii::t('CategoryModule.category', 'Описание'),
-            'alias'             => Yii::t('CategoryModule.category', 'Алиас'),
-            'status'            => Yii::t('CategoryModule.category', 'Статус'),
+            'lang'              => Yii::t('CategoryModule.category', 'Language'),
+            'parent_id'         => Yii::t('CategoryModule.category', 'Parent'),
+            'name'              => Yii::t('CategoryModule.category', 'Title'),
+            'image'             => Yii::t('CategoryModule.category', 'Image'),
+            'short_description' => Yii::t('CategoryModule.category', 'Short description'),
+            'description'       => Yii::t('CategoryModule.category', 'Description'),
+            'alias'             => Yii::t('CategoryModule.category', 'Alias'),
+            'status'            => Yii::t('CategoryModule.category', 'Status'),
         );
     }
 
@@ -155,16 +155,16 @@ class Category extends YModel
     public function getStatusList()
     {
         return array(
-            self::STATUS_DRAFT      => Yii::t('CategoryModule.category', 'Черновик'),
-            self::STATUS_PUBLISHED  => Yii::t('CategoryModule.category', 'Опубликовано'),
-            self::STATUS_MODERATION => Yii::t('CategoryModule.category', 'На модерации'),
+            self::STATUS_DRAFT      => Yii::t('CategoryModule.category', 'Draft'),
+            self::STATUS_PUBLISHED  => Yii::t('CategoryModule.category', 'Published'),
+            self::STATUS_MODERATION => Yii::t('CategoryModule.category', 'On moderation'),
         );
     }
 
     public function getStatus()
     {
         $data = $this->statusList;
-        return isset($data[$this->status]) ? $data[$this->status] : Yii::t('CategoryModule.category', '*неизвестно*');
+        return isset($data[$this->status]) ? $data[$this->status] : Yii::t('CategoryModule.category', '*unknown*');
     }
 
     public function getAllCategoryList($selfId = false)

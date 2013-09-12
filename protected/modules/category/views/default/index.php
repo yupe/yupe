@@ -1,27 +1,27 @@
 <?php
     $this->breadcrumbs = array(
         Yii::app()->getModule('category')->getCategory() => array(),
-        Yii::t('CategoryModule.category', 'Категории') => array('/category/default/index'),
-        Yii::t('CategoryModule.category', 'Управление'),
+        Yii::t('CategoryModule.category', 'Categories') => array('/category/default/index'),
+        Yii::t('CategoryModule.category', 'Manage'),
     );
 
-    $this->pageTitle = Yii::t('CategoryModule.category', 'Категории - управление');
+    $this->pageTitle = Yii::t('CategoryModule.category', 'Categories - manage');
 
     $this->menu = array(
-        array('icon' => 'list-alt', 'label' => Yii::t('CategoryModule.category', 'Управление категориями'), 'url' => array('/category/default/index')),
-        array('icon' => 'plus-sign', 'label' => Yii::t('CategoryModule.category', 'Добавить категорию'), 'url' => array('/category/default/create')),
+        array('icon' => 'list-alt', 'label' => Yii::t('CategoryModule.category', 'Category manage'), 'url' => array('/category/default/index')),
+        array('icon' => 'plus-sign', 'label' => Yii::t('CategoryModule.category', 'Create category'), 'url' => array('/category/default/create')),
     );
 ?>
 <div class="page-header">
     <h1>
-        <?php echo Yii::t('CategoryModule.category', 'Категории'); ?>
-        <small><?php echo Yii::t('CategoryModule.category', 'управление'); ?></small>
+        <?php echo Yii::t('CategoryModule.category', 'Categories'); ?>
+        <small><?php echo Yii::t('CategoryModule.category', 'manage'); ?></small>
     </h1>
 </div>
 
 <button class="btn btn-small dropdown-toggle" data-toggle="collapse" data-target="#search-toggle">
     <i class="icon-search">&nbsp;</i>
-    <?php echo CHtml::link(Yii::t('CategoryModule.category', 'Поиск категорий'), '#', array('class' => 'search-button')); ?>
+    <?php echo CHtml::link(Yii::t('CategoryModule.category', 'Find category'), '#', array('class' => 'search-button')); ?>
     <span class="caret">&nbsp;</span>
 </button>
 
@@ -41,7 +41,7 @@ $this->renderPartial('_search', array('model' => $model));
 
 <br/>
 
-<p><?php echo Yii::t('CategoryModule.category', 'В данном разделе представлены средства управления категориями'); ?></p>
+<p><?php echo Yii::t('CategoryModule.category', 'This section describes category management'); ?></p>
 
 <?php $this->widget('application.modules.yupe.components.YCustomGridView', array(
     'id'           => 'category-grid',
