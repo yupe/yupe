@@ -382,8 +382,6 @@ class Migrator extends CApplicationComponent
     {
         $db = $this->getDbConnection();
 
-        #Yii::app()->cache->clear('getMigrationHistory');
-
         $allData = Yii::app()->cache->get('getMigrationHistory');
 
         if ($allData === false || !isset($allData[$module])) {
@@ -404,8 +402,9 @@ class Migrator extends CApplicationComponent
 
             Yii::app()->cache->set('getMigrationHistory', $allData, 3600, new TagsCache('yupe', 'installedModules', 'getModulesDisabled', 'getMigrationHistory', $module));
 
-        } else
+        } else {
             $data = $allData[$module];
+        }
 
         return CHtml::listData($data, 'version', 'apply_time');
     }
@@ -495,8 +494,6 @@ class Migrator extends CApplicationComponent
      */
     public function checkForUpdates($modules)
     {
-
-        $db = $this->getDbConnection();
         $updates = array();
 
         foreach ($modules as $mid => $module) {

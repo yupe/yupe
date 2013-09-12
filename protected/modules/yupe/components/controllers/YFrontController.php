@@ -27,9 +27,11 @@ class YFrontController extends YMainController
         $this->pageTitle   = $this->yupe->siteName;
         $this->description = $this->yupe->siteDescription;
         $this->keywords    = $this->yupe->siteKeyWords;
-        if ($this->yupe->theme)
+        if ($this->yupe->theme) {
             Yii::app()->theme = $this->yupe->theme;
-        else
+        }
+        else {
             Yii::app()->theme = 'default';
+        }
     }
 }

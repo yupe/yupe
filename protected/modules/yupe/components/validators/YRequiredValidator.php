@@ -9,8 +9,9 @@ class YRequiredValidator extends CValidator
     {
         $value = $object->$attribute;
 
-        if ($this->allowEmpty && $this->isEmpty($value))
+        if ($this->allowEmpty && $this->isEmpty($value)) {
             return;
+        }
 
         if ($this->requiredValue !== null)
         {

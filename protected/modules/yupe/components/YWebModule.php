@@ -462,8 +462,9 @@ abstract class YWebModule extends CWebModule
             );
         }
 
-        if (!in_array($this->getId(), $modulesInstalled))
+        if (!in_array($this->getId(), $modulesInstalled)) {
             return false;
+        }
 
         $upd = Yii::app()->cache->get('YupeModuleUpdates_' . $this->getId());
         if ($upd === false) {

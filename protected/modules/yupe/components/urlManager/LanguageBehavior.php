@@ -21,8 +21,9 @@ class LanguageBehavior extends CBehavior
      */
     public function attach($owner)
     {
-        if (count(Yii::app()->urlManager->languages) > 1 && is_array(Yii::app()->urlManager->languages))
+        if (count(Yii::app()->urlManager->languages) > 1 && is_array(Yii::app()->urlManager->languages)) {
             $owner->attachEventHandler('onBeginRequest', array($this, 'handleLanguageBehavior'));
+        }
     }
 
     /**
@@ -71,8 +72,9 @@ class LanguageBehavior extends CBehavior
         // Если указан язык, который известен нам:
         if (in_array($this->lang, $lm->languages) && $langIsset) {
             // Если текущий язык у нас не тот же, что указан - поставим куку и все дела
-            if (Yii::app()->language != $this->lang || $this->lang == Yii::app()->sourceLanguage)
+            if (Yii::app()->language != $this->lang || $this->lang == Yii::app()->sourceLanguage) {
                 $this->setLanguage($this->lang);
+            }
 
             // 1) Если использован нативный для приложения язык
             // 2) Язык установлен на вывод в GET-парамметре,

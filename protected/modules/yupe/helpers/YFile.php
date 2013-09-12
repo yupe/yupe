@@ -15,18 +15,22 @@ class YFile extends CFileHelper
 
     public static function pathIsWritable($name, $ext, $path)
     {
-        if (self::checkPath($path))
+        if (self::checkPath($path)) {
             return $path . self::getTranslatedName($name) . '.' . $ext;
-        else
+        }
+        else {
             return false;
+        }
     }
 
     public static function checkPath($path)
     {
-        if (!is_dir($path)) // проверка на существование директории
+        if (!is_dir($path)) { // проверка на существование директории
             return mkdir($path); // возвращаем результат создания директории
-        else if (!is_writable($path)) // проверка директории на доступность записи
+        }
+        else if (!is_writable($path)) { // проверка директории на доступность записи
             return false;
+        }
         return true; // папка существует и доступна для записи
     }
 
