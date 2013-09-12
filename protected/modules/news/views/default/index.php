@@ -1,27 +1,27 @@
 <?php
     $this->breadcrumbs = array(
         Yii::app()->getModule('news')->getCategory() => array(),
-        Yii::t('NewsModule.news', 'Новости') => array('/news/default/index'),
-        Yii::t('NewsModule.news', 'Управление'),
+        Yii::t('NewsModule.news', 'News') => array('/news/default/index'),
+        Yii::t('NewsModule.news', 'Management'),
     );
 
-    $this->pageTitle = Yii::t('NewsModule.news', 'Новости - управление');
+    $this->pageTitle = Yii::t('NewsModule.news', 'News - management');
 
     $this->menu = array(
-        array('icon' => 'list-alt', 'label' => Yii::t('NewsModule.news', 'Управление новостями'), 'url' => array('/news/default/index')),
-        array('icon' => 'plus-sign', 'label' => Yii::t('NewsModule.news', 'Добавить новость'), 'url' => array('/news/default/create')),
+        array('icon' => 'list-alt', 'label' => Yii::t('NewsModule.news', 'News management'), 'url' => array('/news/default/index')),
+        array('icon' => 'plus-sign', 'label' => Yii::t('NewsModule.news', 'Create article'), 'url' => array('/news/default/create')),
     );
 ?>
 <div class="page-header">
     <h1>
-        <?php echo Yii::t('NewsModule.news', 'Новости'); ?>
-        <small><?php echo Yii::t('NewsModule.news', 'управление'); ?></small>
+        <?php echo Yii::t('NewsModule.news', 'News'); ?>
+        <small><?php echo Yii::t('NewsModule.news', 'management'); ?></small>
     </h1>
 </div>
 
 <button class="btn btn-small dropdown-toggle" data-toggle="collapse" data-target="#search-toggle">
     <i class="icon-search">&nbsp;</i>
-    <?php echo CHtml::link(Yii::t('NewsModule.news', 'Поиск новостей'), '#', array('class' => 'search-button')); ?>
+    <?php echo CHtml::link(Yii::t('NewsModule.news', 'Find news'), '#', array('class' => 'search-button')); ?>
     <span class="caret">&nbsp;</span>
 </button>
 
@@ -41,7 +41,7 @@ $this->renderPartial('_search', array('model' => $model));
 
 <br/>
 
-<p><?php echo Yii::t('NewsModule.news', 'В данном разделе представлены средства управления новостями'); ?></p>
+<p><?php echo Yii::t('NewsModule.news', 'This section describes News Management'); ?></p>
 
 <?php $this->widget('application.modules.yupe.components.YCustomGridView', array(
     'id'           => 'news-grid',
@@ -86,7 +86,7 @@ $this->renderPartial('_search', array('model' => $model));
             'filter' => $model->getStatusList()
         ),
         array(
-            'header' => Yii::t('NewsModule.news', 'Публичный урл'),
+            'header' => Yii::t('NewsModule.news', 'Public URL'),
             'type'   => 'raw',
             'value'  => 'CHtml::link($data->getPermaLink(),$data->getPermaLink(),array("target" => "_blank"))',
         ),
