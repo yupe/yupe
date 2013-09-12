@@ -722,7 +722,7 @@ class YupeModule extends YWebModule
 
         $files = glob($modulePath . DIRECTORY_SEPARATOR . '*Module.php');
 
-        return empty($files) ? false : true;
+        return empty($files);
     }
 
     /**
