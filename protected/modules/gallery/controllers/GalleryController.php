@@ -58,12 +58,12 @@ class GalleryController extends YFrontController
         );
     }
 
-    public function actionFoto($id)
+    public function actionImage($id)
     {
         $model = Image::model()->findByPk((int) $id);
         if (!$model)
             throw new CHttpException(404, Yii::t('GalleryModule.gallery', 'Страница не найдена!'));
-        $this->render('foto', array('model' => $model));
+        $this->render('image', array('model' => $model));
     }
 
     /**
@@ -153,9 +153,9 @@ class GalleryController extends YFrontController
         if (Yii::app()->request->isPostRequest && Yii::app()->request->isAjaxRequest)
             Yii::app()->ajax->success(
                 array(
-                    'form'    => $this->renderPartial('_add_foto_form', array('model' => $image), true)
+                    'form'    => $this->renderPartial('_form', array('model' => $image), true)
                 )
             );
-        $this->render('editimage', array('model' => $image));
+        $this->render('edit-image', array('model' => $image));
     }
 }
