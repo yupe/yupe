@@ -77,3 +77,12 @@ body .navbar .brand {
 .gallery-list {
     margin-bottom: 30px;
 }
+
+/* gallery/show*/
+.gallery-thumbnail {
+    float: left;
+    /*width: 23%;*/
+    margin-left: 0 !important;
+}
+
+

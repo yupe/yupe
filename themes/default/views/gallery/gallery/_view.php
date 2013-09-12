@@ -11,12 +11,12 @@
         <?php echo $data->description; ?>
         <div class="well well-small">
             <?php if ($data->imagesCount): ?>
-                <ul class="unstyled">
+                <ul class="inline">
                     <li>
                         Всего изображений: <span class="badge badge-info"><?php echo $data->imagesCount; ?></span>
                     </li>
                     <li>
-                        Дата обновления: <?php echo Yii::app()->dateFormatter->format(
+                        <i class="icon-calendar"></i> <?php echo Yii::app()->dateFormatter->format(
                             'dd MMMM yyyy г., hh:mm',
                             $data->lastUpdated
                         ); ?>
