@@ -53,7 +53,7 @@
                 'items'       => array(
                     array(
                         'class' => 'bootstrap.widgets.TbMenu',
-                        'items' => $this->module->articles,
+                        'items' => $this->module->getArticles(),
                     ),
                     array(
                         'class'       => 'bootstrap.widgets.TbMenu',
