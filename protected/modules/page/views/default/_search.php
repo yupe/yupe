@@ -8,10 +8,10 @@ $form = $this->beginWidget('bootstrap.widgets.TbActiveForm', array(
     <fieldset class="inline">
         <div class="row-fluid control-group">
             <div class="span3">
-                <?php echo $form->dropDownListRow($model, 'parent_id', $pages, array('empty' => Yii::t('PageModule.page', '- не выбрана -'))); ?>
+                <?php echo $form->dropDownListRow($model, 'parent_id', $pages, array('empty' => Yii::t('PageModule.page', '- not set -'))); ?>
             </div>
             <div class="span3">
-                <?php echo $form->dropDownListRow($model, 'status', $model->statusList, array('empty' => Yii::t('PageModule.page', '- не важно -'))); ?>
+                <?php echo $form->dropDownListRow($model, 'status', $model->statusList, array('empty' => Yii::t('PageModule.page', '- no matter -'))); ?>
             </div>
             <div class="span3">
                 <?php echo $form->textFieldRow($model, 'creation_date'); ?>
@@ -39,7 +39,7 @@ $form = $this->beginWidget('bootstrap.widgets.TbActiveForm', array(
         </div>
         <div class="row-fluid control-group">
             <div class="span3">
-                <?php echo $form->dropDownListRow($model, 'category_id', CHtml::listData($this->module->getCategoryList(), 'id', 'name'), array('empty' => Yii::t('PageModule.page', '- не важно -')), array('empty' => Yii::t('PageModule.page', '- не выбрана -'))); ?>
+                <?php echo $form->dropDownListRow($model, 'category_id', CHtml::listData($this->module->getCategoryList(), 'id', 'name'), array('empty' => Yii::t('PageModule.page', '- no matter -')), array('empty' => Yii::t('PageModule.page', '- not set -'))); ?>
             </div>
         </div>
         <div class="row-fluid control-group">
@@ -53,7 +53,7 @@ $form = $this->beginWidget('bootstrap.widgets.TbActiveForm', array(
        'buttonType'  => 'submit',
        'type'        => 'primary',
        'encodeLabel' => false,
-       'label'       => '<i class="icon-search icon-white">&nbsp;</i> ' . Yii::t('PageModule.page', 'Искать страницы'),
+       'label'       => '<i class="icon-search icon-white">&nbsp;</i> ' . Yii::t('PageModule.page', 'Find pages'),
     )); ?>
 
 <?php $this->endWidget(); ?>
