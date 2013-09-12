@@ -15,7 +15,7 @@ class ZendSearchModule extends YWebModule
     public function getParamsLabels()
     {
         return array(
-            'indexFiles' => Yii::t('ZendSearchModule.zendsearch', 'Папка хранения индекса поиска'),
+            'indexFiles' => Yii::t('ZendSearchModule.zendsearch', 'Index data folder.'),
         );
     }
 
@@ -38,17 +38,17 @@ class ZendSearchModule extends YWebModule
 
     public function getCategory()
     {
-        return Yii::t('ZendSearchModule.zendsearch', 'Сервисы');
+        return Yii::t('ZendSearchModule.zendsearch', 'Services');
     }
 
     public function getName()
     {
-        return Yii::t('ZendSearchModule.zendsearch', 'Поиск (Zend)');
+        return Yii::t('ZendSearchModule.zendsearch', 'Find (Zend)');
     }
 
     public function getDescription()
     {
-        return Yii::t('ZendSearchModule.zendsearch', 'Модуль поиска на основе Zend Lucene');
+        return Yii::t('ZendSearchModule.zendsearch', 'Find module in terms of Zend Lucene');
     }
 
     public function getAuthor()
