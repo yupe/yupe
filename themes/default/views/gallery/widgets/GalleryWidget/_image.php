@@ -11,7 +11,7 @@
             </p>
             <?php echo CHtml::link(
                 Yii::t('default', 'Подробнее...'),
-                array('/gallery/gallery/foto/', 'id' => $data->image->id),
+                array('/gallery/gallery/image/', 'id' => $data->image->id),
                 array('class' => 'btn btn-primary btn-block')
             ); ?></a>
         </div>
