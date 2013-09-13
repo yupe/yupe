@@ -1,1 +1,1 @@
-<b><?php echo Yii::t('UserModule.user', 'Ваш IP занесен в черный список! Регистрация невозможна!'); ?></b>
+<b><?php echo Yii::t('UserModule.user', 'Your IP was added in black list! Registration can\'t be continued!'); ?></b>

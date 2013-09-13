@@ -13,7 +13,7 @@
 
 $this->layout = 'login';
 $this->yupe->getComponent('bootstrap');
-$this->pageTitle = Yii::t('UserModule.user', 'Авторизация');
+$this->pageTitle = Yii::t('UserModule.user', 'Authorization');
 /**
  * Добавляем нужный CSS:
  */
@@ -32,7 +32,7 @@ Yii::app()->clientScript->registerCssFile(
                 )
             ); ?>
             <fieldset>
-                <legend><?php echo Yii::t('UserModule.user', 'Пожалуйста, авторизуйтесь'); ?></legend>
+                <legend><?php echo Yii::t('UserModule.user', 'Authorize please'); ?></legend>
                 <?php echo $form->errorSummary($model); ?>
                 <div class='row-fluid'>
                     <?php echo $form->textFieldRow($model, 'email', array('class' => 'span12')); ?>
@@ -42,7 +42,7 @@ Yii::app()->clientScript->registerCssFile(
                     <?php endif; ?>
 
                     <?php if(!$this->getModule()->recoveryDisabled):?>
-                       <?php echo CHtml::link(Yii::t('UserModule.user', "Забыли пароль?"), array('/user/account/recovery')); ?>
+                       <?php echo CHtml::link(Yii::t('UserModule.user', 'Forgot password?'), array('/user/account/recovery')); ?>
                     <?php endif;?>
                 </div>
                 <?php if (Yii::app()->user->getState('badLoginCount', 0) >= 3): ?>
@@ -55,7 +55,7 @@ Yii::app()->clientScript->registerCssFile(
                                 <?php echo $form->error($model, 'verifyCode'); ?>
                             </div>
                             <div class="hint">
-                                <?php echo Yii::t('UserModule.user', 'Введите текст указанный на картинке'); ?>
+                                <?php echo Yii::t('UserModule.user', 'Insert text you see on image'); ?>
                             </div>
                         <?php endif; ?>
                     </div>
@@ -67,7 +67,7 @@ Yii::app()->clientScript->registerCssFile(
                     'bootstrap.widgets.TbButton', array(
                         'buttonType'  => 'submit',
                         'type'        => 'primary',
-                        'label'       => Yii::t('UserModule.user', 'Войти'),
+                        'label'       => Yii::t('UserModule.user', 'Login'),
                         'htmlOptions' => array(
                             'class' => 'btn-block'
                         ),

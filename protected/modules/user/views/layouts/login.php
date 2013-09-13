@@ -32,7 +32,7 @@
 <body>
 <div id="overall-wrap">
     <!-- mainmenu -->
-    <?php  $brandTitle = Yii::t('UserModule.user', 'Перейти на главную панели управления'); ?>
+    <?php  $brandTitle = Yii::t('UserModule.user', 'Control panel'); ?>
     <?php
             $this->widget(
                 'bootstrap.widgets.TbNavbar', array(
@@ -55,54 +55,54 @@
                                 array(
                                     array(
                                         'icon'  => 'question-sign white',
-                                        'label' => Yii::t('UserModule.user', 'Помощь'),
+                                        'label' => Yii::t('UserModule.user', 'Help'),
                                         'url'   => 'http://yupe.ru/docs/index.html?from=login',
                                         'items' => array(
                                             array(
                                                 'icon'  => 'icon-globe',
-                                                'label' => Yii::t('UserModule.user', 'Официальный сайт'),
+                                                'label' => Yii::t('UserModule.user', 'Official site'),
                                                 'url'   => 'http://yupe.ru?from=help',
                                                 'linkOptions' => array('target' => '_blank'),
                                             ),
                                             array(
                                                 'icon'  => 'icon-book',
-                                                'label' => Yii::t('UserModule.user', 'Официальная документация'),
+                                                'label' => Yii::t('UserModule.user', 'Official documentation'),
                                                 'url'   => 'http://yupe.ru/docs/index.html?from=login',
                                                 'linkOptions' => array('target' => '_blank'),
                                             ),
                                             array(
                                                 'icon'  => 'icon-th-large',
-                                                'label' => Yii::t('UserModule.user', 'Дополнительные модули'),
+                                                'label' => Yii::t('UserModule.user', 'Additional modules'),
                                                 'url'   => 'https://github.com/yupe/yupe-ext',
                                                 'linkOptions' => array('target' => '_blank'),
                                             ),
                                             array(
                                                 'icon'  => 'icon-comment',
-                                                'label' => Yii::t('UserModule.user', 'Форум'),
+                                                'label' => Yii::t('UserModule.user', 'Forum'),
                                                 'url'   => 'http://yupe.ru/talk/?from=login',
                                                 'linkOptions' => array('target' => '_blank'),
                                             ),
                                             array(
                                                 'icon'  => 'icon-globe',
-                                                'label' => Yii::t('UserModule.user', 'Сообщество на github'),
+                                                'label' => Yii::t('UserModule.user', 'Community in GitHub'),
                                                 'url'   => 'https://github.com/yupe/yupe',
                                                 'linkOptions' => array('target' => '_blank'),
                                             ),
                                             array(
                                                 'icon'  => 'icon-thumbs-up',
-                                                'label' => Yii::t('UserModule.user', 'Заказать разработку или поддержку'),
+                                                'label' => Yii::t('UserModule.user', 'Order development and support'),
                                                 'url'   => 'http://yupe.ru/feedback/index?from=login',
                                                 'linkOptions' => array('target' => '_blank'),
                                             ),
                                             array(
                                                 'icon'  => 'icon-warning-sign',
-                                                'label' => Yii::t('UserModule.user', 'Сообщить об ошибке'),
+                                                'label' => Yii::t('UserModule.user', 'Report error'),
                                                 'url'   => 'http://yupe.ru/feedback/index?from=login',
                                                 'linkOptions' => array('target' => '_blank'),
                                             ),
                                             array(
                                                 'icon'  => 'exclamation-sign',
-                                                'label' => Yii::t('UserModule.user', 'О Юпи!'),
+                                                'label' => Yii::t('UserModule.user', 'About Yupe!'),
                                                 'url'   => 'http://yupe.ru/pages/about?from=login',
                                                 'linkOptions' => array('target' => '_blank'),
                                             ),
@@ -110,7 +110,7 @@
                                     ),
                                     array(
                                         'icon'        => 'home white',
-                                        'label'       => Yii::t('UserModule.user', 'На сайт'),
+                                        'label'       => Yii::t('UserModule.user', 'Go home'),
                                         'linkOptions' => array('target' => '_blank'),
                                         'url'         => array('/' . Yii::app()->defaultController . '/index/'),
                                     ),
@@ -129,7 +129,7 @@
     <?php echo $this->yupe->poweredBy();?>
     <br/>
     <a href="http://amylabs.ru/?from=yupe-panel">
-        <?php echo Yii::t('UserModule.user', 'Разработка и поддержка'); ?></a> - <a href="http://amylabs.ru/?from=yupe-panel" target="_blank">amyLabs
+        <?php echo Yii::t('UserModule.user', 'Development and support'); ?></a> - <a href="http://amylabs.ru/?from=yupe-panel" target="_blank">amyLabs
     </a>
 </footer>
 

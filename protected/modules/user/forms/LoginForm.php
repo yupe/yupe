@@ -15,7 +15,7 @@ class LoginForm extends YFormModel
             array('email, password', 'required'),
             array('email', 'email'),
             array('remember_me','boolean'),
-            array('verifyCode', 'YRequiredValidator', 'allowEmpty' => !$module->showCaptcha || !CCaptcha::checkRequirements(), 'message' => Yii::t('UserModule.user', 'Код проверки не корректен.'), 'on' => 'loginLimit'),
+            array('verifyCode', 'YRequiredValidator', 'allowEmpty' => !$module->showCaptcha || !CCaptcha::checkRequirements(), 'message' => Yii::t('UserModule.user', 'Check code incorrect'), 'on' => 'loginLimit'),
             array('verifyCode', 'captcha', 'allowEmpty' => !$module->showCaptcha || !CCaptcha::checkRequirements(), 'on' => 'loginLimit'),
             array('verifyCode', 'emptyOnInvalid'),
             array('password', 'authenticate'),
@@ -26,9 +26,9 @@ class LoginForm extends YFormModel
     {
         return array(
             'email'      => Yii::t('UserModule.user', 'Email'),
-            'password'   => Yii::t('UserModule.user', 'Пароль'),
-            'remember_me'=> Yii::t('UserModule.user', 'Запомнить меня'),
-            'verifyCode' => Yii::t('UserModule.user', 'Код проверки'),
+            'password'   => Yii::t('UserModule.user', 'Password'),
+            'remember_me'=> Yii::t('UserModule.user', 'Remember me'),
+            'verifyCode' => Yii::t('UserModule.user', 'Check code'),
         );
     }
 
@@ -36,9 +36,9 @@ class LoginForm extends YFormModel
     {
         return array(
             'email'      => Yii::t('UserModule.user', 'Email'),
-            'password'   => Yii::t('UserModule.user', 'Пароль'),
-            'remember_me'=> Yii::t('UserModule.user', 'Запомнить меня'),
-            'verifyCode' => Yii::t('UserModule.user', 'Код проверки'),
+            'password'   => Yii::t('UserModule.user', 'Password'),
+            'remember_me'=> Yii::t('UserModule.user', 'Remember me'),
+            'verifyCode' => Yii::t('UserModule.user', 'Check code'),
         );
     }
 
@@ -57,7 +57,7 @@ class LoginForm extends YFormModel
             }
 
             if (!$this->_identity->authenticate())
-                $this->addError('password', Yii::t('UserModule.user', 'Email или пароль введены неверно!'));
+                $this->addError('password', Yii::t('UserModule.user', 'Email or password was typed wrong!'));
             else
                 Yii::app()->user->login($this->_identity, $duration);
 
