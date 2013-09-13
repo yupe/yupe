@@ -12,7 +12,7 @@ class ActivateAction extends CAction
         {
             Yii::app()->user->setFlash(
                 YFlashMessages::ERROR_MESSAGE,
-                Yii::t('UserModule.user', 'Ошибка активации! Возможно данный аккаунт уже активирован! Попробуете зарегистрироваться вновь?')
+                Yii::t('UserModule.user', 'Activation error! Maybe this account already activated! Try to register again')
             );
 
             $this->controller->redirect(array($module->accountActivationFailure));
@@ -21,19 +21,19 @@ class ActivateAction extends CAction
         if ($user->activate())
         {
             Yii::log(
-                Yii::t('UserModule.user', "Активирован аккаунт с activate_key = {activate_key}!", array('{activate_key}' => $key)),
+                Yii::t('UserModule.user', 'Account with activate_key = {activate_key} was activated!', array('{activate_key}' => $key)),
                 CLogger::LEVEL_INFO, UserModule::$logCategory
             );
 
             Yii::app()->user->setFlash(
                 YFlashMessages::SUCCESS_MESSAGE,
-                Yii::t('UserModule.user', 'Вы успешно активировали аккаунт! Теперь Вы можете войти!')
+                Yii::t('UserModule.user', 'You activate account successfully. Now you can login!')
             );
 
             // отправить сообщение о активации аккаунта
             $emailBody = $this->controller->renderPartial('accountActivatedEmail', array('model' => $user), true);
 
-            Yii::app()->mail->send($module->notifyEmailFrom, $user->email, Yii::t('UserModule.user', 'Аккаунт активирован!'), $emailBody);
+            Yii::app()->mail->send($module->notifyEmailFrom, $user->email, Yii::t('UserModule.user', 'Account was activated!'), $emailBody);
 
             $this->controller->redirect(array($module->accountActivationSuccess));
         }
@@ -41,11 +41,11 @@ class ActivateAction extends CAction
         {
             Yii::app()->user->setFlash(
                 YFlashMessages::ERROR_MESSAGE,
-                Yii::t('UserModule.user', 'При активации аккаунта произошла ошибка! Попробуйте позже!')
+                Yii::t('UserModule.user', 'Account activation error! Try again later!')
             );
 
             Yii::log(
-                Yii::t('UserModule.user', "При активации аккаунта c activate_key => {activate_key} произошла ошибка!", array('{activate_key}' => $key)),
+                Yii::t('UserModule.user', 'There is an error when activating account with activate_key => {activate_key}', array('{activate_key}' => $key)),
                 CLogger::LEVEL_ERROR, UserModule::$logCategory
             );
 
