@@ -48,11 +48,11 @@ class ImageModule extends YWebModule
     public function getParamsLabels()
     {
         return array(
-            'mainCategory'      => Yii::t('ImageModule.image','Главная категория изображений'),
-            'uploadPath'        => Yii::t('ImageModule.image', 'Каталог для загрузки изображений'),
-            'allowedExtensions' => Yii::t('ImageModule.image', 'Разрешенные расширения (перечислите через запятую)'),
-            'minSize'           => Yii::t('ImageModule.image', 'Минимальный размер (в байтах)'),
-            'maxSize'           => Yii::t('ImageModule.image', 'Максимальный размер (в байтах)'),
+            'mainCategory'      => Yii::t('ImageModule.image','Main images category'),
+            'uploadPath'        => Yii::t('ImageModule.image', 'Directory for uploading images'),
+            'allowedExtensions' => Yii::t('ImageModule.image', 'Allowed extensions (separated by comma)'),
+            'minSize'           => Yii::t('ImageModule.image', 'Minimum size (in bytes)'),
+            'maxSize'           => Yii::t('ImageModule.image', 'Maximum size (in bytes)'),
         );
     }
 
@@ -85,8 +85,8 @@ class ImageModule extends YWebModule
         if (!$this->uploadPath)
              $messages[YWebModule::CHECK_ERROR][] = array(
                 'type'    => YWebModule::CHECK_ERROR,
-                'message' => Yii::t('ImageModule.image', 'Пожалуйста, укажите каталог для хранения изображений! {link}', array(
-                    '{link}' => CHtml::link(Yii::t('ImageModule.image', 'Изменить настройки модуля'), array(
+                'message' => Yii::t('ImageModule.image', 'Please, choose catalog for images! {link}', array(
+                    '{link}' => CHtml::link(Yii::t('ImageModule.image', 'Change module settings'), array(
                         '/yupe/backend/modulesettings/',
                         'module' => $this->id,
                      )),
@@ -96,9 +96,9 @@ class ImageModule extends YWebModule
         if (!is_dir($this->getUploadPath()) || !is_writable($this->getUploadPath()))
             $messages[YWebModule::CHECK_ERROR][] = array(
                 'type'    => YWebModule::CHECK_ERROR,
-                'message' => Yii::t('ImageModule.image', 'Директория "{dir}" не доступна для записи или не существует! {link}', array(
+                'message' => Yii::t('ImageModule.image', 'Directory "{dir}" is not accessible for writing ot not exists! {link}', array(
                     '{dir}' => $this->getUploadPath(),
-                    '{link}' => CHtml::link(Yii::t('ImageModule.image', 'Изменить настройки модуля'), array(
+                    '{link}' => CHtml::link(Yii::t('ImageModule.image', 'Change module settings'), array(
                         '/yupe/backend/modulesettings/',
                         'module' => $this->id,
                     )),
@@ -108,8 +108,8 @@ class ImageModule extends YWebModule
         if (!$this->maxSize || $this->maxSize <= 0)
             $messages[YWebModule::CHECK_ERROR][] = array(
                 'type'    => YWebModule::CHECK_ERROR,
-                'message' => Yii::t('ImageModule.image', 'Укажите максимальный размер изображений {link}', array(
-                    '{link}' => CHtml::link(Yii::t('ImageModule.image', 'Изменить настройки модуля'), array(
+                'message' => Yii::t('ImageModule.image', 'Set maximum images size {link}', array(
+                    '{link}' => CHtml::link(Yii::t('ImageModule.image', 'Change module settings'), array(
                         '/yupe/backend/modulesettings/',
                         'module' => $this->id,
                      )),
@@ -120,17 +120,17 @@ class ImageModule extends YWebModule
 
     public function getCategory()
     {
-        return Yii::t('ImageModule.image', 'Контент');
+        return Yii::t('ImageModule.image', 'Content');
     }
 
     public function getName()
     {
-        return Yii::t('ImageModule.image', 'Изображения');
+        return Yii::t('ImageModule.image', 'Images');
     }
 
     public function getDescription()
     {
-        return Yii::t('ImageModule.image', 'Модуль для хранения изображений');
+        return Yii::t('ImageModule.image', 'Module for images management');
     }
 
     public function getAuthor()
@@ -186,8 +186,8 @@ class ImageModule extends YWebModule
     public function getNavigation()
     {
         return array(
-            array('icon' => 'list-alt', 'label' => Yii::t('ImageModule.image', 'Список изображений'), 'url' => array('/image/default/index')),
-            array('icon' => 'plus-sign', 'label' => Yii::t('ImageModule.image', 'Добавить изображение'), 'url' => array('/image/default/create')),
+            array('icon' => 'list-alt', 'label' => Yii::t('ImageModule.image', 'Images list'), 'url' => array('/image/default/index')),
+            array('icon' => 'plus-sign', 'label' => Yii::t('ImageModule.image', 'Add image'), 'url' => array('/image/default/create')),
         );
     }
 
