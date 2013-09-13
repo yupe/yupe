@@ -38,7 +38,7 @@ class YMailMessage extends CApplicationComponent
             if ($this->_mail = Yii::app()->getComponent($id))
                 return $this->_mail;
         }
-        throw new CException(Yii::t('MailModule.mail', 'Компонент YMailMessage.mailComponent не работает!'));
+        throw new CException(Yii::t('MailModule.mail', 'Component YMailMessage.mailComponent is not working!'));
     }
 
     /**
@@ -71,16 +71,16 @@ class YMailMessage extends CApplicationComponent
         );
 
         if (!$mailEvent)
-            throw new CException(Yii::t('MailModule.mail', 'MailEvent c кодом "{code}" не найден!'), array(':code' => $code));
+            throw new CException(Yii::t('MailModule.mail', 'MainEvent with "{code}" code was not found!'), array(':code' => $code));
 
         if (!count($mailEvent->templates))
-            throw new CException(Yii::t('MailModule.mail', 'MailEvent c кодом "{code}" не содержит ни одного активного шаблона!'), array(':code' => $code));
+            throw new CException(Yii::t('MailModule.mail', 'MainEvent with code "{code}" don\'t contain any of active templates!'), array(':code' => $code));
 
         foreach ($mailEvent->templates as $template) {
             $parsedData = $this->parseTemplate($template, $data);
 
             if (!$this->getMailComponent()->send($parsedData['from'], $parsedData['to'], $parsedData['theme'], $parsedData['body']))
-               throw new CException(Yii::t('MailModule.mail', 'Ошибка отправка почты!'));
+               throw new CException(Yii::t('MailModule.mail', 'Error when sending mail!'));
         }
         return true;
     }
@@ -103,12 +103,12 @@ class YMailMessage extends CApplicationComponent
         );
 
         if (!$template)
-            throw new CException(Yii::t('MailModule.mail', 'Шаблон с кодом "{code}" не найден!'), array('{code}' => $code));
+            throw new CException(Yii::t('MailModule.mail', 'Template with "{code}" was not found!'), array('{code}' => $code));
 
         $parsedData = $this->parseTemplate($template, $data);
 
         if (!$this->getMailComponent()->send($parsedData['from'], $parsedData['to'], $parsedData['theme'], $parsedData['body']))
-               throw new CException(Yii::t('MailModule.mail', 'Ошибка отправка почты!'));
+               throw new CException(Yii::t('MailModule.mail', 'Error when sending mail!'));
         return true;
     }
 

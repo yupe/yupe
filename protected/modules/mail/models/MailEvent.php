@@ -101,9 +101,9 @@ class MailEvent extends YModel
     {
         return array(
             'id'          => Yii::t('MailModule.mail', 'ID'),
-            'code'        => Yii::t('MailModule.mail', 'Символьный код'),
-            'name'        => Yii::t('MailModule.mail', 'Название'),
-            'description' => Yii::t('MailModule.mail', 'Описание'),
+            'code'        => Yii::t('MailModule.mail', 'Symbolic code'),
+            'name'        => Yii::t('MailModule.mail', 'Title'),
+            'description' => Yii::t('MailModule.mail', 'Description'),
         );
     }
 

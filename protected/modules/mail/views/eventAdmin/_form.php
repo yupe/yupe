@@ -30,9 +30,9 @@ $form = $this->beginWidget(
 ); ?>
 
     <div class="alert alert-info">
-        <?php echo Yii::t('MailModule.mail', 'Поля, отмеченные'); ?>
+        <?php echo Yii::t('MailModule.mail', 'Fields, with'); ?>
         <span class="required">*</span>
-        <?php echo Yii::t('MailModule.mail', 'обязательны.'); ?>
+        <?php echo Yii::t('MailModule.mail', 'are required.'); ?>
     </div>
 
     <?php echo  $form->errorSummary($model); ?>
@@ -54,7 +54,7 @@ $form = $this->beginWidget(
         'bootstrap.widgets.TbButton', array(
             'buttonType' => 'submit',
             'type'       => 'primary',
-            'label'      => $model->isNewRecord ? Yii::t('MailModule.mail', 'Добавить событие и продолжить') : Yii::t('MailModule.mail', 'Сохранить событие и продолжить'),
+            'label'      => $model->isNewRecord ? Yii::t('MailModule.mail', 'Create event and continue') : Yii::t('MailModule.mail', 'Save event and continue'),
         )
     ); ?>
     <?php
@@ -62,7 +62,7 @@ $form = $this->beginWidget(
         'bootstrap.widgets.TbButton', array(
             'buttonType'  => 'submit',
             'htmlOptions' => array('name' => 'submit-type', 'value' => 'index'),
-            'label'       => $model->isNewRecord ? Yii::t('MailModule.mail', 'Добавить событие и закрыть') : Yii::t('MailModule.mail', 'Сохранить событие и закрыть'),
+            'label'       => $model->isNewRecord ? Yii::t('MailModule.mail', 'Create event and close') : Yii::t('MailModule.mail', 'Save event and close'),
         )
     ); ?>
 
