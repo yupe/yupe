@@ -15,13 +15,13 @@ class HpModule extends YWebModule
     {
         $modes = array();
         if(Yii::app()->hasModule('blog')){
-            $modes[self::MODE_POSTS] = Yii::t('HpModule.hp', 'Посты');
+            $modes[self::MODE_POSTS] = Yii::t('HpModule.hp', 'Posts');
         }
         if(Yii::app()->hasModule('page')){
-            $modes[self::MODE_PAGE] = Yii::t('HpModule.hp', 'Страница');
+            $modes[self::MODE_PAGE] = Yii::t('HpModule.hp', 'Page');
         }
         if(empty($modes)){
-            $modes[null] = Yii::t('HpModule.hp', 'Активируйте модуль "блоги" и/или "страницы"');
+            $modes[null] = Yii::t('HpModule.hp', 'Please activate "Blogs" or/and "Pages" module');
         }
         return $modes;
     }
@@ -43,22 +43,22 @@ class HpModule extends YWebModule
 
     public function getName()
     {
-        return Yii::t('HpModule.hp', 'Домашняя страница');
+        return Yii::t('HpModule.hp', 'Home page');
     }
 
     public function getCategory()
     {
-        return Yii::t('HpModule.hp', 'Юпи!');
+        return Yii::t('HpModule.hp', 'Yupe!');
     }
 
     public function getDescription()
     {
-        return Yii::t('HpModule.hp', 'Модуль для управления главной страницей');
+        return Yii::t('HpModule.hp', 'Main page management module');
     }
 
     public function getAuthor()
     {
-        return Yii::t('HpModule.hp', 'Андрей Опейкин');
+        return Yii::t('HpModule.hp', 'Andrey Opeykin');
     }
 
     public function getUrl()
@@ -93,9 +93,9 @@ class HpModule extends YWebModule
     public function getParamsLabels()
     {
         return array(
-            'mode' => Yii::t('HpModule.hp', 'Что отображать'),
-            'limit' => Yii::t('HpModule.hp', 'Кол-во записей (только для постов)'),
-            'target' => Yii::t('HpModule.hp', 'Страница или пост')
+            'mode' => Yii::t('HpModule.hp', 'Whats will be displayed'),
+            'limit' => Yii::t('HpModule.hp', 'Pages count'),
+            'target' => Yii::t('HpModule.hp', 'Page or post')
         );
     }
 
