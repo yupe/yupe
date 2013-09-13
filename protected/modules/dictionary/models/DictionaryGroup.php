@@ -80,13 +80,13 @@ class DictionaryGroup extends YModel
     {
         return array(
             'id'             => Yii::t('DictionaryModule.dictionary', 'id'),
-            'code'           => Yii::t('DictionaryModule.dictionary', 'Код'),
-            'name'           => Yii::t('DictionaryModule.dictionary', 'Название'),
-            'description'    => Yii::t('DictionaryModule.dictionary', 'Описание'),
-            'creation_date'  => Yii::t('DictionaryModule.dictionary', 'Дата создания'),
-            'update_date'    => Yii::t('DictionaryModule.dictionary', 'Дата изменения'),
-            'create_user_id' => Yii::t('DictionaryModule.dictionary', 'Создал'),
-            'update_user_id' => Yii::t('DictionaryModule.dictionary', 'Изменил'),
+            'code'           => Yii::t('DictionaryModule.dictionary', 'Code'),
+            'name'           => Yii::t('DictionaryModule.dictionary', 'Title'),
+            'description'    => Yii::t('DictionaryModule.dictionary', 'Description'),
+            'creation_date'  => Yii::t('DictionaryModule.dictionary', 'Created at'),
+            'update_date'    => Yii::t('DictionaryModule.dictionary', 'Updated at'),
+            'create_user_id' => Yii::t('DictionaryModule.dictionary', 'Created by.'),
+            'update_user_id' => Yii::t('DictionaryModule.dictionary', 'Updated by'),
         );
     }
 

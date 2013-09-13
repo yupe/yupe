@@ -85,16 +85,16 @@ class DictionaryData extends YModel
     {
         return array(
             'id'             => Yii::t('DictionaryModule.dictionary', 'id'),
-            'group_id'       => Yii::t('DictionaryModule.dictionary', 'Справочник'),
-            'code'           => Yii::t('DictionaryModule.dictionary', 'Код'),
-            'name'           => Yii::t('DictionaryModule.dictionary', 'Название'),
-            'value'          => Yii::t('DictionaryModule.dictionary', 'Значение'),
-            'description'    => Yii::t('DictionaryModule.dictionary', 'Описание'),
-            'creation_date'  => Yii::t('DictionaryModule.dictionary', 'Дата создания'),
-            'update_date'    => Yii::t('DictionaryModule.dictionary', 'Дата обновления'),
-            'create_user_id' => Yii::t('DictionaryModule.dictionary', 'Создал'),
-            'update_user_id' => Yii::t('DictionaryModule.dictionary', 'Обновил'),
-            'status'         => Yii::t('DictionaryModule.dictionary', 'Активно'),
+            'group_id'       => Yii::t('DictionaryModule.dictionary', 'Dictionary'),
+            'code'           => Yii::t('DictionaryModule.dictionary', 'Code'),
+            'name'           => Yii::t('DictionaryModule.dictionary', 'Title'),
+            'value'          => Yii::t('DictionaryModule.dictionary', 'Item'),
+            'description'    => Yii::t('DictionaryModule.dictionary', 'Description'),
+            'creation_date'  => Yii::t('DictionaryModule.dictionary', 'Created at'),
+            'update_date'    => Yii::t('DictionaryModule.dictionary', 'Updated at.'),
+            'create_user_id' => Yii::t('DictionaryModule.dictionary', 'Created by.'),
+            'update_user_id' => Yii::t('DictionaryModule.dictionary', 'Updated by.'),
+            'status'         => Yii::t('DictionaryModule.dictionary', 'Active'),
         );
     }
 
@@ -140,8 +140,8 @@ class DictionaryData extends YModel
     public function getStatusList()
     {
         return array(
-            self::STATUS_ACTIVE  => Yii::t('DictionaryModule.dictionary', 'Да'),
-            self::STATUS_DELETED => Yii::t('DictionaryModule.dictionary', 'Нет'),
+            self::STATUS_ACTIVE  => Yii::t('DictionaryModule.dictionary', 'Yes'),
+            self::STATUS_DELETED => Yii::t('DictionaryModule.dictionary', 'No'),
         );
     }
 
@@ -149,7 +149,7 @@ class DictionaryData extends YModel
     {
         $data = $this->getStatusList();
 
-        return isset($data[$this->status]) ? $data[$this->status] : Yii::t('DictionaryModule.dictionary', '*неизвестно*');
+        return isset($data[$this->status]) ? $data[$this->status] : Yii::t('DictionaryModule.dictionary', '*unknown*');
     }
 
     public function getByCode($code)

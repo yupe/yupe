@@ -30,7 +30,7 @@ class DefaultController extends YBackController
             {
                 Yii::app()->user->setFlash(
                     YFlashMessages::SUCCESS_MESSAGE,
-                    Yii::t('DictionaryModule.dictionary', 'Запись добавлена!')
+                    Yii::t('DictionaryModule.dictionary', 'Record was created')
                 );
 
                 $this->redirect(
@@ -63,7 +63,7 @@ class DefaultController extends YBackController
             {
                 Yii::app()->user->setFlash(
                     YFlashMessages::SUCCESS_MESSAGE,
-                    Yii::t('DictionaryModule.dictionary', 'Запись добавлена!')
+                    Yii::t('DictionaryModule.dictionary', 'Record was created')
                 );
 
                 if (!isset($_POST['submit-type']))
@@ -92,7 +92,7 @@ class DefaultController extends YBackController
                 $this->redirect(isset($_POST['returnUrl']) ? $_POST['returnUrl'] : array('index'));
         }
         else
-            throw new CHttpException(400, Yii::t('DictionaryModule.dictionary', 'Неверный запрос. Пожалуйста, больше не повторяйте такие запросы'));
+            throw new CHttpException(400, Yii::t('DictionaryModule.dictionary', 'Bad request. Please don\'t repeate similar requests anymore'));
     }
 
     /**
@@ -116,7 +116,7 @@ class DefaultController extends YBackController
     {
         $model = DictionaryGroup::model()->findByPk((int) $id);
         if ($model === null)
-            throw new CHttpException(404, Yii::t('DictionaryModule.dictionary', 'Запрошенная страница не найдена!'));
+            throw new CHttpException(404, Yii::t('DictionaryModule.dictionary', 'Requested page was not found'));
         return $model;
     }
 
