@@ -33,7 +33,7 @@ class DefaultController extends YBackController
             {
                 Yii::app()->user->setFlash(
                     YFlashMessages::SUCCESS_MESSAGE,
-                    Yii::t('FeedbackModule.feedback', 'Сообщение сохранено!')
+                    Yii::t('FeedbackModule.feedback', 'Message saved!')
                 );
 
                 $this->redirect(
@@ -70,7 +70,7 @@ class DefaultController extends YBackController
             {
                 Yii::app()->user->setFlash(
                     YFlashMessages::SUCCESS_MESSAGE,
-                    Yii::t('FeedbackModule.feedback', 'Сообщение обновлено!')
+                    Yii::t('FeedbackModule.feedback', 'Message was updated')
                 );
 
                 if (!isset($_POST['submit-type']))
@@ -86,7 +86,7 @@ class DefaultController extends YBackController
     {
         $model = FeedBack::model()->findbyPk((int) $id);
         if (!$model)
-            throw new CHttpException(404, Yii::t('FeedbackModule.feedback', 'Страница не найдена!'));
+            throw new CHttpException(404, Yii::t('FeedbackModule.feedback', 'Page was not found!'));
 
         $form = new AnswerForm;
 
@@ -98,7 +98,7 @@ class DefaultController extends YBackController
         if ($model->status == FeedBack::STATUS_ANSWER_SENDED)
             Yii::app()->user->setFlash(
                 YFlashMessages::SUCCESS_MESSAGE,
-                Yii::t('FeedbackModule.feedback', 'Внимание! Ответ на это сообщение уже был отправлен!')
+                Yii::t('FeedbackModule.feedback', 'Attention! Reply for this message already sent!')
             );
 
         if (Yii::app()->request->isPostRequest && isset($_POST['AnswerForm']))
@@ -128,7 +128,7 @@ class DefaultController extends YBackController
                     );
                     Yii::app()->user->setFlash(
                         YFlashMessages::SUCCESS_MESSAGE,
-                        Yii::t('FeedbackModule.feedback', 'Ответ на сообщение отправлен!')
+                        Yii::t('FeedbackModule.feedback', 'Reply on message was sent!')
                     );
 
                     $this->redirect(array('/feedback/default/view/', 'id' => $model->id));
@@ -154,7 +154,7 @@ class DefaultController extends YBackController
                 $this->redirect(isset($_POST['returnUrl']) ? $_POST['returnUrl'] : array('index'));
         }
         else
-            throw new CHttpException(400, Yii::t('FeedbackModule.feedback', 'Неверный запрос. Пожалуйста, больше не повторяйте такие запросы'));
+            throw new CHttpException(400, Yii::t('FeedbackModule.feedback', 'Bad request. Please don\'t repeate similar requests anymore'));
     }
     
     /**
@@ -180,7 +180,7 @@ class DefaultController extends YBackController
             if (isset($_GET['id']))
                 $this->_model = FeedBack::model()->findbyPk($_GET['id']);
             if ($this->_model === null)
-                throw new CHttpException(404, Yii::t('FeedbackModule.feedback', 'Запрошенная страница не найдена!'));
+                throw new CHttpException(404, Yii::t('FeedbackModule.feedback', 'Requested page was not found!'));
         }
         return $this->_model;
     }

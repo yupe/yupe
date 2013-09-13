@@ -8,9 +8,9 @@ $form = $this->beginWidget('bootstrap.widgets.TbActiveForm', array(
     'inlineErrors'           => true,
 )); ?>
     <div class="alert alert-info">
-        <?php echo Yii::t('FeedbackModule.feedback', 'Поля, отмеченные'); ?>
+        <?php echo Yii::t('FeedbackModule.feedback', 'Fields with'); ?>
         <span class="required">*</span>
-        <?php echo Yii::t('FeedbackModule.feedback', 'обязательны.'); ?>
+        <?php echo Yii::t('FeedbackModule.feedback', 'are required.'); ?>
     </div>
 
     <?php echo $form->errorSummary($model); ?>
@@ -24,7 +24,7 @@ $form = $this->beginWidget('bootstrap.widgets.TbActiveForm', array(
         </div>
     </div>
     <div class="row-fluid control-group  <?php echo $model->hasErrors('category_id') ? 'error' : ''; ?>">
-        <?php echo $form->dropDownListRow($model,'category_id',CHtml::listData($this->module->getCategoryList(),'id','name'), array('empty' => Yii::t('FeedbackModule.feedback','--укажите--'),'class' => 'popover-help span7', 'data-original-title' => $model->getAttributeLabel('name'), 'data-content' => $model->getAttributeDescription('name'))); ?>
+        <?php echo $form->dropDownListRow($model,'category_id',CHtml::listData($this->module->getCategoryList(),'id','name'), array('empty' => Yii::t('FeedbackModule.feedback','--choose--'),'class' => 'popover-help span7', 'data-original-title' => $model->getAttributeLabel('name'), 'data-content' => $model->getAttributeDescription('name'))); ?>
     </div>
     <div class="row-fluid control-group  <?php echo $model->hasErrors('name') ? 'error' : ''; ?>">
         <?php echo $form->textFieldRow($model, 'name', array('class' => 'popover-help span7', 'maxlength' => 150, 'size' => 60, 'data-original-title' => $model->getAttributeLabel('name'), 'data-content' => $model->getAttributeDescription('name'))); ?>
@@ -78,12 +78,12 @@ $form = $this->beginWidget('bootstrap.widgets.TbActiveForm', array(
     <?php $this->widget('bootstrap.widgets.TbButton', array(
         'buttonType' => 'submit',
         'type'       => 'primary',
-        'label'      => $model->isNewRecord ? Yii::t('FeedbackModule.feedback', 'Добавить сообщение   и продолжить') : Yii::t('FeedbackModule.feedback', 'Сохранить   сообщение и продолжить'),
+        'label'      => $model->isNewRecord ? Yii::t('FeedbackModule.feedback', 'Create message and continue') : Yii::t('FeedbackModule.feedback', 'Save message and continue'),
     )); ?>
     <?php $this->widget('bootstrap.widgets.TbButton', array(
         'buttonType' => 'submit',
         'htmlOptions'=> array('name' => 'submit-type', 'value' => 'index'),
-        'label'      => $model->isNewRecord ? Yii::t('FeedbackModule.feedback', 'Добавить сообщение   и закрыть') : Yii::t('FeedbackModule.feedback', 'Сохранить   сообщение и закрыть'),
+        'label'      => $model->isNewRecord ? Yii::t('FeedbackModule.feedback', 'Create message and close') : Yii::t('FeedbackModule.feedback', 'Save message and close'),
     )); ?>
 
 <?php $this->endWidget(); ?>
