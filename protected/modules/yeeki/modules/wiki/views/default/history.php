@@ -1,6 +1,6 @@
 <?php $this->breadcrumbs = array(
      Yii::t('WikiModule.wiki', 'Wiki') => array('/wiki/default/pageIndex'),
-     Yii::t('WikiModule.wiki', 'История')
+     Yii::t('WikiModule.wiki', 'History')
 );?>
 
 <h1><?php echo CHtml::link(CHtml::encode($page->getWikiUid()), array('view', 'uid' => $page->getWikiUid()))?> <?php echo Yii::t('WikiModule.wiki', 'version history')?></h1>
