@@ -30,7 +30,7 @@ class DefaultController extends YBackController
             {
                 Yii::app()->user->setFlash(
                     YFlashMessages::SUCCESS_MESSAGE,
-                    Yii::t('QueueModule.queue', 'Запись добавлена!')
+                    Yii::t('QueueModule.queue', 'Record was created!')
                 );
 
                 $this->redirect(
@@ -62,7 +62,7 @@ class DefaultController extends YBackController
             {
                 Yii::app()->user->setFlash(
                     YFlashMessages::SUCCESS_MESSAGE,
-                    Yii::t('QueueModule.queue', 'Запись обновлена!')
+                    Yii::t('QueueModule.queue', 'Record was updated!')
                 );
 
                 if (!isset($_POST['submit-type']))
@@ -92,7 +92,7 @@ class DefaultController extends YBackController
                 $this->redirect(isset($_POST['returnUrl']) ? $_POST['returnUrl'] : array('index'));
         }
         else
-            throw new CHttpException(400, Yii::t('QueueModule.queue', 'Неверный запрос. Пожалуйста, больше не повторяйте такие запросы'));
+            throw new CHttpException(400, Yii::t('QueueModule.queue', 'Bad request. Please don\'t repeat similar requests anymore'));
     }
 
     /**
@@ -110,7 +110,7 @@ class DefaultController extends YBackController
     public function actionClear()
     {
         Yii::app()->queue->flush();
-        Yii::app()->user->setFlash(YFlashMessages::SUCCESS_MESSAGE, Yii::t('QueueModule.queue', 'Очередь очищена!'));
+        Yii::app()->user->setFlash(YFlashMessages::SUCCESS_MESSAGE, Yii::t('QueueModule.queue', 'Queue cleaned!'));
         $this->redirect(($referrer = Yii::app()->getRequest()->getUrlReferrer()) !== null ? $referrer : array("/yupe/backend"));
     }
 
@@ -124,7 +124,7 @@ class DefaultController extends YBackController
     {
         $model = Queue::model()->findByPk($id);
         if ($model === null)
-            throw new CHttpException(404, Yii::t('QueueModule.queue', 'Запрошенная страница не найдена.'));
+            throw new CHttpException(404, Yii::t('QueueModule.queue', 'Requested page was not found.'));
         return $model;
     }
 

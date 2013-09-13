@@ -20,7 +20,7 @@ $form = $this->beginWidget('bootstrap.widgets.TbActiveForm', array(
         'type'        => 'primary',
         'encodeLabel' => false,
         'buttonType'  => 'submit',
-        'label'       => '<i class="icon-search icon-white">&nbsp;</i> ' . Yii::t('QueueModule.queue', 'Искать задание'),
+        'label'       => '<i class="icon-search icon-white">&nbsp;</i> ' . Yii::t('QueueModule.queue', 'Find task'),
     )); ?>
 
 <?php $this->endWidget(); ?>
