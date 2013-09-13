@@ -8,9 +8,9 @@ $form = $this->beginWidget('bootstrap.widgets.TbActiveForm', array(
     'inlineErrors'           => true,
 )); ?>
     <div class="alert alert-info">
-        <?php echo Yii::t('GalleryModule.gallery', 'Поля, отмеченные'); ?>
+        <?php echo Yii::t('GalleryModule.gallery', 'Fields with'); ?>
         <span class="required">*</span>
-        <?php echo Yii::t('GalleryModule.gallery', 'обязательны.'); ?>
+        <?php echo Yii::t('GalleryModule.gallery', 'are required.'); ?>
     </div>
 
     <?php echo $form->errorSummary($model); ?>
@@ -39,12 +39,12 @@ $form = $this->beginWidget('bootstrap.widgets.TbActiveForm', array(
     <?php $this->widget('bootstrap.widgets.TbButton', array(
         'buttonType' => 'submit',
         'type'       => 'primary',
-        'label'      => $model->isNewRecord ? Yii::t('GalleryModule.gallery', 'Добавить галерею и продолжить') : Yii::t('GalleryModule.gallery', 'Сохранить галерею и продолжить'),
+        'label'      => $model->isNewRecord ? Yii::t('GalleryModule.gallery', 'Create gallery and continue') : Yii::t('GalleryModule.gallery', 'Save gallery and continue'),
     )); ?>
     <?php $this->widget('bootstrap.widgets.TbButton', array(
         'buttonType'  => 'submit',
         'htmlOptions' => array('name' => 'submit-type', 'value' => 'index'),
-        'label'       => $model->isNewRecord ? Yii::t('GalleryModule.gallery', 'Добавить галерею и закрыть') : Yii::t('GalleryModule.gallery', 'Сохранить галерею и закрыть'),
+        'label'       => $model->isNewRecord ? Yii::t('GalleryModule.gallery', 'Create gallery and close') : Yii::t('GalleryModule.gallery', 'Save gallery and close'),
     )); ?>
 
 <?php $this->endWidget(); ?>

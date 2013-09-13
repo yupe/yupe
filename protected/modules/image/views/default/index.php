@@ -1,27 +1,27 @@
 <?php
     $this->breadcrumbs = array(
         Yii::app()->getModule('image')->getCategory() => array(),
-        Yii::t('ImageModule.image', 'Изображения') => array('/image/default/index'),
-        Yii::t('ImageModule.image', 'Управление'),
+        Yii::t('ImageModule.image', 'Images') => array('/image/default/index'),
+        Yii::t('ImageModule.image', 'Management'),
     );
 
-    $this->pageTitle = Yii::t('ImageModule.image', 'Изображения - управление');
+    $this->pageTitle = Yii::t('ImageModule.image', 'Images - manage');
 
     $this->menu = array(
-        array('icon' => 'list-alt', 'label' => Yii::t('ImageModule.image', 'Управление изображениями'), 'url' => array('/image/default/index')),
-        array('icon' => 'plus-sign', 'label' => Yii::t('ImageModule.image', 'Добавить изображение'), 'url' => array('/image/default/create')),
+        array('icon' => 'list-alt', 'label' => Yii::t('ImageModule.image', 'Image management'), 'url' => array('/image/default/index')),
+        array('icon' => 'plus-sign', 'label' => Yii::t('ImageModule.image', 'Add image'), 'url' => array('/image/default/create')),
     );
 ?>
 <div class="page-header">
     <h1>
-        <?php echo ucfirst(Yii::t('ImageModule.image', 'Изображения')); ?>
-        <small><?php echo Yii::t('ImageModule.image', 'управление'); ?></small>
+        <?php echo ucfirst(Yii::t('ImageModule.image', 'Images')); ?>
+        <small><?php echo Yii::t('ImageModule.image', 'management'); ?></small>
     </h1>
 </div>
 
 <button class="btn btn-small dropdown-toggle" data-toggle="collapse" data-target="#search-toggle">
     <i class="icon-search">&nbsp;</i>
-    <?php echo CHtml::link(Yii::t('ImageModule.image', 'Поиск изображений'), '#', array('class' => 'search-button')); ?>
+    <?php echo CHtml::link(Yii::t('ImageModule.image', 'Find images'), '#', array('class' => 'search-button')); ?>
     <span class="caret">&nbsp;</span>
 </button>
 
@@ -41,7 +41,7 @@ $this->renderPartial('_search', array('model' => $model));
 
 <br/>
 
-<p><?php echo Yii::t('ImageModule.image', 'В данном разделе представлены средства управления изображениями'); ?></p>
+<p><?php echo Yii::t('ImageModule.image', 'This section describes Image management functions'); ?></p>
 
 <?php
 $this->widget(
@@ -65,7 +65,7 @@ $this->widget(
             ),
             array(
                 'name'   => 'galleryId',
-                'header' => Yii::t('ImageModule.image', 'Галерея'),
+                'header' => Yii::t('ImageModule.image', 'Gallery'),
                 'type'   => 'raw',
                 'filter' => $model->galleryList(),
                 'value'  => '$data->galleryName === null

@@ -9,17 +9,17 @@ class QueueModule extends YWebModule
 
     public function getCategory()
     {
-        return Yii::t('QueueModule.queue', 'Сервисы');
+        return Yii::t('QueueModule.queue', 'Services');
     }
 
     public function getName()
     {
-        return Yii::t('QueueModule.queue', 'Задания');
+        return Yii::t('QueueModule.queue', 'Tasks');
     }
 
     public function getDescription()
     {
-        return Yii::t('QueueModule.queue', 'Модуль для создания заданий');
+        return Yii::t('QueueModule.queue', 'Tasks creation and management module');
     }
 
     public function getAuthor()
@@ -60,9 +60,9 @@ class QueueModule extends YWebModule
     public function getNavigation()
     {
         return array(
-            array('icon' => 'list-alt', 'label' => Yii::t('QueueModule.queue', 'Список заданий'), 'url' => array('/queue/default/index')),
-            array('icon' => 'plus-sign', 'label' => Yii::t('QueueModule.queue', 'Добавить задание'), 'url' => array('/queue/default/create')),
-            array('icon' => 'trash', 'label' => Yii::t('QueueModule.queue', 'Очистить очередь'), 'url' => array('/queue/default/clear')),
+            array('icon' => 'list-alt', 'label' => Yii::t('QueueModule.queue', 'Task list'), 'url' => array('/queue/default/index')),
+            array('icon' => 'plus-sign', 'label' => Yii::t('QueueModule.queue', 'Create task'), 'url' => array('/queue/default/create')),
+            array('icon' => 'trash', 'label' => Yii::t('QueueModule.queue', 'Clean queue'), 'url' => array('/queue/default/clear')),
         );
     }
 }

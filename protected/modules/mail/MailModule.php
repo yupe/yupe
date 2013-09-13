@@ -41,7 +41,7 @@ class MailModule extends YWebModule
      **/
     public function getCategory()
     {
-        return Yii::t('MailModule.mail', 'Сервисы');
+        return Yii::t('MailModule.mail', 'Services');
     }
 
     /**
@@ -51,7 +51,7 @@ class MailModule extends YWebModule
      **/
     public function getName()
     {
-        return Yii::t('MailModule.mail', 'Почтовые сообщения');
+        return Yii::t('MailModule.mail', 'Mail messages');
     }
 
     /**
@@ -61,7 +61,7 @@ class MailModule extends YWebModule
      **/
     public function getDescription()
     {
-        return Yii::t('MailModule.mail', 'Модуль управления почтовыми сообщениями');
+        return Yii::t('MailModule.mail', 'Module for mail message management');
     }
 
     /**
@@ -122,12 +122,12 @@ class MailModule extends YWebModule
     public function getNavigation()
     {
         return array(
-            array('label' => Yii::t('MailModule.mail', 'Почтовые события')),
-            array('icon' => 'list-alt', 'label' => Yii::t('MailModule.mail', 'Список событий'), 'url'=>array('/mail/eventAdmin/index')),
-            array('icon' => 'plus-sign', 'label' => Yii::t('MailModule.mail', 'Добавить событие'), 'url' => array('/mail/eventAdmin/create')),
-            array('label' => Yii::t('MailModule.mail', 'Почтовые шаблоны')),
-            array('icon'=> 'list-alt', 'label' => Yii::t('MailModule.mail', 'Список шаблонов'), 'url'=>array('/mail/templateAdmin/index')),
-            array('icon'=> 'plus-sign', 'label' => Yii::t('MailModule.mail', 'Добавить шаблон'), 'url' => array('/mail/templateAdmin/create')),
+            array('label' => Yii::t('MailModule.mail', 'Mail events')),
+            array('icon' => 'list-alt', 'label' => Yii::t('MailModule.mail', 'Messages list'), 'url'=>array('/mail/eventAdmin/index')),
+            array('icon' => 'plus-sign', 'label' => Yii::t('MailModule.mail', 'Create event'), 'url' => array('/mail/eventAdmin/create')),
+            array('label' => Yii::t('MailModule.mail', 'Mail templates')),
+            array('icon'=> 'list-alt', 'label' => Yii::t('MailModule.mail', 'Templates list'), 'url'=>array('/mail/templateAdmin/index')),
+            array('icon'=> 'plus-sign', 'label' => Yii::t('MailModule.mail', 'Create template'), 'url' => array('/mail/templateAdmin/create')),
         );
     }
 

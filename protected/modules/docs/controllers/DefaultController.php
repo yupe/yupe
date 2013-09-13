@@ -20,10 +20,10 @@ class DefaultController extends YBackController
     public function init()
     {
         $this->menu = array(
-            array('icon' => 'file', 'label' => Yii::t('DocsModule.docs', 'О модуле'), 'url' => array('/docs/default/index')),
+            array('icon' => 'file', 'label' => Yii::t('DocsModule.docs', 'About module'), 'url' => array('/docs/default/index')),
             '',
             array(
-                'label' => Yii::t('DocsModule.docs', 'Файлы'), 'items' => $this->module->renderProjectDocs()
+                'label' => Yii::t('DocsModule.docs', 'Files'), 'items' => $this->module->renderProjectDocs()
             ),
         );
         return parent::init();
@@ -50,7 +50,7 @@ class DefaultController extends YBackController
     {
 
         if (($fileName = Yii::getPathOfAlias('webroot') . DIRECTORY_SEPARATOR . '..' . DIRECTORY_SEPARATOR . $file) && !file_exists($fileName))
-            throw new CHttpException(404, Yii::t('DocsModule.docs', 'Страница документации не найдена'));
+            throw new CHttpException(404, Yii::t('DocsModule.docs', 'Docs page was not found'));
 
         $content = $this->module->renderMarkdown($fileName);
 

@@ -44,7 +44,7 @@ class DocsModule extends YWebModule
      */
     public function getCategory()
     {
-        return Yii::t('DocsModule.docs', 'Юпи!');
+        return Yii::t('DocsModule.docs', 'Yupe!');
     }
 
     /**
@@ -55,13 +55,13 @@ class DocsModule extends YWebModule
     public function getParamsLabels()
     {
         return array(
-            'docFolder'       => Yii::t('DocsModule.docs', 'Расположение файлов документации'),
-            'moduleDocFolder' => Yii::t('DocsModule.docs', 'Расположение файлов документации модулей ({module} вместо него подставляется название модуля)'),
-            'notFoundOn'      => Yii::t('DocsModule.docs', 'Показывать страницу ошибки, если файл документации на данном языке не найден?'),
-            'fileExtMD'       => Yii::t('DocsModule.docs', 'Расширения для файлов MarkDown'),
-            'fileExtHTML'     => Yii::t('DocsModule.docs', 'Расширения для файлов HTML'),
-            'cachePages'      => Yii::t('DocsModule.docs', 'Кеширование страниц на уровне фильтрации'),
-            'staticFiles'     => Yii::t('DocsModule.docs', 'Файлы, которые необходимо показать в админ панели'),
+            'docFolder'       => Yii::t('DocsModule.docs', 'Docs files destination'),
+            'moduleDocFolder' => Yii::t('DocsModule.docs', 'Modules docs files destination ({module} replaced by module title)'),
+            'notFoundOn'      => Yii::t('DocsModule.docs', 'Show error page if doc file in current language was not found?'),
+            'fileExtMD'       => Yii::t('DocsModule.docs', 'Extensions for MarkDown files'),
+            'fileExtHTML'     => Yii::t('DocsModule.docs', 'Extensions for HTML files'),
+            'cachePages'      => Yii::t('DocsModule.docs', 'Pages caching on filtration level'),
+            'staticFiles'     => Yii::t('DocsModule.docs', 'Files need display in control panel'),
         );
     }
 
@@ -79,8 +79,8 @@ class DocsModule extends YWebModule
             'fileExtMD',
             'fileExtHTML',
             'cachePages' => array(
-                Yii::t('DocsModule.docs', 'Выключить'),
-                Yii::t('DocsModule.docs', 'Включить'),
+                Yii::t('DocsModule.docs', 'Disable'),
+                Yii::t('DocsModule.docs', 'Enable'),
             ),
             'staticFiles'
         );
@@ -95,10 +95,10 @@ class DocsModule extends YWebModule
     {
         return array(
             'main' => array(
-                'label' => Yii::t('DocsModule.docs', 'Основные настройки модуля'),
+                'label' => Yii::t('DocsModule.docs', 'General module settings'),
             ),
             'files' => array(
-                'label' => Yii::t('DocsModule.docs', 'Настройки файлов'),
+                'label' => Yii::t('DocsModule.docs', 'Files settings'),
                 'items' => array(
                     'fileExtMD',
                     'fileExtHTML',
@@ -116,8 +116,8 @@ class DocsModule extends YWebModule
     public function getNotFoundTypes()
     {
         return array(
-            0 => Yii::t('DocsModule.docs', 'Отображать страницу из языка поумолчанию'),
-            1  => Yii::t('DocsModule.docs', 'Отображать ошибку'),
+            0 => Yii::t('DocsModule.docs', 'Show page for language by default'),
+            1  => Yii::t('DocsModule.docs', 'Show error'),
         );
     }
 
@@ -128,15 +128,15 @@ class DocsModule extends YWebModule
      */
     public function getName()
     {
-        return Yii::t('DocsModule.docs', 'Документация');
+        return Yii::t('DocsModule.docs', 'Documentation');
     }
 
     public function getNavigation()
     {
         return array(
-            array('icon' => 'list-alt', 'label' => Yii::t('DocsModule.docs', 'Просмотр локальных файлов'), 'url' => array('/backend/docs')),
-            array('icon' => 'list-alt', 'label' => Yii::t('DocsModule.docs', 'Локальная документация'), 'url' => array('/docs')),
-            array('icon' => 'icon-globe', 'label' => Yii::t('DocsModule.docs', 'Онлайн документация'), 'url' => 'http://yupe.ru/docs/index.html?from=help','linkOptions' => array('target' => '_blank')),
+            array('icon' => 'list-alt', 'label' => Yii::t('DocsModule.docs', 'Show local files'), 'url' => array('/backend/docs')),
+            array('icon' => 'list-alt', 'label' => Yii::t('DocsModule.docs', 'Local docs'), 'url' => array('/docs')),
+            array('icon' => 'icon-globe', 'label' => Yii::t('DocsModule.docs', 'Online docs'), 'url' => 'http://yupe.ru/docs/index.html?from=help','linkOptions' => array('target' => '_blank')),
         );
     }
 
@@ -147,7 +147,7 @@ class DocsModule extends YWebModule
      */
     public function getDescription()
     {
-        return Yii::t('DocsModule.docs', 'Модуль для просмотра и редактирования файлов документации (HTML и Markdown)');
+        return Yii::t('DocsModule.docs', 'Module for view and edit docs files (HTML and Markdown)');
     }
 
     /**
@@ -257,71 +257,71 @@ class DocsModule extends YWebModule
     {
         return array(
             array(
-                'label' => Yii::t('DocsModule.docs', 'Документация'),
+                'label' => Yii::t('DocsModule.docs', 'Documentation'),
                 'url'   => array('/docs/show/index', 'file' => 'index'),
                 'icon'  => 'home white',
             ),
             array(
-                'label' => Yii::t('DocsModule.docs', 'О Юпи!'),
+                'label' => Yii::t('DocsModule.docs', 'About Yupe!'),
                 'icon'  => 'info-sign white',
                 'items' => array(
                     array(
-                        'label' => Yii::t('DocsModule.docs', 'Возможности'),
+                        'label' => Yii::t('DocsModule.docs', 'Abilities'),
                         'url'   => array('/docs/show/index', 'file' => 'capability', 'moduleID' => 'yupe'),
                         'icon'  => 'file',
                     ),
                     array(
-                        'label' => Yii::t('DocsModule.docs', 'Помощь проекту'),
+                        'label' => Yii::t('DocsModule.docs', 'Help project'),
                         'url'   => array('/docs/show/index', 'file' => 'assistance.project', 'moduleID' => 'yupe'),
                         'icon'  => 'file',
                     ),
                     array(
-                        'label' => Yii::t('DocsModule.docs', 'Команда'),
+                        'label' => Yii::t('DocsModule.docs', 'Team'),
                         'url'   => array('/docs/show/index', 'file' => 'team', 'moduleID' => 'yupe'),
                         'icon'  => 'file',
                     ),
                 ),
             ),
             array(
-                'label' => Yii::t('DocsModule.docs', 'Разработчику'),
+                'label' => Yii::t('DocsModule.docs', 'For developers'),
                 'icon'  => 'th-large white',
                 'items' => array(
                     array(
-                        'label' => Yii::t('DocsModule.docs', 'Написание документации'),
+                        'label' => Yii::t('DocsModule.docs', 'Writing docs'),
                         'url'   => array('/docs/show/index', 'file' => 'doc.files'),
                         'icon'  => 'file',
                     ),
                     array(
-                        'label' => Yii::t('DocsModule.docs', 'Проблемы CWebUser и модуля Gii'),
+                        'label' => Yii::t('DocsModule.docs', 'Problems of CWebUser and Gii module'),
                         'url'   => array('/docs/show/index', 'file' => 'cwebuser.issues'),
                         'icon'  => 'file',
                     ),
                     array(
-                        'label' => Yii::t('DocsModule.docs', 'Оптимальные настройки APC'),
+                        'label' => Yii::t('DocsModule.docs', 'Optimal APC settings'),
                         'url'   => array('/docs/show/index', 'file' => 'apc.options', 'moduleID' => 'yupe'),
                         'icon'  => 'file',
                     ),
                     array(
-                        'label' => Yii::t('DocsModule.docs', 'Конфигурация Memcached'),
+                        'label' => Yii::t('DocsModule.docs', 'Memcached configuration'),
                         'url'   => array('/docs/show/index', 'file' => 'memcached'),
                         'icon'  => 'file',
                     ),
                     array(
-                        'label' => Yii::t('DocsModule.docs', 'Использование настроек Userspace'),
+                        'label' => Yii::t('DocsModule.docs', 'Using userspace settings'),
                         'url'   => array('/docs/show/index', 'file' => 'userspace.config', 'moduleID' => 'yupe'),
                         'icon'  => 'file',
                     ),
                     array(
-                        'label' => Yii::t('DocsModule.docs', 'Компонент ConfigManager'),
+                        'label' => Yii::t('DocsModule.docs', 'ConfigManager component'),
                         'url'   => array('/docs/show/index', 'file' => 'config.manager', 'moduleID' => 'yupe'),
                         'icon'  => 'file',
                     ),
                     array(
-                        'label' => Yii::t('DocsModule.docs', 'IDE/Редакторы'),
+                        'label' => Yii::t('DocsModule.docs', 'IDE/Editors'),
                         'icon'  => 'th-large white',
                         'items' => array(
                             array(
-                                'label' => Yii::t('DocsModule.docs', 'Работа с eclipse'),
+                                'label' => Yii::t('DocsModule.docs', 'Working in eclipse'),
                                 'url'   => array('/docs/show/index', 'file' => 'editors.eclipse'),
                                 'icon'  => 'file',
                             ),
@@ -330,26 +330,26 @@ class DocsModule extends YWebModule
                 )
             ),
             array(
-                'label' => Yii::t('DocsModule.docs', 'Компоненты'),
+                'label' => Yii::t('DocsModule.docs', 'Components'),
                 'icon'  => 'th-large white',
                 'items' => array(
                     array(
-                        'label' => Yii::t('DocsModule.docs', 'Генерация Feed-ленты'),
+                        'label' => Yii::t('DocsModule.docs', 'RSS feed generation'),
                         'url'   => array('/docs/show/index', 'file' => 'atomfeed', 'moduleID' => 'yupe'),
                         'icon'  => 'file',
                     ),
                     array(
-                        'label' => Yii::t('DocsModule.docs', 'Обертка над Curl'),
+                        'label' => Yii::t('DocsModule.docs', 'Curl wrapper'),
                         'url'   => array('/docs/show/index', 'file' => 'curl.wrapper', 'moduleID' => 'yupe'),
                         'icon'  => 'file',
                     ),
                     array(
-                        'label' => Yii::t('DocsModule.docs', 'Мигратор'),
+                        'label' => Yii::t('DocsModule.docs', 'Migrator'),
                         'url'   => array('/docs/show/index', 'file' => 'migrator.index', 'moduleID' => 'yupe'),
                         'icon'  => 'file',
                         'items' =>array(
                              array(
-                                'label' => Yii::t('DocsModule.docs', 'Описание методов'),
+                                'label' => Yii::t('DocsModule.docs', 'Methods description'),
                                 'url'   => array('/docs/show/index', 'file' => 'migrator.methods', 'moduleID' => 'yupe'),
                                 'icon'  => 'file'
                              ),
@@ -358,11 +358,11 @@ class DocsModule extends YWebModule
                 ),
             ),
             array(
-                'label' => Yii::t('DocsModule.docs', 'Модули'),
+                'label' => Yii::t('DocsModule.docs', 'Modules'),
                 'icon'  => 'th-large white',
                 'items' => array(
                     array(
-                        'label' => Yii::t('DocsModule.docs', 'Блоги'),
+                        'label' => Yii::t('DocsModule.docs', 'Blogs'),
                         'url'   => array('/docs/show/index', 'file' => 'index','moduleID' => 'blog' ),
                         'icon'  => 'file',
                     ),

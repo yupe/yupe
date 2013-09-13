@@ -110,17 +110,17 @@ class Comment extends YModel
     {
         return array(
             'id' => Yii::t('CommentModule.comment', 'ID'),
-            'model' => Yii::t('CommentModule.comment', 'Тип модели'),
-            'model_id' => Yii::t('CommentModule.comment', 'Модель'),
-            'creation_date' => Yii::t('CommentModule.comment', 'Дата создания'),
-            'name' => Yii::t('CommentModule.comment', 'Имя'),
+            'model' => Yii::t('CommentModule.comment', 'Model type'),
+            'model_id' => Yii::t('CommentModule.comment', 'Model'),
+            'creation_date' => Yii::t('CommentModule.comment', 'Created at'),
+            'name' => Yii::t('CommentModule.comment', 'Name'),
             'email' => Yii::t('CommentModule.comment', 'Email'),
-            'url' => Yii::t('CommentModule.comment', 'Сайт'),
-            'text' => Yii::t('CommentModule.comment', 'Текст'),
-            'status' => Yii::t('CommentModule.comment', 'Статус'),
-            'verifyCode' => Yii::t('CommentModule.comment', 'Код проверки'),
-            'ip' => Yii::t('CommentModule.comment', 'IP адрес'),
-            'parent_id' => Yii::t('CommentModule.comment', 'Родитель'),
+            'url' => Yii::t('CommentModule.comment', 'Site'),
+            'text' => Yii::t('CommentModule.comment', 'Text'),
+            'status' => Yii::t('CommentModule.comment', 'Status'),
+            'verifyCode' => Yii::t('CommentModule.comment', 'Verification code'),
+            'ip' => Yii::t('CommentModule.comment', 'IP address'),
+            'parent_id' => Yii::t('CommentModule.comment', 'Parent'),
         );
     }
 
@@ -279,10 +279,10 @@ class Comment extends YModel
     public function getStatusList()
     {
         return array(
-            self::STATUS_APPROVED => Yii::t('CommentModule.comment', 'Принят'),
-            self::STATUS_DELETED => Yii::t('CommentModule.comment', 'Удален'),
-            self::STATUS_NEED_CHECK => Yii::t('CommentModule.comment', 'Проверка'),
-            self::STATUS_SPAM => Yii::t('CommentModule.comment', 'Спам'),
+            self::STATUS_APPROVED => Yii::t('CommentModule.comment', 'Accepted'),
+            self::STATUS_DELETED => Yii::t('CommentModule.comment', 'Deleted'),
+            self::STATUS_NEED_CHECK => Yii::t('CommentModule.comment', 'Check'),
+            self::STATUS_SPAM => Yii::t('CommentModule.comment', 'Spam'),
         );
     }
 
@@ -294,7 +294,7 @@ class Comment extends YModel
     public function getStatus()
     {
         $list = $this->statusList;
-        return isset($list[$this->status]) ? $list[$this->status] : Yii::t('CommentModule.comment', 'Статус неизвестен');
+        return isset($list[$this->status]) ? $list[$this->status] : Yii::t('CommentModule.comment', 'Unknown status');
     }
 
     /**

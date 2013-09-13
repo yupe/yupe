@@ -46,7 +46,7 @@ class DefaultController extends YBackController
 
             if ($saveStatus)
             {
-                Yii::app()->user->setFlash(YFlashMessages::SUCCESS_MESSAGE,Yii::t('CommentModule.comment','Комментарий добавлен!'));
+                Yii::app()->user->setFlash(YFlashMessages::SUCCESS_MESSAGE,Yii::t('CommentModule.comment','Comment was created!'));
 
                 $this->redirect(
                     (array) Yii::app()->request->getPost(
@@ -77,7 +77,7 @@ class DefaultController extends YBackController
 
             if ($model->saveNode())
             {
-                Yii::app()->user->setFlash(YFlashMessages::SUCCESS_MESSAGE,Yii::t('CommentModule.comment','Комментарий обновлен!'));
+                Yii::app()->user->setFlash(YFlashMessages::SUCCESS_MESSAGE,Yii::t('CommentModule.comment','Comment was updated!'));
 
                 if (!isset($_POST['submit-type']))
                     $this->redirect(array('update', 'id' => $model->id));
@@ -105,7 +105,7 @@ class DefaultController extends YBackController
                 $this->redirect(isset($_POST['returnUrl']) ? $_POST['returnUrl'] : array('index'));
         }
         else
-            throw new CHttpException(400, Yii::t('CommentModule.comment', 'Неверный запрос. Пожалуйста, больше не повторяйте такие запросы'));
+            throw new CHttpException(400, Yii::t('CommentModule.comment', 'Bad request. Please don\'t repeate similar requests anymore'));
     }
 
     /**
@@ -129,7 +129,7 @@ class DefaultController extends YBackController
     {
         $model = Comment::model()->findByPk((int) $id);
         if ($model === null)
-            throw new CHttpException(404, Yii::t('CommentModule.comment', 'Запрошенная страница не найдена!'));
+            throw new CHttpException(404, Yii::t('CommentModule.comment', 'Requested page was not found!'));
         return $model;
     }
 

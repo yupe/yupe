@@ -18,8 +18,8 @@ class YeekiModule extends YWebModule
     public function getParamsLabels()
     {
         return array(
-            'adminMenuOrder' => Yii::t('YeekiModule.yeeki', 'Порядок следования в меню'),
-            'editor'         => Yii::t('YeekiModule.yeeki', 'Визуальный редактор'),
+            'adminMenuOrder' => Yii::t('YeekiModule.yeeki', 'Menu items order'),
+            'editor'         => Yii::t('YeekiModule.yeeki', 'Visual Editor'),
         );
     }
 
@@ -33,7 +33,7 @@ class YeekiModule extends YWebModule
 
     public function getCategory()
     {
-        return Yii::t('YeekiModule.yeeki', 'Контент');
+        return Yii::t('YeekiModule.yeeki', 'Content');
     }
 
     public function getAdminPageLink()
@@ -48,7 +48,7 @@ class YeekiModule extends YWebModule
 
     public function getDescription()
     {
-        return Yii::t('YeekiModule.yeeki', 'Модуль для создания раздела wiki');
+        return Yii::t('YeekiModule.yeeki', 'Module for create and manage wiki pages');
     }
 
     public function getVersion()

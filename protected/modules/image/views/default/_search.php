@@ -23,7 +23,7 @@ $form = $this->beginWidget('bootstrap.widgets.TbActiveForm', array(
             'type'        =>'primary',
             'encodeLabel' => false,
             'buttonType'  => 'submit',
-            'label'       => '<i class="icon-search icon-white">&nbsp;</i> '.Yii::t('ImageModule.image','Искать изображение'),
+            'label'       => '<i class="icon-search icon-white">&nbsp;</i> '.Yii::t('ImageModule.image','Find image'),
     )); ?>
 
 <?php $this->endWidget(); ?>

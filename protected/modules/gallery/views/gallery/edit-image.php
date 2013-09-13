@@ -10,11 +10,11 @@
  **/
 $this->pageTitle = 'Галерея';
 $this->breadcrumbs = array(
-    Yii::t('GalleryModule.gallery', 'Галереи') => array('/gallery/gallery/list'),
+    Yii::t('GalleryModule.gallery', 'Galleries') => array('/gallery/gallery/list'),
     $model->gallery->name => array('/gallery/gallery/show', 'id' => $model->gallery->id),
     Yii::t(
         'GalleryModule.gallery',
-        'Редактирование изображения #{id}',
+        'Edit image #{id}',
         array(
             '{id}' => $model->id
         )
@@ -23,7 +23,7 @@ $this->breadcrumbs = array(
     <h1 class="page-header">
         <?php echo Yii::t(
             'GalleryModule.gallery',
-            'Редактирование изображения #{id}',
+            'Edit image #{id}',
             array('{id}' => $model->id)
         ); ?>
     </h1>

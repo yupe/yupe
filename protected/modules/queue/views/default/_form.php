@@ -8,9 +8,9 @@ $form = $this->beginWidget('bootstrap.widgets.TbActiveForm', array(
     'inlineErrors'           => true,
 )); ?>
     <div class="alert alert-info">
-        <?php echo Yii::t('QueueModule.queue', 'Поля, отмеченные'); ?>
+        <?php echo Yii::t('QueueModule.queue', 'Fields with'); ?>
         <span class="required">*</span>
-        <?php echo Yii::t('QueueModule.queue', 'обязательны.'); ?>
+        <?php echo Yii::t('QueueModule.queue', 'are required'); ?>
     </div>
 
     <?php echo $form->errorSummary($model); ?>
@@ -34,12 +34,12 @@ $form = $this->beginWidget('bootstrap.widgets.TbActiveForm', array(
     <?php $this->widget('bootstrap.widgets.TbButton', array(
         'buttonType' => 'submit',
         'type'       => 'primary',
-        'label'      => $model->isNewRecord ? Yii::t('QueueModule.queue', 'Добавить задание и продолжить') : Yii::t('QueueModule.queue', 'Сохранить задание'),
+        'label'      => $model->isNewRecord ? Yii::t('QueueModule.queue', 'Create task and continue') : Yii::t('QueueModule.queue', 'Save task'),
     )); ?>
     <?php $this->widget('bootstrap.widgets.TbButton', array(
         'buttonType'  => 'submit',
         'htmlOptions' => array('name' => 'submit-type', 'value' => 'index'),
-        'label'       => $model->isNewRecord ? Yii::t('QueueModule.queue', 'Добавить задание и закрыть') : Yii::t('QueueModule.queue', 'Сохранить блог и закрыть'),
+        'label'       => $model->isNewRecord ? Yii::t('QueueModule.queue', 'Create task and close') : Yii::t('QueueModule.queue', 'Save blog and close'),
     )); ?>
 
 <?php $this->endWidget(); ?>

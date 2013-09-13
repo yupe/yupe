@@ -18,15 +18,15 @@ $form = $this->beginWidget('bootstrap.widgets.TbActiveForm', array(
 )); ?>
 
     <div class="alert alert-info">
-        <?php echo Yii::t('MailModule.mail', 'Поля, отмеченные'); ?>
+        <?php echo Yii::t('MailModule.mail', 'Fields, with'); ?>
         <span class="required">*</span>
-        <?php echo Yii::t('MailModule.mail', 'обязательны.'); ?>
+        <?php echo Yii::t('MailModule.mail', 'are required.'); ?>
     </div>
 
     <?php echo $form->errorSummary($model); ?>
 
     <div class='control-group <?php echo $model->hasErrors("event_id") ? "error" : ""; ?>'>
-        <?php echo $form->dropDownListRow($model, 'event_id', CHtml::listData(MailEvent::model()->findAll(), 'id', 'name'), array('class' => 'span7', 'maxlength' => 10, 'empty' => Yii::t('MailModule.mail', '--выберите--'))); ?>
+        <?php echo $form->dropDownListRow($model, 'event_id', CHtml::listData(MailEvent::model()->findAll(), 'id', 'name'), array('class' => 'span7', 'maxlength' => 10, 'empty' => Yii::t('MailModule.mail', '--choose--'))); ?>
     </div>
     <div class='control-group <?php echo $model->hasErrors("name") ? "error" : ""; ?>'>
         <?php echo $form->textFieldRow($model, 'name', array('class' => 'span7', 'maxlength' => 300)); ?>
@@ -66,12 +66,12 @@ $form = $this->beginWidget('bootstrap.widgets.TbActiveForm', array(
     <?php $this->widget('bootstrap.widgets.TbButton', array(
         'buttonType' => 'submit',
         'type'       => 'primary',
-        'label'      => $model->isNewRecord ? Yii::t('MailModule.mail', 'Создать шаблон и продолжить') : Yii::t('MailModule.mail', 'Сохранить шаблон и продолжить'),
+        'label'      => $model->isNewRecord ? Yii::t('MailModule.mail', 'Create template and continue') : Yii::t('MailModule.mail', 'Save template and continue'),
     )); ?>
     <?php $this->widget('bootstrap.widgets.TbButton', array(
        'buttonType'  => 'submit',
        'htmlOptions' => array('name' => 'submit-type', 'value' => 'index'),
-       'label'       => $model->isNewRecord ? Yii::t('MailModule.mail', 'Добавить шаблон и закрыть') : Yii::t('MailModule.mail', 'Сохранить шаблон и закрыть'),
+       'label'       => $model->isNewRecord ? Yii::t('MailModule.mail', 'Create template and close') : Yii::t('MailModule.mail', 'Save template and close'),
     )); ?>
 
 <?php $this->endWidget(); ?>

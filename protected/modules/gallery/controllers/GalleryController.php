@@ -18,7 +18,7 @@ class GalleryController extends YFrontController
     public function actionShow($id)
     {
         if (($gallery = Gallery::model()->published()->findByPk($id)) === null)
-            throw new CHttpException(404, Yii::t('GalleryModule.gallery', 'Страница не найдена!'));
+            throw new CHttpException(404, Yii::t('GalleryModule.gallery', 'Page was not found!'));
 
         $image = new Image;
 
@@ -31,7 +31,7 @@ class GalleryController extends YFrontController
                     $transaction->commit();
                     Yii::app()->user->setFlash(
                         YFlashMessages::SUCCESS_MESSAGE,
-                        Yii::t('GalleryModule.gallery', 'Фотография добавлена!')
+                        Yii::t('GalleryModule.gallery', 'Photo was created!')
                     );
                     $this->redirect(array('/gallery/gallery/show', 'id' => $gallery->id));
                 }
@@ -62,7 +62,7 @@ class GalleryController extends YFrontController
     {
         $model = Image::model()->findByPk((int) $id);
         if (!$model)
-            throw new CHttpException(404, Yii::t('GalleryModule.gallery', 'Страница не найдена!'));
+            throw new CHttpException(404, Yii::t('GalleryModule.gallery', 'Page was not found!'));
         $this->render('image', array('model' => $model));
     }
 
@@ -76,10 +76,10 @@ class GalleryController extends YFrontController
     public function actionDeleteImage($id = null)
     {
         if (($image = Image::model()->findByPk($id)) === null || $image->canChange() === false)
-            throw new CHttpException(404, Yii::t('GalleryModule.gallery', 'Страница не найдена!'));
+            throw new CHttpException(404, Yii::t('GalleryModule.gallery', 'Page was not found!'));
 
         $message = Yii::t(
-            'GalleryModule.gallery', 'Изображение #{id} {result} удалено!', array(
+            'GalleryModule.gallery', 'Image #{id} {result} deleted', array(
                 '{id}' => $id,
                 '{result}' => ($result = $image->delete())
                     ? Yii::t('GalleryModule.gallery', 'успешно')
@@ -115,7 +115,7 @@ class GalleryController extends YFrontController
     public function actionEditImage($id = null)
     {
         if (($image = Image::model()->findByPk($id)) === null || $image->canChange() === false)
-            throw new CHttpException(404, Yii::t('GalleryModule.gallery', 'Страница не найдена!'));
+            throw new CHttpException(404, Yii::t('GalleryModule.gallery', 'Page was not found!'));
 
         if ((Yii::app()->request->isPostRequest || Yii::app()->request->isAjaxRequest)
             && Yii::app()->request->getPost('Image') !== null
@@ -126,7 +126,7 @@ class GalleryController extends YFrontController
             if ($image->validate() && $image->save()) {
 
                 $message = Yii::t(
-                    'GalleryModule.gallery', 'Изображение #{id} отредактировано!', array(
+                    'GalleryModule.gallery', 'Image #{id} edited', array(
                         '{id}' => $id,
                     )
                 );
