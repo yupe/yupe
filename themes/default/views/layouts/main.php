@@ -21,6 +21,9 @@
         if(Yii::app()->hasComponent('highlightjs'))
             Yii::app()->highlightjs->loadClientScripts();
         ?>
+    <!--[if IE]>
+	<script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
     </head>
     <script>
     var baseUrl = '<?php echo Yii::app()->baseUrl?>';
