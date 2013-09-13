@@ -30,7 +30,7 @@ class DefaultController extends YBackController
             {
                 Yii::app()->user->setFlash(
                     YFlashMessages::SUCCESS_MESSAGE,
-                    Yii::t('GalleryModule.gallery', 'Запись добавлена!')
+                    Yii::t('GalleryModule.gallery', 'Record was created')
                 );
 
                 $this->redirect(
@@ -62,7 +62,7 @@ class DefaultController extends YBackController
             {
                 Yii::app()->user->setFlash(
                     YFlashMessages::SUCCESS_MESSAGE,
-                    Yii::t('GalleryModule.gallery', 'Запись обновлена!')
+                    Yii::t('GalleryModule.gallery', 'Record was updated')
                 );
 
                 if (!isset($_POST['submit-type']))
@@ -88,7 +88,7 @@ class DefaultController extends YBackController
 
             Yii::app()->user->setFlash(
                 YFlashMessages::SUCCESS_MESSAGE,
-                Yii::t('GalleryModule.gallery', 'Запись удалена!')
+                Yii::t('GalleryModule.gallery', 'Record was removed')
             );
 
             // если это AJAX запрос ( кликнули удаление в админском grid view), мы не должны никуда редиректить
@@ -96,7 +96,7 @@ class DefaultController extends YBackController
                 $this->redirect(isset($_POST['returnUrl']) ? $_POST['returnUrl'] : array('index'));
         }
         else
-            throw new CHttpException(400, Yii::t('GalleryModule.gallery', 'Неверный запрос. Пожалуйста, больше не повторяйте такие запросы'));
+            throw new CHttpException(400, Yii::t('GalleryModule.gallery', 'Bad request. Please don\'t repeat similar requests anymore'));
     }
 
     /**
@@ -121,7 +121,7 @@ class DefaultController extends YBackController
     public function actionImages($id)
     {
         if (($gallery = Gallery::model()->findByPk($id)) === null)
-            throw new CHttpException(404, Yii::t('GalleryModule.gallery', 'Страница не найдена!'));
+            throw new CHttpException(404, Yii::t('GalleryModule.gallery', 'Page was not found!'));
 
         $image = new Image;
 
@@ -160,7 +160,7 @@ class DefaultController extends YBackController
                 if (Yii::app()->request->getPost('ajax') === null) {
                     Yii::app()->user->setFlash(
                         YFlashMessages::SUCCESS_MESSAGE,
-                        Yii::t('GalleryModule.gallery', 'Фотография добавлена!')
+                        Yii::t('GalleryModule.gallery', 'Photo was created!')
                     );
                     $this->redirect(array('/gallery/default/images', 'id' => $gallery->id));
                 }
@@ -187,14 +187,14 @@ class DefaultController extends YBackController
     public function actionDeleteImage($id = null, $method = null)
     {
         if (($image = Image::model()->findByPk($id)) === null || $image->canChange() === false)
-            throw new CHttpException(404, Yii::t('GalleryModule.gallery', 'Страница не найдена!'));
+            throw new CHttpException(404, Yii::t('GalleryModule.gallery', 'Page was not found!'));
 
         $message = Yii::t(
-            'GalleryModule.gallery', 'Изображение #{id} {result} удалено!', array(
+            'GalleryModule.gallery', 'Image #{id} {result} deleted', array(
                 '{id}' => $id,
                 '{result}' => ($result = $image->delete())
-                    ? Yii::t('GalleryModule.gallery', 'успешно')
-                    : Yii::t('GalleryModule.gallery', 'не')
+                    ? Yii::t('GalleryModule.gallery', 'success')
+                    : Yii::t('GalleryModule.gallery', 'not')
             )
         );
 
@@ -226,7 +226,7 @@ class DefaultController extends YBackController
     public function actionAddimages($id)
     {
         if (($gallery = Gallery::model()->findByPk($id)) === null)
-            throw new CHttpException(404, Yii::t('GalleryModule.gallery', 'Страница не найдена!'));
+            throw new CHttpException(404, Yii::t('GalleryModule.gallery', 'Page was not found!'));
 
         $image = new Image;
 
@@ -253,7 +253,7 @@ class DefaultController extends YBackController
             echo json_encode($data);
             die();
         } else
-            throw new CHttpException(404, Yii::t('GalleryModule.gallery', 'Страница не найдена!'));
+            throw new CHttpException(404, Yii::t('GalleryModule.gallery', 'Page was not found!'));
     }
 
     /**
@@ -267,7 +267,7 @@ class DefaultController extends YBackController
     public function actionReloadContent($id = null, $view = null)
     {
         if (($gallery = Gallery::model()->findByPk($id)) === null)
-            throw new CHttpException(404, Yii::t('GalleryModule.gallery', 'Страница не найдена!'));
+            throw new CHttpException(404, Yii::t('GalleryModule.gallery', 'Page was not found!'));
 
         $this->renderPartial(
             $view, array(
@@ -285,7 +285,7 @@ class DefaultController extends YBackController
     {
         $model = Gallery::model()->findByPk($id);
         if ($model === null)
-            throw new CHttpException(404, Yii::t('GalleryModule.gallery', 'Запрошенная страница не найдена.'));
+            throw new CHttpException(404, Yii::t('GalleryModule.gallery', 'Requested page was not found.'));
         return $model;
     }
 

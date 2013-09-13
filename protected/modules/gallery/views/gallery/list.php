@@ -10,11 +10,11 @@
  **/
 ?>
 <div class="gallery-list">
-<?php $this->pageTitle = Yii::t('GalleryModule.gallery', 'Галереи изображений'); ?>
-<?php $this->breadcrumbs = array(Yii::t('GalleryModule.gallery', 'Галереи изображений'));?>
+<?php $this->pageTitle = Yii::t('GalleryModule.gallery', 'Image galleries'); ?>
+<?php $this->breadcrumbs = array(Yii::t('GalleryModule.gallery', 'Image galleries'));?>
 
 <h1 class="page-header">
-    <?php echo Yii::t('GalleryModule.gallery', 'Галереи изображений'); ?>
+    <?php echo Yii::t('GalleryModule.gallery', 'Image galleries'); ?>
 </h1>
 
 <?php

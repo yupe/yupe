@@ -65,9 +65,9 @@ class ImageToGallery extends YModel
     {
         return array(
             'id'            => Yii::t('GalleryModule.gallery', 'id'),
-            'image_id'      => Yii::t('GalleryModule.gallery', 'Изображение'),
-            'gallery_id'    => Yii::t('GalleryModule.gallery', 'Галерея'),
-            'creation_date' => Yii::t('GalleryModule.gallery', 'Дата добавления'),
+            'image_id'      => Yii::t('GalleryModule.gallery', 'Image'),
+            'gallery_id'    => Yii::t('GalleryModule.gallery', 'Gallery'),
+            'creation_date' => Yii::t('GalleryModule.gallery', 'Created at'),
         );
     }
 

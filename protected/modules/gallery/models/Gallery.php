@@ -88,10 +88,10 @@ class Gallery extends YModel
     {
         return array(
             'id'          => Yii::t('GalleryModule.gallery', 'Id'),
-            'name'        => Yii::t('GalleryModule.gallery', 'Название'),
-            'owner'       => Yii::t('GalleryModule.gallery', 'Владелец'),
-            'description' => Yii::t('GalleryModule.gallery', 'Описание'),
-            'status'      => Yii::t('GalleryModule.gallery', 'Статус'),
+            'name'        => Yii::t('GalleryModule.gallery', 'Title'),
+            'owner'       => Yii::t('GalleryModule.gallery', 'Vendor'),
+            'description' => Yii::t('GalleryModule.gallery', 'Description'),
+            'status'      => Yii::t('GalleryModule.gallery', 'Status'),
         );
     }
 
@@ -118,10 +118,10 @@ class Gallery extends YModel
     public function getStatusList()
     {
         return array(
-            self::STATUS_DRAFT    => Yii::t('GalleryModule.gallery', 'скрытая'),
-            self::STATUS_PUBLIC   => Yii::t('GalleryModule.gallery', 'публичная'),
-            self::STATUS_PERSONAL => Yii::t('GalleryModule.gallery', 'личная'),
-            self::STATUS_PRIVATE  => Yii::t('GalleryModule.gallery', 'приватная'),
+            self::STATUS_DRAFT    => Yii::t('GalleryModule.gallery', 'hidden'),
+            self::STATUS_PUBLIC   => Yii::t('GalleryModule.gallery', 'public'),
+            self::STATUS_PERSONAL => Yii::t('GalleryModule.gallery', 'my own'),
+            self::STATUS_PRIVATE  => Yii::t('GalleryModule.gallery', 'private'),
         );
     }
 
