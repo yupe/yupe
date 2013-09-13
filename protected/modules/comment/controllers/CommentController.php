@@ -118,8 +118,8 @@ class CommentController extends YFrontController
             }
 
             $message = $comment->status !== Comment::STATUS_APPROVED
-                ? Yii::t('CommentModule.comment', 'Спасибо, Ваша запись добавлена и ожидает проверки!')
-                : Yii::t('CommentModule.comment', 'Спасибо, Ваша запись добавлена!');
+                ? Yii::t('CommentModule.comment', 'You comments is in validation. Thanks.')
+                : Yii::t('CommentModule.comment', 'You record was created. Thanks.');
 
             $commentContent = $comment->status !== Comment::STATUS_APPROVED
                 ? ''
@@ -146,7 +146,7 @@ class CommentController extends YFrontController
 
         } else {
 
-            $message = Yii::t('CommentModule.comment', 'Запись не добавлена! Заполните форму корректно!');
+            $message = Yii::t('CommentModule.comment', 'Record was not added! Fill form correct!');
 
             if (Yii::app()->request->isAjaxRequest) {
                 Yii::app()->ajax->failure(
