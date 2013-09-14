@@ -49,12 +49,12 @@ class LoginAction extends CAction
             if ($form->validate()) {
                 Yii::app()->user->setFlash(
                     YFlashMessages::SUCCESS_MESSAGE,
-                    Yii::t('UserModule.user', 'Вы успешно авторизовались!')
+                    Yii::t('UserModule.user', 'You authorized successfully!')
                 );
 
                 Yii::log(
                     Yii::t(
-                        'UserModule.user', 'Пользователь {email} авторизовался с IP-адресом {ip}!', array(
+                        'UserModule.user', 'User with {email} was logined with IP-address {ip}!', array(
                             '{email}' => $form->email,
                             '{ip}'    => Yii::app()->request->getUserHostAddress(),
                         )
@@ -82,7 +82,7 @@ class LoginAction extends CAction
 
                 Yii::log(
                     Yii::t(
-                        'user', 'Ошибка авторизации с IP-адресом {ip}! email => {email}, Password => {password}!', array(
+                        'user', 'Authorization error with IP-address {ip}! email => {email}, Password => {password}!', array(
                             '{email}'    => $form->email,
                             '{password}' => $form->password,
                             '{ip}'       => Yii::app()->request->getUserHostAddress(),

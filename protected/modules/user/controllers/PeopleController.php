@@ -18,8 +18,8 @@ class PeopleController extends YFrontController
     {
         $user = User::model()->findByAttributes(array("nick_name" => $username));
 
-        if (null === $user) {
-            throw new CHttpException(404, Yii::t('UserModule.user', 'Пользователь не найден!'));
+        if (!$user) {
+            throw new CHttpException(404, Yii::t('UserModule.user', 'User was not found'));
         }
 
         $this->render('userInfo', array('user' => $user));

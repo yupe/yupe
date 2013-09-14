@@ -9,9 +9,9 @@ $form = $this->beginWidget('bootstrap.widgets.TbActiveForm', array(
 )); ?>
  
     <div class="alert alert-info">
-        <?php echo Yii::t('UserModule.user', 'Поля, отмеченные'); ?>
+        <?php echo Yii::t('UserModule.user', 'Fields with'); ?>
         <span class="required">*</span>
-        <?php echo Yii::t('UserModule.user', 'обязательны.'); ?>
+        <?php echo Yii::t('UserModule.user', 'are required'); ?>
     </div>
 
     <?php echo $form->errorSummary($model); ?>
@@ -76,12 +76,12 @@ $form = $this->beginWidget('bootstrap.widgets.TbActiveForm', array(
    <?php $this->widget('bootstrap.widgets.TbButton', array(
         'buttonType' => 'submit',
         'type'       => 'primary',
-        'label'      => $model->isNewRecord ? Yii::t('UserModule.user', 'Добавить пользователя и продолжить') : Yii::t('UserModule.user', 'Сохранить пользователя и продолжить'),
+        'label'      => $model->isNewRecord ? Yii::t('UserModule.user', 'Create user and continue') : Yii::t('UserModule.user', 'Save user and continue'),
     )); ?>
     <?php $this->widget('bootstrap.widgets.TbButton', array(
         'buttonType'  => 'submit',
         'htmlOptions' => array('name' => 'submit-type', 'value' => 'index'),
-        'label'       => $model->isNewRecord ? Yii::t('UserModule.user', 'Добавить пользователя и закрыть') : Yii::t('UserModule.user', 'Сохранить пользователя и закрыть'),
+        'label'       => $model->isNewRecord ? Yii::t('UserModule.user', 'Create user and close') : Yii::t('UserModule.user', 'Save user and close'),
     )); ?>
 
 <?php $this->endWidget(); ?>

@@ -1,1 +1,1 @@
-<b><?php echo Yii::t('UserModule.user', 'Email указанный Вами при регистрации занесен в черный список! Регистрация невозможна!'); ?></b>
+<b><?php echo Yii::t('UserModule.user', 'Email selected during registration was added in black list! Registration can\'t be continued'); ?></b>

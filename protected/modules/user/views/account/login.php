@@ -1,8 +1,8 @@
-<?php $this->pageTitle = Yii::t('UserModule.user', 'Авторизация'); ?>
+<?php $this->pageTitle = Yii::t('UserModule.user', 'Authorization'); ?>
 
 <?php Yii::app()->clientScript->registerScriptFile('http://connect.facebook.net/ru_RU/all.js'); ?>
 
-<h1><?php echo Yii::t('UserModule.user', 'Авторизация'); ?></h1>
+<h1><?php echo Yii::t('UserModule.user', 'Authorization'); ?></h1>
 
 <?php $this->widget('application.modules.yupe.widgets.YFlashMessages'); ?>
 
@@ -46,7 +46,7 @@
                     <?php echo $form->error($model, 'verifyCode'); ?>
                 </div>
                 <div class="hint">
-                    <?php echo Yii::t('UserModule.user', 'Введите текст указанный на картинке'); ?>
+                    <?php echo Yii::t('UserModule.user', 'Insert text you see on image'); ?>
                 </div>
             <?php endif; ?>
         </div>
@@ -55,16 +55,16 @@
     <div class="row">
         <p class="hint">
             <?php if(!$this->getModule()->registrationDisabled):?>
-                <?php echo CHtml::link(Yii::t('UserModule.user', "Регистрация"), array('/user/account/registration')); ?>
+                <?php echo CHtml::link(Yii::t('UserModule.user', 'Registration'), array('/user/account/registration')); ?>
             <?php endif;?>
             <?php if(!$this->getModule()->recoveryDisabled):?>
-               | <?php echo CHtml::link(Yii::t('UserModule.user', "Восстановление пароля"), array('/user/account/recovery')); ?>
+               | <?php echo CHtml::link(Yii::t('UserModule.user', 'Password recovery.'), array('/user/account/recovery')); ?>
             <?php endif;?>
         </p>
     </div>
 
     <div class="row submit">
-        <?php echo CHtml::submitButton('Войти'); ?>
+        <?php echo CHtml::submitButton('Login'); ?>
     </div>
 
     <?php $this->endWidget(); ?>

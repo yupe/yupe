@@ -8,7 +8,7 @@ class RecoveryPasswordAction extends CAction
 
         if ($module->recoveryDisabled)
         {
-        	throw new CHttpException(404, Yii::t('UserModule.user', 'Запрошенная страница не найдена!'));
+        	throw new CHttpException(404, Yii::t('UserModule.user', 'requested page was not found!'));
         }
         else
         {
@@ -20,12 +20,12 @@ class RecoveryPasswordAction extends CAction
 			if (!$recovery)
 			{
 				Yii::log(
-					Yii::t('UserModule.user', 'Код восстановления пароля {code} не найден!', array('{code}' => $code)),
+					Yii::t('UserModule.user', 'Recovery password code {code} was not found!', array('{code}' => $code)),
 					CLogger::LEVEL_ERROR, UserModule::$logCategory
 				);
 				Yii::app()->user->setFlash(
 					YFlashMessages::ERROR_MESSAGE,
-					Yii::t('UserModule.user', 'Код восстановления пароля не найден! Попробуйте еще раз!')
+					Yii::t('UserModule.user', 'Recovery password code was not found! Please try one more!')
 				);
 
 				$this->controller->redirect(array('/user/account/recovery'));
@@ -49,15 +49,15 @@ class RecoveryPasswordAction extends CAction
 							Yii::app()->mail->send(
 								$module->notifyEmailFrom,
 								$recovery->user->email,
-								Yii::t('UserModule.user', 'Успешное восстановление пароля!'),
+								Yii::t('UserModule.user', 'Password recover successfully'),
 								$emailBody
 							);
 							Yii::app()->user->setFlash(
 								YFlashMessages::SUCCESS_MESSAGE,
-								Yii::t('UserModule.user', 'Новый пароль отправлен Вам на email!')
+								Yii::t('UserModule.user', 'New password was sent to your email')
 							);
 							Yii::log(
-								Yii::t('UserModule.user', 'Успешное восстановление пароля!'),
+								Yii::t('UserModule.user', 'Password recover successfully'),
 								CLogger::LEVEL_ERROR, UserModule::$logCategory
 							);
 
@@ -71,10 +71,10 @@ class RecoveryPasswordAction extends CAction
 
 					Yii::app()->user->setFlash(
 						YFlashMessages::ERROR_MESSAGE,
-						Yii::t('UserModule.user', 'Ошибка при смене пароля!')
+						Yii::t('UserModule.user', 'Error when changing password!')
 					);
 					Yii::log(
-						Yii::t('UserModule.user', 'Ошибка при автоматической смене пароля {error}!', array('{error}' => $e->getMessage())),
+						Yii::t('UserModule.user', 'Error when change password automaticly! {error}', array('{error}' => $e->getMessage())),
 						CLogger::LEVEL_ERROR, UserModule::$logCategory
 					);
 					$this->controller->redirect(array('/user/account/recovery'));
@@ -105,10 +105,10 @@ class RecoveryPasswordAction extends CAction
 
 								Yii::app()->user->setFlash(
 									YFlashMessages::SUCCESS_MESSAGE,
-									Yii::t('UserModule.user', 'Пароль изменен!')
+									Yii::t('UserModule.user', 'Password was changed')
 								);
 								Yii::log(
-									Yii::t('UserModule.user', 'Успешная смена пароля для пользоателя {user}!', array('{user}' => $recovery->user->id)),
+									Yii::t('UserModule.user', 'Password for {user} user was changed successfully', array('{user}' => $recovery->user->id)),
 									CLogger::LEVEL_INFO, UserModule::$logCategory
 								);
 
@@ -116,7 +116,7 @@ class RecoveryPasswordAction extends CAction
 								Yii::app()->mail->send(
 									$module->notifyEmailFrom,
 									$recovery->user->email,
-									Yii::t('UserModule.user', 'Успешное восстановление пароля!'),
+									Yii::t('UserModule.user', 'Password recover successfully'),
 									$emailBody
 								);
 								$this->controller->redirect(array('/user/account/login'));
@@ -129,10 +129,10 @@ class RecoveryPasswordAction extends CAction
 
 						Yii::app()->user->setFlash(
 							YFlashMessages::ERROR_MESSAGE,
-							Yii::t('UserModule.user', 'Ошибка при смене пароля!')
+							Yii::t('UserModule.user', 'Error when changing password!')
 						);
 						Yii::log(
-							Yii::t('Ошибка при смене пароля {error}!', array('{error}' => $e->getMessage())),
+							Yii::t('Error when changing password!', array('{error}' => $e->getMessage())),
 							CLogger::LEVEL_ERROR, UserModule::$logCategory
 						);
 						$this->controller->redirect(array('/user/account/recovery'));

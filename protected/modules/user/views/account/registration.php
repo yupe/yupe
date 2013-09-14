@@ -1,8 +1,8 @@
-<?php $this->pageTitle = Yii::t('UserModule.user', 'Регистрация новго пользователя'); ?>
+<?php $this->pageTitle = Yii::t('UserModule.user', 'Register new user'); ?>
 
-<h1><?php echo Yii::t('UserModule.user', 'Регистрация нового пользователя'); ?></h1>
+<h1><?php echo Yii::t('UserModule.user', 'Register new user'); ?></h1>
 
-<div class='hint'><?php echo Yii::t('UserModule.user', 'Пожалуйста, имя пользователя и пароль заполняйте только латинскими буквами и цифрами.'); ?></div>
+<div class='hint'><?php echo Yii::t('UserModule.user', 'Only latin letters can use in login field'); ?></div>
 
 <br/><br/>
 
@@ -48,14 +48,14 @@
                     <?php echo $form->error($model, 'verifyCode'); ?>
                 </div>
                 <div class="hint">
-                    <?php echo Yii::t('UserModule.user', 'Введите текст указанный на картинке'); ?>
+                    <?php echo Yii::t('UserModule.user', 'Insert text you see on image'); ?>
                 </div>
             </div>
         <?php endif; ?>
     <?php endif; ?>
 
     <div class="row submit">
-        <?php echo CHtml::submitButton('Зарегистрироваться'); ?>
+        <?php echo CHtml::submitButton(Yii::t('UserModule.user','Register')); ?>
     </div>
 
     <?php $this->endWidget(); ?>

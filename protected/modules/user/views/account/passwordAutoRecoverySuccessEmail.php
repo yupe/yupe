@@ -1,17 +1,17 @@
 <html>
 <head>
-    <title><?php echo Yii::t('UserModule.user', 'Восстановление пароля на сайте "{site}"!', array('site' => CHtml::encode(Yii::app()->name))); ?></title>
+    <title><?php echo Yii::t('UserModule.user', 'Password recovery for "{site}"!', array('site' => CHtml::encode(Yii::app()->name))); ?></title>
 </head>
 <body>
-    <?php echo Yii::t('UserModule.user', 'Восстановление пароля на сайте "{site}" !', array('{site}' => CHtml::encode(Yii::app()->name))); ?><br/>
+    <?php echo Yii::t('UserModule.user', 'Password recovery for "{site}"!', array('{site}' => CHtml::encode(Yii::app()->name))); ?><br/>
 
-    <?php echo Yii::t('UserModule.user', 'Ваш новый пароль : {password}', array('{password}' => $password)); ?><br/>
+    <?php echo Yii::t('UserModule.user', 'Your new password : {password}', array('{password}' => $password)); ?><br/>
 
-    <?php echo Yii::t('UserModule.user', 'Теперь вы можете'); ?>
+    <?php echo Yii::t('UserModule.user', 'Now you can'); ?>
     <a href='<?php echo Yii::app()->request->hostInfo.$this->createUrl('/user/account/login'); ?>'>
-        <?php echo Yii::t('UserModule.user', 'войти'); ?>
+        <?php echo Yii::t('UserModule.user', 'login'); ?>
     </a>!<br/><br/>
 
-    <?php echo Yii::t('UserModule.user', 'С уважением, администрация сайта "{site}" !', array('{site}' => CHtml::encode(Yii::app()->name))); ?>
+    <?php echo Yii::t('UserModule.user', 'Best regards, "{site}" administration!', array('{site}' => CHtml::encode(Yii::app()->name))); ?>
 </body>
 </html>
