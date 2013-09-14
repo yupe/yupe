@@ -13,15 +13,15 @@ class UserLogoutCest
         $I->dontSee('Email или пароль введены неверно!', '.alert-error');
         $I->see('Вы успешно авторизовались!','.alert-success');
         $I->seeLink('Панель управления');
-        $I->seeLink('Выйти');
+        $I->seeLink(LogoutPage::$linkLabel);
 
         //
 
         $I->amOnPage('/');
-        $I->seeLink('Выйти');
+        $I->seeLink(LogoutPage::$linkLabel);
         $I->seeLink('Панель управления');
-        $I->click('Выйти');
-        $I->dontSeeLink('Выйти');
+        $I->click(LogoutPage::$linkLabel);
+        $I->dontSeeLink(LogoutPage::$linkLabel);
         $I->dontSeeLink('Панель управления');
         $I->seeLink('Войти');
     }
