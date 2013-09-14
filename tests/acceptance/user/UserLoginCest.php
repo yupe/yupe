@@ -37,16 +37,9 @@ class UserLoginCest
         $I->see('Email или пароль введены неверно!', '.alert-error');
     }
 
-    public function testSuccessAuth(WebGuy $I)
+    public function testSuccessAuth(WebGuy $I, $scenario)
     {
-        $I->amOnPage(LoginPage::$URL);
-        $I->wantTo('Check form with wrong data...');
-        $I->fillField(LoginPage::$emailField, 'yupe@yupetest.ru');
-        $I->fillField(LoginPage::$passwordField, '111111');
-        $I->click('Войти', '.btn-primary');
-        $I->dontSee('Email или пароль введены неверно!', '.alert-error');
-        $I->see('Вы успешно авторизовались!','.alert-success');
-        $I->seeLink('Панель управления');
-        $I->seeLink(LogoutPage::$linkLabel);
+        $I = new WebGuy\UserSteps($scenario);
+        $I->login('yupe', 'yupe@yupetest.ru');
     }
 }

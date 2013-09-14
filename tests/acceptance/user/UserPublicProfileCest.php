@@ -3,7 +3,8 @@ use \WebGuy;
 
 class UserPublicProfileCest
 {
-    public function tryToTest(WebGuy $I) {
+    public function tryToTest(WebGuy $I)
+    {
         $I->amOnPage('/user/people/userInfo/username/yupe');
         $I->seeInCurrentUrl('yupe');
         $I->seeInTitle('yupe');

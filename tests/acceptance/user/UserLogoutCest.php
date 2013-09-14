@@ -3,26 +3,10 @@ use \WebGuy;
 
 class UserLogoutCest
 {
-    public function testLogout(WebGuy $I)
+    public function testLogout(WebGuy $I, $scenario)
     {
-        $I->amOnPage(LoginPage::$URL);
-        $I->wantTo('Check form with wrong data...');
-        $I->fillField(LoginPage::$emailField, 'yupe@yupetest.ru');
-        $I->fillField(LoginPage::$passwordField, '111111');
-        $I->click('Войти', '.btn-primary');
-        $I->dontSee('Email или пароль введены неверно!', '.alert-error');
-        $I->see('Вы успешно авторизовались!','.alert-success');
-        $I->seeLink('Панель управления');
-        $I->seeLink(LogoutPage::$linkLabel);
-
-        //
-
-        $I->amOnPage('/');
-        $I->seeLink(LogoutPage::$linkLabel);
-        $I->seeLink('Панель управления');
-        $I->click(LogoutPage::$linkLabel);
-        $I->dontSeeLink(LogoutPage::$linkLabel);
-        $I->dontSeeLink('Панель управления');
-        $I->seeLink('Войти');
+        $I = new WebGuy\UserSteps($scenario);
+        $I->login('yupe@yupetest.ru', '111111');
+        $I->logout();
     }
 }
