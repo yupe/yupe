@@ -37,7 +37,7 @@
 <body>
 <div id="overall-wrap">
     <?php
-    $brandTitle = Yii::t('InstallModule.install', 'Установка') . ' ' . CHtml::encode(Yii::app()->name);
+    $brandTitle = Yii::t('InstallModule.install', 'Install') . ' ' . CHtml::encode(Yii::app()->name);
     $this->widget(
         'bootstrap.widgets.TbNavbar',
         array(
