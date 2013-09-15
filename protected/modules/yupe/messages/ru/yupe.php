@@ -308,4 +308,5 @@ return array (
   'News list' => 'Лента новостей сайта',
   'Site title' => 'Название моего сайта',
   'Я.Money on' => 'Я.Money на',
+  'Order development and/or support' => 'Заказать разработку/поддержку',
 );

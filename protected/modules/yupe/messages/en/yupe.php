@@ -308,4 +308,5 @@ return array (
   'News list' => '',
   'Site title' => '',
   'Я.Money on' => '',
+  'Order development and/or support' => '',
 );

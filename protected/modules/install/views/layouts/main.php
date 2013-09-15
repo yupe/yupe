@@ -63,54 +63,54 @@
                     'items' => array(
                         array(
                             'icon'  => 'question-sign white',
-                            'label' => Yii::t('YupeModule.yupe', 'Помощь'),
+                            'label' => Yii::t('YupeModule.yupe', 'Help'),
                             'url'   => 'http://yupe.ru/docs/index.html?from=install',
                             'items' => array(
                                 array(
                                     'icon'  => 'icon-globe',
-                                    'label' => Yii::t('YupeModule.yupe', 'Официальный сайт'),
+                                    'label' => Yii::t('YupeModule.yupe', 'Official site'),
                                     'url'   => 'http://yupe.ru?from=install',
                                     'linkOptions' => array('target' => '_blank'),
                                 ),
                                 array(
                                     'icon'  => 'icon-book',
-                                    'label' => Yii::t('YupeModule.yupe', 'Официальная документация'),
+                                    'label' => Yii::t('YupeModule.yupe', 'Official docs'),
                                     'url'   => 'http://yupe.ru/docs/index.html?from=install',
                                     'linkOptions' => array('target' => '_blank'),
                                 ),
                                 array(
                                     'icon'  => 'icon-th-large',
-                                    'label' => Yii::t('YupeModule.yupe', 'Дополнительные модули'),
+                                    'label' => Yii::t('YupeModule.yupe', 'Additional modules'),
                                     'url'   => 'https://github.com/yupe/yupe-ext',
                                     'linkOptions' => array('target' => '_blank'),
                                 ),
                                 array(
                                     'icon'  => 'icon-comment',
-                                    'label' => Yii::t('YupeModule.yupe', 'Форум'),
+                                    'label' => Yii::t('YupeModule.yupe', 'Forum'),
                                     'url'   => 'http://yupe.ru/talk/?from=install',
                                     'linkOptions' => array('target' => '_blank'),
                                 ),
                                 array(
                                     'icon'  => 'icon-globe',
-                                    'label' => Yii::t('YupeModule.yupe', 'Сообщество на github'),
+                                    'label' => Yii::t('YupeModule.yupe', 'Community on github'),
                                     'url'   => 'https://github.com/yupe/yupe',
                                     'linkOptions' => array('target' => '_blank'),
                                 ),
                                 array(
                                     'icon'  => 'icon-thumbs-up',
-                                    'label' => Yii::t('YupeModule.yupe', 'Заказать разработку/поддержку'),
+                                    'label' => Yii::t('YupeModule.yupe', 'Order development and/or support'),
                                     'url'   => 'http://amylabs.ru/contact?from=install',
                                     'linkOptions' => array('target' => '_blank'),
                                 ),
                                 array(
                                     'icon'  => 'icon-warning-sign',
-                                    'label' => Yii::t('YupeModule.yupe', 'Сообщить об ошибке'),
+                                    'label' => Yii::t('YupeModule.yupe', 'Report bug'),
                                     'url'   => 'http://yupe.ru/feedback/index?from=install',
                                     'linkOptions' => array('target' => '_blank'),
                                 ),
                                 array(
                                     'icon'  => 'exclamation-sign',
-                                    'label' => Yii::t('YupeModule.yupe', 'О Юпи!'),
+                                    'label' => Yii::t('YupeModule.yupe', 'About Yupe!'),
                                     'url'   => 'http://yupe.ru/pages/about?from=install',
                                     'linkOptions' => array('target' => '_blank'),
                                 ),
@@ -146,7 +146,7 @@
     <small class="label label-info"><?php echo $this->yupe->getVersion(); ?></small>
     <br/>
     <a href="http://amylabs.ru/?from=install" target="_blank">
-        <?php echo Yii::t('YupeModule.yupe', 'Разработка и поддержка'); ?></a> - <a href="http://amylabs.ru/?from=yupe-install" target="_blank">amyLabs</a>
+        <?php echo Yii::t('YupeModule.yupe', 'Development and support'); ?></a> - <a href="http://amylabs.ru/?from=yupe-install" target="_blank">amyLabs</a>
     <br/>
     <?php echo Yii::powered(); ?>
 </footer>
