@@ -21,8 +21,8 @@ return array(
     'basePath'          => dirname(__FILE__) . '/..',
     'defaultController' => 'site',             // контроллер по умолчанию
     'name'              => 'Юпи!',             // название приложения
-    'language'          => 'ru',               // язык по умолчанию
-    'sourceLanguage'    => 'ru',
+    'language'          => 'en',               // язык по умолчанию
+    'sourceLanguage'    => 'en',
     'theme'             => 'default',          // тема оформления по умолчанию
     'charset'           => 'UTF-8',
     'preload'           => array(),

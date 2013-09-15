@@ -27,16 +27,16 @@ Yii::app()->clientScript->registerScript(
 ?>
 
     <div class="alert alert-block alert-notice">
-        <p><b><?php echo Yii::t('InstallModule.install','При возникновении проблем с установкой, пожалуйста, посетите {link} или {feedback} !',array(
+        <p><b><?php echo Yii::t('InstallModule.install','If you have problems with installation, please check {link} or {feedback}',array(
                         '{link}' => CHtml::link('наш форум','http://yupe.ru/talk/viewforum.php?id=10',array('target' => '_blank')),
                         '{feedback}' => CHtml::link('напишите нам','http://yupe.ru/feedback/index?from=install',array('target' => '_blank')),
                     ));?></b></p>
     </div>
 
     <div class="alert alert-block alert-info">
-        <p><?php echo Yii::t('InstallModule.install', 'Создайте учетную запись администратора сайта.'); ?></p>
-        <p><?php echo Yii::t('InstallModule.install', 'Пожалуйста, указывайте сложный пароль, содержащий как цифры и буквы, так и специальные символы.'); ?></p>
-        <p><?php echo Yii::t('InstallModule.install', 'Запомните, указанные на данном этапе данные, они Вам потребуются для доступа к панели управления.'); ?></p>
+        <p><?php echo Yii::t('InstallModule.install', 'Create admin account'); ?></p>
+        <p><?php echo Yii::t('InstallModule.install', 'Please select hard password with digits, alphas and special symbols.'); ?></p>
+        <p><?php echo Yii::t('InstallModule.install', 'Memorize please. Data form this section will need you for Control Panel access'); ?></p>
     </div>
 
     <?php echo $form->errorSummary($data['model']); ?>
@@ -60,7 +60,7 @@ Yii::app()->clientScript->registerScript(
     <?php
     $this->widget(
         'bootstrap.widgets.TbButton', array(
-            'label' => Yii::t('InstallModule.install', '< Назад'),
+            'label' => Yii::t('InstallModule.install', '< Back'),
             'url'   => array('/install/default/modulesinstall'),
         )
     ); ?>
@@ -69,7 +69,7 @@ Yii::app()->clientScript->registerScript(
         'bootstrap.widgets.TbButton', array(
             'buttonType' => 'submit',
             'type'       => 'primary',
-            'label'      => Yii::t('InstallModule.install', 'Продолжить >'),
+            'label'      => Yii::t('InstallModule.install', 'Continue >'),
         )
     ); ?>
 

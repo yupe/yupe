@@ -355,7 +355,7 @@ class DefaultController extends YBackController
                 extension_loaded('pdo'),
                 Yii::t(
                     'InstallModule.install',
-                    'Все <a href="http://www.yiiframework.com/doc/api/#system.db">DB-классы</a>'
+                    'All <a href="http://www.yiiframework.com/doc/api/#system.db">DB-classes</a>'
                 ),
                 '',
             ),
@@ -365,7 +365,7 @@ class DefaultController extends YBackController
                 extension_loaded('pdo_mysql'),
                 Yii::t(
                     'InstallModule.install',
-                    'Все <a href="http://www.yiiframework.com/doc/api/#system.db">DB-классы</a>'
+                    'All <a href="http://www.yiiframework.com/doc/api/#system.db">DB-classes</a>'
                 ),
                 Yii::t('InstallModule.install', 'Required for MySQL DB.'),
             ),
@@ -375,7 +375,7 @@ class DefaultController extends YBackController
                 extension_loaded('pdo_pgsql'),
                 Yii::t(
                     'InstallModule.install',
-                    'Все <a href="http://www.yiiframework.com/doc/api/#system.db">DB-классы</a>'
+                    'All <a href="http://www.yiiframework.com/doc/api/#system.db">DB-classes</a>'
                 ),
                 Yii::t('InstallModule.install', 'Required for PostgreSQL DB.')
             ),
@@ -385,7 +385,7 @@ class DefaultController extends YBackController
                 extension_loaded('pdo_oci'),
                 Yii::t(
                     'InstallModule.install',
-                    'Все <a href="http://www.yiiframework.com/doc/api/#system.db">DB-классы</a>'
+                    'All <a href="http://www.yiiframework.com/doc/api/#system.db">DB-classes</a>'
                 ),
                 Yii::t('InstallModule.install', 'Required for Oracle DB.')
             ),
@@ -395,7 +395,7 @@ class DefaultController extends YBackController
                 extension_loaded('pdo_mssql'),
                 Yii::t(
                     'InstallModule.install',
-                    'Все <a href="http://www.yiiframework.com/doc/api/#system.db">DB-классы</a>'
+                    'All <a href="http://www.yiiframework.com/doc/api/#system.db">DB-classes</a>'
                 ),
                 Yii::t('InstallModule.install', 'Required to work with MSSQL database on MS Windows.')
             ),
@@ -405,7 +405,7 @@ class DefaultController extends YBackController
                 extension_loaded('pdo_dblib'),
                 Yii::t(
                     'InstallModule.install',
-                    'Все <a href="http://www.yiiframework.com/doc/api/#system.db">DB-классы</a>'
+                    'All <a href="http://www.yiiframework.com/doc/api/#system.db">DB-classes</a>'
                 ),
                 Yii::t(
                     'InstallModule.install',
@@ -475,7 +475,7 @@ class DefaultController extends YBackController
                 Yii::t('InstallModule.install', 'mbstring extension'),
                 true,
                 extension_loaded("mbstring"),
-                '<a href="http://php.net/manual/ru/ref.mbstring.php">' . Yii::t('InstallModule.install', 'Многобайтные строки') . '</a>',
+                '<a href="http://php.net/manual/ru/ref.mbstring.php">' . Yii::t('InstallModule.install', 'Multibyte strings') . '</a>',
                 Yii::t('InstallModule.install', 'Multibyte String Functions')
             ),
             array(

@@ -35,7 +35,7 @@ $this->menu = array(
         )),
         array('icon' => 'trash', 'label' => Yii::t('BlogModule.blog', 'Remove post'), 'url' => '#', 'linkOptions' => array(
             'submit' => array('/blog/PostAdmin/delete', 'id' => $model->id),
-            'confirm' => Yii::t('BlogModule.blog', 'Are you sure you want to remove post?'),
+            'confirm' => Yii::t('BlogModule.blog', 'Do you really want to remove post?'),
         )),
     )),
     array('label' => Yii::t('BlogModule.blog', 'Members'), 'items' => array(
