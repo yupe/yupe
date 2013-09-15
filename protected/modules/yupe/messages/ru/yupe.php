@@ -309,4 +309,9 @@ return array (
   'Site title' => 'Название моего сайта',
   'Я.Money on' => 'Я.Money на',
   'Order development and/or support' => 'Заказать разработку/поддержку',
+  'Blogs' => 'Блоги',
+  'Posts' => 'Записи',
+  'Change module settings' => 'Изменить настройки модуля',
+  'Please, set images uploading directory! {link}' => 'Пожалуйста, укажите каталог для хранения изображений! {link}',
+  'Members' => 'Участники',
 );

@@ -309,4 +309,9 @@ return array (
   'Site title' => '',
   'Я.Money on' => '',
   'Order development and/or support' => '',
+  'Blogs' => '',
+  'Posts' => '',
+  'Change module settings' => '',
+  'Please, set images uploading directory! {link}' => '',
+  'Members' => '',
 );
