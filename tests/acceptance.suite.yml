@@ -15,8 +15,16 @@ modules:
         - Selenium2
         - WebHelper
         - WebDebug
+        - Db
     config:
         Selenium2:
             url: 'http://localhost/yupe/public/index-test.php'
             browser: firefox
             delay: 20
+        Db:
+             dsn: 'mysql:host=localhost;dbname=yat'
+             user: 'root'
+             password: 'root'
+             dump: 'tests/_data/yupetest.sql'
+             populate: true
+             cleanup: true
