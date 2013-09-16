@@ -32,3 +32,6 @@
 - [Помогайте проекту](http://yupe.ru/site/page/view/help).
 - [Присылайте pull requests](https://github.com/yupe/yupe/pulls) (патчи).
 - Отдыхайте и наслаждайтесь жизнью!
+
+
+При возникновении проблем мы готовы Вам помочь, напишите нам http://amylabs.ru/contact

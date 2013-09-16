@@ -3,13 +3,12 @@
 
 **Юпи! — простая и легкая CMS, написанная на Yiiframework** (http://www.yiiframework.com/)
 
-Юпи! позволяет быстро и легко создавать следующие типовые проекты:
+Юпи! позволяет быстро и легко создавать проекты следующих типов:
 
 * сайты-визитки
 * корпоративные порталы
 * коллективные и персональные блоги
 * каталоги товаров
-
 
 
 **На Юпи! уже работает более 200 проектов, Юпи! активно используются несколькими студиями и командами разработчиков**
@@ -35,13 +34,14 @@
 * [Блог Юпи!](http://yupe.ru/index.php/blog/yupe-mini-cms-yii)
 * [Репозиторий модулей](https://github.com/yupe/yupe-ext)
 * [Официальная документация](http://yupe.ru/docs/index.html)
-* [Подробнее о проекте](http://yupe.ru/pages/help)
+* [Подробнее о проекте](http://yupe.ru/pages/about)
 * [Команда](http://yupe.ru/docs/yupe/team.html)
 * [Форум](http://yupe.ru/talk/)
 * [wiki](http://yupe.ru/wiki/default/pageIndex)
 * [Контакты](http://yupe.ru/feedback/index)
 * [Как помочь проекту](http://yupe.ru/pages/help)
 * [twitter](https://twitter.com/#!/YupeCms)
+* [Коммерческая поддержка](http://amylabs.ru/contact)
 
 Возможности
 -----------
@@ -80,3 +80,7 @@
 Исходный код, макеты дизайна и вёрстка распространяются по [лицензии BSD](http://ru.wikipedia.org/wiki/%D0%9B%D0%B8%D1%86%D0%B5%D0%BD%D0%B7%D0%B8%D1%8F_BSD).
 
 Сообщество будет благодарно если на сайте будет присутствовать ссылка на [http://yupe.ru/](http://yupe.ru/)
+
+
+
+(c) 2009-2013 amyLabs && Yupe! team
