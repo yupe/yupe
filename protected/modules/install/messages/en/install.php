@@ -114,7 +114,7 @@ return array (
     'Depends from' => '',
     'Memorize please. Data form this section will need you for Control Panel access' => '',
     'Value' => '',
-    'Installation in process...' => '',
+    'Installation in progress...' => '',
     'DB name on DBMS server' => '',
     'User name' => '',
     'Using in site title' => '',
