@@ -55,4 +55,4 @@ Yupe community will be appreciate you if your site will be referenced on the [yu
 
 
 
-(c) 2009-2013 amyLabs && Yupe! team
+(c) 2009 - 2013 [amyLabs](http://amylabs.ru) && Yupe! team
