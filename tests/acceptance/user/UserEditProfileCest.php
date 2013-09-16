@@ -28,7 +28,11 @@ class UserEditProfileCest
         $I->fillField(\EditProfilePage::$emailField, $testEmail);
         $I->see('Внимание! После смены e-mail адреса','.text-warning');
         $I->click('Сохранить профиль','.btn-primary');
+
         $I->see('Профиль обновлен!','.alert-success');
         $I->see('e-mail не подтвержден, проверьте почту!','.text-error');
+
+        $I->seeInDatabase('yupe_user_user', array('email_confirm' => 0, 'email' => $testEmail));
+
     }
 }

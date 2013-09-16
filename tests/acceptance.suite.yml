@@ -20,7 +20,7 @@ modules:
         Selenium2:
             url: 'http://localhost/yupe/public/index-test.php'
             browser: firefox
-            delay: 20
+            delay: 50
         Db:
              dsn: 'mysql:host=localhost;dbname=yat'
              user: 'root'
