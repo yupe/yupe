@@ -6,12 +6,13 @@ class EmailConfirmAction extends CAction
         // пытаемся сделать выборку из таблицы пользователей
         $user = User::model()->active()->find('activate_key = :activate_key', array(':activate_key' => $key));
 
-        if (!$user)
+        if (!$user || !$user->needEmailConfirm())
         {
             Yii::app()->user->setFlash(
                 YFlashMessages::ERROR_MESSAGE,
-                Yii::t('UserModule.user', 'Activation error! Maybe e-mail already chacked or incorrect activation code was used. Try to use another e-mail')
+                Yii::t('UserModule.user', 'Activation error! Maybe e-mail already confirmed or incorrect activation code was used. Try to use another e-mail')
             );
+
             $this->controller->redirect(array('/user/account/login'));
         }
 
@@ -42,10 +43,10 @@ class EmailConfirmAction extends CAction
             );
 
             Yii::log(
-                Yii::t('UserModule.user', 'There is an error {error} when confirm e-mail with activate_key => {activate_key}', array(
-                    '{activate_key}' => $key,
-                    '{error}'        => $e->getMessage(),
+                Yii::t('UserModule.user', 'There is an error when confirm e-mail with activate_key => {activate_key}', array(
+                    '{activate_key}' => $key
                 )),
+
                 CLogger::LEVEL_ERROR, UserModule::$logCategory
             );
 

@@ -143,7 +143,7 @@ return array (
   'Official documentation' => 'Официальная документация',
   'Official site' => 'Официальный сайт',
   'Authorization error with IP-address {ip}! email => {email}, Password => {password}!' => 'Ошибка авторизации с IP-адресом {ip}! email => {email}, Password => {password}!',
-  'Activation error! Maybe e-mail already chacked or incorrect activation code was used. Try to use another e-mail' => 'Ошибка активации! Возможно данный e-mail уже проверен или указан неверный ключ активации! Попробуйте другой e-mail.',
+  'Activation error! Maybe e-mail already confirmed or incorrect activation code was used. Try to use another e-mail' => 'Ошибка активации! Возможно данный e-mail уже проверен или указан неверный ключ активации! Попробуйте другой e-mail.',
   'Activation error! Maybe this account already activated! Try to register again' => 'Ошибка активации! Возможно данный аккаунт уже активирован! Попробуете зарегистрироваться вновь?',
   'Error when change password automaticly! {error}' => 'Ошибка при автоматической смене пароля {error}!',
   'Error when changing password!' => 'Ошибка при смене пароля!',
