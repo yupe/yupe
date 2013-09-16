@@ -43,7 +43,7 @@ return array (
   'Verification code' => 'Код проверки',
   'RSS records count' => 'Количество записей в RSS',
   'Comments' => 'Комментариев',
-  'Comments.' => 'Комментарии',
+  'Comments' => 'Комментарии',
   'Comments - show' => 'Комментарии - просмотр',
   'Comments - edit' => 'Комментарии - редактирование',
   'Comments - management' => 'Комментарии - управление',

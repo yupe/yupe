@@ -82,7 +82,7 @@ class CommentModule extends YWebModule
 
     public function getName()
     {
-        return Yii::t('CommentModule.comment', 'Comments.');
+        return Yii::t('CommentModule.comment', 'Comments');
     }
 
     public function checkSelf()
