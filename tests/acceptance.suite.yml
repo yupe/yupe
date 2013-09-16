@@ -8,6 +8,7 @@
 
 # RUN `build` COMMAND AFTER ADDING/REMOVING MODULES.
 
+
 class_name: WebGuy
 modules:
     enabled:
@@ -18,4 +19,4 @@ modules:
         Selenium2:
             url: 'http://localhost/yupe/public/index-test.php'
             browser: firefox
-            delay: 100
+            delay: 20

@@ -99,7 +99,7 @@ class InstallCest
         $I->see('Журнал установки', 'h3');
 
 
-        $I->wait(80000);
+        $I->wait(70000);
         $I->see('20 / 20');
         $I->see('Установка завершена', 'h4');
         $I->see('Поздравляем, установка выбранных вами модулей завершена.');
@@ -136,9 +136,8 @@ class InstallCest
         $I->see('Шаг 7 из 8 : "Настройки проекта"', 'span');
         $I->checkOption('InstallForm[theme]', 'default');
         $I->seeInField('InstallForm[siteName]', 'Юпи!');
-        $I->seeInField('InstallForm[siteDescription]', 'Юпи! - самый быстрый способ создать сайт на Yii');
-        $I->seeInField('InstallForm[siteDescription]', 'Юпи! - самый быстрый способ создать сайт на Yii');
-        $I->seeInField('InstallForm[siteKeyWords]', 'Юпи!, yupe, yii, cms, цмс');
+        $I->seeInField('InstallForm[siteDescription]', 'Юпи! - самый простой способ создать сайт на Yii!');
+        $I->seeInField('InstallForm[siteKeyWords]', 'Юпи!, yupe, цмс, yii');
         $I->seeInField('InstallForm[siteEmail]', 'yupe@yupetest.ru');
         $I->seeLink('< Назад');
         $I->see('Продолжить >');

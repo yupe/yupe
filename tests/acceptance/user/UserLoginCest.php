@@ -20,11 +20,11 @@ class UserLoginCest
     public function testAuthWrongFormat(WebGuy $I)
     {
         $I->amOnPage(LoginPage::$URL);
-        $I->wantTo('Check form with wrong data...');
+        $I->wantTo('Check form with wrong data format...');
         $I->fillField(LoginPage::$emailField, 'test');
         $I->fillField(LoginPage::$passwordField, 'test');
         $I->click('Войти', '.btn-primary');
-        $I->see('Email не является правильным E-Mail адресом', '.alert-error');
+        $I->see('Email не является правильным E-Mail адресом.', '.alert-error');
     }
 
     public function testAuthWithWrongAuthData(WebGuy $I)
@@ -40,6 +40,6 @@ class UserLoginCest
     public function testSuccessAuth(WebGuy $I, $scenario)
     {
         $I = new WebGuy\UserSteps($scenario);
-        $I->login('yupe', 'yupe@yupetest.ru');
+        $I->login('yupe@yupetest.ru','111111');
     }
 }
