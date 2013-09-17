@@ -7,7 +7,7 @@ class UserSteps extends \WebGuy
     {
         $I = $this;
         $I->amOnPage(\LoginPage::$URL);
-        $I->wantTo('Check form with wrong data...');
+        $I->wantTo('Check success login...');
         $I->fillField(\LoginPage::$emailField, $email);
         $I->fillField(\LoginPage::$passwordField, $password);
         $I->click('Войти', '.btn-primary');

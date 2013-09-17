@@ -4,11 +4,12 @@ use \WebGuy;
 
 class UserEditProfileCest
 {
-    public function testProfileFormRender(WebGuy $I, $scenario)
+    public function testEditUserProfile(WebGuy $I, $scenario)
     {
         $I->dontSeeLink(\EditProfilePage::URL);
         $I->amOnPage(\EditProfilePage::URL);
         $I->seeInCurrentUrl('login');
+        $I->wantTo('Test user profile form...');
 
         $I = new WebGuy\UserSteps($scenario);
         $I->login(\LoginPage::$userEmail, \LoginPage::$userPassword);
@@ -17,10 +18,8 @@ class UserEditProfileCest
         $I->seeInTitle('Профиль пользователя');
         $I->seeInField(\EditProfilePage::$emailField,\LoginPage::$userEmail);
         $I->see('Сохранить профиль','.btn-primary');
-    }
 
-    public function testChangeEmail(WebGuy $I, $scenario)
-    {
+        $I->wantTo('Test change user email...');
         $I = new WebGuy\UserSteps($scenario);
         $I->changeEmail('test2@testyupe.ru');
     }

@@ -1,10 +1,11 @@
 <?php
-class EditProfilePage
+
+class RegistrationPage
 {
     // include url of current page
-    const URL = '/profile';
+    const URL = '/registration';
 
-    public static $emailField = 'ProfileForm[email]';
+    public static $buttonLabel = 'Зарегистрироваться';
 
     /**
      * Declare UI map for this page here. CSS or XPath allowed.
@@ -21,19 +22,4 @@ class EditProfilePage
      {
         return static::URL.$param;
      }
-
-    /**
-     * @var WebGuy;
-     */
-    protected $webGuy;
-
-    public function __construct(WebGuy $I)
-    {
-        $this->webGuy = $I;
-    }
-
-    public static function of(WebGuy $I)
-    {
-        return new static($I);
-    }
 }
