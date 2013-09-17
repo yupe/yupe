@@ -10,5 +10,4 @@ class UserPublicProfileCest
         $I->seeInTitle('yupe');
         $I->see('Мнений пока нет, станьте первым!');
     }
-
 }

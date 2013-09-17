@@ -3,7 +3,7 @@ namespace WebGuy;
 
 class UserSteps extends \WebGuy
 {
-    function login($email, $password)
+    public function login($email, $password)
     {
         $I = $this;
         $I->amOnPage(\LoginPage::$URL);
@@ -17,7 +17,7 @@ class UserSteps extends \WebGuy
         $I->seeLink(\LogoutPage::$linkLabel);
     }
 
-    function logout()
+    public function logout()
     {
         $I = $this;
         $I->amOnPage('/');
@@ -28,4 +28,21 @@ class UserSteps extends \WebGuy
         $I->dontSeeLink('Панель управления');
         $I->seeLink('Войти');
     }
+
+
+    public function changeEmail($email)
+    {
+        $I = $this;
+        $I->login(\LoginPage::$userEmail, \LoginPage::$userPassword);
+        $I->amOnPage(\EditProfilePage::URL);
+        $I->fillField(\EditProfilePage::$emailField, $email);
+        $I->see('Внимание! После смены e-mail адреса','.text-warning');
+        $I->click('Сохранить профиль','.btn-primary');
+
+        $I->see('Профиль обновлен!','.alert-success');
+        $I->see('e-mail не подтвержден, проверьте почту!','.text-error');
+
+        $I->seeInDatabase('yupe_user_user', array('email_confirm' => 0, 'email' => $email));
+    }
+
 }
