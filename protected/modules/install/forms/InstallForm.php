@@ -66,6 +66,14 @@ class InstallForm extends YFormModel
 
     public $email;
 
+    public function init()
+    {
+        $this->siteName = Yii::t('InstallModule.install','Yupe!');
+        $this->siteKeyWords = Yii::t('InstallModule.install','Yupe!, yupe, cms, yii');
+        $this->siteDescription = Yii::t('InstallModule.install','Yupe! - the fastest way to create a site build on top of Yiiframework!');
+        parent::init();
+    }
+
     /**
      * Правила валидации параметров формы:
      *

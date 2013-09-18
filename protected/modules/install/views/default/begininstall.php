@@ -9,14 +9,9 @@
  *   @link     http://yupe.ru
  **/
 ?>
-<h1><?php echo Yii::t('InstallModule.install', 'Installation in process...');?></h1>
+<h1><?php echo Yii::t('InstallModule.install', 'Installation in progress...');?></h1>
 
-<div class="alert alert-block alert-notice">
-    <p><b><?php echo Yii::t('InstallModule.install','If you have problems with installation, please check {link} or {feedback}',array(
-                    '{link}' => CHtml::link('наш форум','http://yupe.ru/talk/viewforum.php?id=10',array('target' => '_blank')),
-                    '{feedback}' => CHtml::link('напишите нам','http://yupe.ru/feedback/index?from=install',array('target' => '_blank')),
-                ));?></b></p>
-</div>
+<?php $this->widget('install.widgets.GetHelpWidget');?>
 
 <div class="alert alert-block alert-info">
     <p><?php echo Yii::t('InstallModule.install', 'On this step Yupe trying to install modules you checked. This process can take several minutes...');?></p>

@@ -1,7 +1,7 @@
 <?php
     $this->breadcrumbs = array(
         Yii::app()->getModule('comment')->getCategory() => array(),
-        Yii::t('CommentModule.comment', 'Comments.') => array('/comment/default/index'),
+        Yii::t('CommentModule.comment', 'Comments') => array('/comment/default/index'),
         Yii::t('CommentModule.comment', 'Manage'),
     );
 
@@ -14,7 +14,7 @@
 ?>
 <div class="page-header">
     <h1>
-        <?php echo Yii::t('CommentModule.comment', 'Comments.'); ?>
+        <?php echo Yii::t('CommentModule.comment', 'Comments'); ?>
         <small><?php echo Yii::t('CommentModule.comment', 'manage'); ?></small>
     </h1>
 </div>

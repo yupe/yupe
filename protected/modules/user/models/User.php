@@ -22,6 +22,8 @@
  * @property string $registration_date
  * @property string $registration_ip
  * @property string $activation_ip
+ * @property integer $email_confirm
+ * @property integer $use_gravatar
  */
 class User extends YModel
 {
@@ -76,10 +78,10 @@ class User extends YModel
             array('location, online_status', 'length', 'max' => 150),
             array('registration_ip, activation_ip, registration_date', 'length', 'max' => 50),
             array('gender, status, access_level, use_gravatar, email_confirm', 'numerical', 'integerOnly' => true),
-            array('email_confirm', 'in', 'range' => array_keys($this->emailConfirmStatusList)),
+            array('email_confirm', 'in', 'range' => array_keys($this->getEmailConfirmStatusList())),
             array('use_gravatar', 'in', 'range' => array(0, 1)),
-            array('gender', 'in', 'range' => array_keys($this->gendersList)),
-            array('status', 'in', 'range' => array_keys($this->statusList)),
+            array('gender', 'in', 'range' => array_keys($this->getGendersList())),
+            array('status', 'in', 'range' => array_keys($this->getStatusList())),
             array('access_level', 'in', 'range' => array_keys($this->getAccessLevelsList())),
             array('nick_name', 'match', 'pattern' => '/^[A-Za-z0-9_-]{2,50}$/', 'message' => Yii::t('UserModule.user', 'Bad field format for "{attribute}". You can use only letters and digits from 2 to 20 symbols')),
             array('site', 'url', 'allowEmpty' => true),
@@ -146,6 +148,7 @@ class User extends YModel
         $criteria->compare('registration_date', $this->registration_date, true);
         $criteria->compare('registration_ip', $this->registration_ip, true);
         $criteria->compare('activation_ip', $this->activation_ip, true);
+        $criteria->compare('email_confirm', $this->email_confirm, true);
 
         return new CActiveDataProvider(get_class($this), array('criteria' => $criteria));
     }
@@ -182,8 +185,9 @@ class User extends YModel
 
     public function beforeDelete()
     {
-        if (User::model()->admin()->count() == 1 && $this->_oldAccess_level == self::ACCESS_LEVEL_ADMIN)
+        if (User::model()->admin()->count() == 1 && $this->_oldAccess_level == self::ACCESS_LEVEL_ADMIN){
             return false;
+        }
 
         return parent::beforeDelete();
     }
@@ -216,8 +220,9 @@ class User extends YModel
 
     public function validatePassword($password)
     {
-        if ($this->password === $this->hashPassword($password, $this->salt))
+        if ($this->password === $this->hashPassword($password, $this->salt)) {
             return true;
+        }
         return false;
     }
 
@@ -246,7 +251,7 @@ class User extends YModel
 
     public function getStatus()
     {
-        $data = $this->statusList;
+        $data = $this->getStatusList();
         return isset($data[$this->status]) ? $data[$this->status] : Yii::t('UserModule.user', 'status is not set');
     }
 
@@ -261,7 +266,7 @@ class User extends YModel
 
     public function getGender()
     {
-        $data = $this->gendersList;
+        $data = $this->getGendersList();
         return isset($data[$this->gender]) ? $data[$this->gender] : Yii::t('UserModule.user', 'not set');
     }
 
@@ -275,7 +280,7 @@ class User extends YModel
 
     public function getEmailConfirmStatus()
     {
-        $data = $this->emailConfirmStatusList;
+        $data = $this->getEmailConfirmStatusList();
         return isset($data[$this->email_confirm]) ? $data[$this->email_confirm] : Yii::t('UserModule.user', '*unknown*');
     }
 
@@ -300,9 +305,12 @@ class User extends YModel
     }
 
     /**
-     * Получить аватарку пользователя в виде тега IMG.
+     * Получить аватарку пользователя в виде тега IMG
+     *
      * @param array $htmlOptions HTML-опции для создаваемого тега
      * @param int $size требуемый размер аватарки в пикселях
+     *
+     * @throws CException
      * @return string код аватарки
      */
 
@@ -415,6 +423,17 @@ class User extends YModel
         return $this->save();
     }
 
+    public function confirmEmail()
+    {
+        $this->email_confirm = self::EMAIL_CONFIRM_YES;
+        return $this->save();
+    }
+
+    public function needEmailConfirm()
+    {
+        return $this->email_confirm == self::EMAIL_CONFIRM_YES ? false : true;
+    }
+
     public function needActivation()
     {
         return $this->status == User::STATUS_NOT_ACTIVE
@@ -424,7 +443,9 @@ class User extends YModel
     
     /**
      * Устанавливает новый аватар
+     *
      * @param CUploadedFile $uploadedFile
+     * @throws CException
      */
     public function changeAvatar(CUploadedFile $uploadedFile) {        
         $basePath = Yii::app()->getModule('user')->getUploadPath();

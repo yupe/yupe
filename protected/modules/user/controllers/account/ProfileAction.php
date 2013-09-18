@@ -4,7 +4,7 @@ class ProfileAction extends CAction
     public function run()
     {
         if (!Yii::app()->user->isAuthenticated()) {
-            $this->controller->redirect(array(Yii::app()->user->loginUrl));
+            $this->controller->redirect(Yii::app()->user->loginUrl);
         }
 
         $form = new ProfileForm;

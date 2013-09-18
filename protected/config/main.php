@@ -20,8 +20,8 @@
 return array(
     'basePath'          => dirname(__FILE__) . '/..',
     'defaultController' => 'site',             // контроллер по умолчанию
-    'name'              => 'Юпи!',             // название приложения
-    'language'          => 'en',               // язык по умолчанию
+    'name'              => 'Yupe!',             // название приложения
+    'language'          => 'ru',               // язык по умолчанию
     'sourceLanguage'    => 'en',
     'theme'             => 'default',          // тема оформления по умолчанию
     'charset'           => 'UTF-8',

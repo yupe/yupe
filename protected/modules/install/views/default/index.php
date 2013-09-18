@@ -11,7 +11,7 @@
 ?>
 <h1><?php echo Yii::t('InstallModule.install', 'Welcome!'); ?></h1>
 
-<p><?php echo Yii::t('InstallModule.install', '<b>{app}</b> can help to deploy YiiFramework project fast and easy.', array('{app}' => Yii::app()->name)); ?></p>
+<p><?php echo Yii::t('InstallModule.install', '{app} can help to deploy YiiFramework project fast and easy.', array('{app}' => Yii::app()->name)); ?></p>
 <p><?php echo Yii::t('InstallModule.install', 'Please follow installation instructions.'); ?></p>
 
 <div class="alert alert-block alert-notice">
@@ -22,7 +22,7 @@
      )); ?>
     </p>
     <p><b><?php echo Yii::t('InstallModule.install','If you have a problem with install, please go to {link}',array(
-                '{link}' => CHtml::link('эту ветку форума','http://yupe.ru/talk/viewforum.php?id=10',array('target' => '_blank'))
+                '{link}' => CHtml::link(Yii::t('InstallModule.install','our forum'),'http://yupe.ru/talk/viewforum.php?id=10',array('target' => '_blank'))
             ));?></b></p>
 </div>
 

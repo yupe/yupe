@@ -12,8 +12,9 @@ class RecoveryPasswordAction extends CAction
         }
         else
         {
-			if (Yii::app()->user->isAuthenticated())
+			if (Yii::app()->user->isAuthenticated()) {
 				$this->controller->redirect(Yii::app()->user->returnUrl);
+            }
 
 			$recovery = RecoveryPassword::model()->with('user')->find('code = :code', array(':code' => $code));
 

@@ -6,7 +6,7 @@ class UserLogoutCest
     public function testLogout(WebGuy $I, $scenario)
     {
         $I = new WebGuy\UserSteps($scenario);
-        $I->login('yupe@yupetest.ru', '111111');
+        $I->login(\LoginPage::$userEmail,\LoginPage::$userPassword);
         $I->logout();
     }
 }

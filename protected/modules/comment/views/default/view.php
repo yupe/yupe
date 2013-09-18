@@ -1,7 +1,7 @@
 <?php
     $this->breadcrumbs = array(
         Yii::app()->getModule('comment')->getCategory() => array(),
-        Yii::t('CommentModule.comment', 'Comments.') => array('/comment/default/index'),
+        Yii::t('CommentModule.comment', 'Comments') => array('/comment/default/index'),
         $model->id,
     );
 

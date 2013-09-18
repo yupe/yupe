@@ -43,7 +43,7 @@ return array (
     'Verification code' => '',
     'RSS records count' => '',
     'Comments' => '',
-    'Comments.' => '',
+    'Comments' => '',
     'Comments - show' => '',
     'Comments - edit' => '',
     'Comments - management' => '',
