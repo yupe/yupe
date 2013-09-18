@@ -15,7 +15,7 @@ Links
 * [Forum](http://yupe.ru/talk/)
 * [Yupe blog](http://yupe.ru/index.php/blog/yupe-mini-cms-yii)
 * [Wiki](https://github.com/yupe/yupe/wiki)
-* [Contacts](http://yupe.ru/feedback/contact)
+* [Contacts](http://yupe.ru/feedback/index)
 * [Help](http://yupe.ru/site/page/view/help)
 * [Commercial support](http://amylabs.ru/contact)
 
