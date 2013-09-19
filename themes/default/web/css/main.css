@@ -1,10 +1,9 @@
 /* general styles */
 body {
     padding-top: 60px;
-    padding-bottom: 40px;
 }
 span.label a {
-    color: white;
+    color: #FFF;
 }
 
 /* all widgets styles */
@@ -76,14 +75,19 @@ body .navbar .brand {
 .gallery-list {
     margin-bottom: 30px;
 }
-
-/* gallery/show.php */
-.gallery-thumbnail {
-    float: left;
-    margin-left: 0 !important;
-}
-.gallery-thumbnail img {
-    cursor: pointer;
+/* comments */
+.comment-botton-right {
+    float: right;
 }
 
+.comment-body>ul li {
+    display: inline-block;
+    margin: 0 .2em 0 .8em;
+    vertical-align: middle;
+}
 
+.comment-body>p {
+    padding: .3em 1.2em .3em 0;
+    margin: 0;
+    
+}
