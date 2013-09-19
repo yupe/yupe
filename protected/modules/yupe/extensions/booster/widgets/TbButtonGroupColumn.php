@@ -1,27 +1,27 @@
 <?php
-/*##  TbButtonGroupColumn class file.
+/**
+ *##  TbButtonGroupColumn class file.
  *
  * @author Topher Kanyuga <kanjoti@gmail.com>
  * @copyright  
- * @license [New BSD License](http://www.opensource.org/licenses/bsd-license.php) 
- * @package bootstrap.widgets
- * 
+ * @license [New BSD License](http://www.opensource.org/licenses/bsd-license.php)
  */
 
 Yii::import('bootstrap.widgets.TbButtonColumn');
 
 /**
- * Enhanced bootstrap button column widget.
+ *## Enhanced bootstrap button column widget.
+ *
  * Renders the buttons as a button group
+ *
+ * @package booster.widgets.grids.columns
  */
-
 class TbButtonGroupColumn extends TbButtonColumn
 {
 
 	/**
 	 * @var string the button size ('mini','small','normal','large')
 	 */
-
 	public $buttonSize = 'mini';
 
 	/**

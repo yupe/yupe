@@ -1,12 +1,18 @@
 <?php
-/*## TbCKEditor class file.
- *
- * Supports new CKEditor 4
+/**
+ *## TbCKEditor class file.
  *
  * @author Antonio Ramirez <antonio@clevertech.biz>
  * @copyright Copyright &copy; Clevertech 2012-
- * @license [New BSD License](http://www.opensource.org/licenses/bsd-license.php) 
- * @package bootstrap.widgets.input
+ * @license [New BSD License](http://www.opensource.org/licenses/bsd-license.php)
+ */
+
+/**
+ *## CKEditor 4 as a form input
+ *
+ * @see <http://docs.ckeditor.com/>
+ *
+ * @package booster.widgets.forms.inputs.wysiwyg
  */
 class TbCKEditor extends CInputWidget
 {

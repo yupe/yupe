@@ -1,17 +1,21 @@
 <?php
 /**
- * TbJsonCheckBoxColumn class
- * Works in conjunction with TbJsonGridView. Renders HTML or returns JSON containing checkbox
- * according to the request to the Grid.
+ *## TbJsonCheckBoxColumn class file
  *
  * @author: Mikhail Kuklin <mikhail@clevertech.biz>
  * @copyright Copyright &copy; Clevertech 2012-
  * @license http://www.opensource.org/licenses/bsd-license.php New BSD License
- * @package YiiBooster bootstrap.widgets
  */
 
 /**
+ *## TbJsonCheckBoxColumn class
+ *
+ * Works in conjunction with TbJsonGridView. Renders HTML or returns JSON containing checkbox
+ * according to the request to the Grid.
+ *
  * @property TbJsonGridView $grid
+ *
+ * @package booster.widgets.grids.columns.json
  */
 class TbJsonCheckBoxColumn extends CCheckBoxColumn
 {

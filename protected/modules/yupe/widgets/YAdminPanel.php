@@ -14,8 +14,9 @@ class YAdminPanel extends YWidget
 {
     public function init()
     {
-        if (!isset($this->controller->yupe->bootstrap))
+        if (!isset($this->controller->yupe->bootstrap)) {
             $this->controller->yupe->getComponent('bootstrap');
+        }
 
         parent::init();
     }
@@ -64,7 +65,7 @@ class YAdminPanel extends YWidget
                 ), CClientScript::POS_BEGIN
             );
             $cached = Yii::app()->cache->get(
-                'YAdminPanel' . (
+                'YAdminPanel::' . Yii::app()->user->getId() . (
                     Yii::app()->controller instanceof YBackController
                     ? 'backend'
                     : 'frontend'
@@ -73,9 +74,8 @@ class YAdminPanel extends YWidget
 
             if ($cached === false) {
                 $cached = $this->render('application.modules.yupe.views.widgets.YAdminPanel.adminpanel', array(), true);
-                
                 Yii::app()->cache->set(
-                    'YAdminPanel' . (
+                    'YAdminPanel::' . Yii::app()->user->getId() . (
                         Yii::app()->controller instanceof YBackController
                         ? 'backend'
                         : 'frontend'

@@ -1,6 +1,12 @@
 <?php
 /**
- * JSONStorage.php
+ *## JSONStorage class file
+ *
+ * @author: antonio ramirez <antonio@clevertech.biz>
+ */
+
+/**
+ *## JSON Storage
  *
  * Provides a very simple way to persistent JSON storage. Acts as a registry key saver.
  *
@@ -16,9 +22,7 @@
  *
  * echo $j->getData('super','custom');
  *
- * @author: antonio ramirez <antonio@clevertech.biz>
- * Date: 8/2/12
- * Time: 6:48 PM
+ * @package booster.components
  */
 class JSONStorage extends CComponent
 {

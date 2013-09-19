@@ -128,7 +128,7 @@ return array (
   'Bad field format for "{attribute}". You can use only letters and digits from 2 to 20 symbols' => 'Неверный формат поля "{attribute}" допустимы только буквы и цифры, от 2 до 20 символов',
   'No' => 'Нет',
   'Nick' => 'Ник',
-  'Nick in use' => 'Ник уже занят',
+  'User name already exists' => 'Имя пользователя уже занято',
   'New password' => 'Новый пароль',
   'Confirm new password' => 'Новый пароль еще раз',
   'New password was sent to your email' => 'Новый пароль отправлен Вам на email!',

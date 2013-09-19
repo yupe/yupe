@@ -35,7 +35,7 @@ class DocsModule extends YWebModule
     /**
      * Статические файлы для рендеринга:
      */
-    public $staticFiles = 'README.md,README_EN.md,LICENSE,UPGRADE.md,CHANGELOG.md,TEAM.md,install_ru.txt';
+    public $staticFiles = 'README.md,README_EN.md,LICENSE,UPGRADE.md,CHANGELOG.md,TEAM.md,install.md';
 
     /**
      * Категория модуля:

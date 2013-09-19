@@ -1,12 +1,12 @@
 <?php
-/*## EditableDetailView class file.
+/**
+ *## EditableDetailView class file.
  *
  * @author Vitaliy Potapov <noginsk@rambler.ru>
  * @link https://github.com/vitalets/x-editable-yii
  * @copyright Copyright &copy; Vitaliy Potapov 2012
- * @package bootstrap.widgets
  * @version 1.1.0
-*/
+ */
 
 Yii::import('bootstrap.widgets.TbEditableField');
 Yii::import('bootstrap.widgets.TbDetailView');
@@ -14,27 +14,10 @@ Yii::import('bootstrap.widgets.TbDetailView');
 /**
  * EditableDetailView widget makes editable CDetailView (several attributes of single model shown as name-value table).
  *
- * @package widgets
- */
+ * @package booster.widgets.editable
+*/
 class TbEditableDetailView extends TbDetailView
 {
-	/**
-	 * @var string submit url for all editables in detailview
-	 */
-	/*
-	 commented due to using magic methods and setting any of default EditableField param
-	 from top level config of EditableDetailView
-	*/
-	//public $url = null;
-
-	/**
-	 * @var array additional params to send on server
-	 */
-	/*
-	 commented due to using magic methods and setting any of default EditableField param
-	 from top level config of EditableDetailView
-	*/
-	//public $params = null;
 
 	/**
 	 *### .init()
@@ -43,9 +26,8 @@ class TbEditableDetailView extends TbDetailView
 	 */
 	public function init()
 	{
-		if (!$this->data instanceof CModel) {
+		if (!$this->data instanceof CModel)
 			throw new CException('Property "data" should be of CModel class.');
-		}
 
 		//set bootstrap css
 		$this->htmlOptions = array('class' => 'table table-bordered table-striped table-hover');
@@ -119,6 +101,7 @@ class TbEditableDetailView extends TbDetailView
 			$reflection = new ReflectionClass('TbEditableField');
 			$this->_editableProperties = array_map(
 				function ($d) {
+					/** @var ReflectionProperty $d */
 					return $d->getName();
 				},
 				$reflection->getProperties()

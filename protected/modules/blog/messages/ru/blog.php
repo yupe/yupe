@@ -61,7 +61,7 @@ return array (
   'Blogs list' => 'Список блогов',
   'Category' => 'Категория',
   'Comments' => 'Комментарии',
-  'Content' => 'Содержание',
+  'Content' => 'Контент',
   'Create' => 'Создать',
   'Create blog and close' => 'Добавить блог и закрыть',
   'Create blog and continue' => 'Добавить блог и продолжить',

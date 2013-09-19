@@ -1,14 +1,18 @@
 <?php
 /**
- * TbToggleColumn widget
+ *## TbToggleColumn class file
+ *
+ * @author: antonio ramirez <antonio@clevertech.biz>
+ */
+
+/**
+ *## TbToggleColumn widget
  *
  * Renders a button to toggle values of a column
  *
  * Modified version of jToggle column of Nikola Trifunović <http://www.trifunovic.me/>
  *
- * @author: antonio ramirez <antonio@clevertech.biz>
- * Date: 10/16/12
- * Time: 6:15 PM
+ * @package booster.widgets.grids.columns
  */
 class TbToggleColumn extends TbDataColumn
 {

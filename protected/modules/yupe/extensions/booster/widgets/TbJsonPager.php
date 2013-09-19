@@ -1,13 +1,21 @@
 <?php
-/*## TbJsonPager class file.
+/**
+ *## TbJsonPager class file.
  *
  * @author: antonio ramirez <antonio@clevertech.biz>
  * @copyright Copyright &copy; Clevertech 2012-
  * @license [New BSD License](http://www.opensource.org/licenses/bsd-license.php) 
- * @package YiiBooster bootstrap.widgets
  */
+
 Yii::import('bootstrap.widgets.TbPager');
 
+/**
+ *## Class TbJsonPager
+ *
+ * Use this specific pager for JSON grid, not the standard one!
+ *
+ * @package booster.widgets.supplementary
+ */
 class TbJsonPager extends TbPager
 {
 	/**

@@ -42,16 +42,19 @@ class RegistrationForm extends CFormModel
 
     public function beforeValidate()
     {
-        if (Yii::app()->getModule('user')->autoNick)
+        if (Yii::app()->getModule('user')->autoNick) {
             $this->nick_name = substr(User::model()->generateSalt(), 10);
+        }
         return parent::beforeValidate();
     }
 
     public function checkNickName($attribute,$params)
     {
         $model = User::model()->find('nick_name = :nick_name', array(':nick_name' => $this->$attribute));
-        if ($model)
-            $this->addError('nick_name', Yii::t('UserModule.user', 'Nick in use'));
+
+        if ($model) {
+            $this->addError('nick_name', Yii::t('UserModule.user', 'User name already exists'));
+        }
     }
 
     public function checkEmail($attribute,$params)

@@ -1,17 +1,19 @@
 <?php
-/*## TbNavbar class file.
+/**
+ *## TbNavbar class file.
  *
  * @author Christoffer Niska <ChristofferNiska@gmail.com>
  * @copyright Copyright &copy; Christoffer Niska 2011-
  * @license [New BSD License](http://www.opensource.org/licenses/bsd-license.php)
- * @package bootstrap.widgets
- * @since 0.9.7
  */
 
 Yii::import('bootstrap.widgets.TbCollapse');
 
 /**
- * Bootstrap navigation bar widget.
+ *## Bootstrap navigation bar widget.
+ *
+ * @package booster.widgets.navigation
+ * @since 0.9.7
  */
 class TbNavbar extends CWidget
 {

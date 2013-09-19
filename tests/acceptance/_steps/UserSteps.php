@@ -13,7 +13,6 @@ class UserSteps extends \WebGuy
         $I->click('Войти', '.btn-primary');
         $I->dontSee('Email или пароль введены неверно!', '.alert-error');
         $I->see('Вы успешно авторизовались!','.alert-success');
-        $I->seeLink('Панель управления');
         $I->seeLink(\LogoutPage::$linkLabel);
     }
 

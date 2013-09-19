@@ -226,7 +226,7 @@ return array (
   'Theme is don\'t use' => 'Тема не используется',
   'Theme is not using' => 'Тема не используется',
   'Theme of backend' => 'Тема административной части',
-  'Theme settings' => 'НАстройки темы',
+  'Theme settings' => 'Настройки темы',
   'Themes' => 'Темы',
   'Themes settings saved successfully!' => 'Настройки темы успешно сохранены!',
   'There is a page for tahnks =)' => 'А вот здесь мы принимаем благодарности =)',

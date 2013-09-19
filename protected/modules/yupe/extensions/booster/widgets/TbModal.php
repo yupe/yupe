@@ -1,16 +1,19 @@
 <?php
-/*## TbModal class file.
+/**
+ *## TbModal class file.
  *
  * @author Christoffer Niska <ChristofferNiska@gmail.com>
  * @copyright Copyright &copy; Christoffer Niska 2011-
  * @license [New BSD License](http://www.opensource.org/licenses/bsd-license.php)
- * @package bootstrap.widgets
- * @since 0.9.3
  */
 
 /**
- * Bootstrap modal widget.
+ *## Bootstrap modal widget.
+ *
  * @see <http://twitter.github.com/bootstrap/javascript.html#modals>
+ *
+ * @since 0.9.3
+ * @package booster.widgets.modals
  */
 class TbModal extends CWidget
 {

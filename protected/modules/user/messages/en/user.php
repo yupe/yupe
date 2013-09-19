@@ -128,7 +128,7 @@ return array (
     'Bad field format for "{attribute}". You can use only letters and digits from 2 to 20 symbols' => '',
     'No' => '',
     'Nick' => '',
-    'Nick in use' => '',
+    'User name already exists' => '',
     'New password' => '',
     'Confirm new password' => '',
     'New password was sent to your email' => '',

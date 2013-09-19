@@ -1,18 +1,21 @@
 <?php
-/*##  TbButtonGroup class file.
+/**
+ *##  TbButtonGroup class file.
  *
  * @author Christoffer Niska <ChristofferNiska@gmail.com>
  * @copyright Copyright &copy; Christoffer Niska 2011-
  * @license [New BSD License](http://www.opensource.org/licenses/bsd-license.php) 
- * @package bootstrap.widgets
  * @since 0.9.10
  */
 
 Yii::import('bootstrap.widgets.TbButton');
 
 /**
- * Bootstrap button group widget.
+ *## Bootstrap button group widget.
+ *
  * @see <http://twitter.github.com/bootstrap/components.html#buttonGroups>
+ *
+ * @package booster.widgets.forms.buttons
  */
 class TbButtonGroup extends CWidget
 {

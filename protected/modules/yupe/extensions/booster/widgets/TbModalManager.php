@@ -1,16 +1,19 @@
 <?php
 /**
- * TbModalMaster class file.
+ *## TbModalMaster class file.
+ *
  * @author Thiago Otaviani Vidal <thiagovidal@gmail.com>
  * @copyright Copyright &copy; Thiago Otaviani Vidal 2012
  * @license http://www.opensource.org/licenses/bsd-license.php New BSD License
- * @package bootstrap.widgets
- * @since 0.9.3
  */
 
 /**
- * Bootstrap modal master widget.
+ *## Bootstrap modal master widget.
+ *
  * @see https://github.com/jschr/bootstrap-modal/
+ *
+ * @since 0.9.3
+ * @package booster.widgets.modals
  */
 class TbModalManager extends CWidget
 {

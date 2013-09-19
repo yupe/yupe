@@ -1,17 +1,20 @@
 <?php
 /**
- * TbGroupButtonColumn class file.
+ *## TbGroupButtonColumn class file.
+ *
  * @author Lushnikov Alexander <alexander.aka.alegz@gmail.com>
  * @license http://www.opensource.org/licenses/bsd-license.php New BSD License
- * @package bootstrap.widgets
  * @since 0.9.8
  */
 
 Yii::import('zii.widgets.grid.CButtonColumn');
 
 /**
- * Bootstrap button column widget.
+ *## Bootstrap button column widget.
+ *
  * Used to set buttons group.
+ *
+ * @package booster.widgets.grids.columns
  */
 class TbGroupButtonColumn extends CButtonColumn
 {

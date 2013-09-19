@@ -98,3 +98,20 @@ Options FollowSymLinks
 Переходим по ссылке http://localhost/myblog/public
 
 Автор [https://github.com/hitakiri](https://github.com/hitakiri)
+
+
+После установки
+---------------
+
+- [Расскажите нам о новом сайте на Юпи!](http://yupe.ru/feedback/index).
+  Нам будет очень приятно.
+- [Сообщайте об ошибках, замечаниях или предложениях](https://github.com/yupe/yupe/issues).
+- Расскажите друзьям о Юпи!.
+- [Следите за обновлениями в twitter](https://twitter.com/YupeCms).
+- [Общайтесь на форуме](http://yupe.ru/talk/).
+- [Помогайте проекту](http://yupe.ru/site/page/view/help).
+- [Присылайте pull requests](https://github.com/yupe/yupe/pulls) (патчи).
+- Отдыхайте и наслаждайтесь жизнью!
+
+
+При возникновении проблем мы готовы Вам помочь, напишите нам http://amylabs.ru/contact

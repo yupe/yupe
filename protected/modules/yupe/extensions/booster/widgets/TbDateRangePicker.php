@@ -1,15 +1,18 @@
 <?php
-/*## TbDateRangePicker class file.
+/**
+ *## TbDateRangePicker class file.
  *
  * @author: antonio ramirez <antonio@clevertech.biz>
  * @copyright Copyright &copy; Clevertech 2012-
  * @license [New BSD License](http://www.opensource.org/licenses/bsd-license.php)
- * @package YiiBooster bootstrap.widgets
  */
 
 /**
- * A simple implementation for date range picker for Twitter Bootstrap
+ *## A simple implementation for date range picker for Twitter Bootstrap
+ *
  * @see <http://www.dangrossman.info/2012/08/20/a-date-range-picker-for-twitter-bootstrap/>
+ *
+ * @package booster.widgets.forms.inputs
  */
 class TbDateRangePicker extends CInputWidget
 {
@@ -125,6 +128,6 @@ class TbDateRangePicker extends CInputWidget
 	{
 		Yii::app()->bootstrap->registerAssetCss('bootstrap-daterangepicker.css');
 		Yii::app()->bootstrap->registerAssetJs('bootstrap.daterangepicker.js');
-		Yii::app()->bootstrap->registerPackage('date');
+		Yii::app()->bootstrap->registerPackage('moment');
 	}
 }

@@ -1,10 +1,14 @@
 <?php
 /**
- * TbExtendedTooltipAction.php
+ *## TbExtendedTooltipAction class file
  *
- * @author: antonio ramirez <antonio@clevertech.biz>
- * Date: 10/18/12
- * Time: 6:23 PM
+ * @author antonio ramirez <antonio@clevertech.biz>
+ */
+
+/**
+ *## Class TbExtendedTooltipAction
+ *
+ * @package booster.actions
  */
 class TbExtendedTooltipAction extends CAction
 {
