@@ -1,8 +1,7 @@
 <?php
 /**
- * TbFileUpload.php
+ *## TbFileUpload class file
  *
- * Modified version from the great implementation of XUpload Yii Extension
  * @author AsgarothBelem <asgaroth.belem@gmail.com>
  * @link http://blueimp.github.com/jQuery-File-Upload/
  * @link https://github.com/Asgaroth/xupload
@@ -11,7 +10,16 @@
  * Date: 11/5/12
  * Time: 12:46 AM
  */
+
 Yii::import('zii.widgets.jui.CJuiInputWidget');
+
+/**
+ * Class TbFileUpload
+ *
+ * Modified version from the great implementation of XUpload Yii Extension
+ *
+ * @package booster.widgets.forms.inputs
+ */
 class TbFileUpload extends CJuiInputWidget
 {
 	/**

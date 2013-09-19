@@ -1,10 +1,17 @@
 <?php
-/*## TbDatePicker widget class
+/**
+ *## TbDatePicker widget class
  *
  * @author: antonio ramirez <antonio@clevertech.biz>
  * @copyright Copyright &copy; Clevertech 2012-
  * @license [New BSD License](http://www.opensource.org/licenses/bsd-license.php)
- * @package YiiBooster bootstrap.widgets
+ */
+
+/**
+ * Bootstrap DatePicker widget
+ * @see http://www.eyecon.ro/bootstrap-datepicker/
+ *
+ * @package booster.widgets.forms.inputs
  */
 class TbDatePicker extends CInputWidget
 {
@@ -39,13 +46,6 @@ class TbDatePicker extends CInputWidget
 			$this->options['language'] = substr(Yii::app()->getLanguage(), 0, 2);
 		}
 
-		if (!isset($this->options['format'])) {
-			$this->options['format'] = 'mm/dd/yyyy';
-		}
-
-		if (!isset($this->options['weekStart'])) {
-			$this->options['weekStart'] = 0;
-		} // Sunday
 	}
 
 	/**
@@ -99,7 +99,7 @@ class TbDatePicker extends CInputWidget
 			$file = 'locales/bootstrap-datepicker.' . $this->options['language'] . '.js';
 			if (@file_exists(Yii::getPathOfAlias('bootstrap.assets') . '/js/' . $file)) {
 				if (Yii::app()->bootstrap->enableCdn) {
-					Yii::app()->clientScript->registerScriptFile('//cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.0.2/js/locales/bootstrap-datepicker.' . $this->options['language'] . '.js', CClientScript::POS_END);
+					Yii::app()->clientScript->registerScriptFile('//cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.1.3/js/locales/bootstrap-datepicker.' . $this->options['language'] . '.js', CClientScript::POS_END);
 				} else {
 					Yii::app()->bootstrap->registerAssetJs('locales/bootstrap-datepicker.' . $this->options['language'] . '.js');
 				}

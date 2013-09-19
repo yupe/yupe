@@ -1,16 +1,19 @@
 <?php
-/*## TbScrollSpy class file.
+/**
+ *## TbScrollSpy class file.
  *
  * @author Christoffer Niska <ChristofferNiska@gmail.com>
  * @copyright Copyright &copy; Christoffer Niska 2012-
  * @license [New BSD License](http://www.opensource.org/licenses/bsd-license.php) 
- * @package bootstrap.widgets
- * @since 1.0.0
  */
 
 /**
- * Bootstrap scrollspy widget.
+ *## Bootstrap scrollspy widget.
+ *
  * @see <http://twitter.github.com/bootstrap/javascript.html#scrollspy>
+ *
+ * @since 1.0.0
+ * @package booster.widgets.supplementary
  */
 class TbScrollSpy extends CWidget
 {

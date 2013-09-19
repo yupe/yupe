@@ -1,18 +1,22 @@
 <?php
 /**
- * TbJsonDataColumn class
- *
- * This column works specifically with TbJsonGridView.
+ *## TbJsonDataColumn class file
  *
  * @author: antonio ramirez <antonio@clevertech.biz>
  * @copyright Copyright &copy; Clevertech 2012-
  * @license http://www.opensource.org/licenses/bsd-license.php New BSD License
- * @package YiiBooster bootstrap.widgets
  */
+
 Yii::import('bootstrap.widgets.TbJsonGridColumn');
 
 /**
+ *## TbJsonDataColumn class
+ *
+ * This column works specifically with TbJsonGridView.
+ *
  * @property TbJsonGridView $grid
+ *
+ * @package booster.widgets.grids.columns.json
  */
 class TbJsonDataColumn extends TbJsonGridColumn
 {

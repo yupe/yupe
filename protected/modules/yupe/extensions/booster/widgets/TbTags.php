@@ -1,12 +1,20 @@
 <?php
-/*## TbTags class file.
+/**
+ *## TbTags class file.
  *
  * @author Antonio Ramirez <antonio@clevertech.biz>
  * @copyright Copyright &copy; Clevertech 2012-
  * @license [New BSD License](http://www.opensource.org/licenses/bsd-license.php) 
- * @package bootstrap.widgets.input
  */
 
+/**
+ *## TbTags class
+ *
+ * Encapsulates the Bootstrap Tags plugin by Maxwells
+ * @see <https://github.com/maxwells/bootstrap-tags>
+ *
+ * @package booster.widgets.forms.inputs
+ */
 class TbTags extends CInputWidget
 {
 	/**

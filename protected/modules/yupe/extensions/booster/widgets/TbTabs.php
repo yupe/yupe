@@ -1,18 +1,20 @@
 <?php
-/*##  TbTabs class file.
+/**
+ *##  TbTabs class file.
  *
  * @author Christoffer Niska <ChristofferNiska@gmail.com>
  * @copyright Copyright &copy; Christoffer Niska 2011-
  * @license [New BSD License](http://www.opensource.org/licenses/bsd-license.php)
- * @package bootstrap.widgets
  */
 
 Yii::import('bootstrap.widgets.TbMenu');
 
 /**
- * Bootstrap Javascript tabs widget.
+ *## Bootstrap Javascript tabs widget.
  *
  * @see <http://twitter.github.com/bootstrap/javascript.html#tabs>
+ *
+ * @package booster.widgets.grouping
  */
 class TbTabs extends CWidget
 {

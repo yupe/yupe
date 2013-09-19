@@ -1,18 +1,21 @@
 <?php
-/*##  TbButtonColumn class file.
+/**
+ *##  TbButtonColumn class file.
  *
  * @author Christoffer Niska <ChristofferNiska@gmail.com>
  * @copyright  Copyright &copy; Christoffer Niska 2011-
- * @license [New BSD License](http://www.opensource.org/licenses/bsd-license.php) 
- * @package bootstrap.widgets
+ * @license [New BSD License](http://www.opensource.org/licenses/bsd-license.php)
  * @since 0.9.8
  */
 
 Yii::import('zii.widgets.grid.CButtonColumn');
 
 /**
- * Bootstrap button column widget.
+ *## Bootstrap button column widget.
+ *
  * Used to set buttons to use Glyphicons instead of the defaults images.
+ *
+ * @package booster.widgets.grids.columns
  */
 class TbButtonColumn extends CButtonColumn
 {

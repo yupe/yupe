@@ -1,9 +1,15 @@
 <?php
-/*## TbColorPicker widget class
+/**
+ *## TbColorPicker class file
  *
  * @author: yiqing95 <yiqing_95@qq.com>
- * @license [New BSD License](http://www.opensource.org/licenses/bsd-license.php) 
- * @package YiiBooster bootstrap.widgets
+ * @author Antonio Ramirez <antonio@clevertech.biz>
+ * @license [New BSD License](http://www.opensource.org/licenses/bsd-license.php)
+ */
+
+/**
+ *## TbColorPicker widget class
+ *
  * ------------------------------------------------------------------------
  *   in yii  use this to register the necessary js and css files :
  *   <?php  $this->widget('bootstrap.widgets.TbColorPicker', array( )); ?>
@@ -12,11 +18,7 @@
  * @see <http://www.eyecon.ro/bootstrap-colorpicker/>
  * ------------------------------------------------------------------------
  *
- * - Changelog
- * @since 10/27/12 7:28 PM
- * @author Antonio Ramirez <antonio@clevertech.biz>
- * Total refactor to work as a widget instead of a class and allow the use of TbActiveForm
- *
+ * @package booster.widgets.forms.inputs
  */
 class TbColorPicker extends CInputWidget
 {

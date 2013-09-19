@@ -1,18 +1,22 @@
 <?php
 /**
- * TbInputVertical class file.
+ *## TbInputVertical class file.
+ *
  * @author Christoffer Niska <ChristofferNiska@gmail.com>
  * @copyright Copyright &copy; Christoffer Niska 2011-
  * @license http://www.opensource.org/licenses/bsd-license.php New BSD License
- * @package bootstrap.widgets.input
  * @since 11/25/12 10:49 AM  updated by Antonio Ramirez <antonio@clevertech.biz>
  */
 
 Yii::import('bootstrap.widgets.input.TbInput');
 
 /**
- * Bootstrap vertical form input widget.
+ *## TbInputVertical class
+ *
+ * Bootstrap vertical form input widget
+ *
  * @since 0.9.8
+ * @package booster.widgets.forms.inputs
  */
 class TbInputVertical extends TbInput
 {
@@ -23,8 +27,11 @@ class TbInputVertical extends TbInput
 	protected function checkBox()
 	{
 		$attribute = $this->attribute;
+		list($hidden, $checkbox) = $this->getSeparatedSelectableInput();
+
+		echo ($hidden) ? $hidden . PHP_EOL : '';
 		echo '<label class="checkbox" for="' . $this->getAttributeId($attribute) . '">';
-		echo $this->form->checkBox($this->model, $this->attribute, $this->htmlOptions) . PHP_EOL;
+		echo $checkbox . PHP_EOL;
 		echo $this->model->getAttributeLabel($attribute);
 		echo $this->getError() . $this->getHint();
 		echo '</label>';
@@ -133,14 +140,51 @@ class TbInputVertical extends TbInput
 	}
 
 	/**
+	 * Renders a Pass*Field field.
+	 * @return string the rendered content
+	 * @author Hrumpa
+	 */
+	protected function passfieldField()
+	{
+		if (isset($this->htmlOptions['options'])) {
+			$options = $this->htmlOptions['options'];
+			unset($this->htmlOptions['options']);
+		}
+
+		if (isset($this->htmlOptions['events'])) {
+			$events = $this->htmlOptions['events'];
+			unset($this->htmlOptions['events']);
+		}
+
+		echo $this->getLabel();
+		echo $this->getPrepend();
+		$this->widget(
+			'bootstrap.widgets.TbPassfield',
+			array(
+				'model' => $this->model,
+				'attribute' => $this->attribute,
+				'options' => isset($options) ? $options : array(),
+				'events' => isset($events) ? $events : array(),
+				'htmlOptions' => $this->htmlOptions,
+			)
+		);
+		echo $this->getAppend();
+		echo $this->getError() . $this->getHint();
+	}
+
+	/**
 	 * Renders a radio button.
 	 * @return string the rendered content
 	 */
 	protected function radioButton()
 	{
 		$attribute = $this->attribute;
+		list($hidden, $radioButton) = $this->getSeparatedSelectableInput();
+
+		echo ($hidden) ? $hidden . PHP_EOL : '';
 		echo '<label class="radio" for="' . $this->getAttributeId($attribute) . '">';
-		echo $this->form->radioButton($this->model, $this->attribute, $this->htmlOptions) . PHP_EOL;
+		echo $radioButton . PHP_EOL;
+		//echo $this->form->radioButton($this->model, $this->attribute, $this->htmlOptions) . PHP_EOL;
 		echo $this->model->getAttributeLabel($attribute);
 		echo $this->getError() . $this->getHint();
 		echo '</label>';
@@ -153,8 +197,10 @@ class TbInputVertical extends TbInput
 	protected function radioButtonList()
 	{
 		echo $this->getLabel();
+		echo '<span id="' . $this->getAttributeId($this->attribute) . '">';
 		echo $this->form->radioButtonList($this->model, $this->attribute, $this->data, $this->htmlOptions);
 		echo $this->getError() . $this->getHint();
+		echo '</span>';
 	}
 
 	/**
@@ -273,6 +319,39 @@ class TbInputVertical extends TbInput
 		echo $this->getPrepend();
 		$this->widget(
 			'bootstrap.widgets.TbDatePicker',
+			array(
+				'model' => $this->model,
+				'attribute' => $this->attribute,
+				'options' => isset($options) ? $options : array(),
+				'events' => isset($events) ? $events : array(),
+				'htmlOptions' => $this->htmlOptions,
+			)
+		);
+		echo $this->getAppend();
+		echo $this->getError() . $this->getHint();
+	}
+
+	/**
+	 * Renders a datetimepicker field.
+	 * @return string the rendered content
+	 * @author Hrumpa
+	 */
+	protected function datetimepickerField()
+	{
+		if (isset($this->htmlOptions['options'])) {
+			$options = $this->htmlOptions['options'];
+			unset($this->htmlOptions['options']);
+		}
+
+		if (isset($this->htmlOptions['events'])) {
+			$events = $this->htmlOptions['events'];
+			unset($this->htmlOptions['events']);
+		}
+
+		echo $this->getLabel();
+		echo $this->getPrepend();
+		$this->widget(
+			'bootstrap.widgets.TbDateTimePicker',
 			array(
 				'model' => $this->model,
 				'attribute' => $this->attribute,
@@ -468,7 +547,7 @@ class TbInputVertical extends TbInput
 				'model' => $this->model,
 				'attribute' => $this->attribute,
 				'options' => isset($options) ? $options : array(),
-				'callback' => isset($callback) ? $callback : array(),
+				'callback' => isset($callback) ? $callback : '',
 				'htmlOptions' => $this->htmlOptions,
 			)
 		);
@@ -494,7 +573,6 @@ class TbInputVertical extends TbInput
 		}
 
 		echo $this->getLabel();
-		echo '<div class="bootstrap-timepicker">';
 		echo $this->getPrepend();
 		$this->widget(
 			'bootstrap.widgets.TbTimePicker',
@@ -509,7 +587,6 @@ class TbInputVertical extends TbInput
 		);
 		echo $this->getAppend();
 		echo $this->getError() . $this->getHint();
-		echo '</div>';
 	}
 
 	/**
@@ -538,6 +615,12 @@ class TbInputVertical extends TbInput
 			unset($this->htmlOptions['asDropDownList']);
 		}
 
+		if (isset($this->htmlOptions['val']))
+		{
+			$val = $this->htmlOptions['val'];
+			unset($this->htmlOptions['val']);
+		}
+
 		echo $this->getLabel();
 		echo $this->getPrepend();
 		$this->widget(
@@ -549,6 +632,7 @@ class TbInputVertical extends TbInput
 				'events' => isset($events) ? $events : array(),
 				'data' => isset($data) ? $data : array(),
 				'asDropDownList' => isset($asDropDownList) ? $asDropDownList : true,
+				'val' => isset($val) ? $val : null,
 				'htmlOptions' => $this->htmlOptions,
 				'form' => $this->form
 			)
@@ -579,6 +663,19 @@ class TbInputVertical extends TbInput
 		echo $this->getLabel();
 		echo $this->getPrepend();
 		echo $this->form->numberField($this->model, $this->attribute, $this->htmlOptions);
+		echo $this->getAppend();
+		echo $this->getError() . $this->getHint();
+	}
+
+	/**
+	 * Renders a pre-rendered custom field
+	 * @return string the rendered content
+	 */
+	protected function customField()
+	{
+		echo $this->getLabel();
+		echo $this->getPrepend();
+		echo $this->htmlOptions['input'];
 		echo $this->getAppend();
 		echo $this->getError() . $this->getHint();
 	}

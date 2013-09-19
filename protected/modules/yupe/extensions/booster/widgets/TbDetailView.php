@@ -1,16 +1,19 @@
 <?php
-/*## TbDetailView class file.
+/**
+ *## TbDetailView class file.
+ *
  *
  * @author Christoffer Niska <ChristofferNiska@gmail.com>
  * @copyright Copyright &copy; Christoffer Niska 2011-
- * @license [New BSD License](http://www.opensource.org/licenses/bsd-license.php) 
- * @package bootstrap.widgets
+ * @license [New BSD License](http://www.opensource.org/licenses/bsd-license.php)
  */
 
 Yii::import('zii.widgets.CDetailView');
 
 /**
- * Bootstrap Zii detail view.
+ *## Bootstrap Zii detail view.
+ *
+ * @package booster.widgets.grouping
  */
 class TbDetailView extends CDetailView
 {

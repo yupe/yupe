@@ -20,10 +20,14 @@
      * @param id string the ID of the grid view container
      * @param action string the action URL for save sortable rows
      * @param column_id string the ID of the column
+     * @param data string the custom POST data
      * @return array the key values of the currently checked rows.
      */
-    $.fn.yiiGridView.sortable = function (id, action, callback)
+    $.fn.yiiGridView.sortable = function (id, action, callback, data)
     {
+        if (data == null)
+            data = {};
+
         var grid = $('#'+id) ;
         $("tbody", grid).sortable({
             helper: fixHelperDimensions,
@@ -55,13 +59,16 @@
                     $(this).attr('data-order', sort[i]);
                     sortOrder[$(this).text()] = sort[i];
                 });
+
+                data["sortOrder"] = sortOrder;
+
                 if(action.length)
                 {
                     $.fn.yiiGridView.update(id,
                     {
                         type:'POST',
                         url:action,
-                        data:{sortOrder: sortOrder},
+                        data:data,
                         success:function(){
                         grid.removeClass('grid-view-loading');
                         }

@@ -1,17 +1,21 @@
 <?php
-/*## TbDropdown class file.
+/**
+ *## TbDropdown class file.
+ *
  *
  * @author Christoffer Niska <ChristofferNiska@gmail.com>
  * @copyright Copyright &copy; Christoffer Niska 2012-
- * @license [New BSD License](http://www.opensource.org/licenses/bsd-license.php) 
- * @package bootstrap.widgets
+ * @license [New BSD License](http://www.opensource.org/licenses/bsd-license.php)
  */
 
 Yii::import('bootstrap.widgets.TbBaseMenu');
 
 /**
- * Bootstrap dropdown menu.
+ *## Bootstrap dropdown menu.
+ *
  * @see http://twitter.github.com/bootstrap/javascript.html#dropdowns
+ *
+ * @package booster.widgets.navigation
  */
 class TbDropdown extends TbBaseMenu
 {

@@ -1,16 +1,19 @@
 <?php
-/*## TbCarousel class file.
+/**
+ *## TbCarousel class file.
  *
  * @author Christoffer Niska <ChristofferNiska@gmail.com>
  * @copyright Copyright &copy; Christoffer Niska 2011-
  * @license [New BSD License](http://www.opensource.org/licenses/bsd-license.php) 
- * @package bootstrap.widgets
  * @since 0.9.10
  */
 
 /**
- * Bootstrap carousel widget.
+ *## Bootstrap carousel widget.
+ *
  * @see <http://twitter.github.com/bootstrap/javascript.html#carousel>
+ *
+ * @package booster.widgets.grouping
  */
 class TbCarousel extends CWidget
 {

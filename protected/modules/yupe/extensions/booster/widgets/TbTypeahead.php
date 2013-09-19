@@ -1,16 +1,19 @@
 <?php
 /**
- * TbTypeahead class file.
+ *## TbTypeahead class file.
+ *
  * @author Christoffer Niska <ChristofferNiska@gmail.com>
  * @copyright Copyright &copy; Christoffer Niska 2011-
  * @license http://www.opensource.org/licenses/bsd-license.php New BSD License
- * @package bootstrap.widgets
- * @since 0.9.10
  */
 
 /**
- * Bootstrap typeahead widget.
+ *## Bootstrap typeahead widget.
+ *
  * @see http://twitter.github.com/bootstrap/javascript.html#typeahead
+ *
+ * @since 0.9.10
+ * @package booster.widgets.forms.inputs
  */
 class TbTypeahead extends CInputWidget
 {

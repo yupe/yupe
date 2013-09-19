@@ -1,48 +1,60 @@
-# Including YiiBooster to your Yii-based web application
+# Installing instructions
 
-Excerpt from the ["Getting Started" section at YiiBooster website](http://yii-booster.clevertech.biz/getting-started.html):
+## 1. Attaching to Yii application
 
-Unzip the extension under `protected/extensions/bootstrap`, the structure of your (Yii's default) application should look like this:
+Write the following to your application config:
 
-    protected/
-    └── extensions
-          └── bootstrap
-              ├── assets
-              │   ├── css
-              │   ├── img
-              │   ├── js
-              │   └── less
-              ├── components
-              │   Bootstrap.php
-              └── widgets
-                  └── input
+    'components' => array(
+        'bootstrap' => array(
+            'class' => 'aliased.path.to.booster.directory.and.inside.it.Bootstrap.class'
+        )
+    ),
 
-Now, that we have placed the library where it belongs, lets configure the component. On your main.php config file:
+Of course it has to be inside your existing `components` section, do not create second one.
+
+Name of component _must_ be `bootstrap`, please bear with it for now.
+
+See the `components/Bootstrap.php` file for configuration properties of Bootstrap component.
+
+## 2. Setting up initialization
+
+You have two options.
+
+Lazy way is to preload YiiBooster at every request. Write the following inside your application config:
 
     'preload' => array(
-        <...>
-        'bootstrap',
-        <...>
-    ),
-    'components' => array(
-        <...>
-        'bootstrap' => array(
-            'class' => 'ext.bootstrap.components.Bootstrap',
-            'responsiveCss' => true,
-        ),
-        <...>
-    ),
-    // YiiBooster includes all the features from its parent
-    // project Yii-Bootstrap, thus its gii templates
-    'modules' => array(
-        <...>
-        'gii' => array(
-            <...>
-            'generatorPaths' => array(
-                'bootstrap.gii'
-            ),
-        ),
-        <...>
+        ... possibly other components to be preloaded ...
+        'booster'
     ),
 
-The configuration is the same as you do when installing the [Yii-Bootstrap](http://www.yiiframework.com/extension/bootstrap) extension from Chris.
+As with `components` section above, do not create another `preload` section if you already have one.
+
+Precise way is to use the custom filter shipped with YiiBooster, to load `Bootstrap` component only on chosen Controller actions.
+You have to write something like this inside each Controller you want to have YiiBooster loaded:
+
+    public function filters() {
+        return array(
+            ... probably other filter specifications ...
+            array('path.alias.to.bootstrap.filters.BootstrapFilter - delete')
+        );
+    }
+
+`.filters.BootstrapFilter` snippet has to be written verbatim - it is the path to subfolder under the YiiBooster directory.
+
+This example declaration will tell the Controller in question to load `Bootstrap` component on any action except `delete` one.
+You can look at the [documentation for CController.filters() method](http://www.yiiframework.com/doc/api/CController#filters-detail)
+for details about using this feature.
+
+## That's all
+
+Now you can call widgets included in YiiBooster using the following incantation in your view files:
+
+    $this->widget('bootstrap.widgets.TbWidgetClassName', $config);
+
+Where `WidgetClassName` placeholder stands for name of the widget.
+All YiiBooster widget classes are prefixed by `Tb` by convention.
+
+Automatically-generated alias `bootstrap` points to the directory which holds `widgets` folder inside your YiiBooster installation.
+
+
+

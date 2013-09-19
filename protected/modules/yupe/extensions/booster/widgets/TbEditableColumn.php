@@ -1,21 +1,21 @@
 <?php
-/*## EditableColumn class file.
+/**
+ *## EditableColumn class file.
  *
  * @author Vitaliy Potapov <noginsk@rambler.ru>
  * @link https://github.com/vitalets/x-editable-yii
  * @copyright Copyright &copy; Vitaliy Potapov 2012
- * @package bootstrap.widgets
  * @version 1.1.0
-*/
+ */
 
 Yii::import('bootstrap.widgets.TbEditableField');
 Yii::import('bootstrap.widgets.TbDataColumn');
 
 /**
- * EditableColumn widget makes editable one column in CGridView.
+ *## EditableColumn widget makes editable one column in CGridView.
  *
- * @package widgets
- */
+ * @package booster.widgets.grids.columns
+*/
 class TbEditableColumn extends TbDataColumn
 {
 	/**
@@ -85,7 +85,7 @@ class TbEditableColumn extends TbDataColumn
 		}
 
 		//manually make selector non unique to match all cells in column
-		$selector = get_class($widget->model) . '_' . $widget->attribute;
+		$selector = str_replace('\\', '_',get_class($widget->model)) . '_' . $widget->attribute;
 		$widget->htmlOptions['rel'] = $selector;
 
 		//can't call run() as it registers clientScript
