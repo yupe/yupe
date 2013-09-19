@@ -35,14 +35,15 @@ class PageController extends YFrontController
                 ':deflang' => Yii::app()->getModule('yupe')->defaultLanguage,
             ));
 
-        if (!$page)
+        if (!$page) {
             throw new CHttpException('404', Yii::t('PageModule.page', 'Page was not found'));
+        }
 
         // проверим что пользователь может просматривать эту страницу
         if ($page->is_protected == Page::PROTECTED_YES && !Yii::app()->user->isAuthenticated())
         {
             Yii::app()->user->setFlash(
-                YFlashMessages::SUCCESS_MESSAGE,
+                YFlashMessages::ERROR_MESSAGE,
                 Yii::t('PageModule.page', 'You must be authorized user for view this page!')
             );
             $this->redirect(array(Yii::app()->getModule('user')->accountActivationSuccess));
@@ -57,8 +58,9 @@ class PageController extends YFrontController
     public function getBreadCrumbs()
     {
         $pages = array();
-        if ($this->currentPage->parentPage)
+        if ($this->currentPage->parentPage) {
             $pages = $this->getBreadCrumbsRecursively($this->currentPage->parentPage);
+        }
 
         $pages = array_reverse($pages);
         $pages[] = $this->currentPage->title;
@@ -76,8 +78,9 @@ class PageController extends YFrontController
         $pages = array();
         $pages[$page->title] = array('/page/page/show', 'slug' => $page->slug);
         $pp = $page->parentPage;
-        if ($pp)
+        if ($pp) {
             $pages += $this->getBreadCrumbsRecursively($pp);
+        }
         return $pages;
     }
 }

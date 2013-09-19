@@ -65,8 +65,8 @@ class Page extends YModel
             array('category_id', 'default', 'setOnEmpty' => true, 'value' => null),
             array('title, title_short, slug, keywords, description', 'length', 'max' => 150),
             array('slug', 'YUniqueSlugValidator'),
-            array('status', 'in', 'range' => array_keys($this->statusList)),
-            array('is_protected', 'in', 'range' => array_keys($this->protectedStatusList)),
+            array('status', 'in', 'range' => array_keys($this->getStatusList())),
+            array('is_protected', 'in', 'range' => array_keys($this->getProtectedStatusList())),
             array('title, title_short, slug, body, description, keywords', 'filter', 'filter' => 'trim'),
             array('title, title_short, slug, description, keywords', 'filter', 'filter' => array($obj = new CHtmlPurifier(), 'purify')),
             array('slug', 'YSLugValidator'),
@@ -207,12 +207,8 @@ class Page extends YModel
         $criteria->compare('body', $this->body);
         $criteria->compare('keywords', $this->keywords);
         $criteria->compare('description', $this->description);
-
-        if ($this->status != '')
-            $criteria->compare('t.status', $this->status);
-        if ($this->category_id != '')
-            $criteria->compare('category_id', $this->category_id);
-
+        $criteria->compare('t.status', $this->status);
+        $criteria->compare('category_id', $this->category_id);
         $criteria->compare('is_protected', $this->is_protected);
 
         return new CActiveDataProvider(get_class($this), array(

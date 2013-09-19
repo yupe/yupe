@@ -211,6 +211,7 @@ class DefaultController extends YBackController
     public function actionIndex()
     {
         $model = new Page('search');
+        $model->unsetAttributes();
         if (isset($_GET['Page']))
             $model->attributes = $_GET['Page'];
         $this->render('index', array(
