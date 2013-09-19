@@ -11,7 +11,7 @@ class UserEmailConfirmCest
         $I->changeEmail($testMail);
         $key = $I->grabFromDatabase('yupe_user_user', 'activate_key', array('email' => $testMail));
         $I->amOnPage("/user/account/emailConfirm/key/$key");
-        $I->see('Вы успешно подтвердили новый e-mail!','.alert-success');
+        $I->see('Вы успешно подтвердили новый e-mail!',\CommonPage::SUCCESS_CSS_CLASS);
         $I->seeInDatabase('yupe_user_user', array('email_confirm' => 1, 'email' => $testMail));
     }
 }

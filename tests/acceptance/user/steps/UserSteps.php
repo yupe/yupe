@@ -10,9 +10,9 @@ class UserSteps extends \WebGuy
         $I->wantTo('Check success login...');
         $I->fillField(\LoginPage::$emailField, $email);
         $I->fillField(\LoginPage::$passwordField, $password);
-        $I->click('Войти', '.btn-primary');
-        $I->dontSee('Email или пароль введены неверно!', '.alert-error');
-        $I->see('Вы успешно авторизовались!','.alert-success');
+        $I->click(\CommonPage::LOGIN_LABEL, \CommonPage::BTN_PRIMARY_CSS_CLASS);
+        $I->dontSee('Email или пароль введены неверно!', \CommonPage::ERROR_CSS_CLASS);
+        $I->see('Вы успешно авторизовались!',\CommonPage::SUCCESS_CSS_CLASS);
         $I->seeLink(\LogoutPage::$linkLabel);
     }
 
@@ -25,7 +25,7 @@ class UserSteps extends \WebGuy
         $I->click(\LogoutPage::$linkLabel);
         $I->dontSeeLink(\LogoutPage::$linkLabel);
         $I->dontSeeLink('Панель управления');
-        $I->seeLink('Войти');
+        $I->seeLink(\CommonPage::LOGIN_LABEL);
     }
 
 
@@ -36,9 +36,9 @@ class UserSteps extends \WebGuy
         $I->amOnPage(\EditProfilePage::URL);
         $I->fillField(\EditProfilePage::$emailField, $email);
         $I->see('Внимание! После смены e-mail адреса','.text-warning');
-        $I->click('Сохранить профиль','.btn-primary');
+        $I->click('Сохранить профиль',\CommonPage::BTN_PRIMARY_CSS_CLASS);
 
-        $I->see('Профиль обновлен!','.alert-success');
+        $I->see('Профиль обновлен!',\CommonPage::SUCCESS_CSS_CLASS);
         $I->see('e-mail не подтвержден, проверьте почту!','.text-error');
 
         $I->seeInDatabase('yupe_user_user', array('email_confirm' => 0, 'email' => $email));

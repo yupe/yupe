@@ -30,9 +30,9 @@ class UserRegistrationCest
         $I->fillField('RegistrationForm[password]',$testPassword);
         $I->fillField('RegistrationForm[cPassword]','111');
         $I->click(\RegistrationPage::$buttonLabel);
-        $I->see('Email не является правильным E-Mail адресом','.alert-error');
-        $I->see('Пароли не совпадают','.alert-error');
-        $I->see('Неверный формат поля "Имя пользователя" допустимы только буквы и цифры, от 2 до 20 символов','.alert-error');
+        $I->see('Email не является правильным E-Mail адресом',\CommonPage::ERROR_CSS_CLASS);
+        $I->see('Пароли не совпадают',\CommonPage::ERROR_CSS_CLASS);
+        $I->see('Неверный формат поля "Имя пользователя" допустимы только буквы и цифры, от 2 до 20 символов',\CommonPage::ERROR_CSS_CLASS);
 
         $I->wantTo('Test form with existing user name and email...');
         $I->fillField('RegistrationForm[nick_name]', 'yupe');
@@ -40,31 +40,31 @@ class UserRegistrationCest
         $I->fillField('RegistrationForm[password]',$testPassword);
         $I->fillField('RegistrationForm[cPassword]',$testPassword);
         $I->click(\RegistrationPage::$buttonLabel);
-        $I->see('Имя пользователя уже занято','.alert-error');
-        $I->see('Email уже занят','.alert-error');
+        $I->see('Имя пользователя уже занято',\CommonPage::ERROR_CSS_CLASS);
+        $I->see('Email уже занят',\CommonPage::ERROR_CSS_CLASS);
 
         $I->wantTo('Test success registration...');
         $I->fillField('RegistrationForm[nick_name]', $testNickName);
         $I->fillField('RegistrationForm[email]', $testEMail);
         $I->click(\RegistrationPage::$buttonLabel);
-        $I->see('Учетная запись создана! Проверьте Вашу почту!','.alert-success');
+        $I->see('Учетная запись создана! Проверьте Вашу почту!',\CommonPage::SUCCESS_CSS_CLASS);
         $I->seeInCurrentUrl('login');
         $I->seeInDatabase('yupe_user_user', array('email' => $testEMail, 'access_level' => 0, 'status' => 2, 'email_confirm' => 0, 'nick_name' => $testNickName));
 
         $I->wantTo('Test that new user cant login without account activation...');
         $I->fillField(\LoginPage::$emailField, $testEMail);
         $I->fillField(\LoginPage::$passwordField, $testPassword);
-        $I->click('Войти', '.btn-primary');
-        $I->see('Email или пароль введены неверно!','.alert-error');
+        $I->click(\CommonPage::LOGIN_LABEL, \CommonPage::BTN_PRIMARY_CSS_CLASS);
+        $I->see('Email или пароль введены неверно!',\CommonPage::ERROR_CSS_CLASS);
 
         $I->wantTo('Test account activation...');
         $key = $I->grabFromDatabase('yupe_user_user','activate_key', array('email' => $testEMail, 'access_level' => 0, 'status' => 2, 'email_confirm' => 0, 'nick_name' => $testNickName));
         $I->amOnPage('/user/account/activate/key/'.time());
-        $I->see('Ошибка активации! Возможно данный аккаунт уже активирован! Попробуете зарегистрироваться вновь?','.alert-error');
+        $I->see('Ошибка активации! Возможно данный аккаунт уже активирован! Попробуете зарегистрироваться вновь?',\CommonPage::ERROR_CSS_CLASS);
         $I->seeInCurrentUrl('/registration');
 
         $I->amOnPage("/user/account/activate/key/{$key}");
-        $I->see('Вы успешно активировали аккаунт! Теперь Вы можете войти!','.alert-success');
+        $I->see('Вы успешно активировали аккаунт! Теперь Вы можете войти!',\CommonPage::SUCCESS_CSS_CLASS);
         $I->seeInDatabase('yupe_user_user', array('email' => $testEMail, 'access_level' => 0, 'status' => 1, 'email_confirm' => 1, 'nick_name' => $testNickName));
 
         $I->wantTo('Test login with new account...');

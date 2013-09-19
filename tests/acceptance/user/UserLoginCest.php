@@ -7,9 +7,9 @@ class UserLoginCest
     {
         $I->amOnPage(LoginPage::$URL);
         $I->wantTo('Check login form elements...');
-        $I->seeInTitle('Войти');
+        $I->seeInTitle(\CommonPage::LOGIN_LABEL);
         $I->seeLink('Забыли пароль?');
-        $I->see('Войти');
+        $I->see(\CommonPage::LOGIN_LABEL);
         $I->see('Запомнить меня');
         $I->dontSeeCheckboxIsChecked('LoginForm[remember_me]');
         $I->seeLink('Регистрация');
@@ -20,15 +20,15 @@ class UserLoginCest
         $I->wantTo('Check form with wrong data format...');
         $I->fillField(LoginPage::$emailField, 'test');
         $I->fillField(LoginPage::$passwordField, 'test');
-        $I->click('Войти', '.btn-primary');
-        $I->see('Email не является правильным E-Mail адресом.', '.alert-error');
+        $I->click(\CommonPage::LOGIN_LABEL, \CommonPage::BTN_PRIMARY_CSS_CLASS);
+        $I->see('Email не является правильным E-Mail адресом.', \CommonPage::ERROR_CSS_CLASS);
 
         $I->amOnPage(LoginPage::$URL);
         $I->wantTo('Check form with wrong data...');
         $I->fillField(LoginPage::$emailField, 'test@test.ru');
         $I->fillField(LoginPage::$passwordField, 'test');
-        $I->click('Войти', '.btn-primary');
-        $I->see('Email или пароль введены неверно!', '.alert-error');
+        $I->click(\CommonPage::LOGIN_LABEL, \CommonPage::BTN_PRIMARY_CSS_CLASS);
+        $I->see('Email или пароль введены неверно!', \CommonPage::ERROR_CSS_CLASS);
 
         $I = new WebGuy\UserSteps($scenario);
         $I->login('yupe@yupetest.ru','111111');
