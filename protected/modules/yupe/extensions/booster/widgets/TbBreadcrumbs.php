@@ -1,22 +1,42 @@
 <?php
-/*##  TbCrumb class file.
+/**
+ *##  TbBreadcrumbs class file.
  *
- * @author Christoffer Niska <ChristofferNiska@gmail.com>
- * @copyright Copyright &copy; Christoffer Niska 2011-
- * @license [New BSD License](http://www.opensource.org/licenses/bsd-license.php) 
- * @package bootstrap.widgets
+ * @license [New BSD License](http://www.opensource.org/licenses/bsd-license.php)
  */
 
 Yii::import('zii.widgets.CBreadcrumbs');
 
 /**
  * Bootstrap breadcrumb widget.
- * @see <http://twitter.github.com/bootstrap/components.html#breadcrumbs>
+ * @see http://twitter.github.io/bootstrap/components.html#breadcrumbs
+ * @package booster.widgets.navigation
  */
 class TbBreadcrumbs extends CBreadcrumbs
 {
 	/**
-	 * @var string the separator between links in the breadcrumbs. Defaults to '/'.
+	 * The tag name for the breadcrumbs container tag. Defaults to 'ul'.
+	 * @var string
+	 */
+	public $tagName = 'ul';
+
+	/**
+	 * The HTML attributes for the breadcrumbs container tag.
+	 * @var array
+	 */
+	public $htmlOptions = array('class' => 'breadcrumb');
+
+	/**
+	 * String, specifies how each inactive item is rendered. Defaults to
+	 * "{label}", where "{label}" will be replaced by the corresponding item label.
+	 * Note that inactive template does not have "{url}" parameter.
+	 * @var string
+	 */
+	public $inactiveLinkTemplate = '{label}';
+
+	/**
+	 * The separator between links in the breadcrumbs. Defaults to '/'.
+	 * @var string
 	 */
 	public $separator = '/';
 
@@ -27,13 +47,6 @@ class TbBreadcrumbs extends CBreadcrumbs
 	 */
 	public function init()
 	{
-		if (isset($this->htmlOptions['class'])) {
-			$this->htmlOptions['class'] .= ' breadcrumb';
-		} else {
-			$this->htmlOptions['class'] = 'breadcrumb';
-		}
-
-		// apply bootstrap style
 		$this->separator = '<span class="divider">' . $this->separator . '</span>';
 	}
 
@@ -41,62 +54,44 @@ class TbBreadcrumbs extends CBreadcrumbs
 	 *### .run()
 	 *
 	 * Renders the content of the widget.
-	 *
-	 * @throws CException
 	 */
 	public function run()
 	{
-		// Hide empty breadcrumbs.
-		if (empty($this->links)) {
+		if (empty($this->links))
 			return;
+
+		echo CHtml::openTag($this->tagName, $this->htmlOptions);
+
+		if ($this->homeLink === null) {
+			$this->homeLink = CHtml::link(Yii::t('zii', 'Home'), Yii::app()->homeUrl);
+		}
+		if ($this->homeLink !== false) {
+			// check whether home link is not a link
+			$active = (stripos($this->homeLink, '<a') === false) ? ' class="active"' : '';
+			echo '<li' . $active . '>' . $this->homeLink . $this->separator . '</li>';
 		}
 
-		$links = '';
+		end($this->links);
+		$lastLink = key($this->links);
 
-		if (!isset($this->homeLink)) {
-			$content = CHtml::link(Yii::t('zii', 'Home'), Yii::app()->homeUrl);
-			$links .= $this->renderItem($content);
-		} else if ($this->homeLink !== false) {
-			$links .= $this->renderItem($this->homeLink);
-		}
-
-		$count = count($this->links);
-		$counter = 0;
 		foreach ($this->links as $label => $url) {
-			++$counter; // latest is the active one
 			if (is_string($label) || is_array($url)) {
-				$content = CHtml::link($this->encodeLabel ? CHtml::encode($label) : $label, $url);
-				$links .= $this->renderItem($content);
+				echo '<li>';
+				echo strtr($this->activeLinkTemplate, array(
+					'{url}' => CHtml::normalizeUrl($url),
+					'{label}' => $this->encodeLabel ? CHtml::encode($label) : $label,
+				));
 			} else {
-				$links .= $this->renderItem(
-					$this->encodeLabel ? CHtml::encode($url) : $url,
-					($counter === $count)
-				);
+				echo '<li class="active">';
+				echo str_replace('{label}', $this->encodeLabel ? CHtml::encode($url) : $url, $this->inactiveLinkTemplate);
 			}
+
+			if ($lastLink !== $label) {
+				echo $this->separator;
+			}
+			echo '</li>';
 		}
 
-		echo CHtml::tag('ul', $this->htmlOptions, $links);
-	}
-
-	/**
-	 *### .renderItem()
-	 *
-	 * Renders a single breadcrumb item.
-	 *
-	 * @param string $content the content.
-	 * @param boolean $active whether the item is active.
-	 *
-	 * @return string the markup.
-	 */
-	protected function renderItem($content, $active = false)
-	{
-		ob_start();
-		echo CHtml::openTag('li', $active ? array('class' => 'active') : array());
-		echo $content;
-		if (!$active) {
-			echo $this->separator;
-		}
-		echo '</li>';
-		return ob_get_clean();
+		echo CHtml::closeTag($this->tagName);
 	}
 }

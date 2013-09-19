@@ -1,17 +1,20 @@
 <?php
-/*## TbDataColumn class file.
+/**
+ *## TbDataColumn class file.
  *
  * @author Christoffer Niska <ChristofferNiska@gmail.com>
  * @copyright Copyright &copy; Christoffer Niska 2011-
- * @license [New BSD License](http://www.opensource.org/licenses/bsd-license.php) 
- * @package bootstrap.widgets
+ * @license [New BSD License](http://www.opensource.org/licenses/bsd-license.php)
  */
 
 Yii::import('zii.widgets.grid.CDataColumn');
 
 /**
- * Bootstrap grid data column.
+ *## Bootstrap grid data column.
+ *
  * @property TbGridView|TbExtendedGridView $grid the grid view object that owns this column.
+ *
+ * @package booster.widgets.grids.columns
  */
 class TbDataColumn extends CDataColumn
 {
@@ -33,9 +36,15 @@ class TbDataColumn extends CDataColumn
 			$sort = $this->grid->dataProvider->getSort();
 			$label = isset($this->header) ? $this->header : $sort->resolveLabel($this->name);
 
-			if ($sort->resolveAttribute($this->name) !== false) {
-				$label .= '<span class="caret"></span>';
-			}
+			if ($sort->resolveAttribute($this->name) !== false){
+                            if($sort->getDirection($this->name) === CSort::SORT_ASC){
+                                $label .= ' <span class="icon-sort-down"></span>';
+                            } elseif($sort->getDirection($this->name) === CSort::SORT_DESC){
+                                $label .= ' <span class="icon-sort-up"></span>';
+                            } else {
+                                $label .= ' ';
+                            }
+                        }
 
 			echo $sort->link($this->name, $label, array('class' => 'sort-link'));
 		} else {

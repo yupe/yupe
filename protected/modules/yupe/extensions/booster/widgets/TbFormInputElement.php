@@ -1,17 +1,19 @@
 <?php
 /**
- * TbFormInputElement class file.
- *
- * The inputElementClass for TbForm
- *
- * Support for Yii formbuilder
+ *## TbFormInputElement class file.
  *
  * @author Joe Blocher <yii@myticket.at>
  * @copyright Copyright &copy; Joe Blocher 2012-
  * @license http://www.opensource.org/licenses/bsd-license.php New BSD License
- * @package bootstrap.widgets
  */
 
+/**
+ *## The inputElementClass for TbForm
+ *
+ * Support for Yii formbuilder
+ *
+ * @package booster.widgets.forms.inputs
+ */
 class TbFormInputElement extends CFormInputElement
 {
 	/**
@@ -50,7 +52,10 @@ class TbFormInputElement extends CFormInputElement
 		'uneditable' => 'uneditableRow',
 		'radiolistinline' => 'radioButtonListInlineRow',
 		'checkboxlistinline' => 'checkBoxListInlineRow',
-		'select2' => 'select2Row'
+		'select2' => 'select2Row',
+        'wysihtml5' => 'html5EditorRow',
+        'toggle' => 'toggleButtonRow'
+
 	);
 
 	/**

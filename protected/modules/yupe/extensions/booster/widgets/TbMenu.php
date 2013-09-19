@@ -1,10 +1,10 @@
 <?php
-/*## TbMenu class file.
+/**
+ *## TbMenu class file.
  *
  * @author Christoffer Niska <ChristofferNiska@gmail.com>
  * @copyright Copyright &copy; Christoffer Niska 2012-
  * @license [New BSD License](http://www.opensource.org/licenses/bsd-license.php) 
- * @package bootstrap.widgets
  */
 
 Yii::import('bootstrap.widgets.TbBaseMenu');
@@ -13,6 +13,8 @@ Yii::import('bootstrap.widgets.TbBaseMenu');
  * Bootstrap menu.
  *
  * @see <http://twitter.github.com/bootstrap/components.html#navs>
+ *
+ * @package booster.widgets.navigation
  */
 class TbMenu extends TbBaseMenu
 {

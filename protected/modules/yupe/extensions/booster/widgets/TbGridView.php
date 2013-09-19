@@ -1,19 +1,21 @@
 <?php
-/*## TbGridView class file.
+/**
+ *## TbGridView class file.
  *
  * @author Christoffer Niska <ChristofferNiska@gmail.com>
  * @copyright Copyright &copy; Christoffer Niska 2011-
  * @license [New BSD License](http://www.opensource.org/licenses/bsd-license.php) 
- * @package bootstrap.widgets
  */
 
 Yii::import('zii.widgets.grid.CGridView');
 Yii::import('bootstrap.widgets.TbDataColumn');
 
 /**
- * Bootstrap Zii grid view.
+ *## Bootstrap Zii grid view.
  *
  * @property CActiveDataProvider $dataProvider the data provider for the view.
+ *
+ * @package booster.widgets.grids
  */
 class TbGridView extends CGridView
 {

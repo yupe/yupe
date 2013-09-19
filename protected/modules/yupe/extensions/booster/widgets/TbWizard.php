@@ -1,18 +1,22 @@
 <?php
-/*##  TbWizard class file.
+/**
+ *##  TbWizard class file.
  *
  * @author Christoffer Niska <ChristofferNiska@gmail.com>
  * @copyright Copyright &copy; Christoffer Niska 2011-
  * @copyright Copyright &copy; Vincent Gabriel 2012
  * @license [New BSD License](http://www.opensource.org/licenses/bsd-license.php)
- * @package bootstrap.widgets
  */
 
 Yii::import('bootstrap.widgets.TbMenu');
 
 /**
- * Bootstrap Javascript tabs widget.
- * @see <http://twitter.github.com/bootstrap/javascript.html#tabs>
+ *## Twitter Bootstrap Wizard widget
+ *
+ * @see <https://github.com/VinceG/twitter-bootstrap-wizard>
+ * @see <http://vadimg.com/twitter-bootstrap-wizard-example/>
+ *
+ * @package booster.widgets.grouping
  */
 class TbWizard extends CWidget
 {
@@ -157,7 +161,9 @@ class TbWizard extends CWidget
 
 		/** @var CClientScript $cs */
 		$cs = Yii::app()->getClientScript();
-		Yii::app()->bootstrap->registerAssetJs('jquery.bootstrap.wizard.js');
+
+		$cs->registerPackage('bootstrap.wizard');
+
 		// Override options
 		if ($this->type && !isset($this->options['class'])) {
 			$this->options['class'] = $this->type;

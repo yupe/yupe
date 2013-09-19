@@ -1,16 +1,19 @@
 <?php
-/*##  TbButton class file.
+/**
+ *##  TbButton class file.
  *
  * @author Christoffer Niska <ChristofferNiska@gmail.com>
  * @copyright Copyright &copy; Christoffer Niska 2011-
  * @license [New BSD License](http://www.opensource.org/licenses/bsd-license.php)
- * @package bootstrap.widgets
  * @since 0.9.10
  */
 
 /**
  * Bootstrap button widget.
+ *
  * @see http://twitter.github.com/bootstrap/base-css.html#buttons
+ *
+ * @package booster.widgets.forms.buttons
  */
 class TbButton extends CWidget
 {
@@ -130,7 +133,7 @@ class TbButton extends CWidget
 	public $dropdownOptions = array();
 
 	/**
-	 * @var whether the button is visible or not
+	 * @var bool whether the button is visible or not
 	 * @since 0.9.11
 	 */
 	public $visible = true;

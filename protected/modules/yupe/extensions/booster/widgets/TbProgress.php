@@ -1,20 +1,22 @@
 <?php
-/*## TbProgress class file.
+/**
+ *## TbProgress class file.
  *
  * @author Christoffer Niska <ChristofferNiska@gmail.com>
  * @copyright Copyright &copy; Christoffer Niska 2011-
- * @license [New BSD License](http://www.opensource.org/licenses/bsd-license.php) 
- * @package bootstrap.widgets
- * @since 0.9.10
+ * @license [New BSD License](http://www.opensource.org/licenses/bsd-license.php)
  */
 
 /**
- * Bootstrap progress bar widget.
+ *## Bootstrap progress bar widget.
+ *
  * @see <http://twitter.github.com/bootstrap/components.html#progress>
+ *
+ * @package booster.widgets.decoration
+ * @since 0.9.10
  */
 class TbProgress extends CWidget
 {
-	// Progress bar types.
 	const TYPE_INFO = 'info';
 	const TYPE_SUCCESS = 'success';
 	const TYPE_WARNING = 'warning';
@@ -131,6 +133,6 @@ class TbProgress extends CWidget
 				echo '<div ' . CHtml::renderAttributes($options) . '>' . @$bar['content'] . '</div>';
 			}
 		}
-		echo '</div>';
+		echo CHtml::closeTag('div');
 	}
 }

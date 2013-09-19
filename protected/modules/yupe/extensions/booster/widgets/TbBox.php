@@ -1,10 +1,16 @@
 <?php
-/*## TbBox widget class
+/**
+ *## TbBox widget class
  *
  * @author Antonio Ramirez <antonio@clevertech.biz>
  * @copyright Copyright &copy; Clevertech 2012-
- * @license [New BSD License](http://www.opensource.org/licenses/bsd-license.php) 
- * @package bootstrap.widgets
+ * @license [New BSD License](http://www.opensource.org/licenses/bsd-license.php)
+ */
+
+/**
+ * TbBox widget.
+ *
+ * @package booster.widgets.grouping
  */
 class TbBox extends CWidget
 {
