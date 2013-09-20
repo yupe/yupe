@@ -1,6 +1,6 @@
 <?php
 /**
- * YWebModule - базовый класс для всех модулей Юпи!
+ * WebModule - базовый класс для всех модулей Юпи!
  *
  * Все модули, разработанные для Юпи! должны наследовать этот класс.
  * Панель управления Юпи!, собираемая из модулей, использует определенные методы этого базового класса.
@@ -15,15 +15,17 @@
 
 namespace yupe\components;
 
-use Yii;
-use CLogger;
-use TagsCache;
-use Settings;
 use CChainedCacheDependency;
+use CDbException;
 use CDirectoryCacheDependency;
 use CException;
-use CDbException;
+use CList;
+use CLogger;
+use Settings;
+use TagsCache;
 use YFlashMessages;
+use Yii;
+
 
 abstract class WebModule extends \CWebModule
 {

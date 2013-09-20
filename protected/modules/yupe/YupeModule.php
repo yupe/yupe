@@ -520,7 +520,7 @@ class YupeModule extends WebModule
                 $key = strtolower($key);
                 $module = Yii::app()->getModule($key);
                 if (($module !== null)) {
-                    if ($module instanceof YWebModule) {
+                    if ($module instanceof WebModule) {
                         $category = (!$module->category)
                             ? $this->otherCategoryName
                             : $module->category;
