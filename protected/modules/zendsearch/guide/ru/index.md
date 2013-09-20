@@ -55,5 +55,4 @@
 После этого можно добавлять виджет формы поиска на страницы сайта:
 <pre><code class="php">
     $this->widget('application.modules.zendsearch.widgets.SearchBlockWidget');
-
 </code></pre>

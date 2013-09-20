@@ -21,11 +21,11 @@ Yii::app()->clientScript->registerCssFile(
 );
 
 $this->breadcrumbs=array(
-    Yii::t('DocsModule.docs', 'Документация')
+    Yii::t('DocsModule.docs', 'Documentation')
 );
 
 $fileList = $this->module->fileList(str_replace('{module}', '*', Yii::getPathOfAlias($this->module->moduleDocFolder)) . DIRECTORY_SEPARATOR . Yii::app()->language);
-Yii::app()->user->setFlash('info', Yii::t('DocsModule.docs', 'Данный модуль предназначен для документирования проекта.'));
+Yii::app()->user->setFlash('info', Yii::t('DocsModule.docs', 'Module for project documentation'));
 
 $this->widget(
     'bootstrap.widgets.TbAlert', array(
@@ -41,7 +41,7 @@ $this->widget(
     <div class="accordion-group">
         <div class="accordion-heading">
             <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion2" href="#collapseOne">
-            <?php echo Yii::t('DocsModule.docs', 'Существующие файлы') . ' (' . count($fileList) . ')'; ?>
+            <?php echo Yii::t('DocsModule.docs', 'Existing files') . ' (' . count($fileList) . ')'; ?>
             </a>
         </div>
         <div id="collapseOne" class="accordion-body collapse in">

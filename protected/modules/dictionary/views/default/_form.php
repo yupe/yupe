@@ -18,9 +18,9 @@ $form = $this->beginWidget('bootstrap.widgets.TbActiveForm', array(
     'inlineErrors'           => true,
 )); ?>
     <div class="alert alert-info">
-        <?php echo Yii::t('DictionaryModule.dictionary', 'Поля, отмеченные'); ?>
+        <?php echo Yii::t('DictionaryModule.dictionary', 'Fields with'); ?>
         <span class="required">*</span>
-        <?php echo Yii::t('DictionaryModule.dictionary', 'обязательны.'); ?>
+        <?php echo Yii::t('DictionaryModule.dictionary', 'are required.'); ?>
     </div>
 
     <?php echo $form->errorSummary($model); ?>
@@ -48,12 +48,12 @@ $form = $this->beginWidget('bootstrap.widgets.TbActiveForm', array(
     <?php $this->widget('bootstrap.widgets.TbButton', array(
         'buttonType' => 'submit',
         'type'       => 'primary',
-        'label'      => $model->isNewRecord ? Yii::t('DictionaryModule.dictionary', 'Добавить справочник и продолжить') : Yii::t('DictionaryModule.dictionary', 'Сохранить справочник и продолжить'),
+        'label'      => $model->isNewRecord ? Yii::t('DictionaryModule.dictionary', 'Create dictionary and continue') : Yii::t('DictionaryModule.dictionary', 'Save dictionary and continue'),
     )); ?>
     <?php $this->widget('bootstrap.widgets.TbButton', array(
         'buttonType'  => 'submit',
         'htmlOptions' => array('name' => 'submit-type', 'value' => 'index'),
-        'label'       => $model->isNewRecord ? Yii::t('DictionaryModule.dictionary', 'Добавить справочник и закрыть') : Yii::t('DictionaryModule.dictionary', 'Сохранить справочник и закрыть'),
+        'label'       => $model->isNewRecord ? Yii::t('DictionaryModule.dictionary', 'Create dictionary and close') : Yii::t('DictionaryModule.dictionary', 'Save dictionary and close'),
     )); ?>
 
 <?php $this->endWidget(); ?>

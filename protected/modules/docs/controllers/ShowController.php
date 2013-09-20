@@ -91,21 +91,21 @@ class ShowController extends YFrontController
          * Обработка при несуществующем файле:
          */
         case !file_exists($lcFile):
-            throw new CHttpException(404, Yii::t('DocsModule.docs', 'Страница документации не найдена'));
+            throw new CHttpException(404, Yii::t('DocsModule.docs', 'Docs page was not found'));
             break;
 
         /**
          * Обработка при MD-файлах и пустом контенте:
          */
         case in_array($type, explode(',', $this->module->fileExtMD)) && ($content = $this->module->renderMarkdown($lcFile)) === null:
-            throw new CHttpException(404, Yii::t('DocsModule.docs', 'Страница документации не найдена или пуста'));
+            throw new CHttpException(404, Yii::t('DocsModule.docs', 'Docs page was not found or it\'s empty'));
             break;
 
         /**
          * Обработка при HTML-файлах и пустом контенте (файл не найден):
          */
         case in_array($type, explode(',', $this->module->fileExtHTML)) && ($content = file_get_contents($lcFile)) === null:
-            throw new CHttpException(404, Yii::t('DocsModule.docs', 'Страница документации не найдена или пуста'));
+            throw new CHttpException(404, Yii::t('DocsModule.docs', 'Docs page was not found or it\'s empty'));
             break;
         }
         
@@ -114,7 +114,7 @@ class ShowController extends YFrontController
          */
         $this->pageTitle = ($title = $this->module->getDocTitle($content)) !== null
                             ? $title . ' - ' . $this->module->name . ' - ' . $this->pageTitle
-                            : Yii::t('DocsModule.docs', 'Не определён заголовок') . ' - ' . $this->module->name . ' - ' . $this->pageTitle;
+                            : Yii::t('DocsModule.docs', 'Undefined title') . ' - ' . $this->module->name . ' - ' . $this->pageTitle;
 
         /**
          * Баг-фикс, если файл отрендерить без отображения,

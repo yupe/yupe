@@ -25,16 +25,11 @@ Yii::app()->clientScript->registerScript(
     });"
 ); ?>
 
-    <div class="alert alert-block alert-notice">
-        <p><b><?php echo Yii::t('InstallModule.install','При возникновении проблем с установкой, пожалуйста, посетите {link} или {feedback} !',array(
-                        '{link}' => CHtml::link('наш форум','http://yupe.ru/talk/viewforum.php?id=10',array('target' => '_blank')),
-                        '{feedback}' => CHtml::link('напишите нам','http://yupe.ru/feedback/index?from=install',array('target' => '_blank')),
-                    ));?></b></p>
-    </div>
+    <?php $this->widget('install.widgets.GetHelpWidget');?>
 
     <div class="alert alert-block alert-info">
-        <p><?php echo Yii::t('InstallModule.install', 'Укажите название Вашего сайта, его описание и ключевые слова, необходимые для SEO-оптимизации.'); ?></p>
-        <p><?php echo Yii::t('InstallModule.install', 'Узнать больше о SEO-оптимизации можно {link}.', array('{link}' => CHtml::link(Yii::t('InstallModule.install', 'вот здесь'), 'http://help.yandex.ru/webmaster/?id=1108938', array('target' => '_blank')))); ?></p>
+        <p><?php echo Yii::t('InstallModule.install', 'Select your site title, description and keywords for SEO.'); ?></p>
+        <p><?php echo Yii::t('InstallModule.install', 'More about SEO {link}', array('{link}' => CHtml::link(Yii::t('InstallModule.install', 'here'), 'http://help.yandex.ru/webmaster/?id=1108938', array('target' => '_blank')))); ?></p>
     </div>
 
     <?php echo $form->errorSummary($data['model']); ?>  
@@ -68,7 +63,7 @@ Yii::app()->clientScript->registerScript(
     <?php
     $this->widget(
         'bootstrap.widgets.TbButton', array(
-            'label' => Yii::t('InstallModule.install', '< Назад'),
+            'label' => Yii::t('InstallModule.install', '< Back'),
             'url'   => array('/install/default/createuser'),
         )
     ); ?>
@@ -77,7 +72,7 @@ Yii::app()->clientScript->registerScript(
         'bootstrap.widgets.TbButton', array(
             'buttonType' => 'submit',
             'type'       => 'primary',
-            'label'      => Yii::t('InstallModule.install', 'Продолжить >'),
+            'label'      => Yii::t('InstallModule.install', 'Continue >'),
         )
     ); ?>
 

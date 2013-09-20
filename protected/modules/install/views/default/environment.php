@@ -11,27 +11,22 @@
 ?>
 <?php if (!$data['result']) : ?>
     <div class="alert alert-block alert-error">
-        <b><?php echo Yii::t('InstallModule.install', 'Дальнейшая установка невозможна, пожалуйста, исправьте ошибки!'); ?></b>
+        <b><?php echo Yii::t('InstallModule.install', 'Install can\'t be continued. Please check errors!'); ?></b>
     </div>
 <?php endif; ?>
 
-<div class="alert alert-block alert-notice">
-    <p><b><?php echo Yii::t('InstallModule.install','При возникновении проблем с установкой, пожалуйста, посетите {link} или {feedback} !',array(
-                    '{link}' => CHtml::link('наш форум','http://yupe.ru/talk/viewforum.php?id=10',array('target' => '_blank')),
-                    '{feedback}' => CHtml::link('напишите нам','http://yupe.ru/feedback/index?from=install',array('target' => '_blank')),
-                ));?></b></p>
-</div>
+<?php $this->widget('install.widgets.GetHelpWidget');?>
 
 <div class="alert alert-block alert-info">
-    <p><?php echo Yii::t('InstallModule.install', 'На данном этапе Юпи! проверяет права доступа для всех необходимых каталогов.'); ?></p>
-    <p><?php echo Yii::t('InstallModule.install', 'Для продолжения установки необходимо исправить все возникшие проблемы.'); ?></p>
+    <p><?php echo Yii::t('InstallModule.install', 'On this step Yupe checks access right for needed directories.'); ?></p>
+    <p><?php echo Yii::t('InstallModule.install', 'To continue installation you need to repair error was occured.'); ?></p>
 </div>
 
 <table class="table table-striped">
     <tr>
-        <th><?php echo Yii::t('InstallModule.install', 'Значение');?></th>
-        <th><?php echo Yii::t('InstallModule.install', 'Результат');?></th>
-        <th><?php echo Yii::t('InstallModule.install', 'Комментарий');?></th>
+        <th><?php echo Yii::t('InstallModule.install', 'Value');?></th>
+        <th><?php echo Yii::t('InstallModule.install', 'Result');?></th>
+        <th><?php echo Yii::t('InstallModule.install', 'Comments');?></th>
     </tr>
     <?php foreach ($data['requirements'] as $requirement): ?>
     <tr>
@@ -52,7 +47,7 @@
 
 <?php $this->widget(
     'bootstrap.widgets.TbButton', array(
-        'label' => Yii::t('InstallModule.install', '< Назад'),
+        'label' => Yii::t('InstallModule.install', '< Back'),
         'url'   => array('/install/default/index'),
     )
 ); ?>
@@ -63,7 +58,7 @@ if ($data['result'] !== false)
     $this->widget(
         'bootstrap.widgets.TbButton', array(
             'type'  => 'primary',
-            'label' => Yii::t('InstallModule.install', 'Продолжить >'),
+            'label' => Yii::t('InstallModule.install', 'Continue >'),
             'url'   => array('/install/default/requirements'),
         )
     );
@@ -72,7 +67,7 @@ else
     $this->widget(
         'bootstrap.widgets.TbButton', array(
             'type'  => 'primary',
-            'label' => Yii::t('InstallModule.install', 'Обновить'),
+            'label' => Yii::t('InstallModule.install', 'Refresh'),
             'url'   => array('/install/default/environment')
         )
     );

@@ -36,7 +36,7 @@ class DefaultController extends YBackController
 
                     if(Yii::app()->hasModule('gallery') && $model->galleryId){
                         if(!$model->setGalleryId($model->galleryId)){
-                            throw new CDbException(Yii::t('ImageModule.image','При добавлении картинки в галерею произошла ошибка =('));
+                            throw new CDbException(Yii::t('ImageModule.image','There is an error when adding new image =('));
                         }
                     }
 
@@ -44,7 +44,7 @@ class DefaultController extends YBackController
 
                     Yii::app()->user->setFlash(
                         YFlashMessages::SUCCESS_MESSAGE,
-                        Yii::t('ImageModule.image', 'Изображение добавлено!')
+                        Yii::t('ImageModule.image', 'Image created!')
                     );
 
                     $this->redirect(
@@ -82,7 +82,7 @@ class DefaultController extends YBackController
             if ($model->save()) {
                 Yii::app()->user->setFlash(
                     YFlashMessages::SUCCESS_MESSAGE,
-                    Yii::t('ImageModule.image', 'Изображение обновлено!')
+                    Yii::t('ImageModule.image', 'Image updated!')
                 );
 
                 if (!isset($_POST['submit-type']))
@@ -110,7 +110,7 @@ class DefaultController extends YBackController
 
             Yii::app()->user->setFlash(
                 YFlashMessages::SUCCESS_MESSAGE,
-                Yii::t('ImageModule.image', 'Изображение удалено!')
+                Yii::t('ImageModule.image', 'Image removed!')
             );
 
             // if AJAX request (triggered by deletion via admin grid view), we should not redirect the browser
@@ -118,7 +118,7 @@ class DefaultController extends YBackController
                 $this->redirect(isset($_POST['returnUrl']) ? $_POST['returnUrl'] : array('index'));
         }
         else
-            throw new CHttpException(400, Yii::t('ImageModule.image', 'Неверный запрос. Пожалуйста, больше не повторяйте такие запросы'));
+            throw new CHttpException(400, Yii::t('ImageModule.image', 'Bad request. Please don\'t repeat similar requests anymore'));
     }
 
     /**
@@ -147,7 +147,7 @@ class DefaultController extends YBackController
     {
         $model = Image::model()->findByPk($id);
         if ($model === null)
-            throw new CHttpException(404, Yii::t('ImageModule.image', 'Запрошенная страница не найдена!'));
+            throw new CHttpException(404, Yii::t('ImageModule.image', 'Requested page was not found!'));
         return $model;
     }
 

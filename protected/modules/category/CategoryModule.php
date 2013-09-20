@@ -18,9 +18,9 @@ class CategoryModule extends YWebModule
         if (!is_writable($uploadPath))
             $messages[YWebModule::CHECK_ERROR][] = array(
                 'type'    => YWebModule::CHECK_ERROR,
-                'message' => Yii::t('CategoryModule.category', 'Директория "{dir}" не доступна для записи! {link}', array(
+                'message' => Yii::t('CategoryModule.category', 'Directory "{dir}" is available for write! {link}', array(
                     '{dir}'  => $uploadPath,
-                    '{link}' => CHtml::link(Yii::t('CategoryModule.category', 'Изменить настройки'), array(
+                    '{link}' => CHtml::link(Yii::t('CategoryModule.category', 'Change settings'), array(
                         '/yupe/backend/modulesettings/',
                         'module' => 'category',
                     )),
@@ -49,8 +49,8 @@ class CategoryModule extends YWebModule
     public function getParamsLabels()
     {
         return array(
-            'adminMenuOrder' => Yii::t('CategoryModule.category', 'Порядок следования в меню'),
-            'uploadPath'     => Yii::t('CategoryModule.category', 'Каталог для загрузки файлов (относительно Yii::app()->getModule("yupe")->uploadPath)'),
+            'adminMenuOrder' => Yii::t('CategoryModule.category', 'Menu items order'),
+            'uploadPath'     => Yii::t('CategoryModule.category', 'File uploading catalog (relatively Yii::app()->getModule("yupe")->uploadPath)'),
         );
     }
 
@@ -66,17 +66,17 @@ class CategoryModule extends YWebModule
 
     public function getCategory()
     {
-        return Yii::t('CategoryModule.category', 'Структура');
+        return Yii::t('CategoryModule.category', 'Structure');
     }
 
     public function getName()
     {
-        return Yii::t('CategoryModule.category', 'Категории/разделы');
+        return Yii::t('CategoryModule.category', 'Categories/Sections');
     }
 
     public function getDescription()
     {
-        return Yii::t('CategoryModule.category', 'Модуль для управления категориями/разделами сайта');
+        return Yii::t('CategoryModule.category', 'Module for categories/sections management');
     }
 
     public function getAuthor()
@@ -117,8 +117,8 @@ class CategoryModule extends YWebModule
     public function getNavigation()
     {
         return array(
-            array('icon' => 'list-alt', 'label' => Yii::t('CategoryModule.category', 'Список категорий'), 'url' => array('/category/default/index')),
-            array('icon' => 'plus-sign', 'label' => Yii::t('CategoryModule.category', 'Добавить категорию'), 'url' => array('/category/default/create')),
+            array('icon' => 'list-alt', 'label' => Yii::t('CategoryModule.category', 'Categories list'), 'url' => array('/category/default/index')),
+            array('icon' => 'plus-sign', 'label' => Yii::t('CategoryModule.category', 'Create category'), 'url' => array('/category/default/create')),
         );
     }
 }

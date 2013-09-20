@@ -1,17 +1,19 @@
 <?php
 /**
- * TbFormButtonElement class file.
- *
- * The buttonElementClass for TbForm
- *
- * Support for Yii formbuilder
+ *## TbFormButtonElement class file.
  *
  * @author Joe Blocher <yii@myticket.at>
  * @copyright Copyright &copy; Joe Blocher 2012
  * @license http://www.opensource.org/licenses/bsd-license.php New BSD License
- * @package bootstrap.widgets
  */
 
+/**
+ *## The buttonElementClass for TbForm
+ *
+ * Support for Yii formbuilder
+ *
+ * @package booster.widgets.forms.buttons
+ */
 class TbFormButtonElement extends CFormElement
 {
 	/**

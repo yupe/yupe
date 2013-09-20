@@ -42,29 +42,24 @@ Yii::app()->clientScript->registerScript(
 );
 ?>
 
-    <div class="alert alert-block alert-notice">
-        <p><b><?php echo Yii::t('InstallModule.install','При возникновении проблем с установкой, пожалуйста, посетите {link} или {feedback} !',array(
-                        '{link}' => CHtml::link('наш форум','http://yupe.ru/talk/viewforum.php?id=10',array('target' => '_blank')),
-                        '{feedback}' => CHtml::link('напишите нам','http://yupe.ru/feedback/index?from=install',array('target' => '_blank')),
-                    ));?></b></p>
-    </div>
+    <?php $this->widget('install.widgets.GetHelpWidget');?>
 
     <div class="alert alert-block alert-info">
-        <p><?php echo Yii::t('InstallModule.install', 'Укажите параметры соединения с базой данных.'); ?></p>
-        <p><?php echo Yii::t('InstallModule.install', 'Базу данных можно создать при помощи phpmyadmin или любого другого инструмента.'); ?></p>
-        <p><b><?php echo Yii::t('InstallModule.install', 'Юпи! попытается сам саздать базу данных если Вы поставите галочку "Создать базу данных"');?></p></b>
+        <p><?php echo Yii::t('InstallModule.install', 'Select DB connection settings'); ?></p>
+        <p><?php echo Yii::t('InstallModule.install', 'You can create DB with phpmyadmin help, or with some other sql tools.'); ?></p>
+        <p><b><?php echo Yii::t('InstallModule.install', 'Yupe try to create DB if it doesn\'t exists.');?></p></b>
     </div>
 
     <?php if (!$data['result']) : ?>
         <div class="alert alert-block alert-error">
-            <b><?php echo Yii::t('InstallModule.install', "Файл {file} не существует или не доступен для записи!", array('{file}' => $data['file'])); ?></b>
+            <b><?php echo Yii::t('InstallModule.install', 'File {file} not exists or not accessible for write!', array('{file}' => $data['file'])); ?></b>
         </div>
     <?php endif; ?>
 
     <?php echo $form->errorSummary($data['model']); ?>
 
     <div class="alert alert-block alert-info">
-        <p><?php echo '"' . $data['model']->getAttributeLabel('dbType') . '" - ' . Yii::t('InstallModule.install', 'это эксперементальная опция, на данный момент реализована работа лишь с СУБД MySQL и PostgreSQL, остальные СУБД в процессе тестирования.'); ?></p>
+        <p><?php echo '"' . $data['model']->getAttributeLabel('dbType') . '" - ' . Yii::t('InstallModule.install', 'This option is experiment. Only MySQL and PostgreSQL works stable.'); ?></p>
     </div>
     <div class="row-fluid control-group <?php echo $data['model']->hasErrors('dbType') ? 'error' : ''; ?>">
         <?php echo $form->dropDownListRow($data['model'], 'dbType', $data['model']->getDbTypeNames(), array('class' => 'popover-help span7', 'data-original-title' => $data['model']->getAttributeLabel('dbType'), 'data-content' => $data['model']->getAttributeDescription('dbType'))); ?>
@@ -106,7 +101,7 @@ Yii::app()->clientScript->registerScript(
 
 <?php $this->widget(
     'bootstrap.widgets.TbButton', array(
-        'label' => Yii::t('InstallModule.install', '< Назад'),
+        'label' => Yii::t('InstallModule.install', '< Back'),
         'url'   => array('/install/default/requirements'),
     )
 ); ?>
@@ -115,7 +110,7 @@ Yii::app()->clientScript->registerScript(
     'bootstrap.widgets.TbButton', array(
         'buttonType' => 'submit',
         'type'       => 'primary',
-        'label'      => Yii::t('InstallModule.install', 'Проверить подключение и продолжить >'),
+        'label'      => Yii::t('InstallModule.install', 'Check connection and continue >'),
     )
 ); ?>
 

@@ -41,7 +41,7 @@ $this->renderPartial('_search', array('model' => $model));
 
 <br/>
 
-<p><?php echo Yii::t('CatalogModule.catalog', 'This section describes the controls of products'); ?></p>
+<p><?php echo Yii::t('CatalogModule.catalog', 'This section describes products manager'); ?></p>
 
 <?php $this->widget('application.modules.yupe.components.YCustomGridView', array(
     'id'           => 'good-grid',

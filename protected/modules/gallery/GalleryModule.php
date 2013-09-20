@@ -13,8 +13,8 @@ class GalleryModule extends YWebModule
     public function getParamsLabels()
     {
         return array(
-            'adminMenuOrder' => Yii::t('GalleryModule.gallery', 'Порядок следования в меню'),
-            'editor'         => Yii::t('GalleryModule.gallery', 'Визуальный редактор'),
+            'adminMenuOrder' => Yii::t('GalleryModule.gallery', 'Menu items order'),
+            'editor'         => Yii::t('GalleryModule.gallery', 'Visual Editor'),
         );
     }
 
@@ -25,17 +25,17 @@ class GalleryModule extends YWebModule
 
     public function getCategory()
     {
-        return Yii::t('GalleryModule.gallery', 'Контент');
+        return Yii::t('GalleryModule.gallery', 'Content');
     }   
 
     public function getName()
     {
-        return Yii::t('GalleryModule.gallery', 'Галереи изображений');
+        return Yii::t('GalleryModule.gallery', 'Image galleries');
     }
 
     public function getDescription()
     {
-        return Yii::t('GalleryModule.gallery', 'Модуль для простых галерей изображений');
+        return Yii::t('GalleryModule.gallery', 'Module for create simple image galleries');
     }
 
     public function getAuthor()
@@ -79,8 +79,8 @@ class GalleryModule extends YWebModule
     public function getNavigation()
     {
         return array(
-            array('icon' => 'list-alt', 'label' => Yii::t('GalleryModule.gallery', 'Список галерей'), 'url' => array('/gallery/default/index')),
-            array('icon' => 'plus-sign', 'label' => Yii::t('GalleryModule.gallery', 'Добавить галерею'), 'url' => array('/gallery/default/create')),
+            array('icon' => 'list-alt', 'label' => Yii::t('GalleryModule.gallery', 'Galleries list'), 'url' => array('/gallery/default/index')),
+            array('icon' => 'plus-sign', 'label' => Yii::t('GalleryModule.gallery', 'Create gallery'), 'url' => array('/gallery/default/create')),
         );
     }
 }

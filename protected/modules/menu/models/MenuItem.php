@@ -87,21 +87,21 @@ class MenuItem extends YModel
     {
         return array(
             'id'               => Yii::t('MenuModule.menu', 'Id'),
-            'parent_id'        => Yii::t('MenuModule.menu', 'Родитель'),
-            'menu_id'          => Yii::t('MenuModule.menu', 'Меню'),
-            'title'            => Yii::t('MenuModule.menu', 'Заголовок'),
-            'href'             => Yii::t('MenuModule.menu', 'Адрес'),
-            'title_attr'       => Yii::t('MenuModule.menu', 'Атрибут title'),
-            'class'            => Yii::t('MenuModule.menu', 'Атрибут class'),
-            'rel'              => Yii::t('MenuModule.menu', 'Атрибут rel'),
-            'target'           => Yii::t('MenuModule.menu', 'Атрибут target'),
-            'before_link'      => Yii::t('MenuModule.menu', 'Текст перед ссылкой'),
-            'after_link'       => Yii::t('MenuModule.menu', 'Текст после ссылки'),
-            'condition_name'   => Yii::t('MenuModule.menu', 'Условие'),
-            'condition_denial' => Yii::t('MenuModule.menu', 'Отрицание условия'),
-            'sort'             => Yii::t('MenuModule.menu', 'Сортировка'),
-            'status'           => Yii::t('MenuModule.menu', 'Статус'),
-            'regular_link'     => Yii::t('MenuModule.menu', 'Обычная ссылка'),
+            'parent_id'        => Yii::t('MenuModule.menu', 'Parent'),
+            'menu_id'          => Yii::t('MenuModule.menu', 'Menu'),
+            'title'            => Yii::t('MenuModule.menu', 'Title'),
+            'href'             => Yii::t('MenuModule.menu', 'Address'),
+            'title_attr'       => Yii::t('MenuModule.menu', 'Attribute title'),
+            'class'            => Yii::t('MenuModule.menu', 'Attribute class'),
+            'rel'              => Yii::t('MenuModule.menu', 'Attribute rel'),
+            'target'           => Yii::t('MenuModule.menu', 'Attribute target'),
+            'before_link'      => Yii::t('MenuModule.menu', 'Text before link'),
+            'after_link'       => Yii::t('MenuModule.menu', 'Text after link'),
+            'condition_name'   => Yii::t('MenuModule.menu', 'Condition'),
+            'condition_denial' => Yii::t('MenuModule.menu', 'False condition'),
+            'sort'             => Yii::t('MenuModule.menu', 'Sorting'),
+            'status'           => Yii::t('MenuModule.menu', 'Status'),
+            'regular_link'     => Yii::t('MenuModule.menu', 'Regular link'),
         );
     }
 
@@ -111,22 +111,22 @@ class MenuItem extends YModel
     public function attributeDescriptions()
     {
         return array(
-            'id'               => Yii::t('MenuModule.menu', 'Id пункта меню.'),
-            'parent_id'        => Yii::t('MenuModule.menu', 'Родитель данного пункта меню. Если пункт необходимо указать в корне, выберите корень меню.'),
-            'menu_id'          => Yii::t('MenuModule.menu', 'Укажите к какому меню относится данный пункт.'),
-            'title'            => Yii::t('MenuModule.menu', 'Заголовок пункта меню.'),
-            'href'             => Yii::t('MenuModule.menu', 'Адрес странице на сайте.'),
-            'class'            => Yii::t('MenuModule.menu', 'Добавляет необходимые классы тегу &lt;li&gt;'),
-            'title_attr'       => Yii::t('MenuModule.menu', 'Добавляет подсказку к ссылке'),
-            'rel'              => Yii::t('MenuModule.menu', 'Используется для указания xfr'),
-            'target'           => Yii::t('MenuModule.menu', 'Используется для указания открытия новой страницы в новом окне или вкладке, фрейме.'),
-            'before_link'      => Yii::t('MenuModule.menu', 'Текст перед ссылкой'),
-            'after_link'       => Yii::t('MenuModule.menu', 'Текст после ссылки'),
-            'condition_name'   => Yii::t('MenuModule.menu', 'Если данный пункт меню, необходимо выводить только при определенном условии, укажите его.'),
-            'condition_denial' => Yii::t('MenuModule.menu', 'Условие применяется при совпадении или отрацании.'),
-            'sort'             => Yii::t('MenuModule.menu', 'Порядковый номер пункта в меню.'),
-            'status'           => Yii::t('MenuModule.menu', 'Установите статус пункта меню: <br /><br /><span class="label label-success">активно</span> &ndash; пункт меню и все его потомки выводятся.<br /><br /><span class="label label-warning">не активно</span> &ndash; пункт меню и все его потомки выводиться не будут.'),
-            'regular_link'     => Yii::t('MenuModule.menu', 'Не обрабатывать адрес роутером'),
+            'id'               => Yii::t('MenuModule.menu', 'Menu item Id'),
+            'parent_id'        => Yii::t('MenuModule.menu', 'Item parent. Check root if it is in root menu'),
+            'menu_id'          => Yii::t('MenuModule.menu', 'For which one this item is attitude'),
+            'title'            => Yii::t('MenuModule.menu', 'Item title'),
+            'href'             => Yii::t('MenuModule.menu', 'Page address'),
+            'class'            => Yii::t('MenuModule.menu', 'Add necessary classes to &lt;li&gt; tag'),
+            'title_attr'       => Yii::t('MenuModule.menu', 'Add notice to link'),
+            'rel'              => Yii::t('MenuModule.menu', 'Using for xfr'),
+            'target'           => Yii::t('MenuModule.menu', 'Using for open new page in new window or frame'),
+            'before_link'      => Yii::t('MenuModule.menu', 'Text before link'),
+            'after_link'       => Yii::t('MenuModule.menu', 'Text after link'),
+            'condition_name'   => Yii::t('MenuModule.menu', 'Select condition for menu item visibility'),
+            'condition_denial' => Yii::t('MenuModule.menu', 'Condition use in conjuction or negation'),
+            'sort'             => Yii::t('MenuModule.menu', 'Item order number in menu'),
+            'status'           => Yii::t('MenuModule.menu', 'Choose menu item status: <br /><br /><span class="label label-success">activ</span> &ndash; Item and it descendants will be visible.<br /><br /><span class="label label-warning">not active</span> &ndash; Item and it descendants will be hidden.'),
+            'regular_link'     => Yii::t('MenuModule.menu', 'Don\'t handle address to router'),
         );
     }
 
@@ -204,25 +204,25 @@ class MenuItem extends YModel
     public function getStatusList()
     {
         return array(
-            self::STATUS_ACTIVE   => Yii::t('MenuModule.menu', 'активно'),
-            self::STATUS_DISABLED => Yii::t('MenuModule.menu', 'не активно'),
+            self::STATUS_ACTIVE   => Yii::t('MenuModule.menu', 'active'),
+            self::STATUS_DISABLED => Yii::t('MenuModule.menu', 'not active'),
         );
     }
 
     public function getStatus()
     {
         $data = $this->statusList;
-        return isset($data[$this->status]) ? $data[$this->status] : Yii::t('MenuModule.menu', '*неизвестно*');
+        return isset($data[$this->status]) ? $data[$this->status] : Yii::t('MenuModule.menu', '*unknown*');
     }
 
     public function getParentList()
     {
-        return array(0 => Yii::t('MenuModule.menu', 'Корень меню')) + CHtml::listData($this->findAll(array('select' => 'id, title')), 'id', 'title');
+        return array(0 => Yii::t('MenuModule.menu', 'Menu root')) + CHtml::listData($this->findAll(array('select' => 'id, title')), 'id', 'title');
     }
 
     public function getParentTree()
     {
-        return array(0 => Yii::t('MenuModule.menu', 'Корень меню')) + $this->parentTreeIterator;
+        return array(0 => Yii::t('MenuModule.menu', 'Menu root')) + $this->parentTreeIterator;
     }
 
     public function getParentTreeIterator($parent_id = 0, $level = 1)
@@ -276,7 +276,7 @@ class MenuItem extends YModel
 
     public function getConditionName()
     {
-        $data = array('' => Yii::t('MenuModule.menu', 'Нет условия')) + $this->getConditionList();
+        $data = array('' => Yii::t('MenuModule.menu', 'Condition is not set')) + $this->getConditionList();
         return (isset($data[$this->condition_name])) ? $data[$this->condition_name] . (($this->condition_name == '') ? '' : ' (' . $this->conditionDenial . ')') : Yii::t('MenuModule.menu', '*неизвестно*');
     }
 
@@ -293,14 +293,14 @@ class MenuItem extends YModel
     public function getConditionDenialList()
     {
         return array(
-            self::STATUS_DISABLED => Yii::t('MenuModule.menu', 'нет'),
-            self::STATUS_ACTIVE   => Yii::t('MenuModule.menu', 'да'),
+            self::STATUS_DISABLED => Yii::t('MenuModule.menu', 'no'),
+            self::STATUS_ACTIVE   => Yii::t('MenuModule.menu', 'yes'),
         );
     }
 
     public function getConditionDenial()
     {
         $data = $this->getConditionDenialList();
-        return isset($data[$this->condition_denial]) ? Yii::t('MenuModule.menu', 'отрицание') . ': ' . $data[$this->condition_denial] : Yii::t('MenuModule.menu', '*неизвестно*');
+        return isset($data[$this->condition_denial]) ? Yii::t('MenuModule.menu', 'negation') . ': ' . $data[$this->condition_denial] : Yii::t('MenuModule.menu', '*unknown*');
     }
 }

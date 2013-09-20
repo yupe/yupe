@@ -1,14 +1,19 @@
 <?php
 /**
- * TbImageColumn widget class
+ *## TbImageColumn class file
  *
  * @author: antonio ramirez <antonio@clevertech.biz>
  * @copyright Copyright &copy; Clevertech 2012-
  * @license http://www.opensource.org/licenses/bsd-license.php New BSD License
- * @package YiiBooster bootstrap.widgets
  */
+
 Yii::import('zii.widgets.grid.CGridColumn');
 
+/**
+ * TbImageColumn widget class
+ *
+ * @package booster.widgets.grids.columns
+ */
 class TbImageColumn extends CGridColumn
 {
 	/**

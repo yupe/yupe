@@ -1,12 +1,18 @@
 <?php
 /**
- * TbImageGallery class file.
+ *## TbImageGallery class file.
  *
- * Implementation of Bootstrap Image Gallery
  * @author Ruslan Fadeev <fadeevr@gmail.com>
- * @link https://github.com/blueimp/Bootstrap-Image-Gallery/
  */
 
+/**
+ *## TbImageGallery widget
+ *
+ * Implementation of Bootstrap Image Gallery
+ * @link https://github.com/blueimp/Bootstrap-Image-Gallery/
+ *
+ * @package booster.widgets.grouping
+ */
 class TbImageGallery extends CWidget
 {
 	/**

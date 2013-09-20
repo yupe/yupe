@@ -13,7 +13,6 @@ class YDbMigration extends CDbMigration
             : '';
     }
 
-
     /**
      * render Table name
      *
@@ -113,8 +112,9 @@ class YDbMigration extends CDbMigration
             );
         }
         
-        foreach ((array) $command->queryAll() as $fkey)
+        foreach ((array) $command->queryAll() as $fkey) {
             $foreignKeys[$this->normTable($tableName)][] = $fkey['name'];
+        }
 
         return $foreignKeys;
     }

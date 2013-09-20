@@ -66,6 +66,14 @@ class InstallForm extends YFormModel
 
     public $email;
 
+    public function init()
+    {
+        $this->siteName = Yii::t('InstallModule.install','Yupe!');
+        $this->siteKeyWords = Yii::t('InstallModule.install','Yupe!, yupe, cms, yii');
+        $this->siteDescription = Yii::t('InstallModule.install','Yupe! - the fastest way to create a site build on top of Yiiframework!');
+        parent::init();
+    }
+
     /**
      * Правила валидации параметров формы:
      *
@@ -96,7 +104,7 @@ class InstallForm extends YFormModel
              **/
             array('userName, userPassword, cPassword, userEmail', 'required', 'on' => 'createUser'),
             array('userPassword, cPassword, userName', 'length', 'min' => 3),
-            array('cPassword', 'compare', 'compareAttribute' => 'userPassword', 'message' => Yii::t('InstallModule.install', 'Пароли не совпадают!')),
+            array('cPassword', 'compare', 'compareAttribute' => 'userPassword', 'message' => Yii::t('InstallModule.install', 'Passwords are not consistent')),
             array('userEmail', 'email'),
         );
     }
@@ -112,34 +120,34 @@ class InstallForm extends YFormModel
             /**
              * Для настройки БД:
              **/
-            'host'            => Yii::t('InstallModule.install', 'Хост'),
-            'port'            => Yii::t('InstallModule.install', 'Порт'),
-            'socket'          => Yii::t('InstallModule.install', 'Сокет (если необходимо)'),
-            'dbName'          => Yii::t('InstallModule.install', 'Название базы данных'),
-            'createDb'        => Yii::t('InstallModule.install', 'Создать базу данных'),
-            'dbType'          => Yii::t('InstallModule.install', 'Тип сервера базы данных'),
-            'dbUser'          => Yii::t('InstallModule.install', 'Пользователь'),
-            'dbPassword'      => Yii::t('InstallModule.install', 'Пароль'),
-            'tablePrefix'     => Yii::t('InstallModule.install', 'Префикс таблиц'),
+            'host'            => Yii::t('InstallModule.install', 'Host'),
+            'port'            => Yii::t('InstallModule.install', 'Port'),
+            'socket'          => Yii::t('InstallModule.install', 'Unix socket (if it need)'),
+            'dbName'          => Yii::t('InstallModule.install', 'DB name'),
+            'createDb'        => Yii::t('InstallModule.install', 'Create DB'),
+            'dbType'          => Yii::t('InstallModule.install', 'DBMS type'),
+            'dbUser'          => Yii::t('InstallModule.install', 'User'),
+            'dbPassword'      => Yii::t('InstallModule.install', 'Password'),
+            'tablePrefix'     => Yii::t('InstallModule.install', 'Tables prefix'),
 
 
             /**
              * Для начальной настройки сайта:
              **/
-            'siteName'        => Yii::t('InstallModule.install', 'Название сайта'),
-            'siteDescription' => Yii::t('InstallModule.install', 'Описание сайта'),
-            'siteKeyWords'    => Yii::t('InstallModule.install', 'Ключевые слова сайта'),
-            'siteEmail'       => Yii::t('InstallModule.install', 'Email администратора'),
-            'theme'           => Yii::t('InstallModule.install', 'Тема оформления публичной части'),
-            'backendTheme'    => Yii::t('InstallModule.install', 'Тема оформления панели управления'),
+            'siteName'        => Yii::t('InstallModule.install', 'Site title'),
+            'siteDescription' => Yii::t('InstallModule.install', 'Site description'),
+            'siteKeyWords'    => Yii::t('InstallModule.install', 'Site keywords'),
+            'siteEmail'       => Yii::t('InstallModule.install', 'Administrator e-mail'),
+            'theme'           => Yii::t('InstallModule.install', 'Default frontend theme'),
+            'backendTheme'    => Yii::t('InstallModule.install', 'Default backend (Admin CP) theme'),
 
             /**
              * Для настройки администратора:
              **/
-            'userName'        => Yii::t('InstallModule.install', 'Имя пользователя'),
+            'userName'        => Yii::t('InstallModule.install', 'User name'),
             'userEmail'       => Yii::t('InstallModule.install', 'Email'),
-            'userPassword'    => Yii::t('InstallModule.install', 'Пароль'),
-            'cPassword'       => Yii::t('InstallModule.install', 'Подтверждение пароля'),
+            'userPassword'    => Yii::t('InstallModule.install', 'Password'),
+            'cPassword'       => Yii::t('InstallModule.install', 'Password confirm'),
         );
     }
 
@@ -154,33 +162,33 @@ class InstallForm extends YFormModel
             /**
              * Для настройки БД:
              **/
-            'host'            => Yii::t('InstallModule.install', 'Домен и ip-адрес используемый для доступа к БД'),
-            'port'            => Yii::t('InstallModule.install', 'Порт СУБД сервера'),
-            'socket'          => Yii::t('InstallModule.install', 'Путь к mysql'),
-            'dbName'          => Yii::t('InstallModule.install', 'Имя БД на сервере СУБД'),
-            'createDb'        => Yii::t('InstallModule.install', 'Создать БД на сервере СУБД'),
-            'dbType'          => Yii::t('InstallModule.install', 'Тип сервера БД (эксперементальная возможность)'),
-            'dbUser'          => Yii::t('InstallModule.install', 'Пользователь для доступа к указанной БД'),
-            'dbPassword'      => Yii::t('InstallModule.install', 'Пароль для доступа к указанной БД'),
-            'tablePrefix'     => Yii::t('InstallModule.install', 'Префикс добавляется в начале имени каждой таблицы, по умолчанию "yupe_"'),
+            'host'            => Yii::t('InstallModule.install', 'DNS and IP for DB access'),
+            'port'            => Yii::t('InstallModule.install', 'DBMS server port'),
+            'socket'          => Yii::t('InstallModule.install', 'Path to mysql'),
+            'dbName'          => Yii::t('InstallModule.install', 'DB name on DBMS server'),
+            'createDb'        => Yii::t('InstallModule.install', 'Create DB on DBMS server'),
+            'dbType'          => Yii::t('InstallModule.install', 'DBMS type (Experimental)'),
+            'dbUser'          => Yii::t('InstallModule.install', 'User for access to selected DB'),
+            'dbPassword'      => Yii::t('InstallModule.install', 'DB access password'),
+            'tablePrefix'     => Yii::t('InstallModule.install', 'Table prefix, "yupe_" by defaults'),
 
             /**
              * Для начальной настройки сайта:
              **/
-            'siteName'        => Yii::t('InstallModule.install', 'Используется в заголовке сайта.'),
-            'siteDescription' => Yii::t('InstallModule.install', 'Используется в поле description meta-тега.'),
-            'siteKeyWords'    => Yii::t('InstallModule.install', 'Используется в поле keywords meta-тега.'),
-            'siteEmail'       => Yii::t('InstallModule.install', 'Используется для административной рассылки.'),
-            'theme'           => Yii::t('InstallModule.install', 'Определяет внешний вид Вашего сайта.'),
-            'backendTheme'    => Yii::t('InstallModule.install', 'Определяет внешний вид панели управления.'),
+            'siteName'        => Yii::t('InstallModule.install', 'Using in site title'),
+            'siteDescription' => Yii::t('InstallModule.install', 'Using in description meta-tag'),
+            'siteKeyWords'    => Yii::t('InstallModule.install', 'Using in keywords meta-tag'),
+            'siteEmail'       => Yii::t('InstallModule.install', 'Using for administration delivery'),
+            'theme'           => Yii::t('InstallModule.install', 'Describe appearance of your Site'),
+            'backendTheme'    => Yii::t('InstallModule.install', 'Describe appearance of your Control Panel'),
 
             /**
              * Для настройки администратора:
              **/
-            'userName'        => Yii::t('InstallModule.install', 'Логин администратора сайта.'),
-            'userEmail'       => Yii::t('InstallModule.install', 'Email администратора сайта. Используется для авторизации в панели управления.'),
-            'userPassword'    => Yii::t('InstallModule.install', 'Пароль администратора сайта.'),
-            'cPassword'       => Yii::t('InstallModule.install', 'Подтверждение пароля администратора сайта.'),
+            'userName'        => Yii::t('InstallModule.install', 'Admin login'),
+            'userEmail'       => Yii::t('InstallModule.install', 'Site administrator e-mail. Uses for admin cp authorization.'),
+            'userPassword'    => Yii::t('InstallModule.install', 'Admin password'),
+            'cPassword'       => Yii::t('InstallModule.install', 'Admin password confirm'),
         );
     }
 

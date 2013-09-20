@@ -1,10 +1,14 @@
 <?php
 /**
- * TbToggleButton.php
+ *## TbToggleButton class file
  *
  * @author: antonio ramirez <antonio@clevertech.biz>
- * Date: 10/19/12
- * Time: 7:00 PM
+ */
+
+/**
+ *## Class TbToggleButton
+ *
+ * @package booster.widgets.forms.buttons
  */
 class TbToggleButton extends CInputWidget
 {

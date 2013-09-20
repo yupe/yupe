@@ -1,15 +1,21 @@
 <?php
-/*##  TbTabView class file.
- *
- * Use TbTabView as replacement for Yii CTabView
+/**
+ *##  TbTabView class file.
  *
  * @author Joe Blocher <yii@myticket.at>
  * @copyright Copyright &copy; Joe Blocher 2012
  * @license [New BSD License](http://www.opensource.org/licenses/bsd-license.php) 
- * @package bootstrap.widgets
  */
+
 Yii::import('bootstrap.widgets.TbTabs');
 
+/**
+ *## Class TbTabView
+ *
+ * Use TbTabView as replacement for Yii CTabView
+ *
+ * @package booster.widgets.grouping
+ */
 class TbTabView extends TbTabs
 {
 

@@ -1,23 +1,25 @@
 <?php
-
-Yii::import('bootstrap.widgets.TbGridView');
-
 /**
- * A Grid View that groups rows by any column(s)
+ *## TbGroupGridView class file
  *
- * @category       User Interface
- * @package        widgets
  * @author         Vitaliy Potapov <noginsk@rambler.ru>
  * @version        1.1
  * @see            http://groupgridview.demopage.ru/
  *
  * @since          24/09/2012 added to yiibooster library
  * @author         antonio ramirez <antonio@clevertech.biz>
- * @package        yiibooster
  */
 
+Yii::import('bootstrap.widgets.TbGridView');
+
 /**
+ *## TbGroupGridView widget
+ *
+ * A Grid View that groups rows by any column(s)
+ *
  * @property TbDataColumn[] $columns
+ *
+ * @package booster.widgets.grids
  */
 class TbGroupGridView extends TbGridView
 {

@@ -1,27 +1,27 @@
 <?php
 $this->breadcrumbs=array(
     $this->module->getCategory() => array('index'),
-    Yii::t('MailModule.mail','Почтовые события')=>array('/mail/eventAdmin/'),
-    Yii::t('MailModule.mail','Почтовые шаблоны')=>array('index'),
-    Yii::t('MailModule.mail','Управление'),
+    Yii::t('MailModule.mail','Mail events')=>array('/mail/eventAdmin/'),
+    Yii::t('MailModule.mail','Mail templates')=>array('index'),
+    Yii::t('MailModule.mail','Management'),
 );
-$this->pageTitle = Yii::t('MailModule.mail','Список почтовых шаблонов');
+$this->pageTitle = Yii::t('MailModule.mail','Mail templates list');
 
 $this->menu = array(
-    array('label' => Yii::t('MailModule.mail', 'Почтовые шаблоны')),
-    array('icon' => 'list-alt', 'label' => Yii::t('MailModule.mail','Список шаблонов'),'url'=>array('/mail/templateAdmin/index')),
-    array('icon' => 'plus-sign','label' => Yii::t('MailModule.mail','Добавить шаблон'), 'url' => array('/mail/templateAdmin/create')),
-    array('label' => Yii::t('MailModule.mail', 'Почтовые события')),
-    array('icon' => 'list-alt', 'label' => Yii::t('MailModule.mail','Список событий'),'url'=>array('/mail/eventAdmin/index')),
-    array('icon' => 'plus-sign','label' => Yii::t('MailModule.mail','Добавить событие'), 'url' => array('/mail/eventAdmin/create')),
+    array('label' => Yii::t('MailModule.mail', 'Mail templates')),
+    array('icon' => 'list-alt', 'label' => Yii::t('MailModule.mail','Templates list'),'url'=>array('/mail/templateAdmin/index')),
+    array('icon' => 'plus-sign','label' => Yii::t('MailModule.mail','Create template'), 'url' => array('/mail/templateAdmin/create')),
+    array('label' => Yii::t('MailModule.mail', 'Mail events')),
+    array('icon' => 'list-alt', 'label' => Yii::t('MailModule.mail','Messages list'),'url'=>array('/mail/eventAdmin/index')),
+    array('icon' => 'plus-sign','label' => Yii::t('MailModule.mail','Create event'), 'url' => array('/mail/eventAdmin/create')),
 );
 ?>
 <div class="page-header">
-    <h1><?php echo Yii::t('MailModule.mail','Почтовые шаблоны');?> <small><?php echo Yii::t('MailModule.mail','управление');?></small></h1>
+    <h1><?php echo Yii::t('MailModule.mail','Mail templates');?> <small><?php echo Yii::t('MailModule.mail','management');?></small></h1>
 </div>
 <button class="btn btn-small dropdown-toggle"  data-toggle="collapse" data-target="#search-toggle" >
     <i class="icon-search"></i>
-    <a class="search-button" href="#"><?php echo Yii::t('MailModule.mail','Поиск почтовых шаблонов');?></a>    <span class="caret"></span>
+    <a class="search-button" href="#"><?php echo Yii::t('MailModule.mail','Find mail templates');?></a>    <span class="caret"></span>
 </button>
 
 <div id="search-toggle" class="collapse out">
@@ -41,7 +41,7 @@ $this->renderPartial('_search', array('model'=>$model));
 <br/>
 
 <p>
-    <?php echo Yii::t('MailModule.mail','В данном разделе представлены средства управления почтовыми шаблонами'); ?>
+    <?php echo Yii::t('MailModule.mail','This section contain mail message templates management'); ?>
 </p>
 
 <?php

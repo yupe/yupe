@@ -4,7 +4,7 @@ class ProfileAction extends CAction
     public function run()
     {
         if (!Yii::app()->user->isAuthenticated()) {
-            $this->controller->redirect(array(Yii::app()->user->loginUrl));
+            $this->controller->redirect(Yii::app()->user->loginUrl);
         }
 
         $form = new ProfileForm;
@@ -56,7 +56,7 @@ class ProfileAction extends CAction
                         Yii::log(
                             Yii::t(
                                 'UserModule.user',
-                                "Изменен профиль учетной записи #{id}-{nick_name}!",
+                                'Profile for #{id}-{nick_name} was changed',
                                 array(
                                     '{id}' => $user->id,
                                     '{nick_name}' => $user->nick_name,
@@ -67,7 +67,7 @@ class ProfileAction extends CAction
                         );
                         Yii::app()->user->setFlash(
                             YFlashMessages::SUCCESS_MESSAGE,
-                            Yii::t('UserModule.user', 'Ваш профиль успешно изменен!')
+                            Yii::t('UserModule.user', 'Your profile was changed successfully')
                         );
 
                         if ($module->emailAccountVerification && ($orgMail != $form->email)) {
@@ -85,7 +85,7 @@ class ProfileAction extends CAction
                                 $user->email,
                                 Yii::t(
                                     'UserModule.user',
-                                    'Подтверждение нового e-mail адреса на сайте {site} !',
+                                    'New e-mail confirmation for {site}!',
                                     array('{site}' => Yii::app()->name)
                                 ),
                                 $emailBody
@@ -93,7 +93,7 @@ class ProfileAction extends CAction
 
                             Yii::app()->user->setFlash(
                                 YFlashMessages::SUCCESS_MESSAGE,
-                                Yii::t('UserModule.user', 'Вам необходимо продтвердить новый e-mail, проверьте почту!')
+                                Yii::t('UserModule.user', 'You need to confirm your e-mail. Please check the mail!')
                             );
                         }
 
@@ -113,11 +113,11 @@ class ProfileAction extends CAction
                         }
 
                         $transaction->commit();
-                        Yii::app()->user->setFlash(YFlashMessages::SUCCESS_MESSAGE, Yii::t('UserModule.user', 'Профиль обновлен!'));
+                        Yii::app()->user->setFlash(YFlashMessages::SUCCESS_MESSAGE, Yii::t('UserModule.user', 'Profile was updated'));
                         $this->controller->redirect(array('/user/account/profile'));
                     } else {
                         Yii::log(
-                            Yii::t('UserModule.user', "Ошибка при сохранении профиля! #{id}", array('{id}' => $user->id)),
+                            Yii::t('UserModule.user', 'Error when save profile! #{id}', array('{id}' => $user->id)),
                             CLogger::LEVEL_ERROR,
                             UserModule::$logCategory
                         );

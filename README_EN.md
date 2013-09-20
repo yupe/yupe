@@ -15,8 +15,9 @@ Links
 * [Forum](http://yupe.ru/talk/)
 * [Yupe blog](http://yupe.ru/index.php/blog/yupe-mini-cms-yii)
 * [Wiki](https://github.com/yupe/yupe/wiki)
-* [Contacts](http://yupe.ru/feedback/contact)
+* [Contacts](http://yupe.ru/feedback/index)
 * [Help](http://yupe.ru/site/page/view/help)
+* [Commercial support](http://amylabs.ru/contact)
 
 Capabilities
 -----------
@@ -51,3 +52,7 @@ License
 Source code, layout, design [BSD](http://ru.wikipedia.org/wiki/%D0%9B%D0%B8%D1%86%D0%B5%D0%BD%D0%B7%D0%B8%D1%8F_BSD).
 
 Yupe community will be appreciate you if your site will be referenced on the [yupe.ru/](http://yupe.ru/).
+
+
+
+(c) 2009 - 2013 [amyLabs](http://amylabs.ru) && Yupe! team

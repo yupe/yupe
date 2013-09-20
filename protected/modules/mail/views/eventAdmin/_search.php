@@ -30,7 +30,7 @@ $form = $this->beginWidget(
             'buttonType' => 'submit',
             'type' => 'primary',
             'encodeLabel' => false,
-            'label' => '<i class="icon-search icon-white"></i> ' . Yii::t('MailModule.mail', 'Искать')
+            'label' => '<i class="icon-search icon-white"></i> ' . Yii::t('MailModule.mail', 'Find')
         )
     ); ?>
     </div>

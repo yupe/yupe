@@ -40,7 +40,7 @@ $this->menu = array(
         )),
         array('icon' => 'trash', 'label' => Yii::t('BlogModule.blog', 'Remove member'), 'url' => '#', 'linkOptions' => array(
             'submit' => array('/blog/UserToBlogAdmin/delete', 'id' => $model->id),
-            'confirm' => Yii::t('BlogModule.blog', 'Are you sure you want to remove member?'),
+            'confirm' => Yii::t('BlogModule.blog', 'Do you really want to remove member?'),
         )),
     )),
 );

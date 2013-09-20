@@ -31,8 +31,6 @@ class ConfigManager extends CComponent
     private $_base             = array();
     // Файл кеша:
     private $_cachefile       = null;
-    // Настройки модулей:
-    private $_modulesSettings = array();
     
     // Основной путь, к приложению:
     public $basePath          = null;
@@ -127,16 +125,15 @@ class ConfigManager extends CComponent
     {
         try {
             
-            $cachedSettings = require_once $this->_cachefile;
+            $cachedSettings = require $this->_cachefile;
 
-            if (is_array($cachedSettings) == false) {
+            if (is_array($cachedSettings) === false) {
                 $cachedSettings = array();
             }
         
         } catch (Exception $e) {
         
             $cachedSettings = array();
-        
         }
 
         return $cachedSettings;
@@ -158,7 +155,7 @@ class ConfigManager extends CComponent
         
         } catch (Exception $e) {
 
-            return implode('<br />', (array) $e->getMessage());
+            return $e->__toString();
         }
 
         return true;
@@ -174,7 +171,7 @@ class ConfigManager extends CComponent
         $settings = array();
 
         // Запускаем цикл обработки, шагая по конфигурационным файлам
-        // сливая их с пользовательскими настройками модулей:
+        // сливая их с пользовательскими настройками модулей
         foreach (new GlobIterator($this->modulePath . '/*.php') as $item) {
             
             // Если нет такого модуля, нет необходимости в обработке:
@@ -182,14 +179,14 @@ class ConfigManager extends CComponent
                 continue;
             }
 
-            $moduleConfig = require_once $item->getRealPath();
+            $moduleConfig = require $item->getRealPath();
 
             // Файл пользовательских настроек:
             $userspace = new SplFileInfo($this->userspacePath . '/' . $item->getFileName());
             // При наличии файла, сливаем с основным:
             if ($userspace->isFile()) {
                 $moduleConfig = CMap::mergeArray(
-                    $moduleConfig, require_once $userspace->getRealPath()
+                    $moduleConfig, require $userspace->getRealPath()
                 );
             }
 
@@ -200,8 +197,9 @@ class ConfigManager extends CComponent
             // А также включаем assets'ы (они были отключены на
             // этапе установки системы):
             if ($item->getBaseName('.php') == 'yupe') {
-                if (!YII_DEBUG)
+                if (!YII_DEBUG) {
                     $this->_base['components']['cache'] = array();
+                }
                 $settings['enableAssets'] = true;
             }
 
@@ -229,7 +227,7 @@ class ConfigManager extends CComponent
                     default:
                         // Стандартное слитие:
                         if (!empty($moduleConfig[$category])) {
-                            $settings[$category]     = CMap::mergeArray(
+                            $settings[$category] = CMap::mergeArray(
                                 isset($settings[$category]) ? $settings[$category] : array(),
                                 $moduleConfig[$category]
                             );

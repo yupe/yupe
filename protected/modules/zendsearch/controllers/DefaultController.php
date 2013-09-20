@@ -24,7 +24,7 @@ class DefaultController extends YBackController
          * Если это не AJAX-запрос - посылаем:
          **/
         if (!Yii::app()->request->isPostRequest && !Yii::app()->request->isAjaxRequest)
-            throw new CHttpException(404, Yii::t('ZendSearchModule.zendsearch', 'Страница не найдена!'));
+            throw new CHttpException(404, Yii::t('ZendSearchModule.zendsearch', 'Page was not found!'));
 
         try {
             // Папка для хранения индекса поиска
@@ -68,9 +68,9 @@ class DefaultController extends YBackController
                 }
             }
 
-            Yii::app()->ajax->raw(Yii::t('ZendSearchModule.zendsearch','Индекс успешно обновлен!'));
+            Yii::app()->ajax->raw(Yii::t('ZendSearchModule.zendsearch','Index updated successfully!'));
         } catch (Exception $exc) {
-            Yii::app()->ajax->raw(Yii::t('ZendSearchModule.zendsearch','Произошла ошибка!'));
+            Yii::app()->ajax->raw(Yii::t('ZendSearchModule.zendsearch','There is an error!'));
         }
     }
 

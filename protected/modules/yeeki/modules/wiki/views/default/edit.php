@@ -1,6 +1,6 @@
 <?php $this->breadcrumbs = array(
      Yii::t('WikiModule.wiki', 'Wiki') => array('/wiki/default/pageIndex'),
-     Yii::t('WikiModule.wiki', 'Редактирование')
+     Yii::t('WikiModule.wiki', 'Edit')
 );?>
 
 <h1><?php echo CHtml::encode($page->getWikiUid())?></h1>

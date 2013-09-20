@@ -56,7 +56,7 @@ class CommentsListWidget extends YWidget
                 throw new CException(
                     Yii::t(
                         'CommentModule.comment',
-                        'Пожалуйста, укажите "model" и "modelId" для виджета "{widget}" !',
+                        'Please, set "model" and "modelId" for "{widget}" widget!',
                         array(
                             '{widget}' => get_class($this),
                         )
@@ -69,7 +69,7 @@ class CommentsListWidget extends YWidget
         }
 
         if (empty($this->label)) {
-            $this->label = Yii::t('CommentModule.comment', 'Комментариев');
+            $this->label = Yii::t('CommentModule.comment', 'Comments');
         }
 
         if (empty($this->status)) {

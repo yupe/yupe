@@ -43,9 +43,9 @@ class RecoveryPassword extends YModel
     {
         return array(
             'id'            => Yii::t('UserModule.user', 'Id'),
-            'user_id'       => Yii::t('UserModule.user', 'Пользователь'),
-            'creation_date' => Yii::t('UserModule.user', 'Дата создания'),
-            'code'          => Yii::t('UserModule.user', 'Код'),
+            'user_id'       => Yii::t('UserModule.user', 'User'),
+            'creation_date' => Yii::t('UserModule.user', 'Created at'),
+            'code'          => Yii::t('UserModule.user', 'Code'),
         );
     }
 

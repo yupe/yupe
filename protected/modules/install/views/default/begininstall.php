@@ -9,17 +9,12 @@
  *   @link     http://yupe.ru
  **/
 ?>
-<h1><?php echo Yii::t('InstallModule.install', 'Идет установка модулей...');?></h1>
+<h1><?php echo Yii::t('InstallModule.install', 'Installation in progress...');?></h1>
 
-<div class="alert alert-block alert-notice">
-    <p><b><?php echo Yii::t('InstallModule.install','При возникновении проблем с установкой, пожалуйста, посетите {link} или {feedback} !',array(
-                    '{link}' => CHtml::link('наш форум','http://yupe.ru/talk/viewforum.php?id=10',array('target' => '_blank')),
-                    '{feedback}' => CHtml::link('напишите нам','http://yupe.ru/feedback/index?from=install',array('target' => '_blank')),
-                ));?></b></p>
-</div>
+<?php $this->widget('install.widgets.GetHelpWidget');?>
 
 <div class="alert alert-block alert-info">
-    <p><?php echo Yii::t('InstallModule.install', 'На данном этапе Юпи! постарается установить выбранные вами модули. Установка может занять некоторое время...');?></p>
+    <p><?php echo Yii::t('InstallModule.install', 'On this step Yupe trying to install modules you checked. This process can take several minutes...');?></p>
 </div>
 <div id="msg"></div>
 <div class="progress progress-striped active">
@@ -29,7 +24,7 @@
 <?php
 $this->widget(
     'bootstrap.widgets.TbBox', array(
-        'title'       => Yii::t('InstallModule.install', 'Журнал установки'),
+        'title'       => Yii::t('InstallModule.install', 'Backlog journal'),
         'headerIcon'  => 'icon-list',
         'content'     => '',
         'id'          => 'log-content',
@@ -82,7 +77,7 @@ echo "\n};";
         $.each(modules, function(i,m) {
             ic++;
             if (!m.installed) {
-                setModuleProgress(ic, "<i class='icon-" + m.icon + "'>&nbsp;</i>&nbsp; <?php echo Yii::t('InstallModule.install', 'Устанавливаем модуль'); ?> <b>" + m.description + "</b>");
+                setModuleProgress(ic, "<i class='icon-" + m.icon + "'>&nbsp;</i>&nbsp; <?php echo Yii::t('InstallModule.install', 'Installing module'); ?> <b>" + m.description + "</b>");
                 $.ajax({
                     url:"<?php echo $this->createUrl('/install/default/moduleinstall') ?>",
                     data: { 'name':m.id},
@@ -93,7 +88,7 @@ echo "\n};";
                             modules[m.id].installed = true;
                             if (typeof (data.log) != undefined)
                                 log(data.log);
-                            setModuleProgress(ic, "<i class='icon-" + m.icon + "'>&nbsp;</i>&nbsp; <?php echo Yii::t('InstallModule.install', 'Установлен модуль'); ?> <b>" + m.description + "</b>");
+                            setModuleProgress(ic, "<i class='icon-" + m.icon + "'>&nbsp;</i>&nbsp; <?php echo Yii::t('InstallModule.install', 'Module was installed'); ?> <b>" + m.description + "</b>");
                             // проверить, остались ли еще не установленные
                             if (ic<total)
                                 installNext();
@@ -125,17 +120,17 @@ echo "\n};";
 <?php $this->beginWidget('bootstrap.widgets.TbModal', array('id' => 'modules-modal')); ?>
     <div class="modal-header">
         <h4>
-            <?php echo Yii::t('InstallModule.install', 'Установка завершена'); ?>
+            <?php echo Yii::t('InstallModule.install', 'Installation completed'); ?>
         </h4>
     </div>
     <div id="modules-modal-list" class="modal-body row">
-        <?php echo Yii::t('InstallModule.install', 'Поздравляем, установка выбранных вами модулей завершена.<br/>Вы можете ознакомиться с журналом или продолжить установку.'); ?>
+        <?php echo Yii::t('InstallModule.install', 'Congratulations, modules which you checked installed successfully!'); ?>
     </div>
     <div class="modal-footer">
         <?php
         $this->widget(
             'bootstrap.widgets.TbButton', array(
-                'label'       => Yii::t('InstallModule.install', 'Смотреть журнал'),
+                'label'       => Yii::t('InstallModule.install', 'Look journal'),
                 'url'         => '#',
                 'htmlOptions' => array(
                     'data-dismiss' => 'modal',
@@ -149,7 +144,7 @@ echo "\n};";
                 'htmlOptions' => array(
                     'class' => 'nextButton',
                 ),
-                'label' => Yii::t('InstallModule.install', 'Продолжить >'),
+                'label' => Yii::t('InstallModule.install', 'Continue >'),
                 'url'   => array('/install/default/createuser')
             )
         ); ?>
@@ -163,13 +158,13 @@ echo "\n};";
         </h4>
     </div>
     <div id="modules-modal-list" class="modal-body row">
-            <?php echo Yii::t('InstallModule.install', 'Во время установки выбранных Вами модулей произошла ошибка. Вы можете ознакомиться с журналом.'); ?>
+            <?php echo Yii::t('InstallModule.install', 'There is an error occured when installing modules. You can watch errors in backlog journal.'); ?>
     </div>
     <div class="modal-footer">
         <?php
         $this->widget(
             'bootstrap.widgets.TbButton', array(
-                'label'       => Yii::t('InstallModule.install', 'Смотреть журнал'),
+                'label'       => Yii::t('InstallModule.install', 'Look journal'),
                 'url'         => '#',
                 'htmlOptions' => array(
                     'data-dismiss' => 'modal',
@@ -190,7 +185,7 @@ echo "\n};";
         'htmlOptions' => array(
             'class'       => 'prevButton',
         ),
-        'label'       => Yii::t('InstallModule.install', '< Назад'),
+        'label'       => Yii::t('InstallModule.install', '< Back'),
         'url'         => array('/install/default/modulesinstall'),
     )
 ); ?>
@@ -202,7 +197,7 @@ $this->widget(
         'htmlOptions' => array(
             'class' => 'nextButton',
         ),
-        'label' => Yii::t('InstallModule.install', 'Продолжить >'),
+        'label' => Yii::t('InstallModule.install', 'Continue >'),
         'url'   => array('/install/default/createuser')
     )
 ); ?>

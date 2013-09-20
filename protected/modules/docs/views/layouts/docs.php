@@ -42,18 +42,18 @@
                 'fluid'       => true,
                 'brand'       => CHtml::image(
                          Yii::app()->baseUrl.'/web/images/logo.png',
-                         Yii::t('DocsModule.docs', 'Юпи! Документация'),
+                         Yii::t('DocsModule.docs', 'Yupe! Documentation'),
                          array(
                             'width'  => '38',
                             'height' => '38',
-                            'title'  => Yii::t('DocsModule.docs', 'Юпи! Документация'),
+                            'title'  => Yii::t('DocsModule.docs', 'Yupe! Documentation'),
                          )
                 ),
                 'brandUrl'    => CHtml::normalizeUrl(array("index")),
                 'items'       => array(
                     array(
                         'class' => 'bootstrap.widgets.TbMenu',
-                        'items' => $this->module->articles,
+                        'items' => $this->module->getArticles(),
                     ),
                     array(
                         'class'       => 'bootstrap.widgets.TbMenu',
@@ -63,7 +63,7 @@
                             array(
                                 array(
                                     'icon'        => 'home white',
-                                    'label'       => Yii::t('DocsModule.docs', 'На сайт'),
+                                    'label'       => Yii::t('DocsModule.docs', 'Go home'),
                                     'linkOptions' => array('target' => '_blank'),
                                     'url'         => array('/' . Yii::app()->defaultController . '/index/'),
                                 ),
@@ -92,7 +92,7 @@
         <small class="label label-info"><?php echo $this->yupe->getVersion(); ?></small>
         <br/>
         <a href="http://amylabs.ru?from=yupe-docs">
-            <?php echo Yii::t('DocsModule.docs', 'Разработка и поддержка'); ?></a> - <a href="http://amylabs.ru?from=yupe-docs">amyLabs
+            <?php echo Yii::t('DocsModule.docs', 'Development and support'); ?></a> - <a href="http://amylabs.ru?from=yupe-docs">amyLabs
         </a>
         <br/>
         <?php echo Yii::powered(); ?>

@@ -30,7 +30,7 @@ class DefaultController extends YBackController
 
                 Yii::app()->user->setFlash(
                     YFlashMessages::SUCCESS_MESSAGE,
-                    Yii::t('UserModule.user', 'Пароль успешно изменен!')
+                    Yii::t('UserModule.user', 'Password was changed successfully')
                 );
                 $this->redirect(array('/user/default/view', 'id' => $model->id));
             }
@@ -62,7 +62,7 @@ class DefaultController extends YBackController
             {
                 Yii::app()->user->setFlash(
                     YFlashMessages::SUCCESS_MESSAGE,
-                    Yii::t('UserModule.user', 'Новый пользователь добавлен!')
+                    Yii::t('UserModule.user', 'New user was created!')
                 );
 
                 $this->redirect(
@@ -91,7 +91,7 @@ class DefaultController extends YBackController
             {
                 Yii::app()->user->setFlash(
                     YFlashMessages::SUCCESS_MESSAGE,
-                    Yii::t('UserModule.user', 'Данные обновлены!')
+                    Yii::t('UserModule.user', 'Data was updated!')
                 );
 
                 if (!isset($_POST['submit-type']))
@@ -119,7 +119,7 @@ class DefaultController extends YBackController
                 $this->redirect(isset($_POST['returnUrl']) ? $_POST['returnUrl'] : array('index'));
         }
         else
-            throw new CHttpException(400, Yii::t('UserModule.user', 'Неверный запрос. Пожалуйста, больше не повторяйте такие запросы!'));
+            throw new CHttpException(400, Yii::t('UserModule.user', 'Bad request. Please don\'t user similar requests anymore!'));
     }
 
     /**
@@ -145,12 +145,12 @@ class DefaultController extends YBackController
             if (!Yii::app()->request->isPostRequest || !Yii::app()->request->isAjaxRequest) {
                 Yii::app()->user->setFlash(
                     YFlashMessages::ERROR_MESSAGE,
-                    Yii::t('UserModule.user', 'Пользователь #{id} не найден!', array('{id}' => $id))
+                    Yii::t('UserModule.user', 'User with #{id} was not found', array('{id}' => $id))
                 );
                 $this->redirect(array('index'));
             } else
                 Yii::app()->ajax->failure(
-                    Yii::t('UserModule.user', 'Пользователь #{id} не найден!', array('{id}' => $id))
+                    Yii::t('UserModule.user', 'User with #{id} was not found', array('{id}' => $id))
                 );
         }
 
@@ -160,19 +160,19 @@ class DefaultController extends YBackController
         Yii::app()->mail->send(
             $this->module->notifyEmailFrom,
             $user->email,
-            Yii::t('UserModule.user', 'Регистрация на сайте {site} !', array('{site}' => Yii::app()->name)),
+            Yii::t('UserModule.user', 'Registration on {site}', array('{site}' => Yii::app()->name)),
             $mailBody
         );
 
         if (!Yii::app()->request->isPostRequest || !Yii::app()->request->isAjaxRequest) {
             Yii::app()->user->setFlash(
                 YFlashMessages::SUCCESS_MESSAGE,
-                Yii::t('UserModule.user', 'Письмо с активацией отправлено пользователю #{id}!', array('{id}' => $id))
+                Yii::t('UserModule.user', 'Activation mail was sent to user with #{id}!', array('{id}' => $id))
             );
             $this->redirect(array('index'));
         } else
             Yii::app()->ajax->success(
-                Yii::t('UserModule.user', 'Письмо с активацией отправлено пользователю #{id}!', array('{id}' => $id))
+                Yii::t('UserModule.user', 'Activation mail was sent to user with #{id}!', array('{id}' => $id))
             );
     }
 
@@ -188,7 +188,7 @@ class DefaultController extends YBackController
             if (isset($_GET['id']))
                 $this->_model = User::model()->findbyPk($_GET['id']);
             if ($this->_model === null)
-                throw new CHttpException(404, Yii::t('UserModule.user', 'Запрошенная страница не найдена!'));
+                throw new CHttpException(404, Yii::t('UserModule.user', 'requested page was not found!'));
         }
         return $this->_model;
     }

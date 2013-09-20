@@ -22,7 +22,7 @@ if ($gallery->status == Gallery::STATUS_PRIVATE && $gallery->owner != Yii::app()
     echo CHtml::tag(
         'h3',
         array(),
-        Yii::t('GalleryModule.gallery', 'Это приватная галерея!')
+        Yii::t('GalleryModule.gallery', 'This is private gallery')
     );
 } else {
     $this->widget(

@@ -6,12 +6,13 @@ class EmailConfirmAction extends CAction
         // пытаемся сделать выборку из таблицы пользователей
         $user = User::model()->active()->find('activate_key = :activate_key', array(':activate_key' => $key));
 
-        if (!$user)
+        if (!$user || !$user->needEmailConfirm())
         {
             Yii::app()->user->setFlash(
                 YFlashMessages::ERROR_MESSAGE,
-                Yii::t('UserModule.user', 'Ошибка активации! Возможно данный e-mail уже проверен или указан неверный ключ активации! Попробуйте другой e-mail.')
+                Yii::t('UserModule.user', 'Activation error! Maybe e-mail already confirmed or incorrect activation code was used. Try to use another e-mail')
             );
+
             $this->controller->redirect(array('/user/account/login'));
         }
 
@@ -20,7 +21,7 @@ class EmailConfirmAction extends CAction
         if ($user->confirmEmail())
         {
             Yii::log(
-                Yii::t('UserModule.user', "Активирован e-mail с activate_key = {activate_key}, id = {id}!", array(
+                Yii::t('UserModule.user', 'Email with activate_key = {activate_key}, id = {id} was activated!', array(
                     '{activate_key}' => $key,
                     '{id}'           => $user->id,
                 )),
@@ -29,7 +30,7 @@ class EmailConfirmAction extends CAction
 
             Yii::app()->user->setFlash(
                 YFlashMessages::SUCCESS_MESSAGE,
-                Yii::t('UserModule.user', 'Вы успешно подтвердили новый e-mail!')
+                Yii::t('UserModule.user', 'You confirmed new e-mail successfully!')
             );
 
             $this->controller->redirect(array('/user/account/profile'));
@@ -38,14 +39,14 @@ class EmailConfirmAction extends CAction
         {
             Yii::app()->user->setFlash(
                 YFlashMessages::ERROR_MESSAGE,
-                Yii::t('UserModule.user', 'При подтверждении e-mail произошла ошибка! Попробуйте позже!')
+                Yii::t('UserModule.user', 'E-mail confirmation error. Please try again later')
             );
 
             Yii::log(
-                Yii::t('UserModule.user', "При подтверждении e-mail c activate_key => {activate_key} произошла ошибка {error}!", array(
-                    '{activate_key}' => $key,
-                    '{error}'        => $e->getMessage(),
+                Yii::t('UserModule.user', 'There is an error when confirm e-mail with activate_key => {activate_key}', array(
+                    '{activate_key}' => $key
                 )),
+
                 CLogger::LEVEL_ERROR, UserModule::$logCategory
             );
 

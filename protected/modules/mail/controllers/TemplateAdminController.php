@@ -55,7 +55,7 @@ class TemplateAdminController extends YBackController
             if ($model->save()) {
                 Yii::app()->user->setFlash(
                     YFlashMessages::SUCCESS_MESSAGE,
-                    Yii::t('MailModule.mail', 'Запись добавлена!')
+                    Yii::t('MailModule.mail', 'Record was created!')
                 );
 
                 $this->redirect(
@@ -88,7 +88,7 @@ class TemplateAdminController extends YBackController
             if ($model->save()) {
                 Yii::app()->user->setFlash(
                     YFlashMessages::SUCCESS_MESSAGE,
-                    Yii::t('MailModule.mail', 'Запись обновлена!')
+                    Yii::t('MailModule.mail', 'Record was updated!')
                 );
 
                 $this->redirect(array('update','id' => $model->id));
@@ -113,7 +113,7 @@ class TemplateAdminController extends YBackController
 
             Yii::app()->user->setFlash(
                 YFlashMessages::SUCCESS_MESSAGE,
-                Yii::t('MailModule.mail', 'Запись удалена!')
+                Yii::t('MailModule.mail', 'Record was removed!')
             );
 
             // если это AJAX запрос ( кликнули удаление в админском grid view), мы не должны никуда редиректить
@@ -121,7 +121,7 @@ class TemplateAdminController extends YBackController
                 $this->redirect(isset($_POST['returnUrl']) ? $_POST['returnUrl'] : array( 'index' ));
         }
         else
-            throw new CHttpException(400, Yii::t('MailModule.mail', 'Неверный запрос. Пожалуйста, больше не повторяйте такие запросы'));
+            throw new CHttpException(400, Yii::t('MailModule.mail', 'Bad request. Please don\'t repeate similar request anymore'));
     }
 
     /**
@@ -152,7 +152,7 @@ class TemplateAdminController extends YBackController
     {
         $model = MailTemplate::model()->findByPk($id);
         if ($model === null)
-            throw new CHttpException(404, Yii::t('MailModule.mail', 'Запрошенная страница не найдена'));
+            throw new CHttpException(404, Yii::t('MailModule.mail', 'Requested page was not found'));
         return $model;
     }
 

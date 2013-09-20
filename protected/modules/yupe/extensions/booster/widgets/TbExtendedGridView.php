@@ -1,15 +1,16 @@
 <?php
-/*## TbExtendedGridView class file
+/**
+ * ## TbExtendedGridView class file
  *
  * @author Antonio Ramirez <antonio@clevertech.biz>
  * @copyright Copyright &copy; Clevertech 2012-
  * @license [New BSD License](http://www.opensource.org/licenses/bsd-license.php) 
- * @package bootstrap.widgets
  */
+
 Yii::import('bootstrap.widgets.TbGridView');
 
 /**
- * TbExtendedGridView is an extended version of TbGridView.
+ *## TbExtendedGridView is an extended version of TbGridView.
  *
  * Features are:
  *  - Display an extended summary of the records shown. The extended summary can be configured to any of the
@@ -20,6 +21,8 @@ Yii::import('bootstrap.widgets.TbGridView');
  *
  * @property CActiveDataProvider $dataProvider the data provider for the view.
  * @property TbDataColumn[] $columns
+ *
+ * @package booster.widgets.grids
  */
 class TbExtendedGridView extends TbGridView
 {
@@ -246,11 +249,8 @@ class TbExtendedGridView extends TbGridView
 	public function renderKeys()
 	{
 		$data = $this->dataProvider->getData();
-		if (empty($data)) {
-			return false;
-		}
-
-		if (!$this->sortableRows || !$this->getAttribute($data[0], (string)$this->sortableAttribute)) {
+		
+		if (!$this->sortableRows || (isset($data[0]) && !$this->getAttribute($data[0], (string)$this->sortableAttribute))) {
 			parent::renderKeys();
 		}
 
@@ -313,7 +313,7 @@ class TbExtendedGridView extends TbGridView
 	protected function getPrimaryKey($data)
 	{
 		if ($this->dataProvider instanceof CActiveDataProvider) {
-			$key = $this->dataProvider->keyAttribute === null ? $data->getPrimaryKey() : $data->{$this->keyAttribute};
+			$key = $this->dataProvider->keyAttribute === null ? $data->getPrimaryKey() : $data->{$this->dataProvider->keyAttribute};
 			return is_array($key) ? implode(',', $key) : $key;
 		}
 		if ($this->dataProvider instanceof CArrayDataProvider || $this->dataProvider instanceof CSqlDataProvider) {
@@ -555,7 +555,7 @@ class TbExtendedGridView extends TbGridView
 			}
 		}
 
-		echo CHtml::openTag('tr', $htmlOptions) . "\n";
+		echo CHtml::openTag('tr', $htmlOptions);
 		foreach ($this->columns as $column) {
 			echo $this->displayExtendedSummary && !empty($this->extendedSummary['columns']) ? $this->parseColumnValue(
 				$column,
@@ -563,7 +563,7 @@ class TbExtendedGridView extends TbGridView
 			) : $column->renderDataCell($row);
 		}
 
-		echo "</tr>\n";
+		echo CHtml::closeTag('tr');
 	}
 
 	/**
@@ -652,8 +652,16 @@ class TbExtendedGridView extends TbGridView
 			}
 
 			$afterSortableUpdate = CJavaScript::encode($afterSortableUpdate);
-			$this->componentsReadyScripts[] = "$.fn.yiiGridView.sortable('{$this->id}', '{$sortableAction}', {$afterSortableUpdate});";
-			$this->componentsAfterAjaxUpdate[] = "$.fn.yiiGridView.sortable('{$this->id}', '{$sortableAction}', {$afterSortableUpdate});";
+			if (Yii::app()->request->enableCsrfValidation)
+			{
+				$csrfTokenName = Yii::app()->request->csrfTokenName;
+				$csrfToken = Yii::app()->request->csrfToken;
+				$csrf = "{'$csrfTokenName':'$csrfToken' }";
+			} else
+				$csrf = '{}';
+
+			$this->componentsReadyScripts[] = "$.fn.yiiGridView.sortable('{$this->id}', '{$sortableAction}', {$afterSortableUpdate}, $csrf);";
+			$this->componentsAfterAjaxUpdate[] = "$.fn.yiiGridView.sortable('{$this->id}', '{$sortableAction}', {$afterSortableUpdate}, $csrf);";
 		}
 
 		if ($this->selectableCells) {
@@ -798,9 +806,11 @@ class TbExtendedGridView extends TbGridView
 }
 
 /**
- * TbOperation class
+ *## TbOperation class
  *
  * Abstract class where all types of operations extend from
+ *
+ * @package booster.widgets.grids.operations
  */
 abstract class TbOperation extends CWidget
 {
@@ -869,6 +879,7 @@ abstract class TbOperation extends CWidget
  *
  * Displays a total of specified column name.
  *
+ * @package booster.widgets.grids.operations
  */
 class TbSumOperation extends TbOperation
 {
@@ -949,6 +960,8 @@ class TbSumOperation extends TbOperation
  *
  * Renders a summary based on the count of specified types. For example, if a value has a type 'blue', this class will
  * count the number of times the value 'blue' has on that column.
+ *
+ * @package booster.widgets.grids.operations
  */
 class TbCountOfTypeOperation extends TbOperation
 {
@@ -1040,9 +1053,12 @@ class TbCountOfTypeOperation extends TbOperation
 }
 
 /**
- * TbPercentOfTypeOperation class
+ *## TbPercentOfTypeOperation class
+ *
  * Renders a summary based on the percent count of specified types. For example, if a value has a type 'blue', this class will
  * count the percentage number of times the value 'blue' has on that column.
+ *
+ * @package booster.widgets.grids.operations
  */
 class TbPercentOfTypeOperation extends TbCountOfTypeOperation
 {
@@ -1100,9 +1116,11 @@ class TbPercentOfTypeOperation extends TbCountOfTypeOperation
 }
 
 /**
- * TbPercentOfTypeGooglePieOperation class
+ *## TbPercentOfTypeGooglePieOperation class
  *
  * Displays a Google visualization  pie chart based on the percentage count of type.
+ *
+ * @package booster.widgets.grids.operations
  */
 class TbPercentOfTypeGooglePieOperation extends TbPercentOfTypeOperation
 {
@@ -1181,9 +1199,11 @@ class TbPercentOfTypeGooglePieOperation extends TbPercentOfTypeOperation
 }
 
 /**
- * TbPercentOfTypeEasyPieOperation class
+ *## TbPercentOfTypeEasyPieOperation class
  *
  * Displays an chart based on jquery.easy.pie plugin
+ *
+ * @package booster.widgets.grids.operations
  */
 class TbPercentOfTypeEasyPieOperation extends TbPercentOfTypeOperation
 {

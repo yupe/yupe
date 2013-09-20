@@ -4,7 +4,7 @@ class LogOutAction extends CAction
     public function run()
     {
         Yii::log(
-            Yii::t('UserModule.user', 'Пользователь {user} вышел!', array('{user}' => Yii::app()->user->getState('nick_name'))),
+            Yii::t('UserModule.user', 'User {user} was logout!', array('{user}' => Yii::app()->user->getState('nick_name'))),
             CLogger::LEVEL_INFO, UserModule::$logCategory
         );
 

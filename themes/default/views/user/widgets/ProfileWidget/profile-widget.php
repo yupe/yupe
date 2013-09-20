@@ -17,8 +17,12 @@
                 <div class="span12">
                   <p>
                      <i class="icon-envelope"></i> <?php echo $user->email;?><br>
-                     <i class="icon-globe"></i> <?php echo $user->site;?> <br>
-                     <i class="icon-map-marker"></i> <?php echo $user->location;?> <br>
+                     <?php if($user->site):?>
+                         <i class="icon-globe"></i> <?php echo $user->site;?> <br>
+                     <?php endif;?>
+                     <?php if($user->location):?>
+                         <i class="icon-map-marker"></i> <?php echo $user->location;?> <br>
+                     <?php endif;?>
                    </p>
                 </div>
             </div>

@@ -47,6 +47,7 @@ class BackendController extends YBackController
     /**
      * Экшен сброса кеш-файла настроек:
      *
+     * @throws CHttpException
      * @return void
      **/
     public function actionFlushDumpSettings()
@@ -83,14 +84,17 @@ class BackendController extends YBackController
     /**
      * Экшен отображения настроек модуля:
      *
+     * @throws CHttpException
+     *
      * @param string $module - id-модуля
      *
      * @return void
      **/
     public function actionModulesettings($module)
     {
-        if (!($module = Yii::app()->getModule($module)))
+        if (!($module = Yii::app()->getModule($module))) {
             throw new CHttpException(404, Yii::t('YupeModule.yupe', 'Setting page for this module is not available!'));
+        }
 
         $editableParams     = $module->getEditableParams();
         $moduleParamsLabels = $module->getParamsLabels();
@@ -170,6 +174,8 @@ class BackendController extends YBackController
 
     /**
      * Экшен сохранения настроек модуля:
+     *
+     * @throws CHttpException
      *
      * @return void
      **/
@@ -298,8 +304,9 @@ class BackendController extends YBackController
     public function actionModupdate($name = null)
     {
         if ($name) {
-            if (($module = Yii::app()->getModule($name)) == null)
+            if (($module = Yii::app()->getModule($name)) == null) {
                 $module = $this->yupe->getCreateModule($name);
+            }
 
             if ($module->getIsInstalled()) {
                 $updates = Yii::app()->migrator->checkForUpdates(array($name => $module));
@@ -345,8 +352,9 @@ class BackendController extends YBackController
             $uploadPath = Yii::getPathOfAlias('webroot') . $webPath;
 
             if (!is_dir($uploadPath)) {
-                if (!@mkdir($uploadPath))
+                if (!@mkdir($uploadPath)) {
                     Yii::app()->ajax->rawText(Yii::t('YupeModule.yupe', 'Can\'t create catalog "{dir}" for files!', array('{dir}' => $uploadPath)));
+                }
             }
 
             $this->disableProfilers();
@@ -357,8 +365,9 @@ class BackendController extends YBackController
                 //сгенерировать имя файла и сохранить его
                 $newFileName = $rename ? md5(time() . uniqid() . $file->name) . '.' . $file->extensionName : $file->name;
 
-                if (!$file->saveAs($uploadPath . $newFileName))
+                if (!$file->saveAs($uploadPath . $newFileName)) {
                     Yii::app()->ajax->rawText(Yii::t('YupeModule.yupe', 'There is an error when downloading!'));
+                }
 
                 Yii::app()->ajax->rawText(
                     json_encode(
@@ -370,6 +379,7 @@ class BackendController extends YBackController
                 );
             }
         }
+
         Yii::app()->ajax->rawText(Yii::t('YupeModule.yupe', 'There is an error when downloading!'));
     }
 
@@ -387,6 +397,8 @@ class BackendController extends YBackController
     /**
      * Действие для управления модулями:
      *
+     * @throws CHttpException
+     *
      * @return string json-data
      **/
     public function actionModulestatus()
@@ -394,8 +406,9 @@ class BackendController extends YBackController
         /**
          * Если это не POST-запрос - посылаем лесом:
          **/
-        if (!Yii::app()->request->isPostRequest || !Yii::app()->request->isAjaxRequest)
+        if (!Yii::app()->request->isPostRequest || !Yii::app()->request->isAjaxRequest) {
             throw new CHttpException(404, Yii::t('YupeModule.yupe', 'Page was not found!'));
+        }
 
         /**
          * Получаем название модуля и проверяем,
@@ -409,8 +422,9 @@ class BackendController extends YBackController
         /**
          * Если статус неизвестен - ошибка:
          **/
-        elseif (!isset($status) || !in_array($status, array(0, 1)))
+        elseif (!isset($status) || !in_array($status, array(0, 1))) {
             Yii::app()->ajax->failure(Yii::t('YupeModule.yupe', 'Status for handler is no set!'));
+        }
 
         /**
          * Если всё в порядке - выполняем нужное действие:
@@ -453,8 +467,9 @@ class BackendController extends YBackController
                     $message = Yii::t('YupeModule.yupe', 'Unknown action was checked!');
                     break;
                 }
-                if (in_array($status, array(0, 1)))
-                Yii::app()->cache->clear($name);
+                if (in_array($status, array(0, 1))) {
+                    Yii::app()->cache->clear($name);
+                }
             } catch(Exception $e) {
                 $message = $e->getMessage();
             }
@@ -466,11 +481,12 @@ class BackendController extends YBackController
                 ? Yii::app()->ajax->success($message)
                 : Yii::app()->ajax->failure($message);
 
-        } else
+        } else {
         /**
          * Иначе возвращаем ошибку:
          **/
-            Yii::app()->ajax->failure(Yii::t('YupeModule.yupe', 'Module was not found or it\'s enabling finished'));
+          Yii::app()->ajax->failure(Yii::t('YupeModule.yupe', 'Module was not found or it\'s enabling finished'));
+        }
     }
 
     /**

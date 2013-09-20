@@ -22,8 +22,9 @@ class YHttpRequest extends CHttpRequest
         {
             foreach ($this->noCsrfValidationRoutes as $route)
             {
-                if (strpos($this->pathInfo, $route) === 0)
+                if (strpos($this->pathInfo, $route) === 0) {
                     Yii::app()->detachEventHandler('onBeginRequest', array($this, 'validateCsrfToken'));
+                }
             }
         }
     }

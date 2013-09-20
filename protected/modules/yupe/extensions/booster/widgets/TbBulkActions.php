@@ -1,18 +1,24 @@
 <?php
-/*##  TbCheckBoxColumn class file.
+/**
+ *## TbBulkActions class file
  *
  * @author Antonio Ramirez <antonio@clevertech.biz>
  * @copyright Copyright &copy; Clevertech 2012-
- * @license [New BSD License](http://www.opensource.org/licenses/bsd-license.php) 
- * @package bootstrap.widgets
+ * @license [New BSD License](http://www.opensource.org/licenses/bsd-license.php)
  */
+
 Yii::import('zii.widgets.grid.CCheckBoxColumn');
 Yii::import('bootstrap.widgets.TbButton');
 
+/**
+ * Bulk actions widget.
+ *
+ * @package booster.widgets.grids.columns
+ */
 class TbBulkActions extends CComponent
 {
     /**
-     * @var TbGridView the grid view object that owns this column.
+     * @var TbGridView The grid view object that owns this column.
      */
     public $grid;
 
@@ -82,6 +88,8 @@ class TbBulkActions extends CComponent
             return $this->_id;
         } else if ($autoGenerate) {
             return $this->_id = 'egw' . self::$_counter++;
+        } else {
+	        return ''; // FIXME: why getId can sometimes return nothing?!
         }
     }
 
@@ -165,40 +173,16 @@ class TbBulkActions extends CComponent
     /**
      *### .initButtons()
      *
-     * @throws CException
-     * @return bool initializes the buttons to be render
+     * initializes the buttons to be render
      */
     public function initButtons()
     {
-        if (empty($this->columnName) || empty($this->actionButtons)) {
-            return false;
-        }
+        if (empty($this->columnName) || empty($this->actionButtons))
+            return;
 
-        foreach ($this->actionButtons as $action) {
-            if (!isset($action['id'])) {
-                throw new CException(Yii::t(
-                    'zii',
-                    'Each bulk action button should have its "id" attribute set to ensure its functionality among ajax updates'
-                ));
-            }
-            // button configuration is a regular TbButton
-            $this->buttons[] = array(
-                'class' => 'bootstrap.widgets.TbButton',
-                'id' => $action['id'], // we must ensure this
-                'buttonType' => isset($action['buttonType']) ? $action['buttonType'] : TbButton::BUTTON_LINK,
-                'type' => isset($action['type']) ? $action['type'] : '',
-                'size' => isset($action['size']) ? $action['size'] : TbButton::SIZE_SMALL,
-                'icon' => isset($action['icon']) ? $action['icon'] : null,
-                'label' => isset($action['label']) ? $action['label'] : null,
-                'url' => isset($action['url']) ? $action['url'] : null,
-                'active' => isset($action['active']) ? $action['active'] : false,
-                'items' => isset($action['items']) ? $action['items'] : array(),
-                'ajaxOptions' => isset($action['ajaxOptions']) ? $action['ajaxOptions'] : array(),
-                'htmlOptions' => isset($action['htmlOptions']) ? $action['htmlOptions'] : array(),
-                'encodeLabel' => isset($action['encodeLabel']) ? $action['encodeLabel'] : true,
-                'click' => isset($action['click']) ? $action['click'] : false
-            );
-        }
+	    $this->buttons = array();
+        foreach ($this->actionButtons as $action)
+	        $this->buttons[] = $this->convertToTbButtonConfig($action);
     }
 
     /**
@@ -208,23 +192,24 @@ class TbBulkActions extends CComponent
      */
     public function renderButtons()
     {
-        if ($this->buttons === array()) {
+        if ($this->buttons === array())
             return false;
-        }
 
         echo CHtml::openTag(
             'div',
             array('id' => $this->getId(), 'style' => 'position:relative', 'class' => $this->align)
         );
 
-        foreach ($this->buttons as $actionButton) {
+        foreach ($this->buttons as $actionButton)
             $this->renderButton($actionButton);
-        }
-        if(!$this->selectableRows)
+
+        if (!$this->selectableRows)
             echo '<div style="position:absolute;top:0;left:0;height:100%;width:100%;display:block;" class="bulk-actions-blocker"></div>';
-        echo '</div>';
+
+        echo CHtml::closeTag('div');
 
         $this->registerClientScript();
+	    return true;
     }
 
     /**
@@ -348,4 +333,38 @@ EOD;
         array_unshift($this->grid->columns, $column);
         $this->columnName = $this->grid->id . '_c0\[\]'; //
     }
+
+	/**
+	 * @param $action
+	 *
+	 * @return array
+	 * @throws CException
+	 */
+	private function convertToTbButtonConfig($action)
+	{
+		if (!isset($action['id'])) {
+			throw new CException(Yii::t(
+				'zii',
+				'Each bulk action button should have its "id" attribute set to ensure its functionality among ajax updates'
+			));
+		}
+		// button configuration is a regular TbButton
+		$buttonConfig = array(
+			'class' => 'bootstrap.widgets.TbButton',
+			'id' => $action['id'], // we must ensure this
+			'buttonType' => isset($action['buttonType']) ? $action['buttonType'] : TbButton::BUTTON_LINK,
+			'type' => isset($action['type']) ? $action['type'] : '',
+			'size' => isset($action['size']) ? $action['size'] : TbButton::SIZE_SMALL,
+			'icon' => isset($action['icon']) ? $action['icon'] : null,
+			'label' => isset($action['label']) ? $action['label'] : null,
+			'url' => isset($action['url']) ? $action['url'] : null,
+			'active' => isset($action['active']) ? $action['active'] : false,
+			'items' => isset($action['items']) ? $action['items'] : array(),
+			'ajaxOptions' => isset($action['ajaxOptions']) ? $action['ajaxOptions'] : array(),
+			'htmlOptions' => isset($action['htmlOptions']) ? $action['htmlOptions'] : array(),
+			'encodeLabel' => isset($action['encodeLabel']) ? $action['encodeLabel'] : true,
+			'click' => isset($action['click']) ? $action['click'] : false
+		);
+		return $buttonConfig;
+	}
 }

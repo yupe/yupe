@@ -1,20 +1,20 @@
 <?php
     $this->breadcrumbs = array(
         Yii::app()->getModule('feedback')->getCategory() => array(),
-        Yii::t('FeedbackModule.feedback', 'Сообщения  ') => array('/feedback/default/index'),
-        Yii::t('FeedbackModule.feedback', 'Добавление'),
+        Yii::t('FeedbackModule.feedback', 'Messages ') => array('/feedback/default/index'),
+        Yii::t('FeedbackModule.feedback', 'adding'),
     );
 
-    $this->pageTitle = Yii::t('FeedbackModule.feedback', 'Сообщения   - добавление');
+    $this->pageTitle = Yii::t('FeedbackModule.feedback', 'Messages - add');
 
     $this->menu = array(
-        array('icon' => 'list-alt', 'label' => Yii::t('FeedbackModule.feedback', 'Управление сообщениями  '), 'url' => array('/feedback/default/index')),
-        array('icon' => 'plus-sign', 'label' => Yii::t('FeedbackModule.feedback', 'Добавить сообщение  '), 'url' => array('/feedback/default/create')),
+        array('icon' => 'list-alt', 'label' => Yii::t('FeedbackModule.feedback', 'Messages management'), 'url' => array('/feedback/default/index')),
+        array('icon' => 'plus-sign', 'label' => Yii::t('FeedbackModule.feedback', 'Create message '), 'url' => array('/feedback/default/create')),
     );
 ?>
 <h1>
-    <?php echo Yii::t('FeedbackModule.feedback', 'Сообщения  '); ?>
-    <small><?php echo Yii::t('FeedbackModule.feedback', 'добавление'); ?></small>
+    <?php echo Yii::t('FeedbackModule.feedback', 'Messages '); ?>
+    <small><?php echo Yii::t('FeedbackModule.feedback', 'adding'); ?></small>
 </h1>
 
 <?php echo $this->renderPartial('_form', array('model' => $model)); ?>

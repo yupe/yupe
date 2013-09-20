@@ -1,27 +1,27 @@
 <?php
     $this->breadcrumbs = array(
         Yii::app()->getModule('feedback')->getCategory() => array(),
-        Yii::t('FeedbackModule.feedback', 'Сообщения  ') => array('/feedback/default/index'),
-        Yii::t('FeedbackModule.feedback', 'Управление'),
+        Yii::t('FeedbackModule.feedback', 'Messages ') => array('/feedback/default/index'),
+        Yii::t('FeedbackModule.feedback', 'Management'),
     );
 
-    $this->pageTitle = Yii::t('FeedbackModule.feedback', 'Сообщения   - управление');
+    $this->pageTitle = Yii::t('FeedbackModule.feedback', 'Messages - manage' => 'Сообщения   - управление');
 
     $this->menu = array(
-        array('icon' => 'list-alt', 'label' => Yii::t('FeedbackModule.feedback', 'Управление сообщениями  '), 'url' => array('/feedback/default/index')),
-        array('icon' => 'plus-sign', 'label' => Yii::t('FeedbackModule.feedback', 'Добавить сообщение  '), 'url' => array('/feedback/default/create')),
+        array('icon' => 'list-alt', 'label' => Yii::t('FeedbackModule.feedback', 'Messages management'), 'url' => array('/feedback/default/index')),
+        array('icon' => 'plus-sign', 'label' => Yii::t('FeedbackModule.feedback', 'Create message '), 'url' => array('/feedback/default/create')),
     );
 ?>
 <div class="page-header">
     <h1>
-        <?php echo Yii::t('FeedbackModule.feedback', 'Сообщения  '); ?>
-        <small><?php echo Yii::t('FeedbackModule.feedback', 'управление'); ?></small>
+        <?php echo Yii::t('FeedbackModule.feedback', 'Messages '); ?>
+        <small><?php echo Yii::t('FeedbackModule.feedback', 'management'); ?></small>
     </h1>
 </div>
 
 <button class="btn btn-small dropdown-toggle" data-toggle="collapse" data-target="#search-toggle">
     <i class="icon-search">&nbsp;</i>
-    <?php echo CHtml::link(Yii::t('FeedbackModule.feedback', 'Поиск сообщений  '), '#', array('class' => 'search-button')); ?>
+    <?php echo CHtml::link(Yii::t('FeedbackModule.feedback', 'Find messages'), '#', array('class' => 'search-button')); ?>
     <span class="caret">&nbsp;</span>
 </button>
 
@@ -41,7 +41,7 @@ $this->renderPartial('_search', array('model' => $model));
 
 <br/>
 
-<p><?php echo Yii::t('FeedbackModule.feedback', 'В данном разделе представлены средства управления сообщениями  '); ?></p>
+<p><?php echo Yii::t('FeedbackModule.feedback', 'This section represent feedback management'); ?></p>
 
 <?php $this->widget('application.modules.yupe.components.YCustomGridView', array(
     'id'           => 'feed-back-grid',

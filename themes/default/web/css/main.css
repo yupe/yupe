@@ -2,7 +2,6 @@
 body {
     padding-top: 60px;
     padding-bottom: 40px;
-    min-width: 981px;
 }
 span.label a {
     color: white;
@@ -77,3 +76,14 @@ body .navbar .brand {
 .gallery-list {
     margin-bottom: 30px;
 }
+
+/* gallery/show.php */
+.gallery-thumbnail {
+    float: left;
+    margin-left: 0 !important;
+}
+.gallery-thumbnail img {
+    cursor: pointer;
+}
+
+

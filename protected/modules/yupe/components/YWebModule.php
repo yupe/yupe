@@ -120,9 +120,9 @@ abstract class YWebModule extends CWebModule
      * public function getNavigation()
      * {
      *       return array(
-     *           Yii::t('YupeModule.yupe','Блоги')     => '/blog/blogAdmin/admin/',
-     *           Yii::t('YupeModule.yupe','Записи')    => '/blog/postAdmin/admin/',
-     *           Yii::t('YupeModule.yupe','Участники') => '/blog/BlogToUserAdmin/admin/',
+     *           Yii::t('YupeModule.yupe','Blogs')     => '/blog/blogAdmin/admin/',
+     *           Yii::t('YupeModule.yupe','Posts')    => '/blog/postAdmin/admin/',
+     *           Yii::t('YupeModule.yupe','Members') => '/blog/BlogToUserAdmin/admin/',
      *      );
      * }
      *
@@ -142,8 +142,8 @@ abstract class YWebModule extends CWebModule
      *   if (!$this->uploadPath)
      *        return array(
      *            'type' => YWebModule::CHECK_ERROR,
-     *            'message' => Yii::t('YupeModule.yupe', 'Пожалуйста, укажите каталог для хранения изображений! {link}', array(
-     *                '{link}' => CHtml::link(Yii::t('YupeModule.yupe', 'Изменить настройки модуля'), array('/yupe/backend/modulesettings/', 'module' => $this->id))
+     *            'message' => Yii::t('YupeModule.yupe', 'Please, set images uploading directory! {link}', array(
+     *                '{link}' => CHtml::link(Yii::t('YupeModule.yupe', 'Change module settings'), array('/yupe/backend/modulesettings/', 'module' => $this->id))
      *            ))
      *        );
      *   Данные сообщения выводятся на главной странице панели управления
@@ -463,8 +463,9 @@ abstract class YWebModule extends CWebModule
             );
         }
 
-        if (!in_array($this->getId(), $modulesInstalled))
+        if (!in_array($this->getId(), $modulesInstalled)) {
             return false;
+        }
 
         $upd = Yii::app()->cache->get('YupeModuleUpdates_' . $this->getId());
         if ($upd === false) {

@@ -314,8 +314,9 @@ class YCustomGridView extends TbExtendedGridView
             );
         /* Установка позиции headline'а: */
         $headlinePosition = '';
-        if (in_array($this->headlinePosition, array('left', 'right')))
+        if (in_array($this->headlinePosition, array('left', 'right'))) {
             $headlinePosition = ' style="text-align: ' . $this->headlinePosition . ';" ';
+        }
         echo '<div class="headline" ' . $headlinePosition .' >';
         /* Текстовка: */
         echo Yii::t('YupeModule.yupe', 'Sort by:') . '<br />';

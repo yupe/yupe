@@ -9,13 +9,13 @@
  *   @link     http://yupe.ru
  **/
 ?>
-<h1><?php echo Yii::t('InstallModule.install', 'Поздравляем, установка Юпи! завершена!'); ?></h1>
+<h1><?php echo Yii::t('InstallModule.install', 'Congratulations Yupe was installed successfully!'); ?></h1>
 
-<p><?php echo Yii::t('InstallModule.install', 'Ваш сайт готов к работе!'); ?></p>
+<p><?php echo Yii::t('InstallModule.install', 'Your site is ready to work!'); ?></p>
 
 <div class="alert alert-block alert-notice">
 
-    <p><?php echo Yii::t('InstallModule.install', 'Если Вам не жалко - отправьте нам чуть-чуть денежек, мы будем довольны =) !'); ?></p>
+    <p><?php echo Yii::t('InstallModule.install', 'You can donate us some money if you like our project.'); ?></p>
 
         <b>Помоги команде!</b><br/><br/>
 
@@ -31,34 +31,34 @@
 
 <br/><br/>
 
-<?php echo CHtml::link(Yii::t('InstallModule.install', 'ПЕРЕЙТИ НА САЙТ'), array('/site/index')); ?>
+<?php echo CHtml::link(Yii::t('InstallModule.install', 'GO TO SITE HOME PAGE'), array('/site/index')); ?>
 
-<?php echo Yii::t('InstallModule.install', 'или');?>
+<?php echo Yii::t('InstallModule.install', 'or');?>
 
-<?php echo CHtml::link(Yii::t('InstallModule.install', 'ПЕРЕЙТИ В ПАНЕЛЬ УПРАВЛЕНИЯ'), array('/yupe/backend/index')); ?>
-
-<br/><br/>
-
-<p><?php echo Yii::t('InstallModule.install', 'Полезные ссылки:'); ?></p>
-
-<?php echo CHtml::link(Yii::t('InstallModule.install', 'Официальная документация Юпи!'), 'http://yupe.ru/docs/index.html?from=finish'); ?> - <?php echo Yii::t('InstallModule.install', 'Мы активно ее пишем =)'); ?>
+<?php echo CHtml::link(Yii::t('InstallModule.install', 'GO TO CONTROL PANEL'), array('/yupe/backend/index')); ?>
 
 <br/><br/>
 
-<?php echo CHtml::link(Yii::t('InstallModule.install', 'Официальный сайт Юпи!'), 'http://yupe.ru/?from=finish'); ?> - <?php echo Yii::t('InstallModule.install', 'заходите чаще =)'); ?>
+<p><?php echo Yii::t('InstallModule.install', 'Interesting links:'); ?></p>
+
+<?php echo CHtml::link(Yii::t('InstallModule.install', 'Official docs'), 'http://yupe.ru/docs/index.html?from=finish'); ?> - <?php echo Yii::t('InstallModule.install', 'We working with it'); ?>
 
 <br/><br/>
 
-<?php echo CHtml::link(Yii::t('InstallModule.install', 'Форум поддержки Юпи!'), 'http://yupe.ru/?from=finish'); ?> - <?php echo Yii::t('InstallModule.install', 'интересные мысли и идеи =)'); ?>
+<?php echo CHtml::link(Yii::t('InstallModule.install', 'Official Yupe site'), 'http://yupe.ru/?from=finish'); ?> - <?php echo Yii::t('InstallModule.install', 'go frequently'); ?>
 
 <br/><br/>
 
-<?php echo CHtml::link(Yii::t('InstallModule.install', 'Официальный твиттер Юпи!'), 'https://twitter.com/#!/YupeCms'); ?>  - <?php echo Yii::t('InstallModule.install', 'обязательно заффоловьте нас, мы не спамим =)'); ?>
+<?php echo CHtml::link(Yii::t('InstallModule.install', 'Support Yupe forum'), 'http://yupe.ru/?from=finish'); ?> - <?php echo Yii::t('InstallModule.install', 'interesing thoughts and ideas'); ?>
 
 <br/><br/>
 
-<?php echo CHtml::link(Yii::t('InstallModule.install', 'Исходный код на Github'), 'http://github.com/yupe/yupe/'); ?> - <?php echo Yii::t('InstallModule.install', 'пришлите нам парочку пулл-реквестов, все только выиграют =)'); ?>
+<?php echo CHtml::link(Yii::t('InstallModule.install', 'Official Yupe twitter'), 'https://twitter.com/#!/YupeCms'); ?>  - <?php echo Yii::t('InstallModule.install', 'Follow us'); ?>
 
 <br/><br/>
 
-<?php echo Yii::t('InstallModule.install', 'Пишите нам на <b><a href="mailto:team@yupe.ru">team@yupe.ru</a></b>'); ?>  - <?php echo Yii::t('InstallModule.install', 'принимаем всякого рода коммерческие и любые предложения =)'); ?>
+<?php echo CHtml::link(Yii::t('InstallModule.install', 'Sources on GitHub'), 'http://github.com/yupe/yupe/'); ?> - <?php echo Yii::t('InstallModule.install', 'Send pull request'); ?>
+
+<br/><br/>
+
+<?php echo Yii::t('InstallModule.install', 'Mail us to <b><a href="mailto:team@yupe.ru">team@yupe.ru</a></b>'); ?>  - <?php echo Yii::t('InstallModule.install', 'We always open for commercial and other propositions'); ?>

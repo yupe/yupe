@@ -11,27 +11,27 @@
 
 $this->breadcrumbs = array(
     Yii::app()->getModule('gallery')->getCategory() => array(),
-    Yii::t('GalleryModule.gallery', 'Галереи') => array('/gallery/default/index'),
-    Yii::t('GalleryModule.gallery', 'Управление'),
+    Yii::t('GalleryModule.gallery', 'Galleries') => array('/gallery/default/index'),
+    Yii::t('GalleryModule.gallery', 'Management'),
 );
 
-$this->pageTitle = Yii::t('GalleryModule.gallery', 'Галереи - управление');
+$this->pageTitle = Yii::t('GalleryModule.gallery', 'Galleries - manage');
 
 $this->menu = array(
-    array('icon' => 'list-alt', 'label' => Yii::t('GalleryModule.gallery', 'Управление галереями'), 'url' => array('/gallery/default/index')),
-    array('icon' => 'plus-sign', 'label' => Yii::t('GalleryModule.gallery', 'Добавить галерею'), 'url' => array('/gallery/default/create')),
+    array('icon' => 'list-alt', 'label' => Yii::t('GalleryModule.gallery', 'Gallery management'), 'url' => array('/gallery/default/index')),
+    array('icon' => 'plus-sign', 'label' => Yii::t('GalleryModule.gallery', 'Create gallery'), 'url' => array('/gallery/default/create')),
 );
 ?>
 <div class="page-header">
     <h1>
-        <?php echo Yii::t('GalleryModule.gallery', 'Галереи'); ?>
-        <small><?php echo Yii::t('GalleryModule.gallery', 'управление'); ?></small>
+        <?php echo Yii::t('GalleryModule.gallery', 'Galleries'); ?>
+        <small><?php echo Yii::t('GalleryModule.gallery', 'management'); ?></small>
     </h1>
 </div>
 
 <button class="btn btn-small dropdown-toggle" data-toggle="collapse" data-target="#search-toggle">
     <i class="icon-search">&nbsp;</i>
-    <?php echo CHtml::link(Yii::t('GalleryModule.gallery', 'Поиск галерей'), '#', array('class' => 'search-button')); ?>
+    <?php echo CHtml::link(Yii::t('GalleryModule.gallery', 'Find galleries'), '#', array('class' => 'search-button')); ?>
     <span class="caret">&nbsp;</span>
 </button>
 
@@ -52,7 +52,7 @@ $this->renderPartial('_search', array('model' => $model));
 
 <br/>
 
-<p><?php echo Yii::t('GalleryModule.gallery', 'В данном разделе представлены средства управления галереями'); ?></p>
+<p><?php echo Yii::t('GalleryModule.gallery', 'This section describes image gallery management'); ?></p>
 
 <?php $this->widget(
     'application.modules.yupe.components.YCustomGridView', array(
@@ -82,7 +82,7 @@ $this->renderPartial('_search', array('model' => $model));
                 'buttons'  => array(
                     'images' => array(
                         'icon'     => 'picture',
-                        'label'    => Yii::t('GalleryModule.gallery', 'Изображения галереи'),
+                        'label'    => Yii::t('GalleryModule.gallery', 'Gallery images'),
                         'url'      => 'array("/gallery/default/images", "id" => $data->id)',
                     ),
                 ),

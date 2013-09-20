@@ -22,7 +22,7 @@
         array('icon' => 'trash', 'label' => Yii::t('ContentBlockModule.contentblock', 'Remove content block'), 'url' => '#', 'linkOptions' => array(
             'submit' => array('/contentblock/default/delete', 'id' => $model->id),
             'params' => array(Yii::app()->request->csrfTokenName => Yii::app()->request->csrfToken),
-            'confirm' => Yii::t('ContentBlockModule.contentblock', 'Are you sure you want to delete content block?'),
+            'confirm' => Yii::t('ContentBlockModule.contentblock', 'Do you really want to delete content block?'),
         )),
     );
 ?>

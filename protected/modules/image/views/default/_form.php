@@ -19,19 +19,19 @@ $form = $this->beginWidget(
     )
 ); ?>
     <div class="alert alert-info">
-        <?php echo Yii::t('ImageModule.image', 'Поля, отмеченные'); ?>
+        <?php echo Yii::t('ImageModule.image', 'Fields with'); ?>
         <span class="required">*</span>
-        <?php echo Yii::t('ImageModule.image', 'обязательны.'); ?>
+        <?php echo Yii::t('ImageModule.image', 'are required.'); ?>
     </div>
 
     <?php echo $form->errorSummary($model); ?>
 
     <div class='row-fluid control-group <?php echo $model->hasErrors("category_id") ? "error" : ""; ?>'>
-        <?php echo $form->dropDownListRow($model, 'category_id', CHtml::listData($this->module->getCategoryList(), 'id', 'name'), array('empty' => Yii::t('ImageModule.image', '--выберите--'))); ?>
+        <?php echo $form->dropDownListRow($model, 'category_id', CHtml::listData($this->module->getCategoryList(), 'id', 'name'), array('empty' => Yii::t('ImageModule.image', '--choose--'))); ?>
     </div>
     <?php if (Yii::app()->hasModule('gallery')) : ?>
     <div class='row-fluid control-group <?php echo $model->hasErrors("galleryId") ? "error" : ""; ?>'>
-        <?php echo $form->dropDownListRow($model, 'galleryId', $model->galleryList(), array('empty' => Yii::t('ImageModule.image', '--выберите--'))); ?>
+        <?php echo $form->dropDownListRow($model, 'galleryId', $model->galleryList(), array('empty' => Yii::t('ImageModule.image', '--choose--'))); ?>
     </div>
     <?php endif; ?>
     <div class='row-fluid control-group <?php echo $model->hasErrors("name") ? "error" : ""; ?>'>
@@ -61,7 +61,7 @@ $form = $this->beginWidget(
         'bootstrap.widgets.TbButton', array(
             'buttonType' => 'submit',
             'type'       => 'primary',
-            'label'      => $model->isNewRecord ? Yii::t('ImageModule.image', 'Добавить изображение и продолжить') : Yii::t('ImageModule.image', 'Сохранить изображение и продолжить'),
+            'label'      => $model->isNewRecord ? Yii::t('ImageModule.image', 'Add image and close') : Yii::t('ImageModule.image', 'Save image and continue'),
         )
     ); ?>
     <?php
@@ -69,7 +69,7 @@ $form = $this->beginWidget(
         'bootstrap.widgets.TbButton', array(
             'buttonType'  => 'submit',
             'htmlOptions' => array('name' => 'submit-type', 'value' => 'index'),
-            'label'       => $model->isNewRecord ? Yii::t('ImageModule.image', 'Добавить изображение и закрыть') : Yii::t('ImageModule.image', 'Сохранить изображение и закрыть'),
+            'label'       => $model->isNewRecord ? Yii::t('ImageModule.image', 'Add image and save') : Yii::t('ImageModule.image', 'Save mage and close'),
         )
     ); ?>
 

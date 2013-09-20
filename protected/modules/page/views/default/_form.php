@@ -57,22 +57,22 @@ $form = $this->beginWidget(
     )
 ); ?>
     <div class="alert alert-info">
-        <?php echo Yii::t('PageModule.page', 'Поля, отмеченные'); ?>
+        <?php echo Yii::t('PageModule.page', 'Fields with'); ?>
         <span class="required">*</span>
-        <?php echo Yii::t('PageModule.page', 'обязательны.'); ?>
+        <?php echo Yii::t('PageModule.page', 'are required.'); ?>
     </div>
 
     <?php echo $form->errorSummary($model); ?>
 
     <?php if (count($languages) > 1) : ?>
-        <?php echo $form->dropDownListRow($model, 'lang', $languages, array('class' => 'popover-help','empty' => Yii::t('PageModule.page', '--выберите--'))); ?>
+        <?php echo $form->dropDownListRow($model, 'lang', $languages, array('class' => 'popover-help','empty' => Yii::t('PageModule.page', '--choose--'))); ?>
         <?php if (!$model->isNewRecord) : ?>
             <?php foreach ($languages as $k => $v) : ?>
                 <?php if ($k !== $model->lang) : ?>
                     <?php if (empty($langModels[$k])) : ?>
-                        <a href="<?php echo $this->createUrl('/page/default/create', array('id' => $model->id, 'lang'  => $k)); ?>"><i class="iconflags iconflags-<?php echo $k; ?>" title="<?php echo Yii::t('PageModule.page', 'Добавить перевод на {lang} язык', array('{lang}' => $v)); ?>"></i></a>
+                        <a href="<?php echo $this->createUrl('/page/default/create', array('id' => $model->id, 'lang'  => $k)); ?>"><i class="iconflags iconflags-<?php echo $k; ?>" title="<?php echo Yii::t('PageModule.page', 'Add translation for {lang}', array('{lang}' => $v)); ?>"></i></a>
                     <?php else : ?>
-                        <a href="<?php echo $this->createUrl('/page/default/update', array('id' => $langModels[$k])); ?>"><i class="iconflags iconflags-<?php echo $k; ?>" title="<?php echo Yii::t('PageModule.page', 'Редактировать перевод на {lang} язык', array('{lang}' => $v)); ?>"></i></a>
+                        <a href="<?php echo $this->createUrl('/page/default/update', array('id' => $langModels[$k])); ?>"><i class="iconflags iconflags-<?php echo $k; ?>" title="<?php echo Yii::t('PageModule.page', 'Edit translation for {lang} language', array('{lang}' => $v)); ?>"></i></a>
                     <?php endif;?>
                 <?php endif;?>
             <?php endforeach;?>
@@ -83,10 +83,10 @@ $form = $this->beginWidget(
 
     <div class="wide row-fluid control-group <?php echo ($model->hasErrors('category_id') || $model->hasErrors('parent_id')) ? 'error' : ''; ?>">
         <div class="span4">
-            <?php echo $form->dropDownListRow($model, 'category_id', CHtml::listData($this->module->getCategoryList(), 'id', 'name'), array('empty' => Yii::t('PageModule.page', '--выберите--'), 'class' => 'span7 popover-help', 'data-original-title' => $model->getAttributeLabel('category_id'), 'data-content' => $model->getAttributeDescription('category_id'))); ?>
+            <?php echo $form->dropDownListRow($model, 'category_id', CHtml::listData($this->module->getCategoryList(), 'id', 'name'), array('empty' => Yii::t('PageModule.page', '--choose--'), 'class' => 'span7 popover-help', 'data-original-title' => $model->getAttributeLabel('category_id'), 'data-content' => $model->getAttributeDescription('category_id'))); ?>
         </div>
         <div class="span3">
-            <?php echo $form->dropDownListRow($model, 'parent_id', $pages, array('empty' => Yii::t('PageModule.page', '--выберите--'), 'class' => 'span7 popover-help', 'data-original-title' => $model->getAttributeLabel('parent_id'), 'data-content' => $model->getAttributeDescription('parent_id'))); ?>
+            <?php echo $form->dropDownListRow($model, 'parent_id', $pages, array('empty' => Yii::t('PageModule.page', '--choose--'), 'class' => 'span7 popover-help', 'data-original-title' => $model->getAttributeLabel('parent_id'), 'data-content' => $model->getAttributeDescription('parent_id'))); ?>
         </div>
     </div>
     <div class="wide row-fluid control-group <?php echo ($model->hasErrors('status') || $model->hasErrors('order')) ? 'error' : ''; ?>">
@@ -99,12 +99,12 @@ $form = $this->beginWidget(
     </div>
 
     <?php if(Yii::app()->hasModule('menu')):?>
-        <?php echo CHtml::label(Yii::t('PageModule.page','Меню'),'menu_id');?>
-        <?php echo CHtml::dropDownList('menu_id',$menuId,CHtml::listData(Menu::model()->active()->findAll(array('order' => 'name DESC')),'id','name'),array('empty' => Yii::t('PageModule.page','-выберите-')));?>
+        <?php echo CHtml::label(Yii::t('PageModule.page','Menu'),'menu_id');?>
+        <?php echo CHtml::dropDownList('menu_id',$menuId,CHtml::listData(Menu::model()->active()->findAll(array('order' => 'name DESC')),'id','name'),array('empty' => Yii::t('PageModule.page','-choose-')));?>
 
         <div id="pareData" style='display:none;'>
-            <?php echo CHtml::label(Yii::t('PageModule.page','Родительский пункт меню'),'parent_id');?>
-            <?php echo CHtml::dropDownList('parent_id',$menuParentId,array('0' => Yii::t('PageModule.page','Корень')),array('disabled' => true,'empty' => Yii::t('PageModule.page','-выберите-')));?>
+            <?php echo CHtml::label(Yii::t('PageModule.page','Parent menu item'),'parent_id');?>
+            <?php echo CHtml::dropDownList('parent_id',$menuParentId,array('0' => Yii::t('PageModule.page','Root')),array('disabled' => true,'empty' => Yii::t('PageModule.page','-choose-')));?>
         </div>
     <?php endif?>
 
@@ -115,7 +115,7 @@ $form = $this->beginWidget(
         <?php echo $form->textFieldRow($model, 'title', array('size' => 60, 'maxlength' => 150, 'class' => 'span7 popover-help', 'data-original-title' => $model->getAttributeLabel('title'), 'data-content' => $model->getAttributeDescription('title'))); ?>
     </div>
     <div class="row-fluid control-group <?php echo $model->hasErrors('slug') ? 'error' : ''; ?>">
-        <?php echo $form->textFieldRow($model, 'slug', array('size' => 60, 'maxlength' => 150, 'placeholder' => Yii::t('PageModule.page', 'Оставьте пустым для автоматической генерации'), 'class' => 'span7 popover-help', 'data-original-title' => $model->getAttributeLabel('slug'), 'data-content' => $model->getAttributeDescription('slug'))); ?>
+        <?php echo $form->textFieldRow($model, 'slug', array('size' => 60, 'maxlength' => 150, 'placeholder' => Yii::t('PageModule.page', 'For automatic generation leave this field empty'), 'class' => 'span7 popover-help', 'data-original-title' => $model->getAttributeLabel('slug'), 'data-content' => $model->getAttributeDescription('slug'))); ?>
     </div>
     <div class="row-fluid control-group <?php echo $model->hasErrors('is_protected') ? 'error' : ''; ?>">
         <?php echo $form->checkBoxRow($model, 'is_protected', array('class' => 'popover-help', 'data-original-title' => $model->getAttributeLabel('is_protected'), 'data-content' => $model->getAttributeDescription('is_protected'))); ?>
@@ -138,7 +138,7 @@ $form = $this->beginWidget(
     <div class="accordion-group">
         <div class="accordion-heading">
             <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion2" href="#collapseOne">
-                <?php echo Yii::t('PageModule.page', 'Данные для поисковой оптимизации');?>
+                <?php echo Yii::t('PageModule.page', 'Data for SEO');?>
             </a>
         </div>
         <div id="collapseOne" class="accordion-body collapse">
@@ -161,7 +161,7 @@ $form = $this->beginWidget(
         'bootstrap.widgets.TbButton', array(
             'buttonType' => 'submit',
             'type'       => 'primary',
-            'label'      => $model->isNewRecord ? Yii::t('PageModule.page', 'Добавить страницу и продолжить') : Yii::t('PageModule.page', 'Сохранить страницу и продолжить'),
+            'label'      => $model->isNewRecord ? Yii::t('PageModule.page', 'Create page and continue') : Yii::t('PageModule.page', 'Save page and continue'),
         )
     ); ?>
     <?php
@@ -169,7 +169,7 @@ $form = $this->beginWidget(
         'bootstrap.widgets.TbButton', array(
             'buttonType' => 'submit',
             'htmlOptions'=> array('name' => 'submit-type', 'value' => 'index'),
-            'label'      => $model->isNewRecord ? Yii::t('PageModule.page', 'Добавить страницу и закрыть') : Yii::t('PageModule.page', 'Сохранить страницу и закрыть'),
+            'label'      => $model->isNewRecord ? Yii::t('PageModule.page', 'Create page and close') : Yii::t('PageModule.page', 'Save page nad close'),
         )
     ); ?>
 
