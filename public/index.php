@@ -24,6 +24,8 @@ if ($development) {
     // Комментируем перед выпуском в продакшен:
     define('YII_DEBUG', true);
     defined('YII_TRACE_LEVEL') or define('YII_TRACE_LEVEL', 3);
+    // В режиме разработки - отключаем кеширование настроек:
+    defined('CACHE_SETTINGS') or define('CACHE_SETTINGS', false);
     // путь к фреймворку Yii
     $yii = dirname(__FILE__) . '/../vendor/framework/yii.php';
 
@@ -46,5 +48,5 @@ Yii::setPathOfAlias('yupe', dirname(__FILE__) . '/../protected/modules/yupe/');
 
 $confManager = new yupe\components\ConfigManager();
 $config = $confManager->merge($base, $userspace);
-
+//die('<pre>' . print_r($config, true));
 Yii::createWebApplication($config)->run();

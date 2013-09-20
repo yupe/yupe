@@ -147,6 +147,12 @@ class ConfigManager extends CComponent
      */
     public function dumpSettings()
     {
+        // Если выключена опция кеширования настроек - не выполняем
+        // его:
+        if (defined('CACHE_SETTINGS') && CACHE_SETTINGS === false) {
+            return true;
+        }
+
         try {
 
             $cachedSettings = '<?php return ' . var_export($this->_config, true) . ';';

@@ -22,6 +22,7 @@ use Settings;
 use CChainedCacheDependency;
 use CDirectoryCacheDependency;
 use CException;
+use CDbException;
 use YFlashMessages;
 
 abstract class WebModule extends \CWebModule
@@ -832,7 +833,7 @@ abstract class WebModule extends \CWebModule
         try
         {
             $settingsRows = Yii::app()->db
-                ->cache($this->coreCacheTime, new TagsCache($this->getId(), 'settings'))
+                ->cache($this->coreCacheTime, new \TagsCache($this->getId(), 'settings'))
                 ->createCommand(
                     '
                     SELECT param_name, param_value

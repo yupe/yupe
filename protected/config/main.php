@@ -38,6 +38,7 @@ return array(
         'application.modules.yupe.components.*',
         'application.modules.yupe.controllers.*',
         'application.modules.yupe.components.controllers.*',
+        'application.modules.yupe.extensions.tagcache.*',
     ),
     // подключение и конфигурирование модулей,
     // подробнее: http://www.yiiframework.ru/doc/guide/ru/basics.module
@@ -48,7 +49,7 @@ return array(
         'yupe'  => array(
             'class'        => 'application.modules.yupe.YupeModule',
             'brandUrl'     => 'http://yupe.ru?from=engine',
-            'cache'        => true,
+            'cache'        => false,
         ),
         // на продакшне gii рекомендуется отключить, подробнее: http://www.yiiframework.com/doc/guide/1.1/en/quickstart.first-app
         /*'gii'   => array(
@@ -72,7 +73,7 @@ return array(
             'fontAwesomeCss' => true,
         ),
         'configManager' => array(
-            'class' => 'application\modules\yupe\components\ConfigManager',
+            'class' => 'yupe\components\ConfigManager',
         ),
         // Работа с миграциями, обновление БД модулей
         'migrator'=>array(
