@@ -263,7 +263,7 @@ class MenuItem extends YModel
             $key = strtolower($key);
             $module = Yii::app()->getModule($key);
 
-            if (($module !== NULL) && is_a($module, 'WebModule') && isset($module->conditions))
+            if (($module !== NULL) && ($module instanceof yupe\components\WebModule) && isset($module->conditions))
             {
                 $conditionsList = array();
                 foreach ($module->conditions as $keyList => $valueList)
