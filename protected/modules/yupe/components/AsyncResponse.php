@@ -40,14 +40,9 @@ class AsyncResponse extends CApplicationComponent
         return true;
     }
 
-    private function setHeader()
-    {
-        header('Content-type: application/json');
-    }
-
     public function success($data = null)
     {
-        $this->setHeader();
+        ContentType::setHeader(ContentType::TYPE_JSON);
 
         echo json_encode(array(
             $this->resultParamName => $this->success,
@@ -59,7 +54,7 @@ class AsyncResponse extends CApplicationComponent
 
     public function failure($data = null)
     {
-        $this->setHeader();
+        ContentType::setHeader(ContentType::TYPE_JSON);
 
         echo json_encode(array(
             $this->resultParamName => $this->failure,
@@ -71,7 +66,7 @@ class AsyncResponse extends CApplicationComponent
 
     public function raw($data)
     {
-        $this->setHeader();
+        ContentType::setHeader(ContentType::TYPE_JSON);
 
         echo json_encode($data);
         Yii::app()->end();

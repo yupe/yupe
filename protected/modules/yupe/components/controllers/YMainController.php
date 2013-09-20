@@ -10,21 +10,13 @@
  * @link     http://yupe.ru
  **/
 
- /**
- * Содержит общие функции для панели управления и фронтенда
- *
- * @category YupeComponents
- * @package  YupeCMS
- * @author   aopeykin <aopeykin@yandex.ru>
- * @license  BSD https://raw.github.com/yupe/yupe/master/LICENSE
- * @version  0.1
- * @link     http://yupe.ru
- **/
+use yupe\components\ContentType;
+
 class YMainController extends Controller
 {
     public $yupe;
 
-    public $headerTypeId = YContentType::TYPE_HTML;
+    public $headerTypeId = ContentType::TYPE_HTML;
 
     /**
      * Устанавливает заголовок страниц
@@ -103,7 +95,7 @@ class YMainController extends Controller
      **/
     public function processOutput($output)
     {
-        YContentType::setHeader($this->headerTypeId);
+        ContentType::setHeader($this->headerTypeId);
         return parent::processOutput($output);
     }
 
