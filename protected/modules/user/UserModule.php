@@ -15,7 +15,7 @@ class UserModule extends YWebModule
     public $registrationDisabled           = false;
     public $minPasswordLength              = 5;
     public $emailAccountVerification       = true;
-    public $showCaptcha                    = true;
+    public $showCaptcha                    = false;
     public $minCaptchaLength               = 3;
     public $maxCaptchaLength               = 6;
     public $documentRoot;

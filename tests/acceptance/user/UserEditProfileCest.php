@@ -17,7 +17,7 @@ class UserEditProfileCest
         $I->see('E-Mail проверен','.text-success');
         $I->seeInTitle('Профиль пользователя');
         $I->seeInField(\EditProfilePage::$emailField,\LoginPage::$userEmail);
-        $I->see('Сохранить профиль','.btn-primary');
+        $I->see('Сохранить профиль',\CommonPage::BTN_PRIMARY_CSS_CLASS);
 
         $I->wantTo('Test change user email...');
         $I = new WebGuy\UserSteps($scenario);

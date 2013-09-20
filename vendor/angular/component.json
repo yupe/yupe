@@ -1,0 +1,8 @@
+{
+  "name": "angular",
+  "version": "1.2.0-rc.2",
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/angular/bower-angular.git"
+  }
+}

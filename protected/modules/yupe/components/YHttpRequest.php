@@ -5,6 +5,11 @@
  * 
  */
 
+namespace application\modules\yupe\components;
+
+use CHttpRequest;
+use Yii;
+
 class YHttpRequest extends CHttpRequest
 {
     public $noCsrfValidationRoutes = array();

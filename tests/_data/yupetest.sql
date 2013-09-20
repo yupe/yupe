@@ -602,6 +602,17 @@ CREATE TABLE IF NOT EXISTS `yupe_page_page` (
   KEY `ix_yupe_page_page_category_id` (`category_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
 
+
+INSERT INTO `yupe_page_page` (`id`, `category_id`, `lang`, `parent_id`, `creation_date`, `change_date`, `user_id`, `change_user_id`, `title_short`, `title`, `slug`, `body`, `keywords`, `description`, `status`, `is_protected`, `order`) VALUES
+(1, NULL, 'ru', NULL, '2013-09-19 19:38:33', '2013-09-19 19:38:33', 1, 1, 'Опубликованная страница', 'Опубликованная страница', 'opublikovannaja-starnica', '<p>\r\n	Опубликованная страница текст\r\n</p>', 'сео слова', 'сео описание', 1, 0, 0);
+
+INSERT INTO `yupe_page_page` (`id`, `category_id`, `lang`, `parent_id`, `creation_date`, `change_date`, `user_id`, `change_user_id`, `title_short`, `title`, `slug`, `body`, `keywords`, `description`, `status`, `is_protected`, `order`) VALUES
+(2, NULL, 'ru', NULL, '2013-09-19 19:47:43', '2013-09-19 19:47:43', 1, 1, 'Скрытая страница', 'Скрытая страница', 'skrytaja-stranica', '<p>\r\n	Скрытая страница текст\r\n</p>', '', '', 0, 0, 0);
+
+INSERT INTO `yupe_page_page` (`id`, `category_id`, `lang`, `parent_id`, `creation_date`, `change_date`, `user_id`, `change_user_id`, `title_short`, `title`, `slug`, `body`, `keywords`, `description`, `status`, `is_protected`, `order`) VALUES
+(3, NULL, 'ru', NULL, '2013-09-19 19:55:47', '2013-09-19 19:55:47', 1, 1, 'Защищенная страница', 'Защищенная страница', 'zaschischennaja-stranica', '<p>\r\n	Защищенная страница текст\r\n</p>', '', '', 1, 1, 0);
+
+
 -- --------------------------------------------------------
 
 --
