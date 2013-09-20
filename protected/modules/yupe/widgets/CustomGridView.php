@@ -1,18 +1,6 @@
 <?php
 /**
-*   Class of widget YCustomGridView
-*
-*   @category Widget
-*   @package  Yupe
-*   @author   Yupe Team <team@yupe.ru>
-*   @license  https://github.com/yupe/yupe/blob/master/LICENSE BSD
-*   @link     http://yupe.ru
-*/
-
-Yii::import('bootstrap.widgets.TbExtendedGridView');
-
-/**
-*   Widget YCustomGridView
+*   Widget CustomGridView
 *
 *   @category Widget
 *   @package  Yupe
@@ -20,15 +8,25 @@ Yii::import('bootstrap.widgets.TbExtendedGridView');
 *   @license  https://github.com/yupe/yupe/blob/master/LICENSE BSD
 *   @link     http://yupe.ru
 *   @todo     можно реализовать мультиекшен на основе вызова
-*             метода из YCustomGridView и обращаться непосредственно
+*             метода из CustomGridView и обращаться непосредственно
 *             к модели.
 **/
-class YCustomGridView extends TbExtendedGridView
+
+namespace yupe\widgets;
+
+use CHtml;
+use Yii;
+use Settings;
+use CClientScript;
+
+Yii::import('bootstrap.widgets.TbExtendedGridView');
+
+class CustomGridView extends \TbExtendedGridView
 {
     /**
      *  model name variable
      *  @access private
-     *  @see YCustomGridView()
+     *  @see CustomGridView()
      *  @uses init, returnBootstrapStatusHtml, getUpDownButtons, _updatePageSize
      *  @var string
      */

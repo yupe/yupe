@@ -49,7 +49,7 @@ $this->renderPartial('_search', array('model' => $model));
 
 <p><?php echo Yii::t('UserModule.user', 'This section represents password recovery management!'); ?></p>
 
-<?php $this->widget('YCustomGridView', array(
+<?php $this->widget('yupe\widgets\CustomGridView', array(
     'id' => 'recovery-password-grid',
     'type'         => 'condensed',
     'dataProvider' => $model->search(),

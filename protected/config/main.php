@@ -27,7 +27,7 @@ return array(
     'charset'           => 'UTF-8',
     'preload'           => array(),
     'aliases' => array(
-        'bootstrap' => realpath(__DIR__ . '/../modules/yupe/extensions/booster'),
+        'bootstrap' => realpath(Yii::getPathOfAlias('vendor') . '/booster'),
     ),
     'import' => array(
         // подключение основых путей

@@ -64,7 +64,7 @@ $this->renderPartial('_search', array('model' => $model));
 <p><?php echo Yii::t('BlogModule.blog', 'In this category located posts administration functions'); ?></p>
 
 <?php $this->widget(
-    'application.modules.yupe.components.YCustomGridView', array(
+    'yupe\widgets\CustomGridView', array(
         'id'           => 'post-grid',
         'type'         => 'condensed',
         'dataProvider' => $model->search(),

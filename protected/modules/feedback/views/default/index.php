@@ -5,7 +5,7 @@
         Yii::t('FeedbackModule.feedback', 'Management'),
     );
 
-    $this->pageTitle = Yii::t('FeedbackModule.feedback', 'Messages - manage' => 'Сообщения   - управление');
+    $this->pageTitle = Yii::t('FeedbackModule.feedback', 'Messages - manage');
 
     $this->menu = array(
         array('icon' => 'list-alt', 'label' => Yii::t('FeedbackModule.feedback', 'Messages management'), 'url' => array('/feedback/default/index')),
@@ -43,7 +43,7 @@ $this->renderPartial('_search', array('model' => $model));
 
 <p><?php echo Yii::t('FeedbackModule.feedback', 'This section represent feedback management'); ?></p>
 
-<?php $this->widget('application.modules.yupe.components.YCustomGridView', array(
+<?php $this->widget('yupe\widgets\CustomGridView', array(
     'id'           => 'feed-back-grid',
     'type'         => 'condensed',
     'dataProvider' => $model->search(),
