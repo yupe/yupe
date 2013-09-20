@@ -14,6 +14,12 @@ if (!ini_get('date.timezone')) {
     date_default_timezone_set('UTC');
 }
 
+defined('APP_START') or define('APP_START', microtime(true));
+
+// Во время тестирования нет необходимости использовать
+// кеширование настроек:
+defined('CACHE_SETTINGS') or define('CACHE_SETTINGS', false);
+
 // Комментируем перед выпуском в продакшен:
 define('YII_DEBUG', true);
 defined('YII_TRACE_LEVEL') or define('YII_TRACE_LEVEL', 3);
@@ -29,8 +35,9 @@ require $yii;
 
 Yii::setPathOfAlias('application', dirname(__FILE__) . '/../protected/');
 Yii::setPathOfAlias('yii', dirname(__FILE__) . '/../framework/');
+Yii::setPathOfAlias('yupe', dirname(__FILE__) . '/../protected/modules/yupe/');
 
-$confManager = new application\modules\yupe\components\ConfigManager();
+$confManager = new yupe\components\ConfigManager();
 $config = $confManager->merge($base, $userspace);
 
 Yii::createWebApplication($config)->run();
