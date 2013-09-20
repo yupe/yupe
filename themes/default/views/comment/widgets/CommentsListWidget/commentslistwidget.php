@@ -18,7 +18,7 @@
                     <a class="pull-left" href="<?php echo $comment->getAuthorUrl()?>"><?php echo $comment->getAuthorAvatar();?></a> 
                     <ul>
                         <li><?php echo $comment->getAuthorLink();?></li>
-                        <li class="time icon-time"><?php echo Yii::app()->getDateFormatter()->formatDateTime($comment->creation_date, "long", "short"); ?></li>
+                        <li class="time icon-time"><time datetime="<?php echo str_replace(' ', '_', $comment->creation_date); ?>"><?php echo Yii::app()->getDateFormatter()->formatDateTime($comment->creation_date, "long", "short"); ?></time></li>
                         <li class="comment-botton-right">
                             <?php echo CHtml::link(
                             '<i class="icon-bullhorn"></i>', 'javascript:void(0);', array(
