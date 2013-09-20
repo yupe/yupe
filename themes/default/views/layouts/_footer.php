@@ -2,9 +2,9 @@
     <div class="span3">
         <ul class="unstyled">
             <li>Ресурсы</li>
-            <li><a href="https://twitter.com/yupecms" target="_blank"></i> Twitter</a></li> <!--<i class="icon-twitter">-->
-            <li><a href="http://vk.com/amylabs" target="_blank"> Вконтакте</a></li> <!--<i class="icon-vk"></i>-->
-            <li><a href="https://www.facebook.com/amylabs.ru" target="_blank"> Facebook</a></li> <!--<i class="icon-facebook"></i>-->
+            <li><a href="https://twitter.com/yupecms" target="_blank">Twitter</a></li> <!--<i class="icon-twitter">-->
+            <li><a href="http://vk.com/amylabs" target="_blank">Вконтакте</a></li> <!--<i class="icon-vk"></i>-->
+            <li><a href="https://www.facebook.com/amylabs.ru" target="_blank">Facebook</a></li> <!--<i class="icon-facebook"></i>-->
             <li><a href="https://plus.google.com/u/0/b/111468098477631231532/111468098477631231532/posts" target="_blank">Google+</a></li> <!--<i class="icon-google-plus"></i>-->
             <li><a href="http://yupe.ru/blog/yupe-mini-cms-yii" target="_blank">Блог</a></li>
             <li><a href="http://yupe.ru/" target="_blank">Сайт</a></li>
