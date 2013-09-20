@@ -123,7 +123,7 @@ return array(
         ),
         // подключение компонента для генерации ajax-ответов
         'ajax' => array(
-            'class' => 'application.modules.yupe.components.YAsyncResponse',
+            'class' => 'yupe\components\AsyncResponse',
         ),
         // настройки кэширования, подробнее http://www.yiiframework.ru/doc/guide/ru/caching.overview
         'cache' => array(
