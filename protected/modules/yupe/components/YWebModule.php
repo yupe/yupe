@@ -12,6 +12,7 @@
  * @link     http://yupe.ru
  *
  */
+
 abstract class YWebModule extends CWebModule
 {
     const CHECK_ERROR = 'error';

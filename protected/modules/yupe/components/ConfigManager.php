@@ -46,6 +46,16 @@ class ConfigManager extends CComponent
     public $configCategories  = array();
 
     /**
+     * Инициализация компонента:
+     * 
+     * @return void
+     */
+    public function init()
+    {
+
+    }
+
+    /**
      * Инициализируем компонент, настраиваем
      * пути и принемаем необходимыей параметры:
      * 
