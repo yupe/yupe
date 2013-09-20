@@ -14,40 +14,26 @@
             <?php $comment = $this->comment;?>
             <?php $level = 1;?>
         <?php endif;?>
-
-        <div style="margin-left: <?php echo (20 * $level); ?>px; " level="<?php echo $level; ?>">
-            <div class="well well-small" id="comment_<?php echo $comment->id;?>_<?php echo str_replace(' ', '_', $comment->creation_date); ?>">
-
-                <div class="comment-body">
-                    <div class="author">
-                        <div class="pull-left">
-                            <a href="<?php echo $comment->getAuthorUrl()?>"><?php echo $comment->getAuthorAvatar();?></a>
-                            <br/>
-                            <?php echo $comment->getAuthorLink();?>
-                        </div>
-
-                        <span style="float: right">
+            <div class="well well-small comment-body" id="comment_<?php echo $comment->id;?>_<?php echo str_replace(' ', '_', $comment->creation_date); ?>" style="margin-left: <?php echo (20 * $level); ?>px; " level="<?php echo $level; ?>">
+                    <a class="pull-left" href="<?php echo $comment->getAuthorUrl()?>"><?php echo $comment->getAuthorAvatar();?></a> 
+                    <ul>
+                        <li><?php echo $comment->getAuthorLink();?></li>
+                        <li class="time icon-time"><time datetime="<?php echo str_replace(' ', '_', $comment->creation_date); ?>"><?php echo Yii::app()->getDateFormatter()->formatDateTime($comment->creation_date, "long", "short"); ?></time></li>
+                        <li class="comment-botton-right">
                             <?php echo CHtml::link(
-                                '<i class="icon-bullhorn"></i>', 'javascript:void(0);', array(
-                                    'rel'     => $comment->id,
-                                    'data-id' => $comment->id . '_' . str_replace(' ', '_', $comment->creation_date),
-                                    'class'   => 'commentParrent',
-                                    'title'   => Yii::t('comment','Ответить')
+                            '<i class="icon-bullhorn"></i>', 'javascript:void(0);', array(
+                                'rel'     => $comment->id,
+                                'data-id' => $comment->id . '_' . str_replace(' ', '_', $comment->creation_date),
+                                'class'   => 'commentParrent',
+                                'title'   => Yii::t('comment','Ответить')
                             ));?>
-                        </span>
-                    </div>
-                    <div class="time"> <?php echo Yii::app()->getDateFormatter()->formatDateTime($comment->creation_date, "long", "short"); ?> </div>
-                    <div class="media-body"> <?php echo $comment->getText() ;?> </div>
-                </div>
+                        </li>
+                    </ul>
+                <p><?php echo $comment->getText() ;?></p>
             </div>
-        </div>
-
     <?php endforeach;?>
-
-
 <?php else:?>
     <p><?php echo $this->label; ?> <?php echo Yii::t('comment', 'пока нет, станьте первым!');?>
 <?php endif;?>
 
 </div>
-
