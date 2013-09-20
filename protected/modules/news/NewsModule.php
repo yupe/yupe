@@ -1,5 +1,8 @@
 <?php
-class NewsModule extends YWebModule
+
+use yupe\components\WebModule;
+
+class NewsModule extends WebModule
 {
     public $uploadPath        = 'news';
     public $allowedExtensions = 'jpg,jpeg,png,gif';
@@ -37,8 +40,8 @@ class NewsModule extends YWebModule
         $uploadPath = $this->getUploadPath();
 
         if (!is_writable($uploadPath))
-            $messages[YWebModule::CHECK_ERROR][] =  array(
-                'type'    => YWebModule::CHECK_ERROR,
+            $messages[WebModule::CHECK_ERROR][] =  array(
+                'type'    => WebModule::CHECK_ERROR,
                 'message' => Yii::t('NewsModule.news', 'Directory "{dir}" is not accessible for write! {link}', array(
                     '{dir}'  => $uploadPath,
                     '{link}' => CHtml::link(Yii::t('NewsModule.news', 'Change settings'), array(
@@ -48,7 +51,7 @@ class NewsModule extends YWebModule
                 )),
             );
 
-        return (isset($messages[YWebModule::CHECK_ERROR])) ? $messages : true;
+        return (isset($messages[WebModule::CHECK_ERROR])) ? $messages : true;
     }
 
     public function getParamsLabels()

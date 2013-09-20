@@ -1,5 +1,5 @@
 <?php
-class HpModule extends YWebModule
+class HpModule extends yupe\components\WebModule
 {
     const MODE_POSTS = 1;
 

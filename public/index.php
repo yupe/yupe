@@ -42,8 +42,9 @@ require $yii;
 
 Yii::setPathOfAlias('application', dirname(__FILE__) . '/../protected/');
 Yii::setPathOfAlias('yii', dirname(__FILE__) . '/../framework/');
+Yii::setPathOfAlias('yupe', dirname(__FILE__) . '/../protected/modules/yupe/');
 
-$confManager = new application\modules\yupe\components\ConfigManager();
+$confManager = new yupe\components\ConfigManager();
 $config = $confManager->merge($base, $userspace);
 
 Yii::createWebApplication($config)->run();

@@ -10,7 +10,7 @@
  * @link     http://yupe.ru
  *
  **/
-class DocsModule extends YWebModule
+class DocsModule extends yupe\components\WebModule
 {
 
     public $categorySort    = 9999;

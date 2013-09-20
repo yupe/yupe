@@ -1,5 +1,5 @@
 <?php
-class BlogModule extends YWebModule
+class BlogModule extends yupe\components\WebModule
 {
     public $mainCategory;
     public $mainPostCategory;

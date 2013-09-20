@@ -1,5 +1,8 @@
 <?php
-class FeedbackModule extends YWebModule
+
+use yupe\components\WebModule;
+
+class FeedbackModule extends WebModule
 {
     public $backEnd          = array('email', 'db');
     public $emails;
@@ -88,14 +91,14 @@ class FeedbackModule extends YWebModule
         $messages = array();
 
         if (!is_array($this->backEnd) || !count($this->backEnd) || (!in_array(FeedbackModule::BACKEND_DB, $this->backEnd) && !in_array(FeedbackModule::BACKEND_EMAIL, $this->backEnd)))
-            $messages[YWebModule::CHECK_ERROR][] = array(
-                'type'    => YWebModule::CHECK_ERROR,
+            $messages[WebModule::CHECK_ERROR][] = array(
+                'type'    => WebModule::CHECK_ERROR,
                 'message' => Yii::t('FeedbackModule.feedback', 'Select email which messages was sent or select DB for saving messages (Parameter backEnd in config/main.php)'),
             );
 
         if (in_array(FeedbackModule::BACKEND_EMAIL, $this->backEnd) && (!$this->emails || !count(explode(',', $this->emails))))
-            $messages[YWebModule::CHECK_ERROR][] = array(
-                'type'    => YWebModule::CHECK_ERROR,
+            $messages[WebModule::CHECK_ERROR][] = array(
+                'type'    => WebModule::CHECK_ERROR,
                 'message' => Yii::t('FeedbackModule.feedback', 'Select feedback message email receivers (emails) {link}', array(
                     '{link}' => CHtml::link(Yii::t('FeedbackModule.feedback', 'Change module settings'), array(
                         '/yupe/backend/modulesettings/',
@@ -105,8 +108,8 @@ class FeedbackModule extends YWebModule
             );
 
         if (!$this->notifyEmailFrom)
-            $messages[YWebModule::CHECK_ERROR][] = array(
-                'type'    => YWebModule::CHECK_ERROR,
+            $messages[WebModule::CHECK_ERROR][] = array(
+                'type'    => WebModule::CHECK_ERROR,
                 'message' => Yii::t('FeedbackModule.feedback', 'Select email which will be display in "From" field {link}', array(
                     '{link}' => CHtml::link(Yii::t('FeedbackModule.feedback', 'Change module settings'), array(
                         '/yupe/backend/modulesettings/',
@@ -117,8 +120,8 @@ class FeedbackModule extends YWebModule
 
         $count = FeedBack::model()->new()->cache($this->cacheTime)->count();
         if ($count)
-            $messages[YWebModule::CHECK_NOTICE][] = array(
-                'type'    => YWebModule::CHECK_NOTICE,
+            $messages[WebModule::CHECK_NOTICE][] = array(
+                'type'    => WebModule::CHECK_NOTICE,
                 'message' => Yii::t('FeedbackModule.feedback', 'У Вас {{count}} ', array(
                     '{{count}}' => $count
                  )) . Yii::t('FeedbackModule.feedback', 'new message |new messages |new messages ', $count) . ' ' . CHtml::link(Yii::t('FeedbackModule.feedback', 'Show and reply?'), array(
@@ -126,7 +129,7 @@ class FeedbackModule extends YWebModule
                  ))
             );
 
-        return (isset($messages[YWebModule::CHECK_ERROR]) || isset($messages[YWebModule::CHECK_NOTICE]) ) ? $messages : true;
+        return (isset($messages[WebModule::CHECK_ERROR]) || isset($messages[WebModule::CHECK_NOTICE]) ) ? $messages : true;
     }
 
     public function getNavigation()

@@ -1,5 +1,5 @@
 <?php
-class MenuModule extends YWebModule
+class MenuModule extends yupe\components\WebModule
 {
     public $defaultController = 'menu';
     public $menuCache         = 'menu.cache';
