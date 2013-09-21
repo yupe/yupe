@@ -10,7 +10,7 @@
  * @license  BSD https://raw.github.com/yupe/yupe/master/LICENSE
  * @link     http://yupe.ru
  **/
-class m130115_155600_columns_rename extends YDbMigration
+class m130115_155600_columns_rename extends yupe\components\DbMigration
 {
 
     public function safeUp()

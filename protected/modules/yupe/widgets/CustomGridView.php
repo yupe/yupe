@@ -2,7 +2,7 @@
 /**
 *   Widget CustomGridView
 *
-*   @category Widget
+*   @category Widgets
 *   @package  Yupe
 *   @author   Yupe Team <team@yupe.ru>
 *   @license  https://github.com/yupe/yupe/blob/master/LICENSE BSD
