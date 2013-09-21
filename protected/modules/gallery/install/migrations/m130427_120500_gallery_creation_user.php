@@ -9,7 +9,7 @@
  * @license  BSD https://raw.github.com/yupe/yupe/master/LICENSE
  * @link     http://yupe.ru
  **/
-class m130427_120500_gallery_creation_user extends YDbMigration
+class m130427_120500_gallery_creation_user extends yupe\components\DbMigration
 {
     /**
      * Накатываем миграцию

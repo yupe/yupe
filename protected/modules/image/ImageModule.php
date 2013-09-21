@@ -1,6 +1,8 @@
 <?php
 
-class ImageModule extends YWebModule
+use yupe\components\WebModule;
+
+class ImageModule extends WebModule
 {
     public $uploadPath        = 'image';
     public $documentRoot;
@@ -83,8 +85,8 @@ class ImageModule extends YWebModule
         $messages = array();
 
         if (!$this->uploadPath)
-             $messages[YWebModule::CHECK_ERROR][] = array(
-                'type'    => YWebModule::CHECK_ERROR,
+             $messages[WebModule::CHECK_ERROR][] = array(
+                'type'    => WebModule::CHECK_ERROR,
                 'message' => Yii::t('ImageModule.image', 'Please, choose catalog for images! {link}', array(
                     '{link}' => CHtml::link(Yii::t('ImageModule.image', 'Change module settings'), array(
                         '/yupe/backend/modulesettings/',
@@ -94,8 +96,8 @@ class ImageModule extends YWebModule
             );
 
         if (!is_dir($this->getUploadPath()) || !is_writable($this->getUploadPath()))
-            $messages[YWebModule::CHECK_ERROR][] = array(
-                'type'    => YWebModule::CHECK_ERROR,
+            $messages[WebModule::CHECK_ERROR][] = array(
+                'type'    => WebModule::CHECK_ERROR,
                 'message' => Yii::t('ImageModule.image', 'Directory "{dir}" is not accessible for writing ot not exists! {link}', array(
                     '{dir}' => $this->getUploadPath(),
                     '{link}' => CHtml::link(Yii::t('ImageModule.image', 'Change module settings'), array(
@@ -106,8 +108,8 @@ class ImageModule extends YWebModule
             );
 
         if (!$this->maxSize || $this->maxSize <= 0)
-            $messages[YWebModule::CHECK_ERROR][] = array(
-                'type'    => YWebModule::CHECK_ERROR,
+            $messages[WebModule::CHECK_ERROR][] = array(
+                'type'    => WebModule::CHECK_ERROR,
                 'message' => Yii::t('ImageModule.image', 'Set maximum images size {link}', array(
                     '{link}' => CHtml::link(Yii::t('ImageModule.image', 'Change module settings'), array(
                         '/yupe/backend/modulesettings/',
@@ -115,7 +117,7 @@ class ImageModule extends YWebModule
                      )),
                  )),
             );
-        return (isset($messages[YWebModule::CHECK_ERROR])) ? $messages : true;
+        return (isset($messages[WebModule::CHECK_ERROR])) ? $messages : true;
     }
 
     public function getCategory()

@@ -1,6 +1,6 @@
 <?php
 
-class QueueModule extends YWebModule
+class QueueModule extends yupe\components\WebModule
 {
     public function  getVersion()
     {

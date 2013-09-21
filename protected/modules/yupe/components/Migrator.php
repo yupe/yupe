@@ -10,17 +10,17 @@
  * @link     http://www.yupe.ru
  */
 
-/**
- * Migrator class file.
- *
- * @category YupeComponent
- * @package  YupeCMS
- * @author   Alexander Tischenko <tsm@glavset.ru>
- * @license  BSD https://raw.github.com/yupe/yupe/master/LICENSE
- * @version  0.5.3
- * @link     http://www.yupe.ru
- */
-class Migrator extends CApplicationComponent
+namespace yupe\components;
+
+use Yii;
+use CDbCacheDependency;
+use ErrorException;
+use CException;
+use CDbConnection;
+use TagsCache;
+use CHtml;
+
+class Migrator extends \CApplicationComponent
 {
     public $connectionID = 'db';
     public $migrationTable = 'migrations';
@@ -358,6 +358,7 @@ class Migrator extends CApplicationComponent
      */
     protected function getDbConnection()
     {
+        
         if ($this->_db !== null) {
             return $this->_db;
         } else {

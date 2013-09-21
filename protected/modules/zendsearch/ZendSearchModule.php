@@ -1,6 +1,6 @@
 <?php
 
-class ZendSearchModule extends YWebModule
+class ZendSearchModule extends yupe\components\WebModule
 {
 
     public $indexFiles = 'runtime.search';

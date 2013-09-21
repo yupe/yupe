@@ -1,6 +1,6 @@
 <?php
 
-class m130529_151602_add_post_category extends YDbMigration
+class m130529_151602_add_post_category extends yupe\components\DbMigration
 {
 	public function safeUp()
     {
