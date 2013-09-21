@@ -49,7 +49,7 @@ return array(
         'yupe'  => array(
             'class'        => 'application.modules.yupe.YupeModule',
             'brandUrl'     => 'http://yupe.ru?from=engine',
-            'cache'        => false,
+            'cache'        => true,
         ),
         // на продакшне gii рекомендуется отключить, подробнее: http://www.yiiframework.com/doc/guide/1.1/en/quickstart.first-app
         /*'gii'   => array(
@@ -77,7 +77,7 @@ return array(
         ),
         // Работа с миграциями, обновление БД модулей
         'migrator'=>array(
-            'class'=>'application.modules.yupe.components.migrator.Migrator',
+            'class'=>'yupe\components\Migrator',
         ),
         // библиотека для работы с картинками через GD/ImageMagick
         // лучше установите ImageMagick, т.к. он ресайзит анимированные гифы
