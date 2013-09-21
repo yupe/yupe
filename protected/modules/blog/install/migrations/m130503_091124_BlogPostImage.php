@@ -1,6 +1,6 @@
 <?php
 
-class m130503_091124_BlogPostImage extends YDbMigration
+class m130503_091124_BlogPostImage extends yupe\components\DbMigration
 {
 
 	public function safeUp()
