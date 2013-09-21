@@ -1,6 +1,6 @@
 <?php
 
-class PostAdminController extends YBackController
+class PostAdminController extends yupe\components\controllers\BackController
 {
     /**
      * Отображает запись по указанному идентификатору

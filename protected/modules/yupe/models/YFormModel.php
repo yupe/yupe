@@ -12,7 +12,7 @@
  * 
  */
  
-abstract class YFormModel extends FormModel
+abstract class YFormModel extends CFormModel
 {
     public function attributeDescriptions()
     {

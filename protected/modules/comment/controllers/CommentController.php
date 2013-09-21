@@ -52,7 +52,7 @@
  * @link     http://yupe.ru
  *
  **/
-class CommentController extends YFrontController
+class CommentController extends yupe\components\controllers\FrontController
 {
     /**
      * Объявляем действия:

@@ -7,7 +7,7 @@
  * To change this template use File | Settings | File Templates.
  */
 
-class DefaultController extends YFrontController
+class DefaultController extends yupe\components\controllers\FrontController
 {
     public function actionIndex()
     {

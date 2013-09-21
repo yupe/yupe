@@ -31,13 +31,9 @@ return array(
     ),
     'import' => array(
         // подключение основых путей
-        'application.components.*',
-        'application.models.*',
         'application.modules.yupe.models.*',
         'application.modules.yupe.widgets.*',
-        'application.modules.yupe.components.*',
         'application.modules.yupe.controllers.*',
-        'application.modules.yupe.components.controllers.*',
         'application.modules.yupe.extensions.tagcache.*',
     ),
     // подключение и конфигурирование модулей,

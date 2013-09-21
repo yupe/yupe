@@ -10,7 +10,7 @@
  * @link     http://yupe.ru
  **/
 
-class DefaultController extends YBackController
+class DefaultController extends yupe\components\controllers\BackController
 {
     /**
      * Переменная названия текущего шага:

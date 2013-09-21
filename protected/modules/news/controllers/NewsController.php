@@ -1,5 +1,5 @@
 <?php
-class NewsController extends YFrontController
+class NewsController extends yupe\components\controllers\FrontController
 {
     const NEWS_PER_PAGE = 10;
 

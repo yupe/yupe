@@ -1,6 +1,6 @@
 <?php
 
-class DefaultController extends YBackController
+class DefaultController extends yupe\components\controllers\BackController
 {
     /**
      * Отображает товар по указанному идентификатору

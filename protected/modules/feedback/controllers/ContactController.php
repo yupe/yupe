@@ -1,5 +1,5 @@
 <?php
-class ContactController extends YFrontController
+class ContactController extends yupe\components\controllers\FrontController
 {
     public function actions()
     {

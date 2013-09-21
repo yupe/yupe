@@ -26,7 +26,7 @@ Yii::import('yupe.extensions.tagcache.TagsCache');
  * @link     http://yupe.ru - основной сайт
  * 
  **/
-abstract class YModel extends Model
+abstract class YModel extends CActiveRecord
 {
     public $cacheKey = false;
     /**
