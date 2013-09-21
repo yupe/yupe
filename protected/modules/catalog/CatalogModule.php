@@ -1,6 +1,8 @@
 <?php
 
-class CatalogModule extends YWebModule
+use yupe\components\WebModule;
+
+class CatalogModule extends WebModule
 {
     public $mainCategory;
     public $uploadPath        = 'catalog';
@@ -31,8 +33,8 @@ class CatalogModule extends YWebModule
         $uploadPath = $this->getUploadPath();
 
         if (!is_writable($uploadPath))
-            $messages[YWebModule::CHECK_ERROR][] =  array(
-                'type'    => YWebModule::CHECK_ERROR,
+            $messages[WebModule::CHECK_ERROR][] =  array(
+                'type'    => WebModule::CHECK_ERROR,
                 'message' => Yii::t('CatalogModule.catalog', 'Directory "{dir}" is not accessible for write! {link}', array(
                     '{dir}'  => $uploadPath,
                     '{link}' => CHtml::link(Yii::t('CatalogModule.catalog', 'Change settings'), array(
@@ -42,7 +44,7 @@ class CatalogModule extends YWebModule
                 )),
             );
 
-        return isset($messages[YWebModule::CHECK_ERROR]) ? $messages : true;
+        return isset($messages[WebModule::CHECK_ERROR]) ? $messages : true;
     }
 
     public function getInstall()

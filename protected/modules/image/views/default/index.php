@@ -45,7 +45,7 @@ $this->renderPartial('_search', array('model' => $model));
 
 <?php
 $this->widget(
-    'application.modules.yupe.components.YCustomGridView', array(
+    'yupe\widgets\CustomGridView', array(
         'id'           => 'image-grid',
         'type'         => 'condensed',
         'dataProvider' => $model->search(),

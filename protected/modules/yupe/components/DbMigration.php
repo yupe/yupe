@@ -1,5 +1,24 @@
 <?php
-class YDbMigration extends CDbMigration
+/**
+ * DbMigration - переопределен для использования методов, которые не 
+ *               входят в "базовую поставку" CDbMigration
+ *
+ * @category YupeComponents
+ * @package  YupeCMS
+ * @author   AKulikov <tuxuls@gmail.com>
+ * @license  BSD https://raw.github.com/yupe/yupe/master/LICENSE
+ * @version  0.0.1
+ * @link     http://yupe.ru
+ **/
+
+namespace yupe\components;
+
+use CDbMigration;
+use CMysqlSchema;
+use CPgsqlSchema;
+use Yii;
+
+class DbMigration extends CDbMigration
 {
     /**
      * get options for schema

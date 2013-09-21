@@ -5,7 +5,7 @@
  * Includes all necessary wiki functionality. Can be used as a module in your
  * application.
  */
-class YeekiModule extends YWebModule
+class YeekiModule extends yupe\components\WebModule
 {
 
     public function getDependencies()

@@ -27,7 +27,7 @@ return array(
     'charset'           => 'UTF-8',
     'preload'           => array(),
     'aliases' => array(
-        'bootstrap' => realpath(__DIR__ . '/../modules/yupe/extensions/booster'),
+        'bootstrap' => realpath(Yii::getPathOfAlias('vendor') . '/booster'),
     ),
     'import' => array(
         // подключение основых путей
@@ -38,6 +38,7 @@ return array(
         'application.modules.yupe.components.*',
         'application.modules.yupe.controllers.*',
         'application.modules.yupe.components.controllers.*',
+        'application.modules.yupe.extensions.tagcache.*',
     ),
     // подключение и конфигурирование модулей,
     // подробнее: http://www.yiiframework.ru/doc/guide/ru/basics.module
@@ -72,11 +73,11 @@ return array(
             'fontAwesomeCss' => true,
         ),
         'configManager' => array(
-            'class' => 'application\modules\yupe\components\ConfigManager',
+            'class' => 'yupe\components\ConfigManager',
         ),
         // Работа с миграциями, обновление БД модулей
         'migrator'=>array(
-            'class'=>'application.modules.yupe.components.migrator.Migrator',
+            'class'=>'yupe\components\Migrator',
         ),
         // библиотека для работы с картинками через GD/ImageMagick
         // лучше установите ImageMagick, т.к. он ресайзит анимированные гифы
@@ -114,7 +115,7 @@ return array(
         // РЕКОМЕНДУЕМ УКАЗАТЬ СВОЕ ЗНАЧЕНИЕ ДЛЯ ПАРАМЕТРА "csrfTokenName"
         // базовый класс CHttpRequest переопределен для загрузки файлов через ajax, подробнее: http://www.yiiframework.com/forum/index.php/topic/8689-disable-csrf-verification-per-controller-action/
         'request' => array(
-            'class'                  => 'application\modules\yupe\components\YHttpRequest',
+            'class'                  => 'yupe\components\HttpRequest',
             'enableCsrfValidation'   => true,
             'csrfTokenName'          => 'YUPE_TOKEN',
             'noCsrfValidationRoutes' => array('yupe/backend/AjaxFileUpload'),
@@ -122,7 +123,7 @@ return array(
         ),
         // подключение компонента для генерации ajax-ответов
         'ajax' => array(
-            'class' => 'application.modules.yupe.components.YAsyncResponse',
+            'class' => 'yupe\components\AsyncResponse',
         ),
         // настройки кэширования, подробнее http://www.yiiframework.ru/doc/guide/ru/caching.overview
         'cache' => array(

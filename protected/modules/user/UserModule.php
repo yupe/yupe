@@ -1,5 +1,8 @@
 <?php
-class UserModule extends YWebModule
+
+use yupe\components\WebModule;
+
+class UserModule extends WebModule
 {
     public $accountActivationSuccess       = '/user/account/login';
     public $accountActivationFailure       = '/user/account/registration';
@@ -57,8 +60,8 @@ class UserModule extends YWebModule
        $messages = array();
 
        if (!$this->avatarsDir) {
-             $messages[YWebModule::CHECK_ERROR][] = array(
-                'type'    => YWebModule::CHECK_ERROR,
+             $messages[WebModule::CHECK_ERROR][] = array(
+                'type'    => WebModule::CHECK_ERROR,
                 'message' => Yii::t('UserModule.user', 'Please, choose avatars directory! {link}', array(
                     '{link}' => CHtml::link(Yii::t('UserModule.user', 'Edit module settings'), array(
                         '/yupe/backend/modulesettings/',
@@ -69,8 +72,8 @@ class UserModule extends YWebModule
         }
 
         if (!is_dir($this->getUploadPath()) || !is_writable($this->getUploadPath())) {
-            $messages[YWebModule::CHECK_ERROR][] = array(
-                'type'    => YWebModule::CHECK_ERROR,
+            $messages[WebModule::CHECK_ERROR][] = array(
+                'type'    => WebModule::CHECK_ERROR,
                 'message' => Yii::t('UserModule.user', 'Directory is not accessible "{dir}" for write or not exists! {link}', array(
                     '{dir}' => $this->getUploadPath(),
                     '{link}' => CHtml::link(Yii::t('UserModule.user', 'Edit module settings'), array(
@@ -81,7 +84,7 @@ class UserModule extends YWebModule
             );
         }
 
-        return (isset($messages[YWebModule::CHECK_ERROR])) ? $messages : true;
+        return (isset($messages[WebModule::CHECK_ERROR])) ? $messages : true;
     }
 
     public function getParamsLabels()

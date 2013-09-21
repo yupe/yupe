@@ -11,18 +11,9 @@
  * @link     http://yupe.ru
  **/
 
-/**
- * Install Module Class
- * Класс модуля инсталятора:
- *
- * @category YupeModules
- * @package  YupeCMS
- * @author   YupeTeam <team@yupe.ru>
- * @license  BSD https://raw.github.com/yupe/yupe/master/LICENSE
- * @version  0.0.1
- * @link     http://yupe.ru
- **/
-class InstallModule extends YWebModule
+use yupe\components\WebModule;
+
+class InstallModule extends WebModule
 {
     /**
      * Проверка инсталятора:
@@ -34,12 +25,12 @@ class InstallModule extends YWebModule
         $messages = array();
 
         if ($this->getIsActive())
-            $messages[YWebModule::CHECK_ERROR][] = array(
-                'type'    => YWebModule::CHECK_ERROR,
+            $messages[WebModule::CHECK_ERROR][] = array(
+                'type'    => WebModule::CHECK_ERROR,
                 'message' => Yii::t('InstallModule.install', 'You have "Insatll" module active! After install it need to be disabled!')
             );
 
-        return (isset($messages[YWebModule::CHECK_ERROR])) ? $messages : true;
+        return (isset($messages[WebModule::CHECK_ERROR])) ? $messages : true;
     }
 
     /**

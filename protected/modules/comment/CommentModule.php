@@ -1,5 +1,8 @@
 <?php
-class CommentModule extends YWebModule
+
+use yupe\components\WebModule;
+
+class CommentModule extends WebModule
 {
     public $defaultCommentStatus;
     public $autoApprove          = true;
@@ -92,8 +95,8 @@ class CommentModule extends YWebModule
         $messages = array();
 
         if ($count)
-            $messages[YWebModule::CHECK_NOTICE][] = array(
-                'type'    => YWebModule::CHECK_NOTICE,
+            $messages[WebModule::CHECK_NOTICE][] = array(
+                'type'    => WebModule::CHECK_NOTICE,
                 'message' => Yii::t(
                     'CommentModule.comment', 'You have {{count}} new comments. {{link}}', array(
                         '{{count}}' => $count,
@@ -106,7 +109,7 @@ class CommentModule extends YWebModule
                 ),
             );
 
-        return isset($messages[YWebModule::CHECK_NOTICE]) ? $messages : true;
+        return isset($messages[WebModule::CHECK_NOTICE]) ? $messages : true;
     }
 
     public function getDescription()

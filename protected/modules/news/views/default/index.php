@@ -43,7 +43,7 @@ $this->renderPartial('_search', array('model' => $model));
 
 <p><?php echo Yii::t('NewsModule.news', 'This section describes News Management'); ?></p>
 
-<?php $this->widget('application.modules.yupe.components.YCustomGridView', array(
+<?php $this->widget('yupe\widgets\CustomGridView', array(
     'id'           => 'news-grid',
     'type'         => 'condensed',
     'dataProvider' => $model->search(),

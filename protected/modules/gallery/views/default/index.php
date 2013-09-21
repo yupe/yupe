@@ -55,7 +55,7 @@ $this->renderPartial('_search', array('model' => $model));
 <p><?php echo Yii::t('GalleryModule.gallery', 'This section describes image gallery management'); ?></p>
 
 <?php $this->widget(
-    'application.modules.yupe.components.YCustomGridView', array(
+    'yupe\widgets\CustomGridView', array(
         'id'           => 'gallery-grid',
         'type'         => 'condensed',
         'dataProvider' => $model->search(),

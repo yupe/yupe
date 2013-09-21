@@ -12,7 +12,7 @@
  *
  **/
 
-namespace application\modules\yupe\components;
+namespace yupe\components;
 
 use Yii;
 use CMap;
@@ -147,6 +147,12 @@ class ConfigManager extends CComponent
      */
     public function dumpSettings()
     {
+        // Если выключена опция кеширования настроек - не выполняем
+        // его:
+        if (defined('\CACHE_SETTINGS') && \CACHE_SETTINGS === false) {
+            return true;
+        }
+
         try {
 
             $cachedSettings = '<?php return ' . var_export($this->_config, true) . ';';
@@ -340,10 +346,22 @@ class ConfigManager extends CComponent
      * 
      * @return bool - говорящий о результате сброса
      */
-    public static function flushDump()
+    public static function flushDump($returnErrors = false)
     {
-        $cachedSettingsFile = realpath(dirname(__FILE__) . '/../../../config/modules') . '/cached_settings.php';
+        $cachedSettingsFile = Yii::getPathOfAlias('application.config.modules') . '/cached_settings.php';
+        
+        if ($returnErrors === true && file_exists($cachedSettingsFile) === false) {
+            throw new Exception(
+                Yii::t(
+                    "YupeModule.yupe", "can't unlink file - {file}", array(
+                        '{file}' => $cachedSettingsFile
+                    )
+                ), 1
+            );
+        }
+        
+        $result = @unlink($cachedSettingsFile);
 
-        return @unlink($cachedSettingsFile);
+        return $result;
     }
 }

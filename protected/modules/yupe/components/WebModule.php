@@ -1,6 +1,6 @@
 <?php
 /**
- * YWebModule - базовый класс для всех модулей Юпи!
+ * WebModule - базовый класс для всех модулей Юпи!
  *
  * Все модули, разработанные для Юпи! должны наследовать этот класс.
  * Панель управления Юпи!, собираемая из модулей, использует определенные методы этого базового класса.
@@ -13,7 +13,21 @@
  *
  */
 
-abstract class YWebModule extends CWebModule
+namespace yupe\components;
+
+use CChainedCacheDependency;
+use CDbException;
+use CDirectoryCacheDependency;
+use CException;
+use CList;
+use CLogger;
+use Settings;
+use TagsCache;
+use YFlashMessages;
+use Yii;
+
+
+abstract class WebModule extends \CWebModule
 {
     const CHECK_ERROR = 'error';
     const CHECK_NOTICE = 'notice';
@@ -141,7 +155,7 @@ abstract class YWebModule extends CWebModule
      * @example
      *   if (!$this->uploadPath)
      *        return array(
-     *            'type' => YWebModule::CHECK_ERROR,
+     *            'type' => WebModule::CHECK_ERROR,
      *            'message' => Yii::t('YupeModule.yupe', 'Please, set images uploading directory! {link}', array(
      *                '{link}' => CHtml::link(Yii::t('YupeModule.yupe', 'Change module settings'), array('/yupe/backend/modulesettings/', 'module' => $this->id))
      *            ))
@@ -514,7 +528,7 @@ abstract class YWebModule extends CWebModule
         $fileConfig = $yupe->getModulesConfig($this->getId());
 
         Yii::app()->cache->clear('installedModules', 'getModulesDisabled', 'modulesDisabled', $this->getId());
-        application\modules\yupe\components\ConfigManager::flushDump();
+        ConfigManager::flushDump();
 
         if (is_file($fileConfig) && $this->id != 'install' && $updateConfig === false) {
             throw new CException(Yii::t('YupeModule.yupe', 'Module already enabled!'), 304);
@@ -571,7 +585,7 @@ abstract class YWebModule extends CWebModule
         $fileConfigBack = $yupe->getModulesConfigBack($this->id);
 
         Yii::app()->cache->clear('installedModules', 'getModulesDisabled', 'modulesDisabled', $this->getId());
-        application\modules\yupe\components\ConfigManager::flushDump();
+        ConfigManager::flushDump();
 
         if (!is_file($fileConfig) && $this->id != 'install') {
             throw new CException(Yii::t('YupeModule.yupe', 'Module already disabled!'));
@@ -665,7 +679,7 @@ abstract class YWebModule extends CWebModule
         );
 
         Yii::app()->cache->clear('installedModules', 'getModulesDisabled', 'modulesDisabled', $this->getId());
-        application\modules\yupe\components\ConfigManager::flushDump();
+        ConfigManager::flushDump();
 
         if ($this->getDependencies() !== array()) {
             foreach ($this->getDependencies() as $dep) {
@@ -725,7 +739,7 @@ abstract class YWebModule extends CWebModule
         if (!empty($history)) {
             
             Yii::app()->cache->clear('installedModules', $this->getId(), 'yupe', 'getModulesDisabled', 'modulesDisabled', $this->getId());
-            application\modules\yupe\components\ConfigManager::flushDump();
+            ConfigManager::flushDump();
             
             $message = '';
             
@@ -821,7 +835,7 @@ abstract class YWebModule extends CWebModule
         try
         {
             $settingsRows = Yii::app()->db
-                ->cache($this->coreCacheTime, new TagsCache($this->getId(), 'settings'))
+                ->cache($this->coreCacheTime, new \TagsCache($this->getId(), 'settings'))
                 ->createCommand(
                     '
                     SELECT param_name, param_value

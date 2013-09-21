@@ -15,7 +15,9 @@
  * @link      http://yupe.ru
  */
 
-class YupeModule extends YWebModule
+use yupe\components\WebModule;
+
+class YupeModule extends WebModule
 {
     public $enableAssets;
     public $cache;
@@ -66,8 +68,8 @@ class YupeModule extends YWebModule
         $messages = array();
 
         if (Yii::app()->hasModule('install')) {
-            $messages[YWebModule::CHECK_ERROR][] = array(
-                'type' => YWebModule::CHECK_ERROR,
+            $messages[WebModule::CHECK_ERROR][] = array(
+                'type' => WebModule::CHECK_ERROR,
                 'message' => Yii::t(
                     'YupeModule.yupe',
                     'You have active " Install" module, you must disable it after installation! <a href="http://www.yiiframework.com/doc/guide/basics.module">More about Yii modules</a>'
@@ -76,8 +78,8 @@ class YupeModule extends YWebModule
         }
 
         if (Yii::app()->db->enableProfiling) {
-            $messages[YWebModule::CHECK_ERROR][] = array(
-                'type' => YWebModule::CHECK_ERROR,
+            $messages[WebModule::CHECK_ERROR][] = array(
+                'type' => WebModule::CHECK_ERROR,
                 'message' => Yii::t(
                     'YupeModule.yupe',
                     'Please, disable profiler (file /protected/config/db.php, parameter "enableProfiling")!'
@@ -86,8 +88,8 @@ class YupeModule extends YWebModule
         }
 
         if (Yii::app()->db->enableParamLogging) {
-            $messages[YWebModule::CHECK_ERROR][] = array(
-                'type' => YWebModule::CHECK_ERROR,
+            $messages[WebModule::CHECK_ERROR][] = array(
+                'type' => WebModule::CHECK_ERROR,
                 'message' => Yii::t(
                     'YupeModule.yupe',
                     'Please, disable logging (file /protected/config/db.php, parameter "enableParamLogging")!'
@@ -96,8 +98,8 @@ class YupeModule extends YWebModule
         }
 
         if (Yii::app()->hasModule('gii')) {
-            $messages[YWebModule::CHECK_ERROR][] = array(
-                'type' => YWebModule::CHECK_ERROR,
+            $messages[WebModule::CHECK_ERROR][] = array(
+                'type' => WebModule::CHECK_ERROR,
                 'message' => Yii::t(
                     'YupeModule.yupe',
                     'You have active "gii" module. You must disable it after installation! <a href="http://www.yiiframework.com/doc/guide/basics.module">More about Yii modules</a>'
@@ -108,8 +110,8 @@ class YupeModule extends YWebModule
         $uploadPath = Yii::getPathOfAlias('webroot') . '/' . $this->uploadPath;
 
         if (!is_writable($uploadPath)) {
-            $messages[YWebModule::CHECK_ERROR][] = array(
-                'type' => YWebModule::CHECK_ERROR,
+            $messages[WebModule::CHECK_ERROR][] = array(
+                'type' => WebModule::CHECK_ERROR,
                 'message' => Yii::t(
                     'YupeModule.yupe',
                     'Directory "{dir}" is not available for write! {link}',
@@ -125,8 +127,8 @@ class YupeModule extends YWebModule
         }
 
         if (!is_writable(Yii::app()->runtimePath)) {
-            $messages[YWebModule::CHECK_ERROR][] = array(
-                'type' => YWebModule::CHECK_ERROR,
+            $messages[WebModule::CHECK_ERROR][] = array(
+                'type' => WebModule::CHECK_ERROR,
                 'message' => Yii::t(
                     'YupeModule.yupe',
                     'Directory "{dir}" is not available for write!',
@@ -136,8 +138,8 @@ class YupeModule extends YWebModule
         }
 
         if (!is_writable(Yii::app()->getAssetManager()->basePath)) {
-            $messages[YWebModule::CHECK_ERROR][] = array(
-                'type' => YWebModule::CHECK_ERROR,
+            $messages[WebModule::CHECK_ERROR][] = array(
+                'type' => WebModule::CHECK_ERROR,
                 'message' => Yii::t(
                     'YupeModule.yupe',
                     'Directory "{dir}" is not available for write!',
@@ -147,8 +149,8 @@ class YupeModule extends YWebModule
         }
 
         if (defined('YII_DEBUG') && YII_DEBUG) {
-            $messages[YWebModule::CHECK_ERROR][] = array(
-                'type' => YWebModule::CHECK_ERROR,
+            $messages[WebModule::CHECK_ERROR][] = array(
+                'type' => WebModule::CHECK_ERROR,
                 'message' => Yii::t(
                     'YupeModule.yupe',
                     'Yii is working in debug mode, please, disable it! <br/> <a href="http://www.yiiframework.com/doc/guide/topics.performance">More about Yii performance</a>'
@@ -157,8 +159,8 @@ class YupeModule extends YWebModule
         }
 
         if (!Yii::app()->db->schemaCachingDuration) {
-            $messages[YWebModule::CHECK_ERROR][] = array(
-                'type' => YWebModule::CHECK_ERROR,
+            $messages[WebModule::CHECK_ERROR][] = array(
+                'type' => WebModule::CHECK_ERROR,
                 'message' => Yii::t(
                     'YupeModule.yupe',
                     'Please, enable DB caching! <br/> <a href="http://www.yiiframework.com/doc/guide/topics.performance">More about Yii performance</a>'
@@ -166,7 +168,7 @@ class YupeModule extends YWebModule
             );
         }
 
-        return isset($messages[YWebModule::CHECK_ERROR]) ? $messages : true;
+        return isset($messages[WebModule::CHECK_ERROR]) ? $messages : true;
     }
 
     /**
@@ -518,7 +520,7 @@ class YupeModule extends YWebModule
                 $key = strtolower($key);
                 $module = Yii::app()->getModule($key);
                 if (($module !== null)) {
-                    if ($module instanceof YWebModule) {
+                    if ($module instanceof WebModule) {
                         $category = (!$module->category)
                             ? $this->otherCategoryName
                             : $module->category;

@@ -43,7 +43,7 @@ $this->renderPartial('_search', array('model' => $model));
 
 <p><?php echo Yii::t('CommentModule.comment', 'This section describes comment management'); ?></p>
 
-<?php $this->widget('application.modules.yupe.components.YCustomGridView', array(
+<?php $this->widget('yupe\widgets\CustomGridView', array(
     'id'           => 'comment-grid',
     'type'         => 'condensed',
     'dataProvider' => $model->search(),

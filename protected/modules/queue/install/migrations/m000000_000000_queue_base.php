@@ -10,7 +10,7 @@
  * @license  BSD https://raw.github.com/yupe/yupe/master/LICENSE
  * @link     http://yupe.ru
  **/
-class m000000_000000_queue_base extends YDbMigration
+class m000000_000000_queue_base extends yupe\components\DbMigration
 {
 
     public function safeUp()

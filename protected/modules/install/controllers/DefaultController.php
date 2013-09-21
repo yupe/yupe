@@ -706,24 +706,13 @@ class DefaultController extends YBackController
                     $connection->password = $form->dbPassword;
                     $connection->emulatePrepare = true;
                     $connection->charset = 'utf8';
-                } catch (Exception $e) {
-                    $form->addError(
-                        '',
-                        Yii::t(
-                            'InstallModule.install',
-                            'Couldn\'t connect to DB!'
-                        ) . '<br />' . $connectionString . '<br />' . $e->getMessage()
-                    );
-                    Yii::log($e->__toString(), CLogger::LEVEL_ERROR);
-                    Yii::log($e->getTraceAsString(), CLogger::LEVEL_ERROR);
-                }
+                
+                    if (!$form->hasErrors()) {
 
-                if (!$form->hasErrors()) {
+                        $connection->tablePrefix = $form->tablePrefix;
 
-                    $connection->tablePrefix = $form->tablePrefix;
-
-                    Yii::app()->setComponent('db', $connection);
-                    $dbParams = array(
+                        Yii::app()->setComponent('db', $connection);
+                        $dbParams = array(
                             'class' => 'CDbConnection',
                             'connectionString' => $connectionString,
                             'username' => $form->dbUser,
@@ -736,43 +725,55 @@ class DefaultController extends YBackController
                             'tablePrefix' => $form->tablePrefix,
                         );
 
-                    $dbConfString = "<?php\n return " . var_export($dbParams, true) . ";\n";
+                        $dbConfString = "<?php\n return " . var_export($dbParams, true) . ";\n";
 
-                    $fh = fopen($dbConfFile, 'w+');
-                    if (!$fh) {
-                        $form->addError(
-                            '',
-                            Yii::t(
-                                'InstallModule.install',
-                                "Can not open file '{file}' in write mode!",
-                                array('{file}' => $dbConfFile)
-                            )
-                        );
-                    } else {
-                        if (fwrite($fh, $dbConfString) && fclose($fh)) {
-                            $this->session['InstallForm'] = array_merge(
-                                $this->session['InstallForm'],
-                                array(
-                                    'dbSettings' => $form->attributes,
-                                    'dbSettingsStep' => true,
-                                    'dbSettingsFile' => true,
-                                )
-                            );
-
-                            $this->_setSession();
-
-                            $this->redirect(array('/install/default/dbsettings'));
-                        } else {
+                        $fh = fopen($dbConfFile, 'w+');
+                        if (!$fh) {
                             $form->addError(
                                 '',
                                 Yii::t(
                                     'InstallModule.install',
-                                    "There was an error writing to file '{file}'!",
+                                    "Can not open file '{file}' in write mode!",
                                     array('{file}' => $dbConfFile)
                                 )
                             );
+                        } else {
+                            if (fwrite($fh, $dbConfString) && fclose($fh)) {
+                                $this->session['InstallForm'] = array_merge(
+                                    $this->session['InstallForm'],
+                                    array(
+                                        'dbSettings' => $form->attributes,
+                                        'dbSettingsStep' => true,
+                                        'dbSettingsFile' => true,
+                                    )
+                                );
+
+                                $this->_setSession();
+
+                                $this->redirect(array('/install/default/dbsettings'));
+                            } else {
+                                $form->addError(
+                                    '',
+                                    Yii::t(
+                                        'InstallModule.install',
+                                        "There was an error writing to file '{file}'!",
+                                        array('{file}' => $dbConfFile)
+                                    )
+                                );
+                            }
                         }
                     }
+
+                } catch (Exception $e) {
+                    $form->addError(
+                        '',
+                        Yii::t(
+                            'InstallModule.install',
+                            'Couldn\'t connect to DB!'
+                        ) . '<br />' . $connectionString . '<br />' . $e->getMessage()
+                    );
+                    Yii::log($e->__toString(), CLogger::LEVEL_ERROR);
+                    Yii::log($e->getTraceAsString(), CLogger::LEVEL_ERROR);
                 }
             }
         }
@@ -866,7 +867,7 @@ class DefaultController extends YBackController
             if (!$error) {
                 // Переносим конфигурационные файлы не устанавливаемых модулей в back-папку
                 
-                application\modules\yupe\components\ConfigManager::flushDump();
+                yupe\components\ConfigManager::flushDump();
                 
                 $files = glob($this->yupe->getModulesConfig() . "*.php");
                 foreach ($files as $file) {

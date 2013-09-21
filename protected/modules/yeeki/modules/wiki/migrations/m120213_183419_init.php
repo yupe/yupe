@@ -2,7 +2,7 @@
 /**
  * Initial application schema
  */
-class m120213_183419_init extends YDbMigration
+class m120213_183419_init extends yupe\components\DbMigration
 {
     public function up()
     {

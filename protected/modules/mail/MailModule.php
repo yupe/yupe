@@ -22,7 +22,7 @@
  * @version  0.1
  * @link     http://yupe.ru
  **/
-class MailModule extends YWebModule
+class MailModule extends yupe\components\WebModule
 {
     /**
      * Метод получения версии:

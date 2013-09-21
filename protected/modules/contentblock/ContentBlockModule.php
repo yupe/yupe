@@ -1,5 +1,5 @@
 <?php
-class ContentBlockModule extends YWebModule
+class ContentBlockModule extends yupe\components\WebModule
 {
     public function getCategory()
     {

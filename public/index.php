@@ -24,6 +24,8 @@ if ($development) {
     // Комментируем перед выпуском в продакшен:
     define('YII_DEBUG', true);
     defined('YII_TRACE_LEVEL') or define('YII_TRACE_LEVEL', 3);
+    // В режиме разработки - отключаем кеширование настроек:
+    defined('CACHE_SETTINGS') or define('CACHE_SETTINGS', false);
     // путь к фреймворку Yii
     $yii = dirname(__FILE__) . '/../vendor/framework/yii.php';
 
@@ -33,17 +35,20 @@ if ($development) {
     // путь к основному конфигурационному файлу Yii
 }
 
+require $yii;
+
+// Определяем алиасы:
+Yii::setPathOfAlias('application', dirname(__FILE__) . '/../protected/');
+Yii::setPathOfAlias('yii', dirname(__FILE__) . '/../framework/');
+Yii::setPathOfAlias('yupe', dirname(__FILE__) . '/../protected/modules/yupe/');
+Yii::setPathOfAlias('vendor', dirname(__FILE__) . '/../vendor/');
+
 $base = require_once dirname(__FILE__) . '/../protected/config/main.php';
 
 $userspace = dirname(__FILE__) . '/../protected/config/userspace.php';
 $userspace = file_exists($userspace) ? (require_once $userspace) : array();
 
-require $yii;
-
-Yii::setPathOfAlias('application', dirname(__FILE__) . '/../protected/');
-Yii::setPathOfAlias('yii', dirname(__FILE__) . '/../framework/');
-
-$confManager = new application\modules\yupe\components\ConfigManager();
+$confManager = new yupe\components\ConfigManager();
 $config = $confManager->merge($base, $userspace);
-
+//die('<pre>' . print_r($config, true));
 Yii::createWebApplication($config)->run();
