@@ -45,7 +45,7 @@ $this->renderPartial('_search', array('model'=>$model));
 </p>
 
 <?php
-$this->widget('application.modules.yupe.components.YCustomGridView', array(
+$this->widget('yupe\widgets\CustomGridView', array(
     'id'           => 'mail-template-grid',
     'type'         => 'condensed',
     'dataProvider' => $model->search(),

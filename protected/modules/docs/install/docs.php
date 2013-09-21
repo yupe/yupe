@@ -16,7 +16,7 @@ return array(
         'preload' => array('bootstrap'),
         'components' => array(
             'bootstrap' => array(
-                'class'          => 'application.modules.yupe.extensions.booster.components.Bootstrap',
+                'class'          => 'vendor.booster.components.Bootstrap',
                 'coreCss'        => true,
                 'responsiveCss'  => true,
                 'yiiCss'         => true,

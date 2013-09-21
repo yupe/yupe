@@ -43,7 +43,7 @@ $this->renderPartial('_search', array('model' => $model));
 
 <p><?php echo Yii::t('CategoryModule.category', 'This section describes category management'); ?></p>
 
-<?php $this->widget('application.modules.yupe.components.YCustomGridView', array(
+<?php $this->widget('yupe\widgets\CustomGridView', array(
     'id'           => 'category-grid',
     'type'         => 'condensed',
     'dataProvider' => $model->search(),

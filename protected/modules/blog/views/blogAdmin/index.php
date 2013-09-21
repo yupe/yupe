@@ -63,7 +63,7 @@ $this->renderPartial('_search', array('model' => $model));
 
 <p><?php echo Yii::t('BlogModule.blog', 'This category contains blogs management functions.'); ?></p>
 <?php $this->widget(
-    'application.modules.yupe.components.YCustomGridView', array(
+    'yupe\widgets\CustomGridView', array(
         'id'               => 'blog-grid',
         'type'             => 'condensed',
         /**

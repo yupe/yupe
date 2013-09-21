@@ -1,6 +1,6 @@
 <?php
 
-class PageModule extends YWebModule
+class PageModule extends yupe\components\WebModule
 {
     public $mainCategory;
 

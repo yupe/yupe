@@ -66,7 +66,7 @@ $this->renderPartial('_search', array('model' => $model));
 <p><?php echo Yii::t('MenuModule.menu', 'This section describes Menu Management'); ?></p>
 
 <?php $this->widget(
-    'application.modules.yupe.components.YCustomGridView', array(
+    'yupe\widgets\CustomGridView', array(
         'id'           => 'menu-grid',
         'type'         => 'condensed',
         'dataProvider' => $model->search(),

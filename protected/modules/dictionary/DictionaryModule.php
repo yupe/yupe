@@ -1,6 +1,6 @@
 <?php
 
-class DictionaryModule extends YWebModule
+class DictionaryModule extends yupe\components\WebModule
 {
     public function getDependencies()
     {

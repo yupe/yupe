@@ -1,5 +1,5 @@
 <?php
-class GalleryModule extends YWebModule
+class GalleryModule extends yupe\components\WebModule
 {
     public function getDependencies()
     {

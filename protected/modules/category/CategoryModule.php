@@ -1,6 +1,8 @@
 <?php
 
-class CategoryModule extends YWebModule
+use yupe\components\WebModule;
+
+class CategoryModule extends WebModule
 {
     public $uploadPath = 'category';
 
@@ -16,8 +18,8 @@ class CategoryModule extends YWebModule
         $uploadPath = $this->getUploadPath();
 
         if (!is_writable($uploadPath))
-            $messages[YWebModule::CHECK_ERROR][] = array(
-                'type'    => YWebModule::CHECK_ERROR,
+            $messages[WebModule::CHECK_ERROR][] = array(
+                'type'    => WebModule::CHECK_ERROR,
                 'message' => Yii::t('CategoryModule.category', 'Directory "{dir}" is available for write! {link}', array(
                     '{dir}'  => $uploadPath,
                     '{link}' => CHtml::link(Yii::t('CategoryModule.category', 'Change settings'), array(
@@ -27,7 +29,7 @@ class CategoryModule extends YWebModule
                 )),
             );
 
-        return isset($messages[YWebModule::CHECK_ERROR]) ? $messages : true;
+        return isset($messages[WebModule::CHECK_ERROR]) ? $messages : true;
     }
 
     public function getInstall()

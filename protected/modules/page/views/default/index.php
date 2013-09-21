@@ -43,7 +43,7 @@ $this->renderPartial('_search', array('model' => $model, 'pages' => $pages));
 
 <p><?php echo Yii::t('PageModule.page', 'This section describes page management'); ?></p>
 
-<?php $this->widget('application.modules.yupe.components.YCustomGridView', array(
+<?php $this->widget('yupe\widgets\CustomGridView', array(
     'id'           => 'page-grid',
     'type'         => 'condensed',
     'dataProvider' => $model->search(),

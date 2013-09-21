@@ -30,8 +30,9 @@ class Page extends YModel
     const STATUS_PUBLISHED  = 1;
     const STATUS_MODERATION = 2;
 
-    const PROTECTED_NO  = 0;
-    const PROTECTED_YES = 1;
+    // В PostgreSQL используется явное указание типов:
+    const PROTECTED_NO  = false;
+    const PROTECTED_YES = true;
 
     /**
      * Returns the static model of the specified AR class.
