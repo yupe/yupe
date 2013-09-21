@@ -48,7 +48,6 @@ $base = require_once dirname(__FILE__) . '/../protected/config/main.php';
 $userspace = dirname(__FILE__) . '/../protected/config/userspace.php';
 $userspace = file_exists($userspace) ? (require_once $userspace) : array();
 
-
 $confManager = new yupe\components\ConfigManager();
 $config = $confManager->merge($base, $userspace);
 //die('<pre>' . print_r($config, true));
