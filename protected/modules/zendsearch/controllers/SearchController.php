@@ -1,5 +1,5 @@
 <?php
-class SearchController extends YFrontController
+class SearchController extends yupe\components\controllers\FrontController
 {
     public function init()
     {

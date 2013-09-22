@@ -1,5 +1,5 @@
 <?php
-class PeopleController extends YFrontController
+class PeopleController extends yupe\components\controllers\FrontController
 {
     // Вывод публичной страницы всех пользователей
     public function actionIndex()

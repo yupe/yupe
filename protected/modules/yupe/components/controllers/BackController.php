@@ -1,6 +1,26 @@
 <?php
+/**
+ * Контроллер отвечающий за backend - часть
+ * 
+ * @category YupeComponents
+ * @package  YupeCMS
+ * @author   YupeTeam <team@yupe.ru>
+ * @license  BSD https://raw.github.com/yupe/yupe/master/LICENSE
+ * @version  0.6
+ * @link     http://yupe.ru
+ **/
 
-class YBackController extends YMainController
+namespace yupe\components\controllers;
+
+use Yii;
+use YFlashMessages;
+use CHttpException;
+use CActiveRecord;
+use CDbCriteria;
+use Exception;
+use CLogger;
+
+class BackController extends Controller
 {
     const BULK_DELETE = 'delete';
 

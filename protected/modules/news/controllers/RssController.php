@@ -7,7 +7,7 @@
  * To change this template use File | Settings | File Templates.
  */
 
-class RssController extends YFrontController
+class RssController extends yupe\components\controllers\FrontController
 {
     public function actions()
     {

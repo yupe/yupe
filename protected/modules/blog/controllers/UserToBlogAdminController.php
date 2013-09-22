@@ -1,6 +1,6 @@
 <?php
 
-class UserToBlogAdminController extends YBackController
+class UserToBlogAdminController extends yupe\components\controllers\BackController
 {
     /**
      * Отображает участника по указанному идентификатору

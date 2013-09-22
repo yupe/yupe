@@ -1,5 +1,5 @@
 <?php
-class GalleryController extends YFrontController
+class GalleryController extends yupe\components\controllers\FrontController
 {
     const GALLERY_PER_PAGE = 10;
 

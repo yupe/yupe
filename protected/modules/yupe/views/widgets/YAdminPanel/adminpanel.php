@@ -96,7 +96,7 @@ $this->widget(
                             'icon'        => 'home white',
                             'label'       => Yii::t('YupeModule.yupe', 'Go home'),
                             'linkOptions' => array('target' => '_blank'),
-                            'visible'     => Yii::app()->controller instanceof YBackController === true,
+                            'visible'     => Yii::app()->controller instanceof yupe\components\controllers\BackController === true,
                             'url'         => array('/' . Yii::app()->defaultController . '/index/'),
                         ),
                         array(

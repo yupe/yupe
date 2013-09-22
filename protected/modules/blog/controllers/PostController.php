@@ -10,7 +10,7 @@
  * @link     http://yupe.ru
  *
  **/
-class PostController extends YFrontController
+class PostController extends yupe\components\controllers\FrontController
 {
 
     public function actionIndex()
