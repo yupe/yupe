@@ -20,7 +20,7 @@
  * @license  BSD https://raw.github.com/yupe/yupe/master/LICENSE
  * @link     http://yupe.ru
  **/
-class EventAdminController extends YBackController
+class EventAdminController extends yupe\components\controllers\BackController
 {
     /**
      * Отображает почтовое событие по указанному идентификатору

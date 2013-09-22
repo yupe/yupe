@@ -1,6 +1,6 @@
 <?php
 
-class MenuitemController extends YBackController
+class MenuitemController extends yupe\components\controllers\BackController
 {
 
 

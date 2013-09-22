@@ -1,5 +1,5 @@
 <?php
-class DefaultController extends YFrontController
+class DefaultController extends yupe\components\controllers\FrontController
 {
 	/**
 	 * By default wiki displays page with unique id = 'index'

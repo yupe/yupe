@@ -10,7 +10,7 @@
  * @link     http://yupe.ru
  *
  **/
-class SiteController extends YFrontController
+class SiteController extends yupe\components\controllers\FrontController
 {
     const POST_PER_PAGE = 5;
 

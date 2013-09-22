@@ -1,5 +1,5 @@
 <?php
-class RecoveryPasswordController extends YBackController
+class RecoveryPasswordController extends yupe\components\controllers\BackController
 {
     /**
      * @var CActiveRecord the currently loaded data model instance.

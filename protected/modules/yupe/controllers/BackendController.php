@@ -22,7 +22,7 @@
  * @link     http://yupe.ru
  *
  **/
-class BackendController extends YBackController
+class BackendController extends yupe\components\controllers\BackController
 {
     /**
      * Экшен главной страницы панели управления:

@@ -1,6 +1,6 @@
 <?php
 
-class MenuController extends YBackController
+class MenuController extends yupe\components\controllers\BackController
 {
     /**
      * Отображает меню по указанному идентификатору

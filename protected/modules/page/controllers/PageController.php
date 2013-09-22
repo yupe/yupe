@@ -10,7 +10,7 @@
  *
  *
  */
-class PageController extends YFrontController
+class PageController extends yupe\components\controllers\FrontController
 {
     /**
      * Текущая просматриваемая страница

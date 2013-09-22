@@ -1,5 +1,5 @@
 <?php
-class DefaultController extends YBackController
+class DefaultController extends yupe\components\controllers\BackController
 {
     /**
      * @var CActiveRecord the currently loaded data model instance.

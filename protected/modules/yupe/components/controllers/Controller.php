@@ -6,16 +6,45 @@
  * @package  YupeCMS
  * @author   aopeykin <aopeykin@yandex.ru>
  * @license  BSD https://raw.github.com/yupe/yupe/master/LICENSE
- * @version  0.0.1
+ * @version  0.6
  * @link     http://yupe.ru
  **/
 
-use yupe\components\ContentType;
+namespace yupe\components\controllers;
 
-class YMainController extends Controller
+use yupe\components\ContentType;
+use CHtml;
+use Yii;
+
+class Controller extends \CController
 {
     public $yupe;
+    public $layout;
 
+    /**
+     * Хлебные крошки сайта, меняется в админке
+     */
+    public $breadcrumbs = array();
+
+    /**
+     * Описание сайта, меняется в админке
+     */
+    public $description;
+
+    /**
+     * Ключевые слова сайта, меняется в админке
+     */
+    public $keywords;
+
+    /**
+     * Contains data for "CMenu" widget (provides view for menu on the site)
+     */
+    public $menu = array();
+
+    /**
+     * Тип заголовка, подробнее в yupe\components\ContentType
+     * @var integer
+     */
     public $headerTypeId = ContentType::TYPE_HTML;
 
     /**
