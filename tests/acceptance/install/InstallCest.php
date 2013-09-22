@@ -6,7 +6,7 @@ class InstallCest
     public function testInstall(WebGuy $I)
     {
         $I->wantTo('Test Yupe! installation process!');
-        $I->amOnPage('/install');
+        $I->amOnPage('/install/default');
 
         $I->wantTo('Test begin install!');
         // begin install
