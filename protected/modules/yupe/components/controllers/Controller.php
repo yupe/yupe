@@ -15,6 +15,7 @@ namespace yupe\components\controllers;
 use yupe\components\ContentType;
 use CHtml;
 use Yii;
+use CException;
 
 class Controller extends \CController
 {
@@ -94,25 +95,63 @@ class Controller extends \CController
      **/
     public function widget($className, $properties = array(), $captureOutput = false)
     {
-        if (stripos($className, 'application.modules') !== false) {
+        try {
 
             $modulePath = explode('.', $className);
 
-            if (!empty($modulePath[2]) && !Yii::app()->hasModule($modulePath[2])) {
-                echo CHtml::tag(
-                    'p', array(
-                        'class' => 'alert alert-error'
-                    ), Yii::t(
-                        'YupeModule.yupe', 'Widget "{widget}" was not found! Please enable "{module}" module!', array(
+            $isModule = strpos($className, 'application.modules') !== false
+                    && !empty($modulePath[2])
+                    && !Yii::app()->hasModule($modulePath[2]);
+
+            if (Yii::getPathOfAlias($className) == false || $isModule) {
+                
+                $modulePath = explode('.', $className);
+
+                if ($isModule) {
+                    throw new CException(
+                        Yii::t(
+                            'YupeModule.yupe', 'Widget "{widget}" was not found! Please enable "{module}" module!', array(
+                                '{widget}' => $className,
+                                '{module}' => $modulePath[2]
+                            )
+                        ), 1
+                    );
+                } elseif (class_exists($className) === false) {
+
+                    throw new CException(
+                        Yii::t(
+                            'YupeModule.yupe', 'Widget "{widget}" was not found!', array(
+                                '{widget}' => $className,
+                            )
+                        ), 1
+                    );
+
+                }
+
+            }
+
+            $widget = parent::widget($className, $properties, $captureOutput);
+        
+        } catch (CException $e) {
+
+            echo CHtml::tag(
+                'p', array(
+                    'class' => 'alert alert-error'
+                ), $e->getCode()
+                    ? $e->getMessage()
+                    : Yii::t(
+                        'YupeModule.yupe', 'Error occurred during the render widget ({widget}): {error}', array(
+                            '{error}'  => $e->getMessage(),
                             '{widget}' => $className,
-                            '{module}' => $modulePath[2]
                         )
                     )
-                );
-                return null;
-            }
+            );
+
+            return null;
+
         }
-        return parent::widget($className, $properties, $captureOutput);
+
+        return $widget;
     }
 
     /**
