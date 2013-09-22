@@ -15,6 +15,7 @@ namespace yupe\components\controllers;
 use yupe\components\ContentType;
 use CHtml;
 use Yii;
+use CException;
 
 class Controller extends \CController
 {
@@ -112,7 +113,29 @@ class Controller extends \CController
                 return null;
             }
         }
-        return parent::widget($className, $properties, $captureOutput);
+
+        try {
+
+            $widget = parent::widget($className, $properties, $captureOutput);
+        
+        } catch (CException $e) {
+
+            echo CHtml::tag(
+                'p', array(
+                    'class' => 'alert alert-error'
+                ), Yii::t(
+                    'YupeModule.yupe', 'Error occurred during the render widget ({widget}): {error}', array(
+                        '{error}'  => $e->getMessage(),
+                        '{widget}' => $className,
+                    )
+                )
+            );
+
+            return null;
+
+        }
+
+        return $widget;
     }
 
     /**
