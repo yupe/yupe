@@ -20,7 +20,7 @@ return array_merge(
             ),
             // Работа с миграциями, обновление БД модулей
             'migrator'=>array(
-                'class'=>'application.modules.yupe.components.migrator.Migrator',
+                'class'=>'yupe\components\Migrator',
             ),
             'themeManager'       => array(
                 'basePath'       => dirname(__DIR__) . '/../themes',
