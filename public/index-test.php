@@ -14,8 +14,6 @@ if (!ini_get('date.timezone')) {
     date_default_timezone_set('UTC');
 }
 
-defined('APP_START') or define('APP_START', microtime(true));
-
 // Во время тестирования нет необходимости использовать
 // кеширование настроек:
 defined('CACHE_SETTINGS') or define('CACHE_SETTINGS', false);
@@ -27,12 +25,6 @@ defined('YII_TRACE_LEVEL') or define('YII_TRACE_LEVEL', 3);
 $yii = dirname(__FILE__) . '/../vendor/framework/yii.php';
 
 require $yii;
-
-// Определяем алиасы:
-Yii::setPathOfAlias('application', dirname(__FILE__) . '/../protected/');
-Yii::setPathOfAlias('yii', dirname(__FILE__) . '/../framework/');
-Yii::setPathOfAlias('yupe', dirname(__FILE__) . '/../protected/modules/yupe/');
-Yii::setPathOfAlias('vendor', dirname(__FILE__) . '/../vendor/');
 
 $base = require dirname(__FILE__) . '/../protected/config/test.php';
 
