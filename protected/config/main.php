@@ -15,7 +15,7 @@ return array(
     'charset'           => 'UTF-8',
     'preload'           => array('debug'),
     'aliases' => array(
-        'bootstrap' => realpath(Yii::getPathOfAlias('vendor') . '/booster'),
+        'bootstrap' => realpath(Yii::getPathOfAlias('vendor') . '/clevertech/yii-booster/src'),
     ),
     'import' => array(
         // подключение основых путей
