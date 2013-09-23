@@ -22,7 +22,7 @@ defined('CACHE_SETTINGS') or define('CACHE_SETTINGS', false);
 define('YII_DEBUG', true);
 defined('YII_TRACE_LEVEL') or define('YII_TRACE_LEVEL', 3);
 // путь к фреймворку Yii
-$yii = dirname(__FILE__) . '/../vendor/framework/yii.php';
+$yii = dirname(__FILE__) . '/../vendor/yiisoft/yii/framework/yii.php';
 
 require $yii;
 
