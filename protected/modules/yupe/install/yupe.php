@@ -26,7 +26,7 @@ return array(
     'module' => array(
         'components' => array(
             'bootstrap' => array(
-                'class'          => 'vendor.booster.components.Bootstrap',
+                'class'          => 'vendor.clevertech.yii-booster.src.components.Bootstrap',
                 'coreCss'        => true,
                 'responsiveCss'  => true,
                 'yiiCss'         => true,

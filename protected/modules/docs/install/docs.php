@@ -16,7 +16,7 @@ return array(
         'preload' => array('bootstrap'),
         'components' => array(
             'bootstrap' => array(
-                'class'          => 'vendor.booster.components.Bootstrap',
+                'class'          => 'vendor.clevertech.yii-booster.src.components.Bootstrap',
                 'coreCss'        => true,
                 'responsiveCss'  => true,
                 'yiiCss'         => true,

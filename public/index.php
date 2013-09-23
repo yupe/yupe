@@ -26,11 +26,11 @@ if ($development || defined('APPLICATION_ENV') || getenv('APPLICATION_ENV') !== 
     // В режиме разработки - отключаем кеширование настроек:
     defined('CACHE_SETTINGS') or define('CACHE_SETTINGS', false);
     // путь к фреймворку Yii
-    $yii = dirname(__FILE__) . '/../vendor/framework/yii.php';
+    $yii = dirname(__FILE__) . '/../vendor/yiisoft/yii/framework/yii.php';
 
 } else { //production считается во всех случаях, когда не выполнены условия
     // путь к фреймворку Yii, при необходимости заменить на yii.php
-    $yii = dirname(__FILE__) . '/../vendor/framework/yiilite.php';
+    $yii = dirname(__FILE__) . '/../vendor/yiisoft/yii/framework/yiilite.php';
     // путь к основному конфигурационному файлу Yii
 }
 
