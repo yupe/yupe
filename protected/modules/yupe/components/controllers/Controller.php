@@ -6,16 +6,46 @@
  * @package  YupeCMS
  * @author   aopeykin <aopeykin@yandex.ru>
  * @license  BSD https://raw.github.com/yupe/yupe/master/LICENSE
- * @version  0.0.1
+ * @version  0.6
  * @link     http://yupe.ru
  **/
 
-use yupe\components\ContentType;
+namespace yupe\components\controllers;
 
-class YMainController extends Controller
+use yupe\components\ContentType;
+use CHtml;
+use Yii;
+use CException;
+
+class Controller extends \CController
 {
     public $yupe;
+    public $layout;
 
+    /**
+     * Хлебные крошки сайта, меняется в админке
+     */
+    public $breadcrumbs = array();
+
+    /**
+     * Описание сайта, меняется в админке
+     */
+    public $description;
+
+    /**
+     * Ключевые слова сайта, меняется в админке
+     */
+    public $keywords;
+
+    /**
+     * Contains data for "CMenu" widget (provides view for menu on the site)
+     */
+    public $menu = array();
+
+    /**
+     * Тип заголовка, подробнее в yupe\components\ContentType
+     * @var integer
+     */
     public $headerTypeId = ContentType::TYPE_HTML;
 
     /**
@@ -65,25 +95,63 @@ class YMainController extends Controller
      **/
     public function widget($className, $properties = array(), $captureOutput = false)
     {
-        if (stripos($className, 'application.modules') !== false) {
+        try {
 
             $modulePath = explode('.', $className);
 
-            if (!empty($modulePath[2]) && !Yii::app()->hasModule($modulePath[2])) {
-                echo CHtml::tag(
-                    'p', array(
-                        'class' => 'alert alert-error'
-                    ), Yii::t(
-                        'YupeModule.yupe', 'Widget "{widget}" was not found! Please enable "{module}" module!', array(
+            $isModule = strpos($className, 'application.modules') !== false
+                    && !empty($modulePath[2])
+                    && !Yii::app()->hasModule($modulePath[2]);
+
+            if (Yii::getPathOfAlias($className) == false || $isModule) {
+                
+                $modulePath = explode('.', $className);
+
+                if ($isModule) {
+                    throw new CException(
+                        Yii::t(
+                            'YupeModule.yupe', 'Widget "{widget}" was not found! Please enable "{module}" module!', array(
+                                '{widget}' => $className,
+                                '{module}' => $modulePath[2]
+                            )
+                        ), 1
+                    );
+                } elseif (class_exists($className) === false) {
+
+                    throw new CException(
+                        Yii::t(
+                            'YupeModule.yupe', 'Widget "{widget}" was not found!', array(
+                                '{widget}' => $className,
+                            )
+                        ), 1
+                    );
+
+                }
+
+            }
+
+            $widget = parent::widget($className, $properties, $captureOutput);
+        
+        } catch (CException $e) {
+
+            echo CHtml::tag(
+                'p', array(
+                    'class' => 'alert alert-error'
+                ), $e->getCode()
+                    ? $e->getMessage()
+                    : Yii::t(
+                        'YupeModule.yupe', 'Error occurred during the render widget ({widget}): {error}', array(
+                            '{error}'  => $e->getMessage(),
                             '{widget}' => $className,
-                            '{module}' => $modulePath[2]
                         )
                     )
-                );
-                return null;
-            }
+            );
+
+            return null;
+
         }
-        return parent::widget($className, $properties, $captureOutput);
+
+        return $widget;
     }
 
     /**

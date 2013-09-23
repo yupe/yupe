@@ -1,6 +1,6 @@
 <?php
 
-class DictionaryDataController extends YBackController
+class DictionaryDataController extends yupe\components\controllers\BackController
 {
     /**
      * Displays a particular model.

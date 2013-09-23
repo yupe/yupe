@@ -20,7 +20,7 @@
  * @license  BSD https://raw.github.com/yupe/yupe/master/LICENSE
  * @link     http://yupe.ru
  **/
-class TemplateAdminController extends YBackController
+class TemplateAdminController extends yupe\components\controllers\BackController
 {
     /**
      * Отображает почтовый шаблон по указанному идентификатору

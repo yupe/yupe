@@ -1,6 +1,6 @@
 <?php
 
-class BlogAdminController extends YBackController
+class BlogAdminController extends yupe\components\controllers\BackController
 {
     /**
      * Отображает блог по указанному идентификатору

@@ -1,5 +1,5 @@
 <?php
-class DefaultController extends YBackController
+class DefaultController extends yupe\components\controllers\BackController
 {
     /**
      * Отображает категорию по указанному идентификатору

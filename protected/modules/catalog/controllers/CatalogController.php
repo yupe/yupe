@@ -1,5 +1,5 @@
 <?php
-class CatalogController extends YFrontController
+class CatalogController extends yupe\components\controllers\FrontController
 {
     const GOOD_PER_PAGE = 10;
 

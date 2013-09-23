@@ -1,24 +1,23 @@
 <?php
 /**
  * Контроллер отвечающий за front - часть
- */
-class YFrontController extends YMainController
+ * 
+ * @category YupeComponents
+ * @package  YupeCMS
+ * @author   YupeTeam <team@yupe.ru>
+ * @license  BSD https://raw.github.com/yupe/yupe/master/LICENSE
+ * @version  0.6
+ * @link     http://yupe.ru
+ **/
+
+namespace yupe\components\controllers;
+
+use Yii;
+
+class FrontController extends Controller
 {
     /**
-     * Хлебные крошки сайта, меняется в админке
-     */
-    public $breadcrumbs = array();
-    /**
-     * Описание сайта, меняется в админке
-     */
-    public $description;
-    /**
-     * Ключевые слова сайта, меняется в админке
-     */
-    public $keywords;
-
-    /**
-     * Вызывается при инициализации YFrontController
+     * Вызывается при инициализации FrontController
      * Присваивает значения, необходимым переменным
      */
     public function init()

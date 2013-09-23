@@ -1,5 +1,5 @@
 <?php
-class BlogController extends YFrontController
+class BlogController extends yupe\components\controllers\FrontController
 {
     /**
      * Выводит список блогов
