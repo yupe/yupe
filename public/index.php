@@ -10,10 +10,9 @@
  **/
 
 // подробнее про index.php http://www.yiiframework.ru/doc/guide/ru/basics.entry
-if (!ini_get('date.timezone'))
+if (!ini_get('date.timezone')) {
     date_default_timezone_set('UTC');
-
-defined('APP_START') or define('APP_START', microtime(true));
+}
 
 $development = isset($_SERVER['SERVER_ADDR'])
         ? strpos($_SERVER['SERVER_ADDR'], '127') === 0
@@ -37,18 +36,11 @@ if ($development || defined('APPLICATION_ENV') || getenv('APPLICATION_ENV') !== 
 
 require $yii;
 
-// Определяем алиасы:
-Yii::setPathOfAlias('application', dirname(__FILE__) . '/../protected/');
-Yii::setPathOfAlias('yii', dirname(__FILE__) . '/../framework/');
-Yii::setPathOfAlias('yupe', dirname(__FILE__) . '/../protected/modules/yupe/');
-Yii::setPathOfAlias('vendor', dirname(__FILE__) . '/../vendor/');
-
-$base = require_once dirname(__FILE__) . '/../protected/config/main.php';
+$base = require dirname(__FILE__) . '/../protected/config/main.php';
 
 $userspace = dirname(__FILE__) . '/../protected/config/userspace.php';
-$userspace = file_exists($userspace) ? (require_once $userspace) : array();
+$userspace = file_exists($userspace) ? (require $userspace) : array();
 
 $confManager = new yupe\components\ConfigManager();
 $config = $confManager->merge($base, $userspace);
-//die('<pre>' . print_r($config, true));
 Yii::createWebApplication($config)->run();
