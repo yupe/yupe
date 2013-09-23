@@ -1,0 +1,8 @@
+{
+     "require": {
+        "yiisoft/yii": "dev-master",
+        "clevertech/yii-booster": "2.0.0.*@dev",
+        "yiiext/nested-set-behavior": "dev-master",
+        "yiiext/imperavi-redactor-widget": "dev-master"
+     }
+}
