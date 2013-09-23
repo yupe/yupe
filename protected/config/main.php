@@ -144,17 +144,7 @@ return array(
                     'countLimit'   => 1,    // How many times the same query should be executed to be considered inefficient
                     'slowQueryMin' => 0.01, // Minimum time for the query to be slow
                 ),
-                /*
-                array(
-                    'class'=>'application.extensions.yii-debug-toolbar.YiiDebugToolbarRoute',
-                    'ipFilters'=>array('127.0.0.1', '46.172.254.123'),
-                ),
-                //*/
             ),
-        ),
-        // подключение CURL-обертки, подробнее https://github.com/hackerone/curl
-        'curl' => array(
-            'class' => 'application.modules.yupe.extensions.curl.Curl'
         ),
 
         // Подключение компоненты подсветки кода Highlight.js (Подробнее: http://softwaremaniacs.org/soft/highlight/)
