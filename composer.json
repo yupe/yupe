@@ -2,7 +2,7 @@
     "name": "yupe/yupe",
     "description": "Yupe is simple and lightweight CMF for web-development, built on top of Yii",
     "keywords": ["yupe", "yii", "web", "cms", "cmf"],
-    "homepage": "http://yupe.ru/",
+    "homepage": "http://yupe.ru",
     "type": "cmf",
     "license": "BSD-3-Clause",
     "authors": [
@@ -67,7 +67,7 @@
     "require": {
         "php": ">=5.3.7",
         "yiisoft/yii": ">=1.1.14",
-        "yiiext/migrate-command": "@dev",
+        "yiiext/migrate-command": "dev-master",
         "zhuravljov/yii2-debug": "dev-master",
         "clevertech/yii-booster": "2.0.0.*@dev",
         "yiiext/nested-set-behavior": "dev-master",
