@@ -1,4 +1,12 @@
 <?php
+
+
+// Определяем алиасы:
+Yii::setPathOfAlias('application', dirname(__FILE__) . '/../');
+Yii::setPathOfAlias('yupe', dirname(__FILE__) . '/../modules/yupe/');
+Yii::setPathOfAlias('vendor', dirname(__FILE__) . '/../../vendor/');
+
+
 return array_merge(
     require(dirname(__FILE__) . '/main.php'),
     array(

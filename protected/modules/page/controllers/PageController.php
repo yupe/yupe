@@ -22,6 +22,7 @@ class PageController extends yupe\components\controllers\FrontController
      */
     public function actionShow($slug)
     {
+        $this->layout = '//layouts/page-default';
         $page = null;
         // превью
         $page = ((int) Yii::app()->request->getQuery('preview') === 1 && Yii::app()->user->isSuperUser())

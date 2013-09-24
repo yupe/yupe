@@ -1,4 +1,6 @@
 *.log
+composer.phar
+composer.lock
 *.bin
 *.settings
 .project

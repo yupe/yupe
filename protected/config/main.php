@@ -1,21 +1,9 @@
 <?php
-/**
- * Файл основных настроек приложения
- *
- * ВНИМАНИЕ! ДАННЫЙ ФАЙЛ ИСПОЛЬЗУЕТСЯ ЯДРОМ YUPE!
- * ИЗМЕНЕНИЯ В ДАННОМ ФАЙЛЕ МОГУТ ПРИВЕСТИ К ПОТЕРЕ РАБОТОСПОСОБНОСТИ
- * Для собственных настроек создайте и используйте "/protected/config/userspace.php"
- * Подробную информацию по использованию "userspace" можно узнать из официальной
- * документации.
- *
- * @category YupeConfig
- * @package  Yupe
- * @author   YupeTeam <team@yupe.ru>
- * @license  BSD http://ru.wikipedia.org/wiki/%D0%9B%D0%B8%D1%86%D0%B5%D0%BD%D0%B7%D0%B8%D1%8F_BSD
- * @version  0.5.4
- * @link     http://yupe.ru
- *
- **/
+
+// Определяем алиасы:
+Yii::setPathOfAlias('application', dirname(__FILE__) . '/../');
+Yii::setPathOfAlias('yupe', dirname(__FILE__) . '/../modules/yupe/');
+Yii::setPathOfAlias('vendor', dirname(__FILE__) . '/../../vendor/');
 
 return array(
     'basePath'          => dirname(__FILE__) . '/..',
@@ -25,9 +13,9 @@ return array(
     'sourceLanguage'    => 'en',
     'theme'             => 'default',          // тема оформления по умолчанию
     'charset'           => 'UTF-8',
-    'preload'           => array(),
+    'preload'           => array('debug'),
     'aliases' => array(
-        'bootstrap' => realpath(Yii::getPathOfAlias('vendor') . '/booster'),
+        'bootstrap' => realpath(Yii::getPathOfAlias('vendor') . '/clevertech/yii-booster/src'),
     ),
     'import' => array(
         // подключение основых путей
@@ -63,6 +51,10 @@ return array(
     'params' => require dirname(__FILE__) . '/params.php',
     // конфигурирование основных компонентов (подробнее http://www.yiiframework.ru/doc/guide/ru/basics.component)
     'components' => array(
+        'debug' => array(
+            'class' => 'vendor.zhuravljov.yii2-debug.Yii2Debug',
+        ),
+
         'bootstrap' => array(
             'class' => 'bootstrap.components.Bootstrap',
             'responsiveCss'  => true,
@@ -138,23 +130,7 @@ return array(
                     'class'  => 'CFileLogRoute',
                     'levels' => 'error, warning, info, trace', // на продакшн лучше оставить error, warning
                 ),
-                // профайлер запросов к базе данных, на продакшн рекомендуется отключить
-                array(
-                    'class'        => 'application.modules.yupe.extensions.db_profiler.DbProfileLogRoute',
-                    'countLimit'   => 1,    // How many times the same query should be executed to be considered inefficient
-                    'slowQueryMin' => 0.01, // Minimum time for the query to be slow
-                ),
-                /*
-                array(
-                    'class'=>'application.extensions.yii-debug-toolbar.YiiDebugToolbarRoute',
-                    'ipFilters'=>array('127.0.0.1', '46.172.254.123'),
-                ),
-                //*/
             ),
-        ),
-        // подключение CURL-обертки, подробнее https://github.com/hackerone/curl
-        'curl' => array(
-            'class' => 'application.modules.yupe.extensions.curl.Curl'
         ),
 
         // Подключение компоненты подсветки кода Highlight.js (Подробнее: http://softwaremaniacs.org/soft/highlight/)

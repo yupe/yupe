@@ -1,0 +1,78 @@
+{
+    "name": "yupe/yupe",
+    "description": "Yupe is simple and lightweight CMF for web-development, built on top of Yii",
+    "keywords": ["yupe", "yii", "web", "cms", "cmf"],
+    "homepage": "http://yupe.ru",
+    "type": "cmf",
+    "license": "BSD-3-Clause",
+    "authors": [
+        {
+            "name": "Andrey Opeykin",
+            "email": "aopeykin@yandex.ru",
+            "homepage": "http://amylabs.ru",
+            "role": "Developer"
+        },
+        {
+            "name": "Maxim Timashov",
+            "email": "apexwire@gmail.com",
+            "role": "Developer"
+        },
+        {
+            "name" : "Alexander Tischenko",
+            "email" : "tsm@archaron.ru",
+            "homepage":"http://archaron.ru/",
+            "role": "Developer"
+        },
+        {
+            "name": "Nickolay Sedov",
+            "email": "yamikspark@gmail.com",
+            "homepage": "https://twitter.com/mik_spark",
+            "role": "Developer"
+        },
+        {
+            "name": "Evgeniy Kulikov",
+            "email": "tuxuls@gmail.com",
+            "homepage": "http://akulikov.org.ua",
+            "role": "Developer"
+        },
+        {
+            "name": "Alexander Lyzhenkov",
+            "homepage": "http://lyzhenkov.ru",
+            "role": "Developer"
+        },
+        {
+            "name": "Anton Cherepanov",
+            "homepage": "https://twitter.com/davetoxa",
+            "role": "Developer"
+        },
+        {
+            "name": "Anton Kucherov",
+            "homepage": "http://idexter.ru/",
+            "role": "Developer"
+        },
+        {
+            "name": "Alexey Elizarov",
+            "homepage": "http://amylabs.ru",
+            "role": "Designer"
+        }
+    ],
+    "support": {
+        "email": "team@yupe.ru",
+        "issues": "https://github.com/yupe/yupe/issues",
+        "forum": "http://yupe.ru/talk/",
+        "wiki": "http://yupe.ru/wiki/default/pageIndex",
+        "source": "https://github.com/yupe/yupe/"
+    },
+    "require": {
+        "php": ">=5.3.7",
+        "yiisoft/yii": ">=1.1.14",
+        "clevertech/yii-booster": "2.0.0.*@dev",
+        "yiiext/nested-set-behavior": "dev-master",
+        "yiiext/imperavi-redactor-widget": "dev-master"
+    },
+    "require-dev": {
+        "codeception/codeception": "1.6.*",
+        "zhuravljov/yii2-debug": "dev-master"
+    },
+    "minimum-stability": "dev"
+}
