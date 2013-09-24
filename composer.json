@@ -66,7 +66,7 @@
     "require": {
         "php": ">=5.3.7",
         "yiisoft/yii": ">=1.1.14",
-        "zhuravljov/yii2-debug": "1.*",
+        "zhuravljov/yii2-debug": "1.0",
         "clevertech/yii-booster": "2.0.*",
         "yiiext/nested-set-behavior": "1.0.*",
         "yiiext/imperavi-redactor-widget": "1.2.*"
