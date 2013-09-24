@@ -1,0 +1,64 @@
+{
+    "name": "yupe-cmf",
+    "description": "Yupe is simple and lightweight CMF for web-development, built on top of Yii",
+    "keywords": ["yupe", "yii", "web"],
+    "homepage": "http://yupe.ru/",
+    "type": "cmf",
+    "license": "BSD-3-Clause",
+    "authors": [
+        {
+            "name": "Andrey Opeykin",
+            "email": "aopeykin@yandex.ru",
+            "homepage": "http://andrey.opeykin.ru"
+        },
+        {
+            "name": "Maxim Timashov",
+            "email": "apexwire@gmail.com",
+            "homepage": ""
+        },
+        {
+            "name" : "Alexander Tischenko",
+            "email" : "tsm@archaron.ru",
+            "homepage":"http://archaron.ru/"
+        },
+        {
+            "name": "Nickolay Sedov",
+            "email": "yamikspark@gmail.com",
+            "homepage": "https://twitter.com/mik_spark"
+        },
+        {
+            "name": "Evgeniy Kulikov",
+            "email": "tuxuls@gmail.com",
+            "homepage": "http://akulikov.org.ua"
+        },
+        {
+            "name": "Alexander Lyzhenkov",
+            "email": "",
+            "homepage": "http://lyzhenkov.ru"
+        },
+        {
+            "name": "Anton Cherepanov",
+            "email": "",
+            "homepage": "https://twitter.com/davetoxa"
+        },
+        {
+            "name": "Anton Kucherov",
+            "email": "",
+            "homepage": "http://idexter.ru/"
+        },
+        {
+            "name": "Alexander Elizarov",
+            "email": "",
+            "homepage": "http://vk.com/valaraukar"
+        }
+    ],
+    "require": {
+        "php": ">=5.3.7",
+        "yiisoft/yii": ">=1.1.14",
+        "yiiext/migrate-command": "@dev",
+        "zhuravljov/yii2-debug": "dev-master",
+        "clevertech/yii-booster": "2.0.0.*@dev",
+        "yiiext/nested-set-behavior": "dev-master",
+        "yiiext/imperavi-redactor-widget": "dev-master"
+    }
+}
