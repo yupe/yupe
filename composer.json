@@ -75,5 +75,5 @@
     "require-dev": {
         "codeception/codeception": "1.6.*@dev"
     },
-    "minimum-stability": "stable"
+    "minimum-stability": "dev"
 }
