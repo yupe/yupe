@@ -66,13 +66,13 @@
     "require": {
         "php": ">=5.3.7",
         "yiisoft/yii": ">=1.1.14",
-        "clevertech/yii-booster": "2.0.*",
-        "yiiext/nested-set-behavior": "1.0.*",
-        "yiiext/imperavi-redactor-widget": "1.2.*"
+        "clevertech/yii-booster": "dev-master",
+        "yiiext/nested-set-behavior": "dev-master",
+        "yiiext/imperavi-redactor-widget": "dev-master"
     },
     "require-dev": {
-        "codeception/codeception": "1.6.*@dev",
-        "zhuravljov/yii2-debug": "1.0"
+        "codeception/codeception": "1.6.*",
+        "zhuravljov/yii2-debug": "dev-master"
     },
     "minimum-stability": "dev"
 }
