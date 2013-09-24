@@ -68,7 +68,7 @@
         "php": ">=5.3.7",
         "yiisoft/yii": ">=1.1.14",
         "yiiext/migrate-command": "dev-master",
-        "zhuravljov/yii2-debug": "dev-master",
+        "zhuravljov/yii2-debug": ">=1.0",
         "clevertech/yii-booster": "2.0.0.*@dev",
         "yiiext/nested-set-behavior": "dev-master",
         "yiiext/imperavi-redactor-widget": "dev-master"
