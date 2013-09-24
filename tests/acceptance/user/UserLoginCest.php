@@ -11,7 +11,7 @@ class UserLoginCest
         $I->seeLink('Забыли пароль?');
         $I->see(\CommonPage::LOGIN_LABEL);
         $I->see('Запомнить меня');
-        $I->dontSeeCheckboxIsChecked('LoginForm[remember_me]');
+        $I->dontSeeCheckboxIsChecked(LoginPage::$rememberMeField);
         $I->seeLink('Регистрация');
         $I->seeInField(LoginPage::$emailField, '');
         $I->seeInField(LoginPage::$passwordField, '');
