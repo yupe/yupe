@@ -5,13 +5,7 @@ return array(
         'documentRoot'     => $_SERVER['DOCUMENT_ROOT'],
         'avatarsDir'       => 'avatars',
         'avatarExtensions' => array( 'jpg', 'png', 'gif' ),
-        'notifyEmailFrom'  => 'test@test.ru',
-        'urlRules'         => array(
-            'user/people/<username:\w+>/<mode:(topics|comments)>' => 'user/people/userInfo',
-            'user/people/<username:\w+>'                          => 'user/people/userInfo',
-            'user/people/'                                        => 'user/people/index',
-        ),
-        // 'attachedProfileEvents' => array("GeoModule"), // В случае использования GEO-модуля, подписываем его на события
+        'notifyEmailFrom'  => 'test@test.ru'
     ),
     'import'    => array(
         'application.modules.user.UserModule',
@@ -34,6 +28,9 @@ return array(
         '/recovery'             => 'user/account/recovery',
         '/users'                => 'user/people/index',
         '/profile'              => 'user/account/profile',
-        '/user/<username:\w+>/' => 'user/people/userInfo',
+        '/users/<username:\w+>/' => 'user/people/userInfo',
+        '/activate/<key>'     => 'user/account/activate',
+        '/confirm/<key>'      => 'user/account/confirm',
+        '/recovery/<key>'     => 'user/account/restore'
     ),
 );

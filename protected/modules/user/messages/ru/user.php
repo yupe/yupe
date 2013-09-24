@@ -252,5 +252,6 @@ return array (
   'status is not set' => 'статус не определен',
   'management' => 'управление',
   'Register' => 'Зарегестрироваться',
-  'Authorized' => 'Авторизован'
+  'Authorized' => 'Авторизован',
+  'Recovery password key was not found! Please try one more!' => 'Ключ сброса пароля не найден!'
 );
