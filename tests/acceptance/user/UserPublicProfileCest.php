@@ -3,11 +3,12 @@ use \WebGuy;
 
 class UserPublicProfileCest
 {
-    public function testPubliUserProfile(WebGuy $I)
+    public function testPublicUserProfile(WebGuy $I)
     {
-        $I->amOnPage('/user/yupe');
-        $I->seeInCurrentUrl('yupe');
-        $I->seeInTitle('yupe');
+        $user = 'yupe';
+        $I->amOnPage(EditProfilePage::getPublicProfileUrl($user));
+        $I->seeInCurrentUrl($user);
+        $I->seeInTitle($user);
         $I->see('Мнений пока нет, станьте первым!');
     }
 }

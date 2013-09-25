@@ -6,4 +6,14 @@ class RecoveryPage
     public static $emailField = 'RecoveryForm[email]';
 
     public static $buttonLabel = 'Восстановить пароль';
+
+    public static function getConfirmRoute($code)
+    {
+        return "/confirm/{$code}";
+    }
+
+    public static function getRecoveryRoute($code)
+    {
+        return "/recovery/{$code}";
+    }
 }

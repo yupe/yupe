@@ -33,9 +33,13 @@ class UserRecoveryPasswordCest
         $I->see('На указанный email отправлено письмо с инструкцией по восстановлению пароля!', \CommonPage::SUCCESS_CSS_CLASS);
         $I->seeInCurrentUrl('login');
 
+        $I->wantToTest('Failure password recovery');
+        $I->amOnPage(RecoveryPage::getRecoveryRoute(time()));
+        $I->see('Ключ сброса пароля не найден!', CommonPage::ERROR_CSS_CLASS);
+
         $I->seeInDatabase('yupe_user_recovery_password', array('user_id' => 1));
         $key = $I->grabFromDatabase('yupe_user_recovery_password','code', array('user_id' => 1));
-        $I->amOnPage("/user/account/recoveryPassword/code/{$key}");
+        $I->amOnPage(RecoveryPage::getRecoveryRoute($key));
         $I->dontSeeInDatabase('yupe_user_recovery_password', array('user_id' => 1));
         $I->see('Новый пароль отправлен Вам на email!',\CommonPage::SUCCESS_CSS_CLASS);
     }

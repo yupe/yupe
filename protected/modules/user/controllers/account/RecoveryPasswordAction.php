@@ -2,7 +2,7 @@
 class RecoveryPasswordAction extends CAction
 {
     // сброс пароля
-    public function run($code)
+    public function run($key)
     {
         $module = Yii::app()->getModule('user');
 
@@ -16,17 +16,17 @@ class RecoveryPasswordAction extends CAction
 				$this->controller->redirect(Yii::app()->user->returnUrl);
             }
 
-			$recovery = RecoveryPassword::model()->with('user')->find('code = :code', array(':code' => $code));
+			$recovery = RecoveryPassword::model()->with('user')->find('code = :code', array(':code' => $key));
 
 			if (!$recovery)
 			{
 				Yii::log(
-					Yii::t('UserModule.user', 'Recovery password code {code} was not found!', array('{code}' => $code)),
+					Yii::t('UserModule.user', 'Recovery password key {code} was not found!', array('{code}' => $key)),
 					CLogger::LEVEL_ERROR, UserModule::$logCategory
 				);
 				Yii::app()->user->setFlash(
 					YFlashMessages::ERROR_MESSAGE,
-					Yii::t('UserModule.user', 'Recovery password code was not found! Please try one more!')
+					Yii::t('UserModule.user', 'Recovery password key was not found! Please try one more!')
 				);
 
 				$this->controller->redirect(array('/user/account/recovery'));

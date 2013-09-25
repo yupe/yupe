@@ -31,10 +31,10 @@ class AccountController extends yupe\components\controllers\FrontController
             'recovery'         => array(
                 'class' => 'application.modules.user.controllers.account.RecoveryAction',
             ),
-            'recoveryPassword' => array(
+            'restore' => array(
                 'class' => 'application.modules.user.controllers.account.RecoveryPasswordAction',
             ),
-            'emailConfirm'     => array(
+            'confirm'     => array(
                 'class' => 'application.modules.user.controllers.account.EmailConfirmAction',
             ),
         );
