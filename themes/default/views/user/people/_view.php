@@ -1,18 +1,28 @@
-<dl>
-    <dt style="float:left;margin-right:10px;height:32px">
-        <?php $this->widget('AvatarWidget', array('user' => $data, 'size' => 32)); ?>
-    </dt>
-    <dd>
-        <?php echo CHtml::link(CHtml::encode($data->nick_name), array('/user/people/userInfo', 'username' => $data->nick_name)); ?>
-        <br/>
-        <?php
-        echo Yii::t('user', 'На сайте с {create_date}', array(
-            '{create_date}' => Yii::app()->dateFormatter->formatDateTime($data->creation_date , 'long' , null)
-        )) . " ";
-        if ($data->last_visit)
-            echo Yii::t('user', 'Последний раз замечен {last_visit}', array(
-                "{last_visit}" => Yii::app()->dateFormatter->formatDateTime($data->last_visit , 'long' , 'short'),
-            ));
-        ?>
-    </dd>
-</dl>
+<div class="media">
+    <?php echo CHtml::link(CHtml::image($data->getAvatar(90), $data->nick_name, array('class' => 'thumbnail media-object')),
+        array('/user/people/userInfo/', 'username' => $data->nick_name),
+        array('class' => 'pull-left')
+    ); ?>
+
+    <div class="media-body">
+        <div class="well well-small">
+            <ul class="inline">
+                <?php if($data->online_status):?>
+                    <li>
+                        <blockquote><?php echo CHtml::encode($data->online_status);?></blockquote>
+                    </li>
+                <?php endif;?>
+                <li>
+                    <i class="icon-user"></i> <?php echo CHtml::link($data->nick_name, array('/user/people/userInfo/', 'username' => $data->nick_name));?>
+                </li>
+                <li>
+                    <i class="icon-calendar"></i> <?php echo Yii::app()->dateFormatter->format(
+                        'dd MMMM yyyy',
+                        $data->last_visit
+                    ); ?>
+                </li>
+            </ul>
+        </div>
+
+    </div>
+</div>
