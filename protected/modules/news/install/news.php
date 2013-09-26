@@ -9,6 +9,6 @@ return array(
     'component' => array(),
     'rules'     => array(
         '/news/' => 'news/news/index',
-        '/news/<title>' => 'news/news/show',
+        '/news/<alias>' => 'news/news/show',
     ),
 );
