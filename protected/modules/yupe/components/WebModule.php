@@ -49,10 +49,7 @@ abstract class WebModule extends \CWebModule
      * @var int некоторые компоненты Юпи! автоматически кэширует, если время жизни кэша не указано - берется это значение
      */
     public $coreCacheTime = 3600;
-    /**
-     * @var array правила маршрутизации модуля (импортируются при старте модуля)
-     */
-    public $urlRules = null;
+
     /**
      * @var array редактор
      */

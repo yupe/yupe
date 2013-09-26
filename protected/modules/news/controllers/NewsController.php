@@ -1,28 +1,30 @@
 <?php
 class NewsController extends yupe\components\controllers\FrontController
 {
-    const NEWS_PER_PAGE = 10;
-
-    public function actionShow($title)
+    public function actionShow($alias)
     {
         $news = News::model()->published();
+
         $news = ($this->isMultilang())
-            ? $news->language(Yii::app()->language)->find('alias = :alias', array(':alias' => $title))
-            : $news->find('alias = :alias', array(':alias' => $title));
-        if (!$news)
+            ? $news->language(Yii::app()->language)->find('alias = :alias', array(':alias' => $alias))
+            : $news->find('alias = :alias', array(':alias' => $alias));
+
+        if (!$news) {
             throw new CHttpException(404, Yii::t('NewsModule.news', 'News article was not found!'));
+        }
 
         // проверим что пользователь может просматривать эту новость
-        if ($news->is_protected ==News::PROTECTED_YES && !Yii::app()->user->isAuthenticated())
+        if ($news->is_protected == News::PROTECTED_YES && !Yii::app()->user->isAuthenticated())
         {
             Yii::app()->user->setFlash(
-                YFlashMessages::SUCCESS_MESSAGE,
+                YFlashMessages::ERROR_MESSAGE,
                 Yii::t('NewsModule.news', 'You must be an authorized user for view this page!')
             );
+
             $this->redirect(array(Yii::app()->getModule('user')->accountActivationSuccess));
         }
 
-        $this->render('news', array('news' => $news));
+        $this->render('show', array('news' => $news));
     }
 
     public function actionIndex()
@@ -32,7 +34,7 @@ class NewsController extends yupe\components\controllers\FrontController
                 'params'    => array(
                     ':status' => News::STATUS_PUBLISHED,
                 ),
-                'limit'     => self::NEWS_PER_PAGE,
+                'limit'     => $this->module->perPage,
                 'order'     => 't.creation_date DESC',
                 'with'      => 'user',
         ));
