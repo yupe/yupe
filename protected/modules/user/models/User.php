@@ -24,6 +24,7 @@
  * @property string $activation_ip
  * @property integer $email_confirm
  * @property integer $use_gravatar
+ * @property string $online_status
  */
 class User extends YModel
 {
@@ -124,6 +125,7 @@ class User extends YModel
             'site'              => Yii::t('UserModule.user', 'Site/blog'),
             'location'          => Yii::t('UserModule.user', 'Location'),
             'about'             => Yii::t('UserModule.user', 'About yourself'),
+            'online_status'     => Yii::t('UserModule.user', 'Status')
         );
     }
 
@@ -149,6 +151,7 @@ class User extends YModel
         $criteria->compare('registration_ip', $this->registration_ip, true);
         $criteria->compare('activation_ip', $this->activation_ip, true);
         $criteria->compare('email_confirm', $this->email_confirm, true);
+        $criteria->compare('online_status', $this->online_status, true);
 
         return new CActiveDataProvider(get_class($this), array('criteria' => $criteria));
     }

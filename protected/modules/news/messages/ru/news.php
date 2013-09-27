@@ -17,6 +17,7 @@
  * NOTE, this file must be saved in UTF-8 encoding.
  */
 return array (
+  'News per page' => 'Новостей на странице',
   '*unknown*' => '*неизвестно*',
   '- no matter -' => '- не важен -',
   '-no matter-' => '- не важно -',

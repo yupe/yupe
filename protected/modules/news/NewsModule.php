@@ -11,6 +11,7 @@ class NewsModule extends WebModule
     public $maxFiles          = 1;
     public $mainCategory;
     public $rssCount          = 10;
+    public $perPage           = 10;
 
     public function getDependencies()
     {
@@ -27,8 +28,9 @@ class NewsModule extends WebModule
 
     public function getInstall()
     {
-        if(parent::getInstall())
+        if(parent::getInstall()) {
             @mkdir($this->getUploadPath(),0755);
+        }
 
         return false;
     }
@@ -65,6 +67,7 @@ class NewsModule extends WebModule
             'minSize'           => Yii::t('NewsModule.news', 'Minimum size (in bytes)'),
             'maxSize'           => Yii::t('NewsModule.news', 'Maximum size (in bytes)'),
             'rssCount'          => Yii::t('NewsModule.news', 'RSS records'),
+            'perPage'           => Yii::t('NewsModule.news', 'News per page')
         );
     }
 
@@ -78,13 +81,14 @@ class NewsModule extends WebModule
             'allowedExtensions',
             'minSize',
             'maxSize',
-            'rssCount'
+            'rssCount',
+            'perPage'
         );
     }
 
     public function getVersion()
     {
-        return Yii::t('NewsModule.news', '0.4');
+        return Yii::t('NewsModule.news', '0.5');
     }
 
     public function getIsInstallDefault()

@@ -75,20 +75,15 @@ $this->renderPartial('_search', array('model' => $model));
            'filter' => CHtml::listData($this->module->getCategoryList(),'id','name')
         ),
         array(
-            'name'  => 'lang',
-            'value'  => '$data->lang',
-            'filter' => $this->yupe->getLanguagesList()
-        ),
-        array(
             'name'   => 'status',
             'type'   => 'raw',
             'value'  => '$this->grid->returnBootstrapStatusHtml($data, "status", "Status", array("pencil", "ok-sign", "time"))',
             'filter' => $model->getStatusList()
         ),
         array(
-            'header' => Yii::t('NewsModule.news', 'Public URL'),
-            'type'   => 'raw',
-            'value'  => 'CHtml::link($data->getPermaLink(),$data->getPermaLink(),array("target" => "_blank"))',
+            'name'  => 'lang',
+            'value'  => '$data->lang',
+            'filter' => $this->yupe->getLanguagesList()
         ),
         array(
             'class'   => 'bootstrap.widgets.TbButtonColumn'

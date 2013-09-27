@@ -26,11 +26,16 @@
 
          <?php if($user->site):?>
             <i class="icon-globe"></i> <?php echo CHtml::link($user->site,$user->site, array('rel' => 'nofollow'));?><br/>
-         <?php endif;?>   
-     </div>     
- </div>       
+         <?php endif;?>
 
- <br/> 
+     </div>     
+ </div>
+
+<br/>
+
+<?php if($user->online_status):?>
+    <blockquote><?php echo CHtml::encode($user->online_status);?></blockquote>
+<?php endif;?>
 
 <?php if($user->about):?>            
      <div class="row-fluid">
