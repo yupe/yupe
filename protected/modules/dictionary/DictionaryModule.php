@@ -1,4 +1,14 @@
 <?php
+/**
+ * DictionaryModule основной класс модуля dictionary
+ *
+ * @author yupe team <team@yupe.ru>
+ * @link http://yupe.ru
+ * @copyright 2009-2013 amyLabs && Yupe! team
+ * @package yupe.modules.dictionary
+ * @since 0.1
+ *
+ */
 
 class DictionaryModule extends yupe\components\WebModule
 {

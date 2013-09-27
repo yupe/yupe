@@ -1,4 +1,14 @@
 <?php
+/**
+ * BlogModule основной класс модуля blog
+ *
+ * @author yupe team <team@yupe.ru>
+ * @link http://yupe.ru
+ * @copyright 2009-2013 amyLabs && Yupe! team
+ * @package yupe.modules.blog
+ * @since 0.1
+ *
+ */
 class BlogModule extends yupe\components\WebModule
 {
     public $mainCategory;

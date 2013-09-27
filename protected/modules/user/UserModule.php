@@ -1,5 +1,17 @@
 <?php
 
+/**
+ * UserModule основной класс модуля user
+ *
+ * @author yupe team <team@yupe.ru>
+ * @link http://yupe.ru
+ * @copyright 2009-2013 amyLabs && Yupe! team
+ * @package yupe.modules.user
+ * @since 0.1
+ *
+ */
+
+
 use yupe\components\WebModule;
 
 class UserModule extends WebModule

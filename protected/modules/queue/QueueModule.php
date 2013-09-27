@@ -1,5 +1,16 @@
 <?php
 
+/**
+ * QueueModule основной класс модуля queue
+ *
+ * @author yupe team <team@yupe.ru>
+ * @link http://yupe.ru
+ * @copyright 2009-2013 amyLabs && Yupe! team
+ * @package yupe.modules.queue
+ * @since 0.1
+ *
+ */
+
 class QueueModule extends yupe\components\WebModule
 {
     public function  getVersion()

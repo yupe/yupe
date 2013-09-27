@@ -1,5 +1,16 @@
 <?php
 
+/**
+ * NewsModule основной класс модуля news
+ *
+ * @author yupe team <team@yupe.ru>
+ * @link http://yupe.ru
+ * @copyright 2009-2013 amyLabs && Yupe! team
+ * @package yupe.modules.news
+ * @since 0.1
+ *
+ */
+
 use yupe\components\WebModule;
 
 class NewsModule extends WebModule

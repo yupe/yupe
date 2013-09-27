@@ -1,7 +1,21 @@
 <?php
+/**
+ * PageModule основной класс модуля page
+ *
+ * @author yupe team <team@yupe.ru>
+ * @link http://yupe.ru
+ * @copyright 2009-2013 amyLabs && Yupe! team
+ * @package yupe.modules.page
+ * @since 0.1
+ *
+ */
 
 class PageModule extends yupe\components\WebModule
 {
+    /**
+     *  Основная категория для страниц
+     *
+    */
     public $mainCategory;
 
     public function getDependencies()
@@ -23,7 +37,7 @@ class PageModule extends yupe\components\WebModule
 
     public function  getVersion()
     {
-        return Yii::t('PageModule.page', '0.4.1');
+        return Yii::t('PageModule.page', '0.5');
     }
 
     public function getEditableParams()
@@ -86,8 +100,9 @@ class PageModule extends yupe\components\WebModule
          ));
 
         // Если у модуля не задан редактор - спросим у ядра
-        if (!$this->editor)
+        if (!$this->editor) {
             $this->editor = Yii::app()->getModule('yupe')->editor;
+        }
     }
 
     public function isMultiLang()

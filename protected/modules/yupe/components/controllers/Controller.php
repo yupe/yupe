@@ -3,7 +3,7 @@
  * Содержит общие функции для панели управления и фронтенда
  *
  * @category YupeComponents
- * @package  YupeCMS
+ * @package  yupe
  * @author   aopeykin <aopeykin@yandex.ru>
  * @license  BSD https://raw.github.com/yupe/yupe/master/LICENSE
  * @version  0.6

@@ -4,7 +4,7 @@ use \WebGuy;
 
 class NewsPublishCest
 {
-    public function tryToTest(WebGuy $I, $scenario)
+    public function tryToTestPagePublishing(WebGuy $I, $scenario)
     {
         $I = new WebGuy\UserSteps($scenario);
         $I->login('yupe@yupetest.ru','111111');

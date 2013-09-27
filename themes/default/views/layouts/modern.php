@@ -161,9 +161,11 @@
         <?php $this->widget('application.modules.blog.widgets.LastPostsWidget', array('limit' => 3,'view' => 'lastposts-index'));?>
     </div>
     <div class="span6">
+        <h2><small>Они молодцы</small></h2>
+        <span id="contributors"></span>
         <h2><small>Наш твиттер</small></h2>
         <div class="widget twitter-widget">
-            <a class="twitter-timeline" href="https://twitter.com/YupeCms" data-widget-id="342373817932451841" height="550">
+            <a class="twitter-timeline" href="https://twitter.com/YupeCms" data-widget-id="342373817932451841" height="400">
                 Твиты пользователя @YupeCms
             </a>
         </div>
@@ -188,6 +190,27 @@
             fjs.parentNode.insertBefore(js, fjs);
         }
     }(document, "script", "twitter-wjs");
+</script>
+<script type="text/javascript">
+    $(document).ready(function () {
+        $.ajax({
+            type: 'GET',
+            url: 'https://api.github.com/repos/yupe/yupe/contributors',
+            dataType: 'jsonp',
+            success: function(data,status) {
+                $.each(data.data, function (key, contributor) {
+                    var image = "<img src=\"" + contributor.avatar_url + "\" width=\"48\" height=\"48\">";
+                    var link = $(document.createElement('a'));
+                    link.attr('href','https://github.com/'+contributor.login);
+                    link.attr('target', "_blank");
+                    link.attr('rel', 'tooltip');
+                    link.attr('title', contributor.login);
+                    link.html(image);
+                    $('#contributors').append(link);
+                });
+            }
+        });
+    })
 </script>
 </body>
 </html>

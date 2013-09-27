@@ -1,4 +1,16 @@
 <?php
+/**
+ * PagesWidget виджет для вывода страниц
+ *
+ * @author yupe team <team@yupe.ru>
+ * @link http://yupe.ru
+ * @copyright 2009-2013 amyLabs && Yupe! team
+ * @package yupe.modules.page.widgets
+ * @since 0.1
+ *
+ */
+
+
 class PagesWidget extends YWidget
 {
     public $pageStatus;

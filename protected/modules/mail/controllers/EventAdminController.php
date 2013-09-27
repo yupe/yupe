@@ -4,7 +4,7 @@
  * Класс контроллера Event:
  *
  * @category YupeController
- * @package  YupeCMS
+ * @package  yupe
  * @author   YupeTeam <team@yupe.ru>
  * @license  BSD https://raw.github.com/yupe/yupe/master/LICENSE
  * @link     http://yupe.ru
@@ -15,7 +15,7 @@
  * Класс контроллера Event:
  *
  * @category YupeController
- * @package  YupeCMS
+ * @package  yupe
  * @author   YupeTeam <team@yupe.ru>
  * @license  BSD https://raw.github.com/yupe/yupe/master/LICENSE
  * @link     http://yupe.ru

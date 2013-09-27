@@ -1,4 +1,15 @@
 <?php
+/**
+ * HpModule основной класс модуля hp
+ *
+ * @author xoma <hello@amylabs.ru>
+ * @link http://amylabs.ru
+ * @copyright 2013 amyLabs
+ * @package yupe.modules.hp
+ * @since 0.1
+ *
+ */
+
 class HpModule extends yupe\components\WebModule
 {
     const MODE_POSTS = 1;

@@ -1,15 +1,17 @@
 <?php
 /**
- * FileDocComment
- * Page install migration
+ * m000000_000000_page_base install migration
  * Класс миграций для модуля Page:
  *
- * @category YupeMigration
- * @package  YupeCMS
- * @author   YupeTeam <team@yupe.ru>
+ * @author yupe team <team@yupe.ru>
+ * @link http://yupe.ru
+ * @copyright 2009-2013 amyLabs && Yupe! team
+ * @package yupe.modules.page.install.migrations
  * @license  BSD https://raw.github.com/yupe/yupe/master/LICENSE
- * @link     http://yupe.ru
- **/
+ * @since 1.0
+ *
+ */
+
 class m000000_000000_page_base extends yupe\components\DbMigration
 {
     /**

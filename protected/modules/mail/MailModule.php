@@ -1,27 +1,15 @@
 <?php
 /**
- * MailModule
- * Класс модуля Mail:
+ * MailModule основной класс модуля install
  *
- * @category YupeModules
- * @package  YupeCMS
- * @author   YupeTeam <team@yupe.ru>
- * @license  BSD https://raw.github.com/yupe/yupe/master/LICENSE
- * @version  0.1
- * @link     http://yupe.ru
- **/
+ * @author yupe team <team@yupe.ru>
+ * @link http://yupe.ru
+ * @copyright 2009-2013 amyLabs && Yupe! team
+ * @package yupe.modules.mail
+ * @since 0.1
+ *
+ */
 
-/**
- * MailModule
- * Класс модуля Mail:
- *
- * @category YupeModules
- * @package  YupeCMS
- * @author   YupeTeam <team@yupe.ru>
- * @license  BSD https://raw.github.com/yupe/yupe/master/LICENSE
- * @version  0.1
- * @link     http://yupe.ru
- **/
 class MailModule extends yupe\components\WebModule
 {
     /**
