@@ -4,7 +4,7 @@
  * - $this: the BootCrudCode object
  *
  *   @category YupeGiiTemplate
- *   @package  YupeCMS
+ *   @package  yupe
  *   @author   Yupe Team <team@yupe.ru>
  *   @license  https://github.com/yupe/yupe/blob/master/LICENSE BSD
  *   @link     http://yupe.ru
@@ -17,7 +17,7 @@ echo <<<EOF
  * Отображение для _form:
  *
  *   @category YupeView
- *   @package  YupeCMS
+ *   @package  yupe
  *   @author   Yupe Team <team@yupe.ru>
  *   @license  https://github.com/yupe/yupe/blob/master/LICENSE BSD
  *   @link     http://yupe.ru

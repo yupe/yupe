@@ -1,5 +1,16 @@
 <?php
 
+/**
+ * FeedbackModule основной класс модуля feedback
+ *
+ * @author yupe team <team@yupe.ru>
+ * @link http://yupe.ru
+ * @copyright 2009-2013 amyLabs && Yupe! team
+ * @package yupe.modules.feedback
+ * @since 0.1
+ *
+ */
+
 use yupe\components\WebModule;
 
 class FeedbackModule extends WebModule

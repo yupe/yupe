@@ -5,7 +5,7 @@
  * - $this: the BootCrudCode object
  *
  *   @category YupeGiiTemplate
- *   @package  YupeCMS
+ *   @package  yupe
  *   @author   Yupe Team <team@yupe.ru>
  *   @license  https://github.com/yupe/yupe/blob/master/LICENSE BSD
  *   @link     http://yupe.ru
@@ -16,7 +16,7 @@
  * Класс <?php echo $this->controllerClass; ?>:
  *
  *   @category Yupe<?php echo $this->baseControllerClass . "\n"; ?>
- *   @package  YupeCMS
+ *   @package  yupe
  *   @author   Yupe Team <team@yupe.ru>
  *   @license  https://github.com/yupe/yupe/blob/master/LICENSE BSD
  *   @link     http://yupe.ru

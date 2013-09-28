@@ -1,11 +1,23 @@
 <?php
 
+/**
+ * ZendSearchModule основной класс модуля zendsearch
+ *
+ * @author yupe team <team@yupe.ru>
+ * @link http://yupe.ru
+ * @copyright 2009-2013 amyLabs && Yupe! team
+ * @package yupe.modules.zendsearch
+ * @since 0.1
+ *
+ */
+
+
 class ZendSearchModule extends yupe\components\WebModule
 {
 
     public $indexFiles = 'runtime.search';
-    public $searchModels;
 
+    public $searchModels;
 
     public function getDependencies()
     {

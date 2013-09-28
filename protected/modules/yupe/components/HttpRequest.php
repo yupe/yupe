@@ -4,7 +4,7 @@
  * http://www.yiiframework.com/forum/index.php/topic/8689-disable-csrf-verification-per-controller-action/
  *
  * @category YupeComponents
- * @package  YupeCMS
+ * @package  yupe
  * @author   AKulikov <tuxuls@gmail.com>
  * @license  BSD https://raw.github.com/yupe/yupe/master/LICENSE
  * @version  0.0.1

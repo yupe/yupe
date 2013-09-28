@@ -1,4 +1,15 @@
 <?php
+/**
+ * GalleryModule основной класс модуля gallery
+ *
+ * @author yupe team <team@yupe.ru>
+ * @link http://yupe.ru
+ * @copyright 2009-2013 amyLabs && Yupe! team
+ * @package yupe.modules.gallery
+ * @since 0.1
+ *
+ */
+
 class GalleryModule extends yupe\components\WebModule
 {
     public function getDependencies()

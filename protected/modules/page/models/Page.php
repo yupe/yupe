@@ -1,4 +1,15 @@
 <?php
+/**
+ * Page модель
+ *
+ * @author yupe team <team@yupe.ru>
+ * @link http://yupe.ru
+ * @copyright 2009-2013 amyLabs && Yupe! team
+ * @package yupe.modules.page.models
+ * @since 1.0
+ *
+ */
+
 
 /**
  * This is the model class for table "Page".

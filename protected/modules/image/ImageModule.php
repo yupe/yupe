@@ -1,5 +1,16 @@
 <?php
 
+/**
+ * ImageModule основной класс модуля image
+ *
+ * @author yupe team <team@yupe.ru>
+ * @link http://yupe.ru
+ * @copyright 2009-2013 amyLabs && Yupe! team
+ * @package yupe.modules.image
+ * @since 0.1
+ *
+ */
+
 use yupe\components\WebModule;
 
 class ImageModule extends WebModule

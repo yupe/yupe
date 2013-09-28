@@ -66,7 +66,7 @@ $this->breadcrumbs = array(
 
 <br /><br />
 
-<?php echo CHtml::link(Yii::t('YupeModule.yupe', 'Official Yupe! twitter'), 'https://twitter.com/#!/YupeCms', array('target' => '_blank')); ?>  - <?php echo Yii::t('YupeModule.yupe', 'Follow us =)'); ?>
+<?php echo CHtml::link(Yii::t('YupeModule.yupe', 'Official Yupe! twitter'), 'https://twitter.com/#!/yupe', array('target' => '_blank')); ?>  - <?php echo Yii::t('YupeModule.yupe', 'Follow us =)'); ?>
 
 <br /><br />
 

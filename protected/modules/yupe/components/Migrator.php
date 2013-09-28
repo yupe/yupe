@@ -3,7 +3,7 @@
  * Migrator class file.
  *
  * @category YupeComponent
- * @package  YupeCMS
+ * @package  yupe
  * @author   Alexander Tischenko <tsm@glavset.ru>
  * @license  BSD https://raw.github.com/yupe/yupe/master/LICENSE
  * @version  0.5.3

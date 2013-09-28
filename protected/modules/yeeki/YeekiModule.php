@@ -1,10 +1,18 @@
 <?php
+
+
 /**
- * Yeeki module.
+ * YeekiModule основной класс модуля wiki
  *
- * Includes all necessary wiki functionality. Can be used as a module in your
- * application.
+ * @author yupe team <team@yupe.ru>
+ * @link http://yupe.ru
+ * @copyright 2009-2013 amyLabs && Yupe! team
+ * @package yupe.modules.yeeki
+ * @since 0.1
+ *
  */
+
+
 class YeekiModule extends yupe\components\WebModule
 {
 

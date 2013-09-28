@@ -1,4 +1,14 @@
 <?php
+/**
+ * CatalogModule основной класс модуля catalog
+ *
+ * @author yupe team <team@yupe.ru>
+ * @link http://yupe.ru
+ * @copyright 2009-2013 amyLabs && Yupe! team
+ * @package yupe.modules.catalog
+ * @since 0.1
+ *
+ */
 
 use yupe\components\WebModule;
 
