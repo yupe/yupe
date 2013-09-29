@@ -6,7 +6,7 @@ return array(
     'import'    => array(
         'application.modules.comment.*',
         'application.modules.comment.models.*',
-        'application.modules.yupe.extensions.nested-set-behavior.NestedSetBehavior',
+        'vendor.yiiext.nested-set-behavior.NestedSetBehavior',
     ),
     'component' => array(),
     'rules'     => array(),

@@ -1,4 +1,8 @@
 <?php
+Yii::setPathOfAlias('application', dirname(__FILE__) . '/../');
+Yii::setPathOfAlias('yupe', dirname(__FILE__) . '/../modules/yupe/');
+Yii::setPathOfAlias('vendor', dirname(__FILE__) . '/../../vendor/');
+
     return array(
     // У вас этот путь может отличаться. Можно подсмотреть в config/main.php.
     'basePath'          => dirname(__FILE__) . DIRECTORY_SEPARATOR . '..',
@@ -12,13 +16,15 @@
         'application.models.*',
         'application.modules.queue.models.*',
         'application.modules.yupe.extensions.tagcache.*',
-        'application.modules.yupe.components.migrator.*'
     ),
     // Перенаправляем журнал для cron-а в отдельные файлы
     'components' => array(
          // компонент для отправки почты
         'mail' => array(
             'class' => 'application.modules.yupe.components.YMail',
+        ),
+        'migrator'=>array(
+            'class'=>'yupe\components\Migrator',
         ),
         'log' => array(
             'class' => 'CLogRouter',

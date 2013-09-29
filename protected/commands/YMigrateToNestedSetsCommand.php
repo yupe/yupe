@@ -9,6 +9,8 @@
 * @author   Anton Kucherov <idexter.ru@gmail.com>
 * @link     http://yupe.ru
 */
+use yupe\components\Migrator;
+
 class YMigrateToNestedSetsCommand extends CConsoleCommand
 {
     const NS_MIGRATION_NAME = 'm130704_095200_comment_nestedsets';
