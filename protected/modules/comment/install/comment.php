@@ -4,6 +4,7 @@ return array(
         'class' => 'application.modules.comment.CommentModule',
     ),
     'import'    => array(
+        'application.modules.comment.*',
         'application.modules.comment.models.*',
     ),
     'component' => array(),
