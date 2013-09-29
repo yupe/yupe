@@ -1,12 +1,21 @@
 <?php
-
+/**
+ * PostAdminController контроллер для постов в панели управления
+ *
+ * @author yupe team <team@yupe.ru>
+ * @link http://yupe.ru
+ * @copyright 2009-2013 amyLabs && Yupe! team
+ * @package yupe.modules.blog.controllers
+ * @since 0.1
+ *
+ */
 class PostAdminController extends yupe\components\controllers\BackController
 {
     /**
      * Отображает запись по указанному идентификатору
      * 
      * @param integer $id Идинтификатор запись для отображения
-     *
+     * @throws CHttpException
      * @return void
      */
     public function actionView($id)
@@ -63,7 +72,7 @@ class PostAdminController extends yupe\components\controllers\BackController
      * Редактирование записи.
      * 
      * @param integer $id the ID of the model to be updated
-     *
+     * @throws CHttpException
      * @return void
      */
     public function actionUpdate($id)
@@ -105,7 +114,7 @@ class PostAdminController extends yupe\components\controllers\BackController
      * Если удаление прошло успешно - возвращется в index
      * 
      * @param integer $id идентификатор записи, который нужно удалить
-     *
+     * @throws CHttpException
      * @return void
      */
     public function actionDelete($id)

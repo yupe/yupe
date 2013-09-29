@@ -1,10 +1,19 @@
 <?php
-
+/**
+ * BlogAdminController контроллер для блогов в панели управления
+ *
+ * @author yupe team <team@yupe.ru>
+ * @link http://yupe.ru
+ * @copyright 2009-2013 amyLabs && Yupe! team
+ * @package yupe.modules.blog.controllers
+ * @since 0.1
+ *
+ */
 class BlogAdminController extends yupe\components\controllers\BackController
 {
     /**
      * Отображает блог по указанному идентификатору
-     *
+     * @throws CHttpException
      * @param integer $id Идинтификатор блог для отображения
      *
      * @return nothing

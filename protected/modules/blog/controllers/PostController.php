@@ -1,15 +1,14 @@
 <?php
 /**
- * Класс контроллера Post, для работы с постами блогов:
+ * PostController контроллер для постов на публичной части сайта
  *
- * @category YupeController
- * @package  yupe.modules.blog.controllers
- * @author   YupeTeam <team@yupe.ru>
- * @license  BSD http://ru.wikipedia.org/wiki/%D0%9B%D0%B8%D1%86%D0%B5%D0%BD%D0%B7%D0%B8%D1%8F_BSD
- * @version  0.5.1
- * @link     http://yupe.ru
+ * @author yupe team <team@yupe.ru>
+ * @link http://yupe.ru
+ * @copyright 2009-2013 amyLabs && Yupe! team
+ * @package yupe.modules.blog.controllers
+ * @since 0.1
  *
- **/
+ */
 class PostController extends yupe\components\controllers\FrontController
 {
 
@@ -26,7 +25,7 @@ class PostController extends yupe\components\controllers\FrontController
      * Показываем пост по урлу
      * 
      * @param string $slug - урл поста
-     * 
+     * @throws CHttpException
      * @return void
      */
     public function actionShow($slug)

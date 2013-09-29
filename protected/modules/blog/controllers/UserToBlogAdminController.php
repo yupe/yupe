@@ -1,4 +1,14 @@
 <?php
+/**
+ * UserToBlogAdminController контроллер для управления участниками блога
+ *
+ * @author yupe team <team@yupe.ru>
+ * @link http://yupe.ru
+ * @copyright 2009-2013 amyLabs && Yupe! team
+ * @package yupe.modules.blog.controllers
+ * @since 0.1
+ *
+ */
 
 class UserToBlogAdminController extends yupe\components\controllers\BackController
 {

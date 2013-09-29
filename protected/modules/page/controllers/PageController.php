@@ -1,13 +1,13 @@
 <?php
 /**
+ * PageController публичный контроллер для работы со страницами
  *
- * PageController
- *
- * Контроллер для работы со страничками в публичной части сайта
- *
- * @author  xoma <aopeykin@yandex.ru> <http://yupe.ru>
- * @package yupe.modules.page.controllers
- *
+ * @author yupe team <team@yupe.ru>
+ * @link http://yupe.ru
+ * @copyright 2009-2013 amyLabs && Yupe! team
+ * @package yupe.modules.page.controllers.public
+ * @license  BSD https://raw.github.com/yupe/yupe/master/LICENSE
+ * @since 0.1
  *
  */
 class PageController extends yupe\components\controllers\FrontController
@@ -50,6 +50,7 @@ class PageController extends yupe\components\controllers\FrontController
             $this->redirect(array(Yii::app()->getModule('user')->accountActivationSuccess));
         }
         $this->currentPage = $page;
+
         $this->render('page', array('page' => $page));
     }
 

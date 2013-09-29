@@ -1,4 +1,14 @@
 <?php
+/**
+ * BlogController контроллер для блогов на публичной части сайта
+ *
+ * @author yupe team <team@yupe.ru>
+ * @link http://yupe.ru
+ * @copyright 2009-2013 amyLabs && Yupe! team
+ * @package yupe.modules.blog.controllers
+ * @since 0.1
+ *
+ */
 class BlogController extends yupe\components\controllers\FrontController
 {
     /**
@@ -26,6 +36,7 @@ class BlogController extends yupe\components\controllers\FrontController
      * Отобразить карточку блога
      *
      * @param string $slug - url блога
+     * @throws CHttpException
      *
      * @return void
      */
