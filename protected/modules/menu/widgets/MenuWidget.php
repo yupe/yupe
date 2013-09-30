@@ -3,13 +3,13 @@
 /**
  * Класс MenuWidget - виджет вывода меню на страницы сайта
  *
- * @package menu.widgets
+ * @package yupe.modules.menu.widgets
  * @author yupe team
  * @link http://yupe.ru
  */
 
 /**
- * Данный плагин реализует вывод меню модуля Menu.
+ * Виджет реализует вывод меню
  * 
  * Подключение виджета:
  * <?php
@@ -27,23 +27,23 @@
 class MenuWidget extends YWidget
 {
     /**
-     * @var string данный параметр указывает уникальный код выводимого меню.
+     * @var string уникальный код выводимого меню
      */
     public $name;
     /**
-     * @var string данный параметр указывает начиная с id какого родителя начинать вывод меню, по умолчанию 0, корень меню.
+     * @var string начиная с id какого родителя начинать вывод меню, по умолчанию 0, корень меню
      */
     public $parent_id    = 0;
     /**
-     * string данный параметр указывает название layout.
+     * string данный параметр указывает название layout
      */
     public $layout       = 'main';
     /**
-     * @var array особенные параметры передаваемые в layout.
+     * @var array особенные параметры передаваемые в layout
      */
     public $layoutParams = array();
     /**
-     * @var array параметры виджета zii.widgets.CMenu.
+     * @var array параметры виджета zii.widgets.CMenu
      */
     public $params       = array();
 
