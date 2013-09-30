@@ -1,10 +1,14 @@
 <?php
+
 /**
- * Created by JetBrains PhpStorm.
- * User: aopeykin
- * Date: 03.06.13
- * Time: 12:10
- * To change this template use File | Settings | File Templates.
+ * PostCategoryWidget виджет для вывода категорий постов
+ *
+ * @author yupe team <team@yupe.ru>
+ * @link http://yupe.ru
+ * @copyright 2009-2013 amyLabs && Yupe! team
+ * @package yupe.modules.blog.widgets
+ * @since 0.1
+ *
  */
 
 class PostCategoryWidget extends YWidget

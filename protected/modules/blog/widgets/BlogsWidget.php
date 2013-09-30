@@ -1,11 +1,16 @@
 <?php
+
 /**
- * Created by JetBrains PhpStorm.
- * User: aopeykin
- * Date: 26.04.12
- * Time: 10:41
- * To change this template use File | Settings | File Templates.
+ * BlogsWidget виджет для вывода блогов
+ *
+ * @author yupe team <team@yupe.ru>
+ * @link http://yupe.ru
+ * @copyright 2009-2013 amyLabs && Yupe! team
+ * @package yupe.modules.blog.widgets
+ * @since 0.1
+ *
  */
+
 class BlogsWidget extends YWidget
 {
     public function run()

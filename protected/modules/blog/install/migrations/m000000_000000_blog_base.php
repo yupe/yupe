@@ -1,5 +1,7 @@
 <?php
 /**
+ * m000000_000000_blog_base
+ *
  * Blog install migration
  * Класс миграций для модуля Blog:
  *

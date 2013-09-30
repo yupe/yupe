@@ -1,10 +1,13 @@
 <?php
 /**
- * Created by JetBrains PhpStorm.
- * User: andrey
- * Date: 9/6/13
- * Time: 7:14 PM
- * To change this template use File | Settings | File Templates.
+ * PostMetaWidget виджет для вывода мета-информации о посте
+ *
+ * @author yupe team <team@yupe.ru>
+ * @link http://yupe.ru
+ * @copyright 2009-2013 amyLabs && Yupe! team
+ * @package yupe.modules.blog.widgets
+ * @since 0.1
+ *
  */
 
 class PostMetaWidget extends YWidget
