@@ -66,7 +66,7 @@
     "require": {
         "php": ">=5.3.7",
         "yiisoft/yii": ">=1.1.14",
-        "clevertech/yii-booster": "2.0.0.*@dev",
+        "clevertech/yii-booster": "2.0.*",
         "yiiext/nested-set-behavior": "dev-master",
         "yiiext/imperavi-redactor-widget": "dev-master"
     },
@@ -74,5 +74,5 @@
         "codeception/codeception": "1.6.*",
         "zhuravljov/yii2-debug": "dev-master"
     },
-    "minimum-stability": "dev"
+    "minimum-stability": "stable"
 }
