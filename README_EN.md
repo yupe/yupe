@@ -1,5 +1,10 @@
 Yupe - cms, based on Yii framework
-=================
+==================================
+
+[![Scrutinizer Quality Score](https://scrutinizer-ci.com/g/yupe/yupe/badges/quality-score.png?s=7530a908ed160af10407a051474a9064325510cc)](https://scrutinizer-ci.com/g/yupe/yupe/)
+[![Total Downloads](https://poser.pugx.org/yupe/yupe/downloads.png)](https://packagist.org/packages/yupe/yupe)
+[![Dependencies Status](https://d2xishtp1ojlk0.cloudfront.net/d/1477472)](http://depending.in/yupe/yupe)
+
 
 Yupe - cms, written with a wonderful MVC-Yii framework(http://www.yiiframework.com/),
 which has been working for more than 150 projects.
@@ -14,7 +19,6 @@ Links
 * [Twitter](https://twitter.com/#!/YupeCms)
 * [Forum](http://yupe.ru/talk/)
 * [Yupe blog](http://yupe.ru/index.php/blog/yupe-mini-cms-yii)
-* [Wiki](https://github.com/yupe/yupe/wiki)
 * [Contacts](http://yupe.ru/feedback/index)
 * [Help](http://yupe.ru/site/page/view/help)
 * [Commercial support](http://amylabs.ru/contact)
@@ -41,10 +45,6 @@ Out of the box you get a skeleton application with the following functionality i
 * Convenient admin panel based on Twitter Boostrap  ([It looks like this](http://yupe.ru/gallery/gallery/show/1)).
 * [Possibility to generate CRUD-style Twitter Bootstrap](https://github.com/yupe/yupe/tree/master/protected/modules/yupe/extensions/yupe).
 
-Install
----------
-
-Installation instructions can be [found here](https://github.com/yupe/yupe/wiki/Установка), or in file `install_ru.txt`.
 
 License
 --------
@@ -55,4 +55,4 @@ Yupe community will be appreciate you if your site will be referenced on the [yu
 
 
 
-(c) 2009 - 2013 [amyLabs](http://amylabs.ru) && Yupe! team
+(c) 2009 - 2013 [amyLabs](http://amylabs.ru) && [Yupe! team](http://yupe.ru/)
