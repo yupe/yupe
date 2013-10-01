@@ -1,6 +1,10 @@
 ЮПИ! - CMS на Yii
 =================
 
+[![Scrutinizer Quality Score](https://scrutinizer-ci.com/g/yupe/yupe/badges/quality-score.png?s=7530a908ed160af10407a051474a9064325510cc)](https://scrutinizer-ci.com/g/yupe/yupe/)
+[![Total Downloads](https://poser.pugx.org/yupe/yupe/downloads.png)](https://packagist.org/packages/yupe/yupe)
+[![Dependencies Status](https://d2xishtp1ojlk0.cloudfront.net/d/1477472)](http://depending.in/yupe/yupe)
+
 **Юпи! — простая и легкая CMS, написанная на Yiiframework** (http://www.yiiframework.com/)
 
 Юпи! позволяет быстро и легко создавать проекты следующих типов:
@@ -27,6 +31,7 @@
 * Yiiframework >= 1.1.13
 * MySQL/PostgreSQL
 * Apaсhe/Nginx
+* Composer
 
 
 
@@ -39,7 +44,6 @@
 * [Подробнее о проекте](http://yupe.ru/pages/about)
 * [Команда](http://yupe.ru/docs/yupe/team.html)
 * [Форум](http://yupe.ru/talk/)
-* [wiki](http://yupe.ru/wiki/default/pageIndex)
 * [Контакты](http://yupe.ru/feedback/index)
 * [Как помочь проекту](http://yupe.ru/pages/help)
 * [twitter](https://twitter.com/#!/YupeCms)
@@ -71,10 +75,6 @@
 * Удобная админ панель в стиле Twitter Bootstrap  ([Выглядит вот так](http://yupe.ru/gallery/gallery/show/1))
 * [Возможность генерировать CRUD в стиле Twitter Bootstrap](https://github.com/yupe/yupe/tree/master/protected/modules/yupe/extensions/yupe)
 
-Установка
----------
-
-Инструкции по установке можно [почитать здесь](http://yupe.ru/wiki/default/view?uid=%D0%A3%D1%81%D1%82%D0%B0%D0%BD%D0%BE%D0%B2%D0%BA%D0%B0), либо в файле `install_ru.txt`.
 
 Лицензия
 --------
@@ -84,5 +84,4 @@
 Сообщество будет благодарно если на сайте будет присутствовать ссылка на [http://yupe.ru/](http://yupe.ru/)
 
 
-
-(c) 2009 - 2013 [amyLabs](http://amylabs.ru) && Yupe! team
+(c) 2009 - 2013 [amyLabs](http://amylabs.ru) && [Yupe! team](http://yupe.ru/)

@@ -36,8 +36,17 @@ class NewsController extends yupe\components\controllers\FrontController
                 ),
                 'limit'     => $this->module->perPage,
                 'order'     => 't.creation_date DESC',
-                'with'      => 'user',
+                'with'      => array('user'),
         ));
+
+        if(!Yii::app()->user->isAuthenticated()) {
+            $dbCriteria->mergeWith(array(
+                'condition' => 'is_protected = :is_protected',
+                'params' => array(
+                    ':is_protected' => News::PROTECTED_NO
+                )
+            ));
+        }
         
         if($this->isMultilang()){
             $dbCriteria->mergeWith(array(

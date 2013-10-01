@@ -50,13 +50,16 @@ class YWebUser extends CWebUser
      **/
     public function isAuthenticated()
     {
-        if ($this->isGuest)
+        if ($this->isGuest) {
             return false;
+        }
 
         $authData = $this->getAuthData();
 
-        if ($authData['nick_name'] && isset($authData['access_level']) && $authData['loginTime'] && $authData['id'])
+        if ($authData['nick_name'] && isset($authData['access_level']) && $authData['loginTime'] && $authData['id']) {
             return true;
+        }
+
         return false;
     }
 
