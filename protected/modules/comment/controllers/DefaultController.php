@@ -46,6 +46,7 @@ class DefaultController extends yupe\components\controllers\BackController
 
             if ($saveStatus)
             {
+                Yii::app()->cache->delete("Comment{$model->model}{$model->model_id}");
                 Yii::app()->user->setFlash(YFlashMessages::SUCCESS_MESSAGE,Yii::t('CommentModule.comment','Comment was created!'));
 
                 $this->redirect(
@@ -67,7 +68,7 @@ class DefaultController extends yupe\components\controllers\BackController
     public function actionUpdate($id)
     {
         $model = $this->loadModel($id);
-
+        Yii::app()->cache->delete("Comment{$model->model}{$model->model_id}");
         // Uncomment the following line if AJAX validation is needed
         // $this->performAjaxValidation($model);
 
@@ -98,7 +99,9 @@ class DefaultController extends yupe\components\controllers\BackController
         if (Yii::app()->request->isPostRequest)
         {
             // we only allow deletion via POST request
-            $this->loadModel($id)->deleteNode();
+            $model = $this->loadModel($id);
+            Yii::app()->cache->delete("Comment{$model->model}{$model->model_id}");
+            $model->deleteNode();
 
             // if AJAX request (triggered by deletion via admin grid view), we should not redirect the browser
             if (!isset($_GET['ajax']))
