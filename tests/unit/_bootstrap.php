@@ -1,9 +1,7 @@
 <?php
 
-$yii = dirname(__FILE__) . '/../../vendor/yiisoft/yii/framework/yii.php';
-require_once $yii;
+defined("VENDOR_DIR") or define("VENDOR_DIR",dirname(__FILE__) . '/../../vendor/');
+defined("APPLICATION_DIR") or define("APPLICATION_DIR",dirname(__FILE__) . '/../../protected/');
+defined("MOCKED_DIR") or define("MOCKED_DIR",dirname(__FILE__) . '/_mocked/');
 
-$config = require_once dirname(__FILE__) . '/../../protected/config/console.php';
-
-if(!Yii::app())
-    Yii::createConsoleApplication($config);
+require_once VENDOR_DIR.'yiisoft/yii/framework/yii.php';
