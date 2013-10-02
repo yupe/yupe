@@ -5,7 +5,7 @@
 
 class_name: CodeGuy
 modules:
-    enabled: [Db, CodeHelper]
+    enabled: [Db, CodeHelper, YiiHelper]
     config:
           Db:
              dsn: 'mysql:host=localhost;dbname=yupe_test'

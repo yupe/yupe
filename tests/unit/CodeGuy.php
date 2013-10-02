@@ -7,6 +7,7 @@
 use \Codeception\Maybe;
 use Codeception\Module\Db;
 use Codeception\Module\CodeHelper;
+use Codeception\Module\YiiHelper;
 
 /**
  * Inherited methods
@@ -246,7 +247,7 @@ class CodeGuy extends \Codeception\AbstractGuy
      * ----------------------------------------------
      *
      *
-     * @see Codeception\Module\CodeHelper::createConsoleYiiApp()
+     * @see Codeception\Module\YiiHelper::createConsoleYiiApp()
      * @return \Codeception\Maybe
      */
     public function createConsoleYiiApp() {
@@ -266,7 +267,7 @@ class CodeGuy extends \Codeception\AbstractGuy
      *
      * Sets Db configuration file from Yii db.php or other file.
      * @param $dbConfigFile string DataBase Configuration file
-     * @see Codeception\Module\CodeHelper::setDbConnectionOptionsFromYiiConfig()
+     * @see Codeception\Module\YiiHelper::setDbConnectionOptionsFromYiiConfig()
      * @return \Codeception\Maybe
      */
     public function setDbConnectionOptionsFromYiiConfig($dbConfigFile) {
@@ -294,7 +295,7 @@ class CodeGuy extends \Codeception\AbstractGuy
      * ```
      *
      * @param array $dumpOptions module config options
-     * @see Codeception\Module\CodeHelper::setDbDumpOptions()
+     * @see Codeception\Module\YiiHelper::setDbDumpOptions()
      * @return \Codeception\Maybe
      */
     public function setDbDumpOptions($dumpOptions) {
