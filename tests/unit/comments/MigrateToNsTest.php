@@ -22,11 +22,13 @@ class MigrateToNsTest extends \Codeception\TestCase\Test
 
         $this->command = new \MigrateToNestedSetsCommand('migratetonestedsets', null);
         $this->command->init();
+        $this->command->actionUnlock();
         //$this->fixture->migrator = $this->getFilledMigratorStrub();
     }
 
     protected function _after()
     {
+        $this->command->actionUnlock();
         unset($this->command);
     }
 
@@ -38,5 +40,18 @@ class MigrateToNsTest extends \Codeception\TestCase\Test
         $this->expectOutputRegex('/Migrating to \'.+\' migration -> \[OK\]/is');
         $this->expectOutputRegex('/Selecting models which contains comments -> \[OK\]/is');
         $this->expectOutputRegex('/Converted succesfully./is');
+    }
+
+    public function testMigrateIfConvertorLocked()
+    {
+        $this->command->lockConverter();
+        $this->command->actionIndex();
+        $this->expectOutputRegex('/Converter is LOCKED./is');
+    }
+
+    public function testLockConverter()
+    {
+        $this->command->lockConverter();
+        $this->assertTrue($this->command->converterLocked());
     }
 }

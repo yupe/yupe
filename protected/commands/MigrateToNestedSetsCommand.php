@@ -14,6 +14,7 @@ use yupe\components\Migrator;
 class MigrateToNestedSetsCommand extends CConsoleCommand
 {
     const NS_MIGRATION_NAME = 'm130704_095200_comment_nestedsets';
+    const LOCK_FILE_NAME = 'converter.lock~';
 
     public $migrator;
     public $db;
@@ -34,14 +35,27 @@ class MigrateToNestedSetsCommand extends CConsoleCommand
      */
     public function actionIndex()
     {
+        if(!$this->converterLocked())
+        {
+            if($this->NsMigrationExists($this->migrator)) {
+                echo "Checking for '".self::NS_MIGRATION_NAME."' migration -> [OK]\n";
+            }else{
+                $this->migrationUp();
+            }
+            $this->createRootElementsForOldComments();
+            $this->buildNestedSetsTree();
 
-        if($this->NsMigrationExists($this->migrator)) {
-            echo "Checking for '".self::NS_MIGRATION_NAME."' migration -> [OK]\n";
+            $this->lockConverter();
         }else{
-            $this->migrationUp();
+            echo "Converter is LOCKED. Please restore you DB and use ";
+            echo "'./yiic migratetonestedsets unlock' to unlock it.";
         }
-        $this->createRootElementsForOldComments();
-        $this->buildNestedSetsTree();
+    }
+
+    public function actionUnlock()
+    {
+        if(file_exists(dirname(__FILE__).'/'.self::LOCK_FILE_NAME))
+            unlink(dirname(__FILE__).'/'.self::LOCK_FILE_NAME);
     }
 
     /**
@@ -183,5 +197,17 @@ class MigrateToNestedSetsCommand extends CConsoleCommand
             $comment->appendTo($rootNode,false);
         }
         echo "Converted succesfully.\n";
+    }
+
+    public function converterLocked()
+    {
+        if(file_exists(dirname(__FILE__).'/'.self::LOCK_FILE_NAME))
+            return true;
+        return false;
+    }
+
+    public function lockConverter()
+    {
+        file_put_contents(dirname(__FILE__).'/'.self::LOCK_FILE_NAME,' ');
     }
 }
