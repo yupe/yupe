@@ -72,4 +72,5 @@ return array (
     'Files need display in control panel' => '',
     'Yupe!' => '',
     'Yupe! Documentation' => '',
+    'Comment' => '',
 );

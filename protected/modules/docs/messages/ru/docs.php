@@ -72,4 +72,5 @@ return array (
   'Files need display in control panel' => 'Файлы, которые необходимо показать в админ панели',
   'Yupe!' => 'Юпи!',
   'Yupe! Documentation' => 'Юпи! Документация',
+  'Comment' => 'Комментарии',
 );
