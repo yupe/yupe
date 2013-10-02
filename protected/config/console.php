@@ -12,6 +12,7 @@ Yii::setPathOfAlias('vendor', dirname(__FILE__) . '/../../vendor/');
 
     ),
     'import' => array(
+        'application.commands.*',
         'application.components.*',
         'application.models.*',
         'application.modules.queue.models.*',

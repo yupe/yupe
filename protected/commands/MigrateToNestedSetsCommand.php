@@ -11,9 +11,12 @@
 */
 use yupe\components\Migrator;
 
-class YMigrateToNestedSetsCommand extends CConsoleCommand
+class MigrateToNestedSetsCommand extends CConsoleCommand
 {
     const NS_MIGRATION_NAME = 'm130704_095200_comment_nestedsets';
+
+    public $migrator;
+    public $db;
 
     public function init()
     {
@@ -21,36 +24,62 @@ class YMigrateToNestedSetsCommand extends CConsoleCommand
         Yii::import('application.modules.yupe.components.*');
         Yii::import('application.modules.yupe.models.*');
         Yii::import('application.modules.comment.models.*');
+
+        $this->migrator = (is_object($this->migrator)) ? $this->migrator : new Migrator();
+        $this->db = (is_object($this->db)) ? $this->db : Yii::app()->db;
     }
 
+    /**
+     * Main Adjacency List to Nested Sets Converter Action
+     */
     public function actionIndex()
     {
-        $this->_checkForNestedSetsMigration();
-        $this->_createRootElementsForOldComments();
-        $this->_buildNestedSetsTree();
-    }
+        if(!$this->NsMigrationExists($this->migrator)) {
+            $migrationUpdated = $this->actionMigrationUp();
+        }
 
-    private function _checkForNestedSetsMigration()
-    {
-        $migrator = new Migrator();
-        $history = $migrator->getMigrationHistory('comment');
-        if(array_key_exists(self::NS_MIGRATION_NAME,$history)){
-            echo "Checking for '".self::NS_MIGRATION_NAME."' migration -> [OK]\n";
-        }else{
-            echo "Prepare for migrating to '".self::NS_MIGRATION_NAME."'...\n";
-            if($migrator->updateToLatest('comment'))
-            {
-                echo "Migrating to '".self::NS_MIGRATION_NAME."' migration -> [OK]\n";
-            }else{
-                echo "Migrating to '".self::NS_MIGRATION_NAME."' migration -> [FAILED]\n";
-                Yii::app()->end();
-            }
+        echo "Checking for '".self::NS_MIGRATION_NAME."' migration -> [OK]\n";
+
+        if($migrationUpdated) {
+            $this->actionCreateRootElementsForOldComments();
+            $this->actionBuildNestedSetsTree();
         }
     }
 
-    private function _createRootElementsForOldComments()
+    /**
+     * Confirm NestedSets Migration
+     * @return bool Migrate Status
+     */
+    public function actionMigrationUp()
     {
-        $db = Yii::app()->db;
+        echo "Prepare for migrating to '".self::NS_MIGRATION_NAME."'...\n";
+        if($this->migrator->updateToLatest('comment'))
+        {
+            echo "Migrating to '".self::NS_MIGRATION_NAME."' migration -> [OK]\n";
+            return true;
+        }else{
+            echo "Migrating to '".self::NS_MIGRATION_NAME."' migration -> [FAILED]\n";
+            return false;
+        }
+    }
+
+    /**
+     * Check, if NestedSets Migration exists in DB.
+     * @param Migrator $migrator
+     * @return bool
+     */
+    public function NsMigrationExists(Migrator $migrator)
+    {
+        $history = $migrator->getMigrationHistory('comment');
+        if(array_key_exists(self::NS_MIGRATION_NAME,$history)) {
+            return true;
+        }
+        return false;
+    }
+
+    public function actionCreateRootElementsForOldComments()
+    {
+        $db = $this->db;
 
         // Выбираем модели у которых есть комментарии.
         $oldRoots = $db->createCommand()
@@ -117,9 +146,9 @@ class YMigrateToNestedSetsCommand extends CConsoleCommand
         $db->createCommand()->update('{{comment_comment}}',array('text'=>""),"text='root'");
     }
 
-    private function _buildNestedSetsTree()
+    public function actionBuildNestedSetsTree()
     {
-        $db = Yii::app()->db;
+        $db = $this->db;
 
         // Получаем все коренные элементы на основе значения parent_id
         $roots = $db->createCommand()
