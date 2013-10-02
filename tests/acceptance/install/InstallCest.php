@@ -119,8 +119,8 @@ class InstallCest
         //check form validation
         $I->fillField('InstallForm[userName]', 'yupe');
         $I->fillField('InstallForm[userEmail]', 'yupe');
-        $I->fillField('InstallForm[userPassword]', '111111');
-        $I->fillField('InstallForm[cPassword]', '111');
+        $I->fillField('InstallForm[userPassword]', 'yupe');
+        $I->fillField('InstallForm[cPassword]', 'yup');
         $I->click('Продолжить >');
         $I->see('Необходимо исправить следующие ошибки', \CommonPage::ERROR_CSS_CLASS);
         $I->see('Пароли не совпадают!', \CommonPage::ERROR_CSS_CLASS);
