@@ -14,7 +14,7 @@ use yupe\components\Migrator;
 class MigrateToNestedSetsCommand extends CConsoleCommand
 {
     const NS_MIGRATION_NAME = 'm130704_095200_comment_nestedsets';
-    const LOCK_FILE_NAME = 'converter.lock~';
+    const LOCK_FILE_NAME = 'MigrateToNestedSetsCommand.lock~';
 
     public $migrator;
     public $db;
@@ -59,6 +59,20 @@ class MigrateToNestedSetsCommand extends CConsoleCommand
     }
 
     /**
+     * Check, if NestedSets Migration exists in DB.
+     * @param Migrator $migrator
+     * @return bool
+     */
+    public function NsMigrationExists(Migrator $migrator)
+    {
+        $history = $migrator->getMigrationHistory('comment');
+        if(array_key_exists(self::NS_MIGRATION_NAME,$history)) {
+            return true;
+        }
+        return false;
+    }
+
+    /**
      * Confirm NestedSets Migration
      * @return bool Migrate Status
      */
@@ -73,20 +87,6 @@ class MigrateToNestedSetsCommand extends CConsoleCommand
             echo "Migrating to '".self::NS_MIGRATION_NAME."' migration -> [FAILED]\n";
             return false;
         }
-    }
-
-    /**
-     * Check, if NestedSets Migration exists in DB.
-     * @param Migrator $migrator
-     * @return bool
-     */
-    public function NsMigrationExists(Migrator $migrator)
-    {
-        $history = $migrator->getMigrationHistory('comment');
-        if(array_key_exists(self::NS_MIGRATION_NAME,$history)) {
-            return true;
-        }
-        return false;
     }
 
     protected function createRootElementsForOldComments()
@@ -199,15 +199,15 @@ class MigrateToNestedSetsCommand extends CConsoleCommand
         echo "Converted succesfully.\n";
     }
 
+    public function lockConverter()
+    {
+        file_put_contents(dirname(__FILE__).'/'.self::LOCK_FILE_NAME,' ');
+    }
+
     public function converterLocked()
     {
         if(file_exists(dirname(__FILE__).'/'.self::LOCK_FILE_NAME))
             return true;
         return false;
-    }
-
-    public function lockConverter()
-    {
-        file_put_contents(dirname(__FILE__).'/'.self::LOCK_FILE_NAME,' ');
     }
 }
