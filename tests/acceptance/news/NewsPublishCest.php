@@ -7,7 +7,7 @@ class NewsPublishCest
     public function tryToTestPagePublishing(WebGuy $I, $scenario)
     {
         $I = new WebGuy\UserSteps($scenario);
-        $I->login('yupe@yupetest.ru','111111');
+        $I->login('yupe@yupe.local','yupe');
         $I->am('admin');
         $I->amGoingTo('test publishing news...');
         $I->amOnPage('/yupe/backend/index');

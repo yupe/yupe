@@ -7,7 +7,7 @@ class UserEmailConfirmCest
     public function testEmailConfirm(WebGuy $I, $scenario)
     {
         $I = new WebGuy\UserSteps($scenario);
-        $testMail = 'test2@testyupe.ru';
+        $testMail = 'test2@yupe.local';
         $I->changeEmail($testMail);
         $key = $I->grabFromDatabase('yupe_user_user', 'activate_key', array('email' => $testMail));
         $I->amOnPage(\RecoveryPage::getConfirmRoute($key));

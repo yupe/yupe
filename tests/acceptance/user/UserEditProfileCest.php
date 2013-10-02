@@ -21,6 +21,6 @@ class UserEditProfileCest
 
         $I->wantTo('Test change user email...');
         $I = new WebGuy\UserSteps($scenario);
-        $I->changeEmail('test2@testyupe.ru');
+        $I->changeEmail('test2@yupe.local');
     }
 }

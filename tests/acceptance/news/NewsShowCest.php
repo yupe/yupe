@@ -31,7 +31,7 @@ class NewsShowCest
 
         $I->am('authorized user');
         $I = new WebGuy\UserSteps($scenario);
-        $I->login('yupe@yupetest.ru','111111');
+        $I->login('yupe@yupe.local','yupe');
         $I->amGoingTo('test show protected news for authorized user...');
         $I->amOnPage(\NewsPage::route('tretja-novost-tolko-dlja-avtorizovannyh'));
         $I->expectTo(' see protected news...');

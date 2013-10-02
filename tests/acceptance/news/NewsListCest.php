@@ -16,7 +16,7 @@ class NewsListCest
 
         $I->am('authorized user');
         $I = new WebGuy\UserSteps($scenario);
-        $I->login('yupe@yupetest.ru','111111');
+        $I->login('yupe@yupe.local','yupe');
         $I->amGoingTo('test news list for authorized user...');
         $I->amOnPage(\NewsPage::URL);
         $I->expectTo('see news list with protected news...');

@@ -18,7 +18,7 @@ modules:
         - Db
     config:
         Selenium2:
-            url: 'http://localhost/yupe/public/index-test.php'
+            url: 'http://yupe.local/index-test.php'
             browser: firefox
             delay: 100
         Db:
@@ -26,5 +26,5 @@ modules:
              user: 'root'
              password: ''
              dump: 'tests/_data/yupetest.sql'
-             populate: true
+             populate: false
              cleanup: true

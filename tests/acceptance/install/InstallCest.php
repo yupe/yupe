@@ -62,10 +62,9 @@ class InstallCest
         $I->see('Необходимо заполнить поле «Название базы данных».', \CommonPage::ERROR_CSS_CLASS);
         $I->see('Необходимо заполнить поле «Пользователь».', \CommonPage::ERROR_CSS_CLASS);
 
-        $I->fillField('InstallForm[dbName]', 'yupetest');
+        $I->fillField('InstallForm[dbName]', 'yupe_test');
         $I->fillField('InstallForm[dbUser]', 'root');
-        $I->fillField('InstallForm[dbPassword]', 'root');
-        $I->checkOption('InstallForm[createDb]');
+        $I->fillField('InstallForm[dbPassword]', '');
 
         $I->click('Проверить подключение и продолжить >');
         $I->dontSee('Не удалось создать БД!', \CommonPage::ERROR_CSS_CLASS);
@@ -127,8 +126,8 @@ class InstallCest
         $I->see('Пароли не совпадают!', \CommonPage::ERROR_CSS_CLASS);
         $I->see('Email не является правильным E-Mail адресом.', \CommonPage::ERROR_CSS_CLASS);
 
-        $I->fillField('InstallForm[userEmail]', 'yupe@yupetest.ru');
-        $I->fillField('InstallForm[cPassword]', '111111');
+        $I->fillField('InstallForm[userEmail]', 'yupe@yupe.local');
+        $I->fillField('InstallForm[cPassword]', 'yupe');
         $I->click('Продолжить >');
         $I->dontSee('Необходимо исправить следующие ошибки', \CommonPage::ERROR_CSS_CLASS);
 
@@ -138,7 +137,7 @@ class InstallCest
         $I->seeInField('InstallForm[siteName]', 'Юпи!');
         $I->seeInField('InstallForm[siteDescription]', 'Юпи! - самый простой способ создать сайт на Yii!');
         $I->seeInField('InstallForm[siteKeyWords]', 'Юпи!, yupe, цмс, yii');
-        $I->seeInField('InstallForm[siteEmail]', 'yupe@yupetest.ru');
+        $I->seeInField('InstallForm[siteEmail]', 'yupe@yupe.local');
         $I->seeLink('< Назад');
         $I->see('Продолжить >');
 
