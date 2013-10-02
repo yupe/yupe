@@ -5,4 +5,12 @@
 
 class_name: CodeGuy
 modules:
-    enabled: [CodeHelper]
+    enabled: [Db, CodeHelper]
+    config:
+          Db:
+             dsn: 'mysql:host=localhost;dbname=yupe_test'
+             user: 'root'
+             password: ''
+             dump: 'tests/_data/dump.sql'
+             populate: false
+             cleanup: false

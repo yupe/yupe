@@ -34,23 +34,21 @@ class MigrateToNestedSetsCommand extends CConsoleCommand
      */
     public function actionIndex()
     {
-        if(!$this->NsMigrationExists($this->migrator)) {
-            $migrationUpdated = $this->actionMigrationUp();
-        }
 
-        echo "Checking for '".self::NS_MIGRATION_NAME."' migration -> [OK]\n";
-
-        if($migrationUpdated) {
-            $this->actionCreateRootElementsForOldComments();
-            $this->actionBuildNestedSetsTree();
+        if($this->NsMigrationExists($this->migrator)) {
+            echo "Checking for '".self::NS_MIGRATION_NAME."' migration -> [OK]\n";
+        }else{
+            $this->migrationUp();
         }
+        $this->createRootElementsForOldComments();
+        $this->buildNestedSetsTree();
     }
 
     /**
      * Confirm NestedSets Migration
      * @return bool Migrate Status
      */
-    public function actionMigrationUp()
+    public function migrationUp()
     {
         echo "Prepare for migrating to '".self::NS_MIGRATION_NAME."'...\n";
         if($this->migrator->updateToLatest('comment'))
@@ -77,7 +75,7 @@ class MigrateToNestedSetsCommand extends CConsoleCommand
         return false;
     }
 
-    public function actionCreateRootElementsForOldComments()
+    protected function createRootElementsForOldComments()
     {
         $db = $this->db;
 
@@ -146,7 +144,7 @@ class MigrateToNestedSetsCommand extends CConsoleCommand
         $db->createCommand()->update('{{comment_comment}}',array('text'=>""),"text='root'");
     }
 
-    public function actionBuildNestedSetsTree()
+    protected function buildNestedSetsTree()
     {
         $db = $this->db;
 
@@ -170,7 +168,7 @@ class MigrateToNestedSetsCommand extends CConsoleCommand
         // Добавляем в таблицу коренные элементы
         foreach($roots as &$root)
         {
-            $comment = new Comment();
+            $comment = new \Comment();
             $comment->setAttributes($root,false);
             $comment->saveNode(false);
         }
@@ -178,9 +176,9 @@ class MigrateToNestedSetsCommand extends CConsoleCommand
         // Добавляем в таблицу все остальные элементы
         foreach($others as &$other)
         {
-            $rootNode=Comment::model()->findByPk($other["parent_id"]);
+            $rootNode=\Comment::model()->findByPk($other["parent_id"]);
 
-            $comment = new Comment();
+            $comment = new \Comment();
             $comment->setAttributes($other,false);
             $comment->appendTo($rootNode,false);
         }
