@@ -47,15 +47,23 @@ class MigrateToNestedSetsCommand extends CConsoleCommand
 
             $this->lockConverter();
         }else{
-            echo "Converter is LOCKED. Please restore you DB and use ";
-            echo "'./yiic migratetonestedsets unlock' to unlock it.";
+            echo "Converter is LOCKED.\n";
+            echo "1. Use './yiic migratetonestedsets unlock' to unlock converter and migrateDown.\n";
+            echo "2. Restore you 'yupe_comments_comments' dump;\n";
+            echo "3. After in you can try './yiic migratetonestedsets' to convert again.\n";
         }
     }
 
     public function actionUnlock()
     {
         if(file_exists(dirname(__FILE__).'/'.self::LOCK_FILE_NAME))
+        {
+            if($this->NsMigrationExists($this->migrator)) {
+                $this->migrator->migrateDown('comment', self::NS_MIGRATION_NAME);
+            }
+
             unlink(dirname(__FILE__).'/'.self::LOCK_FILE_NAME);
+        }
     }
 
     /**
