@@ -144,7 +144,11 @@ class CommentsListWidget extends YWidget
                         )
                     );
                 }
-                unset($this->comments[0]); // remove "root" node
+                //unset($this->comments[0]); // remove "root" node
+                foreach($this->comments as $k=>$v) {
+                    if($v->id == $v->root)
+                        unset($this->comments[$k]);
+                }
                 $comments = $this->comments;
                 Yii::app()->cache->set("Comment{$this->model}{$this->modelId}", $comments);
             }
