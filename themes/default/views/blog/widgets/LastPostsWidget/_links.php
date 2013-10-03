@@ -12,7 +12,7 @@
             <?php if ($model->comment_status == 1 && $model->commentsCount): ?>
                 <nobr>
                     <i class="icon-comment-alt"></i>
-                    <?php echo $model->commentsCount; ?>
+                    <?php echo ($model->commentsCount>0) ? $model->commentsCount-1 : 0; ?>
                 </nobr>
             <?php endif; ?>
         </li>
