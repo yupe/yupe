@@ -57,11 +57,7 @@ $this->breadcrumbs = array('Контакты');
     </div>
 
     <div class='row-fluid control-group <?php echo $model->hasErrors('text') ? 'error' : ''; ?>'>
-        <?php $this->widget($this->module->editor, array(
-            'model' => $model,
-            'attribute' => 'text',
-            'options' => $this->module->editorOptions,
-        )); ?>
+       <?php echo $form->textAreaRow($model,'text', array('class' => 'span8','rows' => 10, 'required' => true));?>
     </div>
 
     <?php if ($module->showCaptcha && !Yii::app()->user->isAuthenticated()): ?>

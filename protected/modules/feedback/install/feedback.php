@@ -5,12 +5,11 @@ return array(
         'notifyEmailFrom' => 'test@test.ru',
         'emails'          => 'test_1@test.ru, test_2@test.ru',
     ),
-    'import'    => array(
-        'application.modules.feedback.models.*',
-    ),
+    'import'    => array(),
     'component' => array(),
     'rules'     => array(
-        '/feedback'              => 'feedback/contact/index',
-        '/feedback/<action:\w+>' => 'feedback/contact/<action>',
+        '/contacts' => 'feedback/contact/index',
+        '/faq' => 'feedback/contact/faq',
+        '/faq/<id:\d+>' => 'feedback/contact/faqView',
     ),
 );

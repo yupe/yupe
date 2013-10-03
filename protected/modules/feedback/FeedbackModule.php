@@ -18,7 +18,7 @@ class FeedbackModule extends WebModule
     public $backEnd          = array('email', 'db');
     public $emails;
     public $types;
-    public $showCaptcha      = 1;
+    public $showCaptcha      = 0;
     public $notifyEmailFrom;
     public $sendConfirmation = 0;
     public $successPage;
@@ -208,16 +208,21 @@ class FeedbackModule extends WebModule
     {
         parent::init();
 
-        if (!$this->types)
+        if (!$this->types) {
             $this->types = array(
                 1 => Yii::t('FeedbackModule.feedback', 'Error on site'),
                 2 => Yii::t('FeedbackModule.feedback', 'Collaboration Suggest'),
                 3 => Yii::t('FeedbackModule.feedback', 'Other...'),
             );
+        }
 
-        $this->setImport(array('feedback.models.*', 'feedback.components.*'));
+        $this->setImport(array(
+            'feedback.models.*',
+            'feedback.components.*'
+        ));
 
-        if (!$this->emails)
+        if (!$this->emails) {
             $this->emails = Yii::app()->getModule('yupe')->email;
+        }
     }
 }

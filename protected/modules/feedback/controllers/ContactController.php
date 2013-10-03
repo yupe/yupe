@@ -1,4 +1,14 @@
 <?php
+/**
+ * ContactController контроллер публичной части для формы контактов и раздела faq
+ *
+ * @category YupeController
+ * @package  yupe.modules.feedback.controllers
+ * @author   YupeTeam <team@yupe.ru>
+ * @license  BSD http://ru.wikipedia.org/wiki/%D0%9B%D0%B8%D1%86%D0%B5%D0%BD%D0%B7%D0%B8%D1%8F_BSD
+ * @link     http://yupe.ru
+ *
+ **/
 class ContactController extends yupe\components\controllers\FrontController
 {
     public function actions()
@@ -189,12 +199,17 @@ class ContactController extends yupe\components\controllers\FrontController
     public function actionFaqView($id)
     {
         $id = (int) $id;
-        if (!$id)
-            throw new CHttpException(404, Yii::t('FeedbackModule.feedback', 'Page was not found!'));
 
-        $model = FeedBack::model()->answered()->faq()->findByPk($id);
-        if (!$model)
+        if (!$id) {
             throw new CHttpException(404, Yii::t('FeedbackModule.feedback', 'Page was not found!'));
+        }
+
+        $model = FeedBack::model()->answered()->faq()->cache($this->yupe->coreCacheTime)->findByPk($id);
+
+        if (!$model) {
+            throw new CHttpException(404, Yii::t('FeedbackModule.feedback', 'Page was not found!'));
+        }
+
         $this->render('faqView', array('model' => $model));
     }
 }
