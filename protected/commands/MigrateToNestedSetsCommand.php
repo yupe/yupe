@@ -199,10 +199,14 @@ class MigrateToNestedSetsCommand extends CConsoleCommand
         foreach($others as &$other)
         {
             $rootNode=\Comment::model()->findByPk($other["parent_id"]);
-
-            $comment = new \Comment();
-            $comment->setAttributes($other,false);
-            $comment->appendTo($rootNode,false);
+            if($rootNode != null)
+            {
+                $comment = new \Comment();
+                $comment->setAttributes($other,false);
+                $comment->appendTo($rootNode,false);
+            }else{
+                echo 'Bad comment which parent was deleted: '.$other["id"]."\n";
+            }
         }
         echo "Converted succesfully.\n";
     }

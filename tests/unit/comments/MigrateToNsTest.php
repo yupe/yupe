@@ -23,7 +23,6 @@ class MigrateToNsTest extends \Codeception\TestCase\Test
         $this->command = new \MigrateToNestedSetsCommand('migratetonestedsets', null);
         $this->command->init();
         $this->command->actionUnlock();
-        //$this->fixture->migrator = $this->getFilledMigratorStrub();
     }
 
     protected function _after()
