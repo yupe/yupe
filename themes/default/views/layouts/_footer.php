@@ -16,7 +16,6 @@
             <li><a href="http://yupe.ru/docs/index.html" target="_blank">Документация</a></li>
             <li><a href="http://api.yupe.ru/" target="_blank">API</a></li>
             <li><a href="http://yupe.ru/talk/" target="_blank">Форум</a></li>
-            <li><a href="http://yupe.ru/wiki/default/pageIndex" target="_blank">Wiki</a></li>
             <li><a href="http://yupe.ru/feedback/faq/" target="_blank">FAQ</a></li>
             <li><a href="http://yupe.ru/feedback/index/" target="_blank">Контакты</a></li>
         </ul>

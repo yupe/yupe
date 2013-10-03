@@ -82,6 +82,11 @@
 
 
         </p>
+
+        <p><a href="https://scrutinizer-ci.com/g/yupe/yupe/"><img src="https://scrutinizer-ci.com/g/yupe/yupe/badges/quality-score.png?s=7530a908ed160af10407a051474a9064325510cc" alt="Scrutinizer Quality Score" style="max-width:100%;"></a>
+            <a href="https://packagist.org/packages/yupe/yupe"><img src="https://poser.pugx.org/yupe/yupe/downloads.png" alt="Total Downloads" style="max-width:100%;"></a>
+            <a href="http://depending.in/yupe/yupe"><img src="https://d2xishtp1ojlk0.cloudfront.net/d/1477472" alt="Dependencies Status" style="max-width:100%;"></a>
+            </p>
     </div>
 </div>
 
