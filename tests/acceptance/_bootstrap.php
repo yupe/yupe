@@ -8,3 +8,4 @@ require_once 'user/pages/RegistrationPage.php';
 require_once 'user/steps/UserSteps.php';
 require_once '_pages/CommonPage.php';
 require_once 'news/pages/NewsPage.php';
+require_once 'feedback/pages/FeedBackPage.php';
