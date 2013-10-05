@@ -54,7 +54,9 @@ return array(
         'debug' => array(
             'class' => 'vendor.zhuravljov.yii2-debug.Yii2Debug',
         ),
-
+        // параметры подключения к базе данных, подробнее http://www.yiiframework.ru/doc/guide/ru/database.overview
+        // используется лишь после установки Юпи:
+        'db'        => require_once __DIR__ . '/db.php',
         'bootstrap' => array(
             'class' => 'bootstrap.components.Bootstrap',
             'responsiveCss'  => true,
