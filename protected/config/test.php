@@ -32,7 +32,7 @@ return array_merge(
             ),
             // параметры подключения к базе данных, подробнее http://www.yiiframework.ru/doc/guide/ru/database.overview
             // используется лишь после установки Юпи для тестирования:
-            'db'                 => require_once __DIR__ . '/db-test.php';
+            'db'                 => file_exists(__DIR__ . '/db-test.php') ? require_once __DIR__ . '/db-test.php' : array(),
             'themeManager'       => array(
                 'basePath'       => dirname(__DIR__) . '/../themes',
             ),
@@ -63,7 +63,6 @@ return array_merge(
                     '<controller:\w+>'                                                => '<controller>/index',
                 )
             ),
-            'db' => require dirname(__FILE__) . '/db-test.php',
         ),
     )
 );

@@ -56,7 +56,7 @@ return array(
         ),
         // параметры подключения к базе данных, подробнее http://www.yiiframework.ru/doc/guide/ru/database.overview
         // используется лишь после установки Юпи:
-        'db'        => require_once __DIR__ . '/db.php',
+        'db'        => file_exists(__DIR__ . '/db.php') ? require_once __DIR__ . '/db.php' : array(),
         'bootstrap' => array(
             'class' => 'bootstrap.components.Bootstrap',
             'responsiveCss'  => true,
