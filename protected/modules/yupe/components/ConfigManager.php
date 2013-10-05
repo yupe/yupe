@@ -244,6 +244,10 @@ class ConfigManager extends CComponent
             }
         }
 
+        if (empty($settings)) {
+            unset($this->_config['components']['db']);
+        }
+
         return $this->mergeSettings($settings);
     }
 
