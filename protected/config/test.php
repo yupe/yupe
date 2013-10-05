@@ -30,6 +30,9 @@ return array_merge(
             'migrator'=>array(
                 'class'=>'yupe\components\Migrator',
             ),
+            // параметры подключения к базе данных, подробнее http://www.yiiframework.ru/doc/guide/ru/database.overview
+            // используется лишь после установки Юпи для тестирования:
+            'db'                 => require_once __DIR__ . '/db-test.php';
             'themeManager'       => array(
                 'basePath'       => dirname(__DIR__) . '/../themes',
             ),
