@@ -12,7 +12,7 @@ settings:
 modules:
     config:
         Db:
-            dsn: ''
-            user: ''
-            password: ''
+            dsn: 'mysql:host=localhost;dbname=<db.name>'
+            user: '<db.user>'
+            password: '<db.pass>'
             dump: tests/_data/dump.sql

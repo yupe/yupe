@@ -22,9 +22,9 @@ modules:
             browser: firefox
             delay: 100
         Db:
-             dsn: 'mysql:host=localhost;dbname=yupe_test'
-             user: 'root'
-             password: ''
+             dsn: 'mysql:host=localhost;dbname=<db.name>'
+             user: '<db.user>'
+             password: '<db.pass>'
              dump: 'tests/_data/yupetest.sql'
              populate: false
              cleanup: true
