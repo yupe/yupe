@@ -286,6 +286,11 @@ class DocsModule extends yupe\components\WebModule
                 'icon'  => 'th-large white',
                 'items' => array(
                     array(
+                        'label' => Yii::t('DocsModule.docs', 'Set testing environment'),
+                        'url'   => array('/docs/show/index', 'file' => 'testing'),
+                        'icon'  => 'file',
+                    ),
+                    array(
                         'label' => Yii::t('DocsModule.docs', 'Writing docs'),
                         'url'   => array('/docs/show/index', 'file' => 'doc.files'),
                         'icon'  => 'file',

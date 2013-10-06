@@ -73,4 +73,5 @@ return array (
   'Yupe!' => 'Юпи!',
   'Yupe! Documentation' => 'Юпи! Документация',
   'Comment' => 'Комментарии',
+  'Set testing environment'=>'Настройка тестового окружения'
 );

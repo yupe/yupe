@@ -73,4 +73,5 @@ return array (
     'Yupe!' => '',
     'Yupe! Documentation' => '',
     'Comment' => '',
+    'Set testing environment' => ''
 );
