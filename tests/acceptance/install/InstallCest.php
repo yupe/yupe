@@ -3,6 +3,9 @@ use \WebGuy;
 
 class InstallCest
 {
+    /**
+     * @group install
+     */
     public function testInstall(WebGuy $I)
     {
         $I->wantTo('Test Yupe! installation process!');
