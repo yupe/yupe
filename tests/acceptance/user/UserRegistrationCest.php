@@ -22,7 +22,7 @@ class UserRegistrationCest
         $I->wantTo('Test form validation...');
 
         $testNickName = 'testuser';
-        $testEMail = 'testuser@test.ru';
+        $testEMail = 'testuser@yupe.local';
         $testPassword = 'testpassword';
 
         $I->fillField(\RegistrationPage::$nickNameField, 'test-nick.name');
@@ -36,7 +36,7 @@ class UserRegistrationCest
 
         $I->wantTo('Test form with existing user name and email...');
         $I->fillField(\RegistrationPage::$nickNameField, 'yupe');
-        $I->fillField(\RegistrationPage::$emailField, 'yupe@yupetest.ru');
+        $I->fillField(\RegistrationPage::$emailField, 'yupe@yupe.local');
         $I->fillField(\RegistrationPage::$passwordField,$testPassword);
         $I->fillField(\RegistrationPage::$cpasswordField,$testPassword);
         $I->click(\RegistrationPage::$buttonLabel);

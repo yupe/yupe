@@ -28,7 +28,7 @@ class UserRecoveryPasswordCest
 
         $I->wantTo('Check recovery form with valid data...');
 
-        $I->fillField(RecoveryPage::$emailField, 'yupe@yupetest.ru');
+        $I->fillField(RecoveryPage::$emailField, 'yupe@yupe.local');
         $I->click(RecoveryPage::$buttonLabel);
         $I->see('На указанный email отправлено письмо с инструкцией по восстановлению пароля!', \CommonPage::SUCCESS_CSS_CLASS);
         $I->seeInCurrentUrl('login');

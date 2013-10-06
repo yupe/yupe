@@ -22,7 +22,7 @@ class PageViewCest
         $I->see('Для просмотра этой страницы Вам необходимо авторизоваться!', \CommonPage::ERROR_CSS_CLASS);
 
         $I = new WebGuy\UserSteps($scenario);
-        $I->login('yupe@yupe.local','yupe');
+        $I->login('yupe@yupe.local','testpassword');
         $I->amOnPage('/pages/zaschischennaja-stranica');
         $I->seeInTitle('Защищенная страница');
         $I->see('Защищенная страница','h3');
