@@ -48,7 +48,7 @@ class InstallCest
         // check db settings form
         // mysql checked
         $I->selectOption('InstallForm[dbType]', '1');
-        $I->seeInField('InstallForm[host]', 'localhost');
+        $I->seeInField('InstallForm[host]', '127.0.0.1');
         $I->seeInField('InstallForm[port]', '3306');
         $I->seeInField('InstallForm[dbName]', '');
         $I->dontSeeCheckboxIsChecked('InstallForm[createDb]');
