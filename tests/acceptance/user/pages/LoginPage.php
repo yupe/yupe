@@ -9,7 +9,7 @@ class LoginPage
 
     public static $rememberMeField = 'LoginForm[remember_me]';
 
-    public static $userEmail = 'yupe@yupetest.ru';
+    public static $userEmail = 'yupe@yupe.local';
 
-    public static $userPassword = '111111';
+    public static $userPassword = 'testpassword';
 }

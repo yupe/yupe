@@ -701,7 +701,7 @@ CREATE TABLE IF NOT EXISTS `yupe_user_user` (
 --
 
 INSERT INTO `yupe_user_user` (`id`, `creation_date`, `change_date`, `first_name`, `middle_name`, `last_name`, `nick_name`, `email`, `gender`, `birth_date`, `site`, `about`, `location`, `online_status`, `password`, `salt`, `status`, `access_level`, `last_visit`, `registration_date`, `registration_ip`, `activation_ip`, `avatar`, `use_gravatar`, `activate_key`, `email_confirm`) VALUES
-(1, '2013-09-13 19:15:31', '2013-09-16 20:05:48', '', '', '', 'yupe', 'yupe@yupetest.ru', 0, NULL, '', '', '', '', '91298c3deadcf61346cc4e046ecc6738', '72bf7380c2ad86266bb53e75bd2b26cf', 1, 1, '2013-09-16 20:05:45', '2013-09-13 19:15:31', '127.0.0.1', '127.0.0.1', NULL, 1, 'da4fb4f42e1bac61271d924386e8c706', 1);
+(1, '2013-09-13 19:15:31', '2013-09-16 20:05:48', '', '', '', 'yupe', 'yupe@yupe.local', 0, NULL, '', '', '', '', '1973499f220139c96759089de6f77519', '72bf7380c2ad86266bb53e75bd2b26cf', 1, 1, '2013-09-16 20:05:45', '2013-09-13 19:15:31', '127.0.0.1', '127.0.0.1', NULL, 1, 'da4fb4f42e1bac61271d924386e8c706', 1);
 
 -- --------------------------------------------------------
 
