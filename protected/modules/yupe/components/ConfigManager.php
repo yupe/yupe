@@ -50,7 +50,21 @@ class ConfigManager extends CComponent
      */
     public function init()
     {
+        // Выходим на несколько каталогов выше:
+        $this->basePath      = Yii::getPathOfAlias('application');
+        $this->modulePath    = $this->basePath . '/config/modules';
+        $this->userspacePath = $this->basePath . '/config/userspace';
+        $this->appModules    = $this->basePath . '/modules';
 
+        $this->_base = empty($this->_base)
+                        ? require_once $this->basePath . '/config/main.php'
+                        : $this->_base;
+
+        $this->_userspace = empty($this->_userspace) && file_exists($this->basePath . '/config/userspace.php')
+                        ? require_once $this->basePath . '/config/userspace.php'
+                        : $this->_userspace;
+
+        return $this->merge($this->_base, $this->_userspace);
     }
 
     /**
@@ -71,7 +85,7 @@ class ConfigManager extends CComponent
         $this->_userspace    = $userspace;
         
         // Выходим на несколько каталогов выше:
-        $this->basePath      = realpath(dirname(__FILE__) . '/../../../');
+        $this->basePath      = Yii::getPathOfAlias('application');
         $this->modulePath    = $this->basePath . '/config/modules';
         $this->userspacePath = $this->basePath . '/config/userspace';
         $this->appModules    = $this->basePath . '/modules';
@@ -112,6 +126,9 @@ class ConfigManager extends CComponent
         } else {
             $settings = $this->prepareSettings();
         }
+
+        // Выполняем post-merging:
+        $this->postMerging($settings);
 
         return $settings;
     }
@@ -343,6 +360,31 @@ class ConfigManager extends CComponent
         }
 
         return $this->_config;
+    }
+
+    public function postMerging(&$settings = array())
+    {
+        // Забираем настройки адресации и удаляем элемент:
+        $rules = $settings['rules'];
+        unset($settings['rules']);
+
+        // Обходим массив Url'ов и убераем схожести:
+        foreach ($settings['components']['urlManager']['rules'] as $key => $value) {
+            // Обнуляем поиск:
+            $search = null;
+            
+            $search = array_search($value, $rules);
+            
+            if (!empty($search) || isset($rules[$key])) {
+                unset($settings['components']['urlManager']['rules'][$key]);
+            }
+        }
+
+        // Добавляем новые адреса:
+        $settings['components']['urlManager']['rules'] = CMap::mergeArray(
+            $rules,
+            $settings['components']['urlManager']['rules']
+        );
     }
 
     /**
