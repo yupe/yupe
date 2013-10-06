@@ -8,7 +8,7 @@ modules:
     enabled: [Db, CodeHelper, YiiHelper]
     config:
           Db:
-             dsn: 'mysql:host=localhost;dbname=<db.name>'
+             dsn: 'mysql:host=127.0.0.1;dbname=<db.name>'
              user: '<db.user>'
              password: '<db.pass>'
              dump: 'tests/_data/dump.sql'
