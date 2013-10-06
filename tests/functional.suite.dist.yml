@@ -11,4 +11,4 @@ modules:
     enabled: [Filesystem, TestHelper, PhpBrowser]
     config:
           PhpBrowser:
-             url: 'http://yupe-test.local'
+             url: 'http://yupe.local/index-test.php'

@@ -18,7 +18,7 @@ modules:
         - Db
     config:
         Selenium2:
-            url: 'http://yupe-test.local'
+            url: 'http://yupe.local/index-test.php'
             browser: firefox
             delay: 100
         Db:
