@@ -147,4 +147,10 @@ return array(
             'errorAction'=>'site/error',
         ),
     ),
+    'rules'      => array(
+        // Настройки для урлов приложения
+        // (использовать лишь в userspace)
+        // Пример:
+        // '<slug>.html' => 'page/page/show',
+    ),
 );

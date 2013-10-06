@@ -21,6 +21,9 @@ $development = isset($_SERVER['SERVER_ADDR'])
 // Выбираем конфигурацию development-main.php, если сайт работает на localhost
 if ($development || defined('APPLICATION_ENV') || getenv('APPLICATION_ENV') !== false) {
     // Комментируем перед выпуском в продакшен:
+    // в режиме разработки необходимо демонстрировать все ошибки
+    // независимо от среды
+    ini_set('display_errors', 'On');
     define('YII_DEBUG', true);
     defined('YII_TRACE_LEVEL') or define('YII_TRACE_LEVEL', 3);
     // В режиме разработки - отключаем кеширование настроек:
