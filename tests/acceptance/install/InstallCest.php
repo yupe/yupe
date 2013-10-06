@@ -65,9 +65,12 @@ class InstallCest
         $I->see('Необходимо заполнить поле «Название базы данных».', \CommonPage::ERROR_CSS_CLASS);
         $I->see('Необходимо заполнить поле «Пользователь».', \CommonPage::ERROR_CSS_CLASS);
 
+        /**
+         * @TODO: Найти решение при котором можно подменить логин и пароль данными из конфига
+         */
         $I->fillField('InstallForm[dbName]', 'yupe_test');
-        $I->fillField('InstallForm[dbUser]', $I->getModule('Db')->driver->user);
-        $I->fillField('InstallForm[dbPassword]', $I->getModule('Db')->driver->password);
+        $I->fillField('InstallForm[dbUser]', 'root');
+        $I->fillField('InstallForm[dbPassword]', '');
 
         $I->click('Проверить подключение и продолжить >');
         $I->dontSee('Не удалось создать БД!', \CommonPage::ERROR_CSS_CLASS);
