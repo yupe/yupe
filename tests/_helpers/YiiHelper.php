@@ -7,7 +7,7 @@ class YiiHelper extends \Codeception\Module
 {
     public function createConsoleYiiApp()
     {
-        $config = require_once APPLICATION_DIR.'config/console.php';
+        $config = require dirname(__FILE__).'/../../protected/config/console-test.php';
         if(!\Yii::app()) \Yii::createConsoleApplication($config);
     }
 
@@ -18,7 +18,7 @@ class YiiHelper extends \Codeception\Module
     public function setDbConnectionOptionsFromYiiConfig($dbConfigFile)
     {
         $dbConfig = include $dbConfigFile;
-        $mapKeys = array('connectionString'=>'dsn','username'=>'user');
+        $mapKeys = array('connectionString'=>'dsn','username'=>'user','password'=>'password');
         foreach($mapKeys as $k=>$v) {
             if(array_key_exists($k,$dbConfig)) {
                 $dbConfig[$v] = $dbConfig[$k];
