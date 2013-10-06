@@ -206,7 +206,7 @@ CREATE TABLE IF NOT EXISTS `yupe_category_category` (
 -- Table structure for table `yupe_comment_comment`
 --
 
-CREATE TABLE IF NOT EXISTS `yupe_comment_comment` (
+CREATE TABLE `yupe_comment_comment` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `parent_id` int(11) DEFAULT NULL,
   `user_id` int(11) DEFAULT NULL,
@@ -219,14 +219,22 @@ CREATE TABLE IF NOT EXISTS `yupe_comment_comment` (
   `text` text NOT NULL,
   `status` int(11) NOT NULL DEFAULT '0',
   `ip` varchar(20) DEFAULT NULL,
+  `level` int(11) DEFAULT '0',
+  `root` int(11) DEFAULT '0',
+  `lft` int(11) DEFAULT '0',
+  `rgt` int(11) DEFAULT '0',
   PRIMARY KEY (`id`),
   KEY `ix_yupe_comment_comment_status` (`status`),
   KEY `ix_yupe_comment_comment_model_model_id` (`model`,`model_id`),
   KEY `ix_yupe_comment_comment_model` (`model`),
   KEY `ix_yupe_comment_comment_model_id` (`model_id`),
   KEY `ix_yupe_comment_comment_user_id` (`user_id`),
-  KEY `ix_yupe_comment_comment_parent_id` (`parent_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+  KEY `ix_yupe_comment_comment_parent_id` (`parent_id`),
+  KEY `ix_yupe_comment_comment_level` (`level`),
+  KEY `ix_yupe_comment_comment_root` (`root`),
+  KEY `ix_yupe_comment_comment_lft` (`lft`),
+  KEY `ix_yupe_comment_comment_rgt` (`rgt`)
+) ENGINE=InnoDB AUTO_INCREMENT=19 DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
 
@@ -534,7 +542,8 @@ INSERT INTO `yupe_migrations` (`id`, `module`, `version`, `apply_time`) VALUES
 (20, 'contentblock', 'm000000_000000_contentblock_base', 1379085279),
 (21, 'page', 'm000000_000000_page_base', 1379085282),
 (22, 'page', 'm130115_155600_columns_rename', 1379085282),
-(23, 'mail', 'm000000_000000_mail_base', 1379085285);
+(23, 'mail', 'm000000_000000_mail_base', 1379085285),
+(24, 'comment', 'm130704_095200_comment_nestedsets', 1379085287);
 
 -- --------------------------------------------------------
 

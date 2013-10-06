@@ -3,7 +3,7 @@
 class FeedBackPage
 {
     // include url of current page
-    const CONTACTS_URL = '/contacts';
+    const CONTACTS_URL = '/feedback';
 
     const FAQ_URL = '/faq';
 
