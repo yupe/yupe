@@ -44,7 +44,7 @@
             'htmlOptions' => array('class' => 'navbar navbar-inverse'),
             'fluid' => true,
             'brand' => CHtml::image(
-                $this->yupe->themeBaseUrl . "/web/images/logo.png",
+                Yii::app()->baseUrl . "/web/images/logo.png",
                 $brandTitle,
                 array(
                     'width' => '38',
