@@ -6,6 +6,18 @@ span.label a {
     color: #FFF;
 }
 
+/* blog styles */
+.blog-info>span{
+    display:inline-block;
+    padding-right: .7em;
+}
+.blog-info>h2{
+    display: block;
+    width: 100%;
+    padding:0;
+    margin: 0 0 .4em 0;
+}
+
 /* all widgets styles */
 .widget {
     margin-bottom: 2em;
