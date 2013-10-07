@@ -7,11 +7,11 @@ class NewsPublishCest
     public function tryToTestPagePublishing(WebGuy $I, $scenario)
     {
         $I = new WebGuy\UserSteps($scenario);
-        $I->login('yupe@yupe.local','testpassword');
+        $I->login(\CommonPage::TEST_USER_NAME,\CommonPage::TEST_PASSWORD);
         $I->am('admin');
         $I->amGoingTo('test publishing news...');
-        $I->amOnPage('/yupe/backend/index');
-        $I->see('Панель управления "Юпи!"','h1');
+        $I->amOnPage(\CommonPage::PANEL_URL);
+        $I->see(\CommonPage::PANEL_LABEL,'h1');
         $I->amOnPage('/news/default/index');
         $I->see('Новости');
         $I->seeLink('Вторая не опубликованная новость');

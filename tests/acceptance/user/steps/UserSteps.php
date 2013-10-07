@@ -44,4 +44,13 @@ class UserSteps extends \WebGuy
         $I->seeInDatabase('yupe_user_user', array('email_confirm' => 0, 'email' => $email));
     }
 
+    public function loginAsAdminAndGoToThePanel($email, $password)
+    {
+        $I = $this;
+        $this->login($email, $password);
+        $I->am('admin');
+        $I->amOnPage(\CommonPage::PANEL_URL);
+        $I->see(\CommonPage::PANEL_LABEL,'h1');
+    }
+
 }
