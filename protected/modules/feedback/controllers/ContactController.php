@@ -31,6 +31,7 @@ class ContactController extends yupe\components\controllers\FrontController
             $form->name  = Yii::app()->user->getState('nick_name');
         }
 
+
         // проверить не передан ли тип и присвоить его аттрибуту модели
         $form->type = (int) Yii::app()->request->getParam('type', FeedBack::TYPE_DEFAULT);
 
@@ -71,8 +72,9 @@ class ContactController extends yupe\components\controllers\FrontController
                                 FeedbackModule::$logCategory
                             );
 
-                            if ($module->sendConfirmation && !count($backEnd))
+                            if ($module->sendConfirmation && !count($backEnd)) {
                                $this->feedbackConfirmationEmail($feedback);
+                            }
 
                             Yii::app()->user->setFlash(
                                 YFlashMessages::SUCCESS_MESSAGE,
@@ -82,15 +84,14 @@ class ContactController extends yupe\components\controllers\FrontController
 
                             if (!count($backEnd))
                             {
-                                if (Yii::app()->request->isAjaxRequest)
+                                if (Yii::app()->request->isAjaxRequest) {
                                     Yii::app()->ajax->success(Yii::t('FeedbackModule.feedback', 'Your message sent! Thanks!'));
-                                $this->redirect($module->successPage ? array($module->successPage) : array('/feedback/faq'));
+                                }
+                                $this->redirect($module->successPage ? array($module->successPage) : array('/feedback/contact/faq'));
                             }
                         }
                         else
                         {
-                            $form->addErrors($feedback->getErrors());
-
                             Yii::log(
                                 Yii::t('FeedbackModule.feedback', 'Error when trying to record feedback in DB'),
                                 CLogger::LEVEL_ERROR,
@@ -109,11 +110,13 @@ class ContactController extends yupe\components\controllers\FrontController
                     {
                         $emailBody = $this->renderPartial('feedbackEmail', array('model' => $feedback), true);
 
-                        foreach (explode(',', $module->emails) as $mail)
+                        foreach (explode(',', $module->emails) as $mail) {
                             Yii::app()->mail->send($feedback->email, $mail, $form->theme, $emailBody);
+                        }
 
-                        if ($module->sendConfirmation)
+                        if ($module->sendConfirmation) {
                             $this->feedbackConfirmationEmail($feedback);
+                        }
 
                         Yii::log(
                             Yii::t('FeedbackModule.feedback', 'Feedback was send on e-mail'),
@@ -125,9 +128,10 @@ class ContactController extends yupe\components\controllers\FrontController
                             Yii::t('FeedbackModule.feedback', 'Your message sent! Thanks!')
                         );
 
-                        if (Yii::app()->request->isAjaxRequest)
+                        if (Yii::app()->request->isAjaxRequest) {
                             Yii::app()->ajax->success(Yii::t('FeedbackModule.feedback', 'Your message sent! Thanks!'));
-                        $this->redirect($module->successPage ? array($module->successPage) : array('/feedback/faq'));
+                        }
+                        $this->redirect($module->successPage ? array($module->successPage) : array('/feedback/contact/faq'));
                     }
                 }
 
@@ -136,15 +140,17 @@ class ContactController extends yupe\components\controllers\FrontController
                     Yii::t('FeedbackModule.feedback', 'It is not possible to send message!')
                 );
 
-                if (Yii::app()->request->isAjaxRequest)
+                if (Yii::app()->request->isAjaxRequest) {
                     Yii::app()->ajax->failure(Yii::t('FeedbackModule.feedback', 'It is not possible to send message!'));
+                }
 
-                $this->redirect(array('/feedback/index/'));
+                $this->redirect(array('/feedback/contact/index/'));
             }
             else
             {
-                if (Yii::app()->request->isAjaxRequest)
+                if (Yii::app()->request->isAjaxRequest) {
                     Yii::app()->ajax->failure(Yii::t('FeedbackModule.feedback', 'Please check e-mail and fill the form correct.'));
+                }
             }
         }
         $this->render('index', array('model' => $form, 'module' => $module));
@@ -204,7 +210,7 @@ class ContactController extends yupe\components\controllers\FrontController
             throw new CHttpException(404, Yii::t('FeedbackModule.feedback', 'Page was not found!'));
         }
 
-        $model = FeedBack::model()->answered()->faq()->cache($this->yupe->coreCacheTime)->findByPk($id);
+        $model = FeedBack::model()->answered()->faq()->findByPk($id);
 
         if (!$model) {
             throw new CHttpException(404, Yii::t('FeedbackModule.feedback', 'Page was not found!'));
