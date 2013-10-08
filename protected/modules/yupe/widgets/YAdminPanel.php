@@ -64,12 +64,13 @@ class YAdminPanel extends YWidget
                     )
                 ), CClientScript::POS_BEGIN
             );
+
             $cached = Yii::app()->cache->get(
                 'YAdminPanel::' . Yii::app()->user->getId() . (
                     Yii::app()->controller instanceof yupe\components\controllers\BackController
                     ? 'backend'
                     : 'frontend'
-                )
+                ) . '::' . Yii::app()->language
             );
 
             if ($cached === false) {
@@ -79,7 +80,7 @@ class YAdminPanel extends YWidget
                         Yii::app()->controller instanceof yupe\components\controllers\BackController
                         ? 'backend'
                         : 'frontend'
-                    ), $cached, 0, new TagsCache('yupe', 'YAdminPanel', 'installedModules')
+                    ) . '::' . Yii::app()->language, $cached, 0, new TagsCache('yupe', 'YAdminPanel', 'installedModules')
                 );
             }
 
