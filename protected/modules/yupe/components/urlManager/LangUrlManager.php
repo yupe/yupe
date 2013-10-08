@@ -17,6 +17,7 @@
 class LangUrlManager extends CUrlManager
 {
     public $languages;
+    public $langs;
     public $langParam         = 'language';
     public $languageInPath    = true;
     public $preferredLanguage = false;
@@ -45,7 +46,7 @@ class LangUrlManager extends CUrlManager
         if ($this->languageInPath) {
 
             // Применяем преобразование, для строки с языками:
-            $langs = str_replace(',', '|', $langs);
+            $langs = str_replace(',', '|', $this->langs);
 
             // Обходим массив правил и выполняем
             // преобразования для новых правил:
@@ -86,10 +87,10 @@ class LangUrlManager extends CUrlManager
     public function getLangs()
     {
         // Получаем из настроек доступные языки:
-        $langs = Yii::app()->getModule('yupe')->availableLanguages;
+        $this->langs = Yii::app()->getModule('yupe')->availableLanguages;
 
         // Разделяем на массив и удаляем пустые элементы:
-        $this->languages = explode(",", $langs);
+        $this->languages = explode(",", $this->langs);
     }
 
     /**
