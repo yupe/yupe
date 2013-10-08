@@ -8,7 +8,7 @@
     <?php foreach ($comments as $comment):?>
 
         <?php if(!$this->comment && is_object($comment)):?>
-            <?php $level = $comment->level-2; ?>
+            <?php  $level = ($comment->level < 10 ) ? $comment->level-2 : 10; ?>
         <?php else:?>
             <?php $comment = $this->comment;?>
             <?php $level = 1;?>

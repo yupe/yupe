@@ -22,7 +22,7 @@ $this->breadcrumbs = array(
     <div class='span6'>
 
         <i class="icon-pencil"></i> <?php echo CHtml::link($blog->name, array('/blog/post/blog/','slug' => $blog->slug)); ?>
-        <a href="<?php echo Yii::app()->createUrl('/blog/rss/feed/',array('blog' => $blog->id));?>"><img src="<?php echo Yii::app()->theme->baseUrl?>/web/images/rss.png" alt="Подпишитесь на обновление блога '<?php echo $blog->name?>'" title="Подпишитесь на обновление блога '<?php echo $blog->name?>'"></a>
+        <a href="<?php echo Yii::app()->createUrl('/blog/rss/feed/',array('blog' => $blog->id));?>"><img src="<?php echo Yii::app()->AssetManager->publish("../".Yii::app()->theme->baseUrl."/web/images/rss.png"); ?>" alt="Подпишитесь на обновление блога '<?php echo $blog->name?>'" title="Подпишитесь на обновление блога '<?php echo $blog->name?>'"></a>
         <br/>
 
         <i class="icon-user"></i> <?php echo Yii::t('blog', 'Создал'); ?>: <b><?php echo CHtml::link($blog->createUser->nick_name, array('/user/people/userInfo/','username' => $blog->createUser->nick_name));?></b><br/>
