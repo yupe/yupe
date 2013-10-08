@@ -24,13 +24,13 @@ class RssController extends yupe\components\controllers\FrontController
         $criteria->params = array();
         $criteria->limit = $limit;
 
-        $title = $this->yupe->siteName;
-        $description = $this->yupe->siteDescription;
+        $title = Yii::app()->getModule('yupe')->siteName;
+        $description = Yii::app()->getModule('yupe')->siteDescription;
 
         $blogId = (int)Yii::app()->request->getQuery('blog');
 
         if (!empty($blogId)) {
-            $blog = Blog::model()->cache($this->yupe->coreCacheTime)->published()->findByPk($blogId);
+            $blog = Blog::model()->cache(Yii::app()->getModule('yupe')->coreCacheTime)->published()->findByPk($blogId);
             if (null === $blog) {
                 throw new CHttpException(404);
             }
@@ -43,7 +43,7 @@ class RssController extends yupe\components\controllers\FrontController
         $categoryId = (int)Yii::app()->request->getQuery('category');
 
         if (!empty($categoryId)) {
-            $category = Category::model()->cache($this->yupe->coreCacheTime)->published()->findByPk($categoryId);
+            $category = Category::model()->cache(Yii::app()->getModule('yupe')->coreCacheTime)->published()->findByPk($categoryId);
             if (null === $category) {
                 throw new CHttpException(404);
             }
@@ -58,7 +58,7 @@ class RssController extends yupe\components\controllers\FrontController
         if (!empty($tag)) {
             $data = Post::model()->with('createUser')->published()->public()->taggedWith($tag)->findAll();
         } else {
-            $data = Post::model()->cache($this->yupe->coreCacheTime)->with('createUser')->published()->public(
+            $data = Post::model()->cache(Yii::app()->getModule('yupe')->coreCacheTime)->with('createUser')->published()->public(
             )->findAll($criteria);
         }
 
