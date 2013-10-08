@@ -134,7 +134,7 @@ class DocsModule extends yupe\components\WebModule
     {
         return array(
             array('icon' => 'list-alt', 'label' => Yii::t('DocsModule.docs', 'Show local files'), 'url' => array('/backend/docs')),
-            array('icon' => 'list-alt', 'label' => Yii::t('DocsModule.docs', 'Local docs'), 'url' => array('/docs')),
+            array('icon' => 'list-alt', 'label' => Yii::t('DocsModule.docs', 'Local docs'), 'url' => array('/docs/show/index')),
             array('icon' => 'icon-globe', 'label' => Yii::t('DocsModule.docs', 'Online docs'), 'url' => 'http://yupe.ru/docs/index.html?from=help','linkOptions' => array('target' => '_blank')),
         );
     }
