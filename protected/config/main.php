@@ -52,7 +52,8 @@ return array(
     // конфигурирование основных компонентов (подробнее http://www.yiiframework.ru/doc/guide/ru/basics.component)
     'components' => array(
         'debug' => array(
-            'class' => 'vendor.zhuravljov.yii2-debug.Yii2Debug',
+            'class'   => 'vendor.zhuravljov.yii2-debug.Yii2Debug',
+            'enabled' => defined('YII_DEBUG') && YII_DEBUG,
         ),
         // параметры подключения к базе данных, подробнее http://www.yiiframework.ru/doc/guide/ru/database.overview
         // используется лишь после установки Юпи:
