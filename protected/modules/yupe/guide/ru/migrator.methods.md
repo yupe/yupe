@@ -9,178 +9,140 @@
 
 **Лицензия**: [BSD](https://github.com/yupe/yupe/blob/master/LICENSE)
 
+Описание
+--------
+
+Компонент "Мигратор" - предназначен для использования миграций из веб части. То есть это по сути тот же компонент, который используется в Yii, но переписан с учётом специфики работы в фронт-части.
+
+Компонент доступен из namespace'a `yupe\components\Migrator` и для своей работы использует следующие компоненты из глобального namespace'a:
+
+* Yii;
+* CDbCacheDependency;
+* ErrorException;
+* CException;
+* CDbConnection;
+* TagsCache;
+* CHtml;
+
 Методы
 ------
 
-
 ### Метод init - Инициализируем класс
 
-<pre><code class="php">
-public function init()
-{
-    // check for table
-    $db = $this->getDbConnection();
-    if ($db->schema->getTable($db->tablePrefix . $this->migrationTable) === null) {
-        $this->createMigrationHistoryTable();
-    }
-    return parent::init();
-}
-</code></pre>
+[листинг](https://github.com/yupe/yupe/blob/master/protected/modules/yupe/components/Migrator.php#L38)
 
 В данном методе перед инициализацией компонента проверяется наличие таблицы истории миграций, если же её нет - вызывается метод `createMigrationHistoryTable()`
 
 ### Метод updateToLatest - Обновление модуля до актуальной миграции
 
-<pre><code class="php">
-public function updateToLatest($module)
-{
-    if (($newMigrations = $this->getNewMigrations($module)) !== array()) {
-        Yii::log(
-            Yii::t(
-                'YupeModule.yupe',
-                'Обновляем до последней версии базы модуль {module}',
-                array('{module}' => $module)
-            )
-        );
-        foreach ($newMigrations as $migration) {
-            if ($this->migrateUp($module, $migration) === false) {
-                return false;
-            }
-        }
-    } else {
-        Yii::log(
-            Yii::t(
-                'YupeModule.yupe',
-                'Для модуля {module} новых миграций не найдено',
-                array('{module}' => $module)
-            )
-        );
-    }
-    return true;
-}
-</code></pre>
+[листинг](https://github.com/yupe/yupe/blob/master/protected/modules/yupe/components/Migrator.php#L55)
 
 В данном методе мы получаем список ещё не установленных миграций и постепенно "накатываем" их вызывая метод `migrateUp`. Если же список новых миграций пуст - сообщаем об этом в лог.
 
+<pre>
 @param string $module - id-модуля
 @return bool true
+</pre>
 
 ### Метод checkForBadMigration - Проверяем на незавершённые миграции:
 
-<pre><code class="php">
-public function checkForBadMigration($module, $class = false)
-{
-    echo Yii::t('YupeModule.yupe', "Проверяем на наличие незавершённых миграций.") . '<br />';
+[листинг](https://github.com/yupe/yupe/blob/master/protected/modules/yupe/components/Migrator.php#L55)
 
-    $db = $this->getDbConnection();
+Метод проверяет список миграций на незавершённые ("плохие") миграции и возвращаем результат, есть таковые миграции у данного модуля или нет.
 
-    // @TODO: add cache here??
-    $data = $db->createCommand()
-        ->selectDistinct('version, apply_time')
-        ->from($db->tablePrefix . $this->migrationTable)
-        ->order('version DESC')
-        ->where(
-            'module = :module',
-            array(
-                ':module' => $module,
-            )
-        )
-        ->queryAll();
-
-    if (($data !== array()) || ((strpos($class, '_base') !== false) && ($data[] = array(
-        'version' => $class,
-        'apply_time' => 0
-    )))
-    ) {
-        foreach ($data as $migration) {
-            if ($migration['apply_time'] == 0) {
-                try {
-                    echo Yii::t(
-                        'YupeModule.yupe',
-                        'Откат миграции {migration} для модуля {module}.',
-                        array(
-                            '{module}' => $module,
-                            '{migration}' => $migration['version'],
-                        )
-                    ) . '<br />';
-                    Yii::log(
-                        Yii::t(
-                            'YupeModule.yupe',
-                            'Откат миграции {migration} для модуля {module}.',
-                            array(
-                                '{module}' => $module,
-                                '{migration}' => $migration['version'],
-                            )
-                        )
-                    );
-                    if ($this->migrateDown($module, $migration['version']) !== false) {
-                        $db->createCommand()->delete(
-                            $db->tablePrefix . $this->migrationTable,
-                            array(
-                                $db->quoteColumnName('version') . "=" . $db->quoteValue($migration['version']),
-                                $db->quoteColumnName('module') . "=" . $db->quoteValue($module),
-                            )
-                        );
-                    } else {
-                        Yii::log(
-                            Yii::t(
-                                'YupeModule.yupe',
-                                'Не удалось выполнить откат миграции {migration} для модуля {module}.',
-                                array(
-                                    '{module}' => $module,
-                                    '{migration}' => $migration['version'],
-                                )
-                            )
-                        );
-                        echo Yii::t(
-                            'YupeModule.yupe',
-                            'Не удалось выполнить откат миграции {migration} для модуля {module}.',
-                            array(
-                                '{module}' => $module,
-                                '{migration}' => $migration['version'],
-                            )
-                        ) . '<br />';
-                        return false;
-                    }
-                } catch (ErrorException $e) {
-                    Yii::log(
-                        Yii::t(
-                            'YupeModule.yupe',
-                            'Произошла ошибка: {error}',
-                            array(
-                                '{error}' => $e
-                            )
-                        )
-                    );
-                    echo Yii::t(
-                        'YupeModule.yupe',
-                        'Произошла ошибка: {error}',
-                        array(
-                            '{error}' => $e
-                        )
-                    );
-                }
-            }
-        }
-    } else {
-        Yii::log(
-            Yii::t(
-                'YupeModule.yupe',
-                'Для модуля {module} не требуется откат миграции.',
-                array('{module}' => $module)
-            )
-        );
-        echo Yii::t(
-            'YupeModule.yupe',
-            'Для модуля {module} не требуется откат миграции.',
-            array('{module}' => $module)
-        ) . '<br />';
-    }
-    return true;
-}
-</code></pre>
-
+<pre>
 @param string $module - id-модуля
 @param string $class  - класс-миграции
 
 @return bool обновились ли до миграции
+</pre>
+
+### Метод migrateUp - Обновляем миграцию:
+
+[листинг](https://github.com/yupe/yupe/blob/master/protected/modules/yupe/components/Migrator.php#L210)
+
+Метод "накатывания" миграции до нового состяния с записью результата в журнал миграций.
+
+<pre>
+@param string $module - required module
+@param string $class  - name of migration class
+
+@return bool is updated to migration
+</pre>
+
+### Метод migrateDown - Даунгрейд миграции:
+
+[листинг](https://github.com/yupe/yupe/blob/master/protected/modules/yupe/components/Migrator.php#L282)
+
+Метод "откатывания" миграции до старого состяния с удалением записи о данной миграции из журнала миграций.
+
+<pre>
+@param string $module - required module
+@param string $class  - name of migration class
+
+@return bool is downgraded to migration
+</pre>
+
+### Метод instantiateMigration - инициализация класса миграции:
+
+[листинг](https://github.com/yupe/yupe/blob/master/protected/modules/yupe/components/Migrator.php#L345)
+
+Инициализируем класс миграции для последующей работы с ним.
+
+<pre>
+@param string $module - required module
+@param string $class  - class of migration
+
+@return mixed version and apply time
+</pre>
+
+### Метод getDbConnection - получаем коннектор к БД
+
+[листинг](https://github.com/yupe/yupe/blob/master/protected/modules/yupe/components/Migrator.php#L359)
+
+<pre>@return db connection or make exception</pre>
+
+### Метод getMigrationHistory - получаем историю миграций
+
+[листинг](https://github.com/yupe/yupe/blob/master/protected/modules/yupe/components/Migrator.php#L382)
+
+<pre>
+@param string  $module - required module
+@param integer $limit  - limit of array
+
+@return mixed version and apply time
+</pre>
+
+### Метод createMigrationHistoryTable - создаём таблицу миграций
+
+[листинг](https://github.com/yupe/yupe/blob/master/protected/modules/yupe/components/Migrator.php#L418)
+
+<pre>@return nothing</pre>
+
+### Метод getNewMigrations - проверка на наличие новых миграций для модуля
+
+[листинг](https://github.com/yupe/yupe/blob/master/protected/modules/yupe/components/Migrator.php#L455)
+
+<pre>
+@param string $module - required module
+
+@return mixed new migrations
+</pre>
+
+### Метод checkForUpdates - получение списка обновлений для выбранных модулей
+
+[листинг](https://github.com/yupe/yupe/blob/master/protected/modules/yupe/components/Migrator.php#L496)
+
+<pre>
+@param array $modules - list of modules
+
+@return mixed new migrations
+</pre>
+
+### Метод getModulesWithDBInstalled - получаем список модулей с установленными миграциями
+
+[листинг](https://github.com/yupe/yupe/blob/master/protected/modules/yupe/components/Migrator.php#L514)
+
+<pre>
+@return mixed db-installed
+</pre>
