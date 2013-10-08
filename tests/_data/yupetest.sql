@@ -53,6 +53,11 @@ CREATE TABLE IF NOT EXISTS `yupe_blog_blog` (
   KEY `ix_yupe_blog_blog_category_id` (`category_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
 
+INSERT INTO `yupe_blog_blog` (`id`, `category_id`, `name`, `description`, `icon`, `slug`, `lang`, `type`, `status`, `create_user_id`, `update_user_id`, `create_date`, `update_date`) VALUES
+(1, NULL, 'Опубликованный блог', '<p>\n	Опубликованный блог описание\n</p>', '', 'public-blog', NULL, 1, 1, 1, 1, 1381246593, 1381246593),
+(2, NULL, 'Удаленный блог', '<p>\n	Удаленный блог\n</p>', '', 'deleted-blog', NULL, 1, 2, 1, 1, 1381246629, 1381246629);
+
+
 -- --------------------------------------------------------
 
 --
