@@ -827,7 +827,21 @@ abstract class WebModule extends \CWebModule
 
         parent::init();
 
+        $this->getSettings();
+    }
+
+    /**
+     * Получаем настройки модуля:
+     * 
+     * @param  boolean $needReset необходимо ли сбросить настройки
+     * 
+     * @return void
+     */
+    public function getSettings($needReset = false)
+    {
         $settings = null;
+
+        $needReset === false || Yii::app()->cache->clear($this->getId());
 
         try
         {

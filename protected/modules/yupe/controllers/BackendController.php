@@ -199,7 +199,7 @@ class BackendController extends yupe\components\controllers\BackController
                         )
                     )
                 );
-                Yii::app()->cache->clear($moduleId);
+                $module->getSettings(true);
             } else {
                 Yii::app()->user->setFlash(
                     YFlashMessages::ERROR_MESSAGE,

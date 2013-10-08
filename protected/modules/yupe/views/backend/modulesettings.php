@@ -14,7 +14,7 @@ $this->breadcrumbs = array(
 <br/>
 
 <?php if (is_array($elements) && count($elements)): ?>
-    <?php echo CHtml::beginForm(array('/yupe/backend/saveModulesettings', 'post'), 'post', array(
+    <?php echo CHtml::beginForm(array('/yupe/backend/saveModulesettings'), 'post', array(
         'class' => 'well',
     )); ?>
         <fieldset class="inline">

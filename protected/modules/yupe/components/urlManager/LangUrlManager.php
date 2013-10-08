@@ -32,11 +32,8 @@ class LangUrlManager extends CUrlManager
      */
     public function init()
     {
-        // Получаем из настроек доступные языки:
-        $langs = Yii::app()->getModule('yupe')->availableLanguages;
-
-        // Разделяем на массив и удаляем пустые элементы:
-        $this->languages = explode(",", $langs);
+        // Получаем список языков:
+        $this->getLangs();
 
         // Если используемых языков меньше двух,
         // то нам сойдёт и стандартный urlManager:
@@ -82,6 +79,20 @@ class LangUrlManager extends CUrlManager
     }
 
     /**
+     * Метод получения списка системных языков
+     * 
+     * @return void
+     */
+    public function getLangs()
+    {
+        // Получаем из настроек доступные языки:
+        $langs = Yii::app()->getModule('yupe')->availableLanguages;
+
+        // Разделяем на массив и удаляем пустые элементы:
+        $this->languages = explode(",", $langs);
+    }
+
+    /**
      * Метод создания URL.
      * Здесь немного поправлена логика для работы
      * с подмножеством языков:
@@ -95,6 +106,9 @@ class LangUrlManager extends CUrlManager
      */
     public function createUrl($route, $params = array(), $ampersand = '&')
     {
+        // Обновляем список языков, ведь он мог измениться:
+        $this->getLangs();
+
         // Если используемых языков менее двух или параметр
         // $this->languages не массив языков, обработка не 
         // требуется
