@@ -1,9 +1,9 @@
 <?php
+/* @var $page Page */
+/* @var $this PageController */
+
 $this->pageTitle   = $page->title;
-$this->breadcrumbs = array(
-    'Страницы',
-    $page->title
-);
+$this->breadcrumbs = $this->getBreadCrumbs();
 $this->description = !empty($page->description) ? $page->description : $this->description;
 $this->keywords    = !empty($page->keywords)    ? $page->keywords    : $this->keywords
 ?>
