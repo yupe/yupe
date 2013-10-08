@@ -341,7 +341,7 @@ class User extends YModel
 
             // Посмотрим, есть ли у нас уже нужный размер? Если есть - используем его
             if (file_exists($basePath . "/" . $sizedFile)) {
-                return Yii::app()->createAbsoluteUrl('/') . '/' . $uploadPath . '/'. $avatarsDir . "/" . $sizedFile;
+                return Yii::app()->request->baseUrl . '/' . $uploadPath . '/'. $avatarsDir . "/" . $sizedFile;
             }
 
             if (file_exists($basePath . "/" . $this->avatar)){
@@ -357,7 +357,7 @@ class User extends YModel
                     @copy($basePath . "/" . $this->avatar, $basePath . "/" . $sizedFile);
                 }
 
-                return Yii::app()->createAbsoluteUrl('/') . '/'. $uploadPath . '/' . $avatarsDir . "/" . $sizedFile;
+                return Yii::app()->request->baseUrl . '/'. $uploadPath . '/' . $avatarsDir . "/" . $sizedFile;
             }
         }
         // Нету аватарки, печалька :(
