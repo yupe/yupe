@@ -109,7 +109,7 @@ class Blog extends YModel
     {
         return array(
             'published' => array(
-                'condition' => 'status = :status',
+                'condition' => 't.status = :status',
                 'params'    => array(':status' => self::STATUS_ACTIVE),
             ),
             'public' => array(

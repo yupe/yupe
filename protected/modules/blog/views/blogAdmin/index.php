@@ -161,7 +161,6 @@ $this->renderPartial('_search', array('model' => $model));
                 'header' => Yii::t('BlogModule.blog', 'Members'),
                 'value'  => '$data->membersCount',
             ),
-
             array(
                 'class' => 'bootstrap.widgets.TbButtonColumn',
             ),

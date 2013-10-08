@@ -42,6 +42,7 @@ class RegistrationAction extends CAction
                     ));
 
                     $transaction = Yii::app()->db->beginTransaction();
+
                     try
                     {
                         if ($user->save())
