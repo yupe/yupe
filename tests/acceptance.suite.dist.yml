@@ -15,14 +15,14 @@ modules:
         - Selenium2
         - WebHelper
         - WebDebug
-        - Db
+        - DbHelper
     config:
         Selenium2:
             host: '127.0.0.1'
             url: 'http://yupe.local/index-test.php'
             browser: firefox
             delay: 100
-        Db:
+        DbHelper:
              dsn: 'mysql:host=127.0.0.1;dbname=<db.name>'
              user: '<db.user>'
              password: '<db.pass>'
