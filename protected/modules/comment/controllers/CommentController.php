@@ -53,8 +53,6 @@
  *
  **/
 
-use application\modules\comment\components\INotify;
-
 class CommentController extends yupe\components\controllers\FrontController
 {
     /**
