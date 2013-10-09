@@ -1,17 +1,18 @@
 <?php
 
 /**
- * Yii Etended Captcha
+ * Yii Extended Captcha
  * Класс реализующий Капчу, параметры длинны которой извлекаются
  * из настроек модуля.
  *
  * @category YupeComponents
- * @package  yupe
+ * @package  yupe.modules.yupe.components.actions
  * @author   Anton Kucherov <idexter.ru@gmail.com>
  * @license  BSD https://raw.github.com/yupe/yupe/master/LICENSE
  * @version  0.1
  * @link     http://yupe.ru
  **/
+
 class YCaptchaAction extends CCaptchaAction
 {
 

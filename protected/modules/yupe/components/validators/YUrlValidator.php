@@ -1,9 +1,14 @@
 <?php
 /**
-* Url Validator for Yupe with Russian and UTF-8 support.
-*
-* @author Anton Kucherov <idexter.ru@gmail.com>
-*/
+ * Валидатор url, корректо воспринимает кирилические адреса
+ *
+ * @author Anton Kucherov <idexter.ru@gmail.com>
+ * @link http://yupe.ru
+ * @copyright 2009-2013 amyLabs && Yupe! team
+ * @package yupe.modules.yupe.components.validators
+ * @since 0.1
+ *
+ */
 
 class YUrlValidator extends CUrlValidator
 {

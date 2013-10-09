@@ -1,9 +1,9 @@
 <?php
 /**
- * Содержит общие функции для панели управления и фронтенда
+ * Общий контроллер для панели управления и фронтенда
  *
  * @category YupeComponents
- * @package  yupe
+ * @package  yupe.modules.yupe.components.controllers
  * @author   aopeykin <aopeykin@yandex.ru>
  * @license  BSD https://raw.github.com/yupe/yupe/master/LICENSE
  * @version  0.6

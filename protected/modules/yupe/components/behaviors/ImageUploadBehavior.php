@@ -1,4 +1,10 @@
 <?php
+/**
+ *
+ * @package  yupe.modules.yupe.components.behaviors
+ *
+*/
+
 class ImageUploadBehavior extends CActiveRecordBehavior
 {
     /*

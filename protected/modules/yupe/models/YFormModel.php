@@ -4,7 +4,7 @@
  *
  * Все модели, разработанные для Юпи! должны наследовать этот класс.
  *
- * @package yupe.core.components
+ * @package  yupe.modules.yupe.models
  * @abstract
  * @author yupe team
  * @version 0.0.3

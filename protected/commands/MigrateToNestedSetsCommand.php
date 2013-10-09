@@ -4,7 +4,7 @@
 * from Adjacency List to Nested Sets.
 *
 * @category YupeConsoleCommand
-* @package  YupeCMS
+* @package  yupe.commands
 * @author   YupeTeam <team@yupe.ru>
 * @author   Anton Kucherov <idexter.ru@gmail.com>
 * @link     http://yupe.ru

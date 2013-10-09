@@ -1,10 +1,9 @@
 <?php
 /**
- * File Doc Comment
- * Виджет для отрисовки списка комментариев:
+ * Виджет для отрисовки дерева комментариев
  *
  * @category YupeWidgets
- * @package  yupe
+ * @package  yupe.modules.comment.widgets
  * @author   Yupe Team <team@yupe.ru>
  * @license  BSD http://ru.wikipedia.org/wiki/%D0%9B%D0%B8%D1%86%D0%B5%D0%BD%D0%B7%D0%B8%D1%8F_BSD
  * @version  0.1
@@ -12,26 +11,6 @@
  *
  **/
 
-/**
- * Виджет для отрисовки списка комментариев:
- *
- * @var      public $model     - модель которую комментируют
- * @var      public $modelId   - ID-записи модели, которую комментируют
- * @var      public $label     - лейбл для заглавия, перед списком комментариев
- * @var      public $comment   - инстанс комментария, если используется для отрисовки 1го комментария
- *
- * @method   public  init       - Инициализация виджета
- * @method   private _buildTree - Метод построения дерева комментариев
- * @method   public  run        - Запуск виджета
- *
- * @category YupeWidgets
- * @package  yupe
- * @author   Yupe Team <team@yupe.ru>
- * @license  BSD http://ru.wikipedia.org/wiki/%D0%9B%D0%B8%D1%86%D0%B5%D0%BD%D0%B7%D0%B8%D1%8F_BSD
- * @version  0.1
- * @link     http://yupe.ru
- *
- **/
 class CommentsListWidget extends YWidget
 {
     public $model;
@@ -43,7 +22,7 @@ class CommentsListWidget extends YWidget
 
     /**
      * Инициализация виджета:
-     *
+     * @throws CException
      * @return void
      **/
     public function init()
@@ -85,6 +64,9 @@ class CommentsListWidget extends YWidget
      * @copyright  2013 YupeTeam =)
      *
      * @return array - дерево
+     *
+     * @TODO оно для чего ? Скорее всего можно удалить ?
+     *
      */
     private function _buildTree($data)
     {

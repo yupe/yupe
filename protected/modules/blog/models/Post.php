@@ -287,7 +287,7 @@ class Post extends YModel
                 'cacheID'              => 'cache',
             ),
             'imageUpload' => array(
-                'class'             =>'application.modules.yupe.models.ImageUploadBehavior',
+                'class'             =>'application.modules.yupe.components.behaviors.ImageUploadBehavior',
                 'scenarios'         => array('insert','update'),
                 'attributeName'     => 'image',
                 'minSize'           => $module->minSize,
