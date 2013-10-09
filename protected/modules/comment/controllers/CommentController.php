@@ -52,6 +52,9 @@
  * @link     http://yupe.ru
  *
  **/
+
+use application\modules\comment\components\INotify;
+
 class CommentController extends yupe\components\controllers\FrontController
 {
     /**
@@ -129,12 +132,6 @@ class CommentController extends yupe\components\controllers\FrontController
 
             // сбросить кэш
             Yii::app()->cache->delete("Comment{$comment->model}{$comment->model_id}");
-
-            // если нужно уведомить администратора - уведомляем =)
-            if ($module->notify && ($notifier = new Notifier()) !== false) {
-                $comment->onNewComment = array($notifier, 'newComment');
-                $comment->newComment();
-            }
 
             $message = $comment->status !== Comment::STATUS_APPROVED
                 ? Yii::t('CommentModule.comment', 'You comments is in validation. Thanks.')

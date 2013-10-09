@@ -44,6 +44,9 @@
  * @version  0.5.3
  * @link     http://yupe.ru
  */
+
+use application\modules\comment\components\NewCommentEvent;
+
 class Comment extends YModel
 {
 
@@ -221,6 +224,14 @@ class Comment extends YModel
     {
         if ($cache = Yii::app()->getCache()) {
             $cache->delete("Comment{$this->model}{$this->model_id}");
+        }
+
+        if ($this->isNewRecord) {
+            $notifierComponent = Yii::app()->getModule('comment')->notifier;
+            if (Yii::app()->getModule('comment')->notify && ($notifier = new $notifierComponent()) !== false && $notifier instanceof application\modules\comment\components\INotifier) {
+                $this->onNewComment = array($notifier, 'newComment');
+                $this->newComment();
+            }
         }
 
         return parent::afterSave();

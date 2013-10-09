@@ -15,6 +15,7 @@ use yupe\components\WebModule;
 
 class CommentModule extends WebModule
 {
+    public $notifier = 'application\modules\comment\components\Notifier';
     public $defaultCommentStatus;
     public $autoApprove          = true;
     public $notify               = true;
