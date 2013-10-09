@@ -246,7 +246,7 @@ class Post extends YModel
         $criteria = new CDbCriteria;
 
         $criteria->compare('t.id', $this->id, true);
-        $criteria->compare('blog_id', $this->blog_id, true);
+        $criteria->compare('blog_id', $this->blog_id);
         $criteria->compare('t.create_user_id', $this->create_user_id, true);
         $criteria->compare('t.update_user_id', $this->update_user_id, true);
         $criteria->compare('t.create_date', $this->create_date);
