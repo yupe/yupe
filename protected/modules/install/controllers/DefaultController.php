@@ -314,6 +314,13 @@ class DefaultController extends yupe\components\controllers\BackController
                 Yii::t('InstallModule.install', 'Need PHP version 5.3 and above.'),
             ),
             array(
+                Yii::t('InstallModule.install', 'Zend OPcache'),
+                false,
+                extension_loaded('Zend OPcache'),
+                '<a href="http://php.net/manual/ru/book.opcache.php">Zend OPcache',
+                Yii::t('InstallModule.install', 'Zend OPcache required to optimize and speed up your project.'),
+            ),
+            array(
                 Yii::t('InstallModule.install', 'The variable $_SERVER'),
                 true,
                 '' === $message = $this->_checkServerVar(),

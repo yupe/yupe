@@ -225,4 +225,5 @@ return array (
   'We always open for commercial and other propositions' => 'принимаем всякого рода коммерческие и любые предложения =)',
   'Send pull request' => 'пришлите нам парочку пулл-реквестов, все только выиграют =)',
   'This option is experiment. Only MySQL and PostgreSQL works stable.' => 'это эксперементальная опция, на данный момент реализована работа лишь с СУБД MySQL и PostgreSQL, остальные СУБД в процессе тестирования.',
+  'Zend OPcache required to optimize and speed up your project.' => 'Zend OPcache необходим для оптимизации и ускорения работы вашего проекта',
 );
