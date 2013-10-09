@@ -65,7 +65,7 @@ class Category extends YModel
         $module = Yii::app()->getModule('category');
         return array(
             'imageUpload' => array(
-                'class'         =>'application.modules.yupe.models.ImageUploadBehavior',
+                'class'         =>'application.modules.yupe.components.behaviors.ImageUploadBehavior',
                 'scenarios'     => array('insert','update'),
                 'attributeName' => 'image',
                 'uploadPath'    => $module !== null ? $module->getUploadPath() : null,
