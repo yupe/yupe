@@ -8,7 +8,7 @@
 <?php $form = $this->beginWidget(
     'bootstrap.widgets.TbActiveForm',
     array(
-        'action' => '/comment/comment/add/',
+        'action' => array('/comment/comment/add/'),
         'id' => 'comment-form',
         'type' => 'vertical',
         'inlineErrors' => true,
