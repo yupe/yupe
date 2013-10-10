@@ -25,6 +25,7 @@ class CommentModule extends WebModule
     public $minCaptchaLength = 3;
     public $maxCaptchaLength = 6;
     public $rssCount         = 10;
+    public $antispamInterval = 10;
     public $allowedTags;
 
     public function getDependencies()
@@ -46,7 +47,8 @@ class CommentModule extends WebModule
             'minCaptchaLength'     => Yii::t('CommentModule.comment', 'Minimum captcha length'),
             'maxCaptchaLength'     => Yii::t('CommentModule.comment', 'Maximum captcha length'),
             'rssCount'             => Yii::t('CommentModule.comment', 'RSS records count'),
-            'allowedTags'          => Yii::t('CommentModule.comment', 'Accepted tags')
+            'allowedTags'          => Yii::t('CommentModule.comment', 'Accepted tags'),
+            'antispamInterval'     => Yii::t('CommentModule.comment', 'Antispam interval')
         );
     }
 
@@ -62,7 +64,8 @@ class CommentModule extends WebModule
             'minCaptchaLength',
             'maxCaptchaLength',
             'rssCount',
-            'allowedTags'
+            'allowedTags',
+            'antispamInterval'
         );
     }
 

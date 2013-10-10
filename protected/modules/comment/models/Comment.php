@@ -406,4 +406,37 @@ class Comment extends YModel
 
         return false;
     }
+
+    /**
+     * Checks for flood messages
+     *
+     * @param Comment $comment Filled Comment Form
+     * @param $userId string Current User Id
+     * @param $interval int Interval between messages
+     * @return bool True if it is spam, False if not
+     */
+    public static function isItSpam(Comment $comment, $userId, $interval)
+    {
+        $dateDiffTime = new DateTime();
+        $dateDiffTime->setTimestamp( time() - $interval );
+
+        $newAuthorComments = self::model()->findByAttributes(
+            array(
+                "user_id" => $userId,
+                "model" => $comment->getAttribute("model"),
+                "model_id" => $comment->getAttribute("model_id")
+            ),
+            "creation_date > :now OR (creation_date > :now AND text LIKE :txt)",
+            array(
+                'now' => $dateDiffTime->format('Y-m-d H:i:s'),
+                'txt' => "%{$comment->getAttribute('text')}%",
+            )
+        );
+
+        if($newAuthorComments!=null){
+            return true;
+        }
+
+        return false;
+    }
 }
