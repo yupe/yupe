@@ -1,6 +1,7 @@
 <?php
+
 /**
- * Виджет отрисовки галереи изображений:
+ * GalleryWidget виджет отрисовки галереи изображений
  *
  * @category YupeWidget
  * @package  yupe.modules.gallery.widgets
@@ -9,7 +10,8 @@
  * @version  0.5.3
  * @link     http://yupe.ru
  *
- **/
+ */
+
 Yii::import('application.modules.gallery.models.ImageToGallery');
 
 class GalleryWidget extends YWidget
