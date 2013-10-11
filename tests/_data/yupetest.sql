@@ -102,6 +102,10 @@ CREATE TABLE IF NOT EXISTS `yupe_blog_post` (
 
 -- --------------------------------------------------------
 
+INSERT INTO `yupe_blog_post` (`id`, `blog_id`, `create_user_id`, `update_user_id`, `create_date`, `update_date`, `publish_date`, `slug`, `lang`, `title`, `quote`, `content`, `link`, `status`, `comment_status`, `create_user_ip`, `access_type`, `keywords`, `description`, `image`, `category_id`) VALUES
+(1, 1, 1, 1, 1381419017, 1381419017, 1381375680, 'pervaja-publichnaja-zapis-v-opublikovannom-bloge', NULL, 'Первая публичная запись в опубликованном блоге', '<p>\r\n	Первая публичная запись в опубликованном блоге цитата\r\n</p>', '<p style="margin-left: 40px;">\r\n	Первая публичная запись в опубликованном блоге контент\r\n</p>', '', 1, 1, '127.0.0.1', 1, 'первый, пост', 'Первый пост', NULL, NULL),
+(2, 1, 1, 1, 1381419119, 1381419119, 1381375800, 'chernovik-v-opublikovannom-bloge', NULL, 'Черновик в опубликованном блоге', '<p style="margin-left: 20px;">\r\n	Черновик в опубликованном блоге цитата\r\n</p>', '<p style="margin-left: 20px;">\r\n	Черновик в опубликованном блоге контент\r\n</p>', '', 0, 1, '127.0.0.1', 1, 'второй, пост', 'Второй пост', NULL, NULL);
+
 --
 -- Table structure for table `yupe_blog_post_to_tag`
 --

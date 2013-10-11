@@ -20,8 +20,18 @@ class BlogCest
         $I->see('Опубликованный блог описание');
         $I->see('Участников нет =(');
 
+        $I->seeLink('Первая публичная запись в опубликованном блоге');
+
+        $tags = array('тег','тег2','тег3');
+        foreach($tags as $tag) {
+            $I->seeLink($tag);
+        }
+
+        $I->dontSeeLink('Черновик в опубликованном блоге');
+
         $I->amGoingTo('test blog page with deleted blog');
         $I->expectTo('see http exception');
         $I->amOnPage(\BlogPage::getBlogRoute(\BlogPage::DELETED_BLOG_SLUG));
+        $I->see('Страница не найдена');
     }
 }
