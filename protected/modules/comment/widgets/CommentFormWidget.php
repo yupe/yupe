@@ -15,6 +15,7 @@ class CommentFormWidget extends YWidget
     public $model;
     public $modelId;
     public $redirectTo;
+    public $view = 'commentformwidget';
 
     public function init()
     {
@@ -36,7 +37,7 @@ class CommentFormWidget extends YWidget
             'model_id' => $this->modelId,
         ));
 
-        $this->render('commentformwidget', array(
+        $this->render($this->view, array(
             'redirectTo' => $this->redirectTo,
             'model'      => $model,
             'module'      => $module,

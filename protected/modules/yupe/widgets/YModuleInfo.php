@@ -15,6 +15,8 @@ class YModuleInfo extends YWidget
 {
     public $module;
 
+    public $view = 'moduleinfowidget';
+
     public function init()
     {
         if (!$this->module && is_object($this->controller->module))
@@ -23,6 +25,6 @@ class YModuleInfo extends YWidget
 
     public function run()
     {
-        $this->render('moduleinfowidget', array('module' => $this->module));
+        $this->render($this->view, array('module' => $this->module));
     }
 }

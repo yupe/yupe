@@ -19,8 +19,10 @@ class YFlashMessages extends YWidget
 
     public $options = array();
 
+    public $view = 'flashmessages';
+
     public function run()
     {
-        $this->render('flashmessages', array('options' => $this->options));
+        $this->render($this->view, array('options' => $this->options));
     }
 }

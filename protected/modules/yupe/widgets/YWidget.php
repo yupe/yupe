@@ -22,7 +22,20 @@ abstract class YWidget extends CWidget
      *
      */
     public $cacheTime;
+
+    /**
+     *
+     *  limit - кол-во записей для вывода
+     *
+    */
+
     public $limit = 5;
+
+    /**
+     *  view - название шаблона (view) который используется для отрисовки виджета
+     *
+     *
+    */
     public $view;
 
     public function init()

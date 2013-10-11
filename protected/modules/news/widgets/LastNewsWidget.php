@@ -14,14 +14,15 @@
 
 class LastNewsWidget extends YWidget
 {
-    public $count = 5;
     /** @var $categories mixed Список категорий, из которых выбирать новости. NULL - все */
     public $categories = null;
+
+    public $view = 'lastnewswidget';
 
     public function run()
     {
         $criteria = new CDbCriteria();
-        $criteria->limit = (int)$this->count;
+        $criteria->limit = (int)$this->limit;
         $criteria->order = 'date DESC';
 
         if ($this->categories)
@@ -38,6 +39,6 @@ class LastNewsWidget extends YWidget
             ? News::model()->published()->language(Yii::app()->language)->cache($this->cacheTime)->findAll($criteria)
             : News::model()->published()->cache($this->cacheTime)->findAll($criteria);
 
-        $this->render('lastnewswidget', array('models' => $news));
+        $this->render($this->view, array('models' => $news));
     }
 }

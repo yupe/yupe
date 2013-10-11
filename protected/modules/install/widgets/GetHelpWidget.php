@@ -9,9 +9,11 @@
 
 class GetHelpWidget extends YWidget
 {
+    public $view = 'gethelpwidget';
+
     public function run()
     {
-        $this->render('gethelpwidget');
+        $this->render($this->view);
     }
 
 }

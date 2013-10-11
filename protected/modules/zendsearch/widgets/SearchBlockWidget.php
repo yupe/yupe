@@ -12,8 +12,10 @@
  **/
 class SearchBlockWidget extends YWidget
 {
+    public $view = 'searchblockwidget';
+
     public function run()
     {
-        $this->render('searchblockwidget');
+        $this->render($this->view);
     }
 }

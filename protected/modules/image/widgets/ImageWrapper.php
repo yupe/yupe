@@ -62,8 +62,9 @@ class ImageWrapper extends CWidget
             $htmlOptions['style'] .= ' ' . $style;
         }
         
-        if(is_array($this->htmlOptions) && count($this->htmlOptions) > 0)
+        if(is_array($this->htmlOptions) && count($this->htmlOptions) > 0){
             $htmlOptions = array_merge($htmlOptions, $this->htmlOptions);
+        }
         
         echo CHtml::tag('div', $htmlOptions, '<span></span>' . CHtml::image($this->imageSrc . ( $this->noCache ? '?'.microtime() : ''),  $this->imageAlt));
     }

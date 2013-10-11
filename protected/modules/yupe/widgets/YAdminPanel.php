@@ -12,6 +12,8 @@
  **/
 class YAdminPanel extends YWidget
 {
+    public $view = 'application.modules.yupe.views.widgets.YAdminPanel.adminpanel';
+
     public function init()
     {
         if (!isset($this->controller->yupe->bootstrap)) {
@@ -74,7 +76,7 @@ class YAdminPanel extends YWidget
             );
 
             if ($cached === false) {
-                $cached = $this->render('application.modules.yupe.views.widgets.YAdminPanel.adminpanel', array(), true);
+                $cached = $this->render($this->view, array(), true);
                 Yii::app()->cache->set(
                     'YAdminPanel::' . Yii::app()->user->getId() . (
                         Yii::app()->controller instanceof yupe\components\controllers\BackController

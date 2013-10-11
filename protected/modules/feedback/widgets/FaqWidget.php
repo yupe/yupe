@@ -4,6 +4,8 @@
  */
 class FaqWidget extends YWidget
 {
+    public $view = 'faqwidget';
+
     public function run()
     {
         $models = FeedBack::model()->answered()->faq()->cache($this->cacheTime)->findAll(array(
@@ -11,6 +13,6 @@ class FaqWidget extends YWidget
             'order' => 'id DESC',
         ));
 
-        $this->render('faqwidget', array('models' => $models));
+        $this->render($this->view, array('models' => $models));
     }
 }

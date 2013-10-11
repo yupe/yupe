@@ -16,6 +16,7 @@ class LastCommentsWidget extends YWidget
     public $commentStatus;
     public $limit = 10;
     public $onlyWithAuthor = true;
+    public $view = 'lastcomments';
 
     public function init()
     {
@@ -46,6 +47,6 @@ class LastCommentsWidget extends YWidget
 
         $comments = Comment::model()->findAll($criteria);
 
-        $this->render('lastcomments', array('models' => $comments));
+        $this->render($this->view, array('models' => $comments));
     }
 }

@@ -19,6 +19,7 @@ class CommentsListWidget extends YWidget
     public $comment = null;
     public $comments;
     public $status;
+    public $view = 'commentslistwidget';
 
     /**
      * Инициализация виджета:
@@ -82,14 +83,15 @@ class CommentsListWidget extends YWidget
                 }
                 //unset($this->comments[0]); // remove "root" node
                 foreach($this->comments as $k=>$v) {
-                    if($v->id == $v->root)
+                    if($v->id == $v->root){
                         unset($this->comments[$k]);
+                    }
                 }
                 $comments = $this->comments;
                 Yii::app()->cache->set("Comment{$this->model}{$this->modelId}", $comments);
             }
             $this->render(
-                'commentslistwidget',
+                $this->view,
                 array(
                     'comments' => $comments
                 )
@@ -97,7 +99,7 @@ class CommentsListWidget extends YWidget
         } else {
 
             $this->render(
-                'commentslistwidget',
+                $this->view,
                 array(
                     'comments' => array(0)
                 )
