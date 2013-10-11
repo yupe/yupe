@@ -1,23 +1,8 @@
 <?php
-/**
- * File of Comment controller class:
- *
- * @category YupeControllers
- * @package  yupe
- * @author   Yupe Team <team@yupe.ru>
- * @license  BSD http://ru.wikipedia.org/wiki/%D0%9B%D0%B8%D1%86%D0%B5%D0%BD%D0%B7%D0%B8%D1%8F_BSD
- * @version  0.5.3
- * @link     http://yupe.ru
- *
- **/
 
 /**
- * Comment controller class:
+ * Comment controller class
  * Класс для обработки комментариев на фронт-части.
- *
- * @method public actions         - Описание существующих импортируемых экшенов
- * @method public actionAdd       - Добавление комментария из фронт-части
- * @method private _renderComment - Рендеринг одного комментария (для ajax-метода)
  *
  * @tutorial для ajax-варианта добавления комментария:
  *            $.ajax({
@@ -45,7 +30,7 @@
  *              }
  *
  * @category YupeControllers
- * @package  yupe
+ * @package  yupe.modules.comment.controllers
  * @author   Yupe Team <team@yupe.ru>
  * @license  BSD http://ru.wikipedia.org/wiki/%D0%9B%D0%B8%D1%86%D0%B5%D0%BD%D0%B7%D0%B8%D1%8F_BSD
  * @version  0.5.3

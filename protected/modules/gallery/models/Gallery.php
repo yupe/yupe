@@ -1,4 +1,15 @@
 <?php
+/**
+ * Gallery основная модель
+ *
+ * @category YupeMigration
+ * @package  yupe.modules.gallery.models
+ * @author   YupeTeam <team@yupe.ru>
+ * @license  BSD https://raw.github.com/yupe/yupe/master/LICENSE
+ * @link     http://yupe.ru
+ *
+ **/
+
 
 /**
  * This is the model class for table "Gallery".

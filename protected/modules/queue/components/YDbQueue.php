@@ -1,4 +1,15 @@
 <?php
+/**
+ * YDbQueue копмпонент для хранения очереди заданий в базе данных
+ *
+ * @author yupe team <team@yupe.ru>
+ * @link http://yupe.ru
+ * @copyright 2009-2013 amyLabs && Yupe! team
+ * @package yupe.modules.queue.components
+ * @license  BSD https://raw.github.com/yupe/yupe/master/LICENSE
+ * @since 0.1
+ *
+ */
 class YDbQueue extends YQueue
 {
     public $queueTableName = 'yupe_queue';

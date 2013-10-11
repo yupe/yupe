@@ -1,6 +1,6 @@
 <?php
 /**
- * DefaultController контроллер панели управления для управления страицами
+ * DefaultController контроллер панели управления для управления страницами
  *
  * @author yupe team <team@yupe.ru>
  * @link http://yupe.ru

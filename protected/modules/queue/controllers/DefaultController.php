@@ -1,5 +1,15 @@
 <?php
-
+/**
+ * DefaultController контроллер для управления очередью через панель управления
+ *
+ * @author yupe team <team@yupe.ru>
+ * @link http://yupe.ru
+ * @copyright 2009-2013 amyLabs && Yupe! team
+ * @package yupe.modules.queue.controllers
+ * @license  BSD https://raw.github.com/yupe/yupe/master/LICENSE
+ * @since 0.1
+ *
+ */
 class DefaultController extends yupe\components\controllers\BackController
 {
     /**
@@ -77,7 +87,7 @@ class DefaultController extends yupe\components\controllers\BackController
     /**
      * Удаляет модель задание из базы.
      * Если удаление прошло успешно - возвращется в index
-     *
+     * @throws CHttpException
      * @param integer $id идентификатор задание, который нужно удалить
      */
     public function actionDelete($id)
@@ -117,8 +127,9 @@ class DefaultController extends yupe\components\controllers\BackController
     /**
      * Возвращает модель по указанному идентификатору
      * Если модель не будет найдена - возникнет HTTP-исключение.
-     *
-     * @param integer идентификатор нужной модели
+     * @throws CHttpException
+     * @param integer $id идентификатор нужной модели
+     * @return $model
      */
     public function loadModel($id)
     {

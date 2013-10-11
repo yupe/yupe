@@ -1,7 +1,6 @@
 <?php
 /**
- * File Doc comment
- * Notifier Class:
+ * Notifier Class
  *
  * @category YupeComponents
  * @package  yupe.modules.comment.components

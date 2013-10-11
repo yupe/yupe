@@ -1,11 +1,12 @@
 <?php
+
 /**
  * FileDocComment
  * Category install migration
  * Класс миграций для модуля Category:
  *
  * @category YupeMigration
- * @package  yupe
+ * @package  yupe.modules.category.install.migrations
  * @author   YupeTeam <team@yupe.ru>
  * @license  BSD https://raw.github.com/yupe/yupe/master/LICENSE
  * @link     http://yupe.ru

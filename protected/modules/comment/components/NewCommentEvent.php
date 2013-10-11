@@ -1,7 +1,6 @@
 <?php
 /**
- * File Doc comment
- * New comment event:
+ * New comment event
  *
  * @category YupeComponents
  * @package  yupe.modules.comment.components

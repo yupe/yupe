@@ -5,7 +5,7 @@
  * Класс миграций для модуля Yeeki:
  *
  * @category YupeMigration
- * @package  yupe
+ * @package  yupe.modules.yeeki.install.migrations
  * @author   YupeTeam <team@yupe.ru>
  * @license  BSD https://raw.github.com/yupe/yupe/master/LICENSE
  * @link     http://yupe.ru

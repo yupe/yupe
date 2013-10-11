@@ -1,6 +1,6 @@
 <?php
 /**
- * Notifier Interface:
+ * Notifier Interface
  *
  * @category YupeComponents
  * @package  yupe.modules.comment.components

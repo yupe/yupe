@@ -1,4 +1,14 @@
 <?php
+/**
+ * CatalogController контроллер для вывода каталога товаров в публичной части сайта
+ *
+ * @author yupe team <team@yupe.ru>
+ * @link http://yupe.ru
+ * @copyright 2009-2013 amyLabs && Yupe! team
+ * @package yupe.modules.catalog.controllers
+ * @since 0.1
+ *
+ */
 class CatalogController extends yupe\components\controllers\FrontController
 {
     const GOOD_PER_PAGE = 10;
