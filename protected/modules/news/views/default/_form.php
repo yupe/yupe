@@ -86,18 +86,6 @@ $form = $this->beginWidget('bootstrap.widgets.TbActiveForm', array(
             <?php echo $form->error($model, 'image'); ?>
         </div>
     </div>
-    <div class="row-fluid control-group <?php echo $model->hasErrors('full_text') ? 'error' : ''; ?>">
-        <div class="span12">
-            <?php echo $form->labelEx($model, 'full_text'); ?>
-            <?php $this->widget($this->module->editor, array(
-                'model'       => $model,
-                'attribute'   => 'full_text',
-                'options'     => $this->module->editorOptions,
-            )); ?>
-            <span class="help-block"><?php echo Yii::t('NewsModule.news', 'Full text news which will be shown on news article page'); ?></span>
-            <?php echo $form->error($model, 'full_text'); ?>
-        </div>
-    </div>
     <div class="row-fluid control-group <?php echo $model->hasErrors('short_text') ? 'error' : ''; ?>">
         <div class="span12">
             <?php echo $form->labelEx($model, 'short_text'); ?>
@@ -108,6 +96,18 @@ $form = $this->beginWidget('bootstrap.widgets.TbActiveForm', array(
             )); ?>
             <span class="help-block"><?php echo Yii::t('NewsModule.news', 'News anounce text. Usually this is the main idea of the article.'); ?></span>
             <?php echo $form->error($model, 'short_text'); ?>
+        </div>
+    </div>
+    <div class="row-fluid control-group <?php echo $model->hasErrors('full_text') ? 'error' : ''; ?>">
+        <div class="span12">
+            <?php echo $form->labelEx($model, 'full_text'); ?>
+            <?php $this->widget($this->module->editor, array(
+                'model'       => $model,
+                'attribute'   => 'full_text',
+                'options'     => $this->module->editorOptions,
+            )); ?>
+            <span class="help-block"><?php echo Yii::t('NewsModule.news', 'Full text news which will be shown on news article page'); ?></span>
+            <?php echo $form->error($model, 'full_text'); ?>
         </div>
     </div>
 
