@@ -13,7 +13,7 @@ return array(
     'sourceLanguage'    => 'en',
     'theme'             => 'default',          // тема оформления по умолчанию
     'charset'           => 'UTF-8',
-    'preload'           => array('debug'),
+    'preload'           => defined('YII_DEBUG') && YII_DEBUG ? array('debug') : array(),
     'aliases' => array(
         'bootstrap' => realpath(Yii::getPathOfAlias('vendor') . '/clevertech/yii-booster/src'),
     ),
@@ -53,7 +53,6 @@ return array(
     'components' => array(
         'debug' => array(
             'class'   => 'vendor.zhuravljov.yii2-debug.Yii2Debug',
-            'enabled' => defined('YII_DEBUG') && YII_DEBUG,
         ),
         // параметры подключения к базе данных, подробнее http://www.yiiframework.ru/doc/guide/ru/database.overview
         // используется лишь после установки Юпи:
