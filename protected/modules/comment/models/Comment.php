@@ -1,14 +1,4 @@
 <?php
-/**
- * file of Comment model class:
- *
- * @category YupeModels
- * @package  yupe
- * @author   YupeTeam <team@yupe.ru>
- * @license  BSD http://ru.wikipedia.org/wiki/%D0%9B%D0%B8%D1%86%D0%B5%D0%BD%D0%B7%D0%B8%D1%8F_BSD
- * @version  0.5.3
- * @link     http://yupe.ru
- **/
 
 /**
  * Comment model class:
@@ -38,7 +28,7 @@
  * @property integer $parent_id
  *
  * @category YupeModels
- * @package  yupe
+ * @package  yupe.modules.comment.model
  * @author   YupeTeam <team@yupe.ru>
  * @license  BSD http://ru.wikipedia.org/wiki/%D0%9B%D0%B8%D1%86%D0%B5%D0%BD%D0%B7%D0%B8%D1%8F_BSD
  * @version  0.5.3
@@ -402,6 +392,39 @@ class Comment extends YModel
             }
         }else{
             return $rootNode;
+        }
+
+        return false;
+    }
+
+    /**
+     * Checks for flood messages
+     *
+     * @param Comment $comment Filled Comment Form
+     * @param $userId string Current User Id
+     * @param $interval int Interval between messages
+     * @return bool True if it is spam, False if not
+     */
+    public static function isItSpam(Comment $comment, $userId, $interval)
+    {
+        $dateDiffTime = new DateTime();
+        $dateDiffTime->setTimestamp( time() - $interval );
+
+        $newAuthorComments = self::model()->findByAttributes(
+            array(
+                "user_id" => $userId,
+                "model" => $comment->getAttribute("model"),
+                "model_id" => $comment->getAttribute("model_id")
+            ),
+            "creation_date > :now OR (creation_date > :now AND text LIKE :txt)",
+            array(
+                'now' => $dateDiffTime->format('Y-m-d H:i:s'),
+                'txt' => "%{$comment->getAttribute('text')}%",
+            )
+        );
+
+        if($newAuthorComments!=null){
+            return true;
         }
 
         return false;

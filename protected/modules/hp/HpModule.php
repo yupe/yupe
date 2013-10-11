@@ -2,7 +2,7 @@
 /**
  * HpModule основной класс модуля hp
  *
- * @author xoma <hello@amylabs.ru>
+ * @author Andrey Opeykin <hello@amylabs.ru>
  * @link http://amylabs.ru
  * @copyright 2013 amyLabs
  * @package yupe.modules.hp

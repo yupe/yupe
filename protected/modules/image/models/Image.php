@@ -1,6 +1,17 @@
 <?php
 
 /**
+ * Image основная модель для работы с изображениями
+ *
+ * @author yupe team <team@yupe.ru>
+ * @link http://yupe.ru
+ * @copyright 2009-2013 amyLabs && Yupe! team
+ * @package yupe.modules.image.models
+ * @since 0.1
+ *
+ */
+
+/**
  * This is the model class for table "Image".
  *
  * The followings are the available columns in table 'Image':

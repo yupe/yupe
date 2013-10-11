@@ -1,6 +1,5 @@
 <?php
 /**
- * FileDocComment
  * Comment NestedSets install migration
  * Класс миграций для модуля Comment добавляющий поля
  * для использования NestedSets:

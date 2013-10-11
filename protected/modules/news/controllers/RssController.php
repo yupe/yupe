@@ -1,10 +1,13 @@
 <?php
 /**
- * Created by JetBrains PhpStorm.
- * User: andrey
- * Date: 6/15/13
- * Time: 7:53 PM
- * To change this template use File | Settings | File Templates.
+ * RssController контроллер для генерации rss-ленты новостей
+ *
+ * @author yupe team <team@yupe.ru>
+ * @link http://yupe.ru
+ * @copyright 2009-2013 amyLabs && Yupe! team
+ * @package yupe.modules.news.controllers
+ * @since 0.1
+ *
  */
 
 class RssController extends yupe\components\controllers\FrontController

@@ -13,6 +13,8 @@
 
 class PostCategoryWidget extends YWidget
 {
+    public $view = 'post-category';
+
     public function run()
     {
         $data = Yii::app()->db->cache($this->cacheTime)->createCommand()
@@ -23,6 +25,6 @@ class PostCategoryWidget extends YWidget
             ->group('c.id')->queryAll();
 
 
-        $this->render('post-category',array('data' => $data));
+        $this->render($this->view,array('data' => $data));
     }
 }

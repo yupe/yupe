@@ -1,23 +1,8 @@
 <?php
-/**
- * File of Comment controller class:
- *
- * @category YupeControllers
- * @package  yupe
- * @author   Yupe Team <team@yupe.ru>
- * @license  BSD http://ru.wikipedia.org/wiki/%D0%9B%D0%B8%D1%86%D0%B5%D0%BD%D0%B7%D0%B8%D1%8F_BSD
- * @version  0.5.3
- * @link     http://yupe.ru
- *
- **/
 
 /**
- * Comment controller class:
+ * Comment controller class
  * Класс для обработки комментариев на фронт-части.
- *
- * @method public actions         - Описание существующих импортируемых экшенов
- * @method public actionAdd       - Добавление комментария из фронт-части
- * @method private _renderComment - Рендеринг одного комментария (для ajax-метода)
  *
  * @tutorial для ajax-варианта добавления комментария:
  *            $.ajax({
@@ -45,7 +30,7 @@
  *              }
  *
  * @category YupeControllers
- * @package  yupe
+ * @package  yupe.modules.comment.controllers
  * @author   Yupe Team <team@yupe.ru>
  * @license  BSD http://ru.wikipedia.org/wiki/%D0%9B%D0%B8%D1%86%D0%B5%D0%BD%D0%B7%D0%B8%D1%8F_BSD
  * @version  0.5.3
@@ -109,20 +94,38 @@ class CommentController extends yupe\components\controllers\FrontController
 
         $saveStatus = false;
         $parentId = $comment->getAttribute('parent_id');
-        // Если указан parent_id просто добавляем новый комментарий.
-        if($parentId > 0)
-        {
-            $rootForComment = Comment::model()->findByPk($parentId);
-            $saveStatus = $comment->appendTo($rootForComment);
-        }else{ // Иначе если parent_id не указан...
+        $message = Yii::t('CommentModule.comment', 'Record was not added! Fill form correct!');
+        $antiSpamTime  = $this->module->antispamInterval;
 
-            $rootNode = Comment::createRootOfCommentsIfNotExists($comment->getAttribute("model"),
-                $comment->getAttribute("model_id"));
+        $itIsSpamMessage = Comment::isItSpam(
+            $comment,
+            Yii::app()->user->getId(),
+            $antiSpamTime
+        );
 
-            // Добавляем комментарий к корню.
-            if ($rootNode!==false && $rootNode->id > 0)
+        if($itIsSpamMessage) {
+            $message = Yii::t(
+                'CommentModule.comment',
+                'Spam protection, try to create comment after {few} minutes!',
+                array('{few}' => round($antiSpamTime / 60, 1))
+            );
+        }else{
+
+            // Если указан parent_id просто добавляем новый комментарий.
+            if($parentId > 0)
             {
-                $saveStatus = $comment->appendTo($rootNode);
+                $rootForComment = Comment::model()->findByPk($parentId);
+                $saveStatus = $comment->appendTo($rootForComment);
+            }else{ // Иначе если parent_id не указан...
+
+                $rootNode = Comment::createRootOfCommentsIfNotExists($comment->getAttribute("model"),
+                    $comment->getAttribute("model_id"));
+
+                // Добавляем комментарий к корню.
+                if ($rootNode!==false && $rootNode->id > 0)
+                {
+                    $saveStatus = $comment->appendTo($rootNode);
+                }
             }
         }
 
@@ -159,8 +162,6 @@ class CommentController extends yupe\components\controllers\FrontController
             $this->redirect($redirect);
 
         } else {
-
-            $message = Yii::t('CommentModule.comment', 'Record was not added! Fill form correct!');
 
             if (Yii::app()->request->isAjaxRequest) {
                 Yii::app()->ajax->failure(

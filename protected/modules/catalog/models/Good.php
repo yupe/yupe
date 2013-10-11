@@ -1,6 +1,17 @@
 <?php
 
 /**
+ * Модель Catalog
+ *
+ * @author yupe team <team@yupe.ru>
+ * @link http://yupe.ru
+ * @copyright 2009-2013 amyLabs && Yupe! team
+ * @package yupe.modules.catalog.models
+ * @since 0.1
+ *
+ */
+
+/**
  * This is the model class for table "good".
  *
  * The followings are the available columns in table 'good':

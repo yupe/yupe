@@ -243,7 +243,7 @@ CREATE TABLE `yupe_comment_comment` (
   KEY `ix_yupe_comment_comment_root` (`root`),
   KEY `ix_yupe_comment_comment_lft` (`lft`),
   KEY `ix_yupe_comment_comment_rgt` (`rgt`)
-) ENGINE=InnoDB AUTO_INCREMENT=19 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
 

@@ -15,6 +15,7 @@ class YShortCuts extends YWidget
     public $shortcuts;
     public $modules;
     public $updates;
+    public $view = 'yupe.views.widgets.YShortCuts.shortcuts';
     private $_baseShortCutClass = 'shortcut';
     
     /**
@@ -24,7 +25,7 @@ class YShortCuts extends YWidget
      **/
     public function run()
     {
-        $this->render('yupe.views.widgets.YShortCuts.shortcuts');
+        $this->render($this->view);
     }
 
     /**

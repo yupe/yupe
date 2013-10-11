@@ -14,6 +14,8 @@ class YLanguageSelector extends YWidget
 {
     public $enableFlag = true;
 
+    public $view = 'languageselector';
+
     public function run()
     {
         $langs = array_keys($this->controller->yupe->getLanguagesList());
@@ -24,7 +26,7 @@ class YLanguageSelector extends YWidget
             Yii::app()->clientScript->registerCssFile(Yii::app()->theme->baseUrl . '/web/css/flags.css');
         }
         $this->render(
-            'languageselector',
+            $this->view,
             array(
                 'langs' => $langs,
                 'currentLanguage' => Yii::app()->language,

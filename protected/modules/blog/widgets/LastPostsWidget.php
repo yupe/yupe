@@ -13,8 +13,6 @@
 
 class LastPostsWidget extends YWidget
 {
-    public $limit = 5;
-
     public $view = 'lastposts';
 
     public function run()

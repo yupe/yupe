@@ -54,7 +54,13 @@
             "name": "Alexey Elizarov",
             "homepage": "http://amylabs.ru",
             "role": "Designer"
+        },
+        {
+            "name": "Kirill Chistov",
+            "homepage": "http://brainstorage.me/hitakiri/profile",
+            "role": "Web master"
         }
+
     ],
     "support": {
         "email": "team@yupe.ru",

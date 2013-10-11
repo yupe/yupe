@@ -1,6 +1,5 @@
 <?php
 /**
- * FileDocComment
  * Comment install migration
  * Класс миграций для модуля Comment:
  *

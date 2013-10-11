@@ -1,7 +1,15 @@
 <?php
 /**
  * Обрамляет изображение в рамку, фиксируя его по центру.
+ *
+ * @author yupe team <team@yupe.ru>
+ * @link http://yupe.ru
+ * @copyright 2009-2013 amyLabs && Yupe! team
+ * @package yupe.modules.image.widgets
+ * @since 0.1
+ *
  */
+
 class ImageWrapper extends CWidget
 {
     public $width = '100px';
@@ -62,8 +70,9 @@ class ImageWrapper extends CWidget
             $htmlOptions['style'] .= ' ' . $style;
         }
         
-        if(is_array($this->htmlOptions) && count($this->htmlOptions) > 0)
+        if(is_array($this->htmlOptions) && count($this->htmlOptions) > 0){
             $htmlOptions = array_merge($htmlOptions, $this->htmlOptions);
+        }
         
         echo CHtml::tag('div', $htmlOptions, '<span></span>' . CHtml::image($this->imageSrc . ( $this->noCache ? '?'.microtime() : ''),  $this->imageAlt));
     }

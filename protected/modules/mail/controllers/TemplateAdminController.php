@@ -4,18 +4,7 @@
  * Класс контроллера Template:
  *
  * @category YupeController
- * @package  yupe
- * @author   YupeTeam <team@yupe.ru>
- * @license  BSD https://raw.github.com/yupe/yupe/master/LICENSE
- * @link     http://yupe.ru
- **/
-
-/**
- * Template admin controller
- * Класс контроллера Template:
- *
- * @category YupeController
- * @package  yupe
+ * @package  yupe.modules.mail.components
  * @author   YupeTeam <team@yupe.ru>
  * @license  BSD https://raw.github.com/yupe/yupe/master/LICENSE
  * @link     http://yupe.ru

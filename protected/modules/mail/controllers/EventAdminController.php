@@ -1,21 +1,11 @@
 <?php
-/**
- * Event admin controller
- * Класс контроллера Event:
- *
- * @category YupeController
- * @package  yupe
- * @author   YupeTeam <team@yupe.ru>
- * @license  BSD https://raw.github.com/yupe/yupe/master/LICENSE
- * @link     http://yupe.ru
- **/
 
 /**
  * Event admin controller
- * Класс контроллера Event:
+ * Класс контроллера Event
  *
  * @category YupeController
- * @package  yupe
+ * @package  yupe.modules.mail.components
  * @author   YupeTeam <team@yupe.ru>
  * @license  BSD https://raw.github.com/yupe/yupe/master/LICENSE
  * @link     http://yupe.ru
