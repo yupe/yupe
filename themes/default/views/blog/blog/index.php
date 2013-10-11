@@ -9,6 +9,7 @@
 $this->widget(
     'bootstrap.widgets.TbListView', array(
         'dataProvider' => $dataProvider,
+        'template' => '{items} {pager}',
         'itemView' => '_view',
     )
 ); ?>
