@@ -21,7 +21,7 @@ class CommentCest
         $I->login(\CommonPage::TEST_USER_NAME,\CommonPage::TEST_PASSWORD);
         $I->am('admin');
         $I->amGoingTo('test comments antispam...');
-        $I->amOnPage("/blog/public-blog");
+        $I->amOnPage("/blogs/public-blog");
         $I->see("Оставить комментарий","h3");
 
         $I->fillField('Comment[text]', "Antispam Test");
