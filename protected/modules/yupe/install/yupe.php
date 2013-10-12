@@ -31,7 +31,7 @@ return array(
         // Массив компонентов, которые требует данный модуль
     ),
     'rules' => array(
-        '/yupe/backend/modulesettings/<module:\w+>' => 'yupe/backend/modulesettings',
+        '/backend/modulesettings/<module:\w+>' => 'yupe/backend/modulesettings',
     ),
     'module' => array(
         'components' => array(

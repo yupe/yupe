@@ -99,14 +99,14 @@ class BlogModule extends yupe\components\WebModule
     {
         return array(
             array('label' => Yii::t('BlogModule.blog', 'Blogs')),
-            array('icon' => 'list-alt', 'label' => Yii::t('BlogModule.blog', 'Blogs list'), 'url' => array('/blog/blogAdmin/index')),
-            array('icon' => 'plus-sign', 'label' => Yii::t('BlogModule.blog', 'New blog'), 'url' => array('/blog/blogAdmin/create')),
+            array('icon' => 'list-alt', 'label' => Yii::t('BlogModule.blog', 'Blogs list'), 'url' => array('/blog/blogBackend/index')),
+            array('icon' => 'plus-sign', 'label' => Yii::t('BlogModule.blog', 'New blog'), 'url' => array('/blog/blogBackend/create')),
             array('label' => Yii::t('BlogModule.blog', 'Posts')),
-            array('icon' => 'list-alt', 'label' => Yii::t('BlogModule.blog', 'Posts list'), 'url' => array('/blog/postAdmin/index')),
-            array('icon' => 'plus-sign', 'label' => Yii::t('BlogModule.blog', 'New post'), 'url' => array('/blog/postAdmin/create')),
+            array('icon' => 'list-alt', 'label' => Yii::t('BlogModule.blog', 'Posts list'), 'url' => array('/blog/postBackend/index')),
+            array('icon' => 'plus-sign', 'label' => Yii::t('BlogModule.blog', 'New post'), 'url' => array('/blog/postBackend/create')),
             array('label' => Yii::t('BlogModule.blog', 'Members')),
-            array('icon' => 'list-alt', 'label' => Yii::t('BlogModule.blog', 'Members list'), 'url' => array('/blog/userToBlogAdmin/index')),
-            array('icon' => 'plus-sign', 'label' => Yii::t('BlogModule.blog', 'New member'), 'url' => array('/blog/userToBlogAdmin/create')),
+            array('icon' => 'list-alt', 'label' => Yii::t('BlogModule.blog', 'Members list'), 'url' => array('/blog/userToBlogBackend/index')),
+            array('icon' => 'plus-sign', 'label' => Yii::t('BlogModule.blog', 'New member'), 'url' => array('/blog/userToBlogBackend/create')),
         );
     }
 
@@ -142,7 +142,7 @@ class BlogModule extends yupe\components\WebModule
 
     public function getAdminPageLink()
     {
-        return '/blog/blogAdmin/index';
+        return '/blog/blogBackend/index';
     }
 
     public function getIcon()

@@ -1,6 +1,6 @@
 <?php
 /**
- * Отображение для postAdmin/index:
+ * Отображение для postBackend/index:
  * 
  *   @category YupeView
  *   @package  yupe
@@ -10,7 +10,7 @@
  **/
 $this->breadcrumbs = array(
     Yii::app()->getModule('blog')->getCategory() => array(),
-    Yii::t('BlogModule.blog', 'Posts') => array('/blog/PostAdmin/index'),
+    Yii::t('BlogModule.blog', 'Posts') => array('/blog/postBackend/index'),
     Yii::t('BlogModule.blog', 'Administration'),
 );
 
@@ -18,16 +18,16 @@ $this->pageTitle = Yii::t('BlogModule.blog', 'Posts - administration');
 
 $this->menu = array(
     array('label' => Yii::t('BlogModule.blog', 'Blogs'), 'items' => array(
-        array('icon' => 'list-alt', 'label' => Yii::t('BlogModule.blog', 'Manage Blogs'), 'url' => array('/blog/BlogAdmin/index')),
-        array('icon' => 'plus-sign', 'label' => Yii::t('BlogModule.blog', 'Add blog'), 'url' => array('/blog/BlogAdmin/create')),
+        array('icon' => 'list-alt', 'label' => Yii::t('BlogModule.blog', 'Manage Blogs'), 'url' => array('/blog/blogBackend/index')),
+        array('icon' => 'plus-sign', 'label' => Yii::t('BlogModule.blog', 'Add blog'), 'url' => array('/blog/blogBackend/create')),
     )),
     array('label' => Yii::t('BlogModule.blog', 'Posts'), 'items' => array(
-        array('icon' => 'list-alt', 'label' => Yii::t('BlogModule.blog', 'Manage Posts'), 'url' => array('/blog/PostAdmin/index')),
-        array('icon' => 'plus-sign', 'label' => Yii::t('BlogModule.blog', 'Add post'), 'url' => array('/blog/PostAdmin/create')),
+        array('icon' => 'list-alt', 'label' => Yii::t('BlogModule.blog', 'Manage Posts'), 'url' => array('/blog/postBackend/index')),
+        array('icon' => 'plus-sign', 'label' => Yii::t('BlogModule.blog', 'Add post'), 'url' => array('/blog/postBackend/create')),
     )),
     array('label' => Yii::t('BlogModule.blog', 'Members'), 'items' => array(
-        array('icon' => 'list-alt', 'label' => Yii::t('BlogModule.blog', 'Manage Members'), 'url' => array('/blog/UserToBlogAdmin/index')),
-        array('icon' => 'plus-sign', 'label' => Yii::t('BlogModule.blog', 'Add member'), 'url' => array('/blog/UserToBlogAdmin/create')),
+        array('icon' => 'list-alt', 'label' => Yii::t('BlogModule.blog', 'Manage Members'), 'url' => array('/blog/userToBlogBackend/index')),
+        array('icon' => 'plus-sign', 'label' => Yii::t('BlogModule.blog', 'Add member'), 'url' => array('/blog/userToBlogBackend/create')),
     )),
 );
 ?>
@@ -88,17 +88,17 @@ $this->renderPartial('_search', array('model' => $model));
             array(
                 'name'  => 'id',
                 'type'  => 'raw',
-                'value' => 'CHtml::link($data->id, array("/blog/postAdmin/update", "id" => $data->id))',
+                'value' => 'CHtml::link($data->id, array("/blog/postBackend/update", "id" => $data->id))',
             ),
             array(
                 'name'  => 'title',
                 'type'  => 'raw',
-                'value' => 'CHtml::link($data->title, array("/blog/postAdmin/update", "id" => $data->id))',
+                'value' => 'CHtml::link($data->title, array("/blog/postBackend/update", "id" => $data->id))',
             ),
             array(
                 'name'   => 'blog_id',
                 'type'   => 'raw',
-                'value'  => 'CHtml::link($data->blog->name, array("/blog/blogAdmin/view", "id" => $data->blog->id))',
+                'value'  => 'CHtml::link($data->blog->name, array("/blog/blogBackend/view", "id" => $data->blog->id))',
                 'filter' => CHtml::listData(Blog::model()->findAll(),'id','name')
             ),
             array(

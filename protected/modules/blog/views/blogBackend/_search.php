@@ -1,6 +1,6 @@
 <?php
 /**
- * Отображение для blogAdmin/_search:
+ * Отображение для blogBackend/_search:
  * 
  *   @category YupeView
  *   @package  yupe
