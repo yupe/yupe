@@ -36,7 +36,7 @@ return array (
   'Counter caching time (seconds)' => 'Время кэширования счетчика (сек.)',
   'Reply time' => 'Время ответа',
   'You wrote' => 'Вы писали',
-  'Do you really want to remove message?' => 'Вы уверены, что хотите удалить сообщение  ?',
+  'Do you really want to remove message?' => 'Вы уверены, что хотите удалить сообщение?',
   'Main messages category' => 'Главная категория сообщений',
   'Yes' => 'Да',
   'Create message' => 'Добавить сообщение',
@@ -133,4 +133,7 @@ return array (
   'are required.' => 'обязательны.',
   'management' => 'управление',
   '-' => '—',
+  'Add this message to FAQ?' => 'Добавить сообщение в FAQ?',
+  'Remove this message from FAQ?' => 'Удалить сообщение из FAQ?',
+  'Do you really want to remove message?' => 'Вы уверены что хотите удалить данное сообщение?',
 );

@@ -1,41 +1,46 @@
-<?php
-    $this->breadcrumbs = array(
-        Yii::app()->getModule('feedback')->getCategory() => array(),
-        Yii::t('FeedbackModule.feedback', 'Messages ') => array('/feedback/default/index'),
-        $model->theme,
-    );
+<?php if (Yii::app()->getRequest()->getIsAjaxRequest() === false) : ?>
 
-    $this->pageTitle = Yii::t('FeedbackModule.feedback', 'Messages - view');
+    <?php
+        $this->breadcrumbs = array(
+            Yii::app()->getModule('feedback')->getCategory() => array(),
+            Yii::t('FeedbackModule.feedback', 'Messages ') => array('/feedback/default/index'),
+            $model->theme,
+        );
 
-    $this->menu = array(
-        array('icon' => 'list-alt', 'label' => Yii::t('FeedbackModule.feedback', 'Messages management'), 'url' => array('/feedback/default/index')),
-        array('icon' => 'plus-sign', 'label' => Yii::t('FeedbackModule.feedback', 'Create message '), 'url' => array('/feedback/default/create')),
-        array('label' => Yii::t('FeedbackModule.feedback', 'Reference value') . ' «' . mb_substr($model->theme, 0, 32) . '»'),
-        array('icon' => 'pencil', 'label' => Yii::t('FeedbackModule.feedback', 'Edit message '), 'url' => array(
-            '/feedback/default/update',
-            'id' => $model->id
-        )),
-        array('icon' => 'eye-open', 'label' => Yii::t('FeedbackModule.feedback', 'View message'), 'url' => array(
-            '/feedback/default/view',
-            'id' => $model->id
-        )),
-        array('icon' => 'envelope', 'label' => Yii::t('FeedbackModule.feedback', 'Reply for message'), 'url' => array(
-            '/feedback/default/answer',
-            'id' => $model->id
-        )),
-        array('icon' => 'trash', 'label' => Yii::t('FeedbackModule.feedback', 'Remove message '), 'url' => '#', 'linkOptions' => array(
-            'submit'  => array('/feedback/default/delete', 'id' => $model->id),
-            'params' => array(Yii::app()->request->csrfTokenName => Yii::app()->request->csrfToken),
-            'confirm' => Yii::t('FeedbackModule.feedback', 'Do you really want to remove message?'),
-        )),
-    );
-?>
-<div class="page-header">
-    <h1>
-        <?php echo Yii::t('FeedbackModule.feedback', 'Show message'); ?><br />
-        <small>&laquo;<?php echo $model->name; ?>&raquo;</small>
-    </h1>
-</div>
+        $this->pageTitle = Yii::t('FeedbackModule.feedback', 'Messages - view');
+
+        $this->menu = array(
+            array('icon' => 'list-alt', 'label' => Yii::t('FeedbackModule.feedback', 'Messages management'), 'url' => array('/feedback/default/index')),
+            array('icon' => 'plus-sign', 'label' => Yii::t('FeedbackModule.feedback', 'Create message '), 'url' => array('/feedback/default/create')),
+            array('label' => Yii::t('FeedbackModule.feedback', 'Reference value') . ' «' . mb_substr($model->theme, 0, 32) . '»'),
+            array('icon' => 'pencil', 'label' => Yii::t('FeedbackModule.feedback', 'Edit message '), 'url' => array(
+                '/feedback/default/update',
+                'id' => $model->id
+            )),
+            array('icon' => 'eye-open', 'label' => Yii::t('FeedbackModule.feedback', 'View message'), 'url' => array(
+                '/feedback/default/view',
+                'id' => $model->id
+            )),
+            array('icon' => 'envelope', 'label' => Yii::t('FeedbackModule.feedback', 'Reply for message'), 'url' => array(
+                '/feedback/default/answer',
+                'id' => $model->id
+            )),
+            array('icon' => 'trash', 'label' => Yii::t('FeedbackModule.feedback', 'Remove message '), 'url' => '#', 'linkOptions' => array(
+                'submit'  => array('/feedback/default/delete', 'id' => $model->id),
+                'params' => array(Yii::app()->request->csrfTokenName => Yii::app()->request->csrfToken),
+                'confirm' => Yii::t('FeedbackModule.feedback', 'Do you really want to remove message?'),
+            )),
+        );
+    ?>
+
+    <div class="page-header">
+        <h1>
+            <?php echo Yii::t('FeedbackModule.feedback', 'Show message'); ?><br />
+            <small>&laquo;<?php echo $model->name; ?>&raquo;</small>
+        </h1>
+    </div>
+
+<?php endif; ?>
 
 <?php $this->widget('bootstrap.widgets.TbDetailView', array(
     'data'       => $model,
@@ -90,3 +95,19 @@
         'ip',
     ),
 )); ?>
+
+<?php if (Yii::app()->getRequest()->getIsAjaxRequest() === true) : ?>
+    <?php $this->widget(
+        'bootstrap.widgets.TbButton', array(
+            'type'        => 'primary',
+            'encodeLabel' => false,
+            'buttonType'  => 'submit',
+            'label'       => Yii::t('FeedbackModule.feedback', 'Ok'),
+            'htmlOptions' => array(
+                'class' => 'btn-block',
+                'data-toggle' => 'modal',
+                'data-target' => '.modal',
+            ),
+        )
+    ); ?>
+<?php endif; ?>
