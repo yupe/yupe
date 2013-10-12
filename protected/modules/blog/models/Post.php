@@ -246,7 +246,7 @@ class Post extends YModel
         $criteria = new CDbCriteria;
 
         $criteria->compare('t.id', $this->id, true);
-        $criteria->compare('blog_id', $this->blog_id, true);
+        $criteria->compare('blog_id', $this->blog_id);
         $criteria->compare('t.create_user_id', $this->create_user_id, true);
         $criteria->compare('t.update_user_id', $this->update_user_id, true);
         $criteria->compare('t.create_date', $this->create_date);
@@ -287,7 +287,7 @@ class Post extends YModel
                 'cacheID'              => 'cache',
             ),
             'imageUpload' => array(
-                'class'             =>'application.modules.yupe.models.ImageUploadBehavior',
+                'class'             =>'application.modules.yupe.components.behaviors.ImageUploadBehavior',
                 'scenarios'         => array('insert','update'),
                 'attributeName'     => 'image',
                 'minSize'           => $module->minSize,

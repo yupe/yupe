@@ -1,9 +1,9 @@
 <?php
 /**
- * Виджет админ-панели для фронтсайда:
+ * Виджет админ-панели для фронтальной части сайта
  *
  * @category YupeWidget
- * @package  yupe
+ * @package  yupe.modules.yupe.widgets
  * @author   AKulikov <tuxuls@gmail.com>
  * @license  BSD http://ru.wikipedia.org/wiki/%D0%9B%D0%B8%D1%86%D0%B5%D0%BD%D0%B7%D0%B8%D1%8F_BSD
  * @version  0.1
@@ -12,6 +12,8 @@
  **/
 class YAdminPanel extends YWidget
 {
+    public $view = 'application.modules.yupe.views.widgets.YAdminPanel.adminpanel';
+
     public function init()
     {
         if (!isset($this->controller->yupe->bootstrap)) {
@@ -64,22 +66,23 @@ class YAdminPanel extends YWidget
                     )
                 ), CClientScript::POS_BEGIN
             );
+
             $cached = Yii::app()->cache->get(
                 'YAdminPanel::' . Yii::app()->user->getId() . (
                     Yii::app()->controller instanceof yupe\components\controllers\BackController
                     ? 'backend'
                     : 'frontend'
-                )
+                ) . '::' . Yii::app()->language
             );
 
             if ($cached === false) {
-                $cached = $this->render('application.modules.yupe.views.widgets.YAdminPanel.adminpanel', array(), true);
+                $cached = $this->render($this->view, array(), true);
                 Yii::app()->cache->set(
                     'YAdminPanel::' . Yii::app()->user->getId() . (
                         Yii::app()->controller instanceof yupe\components\controllers\BackController
                         ? 'backend'
                         : 'frontend'
-                    ), $cached, 0, new TagsCache('yupe', 'YAdminPanel', 'installedModules')
+                    ) . '::' . Yii::app()->language, $cached, 0, new TagsCache('yupe', 'YAdminPanel', 'installedModules')
                 );
             }
 

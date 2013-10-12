@@ -314,6 +314,6 @@ return array (
   'Change module settings' => 'Изменить настройки модуля',
   'Please, set images uploading directory! {link}' => 'Пожалуйста, укажите каталог для хранения изображений! {link}',
   'Members' => 'Участники',
-  'Error occurred during the render widget ({widget}): {error}' => 'Во время отрисовки виджета ({widget}) произошла ошбика:<br />{error}',
+  'Error occurred during the render widget ({widget}): {error}' => 'Во время отрисовки виджета ({widget}) произошла ошибка:<br />{error}',
   'Widget "{widget}" was not found!' => 'Виджет "{widget}" не найден!',
 );

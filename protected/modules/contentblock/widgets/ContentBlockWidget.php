@@ -13,6 +13,7 @@ class ContentBlockWidget extends YWidget
 {
     public $code;
     public $silent = false;
+    public $view = 'contentblock';
 
     public function init()
     {
@@ -58,6 +59,6 @@ class ContentBlockWidget extends YWidget
             }
         }
 
-        $this->render('contentblock', array('output' => $output));
+        $this->render($this->view, array('output' => $output));
     }
 }

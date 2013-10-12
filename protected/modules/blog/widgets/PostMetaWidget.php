@@ -14,8 +14,10 @@ class PostMetaWidget extends YWidget
 {
     public $post;
 
+    public $view = 'post-meta';
+
     public function run()
     {
-        $this->render('post-meta',array('post' => $this->post));
+        $this->render($this->view,array('post' => $this->post));
     }
 }

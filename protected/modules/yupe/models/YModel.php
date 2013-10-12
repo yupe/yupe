@@ -5,7 +5,7 @@
  * Все модели, разработанные для Юпи! должны наследовать этот класс.
  *
  * @category YupeComponents
- * @package  Yupe
+ * @package  yupe.modules.yupe.models
  * @abstract
  * @author   YupeTeam <team@yupe.ru>
  * @license  https://github.com/yupe/yupe/blob/master/LICENSE BSD

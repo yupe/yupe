@@ -1,6 +1,12 @@
 <?php
 
 /**
+ *
+ * @package  yupe.modules.yupe.models
+ *
+*/
+
+/**
  * This is the model class for table "Settings".
  *
  * The followings are the available columns in table 'Settings':

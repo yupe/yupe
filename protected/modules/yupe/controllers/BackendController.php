@@ -190,7 +190,7 @@ class BackendController extends yupe\components\controllers\BackController
             if (!($module = Yii::app()->getModule($moduleId)))
                 throw new CHttpException(404, Yii::t('YupeModule.yupe', 'Module "{module}" was not found!', array('{module}' => $moduleId)));
 
-            if (!$this->saveParamsSetting($moduleId, $module->editableParamsKey)) {
+            if ($this->saveParamsSetting($moduleId, $module->editableParamsKey)) {
                 Yii::app()->user->setFlash(
                     YFlashMessages::SUCCESS_MESSAGE,
                     Yii::t(
@@ -199,7 +199,7 @@ class BackendController extends yupe\components\controllers\BackController
                         )
                     )
                 );
-                Yii::app()->cache->clear($moduleId);
+                $module->getSettings(true);
             } else {
                 Yii::app()->user->setFlash(
                     YFlashMessages::ERROR_MESSAGE,
@@ -276,7 +276,7 @@ class BackendController extends yupe\components\controllers\BackController
                     // Добавляем для параметра его правила валидации
                     $settings[$p]->rulesFromModule = Yii::app()->getModule($moduleId)->getRulesForParam($p);
                     if (!$settings[$p]->save())
-                        return true;
+                        return false;
                 }
             } else {
                 $settings[$p] = new Settings;
@@ -290,10 +290,10 @@ class BackendController extends yupe\components\controllers\BackController
                 );
 
                 if (!$settings[$p]->save())
-                    return true;
+                    return false;
             }
         }
-        return false;
+        return true;
     }
 
     /**

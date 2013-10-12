@@ -8,4 +8,12 @@ class CommonPage
     const BTN_PRIMARY_CSS_CLASS = '.btn-primary';
 
     const LOGIN_LABEL = 'Войти';
+
+    const PANEL_URL = '/yupe/backend/index';
+
+    const PANEL_LABEL = 'Панель управления "Юпи!"';
+
+    const TEST_USER_NAME = 'yupe@yupe.local';
+
+    const TEST_PASSWORD = 'testpassword';
 }

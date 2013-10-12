@@ -1,9 +1,9 @@
 <?php
 /**
- * Контроллер отвечающий за front - часть
+ * Базовый класс для всех контроллеров публичной части
  * 
  * @category YupeComponents
- * @package  yupe
+ * @package  yupe.modules.yupe.components.controllers
  * @author   YupeTeam <team@yupe.ru>
  * @license  BSD https://raw.github.com/yupe/yupe/master/LICENSE
  * @version  0.6

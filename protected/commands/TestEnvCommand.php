@@ -4,10 +4,16 @@
  *
  * Console application for create and manage testing environment.
  * @package  yupe.commands
- * @author Anton Kucherov <idexter.ru@gmail.com>
+ * @author   Anton Kucherov <idexter.ru@gmail.com>
  * @author   YupeTeam <team@yupe.ru>
  * @link     http://yupe.ru
  */
+
+/*
+ *
+ * @TODO добавить возможность указать параметры для Selenium2 драйвера, можно ограичиться только url
+ *
+ **/
 class TestEnvCommand extends CConsoleCommand
 {
     const COMMAND_DIR = __DIR__;

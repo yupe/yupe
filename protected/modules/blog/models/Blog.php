@@ -109,7 +109,7 @@ class Blog extends YModel
     {
         return array(
             'published' => array(
-                'condition' => 'status = :status',
+                'condition' => 't.status = :status',
                 'params'    => array(':status' => self::STATUS_ACTIVE),
             ),
             'public' => array(
@@ -214,7 +214,7 @@ class Blog extends YModel
         $module = Yii::app()->getModule('blog');
         return array(
             'imageUpload' => array(
-                'class'         =>'application.modules.yupe.models.ImageUploadBehavior',
+                'class'         =>'application.modules.yupe.components.behaviors.ImageUploadBehavior',
                 'scenarios'     => array('insert','update'),
                 'attributeName' => 'icon',
                 'minSize'       => $module->minSize,

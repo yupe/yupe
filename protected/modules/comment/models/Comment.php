@@ -44,6 +44,9 @@
  * @version  0.5.3
  * @link     http://yupe.ru
  */
+
+use application\modules\comment\components\NewCommentEvent;
+
 class Comment extends YModel
 {
 
@@ -223,6 +226,14 @@ class Comment extends YModel
             $cache->delete("Comment{$this->model}{$this->model_id}");
         }
 
+        if ($this->isNewRecord) {
+            $notifierComponent = Yii::app()->getModule('comment')->notifier;
+            if (Yii::app()->getModule('comment')->notify && ($notifier = new $notifierComponent()) !== false && $notifier instanceof application\modules\comment\components\INotifier) {
+                $this->onNewComment = array($notifier, 'newComment');
+                $this->newComment();
+            }
+        }
+
         return parent::afterSave();
     }
 
@@ -391,6 +402,39 @@ class Comment extends YModel
             }
         }else{
             return $rootNode;
+        }
+
+        return false;
+    }
+
+    /**
+     * Checks for flood messages
+     *
+     * @param Comment $comment Filled Comment Form
+     * @param $userId string Current User Id
+     * @param $interval int Interval between messages
+     * @return bool True if it is spam, False if not
+     */
+    public static function isItSpam(Comment $comment, $userId, $interval)
+    {
+        $dateDiffTime = new DateTime();
+        $dateDiffTime->setTimestamp( time() - $interval );
+
+        $newAuthorComments = self::model()->findByAttributes(
+            array(
+                "user_id" => $userId,
+                "model" => $comment->getAttribute("model"),
+                "model_id" => $comment->getAttribute("model_id")
+            ),
+            "creation_date > :now OR (creation_date > :now AND text LIKE :txt)",
+            array(
+                'now' => $dateDiffTime->format('Y-m-d H:i:s'),
+                'txt' => "%{$comment->getAttribute('text')}%",
+            )
+        );
+
+        if($newAuthorComments!=null){
+            return true;
         }
 
         return false;

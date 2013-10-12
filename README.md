@@ -27,13 +27,15 @@
 
 Требования
 ----------
-* PHP >= 5.3
-* Yiiframework >= 1.1.13
+* PHP >= 5.3.7
+* Yiiframework >= 1.1.14
+* YiiBooster >= 2.0
+* Nested Set Behavior
+* Imperavi Redactor Widget
+* Yii2-debug
 * MySQL/PostgreSQL
 * Apaсhe/Nginx
 * Composer
-
-
 
 Ссылки
 ------

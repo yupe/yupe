@@ -57,9 +57,9 @@ class FeedBack extends YModel
             array('name, email, theme, text', 'required'),
             array('name, email, theme, text, phone', 'filter', 'filter' => array($obj = new CHtmlPurifier(), 'purify')),
             array('type, status, answer_user, is_faq, type, category_id', 'numerical', 'integerOnly' => true),
-            array('is_faq', 'in', 'range' => array(0, 1)),
-            array('status', 'in', 'range' => array_keys($this->statusList)),
-            array('type', 'in', 'range' => array_keys($this->typeList)),
+            array('is_faq', 'in', 'range' => array_keys($this->getIsFaqList())),
+            array('status', 'in', 'range' => array_keys($this->getStatusList())),
+            array('type', 'in', 'range' => array_keys($this->getTypeList())),
             array('name, email, phone', 'length', 'max' => 150),
             array('theme', 'length', 'max' => 250),
             array('ip', 'length', 'max' => 20),
@@ -131,8 +131,9 @@ class FeedBack extends YModel
             $this->creation_date = $this->change_date;
             $this->ip            = Yii::app()->request->userHostAddress;
 
-            if (!$this->type)
+            if (!$this->type) {
                 $this->type = self::TYPE_DEFAULT;
+            }
         }
 
         return parent::beforeValidate();
@@ -173,7 +174,7 @@ class FeedBack extends YModel
 
     public function getStatus()
     {
-        $data = $this->statusList;
+        $data = $this->getStatusList();
         return isset($data[$this->status]) ? $data[$this->status] : Yii::t('FeedbackModule.feedback', 'Unknown status message');
     }
 
@@ -181,17 +182,19 @@ class FeedBack extends YModel
     {
         $types = Yii::app()->getModule('feedback')->types;
 
-        if ($types)
+        if ($types) {
             $types[self::TYPE_DEFAULT] = Yii::t('FeedbackModule.feedback', 'Default');
-        else
+        }
+        else{
             $types = array(self::TYPE_DEFAULT => Yii::t('FeedbackModule.feedback', 'Default'));
+        }
 
         return $types;
     }
 
     public function getType()
     {
-        $data = $this->typeList;
+        $data = $this->getTypeList();
         return isset($data[$this->type]) ? $data[$this->type] : Yii::t('FeedbackModule.feedback', 'Unknown message type');
     }
 
@@ -206,7 +209,7 @@ class FeedBack extends YModel
 
     public function getIsFaq()
     {
-        $data = $this->isFaqList;
+        $data = $this->getIsFaqList();
         return isset($data[$this->is_faq]) ? $data[$this->is_faq] : Yii::t('FeedbackModule.feedback', '*unknown*');
     }
 

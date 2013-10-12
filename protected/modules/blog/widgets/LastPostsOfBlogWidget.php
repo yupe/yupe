@@ -13,8 +13,6 @@
 
 class LastPostsOfBlogWidget extends YWidget
 {
-    public $limit = 5;
-
     public $blogId;
 
     public $view = 'lastpostsofblog';

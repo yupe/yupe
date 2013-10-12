@@ -1,10 +1,22 @@
 <?php
+/**
+ * Виджет для вывода последних комментарие
+ *
+ * @category YupeWidgets
+ * @package  yupe.modules.comment.widgets
+ * @author   Yupe Team <team@yupe.ru>
+ * @license  BSD http://ru.wikipedia.org/wiki/%D0%9B%D0%B8%D1%86%D0%B5%D0%BD%D0%B7%D0%B8%D1%8F_BSD
+ * @version  0.1
+ * @link     http://yupe.ru
+ *
+ **/
 class LastCommentsWidget extends YWidget
 {
     public $model;
     public $commentStatus;
     public $limit = 10;
     public $onlyWithAuthor = true;
+    public $view = 'lastcomments';
 
     public function init()
     {
@@ -35,6 +47,6 @@ class LastCommentsWidget extends YWidget
 
         $comments = Comment::model()->findAll($criteria);
 
-        $this->render('lastcomments', array('models' => $comments));
+        $this->render($this->view, array('models' => $comments));
     }
 }

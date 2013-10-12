@@ -4,7 +4,7 @@ use \WebGuy;
 
 class FeedBackCest
 {
-    public function tryToTestContactsPage(WebGuy $I)
+    public function tryToTestContactsPage(WebGuy $I, $scenario)
     {
         $I->am('simple user');
         $I->amGoingTo('test contacts page');
@@ -24,6 +24,73 @@ class FeedBackCest
         $I->fillField(\FeedBackPage::$textField,'test_text');
         $I->click(\FeedBackPage::$buttonLabel);
         $I->see('Email не является правильным E-Mail адресом.',\CommonPage::ERROR_CSS_CLASS);
+
+        $I->amGoingTo('test save feedback');
+        $I->fillField(\FeedBackPage::$emailField,'test@yupe.ru');
+        $I->click(\FeedBackPage::$buttonLabel);
+        $I->see('Ваше сообщение отправлено! Спасибо!', \CommonPage::SUCCESS_CSS_CLASS);
+        $I->seeInCurrentUrl('faq');
+        $I->seeInDatabase('yupe_feedback_feedback', array(
+            'name'   => 'test_name',
+            'email'  => 'test@yupe.ru',
+            'theme'  => 'test_theme',
+            'text'   => 'test_text',
+            'is_faq' => 0,
+            'status' => 0
+        ));
+
+        $I->amGoingTo('check that new message is hide from public access');
+        $I->amOnPage(\FeedBackPage::routeFaq(1));
+        $I->see('Страница не найдена');
+
+        $I->amOnPage(\FeedBackPage::FAQ_URL);
+        $I->see('Вопросы и ответы','h1');
+        $I->see('Задайте вопрос ?!','.btn');
+        $I->dontSeeLink('test_theme');
+
+        $I->amGoingTo('mark feedback message as faq');
+        $I = new WebGuy\UserSteps($scenario);
+        $I->loginAsAdminAndGoToThePanel(\CommonPage::TEST_USER_NAME,\CommonPage::TEST_PASSWORD);
+
+        $I->amOnPage('/feedback/default/index');
+        $I->seeLink('test_theme');
+        $I->click('test_theme');
+        $I->fillField('FeedBack[status]',3);
+        $I->dontSeeCheckboxIsChecked('FeedBack[is_faq]');
+        $I->checkOption('FeedBack[is_faq]');
+        $I->executeJs('$("#FeedBack_answer").show();');
+        $I->fillField('FeedBack[answer]','test_answer');
+        $I->click('Сохранить сообщение и закрыть');
+        $I->see('Сообщение обновлено!', \CommonPage::SUCCESS_CSS_CLASS);
+        $I->seeInCurrentUrl('/feedback/default/index');
+        $I->seeInDatabase('yupe_feedback_feedback', array(
+            'name'   => 'test_name',
+            'email'  => 'test@yupe.ru',
+            'theme'  => 'test_theme',
+            'answer' => 'test_answer',
+            'is_faq' => 1,
+            'status' => 3
+        ));
+
+        $I->logout();
+
+        $I->amGoingTo('test view feedback message on the public site');
+        $I->amOnPage(\FeedBackPage::FAQ_URL);
+        $I->see('Вопросы и ответы','h1');
+        $I->see('Задайте вопрос ?!','.btn');
+        $I->seeLink('test_theme');
+        $I->click('test_theme');
+        $I->seeLink('Подробнее...', \FeedBackPage::routeFaq(1));
+        $I->click('Подробнее...');
+
+        $I->see('test_theme','h1');
+        $I->see('Задайте вопрос ?!','.btn');
+
+        $check = array('test_name','test_theme','test_text','test_answer','yupe');
+
+        foreach($check as $ch) {
+            $I->see($ch);
+        }
 
     }
 }

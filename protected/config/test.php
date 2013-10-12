@@ -7,7 +7,7 @@ Yii::setPathOfAlias('yupe', dirname(__FILE__) . '/../modules/yupe/');
 Yii::setPathOfAlias('vendor', dirname(__FILE__) . '/../../vendor/');
 
 
-return array_merge(
+return CMap::mergeArray(
     require(dirname(__FILE__) . '/main.php'),
     array(
         'import' => array(
