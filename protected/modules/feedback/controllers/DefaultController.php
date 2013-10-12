@@ -1,4 +1,15 @@
 <?php
+/**
+ * DefaultController контроллер для feedback в панели управления
+ *
+ * @author AKulikov <team@yupe.ru>
+ * @link http://yupe.ru
+ * @copyright 2009-2013 amyLabs && Yupe! team
+ * @package yupe.modules.blog.controllers
+ * @since 0.6
+ *
+ */
+
 class DefaultController extends yupe\components\controllers\BackController
 {
     private $_model;
@@ -8,6 +19,16 @@ class DefaultController extends yupe\components\controllers\BackController
      */
     public function actionView()
     {
+        // Обработка при Ajax-запросе:
+        if (Yii::app()->getRequest()->getIsAjaxRequest()) {
+            
+            return Yii::app()->ajax->success(
+                array(
+                    'html' => $this->renderPartial('view', array('model' => $this->loadModel()), true, false)
+                )
+            );
+        }
+
         $this->render('view', array('model' => $this->loadModel()));
     }
 
@@ -19,18 +40,16 @@ class DefaultController extends yupe\components\controllers\BackController
     {
         $model = new FeedBack;
 
-        if (isset($_POST['FeedBack']))
-        {
-            $model->attributes = $_POST['FeedBack'];
+        if (($data = Yii::app()->getRequest()->getPost('FeedBack')) !== null) {
+            
+            $model->setAttributes($data);
 
-            if ($model->status == FeedBack::STATUS_ANSWER_SENDED)
-            {
+            if ($model->status == FeedBack::STATUS_ANSWER_SENDED) {
                 $model->answer_user = Yii::app()->user->getId();
                 $model->answer_date = new CDbExpression('NOW()');
             }
 
-            if ($model->save())
-            {
+            if ($model->save()) {
                 Yii::app()->user->setFlash(
                     YFlashMessages::SUCCESS_MESSAGE,
                     Yii::t('FeedbackModule.feedback', 'Message saved!')
@@ -56,32 +75,37 @@ class DefaultController extends yupe\components\controllers\BackController
 
         $status = $model->status; 
 
-        if (isset($_POST['FeedBack']))
-        {
+        if (isset($_POST['FeedBack'])) {
             $model->attributes = $_POST['FeedBack'];
 
-            if ($status != FeedBack::STATUS_ANSWER_SENDED && $model->status == FeedBack::STATUS_ANSWER_SENDED)
-            {
+            if ($status != FeedBack::STATUS_ANSWER_SENDED && $model->status == FeedBack::STATUS_ANSWER_SENDED) {
                 $model->answer_user = Yii::app()->user->getId();
                 $model->answer_date = new CDbExpression('NOW()');
             }
 
-            if ($model->save())
-            {
+            if ($model->save()) {
                 Yii::app()->user->setFlash(
                     YFlashMessages::SUCCESS_MESSAGE,
                     Yii::t('FeedbackModule.feedback', 'Message was updated')
                 );
 
-                if (!isset($_POST['submit-type']))
+                if (!isset($_POST['submit-type'])) {
                     $this->redirect(array('update', 'id' => $model->id));
-                else
+                } else {
                     $this->redirect(array($_POST['submit-type']));
+                }
             }
         }
         $this->render('update', array('model' => $model));
     }
 
+    /**
+     * Экшен создания ответа на сообщение:
+     * 
+     * @param int $id - ID сообщения
+     * 
+     * @return void
+     */
     public function actionAnswer($id)
     {
         $model = FeedBack::model()->findbyPk((int) $id);
@@ -90,10 +114,35 @@ class DefaultController extends yupe\components\controllers\BackController
 
         $form = new AnswerForm;
 
-        $form->setAttributes(array(
-            'answer' => $model->answer,
-            'is_faq' => $model->is_faq,
-        ));
+        $form->setAttributes(
+            array(
+                'answer' => $model->answer,
+                'is_faq' => $model->is_faq,
+            )
+        );
+
+        // Обработка при Ajax-запросе:
+        if (Yii::app()->getRequest()->getIsAjaxRequest()) {
+            
+            if ($this->saveAnswer($form, $model) === true) {
+                return true;
+            }
+
+            // Если уже отправили сообщение:
+            if ($model->status == FeedBack::STATUS_ANSWER_SENDED) {
+                return Yii::app()->ajax->failure(
+                    array(
+                        'message' => Yii::t('FeedbackModule.feedback', 'Attention! Reply for this message already sent!')
+                    )
+                );
+            }
+
+            return Yii::app()->ajax->success(
+                array(
+                    'html' => $this->renderPartial('_ajax_answer', array('model' => $model, 'answerForm' => $form), true, false) . '</div>'
+                )
+            );
+        }
 
         if ($model->status == FeedBack::STATUS_ANSWER_SENDED)
             Yii::app()->user->setFlash(
@@ -101,12 +150,17 @@ class DefaultController extends yupe\components\controllers\BackController
                 Yii::t('FeedbackModule.feedback', 'Attention! Reply for this message already sent!')
             );
 
-        if (Yii::app()->request->isPostRequest && isset($_POST['AnswerForm']))
-        {
-            $form->setAttributes($_POST['AnswerForm']);
+        list($form, $model) = $this->saveAnswer($form, $model);
 
-            if ($form->validate())
-            {
+        $this->render('answer', array('model' => $model, 'answerForm' => $form));
+    }
+
+    public function saveAnswer($form, $model)
+    {
+        if (Yii::app()->request->isPostRequest && ($data = Yii::app()->request->getPost('AnswerForm')) !== null) {
+            $form->setAttributes($data);
+
+            if ($form->validate()) {
                 $model->setAttributes(array(
                     'answer'      => $form->answer,
                     'is_faq'      => $form->is_faq,
@@ -115,8 +169,7 @@ class DefaultController extends yupe\components\controllers\BackController
                     'status'      => FeedBack::STATUS_ANSWER_SENDED,
                  ));
 
-                if ($model->save())
-                {
+                if ($model->save()) {
                     //отправка ответа
                     $body = $this->renderPartial('answerEmail', array('model' => $model), true);
 
@@ -126,16 +179,29 @@ class DefaultController extends yupe\components\controllers\BackController
                         'RE: ' . $model->theme,
                         $body
                     );
-                    Yii::app()->user->setFlash(
-                        YFlashMessages::SUCCESS_MESSAGE,
-                        Yii::t('FeedbackModule.feedback', 'Reply on message was sent!')
-                    );
+                    if (Yii::app()->getRequest()->getIsAjaxRequest() == false) {
+                        Yii::app()->user->setFlash(
+                            YFlashMessages::SUCCESS_MESSAGE,
+                            Yii::t('FeedbackModule.feedback', 'Reply on message was sent!')
+                        );
 
-                    $this->redirect(array('/feedback/default/view/', 'id' => $model->id));
+                        $this->redirect(array('/feedback/default/view/', 'id' => $model->id));
+                    } else {
+                        Yii::app()->ajax->success(
+                            array(
+                                'message' => Yii::t('FeedbackModule.feedback', 'Reply on message was sent!'),
+                            )
+                        );
+
+                        return true;
+                    }
+                } else {
+                    return array($form, $model);
                 }
             }
         }
-        $this->render('answer', array('model' => $model, 'answerForm' => $form));
+
+        return array($form, $model);
     }
 
     /**
@@ -144,8 +210,7 @@ class DefaultController extends yupe\components\controllers\BackController
      */
     public function actionDelete()
     {
-        if (Yii::app()->request->isPostRequest)
-        {
+        if (Yii::app()->request->isPostRequest) {
             // we only allow deletion via POST request
             $this->loadModel()->delete();
 

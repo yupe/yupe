@@ -3,25 +3,93 @@ $form = $this->beginWidget('bootstrap.widgets.TbActiveForm', array(
     'action'      => Yii::app()->createUrl($this->route),
     'method'      => 'get',
     'type'        => 'vertical',
-    'htmlOptions' => array('class' => 'well'),
+    'htmlOptions' => array(
+        'class' => 'well',
+    ),
 )); ?>
 
-    <fieldset class="inline">
-        <?php echo $form->textFieldRow($model, 'id', array('class' => 'span5', 'maxlength' => 10, 'size' => 60)); ?>
-        <?php echo $form->textFieldRow($model, 'name', array('class' => 'span5', 'maxlength' => 150, 'size' => 60)); ?>
-        <?php echo $form->textFieldRow($model, 'email', array('class' => 'span5', 'size' => 60, 'maxlength' => 60)); ?>
-        <?php echo $form->textFieldRow($model, 'theme', array('class' => 'span5', 'size' => 60, 'maxlength' => 60)); ?>
-        <?php echo $form->textFieldRow($model, 'phone', array('class' => 'span5', 'size' => 60, 'maxlength' => 60)); ?>
-        <?php echo $form->dropDownListRow($model, 'type', $model->typeList, array('class' => 'span5')); ?>
-        <?php echo $form->dropDownListRow($model, 'status', $model->statusList, array('class' => 'span5')); ?>
-        <?php echo $form->checkBoxRow($model, 'is_faq', $model->isFaqList, array('class' => 'span5')); ?>
-    </fieldset>
+    <div class="row-fluid">
+        <div class="span3">
+            <?php echo $form->textFieldRow($model, 'name', array('maxlength' => 150, 'size' => 60)); ?>
+        </div>
+        <div class="span3">
+            <?php echo $form->textFieldRow($model, 'email', array('size' => 60, 'maxlength' => 60)); ?>
+        </div>
+        <div class="span3">
+            <?php echo $form->textFieldRow($model, 'phone', array('size' => 60, 'maxlength' => 60)); ?>
+        </div>
+        <div class="span3">
+            <?php echo $form->textFieldRow($model, 'theme', array('size' => 60, 'maxlength' => 60)); ?>
+        </div>
+    </div>
+    <div class="row-fluid">
+        <div class="span3">
+            <?php echo $form->dropDownListRow(
+                $model, 'type', $model->typeList, array(
+                    'empty' => '---',
+                )
+            ); ?>
+        </div>
+        <div class="span3">
+            <?php echo $form->dropDownListRow(
+                $model, 'status', $model->statusList, array(
+                    'empty' => '---',
+                )
+            ); ?>
+        </div>
+        <div class="span3">
+            <?php echo $form->dropDownListRow(
+                $model, 'category_id', CHtml::listData($this->module->getCategoryList(),'id','name'), array(
+                    'empty' => '---',
+                )
+            ); ?>
+        </div>
+        <div class="span3">
+            <?php echo $form->datepickerRow(
+                $model,
+                'creation_date',
+                array(
+                    'class'   => 'span12', 
+                    'options' => array(
+                        'language'   => Yii::app()->language,
+                        'format'     => 'yyyy-mm-dd',
+                    ),
+                    'prepend' => '<i class="icon-calendar"></i>'
+                )
+            ); ?>
+        </div>
+    </div>
+    <div class="row-fluid">
+        <div class="span4">
+            <?php echo $form->textFieldRow($model, 'id', array('maxlength' => 10, 'size' => 60)); ?>
+        </div>
+    </div>
+    <?php echo $form->checkBoxRow($model, 'is_faq', $model->isFaqList); ?>
+    <div class='hide'>
+        <?php $this->widget(
+            $this->yupe->editor, array(
+                'model'       => $model,
+                'attribute'   => 'answer',
+            )
+        ); ?>
+    </div>
 
-    <?php $this->widget('bootstrap.widgets.TbButton', array(
-        'type'        => 'primary',
-        'encodeLabel' => false,
-        'buttonType'  => 'submit',
-        'label'       => '<i class="icon-search icon-white">&nbsp;</i> ' . Yii::t('FeedbackModule.feedback', 'Find messages '),
-    )); ?>
+    <?php $this->widget(
+        'bootstrap.widgets.TbButton', array(
+            'type'        => 'primary',
+            'encodeLabel' => false,
+            'buttonType'  => 'submit',
+            'label'       => '<i class="icon-search icon-white">&nbsp;</i> ' . Yii::t('FeedbackModule.feedback', 'Find messages '),
+        )
+    ); ?>
+
+    <?php $this->widget(
+        'bootstrap.widgets.TbButton', array(
+            'type'        => 'danger',
+            'encodeLabel' => false,
+            'buttonType'  => 'reset',
+            'label'       => Yii::t('FeedbackModule.feedback', 'Reset'),
+        )
+    ); ?>
 
 <?php $this->endWidget(); ?>

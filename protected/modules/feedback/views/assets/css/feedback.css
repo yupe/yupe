@@ -1,0 +1,34 @@
+.list-cell {
+	margin: 10px 0;
+	border-bottom: 1px solid #eeeeee;
+}
+
+.list-cell:last-child {
+	border-bottom: 0px;
+}
+
+.list-cell a > i {
+	text-decoration: none;
+}
+
+.list-cell .btn {
+	padding: 0 2px;
+}
+
+.list-cell .date-item {
+	margin-right: 10px;
+}
+
+.list-cell .right-margin {
+	margin-right: 5px;
+}
+
+.list-cell > div:last-child {
+	margin-right: -100px;
+}
+
+.list-cell .message-info {
+	border-bottom: 1px solid #e2e2e2;
+	padding-bottom: 5px;
+	margin-bottom: 5px;
+}

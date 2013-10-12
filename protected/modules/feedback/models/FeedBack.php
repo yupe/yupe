@@ -104,7 +104,16 @@ class FeedBack extends YModel
         $criteria = new CDbCriteria;
 
         $criteria->compare('id', $this->id);
-        $criteria->compare('creation_date', $this->creation_date, true);
+
+        if (!empty($this->creation_date)) {
+            $criteria->addBetweenCondition(
+                'creation_date',
+                $this->creation_date . ' 00:00:00',
+                $this->creation_date . ' 23:59:59',
+                'AND'
+            );
+        }
+
         $criteria->compare('change_date', $this->change_date, true);
         $criteria->compare('name', $this->name, true);
         $criteria->compare('email', $this->email, true);
@@ -122,6 +131,12 @@ class FeedBack extends YModel
         ));
     }
 
+    /**
+     * Обновляем дату изменения. Если новая запись
+     * обновляем необходимые поля:
+     * 
+     * @return void
+     */
     public function beforeValidate()
     {
         $this->change_date = new CDbExpression('NOW()');
@@ -139,6 +154,11 @@ class FeedBack extends YModel
         return parent::beforeValidate();
     }
 
+    /**
+     * Именованные условия:
+     * 
+     * @return array
+     */
     public function scopes()
     {
         return array(
@@ -157,11 +177,21 @@ class FeedBack extends YModel
         );
     }
 
+    /**
+     * Имя пользователя который ответил:
+     * 
+     * @return string
+     */
     public function getAnsweredUser()
     {
         return $this->answer_user ? User::model()->findByPk($this->answer_user)->getFullName() : Yii::t('FeedbackModule.feedback', '-');
     }
 
+    /**
+     * Список возможных статусов:
+     * 
+     * @return array
+     */
     public function getStatusList()
     {
         return array(
@@ -172,12 +202,22 @@ class FeedBack extends YModel
         );
     }
 
+    /**
+     * Получаем текстовый статус:
+     * 
+     * @return string
+     */
     public function getStatus()
     {
         $data = $this->getStatusList();
         return isset($data[$this->status]) ? $data[$this->status] : Yii::t('FeedbackModule.feedback', 'Unknown status message');
     }
 
+    /**
+     * Список возможных типов:
+     * 
+     * @return array
+     */
     public function getTypeList()
     {
         $types = Yii::app()->getModule('feedback')->types;
@@ -192,12 +232,22 @@ class FeedBack extends YModel
         return $types;
     }
 
+    /**
+     * Получаем тип:
+     * 
+     * @return string
+     */
     public function getType()
     {
         $data = $this->getTypeList();
         return isset($data[$this->type]) ? $data[$this->type] : Yii::t('FeedbackModule.feedback', 'Unknown message type');
     }
 
+    /**
+     * Массив текстовых статусов:
+     * 
+     * @return array
+     */
     public function getIsFaqList()
     {
         return array(
@@ -206,13 +256,60 @@ class FeedBack extends YModel
         );
     }
 
+    /**
+     * Получаем класс по статусу:
+     * 
+     * @return string label-class
+     */
+    public function getStatusClass()
+    {
+        return $this->status
+                ? (
+                    ($this->status == 1)
+                    ? 'warning'
+                    : (
+                        ($this->status==3)
+                        ?  'success'
+                        : 'default'
+                    )
+                )
+                : 'info';
+    }
 
+    /**
+     * Получаем текст, при необходимости обрезаем:
+     * 
+     * @param mixed $size - максимальная длина
+     * 
+     * @return string
+     */
+    public function getText($size = false)
+    {
+        if (false === $size || $size > mb_strlen($this->text))
+            return $this->text;
+        
+        $p = new CHtmlPurifier();
+        return $p->purify(
+            mb_substr($this->text, 0, $size) . '...'
+        );
+    }
+
+    /**
+     * Находится ли ответ в FAQ:
+     * 
+     * @return string
+     */
     public function getIsFaq()
     {
         $data = $this->getIsFaqList();
         return isset($data[$this->is_faq]) ? $data[$this->is_faq] : Yii::t('FeedbackModule.feedback', '*unknown*');
     }
 
+    /**
+     * Связи:
+     * 
+     * @return array
+     */
     public function relations()
     {
         return array(
@@ -220,6 +317,11 @@ class FeedBack extends YModel
         );
     }
 
+    /**
+     * Категория:
+     * 
+     * @return string
+     */
     public function getCategory()
     {
         return empty($this->category) ? '---' : $this->category->name;
