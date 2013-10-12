@@ -101,5 +101,12 @@ return array (
     'manage' => '',
     'Antispam interval' => '',
     'Spam protection, try to create comment after {few} minutes!'=>'',
+    'Last comments' => '',
+    'Reply' => '',
+    'no comments, be first!' => '',
+    'There is an error when create comments, try again later.'=>'',
+    'WRITE COMMENT'=>'',
+    'From user' => '',
+    'Insert symbols you see on picture'=>'',
 );
 

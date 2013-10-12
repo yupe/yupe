@@ -24,7 +24,7 @@
                                 'rel'     => $comment->id,
                                 'data-id' => $comment->id . '_' . str_replace(' ', '_', $comment->creation_date),
                                 'class'   => 'commentParrent',
-                                'title'   => Yii::t('comment','Ответить')
+                                'title'   => Yii::t('CommentModule.comment','Reply')
                             ));?>
                         </li>
                     </ul>
@@ -32,7 +32,7 @@
             </div>
     <?php endforeach;?>
 <?php else:?>
-    <p><?php echo $this->label; ?> <?php echo Yii::t('comment', 'пока нет, станьте первым!');?>
+    <p><?php echo $this->label; ?> <?php echo Yii::t('CommentModule.comment','no comments, be first!');?>
 <?php endif;?>
 
 </div>
