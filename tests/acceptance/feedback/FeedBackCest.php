@@ -41,7 +41,7 @@ class FeedBackCest
 
         $I->amGoingTo('check that new message is hide from public access');
         $I->amOnPage(\FeedBackPage::routeFaq(1));
-        $I->see('Страница не найдена');
+        $I->see('Страница которую Вы запросили не найдена.');
 
         $I->amOnPage(\FeedBackPage::FAQ_URL);
         $I->see('Вопросы и ответы','h1');
@@ -53,12 +53,12 @@ class FeedBackCest
         $I->loginAsAdminAndGoToThePanel(\CommonPage::TEST_USER_NAME,\CommonPage::TEST_PASSWORD);
 
         $I->amOnPage('/feedback/default/index');
-        $I->seeLink('test_theme');
-        $I->click('test_theme');
-        $I->fillField('FeedBack[status]',3);
+        $I->see('test_name');
+        $I->click('#yw6');
+        $I->selectOption('FeedBack[status]','Ответ отправлен');
         $I->dontSeeCheckboxIsChecked('FeedBack[is_faq]');
         $I->checkOption('FeedBack[is_faq]');
-        $I->executeJs('$("#FeedBack_answer").show();');
+        $I->executeJs('$("textarea[name^=FeedBack]").show();');
         $I->fillField('FeedBack[answer]','test_answer');
         $I->click('Сохранить сообщение и закрыть');
         $I->see('Сообщение обновлено!', \CommonPage::SUCCESS_CSS_CLASS);
