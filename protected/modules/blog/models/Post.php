@@ -279,9 +279,10 @@ class Post extends YModel
                 'updateAttribute'   => 'update_date',
             ),
             'tags' => array(
-                'class'                => 'application.modules.yupe.extensions.taggable.ETaggableBehavior',
+                'class'                => 'application.modules.yupe.extensions.taggable.EARTaggableBehavior',
                 'tagTable'             => Yii::app()->db->tablePrefix . 'blog_tag',
                 'tagBindingTable'      => Yii::app()->db->tablePrefix . 'blog_post_to_tag',
+                'tagModel'             => 'Tag',
                 'modelTableFk'         => 'post_id',
                 'tagBindingTableTagId' => 'tag_id',
                 'cacheID'              => 'cache',
