@@ -10,7 +10,7 @@
 
 <?php
 /**
- * Отображение для BlogAdmin/_form:
+ * Отображение для BlogBackend/_form:
  * 
  *   @category YupeView
  *   @package  yupe

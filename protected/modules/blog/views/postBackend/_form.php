@@ -9,7 +9,7 @@
 
 <?php
 /**
- * Отображение для postAdmin/_form:
+ * Отображение для postBackend/_form:
  *
  * @category YupeView
  * @package  yupe

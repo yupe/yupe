@@ -1,6 +1,6 @@
 <?php
 /**
- * Отображение для postAdmin/_search:
+ * Отображение для postBackend/_search:
  * 
  *   @category YupeView
  *   @package  yupe

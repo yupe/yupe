@@ -1,6 +1,6 @@
 <?php
 /**
- * Отображение для BlogAdmin/create:
+ * Отображение для BlogBackend/create:
  * 
  *   @category YupeView
  *   @package  yupe
@@ -10,7 +10,7 @@
  **/
     $this->breadcrumbs = array(
         Yii::app()->getModule('blog')->getCategory() => array(),
-        Yii::t('BlogModule.blog', 'Blogs') => array('/blog/BlogAdmin/index'),
+        Yii::t('BlogModule.blog', 'Blogs') => array('/blog/blogBackend/index'),
         Yii::t('BlogModule.blog', 'Create'),
     );
 
@@ -18,16 +18,16 @@
 
     $this->menu = array(
         array('label' => Yii::t('BlogModule.blog', 'Blogs'), 'items' => array(
-            array('icon' => 'list-alt', 'label' => Yii::t('BlogModule.blog', 'Manage Blogs'), 'url' => array('/blog/BlogAdmin/index')),
-            array('icon' => 'plus-sign', 'label' => Yii::t('BlogModule.blog', 'Add blog'), 'url' => array('/blog/BlogAdmin/create')),
+            array('icon' => 'list-alt', 'label' => Yii::t('BlogModule.blog', 'Manage Blogs'), 'url' => array('/blog/blogBackend/index')),
+            array('icon' => 'plus-sign', 'label' => Yii::t('BlogModule.blog', 'Add blog'), 'url' => array('/blog/blogBackend/create')),
         )),
         array('label' => Yii::t('BlogModule.blog', 'Posts'), 'items' => array(
-            array('icon' => 'list-alt', 'label' => Yii::t('BlogModule.blog', 'Manage Posts'), 'url' => array('/blog/PostAdmin/index')),
-            array('icon' => 'plus-sign', 'label' => Yii::t('BlogModule.blog', 'Add post'), 'url' => array('/blog/PostAdmin/create')),
+            array('icon' => 'list-alt', 'label' => Yii::t('BlogModule.blog', 'Manage Posts'), 'url' => array('/blog/postBackend/index')),
+            array('icon' => 'plus-sign', 'label' => Yii::t('BlogModule.blog', 'Add post'), 'url' => array('/blog/postBackend/create')),
         )),
         array('label' => Yii::t('BlogModule.blog', 'Members'), 'items' => array(
-            array('icon' => 'list-alt', 'label' => Yii::t('BlogModule.blog', 'Manage Members'), 'url' => array('/blog/UserToBlogAdmin/index')),
-            array('icon' => 'plus-sign', 'label' => Yii::t('BlogModule.blog', 'Add member'), 'url' => array('/blog/UserToBlogAdmin/create')),
+            array('icon' => 'list-alt', 'label' => Yii::t('BlogModule.blog', 'Manage Members'), 'url' => array('/blog/userToBlogBackend/index')),
+            array('icon' => 'plus-sign', 'label' => Yii::t('BlogModule.blog', 'Add member'), 'url' => array('/blog/userToBlogBackend/create')),
         )),
     );
 ?>

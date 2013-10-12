@@ -1,6 +1,6 @@
 <?php
 /**
- * PostAdminController контроллер для постов в панели управления
+ * PostBackendController контроллер для постов в панели управления
  *
  * @author yupe team <team@yupe.ru>
  * @link http://yupe.ru
@@ -9,7 +9,7 @@
  * @since 0.1
  *
  */
-class PostAdminController extends yupe\components\controllers\BackController
+class PostBackendController extends yupe\components\controllers\BackController
 {
     /**
      * Отображает запись по указанному идентификатору
