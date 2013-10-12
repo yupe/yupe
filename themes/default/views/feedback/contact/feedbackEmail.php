@@ -1,21 +1,21 @@
 <html>
 <head>
-    <title>Новое сообщение с сайта <?php echo CHtml::encode(Yii::app()->name);?>!</title>
+    <title><?php echo Yii::t('FeedbackModule.feedback','New message from site'); ?> <?php echo CHtml::encode(Yii::app()->name);?>!</title>
 </head>
 <body>
-Получено новое обращение с сайта <?php echo CHtml::encode(Yii::app()->name);?>!
+<?php echo Yii::t('FeedbackModule.feedback','New message from site was received'); ?> <?php echo CHtml::encode(Yii::app()->name);?>!
 <br/>
 
-Отправитель: <?php echo $model->name?> - <?php echo $model->email;?> <br/>
-Тема: <?php echo $model->theme;?><br/>
-Тип:  <?php echo $model->getType();?><br/>
-Текст: <?php echo $model->text;?><br/>
+<?php echo Yii::t('FeedbackModule.feedback','Author:'); ?> <?php echo $model->name?> - <?php echo $model->email;?> <br/>
+<?php echo Yii::t('FeedbackModule.feedback','Topic:'); ?> <?php echo $model->theme;?><br/>
+<?php echo Yii::t('FeedbackModule.feedback','Type:'); ?>  <?php echo $model->getType();?><br/>
+<?php echo Yii::t('FeedbackModule.feedback','Text:'); ?> <?php echo $model->text;?><br/>
 
 <br/><br/>
 
-Ответить на это сообщения можно из панели управления сайтом или просто ответив на это письмо.
+<?php echo Yii::t('FeedbackModule.feedback','You can reply to this message from administration control panel, or you can answer for this message'); ?>
 
 <br/><br/>
-С уважением, администрация сайта <?php echo CHtml::encode(Yii::app()->name);?> !
+<?php echo Yii::t('FeedbackModule.feedback','Best regards, administration'); ?> <?php echo CHtml::encode(Yii::app()->name);?> !
 </body>
 </html>  

@@ -8,7 +8,7 @@
         <div class="accordion-inner">
             <?php echo strip_tags($data->answer);?>
             <span class="label label-info">
-                <?php echo CHtml::link('Подробнее...',array('/feedback/contact/faqView','id' => $data->id));?>
+                <?php echo CHtml::link(Yii::t('FeedbackModule.feedback','More...'),array('/feedback/contact/faqView','id' => $data->id));?>
             </span>
         </div>
     </div>
