@@ -364,7 +364,7 @@ class ETaggableBehavior extends CActiveRecordBehavior {
 
                     // if there is no existing tag, create one
                     if(!$tagId){
-                        $this->createTag($tag);
+                        $tobj = $this->createTag($tag);
 
                         // reset all tags cache
                         $this->resetAllTagsCache();
