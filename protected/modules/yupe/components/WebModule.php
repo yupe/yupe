@@ -131,9 +131,9 @@ abstract class WebModule extends \CWebModule
      * public function getNavigation()
      * {
      *       return array(
-     *           Yii::t('YupeModule.yupe','Blogs')     => '/blog/blogAdmin/admin/',
-     *           Yii::t('YupeModule.yupe','Posts')    => '/blog/postAdmin/admin/',
-     *           Yii::t('YupeModule.yupe','Members') => '/blog/BlogToUserAdmin/admin/',
+     *           Yii::t('YupeModule.yupe','Blogs')     => '/blog/blogBackend/admin/',
+     *           Yii::t('YupeModule.yupe','Posts')    => '/blog/postBackend/admin/',
+     *           Yii::t('YupeModule.yupe','Members') => '/blog/BlogToUserBackend/admin/',
      *      );
      * }
      *

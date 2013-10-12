@@ -1,6 +1,6 @@
 <?php
 /**
- * UserToBlogAdminController контроллер для управления участниками блога
+ * UserToBlogBackendController контроллер для управления участниками блога
  *
  * @author yupe team <team@yupe.ru>
  * @link http://yupe.ru
@@ -10,7 +10,7 @@
  *
  */
 
-class UserToBlogAdminController extends yupe\components\controllers\BackController
+class UserToBlogBackendController extends yupe\components\controllers\BackController
 {
     /**
      * Отображает участника по указанному идентификатору
