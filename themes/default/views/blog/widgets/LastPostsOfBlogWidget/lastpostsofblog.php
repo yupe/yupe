@@ -1,4 +1,4 @@
-<h3><small>Последние записи блога</small></h3>
+<h3><small><?php echo Yii::t('BlogModule.blog','Last blog posts'); ?></small></h3>
 
 <?php foreach($posts as $data):?>
     <div class="row">
@@ -9,7 +9,7 @@
     <div class="row">
         <div class="span6">
             <p> <?php echo $data->getQuote(); ?></p>
-            <!--<p><?php echo CHtml::link(Yii::t('default','читать...'), array('/blog/post/show/', 'slug' => $data->slug),array('class' => 'btn'));?></p>-->
+            <!--<p><?php echo CHtml::link(Yii::t('BlogModule.blog','read...'), array('/blog/post/show/', 'slug' => $data->slug),array('class' => 'btn'));?></p>-->
         </div>
     </div>
 

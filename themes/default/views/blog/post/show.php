@@ -10,7 +10,7 @@ Yii::app()->clientScript->registerScript(
 );
 
 $this->breadcrumbs = array(
-    Yii::t('blog', 'Блоги') => array('/blog/blog/index/'),
+    Yii::t('BlogModule.blog', 'Blogs') => array('/blog/blog/index/'),
     CHtml::encode($post->blog->name) => array('/blog/blog/show/', 'slug' => $post->blog->slug),
     CHtml::encode($post->title),
 ); ?>
@@ -48,7 +48,7 @@ $this->widget(
 
 <br/>
 
-<b><?php echo Yii::t('BlogModule.blog', 'Оставить комментарий'); ?></b>
+<b><?php echo Yii::t('BlogModule.blog', 'Leave comment'); ?></b>
 
 <?php
 $this->widget(

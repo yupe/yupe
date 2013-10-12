@@ -1,4 +1,4 @@
-<h3><small>Последние записи блога</small></h3>
+<h3><small><?php echo Yii::t('BlogModule.blog','Last blog posts'); ?></small></h3>
 
 <?php foreach($posts as $data):?>
     <div class="row">

@@ -1,9 +1,9 @@
 <?php $this->pageTitle = $target->name; ?>
 <?php
 $this->breadcrumbs = array(
-    Yii::t('blog', 'Блоги') => array('/blog/blog/index/'),
+    Yii::t('BlogModule.blog', 'Blogs') => array('/blog/blog/index/'),
     CHtml::encode($target->name) => array('/blog/blog/show/', 'slug' => $target->slug),
-    'Записи',
+    Yii::t('BlogModule.blog', 'Records'),
 );
 ?>
 

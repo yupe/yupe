@@ -7,7 +7,7 @@
     <div class="row">
         <div class="span6">
             <p> <?php echo $data->getQuote(); ?></p>
-            <!--<p><?php echo CHtml::link(Yii::t('default','читать...'), array('/blog/post/show/', 'slug' => $data->slug),array('class' => 'btn'));?></p>-->
+            <!--<p><?php echo CHtml::link(Yii::t('BlogModule.blog','read...'), array('/blog/post/show/', 'slug' => $data->slug),array('class' => 'btn'));?></p>-->
         </div>
     </div>
     <?php $this->widget('blog.widgets.PostMetaWidget', array('post' => $data));?>
