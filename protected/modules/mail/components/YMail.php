@@ -1,21 +1,11 @@
 <?php
-/**
- * Mail application component
- * Класс компонента Mail:
- *
- * @category YupeApplicationComponent
- * @package  yupe
- * @author   YupeTeam <team@yupe.ru>
- * @license  BSD https://raw.github.com/yupe/yupe/master/LICENSE
- * @link     http://yupe.ru
- **/
 
 /**
  * Mail application component
  * Класс компонента Mail:
  *
  * @category YupeApplicationComponent
- * @package  yupe
+ * @package  yupe.modules.mail.components
  * @author   YupeTeam <team@yupe.ru>
  * @license  BSD https://raw.github.com/yupe/yupe/master/LICENSE
  * @link     http://yupe.ru

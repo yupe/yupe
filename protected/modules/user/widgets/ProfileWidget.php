@@ -9,10 +9,12 @@
 
 class ProfileWidget extends YWidget
 {
+    public $view = 'profile-widget';
+
     public function run()
     {
         if(Yii::app()->user->isAuthenticated()) {
-            $this->render('profile-widget', array('user' => Yii::app()->user->getProfile()));
+            $this->render($this->view, array('user' => Yii::app()->user->getProfile()));
         }
     }
 }

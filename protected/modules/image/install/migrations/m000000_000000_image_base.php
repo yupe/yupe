@@ -1,11 +1,10 @@
 <?php
 /**
- * FileDocComment
  * Image install migration
- * Класс миграций для модуля Image:
+ * Класс миграций для модуля Image
  *
  * @category YupeMigration
- * @package  yupe
+ * @package  yupe.modules.image.install.migrations
  * @author   YupeTeam <team@yupe.ru>
  * @license  BSD https://raw.github.com/yupe/yupe/master/LICENSE
  * @link     http://yupe.ru

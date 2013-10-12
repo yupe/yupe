@@ -1,6 +1,16 @@
 <?php
 
 /**
+ * Модель ContentBlock
+ *
+ * @category YupeMigration
+ * @package  yupe.modules.contentblock.models
+ * @author   YupeTeam <team@yupe.ru>
+ * @license  BSD https://raw.github.com/yupe/yupe/master/LICENSE
+ * @link     http://yupe.ru
+ **/
+
+/**
  * This is the model class for table "ContentBlock".
  *
  * The followings are the available columns in table 'ContentBlock':

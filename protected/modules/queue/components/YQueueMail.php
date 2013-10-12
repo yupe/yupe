@@ -1,4 +1,16 @@
 <?php
+/**
+ * YQueueMail компонент для отправки почты через очередь
+ *
+ * @author yupe team <team@yupe.ru>
+ * @link http://yupe.ru
+ * @copyright 2009-2013 amyLabs && Yupe! team
+ * @package yupe.modules.queue.components
+ * @license  BSD https://raw.github.com/yupe/yupe/master/LICENSE
+ * @since 0.1
+ * @abstract
+ *
+ */
 class YQueueMail extends YMail
 {
     public $queueComponent    = 'queue';
@@ -12,12 +24,14 @@ class YQueueMail extends YMail
 
     public function getQueueComponent()
     {
-        if ($this->_queue !== null)
+        if ($this->_queue !== null) {
             return $this->_queue;
+        }
         else if (($id = $this->queueComponent) !== null)
         {
-            if (($this->_queue = Yii::app()->getComponent($id)) instanceof YQueue)
+            if (($this->_queue = Yii::app()->getComponent($id)) instanceof YQueue){
                 return $this->_queue;
+            }
         }
         throw new Exception(Yii::t('QueueModule.queue', 'YQuemail.queueComponent contains bad identifier of queue component!'));
     }

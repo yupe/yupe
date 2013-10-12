@@ -4,7 +4,7 @@
  * Класс миграций для модуля Gallery:
  *
  * @category YupeMigration
- * @package  yupe
+ * @package  yupe.modules.gallery.install.migrations
  * @author   YupeTeam <team@yupe.ru>
  * @license  BSD https://raw.github.com/yupe/yupe/master/LICENSE
  * @link     http://yupe.ru

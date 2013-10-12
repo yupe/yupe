@@ -3,7 +3,7 @@
  * Default Install Controller
  *
  * @category YupeControllers
- * @package  yupe
+ * @package yupe.modules.install.controllers
  * @author   YupeTeam <team@yupe.ru>
  * @license  BSD https://raw.github.com/yupe/yupe/master/LICENSE
  * @version  0.0.1

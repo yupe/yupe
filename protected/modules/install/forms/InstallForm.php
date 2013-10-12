@@ -4,19 +4,7 @@
  * Класс формы установки:
  *
  * @category YupeForms
- * @package  yupe
- * @author   YupeTeam <team@yupe.ru>
- * @license  BSD https://raw.github.com/yupe/yupe/master/LICENSE
- * @version  0.0.1
- * @link     http://yupe.ru
- **/
-
-/**
- * Install Form Model
- * Класс формы установки:
- *
- * @category YupeForms
- * @package  yupe
+ * @package  yupe.modules.install.forms
  * @author   YupeTeam <team@yupe.ru>
  * @license  BSD https://raw.github.com/yupe/yupe/master/LICENSE
  * @version  0.0.1

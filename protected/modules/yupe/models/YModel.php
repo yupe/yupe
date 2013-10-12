@@ -13,19 +13,9 @@
  * @link     http://yupe.ru - основной сайт
  * 
  **/
+
 Yii::import('yupe.extensions.tagcache.TagsCache');
-/**
- * YModel - базовый класс для всех моделей Юпи!
- *
- * @category YupeComponents
- * @package  Yupe
- * @abstract
- * @author   YupeTeam <team@yupe.ru>
- * @license  https://github.com/yupe/yupe/blob/master/LICENSE BSD
- * @version  0.0.4
- * @link     http://yupe.ru - основной сайт
- * 
- **/
+
 abstract class YModel extends CActiveRecord
 {
     public $cacheKey = false;

@@ -1,9 +1,10 @@
 <?php
+
 /**
- *    Хелпер, содержащий самые необходимые функции для работы с текстом
- *    Большинство функций взяты из фреймворка Codeigniter (text_helper)
+ * Хелпер, содержащий самые необходимые функции для работы с текстом
+ * Большинство функций взяты из фреймворка Codeigniter (text_helper)
  *
- * @package Yupe
+ * @package  yupe.modules.yupe.helpers
  * @subpackage helpers
  * @version 0.0.1
  * @author  Opeykin A. <aopeykin@yandex.ru>

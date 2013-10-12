@@ -99,5 +99,7 @@ return array (
     'create' => '',
     'are require.' => '',
     'manage' => '',
+    'Antispam interval' => '',
+    'Spam protection, try to create comment after {few} minutes!'=>'',
 );
 

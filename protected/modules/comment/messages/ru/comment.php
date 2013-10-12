@@ -102,4 +102,6 @@ Comment text:  {comment}' =>   'На вашем сайте добавлен ко
   'create' => 'добавление',
   'are require.' => 'обязательны.',
   'manage' => 'управление',
+  'Antispam interval' => 'Интервал (в секундах) для защиты от спама',
+  'Spam protection, try to create comment after {few} minutes!'=>'Защита от спама, попробуйте добавить комментарий спустя {few} минут!',
 );

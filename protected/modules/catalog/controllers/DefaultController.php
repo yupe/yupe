@@ -1,5 +1,14 @@
 <?php
-
+/**
+ * DefaultController контроллер для управления каталогом в панели управления
+ *
+ * @author yupe team <team@yupe.ru>
+ * @link http://yupe.ru
+ * @copyright 2009-2013 amyLabs && Yupe! team
+ * @package yupe.modules.catalog.controllers
+ * @since 0.1
+ *
+ */
 class DefaultController extends yupe\components\controllers\BackController
 {
     /**

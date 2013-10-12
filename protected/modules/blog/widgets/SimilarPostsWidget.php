@@ -14,7 +14,10 @@
 class SimilarPostsWidget extends YWidget
 {
     public $limit = 10;
+
     public $post;
+
+    public $view = 'similarposts';
 
     public function run()
     {
@@ -32,6 +35,6 @@ class SimilarPostsWidget extends YWidget
             $criteria
         );
 
-        $this->render('similarposts', array('posts' => $posts));
+        $this->render($this->view, array('posts' => $posts));
     }
 }

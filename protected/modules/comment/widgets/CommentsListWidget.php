@@ -19,6 +19,7 @@ class CommentsListWidget extends YWidget
     public $comment = null;
     public $comments;
     public $status;
+    public $view = 'commentslistwidget';
 
     /**
      * Инициализация виджета:
@@ -57,52 +58,6 @@ class CommentsListWidget extends YWidget
     }
 
     /**
-     * Функция для формирования иерархического дерева
-     *
-     * @param mixed $data - данные
-     *
-     * @copyright  2013 YupeTeam =)
-     *
-     * @return array - дерево
-     *
-     * @TODO оно для чего ? Скорее всего можно удалить ?
-     *
-     */
-    private function _buildTree($data)
-    {
-        $tree = array();
-        $assoc = array();
-        foreach ($data as $row) {
-            $id = '_' . str_pad($row->id, 10, '0', STR_PAD_LEFT);
-            $pid = '_' . str_pad($row->parent_id, 10, '0', STR_PAD_LEFT);
-            if (empty($row->parent_id)) {
-                $tree["{$id}_0"]['row'] = $row;
-                $tree["{$id}_0"]['childOf'] = array();
-            } else {
-                $tree["{$id}_0"]['row'] = $row;
-                if (isset($assoc["{$pid}_0"])) {
-                    $key = $assoc["{$pid}_0"];
-                } else {
-                    $key = "{$pid}_0";
-                }
-                if (isset($tree[$key])) {
-                    $tree["{$id}_0"]['childOf'] = array_merge(
-                        $tree[$key]['childOf'],
-                        (array)$pid
-                    );
-                }
-                if (isset($tree["{$id}_0"]['childOf'])) {
-                    $assoc["{$id}_0"] = join('_', array_merge($tree["{$id}_0"]['childOf'], (array)$id));
-                    $tree[join('_', array_merge($tree["{$id}_0"]['childOf'], (array)$id))] = $tree["{$id}_0"];
-                }
-                unset($tree["{$id}_0"], $row);
-            }
-        }
-        ksort($tree);
-        return $tree;
-    }
-
-    /**
      * Запуск виджета:
      *
      * @return void
@@ -128,14 +83,15 @@ class CommentsListWidget extends YWidget
                 }
                 //unset($this->comments[0]); // remove "root" node
                 foreach($this->comments as $k=>$v) {
-                    if($v->id == $v->root)
+                    if($v->id == $v->root){
                         unset($this->comments[$k]);
+                    }
                 }
                 $comments = $this->comments;
                 Yii::app()->cache->set("Comment{$this->model}{$this->modelId}", $comments);
             }
             $this->render(
-                'commentslistwidget',
+                $this->view,
                 array(
                     'comments' => $comments
                 )
@@ -143,7 +99,7 @@ class CommentsListWidget extends YWidget
         } else {
 
             $this->render(
-                'commentslistwidget',
+                $this->view,
                 array(
                     'comments' => array(0)
                 )

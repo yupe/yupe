@@ -1,11 +1,10 @@
 <?php
 /**
- * File Doc Comment
  * Queue install migration
- * Класс миграций для модуля Queue:
+ * Класс миграций для модуля Queue
  *
  * @category YupeMigration
- * @package  yupe
+ * @package  yupe.modules.queue.install.migrations
  * @author   YupeTeam <team@yupe.ru>
  * @license  BSD https://raw.github.com/yupe/yupe/master/LICENSE
  * @link     http://yupe.ru
