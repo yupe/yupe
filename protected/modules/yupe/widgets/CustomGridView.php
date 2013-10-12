@@ -365,8 +365,8 @@ JS
     {
         $cscript = Yii::app()->getClientScript();
 
-        $multiactionUrl = str_replace(Yii::app()->controller->action->id, 'multiaction', Yii::app()->request->requestUri);
-
+        $multiactionUrl = Yii::app()->controller->createUrl('multiaction');
+        
         /* Скрипт для мультиекшена: */
         $cscript->registerScript(
             __CLASS__ . '#' . $this->id . 'ExMultiaction',
