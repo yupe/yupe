@@ -1,15 +1,15 @@
 <?php
     $this->breadcrumbs = array(
         Yii::app()->getModule('catalog')->getCategory() => array(),
-        Yii::t('CatalogModule.catalog', 'Products') => array('/catalog/default/index'),
+        Yii::t('CatalogModule.catalog', 'Products') => array('/catalog/catalogBackend/index'),
         Yii::t('CatalogModule.catalog', 'Administration'),
     );
 
     $this->pageTitle = Yii::t('CatalogModule.catalog', 'Products - administration');
 
     $this->menu = array(
-        array('icon' => 'list-alt', 'label' => Yii::t('CatalogModule.catalog', 'Products administration'), 'url' => array('/catalog/default/index')),
-        array('icon' => 'plus-sign', 'label' => Yii::t('CatalogModule.catalog', 'Add product'), 'url' => array('/catalog/default/create')),
+        array('icon' => 'list-alt', 'label' => Yii::t('CatalogModule.catalog', 'Products administration'), 'url' => array('/catalog/catalogBackend/index')),
+        array('icon' => 'plus-sign', 'label' => Yii::t('CatalogModule.catalog', 'Add product'), 'url' => array('/catalog/catalogBackend/create')),
     );
 ?>
 <div class="page-header">
@@ -53,7 +53,7 @@ $this->renderPartial('_search', array('model' => $model));
         array(
             'name'  => 'name',
             'type'  => 'raw',
-            'value' => 'CHtml::link($data->name, array("/catalog/default/update", "id" => $data->id))',
+            'value' => 'CHtml::link($data->name, array("/catalog/catalogBackend/update", "id" => $data->id))',
         ),
         array(
             'name'  => 'alias',
@@ -83,7 +83,7 @@ $this->renderPartial('_search', array('model' => $model));
         array(
             'name'   => 'user_id',
             'type'   => 'raw',
-            'value'  => 'CHtml::link($data->user->getFullName(), array("/user/default/view", "id" => $data->user->id))',
+            'value'  => 'CHtml::link($data->user->getFullName(), array("/user/catalogBackend/view", "id" => $data->user->id))',
             'filter' => CHtml::listData(User::model()->cache(Yii::app()->getModule('yupe')->coreCacheTime)->findAll(),'id','nick_name')
         ),       
         array(

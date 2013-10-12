@@ -1,6 +1,6 @@
 <?php
 /**
- * DefaultController контроллер для управления каталогом в панели управления
+ * CatalogBackendController контроллер для управления каталогом в панели управления
  *
  * @author yupe team <team@yupe.ru>
  * @link http://yupe.ru
@@ -9,7 +9,7 @@
  * @since 0.1
  *
  */
-class DefaultController extends yupe\components\controllers\BackController
+class CatalogBackendController extends yupe\components\controllers\BackController
 {
     /**
      * Отображает товар по указанному идентификатору

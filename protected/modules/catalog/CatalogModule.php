@@ -94,14 +94,14 @@ class CatalogModule extends WebModule
     public function getNavigation()
     {
         return array(
-            array('icon' => 'list-alt', 'label' => Yii::t('CatalogModule.catalog', 'Products list'), 'url' => array('/catalog/default/index')),
-            array('icon' => 'plus-sign', 'label' => Yii::t('CatalogModule.catalog', 'Add product'), 'url' => array('/catalog/default/create')),
+            array('icon' => 'list-alt', 'label' => Yii::t('CatalogModule.catalog', 'Products list'), 'url' => array('/catalog/catalogBackend/index')),
+            array('icon' => 'plus-sign', 'label' => Yii::t('CatalogModule.catalog', 'Add product'), 'url' => array('/catalog/catalogBackend/create')),
         );
     }
 
     public function getAdminPageLink()
     {
-        return '/catalog/default/index';
+        return '/catalog/catalogBackend/index';
     }
     
     public function getVersion()
