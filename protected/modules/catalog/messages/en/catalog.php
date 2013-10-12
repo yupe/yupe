@@ -94,4 +94,5 @@ return array (
   'is required.' => '',
   'team@yupe.ru' => '',
   'yupe team' => '',
+  'Constant link' => '',
 );

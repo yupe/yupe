@@ -94,4 +94,5 @@ return array (
   'is required.' => 'обязательны для запонения',
   'team@yupe.ru' => 'team@yupe.ru',
   'yupe team' => 'yupe team',
+  'Constant link' => 'Постоянная ссылка',
 );

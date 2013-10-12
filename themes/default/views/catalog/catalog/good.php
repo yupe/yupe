@@ -2,7 +2,7 @@
 
 <?php
 $this->breadcrumbs = array(
-    'Товар' => array('/catalog/catalog/index/'),
+    Yii::t('CatalogModule.catalog','Product') => array('/catalog/catalog/index/'),
     CHtml::encode($good->name)
 );
 ?>
@@ -16,9 +16,9 @@ $this->breadcrumbs = array(
         <p><?php echo $good->description; ?></p>
     </div>
     <div class="nav">
-        Цена: <?php echo $good->price; ?>
+        <?php echo Yii::t('CatalogModule.catalog','Price').': '; echo $good->price; ?>
         <br/>
-        <?php echo CHtml::link('Постоянная ссылка', array('/news/news/show', 'name' => $good->alias));?>
+        <?php echo CHtml::link(Yii::t('CatalogModule.catalog','Constant link'), array('/news/news/show', 'name' => $good->alias));?>
     </div>
 </div>
 

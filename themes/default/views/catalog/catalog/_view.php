@@ -7,8 +7,8 @@
         <p><?php echo $data->short_description; ?></p>
     </div>
     <div class="nav">
-        Цена: <?php echo $data->price; ?>
+        <?php echo Yii::t('CatalogModule.catalog', 'Price').': '; echo $data->price; ?>
         <br/>
-        <?php echo CHtml::link('Постоянная ссылка', array('/catalog/catalog/show', 'name' => $data->alias));?>
+        <?php echo CHtml::link(Yii::t('CatalogModule.catalog', 'Constant link'), array('/catalog/catalog/show', 'name' => $data->alias));?>
     </div>
 </div>
