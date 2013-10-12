@@ -9,6 +9,8 @@
  *   @link     http://yupe.ru
  **/
 
+
+
 // подробнее про index.php http://www.yiiframework.ru/doc/guide/ru/basics.entry
 if (!ini_get('date.timezone')) {
     date_default_timezone_set('UTC');
@@ -46,4 +48,8 @@ $userspace = file_exists($userspace) ? (require $userspace) : array();
 
 $confManager = new yupe\components\ConfigManager();
 $config = $confManager->merge($base, $userspace);
+
+
+require dirname(__FILE__).'/../vendor/autoload.php';
+
 Yii::createWebApplication($config)->run();

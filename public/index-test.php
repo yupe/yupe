@@ -34,4 +34,6 @@ $userspace = file_exists($userspace) ? (require $userspace) : array();
 $confManager = new yupe\components\ConfigManager();
 $config = $confManager->merge($base, $userspace);
 
+require dirname(__FILE__).'/../vendor/autoload.php';
+
 Yii::createWebApplication($config)->run();
