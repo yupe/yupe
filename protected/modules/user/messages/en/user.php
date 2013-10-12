@@ -252,5 +252,7 @@ return array (
     'status is not set' => '',
     'management' => '',
     'Register' => '',
-    'Authorized' => ''
+    'Authorized' => '',
+    'My profile' => '',
+    'Edit profile' => '',
 );

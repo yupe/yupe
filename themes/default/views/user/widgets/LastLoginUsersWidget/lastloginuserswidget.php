@@ -3,7 +3,7 @@ if (isset($models) && !empty($models)) {
     $this->widget(
         'bootstrap.widgets.TbBox',
         array(
-            'title' => 'Пользователи',
+            'title' => Yii::t('UserModule.user','Users'),
             'headerIcon' => 'icon-user',
             'content' => $this->render('_users', array('models' => $models), true),
         )
