@@ -253,5 +253,7 @@ return array (
   'management' => 'управление',
   'Register' => 'Зарегестрироваться',
   'Authorized' => 'Авторизован',
-  'Recovery password key was not found! Please try one more!' => 'Ключ сброса пароля не найден!'
+  'Recovery password key was not found! Please try one more!' => 'Ключ сброса пароля не найден!',
+  'My profile' => 'Мой профиль',
+  'Edit profile' => 'Редактировать профиль',
 );

@@ -1,32 +1,33 @@
-<h1>Поздравляем!</h1>
-<p>Вы установили <a href="http://yupe.ru?from=mainpage" target='_blank'>Юпи! CMS</a>! Надеемся у Вас не возникло сложностей !?</p>
+<h1>Congratulations!</h1>
+<p>You just have installed <a href="http://yupe.ru?from=mainpage" target='_blank'>Yupe! CMS</a>! We hope it was simple and you haven't got any problems!?</p>
 <div class='alert alert-warning'>
-    <p><b>По вопросам разработки и поддержки - <a href='http://yupe.ru/feedback/index/?from=mainpage-support' target='_blank'>напишите нам</a> !</b></p>
-    <p>Читайте нас в <a href='http://twitter.com/yupecms' target='_blank'>twitter</a>, <a href='http://vk.com/amylabs' target='_blank'>Вконтакте</a>, <a href="https://www.facebook.com/amylabs.ru" target='_blank'>Facebook</a> или в <a href="https://plus.google.com/u/0/b/111468098477631231532/111468098477631231532/posts" target='_blank'>Google+</a></p>
+    <p><b>If you have questions about development and support - <a href='http://yupe.ru/feedback/index/?from=mainpage-support' target='_blank'>write us</a> !</b></p>
+    <p>Read us in <a href='http://twitter.com/yupecms' target='_blank'>twitter</a>, <a href='http://vk.com/amylabs' target='_blank'>Vk.com</a>, <a href="https://www.facebook.com/amylabs.ru" target='_blank'>Facebook</a> or in <a href="https://plus.google.com/u/0/b/111468098477631231532/111468098477631231532/posts" target='_blank'>Google+</a></p>
 </div>
 <?php if (YII_DEBUG === true) : ?>
 <p class='alert alert-info'>
-    Если вы замечаете "замедление" в работе сайта - не волнуйтесь, в большинстве случаев это связано с тем, что включён YII_DEBUG режим, при его отключении скорость будет на порядок выше. Но не стоит волноваться, ведь при переносе на реальный сервер YII_DEBUG отключается автоматически.
+    If you have noticed that site work slowly - don't panic. It because debug mode is (YII_DEBUG) enabled. If you disable it, site will work much more faster.
+    No reasons to be worried, when you deploy your site on production server, debug mode will de disabled automaticly.
 </p>
 <?php endif; ?>
 
-<p> Начните доработку Вашего сайта с правки <code>SiteController</code> (/protected/controllers/SiteController)</p>
-<P> Мы подготовили для Вас некоторые заготовки, например, список постов (модуль "блог") можно посмотреть вот <?php echo CHtml::link('здесь',array('/site/main'))?> (SiteController/actionMain)</P>
-<p> Для управления сайтом, пожалуйста, перейдите в <?php echo CHtml::link('панель управления', array('/yupe/backend/')); ?></p>
+<p> You can start to edit you site from <code>SiteController</code> edition (/protected/controllers/SiteController)</p>
+<P> We made some blanks for you, for example, list of posts (from "Blog" module) you can find <?php echo CHtml::link('here',array('/site/main'))?> (SiteController/actionMain)</P>
+<p> For site management, please go to <?php echo CHtml::link('Control Panel', array('/yupe/backend/')); ?></p>
 
-<p> При возникновении вопросов или проблем - обращайтесь:
+<p> If you have questions or problems - review this sources:
 	<ul>
-		<li>на наш <a href='http://yupe.ru/talk/?from=mainpage'>форум</a></li>
-		<li>на <a href='https://github.com/yupe/yupe/issues'>Github</a></li>
-		<li>к документации <a href='http://yupe.ru/docs/index.html?from=mainpage'> которая начинает наполняться </a></li>
+		<li>Our <a href='http://yupe.ru/talk/?from=mainpage'>forum</a></li>
+		<li><a href='https://github.com/yupe/yupe/issues'>Github</a></li>
+		<li>Our documentation <a href='http://yupe.ru/docs/index.html?from=mainpage'> we are working around it</a></li>
 	</ul>
 
-<p> Репозиторий дополнительных модулей и виджетов для Юпи! <a href="https://github.com/yupe/yupe-ext" target="_blank">https://github.com/yupe/yupe-ext</a></p>
+<p>Yupe! extensions and widgets repository, you can found here: <a href="https://github.com/yupe/yupe-ext" target="_blank">https://github.com/yupe/yupe-ext</a></p>
 
-<p><a href='http://yupe.ru/pages/help?from=mainpage' target='_blank'> Возможно, Вы хотите присоединиться к разработке или помочь проекту ?</a></p>
+<p><a href='http://yupe.ru/pages/help?from=mainpage' target='_blank'> Maybe you want to connect us for development our project together, or maybe you want to help us?</a></p>
 
 <div class="alert">
-    <p>Помоги команде!</p>
-    <p>Я.Деньгами на <b>41001846363811</b></p>
-    <p>Webmoney на <b>R239262659267</b></p>
+    <p>Donate us!</p>
+    <p>Yandex money on <b>41001846363811</b></p>
+    <p>Webmoney on <b>R239262659267</b></p>
 </div>
