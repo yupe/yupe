@@ -67,7 +67,7 @@ $form = $this->beginWidget('bootstrap.widgets.TbActiveForm', array(
     <?php echo $form->checkBoxRow($model, 'is_faq', $model->isFaqList); ?>
     <div class='hide'>
         <?php $this->widget(
-            $this->yupe->editor, array(
+            'application.modules.yupe.widgets.editors.imperaviRedactor.ImperaviRedactorWidget', array(
                 'model'       => $model,
                 'attribute'   => 'answer',
             )

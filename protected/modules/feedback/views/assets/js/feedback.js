@@ -1,13 +1,19 @@
 'use strict';
 
-// Опредедяем обёект:
+// Опредедяем объект:
 var listCell = {};
 
 // Настраиваем инициализатор:
 listCell.init = function(){
+    // Запоминаем текущий объект,
+    // так как он не доступен внутри
+    // других методов:
     var self       = this,
+    // Объект нашего listView:
         parent     = undefined,
+    // Объект loader:
         loader     = undefined,
+    // Текущий элемент:
         curentItem = undefined;
 
     // Объявляем нужные обработчики:
@@ -17,13 +23,15 @@ listCell.init = function(){
             listCell.buttons($(this));
         });
 
+        // Обработчик submit-а формы:
         $(document).on('submit', '.ajax-form', function() {
+            // Запоминаем объект формы:
             var form = $(this);
 
+            // Отключаем дефолтное событие:
             event.preventDefault();
 
-            console.log(form.serialize());
-
+            // Обрабатываем Ajax-запрос:
             $.post(form.attr('action'), form.serialize())
                 .done(function(response) {
                     form.closest('.modal').modal('hide');
@@ -96,6 +104,7 @@ listCell.init = function(){
         $.fn.yiiListView.update(self.parent.attr('id'));
     }
 
+    // Основной Ajax-обработчик:
     self.postWithUpdate = function(item) {
         // Показываем процесс выполнения:
         self.loader.show();
@@ -141,6 +150,7 @@ listCell.init = function(){
         }
     };
 
+    // Метод отрисовки формы ответа:
     self.answerForm = function(response, item) {
         var modal = $('<div class="modal hide fade"></div>');
 
@@ -181,6 +191,7 @@ listCell.init = function(){
 // Инициализация:
 jQuery(document).ready(function($){
 
+    // Инициализируем наш объект:
     listCell.init();
 
 });
