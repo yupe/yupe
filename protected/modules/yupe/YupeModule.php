@@ -544,7 +544,7 @@ class YupeModule extends WebModule
                     'icon' => "wrench",
                     'label' => Yii::t('YupeModule.yupe', 'Modules'),
                     'url' => array('/yupe/backend/settings'),
-                    'items' => array(),
+                    //'items' => array(),
                 );
 
                 // Сортируем категории модулей
@@ -562,7 +562,9 @@ class YupeModule extends WebModule
 
                 // Обходим категории модулей
                 foreach ($order as $keyCategory => $valueCategory) {
-                    $settings['items'][] = array('label' => $keyCategory);
+                    // Настройки модуля, если таковые имеются:
+                    $modSettings = array();
+                    $settings['items'] = array();
 
                     // Шаблон категорий
                     $modulesNavigation[$keyCategory] = array(
@@ -582,10 +584,13 @@ class YupeModule extends WebModule
                     foreach ($valueCategory as $key => $value) {
                         // Собраются подпункты категории "Настройки модулей", кроме пункта Юпи
                         if ($modules[$key]->editableParams && $key != $this->id) {
-                            $settings['items'][] = array(
-                                'icon' => $modules[$key]->icon,
-                                'label' => $modules[$key]->name,
-                                'url' => array('/yupe/backend/modulesettings', 'module' => $modules[$key]->id),
+                            $modSettings = array(
+                                '---',
+                                array(
+                                    'icon' => 'cog',
+                                    'label' => Yii::t('YupeModule.yupe', 'Module settings'),
+                                    'url' => array('/yupe/backend/modulesettings', 'module' => $modules[$key]->id),
+                                ),
                             );
                         }
 
@@ -604,12 +609,21 @@ class YupeModule extends WebModule
                             'icon' => $modules[$key]->icon,
                             'label' => $modules[$key]->name,
                             'url' => $modules[$key]->adminPageLinkNormalize,
+                            'items' => array(),
                         );
 
                         // Добавляем подменю у модулей
                         $links = $modules[$key]->getNavigation();
                         if (is_array($links)) {
                             $data['items'] = $links;
+                        } else {
+                            unset($modSettings[0]);
+                        }
+
+                        if ($key !== $this->id) {
+                            $data['items'] = array_merge(
+                                $data['items'], $key == $this->id ? array() : $modSettings
+                            );                            
                         }
 
                         $modulesNavigation[$keyCategory]['items'][$modules[$key]->id] = $data;
