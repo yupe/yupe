@@ -21,16 +21,16 @@ return array(
         ),
     ),
     'rules'     => array(
-        '/login'                => 'user/account/login',
-        '/yupe/backend/login'   => 'user/account/backendlogin',
-        '/logout'               => 'user/account/logout',
-        '/registration'         => 'user/account/registration',
-        '/recovery'             => 'user/account/recovery',
-        '/users'                => 'user/people/index',
-        '/profile'              => 'user/account/profile',
+        '/login'                 => 'user/account/login',
+        '/backend/login'         => 'user/account/backendlogin',
+        '/logout'                => 'user/account/logout',
+        '/registration'          => 'user/account/registration',
+        '/recovery'              => 'user/account/recovery',
+        '/users'                 => 'user/people/index',
+        '/profile'               => 'user/account/profile',
         '/users/<username:\w+>/' => 'user/people/userInfo',
-        '/activate/<key>'     => 'user/account/activate',
-        '/confirm/<key>'      => 'user/account/confirm',
-        '/recovery/<key>'     => 'user/account/restore'
+        '/activate/<key>'        => 'user/account/activate',
+        '/confirm/<key>'         => 'user/account/confirm',
+        '/recovery/<key>'        => 'user/account/restore'
     ),
 );
