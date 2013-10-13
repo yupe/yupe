@@ -1,15 +1,15 @@
 <?php
     $this->breadcrumbs = array(
         Yii::app()->getModule('contentblock')->getCategory() => array(''),
-        Yii::t('ContentBlockModule.contentblock', 'Content blocks') => array('/contentblock/default/index'),
+        Yii::t('ContentBlockModule.contentblock', 'Content blocks') => array('/contentblock/contentBlockBackend/index'),
         Yii::t('ContentBlockModule.contentblock', 'Administration'),
     );
 
     $this->pageTitle = Yii::t('ContentBlockModule.contentblock', 'Content blocks - admin');
 
     $this->menu = array(
-        array('icon' => 'list-alt','label' => Yii::t('ContentBlockModule.contentblock', 'Content blocks administration'), 'url' => array('/contentblock/default/index')),
-        array('icon' => 'plus-sign','label' => Yii::t('ContentBlockModule.contentblock', 'Add new content block'), 'url' => array('/contentblock/default/create')),
+        array('icon' => 'list-alt','label' => Yii::t('ContentBlockModule.contentblock', 'Content blocks administration'), 'url' => array('/contentblock/contentBlockBackend/index')),
+        array('icon' => 'plus-sign','label' => Yii::t('ContentBlockModule.contentblock', 'Add new content block'), 'url' => array('/contentblock/contentBlockBackend/create')),
     );
 ?>
 <div class="page-header">
@@ -53,7 +53,7 @@ $this->renderPartial('_search', array('model' => $model));
         array(
             'name'  => 'name',
             'type'  => 'raw',
-            'value' => 'CHtml::link($data->name, array("/contentblock/default/update", "id" => $data->id))',
+            'value' => 'CHtml::link($data->name, array("/contentblock/contentBlockBackend/update", "id" => $data->id))',
         ),
         array(
             'name'   => 'type',

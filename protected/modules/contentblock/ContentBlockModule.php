@@ -63,11 +63,16 @@ class ContentBlockModule extends yupe\components\WebModule
         ));
     }
 
+    public function getAdminPageLink()
+    {
+        return '/contentblock/contentBlockBackend/index';
+    }
+
     public function getNavigation()
     {
         return array(
-            array('icon' => 'list-alt', 'label' => Yii::t('ContentBlockModule.contentblock', 'Blocks list'), 'url' => array('/contentblock/default/index')),
-            array('icon' => 'plus-sign', 'label' => Yii::t('ContentBlockModule.contentblock', 'Add block'), 'url' => array('/contentblock/default/create')),
+            array('icon' => 'list-alt', 'label' => Yii::t('ContentBlockModule.contentblock', 'Blocks list'), 'url' => array('/contentblock/contentBlockBackend/index')),
+            array('icon' => 'plus-sign', 'label' => Yii::t('ContentBlockModule.contentblock', 'Add block'), 'url' => array('/contentblock/contentBlockBackend/create')),
         );
     }
 }

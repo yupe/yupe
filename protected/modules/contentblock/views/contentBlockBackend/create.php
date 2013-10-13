@@ -1,15 +1,15 @@
 <?php
     $this->breadcrumbs = array(
         Yii::app()->getModule('contentblock')->getCategory() => array(''),
-        Yii::t('ContentBlockModule.contentblock', 'Content blocks') => array('/contentblock/default/index'),
+        Yii::t('ContentBlockModule.contentblock', 'Content blocks') => array('/contentblock/contentBlockBackend/index'),
         Yii::t('ContentBlockModule.contentblock', 'Adding new content block'),
     );
 
     $this->pageTitle = Yii::t('ContentBlockModule.contentblock', 'Content blocks - add');
 
     $this->menu = array(
-        array('icon' => 'list-alt','label' => Yii::t('ContentBlockModule.contentblock', 'Content blocks administration'), 'url' => array('/contentblock/default/index')),
-        array('icon' => 'plus-sign','label' => Yii::t('ContentBlockModule.contentblock', 'Add content block'), 'url' => array('/contentblock/default/create')),
+        array('icon' => 'list-alt','label' => Yii::t('ContentBlockModule.contentblock', 'Content blocks administration'), 'url' => array('/contentblock/contentBlockBackend/index')),
+        array('icon' => 'plus-sign','label' => Yii::t('ContentBlockModule.contentblock', 'Add content block'), 'url' => array('/contentblock/contentBlockBackend/create')),
     );
 ?>
 <div class="page-header">
