@@ -31,7 +31,7 @@ $this->menu = array(
             'id' => $model->id
         )),
         array('icon' => 'comment', 'label' => Yii::t('BlogModule.blog', 'Comments'), 'url' => array(
-            '/comment/default/index',
+            '/comment/commentBackend/index',
             'Comment[model_id]' => $model->id,
             'Comment[model]' => 'Post'
 

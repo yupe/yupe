@@ -117,7 +117,7 @@ class CommentModule extends WebModule
                         '{{count}}' => $count,
                         '{{link}}'  => CHtml::link(
                             Yii::t('CommentModule.comment', 'Comments moderation'), array(
-                                    '/comment/default/index/order/status.asc/Comment_sort/status/',
+                                    '/comment/commentBackend/index/order/status.asc/Comment_sort/status/',
                             )
                         ),
                     )
@@ -160,9 +160,14 @@ class CommentModule extends WebModule
     public function getNavigation()
     {
         return array(
-            array('icon' => 'list-alt', 'label' => Yii::t('CommentModule.comment', 'Comments list'), 'url'=>array('/comment/default/index')),
-            array('icon' => 'plus-sign', 'label' => Yii::t('CommentModule.comment', 'Create comment'), 'url' => array('/comment/default/create')),
+            array('icon' => 'list-alt', 'label' => Yii::t('CommentModule.comment', 'Comments list'), 'url'=>array('/comment/commentBackend/index')),
+            array('icon' => 'plus-sign', 'label' => Yii::t('CommentModule.comment', 'Create comment'), 'url' => array('/comment/commentBackend/create')),
         );
+    }
+
+    public function getAdminPageLink()
+    {
+        return '/comment/commentBackend/index';
     }
 
     public function init()

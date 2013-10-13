@@ -1,15 +1,15 @@
 <?php
     $this->breadcrumbs = array(
         Yii::app()->getModule('comment')->getCategory() => array(),
-        Yii::t('CommentModule.comment', 'Comments') => array('/comment/default/index'),
+        Yii::t('CommentModule.comment', 'Comments') => array('/comment/commentBackend/index'),
         Yii::t('CommentModule.comment', 'Manage'),
     );
 
     $this->pageTitle = Yii::t('CommentModule.comment', 'Comments - management');
 
     $this->menu = array(
-        array('icon' => 'list-alt', 'label' => Yii::t('CommentModule.comment', 'Comments list'), 'url' => array('/comment/default/index')),
-        array('icon' => 'plus-sign', 'label' => Yii::t('CommentModule.comment', 'Create comment'), 'url' => array('/comment/default/create')),
+        array('icon' => 'list-alt', 'label' => Yii::t('CommentModule.comment', 'Comments list'), 'url' => array('/comment/commentBackend/index')),
+        array('icon' => 'plus-sign', 'label' => Yii::t('CommentModule.comment', 'Create comment'), 'url' => array('/comment/commentBackend/create')),
     );
 ?>
 <div class="page-header">

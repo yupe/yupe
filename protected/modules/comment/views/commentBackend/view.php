@@ -1,26 +1,26 @@
 <?php
     $this->breadcrumbs = array(
         Yii::app()->getModule('comment')->getCategory() => array(),
-        Yii::t('CommentModule.comment', 'Comments') => array('/comment/default/index'),
+        Yii::t('CommentModule.comment', 'Comments') => array('/comment/commentBackend/index'),
         $model->id,
     );
 
     $this->pageTitle = Yii::t('CommentModule.comment', 'Comments - show');
 
     $this->menu = array(
-        array('icon' => 'list-alt', 'label' => Yii::t('CommentModule.comment', 'Manage comments'), 'url' => array('/comment/default/index')),
-        array('icon' => 'plus-sign', 'label' => Yii::t('CommentModule.comment', 'Create comment'), 'url' => array('/comment/default/create')),
+        array('icon' => 'list-alt', 'label' => Yii::t('CommentModule.comment', 'Manage comments'), 'url' => array('/comment/commentBackend/index')),
+        array('icon' => 'plus-sign', 'label' => Yii::t('CommentModule.comment', 'Create comment'), 'url' => array('/comment/commentBackend/create')),
         array('label' => Yii::t('CommentModule.comment', 'Comment') . ' «' . mb_substr($model->id, 0, 32) . '»'),
         array('icon' => 'pencil', 'label' => Yii::t('CommentModule.comment', 'Edit comment'), 'url' => array(
-            '/comment/default/update',
+            '/comment/commentBackend/update',
             'id' => $model->id
         )),
         array('icon' => 'eye-open', 'label' => Yii::t('CommentModule.comment', 'View comment'), 'url' => array(
-            '/comment/default/view',
+            '/comment/commentBackend/view',
             'id' => $model->id
         )),
         array('icon' => 'trash', 'label' => Yii::t('CommentModule.comment', 'Delete comment'), 'url' => '#', 'linkOptions' => array(
-            'submit' => array('/comment/default/delete', 'id' => $model->id),
+            'submit' => array('/comment/commentBackend/delete', 'id' => $model->id),
             'params' => array(Yii::app()->request->csrfTokenName => Yii::app()->request->csrfToken),
             'confirm' => Yii::t('CommentModule.comment', 'Do you really want do remove comment?'),
         )),

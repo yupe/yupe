@@ -1,15 +1,15 @@
 <?php
 /**
- * DefaultController контроллер для управления комментариями в панели управления
+ * CommentBackendController контроллер для управления комментариями в панели управления
  *
- * @author yupe team <team@yupe.ru>
- * @link http://yupe.ru
+ * @author    yupe team <team@yupe.ru>
+ * @link      http://yupe.ru
  * @copyright 2009-2013 amyLabs && Yupe! team
- * @package yupe.modules.comment.controllers
- * @since 0.1
+ * @package   yupe.modules.comment.controllers
+ * @version   0.6
  *
  */
-class DefaultController extends yupe\components\controllers\BackController
+class CommentBackendController extends yupe\components\controllers\BackController
 {
     /**
      * Displays a particular model.
@@ -31,31 +31,30 @@ class DefaultController extends yupe\components\controllers\BackController
         // Uncomment the following line if AJAX validation is needed
         // $this->performAjaxValidation($model);
 
-        if (isset($_POST['Comment']))
-        {
-            $model->attributes = $_POST['Comment'];
+        if (($data = Yii::app()->getRequest()->getPost('Comment')) !== null) {
+            $model->setAttributes($data);
 
             $saveStatus = false;
-            $parentId = $model->getAttribute('parent_id');
+            $parentId   = $model->getAttribute('parent_id');
+            
             // Если указан parent_id просто добавляем новый комментарий.
-            if($parentId > 0)
-            {
+            if($parentId > 0) {
                 $rootForComment = Comment::model()->findByPk($parentId);
-                $saveStatus = $model->appendTo($rootForComment);
-            }else{ // Иначе если parent_id не указан...
+                $saveStatus     = $model->appendTo($rootForComment);
+            } else { // Иначе если parent_id не указан...
 
-                $rootNode = Comment::createRootOfCommentsIfNotExists($model->getAttribute("model"),
-                    $model->getAttribute("model_id"));
+                $rootNode = Comment::createRootOfCommentsIfNotExists(
+                    $model->getAttribute("model"),
+                    $model->getAttribute("model_id")
+                );
 
                 // Добавляем комментарий к корню.
-                if ($rootNode!==false && $rootNode->id > 0)
-                {
+                if ($rootNode!==false && $rootNode->id > 0) {
                     $saveStatus = $model->appendTo($rootNode);
                 }
             }
 
-            if ($saveStatus)
-            {
+            if ($saveStatus) {
                 Yii::app()->cache->delete("Comment{$model->model}{$model->model_id}");
                 Yii::app()->user->setFlash(YFlashMessages::SUCCESS_MESSAGE,Yii::t('CommentModule.comment','Comment was created!'));
 
@@ -78,22 +77,26 @@ class DefaultController extends yupe\components\controllers\BackController
     public function actionUpdate($id)
     {
         $model = $this->loadModel($id);
+        
         Yii::app()->cache->delete("Comment{$model->model}{$model->model_id}");
+        
         // Uncomment the following line if AJAX validation is needed
         // $this->performAjaxValidation($model);
+        if (($data = Yii::app()->getRequest()->getPost('Comment')) !== null) {
+            
+            $model->setAttributes($data);
 
-        if (isset($_POST['Comment']))
-        {
-            $model->attributes = $_POST['Comment'];
+            if ($model->saveNode()) {
+                Yii::app()->user->setFlash(
+                    YFlashMessages::SUCCESS_MESSAGE,
+                    Yii::t('CommentModule.comment','Comment was updated!')
+                );
 
-            if ($model->saveNode())
-            {
-                Yii::app()->user->setFlash(YFlashMessages::SUCCESS_MESSAGE,Yii::t('CommentModule.comment','Comment was updated!'));
-
-                if (!isset($_POST['submit-type']))
-                    $this->redirect(array('update', 'id' => $model->id));
-                else
-                    $this->redirect(array($_POST['submit-type']));
+                $this->redirect(
+                    (array) Yii::app()->getRequest()->getPost(
+                        'submit-type', array('update', 'id' => $model->id)
+                    )
+                );
             }
         }
         $this->render('update', array('model' => $model));
@@ -106,16 +109,16 @@ class DefaultController extends yupe\components\controllers\BackController
      */
     public function actionDelete($id)
     {
-        if (Yii::app()->request->isPostRequest)
-        {
+        if (Yii::app()->request->isPostRequest) {
+            
             // we only allow deletion via POST request
             $model = $this->loadModel($id);
             Yii::app()->cache->delete("Comment{$model->model}{$model->model_id}");
             $model->deleteNode();
 
-            // if AJAX request (triggered by deletion via admin grid view), we should not redirect the browser
-            if (!isset($_GET['ajax']))
-                $this->redirect(isset($_POST['returnUrl']) ? $_POST['returnUrl'] : array('index'));
+            Yii::app()->getRequest()->getParam('ajax') !== null || $this->redirect(
+                (array) Yii::app()->getRequest()->getPost('returnUrl', 'index')
+            );
         }
         else
             throw new CHttpException(400, Yii::t('CommentModule.comment', 'Bad request. Please don\'t repeate similar requests anymore'));
@@ -127,9 +130,15 @@ class DefaultController extends yupe\components\controllers\BackController
     public function actionIndex()
     {
         $model = new Comment('search');
+        
         $model->unsetAttributes(); // clear any default values
-        if (isset($_GET['Comment']))
-            $model->attributes = $_GET['Comment'];
+        
+        $model->setAttributes(
+            Yii::app()->getRequest()->getParam(
+                'Comment', array()
+            )
+        );
+        
         $this->render('index', array('model' => $model));
     }
 
@@ -152,8 +161,7 @@ class DefaultController extends yupe\components\controllers\BackController
      */
     protected function performAjaxValidation($model)
     {
-        if (isset($_POST['ajax']) && $_POST['ajax'] === 'comment-form')
-        {
+        if (Yii::app()->getRequest()->getIsAjaxRequest() && Yii::app()->getRequest()->getPost('ajax') === 'comment-form') {
             echo CActiveForm::validate($model);
             Yii::app()->end();
         }
