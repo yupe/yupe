@@ -1,3 +1,4 @@
+<?php Yii::import('application.modules.comment.CommentModule'); ?>
 <div id="comments">
 <?php if(count($comments)):?>
     <?php if (!$this->comment):?>

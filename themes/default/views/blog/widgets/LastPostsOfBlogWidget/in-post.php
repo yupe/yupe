@@ -1,3 +1,4 @@
+<?php Yii::import('application.modules.blog.BlogModule'); ?>
 <h3><small><?php echo Yii::t('BlogModule.blog','Last blog posts'); ?></small></h3>
 
 <?php foreach($posts as $data):?>

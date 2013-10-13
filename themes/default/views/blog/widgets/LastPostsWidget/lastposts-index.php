@@ -1,3 +1,4 @@
+<?php Yii::import('application.modules.blog.BlogModule'); ?>
 <?php foreach($models as $data):?>
     <div class="row">
         <div class="span6">

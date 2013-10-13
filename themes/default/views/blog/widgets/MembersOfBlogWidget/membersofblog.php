@@ -1,3 +1,4 @@
+<?php Yii::import('application.modules.blog.BlogModule'); ?>
 <?php if(count($model->members)):?>
 <p>
     <?php echo Yii::t('BlogModule.blog', 'Members'); ?>:

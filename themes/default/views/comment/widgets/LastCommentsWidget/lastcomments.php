@@ -1,3 +1,4 @@
+<?php Yii::import('application.modules.comment.CommentModule'); ?>
 <div class='portlet'>
     <div class='portlet-decoration'>
         <div class='portlet-title'><?php echo Yii::t('CommentModule.comment','Last comments');?></div>
