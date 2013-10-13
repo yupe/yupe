@@ -1,3 +1,4 @@
+<?php Yii::import('application.modules.comment.CommentModule'); ?>
 <script type='text/javascript'>
     var errorMessage = '<?php echo Yii::t("CommentModule.comment", 'There is an error when create comments, try again later.'); ?>';
 </script>

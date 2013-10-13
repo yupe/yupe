@@ -1,3 +1,4 @@
+<?php Yii::import('application.modules.blog.BlogModule'); ?>
 <ul class="unstyled">
     <?php $cnt = count($models); $i = 0; ?>
     <?php foreach ($models as $model): ?>

@@ -1,3 +1,4 @@
+<?php Yii::import('application.modules.blog.BlogModule'); ?>
 <?php if(count($posts)):?>
     <div class="alert alert-notice">
         <h4><?php echo Yii::t('BlogModule.blog', 'read also:');?></h4>

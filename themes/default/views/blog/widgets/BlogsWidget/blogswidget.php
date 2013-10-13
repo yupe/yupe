@@ -1,4 +1,5 @@
 <?php
+Yii::import('application.modules.blog.BlogModule');
 if (isset($models) && !empty($models)) {
     $this->widget(
         'bootstrap.widgets.TbBox',
