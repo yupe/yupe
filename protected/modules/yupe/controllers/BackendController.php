@@ -41,6 +41,7 @@ class BackendController extends yupe\components\controllers\BackController
      **/
     public function actionSettings()
     {
+        $this->hideSidebar = true;
         $this->render('settings', $this->yupe->getModules(false, true));
     }
 

@@ -25,6 +25,9 @@ class BackController extends Controller
 {
     const BULK_DELETE = 'delete';
 
+    // Прятать sidebar или нет:
+    public $hideSidebar = false;
+
     public function filters()
     {
         return array(
