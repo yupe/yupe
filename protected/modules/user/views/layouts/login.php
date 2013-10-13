@@ -120,8 +120,10 @@
                     ),
                 )
             ); ?>
-    <div class="container-fluid" id="page"><?php echo $content; ?></div>
-    <div id="footer-guard"><!-- --></div>
+    <div class="container-fluid" id="page">
+        <?php echo $content; ?>
+        <div id="footer-guard"><!-- --></div>
+    </div>
 </div>
 
 <footer>

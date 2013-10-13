@@ -24,6 +24,10 @@ form .help-block {
     display: none;
 }
 
+body.admin-panel #footer-guard {
+	height: 40px;
+}
+
 body.admin-panel > footer {
 	position: fixed;
     height: 30px;
