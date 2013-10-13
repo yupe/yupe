@@ -88,15 +88,16 @@ class YWebUser extends CWebUser
      *
      * @param string $moduleName - идентификатор модуля
      *
-     * @todo: Реализовать выборку любого профиля
      *
      * @return null || user profile
      **/
-    public function getProfile($moduleName = null)
+    public function getProfile($id = null,$moduleName = null)
     {
         if (!$moduleName) {
+			if (empty($id))
+				$id = $this->id;
             if ($this->_profile === null)
-                $this->_profile = User::model()->findByPk($this->id);
+                $this->_profile = User::model()->findByPk($id);
             return $this->_profile;
         }
         return null;
