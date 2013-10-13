@@ -1,6 +1,8 @@
 <?php
 $this->pageTitle = Yii::t('FeedbackModule.feedback','Contacts');
 $this->breadcrumbs = array(Yii::t('FeedbackModule.feedback','Contacts'));
+Yii::import('application.modules.feedback.FeedbackModule');
+Yii::import('application.modules.install.InstallModule');
 ?>
 
 <h1><?php echo Yii::t('FeedbackModule.feedback','Contacts'); ?></h1>
