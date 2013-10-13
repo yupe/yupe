@@ -129,7 +129,7 @@ function moduleRow($module, &$updates, &$modules)
                         foreach($deps as &$dep)
                             $dep = $modules[$dep]->getName();
                         $tabs[] = array(
-                            'label'   => Yii::t('YupeModule.yupe', 'dependent'),
+                            'label'   => "<br />" . Yii::t('YupeModule.yupe', 'dependent'),
                             'content' => implode(', ', $deps),
                             'count'   => count($deps),
                         );

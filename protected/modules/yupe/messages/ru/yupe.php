@@ -280,7 +280,7 @@ return array (
   'Yupe! Generator!' => 'Юпи! Генератор!',
   'Yupe! developers team' => 'Команда разработчиков Юпи!',
   'accept any kind of business and any proposals =)' => 'принимаем всякого рода коммерческие и любые предложения =)',
-  'dependent' => 'зависит',
+  'dependent' => 'зависимые',
   'enabled' => 'включен',
   'disabled|disabled' => 'выключен|выключено',
   'feedback form' => 'Форма обратной свази',
