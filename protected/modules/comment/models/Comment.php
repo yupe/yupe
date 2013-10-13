@@ -1,4 +1,4 @@
-<?php
+    <?php
 
 /**
  * Comment model class:
@@ -31,7 +31,7 @@
  * @package  yupe.modules.comment.model
  * @author   YupeTeam <team@yupe.ru>
  * @license  BSD http://ru.wikipedia.org/wiki/%D0%9B%D0%B8%D1%86%D0%B5%D0%BD%D0%B7%D0%B8%D1%8F_BSD
- * @version  0.5.3
+ * @version  0.6
  * @link     http://yupe.ru
  */
 
@@ -176,8 +176,8 @@ class Comment extends YModel
 
         $criteria->compare('id', $this->id, true);
         $criteria->compare('model', $this->model, true);
-        $criteria->compare('model_id', $this->model_id, true);
-        $criteria->compare('parent_id', $this->parent_id, true);
+        $criteria->compare('model_id', $this->model_id);
+        $criteria->compare('parent_id', $this->parent_id);
         $criteria->compare('creation_date', $this->creation_date, true);
         $criteria->compare('name', $this->name, true);
         $criteria->compare('email', $this->email, true);

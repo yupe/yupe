@@ -3,11 +3,11 @@
 /**
  * CommentModule основной класс модуля comment
  *
- * @author yupe team <team@yupe.ru>
- * @link http://yupe.ru
+ * @author    yupe team <team@yupe.ru>
+ * @link      http://yupe.ru
  * @copyright 2009-2013 amyLabs && Yupe! team
- * @package yupe.modules.comment
- * @since 0.1
+ * @package   yupe.modules.comment
+ * @version   0.6
  *
  */
 
