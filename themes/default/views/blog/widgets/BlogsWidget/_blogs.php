@@ -7,11 +7,11 @@
             </p>
             <p>
                 <i class="icon-user"></i>
-                Участников:
+                <?php echo Yii::t('BlogModule.blog','Members:'); ?>
                 <?php echo $model->membersCount; ?>
 
                 <i class="icon-file-alt"></i>
-                Записей:
+                <?php echo Yii::t('BlogModule.blog','Posts:'); ?>
                 <?php echo CHtml::link($model->postsCount,array('/blog/post/blog/','slug' => $model->slug)); ?>
             </p>
         </li>

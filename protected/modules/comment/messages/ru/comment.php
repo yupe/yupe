@@ -104,4 +104,11 @@ Comment text:  {comment}' =>   'На вашем сайте добавлен ко
   'manage' => 'управление',
   'Antispam interval' => 'Интервал (в секундах) для защиты от спама',
   'Spam protection, try to create comment after {few} minutes!'=>'Защита от спама, попробуйте добавить комментарий спустя {few} минут!',
+  'Last comments' => 'Последние комментарии',
+  'Reply' => 'Ответить',
+  'no comments, be first!' => 'пока нет, станьте первым!',
+  'There is an error when create comments, try again later.'=>'При добавлении комментария возникла ошибка, повторите попытку позже.',
+  'WRITE COMMENT'=>' НАПИСАТЬ КОММЕНТАРИЙ',
+  'From user' => 'От имени',
+  'Insert symbols you see on picture'=>'Введите цифры указанные на картинке',
 );

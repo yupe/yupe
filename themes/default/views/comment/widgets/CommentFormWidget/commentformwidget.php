@@ -1,7 +1,7 @@
 <script type='text/javascript'>
-    var errorMessage = '<?php echo Yii::t("CommentModule.comment", "При добавлении комментария возникла ошибка, повторите попытку позже.")?>';
+    var errorMessage = '<?php echo Yii::t("CommentModule.comment", 'There is an error when create comments, try again later.'); ?>';
 </script>
-<a href='#' id='wcml' style="display: none;">НАПИСАТЬ КОММЕНТАРИЙ</a>
+<a href='#' id='wcml' style="display: none;"><?php echo Yii::t("CommentModule.comment", 'WRITE COMMENT'); ?></a>
 <br/>
 <div id='comment-form-wrap' class='comment-form-wrap'>
 <div class="form">
@@ -19,9 +19,9 @@
 ); ?>
 
     <p class="note">
-        <?php echo Yii::t('CommentModule.comment', 'Поля, отмеченные'); ?>
+        <?php echo Yii::t('CommentModule.comment', 'Fields with'); ?>
         <span class="required">*</span> 
-        <?php echo Yii::t('CommentModule.comment', 'обязательны для заполнения'); ?>
+        <?php echo Yii::t('CommentModule.comment', 'are require.'); ?>
     </p>
 
     <?php echo $form->errorSummary($model); ?>
@@ -45,7 +45,7 @@
         </div>
 
     <?php else: ?>
-        <p><?php echo Yii::t('CommentModule.comment', 'От имени'); ?>: <?php echo Yii::app()->user->getState('nick_name'); ?></p>
+        <p><?php echo Yii::t('CommentModule.comment', 'From user'); ?>: <?php echo Yii::app()->user->getState('nick_name'); ?></p>
     <?php endif; ?>
 
     <div class='row-fluid control-group <?php echo $model->hasErrors('text') ? 'error' : ''; ?>'>
@@ -68,7 +68,7 @@
                 ); ?>
 
                 <div class='row-fluid control-group <?php echo $model->hasErrors('verifyCode') ? 'error' : ''; ?>'>
-                    <?php echo $form->textFieldRow($model, 'verifyCode', array('placeholder' => 'Введите цифры указанные на картинке','class' => 'span6', 'required' => true)); ?>
+                    <?php echo $form->textFieldRow($model, 'verifyCode', array('placeholder' => Yii::t('CommentModule.comment', 'Insert symbols you see on picture'),'class' => 'span6', 'required' => true)); ?>
                 </div>
         <?php endif; ?>
     <?php endif; ?>
@@ -80,7 +80,7 @@
                 'buttonType' => 'submit',
                 'type' => 'primary',
                 'icon' => 'comment',
-                'label' => Yii::t('comment', 'Добавить комментарий'),
+                'label' => Yii::t('CommentModule.comment', 'Create comment'),
             )
         ); ?>
     </div>

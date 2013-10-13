@@ -3,7 +3,7 @@
 
 <?php
 $this->breadcrumbs = array(
-    'Вопросы и ответы' => array('/feedback/contact/faq/'),
+    Yii::t('FeedbackModule.feedback', 'FAQ') => array('/feedback/contact/faq/'),
     $model->theme,
 );
 ?>
@@ -18,7 +18,7 @@ $this->breadcrumbs = array(
                 'class' => 'btn btn-info'
             ),
             'buttonType' => 'link',
-            'label' => Yii::t('UserModule.user', 'Задайте вопрос ?!'),
+            'label' => Yii::t('FeedbackModule.feedback', 'Add question ?'),
             'url' => Yii::app()->createUrl('/feedback/contact/index/'),
         )
     ); ?>
@@ -54,11 +54,11 @@ $this->breadcrumbs = array(
 
 <br/><br/>
 
-<?php $this->widget('application.modules.comment.widgets.CommentsListWidget', array('label' => 'Мнений','model' => $model, 'modelId' => $model->id)); ?>
+<?php $this->widget('application.modules.comment.widgets.CommentsListWidget', array('label' => Yii::t('FeedbackModule.feedback', 'Opinions'),'model' => $model, 'modelId' => $model->id)); ?>
 
 <br/>
 
-<h3>У Вас есть свое мнение по этому вопросу !? Поделитесь им!</h3>
+<h3><?php echo Yii::t('FeedbackModule.feedback', 'Do you have your own opinions for this question?');  ?></h3>
 
 <?php $this->widget('application.modules.comment.widgets.CommentFormWidget', array('redirectTo' => $this->createUrl('/feedback/contact/faqView/', array('id' => $model->id)), 'model' => $model, 'modelId' => $model->id)); ?>
 

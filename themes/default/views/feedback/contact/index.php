@@ -1,23 +1,22 @@
 <?php
-$this->pageTitle = 'Юпи! | Контакты';
-$this->breadcrumbs = array('Контакты');
+$this->pageTitle = Yii::t('FeedbackModule.feedback','Contacts');
+$this->breadcrumbs = array(Yii::t('FeedbackModule.feedback','Contacts'));
 ?>
 
-<h1>Контакты</h1>
+<h1><?php echo Yii::t('FeedbackModule.feedback','Contacts'); ?></h1>
 
 <?php $this->widget('application.modules.yupe.widgets.YFlashMessages'); ?>
 
 <div class="alert alert-notice">
 
-    <p> Если у Вас есть вопросы, предложения или Вы хотите сообщите об ошибке.</p>
+    <p> <?php echo Yii::t('FeedbackModule.feedback','If you have any questions, proposals or want to report an error'); ?></p>
 
-    <p> Если Вы заинтересованы в создании качественного легкого в
-        поддержке проекта.</p>
+    <p> <?php echo Yii::t('FeedbackModule.feedback','If you interesting with quality project which simple in support'); ?></p>
 
-    <p><b>Срочно <a href="http://yupe.ru/feedback/index?from=contact" target="_blank">напишите нам</a> об этом!</b></p>
-    <p> Мы стараемся отвечать очень быстро :)</p>
+    <p><b><?php echo Yii::t('FeedbackModule.feedback','Immediately <a href="http://yupe.ru/feedback/index?from=contact" target="_blank">write to us</a> about it!'); ?></b></p>
+    <p> <?php echo Yii::t('FeedbackModule.feedback','We try to answer as fast as we can!'); ?></p>
 
-    <p><b>Спасибо, за внимание!</b></p>
+    <p><b><?php echo Yii::t('FeedbackModule.feedback','Thanks for attention!'); ?></b></p>
 
 </div>
 
@@ -34,7 +33,7 @@ $this->breadcrumbs = array('Контакты');
         )
     ); ?>
 
-    <p class="note">Поля, отмеченные <span class="required">*</span> обязательны для заполнения</p>
+    <p class="note"><?php echo Yii::t('FeedbackModule.feedback','Fields with'); ?> <span class="required">*</span> <?php echo Yii::t('FeedbackModule.feedback','are required.'); ?></p>
 
     <?php echo $form->errorSummary($model); ?>
 
@@ -73,7 +72,7 @@ $this->breadcrumbs = array('Контакты');
                 )); ?>
 
                 <div class='row-fluid control-group <?php echo $model->hasErrors('verifyCode') ? 'error' : ''; ?>'>
-                    <?php echo $form->textFieldRow($model, 'verifyCode', array('placeholder' => 'Введите цифры указанные на картинке','class' => 'span6', 'required' => true)); ?>
+                    <?php echo $form->textFieldRow($model, 'verifyCode', array('placeholder' => Yii::t('FeedbackModule.feedback', 'Insert symbols you see on image'),'class' => 'span6', 'required' => true)); ?>
                 </div>
         <?php endif; ?>
     <?php endif; ?>
@@ -84,7 +83,7 @@ $this->breadcrumbs = array('Контакты');
         array(
             'buttonType' => 'submit',
             'type' => 'primary',
-            'label' => Yii::t('UserModule.user', 'Отправить сообщение'),
+            'label' => Yii::t('FeedbackModule.feedback', 'Send message'),
         )
     ); ?>
 
@@ -95,24 +94,24 @@ $this->breadcrumbs = array('Контакты');
 
 <div class="alert alert-success">
 
-    <p><?php echo Yii::t('install', 'Полезные ссылки:'); ?></p>
+    <p><?php echo Yii::t('InstallModule.install', 'Interesting links:'); ?></p>
 
-    <?php echo CHtml::link(Yii::t('install', 'Официальная документация Юпи'), 'http://yupe.ru/docs/index.html?from=contact'); ?>  - <?php echo Yii::t('install', 'Очень активно ее пишем, помоги нам =)'); ?>
-
-    <br/><br/>
-
-    <?php echo CHtml::link(Yii::t('install', 'Форум поддержки Юпи'), 'http://yupe.ru/talk/'); ?>  - <?php echo Yii::t('install', 'Обсуждения, страсти, tip and trics - всё тут =)'); ?>
+    <?php echo CHtml::link(Yii::t('InstallModule.install', 'Official docs'), 'http://yupe.ru/docs/index.html?from=contact'); ?>  - <?php echo Yii::t('InstallModule.install', 'We working with it'); ?>
 
     <br/><br/>
 
-    <?php echo CHtml::link(Yii::t('install', 'Официальный твиттер Юпи'), 'https://twitter.com/#!/YupeCms'); ?>  - <?php echo Yii::t('install', 'Обязательно заффоловьте нас, мы не спамим =)'); ?>
+    <?php echo CHtml::link(Yii::t('InstallModule.install', 'Support Yupe forum'), 'http://yupe.ru/talk/'); ?>  - <?php echo Yii::t('InstallModule.install', 'All discussions here'); ?>
 
     <br/><br/>
 
-    <?php echo CHtml::link(Yii::t('install', 'Исходный код на Github'), 'http://github.com/yupe/yupe/'); ?> - <?php echo Yii::t('install', 'Пришлите нам парочку пулл-реквестов, все только выиграют =)'); ?>
+    <?php echo CHtml::link(Yii::t('InstallModule.install', 'Official Yupe twitter'), 'https://twitter.com/#!/YupeCms'); ?>  - <?php echo Yii::t('InstallModule.install', 'Follow us'); ?>
 
     <br/><br/>
 
-    <?php echo CHtml::link(Yii::t('install', 'Генеральный спонсор'), 'http://amylabs.ru?from=yupe-contact'); ?> - <?php echo Yii::t('install', 'Просто отличные парни =)'); ?>
+    <?php echo CHtml::link(Yii::t('InstallModule.install', 'Sources on GitHub'), 'http://github.com/yupe/yupe/'); ?> - <?php echo Yii::t('InstallModule.install', 'Send pull request'); ?>
+
+    <br/><br/>
+
+    <?php echo CHtml::link(Yii::t('InstallModule.install', 'General sponsor'), 'http://amylabs.ru?from=yupe-contact'); ?> - <?php echo Yii::t('InstallModule.install', 'Just good guys'); ?>
 
 </div>

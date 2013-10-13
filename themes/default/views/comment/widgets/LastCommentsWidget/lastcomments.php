@@ -1,6 +1,6 @@
 <div class='portlet'>
     <div class='portlet-decoration'>
-        <div class='portlet-title'>Последние комментарии</div>
+        <div class='portlet-title'><?php echo Yii::t('CommentModule.comment','Last comments');?></div>
     </div>
     <div class='portlet-content'>
         <?php if(isset($models) && $models != array()): ?>

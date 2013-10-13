@@ -1,14 +1,14 @@
-<?php $this->pageTitle = Yii::t('feedback', 'Вопросы и ответы'); ?>
+<?php $this->pageTitle = Yii::t('FeedbackModule.feedback', 'FAQ'); ?>
 
 <?php
     $this->breadcrumbs = array(
-        Yii::t('feedback', 'Контакты') => array('/feedback/index/'),
-        Yii::t('feedback', 'Вопросы и ответы'),
+        Yii::t('FeedbackModule.feedback', 'Contacts') => array('/feedback/index/'),
+        Yii::t('FeedbackModule.feedback', 'FAQ'),
     );
 ?>
 
 <h1>
-    <?php echo Yii::t('feedback', 'Вопросы и ответы')?>
+    <?php echo Yii::t('FeedbackModule.feedback', 'FAQ')?>
     <?php $this->widget(
         'bootstrap.widgets.TbButton',
         array(
@@ -16,7 +16,7 @@
                 'class' => 'btn btn-info'
             ),
             'buttonType' => 'link',
-            'label' => Yii::t('UserModule.user', 'Задайте вопрос ?!'),
+            'label' => Yii::t('FeedbackModule.feedback', 'Add question ?'),
             'url' => Yii::app()->createUrl('/feedback/contact/index/'),
         )
     ); ?>
