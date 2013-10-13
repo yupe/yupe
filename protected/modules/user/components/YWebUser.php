@@ -86,11 +86,11 @@ class YWebUser extends CWebUser
     /**
      * Метод возвращающий профайл пользователя:
      *
-     * @param string $moduleName - идентификатор модуля
+     * @param string $id  - идентификатор пользователя
+     * @param string $moduleName   - идентификатор модуля
      *
-     *
-     * @return null || user profile
-     **/
+     * @return User|null - Модель пользователя в случае успеха, иначе null
+     */
     public function getProfile($id = null,$moduleName = null)
     {
         if (!$moduleName) {
