@@ -73,7 +73,7 @@ class InstallForm extends YFormModel
             /**
              * Для настройки БД:
              **/
-            array('host, port, dbName, dbUser, tablePrefix, dbType', 'required', 'on' => 'dbSettings'),
+            array('host, port, dbName, dbUser, dbType', 'required', 'on' => 'dbSettings'),
             array('dbPassword', 'length', 'min' => 0, 'max' => 32),
             array('port, dbType', 'numerical', 'integerOnly' => true),
             array('dbName, dbUser', 'length', 'min' => 0, 'max' => 256),
