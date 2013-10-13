@@ -77,7 +77,7 @@ class InstallForm extends YFormModel
             array('dbPassword', 'length', 'min' => 0, 'max' => 32),
             array('port, dbType', 'numerical', 'integerOnly' => true),
             array('dbName, dbUser', 'length', 'min' => 0, 'max' => 256),
-            array('socket, createDb', 'safe'),
+            array('socket, createDb, tablePrefix', 'safe'),
 
             /**
              * Для начальной настройки сайта:
