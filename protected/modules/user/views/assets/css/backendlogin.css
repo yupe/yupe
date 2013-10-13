@@ -24,3 +24,10 @@ form .help-block {
     display: none;
 }
 
+body.admin-panel > footer {
+	position: fixed;
+    height: 30px;
+    bottom: 0;
+    width: 100%;
+    left: 0;
+}
