@@ -1,7 +1,7 @@
 <?php
     $this->breadcrumbs = array(
         Yii::app()->getModule('dictionary')->getCategory() => array(),
-        Yii::t('DictionaryModule.dictionary', 'Dictionaries') => array('/dictionary/default/index'),
+        Yii::t('DictionaryModule.dictionary', 'Dictionaries') => array('/dictionary/dictionaryBackend/index'),
         Yii::t('DictionaryModule.dictionary', 'Create'),
     );
 
@@ -9,12 +9,12 @@
 
     $this->menu = array(
         array('label' => Yii::t('DictionaryModule.dictionary', 'Dictionaries'), 'items' => array(
-            array('icon' => 'list-alt', 'label' => Yii::t('DictionaryModule.dictionary', 'Dictionaries management'), 'url' => array('/dictionary/default/index')),
-            array('icon' => 'plus-sign', 'label' => Yii::t('DictionaryModule.dictionary', 'Dictionary crate'), 'url' => array('/dictionary/default/create')),
+            array('icon' => 'list-alt', 'label' => Yii::t('DictionaryModule.dictionary', 'Dictionaries management'), 'url' => array('/dictionary/dictionaryBackend/index')),
+            array('icon' => 'plus-sign', 'label' => Yii::t('DictionaryModule.dictionary', 'Dictionary crate'), 'url' => array('/dictionary/dictionaryBackend/create')),
         )),
         array('label' => Yii::t('DictionaryModule.dictionary', 'Items'), 'items' => array(
-            array('icon' => 'list-alt', 'label' => Yii::t('DictionaryModule.dictionary', 'Items list'), 'url' => array('/dictionary/dictionaryData/index')),
-            array('icon' => 'plus-sign', 'label' => Yii::t('DictionaryModule.dictionary', 'Create item'), 'url' => array('/dictionary/dictionaryData/create')),
+            array('icon' => 'list-alt', 'label' => Yii::t('DictionaryModule.dictionary', 'Items list'), 'url' => array('/dictionary/dictionaryDataBackend/index')),
+            array('icon' => 'plus-sign', 'label' => Yii::t('DictionaryModule.dictionary', 'Create item'), 'url' => array('/dictionary/dictionaryDataBackend/create')),
         )),
     );
 ?>

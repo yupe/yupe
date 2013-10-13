@@ -1,19 +1,22 @@
 <?php
 /**
- * DefaultController контроллер для управления данными справочников в панели управления
+ * DictionaryDataBackend контроллер для управления данными справочников в панели управления
  *
- * @author yupe team <team@yupe.ru>
- * @link http://yupe.ru
+ * @author    yupe team <team@yupe.ru>
+ * @link      http://yupe.ru
  * @copyright 2009-2013 amyLabs && Yupe! team
- * @package yupe.modules.dictionary
- * @since 0.1
+ * @package   yupe.modules.dictionary
+ * @since     0.6
  *
  */
-class DictionaryDataController extends yupe\components\controllers\BackController
+class DictionaryDataBackendController extends yupe\components\controllers\BackController
 {
     /**
      * Displays a particular model.
+     * 
      * @param integer $id the ID of the model to be displayed
+     *
+     * @return void
      */
     public function actionView($id)
     {
@@ -23,24 +26,27 @@ class DictionaryDataController extends yupe\components\controllers\BackControlle
     /**
      * Creates a new model.
      * If creation is successful, the browser will be redirected to the 'view' page.
+     *
+     * @return void
      */
     public function actionCreate()
     {
         $model = new DictionaryData;
 
         $gid = (int) Yii::app()->request->getQuery('gid');
-        if ($gid)
+        
+        if ($gid) {
             $model->group_id = $gid;
+        }
 
         // Uncomment the following line if AJAX validation is needed
         // $this->performAjaxValidation($model);
+        if (($data = Yii::app()->getRequest()->getPost('DictionaryData')) !== null) {
+            
+            $model->setAttributes($data);
 
-        if (isset($_POST['DictionaryData']))
-        {
-            $model->attributes = $_POST['DictionaryData'];
-
-            if ($model->save())
-            {
+            if ($model->save()) {
+                
                 $this->redirect(
                     (array) Yii::app()->request->getPost(
                         'submit-type', array('create')
@@ -48,13 +54,17 @@ class DictionaryDataController extends yupe\components\controllers\BackControlle
                 );
             }
         }
+        
         $this->render('create', array('model' => $model));
     }
 
     /**
      * Updates a particular model.
      * If update is successful, the browser will be redirected to the 'view' page.
+     * 
      * @param integer $id the ID of the model to be updated
+     *
+     * @return void
      */
     public function actionUpdate($id)
     {
@@ -63,79 +73,120 @@ class DictionaryDataController extends yupe\components\controllers\BackControlle
         // Uncomment the following line if AJAX validation is needed
         // $this->performAjaxValidation($model);
 
-        if (isset($_POST['DictionaryData']))
-        {
-            $model->attributes = $_POST['DictionaryData'];
+        if (($data = Yii::app()->getRequest()->getPost('DictionaryData')) !== null) {
+            
+            $model->setAttributes($data);
 
-            if ($model->save())
-            {
-                if (!isset($_POST['submit-type']))
-                    $this->redirect(array('update', 'id' => $model->id));
-                else
-                    $this->redirect(array($_POST['submit-type']));
+            if ($model->save()) {
+
+                Yii::app()->user->setFlash(
+                    YFlashMessages::SUCCESS_MESSAGE,
+                    Yii::t('DictionaryModule.dictionary', 'Record was updated')
+                );
+
+                $this->redirect(
+                    (array) Yii::app()->request->getPost(
+                        'submit-type', array('update', 'id' => $model->id)
+                    )
+                );
             }
         }
+
         $this->render('update', array('model' => $model));
     }
 
     /**
      * Deletes a particular model.
      * If deletion is successful, the browser will be redirected to the 'admin' page.
+     * 
      * @param integer $id the ID of the model to be deleted
+     *
+     * @return void
+     *
+     * @throws CHttpException
      */
     public function actionDelete($id)
     {
-        if (Yii::app()->request->isPostRequest)
-        {
+        if (Yii::app()->getRequest()->getIsPostRequest()) {
+            
             // we only allow deletion via POST request
             $this->loadModel($id)->delete();
 
             // if AJAX request (triggered by deletion via admin grid view), we should not redirect the browser
-            if (!isset($_GET['ajax']))
-                $this->redirect(isset($_POST['returnUrl']) ? $_POST['returnUrl'] : array('index'));
+            Yii::app()->getRequest()->getIsAjaxRequest() || $this->redirect(
+                (array) Yii::app()->getRequest()->getPost(
+                    'returnUrl', 'index'
+                )
+            );
+
+        } else {
+            throw new CHttpException(
+                400,
+                Yii::t('DictionaryModule.dictionary', 'Bad request. Please don\'t repeate similar requests anymore')
+            );
         }
-        else
-            throw new CHttpException(400, Yii::t('DictionaryModule.dictionary', 'Bad request. Please don\'t repeate similar requests anymore'));
     }
 
     /**
      * Manages all models.
+     *
+     * @return void
      */
     public function actionIndex()
     {
         $model = new DictionaryData('search');
+        
         $model->unsetAttributes();  // clear any default values
 
         $group_id = (int) Yii::app()->request->getQuery('group_id');
-        if ($group_id)
+        
+        if ($group_id) {
             $model->group_id = $group_id;
+        }
 
-        if (isset($_GET['DictionaryData']))
-            $model->attributes = $_GET['DictionaryData'];
+        $model->setAttributes(
+            Yii::app()->getRequest()->getParam(
+                'DictionaryData', array()
+            )
+        );
+
         $this->render('index', array('model' => $model));
     }
 
     /**
      * Returns the data model based on the primary key given in the GET variable.
      * If the data model is not found, an HTTP exception will be raised.
+     * 
      * @param integer the ID of the model to be loaded
+     *
+     * @return DictionaryData $model
+     *
+     * @throws CHttpException
      */
     public function loadModel($id)
     {
         $model = DictionaryData::model()->findByPk((int) $id);
-        if ($model === null)
-            throw new CHttpException(404, Yii::t('DictionaryModule.dictionary', 'Requested page was not found'));
+        
+        if ($model === null) {
+            throw new CHttpException(
+                404,
+                Yii::t('DictionaryModule.dictionary', 'Requested page was not found')
+            );
+        }
+
         return $model;
     }
 
     /**
      * Performs the AJAX validation.
+     * 
      * @param CModel the model to be validated
+     *
+     * @return void
      */
     protected function performAjaxValidation($model)
     {
-        if (isset($_POST['ajax']) && $_POST['ajax'] === 'dictionary-data-form')
-        {
+        if (Yii::app()->getRequest()->getIsAjaxRequest() && Yii::app()->getRequest()->getPost('ajax') === 'dictionary-data-form') {
             echo CActiveForm::validate($model);
             Yii::app()->end();
         }
