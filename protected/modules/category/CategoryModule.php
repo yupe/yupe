@@ -74,7 +74,7 @@ class CategoryModule extends WebModule
 
     public function getVersion()
     {
-        return Yii::t('CategoryModule.category', '0.5');
+        return Yii::t('CategoryModule.category', '0.6');
     }
 
     public function getCategory()
@@ -130,8 +130,13 @@ class CategoryModule extends WebModule
     public function getNavigation()
     {
         return array(
-            array('icon' => 'list-alt', 'label' => Yii::t('CategoryModule.category', 'Categories list'), 'url' => array('/category/default/index')),
-            array('icon' => 'plus-sign', 'label' => Yii::t('CategoryModule.category', 'Create category'), 'url' => array('/category/default/create')),
+            array('icon' => 'list-alt', 'label' => Yii::t('CategoryModule.category', 'Categories list'), 'url' => array('/category/categoryBackend/index')),
+            array('icon' => 'plus-sign', 'label' => Yii::t('CategoryModule.category', 'Create category'), 'url' => array('/category/categoryBackend/create')),
         );
+    }
+
+    public function getAdminPageLink()
+    {
+        return '/category/categoryBackend/index';
     }
 }

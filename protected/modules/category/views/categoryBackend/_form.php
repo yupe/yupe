@@ -31,9 +31,9 @@ $form = $this->beginWidget('bootstrap.widgets.TbActiveForm', array(
             <?php foreach($languages as $k => $v):?>
                 <?php if($k !== $model->lang):?>
                     <?php if(empty($langModels[$k])):?>
-                        <a href="<?php echo $this->createUrl('/category/default/create',array('id' => $model->id,'lang'  => $k));?>"><i class="iconflags iconflags-<?php echo $k;?>" title="<?php echo Yii::t('CategoryModule.category','Add translate in to {lang}',array('{lang}' => $v))?>"></i></a>
+                        <a href="<?php echo $this->createUrl('/category/categoryBackend/create',array('id' => $model->id,'lang'  => $k));?>"><i class="iconflags iconflags-<?php echo $k;?>" title="<?php echo Yii::t('CategoryModule.category','Add translate in to {lang}',array('{lang}' => $v))?>"></i></a>
                     <?php else:?>
-                        <a href="<?php echo $this->createUrl('/category/default/update',array('id' => $langModels[$k]));?>"><i class="iconflags iconflags-<?php echo $k;?>" title="<?php echo Yii::t('CategoryModule.category','Change translation in to {lang}',array('{lang}' => $v))?>"></i></a>
+                        <a href="<?php echo $this->createUrl('/category/categoryBackend/update',array('id' => $langModels[$k]));?>"><i class="iconflags iconflags-<?php echo $k;?>" title="<?php echo Yii::t('CategoryModule.category','Change translation in to {lang}',array('{lang}' => $v))?>"></i></a>
                     <?php endif;?>
                 <?php endif;?>
             <?php endforeach;?>

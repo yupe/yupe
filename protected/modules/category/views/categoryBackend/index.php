@@ -1,15 +1,15 @@
 <?php
     $this->breadcrumbs = array(
         Yii::app()->getModule('category')->getCategory() => array(),
-        Yii::t('CategoryModule.category', 'Categories') => array('/category/default/index'),
+        Yii::t('CategoryModule.category', 'Categories') => array('/category/categoryBackend/index'),
         Yii::t('CategoryModule.category', 'Manage'),
     );
 
     $this->pageTitle = Yii::t('CategoryModule.category', 'Categories - manage');
 
     $this->menu = array(
-        array('icon' => 'list-alt', 'label' => Yii::t('CategoryModule.category', 'Category manage'), 'url' => array('/category/default/index')),
-        array('icon' => 'plus-sign', 'label' => Yii::t('CategoryModule.category', 'Create category'), 'url' => array('/category/default/create')),
+        array('icon' => 'list-alt', 'label' => Yii::t('CategoryModule.category', 'Category manage'), 'url' => array('/category/categoryBackend/index')),
+        array('icon' => 'plus-sign', 'label' => Yii::t('CategoryModule.category', 'Create category'), 'url' => array('/category/categoryBackend/create')),
     );
 ?>
 <div class="page-header">
@@ -52,17 +52,17 @@ $this->renderPartial('_search', array('model' => $model));
         array(
             'name'  => 'id',
             'type'  => 'raw',
-            'value' => 'CHtml::link($data->id, array("/category/default/update", "id" => $data->id))',
+            'value' => 'CHtml::link($data->id, array("/category/categoryBackend/update", "id" => $data->id))',
         ),
         array(
             'name'  => 'name',
             'type'  => 'raw',
-            'value' => 'CHtml::link($data->name, array("/category/default/update", "id" => $data->id))',
+            'value' => 'CHtml::link($data->name, array("/category/categoryBackend/update", "id" => $data->id))',
         ),
         array(
             'name'  => 'alias',
             'type'  => 'raw',
-            'value' => 'CHtml::link($data->alias, array("/category/default/update", "id" => $data->id))',
+            'value' => 'CHtml::link($data->alias, array("/category/categoryBackend/update", "id" => $data->id))',
         ),
         array(
             'name'  => 'parent_id',

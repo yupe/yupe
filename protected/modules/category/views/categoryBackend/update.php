@@ -1,27 +1,27 @@
 <?php
     $this->breadcrumbs = array(
         Yii::app()->getModule('category')->getCategory() => array(),
-        Yii::t('CategoryModule.category', 'Categories') => array('/category/default/index'),
-        $model->name => array('/category/default/view', 'id' => $model->id),
+        Yii::t('CategoryModule.category', 'Categories') => array('/category/categoryBackend/index'),
+        $model->name => array('/category/categoryBackend/view', 'id' => $model->id),
         Yii::t('CategoryModule.category', 'Change'),
     );
 
     $this->pageTitle = Yii::t('CategoryModule.category', 'Categories - edit');
 
     $this->menu = array(
-        array('icon' => 'list-alt', 'label' => Yii::t('CategoryModule.category', 'Category manage'), 'url' => array('/category/default/index')),
-        array('icon' => 'plus-sign', 'label' =>  Yii::t('CategoryModule.category', 'Create category'), 'url' => array('/category/default/create')),
+        array('icon' => 'list-alt', 'label' => Yii::t('CategoryModule.category', 'Category manage'), 'url' => array('/category/categoryBackend/index')),
+        array('icon' => 'plus-sign', 'label' =>  Yii::t('CategoryModule.category', 'Create category'), 'url' => array('/category/categoryBackend/create')),
         array('label' => Yii::t('CategoryModule.category', 'Category') . ' «' . mb_substr($model->name, 0, 32) . '»'),
         array('icon' => 'pencil', 'label' => Yii::t('CategoryModule.category', 'Change category'), 'url' => array(
-            '/category/default/update',
+            '/category/categoryBackend/update',
             'id' => $model->id
         )),
         array('icon' => 'eye-open', 'label' => Yii::t('CategoryModule.category', 'View category'), 'url' => array(
-            '/category/default/view',
+            '/category/categoryBackend/view',
             'id' => $model->id
         )),
         array('icon' => 'trash', 'label' => Yii::t('CategoryModule.category', 'Remove category'), 'url' => '#', 'linkOptions' => array(
-            'submit' => array('/category/default/delete', 'id' => $model->id),
+            'submit' => array('/category/categoryBackend/delete', 'id' => $model->id),
             'params' => array(Yii::app()->request->csrfTokenName => Yii::app()->request->csrfToken),
             'confirm' => Yii::t('CategoryModule.category', 'Do you really want to remove category?'),
             'csrf' => true,
