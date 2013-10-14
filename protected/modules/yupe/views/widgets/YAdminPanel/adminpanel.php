@@ -119,7 +119,7 @@ $this->widget(
                                 ),
                             ),
                         ),
-                    ), $this->controller->yupe->languageSelectorArray
+                    ), $this->controller->yupe->getLanguageSelectorArray()
                 ),
             ),
         ),
