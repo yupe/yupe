@@ -27,4 +27,7 @@ return array (
     'Page or post'=>'',
     'Whats will be displayed'=>'',
     'Yupe!'=>'',
+    'Records' => '',
+    'Pages'=>'',
+    'read...' => '',
 );

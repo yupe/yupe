@@ -44,4 +44,8 @@ return array(
     'Yupe! team' => 'Юпи! team',
 
     'Actions' => 'Действия',
+
+    'City:' => 'Город:',
+    'We think, you are from'=>'Мы думаем, что вы из города',
+    'Click on link to choose the city.' => 'Кликните по ссылке, чтобы выбрать этот город.',
 );

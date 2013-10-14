@@ -1,7 +1,7 @@
 <?php
 $this->pageTitle   = $page->title;
 $this->breadcrumbs = array(
-    'Страницы',
+    Yii::t('HpModule.hp','Pages'),
     $page->title
 );
 $this->description = !empty($page->description) ? $page->description : $this->description;

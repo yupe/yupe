@@ -44,4 +44,8 @@ return array(
     'Yupe! team' => '',
 
     'Actions' => '',
+
+    'City:' => '',
+    'We think, you are from'=>'',
+    'Click on link to choose the city.' => '',
 );

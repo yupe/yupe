@@ -6,7 +6,7 @@
 <div class="row">
     <div class="span8">
         <p> <?php echo $data->getQuote(); ?></p>
-        <!--<p><?php echo CHtml::link(Yii::t('default','читать...'), array('/blog/post/show/', 'slug' => $data->slug),array('class' => 'btn'));?></p>-->
+        <!--<p><?php echo CHtml::link(Yii::t('HpModule.hp','read...'), array('/blog/post/show/', 'slug' => $data->slug),array('class' => 'btn'));?></p>-->
     </div>
 </div>
 <div class="row">

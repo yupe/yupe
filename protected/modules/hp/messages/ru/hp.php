@@ -27,4 +27,7 @@ return array (
   'Page or post' => 'Страница или пост',
   'Whats will be displayed' => 'Что отображать',
   'Yupe!' => 'Юпи!',
+  'Records' => 'Записи',
+  'Pages' => 'Страницы',
+  'read...' => 'читать...',
 );
