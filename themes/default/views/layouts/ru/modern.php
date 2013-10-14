@@ -24,15 +24,15 @@
 <!-- Main hero unit for a primary marketing message or call to action -->
 <div class="row">
     <div class="hero-unit">
-        <h1>Yupe!</h1>
+        <h1>Юпи!</h1>
 
-        <p>Simple, lightweight and usefull CMS</p>
-        <p>Work on Yiiframework, Twitter Bootstrap and jQuery!</p>
+        <p>Простая, легкая и удобная CMS</p>
+        <p>Работаем на Yiiframework, Twitter Bootstrap и jQuery!</p>
 
         <p>
             <?php
             $this->widget('bootstrap.widgets.TbButton', array(
-                'label' => 'Download Yupe!',
+                'label' => 'Скачать Юпи!',
                 'type' => 'primary',
                 'size' => 'large',
                 'url' => 'https://github.com/yupe/yupe/releases'
@@ -43,7 +43,7 @@
                 'htmlOptions' => array(
                     'class' => 'btn btn-success'
                 ),
-                'label' => 'Documentation',
+                'label' => 'Документация',
                 'type' => 'primary',
                 'size' => 'large',
                 'url' => 'http://yupe.ru/docs/'
@@ -54,7 +54,7 @@
                 'htmlOptions' => array(
                     'class' => 'btn btn-info'
                 ),
-                'label' => 'Screenshots',
+                'label' => 'Скриншоты',
                 'type' => 'primary',
                 'size' => 'large',
                 'url' => 'http://yupe.ru/gallery/gallery/list'
@@ -73,7 +73,7 @@
             <iframe src="http://ghbtns.com/github-btn.html?user=yupe&repo=yupe&type=follow&count=true&size=large"
                     allowtransparency="true" frameborder="0" scrolling="0" width="170" height="30"></iframe>
 
-            <a href="https://twitter.com/share" class="twitter-share-button" data-via="YupeCms" data-lang="ru" data-size="large" data-hashtags="yupe">Tweet</a>
+            <a href="https://twitter.com/share" class="twitter-share-button" data-via="YupeCms" data-lang="ru" data-size="large" data-hashtags="yupe">Твитнуть</a>
             <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');</script>
 
             <iframe frameborder="0" allowtransparency="true" scrolling="no"
@@ -93,83 +93,85 @@
 <!-- Example row of columns -->
 <div class="row">
     <div class="span4 module-info">
-        <h3><i class="icon icon-user"></i> Users Management</h3>
+        <h3><i class="icon icon-user"></i> Пользователи</h3>
 
         <p class="muted">
-            Registration, authorization, password recovery via email, user profiles.
+            Регистрация, авторизация, восстановление пароля через эл.почту, профили пользователей.
         </p>
 
         <p>
-            This module provide simple and usefull interface for user management.
+            Модуль предоставляет удобный интерфейс для управления пользователями и их данными.
         </p>
     </div>
 
     <div class="span4 module-info">
-        <h3><i class="icon icon-file-text"></i> Pages</h3>
+        <h3><i class="icon icon-file-text"></i> Страницы</h3>
 
         <p class="muted">
-            Simple and fast creation static pages such as "About us", "Contacts" and others.
+            Просто и быстро создавайте страницы "О нас", "Контакты" и прочие "статические" странички.
         </p>
 
         <p>
-            You can change WYSIWYG editor which is more comfortable for you, or add new one.
+            Настройки модуля позволяют выбрать удобный для вас WYSIWYG редактор или добавить свой.
         </p>
     </div>
 
     <div class="span4 module-info">
-        <h3><i class="icon icon-bullhorn"></i> News</h3>
+        <h3><i class="icon icon-bullhorn"></i> Новости</h3>
 
         <p class="muted">
-            Publish a news and share information which are interesting for you.
+            Публикуйте новости, делитесь интересной информацией.
         </p>
 
         <p>
-            Create you own category structure for your news, text on different languages.
+            Структурируйте новости по категориям, пишите тексты на разных языках.
         </p>
     </div>
 </div>
 
 <div class="row">
     <div class="span4 module-info">
-        <h3><i class="icon icon-pencil"></i> Blogs</h3>
+        <h3><i class="icon icon-pencil"></i> Блоги</h3>
 
-        <p class="muted">Create your private or public blogs.</p>
+        <p class="muted">Создавайте индивидуальные и коллективные блоги.</p>
 
-        <p>This module make it possible to create blog for any registered user. In can considerably increase interactivity of you site.</p>
+        <p>Модуль позволяет каждому зарегистрированному пользователю вести свой собственный блог, что в свою очередь
+            способствует повышению интерактивности вашего ресурса.</p>
     </div>
     <div class="span4 module-info">
-        <h3><i class="icon icon-comment"></i> Comments</h3>
+        <h3><i class="icon icon-comment"></i> Комментариии</h3>
 
         <p class="muted">
-            You can comment anything with comments module which provide comment trees.
+            Можно комментировать любую сущность с выстраиванием древовидных комментариев.
         </p>
 
         <p>
-            This module helps to users take part in conversations on your site.
-            They can comment articles, news, photos, videos and more other.
+            С помощью этого модуля пользователи смогут активно участвовать в обсуждении контента вашего сайта:
+            комментировать статьи и новости, обсуждать фото- и видео-материалы.
         </p>
     </div>
     <div class="span4 module-info">
-        <h3><i class="icon icon-shopping-cart"></i> Catalog</h3>
+        <h3><i class="icon icon-shopping-cart"></i> Каталог</h3>
 
-        <p class="muted">This module can help to create simple and lightweight products catalog for your site.</p>
+        <p class="muted">Модуль позволит быстро и легко создать простой каталог товаров.</p>
 
-        <p>For more usefull navigation, you can divide you products by categories and subcategorie, use pages and sorting. </p>
+        <p>Для более удобной навигации по каталогу возможно разбивать его на категории и подкатегории, использовать
+            сортировку и постраничную разбивку. </p>
     </div>
 </div>
 
 <div class="row">
     <div class="span6">
-        <h2><small>last in blogs</small></h2>
+        <h2><small>Последнее в блогах</small></h2>
         <?php $this->widget('application.modules.blog.widgets.LastPostsWidget', array('limit' => 3,'view' => 'lastposts-index'));?>
     </div>
     <div class="span6">
-        <h2><small>Our contributors</small></h2>
+        <h2><small>Они молодцы</small></h2>
         <span id="contributors"></span>
-        <h2><small>Our twitter</small></h2>
+        <h2><small>Наш твиттер</small></h2>
         <div class="widget twitter-widget">
             <a class="twitter-timeline" href="https://twitter.com/YupeCms" data-widget-id="342373817932451841" height="400">
-                @YupeCms tweets
+                Твиты пользователя @YupeCms
             </a>
         </div>
     </div>
