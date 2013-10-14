@@ -133,7 +133,7 @@ class FeedbackModule extends WebModule
         if ($count)
             $messages[WebModule::CHECK_NOTICE][] = array(
                 'type'    => WebModule::CHECK_NOTICE,
-                'message' => Yii::t('FeedbackModule.feedback', 'У Вас {{count}} ', array(
+                'message' => Yii::t('FeedbackModule.feedback', 'You have {{count}} ', array(
                     '{{count}}' => $count
                  )) . Yii::t('FeedbackModule.feedback', 'new message |new messages |new messages ', $count) . ' ' . CHtml::link(Yii::t('FeedbackModule.feedback', 'Show and reply?'), array(
                     '/feedback/feedbackBackend/index/order/status.asc/FeedbBack_sort/status/',
