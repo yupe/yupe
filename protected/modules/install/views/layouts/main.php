@@ -28,11 +28,19 @@
     // bootstrap v2.3.2 js
     Yii::app()->clientScript->registerScriptFile(Yii::app()->baseUrl . '/web/install/js/bootstrap.min.js', CClientScript::POS_END);
     // jquery v1.8.3
-    if (!$this->yupe->enableAssets)
-        Yii::app()->clientScript->registerScriptFile(Yii::app()->baseUrl . '/web/install/js/jquery.min.js');
-    else
-        Yii::app()->clientScript->registerCoreScript('jquery');
     ?>
+
+    <?php if (!$this->yupe->enableAssets):?>
+        <?php Yii::app()->clientScript->registerScriptFile(Yii::app()->baseUrl . '/web/install/js/jquery.min.js');?>
+    <?php else: ?>
+        <?php Yii::app()->clientScript->registerCoreScript('jquery');?>
+    <?php endif;?>
+
+    <?php $mainAssets = Yii::app()->assetManager->publish(
+        Yii::getPathOfAlias('application.modules.yupe.views.assets')
+    );?>
+
+    <?php Yii::app()->clientScript->registerCssFile($mainAssets. '/css/flags.css');?>
 </head>
 <body>
 <div id="overall-wrap">
@@ -54,13 +62,11 @@
             ),
             'brandUrl' => $this->createUrl('index'),
             'items' => array(
-                CHtml::tag('span', array('id' => 'stepName'),  CHtml::encode(
-                    $this->stepName)),
-
+                CHtml::tag('span', array('id' => 'stepName'), CHtml::encode($this->stepName)),
                 array(
                     'class' => 'bootstrap.widgets.TbMenu',
                     'htmlOptions' => array('class' => 'pull-right'),
-                    'items' => array(
+                    'items' => array_merge(array(
                         array(
                             'icon'  => 'question-sign white',
                             'label' => Yii::t('YupeModule.yupe', 'Help'),
@@ -117,17 +123,18 @@
                             ),
                         ),
                         array(
-                            'label' => $this->yupe->version,
+                            'label' => $this->yupe->getVersion(),
                             'icon' => 'icon-thumbs-up icon-white',
                             'url' => 'http://yupe.ru/?from=install'
                         ),
-                        $this->yupe->languageSelectorArray,
+                      ), $this->yupe->getLanguageSelectorArray()
                     ),
                 ),
             ),
         )
     );
     ?>
+
     <div class='row-fluid installContentWrapper'>
         <?php if (count($this->breadcrumbs))
             $this->widget('bootstrap.widgets.TbBreadcrumbs', array('links' => $this->breadcrumbs));

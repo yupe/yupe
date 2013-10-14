@@ -41,7 +41,7 @@ class YupeModule extends WebModule
     public $categoryIcon;
     public $categorySort;
 
-    public $availableLanguages = 'ru';
+    public $availableLanguages = 'ru,en';
     public $defaultLanguage = 'ru';
     public $defaultBackendLanguage = 'ru';
 
@@ -1004,6 +1004,7 @@ class YupeModule extends WebModule
         $cp = Yii::app()->urlManager->getCleanUrl(Yii::app()->request->url);
 
         foreach ($langs as $lang) {
+            $lang = trim($lang);
             if ($lang == $currentLanguage) {
                 continue;
             } else {
@@ -1014,6 +1015,7 @@ class YupeModule extends WebModule
                 );
             }
         }
+
 
         return array(
             array(

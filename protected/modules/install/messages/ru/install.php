@@ -19,8 +19,8 @@
 return array (
   '0.2' => '0.2',
   '< Back' => '< Назад',
-  '<b>Optional</b>.' => '<b>Дополнительно</b>.',
-  '<b>{app}</b> can help to deploy YiiFramework project fast and easy.' => '<b>{app}</b> позволит быстро и легко запустить новый проект на Yiiframework',
+  'Optional.' => 'Дополнительно.',
+  '{app} can help to deploy YiiFramework project fast and easy.' => '{app} позволит быстро и легко запустить новый проект на Yiiframework',
   'APC extension' => 'Расширение APC',
   'Activation of Yupe core!' => 'Активация ядра Yupe!',
   'All <a href="http://www.yiiframework.com/doc/api/#system.db">DB-classes</a>' => 'Все <a href="http://www.yiiframework.com/doc/api/#system.db">БД-классы</a>',

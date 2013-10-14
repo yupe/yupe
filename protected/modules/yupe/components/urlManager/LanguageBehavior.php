@@ -60,6 +60,8 @@ class LanguageBehavior extends CBehavior
             isset($_GET[$lm->langParam]) || $path == $this->lang || substr($path, 2, 1) == '/'
         );
 
+
+
         // Проверяем нативность языка и указан ли он в параметрах/пути:
         // 1) Если использован нативный для приложения язык
         // 2) Язык установлен на вывод в GET-парамметре,
@@ -85,7 +87,7 @@ class LanguageBehavior extends CBehavior
                 // Редирект на URL без указания языка
                 Yii::app()->request->redirect($home . $lm->getCleanUrl(Yii::app()->request->url));
             }
-        } elseif (Yii::app()->hasModule('user')) {
+        } else {
 
             // Пробуем получить код языка из кук
             $cookiesLang = Yii::app()->getModule('yupe')->cache
