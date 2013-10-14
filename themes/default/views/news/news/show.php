@@ -13,7 +13,7 @@
 
 <?php
 $this->breadcrumbs = array(
-    'Новости' => array('/news/news/index/'),
+    Yii::t('NewsModule.news', 'News') => array('/news/news/index/'),
     CHtml::encode($news->title)
 );
 ?>

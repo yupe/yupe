@@ -1,6 +1,6 @@
 <?php
-$this->pageTitle = 'Новости';
-$this->breadcrumbs = array(Yii::t('news', 'Новости'));
+$this->pageTitle = Yii::t('NewsModule.news', 'News');
+$this->breadcrumbs = array(Yii::t('NewsModule.news', 'News'));
 ?>
 
 <h1>Новости</h1>

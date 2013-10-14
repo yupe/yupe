@@ -6,7 +6,7 @@
 <div class="row">
     <div class="span8">
         <p> <?php echo $data->short_text; ?></p>
-        <p><?php echo CHtml::link(Yii::t('default','читать...'), array('/news/news/show/', 'slug' => $data->alias),array('class' => 'btn'));?></p>
+        <p><?php echo CHtml::link(Yii::t('NewsModule.news', 'read...'), array('/news/news/show/', 'slug' => $data->alias),array('class' => 'btn'));?></p>
     </div>
 </div>
 

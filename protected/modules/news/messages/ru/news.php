@@ -106,4 +106,5 @@ return array (
   'no' => 'нет',
   'are required' => 'обязательны.',
   'management' => 'управление',
+  'read...' => 'читать...',
 );

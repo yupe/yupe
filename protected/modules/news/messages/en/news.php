@@ -105,4 +105,5 @@ return array (
     'no' => '',
     'are required' => '',
     'management' => '',
+    'read...' => '',
 );
