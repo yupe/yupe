@@ -21,8 +21,8 @@
 
     <legend>
         <?php echo $model->getIsNewRecord()
-            ? Yii::t('GalleryModule.gallery', 'Добавление изображения')
-            : Yii::t('GalleryModule.gallery', 'Редактирование изображения'); ?>
+            ? Yii::t('GalleryModule.gallery', 'Image creation')
+            : Yii::t('GalleryModule.gallery', 'Image edition'); ?>
     </legend>
 
     <?php echo $form->errorSummary($model); ?>
@@ -62,8 +62,8 @@
                 'type' => 'primary',
                 'icon' => 'picture',
                 'label' => $model->getIsNewRecord()
-                    ? Yii::t('GalleryModule.gallery', 'Добавить изображение')
-                    : Yii::t('GalleryModule.gallery', 'Обновить изображение')
+                    ? Yii::t('GalleryModule.gallery', 'Add image')
+                    : Yii::t('GalleryModule.gallery', 'Update image')
             )
         ); ?>
     </div>

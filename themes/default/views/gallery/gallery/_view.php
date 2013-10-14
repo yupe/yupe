@@ -28,7 +28,7 @@
             <?php if ($data->imagesCount): ?>
                 <ul class="inline">
                     <li>
-                        <?php echo Yii::t('GalleryModule.gallery', 'Всего изображений:'); ?> <span
+                        <?php echo Yii::t('GalleryModule.gallery', 'Messages summary:'); ?> <span
                             class="badge badge-info"><?php echo $data->imagesCount; ?></span>
                     </li>
                     <li>

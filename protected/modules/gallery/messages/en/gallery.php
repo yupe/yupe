@@ -94,4 +94,11 @@ return array (
     'management' => '',
     'success' => '',
     'Group adding' => '',
+    'Update image'=>'',
+    'Image creation'=>'',
+    'Image edition'=>'',
+    'Add image'=>'',
+    'Messages summary:'=>'',
+    'Edit message #{id}'=>'',
+    'More...'=>'',
 );
