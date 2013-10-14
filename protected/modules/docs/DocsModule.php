@@ -133,7 +133,7 @@ class DocsModule extends yupe\components\WebModule
     public function getNavigation()
     {
         return array(
-            array('icon' => 'list-alt', 'label' => Yii::t('DocsModule.docs', 'Show local files'), 'url' => array('/backend/docs')),
+            array('icon' => 'list-alt', 'label' => Yii::t('DocsModule.docs', 'Show local files'), 'url' => array('/docs/docsBackend/index')),
             array('icon' => 'list-alt', 'label' => Yii::t('DocsModule.docs', 'Local docs'), 'url' => array('/docs/show/index')),
             array('icon' => 'icon-globe', 'label' => Yii::t('DocsModule.docs', 'Online docs'), 'url' => 'http://yupe.ru/docs/index.html?from=help','linkOptions' => array('target' => '_blank')),
         );
@@ -563,11 +563,16 @@ class DocsModule extends yupe\components\WebModule
             array_push(
                 $items, array(
                     'label' => $title,
-                    'url'   => array('/docs/default/show', 'file' => $key),
+                    'url'   => array('/docs/docsBackend/show', 'file' => $key),
                     'icon'  => 'file',
                 )
             );
         }
         return $items;
+    }
+
+    public function getAdminPageLink()
+    {
+        return '/docs/docsBackend/index';
     }
 }

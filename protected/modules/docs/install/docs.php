@@ -17,9 +17,7 @@ return array(
     'rules'     => array(
         '/docs/<moduleID:[a-zA-Z0-9\-_.]+>/<file:[a-zA-Z0-9\-_.]+>.html' => 'docs/show/index',
         '/docs/<file:[a-zA-Z0-9\-_.]+>.html'                             => 'docs/show/index',
-        '/backend/docs/<file:[a-zA-Z0-9\-_.]+>.html'                     => 'docs/default/show',
-        '/backend/docs'                                                  => 'docs/default/index',
-        '/backend/docs/<action:\w+>'                                     => 'docs/default/<action>',
+        '/backend/docs/<file:[a-zA-Z0-9\-_.]+>.html'                     => 'docs/docsBackend/show',
         '/docs'                                                          => 'docs/show/index',
     ),
     'module' => array(
