@@ -11,7 +11,7 @@
 
     ?>
     <div class="list">
-        <div class="name"><?php echo Yii::t('yupe','City:'); ?></div>
+        <div class="name"><?php echo Yii::t('default','City:'); ?></div>
         <div class="form">
     <?php
     $form-> widget('zii.widgets.jui.CJuiAutoComplete', array(
@@ -30,7 +30,7 @@
     echo CHtml::hiddenField('GeoProfile[geo_city_id]',$city_id);
     if (!$city_id && $guessed_city)
     {
-        echo "<br /><small>".Yii::t('yupe','We think, you are from')." <a href='#' onClick='$(\"#GeoProfile_geo_city_id\").val(".$guessed_city->id.");$(\"#GeoProfile_geo_city\").val($(this).text());return false;'>".$guessed_city-> combinedName."</a><br />. ".Yii::t('yupe','Click on link to choose the city.')."</small>";
+        echo "<br /><small>".Yii::t('default','We think, you are from')." <a href='#' onClick='$(\"#GeoProfile_geo_city_id\").val(".$guessed_city->id.");$(\"#GeoProfile_geo_city\").val($(this).text());return false;'>".$guessed_city-> combinedName."</a><br />. ".Yii::t('default','Click on link to choose the city.')."</small>";
     }
     ?>
 
