@@ -1,3 +1,4 @@
+<?php Yii::import('application.modules.user.UserModule'); ?>
 <div class="widget prifile-widget">
     <div class="bootstrap-widget">
         <div class="bootstrap-widget-header">

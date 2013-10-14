@@ -1,6 +1,6 @@
 <?php
-$this->pageTitle = Yii::t('user', 'Войти');
-$this->breadcrumbs = array('Войти');
+$this->pageTitle = Yii::t('UserModule.user', 'Sign in');
+$this->breadcrumbs = array(Yii::t('UserModule.user', 'Sign in'));
 ?>
 
 <?php $this->widget('application.modules.yupe.widgets.YFlashMessages'); ?>
@@ -51,7 +51,7 @@ $this->breadcrumbs = array('Войти');
     <div class='row-fluid control-group <?php echo $model->hasErrors('verifyCode') ? 'error' : ''; ?>'>
         <?php echo $form->textFieldRow($model, 'verifyCode', array('class' => 'span3', 'required' => true)); ?>
         <span class="help-block">
-            <?php echo Yii::t('UserModule.user', 'Введите текст указанный на картинке'); ?>
+            <?php echo Yii::t('UserModule.user', 'Insert text you see on image'); ?>
         </span>
     </div>
 <?php endif; ?>
@@ -65,7 +65,7 @@ $this->breadcrumbs = array('Войти');
             'buttonType' => 'submit',
             'type' => 'primary',
             'icon' => 'signin',
-            'label' => Yii::t('UserModule.user', 'Войти'),
+            'label' => Yii::t('UserModule.user', 'Sign in'),
         )
     ); ?>
 
@@ -74,13 +74,13 @@ $this->breadcrumbs = array('Войти');
         'bootstrap.widgets.TbButton',
         array(
             'buttonType' => 'link',
-            'label' => Yii::t('UserModule.user', 'Регистрация'),
+            'label' => Yii::t('UserModule.user', 'Sign up'),
             'url' => Yii::app()->createUrl('/user/account/registration'),
         )
     ); ?>
 </div>
 
-<?php echo CHtml::link(Yii::t('UserModule.user', 'Забыли пароль?'), array('/user/account/recovery')) ?>
+<?php echo CHtml::link(Yii::t('UserModule.user', 'Forgot you password?'), array('/user/account/recovery')) ?>
 
 <?php $this->endWidget(); ?>
 <!-- form -->

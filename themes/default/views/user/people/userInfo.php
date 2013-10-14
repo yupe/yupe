@@ -1,7 +1,7 @@
 <?php
     $this->pageTitle = CHtml::encode($user->nick_name);
     $this->breadcrumbs = array(
-        Yii::t('user', 'Пользователи') => array('/user/people/index/'),
+        Yii::t('UserModule.user','Users') => array('/user/people/index/'),
         CHtml::encode($user->nick_name),
     );
 ?>
@@ -15,7 +15,7 @@
          <i class="icon-user"></i> <?php echo $user->getFullName();?><br/>         
 
          <?php if($user->last_visit):?>
-            <i class="icon-time"></i> <?php echo Yii::t('user', 'Был на сайте {last_visit}', array(
+            <i class="icon-time"></i> <?php echo Yii::t('UserModule.user', 'Last visit {last_visit}', array(
                "{last_visit}" => Yii::app()->dateFormatter->formatDateTime($user->last_visit, 'long', null)
             ));?><br/>
          <?php endif;?>   
@@ -48,14 +48,14 @@
 <hr/>
 
 <?php $this->widget('application.modules.comment.widgets.CommentsListWidget', array(
-    'label' => 'Мнений',
+    'label' => Yii::t('UserModule.user', 'Opinions'),
     'model' => $user,
     'modelId' => $user->id,
 )); ?>
 
 <br/>
 
-<h3>На моей стене можно что-то написать!</h3>
+<h3><?php echo Yii::t('UserModule.user', 'You can write something on my wall'); ?></h3>
 
 <?php if(Yii::app()->user->isAuthenticated()): ?>
     <?php $this->widget('application.modules.comment.widgets.CommentFormWidget', array(
@@ -65,8 +65,8 @@
     )); ?>
 <?php else: ?>
     <div class="alert alert-notice">
-        Пожалуйста, <?php echo CHtml::link('авторизуйтесь', array('/user/account/login/')); ?> или
-        <?php echo CHtml::link('зарегистрируйтесь', array('/user/account/registration/')); ?>
-        - только тогда можно писать на моей стене =)
+        <?php echo Yii::t('UserModule.user', 'Please,').' '; echo CHtml::link(Yii::t('UserModule.user', 'sign in'), array('/user/account/login/')); echo ' '.Yii::t('UserModule.user', 'or').' '; ?>
+        <?php echo CHtml::link(Yii::t('UserModule.user', 'sign up'), array('/user/account/registration/')); ?>
+        <?php echo ' '.Yii::t('UserModule.user', '- only authorized users can write on my wall =)'); ?>
     </div>
 <?php endif; ?>

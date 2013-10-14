@@ -1,17 +1,17 @@
 <html>
 
 <head>
-    <title><?php echo Yii::t('user', 'Изменение email!');?></title>
+    <title><?php echo Yii::t('UserModule.user', 'Changing e-mail');?></title>
 </head>
 
 <body>
-<?php echo Yii::t('user', 'Вы успешно изменили email на сайте "{site}" !',array('{site}' => CHtml::encode(Yii::app()->name))); ?>
+<?php echo Yii::t('UserModule.user', 'You just successfully change you e-mail on "{site}"!',array('{site}' => CHtml::encode(Yii::app()->name))); ?>
 
 <br/><br/>
 
 <?php
 $url = Yii::app()-> request-> hostInfo.$this-> createUrl('/user/account/emailConfirm', array('key'=> $model->activate_key));
-echo Yii::t('user', 'Для активации email, пожалуйста, перейдите по ').CHtml::link(Yii::t('user', 'ссылке'),$url);
+echo Yii::t('UserModule.user', 'For e-mail activation, please, go to ').CHtml::link(Yii::t('user', 'link'),$url);
 ?>
 
 <br/><br/>
@@ -20,7 +20,7 @@ echo Yii::t('user', 'Для активации email, пожалуйста, пе
 
 <br/><br/>
 
-<?php echo Yii::t('user', 'С уважением, администрация сайта "{site}" !',array('{site}' => CHtml::encode(Yii::app()->name))); ?>
+<?php echo Yii::t('UserModule.user', 'Truly yours, administration of "{site}" !',array('{site}' => CHtml::encode(Yii::app()->name))); ?>
 
 </body>
 

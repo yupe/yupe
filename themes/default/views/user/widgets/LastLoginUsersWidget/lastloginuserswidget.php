@@ -1,4 +1,5 @@
 <?php
+Yii::import('application.modules.user.UserModule');
 if (isset($models) && !empty($models)) {
     $this->widget(
         'bootstrap.widgets.TbBox',

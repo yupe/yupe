@@ -1,6 +1,6 @@
 <?php
-$this->pageTitle = Yii::t('user', 'Регистрация');
-$this->breadcrumbs = array('Регистрация');
+$this->pageTitle = Yii::t('UserModule.user', 'Sign up');
+$this->breadcrumbs = array(Yii::t('UserModule.user', 'Sign up'));
 ?>
 
 <?php $this->widget('application.modules.yupe.widgets.YFlashMessages'); ?>
@@ -53,7 +53,7 @@ $this->breadcrumbs = array('Регистрация');
     <div class='row-fluid control-group <?php echo $model->hasErrors('verifyCode') ? 'error' : ''; ?>'>
         <?php echo $form->textFieldRow($model, 'verifyCode', array('class' => 'span3', 'required' => true)); ?>
         <span class="help-block">
-            <?php echo Yii::t('UserModule.user', 'Введите текст указанный на картинке'); ?>
+            <?php echo Yii::t('UserModule.user', 'Insert text you see on image'); ?>
         </span>
     </div>
 <?php endif; ?>
@@ -65,7 +65,7 @@ $this->breadcrumbs = array('Регистрация');
         array(
             'buttonType' => 'submit',
             'type' => 'primary',
-            'label' => Yii::t('UserModule.user', 'Зарегистрироваться'),
+            'label' => Yii::t('UserModule.user', 'Sign up'),
         )
     ); ?>
 </div>

@@ -1,11 +1,11 @@
 <?php
-    $this->pageTitle = Yii::t('user', 'Пользователи');
+    $this->pageTitle = Yii::t('UserModule.user','Users');
     $this->breadcrumbs = array(
-        Yii::t('user', 'Пользователи'),
+        Yii::t('UserModule.user','Users'),
     );
 ?>
 
-<h1><?php echo Yii::t('user', 'Пользователи'); ?></h1>
+<h1><?php echo Yii::t('UserModule.user','Users'); ?></h1>
 
 <?php
     $this->widget('bootstrap.widgets.TbListView', array(

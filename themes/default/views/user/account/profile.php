@@ -1,6 +1,6 @@
 <?php
-$this->pageTitle = Yii::t('user', 'Профиль пользователя');
-$this->breadcrumbs = array(Yii::t('user', 'Профиль пользователя'));
+$this->pageTitle = Yii::t('UserModule.user', 'User profile');
+$this->breadcrumbs = array(Yii::t('UserModule.user', 'User profile'));
 
 Yii::app()->clientScript->registerCss('profile', "
     input.confirmed { border: 1px solid #88d395; }
@@ -60,7 +60,7 @@ $form = $this->beginWidget(
         </div>
         <div class="span4">
             <?php echo $form->checkBoxRow($model, 'use_gravatar', array(
-                'hint'=> Yii::t('user','Если вы не пользуетесь Gravatar выберите аватарку из файла.')
+                'hint'=> Yii::t('UserModule.user','If you do not use Gravatar, upload avatar from file.')
             )); ?>
             
             <?php echo $form->fileFieldRow($model, 'avatar'); ?>
@@ -75,11 +75,11 @@ $form = $this->beginWidget(
 
         <?php if (Yii::app()->user->profile->email_confirm && !$model->hasErrors()):?>
             <p class="email-status-confirmed text-success">
-                <?php echo Yii::t('user',"E-Mail проверен");?>
+                <?php echo Yii::t('UserModule.user','E-mail was checked');?>
             </p>
         <?php elseif( !$model->hasErrors() ):?>
             <p class="email-status-not-confirmed text-error">
-                <?php echo Yii::t('user','e-mail не подтвержден, проверьте почту!');?>
+                <?php echo Yii::t('UserModule.user','e-mail was not confirmed, please check you mail!');?>
             </p>
         <?php endif?>
 
@@ -87,7 +87,7 @@ $form = $this->beginWidget(
         <div class="row-fluid email-change-msg">
             <?php if (Yii::app()->user->profile->email_confirm):?>
                 <p class="text-warning span6">
-                    <?php echo Yii::t('user','Внимание! После смены e-mail адреса, вам будет выслано письмо для его подтверждения.');?>
+                    <?php echo Yii::t('UserModule.user','Attention! After e-mail have been changed, you receive e-mail with confirmation');?>
                 </p>
             <?php endif;?>
         </div>
@@ -144,7 +144,7 @@ $form = $this->beginWidget(
     
     <div class="row-fluid">
         <p class="password-change-msg muted span6">
-            <?php echo Yii::t('user','Оставьте поля пустыми если не меняете пароль');?>
+            <?php echo Yii::t('UserModule.user','If you do not want to change password, leave fields empty.');?>
         </p>
     </div>
     
@@ -155,7 +155,7 @@ $form = $this->beginWidget(
     <div class="row-fluid">
         <?php echo $form->passwordFieldRow($model, 'cPassword', array('class'=>'span6','autocomplete' => 'off'));?>
         <label class="checkbox">
-            <input type="checkbox" value="1" id="show_pass"> <?php echo Yii::t('user','показать пароль') ?>
+            <input type="checkbox" value="1" id="show_pass"> <?php echo Yii::t('UserModule.user','show password') ?>
         </label>
     </div>
         
@@ -172,7 +172,7 @@ $form = $this->beginWidget(
         array(
             'buttonType' => 'submit',
             'type' => 'primary',
-            'label' => Yii::t('user','Сохранить профиль'),
+            'label' => Yii::t('UserModule.user','Save profile'),
         )
     ); ?>
 
