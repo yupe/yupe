@@ -48,4 +48,12 @@ return array(
     'City:' => '',
     'We think, you are from'=>'',
     'Click on link to choose the city.' => '',
+    'Records' => '',
+    'read...' => '',
+    'Error' => '',
+    'Page you try to request, was not found. You can go out from this page and {link}.' => '',
+    'go to home page' => '',
+    'Finishing register' => '',
+    'Register' => '',
+    'Tag cloud' => '',
 );

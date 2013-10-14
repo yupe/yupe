@@ -1,21 +1,21 @@
 
-<?php $this->pageTitle = Yii::t('site','Ошибка') . ' ' . $error['code'] . ' - ' . $this->yupe->siteName; ?>
+<?php $this->pageTitle = Yii::t('yupe','Error') . ' ' . $error['code'] . ' - ' . $this->yupe->siteName; ?>
 
-<h2><?php echo Yii::t('site','Ошибка') . ' ' . $error['code']; ?>!</h2>
+<h2><?php echo Yii::t('yupe','Error') . ' ' . $error['code']; ?>!</h2>
 
 <?php
     switch ($error['code']) {
         case '404':
             $msg = Yii::t(
-                'site',
-                'Страница которую Вы запросили не найдена. Вы можете покинуть данную страницу и {link}.',
+                'yupe',
+                'Page you try to request, was not found. You can go out from this page and {link}.',
                 array(
                     '{link}' => CHtml::link(
-                        Yii::t('site','перейти на главную страницу сайта'),
+                        Yii::t('yupe','go to home page'),
                         $this->createUrl("/" . Yii::app()->defaultController . '/index'),
                         array(
-                            'title' => Yii::t('site','Перейти на главную страницу сайта'),
-                            'alt'   => Yii::t('site','Перейти на главную страницу сайта'),
+                            'title' => Yii::t('yupe','go to home page'),
+                            'alt'   => Yii::t('yupe','go to home page'),
                         )
                     ),
                         

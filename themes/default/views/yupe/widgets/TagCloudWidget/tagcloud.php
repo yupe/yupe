@@ -3,7 +3,7 @@ if (isset($tags) && !empty($tags)) {
     $this->widget(
         'bootstrap.widgets.TbBox',
         array(
-            'title' => 'Облако меток',
+            'title' => Yii::t('yupe','Tag cloud'),
             'headerIcon' => 'icon-tags',
             'content' => $this->render('_tags', array('tags' => $tags), true),
         )

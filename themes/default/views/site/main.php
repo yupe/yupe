@@ -1,4 +1,4 @@
-<?php $this->breadcrumbs = array(Yii::t('default','Записи'));?>
+<?php $this->breadcrumbs = array(Yii::t('yupe','Records'));?>
 
 <?php $this->widget('bootstrap.widgets.TbListView', array(
     'dataProvider' => $dataProvider,

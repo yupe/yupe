@@ -48,4 +48,12 @@ return array(
     'City:' => 'Город:',
     'We think, you are from'=>'Мы думаем, что вы из города',
     'Click on link to choose the city.' => 'Кликните по ссылке, чтобы выбрать этот город.',
+    'Records' => 'Записи',
+    'read...' => 'читать...',
+    'Error' => 'Ошибка',
+    'Page you try to request, was not found. You can go out from this page and {link}.' => 'Страница которую Вы запросили не найдена. Вы можете покинуть данную страницу и {link}.',
+    'go to home page' => 'перейти на главную страницу сайта',
+    'Finishing register' => 'Окончание регистрации',
+    'Register' => 'Зарегестрироваться',
+    'Tag cloud' => 'Облако меток',
 );

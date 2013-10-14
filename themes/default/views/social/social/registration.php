@@ -1,4 +1,4 @@
-<h1>Окончание регистрации</h1>
+<h1><?php echo Yii::t('yupe','Finishing register'); ?></h1>
 
 <?php $this->widget('application.modules.yupe.widgets.YFlashMessages'); ?>
 
@@ -18,7 +18,7 @@
     </div>
 
     <div class="row submit">
-        <?php echo CHtml::submitButton('Зарегистрироваться'); ?>
+        <?php echo CHtml::submitButton(Yii::t('yupe','Register')); ?>
     </div>
 
     <?php $this->endWidget(); ?>
