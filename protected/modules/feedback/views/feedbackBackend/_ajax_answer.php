@@ -16,7 +16,7 @@
 
 <?php $form = $this->beginWidget(
     'bootstrap.widgets.TbActiveForm', array(
-        'action'                 => array('/feedback/default/answer', 'id' => $model->id),
+        'action'                 => array('/feedback/feedbackBackend/answer', 'id' => $model->id),
         'enableAjaxValidation'   => false,
         'enableClientValidation' => true,
         'type'                   => 'vertical',
@@ -28,7 +28,7 @@
     <div class="row-fluid control-group">
         <?php echo $form->textAreaRow(
             $answerForm,  'answer',  array(
-                'imageUpload' => Yii::app()->baseUrl.'/index.php/yupe/backend/AjaxFileUpload/',
+                'imageUpload' => $this->createUrl('/yupe/backend/AjaxFileUpload'),
                 'class'       => 'span12 answer-text',
             )
         ); ?>

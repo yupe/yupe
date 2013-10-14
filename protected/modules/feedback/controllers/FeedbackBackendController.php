@@ -1,6 +1,6 @@
 <?php
 /**
- * DefaultController контроллер для работы с сообщениями обратной связи в панели управления
+ * FeedbackBackendController контроллер для работы с сообщениями обратной связи в панели управления
  *
  * @category YupeController
  * @package  yupe.modules.feedback.controllers
@@ -10,21 +10,30 @@
  *
  **/
 
-class DefaultController extends yupe\components\controllers\BackController
+class FeedbackBackendController extends yupe\components\controllers\BackController
 {
+    // FeedBack $model
     private $_model;
 
     /**
      * Displays a particular model.
+     *
+     * @param int $id - record id
+     *
+     * @return void
      */
-    public function actionView()
+    public function actionView($id = null)
     {
         // Обработка при Ajax-запросе:
         if (Yii::app()->getRequest()->getIsAjaxRequest()) {
             
             return Yii::app()->ajax->success(
                 array(
-                    'html' => $this->renderPartial('view', array('model' => $this->loadModel()), true, false)
+                    'html' => $this->renderPartial(
+                        'view', array(
+                            'model' => $this->loadModel($id)
+                        ), true, false
+                    )
                 )
             );
         }
@@ -35,6 +44,8 @@ class DefaultController extends yupe\components\controllers\BackController
     /**
      * Creates a new model.
      * If creation is successful, the browser will be redirected to the 'view' page.
+     *
+     * @return void
      */
     public function actionCreate()
     {
@@ -68,15 +79,19 @@ class DefaultController extends yupe\components\controllers\BackController
     /**
      * Updates a particular model.
      * If update is successful, the browser will be redirected to the 'view' page.
+     *
+     * @param int $id - record $id
+     * 
+     * @return void
      */
-    public function actionUpdate()
+    public function actionUpdate($id = null)
     {
-        $model = $this->loadModel();
+        $model = $this->loadModel($id);
 
         $status = $model->status; 
 
-        if (isset($_POST['FeedBack'])) {
-            $model->attributes = $_POST['FeedBack'];
+        if (($data = Yii::app()->getRequest()->getPost('FeedBack')) !== null) {
+            $model->setAttributes($data);
 
             if ($status != FeedBack::STATUS_ANSWER_SENDED && $model->status == FeedBack::STATUS_ANSWER_SENDED) {
                 $model->answer_user = Yii::app()->user->getId();
@@ -89,13 +104,14 @@ class DefaultController extends yupe\components\controllers\BackController
                     Yii::t('FeedbackModule.feedback', 'Message was updated')
                 );
 
-                if (!isset($_POST['submit-type'])) {
-                    $this->redirect(array('update', 'id' => $model->id));
-                } else {
-                    $this->redirect(array($_POST['submit-type']));
-                }
+                $this->redirect(
+                    (array) Yii::app()->getRequest()->getPost(
+                        'submit-type', array('update', 'id' => $model->id)
+                    )
+                );
             }
         }
+
         $this->render('update', array('model' => $model));
     }
 
@@ -105,12 +121,12 @@ class DefaultController extends yupe\components\controllers\BackController
      * @param int $id - ID сообщения
      * 
      * @return void
+     *
+     * @throws CHttpException
      */
-    public function actionAnswer($id)
+    public function actionAnswer($id = null)
     {
-        $model = FeedBack::model()->findbyPk((int) $id);
-        if (!$model)
-            throw new CHttpException(404, Yii::t('FeedbackModule.feedback', 'Page was not found!'));
+        $model = $this->loadModel($id);
 
         $form = new AnswerForm;
 
@@ -139,28 +155,43 @@ class DefaultController extends yupe\components\controllers\BackController
 
             return Yii::app()->ajax->success(
                 array(
-                    'html' => $this->renderPartial('_ajax_answer', array('model' => $model, 'answerForm' => $form), true, false) . '</div>'
+                    'html' => $this->renderPartial(
+                        '_ajax_answer', array(
+                            'model'      => $model,
+                            'answerForm' => $form
+                        ), true, false
+                    )
                 )
             );
         }
 
-        if ($model->status == FeedBack::STATUS_ANSWER_SENDED)
+        if ($model->status == FeedBack::STATUS_ANSWER_SENDED) {
             Yii::app()->user->setFlash(
                 YFlashMessages::SUCCESS_MESSAGE,
                 Yii::t('FeedbackModule.feedback', 'Attention! Reply for this message already sent!')
             );
+        }
 
         list($form, $model) = $this->saveAnswer($form, $model);
 
         $this->render('answer', array('model' => $model, 'answerForm' => $form));
     }
 
-    public function saveAnswer($form, $model)
+    /**
+     * Сохраняем данные в СУБД, при наявности POST-запросаЖ
+     * 
+     * @param AnswerForm $form  - форма ответа
+     * @param FeedBack   $model - модель
+     * 
+     * @return mixed
+     */
+    public function saveAnswer(AnswerForm $form, FeedBack $model)
     {
-        if (Yii::app()->request->isPostRequest && ($data = Yii::app()->request->getPost('AnswerForm')) !== null) {
+        if (Yii::app()->getRequest()->getIsPostRequest() && ($data = Yii::app()->getRequest()->getPost('AnswerForm')) !== null) {
             $form->setAttributes($data);
 
             if ($form->validate()) {
+                
                 $model->setAttributes(array(
                     'answer'      => $form->answer,
                     'is_faq'      => $form->is_faq,
@@ -179,6 +210,7 @@ class DefaultController extends yupe\components\controllers\BackController
                         'RE: ' . $model->theme,
                         $body
                     );
+
                     if (Yii::app()->getRequest()->getIsAjaxRequest() == false) {
                         Yii::app()->user->setFlash(
                             YFlashMessages::SUCCESS_MESSAGE,
@@ -207,57 +239,84 @@ class DefaultController extends yupe\components\controllers\BackController
     /**
      * Deletes a particular model.
      * If deletion is successful, the browser will be redirected to the 'index' page.
+     *
+     * @return void
+     *
+     * @throws CHttpException
      */
     public function actionDelete()
     {
-        if (Yii::app()->request->isPostRequest) {
+        if (Yii::app()->getRequest()->getIsPostRequest()) {
             // we only allow deletion via POST request
             $this->loadModel()->delete();
 
             // if AJAX request (triggered by deletion via admin grid view), we should not redirect the browser
-            if (!isset($_GET['ajax']))
-                $this->redirect(isset($_POST['returnUrl']) ? $_POST['returnUrl'] : array('index'));
+            Yii::app()->getRequest()->getIsAjaxRequest() || $this->redirect(
+                (array) Yii::app()->getRequest()->getPost('returnUrl', 'index')
+            );
+        } else {
+            throw new CHttpException(
+                400,
+                Yii::t('FeedbackModule.feedback', 'Bad request. Please don\'t repeate similar requests anymore')
+            );
         }
-        else
-            throw new CHttpException(400, Yii::t('FeedbackModule.feedback', 'Bad request. Please don\'t repeate similar requests anymore'));
     }
     
     /**
      * Manages all models.
+     *
+     * @return void
      */
     public function actionIndex()
     {
         $model = new FeedBack('search');
+        
         $model->unsetAttributes(); // clear any default values
-        if (isset($_GET['FeedBack']))
-            $model->attributes = $_GET['FeedBack'];
+        
+        $model->setAttributes(
+            Yii::app()->getRequest()->getParam('FeedBack', array())
+        );
+
         $this->render('index', array('model' => $model));
     }
 
     /**
      * Returns the data model based on the primary key given in the GET variable.
      * If the data model is not found, an HTTP exception will be raised.
+     *
+     * @param int $id - record value
+     *
+     * @return FeedBack $model
+     *
+     * @throws CHttpException
      */
-    public function loadModel()
+    public function loadModel($id = null)
     {
-        if ($this->_model === null)
-        {
-            if (isset($_GET['id']))
-                $this->_model = FeedBack::model()->findbyPk($_GET['id']);
-            if ($this->_model === null)
-                throw new CHttpException(404, Yii::t('FeedbackModule.feedback', 'Requested page was not found!'));
+        if ($this->_model === null) {
+
+            $id = $id ?: Yii::app()->getRequest()->getParam('id');
+
+            if (($this->_model = FeedBack::model()->findByPk($id)) === null) {
+                throw new CHttpException(
+                    404,
+                    Yii::t('FeedbackModule.feedback', 'Requested page was not found!')
+                );
+            }
         }
+
         return $this->_model;
     }
 
     /**
      * Performs the AJAX validation.
-     * @param CModel the model to be validated
+     * 
+     * @param FeedBack $model - the model to be validated
+     *
+     * @return void
      */
-    protected function performAjaxValidation($model)
+    protected function performAjaxValidation(FeedBack $model)
     {
-        if (isset($_POST['ajax']) && $_POST['ajax'] === 'feed-back-form')
-        {
+        if (Yii::app()->getRequest()->getIsAjaxRequest() && Yii::app()->getRequest()->getPost('ajax') === 'feed-back-form') {
             echo CActiveForm::validate($model);
             Yii::app()->end();
         }

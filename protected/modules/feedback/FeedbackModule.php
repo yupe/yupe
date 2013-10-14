@@ -136,18 +136,23 @@ class FeedbackModule extends WebModule
                 'message' => Yii::t('FeedbackModule.feedback', 'У Вас {{count}} ', array(
                     '{{count}}' => $count
                  )) . Yii::t('FeedbackModule.feedback', 'new message |new messages |new messages ', $count) . ' ' . CHtml::link(Yii::t('FeedbackModule.feedback', 'Show and reply?'), array(
-                    '/feedback/default/index/order/status.asc/FeedbBack_sort/status/',
+                    '/feedback/feedbackBackend/index/order/status.asc/FeedbBack_sort/status/',
                  ))
             );
 
         return (isset($messages[WebModule::CHECK_ERROR]) || isset($messages[WebModule::CHECK_NOTICE]) ) ? $messages : true;
     }
 
+    public function getAdminPageLink()
+    {
+        return '/feedback/feedbackBackend/index';
+    }
+
     public function getNavigation()
     {
         return array(
-            array('icon' => 'list-alt', 'label' => Yii::t('FeedbackModule.feedback', 'Messages list'), 'url' => array('/feedback/default/index')),
-            array('icon' => 'plus-sign', 'label' => Yii::t('FeedbackModule.feedback', 'Create message'), 'url' => array('/feedback/default/create')),
+            array('icon' => 'list-alt', 'label' => Yii::t('FeedbackModule.feedback', 'Messages list'), 'url' => array('/feedback/feedbackBackend/index')),
+            array('icon' => 'plus-sign', 'label' => Yii::t('FeedbackModule.feedback', 'Create message'), 'url' => array('/feedback/feedbackBackend/create')),
         );
     }
 
