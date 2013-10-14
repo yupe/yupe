@@ -36,4 +36,9 @@ return array (
     'Page was not found!' => '',
     'Manage' => '',
     'manage' => '',
+    'Find!' => '',
+    'Search...' => '',
+    'Search by request: ' => '',
+    'Results:'=>'',
+    'Nothing was found' => ''
 );

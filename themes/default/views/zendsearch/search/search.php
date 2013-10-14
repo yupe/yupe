@@ -1,19 +1,19 @@
 <?php
-$this->pageTitle = 'Поиск по запросу: ' . CHtml::encode($term);
+$this->pageTitle = Yii::t('ZendSearchModule.zendsearch','Search by request: ') . CHtml::encode($term);
 $this->breadcrumbs = array(
-    'Поиск по запросу: ' . CHtml::encode($term),
+    Yii::t('ZendSearchModule.zendsearch','Search by request: ') . CHtml::encode($term),
 );
 ?>
-<h1>Поиск по запросу: "<?php echo CHtml::encode($term); ?>"</h1>
+<h1><?php echo Yii::t('ZendSearchModule.zendsearch','Search by request: ');  ?> "<?php echo CHtml::encode($term); ?>"</h1>
 
 <?php echo CHtml::beginForm(array('/zendsearch/search/search'), 'get'); ?>
-    <?php echo CHtml::textField('q',CHtml::encode($term), array('placeholder' => 'Поиск...', 'class' => ''));?>
-    <?php echo CHtml::submitButton('Искать!', array('class' => 'btn'));?>
+    <?php echo CHtml::textField('q',CHtml::encode($term), array('placeholder' => Yii::t('ZendSearchModule.zendsearch','Search...'), 'class' => ''));?>
+    <?php echo CHtml::submitButton(Yii::t('ZendSearchModule.zendsearch','Find!'), array('class' => 'btn'));?>
 <?php echo CHtml::endForm();?>
 
 
 <?php if (!empty($results)): ?>
-    <h3>Результаты:</h3>
+    <h3><?php echo Yii::t('ZendSearchModule.zendsearch','Results:'); ?></h3>
     <?php foreach ($results as $result):?>
         <?php
         $resultLink = '/';
@@ -42,5 +42,5 @@ $this->breadcrumbs = array(
     <?php endforeach; ?>
 
 <?php else: ?>
-    <p class="error">Поиск не дал результатов.</p>
+    <p class="error"><?php echo Yii::t('ZendSearchModule.zendsearch','Nothing was found'); ?></p>
 <?php endif; ?>

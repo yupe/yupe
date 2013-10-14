@@ -36,4 +36,9 @@ return array (
   'Page was not found!' => 'Страница не найдена!',
   'Manage' => 'Управление',
   'manage' => 'управление',
+  'Find!' => 'Искать!',
+  'Search...' => 'Поиск...',
+  'Search by request: ' => 'Поиск по запросу: ',
+  'Results:' => 'Результаты',
+  'Nothing was found' => 'Поиск не дал результатов.',
 );
