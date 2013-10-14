@@ -4,7 +4,8 @@
  */
 class LastLoginUsersWidget extends YWidget
 {
-    public $view = 'lastloginuserswidget';
+    public $view       = 'lastloginuserswidget';
+    public $avatarSize = 25; // pixels (square, height==width)
 
     public function run()
     {

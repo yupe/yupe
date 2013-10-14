@@ -65,9 +65,9 @@
 
             <div class="widget tags-cloud-widget">
                 <?php $this->widget(
-                                    'application.modules.yupe.extensions.taggable.widgets.TagCloudWidget.TagCloudWidget',
-                                    array('cacheTime' => 0, 'model' => 'Post')
-                                ); ?>
+                    'application.modules.yupe.extensions.taggable.widgets.TagCloudWidget.TagCloudWidget',
+                    array('cacheTime' => 0, 'model' => 'Post')
+                ); ?>
             </div>
 
             <div class="widget last-questions-widget">
@@ -76,9 +76,11 @@
 
             <div class="widget last-login-users-widget">
                 <?php $this->widget(
-                                    'application.modules.user.widgets.LastLoginUsersWidget',
-                                    array('cacheTime' => 0)
-                                ); ?>
+                    'application.modules.user.widgets.LastLoginUsersWidget',
+                    array(
+                        'cacheTime'  => 0,
+                    )
+                ); ?>
             </div>
         </aside>
     </div>

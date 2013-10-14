@@ -310,30 +310,22 @@ class User extends YModel
     /**
      * Получить аватарку пользователя в виде тега IMG
      *
-     * @param array $htmlOptions HTML-опции для создаваемого тега
      * @param int $size требуемый размер аватарки в пикселях
      *
-     * @throws CException
      * @return string код аватарки
      */
 
     //@TODO подумать не лучше ли возвращать CHtml::image а не просто строку
-    public function getAvatar($size = 64, $htmlOptions = array())
+    public function getAvatar($size = 64)
     {
         $size = (int)$size;
         $size || ($size = 32);
-
-        if (!is_array($htmlOptions)) {
-            throw new CException(Yii::t('UserModule.user', "htmlOptions must be array or not specified!"));
-        }
-
-        isset($htmlOptions['width']) || ($htmlOptions['width'] = $size);
-        isset($htmlOptions['height']) || ($htmlOptions['height'] = $size);
 
         // если это граватар
         if ($this->use_gravatar && $this->email) {
             return 'http://gravatar.com/avatar/' . md5($this->email) . "?d=mm&s=" . $size;
         } else if ($this->avatar){
+
             $avatarsDir = Yii::app()->getModule('user')->avatarsDir;
             $uploadPath = Yii::app()->getModule('yupe')->uploadPath;
             $basePath   = Yii::app()->getModule('user')->getUploadPath();
@@ -353,7 +345,7 @@ class User extends YModel
                           ->quality(85)
                           ->sharpen(15)
                           ->save($basePath . "/" . $sizedFile);
-                }else {
+                } else {
                     @copy($basePath . "/" . $this->avatar, $basePath . "/" . $sizedFile);
                 }
 
