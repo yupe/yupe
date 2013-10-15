@@ -12,8 +12,7 @@ $this->widget('bootstrap.widgets.TbNavbar', array(
         'items' => array(
             array(
                 'class' => 'bootstrap.widgets.TbMenu',
-                'items' => $this->params['items']
+                'items' => array_merge($this->params['items'], $this->controller->yupe->getLanguageSelectorArray())
             )
         )
-    ))
-;?>
+    ));

@@ -2,6 +2,10 @@
     $static = Yii::app()->assetManager->publish(
         Yii::app()->theme->basePath . '/web'
     );
+
+    $yupeAssets = Yii::app()->assetManager->publish(
+        Yii::getPathOfAlias('application.modules.yupe.views.assets')
+    );
 ?>
 <!DOCTYPE html>
 <html lang="<?php echo Yii::app()->language; ?>">
@@ -17,10 +21,10 @@
     <link rel="shortcut icon" href="<?php echo $static; ?>/images/favicon.ico"/>
     <link rel="stylesheet" href="<?php echo $static; ?>/css/main.css"/>
     <title><?php echo CHtml::encode($this->pageTitle); ?></title>
-    <?php
-        if(Yii::app()->hasComponent('highlightjs'))
-            Yii::app()->highlightjs->loadClientScripts();
-        ?>
+    <?php Yii::app()->clientScript->registerCssFile($yupeAssets. '/css/flags.css');?>
+    <?php if(Yii::app()->hasComponent('highlightjs')):?>
+       <?php Yii::app()->highlightjs->loadClientScripts();?>
+    <?php endif?>
     <!--[if IE]>
 	<script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
     <![endif]-->
