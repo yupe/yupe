@@ -363,7 +363,7 @@ class GalleryBackendController extends yupe\components\controllers\BackControlle
      *
      * @return void
      */
-    protected function performAjaxValidation($model)
+    protected function performAjaxValidation(Gallery $model)
     {
         if (Yii::app()->getRequest()->getIsAjaxRequest() && Yii::app()->getRequest()->getPost('ajax') === 'gallery-form') {
             echo CActiveForm::validate($model);

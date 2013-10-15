@@ -149,7 +149,7 @@ class UserToBlogBackendController extends yupe\components\controllers\BackContro
      * Производит AJAX-валидацию
      * @param CModel модель, которую необходимо валидировать
      */
-    protected function performAjaxValidation($model)
+    protected function performAjaxValidation(UserToBlog $model)
     {
         if (isset($_POST['ajax']) && $_POST['ajax'] === 'user-to-blog-form')
         {

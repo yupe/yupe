@@ -240,7 +240,7 @@ class CategoryBackendController extends yupe\components\controllers\BackControll
      *
      * @return void
      */
-    protected function performAjaxValidation($model)
+    protected function performAjaxValidation(Category $model)
     {
         if (Yii::app()->getRequest()->getIsAjaxRequest() && Yii::app()->getRequest()->getPost('ajax') === 'category-form') {
             echo CActiveForm::validate($model);

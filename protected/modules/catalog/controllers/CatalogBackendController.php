@@ -137,7 +137,7 @@ class CatalogBackendController extends yupe\components\controllers\BackControlle
      * Производит AJAX-валидацию
      * @param CModel модель, которую необходимо валидировать
      */
-    protected function performAjaxValidation($model)
+    protected function performAjaxValidation(Good $model)
     {
         if (isset($_POST['ajax']) && $_POST['ajax'] === 'good-form')
         {

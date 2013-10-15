@@ -161,7 +161,7 @@ class CommentBackendController extends yupe\components\controllers\BackControlle
      * Performs the AJAX validation.
      * @param CModel the model to be validated
      */
-    protected function performAjaxValidation($model)
+    protected function performAjaxValidation(Comment $model)
     {
         if (Yii::app()->getRequest()->getIsAjaxRequest() && Yii::app()->getRequest()->getPost('ajax') === 'comment-form') {
             echo CActiveForm::validate($model);

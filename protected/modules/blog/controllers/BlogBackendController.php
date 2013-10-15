@@ -143,7 +143,7 @@ class BlogBackendController extends yupe\components\controllers\BackController
      *
      * @return nothing
      **/
-    protected function performAjaxValidation($model)
+    protected function performAjaxValidation(Blog $model)
     {
         if (Yii::app()->getRequest()->getIsAjaxRequest() && Yii::app()->getRequest()->getPost('ajax') === 'blog-form') {
             echo CActiveForm::validate($model);

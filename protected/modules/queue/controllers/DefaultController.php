@@ -144,7 +144,7 @@ class DefaultController extends yupe\components\controllers\BackController
      *
      * @param CModel модель, которую необходимо валидировать
      */
-    protected function performAjaxValidation($model)
+    protected function performAjaxValidation(Queue $model)
     {
         if (isset($_POST['ajax']) && $_POST['ajax'] === 'queue-form')
         {

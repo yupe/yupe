@@ -168,7 +168,7 @@ class EventBackendController extends yupe\components\controllers\BackController
      *
      * @return void
      */
-    protected function performAjaxValidation($model)
+    protected function performAjaxValidation(MailEvent $model)
     {
         if (Yii::app()->getRequest()->getIsAjaxRequest() && Yii::app()->getRequest()->getPost('ajax') === 'mail-event-form') {
             echo CActiveForm::validate($model);

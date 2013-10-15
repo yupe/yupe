@@ -176,7 +176,7 @@ class ContentBlockBackendController extends yupe\components\controllers\BackCont
      *
      * @return void
      */
-    protected function performAjaxValidation($model)
+    protected function performAjaxValidation(ContentBlock $model)
     {
         if (Yii::app()->getRequest()->getIsAjaxRequest() && Yii::app()->getRequest()->getPost('ajax') === 'content-block-form') {
             echo CActiveForm::validate($model);

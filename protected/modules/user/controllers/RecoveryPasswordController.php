@@ -69,7 +69,7 @@ class RecoveryPasswordController extends yupe\components\controllers\BackControl
      * Performs the AJAX validation.
      * @param CModel the model to be validated
      */
-    protected function performAjaxValidation($model)
+    protected function performAjaxValidation(RecoveryPassword $model)
     {
         if (isset($_POST['ajax']) && $_POST['ajax'] === 'recovery-password-form')
         {

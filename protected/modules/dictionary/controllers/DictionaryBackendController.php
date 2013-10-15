@@ -177,7 +177,7 @@ class DictionaryBackendController extends yupe\components\controllers\BackContro
      *
      * @return void
      */
-    protected function performAjaxValidation($model)
+    protected function performAjaxValidation(DictionaryGroup $model)
     {
         if (Yii::app()->getRequest()->getIsAjaxRequest() && Yii::app()->getRequest()->getPost('ajax') === 'dictionary-group-form') {
             echo CActiveForm::validate($model);

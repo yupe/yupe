@@ -208,7 +208,7 @@ class DefaultController extends yupe\components\controllers\BackController
      * Performs the AJAX validation.
      * @param CModel the model to be validated
      */
-    protected function performAjaxValidation($model)
+    protected function performAjaxValidation(User $model)
     {
         if (isset($_POST['ajax']) && $_POST['ajax'] === 'user-form')
         {

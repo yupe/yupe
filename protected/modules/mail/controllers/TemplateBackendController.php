@@ -181,7 +181,7 @@ class TemplateBackendController extends yupe\components\controllers\BackControll
      *
      * @return void
      */
-    protected function performAjaxValidation($model)
+    protected function performAjaxValidation(MailTemplate $model)
     {
         if (Yii::app()->getRequest()->getIsAjaxRequest() && Yii::app()->getRequest()->getPost('ajax') === 'mail-template-form') {
             echo CActiveForm::validate($model);

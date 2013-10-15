@@ -166,7 +166,7 @@ class PostBackendController extends yupe\components\controllers\BackController
      *
      * @return void
      */
-    protected function performAjaxValidation($model)
+    protected function performAjaxValidation(Post $model)
     {
         if (Yii::app()->getRequest()->getIsAjaxRequest() && Yii::app()->getRequest()->getPost('ajax') === 'post-form') {
             echo CActiveForm::validate($model);
