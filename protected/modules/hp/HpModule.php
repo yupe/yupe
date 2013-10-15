@@ -89,7 +89,10 @@ class HpModule extends yupe\components\WebModule
 
     public function getAdminPageLink()
     {
-        return sprintf('/yupe/backend/modulesettings/%s',$this->getId());
+        return array(
+            '/yupe/backend/modulesettings',
+            'module' => $this->getId()
+        );
     }
 
     public function getEditableParams()
