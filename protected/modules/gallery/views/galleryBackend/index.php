@@ -11,15 +11,15 @@
 
 $this->breadcrumbs = array(
     Yii::app()->getModule('gallery')->getCategory() => array(),
-    Yii::t('GalleryModule.gallery', 'Galleries') => array('/gallery/default/index'),
+    Yii::t('GalleryModule.gallery', 'Galleries') => array('/gallery/galleryBackend/index'),
     Yii::t('GalleryModule.gallery', 'Management'),
 );
 
 $this->pageTitle = Yii::t('GalleryModule.gallery', 'Galleries - manage');
 
 $this->menu = array(
-    array('icon' => 'list-alt', 'label' => Yii::t('GalleryModule.gallery', 'Gallery management'), 'url' => array('/gallery/default/index')),
-    array('icon' => 'plus-sign', 'label' => Yii::t('GalleryModule.gallery', 'Create gallery'), 'url' => array('/gallery/default/create')),
+    array('icon' => 'list-alt', 'label' => Yii::t('GalleryModule.gallery', 'Gallery management'), 'url' => array('/gallery/galleryBackend/index')),
+    array('icon' => 'plus-sign', 'label' => Yii::t('GalleryModule.gallery', 'Create gallery'), 'url' => array('/gallery/galleryBackend/create')),
 );
 ?>
 <div class="page-header">
@@ -83,7 +83,7 @@ $this->renderPartial('_search', array('model' => $model));
                     'images' => array(
                         'icon'     => 'picture',
                         'label'    => Yii::t('GalleryModule.gallery', 'Gallery images'),
-                        'url'      => 'array("/gallery/default/images", "id" => $data->id)',
+                        'url'      => 'array("/gallery/galleryBackend/images", "id" => $data->id)',
                     ),
                 ),
                 'htmlOptions' => array(

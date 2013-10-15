@@ -109,11 +109,13 @@ class CommentBackendController extends yupe\components\controllers\BackControlle
      */
     public function actionDelete($id)
     {
-        if (Yii::app()->request->isPostRequest) {
+        if (Yii::app()->getRequest()->getIsPostRequest()) {
             
             // we only allow deletion via POST request
             $model = $this->loadModel($id);
+            
             Yii::app()->cache->delete("Comment{$model->model}{$model->model_id}");
+            
             $model->deleteNode();
 
             Yii::app()->getRequest()->getParam('ajax') !== null || $this->redirect(

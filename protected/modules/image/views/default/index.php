@@ -73,7 +73,7 @@ $this->widget(
                             : CHtml::link(
                                 $data->gallery->name,
                                 Yii::app()->controller instanceof yupe\components\controllers\BackController
-                                ? array("/gallery/default/update", "id" => $data->galleryId)
+                                ? array("/gallery/galleryBackend/update", "id" => $data->galleryId)
                                 : array("/gallery/gallery/update", "id" => $data->galleryId)
                             )',
             ),

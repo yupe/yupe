@@ -1,6 +1,6 @@
 <?php
 /**
- * DefaultController контроллер для управления галереями в панели управления
+ * GalleryBackendController контроллер для управления галереями в панели управления
  *
  * @category YupeController
  * @package  yupe.modules.gallety.controllers
@@ -9,11 +9,14 @@
  * @link     http://yupe.ru
  *
  **/
-class DefaultController extends yupe\components\controllers\BackController
+class GalleryBackendController extends yupe\components\controllers\BackController
 {
     /**
      * Отображает галерею по указанному идентификатору
+     * 
      * @param integer $id Идинтификатор галерею для отображения
+     *
+     * @return void
      */
     public function actionView($id)
     {
@@ -23,6 +26,8 @@ class DefaultController extends yupe\components\controllers\BackController
     /**
      * Создает новую модель галереи.
      * Если создание прошло успешно - перенаправляет на просмотр.
+     *
+     * @return void
      */
     public function actionCreate()
     {
@@ -30,13 +35,12 @@ class DefaultController extends yupe\components\controllers\BackController
 
         // Uncomment the following line if AJAX validation is needed
         // $this->performAjaxValidation($model);
+        if (($data = Yii::app()->getRequest()->getPost('Gallery')) !== null) {
+            
+            $model->setAttributes($data);
 
-        if (isset($_POST['Gallery']))
-        {
-            $model->attributes = $_POST['Gallery'];
-
-            if ($model->save())
-            {
+            if ($model->save()) {
+                
                 Yii::app()->user->setFlash(
                     YFlashMessages::SUCCESS_MESSAGE,
                     Yii::t('GalleryModule.gallery', 'Record was created')
@@ -54,7 +58,10 @@ class DefaultController extends yupe\components\controllers\BackController
 
     /**
      * Редактирование галереи.
+     * 
      * @param integer $id the ID of the model to be updated
+     *
+     * @return void
      */
     public function actionUpdate($id)
     {
@@ -62,36 +69,42 @@ class DefaultController extends yupe\components\controllers\BackController
 
         // Uncomment the following line if AJAX validation is needed
         // $this->performAjaxValidation($model);
+        if (($data = Yii::app()->getRequest()->getPost('Gallery')) !== null) {
+            
+            $model->setAttributes($data);
 
-        if (isset($_POST['Gallery']))
-        {
-            $model->attributes = $_POST['Gallery'];
+            if ($model->save()) {
 
-            if ($model->save())
-            {
                 Yii::app()->user->setFlash(
                     YFlashMessages::SUCCESS_MESSAGE,
                     Yii::t('GalleryModule.gallery', 'Record was updated')
                 );
 
-                if (!isset($_POST['submit-type']))
-                    $this->redirect(array('update', 'id' => $model->id));
-                else
-                    $this->redirect(array($_POST['submit-type']));
+                $this->redirect(
+                    (array) Yii::app()->request->getPost(
+                        'submit-type', array('update', 'id' => $model->id)
+                    )
+                );
             }
         }
+
         $this->render('update', array('model' => $model));
     }
 
     /**
      * Удаяет модель галереи из базы.
      * Если удаление прошло успешно - возвращется в index
+     * 
      * @param integer $id идентификатор галереи, который нужно удалить
+     *
+     * @return void
+     *
+     * @throws CHttpException
      */
     public function actionDelete($id)
     {
-        if (Yii::app()->request->isPostRequest)
-        {
+        if (Yii::app()->getRequest()->getIsPostRequest()) {
+
             // поддерживаем удаление только из POST-запроса
             $this->loadModel($id)->delete();
 
@@ -101,22 +114,34 @@ class DefaultController extends yupe\components\controllers\BackController
             );
 
             // если это AJAX запрос ( кликнули удаление в админском grid view), мы не должны никуда редиректить
-            if (!isset($_GET['ajax']))
-                $this->redirect(isset($_POST['returnUrl']) ? $_POST['returnUrl'] : array('index'));
+            Yii::app()->getRequest()->getParam('ajax') !== null || $this->redirect(
+                (array) Yii::app()->getRequest()->getPost('returnUrl', 'index')
+            );
+        } else {
+            throw new CHttpException(
+                400,
+                Yii::t('GalleryModule.gallery', 'Bad request. Please don\'t repeat similar requests anymore')
+            );
         }
-        else
-            throw new CHttpException(400, Yii::t('GalleryModule.gallery', 'Bad request. Please don\'t repeat similar requests anymore'));
     }
 
     /**
      * Управление галереями.
+     *
+     * @return void
      */
     public function actionIndex()
     {
         $model = new Gallery('search');
+        
         $model->unsetAttributes(); // clear any default values
-        if (isset($_GET['Gallery']))
-            $model->attributes = $_GET['Gallery'];
+        
+        $model->setAttributes(
+            Yii::app()->getRequest()->getParam(
+                'Gallery', array()
+            )
+        );
+        
         $this->render('index', array('model' => $model));
     }
 
@@ -129,12 +154,16 @@ class DefaultController extends yupe\components\controllers\BackController
      **/
     public function actionImages($id)
     {
-        if (($gallery = Gallery::model()->findByPk($id)) === null)
-            throw new CHttpException(404, Yii::t('GalleryModule.gallery', 'Page was not found!'));
+        if (($gallery = Gallery::model()->findByPk($id)) === null) {
+            throw new CHttpException(
+                404,
+                Yii::t('GalleryModule.gallery', 'Page was not found!')
+            );
+        }
 
         $image = new Image;
 
-        if (Yii::app()->request->isPostRequest && ($imageData = Yii::app()->request->getPost('Image')) !== null) {
+        if (Yii::app()->getRequest()->getIsPostRequest() && ($imageData = Yii::app()->getRequest()->getPost('Image')) !== null) {
             $this->_addImage($image, $imageData, $gallery);
         }
 
@@ -142,7 +171,9 @@ class DefaultController extends yupe\components\controllers\BackController
             'images', array(
                 'image'        => $image,
                 'model'        => $gallery,
-                'tab'          => !($errors = $image->getErrors()) ? '_images_show' : '_image_add'
+                'tab'          => !($errors = $image->getErrors())
+                                    ? '_images_show'
+                                    : '_image_add'
             )
         );
     }
@@ -166,12 +197,12 @@ class DefaultController extends yupe\components\controllers\BackController
                 
                 $transaction->commit();
 
-                if (Yii::app()->request->getPost('ajax') === null) {
+                if (Yii::app()->getRequest()->getPost('ajax') === null) {
                     Yii::app()->user->setFlash(
                         YFlashMessages::SUCCESS_MESSAGE,
                         Yii::t('GalleryModule.gallery', 'Photo was created!')
                     );
-                    $this->redirect(array('/gallery/default/images', 'id' => $gallery->id));
+                    $this->redirect(array('/gallery/galleryBackend/images', 'id' => $gallery->id));
                 }
             }
         } catch (Exception $e) {
@@ -192,11 +223,17 @@ class DefaultController extends yupe\components\controllers\BackController
      * @param string $method - тип с помощью чего удаляем
      *
      * @return void
+     *
+     * @throws CHttpException
      **/
     public function actionDeleteImage($id = null, $method = null)
     {
-        if (($image = Image::model()->findByPk($id)) === null || $image->canChange() === false)
-            throw new CHttpException(404, Yii::t('GalleryModule.gallery', 'Page was not found!'));
+        if (($image = Image::model()->findByPk($id)) === null || $image->canChange() === false) {
+            throw new CHttpException(
+                404,
+                Yii::t('GalleryModule.gallery', 'Page was not found!')
+            );
+        }
 
         $message = Yii::t(
             'GalleryModule.gallery', 'Image #{id} {result} deleted', array(
@@ -207,7 +244,7 @@ class DefaultController extends yupe\components\controllers\BackController
             )
         );
 
-        if (Yii::app()->request->isPostRequest && Yii::app()->request->isAjaxRequest) {
+        if (Yii::app()->getRequest()->getIsPostRequest() && Yii::app()->getRequest()->getIsAjaxRequest) {
             $result === true
                 ? Yii::app()->ajax->success($message)
                 : Yii::app()->ajax->failure($message);
@@ -231,6 +268,8 @@ class DefaultController extends yupe\components\controllers\BackController
      * @param int $id - id-галереи
      *
      * @return void
+     *
+     * @throws CHttpException
      **/
     public function actionAddimages($id)
     {
@@ -239,12 +278,12 @@ class DefaultController extends yupe\components\controllers\BackController
 
         $image = new Image;
 
-        if (Yii::app()->request->isPostRequest && ($imageData = Yii::app()->request->getPost('Image')) !== null) {
+        if (Yii::app()->getRequest()->getIsPostRequest() && ($imageData = Yii::app()->getRequest()->getPost('Image')) !== null) {
             $imageData = $imageData[$_FILES['Image']['name']['file']];
             $this->_addImage($image, $imageData, $gallery);
-            if ($image->hasErrors())
+            if ($image->hasErrors()) {
                 $data[] = array('error' => $image->getErrors());
-            else
+            } else {
                 $data[] = array(
                     'name'          => $image->name,
                     'type'          => $_FILES['Image']['type']['file'],
@@ -252,17 +291,24 @@ class DefaultController extends yupe\components\controllers\BackController
                     'url'           => $image->getUrl(),
                     'thumbnail_url' => $image->getUrl(80),
                     'delete_url'    => $this->createUrl(
-                        '/gallery/default/deleteImage', array(
+                        '/gallery/galleryBackend/deleteImage', array(
                             'id' => $image->id,
                             'method' => 'uploader'
                         )
                     ),
                     'delete_type' => 'GET'
                 );
+            }
+            
             echo json_encode($data);
-            die();
-        } else
-            throw new CHttpException(404, Yii::t('GalleryModule.gallery', 'Page was not found!'));
+            
+            Yii::app()->end();
+        } else {
+            throw new CHttpException(
+                404,
+                Yii::t('GalleryModule.gallery', 'Page was not found!')
+            );
+        }
     }
 
     /**
@@ -275,8 +321,11 @@ class DefaultController extends yupe\components\controllers\BackController
      **/
     public function actionReloadContent($id = null, $view = null)
     {
-        if (($gallery = Gallery::model()->findByPk($id)) === null)
-            throw new CHttpException(404, Yii::t('GalleryModule.gallery', 'Page was not found!'));
+        if (($gallery = Gallery::model()->findByPk($id)) === null) {
+            throw new CHttpException(
+                404, Yii::t('GalleryModule.gallery', 'Page was not found!')
+            );
+        }
 
         $this->renderPartial(
             $view, array(
@@ -288,24 +337,35 @@ class DefaultController extends yupe\components\controllers\BackController
     /**
      * Возвращает модель по указанному идентификатору
      * Если модель не будет найдена - возникнет HTTP-исключение.
+     * 
      * @param integer идентификатор нужной модели
+     *
+     * @return Gallery $model
+     *
+     * @throws CHttpException
      */
     public function loadModel($id)
     {
-        $model = Gallery::model()->findByPk($id);
-        if ($model === null)
-            throw new CHttpException(404, Yii::t('GalleryModule.gallery', 'Requested page was not found.'));
+        if (($model = Gallery::model()->findByPk($id)) === null) {
+            throw new CHttpException(
+                404,
+                Yii::t('GalleryModule.gallery', 'Requested page was not found.')
+            );
+        }
+
         return $model;
     }
 
     /**
      * Производит AJAX-валидацию
+     * 
      * @param CModel модель, которую необходимо валидировать
+     *
+     * @return void
      */
     protected function performAjaxValidation($model)
     {
-        if (isset($_POST['ajax']) && $_POST['ajax'] === 'gallery-form')
-        {
+        if (Yii::app()->getRequest()->getIsAjaxRequest() && Yii::app()->getRequest()->getPost('ajax') === 'gallery-form') {
             echo CActiveForm::validate($model);
             Yii::app()->end();
         }

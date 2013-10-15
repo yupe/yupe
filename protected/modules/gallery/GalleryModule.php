@@ -2,11 +2,11 @@
 /**
  * GalleryModule основной класс модуля gallery
  *
- * @author yupe team <team@yupe.ru>
- * @link http://yupe.ru
+ * @author    yupe team <team@yupe.ru>
+ * @link      http://yupe.ru
  * @copyright 2009-2013 amyLabs && Yupe! team
- * @package yupe.modules.gallery
- * @since 0.1
+ * @package   yupe.modules.gallery
+ * @since     0.6
  *
  */
 
@@ -31,7 +31,7 @@ class GalleryModule extends yupe\components\WebModule
 
     public  function getVersion()
     {
-        return Yii::t('GalleryModule.gallery', '0.3');
+        return Yii::t('GalleryModule.gallery', '0.6');
     }
 
     public function getCategory()
@@ -69,6 +69,11 @@ class GalleryModule extends yupe\components\WebModule
         return "picture";
     }
 
+    public function getAdminPageLink()
+    {
+        return '/gallery/galleryBackend/index';
+    }
+
     public function init()
     {
         parent::init();
@@ -90,8 +95,8 @@ class GalleryModule extends yupe\components\WebModule
     public function getNavigation()
     {
         return array(
-            array('icon' => 'list-alt', 'label' => Yii::t('GalleryModule.gallery', 'Galleries list'), 'url' => array('/gallery/default/index')),
-            array('icon' => 'plus-sign', 'label' => Yii::t('GalleryModule.gallery', 'Create gallery'), 'url' => array('/gallery/default/create')),
+            array('icon' => 'list-alt', 'label' => Yii::t('GalleryModule.gallery', 'Galleries list'), 'url' => array('/gallery/galleryBackend/index')),
+            array('icon' => 'plus-sign', 'label' => Yii::t('GalleryModule.gallery', 'Create gallery'), 'url' => array('/gallery/galleryBackend/create')),
         );
     }
 }
