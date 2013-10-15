@@ -30,7 +30,7 @@ class RegistrationAction extends CAction
 
         $module->onBeginRegistration($event);
 
-        if (Yii::app()->request->isPostRequest && !empty($_POST['RegistrationForm']))
+        if (Yii::app()->getRequest()->getIsPostRequest() && !empty($_POST['RegistrationForm']))
         {
             $form->setAttributes($_POST['RegistrationForm']);
 

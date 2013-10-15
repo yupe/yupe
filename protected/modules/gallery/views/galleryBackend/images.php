@@ -31,7 +31,7 @@ $this->menu = array(
     array('icon' => 'picture', 'label' => Yii::t('GalleryModule.gallery', 'Gallery images'), 'url' => array('/gallery/galleryBackend/images', 'id' => $model->id)),
     array('icon' => 'trash', 'label' => Yii::t('GalleryModule.gallery', 'Remove gallery'), 'url' => '#', 'linkOptions' => array(
         'submit' => array('/gallery/galleryBackend/delete', 'id' => $model->id),
-        'params' => array(Yii::app()->request->csrfTokenName => Yii::app()->request->csrfToken),
+        'params' => array(Yii::app()->getRequest()->csrfTokenName => Yii::app()->getRequest()->csrfToken),
         'confirm' => Yii::t('GalleryModule.gallery', 'Do you really want to remove gallery?'),
     )),
 ); ?>

@@ -60,7 +60,7 @@ class MenuController extends yupe\components\controllers\BackController
             if ($model->save())
             {
                 $this->redirect(
-                    (array) Yii::app()->request->getPost(
+                    (array) Yii::app()->getRequest()->getPost(
                         'submit-type', array('create')
                     )
                 );
@@ -102,7 +102,7 @@ class MenuController extends yupe\components\controllers\BackController
      */
     public function actionDelete($id)
     {
-        if (Yii::app()->request->isPostRequest)
+        if (Yii::app()->getRequest()->getIsPostRequest())
         {
             // we only allow deletion via POST request
             $this->loadModel($id)->delete();

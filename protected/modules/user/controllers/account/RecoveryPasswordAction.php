@@ -97,7 +97,7 @@ class RecoveryPasswordAction extends CAction
 			$changePasswordForm = new ChangePasswordForm;
 
 			// если отправили фому с новым паролем
-			if (Yii::app()->request->isPostRequest && !empty($_POST['ChangePasswordForm']))
+			if (Yii::app()->getRequest()->getIsPostRequest() && !empty($_POST['ChangePasswordForm']))
 			{
 				$changePasswordForm->setAttributes($_POST['ChangePasswordForm']);
 

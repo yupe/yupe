@@ -67,7 +67,7 @@ class FeedbackBackendController extends yupe\components\controllers\BackControll
                 );
 
                 $this->redirect(
-                    (array) Yii::app()->request->getPost(
+                    (array) Yii::app()->getRequest()->getPost(
                         'submit-type', array('create')
                     )
                 );

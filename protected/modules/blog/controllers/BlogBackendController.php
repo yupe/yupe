@@ -39,8 +39,8 @@ class BlogBackendController extends yupe\components\controllers\BackController
         // Uncomment the following line if AJAX validation is needed
         // $this->performAjaxValidation($model);
 
-        if (Yii::app()->request->isPostRequest && Yii::app()->request->getPost('Blog') !== null) {
-            $model->setAttributes(Yii::app()->request->getPost('Blog'));
+        if (Yii::app()->getRequest()->getIsPostRequest() && Yii::app()->getRequest()->getPost('Blog') !== null) {
+            $model->setAttributes(Yii::app()->getRequest()->getPost('Blog'));
 
             if ($model->save()) {
                 Yii::app()->user->setFlash(
@@ -48,7 +48,7 @@ class BlogBackendController extends yupe\components\controllers\BackController
                     Yii::t('BlogModule.blog', 'Blog was added!')
                 );
                 $this->redirect(
-                    (array) Yii::app()->request->getPost(
+                    (array) Yii::app()->getRequest()->getPost(
                         'submit-type', array('create')
                     )
                 );
@@ -72,15 +72,15 @@ class BlogBackendController extends yupe\components\controllers\BackController
         // Uncomment the following line if AJAX validation is needed
         // $this->performAjaxValidation($model);
 
-        if (Yii::app()->request->isPostRequest && Yii::app()->request->getPost('Blog') !== null) {
-            $model->setAttributes(Yii::app()->request->getPost('Blog'));
+        if (Yii::app()->getRequest()->getIsPostRequest() && Yii::app()->getRequest()->getPost('Blog') !== null) {
+            $model->setAttributes(Yii::app()->getRequest()->getPost('Blog'));
             if ($model->save()) {
                 Yii::app()->user->setFlash(
                     YFlashMessages::SUCCESS_MESSAGE,
                     Yii::t('BlogModule.blog', 'Blog was updated!')
                 );
                 $this->redirect(
-                    (array) Yii::app()->request->getPost(
+                    (array) Yii::app()->getRequest()->getPost(
                         'submit-type', array(
                             'update',
                             'id' => $model->id
@@ -102,7 +102,7 @@ class BlogBackendController extends yupe\components\controllers\BackController
      **/
     public function actionDelete($id)
     {
-        if (Yii::app()->request->isPostRequest) {
+        if (Yii::app()->getRequest()->getIsPostRequest()) {
             
             // поддерживаем удаление только из POST-запроса
             if (($model = Blog::model()->loadModel($id)) === null)
@@ -116,8 +116,8 @@ class BlogBackendController extends yupe\components\controllers\BackController
             );
 
             // если это AJAX запрос ( кликнули удаление в админском grid view), мы не должны никуда редиректить
-            if (!Yii::app()->request->isAjaxRequest)
-                $this->redirect(Yii::app()->request->getPost('returnUrl', array('index')));
+            if (!Yii::app()->getRequest()->getIsAjaxRequest())
+                $this->redirect(Yii::app()->getRequest()->getPost('returnUrl', array('index')));
         } else
             throw new CHttpException(400, Yii::t('BlogModule.blog', 'Wrong request. Please don\'t repeate requests like this anymore!'));
     }
@@ -131,8 +131,8 @@ class BlogBackendController extends yupe\components\controllers\BackController
     {
         $model = new Blog('search');
         $model->unsetAttributes(); // clear any default values
-        if (Yii::app()->request->getParam('Blog') !== null)
-            $model->setAttributes(Yii::app()->request->getParam('Blog'));
+        if (Yii::app()->getRequest()->getParam('Blog') !== null)
+            $model->setAttributes(Yii::app()->getRequest()->getParam('Blog'));
         $this->render('index', array('model' => $model));
     }
 
@@ -145,7 +145,7 @@ class BlogBackendController extends yupe\components\controllers\BackController
      **/
     protected function performAjaxValidation($model)
     {
-        if (Yii::app()->request->isAjaxRequest && Yii::app()->request->getPost('ajax') === 'blog-form') {
+        if (Yii::app()->getRequest()->getIsAjaxRequest() && Yii::app()->getRequest()->getPost('ajax') === 'blog-form') {
             echo CActiveForm::validate($model);
             Yii::app()->end();
         }

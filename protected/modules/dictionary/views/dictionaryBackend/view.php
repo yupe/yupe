@@ -22,7 +22,7 @@
             )),
             array('icon' => 'trash', 'label' => Yii::t('DictionaryModule.dictionary', 'Remove dictionary'), 'url' => '#', 'linkOptions' => array(
                 'submit' => array('/dictionary/dictionaryBackend/delete', 'id' => $model->id),
-                'params' => array(Yii::app()->request->csrfTokenName => Yii::app()->request->csrfToken),
+                'params' => array(Yii::app()->getRequest()->csrfTokenName => Yii::app()->getRequest()->csrfToken),
                 'confirm' => Yii::t('DictionaryModule.dictionary', 'Do you really want do delete dictionary?'),
             )),
         )),

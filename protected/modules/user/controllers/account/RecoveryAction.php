@@ -26,7 +26,7 @@ class RecoveryAction extends CAction
 
         $form = new RecoveryForm;
 
-        if (Yii::app()->request->isPostRequest && isset($_POST['RecoveryForm']))
+        if (Yii::app()->getRequest()->getIsPostRequest() && isset($_POST['RecoveryForm']))
         {
             $form->setAttributes($_POST['RecoveryForm']);
 

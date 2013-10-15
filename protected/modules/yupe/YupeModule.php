@@ -1001,7 +1001,7 @@ class YupeModule extends WebModule
         $currentLanguage = Yii::app()->language;
 
         $homeUrl = Yii::app()->homeUrl . (Yii::app()->homeUrl[strlen(Yii::app()->homeUrl) - 1] != "/" ? '/' : '');
-        $cp = Yii::app()->urlManager->getCleanUrl(Yii::app()->request->url);
+        $cp = Yii::app()->urlManager->getCleanUrl(Yii::app()->getRequest()->url);
 
         foreach ($langs as $lang) {
             $lang = trim($lang);

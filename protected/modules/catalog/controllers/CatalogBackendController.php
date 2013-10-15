@@ -43,7 +43,7 @@ class CatalogBackendController extends yupe\components\controllers\BackControlle
                 );
 
                 $this->redirect(
-                    (array) Yii::app()->request->getPost(
+                    (array) Yii::app()->getRequest()->getPost(
                         'submit-type', array('create')
                     )
                 );
@@ -90,7 +90,7 @@ class CatalogBackendController extends yupe\components\controllers\BackControlle
      */
     public function actionDelete($id)
     {
-        if (Yii::app()->request->isPostRequest)
+        if (Yii::app()->getRequest()->getIsPostRequest())
         {
             // поддерживаем удаление только из POST-запроса
             $this->loadModel($id)->delete();

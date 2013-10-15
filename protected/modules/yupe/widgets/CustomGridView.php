@@ -380,7 +380,7 @@ JS
                     url: url,
                     type: "POST",
                     dataType: "json",
-                    data: "'.Yii::app()->request->csrfTokenName.'='.Yii::app()->request->csrfToken.'&model=' . $this->_modelName . '&do=" + action + "&" + queryString,
+                    data: "'.Yii::app()->getRequest()->csrfTokenName.'='.Yii::app()->getRequest()->csrfToken.'&model=' . $this->_modelName . '&do=" + action + "&" + queryString,
                     success: function(data) {
                         if (data.result) {                            
                             $.fn.yiiGridView.update("'.$this->id.'");

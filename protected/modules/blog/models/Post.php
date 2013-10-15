@@ -320,7 +320,7 @@ class Post extends YModel
 
         if ($this->isNewRecord) {
             $this->create_user_id = $this->update_user_id;
-            $this->create_user_ip = Yii::app()->request->userHostAddress;
+            $this->create_user_ip = Yii::app()->getRequest()->userHostAddress;
         }
 
         return parent::beforeSave();

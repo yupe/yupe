@@ -27,8 +27,8 @@ class YFeedAction extends CAction
      *                 //'title'        => Yii::t('YupeModule.yupe', 'Site title'),
      *                 // Параметр description по умолчанию берётся из настроек приложения
      *                 //'description'  => Yii::t('YupeModule.yupe', 'News list'),
-     *                 // Параметр link по умолчанию берётся как Yii::app()->request->getBaseUrl(true)
-     *                 //'link' => Yii::app()->request->getBaseUrl(true),
+     *                 // Параметр link по умолчанию берётся как Yii::app()->getRequest()->getBaseUrl(true)
+     *                 //'link' => Yii::app()->getRequest()->getBaseUrl(true),
      *                 'itemFields'   => array(
      *                     // author_object, если не задан - у
      *                     // item-елемента запросится author_nickname
@@ -101,7 +101,7 @@ class YFeedAction extends CAction
          * Опеределяем link для ленты:
          */
         $this->link = empty($this->link)
-            ? Yii::app()->request->getBaseUrl('true')
+            ? Yii::app()->getRequest()->getBaseUrl('true')
             : $this->link;
 
         /**

@@ -69,7 +69,7 @@ Yii::app()->clientScript->registerScript(
         </thead>
         <tbody>
             <?php
-            $post = Yii::app()->request->isPostRequest;
+            $post = Yii::app()->getRequest()->getIsPostRequest();
             $modulesSelection = array(
                 'all'   => array(),
                 'recom' => array(),

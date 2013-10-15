@@ -30,7 +30,7 @@ $this->widget('bootstrap.widgets.TbButton', array(
     'url' => $this->createUrl('/zendsearch/default/create'),
     'ajaxOptions' => array(
         'type' => 'POST',
-        'data' => array(Yii::app()->request->csrfTokenName => Yii::app()->request->csrfToken),
+        'data' => array(Yii::app()->getRequest()->csrfTokenName => Yii::app()->getRequest()->csrfToken),
         'url' => $this->createUrl('/zendsearch/default/create'),
         'beforeSend' => 'function(){
 	       $("#create-search").text("'.Yii::t('ZendSearchModule.zendsearch','Wait please...').'");

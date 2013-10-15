@@ -30,7 +30,7 @@ class LoginAction extends CAction
                 : ''
         );
 
-        if (Yii::app()->request->isPostRequest && !empty($_POST['LoginForm'])) {
+        if (Yii::app()->getRequest()->getIsPostRequest() && !empty($_POST['LoginForm'])) {
             $form->setAttributes($_POST['LoginForm']);
 
             if ($form->validate()) {
@@ -43,7 +43,7 @@ class LoginAction extends CAction
                     Yii::t(
                         'UserModule.user', 'User with {email} was logined with IP-address {ip}!', array(
                             '{email}' => $form->email,
-                            '{ip}'    => Yii::app()->request->getUserHostAddress(),
+                            '{ip}'    => Yii::app()->getRequest()->getUserHostAddress(),
                         )
                     ),
                     CLogger::LEVEL_INFO, UserModule::$logCategory
@@ -72,7 +72,7 @@ class LoginAction extends CAction
                         'user', 'Authorization error with IP-address {ip}! email => {email}, Password => {password}!', array(
                             '{email}'    => $form->email,
                             '{password}' => $form->password,
-                            '{ip}'       => Yii::app()->request->getUserHostAddress(),
+                            '{ip}'       => Yii::app()->getRequest()->getUserHostAddress(),
                         )
                     ),
                     CLogger::LEVEL_ERROR, UserModule::$logCategory

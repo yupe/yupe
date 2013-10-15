@@ -103,10 +103,10 @@ class DefaultController extends yupe\components\controllers\FrontController
 
 		$page->setWikiUid($uid);
 
-		if(Yii::app()->request->getPost('WikiPage'))
+		if(Yii::app()->getRequest()->getPost('WikiPage'))
 		{
-			$comment = Yii::app()->request->getPost('comment', '');
-			$page->setAttributes(Yii::app()->request->getPost('WikiPage'));
+			$comment = Yii::app()->getRequest()->getPost('comment', '');
+			$page->setAttributes(Yii::app()->getRequest()->getPost('WikiPage'));
 
 			/** @var $auth IWikiAuth */
 			$auth = $this->getModule()->getAuth();

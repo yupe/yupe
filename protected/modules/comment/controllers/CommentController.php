@@ -63,16 +63,16 @@ class CommentController extends yupe\components\controllers\FrontController
      **/
     public function actionAdd()
     {
-        if(!Yii::app()->request->isPostRequest || !Yii::app()->request->getPost('Comment')){
+        if(!Yii::app()->getRequest()->getIsPostRequest() || !Yii::app()->getRequest()->getPost('Comment')){
             throw new CHttpException(404);
         }
 
 
-        $redirect = Yii::app()->request->getPost('redirectTo', Yii::app()->user->returnUrl);
+        $redirect = Yii::app()->getRequest()->getPost('redirectTo', Yii::app()->user->returnUrl);
 
         $comment = new Comment;
         $comment->setAttributes(
-            Yii::app()->request->getPost('Comment')
+            Yii::app()->getRequest()->getPost('Comment')
         );
 
         $module = Yii::app()->getModule('comment');
@@ -142,7 +142,7 @@ class CommentController extends yupe\components\controllers\FrontController
                 ? ''
                 : $this->_renderComment($comment);
 
-            if (Yii::app()->request->isAjaxRequest) {
+            if (Yii::app()->getRequest()->getIsAjaxRequest()) {
                 Yii::app()->ajax->success(
                     array(
                         'message'        => $message,
@@ -163,7 +163,7 @@ class CommentController extends yupe\components\controllers\FrontController
 
         } else {
 
-            if (Yii::app()->request->isAjaxRequest) {
+            if (Yii::app()->getRequest()->getIsAjaxRequest()) {
                 Yii::app()->ajax->failure(
                     array(
                         'message' => $message

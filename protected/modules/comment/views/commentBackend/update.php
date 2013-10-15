@@ -22,7 +22,7 @@
         )),
         array('icon' => 'trash', 'label' => Yii::t('CommentModule.comment', 'Delete comment'), 'url' => '#', 'linkOptions' => array(
             'submit' => array('/comment/commentBackend/delete', 'id' => $model->id),
-            'params' => array(Yii::app()->request->csrfTokenName => Yii::app()->request->csrfToken),
+            'params' => array(Yii::app()->getRequest()->csrfTokenName => Yii::app()->getRequest()->csrfToken),
             'confirm' => Yii::t('CommentModule.comment', 'Do you really want do remove comment?'),
         )),
     );

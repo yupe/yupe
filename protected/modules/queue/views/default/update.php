@@ -22,7 +22,7 @@
         )),
         array('icon' => 'trash', 'label' => Yii::t('QueueModule.queue','Remove task'), 'url' => '#', 'linkOptions'=> array(
             'submit' => array('/queue/default/delete', 'id' => $model->id),
-            'params' => array(Yii::app()->request->csrfTokenName => Yii::app()->request->csrfToken),
+            'params' => array(Yii::app()->getRequest()->csrfTokenName => Yii::app()->getRequest()->csrfToken),
             'confirm'=> Yii::t('QueueModule.queue', 'Do you really want to delete?'),
         )),
     );

@@ -108,7 +108,7 @@ class <?php echo $this->controllerClass; ?> extends <?php echo $this->baseContro
      */
     public function actionDelete($id)
     {
-        if (Yii::app()->request->isPostRequest)
+        if (Yii::app()->getRequest()->getIsPostRequest())
         {
             // поддерживаем удаление только из POST-запроса
             $this->loadModel($id)->delete();

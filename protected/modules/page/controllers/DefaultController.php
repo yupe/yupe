@@ -38,7 +38,7 @@ class DefaultController extends yupe\components\controllers\BackController
 
         if (!empty($_POST['Page']))
         {
-            $model->setAttributes(Yii::app()->request->getPost('Page'));
+            $model->setAttributes(Yii::app()->getRequest()->getPost('Page'));
 
             $transaction = Yii::app()->db->beginTransaction();
 
@@ -49,8 +49,8 @@ class DefaultController extends yupe\components\controllers\BackController
                     // если активен модуль "Меню" - сохраним в меню
                     if(Yii::app()->hasModule('menu')){
 
-                        $menuId   = (int)Yii::app()->request->getPost('menu_id');
-                        $parentId = (int)Yii::app()->request->getPost('parent_id');
+                        $menuId   = (int)Yii::app()->getRequest()->getPost('menu_id');
+                        $parentId = (int)Yii::app()->getRequest()->getPost('parent_id');
                         $menu = Menu::model()->active()->findByPk($menuId);
                         if($menu){
                             if(!$menu->addItem($model->title, $this->createUrl('/page/page/show',array('slug' => $model->slug)),$parentId)){
@@ -67,7 +67,7 @@ class DefaultController extends yupe\components\controllers\BackController
                     $transaction->commit();
 
                     $this->redirect(
-                        (array) Yii::app()->request->getPost(
+                        (array) Yii::app()->getRequest()->getPost(
                             'submit-type', array('create')
                         )
                     );
@@ -83,8 +83,8 @@ class DefaultController extends yupe\components\controllers\BackController
         $languages = $this->yupe->getLanguagesList();
 
         //если добавляем перевод
-        $id = (int)Yii::app()->request->getQuery('id');
-        $lang = Yii::app()->request->getQuery('lang');
+        $id = (int)Yii::app()->getRequest()->getQuery('id');
+        $lang = Yii::app()->getRequest()->getQuery('lang');
 
         if(!empty($id) && !empty($lang)){
             $page = Page::model()->findByPk($id);
@@ -135,14 +135,14 @@ class DefaultController extends yupe\components\controllers\BackController
 
         if (isset($_POST['Page']))
         {
-            $model->setAttributes(Yii::app()->request->getPost('Page'));
+            $model->setAttributes(Yii::app()->getRequest()->getPost('Page'));
 
             if ($model->save())
             {
                 if(Yii::app()->hasModule('menu')){
 
-                    $menuId   = (int)Yii::app()->request->getPost('menu_id');
-                    $parentId = (int)Yii::app()->request->getPost('parent_id');
+                    $menuId   = (int)Yii::app()->getRequest()->getPost('menu_id');
+                    $parentId = (int)Yii::app()->getRequest()->getPost('parent_id');
                     $menu = Menu::model()->active()->findByPk($menuId);
                     if($menu){
                         if(!$menu->changeItem($oldTitle, $model->title, $this->createUrl('/page/page/show',array('slug' => $model->slug)),$parentId)){
@@ -194,7 +194,7 @@ class DefaultController extends yupe\components\controllers\BackController
      */
     public function actionDelete($id = null)
     {
-        if (Yii::app()->request->isPostRequest)
+        if (Yii::app()->getRequest()->getIsPostRequest())
         {
             $model = $this->loadModel($id);
 

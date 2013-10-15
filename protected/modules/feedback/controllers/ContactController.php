@@ -33,11 +33,11 @@ class ContactController extends yupe\components\controllers\FrontController
 
 
         // проверить не передан ли тип и присвоить его аттрибуту модели
-        $form->type = (int) Yii::app()->request->getParam('type', FeedBack::TYPE_DEFAULT);
+        $form->type = (int) Yii::app()->getRequest()->getParam('type', FeedBack::TYPE_DEFAULT);
 
         $module = Yii::app()->getModule('feedback');
 
-        if (Yii::app()->request->isPostRequest && !empty($_POST['FeedBackForm']))
+        if (Yii::app()->getRequest()->getIsPostRequest() && !empty($_POST['FeedBackForm']))
         {
             $form->setAttributes($_POST['FeedBackForm']);
 
@@ -84,7 +84,7 @@ class ContactController extends yupe\components\controllers\FrontController
 
                             if (!count($backEnd))
                             {
-                                if (Yii::app()->request->isAjaxRequest) {
+                                if (Yii::app()->getRequest()->getIsAjaxRequest()) {
                                     Yii::app()->ajax->success(Yii::t('FeedbackModule.feedback', 'Your message sent! Thanks!'));
                                 }
                                 $this->redirect($module->successPage ? array($module->successPage) : array('/feedback/contact/faq'));
@@ -128,7 +128,7 @@ class ContactController extends yupe\components\controllers\FrontController
                             Yii::t('FeedbackModule.feedback', 'Your message sent! Thanks!')
                         );
 
-                        if (Yii::app()->request->isAjaxRequest) {
+                        if (Yii::app()->getRequest()->getIsAjaxRequest()) {
                             Yii::app()->ajax->success(Yii::t('FeedbackModule.feedback', 'Your message sent! Thanks!'));
                         }
                         $this->redirect($module->successPage ? array($module->successPage) : array('/feedback/contact/faq'));
@@ -140,7 +140,7 @@ class ContactController extends yupe\components\controllers\FrontController
                     Yii::t('FeedbackModule.feedback', 'It is not possible to send message!')
                 );
 
-                if (Yii::app()->request->isAjaxRequest) {
+                if (Yii::app()->getRequest()->getIsAjaxRequest()) {
                     Yii::app()->ajax->failure(Yii::t('FeedbackModule.feedback', 'It is not possible to send message!'));
                 }
 
@@ -148,7 +148,7 @@ class ContactController extends yupe\components\controllers\FrontController
             }
             else
             {
-                if (Yii::app()->request->isAjaxRequest) {
+                if (Yii::app()->getRequest()->getIsAjaxRequest()) {
                     Yii::app()->ajax->failure(Yii::t('FeedbackModule.feedback', 'Please check e-mail and fill the form correct.'));
                 }
             }

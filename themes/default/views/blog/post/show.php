@@ -5,7 +5,7 @@ $this->keywords = $post->keywords;
 
 Yii::app()->clientScript->registerScript(
     "ajaxBlogToken", "var ajaxToken = " . json_encode(
-        Yii::app()->request->csrfTokenName . '=' . Yii::app()->request->csrfToken
+        Yii::app()->getRequest()->csrfTokenName . '=' . Yii::app()->getRequest()->csrfToken
     ) . ";", CClientScript::POS_BEGIN
 );
 

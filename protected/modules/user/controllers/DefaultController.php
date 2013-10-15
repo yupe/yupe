@@ -31,7 +31,7 @@ class DefaultController extends yupe\components\controllers\BackController
 
         $form = new ChangePasswordForm;
 
-        if (Yii::app()->request->isPostRequest && !empty($_POST['ChangePasswordForm']))
+        if (Yii::app()->getRequest()->getIsPostRequest() && !empty($_POST['ChangePasswordForm']))
         {
             $form->setAttributes($_POST['ChangePasswordForm']);
 
@@ -57,15 +57,15 @@ class DefaultController extends yupe\components\controllers\BackController
     {
         $model = new User;
 
-        if (Yii::app()->request->isPostRequest && !empty($_POST['User']))
+        if (Yii::app()->getRequest()->getIsPostRequest() && !empty($_POST['User']))
         {
             $model->setAttributes($_POST['User']);
 
             $model->setAttributes(array(
                 'salt'              => $model->generateSalt(),
                 'password'          => $model->hashPassword($model->password, $model->salt),
-                'registration_ip'   => Yii::app()->request->userHostAddress,
-                'activation_ip'     => Yii::app()->request->userHostAddress,
+                'registration_ip'   => Yii::app()->getRequest()->userHostAddress,
+                'activation_ip'     => Yii::app()->getRequest()->userHostAddress,
                 'registration_date' => new CDbExpression("NOW()"),
             ));
 
@@ -77,7 +77,7 @@ class DefaultController extends yupe\components\controllers\BackController
                 );
 
                 $this->redirect(
-                    (array) Yii::app()->request->getPost(
+                    (array) Yii::app()->getRequest()->getPost(
                         'submit-type', array('create')
                     )
                 );
@@ -94,7 +94,7 @@ class DefaultController extends yupe\components\controllers\BackController
     {
         $model = $this->loadModel();
 
-        if (Yii::app()->request->isPostRequest && !empty($_POST['User']))
+        if (Yii::app()->getRequest()->getIsPostRequest() && !empty($_POST['User']))
         {
             $model->setAttributes($_POST['User']);
 
@@ -120,7 +120,7 @@ class DefaultController extends yupe\components\controllers\BackController
      */
     public function actionDelete()
     {
-        if (Yii::app()->request->isPostRequest)
+        if (Yii::app()->getRequest()->getIsPostRequest())
         {
             // we only allow deletion via POST request
             $this->loadModel()->delete();
@@ -153,7 +153,7 @@ class DefaultController extends yupe\components\controllers\BackController
     public function actionSendactivation($id)
     {
         if (($user = User::model()->findbyPk($id)) === null) {
-            if (!Yii::app()->request->isPostRequest || !Yii::app()->request->isAjaxRequest) {
+            if (!Yii::app()->getRequest()->getIsPostRequest() || !Yii::app()->getRequest()->getIsAjaxRequest()) {
                 Yii::app()->user->setFlash(
                     YFlashMessages::ERROR_MESSAGE,
                     Yii::t('UserModule.user', 'User with #{id} was not found', array('{id}' => $id))
@@ -175,7 +175,7 @@ class DefaultController extends yupe\components\controllers\BackController
             $mailBody
         );
 
-        if (!Yii::app()->request->isPostRequest || !Yii::app()->request->isAjaxRequest) {
+        if (!Yii::app()->getRequest()->getIsPostRequest() || !Yii::app()->getRequest()->getIsAjaxRequest()) {
             Yii::app()->user->setFlash(
                 YFlashMessages::SUCCESS_MESSAGE,
                 Yii::t('UserModule.user', 'Activation mail was sent to user with #{id}!', array('{id}' => $id))

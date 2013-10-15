@@ -28,12 +28,12 @@ class ProfileAction extends CAction
         $event = new CModelEvent($this->controller);
         $module->onBeginProfile($event);
 
-        if (Yii::app()->request->isPostRequest && !empty($_POST['ProfileForm'])) {
+        if (Yii::app()->getRequest()->getIsPostRequest() && !empty($_POST['ProfileForm'])) {
 
             $transaction = Yii::app()->db->beginTransaction();
 
             try {
-                $form->setAttributes(Yii::app()->request->getPost('ProfileForm'));
+                $form->setAttributes(Yii::app()->getRequest()->getPost('ProfileForm'));
 
                 if ($form->validate()) {
                     // скопируем данные формы

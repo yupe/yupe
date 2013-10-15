@@ -16,11 +16,11 @@ class MenuitemController extends yupe\components\controllers\BackController
     public function actionGetjsonitems()
     {
 
-        if(!Yii::app()->request->isPostRequest || !Yii::app()->request->isAjaxRequest){
+        if(!Yii::app()->getRequest()->getIsPostRequest() || !Yii::app()->getRequest()->getIsAjaxRequest()){
             throw new CHttpException(404);
         }
 
-        $menuId = (int)Yii::app()->request->getPost('menuId');
+        $menuId = (int)Yii::app()->getRequest()->getPost('menuId');
 
         if(!$menuId){
             throw new CHttpException(404);
@@ -57,7 +57,7 @@ class MenuitemController extends yupe\components\controllers\BackController
         // Uncomment the following line if AJAX validation is needed
         // $this->performAjaxValidation($model);
 
-        if ($mid = (int) Yii::app()->request->getQuery('mid'))
+        if ($mid = (int) Yii::app()->getRequest()->getQuery('mid'))
             $model->menu_id = $mid;
 
         if (isset($_POST['MenuItem']))
@@ -67,7 +67,7 @@ class MenuitemController extends yupe\components\controllers\BackController
             if ($model->save())
             {
                 $this->redirect(
-                    (array) Yii::app()->request->getPost(
+                    (array) Yii::app()->getRequest()->getPost(
                         'submit-type', array('create')
                     )
                 );
@@ -116,7 +116,7 @@ class MenuitemController extends yupe\components\controllers\BackController
      */
     public function actionDelete($id)
     {
-        if (Yii::app()->request->isPostRequest)
+        if (Yii::app()->getRequest()->getIsPostRequest())
         {
             // we only allow deletion via POST request
             $this->loadModel($id)->delete();
@@ -138,7 +138,7 @@ class MenuitemController extends yupe\components\controllers\BackController
         
         $model->unsetAttributes();  // clear any default values
         
-        if (($data = Yii::app()->request->getParam('MenuItem')) !== null) {
+        if (($data = Yii::app()->getRequest()->getParam('MenuItem')) !== null) {
             $model->setAttributes($data);
         }
         
@@ -150,7 +150,7 @@ class MenuitemController extends yupe\components\controllers\BackController
      */
     public function actionDynamicParent()
     {
-        if (Yii::app()->request->isAjaxRequest && isset($_POST['MenuItem']))
+        if (Yii::app()->getRequest()->getIsAjaxRequest() && isset($_POST['MenuItem']))
         {
             $model = new MenuItem('search');
             $model->attributes = $_POST['MenuItem'];

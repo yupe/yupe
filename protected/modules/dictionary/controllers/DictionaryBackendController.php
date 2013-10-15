@@ -48,7 +48,7 @@ class DictionaryBackendController extends yupe\components\controllers\BackContro
                 );
 
                 $this->redirect(
-                    (array) Yii::app()->request->getPost(
+                    (array) Yii::app()->getRequest()->getPost(
                         'submit-type', array('create')
                     )
                 );
@@ -85,7 +85,7 @@ class DictionaryBackendController extends yupe\components\controllers\BackContro
                 );
 
                 $this->redirect(
-                    (array) Yii::app()->request->getPost(
+                    (array) Yii::app()->getRequest()->getPost(
                         'submit-type', array('update', 'id' => $model->id)
                     )
                 );

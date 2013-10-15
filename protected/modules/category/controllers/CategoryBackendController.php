@@ -49,7 +49,7 @@ class CategoryBackendController extends yupe\components\controllers\BackControll
                 );
 
                 $this->redirect(
-                    (array) Yii::app()->request->getPost(
+                    (array) Yii::app()->getRequest()->getPost(
                         'submit-type', array('create')
                     )
                 );
@@ -119,7 +119,7 @@ class CategoryBackendController extends yupe\components\controllers\BackControll
         // $this->performAjaxValidation($model);
 
         if (($data = Yii::app()->getRequest()->getPost('Category')) !== null) {
-            $model->setAttributes(Yii::app()->request->getPost('Category'));
+            $model->setAttributes(Yii::app()->getRequest()->getPost('Category'));
 
             if ($model->save()) {
                 
@@ -129,7 +129,7 @@ class CategoryBackendController extends yupe\components\controllers\BackControll
                 );
 
                 $this->redirect(
-                    (array) Yii::app()->request->getPost(
+                    (array) Yii::app()->getRequest()->getPost(
                         'submit-type', array(
                             'update',
                             'id' => $model->id,
@@ -168,7 +168,7 @@ class CategoryBackendController extends yupe\components\controllers\BackControll
      */
     public function actionDelete($id)
     {
-        if (Yii::app()->request->isPostRequest) {
+        if (Yii::app()->getRequest()->getIsPostRequest()) {
             
             $transaction = Yii::app()->db->beginTransaction();
 

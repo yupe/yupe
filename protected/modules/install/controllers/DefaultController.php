@@ -656,7 +656,7 @@ class DefaultController extends yupe\components\controllers\BackController
             }
         }
 
-        if (Yii::app()->request->isPostRequest && isset($_POST['InstallForm'])) {
+        if (Yii::app()->getRequest()->getIsPostRequest() && isset($_POST['InstallForm'])) {
             $form->setAttributes($_POST['InstallForm']);
 
             if ($form->validate()) {
@@ -816,7 +816,7 @@ class DefaultController extends yupe\components\controllers\BackController
         // Не выводить модуль install и yupe
         unset($modules['install']);
 
-        if (Yii::app()->request->isPostRequest) {
+        if (Yii::app()->getRequest()->getIsPostRequest()) {
             $this->session['InstallForm'] = array_merge(
                 $this->session['InstallForm'],
                 array(
@@ -1008,7 +1008,7 @@ class DefaultController extends yupe\components\controllers\BackController
             }
         }
 
-        if (Yii::app()->request->isPostRequest && isset($_POST['InstallForm'])) {
+        if (Yii::app()->getRequest()->getIsPostRequest() && isset($_POST['InstallForm'])) {
             // Сбрасываем сессию текущего пользователя, может поменяться id
             Yii::app()->user->clearStates();
 
@@ -1030,8 +1030,8 @@ class DefaultController extends yupe\components\controllers\BackController
                         'use_gravatar'      => 1,
                         'password'          => User::model()->hashPassword($model->userPassword, $salt),
                         'registration_date' => new CDbExpression('NOW()'),
-                        'registration_ip'   => Yii::app()->request->userHostAddress,
-                        'activation_ip'     => Yii::app()->request->userHostAddress,
+                        'registration_ip'   => Yii::app()->getRequest()->userHostAddress,
+                        'activation_ip'     => Yii::app()->getRequest()->userHostAddress,
                         'access_level'      => User::ACCESS_LEVEL_ADMIN,
                         'status'            => User::STATUS_ACTIVE,
                         'email_confirm'     => User::EMAIL_CONFIRM_YES,
@@ -1102,7 +1102,7 @@ class DefaultController extends yupe\components\controllers\BackController
             }
         }
 
-        if ((Yii::app()->request->isPostRequest) && (isset($_POST['InstallForm']))) {
+        if ((Yii::app()->getRequest()->getIsPostRequest()) && (isset($_POST['InstallForm']))) {
             $model->setAttributes($_POST['InstallForm']);
 
             if ($model->validate()) {
@@ -1148,7 +1148,7 @@ class DefaultController extends yupe\components\controllers\BackController
                     );
 
                     // попробуем создать каталог assets
-                    $assetsPath = dirname(Yii::app()->request->getScriptFile()) . '/' . CAssetManager::DEFAULT_BASEPATH;
+                    $assetsPath = dirname(Yii::app()->getRequest()->getScriptFile()) . '/' . CAssetManager::DEFAULT_BASEPATH;
 
                     if (!is_dir($assetsPath)) {
                         @mkdir($assetsPath);

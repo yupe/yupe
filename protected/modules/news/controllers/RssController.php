@@ -26,7 +26,7 @@ class RssController extends yupe\components\controllers\FrontController
         $title = $this->yupe->siteName;
         $description = $this->yupe->siteDescription;
 
-        $categoryId = (int)Yii::app()->request->getQuery('category');
+        $categoryId = (int)Yii::app()->getRequest()->getQuery('category');
 
         if (!empty($categoryId)) {
             $category = Category::model()->cache($this->yupe->coreCacheTime)->published()->findByPk($categoryId);

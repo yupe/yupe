@@ -41,16 +41,16 @@ class PostBackendController extends yupe\components\controllers\BackController
 
         // Uncomment the following line if AJAX validation is needed
         // $this->performAjaxValidation($model);
-        if (Yii::app()->request->getQuery('blog')) {
-            $model->blog_id = (int) Yii::app()->request->getQuery('blog');
+        if (Yii::app()->getRequest()->getQuery('blog')) {
+            $model->blog_id = (int) Yii::app()->getRequest()->getQuery('blog');
         }
 
-        if (Yii::app()->request->isPostRequest && Yii::app()->request->getPost('Post')) {
+        if (Yii::app()->getRequest()->getIsPostRequest() && Yii::app()->getRequest()->getPost('Post')) {
             $model->setAttributes(
-                Yii::app()->request->getPost('Post')
+                Yii::app()->getRequest()->getPost('Post')
             );
             $model->setTags(
-                Yii::app()->request->getPost('tags')
+                Yii::app()->getRequest()->getPost('tags')
             );
 
             if ($model->save()) {
@@ -59,7 +59,7 @@ class PostBackendController extends yupe\components\controllers\BackController
                     Yii::t('BlogModule.blog', 'Post was created!')
                 );
                 $this->redirect(
-                    (array) Yii::app()->request->getPost(
+                    (array) Yii::app()->getRequest()->getPost(
                         'submit-type', array('create')
                     )
                 );
@@ -81,12 +81,12 @@ class PostBackendController extends yupe\components\controllers\BackController
             throw new CHttpException(404, Yii::t('BlogModule.blog', 'Requested page was not found!'));
         }
 
-        if (Yii::app()->request->isPostRequest && Yii::app()->request->getPost('Post')) {
+        if (Yii::app()->getRequest()->getIsPostRequest() && Yii::app()->getRequest()->getPost('Post')) {
             $model->setAttributes(
-                Yii::app()->request->getPost('Post')
+                Yii::app()->getRequest()->getPost('Post')
             );
             $model->setTags(
-                Yii::app()->request->getPost('tags')
+                Yii::app()->getRequest()->getPost('tags')
             );
 
             if ($model->save()) {
@@ -96,7 +96,7 @@ class PostBackendController extends yupe\components\controllers\BackController
                 );
 
                 $this->redirect(
-                    (array) Yii::app()->request->getPost(
+                    (array) Yii::app()->getRequest()->getPost(
                         'submit-type', array(
                             'update',
                             'id' => $model->id,
@@ -119,7 +119,7 @@ class PostBackendController extends yupe\components\controllers\BackController
      */
     public function actionDelete($id)
     {
-        if (Yii::app()->request->isPostRequest) {
+        if (Yii::app()->getRequest()->getIsPostRequest()) {
             // поддерживаем удаление только из POST-запроса
             
             if (($post = Post::model()->loadModel($id)) === null)
@@ -133,9 +133,9 @@ class PostBackendController extends yupe\components\controllers\BackController
             );
 
             // если это AJAX запрос ( кликнули удаление в админском grid view), мы не должны никуда редиректить
-            if (!Yii::app()->request->isAjaxRequest)
+            if (!Yii::app()->getRequest()->getIsAjaxRequest())
                 $this->redirect(
-                    (array) Yii::app()->request->getPost(
+                    (array) Yii::app()->getRequest()->getPost(
                         'returnUrl', array('index')
                     )
                 );
@@ -152,9 +152,9 @@ class PostBackendController extends yupe\components\controllers\BackController
     {
         $model = new Post('search');
         $model->unsetAttributes(); // clear any default values
-        if (Yii::app()->request->getParam('Post'))
+        if (Yii::app()->getRequest()->getParam('Post'))
             $model->setAttributes(
-                Yii::app()->request->getParam('Post')
+                Yii::app()->getRequest()->getParam('Post')
             );
         $this->render('index', array('model' => $model));
     }
@@ -168,7 +168,7 @@ class PostBackendController extends yupe\components\controllers\BackController
      */
     protected function performAjaxValidation($model)
     {
-        if (Yii::app()->request->isAjaxRequest && Yii::app()->request->getPost('ajax') === 'post-form') {
+        if (Yii::app()->getRequest()->getIsAjaxRequest() && Yii::app()->getRequest()->getPost('ajax') === 'post-form') {
             echo CActiveForm::validate($model);
             Yii::app()->end();
         }

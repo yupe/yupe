@@ -9,7 +9,7 @@
             var menuId = parseInt($(this).val());
             if(menuId){
                 $.post('<?php echo Yii::app()->baseUrl;?>/menu/menuitem/getjsonitems/',{
-                    '<?php echo Yii::app()->request->csrfTokenName;?>':'<?php echo Yii::app()->request->csrfToken;?>',
+                    '<?php echo Yii::app()->getRequest()->csrfTokenName;?>':'<?php echo Yii::app()->getRequest()->csrfToken;?>',
                     'menuId' : menuId
                 },function(response){
                     if(response.result){

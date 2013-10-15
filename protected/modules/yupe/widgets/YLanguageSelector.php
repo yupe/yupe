@@ -30,7 +30,7 @@ class YLanguageSelector extends YWidget
             array(
                 'langs' => $langs,
                 'currentLanguage' => Yii::app()->language,
-                'cleanUrl' => Yii::app()->urlManager->getCleanUrl(Yii::app()->request->url),
+                'cleanUrl' => Yii::app()->urlManager->getCleanUrl(Yii::app()->getRequest()->url),
                 'homeUrl' => Yii::app()->homeUrl . (Yii::app()->homeUrl[strlen(
                     Yii::app()->homeUrl
                 ) - 1] != "/" ? '/' : ''),

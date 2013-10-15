@@ -27,7 +27,7 @@ class RssController extends yupe\components\controllers\FrontController
         $title = Yii::app()->getModule('yupe')->siteName;
         $description = Yii::app()->getModule('yupe')->siteDescription;
 
-        $blogId = (int)Yii::app()->request->getQuery('blog');
+        $blogId = (int)Yii::app()->getRequest()->getQuery('blog');
 
         if (!empty($blogId)) {
             $blog = Blog::model()->cache(Yii::app()->getModule('yupe')->coreCacheTime)->published()->findByPk($blogId);
@@ -40,7 +40,7 @@ class RssController extends yupe\components\controllers\FrontController
             $criteria->params[':blog_id'] = $blogId;
         }
 
-        $categoryId = (int)Yii::app()->request->getQuery('category');
+        $categoryId = (int)Yii::app()->getRequest()->getQuery('category');
 
         if (!empty($categoryId)) {
             $category = Category::model()->cache(Yii::app()->getModule('yupe')->coreCacheTime)->published()->findByPk($categoryId);
@@ -53,7 +53,7 @@ class RssController extends yupe\components\controllers\FrontController
             $criteria->params[':category_id'] = $categoryId;
         }
 
-        $tag = Yii::app()->request->getQuery('tag');
+        $tag = Yii::app()->getRequest()->getQuery('tag');
 
         if (!empty($tag)) {
             $data = Post::model()->with('createUser')->published()->public()->taggedWith($tag)->findAll();

@@ -21,7 +21,7 @@
         )),
         array('icon' => 'trash', 'label' => Yii::t('ContentBlockModule.contentblock', 'Remove content block'), 'url' => '#', 'linkOptions' => array(
             'submit' => array('/contentblock/contentBlockBackend/delete', 'id' => $model->id),
-            'params' => array(Yii::app()->request->csrfTokenName => Yii::app()->request->csrfToken),
+            'params' => array(Yii::app()->getRequest()->csrfTokenName => Yii::app()->getRequest()->csrfToken),
             'confirm' => Yii::t('ContentBlockModule.contentblock', 'Do you really want to delete content block?'),
         )),
     );

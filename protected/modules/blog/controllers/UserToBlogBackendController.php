@@ -46,7 +46,7 @@ class UserToBlogBackendController extends yupe\components\controllers\BackContro
                     );
 
                     $this->redirect(
-                        (array) Yii::app()->request->getPost(
+                        (array) Yii::app()->getRequest()->getPost(
                             'submit-type', array('create')
                         )
                     );
@@ -102,7 +102,7 @@ class UserToBlogBackendController extends yupe\components\controllers\BackContro
      */
     public function actionDelete($id)
     {
-        if (Yii::app()->request->isPostRequest)
+        if (Yii::app()->getRequest()->getIsPostRequest())
         {
             // поддерживаем удаление только из POST-запроса
             $this->loadModel($id)->delete();

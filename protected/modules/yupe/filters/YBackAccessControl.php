@@ -17,7 +17,7 @@ class YBackAccessControl extends CAccessControlFilter
             return true;
         }
         elseif (Yii::app()->user->isGuest) {
-            Yii::app()->request->redirect(
+            Yii::app()->getRequest()->redirect(
                 Yii::app()->createAbsoluteUrl('/user/account/backendlogin')
             );
         }

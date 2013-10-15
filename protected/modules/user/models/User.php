@@ -175,7 +175,7 @@ class User extends YModel
 
         if ($this->isNewRecord) {
             $this->registration_date = $this->creation_date = $this->change_date;
-            $this->registration_ip   = $this->activation_ip = Yii::app()->request->userHostAddress;
+            $this->registration_ip   = $this->activation_ip = Yii::app()->getRequest()->userHostAddress;
             $this->activate_key      = $this->generateActivationKey();
         }
 
@@ -333,7 +333,7 @@ class User extends YModel
 
             // Посмотрим, есть ли у нас уже нужный размер? Если есть - используем его
             if (file_exists($basePath . "/" . $sizedFile)) {
-                return Yii::app()->request->baseUrl . '/' . $uploadPath . '/'. $avatarsDir . "/" . $sizedFile;
+                return Yii::app()->getRequest()->baseUrl . '/' . $uploadPath . '/'. $avatarsDir . "/" . $sizedFile;
             }
 
             if (file_exists($basePath . "/" . $this->avatar)){
@@ -349,11 +349,11 @@ class User extends YModel
                     @copy($basePath . "/" . $this->avatar, $basePath . "/" . $sizedFile);
                 }
 
-                return Yii::app()->request->baseUrl . '/'. $uploadPath . '/' . $avatarsDir . "/" . $sizedFile;
+                return Yii::app()->getRequest()->baseUrl . '/'. $uploadPath . '/' . $avatarsDir . "/" . $sizedFile;
             }
         }
         // Нету аватарки, печалька :(
-        return Yii::app()->request->baseUrl . Yii::app()->getModule('user')->defaultAvatar;
+        return Yii::app()->getRequest()->baseUrl . Yii::app()->getModule('user')->defaultAvatar;
     }
 
     public function getFullName($separator = ' ')
@@ -384,8 +384,8 @@ class User extends YModel
             'salt'              => $salt,
             'password'          => $this->hashPassword($password, $salt),
             'registration_date' => new CDbExpression('NOW()'),
-            'registration_ip'   => Yii::app()->request->userHostAddress,
-            'activation_ip'     => Yii::app()->request->userHostAddress,
+            'registration_ip'   => Yii::app()->getRequest()->userHostAddress,
+            'activation_ip'     => Yii::app()->getRequest()->userHostAddress,
             'status'            => $status,
             'email_confirm'     => $emailConfirm,
         ));
@@ -412,7 +412,7 @@ class User extends YModel
 
     public function activate()
     {
-        $this->activation_ip    = Yii::app()->request->userHostAddress;
+        $this->activation_ip    = Yii::app()->getRequest()->userHostAddress;
         $this->status           = self::STATUS_ACTIVE;
         $this->email_confirm    = self::EMAIL_CONFIRM_YES;
         return $this->save();

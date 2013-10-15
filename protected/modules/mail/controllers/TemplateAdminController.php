@@ -35,8 +35,8 @@ class TemplateAdminController extends yupe\components\controllers\BackController
 
         // Uncomment the following line if AJAX validation is needed
         // $this->performAjaxValidation($model);
-        if (Yii::app()->request->getParam('eid'))
-            $model->event_id = (int) Yii::app()->request->getParam('eid');
+        if (Yii::app()->getRequest()->getParam('eid'))
+            $model->event_id = (int) Yii::app()->getRequest()->getParam('eid');
 
         if (isset($_POST['MailTemplate'])) {
             $model->attributes = $_POST['MailTemplate'];
@@ -48,7 +48,7 @@ class TemplateAdminController extends yupe\components\controllers\BackController
                 );
 
                 $this->redirect(
-                    (array) Yii::app()->request->getPost(
+                    (array) Yii::app()->getRequest()->getPost(
                         'submit-type', array('create')
                     )
                 );
@@ -96,7 +96,7 @@ class TemplateAdminController extends yupe\components\controllers\BackController
      */
     public function actionDelete($id)
     {
-        if (Yii::app()->request->isPostRequest) {
+        if (Yii::app()->getRequest()->getIsPostRequest()) {
             // поддерживаем удаление только из POST-запроса
             $this->loadModel($id)->delete();
 
@@ -122,8 +122,8 @@ class TemplateAdminController extends yupe\components\controllers\BackController
     {
         $model = new MailTemplate('search');
         $model->unsetAttributes();  // clear any default values
-        if (Yii::app()->request->getQuery('event'))
-            $model->event_id = (int) Yii::app()->request->getQuery('event');
+        if (Yii::app()->getRequest()->getQuery('event'))
+            $model->event_id = (int) Yii::app()->getRequest()->getQuery('event');
         if (isset($_GET['MailTemplate']))
             $model->attributes = $_GET['MailTemplate'];
         $this->render('index', array('model' => $model));

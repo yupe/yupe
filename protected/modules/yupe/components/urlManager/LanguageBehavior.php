@@ -48,7 +48,7 @@ class LanguageBehavior extends CBehavior
                 );
         
         // Получаем текущий url:
-        $path = Yii::app()->request->getPathInfo();
+        $path = Yii::app()->getRequest()->getPathInfo();
 
         // Получаем язык из GET-массива или из $path
         $this->lang = isset($_GET[$lm->langParam])
@@ -83,19 +83,19 @@ class LanguageBehavior extends CBehavior
             //    но обращение было через путь
             // 3) Язык установлен на вывод в пути, но обращение
             //    было через GET-парамметр
-            if ($langNative && !Yii::app()->request->isAjaxRequest) {
+            if ($langNative && !Yii::app()->getRequest()->getIsAjaxRequest()) {
                 // Редирект на URL без указания языка
-                Yii::app()->request->redirect($home . $lm->getCleanUrl(Yii::app()->request->url));
+                Yii::app()->getRequest()->redirect($home . $lm->getCleanUrl(Yii::app()->getRequest()->url));
             }
         } else {
 
             // Пробуем получить код языка из кук
             $cookiesLang = Yii::app()->getModule('yupe')->cache
-                        && isset(Yii::app()->request->cookies[$lm->langParam])
-                        && in_array(Yii::app()->request->cookies[$lm->langParam]->value, $lm->languages)
-                    ? Yii::app()->request->cookies[$lm->langParam]->value
+                        && isset(Yii::app()->getRequest()->cookies[$lm->langParam])
+                        && in_array(Yii::app()->getRequest()->cookies[$lm->langParam]->value, $lm->languages)
+                    ? Yii::app()->getRequest()->cookies[$lm->langParam]->value
                     : (
-                        $lm->preferredLanguage && Yii::app()->request->getPreferredLanguage()
+                        $lm->preferredLanguage && Yii::app()->getRequest()->getPreferredLanguage()
                         ? Yii::app()->locale->getLanguageID($this->lang)
                         : false
                     );
@@ -131,10 +131,10 @@ class LanguageBehavior extends CBehavior
             // Сделаем редирект на нужный url с указанием языка, если он не нативен
             if ($this->lang != Yii::app()->sourceLanguage || isset($undefinedLang)) {
                 $this->setLanguage($this->lang);
-                if (!Yii::app()->request->isAjaxRequest)
-                    Yii::app()->request->redirect(
+                if (!Yii::app()->getRequest()->getIsAjaxRequest())
+                    Yii::app()->getRequest()->redirect(
                         $home . $lm->replaceLangUrl(
-                            $lm->getCleanUrl(Yii::app()->request->url), $this->lang
+                            $lm->getCleanUrl(Yii::app()->getRequest()->url), $this->lang
                         )
                     );
             } else {
@@ -158,7 +158,7 @@ class LanguageBehavior extends CBehavior
         
         // @TODO если не доступна папка runtime в установщие не создавать куку
         if (Yii::app()->getModule('yupe')->cache) {
-            Yii::app()->request->cookies->add(
+            Yii::app()->getRequest()->cookies->add(
                 Yii::app()->urlManager->langParam, new CHttpCookie(
                     Yii::app()->urlManager->langParam,
                     $language, array(

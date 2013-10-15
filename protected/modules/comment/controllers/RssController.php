@@ -27,8 +27,8 @@ class RssController extends yupe\components\controllers\FrontController
         $title = $this->yupe->siteName;
         $description = $this->yupe->siteDescription;
 
-        $model = Yii::app()->request->getQuery('model');
-        $modelId = (int)Yii::app()->request->getQuery('modelId');
+        $model = Yii::app()->getRequest()->getQuery('model');
+        $modelId = (int)Yii::app()->getRequest()->getQuery('modelId');
 
         if(empty($model) || empty($modelId)) {
             throw new CHttpException(404);

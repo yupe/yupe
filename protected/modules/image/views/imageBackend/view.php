@@ -21,7 +21,7 @@
         )),
         array('icon' => 'trash', 'label' => Yii::t('ImageModule.image', 'Remove image'),'url' => '#', 'linkOptions' => array(
             'submit'  => array('/image/imageBackend/delete', 'id' => $model->id),
-            'params' => array(Yii::app()->request->csrfTokenName => Yii::app()->request->csrfToken),
+            'params' => array(Yii::app()->getRequest()->csrfTokenName => Yii::app()->getRequest()->csrfToken),
             'confirm' => Yii::t('ImageModule.image', 'Do you really want to remove image?'),
             'csrf' => true,
         )),

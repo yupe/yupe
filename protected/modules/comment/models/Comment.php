@@ -198,7 +198,7 @@ class Comment extends YModel
     {
         if ($this->isNewRecord) {
             $this->creation_date = new CDbExpression('NOW()');
-            $this->ip = Yii::app()->request->userHostAddress;
+            $this->ip = Yii::app()->getRequest()->userHostAddress;
         }
 
 

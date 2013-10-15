@@ -61,7 +61,7 @@ class BlogController extends yupe\components\controllers\FrontController
     public function actionJoin($blogId = null)
     {
         if (!Yii::app()->user->isAuthenticated()) {
-            if (Yii::app()->request->isAjaxRequest) {
+            if (Yii::app()->getRequest()->getIsAjaxRequest()) {
                 Yii::app()->ajax->failure(Yii::t('BlogModule.blog', 'Authorize, please!'));
             } else {
                 Yii::app()->user->setFlash(
@@ -72,8 +72,8 @@ class BlogController extends yupe\components\controllers\FrontController
             }
         }
 
-        if ($blogId === null && Yii::app()->request->isPostRequest && Yii::app()->request->isAjaxRequest)
-            $blogId = Yii::app()->request->getPost('blogId');
+        if ($blogId === null && Yii::app()->getRequest()->getIsPostRequest() && Yii::app()->getRequest()->getIsAjaxRequest())
+            $blogId = Yii::app()->getRequest()->getPost('blogId');
 
         $errorMessage = false;
 
@@ -85,7 +85,7 @@ class BlogController extends yupe\components\controllers\FrontController
             $errorMessage = Yii::t('BlogModule.blog', 'Blog with id = {id} was not found!', array('{id}' => $blogId));
 
         if ($errorMessage !== false) {
-            if (Yii::app()->request->isAjaxRequest) {
+            if (Yii::app()->getRequest()->getIsAjaxRequest()) {
                 Yii::app()->ajax->failure($errorMessage);
             } else {
                 Yii::app()->user->setFlash(
@@ -100,7 +100,7 @@ class BlogController extends yupe\components\controllers\FrontController
             
             $blog->join(Yii::app()->user->getId());
             
-            if (Yii::app()->request->isAjaxRequest) {
+            if (Yii::app()->getRequest()->getIsAjaxRequest()) {
                 Yii::app()->ajax->success(
                     array(
                         'message' => Yii::t('BlogModule.blog', 'You have joined the blog!'),
@@ -115,7 +115,7 @@ class BlogController extends yupe\components\controllers\FrontController
                 $this->redirect(array('/blog/blog/index'));
             }
         } else {
-            if (Yii::app()->request->isAjaxRequest)
+            if (Yii::app()->getRequest()->getIsAjaxRequest())
                 Yii::app()->ajax->failure(
                     array(
                         'message' => Yii::t('BlogModule.blog', 'You already joined the blog!'),
@@ -142,7 +142,7 @@ class BlogController extends yupe\components\controllers\FrontController
     public function actionUnjoin($blogId = null)
     {
         if (!Yii::app()->user->isAuthenticated()) {
-            if (Yii::app()->request->isAjaxRequest) {
+            if (Yii::app()->getRequest()->getIsAjaxRequest()) {
                 Yii::app()->ajax->failure(Yii::t('BlogModule.blog', 'Authorize, please!'));
             } else {
                 Yii::app()->user->setFlash(
@@ -153,8 +153,8 @@ class BlogController extends yupe\components\controllers\FrontController
             }
         }
 
-        if ($blogId === null && Yii::app()->request->isPostRequest && Yii::app()->request->isAjaxRequest)
-            $blogId = Yii::app()->request->getPost('blogId');
+        if ($blogId === null && Yii::app()->getRequest()->getIsPostRequest() && Yii::app()->getRequest()->getIsAjaxRequest())
+            $blogId = Yii::app()->getRequest()->getPost('blogId');
 
         $errorMessage = false;
 
@@ -165,7 +165,7 @@ class BlogController extends yupe\components\controllers\FrontController
         if (($blog = Blog::model()->loadModel($blogId)) === null)
             $errorMessage = Yii::t('BlogModule.blog', 'Blog with id = {id} was not found!', array('{id}' => $blogId));
         elseif ($blog->createUser->id == Yii::app()->user->getId()) {
-            if (Yii::app()->request->isAjaxRequest) {
+            if (Yii::app()->getRequest()->getIsAjaxRequest()) {
                 Yii::app()->ajax->failure(
                     Yii::t('BlogModule.blog', 'You are creator of this blog and you can\'t leave.')
                 );
@@ -180,7 +180,7 @@ class BlogController extends yupe\components\controllers\FrontController
 
 
         if ($errorMessage !== false) {
-            if (Yii::app()->request->isAjaxRequest) {
+            if (Yii::app()->getRequest()->getIsAjaxRequest()) {
                 Yii::app()->ajax->failure($errorMessage);
             } else {
                 Yii::app()->user->setFlash(
@@ -194,7 +194,7 @@ class BlogController extends yupe\components\controllers\FrontController
         if (($userToBlog = $blog->userInBlog(Yii::app()->user->getId())) !== false) {
             
             if ($userToBlog->delete()) {
-                if (Yii::app()->request->isAjaxRequest) {
+                if (Yii::app()->getRequest()->getIsAjaxRequest()) {
                     Yii::app()->ajax->success(
                         array(
                             'message' => Yii::t('BlogModule.blog', 'You left the blog!'),
@@ -209,7 +209,7 @@ class BlogController extends yupe\components\controllers\FrontController
                     $this->redirect(array('/blog/blog/index'));
                 }
             } else {
-                if (Yii::app()->request->isAjaxRequest) {
+                if (Yii::app()->getRequest()->getIsAjaxRequest()) {
                     Yii::app()->ajax->failure(Yii::t('BlogModule.blog', 'An error occured when you were leaving the blog!'));
                 } else {
                     Yii::app()->user->setFlash(
@@ -220,7 +220,7 @@ class BlogController extends yupe\components\controllers\FrontController
                 }
             }
         } else {
-            if (Yii::app()->request->isAjaxRequest)
+            if (Yii::app()->getRequest()->getIsAjaxRequest())
                 Yii::app()->ajax->failure(Yii::t('BlogModule.blog', 'You are not the member of this blog!'));
             else
             {

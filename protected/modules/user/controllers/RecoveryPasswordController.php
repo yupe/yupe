@@ -23,7 +23,7 @@ class RecoveryPasswordController extends yupe\components\controllers\BackControl
      */
     public function actionDelete()
     {
-        if (Yii::app()->request->isPostRequest)
+        if (Yii::app()->getRequest()->getIsPostRequest())
         {
             // we only allow deletion via POST request
             $this->loadModel()->delete();

@@ -77,18 +77,18 @@ class BackController extends Controller
 
     public function actionMultiaction()
     {
-        if (!Yii::app()->request->isAjaxRequest || !Yii::app()->request->isPostRequest) {
+        if (!Yii::app()->getRequest()->getIsAjaxRequest() || !Yii::app()->getRequest()->getIsPostRequest()) {
             throw new CHttpException(404);
         }
 
-        $model = Yii::app()->request->getPost('model');
-        $action = Yii::app()->request->getPost('do');
+        $model = Yii::app()->getRequest()->getPost('model');
+        $action = Yii::app()->getRequest()->getPost('do');
 
         if (!isset($model, $action)) {
             throw new CHttpException(404);
         }
 
-        $items = Yii::app()->request->getPost('items');
+        $items = Yii::app()->getRequest()->getPost('items');
 
         if (!is_array($items) || empty($items)) {
             Yii::app()->ajax->success();
@@ -128,10 +128,10 @@ class BackController extends Controller
 
     public function actionActivate()
     {
-        $status = (int)Yii::app()->request->getQuery('status');
-        $id = (int)Yii::app()->request->getQuery('id');
-        $modelClass = Yii::app()->request->getQuery('model');
-        $statusField = Yii::app()->request->getQuery('statusField');
+        $status = (int)Yii::app()->getRequest()->getQuery('status');
+        $id = (int)Yii::app()->getRequest()->getQuery('id');
+        $modelClass = Yii::app()->getRequest()->getQuery('model');
+        $statusField = Yii::app()->getRequest()->getQuery('statusField');
 
         if (!isset($modelClass, $id, $status, $statusField)) {
             throw new CHttpException(404, Yii::t('YupeModule.yupe', 'Page was not found!'));
@@ -146,17 +146,17 @@ class BackController extends Controller
         $model->$statusField = $status;
         $model->update(array($statusField));
 
-        if (!Yii::app()->request->isAjaxRequest) {
+        if (!Yii::app()->getRequest()->getIsAjaxRequest()) {
             $this->redirect(isset($_POST['returnUrl']) ? $_POST['returnUrl'] : array('index'));
         }
     }
 
     public function actionSort()
     {
-        $id = (int)Yii::app()->request->getQuery('id');
-        $direction = Yii::app()->request->getQuery('direction');
-        $modelClass = Yii::app()->request->getQuery('model');
-        $sortField = Yii::app()->request->getQuery('sortField');
+        $id = (int)Yii::app()->getRequest()->getQuery('id');
+        $direction = Yii::app()->getRequest()->getQuery('direction');
+        $modelClass = Yii::app()->getRequest()->getQuery('model');
+        $sortField = Yii::app()->getRequest()->getQuery('sortField');
 
         if (!isset($direction, $id, $modelClass, $sortField)) {
             throw new CHttpException(404, Yii::t('YupeModule.yupe', 'Page was not found!'));
@@ -182,7 +182,7 @@ class BackController extends Controller
         $model->update(array($sortField));
         $model_depends->update(array($sortField));
 
-        if (!Yii::app()->request->isAjaxRequest) {
+        if (!Yii::app()->getRequest()->getIsAjaxRequest()) {
             $this->redirect(isset($_POST['returnUrl']) ? $_POST['returnUrl'] : array('index'));
         }
     }

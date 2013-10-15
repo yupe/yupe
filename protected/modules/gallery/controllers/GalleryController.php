@@ -32,7 +32,7 @@ class GalleryController extends yupe\components\controllers\FrontController
 
         $image = new Image;
 
-        if (Yii::app()->request->isPostRequest && !empty($_POST['Image'])) {
+        if (Yii::app()->getRequest()->getIsPostRequest() && !empty($_POST['Image'])) {
             try
             {
                 $transaction = Yii::app()->db->beginTransaction();
@@ -97,7 +97,7 @@ class GalleryController extends yupe\components\controllers\FrontController
             )
         );
 
-        if (Yii::app()->request->isPostRequest && Yii::app()->request->isAjaxRequest) {
+        if (Yii::app()->getRequest()->getIsPostRequest() && Yii::app()->getRequest()->getIsAjaxRequest()) {
             $result === true
                 ? Yii::app()->ajax->success($message)
                 : Yii::app()->ajax->failure($message);
@@ -109,7 +109,7 @@ class GalleryController extends yupe\components\controllers\FrontController
         );
 
         $this->redirect(
-            Yii::app()->request->urlReferer(
+            Yii::app()->getRequest()->urlReferer(
                 $this->createAbsoluteUrl('gallery/gallery/list')
             )
         );
@@ -127,11 +127,11 @@ class GalleryController extends yupe\components\controllers\FrontController
         if (($image = Image::model()->findByPk($id)) === null || $image->canChange() === false)
             throw new CHttpException(404, Yii::t('GalleryModule.gallery', 'Page was not found!'));
 
-        if ((Yii::app()->request->isPostRequest || Yii::app()->request->isAjaxRequest)
-            && Yii::app()->request->getPost('Image') !== null
+        if ((Yii::app()->getRequest()->getIsPostRequest() || Yii::app()->getRequest()->getIsAjaxRequest())
+            && Yii::app()->getRequest()->getPost('Image') !== null
         ) {
             
-            $image->setAttributes(Yii::app()->request->getPost('Image'));
+            $image->setAttributes(Yii::app()->getRequest()->getPost('Image'));
 
             if ($image->validate() && $image->save()) {
 
@@ -141,7 +141,7 @@ class GalleryController extends yupe\components\controllers\FrontController
                     )
                 );
 
-                if (Yii::app()->request->isPostRequest && Yii::app()->request->isAjaxRequest)
+                if (Yii::app()->getRequest()->getIsPostRequest() && Yii::app()->getRequest()->getIsAjaxRequest())
                     Yii::app()->ajax->success(
                         array(
                             'message' => $message,
@@ -160,7 +160,7 @@ class GalleryController extends yupe\components\controllers\FrontController
             }
         }
 
-        if (Yii::app()->request->isPostRequest && Yii::app()->request->isAjaxRequest)
+        if (Yii::app()->getRequest()->getIsPostRequest() && Yii::app()->getRequest()->getIsAjaxRequest())
             Yii::app()->ajax->success(
                 array(
                     'form'    => $this->renderPartial('_form', array('model' => $image), true)

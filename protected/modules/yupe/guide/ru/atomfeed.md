@@ -24,8 +24,8 @@ public function actions()
             //'title'        => Yii::t('YupeModule.yupe', 'Site title'),
             // Параметр description по умолчанию берётся из настроек приложения
             //'description'  => Yii::t('YupeModule.yupe', 'Лента новостей сайта'),
-            // Параметр link по умолчанию берётся как Yii::app()->request->getBaseUrl(true)
-            //'link' => Yii::app()->request->getBaseUrl(true),
+            // Параметр link по умолчанию берётся как Yii::app()->getRequest()->getBaseUrl(true)
+            //'link' => Yii::app()->getRequest()->getBaseUrl(true),
             'itemFields'   => array(
                 // author_object, если не задан - у
                 // item-елемента запросится author_nickname
@@ -58,7 +58,7 @@ public function actions()
 
 `'description' => Yii::t('YupeModule.yupe', 'Лента новостей сайта'),` - описание ленты
 
-`'link' => Yii::app()->request->getBaseUrl(true),` - анкор, например на сайт
+`'link' => Yii::app()->getRequest()->getBaseUrl(true),` - анкор, например на сайт
 
 `'itemFields' => array(` - здесь мы описываем стандартные поля, для создания ленты
 

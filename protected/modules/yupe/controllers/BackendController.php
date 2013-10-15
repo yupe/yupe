@@ -53,7 +53,7 @@ class BackendController extends yupe\components\controllers\BackController
      **/
     public function actionFlushDumpSettings()
     {
-        if (Yii::app()->request->isAjaxRequest == false) {
+        if (Yii::app()->getRequest()->getIsAjaxRequest() == false) {
             throw new CHttpException(404, Yii::t('YupeModule.yupe', 'Page was not found!'));
         }
 
@@ -184,8 +184,8 @@ class BackendController extends yupe\components\controllers\BackController
      **/
     public function actionSaveModulesettings()
     {
-        if (Yii::app()->request->isPostRequest) {
-            if (!($moduleId = Yii::app()->request->getPost('module_id')))
+        if (Yii::app()->getRequest()->getIsPostRequest()) {
+            if (!($moduleId = Yii::app()->getRequest()->getPost('module_id')))
                 throw new CHttpException(404, Yii::t('YupeModule.yupe', 'Page was not found!'));
 
             if (!($module = Yii::app()->getModule($moduleId)))
@@ -219,7 +219,7 @@ class BackendController extends yupe\components\controllers\BackController
      **/
     public function actionThemesettings()
     {
-        if (Yii::app()->request->isPostRequest) {
+        if (Yii::app()->getRequest()->getIsPostRequest()) {
             if (!$this->saveParamsSetting($this->yupe->coreModuleId, array('theme', 'backendTheme'))) {
                 Yii::app()->user->setFlash(
                     YFlashMessages::SUCCESS_MESSAGE,
@@ -268,7 +268,7 @@ class BackendController extends yupe\components\controllers\BackController
         $settings = Settings::model()->fetchModuleSettings($moduleId, $params);
 
         foreach ($params as $p) {
-            $pval = Yii::app()->request->getPost($p);
+            $pval = Yii::app()->getRequest()->getPost($p);
             // Если параметр уже был - обновим, иначе надо создать новый
             if (isset($settings[$p])) {
                 // Если действительно изменили настройку
@@ -313,7 +313,7 @@ class BackendController extends yupe\components\controllers\BackController
 
             if ($module->getIsInstalled()) {
                 $updates = Yii::app()->migrator->checkForUpdates(array($name => $module));
-                if (Yii::app()->request->isPostRequest) {
+                if (Yii::app()->getRequest()->getIsPostRequest()) {
                     Yii::app()->migrator->updateToLatest($name);
 
                     Yii::app()->user->setFlash(
@@ -334,7 +334,7 @@ class BackendController extends yupe\components\controllers\BackController
                 Yii::t('YupeModule.yupe', 'Module name is not set!')
             );
 
-            $this->redirect(Yii::app()->request->urlReferrer !== null ? Yii::app()->request->urlReferrer : array("/yupe/backend"));
+            $this->redirect(Yii::app()->getRequest()->urlReferrer !== null ? Yii::app()->getRequest()->urlReferrer : array("/yupe/backend"));
         }
     }
 
@@ -350,7 +350,7 @@ class BackendController extends yupe\components\controllers\BackController
     public function actionAjaxFileUpload()
     {
         if (!empty($_FILES['file']['name'])) {
-            $rename     = (bool) Yii::app()->request->getQuery('rename', true);
+            $rename     = (bool) Yii::app()->getRequest()->getQuery('rename', true);
             $webPath    = '/' . $this->yupe->uploadPath . '/' . date('dmY') . '/';
             $uploadPath = Yii::getPathOfAlias('webroot') . $webPath;
 
@@ -409,7 +409,7 @@ class BackendController extends yupe\components\controllers\BackController
         /**
          * Если это не POST-запрос - посылаем лесом:
          **/
-        if (!Yii::app()->request->isPostRequest || !Yii::app()->request->isAjaxRequest) {
+        if (!Yii::app()->getRequest()->getIsPostRequest() || !Yii::app()->getRequest()->getIsAjaxRequest()) {
             throw new CHttpException(404, Yii::t('YupeModule.yupe', 'Page was not found!'));
         }
 
@@ -417,8 +417,8 @@ class BackendController extends yupe\components\controllers\BackController
          * Получаем название модуля и проверяем,
          * возможно модуль необходимо подгрузить
          **/
-        if (($name = Yii::app()->request->getPost('module'))
-            && ($status = Yii::app()->request->getPost('status')) !== null
+        if (($name = Yii::app()->getRequest()->getPost('module'))
+            && ($status = Yii::app()->getRequest()->getPost('status')) !== null
             && (($module = Yii::app()->getModule($name)) === null || $module->canActivate())
         )
             $module = $this->yupe->getCreateModule($name);
@@ -524,9 +524,9 @@ class BackendController extends yupe\components\controllers\BackController
         /**
          * Если это не POST-запрос - посылаем лесом:
          **/
-        if (!Yii::app()->request->isPostRequest
-            || !Yii::app()->request->isAjaxRequest
-            || ($method = Yii::app()->request->getPost('method')) === null
+        if (!Yii::app()->getRequest()->getIsPostRequest()
+            || !Yii::app()->getRequest()->getIsAjaxRequest()
+            || ($method = Yii::app()->getRequest()->getPost('method')) === null
         )
             throw new CHttpException(404, Yii::t('YupeModule.yupe', 'Page was not found!'));
 
@@ -591,7 +591,7 @@ class BackendController extends yupe\components\controllers\BackController
     {
         $form = new BugForm;
 
-        if (Yii::app()->request->isPostRequest && ($bugData = Yii::app()->request->getPost('BugForm'))) {
+        if (Yii::app()->getRequest()->getIsPostRequest() && ($bugData = Yii::app()->getRequest()->getPost('BugForm'))) {
             $form->setAttributes($bugData);
             if ($form->validate()) {
                 if ($form->module === BugForm::OTHER_MODULE){

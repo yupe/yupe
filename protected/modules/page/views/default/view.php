@@ -21,7 +21,7 @@
         )),
         array('icon' => 'trash', 'label' => Yii::t('PageModule.page', 'Remove this page'), 'url' => '#', 'linkOptions' => array(
             'submit' => array('/page/default/delete', 'id' => $model->id),
-            'params' => array(Yii::app()->request->csrfTokenName => Yii::app()->request->csrfToken),
+            'params' => array(Yii::app()->getRequest()->csrfTokenName => Yii::app()->getRequest()->csrfToken),
             'confirm' => Yii::t('PageModule.page', 'Do you really want to remove page?'),
         )),
     );

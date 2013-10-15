@@ -39,7 +39,7 @@ class ShowController extends yupe\components\controllers\FrontController
         if ($this->module->cachePages == 0)
             return false;
 
-        $lcFile = $this->module->absoluteFilePath(Yii::app()->request->getParam('file'));
+        $lcFile = $this->module->absoluteFilePath(Yii::app()->getRequest()->getParam('file'));
 
         return array(
             array(
@@ -63,7 +63,7 @@ class ShowController extends yupe\components\controllers\FrontController
         if ($file === null)
             $this->redirect(array('/docs/show/index', 'file' => 'index'));
 
-        $moduleId = Yii::app()->request->getParam('moduleID');
+        $moduleId = Yii::app()->getRequest()->getParam('moduleID');
         $moduleDocFolder = $module = null;
         if(!empty($moduleId)){
             $module = Yii::app()->getModule(mb_strtolower($moduleId));

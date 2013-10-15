@@ -1,5 +1,5 @@
    <?php
-   $city_id = Yii::app()->request->getParam("GeoProfile[geo_city_id]")?:($model->geo_city_id?:NULL);
+   $city_id = Yii::app()->getRequest()->getParam("GeoProfile[geo_city_id]")?:($model->geo_city_id?:NULL);
 
    if (!$city_id )
        $guessed_city = Yii::app()->getModule("geo")->guessCity();

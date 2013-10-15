@@ -23,7 +23,7 @@ class DefaultController extends yupe\components\controllers\BackController
         /**
          * Если это не AJAX-запрос - посылаем:
          **/
-        if (!Yii::app()->request->isPostRequest && !Yii::app()->request->isAjaxRequest)
+        if (!Yii::app()->getRequest()->getIsPostRequest() && !Yii::app()->getRequest()->getIsAjaxRequest())
             throw new CHttpException(404, Yii::t('ZendSearchModule.zendsearch', 'Page was not found!'));
 
         try {

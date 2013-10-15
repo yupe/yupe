@@ -25,7 +25,7 @@ class PageController extends yupe\components\controllers\FrontController
         $this->layout = '//layouts/page-default';
         $page = null;
         // превью
-        $page = ((int) Yii::app()->request->getQuery('preview') === 1 && Yii::app()->user->isSuperUser())
+        $page = ((int) Yii::app()->getRequest()->getQuery('preview') === 1 && Yii::app()->user->isSuperUser())
             ? Page::model()->find('slug = :slug AND (lang=:lang OR (lang IS NULL))', array(
                 ':slug' => $slug,
                 ':lang' => Yii::app()->language,

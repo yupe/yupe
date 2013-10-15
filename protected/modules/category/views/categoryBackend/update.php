@@ -22,7 +22,7 @@
         )),
         array('icon' => 'trash', 'label' => Yii::t('CategoryModule.category', 'Remove category'), 'url' => '#', 'linkOptions' => array(
             'submit' => array('/category/categoryBackend/delete', 'id' => $model->id),
-            'params' => array(Yii::app()->request->csrfTokenName => Yii::app()->request->csrfToken),
+            'params' => array(Yii::app()->getRequest()->csrfTokenName => Yii::app()->getRequest()->csrfToken),
             'confirm' => Yii::t('CategoryModule.category', 'Do you really want to remove category?'),
             'csrf' => true,
         )),

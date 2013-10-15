@@ -22,7 +22,7 @@
         )),
         array('icon' => 'trash', 'label' => Yii::t('CatalogModule.catalog', 'Remove product'), 'url' => '#', 'linkOptions' => array(
             'submit' => array('/catalog/catalogBackend/delete', 'id' => $model->id),
-            'params' => array(Yii::app()->request->csrfTokenName => Yii::app()->request->csrfToken),
+            'params' => array(Yii::app()->getRequest()->csrfTokenName => Yii::app()->getRequest()->csrfToken),
             'confirm' => Yii::t('CatalogModule.catalog', 'Do you really want to remove product?'),
             'csrf' => true,
         )),

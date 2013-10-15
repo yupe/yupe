@@ -31,9 +31,9 @@ class DefaultController extends yupe\components\controllers\BackController
         // Uncomment the following line if AJAX validation is needed
         // $this->performAjaxValidation($model);
 
-        if (Yii::app()->request->isPostRequest && isset($_POST['News']))
+        if (Yii::app()->getRequest()->getIsPostRequest() && isset($_POST['News']))
         {
-            $model->setAttributes(Yii::app()->request->getPost('News'));
+            $model->setAttributes(Yii::app()->getRequest()->getPost('News'));
 
             if ($model->save())
             {
@@ -43,7 +43,7 @@ class DefaultController extends yupe\components\controllers\BackController
                 );
 
                 $this->redirect(
-                    (array) Yii::app()->request->getPost(
+                    (array) Yii::app()->getRequest()->getPost(
                         'submit-type', array('create')
                     )
                 );
@@ -53,8 +53,8 @@ class DefaultController extends yupe\components\controllers\BackController
         $languages = $this->yupe->getLanguagesList();
 
         //если добавляем перевод
-        $id = (int)Yii::app()->request->getQuery('id');
-        $lang = Yii::app()->request->getQuery('lang');
+        $id = (int)Yii::app()->getRequest()->getQuery('id');
+        $lang = Yii::app()->getRequest()->getQuery('lang');
 
         if(!empty($id) && !empty($lang)){
             $news = News::model()->findByPk($id);
@@ -94,8 +94,8 @@ class DefaultController extends yupe\components\controllers\BackController
     {
         $model = $this->loadModel((int)$id);
 
-        if (Yii::app()->request->isPostRequest && isset($_POST['News'])) {
-            $model->setAttributes(Yii::app()->request->getPost('News'));
+        if (Yii::app()->getRequest()->getIsPostRequest() && isset($_POST['News'])) {
+            $model->setAttributes(Yii::app()->getRequest()->getPost('News'));
             if ($model->save()) {
                 Yii::app()->user->setFlash(
                     YFlashMessages::SUCCESS_MESSAGE,
@@ -134,7 +134,7 @@ class DefaultController extends yupe\components\controllers\BackController
      */
     public function actionDelete($id = null)
     {
-        if (Yii::app()->request->isPostRequest)
+        if (Yii::app()->getRequest()->getIsPostRequest())
         {
             $this->loadModel($id)->delete();
             // if AJAX request (triggered by deletion via admin grid view), we should not redirect the browser

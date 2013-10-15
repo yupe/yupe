@@ -27,7 +27,7 @@
             )),
             array('icon' => 'trash', 'label' => Yii::t('FeedbackModule.feedback', 'Remove message '), 'url' => '#', 'linkOptions' => array(
                 'submit'  => array('/feedback/feedbackBackend/delete', 'id' => $model->id),
-                'params' => array(Yii::app()->request->csrfTokenName => Yii::app()->request->csrfToken),
+                'params' => array(Yii::app()->getRequest()->csrfTokenName => Yii::app()->getRequest()->csrfToken),
                 'confirm' => Yii::t('FeedbackModule.feedback', 'Do you really want to remove message?'),
             )),
         );

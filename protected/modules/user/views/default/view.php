@@ -26,7 +26,7 @@
             )),
             array('icon' => 'trash', 'label' => Yii::t('UserModule.user', 'Remove user'), 'url' => '#', 'linkOptions' => array(
                 'submit' => array('/user/default/delete', 'id' => $model->id),
-                'params' => array(Yii::app()->request->csrfTokenName => Yii::app()->request->csrfToken),
+                'params' => array(Yii::app()->getRequest()->csrfTokenName => Yii::app()->getRequest()->csrfToken),
                 'confirm' => Yii::t('UserModule.user', 'Do you really want to remove user?')),
             ),
         )),

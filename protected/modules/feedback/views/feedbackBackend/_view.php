@@ -19,9 +19,9 @@
 						'data-confirm' => $data->is_faq
 										? Yii::t('FeedbackModule.feedback', 'Remove this message from FAQ?')
 										: Yii::t('FeedbackModule.feedback', 'Add this message to FAQ?'),
-						'data-params'  => Yii::app()->request->csrfTokenName
+						'data-params'  => Yii::app()->getRequest()->csrfTokenName
 				        				. '='
-				        				. Yii::app()->request->csrfToken
+				        				. Yii::app()->getRequest()->csrfToken
 				        				. '&submit-type=index'
 				        				. '&FeedBack[is_faq]=' . ($data->is_faq ? 0 : 1),
 				        'class'        => 'btn-link',
@@ -41,9 +41,9 @@
 						'data-return'  => true,
 						'data-title'   => Yii::t('FeedbackModule.feedback', 'Reply for message'),
 						'data-url'     => $this->createUrl('answer', array('id' => $data->id)),
-						'data-params'  => Yii::app()->request->csrfTokenName
+						'data-params'  => Yii::app()->getRequest()->csrfTokenName
 				        				. '='
-				        				. Yii::app()->request->csrfToken,
+				        				. Yii::app()->getRequest()->csrfToken,
 			        ),
 			        'visible'          => $data->status != FeedBack::STATUS_ANSWER_SENDED,
 			    )
@@ -60,9 +60,9 @@
 						'data-return'  => true,
 						'data-title'   => Yii::t('FeedbackModule.feedback', 'View message'),
 						'data-url'     => $this->createUrl('view', array('id' => $data->id)),
-						'data-params'  => Yii::app()->request->csrfTokenName
+						'data-params'  => Yii::app()->getRequest()->csrfTokenName
 				        				. '='
-				        				. Yii::app()->request->csrfToken,
+				        				. Yii::app()->getRequest()->csrfToken,
 			        ),
 			    )
 			);
@@ -88,9 +88,9 @@
 						'data-action'  => 'delete',
 						'data-url'     => $this->createUrl('delete', array('id' => $data->id)),
 						'data-confirm' => Yii::t('FeedbackModule.feedback', 'Do you really want to remove message?'),
-						'data-params'  => Yii::app()->request->csrfTokenName
+						'data-params'  => Yii::app()->getRequest()->csrfTokenName
 				        				. '='
-				        				. Yii::app()->request->csrfToken,
+				        				. Yii::app()->getRequest()->csrfToken,
 				        'class'   => 'btn-link',
 			        ),
 			    )

@@ -43,7 +43,7 @@ class SiteController extends yupe\components\controllers\FrontController
             $this->redirect(array('index'));
         }
 
-        if (Yii::app()->request->isAjaxRequest) {
+        if (Yii::app()->getRequest()->getIsAjaxRequest()) {
             echo json_encode(
                 $error
             );

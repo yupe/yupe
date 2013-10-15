@@ -59,7 +59,7 @@ class ContentBlockBackendController extends yupe\components\controllers\BackCont
                 );
 
                 $this->redirect(
-                    (array) Yii::app()->request->getPost(
+                    (array) Yii::app()->getRequest()->getPost(
                         'submit-type', array('create')
                     )
                 );

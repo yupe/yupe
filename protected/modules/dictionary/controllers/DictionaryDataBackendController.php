@@ -33,7 +33,7 @@ class DictionaryDataBackendController extends yupe\components\controllers\BackCo
     {
         $model = new DictionaryData;
 
-        $gid = (int) Yii::app()->request->getQuery('gid');
+        $gid = (int) Yii::app()->getRequest()->getQuery('gid');
         
         if ($gid) {
             $model->group_id = $gid;
@@ -48,7 +48,7 @@ class DictionaryDataBackendController extends yupe\components\controllers\BackCo
             if ($model->save()) {
                 
                 $this->redirect(
-                    (array) Yii::app()->request->getPost(
+                    (array) Yii::app()->getRequest()->getPost(
                         'submit-type', array('create')
                     )
                 );
@@ -85,7 +85,7 @@ class DictionaryDataBackendController extends yupe\components\controllers\BackCo
                 );
 
                 $this->redirect(
-                    (array) Yii::app()->request->getPost(
+                    (array) Yii::app()->getRequest()->getPost(
                         'submit-type', array('update', 'id' => $model->id)
                     )
                 );
@@ -138,7 +138,7 @@ class DictionaryDataBackendController extends yupe\components\controllers\BackCo
         
         $model->unsetAttributes();  // clear any default values
 
-        $group_id = (int) Yii::app()->request->getQuery('group_id');
+        $group_id = (int) Yii::app()->getRequest()->getQuery('group_id');
         
         if ($group_id) {
             $model->group_id = $group_id;
