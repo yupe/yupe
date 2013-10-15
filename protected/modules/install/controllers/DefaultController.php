@@ -726,13 +726,18 @@ class DefaultController extends yupe\components\controllers\BackController
                             'password' => $form->dbPassword,
                             'emulatePrepare' => true,
                             'charset' => 'utf8',
-                            'enableParamLogging' => 0,
-                            'enableProfiling' => 0,
+                            'enableParamLogging' => "{debug}",
+                            'enableProfiling' => "{debug}",
                             'schemaCachingDuration' => 108000,
                             'tablePrefix' => $form->tablePrefix,
                         );
 
-                        $dbConfString = "<?php\n return " . var_export($dbParams, true) . ";\n";
+                        $dbConfString = "<?php\n return "
+                                        . str_replace(
+                                            "'{debug}'",
+                                            "defined('YII_DEBUG') && YII_DEBUG ? true : 0",
+                                            var_export($dbParams, true)
+                                        ) . ";\n";
 
                         $fh = fopen($dbConfFile, 'w+');
                         if (!$fh) {
