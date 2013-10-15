@@ -1,5 +1,4 @@
 <?php
-
 /**
  * DefaultController контроллер публичной части модуля hp
  *
@@ -13,14 +12,19 @@
 
 class DefaultController extends yupe\components\controllers\FrontController
 {
+
+    /**
+     * Index action:
+     * 
+     * @return void
+     */
     public function actionIndex()
     {
         $module = Yii::app()->getModule('hp');
 
         $view = $data = null;
 
-        if($module->mode == HpModule::MODE_PAGE)
-        {
+        if($module->mode == HpModule::MODE_PAGE) {
             $view = 'page';
 
             $data = array(
@@ -28,19 +32,22 @@ class DefaultController extends yupe\components\controllers\FrontController
             );
         }
 
-        if($module->mode == HpModule::MODE_POSTS)
-        {
+        if($module->mode == HpModule::MODE_POSTS) {
             $view = 'posts';
 
-            $dataProvider = new CActiveDataProvider('Post', array(
-                'criteria' => new CDbCriteria(array(
-                    'condition' => 't.status = :status',
-                    'params'    => array(':status' => Post::STATUS_PUBLISHED),
-                    'limit'     => $module->limit,
-                    'order'     => 't.id DESC',
-                    'with'      => array('createUser', 'blog','commentsCount'),
-                )),
-            ));
+            $dataProvider = new CActiveDataProvider(
+                'Post', array(
+                    'criteria'          => new CDbCriteria(
+                        array(
+                            'condition' => 't.status = :status',
+                            'params'    => array(':status' => Post::STATUS_PUBLISHED),
+                            'limit'     => $module->limit,
+                            'order'     => 't.id DESC',
+                            'with'      => array('createUser', 'blog','commentsCount'),
+                        )
+                    ),
+                )
+            );
 
             $data = array(
                 'dataProvider' => $dataProvider
