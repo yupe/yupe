@@ -4,6 +4,7 @@
 
 Версия 0.6 в разработке....
 -------------------------------------
+- #359: Юпи! теперь можно установить через composer https://packagist.org/packages/yupe/yupe (Andrey Opeykin / @yupe)
 - #534: Закончено форматирование и документирование компонента "Migrator" (angel-kulikov)
 - #806: Добавлена примитивная поддержка NestedSets в комментариях. (Kucherov Anton / @DexterHD)
 - #812: Добавлена защита от спама в комментариях (Kucherov Anton / @DexterHD)
