@@ -9,7 +9,7 @@ class InstallCest
     public function testInstall(WebGuy $I)
     {
         $I->wantTo('Test Yupe! installation process!');
-        $I->amOnPage('/install/default');
+        $I->amOnPage('/ru/install/default');
 
         $I->wantTo('Test begin install!');
         // begin install
@@ -103,7 +103,7 @@ class InstallCest
         $I->see('Журнал установки', 'h3');
 
 
-        $I->wait(70000);
+        $I->wait(30000);
         $I->see('20 / 20');
         $I->see('Установка завершена', 'h4');
         $I->see('Поздравляем, установка выбранных вами модулей завершена.');
@@ -157,7 +157,7 @@ class InstallCest
 
 
         // check site
-        $I->amOnPage('/');
+        $I->amOnPage('/ru');
         $I->see('Поздравляем!', 'h1');
         $I->seeLink('Разработка и поддержка интернет-проектов');
     }
