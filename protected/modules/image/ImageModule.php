@@ -199,9 +199,14 @@ class ImageModule extends WebModule
     public function getNavigation()
     {
         return array(
-            array('icon' => 'list-alt', 'label' => Yii::t('ImageModule.image', 'Images list'), 'url' => array('/image/default/index')),
-            array('icon' => 'plus-sign', 'label' => Yii::t('ImageModule.image', 'Add image'), 'url' => array('/image/default/create')),
+            array('icon' => 'list-alt', 'label' => Yii::t('ImageModule.image', 'Images list'), 'url' => array('/image/imageBackend/index')),
+            array('icon' => 'plus-sign', 'label' => Yii::t('ImageModule.image', 'Add image'), 'url' => array('/image/imageBackend/create')),
         );
+    }
+
+    public function getAdminPageLink()
+    {
+        return '/image/imageBackend/index';
     }
 
     /**

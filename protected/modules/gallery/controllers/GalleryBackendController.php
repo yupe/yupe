@@ -47,7 +47,7 @@ class GalleryBackendController extends yupe\components\controllers\BackControlle
                 );
 
                 $this->redirect(
-                    (array) Yii::app()->request->getPost(
+                    (array) Yii::app()->getRequest()->getPost(
                         'submit-type', array('create')
                     )
                 );
@@ -81,7 +81,7 @@ class GalleryBackendController extends yupe\components\controllers\BackControlle
                 );
 
                 $this->redirect(
-                    (array) Yii::app()->request->getPost(
+                    (array) Yii::app()->getRequest()->getPost(
                         'submit-type', array('update', 'id' => $model->id)
                     )
                 );
@@ -256,7 +256,7 @@ class GalleryBackendController extends yupe\components\controllers\BackControlle
         );
 
         $this->redirect(
-            Yii::app()->request->urlReferer(
+            Yii::app()->getRequest()->urlReferer(
                 $this->createAbsoluteUrl('gallery/default/images')
             )
         );

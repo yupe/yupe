@@ -1,6 +1,6 @@
 <?php
 /**
- * DefaultController контроллер для управления изображениями в панели упраления
+ * ImageBackendController контроллер для управления изображениями в панели упраления
  *
  * @category YupeController
  * @package  yupe.modules.image.controllers
@@ -9,7 +9,7 @@
  * @link     http://yupe.ru
  *
  **/
-class DefaultController extends yupe\components\controllers\BackController
+class ImageBackendController extends yupe\components\controllers\BackController
 {
     /**
      * Отображает изображение по указанному идентификатору
@@ -33,19 +33,19 @@ class DefaultController extends yupe\components\controllers\BackController
     {
         $model = new Image;
 
-        if (isset($_POST['Image'])) {
+        if (($data = Yii::app()->getRequest()->getPost('Image')) !== null) {
+            
+            $model->setAttributes($data);
 
             $transaction = Yii::app()->db->beginTransaction();
 
-            try
-            {
-                $model->attributes = $_POST['Image'];
+            try {
 
                 if ($model->save()) {
 
-                    if(Yii::app()->hasModule('gallery') && $model->galleryId){
-                        if(!$model->setGalleryId($model->galleryId)){
-                            throw new CDbException(Yii::t('ImageModule.image','There is an error when adding new image =('));
+                    if (Yii::app()->hasModule('gallery') && $model->galleryId) {
+                        if (!$model->setGalleryId($model->galleryId)) {
+                            throw new CDbException(Yii::t('ImageModule.image', 'There is an error when adding new image =('));
                         }
                     }
 
@@ -57,14 +57,12 @@ class DefaultController extends yupe\components\controllers\BackController
                     );
 
                     $this->redirect(
-                        (array) Yii::app()->request->getPost(
+                        (array) Yii::app()->getRequest()->getPost(
                             'submit-type', array('create')
                         )
                     );
                 }
-            }
-            catch(Exception $e)
-            {
+            } catch(Exception $e) {
                 $transaction->rollback();
 
                 Yii::app()->user->setFlash(
@@ -73,6 +71,7 @@ class DefaultController extends yupe\components\controllers\BackController
                 );
             }
         }
+
         $this->render('create', array('model' => $model));
     }
 
@@ -86,20 +85,26 @@ class DefaultController extends yupe\components\controllers\BackController
     public function actionUpdate($id)
     {
         $model = $this->loadModel($id);
-        if (isset($_POST['Image'])) {
-            $model->attributes = $_POST['Image'];
+        
+        if (($data = Yii::app()->getRequest()->getPost('Image')) !== null) {
+            
+            $model->setAttributes($data);
+            
             if ($model->save()) {
+                
                 Yii::app()->user->setFlash(
                     YFlashMessages::SUCCESS_MESSAGE,
                     Yii::t('ImageModule.image', 'Image updated!')
                 );
 
-                if (!isset($_POST['submit-type']))
-                    $this->redirect(array('update', 'id' => $model->id));
-                else
-                    $this->redirect(array($_POST['submit-type']));
+                $this->redirect(
+                    (array) Yii::app()->getRequest()->getPost(
+                        'submit-type', array('update', 'id' => $model->id)
+                    )
+                );
             }
         }
+
         $this->render('update', array('model' => $model));
     }
 
@@ -107,13 +112,16 @@ class DefaultController extends yupe\components\controllers\BackController
      * Удаяет модель изображения из базы.
      * Если удаление прошло успешно - возвращется в index
      *
-     *  @param integer $id - идентификатор изображения, который нужно удалить
+     * @param integer $id - идентификатор изображения, который нужно удалить
      *
      * @return void
+     *
+     * @throws CHttpException
      */
     public function actionDelete($id)
     {
-        if (Yii::app()->request->isPostRequest) {
+        if (Yii::app()->getRequest()->getIsPostRequest()) {
+            
             // we only allow deletion via POST request
             $this->loadModel($id)->delete();
 
@@ -123,11 +131,15 @@ class DefaultController extends yupe\components\controllers\BackController
             );
 
             // if AJAX request (triggered by deletion via admin grid view), we should not redirect the browser
-            if (!isset($_GET['ajax']))
-                $this->redirect(isset($_POST['returnUrl']) ? $_POST['returnUrl'] : array('index'));
+            Yii::app()->getRequest()->getParam('ajax') !== null || $this->redirect(
+                (array) Yii::app()->getRequest()->getPost('returnUrl', 'index')
+            );
+        } else {
+            throw new CHttpException(
+                400,
+                Yii::t('ImageModule.image', 'Bad request. Please don\'t repeat similar requests anymore')
+            );
         }
-        else
-            throw new CHttpException(400, Yii::t('ImageModule.image', 'Bad request. Please don\'t repeat similar requests anymore'));
     }
 
     /**
@@ -138,9 +150,15 @@ class DefaultController extends yupe\components\controllers\BackController
     public function actionIndex()
     {
         $model = new Image('search');
+        
         $model->unsetAttributes();  // clear any default values
-        if (isset($_GET['Image']))
-            $model->attributes = $_GET['Image'];
+        
+        $model->setAttributes(
+            Yii::app()->getRequest()->getParam(
+                'Image', array()
+            )
+        );
+        
         $this->render('index', array('model' => $model));
     }
 
@@ -151,25 +169,31 @@ class DefaultController extends yupe\components\controllers\BackController
      * @param integer $id идентификатор нужной модели
      *
      * @return void
+     *
+     * @throws CHttpException
      */
     public function loadModel($id)
     {
-        $model = Image::model()->findByPk($id);
-        if ($model === null)
-            throw new CHttpException(404, Yii::t('ImageModule.image', 'Requested page was not found!'));
+        if (($model = Image::model()->findByPk($id)) === null) {
+            throw new CHttpException(
+                404,
+                Yii::t('ImageModule.image', 'Requested page was not found!')
+            );
+        }
+
         return $model;
     }
 
     /**
      * Производит AJAX-валидацию
      *
-     *  @param CModel $model - модель, которую необходимо валидировать
+     * @param CModel $model - модель, которую необходимо валидировать
      *
      * @return void
      */
     protected function performAjaxValidation($model)
     {
-        if (isset($_POST['ajax']) && $_POST['ajax'] === 'image-form') {
+        if (Yii::app()->getRequest()->getIsAjaxRequest() && Yii::app()->getRequest()->getPost('ajax') === 'image-form') {
             echo CActiveForm::validate($model);
             Yii::app()->end();
         }
