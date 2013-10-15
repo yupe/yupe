@@ -1,14 +1,38 @@
 <?php
-class DefaultController extends yupe\components\controllers\BackController
+/**
+ * Контроллер, отвечающий за работу с пользователями в панели управления
+ *
+ * @category YupeControllers
+ * @package  yupe.modules.zendsearch.controllers
+ * @author   YupeTeam <team@yupe.ru>
+ * @license  BSD http://ru.wikipedia.org/wiki/%D0%9B%D0%B8%D1%86%D0%B5%D0%BD%D0%B7%D0%B8%D1%8F_BSD
+ * @version  0.6
+ * @link     http://yupe.ru
+ *
+ **/
+
+class ManageBackendController extends yupe\components\controllers\BackController
 {
 
+    /**
+     * Инициализируемся, подключаем ZendLucene:
+     * 
+     * @return void
+     */
     public function init()
     {
         Yii::import('application.modules.zendsearch.vendors.*');
-        require_once('Zend/Search/Lucene.php');
-        parent::init();
+        
+        require_once 'Zend/Search/Lucene.php';
+        
+        return parent::init();
     }
 
+    /**
+     * Index-экшен:
+     * 
+     * @return void
+     */
     public function actionIndex()
     {
         $this->render('index');
