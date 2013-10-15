@@ -223,9 +223,7 @@ class NewsBackendController extends yupe\components\controllers\BackController
      */
     public function loadModel($id)
     {
-        $model = News::model()->findByPk($id);
-        
-        if ($model === null) {
+        if (($model = News::model()->findByPk($id)) === null) {
             throw new CHttpException(
                 404,
                 Yii::t('NewsModule.news', 'Requested page was not found!')

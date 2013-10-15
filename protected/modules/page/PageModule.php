@@ -121,11 +121,16 @@ class PageModule extends yupe\components\WebModule
         return Category::model()->findAll($criteria);
     }
 
+    public function getAdminPageLink()
+    {
+        return '/page/pageBackend/index';
+    }
+
     public function getNavigation()
     {
         return array(
-            array('icon' => 'list-alt', 'label' => Yii::t('PageModule.page', 'Pages list'), 'url' => array('/page/default/index')),
-            array('icon' => 'plus-sign', 'label' => Yii::t('PageModule.page', 'Create page'), 'url' => array('/page/default/create')),
+            array('icon' => 'list-alt', 'label' => Yii::t('PageModule.page', 'Pages list'), 'url' => array('/page/pageBackend/index')),
+            array('icon' => 'plus-sign', 'label' => Yii::t('PageModule.page', 'Create page'), 'url' => array('/page/pageBackend/create')),
         );
     }
 }
