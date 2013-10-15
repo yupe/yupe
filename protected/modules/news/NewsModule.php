@@ -142,11 +142,16 @@ class NewsModule extends WebModule
         return "leaf";
     }
 
+    public function getAdminPageLink()
+    {
+        return '/news/newsBackend/index';
+    }
+
     public function getNavigation()
     {
         return array(
-            array('icon' => 'list-alt', 'label' => Yii::t('NewsModule.news', 'News list'), 'url' => array('/news/default/index')),
-            array('icon' => 'plus-sign', 'label' => Yii::t('NewsModule.news', 'Create article'), 'url' => array('/news/default/create')),
+            array('icon' => 'list-alt', 'label' => Yii::t('NewsModule.news', 'News list'), 'url' => array('/news/newsBackend/index')),
+            array('icon' => 'plus-sign', 'label' => Yii::t('NewsModule.news', 'Create article'), 'url' => array('/news/newsBackend/create')),
         );
     }
 

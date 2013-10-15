@@ -1,26 +1,26 @@
 <?php
     $this->breadcrumbs = array(
         $this->getModule('news')->getCategory() => array(''),
-        Yii::t('NewsModule.news', 'News') => array('/news/default/index'),
+        Yii::t('NewsModule.news', 'News') => array('/news/newsBackend/index'),
         $model->title,
     );
 
     $this->pageTitle = Yii::t('NewsModule.news', 'News - show');
 
     $this->menu = array(
-        array('icon' => 'list-alt', 'label' => Yii::t('NewsModule.news', 'News management'), 'url' => array('/news/default/index')),
-        array('icon' => 'plus-sign', 'label' => Yii::t('NewsModule.news', 'Create article'), 'url' => array('/news/default/create')),
+        array('icon' => 'list-alt', 'label' => Yii::t('NewsModule.news', 'News management'), 'url' => array('/news/newsBackend/index')),
+        array('icon' => 'plus-sign', 'label' => Yii::t('NewsModule.news', 'Create article'), 'url' => array('/news/newsBackend/create')),
         array('label' => Yii::t('NewsModule.news', 'News Article') . ' «' . mb_substr($model->title, 0, 32) . '»'),
         array('icon' => 'pencil', 'label' => Yii::t('NewsModule.news', 'Edit news article'), 'url' => array(
-            '/news/default/update',
+            '/news/newsBackend/update',
             'id' => $model->id
         )),
         array('icon' => 'eye-open', 'label' => Yii::t('NewsModule.news', 'View news article'), 'url' => array(
-            '/news/default/view',
+            '/news/newsBackend/view',
             'id' => $model->id
         )),
         array('icon' => 'trash', 'label' => Yii::t('NewsModule.news', 'Remove news'), 'url' => '#', 'linkOptions' => array(
-            'submit' => array('/news/default/delete', 'id' => $model->id),
+            'submit' => array('/news/newsBackend/delete', 'id' => $model->id),
             'params' => array(Yii::app()->getRequest()->csrfTokenName => Yii::app()->getRequest()->csrfToken),
             'confirm' => Yii::t('NewsModule.news', 'Do you really want to remove the article?'),
             'csrf' => true,

@@ -30,9 +30,9 @@ $form = $this->beginWidget('bootstrap.widgets.TbActiveForm', array(
             <?php foreach($languages as $k => $v):?>
                 <?php if($k !== $model->lang):?>
                     <?php if(empty($langModels[$k])):?>
-                        <a href="<?php echo $this->createUrl('/news/default/create',array('id' => $model->id,'lang'  => $k));?>"><i class="iconflags iconflags-<?php echo $k;?>" title="<?php echo Yii::t('NewsModule.news','Add translation for {lang} language',array('{lang}' => $v))?>"></i></a>
+                        <a href="<?php echo $this->createUrl('/news/newsBackend/create',array('id' => $model->id,'lang'  => $k));?>"><i class="iconflags iconflags-<?php echo $k;?>" title="<?php echo Yii::t('NewsModule.news','Add translation for {lang} language',array('{lang}' => $v))?>"></i></a>
                     <?php else:?>
-                        <a href="<?php echo $this->createUrl('/news/default/update',array('id' => $langModels[$k]));?>"><i class="iconflags iconflags-<?php echo $k;?>" title="<?php echo Yii::t('NewsModule.news','Edit translation in to {lang} language',array('{lang}' => $v))?>"></i></a>
+                        <a href="<?php echo $this->createUrl('/news/newsBackend/update',array('id' => $langModels[$k]));?>"><i class="iconflags iconflags-<?php echo $k;?>" title="<?php echo Yii::t('NewsModule.news','Edit translation in to {lang} language',array('{lang}' => $v))?>"></i></a>
                     <?php endif;?>
                 <?php endif;?>
             <?php endforeach;?>
