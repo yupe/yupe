@@ -2,17 +2,17 @@
 /**
  * YDbQueue копмпонент для хранения очереди заданий в базе данных
  *
- * @author yupe team <team@yupe.ru>
- * @link http://yupe.ru
+ * @author    yupe team <team@yupe.ru>
+ * @link      http://yupe.ru
  * @copyright 2009-2013 amyLabs && Yupe! team
- * @package yupe.modules.queue.components
- * @license  BSD https://raw.github.com/yupe/yupe/master/LICENSE
- * @since 0.1
+ * @package   yupe.modules.queue.components
+ * @license   BSD https://raw.github.com/yupe/yupe/master/LICENSE
+ * @version   0.6
  *
  */
 class YDbQueue extends YQueue
 {
-    public $queueTableName = 'yupe_queue';
+    public $queueTableName = null;
     public $connectionId;
     public $workerNamesMap;
     private $_db;
@@ -20,6 +20,8 @@ class YDbQueue extends YQueue
     public function init()
     {
         parent::init();
+
+        $this->queueTableName = Queue::model()->tableName();
     }
 
     public function getDbConnection()

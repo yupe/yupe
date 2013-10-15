@@ -3,11 +3,11 @@
 /**
  * QueueModule основной класс модуля queue
  *
- * @author yupe team <team@yupe.ru>
- * @link http://yupe.ru
+ * @author    yupe team <team@yupe.ru>
+ * @link      http://yupe.ru
  * @copyright 2009-2013 amyLabs && Yupe! team
- * @package yupe.modules.queue
- * @since 0.1
+ * @package   yupe.modules.queue
+ * @version   0.6
  *
  */
 
@@ -15,7 +15,7 @@ class QueueModule extends yupe\components\WebModule
 {
     public function  getVersion()
     {
-        return Yii::t('QueueModule.queue', '0.1');
+        return Yii::t('QueueModule.queue', '0.6');
     }
 
     public function getCategory()
@@ -55,7 +55,7 @@ class QueueModule extends yupe\components\WebModule
 
     public function getAdminPageLink()
     {
-        return '/queue/default/index';
+        return '/queue/queueBackend/index';
     }
 
     public function init()
@@ -71,9 +71,9 @@ class QueueModule extends yupe\components\WebModule
     public function getNavigation()
     {
         return array(
-            array('icon' => 'list-alt', 'label' => Yii::t('QueueModule.queue', 'Task list'), 'url' => array('/queue/default/index')),
-            array('icon' => 'plus-sign', 'label' => Yii::t('QueueModule.queue', 'Create task'), 'url' => array('/queue/default/create')),
-            array('icon' => 'trash', 'label' => Yii::t('QueueModule.queue', 'Clean queue'), 'url' => array('/queue/default/clear')),
+            array('icon' => 'list-alt', 'label' => Yii::t('QueueModule.queue', 'Task list'), 'url' => array('/queue/queueBackend/index')),
+            array('icon' => 'plus-sign', 'label' => Yii::t('QueueModule.queue', 'Create task'), 'url' => array('/queue/queueBackend/create')),
+            array('icon' => 'trash', 'label' => Yii::t('QueueModule.queue', 'Clean queue'), 'url' => array('/queue/queueBackend/clear')),
         );
     }
 }
