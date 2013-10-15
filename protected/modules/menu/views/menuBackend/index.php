@@ -12,7 +12,7 @@
  **/
 $this->breadcrumbs = array(
     Yii::app()->getModule('menu')->getCategory() => array(),
-    Yii::t('MenuModule.menu', 'Menu') => array('/menu/menu/index'),
+    Yii::t('MenuModule.menu', 'Menu') => array('/menu/menuBackend/index'),
     Yii::t('MenuModule.menu', 'Manage')
 );
 
@@ -21,14 +21,14 @@ $this->pageTitle = Yii::t('MenuModule.menu', 'Menu - manage');
 $this->menu = array(
     array(
         'label' => Yii::t('MenuModule.menu', 'Menu'), 'items' => array(
-            array('icon' => 'plus-sign', 'label' => Yii::t('MenuModule.menu', 'Create menu'), 'url' => array('/menu/menu/create')),
-            array('icon' => 'list-alt', 'label' => Yii::t('MenuModule.menu', 'Manage menu'), 'url' => array('/menu/menu/index')),
+            array('icon' => 'plus-sign', 'label' => Yii::t('MenuModule.menu', 'Create menu'), 'url' => array('/menu/menuBackend/create')),
+            array('icon' => 'list-alt', 'label' => Yii::t('MenuModule.menu', 'Manage menu'), 'url' => array('/menu/menuBackend/index')),
         )
     ),
     array(
         'label' => Yii::t('MenuModule.menu', 'Menu items'), 'items' => array(
-            array('icon' => 'plus-sign', 'label' => Yii::t('MenuModule.menu', 'Create menu item'), 'url' => array('/menu/menuitem/create')),
-            array('icon' => 'list-alt', 'label' => Yii::t('MenuModule.menu', 'Manage menu items'), 'url' => array('/menu/menuitem/index')),
+            array('icon' => 'plus-sign', 'label' => Yii::t('MenuModule.menu', 'Create menu item'), 'url' => array('/menu/menuitemBackend/create')),
+            array('icon' => 'list-alt', 'label' => Yii::t('MenuModule.menu', 'Manage menu items'), 'url' => array('/menu/menuitemBackend/index')),
         )
     ),
 );
@@ -82,7 +82,7 @@ $this->renderPartial('_search', array('model' => $model));
             array(
                 'header' => Yii::t('MenuModule.menu', 'Items'),
                 'type'   => 'raw',
-                'value'  => 'CHtml::link(count($data->menuItems), Yii::app()->createUrl("/menu/menuitem/index", array("MenuItem[menu_id]" => $data->id)))',
+                'value'  => 'CHtml::link(count($data->menuItems), Yii::app()->createUrl("/menu/menuitemBackend/index", array("MenuItem[menu_id]" => $data->id)))',
             ),
             array(
                 'name'        => 'status',
@@ -98,7 +98,7 @@ $this->renderPartial('_search', array('model' => $model));
                 'buttons'  => array(
                     'add' => array(
                         'label'   => false,
-                        'url'     => 'Yii::app()->createUrl("/menu/menuitem/create", array("mid" => $data->id))',
+                        'url'     => 'Yii::app()->createUrl("/menu/menuitemBackend/create", array("mid" => $data->id))',
                         'options' => array(
                             'class' => 'icon-plus-sign',
                             'title' => Yii::t('MenuModule.menu', 'Create menu item'),

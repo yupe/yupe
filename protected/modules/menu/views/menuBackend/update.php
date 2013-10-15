@@ -12,8 +12,8 @@
  **/
 $this->breadcrumbs = array(
     Yii::app()->getModule('menu')->getCategory() => array(),
-    Yii::t('MenuModule.menu', 'Menu') => array('/menu/menu/index'),
-    $model->name => array('/menu/menu/view', 'id' => $model->id),
+    Yii::t('MenuModule.menu', 'Menu') => array('/menu/menuBackend/index'),
+    $model->name => array('/menu/menuBackend/view', 'id' => $model->id),
     Yii::t('MenuModule.menu', 'Edit'),
 );
 
@@ -22,24 +22,24 @@ $this->pageTitle = Yii::t('MenuModule.menu', 'Menu - edit');
 $this->menu = array(
     array(
         'label' => Yii::t('MenuModule.menu', 'Menu'), 'items' => array(
-            array('icon' => 'plus-sign', 'label' => Yii::t('MenuModule.menu', 'Create menu'), 'url' => array('/menu/menu/create')),
-            array('icon' => 'list-alt', 'label' => Yii::t('MenuModule.menu', 'Manage menu'), 'url' => array('/menu/menu/index')),
+            array('icon' => 'plus-sign', 'label' => Yii::t('MenuModule.menu', 'Create menu'), 'url' => array('/menu/menuBackend/create')),
+            array('icon' => 'list-alt', 'label' => Yii::t('MenuModule.menu', 'Manage menu'), 'url' => array('/menu/menuBackend/index')),
             array('label' => Yii::t('MenuModule.menu', 'Menu') . ' «' . $model->name . '»'),
             array(
                 'icon' => 'pencil', 'label' => Yii::t('MenuModule.menu', 'Change menu'), 'url' => array(
-                    '/menu/menu/update',
+                    '/menu/menuBackend/update',
                     'id' => $model->id
                 )
             ),
             array(
                 'icon' => 'eye-open', 'label' => Yii::t('MenuModule.menu', 'View menu'), 'url' => array(
-                    '/menu/menu/view',
+                    '/menu/menuBackend/view',
                     'id' => $model->id
                 )
             ),
             array(
                 'icon' => 'trash', 'label' => Yii::t('MenuModule.menu', 'Remove menu'), 'url' => '#', 'linkOptions' => array(
-                    'submit' => array('/menu/menu/delete', 'id' => $model->id),
+                    'submit' => array('/menu/menuBackend/delete', 'id' => $model->id),
                     'confirm' => Yii::t('MenuModule.menu', 'Do you really want to remove menu?')
                 ),
             ),
@@ -47,8 +47,8 @@ $this->menu = array(
     ),
     array(
         'label' => Yii::t('MenuModule.menu', 'Menu items'), 'items' => array(
-            array('icon' => 'plus-sign', 'label' => Yii::t('MenuModule.menu', 'Create menu item'), 'url' => array('/menu/menuitem/create')),
-            array('icon' => 'list-alt', 'label' => Yii::t('MenuModule.menu', 'Manage menu items'), 'url' => array('/menu/menuitem/index')),
+            array('icon' => 'plus-sign', 'label' => Yii::t('MenuModule.menu', 'Create menu item'), 'url' => array('/menu/menuitemBackend/create')),
+            array('icon' => 'list-alt', 'label' => Yii::t('MenuModule.menu', 'Manage menu items'), 'url' => array('/menu/menuitemBackend/index')),
         )
     ),
 ); ?>

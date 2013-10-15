@@ -1,7 +1,7 @@
 <?php
     $this->breadcrumbs = array(
         Yii::app()->getModule('menu')->getCategory() => array(),
-        Yii::t('MenuModule.menu', 'Menu') => array('/menu/menu/index'),
+        Yii::t('MenuModule.menu', 'Menu') => array('/menu/menuBackend/index'),
         Yii::t('MenuModule.menu', 'Menu items'),
     );
 
@@ -9,12 +9,12 @@
 
     $this->menu = array(
         array('label' => Yii::t('MenuModule.menu', 'Menu'), 'items' => array(
-            array('icon' => 'plus-sign', 'label' => Yii::t('MenuModule.menu', 'Create menu'), 'url' => array('/menu/menu/create')),
-            array('icon' => 'list-alt', 'label' => Yii::t('MenuModule.menu', 'Manage menu'), 'url' => array('/menu/menu/index')),
+            array('icon' => 'plus-sign', 'label' => Yii::t('MenuModule.menu', 'Create menu'), 'url' => array('/menu/menuBackend/create')),
+            array('icon' => 'list-alt', 'label' => Yii::t('MenuModule.menu', 'Manage menu'), 'url' => array('/menu/menuBackend/index')),
         )),
         array('label' => Yii::t('MenuModule.menu', 'Menu items'), 'items' => array(
-            array('icon' => 'plus-sign', 'label' => Yii::t('MenuModule.menu', 'Create menu item'), 'url' => array('/menu/menuitem/create')),
-            array('icon' => 'list-alt', 'label' => Yii::t('MenuModule.menu', 'Manage menu items'), 'url' => array('/menu/menuitem/index')),
+            array('icon' => 'plus-sign', 'label' => Yii::t('MenuModule.menu', 'Create menu item'), 'url' => array('/menu/menuitemBackend/create')),
+            array('icon' => 'list-alt', 'label' => Yii::t('MenuModule.menu', 'Manage menu items'), 'url' => array('/menu/menuitemBackend/index')),
         )),
     );
 ?>
@@ -64,7 +64,7 @@ $this->renderPartial('_search', array('model' => $model));
         array(
             'name'        => 'menu_id',
             'type'        => 'raw',
-            'value'       => 'CHtml::link($data->menu->name, Yii::app()->createUrl("/menu/menu/update", array("id" => $data->menu->id)))',
+            'value'       => 'CHtml::link($data->menu->name, Yii::app()->createUrl("/menu/menuBackend/update", array("id" => $data->menu->id)))',
             'filter'      => CHtml::activeDropDownList($model, 'menu_id', $model->menuList, array('empty' => '')),
             'htmlOptions' => array('style' => 'width:110px'),
         ),

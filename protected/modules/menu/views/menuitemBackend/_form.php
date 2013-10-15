@@ -28,7 +28,7 @@ $form = $this->beginWidget('bootstrap.widgets.TbActiveForm', array(
             'data-content'        => $model->getAttributeDescription('menu_id'),
             'ajax' => array(
                 'type'       => 'POST',
-                'url'        => $this->createUrl('/menu/menuitem/dynamicparent', (!$model->isNewRecord ? array('id' => $model->id) : array())),
+                'url'        => $this->createUrl('/menu/menuitemBackend/dynamicparent', (!$model->isNewRecord ? array('id' => $model->id) : array())),
                 'update'     => $parent_id,
                 'beforeSend' => "function() {
                             $('" . $parent_id . "').attr('disabled', true);
