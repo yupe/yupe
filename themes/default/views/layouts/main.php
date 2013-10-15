@@ -88,8 +88,9 @@
             </div>
         </aside>
     </div>
-            <!-- sidebar end -->
-            <?php $this->renderPartial('//layouts/_footer');?>
+
+    <!-- sidebar end -->
+    <?php $this->renderPartial('//layouts/_footer');?>
         
     </div>
 <!-- page -->

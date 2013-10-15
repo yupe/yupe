@@ -19,11 +19,12 @@ return array(
     'Blog'=>'Блог',
     'Our site'=>'Сайт',
 
+    'Documentation' => 'Документация',
     'Support'=>'Поддержка',
     'Dcumentation'=>'Документация',
     'API'=>'АПИ',
     'Forum'=>'Форум',
-    'FAQ'=>'ЧаВО',
+    'FAQ'=>'Вопросы и ответы',
     'Contacts'=>'Контакты',
 
     'Yupe!'=>'Юпи!',
@@ -32,7 +33,7 @@ return array(
     'GitHub'=>'GitHub',
     'Extensions'=>'Доп. модули',
     'Facilities'=>'Возможности',
-    'How to help us'=>'ПОмощь проекту',
+    'How to help us'=>'Помощь проекту',
 
     'Friends'=>'Друзья',
     'allframeworks'=>'allframeworks',

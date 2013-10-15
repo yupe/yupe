@@ -53,7 +53,7 @@
         <p class="muted pull-right">© 2009 - <?php echo date('Y'); ?> <?php echo CHtml::link(
                                             'amyLabs',
                                             'http://amylabs.ru?from=yupe'
-                                            ); ?> && <?php echo Yii::t("default","Yupe! team") ?> <?php echo Yii::app()->getModule('yupe')->poweredBy(); ?>
+                                            ); ?> && <?php echo CHtml::link(Yii::t("default","Yupe! team"),'http://yupe.ru?from=yupe');?> <?php echo Yii::app()->getModule('yupe')->poweredBy(); ?>
         </p>
     </div>
 </footer>
