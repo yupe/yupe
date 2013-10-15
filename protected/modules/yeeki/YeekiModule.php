@@ -46,7 +46,10 @@ class YeekiModule extends yupe\components\WebModule
 
     public function getAdminPageLink()
     {
-        return '/wiki/default/index';
+        return array(
+            '/yupe/backend/modulesettings',
+            'module' => 'yeeki',
+        );
     }
 
     public function getName()
