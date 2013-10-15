@@ -83,6 +83,11 @@ class ZendSearchModule extends yupe\components\WebModule
         return "search";
     }
 
+    public function getAdminPageLink()
+    {
+        return '/zendsearch/manageBackend/index';
+    }
+
     public function init()
     {
         // this method is called when the module is being created
