@@ -1,7 +1,7 @@
 <?php
 $this->breadcrumbs=array(
     $this->module->getCategory() => array('index'),
-    Yii::t('MailModule.mail','Mail events')=>array('/mail/eventAdmin/'),
+    Yii::t('MailModule.mail','Mail events')=>array('/mail/eventBackend/index'),
     Yii::t('MailModule.mail','Mail templates')=>array('index'),
     Yii::t('MailModule.mail','Management'),
 );
@@ -9,11 +9,11 @@ $this->pageTitle = Yii::t('MailModule.mail','Mail templates list');
 
 $this->menu = array(
     array('label' => Yii::t('MailModule.mail', 'Mail templates')),
-    array('icon' => 'list-alt', 'label' => Yii::t('MailModule.mail','Templates list'),'url'=>array('/mail/templateAdmin/index')),
-    array('icon' => 'plus-sign','label' => Yii::t('MailModule.mail','Create template'), 'url' => array('/mail/templateAdmin/create')),
+    array('icon' => 'list-alt', 'label' => Yii::t('MailModule.mail','Templates list'),'url'=>array('/mail/templateBackend/index')),
+    array('icon' => 'plus-sign','label' => Yii::t('MailModule.mail','Create template'), 'url' => array('/mail/templateBackend/create')),
     array('label' => Yii::t('MailModule.mail', 'Mail events')),
-    array('icon' => 'list-alt', 'label' => Yii::t('MailModule.mail','Messages list'),'url'=>array('/mail/eventAdmin/index')),
-    array('icon' => 'plus-sign','label' => Yii::t('MailModule.mail','Create event'), 'url' => array('/mail/eventAdmin/create')),
+    array('icon' => 'list-alt', 'label' => Yii::t('MailModule.mail','Messages list'),'url'=>array('/mail/eventBackend/index')),
+    array('icon' => 'plus-sign','label' => Yii::t('MailModule.mail','Create event'), 'url' => array('/mail/eventBackend/create')),
 );
 ?>
 <div class="page-header">

@@ -15,11 +15,11 @@ $this->breadcrumbs=array(
 );
 $this-> pageTitle = Yii::t('MailModule.mail', 'View mail event');
 $this->menu=array(
-    array('icon'=> 'list-alt', 'label' => Yii::t('MailModule.mail', 'Messages list'),'url'=>array('/mail/eventAdmin/index')),
-    array('icon'=> 'plus-sign', 'label' =>  Yii::t('MailModule.mail', 'Event creation'),'url'=>array('/mail/eventAdmin/create')),
+    array('icon'=> 'list-alt', 'label' => Yii::t('MailModule.mail', 'Messages list'),'url'=>array('/mail/eventBackend/index')),
+    array('icon'=> 'plus-sign', 'label' =>  Yii::t('MailModule.mail', 'Event creation'),'url'=>array('/mail/eventBackend/create')),
     array('icon'=>'pencil', 'encodeLabel'=> false, 'label' => Yii::t('MailModule.mail', 'Edit event'),'url'=>array('mail/eventAdmin/update', 'id'=>$model->id)),
-    array('icon'=>'eye-open', 'encodeLabel'=> false, 'label' => Yii::t('MailModule.mail', 'Show template'),'url'=>array('/mail/eventAdmin/view', 'id'=>$model->id)),
-    array('icon'=> 'plus-sign', 'label' =>  Yii::t('MailModule.mail', 'Create template'),'url'=>array('/mail/templateAdmin/create/', 'eid' => $model->id)),
+    array('icon'=>'eye-open', 'encodeLabel'=> false, 'label' => Yii::t('MailModule.mail', 'Show template'),'url'=>array('/mail/eventBackend/view', 'id'=>$model->id)),
+    array('icon'=> 'plus-sign', 'label' =>  Yii::t('MailModule.mail', 'Create template'),'url'=>array('/mail/templateBackend/create/', 'eid' => $model->id)),
     array('icon'=>'remove', 'label' =>  Yii::t('MailModule.mail', 'Remove event'),'url'=>'#', 'linkOptions'=>array('submit'=>array('delete', 'id'=>$model->id),'confirm'=> Yii::t('MailModule.mail', 'Do you really want to remove?'))),
 );
 ?>

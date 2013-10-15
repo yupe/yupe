@@ -1,8 +1,7 @@
 <?php
 
 /**
- * Event admin controller
- * Класс контроллера Event
+ * EventBackendController Класс контроллера Event
  *
  * @category YupeController
  * @package  yupe.modules.mail.components
@@ -10,14 +9,14 @@
  * @license  BSD https://raw.github.com/yupe/yupe/master/LICENSE
  * @link     http://yupe.ru
  **/
-class EventAdminController extends yupe\components\controllers\BackController
+class EventBackendController extends yupe\components\controllers\BackController
 {
     /**
      * Отображает почтовое событие по указанному идентификатору
      *
      * @param integer $id Идинтификатор почтовое событие для отображения
      *
-     * @return nothing
+     * @return void
      */
     public function actionView($id)
     {
@@ -28,7 +27,7 @@ class EventAdminController extends yupe\components\controllers\BackController
      * Создает новую модель почтового события.
      * Если создание прошло успешно - перенаправляет на просмотр.
      *
-     * @return nothing
+     * @return void
      */
     public function actionCreate()
     {
@@ -37,8 +36,8 @@ class EventAdminController extends yupe\components\controllers\BackController
         // Uncomment the following line if AJAX validation is needed
         // $this->performAjaxValidation($model);
 
-        if (isset($_POST['MailEvent'])) {
-            $model->attributes = $_POST['MailEvent'];
+        if (($data = Yii::app()->getRequest()->getPost('MailEvent')) !== null) {
+            $model->setAttributes($data);
 
             if ($model->save()) {
                 Yii::app()->user->setFlash(
@@ -61,7 +60,7 @@ class EventAdminController extends yupe\components\controllers\BackController
      *
      * @param integer $id the ID of the model to be updated
      *
-     * @return nothing
+     * @return void
      */
     public function actionUpdate($id)
     {
@@ -69,9 +68,8 @@ class EventAdminController extends yupe\components\controllers\BackController
 
         // Uncomment the following line if AJAX validation is needed
         // $this->performAjaxValidation($model);
-
-        if (isset($_POST['MailEvent'])) {
-            $model->attributes = $_POST['MailEvent'];
+        if (($data = Yii::app()->getRequest()->getPost('MailEvent')) !== null) {
+            $model->setAttributes($data);
 
             if ($model->save()) {
                 Yii::app()->user->setFlash(
@@ -79,10 +77,11 @@ class EventAdminController extends yupe\components\controllers\BackController
                     Yii::t('MailModule.mail', 'Record was created!')
                 );
 
-                if (!isset($_POST['submit-type']))
-                    $this->redirect(array('update', 'id' => $model->id));
-                else
-                    $this->redirect(array($_POST['submit-type']));
+                $this->redirect(
+                    (array) Yii::app()->getRequest()->getPost(
+                        'submit-type', array('update', 'id' => $model->id)
+                    )
+                );
             }
         }
         $this->render('update', array('model' => $model));
@@ -94,7 +93,9 @@ class EventAdminController extends yupe\components\controllers\BackController
      *
      * @param integer $id идентификатор почтового события, который нужно удалить
      *
-     * @return nothing
+     * @return void
+     *
+     * @throws CHttpException
      */
     public function actionDelete($id)
     {
@@ -108,24 +109,34 @@ class EventAdminController extends yupe\components\controllers\BackController
             );
 
             // если это AJAX запрос ( кликнули удаление в админском grid view), мы не должны никуда редиректить
-            if (!isset($_GET['ajax']))
-                $this->redirect(isset($_POST['returnUrl']) ? $_POST['returnUrl'] : array('index'));
+            Yii::app()->getRequest()->getParam('ajax') !== null || $this->redirect(
+                (array) Yii::app()->getRequest()->getPost('returnUrl', 'index')
+            );
+        } else {
+            throw new CHttpException(
+                400,
+                Yii::t('MailModule.mail', 'Bad request. Please don\'t repeate similar request anymore')
+            );
         }
-        else
-            throw new CHttpException(400, Yii::t('MailModule.mail', 'Bad request. Please don\'t repeate similar request anymore'));
     }
 
     /**
      * Управление почтовыми событиями.
      *
-     * @return nothing
+     * @return void
      */
     public function actionIndex()
     {
         $model = new MailEvent('search');
+        
         $model->unsetAttributes();  // clear any default values
-        if (isset($_GET['MailEvent']))
-            $model->attributes = $_GET['MailEvent'];
+        
+        $model->setAttributes(
+            Yii::app()->getRequest()->getParam(
+                'MailEvent', array()
+            )
+        );
+        
         $this->render('index', array('model' => $model));
     }
 
@@ -135,13 +146,18 @@ class EventAdminController extends yupe\components\controllers\BackController
      *
      * @param integer $id - integer идентификатор нужной модели
      *
-     * @return nothing
+     * @return void
+     *
+     * @throws CHttpExcetption
      */
     public function loadModel($id)
     {
-        $model = MailEvent::model()->findByPk((int) $id);
-        if ($model === null)
-            throw new CHttpException(404, Yii::t('MailModule.mail', 'Requested page was not found.'));
+        if (($model = MailEvent::model()->findByPk((int) $id)) === null) {
+            throw new CHttpException(
+                404,
+                Yii::t('MailModule.mail', 'Requested page was not found.')
+            );
+        }
         return $model;
     }
 
@@ -150,11 +166,11 @@ class EventAdminController extends yupe\components\controllers\BackController
      *
      * @param class $model - CModel модель, которую необходимо валидировать
      *
-     * @return nothing
+     * @return void
      */
     protected function performAjaxValidation($model)
     {
-        if (isset($_POST['ajax']) && $_POST['ajax'] === 'mail-event-form') {
+        if (Yii::app()->getRequest()->getIsAjaxRequest() && Yii::app()->getRequest()->getPost('ajax') === 'mail-event-form') {
             echo CActiveForm::validate($model);
             Yii::app()->end();
         }

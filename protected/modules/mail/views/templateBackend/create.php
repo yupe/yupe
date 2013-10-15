@@ -1,14 +1,14 @@
 <?php
 $this->breadcrumbs=array(
 	$this->module->getCategory() => array('index'),
-        Yii::t('MailModule.mail','Mail events')=>array('/mail/eventAdmin/'),
+        Yii::t('MailModule.mail','Mail events')=>array('/mail/eventBackend/'),
 	Yii::t('MailModule.mail','Mail templates')=>array('index'),
 	Yii::t('MailModule.mail','Create'),
 );
 
 $this->menu=array(
-    array('icon'=> 'list-alt', 'label' => Yii::t('MailModule.mail','Templates list'),'url'=>array('/mail/templateAdmin/index')),
-    array('icon'=> 'plus-sign', 'label' => Yii::t('MailModule.mail','Create template'),'url'=>array('/mail/templateAdmin/create')),
+    array('icon'=> 'list-alt', 'label' => Yii::t('MailModule.mail','Templates list'),'url'=>array('/mail/templateBackend/index')),
+    array('icon'=> 'plus-sign', 'label' => Yii::t('MailModule.mail','Create template'),'url'=>array('/mail/templateBackend/create')),
 );
 ?>
 <div class="page-header">

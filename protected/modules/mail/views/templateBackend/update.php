@@ -2,16 +2,16 @@
 $this->breadcrumbs=array(
     $this->module->getCategory() => array('index'),
 	Yii::t('MailModule.mail','Mail templates')=>array('index'),
-        Yii::t('MailModule.mail','Mail events')=>array('/mail/eventAdmin/'),
+        Yii::t('MailModule.mail','Mail events')=>array('/mail/eventBackend/index'),
 	$model->name=>array('view','id'=>$model->id),
 	Yii::t('MailModule.mail','Edit'),
 );
 $this->pageTitle = Yii::t('MailModule.mail','Edit mail template');
 $this->menu=array(
-    array('icon'=> 'list-alt', 'label' => Yii::t('MailModule.mail','Templates list'),'url'=>array('/mail/templateAdmin/index')),
-    array('icon'=> 'plus-sign', 'label' =>  Yii::t('MailModule.mail','Create template'),'url'=>array('/mail/templateAdmin/create')),
+    array('icon'=> 'list-alt', 'label' => Yii::t('MailModule.mail','Templates list'),'url'=>array('/mail/templateBackend/index')),
+    array('icon'=> 'plus-sign', 'label' =>  Yii::t('MailModule.mail','Create template'),'url'=>array('/mail/templateBackend/create')),
     array('icon'=>'pencil white','encodeLabel'=> false, 'label' => Yii::t('MailModule.mail','Edit template '),'url'=>array('mail/templateAdmin/update','id'=>$model->id)),
-    array('icon'=>'eye-open','encodeLabel'=> false, 'label' => Yii::t('MailModule.mail','View template'),'url'=>array('/mail/templateAdmin/view','id'=>$model->id)),
+    array('icon'=>'eye-open','encodeLabel'=> false, 'label' => Yii::t('MailModule.mail','View template'),'url'=>array('/mail/templateBackend/view','id'=>$model->id)),
 );
 ?>
 <div class="page-header">

@@ -17,11 +17,11 @@ $this->pageTitle = Yii::t('MailModule.mail', 'Events list');
 
 $this->menu = array(
     array('label' => Yii::t('MailModule.mail', 'Mail events')),
-    array('icon'=> 'list-alt white', 'label' => Yii::t('MailModule.mail', 'Messages list'),'url'=>array('/mail/eventAdmin/index')),
-    array('icon'=> 'plus-sign', 'label' => Yii::t('MailModule.mail', 'Create event'), 'url' => array('/mail/eventAdmin/create')),
+    array('icon'=> 'list-alt white', 'label' => Yii::t('MailModule.mail', 'Messages list'),'url'=>array('/mail/eventBackend/index')),
+    array('icon'=> 'plus-sign', 'label' => Yii::t('MailModule.mail', 'Create event'), 'url' => array('/mail/eventBackend/create')),
     array('label' => Yii::t('MailModule.mail', 'Mail templates')),
-    array('icon'=> 'list-alt', 'label' => Yii::t('MailModule.mail', 'Templates list'),'url'=>array('/mail/templateAdmin/index')),
-    array('icon'=> 'plus-sign', 'label' => Yii::t('MailModule.mail', 'Create template'), 'url' => array('/mail/templateAdmin/create')),
+    array('icon'=> 'list-alt', 'label' => Yii::t('MailModule.mail', 'Templates list'),'url'=>array('/mail/templateBackend/index')),
+    array('icon'=> 'plus-sign', 'label' => Yii::t('MailModule.mail', 'Create template'), 'url' => array('/mail/templateBackend/create')),
 );
 
 Yii::app()->clientScript->registerScript(
@@ -84,7 +84,7 @@ $this->widget(
             array(
                 'header' => Yii::t('MailModule.mail', 'Templates'),
                 'type'   => 'raw',
-                'value'  => 'CHtml::link(count($data->templates), array("/mail/templateAdmin/index/", "event" => $data->id))',
+                'value'  => 'CHtml::link(count($data->templates), array("/mail/templateBackend/index/", "event" => $data->id))',
             ),
             array(
                 'header'      => $model->getAttributeLabel('description'),
@@ -99,7 +99,7 @@ $this->widget(
                 'buttons'  => array(
                     'add' => array(
                         'label'   => false,
-                        'url'     => 'Yii::app()->createUrl("/mail/templateAdmin/create/", array("eid" => $data->id))',
+                        'url'     => 'Yii::app()->createUrl("/mail/templateBackend/create/", array("eid" => $data->id))',
                         'options' => array(
                             'class' => 'icon-plus-sign',
                             'title' => Yii::t('MailModule.mail', 'Create mail template'),
