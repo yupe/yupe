@@ -72,7 +72,7 @@ $form = $this->beginWidget('bootstrap.widgets.TbActiveForm', array(
     <?php if ($model->status == FeedBack::STATUS_ANSWER_SENDED): ?>
         <div class="row-fluid control-group">
             <div class="span7">
-                <label><?php echo Yii::t('FeedbackModule.feedback', 'Ответил'); ?> <?php echo CHtml::link($model->getAnsweredUser(), array( '/user/default/view', 'id' => $model->answer_user )); ?> (<?php echo $model->answer_date; ?>)</label>
+                <label><?php echo Yii::t('FeedbackModule.feedback', 'Ответил'); ?> <?php echo CHtml::link($model->getAnsweredUser(), array( '/user/userBackend/view', 'id' => $model->answer_user )); ?> (<?php echo $model->answer_date; ?>)</label>
                 <?php echo $model->answer; ?>
             </div>
         </div>

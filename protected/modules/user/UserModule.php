@@ -220,14 +220,19 @@ class UserModule extends WebModule
         );
     }
 
+    public function getAdminPageLink()
+    {
+        return '/user/userBackend/index';
+    }
+
     public function getNavigation()
     {
         return array(
             array('label' => Yii::t('UserModule.user', 'Users')),
-            array('icon' => 'list-alt', 'label' => Yii::t('UserModule.user', 'Manage users'), 'url' => array('/user/default/index')),
-            array('icon' => 'plus-sign', 'label' => Yii::t('UserModule.user', 'Create user'), 'url' => array('/user/default/create')),
+            array('icon' => 'list-alt', 'label' => Yii::t('UserModule.user', 'Manage users'), 'url' => array('/user/userBackend/index')),
+            array('icon' => 'plus-sign', 'label' => Yii::t('UserModule.user', 'Create user'), 'url' => array('/user/userBackend/create')),
             array('label' => Yii::t('UserModule.user', 'Passwords recovery!')),
-            array('icon' => 'list-alt', 'label' => Yii::t('UserModule.user', 'Passwords recovery!'), 'url' => array('/user/recoveryPassword/index')),
+            array('icon' => 'list-alt', 'label' => Yii::t('UserModule.user', 'Passwords recovery!'), 'url' => array('/user/recoveryBackend/index')),
         );
     }
 

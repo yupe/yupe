@@ -110,7 +110,7 @@ $this->widget(
                                 array(
                                     'icon'  => 'user',
                                     'label' => Yii::t('YupeModule.yupe', 'Profile'),
-                                    'url'   => CHtml::normalizeUrl((array('/user/default/update', 'id' => Yii::app()->user->getId()))),
+                                    'url'   => CHtml::normalizeUrl((array('/user/userBackend/update', 'id' => Yii::app()->user->getId()))),
                                 ),
                                 array(
                                     'icon'  => 'off',

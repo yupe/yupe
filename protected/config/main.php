@@ -115,6 +115,7 @@ return array(
                 '/backend'                                                        => 'yupe/backend/index',
                 '/backend/<action:\w+>'                                           => 'yupe/backend/<action>',
                 '/backend/<module:\w+>/<controller:\w+>'                          => '<module>/<controller>Backend/index',
+                '/backend/<module:\w+>/<controller:\w+>/<action:\w+>/<id:\d>'     => '<module>/<controller>Backend/<action>',
                 '/backend/<module:\w+>/<controller:\w+>/<action:\w+>'             => '<module>/<controller>Backend/<action>',
                 '<module:\w+>/<controller:\w+>/<action:[0-9a-zA-Z_\-]+>/<id:\d+>' => '<module>/<controller>/<action>',
                 '<module:\w+>/<controller:\w+>/<action:[0-9a-zA-Z_\-]+>'          => '<module>/<controller>/<action>',

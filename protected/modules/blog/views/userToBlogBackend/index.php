@@ -74,7 +74,7 @@ $this->renderPartial('_search', array('model' => $model));
             array(
                 'name'   => 'user_id',
                 'type'   => 'raw',
-                'value'  => 'CHtml::link($data->user->getFullName(), array("/user/default/view", "id" => $data->user->id))',
+                'value'  => 'CHtml::link($data->user->getFullName(), array("/user/userBackend/view", "id" => $data->user->id))',
                 'filter' => CHtml::listData(User::model()->cache($this->yupe->coreCacheTime)->findAll(),'id','nick_name')
             ),
             array(
