@@ -107,7 +107,7 @@ class LanguageBehavior extends CBehavior
                     YFlashMessages::SUCCESS_MESSAGE,
                     $e->getMessage()
                 );
-            }
+        }
             
             $oldLang = $this->lang;
 
@@ -165,15 +165,21 @@ class LanguageBehavior extends CBehavior
         // Устанавливаем состояние языка:
         Yii::app()->user->setState(Yii::app()->urlManager->langParam, $language);
         
-        // @TODO если не доступна папка runtime в установщие не создавать куку
-        if (Yii::app()->getModule('yupe')->cache) {
-            Yii::app()->getRequest()->cookies->add(
-                Yii::app()->urlManager->langParam, new CHttpCookie(
-                    Yii::app()->urlManager->langParam,
-                    $language, array(
-                        'expire' => time() + (60 * 60 * 24 * 365)
+        try {
+            if (Yii::app()->getModule('yupe')->cache) {
+                Yii::app()->getRequest()->cookies->add(
+                    Yii::app()->urlManager->langParam, new CHttpCookie(
+                        Yii::app()->urlManager->langParam,
+                        $language, array(
+                            'expire' => time() + (60 * 60 * 24 * 365)
+                        )
                     )
-                )
+                );
+            }
+        } catch (CException $e) {
+            Yii::app()->user->setFlash(
+                YFlashMessages::SUCCESS_MESSAGE,
+                $e->getMessage()
             );
         }
 
