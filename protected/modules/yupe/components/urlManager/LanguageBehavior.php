@@ -89,16 +89,25 @@ class LanguageBehavior extends CBehavior
             }
         } else {
 
-            // Пробуем получить код языка из кук
-            $cookiesLang = Yii::app()->getModule('yupe')->cache
-                        && isset(Yii::app()->getRequest()->cookies[$lm->langParam])
-                        && in_array(Yii::app()->getRequest()->cookies[$lm->langParam]->value, $lm->languages)
-                    ? Yii::app()->getRequest()->cookies[$lm->langParam]->value
-                    : (
-                        $lm->preferredLanguage && Yii::app()->getRequest()->getPreferredLanguage()
-                        ? Yii::app()->locale->getLanguageID($this->lang)
-                        : false
-                    );
+            try {
+                // Пробуем получить код языка из кук
+                $cookiesLang = Yii::app()->getModule('yupe')->cache
+                            && isset(Yii::app()->getRequest()->cookies[$lm->langParam])
+                            && in_array(Yii::app()->getRequest()->cookies[$lm->langParam]->value, $lm->languages)
+                        ? Yii::app()->getRequest()->cookies[$lm->langParam]->value
+                        : (
+                            $lm->preferredLanguage && Yii::app()->getRequest()->getPreferredLanguage()
+                            ? Yii::app()->locale->getLanguageID($this->lang)
+                            : false
+                        );
+            } catch (CException $e) {
+                $cookiesLang = Yii::app()->sourceLanguage;
+
+                Yii::app()->user->setFlash(
+                    YFlashMessages::SUCCESS_MESSAGE,
+                    $e->getMessage()
+                );
+            }
             
             $oldLang = $this->lang;
 

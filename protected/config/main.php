@@ -31,7 +31,11 @@ return array(
     'sourceLanguage'    => 'en',
     'theme'             => 'default',          // тема оформления по умолчанию
     'charset'           => 'UTF-8',
-    'preload'           => defined('YII_DEBUG') && YII_DEBUG ? array('debug') : array(),
+    'preload'           => defined('YII_DEBUG')
+                            && YII_DEBUG
+                            && is_writable(
+                                Yii::getPathOfAlias('application.runtime')
+                            ) ? array('debug') : array(),
     'aliases' => array(
         'bootstrap' => realpath(Yii::getPathOfAlias('vendor') . '/clevertech/yii-booster/src'),
     ),
