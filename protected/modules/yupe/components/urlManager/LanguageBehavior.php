@@ -87,19 +87,18 @@ class LanguageBehavior extends CBehavior
                 // Редирект на URL без указания языка
                 Yii::app()->getRequest()->redirect($home . $lm->getCleanUrl(Yii::app()->getRequest()->url));
             }
-        } else {
+        } else{
 
             // Пробуем получить код языка из кук
-            $cookiesLang = Yii::app()->getModule('yupe')->cache
-                        && isset(Yii::app()->getRequest()->cookies[$lm->langParam])
-                        && in_array(Yii::app()->getRequest()->cookies[$lm->langParam]->value, $lm->languages)
-                    ? Yii::app()->getRequest()->cookies[$lm->langParam]->value
-                    : (
-                        $lm->preferredLanguage && Yii::app()->getRequest()->getPreferredLanguage()
-                        ? Yii::app()->locale->getLanguageID($this->lang)
-                        : false
-                    );
-            
+            $cookiesLang = false;
+
+            if(Yii::app()->getModule('yupe')->cache && isset(Yii::app()->getRequest()->cookies[$lm->langParam])
+                && in_array(Yii::app()->getRequest()->cookies[$lm->langParam]->value, $lm->languages)){
+                $cookiesLang = Yii::app()->getRequest()->cookies[$lm->langParam]->value;
+            }elseif($lm->preferredLanguage && Yii::app()->getRequest()->getPreferredLanguage()){
+                $cookiesLang = Yii::app()->locale->getLanguageID($this->lang);
+            }
+
             $oldLang = $this->lang;
 
             // Устанавливаем из сессии или заданный в кукисах:
