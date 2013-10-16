@@ -26,7 +26,7 @@
             ));?></b></p>
 </div>
 
-<p><?php echo Yii::t('InstallModule.install', 'Please select your language below for continue.'); ?>
+<p><?php echo Yii::t('InstallModule.install', 'Please, select your language below for continue.'); ?>
 
 <div class="btn-group">
     <?php $languages = $this->yupe->getLanguagesList(); ?>
