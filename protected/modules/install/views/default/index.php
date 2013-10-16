@@ -40,11 +40,3 @@
     ); ?>
     <?php endforeach; ?>
 </div>
-<?php /*
-$this->widget(
-    'bootstrap.widgets.TbButton', array(
-        'type'  => 'primary',
-        'label' => Yii::t('InstallModule.install', 'Start installation >'),
-        'url'   => array('/install/default/environment'),
-    )
-); */ ?>
