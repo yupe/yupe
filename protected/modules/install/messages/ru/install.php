@@ -229,4 +229,5 @@ return array (
   'General sponsor' => 'Генеральный спонсор',
   'All discussions here' => '',
   'Just good guys' => 'Просто отличные парни =)',
+  'Please, select your language below for continue.' => 'Пожалуйста, выберите язык ниже для продолжения.',
 );

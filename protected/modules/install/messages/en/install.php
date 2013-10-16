@@ -225,4 +225,5 @@ return array (
     'General sponsor' => '',
     'All discussions here' => '',
     'Just good guys' => '',
+    'Please, select your language below for continue.' => '',
 );

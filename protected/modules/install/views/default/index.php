@@ -26,11 +26,22 @@
             ));?></b></p>
 </div>
 
-<?php
+<p><?php echo Yii::t('InstallModule.install', 'Please select your language below for continue.'); ?>
+
+<div class="btn-group">
+    <?php $languages = $this->yupe->getLanguagesList(); ?>
+    <?php foreach ((array) explode(',', $this->yupe->availableLanguages) as $lang) : ?>
+    <a class="btn btn-default" href='<?php echo $this->createUrl('/install/default/environment', array('language' => $lang)); ?>'>
+        <i class='iconflags iconflags-<?php echo $lang; ?>'></i>
+        <?php echo isset($languages[$lang]) ? $languages[$lang] : $lang; ?>
+    </a>
+    <?php endforeach; ?>
+</div>
+<?php /*
 $this->widget(
     'bootstrap.widgets.TbButton', array(
         'type'  => 'primary',
         'label' => Yii::t('InstallModule.install', 'Start installation >'),
         'url'   => array('/install/default/environment'),
     )
-); ?>
+); */ ?>
