@@ -20,11 +20,13 @@ class PageBackendController extends yupe\components\controllers\BackController
     /**
      * Displays a particular model.
      *
+     * @param int $id - record ID
+     *
      * @return void
      */
-    public function actionView()
+    public function actionView($id)
     {
-        $this->render('view', array('model' => $this->loadModel()));
+        $this->render('view', array('model' => $this->loadModel($id)));
     }
 
     /**
@@ -315,7 +317,7 @@ class PageBackendController extends yupe\components\controllers\BackController
     {
         if ($this->_model === null || $this->_model->id !== $id) {
             
-            if (($model = Page::model()->with('author', 'changeAuthor')->findByPk($id)) !== null) {
+            if (($this->_model = Page::model()->with('author', 'changeAuthor')->findByPk($id)) === null) {
                 throw new CHttpException(
                     404,
                     Yii::t('PageModule.page', 'Page was not found')
