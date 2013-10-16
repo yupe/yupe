@@ -31,10 +31,13 @@
 <div class="btn-group">
     <?php $languages = $this->yupe->getLanguagesList(); ?>
     <?php foreach ((array) explode(',', $this->yupe->availableLanguages) as $lang) : ?>
-    <a class="btn btn-default" href='<?php echo $this->createUrl('/install/default/environment', array('language' => $lang)); ?>'>
-        <i class='iconflags iconflags-<?php echo $lang; ?>'></i>
-        <?php echo isset($languages[$lang]) ? $languages[$lang] : $lang; ?>
-    </a>
+    <?php $this->widget(
+        'bootstrap.widgets.TbButton', array(
+            'icon'  => 'iconflags iconflags-' . $lang,
+            'label' => isset($languages[$lang]) ? $languages[$lang] : $lang,
+            'url'   => array('/install/default/environment', 'language' => $lang),
+        )
+    ); ?>
     <?php endforeach; ?>
 </div>
 <?php /*
