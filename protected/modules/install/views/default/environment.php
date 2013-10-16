@@ -36,7 +36,7 @@
             $this->widget(
                 'bootstrap.widgets.TbLabel', array(
                     'type'  => $requirement[1] ? 'success' : 'important',
-                    'label' => $requirement[1] ? 'ОК' : 'Ошибка',
+                    'label' => $requirement[1] ? 'ОК' : Yii::t('InstallModule.install', 'Error'),
                 )
             ); ?>
         </td>

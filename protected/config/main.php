@@ -33,9 +33,9 @@ return array(
     'charset'           => 'UTF-8',
     'preload'           => defined('YII_DEBUG')
                             && YII_DEBUG
-                            && is_writable(
-                                Yii::getPathOfAlias('application.runtime')
-                            ) ? array('debug') : array(),
+                            && is_writable(Yii::getPathOfAlias('application.runtime'))
+                            && is_writable(Yii::getPathOfAlias('web.public'))
+                             ? array('debug') : array(),
     'aliases' => array(
         'bootstrap' => realpath(Yii::getPathOfAlias('vendor') . '/clevertech/yii-booster/src'),
     ),

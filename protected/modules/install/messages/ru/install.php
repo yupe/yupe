@@ -17,6 +17,9 @@
  * NOTE, this file must be saved in UTF-8 encoding.
  */
 return array (
+  'Thank you!' => 'Спасибо!',
+  'Help us!' => 'Помоги нам!',
+  'Error' => 'Ошибка',
   '0.2' => '0.2',
   '< Back' => '< Назад',
   'Optional.' => 'Дополнительно.',
