@@ -32,13 +32,13 @@
 
     <?php if (!$this->yupe->enableAssets):?>
         <?php Yii::app()->clientScript->registerScriptFile(Yii::app()->baseUrl . '/web/install/js/jquery.min.js');?>
+        <?php $mainAssets = Yii::app()->baseUrl . '/web/'; ?>
     <?php else: ?>
         <?php Yii::app()->clientScript->registerCoreScript('jquery');?>
+        <?php $mainAssets = Yii::app()->assetManager->publish(
+            Yii::getPathOfAlias('application.modules.yupe.views.assets')
+        );?>
     <?php endif;?>
-
-    <?php $mainAssets = Yii::app()->assetManager->publish(
-        Yii::getPathOfAlias('application.modules.yupe.views.assets')
-    );?>
 
     <?php Yii::app()->clientScript->registerCssFile($mainAssets. '/css/flags.css');?>
 </head>
