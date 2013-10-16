@@ -104,10 +104,10 @@ class LanguageBehavior extends CBehavior
                 $cookiesLang = Yii::app()->sourceLanguage;
 
                 Yii::app()->user->setFlash(
-                    YFlashMessages::SUCCESS_MESSAGE,
+                    YFlashMessages::ERROR_MESSAGE,
                     $e->getMessage()
                 );
-        }
+            }
             
             $oldLang = $this->lang;
 
@@ -178,7 +178,7 @@ class LanguageBehavior extends CBehavior
             }
         } catch (CException $e) {
             Yii::app()->user->setFlash(
-                YFlashMessages::SUCCESS_MESSAGE,
+                YFlashMessages::ERROR_MESSAGE,
                 $e->getMessage()
             );
         }
