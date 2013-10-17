@@ -8,24 +8,34 @@ class InstallCest
      */
     public function testInstall(WebGuy $I)
     {
-        $I->wantTo('Test Yupe! installation process!');
+        $I->amGoingTo('test Yupe! installation process!');
         $I->amOnPage('/ru/install/default');
 
-        $I->wantTo('Test begin install!');
         // begin install
-        //$I->seeInTitle('Юпи! Установка Юпи!');
+        $I->seeInTitle('Yupe! установка Yupe!');
         $I->see('Добро пожаловать!', 'h1');
         $I->see('Шаг 1 из 8 : "Приветствие!', 'span');
+        $I->see('русский');
+        $I->see('английский');
 
         // check external link
-        //$I->seeLink('amyLabs','http://amylabs.ru/?from=yupe-install');
-        //$I->seeLink('Форум','http://yupe.ru/talk/?from=login');
-        //$I->seeLink('http://yupe.ru','http://yupe.ru?from=install');
+        $I->seeLink('amyLabs');
+        $I->seeLink('форум');
 
-        $I->seeLink('Начать установку >');
+        $I->click('русский');
+
+        $I->amGoingTo('test change language');
+        $I->amOnPage('/en/install/default/environment');
+        $I->see('On this step Yupe checks access right for needed directories');
+        $I->amOnPage('/ru/install/default/environment');
+        $I->see('На данном этапе Юпи! проверяет права доступа для всех необходимых каталогов.');
+
+        $I->amOnPage('/en/install/default/environment');
+        $I->see('On this step Yupe checks access right for needed directories');
+        $I->amOnPage('/ru/install/default/environment');
+        $I->see('На данном этапе Юпи! проверяет права доступа для всех необходимых каталогов.');
 
         // environment check
-        $I->click('Начать установку >');
         $I->seeInCurrentUrl('environment');
         $I->dontSee('Дальнейшая установка невозможна, пожалуйста, исправьте ошибки!', \CommonPage::ERROR_CSS_CLASS);
         $I->see('Шаг 2 из 8 : "Проверка окружения!', 'span');
@@ -146,7 +156,6 @@ class InstallCest
         $I->seeLink('< Назад');
         $I->see('Продолжить >');
 
-
         // check finish
         $I->click('Продолжить >');
         $I->seeInCurrentUrl('finish');
@@ -154,7 +163,6 @@ class InstallCest
         $I->see('Поздравляем, установка Юпи! завершена!', 'h1');
         $I->seeLink('ПЕРЕЙТИ НА САЙТ');
         $I->seeLink('ПЕРЕЙТИ В ПАНЕЛЬ УПРАВЛЕНИЯ');
-
 
         // check site
         $I->amOnPage('/ru');
