@@ -189,6 +189,24 @@ class Category extends YModel
         return CHtml::listData($category, 'id', 'name');
     }
 
+	public function getFormattedList($parent_id = null, $level = 0)
+	{
+		$categories = Category::model()->findAllByAttributes(array('parent_id' => $parent_id));
+
+		$list = array();
+
+		foreach ($categories as $key => $category)
+		{
+			$category->name = str_repeat('&emsp;', $level) . $category->name;
+
+			$list[$category->id] = $category->name;
+
+			$list = CMap::mergeArray($list, $this->getFormattedList($category->id, $level + 1));
+		}
+
+		return $list;
+	}
+
     public function getParentName()
     {
         if ($this->parent_id)
