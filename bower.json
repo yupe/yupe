@@ -1,6 +1,6 @@
 {
   "name": "yupe-cmf",
-  "version": "0.5.4",
+  "version": "0.6",
   "devDependencies": {
     "angular": "~1.0.7"
   },
