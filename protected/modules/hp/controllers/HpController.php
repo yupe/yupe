@@ -1,6 +1,6 @@
 <?php
 /**
- * DefaultController контроллер публичной части модуля hp
+ * HpController контроллер публичной части модуля hp
  *
  * @category YupeController
  * @package  yupe.modules.hp.controllers
@@ -10,7 +10,7 @@
  *
  **/
 
-class DefaultController extends yupe\components\controllers\FrontController
+class HpController extends yupe\components\controllers\FrontController
 {
 
     /**
