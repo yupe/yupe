@@ -62,7 +62,7 @@ class PageBackendController extends yupe\components\controllers\BackController
                         
                         $menu     = Menu::model()->active()->findByPk($menuId);
                         if ($menu) {
-                            if (!$menu->addItem($model->title, $this->createUrl('/page/page/show', array('slug' => $model->slug)), $parentId)) {
+                            if (!$menu->addItem($model->title, serialize(array('/page/page/show', 'slug' => $model->slug)), $parentId)) {
                                 throw new CDbException(
                                     Yii::t('PageModule.page','There is an error when connecting page to menu...')
                                 );
@@ -178,7 +178,7 @@ class PageBackendController extends yupe\components\controllers\BackController
                     $parentId = (int)Yii::app()->getRequest()->getPost('parent_id');
                     $menu     = Menu::model()->active()->findByPk($menuId);
                     if ($menu) {
-                        if (!$menu->changeItem($oldTitle, $model->title, $this->createUrl('/page/page/show',array('slug' => $model->slug)),$parentId)) {
+                        if (!$menu->changeItem($oldTitle, $model->title, serialize(array('/page/page/show', 'slug' => $model->slug)),$parentId)) {
                             throw new CDbException(
                                 Yii::t('PageModule.page', 'There is an error when connecting page to menu...')
                             );

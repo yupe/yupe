@@ -204,11 +204,22 @@ class Menu extends YModel
                 if ($result->href) {
                     // если адрес надо параметризовать через роутер
                     if (!$result->regular_link) {
-                        $url = $result->href;
-                        strstr($url, '?') ? list($url, $param) = explode("?", $url) : $param = array();
-                        if ($param)
-                            parse_str($param, $param);
-                        $url = array('url' => array($url) + $param, 'items' => $childItems);
+                        
+                        $url   = @unserialize($result->href) ?: $result->href;
+                        
+                        $param = array();
+
+                        if (!is_array($url)) {
+
+                            strstr($url, '?') ? list($url, $param) = explode("?", $url) : $param = array();
+                            
+                            if ($param) {
+                                parse_str($param, $param);
+                            }
+                            
+                        }
+
+                        $url = array('url' => (array) $url + $param, 'items' => $childItems);
                     } else {
                         // если обычная ссылка
                         $url = array('url' => $result->href, 'items' => $childItems);
