@@ -20,6 +20,7 @@
 
 // Определяем алиасы:
 Yii::setPathOfAlias('application', dirname(__FILE__) . '/../');
+Yii::setPathOfAlias('public', dirname($_SERVER['SCRIPT_FILENAME']));
 Yii::setPathOfAlias('yupe', dirname(__FILE__) . '/../modules/yupe/');
 Yii::setPathOfAlias('vendor', dirname(__FILE__) . '/../../vendor/');
 
@@ -34,7 +35,7 @@ return array(
     'preload'           => defined('YII_DEBUG')
                             && YII_DEBUG
                             && is_writable(Yii::getPathOfAlias('application.runtime'))
-                            && is_writable(Yii::getPathOfAlias('web.public'))
+                            && is_writable(Yii::getPathOfAlias('public.assets'))
                              ? array('debug') : array(),
     'aliases' => array(
         'bootstrap' => realpath(Yii::getPathOfAlias('vendor') . '/clevertech/yii-booster/src'),
