@@ -170,8 +170,8 @@ class User extends YModel
             && $this->_oldAccess_level == self::ACCESS_LEVEL_ADMIN
             && ($this->access_level == self::ACCESS_LEVEL_USER || $this->status != self::STATUS_ACTIVE)
         ) {
-            Yii::app()->user->setFlash(
-                YFlashMessages::ERROR_MESSAGE,
+            $this->addError(
+                'access_level',
                 Yii::t('UserModule.user', 'You can\'t make this changes!')
             );
             return false;
