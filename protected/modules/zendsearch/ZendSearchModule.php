@@ -24,6 +24,20 @@ class ZendSearchModule extends yupe\components\WebModule
         return array();
     }
 
+    /**
+     * массив групп параметров модуля, для группировки параметров на странице настроек
+     * 
+     * @return array
+     */
+    public function getEditableParamsGroups()
+    {
+        return array(
+            'main' => array(
+                'label' => Yii::t('YupeModule.yupe', 'Main settings'),
+            ),
+        );
+    }
+
     public function getParamsLabels()
     {
         return array(
