@@ -43,7 +43,7 @@ $form = $this->beginWidget('bootstrap.widgets.TbActiveForm', array(
     <?php endif;?>
 
     <div class='row-fluid control-group <?php echo $model->hasErrors("parent_id") ? "error" : ""; ?>'>
-        <?php echo  $form->dropDownListRow($model, 'parent_id', CHtml::listData(Category::model()->findAll(), 'id', 'name'), array('empty' => Yii::t('CategoryModule.category', '--no--'),'class' => 'span7')); ?>
+        <?php echo  $form->dropDownListRow($model, 'parent_id', Category::model()->getFormattedList(), array('empty' => Yii::t('CategoryModule.category', '--no--'),'class' => 'span7', 'encode' => false)); ?>
     </div>
     <div class='control-group <?php echo $model->hasErrors("name") ? "error" : ""; ?>'>
         <?php echo $form->textFieldRow($model, 'name', array('class' => 'span7', 'maxlength' => 250)); ?>
