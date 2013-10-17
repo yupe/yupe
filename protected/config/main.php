@@ -91,6 +91,10 @@ return array(
         'migrator'=>array(
             'class'=>'yupe\components\Migrator',
         ),
+        // DAO simple wrapper:
+        'dao' => array(
+            'class' => 'yupe\components\DAO',
+        ),
         // библиотека для работы с картинками через GD/ImageMagick
         // лучше установите ImageMagick, т.к. он ресайзит анимированные гифы
         'image' => array(
