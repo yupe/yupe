@@ -193,6 +193,11 @@ class User extends YModel
     public function beforeDelete()
     {
         if (User::model()->admin()->count() == 1 && $this->_oldAccess_level == self::ACCESS_LEVEL_ADMIN){
+            $this->addError(
+                'access_level',
+                Yii::t('UserModule.user', 'You can\'t make this changes!')
+            );
+            
             return false;
         }
 
