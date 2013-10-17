@@ -299,4 +299,5 @@ return array (
     'Now you can' => '',
     'For password recovery please go to' => '',
     'Your password was successfully changed!' => '',
+    'You can\'t make this changes!' => '',
 );

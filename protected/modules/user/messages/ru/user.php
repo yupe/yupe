@@ -257,7 +257,7 @@ return array (
   'My profile' => 'Мой профиль',
   'Edit profile' => 'Редактировать профиль',
   'Last visit {last_visit}' => 'Был на сайте {last_visit}',
-  'Opinions' => '',
+  'Opinions' => 'Мнений',
   'sign in' => 'авторизуйтесь',
   'sign up' => 'зарегестрируйтесь',
   'You can write something on my wall' => 'На моей стене можно что-то написать!',
@@ -298,4 +298,5 @@ return array (
   'Now you can' => 'Теперь вы можете',
   'For password recovery please go to' => 'Для восстановления пароля, пожалуйста, перейдите по',
   'Your password was successfully changed!' => 'Ваш пароль успешно изменен!',
+  'You can\'t make this changes!' => 'Вы не можете сохранить эти изменения!',
 );

@@ -13,7 +13,7 @@
                     </li>
                 <?php endif;?>
                 <li>
-                    <i class="icon-user"></i> <?php echo CHtml::link($data->nick_name, array('/user/people/userInfo/', 'username' => $data->nick_name));?>
+                    <i class="icon-user"></i> <?php echo CHtml::link($data->getFullName(), array('/user/people/userInfo/', 'username' => $data->nick_name));?>
                 </li>
                 <li>
                     <i class="icon-calendar"></i> <?php echo Yii::app()->dateFormatter->format(

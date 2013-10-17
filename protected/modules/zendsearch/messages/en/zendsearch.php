@@ -40,5 +40,8 @@ return array (
     'Search...' => '',
     'Search by request: ' => '',
     'Results:'=>'',
-    'Nothing was found' => ''
+    'Nothing was found' => '',
+    'Update config file or module, Module index not found for model "{model}"!' => '',
+    'Module "{module}" not installed!' => '',
+    'This module require "Iconv" extension!' => '',
 );
