@@ -298,4 +298,5 @@ return array (
   'Now you can' => 'Теперь вы можете',
   'For password recovery please go to' => 'Для восстановления пароля, пожалуйста, перейдите по',
   'Your password was successfully changed!' => 'Ваш пароль успешно изменен!',
+  'You can\'t make this changes!' => 'Вы не можете сохранить эти изменения!',
 );
