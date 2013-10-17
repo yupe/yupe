@@ -40,7 +40,7 @@
 <?php if($user->about):?>            
      <div class="row-fluid">
          <div class="well">
-            <p><?php echo CHtml::encode($user->about);?></p>
+            <?php echo $user->about; ?>
          </div>
      </div>
 <?php endif;?>     
