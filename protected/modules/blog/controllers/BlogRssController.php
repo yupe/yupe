@@ -1,7 +1,7 @@
 <?php
 
 /**
- * RssController контроллер для rss на публичной части сайта
+ * BlogRssController контроллер для rss на публичной части сайта
  *
  * @author yupe team <team@yupe.ru>
  * @link http://yupe.ru
@@ -11,7 +11,7 @@
  *
  */
 
-class RssController extends yupe\components\controllers\FrontController
+class BlogRssController extends yupe\components\controllers\FrontController
 {
     public function actions()
     {

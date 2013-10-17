@@ -3,7 +3,16 @@
 <?php if(count($comments)):?>
     <?php if (!$this->comment):?>
         <strong><?php echo $this->label; ?> <?php echo count($comments); ?></strong>
-        <?php echo CHtml::link(CHtml::image(Yii::app()->theme->baseUrl.'/web/images/rss.png'),array('/comment/rss/feed','model' => $this->model, 'modelId' => $this->modelId));?>
+        <?php echo CHtml::link(
+            CHtml::image(
+                Yii::app()->getAssetManager()->publish(
+                    Yii::app()->theme->basePath) . '/web/images/rss.png'
+            ), array(
+                '/comment/commentRss/feed',
+                'model'   => $this->model,
+                'modelId' => $this->modelId
+            )
+        ); ?>
     <?php endif;?>
 
     <?php foreach ($comments as $comment):?>

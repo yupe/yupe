@@ -1,7 +1,7 @@
 <?php
 
 /**
- * RssController контроллер для генерации rss-ленты комментариев
+ * CommentRssController контроллер для генерации rss-ленты комментариев
  *
  * @author yupe team <team@yupe.ru>
  * @link http://yupe.ru
@@ -11,11 +11,11 @@
  *
  */
 
-class RssController extends yupe\components\controllers\FrontController
+class CommentRssController extends yupe\components\controllers\FrontController
 {
     public function actions()
     {
-        if (!($limit = (int)$this->module->rssCount)) {
+        if (!($limit = (int) Yii::app()->getModule('news')->rssCount)) {
             throw new CHttpException(404);
         }
 
@@ -24,8 +24,8 @@ class RssController extends yupe\components\controllers\FrontController
         $criteria->params = array();
         $criteria->limit = $limit;
 
-        $title = $this->yupe->siteName;
-        $description = $this->yupe->siteDescription;
+        $title = Yii::app()->getModule('yupe')->siteName;
+        $description = Yii::app()->getModule('yupe')->siteDescription;
 
         $model = Yii::app()->getRequest()->getQuery('model');
         $modelId = (int)Yii::app()->getRequest()->getQuery('modelId');
@@ -43,7 +43,7 @@ class RssController extends yupe\components\controllers\FrontController
             ':modelId'  => $modelId,
         );
 
-        $data = Comment::model()->cache($this->yupe->coreCacheTime)->approved()->with('author')->findAll($criteria);
+        $data = Comment::model()->cache(Yii::app()->getModule('yupe')->coreCacheTime)->approved()->with('author')->findAll($criteria);
 
         return array(
             'feed' => array(
