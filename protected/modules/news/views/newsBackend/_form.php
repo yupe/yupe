@@ -59,7 +59,7 @@ $form = $this->beginWidget('bootstrap.widgets.TbActiveForm', array(
     </div>
 
     <div class="row-fluid control-group <?php echo $model->hasErrors('category_id') ? 'error' : ''; ?>">
-        <?php echo $form->dropDownListRow($model, 'category_id', CHtml::listData($this->module->getCategoryList(), 'id', 'name'), array('class' => 'span7 popover-help','empty' => Yii::t('NewsModule.news', '--choose--'))); ?>
+        <?php echo $form->dropDownListRow($model, 'category_id', Category::model()->getFormattedList(), array('class' => 'span7 popover-help','empty' => Yii::t('NewsModule.news', '--choose--'), 'encode' => false)); ?>
     </div>
 
     <div class="row-fluid control-group <?php echo $model->hasErrors('title') ? 'error' : ''; ?>">
