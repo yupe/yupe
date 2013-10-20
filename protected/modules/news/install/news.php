@@ -17,7 +17,7 @@ return array(
     ),
     'component' => array(),
     'rules'     => array(
-        '/news/' => 'news/news/index',
+        '/news/'        => 'news/news/index',
         '/news/<alias>' => 'news/news/show',
     ),
 );
