@@ -11,13 +11,13 @@
  */
 class NewsController extends yupe\components\controllers\FrontController
 {
-    public function actionShow($alias)
+     public function actionShow($slug)
     {
         $news = News::model()->published();
 
         $news = ($this->isMultilang())
-            ? $news->language(Yii::app()->language)->find('alias = :alias', array(':alias' => $alias))
-            : $news->find('alias = :alias', array(':alias' => $alias));
+            ? $news->language(Yii::app()->language)->find('alias = :alias', array(':alias' => $slug))
+            : $news->find('alias = :alias', array(':alias' => $slug));
 
         if (!$news) {
             throw new CHttpException(404, Yii::t('NewsModule.news', 'News article was not found!'));
