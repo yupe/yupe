@@ -59,7 +59,7 @@ class MenuBackendController extends yupe\components\controllers\BackController
             if ($model->save()) {
                 Yii::app()->user->setFlash(
                     YFlashMessages::SUCCESS_MESSAGE,
-                    Yii::t('MenuModule.menu', 'Record was created!')
+                    Yii::t('MenuModule.menu', 'Menu was created!')
                 );
 
                 $this->redirect(
