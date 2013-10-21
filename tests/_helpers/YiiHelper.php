@@ -7,7 +7,9 @@ class YiiHelper extends \Codeception\Module
 {
     public function createConsoleYiiApp()
     {
+		require dirname(__FILE__).'/../../vendor/autoload.php';
         $config = require dirname(__FILE__).'/../../protected/config/console-test.php';
+        \Yii::$enableIncludePath = false;
         if(!\Yii::app()) \Yii::createConsoleApplication($config);
     }
 
