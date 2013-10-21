@@ -255,9 +255,11 @@ class Comment extends YModel
             $event->commentOwner = YModel::model($this->model)->findByPk($this->model_id);
 
             $this->onNewComment($event);
+
+            return $event->isValid;
         }
 
-        return $event->isValid;
+        return true;
     }
 
     /**

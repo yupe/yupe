@@ -18,6 +18,10 @@ return array(
         'application.modules.queue.models.*',
         'application.modules.yupe.extensions.tagcache.*',
     ),
+    'modules' => array(
+        'comment' => array('class' => 'application.modules.comment.CommentModule',),
+        'yupe' => array('class' => 'application.modules.yupe.YupeModule',)
+    ),
     // Перенаправляем журнал для cron-а в отдельные файлы
     'components' => array(
         // компонент для отправки почты
