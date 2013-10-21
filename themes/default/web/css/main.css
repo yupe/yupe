@@ -103,3 +103,13 @@ body .navbar .brand {
     margin: 0;
     
 }
+
+.user-info {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+}
+
+.user-info .btn {
+    padding: 0;
+}

@@ -331,6 +331,12 @@ class CustomGridView extends \TbExtendedGridView
         echo '</div>';
         echo '<br />';
         /* Скрипт передачи PageSize: */
+        $csrfTokenName = Yii::app()->getRequest()->csrfTokenName;
+        $csrfToken     = Yii::app()->getRequest()->csrfToken;
+        $csrf          = Yii::app()->getRequest()->enableCsrfValidation === false
+                        || strtolower($this->ajaxType) != 'post'
+                        ? ""
+                        : ", '$csrfTokenName':'{$csrfToken}'";
         $cs->registerScript(
             __CLASS__ . '#' . $this->id . 'ExHeadline',
 <<<JS
@@ -342,7 +348,9 @@ class CustomGridView extends \TbExtendedGridView
             // будет вылетать с ошибкой - Uncaught TypeError: Cannot call method 'match' of undefined 
             // В данном случае необходимо указывать URL.
             url: window.location.href,
-            data: {'{$this->pageSizeVarName}': $(this).attr('rel')}
+            data: {
+                '{$this->pageSizeVarName}': $(this).attr('rel')$csrf
+            }
         });
     });
 })();

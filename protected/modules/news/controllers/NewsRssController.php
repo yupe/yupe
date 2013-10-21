@@ -1,6 +1,6 @@
 <?php
 /**
- * RssController контроллер для генерации rss-ленты новостей
+ * NewsRssController контроллер для генерации rss-ленты новостей
  *
  * @author yupe team <team@yupe.ru>
  * @link http://yupe.ru
@@ -10,7 +10,7 @@
  *
  */
 
-class RssController extends yupe\components\controllers\FrontController
+class NewsRssController extends yupe\components\controllers\FrontController
 {
     public function actions()
     {

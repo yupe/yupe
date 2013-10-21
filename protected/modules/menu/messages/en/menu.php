@@ -74,7 +74,6 @@ return array (
     'Main site menu. Located at top in "main menu" block.' => '',
     'False condition' => '',
     'Do you really want to delete?' => '',
-    'Find menu' => '',
     'Find menu items' => '',
     'Fields with' => '',
     'Item order number in menu' => '',
@@ -93,7 +92,6 @@ return array (
     'Edit' => '',
     'Edit menu' => '',
     'Edit menu item' => '',
-    'Change menu' => '',
     'Parent' => '',
     'Item parent. Check root if it is in root menu' => '',
     'Sorting' => '',
@@ -126,4 +124,6 @@ return array (
     'are required.' => '',
     'negation' => '',
     'manage' => '',
+    'New item was added to menu!' => '',
+    'Menu was created!' => ''
 );

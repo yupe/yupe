@@ -79,7 +79,7 @@ class MenuitemBackendController extends yupe\components\controllers\BackControll
 
                 Yii::app()->user->setFlash(
                     YFlashMessages::SUCCESS_MESSAGE,
-                    Yii::t('MenuModule.menu', 'Record was created!')
+                    Yii::t('MenuModule.menu', 'New item was added to menu!')
                 );
 
                 $this->redirect(
