@@ -19,9 +19,9 @@ $form = $this->beginWidget('bootstrap.widgets.TbActiveForm', array(
 )); ?>
 
     <div class="alert alert-info">
-        <?php echo Yii::t('CatalogModule.catalog', 'Fields with'); ?>
+        <?php echo Yii::t('CatalogModule.catalog', 'Fields marked with'); ?>
         <span class="required">*</span>
-        <?php echo Yii::t('CatalogModule.catalog', 'is required.'); ?>
+        <?php echo Yii::t('CatalogModule.catalog', 'are required.'); ?>
     </div>
 
     <?php echo $form->errorSummary($model); ?>

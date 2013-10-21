@@ -105,7 +105,7 @@ class CatalogBackendController extends yupe\components\controllers\BackControlle
                 $this->redirect(isset($_POST['returnUrl']) ? $_POST['returnUrl'] : array('index'));
         }
         else
-            throw new CHttpException(400, Yii::t('CatalogModule.catalog', 'Unknown request. Don\'t use this request aymore!'));
+            throw new CHttpException(400, Yii::t('CatalogModule.catalog', 'Unknown request. Don\'t repeat it please!'));
     }
 
     /**

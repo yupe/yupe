@@ -22,7 +22,7 @@ $form = $this->beginWidget(
 ?>
 
     <div class="alert alert-info">
-        <?php echo Yii::t('BlogModule.blog', 'Fields, with'); ?>
+        <?php echo Yii::t('BlogModule.blog', 'Fields marked with'); ?>
         <span class="required">*</span> 
         <?php echo Yii::t('BlogModule.blog', 'are required.'); ?>
     </div>

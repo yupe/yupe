@@ -76,7 +76,7 @@ $form = $this->beginWidget('bootstrap.widgets.TbActiveForm', array(
         'type'        => 'primary',
         'encodeLabel' => false,
         'buttonType'  => 'submit',
-        'label'       => '<i class="icon-search icon-white">&nbsp;</i> ' . Yii::t('CatalogModule.catalog', 'Find product'),
+        'label'       => '<i class="icon-search icon-white">&nbsp;</i> ' . Yii::t('CatalogModule.catalog', 'Find a product'),
     )); ?>
 
 <?php $this->endWidget(); ?>
