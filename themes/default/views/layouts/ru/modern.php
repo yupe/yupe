@@ -162,18 +162,18 @@
 
 <div class="row">
     <div class="span6">
-        <h2><small>Последнее в блогах</small></h2>
-        <?php $this->widget('application.modules.blog.widgets.LastPostsWidget', array('limit' => 3,'view' => 'lastposts-index'));?>
-    </div>
-    <div class="span6">
-        <h2><small>Они молодцы</small></h2>
-        <span id="contributors"></span>
+
         <h2><small>Наш твиттер</small></h2>
         <div class="widget twitter-widget">
             <a class="twitter-timeline" href="https://twitter.com/YupeCms" data-widget-id="342373817932451841" height="400">
                 Твиты пользователя @YupeCms
             </a>
         </div>
+    </div>
+    <div class="span6">
+        <?php $this->widget('application.modules.blog.widgets.LastPostsWidget', array('limit' => 3,'view' => 'lastposts-index'));?>
+        <h2><small>Разработано сообществом</small></h2>
+        <span id="contributors"></span> <h2><small>Последнее в блогах</small></h2>
     </div>
 </div>
 
@@ -217,5 +217,9 @@
         });
     })
 </script>
+<div style="display: none;">
+    <?php //@TODO убрать данный костыль, без него стили бутсрапа не подтягиваются;?>
+    <?php $this->widget('bootstrap.widgets.TbBox'); ?>
+</div>
 </body>
 </html>
