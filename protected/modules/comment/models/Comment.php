@@ -201,7 +201,6 @@ class Comment extends YModel
             $this->ip = Yii::app()->getRequest()->userHostAddress;
         }
 
-
         return parent::beforeSave();
     }
 
@@ -218,7 +217,7 @@ class Comment extends YModel
 
         if ($this->isNewRecord) {
             $notifierComponent = Yii::app()->getModule('comment')->notifier;
-            if (Yii::app()->getModule('comment')->notify && ($notifier = new $notifierComponent()) !== false && $notifier instanceof application\modules\comment\components\INotifier) {
+            if (Yii::app()->getModule('comment')->notify && ($notifier = new $notifierComponent()) !== false && $notifier instanceof application\modules\comment\components\INotifier) {                 
                 $this->onNewComment = array($notifier, 'newComment');
                 $this->newComment();
             }

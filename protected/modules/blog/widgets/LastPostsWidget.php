@@ -17,9 +17,9 @@ class LastPostsWidget extends YWidget
 
     public function run()
     {
-        $posts = Post::model()->published()->public()->cache($this->cacheTime)->findAll(array(
+        $posts = Post::model()->published()->with('createUser','commentsCount')->public()->cache($this->cacheTime)->findAll(array(
             'limit' => $this->limit,
-            'order' => 'id DESC',
+            'order' => 't.id DESC',
         ));
 
         $this->render($this->view, array('models' =>$posts));
