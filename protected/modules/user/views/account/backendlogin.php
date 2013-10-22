@@ -55,7 +55,7 @@ Yii::app()->clientScript->registerCssFile(
                                 <?php echo $form->error($model, 'verifyCode'); ?>
                             </div>
                             <div class="hint">
-                                <?php echo Yii::t('UserModule.user', 'Insert text you see on image'); ?>
+                                <?php echo Yii::t('UserModule.user', 'Please enter the text from the image'); ?>
                             </div>
                         <?php endif; ?>
                     </div>

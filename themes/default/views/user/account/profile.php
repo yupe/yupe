@@ -60,7 +60,7 @@ $form = $this->beginWidget(
         </div>
         <div class="span4">
             <?php echo $form->checkBoxRow($model, 'use_gravatar', array(
-                'hint'=> Yii::t('UserModule.user','If you do not use Gravatar, upload avatar from file.')
+                'hint'=> Yii::t('UserModule.user','If you do not use Gravatar feel free to upload your own.')
             )); ?>
             
             <?php echo $form->fileFieldRow($model, 'avatar'); ?>
@@ -75,7 +75,7 @@ $form = $this->beginWidget(
 
         <?php if (Yii::app()->user->profile->email_confirm && !$model->hasErrors()):?>
             <p class="email-status-confirmed text-success">
-                <?php echo Yii::t('UserModule.user','E-mail was checked');?>
+                <?php echo Yii::t('UserModule.user','E-mail was verified');?>
             </p>
         <?php elseif( !$model->hasErrors() ):?>
             <p class="email-status-not-confirmed text-error">
@@ -87,7 +87,7 @@ $form = $this->beginWidget(
         <div class="row-fluid email-change-msg">
             <?php if (Yii::app()->user->profile->email_confirm):?>
                 <p class="text-warning span6">
-                    <?php echo Yii::t('UserModule.user','Attention! After e-mail have been changed, you receive e-mail with confirmation');?>
+                    <?php echo Yii::t('UserModule.user','Warning! After changing your e-mail you will receive a message explaining how to verify it');?>
                 </p>
             <?php endif;?>
         </div>

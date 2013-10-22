@@ -9,11 +9,11 @@
 <?php echo Yii::t('UserModule.user', 'Password recovery for "{site}"!',array('{site}' => CHtml::encode(Yii::app()->name)));?>
 <br/>
 
-<?php echo Yii::t('UserModule.user', 'Someone, maybe request password reset on "{site}".',array('{site}' => CHtml::encode(Yii::app()->name)));?><br/>
-<?php echo Yii::t('UserModule.user', 'If this e-mail is not for you, just delete it.');?>
+<?php echo Yii::t('UserModule.user', 'Someone probably requested a password reset on "{site}".',array('{site}' => CHtml::encode(Yii::app()->name)));?><br/>
+<?php echo Yii::t('UserModule.user', 'If you did not requested this email just delete it.');?>
 <br/>
 
-<?php echo Yii::t('UserModule.user', 'For password recovery please go to');?> <a href='<?php echo $url; ?>'><?php echo Yii::t('UserModule.user', 'link');?></a>
+<?php echo Yii::t('UserModule.user', 'To recover your password please follow the link');?> <a href='<?php echo $url; ?>'><?php echo Yii::t('UserModule.user', 'link');?></a>
 
 <br/>
 <?php echo $url; ?>

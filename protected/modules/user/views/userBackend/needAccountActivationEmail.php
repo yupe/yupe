@@ -1,6 +1,6 @@
 <html>
 <head>
-    <title><?php echo Yii::t('UserModule.user', 'Activation success!'); ?></title>
+    <title><?php echo Yii::t('UserModule.user', 'Activation successed!'); ?></title>
 </head>
 <body>
     <?php echo Yii::t('UserModule.user', 'You successfully registered on "{site}" !', array('{site}' => CHtml::encode(Yii::app()->name))); ?>

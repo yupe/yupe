@@ -21,7 +21,7 @@ $this->breadcrumbs = array(Yii::t('UserModule.user', 'Password recovery'));
 <div class='row-fluid control-group <?php echo $model->hasErrors('email') ? 'error' : ''; ?>'>
     <?php echo $form->textFieldRow($model, 'email', array('class' => 'span6', 'required' => true)); ?>
     <span class="help-block">
-        <?php echo Yii::t('UserModule.user', 'Insert your registration e-mail'); ?>
+        <?php echo Yii::t('UserModule.user', 'Enter an email you have used during signup'); ?>
     </span>
 </div>
 
