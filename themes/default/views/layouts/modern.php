@@ -215,5 +215,9 @@
         });
     })
 </script>
+<div style="display: none;">
+    <?php //@TODO убрать данный костыль, без него стили бутсрапа не подтягиваются;?>
+    <?php $this->widget('bootstrap.widgets.TbBox'); ?>
+</div>
 </body>
 </html>

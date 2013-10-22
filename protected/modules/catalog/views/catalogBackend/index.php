@@ -2,14 +2,14 @@
     $this->breadcrumbs = array(
         Yii::app()->getModule('catalog')->getCategory() => array(),
         Yii::t('CatalogModule.catalog', 'Products') => array('/catalog/catalogBackend/index'),
-        Yii::t('CatalogModule.catalog', 'Administration'),
+        Yii::t('CatalogModule.catalog', 'Manage'),
     );
 
-    $this->pageTitle = Yii::t('CatalogModule.catalog', 'Products - administration');
+    $this->pageTitle = Yii::t('CatalogModule.catalog', 'Manage products');
 
     $this->menu = array(
-        array('icon' => 'list-alt', 'label' => Yii::t('CatalogModule.catalog', 'Products administration'), 'url' => array('/catalog/catalogBackend/index')),
-        array('icon' => 'plus-sign', 'label' => Yii::t('CatalogModule.catalog', 'Add product'), 'url' => array('/catalog/catalogBackend/create')),
+        array('icon' => 'list-alt', 'label' => Yii::t('CatalogModule.catalog', 'Manage products'), 'url' => array('/catalog/catalogBackend/index')),
+        array('icon' => 'plus-sign', 'label' => Yii::t('CatalogModule.catalog', 'Add a product'), 'url' => array('/catalog/catalogBackend/create')),
     );
 ?>
 <div class="page-header">

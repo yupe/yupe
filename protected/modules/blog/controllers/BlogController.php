@@ -62,11 +62,11 @@ class BlogController extends yupe\components\controllers\FrontController
     {
         if (!Yii::app()->user->isAuthenticated()) {
             if (Yii::app()->getRequest()->getIsAjaxRequest()) {
-                Yii::app()->ajax->failure(Yii::t('BlogModule.blog', 'Authorize, please!'));
+                Yii::app()->ajax->failure(Yii::t('BlogModule.blog', 'Please Sign in!'));
             } else {
                 Yii::app()->user->setFlash(
                     YFlashMessages::SUCCESS_MESSAGE,
-                    Yii::t('BlogModule.blog', 'Authorize, please!')
+                    Yii::t('BlogModule.blog', 'Please Sign in!')
                 );
                 $this->redirect(array('/blog/blog/index'));
             }
@@ -118,14 +118,14 @@ class BlogController extends yupe\components\controllers\FrontController
             if (Yii::app()->getRequest()->getIsAjaxRequest())
                 Yii::app()->ajax->failure(
                     array(
-                        'message' => Yii::t('BlogModule.blog', 'You already joined the blog!'),
+                        'message' => Yii::t('BlogModule.blog', 'You have already joined this blog!'),
                     )
                 );
             else
             {
                 Yii::app()->user->setFlash(
                     YFlashMessages::SUCCESS_MESSAGE,
-                    Yii::t('BlogModule.blog', 'You already joined the blog!')
+                    Yii::t('BlogModule.blog', 'You have already joined this blog!')
                 );
                 $this->redirect(array('/blog/blog/index'));
             }
@@ -143,11 +143,11 @@ class BlogController extends yupe\components\controllers\FrontController
     {
         if (!Yii::app()->user->isAuthenticated()) {
             if (Yii::app()->getRequest()->getIsAjaxRequest()) {
-                Yii::app()->ajax->failure(Yii::t('BlogModule.blog', 'Authorize, please!'));
+                Yii::app()->ajax->failure(Yii::t('BlogModule.blog', 'Please Sign in!'));
             } else {
                 Yii::app()->user->setFlash(
                     YFlashMessages::SUCCESS_MESSAGE,
-                    Yii::t('BlogModule.blog', 'Authorize, please!')
+                    Yii::t('BlogModule.blog', 'Please Sign in!')
                 );
                 $this->redirect(array('/blog/blog/index'));
             }

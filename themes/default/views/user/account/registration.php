@@ -53,7 +53,7 @@ $this->breadcrumbs = array(Yii::t('UserModule.user', 'Sign up'));
     <div class='row-fluid control-group <?php echo $model->hasErrors('verifyCode') ? 'error' : ''; ?>'>
         <?php echo $form->textFieldRow($model, 'verifyCode', array('class' => 'span3', 'required' => true)); ?>
         <span class="help-block">
-            <?php echo Yii::t('UserModule.user', 'Insert text you see on image'); ?>
+            <?php echo Yii::t('UserModule.user', 'Please enter the text from the image'); ?>
         </span>
     </div>
 <?php endif; ?>
