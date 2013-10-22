@@ -1,1 +1,1 @@
-<b><?php echo Yii::t('UserModule.user','Your e-mail was added in black list! You can\'t register!'); ?></b>
+<b><?php echo Yii::t('UserModule.user','Your e-mail was added to blacklist! You can\'t register!'); ?></b>

@@ -1,7 +1,7 @@
 <html>
 
 <head>
-    <title><?php echo Yii::t('UserModule.user', 'Activation success!');?></title>
+    <title><?php echo Yii::t('UserModule.user', 'Activation successed!');?></title>
 </head>
 
 <body>
@@ -11,7 +11,7 @@
 
 	<?php
         $url = Yii::app()-> request-> hostInfo.$this-> createUrl('/user/account/activate', array('key'=> $model->activate_key));
-        echo Yii::t('UserModule.user', 'For activate your account please go to ').CHtml::link(Yii::t('UserModule.user', 'link'),$url);
+        echo Yii::t('UserModule.user', 'To activate your account please go to ').CHtml::link(Yii::t('UserModule.user', 'link'),$url);
     ?>
 
 	<br/><br/>
