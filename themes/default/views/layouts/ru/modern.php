@@ -6,7 +6,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="">
     <meta name="author" content="">
-    <link rel="stylesheet" href="<?php echo Yii::app()->theme->baseUrl; ?>/web/css/main.css"/>
     <style type="text/css">
         body {
             padding-top: 60px;
@@ -129,7 +128,9 @@
     </div>
 </div>
 
-<div class="row">
+<a class="btn" href="#" id='more-modules-link'>Еще модули >></a>
+
+<div class="row" id='more-modules' style="display: none;">
     <div class="span4 module-info">
         <h3><i class="icon icon-pencil"></i> Блоги</h3>
 
@@ -162,7 +163,26 @@
 
 <div class="row">
     <div class="span6">
-
+        <h2><small>Преимущества</small></h2>
+        <?php
+        $this->widget(
+            'bootstrap.widgets.TbTabs',
+            array(
+                'type' => 'tabs', // 'tabs' or 'pills'
+                'tabs' => array(
+                    array(
+                        'label' => 'Для разработчика',
+                        'content' => $this->renderPartial('//_partial/_dev',array(), true),
+                        'active' => true
+                    ),
+                    array(
+                        'label' => 'Для заказчика',
+                        'content' => $this->renderPartial('//_partial/_cus',array(), true),
+                    )
+                ),
+            )
+        );
+        ?>
         <h2><small>Наш твиттер</small></h2>
         <div class="widget twitter-widget">
             <a class="twitter-timeline" href="https://twitter.com/YupeCms" data-widget-id="342373817932451841" height="400">
@@ -171,9 +191,11 @@
         </div>
     </div>
     <div class="span6">
+        <h2><small>Последнее в блогах</small></h2>
         <?php $this->widget('application.modules.blog.widgets.LastPostsWidget', array('limit' => 3,'view' => 'lastposts-index'));?>
         <h2><small>Разработано сообществом</small></h2>
-        <span id="contributors"></span> <h2><small>Последнее в блогах</small></h2>
+        <span id="contributors"></span>
+        <hr/>
     </div>
 </div>
 
@@ -221,5 +243,14 @@
     <?php //@TODO убрать данный костыль, без него стили бутсрапа не подтягиваются;?>
     <?php $this->widget('bootstrap.widgets.TbBox'); ?>
 </div>
+<script type="text/javascript">
+    $(document).ready(function(){
+        $('#more-modules-link').click(function(event){
+            event.preventDefault();
+            $('#more-modules').slideDown();
+            $(this).fadeOut();
+        });
+    });
+</script>
 </body>
 </html>

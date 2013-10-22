@@ -28,10 +28,11 @@
     <!--[if IE]>
 	<script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
     <![endif]-->
+        <script>
+            var baseUrl = '<?php echo Yii::app()->baseUrl?>';
+        </script>
     </head>
-    <script>
-    var baseUrl = '<?php echo Yii::app()->baseUrl?>';
-    </script>
+
 
 <body>
     <?php $this->widget('application.modules.menu.widgets.MenuWidget',array('name' => 'top-menu'));?>
