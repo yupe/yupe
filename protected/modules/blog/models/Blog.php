@@ -350,9 +350,8 @@ class Blog extends YModel
     public function getImageUrl()
     {
         if ($this->icon) {
-            $iconPath = Yii::app()->basePath . '/../public/' . Yii::app()->getModule('yupe')->uploadPath . '/' .
+            $icon = Yii::app()->baseUrl.'/'. Yii::app()->getModule('yupe')->uploadPath . '/' .
                 Yii::app()->getModule('blog')->uploadPath . '/' . $this->icon;
-            $icon = Yii::app()->getAssetManager()->publish($iconPath);
         } else {
             $iconPath = Yii::app()->theme->basePath . '/web/images/blog-icon.png';
             $icon = Yii::app()->getAssetManager()->publish($iconPath);
