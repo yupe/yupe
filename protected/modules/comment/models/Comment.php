@@ -197,7 +197,7 @@ class Comment extends YModel
     public function beforeSave()
     {
         if ($this->isNewRecord) {
-            // @TODO before migrate to NestedSets comments, please, comment row below and uncommnet after migration
+            // @TODO before migrate to NestedSets comments, please, comment row below and uncomment after migration
             $this->creation_date = new CDbExpression('NOW()');
             $this->ip = Yii::app()->getRequest()->userHostAddress;
         }
