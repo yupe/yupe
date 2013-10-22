@@ -167,12 +167,12 @@ class Blog extends YModel
     {
         return array(
             'id'          => Yii::t('BlogModule.blog', 'Post id.'),
-            'name'        => Yii::t('BlogModule.blog', 'Please enter title of blog. For example: <span class="label">Notes of traveler</span>.'),
-            'description' => Yii::t('BlogModule.blog', 'Please enter little description of blog. For example:<br /><br /> <pre>Notes on travel there and back. Photos and description of new adventures.</pre>'),
-            'icon'        => Yii::t('BlogModule.blog', 'Please choose blog icon.'),
-            'slug'        => Yii::t('BlogModule.blog', 'Please enter blog slug, it\'s using for short url.<br /><br /> For example: <pre>http://site.ru/blogs/<span class="label">travel-notes</span>/</pre> If you don\'t know how to fill this field you can leave it empty.'),
-            'type'        => Yii::t('BlogModule.blog', 'Please choose blog type:<br /><br /><span class="label label-success">public</span> &ndash; all users can create posts<br /><br /><span class="label label-info">private</span> &ndash; only you as author can create posts'),
-            'status'      => Yii::t('BlogModule.blog', 'Please choose blog status:<br /><br /><span class="label label-success">active</span> &ndash; The blog will visible and it\'s possible to create new records<br /><br /><span class="label label-warning">blocked</span> &ndash; The blog will visible but it\'s not possible to create new records<br /><br /><span class="label label-important">removed</span> &ndash; The blog will be invisible'),
+            'name'        => Yii::t('BlogModule.blog', 'Please enter a title of the blog. For example: <span class="label">My travel notes</span>.'),
+            'description' => Yii::t('BlogModule.blog', 'Please enter a short description of the blog. For example:<br /><br /> <pre>Notes on my travel there and back again. Illustrated.</pre>'),
+            'icon'        => Yii::t('BlogModule.blog', 'Please choose an icon for the blog.'),
+            'slug'        => Yii::t('BlogModule.blog', 'Please enter an URL-friendly name for the blog.<br /><br /> For example: <pre>http://site.ru/blogs/<span class="label">travel-notes</span>/</pre> If you don\'t know how to fill this field you can leave it empty.'),
+            'type'        => Yii::t('BlogModule.blog', 'Please choose a type of the blog:<br /><br /><span class="label label-success">public</span> &ndash; anyone can create posts<br /><br /><span class="label label-info">private</span> &ndash; only you can create posts'),
+            'status'      => Yii::t('BlogModule.blog', 'Please choose a status of the blog:<br /><br /><span class="label label-success">active</span> &ndash; The blog will be visible and it will be possible to create new records<br /><br /><span class="label label-warning">blocked</span> &ndash; The blog will be visible but it would not be possible to create new records<br /><br /><span class="label label-important">removed</span> &ndash; The blog will be invisible'),
         );
     }
 

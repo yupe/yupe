@@ -57,7 +57,7 @@ class UserToBlogBackendController extends yupe\components\controllers\BackContro
         {
             Yii::app()->user->setFlash(
                 YFlashMessages::WARNING_MESSAGE,
-                Yii::t('BlogModule.blog', 'Error! Maybe user is member of this blog already!')
+                Yii::t('BlogModule.blog', 'Cannot add user to the blog. Please make sure he is not a member already.')
             );
             $this->redirect(array('admin'));
         }
@@ -117,7 +117,7 @@ class UserToBlogBackendController extends yupe\components\controllers\BackContro
                 $this->redirect(isset($_POST['returnUrl']) ? $_POST['returnUrl'] : array('index'));
         }
         else
-            throw new CHttpException(400, Yii::t('BlogModule.blog', 'Wrong request. Please don\'t repeate requests like this anymore!'));
+            throw new CHttpException(400, Yii::t('BlogModule.blog', 'Wrong request. Please don\'t repeate requests like this!'));
     }
 
     /**

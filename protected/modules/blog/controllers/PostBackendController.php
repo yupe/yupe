@@ -140,7 +140,7 @@ class PostBackendController extends yupe\components\controllers\BackController
                     )
                 );
         } else
-            throw new CHttpException(400, Yii::t('BlogModule.blog', 'Wrong request. Please don\'t repeate requests like this anymore!'));
+            throw new CHttpException(400, Yii::t('BlogModule.blog', 'Wrong request. Please don\'t repeate requests like this!'));
     }
 
     /**

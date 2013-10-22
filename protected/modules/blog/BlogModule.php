@@ -99,13 +99,13 @@ class BlogModule extends yupe\components\WebModule
     {
         return array(
             array('label' => Yii::t('BlogModule.blog', 'Blogs')),
-            array('icon' => 'list-alt', 'label' => Yii::t('BlogModule.blog', 'Blogs list'), 'url' => array('/blog/blogBackend/index')),
+            array('icon' => 'list-alt', 'label' => Yii::t('BlogModule.blog', 'Blog list'), 'url' => array('/blog/blogBackend/index')),
             array('icon' => 'plus-sign', 'label' => Yii::t('BlogModule.blog', 'New blog'), 'url' => array('/blog/blogBackend/create')),
             array('label' => Yii::t('BlogModule.blog', 'Posts')),
-            array('icon' => 'list-alt', 'label' => Yii::t('BlogModule.blog', 'Posts list'), 'url' => array('/blog/postBackend/index')),
+            array('icon' => 'list-alt', 'label' => Yii::t('BlogModule.blog', 'Post list'), 'url' => array('/blog/postBackend/index')),
             array('icon' => 'plus-sign', 'label' => Yii::t('BlogModule.blog', 'New post'), 'url' => array('/blog/postBackend/create')),
             array('label' => Yii::t('BlogModule.blog', 'Members')),
-            array('icon' => 'list-alt', 'label' => Yii::t('BlogModule.blog', 'Members list'), 'url' => array('/blog/userToBlogBackend/index')),
+            array('icon' => 'list-alt', 'label' => Yii::t('BlogModule.blog', 'Member list'), 'url' => array('/blog/userToBlogBackend/index')),
             array('icon' => 'plus-sign', 'label' => Yii::t('BlogModule.blog', 'New member'), 'url' => array('/blog/userToBlogBackend/create')),
         );
     }
@@ -122,7 +122,7 @@ class BlogModule extends yupe\components\WebModule
 
     public function getDescription()
     {
-        return Yii::t('BlogModule.blog', 'Module for building a personal blog or blogging community');
+        return Yii::t('BlogModule.blog', 'This module allows building a personal blog or a blogging community');
     }
 
     public function getAuthor()

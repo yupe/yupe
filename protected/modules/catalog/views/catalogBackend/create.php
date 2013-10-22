@@ -8,8 +8,8 @@
     $this->pageTitle = Yii::t('CatalogModule.catalog', 'Products - creating');
 
     $this->menu = array(
-        array('icon' => 'list-alt', 'label' => Yii::t('CatalogModule.catalog', 'Products admin'), 'url' => array('/catalog/catalogBackend/index')),
-        array('icon' => 'plus-sign', 'label' => Yii::t('CatalogModule.catalog', 'Add product'), 'url' => array('/catalog/catalogBackend/create')),
+        array('icon' => 'list-alt', 'label' => Yii::t('CatalogModule.catalog', 'Product admin'), 'url' => array('/catalog/catalogBackend/index')),
+        array('icon' => 'plus-sign', 'label' => Yii::t('CatalogModule.catalog', 'Add a product'), 'url' => array('/catalog/catalogBackend/create')),
     );
 ?>
 <div class="page-header">

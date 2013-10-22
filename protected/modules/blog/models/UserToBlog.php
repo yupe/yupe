@@ -113,11 +113,11 @@ class UserToBlog extends YModel
     {
         return array(
             'id'      => Yii::t('BlogModule.blog', 'Member Id.'),
-            'user_id' => Yii::t('BlogModule.blog', 'Please choose user which will be member of blog'),
-            'blog_id' => Yii::t('BlogModule.blog', 'Please choose blog id.'),
-            'role'    => Yii::t('BlogModule.blog', 'Please choose user role:<br /><br /><span class="label label-success">User</span> &ndash; Can write and comment posts in blog.<br /><br /><span class="label label-warning">Moderator</span> &ndash; Can moderate (delete, edit, block) posts and comments, (ban, add, remove) members.<br /><br /><span class="label label-important">Administrator</span> &ndash; Can (block, add, remove) blogs and members.'),
-            'status'  => Yii::t('BlogModule.blog', 'Please choose status of member:<br /><br /><span class="label label-success">Active</span> &ndash; user will be active member of blog.<br /><br /><span class="label label-warning">blocked</span> &ndash; blog will be fobidden for user.'),
-            'note'    => Yii::t('BlogModule.blog', 'Small note about blog member.'),
+            'user_id' => Yii::t('BlogModule.blog', 'Please choose a user which will become the member of the blog'),
+            'blog_id' => Yii::t('BlogModule.blog', 'Please choose id of the blog.'),
+            'role'    => Yii::t('BlogModule.blog', 'Please choose user role:<br /><br /><span class="label label-success">User</span> &ndash; Can write and comment blog posts.<br /><br /><span class="label label-warning">Moderator</span> &ndash; Can delete, edit or block posts and comments. Can ban, add or remove members.<br /><br /><span class="label label-important">Administrator</span> &ndash; Can block, add or remove blogs and members.'),
+            'status'  => Yii::t('BlogModule.blog', 'Please choose status of the member:<br /><br /><span class="label label-success">Active</span> &ndash; Active member of the blog.<br /><br /><span class="label label-warning">blocked</span> &ndash; Cannot access the blog.'),
+            'note'    => Yii::t('BlogModule.blog', 'Short note about the blog member.'),
         );
     }
 
