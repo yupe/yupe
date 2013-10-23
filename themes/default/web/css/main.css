@@ -1,39 +1,45 @@
-/* general styles */
+/* general */
 body {
-    padding-top: 60px;
+    padding-top: 65px;
+    padding-bottom: 20px;
 }
+
 span.label a {
     color: #FFF;
 }
 
-/* blog styles */
-.blog-info>span{
-    display:inline-block;
+/* blog */
+.blog-info>span {
+    display: inline-block;
     padding-right: .7em;
 }
-.blog-info>h2{
+
+.blog-info > h2 {
     display: block;
     width: 100%;
-    padding:0;
+    padding: 0;
     margin: 0 0 .4em 0;
 }
 
-/* all widgets styles */
+/* all widgets */
 .widget {
     margin-bottom: 2em;
 }
 
 /* tagsCloud widget */
-.tags-cloud-widget ul.inline>li {
+.tags-cloud-widget ul.inline > li {
     padding-left: 0;
     line-height: 30px;
 }
+
 .tags-cloud-widget span.label {
     padding: 4px 6px;
 }
+
 .tags-cloud-widget span.label a:hover {
     text-decoration: none;
 }
+
 .tags-cloud-widget span.label:hover {
     background: #F90;
 }
@@ -48,20 +54,44 @@ span.label a {
     margin-bottom: 0;
 }
 
-/* поправляем отступы для логотипа: */
-body .navbar .brand {
-    padding-left: 10px;
-    padding-right: 10px;
-    padding-top: 5px;
-    padding-bottom: 0px;
+/* custom navbar */
+.navbar .brand {
+    padding: 7px 7px 7px 0;
+    margin: 0;
 }
 
-/* avatar styles */
+.navbar .brand > .brand-name {
+    margin: 0 5px;
+}
+
+.navbar .nav {
+    margin: 6px 10px 0 0;
+}
+
+.navbar .nav > li > a {
+    margin: 0 2px;
+}
+
+.navbar .nav > li > a:hover {
+    background-color: #E5E5E5;
+}
+
+.navbar-inner {
+    background-image: none;
+    background-color: #FFF;
+    border: 1px solid #FFC200;
+}
+
+.navbar .collapse.in {
+    top: 10px;
+}
+
+/* avatar */
 .avatar {
     background-color: #F5F5F5 !important;
     border: 1px solid #F5F5F5;
     border-radius: 2px;
-    box-shadow: 1px 1px 10px 0px rgb(201, 201, 201);
+    box-shadow: 1px 1px 10px 0 rgb(201, 201, 201);
 }
 
 .avatar img {
@@ -83,25 +113,26 @@ body .navbar .brand {
     white-space: nowrap;
 }
 
-/* gallery/list.php */
+/* gallery list */
 .gallery-list {
     margin-bottom: 30px;
 }
+
 /* comments */
 .comment-botton-right {
     float: right;
 }
 
-.comment-body>ul li {
+.comment-body > ul li {
     display: inline-block;
     margin: 0 .2em 0 .8em;
     vertical-align: middle;
 }
 
-.comment-body>p {
+.comment-body > p {
     padding: .3em 1.2em .3em 0;
     margin: 0;
-    
+
 }
 
 .user-info {
@@ -113,3 +144,42 @@ body .navbar .brand {
 .user-info .btn {
     padding: 0;
 }
+
+.copyright > li:first-child {
+    margin-top: 6px;
+}
+
+/* Large desktop */
+@media (min-width: 1200px) {
+
+}
+
+/* Portrait tablet to landscape and desktop */
+@media (min-width: 768px) and (max-width: 979px) {
+    body {
+        padding-top: 0;
+    }
+
+    .navbar .brand {
+        margin-left: 30px;
+    }
+}
+
+/* Landscape phone to portrait tablet */
+@media (max-width: 767px) {
+    body {
+        padding-top: 0;
+    }
+
+    .navbar .brand {
+        margin-left: 20px;
+    }
+}
+
+/* Landscape phones and down */
+@media (max-width: 480px) {
+    .navbar .brand {
+        margin-left: 20px;
+    }
+}
+
