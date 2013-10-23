@@ -56,10 +56,16 @@ class PostController extends yupe\components\controllers\FrontController
     {
         $tag = CHtml::encode($tag);
 
+        $criteria = new CDbCriteria;
+        $criteria->order = 'publish_date DESC';
+
         $posts = Post::model()->with(
             'blog',
             'createUser'
-        )->published()->public()->taggedWith($tag)->findAll();
+        )->published()
+         ->public()
+         ->taggedWith($tag)
+         ->findAll($criteria);
 
         $this->render(
             'list', array(
