@@ -102,15 +102,6 @@ class CustomGridView extends \TbExtendedGridView
             ? (array) Yii::app()->controller->action->id
             : $this->ajaxUrl;
         parent::init();
-
-        // live hack before yii 1.1.15 release:
-        strtolower($this->ajaxType) != 'post' || $this->beforeAjaxUpdate = 'function(id, options) {
-            options.data = $.extend(options.data, ' . json_encode(
-                array(
-                    Yii::app()->getRequest()->csrfTokenName => Yii::app()->getRequest()->csrfToken,
-                )
-            ) . ');
-        }';
     }
 
     /**

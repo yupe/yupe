@@ -16,9 +16,6 @@
         array('label' => Yii::t('UserModule.user', 'Passwords recovery!'), 'items' => array(
             array('icon' => 'list-alt', 'label' => Yii::t('UserModule.user', 'Passwords recovery!'), 'url' => array('/user/recoveryBackend/index')),
         )),
-        array('label' => Yii::t('UserModule.user', 'Tokens'), 'items' => array(
-            array('icon' => 'list-alt', 'label' => Yii::t('UserModule.user', 'Token list'), 'url' => array('/user/tokensBackend/index')),
-        )),
     );
 ?>
 <div class="page-header">

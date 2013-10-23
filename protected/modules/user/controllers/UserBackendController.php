@@ -6,11 +6,10 @@
  * @package  yupe.modules.user.controllers
  * @author   YupeTeam <team@yupe.ru>
  * @license  BSD http://ru.wikipedia.org/wiki/%D0%9B%D0%B8%D1%86%D0%B5%D0%BD%D0%B7%D0%B8%D1%8F_BSD
- * @version  0.6
+ * @version  0.5.3
  * @link     http://yupe.ru
  *
  **/
-
 class UserBackendController extends yupe\components\controllers\BackController
 {
     /**
@@ -75,7 +74,7 @@ class UserBackendController extends yupe\components\controllers\BackController
 
         if (($data = Yii::app()->getRequest()->getPost('User')) !== null) {
             
-            $model->setAttributes($data);
+            $form->setAttributes($data);
 
             $model->setAttributes(
                 array(
@@ -210,14 +209,6 @@ class UserBackendController extends yupe\components\controllers\BackController
                 Yii::app()->ajax->failure(
                     Yii::t('UserModule.user', 'User with #{id} was not found', array('{id}' => $id))
                 );
-        }
-
-        if ($user->getIsActivated()) {
-            Yii::app()->user->setFlash(
-                YFlashMessages::ERROR_MESSAGE,
-                Yii::t('UserModule.user', 'User #{id} is already activated', array('{id}' => $id))
-            );
-            $this->redirect(array('index'));
         }
 
         // отправка email с просьбой активировать аккаунт

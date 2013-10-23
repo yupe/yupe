@@ -12,8 +12,8 @@
             array('icon' => 'list-alt', 'label' => Yii::t('UserModule.user', 'Manage users'), 'url' => array('/user/userBackend/index')),
             array('icon' => 'plus-sign', 'label' => Yii::t('UserModule.user', 'Create user'), 'url' => array('/user/userBackend/create')),
         )),
-        array('label' => Yii::t('UserModule.user', 'Tokens'), 'items' => array(
-            array('icon' => 'list-alt', 'label' => Yii::t('UserModule.user', 'Token list'), 'url' => array('/user/tokensBackend/index')),
+        array('label' => Yii::t('UserModule.user', 'Passwords recovery!'), 'items' => array(
+            array('icon' => 'list-alt', 'label' => Yii::t('UserModule.user', 'Passwords recovery!'), 'url' => array('/user/recoveryBackend/index')),
         )),
     );
 ?>
