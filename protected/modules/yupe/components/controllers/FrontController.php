@@ -1,7 +1,7 @@
 <?php
 /**
  * Базовый класс для всех контроллеров публичной части
- * 
+ *
  * @category YupeComponents
  * @package  yupe.modules.yupe.components.controllers
  * @author   YupeTeam <team@yupe.ru>
@@ -23,13 +23,16 @@ class FrontController extends Controller
     public function init()
     {
         parent::init();
-        $this->pageTitle   = $this->yupe->siteName;
+        $this->pageTitle = $this->yupe->siteName;
         $this->description = $this->yupe->siteDescription;
-        $this->keywords    = $this->yupe->siteKeyWords;
+        $this->keywords = $this->yupe->siteKeyWords;
         if ($this->yupe->theme) {
             Yii::app()->theme = $this->yupe->theme;
-        }
-        else {
+            $bootstrap = Yii::app()->theme->basePath . DIRECTORY_SEPARATOR . "bootstrap.php";
+            if (is_file($bootstrap)) {
+                require($bootstrap);
+            }
+        } else {
             Yii::app()->theme = 'default';
         }
     }
