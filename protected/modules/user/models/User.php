@@ -26,6 +26,9 @@
  * @property integer $use_gravatar
  * @property string $online_status
  */
+
+use yupe\widgets\CustomGridView;
+
 class User extends YModel
 {
     const GENDER_THING  = 0;
@@ -43,6 +46,7 @@ class User extends YModel
     const ACCESS_LEVEL_ADMIN = 1;
 
     private $_oldAccess_level;
+    public $use_gravatar = false;
 
     /**
      * @return string the associated database table name
@@ -78,8 +82,7 @@ class User extends YModel
             array('about', 'length', 'max' => 300),
             array('location, online_status', 'length', 'max' => 150),
             array('registration_ip, activation_ip, registration_date', 'length', 'max' => 50),
-            array('gender, status, access_level, use_gravatar, email_confirm', 'numerical', 'integerOnly' => true),
-            array('email_confirm', 'in', 'range' => array_keys($this->getEmailConfirmStatusList())),
+            array('gender, status, access_level, use_gravatar', 'numerical', 'integerOnly' => true),
             array('use_gravatar', 'in', 'range' => array(0, 1)),
             array('gender', 'in', 'range' => array_keys($this->getGendersList())),
             array('status', 'in', 'range' => array_keys($this->getStatusList())),
@@ -91,6 +94,34 @@ class User extends YModel
             array('nick_name', 'unique', 'message' => Yii::t('UserModule.user', 'This nickname already use by another user')),
             array('avatar', 'file', 'types' => implode(',', $module->avatarExtensions), 'maxSize' => $module->avatarMaxSize, 'allowEmpty' => true),
             array('id, creation_date, change_date, middle_name, first_name, last_name, nick_name, email, gender, avatar, password, salt, status, access_level, last_visit, registration_date, registration_ip, activation_ip', 'safe', 'on' => 'search'),
+        );
+    }
+
+    /**
+     * Массив связей:
+     * 
+     * @return array
+     */
+    public function relations()
+    {
+        return array(
+            // Токен активации пользователя,
+            // содержит:
+            // - дату регистрации
+            // - дату активации (может измениться если изменить статус пользователя)
+            // - статус активации
+            // - ip с какого была произведена активация
+            // - токен активации
+            'reg' => array(
+                self::HAS_ONE, 'UserToken', 'user_id', 'on' => 'reg.type = :type AND reg.status != :status', 'params' => array(
+                    ':type'   => UserToken::TYPE_ACTIVATE,
+                    ':status' => UserToken::STATUS_FAIL,
+                ),
+            ),
+            // Все токены пользователя:
+            'tokens' => array(
+                self::HAS_MANY, 'UserToken', 'user_id'
+            )
         );
     }
 
@@ -129,36 +160,77 @@ class User extends YModel
         );
     }
 
+    /**
+     * Проверка активации пользователя:
+     * 
+     * @return boolean
+     */
+    public function getIsActivated()
+    {
+        return $this->reg instanceof UserToken
+            && $this->reg->status === UserToken::STATUS_ACTIVATE;
+    }
+
     public function search()
     {
         $criteria = new CDbCriteria;
 
-        $criteria->compare('id', $this->id);
-        $criteria->compare('creation_date', $this->creation_date, true);
-        $criteria->compare('change_date', $this->change_date, true);
-        $criteria->compare('first_name', $this->first_name, true);
-        $criteria->compare('middle_name', $this->first_name, true);
-        $criteria->compare('last_name', $this->last_name, true);
-        $criteria->compare('nick_name', $this->nick_name, true);
-        $criteria->compare('email', $this->email, true);
-        $criteria->compare('gender', $this->gender);
-        $criteria->compare('password', $this->password, true);
-        $criteria->compare('salt', $this->salt, true);
-        $criteria->compare('status', $this->status);
-        $criteria->compare('access_level', $this->access_level);
-        $criteria->compare('last_visit', $this->last_visit, true);
-        $criteria->compare('registration_date', $this->registration_date, true);
-        $criteria->compare('registration_ip', $this->registration_ip, true);
-        $criteria->compare('activation_ip', $this->activation_ip, true);
-        $criteria->compare('email_confirm', $this->email_confirm, true);
-        $criteria->compare('online_status', $this->online_status, true);
+        $ips = array();
+
+        empty($this->activation_ip) || array_push($ips, $this->activation_ip);
+        empty($this->registration_ip) || array_push($ips, $this->registration_ip);
+
+        if (($data = Yii::app()->getRequest()->getParam('UserToken')) !== null || !empty($ips)) {
+            $reg = new UserToken;
+            $reg->setAttributes($data);
+
+            $criteria->with = array('reg');
+            $criteria->togather = true;
+
+            if (!empty($reg->created) && strlen($reg->created) == 10) {
+                $criteria->addBetweenCondition('created', $reg->created . ' 00:00:00', $reg->created . ' 23:59:59');
+            }
+
+            if (!empty($reg->updated) && strlen($reg->updated) == 10) {
+                $criteria->addBetweenCondition('updated', $reg->updated . ' 00:00:00', $reg->updated . ' 23:59:59');
+            }
+
+            $criteria->addInCondition('reg.ip', $ips);
+        }
+
+        $criteria->compare('t.id', $this->id);
+        $criteria->compare('t.change_date', $this->change_date, true);
+        $criteria->compare('t.first_name', $this->first_name, true);
+        $criteria->compare('t.middle_name', $this->first_name, true);
+        $criteria->compare('t.last_name', $this->last_name, true);
+        $criteria->compare('t.nick_name', $this->nick_name, true);
+        $criteria->compare('t.email', $this->email, true);
+        $criteria->compare('t.gender', $this->gender);
+        $criteria->compare('t.password', $this->password, true);
+        $criteria->compare('t.salt', $this->salt, true);
+        $criteria->compare('t.status', $this->status);
+        $criteria->compare('t.access_level', $this->access_level);
+        $criteria->compare('t.last_visit', $this->last_visit, true);
+        $criteria->compare('t.email_confirm', $this->email_confirm, true);
+        $criteria->compare('t.online_status', $this->online_status, true);
 
         return new CActiveDataProvider(get_class($this), array('criteria' => $criteria));
     }
 
+    /**
+     * Метод после поиска:
+     * 
+     * @return void
+     */
     public function afterFind()
     {
         $this->_oldAccess_level = $this->access_level;
+        
+        // Если пустое поле аватар - автоматически
+        // включаем граватар:
+        $this->use_gravatar = empty($this->avatar);
+
+        return parent::afterFind();
     }
 
     public function beforeSave()
@@ -177,17 +249,52 @@ class User extends YModel
             return false;
         }
 
-        if ($this->isNewRecord) {
-            $this->registration_date = $this->creation_date = $this->change_date;
-            $this->registration_ip   = $this->activation_ip = Yii::app()->getRequest()->userHostAddress;
-            $this->activate_key      = $this->generateActivationKey();
+        if ($this->getIsNewRecord() === false && $this->reg instanceof UserToken && $this->status !== self::STATUS_BLOCK) {
+            $this->reg->status = $this->status == self::STATUS_ACTIVE
+                ? UserToken::STATUS_ACTIVATE
+                : null;
+
+            $this->reg->save();
+        } elseif ($this->getIsNewRecord() === false && ($this->reg instanceof UserToken) === false) {
+            UserToken::newActivate(
+                $this, $this->status == self::STATUS_ACTIVE
+                            ? UserToken::STATUS_ACTIVATE
+                            : null
+            );
         }
 
         if ($this->birth_date === '') {
             unset($this->birth_date);
         }
 
+        // Если используется граватар - удаляем текущие аватарки:
+        $this->use_gravatar === false || $this->removeOldAvatar();
+
+        if ($this->getIsNewRecord()) {
+            $this->creation_date = new CDbExpression('NOW()');
+            $this->activate_key = "empty";
+        }
+
         return parent::beforeSave();
+    }
+
+    /**
+     * Метод после сохранения:
+     * - если новый пользователь, то создаём токен активации.
+     * 
+     * @return void
+     */
+    public function afterSave()
+    {
+        if ($this->getIsNewRecord() === true) {
+            UserToken::newActivate(
+                $this, $this->status == self::STATUS_ACTIVE
+                            ? UserToken::STATUS_ACTIVATE
+                            : null
+            );
+        }
+
+        return parent::afterSave();
     }
 
     public function beforeDelete()
@@ -200,6 +307,29 @@ class User extends YModel
             
             return false;
         }
+
+        $transaction = Yii::app()->getDb()->beginTransaction();
+
+        foreach ($this->tokens as $token) {
+            // Если нельзя удалить какой-то токен
+            // делаем rollBack и сообщаем о проблеме:
+            if (false === $token->delete()) {
+
+                $transaction->rollBack();
+
+                $errors = array();
+
+                foreach ((array)$token->getErrors() as &$value) {
+                    $errors[] = implode("\n", $value);
+                }
+                
+                throw new Exception(
+                    implode("\n", $errors)
+                );
+            }
+        }
+
+        $transaction->commit();
 
         return parent::beforeDelete();
     }
@@ -282,20 +412,6 @@ class User extends YModel
         return isset($data[$this->gender]) ? $data[$this->gender] : Yii::t('UserModule.user', 'not set');
     }
 
-    public function getEmailConfirmStatusList()
-    {
-        return array(
-            self::EMAIL_CONFIRM_YES => Yii::t('UserModule.user', 'Yes'),
-            self::EMAIL_CONFIRM_NO  => Yii::t('UserModule.user', 'No'),
-        );
-    }
-
-    public function getEmailConfirmStatus()
-    {
-        $data = $this->getEmailConfirmStatusList();
-        return isset($data[$this->email_confirm]) ? $data[$this->email_confirm] : Yii::t('UserModule.user', '*unknown*');
-    }
-
     public function hashPassword($password, $salt)
     {
         return md5($salt . $password);
@@ -309,11 +425,6 @@ class User extends YModel
     public function generateRandomPassword($length = null)
     {
         return substr(md5(uniqid(mt_rand(), true) . time()), 0, $length?$length:32);
-    }
-
-    public function generateActivationKey()
-    {
-        return md5(time() . $this->email . uniqid());
     }
 
     /**
@@ -365,6 +476,47 @@ class User extends YModel
         return Yii::app()->getRequest()->baseUrl . Yii::app()->getModule('user')->defaultAvatar;
     }
 
+    /**
+     * Изменение статуса в gridView:
+     * 
+     * @param CustomGridView $grid - gridView
+     * 
+     * @return mixed
+     */
+    public function changeStatus(CustomGridView $grid)
+    {
+        return $grid->returnBootstrapStatusHtml(
+            $this, "status", "ChangeableStatus"
+        );
+    }
+
+    /**
+     * Список доступных к изменению статусов:
+     * заставлять пользователя проходить
+     * активацию по 100 раз
+     * 
+     * @return array
+     */
+    public function getChangeableStatusList()
+    {
+        $statuses = $this->getStatusList();
+
+        $status = $this->getIsActivated() === false
+                ? self::STATUS_ACTIVE
+                : self::STATUS_NOT_ACTIVE;
+
+        unset($statuses[$status]);
+
+        return $statuses;
+    }
+
+    /**
+     * Получаем полное имя пользователя:
+     * 
+     * @param  string $separator - разделитель
+     * 
+     * @return string
+     */
     public function getFullName($separator = ' ')
     {
         return ($this->first_name || $this->last_name)
@@ -421,28 +573,34 @@ class User extends YModel
 
     public function activate()
     {
-        $this->activation_ip    = Yii::app()->getRequest()->userHostAddress;
-        $this->status           = self::STATUS_ACTIVE;
-        $this->email_confirm    = self::EMAIL_CONFIRM_YES;
-        return $this->save();
+        if ($this->reg instanceof UserToken === false) {
+            return UserToken::newActivate(
+                $this, UserToken::STATUS_ACTIVATE
+            );
+        }
+
+        $this->reg->status = UserToken::STATUS_ACTIVATE;
+        $this->reg->ip = Yii::app()->getRequest()->getUserHostAddress();
+        
+        return $this->reg->save();
     }
 
-    public function confirmEmail()
+    protected function removeOldAvatar()
     {
-        $this->email_confirm = self::EMAIL_CONFIRM_YES;
-        return $this->save();
-    }
+        $basePath = Yii::app()->getModule('user')->getUploadPath();
 
-    public function needEmailConfirm()
-    {
-        return $this->email_confirm == self::EMAIL_CONFIRM_YES ? false : true;
-    }
+        if ($this->avatar) {
+            //remove old resized avatars
+            if(file_exists($basePath . $filename)){
+                @unlink($basePath . $filename);
+            }
 
-    public function needActivation()
-    {
-        return $this->status == User::STATUS_NOT_ACTIVE
-            ? true
-            : false;
+            foreach (glob($basePath . $this->id . '_*.*') as $oldThumbnail) {
+                @unlink($oldThumbnail);
+            }
+        }
+
+        $this->avatar = null;
     }
     
     /**
@@ -461,16 +619,7 @@ class User extends YModel
 
         $filename = $this->id.'_'.time() . '.' . $uploadedFile->extensionName;
 
-        if($this->avatar) {
-            //remove old resized avatars
-            if(file_exists($basePath . $filename)){
-                @unlink($basePath . $filename);
-            }
-
-            foreach (glob($basePath . $this->id . '_*.*') as $oldThumbnail) {
-                @unlink($oldThumbnail);
-            }
-        }
+        $this->removeOldAvatar();
 
         if(!$uploadedFile->saveAs($basePath . $filename)) {
             throw new CException(Yii::t('UserModule.user','It is not possible to save avatar!'));
