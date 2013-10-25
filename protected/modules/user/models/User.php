@@ -74,7 +74,8 @@ class User extends YModel
             array('site', 'length', 'max' => 100),
             array('about', 'length', 'max' => 300),
             array('location', 'length', 'max' => 150),
-            array('gender, status, access_level, use_gravatar', 'numerical', 'integerOnly' => true, 'allowEmpty' => true),
+            array('gender, status, access_level', 'numerical', 'integerOnly' => true),
+            array('use_gravatar', 'numerical', 'integerOnly' => true, 'allowEmpty' => true),
             array('nick_name', 'match', 'pattern' => '/^[A-Za-z0-9_-]{2,50}$/', 'message' => Yii::t('UserModule.user', 'Bad field format for "{attribute}". You can use only letters and digits from 2 to 20 symbols')),
             array('site', 'url', 'allowEmpty' => true),
             array('email', 'email'),
@@ -246,6 +247,13 @@ class User extends YModel
         // включаем граватар:
         $this->use_gravatar = empty($this->avatar);
 
+        // Если пользователь не имеет токена активации
+        // или у токена статус не ACTIVATE пользователь
+        // не может иметь статус - "активирован":
+        $this->getIsActivated() && $this->status !== self::STATUS_BLOCK || (
+            $this->status = self::STATUS_NOT_ACTIVE
+        );
+
         return parent::afterFind();
     }
 
@@ -306,13 +314,15 @@ class User extends YModel
      */
     public function beforeSave()
     {
+        // Меняем дату изменения профиля:
         $this->change_date = new CDbExpression('NOW()');
 
+        // Если это не новая запись:
         if ($this->getIsNewRecord() === false) {
             if (
                 $this->admin()->count() == 1
                 && $this->_oldAccess_level === self::ACCESS_LEVEL_ADMIN
-                && ($this->access_level === self::ACCESS_LEVEL_USER || $this->status !== self::STATUS_ACTIVE)
+                && ((int) $this->access_level === self::ACCESS_LEVEL_USER || (int) $this->status !== self::STATUS_ACTIVE)
             ) {
                 $this->addError(
                     'access_level',
@@ -322,15 +332,15 @@ class User extends YModel
                 return false;
             }
 
-            if ($this->reg instanceof UserToken && $this->status !== self::STATUS_BLOCK) {
-                $this->reg->status = $this->status === self::STATUS_ACTIVE
+            if ($this->reg instanceof UserToken && (int) $this->status !== self::STATUS_BLOCK) {
+                $this->reg->status = (int) $this->status === self::STATUS_ACTIVE
                     ? UserToken::STATUS_ACTIVATE
                     : null;
 
                 $this->reg->save();
             } elseif (($this->reg instanceof UserToken) === false) {
                 UserToken::newActivate(
-                    $this, $this->status === self::STATUS_ACTIVE
+                    $this, (int) $this->status === self::STATUS_ACTIVE
                                 ? UserToken::STATUS_ACTIVATE
                                 : null
                 );
