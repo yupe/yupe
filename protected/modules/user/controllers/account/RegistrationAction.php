@@ -16,13 +16,13 @@ class RegistrationAction extends CAction
     {
         $module = Yii::app()->getModule('user');
 
-        if ($module->registrationDisabled){
+        if ($module->registrationDisabled) {
         	throw new CHttpException(404, Yii::t('UserModule.user', 'requested page was not found!'));
         }
 
         $form = new RegistrationForm;
 
-        if (Yii::app()->user->isAuthenticated()){
+        if (Yii::app()->user->isAuthenticated()) {
             $this->controller->redirect(Yii::app()->user->returnUrl);
         }
 
@@ -30,15 +30,14 @@ class RegistrationAction extends CAction
 
         $module->onBeginRegistration($event);
 
-        if (Yii::app()->getRequest()->getIsPostRequest() && !empty($_POST['RegistrationForm']))
-        {
-            $form->setAttributes($_POST['RegistrationForm']);
+        if (($data = Yii::app()->getRequest()->getPost('RegistrationForm')) !== null) {
+            
+            $form->setAttributes($data);
 
-            if ($form->validate())
-            {
+            if ($form->validate()) {
+                
                 // если требуется активация по email
-                if ($module->emailAccountVerification)
-                {
+                if ($module->emailAccountVerification) {
                     $user = new User;
 
                     // скопируем данные формы
@@ -46,18 +45,21 @@ class RegistrationAction extends CAction
                     unset($data['cPassword'], $data['verifyCode']);
 
                     $user->setAttributes($data);
+                    
                     $salt = $user->generateRandomPassword();
-                    $user->setAttributes(array(
-                        'salt'     => $salt,
-                        'password' => $user->hashPassword($form->password, $salt),
-                    ));
+                    
+                    $user->setAttributes(
+                        array(
+                            'salt'     => $salt,
+                            'password' => $user->hashPassword($form->password, $salt),
+                        )
+                    );
 
                     $transaction = Yii::app()->db->beginTransaction();
 
-                    try
-                    {
-                        if ($user->save())
-                        {
+                    try {
+                        if ($user->save()) {
+
                             // отправка email с просьбой активировать аккаунт
                             $mailBody = $this->controller->renderPartial('needAccountActivationEmail', array('model' => $user), true);
 
@@ -81,9 +83,7 @@ class RegistrationAction extends CAction
                                 Yii::t('UserModule.user', 'Account was created! Check your email!')
                             );
                             $this->controller->redirect(array($module->registrationSucess));
-                        }
-                        else
-                        {
+                        } else {
                             $form->addErrors($user->getErrors());
 
                             Yii::log(
@@ -91,22 +91,25 @@ class RegistrationAction extends CAction
                                 CLogger::LEVEL_ERROR, UserModule::$logCategory
                             );
                         }
-                    }
-                    catch (Exception $e)
-                    {
-                        $transaction->rollback();
+                    } catch (Exception $e) {
+                        Yii::app()->getDb()->getCurrentTransaction() === null || $transaction->rollback();
                         $form->addError('', Yii::t('UserModule.user', 'There is an error when creating user!'));
+                        $form->addError('', $e->getMessage());
                     }
-                }
-                else
-                {
+                } else {
                     // если активации не требуется - сразу создаем аккаунт
                     $user = new User;
 
-                    $user->createAccount($form->nick_name, $form->email, $form->password, null , User::STATUS_ACTIVE, User::EMAIL_CONFIRM_NO);
+                    $user->createAccount(
+                        $form->nick_name,
+                        $form->email,
+                        $form->password,
+                        null,
+                        User::STATUS_ACTIVE,
+                        User::EMAIL_CONFIRM_NO
+                    );
 
-                    if ($user && !$user->hasErrors())
-                    {
+                    if ($user && !$user->hasErrors()) {
                         Yii::log(
                             Yii::t('UserModule.user', 'Account {nick_name} was created without activation', array('{nick_name}' => $user->nick_name)),
                             CLogger::LEVEL_INFO, UserModule::$logCategory

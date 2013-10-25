@@ -69,9 +69,6 @@ $form = $this->beginWidget('bootstrap.widgets.TbActiveForm', array(
     <div class="row-fluid control-group <?php echo $model->hasErrors('access_level') ? 'error' : ''; ?>">     
         <?php echo $form->dropDownListRow($model, 'access_level', $model->accessLevelsList,array('class' => 'popover-help span7','data-original-title' => $model->getAttributeLabel('access_level'), 'data-content' => $model->getAttributeDescription('access_level'))); ?>        
     </div>
-    <div class="row-fluid control-group <?php echo $model->hasErrors('email_confirm') ? 'error' : ''; ?>"> 
-        <?php echo $form->dropDownListRow($model, 'email_confirm', $model->emailConfirmStatusList,array('class' => 'popover-help span7','data-original-title' => $model->getAttributeLabel('email_confirm'), 'data-content' => $model->getAttributeDescription('email_confirm'))); ?>
-    </div>
 
    <?php $this->widget('bootstrap.widgets.TbButton', array(
         'buttonType' => 'submit',

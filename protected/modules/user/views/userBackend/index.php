@@ -12,8 +12,8 @@
             array('icon' => 'list-alt', 'label' => Yii::t('UserModule.user', 'Manage users'), 'url' => array('/user/userBackend/index')),
             array('icon' => 'plus-sign', 'label' => Yii::t('UserModule.user', 'Create user'), 'url' => array('/user/userBackend/create')),
         )),
-        array('label' => Yii::t('UserModule.user', 'Passwords recovery!'), 'items' => array(
-            array('icon' => 'list-alt', 'label' => Yii::t('UserModule.user', 'Passwords recovery!'), 'url' => array('/user/recoveryBackend/index')),
+        array('label' => Yii::t('UserModule.user', 'Tokens'), 'items' => array(
+            array('icon' => 'list-alt', 'label' => Yii::t('UserModule.user', 'Token list'), 'url' => array('/user/tokensBackend/index')),
         )),
     );
 ?>
@@ -52,7 +52,6 @@ $this->renderPartial('_search', array('model' => $model));
     'id'            => 'user-grid',
     'type'         => 'condensed',
     'dataProvider' => $model->search(),
-    'filter'       => $model,
     'columns'      => array(
         array(
             'name'        => 'id',
@@ -60,11 +59,6 @@ $this->renderPartial('_search', array('model' => $model));
             'htmlOptions' => array(
                 'style'   => 'width: 40px; text-align: center'
             )
-        ),
-        array(
-            'name'  => 'use_gravatar',
-            'type'  => 'html',
-            'value' => '$this->grid->owner->widget("application.modules.user.widgets.AvatarWidget", array("user" => $data, "size" => 32), true);'
         ),
         array(
             'name'  => 'nick_name',
@@ -75,20 +69,20 @@ $this->renderPartial('_search', array('model' => $model));
         array(
             'name'   => 'access_level',
             'value'  => '$data->getAccessLevel()',
-            'filter' => $model->getAccessLevelsList(),
         ),
         array(
-            'name'  => 'creation_date',
-            'value' => 'Yii::app()->getDateFormatter()->formatDateTime($data->creation_date, "short", "short")',
+            'header' => Yii::t('UserModule.user', 'Register date'),
+            'name'   => 'data.reg.created',
+            'value'  => 'UserToken::beautifyDate(isset($data->reg->created) ? $data->reg->created : null)',
         ),
         'last_visit',
         array(
             'name'   => 'status',
             'type'   => 'raw',
-            'value'  => '$this->grid->returnBootstrapStatusHtml($data, "status", "Status")',
-            'filter' => $model->getStatusList(),
+            'value'  => '$data->changeStatus($this->grid)',
         ),
         array(
+            'header'   => Yii::t('UserModule.user', 'Management'),
             'class'    => 'bootstrap.widgets.TbButtonColumn',
             'template' => '{view}{update}{password}{sendactivation}{delete}',
             'buttons'  => array(
@@ -101,7 +95,7 @@ $this->renderPartial('_search', array('model' => $model));
                     'label'   => Yii::t('UserModule.user', 'Send activation confirm'),
                     'url'     => 'array("/user/userBackend/sendactivation", "id" => $data->id)',
                     'icon'    => 'repeat',
-                    'visible' => '$data->needActivation()',
+                    'visible' => '$data->getIsActivated() === false',
                     'options'  => array(
                         'class' => 'user sendactivation'
                     )

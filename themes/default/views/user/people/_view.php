@@ -7,11 +7,6 @@
     <div class="media-body">
         <div class="well well-small">
             <ul class="inline">
-                <?php if($data->online_status):?>
-                    <li>
-                        <blockquote><?php echo CHtml::encode($data->online_status);?></blockquote>
-                    </li>
-                <?php endif;?>
                 <li>
                     <i class="icon-user"></i> <?php echo CHtml::link($data->getFullName(), array('/user/people/userInfo/', 'username' => $data->nick_name));?>
                 </li>

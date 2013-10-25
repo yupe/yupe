@@ -16,100 +16,112 @@ class RecoveryAction extends CAction
     {
         $module = Yii::app()->getModule('user');
 
+        // Если восстановление отключено - ошбочка ;)
         if ($module->recoveryDisabled){
-        	throw new CHttpException(404, Yii::t('UserModule.user', 'requested page was not found!'));
+        	throw new CHttpException(
+                404,
+                Yii::t('UserModule.user', 'requested page was not found!')
+            );
         }
 
-        if (Yii::app()->user->isAuthenticated()){
-            $this->controller->redirect(Yii::app()->user->returnUrl);
+        // Незачем выполнять последующие действия
+        // для зарегистрированного пользователя:
+        if (Yii::app()->user->isAuthenticated()) {
+            $this->controller->redirect(
+                Yii::app()->getUser()->getReturnUrl()
+            );
         }
 
+        // Новая форма восстановления пароля:
         $form = new RecoveryForm;
 
-        if (Yii::app()->getRequest()->getIsPostRequest() && isset($_POST['RecoveryForm']))
-        {
-            $form->setAttributes($_POST['RecoveryForm']);
+        // Получаем POST-данные:
+        if (($data = Yii::app()->getRequest()->getPost('RecoveryForm')) !== null) {
+            
+            // Заполняем форму
+            $form->setAttributes($data);
 
-            if ($form->validate())
-            {
+            // Если всё ок и данные валидны:
+            if ($form->validate()) {
+                
+                // Дёргаем пользователя из формы:
                 $user = $form->getUser();
 
-                // если пароль должен быть сгенерирован автоматически
-                if ($module->autoRecoveryPassword)
-                {
-                    $recovery = new RecoveryPassword;
-                    $recovery->setAttributes(array(
-                        'user_id' => $user->id,
-                        'code'    => $recovery->generateRecoveryCode($user->id),
-                    ));
+                // Если уже есть токен на восстановление - инвалидируем токен:
+                $user->recovery instanceof UserToken === false || $user->recovery->compromise();
 
-                    if ($recovery->save())
-                    {
-                        // отправить письмо с сылкой на сброс пароля
-                        Yii::log(
-                            Yii::t('UserModule.user', 'Automatic password recovery request'),
-                            CLogger::LEVEL_INFO, UserModule::$logCategory
-                        );
-                        Yii::app()->user->setFlash(
-                            YFlashMessages::SUCCESS_MESSAGE,
-                            Yii::t('UserModule.user', 'Letter with password recovery instructions was sent on email which you choose during register')
-                        );
+                // Создаём новый токен на восстановление пароля
+                // или меняем пароль при автоматическ:
+                // Так как параметры хранятся в varchar... используем === "1"
+                if ($module->autoRecoveryPassword === "1" || UserToken::newRecovery($user)) {
+                    
+                    // Если необходимо - выполняем смену пароля:
+                    $module->autoRecoveryPassword === false || $user->changePassword(
+                        // Генерируем и запоминаем новый пароль:
+                        $new_password = User::generateRandomPassword(
+                            $module->minPasswordLength
+                        )
+                    );
 
-                        $emailBody = $this->controller->renderPartial('passwordAutoRecoveryEmail', array('model' => $recovery), true);
+                    // Обновляем данные, получая новый токен:
+                    $user->with('recovery')->refresh();
 
-                        Yii::app()->mail->send($module->notifyEmailFrom, $user->email, Yii::t('UserModule.user', 'Password recovery!'), $emailBody);
-                        $this->controller->redirect(array('/user/account/login'));
-                    }
-                    else
-                    {
-                        Yii::log(
-                            Yii::t('UserModule.user', 'Error when creating automatic password recovering order'),
-                            CLogger::LEVEL_ERROR, UserModule::$logCategory
-                        );
-                        Yii::app()->user->setFlash(
-                            YFlashMessages::ERROR_MESSAGE,
-                            Yii::t('UserModule.user', 'Password recovery error. Try again later')
-                        );
-                        $this->controller->redirect(array('/user/account/recovery'));
-                    }
-                }
-                else
-                {
-                    $recovery = new RecoveryPassword;
-                    $recovery->setAttributes(array(
-                        'user_id' => $user->id,
-                        'code'    => $recovery->generateRecoveryCode($user->id),
-                    ));
-
-                    if ($recovery->save())
-                    {
-                        Yii::log(
-                            Yii::t('UserModule.user', 'Password recovery request'),
-                            CLogger::LEVEL_INFO, UserModule::$logCategory
-                        );
-                        Yii::app()->user->setFlash(
-                            YFlashMessages::SUCCESS_MESSAGE,
-                            Yii::t('UserModule.user', 'Letter with password recovery instructions was sent on email which you choose during register')
+                    // Генерируем тело письма:
+                    $emailBody = $module->autoRecoveryPassword === "1"
+                        // Автоматическая генерация пароля с его
+                        // отпрвкой пользователю (без токена):
+                        ? $this->controller->renderPartial(
+                            'passwordAutoRecoveryEmail', array(
+                                'password' => $new_password
+                            ), true
+                        )
+                        // Генерация токена и отправка пользователю
+                        // токена на восстановление:
+                        : $this->controller->renderPartial(
+                            'passwordRecoveryEmail', array(
+                                'model' => $user
+                            ), true
                         );
 
-                        // отправить email уведомление
-                        $emailBody = $this->controller->renderPartial('passwordRecoveryEmail', array('model' => $recovery), true);
+                    // Отправляем письмо:
+                    Yii::app()->mail->send(
+                        $module->notifyEmailFrom,
+                        $user->email,
+                        Yii::t('UserModule.user', 'Password recovery!'),
+                        $emailBody
+                    );
 
-                        Yii::app()->mail->send($module->notifyEmailFrom, $user->email, Yii::t('UserModule.user', 'Password recovery!'), $emailBody);
-                        $this->controller->redirect(array('/user/account/recovery'));
-                    }
-                    else
-                    {
-                        Yii::app()->user->setFlash(
-                            YFlashMessages::ERROR_MESSAGE,
-                            Yii::t('UserModule.user', 'Password recovery error.')
-                        );
-                        Yii::log(
-                            Yii::t('UserModule.user', 'Password recovery error.'),
-                            CLogger::LEVEL_ERROR, UserModule::$logCategory
-                        );
-                        $this->controller->redirect(array('/user/account/recovery'));
-                    }
+                    // Делаем запись в лог:
+                    Yii::log(
+                        $module->autoRecoveryPassword === "1"
+                            ? Yii::t('UserModule.user', 'Automatic password recovery request')
+                            : Yii::t('UserModule.user', 'Password recovery request'),
+                        CLogger::LEVEL_INFO, UserModule::$logCategory
+                    );
+                    
+                    // Сообщаем пользователю:
+                    Yii::app()->user->setFlash(
+                        YFlashMessages::SUCCESS_MESSAGE,
+                        Yii::t(
+                            'UserModule.user',
+                            'Letter with password recovery instructions was sent on email which you choose during register'
+                        )
+                    );
+                    
+                    // Выполняем переадресацию на страницу авторизации:
+                    $this->controller->redirect(array('/user/account/login'));
+                } else {
+                    // Сообщаем об ошибке пользователю:
+                    Yii::app()->user->setFlash(
+                        YFlashMessages::ERROR_MESSAGE,
+                        Yii::t('UserModule.user', 'Password recovery error.')
+                    );
+
+                    // Записываем информацию в лог:
+                    Yii::log(
+                        Yii::t('UserModule.user', 'Password recovery error.'),
+                        CLogger::LEVEL_ERROR, UserModule::$logCategory
+                    );
                 }
             }
         }

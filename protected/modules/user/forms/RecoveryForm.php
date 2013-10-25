@@ -13,7 +13,7 @@
 class RecoveryForm extends CFormModel
 {
     public $email;
-    private $_user;
+    private $_user = null;
 
     public function rules()
     {
@@ -26,11 +26,22 @@ class RecoveryForm extends CFormModel
 
     public function checkEmail($attribute, $params)
     {
-        if (!$this->hasErrors())
-        {
-            $this->_user = User::model()->active()->find('email = :email', array(':email' => $this->$attribute));
-            if (!$this->_user) {
-                $this->addError('email', Yii::t('UserModule.user', 'Email "{email}" was not found or user was blocked !', array('{email}' => $this->email)));
+        if ($this->hasErrors() === false) {
+            $this->_user = User::model()->with('recovery')->active()->find(
+                'email = :email', array(
+                    ':email' => $this->$attribute
+                )
+            );
+
+            if ($this->_user === null) {
+                $this->addError(
+                    '',
+                    Yii::t(
+                        'UserModule.user', 'Email "{email}" was not found or user was blocked !', array(
+                            '{email}' => $this->email
+                        )
+                    )
+                );
             }
         }
     }

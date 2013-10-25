@@ -102,6 +102,15 @@ class CustomGridView extends \TbExtendedGridView
             ? (array) Yii::app()->controller->action->id
             : $this->ajaxUrl;
         parent::init();
+
+        // live hack before yii 1.1.15 release:
+        strtolower($this->ajaxType) != 'post' || $this->beforeAjaxUpdate = 'function(id, options) {
+            options.data = $.extend(options.data, ' . json_encode(
+                array(
+                    Yii::app()->getRequest()->csrfTokenName => Yii::app()->getRequest()->csrfToken,
+                )
+            ) . ');
+        }';
     }
 
     /**
@@ -170,8 +179,7 @@ class CustomGridView extends \TbExtendedGridView
 
             reset($statusList);
             $status = key($statusList);
-            while (list($key, $val) = each($statusList)) {
-                $val; // @TODO unused variable
+            while (list($key,) = each($statusList)) {
                 if ($key == $data->$statusField) {
                     $keyNext = key($statusList);
                     if (is_numeric($keyNext)) {

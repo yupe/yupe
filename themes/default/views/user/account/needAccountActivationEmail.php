@@ -5,22 +5,37 @@
 </head>
 
 <body>
-	<?php echo Yii::t('UserModule.user', 'You was successfully registered on "{site}" !',array('{site}' => CHtml::encode(Yii::app()->name))); ?>
+	<?php echo Yii::t(
+        'UserModule.user', 'You was successfully registered on "{site}" !', array(
+            '{site}' => CHtml::encode(Yii::app()->name)
+        )
+    ); ?>
 
 	<br/><br/>
 
-	<?php
-        $url = Yii::app()-> request-> hostInfo.$this-> createUrl('/user/account/activate', array('key'=> $model->activate_key));
-        echo Yii::t('UserModule.user', 'To activate your account please go to ').CHtml::link(Yii::t('UserModule.user', 'link'),$url);
-    ?>
+	<?php echo Yii::t('UserModule.user', 'To activate your account please go to ') . CHtml::link(
+        Yii::t('UserModule.user', 'link'),
+        $link = Yii::app()->createAbsoluteUrl(
+            '/user/account/activate', array(
+                'token' => $model->reg->genActivateCode()
+            )
+        )
+    ); ?>
 
 	<br/><br/>
 
-	<?php  echo $url ?>
+	<?php echo $link; ?>
 
 	<br/><br/>
 
-	<?php echo Yii::t('UserModule.user', 'Truly yours, administration of "{site}" !',array('{site}' => CHtml::encode(Yii::app()->name))); ?>
+	<?php echo Yii::t(
+        'UserModule.user',
+        'Truly yours, administration of "{site}" !', array(
+            '{site}' => CHtml::encode(
+                Yii::app()->name
+            )
+        )
+    ); ?>
 
 </body>
 

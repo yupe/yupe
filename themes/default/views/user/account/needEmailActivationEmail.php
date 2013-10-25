@@ -10,7 +10,7 @@
 <br/><br/>
 
 <?php
-$url = Yii::app()-> request-> hostInfo.$this-> createUrl('/user/account/emailConfirm', array('key'=> $model->activate_key));
+$url = Yii::app()-> request-> hostInfo.$this-> createUrl('/user/account/emailConfirm', array('token'=> $model->activate_key));
 echo Yii::t('UserModule.user', 'To activate your email please follow the link ').CHtml::link(Yii::t('user', 'link'),$url);
 ?>
 

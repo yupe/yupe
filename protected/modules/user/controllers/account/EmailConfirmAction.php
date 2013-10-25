@@ -12,10 +12,10 @@
  **/
 class EmailConfirmAction extends CAction
 {
-    public function run($key)
+    public function run($token)
     {
         // пытаемся сделать выборку из таблицы пользователей
-        $user = User::model()->active()->find('activate_key = :activate_key', array(':activate_key' => $key));
+        $user = User::model()->active()->find('activate_key = :activate_key', array(':activate_key' => $token));
 
         if (!$user || !$user->needEmailConfirm())
         {
@@ -33,7 +33,7 @@ class EmailConfirmAction extends CAction
         {
             Yii::log(
                 Yii::t('UserModule.user', 'Email with activate_key = {activate_key}, id = {id} was activated!', array(
-                    '{activate_key}' => $key,
+                    '{activate_key}' => $token,
                     '{id}'           => $user->id,
                 )),
                 CLogger::LEVEL_INFO, UserModule::$logCategory
@@ -55,7 +55,7 @@ class EmailConfirmAction extends CAction
 
             Yii::log(
                 Yii::t('UserModule.user', 'There is an error when confirm e-mail with activate_key => {activate_key}', array(
-                    '{activate_key}' => $key
+                    '{activate_key}' => $token
                 )),
 
                 CLogger::LEVEL_ERROR, UserModule::$logCategory

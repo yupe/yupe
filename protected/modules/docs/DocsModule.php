@@ -258,11 +258,11 @@ class DocsModule extends yupe\components\WebModule
             array(
                 'label' => Yii::t('DocsModule.docs', 'Documentation'),
                 'url'   => array('/docs/show/index', 'file' => 'index'),
-                'icon'  => 'home white',
+                'icon'  => 'home',
             ),
             array(
                 'label' => Yii::t('DocsModule.docs', 'About Yupe!'),
-                'icon'  => 'info-sign white',
+                'icon'  => 'info-sign',
                 'items' => array(
                     array(
                         'label' => Yii::t('DocsModule.docs', 'Abilities'),
@@ -283,7 +283,7 @@ class DocsModule extends yupe\components\WebModule
             ),
             array(
                 'label' => Yii::t('DocsModule.docs', 'For developers'),
-                'icon'  => 'th-large white',
+                'icon'  => 'th-large',
                 'items' => array(
                     array(
                         'label' => Yii::t('DocsModule.docs', 'Set testing environment'),
@@ -322,7 +322,7 @@ class DocsModule extends yupe\components\WebModule
                     ),
                     array(
                         'label' => Yii::t('DocsModule.docs', 'IDE/Editors'),
-                        'icon'  => 'th-large white',
+                        'icon'  => 'th-large',
                         'items' => array(
                             array(
                                 'label' => Yii::t('DocsModule.docs', 'Working in eclipse'),
@@ -335,7 +335,7 @@ class DocsModule extends yupe\components\WebModule
             ),
             array(
                 'label' => Yii::t('DocsModule.docs', 'Components'),
-                'icon'  => 'th-large white',
+                'icon'  => 'th-large',
                 'items' => array(
                     array(
                         'label' => Yii::t('DocsModule.docs', 'RSS feed generation'),
@@ -363,7 +363,7 @@ class DocsModule extends yupe\components\WebModule
             ),
             array(
                 'label' => Yii::t('DocsModule.docs', 'Modules'),
-                'icon'  => 'th-large white',
+                'icon'  => 'th-large',
                 'items' => array(
                     array(
                         'label' => Yii::t('DocsModule.docs', 'Blogs'),

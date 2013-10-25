@@ -31,8 +31,8 @@
                 'confirm' => Yii::t('UserModule.user', 'Do you really want to remove user?')),
             ),
         )),
-        array('label' => Yii::t('UserModule.user', 'Passwords recovery!'), 'items' => array(
-            array('icon' => 'list-alt', 'label' => Yii::t('UserModule.user', 'Passwords recovery!'), 'url' => array('/user/recoveryBackend/index')),
+        array('label' => Yii::t('UserModule.user', 'Tokens'), 'items' => array(
+            array('icon' => 'list-alt', 'label' => Yii::t('UserModule.user', 'Token list'), 'url' => array('/user/tokensBackend/index')),
         )),
     );
 ?>

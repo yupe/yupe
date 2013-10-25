@@ -54,7 +54,9 @@ class RegistrationForm extends CFormModel
     public function beforeValidate()
     {
         if (Yii::app()->getModule('user')->autoNick) {
-            $this->nick_name = substr(User::model()->generateSalt(), 10);
+            $this->nick_name = substr(
+                md5(uniqid()), 10
+            );
         }
         return parent::beforeValidate();
     }

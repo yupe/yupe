@@ -25,7 +25,7 @@ class UserModule extends WebModule
     public $sessionLifeTime                = 7;
 
     public $notifyEmailFrom;
-    public $autoRecoveryPassword           = true;
+    public $autoRecoveryPassword           = false;
     public $recoveryDisabled               = false;
     public $registrationDisabled           = false;
     public $minPasswordLength              = 5;
@@ -114,7 +114,13 @@ class UserModule extends WebModule
             'loginSuccess'                   => Yii::t('UserModule.user', 'Page after authorization'),
             'logoutSuccess'                  => Yii::t('UserModule.user', 'Page after login'),
             'notifyEmailFrom'                => Yii::t('UserModule.user', 'From which email send a message'),
-            'autoRecoveryPassword'           => Yii::t('UserModule.user', 'Automatic password recovery'),
+            'autoRecoveryPassword'           => Yii::t('UserModule.user', 'Automatic password recovery')
+                                              . ' <span class="label label-important">'
+                                              . Yii::t('UserModule.user', 'not recommended')
+                                              . '</span>'
+                                              . '<br /> <small>('
+                                              . Yii::t('UserModule.user', 'generate new password and send to user, without creation recovery token')
+                                              . ')<small>',
             'recoveryDisabled'               => Yii::t('UserModule.user', 'Disable password recovery'),
             'registrationDisabled'           => Yii::t('UserModule.user', 'Disable registration'),
             'minPasswordLength'              => Yii::t('UserModule.user', 'Minimum password length'),
@@ -231,8 +237,8 @@ class UserModule extends WebModule
             array('label' => Yii::t('UserModule.user', 'Users')),
             array('icon' => 'list-alt', 'label' => Yii::t('UserModule.user', 'Manage users'), 'url' => array('/user/userBackend/index')),
             array('icon' => 'plus-sign', 'label' => Yii::t('UserModule.user', 'Create user'), 'url' => array('/user/userBackend/create')),
-            array('label' => Yii::t('UserModule.user', 'Passwords recovery!')),
-            array('icon' => 'list-alt', 'label' => Yii::t('UserModule.user', 'Passwords recovery!'), 'url' => array('/user/recoveryBackend/index')),
+            array('label' => Yii::t('UserModule.user', 'Tokens')),
+            array('icon' => 'list-alt', 'label' => Yii::t('UserModule.user', 'Token list'), 'url' => array('/user/tokensBackend/index')),
         );
     }
 

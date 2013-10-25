@@ -31,12 +31,6 @@
      </div>     
  </div>
 
-<br/>
-
-<?php if($user->online_status):?>
-    <blockquote><?php echo CHtml::encode($user->online_status);?></blockquote>
-<?php endif;?>
-
 <?php if($user->about):?>            
      <div class="row-fluid">
          <div class="well">

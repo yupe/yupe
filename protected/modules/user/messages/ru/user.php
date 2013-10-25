@@ -144,7 +144,7 @@ return array (
     'Official site' => 'Официальный сайт',
     'Authorization error with IP-address {ip}! email => {email}, Password => {password}!' => 'Ошибка авторизации с IP-адресом {ip}! email => {email}, Password => {password}!',
     'Activation error! Maybe e-mail already confirmed or incorrect activation code was used. Try to use another e-mail' => 'Ошибка активации! Возможно данный e-mail уже проверен или указан неверный ключ активации! Попробуйте другой e-mail.',
-    'Activation error! Maybe this account already activated! Try to register again' => 'Ошибка активации! Возможно данный аккаунт уже активирован! Попробуете зарегистрироваться вновь?',
+    'There was a problem with the activation of the account. Please refer to the site\'s administration.' => 'Внимание! Возникла проблема с активацией аккаунта. Обратитесь к администрации сайта.',
     'Error when change password automaticly! {error}' => 'Ошибка при автоматической смене пароля {error}!',
     'Error when changing password!' => 'Ошибка при смене пароля!',
     'Error when creating new account without activation!' => 'Ошибка при создании  учетной записи без активации!',
@@ -335,4 +335,11 @@ return array (
     'Create token' => 'Создать токен',
     'create token' => 'создать токен',
     'User #{id} is already activated' => 'Пользователь #{id} уже активирован',
+    'Full name' => 'ФИО',
+    'generate new password and send to user, without creation recovery token' => 'создать новый пароль и отправить пользователю, без создания токена восстановления',
+    'not recommended' => 'не рекомендуется',
+    'For login in, please follow this :link' => 'Для входа в систему, пожалуйста, перейдите по этой :link',
+    'For password recovery, please follow this :link' => 'Для восстановления пароля, пожалуйста, перейдите по этой :link',
+    'Your new password is ":password"' => 'Ваш новый пароль - ":password"',
+    'For login in, please follow this :link' => 'Для авторизации, пожалуйста, перейдите по этой :link'
 );

@@ -20,6 +20,10 @@ div#page {
     color: #333;
 }
 
+#page [class*='icon-'].icon-white {
+    color: #fff;
+}
+
 #page a:hover [class*='icon-'] {
     color: inherit;
 }
@@ -76,7 +80,7 @@ footer {
 .table-vmiddle td {
     vertical-align: middle;
 }
-/* ������ ������� */
+
 .sidebar-nav {
     padding: 9px 0;
 }
@@ -144,4 +148,9 @@ pre .label{
     margin-right: 10px;
     border: none;
     display: block;
+}
+
+.well .form-actions {
+    padding-bottom: 0;
+    margin-bottom: 0;
 }

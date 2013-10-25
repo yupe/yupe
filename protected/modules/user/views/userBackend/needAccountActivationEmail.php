@@ -8,13 +8,24 @@
     <br/><br/>
 
     <?php echo Yii::t('UserModule.user', 'For account activation, click the'); ?>
-    &nbsp;<?php echo CHtml::link(Yii::t('UserModule.user', 'link'), $link = Yii::app()->createAbsoluteUrl('/user/account/activate', array('key' => $model->activate_key))); ?>
+    <?php echo CHtml::link(
+        Yii::t('UserModule.user', 'link'),
+        $link = Yii::app()->createAbsoluteUrl(
+            '/user/account/activate', array(
+                'key' => $model->reg->genActivateCode()
+            )
+        )
+    ); ?>
     <br/><br/>
 
-    <?php  echo $link; ?>
+    <?php echo $link; ?>
 
     <br/><br/>
 
-    <?php echo Yii::t('UserModule.user', 'Best regards, "{site}" administration!', array('{site}' => CHtml::encode(Yii::app()->name))); ?>
+    <?php echo Yii::t(
+        'UserModule.user', 'Best regards, "{site}" administration!', array(
+            '{site}' => CHtml::encode(Yii::app()->name)
+        )
+    ); ?>
 </body>
 </html>

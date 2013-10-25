@@ -55,14 +55,12 @@ class LoginForm extends YFormModel
 
     public function authenticate()
     {
-        if (!$this->hasErrors())
-        {
+        if (!$this->hasErrors()) {
             $this->_identity = new UserIdentity($this->email, $this->password);
 
             $duration = 0;
 
-            if($this->remember_me)
-            {
+            if ($this->remember_me) {
                 $sessionTimeInWeeks = (int)Yii::app()->getModule('user')->sessionLifeTime;
                 $duration = $sessionTimeInWeeks*24*60*60;
             }

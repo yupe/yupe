@@ -29,8 +29,8 @@ return array(
         '/users'                 => 'user/people/index',
         '/profile'               => 'user/account/profile',
         '/users/<username:\w+>/' => 'user/people/userInfo',
-        '/activate/<key>'        => 'user/account/activate',
-        '/confirm/<key>'         => 'user/account/confirm',
-        '/recovery/<key>'        => 'user/account/restore'
+        '/activate/<token>'      => 'user/account/activate',
+        '/confirm/<token>'       => 'user/account/confirm',
+        '/recovery/<token>'      => 'user/account/restore'
     ),
 );

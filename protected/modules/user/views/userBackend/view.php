@@ -30,8 +30,8 @@
                 'confirm' => Yii::t('UserModule.user', 'Do you really want to remove user?')),
             ),
         )),
-        array('label' => Yii::t('UserModule.user', 'Passwords recovery!'), 'items' => array(
-            array('icon' => 'list-alt', 'label' => Yii::t('UserModule.user', 'Passwords recovery!'), 'url' => array('/user/recoveryBackend/index')),
+        array('label' => Yii::t('UserModule.user', 'Tokens'), 'items' => array(
+            array('icon' => 'list-alt', 'label' => Yii::t('UserModule.user', 'Token list'), 'url' => array('/user/tokensBackend/index')),
         )),
     );
 ?>
@@ -46,10 +46,7 @@
     'data'       => $model,
     'attributes' => array(
         'id',
-        'creation_date',
-        'change_date',
-        'first_name',
-        'last_name',
+        'full_name',
         'nick_name',
         'email',
         'location',
@@ -60,7 +57,6 @@
             'name'  => 'gender',
             'value' => $model->getGender(),
         ),
-        'activate_key',
         array(
             'name'  => 'status',
             'value' => $model->getStatus(),
@@ -71,12 +67,11 @@
         ),
         array(
             'name'  => 'email_confirm',
-            'value' => $model->getEmailConfirmStatus(),
+            'value' => $model->getIsActivateStatus(),
         ),
-        'use_gravatar',
         'last_visit',
-        'registration_date',
-        'registration_ip',
-        'activation_ip',
+        'reg.created',
+        'reg.updated',
+        'reg.ip',
     ),
 )); ?>

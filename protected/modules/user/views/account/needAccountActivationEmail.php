@@ -8,7 +8,7 @@
     <br/><br/>
 
     <?php echo Yii::t('UserModule.user', 'For account activation, click the'); ?>
-    &nbsp;<?php echo CHtml::link(Yii::t('UserModule.user', 'link'),$link=Yii::app()->createAbsoluteUrl('/user/account/activate', array('key' => $model->activate_key))); ?>
+    &nbsp;<?php echo CHtml::link(Yii::t('UserModule.user', 'link'),$link=Yii::app()->createAbsoluteUrl('/user/account/activate', array('token' => $model->activate_key))); ?>
     <br/><br/>
 
     <?php  echo $link; ?>

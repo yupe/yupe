@@ -6,10 +6,11 @@
  * @package  yupe.modules.user.controllers
  * @author   YupeTeam <team@yupe.ru>
  * @license  BSD http://ru.wikipedia.org/wiki/%D0%9B%D0%B8%D1%86%D0%B5%D0%BD%D0%B7%D0%B8%D1%8F_BSD
- * @version  0.5.3
+ * @version  0.6
  * @link     http://yupe.ru
  *
  **/
+
 class UserBackendController extends yupe\components\controllers\BackController
 {
     /**
@@ -26,7 +27,7 @@ class UserBackendController extends yupe\components\controllers\BackController
      */
     public function actionView($id)
     {
-        $this->render('view', array('model' => $this->loadModel($id)));
+        $this->render('view', array('model' => $this->loadModel($id, 'reg')));
     }
 
     /**
@@ -74,7 +75,7 @@ class UserBackendController extends yupe\components\controllers\BackController
 
         if (($data = Yii::app()->getRequest()->getPost('User')) !== null) {
             
-            $form->setAttributes($data);
+            $model->setAttributes($data);
 
             $model->setAttributes(
                 array(
@@ -198,7 +199,7 @@ class UserBackendController extends yupe\components\controllers\BackController
      */
     public function actionSendactivation($id)
     {
-        if (($user = User::model()->findbyPk($id)) === null) {
+        if (($user = User::model()->with('reg')->findbyPk($id)) === null) {
             if (!Yii::app()->getRequest()->getIsPostRequest() || !Yii::app()->getRequest()->getIsAjaxRequest()) {
                 Yii::app()->user->setFlash(
                     YFlashMessages::ERROR_MESSAGE,
@@ -211,9 +212,27 @@ class UserBackendController extends yupe\components\controllers\BackController
                 );
         }
 
+        if ($user->getIsActivated()) {
+            Yii::app()->user->setFlash(
+                YFlashMessages::ERROR_MESSAGE,
+                Yii::t('UserModule.user', 'User #{id} is already activated', array('{id}' => $id))
+            );
+            $this->redirect(array('index'));
+        }
+        
+        if ($user->reg instanceof UserToken === false) {
+            UserToken::newActivate(
+                $user, $user->status == User::STATUS_ACTIVE
+                            ? UserToken::STATUS_ACTIVATE
+                            : null
+            );
+
+            $user->with('reg')->refresh();
+        }
+
         // отправка email с просьбой активировать аккаунт
         $mailBody = $this->renderPartial('needAccountActivationEmail', array('model' => $user), true);
-        
+
         Yii::app()->mail->send(
             $this->module->notifyEmailFrom,
             $user->email,
@@ -238,17 +257,18 @@ class UserBackendController extends yupe\components\controllers\BackController
      * Returns the data model based on the primary key given in the GET variable.
      * If the data model is not found, an HTTP exception will be raised.
      * 
-     * @param int $id - record ID
+     * @param int   $id   - record ID
+     * @param mixed $with - relations
      * 
      * @return User
      *
      * @throws CHttpException
      */
-    public function loadModel($id = null)
+    public function loadModel($id = null, $with = null)
     {
         if ($this->_model === null || $this->_model instanceof User && $this->_model->id !== $id) {
             
-            if (($this->_model = User::model()->findbyPk($id)) === null) {
+            if (($this->_model = User::model()->with((array) $with)->findbyPk($id)) === null) {
                 throw new CHttpException(
                     404,
                     Yii::t('UserModule.user', 'requested page was not found!')

@@ -1,24 +1,58 @@
-<?php
-	$url = Yii::app()-> request-> hostInfo.$this-> createUrl('account/recoveryPassword', array('code'=> $model-> code));
-?>
-<html>
-<head>
-    <title><?php echo Yii::t('UserModule.user', 'Password recovery for "{site}"!',array('{site}' => CHtml::encode(Yii::app()->name)));?></title>
-</head>
-<body>
-<?php echo Yii::t('UserModule.user', 'Password recovery for "{site}"!',array('{site}' => CHtml::encode(Yii::app()->name)));?>
-<br/>
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <title>
+            <?php echo Yii::t(
+                'UserModule.user', 'Reset password for site "{site}"', array(
+                    '{site}' => CHtml::encode(Yii::app()->getModule('yupe')->siteName)
+                )
+            ); ?>
+        </title>
+    </head>
+    <body>
+        <p>
+            <?php echo Yii::t(
+                'UserModule.user', 'Reset password for site "{site}"', array(
+                    '{site}' => CHtml::encode(Yii::app()->getModule('yupe')->siteName)
+                )
+            ); ?>
+        </p>
+        <p>
+            <?php echo Yii::t(
+                'UserModule.user', 'Somewho, maybe you request password recovery for "{site}"', array(
+                    '{site}' => CHtml::encode(Yii::app()->getModule('yupe')->siteName)
+                )
+            ); ?>
+        </p>
+        <p>
+            <?php echo Yii::t(
+                'UserModule.user', 'Just remove this letter if it addressed not for you.'
+            ); ?>
+        </p>
+        <p>
+            <?php echo Yii::t(
+                'UserModule.user', 'For password recovery, please follow this :link', array(
+                    ':link' => CHtml::link(
+                        Yii::t('UserModule.user', 'link'),
+                        $link = $this->createAbsoluteUrl(
+                            '/user/account/restore', array(
+                                'token' => $model->recovery->genActivateCode(), 
+                            )
+                        )
+                    ),
+                )
+            ); ?>
+        </p>
 
-<?php echo Yii::t('UserModule.user', 'Someone probably requested a password reset on "{site}".',array('{site}' => CHtml::encode(Yii::app()->name)));?><br/>
-<?php echo Yii::t('UserModule.user', 'If you did not requested this email just delete it.');?>
-<br/>
+        <p><?php echo $link; ?></p>
 
-<?php echo Yii::t('UserModule.user', 'To recover your password please follow the link');?> <a href='<?php echo $url; ?>'><?php echo Yii::t('UserModule.user', 'link');?></a>
+        <hr />
 
-<br/>
-<?php echo $url; ?>
-<br/><br/>
-
-<?php echo Yii::t('UserModule.user', 'Truly yours, administration of "{site}" !',array('{site}' => CHtml::encode(Yii::app()->name)));?>
-</body>
+        <?php echo Yii::t(
+            'UserModule.user', 'Best regards, "{site}" administration!', array(
+                '{site}' => CHtml::encode(Yii::app()->getModule('yupe')->siteName)
+            )
+        ); ?>
+    </body>
 </html>

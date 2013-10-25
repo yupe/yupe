@@ -70,10 +70,10 @@ $form = $this->beginWidget(
     <div class="row-fluid">
         <?php echo $form->textFieldRow($model, 'email', array(
             'autocomplete' => 'off',
-            'class'=>'span6' . ( (Yii::app()->user->profile->email_confirm && !$model->hasErrors()) ? ' confirmed' : '' )
+            'class'=>'span6' . ( (Yii::app()->user->profile->getIsActivated() && !$model->hasErrors()) ? ' confirmed' : '' )
         )); ?>
 
-        <?php if (Yii::app()->user->profile->email_confirm && !$model->hasErrors()):?>
+        <?php if (Yii::app()->user->profile->getIsActivated() && !$model->hasErrors()):?>
             <p class="email-status-confirmed text-success">
                 <?php echo Yii::t('UserModule.user','E-mail was verified');?>
             </p>
@@ -85,7 +85,7 @@ $form = $this->beginWidget(
 
 
         <div class="row-fluid email-change-msg">
-            <?php if (Yii::app()->user->profile->email_confirm):?>
+            <?php if (Yii::app()->user->profile->getIsActivated()) : ?>
                 <p class="text-warning span6">
                     <?php echo Yii::t('UserModule.user','Warning! After changing your e-mail you will receive a message explaining how to verify it');?>
                 </p>
