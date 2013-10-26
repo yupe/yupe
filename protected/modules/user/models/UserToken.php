@@ -344,7 +344,7 @@ class UserToken extends YModel
 
                 $errors = array();
 
-                foreach ((array)$token->getErrors() as &$value) {
+                foreach ((array)$token->getErrors() as $value) {
                     $errors[] = implode("\n", $value);
                 }
 
