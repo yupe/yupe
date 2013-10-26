@@ -79,11 +79,9 @@ class UserBackendController extends yupe\components\controllers\BackController
 
             $model->setAttributes(
                 array(
-                    'salt'              => $model->generateSalt(),
-                    'password'          => $model->hashPassword($model->password, $model->salt),
-                    'registration_ip'   => Yii::app()->getRequest()->userHostAddress,
-                    'activation_ip'     => Yii::app()->getRequest()->userHostAddress,
-                    'registration_date' => new CDbExpression("NOW()"),
+                    'hash' => User::hashPassword(
+                        User::generateRandomPassword()
+                    ),
                 )
             );
 

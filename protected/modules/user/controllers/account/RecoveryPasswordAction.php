@@ -33,7 +33,7 @@ class RecoveryPasswordAction extends CAction
 		try {
 			
 			// Сохраняем изменения и инвалидируем токен:
-			if ($user->update((array) 'password') && $user->recovery->compromise()) {
+			if ($user->update((array) 'hash') && $user->recovery->compromise()) {
 				
 				// Сообщаем пользователю:
 				Yii::app()->user->setFlash(
@@ -171,11 +171,10 @@ class RecoveryPasswordAction extends CAction
 		if ($module->autoRecoveryPassword === "1") {
 			
 			// Генерируем новый пароль:
-			$user->password = User::hashPassword(
+			$user->hash = User::hashPassword(
 				$newPassword = User::generateRandomPassword(
 					$module->minPasswordLength
-				),
-				$user->salt
+				)
 			);
 
 			// Пытаемся обновить данные:
@@ -195,8 +194,8 @@ class RecoveryPasswordAction extends CAction
 			if ($changePasswordForm->validate()) {
 
 				// смена пароля пользователя
-				$user->password = User::hashPassword(
-					$changePasswordForm->password, $user->salt
+				$user->hash = User::hashPassword(
+					$changePasswordForm->password
 				);
 				
 				// Пытаемся обновить данные:

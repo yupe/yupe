@@ -1,27 +1,48 @@
-<html>
-
+<!doctype html>
+<html lang="en">
 <head>
-    <title><?php echo Yii::t('UserModule.user', 'Changing e-mail');?></title>
+	<meta charset="UTF-8">
+	<title>
+		<?php echo Yii::t('UserModule.user', 'Changing e-mail');?>
+	</title>
 </head>
-
 <body>
-<?php echo Yii::t('UserModule.user', 'You have successfully changed your email on "{site}"!',array('{site}' => CHtml::encode(Yii::app()->name))); ?>
+	<p>
+		<?php echo Yii::t(
+			'UserModule.user',
+			'You have successfully changed your email on "{site}"!', array(
+				'{site}' => CHtml::encode(
+					Yii::app()->getModule('yupe')->siteName
+				)
+			)
+		); ?>
+	</p>
 
-<br/><br/>
+	<p>
+		<?php echo Yii::t(
+				'UserModule.user', 'To activate your email please follow the link '
+		) . CHtml::link(
+			Yii::t('user', 'link'),
+			$link = $this->createAbsoluteUrl(
+				'/user/account/emailConfirm', array(
+					'token'=> $model->activate_key
+				)
+			)
+		); ?>
+	</p>
 
-<?php
-$url = Yii::app()-> request-> hostInfo.$this-> createUrl('/user/account/emailConfirm', array('token'=> $model->activate_key));
-echo Yii::t('UserModule.user', 'To activate your email please follow the link ').CHtml::link(Yii::t('user', 'link'),$url);
-?>
+	<p><?php echo $link; ?></p>
 
-<br/><br/>
+	<hr />
 
-<?php  echo $url ?>
-
-<br/><br/>
-
-<?php echo Yii::t('UserModule.user', 'Truly yours, administration of "{site}" !',array('{site}' => CHtml::encode(Yii::app()->name))); ?>
-
+	<p>
+		<?php echo Yii::t(
+			'UserModule.user', 'Truly yours, administration of "{site}" !', array(
+				'{site}' => CHtml::encode(
+					Yii::app()->getModule('yupe')->siteName
+				)
+			)
+		); ?>
+	</p>
 </body>
-
 </html>

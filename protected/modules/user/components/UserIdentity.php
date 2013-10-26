@@ -21,14 +21,11 @@ class UserIdentity extends CUserIdentity
      **/
     public function authenticate()
     {
-        $user = User::model()->active()->findByAttributes(array('email' => $this->username));
-
-        if ($user === null)
+        if (($user = User::model()->active()->findByAttributes(array('email' => $this->username))) === null) {
             $this->errorCode = self::ERROR_USERNAME_INVALID;
-        else if (!$user->validatePassword($this->password))
+        } else if (!$user->validatePassword($this->password)) {
             $this->errorCode = self::ERROR_PASSWORD_INVALID;
-        else
-        {
+        } else {
             // запись данных в сессию пользователя
             $this->_id      = $user->id;
             $this->username = $user->nick_name;

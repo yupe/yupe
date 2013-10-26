@@ -68,9 +68,9 @@ class User extends YModel
         return array(
             array('birth_date, site, about, location, nick_name, first_name, last_name, middle_name, email', 'filter', 'filter' => 'trim'),
             array('birth_date, site, about, location, nick_name, first_name, last_name, middle_name, email', 'filter', 'filter' => array($obj = new CHtmlPurifier(), 'purify')),
-            array('nick_name, email, password', 'required'),
+            array('nick_name, email, hash', 'required'),
             array('first_name, last_name, middle_name, nick_name, email', 'length', 'max' => 50),
-            array('password, salt', 'length', 'max' => 32),
+            array('hash', 'length', 'max' => 256),
             array('site', 'length', 'max' => 100),
             array('about', 'length', 'max' => 300),
             array('location', 'length', 'max' => 150),
@@ -82,7 +82,7 @@ class User extends YModel
             array('email', 'unique', 'message' => Yii::t('UserModule.user', 'This email already use by another user')),
             array('nick_name', 'unique', 'message' => Yii::t('UserModule.user', 'This nickname already use by another user')),
             array('avatar', 'file', 'types' => implode(',', $module->avatarExtensions), 'maxSize' => $module->avatarMaxSize, 'allowEmpty' => true),
-            array('id, change_date, middle_name, first_name, last_name, nick_name, email, gender, avatar, password, salt, status, access_level, last_visit', 'safe', 'on' => 'search'),
+            array('id, change_date, middle_name, first_name, last_name, nick_name, email, gender, avatar, status, access_level, last_visit', 'safe', 'on' => 'search'),
         );
     }
 
@@ -120,6 +120,19 @@ class User extends YModel
                     ':recovery_status' => UserToken::STATUS_FAIL,
                 ),
             ),
+            // Токен верификации почты содержит:
+            // - дату создания запроса
+            // - дату активации токена
+            // - статус активации токена (токен автоматически
+            //   становится активированным после использования)
+            // - ip с какого была произведена активация
+            // - токен верификации
+            'verify' => array(
+                self::HAS_ONE, 'UserToken', 'user_id', 'on' => 'verify.type = :verify_type AND (verify.status != :verify_status or verify.status IS NULL)', 'params' => array(
+                    ':verify_type'   => UserToken::TYPE_CHANGE_PASSWORD,
+                    ':verify_status' => UserToken::STATUS_FAIL,
+                ),
+            ),
             // Все токены пользователя:
             'tokens' => array(
                 self::HAS_MANY, 'UserToken', 'user_id'
@@ -144,7 +157,6 @@ class User extends YModel
             'email'             => Yii::t('UserModule.user', 'Email'),
             'gender'            => Yii::t('UserModule.user', 'Sex'),
             'password'          => Yii::t('UserModule.user', 'Password'),
-            'salt'              => Yii::t('UserModule.user', 'Salt'),
             'status'            => Yii::t('UserModule.user', 'Status'),
             'access_level'      => Yii::t('UserModule.user', 'Access'),
             'last_visit'        => Yii::t('UserModule.user', 'Last visit'),
@@ -173,9 +185,51 @@ class User extends YModel
             && $this->reg->status === UserToken::STATUS_ACTIVATE;
     }
 
+    /**
+     * Строковое значение активации пользователя:
+     * 
+     * @return string
+     */
     public function getIsActivateStatus()
     {
         return $this->getIsActivated()
+                ? Yii::t('UserModule.user', 'Yes')
+                : Yii::t('UserModule.user', 'No');
+    }
+
+    /**
+     * Проверка верификации почты:
+     * 
+     * @return boolean
+     */
+    public function getIsVerifyEmail()
+    {
+        return $this->verify instanceof UserToken
+            && $this->verify->status === UserToken::STATUS_ACTIVATE;
+    }
+
+    public function getVerifyIcon()
+    {
+        if ($this->verify !== null)
+        die(print_r($this->verify));
+
+        return $this->getIsVerifyEmail()
+                ? '<i class="icon icon-ok-sign" title=""></i>'
+                : CHtml::link(
+                    '<i class="icon icon-repeat" title=""></i>',
+                    array('verifySend'),
+                    array('class' => 'verify-email')
+                );
+    }
+
+    /**
+     * Строковое значение верификации почты пользователя:
+     * 
+     * @return string
+     */
+    public function getIsVerifyEmailStatus()
+    {
+        return $this->getIsVerifyEmail()
                 ? Yii::t('UserModule.user', 'Yes')
                 : Yii::t('UserModule.user', 'No');
     }
@@ -194,7 +248,7 @@ class User extends YModel
         empty($this->activation_ip) || array_push($ips, $this->activation_ip);
         empty($this->registration_ip) || array_push($ips, $this->registration_ip);
 
-        $criteria->with = array('reg');
+        $criteria->with = array('reg', 'verify');
         $criteria->together = true;
 
         if (($data = Yii::app()->getRequest()->getParam('UserToken')) !== null || !empty($ips)) {
@@ -220,8 +274,6 @@ class User extends YModel
         $criteria->compare('t.nick_name', $this->nick_name, true);
         $criteria->compare('t.email', $this->email, true);
         $criteria->compare('t.gender', $this->gender);
-        $criteria->compare('t.password', $this->password, true);
-        $criteria->compare('t.salt', $this->salt, true);
         
         if ($this->status === self::STATUS_NOT_ACTIVE) {
             $criteria->compare('reg.status', UserToken::STATUS_NULL);
@@ -289,6 +341,24 @@ class User extends YModel
 
         $criteria->addCondition('MD5(CONCAT(t.email, recovery.token)) = :recovery_token');
         $criteria->params = array(':recovery_token' => $token);
+
+        return $this->find($criteria);
+    }
+
+    /**
+     * Поиск пользователя по токену верификации почты:
+     * 
+     * @param string $token - token-верификации
+     * 
+     * @return User $mode || null
+     */
+    public function findVerifyEmail($token)
+    {
+        $criteria = new CDbCriteria;
+        $criteria->with = 'verify';
+
+        $criteria->addCondition('MD5(CONCAT(t.email, verify.token)) = :verify_token');
+        $criteria->params = array(':verify_token' => $token);
 
         return $this->find($criteria);
     }
@@ -455,18 +525,6 @@ class User extends YModel
     }
 
     /**
-     * Проверка валидации пароля:
-     * 
-     * @param string $password - введённый пароль
-     * 
-     * @return boolean
-     */
-    public function validatePassword($password)
-    {
-        return $this->password === $this->hashPassword($password, $this->salt);
-    }
-
-    /**
      * Список текстовых значений ролей:
      * 
      * @return array
@@ -548,26 +606,30 @@ class User extends YModel
     }
 
     /**
-     * Хеширование пароля:
+     * Проверка валидации пароля:
      * 
-     * @param string $password - пароль
-     * @param string $salt     - "соль"
+     * @param string $password - введённый пароль
      * 
-     * @return string
+     * @return boolean
      */
-    public static function hashPassword($password, $salt)
+    public function validatePassword($password)
     {
-        return md5($salt . $password);
+        return CPasswordHelper::verifyPassword(
+            $password,
+            $this->hash
+        );
     }
 
     /**
-     * Генерация "соли" для пароля:
+     * Хеширование пароля:
+     * 
+     * @param string $password - пароль
      * 
      * @return string
      */
-    public static function generateSalt()
+    public static function hashPassword($password)
     {
-        return md5(uniqid('', true) . time());
+        return CPasswordHelper::hashPassword($password);
     }
 
     /**
@@ -728,8 +790,7 @@ class User extends YModel
             'nick_name'         => $nick_name,
             'first_name'        => $first_name,
             'last_name'         => $last_name,
-            'salt'              => $salt,
-            'password'          => $this->hashPassword($password, $salt),
+            'hash'              => $this->hashPassword($password),
             'registration_date' => new CDbExpression('NOW()'),
             'registration_ip'   => Yii::app()->getRequest()->userHostAddress,
             'activation_ip'     => Yii::app()->getRequest()->userHostAddress,
@@ -739,7 +800,7 @@ class User extends YModel
 
         // если не определен емэйл то генерим уникальный
         $setemail = empty($email);
-        $this->email = $setemail ? 'user-' . $this->generateSalt() . '@' . $_SERVER['HTTP_HOST'] : $email;
+        $this->email = $setemail ? 'user-' . $this->generateRandomPassword() . '@' . $_SERVER['HTTP_HOST'] : $email;
 
         $this->save(false);
 
@@ -759,8 +820,8 @@ class User extends YModel
      */
     public function changePassword($password)
     {
-        $this->password = $this->hashPassword($password, $this->salt);
-        return $this->update(array('password'));
+        $this->hash = $this->hashPassword($password);
+        return $this->update(array('hash'));
     }
 
     /**
@@ -778,6 +839,13 @@ class User extends YModel
 
         $this->reg->status = UserToken::STATUS_ACTIVATE;
         $this->reg->ip = Yii::app()->getRequest()->getUserHostAddress();
+
+        if ($this->verify instanceof UserToken === false) {
+            UserToken::newVerifyEmail($this, UserToken::STATUS_ACTIVATE);
+        } else {
+            $this->verify->status = UserToken::STATUS_ACTIVATE;
+            $this->verify->update((array) 'status');
+        }
 
         $this->status = self::STATUS_ACTIVE;
         

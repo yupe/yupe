@@ -1030,16 +1030,11 @@ class DefaultController extends yupe\components\controllers\BackController
                     array(
                         'nick_name'         => $model->userName,
                         'email'             => $model->userEmail,
-                        'salt'              => $salt,
                         'gender'            => 0,
                         'use_gravatar'      => 1,
-                        'password'          => User::model()->hashPassword($model->userPassword, $salt),
-                        'registration_date' => new CDbExpression('NOW()'),
-                        'registration_ip'   => Yii::app()->getRequest()->userHostAddress,
-                        'activation_ip'     => Yii::app()->getRequest()->userHostAddress,
+                        'hash'              => User::model()->hashPassword($model->userPassword),
                         'access_level'      => User::ACCESS_LEVEL_ADMIN,
                         'status'            => User::STATUS_ACTIVE,
-                        'email_confirm'     => User::EMAIL_CONFIRM_YES,
                     )
                 );
 

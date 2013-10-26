@@ -14,39 +14,76 @@ class ProfileAction extends CAction
 {
     public function run()
     {
-        if (!Yii::app()->user->isAuthenticated()) {
+        // Так, кто у нас тут? Ага, гость - идика воооон туда:
+        if (Yii::app()->user->isAuthenticated() === false) {
             $this->controller->redirect(Yii::app()->user->loginUrl);
         }
 
+        // Инициализируем форму:
         $form = new ProfileForm;
-        $user = Yii::app()->user->getProfile();
-        $form->setAttributes($user->attributes);
+        
+        // Получаем профиль пользователя:
+        if (($user = Yii::app()->user->getProfile()) === null) {
+            // Сообщаем об ошибке:
+            Yii::app()->user->setFlash(
+                YFlashMessages::ERROR_MESSAGE,
+                Yii::t('UserModule.user', 'User not found.')
+            );
+
+            // На всякий случай:
+            Yii::app()->user->logout();
+
+            // Переадресовываем на соответствующую ошибку:
+            $this->controller->redirect(
+                (array) '/user/account/login'
+            );
+        }
+        
+        // Заполняем поля формы:
+        $form->setAttributes(
+            $user->getAttributes()
+        );
+        
+        // Очищаем необходимые поля:
         $form->password = $form->cPassword = null;
 
+        // Получаем модуль:
         $module = Yii::app()->getModule('user');
 
+        // Открываем ивент:
         $event = new CModelEvent($this->controller);
         $module->onBeginProfile($event);
 
-        if (Yii::app()->getRequest()->getIsPostRequest() && !empty($_POST['ProfileForm'])) {
+        // Если у нас есть данные из POST - получаем их:
+        if (($data = Yii::app()->getRequest()->getPost('ProfileForm')) !== null) {
 
+            // Открываем транзакцию:
             $transaction = Yii::app()->db->beginTransaction();
 
             try {
-                $form->setAttributes(Yii::app()->getRequest()->getPost('ProfileForm'));
+                // Заполняем атрибуты формы:
+                $form->setAttributes($data);
 
-                if ($form->validate()) {
-                    // скопируем данные формы
-                    $data = $form->getAttributes();
-                    $newPass = isset($data['password']) ? $data['password'] : null;
+                // Проводим валидацию формы:
+                if ($form->validate() === true) {
+                    
+                    // Новый пароль? - ок, запоминаем:
+                    $newPass = isset($data['password'])
+                                ? $data['password']
+                                : null;
+                    
+                    // Удаляем ненужные данные:
                     unset($data['password'], $data['avatar']);
 
-                    $orgMail = $user->email;
+                    // Запоминаем старую почту,
+                    $oldEmail = $user->email;
+                    
+                    // Заполняем модель данными:
                     $user->setAttributes($data);
 
+                    // Новый пароль? - Генерируем хеш:
                     if ($newPass) {
-                        $user->salt = $user->generateSalt();
-                        $user->password = $user->hashPassword($newPass, $user->salt);
+                        $user->password = User::hashPassword($newPass);
                     }
 
                     // Если есть ошибки в профиле - перекинем их в форму
@@ -55,15 +92,19 @@ class ProfileAction extends CAction
                     }
 
                     // Если у нас есть дополнительные профили - проверим их
-                    if (is_array($this->controller->module->profiles)) {
-                        foreach ($this->controller->module->profiles as $p) {
-                            if (!$p->validate()) {
-                                $form->addErrors($p->getErrors());
-                            }
-                        }
+                    foreach ((array) $this->controller->module->profiles as $p) {
+                        
+                        // Есть ошибки? - Добавляем их в форму:
+                        $p->validate() === true || $form->addErrors(
+                            $p->getErrors()
+                        );
+                    
                     }
 
-                    if (!$form->hasErrors()) {
+                    // Если нет ошибок валидации:
+                    if ($form->hasErrors() === false) {
+                        
+                        // Говорим о событии в лог-файл:
                         Yii::log(
                             Yii::t(
                                 'UserModule.user',
@@ -77,21 +118,26 @@ class ProfileAction extends CAction
                             UserModule::$logCategory
                         );
                         
+                        // Всё гуд? - Сообщаем пользователю:
                         Yii::app()->user->setFlash(
                             YFlashMessages::SUCCESS_MESSAGE,
                             Yii::t('UserModule.user', 'Your profile was changed successfully')
                         );
 
-                        if ($module->emailAccountVerification && ($orgMail != $form->email)) {
-                            // отправить email с сообщением о подтверждении мыла
-                            $user->email_confirm = User::EMAIL_CONFIRM_NO;
-                            $user->activate_key = $user->generateActivationKey();
+                        // Если включена верификация при смене почты:
+                        if ($module->emailAccountVerification && ($oldEmail != $form->email)) {
+                            
+                            // Если есть ещё токены верификации - инвалидируем их:
+                            $user->verify instanceof UserToken === false || $user->verify->compromise();
 
+                            // Генерируем тело письма:
                             $emailBody = $this->controller->renderPartial(
                                 'needEmailActivationEmail',
                                 array('model' => $user),
                                 true
                             );
+
+                            // Отправляем почту:
                             Yii::app()->mail->send(
                                 $module->notifyEmailFrom,
                                 $user->email,
@@ -103,9 +149,13 @@ class ProfileAction extends CAction
                                 $emailBody
                             );
 
+                            // Сообщаем пользователю:
                             Yii::app()->user->setFlash(
                                 YFlashMessages::SUCCESS_MESSAGE,
-                                Yii::t('UserModule.user', 'You need to confirm your e-mail. Please check the mail!')
+                                Yii::t(
+                                    'UserModule.user',
+                                    'You need to confirm your e-mail. Please check the mail!'
+                                )
                             );
                         }
 
@@ -124,10 +174,21 @@ class ProfileAction extends CAction
                             }
                         }
 
+                        // Сообщаем пользователю:
+                        Yii::app()->user->setFlash(
+                            YFlashMessages::SUCCESS_MESSAGE,
+                            Yii::t('UserModule.user', 'Profile was updated')
+                        );
+
+                        // Коммитим:
                         $transaction->commit();
-                        Yii::app()->user->setFlash(YFlashMessages::SUCCESS_MESSAGE, Yii::t('UserModule.user', 'Profile was updated'));
+                        
+                        // Переадресовываем куда нужно =)
                         $this->controller->redirect(array('/user/account/profile'));
+                    
                     } else {
+                        
+                        // Произошла ошибка? - Пишем в лог-файл:
                         Yii::log(
                             Yii::t('UserModule.user', 'Error when save profile! #{id}', array('{id}' => $user->id)),
                             CLogger::LEVEL_ERROR,
@@ -135,14 +196,28 @@ class ProfileAction extends CAction
                         );
                     }
                 }
-            }
-            catch(Exception $e)
-            {
+            
+            // Ловим ошибочки:
+            } catch(Exception $e) {
+                
+                // Откатываем правки:
                 $transaction->rollback();
-                Yii::app()->user->setFlash(YFlashMessages::ERROR_MESSAGE, $e->getMessage());
+                
+                // Сообщаем о проблеме пользователю:
+                Yii::app()->user->setFlash(
+                    YFlashMessages::ERROR_MESSAGE,
+                    $e->getMessage()
+                );
             }
         }
 
-        $this->controller->render('profile', array('model' => $form, 'module' => $module, 'user' => $user));
+        // Рендерим вьюшку:
+        $this->controller->render(
+            'profile', array(
+                'model'  => $form,
+                'module' => $module,
+                'user'   => $user
+            )
+        );
     }
 }

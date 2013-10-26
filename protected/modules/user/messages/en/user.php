@@ -343,4 +343,6 @@ return array (
     'For password recovery, please follow this :link' => '',
     'Your new password is ":password"' => '',
     'For login in, please follow this :link' => '',
+    'Email verification' => '',
+    'User not found' => '',
 );

@@ -341,5 +341,7 @@ return array (
     'For login in, please follow this :link' => 'Для входа в систему, пожалуйста, перейдите по этой :link',
     'For password recovery, please follow this :link' => 'Для восстановления пароля, пожалуйста, перейдите по этой :link',
     'Your new password is ":password"' => 'Ваш новый пароль - ":password"',
-    'For login in, please follow this :link' => 'Для авторизации, пожалуйста, перейдите по этой :link'
+    'For login in, please follow this :link' => 'Для авторизации, пожалуйста, перейдите по этой :link',
+    'Email verification' => 'Подтверждение email',
+    'User not found' => 'Пользователь не найден',
 );

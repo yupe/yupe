@@ -7,7 +7,9 @@
 <body>
 	<?php echo Yii::t(
         'UserModule.user', 'You was successfully registered on "{site}" !', array(
-            '{site}' => CHtml::encode(Yii::app()->name)
+            '{site}' => CHtml::encode(
+                Yii::app()->getModule('yupe')->siteName
+            )
         )
     ); ?>
 
@@ -32,7 +34,7 @@
         'UserModule.user',
         'Truly yours, administration of "{site}" !', array(
             '{site}' => CHtml::encode(
-                Yii::app()->name
+                Yii::app()->getModule('yupe')->siteName
             )
         )
     ); ?>

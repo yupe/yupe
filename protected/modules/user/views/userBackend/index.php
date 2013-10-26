@@ -65,7 +65,11 @@ $this->renderPartial('_search', array('model' => $model));
             'type'  => 'raw',
             'value' => 'CHtml::link($data->nick_name, array("/user/userBackend/update", "id" => $data->id))',
         ),
-        'email',
+        array(
+            'name'  => 'email',
+            'type'  => 'raw',
+            'value' => '$data->getVerifyIcon() . " " . $data->email',
+        ),
         array(
             'name'   => 'access_level',
             'value'  => '$data->getAccessLevel()',

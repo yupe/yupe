@@ -20,9 +20,11 @@ class UserToken extends YModel
      * 
      * activate        - активация аккаунта
      * change_password - запрос на смену/восстановление пароля
+     * email_verify    - подтверждение почты
      */
     const TYPE_ACTIVATE        = 1;
     const TYPE_CHANGE_PASSWORD = 2;
+    const TYPE_EMAIL_VERIFY    = 3;
 
     /**
      * Статусы токенов:
@@ -202,6 +204,7 @@ class UserToken extends YModel
         return array(
             self::TYPE_ACTIVATE        => Yii::t('UserModule.user', 'User activate'),
             self::TYPE_CHANGE_PASSWORD => Yii::t('UserModule.user', 'Change/reset password'),
+            self::TYPE_EMAIL_VERIFY    => Yii::t('UserModule.user', 'Email verification'),
         );
     }
 
@@ -299,6 +302,27 @@ class UserToken extends YModel
     public static function newRecovery(User $user)
     {
         return self::newToken($user, self::TYPE_CHANGE_PASSWORD);
+    }
+
+    /**
+     * Верификация почты:
+     * 
+     * @param User    $user   - пользователь
+     * @param integer $status - статус токена
+     * 
+     * @return mixed
+     *
+     * @throws Exception
+     */
+    public static function newVerifyEmail(User $user, $status = self::STATUS_NULL)
+    {
+        if (!empty($status) && self::getStatus($status) === null) {
+            throw new Exception(
+                Yii::t('UserModule.user', 'Unknown token status')
+            );
+        }
+
+        return self::newToken($user, self::TYPE_EMAIL_VERIFY, $status);
     }
 
     /**

@@ -18,6 +18,11 @@ class RegistrationForm extends CFormModel
     public $cPassword;
     public $verifyCode;
     public $about;
+    public $hash;
+    public $status       = User::STATUS_NOT_ACTIVE;
+    public $emailConfirm = User::EMAIL_CONFIRM_NO;
+    public $first_name   = '';
+    public $last_name    = '';
 
     public function rules()
     {
@@ -37,6 +42,9 @@ class RegistrationForm extends CFormModel
             array('verifyCode', 'YRequiredValidator', 'allowEmpty' => !$module->showCaptcha || !CCaptcha::checkRequirements(), 'message' => Yii::t('UserModule.user', 'Check code incorrect')),
             array('verifyCode', 'captcha', 'allowEmpty' => !$module->showCaptcha || !CCaptcha::checkRequirements()),
             array('verifyCode', 'emptyOnInvalid'),
+            array('status, emailConfirm', 'numerical', 'integerOnly' => true),
+            array('first_name, last_name', 'length', 'max' => 50),
+            array('hash', 'hashPassword'),
         );
     }
 
@@ -89,5 +97,12 @@ class RegistrationForm extends CFormModel
     {
         if ($this->hasErrors())
             $this->verifyCode = null;
+    }
+
+    public function hashPassword($attribute, $params)
+    {
+        if ($this->hasErrors() === false) {
+            $this->hash = User::hashPassword($this->password);
+        }
     }
 }
