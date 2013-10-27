@@ -124,7 +124,7 @@ return array (
     'Not activated' => '',
     'It is not possible to create directory for avatars!' => '',
     'It is not possible to save avatar!' => '',
-    'Bad request. Please don\'t user similar requests anymore!' => '',
+    'Bad request. Please don\'t use similar requests anymore!' => '',
     'Bad field format for "{attribute}". You can use only letters and digits from 2 to 20 symbols' => '',
     'No' => '',
     'Nick' => '',
@@ -345,4 +345,5 @@ return array (
     'For login in, please follow this :link' => '',
     'Email verification' => '',
     'User not found' => '',
+    'Send a letter to verify email' => '',
 );

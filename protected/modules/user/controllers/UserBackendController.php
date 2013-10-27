@@ -165,7 +165,7 @@ class UserBackendController extends yupe\components\controllers\BackController
         } else {
             throw new CHttpException(
                 400,
-                Yii::t('UserModule.user', 'Bad request. Please don\'t user similar requests anymore!')
+                Yii::t('UserModule.user', 'Bad request. Please don\'t use similar requests anymore!')
             );
         }
     }
@@ -197,25 +197,35 @@ class UserBackendController extends yupe\components\controllers\BackController
      */
     public function actionSendactivation($id)
     {
-        if (($user = User::model()->with('reg')->findbyPk($id)) === null) {
-            if (!Yii::app()->getRequest()->getIsPostRequest() || !Yii::app()->getRequest()->getIsAjaxRequest()) {
+        Yii::app()->getRequest()->getIsAjaxRequest() === true || $this->badRequest();
+
+        if (($user = $this->loadModel($id, array('reg'))) === null) {
+            if (Yii::app()->getRequest()->getIsAjaxRequest() === false) {
                 Yii::app()->user->setFlash(
                     YFlashMessages::ERROR_MESSAGE,
                     Yii::t('UserModule.user', 'User with #{id} was not found', array('{id}' => $id))
                 );
                 $this->redirect(array('index'));
-            } else
+            } else {
                 Yii::app()->ajax->failure(
                     Yii::t('UserModule.user', 'User with #{id} was not found', array('{id}' => $id))
                 );
+            }
         }
 
         if ($user->getIsActivated()) {
-            Yii::app()->user->setFlash(
-                YFlashMessages::ERROR_MESSAGE,
-                Yii::t('UserModule.user', 'User #{id} is already activated', array('{id}' => $id))
-            );
-            $this->redirect(array('index'));
+            if (Yii::app()->getRequest()->getIsAjaxRequest() === false) {
+                Yii::app()->user->setFlash(
+                    YFlashMessages::ERROR_MESSAGE,
+                    Yii::t('UserModule.user', 'User #{id} is already activated', array('{id}' => $id))
+                );
+                
+                $this->redirect(array('index'));
+            } else {
+                Yii::app()->ajax->failure(
+                    Yii::t('UserModule.user', 'User #{id} is already activated', array('{id}' => $id))
+                );
+            }
         }
         
         if ($user->reg instanceof UserToken === false) {
@@ -229,26 +239,9 @@ class UserBackendController extends yupe\components\controllers\BackController
         }
 
         // отправка email с просьбой активировать аккаунт
-        $mailBody = $this->renderPartial('needAccountActivationEmail', array('model' => $user), true);
-
-        Yii::app()->mail->send(
-            $this->module->notifyEmailFrom,
-            $user->email,
-            Yii::t('UserModule.user', 'Registration on {site}', array('{site}' => Yii::app()->name)),
-            $mailBody
+        yupe\components\Token::sendActivation(
+            $user, '//user/account/needAccountActivationEmail'
         );
-
-        if (!Yii::app()->getRequest()->getIsPostRequest() || !Yii::app()->getRequest()->getIsAjaxRequest()) {
-            Yii::app()->user->setFlash(
-                YFlashMessages::SUCCESS_MESSAGE,
-                Yii::t('UserModule.user', 'Activation mail was sent to user with #{id}!', array('{id}' => $id))
-            );
-            $this->redirect(array('index'));
-        } else {
-            Yii::app()->ajax->success(
-                Yii::t('UserModule.user', 'Activation mail was sent to user with #{id}!', array('{id}' => $id))
-            );
-        }
     }
 
     /**
@@ -274,6 +267,31 @@ class UserBackendController extends yupe\components\controllers\BackController
             }
         }
         return $this->_model;
+    }
+
+    /**
+     * Отправить письмо для подтверждения email:
+     * 
+     * @param integer $id - ID пользователя
+     * 
+     * @return void
+     */
+    public function actionVerifySend($id = null)
+    {
+        Yii::app()->getRequest()->getIsAjaxRequest() === true || $this->badRequest();
+
+        if ($id === null || ($user = $this->loadModel($id, array('reg', 'verify'))) === null) {
+            throw new CHttpException(
+                404,
+                Yii::t('UserModule.user', 'requested page was not found!')
+            );
+        } elseif ($user->getIsVerifyEmail() === true) {
+            return $this->badRequest();
+        }
+
+        yupe\components\Token::sendEmailVerify(
+            $user, '//user/account/needEmailActivationEmail'
+        );
     }
 
     /**

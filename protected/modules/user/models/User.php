@@ -38,6 +38,7 @@ class User extends YModel
     const ACCESS_LEVEL_ADMIN = 1;
 
     private $_oldAccess_level;
+    private $_oldStatus;
     public $use_gravatar = false;
 
     /**
@@ -129,7 +130,7 @@ class User extends YModel
             // - токен верификации
             'verify' => array(
                 self::HAS_ONE, 'UserToken', 'user_id', 'on' => 'verify.type = :verify_type AND (verify.status != :verify_status or verify.status IS NULL)', 'params' => array(
-                    ':verify_type'   => UserToken::TYPE_CHANGE_PASSWORD,
+                    ':verify_type'   => UserToken::TYPE_EMAIL_VERIFY,
                     ':verify_status' => UserToken::STATUS_FAIL,
                 ),
             ),
@@ -210,15 +211,15 @@ class User extends YModel
 
     public function getVerifyIcon()
     {
-        if ($this->verify !== null)
-        die(print_r($this->verify));
-
         return $this->getIsVerifyEmail()
                 ? '<i class="icon icon-ok-sign" title=""></i>'
                 : CHtml::link(
                     '<i class="icon icon-repeat" title=""></i>',
-                    array('verifySend'),
-                    array('class' => 'verify-email')
+                    array('verifySend', 'id' => $this->id),
+                    array(
+                        'class'  => 'verify-email',
+                        'title'  => Yii::t('UserModule.user', 'Send a letter to verify email'),
+                    )
                 );
     }
 
@@ -294,6 +295,7 @@ class User extends YModel
     public function afterFind()
     {
         $this->_oldAccess_level = $this->access_level;
+        $this->_oldStatus       = $this->status;
         
         // Если пустое поле аватар - автоматически
         // включаем граватар:
@@ -389,6 +391,10 @@ class User extends YModel
 
         // Если это не новая запись:
         if ($this->getIsNewRecord() === false) {
+            
+            // Запрещаем действия, при которых администратор
+            // может быть заблокирован или сайт останется без
+            // администратора:
             if (
                 $this->admin()->count() == 1
                 && $this->_oldAccess_level === self::ACCESS_LEVEL_ADMIN
@@ -402,7 +408,13 @@ class User extends YModel
                 return false;
             }
 
-            if ($this->reg instanceof UserToken && (int) $this->status !== self::STATUS_BLOCK) {
+            // Если есть токен регистрации,
+            // изменён статус и статус != заблокирован:
+            if (
+                $this->reg instanceof UserToken
+                && (int) $this->status !== $this->_oldStatus
+                && (int) $this->status !== self::STATUS_BLOCK
+            ) {
                 $this->reg->status = (int) $this->status === self::STATUS_ACTIVE
                     ? UserToken::STATUS_ACTIVATE
                     : null;
@@ -837,19 +849,15 @@ class User extends YModel
             );
         }
 
-        $this->reg->status = UserToken::STATUS_ACTIVATE;
-        $this->reg->ip = Yii::app()->getRequest()->getUserHostAddress();
-
         if ($this->verify instanceof UserToken === false) {
             UserToken::newVerifyEmail($this, UserToken::STATUS_ACTIVATE);
         } else {
-            $this->verify->status = UserToken::STATUS_ACTIVATE;
-            $this->verify->update((array) 'status');
+            $this->verify->activate();
         }
 
         $this->status = self::STATUS_ACTIVE;
         
-        return $this->reg->update(array('status', 'ip'))
+        return $this->reg->activate()
             && $this->update(array('status'));
     }
 

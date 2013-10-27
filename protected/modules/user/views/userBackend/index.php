@@ -34,10 +34,22 @@
 <?php
 Yii::app()->clientScript->registerScript('search', "
     $('.search-form form').submit(function() {
+        event.preventDefault();
+
         $.fn.yiiGridView.update('user-grid', {
             data: $(this).serialize()
         });
-        return false;
+    });
+
+    $(document).on('click', '.verify-email', function(){
+        var link = $(this);
+        
+        event.preventDefault();
+
+        $.post(link.attr('href'), actionToken.token)
+            .done(function(response){
+                bootbox.alert(response.data);
+            });
     });
 ");
 $this->renderPartial('_search', array('model' => $model));

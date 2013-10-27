@@ -124,7 +124,7 @@ return array (
     'Not activated' => 'Не активирован',
     'It is not possible to create directory for avatars!' => 'Не удалось создать каталог для аватарок!',
     'It is not possible to save avatar!' => 'Не удалось сохранить аватар!',
-    'Bad request. Please don\'t user similar requests anymore!' => 'Неверный запрос. Пожалуйста, больше не повторяйте такие запросы!',
+    'Bad request. Please don\'t use similar requests anymore!' => 'Неверный запрос. Пожалуйста, больше не повторяйте такие запросы!',
     'Bad field format for "{attribute}". You can use only letters and digits from 2 to 20 symbols' => 'Неверный формат поля "{attribute}" допустимы только буквы и цифры, от 2 до 20 символов',
     'No' => 'Нет',
     'Nick' => 'Ник',
@@ -344,4 +344,5 @@ return array (
     'For login in, please follow this :link' => 'Для авторизации, пожалуйста, перейдите по этой :link',
     'Email verification' => 'Подтверждение email',
     'User not found' => 'Пользователь не найден',
+    'Send a letter to verify email' => 'Отправить письмо для проверки email',
 );

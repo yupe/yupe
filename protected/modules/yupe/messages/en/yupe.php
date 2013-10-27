@@ -314,4 +314,6 @@ return array (
   'Change module settings' => '',
   'Please, set images uploading directory! {link}' => '',
   'Members' => '',
+  'Bad request. Please don\'t use similar requests anymore!' => '',
+  'Letter sent!' => '',
 );

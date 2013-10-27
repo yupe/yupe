@@ -24,8 +24,8 @@
 		) . CHtml::link(
 			Yii::t('user', 'link'),
 			$link = $this->createAbsoluteUrl(
-				'/user/account/confirm', array(
-					'token'=> $model->verify->genActivateCode()
+				'/user/account/emailConfirm', array(
+					'token'=> $model->activate_key
 				)
 			)
 		); ?>

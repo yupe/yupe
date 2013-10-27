@@ -168,6 +168,31 @@ class Controller extends \CController
     }
 
     /**
+     * Если вызван ошибочный запрос:
+     *
+     * @param string  $message - сообщение
+     * @param integer $error   - код ошибки
+     * 
+     * @return void
+     */
+    protected function badRequest($message = null, $error = 400)
+    {
+        // Если сообщение не установленно - выставляем
+        // дефолтное
+        $message = $message
+                    ?: Yii::t(
+                        'YupeModule.yupe',
+                        'Bad request. Please don\'t use similar requests anymore!'
+                    );
+
+        if (Yii::app()->getRequest()->getIsAjaxRequest() === true) {
+            return Yii::app()->ajax->failure($message);
+        }
+
+        throw new CHttpException($error, $message);
+    }
+
+    /**
      * Отключение всех профайлеров и логгеров, используется, например при загрузке файлов
      *
      * @since 0.5

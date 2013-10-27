@@ -133,7 +133,7 @@ class TokensBackendController extends yupe\components\controllers\BackController
         } else {
             throw new CHttpException(
                 400,
-                Yii::t('UserModule.user', 'Bad request. Please don\'t user similar requests anymore!')
+                Yii::t('UserModule.user', 'Bad request. Please don\'t use similar requests anymore!')
             );
         }
 	}
@@ -178,7 +178,7 @@ class TokensBackendController extends yupe\components\controllers\BackController
         } else {
             throw new CHttpException(
                 400,
-                Yii::t('UserModule.user', 'Bad request. Please don\'t user similar requests anymore!')
+                Yii::t('UserModule.user', 'Bad request. Please don\'t use similar requests anymore!')
             );
         }
     }

@@ -124,41 +124,6 @@ class ProfileAction extends CAction
                             Yii::t('UserModule.user', 'Your profile was changed successfully')
                         );
 
-                        // Если включена верификация при смене почты:
-                        if ($module->emailAccountVerification && ($oldEmail != $form->email)) {
-                            
-                            // Если есть ещё токены верификации - инвалидируем их:
-                            $user->verify instanceof UserToken === false || $user->verify->compromise();
-
-                            // Генерируем тело письма:
-                            $emailBody = $this->controller->renderPartial(
-                                'needEmailActivationEmail',
-                                array('model' => $user),
-                                true
-                            );
-
-                            // Отправляем почту:
-                            Yii::app()->mail->send(
-                                $module->notifyEmailFrom,
-                                $user->email,
-                                Yii::t(
-                                    'UserModule.user',
-                                    'New e-mail confirmation for {site}!',
-                                    array('{site}' => Yii::app()->name)
-                                ),
-                                $emailBody
-                            );
-
-                            // Сообщаем пользователю:
-                            Yii::app()->user->setFlash(
-                                YFlashMessages::SUCCESS_MESSAGE,
-                                Yii::t(
-                                    'UserModule.user',
-                                    'You need to confirm your e-mail. Please check the mail!'
-                                )
-                            );
-                        }
-
                         //Обновляем аватарку                    
                         if ($uploadedFile = CUploadedFile::getInstance($form, 'avatar')) {
                             $user->changeAvatar($uploadedFile);
@@ -182,6 +147,24 @@ class ProfileAction extends CAction
 
                         // Коммитим:
                         $transaction->commit();
+
+                        // Если включена верификация при смене почты:
+                        if ($module->emailAccountVerification && ($oldEmail != $form->email)) {
+                            
+                            // Выполняем отправку:
+                            yupe\components\Token::sendEmailVerify(
+                                $user, '//user/account/needEmailActivationEmail', true
+                            );
+
+                            // Сообщаем пользователю:
+                            Yii::app()->user->setFlash(
+                                YFlashMessages::SUCCESS_MESSAGE,
+                                Yii::t(
+                                    'UserModule.user',
+                                    'You need to confirm your e-mail. Please check the mail!'
+                                )
+                            );
+                        }
                         
                         // Переадресовываем куда нужно =)
                         $this->controller->redirect(array('/user/account/profile'));

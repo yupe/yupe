@@ -60,16 +60,6 @@ class RegistrationAction extends CAction
                     try {
                         if ($user->save()) {
 
-                            // отправка email с просьбой активировать аккаунт
-                            $mailBody = $this->controller->renderPartial('needAccountActivationEmail', array('model' => $user), true);
-
-                            Yii::app()->mail->send(
-                                $module->notifyEmailFrom,
-                                $user->email,
-                                Yii::t('UserModule.user', 'Registration on {site}', array('{site}' => Yii::app()->name)),
-                                $mailBody
-                            );
-
                             // запись в лог о создании учетной записи
                             Yii::log(
                                 Yii::t('UserModule.user', 'Account {nick_name} was created', array('{nick_name}' => $user->nick_name)),
@@ -77,6 +67,11 @@ class RegistrationAction extends CAction
                             );
 
                             $transaction->commit();
+
+                            // отправка email с просьбой активировать аккаунт
+                            yupe\components\Token::sendActivation(
+                                $user, '//user/account/needAccountActivationEmail'
+                            );
 
                             Yii::app()->user->setFlash(
                                 YFlashMessages::SUCCESS_MESSAGE,

@@ -148,6 +148,8 @@ class UserToken extends YModel
 
         $criteria->compare('t.ip', $this->ip, true);
 
+        $criteria->order = 't.user_id, t.status, t.created';
+
         return new CActiveDataProvider(
             $this, array(
                 'criteria'=>$criteria,
@@ -460,7 +462,7 @@ class UserToken extends YModel
     }
 
     /**
-     * Метод компрометации токена:
+     * Метод инвалидации токена:
      * 
      * @return boolean
      */
@@ -469,6 +471,16 @@ class UserToken extends YModel
         $this->status = self::STATUS_FAIL;
 
         return $this->save(array('status'));
+    }
+
+    public function activate()
+    {
+        // Обновляем статус, время обновления и ip:
+        $this->status  = self::STATUS_ACTIVATE;
+        $this->updated = new CDbExpression('NOW()');
+        $this->ip      = Yii::app()->getRequest()->getUserHostAddress();
+
+        return $this->update(array('status', 'updated', 'ip'));
     }
 
     /**

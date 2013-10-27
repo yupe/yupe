@@ -316,4 +316,6 @@ return array (
   'Members' => 'Участники',
   'Error occurred during the render widget ({widget}): {error}' => 'Во время отрисовки виджета ({widget}) произошла ошибка:<br />{error}',
   'Widget "{widget}" was not found!' => 'Виджет "{widget}" не найден!',
+  'Bad request. Please don\'t use similar requests anymore!' => 'Неверный запрос. Пожалуйста, больше не повторяйте такие запросы!',
+  'Letter sent!' => 'Письмо отправлено',
 );
