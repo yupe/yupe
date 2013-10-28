@@ -21,6 +21,7 @@ Yii::import('application.modules.user.models.UserToken');
 
 use User;
 use UserToken;
+use CMap;
 
 class Token extends \CComponent
 {
@@ -29,6 +30,7 @@ class Token extends \CComponent
      * 
      * @param User    $user      - пользователь
      * @param mixed   $view      - вьюха для отрисовки письма
+     * @param mixed   $data      - данные для вьюхи
      * @param boolean $newToken  - инвалидировать старый и создать новый токен
      * @param string  $type      - тип токена
      * @param string  $newMethod - метод для создания нового токена данного типа
@@ -36,17 +38,21 @@ class Token extends \CComponent
      * 
      * @return mixed
      */
-    protected static function send(User $user, $view, $newToken, $type, $newMethod, $mailTheme)
+    protected static function send(User $user, $view, $data, $newToken, $type, $newMethod, $mailTheme)
     {
-        // Если сказано инвалидировать старый токен
-        // так и поступаем:
-        if ($newToken === true) {
-            // Если есть ещё токены данного типа - инвалидируем их:
-            $user->$type instanceof UserToken === false || $user->$type->compromise() && $user->refresh();
+        // Для токена восстановления пароля, при включеном
+        // autoRecoveryPassword - не требуется создание токена:
+        if ($type !== 'recovery' && Yii::app()->getModule('user')->autoRecoveryPassword !== true) {
+            // Если сказано инвалидировать старый токен
+            // так и поступаем:
+            if ($newToken === true) {
+                // Если есть ещё токены данного типа - инвалидируем их:
+                $user->$type instanceof UserToken === false || $user->$type->compromise() && $user->refresh();
+            }
+            
+            // Если нет токена - создаём:
+            $user->$type instanceof UserToken || UserToken::$newMethod($user) && $user->refresh();
         }
-        
-        // Если нет токена - создаём:
-        $user->$type instanceof UserToken || UserToken::$newMethod($user) && $user->refresh();
 
         /**
          * Рендерим тело письма:
@@ -57,8 +63,10 @@ class Token extends \CComponent
          *       на шаблоны:
          */
         $emailBody = Yii::app()->controller->renderPartial(
-            $view, array(
-                'model' => $user
+            $view, CMap::mergeArray(
+                (array) $data, array(
+                    'model' => $user
+                )
             ), true
         );
 
@@ -85,14 +93,15 @@ class Token extends \CComponent
      * 
      * @param User    $user     - пользователь
      * @param mixed   $view     - вьюха для отрисовки письма
+     * @param mixed   $data     - данные для вьюхи
      * @param boolean $newToken - инвалидировать старый и создать новый токен
      * 
      * @return void
      */
-    public static function sendEmailVerify(User $user, $view = null, $newToken = false)
+    public static function sendEmailVerify(User $user, $view = null, $newToken = false, $data = array())
     {
         return self::send(
-            $user, $view, $newToken,
+            $user, $view, array(), $newToken,
             'verify', 'newVerifyEmail',
             Yii::t(
                 'UserModule.user',
@@ -107,20 +116,40 @@ class Token extends \CComponent
      * 
      * @param User    $user     - пользователь
      * @param mixed   $view     - вьюха для отрисовки письма
+     * @param mixed   $data     - данные для вьюхи
      * @param boolean $newToken - инвалидировать старый и создать новый токен
      * 
      * @return void
      */
-    public static function sendActivation(User $user, $view = null, $newToken = false)
+    public static function sendActivation(User $user, $view = null, $newToken = false, $data = array())
     {
         return self::send(
-            $user, $view, $newToken,
+            $user, $view, array(), $newToken,
             'reg', 'newActivate',
             Yii::t(
                 'UserModule.user',
                 'Registration on {site}',
                 array('{site}' => Yii::app()->getModule('yupe')->siteName)
             )
+        );
+    }
+
+    /**
+     * Отправка письма для сброса пароля:
+     * 
+     * @param User    $user     - пользователь
+     * @param mixed   $view     - вьюха для отрисовки письма
+     * @param mixed   $data     - данные для вьюхи
+     * @param boolean $newToken - инвалидировать старый и создать новый токен
+     * 
+     * @return void
+     */
+    public static function sendReset(User $user, $view = null, $data = array(), $newToken = true)
+    {
+        return self::send(
+            $user, $view, $data, $newToken,
+            'recovery', 'newRecovery',
+            Yii::t('UserModule.user', 'Password recovery!')
         );
     }
 

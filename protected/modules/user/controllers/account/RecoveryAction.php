@@ -71,29 +71,17 @@ class RecoveryAction extends CAction
                         // Обновляем данные, получая новый токен:
                         $user->with('recovery')->refresh();
 
-                        // Генерируем тело письма:
-                        $emailBody = $module->autoRecoveryPassword === "1"
-                            // Автоматическая генерация пароля с его
-                            // отпрвкой пользователю (без токена):
-                            ? $this->controller->renderPartial(
-                                'passwordAutoRecoveryEmail', array(
-                                    'password' => $new_password
-                                ), true
-                            )
-                            // Генерация токена и отправка пользователю
-                            // токена на восстановление:
-                            : $this->controller->renderPartial(
-                                'passwordRecoveryEmail', array(
-                                    'model' => $user
-                                ), true
-                            );
-
                         // Отправляем письмо:
-                        Yii::app()->mail->send(
-                            $module->notifyEmailFrom,
-                            $user->email,
-                            Yii::t('UserModule.user', 'Password recovery!'),
-                            $emailBody
+                        yupe\components\Token::sendReset(
+                            $user,
+                            $module->autoRecoveryPassword === "1"
+                                ? '//user/account/passwordAutoRecoveryEmail'
+                                : '//user/account/passwordRecoveryEmail',
+                            $module->autoRecoveryPassword === "1"
+                                ? array(
+                                    'password' => $new_password
+                                )
+                                : array()
                         );
 
                         // Делаем запись в лог:
