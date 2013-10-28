@@ -87,6 +87,10 @@ class UserBackendController extends yupe\components\controllers\BackController
 
             if ($model->save()) {
 
+                $model->getIsActivated() === false || UserToken::newVerifyEmail(
+                    $model, UserToken::STATUS_ACTIVATE
+                );
+
                 Yii::app()->user->setFlash(
                     YFlashMessages::SUCCESS_MESSAGE,
                     Yii::t('UserModule.user', 'New user was created!')
