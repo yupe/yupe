@@ -43,3 +43,12 @@
 #content h4 small {
     font-size: 10px;
 }
+
+div#page {
+    padding-top: 0;
+    padding-bottom: 0;
+}
+
+.navbar .nav > li > a:hover {
+    background-color: #000;
+}
