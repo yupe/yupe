@@ -1013,33 +1013,35 @@ class DefaultController extends yupe\components\controllers\BackController
             }
         }
 
-        if (Yii::app()->getRequest()->getIsPostRequest() && isset($_POST['InstallForm'])) {
+        if (($data = Yii::app()->getRequest()->getPost('InstallForm')) !== null) {
             // Сбрасываем сессию текущего пользователя, может поменяться id
             Yii::app()->user->clearStates();
 
-            $model->setAttributes($_POST['InstallForm']);
+            $model->setAttributes($data);
 
             if ($model->validate()) {
                 $user = new User;
 
                 $user->deleteAll();
 
-                $salt = $user->generateSalt();
-
                 $user->setAttributes(
                     array(
                         'nick_name'         => $model->userName,
                         'email'             => $model->userEmail,
                         'gender'            => 0,
-                        'use_gravatar'      => 1,
-                        'hash'              => User::model()->hashPassword($model->userPassword),
                         'access_level'      => User::ACCESS_LEVEL_ADMIN,
                         'status'            => User::STATUS_ACTIVE,
+                        'hash'              => User::hashPassword(
+                            $model->userPassword
+                        ),
                     )
                 );
 
                 if ($user->save()) {
-
+                    UserToken::newVerifyEmail(
+                        $user, UserToken::STATUS_ACTIVATE
+                    );
+                    
                     $login           = new LoginForm;
                     $login->email    = $model->userEmail;
                     $login->password = $model->userPassword;
