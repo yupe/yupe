@@ -30,21 +30,20 @@
         </p>
         <p>
             <?php echo Yii::t(
-                'UserModule.user', 'Your new password is ":password"', array(
-                    ':password' => $password
-                )
-            ); ?>
-        </p>
-        <p>
-            <?php echo Yii::t(
-                'UserModule.user', 'For login in, please follow this :link', array(
+                'UserModule.user', 'For password recovery, please follow this :link', array(
                     ':link' => CHtml::link(
                         Yii::t('UserModule.user', 'link'),
-                        $this->createAbsoluteUrl('/user/account/login')
+                        $link = $this->createAbsoluteUrl(
+                            '/user/account/restore', array(
+                                'token' => $model->recovery->genActivateCode(),
+                            )
+                        )
                     ),
                 )
             ); ?>
         </p>
+
+        <p><?php echo $link; ?></p>
 
         <hr />
         

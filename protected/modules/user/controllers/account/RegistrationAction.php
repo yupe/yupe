@@ -10,6 +10,9 @@
  * @link     http://yupe.ru
  *
  **/
+
+use yupe\components\WebModule;
+
 class RegistrationAction extends CAction
 {
     public function run()

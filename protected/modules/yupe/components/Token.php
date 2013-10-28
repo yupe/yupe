@@ -14,6 +14,7 @@
 namespace yupe\components;
 
 use Yii;
+use yupe\components\WebModule;
 
 // Импортируем нужные модели:
 Yii::import('application.modules.user.models.User');
@@ -40,19 +41,15 @@ class Token extends \CComponent
      */
     protected static function send(User $user, $view, $data, $newToken, $type, $newMethod, $mailTheme)
     {
-        // Для токена восстановления пароля, при включеном
-        // autoRecoveryPassword - не требуется создание токена:
-        if ($type !== 'recovery' && Yii::app()->getModule('user')->autoRecoveryPassword !== true) {
-            // Если сказано инвалидировать старый токен
-            // так и поступаем:
-            if ($newToken === true) {
-                // Если есть ещё токены данного типа - инвалидируем их:
-                $user->$type instanceof UserToken === false || $user->$type->compromise() && $user->refresh();
-            }
-            
-            // Если нет токена - создаём:
-            $user->$type instanceof UserToken || UserToken::$newMethod($user) && $user->refresh();
+        // Если сказано инвалидировать старый токен
+        // так и поступаем:
+        if ($newToken === true) {
+            // Если есть ещё токены данного типа - инвалидируем их:
+            $user->$type instanceof UserToken === false || $user->$type->compromise() && $user->refresh();
         }
+        
+        // Если нет токена - создаём:
+        $user->$type instanceof UserToken || UserToken::$newMethod($user) && $user->refresh();
 
         /**
          * Рендерим тело письма:

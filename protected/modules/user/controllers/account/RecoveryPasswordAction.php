@@ -10,6 +10,9 @@
  * @link     http://yupe.ru
  *
  **/
+
+use yupe\components\WebModule;
+
 class RecoveryPasswordAction extends CAction
 {
 	/**
@@ -38,7 +41,7 @@ class RecoveryPasswordAction extends CAction
 				// Сообщаем пользователю:
 				Yii::app()->user->setFlash(
 					YFlashMessages::SUCCESS_MESSAGE,
-					$module->autoRecoveryPassword === "1"
+					(int) $module->autoRecoveryPassword === WebModule::CHOICE_YES
 						? Yii::t(
                             'UserModule.user',
                             'Letter with password recovery instructions was sent on email which you choose during register'
@@ -57,7 +60,7 @@ class RecoveryPasswordAction extends CAction
 				);
 
 				// Формируем тело письма:
-				$emailBody = $module->autoRecoveryPassword === "1"
+				$emailBody = (int) $module->autoRecoveryPassword === WebModule::CHOICE_YES
 					// При автоматическом:
 					? $this->controller->renderPartial(
 						'passwordAutoRecoverySuccessEmail', array(
@@ -89,11 +92,11 @@ class RecoveryPasswordAction extends CAction
 				// Если не удалось сохранить модель пользователя
 				// или инвалидировать токен - создаём ексепшен:
 				throw new Exception(
-					'Error when changing password!'
-					. '<pre>'
+					// Ошибки забросим в лог:
+					"\n"
 					. print_r($user->getErrors(), true)
+					. "\n"
 					. print_r($user->recovery->getErrors(), true)
-					. '</pre>'
 				);
 			}
 
@@ -168,7 +171,7 @@ class RecoveryPasswordAction extends CAction
 		}
 
 		// Если включено автоматическое восстановление пароля:
-		if ($module->autoRecoveryPassword === "1") {
+		if ((int) $module->autoRecoveryPassword === WebModule::CHOICE_YES) {
 			
 			// Генерируем новый пароль:
 			$user->hash = User::hashPassword(

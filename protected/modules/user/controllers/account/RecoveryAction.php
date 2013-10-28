@@ -10,6 +10,9 @@
  * @link     http://yupe.ru
  *
  **/
+
+use yupe\components\WebModule;
+
 class RecoveryAction extends CAction
 {
     public function run()
@@ -58,35 +61,22 @@ class RecoveryAction extends CAction
                     // Создаём новый токен на восстановление пароля
                     // или меняем пароль при автоматическ:
                     // Так как параметры хранятся в varchar... используем === "1"
-                    if ($module->autoRecoveryPassword === "1" || UserToken::newRecovery($user)) {
+                    if (UserToken::newRecovery($user)) {
                         
-                        // Если необходимо - выполняем смену пароля:
-                        $module->autoRecoveryPassword === false || $user->changePassword(
-                            // Генерируем и запоминаем новый пароль:
-                            $new_password = User::generateRandomPassword(
-                                $module->minPasswordLength
-                            )
-                        );
-
                         // Обновляем данные, получая новый токен:
                         $user->with('recovery')->refresh();
 
                         // Отправляем письмо:
                         yupe\components\Token::sendReset(
                             $user,
-                            $module->autoRecoveryPassword === "1"
+                            (int) $module->autoRecoveryPassword === WebModule::CHOICE_YES
                                 ? '//user/account/passwordAutoRecoveryEmail'
-                                : '//user/account/passwordRecoveryEmail',
-                            $module->autoRecoveryPassword === "1"
-                                ? array(
-                                    'password' => $new_password
-                                )
-                                : array()
+                                : '//user/account/passwordRecoveryEmail'
                         );
 
                         // Делаем запись в лог:
                         Yii::log(
-                            $module->autoRecoveryPassword === "1"
+                            (int) $module->autoRecoveryPassword === WebModule::CHOICE_YES
                                 ? Yii::t('UserModule.user', 'Automatic password recovery request')
                                 : Yii::t('UserModule.user', 'Password recovery request'),
                             CLogger::LEVEL_INFO, UserModule::$logCategory
