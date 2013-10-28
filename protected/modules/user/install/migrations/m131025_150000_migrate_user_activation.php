@@ -10,6 +10,9 @@
  * @link     http://yupe.ru
  **/
 
+// Импортируем нужные модели:
+Yii::import('application.modules.user.models.User');
+
 class m131025_150000_migrate_user_activation extends yupe\components\DbMigration
 {
     public function safeUp()

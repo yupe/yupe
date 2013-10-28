@@ -49,7 +49,7 @@ class m131026_002234_prepare_hash_user_password extends yupe\components\DbMigrat
         	. (
         		Yii::app()->getDb()->getSchema() instanceof CPgsqlSchema
         			? 'md5(random()::text)'
-        			: 'MD5(RAND())'
+        			: '"' . md5(uniqid()) . microtime() . '"'
         	)
         );
         
@@ -60,7 +60,7 @@ class m131026_002234_prepare_hash_user_password extends yupe\components\DbMigrat
         	. (
         		Yii::app()->getDb()->getSchema() instanceof CPgsqlSchema
         			? 'md5(random()::text)'
-        			: 'MD5(RAND())'
+        			: '"' . md5(uniqid()) . microtime() . '"'
         	)
         );
         
