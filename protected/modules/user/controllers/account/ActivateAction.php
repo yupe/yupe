@@ -32,7 +32,7 @@ class ActivateAction extends CAction
                 )
             );
 
-        } elseif ((int) $user->reg->status === UserToken::STATUS_NULL && $user->activate()) {
+        } elseif ($user->getIsActivated() === false && $user->activate()) {
             
             // Записываем информацию о событии в лог-файл:
             Yii::log(
@@ -71,7 +71,6 @@ class ActivateAction extends CAction
             );
 
         } else {
-            
             // Сообщаяем о проблеме пользователю:
             Yii::app()->user->setFlash(
                 YFlashMessages::ERROR_MESSAGE,
