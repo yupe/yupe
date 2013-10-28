@@ -23,7 +23,10 @@
 
     <!-- Main hero unit for a primary marketing message or call to action -->
 
-    <div class="hero-unit">
+    <div class="hero-unit relative">
+
+        <a href="https://github.com/yupe/yupe" class="forkme" rel="nofollow"></a>
+        
         <h1>Юпи!</h1>
 
         <p>Простая, легкая и удобная CMS</p>

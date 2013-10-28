@@ -183,3 +183,15 @@ span.label a {
     }
 }
 
+.relative {
+    position: relative;
+}
+
+.forkme {
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 142px;
+    height: 142px;
+    background: url(../images/forkme.png) no-repeat;
+}
