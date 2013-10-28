@@ -3,6 +3,14 @@
  * Prepare hash field for replace password/salt fields
  * Класс миграций для модуля User:
  *
+ * Так как MySQL не поддерживает 'Calculated default values'
+ * http://stackoverflow.com/questions/4236912/how-to-create-calculated-field-in-mysql
+ * мы генерируем случайную строку, которая запретит вход по старым паролям
+ *
+ * В данном случае PostgreSQL жжёт и даёт действительно свободу воли,
+ * используйте его, если хотите действительно чистых и полноценных
+ * транзакций
+ *
  * @category YupeMigration
  * @package  yupe.modules.user.install.migrations
  * @author   YupeTeam <team@yupe.ru>
@@ -21,7 +29,10 @@ class m131026_002234_prepare_hash_user_password extends yupe\components\DbMigrat
         	. (
         		Yii::app()->getDb()->getSchema() instanceof CPgsqlSchema
         			? 'md5(random()::text)'
-        			: 'MD5(RAND())'
+                    // Делаем невозможность входа
+                    // по старому паролю
+                    // (генерируется случайная строка):
+        			: md5(uniqid()) . microtime()
         	)
         );
         
