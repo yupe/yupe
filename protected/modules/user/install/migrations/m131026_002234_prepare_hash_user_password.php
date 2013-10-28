@@ -32,7 +32,7 @@ class m131026_002234_prepare_hash_user_password extends yupe\components\DbMigrat
                     // Делаем невозможность входа
                     // по старому паролю
                     // (генерируется случайная строка):
-        			: md5(uniqid()) . microtime()
+        			: '"' . md5(uniqid()) . microtime() . '"'
         	)
         );
         

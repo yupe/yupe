@@ -32,7 +32,7 @@ class ActivateAction extends CAction
                 )
             );
 
-        } elseif ($user->reg->status === UserToken::STATUS_NULL && $user->activate()) {
+        } elseif ((int) $user->reg->status === UserToken::STATUS_NULL && $user->activate()) {
             
             // Записываем информацию о событии в лог-файл:
             Yii::log(

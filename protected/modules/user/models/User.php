@@ -183,7 +183,7 @@ class User extends YModel
     public function getIsActivated()
     {
         return $this->reg instanceof UserToken
-            && $this->reg->status === UserToken::STATUS_ACTIVATE;
+            && (int) $this->reg->status === UserToken::STATUS_ACTIVATE;
     }
 
     /**
@@ -206,7 +206,7 @@ class User extends YModel
     public function getIsVerifyEmail()
     {
         return $this->verify instanceof UserToken
-            && $this->verify->status === UserToken::STATUS_ACTIVATE;
+            && (int) $this->verify->status === UserToken::STATUS_ACTIVATE;
     }
 
     public function getVerifyIcon()
@@ -276,7 +276,7 @@ class User extends YModel
         $criteria->compare('t.email', $this->email, true);
         $criteria->compare('t.gender', $this->gender);
         
-        if ($this->status === self::STATUS_NOT_ACTIVE) {
+        if ((int) $this->status === self::STATUS_NOT_ACTIVE) {
             $criteria->compare('reg.status', UserToken::STATUS_NULL);
         } else {
             $criteria->compare('t.status', $this->status);
@@ -304,7 +304,7 @@ class User extends YModel
         // Если пользователь не имеет токена активации
         // или у токена статус не ACTIVATE пользователь
         // не может иметь статус - "активирован":
-        $this->getIsActivated() && $this->status !== self::STATUS_BLOCK || (
+        $this->getIsActivated() && (int) $this->status !== self::STATUS_BLOCK || (
             $this->status = self::STATUS_NOT_ACTIVE
         );
 
@@ -449,7 +449,7 @@ class User extends YModel
     {
         if ($this->getIsNewRecord() === true) {
             UserToken::newActivate(
-                $this, $this->status === self::STATUS_ACTIVE
+                $this, (int) $this->status === self::STATUS_ACTIVE
                             ? UserToken::STATUS_ACTIVATE
                             : null
             );

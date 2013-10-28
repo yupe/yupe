@@ -268,7 +268,7 @@ class UserToken extends YModel
 
     public function getIsCompromised()
     {
-        return $this->status === self::STATUS_FAIL;
+        return (int) $this->status === self::STATUS_FAIL;
     }
 
     /**

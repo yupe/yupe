@@ -230,7 +230,7 @@ class UserBackendController extends yupe\components\controllers\BackController
         
         if ($user->reg instanceof UserToken === false) {
             UserToken::newActivate(
-                $user, $user->status == User::STATUS_ACTIVE
+                $user, (int) $user->status == User::STATUS_ACTIVE
                             ? UserToken::STATUS_ACTIVATE
                             : null
             );
