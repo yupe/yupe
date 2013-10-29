@@ -192,7 +192,7 @@ return array (
   'Powered by Yupe!' => 'Работает на Юпи!',
   'Profile' => 'Профиль',
   'Read Yii documentation' => 'Обязательно прочтите документацию Yii',
-  'Refresh' => 'Обвновить',
+  'Refresh' => 'Обновить',
   'Removed {count} records!' => 'Удалено {count} записей!',
   'Report a bug' => 'Сообщите об ошибке',
   'Report bug' => 'Сообщить об ошибке',
