@@ -22,5 +22,6 @@ return array(
         '/posts/tag/<tag>'  => 'blog/post/list',
         '/blogs/<slug>'     => 'blog/blog/show',
         '/blogs'            => 'blog/blog/index',
+        '/posts'            => 'blog/post/index',
     ),
 );

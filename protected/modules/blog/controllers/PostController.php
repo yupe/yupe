@@ -14,11 +14,9 @@ class PostController extends yupe\components\controllers\FrontController
 
     public function actionIndex()
     {
-        $posts = Post::model()->with('blog','createUser')->published()->public()->findAll(array(
-                'order' => 'publish_date DESC'
-            ));
+        $posts = Post::model();
 
-        $this->render('index', array('posts' => $posts));
+        $this->render('index', array('model' => $posts));
     }
 
     /**

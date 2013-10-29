@@ -268,6 +268,23 @@ class Post extends YModel
         return new CActiveDataProvider('Post', array('criteria' => $criteria));
     }
 
+    public function allPosts()
+    {
+        $criteria = new CDbCriteria;
+        $criteria->addCondition('t.status = :status');
+        $criteria->addCondition('t.access_type = :access_type');
+        $criteria->params = array(
+            ':status'      => self::STATUS_PUBLISHED,
+            ':access_type' => self::ACCESS_PUBLIC
+        );
+        $criteria->with  = array('blog', 'createUser');
+        $criteria->order = 'publish_date DESC';
+
+        return new CActiveDataProvider(
+            'Post', array('criteria' => $criteria)
+        );
+    }
+
     public function behaviors()
     {
         $module = Yii::app()->getModule('blog');
@@ -406,8 +423,11 @@ class Post extends YModel
         return parent::afterFind();
     }
 
-    public function getQuote($limit=500)
+    public function getQuote($limit = 500)
     {
-        return $this->quote ? $this->quote : YText::characterLimiter($this->quote,(int)$limit);
+        return $this->quote
+            ?: YText::characterLimiter(
+                $this->content, (int) $limit
+            );
     }
 }
