@@ -19,7 +19,7 @@ class m131025_150000_migrate_user_activation extends yupe\components\DbMigration
     {
         foreach (User::model()->findAll() as $user) {
             // Определяем статус:
-            $user->status = isset($this->activation_ip) && !empty($this->activation_ip)
+            $user->status = isset($user->activation_ip) && !empty($user->activation_ip)
                             ? User::STATUS_ACTIVE
                             : (int) $user->status;
             
