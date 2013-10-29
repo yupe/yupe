@@ -318,4 +318,5 @@ return array (
   'Widget "{widget}" was not found!' => 'Виджет "{widget}" не найден!',
   'Bad request. Please don\'t use similar requests anymore!' => 'Неверный запрос. Пожалуйста, больше не повторяйте такие запросы!',
   'Letter sent!' => 'Письмо отправлено',
+  'There is an error occurred when try get modules from the cache. It seems that module\'s folder was deleted.' => 'Произошла ошибка при получении модулей из кеша. Кажется, что каталог модуля был удален.',
 );

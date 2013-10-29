@@ -316,4 +316,5 @@ return array (
   'Members' => '',
   'Bad request. Please don\'t use similar requests anymore!' => '',
   'Letter sent!' => '',
+  'There is an error occurred when try get modules from the cache. It seems that module\'s folder was deleted.' => '',
 );

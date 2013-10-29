@@ -3,6 +3,10 @@
 </div>
 
 <?php foreach ($modules as $module): ?>
+    <?php
+    if ($module instanceof yupe\components\WebModule === false) {
+        continue;
+    } ?>
     <?php if ($module->getIsActive()): ?>
         <?php $messages = $module->checkSelf(); ?>
         <?php if (is_array($messages)): ?>
@@ -54,6 +58,10 @@
         $allCount    = $yupeCount + $yiiCount;
         $enableCount = 0;
         foreach ($modules as $module) {
+            if ($module instanceof yupe\components\WebModule === false) {
+                continue;
+            }
+            
             if ($module->getIsActive() || $module->getIsNoDisable())
                 $enableCount++;
         }

@@ -737,46 +737,72 @@ class YupeModule extends WebModule
      */
     public function getModulesDisabled($enableModule = array())
     {
-        if (($imports = Yii::app()->cache->get('pathForImports')) !== false){
-            $this->setImport($imports);
-        }
         
-        if ($imports === false || ($modules = Yii::app()->cache->get('modulesDisabled')) === false) {
-            $path = $this->getModulesConfigDefault();
-            $enableModule = array_keys($enableModule);
+        
+        try {
+            if (($modules = @Yii::app()->cache->get('modulesDisabled', null)) == false) {
+                $modConfigs = Yii::getPathOfAlias('application.config.modules');
+                $modPath = Yii::getPathOfAlias('application.modules');
 
-            $modules = array();
-            $imports = array();
-            
-            if ($handler = opendir($path)) {
-                while (($dir = readdir($handler))) {
-                    if(!$this->isValidModule($dir)) {
-                        continue;
-                    }
-                    if ($dir != '.' && $dir != '..' && !is_file($dir) && !isset($enableModule[$dir])) {
-                        $modules[$dir] = $this->getCreateModule($dir);
-                        $imports[] = Yii::app()->cache->get('tmpImports');
+                foreach (new GlobIterator($modConfigs . '/*.php') as $item) {
+                    if (is_dir($modPath . '/' . $item->getBaseName('.php')) == false) {
+                        Yii::app()->cache->flush();
+
+                        unlink($modConfigs . '/' . $item->getBaseName());
+                        
+                        throw new Exception(
+                            Yii::t('YupeModule.yupe', 'There is an error occurred when try get modules from the cache. It seems that module\'s folder was deleted.')
+                        );
                     }
                 }
-                closedir($handler);
+                
+                $path = $this->getModulesConfigDefault();
+                $enableModule = array_keys($enableModule);
+
+                $modules = array();
+                $imports = array();
+                
+                if ($handler = opendir($path)) {
+                    while (($dir = readdir($handler))) {
+                        if(!$this->isValidModule($dir)) {
+                            continue;
+                        }
+                        if ($dir != '.' && $dir != '..' && !is_file($dir) && !isset($enableModule[$dir])) {
+                            $modules[$dir] = $this->getCreateModule($dir);
+                            $imports[] = Yii::app()->cache->get('tmpImports');
+                        }
+                    }
+                    closedir($handler);
+                }
+
+                $chain = new CChainedCacheDependency();
+
+                // Зависимость на тег:
+                $chain->dependencies->add(
+                    new TagsCache('yupe', 'modulesDisabled', 'getModulesDisabled', 'installedModules', 'pathForImports')
+                );
+
+                // Зависимость на каталог 'application.config.modules':
+                $chain->dependencies->add(
+                    new CDirectoryCacheDependency(
+                        Yii::getPathOfAlias('application.config.modules')
+                    )
+                );
+
+                Yii::app()->cache->set('modulesDisabled', $modules, 0, $chain);
+                Yii::app()->cache->set('pathForImports', $imports, 0, $chain);
             }
+        } catch (Exception $e) {
+            Yii::app()->cache->flush();
 
-            $chain = new CChainedCacheDependency();
-
-            // Зависимость на тег:
-            $chain->dependencies->add(
-                new TagsCache('yupe', 'modulesDisabled', 'getModulesDisabled', 'installedModules', 'pathForImports')
+            Yii::app()->user->setFlash(
+                YFlashMessages::ERROR_MESSAGE,
+                $e->getMessage()
             );
-
-            // Зависимость на каталог 'application.config.modules':
-            $chain->dependencies->add(
-                new CDirectoryCacheDependency(
-                    Yii::getPathOfAlias('application.config.modules')
-                )
+            
+            return Yii::app()->controller->redirect(
+                Yii::app()->getRequest()->url
             );
-
-            Yii::app()->cache->set('modulesDisabled', $modules, 0, $chain);
-            Yii::app()->cache->set('pathForImports', $imports, 0, $chain);
         }
 
         return $modules;

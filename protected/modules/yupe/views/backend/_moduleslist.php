@@ -13,6 +13,9 @@ if (count($modules)) :
     $updates = Yii::app()->migrator->checkForUpdates($modules);
 
     foreach ($modules as &$m) {
+        if ($m instanceof yupe\components\WebModule === false) {
+            continue;
+        }
 
         if ($m->canActivate() === false)
             continue;
@@ -126,8 +129,12 @@ function moduleRow($module, &$updates, &$modules)
                 else
                     if(count($deps = $module->getDependent()))
                     {
-                        foreach($deps as &$dep)
-                            $dep = $modules[$dep]->getName();
+                        foreach($deps as &$dep) {
+                            if (isset($modules[$dep]) && $modules[$dep] instanceof yupe\components\WebModule === false) {
+                                continue;
+                            }
+                            $dep = isset($modules[$dep]) ? $modules[$dep]->getName() : null;
+                        }
                         $tabs[] = array(
                             'label'   => "<br />" . Yii::t('YupeModule.yupe', 'dependent'),
                             'content' => implode(', ', $deps),
