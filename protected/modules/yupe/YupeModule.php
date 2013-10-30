@@ -737,10 +737,12 @@ class YupeModule extends WebModule
      */
     public function getModulesDisabled($enableModule = array())
     {
-        
+        if (($imports = Yii::app()->cache->get('pathForImports')) !== false){
+            $this->setImport($imports);
+        }
         
         try {
-            if (($modules = @Yii::app()->cache->get('modulesDisabled', null)) == false) {
+            if ($imports === false || ($modules = @Yii::app()->cache->get('modulesDisabled')) == false) {
                 $modConfigs = Yii::getPathOfAlias('application.config.modules');
                 $modPath = Yii::getPathOfAlias('application.modules');
 
