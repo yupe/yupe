@@ -474,15 +474,7 @@ class YupeModule extends WebModule
      **/
     public function init()
     {
-        parent::init();
-
         $this->otherCategoryName = Yii::t('YupeModule.yupe', 'Other');
-
-        $editors = $this->getEditors();
-        // если не выбран редактор, но редакторы есть - возмем первый попавшийся
-        if (!$this->editor && is_array($editors)) {
-            $this->editor = array_shift($editors);
-        }
 
         $this->categoryIcon = array(
             Yii::t('YupeModule.yupe', 'Services') => 'briefcase',
@@ -497,6 +489,8 @@ class YupeModule extends WebModule
             Yii::t('YupeModule.yupe', 'Yupe!'),
             $this->otherCategoryName,
         );
+
+        parent::init();
     }
 
     /**

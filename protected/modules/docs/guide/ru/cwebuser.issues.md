@@ -1,6 +1,6 @@
 # Проблемы CWebUser и модуля Gii #
 
-**Автор**: [Комманда разработчиков Юпи!](http://yupe.ru/feedback/index?from=docs)
+**Автор**: [Комманда разработчиков Юпи!](http://yupe.ru/contacts?from=docs)
 
 **Версия**: 0.1 (dev)
 

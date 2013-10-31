@@ -161,7 +161,7 @@ return array (
   'Insert symbols you see on image'=>'Введите цифры указанные на картинке',
   'If you have any questions, proposals or want to report an error'=>'Если у Вас есть вопросы, предложения или Вы хотите сообщите об ошибке.',
   'If you interesting with quality project which simple in support'=>'Если Вы заинтересованы в создании качественного легкого в поддержке проекта.',
-  'Immediately <a href="http://yupe.ru/feedback/index?from=contact" target="_blank">write to us</a> about it!'=>'Срочно <a href="http://yupe.ru/feedback/index?from=contact" target="_blank">напишите нам</a> об этом!',
+  'Immediately <a href="http://yupe.ru/contacts?from=contact" target="_blank">write to us</a> about it!'=>'Срочно <a href="http://yupe.ru/contacts?from=contact" target="_blank">напишите нам</a> об этом!',
   'We try to answer as fast as we can!'=>'Мы стараемся отвечать очень быстро :)',
   'Thanks for attention!'=>'Спасибо, за внимание!',
 );

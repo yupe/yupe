@@ -174,7 +174,7 @@ return array (
   'Official forum' => '',
   'Official site' => '',
   'Ok' => '',
-  'On business support and development you can always <a href="http://yupe.ru/feedback/index/?form=help" target="_blank">feedback us</a> (<a href="http://yupe.ru/feedback/index/?form=help" target="_blank">http://yupe.ru/feedback/index</a>)' => '',
+  'On business support and development you can always <a href="http://yupe.ru/contacts/?form=help" target="_blank">feedback us</a> (<a href="http://yupe.ru/contacts/?form=help" target="_blank">http://yupe.ru/contacts</a>)' => '',
   'Opeykin Andrey' => '',
   'Order development and support' => '',
   'Other' => '',

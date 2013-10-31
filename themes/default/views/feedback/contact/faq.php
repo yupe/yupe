@@ -2,7 +2,7 @@
 
 <?php
     $this->breadcrumbs = array(
-        Yii::t('FeedbackModule.feedback', 'Contacts') => array('/feedback/index/'),
+        Yii::t('FeedbackModule.feedback', 'Contacts') => array('/feedback/contact/index'),
         Yii::t('FeedbackModule.feedback', 'FAQ'),
     );
 ?>

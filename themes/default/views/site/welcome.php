@@ -1,7 +1,7 @@
 <h1>Congratulations!</h1>
 <p>You just have installed <a href="http://yupe.ru?from=mainpage" target='_blank'>Yupe! CMS</a>! We hope it was simple and you haven't got any problems!?</p>
 <div class='alert alert-warning'>
-    <p><b>If you have questions about development and support - <a href='http://yupe.ru/feedback/index/?from=mainpage-support' target='_blank'>write us</a> !</b></p>
+    <p><b>If you have questions about development and support - <a href='http://yupe.ru/contacts?from=mainpage-support' target='_blank'>write us</a> !</b></p>
     <p>Read us in <a href='http://twitter.com/yupecms' target='_blank'>twitter</a>, <a href='http://vk.com/amylabs' target='_blank'>Vk.com</a>, <a href="https://www.facebook.com/amylabs.ru" target='_blank'>Facebook</a> or in <a href="https://plus.google.com/u/0/b/111468098477631231532/111468098477631231532/posts" target='_blank'>Google+</a></p>
 </div>
 <?php if (YII_DEBUG === true) : ?>

@@ -111,7 +111,7 @@
                                 array(
                                     'icon'  => 'icon-warning-sign',
                                     'label' => Yii::t('YupeModule.yupe', 'Report bug'),
-                                    'url'   => 'http://yupe.ru/feedback/index?from=install',
+                                    'url'   => 'http://yupe.ru/contacts?from=install',
                                     'linkOptions' => array('target' => '_blank'),
                                 ),
                                 array(

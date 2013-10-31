@@ -1,7 +1,7 @@
 <h1>Поздравляем!</h1>
 <p>Вы установили <a href="http://yupe.ru?from=mainpage" target='_blank'>Юпи! CMS</a>! Надеемся у Вас не возникло сложностей !?</p>
 <div class='alert alert-warning'>
-    <p><b>По вопросам разработки и поддержки - <a href='http://yupe.ru/feedback/index/?from=mainpage-support' target='_blank'>напишите нам</a> !</b></p>
+    <p><b>По вопросам разработки и поддержки - <a href='http://yupe.ru/contacts/?from=mainpage-support' target='_blank'>напишите нам</a> !</b></p>
     <p>Читайте нас в <a href='http://twitter.com/yupecms' target='_blank'>twitter</a>, <a href='http://vk.com/amylabs' target='_blank'>Вконтакте</a>, <a href="https://www.facebook.com/amylabs.ru" target='_blank'>Facebook</a> или в <a href="https://plus.google.com/u/0/b/111468098477631231532/111468098477631231532/posts" target='_blank'>Google+</a></p>
 </div>
 <?php if (YII_DEBUG === true) : ?>

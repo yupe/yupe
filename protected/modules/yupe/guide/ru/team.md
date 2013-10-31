@@ -12,4 +12,4 @@
 - Кучеров Антон [http://idexter.ru/](http://idexter.ru/)
 - Кирилл Чистов [http://brainstorage.me/hitakiri/profile](http://brainstorage.me/hitakiri/profile)
 
-[Ждем только тебя !](http://yupe.ru/feedback/index)
+[Ждем только тебя !](http://yupe.ru/contacts)

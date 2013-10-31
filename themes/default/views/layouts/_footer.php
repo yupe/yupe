@@ -22,7 +22,7 @@
             <li><a href="http://api.yupe.ru/" target="_blank"><?php echo Yii::t('default', 'API'); ?></a></li>
             <li><a href="http://yupe.ru/talk/" target="_blank"><?php echo Yii::t('default', 'Forum'); ?></a></li>
             <li><a href="http://yupe.ru/feedback/faq/" target="_blank"><?php echo Yii::t('default', 'FAQ'); ?></a></li>
-            <li><a href="http://yupe.ru/feedback/index/"
+            <li><a href="http://yupe.ru/contacts?from=footer"
                    target="_blank"><?php echo Yii::t('default', 'Contacts'); ?></a></li>
         </ul>
     </div>
@@ -49,7 +49,7 @@
             <li><a href="http://allframeworks.ru" target="_blank"><?php echo Yii::t('default', 'allframeworks'); ?></a>
             </li>
             <li><a href="http://amylabs.ru" target="_blank"><?php echo Yii::t('default', 'amyLabs'); ?></a></li>
-            <li><a href="http://yupe.ru/feedback/index/"
+            <li><a href="http://yupe.ru/contacts?from=footer"
                    target="_blank"><?php echo Yii::t('default', 'Do you want to be our friend?'); ?></a></li>
             <li><a href="http://amylabs.ru/contact?from=yupe"
                    target="_blank"><?php echo Yii::t('default', 'Commertial support'); ?></a></li>

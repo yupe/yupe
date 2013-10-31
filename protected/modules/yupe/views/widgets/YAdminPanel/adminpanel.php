@@ -76,7 +76,7 @@ $this->widget(
                                 array(
                                     'icon'  => 'icon-thumbs-up',
                                     'label' => Yii::t('YupeModule.yupe', 'Order development and support'),
-                                    'url'   => 'http://yupe.ru/feedback/index?from=help-support',
+                                    'url'   => 'http://yupe.ru/contacts?from=help-support',
                                     'linkOptions' => array('target' => '_blank'),
                                 ),
                                 array(

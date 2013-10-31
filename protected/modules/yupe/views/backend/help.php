@@ -28,7 +28,7 @@ $this->breadcrumbs = array(
     </p>
     <?php echo CHtml::link(Yii::t('YupeModule.yupe', 'There is a page for tahnks =)'), 'http://yupe.ru/pages/help?form=help', array('target' => '_blank')); ?>
     <p><p><b>
-        <?php echo Yii::t('YupeModule.yupe', 'On business support and development you can always <a href="http://yupe.ru/feedback/index/?form=help" target="_blank">feedback us</a> (<a href="http://yupe.ru/feedback/index/?form=help" target="_blank">http://yupe.ru/feedback/index</a>)'); ?>
+        <?php echo Yii::t('YupeModule.yupe', 'On business support and development you can always <a href="http://yupe.ru/contacts/?form=help" target="_blank">feedback us</a> (<a href="http://yupe.ru/contacts/?form=help" target="_blank">http://yupe.ru/contacts</a>)'); ?>
     </b></p></p>
 </div>
 
@@ -75,7 +75,7 @@ $this->breadcrumbs = array(
 <br /><br />
 
 <div class="alert">
-    <?php echo Yii::t('YupeModule.yupe', 'Feedback at <a href="mailto:team@yupe.ru">team@yupe.ru</a> or {link}',array('{link}' => CHtml::link(Yii::t('YupeModule.yupe','feedback form'),'http://yupe.ru/feedback/index?from=help',array('target' => '_blank')))); ?>  - <?php echo Yii::t('YupeModule.yupe', 'accept any kind of business and any proposals =)'); ?>
+    <?php echo Yii::t('YupeModule.yupe', 'Feedback at <a href="mailto:team@yupe.ru">team@yupe.ru</a> or {link}',array('{link}' => CHtml::link(Yii::t('YupeModule.yupe','feedback form'),'http://yupe.ru/contacts?from=help',array('target' => '_blank')))); ?>  - <?php echo Yii::t('YupeModule.yupe', 'accept any kind of business and any proposals =)'); ?>
 </div>
 
 <br />
@@ -125,7 +125,7 @@ $this->breadcrumbs = array(
     </tbody>
 </table>
 
-<b><?php echo CHtml::link(Yii::t('YupeModule.yupe','WE ARE WAITING FOR YOU!'),'http://yupe.ru/feedback/index?from=help',array('target' => '_blank'));?></b>
+<b><?php echo CHtml::link(Yii::t('YupeModule.yupe','WE ARE WAITING FOR YOU!'),'http://yupe.ru/contacts?from=help',array('target' => '_blank'));?></b>
 
 <br/><br/>
 
