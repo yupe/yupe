@@ -474,6 +474,20 @@ class YupeModule extends WebModule
      **/
     public function init()
     {
+        parent::init();
+    }
+
+    /**
+     * Возвращаем список модулей:
+     *
+     * @param bool $navigationOnly - только навигация
+     * @param bool $disableModule  - отключённые модули
+     *
+     * @return mixed
+     **/
+    public function getModules($navigationOnly = false, $disableModule = false)
+    {
+
         $this->otherCategoryName = Yii::t('YupeModule.yupe', 'Other');
 
         $this->categoryIcon = array(
@@ -490,19 +504,6 @@ class YupeModule extends WebModule
             $this->otherCategoryName,
         );
 
-        parent::init();
-    }
-
-    /**
-     * Возвращаем список модулей:
-     *
-     * @param bool $navigationOnly - только навигация
-     * @param bool $disableModule  - отключённые модули
-     *
-     * @return mixed
-     **/
-    public function getModules($navigationOnly = false, $disableModule = false)
-    {
         $modules = $yiiModules = $order = array();
 
         if (count(Yii::app()->modules)) {

@@ -44,29 +44,29 @@
             <?php endif; ?>
 
             <div class="widget blogs-widget">
-                <?php $this->widget('application.modules.blog.widgets.BlogsWidget', array('cacheTime' => 0)); ?>
+                <?php $this->widget('application.modules.blog.widgets.BlogsWidget', array('cacheTime' => $this->yupe->coreCacheTime)); ?>
             </div>
 
             <div class="widget last-posts-widget">
-                <?php $this->widget('application.modules.blog.widgets.LastPostsWidget', array('cacheTime' => 0)); ?>
+                <?php $this->widget('application.modules.blog.widgets.LastPostsWidget', array('cacheTime' => $this->yupe->coreCacheTime)); ?>
             </div>
 
             <div class="widget tags-cloud-widget">
                 <?php $this->widget(
                     'application.modules.yupe.extensions.taggable.widgets.TagCloudWidget.TagCloudWidget',
-                    array('cacheTime' => 0, 'model' => 'Post')
+                    array('cacheTime' => $this->yupe->coreCacheTime, 'model' => 'Post')
                 ); ?>
             </div>
 
             <div class="widget last-questions-widget">
-                <?php $this->widget('application.modules.feedback.widgets.FaqWidget', array('cacheTime' => 0)); ?>
+                <?php $this->widget('application.modules.feedback.widgets.FaqWidget', array('cacheTime' => $this->yupe->coreCacheTime)); ?>
             </div>
 
             <div class="widget last-login-users-widget">
                 <?php $this->widget(
                     'application.modules.user.widgets.LastLoginUsersWidget',
                     array(
-                        'cacheTime' => 0,
+                        'cacheTime' => $this->yupe->coreCacheTime,
                     )
                 ); ?>
             </div>
