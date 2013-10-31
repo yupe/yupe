@@ -38,7 +38,6 @@ class m121220_001126_menu_test_data extends yupe\components\DbMigration
             array(0, 1, 'Панель управления', '/yupe/backend/index', 'login-text', 'Панель управления сайтом', '', '', '', '', 'isSuperUser', 0, 13, 1),
             array(0, 1, 'FAQ', '/faq', '', 'FAQ', '', '', '', '', '', 0, 7, 1),
             array(0, 1, 'Контакты', '/contacts', '', 'Контакты', '', '', '', '', '', 0, 7, 1),
-
         ) ;
 
         $columns = array_shift($items);
