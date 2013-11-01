@@ -28,7 +28,9 @@ class ConfigManager extends CComponent
     // Пользовательские настройки:
     private $_userspace       = array();
     // Базовые настройки:
-    private $_base             = array();
+    private $_base            = array();
+    // Пользовательские настройки для разработки:
+    private $_dev             = array();
     // Файл кеша:
     private $_cachefile       = null;
     
@@ -64,7 +66,11 @@ class ConfigManager extends CComponent
                         ? require_once $this->basePath . '/config/userspace.php'
                         : $this->_userspace;
 
-        return $this->merge($this->_base, $this->_userspace);
+        $this->_dev = empty($this->_dev) && file_exists($this->basePath . '/config/userspace-development.php')
+                        ? require_once $this->basePath . '/config/userspace-development.php'
+                        : $this->_dev;
+
+        $this->merge($this->_base, $this->_userspace, $this->_dev);
     }
 
     /**
@@ -76,13 +82,14 @@ class ConfigManager extends CComponent
      * 
      * @return array - получаем настройки приложения
      */
-    public function merge($base = array(), $userspace = array())
+    public function merge($base = array(), $userspace = array(), $dev = array())
     {
         // Мне кажется, нет необходимости
         // изначально сливать настройки:
         //$this->_config    = CMap::mergeArray($base, $userspace);
         $this->_base         = $base;
         $this->_userspace    = $userspace;
+        $this->_dev          = $dev;
         
         // Выходим на несколько каталогов выше:
         $this->basePath      = Yii::getPathOfAlias('application');
@@ -121,7 +128,8 @@ class ConfigManager extends CComponent
                     $this->_base,
                     $this->cachedSettings()
                 ),
-                $this->_userspace
+                $this->_userspace,
+                $this->_dev
             );
         } else {
             $settings = $this->prepareSettings();
@@ -351,7 +359,7 @@ class ConfigManager extends CComponent
         // Сливаем напоследок с пользовательскими
         // настройками:
         $this->_config = CMap::mergeArray(
-            $this->_config, $this->_userspace
+            $this->_config, $this->_userspace, $this->_dev
         );
 
         // Создание кеша настроек:

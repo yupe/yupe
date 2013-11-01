@@ -46,8 +46,11 @@ $base = require dirname(__FILE__) . '/../protected/config/main.php';
 $userspace = dirname(__FILE__) . '/../protected/config/userspace.php';
 $userspace = file_exists($userspace) ? (require $userspace) : array();
 
+$dev = dirname(__FILE__) . '/../protected/config/userspace-development.php';
+$dev = file_exists($dev) ? (require $dev) : array();
+
 $confManager = new yupe\components\ConfigManager();
-$config = $confManager->merge($base, $userspace);
+$config = $confManager->merge($base, $userspace, $dev);
 
 
 require dirname(__FILE__).'/../vendor/autoload.php';
