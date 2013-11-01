@@ -390,6 +390,22 @@ class ConfigManager extends CComponent
     }
 
     /**
+     * Простая реализация проверки на наличие кеша,
+     * в дальнейшем метод может стать больше и сложнее:
+     * 
+     * @return boolean
+     */
+    public function isCached()
+    {
+        $cachedSettingsFile = Yii::getPathOfAlias('application.config.modules')
+                            . '/'
+                            . $this->cacheFile
+                            . '.php';
+
+        return file_exists($cachedSettingsFile) === false;
+    }
+
+    /**
      * Сброс кеш-файла настроек:
      * 
      * @return bool - говорящий о результате сброса

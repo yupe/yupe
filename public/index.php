@@ -21,7 +21,7 @@ $development = isset($_SERVER['SERVER_ADDR'])
         : $_SERVER['SERVER_NAME'] == 'localhost';
 
 // Выбираем конфигурацию development-main.php, если сайт работает на localhost
-if (false && ($development || defined('APPLICATION_ENV') || getenv('APPLICATION_ENV') !== false)) {
+if ($development || defined('APPLICATION_ENV') || getenv('APPLICATION_ENV') !== false) {
     // Комментируем перед выпуском в продакшен:
     // в режиме разработки необходимо демонстрировать все ошибки
     // независимо от среды

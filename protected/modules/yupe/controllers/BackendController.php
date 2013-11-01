@@ -57,6 +57,12 @@ class BackendController extends yupe\components\controllers\BackController
             throw new CHttpException(404, Yii::t('YupeModule.yupe', 'Page was not found!'));
         }
 
+        if (Yii::app()->configManager->isCached()) {
+            Yii::app()->ajax->failure(
+                Yii::t('YupeModule.yupe', 'There is no cached settings')
+            );
+        }
+
         $json = array();
         $message = array(
             'success' => Yii::t('YupeModule.yupe', 'Settings cache was reset successfully'),
